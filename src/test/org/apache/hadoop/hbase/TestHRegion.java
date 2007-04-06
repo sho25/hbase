@@ -631,13 +631,13 @@ operator|=
 operator|new
 name|MiniDFSCluster
 argument_list|(
-literal|65312
-argument_list|,
 name|conf
 argument_list|,
 literal|2
 argument_list|,
-literal|false
+literal|true
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|fs
