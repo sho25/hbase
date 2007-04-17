@@ -1050,7 +1050,7 @@ argument_list|,
 name|teststr
 argument_list|)
 expr_stmt|;
-comment|/*         // Check to make sure that null values are actually null         for (int j = 0; j< Math.min(15, NUM_VALS); j++) {           if (k != j) {             collabel = new Text(ANCHORNUM + j);             byte results[] = region.get(rowlabel, collabel);             if (results != null) {               throw new IOException("Found incorrect value at [" + rowlabel + ", " + collabel + "] == " + new String(results).toString().trim());             }           }         } */
+comment|/*         // Check to make sure that null values are actually null         for (int j = 0; j< Math.min(15, NUM_VALS); j++) {         if (k != j) {         collabel = new Text(ANCHORNUM + j);         byte results[] = region.get(rowlabel, collabel);         if (results != null) {         throw new IOException("Found incorrect value at [" + rowlabel + ", " + collabel + "] == " + new String(results).toString().trim());         }         }         }         */
 block|}
 block|}
 catch|catch
