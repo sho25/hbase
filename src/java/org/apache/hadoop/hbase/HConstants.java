@@ -39,12 +39,39 @@ interface|interface
 name|HConstants
 block|{
 comment|// Configuration parameters
+comment|// TODO: URL for hbase master, like hdfs URLs with host and port.
+comment|// Or, like jdbc URLs:
+comment|// jdbc:mysql://[host][,failoverhost...][:port]/[database]
+comment|// jdbc:mysql://[host][,failoverhost...][:port]/[database][?propertyName1][=propertyValue1][&propertyName2][=propertyValue2]...
 specifier|static
 specifier|final
 name|String
-name|MASTER_DEFAULT_NAME
+name|MASTER_ADDRESS
 init|=
-literal|"hbase.master.default.name"
+literal|"hbase.master"
+decl_stmt|;
+comment|// TODO: Support 'local': i.e. default of all running in single
+comment|// process.  Same for regionserver.
+specifier|static
+specifier|final
+name|String
+name|DEFAULT_MASTER_ADDRESS
+init|=
+literal|"localhost:60000"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|REGIONSERVER_ADDRESS
+init|=
+literal|"hbase.regionserver"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|DEFAULT_REGIONSERVER_ADDRESS
+init|=
+literal|"localhost:60010"
 decl_stmt|;
 specifier|static
 specifier|final
@@ -91,7 +118,7 @@ init|=
 operator|new
 name|Text
 argument_list|(
-literal|"info"
+literal|"info:"
 argument_list|)
 decl_stmt|;
 specifier|static
@@ -103,8 +130,6 @@ operator|new
 name|Text
 argument_list|(
 name|ROOT_COLUMN_FAMILY
-operator|+
-literal|":"
 operator|+
 literal|"regioninfo"
 argument_list|)
@@ -119,8 +144,6 @@ name|Text
 argument_list|(
 name|ROOT_COLUMN_FAMILY
 operator|+
-literal|":"
-operator|+
 literal|"server"
 argument_list|)
 decl_stmt|;
@@ -133,8 +156,6 @@ operator|new
 name|Text
 argument_list|(
 name|ROOT_COLUMN_FAMILY
-operator|+
-literal|":"
 operator|+
 literal|"serverstartcode"
 argument_list|)

@@ -1492,10 +1492,15 @@ block|{
 name|Text
 name|colFamily
 init|=
+name|HStoreKey
+operator|.
+name|extractFamily
+argument_list|(
 name|it
 operator|.
 name|next
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|stores
 operator|.
@@ -1651,6 +1656,17 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"deleting region: "
+operator|+
+name|regionInfo
+operator|.
+name|regionName
+argument_list|)
+expr_stmt|;
 name|close
 argument_list|()
 expr_stmt|;
@@ -3464,19 +3480,9 @@ argument_list|(
 name|row
 argument_list|)
 expr_stmt|;
-name|Text
-name|colFamily
-init|=
-name|HStoreKey
-operator|.
-name|extractFamily
+name|checkColumn
 argument_list|(
 name|column
-argument_list|)
-decl_stmt|;
-name|checkFamily
-argument_list|(
-name|colFamily
 argument_list|)
 expr_stmt|;
 comment|// Obtain the row-lock
@@ -3862,7 +3868,7 @@ name|row
 argument_list|)
 return|;
 block|}
-comment|/**    * Put a cell value into the locked row.  The user indicates the row-lock, the    * target column, and the desired value.  This stuff is set into a temporary     * memory area until the user commits the change, at which pointit's logged     * and placed into the memcache.    *    * This method really just tests the input, then calls an internal localput()     * method.    */
+comment|/**    * Put a cell value into the locked row.  The user indicates the row-lock, the    * target column, and the desired value.  This stuff is set into a temporary     * memory area until the user commits the change, at which point it's logged     * and placed into the memcache.    *    * This method really just tests the input, then calls an internal localput()     * method.    */
 specifier|public
 name|void
 name|put
@@ -4006,6 +4012,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkColumn
+argument_list|(
+name|targetCol
+argument_list|)
+expr_stmt|;
 name|Text
 name|row
 init|=
@@ -4023,7 +4034,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|LockException
 argument_list|(
 literal|"No write lock for lockid "
 operator|+
@@ -4053,7 +4064,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|LockException
 argument_list|(
 literal|"Locking error: put operation on lock "
 operator|+
@@ -4147,7 +4158,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|LockException
 argument_list|(
 literal|"No write lock for lockid "
 operator|+
@@ -4177,7 +4188,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|LockException
 argument_list|(
 literal|"Locking error: abort() operation on lock "
 operator|+
@@ -4231,7 +4242,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|LockException
 argument_list|(
 literal|"No write lock for lockid "
 operator|+
@@ -4427,14 +4438,30 @@ block|}
 block|}
 comment|/** Make sure this is a valid column for the current table */
 name|void
-name|checkFamily
+name|checkColumn
 parameter_list|(
 name|Text
-name|family
+name|columnName
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|Text
+name|family
+init|=
+operator|new
+name|Text
+argument_list|(
+name|HStoreKey
+operator|.
+name|extractFamily
+argument_list|(
+name|columnName
+argument_list|)
+operator|+
+literal|":"
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 operator|!
@@ -4484,6 +4511,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkRow
+argument_list|(
+name|row
+argument_list|)
+expr_stmt|;
 synchronized|synchronized
 init|(
 name|rowsToLocks
@@ -4566,6 +4598,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Pattern is that all access to rowsToLocks and/or to
+comment|// locksToRows is via a lock on rowsToLocks.
 synchronized|synchronized
 init|(
 name|rowsToLocks

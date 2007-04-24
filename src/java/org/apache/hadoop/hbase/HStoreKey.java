@@ -399,6 +399,7 @@ return|return
 name|timestamp
 return|;
 block|}
+comment|/**    * @param other Key to compare against. Compares row and column.    * @return True if same row and column.    * @see {@link #matchesWithoutColumn(HStoreKey)}    */
 specifier|public
 name|boolean
 name|matchesRowCol
@@ -447,6 +448,7 @@ literal|false
 return|;
 block|}
 block|}
+comment|/**    * @param other Key to copmare against. Compares row and    * timestamp.    * @return True if same row and timestamp is greater than    *<code>other</code>    * @see {@link #matchesRowCol(HStoreKey)}    */
 specifier|public
 name|boolean
 name|matchesWithoutColumn

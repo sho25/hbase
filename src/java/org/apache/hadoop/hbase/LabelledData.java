@@ -91,8 +91,9 @@ block|{
 name|this
 operator|.
 name|label
-operator|.
-name|set
+operator|=
+operator|new
+name|Text
 argument_list|(
 name|label
 argument_list|)
@@ -119,7 +120,7 @@ return|;
 block|}
 specifier|public
 name|BytesWritable
-name|getDat
+name|getData
 parameter_list|()
 block|{
 return|return
