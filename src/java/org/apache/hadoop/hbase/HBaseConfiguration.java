@@ -48,6 +48,11 @@ argument_list|(
 literal|"hbase-default.xml"
 argument_list|)
 expr_stmt|;
+name|addDefaultResource
+argument_list|(
+literal|"hbase-site.xml"
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class

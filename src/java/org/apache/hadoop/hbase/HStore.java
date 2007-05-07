@@ -401,7 +401,7 @@ decl_stmt|;
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Constructors, destructors, etc
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * An HStore is a set of zero or more MapFiles, which stretch backwards over     * time.  A given HStore is responsible for a certain set of columns for a row    * in the HRegion.    *    * The HRegion starts writing to its set of HStores when the HRegion's     * memcache is flushed.  This results in a round of new MapFiles, one for    * each HStore.    *    * There's no reason to consider append-logging at this level; all logging and     * locking is handled at the HRegion level.  HStore just provides services to     * manage sets of MapFiles.  One of the most important of those services is     * MapFile-compaction services.    *    * The only thing having to do with logs that HStore needs to deal with is    * the reconstructionLog.  This is a segment of an HRegion's log that might    * be present upon startup.  If the param is NULL, there's nothing to do.    * If the param is non-NULL, we need to process the log to reconstruct    * a TreeMap that might not have been written to disk before the process died.    *    * It's assumed that after this constructor returns, the reconstructionLog file    * will be deleted (by whoever has instantiated the HStore).    */
+comment|/**    * An HStore is a set of zero or more MapFiles, which stretch backwards over     * time.  A given HStore is responsible for a certain set of columns for a    * row in the HRegion.    *    *<p>The HRegion starts writing to its set of HStores when the HRegion's     * memcache is flushed.  This results in a round of new MapFiles, one for    * each HStore.    *    *<p>There's no reason to consider append-logging at this level; all logging     * and locking is handled at the HRegion level.  HStore just provides    * services to manage sets of MapFiles.  One of the most important of those    * services is MapFile-compaction services.    *    *<p>The only thing having to do with logs that HStore needs to deal with is    * the reconstructionLog.  This is a segment of an HRegion's log that might    * NOT be present upon startup.  If the param is NULL, there's nothing to do.    * If the param is non-NULL, we need to process the log to reconstruct    * a TreeMap that might not have been written to disk before the process    * died.    *    *<p>It's assumed that after this constructor returns, the reconstructionLog    * file will be deleted (by whoever has instantiated the HStore).    */
 specifier|public
 name|HStore
 parameter_list|(
@@ -509,6 +509,14 @@ argument_list|(
 name|loginfodir
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -522,6 +530,7 @@ operator|+
 name|colFamily
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Either restart or get rid of any leftover compaction work.  Either way,
 comment|// by the time processReadyCompaction() returns, we can get rid of the
 comment|// existing compaction-dir.
@@ -574,8 +583,8 @@ expr_stmt|;
 block|}
 comment|// Go through the 'mapdir' and 'loginfodir' together, make sure that all
 comment|// MapFiles are in a reliable state.  Every entry in 'mapdir' must have a
-comment|// corresponding one in 'loginfodir'. Without a corresponding log info file,
-comment|// the entry in 'mapdir'must be deleted.
+comment|// corresponding one in 'loginfodir'. Without a corresponding log info
+comment|// file, the entry in 'mapdir' must be deleted.
 name|Vector
 argument_list|<
 name|HStoreFile
@@ -640,12 +649,12 @@ name|hsf
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Now go through all the HSTORE_LOGINFOFILEs and figure out the most-recent
-comment|// log-seq-ID that's present.  The most-recent such ID means we can ignore
-comment|// all log messages up to and including that ID (because they're already
-comment|// reflected in the TreeMaps).
+comment|// Now go through all the HSTORE_LOGINFOFILEs and figure out the
+comment|// most-recent log-seq-ID that's present.  The most-recent such ID means we
+comment|// can ignore all log messages up to and including that ID (because they're
+comment|// already reflected in the TreeMaps).
 comment|//
-comment|// If the HSTORE_LOGINFOFILE doesn't contain a number, just ignore it.  That
+comment|// If the HSTORE_LOGINFOFILE doesn't contain a number, just ignore it. That
 comment|// means it was built prior to the previous run of HStore, and so it cannot
 comment|// contain any updates also contained in the log.
 name|long
@@ -719,6 +728,14 @@ comment|//
 comment|// We can ignore any log message that has a sequence ID that's equal to or
 comment|// lower than maxSeqID.  (Because we know such log messages are already
 comment|// reflected in the MapFiles.)
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -726,6 +743,7 @@ argument_list|(
 literal|"reading reconstructionLog"
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|reconstructionLog
@@ -834,6 +852,106 @@ condition|)
 block|{
 continue|continue;
 block|}
+comment|// Check this edit is for me.  Also, guard against writing
+comment|// METACOLUMN info such as HBASE::CACHEFLUSH entries
+name|Text
+name|column
+init|=
+name|val
+operator|.
+name|getColumn
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|key
+operator|.
+name|getRegionName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|this
+operator|.
+name|regionName
+argument_list|)
+operator|||
+name|column
+operator|.
+name|equals
+argument_list|(
+name|HLog
+operator|.
+name|METACOLUMN
+argument_list|)
+operator|||
+name|HStoreKey
+operator|.
+name|extractFamily
+argument_list|(
+name|column
+argument_list|)
+operator|.
+name|equals
+argument_list|(
+name|this
+operator|.
+name|colFamily
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Passing on edit "
+operator|+
+name|key
+operator|.
+name|getRegionName
+argument_list|()
+operator|+
+literal|", "
+operator|+
+name|key
+operator|.
+name|getRegionName
+argument_list|()
+operator|+
+literal|", "
+operator|+
+name|column
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|": "
+operator|+
+operator|new
+name|String
+argument_list|(
+name|val
+operator|.
+name|getVal
+argument_list|()
+operator|.
+name|get
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+continue|continue;
+block|}
 name|reconstructedCache
 operator|.
 name|put
@@ -884,6 +1002,14 @@ literal|0
 condition|)
 block|{
 comment|// We create a "virtual flush" at maxSeqIdInLog+1.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -891,6 +1017,7 @@ argument_list|(
 literal|"flushing reconstructionCache"
 argument_list|)
 expr_stmt|;
+block|}
 name|flushCacheHelper
 argument_list|(
 name|reconstructedCache
@@ -906,7 +1033,8 @@ block|}
 block|}
 comment|// Compact all the MapFiles into a single file.  The resulting MapFile
 comment|// should be "timeless"; that is, it should not have an associated seq-ID,
-comment|// because all log messages have been reflected in the TreeMaps at this point.
+comment|// because all log messages have been reflected in the TreeMaps at this
+comment|// point.
 if|if
 condition|(
 name|mapFiles
@@ -925,6 +1053,14 @@ expr_stmt|;
 block|}
 comment|// Finally, start up all the map readers! (There should be just one at this
 comment|// point, as we've compacted them all.)
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -932,6 +1068,7 @@ argument_list|(
 literal|"starting map readers"
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|Iterator
@@ -976,7 +1113,7 @@ argument_list|(
 name|key
 argument_list|)
 decl_stmt|;
-comment|//TODO - is this really necessary?  Don't I do this inside compact()?
+comment|// TODO - is this really necessary?  Don't I do this inside compact()?
 name|maps
 operator|.
 name|put
@@ -1205,6 +1342,14 @@ init|(
 name|flushLock
 init|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -1222,6 +1367,7 @@ operator|.
 name|colFamily
 argument_list|)
 expr_stmt|;
+block|}
 comment|// A. Write the TreeMap out to the disk
 name|HStoreFile
 name|flushedFile
@@ -1249,6 +1395,27 @@ operator|.
 name|getMapFilePath
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"map file is: "
+operator|+
+name|mapfile
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|MapFile
 operator|.
 name|Writer
@@ -1281,35 +1448,15 @@ try|try
 block|{
 for|for
 control|(
-name|Iterator
-argument_list|<
 name|HStoreKey
-argument_list|>
-name|it
-init|=
+name|curkey
+range|:
 name|inputCache
 operator|.
 name|keySet
 argument_list|()
-operator|.
-name|iterator
-argument_list|()
-init|;
-name|it
-operator|.
-name|hasNext
-argument_list|()
-condition|;
 control|)
 block|{
-name|HStoreKey
-name|curkey
-init|=
-name|it
-operator|.
-name|next
-argument_list|()
-decl_stmt|;
 if|if
 condition|(
 name|this
@@ -1351,6 +1498,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -1371,6 +1526,7 @@ literal|" flushed"
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 finally|finally
 block|{
 name|out
@@ -1381,6 +1537,14 @@ expr_stmt|;
 block|}
 comment|// B. Write out the log sequence number that corresponds to this output
 comment|// MapFile.  The MapFile is current up to and including the log seq num.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -1388,6 +1552,7 @@ argument_list|(
 literal|"writing log cache flush id"
 argument_list|)
 expr_stmt|;
+block|}
 name|flushedFile
 operator|.
 name|writeInfo
@@ -1446,6 +1611,14 @@ argument_list|,
 name|flushedFile
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -1461,8 +1634,13 @@ operator|+
 name|this
 operator|.
 name|colFamily
+operator|+
+literal|" flush id="
+operator|+
+name|logCacheFlushId
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 finally|finally
 block|{
@@ -1579,6 +1757,14 @@ init|(
 name|compactLock
 init|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -1596,6 +1782,7 @@ operator|.
 name|colFamily
 argument_list|)
 expr_stmt|;
+block|}
 name|Path
 name|curCompactStore
 init|=
@@ -1734,6 +1921,14 @@ expr_stmt|;
 block|}
 block|}
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -1743,6 +1938,7 @@ operator|+
 name|maxSeenSeqID
 argument_list|)
 expr_stmt|;
+block|}
 name|HStoreFile
 name|compactedOutputFile
 init|=
@@ -1771,6 +1967,14 @@ operator|==
 literal|1
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -1788,6 +1992,7 @@ operator|.
 name|colFamily
 argument_list|)
 expr_stmt|;
+block|}
 name|HStoreFile
 name|hsf
 init|=
@@ -2002,6 +2207,14 @@ expr_stmt|;
 block|}
 comment|// Now, advance through the readers in order.  This will have the
 comment|// effect of a run-time sort of the entire dataset.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -2009,6 +2222,7 @@ argument_list|(
 literal|"processing HStoreFile readers"
 argument_list|)
 expr_stmt|;
+block|}
 name|int
 name|numDone
 init|=
@@ -2335,6 +2549,14 @@ operator|++
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -2342,6 +2564,7 @@ argument_list|(
 literal|"all HStores processed"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 finally|finally
 block|{
@@ -2351,6 +2574,14 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -2358,6 +2589,7 @@ argument_list|(
 literal|"writing new compacted HStore"
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Now, write out an HSTORE_LOGINFOFILE for the brand-new TreeMap.
 if|if
 condition|(
@@ -2516,6 +2748,14 @@ comment|// Move the compaction into place.
 name|processReadyCompaction
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -2533,6 +2773,7 @@ operator|.
 name|colFamily
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 finally|finally
 block|{
@@ -2616,6 +2857,14 @@ comment|// we can do.  We'll just have to redo it. Abandon it and return.
 return|return;
 block|}
 comment|// OK, there's actually compaction work that needs to be put into place.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -2623,6 +2872,7 @@ argument_list|(
 literal|"compaction starting"
 argument_list|)
 expr_stmt|;
+block|}
 comment|// 2. Load in the files to be deleted.
 comment|//    (Figuring out what MapFiles are going to be replaced)
 name|Vector
@@ -2721,6 +2971,14 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -2728,6 +2986,7 @@ argument_list|(
 literal|"loaded files to be deleted"
 argument_list|)
 expr_stmt|;
+block|}
 comment|// 3. Unload all the replaced MapFiles.
 name|Iterator
 argument_list|<
@@ -2856,6 +3115,14 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -2863,6 +3130,7 @@ argument_list|(
 literal|"unloaded existing MapFiles"
 argument_list|)
 expr_stmt|;
+block|}
 comment|// What if we crash at this point?  No big deal; we will restart
 comment|// processReadyCompaction(), and nothing has been lost.
 comment|// 4. Delete all the old files, no longer needed
@@ -2915,6 +3183,14 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -2922,10 +3198,19 @@ argument_list|(
 literal|"old files deleted"
 argument_list|)
 expr_stmt|;
+block|}
 comment|// What if we fail now?  The above deletes will fail silently. We'd better
 comment|// make sure not to write out any new files with the same names as
 comment|// something we delete, though.
 comment|// 5. Moving the new MapFile into place
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -2933,6 +3218,7 @@ argument_list|(
 literal|"moving new MapFile into place"
 argument_list|)
 expr_stmt|;
+block|}
 name|HStoreFile
 name|compactedFile
 init|=
@@ -3012,6 +3298,14 @@ name|fs
 argument_list|)
 decl_stmt|;
 comment|// 6. Loading the new TreeMap.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -3019,6 +3313,7 @@ argument_list|(
 literal|"loading new TreeMap"
 argument_list|)
 expr_stmt|;
+block|}
 name|mapFiles
 operator|.
 name|put
@@ -3085,8 +3380,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|BytesWritable
 argument_list|>
 name|results
 parameter_list|)
@@ -3231,9 +3525,6 @@ name|readcol
 argument_list|)
 argument_list|,
 name|readval
-operator|.
-name|get
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|readval
@@ -3296,8 +3587,7 @@ block|}
 block|}
 comment|/**    * Get the value for the indicated HStoreKey.  Grab the target value and the     * previous 'numVersions-1' values, as well.    *    * If 'numVersions' is negative, the method returns all available versions.    */
 specifier|public
-name|byte
-index|[]
+name|BytesWritable
 index|[]
 name|get
 parameter_list|(
@@ -3313,7 +3603,7 @@ block|{
 if|if
 condition|(
 name|numVersions
-operator|==
+operator|<=
 literal|0
 condition|)
 block|{
@@ -3321,22 +3611,20 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"Must request at least one value."
+literal|"Number of versions must be> 0"
 argument_list|)
 throw|;
 block|}
 name|Vector
 argument_list|<
-name|byte
-index|[]
+name|BytesWritable
 argument_list|>
 name|results
 init|=
 operator|new
 name|Vector
 argument_list|<
-name|byte
-index|[]
+name|BytesWritable
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -3453,9 +3741,6 @@ operator|.
 name|add
 argument_list|(
 name|readval
-operator|.
-name|get
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|readval
@@ -3508,9 +3793,6 @@ operator|.
 name|add
 argument_list|(
 name|readval
-operator|.
-name|get
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|readval
@@ -3553,24 +3835,18 @@ block|}
 else|else
 block|{
 return|return
-operator|(
-name|byte
-index|[]
-index|[]
-operator|)
 name|results
 operator|.
 name|toArray
 argument_list|(
 operator|new
-name|byte
+name|BytesWritable
 index|[
 name|results
 operator|.
 name|size
 argument_list|()
 index|]
-index|[]
 argument_list|)
 return|;
 block|}
@@ -3854,7 +4130,7 @@ return|;
 block|}
 comment|/**    * Return a set of MapFile.Readers, one for each HStore file.    * These should be closed after the user is done with them.    */
 specifier|public
-name|HScannerInterface
+name|HInternalScannerInterface
 name|getScanner
 parameter_list|(
 name|long
@@ -3882,6 +4158,123 @@ name|firstRow
 argument_list|)
 return|;
 block|}
+comment|/** For debuging purposes. Dumps the keys from all the MapFiles */
+name|void
+name|dumpMaps
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|this
+operator|.
+name|locker
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
+block|{
+for|for
+control|(
+name|Iterator
+argument_list|<
+name|MapFile
+operator|.
+name|Reader
+argument_list|>
+name|i
+init|=
+name|maps
+operator|.
+name|values
+argument_list|()
+operator|.
+name|iterator
+argument_list|()
+init|;
+name|i
+operator|.
+name|hasNext
+argument_list|()
+condition|;
+control|)
+block|{
+name|MapFile
+operator|.
+name|Reader
+name|r
+init|=
+name|i
+operator|.
+name|next
+argument_list|()
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|r
+init|)
+block|{
+name|r
+operator|.
+name|reset
+argument_list|()
+expr_stmt|;
+name|HStoreKey
+name|key
+init|=
+operator|new
+name|HStoreKey
+argument_list|()
+decl_stmt|;
+name|BytesWritable
+name|val
+init|=
+operator|new
+name|BytesWritable
+argument_list|()
+decl_stmt|;
+while|while
+condition|(
+name|r
+operator|.
+name|next
+argument_list|(
+name|key
+argument_list|,
+name|val
+argument_list|)
+condition|)
+block|{
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+name|key
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+block|}
+finally|finally
+block|{
+name|this
+operator|.
+name|locker
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// This class implements the HScannerInterface.
 comment|// It lets the caller scan the contents of this HStore.
@@ -3891,16 +4284,12 @@ name|HStoreScanner
 extends|extends
 name|HAbstractScanner
 block|{
+specifier|private
 name|MapFile
 operator|.
 name|Reader
-name|readers
 index|[]
-decl_stmt|;
-name|Text
-name|lastRow
-init|=
-literal|null
+name|readers
 decl_stmt|;
 specifier|public
 name|HStoreScanner
@@ -3909,8 +4298,8 @@ name|long
 name|timestamp
 parameter_list|,
 name|Text
-name|targetCols
 index|[]
+name|targetCols
 parameter_list|,
 name|Text
 name|firstRow
@@ -3950,10 +4339,15 @@ name|size
 argument_list|()
 index|]
 expr_stmt|;
+comment|// Most recent map file should be first
 name|int
 name|i
 init|=
-literal|0
+name|readers
+operator|.
+name|length
+operator|-
+literal|1
 decl_stmt|;
 for|for
 control|(
@@ -3989,7 +4383,7 @@ decl_stmt|;
 name|readers
 index|[
 name|i
-operator|++
+operator|--
 index|]
 operator|=
 operator|new
@@ -4236,6 +4630,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|vals
+index|[
+name|i
+index|]
+operator|=
+operator|new
+name|BytesWritable
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 operator|!

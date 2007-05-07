@@ -106,7 +106,7 @@ import|;
 end_import
 
 begin_comment
-comment|/*******************************************************************************  * HRegion stores data for a certain region of a table.  It stores all columns   * for each row. A given table consists of one or more HRegions.  *  * We maintain multiple HStores for a single HRegion.  *   * An HStore is a set of rows with some column data; together, they make up all   * the data for the rows.    *  * Each HRegion has a 'startKey' and 'endKey'.  *     * The first is inclusive, the second is exclusive (except for the final region)  * The endKey of region 0 is the same as startKey for region 1 (if it exists).    * The startKey for the first region is null.  * The endKey for the final region is null.  *  * The HStores have no locking built-in.  All row-level locking and row-level   * atomicity is provided by the HRegion.  ******************************************************************************/
+comment|/**  * HRegion stores data for a certain region of a table.  It stores all columns  * for each row. A given table consists of one or more HRegions.  *  *<p>We maintain multiple HStores for a single HRegion.  *   *<p>An HStore is a set of rows with some column data; together,  * they make up all the data for the rows.    *  *<p>Each HRegion has a 'startKey' and 'endKey'.  *     *<p>The first is inclusive, the second is exclusive (except for  * the final region)  The endKey of region 0 is the same as  * startKey for region 1 (if it exists).  The startKey for the  * first region is null. The endKey for the final region is null.  *  *<p>The HStores have no locking built-in.  All row-level locking  * and row-level atomicity is provided by the HRegion.  *   *<p>An HRegion is defined by its table and its key extent.  *   *<p>It consists of at least one HStore.  The number of HStores should be   * configurable, so that data which is accessed together is stored in the same  * HStore.  Right now, we approximate that by building a single HStore for   * each column family.  (This config info will be communicated via the   * tabledesc.)  *   * The HTableDescriptor contains metainfo about the HRegion's table.  * regionName is a unique identifier for this HRegion. (startKey, endKey]  * defines the keyspace for this HRegion.  */
 end_comment
 
 begin_class
@@ -163,7 +163,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Merge two HRegions.  They must be available on the current HRegionServer.    * Returns a brand-new active HRegion, also running on the current HRegionServer.    */
+comment|/**    * Merge two HRegions.  They must be available on the current    * HRegionServer. Returns a brand-new active HRegion, also    * running on the current HRegionServer.    */
 specifier|public
 specifier|static
 name|HRegion
@@ -474,6 +474,14 @@ argument_list|)
 expr_stmt|;
 comment|// Flush each of the sources, and merge their files into a single
 comment|// target for each column family.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -486,6 +494,7 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|TreeSet
 argument_list|<
 name|HStoreFile
@@ -608,6 +617,14 @@ name|src
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -620,6 +637,7 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|Iterator
@@ -706,6 +724,14 @@ name|src
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -713,6 +739,7 @@ argument_list|(
 literal|"merging stores"
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|Iterator
@@ -806,6 +833,14 @@ block|}
 comment|// That should have taken care of the bulk of the data.
 comment|// Now close the source HRegions for good, and repeat the above to take care
 comment|// of any last-minute inserts
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -818,6 +853,7 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|filesToMerge
 operator|.
 name|clear
@@ -919,6 +955,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -931,6 +975,7 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|Iterator
@@ -1027,6 +1072,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -1034,6 +1087,7 @@ argument_list|(
 literal|"merging changes since start of merge"
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|Iterator
@@ -1225,8 +1279,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|BytesWritable
 argument_list|>
 argument_list|>
 name|targetColumns
@@ -1240,8 +1293,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|BytesWritable
 argument_list|>
 argument_list|>
 argument_list|()
@@ -1335,7 +1387,7 @@ decl_stmt|;
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Constructor
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * An HRegion is defined by its table and its key extent.    *     * It consists of at least one HStore.  The number of HStores should be     * configurable, so that data which is accessed together is stored in the same    * HStore.  Right now, we approximate that by building a single HStore for     * each column family.  (This config info will be communicated via the     * tabledesc.)    *    * The HLog is the outbound log for any updates to the HRegion.  (There's a     * single HLog for all the HRegions on a single HRegionServer.)    *    * The HTableDescriptor contains metainfo about the HRegion's table.      *    * regionName is a unique identifier for this HRegion.    *    * (startKey, endKey] defines the keyspace for this HRegion.  NULL values    * indicate we're at the start or end of the table.    *    * fs is the filesystem.  regiondir is where the HRegion is stored.    *    * logfile is a logfile from the previous execution that's custom-computed for    * this HRegion.  The HRegionServer computes and sorts the appropriate log    * info for this HRegion.    *    * conf is global configuration settings.    *    * If there are initial files (implying that the HRegion is new), then read     * them from the supplied path.    *    * If there is a previous log file (implying that the HRegion has been     * written-to before), then read it from the supplied path.    */
+comment|/**    * HRegion constructor.    *    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.      * @param dir dir is where the HRegion is stored.    * @param conf is global configuration settings.    * @param initialFiles If there are initial files (implying that the HRegion    * is new), then read them from the supplied path.    * @throws IOException    */
 specifier|public
 name|HRegion
 parameter_list|(
@@ -2171,6 +2223,14 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -2197,6 +2257,7 @@ name|fileId
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|HStoreFile
 name|dstA
 init|=
@@ -2326,6 +2387,14 @@ name|hsf
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -2352,6 +2421,7 @@ name|fileId
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|HStoreFile
 name|dstA
 init|=
@@ -3019,6 +3089,14 @@ operator|!
 name|shouldFlush
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -3032,6 +3110,7 @@ operator|.
 name|regionName
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 literal|null
 return|;
@@ -3090,6 +3169,14 @@ name|HStoreFile
 argument_list|>
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -3103,6 +3190,7 @@ operator|.
 name|regionName
 argument_list|)
 expr_stmt|;
+block|}
 comment|// We pass the log to the HMemcache, so we can lock down
 comment|// both simultaneously.  We only have to do this for a moment:
 comment|// we need the HMemcache state at the time of a known log sequence
@@ -3113,6 +3201,14 @@ comment|// When execution returns from snapshotMemcacheForLog()
 comment|// with a non-NULL value, the HMemcache will have a snapshot
 comment|// object stored that must be explicitly cleaned up using
 comment|// a call to deleteSnapshot().
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -3120,6 +3216,7 @@ argument_list|(
 literal|"starting memcache snapshot"
 argument_list|)
 expr_stmt|;
+block|}
 name|HMemcache
 operator|.
 name|Snapshot
@@ -3215,6 +3312,14 @@ operator|.
 name|sequenceId
 decl_stmt|;
 comment|// A.  Flush memcache to all the HStores.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -3222,6 +3327,7 @@ argument_list|(
 literal|"flushing memcache to HStores"
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|Iterator
@@ -3282,6 +3388,14 @@ comment|// B.  Write a FLUSHCACHE-COMPLETE message to the log.
 comment|//     This tells future readers that the HStores were emitted correctly,
 comment|//     and that all updates to the log for this regionName that have lower
 comment|//     log-sequence-ids can be safely ignored.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -3289,6 +3403,7 @@ argument_list|(
 literal|"writing flush cache complete to log"
 argument_list|)
 expr_stmt|;
+block|}
 name|log
 operator|.
 name|completeCacheFlush
@@ -3311,6 +3426,14 @@ argument_list|)
 expr_stmt|;
 comment|// C. Delete the now-irrelevant memcache snapshot; its contents have been
 comment|//    dumped to disk-based HStores.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -3318,11 +3441,20 @@ argument_list|(
 literal|"deleting memcache snapshot"
 argument_list|)
 expr_stmt|;
+block|}
 name|memcache
 operator|.
 name|deleteSnapshot
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -3336,6 +3468,7 @@ operator|.
 name|regionName
 argument_list|)
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|commitsSinceFlush
@@ -3351,8 +3484,7 @@ comment|// get() methods for client use.
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/** Fetch a single data item. */
 specifier|public
-name|byte
-index|[]
+name|BytesWritable
 name|get
 parameter_list|(
 name|Text
@@ -3364,10 +3496,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|byte
+name|BytesWritable
+index|[]
 name|results
-index|[]
-index|[]
 init|=
 name|get
 argument_list|(
@@ -3405,8 +3536,7 @@ block|}
 block|}
 comment|/** Fetch multiple versions of a single data item */
 specifier|public
-name|byte
-index|[]
+name|BytesWritable
 index|[]
 name|get
 parameter_list|(
@@ -3439,8 +3569,7 @@ return|;
 block|}
 comment|/** Fetch multiple versions of a single data item, with timestamp. */
 specifier|public
-name|byte
-index|[]
+name|BytesWritable
 index|[]
 name|get
 parameter_list|(
@@ -3522,8 +3651,7 @@ block|}
 block|}
 comment|// Private implementation: get the value for the indicated HStoreKey
 specifier|private
-name|byte
-index|[]
+name|BytesWritable
 index|[]
 name|get
 parameter_list|(
@@ -3537,8 +3665,7 @@ throws|throws
 name|IOException
 block|{
 comment|// Check the memcache
-name|byte
-index|[]
+name|BytesWritable
 index|[]
 name|result
 init|=
@@ -3614,8 +3741,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|BytesWritable
 argument_list|>
 name|getFull
 parameter_list|(
@@ -3643,8 +3769,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|BytesWritable
 argument_list|>
 name|memResult
 init|=
@@ -3712,12 +3837,12 @@ return|;
 block|}
 comment|/**    * Return an iterator that scans over the HRegion, returning the indicated     * columns.  This Iterator must be closed by the caller.    */
 specifier|public
-name|HScannerInterface
+name|HInternalScannerInterface
 name|getScanner
 parameter_list|(
 name|Text
-name|cols
 index|[]
+name|cols
 parameter_list|,
 name|Text
 name|firstRow
@@ -3772,8 +3897,8 @@ argument_list|)
 expr_stmt|;
 block|}
 name|HStore
-name|storelist
 index|[]
+name|storelist
 init|=
 operator|new
 name|HStore
@@ -3879,8 +4004,7 @@ parameter_list|,
 name|Text
 name|targetCol
 parameter_list|,
-name|byte
-index|[]
+name|BytesWritable
 name|val
 parameter_list|)
 throws|throws
@@ -3890,62 +4014,22 @@ if|if
 condition|(
 name|val
 operator|.
-name|length
+name|getSize
+argument_list|()
 operator|==
-name|HStoreKey
-operator|.
 name|DELETE_BYTES
 operator|.
-name|length
-condition|)
-block|{
-name|boolean
-name|matches
-init|=
-literal|true
-decl_stmt|;
-for|for
-control|(
-name|int
-name|i
-init|=
+name|getSize
+argument_list|()
+operator|&&
+name|val
+operator|.
+name|compareTo
+argument_list|(
+name|DELETE_BYTES
+argument_list|)
+operator|==
 literal|0
-init|;
-name|i
-operator|<
-name|val
-operator|.
-name|length
-condition|;
-name|i
-operator|++
-control|)
-block|{
-if|if
-condition|(
-name|val
-index|[
-name|i
-index|]
-operator|!=
-name|HStoreKey
-operator|.
-name|DELETE_BYTES
-index|[
-name|i
-index|]
-condition|)
-block|{
-name|matches
-operator|=
-literal|false
-expr_stmt|;
-break|break;
-block|}
-block|}
-if|if
-condition|(
-name|matches
 condition|)
 block|{
 throw|throw
@@ -3957,7 +4041,6 @@ operator|+
 name|val
 argument_list|)
 throw|;
-block|}
 block|}
 name|localput
 argument_list|(
@@ -3989,8 +4072,6 @@ name|lockid
 argument_list|,
 name|targetCol
 argument_list|,
-name|HStoreKey
-operator|.
 name|DELETE_BYTES
 argument_list|)
 expr_stmt|;
@@ -4005,8 +4086,7 @@ parameter_list|,
 name|Text
 name|targetCol
 parameter_list|,
-name|byte
-index|[]
+name|BytesWritable
 name|val
 parameter_list|)
 throws|throws
@@ -4078,8 +4158,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|BytesWritable
 argument_list|>
 name|targets
 init|=
@@ -4104,8 +4183,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|BytesWritable
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -4662,31 +4740,35 @@ specifier|private
 class|class
 name|HScanner
 implements|implements
-name|HScannerInterface
+name|HInternalScannerInterface
 block|{
-name|HScannerInterface
-name|scanners
+specifier|private
+name|HInternalScannerInterface
 index|[]
-init|=
-literal|null
+name|scanners
 decl_stmt|;
+specifier|private
 name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|BytesWritable
 argument_list|>
+index|[]
 name|resultSets
-index|[]
-init|=
-literal|null
 decl_stmt|;
+specifier|private
 name|HStoreKey
-name|keys
 index|[]
-init|=
-literal|null
+name|keys
+decl_stmt|;
+specifier|private
+name|boolean
+name|wildcardMatch
+decl_stmt|;
+specifier|private
+name|boolean
+name|multipleMatchers
 decl_stmt|;
 comment|/** Create an HScanner with a handle on many HStores. */
 annotation|@
@@ -4698,8 +4780,8 @@ specifier|public
 name|HScanner
 parameter_list|(
 name|Text
-name|cols
 index|[]
+name|cols
 parameter_list|,
 name|Text
 name|firstRow
@@ -4708,8 +4790,8 @@ name|HMemcache
 name|memcache
 parameter_list|,
 name|HStore
-name|stores
 index|[]
+name|stores
 parameter_list|)
 throws|throws
 name|IOException
@@ -4727,13 +4809,25 @@ operator|.
 name|scanners
 operator|=
 operator|new
-name|HScannerInterface
+name|HInternalScannerInterface
 index|[
 name|stores
 operator|.
 name|length
 operator|+
 literal|1
+index|]
+expr_stmt|;
+name|this
+operator|.
+name|resultSets
+operator|=
+operator|new
+name|TreeMap
+index|[
+name|scanners
+operator|.
+name|length
 index|]
 expr_stmt|;
 name|this
@@ -4750,18 +4844,70 @@ index|]
 expr_stmt|;
 name|this
 operator|.
-name|resultSets
+name|wildcardMatch
 operator|=
-operator|new
-name|TreeMap
-index|[
-name|scanners
+literal|false
+expr_stmt|;
+name|this
 operator|.
-name|length
-index|]
+name|multipleMatchers
+operator|=
+literal|false
 expr_stmt|;
 comment|// Advance to the first key in each store.
 comment|// All results will match the required column-set and scanTime.
+comment|// NOTE: the memcache scanner should be the first scanner
+name|HInternalScannerInterface
+name|scanner
+init|=
+name|memcache
+operator|.
+name|getScanner
+argument_list|(
+name|scanTime
+argument_list|,
+name|cols
+argument_list|,
+name|firstRow
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|scanner
+operator|.
+name|isWildcardScanner
+argument_list|()
+condition|)
+block|{
+name|this
+operator|.
+name|wildcardMatch
+operator|=
+literal|true
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|scanner
+operator|.
+name|isMultipleMatchScanner
+argument_list|()
+condition|)
+block|{
+name|this
+operator|.
+name|multipleMatchers
+operator|=
+literal|true
+expr_stmt|;
+block|}
+name|scanners
+index|[
+literal|0
+index|]
+operator|=
+name|scanner
+expr_stmt|;
 for|for
 control|(
 name|int
@@ -4779,10 +4925,7 @@ name|i
 operator|++
 control|)
 block|{
-name|scanners
-index|[
-name|i
-index|]
+name|scanner
 operator|=
 name|stores
 index|[
@@ -4798,27 +4941,46 @@ argument_list|,
 name|firstRow
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|scanner
+operator|.
+name|isWildcardScanner
+argument_list|()
+condition|)
+block|{
+name|this
+operator|.
+name|wildcardMatch
+operator|=
+literal|true
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|scanner
+operator|.
+name|isMultipleMatchScanner
+argument_list|()
+condition|)
+block|{
+name|this
+operator|.
+name|multipleMatchers
+operator|=
+literal|true
+expr_stmt|;
 block|}
 name|scanners
 index|[
-name|scanners
-operator|.
-name|length
-operator|-
+name|i
+operator|+
 literal|1
 index|]
 operator|=
-name|memcache
-operator|.
-name|getScanner
-argument_list|(
-name|scanTime
-argument_list|,
-name|cols
-argument_list|,
-name|firstRow
-argument_list|)
+name|scanner
 expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -4855,13 +5017,19 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|BytesWritable
 argument_list|>
 argument_list|()
 expr_stmt|;
 if|if
 condition|(
+name|scanners
+index|[
+name|i
+index|]
+operator|!=
+literal|null
+operator|&&
 operator|!
 name|scanners
 index|[
@@ -4890,6 +5058,26 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.HInternalScannerInterface#isWildcardScanner()      */
+specifier|public
+name|boolean
+name|isWildcardScanner
+parameter_list|()
+block|{
+return|return
+name|wildcardMatch
+return|;
+block|}
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.HInternalScannerInterface#isMultipleMatchScanner()      */
+specifier|public
+name|boolean
+name|isMultipleMatchScanner
+parameter_list|()
+block|{
+return|return
+name|multipleMatchers
+return|;
+block|}
 comment|/**      * Grab the next row's worth of values.  The HScanner will return the most       * recent data value for each row that is not newer than the target time.      */
 specifier|public
 name|boolean
@@ -4902,8 +5090,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|BytesWritable
 argument_list|>
 name|results
 parameter_list|)
@@ -5111,6 +5298,18 @@ argument_list|)
 operator|==
 literal|0
 operator|)
+condition|)
+block|{
+comment|// If we are doing a wild card match or there are multiple matchers
+comment|// per column, we need to scan all the older versions of this row
+comment|// to pick up the rest of the family members
+if|if
+condition|(
+operator|!
+name|wildcardMatch
+operator|&&
+operator|!
+name|multipleMatchers
 operator|&&
 operator|(
 name|keys
@@ -5120,25 +5319,100 @@ index|]
 operator|.
 name|getTimestamp
 argument_list|()
-operator|==
+operator|!=
 name|chosenTimestamp
 operator|)
 condition|)
 block|{
-name|results
+break|break;
+block|}
+comment|// NOTE: We used to do results.putAll(resultSets[i]);
+comment|//       but this had the effect of overwriting newer
+comment|//       values with older ones. So now we only insert
+comment|//       a result if the map does not contain the key.
+for|for
+control|(
+name|Iterator
+argument_list|<
+name|Map
 operator|.
-name|putAll
-argument_list|(
+name|Entry
+argument_list|<
+name|Text
+argument_list|,
+name|BytesWritable
+argument_list|>
+argument_list|>
+name|it
+init|=
 name|resultSets
 index|[
 name|i
 index|]
+operator|.
+name|entrySet
+argument_list|()
+operator|.
+name|iterator
+argument_list|()
+init|;
+name|it
+operator|.
+name|hasNext
+argument_list|()
+condition|;
+control|)
+block|{
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|Text
+argument_list|,
+name|BytesWritable
+argument_list|>
+name|e
+init|=
+name|it
+operator|.
+name|next
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|results
+operator|.
+name|containsKey
+argument_list|(
+name|e
+operator|.
+name|getKey
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|results
+operator|.
+name|put
+argument_list|(
+name|e
+operator|.
+name|getKey
+argument_list|()
+argument_list|,
+name|e
+operator|.
+name|getValue
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|insertedItem
 operator|=
 literal|true
 expr_stmt|;
+block|}
+block|}
 name|resultSets
 index|[
 name|i

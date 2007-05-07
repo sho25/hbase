@@ -152,6 +152,27 @@ return|return
 name|startCode
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"address: "
+operator|+
+name|this
+operator|.
+name|serverAddress
+operator|+
+literal|", startcode: "
+operator|+
+name|this
+operator|.
+name|startCode
+return|;
+block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Writable
 comment|//////////////////////////////////////////////////////////////////////////////

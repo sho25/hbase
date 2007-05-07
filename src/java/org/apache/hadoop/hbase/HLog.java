@@ -65,6 +65,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|io
+operator|.
+name|SequenceFile
+operator|.
+name|Reader
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|fs
 operator|.
 name|*
@@ -106,13 +122,15 @@ import|;
 end_import
 
 begin_comment
-comment|/*******************************************************************************  * HLog stores all the edits to the HStore.  *   * It performs logfile-rolling, so external callers are not aware that the   * underlying file is being rolled.  *  * A single HLog is used by several HRegions simultaneously.  *   * Each one is identified by a unique long int.  HRegions do not need to declare  * themselves before using the HLog; they simply include their HRegion-id in the  * append() or completeCacheFlush() calls.  *  * An HLog consists of multiple on-disk files, which have a chronological order.  *  * As data is flushed to other (better) on-disk structures, the log becomes   * obsolete.  We can destroy all the log messages for a given HRegion-id up to   * the most-recent CACHEFLUSH message from that HRegion.  *  * It's only practical to delete entire files.  Thus, we delete an entire   * on-disk file F when all of the messages in F have a log-sequence-id that's   * older (smaller) than the most-recent CACHEFLUSH message for every HRegion   * that has a message in F.  ******************************************************************************/
+comment|/**  * HLog stores all the edits to the HStore.  *   * It performs logfile-rolling, so external callers are not aware that the   * underlying file is being rolled.  *  *<p>A single HLog is used by several HRegions simultaneously.  *   *<p>Each HRegion is identified by a unique long int. HRegions do not need to  * declare themselves before using the HLog; they simply include their  * HRegion-id in the {@link #append(Text, Text, Text, TreeMap, long)} or   * {@link #completeCacheFlush(Text, Text, long)} calls.  *  *<p>An HLog consists of multiple on-disk files, which have a chronological  * order. As data is flushed to other (better) on-disk structures, the log  * becomes obsolete.  We can destroy all the log messages for a given  * HRegion-id up to the most-recent CACHEFLUSH message from that HRegion.  *  *<p>It's only practical to delete entire files.  Thus, we delete an entire   * on-disk file F when all of the messages in F have a log-sequence-id that's   * older (smaller) than the most-recent CACHEFLUSH message for every HRegion   * that has a message in F.  *   *<p>TODO: Vuk Ercegovac also pointed out that keeping HBase HRegion edit logs  * in HDFS is currently flawed. HBase writes edits to logs and to a memcache.  * The 'atomic' write to the log is meant to serve as insurance against  * abnormal RegionServer exit: on startup, the log is rerun to reconstruct an  * HRegion's last wholesome state. But files in HDFS do not 'exist' until they  * are cleanly closed -- something that will not happen if RegionServer exits  * without running its 'close'.  */
 end_comment
 
 begin_class
 specifier|public
 class|class
 name|HLog
+implements|implements
+name|HConstants
 block|{
 specifier|private
 specifier|static
@@ -144,7 +162,7 @@ init|=
 operator|new
 name|Text
 argument_list|(
-literal|"METACOLUMN"
+literal|"METACOLUMN:"
 argument_list|)
 decl_stmt|;
 specifier|static
@@ -222,6 +240,7 @@ name|closed
 init|=
 literal|false
 decl_stmt|;
+specifier|transient
 name|long
 name|logSeqNum
 init|=
@@ -232,6 +251,7 @@ name|filenum
 init|=
 literal|0
 decl_stmt|;
+specifier|transient
 name|int
 name|numEntries
 init|=
@@ -246,7 +266,7 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-comment|/**    * Bundle up a bunch of log files (which are no longer being written to),    * into a new file.  Delete the old log files when ready.    */
+comment|/**    * Bundle up a bunch of log files (which are no longer being written to),    * into a new file.  Delete the old log files when ready.    * @param srcDir Directory of log files to bundle:    * e.g.<code>${REGIONDIR}/log_HOST_PORT</code>    * @param dstFile Destination file:    * e.g.<code>${REGIONDIR}/oldlogfile_HOST_PORT</code>    * @param fs FileSystem    * @param conf HBaseConfiguration    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -267,6 +287,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -274,6 +302,7 @@ argument_list|(
 literal|"consolidating log files"
 argument_list|)
 expr_stmt|;
+block|}
 name|Path
 name|logfiles
 index|[]
@@ -465,6 +494,14 @@ throw|;
 block|}
 block|}
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -473,7 +510,8 @@ literal|"log file consolidation completed"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create an edit log at the given location.    *    * You should never have to load an existing log.  If there is a log    * at startup, it should have already been processed and deleted by     * the time the HLog object is started up.    */
+block|}
+comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log.  If there is a log    * at startup, it should have already been processed and deleted by     * the time the HLog object is started up.    */
 specifier|public
 name|HLog
 parameter_list|(
@@ -507,12 +545,6 @@ name|conf
 operator|=
 name|conf
 expr_stmt|;
-name|this
-operator|.
-name|logSeqNum
-operator|=
-literal|0
-expr_stmt|;
 if|if
 condition|(
 name|fs
@@ -544,7 +576,7 @@ name|rollWriter
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Roll the log writer.  That is, start writing log messages to    * a new file.    *    * The 'rollLock' prevents us from entering rollWriter() more than    * once at a time.    *    * The 'this' lock limits access to the current writer so    * we don't append multiple items simultaneously.    */
+comment|/**    * Roll the log writer.  That is, start writing log messages to a new file.    *    * The 'rollLock' prevents us from entering rollWriter() more than    * once at a time.    *    * The 'this' lock limits access to the current writer so    * we don't append multiple items simultaneously.    */
 specifier|public
 name|void
 name|rollWriter
@@ -613,6 +645,14 @@ name|ie
 parameter_list|)
 block|{           }
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -620,6 +660,7 @@ argument_list|(
 literal|"closing current log writer and getting a new one"
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Close the current writer (if any), and grab a new one.
 if|if
 condition|(
@@ -690,6 +731,14 @@ operator|.
 name|class
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -697,6 +746,7 @@ argument_list|(
 literal|"new log writer created"
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Can we delete any of the old log files?
 comment|// First, compute the oldest relevant log operation
 comment|// over all the regions.
@@ -756,6 +806,14 @@ block|}
 block|}
 comment|// Next, remove all files with a final ID that's older
 comment|// than the oldest pending region-operation.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -763,6 +821,7 @@ argument_list|(
 literal|"removing old log files"
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|Iterator
@@ -870,6 +929,14 @@ name|p
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -877,6 +944,7 @@ argument_list|(
 literal|"old log files deleted"
 argument_list|)
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|numEntries
@@ -935,7 +1003,7 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
-comment|/**    * Append a set of edits to the log.    * Log edits are keyed by regionName, rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for    * a given key-range of the HRegion.  Any edits that do not have a matching    * COMPLETE_CACHEFLUSH message can be discarded.    *    * Logs cannot be restarted once closed, or once the HLog process dies.    * Each time the HLog starts, it must create a new log.  This means that    * other systems should process the log appropriately upon each startup    * (and prior to initializing HLog).    *    * We need to seize a lock on the writer so that writes are atomic.    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by regionName,    * rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for    * a given key-range of the HRegion (TODO).  Any edits that do not have a    * matching {@link HConstants#COMPLETE_CACHEFLUSH} message can be discarded.    *    *<p>Logs cannot be restarted once closed, or once the HLog process dies.    * Each time the HLog starts, it must create a new log.  This means that    * other systems should process the log appropriately upon each startup    * (and prior to initializing HLog).    *    * We need to seize a lock on the writer so that writes are atomic.    * @param regionName    * @param tableName    * @param row    * @param columns    * @param timestamp    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
@@ -954,8 +1022,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|BytesWritable
 argument_list|>
 name|columns
 parameter_list|,
@@ -1026,46 +1093,15 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|Iterator
-argument_list|<
 name|Text
-argument_list|>
-name|it
-init|=
+name|column
+range|:
 name|columns
 operator|.
 name|keySet
 argument_list|()
-operator|.
-name|iterator
-argument_list|()
-init|;
-name|it
-operator|.
-name|hasNext
-argument_list|()
-condition|;
 control|)
 block|{
-name|Text
-name|column
-init|=
-name|it
-operator|.
-name|next
-argument_list|()
-decl_stmt|;
-name|byte
-index|[]
-name|val
-init|=
-name|columns
-operator|.
-name|get
-argument_list|(
-name|column
-argument_list|)
-decl_stmt|;
 name|HLogKey
 name|logKey
 init|=
@@ -1093,7 +1129,12 @@ name|HLogEdit
 argument_list|(
 name|column
 argument_list|,
-name|val
+name|columns
+operator|.
+name|get
+argument_list|(
+name|column
+argument_list|)
 argument_list|,
 name|timestamp
 argument_list|)
@@ -1180,7 +1221,7 @@ return|return
 name|results
 return|;
 block|}
-comment|/**    * By acquiring a log sequence ID, we can allow log messages    * to continue while we flush the cache.    *    * Set a flag so that we do not roll the log between the start    * and complete of a cache-flush.  Otherwise the log-seq-id for    * the flush will not appear in the correct logfile.    */
+comment|/**    * By acquiring a log sequence ID, we can allow log messages    * to continue while we flush the cache.    *    * Set a flag so that we do not roll the log between the start    * and complete of a cache-flush.  Otherwise the log-seq-id for    * the flush will not appear in the correct logfile.    * @return sequence ID to pass {@link #completeCacheFlush(Text, Text, long)}    * @see {@link #completeCacheFlush(Text, Text, long)}    */
 specifier|public
 specifier|synchronized
 name|long
@@ -1223,12 +1264,15 @@ specifier|synchronized
 name|void
 name|completeCacheFlush
 parameter_list|(
+specifier|final
 name|Text
 name|regionName
 parameter_list|,
+specifier|final
 name|Text
 name|tableName
 parameter_list|,
+specifier|final
 name|long
 name|logSeqId
 parameter_list|)
@@ -1252,7 +1296,9 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Impossible situation: inside completeCacheFlush(), but 'insideCacheFlush' flag is false"
+literal|"Impossible situation: inside "
+operator|+
+literal|"completeCacheFlush(), but 'insideCacheFlush' flag is false"
 argument_list|)
 throw|;
 block|}
@@ -1281,8 +1327,6 @@ name|HLog
 operator|.
 name|METACOLUMN
 argument_list|,
-name|HStoreKey
-operator|.
 name|COMPLETE_CACHEFLUSH
 argument_list|,
 name|System
@@ -1313,6 +1357,196 @@ expr_stmt|;
 name|notifyAll
 argument_list|()
 expr_stmt|;
+block|}
+comment|/**    * Pass a log file and it will dump out a text version on    *<code>stdout</code>.    * @param args    * @throws IOException    */
+specifier|public
+specifier|static
+name|void
+name|main
+parameter_list|(
+name|String
+index|[]
+name|args
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|args
+operator|.
+name|length
+operator|<
+literal|1
+condition|)
+block|{
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"Usage: java org.apache.hbase.HLog<logfile>"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|exit
+argument_list|(
+operator|-
+literal|1
+argument_list|)
+expr_stmt|;
+block|}
+name|Configuration
+name|conf
+init|=
+operator|new
+name|HBaseConfiguration
+argument_list|()
+decl_stmt|;
+name|FileSystem
+name|fs
+init|=
+name|FileSystem
+operator|.
+name|get
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
+name|Path
+name|logfile
+init|=
+operator|new
+name|Path
+argument_list|(
+name|args
+index|[
+literal|0
+index|]
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|logfile
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|FileNotFoundException
+argument_list|(
+name|args
+index|[
+literal|0
+index|]
+operator|+
+literal|" does not exist"
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|isFile
+argument_list|(
+name|logfile
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|args
+index|[
+literal|0
+index|]
+operator|+
+literal|" is not a file"
+argument_list|)
+throw|;
+block|}
+name|Reader
+name|log
+init|=
+operator|new
+name|SequenceFile
+operator|.
+name|Reader
+argument_list|(
+name|fs
+argument_list|,
+name|logfile
+argument_list|,
+name|conf
+argument_list|)
+decl_stmt|;
+try|try
+block|{
+name|HLogKey
+name|key
+init|=
+operator|new
+name|HLogKey
+argument_list|()
+decl_stmt|;
+name|HLogEdit
+name|val
+init|=
+operator|new
+name|HLogEdit
+argument_list|()
+decl_stmt|;
+while|while
+condition|(
+name|log
+operator|.
+name|next
+argument_list|(
+name|key
+argument_list|,
+name|val
+argument_list|)
+condition|)
+block|{
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+name|key
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" "
+operator|+
+name|val
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+finally|finally
+block|{
+name|log
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 block|}
 end_class

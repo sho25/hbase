@@ -16,7 +16,7 @@ package|;
 end_package
 
 begin_comment
-comment|/*******************************************************************************  * Global values used for finding and scanning the root and meta tables.  ******************************************************************************/
+comment|/**  * Global values used for finding and scanning the root and meta tables.  */
 end_comment
 
 begin_class
@@ -63,7 +63,7 @@ name|rootTableDesc
 operator|.
 name|addFamily
 argument_list|(
-name|ROOT_COLUMN_FAMILY
+name|COLUMN_FAMILY
 argument_list|)
 expr_stmt|;
 name|rootRegionInfo
@@ -97,7 +97,7 @@ name|metaTableDesc
 operator|.
 name|addFamily
 argument_list|(
-name|META_COLUMN_FAMILY
+name|COLUMN_FAMILY
 argument_list|)
 expr_stmt|;
 block|}

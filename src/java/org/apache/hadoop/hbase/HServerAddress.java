@@ -412,7 +412,7 @@ name|stringValue
 operator|=
 name|bindAddress
 operator|+
-literal|"_"
+literal|":"
 operator|+
 name|port
 expr_stmt|;

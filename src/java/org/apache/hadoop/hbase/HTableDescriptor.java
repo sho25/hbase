@@ -17,15 +17,11 @@ end_package
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
+name|java
 operator|.
 name|io
 operator|.
-name|*
+name|DataInput
 import|;
 end_import
 
@@ -35,7 +31,17 @@ name|java
 operator|.
 name|io
 operator|.
-name|*
+name|DataOutput
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
 import|;
 end_import
 
@@ -45,12 +51,74 @@ name|java
 operator|.
 name|util
 operator|.
-name|*
+name|Iterator
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|TreeSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|regex
+operator|.
+name|Matcher
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|regex
+operator|.
+name|Pattern
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|Text
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|WritableComparable
 import|;
 end_import
 
 begin_comment
-comment|/*******************************************************************************  * HTableDescriptor contains various facts about an HTable, like its columns,   * column families, etc.  ******************************************************************************/
+comment|/**  * HTableDescriptor contains various facts about an HTable, like  * column families, maximum number of column versions, etc.  */
 end_comment
 
 begin_class
@@ -79,6 +147,34 @@ name|Text
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|/**    * Legal table names can only contain 'word characters':    * i.e.<code>[a-zA-Z_0-9]</code>.    *     * Lets be restrictive until a reason to be otherwise.    */
+specifier|private
+specifier|static
+specifier|final
+name|Pattern
+name|LEGAL_TABLE_NAME
+init|=
+name|Pattern
+operator|.
+name|compile
+argument_list|(
+literal|"[\\w-]+"
+argument_list|)
+decl_stmt|;
+comment|/**    * Legal family names can only contain 'word characters' and    * end in a colon.    */
+specifier|private
+specifier|static
+specifier|final
+name|Pattern
+name|LEGAL_FAMILY_NAME
+init|=
+name|Pattern
+operator|.
+name|compile
+argument_list|(
+literal|"\\w+:"
+argument_list|)
+decl_stmt|;
 specifier|public
 name|HTableDescriptor
 parameter_list|()
@@ -99,6 +195,7 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Constructor.    * @param name Table name.    * @param maxVersions Number of versions of a column to keep.    * @throws IllegalArgumentException if passed a table name    * that is made of other than 'word' characters: i.e.    *<code>[a-zA-Z_0-9]    */
 specifier|public
 name|HTableDescriptor
 parameter_list|(
@@ -109,6 +206,59 @@ name|int
 name|maxVersions
 parameter_list|)
 block|{
+name|Matcher
+name|m
+init|=
+name|LEGAL_TABLE_NAME
+operator|.
+name|matcher
+argument_list|(
+name|name
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|m
+operator|==
+literal|null
+operator|||
+operator|!
+name|m
+operator|.
+name|matches
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Table names can only "
+operator|+
+literal|"contain 'word characters': i.e. [a-zA-Z_0-9"
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
+name|maxVersions
+operator|<=
+literal|0
+condition|)
+block|{
+comment|// TODO: Allow maxVersion of 0 to be the way you say
+comment|// "Keep all versions".  Until there is support, consider
+comment|// 0 -- or< 0 -- a configuration error.
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Maximum versions "
+operator|+
+literal|"must be positive"
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|name
@@ -144,7 +294,7 @@ return|return
 name|maxVersions
 return|;
 block|}
-comment|/** Add a column */
+comment|/**    * Add a column family.    * @param family Column family name to add.  Column family names    * must end in a<code>:</code>    * @throws IllegalArgumentException if passed a table name    * that is made of other than 'word' characters: i.e.    *<code>[a-zA-Z_0-9]    */
 specifier|public
 name|void
 name|addFamily
@@ -153,6 +303,49 @@ name|Text
 name|family
 parameter_list|)
 block|{
+name|String
+name|familyStr
+init|=
+name|family
+operator|.
+name|toString
+argument_list|()
+decl_stmt|;
+name|Matcher
+name|m
+init|=
+name|LEGAL_FAMILY_NAME
+operator|.
+name|matcher
+argument_list|(
+name|familyStr
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|m
+operator|==
+literal|null
+operator|||
+operator|!
+name|m
+operator|.
+name|matches
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Family names can "
+operator|+
+literal|"only contain 'word characters' and must end with a "
+operator|+
+literal|"':'"
+argument_list|)
+throw|;
+block|}
 name|families
 operator|.
 name|add
@@ -170,26 +363,14 @@ name|Text
 name|family
 parameter_list|)
 block|{
-if|if
-condition|(
+return|return
 name|families
 operator|.
 name|contains
 argument_list|(
 name|family
 argument_list|)
-condition|)
-block|{
-return|return
-literal|true
 return|;
-block|}
-else|else
-block|{
-return|return
-literal|false
-return|;
-block|}
 block|}
 comment|/** All the column families in this table. */
 specifier|public
@@ -201,6 +382,36 @@ name|families
 parameter_list|()
 block|{
 return|return
+name|families
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"name: "
+operator|+
+name|this
+operator|.
+name|name
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|", maxVersions: "
+operator|+
+name|this
+operator|.
+name|maxVersions
+operator|+
+literal|", families: "
+operator|+
+name|this
+operator|.
 name|families
 return|;
 block|}

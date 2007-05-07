@@ -86,7 +86,7 @@ specifier|public
 specifier|static
 specifier|final
 name|byte
-name|MSG_REGIONSERVER_ALREADY_RUNNING
+name|MSG_REGIONSERVER_STOP
 init|=
 literal|5
 decl_stmt|;

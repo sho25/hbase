@@ -83,8 +83,7 @@ parameter_list|(
 name|Text
 name|label
 parameter_list|,
-name|byte
-index|[]
+name|BytesWritable
 name|data
 parameter_list|)
 block|{
@@ -102,11 +101,7 @@ name|this
 operator|.
 name|data
 operator|=
-operator|new
-name|BytesWritable
-argument_list|(
 name|data
-argument_list|)
 expr_stmt|;
 block|}
 specifier|public

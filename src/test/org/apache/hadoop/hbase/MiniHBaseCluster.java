@@ -91,6 +91,18 @@ name|Path
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|log4j
+operator|.
+name|Logger
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class creates a single process HBase cluster for junit testing.  * One thread is created for each server.  */
 end_comment
@@ -102,6 +114,24 @@ name|MiniHBaseCluster
 implements|implements
 name|HConstants
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Logger
+name|LOG
+init|=
+name|Logger
+operator|.
+name|getLogger
+argument_list|(
+name|MiniHBaseCluster
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+decl_stmt|;
 specifier|private
 name|Configuration
 name|conf
@@ -120,11 +150,11 @@ name|parentdir
 decl_stmt|;
 specifier|private
 name|HMasterRunner
-name|master
+name|masterRunner
 decl_stmt|;
 specifier|private
 name|Thread
-name|masterThread
+name|masterRunnerThread
 decl_stmt|;
 specifier|private
 name|HRegionServerRunner
@@ -144,6 +174,31 @@ name|conf
 parameter_list|,
 name|int
 name|nRegionNodes
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|conf
+argument_list|,
+name|nRegionNodes
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Constructor.    * @param conf    * @param nRegionNodes    * @param miniHdfsFilesystem If true, set the hbase mini    * cluster atop a mini hdfs cluster.  Otherwise, use the    * filesystem configured in<code>conf</code>.    */
+specifier|public
+name|MiniHBaseCluster
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
+name|int
+name|nRegionNodes
+parameter_list|,
+specifier|final
+name|boolean
+name|miniHdfsFilesystem
 parameter_list|)
 block|{
 name|this
@@ -194,12 +249,12 @@ operator|.
 name|getAbsolutePath
 argument_list|()
 decl_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
+literal|"Setting test.build.data to "
+operator|+
 name|dir
 argument_list|)
 expr_stmt|;
@@ -213,8 +268,11 @@ name|dir
 argument_list|)
 expr_stmt|;
 block|}
-comment|// To run using configured filesystem, comment out this
-comment|// line below that starts up the MiniDFSCluster.
+if|if
+condition|(
+name|miniHdfsFilesystem
+condition|)
+block|{
 name|this
 operator|.
 name|cluster
@@ -237,6 +295,7 @@ operator|)
 literal|null
 argument_list|)
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|fs
@@ -279,19 +338,14 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|System
+name|LOG
 operator|.
-name|err
-operator|.
-name|println
+name|error
 argument_list|(
-literal|"Mini DFS cluster failed to start"
-argument_list|)
-expr_stmt|;
+literal|"Failed setup of FileSystem"
+argument_list|,
 name|e
-operator|.
-name|printStackTrace
-argument_list|()
+argument_list|)
 expr_stmt|;
 throw|throw
 name|e
@@ -326,7 +380,7 @@ block|}
 comment|// Create the master
 name|this
 operator|.
-name|master
+name|masterRunner
 operator|=
 operator|new
 name|HMasterRunner
@@ -334,18 +388,25 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|masterThread
+name|masterRunnerThread
 operator|=
 operator|new
 name|Thread
 argument_list|(
-name|master
+name|masterRunner
 argument_list|,
-literal|"HMaster"
+literal|"masterRunner"
 argument_list|)
 expr_stmt|;
 comment|// Start up the master
-name|masterThread
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting HMaster"
+argument_list|)
+expr_stmt|;
+name|masterRunnerThread
 operator|.
 name|start
 argument_list|()
@@ -353,13 +414,13 @@ expr_stmt|;
 while|while
 condition|(
 operator|!
-name|master
+name|masterRunner
 operator|.
 name|isCrashed
 argument_list|()
 operator|&&
 operator|!
-name|master
+name|masterRunner
 operator|.
 name|isInitialized
 argument_list|()
@@ -367,13 +428,11 @@ condition|)
 block|{
 try|try
 block|{
-name|System
+name|LOG
 operator|.
-name|err
-operator|.
-name|println
+name|info
 argument_list|(
-literal|"Waiting for HMaster to initialize..."
+literal|"...waiting for HMaster to initialize..."
 argument_list|)
 expr_stmt|;
 name|Thread
@@ -392,7 +451,7 @@ parameter_list|)
 block|{         }
 if|if
 condition|(
-name|master
+name|masterRunner
 operator|.
 name|isCrashed
 argument_list|()
@@ -407,7 +466,25 @@ argument_list|)
 throw|;
 block|}
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"HMaster started."
+argument_list|)
+expr_stmt|;
 comment|// Set the master's port for the HRegionServers
+name|String
+name|address
+init|=
+name|masterRunner
+operator|.
+name|getHMasterAddress
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+decl_stmt|;
 name|this
 operator|.
 name|conf
@@ -416,13 +493,7 @@ name|set
 argument_list|(
 name|MASTER_ADDRESS
 argument_list|,
-name|master
-operator|.
-name|getHMasterAddress
-argument_list|()
-operator|.
-name|toString
-argument_list|()
+name|address
 argument_list|)
 expr_stmt|;
 comment|// Start the HRegionServers
@@ -452,6 +523,13 @@ literal|"localhost:0"
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting HRegionServers"
+argument_list|)
+expr_stmt|;
 name|startRegionServers
 argument_list|(
 name|this
@@ -461,17 +539,24 @@ argument_list|,
 name|nRegionNodes
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"HRegionServers running"
+argument_list|)
+expr_stmt|;
 comment|// Wait for things to get started
 while|while
 condition|(
 operator|!
-name|master
+name|masterRunner
 operator|.
 name|isCrashed
 argument_list|()
 operator|&&
 operator|!
-name|master
+name|masterRunner
 operator|.
 name|isUp
 argument_list|()
@@ -479,11 +564,9 @@ condition|)
 block|{
 try|try
 block|{
-name|System
+name|LOG
 operator|.
-name|err
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Waiting for Mini HBase cluster to start..."
 argument_list|)
@@ -504,7 +587,7 @@ parameter_list|)
 block|{         }
 if|if
 condition|(
-name|master
+name|masterRunner
 operator|.
 name|isCrashed
 argument_list|()
@@ -644,7 +727,7 @@ name|getHMasterAddress
 parameter_list|()
 block|{
 return|return
-name|master
+name|masterRunner
 operator|.
 name|getHMasterAddress
 argument_list|()
@@ -656,11 +739,9 @@ name|void
 name|shutdown
 parameter_list|()
 block|{
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Shutting down the HBase Cluster"
 argument_list|)
@@ -691,7 +772,7 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
-name|master
+name|masterRunner
 operator|.
 name|shutdown
 argument_list|()
@@ -729,11 +810,17 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{       }
+block|{
+name|e
+operator|.
+name|printStackTrace
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 try|try
 block|{
-name|masterThread
+name|masterRunnerThread
 operator|.
 name|join
 argument_list|()
@@ -744,16 +831,13 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{     }
-name|System
+block|{
+name|e
 operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"Shutting down Mini DFS cluster"
-argument_list|)
+name|printStackTrace
+argument_list|()
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|cluster
@@ -761,6 +845,13 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Shutting down Mini DFS cluster"
+argument_list|)
+expr_stmt|;
 name|cluster
 operator|.
 name|shutdown
@@ -856,6 +947,12 @@ init|=
 literal|null
 decl_stmt|;
 specifier|private
+name|Thread
+name|masterThread
+init|=
+literal|null
+decl_stmt|;
+specifier|private
 specifier|volatile
 name|boolean
 name|isInitialized
@@ -874,12 +971,29 @@ name|isRunning
 init|=
 literal|true
 decl_stmt|;
+specifier|private
+name|long
+name|threadSleepTime
+init|=
+name|conf
+operator|.
+name|getLong
+argument_list|(
+name|THREAD_WAKE_FREQUENCY
+argument_list|,
+literal|10
+operator|*
+literal|1000
+argument_list|)
+decl_stmt|;
 specifier|public
 name|HServerAddress
 name|getHMasterAddress
 parameter_list|()
 block|{
 return|return
+name|this
+operator|.
 name|master
 operator|.
 name|getMasterAddress
@@ -950,6 +1064,8 @@ condition|(
 name|isRunning
 condition|)
 block|{
+name|this
+operator|.
 name|master
 operator|=
 operator|new
@@ -957,6 +1073,21 @@ name|HMaster
 argument_list|(
 name|conf
 argument_list|)
+expr_stmt|;
+name|masterThread
+operator|=
+operator|new
+name|Thread
+argument_list|(
+name|this
+operator|.
+name|master
+argument_list|)
+expr_stmt|;
+name|masterThread
+operator|.
+name|start
+argument_list|()
 expr_stmt|;
 block|}
 name|isInitialized
@@ -974,19 +1105,14 @@ block|{
 name|shutdown
 argument_list|()
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|err
-operator|.
-name|println
+name|error
 argument_list|(
 literal|"HMaster crashed:"
-argument_list|)
-expr_stmt|;
+argument_list|,
 name|e
-operator|.
-name|printStackTrace
-argument_list|()
+argument_list|)
 expr_stmt|;
 synchronized|synchronized
 init|(
@@ -999,6 +1125,52 @@ literal|true
 expr_stmt|;
 block|}
 block|}
+while|while
+condition|(
+name|this
+operator|.
+name|master
+operator|!=
+literal|null
+operator|&&
+name|this
+operator|.
+name|master
+operator|.
+name|isMasterRunning
+argument_list|()
+condition|)
+block|{
+try|try
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+name|threadSleepTime
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{         }
+block|}
+synchronized|synchronized
+init|(
+name|this
+init|)
+block|{
+name|isCrashed
+operator|=
+literal|true
+expr_stmt|;
+block|}
+name|shutdown
+argument_list|()
+expr_stmt|;
 block|}
 comment|/** Shut down the HMaster and wait for it to finish */
 specifier|public
@@ -1013,6 +1185,8 @@ literal|false
 expr_stmt|;
 if|if
 condition|(
+name|this
+operator|.
 name|master
 operator|!=
 literal|null
@@ -1020,9 +1194,11 @@ condition|)
 block|{
 try|try
 block|{
+name|this
+operator|.
 name|master
 operator|.
-name|stop
+name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
@@ -1032,28 +1208,32 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-name|System
+name|LOG
 operator|.
-name|err
-operator|.
-name|println
+name|error
 argument_list|(
 literal|"Master crashed during stop"
-argument_list|)
-expr_stmt|;
+argument_list|,
 name|e
-operator|.
-name|printStackTrace
-argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 finally|finally
 block|{
-name|master
+try|try
+block|{
+name|masterThread
 operator|.
 name|join
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{           }
 name|master
 operator|=
 literal|null
@@ -1141,19 +1321,14 @@ block|{
 name|shutdown
 argument_list|()
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|err
-operator|.
-name|println
+name|error
 argument_list|(
 literal|"HRegionServer crashed:"
-argument_list|)
-expr_stmt|;
+argument_list|,
 name|e
-operator|.
-name|printStackTrace
-argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -1189,19 +1364,14 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-name|System
+name|LOG
 operator|.
-name|err
-operator|.
-name|println
+name|error
 argument_list|(
 literal|"HRegionServer crashed during stop"
-argument_list|)
-expr_stmt|;
+argument_list|,
 name|e
-operator|.
-name|printStackTrace
-argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 finally|finally

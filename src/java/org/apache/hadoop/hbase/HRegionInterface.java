@@ -285,7 +285,7 @@ function_decl|;
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// remote scanner interface
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Opens a remote scanner.    *     * @param clientId    - client identifier (so we can associate a scanner with a client)    * @param regionName  - name of region to scan    * @param columns     - columns to scan    * @param startRow    - starting row to scan    *    * @param scannerId   - scanner identifier used in other calls    * @throws IOException    */
+comment|/**    * Opens a remote scanner.    *     * @param clientId    - client identifier (so we can associate a scanner with a client)    * @param regionName  - name of region to scan    * @param columns     - columns to scan    * @param startRow    - starting row to scan    *    * @return scannerId  - scanner identifier used in other calls    * @throws IOException    */
 specifier|public
 name|long
 name|openScanner
