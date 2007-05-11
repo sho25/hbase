@@ -1068,6 +1068,12 @@ condition|)
 block|{
 continue|continue;
 block|}
+synchronized|synchronized
+init|(
+name|rootScannerLock
+init|)
+block|{
+comment|// Don't interrupt us while we're working
 name|rootScanned
 operator|=
 literal|false
@@ -1123,6 +1129,7 @@ name|rootScanned
 operator|=
 literal|true
 expr_stmt|;
+block|}
 try|try
 block|{
 if|if
@@ -1208,6 +1215,16 @@ decl_stmt|;
 specifier|private
 name|Thread
 name|rootScannerThread
+decl_stmt|;
+specifier|private
+name|Integer
+name|rootScannerLock
+init|=
+operator|new
+name|Integer
+argument_list|(
+literal|0
+argument_list|)
 decl_stmt|;
 specifier|private
 class|class
@@ -1390,6 +1407,12 @@ continue|continue;
 block|}
 try|try
 block|{
+synchronized|synchronized
+init|(
+name|metaScannerLock
+init|)
+block|{
+comment|// Don't interrupt us while we're working
 name|scanRegion
 argument_list|(
 name|region
@@ -1441,6 +1464,7 @@ expr_stmt|;
 name|metaRegionsScanned
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 do|do
 block|{
@@ -1507,6 +1531,12 @@ comment|// We're shutting down
 break|break;
 block|}
 comment|// Rescan the known meta regions every so often
+synchronized|synchronized
+init|(
+name|metaScannerLock
+init|)
+block|{
+comment|// Don't interrupt us while we're working
 name|Vector
 argument_list|<
 name|MetaRegion
@@ -1558,6 +1588,7 @@ name|next
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 do|while
@@ -1696,6 +1727,16 @@ decl_stmt|;
 specifier|private
 name|Thread
 name|metaScannerThread
+decl_stmt|;
+specifier|private
+name|Integer
+name|metaScannerLock
+init|=
+operator|new
+name|Integer
+argument_list|(
+literal|0
+argument_list|)
 decl_stmt|;
 comment|// The 'unassignedRegions' table maps from a region name to a HRegionInfo record,
 comment|// which includes the region's table, its id, and its start/end keys.
@@ -2530,16 +2571,28 @@ block|}
 block|}
 comment|/*      * Clean up and close up shop      */
 comment|// Wake other threads so they notice the close
+synchronized|synchronized
+init|(
+name|rootScannerLock
+init|)
+block|{
 name|rootScannerThread
 operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
+block|}
+synchronized|synchronized
+init|(
+name|metaScannerLock
+init|)
+block|{
 name|metaScannerThread
 operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
+block|}
 name|server
 operator|.
 name|stop

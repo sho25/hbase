@@ -1384,6 +1384,11 @@ name|maxUnflushedEntries
 init|=
 literal|0
 decl_stmt|;
+name|int
+name|compactionThreshold
+init|=
+literal|0
+decl_stmt|;
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Constructor
 comment|//////////////////////////////////////////////////////////////////////////////
@@ -1650,6 +1655,7 @@ name|merges
 argument_list|)
 expr_stmt|;
 block|}
+comment|// By default, we flush the cache after 10,000 commits
 name|this
 operator|.
 name|maxUnflushedEntries
@@ -1661,6 +1667,20 @@ argument_list|(
 literal|"hbase.hregion.maxunflushed"
 argument_list|,
 literal|10000
+argument_list|)
+expr_stmt|;
+comment|// By default, we compact the region if an HStore has more than 10 map files
+name|this
+operator|.
+name|compactionThreshold
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.hregion.compactionThreshold"
+argument_list|,
+literal|10
 argument_list|)
 expr_stmt|;
 comment|// HRegion is ready to go!
@@ -2721,7 +2741,7 @@ comment|//
 comment|// These methods are meant to be called periodically by the HRegionServer for
 comment|// upkeep.
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Iterates through all the HStores and finds the one with the largest MapFile    * size. If the size is greater than the (currently hard-coded) threshold,    * returns true indicating that the region should be split. The midKey for the    * largest MapFile is returned through the midKey parameter.    *     * @param midKey      - (return value) midKey of the largest MapFile    * @return            - true if the region should be split    *     * @throws IOException    */
+comment|/**    * Iterates through all the HStores and finds the one with the largest MapFile    * size. If the size is greater than the (currently hard-coded) threshold,    * returns true indicating that the region should be split. The midKey for the    * largest MapFile is returned through the midKey parameter.    *     * @param midKey      - (return value) midKey of the largest MapFile    * @return            - true if the region should be split    */
 specifier|public
 name|boolean
 name|needsSplit
@@ -2729,8 +2749,6 @@ parameter_list|(
 name|Text
 name|midKey
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|Text
 name|key
@@ -2815,6 +2833,64 @@ literal|2
 operator|)
 operator|)
 operator|)
+return|;
+block|}
+comment|/**    * @return true if the region should be compacted.    */
+specifier|public
+name|boolean
+name|needsCompaction
+parameter_list|()
+block|{
+name|boolean
+name|needsCompaction
+init|=
+literal|false
+decl_stmt|;
+for|for
+control|(
+name|Iterator
+argument_list|<
+name|HStore
+argument_list|>
+name|i
+init|=
+name|stores
+operator|.
+name|values
+argument_list|()
+operator|.
+name|iterator
+argument_list|()
+init|;
+name|i
+operator|.
+name|hasNext
+argument_list|()
+condition|;
+control|)
+block|{
+if|if
+condition|(
+name|i
+operator|.
+name|next
+argument_list|()
+operator|.
+name|getNMaps
+argument_list|()
+operator|>
+name|compactionThreshold
+condition|)
+block|{
+name|needsCompaction
+operator|=
+literal|true
+expr_stmt|;
+break|break;
+block|}
+block|}
+return|return
+name|needsCompaction
 return|;
 block|}
 comment|/**    * Compact all the stores.  This should be called periodically to make sure     * the stores are kept manageable.      *    * This operation could block for a long time, so don't call it from a     * time-sensitive thread.    *    * If it returns TRUE, the compaction has completed.    *     * If it returns FALSE, the compaction was not carried out, because the     * HRegion is busy doing something else storage-intensive (like flushing the     * cache).  The caller should check back later.    */
@@ -3007,6 +3083,24 @@ operator|>
 name|maxUnflushedEntries
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Flushing cache. Number of commits is: "
+operator|+
+name|commitsSinceFlush
+argument_list|)
+expr_stmt|;
+block|}
 name|flushcache
 argument_list|(
 literal|false

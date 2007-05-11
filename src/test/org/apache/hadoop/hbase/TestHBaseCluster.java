@@ -488,13 +488,6 @@ operator|.
 name|getenv
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|Environment
-operator|.
-name|debugging
-condition|)
-block|{
 name|Logger
 name|rootLogger
 init|=
@@ -503,6 +496,13 @@ operator|.
 name|getRootLogger
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|Environment
+operator|.
+name|debugging
+condition|)
+block|{
 name|rootLogger
 operator|.
 name|setLevel
@@ -512,6 +512,7 @@ operator|.
 name|WARN
 argument_list|)
 expr_stmt|;
+block|}
 name|ConsoleAppender
 name|consoleAppender
 init|=
@@ -621,7 +622,6 @@ operator|.
 name|logLevel
 argument_list|)
 expr_stmt|;
-block|}
 name|cluster
 operator|=
 operator|new
