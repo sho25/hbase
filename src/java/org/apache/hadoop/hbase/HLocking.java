@@ -15,6 +15,20 @@ name|hbase
 package|;
 end_package
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicInteger
+import|;
+end_import
+
 begin_comment
 comment|/*******************************************************************************  * HLocking is a set of lock primitives that does not rely on a  * particular thread holding the monitor for an object. This is  * especially important when a lock must persist over multiple RPC's  * since there is no guarantee that the same Server thread will handle  * all the RPC's until the lock is released.  *  * For each independent entity that needs locking, create a new  * HLocking instance.  *  ******************************************************************************/
 end_comment
@@ -32,7 +46,7 @@ comment|// If lockers == 0, the lock is unlocked
 comment|// If lockers> 0, locked for read
 comment|// If lockers == -1 locked for write
 specifier|private
-name|int
+name|AtomicInteger
 name|lockers
 decl_stmt|;
 comment|/** Constructor */
@@ -54,7 +68,11 @@ name|this
 operator|.
 name|lockers
 operator|=
+operator|new
+name|AtomicInteger
+argument_list|(
 literal|0
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Caller needs the nonexclusive read-lock    */
@@ -71,6 +89,9 @@ block|{
 while|while
 condition|(
 name|lockers
+operator|.
+name|get
+argument_list|()
 operator|<
 literal|0
 condition|)
@@ -91,7 +112,9 @@ parameter_list|)
 block|{         }
 block|}
 name|lockers
-operator|++
+operator|.
+name|incrementAndGet
+argument_list|()
 expr_stmt|;
 name|mutex
 operator|.
@@ -111,12 +134,12 @@ init|(
 name|mutex
 init|)
 block|{
-name|lockers
-operator|--
-expr_stmt|;
 if|if
 condition|(
 name|lockers
+operator|.
+name|decrementAndGet
+argument_list|()
 operator|<
 literal|0
 condition|)
@@ -151,9 +174,16 @@ init|)
 block|{
 while|while
 condition|(
+operator|!
 name|lockers
-operator|!=
+operator|.
+name|compareAndSet
+argument_list|(
 literal|0
+argument_list|,
+operator|-
+literal|1
+argument_list|)
 condition|)
 block|{
 try|try
@@ -171,11 +201,6 @@ name|ie
 parameter_list|)
 block|{         }
 block|}
-name|lockers
-operator|=
-operator|-
-literal|1
-expr_stmt|;
 name|mutex
 operator|.
 name|notifyAll
@@ -196,10 +221,16 @@ init|)
 block|{
 if|if
 condition|(
+operator|!
 name|lockers
-operator|!=
+operator|.
+name|compareAndSet
+argument_list|(
 operator|-
 literal|1
+argument_list|,
+literal|0
+argument_list|)
 condition|)
 block|{
 throw|throw
@@ -212,10 +243,6 @@ name|lockers
 argument_list|)
 throw|;
 block|}
-name|lockers
-operator|=
-literal|0
-expr_stmt|;
 name|mutex
 operator|.
 name|notifyAll

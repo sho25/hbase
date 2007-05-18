@@ -95,6 +95,8 @@ parameter_list|(
 name|Text
 name|regionName
 parameter_list|)
+throws|throws
+name|NotServingRegionException
 function_decl|;
 comment|// GET methods for an HRegion.
 specifier|public

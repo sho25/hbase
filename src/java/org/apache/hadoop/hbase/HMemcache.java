@@ -1471,13 +1471,23 @@ block|}
 block|}
 catch|catch
 parameter_list|(
-name|Exception
+name|IOException
 name|ex
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|ex
+argument_list|)
+expr_stmt|;
 name|close
 argument_list|()
 expr_stmt|;
+throw|throw
+name|ex
+throw|;
 block|}
 block|}
 comment|/**      * The user didn't want to start scanning at the first row. This method      * seeks to the requested row.      *      * @param i         - which iterator to advance      * @param firstRow  - seek to this row      * @return          - true if this is the first row      */
@@ -1635,8 +1645,6 @@ specifier|public
 name|void
 name|close
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(

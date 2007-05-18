@@ -989,6 +989,22 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"closing log writer"
+argument_list|)
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|writer
@@ -1002,6 +1018,22 @@ name|closed
 operator|=
 literal|true
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"log writer closed"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Append a set of edits to the log. Log edits are keyed by regionName,    * rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for    * a given key-range of the HRegion (TODO).  Any edits that do not have a    * matching {@link HConstants#COMPLETE_CACHEFLUSH} message can be discarded.    *    *<p>Logs cannot be restarted once closed, or once the HLog process dies.    * Each time the HLog starts, it must create a new log.  This means that    * other systems should process the log appropriately upon each startup    * (and prior to initializing HLog).    *    * We need to seize a lock on the writer so that writes are atomic.    * @param regionName    * @param tableName    * @param row    * @param columns    * @param timestamp    * @throws IOException    */
 specifier|public

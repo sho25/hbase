@@ -163,6 +163,39 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+comment|/**    * Deletes all the files for a HRegion    *     * @param fs                  - the file system object    * @param baseDirectory       - base directory for HBase    * @param regionName          - name of the region to delete    * @throws IOException    */
+specifier|public
+specifier|static
+name|void
+name|deleteRegion
+parameter_list|(
+name|FileSystem
+name|fs
+parameter_list|,
+name|Path
+name|baseDirectory
+parameter_list|,
+name|Text
+name|regionName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|HStoreFile
+operator|.
+name|getHRegionDir
+argument_list|(
+name|baseDirectory
+argument_list|,
+name|regionName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Merge two HRegions.  They must be available on the current    * HRegionServer. Returns a brand-new active HRegion, also    * running on the current HRegionServer.    */
 specifier|public
 specifier|static
@@ -1300,10 +1333,6 @@ argument_list|()
 decl_stmt|;
 name|HMemcache
 name|memcache
-init|=
-operator|new
-name|HMemcache
-argument_list|()
 decl_stmt|;
 name|Path
 name|dir
@@ -1327,14 +1356,17 @@ class|class
 name|WriteState
 block|{
 specifier|public
+specifier|volatile
 name|boolean
 name|writesOngoing
 decl_stmt|;
 specifier|public
+specifier|volatile
 name|boolean
 name|writesEnabled
 decl_stmt|;
 specifier|public
+specifier|volatile
 name|boolean
 name|closed
 decl_stmt|;
@@ -1362,6 +1394,7 @@ literal|false
 expr_stmt|;
 block|}
 block|}
+specifier|volatile
 name|WriteState
 name|writestate
 init|=
@@ -1374,6 +1407,7 @@ name|recentCommits
 init|=
 literal|0
 decl_stmt|;
+specifier|volatile
 name|int
 name|commitsSinceFlush
 init|=
@@ -1388,6 +1422,11 @@ name|int
 name|compactionThreshold
 init|=
 literal|0
+decl_stmt|;
+name|HLocking
+name|lock
+init|=
+literal|null
 decl_stmt|;
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Constructor
@@ -1452,6 +1491,14 @@ name|regionInfo
 expr_stmt|;
 name|this
 operator|.
+name|memcache
+operator|=
+operator|new
+name|HMemcache
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
 name|writestate
 operator|.
 name|writesOngoing
@@ -1473,6 +1520,14 @@ operator|.
 name|closed
 operator|=
 literal|false
+expr_stmt|;
+name|this
+operator|.
+name|lock
+operator|=
+operator|new
+name|HLocking
+argument_list|()
 expr_stmt|;
 comment|// Declare the regionName.  This is a unique string for the region, used to
 comment|// build a unique filename.
@@ -1720,6 +1775,33 @@ operator|.
 name|regionInfo
 return|;
 block|}
+comment|/** returns true if region is closed */
+specifier|public
+name|boolean
+name|isClosed
+parameter_list|()
+block|{
+name|boolean
+name|closed
+init|=
+literal|false
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|writestate
+init|)
+block|{
+name|closed
+operator|=
+name|writestate
+operator|.
+name|closed
+expr_stmt|;
+block|}
+return|return
+name|closed
+return|;
+block|}
 comment|/** Closes and deletes this HRegion. Called when doing a table deletion, for example */
 specifier|public
 name|void
@@ -1742,11 +1824,26 @@ expr_stmt|;
 name|close
 argument_list|()
 expr_stmt|;
-name|fs
-operator|.
-name|delete
+name|deleteRegion
 argument_list|(
-name|regiondir
+name|fs
+argument_list|,
+name|dir
+argument_list|,
+name|regionInfo
+operator|.
+name|regionName
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"region deleted: "
+operator|+
+name|regionInfo
+operator|.
+name|regionName
 argument_list|)
 expr_stmt|;
 block|}
@@ -1760,6 +1857,13 @@ name|close
 parameter_list|()
 throws|throws
 name|IOException
+block|{
+name|lock
+operator|.
+name|obtainWriteLock
+argument_list|()
+expr_stmt|;
+try|try
 block|{
 name|boolean
 name|shouldClose
@@ -1822,7 +1926,7 @@ parameter_list|(
 name|InterruptedException
 name|iex
 parameter_list|)
-block|{         }
+block|{           }
 block|}
 name|writestate
 operator|.
@@ -1950,6 +2054,15 @@ expr_stmt|;
 block|}
 block|}
 block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|releaseWriteLock
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 comment|/**    * Split the HRegion to create two brand-new ones.  This will also close the     * current HRegion.    *    * Returns two brand-new (and open) HRegions    */
 specifier|public
 name|HRegion
@@ -1958,6 +2071,9 @@ name|closeAndSplit
 parameter_list|(
 name|Text
 name|midKey
+parameter_list|,
+name|RegionUnavailableListener
+name|listener
 parameter_list|)
 throws|throws
 name|IOException
@@ -2038,8 +2154,6 @@ operator|.
 name|regionName
 argument_list|)
 expr_stmt|;
-comment|// Flush this HRegion out to storage, and turn off flushes
-comment|// or compactions until close() is called.
 name|Path
 name|splits
 init|=
@@ -2204,6 +2318,8 @@ name|HStoreFile
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|// Flush this HRegion out to storage, and turn off flushes
+comment|// or compactions until close() is called.
 name|Vector
 argument_list|<
 name|HStoreFile
@@ -2361,8 +2477,19 @@ name|hsf
 argument_list|)
 expr_stmt|;
 block|}
-comment|// We just copied most of the data.  Now close the HRegion
-comment|// and copy the small remainder
+comment|// We just copied most of the data.
+comment|// Notify the caller that we are about to close the region
+name|listener
+operator|.
+name|regionIsUnavailable
+argument_list|(
+name|this
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Now close the HRegion and copy the small remainder
 name|hstoreFilesToSplit
 operator|=
 name|close
@@ -2750,6 +2877,13 @@ name|Text
 name|midKey
 parameter_list|)
 block|{
+name|lock
+operator|.
+name|obtainReadLock
+argument_list|()
+expr_stmt|;
+try|try
+block|{
 name|Text
 name|key
 init|=
@@ -2835,6 +2969,15 @@ operator|)
 operator|)
 return|;
 block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|releaseReadLock
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 comment|/**    * @return true if the region should be compacted.    */
 specifier|public
 name|boolean
@@ -2846,6 +2989,13 @@ name|needsCompaction
 init|=
 literal|false
 decl_stmt|;
+name|lock
+operator|.
+name|obtainReadLock
+argument_list|()
+expr_stmt|;
+try|try
+block|{
 for|for
 control|(
 name|Iterator
@@ -2889,6 +3039,15 @@ expr_stmt|;
 break|break;
 block|}
 block|}
+block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|releaseReadLock
+argument_list|()
+expr_stmt|;
+block|}
 return|return
 name|needsCompaction
 return|;
@@ -2906,6 +3065,13 @@ name|shouldCompact
 init|=
 literal|false
 decl_stmt|;
+name|lock
+operator|.
+name|obtainReadLock
+argument_list|()
+expr_stmt|;
+try|try
+block|{
 synchronized|synchronized
 init|(
 name|writestate
@@ -2948,6 +3114,15 @@ literal|true
 expr_stmt|;
 block|}
 block|}
+block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|releaseReadLock
+argument_list|()
+expr_stmt|;
+block|}
 if|if
 condition|(
 operator|!
@@ -2973,6 +3148,11 @@ return|;
 block|}
 else|else
 block|{
+name|lock
+operator|.
+name|obtainWriteLock
+argument_list|()
+expr_stmt|;
 try|try
 block|{
 name|LOG
@@ -3065,6 +3245,11 @@ name|notifyAll
 argument_list|()
 expr_stmt|;
 block|}
+name|lock
+operator|.
+name|releaseWriteLock
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 block|}
@@ -3758,6 +3943,13 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|lock
+operator|.
+name|obtainReadLock
+argument_list|()
+expr_stmt|;
+try|try
+block|{
 comment|// Check the memcache
 name|BytesWritable
 index|[]
@@ -3829,6 +4021,15 @@ name|numVersions
 argument_list|)
 return|;
 block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|releaseReadLock
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 comment|/**    * Fetch all the columns for the indicated row.    * Returns a TreeMap that maps column names to values.    *    * We should eventually use Bloom filters here, to reduce running time.  If     * the database has many column families and is very sparse, then we could be     * checking many files needlessly.  A small Bloom for each row would help us     * determine which column groups are useful for that row.  That would let us     * avoid a bunch of disk activity.    */
 specifier|public
 name|TreeMap
@@ -3859,6 +4060,13 @@ name|currentTimeMillis
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|lock
+operator|.
+name|obtainReadLock
+argument_list|()
+expr_stmt|;
+try|try
+block|{
 name|TreeMap
 argument_list|<
 name|Text
@@ -3929,6 +4137,15 @@ return|return
 name|memResult
 return|;
 block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|releaseReadLock
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 comment|/**    * Return an iterator that scans over the HRegion, returning the indicated     * columns.  This Iterator must be closed by the caller.    */
 specifier|public
 name|HInternalScannerInterface
@@ -3943,6 +4160,13 @@ name|firstRow
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+name|lock
+operator|.
+name|obtainReadLock
+argument_list|()
+expr_stmt|;
+try|try
 block|{
 name|TreeSet
 argument_list|<
@@ -4064,6 +4288,15 @@ name|storelist
 argument_list|)
 return|;
 block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|releaseReadLock
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// set() methods for client use.
 comment|//////////////////////////////////////////////////////////////////////////////
@@ -4080,12 +4313,28 @@ name|IOException
 block|{
 comment|// We obtain a per-row lock, so other clients will
 comment|// block while one client performs an update.
+name|lock
+operator|.
+name|obtainReadLock
+argument_list|()
+expr_stmt|;
+try|try
+block|{
 return|return
 name|obtainLock
 argument_list|(
 name|row
 argument_list|)
 return|;
+block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|releaseReadLock
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Put a cell value into the locked row.  The user indicates the row-lock, the    * target column, and the desired value.  This stuff is set into a temporary     * memory area until the user commits the change, at which point it's logged     * and placed into the memcache.    *    * This method really just tests the input, then calls an internal localput()     * method.    */
 specifier|public
@@ -4912,6 +5161,35 @@ operator|+
 literal|1
 index|]
 expr_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|this
+operator|.
+name|scanners
+operator|.
+name|length
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|this
+operator|.
+name|scanners
+index|[
+name|i
+index|]
+operator|=
+literal|null
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|resultSets
@@ -4951,6 +5229,8 @@ expr_stmt|;
 comment|// Advance to the first key in each store.
 comment|// All results will match the required column-set and scanTime.
 comment|// NOTE: the memcache scanner should be the first scanner
+try|try
+block|{
 name|HInternalScannerInterface
 name|scanner
 init|=
@@ -5074,6 +5354,53 @@ index|]
 operator|=
 name|scanner
 expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|this
+operator|.
+name|scanners
+operator|.
+name|length
+condition|;
+name|i
+operator|++
+control|)
+block|{
+if|if
+condition|(
+name|scanners
+index|[
+name|i
+index|]
+operator|!=
+literal|null
+condition|)
+block|{
+name|closeScanner
+argument_list|(
+name|i
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+throw|throw
+name|e
+throw|;
 block|}
 for|for
 control|(
@@ -5625,8 +5952,6 @@ parameter_list|(
 name|int
 name|i
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 try|try
 block|{
@@ -5669,8 +5994,6 @@ specifier|public
 name|void
 name|close
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 for|for
 control|(
