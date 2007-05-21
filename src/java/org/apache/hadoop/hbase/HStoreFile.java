@@ -174,7 +174,9 @@ operator|=
 operator|new
 name|Path
 argument_list|(
-literal|""
+name|Path
+operator|.
+name|CUR_DIR
 argument_list|)
 expr_stmt|;
 name|this
