@@ -375,7 +375,7 @@ return|return
 name|timestamp
 return|;
 block|}
-comment|/**    * @param other Key to compare against. Compares row and column.    * @return True if same row and column.    * @see {@link #matchesWithoutColumn(HStoreKey)}    * @see {@link #matchesRowFamily(HStoreKey)}    */
+comment|/**    * @param other Key to compare against. Compares row and column.    * @return True if same row and column.    * @see #matchesWithoutColumn(HStoreKey)    * @see #matchesRowFamily(HStoreKey)    */
 specifier|public
 name|boolean
 name|matchesRowCol
@@ -412,7 +412,7 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**    * @param other Key to copmare against. Compares row and timestamp.    *     * @return True if same row and timestamp is greater than<code>other</code>    * @see {@link #matchesRowCol(HStoreKey)}    * @see {@link #matchesRowFamily(HStoreKey)}    */
+comment|/**    * @param other Key to copmare against. Compares row and timestamp.    *     * @return True if same row and timestamp is greater than<code>other</code>    * @see #matchesRowCol(HStoreKey)    * @see #matchesRowFamily(HStoreKey)    */
 specifier|public
 name|boolean
 name|matchesWithoutColumn
@@ -445,7 +445,7 @@ name|getTimestamp
 argument_list|()
 return|;
 block|}
-comment|/**    * @param other Key to compare against. Compares row and column family    *     * @return true if same row and column family    * @see {@link #matchesRowCol(HStoreKey)}    * @see {@link #matchesWithoutColumn(HStoreKey)}    */
+comment|/**    * @param other Key to compare against. Compares row and column family    *     * @return true if same row and column family    * @see #matchesRowCol(HStoreKey)    * @see #matchesWithoutColumn(HStoreKey)    */
 specifier|public
 name|boolean
 name|matchesRowFamily

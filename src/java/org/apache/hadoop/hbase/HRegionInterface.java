@@ -287,7 +287,7 @@ function_decl|;
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// remote scanner interface
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Opens a remote scanner.    *     * @param clientId    - client identifier (so we can associate a scanner with a client)    * @param regionName  - name of region to scan    * @param columns     - columns to scan    * @param startRow    - starting row to scan    *    * @return scannerId  - scanner identifier used in other calls    * @throws IOException    */
+comment|/**    * Opens a remote scanner.    *     * @param regionName  - name of region to scan    * @param columns     - columns to scan    * @param startRow    - starting row to scan    *    * @return scannerId  - scanner identifier used in other calls    * @throws IOException    */
 specifier|public
 name|long
 name|openScanner
@@ -305,7 +305,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the next set of values    *     * @param scannerId   - clientId passed to openScanner    * @param key         - the next HStoreKey    * @param columns     - an array of column names    * @param values      - an array of byte[] values (corresponds 1-1 with columns)    * @return            - true if a value was retrieved    * @throws IOException    */
+comment|/**    * Get the next set of values    *     * @param scannerId   - clientId passed to openScanner    * @param key         - the next HStoreKey    * @return            - true if a value was retrieved    * @throws IOException    */
 specifier|public
 name|LabelledData
 index|[]

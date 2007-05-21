@@ -1253,7 +1253,7 @@ return|return
 name|results
 return|;
 block|}
-comment|/**    * By acquiring a log sequence ID, we can allow log messages    * to continue while we flush the cache.    *    * Set a flag so that we do not roll the log between the start    * and complete of a cache-flush.  Otherwise the log-seq-id for    * the flush will not appear in the correct logfile.    * @return sequence ID to pass {@link #completeCacheFlush(Text, Text, long)}    * @see {@link #completeCacheFlush(Text, Text, long)}    */
+comment|/**    * By acquiring a log sequence ID, we can allow log messages    * to continue while we flush the cache.    *    * Set a flag so that we do not roll the log between the start    * and complete of a cache-flush.  Otherwise the log-seq-id for    * the flush will not appear in the correct logfile.    * @return sequence ID to pass {@link #completeCacheFlush(Text, Text, long)}    * @see #completeCacheFlush(Text, Text, long)    */
 specifier|public
 specifier|synchronized
 name|long
