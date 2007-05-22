@@ -194,7 +194,7 @@ import|;
 end_import
 
 begin_comment
-comment|/*******************************************************************************  * HClient manages a connection to a single HRegionServer.  ******************************************************************************/
+comment|/**  * HClient manages a connection to a single HRegionServer.  */
 end_comment
 
 begin_class
@@ -242,10 +242,6 @@ init|=
 operator|new
 name|Text
 argument_list|()
-decl_stmt|;
-specifier|private
-name|boolean
-name|closed
 decl_stmt|;
 specifier|private
 name|long
@@ -365,12 +361,6 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|closed
-operator|=
-literal|false
-expr_stmt|;
-name|this
-operator|.
 name|conf
 operator|=
 name|conf
@@ -481,28 +471,6 @@ name|Random
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Check client is open.    */
-specifier|private
-name|void
-name|checkOpen
-parameter_list|()
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|closed
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalStateException
-argument_list|(
-literal|"client is not open"
-argument_list|)
-throw|;
-block|}
-block|}
 comment|/**    * Find the address of the master and connect to it    */
 specifier|private
 name|void
@@ -554,6 +522,8 @@ operator|.
 name|get
 argument_list|(
 name|MASTER_ADDRESS
+argument_list|,
+name|DEFAULT_MASTER_ADDRESS
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -712,9 +682,6 @@ literal|" is a reserved table name"
 argument_list|)
 throw|;
 block|}
-name|checkOpen
-argument_list|()
-expr_stmt|;
 name|checkMaster
 argument_list|()
 expr_stmt|;
@@ -742,9 +709,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|checkOpen
-argument_list|()
-expr_stmt|;
 name|checkMaster
 argument_list|()
 expr_stmt|;
@@ -769,9 +733,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|checkOpen
-argument_list|()
-expr_stmt|;
 name|checkMaster
 argument_list|()
 expr_stmt|;
@@ -816,9 +777,6 @@ literal|"table name cannot be null or zero length"
 argument_list|)
 throw|;
 block|}
-name|checkOpen
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|tableServers
@@ -1469,12 +1427,6 @@ operator|==
 literal|null
 condition|)
 block|{
-name|this
-operator|.
-name|closed
-operator|=
-literal|true
-expr_stmt|;
 throw|throw
 operator|new
 name|IOException
@@ -2129,36 +2081,6 @@ block|}
 return|return
 name|server
 return|;
-block|}
-comment|/** Close the connection */
-specifier|public
-specifier|synchronized
-name|void
-name|close
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-if|if
-condition|(
-operator|!
-name|this
-operator|.
-name|closed
-condition|)
-block|{
-name|RPC
-operator|.
-name|stopClient
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|closed
-operator|=
-literal|true
-expr_stmt|;
-block|}
 block|}
 comment|/**    * List all the userspace tables.  In other words, scan the META table.    *    * If we wanted this to be really fast, we could implement a special    * catalog table that just contains table names and their descriptors.    * Right now, it only exists as part of the META table's region info.    */
 specifier|public
@@ -4597,6 +4519,7 @@ literal|" createTable webcrawl contents: anchors: 10"
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
 name|int
 name|doCommandLine
 parameter_list|(

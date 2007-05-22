@@ -41,7 +41,7 @@ parameter_list|()
 block|{
 name|this
 argument_list|(
-literal|false
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -56,7 +56,7 @@ name|this
 argument_list|(
 name|name
 argument_list|,
-literal|false
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
