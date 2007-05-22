@@ -105,6 +105,20 @@ name|*
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|locks
+operator|.
+name|ReentrantReadWriteLock
+import|;
+end_import
+
 begin_comment
 comment|/**  * HRegion stores data for a certain region of a table.  It stores all columns  * for each row. A given table consists of one or more HRegions.  *  *<p>We maintain multiple HStores for a single HRegion.  *   *<p>An HStore is a set of rows with some column data; together,  * they make up all the data for the rows.    *  *<p>Each HRegion has a 'startKey' and 'endKey'.  *     *<p>The first is inclusive, the second is exclusive (except for  * the final region)  The endKey of region 0 is the same as  * startKey for region 1 (if it exists).  The startKey for the  * first region is null. The endKey for the final region is null.  *  *<p>The HStores have no locking built-in.  All row-level locking  * and row-level atomicity is provided by the HRegion.  *   *<p>An HRegion is defined by its table and its key extent.  *   *<p>It consists of at least one HStore.  The number of HStores should be   * configurable, so that data which is accessed together is stored in the same  * HStore.  Right now, we approximate that by building a single HStore for   * each column family.  (This config info will be communicated via the   * tabledesc.)  *   * The HTableDescriptor contains metainfo about the HRegion's table.  * regionName is a unique identifier for this HRegion. (startKey, endKey]  * defines the keyspace for this HRegion.  */
 end_comment
@@ -1423,10 +1437,14 @@ name|compactionThreshold
 init|=
 literal|0
 decl_stmt|;
-name|HLocking
+specifier|private
+specifier|final
+name|ReentrantReadWriteLock
 name|lock
 init|=
-literal|null
+operator|new
+name|ReentrantReadWriteLock
+argument_list|()
 decl_stmt|;
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Constructor
@@ -1520,14 +1538,6 @@ operator|.
 name|closed
 operator|=
 literal|false
-expr_stmt|;
-name|this
-operator|.
-name|lock
-operator|=
-operator|new
-name|HLocking
-argument_list|()
 expr_stmt|;
 comment|// Declare the regionName.  This is a unique string for the region, used to
 comment|// build a unique filename.
@@ -1860,7 +1870,10 @@ name|IOException
 block|{
 name|lock
 operator|.
-name|obtainWriteLock
+name|writeLock
+argument_list|()
+operator|.
+name|lock
 argument_list|()
 expr_stmt|;
 try|try
@@ -2058,7 +2071,10 @@ finally|finally
 block|{
 name|lock
 operator|.
-name|releaseWriteLock
+name|writeLock
+argument_list|()
+operator|.
+name|unlock
 argument_list|()
 expr_stmt|;
 block|}
@@ -2879,7 +2895,10 @@ parameter_list|)
 block|{
 name|lock
 operator|.
-name|obtainReadLock
+name|readLock
+argument_list|()
+operator|.
+name|lock
 argument_list|()
 expr_stmt|;
 try|try
@@ -2973,7 +2992,10 @@ finally|finally
 block|{
 name|lock
 operator|.
-name|releaseReadLock
+name|readLock
+argument_list|()
+operator|.
+name|unlock
 argument_list|()
 expr_stmt|;
 block|}
@@ -2991,7 +3013,10 @@ literal|false
 decl_stmt|;
 name|lock
 operator|.
-name|obtainReadLock
+name|readLock
+argument_list|()
+operator|.
+name|lock
 argument_list|()
 expr_stmt|;
 try|try
@@ -3044,7 +3069,10 @@ finally|finally
 block|{
 name|lock
 operator|.
-name|releaseReadLock
+name|readLock
+argument_list|()
+operator|.
+name|unlock
 argument_list|()
 expr_stmt|;
 block|}
@@ -3067,7 +3095,10 @@ literal|false
 decl_stmt|;
 name|lock
 operator|.
-name|obtainReadLock
+name|readLock
+argument_list|()
+operator|.
+name|lock
 argument_list|()
 expr_stmt|;
 try|try
@@ -3119,7 +3150,10 @@ finally|finally
 block|{
 name|lock
 operator|.
-name|releaseReadLock
+name|readLock
+argument_list|()
+operator|.
+name|unlock
 argument_list|()
 expr_stmt|;
 block|}
@@ -3150,7 +3184,10 @@ else|else
 block|{
 name|lock
 operator|.
-name|obtainWriteLock
+name|writeLock
+argument_list|()
+operator|.
+name|lock
 argument_list|()
 expr_stmt|;
 try|try
@@ -3247,7 +3284,10 @@ expr_stmt|;
 block|}
 name|lock
 operator|.
-name|releaseWriteLock
+name|writeLock
+argument_list|()
+operator|.
+name|unlock
 argument_list|()
 expr_stmt|;
 block|}
@@ -3945,7 +3985,10 @@ name|IOException
 block|{
 name|lock
 operator|.
-name|obtainReadLock
+name|readLock
+argument_list|()
+operator|.
+name|lock
 argument_list|()
 expr_stmt|;
 try|try
@@ -4025,7 +4068,10 @@ finally|finally
 block|{
 name|lock
 operator|.
-name|releaseReadLock
+name|readLock
+argument_list|()
+operator|.
+name|unlock
 argument_list|()
 expr_stmt|;
 block|}
@@ -4062,7 +4108,10 @@ argument_list|)
 decl_stmt|;
 name|lock
 operator|.
-name|obtainReadLock
+name|readLock
+argument_list|()
+operator|.
+name|lock
 argument_list|()
 expr_stmt|;
 try|try
@@ -4141,7 +4190,10 @@ finally|finally
 block|{
 name|lock
 operator|.
-name|releaseReadLock
+name|readLock
+argument_list|()
+operator|.
+name|unlock
 argument_list|()
 expr_stmt|;
 block|}
@@ -4163,7 +4215,10 @@ name|IOException
 block|{
 name|lock
 operator|.
-name|obtainReadLock
+name|readLock
+argument_list|()
+operator|.
+name|lock
 argument_list|()
 expr_stmt|;
 try|try
@@ -4292,7 +4347,10 @@ finally|finally
 block|{
 name|lock
 operator|.
-name|releaseReadLock
+name|readLock
+argument_list|()
+operator|.
+name|unlock
 argument_list|()
 expr_stmt|;
 block|}
@@ -4315,7 +4373,10 @@ comment|// We obtain a per-row lock, so other clients will
 comment|// block while one client performs an update.
 name|lock
 operator|.
-name|obtainReadLock
+name|readLock
+argument_list|()
+operator|.
+name|lock
 argument_list|()
 expr_stmt|;
 try|try
@@ -4331,7 +4392,10 @@ finally|finally
 block|{
 name|lock
 operator|.
-name|releaseReadLock
+name|readLock
+argument_list|()
+operator|.
+name|unlock
 argument_list|()
 expr_stmt|;
 block|}

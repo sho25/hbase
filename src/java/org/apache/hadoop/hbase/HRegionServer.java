@@ -133,6 +133,20 @@ name|*
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|locks
+operator|.
+name|ReentrantReadWriteLock
+import|;
+end_import
+
 begin_comment
 comment|/*******************************************************************************  * HRegionServer makes a set of HRegions available to clients.  It checks in with  * the HMaster. There are many HRegionServers in a single HBase deployment.  ******************************************************************************/
 end_comment
@@ -242,8 +256,13 @@ name|regions
 decl_stmt|;
 comment|// region name -> HRegion
 specifier|private
-name|HLocking
+specifier|final
+name|ReentrantReadWriteLock
 name|lock
+init|=
+operator|new
+name|ReentrantReadWriteLock
+argument_list|()
 decl_stmt|;
 specifier|private
 name|Vector
@@ -316,9 +335,14 @@ parameter_list|)
 block|{
 name|lock
 operator|.
-name|obtainWriteLock
+name|writeLock
+argument_list|()
+operator|.
+name|lock
 argument_list|()
 expr_stmt|;
+try|try
+block|{
 name|regions
 operator|.
 name|remove
@@ -326,11 +350,18 @@ argument_list|(
 name|regionName
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|lock
 operator|.
-name|releaseWriteLock
+name|writeLock
+argument_list|()
+operator|.
+name|unlock
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 comment|/* (non-Javadoc)      * @see java.lang.Runnable#run()      */
 specifier|public
@@ -374,7 +405,10 @@ argument_list|()
 decl_stmt|;
 name|lock
 operator|.
-name|obtainReadLock
+name|readLock
+argument_list|()
+operator|.
+name|lock
 argument_list|()
 expr_stmt|;
 try|try
@@ -394,7 +428,10 @@ finally|finally
 block|{
 name|lock
 operator|.
-name|releaseReadLock
+name|readLock
+argument_list|()
+operator|.
+name|unlock
 argument_list|()
 expr_stmt|;
 block|}
@@ -791,9 +828,14 @@ expr_stmt|;
 comment|// Finally, start serving the new regions
 name|lock
 operator|.
-name|obtainWriteLock
+name|writeLock
+argument_list|()
+operator|.
+name|lock
 argument_list|()
 expr_stmt|;
+try|try
+block|{
 name|regions
 operator|.
 name|put
@@ -830,11 +872,18 @@ literal|1
 index|]
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|lock
 operator|.
-name|releaseWriteLock
+name|writeLock
+argument_list|()
+operator|.
+name|unlock
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -1015,7 +1064,10 @@ argument_list|()
 decl_stmt|;
 name|lock
 operator|.
-name|obtainReadLock
+name|readLock
+argument_list|()
+operator|.
+name|lock
 argument_list|()
 expr_stmt|;
 try|try
@@ -1035,7 +1087,10 @@ finally|finally
 block|{
 name|lock
 operator|.
-name|releaseReadLock
+name|readLock
+argument_list|()
+operator|.
+name|unlock
 argument_list|()
 expr_stmt|;
 block|}
@@ -1485,14 +1540,6 @@ name|Text
 argument_list|,
 name|HRegion
 argument_list|>
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|lock
-operator|=
-operator|new
-name|HLocking
 argument_list|()
 expr_stmt|;
 name|this
@@ -3249,7 +3296,10 @@ name|this
 operator|.
 name|lock
 operator|.
-name|obtainWriteLock
+name|writeLock
+argument_list|()
+operator|.
+name|lock
 argument_list|()
 expr_stmt|;
 try|try
@@ -3299,7 +3349,10 @@ name|this
 operator|.
 name|lock
 operator|.
-name|releaseWriteLock
+name|writeLock
+argument_list|()
+operator|.
+name|unlock
 argument_list|()
 expr_stmt|;
 block|}
@@ -3321,7 +3374,10 @@ name|this
 operator|.
 name|lock
 operator|.
-name|obtainWriteLock
+name|writeLock
+argument_list|()
+operator|.
+name|lock
 argument_list|()
 expr_stmt|;
 name|HRegion
@@ -3349,7 +3405,10 @@ name|this
 operator|.
 name|lock
 operator|.
-name|releaseWriteLock
+name|writeLock
+argument_list|()
+operator|.
+name|unlock
 argument_list|()
 expr_stmt|;
 block|}
@@ -3392,7 +3451,10 @@ name|this
 operator|.
 name|lock
 operator|.
-name|obtainWriteLock
+name|writeLock
+argument_list|()
+operator|.
+name|lock
 argument_list|()
 expr_stmt|;
 name|HRegion
@@ -3420,7 +3482,10 @@ name|this
 operator|.
 name|lock
 operator|.
-name|releaseWriteLock
+name|writeLock
+argument_list|()
+operator|.
+name|unlock
 argument_list|()
 expr_stmt|;
 block|}
@@ -3503,7 +3568,10 @@ name|this
 operator|.
 name|lock
 operator|.
-name|obtainWriteLock
+name|writeLock
+argument_list|()
+operator|.
+name|lock
 argument_list|()
 expr_stmt|;
 try|try
@@ -3530,7 +3598,10 @@ name|this
 operator|.
 name|lock
 operator|.
-name|releaseWriteLock
+name|writeLock
+argument_list|()
+operator|.
+name|unlock
 argument_list|()
 expr_stmt|;
 block|}
@@ -3627,7 +3698,7 @@ block|}
 block|}
 block|}
 comment|/*****************************************************************************    * TODO - Figure out how the master is to determine when regions should be    *        merged. It once it makes this determination, it needs to ensure that    *        the regions to be merged are first being served by the same    *        HRegionServer and if not, move them so they are.    *            *        For now, we do not do merging. Splits are driven by the HRegionServer.    ****************************************************************************/
-comment|/*   private void mergeRegions(Text regionNameA, Text regionNameB) throws IOException {     locking.obtainWriteLock();     try {       HRegion srcA = regions.remove(regionNameA);       HRegion srcB = regions.remove(regionNameB);       HRegion newRegion = HRegion.closeAndMerge(srcA, srcB);       regions.put(newRegion.getRegionName(), newRegion);        reportClose(srcA);       reportClose(srcB);       reportOpen(newRegion);            } finally {       locking.releaseWriteLock();     }   } */
+comment|/*   private void mergeRegions(Text regionNameA, Text regionNameB) throws IOException {     locking.writeLock().lock();     try {       HRegion srcA = regions.remove(regionNameA);       HRegion srcB = regions.remove(regionNameB);       HRegion newRegion = HRegion.closeAndMerge(srcA, srcB);       regions.put(newRegion.getRegionName(), newRegion);        reportClose(srcA);       reportClose(srcB);       reportOpen(newRegion);            } finally {       locking.writeLock().unlock();     }   } */
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// HRegionInterface
 comment|//////////////////////////////////////////////////////////////////////////////
@@ -4428,7 +4499,10 @@ name|this
 operator|.
 name|lock
 operator|.
-name|obtainReadLock
+name|readLock
+argument_list|()
+operator|.
+name|lock
 argument_list|()
 expr_stmt|;
 name|HRegion
@@ -4454,7 +4528,10 @@ name|this
 operator|.
 name|lock
 operator|.
-name|releaseReadLock
+name|readLock
+argument_list|()
+operator|.
+name|unlock
 argument_list|()
 expr_stmt|;
 block|}
