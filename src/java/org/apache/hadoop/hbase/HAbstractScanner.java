@@ -160,6 +160,7 @@ comment|// 1. Match on the column family name only
 comment|// 2. Match on the column family + column key regex
 comment|// 3. Simple match: compare column family + column key literally
 specifier|private
+specifier|static
 class|class
 name|ColumnMatcher
 block|{

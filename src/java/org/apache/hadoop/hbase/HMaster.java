@@ -1228,13 +1228,10 @@ specifier|private
 name|Integer
 name|rootScannerLock
 init|=
-operator|new
-name|Integer
-argument_list|(
 literal|0
-argument_list|)
 decl_stmt|;
 specifier|private
+specifier|static
 class|class
 name|MetaRegion
 block|{
@@ -1742,11 +1739,7 @@ specifier|private
 name|Integer
 name|metaScannerLock
 init|=
-operator|new
-name|Integer
-argument_list|(
 literal|0
-argument_list|)
 decl_stmt|;
 comment|// The 'unassignedRegions' table maps from a region name to a HRegionInfo record,
 comment|// which includes the region's table, its id, and its start/end keys.
@@ -4746,11 +4739,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|scannerId
-operator|=
-operator|-
-literal|1L
-expr_stmt|;
 block|}
 comment|// Remove server from root/meta entries
 for|for
@@ -7620,11 +7608,7 @@ name|this
 operator|.
 name|server
 operator|=
-operator|new
-name|String
-argument_list|(
 name|server
-argument_list|)
 expr_stmt|;
 block|}
 specifier|public

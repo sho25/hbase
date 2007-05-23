@@ -254,7 +254,9 @@ parameter_list|(
 name|InterruptedException
 name|iex
 parameter_list|)
-block|{     }
+block|{
+comment|// Ignore
+block|}
 synchronized|synchronized
 init|(
 name|leases
@@ -678,7 +680,9 @@ parameter_list|(
 name|InterruptedException
 name|ie
 parameter_list|)
-block|{         }
+block|{
+comment|// Ignore
+block|}
 block|}
 block|}
 block|}
@@ -835,6 +839,61 @@ operator|.
 name|leaseExpired
 argument_list|()
 expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|equals
+parameter_list|(
+name|Object
+name|obj
+parameter_list|)
+block|{
+return|return
+name|compareTo
+argument_list|(
+name|obj
+argument_list|)
+operator|==
+literal|0
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|int
+name|hashCode
+parameter_list|()
+block|{
+name|int
+name|result
+init|=
+name|this
+operator|.
+name|getLeaseId
+argument_list|()
+operator|.
+name|hashCode
+argument_list|()
+decl_stmt|;
+name|result
+operator|^=
+name|Long
+operator|.
+name|valueOf
+argument_list|(
+name|this
+operator|.
+name|lastUpdate
+argument_list|)
+operator|.
+name|hashCode
+argument_list|()
+expr_stmt|;
+return|return
+name|result
+return|;
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Comparable
