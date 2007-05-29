@@ -493,8 +493,6 @@ operator|new
 name|HTableDescriptor
 argument_list|(
 literal|"test"
-argument_list|,
-literal|3
 argument_list|)
 expr_stmt|;
 name|desc
@@ -502,7 +500,7 @@ operator|.
 name|addFamily
 argument_list|(
 operator|new
-name|Text
+name|HColumnDescriptor
 argument_list|(
 literal|"contents:"
 argument_list|)
@@ -513,7 +511,7 @@ operator|.
 name|addFamily
 argument_list|(
 operator|new
-name|Text
+name|HColumnDescriptor
 argument_list|(
 literal|"anchor:"
 argument_list|)

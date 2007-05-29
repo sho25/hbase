@@ -122,8 +122,6 @@ operator|new
 name|HTableDescriptor
 argument_list|(
 literal|"hank"
-argument_list|,
-literal|10
 argument_list|)
 decl_stmt|;
 name|htd
@@ -131,7 +129,7 @@ operator|.
 name|addFamily
 argument_list|(
 operator|new
-name|Text
+name|HColumnDescriptor
 argument_list|(
 literal|"hankfamily:"
 argument_list|)
@@ -142,9 +140,27 @@ operator|.
 name|addFamily
 argument_list|(
 operator|new
+name|HColumnDescriptor
+argument_list|(
+operator|new
 name|Text
 argument_list|(
 literal|"hankotherfamily:"
+argument_list|)
+argument_list|,
+literal|10
+argument_list|,
+name|HColumnDescriptor
+operator|.
+name|CompressionType
+operator|.
+name|BLOCK
+argument_list|,
+literal|true
+argument_list|,
+literal|1000
+argument_list|,
+literal|false
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -152,12 +168,22 @@ name|assertEquals
 argument_list|(
 literal|"Table descriptor"
 argument_list|,
+literal|"name: hank, families: "
+operator|+
+literal|"{hankfamily:=(hankfamily:, max versions: 3, compression: none, "
+operator|+
+literal|"in memory: false, max value length: 2147483647, bloom filter:false), "
+operator|+
+literal|"hankotherfamily:=(hankotherfamily:, max versions: 10, "
+operator|+
+literal|"compression: block, in memory: true, max value length: 1000, "
+operator|+
+literal|"bloom filter:false)}"
+argument_list|,
 name|htd
 operator|.
 name|toString
 argument_list|()
-argument_list|,
-literal|"name: hank, maxVersions: 10, families: [hankfamily:, hankotherfamily:]"
 argument_list|)
 expr_stmt|;
 name|HRegionInfo
@@ -186,9 +212,19 @@ name|assertEquals
 argument_list|(
 literal|"HRegionInfo"
 argument_list|,
-literal|"regionname: hank__-1, startKey:<>, tableDesc: {name: hank, "
+literal|"regionname: hank__-1, startKey:<>, tableDesc: {"
 operator|+
-literal|"maxVersions: 10, families: [hankfamily:, hankotherfamily:]}"
+literal|"name: hank, "
+operator|+
+literal|"families: {hankfamily:=(hankfamily:, max versions: 3, "
+operator|+
+literal|"compression: none, in memory: false, max value length: 2147483647, "
+operator|+
+literal|"bloom filter:false), hankotherfamily:=(hankotherfamily:, "
+operator|+
+literal|"max versions: 10, compression: block, in memory: true, max value "
+operator|+
+literal|"length: 1000, bloom filter:false)}}"
 argument_list|,
 name|hri
 operator|.

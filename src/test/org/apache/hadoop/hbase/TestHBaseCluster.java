@@ -41,7 +41,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|TreeMap
+name|Set
 import|;
 end_import
 
@@ -51,7 +51,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|TreeSet
+name|TreeMap
 import|;
 end_import
 
@@ -261,8 +261,6 @@ operator|new
 name|HTableDescriptor
 argument_list|(
 literal|"test"
-argument_list|,
-literal|3
 argument_list|)
 expr_stmt|;
 name|desc
@@ -270,9 +268,12 @@ operator|.
 name|addFamily
 argument_list|(
 operator|new
-name|Text
+name|HColumnDescriptor
 argument_list|(
 name|CONTENTS
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -281,9 +282,12 @@ operator|.
 name|addFamily
 argument_list|(
 operator|new
-name|Text
+name|HColumnDescriptor
 argument_list|(
 name|ANCHOR
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1031,7 +1035,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|TreeSet
+name|Set
 argument_list|<
 name|Text
 argument_list|>
@@ -1043,6 +1047,9 @@ literal|0
 index|]
 operator|.
 name|families
+argument_list|()
+operator|.
+name|keySet
 argument_list|()
 decl_stmt|;
 name|assertEquals
@@ -1102,23 +1109,6 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-try|try
-block|{
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-literal|30000
-argument_list|)
-expr_stmt|;
-comment|// Wait for table to be deleted
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{     }
 block|}
 block|}
 end_class

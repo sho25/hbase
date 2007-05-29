@@ -545,8 +545,6 @@ operator|new
 name|HTableDescriptor
 argument_list|(
 name|tableName
-argument_list|,
-literal|1
 argument_list|)
 decl_stmt|;
 name|Text
@@ -572,7 +570,14 @@ name|desc
 operator|.
 name|addFamily
 argument_list|(
+operator|new
+name|HColumnDescriptor
+argument_list|(
 name|f
+operator|.
+name|toString
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -844,6 +849,9 @@ operator|.
 name|tableDesc
 operator|.
 name|families
+argument_list|()
+operator|.
+name|keySet
 argument_list|()
 operator|.
 name|toArray

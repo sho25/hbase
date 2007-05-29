@@ -223,7 +223,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IllegalArgumentException
+name|InvalidColumnNameException
 argument_list|(
 literal|"Column name has no family indicator."
 argument_list|)
