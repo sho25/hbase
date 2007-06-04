@@ -1240,7 +1240,7 @@ index|]
 operator|=
 name|region
 operator|.
-name|obtainLock
+name|obtainRowLock
 argument_list|(
 name|rowid
 argument_list|)
@@ -3853,7 +3853,6 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// NOTE: This test depends on testBatchWrite succeeding
-specifier|private
 name|void
 name|splitAndMerge
 parameter_list|()
@@ -4071,8 +4070,30 @@ block|}
 comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.RegionUnavailableListener#regionIsUnavailable(org.apache.hadoop.io.Text)    */
 specifier|public
 name|void
-name|regionIsUnavailable
+name|closing
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
+specifier|final
+name|Text
+name|regionName
+parameter_list|)
+block|{
+comment|// We don't use this here. It is only for the HRegionServer
+block|}
+specifier|public
+name|void
+name|closed
+parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
+specifier|final
 name|Text
 name|regionName
 parameter_list|)

@@ -740,6 +740,18 @@ operator|.
 name|largestHStore
 argument_list|()
 expr_stmt|;
+name|long
+name|maxFilesize
+init|=
+name|conf
+operator|.
+name|getLong
+argument_list|(
+literal|"hbase.hregion.max.filesize"
+argument_list|,
+name|DEFAULT_MAX_FILE_SIZE
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 operator|(
@@ -749,7 +761,7 @@ name|nextSize
 operator|)
 operator|<=
 operator|(
-name|DESIRED_MAX_FILE_SIZE
+name|maxFilesize
 operator|/
 literal|2
 operator|)

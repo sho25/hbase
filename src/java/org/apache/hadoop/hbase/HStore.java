@@ -1725,7 +1725,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Compaction
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Compact the back-HStores.  This method may take some time, so the calling     * thread must be able to block for long periods.    *     * During this time, the HStore can work as usual, getting values from MapFiles    * and writing new MapFiles from given memcaches.    *     * Existing MapFiles are not destroyed until the new compacted TreeMap is     * completely written-out to disk.    *    * The compactLock block prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *     * We don't want to hold the structureLock for the whole time, as a compact()     * can be lengthy and we want to allow cache-flushes during this period.    */
+comment|/**    * Compact the back-HStores.  This method may take some time, so the calling     * thread must be able to block for long periods.    *     * During this time, the HStore can work as usual, getting values from    * MapFiles and writing new MapFiles from given memcaches.    *     * Existing MapFiles are not destroyed until the new compacted TreeMap is     * completely written-out to disk.    *    * The compactLock block prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *     * We don't want to hold the structureLock for the whole time, as a compact()     * can be lengthy and we want to allow cache-flushes during this period.    */
 specifier|public
 name|void
 name|compact
@@ -1854,32 +1854,12 @@ literal|1
 decl_stmt|;
 for|for
 control|(
-name|Iterator
-argument_list|<
-name|HStoreFile
-argument_list|>
-name|it
-init|=
-name|toCompactFiles
-operator|.
-name|iterator
-argument_list|()
-init|;
-name|it
-operator|.
-name|hasNext
-argument_list|()
-condition|;
-control|)
-block|{
 name|HStoreFile
 name|hsf
-init|=
-name|it
-operator|.
-name|next
-argument_list|()
-decl_stmt|;
+range|:
+name|toCompactFiles
+control|)
+block|{
 name|long
 name|seqid
 init|=
@@ -2716,8 +2696,7 @@ argument_list|,
 name|COMPACTION_DONE
 argument_list|)
 decl_stmt|;
-name|out
-operator|=
+operator|(
 operator|new
 name|DataOutputStream
 argument_list|(
@@ -2728,17 +2707,11 @@ argument_list|(
 name|doneFile
 argument_list|)
 argument_list|)
-expr_stmt|;
-try|try
-block|{         }
-finally|finally
-block|{
-name|out
+operator|)
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
-block|}
 comment|// Move the compaction into place.
 name|processReadyCompaction
 argument_list|()

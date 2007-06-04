@@ -30,7 +30,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used as a callback mechanism so that an HRegion can notify the HRegionServer  * when a region is about to be closed during a split operation. This is done  * to minimize the amount of time the region is off-line.  */
+comment|/**  * Used as a callback mechanism so that an HRegion can notify the HRegionServer  * of the different stages making an HRegion unavailable.  Regions are made  * unavailable during region split operations.  */
 end_comment
 
 begin_interface
@@ -38,10 +38,22 @@ specifier|public
 interface|interface
 name|RegionUnavailableListener
 block|{
+comment|/**    *<code>regionName</code> is closing.    * Listener should stop accepting new writes but can continue to service    * outstanding transactions.    * @param regionName    */
 specifier|public
 name|void
-name|regionIsUnavailable
+name|closing
 parameter_list|(
+specifier|final
+name|Text
+name|regionName
+parameter_list|)
+function_decl|;
+comment|/**    *<code>regionName</code> is closed and no longer available.    * Listener should clean up any references to<code>regionName</code>    * @param regionName    */
+specifier|public
+name|void
+name|closed
+parameter_list|(
+specifier|final
 name|Text
 name|regionName
 parameter_list|)

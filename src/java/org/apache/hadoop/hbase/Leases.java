@@ -360,7 +360,9 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Impossible state for createLease(): Lease for holderId "
+literal|"Impossible state for createLease(): Lease "
+operator|+
+literal|"for holderId "
 operator|+
 name|holderId
 operator|+
@@ -448,7 +450,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Cannot renew lease is not held (holderId="
+literal|"Cannot renew lease; not held (holderId="
 operator|+
 name|holderId
 operator|+

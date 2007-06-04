@@ -127,6 +127,18 @@ name|HREGION_LOGDIR_NAME
 init|=
 literal|"log"
 decl_stmt|;
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_MAX_FILE_SIZE
+init|=
+literal|128
+operator|*
+literal|1024
+operator|*
+literal|1024
+decl_stmt|;
+comment|// 128MB
 comment|// Always store the location of the root table's HRegion.
 comment|// This HRegion is never split.
 comment|// region name = table + startkey + regionid. This is the row key.
@@ -209,18 +221,6 @@ literal|"serverstartcode"
 argument_list|)
 decl_stmt|;
 comment|// Other constants
-specifier|static
-specifier|final
-name|long
-name|DESIRED_MAX_FILE_SIZE
-init|=
-literal|128
-operator|*
-literal|1024
-operator|*
-literal|1024
-decl_stmt|;
-comment|// 128MB
 specifier|static
 specifier|final
 name|String

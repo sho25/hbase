@@ -153,6 +153,10 @@ name|Text
 import|;
 end_import
 
+begin_comment
+comment|/**  * Test of a long-lived scanner validating as we go.  */
+end_comment
+
 begin_class
 specifier|public
 class|class

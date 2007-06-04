@@ -51,6 +51,26 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|NoSuchElementException
 import|;
 end_import
@@ -92,6 +112,18 @@ operator|.
 name|util
 operator|.
 name|TreeSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|TimeUnit
 import|;
 end_import
 
@@ -187,6 +219,54 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|io
+operator|.
+name|retry
+operator|.
+name|RetryPolicy
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|retry
+operator|.
+name|RetryPolicies
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|retry
+operator|.
+name|RetryProxy
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|ipc
 operator|.
 name|RPC
@@ -218,7 +298,6 @@ name|HClient
 implements|implements
 name|HConstants
 block|{
-specifier|private
 specifier|final
 name|Log
 name|LOG
@@ -268,15 +347,9 @@ operator|new
 name|Text
 argument_list|()
 decl_stmt|;
-specifier|private
 name|long
-name|clientTimeout
+name|pause
 decl_stmt|;
-specifier|private
-name|int
-name|numTimeouts
-decl_stmt|;
-specifier|private
 name|int
 name|numRetries
 decl_stmt|;
@@ -289,10 +362,10 @@ specifier|final
 name|Configuration
 name|conf
 decl_stmt|;
-specifier|private
+comment|/*    * Data structure that holds current location for a region and its info.    */
 specifier|static
 class|class
-name|TableInfo
+name|RegionLocation
 block|{
 specifier|public
 name|HRegionInfo
@@ -302,7 +375,7 @@ specifier|public
 name|HServerAddress
 name|serverAddress
 decl_stmt|;
-name|TableInfo
+name|RegionLocation
 parameter_list|(
 name|HRegionInfo
 name|regionInfo
@@ -324,6 +397,30 @@ operator|=
 name|serverAddress
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"address: "
+operator|+
+name|this
+operator|.
+name|serverAddress
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|", regioninfo: "
+operator|+
+name|this
+operator|.
+name|regionInfo
+return|;
+block|}
 block|}
 comment|// Map tableName -> (Map startRow -> (HRegionInfo, HServerAddress)
 specifier|private
@@ -335,7 +432,7 @@ name|SortedMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 argument_list|>
 name|tablesToServers
@@ -346,7 +443,7 @@ name|SortedMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 name|tableServers
 decl_stmt|;
@@ -361,19 +458,15 @@ argument_list|>
 name|servers
 decl_stmt|;
 comment|// For row mutation operations
-specifier|private
 name|Text
 name|currentRegion
 decl_stmt|;
-specifier|private
 name|HRegionInterface
 name|currentServer
 decl_stmt|;
-specifier|private
 name|Random
 name|rand
 decl_stmt|;
-specifier|private
 name|long
 name|clientid
 decl_stmt|;
@@ -393,30 +486,17 @@ name|conf
 expr_stmt|;
 name|this
 operator|.
-name|clientTimeout
+name|pause
 operator|=
 name|conf
 operator|.
 name|getLong
 argument_list|(
-literal|"hbase.client.timeout.length"
+literal|"hbase.client.pause"
 argument_list|,
 literal|30
 operator|*
 literal|1000
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|numTimeouts
-operator|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.client.timeout.number"
-argument_list|,
-literal|5
 argument_list|)
 expr_stmt|;
 name|this
@@ -429,7 +509,7 @@ name|getInt
 argument_list|(
 literal|"hbase.client.retries.number"
 argument_list|,
-literal|2
+literal|5
 argument_list|)
 expr_stmt|;
 name|this
@@ -451,7 +531,7 @@ name|SortedMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 argument_list|>
 argument_list|()
@@ -653,7 +733,7 @@ name|e
 throw|;
 block|}
 block|}
-comment|/* Find the address of the master and connect to it */
+comment|/* Find the address of the master and connect to it    */
 specifier|private
 name|void
 name|checkMaster
@@ -776,9 +856,33 @@ block|{
 comment|// This was our last chance - don't bother sleeping
 break|break;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Attempt "
+operator|+
+name|tries
+operator|+
+literal|" of "
+operator|+
+name|this
+operator|.
+name|numRetries
+operator|+
+literal|" failed with<"
+operator|+
+name|e
+operator|+
+literal|">. Retrying after sleep of "
+operator|+
+name|this
+operator|.
+name|pause
+argument_list|)
+expr_stmt|;
 block|}
-comment|// We either cannot connect to the master or it is not running.
-comment|// Sleep and retry
+comment|// We either cannot connect to master or it is not running. Sleep& retry
 try|try
 block|{
 name|Thread
@@ -787,7 +891,7 @@ name|sleep
 argument_list|(
 name|this
 operator|.
-name|clientTimeout
+name|pause
 argument_list|)
 expr_stmt|;
 block|}
@@ -796,7 +900,9 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{       }
+block|{
+comment|// continue
+block|}
 block|}
 if|if
 condition|(
@@ -905,7 +1011,7 @@ name|SortedMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 name|oldServers
 init|=
@@ -970,7 +1076,7 @@ expr_stmt|;
 name|checkMaster
 argument_list|()
 expr_stmt|;
-name|TableInfo
+name|RegionLocation
 name|firstMetaServer
 init|=
 name|getFirstMetaServerForTable
@@ -1270,31 +1376,13 @@ expr_stmt|;
 block|}
 block|}
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Sleep. Waiting for first region to be deleted from "
-operator|+
-name|tableName
-argument_list|)
-expr_stmt|;
-block|}
 try|try
 block|{
 name|Thread
 operator|.
 name|sleep
 argument_list|(
-name|clientTimeout
+name|pause
 argument_list|)
 expr_stmt|;
 block|}
@@ -1303,44 +1391,21 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{       }
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
 block|{
+comment|// continue
+block|}
+block|}
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
-literal|"Wake. Waiting for first region to be deleted from "
+literal|"table "
 operator|+
 name|tableName
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"table deleted "
 operator|+
-name|tableName
+literal|" deleted"
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 specifier|public
 specifier|synchronized
@@ -1459,7 +1524,7 @@ expr_stmt|;
 name|checkMaster
 argument_list|()
 expr_stmt|;
-name|TableInfo
+name|RegionLocation
 name|firstMetaServer
 init|=
 name|getFirstMetaServerForTable
@@ -1796,7 +1861,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-name|clientTimeout
+name|pause
 argument_list|)
 expr_stmt|;
 block|}
@@ -1805,7 +1870,9 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{       }
+block|{
+comment|// continue
+block|}
 if|if
 condition|(
 name|LOG
@@ -1825,6 +1892,15 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Enabled table "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
 block|}
 specifier|public
 specifier|synchronized
@@ -1845,7 +1921,7 @@ expr_stmt|;
 name|checkMaster
 argument_list|()
 expr_stmt|;
-name|TableInfo
+name|RegionLocation
 name|firstMetaServer
 init|=
 name|getFirstMetaServerForTable
@@ -2181,7 +2257,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-name|clientTimeout
+name|pause
 argument_list|)
 expr_stmt|;
 block|}
@@ -2190,7 +2266,9 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{       }
+block|{
+comment|// continue
+block|}
 if|if
 condition|(
 name|LOG
@@ -2210,6 +2288,15 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Disabled table "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
 block|}
 specifier|public
 specifier|synchronized
@@ -2268,7 +2355,7 @@ throw|;
 block|}
 block|}
 specifier|private
-name|TableInfo
+name|RegionLocation
 name|getFirstMetaServerForTable
 parameter_list|(
 name|Text
@@ -2281,7 +2368,7 @@ name|SortedMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 name|metaservers
 init|=
@@ -2359,6 +2446,26 @@ operator|==
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"No servers for "
+operator|+
+name|tableName
+operator|+
+literal|". Doing a find..."
+argument_list|)
+expr_stmt|;
+block|}
 comment|// We don't know where the table is.
 comment|// Load the information from meta.
 name|this
@@ -2378,7 +2485,7 @@ name|SortedMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 name|findServersForTable
 parameter_list|(
@@ -2392,7 +2499,7 @@ name|SortedMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 name|servers
 init|=
@@ -2440,13 +2547,13 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 argument_list|()
 expr_stmt|;
 for|for
 control|(
-name|TableInfo
+name|RegionLocation
 name|t
 range|:
 name|findMetaServersForTable
@@ -2483,6 +2590,53 @@ name|servers
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|Text
+argument_list|,
+name|RegionLocation
+argument_list|>
+name|e
+range|:
+name|servers
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Server "
+operator|+
+name|e
+operator|.
+name|getKey
+argument_list|()
+operator|+
+literal|" is serving: "
+operator|+
+name|e
+operator|.
+name|getValue
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 return|return
 name|servers
 return|;
@@ -2493,10 +2647,11 @@ name|SortedMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 name|findMetaServersForTable
 parameter_list|(
+specifier|final
 name|Text
 name|tableName
 parameter_list|)
@@ -2507,7 +2662,7 @@ name|SortedMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 name|metaServers
 init|=
@@ -2573,7 +2728,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 name|loadMetaFromRoot
 parameter_list|()
@@ -2584,7 +2739,7 @@ name|SortedMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 name|rootRegion
 init|=
@@ -2625,13 +2780,13 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/*    * Repeatedly try to find the root region by asking the master for where it is    *     * @return TreeMap<Text, TableInfo> for root regin if found    * @throws NoServerForRegionException - if the root region can not be located after retrying    * @throws IOException     */
+comment|/*    * Repeatedly try to find the root region by asking the master for where it is    * @return TreeMap<Text, TableInfo> for root regin if found    * @throws NoServerForRegionException - if the root region can not be located after retrying    * @throws IOException     */
 specifier|private
 name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 name|locateRootRegion
 parameter_list|()
@@ -2653,10 +2808,6 @@ name|tries
 init|=
 literal|0
 init|;
-name|rootRegionLocation
-operator|==
-literal|null
-operator|&&
 name|tries
 operator|<
 name|numRetries
@@ -2678,7 +2829,7 @@ literal|null
 operator|&&
 name|localTimeouts
 operator|<
-name|numTimeouts
+name|numRetries
 condition|)
 block|{
 name|rootRegionLocation
@@ -2719,7 +2870,7 @@ name|sleep
 argument_list|(
 name|this
 operator|.
-name|clientTimeout
+name|pause
 argument_list|)
 expr_stmt|;
 if|if
@@ -2744,7 +2895,9 @@ parameter_list|(
 name|InterruptedException
 name|iex
 parameter_list|)
-block|{           }
+block|{
+comment|// continue
+block|}
 name|localTimeouts
 operator|++
 expr_stmt|;
@@ -2831,7 +2984,7 @@ name|sleep
 argument_list|(
 name|this
 operator|.
-name|clientTimeout
+name|pause
 argument_list|)
 expr_stmt|;
 if|if
@@ -2856,7 +3009,9 @@ parameter_list|(
 name|InterruptedException
 name|iex
 parameter_list|)
-block|{         }
+block|{
+comment|// continue
+block|}
 block|}
 name|rootRegionLocation
 operator|=
@@ -2882,7 +3037,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 name|rootServer
 init|=
@@ -2891,7 +3046,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -2902,7 +3057,7 @@ argument_list|(
 name|EMPTY_START_ROW
 argument_list|,
 operator|new
-name|TableInfo
+name|RegionLocation
 argument_list|(
 name|HGlobals
 operator|.
@@ -2933,11 +3088,11 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 name|scanRoot
 parameter_list|(
-name|TableInfo
+name|RegionLocation
 name|rootRegion
 parameter_list|)
 throws|throws
@@ -2947,7 +3102,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 name|metaservers
 init|=
@@ -2973,19 +3128,21 @@ return|return
 name|metaservers
 return|;
 block|}
-comment|/*    * Scans a single meta region    * @param t the meta region we're going to scan    * @param tableName the name of the table we're looking for    * @return returns a map of startingRow to TableInfo    * @throws NoSuchElementException - if table does not exist    * @throws IllegalStateException - if table is offline    * @throws NoServerForRegionException - if table can not be found after retrying    * @throws IOException     */
+comment|/*    * Scans a single meta region    * @param t the meta region we're going to scan    * @param tableName the name of the table we're looking for    * @return returns a map of startingRow to TableInfo    * @throws RegionNotFoundException - if table does not exist    * @throws IllegalStateException - if table is offline    * @throws NoServerForRegionException - if table can not be found after retrying    * @throws IOException     */
 specifier|private
 name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 name|scanOneMetaRegion
 parameter_list|(
-name|TableInfo
+specifier|final
+name|RegionLocation
 name|t
 parameter_list|,
+specifier|final
 name|Text
 name|tableName
 parameter_list|)
@@ -3006,7 +3163,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 name|servers
 init|=
@@ -3015,7 +3172,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -3132,17 +3289,50 @@ block|{
 comment|// If we didn't find any servers then the table does not exist
 throw|throw
 operator|new
-name|NoSuchElementException
+name|RegionNotFoundException
 argument_list|(
 literal|"table '"
 operator|+
 name|tableName
 operator|+
-literal|"' does not exist"
+literal|"' does not exist in "
+operator|+
+name|t
 argument_list|)
 throw|;
 block|}
 comment|// We found at least one server for the table and now we're done.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Found "
+operator|+
+name|servers
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" server(s) for "
+operator|+
+literal|"location: "
+operator|+
+name|t
+operator|+
+literal|" for tablename "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
+block|}
 break|break;
 block|}
 name|byte
@@ -3296,6 +3486,24 @@ argument_list|)
 condition|)
 block|{
 comment|// We're done
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Found "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
+block|}
 break|break;
 block|}
 if|if
@@ -3385,7 +3593,7 @@ operator|.
 name|startKey
 argument_list|,
 operator|new
-name|TableInfo
+name|RegionLocation
 argument_list|(
 name|regionInfo
 argument_list|,
@@ -3471,6 +3679,16 @@ literal|" retries"
 argument_list|)
 throw|;
 block|}
+if|if
+condition|(
+name|servers
+operator|.
+name|size
+argument_list|()
+operator|<=
+literal|0
+condition|)
+block|{
 comment|// The table is not yet being served. Sleep and retry.
 if|if
 condition|(
@@ -3500,7 +3718,7 @@ name|sleep
 argument_list|(
 name|this
 operator|.
-name|clientTimeout
+name|pause
 argument_list|)
 expr_stmt|;
 block|}
@@ -3509,7 +3727,9 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{       }
+block|{
+comment|// continue
+block|}
 if|if
 condition|(
 name|LOG
@@ -3527,6 +3747,7 @@ operator|+
 name|tableName
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 return|return
@@ -3641,7 +3862,7 @@ name|SortedMap
 argument_list|<
 name|Text
 argument_list|,
-name|TableInfo
+name|RegionLocation
 argument_list|>
 name|metaTables
 init|=
@@ -3670,7 +3891,7 @@ expr_stmt|;
 block|}
 for|for
 control|(
-name|TableInfo
+name|RegionLocation
 name|t
 range|:
 name|metaTables
@@ -3878,10 +4099,6 @@ block|}
 block|}
 block|}
 return|return
-operator|(
-name|HTableDescriptor
-index|[]
-operator|)
 name|uniqueTables
 operator|.
 name|toArray
@@ -3897,10 +4114,10 @@ index|]
 argument_list|)
 return|;
 block|}
-specifier|private
+comment|/*    * Find region location hosting passed row using cached info    * @param row Row to find.    * @return Location of row.    */
 specifier|synchronized
-name|TableInfo
-name|getTableInfo
+name|RegionLocation
+name|getRegionLocation
 parameter_list|(
 name|Text
 name|row
@@ -3949,10 +4166,7 @@ comment|// Only one server will have the row we are looking for
 name|Text
 name|serverKey
 init|=
-literal|null
-decl_stmt|;
-if|if
-condition|(
+operator|(
 name|this
 operator|.
 name|tableServers
@@ -3961,17 +4175,10 @@ name|containsKey
 argument_list|(
 name|row
 argument_list|)
-condition|)
-block|{
-name|serverKey
-operator|=
+operator|)
+condition|?
 name|row
-expr_stmt|;
-block|}
-else|else
-block|{
-name|serverKey
-operator|=
+else|:
 name|this
 operator|.
 name|tableServers
@@ -3983,8 +4190,7 @@ argument_list|)
 operator|.
 name|lastKey
 argument_list|()
-expr_stmt|;
-block|}
+decl_stmt|;
 return|return
 name|this
 operator|.
@@ -3996,18 +4202,37 @@ name|serverKey
 argument_list|)
 return|;
 block|}
-specifier|private
+comment|/*    * Clear caches of passed region location, reload servers for the passed    * region's table and then ensure region location can be found.    * @param info Region location to find.    * @throws IOException    */
 specifier|synchronized
 name|void
 name|findRegion
 parameter_list|(
-name|TableInfo
+specifier|final
+name|RegionLocation
 name|info
 parameter_list|)
 throws|throws
 name|IOException
 block|{
 comment|// Wipe out everything we know about this table
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Wiping out all we know of "
+operator|+
+name|info
+argument_list|)
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|tablesToServers
@@ -4050,6 +4275,29 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Result of findRegion: "
+operator|+
+name|this
+operator|.
+name|tableServers
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
 name|this
 operator|.
 name|tableServers
@@ -4068,17 +4316,16 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|RegionNotFoundException
 argument_list|(
-literal|"region "
-operator|+
 name|info
 operator|.
 name|regionInfo
 operator|.
 name|regionName
-operator|+
-literal|" does not exist"
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 throw|;
 block|}
@@ -4098,7 +4345,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|TableInfo
+name|RegionLocation
 name|info
 init|=
 literal|null
@@ -4129,7 +4376,7 @@ control|)
 block|{
 name|info
 operator|=
-name|getTableInfo
+name|getRegionLocation
 argument_list|(
 name|row
 argument_list|)
@@ -4257,7 +4504,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|TableInfo
+name|RegionLocation
 name|info
 init|=
 literal|null
@@ -4289,7 +4536,7 @@ control|)
 block|{
 name|info
 operator|=
-name|getTableInfo
+name|getRegionLocation
 argument_list|(
 name|row
 argument_list|)
@@ -4480,7 +4727,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|TableInfo
+name|RegionLocation
 name|info
 init|=
 literal|null
@@ -4512,7 +4759,7 @@ control|)
 block|{
 name|info
 operator|=
-name|getTableInfo
+name|getRegionLocation
 argument_list|(
 name|row
 argument_list|)
@@ -4695,7 +4942,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|TableInfo
+name|RegionLocation
 name|info
 init|=
 literal|null
@@ -4727,7 +4974,7 @@ control|)
 block|{
 name|info
 operator|=
-name|getTableInfo
+name|getRegionLocation
 argument_list|(
 name|row
 argument_list|)
@@ -4833,58 +5080,215 @@ name|startRow
 argument_list|)
 return|;
 block|}
-comment|/** Start an atomic row insertion or update */
+comment|/*    * @return General HClient RetryPolicy instance.    */
+name|RetryPolicy
+name|getRetryPolicy
+parameter_list|()
+block|{
+name|Map
+argument_list|<
+name|Class
+argument_list|<
+name|?
+extends|extends
+name|Exception
+argument_list|>
+argument_list|,
+name|RetryPolicy
+argument_list|>
+name|exceptionToPolicyMap
+init|=
+operator|new
+name|HashMap
+argument_list|<
+name|Class
+argument_list|<
+name|?
+extends|extends
+name|Exception
+argument_list|>
+argument_list|,
+name|RetryPolicy
+argument_list|>
+argument_list|()
+decl_stmt|;
+comment|// Pass numRetries - 1 because it does less-than-equal internally rather
+comment|// than the less-than we do elsewhere where we use numRetries.
+name|RetryPolicy
+name|rp
+init|=
+name|RetryPolicies
+operator|.
+name|retryUpToMaximumCountWithProportionalSleep
+argument_list|(
+name|numRetries
+argument_list|,
+name|this
+operator|.
+name|pause
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+decl_stmt|;
+name|exceptionToPolicyMap
+operator|.
+name|put
+argument_list|(
+name|NotServingRegionException
+operator|.
+name|class
+argument_list|,
+name|rp
+argument_list|)
+expr_stmt|;
+name|exceptionToPolicyMap
+operator|.
+name|put
+argument_list|(
+name|WrongRegionException
+operator|.
+name|class
+argument_list|,
+name|rp
+argument_list|)
+expr_stmt|;
+name|exceptionToPolicyMap
+operator|.
+name|put
+argument_list|(
+name|RegionNotFoundException
+operator|.
+name|class
+argument_list|,
+name|rp
+argument_list|)
+expr_stmt|;
+return|return
+name|RetryPolicies
+operator|.
+name|retryByRemoteException
+argument_list|(
+name|RetryPolicies
+operator|.
+name|TRY_ONCE_THEN_FAIL
+argument_list|,
+name|exceptionToPolicyMap
+argument_list|)
+return|;
+block|}
+comment|/*    * Interface for {@link #startUpate()} used by the    * {@link org.apache.hadoop.io.retry} mechanism.     */
+specifier|private
+interface|interface
+name|StartUpdateInterface
+block|{
+comment|/**      * @return row lockid for the update      * @throws IOException      */
+name|long
+name|startUpdate
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+block|}
+comment|/* Start an atomic row insertion or update    * @param row Name of row to start update against.    * @return Row lockid.    */
 specifier|public
 name|long
 name|startUpdate
 parameter_list|(
+specifier|final
 name|Text
 name|row
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|TableInfo
+comment|// Implemention of the StartUpdate interface.
+name|StartUpdateInterface
+name|implementation
+init|=
+operator|new
+name|StartUpdateInterface
+argument_list|()
+block|{
+specifier|private
+name|RegionLocation
 name|info
 init|=
 literal|null
 decl_stmt|;
-name|long
-name|lockid
-init|=
-operator|-
-literal|1L
-decl_stmt|;
-for|for
-control|(
+specifier|private
 name|int
-name|tries
+name|attempts
 init|=
 literal|0
-init|;
-name|tries
-operator|<
-name|numRetries
-operator|&&
-name|info
-operator|==
-literal|null
-condition|;
-name|tries
-operator|++
-control|)
+decl_stmt|;
+comment|/*        * Wrapped method.  Proxy wrapper is configured to judge whether        * exception merits retry.        * @return lockid        * @throws IOException        */
+specifier|public
+name|long
+name|startUpdate
+parameter_list|()
+throws|throws
+name|IOException
 block|{
+name|this
+operator|.
+name|attempts
+operator|++
+expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|info
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Retry of startUpdate.  Attempt "
+operator|+
+name|this
+operator|.
+name|attempts
+operator|+
+literal|" for row "
+operator|+
+name|row
+argument_list|)
+expr_stmt|;
+comment|// If a retry. Something wrong w/ region we have. Refind.
+try|try
+block|{
+name|findRegion
+argument_list|(
+name|info
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|RegionNotFoundException
+name|e
+parameter_list|)
+block|{
+comment|// continue.  If no longer exists, perhaps we just came through
+comment|// a split and region is now gone. Below getRegionLocation should
+comment|// recalibrate client.
+block|}
+block|}
+name|this
+operator|.
 name|info
 operator|=
-name|getTableInfo
+name|getRegionLocation
 argument_list|(
 name|row
 argument_list|)
 expr_stmt|;
-try|try
-block|{
-name|this
-operator|.
 name|currentServer
 operator|=
 name|getHRegionConnection
@@ -4894,8 +5298,6 @@ operator|.
 name|serverAddress
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
 name|currentRegion
 operator|=
 name|info
@@ -4904,8 +5306,6 @@ name|regionInfo
 operator|.
 name|regionName
 expr_stmt|;
-name|this
-operator|.
 name|clientid
 operator|=
 name|rand
@@ -4913,79 +5313,48 @@ operator|.
 name|nextLong
 argument_list|()
 expr_stmt|;
-name|lockid
-operator|=
+return|return
 name|currentServer
 operator|.
 name|startUpdate
 argument_list|(
-name|this
-operator|.
 name|currentRegion
 argument_list|,
-name|this
-operator|.
 name|clientid
 argument_list|,
 name|row
 argument_list|)
-expr_stmt|;
+return|;
 block|}
-catch|catch
-parameter_list|(
-name|NotServingRegionException
-name|e
-parameter_list|)
-block|{
-if|if
-condition|(
-name|tries
-operator|==
-name|numRetries
-operator|-
-literal|1
-condition|)
-block|{
-comment|// No more tries
-throw|throw
-name|e
-throw|;
 block|}
-name|findRegion
+decl_stmt|;
+comment|// Get retry proxy wrapper around 'implementation'.
+name|StartUpdateInterface
+name|retryProxy
+init|=
+operator|(
+name|StartUpdateInterface
+operator|)
+name|RetryProxy
+operator|.
+name|create
 argument_list|(
-name|info
+name|StartUpdateInterface
+operator|.
+name|class
+argument_list|,
+name|implementation
+argument_list|,
+name|getRetryPolicy
+argument_list|()
 argument_list|)
-expr_stmt|;
-name|info
-operator|=
-literal|null
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|this
-operator|.
-name|currentServer
-operator|=
-literal|null
-expr_stmt|;
-name|this
-operator|.
-name|currentRegion
-operator|=
-literal|null
-expr_stmt|;
-throw|throw
-name|e
-throw|;
-block|}
-block|}
+decl_stmt|;
+comment|// Run retry.
 return|return
-name|lockid
+name|retryProxy
+operator|.
+name|startUpdate
+argument_list|()
 return|;
 block|}
 comment|/** Change a value for the specified column */
@@ -5065,7 +5434,15 @@ parameter_list|(
 name|IOException
 name|e2
 parameter_list|)
-block|{       }
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|e2
+argument_list|)
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|currentServer
@@ -5150,7 +5527,15 @@ parameter_list|(
 name|IOException
 name|e2
 parameter_list|)
-block|{       }
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|e2
+argument_list|)
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|currentServer
@@ -5290,7 +5675,7 @@ name|boolean
 name|closed
 decl_stmt|;
 specifier|private
-name|TableInfo
+name|RegionLocation
 index|[]
 name|regions
 decl_stmt|;
@@ -5375,7 +5760,7 @@ expr_stmt|;
 block|}
 name|Collection
 argument_list|<
-name|TableInfo
+name|RegionLocation
 argument_list|>
 name|info
 init|=
@@ -5398,7 +5783,7 @@ operator|.
 name|toArray
 argument_list|(
 operator|new
-name|TableInfo
+name|RegionLocation
 index|[
 name|info
 operator|.
@@ -5562,7 +5947,7 @@ name|tries
 operator|++
 control|)
 block|{
-name|TableInfo
+name|RegionLocation
 name|info
 init|=
 name|this
@@ -5975,7 +6360,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" createTable  Takes table name, column families,... "
+literal|" createTable  Create named table."
 argument_list|)
 expr_stmt|;
 name|System
@@ -5984,7 +6369,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" deleteTable  Takes a table name."
+literal|" deleteTable  Delete named table."
 argument_list|)
 expr_stmt|;
 name|System
@@ -5993,7 +6378,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" iistTables   List all tables."
+literal|" listTables   List all tables."
 argument_list|)
 expr_stmt|;
 name|System
@@ -6041,6 +6426,168 @@ name|getName
 argument_list|()
 operator|+
 literal|" createTable webcrawl contents: anchors: 10"
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|printCreateTableUsage
+parameter_list|(
+specifier|final
+name|String
+name|message
+parameter_list|)
+block|{
+if|if
+condition|(
+name|message
+operator|!=
+literal|null
+operator|&&
+name|message
+operator|.
+name|length
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+name|message
+argument_list|)
+expr_stmt|;
+block|}
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"Usage: java "
+operator|+
+name|this
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" [options] createTable<name><colfamily1> ...<max_versions>"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"Example Usage:"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" % java "
+operator|+
+name|this
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" createTable testtable column_x column_y column_z 3"
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|printDeleteTableUsage
+parameter_list|(
+specifier|final
+name|String
+name|message
+parameter_list|)
+block|{
+if|if
+condition|(
+name|message
+operator|!=
+literal|null
+operator|&&
+name|message
+operator|.
+name|length
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+name|message
+argument_list|)
+expr_stmt|;
+block|}
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"Usage: java "
+operator|+
+name|this
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" [options] deleteTable<name>"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"Example Usage:"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" % java "
+operator|+
+name|this
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" deleteTable testtable"
 argument_list|)
 expr_stmt|;
 block|}
@@ -6264,15 +6811,18 @@ operator|.
 name|length
 condition|)
 block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
+name|printCreateTableUsage
 argument_list|(
-literal|"Must supply a table name "
+literal|"Error: Supply a table name,"
 operator|+
-literal|"and at least one column family"
+literal|" at least one column family, and maximum versions"
 argument_list|)
-throw|;
+expr_stmt|;
+name|errCode
+operator|=
+literal|1
+expr_stmt|;
+break|break;
 block|}
 name|HTableDescriptor
 name|desc
@@ -6383,13 +6933,16 @@ operator|.
 name|length
 condition|)
 block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
+name|printDeleteTableUsage
 argument_list|(
-literal|"Must supply a table name"
+literal|"Error: Must supply a table name"
 argument_list|)
-throw|;
+expr_stmt|;
+name|errCode
+operator|=
+literal|1
+expr_stmt|;
+break|break;
 block|}
 name|deleteTable
 argument_list|(

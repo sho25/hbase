@@ -132,7 +132,7 @@ import|;
 end_import
 
 begin_comment
-comment|/*******************************************************************************  * The HMemcache holds in-memory modifications to the HRegion.  This is really a  * wrapper around a TreeMap that helps us when staging the Memcache out to disk.  ******************************************************************************/
+comment|/**  * The HMemcache holds in-memory modifications to the HRegion.  This is really a  * wrapper around a TreeMap that helps us when staging the Memcache out to disk.  */
 end_comment
 
 begin_class
@@ -141,7 +141,6 @@ class|class
 name|HMemcache
 block|{
 specifier|private
-specifier|static
 specifier|final
 name|Log
 name|LOG
@@ -150,9 +149,13 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|HMemcache
+name|this
 operator|.
-name|class
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|TreeMap
@@ -205,7 +208,6 @@ name|snapshot
 init|=
 literal|null
 decl_stmt|;
-specifier|private
 specifier|final
 name|HLocking
 name|lock
@@ -551,9 +553,11 @@ specifier|public
 name|void
 name|add
 parameter_list|(
+specifier|final
 name|Text
 name|row
 parameter_list|,
+specifier|final
 name|TreeMap
 argument_list|<
 name|Text
@@ -562,6 +566,7 @@ name|BytesWritable
 argument_list|>
 name|columns
 parameter_list|,
+specifier|final
 name|long
 name|timestamp
 parameter_list|)
@@ -1413,21 +1418,20 @@ name|i
 operator|++
 control|)
 block|{
-if|if
-condition|(
+name|keyIterators
+index|[
+name|i
+index|]
+operator|=
+operator|(
 name|firstRow
 operator|.
 name|getLength
 argument_list|()
 operator|!=
 literal|0
-condition|)
-block|{
-name|keyIterators
-index|[
-name|i
-index|]
-operator|=
+operator|)
+condition|?
 name|backingMaps
 index|[
 name|i
@@ -1443,15 +1447,7 @@ argument_list|()
 operator|.
 name|iterator
 argument_list|()
-expr_stmt|;
-block|}
-else|else
-block|{
-name|keyIterators
-index|[
-name|i
-index|]
-operator|=
+else|:
 name|backingMaps
 index|[
 name|i
@@ -1463,7 +1459,6 @@ operator|.
 name|iterator
 argument_list|()
 expr_stmt|;
-block|}
 while|while
 condition|(
 name|getNext
@@ -1519,7 +1514,7 @@ name|ex
 throw|;
 block|}
 block|}
-comment|/**      * The user didn't want to start scanning at the first row. This method      * seeks to the requested row.      *      * @param i         - which iterator to advance      * @param firstRow  - seek to this row      * @return          - true if this is the first row      */
+comment|/**      * The user didn't want to start scanning at the first row. This method      * seeks to the requested row.      *      * @param i which iterator to advance      * @param firstRow seek to this row      * @return true if this is the first row      */
 name|boolean
 name|findFirstRow
 parameter_list|(
@@ -1564,7 +1559,7 @@ operator|)
 operator|)
 return|;
 block|}
-comment|/**      * Get the next value from the specified iterater.      *       * @param i - which iterator to fetch next value from      * @return - true if there is more data available      */
+comment|/**      * Get the next value from the specified iterater.      *       * @param i Which iterator to fetch next value from      * @return true if there is more data available      */
 name|boolean
 name|getNext
 parameter_list|(

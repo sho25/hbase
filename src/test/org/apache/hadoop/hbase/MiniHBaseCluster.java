@@ -643,8 +643,6 @@ name|i
 operator|++
 control|)
 block|{
-try|try
-block|{
 name|regionServers
 index|[
 name|i
@@ -653,19 +651,6 @@ operator|.
 name|stop
 argument_list|()
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 name|master
 operator|.
@@ -705,7 +690,9 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{       }
+block|{
+comment|// continue
+block|}
 block|}
 try|try
 block|{
@@ -720,7 +707,9 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{     }
+block|{
+comment|// continue
+block|}
 name|LOG
 operator|.
 name|info

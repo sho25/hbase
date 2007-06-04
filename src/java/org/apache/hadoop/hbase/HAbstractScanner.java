@@ -63,6 +63,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|io
@@ -125,8 +153,24 @@ name|HAbstractScanner
 implements|implements
 name|HInternalScannerInterface
 block|{
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|this
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+decl_stmt|;
 comment|// Pattern to determine if a column key is a regex
-specifier|private
 specifier|static
 name|Pattern
 name|isRegexPattern
@@ -153,7 +197,6 @@ comment|// Column family + matches regex
 name|SIMPLE
 comment|// Literal matching
 block|}
-empty_stmt|;
 comment|// This class provides column matching functions that are more sophisticated
 comment|// than a simple string compare. There are three types of matching:
 comment|// 1. Match on the column family name only
@@ -374,7 +417,7 @@ name|boolean
 name|matches
 parameter_list|(
 name|Text
-name|col
+name|c
 parameter_list|)
 throws|throws
 name|IOException
@@ -391,7 +434,7 @@ name|SIMPLE
 condition|)
 block|{
 return|return
-name|col
+name|c
 operator|.
 name|equals
 argument_list|(
@@ -414,7 +457,7 @@ name|FAMILY_ONLY
 condition|)
 block|{
 return|return
-name|col
+name|c
 operator|.
 name|toString
 argument_list|()
@@ -446,7 +489,7 @@ name|columnMatcher
 operator|.
 name|matcher
 argument_list|(
-name|col
+name|c
 operator|.
 name|toString
 argument_list|()
@@ -874,7 +917,7 @@ operator|.
 name|multipleMatchers
 return|;
 block|}
-comment|/**    * Get the next set of values for this scanner.    *     * @param key - The key that matched    * @param results - all the results for that key.    * @return - true if a match was found    *     * @see org.apache.hadoop.hbase.HScannerInterface#next(org.apache.hadoop.hbase.HStoreKey, java.util.TreeMap)    */
+comment|/**    * Get the next set of values for this scanner.    *     * @param key The key that matched    * @param results All the results for<code>key</code>    * @return true if a match was found    *     * @see org.apache.hadoop.hbase.HScannerInterface#next(org.apache.hadoop.hbase.HStoreKey, java.util.TreeMap)    */
 specifier|public
 name|boolean
 name|next

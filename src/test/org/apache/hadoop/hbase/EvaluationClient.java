@@ -132,8 +132,7 @@ literal|1024
 operator|*
 literal|1024
 operator|*
-literal|1
-comment|/*100 RESTORE*/
+literal|100
 decl_stmt|;
 specifier|private
 specifier|static
@@ -226,7 +225,6 @@ name|SEQUENTIAL_WRITE
 block|,
 name|SCAN
 block|}
-empty_stmt|;
 specifier|private
 name|Random
 name|rand
@@ -1020,15 +1018,15 @@ block|{
 for|for
 control|(
 name|int
-name|range
+name|i
 init|=
 literal|0
 init|;
-name|range
+name|i
 operator|<
 literal|10
 condition|;
-name|range
+name|i
 operator|++
 control|)
 block|{
@@ -1037,7 +1035,7 @@ name|elapsedTime
 init|=
 name|sequentialWrite
 argument_list|(
-name|range
+name|i
 operator|*
 name|nRows
 argument_list|,
@@ -1071,15 +1069,15 @@ case|:
 for|for
 control|(
 name|int
-name|range
+name|i
 init|=
 literal|0
 init|;
-name|range
+name|i
 operator|<
 literal|10
 condition|;
-name|range
+name|i
 operator|++
 control|)
 block|{
@@ -1088,7 +1086,7 @@ name|elapsedTime
 init|=
 name|randomRead
 argument_list|(
-name|range
+name|i
 operator|*
 name|nRows
 argument_list|,
@@ -1130,15 +1128,15 @@ case|:
 for|for
 control|(
 name|int
-name|range
+name|i
 init|=
 literal|0
 init|;
-name|range
+name|i
 operator|<
 literal|10
 condition|;
-name|range
+name|i
 operator|++
 control|)
 block|{
@@ -1147,7 +1145,7 @@ name|elapsedTime
 init|=
 name|randomWrite
 argument_list|(
-name|range
+name|i
 operator|*
 name|nRows
 argument_list|,
@@ -1179,15 +1177,15 @@ case|:
 for|for
 control|(
 name|int
-name|range
+name|i
 init|=
 literal|0
 init|;
-name|range
+name|i
 operator|<
 literal|10
 condition|;
-name|range
+name|i
 operator|++
 control|)
 block|{
@@ -1228,15 +1226,15 @@ case|:
 for|for
 control|(
 name|int
-name|range
+name|i
 init|=
 literal|0
 init|;
-name|range
+name|i
 operator|<
 literal|10
 condition|;
-name|range
+name|i
 operator|++
 control|)
 block|{
@@ -1245,7 +1243,7 @@ name|elapsedTime
 init|=
 name|sequentialRead
 argument_list|(
-name|range
+name|i
 operator|*
 name|nRows
 argument_list|,
@@ -1320,14 +1318,30 @@ name|Exception
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"Failed"
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 block|}
 finally|finally
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Deleting table "
+operator|+
+name|tableDescriptor
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|client
@@ -1346,10 +1360,17 @@ specifier|private
 name|void
 name|runOneTest
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|Test
 name|cmd
 parameter_list|)
-block|{   }
+block|{
+comment|// TODO
+block|}
 specifier|private
 name|void
 name|runTest
@@ -1676,6 +1697,35 @@ argument_list|(
 literal|" range           Integer. Required. 0<= value<= "
 operator|+
 literal|"(nclients * 10) - 1"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"Examples:"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" To run a single evaluation client:"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" $ bin/hbase "
+operator|+
+literal|"org.apache.hadoop.hbase.EvaluationClient sequentialWrite 1 1"
 argument_list|)
 expr_stmt|;
 block|}
