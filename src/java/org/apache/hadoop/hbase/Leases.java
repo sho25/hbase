@@ -78,7 +78,7 @@ import|;
 end_import
 
 begin_comment
-comment|/*******************************************************************************  * Leases  *  * There are several server classes in HBase that need to track external clients  * that occasionally send heartbeats.  *   * These external clients hold resources in the server class.  Those resources   * need to be released if the external client fails to send a heartbeat after   * some interval of time passes.  *  * The Leases class is a general reusable class for this kind of pattern.  *  * An instance of the Leases class will create a thread to do its dirty work.    * You should close() the instance if you want to clean up the thread properly.  ******************************************************************************/
+comment|/**  * Leases  *  * There are several server classes in HBase that need to track external clients  * that occasionally send heartbeats.  *   * These external clients hold resources in the server class.  Those resources   * need to be released if the external client fails to send a heartbeat after   * some interval of time passes.  *  * The Leases class is a general reusable class for this kind of pattern.  *  * An instance of the Leases class will create a thread to do its dirty work.    * You should close() the instance if you want to clean up the thread properly.  */
 end_comment
 
 begin_class
@@ -86,7 +86,6 @@ specifier|public
 class|class
 name|Leases
 block|{
-specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -99,6 +98,9 @@ argument_list|(
 name|Leases
 operator|.
 name|class
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|long
@@ -296,6 +298,30 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|String
+name|getLeaseName
+parameter_list|(
+specifier|final
+name|Text
+name|holderId
+parameter_list|,
+specifier|final
+name|Text
+name|resourceId
+parameter_list|)
+block|{
+return|return
+literal|"<holderId="
+operator|+
+name|holderId
+operator|+
+literal|", resourceId="
+operator|+
+name|resourceId
+operator|+
+literal|">"
+return|;
+block|}
 comment|/** A client obtains a lease... */
 specifier|public
 name|void
@@ -307,6 +333,7 @@ parameter_list|,
 name|Text
 name|resourceId
 parameter_list|,
+specifier|final
 name|LeaseListener
 name|listener
 parameter_list|)
@@ -362,13 +389,12 @@ name|IOException
 argument_list|(
 literal|"Impossible state for createLease(): Lease "
 operator|+
-literal|"for holderId "
-operator|+
+name|getLeaseName
+argument_list|(
 name|holderId
-operator|+
-literal|" and resourceId "
-operator|+
+argument_list|,
 name|resourceId
+argument_list|)
 operator|+
 literal|" is still held."
 argument_list|)
@@ -391,6 +417,29 @@ name|lease
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Created lease "
+operator|+
+name|getLeaseName
+argument_list|(
+name|holderId
+argument_list|,
+name|resourceId
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 comment|/** A client renews a lease... */
@@ -450,15 +499,14 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Cannot renew lease; not held (holderId="
+literal|"Cannot renew lease that is not held: "
 operator|+
+name|getLeaseName
+argument_list|(
 name|holderId
-operator|+
-literal|", resourceId="
-operator|+
+argument_list|,
 name|resourceId
-operator|+
-literal|")"
+argument_list|)
 argument_list|)
 throw|;
 block|}
@@ -483,8 +531,31 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Renewed lease "
+operator|+
+name|getLeaseName
+argument_list|(
+name|holderId
+argument_list|,
+name|resourceId
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
-comment|/** A client explicitly cancels a lease.  The lease-cleanup method is not called. */
+block|}
+comment|/** A client explicitly cancels a lease.    * The lease-cleanup method is not called.    */
 specifier|public
 name|void
 name|cancelLease
@@ -541,15 +612,14 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Cannot cancel lease that is not held (holderId="
+literal|"Cannot cancel lease that is not held: "
 operator|+
+name|getLeaseName
+argument_list|(
 name|holderId
-operator|+
-literal|", resourceId="
-operator|+
+argument_list|,
 name|resourceId
-operator|+
-literal|")"
+argument_list|)
 argument_list|)
 throw|;
 block|}
@@ -573,6 +643,29 @@ name|cancelled
 argument_list|()
 expr_stmt|;
 block|}
+block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Cancel lease "
+operator|+
+name|getLeaseName
+argument_list|(
+name|holderId
+argument_list|,
+name|resourceId
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 comment|/** LeaseMonitor is a thread that expires Leases that go on too long. */
@@ -836,6 +929,33 @@ name|void
 name|expired
 parameter_list|()
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Lease expired "
+operator|+
+name|getLeaseName
+argument_list|(
+name|this
+operator|.
+name|holderId
+argument_list|,
+name|this
+operator|.
+name|resourceId
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 name|listener
 operator|.
 name|leaseExpired

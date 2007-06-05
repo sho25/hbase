@@ -3085,7 +3085,7 @@ throws|throws
 name|IOException
 block|{
 name|String
-name|server
+name|s
 init|=
 name|serverInfo
 operator|.
@@ -3117,7 +3117,7 @@ name|debug
 argument_list|(
 literal|"received start message from: "
 operator|+
-name|server
+name|s
 argument_list|)
 expr_stmt|;
 block|}
@@ -3130,7 +3130,7 @@ name|serversToServerInfo
 operator|.
 name|remove
 argument_list|(
-name|server
+name|s
 argument_list|)
 expr_stmt|;
 if|if
@@ -3171,7 +3171,7 @@ name|serversToServerInfo
 operator|.
 name|put
 argument_list|(
-name|server
+name|s
 argument_list|,
 name|serverInfo
 argument_list|)
@@ -3188,9 +3188,18 @@ init|=
 operator|new
 name|Text
 argument_list|(
-name|server
+name|s
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Created lease for "
+operator|+
+name|serverLabel
+argument_list|)
+expr_stmt|;
 name|serverLeases
 operator|.
 name|createLease
@@ -3202,7 +3211,7 @@ argument_list|,
 operator|new
 name|ServerExpirer
 argument_list|(
-name|server
+name|s
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -3225,7 +3234,7 @@ throws|throws
 name|IOException
 block|{
 name|String
-name|server
+name|s
 init|=
 name|serverInfo
 operator|.
@@ -3244,14 +3253,13 @@ init|=
 operator|new
 name|Text
 argument_list|(
-name|server
+name|s
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
 name|closed
 operator|||
-operator|(
 name|msgs
 operator|.
 name|length
@@ -3269,15 +3277,30 @@ operator|==
 name|HMsg
 operator|.
 name|MSG_REPORT_EXITING
-operator|)
 condition|)
 block|{
-comment|// We're shutting down. Or the HRegionServer is.
+comment|// HRegionServer is shutting down.
+if|if
+condition|(
 name|serversToServerInfo
 operator|.
 name|remove
 argument_list|(
-name|server
+name|s
+argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// Only cancel lease once (This block can run a couple of times during
+comment|// shutdown).
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Cancelling lease for "
+operator|+
+name|serverLabel
 argument_list|)
 expr_stmt|;
 name|serverLeases
@@ -3289,6 +3312,7 @@ argument_list|,
 name|serverLabel
 argument_list|)
 expr_stmt|;
+block|}
 name|HMsg
 name|returnMsgs
 index|[]
@@ -3314,7 +3338,7 @@ name|serversToServerInfo
 operator|.
 name|get
 argument_list|(
-name|server
+name|s
 argument_list|)
 decl_stmt|;
 if|if
@@ -3338,7 +3362,7 @@ name|debug
 argument_list|(
 literal|"received server report from unknown server: "
 operator|+
-name|server
+name|s
 argument_list|)
 expr_stmt|;
 block|}
@@ -3407,7 +3431,7 @@ name|debug
 argument_list|(
 literal|"region server race condition detected: "
 operator|+
-name|server
+name|s
 argument_list|)
 expr_stmt|;
 block|}
@@ -3448,7 +3472,7 @@ name|serversToServerInfo
 operator|.
 name|put
 argument_list|(
-name|server
+name|s
 argument_list|,
 name|serverInfo
 argument_list|)
