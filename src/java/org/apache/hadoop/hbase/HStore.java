@@ -3755,6 +3755,19 @@ decl_stmt|;
 if|if
 condition|(
 name|readkey
+operator|==
+literal|null
+condition|)
+block|{
+comment|// map.getClosest returns null if the passed key is> than the
+comment|// last key in the map file.  getClosest is a bit of a misnomer
+comment|// since it returns exact match or the next closest key AFTER not
+comment|// BEFORE.
+continue|continue;
+block|}
+if|if
+condition|(
+name|readkey
 operator|.
 name|matchesRowCol
 argument_list|(
