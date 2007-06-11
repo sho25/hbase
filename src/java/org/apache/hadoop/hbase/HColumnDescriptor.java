@@ -271,6 +271,7 @@ operator|=
 name|COLUMN_DESCRIPTOR_VERSION
 expr_stmt|;
 block|}
+comment|/**    * Construct a column descriptor specifying only the family name     * The other attributes are defaulted.    *     * @param columnName - column family name    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(

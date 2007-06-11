@@ -170,7 +170,6 @@ name|HBaseTestCase
 implements|implements
 name|RegionUnavailableListener
 block|{
-specifier|private
 name|Logger
 name|LOG
 init|=
@@ -374,13 +373,6 @@ literal|null
 decl_stmt|;
 specifier|private
 specifier|static
-name|Path
-name|oldlogfile
-init|=
-literal|null
-decl_stmt|;
-specifier|private
-specifier|static
 name|HLog
 name|log
 init|=
@@ -393,7 +385,6 @@ name|desc
 init|=
 literal|null
 decl_stmt|;
-specifier|private
 specifier|static
 name|HRegion
 name|region
@@ -465,16 +456,6 @@ argument_list|,
 literal|"log"
 argument_list|)
 expr_stmt|;
-name|oldlogfile
-operator|=
-operator|new
-name|Path
-argument_list|(
-name|parentdir
-argument_list|,
-literal|"oldlogfile"
-argument_list|)
-expr_stmt|;
 name|log
 operator|=
 operator|new
@@ -543,8 +524,6 @@ literal|null
 argument_list|)
 argument_list|,
 literal|null
-argument_list|,
-name|oldlogfile
 argument_list|)
 expr_stmt|;
 block|}
@@ -1186,6 +1165,8 @@ name|i
 argument_list|)
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -5229,8 +5210,6 @@ specifier|private
 name|void
 name|cleanup
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 comment|// Shut down the mini cluster
 name|cluster

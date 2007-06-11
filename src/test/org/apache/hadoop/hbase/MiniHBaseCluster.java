@@ -161,7 +161,6 @@ name|HRegionServer
 index|[]
 name|regionServers
 decl_stmt|;
-specifier|private
 name|Thread
 index|[]
 name|regionThreads
@@ -333,9 +332,9 @@ name|conf
 operator|.
 name|get
 argument_list|(
-name|HREGION_DIR
+name|HBASE_DIR
 argument_list|,
-name|DEFAULT_HREGION_DIR
+name|DEFAULT_HBASE_DIR
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -600,7 +599,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**     * Returns the rpc address actually used by the master server, because the     * supplied port is not necessarily the actual port used.    */
+comment|/**     * @return Returns the rpc address actually used by the master server, because    * the supplied port is not necessarily the actual port used.    */
 specifier|public
 name|HServerAddress
 name|getHMasterAddress
@@ -612,6 +611,80 @@ operator|.
 name|getMasterAddress
 argument_list|()
 return|;
+block|}
+comment|/**    * Shut down the specified region server cleanly    *     * @param serverNumber    */
+specifier|public
+name|void
+name|stopRegionServer
+parameter_list|(
+name|int
+name|serverNumber
+parameter_list|)
+block|{
+if|if
+condition|(
+name|serverNumber
+operator|>=
+name|regionServers
+operator|.
+name|length
+condition|)
+block|{
+throw|throw
+operator|new
+name|ArrayIndexOutOfBoundsException
+argument_list|(
+literal|"serverNumber> number of region servers"
+argument_list|)
+throw|;
+block|}
+name|this
+operator|.
+name|regionServers
+index|[
+name|serverNumber
+index|]
+operator|.
+name|stop
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * Cause a region server to exit without cleaning up    *     * @param serverNumber    */
+specifier|public
+name|void
+name|abortRegionServer
+parameter_list|(
+name|int
+name|serverNumber
+parameter_list|)
+block|{
+if|if
+condition|(
+name|serverNumber
+operator|>=
+name|regionServers
+operator|.
+name|length
+condition|)
+block|{
+throw|throw
+operator|new
+name|ArrayIndexOutOfBoundsException
+argument_list|(
+literal|"serverNumber> number of region servers"
+argument_list|)
+throw|;
+block|}
+name|this
+operator|.
+name|regionServers
+index|[
+name|serverNumber
+index|]
+operator|.
+name|abort
+argument_list|()
+expr_stmt|;
 block|}
 comment|/** Shut down the HBase cluster */
 specifier|public

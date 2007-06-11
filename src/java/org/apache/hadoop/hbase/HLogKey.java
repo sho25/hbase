@@ -76,11 +76,12 @@ name|logSeqNum
 init|=
 literal|0L
 decl_stmt|;
-comment|/**    * Create the log key!    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    */
+comment|/** Create an empty key useful when deserializing */
 specifier|public
 name|HLogKey
 parameter_list|()
 block|{   }
+comment|/**    * Create the log key!    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *    * @param regionName  - name of region    * @param tablename   - name of table    * @param row         - row key    * @param logSeqNum   - log sequence number    */
 specifier|public
 name|HLogKey
 parameter_list|(
@@ -134,7 +135,6 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// A bunch of accessors
 comment|//////////////////////////////////////////////////////////////////////////////
-specifier|public
 name|Text
 name|getRegionName
 parameter_list|()
@@ -143,7 +143,6 @@ return|return
 name|regionName
 return|;
 block|}
-specifier|public
 name|Text
 name|getTablename
 parameter_list|()
@@ -152,7 +151,6 @@ return|return
 name|tablename
 return|;
 block|}
-specifier|public
 name|Text
 name|getRow
 parameter_list|()
@@ -161,7 +159,6 @@ return|return
 name|row
 return|;
 block|}
-specifier|public
 name|long
 name|getLogSeqNum
 parameter_list|()
@@ -178,32 +175,19 @@ name|toString
 parameter_list|()
 block|{
 return|return
-name|getTablename
-argument_list|()
-operator|.
-name|toString
-argument_list|()
+name|tablename
 operator|+
 literal|" "
 operator|+
-name|getRegionName
-argument_list|()
-operator|.
-name|toString
-argument_list|()
+name|regionName
 operator|+
 literal|" "
 operator|+
-name|getRow
-argument_list|()
-operator|.
-name|toString
-argument_list|()
+name|row
 operator|+
 literal|" "
 operator|+
-name|getLogSeqNum
-argument_list|()
+name|logSeqNum
 return|;
 block|}
 annotation|@
@@ -272,7 +256,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Comparable
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * When sorting through log entries, we want to group items    * first in the same table, then to the same row, then finally    * ordered by write-order.    */
+comment|/* (non-Javadoc)    * @see java.lang.Comparable#compareTo(java.lang.Object)    */
 specifier|public
 name|int
 name|compareTo
@@ -373,6 +357,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Writable
 comment|//////////////////////////////////////////////////////////////////////////////
+comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#write(java.io.DataOutput)    */
 specifier|public
 name|void
 name|write
@@ -418,6 +403,7 @@ name|logSeqNum
 argument_list|)
 expr_stmt|;
 block|}
+comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#readFields(java.io.DataInput)    */
 specifier|public
 name|void
 name|readFields

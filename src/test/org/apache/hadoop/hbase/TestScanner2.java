@@ -1,4 +1,8 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
+begin_comment
+comment|/**  * Copyright 2007 The Apache Software Foundation  *  * Licensed under the Apache License, Version 2.0 (the "License");  * you may not use this file except in compliance with the License.  * You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+end_comment
+
 begin_package
 package|package
 name|org
@@ -302,8 +306,6 @@ operator|.
 name|conf
 argument_list|,
 literal|null
-argument_list|,
-literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -336,8 +338,6 @@ argument_list|,
 name|this
 operator|.
 name|conf
-argument_list|,
-literal|null
 argument_list|,
 literal|null
 argument_list|)
@@ -390,12 +390,12 @@ name|assertEquals
 argument_list|(
 literal|"Should be two regions only"
 argument_list|,
+literal|2
+argument_list|,
 name|regions
 operator|.
 name|size
 argument_list|()
-argument_list|,
-literal|2
 argument_list|)
 expr_stmt|;
 block|}
@@ -518,14 +518,7 @@ index|[]
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|HStoreKey
-name|key
-init|=
-operator|new
-name|HStoreKey
-argument_list|()
-decl_stmt|;
-name|LabelledData
+name|KeyedData
 index|[]
 name|values
 init|=
@@ -534,8 +527,6 @@ operator|.
 name|next
 argument_list|(
 name|scannerId
-argument_list|,
-name|key
 argument_list|)
 decl_stmt|;
 if|if
@@ -620,7 +611,10 @@ index|[
 name|i
 index|]
 operator|.
-name|getLabel
+name|getKey
+argument_list|()
+operator|.
+name|getColumn
 argument_list|()
 argument_list|,
 name|bytes
@@ -677,10 +671,6 @@ name|valueOf
 argument_list|(
 name|scannerId
 argument_list|)
-operator|+
-literal|" row: "
-operator|+
-name|key
 operator|+
 literal|": regioninfo: {"
 operator|+

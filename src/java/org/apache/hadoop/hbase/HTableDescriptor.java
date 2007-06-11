@@ -163,6 +163,7 @@ argument_list|(
 literal|"[\\w-]+"
 argument_list|)
 decl_stmt|;
+comment|/** Constructs an empty object */
 specifier|public
 name|HTableDescriptor
 parameter_list|()
@@ -252,6 +253,7 @@ argument_list|>
 argument_list|()
 expr_stmt|;
 block|}
+comment|/** @return name of table */
 specifier|public
 name|Text
 name|getName
@@ -283,7 +285,7 @@ name|family
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Do we contain a given column? */
+comment|/**    * Checks to see if this table contains the given column family    *     * @param family - family name    * @return true if the table contains the specified family name    */
 specifier|public
 name|boolean
 name|hasFamily
@@ -301,7 +303,7 @@ name|family
 argument_list|)
 return|;
 block|}
-comment|/** All the column families in this table.    *     *  TODO: What is this used for? Seems Dangerous to let people play with our    *  private members.    */
+comment|/** All the column families in this table.    *     *  TODO: What is this used for? Seems Dangerous to let people play with our    *  private members.    *      *  @return map of family members    */
 specifier|public
 name|TreeMap
 argument_list|<

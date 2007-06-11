@@ -40,32 +40,33 @@ import|;
 end_import
 
 begin_comment
-comment|/*******************************************************************************  * LabelledData is just a data pair.  * It includes a Text label and some associated data.  ******************************************************************************/
+comment|/*******************************************************************************  * LabelledData is just a data pair.  * It includes an HStoreKey and some associated data.  ******************************************************************************/
 end_comment
 
 begin_class
 specifier|public
 class|class
-name|LabelledData
+name|KeyedData
 implements|implements
 name|Writable
 block|{
-name|Text
-name|label
+name|HStoreKey
+name|key
 decl_stmt|;
 name|BytesWritable
 name|data
 decl_stmt|;
+comment|/** Default constructor. Used by Writable interface */
 specifier|public
-name|LabelledData
+name|KeyedData
 parameter_list|()
 block|{
 name|this
 operator|.
-name|label
+name|key
 operator|=
 operator|new
-name|Text
+name|HStoreKey
 argument_list|()
 expr_stmt|;
 name|this
@@ -77,11 +78,12 @@ name|BytesWritable
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Create a KeyedData object specifying the parts    * @param key         - HStoreKey    * @param data        - BytesWritable    */
 specifier|public
-name|LabelledData
+name|KeyedData
 parameter_list|(
-name|Text
-name|label
+name|HStoreKey
+name|key
 parameter_list|,
 name|BytesWritable
 name|data
@@ -89,13 +91,9 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|label
+name|key
 operator|=
-operator|new
-name|Text
-argument_list|(
-name|label
-argument_list|)
+name|key
 expr_stmt|;
 name|this
 operator|.
@@ -104,15 +102,17 @@ operator|=
 name|data
 expr_stmt|;
 block|}
+comment|/** @return - returns the key */
 specifier|public
-name|Text
-name|getLabel
+name|HStoreKey
+name|getKey
 parameter_list|()
 block|{
 return|return
-name|label
+name|key
 return|;
 block|}
+comment|/** @return - returns the value */
 specifier|public
 name|BytesWritable
 name|getData
@@ -125,6 +125,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Writable
 comment|//////////////////////////////////////////////////////////////////////////////
+comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#write(java.io.DataOutput)    */
 specifier|public
 name|void
 name|write
@@ -135,7 +136,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|label
+name|key
 operator|.
 name|write
 argument_list|(
@@ -150,6 +151,7 @@ name|out
 argument_list|)
 expr_stmt|;
 block|}
+comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#readFields(java.io.DataInput)    */
 specifier|public
 name|void
 name|readFields
@@ -160,7 +162,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|label
+name|key
 operator|.
 name|readFields
 argument_list|(

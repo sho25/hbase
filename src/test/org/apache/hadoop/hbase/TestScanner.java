@@ -811,7 +811,7 @@ name|bytes
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** The test! */
+comment|/** The test!    * @throws IOException    */
 specifier|public
 name|void
 name|testScanner
@@ -936,8 +936,6 @@ argument_list|,
 name|REGION_INFO
 argument_list|,
 literal|null
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// Write information to the meta table
@@ -1040,8 +1038,6 @@ argument_list|,
 name|conf
 argument_list|,
 name|REGION_INFO
-argument_list|,
-literal|null
 argument_list|,
 literal|null
 argument_list|)
@@ -1203,8 +1199,6 @@ argument_list|,
 name|REGION_INFO
 argument_list|,
 literal|null
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// Validate again
@@ -1336,8 +1330,6 @@ argument_list|,
 name|REGION_INFO
 argument_list|,
 literal|null
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// Validate again
@@ -1352,6 +1344,17 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 name|getRegionInfo
+argument_list|()
+expr_stmt|;
+comment|// clean up
+name|region
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|log
+operator|.
+name|closeAndDelete
 argument_list|()
 expr_stmt|;
 block|}

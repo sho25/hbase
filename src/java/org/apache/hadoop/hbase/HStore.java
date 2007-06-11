@@ -226,9 +226,10 @@ comment|/***********************************************************************
 end_comment
 
 begin_class
-specifier|public
 class|class
 name|HStore
+implements|implements
+name|HConstants
 block|{
 specifier|private
 specifier|static
@@ -315,7 +316,6 @@ name|flushLock
 init|=
 literal|0
 decl_stmt|;
-specifier|private
 specifier|final
 name|HLocking
 name|lock
@@ -372,8 +372,7 @@ decl_stmt|;
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Constructors, destructors, etc
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * An HStore is a set of zero or more MapFiles, which stretch backwards over     * time.  A given HStore is responsible for a certain set of columns for a    * row in the HRegion.    *    *<p>The HRegion starts writing to its set of HStores when the HRegion's     * memcache is flushed.  This results in a round of new MapFiles, one for    * each HStore.    *    *<p>There's no reason to consider append-logging at this level; all logging     * and locking is handled at the HRegion level.  HStore just provides    * services to manage sets of MapFiles.  One of the most important of those    * services is MapFile-compaction services.    *    *<p>The only thing having to do with logs that HStore needs to deal with is    * the reconstructionLog.  This is a segment of an HRegion's log that might    * NOT be present upon startup.  If the param is NULL, there's nothing to do.    * If the param is non-NULL, we need to process the log to reconstruct    * a TreeMap that might not have been written to disk before the process    * died.    *    *<p>It's assumed that after this constructor returns, the reconstructionLog    * file will be deleted (by whoever has instantiated the HStore).    */
-specifier|public
+comment|/**    * An HStore is a set of zero or more MapFiles, which stretch backwards over     * time.  A given HStore is responsible for a certain set of columns for a    * row in the HRegion.    *    *<p>The HRegion starts writing to its set of HStores when the HRegion's     * memcache is flushed.  This results in a round of new MapFiles, one for    * each HStore.    *    *<p>There's no reason to consider append-logging at this level; all logging     * and locking is handled at the HRegion level.  HStore just provides    * services to manage sets of MapFiles.  One of the most important of those    * services is MapFile-compaction services.    *    *<p>The only thing having to do with logs that HStore needs to deal with is    * the reconstructionLog.  This is a segment of an HRegion's log that might    * NOT be present upon startup.  If the param is NULL, there's nothing to do.    * If the param is non-NULL, we need to process the log to reconstruct    * a TreeMap that might not have been written to disk before the process    * died.    *    *<p>It's assumed that after this constructor returns, the reconstructionLog    * file will be deleted (by whoever has instantiated the HStore).    *    * @param dir         - log file directory    * @param regionName  - name of region    * @param family      - name of column family    * @param fs          - file system object    * @param reconstructionLog - existing log file to apply if any    * @param conf        - configuration object    * @throws IOException    */
 name|HStore
 parameter_list|(
 name|Path
@@ -926,6 +925,15 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
+name|column
+operator|.
+name|equals
+argument_list|(
+name|HLog
+operator|.
+name|METACOLUMN
+argument_list|)
+operator|||
 operator|!
 name|key
 operator|.
@@ -939,15 +947,7 @@ operator|.
 name|regionName
 argument_list|)
 operator|||
-name|column
-operator|.
-name|equals
-argument_list|(
-name|HLog
-operator|.
-name|METACOLUMN
-argument_list|)
-operator|||
+operator|!
 name|HStoreKey
 operator|.
 name|extractFamily
@@ -984,13 +984,6 @@ argument_list|()
 operator|+
 literal|", "
 operator|+
-name|key
-operator|.
-name|getRegionName
-argument_list|()
-operator|+
-literal|", "
-operator|+
 name|column
 operator|.
 name|toString
@@ -1009,15 +1002,65 @@ operator|.
 name|get
 argument_list|()
 argument_list|)
+operator|+
+literal|", my region: "
+operator|+
+name|this
+operator|.
+name|regionName
+operator|+
+literal|", my column: "
+operator|+
+name|this
+operator|.
+name|familyName
 argument_list|)
 expr_stmt|;
 block|}
 continue|continue;
 block|}
-name|reconstructedCache
+name|byte
+index|[]
+name|bytes
+init|=
+operator|new
+name|byte
+index|[
+name|val
 operator|.
-name|put
+name|getVal
+argument_list|()
+operator|.
+name|getSize
+argument_list|()
+index|]
+decl_stmt|;
+name|System
+operator|.
+name|arraycopy
 argument_list|(
+name|val
+operator|.
+name|getVal
+argument_list|()
+operator|.
+name|get
+argument_list|()
+argument_list|,
+literal|0
+argument_list|,
+name|bytes
+argument_list|,
+literal|0
+argument_list|,
+name|bytes
+operator|.
+name|length
+argument_list|)
+expr_stmt|;
+name|HStoreKey
+name|k
+init|=
 operator|new
 name|HStoreKey
 argument_list|(
@@ -1026,21 +1069,56 @@ operator|.
 name|getRow
 argument_list|()
 argument_list|,
-name|val
-operator|.
-name|getColumn
-argument_list|()
+name|column
 argument_list|,
 name|val
 operator|.
 name|getTimestamp
 argument_list|()
 argument_list|)
-argument_list|,
-name|val
+decl_stmt|;
+if|if
+condition|(
+name|LOG
 operator|.
-name|getVal
+name|isDebugEnabled
 argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Applying edit "
+operator|+
+name|k
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|"="
+operator|+
+operator|new
+name|String
+argument_list|(
+name|bytes
+argument_list|,
+name|UTF8_ENCODING
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+name|reconstructedCache
+operator|.
+name|put
+argument_list|(
+name|k
+argument_list|,
+operator|new
+name|BytesWritable
+argument_list|(
+name|bytes
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1200,8 +1278,7 @@ name|familyName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Turn off all the MapFile readers */
-specifier|public
+comment|/**    * Turn off all the MapFile readers    * @throws IOException    */
 name|void
 name|close
 parameter_list|()
@@ -1295,8 +1372,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Flush changes to disk
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Write out a brand-new set of items to the disk.    *    * We should only store key/vals that are appropriate for the data-columns     * stored in this HStore.    *    * Also, we are not expecting any reads of this MapFile just yet.    *    * Return the entire list of HStoreFiles currently used by the HStore.    */
-specifier|public
+comment|/**    * Write out a brand-new set of items to the disk.    *    * We should only store key/vals that are appropriate for the data-columns     * stored in this HStore.    *    * Also, we are not expecting any reads of this MapFile just yet.    *    * Return the entire list of HStoreFiles currently used by the HStore.    *    * @param inputCache          - memcache to flush    * @param logCacheFlushId     - flush sequence number    * @return - Vector of all the HStoreFiles in use    * @throws IOException    */
 name|Vector
 argument_list|<
 name|HStoreFile
@@ -1680,7 +1756,7 @@ argument_list|()
 return|;
 block|}
 block|}
-specifier|public
+comment|/**    * @return - vector of all the HStore files in use    */
 name|Vector
 argument_list|<
 name|HStoreFile
@@ -1725,8 +1801,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Compaction
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Compact the back-HStores.  This method may take some time, so the calling     * thread must be able to block for long periods.    *     * During this time, the HStore can work as usual, getting values from    * MapFiles and writing new MapFiles from given memcaches.    *     * Existing MapFiles are not destroyed until the new compacted TreeMap is     * completely written-out to disk.    *    * The compactLock block prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *     * We don't want to hold the structureLock for the whole time, as a compact()     * can be lengthy and we want to allow cache-flushes during this period.    */
-specifier|public
+comment|/**    * Compact the back-HStores.  This method may take some time, so the calling     * thread must be able to block for long periods.    *     * During this time, the HStore can work as usual, getting values from    * MapFiles and writing new MapFiles from given memcaches.    *     * Existing MapFiles are not destroyed until the new compacted TreeMap is     * completely written-out to disk.    *    * The compactLock block prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *     * We don't want to hold the structureLock for the whole time, as a compact()     * can be lengthy and we want to allow cache-flushes during this period.    *     * @throws IOException    */
 name|void
 name|compact
 parameter_list|()
@@ -3331,7 +3406,6 @@ comment|// Accessors.
 comment|// (This is the only section that is directly useful!)
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/**    * Return all the available columns for the given key.  The key indicates a     * row and timestamp, but not a column name.    *    * The returned object should map column names to byte arrays (byte[]).    */
-specifier|public
 name|void
 name|getFull
 parameter_list|(
@@ -3542,7 +3616,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Get the value for the indicated HStoreKey.  Grab the target value and the     * previous 'numVersions-1' values, as well.    *    * If 'numVersions' is negative, the method returns all available versions.    */
-specifier|public
 name|BytesWritable
 index|[]
 name|get
@@ -3739,8 +3812,6 @@ condition|)
 block|{
 break|break;
 block|}
-else|else
-block|{
 name|results
 operator|.
 name|add
@@ -3757,7 +3828,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-block|}
 if|if
 condition|(
 name|results
@@ -3771,23 +3841,16 @@ block|{
 break|break;
 block|}
 block|}
-if|if
-condition|(
+return|return
 name|results
 operator|.
 name|size
 argument_list|()
 operator|==
 literal|0
-condition|)
-block|{
-return|return
+condition|?
 literal|null
-return|;
-block|}
-else|else
-block|{
-return|return
+else|:
 name|results
 operator|.
 name|toArray
@@ -3803,7 +3866,6 @@ index|]
 argument_list|)
 return|;
 block|}
-block|}
 finally|finally
 block|{
 name|this
@@ -3816,7 +3878,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Gets the size of the largest MapFile and its mid key.    *     * @param midKey      - the middle key for the largest MapFile    * @return            - size of the largest MapFile    */
-specifier|public
 name|long
 name|getLargestFileSize
 parameter_list|(
@@ -4015,7 +4076,6 @@ name|maxSize
 return|;
 block|}
 comment|/**    * @return    Returns the number of map files currently in use    */
-specifier|public
 name|int
 name|getNMaps
 parameter_list|()
@@ -4136,7 +4196,6 @@ name|testsuffix
 return|;
 block|}
 comment|/**    * Return a set of MapFile.Readers, one for each HStore file.    * These should be closed after the user is done with them.    */
-specifier|public
 name|HInternalScannerInterface
 name|getScanner
 parameter_list|(
@@ -4181,7 +4240,6 @@ name|Reader
 index|[]
 name|readers
 decl_stmt|;
-specifier|public
 name|HStoreScanner
 parameter_list|(
 name|long
@@ -4414,6 +4472,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**      * The user didn't want to start scanning at the first row. This method      * seeks to the requested row.      *      * @param i         - which iterator to advance      * @param firstRow  - seek to this row      * @return          - true if this is the first row or if the row was not found      */
+annotation|@
+name|Override
 name|boolean
 name|findFirstRow
 parameter_list|(
@@ -4515,6 +4575,8 @@ argument_list|)
 return|;
 block|}
 comment|/**      * Get the next value from the specified reader.      *       * @param i - which reader to fetch next value from      * @return - true if there is more data available      */
+annotation|@
+name|Override
 name|boolean
 name|getNext
 parameter_list|(
@@ -4569,6 +4631,8 @@ literal|true
 return|;
 block|}
 comment|/** Close down the indicated reader. */
+annotation|@
+name|Override
 name|void
 name|closeSubScanner
 parameter_list|(
@@ -4641,6 +4705,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/** Shut it down! */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|close

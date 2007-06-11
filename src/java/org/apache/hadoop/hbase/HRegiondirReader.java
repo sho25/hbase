@@ -188,7 +188,6 @@ comment|/**  * A standalone HRegion directory reader.  Currently reads content o
 end_comment
 
 begin_class
-specifier|public
 class|class
 name|HRegiondirReader
 block|{
@@ -202,7 +201,6 @@ specifier|final
 name|Path
 name|parentdir
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|Pattern
@@ -212,7 +210,7 @@ name|Pattern
 operator|.
 name|compile
 argument_list|(
-name|HGlobals
+name|HConstants
 operator|.
 name|HREGIONDIR_PREFIX
 operator|+
@@ -239,7 +237,6 @@ name|HRegionInfo
 argument_list|>
 name|infos
 decl_stmt|;
-specifier|public
 name|HRegiondirReader
 parameter_list|(
 specifier|final
@@ -334,6 +331,7 @@ operator|new
 name|PathFilter
 argument_list|()
 block|{
+comment|/* (non-Javadoc)          * @see org.apache.hadoop.fs.PathFilter#accept(org.apache.hadoop.fs.Path)          */
 specifier|public
 name|boolean
 name|accept
@@ -697,7 +695,6 @@ block|{}
 argument_list|)
 return|;
 block|}
-specifier|public
 name|List
 argument_list|<
 name|HRegionInfo
@@ -711,7 +708,6 @@ operator|.
 name|infos
 return|;
 block|}
-specifier|public
 name|HRegionInfo
 name|getRegionInfo
 parameter_list|(
@@ -719,8 +715,6 @@ specifier|final
 name|String
 name|tableName
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|HRegionInfo
 name|result
@@ -834,8 +828,6 @@ argument_list|,
 name|conf
 argument_list|,
 name|info
-argument_list|,
-literal|null
 argument_list|,
 literal|null
 argument_list|)
@@ -1151,6 +1143,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * @param args    * @throws IOException    */
 specifier|public
 specifier|static
 name|void

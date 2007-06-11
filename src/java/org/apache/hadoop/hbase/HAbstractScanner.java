@@ -188,14 +188,14 @@ specifier|static
 enum|enum
 name|MATCH_TYPE
 block|{
+comment|/** Just check the column family name */
 name|FAMILY_ONLY
 block|,
-comment|// Just check the column family name
+comment|/** Column family + matches regex */
 name|REGEX
 block|,
-comment|// Column family + matches regex
+comment|/** Literal matching */
 name|SIMPLE
-comment|// Literal matching
 block|}
 comment|// This class provides column matching functions that are more sophisticated
 comment|// than a simple string compare. There are three types of matching:
@@ -254,14 +254,13 @@ name|indexOf
 argument_list|(
 literal|":"
 argument_list|)
-operator|+
-literal|1
 decl_stmt|;
 if|if
 condition|(
 name|colpos
 operator|==
-literal|0
+operator|-
+literal|1
 condition|)
 block|{
 throw|throw
@@ -280,6 +279,8 @@ operator|.
 name|substring
 argument_list|(
 name|colpos
+operator|+
+literal|1
 argument_list|)
 decl_stmt|;
 if|if
@@ -457,12 +458,17 @@ name|FAMILY_ONLY
 condition|)
 block|{
 return|return
+name|HStoreKey
+operator|.
+name|extractFamily
+argument_list|(
 name|c
+argument_list|)
 operator|.
 name|toString
 argument_list|()
 operator|.
-name|startsWith
+name|equals
 argument_list|(
 name|this
 operator|.
@@ -917,7 +923,7 @@ operator|.
 name|multipleMatchers
 return|;
 block|}
-comment|/**    * Get the next set of values for this scanner.    *     * @param key The key that matched    * @param results All the results for<code>key</code>    * @return true if a match was found    *     * @see org.apache.hadoop.hbase.HScannerInterface#next(org.apache.hadoop.hbase.HStoreKey, java.util.TreeMap)    */
+comment|/**    * Get the next set of values for this scanner.    *     * @param key The key that matched    * @param results All the results for<code>key</code>    * @return true if a match was found    * @throws IOException    *     * @see org.apache.hadoop.hbase.HScannerInterface#next(org.apache.hadoop.hbase.HStoreKey, java.util.TreeMap)    */
 specifier|public
 name|boolean
 name|next

@@ -61,6 +61,7 @@ comment|// Key into HBaseConfiguration for the hbase.master address.
 comment|// TODO: Support 'local': i.e. default of all running in single
 comment|// process.  Same for regionserver. TODO: Is having HBase homed
 comment|// on port 60k OK?
+comment|/** Parameter name for master address */
 specifier|static
 specifier|final
 name|String
@@ -68,6 +69,7 @@ name|MASTER_ADDRESS
 init|=
 literal|"hbase.master"
 decl_stmt|;
+comment|/** Default master address */
 specifier|static
 specifier|final
 name|String
@@ -75,7 +77,7 @@ name|DEFAULT_MASTER_ADDRESS
 init|=
 literal|"localhost:60000"
 decl_stmt|;
-comment|// Key for hbase.regionserver address.
+comment|/** Parameter name for hbase.regionserver address. */
 specifier|static
 specifier|final
 name|String
@@ -83,6 +85,7 @@ name|REGIONSERVER_ADDRESS
 init|=
 literal|"hbase.regionserver"
 decl_stmt|;
+comment|/** Default region server address */
 specifier|static
 specifier|final
 name|String
@@ -90,6 +93,7 @@ name|DEFAULT_REGIONSERVER_ADDRESS
 init|=
 literal|"localhost:60010"
 decl_stmt|;
+comment|/** Parameter name for how often threads should wake up */
 specifier|static
 specifier|final
 name|String
@@ -97,20 +101,23 @@ name|THREAD_WAKE_FREQUENCY
 init|=
 literal|"hbase.server.thread.wakefrequency"
 decl_stmt|;
+comment|/** Parameter name for HBase instance root directory */
 specifier|static
 specifier|final
 name|String
-name|HREGION_DIR
+name|HBASE_DIR
 init|=
-literal|"hbase.regiondir"
+literal|"hbase.rootdir"
 decl_stmt|;
+comment|/** Default HBase instance root directory */
 specifier|static
 specifier|final
 name|String
-name|DEFAULT_HREGION_DIR
+name|DEFAULT_HBASE_DIR
 init|=
 literal|"/hbase"
 decl_stmt|;
+comment|/** Used to construct the name of the directory in which a HRegion resides */
 specifier|static
 specifier|final
 name|String
@@ -120,6 +127,7 @@ literal|"hregion_"
 decl_stmt|;
 comment|// TODO: Someone may try to name a column family 'log'.  If they
 comment|// do, it will clash with the HREGION log dir subdirectory. FIX.
+comment|/** Used to construct the name of the log directory for a region server */
 specifier|static
 specifier|final
 name|String
@@ -127,6 +135,15 @@ name|HREGION_LOGDIR_NAME
 init|=
 literal|"log"
 decl_stmt|;
+comment|/** Name of old log file for reconstruction */
+specifier|static
+specifier|final
+name|String
+name|HREGION_OLDLOGFILE_NAME
+init|=
+literal|"oldlogfile.log"
+decl_stmt|;
+comment|/** Default maximum file size */
 specifier|static
 specifier|final
 name|long
@@ -144,7 +161,7 @@ comment|// This HRegion is never split.
 comment|// region name = table + startkey + regionid. This is the row key.
 comment|// each row in the root and meta tables describes exactly 1 region
 comment|// Do we ever need to know all the information that we are storing?
-comment|// The root tables' name.
+comment|/** The root table's name. */
 specifier|static
 specifier|final
 name|Text
@@ -156,7 +173,7 @@ argument_list|(
 literal|"--ROOT--"
 argument_list|)
 decl_stmt|;
-comment|// The META tables' name.
+comment|/** The META table's name. */
 specifier|static
 specifier|final
 name|Text
@@ -168,8 +185,8 @@ argument_list|(
 literal|"--META--"
 argument_list|)
 decl_stmt|;
-comment|// Defines for the column names used in both ROOT and META HBase 'meta'
-comment|// tables.
+comment|// Defines for the column names used in both ROOT and META HBase 'meta' tables.
+comment|/** The ROOT and META column family */
 specifier|static
 specifier|final
 name|Text
@@ -181,6 +198,7 @@ argument_list|(
 literal|"info:"
 argument_list|)
 decl_stmt|;
+comment|/** ROOT/META column family member - contains HRegionInfo */
 specifier|static
 specifier|final
 name|Text
@@ -194,6 +212,7 @@ operator|+
 literal|"regioninfo"
 argument_list|)
 decl_stmt|;
+comment|/** ROOT/META column family member - contains HServerAddress.toString() */
 specifier|static
 specifier|final
 name|Text
@@ -207,6 +226,7 @@ operator|+
 literal|"server"
 argument_list|)
 decl_stmt|;
+comment|/** ROOT/META column family member - contains server start code (a long) */
 specifier|static
 specifier|final
 name|Text
@@ -221,6 +241,7 @@ literal|"serverstartcode"
 argument_list|)
 decl_stmt|;
 comment|// Other constants
+comment|/** When we encode strings, we always specify UTF8 encoding */
 specifier|static
 specifier|final
 name|String
@@ -228,6 +249,7 @@ name|UTF8_ENCODING
 init|=
 literal|"UTF-8"
 decl_stmt|;
+comment|/** Value stored for a deleted item */
 specifier|static
 specifier|final
 name|BytesWritable
@@ -242,6 +264,7 @@ name|getBytes
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|/** Value written to HLog on a complete cache flush */
 specifier|static
 specifier|final
 name|BytesWritable

@@ -151,6 +151,10 @@ name|Text
 import|;
 end_import
 
+begin_comment
+comment|/** memcache test case */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -190,6 +194,9 @@ name|COLUMN_FAMILY
 init|=
 literal|"column"
 decl_stmt|;
+comment|/* (non-Javadoc)    * @see junit.framework.TestCase#setUp()    */
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|setUp
@@ -234,6 +241,9 @@ literal|"org.apache.hadoop.fs.LocalFileSystem"
 argument_list|)
 expr_stmt|;
 block|}
+comment|/* (non-Javadoc)    * @see junit.framework.TestCase#tearDown()    */
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|tearDown
@@ -612,6 +622,7 @@ return|return
 name|s
 return|;
 block|}
+comment|/**     * Test memcache snapshots    * @throws IOException    */
 specifier|public
 name|void
 name|testSnapshotting
@@ -642,8 +653,6 @@ init|=
 name|getLogfile
 argument_list|()
 decl_stmt|;
-try|try
-block|{
 comment|// Add some rows, run a snapshot. Do it a few times.
 for|for
 control|(
@@ -712,31 +721,9 @@ expr_stmt|;
 block|}
 name|log
 operator|.
-name|close
+name|closeAndDelete
 argument_list|()
 expr_stmt|;
-block|}
-finally|finally
-block|{
-name|log
-operator|.
-name|dir
-operator|.
-name|getFileSystem
-argument_list|(
-name|this
-operator|.
-name|conf
-argument_list|)
-operator|.
-name|delete
-argument_list|(
-name|log
-operator|.
-name|dir
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 specifier|private
 name|void
@@ -872,12 +859,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/** Test getFull from memcache */
 specifier|public
 name|void
 name|testGetFull
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 name|addRows
 argument_list|(
@@ -939,6 +925,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Test memcache scanner    * @throws IOException    */
 specifier|public
 name|void
 name|testScanner

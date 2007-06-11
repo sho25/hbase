@@ -150,7 +150,7 @@ name|running
 init|=
 literal|true
 decl_stmt|;
-comment|/** Indicate the length of the lease, in milliseconds */
+comment|/**    * Creates a lease    *     * @param leasePeriod - length of time (milliseconds) that the lease is valid    * @param leaseCheckFrequency - how often the lease should be checked (milliseconds)    */
 specifier|public
 name|Leases
 parameter_list|(
@@ -206,7 +206,7 @@ name|start
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Shut down this Leases outfit.  All pending leases will be destroyed,     * without any cancellation calls.    */
+comment|/**    * Shut down this Leases instance.  All pending leases will be destroyed,     * without any cancellation calls.    */
 specifier|public
 name|void
 name|close
@@ -323,6 +323,7 @@ literal|">"
 return|;
 block|}
 comment|/** A client obtains a lease... */
+comment|/**    * Obtain a lease    *     * @param holderId - name of lease holder    * @param resourceId - resource being leased    * @param listener - listener that will process lease expirations    */
 specifier|public
 name|void
 name|createLease
@@ -337,8 +338,6 @@ specifier|final
 name|LeaseListener
 name|listener
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 synchronized|synchronized
 init|(
@@ -385,7 +384,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|AssertionError
 argument_list|(
 literal|"Impossible state for createLease(): Lease "
 operator|+
@@ -443,6 +442,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/** A client renews a lease... */
+comment|/**    * Renew a lease    *     * @param holderId - name of lease holder    * @param resourceId - resource being leased    * @throws IOException    */
 specifier|public
 name|void
 name|renewLease
@@ -555,7 +555,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/** A client explicitly cancels a lease.    * The lease-cleanup method is not called.    */
+comment|/**    * Client explicitly cancels a lease.    *     * @param holderId - name of lease holder    * @param resourceId - resource being leased    * @throws IOException    */
 specifier|public
 name|void
 name|cancelLease
@@ -636,11 +636,6 @@ name|remove
 argument_list|(
 name|leaseId
 argument_list|)
-expr_stmt|;
-name|lease
-operator|.
-name|cancelled
-argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -809,6 +804,12 @@ argument_list|)
 return|;
 block|}
 comment|/** This class tracks a single Lease. */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
+specifier|private
 class|class
 name|Lease
 implements|implements
@@ -826,7 +827,6 @@ decl_stmt|;
 name|long
 name|lastUpdate
 decl_stmt|;
-specifier|public
 name|Lease
 parameter_list|(
 name|Text
@@ -861,7 +861,6 @@ name|renew
 argument_list|()
 expr_stmt|;
 block|}
-specifier|public
 name|Text
 name|getLeaseId
 parameter_list|()
@@ -875,7 +874,6 @@ name|resourceId
 argument_list|)
 return|;
 block|}
-specifier|public
 name|boolean
 name|shouldExpire
 parameter_list|()
@@ -893,7 +891,6 @@ name|leasePeriod
 operator|)
 return|;
 block|}
-specifier|public
 name|void
 name|renew
 parameter_list|()
@@ -907,24 +904,7 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 expr_stmt|;
-name|listener
-operator|.
-name|leaseRenewed
-argument_list|()
-expr_stmt|;
 block|}
-specifier|public
-name|void
-name|cancelled
-parameter_list|()
-block|{
-name|listener
-operator|.
-name|leaseCancelled
-argument_list|()
-expr_stmt|;
-block|}
-specifier|public
 name|void
 name|expired
 parameter_list|()

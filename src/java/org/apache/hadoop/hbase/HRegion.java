@@ -110,7 +110,6 @@ comment|/**  * HRegion stores data for a certain region of a table.  It stores a
 end_comment
 
 begin_class
-specifier|public
 class|class
 name|HRegion
 implements|implements
@@ -163,7 +162,6 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|/**    * Deletes all the files for a HRegion    *     * @param fs                  - the file system object    * @param baseDirectory       - base directory for HBase    * @param regionName          - name of the region to delete    * @throws IOException    */
-specifier|public
 specifier|static
 name|void
 name|deleteRegion
@@ -205,7 +203,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Merge two HRegions.  They must be available on the current    * HRegionServer. Returns a brand-new active HRegion, also    * running on the current HRegionServer.    */
-specifier|public
 specifier|static
 name|HRegion
 name|closeAndMerge
@@ -355,11 +352,11 @@ name|getLog
 argument_list|()
 decl_stmt|;
 name|Path
-name|dir
+name|rootDir
 init|=
 name|srcA
 operator|.
-name|getDir
+name|getRootDir
 argument_list|()
 decl_stmt|;
 name|Text
@@ -1089,7 +1086,7 @@ init|=
 operator|new
 name|HRegion
 argument_list|(
-name|dir
+name|rootDir
 argument_list|,
 name|log
 argument_list|,
@@ -1100,8 +1097,6 @@ argument_list|,
 name|newRegionInfo
 argument_list|,
 name|newRegionDir
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 comment|// Get rid of merges directory
@@ -1127,187 +1122,6 @@ expr_stmt|;
 return|return
 name|dstRegion
 return|;
-block|}
-comment|/**    * Internal method to create a new HRegion. Used by createTable and by the    * bootstrap code in the HMaster constructor    *     * @param fs          - file system to create region in    * @param dir         - base directory    * @param conf        - configuration object    * @param desc        - table descriptor    * @param regionId    - region id    * @param startKey    - first key in region    * @param endKey      - last key in region    * @return            - new HRegion    * @throws IOException    */
-specifier|public
-specifier|static
-name|HRegion
-name|createNewHRegion
-parameter_list|(
-name|FileSystem
-name|fs
-parameter_list|,
-name|Path
-name|dir
-parameter_list|,
-name|Configuration
-name|conf
-parameter_list|,
-name|HTableDescriptor
-name|desc
-parameter_list|,
-name|long
-name|regionId
-parameter_list|,
-name|Text
-name|startKey
-parameter_list|,
-name|Text
-name|endKey
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|HRegionInfo
-name|info
-init|=
-operator|new
-name|HRegionInfo
-argument_list|(
-name|regionId
-argument_list|,
-name|desc
-argument_list|,
-name|startKey
-argument_list|,
-name|endKey
-argument_list|)
-decl_stmt|;
-name|Path
-name|regionDir
-init|=
-name|HStoreFile
-operator|.
-name|getHRegionDir
-argument_list|(
-name|dir
-argument_list|,
-name|info
-operator|.
-name|regionName
-argument_list|)
-decl_stmt|;
-name|fs
-operator|.
-name|mkdirs
-argument_list|(
-name|regionDir
-argument_list|)
-expr_stmt|;
-return|return
-operator|new
-name|HRegion
-argument_list|(
-name|dir
-argument_list|,
-operator|new
-name|HLog
-argument_list|(
-name|fs
-argument_list|,
-operator|new
-name|Path
-argument_list|(
-name|regionDir
-argument_list|,
-name|HREGION_LOGDIR_NAME
-argument_list|)
-argument_list|,
-name|conf
-argument_list|)
-argument_list|,
-name|fs
-argument_list|,
-name|conf
-argument_list|,
-name|info
-argument_list|,
-literal|null
-argument_list|,
-literal|null
-argument_list|)
-return|;
-block|}
-comment|/**    * Inserts a new table's meta information into the meta table. Used by    * the HMaster bootstrap code.    *     * @param meta                - HRegion to be updated    * @param table               - HRegion of new table    *     * @throws IOException    */
-specifier|public
-specifier|static
-name|void
-name|addRegionToMeta
-parameter_list|(
-name|HRegion
-name|meta
-parameter_list|,
-name|HRegion
-name|table
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-comment|// The row key is the region name
-name|long
-name|writeid
-init|=
-name|meta
-operator|.
-name|startUpdate
-argument_list|(
-name|table
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-decl_stmt|;
-name|ByteArrayOutputStream
-name|bytes
-init|=
-operator|new
-name|ByteArrayOutputStream
-argument_list|()
-decl_stmt|;
-name|DataOutputStream
-name|s
-init|=
-operator|new
-name|DataOutputStream
-argument_list|(
-name|bytes
-argument_list|)
-decl_stmt|;
-name|table
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|write
-argument_list|(
-name|s
-argument_list|)
-expr_stmt|;
-name|meta
-operator|.
-name|put
-argument_list|(
-name|writeid
-argument_list|,
-name|COL_REGIONINFO
-argument_list|,
-operator|new
-name|BytesWritable
-argument_list|(
-name|bytes
-operator|.
-name|toByteArray
-argument_list|()
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|meta
-operator|.
-name|commit
-argument_list|(
-name|writeid
-argument_list|)
-expr_stmt|;
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Members
@@ -1394,7 +1208,7 @@ name|HMemcache
 name|memcache
 decl_stmt|;
 name|Path
-name|dir
+name|rootDir
 decl_stmt|;
 name|HLog
 name|log
@@ -1415,22 +1229,18 @@ specifier|static
 class|class
 name|WriteState
 block|{
-specifier|public
 specifier|volatile
 name|boolean
 name|writesOngoing
 decl_stmt|;
-specifier|public
 specifier|volatile
 name|boolean
 name|writesEnabled
 decl_stmt|;
-specifier|public
 specifier|volatile
 name|boolean
 name|closed
 decl_stmt|;
-specifier|public
 name|WriteState
 parameter_list|()
 block|{
@@ -1499,12 +1309,11 @@ decl_stmt|;
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Constructor
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * HRegion constructor.    *    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.      * @param dir dir is where the HRegion is stored.    * @param conf is global configuration settings.    * @param initialFiles If there are initial files (implying that the HRegion    * is new), then read them from the supplied path.    * @throws IOException    */
-specifier|public
+comment|/**    * HRegion constructor.    *    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    *     * @param rootDir root directory for HBase instance    * @param log HLog where changes should be committed    * @param fs is the filesystem.      * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * @param initialFiles If there are initial files (implying that the HRegion    * is new), then read them from the supplied path.    *     * @throws IOException    */
 name|HRegion
 parameter_list|(
 name|Path
-name|dir
+name|rootDir
 parameter_list|,
 name|HLog
 name|log
@@ -1520,18 +1329,15 @@ name|regionInfo
 parameter_list|,
 name|Path
 name|initialFiles
-parameter_list|,
-name|Path
-name|oldLogFile
 parameter_list|)
 throws|throws
 name|IOException
 block|{
 name|this
 operator|.
-name|dir
+name|rootDir
 operator|=
-name|dir
+name|rootDir
 expr_stmt|;
 name|this
 operator|.
@@ -1599,7 +1405,7 @@ name|HStoreFile
 operator|.
 name|getHRegionDir
 argument_list|(
-name|dir
+name|rootDir
 argument_list|,
 name|this
 operator|.
@@ -1608,6 +1414,17 @@ operator|.
 name|regionName
 argument_list|)
 expr_stmt|;
+name|Path
+name|oldLogFile
+init|=
+operator|new
+name|Path
+argument_list|(
+name|regiondir
+argument_list|,
+name|HREGION_OLDLOGFILE_NAME
+argument_list|)
+decl_stmt|;
 comment|// Move prefab HStore files into place (if any)
 if|if
 condition|(
@@ -1681,7 +1498,7 @@ argument_list|,
 operator|new
 name|HStore
 argument_list|(
-name|dir
+name|rootDir
 argument_list|,
 name|this
 operator|.
@@ -1830,7 +1647,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/** Returns a HRegionInfo object for this region */
-specifier|public
 name|HRegionInfo
 name|getRegionInfo
 parameter_list|()
@@ -1842,7 +1658,6 @@ name|regionInfo
 return|;
 block|}
 comment|/** returns true if region is closed */
-specifier|public
 name|boolean
 name|isClosed
 parameter_list|()
@@ -1869,7 +1684,6 @@ name|closed
 return|;
 block|}
 comment|/**    * Close down this HRegion.  Flush the cache, shut down each HStore, don't     * service any more calls.    *    * The returned Vector is a list of all the storage files that the HRegion's     * component HStores make use of.  It's a list of HStoreFile objects.    *    * This method could take some time to execute, so don't call it from a     * time-sensitive thread.    */
-specifier|public
 name|Vector
 argument_list|<
 name|HStoreFile
@@ -2064,7 +1878,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Split the HRegion to create two brand-new ones.  This will also close the     * current HRegion.    *    * Returns two brand-new (and open) HRegions    */
-specifier|public
 name|HRegion
 index|[]
 name|closeAndSplit
@@ -2633,7 +2446,7 @@ init|=
 operator|new
 name|HRegion
 argument_list|(
-name|dir
+name|rootDir
 argument_list|,
 name|log
 argument_list|,
@@ -2644,8 +2457,6 @@ argument_list|,
 name|regionAInfo
 argument_list|,
 name|dirA
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|HRegion
@@ -2654,7 +2465,7 @@ init|=
 operator|new
 name|HRegion
 argument_list|(
-name|dir
+name|rootDir
 argument_list|,
 name|log
 argument_list|,
@@ -2665,8 +2476,6 @@ argument_list|,
 name|regionBInfo
 argument_list|,
 name|dirB
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 comment|// Cleanup
@@ -2752,7 +2561,6 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// HRegion accessors
 comment|//////////////////////////////////////////////////////////////////////////////
-specifier|public
 name|Text
 name|getStartKey
 parameter_list|()
@@ -2763,7 +2571,6 @@ operator|.
 name|startKey
 return|;
 block|}
-specifier|public
 name|Text
 name|getEndKey
 parameter_list|()
@@ -2774,7 +2581,6 @@ operator|.
 name|endKey
 return|;
 block|}
-specifier|public
 name|long
 name|getRegionId
 parameter_list|()
@@ -2785,7 +2591,6 @@ operator|.
 name|regionId
 return|;
 block|}
-specifier|public
 name|Text
 name|getRegionName
 parameter_list|()
@@ -2796,16 +2601,14 @@ operator|.
 name|regionName
 return|;
 block|}
-specifier|public
 name|Path
-name|getDir
+name|getRootDir
 parameter_list|()
 block|{
 return|return
-name|dir
+name|rootDir
 return|;
 block|}
-specifier|public
 name|HTableDescriptor
 name|getTableDesc
 parameter_list|()
@@ -2816,7 +2619,6 @@ operator|.
 name|tableDesc
 return|;
 block|}
-specifier|public
 name|HLog
 name|getLog
 parameter_list|()
@@ -2825,7 +2627,6 @@ return|return
 name|log
 return|;
 block|}
-specifier|public
 name|Configuration
 name|getConf
 parameter_list|()
@@ -2834,7 +2635,6 @@ return|return
 name|conf
 return|;
 block|}
-specifier|public
 name|Path
 name|getRegionDir
 parameter_list|()
@@ -2843,7 +2643,6 @@ return|return
 name|regiondir
 return|;
 block|}
-specifier|public
 name|FileSystem
 name|getFilesystem
 parameter_list|()
@@ -2859,7 +2658,6 @@ comment|// These methods are meant to be called periodically by the HRegionServe
 comment|// upkeep.
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/**    * Iterates through all the HStores and finds the one with the largest MapFile    * size. If the size is greater than the (currently hard-coded) threshold,    * returns true indicating that the region should be split. The midKey for the    * largest MapFile is returned through the midKey parameter.    *     * @param midKey      - (return value) midKey of the largest MapFile    * @return            - true if the region should be split    */
-specifier|public
 name|boolean
 name|needsSplit
 parameter_list|(
@@ -2958,7 +2756,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * @return - returns the size of the largest HStore    */
-specifier|public
 name|long
 name|largestHStore
 parameter_list|()
@@ -3031,7 +2828,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * @return true if the region should be compacted.    */
-specifier|public
 name|boolean
 name|needsCompaction
 parameter_list|()
@@ -3096,7 +2892,6 @@ name|needsCompaction
 return|;
 block|}
 comment|/**    * Compact all the stores.  This should be called periodically to make sure     * the stores are kept manageable.      *    * This operation could block for a long time, so don't call it from a     * time-sensitive thread.    *    * If it returns TRUE, the compaction has completed.    *     * If it returns FALSE, the compaction was not carried out, because the     * HRegion is busy doing something else storage-intensive (like flushing the     * cache).  The caller should check back later.    */
-specifier|public
 name|boolean
 name|compactStores
 parameter_list|()
@@ -3252,7 +3047,6 @@ block|}
 block|}
 block|}
 comment|/**    * Each HRegion is given a periodic chance to flush the cache, which it should    * only take if there have been a lot of uncommitted writes.    */
-specifier|public
 name|void
 name|optionallyFlush
 parameter_list|()
@@ -3292,7 +3086,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Flush the cache.  This is called periodically to minimize the amount of log    * processing needed upon startup.    *     * The returned Vector is a list of all the files used by the component HStores.    * It is a list of HStoreFile objects.  If the returned value is NULL, then the    * flush could not be executed, because the HRegion is busy doing something    * else storage-intensive.  The caller should check back later.    *    * The 'disableFutureWrites' boolean indicates that the caller intends to     * close() the HRegion shortly, so the HRegion should not take on any new and     * potentially long-lasting disk operations.  This flush() should be the final    * pre-close() disk operation.    *    * This method may block for some time, so it should not be called from a     * time-sensitive thread.    */
-specifier|public
 name|Vector
 argument_list|<
 name|HStoreFile
@@ -3737,7 +3530,6 @@ comment|////////////////////////////////////////////////////////////////////////
 comment|// get() methods for client use.
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/** Fetch a single data item. */
-specifier|public
 name|BytesWritable
 name|get
 parameter_list|(
@@ -3783,7 +3575,6 @@ index|]
 return|;
 block|}
 comment|/** Fetch multiple versions of a single data item */
-specifier|public
 name|BytesWritable
 index|[]
 name|get
@@ -3816,7 +3607,6 @@ argument_list|)
 return|;
 block|}
 comment|/** Fetch multiple versions of a single data item, with timestamp. */
-specifier|public
 name|BytesWritable
 index|[]
 name|get
@@ -3897,7 +3687,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Private implementation: get the value for the indicated HStoreKey
+comment|/** Private implementation: get the value for the indicated HStoreKey */
 specifier|private
 name|BytesWritable
 index|[]
@@ -4000,7 +3790,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Fetch all the columns for the indicated row.    * Returns a TreeMap that maps column names to values.    *    * We should eventually use Bloom filters here, to reduce running time.  If     * the database has many column families and is very sparse, then we could be     * checking many files needlessly.  A small Bloom for each row would help us     * determine which column groups are useful for that row.  That would let us     * avoid a bunch of disk activity.    */
-specifier|public
 name|TreeMap
 argument_list|<
 name|Text
@@ -4116,7 +3905,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Return an iterator that scans over the HRegion, returning the indicated     * columns.  This Iterator must be closed by the caller.    */
-specifier|public
 name|HInternalScannerInterface
 name|getScanner
 parameter_list|(
@@ -4250,7 +4038,6 @@ comment|////////////////////////////////////////////////////////////////////////
 comment|// set() methods for client use.
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/**    * The caller wants to apply a series of writes to a single row in the    * HRegion. The caller will invoke startUpdate(), followed by a series of    * calls to put/delete, then finally either abort() or commit().    *    *<p>Note that we rely on the external caller to properly abort() or    * commit() every transaction.  If the caller is a network client, there    * should be a lease-system in place that automatically aborts() transactions    * after a specified quiet period.    *     * @param row Row to update    * @return lockid    * @see #put(long, Text, BytesWritable)    */
-specifier|public
 name|long
 name|startUpdate
 parameter_list|(
@@ -4273,7 +4060,6 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Put a cell value into the locked row.  The user indicates the row-lock, the    * target column, and the desired value.  This stuff is set into a temporary     * memory area until the user commits the change, at which point it's logged     * and placed into the memcache.    *    * This method really just tests the input, then calls an internal localput()     * method.    */
-specifier|public
 name|void
 name|put
 parameter_list|(
@@ -4332,7 +4118,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Delete a value or write a value. This is a just a convenience method for put().    */
-specifier|public
 name|void
 name|delete
 parameter_list|(
@@ -4355,7 +4140,7 @@ name|DELETE_BYTES
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * Private implementation.    *     * localput() is used for both puts and deletes. We just place the values    * into a per-row pending area, until a commit() or abort() call is received.    * (Or until the user's write-lock expires.)    *     * @param lockid    * @param targetCol    * @param val Value to enter into cell    * @throws IOException    */
+comment|/**    * Private implementation.    *     * localput() is used for both puts and deletes. We just place the values    * into a per-row pending area, until a commit() or abort() call is received.    * (Or until the user's write-lock expires.)    *     * @param lockid    * @param targetCol    * @param val Value to enter into cell    * @throws IOException    */
 name|void
 name|localput
 parameter_list|(
@@ -4491,7 +4276,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Abort a pending set of writes. This dumps from memory all in-progress    * writes associated with the given row-lock.  These values have not yet    * been placed in memcache or written to the log.    */
-specifier|public
 name|void
 name|abort
 parameter_list|(
@@ -4573,7 +4357,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Commit a pending set of writes to the memcache. This also results in    * writing to the change log.    *    * Once updates hit the change log, they are safe.  They will either be moved     * into an HStore in the future, or they will be recovered from the log.    * @param lockid Lock for row we're to commit.    * @throws IOException    */
-specifier|public
 name|void
 name|commit
 parameter_list|(
@@ -4992,7 +4775,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/** Release the row lock!    * @param lock Name of row whose lock we are to release    */
+comment|/**     * Release the row lock!    * @param lock Name of row whose lock we are to release    */
 name|void
 name|releaseRowLock
 parameter_list|(
@@ -5077,7 +4860,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/*    * HScanner is an iterator through a bunch of rows in an HRegion.    */
+comment|/**    * HScanner is an iterator through a bunch of rows in an HRegion.    */
 specifier|private
 specifier|static
 class|class
@@ -5119,7 +4902,6 @@ name|SuppressWarnings
 argument_list|(
 literal|"unchecked"
 argument_list|)
-specifier|public
 name|HScanner
 parameter_list|(
 name|Text
@@ -5499,7 +5281,7 @@ return|return
 name|multipleMatchers
 return|;
 block|}
-comment|/**      * Grab the next row's worth of values.  The HScanner will return the most       * recent data value for each row that is not newer than the target time.      */
+comment|/* (non-Javadoc)      *       * Grab the next row's worth of values.  The HScanner will return the most       * recent data value for each row that is not newer than the target time.      *      * @see org.apache.hadoop.hbase.HInternalScannerInterface#next(org.apache.hadoop.hbase.HStoreKey, java.util.TreeMap)      */
 specifier|public
 name|boolean
 name|next
@@ -5964,7 +5746,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/** All done with the scanner. */
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.HInternalScannerInterface#close()      */
 specifier|public
 name|void
 name|close
@@ -6007,8 +5789,7 @@ block|}
 block|}
 block|}
 comment|// Utility methods
-comment|/**    * Convenience method creating new HRegions.    * @param regionId ID to use    * @param tableDesc Descriptor    * @param dir Home directory for the new region.    * @param conf    * @return New META region (ROOT or META).    * @throws IOException    */
-specifier|public
+comment|/**    * Convenience method creating new HRegions.    * @param regionId ID to use    * @param tableDesc Descriptor    * @param rootDir Root directory of HBase instance    * @param conf    * @return New META region (ROOT or META).    * @throws IOException    */
 specifier|static
 name|HRegion
 name|createHRegion
@@ -6023,7 +5804,7 @@ name|tableDesc
 parameter_list|,
 specifier|final
 name|Path
-name|dir
+name|rootDir
 parameter_list|,
 specifier|final
 name|Configuration
@@ -6047,18 +5828,15 @@ argument_list|,
 literal|null
 argument_list|)
 argument_list|,
-name|dir
+name|rootDir
 argument_list|,
 name|conf
-argument_list|,
-literal|null
 argument_list|,
 literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Convenience method creating new HRegions. Used by createTable and by the    * bootstrap code in the HMaster constructor    *     * @param info Info for region to create.    * @param dir Home dir for new region    * @param conf    * @param initialFiles InitialFiles to pass new HRegion. Pass null if none.    * @param oldLogFile Old log file to use in region initialization.  Pass null    * if none.     * @return new HRegion    *     * @throws IOException    */
-specifier|public
+comment|/**    * Convenience method creating new HRegions. Used by createTable and by the    * bootstrap code in the HMaster constructor    *     * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @param initialFiles InitialFiles to pass new HRegion. Pass null if none.    * @return new HRegion    *     * @throws IOException    */
 specifier|static
 name|HRegion
 name|createHRegion
@@ -6069,7 +5847,7 @@ name|info
 parameter_list|,
 specifier|final
 name|Path
-name|dir
+name|rootDir
 parameter_list|,
 specifier|final
 name|Configuration
@@ -6078,10 +5856,6 @@ parameter_list|,
 specifier|final
 name|Path
 name|initialFiles
-parameter_list|,
-specifier|final
-name|Path
-name|oldLogFile
 parameter_list|)
 throws|throws
 name|IOException
@@ -6093,7 +5867,7 @@ name|HStoreFile
 operator|.
 name|getHRegionDir
 argument_list|(
-name|dir
+name|rootDir
 argument_list|,
 name|info
 operator|.
@@ -6121,7 +5895,7 @@ return|return
 operator|new
 name|HRegion
 argument_list|(
-name|dir
+name|rootDir
 argument_list|,
 operator|new
 name|HLog
@@ -6146,13 +5920,10 @@ argument_list|,
 name|info
 argument_list|,
 name|initialFiles
-argument_list|,
-name|oldLogFile
 argument_list|)
 return|;
 block|}
 comment|/**    * Inserts a new region's meta information into the passed    *<code>meta</code> region. Used by the HMaster bootstrap code adding    * new table to ROOT table.    *     * @param meta META HRegion to be updated    * @param r HRegion to add to<code>meta</code>    *    * @throws IOException    */
-specifier|public
 specifier|static
 name|void
 name|addRegionToMETA
@@ -6232,7 +6003,6 @@ name|writeid
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 specifier|static
 name|void
 name|addRegionToMETA
@@ -6385,7 +6155,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Delete<code>region</code> from META<code>table</code>.    * @param client Client to use running update.    * @param table META table we are to delete region from.    * @param regionName Region to remove.    * @throws IOException    */
-specifier|public
 specifier|static
 name|void
 name|removeRegionFromMETA

@@ -16,38 +16,22 @@ package|;
 end_package
 
 begin_comment
-comment|/*******************************************************************************  * LeaseListener is a small class meant to be overridden by users of the Leases   * class.  *  * It receives events from the Leases class about the status of its accompanying  * lease.  Users of the Leases class can use a LeaseListener subclass to, for   * example, clean up resources after a lease has expired.  ******************************************************************************/
+comment|/*******************************************************************************  * LeaseListener is an interface meant to be implemented by users of the Leases   * class.  *  * It receives events from the Leases class about the status of its accompanying  * lease.  Users of the Leases class can use a LeaseListener subclass to, for   * example, clean up resources after a lease has expired.  ******************************************************************************/
 end_comment
 
-begin_class
+begin_interface
 specifier|public
-specifier|abstract
-class|class
+interface|interface
 name|LeaseListener
 block|{
-specifier|public
-name|LeaseListener
-parameter_list|()
-block|{   }
-specifier|public
-name|void
-name|leaseRenewed
-parameter_list|()
-block|{   }
-comment|/** When the user cancels a lease, this method is called. */
-specifier|public
-name|void
-name|leaseCancelled
-parameter_list|()
-block|{   }
 comment|/** When a lease expires, this method is called. */
 specifier|public
 name|void
 name|leaseExpired
 parameter_list|()
-block|{   }
+function_decl|;
 block|}
-end_class
+end_interface
 
 end_unit
 

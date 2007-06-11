@@ -135,6 +135,10 @@ name|Text
 import|;
 end_import
 
+begin_comment
+comment|/** Test case for get */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -351,6 +355,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**     * Constructor    * @throws IOException    */
 specifier|public
 name|void
 name|testGet
@@ -517,8 +522,6 @@ argument_list|,
 name|conf
 argument_list|,
 name|info
-argument_list|,
-literal|null
 argument_list|,
 literal|null
 argument_list|)
@@ -756,8 +759,6 @@ argument_list|,
 name|info
 argument_list|,
 literal|null
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// Read it back
@@ -898,8 +899,6 @@ argument_list|,
 name|info
 argument_list|,
 literal|null
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// Read it back
@@ -912,6 +911,11 @@ comment|// Close region once and for all
 name|r
 operator|.
 name|close
+argument_list|()
+expr_stmt|;
+name|log
+operator|.
+name|closeAndDelete
 argument_list|()
 expr_stmt|;
 block|}

@@ -50,6 +50,8 @@ name|HMsg
 implements|implements
 name|Writable
 block|{
+comment|// Messages sent from master to region server
+comment|/** Start serving the specified region */
 specifier|public
 specifier|static
 specifier|final
@@ -58,6 +60,7 @@ name|MSG_REGION_OPEN
 init|=
 literal|1
 decl_stmt|;
+comment|/** Stop serving the specified region */
 specifier|public
 specifier|static
 specifier|final
@@ -66,14 +69,7 @@ name|MSG_REGION_CLOSE
 init|=
 literal|2
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|byte
-name|MSG_REGION_MERGE
-init|=
-literal|3
-decl_stmt|;
+comment|/** Region server is unknown to master. Restart */
 specifier|public
 specifier|static
 specifier|final
@@ -82,6 +78,7 @@ name|MSG_CALL_SERVER_STARTUP
 init|=
 literal|4
 decl_stmt|;
+comment|/** Master tells region server to stop */
 specifier|public
 specifier|static
 specifier|final
@@ -90,6 +87,7 @@ name|MSG_REGIONSERVER_STOP
 init|=
 literal|5
 decl_stmt|;
+comment|/** Stop serving the specified region and don't report back that it's closed */
 specifier|public
 specifier|static
 specifier|final
@@ -98,6 +96,8 @@ name|MSG_REGION_CLOSE_WITHOUT_REPORT
 init|=
 literal|6
 decl_stmt|;
+comment|// Messages sent from the region server to the master
+comment|/** region server is now serving the specified region */
 specifier|public
 specifier|static
 specifier|final
@@ -106,6 +106,7 @@ name|MSG_REPORT_OPEN
 init|=
 literal|100
 decl_stmt|;
+comment|/** region server is no longer serving the specified region */
 specifier|public
 specifier|static
 specifier|final
@@ -114,14 +115,7 @@ name|MSG_REPORT_CLOSE
 init|=
 literal|101
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|byte
-name|MSG_REGION_SPLIT
-init|=
-literal|102
-decl_stmt|;
+comment|/** region server is now serving a region produced by a region split */
 specifier|public
 specifier|static
 specifier|final
@@ -130,6 +124,7 @@ name|MSG_NEW_REGION
 init|=
 literal|103
 decl_stmt|;
+comment|/** region server is shutting down */
 specifier|public
 specifier|static
 specifier|final
@@ -144,6 +139,7 @@ decl_stmt|;
 name|HRegionInfo
 name|info
 decl_stmt|;
+comment|/** Default constructor. Used during deserialization */
 specifier|public
 name|HMsg
 parameter_list|()
@@ -157,6 +153,7 @@ name|HRegionInfo
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Construct a message with an empty HRegionInfo    *     * @param msg - message code    */
 specifier|public
 name|HMsg
 parameter_list|(
@@ -179,6 +176,7 @@ name|HRegionInfo
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Construct a message with the specified message code and HRegionInfo    *     * @param msg - message code    * @param info - HRegionInfo    */
 specifier|public
 name|HMsg
 parameter_list|(
@@ -202,6 +200,7 @@ operator|=
 name|info
 expr_stmt|;
 block|}
+comment|/**    * Accessor    * @return message code    */
 specifier|public
 name|byte
 name|getMsg
@@ -211,6 +210,7 @@ return|return
 name|msg
 return|;
 block|}
+comment|/**    * Accessor    * @return HRegionInfo    */
 specifier|public
 name|HRegionInfo
 name|getRegionInfo
@@ -220,9 +220,175 @@ return|return
 name|info
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+name|StringBuilder
+name|message
+init|=
+operator|new
+name|StringBuilder
+argument_list|()
+decl_stmt|;
+switch|switch
+condition|(
+name|msg
+condition|)
+block|{
+case|case
+name|MSG_REGION_OPEN
+case|:
+name|message
+operator|.
+name|append
+argument_list|(
+literal|"MSG_REGION_OPEN : "
+argument_list|)
+expr_stmt|;
+break|break;
+case|case
+name|MSG_REGION_CLOSE
+case|:
+name|message
+operator|.
+name|append
+argument_list|(
+literal|"MSG_REGION_CLOSE : "
+argument_list|)
+expr_stmt|;
+break|break;
+case|case
+name|MSG_CALL_SERVER_STARTUP
+case|:
+name|message
+operator|.
+name|append
+argument_list|(
+literal|"MSG_CALL_SERVER_STARTUP : "
+argument_list|)
+expr_stmt|;
+break|break;
+case|case
+name|MSG_REGIONSERVER_STOP
+case|:
+name|message
+operator|.
+name|append
+argument_list|(
+literal|"MSG_REGIONSERVER_STOP : "
+argument_list|)
+expr_stmt|;
+break|break;
+case|case
+name|MSG_REGION_CLOSE_WITHOUT_REPORT
+case|:
+name|message
+operator|.
+name|append
+argument_list|(
+literal|"MSG_REGION_CLOSE_WITHOUT_REPORT : "
+argument_list|)
+expr_stmt|;
+break|break;
+case|case
+name|MSG_REPORT_OPEN
+case|:
+name|message
+operator|.
+name|append
+argument_list|(
+literal|"MSG_REPORT_OPEN : "
+argument_list|)
+expr_stmt|;
+break|break;
+case|case
+name|MSG_REPORT_CLOSE
+case|:
+name|message
+operator|.
+name|append
+argument_list|(
+literal|"MSG_REPORT_CLOSE : "
+argument_list|)
+expr_stmt|;
+break|break;
+case|case
+name|MSG_NEW_REGION
+case|:
+name|message
+operator|.
+name|append
+argument_list|(
+literal|"MSG_NEW_REGION : "
+argument_list|)
+expr_stmt|;
+break|break;
+case|case
+name|MSG_REPORT_EXITING
+case|:
+name|message
+operator|.
+name|append
+argument_list|(
+literal|"MSG_REPORT_EXITING : "
+argument_list|)
+expr_stmt|;
+break|break;
+default|default:
+name|message
+operator|.
+name|append
+argument_list|(
+literal|"unknown message code ("
+argument_list|)
+expr_stmt|;
+name|message
+operator|.
+name|append
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+name|message
+operator|.
+name|append
+argument_list|(
+literal|") : "
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
+name|message
+operator|.
+name|append
+argument_list|(
+name|info
+operator|==
+literal|null
+condition|?
+literal|"null"
+else|:
+name|info
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return
+name|message
+operator|.
+name|toString
+argument_list|()
+return|;
+block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Writable
 comment|//////////////////////////////////////////////////////////////////////////////
+comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#write(java.io.DataOutput)    */
 specifier|public
 name|void
 name|write
@@ -248,6 +414,7 @@ name|out
 argument_list|)
 expr_stmt|;
 block|}
+comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#readFields(java.io.DataInput)    */
 specifier|public
 name|void
 name|readFields

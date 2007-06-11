@@ -187,14 +187,16 @@ name|Text
 import|;
 end_import
 
+begin_comment
+comment|/**   * A non-instantiable class that has a static method capable of compacting  * a table by merging adjacent regions that have grown too small.  */
+end_comment
+
 begin_class
-specifier|public
 class|class
 name|HMerge
 implements|implements
 name|HConstants
 block|{
-specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -209,7 +211,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|Text
@@ -450,9 +451,9 @@ name|conf
 operator|.
 name|get
 argument_list|(
-name|HREGION_DIR
+name|HBASE_DIR
 argument_list|,
-name|DEFAULT_HREGION_DIR
+name|DEFAULT_HBASE_DIR
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -501,7 +502,6 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|void
 name|process
 parameter_list|()
@@ -558,7 +558,7 @@ try|try
 block|{
 name|hlog
 operator|.
-name|close
+name|closeAndDelete
 argument_list|()
 expr_stmt|;
 block|}
@@ -696,8 +696,6 @@ name|i
 index|]
 argument_list|,
 literal|null
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|currentSize
@@ -727,8 +725,6 @@ name|i
 operator|+
 literal|1
 index|]
-argument_list|,
-literal|null
 argument_list|,
 literal|null
 argument_list|)
@@ -824,8 +820,6 @@ operator|++
 expr_stmt|;
 continue|continue;
 block|}
-else|else
-block|{
 name|LOG
 operator|.
 name|info
@@ -845,7 +839,6 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|currentRegion
 operator|.
 name|close
@@ -903,6 +896,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
+comment|/** Instantiated to compact a normal user table */
 specifier|private
 specifier|static
 class|class
@@ -922,7 +916,6 @@ specifier|private
 name|HRegionInfo
 name|latestRegion
 decl_stmt|;
-specifier|public
 name|OnlineMerger
 parameter_list|(
 name|Configuration
@@ -1139,6 +1132,8 @@ name|e
 throw|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|TreeSet
 argument_list|<
@@ -1214,6 +1209,8 @@ return|return
 name|regions
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|updateMeta
@@ -1536,6 +1533,7 @@ block|}
 block|}
 block|}
 block|}
+comment|/** Instantiated to compact the meta region */
 specifier|private
 specifier|static
 class|class
@@ -1563,7 +1561,6 @@ name|BytesWritable
 argument_list|>
 name|results
 decl_stmt|;
-specifier|public
 name|OfflineMerger
 parameter_list|(
 name|Configuration
@@ -1598,9 +1595,9 @@ name|conf
 operator|.
 name|get
 argument_list|(
-name|HREGION_DIR
+name|HBASE_DIR
 argument_list|,
-name|DEFAULT_HREGION_DIR
+name|DEFAULT_HBASE_DIR
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1646,8 +1643,6 @@ argument_list|,
 name|HGlobals
 operator|.
 name|rootRegionInfo
-argument_list|,
-literal|null
 argument_list|,
 literal|null
 argument_list|)
@@ -1788,6 +1783,8 @@ expr_stmt|;
 block|}
 block|}
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|TreeSet
 argument_list|<
@@ -1806,6 +1803,8 @@ return|return
 name|metaRegions
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|updateMeta
@@ -1839,8 +1838,6 @@ argument_list|,
 name|HGlobals
 operator|.
 name|rootRegionInfo
-argument_list|,
-literal|null
 argument_list|,
 literal|null
 argument_list|)

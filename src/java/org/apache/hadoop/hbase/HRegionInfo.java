@@ -67,16 +67,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -86,20 +76,6 @@ operator|.
 name|io
 operator|.
 name|Text
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|WritableComparable
 import|;
 end_import
 
@@ -128,30 +104,25 @@ name|HRegionInfo
 implements|implements
 name|WritableComparable
 block|{
-specifier|public
 name|Text
 name|regionName
 decl_stmt|;
-specifier|public
 name|long
 name|regionId
 decl_stmt|;
-specifier|public
 name|Text
 name|startKey
 decl_stmt|;
-specifier|public
 name|Text
 name|endKey
 decl_stmt|;
-specifier|public
 name|boolean
 name|offLine
 decl_stmt|;
-specifier|public
 name|HTableDescriptor
 name|tableDesc
 decl_stmt|;
+comment|/** Default constructor - creates empty object */
 specifier|public
 name|HRegionInfo
 parameter_list|()
@@ -201,6 +172,7 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
+comment|/**    * Construct a HRegionInfo object from byte array    *     * @param serializedBytes    * @throws IOException    */
 specifier|public
 name|HRegionInfo
 parameter_list|(
@@ -229,6 +201,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Construct HRegionInfo with explicit parameters    *     * @param regionId    - the regionid    * @param tableDesc   - the table descriptor    * @param startKey    - first key in region    * @param endKey      - end of key range    * @throws IllegalArgumentException    */
 specifier|public
 name|HRegionInfo
 parameter_list|(

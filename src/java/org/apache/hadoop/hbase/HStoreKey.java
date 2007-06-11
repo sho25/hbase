@@ -21,34 +21,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|io
@@ -78,24 +50,7 @@ name|HStoreKey
 implements|implements
 name|WritableComparable
 block|{
-specifier|private
-specifier|final
-name|Log
-name|LOG
-init|=
-name|LogFactory
-operator|.
-name|getLog
-argument_list|(
-name|this
-operator|.
-name|getClass
-argument_list|()
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-decl_stmt|;
+comment|/**    * Extracts the column family name from a column    * For example, returns 'info' if the specified column was 'info:server'    *     * @param col         - name of column    * @return            - column family name    */
 specifier|public
 specifier|static
 name|Text
@@ -104,8 +59,6 @@ parameter_list|(
 name|Text
 name|col
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|String
 name|column
@@ -166,6 +119,7 @@ decl_stmt|;
 name|long
 name|timestamp
 decl_stmt|;
+comment|/** Default constructor used in conjunction with Writable interface */
 specifier|public
 name|HStoreKey
 parameter_list|()
@@ -195,6 +149,7 @@ operator|.
 name|MAX_VALUE
 expr_stmt|;
 block|}
+comment|/**    * Create an HStoreKey specifying only the row    * The column defaults to the empty string and the time stamp defaults to    * Long.MAX_VALUE    *     * @param row - row key    */
 specifier|public
 name|HStoreKey
 parameter_list|(
@@ -229,6 +184,7 @@ operator|.
 name|MAX_VALUE
 expr_stmt|;
 block|}
+comment|/**    * Create an HStoreKey specifying the row and timestamp    * The column name defaults to the empty string    *     * @param row         - row key    * @param timestamp   - timestamp value    */
 specifier|public
 name|HStoreKey
 parameter_list|(
@@ -264,6 +220,7 @@ operator|=
 name|timestamp
 expr_stmt|;
 block|}
+comment|/**    * Create an HStoreKey specifying the row and column names    * The timestamp defaults to Long.MAX_VALUE    *     * @param row         - row key    * @param column      - column key    */
 specifier|public
 name|HStoreKey
 parameter_list|(
@@ -303,6 +260,7 @@ operator|.
 name|MAX_VALUE
 expr_stmt|;
 block|}
+comment|/**    * Create an HStoreKey specifying all the fields    *     * @param row         - row key    * @param column      - column key    * @param timestamp   - timestamp value    */
 specifier|public
 name|HStoreKey
 parameter_list|(
@@ -343,6 +301,49 @@ operator|=
 name|timestamp
 expr_stmt|;
 block|}
+comment|/**    * Construct a new HStoreKey from another    *     * @param other - the source key    */
+specifier|public
+name|HStoreKey
+parameter_list|(
+name|HStoreKey
+name|other
+parameter_list|)
+block|{
+name|this
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|row
+operator|.
+name|set
+argument_list|(
+name|other
+operator|.
+name|row
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|column
+operator|.
+name|set
+argument_list|(
+name|other
+operator|.
+name|column
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|timestamp
+operator|=
+name|other
+operator|.
+name|timestamp
+expr_stmt|;
+block|}
+comment|/**    * Change the value of the row key    *     * @param newrow      - new row key value    */
 specifier|public
 name|void
 name|setRow
@@ -361,6 +362,7 @@ name|newrow
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Change the value of the column key    *     * @param newcol      - new column key value    */
 specifier|public
 name|void
 name|setColumn
@@ -379,6 +381,7 @@ name|newcol
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Change the value of the timestamp field    *     * @param timestamp   - new timestamp value    */
 specifier|public
 name|void
 name|setVersion
@@ -394,6 +397,44 @@ operator|=
 name|timestamp
 expr_stmt|;
 block|}
+comment|/**    * Set the value of this HStoreKey from the supplied key    *     * @param k - key value to copy    */
+specifier|public
+name|void
+name|set
+parameter_list|(
+name|HStoreKey
+name|k
+parameter_list|)
+block|{
+name|this
+operator|.
+name|row
+operator|=
+name|k
+operator|.
+name|getRow
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|column
+operator|=
+name|k
+operator|.
+name|getColumn
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|timestamp
+operator|=
+name|k
+operator|.
+name|getTimestamp
+argument_list|()
+expr_stmt|;
+block|}
+comment|/** @return value of row key */
 specifier|public
 name|Text
 name|getRow
@@ -403,6 +444,7 @@ return|return
 name|row
 return|;
 block|}
+comment|/** @return value of column key */
 specifier|public
 name|Text
 name|getColumn
@@ -412,6 +454,7 @@ return|return
 name|column
 return|;
 block|}
+comment|/** @return value of timestamp */
 specifier|public
 name|long
 name|getTimestamp
@@ -500,15 +543,7 @@ name|HStoreKey
 name|other
 parameter_list|)
 block|{
-name|boolean
-name|status
-init|=
-literal|false
-decl_stmt|;
-try|try
-block|{
-name|status
-operator|=
+return|return
 name|this
 operator|.
 name|row
@@ -541,26 +576,10 @@ argument_list|)
 argument_list|)
 operator|==
 literal|0
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-return|return
-name|status
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -650,6 +669,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Comparable
 comment|//////////////////////////////////////////////////////////////////////////////
+comment|/* (non-Javadoc)    * @see java.lang.Comparable#compareTo(java.lang.Object)    */
 specifier|public
 name|int
 name|compareTo
@@ -750,6 +770,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Writable
 comment|//////////////////////////////////////////////////////////////////////////////
+comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#write(java.io.DataOutput)    */
 specifier|public
 name|void
 name|write
@@ -782,6 +803,7 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
+comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#readFields(java.io.DataInput)    */
 specifier|public
 name|void
 name|readFields

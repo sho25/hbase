@@ -337,7 +337,6 @@ block|{
 name|COL_REGIONINFO
 block|}
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|Text
@@ -367,11 +366,9 @@ specifier|static
 class|class
 name|RegionLocation
 block|{
-specifier|public
 name|HRegionInfo
 name|regionInfo
 decl_stmt|;
-specifier|public
 name|HServerAddress
 name|serverAddress
 decl_stmt|;
@@ -438,7 +435,6 @@ argument_list|>
 name|tablesToServers
 decl_stmt|;
 comment|// For the "current" table: Map startRow -> (HRegionInfo, HServerAddress)
-specifier|private
 name|SortedMap
 argument_list|<
 name|Text
@@ -470,7 +466,7 @@ decl_stmt|;
 name|long
 name|clientid
 decl_stmt|;
-comment|/** Creates a new HClient */
+comment|/**     * Creates a new HClient    * @param conf - Configuration object    */
 specifier|public
 name|HClient
 parameter_list|(
@@ -1057,6 +1053,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * Deletes a table    *     * @param tableName           - name of table to delete    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
@@ -1126,13 +1123,6 @@ operator|new
 name|DataInputBuffer
 argument_list|()
 decl_stmt|;
-name|HStoreKey
-name|key
-init|=
-operator|new
-name|HStoreKey
-argument_list|()
-decl_stmt|;
 name|HRegionInfo
 name|info
 init|=
@@ -1180,7 +1170,7 @@ argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;
-name|LabelledData
+name|KeyedData
 index|[]
 name|values
 init|=
@@ -1189,8 +1179,6 @@ operator|.
 name|next
 argument_list|(
 name|scannerId
-argument_list|,
-name|key
 argument_list|)
 decl_stmt|;
 if|if
@@ -1237,7 +1225,10 @@ index|[
 name|j
 index|]
 operator|.
-name|getLabel
+name|getKey
+argument_list|()
+operator|.
+name|getColumn
 argument_list|()
 operator|.
 name|equals
@@ -1407,6 +1398,7 @@ literal|" deleted"
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Add a column to an existing table    *     * @param tableName   - name of the table to add column to    * @param column      - column descriptor of column to be added    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
@@ -1456,6 +1448,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Delete a column from a table    *     * @param tableName           - name of table    * @param columnName          - name of column to be deleted    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
@@ -1505,6 +1498,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Brings a table on-line (enables it)    *     * @param tableName   - name of the table    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
@@ -1574,13 +1568,6 @@ operator|new
 name|DataInputBuffer
 argument_list|()
 decl_stmt|;
-name|HStoreKey
-name|key
-init|=
-operator|new
-name|HStoreKey
-argument_list|()
-decl_stmt|;
 name|HRegionInfo
 name|info
 init|=
@@ -1633,7 +1620,17 @@ argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;
-name|LabelledData
+name|boolean
+name|isenabled
+init|=
+literal|false
+decl_stmt|;
+while|while
+condition|(
+literal|true
+condition|)
+block|{
+name|KeyedData
 index|[]
 name|values
 init|=
@@ -1642,8 +1639,6 @@ operator|.
 name|next
 argument_list|(
 name|scannerId
-argument_list|,
-name|key
 argument_list|)
 decl_stmt|;
 if|if
@@ -1678,16 +1673,12 @@ literal|" not found"
 argument_list|)
 throw|;
 block|}
+break|break;
 block|}
 name|valuesfound
 operator|+=
 literal|1
 expr_stmt|;
-name|boolean
-name|isenabled
-init|=
-literal|false
-decl_stmt|;
 for|for
 control|(
 name|int
@@ -1712,7 +1703,10 @@ index|[
 name|j
 index|]
 operator|.
-name|getLabel
+name|getKey
+argument_list|()
+operator|.
+name|getColumn
 argument_list|()
 operator|.
 name|equals
@@ -1791,6 +1785,15 @@ name|info
 operator|.
 name|offLine
 expr_stmt|;
+break|break;
+block|}
+block|}
+if|if
+condition|(
+name|isenabled
+condition|)
+block|{
+break|break;
 block|}
 block|}
 if|if
@@ -1902,6 +1905,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Disables a table (takes it off-line) If it is being served, the master    * will tell the servers to stop serving it.    *     * @param tableName           - name of table    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
@@ -1971,13 +1975,6 @@ operator|new
 name|DataInputBuffer
 argument_list|()
 decl_stmt|;
-name|HStoreKey
-name|key
-init|=
-operator|new
-name|HStoreKey
-argument_list|()
-decl_stmt|;
 name|HRegionInfo
 name|info
 init|=
@@ -2030,7 +2027,17 @@ argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;
-name|LabelledData
+name|boolean
+name|disabled
+init|=
+literal|false
+decl_stmt|;
+while|while
+condition|(
+literal|true
+condition|)
+block|{
+name|KeyedData
 index|[]
 name|values
 init|=
@@ -2039,8 +2046,6 @@ operator|.
 name|next
 argument_list|(
 name|scannerId
-argument_list|,
-name|key
 argument_list|)
 decl_stmt|;
 if|if
@@ -2075,16 +2080,12 @@ literal|" not found"
 argument_list|)
 throw|;
 block|}
+break|break;
 block|}
 name|valuesfound
 operator|+=
 literal|1
 expr_stmt|;
-name|boolean
-name|disabled
-init|=
-literal|false
-decl_stmt|;
 for|for
 control|(
 name|int
@@ -2109,7 +2110,10 @@ index|[
 name|j
 index|]
 operator|.
-name|getLabel
+name|getKey
+argument_list|()
+operator|.
+name|getColumn
 argument_list|()
 operator|.
 name|equals
@@ -2187,6 +2191,15 @@ name|info
 operator|.
 name|offLine
 expr_stmt|;
+break|break;
+block|}
+block|}
+if|if
+condition|(
+name|disabled
+condition|)
+block|{
+break|break;
 block|}
 block|}
 if|if
@@ -2298,6 +2311,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**     * Shuts down the HBase instance     * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
@@ -3247,14 +3261,7 @@ name|serverAddress
 init|=
 literal|null
 decl_stmt|;
-name|HStoreKey
-name|key
-init|=
-operator|new
-name|HStoreKey
-argument_list|()
-decl_stmt|;
-name|LabelledData
+name|KeyedData
 index|[]
 name|values
 init|=
@@ -3263,8 +3270,6 @@ operator|.
 name|next
 argument_list|(
 name|scannerId
-argument_list|,
-name|key
 argument_list|)
 decl_stmt|;
 if|if
@@ -3429,7 +3434,10 @@ index|[
 name|i
 index|]
 operator|.
-name|getLabel
+name|getKey
+argument_list|()
+operator|.
+name|getColumn
 argument_list|()
 argument_list|,
 name|bytes
@@ -3835,7 +3843,7 @@ return|return
 name|server
 return|;
 block|}
-comment|/**    * List all the userspace tables.  In other words, scan the META table.    *    * If we wanted this to be really fast, we could implement a special    * catalog table that just contains table names and their descriptors.    * Right now, it only exists as part of the META table's region info.    */
+comment|/**    * List all the userspace tables.  In other words, scan the META table.    *    * If we wanted this to be really fast, we could implement a special    * catalog table that just contains table names and their descriptors.    * Right now, it only exists as part of the META table's region info.    *    * @return - returns an array of HTableDescriptors     * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|HTableDescriptor
@@ -3935,13 +3943,6 @@ argument_list|,
 name|EMPTY_START_ROW
 argument_list|)
 expr_stmt|;
-name|HStoreKey
-name|key
-init|=
-operator|new
-name|HStoreKey
-argument_list|()
-decl_stmt|;
 name|DataInputBuffer
 name|inbuf
 init|=
@@ -3954,7 +3955,7 @@ condition|(
 literal|true
 condition|)
 block|{
-name|LabelledData
+name|KeyedData
 index|[]
 name|values
 init|=
@@ -3963,8 +3964,6 @@ operator|.
 name|next
 argument_list|(
 name|scannerId
-argument_list|,
-name|key
 argument_list|)
 decl_stmt|;
 if|if
@@ -4002,7 +4001,10 @@ index|[
 name|i
 index|]
 operator|.
-name|getLabel
+name|getKey
+argument_list|()
+operator|.
+name|getColumn
 argument_list|()
 operator|.
 name|equals
@@ -4330,7 +4332,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/** Get a single value for the specified row and column */
+comment|/**     * Get a single value for the specified row and column    *    * @param row         - row key    * @param column      - column name    * @return            - value for specified row/column    * @throws IOException    */
 specifier|public
 name|byte
 index|[]
@@ -4485,7 +4487,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/** Get the specified number of versions of the specified row and column */
+comment|/**     * Get the specified number of versions of the specified row and column    *     * @param row         - row key    * @param column      - column name    * @param numVersions - number of versions to retrieve    * @return            - array byte values    * @throws IOException    */
 specifier|public
 name|byte
 index|[]
@@ -4705,7 +4707,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**     * Get the specified number of versions of the specified row and column with    * the specified timestamp.    */
+comment|/**     * Get the specified number of versions of the specified row and column with    * the specified timestamp.    *    * @param row         - row key    * @param column      - column name    * @param timestamp   - timestamp    * @param numVersions - number of versions to retrieve    * @return            - array of values that match the above criteria    * @throws IOException    */
 specifier|public
 name|byte
 index|[]
@@ -4930,10 +4932,15 @@ return|return
 literal|null
 return|;
 block|}
-comment|/** Get all the data for the specified row */
+comment|/**     * Get all the data for the specified row    *     * @param row         - row key    * @return            - map of colums to values    * @throws IOException    */
 specifier|public
-name|LabelledData
+name|SortedMap
+argument_list|<
+name|Text
+argument_list|,
+name|byte
 index|[]
+argument_list|>
 name|getRow
 parameter_list|(
 name|Text
@@ -4947,7 +4954,7 @@ name|info
 init|=
 literal|null
 decl_stmt|;
-name|LabelledData
+name|KeyedData
 index|[]
 name|value
 init|=
@@ -5033,11 +5040,125 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-return|return
+name|TreeMap
+argument_list|<
+name|Text
+argument_list|,
+name|byte
+index|[]
+argument_list|>
+name|results
+init|=
+operator|new
+name|TreeMap
+argument_list|<
+name|Text
+argument_list|,
+name|byte
+index|[]
+argument_list|>
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
 name|value
+operator|!=
+literal|null
+operator|&&
+name|value
+operator|.
+name|length
+operator|!=
+literal|0
+condition|)
+block|{
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|value
+operator|.
+name|length
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|byte
+index|[]
+name|bytes
+init|=
+operator|new
+name|byte
+index|[
+name|value
+index|[
+name|i
+index|]
+operator|.
+name|getData
+argument_list|()
+operator|.
+name|getSize
+argument_list|()
+index|]
+decl_stmt|;
+name|System
+operator|.
+name|arraycopy
+argument_list|(
+name|value
+index|[
+name|i
+index|]
+operator|.
+name|getData
+argument_list|()
+operator|.
+name|get
+argument_list|()
+argument_list|,
+literal|0
+argument_list|,
+name|bytes
+argument_list|,
+literal|0
+argument_list|,
+name|bytes
+operator|.
+name|length
+argument_list|)
+expr_stmt|;
+name|results
+operator|.
+name|put
+argument_list|(
+name|value
+index|[
+name|i
+index|]
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|getColumn
+argument_list|()
+argument_list|,
+name|bytes
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+return|return
+name|results
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    */
+comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns     - array of columns to return    * @param startRow    - starting row in table to scan    * @return            - scanner    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|HScannerInterface
@@ -5191,7 +5312,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-comment|/* Start an atomic row insertion or update    * @param row Name of row to start update against.    * @return Row lockid.    */
+comment|/**     * Start an atomic row insertion/update.  No changes are committed until the     * call to commit() returns. A call to abort() will abandon any updates in progress.    *    * Callers to this method are given a lease for each unique lockid; before the    * lease expires, either abort() or commit() must be called. If it is not     * called, the system will automatically call abort() on the client's behalf.    *    * The client can gain extra time with a call to renewLease().    * Start an atomic row insertion or update    *     * @param row Name of row to start update against.    * @return Row lockid.    * @throws IOException    */
 specifier|public
 name|long
 name|startUpdate
@@ -5357,7 +5478,7 @@ name|startUpdate
 argument_list|()
 return|;
 block|}
-comment|/** Change a value for the specified column */
+comment|/**     * Change a value for the specified column    *    * @param lockid              - lock id returned from startUpdate    * @param column              - column whose value is being set    * @param val                 - new value for column    * @throws IOException    */
 specifier|public
 name|void
 name|put
@@ -5460,7 +5581,7 @@ name|e
 throw|;
 block|}
 block|}
-comment|/** Delete the value for a column */
+comment|/**     * Delete the value for a column    *    * @param lockid              - lock id returned from startUpdate    * @param column              - name of column whose value is to be deleted    * @throws IOException    */
 specifier|public
 name|void
 name|delete
@@ -5553,7 +5674,7 @@ name|e
 throw|;
 block|}
 block|}
-comment|/** Abort a row mutation */
+comment|/**     * Abort a row mutation    *    * @param lockid              - lock id returned from startUpdate    * @throws IOException    */
 specifier|public
 name|void
 name|abort
@@ -5607,7 +5728,7 @@ name|e
 throw|;
 block|}
 block|}
-comment|/** Finalize a row mutation */
+comment|/**     * Finalize a row mutation    *    * @param lockid              - lock id returned from startUpdate    * @throws IOException    */
 specifier|public
 name|void
 name|commit
@@ -5654,6 +5775,90 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Renew lease on update    *     * @param lockid              - lock id returned from startUpdate    * @throws IOException    */
+specifier|public
+name|void
+name|renewLease
+parameter_list|(
+name|long
+name|lockid
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+try|try
+block|{
+name|this
+operator|.
+name|currentServer
+operator|.
+name|renewLease
+argument_list|(
+name|lockid
+argument_list|,
+name|this
+operator|.
+name|clientid
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+try|try
+block|{
+name|this
+operator|.
+name|currentServer
+operator|.
+name|abort
+argument_list|(
+name|this
+operator|.
+name|currentRegion
+argument_list|,
+name|this
+operator|.
+name|clientid
+argument_list|,
+name|lockid
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e2
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|e2
+argument_list|)
+expr_stmt|;
+block|}
+name|this
+operator|.
+name|currentServer
+operator|=
+literal|null
+expr_stmt|;
+name|this
+operator|.
+name|currentRegion
+operator|=
+literal|null
+expr_stmt|;
+throw|throw
+name|e
+throw|;
+block|}
+block|}
 comment|/**    * Implements the scanner interface for the HBase client.    * If there are multiple regions in a table, this scanner will iterate    * through them all.    */
 specifier|private
 class|class
@@ -5661,6 +5866,15 @@ name|ClientScanner
 implements|implements
 name|HScannerInterface
 block|{
+specifier|private
+specifier|final
+name|Text
+name|EMPTY_COLUMN
+init|=
+operator|new
+name|Text
+argument_list|()
+decl_stmt|;
 specifier|private
 name|Text
 index|[]
@@ -5793,7 +6007,6 @@ index|]
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|ClientScanner
 parameter_list|(
 name|Text
@@ -6071,7 +6284,7 @@ return|return
 literal|false
 return|;
 block|}
-name|LabelledData
+name|KeyedData
 index|[]
 name|values
 init|=
@@ -6090,13 +6303,15 @@ argument_list|(
 name|this
 operator|.
 name|scannerId
-argument_list|,
-name|key
 argument_list|)
 expr_stmt|;
 block|}
 do|while
 condition|(
+name|values
+operator|!=
+literal|null
+operator|&&
 name|values
 operator|.
 name|length
@@ -6107,6 +6322,19 @@ name|nextScanner
 argument_list|()
 condition|)
 do|;
+if|if
+condition|(
+name|values
+operator|!=
+literal|null
+operator|&&
+name|values
+operator|.
+name|length
+operator|!=
+literal|0
+condition|)
+block|{
 for|for
 control|(
 name|int
@@ -6124,6 +6352,45 @@ name|i
 operator|++
 control|)
 block|{
+name|key
+operator|.
+name|setRow
+argument_list|(
+name|values
+index|[
+name|i
+index|]
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|getRow
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|key
+operator|.
+name|setVersion
+argument_list|(
+name|values
+index|[
+name|i
+index|]
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|getTimestamp
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|key
+operator|.
+name|setColumn
+argument_list|(
+name|EMPTY_COLUMN
+argument_list|)
+expr_stmt|;
 name|byte
 index|[]
 name|bytes
@@ -6178,14 +6445,24 @@ index|[
 name|i
 index|]
 operator|.
-name|getLabel
+name|getKey
+argument_list|()
+operator|.
+name|getColumn
 argument_list|()
 argument_list|,
 name|bytes
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 return|return
+name|values
+operator|==
+literal|null
+condition|?
+literal|false
+else|:
 name|values
 operator|.
 name|length
@@ -6591,6 +6868,7 @@ literal|" deleteTable testtable"
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Process command-line args.    * @param args - command arguments    * @return 0 if successful -1 otherwise    */
 specifier|public
 name|int
 name|doCommandLine
@@ -6601,7 +6879,7 @@ name|args
 index|[]
 parameter_list|)
 block|{
-comment|// Process command-line args. TODO: Better cmd-line processing
+comment|// TODO: Better cmd-line processing
 comment|// (but hopefully something not as painful as cli options).
 name|int
 name|errCode
@@ -6998,6 +7276,7 @@ return|return
 name|errCode
 return|;
 block|}
+comment|/**    * Main program    * @param args    */
 specifier|public
 specifier|static
 name|void

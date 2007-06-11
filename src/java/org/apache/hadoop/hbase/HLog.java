@@ -256,17 +256,16 @@ name|rollLock
 init|=
 literal|0
 decl_stmt|;
-comment|/**    * Bundle up a bunch of log files (which are no longer being written to),    * into a new file.  Delete the old log files when ready.    * @param srcDir Directory of log files to bundle:    * e.g.<code>${REGIONDIR}/log_HOST_PORT</code>    * @param dstFile Destination file:    * e.g.<code>${REGIONDIR}/oldlogfile_HOST_PORT</code>    * @param fs FileSystem    * @param conf HBaseConfiguration    * @throws IOException    */
-specifier|public
+comment|/**    * Split up a bunch of log files, that are no longer being written to,    * into new files, one per region.  Delete the old log files when ready.    * @param rootDir Root directory of the HBase instance    * @param srcDir Directory of log files to split:    * e.g.<code>${ROOTDIR}/log_HOST_PORT</code>    * @param fs FileSystem    * @param conf HBaseConfiguration    * @throws IOException    */
 specifier|static
 name|void
-name|consolidateOldLog
+name|splitLog
 parameter_list|(
 name|Path
-name|srcDir
+name|rootDir
 parameter_list|,
 name|Path
-name|dstFile
+name|srcDir
 parameter_list|,
 name|FileSystem
 name|fs
@@ -289,7 +288,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"consolidating log files"
+literal|"splitting log files"
 argument_list|)
 expr_stmt|;
 block|}
@@ -304,29 +303,26 @@ argument_list|(
 name|srcDir
 argument_list|)
 decl_stmt|;
+name|TreeMap
+argument_list|<
+name|Text
+argument_list|,
 name|SequenceFile
 operator|.
 name|Writer
-name|newlog
+argument_list|>
+name|logWriters
 init|=
+operator|new
+name|TreeMap
+argument_list|<
+name|Text
+argument_list|,
 name|SequenceFile
 operator|.
-name|createWriter
-argument_list|(
-name|fs
-argument_list|,
-name|conf
-argument_list|,
-name|dstFile
-argument_list|,
-name|HLogKey
-operator|.
-name|class
-argument_list|,
-name|HLogEdit
-operator|.
-name|class
-argument_list|)
+name|Writer
+argument_list|>
+argument_list|()
 decl_stmt|;
 try|try
 block|{
@@ -395,7 +391,83 @@ name|val
 argument_list|)
 condition|)
 block|{
-name|newlog
+name|Text
+name|regionName
+init|=
+name|key
+operator|.
+name|getRegionName
+argument_list|()
+decl_stmt|;
+name|SequenceFile
+operator|.
+name|Writer
+name|w
+init|=
+name|logWriters
+operator|.
+name|get
+argument_list|(
+name|regionName
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|w
+operator|==
+literal|null
+condition|)
+block|{
+name|Path
+name|logfile
+init|=
+operator|new
+name|Path
+argument_list|(
+name|HStoreFile
+operator|.
+name|getHRegionDir
+argument_list|(
+name|rootDir
+argument_list|,
+name|regionName
+argument_list|)
+argument_list|,
+name|HREGION_OLDLOGFILE_NAME
+argument_list|)
+decl_stmt|;
+name|w
+operator|=
+name|SequenceFile
+operator|.
+name|createWriter
+argument_list|(
+name|fs
+argument_list|,
+name|conf
+argument_list|,
+name|logfile
+argument_list|,
+name|HLogKey
+operator|.
+name|class
+argument_list|,
+name|HLogEdit
+operator|.
+name|class
+argument_list|)
+expr_stmt|;
+name|logWriters
+operator|.
+name|put
+argument_list|(
+name|regionName
+argument_list|,
+name|w
+argument_list|)
+expr_stmt|;
+block|}
+name|w
 operator|.
 name|append
 argument_list|(
@@ -418,11 +490,25 @@ block|}
 block|}
 finally|finally
 block|{
-name|newlog
+for|for
+control|(
+name|SequenceFile
+operator|.
+name|Writer
+name|w
+range|:
+name|logWriters
+operator|.
+name|values
+argument_list|()
+control|)
+block|{
+name|w
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -496,13 +582,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"log file consolidation completed"
+literal|"log file splitting completed"
 argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log.  If there is a log    * at startup, it should have already been processed and deleted by     * the time the HLog object is started up.    */
-specifier|public
+comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log.  If there is a log    * at startup, it should have already been processed and deleted by     * the time the HLog object is started up.    *     * @param fs    * @param dir    * @param conf    * @throws IOException    */
 name|HLog
 parameter_list|(
 name|FileSystem
@@ -566,8 +651,7 @@ name|rollWriter
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Roll the log writer.  That is, start writing log messages to a new file.    *    * The 'rollLock' prevents us from entering rollWriter() more than    * once at a time.    *    * The 'this' lock limits access to the current writer so    * we don't append multiple items simultaneously.    */
-specifier|public
+comment|/**    * Roll the log writer.  That is, start writing log messages to a new file.    *    * The 'rollLock' prevents us from entering rollWriter() more than    * once at a time.    *    * The 'this' lock limits access to the current writer so    * we don't append multiple items simultaneously.    *     * @throws IOException    */
 name|void
 name|rollWriter
 parameter_list|()
@@ -970,8 +1054,29 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/** Shut down the log. */
-specifier|public
+comment|/**    * Shut down the log and delete the log directory    * @throws IOException    */
+specifier|synchronized
+name|void
+name|closeAndDelete
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|rollWriter
+argument_list|()
+expr_stmt|;
+name|close
+argument_list|()
+expr_stmt|;
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|dir
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Shut down the log.    * @throws IOException    */
 specifier|synchronized
 name|void
 name|close
@@ -1026,7 +1131,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Append a set of edits to the log. Log edits are keyed by regionName,    * rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for    * a given key-range of the HRegion (TODO).  Any edits that do not have a    * matching {@link HConstants#COMPLETE_CACHEFLUSH} message can be discarded.    *    *<p>Logs cannot be restarted once closed, or once the HLog process dies.    * Each time the HLog starts, it must create a new log.  This means that    * other systems should process the log appropriately upon each startup    * (and prior to initializing HLog).    *    * We need to seize a lock on the writer so that writes are atomic.    * @param regionName    * @param tableName    * @param row    * @param columns    * @param timestamp    * @throws IOException    */
-specifier|public
 specifier|synchronized
 name|void
 name|append
@@ -1183,8 +1287,7 @@ operator|++
 expr_stmt|;
 block|}
 block|}
-comment|/** How many items have been added to the log? */
-specifier|public
+comment|/** @return How many items have been added to the log */
 name|int
 name|getNumEntries
 parameter_list|()
@@ -1204,6 +1307,7 @@ name|logSeqNum
 operator|++
 return|;
 block|}
+comment|/**    * Obtain a specified number of sequence numbers    *     * @param num - number of sequence numbers to obtain    * @return - array of sequence numbers    */
 specifier|synchronized
 name|long
 index|[]
@@ -1252,7 +1356,6 @@ name|results
 return|;
 block|}
 comment|/**    * By acquiring a log sequence ID, we can allow log messages    * to continue while we flush the cache.    *    * Set a flag so that we do not roll the log between the start    * and complete of a cache-flush.  Otherwise the log-seq-id for    * the flush will not appear in the correct logfile.    * @return sequence ID to pass {@link #completeCacheFlush(Text, Text, long)}    * @see #completeCacheFlush(Text, Text, long)    */
-specifier|public
 specifier|synchronized
 name|long
 name|startCacheFlush
@@ -1288,8 +1391,7 @@ name|obtainSeqNum
 argument_list|()
 return|;
 block|}
-comment|/** Complete the cache flush */
-specifier|public
+comment|/** Complete the cache flush    * @param regionName    * @param tableName    * @param logSeqId    * @throws IOException    */
 specifier|synchronized
 name|void
 name|completeCacheFlush

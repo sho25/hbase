@@ -81,6 +81,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|LinkedList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Map
 import|;
 end_import
@@ -336,6 +346,7 @@ name|HMasterRegionInterface
 implements|,
 name|Runnable
 block|{
+comment|/* (non-Javadoc)    * @see org.apache.hadoop.ipc.VersionedProtocol#getProtocolVersion(java.lang.String, long)    */
 specifier|public
 name|long
 name|getProtocolVersion
@@ -442,7 +453,6 @@ decl_stmt|;
 name|Path
 name|dir
 decl_stmt|;
-specifier|private
 name|Configuration
 name|conf
 decl_stmt|;
@@ -452,19 +462,16 @@ decl_stmt|;
 name|Random
 name|rand
 decl_stmt|;
-specifier|private
 name|long
 name|threadWakeFrequency
 decl_stmt|;
-specifier|private
 name|int
 name|numRetries
 decl_stmt|;
-specifier|private
 name|long
 name|maxRegionOpenTime
 decl_stmt|;
-name|Vector
+name|LinkedList
 argument_list|<
 name|PendingOperation
 argument_list|>
@@ -488,7 +495,6 @@ decl_stmt|;
 name|long
 name|metaRescanInterval
 decl_stmt|;
-specifier|private
 name|HServerAddress
 name|rootRegionLocation
 decl_stmt|;
@@ -502,13 +508,6 @@ init|=
 block|{
 name|COLUMN_FAMILY
 block|}
-decl_stmt|;
-specifier|static
-specifier|final
-name|String
-name|MASTER_NOT_RUNNING
-init|=
-literal|"Master not running"
 decl_stmt|;
 name|boolean
 name|rootScanned
@@ -640,14 +639,7 @@ index|[]
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|HStoreKey
-name|key
-init|=
-operator|new
-name|HStoreKey
-argument_list|()
-decl_stmt|;
-name|LabelledData
+name|KeyedData
 index|[]
 name|values
 init|=
@@ -656,8 +648,6 @@ operator|.
 name|next
 argument_list|(
 name|scannerId
-argument_list|,
-name|key
 argument_list|)
 decl_stmt|;
 if|if
@@ -742,7 +732,10 @@ index|[
 name|i
 index|]
 operator|.
-name|getLabel
+name|getKey
+argument_list|()
+operator|.
+name|getColumn
 argument_list|()
 argument_list|,
 name|bytes
@@ -1098,6 +1091,28 @@ expr_stmt|;
 block|}
 if|if
 condition|(
+operator|!
+operator|(
+name|unassignedRegions
+operator|.
+name|containsKey
+argument_list|(
+name|info
+operator|.
+name|regionName
+argument_list|)
+operator|||
+name|pendingRegions
+operator|.
+name|contains
+argument_list|(
+name|info
+operator|.
+name|regionName
+argument_list|)
+operator|)
+operator|&&
+operator|(
 name|storedInfo
 operator|==
 literal|null
@@ -1108,8 +1123,54 @@ name|getStartCode
 argument_list|()
 operator|!=
 name|startCode
+operator|)
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"region unassigned: "
+operator|+
+name|info
+operator|.
+name|regionName
+operator|+
+literal|" serverName: "
+operator|+
+name|serverName
+operator|+
+operator|(
+name|storedInfo
+operator|==
+literal|null
+condition|?
+literal|" storedInfo == null"
+else|:
+operator|(
+literal|" startCode="
+operator|+
+name|startCode
+operator|+
+literal|", storedStartCode="
+operator|+
+name|storedInfo
+operator|.
+name|getStartCode
+argument_list|()
+operator|)
+operator|)
+argument_list|)
+expr_stmt|;
+block|}
 comment|// The current assignment is no good; load the region.
 name|unassignedRegions
 operator|.
@@ -1133,31 +1194,10 @@ argument_list|,
 literal|0L
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"region unassigned: "
-operator|+
-name|info
-operator|.
-name|regionName
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 block|}
 comment|/**    * Scanner for the<code>ROOT</code> HRegion.    */
-specifier|private
 class|class
 name|RootScanner
 extends|extends
@@ -1184,13 +1224,22 @@ literal|"Running ROOT scanner"
 argument_list|)
 expr_stmt|;
 block|}
-try|try
-block|{
+name|int
+name|tries
+init|=
+literal|0
+decl_stmt|;
 while|while
 condition|(
 operator|!
 name|closed
+operator|&&
+name|tries
+operator|<
+name|numRetries
 condition|)
+block|{
+try|try
 block|{
 comment|// rootRegionLocation will be filled in when we get an 'open region'
 comment|// regionServerReport message from the HRegionServer that has been
@@ -1266,6 +1315,55 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+name|tries
+operator|=
+literal|0
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|tries
+operator|++
+expr_stmt|;
+if|if
+condition|(
+name|tries
+operator|<
+name|numRetries
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"ROOT scanner"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"ROOT scanner"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|closed
+operator|=
+literal|true
+expr_stmt|;
+break|break;
+block|}
+block|}
 try|try
 block|{
 name|Thread
@@ -1286,27 +1384,6 @@ comment|// Catch and go around again. If interrupt, its spurious or we're
 comment|// being shutdown.  Go back up to the while test.
 block|}
 block|}
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"ROOT scanner"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-name|closed
-operator|=
-literal|true
-expr_stmt|;
-block|}
 name|LOG
 operator|.
 name|info
@@ -1324,28 +1401,28 @@ specifier|private
 name|Thread
 name|rootScannerThread
 decl_stmt|;
-specifier|private
 name|Integer
 name|rootScannerLock
 init|=
 literal|0
 decl_stmt|;
-specifier|private
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|static
 class|class
 name|MetaRegion
 implements|implements
 name|Comparable
 block|{
-specifier|public
 name|HServerAddress
 name|server
 decl_stmt|;
-specifier|public
 name|Text
 name|regionName
 decl_stmt|;
-specifier|public
 name|Text
 name|startKey
 decl_stmt|;
@@ -1476,7 +1553,6 @@ name|boolean
 name|allMetaRegionsScanned
 decl_stmt|;
 comment|/**    * MetaScanner<code>META</code> table.    *     * When a<code>META</code> server comes on line, a MetaRegion object is    * queued up by regionServerReport() and this thread wakes up.    *    * It's important to do this work in a separate thread, or else the blocking     * action would prevent other work from getting done.    */
-specifier|private
 class|class
 name|MetaScanner
 extends|extends
@@ -1566,7 +1642,9 @@ block|{
 name|metaRegionsToScan
 operator|.
 name|wait
-argument_list|()
+argument_list|(
+name|threadWakeFrequency
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -1650,6 +1728,11 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+name|int
+name|tries
+init|=
+literal|0
+decl_stmt|;
 do|do
 block|{
 try|try
@@ -1682,6 +1765,8 @@ block|{
 comment|// We're shutting down
 break|break;
 block|}
+try|try
+block|{
 comment|// Rescan the known meta regions every so often
 synchronized|synchronized
 init|(
@@ -1742,6 +1827,44 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|tries
+operator|=
+literal|0
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|tries
+operator|++
+expr_stmt|;
+if|if
+condition|(
+name|tries
+operator|<
+name|numRetries
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"META scanner"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+throw|throw
+name|e
+throw|;
+block|}
+block|}
 block|}
 do|while
 condition|(
@@ -1778,6 +1901,7 @@ literal|"META scanner exiting"
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * Called by the meta scanner when it has completed scanning all meta       * regions. This wakes up any threads that were waiting for this to happen.      */
 specifier|private
 specifier|synchronized
 name|void
@@ -1788,10 +1912,10 @@ name|notifyAll
 argument_list|()
 expr_stmt|;
 block|}
-specifier|public
+comment|/**      * Other threads call this method to wait until all the meta regions have      * been scanned.      */
 specifier|synchronized
-name|void
-name|waitForMetaScan
+name|boolean
+name|waitForMetaScanOrClose
 parameter_list|()
 block|{
 while|while
@@ -1806,7 +1930,9 @@ block|{
 try|try
 block|{
 name|wait
-argument_list|()
+argument_list|(
+name|threadWakeFrequency
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -1818,6 +1944,9 @@ block|{
 comment|// continue
 block|}
 block|}
+return|return
+name|closed
+return|;
 block|}
 block|}
 name|MetaScanner
@@ -1832,11 +1961,7 @@ name|metaScannerLock
 init|=
 literal|0
 decl_stmt|;
-comment|// The 'unassignedRegions' table maps from a region name to a HRegionInfo record,
-comment|// which includes the region's table, its id, and its start/end keys.
-comment|//
-comment|// We fill 'unassignedRecords' by scanning ROOT and META tables, learning the
-comment|// set of all known valid regions.
+comment|/**    * The 'unassignedRegions' table maps from a region name to a HRegionInfo     * record, which includes the region's table, its id, and its start/end keys.    *     * We fill 'unassignedRecords' by scanning ROOT and META tables, learning the    * set of all known valid regions.    */
 name|SortedMap
 argument_list|<
 name|Text
@@ -1845,9 +1970,7 @@ name|HRegionInfo
 argument_list|>
 name|unassignedRegions
 decl_stmt|;
-comment|// The 'assignAttempts' table maps from regions to a timestamp that indicates
-comment|// the last time we *tried* to assign the region to a RegionServer. If the
-comment|// timestamp is out of date, then we can try to reassign it.
+comment|/**    * The 'assignAttempts' table maps from regions to a timestamp that indicates    * the last time we *tried* to assign the region to a RegionServer. If the     * timestamp is out of date, then we can try to reassign it.    */
 name|SortedMap
 argument_list|<
 name|Text
@@ -1856,6 +1979,14 @@ name|Long
 argument_list|>
 name|assignAttempts
 decl_stmt|;
+comment|/**    * Regions that have been assigned, and the server has reported that it has    * started serving it, but that we have not yet recorded in the meta table.    */
+name|SortedSet
+argument_list|<
+name|Text
+argument_list|>
+name|pendingRegions
+decl_stmt|;
+comment|/**    * The 'killList' is a list of regions that are going to be closed, but not    * reopened.    */
 name|SortedMap
 argument_list|<
 name|String
@@ -1869,22 +2000,21 @@ argument_list|>
 argument_list|>
 name|killList
 decl_stmt|;
-comment|// 'killedRegions' contains regions that are in the process of being closed
+comment|/** 'killedRegions' contains regions that are in the process of being closed */
 name|SortedSet
 argument_list|<
 name|Text
 argument_list|>
 name|killedRegions
 decl_stmt|;
-comment|// 'regionsToDelete' contains regions that need to be deleted, but cannot be
-comment|// until the region server closes it
+comment|/**    * 'regionsToDelete' contains regions that need to be deleted, but cannot be    * until the region server closes it    */
 name|SortedSet
 argument_list|<
 name|Text
 argument_list|>
 name|regionsToDelete
 decl_stmt|;
-comment|// A map of known server names to server info
+comment|/** The map of known server names to server info */
 name|SortedMap
 argument_list|<
 name|String
@@ -1907,7 +2037,7 @@ argument_list|>
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/** Build the HMaster out of a raw configuration item. */
+comment|/** Build the HMaster out of a raw configuration item.    *     * @param conf - Configuration object    * @throws IOException    */
 specifier|public
 name|HMaster
 parameter_list|(
@@ -1926,9 +2056,9 @@ name|conf
 operator|.
 name|get
 argument_list|(
-name|HREGION_DIR
+name|HBASE_DIR
 argument_list|,
-name|DEFAULT_HREGION_DIR
+name|DEFAULT_HBASE_DIR
 argument_list|)
 argument_list|)
 argument_list|,
@@ -2134,7 +2264,7 @@ operator|.
 name|getLog
 argument_list|()
 operator|.
-name|close
+name|closeAndDelete
 argument_list|()
 expr_stmt|;
 name|meta
@@ -2147,7 +2277,7 @@ operator|.
 name|getLog
 argument_list|()
 operator|.
-name|close
+name|closeAndDelete
 argument_list|()
 expr_stmt|;
 block|}
@@ -2214,7 +2344,7 @@ operator|.
 name|msgQueue
 operator|=
 operator|new
-name|Vector
+name|LinkedList
 argument_list|<
 name|PendingOperation
 argument_list|>
@@ -2485,6 +2615,22 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
+name|pendingRegions
+operator|=
+name|Collections
+operator|.
+name|synchronizedSortedSet
+argument_list|(
+operator|new
+name|TreeSet
+argument_list|<
+name|Text
+argument_list|>
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
 name|assignAttempts
 operator|.
 name|put
@@ -2566,6 +2712,8 @@ name|info
 argument_list|(
 literal|"HMaster initialized on "
 operator|+
+name|this
+operator|.
 name|address
 operator|.
 name|toString
@@ -2573,8 +2721,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** returns the HMaster server address */
-specifier|public
+comment|/**     * @return HServerAddress of the master server    */
 name|HServerAddress
 name|getMasterAddress
 parameter_list|()
@@ -2583,6 +2730,7 @@ return|return
 name|address
 return|;
 block|}
+comment|/** Main processing loop */
 specifier|public
 name|void
 name|run
@@ -2707,15 +2855,8 @@ name|op
 operator|=
 name|msgQueue
 operator|.
-name|remove
-argument_list|(
-name|msgQueue
-operator|.
-name|size
+name|removeFirst
 argument_list|()
-operator|-
-literal|1
-argument_list|)
 expr_stmt|;
 block|}
 try|try
@@ -2753,15 +2894,26 @@ name|Exception
 name|ex
 parameter_list|)
 block|{
-name|msgQueue
+name|LOG
 operator|.
-name|insertElementAt
+name|warn
 argument_list|(
-name|op
-argument_list|,
-literal|0
+name|ex
 argument_list|)
 expr_stmt|;
+synchronized|synchronized
+init|(
+name|msgQueue
+init|)
+block|{
+name|msgQueue
+operator|.
+name|addLast
+argument_list|(
+name|op
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 name|letRegionServersShutdown
@@ -2960,6 +3112,9 @@ operator|+
 name|this
 operator|.
 name|serversToServerInfo
+operator|.
+name|values
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2984,7 +3139,6 @@ block|}
 block|}
 block|}
 comment|/**    * Wait until<code>rootRegionLocation</code> has been set or until the    *<code>closed</code> flag has been set.    * @return True if<code>rootRegionLocation</code> was populated.    */
-specifier|private
 specifier|synchronized
 name|boolean
 name|waitForRootRegionOrClose
@@ -3019,7 +3173,9 @@ argument_list|)
 expr_stmt|;
 block|}
 name|wait
-argument_list|()
+argument_list|(
+name|threadWakeFrequency
+argument_list|)
 expr_stmt|;
 if|if
 condition|(
@@ -3073,7 +3229,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// HMasterRegionInterface
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/** HRegionServers call this method upon startup. */
+comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HMasterRegionInterface#regionServerStartup(org.apache.hadoop.hbase.HServerInfo)    */
 specifier|public
 name|void
 name|regionServerStartup
@@ -3150,7 +3306,7 @@ init|)
 block|{
 name|msgQueue
 operator|.
-name|add
+name|addLast
 argument_list|(
 operator|new
 name|PendingServerShutdown
@@ -3217,7 +3373,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/** HRegionServers call this method repeatedly. */
+comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HMasterRegionInterface#regionServerReport(org.apache.hadoop.hbase.HServerInfo, org.apache.hadoop.hbase.HMsg[])    */
 specifier|public
 name|HMsg
 index|[]
@@ -3259,60 +3415,17 @@ decl_stmt|;
 if|if
 condition|(
 name|closed
-operator|||
-name|msgs
-operator|.
-name|length
-operator|==
-literal|1
-operator|&&
-name|msgs
-index|[
-literal|0
-index|]
-operator|.
-name|getMsg
-argument_list|()
-operator|==
-name|HMsg
-operator|.
-name|MSG_REPORT_EXITING
 condition|)
 block|{
-comment|// HRegionServer is shutting down.
-if|if
-condition|(
-name|serversToServerInfo
-operator|.
-name|remove
-argument_list|(
-name|s
-argument_list|)
-operator|!=
-literal|null
-condition|)
-block|{
-comment|// Only cancel lease once (This block can run a couple of times during
-comment|// shutdown).
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Cancelling lease for "
-operator|+
-name|serverLabel
-argument_list|)
-expr_stmt|;
-name|serverLeases
-operator|.
+comment|// Cancel the server's lease
 name|cancelLease
 argument_list|(
-name|serverLabel
+name|s
 argument_list|,
 name|serverLabel
 argument_list|)
 expr_stmt|;
-block|}
+comment|// Tell server to shut down
 name|HMsg
 name|returnMsgs
 index|[]
@@ -3329,6 +3442,139 @@ block|}
 decl_stmt|;
 return|return
 name|returnMsgs
+return|;
+block|}
+if|if
+condition|(
+name|msgs
+operator|.
+name|length
+operator|>
+literal|0
+operator|&&
+name|msgs
+index|[
+literal|0
+index|]
+operator|.
+name|getMsg
+argument_list|()
+operator|==
+name|HMsg
+operator|.
+name|MSG_REPORT_EXITING
+condition|)
+block|{
+comment|// HRegionServer is shutting down.
+comment|// Cancel the server's lease
+name|cancelLease
+argument_list|(
+name|s
+argument_list|,
+name|serverLabel
+argument_list|)
+expr_stmt|;
+comment|// Get all the regions the server was serving reassigned
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|1
+init|;
+name|i
+operator|<
+name|msgs
+operator|.
+name|length
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|HRegionInfo
+name|info
+init|=
+name|msgs
+index|[
+name|i
+index|]
+operator|.
+name|getRegionInfo
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|info
+operator|.
+name|tableDesc
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|ROOT_TABLE_NAME
+argument_list|)
+condition|)
+block|{
+name|rootRegionLocation
+operator|=
+literal|null
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|info
+operator|.
+name|tableDesc
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|META_TABLE_NAME
+argument_list|)
+condition|)
+block|{
+name|allMetaRegionsScanned
+operator|=
+literal|false
+expr_stmt|;
+block|}
+name|unassignedRegions
+operator|.
+name|put
+argument_list|(
+name|info
+operator|.
+name|regionName
+argument_list|,
+name|info
+argument_list|)
+expr_stmt|;
+name|assignAttempts
+operator|.
+name|put
+argument_list|(
+name|info
+operator|.
+name|regionName
+argument_list|,
+literal|0L
+argument_list|)
+expr_stmt|;
+block|}
+comment|// We don't need to return anything to the server because it isn't
+comment|// going to do any more work.
+return|return
+operator|new
+name|HMsg
+index|[
+literal|0
+index|]
 return|;
 block|}
 name|HServerInfo
@@ -3488,7 +3734,56 @@ argument_list|)
 return|;
 block|}
 block|}
+comment|/** cancel a server's lease */
+specifier|private
+name|void
+name|cancelLease
+parameter_list|(
+name|String
+name|serverName
+parameter_list|,
+name|Text
+name|serverLabel
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|serversToServerInfo
+operator|.
+name|remove
+argument_list|(
+name|serverName
+argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// Only cancel lease once.
+comment|// This method can be called a couple of times during shutdown.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Cancelling lease for "
+operator|+
+name|serverName
+argument_list|)
+expr_stmt|;
+name|serverLeases
+operator|.
+name|cancelLease
+argument_list|(
+name|serverLabel
+argument_list|,
+name|serverLabel
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 comment|/** Process all the incoming messages from a server that's contacted us. */
+specifier|private
 name|HMsg
 index|[]
 name|processMsgs
@@ -3623,7 +3918,7 @@ operator|.
 name|toString
 argument_list|()
 operator|+
-literal|"should not have opened region "
+literal|" should not have opened region "
 operator|+
 name|region
 operator|.
@@ -3681,6 +3976,17 @@ name|regionName
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Note that it has been assigned and is waiting for the meta table
+comment|// to be updated.
+name|pendingRegions
+operator|.
+name|add
+argument_list|(
+name|region
+operator|.
+name|regionName
+argument_list|)
+expr_stmt|;
 comment|// Remove from unassigned list so we don't assign it to someone else
 name|unassignedRegions
 operator|.
@@ -3741,17 +4047,15 @@ if|if
 condition|(
 name|region
 operator|.
-name|regionName
+name|tableDesc
 operator|.
-name|find
+name|getName
+argument_list|()
+operator|.
+name|equals
 argument_list|(
 name|META_TABLE_NAME
-operator|.
-name|toString
-argument_list|()
 argument_list|)
-operator|==
-literal|0
 condition|)
 block|{
 comment|// It's a meta region. Put it on the queue to be scanned.
@@ -3814,7 +4118,7 @@ init|)
 block|{
 name|msgQueue
 operator|.
-name|add
+name|addLast
 argument_list|(
 operator|new
 name|PendingOpenReport
@@ -3822,8 +4126,6 @@ argument_list|(
 name|info
 argument_list|,
 name|region
-operator|.
-name|regionName
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -3989,7 +4291,7 @@ init|)
 block|{
 name|msgQueue
 operator|.
-name|add
+name|addLast
 argument_list|(
 operator|new
 name|PendingCloseReport
@@ -4043,17 +4345,15 @@ if|if
 condition|(
 name|region
 operator|.
-name|regionName
+name|tableDesc
 operator|.
-name|find
+name|getName
+argument_list|()
+operator|.
+name|equals
 argument_list|(
 name|META_TABLE_NAME
-operator|.
-name|toString
-argument_list|()
 argument_list|)
-operator|==
-literal|0
 condition|)
 block|{
 comment|// A meta region has split.
@@ -4178,35 +4478,15 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|Iterator
-argument_list|<
 name|Text
-argument_list|>
-name|it
-init|=
+name|curRegionName
+range|:
 name|unassignedRegions
 operator|.
 name|keySet
 argument_list|()
-operator|.
-name|iterator
-argument_list|()
-init|;
-name|it
-operator|.
-name|hasNext
-argument_list|()
-condition|;
 control|)
 block|{
-name|Text
-name|curRegionName
-init|=
-name|it
-operator|.
-name|next
-argument_list|()
-decl_stmt|;
 name|HRegionInfo
 name|regionInfo
 init|=
@@ -4321,6 +4601,7 @@ index|]
 argument_list|)
 return|;
 block|}
+comment|/**    * Called when the master has received a report from a region server that it    * is now serving the root region. Causes any threads waiting for the root    * region to be available to be woken up.    */
 specifier|private
 specifier|synchronized
 name|void
@@ -4362,7 +4643,6 @@ specifier|protected
 name|long
 name|clientId
 decl_stmt|;
-specifier|public
 name|PendingOperation
 parameter_list|()
 block|{
@@ -4376,7 +4656,6 @@ name|nextLong
 argument_list|()
 expr_stmt|;
 block|}
-specifier|public
 specifier|abstract
 name|void
 name|process
@@ -4385,6 +4664,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
+comment|/**     * Instantiated when a server's lease has expired, meaning it has crashed.    * The region server's log file needs to be split up for each region it was    * serving, and the regions need to get reassigned.    */
 specifier|private
 class|class
 name|PendingServerShutdown
@@ -4392,8 +4672,12 @@ extends|extends
 name|PendingOperation
 block|{
 specifier|private
-name|String
+name|HServerAddress
 name|deadServer
+decl_stmt|;
+specifier|private
+name|String
+name|deadServerName
 decl_stmt|;
 specifier|private
 name|long
@@ -4409,16 +4693,16 @@ decl_stmt|;
 name|boolean
 name|regionOffline
 decl_stmt|;
-name|HStoreKey
-name|key
+name|Text
+name|row
 decl_stmt|;
 name|HRegionInfo
 name|info
 decl_stmt|;
 name|ToDoEntry
 parameter_list|(
-name|HStoreKey
-name|key
+name|Text
+name|row
 parameter_list|,
 name|HRegionInfo
 name|info
@@ -4438,9 +4722,9 @@ literal|false
 expr_stmt|;
 name|this
 operator|.
-name|key
+name|row
 operator|=
-name|key
+name|row
 expr_stmt|;
 name|this
 operator|.
@@ -4450,7 +4734,6 @@ name|info
 expr_stmt|;
 block|}
 block|}
-specifier|public
 name|PendingServerShutdown
 parameter_list|(
 name|HServerInfo
@@ -4468,6 +4751,14 @@ name|serverInfo
 operator|.
 name|getServerAddress
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|deadServerName
+operator|=
+name|this
+operator|.
+name|deadServer
 operator|.
 name|toString
 argument_list|()
@@ -4482,6 +4773,7 @@ name|getStartCode
 argument_list|()
 expr_stmt|;
 block|}
+comment|/** Finds regions that the dead region server was serving */
 specifier|private
 name|void
 name|scanMetaRegion
@@ -4542,18 +4834,11 @@ condition|(
 literal|true
 condition|)
 block|{
-name|LabelledData
+name|KeyedData
 index|[]
 name|values
 init|=
 literal|null
-decl_stmt|;
-name|HStoreKey
-name|key
-init|=
-operator|new
-name|HStoreKey
-argument_list|()
 decl_stmt|;
 try|try
 block|{
@@ -4564,8 +4849,6 @@ operator|.
 name|next
 argument_list|(
 name|scannerId
-argument_list|,
-name|key
 argument_list|)
 expr_stmt|;
 block|}
@@ -4628,6 +4911,17 @@ index|[]
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|Text
+name|row
+init|=
+literal|null
+decl_stmt|;
+name|byte
+index|[]
+name|bytes
+init|=
+literal|null
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -4645,10 +4939,75 @@ name|i
 operator|++
 control|)
 block|{
-name|byte
-index|[]
+if|if
+condition|(
+name|row
+operator|==
+literal|null
+condition|)
+block|{
+name|row
+operator|=
+name|values
+index|[
+name|i
+index|]
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|getRow
+argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
+if|if
+condition|(
+operator|!
+name|row
+operator|.
+name|equals
+argument_list|(
+name|values
+index|[
+name|i
+index|]
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|getRow
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Multiple rows in same scanner result set. firstRow="
+operator|+
+name|row
+operator|+
+literal|", currentRow="
+operator|+
+name|values
+index|[
+name|i
+index|]
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|getRow
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 name|bytes
-init|=
+operator|=
 operator|new
 name|byte
 index|[
@@ -4663,7 +5022,7 @@ operator|.
 name|getSize
 argument_list|()
 index|]
-decl_stmt|;
+expr_stmt|;
 name|System
 operator|.
 name|arraycopy
@@ -4699,24 +5058,25 @@ index|[
 name|i
 index|]
 operator|.
-name|getLabel
+name|getKey
+argument_list|()
+operator|.
+name|getColumn
 argument_list|()
 argument_list|,
 name|bytes
 argument_list|)
 expr_stmt|;
 block|}
-name|byte
-index|[]
 name|bytes
-init|=
+operator|=
 name|results
 operator|.
 name|get
 argument_list|(
 name|COL_SERVER
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|String
 name|serverName
 init|=
@@ -4768,7 +5128,7 @@ break|break;
 block|}
 if|if
 condition|(
-name|deadServer
+name|deadServerName
 operator|.
 name|compareTo
 argument_list|(
@@ -4952,8 +5312,29 @@ literal|" was serving "
 operator|+
 name|info
 operator|.
-name|regionName
+name|toString
+argument_list|()
 argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|info
+operator|.
+name|tableDesc
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|META_TABLE_NAME
+argument_list|)
+condition|)
+block|{
+name|allMetaRegionsScanned
+operator|=
+literal|false
 expr_stmt|;
 block|}
 name|ToDoEntry
@@ -4962,7 +5343,7 @@ init|=
 operator|new
 name|ToDoEntry
 argument_list|(
-name|key
+name|row
 argument_list|,
 name|info
 argument_list|)
@@ -4980,7 +5361,7 @@ name|killList
 operator|.
 name|containsKey
 argument_list|(
-name|deadServer
+name|deadServerName
 argument_list|)
 condition|)
 block|{
@@ -4996,7 +5377,7 @@ name|killList
 operator|.
 name|get
 argument_list|(
-name|deadServer
+name|deadServerName
 argument_list|)
 decl_stmt|;
 if|if
@@ -5024,7 +5405,7 @@ name|killList
 operator|.
 name|put
 argument_list|(
-name|deadServer
+name|deadServerName
 argument_list|,
 name|regionsToKill
 argument_list|)
@@ -5183,10 +5564,7 @@ name|clientId
 argument_list|,
 name|e
 operator|.
-name|key
-operator|.
-name|getRow
-argument_list|()
+name|row
 argument_list|)
 decl_stmt|;
 if|if
@@ -5367,7 +5745,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|public
+annotation|@
+name|Override
 name|void
 name|process
 parameter_list|()
@@ -5388,7 +5767,91 @@ name|debug
 argument_list|(
 literal|"server shutdown: "
 operator|+
+name|deadServerName
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Process the old log file
+name|HLog
+operator|.
+name|splitLog
+argument_list|(
+name|dir
+argument_list|,
+operator|new
+name|Path
+argument_list|(
+name|dir
+argument_list|,
+literal|"log"
+operator|+
+literal|"_"
+operator|+
 name|deadServer
+operator|.
+name|getBindAddress
+argument_list|()
+operator|+
+literal|"_"
+operator|+
+name|deadServer
+operator|.
+name|getPort
+argument_list|()
+argument_list|)
+argument_list|,
+name|fs
+argument_list|,
+name|conf
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|rootRegionLocation
+operator|!=
+literal|null
+operator|&&
+name|deadServerName
+operator|.
+name|equals
+argument_list|(
+name|rootRegionLocation
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|rootRegionLocation
+operator|=
+literal|null
+expr_stmt|;
+name|unassignedRegions
+operator|.
+name|put
+argument_list|(
+name|HGlobals
+operator|.
+name|rootRegionInfo
+operator|.
+name|regionName
+argument_list|,
+name|HGlobals
+operator|.
+name|rootRegionInfo
+argument_list|)
+expr_stmt|;
+name|assignAttempts
+operator|.
+name|put
+argument_list|(
+name|HGlobals
+operator|.
+name|rootRegionInfo
+operator|.
+name|regionName
+argument_list|,
+literal|0L
 argument_list|)
 expr_stmt|;
 block|}
@@ -5419,10 +5882,16 @@ name|tries
 operator|++
 control|)
 block|{
-name|waitForRootRegion
+if|if
+condition|(
+name|waitForRootRegionOrClose
 argument_list|()
-expr_stmt|;
+condition|)
+block|{
 comment|// Wait until the root region is available
+return|return;
+comment|// We're shutting down. Forget it.
+block|}
 name|server
 operator|=
 name|client
@@ -5439,6 +5908,13 @@ literal|1L
 expr_stmt|;
 try|try
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"scanning root region"
+argument_list|)
+expr_stmt|;
 name|scannerId
 operator|=
 name|server
@@ -5511,11 +5987,17 @@ control|)
 block|{
 try|try
 block|{
+if|if
+condition|(
 name|metaScanner
 operator|.
-name|waitForMetaScan
+name|waitForMetaScanOrClose
 argument_list|()
-expr_stmt|;
+condition|)
+block|{
+return|return;
+comment|// We're shutting down. Forget it.
+block|}
 for|for
 control|(
 name|Iterator
@@ -5619,7 +6101,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/** PendingCloseReport is a close message that is saved in a different thread. */
+comment|/**    * PendingCloseReport is instantiated when a region server reports that it    * has closed a region.    */
 specifier|private
 class|class
 name|PendingCloseReport
@@ -5642,7 +6124,6 @@ specifier|private
 name|boolean
 name|rootRegion
 decl_stmt|;
-specifier|public
 name|PendingCloseReport
 parameter_list|(
 name|HRegionInfo
@@ -5684,22 +6165,15 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|regionName
-operator|.
-name|find
-argument_list|(
-name|HGlobals
-operator|.
-name|metaTableDesc
+name|tableDesc
 operator|.
 name|getName
 argument_list|()
 operator|.
-name|toString
-argument_list|()
+name|equals
+argument_list|(
+name|META_TABLE_NAME
 argument_list|)
-operator|==
-literal|0
 condition|)
 block|{
 name|this
@@ -5719,7 +6193,8 @@ literal|false
 expr_stmt|;
 block|}
 block|}
-specifier|public
+annotation|@
+name|Override
 name|void
 name|process
 parameter_list|()
@@ -5743,11 +6218,17 @@ control|)
 block|{
 comment|// We can not access any meta region if they have not already been assigned
 comment|// and scanned.
+if|if
+condition|(
 name|metaScanner
 operator|.
-name|waitForMetaScan
+name|waitForMetaScanOrClose
 argument_list|()
-expr_stmt|;
+condition|)
+block|{
+return|return;
+comment|// We're shutting down. Forget it.
+block|}
 if|if
 condition|(
 name|LOG
@@ -5788,10 +6269,16 @@ name|rootRegionInfo
 operator|.
 name|regionName
 expr_stmt|;
-name|waitForRootRegion
+if|if
+condition|(
+name|waitForRootRegionOrClose
 argument_list|()
-expr_stmt|;
+condition|)
+block|{
 comment|// Make sure root region available
+return|return;
+comment|// We're shutting down. Forget it.
+block|}
 name|server
 operator|=
 name|client
@@ -6131,7 +6618,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/** PendingOpenReport is an open message that is saved in a different thread. */
+comment|/**     * PendingOpenReport is instantiated when a region server reports that it is    * serving a region. This applies to all meta and user regions except the     * root region which is handled specially.    */
 specifier|private
 class|class
 name|PendingOpenReport
@@ -6154,34 +6641,28 @@ specifier|private
 name|BytesWritable
 name|startCode
 decl_stmt|;
-specifier|public
 name|PendingOpenReport
 parameter_list|(
 name|HServerInfo
 name|info
 parameter_list|,
-name|Text
-name|regionName
+name|HRegionInfo
+name|region
 parameter_list|)
 block|{
 if|if
 condition|(
-name|regionName
+name|region
 operator|.
-name|find
-argument_list|(
-name|HGlobals
-operator|.
-name|metaTableDesc
+name|tableDesc
 operator|.
 name|getName
 argument_list|()
 operator|.
-name|toString
-argument_list|()
+name|equals
+argument_list|(
+name|META_TABLE_NAME
 argument_list|)
-operator|==
-literal|0
 condition|)
 block|{
 comment|// The region which just came on-line is a META region.
@@ -6207,6 +6688,8 @@ name|this
 operator|.
 name|regionName
 operator|=
+name|region
+operator|.
 name|regionName
 expr_stmt|;
 try|try
@@ -6271,7 +6754,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|public
+annotation|@
+name|Override
 name|void
 name|process
 parameter_list|()
@@ -6295,11 +6779,17 @@ control|)
 block|{
 comment|// We can not access any meta region if they have not already been assigned
 comment|// and scanned.
+if|if
+condition|(
 name|metaScanner
 operator|.
-name|waitForMetaScan
+name|waitForMetaScanOrClose
 argument_list|()
-expr_stmt|;
+condition|)
+block|{
+return|return;
+comment|// We're shutting down. Forget it.
+block|}
 if|if
 condition|(
 name|LOG
@@ -6349,10 +6839,16 @@ name|rootRegionInfo
 operator|.
 name|regionName
 expr_stmt|;
-name|waitForRootRegion
+if|if
+condition|(
+name|waitForRootRegionOrClose
 argument_list|()
-expr_stmt|;
+condition|)
+block|{
 comment|// Make sure root region available
+return|return;
+comment|// We're shutting down. Forget it.
+block|}
 name|server
 operator|=
 name|client
@@ -6529,87 +7025,20 @@ name|e
 throw|;
 block|}
 block|}
-block|}
-block|}
-block|}
-specifier|synchronized
-name|void
-name|waitForRootRegion
-parameter_list|()
-block|{
-while|while
-condition|(
-name|rootRegionLocation
-operator|==
-literal|null
-condition|)
-block|{
-try|try
-block|{
-if|if
-condition|(
-name|LOG
+name|pendingRegions
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|remove
 argument_list|(
-literal|"Wait for root region"
+name|regionName
 argument_list|)
 expr_stmt|;
-block|}
-name|wait
-argument_list|()
-expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Wake from wait for root region"
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Wake from wait for root region (IE)"
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// HMasterInterface
 comment|//////////////////////////////////////////////////////////////////////////////
+comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HMasterInterface#isMasterRunning()    */
 specifier|public
 name|boolean
 name|isMasterRunning
@@ -6620,6 +7049,71 @@ operator|!
 name|closed
 return|;
 block|}
+comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HMasterInterface#shutdown()    */
+specifier|public
+name|void
+name|shutdown
+parameter_list|()
+block|{
+name|TimerTask
+name|tt
+init|=
+operator|new
+name|TimerTask
+argument_list|()
+block|{
+annotation|@
+name|Override
+specifier|public
+name|void
+name|run
+parameter_list|()
+block|{
+name|closed
+operator|=
+literal|true
+expr_stmt|;
+synchronized|synchronized
+init|(
+name|msgQueue
+init|)
+block|{
+name|msgQueue
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+comment|// Empty the queue
+name|msgQueue
+operator|.
+name|notifyAll
+argument_list|()
+expr_stmt|;
+comment|// Wake main thread
+block|}
+block|}
+block|}
+decl_stmt|;
+name|Timer
+name|t
+init|=
+operator|new
+name|Timer
+argument_list|(
+literal|"Shutdown"
+argument_list|)
+decl_stmt|;
+name|t
+operator|.
+name|schedule
+argument_list|(
+name|tt
+argument_list|,
+literal|10
+argument_list|)
+expr_stmt|;
+block|}
+comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HMasterInterface#createTable(org.apache.hadoop.hbase.HTableDescriptor)    */
 specifier|public
 name|void
 name|createTable
@@ -6680,11 +7174,17 @@ try|try
 block|{
 comment|// We can not access any meta region if they have not already been assigned
 comment|// and scanned.
+if|if
+condition|(
 name|metaScanner
 operator|.
-name|waitForMetaScan
+name|waitForMetaScanOrClose
 argument_list|()
-expr_stmt|;
+condition|)
+block|{
+return|return;
+comment|// We're shutting down. Forget it.
+block|}
 comment|// 1. Check to see if table already exists
 name|MetaRegion
 name|m
@@ -7164,70 +7664,6 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**     * Turn off the HMaster.  Sets a flag so that the main thread know to shut    * things down in an orderly fashion.    */
-specifier|public
-name|void
-name|shutdown
-parameter_list|()
-block|{
-name|TimerTask
-name|tt
-init|=
-operator|new
-name|TimerTask
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|run
-parameter_list|()
-block|{
-name|closed
-operator|=
-literal|true
-expr_stmt|;
-synchronized|synchronized
-init|(
-name|msgQueue
-init|)
-block|{
-name|msgQueue
-operator|.
-name|clear
-argument_list|()
-expr_stmt|;
-comment|// Empty the queue
-name|msgQueue
-operator|.
-name|notifyAll
-argument_list|()
-expr_stmt|;
-comment|// Wake main thread
-block|}
-block|}
-block|}
-decl_stmt|;
-name|Timer
-name|t
-init|=
-operator|new
-name|Timer
-argument_list|(
-literal|"Shutdown"
-argument_list|)
-decl_stmt|;
-name|t
-operator|.
-name|schedule
-argument_list|(
-name|tt
-argument_list|,
-literal|10
-argument_list|)
-expr_stmt|;
-block|}
 comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HMasterInterface#findRootRegion()    */
 specifier|public
 name|HServerAddress
@@ -7337,11 +7773,17 @@ argument_list|()
 expr_stmt|;
 comment|// We can not access any meta region if they have not already been
 comment|// assigned and scanned.
+if|if
+condition|(
 name|metaScanner
 operator|.
-name|waitForMetaScan
+name|waitForMetaScanOrClose
 argument_list|()
-expr_stmt|;
+condition|)
+block|{
+return|return;
+comment|// We're shutting down. Forget it.
+block|}
 name|Text
 name|firstMetaRegion
 init|=
@@ -7414,7 +7856,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|void
 name|process
 parameter_list|()
@@ -7523,18 +7964,11 @@ init|=
 operator|-
 literal|1L
 decl_stmt|;
-name|LabelledData
+name|KeyedData
 index|[]
 name|values
 init|=
 literal|null
-decl_stmt|;
-name|HStoreKey
-name|key
-init|=
-operator|new
-name|HStoreKey
-argument_list|()
 decl_stmt|;
 name|values
 operator|=
@@ -7543,8 +7977,6 @@ operator|.
 name|next
 argument_list|(
 name|scannerId
-argument_list|,
-name|key
 argument_list|)
 expr_stmt|;
 if|if
@@ -7638,15 +8070,23 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
+name|Text
+name|column
+init|=
 name|values
 index|[
 name|i
 index|]
 operator|.
-name|getLabel
+name|getKey
 argument_list|()
+operator|.
+name|getColumn
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|column
 operator|.
 name|equals
 argument_list|(
@@ -7680,13 +8120,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|values
-index|[
-name|i
-index|]
-operator|.
-name|getLabel
-argument_list|()
+name|column
 operator|.
 name|equals
 argument_list|(
@@ -7723,13 +8157,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|values
-index|[
-name|i
-index|]
-operator|.
-name|getLabel
-argument_list|()
+name|column
 operator|.
 name|equals
 argument_list|(
@@ -8042,6 +8470,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
+comment|/** Instantiated to enable or disable a table */
 specifier|private
 class|class
 name|ChangeTableState
@@ -8084,7 +8513,6 @@ specifier|protected
 name|long
 name|clientId
 decl_stmt|;
-specifier|public
 name|ChangeTableState
 parameter_list|(
 name|Text
@@ -8108,6 +8536,8 @@ operator|=
 name|onLine
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|processScanItem
@@ -8182,6 +8612,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|postProcessMeta
@@ -8751,13 +9183,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**     * Instantiated to delete a table    * Note that it extends ChangeTableState, which takes care of disabling    * the table.    */
 specifier|private
 class|class
 name|TableDelete
 extends|extends
 name|ChangeTableState
 block|{
-specifier|public
 name|TableDelete
 parameter_list|(
 name|Text
@@ -8774,6 +9206,8 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|postProcessMeta
@@ -8948,6 +9382,8 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|processScanItem
@@ -9201,6 +9637,7 @@ block|}
 block|}
 block|}
 block|}
+comment|/** Instantiated to remove a column family from a table */
 specifier|private
 class|class
 name|DeleteColumn
@@ -9211,7 +9648,6 @@ specifier|private
 name|Text
 name|columnName
 decl_stmt|;
-specifier|public
 name|DeleteColumn
 parameter_list|(
 name|Text
@@ -9235,6 +9671,8 @@ operator|=
 name|columnName
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|postProcessMeta
@@ -9353,6 +9791,7 @@ block|}
 block|}
 block|}
 block|}
+comment|/** Instantiated to add a column family to a table */
 specifier|private
 class|class
 name|AddColumn
@@ -9363,7 +9802,6 @@ specifier|private
 name|HColumnDescriptor
 name|newColumn
 decl_stmt|;
-specifier|public
 name|AddColumn
 parameter_list|(
 name|Text
@@ -9387,6 +9825,8 @@ operator|=
 name|newColumn
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|postProcessMeta
@@ -9408,9 +9848,9 @@ range|:
 name|unservedRegions
 control|)
 block|{
-comment|//TODO: I *think* all we need to do to add a column is add it to
-comment|// the table descriptor. When the region is brought on-line, it
-comment|// should find the column missing and create it.
+comment|// All we need to do to add a column is add it to the table descriptor.
+comment|// When the region is brought on-line, it will find the column missing
+comment|// and create it.
 name|i
 operator|.
 name|tableDesc
@@ -9437,17 +9877,17 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Managing leases
 comment|//////////////////////////////////////////////////////////////////////////////
+comment|/** Instantiated to monitor the health of a region server */
 specifier|private
 class|class
 name|ServerExpirer
-extends|extends
+implements|implements
 name|LeaseListener
 block|{
 specifier|private
 name|String
 name|server
 decl_stmt|;
-specifier|public
 name|ServerExpirer
 parameter_list|(
 name|String
@@ -9461,6 +9901,7 @@ operator|=
 name|server
 expr_stmt|;
 block|}
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.LeaseListener#leaseExpired()      */
 specifier|public
 name|void
 name|leaseExpired
@@ -9485,6 +9926,62 @@ argument_list|(
 name|server
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|rootRegionLocation
+operator|!=
+literal|null
+operator|&&
+name|rootRegionLocation
+operator|.
+name|toString
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|storedInfo
+operator|.
+name|getServerAddress
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|rootRegionLocation
+operator|=
+literal|null
+expr_stmt|;
+name|unassignedRegions
+operator|.
+name|put
+argument_list|(
+name|HGlobals
+operator|.
+name|rootRegionInfo
+operator|.
+name|regionName
+argument_list|,
+name|HGlobals
+operator|.
+name|rootRegionInfo
+argument_list|)
+expr_stmt|;
+name|assignAttempts
+operator|.
+name|put
+argument_list|(
+name|HGlobals
+operator|.
+name|rootRegionInfo
+operator|.
+name|regionName
+argument_list|,
+literal|0L
+argument_list|)
+expr_stmt|;
+block|}
 synchronized|synchronized
 init|(
 name|msgQueue
@@ -9492,7 +9989,7 @@ init|)
 block|{
 name|msgQueue
 operator|.
-name|add
+name|addLast
 argument_list|(
 operator|new
 name|PendingServerShutdown
@@ -9537,6 +10034,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Main program    * @param args    */
 specifier|public
 specifier|static
 name|void
