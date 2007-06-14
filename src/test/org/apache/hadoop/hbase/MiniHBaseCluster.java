@@ -165,7 +165,7 @@ name|Thread
 index|[]
 name|regionThreads
 decl_stmt|;
-comment|/**    * Starts a MiniHBaseCluster on top of a new MiniDFSCluster    *     * @param conf    * @param nRegionNodes    */
+comment|/**    * Starts a MiniHBaseCluster on top of a new MiniDFSCluster    *     * @param conf    * @param nRegionNodes    * @throws IOException     */
 specifier|public
 name|MiniHBaseCluster
 parameter_list|(
@@ -175,6 +175,8 @@ parameter_list|,
 name|int
 name|nRegionNodes
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|this
 argument_list|(
@@ -186,7 +188,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Starts a MiniHBaseCluster on top of an existing HDFSCluster    *     * @param conf    * @param nRegionNodes    * @param dfsCluster    */
+comment|/**    * Starts a MiniHBaseCluster on top of an existing HDFSCluster    *     * @param conf    * @param nRegionNodes    * @param dfsCluster    * @throws IOException     */
 specifier|public
 name|MiniHBaseCluster
 parameter_list|(
@@ -199,6 +201,8 @@ parameter_list|,
 name|MiniDFSCluster
 name|dfsCluster
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|this
 operator|.
@@ -218,7 +222,7 @@ name|nRegionNodes
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor.    * @param conf    * @param nRegionNodes    * @param miniHdfsFilesystem If true, set the hbase mini    * cluster atop a mini hdfs cluster.  Otherwise, use the    * filesystem configured in<code>conf</code>.    */
+comment|/**    * Constructor.    * @param conf    * @param nRegionNodes    * @param miniHdfsFilesystem If true, set the hbase mini    * cluster atop a mini hdfs cluster.  Otherwise, use the    * filesystem configured in<code>conf</code>.    * @throws IOException     */
 specifier|public
 name|MiniHBaseCluster
 parameter_list|(
@@ -232,6 +236,8 @@ specifier|final
 name|boolean
 name|miniHdfsFilesystem
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|this
 operator|.
@@ -305,6 +311,8 @@ parameter_list|(
 name|int
 name|nRegionNodes
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 try|try
 block|{
@@ -348,7 +356,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|Throwable
+name|IOException
 name|e
 parameter_list|)
 block|{
@@ -452,7 +460,8 @@ argument_list|,
 name|address
 argument_list|)
 expr_stmt|;
-comment|// Start the HRegionServers
+comment|// Start the HRegionServers.  If> 1 region servers,need to set
+comment|// port to '0'.
 if|if
 condition|(
 name|this
@@ -465,6 +474,10 @@ name|REGIONSERVER_ADDRESS
 argument_list|)
 operator|==
 literal|null
+operator|||
+name|nRegionNodes
+operator|>
+literal|1
 condition|)
 block|{
 name|this
@@ -475,7 +488,9 @@ name|set
 argument_list|(
 name|REGIONSERVER_ADDRESS
 argument_list|,
-literal|"localhost:0"
+name|DEFAULT_HOST
+operator|+
+literal|":0"
 argument_list|)
 expr_stmt|;
 block|}
@@ -498,18 +513,16 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|Throwable
+name|IOException
 name|e
 parameter_list|)
 block|{
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
 name|shutdown
 argument_list|()
 expr_stmt|;
+throw|throw
+name|e
+throw|;
 block|}
 block|}
 specifier|private
@@ -716,6 +729,16 @@ name|i
 operator|++
 control|)
 block|{
+if|if
+condition|(
+name|regionServers
+index|[
+name|i
+index|]
+operator|!=
+literal|null
+condition|)
+block|{
 name|regionServers
 index|[
 name|i
@@ -724,6 +747,7 @@ operator|.
 name|stop
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 name|master
 operator|.
@@ -749,6 +773,16 @@ control|)
 block|{
 try|try
 block|{
+if|if
+condition|(
+name|regionThreads
+index|[
+name|i
+index|]
+operator|!=
+literal|null
+condition|)
+block|{
 name|regionThreads
 index|[
 name|i
@@ -757,6 +791,7 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(

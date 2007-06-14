@@ -3259,24 +3259,15 @@ name|storedInfo
 init|=
 literal|null
 decl_stmt|;
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
 literal|"received start message from: "
 operator|+
 name|s
 argument_list|)
 expr_stmt|;
-block|}
 comment|// If we get the startup message but there's an old server by that
 comment|// name, then we can timeout the old one right away and register
 comment|// the new one.

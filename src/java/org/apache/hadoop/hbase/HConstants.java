@@ -69,13 +69,22 @@ name|MASTER_ADDRESS
 init|=
 literal|"hbase.master"
 decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|DEFAULT_HOST
+init|=
+literal|"0.0.0.0"
+decl_stmt|;
 comment|/** Default master address */
 specifier|static
 specifier|final
 name|String
 name|DEFAULT_MASTER_ADDRESS
 init|=
-literal|"localhost:60000"
+name|DEFAULT_HOST
+operator|+
+literal|":60000"
 decl_stmt|;
 comment|/** Parameter name for hbase.regionserver address. */
 specifier|static
@@ -91,7 +100,9 @@ specifier|final
 name|String
 name|DEFAULT_REGIONSERVER_ADDRESS
 init|=
-literal|"localhost:60010"
+name|DEFAULT_HOST
+operator|+
+literal|":60010"
 decl_stmt|;
 comment|/** Parameter name for how often threads should wake up */
 specifier|static

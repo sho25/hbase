@@ -60,15 +60,19 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** The test */
+comment|/** The test     * @throws IOException     * @throws InterruptedException */
 specifier|public
 name|void
 name|testCleanRegionServerExit
 parameter_list|()
-block|{
-try|try
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
 block|{
 comment|// When the META table can be opened, the region servers are running
+name|this
+operator|.
 name|client
 operator|.
 name|openTable
@@ -78,23 +82,6 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
-block|}
-comment|// Shut down a region server cleanly
 name|this
 operator|.
 name|cluster
@@ -104,8 +91,6 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-try|try
-block|{
 name|this
 operator|.
 name|cluster
@@ -118,15 +103,6 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{     }
-try|try
-block|{
 name|Thread
 operator|.
 name|sleep
@@ -135,13 +111,6 @@ literal|60000
 argument_list|)
 expr_stmt|;
 comment|// Wait for cluster to adjust
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{     }
 block|}
 block|}
 end_class
