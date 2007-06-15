@@ -80,7 +80,7 @@ name|Integer
 operator|.
 name|MAX_VALUE
 argument_list|,
-literal|false
+literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -132,7 +132,7 @@ name|Integer
 operator|.
 name|MAX_VALUE
 argument_list|,
-literal|false
+literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;

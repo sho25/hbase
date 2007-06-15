@@ -90,7 +90,6 @@ name|HConstants
 implements|,
 name|WritableComparable
 block|{
-specifier|public
 specifier|static
 specifier|final
 name|byte
@@ -98,7 +97,6 @@ name|INFO_SEQ_NUM
 init|=
 literal|0
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -106,7 +104,6 @@ name|HSTORE_DATFILE_PREFIX
 init|=
 literal|"mapfile.dat."
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -114,7 +111,6 @@ name|HSTORE_INFOFILE_PREFIX
 init|=
 literal|"mapfile.info."
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -122,7 +118,6 @@ name|HSTORE_DATFILE_DIR
 init|=
 literal|"mapfiles"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -130,6 +125,14 @@ name|HSTORE_INFO_DIR
 init|=
 literal|"info"
 decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|HSTORE_FILTER_DIR
+init|=
+literal|"filter"
+decl_stmt|;
+specifier|private
 specifier|static
 name|Random
 name|rand
@@ -154,7 +157,6 @@ name|Configuration
 name|conf
 decl_stmt|;
 comment|/**    * An HStoreFile tracks 4 things: its parent dir, the region identifier, the     * column family, and the file identifier.  If you know those four things, you    * know how to obtain the right HStoreFile.    *    * When merging or splitting HRegions, we might want to modify one of the     * params for an HStoreFile (effectively moving it elsewhere).    */
-specifier|public
 name|HStoreFile
 parameter_list|(
 name|Configuration
@@ -202,7 +204,6 @@ operator|=
 literal|0
 expr_stmt|;
 block|}
-specifier|public
 name|HStoreFile
 parameter_list|(
 name|Configuration
@@ -261,7 +262,6 @@ name|fileId
 expr_stmt|;
 block|}
 comment|// Get the individual components
-specifier|public
 name|Path
 name|getDir
 parameter_list|()
@@ -270,7 +270,6 @@ return|return
 name|dir
 return|;
 block|}
-specifier|public
 name|Text
 name|getRegionName
 parameter_list|()
@@ -279,7 +278,6 @@ return|return
 name|regionName
 return|;
 block|}
-specifier|public
 name|Text
 name|getColFamily
 parameter_list|()
@@ -288,7 +286,6 @@ return|return
 name|colFamily
 return|;
 block|}
-specifier|public
 name|long
 name|fileId
 parameter_list|()
@@ -298,7 +295,6 @@ name|fileId
 return|;
 block|}
 comment|// Build full filenames from those components
-specifier|public
 name|Path
 name|getMapFilePath
 parameter_list|()
@@ -324,7 +320,6 @@ name|fileId
 argument_list|)
 return|;
 block|}
-specifier|public
 name|Path
 name|getInfoFilePath
 parameter_list|()
@@ -352,7 +347,6 @@ return|;
 block|}
 comment|// Static methods to build partial paths to internal directories.  Useful for
 comment|// HStore construction and log-rebuilding.
-specifier|public
 specifier|static
 name|Path
 name|getMapDir
@@ -394,7 +388,6 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-specifier|public
 specifier|static
 name|Path
 name|getInfoDir
@@ -436,7 +429,47 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-specifier|public
+specifier|static
+name|Path
+name|getFilterDir
+parameter_list|(
+name|Path
+name|dir
+parameter_list|,
+name|Text
+name|regionName
+parameter_list|,
+name|Text
+name|colFamily
+parameter_list|)
+block|{
+return|return
+operator|new
+name|Path
+argument_list|(
+name|dir
+argument_list|,
+operator|new
+name|Path
+argument_list|(
+name|HREGIONDIR_PREFIX
+operator|+
+name|regionName
+argument_list|,
+operator|new
+name|Path
+argument_list|(
+name|colFamily
+operator|.
+name|toString
+argument_list|()
+argument_list|,
+name|HSTORE_FILTER_DIR
+argument_list|)
+argument_list|)
+argument_list|)
+return|;
+block|}
 specifier|static
 name|Path
 name|getHStoreDir
@@ -472,7 +505,6 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-specifier|public
 specifier|static
 name|Path
 name|getHRegionDir
@@ -967,7 +999,6 @@ comment|////////////////////////////////////////////////////////////////////////
 comment|// File handling
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/**    * Break this HStoreFile file into two new parts, which live in different     * brand-new HRegions.    */
-specifier|public
 name|void
 name|splitStoreFile
 parameter_list|(
@@ -1204,7 +1235,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Write to this HStoreFile with all the contents of the given source HStoreFiles.    * We are merging multiple regions into a single new one.    */
-specifier|public
 name|void
 name|mergeStoreFiles
 parameter_list|(
@@ -1430,7 +1460,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/** Read in an info file, give it a unique ID. */
-specifier|public
 name|long
 name|loadInfo
 parameter_list|(
@@ -1484,8 +1513,6 @@ name|readLong
 argument_list|()
 return|;
 block|}
-else|else
-block|{
 throw|throw
 operator|new
 name|IOException
@@ -1495,7 +1522,6 @@ operator|+
 name|p
 argument_list|)
 throw|;
-block|}
 block|}
 finally|finally
 block|{
@@ -1507,7 +1533,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/** Write the file-identifier to disk */
-specifier|public
 name|void
 name|writeInfo
 parameter_list|(
@@ -1566,6 +1591,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|equals
@@ -1641,6 +1668,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Writable
 comment|//////////////////////////////////////////////////////////////////////////////
+comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#write(java.io.DataOutput)    */
 specifier|public
 name|void
 name|write
@@ -1683,6 +1711,7 @@ name|fileId
 argument_list|)
 expr_stmt|;
 block|}
+comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#readFields(java.io.DataInput)    */
 specifier|public
 name|void
 name|readFields
@@ -1737,6 +1766,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Comparable
 comment|//////////////////////////////////////////////////////////////////////////////
+comment|/* (non-Javadoc)    * @see java.lang.Comparable#compareTo(java.lang.Object)    */
 specifier|public
 name|int
 name|compareTo
