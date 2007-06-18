@@ -80,7 +80,11 @@ comment|/** Create an empty key useful when deserializing */
 specifier|public
 name|HLogKey
 parameter_list|()
-block|{   }
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * Create the log key!    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *    * @param regionName  - name of region    * @param tablename   - name of table    * @param row         - row key    * @param logSeqNum   - log sequence number    */
 specifier|public
 name|HLogKey
@@ -98,6 +102,7 @@ name|long
 name|logSeqNum
 parameter_list|)
 block|{
+comment|// TODO: Is this copy of the instances necessary? They are expensive.
 name|this
 operator|.
 name|regionName

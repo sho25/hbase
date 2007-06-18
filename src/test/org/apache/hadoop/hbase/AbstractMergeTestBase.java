@@ -109,9 +109,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|io
 operator|.
-name|BytesWritable
+name|ImmutableBytesWritable
 import|;
 end_import
 
@@ -162,7 +164,7 @@ name|HTableDescriptor
 name|desc
 decl_stmt|;
 specifier|protected
-name|BytesWritable
+name|ImmutableBytesWritable
 name|value
 decl_stmt|;
 specifier|protected
@@ -263,7 +265,7 @@ block|{
 name|value
 operator|=
 operator|new
-name|BytesWritable
+name|ImmutableBytesWritable
 argument_list|(
 name|val
 operator|.
@@ -664,6 +666,9 @@ argument_list|,
 name|COLUMN_NAME
 argument_list|,
 name|value
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|region

@@ -17,15 +17,11 @@ end_package
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
+name|java
 operator|.
 name|io
 operator|.
-name|BytesWritable
+name|IOException
 import|;
 end_import
 
@@ -54,16 +50,6 @@ operator|.
 name|ipc
 operator|.
 name|VersionedProtocol
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|*
 import|;
 end_import
 
@@ -99,9 +85,10 @@ parameter_list|)
 throws|throws
 name|NotServingRegionException
 function_decl|;
-comment|/**    * Retrieve a single value from the specified region for the specified row    * and column keys    *     * @param regionName  - name of region    * @param row         - row key    * @param column      - column key    * @return            - value for that region/row/column    * @throws IOException    */
+comment|/**    * Retrieve a single value from the specified region for the specified row    * and column keys    *     * @param regionName name of region    * @param row row key    * @param column column key    * @return alue for that region/row/column    * @throws IOException    */
 specifier|public
-name|BytesWritable
+name|byte
+index|[]
 name|get
 parameter_list|(
 specifier|final
@@ -119,9 +106,10 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the specified number of versions of the specified row and column    *     * @param regionName  - region name    * @param row         - row key    * @param column      - column key    * @param numVersions - number of versions to return    * @return            - array of values    * @throws IOException    */
+comment|/**    * Get the specified number of versions of the specified row and column    *     * @param regionName region name    * @param row row key    * @param column column key    * @param numVersions number of versions to return    * @return array of values    * @throws IOException    */
 specifier|public
-name|BytesWritable
+name|byte
+index|[]
 index|[]
 name|get
 parameter_list|(
@@ -144,9 +132,10 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the specified number of versions of the specified row and column with    * the specified timestamp.    *    * @param regionName  - region name    * @param row         - row key    * @param column      - column key    * @param timestamp   - timestamp    * @param numVersions - number of versions to return    * @return            - array of values    * @throws IOException    */
+comment|/**    * Get the specified number of versions of the specified row and column with    * the specified timestamp.    *    * @param regionName region name    * @param row row key    * @param column column key    * @param timestamp timestamp    * @param numVersions number of versions to return    * @return array of values    * @throws IOException    */
 specifier|public
-name|BytesWritable
+name|byte
+index|[]
 index|[]
 name|get
 parameter_list|(
@@ -173,7 +162,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get all the data for the specified row    *     * @param regionName  - region name    * @param row         - row key    * @return            - array of values    * @throws IOException    */
+comment|/**    * Get all the data for the specified row    *     * @param regionName region name    * @param row row key    * @return array of values    * @throws IOException    */
 specifier|public
 name|KeyedData
 index|[]
@@ -200,7 +189,7 @@ comment|// called, the system will automatically call abort() on the client's be
 comment|//
 comment|// The client can gain extra time with a call to renewLease().
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**     * Start an atomic row insertion/update.  No changes are committed until the     * call to commit() returns. A call to abort() will abandon any updates in progress.    *    * Callers to this method are given a lease for each unique lockid; before the    * lease expires, either abort() or commit() must be called. If it is not     * called, the system will automatically call abort() on the client's behalf.    *    * The client can gain extra time with a call to renewLease().    * Start an atomic row insertion or update    *     * @param regionName  - region name    * @param clientid    - a unique value to identify the client    * @param row         - Name of row to start update against.    * @return Row lockid.    * @throws IOException    */
+comment|/**     * Start an atomic row insertion/update.  No changes are committed until the     * call to commit() returns. A call to abort() will abandon any updates in progress.    *    * Callers to this method are given a lease for each unique lockid; before the    * lease expires, either abort() or commit() must be called. If it is not     * called, the system will automatically call abort() on the client's behalf.    *    * The client can gain extra time with a call to renewLease().    * Start an atomic row insertion or update    *     * @param regionName region name    * @param clientid a unique value to identify the client    * @param row Name of row to start update against.    * @return Row lockid.    * @throws IOException    */
 specifier|public
 name|long
 name|startUpdate
@@ -220,7 +209,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**     * Change a value for the specified column    *    * @param regionName          - region name    * @param clientid            - a unique value to identify the client    * @param lockid              - lock id returned from startUpdate    * @param column              - column whose value is being set    * @param val                 - new value for column    * @throws IOException    */
+comment|/**     * Change a value for the specified column    *    * @param regionName region name    * @param clientid a unique value to identify the client    * @param lockid lock id returned from startUpdate    * @param column column whose value is being set    * @param val new value for column    * @throws IOException    */
 specifier|public
 name|void
 name|put
@@ -242,13 +231,14 @@ name|Text
 name|column
 parameter_list|,
 specifier|final
-name|BytesWritable
+name|byte
+index|[]
 name|val
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**     * Delete the value for a column    *    * @param regionName          - region name    * @param clientid            - a unique value to identify the client    * @param lockid              - lock id returned from startUpdate    * @param column              - name of column whose value is to be deleted    * @throws IOException    */
+comment|/**     * Delete the value for a column    *    * @param regionName region name    * @param clientid a unique value to identify the client    * @param lockid lock id returned from startUpdate    * @param column name of column whose value is to be deleted    * @throws IOException    */
 specifier|public
 name|void
 name|delete
@@ -272,7 +262,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**     * Abort a row mutation    *    * @param regionName          - region name    * @param clientid            - a unique value to identify the client    * @param lockid              - lock id returned from startUpdate    * @throws IOException    */
+comment|/**     * Abort a row mutation    *    * @param regionName region name    * @param clientid a unique value to identify the client    * @param lockid lock id returned from startUpdate    * @throws IOException    */
 specifier|public
 name|void
 name|abort
@@ -292,7 +282,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**     * Finalize a row mutation    *    * @param regionName          - region name    * @param clientid            - a unique value to identify the client    * @param lockid              - lock id returned from startUpdate    * @throws IOException    */
+comment|/**     * Finalize a row mutation    *    * @param regionName region name    * @param clientid a unique value to identify the client    * @param lockid lock id returned from startUpdate    * @throws IOException    */
 specifier|public
 name|void
 name|commit
@@ -312,7 +302,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Renew lease on update    *     * @param lockid              - lock id returned from startUpdate    * @param clientid            - a unique value to identify the client    * @throws IOException    */
+comment|/**    * Renew lease on update    *     * @param lockid lock id returned from startUpdate    * @param clientid a unique value to identify the client    * @throws IOException    */
 specifier|public
 name|void
 name|renewLease
@@ -329,7 +319,7 @@ function_decl|;
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// remote scanner interface
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Opens a remote scanner.    *     * @param regionName  - name of region to scan    * @param columns     - columns to scan    * @param startRow    - starting row to scan    *    * @return scannerId  - scanner identifier used in other calls    * @throws IOException    */
+comment|/**    * Opens a remote scanner.    *     * @param regionName name of region to scan    * @param columns columns to scan    * @param startRow starting row to scan    *    * @return scannerId scanner identifier used in other calls    * @throws IOException    */
 specifier|public
 name|long
 name|openScanner
@@ -347,7 +337,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the next set of values    *     * @param scannerId   - clientId passed to openScanner    * @return            - array of values    * @throws IOException    */
+comment|/**    * Get the next set of values    *     * @param scannerId clientId passed to openScanner    * @return array of values    * @throws IOException    */
 specifier|public
 name|KeyedData
 index|[]
@@ -359,7 +349,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Close a scanner    *     * @param scannerId   - the scanner id returned by openScanner    * @throws IOException    */
+comment|/**    * Close a scanner    *     * @param scannerId the scanner id returned by openScanner    * @throws IOException    */
 specifier|public
 name|void
 name|close

@@ -180,6 +180,9 @@ operator|+
 literal|1
 argument_list|)
 argument_list|)
+operator|.
+name|intValue
+argument_list|()
 decl_stmt|;
 name|this
 operator|.

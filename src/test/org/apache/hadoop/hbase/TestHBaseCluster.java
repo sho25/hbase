@@ -111,13 +111,13 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**    * Since all the "tests" depend on the results of the previous test, they are    * not Junit tests that can stand alone. Consequently we have a single Junit    * test that runs the "sub-tests" as private methods.    */
+comment|/**    * Since all the "tests" depend on the results of the previous test, they are    * not Junit tests that can stand alone. Consequently we have a single Junit    * test that runs the "sub-tests" as private methods.    * @throws IOException     */
 specifier|public
 name|void
 name|testHBaseCluster
 parameter_list|()
-block|{
-try|try
+throws|throws
+name|IOException
 block|{
 name|setup
 argument_list|()
@@ -134,22 +134,6 @@ expr_stmt|;
 name|cleanup
 argument_list|()
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 specifier|public
 name|void

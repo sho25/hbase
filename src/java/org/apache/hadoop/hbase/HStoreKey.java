@@ -40,7 +40,7 @@ import|;
 end_import
 
 begin_comment
-comment|/*******************************************************************************  * A Key for a stored row  ******************************************************************************/
+comment|/**  * A Key for a stored row  */
 end_comment
 
 begin_class
@@ -50,64 +50,247 @@ name|HStoreKey
 implements|implements
 name|WritableComparable
 block|{
-comment|/**    * Extracts the column family name from a column    * For example, returns 'info' if the specified column was 'info:server'    *     * @param col         - name of column    * @return            - column family name    */
+comment|// TODO: Move these utility methods elsewhere (To a Column class?).
+comment|/**    * Extracts the column family name from a column    * For example, returns 'info' if the specified column was 'info:server'    * @param col name of column    * @return column family name    * @throws InvalidColumnNameException     */
 specifier|public
 specifier|static
 name|Text
 name|extractFamily
 parameter_list|(
+specifier|final
 name|Text
 name|col
 parameter_list|)
+throws|throws
+name|InvalidColumnNameException
 block|{
-name|String
-name|column
+return|return
+name|extractFamily
+argument_list|(
+name|col
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * Extracts the column family name from a column    * For example, returns 'info' if the specified column was 'info:server'    * @param col name of column    * @param withColon if returned family name should include the ':' suffix.    * @return column family name    * @throws InvalidColumnNameException     */
+specifier|public
+specifier|static
+name|Text
+name|extractFamily
+parameter_list|(
+specifier|final
+name|Text
+name|col
+parameter_list|,
+specifier|final
+name|boolean
+name|withColon
+parameter_list|)
+throws|throws
+name|InvalidColumnNameException
+block|{
+name|int
+name|offset
+init|=
+name|getColonOffset
+argument_list|(
+name|col
+argument_list|)
+decl_stmt|;
+comment|// Include ':' in copy?
+name|offset
+operator|+=
+operator|(
+name|withColon
+operator|)
+condition|?
+literal|1
+else|:
+literal|0
+expr_stmt|;
+if|if
+condition|(
+name|offset
+operator|==
+name|col
+operator|.
+name|getLength
+argument_list|()
+condition|)
+block|{
+return|return
+name|col
+return|;
+block|}
+name|byte
+index|[]
+name|buffer
+init|=
+operator|new
+name|byte
+index|[
+name|offset
+index|]
+decl_stmt|;
+name|System
+operator|.
+name|arraycopy
+argument_list|(
+name|col
+operator|.
+name|getBytes
+argument_list|()
+argument_list|,
+literal|0
+argument_list|,
+name|buffer
+argument_list|,
+literal|0
+argument_list|,
+name|offset
+argument_list|)
+expr_stmt|;
+return|return
+operator|new
+name|Text
+argument_list|(
+name|buffer
+argument_list|)
+return|;
+block|}
+comment|/**    * Extracts the column qualifier, the portion that follows the colon (':')    * family/qualifier separator.    * For example, returns 'server' if the specified column was 'info:server'    * @param col name of column    * @return column qualifier or null if there is no qualifier.    * @throws InvalidColumnNameException     */
+specifier|public
+specifier|static
+name|Text
+name|extractQualifier
+parameter_list|(
+specifier|final
+name|Text
+name|col
+parameter_list|)
+throws|throws
+name|InvalidColumnNameException
+block|{
+name|int
+name|offset
+init|=
+name|getColonOffset
+argument_list|(
+name|col
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|offset
+operator|+
+literal|1
+operator|==
+name|col
+operator|.
+name|getLength
+argument_list|()
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
+name|int
+name|bufferLength
 init|=
 name|col
 operator|.
-name|toString
+name|getLength
 argument_list|()
+operator|-
+operator|(
+name|offset
+operator|+
+literal|1
+operator|)
 decl_stmt|;
-name|int
-name|colpos
+name|byte
+index|[]
+name|buffer
 init|=
-name|column
+operator|new
+name|byte
+index|[
+name|bufferLength
+index|]
+decl_stmt|;
+name|System
 operator|.
-name|indexOf
+name|arraycopy
+argument_list|(
+name|col
+operator|.
+name|getBytes
+argument_list|()
+argument_list|,
+name|offset
+operator|+
+literal|1
+argument_list|,
+name|buffer
+argument_list|,
+literal|0
+argument_list|,
+name|bufferLength
+argument_list|)
+expr_stmt|;
+return|return
+operator|new
+name|Text
+argument_list|(
+name|buffer
+argument_list|)
+return|;
+block|}
+specifier|private
+specifier|static
+name|int
+name|getColonOffset
+parameter_list|(
+specifier|final
+name|Text
+name|col
+parameter_list|)
+throws|throws
+name|InvalidColumnNameException
+block|{
+name|int
+name|offset
+init|=
+name|col
+operator|.
+name|find
 argument_list|(
 literal|":"
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|colpos
+name|offset
 operator|<
 literal|0
 condition|)
 block|{
 throw|throw
 operator|new
-name|IllegalArgumentException
+name|InvalidColumnNameException
 argument_list|(
-literal|"Illegal column name has no family indicator: "
+name|col
 operator|+
-name|column
+literal|" is missing the colon "
+operator|+
+literal|"family/qualifier separator"
 argument_list|)
 throw|;
 block|}
 return|return
-operator|new
-name|Text
-argument_list|(
-name|column
-operator|.
-name|substring
-argument_list|(
-literal|0
-argument_list|,
-name|colpos
-argument_list|)
-argument_list|)
+name|offset
 return|;
 block|}
 name|Text
@@ -184,7 +367,7 @@ operator|.
 name|MAX_VALUE
 expr_stmt|;
 block|}
-comment|/**    * Create an HStoreKey specifying the row and timestamp    * The column name defaults to the empty string    *     * @param row         - row key    * @param timestamp   - timestamp value    */
+comment|/**    * Create an HStoreKey specifying the row and timestamp    * The column name defaults to the empty string    *     * @param row row key    * @param timestamp timestamp value    */
 specifier|public
 name|HStoreKey
 parameter_list|(
@@ -220,7 +403,7 @@ operator|=
 name|timestamp
 expr_stmt|;
 block|}
-comment|/**    * Create an HStoreKey specifying the row and column names    * The timestamp defaults to Long.MAX_VALUE    *     * @param row         - row key    * @param column      - column key    */
+comment|/**    * Create an HStoreKey specifying the row and column names    * The timestamp defaults to Long.MAX_VALUE    *     * @param row row key    * @param column column key    */
 specifier|public
 name|HStoreKey
 parameter_list|(
@@ -260,7 +443,7 @@ operator|.
 name|MAX_VALUE
 expr_stmt|;
 block|}
-comment|/**    * Create an HStoreKey specifying all the fields    *     * @param row         - row key    * @param column      - column key    * @param timestamp   - timestamp value    */
+comment|/**    * Create an HStoreKey specifying all the fields    *     * @param row row key    * @param column column key    * @param timestamp timestamp value    */
 specifier|public
 name|HStoreKey
 parameter_list|(
@@ -301,7 +484,7 @@ operator|=
 name|timestamp
 expr_stmt|;
 block|}
-comment|/**    * Construct a new HStoreKey from another    *     * @param other - the source key    */
+comment|/**    * Construct a new HStoreKey from another    *     * @param other the source key    */
 specifier|public
 name|HStoreKey
 parameter_list|(
@@ -343,7 +526,7 @@ operator|.
 name|timestamp
 expr_stmt|;
 block|}
-comment|/**    * Change the value of the row key    *     * @param newrow      - new row key value    */
+comment|/**    * Change the value of the row key    *     * @param newrow new row key value    */
 specifier|public
 name|void
 name|setRow
@@ -362,7 +545,7 @@ name|newrow
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Change the value of the column key    *     * @param newcol      - new column key value    */
+comment|/**    * Change the value of the column key    *     * @param newcol new column key value    */
 specifier|public
 name|void
 name|setColumn
@@ -381,7 +564,7 @@ name|newcol
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Change the value of the timestamp field    *     * @param timestamp   - new timestamp value    */
+comment|/**    * Change the value of the timestamp field    *     * @param timestamp new timestamp value    */
 specifier|public
 name|void
 name|setVersion
@@ -397,7 +580,7 @@ operator|=
 name|timestamp
 expr_stmt|;
 block|}
-comment|/**    * Set the value of this HStoreKey from the supplied key    *     * @param k - key value to copy    */
+comment|/**    * Set the value of this HStoreKey from the supplied key    *     * @param k key value to copy    */
 specifier|public
 name|void
 name|set
@@ -534,14 +717,16 @@ name|getTimestamp
 argument_list|()
 return|;
 block|}
-comment|/**    * @param other Key to compare against. Compares row and column family    *     * @return true if same row and column family    * @see #matchesRowCol(HStoreKey)    * @see #matchesWithoutColumn(HStoreKey)    */
+comment|/**    * @param that Key to compare against. Compares row and column family    *     * @return true if same row and column family    * @throws InvalidColumnNameException     * @see #matchesRowCol(HStoreKey)    * @see #matchesWithoutColumn(HStoreKey)    */
 specifier|public
 name|boolean
 name|matchesRowFamily
 parameter_list|(
 name|HStoreKey
-name|other
+name|that
 parameter_list|)
+throws|throws
+name|InvalidColumnNameException
 block|{
 return|return
 name|this
@@ -550,7 +735,7 @@ name|row
 operator|.
 name|compareTo
 argument_list|(
-name|other
+name|that
 operator|.
 name|row
 argument_list|)
@@ -568,7 +753,7 @@ name|compareTo
 argument_list|(
 name|extractFamily
 argument_list|(
-name|other
+name|that
 operator|.
 name|getColumn
 argument_list|()

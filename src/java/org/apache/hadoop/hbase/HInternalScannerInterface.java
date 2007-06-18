@@ -45,26 +45,12 @@ name|hadoop
 operator|.
 name|io
 operator|.
-name|BytesWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
 name|Text
 import|;
 end_import
 
 begin_comment
-comment|/**  * Internally, we need to be able to determine if the scanner is doing wildcard  * column matches (when only a column family is specified or if a column regex  * is specified) or if multiple members of the same column family were specified.  *   * If so, we need to ignore the timestamp to ensure that we get all the family  * members, as they may have been last updated at different times.  *   * This interface exposes two APIs for querying the scanner.  */
+comment|/**  * Internally, we need to be able to determine if the scanner is doing wildcard  * column matches (when only a column family is specified or if a column regex  * is specified) or if multiple members of the same column family were  * specified. If so, we need to ignore the timestamp to ensure that we get all  * the family members, as they may have been last updated at different times.  * This interface exposes two APIs for querying the scanner.  */
 end_comment
 
 begin_interface
@@ -83,13 +69,15 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|BytesWritable
+name|byte
+index|[]
 argument_list|>
 name|results
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Close the scanner.    */
 specifier|public
 name|void
 name|close

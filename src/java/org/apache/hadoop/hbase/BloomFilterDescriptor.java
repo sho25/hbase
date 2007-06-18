@@ -102,7 +102,11 @@ comment|/** Default constructor - used in conjunction with Writable */
 specifier|public
 name|BloomFilterDescriptor
 parameter_list|()
-block|{}
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * @param type The kind of bloom filter to use.    * @param vectorSize The vector size of<i>this</i> filter.    * @param nbHash The number of hash functions to consider.    */
 specifier|public
 name|BloomFilterDescriptor

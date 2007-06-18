@@ -254,7 +254,11 @@ decl_stmt|;
 name|Integer
 name|rollLock
 init|=
+operator|new
+name|Integer
+argument_list|(
 literal|0
+argument_list|)
 decl_stmt|;
 comment|/**    * Split up a bunch of log files, that are no longer being written to,    * into new files, one per region.  Delete the old log files when ready.    * @param rootDir Root directory of the HBase instance    * @param srcDir Directory of log files to split:    * e.g.<code>${ROOTDIR}/log_HOST_PORT</code>    * @param fs FileSystem    * @param conf HBaseConfiguration    * @throws IOException    */
 specifier|static
@@ -717,7 +721,9 @@ parameter_list|(
 name|InterruptedException
 name|ie
 parameter_list|)
-block|{           }
+block|{
+comment|// continue;
+block|}
 block|}
 if|if
 condition|(
@@ -1031,8 +1037,9 @@ comment|/**    * This is a convenience method that computes a new filename with 
 name|Path
 name|computeFilename
 parameter_list|(
+specifier|final
 name|long
-name|filenum
+name|fn
 parameter_list|)
 block|{
 return|return
@@ -1049,7 +1056,7 @@ name|format
 argument_list|(
 literal|"%1$03d"
 argument_list|,
-name|filenum
+name|fn
 argument_list|)
 argument_list|)
 return|;
@@ -1148,7 +1155,8 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|BytesWritable
+name|byte
+index|[]
 argument_list|>
 name|columns
 parameter_list|,
@@ -1225,7 +1233,8 @@ name|Entry
 argument_list|<
 name|Text
 argument_list|,
-name|BytesWritable
+name|byte
+index|[]
 argument_list|>
 name|es
 range|:
@@ -1377,7 +1386,9 @@ parameter_list|(
 name|InterruptedException
 name|ie
 parameter_list|)
-block|{       }
+block|{
+comment|// continue
+block|}
 block|}
 name|insideCacheFlush
 operator|=
@@ -1460,6 +1471,9 @@ operator|.
 name|METACOLUMN
 argument_list|,
 name|COMPLETE_CACHEFLUSH
+operator|.
+name|get
+argument_list|()
 argument_list|,
 name|System
 operator|.

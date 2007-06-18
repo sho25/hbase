@@ -1126,7 +1126,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Members
 comment|//////////////////////////////////////////////////////////////////////////////
-name|TreeMap
+name|Map
 argument_list|<
 name|Text
 argument_list|,
@@ -1135,7 +1135,7 @@ argument_list|>
 name|rowsToLocks
 init|=
 operator|new
-name|TreeMap
+name|HashMap
 argument_list|<
 name|Text
 argument_list|,
@@ -1143,7 +1143,7 @@ name|Long
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|TreeMap
+name|Map
 argument_list|<
 name|Long
 argument_list|,
@@ -1152,7 +1152,7 @@ argument_list|>
 name|locksToRows
 init|=
 operator|new
-name|TreeMap
+name|HashMap
 argument_list|<
 name|Long
 argument_list|,
@@ -1160,7 +1160,7 @@ name|Text
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|TreeMap
+name|Map
 argument_list|<
 name|Text
 argument_list|,
@@ -1169,7 +1169,7 @@ argument_list|>
 name|stores
 init|=
 operator|new
-name|TreeMap
+name|HashMap
 argument_list|<
 name|Text
 argument_list|,
@@ -1185,7 +1185,8 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|BytesWritable
+name|byte
+index|[]
 argument_list|>
 argument_list|>
 name|targetColumns
@@ -1199,7 +1200,8 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|BytesWritable
+name|byte
+index|[]
 argument_list|>
 argument_list|>
 argument_list|()
@@ -3300,7 +3302,8 @@ name|TreeMap
 argument_list|<
 name|HStoreKey
 argument_list|,
-name|BytesWritable
+name|byte
+index|[]
 argument_list|>
 name|memcacheSnapshot
 init|=
@@ -3530,7 +3533,8 @@ comment|////////////////////////////////////////////////////////////////////////
 comment|// get() methods for client use.
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/** Fetch a single data item. */
-name|BytesWritable
+name|byte
+index|[]
 name|get
 parameter_list|(
 name|Text
@@ -3542,7 +3546,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|BytesWritable
+name|byte
+index|[]
 index|[]
 name|results
 init|=
@@ -3564,6 +3569,12 @@ operator|(
 name|results
 operator|==
 literal|null
+operator|||
+name|results
+operator|.
+name|length
+operator|==
+literal|0
 operator|)
 condition|?
 literal|null
@@ -3575,7 +3586,8 @@ index|]
 return|;
 block|}
 comment|/** Fetch multiple versions of a single data item */
-name|BytesWritable
+name|byte
+index|[]
 index|[]
 name|get
 parameter_list|(
@@ -3607,7 +3619,8 @@ argument_list|)
 return|;
 block|}
 comment|/** Fetch multiple versions of a single data item, with timestamp. */
-name|BytesWritable
+name|byte
+index|[]
 index|[]
 name|get
 parameter_list|(
@@ -3689,7 +3702,8 @@ block|}
 block|}
 comment|/** Private implementation: get the value for the indicated HStoreKey */
 specifier|private
-name|BytesWritable
+name|byte
+index|[]
 index|[]
 name|get
 parameter_list|(
@@ -3710,7 +3724,8 @@ expr_stmt|;
 try|try
 block|{
 comment|// Check the memcache
-name|BytesWritable
+name|byte
+index|[]
 index|[]
 name|result
 init|=
@@ -3794,7 +3809,8 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|BytesWritable
+name|byte
+index|[]
 argument_list|>
 name|getFull
 parameter_list|(
@@ -3829,7 +3845,8 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|BytesWritable
+name|byte
+index|[]
 argument_list|>
 name|memResult
 init|=
@@ -3842,35 +3859,15 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|Iterator
-argument_list|<
 name|Text
-argument_list|>
-name|it
-init|=
+name|colFamily
+range|:
 name|stores
 operator|.
 name|keySet
 argument_list|()
-operator|.
-name|iterator
-argument_list|()
-init|;
-name|it
-operator|.
-name|hasNext
-argument_list|()
-condition|;
 control|)
 block|{
-name|Text
-name|colFamily
-init|=
-name|it
-operator|.
-name|next
-argument_list|()
-decl_stmt|;
 name|HStore
 name|targetStore
 init|=
@@ -4069,7 +4066,8 @@ parameter_list|,
 name|Text
 name|targetCol
 parameter_list|,
-name|BytesWritable
+name|byte
+index|[]
 name|val
 parameter_list|)
 throws|throws
@@ -4077,21 +4075,11 @@ name|IOException
 block|{
 if|if
 condition|(
-name|val
-operator|.
-name|getSize
-argument_list|()
-operator|==
 name|DELETE_BYTES
-operator|.
-name|getSize
-argument_list|()
-operator|&&
-name|val
 operator|.
 name|compareTo
 argument_list|(
-name|DELETE_BYTES
+name|val
 argument_list|)
 operator|==
 literal|0
@@ -4137,6 +4125,9 @@ argument_list|,
 name|targetCol
 argument_list|,
 name|DELETE_BYTES
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -4153,7 +4144,8 @@ name|Text
 name|targetCol
 parameter_list|,
 specifier|final
-name|BytesWritable
+name|byte
+index|[]
 name|val
 parameter_list|)
 throws|throws
@@ -4225,7 +4217,8 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|BytesWritable
+name|byte
+index|[]
 argument_list|>
 name|targets
 init|=
@@ -4252,7 +4245,8 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|BytesWritable
+name|byte
+index|[]
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -4420,7 +4414,8 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|BytesWritable
+name|byte
+index|[]
 argument_list|>
 name|columns
 init|=
@@ -4891,7 +4886,8 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|BytesWritable
+name|byte
+index|[]
 argument_list|>
 index|[]
 name|resultSets
@@ -5233,7 +5229,8 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|BytesWritable
+name|byte
+index|[]
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -5306,7 +5303,8 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|BytesWritable
+name|byte
+index|[]
 argument_list|>
 name|results
 parameter_list|)
@@ -5556,7 +5554,8 @@ name|Entry
 argument_list|<
 name|Text
 argument_list|,
-name|BytesWritable
+name|byte
+index|[]
 argument_list|>
 name|e
 range|:
@@ -5998,14 +5997,10 @@ name|writeid
 argument_list|,
 name|COL_REGIONINFO
 argument_list|,
-operator|new
-name|BytesWritable
-argument_list|(
 name|bytes
 operator|.
 name|toByteArray
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|meta

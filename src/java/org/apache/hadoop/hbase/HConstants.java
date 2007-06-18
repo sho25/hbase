@@ -23,9 +23,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|io
 operator|.
-name|BytesWritable
+name|ImmutableBytesWritable
 import|;
 end_import
 
@@ -263,11 +265,11 @@ decl_stmt|;
 comment|/** Value stored for a deleted item */
 specifier|static
 specifier|final
-name|BytesWritable
+name|ImmutableBytesWritable
 name|DELETE_BYTES
 init|=
 operator|new
-name|BytesWritable
+name|ImmutableBytesWritable
 argument_list|(
 literal|"HBASE::DELETEVAL"
 operator|.
@@ -278,11 +280,11 @@ decl_stmt|;
 comment|/** Value written to HLog on a complete cache flush */
 specifier|static
 specifier|final
-name|BytesWritable
+name|ImmutableBytesWritable
 name|COMPLETE_CACHEFLUSH
 init|=
 operator|new
-name|BytesWritable
+name|ImmutableBytesWritable
 argument_list|(
 literal|"HBASE::CACHEFLUSH"
 operator|.

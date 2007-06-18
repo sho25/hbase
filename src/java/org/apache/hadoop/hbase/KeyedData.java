@@ -53,7 +53,8 @@ block|{
 name|HStoreKey
 name|key
 decl_stmt|;
-name|BytesWritable
+name|byte
+index|[]
 name|data
 decl_stmt|;
 comment|/** Default constructor. Used by Writable interface */
@@ -69,23 +70,16 @@ operator|new
 name|HStoreKey
 argument_list|()
 expr_stmt|;
-name|this
-operator|.
-name|data
-operator|=
-operator|new
-name|BytesWritable
-argument_list|()
-expr_stmt|;
 block|}
-comment|/**    * Create a KeyedData object specifying the parts    * @param key         - HStoreKey    * @param data        - BytesWritable    */
+comment|/**    * Create a KeyedData object specifying the parts    * @param key HStoreKey    * @param data    */
 specifier|public
 name|KeyedData
 parameter_list|(
 name|HStoreKey
 name|key
 parameter_list|,
-name|BytesWritable
+name|byte
+index|[]
 name|data
 parameter_list|)
 block|{
@@ -102,7 +96,7 @@ operator|=
 name|data
 expr_stmt|;
 block|}
-comment|/** @return - returns the key */
+comment|/** @return returns the key */
 specifier|public
 name|HStoreKey
 name|getKey
@@ -114,7 +108,8 @@ return|;
 block|}
 comment|/** @return - returns the value */
 specifier|public
-name|BytesWritable
+name|byte
+index|[]
 name|getData
 parameter_list|()
 block|{
@@ -143,11 +138,24 @@ argument_list|(
 name|out
 argument_list|)
 expr_stmt|;
+name|out
+operator|.
+name|writeShort
+argument_list|(
+name|this
+operator|.
 name|data
+operator|.
+name|length
+argument_list|)
+expr_stmt|;
+name|out
 operator|.
 name|write
 argument_list|(
-name|out
+name|this
+operator|.
+name|data
 argument_list|)
 expr_stmt|;
 block|}
@@ -169,11 +177,26 @@ argument_list|(
 name|in
 argument_list|)
 expr_stmt|;
-name|data
+name|this
 operator|.
-name|readFields
-argument_list|(
+name|data
+operator|=
+operator|new
+name|byte
+index|[
 name|in
+operator|.
+name|readShort
+argument_list|()
+index|]
+expr_stmt|;
+name|in
+operator|.
+name|readFully
+argument_list|(
+name|this
+operator|.
+name|data
 argument_list|)
 expr_stmt|;
 block|}
