@@ -98,7 +98,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A HColumnDescriptor contains information about a column family such as the  * number of versions, compression settings, etc.  *  */
+comment|/**  * A HColumnDescriptor contains information about a column family such as the  * number of versions, compression settings, etc.  */
 end_comment
 
 begin_class

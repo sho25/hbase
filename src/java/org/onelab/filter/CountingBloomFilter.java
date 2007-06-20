@@ -44,7 +44,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implements a<i>counting Bloom filter</i>, as defined by Fan et al. in a ToN  * 2000 paper.  *<p>  * A counting Bloom filter is an improvement to standard a Bloom filter as it  * allows dynamic additions and deletions of set membership information.  This   * is achieved through the use of a counting vector instead of a bit vector.  *   * @author<a href="mailto:donnet@ucl.ac.be">Benoit Donnet</a> - Universite Catholique de Louvain - Faculte des Sciences Appliquees - Departement d'Ingenierie Informatique.  * contract<a href="http://www.one-lab.org">European Commission One-Lab Project 034819</a>.  *  * @version 1.0 - 5 Feb. 07  *   * @see org.onelab.filter.Filter The general behavior of a filter  *   * @see<a href="http://portal.acm.org/citation.cfm?id=343571.343572">Summary cache: a scalable wide-area web cache sharing protocol</a>  */
+comment|/**  * Implements a<i>counting Bloom filter</i>, as defined by Fan et al. in a ToN  * 2000 paper.  *<p>  * A counting Bloom filter is an improvement to standard a Bloom filter as it  * allows dynamic additions and deletions of set membership information.  This   * is achieved through the use of a counting vector instead of a bit vector.  *   * contract<a href="http://www.one-lab.org">European Commission One-Lab Project 034819</a>.  *  * @version 1.0 - 5 Feb. 07  *   * @see org.onelab.filter.Filter The general behavior of a filter  *   * @see<a href="http://portal.acm.org/citation.cfm?id=343571.343572">Summary cache: a scalable wide-area web cache sharing protocol</a>  */
 end_comment
 
 begin_class
