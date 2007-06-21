@@ -211,6 +211,19 @@ argument_list|(
 literal|"info:"
 argument_list|)
 decl_stmt|;
+specifier|static
+specifier|final
+name|Text
+index|[]
+name|COLUMN_FAMILY_ARRAY
+init|=
+operator|new
+name|Text
+index|[]
+block|{
+name|COLUMN_FAMILY
+block|}
+decl_stmt|;
 comment|/** ROOT/META column family member - contains HRegionInfo */
 specifier|static
 specifier|final

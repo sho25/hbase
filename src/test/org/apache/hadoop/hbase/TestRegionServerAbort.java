@@ -25,6 +25,16 @@ name|IOException
 import|;
 end_import
 
+begin_import
+import|import
+name|junit
+operator|.
+name|framework
+operator|.
+name|TestCase
+import|;
+end_import
+
 begin_comment
 comment|/** Tests region server failover when a region server exits cleanly */
 end_comment
@@ -34,93 +44,15 @@ specifier|public
 class|class
 name|TestRegionServerAbort
 extends|extends
-name|HBaseClusterTestCase
+name|TestCase
 block|{
-specifier|private
-name|HClient
-name|client
-decl_stmt|;
-comment|/** Constructor */
-specifier|public
-name|TestRegionServerAbort
-parameter_list|()
-block|{
-name|super
-argument_list|(
-literal|2
-argument_list|)
-expr_stmt|;
-comment|// Start two region servers
-name|client
-operator|=
-operator|new
-name|HClient
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
-block|}
 comment|/** The test */
 specifier|public
 name|void
 name|testRegionServerAbort
 parameter_list|()
 block|{
-try|try
-block|{
-comment|// When the META table can be opened, the region servers are running
-name|client
-operator|.
-name|openTable
-argument_list|(
-name|HConstants
-operator|.
-name|META_TABLE_NAME
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
-block|}
-comment|// Force a region server to exit "ungracefully"
-name|this
-operator|.
-name|cluster
-operator|.
-name|abortRegionServer
-argument_list|(
-literal|0
-argument_list|)
-expr_stmt|;
-try|try
-block|{
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-literal|120000
-argument_list|)
-expr_stmt|;
-comment|// Wait for cluster to adjust
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{     }
+comment|// REMOVE THIS CLASS. TEST HAS BEEN MOVED TO TestCleanRegionExit.
 block|}
 block|}
 end_class

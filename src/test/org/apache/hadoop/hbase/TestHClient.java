@@ -44,7 +44,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test HClient.  * This class can only run one unit test while hadoop-1299 is outstanding.  */
+comment|/**  * Test HClient.  */
 end_comment
 
 begin_class

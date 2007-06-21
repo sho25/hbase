@@ -2699,7 +2699,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/*    * Repeatedly try to find the root region by asking the master for where it is    * @return TreeMap<Text, TableInfo> for root regin if found    * @throws NoServerForRegionException - if the root region can not be located after retrying    * @throws IOException     */
+comment|/*    * Repeatedly try to find the root region by asking the master for where it is    * @return TreeMap<Text, TableInfo> for root regin if found    * @throws NoServerForRegionException - if the root region can not be located    * after retrying    * @throws IOException     */
 specifier|private
 name|TreeMap
 argument_list|<
@@ -3992,28 +3992,6 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|row
-operator|==
-literal|null
-operator|||
-name|row
-operator|.
-name|getLength
-argument_list|()
-operator|==
-literal|0
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|"row key cannot be null or zero length"
-argument_list|)
-throw|;
-block|}
-if|if
-condition|(
 name|this
 operator|.
 name|tableServers
@@ -4289,7 +4267,6 @@ operator|-
 literal|1
 condition|)
 block|{
-comment|// No more tries
 throw|throw
 name|e
 throw|;
@@ -4298,10 +4275,6 @@ name|findRegion
 argument_list|(
 name|info
 argument_list|)
-expr_stmt|;
-name|info
-operator|=
-literal|null
 expr_stmt|;
 block|}
 block|}
@@ -4417,10 +4390,6 @@ name|findRegion
 argument_list|(
 name|info
 argument_list|)
-expr_stmt|;
-name|info
-operator|=
-literal|null
 expr_stmt|;
 block|}
 block|}
@@ -4608,10 +4577,6 @@ argument_list|(
 name|info
 argument_list|)
 expr_stmt|;
-name|info
-operator|=
-literal|null
-expr_stmt|;
 block|}
 block|}
 if|if
@@ -4785,10 +4750,6 @@ name|findRegion
 argument_list|(
 name|info
 argument_list|)
-expr_stmt|;
-name|info
-operator|=
-literal|null
 expr_stmt|;
 block|}
 block|}

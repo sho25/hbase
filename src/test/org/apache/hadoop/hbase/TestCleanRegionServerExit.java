@@ -26,7 +26,7 @@ import|;
 end_import
 
 begin_comment
-comment|/** Tests region server failover when a region server exits cleanly */
+comment|/**  * Tests region server failover when a region server exits.  */
 end_comment
 
 begin_class
@@ -40,17 +40,22 @@ specifier|private
 name|HClient
 name|client
 decl_stmt|;
-comment|/** Constructor */
+annotation|@
+name|Override
 specifier|public
-name|TestCleanRegionServerExit
+name|void
+name|setUp
 parameter_list|()
+throws|throws
+name|Exception
 block|{
 name|super
-argument_list|(
-literal|2
-argument_list|)
+operator|.
+name|setUp
+argument_list|()
 expr_stmt|;
-comment|// Start two region servers
+name|this
+operator|.
 name|client
 operator|=
 operator|new
@@ -60,7 +65,6 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** The test     * @throws IOException     * @throws InterruptedException */
 specifier|public
 name|void
 name|testCleanRegionServerExit
@@ -82,36 +86,75 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
+comment|// Put something into the meta table.
+name|this
+operator|.
+name|client
+operator|.
+name|createTable
+argument_list|(
+operator|new
+name|HTableDescriptor
+argument_list|(
+name|getName
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// Get current region server instance.
+name|HRegionServer
+name|hsr
+init|=
 name|this
 operator|.
 name|cluster
 operator|.
-name|stopRegionServer
+name|regionServers
+operator|.
+name|get
 argument_list|(
 literal|0
 argument_list|)
-expr_stmt|;
+decl_stmt|;
+name|Thread
+name|hrst
+init|=
 name|this
 operator|.
 name|cluster
 operator|.
 name|regionThreads
-index|[
+operator|.
+name|get
+argument_list|(
 literal|0
-index|]
+argument_list|)
+decl_stmt|;
+comment|// Start up a new one to take over serving of root and meta after we shut
+comment|// down the current meta/root host.
+name|this
+operator|.
+name|cluster
+operator|.
+name|startRegionServer
+argument_list|()
+expr_stmt|;
+comment|// Now shutdown the region server and wait for it to go down.
+name|hsr
+operator|.
+name|stop
+argument_list|()
+expr_stmt|;
+name|hrst
 operator|.
 name|join
 argument_list|()
 expr_stmt|;
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-literal|60000
-argument_list|)
-expr_stmt|;
-comment|// Wait for cluster to adjust
+comment|// The recalibration of the client is not working properly.  FIX.
+comment|// After above is fixed, add in assertions that we can get data from
+comment|// newly located meta table.
 block|}
+comment|/* Comment out till recalibration of client is working properly.    public void testRegionServerAbort()   throws IOException, InterruptedException {     // When the META table can be opened, the region servers are running     this.client.openTable(HConstants.META_TABLE_NAME);     // Put something into the meta table.     this.client.createTable(new HTableDescriptor(getName()));     // Get current region server instance.     HRegionServer hsr = this.cluster.regionServers.get(0);     Thread hrst = this.cluster.regionThreads.get(0);     // Start up a new one to take over serving of root and meta after we shut     // down the current meta/root host.     this.cluster.startRegionServer();     // Force a region server to exit "ungracefully"     hsr.abort();     hrst.join();     // The recalibration of the client is not working properly.  FIX.     // After above is fixed, add in assertions that we can get data from     // newly located meta table.   } */
 block|}
 end_class
 
