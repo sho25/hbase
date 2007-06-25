@@ -2075,6 +2075,7 @@ throw|;
 block|}
 block|}
 comment|/**    * Sets a flag that will cause all the HRegionServer threads to shut down    * in an orderly fashion.    */
+specifier|public
 specifier|synchronized
 name|void
 name|stop
@@ -4709,8 +4710,8 @@ name|lockid
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Private utility method for safely obtaining an HRegion handle.    * @param regionName Name of online {@link HRegion} to return    * @return {@link HRegion} for<code>regionName</code>    * @throws NotServingRegionException    */
-specifier|private
+comment|/**     * Protected utility method for safely obtaining an HRegion handle.    * @param regionName Name of online {@link HRegion} to return    * @return {@link HRegion} for<code>regionName</code>    * @throws NotServingRegionException    */
+specifier|protected
 name|HRegion
 name|getRegion
 parameter_list|(
@@ -4730,8 +4731,8 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**     * Private utility method for safely obtaining an HRegion handle.    * @param regionName Name of online {@link HRegion} to return    * @param checkRetiringRegions Set true if we're to check retiring regions    * as well as online regions.    * @return {@link HRegion} for<code>regionName</code>    * @throws NotServingRegionException    */
-specifier|private
+comment|/**     * Protected utility method for safely obtaining an HRegion handle.    * @param regionName Name of online {@link HRegion} to return    * @param checkRetiringRegions Set true if we're to check retiring regions    * as well as online regions.    * @return {@link HRegion} for<code>regionName</code>    * @throws NotServingRegionException    */
+specifier|protected
 name|HRegion
 name|getRegion
 parameter_list|(

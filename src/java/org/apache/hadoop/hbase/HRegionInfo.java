@@ -592,6 +592,56 @@ name|readBoolean
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * @return the endKey    */
+specifier|public
+name|Text
+name|getEndKey
+parameter_list|()
+block|{
+return|return
+name|endKey
+return|;
+block|}
+comment|/**    * @return the regionId    */
+specifier|public
+name|long
+name|getRegionId
+parameter_list|()
+block|{
+return|return
+name|regionId
+return|;
+block|}
+comment|/**    * @return the regionName    */
+specifier|public
+name|Text
+name|getRegionName
+parameter_list|()
+block|{
+return|return
+name|regionName
+return|;
+block|}
+comment|/**    * @return the startKey    */
+specifier|public
+name|Text
+name|getStartKey
+parameter_list|()
+block|{
+return|return
+name|startKey
+return|;
+block|}
+comment|/**    * @return the tableDesc    */
+specifier|public
+name|HTableDescriptor
+name|getTableDesc
+parameter_list|()
+block|{
+return|return
+name|tableDesc
+return|;
+block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Comparable
 comment|//////////////////////////////////////////////////////////////////////////////

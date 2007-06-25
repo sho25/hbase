@@ -106,6 +106,27 @@ name|DEFAULT_HOST
 operator|+
 literal|":60010"
 decl_stmt|;
+comment|/** Parameter name for what region server interface to use. */
+specifier|static
+specifier|final
+name|String
+name|REGION_SERVER_CLASS
+init|=
+literal|"hbase.regionserver.class"
+decl_stmt|;
+comment|/** Default region server interface class name. */
+specifier|static
+specifier|final
+name|String
+name|DEFAULT_REGION_SERVER_CLASS
+init|=
+name|HRegionInterface
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
+decl_stmt|;
 comment|/** Parameter name for how often threads should wake up */
 specifier|static
 specifier|final

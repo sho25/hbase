@@ -2687,6 +2687,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**     * @return HServerAddress of the master server    */
+specifier|public
 name|HServerAddress
 name|getMasterAddress
 parameter_list|()

@@ -110,6 +110,7 @@ comment|/**  * HRegion stores data for a certain region of a table.  It stores a
 end_comment
 
 begin_class
+specifier|public
 class|class
 name|HRegion
 implements|implements
@@ -1311,7 +1312,8 @@ decl_stmt|;
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Constructor
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * HRegion constructor.    *    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    *     * @param rootDir root directory for HBase instance    * @param log HLog where changes should be committed    * @param fs is the filesystem.      * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * @param initialFiles If there are initial files (implying that the HRegion    * is new), then read them from the supplied path.    *     * @throws IOException    */
+comment|/**    * HRegion constructor.    *    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    *     * @param rootDir root directory for HBase instance    * @param fs is the filesystem.      * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * @param initialFiles If there are initial files (implying that the HRegion    * is new), then read them from the supplied path.    *     * @throws IOException    */
+specifier|public
 name|HRegion
 parameter_list|(
 name|Path
@@ -1686,6 +1688,7 @@ name|closed
 return|;
 block|}
 comment|/**    * Close down this HRegion.  Flush the cache, shut down each HStore, don't     * service any more calls.    *    * The returned Vector is a list of all the storage files that the HRegion's     * component HStores make use of.  It's a list of HStoreFile objects.    *    * This method could take some time to execute, so don't call it from a     * time-sensitive thread.    */
+specifier|public
 name|Vector
 argument_list|<
 name|HStoreFile
@@ -2563,6 +2566,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// HRegion accessors
 comment|//////////////////////////////////////////////////////////////////////////////
+specifier|public
 name|Text
 name|getStartKey
 parameter_list|()
@@ -2573,6 +2577,7 @@ operator|.
 name|startKey
 return|;
 block|}
+specifier|public
 name|Text
 name|getEndKey
 parameter_list|()
@@ -2583,6 +2588,7 @@ operator|.
 name|endKey
 return|;
 block|}
+specifier|public
 name|long
 name|getRegionId
 parameter_list|()
@@ -2593,6 +2599,7 @@ operator|.
 name|regionId
 return|;
 block|}
+specifier|public
 name|Text
 name|getRegionName
 parameter_list|()
@@ -2603,6 +2610,7 @@ operator|.
 name|regionName
 return|;
 block|}
+specifier|public
 name|Path
 name|getRootDir
 parameter_list|()
@@ -2611,6 +2619,7 @@ return|return
 name|rootDir
 return|;
 block|}
+specifier|public
 name|HTableDescriptor
 name|getTableDesc
 parameter_list|()
@@ -2621,6 +2630,7 @@ operator|.
 name|tableDesc
 return|;
 block|}
+specifier|public
 name|HLog
 name|getLog
 parameter_list|()
@@ -2629,6 +2639,7 @@ return|return
 name|log
 return|;
 block|}
+specifier|public
 name|Configuration
 name|getConf
 parameter_list|()
@@ -2637,6 +2648,7 @@ return|return
 name|conf
 return|;
 block|}
+specifier|public
 name|Path
 name|getRegionDir
 parameter_list|()
@@ -2645,6 +2657,7 @@ return|return
 name|regiondir
 return|;
 block|}
+specifier|public
 name|FileSystem
 name|getFilesystem
 parameter_list|()
@@ -3902,6 +3915,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Return an iterator that scans over the HRegion, returning the indicated     * columns.  This Iterator must be closed by the caller.    */
+specifier|public
 name|HInternalScannerInterface
 name|getScanner
 parameter_list|(
@@ -4034,7 +4048,8 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// set() methods for client use.
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * The caller wants to apply a series of writes to a single row in the    * HRegion. The caller will invoke startUpdate(), followed by a series of    * calls to put/delete, then finally either abort() or commit().    *    *<p>Note that we rely on the external caller to properly abort() or    * commit() every transaction.  If the caller is a network client, there    * should be a lease-system in place that automatically aborts() transactions    * after a specified quiet period.    *     * @param row Row to update    * @return lockid    * @see #put(long, Text, BytesWritable)    */
+comment|/**    * The caller wants to apply a series of writes to a single row in the    * HRegion. The caller will invoke startUpdate(), followed by a series of    * calls to put/delete, then finally either abort() or commit().    *    *<p>Note that we rely on the external caller to properly abort() or    * commit() every transaction.  If the caller is a network client, there    * should be a lease-system in place that automatically aborts() transactions    * after a specified quiet period.    *     * @param row Row to update    * @return lockid    * @see #put(long, Text, byte[])    */
+specifier|public
 name|long
 name|startUpdate
 parameter_list|(
@@ -4057,6 +4072,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Put a cell value into the locked row.  The user indicates the row-lock, the    * target column, and the desired value.  This stuff is set into a temporary     * memory area until the user commits the change, at which point it's logged     * and placed into the memcache.    *    * This method really just tests the input, then calls an internal localput()     * method.    */
+specifier|public
 name|void
 name|put
 parameter_list|(
@@ -4106,6 +4122,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Delete a value or write a value. This is a just a convenience method for put().    */
+specifier|public
 name|void
 name|delete
 parameter_list|(
@@ -4274,6 +4291,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Abort a pending set of writes. This dumps from memory all in-progress    * writes associated with the given row-lock.  These values have not yet    * been placed in memcache or written to the log.    */
+specifier|public
 name|void
 name|abort
 parameter_list|(
@@ -4357,6 +4375,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Commit a pending set of writes to the memcache. This also results in    * writing to the change log.    *    * Once updates hit the change log, they are safe.  They will either be moved     * into an HStore in the future, or they will be recovered from the log.    * @param lockid Lock for row we're to commit.    * @throws IOException    */
+specifier|public
 name|void
 name|commit
 parameter_list|(
