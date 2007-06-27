@@ -1983,6 +1983,11 @@ argument_list|()
 operator|+
 literal|" because logdir "
 operator|+
+name|logdir
+operator|.
+name|toString
+argument_list|()
+operator|+
 literal|" exists"
 argument_list|)
 throw|;
