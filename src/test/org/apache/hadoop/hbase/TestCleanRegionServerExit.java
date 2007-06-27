@@ -74,6 +74,8 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
+try|try
+block|{
 comment|// When the META table can be opened, the region servers are running
 name|this
 operator|.
@@ -153,6 +155,22 @@ expr_stmt|;
 comment|// The recalibration of the client is not working properly.  FIX.
 comment|// After above is fixed, add in assertions that we can get data from
 comment|// newly located meta table.
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|e
+operator|.
+name|printStackTrace
+argument_list|()
+expr_stmt|;
+name|fail
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/* Comment out till recalibration of client is working properly.    public void testRegionServerAbort()   throws IOException, InterruptedException {     // When the META table can be opened, the region servers are running     this.client.openTable(HConstants.META_TABLE_NAME);     // Put something into the meta table.     this.client.createTable(new HTableDescriptor(getName()));     // Get current region server instance.     HRegionServer hsr = this.cluster.regionServers.get(0);     Thread hrst = this.cluster.regionThreads.get(0);     // Start up a new one to take over serving of root and meta after we shut     // down the current meta/root host.     this.cluster.startRegionServer();     // Force a region server to exit "ungracefully"     hsr.abort();     hrst.join();     // The recalibration of the client is not working properly.  FIX.     // After above is fixed, add in assertions that we can get data from     // newly located meta table.   } */
 block|}
