@@ -12,8 +12,24 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|io
 package|;
 end_package
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HStoreKey
+import|;
+end_import
 
 begin_import
 import|import
@@ -40,7 +56,7 @@ import|;
 end_import
 
 begin_comment
-comment|/*******************************************************************************  * LabelledData is just a data pair.  * It includes an HStoreKey and some associated data.  ******************************************************************************/
+comment|/*******************************************************************************  * KeyedData is just a data pair.  * It includes an HStoreKey and some associated data.  ******************************************************************************/
 end_comment
 
 begin_class
@@ -140,7 +156,7 @@ argument_list|)
 expr_stmt|;
 name|out
 operator|.
-name|writeShort
+name|writeInt
 argument_list|(
 name|this
 operator|.
@@ -186,7 +202,7 @@ name|byte
 index|[
 name|in
 operator|.
-name|readShort
+name|readInt
 argument_list|()
 index|]
 expr_stmt|;

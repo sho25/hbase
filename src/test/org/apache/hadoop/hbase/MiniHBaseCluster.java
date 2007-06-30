@@ -188,6 +188,12 @@ name|Thread
 argument_list|>
 name|regionThreads
 decl_stmt|;
+specifier|private
+name|boolean
+name|deleteOnExit
+init|=
+literal|true
+decl_stmt|;
 comment|/**    * Starts a MiniHBaseCluster on top of a new MiniDFSCluster    *     * @param conf    * @param nRegionNodes    * @throws IOException     */
 specifier|public
 name|MiniHBaseCluster
@@ -206,6 +212,41 @@ argument_list|(
 name|conf
 argument_list|,
 name|nRegionNodes
+argument_list|,
+literal|true
+argument_list|,
+literal|true
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Start a MiniHBaseCluster. Use the native file system unless    * miniHdfsFilesystem is set to true.    *     * @param conf    * @param nRegionNodes    * @param miniHdfsFilesystem    * @throws IOException    */
+specifier|public
+name|MiniHBaseCluster
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
+name|int
+name|nRegionNodes
+parameter_list|,
+specifier|final
+name|boolean
+name|miniHdfsFilesystem
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|this
+argument_list|(
+name|conf
+argument_list|,
+name|nRegionNodes
+argument_list|,
+name|miniHdfsFilesystem
+argument_list|,
+literal|true
 argument_list|,
 literal|true
 argument_list|)
@@ -245,7 +286,7 @@ name|nRegionNodes
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor.    * @param conf    * @param nRegionNodes    * @param miniHdfsFilesystem If true, set the hbase mini    * cluster atop a mini hdfs cluster.  Otherwise, use the    * filesystem configured in<code>conf</code>.    * @throws IOException     */
+comment|/**    * Constructor.    * @param conf    * @param nRegionNodes    * @param miniHdfsFilesystem If true, set the hbase mini    * cluster atop a mini hdfs cluster.  Otherwise, use the    * filesystem configured in<code>conf</code>.    * @param format the mini hdfs cluster    * @param deleteOnExit clean up mini hdfs files    * @throws IOException     */
 specifier|public
 name|MiniHBaseCluster
 parameter_list|(
@@ -258,6 +299,12 @@ parameter_list|,
 specifier|final
 name|boolean
 name|miniHdfsFilesystem
+parameter_list|,
+name|boolean
+name|format
+parameter_list|,
+name|boolean
+name|deleteOnExit
 parameter_list|)
 throws|throws
 name|IOException
@@ -267,6 +314,12 @@ operator|.
 name|conf
 operator|=
 name|conf
+expr_stmt|;
+name|this
+operator|.
+name|deleteOnExit
+operator|=
+name|deleteOnExit
 expr_stmt|;
 if|if
 condition|(
@@ -288,7 +341,7 @@ name|conf
 argument_list|,
 literal|2
 argument_list|,
-literal|true
+name|format
 argument_list|,
 operator|(
 name|String
@@ -526,6 +579,16 @@ name|e
 throw|;
 block|}
 block|}
+comment|/**    * Get the cluster on which this HBase cluster is running    *     * @return MiniDFSCluster    */
+specifier|public
+name|MiniDFSCluster
+name|getDFSCluster
+parameter_list|()
+block|{
+return|return
+name|cluster
+return|;
+block|}
 specifier|private
 name|void
 name|startRegionServers
@@ -695,6 +758,7 @@ name|stop
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Wait for the specified region server to stop    *     * @param serverNumber    */
 specifier|public
 name|void
 name|waitOnRegionServer
@@ -905,6 +969,11 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// Delete all DFS files
+if|if
+condition|(
+name|deleteOnExit
+condition|)
+block|{
 name|deleteFile
 argument_list|(
 operator|new
@@ -923,6 +992,7 @@ literal|"dfs"
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|private
 name|void
