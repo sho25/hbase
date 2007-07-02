@@ -3022,51 +3022,14 @@ literal|"HMaster main thread exiting"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Wait on regionservers to report in.  Then, they notice the HMaster    * is going down and will shut themselves down.    */
+comment|/*    * Wait on regionservers to report in    * with {@link #regionServerReport(HServerInfo, HMsg[])} so they get notice    * the master is going down.  Waits until all region servers come back with    * a MSG_REGIONSERVER_STOP which will cancel their lease or until leases held    * by remote region servers have expired.    */
 specifier|private
 name|void
 name|letRegionServersShutdown
 parameter_list|()
 block|{
-name|long
-name|regionServerMsgInterval
-init|=
-name|conf
-operator|.
-name|getLong
-argument_list|(
-literal|"hbase.regionserver.msginterval"
-argument_list|,
-literal|15
-operator|*
-literal|1000
-argument_list|)
-decl_stmt|;
-comment|// Wait for 3 * hbase.regionserver.msginterval intervals or until all
-comment|// regionservers report in as closed.
-name|long
-name|endTime
-init|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-operator|+
-operator|(
-name|regionServerMsgInterval
-operator|*
-literal|3
-operator|)
-decl_stmt|;
 while|while
 condition|(
-name|endTime
-operator|>
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-operator|&&
 name|this
 operator|.
 name|serversToServerInfo
@@ -3077,19 +3040,13 @@ operator|>
 literal|0
 condition|)
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
-literal|"Waiting on regionservers: "
+literal|"Waiting on following regionserver(s) to go down (or "
+operator|+
+literal|"region server lease expiration, whichever happens first): "
 operator|+
 name|this
 operator|.
@@ -3099,7 +3056,6 @@ name|values
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 try|try
 block|{
 name|Thread
@@ -3116,7 +3072,7 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-comment|// Ignore interrupt.
+comment|// continue
 block|}
 block|}
 block|}
@@ -3406,38 +3362,6 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|closed
-condition|)
-block|{
-comment|// Cancel the server's lease
-name|cancelLease
-argument_list|(
-name|s
-argument_list|,
-name|serverLabel
-argument_list|)
-expr_stmt|;
-comment|// Tell server to shut down
-name|HMsg
-name|returnMsgs
-index|[]
-init|=
-block|{
-operator|new
-name|HMsg
-argument_list|(
-name|HMsg
-operator|.
-name|MSG_REGIONSERVER_STOP
-argument_list|)
-block|}
-decl_stmt|;
-return|return
-name|returnMsgs
-return|;
-block|}
-if|if
-condition|(
 name|msgs
 operator|.
 name|length
@@ -3457,8 +3381,18 @@ operator|.
 name|MSG_REPORT_EXITING
 condition|)
 block|{
-comment|// HRegionServer is shutting down.
-comment|// Cancel the server's lease
+comment|// HRegionServer is shutting down. Cancel the server's lease.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Region server "
+operator|+
+name|s
+operator|+
+literal|": MSG_REPORT_EXITING"
+argument_list|)
+expr_stmt|;
 name|cancelLease
 argument_list|(
 name|s
@@ -3466,7 +3400,14 @@ argument_list|,
 name|serverLabel
 argument_list|)
 expr_stmt|;
-comment|// Get all the regions the server was serving reassigned
+comment|// Get all the regions the server was serving reassigned (if we
+comment|// are not shutting down).
+if|if
+condition|(
+operator|!
+name|closed
+condition|)
+block|{
 for|for
 control|(
 name|int
@@ -3564,6 +3505,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 comment|// We don't need to return anything to the server because it isn't
 comment|// going to do any more work.
 return|return
@@ -3572,6 +3514,20 @@ name|HMsg
 index|[
 literal|0
 index|]
+return|;
+block|}
+if|if
+condition|(
+name|closed
+condition|)
+block|{
+comment|// Tell server to shut down if we are shutting down.  This should
+comment|// happen after check of MSG_REPORT_EXITING above, since region server
+comment|// will send us one of these messages after it gets MSG_REGIONSERVER_STOP
+return|return
+name|HMsg
+operator|.
+name|MSG_REGIONSERVER_STOP_IN_ARRAY
 return|;
 block|}
 name|HServerInfo
@@ -3678,22 +3634,10 @@ name|s
 argument_list|)
 expr_stmt|;
 block|}
-name|HMsg
-name|returnMsgs
-index|[]
-init|=
-block|{
-operator|new
-name|HMsg
-argument_list|(
+return|return
 name|HMsg
 operator|.
-name|MSG_REGIONSERVER_STOP
-argument_list|)
-block|}
-decl_stmt|;
-return|return
-name|returnMsgs
+name|MSG_REGIONSERVER_STOP_IN_ARRAY
 return|;
 block|}
 else|else

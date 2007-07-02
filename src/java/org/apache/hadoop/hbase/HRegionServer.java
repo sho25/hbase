@@ -392,11 +392,15 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+comment|// Set when a report to the master comes back with a message asking us to
+comment|// shutdown.  Also set by call to stop when debugging or running unit tests
+comment|// of HRegionServer in isolation.
 specifier|protected
 specifier|volatile
 name|boolean
 name|stopRequested
 decl_stmt|;
+comment|// Go down hard.  Used debugging and in unit tests.
 specifier|protected
 specifier|volatile
 name|boolean
@@ -2095,8 +2099,7 @@ name|e
 throw|;
 block|}
 block|}
-comment|/**    * Sets a flag that will cause all the HRegionServer threads to shut down    * in an orderly fashion.    */
-specifier|public
+comment|/**    * Sets a flag that will cause all the HRegionServer threads to shut down    * in an orderly fashion.    *<p>FOR DEBUGGING ONLY    */
 specifier|synchronized
 name|void
 name|stop
@@ -2111,7 +2114,7 @@ argument_list|()
 expr_stmt|;
 comment|// Wakes run() if it is sleeping
 block|}
-comment|/**    * Cause the server to exit without closing the regions it is serving, the    * log it is using and without notifying the master.    *     * FOR DEBUGGING ONLY    */
+comment|/**    * Cause the server to exit without closing the regions it is serving, the    * log it is using and without notifying the master.    *<p>FOR DEBUGGING ONLY    */
 specifier|synchronized
 name|void
 name|abort
@@ -2808,6 +2811,11 @@ block|}
 block|}
 block|}
 block|}
+name|leases
+operator|.
+name|closeAfterLeasesExpire
+argument_list|()
+expr_stmt|;
 name|this
 operator|.
 name|worker
@@ -2820,11 +2828,6 @@ operator|.
 name|server
 operator|.
 name|stop
-argument_list|()
-expr_stmt|;
-name|leases
-operator|.
-name|close
 argument_list|()
 expr_stmt|;
 comment|// Send interrupts to wake up threads if sleeping so they notice shutdown.
@@ -3065,22 +3068,13 @@ block|}
 name|join
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
 literal|"main thread exiting"
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|/** Add to the outbound message buffer */
 specifier|private

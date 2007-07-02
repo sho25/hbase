@@ -87,6 +87,23 @@ name|MSG_REGIONSERVER_STOP
 init|=
 literal|5
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|HMsg
+index|[]
+name|MSG_REGIONSERVER_STOP_IN_ARRAY
+init|=
+block|{
+operator|new
+name|HMsg
+argument_list|(
+name|HMsg
+operator|.
+name|MSG_REGIONSERVER_STOP
+argument_list|)
+block|}
+decl_stmt|;
 comment|/** Stop serving the specified region and don't report back that it's closed */
 specifier|public
 specifier|static
