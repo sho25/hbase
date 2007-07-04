@@ -223,6 +223,19 @@ name|Exception
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|cluster
+operator|!=
+literal|null
+condition|)
+block|{
+name|cluster
+operator|.
+name|shutdown
+argument_list|()
+expr_stmt|;
+block|}
 name|e
 operator|.
 name|printStackTrace
@@ -4898,6 +4911,10 @@ name|cluster
 operator|.
 name|shutdown
 argument_list|()
+expr_stmt|;
+name|cluster
+operator|=
+literal|null
 expr_stmt|;
 comment|// Delete all the DFS files
 name|deleteFile
