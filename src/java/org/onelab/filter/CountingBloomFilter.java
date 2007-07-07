@@ -130,6 +130,11 @@ argument_list|(
 name|key
 argument_list|)
 decl_stmt|;
+name|hash
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 for|for
 control|(
 name|int
@@ -209,6 +214,11 @@ argument_list|(
 name|key
 argument_list|)
 decl_stmt|;
+name|hash
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 for|for
 control|(
 name|int
@@ -374,6 +384,11 @@ argument_list|(
 name|key
 argument_list|)
 decl_stmt|;
+name|hash
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 for|for
 control|(
 name|int

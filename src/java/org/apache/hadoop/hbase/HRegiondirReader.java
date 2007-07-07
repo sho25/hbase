@@ -286,10 +286,13 @@ condition|(
 operator|!
 name|fs
 operator|.
-name|isDirectory
+name|getFileStatus
 argument_list|(
 name|parentdir
 argument_list|)
+operator|.
+name|isDir
+argument_list|()
 condition|)
 block|{
 throw|throw
