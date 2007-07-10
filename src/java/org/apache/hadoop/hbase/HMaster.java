@@ -348,7 +348,7 @@ name|HMasterRegionInterface
 implements|,
 name|Runnable
 block|{
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.ipc.VersionedProtocol#getProtocolVersion(java.lang.String, long)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|long
 name|getProtocolVersion
@@ -615,6 +615,13 @@ argument_list|,
 name|METACOLUMNS
 argument_list|,
 name|FIRST_ROW
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 while|while
@@ -1171,6 +1178,7 @@ name|RootScanner
 extends|extends
 name|BaseScanner
 block|{
+comment|/**      * {@inheritDoc}      */
 specifier|public
 name|void
 name|run
@@ -1398,6 +1406,7 @@ decl_stmt|;
 name|Text
 name|startKey
 decl_stmt|;
+comment|/**      * {@inheritDoc}      */
 annotation|@
 name|Override
 specifier|public
@@ -1419,6 +1428,7 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/**      * {@inheritDoc}      */
 annotation|@
 name|Override
 specifier|public
@@ -1450,6 +1460,7 @@ name|result
 return|;
 block|}
 comment|// Comparable
+comment|/**      * {@inheritDoc}      */
 specifier|public
 name|int
 name|compareTo
@@ -1530,6 +1541,7 @@ name|MetaScanner
 extends|extends
 name|BaseScanner
 block|{
+comment|/**      * {@inheritDoc}      */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -3167,7 +3179,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// HMasterRegionInterface
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HMasterRegionInterface#regionServerStartup(org.apache.hadoop.hbase.HServerInfo)    */
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -3322,7 +3334,7 @@ name|hashCode
 argument_list|()
 return|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HMasterRegionInterface#regionServerReport(org.apache.hadoop.hbase.HServerInfo, org.apache.hadoop.hbase.HMsg[])    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|HMsg
 index|[]
@@ -5595,6 +5607,11 @@ argument_list|,
 name|clientId
 argument_list|,
 name|lockid
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -5848,6 +5865,13 @@ argument_list|,
 name|columns
 argument_list|,
 name|startRow
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|scanMetaRegion
@@ -5980,6 +6004,13 @@ argument_list|,
 name|columns
 argument_list|,
 name|startRow
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|scanMetaRegion
@@ -6405,6 +6436,11 @@ argument_list|,
 name|clientId
 argument_list|,
 name|lockid
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 break|break;
@@ -6913,6 +6949,11 @@ argument_list|,
 name|clientId
 argument_list|,
 name|lockid
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 break|break;
@@ -6950,7 +6991,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// HMasterInterface
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HMasterInterface#isMasterRunning()    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|boolean
 name|isMasterRunning
@@ -6961,7 +7002,7 @@ operator|!
 name|closed
 return|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HMasterInterface#shutdown()    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|shutdown
@@ -7025,7 +7066,7 @@ literal|10
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HMasterInterface#createTable(org.apache.hadoop.hbase.HTableDescriptor)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|createTable
@@ -7361,6 +7402,11 @@ argument_list|,
 name|clientId
 argument_list|,
 name|lockid
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// 4. Close the new region to flush it to disk
@@ -7438,7 +7484,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HMasterInterface#deleteTable(org.apache.hadoop.io.Text)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|deleteTable
@@ -7477,7 +7523,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HMasterInterface#addColumn(org.apache.hadoop.io.Text, org.apache.hadoop.hbase.HColumnDescriptor)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|addColumn
@@ -7503,7 +7549,7 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HMasterInterface#deleteColumn(org.apache.hadoop.io.Text, org.apache.hadoop.io.Text)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|deleteColumn
@@ -7534,7 +7580,7 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HMasterInterface#enableTable(org.apache.hadoop.io.Text)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|enableTable
@@ -7557,7 +7603,7 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HMasterInterface#findRootRegion()    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|HServerAddress
 name|findRootRegion
@@ -7567,7 +7613,7 @@ return|return
 name|rootRegionLocation
 return|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HMasterInterface#disableTable(org.apache.hadoop.io.Text)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|disableTable
@@ -7819,6 +7865,13 @@ argument_list|,
 name|METACOLUMNS
 argument_list|,
 name|tableName
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 try|try
@@ -8633,6 +8686,11 @@ argument_list|,
 name|clientId
 argument_list|,
 name|lockid
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|lockid
@@ -9401,6 +9459,11 @@ argument_list|,
 name|clientId
 argument_list|,
 name|lockid
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|lockid
@@ -9775,7 +9838,7 @@ operator|=
 name|server
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.LeaseListener#leaseExpired()      */
+comment|/**      * {@inheritDoc}      */
 specifier|public
 name|void
 name|leaseExpired

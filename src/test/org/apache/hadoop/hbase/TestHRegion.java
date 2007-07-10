@@ -621,6 +621,11 @@ operator|.
 name|commit
 argument_list|(
 name|writeid
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1510,6 +1515,11 @@ operator|.
 name|commit
 argument_list|(
 name|lockid
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|numInserted
@@ -1569,6 +1579,13 @@ argument_list|,
 operator|new
 name|Text
 argument_list|()
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|int
@@ -1872,6 +1889,13 @@ argument_list|,
 operator|new
 name|Text
 argument_list|()
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|numFetched
@@ -2220,6 +2244,11 @@ operator|.
 name|commit
 argument_list|(
 name|lockid
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|numInserted
@@ -2278,6 +2307,13 @@ argument_list|,
 operator|new
 name|Text
 argument_list|()
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|numFetched
@@ -2576,6 +2612,13 @@ argument_list|,
 operator|new
 name|Text
 argument_list|()
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|numFetched
@@ -2825,6 +2868,13 @@ name|Text
 argument_list|(
 literal|"row_vals1_500"
 argument_list|)
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|numFetched
@@ -3209,6 +3259,11 @@ operator|.
 name|commit
 argument_list|(
 name|writeid
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
@@ -3798,7 +3853,7 @@ name|oldRegion2
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.RegionUnavailableListener#regionIsUnavailable(org.apache.hadoop.io.Text)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|closing
@@ -3815,6 +3870,7 @@ parameter_list|)
 block|{
 comment|// We don't use this here. It is only for the HRegionServer
 block|}
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|closed
@@ -3883,6 +3939,13 @@ argument_list|,
 operator|new
 name|Text
 argument_list|()
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 try|try
@@ -4225,6 +4288,13 @@ argument_list|,
 operator|new
 name|Text
 argument_list|()
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 try|try
@@ -4487,6 +4557,13 @@ argument_list|,
 operator|new
 name|Text
 argument_list|()
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 try|try
@@ -4694,6 +4771,13 @@ argument_list|,
 operator|new
 name|Text
 argument_list|()
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 try|try

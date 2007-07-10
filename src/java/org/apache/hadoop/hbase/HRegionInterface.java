@@ -314,7 +314,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**     * Finalize a row mutation    *    * @param regionName region name    * @param clientid a unique value to identify the client    * @param lockid lock id returned from startUpdate    * @throws IOException    */
+comment|/**     * Finalize a row mutation    *    * @param regionName region name    * @param clientid a unique value to identify the client    * @param lockid lock id returned from startUpdate    * @param timestamp the time (in milliseconds to associate with this change)    * @throws IOException    */
 specifier|public
 name|void
 name|commit
@@ -330,6 +330,10 @@ parameter_list|,
 specifier|final
 name|long
 name|lockid
+parameter_list|,
+specifier|final
+name|long
+name|timestamp
 parameter_list|)
 throws|throws
 name|IOException
@@ -351,7 +355,7 @@ function_decl|;
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// remote scanner interface
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Opens a remote scanner.    *     * @param regionName name of region to scan    * @param columns columns to scan    * @param startRow starting row to scan    *    * @return scannerId scanner identifier used in other calls    * @throws IOException    */
+comment|/**    * Opens a remote scanner with a RowFilter.    *     * @param regionName name of region to scan    * @param columns columns to scan    * @param startRow starting row to scan    * @param timestamp only return values whose timestamp is<= this value    * @param filter RowFilter for filtering results at the row-level.    *    * @return scannerId scanner identifier used in other calls    * @throws IOException    */
 specifier|public
 name|long
 name|openScanner
@@ -365,24 +369,9 @@ name|columns
 parameter_list|,
 name|Text
 name|startRow
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Opens a remote scanner with a RowFilter.    *     * @param regionName name of region to scan    * @param columns columns to scan    * @param startRow starting row to scan    * @param filter RowFilter for filtering results at the row-level.    *    * @return scannerId scanner identifier used in other calls    * @throws IOException    */
-specifier|public
+parameter_list|,
 name|long
-name|openScanner
-parameter_list|(
-name|Text
-name|regionName
-parameter_list|,
-name|Text
-index|[]
-name|columns
-parameter_list|,
-name|Text
-name|startRow
+name|timestamp
 parameter_list|,
 name|RowFilterInterface
 name|filter

@@ -243,6 +243,7 @@ operator|new
 name|HLocking
 argument_list|()
 decl_stmt|;
+comment|/** constructor */
 specifier|public
 name|HMemcache
 parameter_list|()
@@ -251,12 +252,12 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
+comment|/** represents the state of the memcache at a specified point in time */
 specifier|public
 specifier|static
 class|class
 name|Snapshot
 block|{
-specifier|public
 name|TreeMap
 argument_list|<
 name|HStoreKey
@@ -268,13 +269,11 @@ name|memcacheSnapshot
 init|=
 literal|null
 decl_stmt|;
-specifier|public
 name|long
 name|sequenceId
 init|=
 literal|0
 decl_stmt|;
-specifier|public
 name|Snapshot
 parameter_list|()
 block|{
@@ -284,7 +283,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Returns a snapshot of the current HMemcache with a known HLog     * sequence number at the same time.    *    * We need to prevent any writing to the cache during this time,    * so we obtain a write lock for the duration of the operation.    *     *<p>If this method returns non-null, client must call    * {@link #deleteSnapshot()} to clear 'snapshot-in-progress'    * state when finished with the returned {@link Snapshot}.    *     * @return frozen HMemcache TreeMap and HLog sequence number.    */
-specifier|public
 name|Snapshot
 name|snapshotMemcacheForLog
 parameter_list|(
@@ -442,7 +440,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Delete the snapshot, remove from history.    *    * Modifying the structure means we need to obtain a writelock.    */
+comment|/**    * Delete the snapshot, remove from history.    *    * Modifying the structure means we need to obtain a writelock.    * @throws IOException    */
 specifier|public
 name|void
 name|deleteSnapshot
@@ -1212,6 +1210,25 @@ name|curKey
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|HConstants
+operator|.
+name|DELETE_BYTES
+operator|.
+name|compareTo
+argument_list|(
+name|es
+operator|.
+name|getValue
+argument_list|()
+argument_list|)
+operator|==
+literal|0
+condition|)
+block|{
+break|break;
+block|}
 name|result
 operator|.
 name|add
@@ -1259,7 +1276,6 @@ name|result
 return|;
 block|}
 comment|/**    * Return a scanner over the keys in the HMemcache    */
-specifier|public
 name|HInternalScannerInterface
 name|getScanner
 parameter_list|(
@@ -1321,7 +1337,6 @@ name|SuppressWarnings
 argument_list|(
 literal|"unchecked"
 argument_list|)
-specifier|public
 name|HMemcacheScanner
 parameter_list|(
 name|long
@@ -1569,6 +1584,8 @@ throw|;
 block|}
 block|}
 comment|/**      * The user didn't want to start scanning at the first row. This method      * seeks to the requested row.      *      * @param i which iterator to advance      * @param firstRow seek to this row      * @return true if this is the first row      */
+annotation|@
+name|Override
 name|boolean
 name|findFirstRow
 parameter_list|(
@@ -1604,6 +1621,8 @@ literal|0
 return|;
 block|}
 comment|/**      * Get the next value from the specified iterater.      *       * @param i Which iterator to fetch next value from      * @return true if there is more data available      */
+annotation|@
+name|Override
 name|boolean
 name|getNext
 parameter_list|(
@@ -1672,6 +1691,8 @@ literal|true
 return|;
 block|}
 comment|/** Shut down an individual map iterator. */
+annotation|@
+name|Override
 name|void
 name|closeSubScanner
 parameter_list|(
@@ -1709,6 +1730,8 @@ literal|null
 expr_stmt|;
 block|}
 comment|/** Shut down map iterators, and release the lock */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|close

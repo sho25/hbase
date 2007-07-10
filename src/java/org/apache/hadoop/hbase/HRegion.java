@@ -342,15 +342,27 @@ specifier|static
 name|HRegion
 name|closeAndMerge
 parameter_list|(
+specifier|final
 name|HRegion
 name|srcA
 parameter_list|,
+specifier|final
 name|HRegion
 name|srcB
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|HRegion
+name|a
+init|=
+name|srcA
+decl_stmt|;
+name|HRegion
+name|b
+init|=
+name|srcB
+decl_stmt|;
 comment|// Make sure that srcA comes first; important for key-ordering during
 comment|// write of the merged file.
 if|if
@@ -415,31 +427,26 @@ operator|)
 condition|)
 block|{
 comment|// A> B
-name|HRegion
-name|tmp
-init|=
-name|srcA
-decl_stmt|;
-name|srcA
+name|a
 operator|=
 name|srcB
 expr_stmt|;
-name|srcB
+name|b
 operator|=
-name|tmp
+name|srcA
 expr_stmt|;
 block|}
 if|if
 condition|(
 operator|!
-name|srcA
+name|a
 operator|.
 name|getEndKey
 argument_list|()
 operator|.
 name|equals
 argument_list|(
-name|srcB
+name|b
 operator|.
 name|getStartKey
 argument_list|()
@@ -457,7 +464,7 @@ block|}
 name|FileSystem
 name|fs
 init|=
-name|srcA
+name|a
 operator|.
 name|getFilesystem
 argument_list|()
@@ -465,7 +472,7 @@ decl_stmt|;
 name|Configuration
 name|conf
 init|=
-name|srcA
+name|a
 operator|.
 name|getConf
 argument_list|()
@@ -473,7 +480,7 @@ decl_stmt|;
 name|HTableDescriptor
 name|tabledesc
 init|=
-name|srcA
+name|a
 operator|.
 name|getTableDesc
 argument_list|()
@@ -481,7 +488,7 @@ decl_stmt|;
 name|HLog
 name|log
 init|=
-name|srcA
+name|a
 operator|.
 name|getLog
 argument_list|()
@@ -489,7 +496,7 @@ decl_stmt|;
 name|Path
 name|rootDir
 init|=
-name|srcA
+name|a
 operator|.
 name|getRootDir
 argument_list|()
@@ -497,7 +504,7 @@ decl_stmt|;
 name|Text
 name|startKey
 init|=
-name|srcA
+name|a
 operator|.
 name|getStartKey
 argument_list|()
@@ -505,7 +512,7 @@ decl_stmt|;
 name|Text
 name|endKey
 init|=
-name|srcB
+name|b
 operator|.
 name|getEndKey
 argument_list|()
@@ -516,7 +523,7 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|srcA
+name|a
 operator|.
 name|getRegionDir
 argument_list|()
@@ -606,14 +613,14 @@ name|info
 argument_list|(
 literal|"starting merge of regions: "
 operator|+
-name|srcA
+name|a
 operator|.
 name|getRegionName
 argument_list|()
 operator|+
 literal|" and "
 operator|+
-name|srcB
+name|b
 operator|.
 name|getRegionName
 argument_list|()
@@ -688,7 +695,7 @@ control|(
 name|HStoreFile
 name|src
 range|:
-name|srcA
+name|a
 operator|.
 name|flushcache
 argument_list|(
@@ -754,7 +761,7 @@ control|(
 name|HStoreFile
 name|src
 range|:
-name|srcB
+name|b
 operator|.
 name|flushcache
 argument_list|(
@@ -934,7 +941,7 @@ name|debug
 argument_list|(
 literal|"flushing changes since start of merge for region "
 operator|+
-name|srcA
+name|a
 operator|.
 name|getRegionName
 argument_list|()
@@ -951,7 +958,7 @@ control|(
 name|HStoreFile
 name|src
 range|:
-name|srcA
+name|a
 operator|.
 name|close
 argument_list|()
@@ -1036,7 +1043,7 @@ name|debug
 argument_list|(
 literal|"flushing changes since start of merge for region "
 operator|+
-name|srcB
+name|b
 operator|.
 name|getRegionName
 argument_list|()
@@ -1048,7 +1055,7 @@ control|(
 name|HStoreFile
 name|src
 range|:
-name|srcB
+name|b
 operator|.
 name|close
 argument_list|()
@@ -1821,7 +1828,7 @@ return|return
 name|closed
 return|;
 block|}
-comment|/**    * Close down this HRegion.  Flush the cache, shut down each HStore, don't     * service any more calls.    *    * The returned Vector is a list of all the storage files that the HRegion's     * component HStores make use of.  It's a list of HStoreFile objects.    *    * This method could take some time to execute, so don't call it from a     * time-sensitive thread.    */
+comment|/**    * Close down this HRegion.  Flush the cache, shut down each HStore, don't     * service any more calls.    *    * This method could take some time to execute, so don't call it from a     * time-sensitive thread.    *     * @return Vector of all the storage files that the HRegion's component     * HStores make use of.  It's a list of HStoreFile objects.    *     * @throws IOException    */
 specifier|public
 name|Vector
 argument_list|<
@@ -2700,6 +2707,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// HRegion accessors
 comment|//////////////////////////////////////////////////////////////////////////////
+comment|/** @return start key for region */
 specifier|public
 name|Text
 name|getStartKey
@@ -2711,6 +2719,7 @@ operator|.
 name|startKey
 return|;
 block|}
+comment|/** @return end key for region */
 specifier|public
 name|Text
 name|getEndKey
@@ -2722,6 +2731,7 @@ operator|.
 name|endKey
 return|;
 block|}
+comment|/** @return region id */
 specifier|public
 name|long
 name|getRegionId
@@ -2733,6 +2743,7 @@ operator|.
 name|regionId
 return|;
 block|}
+comment|/** @return region name */
 specifier|public
 name|Text
 name|getRegionName
@@ -2744,6 +2755,7 @@ operator|.
 name|regionName
 return|;
 block|}
+comment|/** @return root directory path */
 specifier|public
 name|Path
 name|getRootDir
@@ -2753,6 +2765,7 @@ return|return
 name|rootDir
 return|;
 block|}
+comment|/** @return HTableDescriptor for this region */
 specifier|public
 name|HTableDescriptor
 name|getTableDesc
@@ -2764,6 +2777,7 @@ operator|.
 name|tableDesc
 return|;
 block|}
+comment|/** @return HLog in use for this region */
 specifier|public
 name|HLog
 name|getLog
@@ -2773,6 +2787,7 @@ return|return
 name|log
 return|;
 block|}
+comment|/** @return Configuration object */
 specifier|public
 name|Configuration
 name|getConf
@@ -2782,6 +2797,7 @@ return|return
 name|conf
 return|;
 block|}
+comment|/** @return region directory Path */
 specifier|public
 name|Path
 name|getRegionDir
@@ -2791,6 +2807,7 @@ return|return
 name|regiondir
 return|;
 block|}
+comment|/** @return FileSystem being used by this region */
 specifier|public
 name|FileSystem
 name|getFilesystem
@@ -4048,7 +4065,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Return an iterator that scans over the HRegion, returning the indicated     * columns.  This Iterator must be closed by the caller.    */
+comment|/**    * Return an iterator that scans over the HRegion, returning the indicated     * columns for only the rows that match the data filter.  This Iterator must be closed by the caller.    *    * @param cols columns desired in result set    * @param firstRow row which is the starting point of the scan    * @param timestamp only return rows whose timestamp is<= this value    * @param filter row filter    * @return HScannerInterface    * @throws IOException    */
 specifier|public
 name|HInternalScannerInterface
 name|getScanner
@@ -4059,32 +4076,9 @@ name|cols
 parameter_list|,
 name|Text
 name|firstRow
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|getScanner
-argument_list|(
-name|cols
-argument_list|,
-name|firstRow
-argument_list|,
-literal|null
-argument_list|)
-return|;
-block|}
-comment|/**    * Return an iterator that scans over the HRegion, returning the indicated     * columns for only the rows that match the data filter.  This Iterator must be closed by the caller.    */
-specifier|public
-name|HInternalScannerInterface
-name|getScanner
-parameter_list|(
-name|Text
-index|[]
-name|cols
 parameter_list|,
-name|Text
-name|firstRow
+name|long
+name|timestamp
 parameter_list|,
 name|RowFilterInterface
 name|filter
@@ -4193,6 +4187,8 @@ name|cols
 argument_list|,
 name|firstRow
 argument_list|,
+name|timestamp
+argument_list|,
 name|memcache
 argument_list|,
 name|storelist
@@ -4213,7 +4209,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// set() methods for client use.
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * The caller wants to apply a series of writes to a single row in the    * HRegion. The caller will invoke startUpdate(), followed by a series of    * calls to put/delete, then finally either abort() or commit().    *    *<p>Note that we rely on the external caller to properly abort() or    * commit() every transaction.  If the caller is a network client, there    * should be a lease-system in place that automatically aborts() transactions    * after a specified quiet period.    *     * @param row Row to update    * @return lockid    * @see #put(long, Text, byte[])    */
+comment|/**    * The caller wants to apply a series of writes to a single row in the    * HRegion. The caller will invoke startUpdate(), followed by a series of    * calls to put/delete, then finally either abort() or commit().    *    *<p>Note that we rely on the external caller to properly abort() or    * commit() every transaction.  If the caller is a network client, there    * should be a lease-system in place that automatically aborts() transactions    * after a specified quiet period.    *     * @param row Row to update    * @return lockid    * @throws IOException    * @see #put(long, Text, byte[])    */
 specifier|public
 name|long
 name|startUpdate
@@ -4236,7 +4232,7 @@ name|row
 argument_list|)
 return|;
 block|}
-comment|/**    * Put a cell value into the locked row.  The user indicates the row-lock, the    * target column, and the desired value.  This stuff is set into a temporary     * memory area until the user commits the change, at which point it's logged     * and placed into the memcache.    *    * This method really just tests the input, then calls an internal localput()     * method.    */
+comment|/**    * Put a cell value into the locked row.  The user indicates the row-lock, the    * target column, and the desired value.  This stuff is set into a temporary     * memory area until the user commits the change, at which point it's logged     * and placed into the memcache.    *    * This method really just tests the input, then calls an internal localput()     * method.    *    * @param lockid lock id obtained from startUpdate    * @param targetCol name of column to be updated    * @param val new value for column    * @throws IOException    */
 specifier|public
 name|void
 name|put
@@ -4286,7 +4282,7 @@ name|val
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete a value or write a value. This is a just a convenience method for put().    */
+comment|/**    * Delete a value or write a value. This is a just a convenience method for put().    *    * @param lockid lock id obtained from startUpdate    * @param targetCol name of column to be deleted    * @throws IOException    */
 specifier|public
 name|void
 name|delete
@@ -4455,7 +4451,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Abort a pending set of writes. This dumps from memory all in-progress    * writes associated with the given row-lock.  These values have not yet    * been placed in memcache or written to the log.    */
+comment|/**    * Abort a pending set of writes. This dumps from memory all in-progress    * writes associated with the given row-lock.  These values have not yet    * been placed in memcache or written to the log.    *    * @param lockid lock id obtained from startUpdate    * @throws IOException    */
 specifier|public
 name|void
 name|abort
@@ -4539,7 +4535,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Commit a pending set of writes to the memcache. This also results in    * writing to the change log.    *    * Once updates hit the change log, they are safe.  They will either be moved     * into an HStore in the future, or they will be recovered from the log.    * @param lockid Lock for row we're to commit.    * @throws IOException    */
+comment|/**    * Commit a pending set of writes to the memcache. This also results in    * writing to the change log.    *    * Once updates hit the change log, they are safe.  They will either be moved     * into an HStore in the future, or they will be recovered from the log.    * @param lockid Lock for row we're to commit.    * @param timestamp the time to associate with this change    * @throws IOException    */
 specifier|public
 name|void
 name|commit
@@ -4547,6 +4543,9 @@ parameter_list|(
 specifier|final
 name|long
 name|lockid
+parameter_list|,
+name|long
+name|timestamp
 parameter_list|)
 throws|throws
 name|IOException
@@ -4586,14 +4585,6 @@ name|row
 init|)
 block|{
 comment|// Add updates to the log and add values to the memcache.
-name|long
-name|commitTimestamp
-init|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-decl_stmt|;
 name|TreeMap
 argument_list|<
 name|Text
@@ -4645,7 +4636,7 @@ name|row
 argument_list|,
 name|columns
 argument_list|,
-name|commitTimestamp
+name|timestamp
 argument_list|)
 expr_stmt|;
 name|memcache
@@ -4656,7 +4647,7 @@ name|row
 argument_list|,
 name|columns
 argument_list|,
-name|commitTimestamp
+name|timestamp
 argument_list|)
 expr_stmt|;
 comment|// OK, all done!
@@ -5108,6 +5099,9 @@ parameter_list|,
 name|Text
 name|firstRow
 parameter_list|,
+name|long
+name|timestamp
+parameter_list|,
 name|HMemcache
 name|memcache
 parameter_list|,
@@ -5121,14 +5115,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|long
-name|scanTime
-init|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-decl_stmt|;
 name|this
 operator|.
 name|dataFilter
@@ -5239,7 +5225,7 @@ name|memcache
 operator|.
 name|getScanner
 argument_list|(
-name|scanTime
+name|timestamp
 argument_list|,
 name|cols
 argument_list|,
@@ -5309,7 +5295,7 @@ index|]
 operator|.
 name|getScanner
 argument_list|(
-name|scanTime
+name|timestamp
 argument_list|,
 name|cols
 argument_list|,
@@ -5481,7 +5467,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.HInternalScannerInterface#isWildcardScanner()      */
+comment|/**      * {@inheritDoc}      */
 specifier|public
 name|boolean
 name|isWildcardScanner
@@ -5491,7 +5477,7 @@ return|return
 name|wildcardMatch
 return|;
 block|}
-comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.HInternalScannerInterface#isMultipleMatchScanner()      */
+comment|/**      * {@inheritDoc}      */
 specifier|public
 name|boolean
 name|isMultipleMatchScanner
@@ -5501,7 +5487,7 @@ return|return
 name|multipleMatchers
 return|;
 block|}
-comment|/*      * (non-Javadoc)      *       * Grab the next row's worth of values. The HScanner will return the most      * recent data value for each row that is not newer than the target time.      *       * If a dataFilter is defined, it will be used to skip rows that do not      * match its criteria. It may cause the scanner to stop prematurely if it      * knows that it will no longer accept the remaining results.      *       * @see org.apache.hadoop.hbase.HInternalScannerInterface#next(org.apache.hadoop.hbase.HStoreKey,      *      java.util.TreeMap)      */
+comment|/**      * {@inheritDoc}      */
 specifier|public
 name|boolean
 name|next
@@ -6164,7 +6150,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.HInternalScannerInterface#close()      */
+comment|/**      * {@inheritDoc}      */
 specifier|public
 name|void
 name|close
@@ -6414,6 +6400,11 @@ operator|.
 name|commit
 argument_list|(
 name|writeid
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

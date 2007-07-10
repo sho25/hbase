@@ -623,6 +623,11 @@ operator|.
 name|commit
 argument_list|(
 name|lockid
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|lockid
@@ -717,6 +722,11 @@ operator|.
 name|commit
 argument_list|(
 name|lockid
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Verify that get works the same from memcache as when reading from disk
@@ -856,6 +866,11 @@ operator|.
 name|commit
 argument_list|(
 name|lockid
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|verifyGet

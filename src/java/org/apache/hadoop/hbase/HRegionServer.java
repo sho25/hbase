@@ -342,7 +342,7 @@ name|HRegionInterface
 implements|,
 name|Runnable
 block|{
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.ipc.VersionedProtocol#getProtocolVersion(java.lang.String, long)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|long
 name|getProtocolVersion
@@ -560,7 +560,7 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.RegionUnavailableListener#closing(org.apache.hadoop.io.Text)      */
+comment|/**      * {@inheritDoc}      */
 specifier|public
 name|void
 name|closing
@@ -629,7 +629,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.RegionUnavailableListener#closed(org.apache.hadoop.io.Text)      */
+comment|/**      * {@inheritDoc}      */
 specifier|public
 name|void
 name|closed
@@ -689,7 +689,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/* (non-Javadoc)      * @see java.lang.Runnable#run()      */
+comment|/**      * {@inheritDoc}      */
 specifier|public
 name|void
 name|run
@@ -1250,7 +1250,7 @@ name|Flusher
 implements|implements
 name|Runnable
 block|{
-comment|/* (non-Javadoc)      * @see java.lang.Runnable#run()      */
+comment|/**      * {@inheritDoc}      */
 specifier|public
 name|void
 name|run
@@ -1473,7 +1473,7 @@ operator|*
 literal|1000
 argument_list|)
 decl_stmt|;
-comment|/* (non-Javadoc)      * @see java.lang.Runnable#run()      */
+comment|/**      * {@inheritDoc}      */
 specifier|public
 name|void
 name|run
@@ -3278,7 +3278,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/* (non-Javadoc)      * @see java.lang.Runnable#run()      */
+comment|/**      * {@inheritDoc}      */
 specifier|public
 name|void
 name|run
@@ -3870,7 +3870,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// HRegionInterface
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HRegionInterface#getRegionInfo(org.apache.hadoop.io.Text)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|HRegionInfo
 name|getRegionInfo
@@ -3892,7 +3892,7 @@ name|getRegionInfo
 argument_list|()
 return|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HRegionInterface#get(org.apache.hadoop.io.Text, org.apache.hadoop.io.Text, org.apache.hadoop.io.Text)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|byte
 index|[]
@@ -3927,7 +3927,7 @@ name|column
 argument_list|)
 return|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HRegionInterface#get(org.apache.hadoop.io.Text, org.apache.hadoop.io.Text, org.apache.hadoop.io.Text, int)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|byte
 index|[]
@@ -3969,7 +3969,7 @@ name|numVersions
 argument_list|)
 return|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HRegionInterface#get(org.apache.hadoop.io.Text, org.apache.hadoop.io.Text, org.apache.hadoop.io.Text, long, int)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|byte
 index|[]
@@ -4017,7 +4017,7 @@ name|numVersions
 argument_list|)
 return|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HRegionInterface#getRow(org.apache.hadoop.io.Text, org.apache.hadoop.io.Text)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|KeyedData
 index|[]
@@ -4126,7 +4126,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HRegionInterface#next(long)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|KeyedData
 index|[]
@@ -4395,7 +4395,7 @@ index|]
 argument_list|)
 return|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HRegionInterface#startUpdate(org.apache.hadoop.io.Text, long, org.apache.hadoop.io.Text)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|long
 name|startUpdate
@@ -4491,6 +4491,7 @@ operator|=
 name|lockId
 expr_stmt|;
 block|}
+comment|/**      * {@inheritDoc}      */
 specifier|public
 name|void
 name|leaseExpired
@@ -4522,7 +4523,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HRegionInterface#put(org.apache.hadoop.io.Text, long, long, org.apache.hadoop.io.Text, org.apache.hadoop.io.BytesWritable)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|put
@@ -4582,7 +4583,7 @@ name|val
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HRegionInterface#delete(org.apache.hadoop.io.Text, long, long, org.apache.hadoop.io.Text)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|delete
@@ -4629,7 +4630,7 @@ name|column
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HRegionInterface#abort(org.apache.hadoop.io.Text, long, long)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|abort
@@ -4673,7 +4674,7 @@ name|lockid
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HRegionInterface#commit(org.apache.hadoop.io.Text, long, long)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|commit
@@ -4681,11 +4682,17 @@ parameter_list|(
 name|Text
 name|regionName
 parameter_list|,
+specifier|final
 name|long
 name|clientid
 parameter_list|,
+specifier|final
 name|long
 name|lockid
+parameter_list|,
+specifier|final
+name|long
+name|timestamp
 parameter_list|)
 throws|throws
 name|IOException
@@ -4714,10 +4721,12 @@ operator|.
 name|commit
 argument_list|(
 name|lockid
+argument_list|,
+name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HRegionInterface#renewLease(long, long)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|renewLease
@@ -4940,7 +4949,7 @@ operator|=
 name|n
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.LeaseListener#leaseExpired()      */
+comment|/**      * {@inheritDoc}      */
 specifier|public
 name|void
 name|leaseExpired
@@ -5001,49 +5010,19 @@ specifier|public
 name|long
 name|openScanner
 parameter_list|(
-specifier|final
 name|Text
 name|regionName
 parameter_list|,
-specifier|final
 name|Text
 index|[]
 name|cols
 parameter_list|,
-specifier|final
 name|Text
 name|firstRow
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|openScanner
-argument_list|(
-name|regionName
-argument_list|,
-name|cols
-argument_list|,
-name|firstRow
-argument_list|,
-literal|null
-argument_list|)
-return|;
-block|}
-comment|/**    * {@inheritDoc}    */
-specifier|public
+parameter_list|,
+specifier|final
 name|long
-name|openScanner
-parameter_list|(
-name|Text
-name|regionName
-parameter_list|,
-name|Text
-index|[]
-name|cols
-parameter_list|,
-name|Text
-name|firstRow
+name|timestamp
 parameter_list|,
 specifier|final
 name|RowFilterInterface
@@ -5078,6 +5057,8 @@ argument_list|(
 name|cols
 argument_list|,
 name|firstRow
+argument_list|,
+name|timestamp
 argument_list|,
 name|filter
 argument_list|)
@@ -5151,7 +5132,7 @@ return|return
 name|scannerId
 return|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HRegionInterface#close(long)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|close

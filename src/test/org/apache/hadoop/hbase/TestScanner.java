@@ -444,6 +444,13 @@ name|i
 index|]
 argument_list|,
 name|FIRST_ROW
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 while|while
@@ -883,6 +890,11 @@ operator|.
 name|commit
 argument_list|(
 name|lockid
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// What we just committed is in the memcache. Verify that we can get
@@ -1009,6 +1021,11 @@ operator|.
 name|commit
 argument_list|(
 name|lockid
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Validate that we can still get the HRegionInfo, even though it is in
@@ -1137,6 +1154,11 @@ operator|.
 name|commit
 argument_list|(
 name|lockid
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Validate again

@@ -508,6 +508,13 @@ argument_list|,
 operator|new
 name|Text
 argument_list|()
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 while|while

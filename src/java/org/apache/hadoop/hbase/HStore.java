@@ -1815,6 +1815,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1894,6 +1895,7 @@ return|return
 literal|null
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -2029,6 +2031,7 @@ name|compression
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -4431,6 +4434,20 @@ name|readkey
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|readval
+operator|.
+name|equals
+argument_list|(
+name|HConstants
+operator|.
+name|DELETE_BYTES
+argument_list|)
+condition|)
+block|{
+break|break;
+block|}
 name|results
 operator|.
 name|put
@@ -4665,6 +4682,20 @@ name|key
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|readval
+operator|.
+name|equals
+argument_list|(
+name|HConstants
+operator|.
+name|DELETE_BYTES
+argument_list|)
+condition|)
+block|{
+break|break;
+block|}
 name|results
 operator|.
 name|add
@@ -4702,6 +4733,7 @@ condition|)
 block|{
 if|if
 condition|(
+operator|(
 name|numVersions
 operator|>
 literal|0
@@ -4714,6 +4746,16 @@ argument_list|()
 operator|>=
 name|numVersions
 operator|)
+operator|)
+operator|||
+name|readval
+operator|.
+name|equals
+argument_list|(
+name|HConstants
+operator|.
+name|DELETE_BYTES
+argument_list|)
 condition|)
 block|{
 break|break;

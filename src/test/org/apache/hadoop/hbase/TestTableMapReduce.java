@@ -371,6 +371,7 @@ name|getBytes
 argument_list|()
 block|}
 decl_stmt|;
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -609,6 +610,11 @@ operator|.
 name|commit
 argument_list|(
 name|lockid
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -686,6 +692,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
