@@ -98,6 +98,22 @@ name|load
 operator|.
 name|put
 argument_list|(
+literal|"CLEAR"
+argument_list|,
+operator|new
+name|String
+index|[]
+block|{
+literal|"Clear the screen."
+block|,
+literal|"CLEAR;"
+block|}
+argument_list|)
+block|;
+name|load
+operator|.
+name|put
+argument_list|(
 literal|"DESCRIBE"
 argument_list|,
 operator|new

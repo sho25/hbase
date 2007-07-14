@@ -108,14 +108,17 @@ name|void
 name|printVersion
 parameter_list|()
 block|{
+name|ClearCommand
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 name|System
 operator|.
 name|out
 operator|.
 name|println
 argument_list|(
-literal|"\n"
-operator|+
 name|APP_NAME
 operator|+
 literal|", "
