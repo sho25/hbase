@@ -128,7 +128,7 @@ specifier|final
 name|char
 name|DELIMITER
 init|=
-literal|'_'
+literal|','
 decl_stmt|;
 comment|/** Default constructor - creates empty object */
 specifier|public
@@ -209,7 +209,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct HRegionInfo with explicit parameters    *     * @param regionId    - the regionid    * @param tableDesc   - the table descriptor    * @param startKey    - first key in region    * @param endKey      - end of key range    * @throws IllegalArgumentException    */
+comment|/**    * Construct HRegionInfo with explicit parameters    *     * @param regionId the region id    * @param tableDesc the table descriptor    * @param startKey first key in region    * @param endKey end of key range    * @throws IllegalArgumentException    */
 specifier|public
 name|HRegionInfo
 parameter_list|(
@@ -778,9 +778,9 @@ return|return
 name|tableDesc
 return|;
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|/////////////////////////////////////////////////////////////////////////////
 comment|// Comparable
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|/////////////////////////////////////////////////////////////////////////////
 specifier|public
 name|int
 name|compareTo

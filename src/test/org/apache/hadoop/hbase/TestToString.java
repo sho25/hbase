@@ -228,7 +228,7 @@ name|assertEquals
 argument_list|(
 literal|"HRegionInfo"
 argument_list|,
-literal|"regionname: hank__-1, startKey:<>, tableDesc: {"
+literal|"regionname: hank,,-1, startKey:<>, tableDesc: {"
 operator|+
 literal|"name: hank, "
 operator|+
