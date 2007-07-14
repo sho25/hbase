@@ -846,7 +846,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Creates a new table    *     * @param desc table descriptor for table    *     * @throws IllegalArgumentException if the table name is reserved    * @throws MasterNotRunningException if master is not running    * @throws NoServerForRegionException if root region is not being served    * @throws IOException    */
+comment|/**    * Creates a new table    *     * @param desc table descriptor for table    *     * @throws RemoteException if exception occurred on remote side of    * connection.    * @throws IllegalArgumentException if the table name is reserved    * @throws MasterNotRunningException if master is not running    * @throws NoServerForRegionException if root region is not being served    * @throws TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence    * and attempt-at-creation).    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
@@ -914,7 +914,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Creates a new table but does not block and wait for it to come online.    *     * @param desc table descriptor for table    *     * @throws IllegalArgumentException if the table name is reserved    * @throws MasterNotRunningException if master is not running    * @throws NoServerForRegionException if root region is not being served    * @throws IOException    */
+comment|/**    * Creates a new table but does not block and wait for it to come online.    *     * @param desc table descriptor for table    *     * @throws RemoteException if exception occurred on remote side of    * connection.    * @throws IllegalArgumentException if the table name is reserved    * @throws MasterNotRunningException if master is not running    * @throws NoServerForRegionException if root region is not being served    * @throws TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence    * and attempt-at-creation).    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
@@ -965,7 +965,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Deletes a table    *     * @param tableName           - name of table to delete    * @throws IOException    */
+comment|/**    * Deletes a table    *     * @param tableName name of table to delete    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
@@ -1328,7 +1328,7 @@ literal|" deleted"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add a column to an existing table    *     * @param tableName   - name of the table to add column to    * @param column      - column descriptor of column to be added    * @throws IOException    */
+comment|/**    * Add a column to an existing table    *     * @param tableName name of the table to add column to    * @param column column descriptor of column to be added    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
@@ -1381,7 +1381,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Delete a column from a table    *     * @param tableName           - name of table    * @param columnName          - name of column to be deleted    * @throws IOException    */
+comment|/**    * Delete a column from a table    *     * @param tableName name of table    * @param columnName name of column to be deleted    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
@@ -1434,7 +1434,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Brings a table on-line (enables it)    *     * @param tableName   - name of the table    * @throws IOException    */
+comment|/**    * Brings a table on-line (enables it)    *     * @param tableName name of the table    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
@@ -1859,7 +1859,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Disables a table (takes it off-line) If it is being served, the master    * will tell the servers to stop serving it.    *     * @param tableName           - name of table    * @throws IOException    */
+comment|/**    * Disables a table (takes it off-line) If it is being served, the master    * will tell the servers to stop serving it.    *     * @param tableName name of table    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
@@ -2396,7 +2396,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Client API
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Loads information so that a table can be manipulated.    *     * @param tableName - the table to be located    * @throws IOException - if the table can not be located after retrying    */
+comment|/**    * Loads information so that a table can be manipulated.    *     * @param tableName the table to be located    * @throws IOException if the table can not be located after retrying    */
 specifier|public
 specifier|synchronized
 name|void
@@ -3608,6 +3608,13 @@ operator|.
 name|debug
 argument_list|(
 literal|"Found "
+operator|+
+name|servers
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" servers for table "
 operator|+
 name|tableName
 argument_list|)
@@ -5697,7 +5704,7 @@ return|return
 name|lockid
 return|;
 block|}
-comment|/**     * Change a value for the specified column    *    * @param lockid              - lock id returned from startUpdate    * @param column              - column whose value is being set    * @param val                 - new value for column    * @throws IOException    */
+comment|/**     * Change a value for the specified column.    * Runs {@link #abort(long)} if exception thrown.    *    * @param lockid lock id returned from startUpdate    * @param column column whose value is being set    * @param val new value for column    * @throws IOException    */
 specifier|public
 name|void
 name|put

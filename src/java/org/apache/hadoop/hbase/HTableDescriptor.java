@@ -149,7 +149,7 @@ name|HColumnDescriptor
 argument_list|>
 name|families
 decl_stmt|;
-comment|/**    * Legal table names can only contain 'word characters':    * i.e.<code>[a-zA-Z_0-9]</code>.    *     * Let's be restrictive until a reason to be otherwise.    */
+comment|/*    * Legal table names can only contain 'word characters':    * i.e.<code>[a-zA-Z_0-9]</code>.    * Lets be restrictive until a reason to be otherwise. One reason to limit    * characters in table name is to ensure table regions as entries in META    * regions can be found (See HADOOP-1581 'HBASE: Un-openable tablename bug').    */
 specifier|private
 specifier|static
 specifier|final
