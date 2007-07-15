@@ -310,6 +310,10 @@ name|Configuration
 name|conf
 decl_stmt|;
 specifier|private
+name|long
+name|currentLockId
+decl_stmt|;
+specifier|private
 name|Class
 argument_list|<
 name|?
@@ -458,6 +462,13 @@ operator|.
 name|conf
 operator|=
 name|conf
+expr_stmt|;
+name|this
+operator|.
+name|currentLockId
+operator|=
+operator|-
+literal|1
 expr_stmt|;
 name|this
 operator|.
@@ -2427,6 +2438,24 @@ operator|new
 name|IllegalArgumentException
 argument_list|(
 literal|"table name cannot be null or zero length"
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
+name|this
+operator|.
+name|currentLockId
+operator|!=
+operator|-
+literal|1
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"update in progress"
 argument_list|)
 throw|;
 block|}
@@ -5530,6 +5559,7 @@ return|;
 block|}
 comment|/**     * Start an atomic row insertion/update.  No changes are committed until the     * call to commit() returns. A call to abort() will abandon any updates in progress.    *    * Callers to this method are given a lease for each unique lockid; before the    * lease expires, either abort() or commit() must be called. If it is not     * called, the system will automatically call abort() on the client's behalf.    *    * The client can gain extra time with a call to renewLease().    * Start an atomic row insertion or update    *     * @param row Name of row to start update against.    * @return Row lockid.    * @throws IOException    */
 specifier|public
+specifier|synchronized
 name|long
 name|startUpdate
 parameter_list|(
@@ -5540,12 +5570,24 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|long
-name|lockid
-init|=
+if|if
+condition|(
+name|this
+operator|.
+name|currentLockId
+operator|!=
 operator|-
 literal|1
-decl_stmt|;
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"update in progress"
+argument_list|)
+throw|;
+block|}
 for|for
 control|(
 name|int
@@ -5600,7 +5642,9 @@ operator|.
 name|nextLong
 argument_list|()
 expr_stmt|;
-name|lockid
+name|this
+operator|.
+name|currentLockId
 operator|=
 name|currentServer
 operator|.
@@ -5701,7 +5745,9 @@ throw|;
 block|}
 block|}
 return|return
-name|lockid
+name|this
+operator|.
+name|currentLockId
 return|;
 block|}
 comment|/**     * Change a value for the specified column.    * Runs {@link #abort(long)} if exception thrown.    *    * @param lockid lock id returned from startUpdate    * @param column column whose value is being set    * @param val new value for column    * @throws IOException    */
@@ -5722,6 +5768,23 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|lockid
+operator|!=
+name|this
+operator|.
+name|currentLockId
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"invalid lockid"
+argument_list|)
+throw|;
+block|}
 try|try
 block|{
 name|this
@@ -5837,6 +5900,23 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|lockid
+operator|!=
+name|this
+operator|.
+name|currentLockId
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"invalid lockid"
+argument_list|)
+throw|;
+block|}
 try|try
 block|{
 name|this
@@ -5947,6 +6027,23 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|lockid
+operator|!=
+name|this
+operator|.
+name|currentLockId
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"invalid lockid"
+argument_list|)
+throw|;
+block|}
 try|try
 block|{
 name|this
@@ -6009,6 +6106,16 @@ throw|throw
 name|e
 throw|;
 block|}
+finally|finally
+block|{
+name|this
+operator|.
+name|currentLockId
+operator|=
+operator|-
+literal|1
+expr_stmt|;
+block|}
 block|}
 comment|/**     * Finalize a row mutation    *    * @param lockid              - lock id returned from startUpdate    * @throws IOException    */
 specifier|public
@@ -6046,6 +6153,23 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|lockid
+operator|!=
+name|this
+operator|.
+name|currentLockId
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"invalid lockid"
+argument_list|)
+throw|;
+block|}
 try|try
 block|{
 name|this
@@ -6109,6 +6233,16 @@ block|}
 throw|throw
 name|e
 throw|;
+block|}
+finally|finally
+block|{
+name|this
+operator|.
+name|currentLockId
+operator|=
+operator|-
+literal|1
+expr_stmt|;
 block|}
 block|}
 comment|/**    * Renew lease on update    *     * @param lockid              - lock id returned from startUpdate    * @throws IOException    */
