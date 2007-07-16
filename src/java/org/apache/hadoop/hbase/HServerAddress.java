@@ -50,7 +50,7 @@ import|;
 end_import
 
 begin_comment
-comment|/*******************************************************************************  * HServerAddress is a "label" for a HBase server that combines the host  * name and port number.  ******************************************************************************/
+comment|/**  * HServerAddress is a "label" for a HBase server that combines the host  * name and port number.  */
 end_comment
 
 begin_class
@@ -58,16 +58,16 @@ specifier|public
 class|class
 name|HServerAddress
 implements|implements
-name|Writable
+name|WritableComparable
 block|{
 specifier|private
 name|InetSocketAddress
 name|address
 decl_stmt|;
-specifier|private
 name|String
 name|stringValue
 decl_stmt|;
+comment|/** Empty constructor, used for Writable */
 specifier|public
 name|HServerAddress
 parameter_list|()
@@ -85,6 +85,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+comment|/**    * Construct a HServerAddress from an InetSocketAddress    * @param address InetSocketAddress of server    */
 specifier|public
 name|HServerAddress
 parameter_list|(
@@ -118,6 +119,7 @@ name|getPort
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Construct a HServerAddress from a string of the form hostname:port    *     * @param hostAndPort format 'hostname:port'    */
 specifier|public
 name|HServerAddress
 parameter_list|(
@@ -203,6 +205,7 @@ operator|=
 name|hostAndPort
 expr_stmt|;
 block|}
+comment|/**    * Construct a HServerAddress from hostname, port number    * @param bindAddress host name    * @param port port number    */
 specifier|public
 name|HServerAddress
 parameter_list|(
@@ -236,6 +239,7 @@ operator|+
 name|port
 expr_stmt|;
 block|}
+comment|/**    * Construct a HServerAddress from another HServerAddress    *     * @param other the HServerAddress to copy from    */
 specifier|public
 name|HServerAddress
 parameter_list|(
@@ -278,6 +282,7 @@ operator|+
 name|port
 expr_stmt|;
 block|}
+comment|/** @return host name */
 specifier|public
 name|String
 name|getBindAddress
@@ -293,6 +298,7 @@ name|getHostAddress
 argument_list|()
 return|;
 block|}
+comment|/** @return port number */
 specifier|public
 name|int
 name|getPort
@@ -305,6 +311,7 @@ name|getPort
 argument_list|()
 return|;
 block|}
+comment|/** @return the InetSocketAddress */
 specifier|public
 name|InetSocketAddress
 name|getInetSocketAddress
@@ -314,6 +321,9 @@ return|return
 name|address
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -331,9 +341,63 @@ name|stringValue
 operator|)
 return|;
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|/**    * {@inheritDoc}    */
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|equals
+parameter_list|(
+name|Object
+name|o
+parameter_list|)
+block|{
+return|return
+name|this
+operator|.
+name|compareTo
+argument_list|(
+name|o
+argument_list|)
+operator|==
+literal|0
+return|;
+block|}
+comment|/**    * {@inheritDoc}    */
+annotation|@
+name|Override
+specifier|public
+name|int
+name|hashCode
+parameter_list|()
+block|{
+name|int
+name|result
+init|=
+name|this
+operator|.
+name|address
+operator|.
+name|hashCode
+argument_list|()
+decl_stmt|;
+name|result
+operator|^=
+name|this
+operator|.
+name|stringValue
+operator|.
+name|hashCode
+argument_list|()
+expr_stmt|;
+return|return
+name|result
+return|;
+block|}
+comment|//
 comment|// Writable
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|//
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|readFields
@@ -405,6 +469,7 @@ name|port
 expr_stmt|;
 block|}
 block|}
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|write
@@ -463,6 +528,41 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+comment|//
+comment|// Comparable
+comment|//
+comment|/**    * {@inheritDoc}    */
+specifier|public
+name|int
+name|compareTo
+parameter_list|(
+name|Object
+name|o
+parameter_list|)
+block|{
+name|HServerAddress
+name|other
+init|=
+operator|(
+name|HServerAddress
+operator|)
+name|o
+decl_stmt|;
+return|return
+name|this
+operator|.
+name|toString
+argument_list|()
+operator|.
+name|compareTo
+argument_list|(
+name|other
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+return|;
 block|}
 block|}
 end_class
