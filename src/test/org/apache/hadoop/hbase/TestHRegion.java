@@ -4991,6 +4991,26 @@ name|cleanup
 parameter_list|()
 block|{
 comment|// Shut down the mini cluster
+try|try
+block|{
+name|log
+operator|.
+name|closeAndDelete
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|e
+operator|.
+name|printStackTrace
+argument_list|()
+expr_stmt|;
+block|}
 name|cluster
 operator|.
 name|shutdown

@@ -122,7 +122,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HLog stores all the edits to the HStore.  *   * It performs logfile-rolling, so external callers are not aware that the   * underlying file is being rolled.  *  *<p>A single HLog is used by several HRegions simultaneously.  *   *<p>Each HRegion is identified by a unique long int. HRegions do not need to  * declare themselves before using the HLog; they simply include their  * HRegion-id in the {@link #append(Text, Text, Text, TreeMap, long)} or   * {@link #completeCacheFlush(Text, Text, long)} calls.  *  *<p>An HLog consists of multiple on-disk files, which have a chronological  * order. As data is flushed to other (better) on-disk structures, the log  * becomes obsolete.  We can destroy all the log messages for a given  * HRegion-id up to the most-recent CACHEFLUSH message from that HRegion.  *  *<p>It's only practical to delete entire files.  Thus, we delete an entire   * on-disk file F when all of the messages in F have a log-sequence-id that's   * older (smaller) than the most-recent CACHEFLUSH message for every HRegion   * that has a message in F.  *   *<p>TODO: Vuk Ercegovac also pointed out that keeping HBase HRegion edit logs  * in HDFS is currently flawed. HBase writes edits to logs and to a memcache.  * The 'atomic' write to the log is meant to serve as insurance against  * abnormal RegionServer exit: on startup, the log is rerun to reconstruct an  * HRegion's last wholesome state. But files in HDFS do not 'exist' until they  * are cleanly closed -- something that will not happen if RegionServer exits  * without running its 'close'.  */
+comment|/**  * HLog stores all the edits to the HStore.  *   * It performs logfile-rolling, so external callers are not aware that the   * underlying file is being rolled.  *  *<p>A single HLog is used by several HRegions simultaneously.  *   *<p>Each HRegion is identified by a unique long<code>int</code>. HRegions do  * not need to declare themselves before using the HLog; they simply include  * their HRegion-id in the {@link #append(Text, Text, Text, TreeMap, long)} or   * {@link #completeCacheFlush(Text, Text, long)} calls.  *  *<p>An HLog consists of multiple on-disk files, which have a chronological  * order. As data is flushed to other (better) on-disk structures, the log  * becomes obsolete.  We can destroy all the log messages for a given  * HRegion-id up to the most-recent CACHEFLUSH message from that HRegion.  *  *<p>It's only practical to delete entire files.  Thus, we delete an entire   * on-disk file F when all of the messages in F have a log-sequence-id that's   * older (smaller) than the most-recent CACHEFLUSH message for every HRegion   * that has a message in F.  *   *<p>TODO: Vuk Ercegovac also pointed out that keeping HBase HRegion edit logs  * in HDFS is currently flawed. HBase writes edits to logs and to a memcache.  * The 'atomic' write to the log is meant to serve as insurance against  * abnormal RegionServer exit: on startup, the log is rerun to reconstruct an  * HRegion's last wholesome state. But files in HDFS do not 'exist' until they  * are cleanly closed -- something that will not happen if RegionServer exits  * without running its 'close'.  */
 end_comment
 
 begin_class
@@ -280,6 +280,17 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|Path
+name|logfiles
+index|[]
+init|=
+name|fs
+operator|.
+name|listPaths
+argument_list|(
+name|srcDir
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|LOG
@@ -292,21 +303,21 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"splitting log files"
+literal|"splitting "
+operator|+
+name|logfiles
+operator|.
+name|length
+operator|+
+literal|" log files in "
+operator|+
+name|srcDir
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|Path
-name|logfiles
-index|[]
-init|=
-name|fs
-operator|.
-name|listPaths
-argument_list|(
-name|srcDir
-argument_list|)
-decl_stmt|;
 name|TreeMap
 argument_list|<
 name|Text
@@ -586,7 +597,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"log file splitting completed"
+literal|"log file splitting completed for "
+operator|+
+name|srcDir
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -725,22 +741,6 @@ block|{
 comment|// continue;
 block|}
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"closing current log writer and getting a new one"
-argument_list|)
-expr_stmt|;
-block|}
 comment|// Close the current writer (if any), and grab a new one.
 if|if
 condition|(
@@ -754,6 +754,39 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|Path
+name|p
+init|=
+name|computeFilename
+argument_list|(
+name|filenum
+operator|-
+literal|1
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Closing current log writer "
+operator|+
+name|p
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" to get a new one"
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|filenum
@@ -769,12 +802,7 @@ name|logSeqNum
 operator|-
 literal|1
 argument_list|,
-name|computeFilename
-argument_list|(
-name|filenum
-operator|-
-literal|1
-argument_list|)
+name|p
 argument_list|)
 expr_stmt|;
 block|}
@@ -823,7 +851,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"new log writer created"
+literal|"new log writer created at "
+operator|+
+name|newPath
 argument_list|)
 expr_stmt|;
 block|}
@@ -839,34 +869,19 @@ name|MAX_VALUE
 decl_stmt|;
 for|for
 control|(
-name|Iterator
-argument_list|<
 name|Long
-argument_list|>
-name|it
-init|=
+name|l
+range|:
 name|regionToLastFlush
 operator|.
 name|values
 argument_list|()
-operator|.
-name|iterator
-argument_list|()
-init|;
-name|it
-operator|.
-name|hasNext
-argument_list|()
-condition|;
 control|)
 block|{
 name|long
 name|curSeqNum
 init|=
-name|it
-operator|.
-name|next
-argument_list|()
+name|l
 operator|.
 name|longValue
 argument_list|()
@@ -886,22 +901,6 @@ block|}
 block|}
 comment|// Next, remove all files with a final ID that's older
 comment|// than the oldest pending region-operation.
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"removing old log files"
-argument_list|)
-expr_stmt|;
-block|}
 for|for
 control|(
 name|Iterator
@@ -1001,14 +1000,6 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
-name|fs
-operator|.
-name|delete
-argument_list|(
-name|p
-argument_list|)
-expr_stmt|;
-block|}
 if|if
 condition|(
 name|LOG
@@ -1021,7 +1012,20 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"old log files deleted"
+literal|"removing old log file "
+operator|+
+name|p
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|p
 argument_list|)
 expr_stmt|;
 block|}
@@ -1103,7 +1107,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"closing log writer"
+literal|"closing log writer in "
+operator|+
+name|this
+operator|.
+name|dir
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1120,22 +1131,6 @@ name|closed
 operator|=
 literal|true
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"log writer closed"
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/**    * Append a set of edits to the log. Log edits are keyed by regionName,    * rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for    * a given key-range of the HRegion (TODO).  Any edits that do not have a    * matching {@link HConstants#COMPLETE_CACHEFLUSH} message can be discarded.    *    *<p>Logs cannot be restarted once closed, or once the HLog process dies.    * Each time the HLog starts, it must create a new log.  This means that    * other systems should process the log appropriately upon each startup    * (and prior to initializing HLog).    *    * We need to seize a lock on the writer so that writes are atomic.    * @param regionName    * @param tableName    * @param row    * @param columns    * @param timestamp    * @throws IOException    */
 specifier|synchronized

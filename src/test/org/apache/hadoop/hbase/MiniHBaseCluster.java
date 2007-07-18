@@ -994,6 +994,36 @@ argument_list|(
 literal|"HBase Cluster shutdown complete"
 argument_list|)
 expr_stmt|;
+comment|// Close the file system.  Will complain if files open so helps w/ leaks.
+try|try
+block|{
+name|this
+operator|.
+name|cluster
+operator|.
+name|getFileSystem
+argument_list|()
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Closing down dfs"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|cluster

@@ -6193,7 +6193,7 @@ block|}
 block|}
 block|}
 comment|// Utility methods
-comment|/**    * Convenience method creating new HRegions.    * @param regionId ID to use    * @param tableDesc Descriptor    * @param rootDir Root directory of HBase instance    * @param conf    * @return New META region (ROOT or META).    * @throws IOException    */
+comment|/**    * Convenience method creating new HRegions.    * Note, this method creates an {@link HLog} for the created region. It    * needs to be closed explicitly.  Use {@link HRegion#getLog()} to get    * access.    * @param regionId ID to use    * @param tableDesc Descriptor    * @param rootDir Root directory of HBase instance    * @param conf    * @return New META region (ROOT or META).    * @throws IOException    */
 specifier|static
 name|HRegion
 name|createHRegion
@@ -6240,7 +6240,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Convenience method creating new HRegions. Used by createTable and by the    * bootstrap code in the HMaster constructor    *     * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @param initialFiles InitialFiles to pass new HRegion. Pass null if none.    * @return new HRegion    *     * @throws IOException    */
+comment|/**    * Convenience method creating new HRegions. Used by createTable and by the    * bootstrap code in the HMaster constructor.    * Note, this method creates an {@link HLog} for the created region. It    * needs to be closed explicitly.  Use {@link HRegion#getLog()} to get    * access.    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @param initialFiles InitialFiles to pass new HRegion. Pass null if none.    * @return new HRegion    *     * @throws IOException    */
 specifier|static
 name|HRegion
 name|createHRegion

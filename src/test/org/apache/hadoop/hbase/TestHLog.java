@@ -587,7 +587,7 @@ condition|)
 block|{
 name|log
 operator|.
-name|close
+name|closeAndDelete
 argument_list|()
 expr_stmt|;
 block|}

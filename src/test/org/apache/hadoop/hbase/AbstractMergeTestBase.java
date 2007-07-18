@@ -409,8 +409,6 @@ name|root
 init|=
 name|createNewHRegion
 argument_list|(
-name|fs
-argument_list|,
 name|dir
 argument_list|,
 name|conf
@@ -431,8 +429,6 @@ name|meta
 init|=
 name|createNewHRegion
 argument_list|(
-name|fs
-argument_list|,
 name|dir
 argument_list|,
 name|conf
@@ -588,8 +584,6 @@ name|region
 init|=
 name|createNewHRegion
 argument_list|(
-name|fs
-argument_list|,
 name|dir
 argument_list|,
 name|conf

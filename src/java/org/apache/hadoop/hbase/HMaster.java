@@ -7931,10 +7931,18 @@ name|currentTimeMillis
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// 4. Close the new region to flush it to disk
+comment|// 4. Close the new region to flush it to disk.  Close its log file too.
 name|r
 operator|.
 name|close
+argument_list|()
+expr_stmt|;
+name|r
+operator|.
+name|getLog
+argument_list|()
+operator|.
+name|closeAndDelete
 argument_list|()
 expr_stmt|;
 comment|// 5. Get it assigned to a server
