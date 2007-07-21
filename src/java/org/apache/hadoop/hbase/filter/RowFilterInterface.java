@@ -35,20 +35,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|HRegion
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|io
 operator|.
 name|Text
@@ -85,14 +71,21 @@ name|void
 name|reset
 parameter_list|()
 function_decl|;
-comment|/**    * Called to let filter know that the specified row has been included in the    * results (passed all filtering). With out HScanner calling this, the filter    * does not know if a row passed filtering even if it passed the row itself    * because other filters may have failed the row. E.g. when this filter is a    * member of a RowFilterSet with an OR operator.    *     * @see RowFilterSet    * @param key    */
+comment|/**    * Called to let filter know the final decision (to pass or filter) on a     * given row.  With out HScanner calling this, the filter does not know if a     * row passed filtering even if it passed the row itself because other     * filters may have failed the row. E.g. when this filter is a member of a     * RowFilterSet with an OR operator.    *     * @see RowFilterSet    * @param key    */
 name|void
-name|acceptedRow
+name|rowProcessed
 parameter_list|(
-specifier|final
+name|boolean
+name|filtered
+parameter_list|,
 name|Text
 name|key
 parameter_list|)
+function_decl|;
+comment|/**    * Returns whether or not the filter should always be processed in any     * filtering call.  This precaution is necessary for filters that maintain     * state and need to be updated according to their response to filtering     * calls (see WhileMatchRowFilter for an example).  At times, filters nested     * in RowFilterSets may or may not be called because the RowFilterSet     * determines a result as fast as possible.  Returning true for     * processAlways() ensures that the filter will always be called.    *     * @return whether or not to always process the filter    */
+name|boolean
+name|processAlways
+parameter_list|()
 function_decl|;
 comment|/**    * Determines if the filter has decided that all remaining results should be    * filtered (skipped). This is used to prevent the scanner from scanning a    * the rest of the HRegion when for sure the filter will exclude all    * remaining rows.    *     * @return true if the filter intends to filter all remaining rows.    */
 name|boolean
@@ -126,7 +119,7 @@ index|[]
 name|data
 parameter_list|)
 function_decl|;
-comment|/**    * Filters row if given columns are non-null and have null criteria or if    * there exists criteria on columns not included in the column set. A column    * is considered null if it:    *<ul>    *<li>Is not included in the given columns.</li>    *<li>Has a value of HConstants.DELETE_BYTES</li>    *</ul>    *     * @param columns    * @return true if null/non-null criteria not met.    */
+comment|/**    * Filters a row if:    * 1) The given row (@param columns) has a columnKey expected to be null AND     * the value associated with that columnKey is non-null.    * 2) The filter has a criterion for a particular columnKey, but that     * columnKey is not in the given row (@param columns).    *     * Note that filterNotNull does not care whether the values associated with a     * columnKey match.  Also note that a "null value" associated with a columnKey     * is expressed as HConstants.DELETE_BYTES.    *     * @param columns    * @return true if null/non-null criteria not met.    */
 name|boolean
 name|filterNotNull
 parameter_list|(
