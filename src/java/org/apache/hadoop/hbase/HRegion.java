@@ -5753,9 +5753,8 @@ operator|)
 condition|)
 block|{
 comment|// If we are doing a wild card match or there are multiple
-comment|// matchers
-comment|// per column, we need to scan all the older versions of this row
-comment|// to pick up the rest of the family members
+comment|// matchers per column, we need to scan all the older versions of
+comment|// this row to pick up the rest of the family members
 if|if
 condition|(
 operator|!
@@ -5939,6 +5938,25 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+block|}
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|scanners
+operator|.
+name|length
+condition|;
+name|i
+operator|++
+control|)
+block|{
 comment|// If the current scanner is non-null AND has a lower-or-equal
 comment|// row label, then its timestamp is bad. We need to advance it.
 while|while
@@ -6008,7 +6026,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-block|}
 name|moreToFollow
 operator|=
 name|chosenTimestamp
@@ -6057,6 +6074,28 @@ literal|"page limit"
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"ROWKEY = "
+operator|+
+name|chosenRow
+operator|+
+literal|", FILTERED = "
+operator|+
+name|filtered
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 comment|// Make sure scanners closed if no more results
