@@ -1259,6 +1259,8 @@ name|val
 operator|.
 name|getVal
 argument_list|()
+argument_list|,
+name|UTF8_ENCODING
 argument_list|)
 operator|+
 literal|", my region: "

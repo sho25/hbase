@@ -961,12 +961,12 @@ throws|throws
 name|IOException
 block|{
 specifier|final
-name|Text
-name|oldRegion
+name|HRegionInfo
+name|oldRegionInfo
 init|=
 name|region
 operator|.
-name|getRegionName
+name|getRegionInfo
 argument_list|()
 decl_stmt|;
 specifier|final
@@ -1009,17 +1009,9 @@ name|ROOT_TABLE_NAME
 else|:
 name|META_TABLE_NAME
 decl_stmt|;
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Updating "
 operator|+
@@ -1028,7 +1020,6 @@ operator|+
 literal|" with region split info"
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Remove old region from META
 for|for
 control|(
@@ -1224,6 +1215,8 @@ expr_stmt|;
 block|}
 name|reportSplit
 argument_list|(
+name|oldRegionInfo
+argument_list|,
 name|newRegions
 index|[
 literal|0
@@ -1249,7 +1242,10 @@ literal|"region split, META update, and report to master all"
 operator|+
 literal|" successful. Old region="
 operator|+
-name|oldRegion
+name|oldRegionInfo
+operator|.
+name|getRegionName
+argument_list|()
 operator|+
 literal|", new regions: "
 operator|+
@@ -2064,15 +2060,15 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
-comment|// Use configured nameserver& interface to get local hostname.
-comment|// 'serverInfo' is sent to master.  Should have name of this host rather than
-comment|// 'localhost' or 0.0.0.0 or 127.0.0.1 in it.
+comment|// Use interface to get the 'real' IP for this host.
+comment|// 'serverInfo' is sent to master.  Should have the real IP of this host
+comment|// rather than 'localhost' or 0.0.0.0 or 127.0.0.1 in it.
 name|String
-name|localHostname
+name|realIP
 init|=
 name|DNS
 operator|.
-name|getDefaultHost
+name|getDefaultIP
 argument_list|(
 name|conf
 operator|.
@@ -2082,32 +2078,6 @@ literal|"dfs.datanode.dns.interface"
 argument_list|,
 literal|"default"
 argument_list|)
-argument_list|,
-name|conf
-operator|.
-name|get
-argument_list|(
-literal|"dfs.datanode.dns.nameserver"
-argument_list|,
-literal|"default"
-argument_list|)
-argument_list|)
-decl_stmt|;
-name|InetSocketAddress
-name|hostnameAddress
-init|=
-operator|new
-name|InetSocketAddress
-argument_list|(
-name|localHostname
-argument_list|,
-name|server
-operator|.
-name|getListenerAddress
-argument_list|()
-operator|.
-name|getPort
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|this
@@ -2120,7 +2090,19 @@ argument_list|(
 operator|new
 name|HServerAddress
 argument_list|(
-name|hostnameAddress
+operator|new
+name|InetSocketAddress
+argument_list|(
+name|realIP
+argument_list|,
+name|server
+operator|.
+name|getListenerAddress
+argument_list|()
+operator|.
+name|getPort
+argument_list|()
+argument_list|)
 argument_list|)
 argument_list|,
 name|this
@@ -2131,24 +2113,6 @@ name|nextLong
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Local file paths
-name|String
-name|serverName
-init|=
-name|localHostname
-operator|+
-literal|"_"
-operator|+
-name|this
-operator|.
-name|serverInfo
-operator|.
-name|getServerAddress
-argument_list|()
-operator|.
-name|getPort
-argument_list|()
-decl_stmt|;
 name|Path
 name|logdir
 init|=
@@ -2161,7 +2125,19 @@ literal|"log"
 operator|+
 literal|"_"
 operator|+
-name|serverName
+name|realIP
+operator|+
+literal|"_"
+operator|+
+name|this
+operator|.
+name|serverInfo
+operator|.
+name|getServerAddress
+argument_list|()
+operator|.
+name|getPort
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Logging
@@ -2822,11 +2798,6 @@ name|currentTimeMillis
 argument_list|()
 expr_stmt|;
 comment|// Queue up the HMaster's instruction stream for processing
-synchronized|synchronized
-init|(
-name|toDo
-init|)
-block|{
 name|boolean
 name|restart
 init|=
@@ -2986,39 +2957,6 @@ name|clear
 argument_list|()
 expr_stmt|;
 break|break;
-block|}
-if|if
-condition|(
-name|toDo
-operator|.
-name|size
-argument_list|()
-operator|>
-literal|0
-condition|)
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"notify on todo"
-argument_list|)
-expr_stmt|;
-block|}
-name|toDo
-operator|.
-name|notifyAll
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 block|}
 catch|catch
@@ -3187,7 +3125,7 @@ try|try
 block|{
 name|log
 operator|.
-name|rollWriter
+name|close
 argument_list|()
 expr_stmt|;
 block|}
@@ -3239,6 +3177,10 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+name|closeAllRegions
+argument_list|()
+expr_stmt|;
+comment|// Don't leave any open file handles
 name|LOG
 operator|.
 name|info
@@ -3257,7 +3199,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|Vector
+name|ArrayList
 argument_list|<
 name|HRegion
 argument_list|>
@@ -3559,6 +3501,9 @@ name|void
 name|reportSplit
 parameter_list|(
 name|HRegionInfo
+name|oldRegion
+parameter_list|,
+name|HRegionInfo
 name|newRegionA
 parameter_list|,
 name|HRegionInfo
@@ -3579,7 +3524,22 @@ name|HMsg
 argument_list|(
 name|HMsg
 operator|.
-name|MSG_NEW_REGION
+name|MSG_REPORT_SPLIT
+argument_list|,
+name|oldRegion
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|outboundMsgs
+operator|.
+name|add
+argument_list|(
+operator|new
+name|HMsg
+argument_list|(
+name|HMsg
+operator|.
+name|MSG_REPORT_OPEN
 argument_list|,
 name|newRegionA
 argument_list|)
@@ -3594,7 +3554,7 @@ name|HMsg
 argument_list|(
 name|HMsg
 operator|.
-name|MSG_NEW_REGION
+name|MSG_REPORT_OPEN
 argument_list|,
 name|newRegionB
 argument_list|)
@@ -3727,17 +3687,9 @@ continue|continue;
 block|}
 try|try
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
 name|e
 operator|.
@@ -3747,7 +3699,6 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 switch|switch
 condition|(
 name|e
@@ -4123,21 +4074,21 @@ block|}
 block|}
 block|}
 comment|/** Called either when the master tells us to restart or from stop() */
-name|Vector
+name|ArrayList
 argument_list|<
 name|HRegion
 argument_list|>
 name|closeAllRegions
 parameter_list|()
 block|{
-name|Vector
+name|ArrayList
 argument_list|<
 name|HRegion
 argument_list|>
 name|regionsToClose
 init|=
 operator|new
-name|Vector
+name|ArrayList
 argument_list|<
 name|HRegion
 argument_list|>
@@ -4218,7 +4169,9 @@ block|{
 name|region
 operator|.
 name|close
-argument_list|()
+argument_list|(
+name|abortRequested
+argument_list|)
 expr_stmt|;
 name|LOG
 operator|.

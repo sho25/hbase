@@ -40,7 +40,7 @@ import|;
 end_import
 
 begin_comment
-comment|/*******************************************************************************  * A Key for an entry in the change log.  *   * The log intermingles edits to many tables and rows, so each log entry   * identifies the appropriate table and row.  Within a table and row, they're   * also sorted.  ******************************************************************************/
+comment|/**  * A Key for an entry in the change log.  *   * The log intermingles edits to many tables and rows, so each log entry   * identifies the appropriate table and row.  Within a table and row, they're   * also sorted.  */
 end_comment
 
 begin_class
@@ -172,6 +172,7 @@ return|return
 name|logSeqNum
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -182,19 +183,20 @@ block|{
 return|return
 name|tablename
 operator|+
-literal|" "
+literal|","
 operator|+
 name|regionName
 operator|+
-literal|" "
+literal|","
 operator|+
 name|row
 operator|+
-literal|" "
+literal|","
 operator|+
 name|logSeqNum
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -214,6 +216,7 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -258,10 +261,10 @@ return|return
 name|result
 return|;
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|//
 comment|// Comparable
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|/* (non-Javadoc)    * @see java.lang.Comparable#compareTo(java.lang.Object)    */
+comment|//
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|int
 name|compareTo
@@ -359,10 +362,10 @@ return|return
 name|result
 return|;
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|//
 comment|// Writable
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#write(java.io.DataOutput)    */
+comment|//
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|write
@@ -408,7 +411,7 @@ name|logSeqNum
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#readFields(java.io.DataInput)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|readFields

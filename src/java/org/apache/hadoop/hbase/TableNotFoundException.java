@@ -25,10 +25,14 @@ name|IOException
 import|;
 end_import
 
+begin_comment
+comment|/** Thrown when a table can not be located */
+end_comment
+
 begin_class
 specifier|public
 class|class
-name|RegionNotFoundException
+name|TableNotFoundException
 extends|extends
 name|IOException
 block|{
@@ -40,16 +44,18 @@ name|serialVersionUID
 init|=
 literal|993179627856392526L
 decl_stmt|;
+comment|/** default constructor */
 specifier|public
-name|RegionNotFoundException
+name|TableNotFoundException
 parameter_list|()
 block|{
 name|super
 argument_list|()
 expr_stmt|;
 block|}
+comment|/** @param s message */
 specifier|public
-name|RegionNotFoundException
+name|TableNotFoundException
 parameter_list|(
 name|String
 name|s

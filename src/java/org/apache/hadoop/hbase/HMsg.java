@@ -87,23 +87,6 @@ name|MSG_REGIONSERVER_STOP
 init|=
 literal|5
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|HMsg
-index|[]
-name|MSG_REGIONSERVER_STOP_IN_ARRAY
-init|=
-block|{
-operator|new
-name|HMsg
-argument_list|(
-name|HMsg
-operator|.
-name|MSG_REGIONSERVER_STOP
-argument_list|)
-block|}
-decl_stmt|;
 comment|/** Stop serving the specified region and don't report back that it's closed */
 specifier|public
 specifier|static
@@ -132,16 +115,16 @@ name|MSG_REPORT_CLOSE
 init|=
 literal|101
 decl_stmt|;
-comment|/** region server is now serving a region produced by a region split */
+comment|/**    * region server split the region associated with this message.    *     * note that this message is immediately followed by two MSG_REPORT_OPEN    * messages, one for each of the new regions resulting from the split    */
 specifier|public
 specifier|static
 specifier|final
 name|byte
-name|MSG_NEW_REGION
+name|MSG_REPORT_SPLIT
 init|=
 literal|103
 decl_stmt|;
-comment|/** region server is shutting down */
+comment|/**    * region server is shutting down    *     * note that this message is followed by MSG_REPORT_CLOSE messages for each    * region the region server was serving.    */
 specifier|public
 specifier|static
 specifier|final
@@ -237,6 +220,7 @@ return|return
 name|info
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -334,13 +318,13 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|MSG_NEW_REGION
+name|MSG_REPORT_SPLIT
 case|:
 name|message
 operator|.
 name|append
 argument_list|(
-literal|"MSG_NEW_REGION : "
+literal|"MSG_REGION_SPLIT : "
 argument_list|)
 expr_stmt|;
 break|break;
@@ -405,7 +389,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Writable
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#write(java.io.DataOutput)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|write
@@ -431,7 +415,7 @@ name|out
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#readFields(java.io.DataInput)    */
+comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|readFields

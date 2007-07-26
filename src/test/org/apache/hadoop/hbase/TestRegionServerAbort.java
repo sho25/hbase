@@ -49,6 +49,30 @@ name|Text
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|log4j
+operator|.
+name|Level
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|log4j
+operator|.
+name|Logger
+import|;
+end_import
+
 begin_comment
 comment|/**  * Tests region server failover when a region server exits.  */
 end_comment
@@ -56,7 +80,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|TestCleanRegionServerExit
+name|TestRegionServerAbort
 extends|extends
 name|HBaseClusterTestCase
 block|{
@@ -66,7 +90,7 @@ name|client
 decl_stmt|;
 comment|/** constructor */
 specifier|public
-name|TestCleanRegionServerExit
+name|TestRegionServerAbort
 parameter_list|()
 block|{
 name|super
@@ -81,7 +105,7 @@ argument_list|,
 literal|5000
 argument_list|)
 expr_stmt|;
-comment|// reduce ipc client timeout
+comment|// reduce client timeout
 name|conf
 operator|.
 name|setInt
@@ -102,6 +126,7 @@ literal|2
 argument_list|)
 expr_stmt|;
 comment|// reduce HBase retries
+comment|//    Logger.getLogger(this.getClass().getPackage().getName()).setLevel(Level.DEBUG);
 block|}
 comment|/**    * {@inheritDoc}    */
 annotation|@
@@ -132,7 +157,7 @@ block|}
 comment|/**    * The test    * @throws IOException    */
 specifier|public
 name|void
-name|testCleanRegionServerExit
+name|testRegionServerAbort
 parameter_list|()
 throws|throws
 name|IOException
@@ -264,7 +289,7 @@ name|this
 operator|.
 name|cluster
 operator|.
-name|stopRegionServer
+name|abortRegionServer
 argument_list|(
 literal|0
 argument_list|)

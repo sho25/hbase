@@ -291,17 +291,9 @@ argument_list|(
 name|srcDir
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
 literal|"splitting "
 operator|+
@@ -317,8 +309,7 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-name|TreeMap
+name|HashMap
 argument_list|<
 name|Text
 argument_list|,
@@ -329,7 +320,7 @@ argument_list|>
 name|logWriters
 init|=
 operator|new
-name|TreeMap
+name|HashMap
 argument_list|<
 name|Text
 argument_list|,
@@ -451,6 +442,24 @@ argument_list|,
 name|HREGION_OLDLOGFILE_NAME
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"getting new log file writer for path "
+operator|+
+name|logfile
+argument_list|)
+expr_stmt|;
+block|}
 name|w
 operator|=
 name|SequenceFile
@@ -585,17 +594,9 @@ throw|;
 block|}
 block|}
 block|}
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
 literal|"log file splitting completed for "
 operator|+
@@ -605,7 +606,6 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log.  If there is a log    * at startup, it should have already been processed and deleted by     * the time the HLog object is started up.    *     * @param fs    * @param dir    * @param conf    * @throws IOException    */
 name|HLog
@@ -1073,9 +1073,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|rollWriter
-argument_list|()
-expr_stmt|;
 name|close
 argument_list|()
 expr_stmt|;
