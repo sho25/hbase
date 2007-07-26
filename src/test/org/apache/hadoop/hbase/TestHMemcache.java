@@ -213,19 +213,6 @@ operator|new
 name|HBaseConfiguration
 argument_list|()
 expr_stmt|;
-comment|// The test hadoop-site.xml doesn't have a default file fs
-comment|// implementation. Remove below when gets added.
-name|this
-operator|.
-name|conf
-operator|.
-name|set
-argument_list|(
-literal|"fs.file.impl"
-argument_list|,
-literal|"org.apache.hadoop.fs.LocalFileSystem"
-argument_list|)
-expr_stmt|;
 block|}
 comment|/* (non-Javadoc)    * @see junit.framework.TestCase#tearDown()    */
 annotation|@
@@ -661,6 +648,18 @@ operator|.
 name|hmemcache
 argument_list|)
 expr_stmt|;
+name|int
+name|historyInitialSize
+init|=
+name|this
+operator|.
+name|hmemcache
+operator|.
+name|history
+operator|.
+name|size
+argument_list|()
+decl_stmt|;
 name|Snapshot
 name|s
 init|=
@@ -702,6 +701,22 @@ name|hmemcache
 operator|.
 name|deleteSnapshot
 argument_list|()
+expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"History not being cleared"
+argument_list|,
+name|historyInitialSize
+operator|==
+name|this
+operator|.
+name|hmemcache
+operator|.
+name|history
+operator|.
+name|size
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|log

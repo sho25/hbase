@@ -75,7 +75,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Caller needs the nonexclusive read-lock    */
+comment|/**    * Caller needs the no-nexclusive read-lock    */
 specifier|public
 name|void
 name|obtainReadLock
@@ -109,7 +109,9 @@ parameter_list|(
 name|InterruptedException
 name|ie
 parameter_list|)
-block|{         }
+block|{
+comment|// continue
+block|}
 block|}
 name|lockers
 operator|.
@@ -123,7 +125,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Caller is finished with the nonexclusive read-lock    */
+comment|/**    * Caller is finished with the non-exclusive read-lock    */
 specifier|public
 name|void
 name|releaseReadLock
@@ -199,7 +201,9 @@ parameter_list|(
 name|InterruptedException
 name|ie
 parameter_list|)
-block|{         }
+block|{
+comment|// continue
+block|}
 block|}
 name|mutex
 operator|.

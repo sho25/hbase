@@ -313,6 +313,20 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|onelab
 operator|.
 name|filter
@@ -418,6 +432,10 @@ name|filterDir
 decl_stmt|;
 name|Filter
 name|bloomFilter
+decl_stmt|;
+specifier|private
+name|String
+name|storeName
 decl_stmt|;
 name|Integer
 name|compactLock
@@ -557,6 +575,26 @@ operator|.
 name|CompressionType
 operator|.
 name|NONE
+expr_stmt|;
+name|this
+operator|.
+name|storeName
+operator|=
+name|this
+operator|.
+name|regionName
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|familyName
+operator|.
+name|toString
+argument_list|()
 expr_stmt|;
 if|if
 condition|(
@@ -750,13 +788,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"starting HStore for "
+literal|"Starting HStore for "
 operator|+
-name|regionName
-operator|+
-literal|"/"
-operator|+
-name|familyName
+name|this
+operator|.
+name|storeName
 argument_list|)
 expr_stmt|;
 block|}
@@ -945,22 +981,6 @@ expr_stmt|;
 block|}
 comment|// Finally, start up all the map readers! (There should be just one at this
 comment|// point, as we've compacted them all.)
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"starting map readers"
-argument_list|)
-expr_stmt|;
-block|}
 for|for
 control|(
 name|Map
@@ -1005,23 +1025,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"HStore online for "
-operator|+
-name|this
-operator|.
-name|regionName
-operator|+
-literal|"/"
-operator|+
-name|this
-operator|.
-name|familyName
-argument_list|)
-expr_stmt|;
 block|}
 comment|/*    * Read the reconstructionLog to see whether we need to build a brand-new     * MapFile out of non-flushed log entries.      *    * We can ignore any log message that has a sequence ID that's equal to or     * lower than maxSeqID.  (Because we know such log messages are already     * reflected in the MapFiles.)    */
 specifier|private
@@ -1041,22 +1044,6 @@ name|UnsupportedEncodingException
 throws|,
 name|IOException
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"reading reconstructionLog"
-argument_list|)
-expr_stmt|;
-block|}
 if|if
 condition|(
 name|reconstructionLog
@@ -1440,10 +1427,9 @@ name|debug
 argument_list|(
 literal|"loading bloom filter for "
 operator|+
-name|family
+name|this
 operator|.
-name|getName
-argument_list|()
+name|storeName
 argument_list|)
 expr_stmt|;
 block|}
@@ -1531,10 +1517,9 @@ name|debug
 argument_list|(
 literal|"creating bloom filter for "
 operator|+
-name|family
+name|this
 operator|.
-name|getName
-argument_list|()
+name|storeName
 argument_list|)
 expr_stmt|;
 block|}
@@ -1643,10 +1628,9 @@ name|debug
 argument_list|(
 literal|"flushing bloom filter for "
 operator|+
-name|family
+name|this
 operator|.
-name|getName
-argument_list|()
+name|storeName
 argument_list|)
 expr_stmt|;
 block|}
@@ -1692,10 +1676,9 @@ name|debug
 argument_list|(
 literal|"flushed bloom filter for "
 operator|+
-name|family
+name|this
 operator|.
-name|getName
-argument_list|()
+name|storeName
 argument_list|)
 expr_stmt|;
 block|}
@@ -2194,6 +2177,14 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -2202,15 +2193,10 @@ literal|"closing HStore for "
 operator|+
 name|this
 operator|.
-name|regionName
-operator|+
-literal|"/"
-operator|+
-name|this
-operator|.
-name|familyName
+name|storeName
 argument_list|)
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|lock
@@ -2257,13 +2243,7 @@ literal|"HStore closed for "
 operator|+
 name|this
 operator|.
-name|regionName
-operator|+
-literal|"/"
-operator|+
-name|this
-operator|.
-name|familyName
+name|storeName
 argument_list|)
 expr_stmt|;
 block|}
@@ -2281,13 +2261,14 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Flush changes to disk
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Write out a brand-new set of items to the disk.    *    * We should only store key/vals that are appropriate for the data-columns     * stored in this HStore.    *    * Also, we are not expecting any reads of this MapFile just yet.    *    * Return the entire list of HStoreFiles currently used by the HStore.    *    * @param inputCache          - memcache to flush    * @param logCacheFlushId     - flush sequence number    * @return - Vector of all the HStoreFiles in use    * @throws IOException    */
+comment|/**    * Write out a brand-new set of items to the disk.    *    * We should only store key/vals that are appropriate for the data-columns     * stored in this HStore.    *    * Also, we are not expecting any reads of this MapFile just yet.    *    * Return the entire list of HStoreFiles currently used by the HStore.    *    * @param inputCache memcache to flush    * @param logCacheFlushId flush sequence number    * @return Vector of all the HStoreFiles in use    * @throws IOException    */
 name|Vector
 argument_list|<
 name|HStoreFile
 argument_list|>
 name|flushCache
 parameter_list|(
+specifier|final
 name|TreeMap
 argument_list|<
 name|HStoreKey
@@ -2297,6 +2278,7 @@ index|[]
 argument_list|>
 name|inputCache
 parameter_list|,
+specifier|final
 name|long
 name|logCacheFlushId
 parameter_list|)
@@ -2343,32 +2325,6 @@ init|(
 name|flushLock
 init|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"flushing HStore "
-operator|+
-name|this
-operator|.
-name|regionName
-operator|+
-literal|"/"
-operator|+
-name|this
-operator|.
-name|familyName
-argument_list|)
-expr_stmt|;
-block|}
 comment|// A. Write the TreeMap out to the disk
 name|HStoreFile
 name|flushedFile
@@ -2408,7 +2364,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"map file is: "
+literal|"Flushing to "
 operator|+
 name|mapfile
 operator|.
@@ -2497,34 +2453,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"HStore "
-operator|+
-name|this
-operator|.
-name|regionName
-operator|+
-literal|"/"
-operator|+
-name|this
-operator|.
-name|familyName
-operator|+
-literal|" flushed"
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 finally|finally
 block|{
@@ -2536,22 +2464,6 @@ expr_stmt|;
 block|}
 comment|// B. Write out the log sequence number that corresponds to this output
 comment|// MapFile.  The MapFile is current up to and including the log seq num.
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"writing log cache flush id"
-argument_list|)
-expr_stmt|;
-block|}
 name|flushedFile
 operator|.
 name|writeInfo
@@ -2634,21 +2546,37 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"HStore available for "
+literal|"Added "
 operator|+
-name|this
+name|mapfile
 operator|.
-name|regionName
+name|toString
+argument_list|()
 operator|+
-literal|"/"
-operator|+
-name|this
-operator|.
-name|familyName
-operator|+
-literal|" flush id="
+literal|" with flush id "
 operator|+
 name|logCacheFlushId
+operator|+
+literal|" and size "
+operator|+
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
+name|mapfile
+operator|.
+name|getFileSystem
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
+operator|.
+name|getContentLength
+argument_list|(
+name|mapfile
+argument_list|)
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -2715,7 +2643,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Compaction
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Compact the back-HStores.  This method may take some time, so the calling     * thread must be able to block for long periods.    *     * During this time, the HStore can work as usual, getting values from    * MapFiles and writing new MapFiles from given memcaches.    *     * Existing MapFiles are not destroyed until the new compacted TreeMap is     * completely written-out to disk.    *    * The compactLock block prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *     * We don't want to hold the structureLock for the whole time, as a compact()     * can be lengthy and we want to allow cache-flushes during this period.    *     * @throws IOException    */
+comment|/**    * Compact the back-HStores.  This method may take some time, so the calling     * thread must be able to block for long periods.    *     *<p>During this time, the HStore can work as usual, getting values from    * MapFiles and writing new MapFiles from given memcaches.    *     * Existing MapFiles are not destroyed until the new compacted TreeMap is     * completely written-out to disk.    *    * The compactLock block prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *     * We don't want to hold the structureLock for the whole time, as a compact()     * can be lengthy and we want to allow cache-flushes during this period.    *     * @throws IOException    */
 name|void
 name|compact
 parameter_list|()
@@ -2742,32 +2670,6 @@ init|(
 name|compactLock
 init|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"started compaction of "
-operator|+
-name|this
-operator|.
-name|regionName
-operator|+
-literal|"/"
-operator|+
-name|this
-operator|.
-name|familyName
-argument_list|)
-expr_stmt|;
-block|}
 name|Path
 name|curCompactStore
 init|=
@@ -2789,6 +2691,34 @@ argument_list|(
 name|curCompactStore
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"started compaction of "
+operator|+
+name|mapFiles
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" files in "
+operator|+
+name|curCompactStore
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 try|try
 block|{
 comment|// Grab a list of files to compact.
@@ -2834,7 +2764,8 @@ name|releaseWriteLock
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Compute the max-sequenceID seen in any of the to-be-compacted TreeMaps
+comment|// Compute the max-sequenceID seen in any of the to-be-compacted
+comment|// TreeMaps
 name|long
 name|maxSeenSeqID
 init|=
@@ -2880,24 +2811,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"max sequence id: "
-operator|+
-name|maxSeenSeqID
-argument_list|)
-expr_stmt|;
-block|}
 name|HStoreFile
 name|compactedOutputFile
 init|=
@@ -2942,13 +2855,7 @@ literal|"nothing to compact for "
 operator|+
 name|this
 operator|.
-name|regionName
-operator|+
-literal|"/"
-operator|+
-name|this
-operator|.
-name|familyName
+name|storeName
 argument_list|)
 expr_stmt|;
 block|}
@@ -3071,32 +2978,12 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|Iterator
-argument_list|<
-name|HStoreFile
-argument_list|>
-name|it
-init|=
-name|toCompactFiles
-operator|.
-name|iterator
-argument_list|()
-init|;
-name|it
-operator|.
-name|hasNext
-argument_list|()
-condition|;
-control|)
-block|{
 name|HStoreFile
 name|hsf
-init|=
-name|it
-operator|.
-name|next
-argument_list|()
-decl_stmt|;
+range|:
+name|toCompactFiles
+control|)
+block|{
 name|readers
 index|[
 name|pos
@@ -3144,22 +3031,6 @@ expr_stmt|;
 block|}
 comment|// Now, advance through the readers in order.  This will have the
 comment|// effect of a run-time sort of the entire dataset.
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"processing HStoreFile readers"
-argument_list|)
-expr_stmt|;
-block|}
 name|int
 name|numDone
 init|=
@@ -3406,7 +3277,8 @@ operator|!=
 literal|0
 condition|)
 block|{
-comment|// Only write out objects which have a non-zero length key and value
+comment|// Only write out objects which have a non-zero length key and
+comment|// value
 name|compactedOut
 operator|.
 name|append
@@ -3421,9 +3293,10 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|//TODO: I don't know what to do about deleted values.  I currently
+comment|// TODO: I don't know what to do about deleted values.  I currently
 comment|// include the fact that the item was deleted as a legitimate
-comment|// "version" of the data.  Maybe it should just drop the deleted val?
+comment|// "version" of the data.  Maybe it should just drop the deleted
+comment|// val?
 comment|// Update last-seen items
 name|lastRow
 operator|.
@@ -3489,22 +3362,6 @@ operator|++
 expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"all HStores processed"
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 finally|finally
 block|{
@@ -3526,7 +3383,15 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"writing new compacted HStore"
+literal|"writing new compacted HStore to "
+operator|+
+name|compactedOutputFile
+operator|.
+name|getMapFilePath
+argument_list|()
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -3681,32 +3546,6 @@ comment|// Move the compaction into place.
 name|processReadyCompaction
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"compaction complete for "
-operator|+
-name|this
-operator|.
-name|regionName
-operator|+
-literal|"/"
-operator|+
-name|this
-operator|.
-name|familyName
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 finally|finally
 block|{
@@ -3720,7 +3559,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * It's assumed that the compactLock  will be acquired prior to calling this     * method!  Otherwise, it is not thread-safe!    *    * It works by processing a compaction that's been written to disk.    *     * It is usually invoked at the end of a compaction, but might also be invoked    * at HStore startup, if the prior execution died midway through.    */
+comment|/**    * It's assumed that the compactLock  will be acquired prior to calling this     * method!  Otherwise, it is not thread-safe!    *    * It works by processing a compaction that's been written to disk.    *     * It is usually invoked at the end of a compaction, but might also be    * invoked at HStore startup, if the prior execution died midway through.    */
 name|void
 name|processReadyCompaction
 parameter_list|()
@@ -3784,6 +3623,13 @@ condition|)
 block|{
 comment|// The last execution didn't finish the compaction, so there's nothing
 comment|// we can do.  We'll just have to redo it. Abandon it and return.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Redoing a failed compaction"
+argument_list|)
+expr_stmt|;
 return|return;
 block|}
 comment|// OK, there's actually compaction work that needs to be put into place.
@@ -3799,7 +3645,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"compaction starting"
+literal|"Process ready compaction starting"
 argument_list|)
 expr_stmt|;
 block|}
@@ -3913,7 +3759,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"loaded files to be deleted"
+literal|"loaded "
+operator|+
+name|toCompactFiles
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" file(s) to be deleted"
 argument_list|)
 expr_stmt|;
 block|}
@@ -4045,53 +3898,17 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"unloaded existing MapFiles"
-argument_list|)
-expr_stmt|;
-block|}
 comment|// What if we crash at this point?  No big deal; we will restart
 comment|// processReadyCompaction(), and nothing has been lost.
 comment|// 4. Delete all the old files, no longer needed
 for|for
 control|(
-name|Iterator
-argument_list|<
-name|HStoreFile
-argument_list|>
-name|it
-init|=
-name|toCompactFiles
-operator|.
-name|iterator
-argument_list|()
-init|;
-name|it
-operator|.
-name|hasNext
-argument_list|()
-condition|;
-control|)
-block|{
 name|HStoreFile
 name|hsf
-init|=
-name|it
-operator|.
-name|next
-argument_list|()
-decl_stmt|;
+range|:
+name|toCompactFiles
+control|)
+block|{
 name|fs
 operator|.
 name|delete
@@ -4125,7 +3942,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"old files deleted"
+literal|"old file(s) deleted"
 argument_list|)
 expr_stmt|;
 block|}
@@ -4133,22 +3950,6 @@ comment|// What if we fail now?  The above deletes will fail silently. We'd bett
 comment|// make sure not to write out any new files with the same names as
 comment|// something we delete, though.
 comment|// 5. Moving the new MapFile into place
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"moving new MapFile into place"
-argument_list|)
-expr_stmt|;
-block|}
 name|HStoreFile
 name|compactedFile
 init|=
@@ -4185,6 +3986,40 @@ argument_list|,
 name|fs
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"moving "
+operator|+
+name|compactedFile
+operator|.
+name|getMapFilePath
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|finalCompactedFile
+operator|.
+name|getMapFilePath
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|fs
 operator|.
 name|rename
@@ -4233,22 +4068,6 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// 6. Loading the new TreeMap.
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"loading new TreeMap"
-argument_list|)
-expr_stmt|;
-block|}
 name|mapFiles
 operator|.
 name|put

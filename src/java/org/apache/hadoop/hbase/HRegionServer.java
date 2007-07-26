@@ -650,11 +650,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Adding "
-operator|+
 name|regionName
+operator|.
+name|toString
+argument_list|()
 operator|+
-literal|" to retiringRegions"
+literal|"closing ("
+operator|+
+literal|"Adding to retiringRegions)"
 argument_list|)
 expr_stmt|;
 block|}
@@ -710,11 +713,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Removing "
-operator|+
 name|regionName
+operator|.
+name|toString
+argument_list|()
 operator|+
-literal|" from retiringRegions"
+literal|" closed"
 argument_list|)
 expr_stmt|;
 block|}
@@ -832,15 +836,14 @@ name|needsCompaction
 argument_list|()
 condition|)
 block|{
-comment|// Best time to split a region is right after compaction
-if|if
-condition|(
 name|cur
 operator|.
 name|compactStores
 argument_list|()
-condition|)
-block|{
+expr_stmt|;
+block|}
+comment|// After compaction, it probably needs splitting.  May also need
+comment|// splitting just because one of the memcache flushes was big.
 name|Text
 name|midKey
 init|=
@@ -865,8 +868,6 @@ argument_list|,
 name|midKey
 argument_list|)
 expr_stmt|;
-block|}
-block|}
 block|}
 block|}
 block|}
@@ -1052,6 +1053,7 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
+break|break;
 block|}
 catch|catch
 parameter_list|(
@@ -1153,6 +1155,7 @@ name|getStartCode
 argument_list|()
 argument_list|)
 expr_stmt|;
+break|break;
 block|}
 catch|catch
 parameter_list|(
@@ -1351,7 +1354,7 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-comment|/** Runs periodically to flush the memcache */
+comment|/* Runs periodically to flush memcache.    *     * Memcache flush is also called just before compaction and just before    * split so memcache is best prepared for the the long trip across    * compactions/splits during which it will not be able to flush to disk.    */
 class|class
 name|Flusher
 implements|implements
@@ -1652,24 +1655,15 @@ condition|)
 block|{
 try|try
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
-literal|"Rolling log. Number of entries is: "
+literal|"Rolling hlog. Number of entries: "
 operator|+
 name|nEntries
 argument_list|)
 expr_stmt|;
-block|}
 name|log
 operator|.
 name|rollWriter
@@ -1950,7 +1944,7 @@ name|getLong
 argument_list|(
 literal|"hbase.regionserver.thread.splitcompactcheckfrequency"
 argument_list|,
-literal|60
+literal|30
 operator|*
 literal|1000
 argument_list|)
@@ -2140,6 +2134,24 @@ name|getPort
 argument_list|()
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Log dir "
+operator|+
+name|logdir
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Logging
 name|this
 operator|.
@@ -2166,7 +2178,9 @@ throw|throw
 operator|new
 name|RegionServerRunningException
 argument_list|(
-literal|"region server already running at "
+literal|"region server already "
+operator|+
+literal|"running at "
 operator|+
 name|this
 operator|.
@@ -4173,18 +4187,6 @@ argument_list|(
 name|abortRequested
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"region closed "
-operator|+
-name|region
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -4822,49 +4824,7 @@ literal|0
 condition|)
 block|{
 comment|// Column value is deleted. Don't return it.
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"skipping deleted value for key: "
-operator|+
-name|k
-operator|.
-name|toString
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 continue|continue;
-block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"adding value for key: "
-operator|+
-name|k
-operator|.
-name|toString
-argument_list|()
-argument_list|)
-expr_stmt|;
 block|}
 name|values
 operator|.
