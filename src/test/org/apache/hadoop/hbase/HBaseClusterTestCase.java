@@ -135,6 +135,7 @@ operator|=
 literal|1
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -170,6 +171,7 @@ name|miniHdfs
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -201,6 +203,13 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
+name|HConnectionManager
+operator|.
+name|deleteConnection
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class

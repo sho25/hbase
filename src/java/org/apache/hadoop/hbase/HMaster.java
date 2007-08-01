@@ -3722,6 +3722,18 @@ name|MSG_REPORT_EXITING
 condition|)
 block|{
 comment|// HRegionServer is shutting down. Cancel the server's lease.
+if|if
+condition|(
+name|cancelLease
+argument_list|(
+name|s
+argument_list|,
+name|serverLabel
+argument_list|)
+condition|)
+block|{
+comment|// Only process the exit message if the server still has a lease.
+comment|// Otherwise we could end up processing the server exit twice.
 name|LOG
 operator|.
 name|info
@@ -3731,13 +3743,6 @@ operator|+
 name|s
 operator|+
 literal|": MSG_REPORT_EXITING"
-argument_list|)
-expr_stmt|;
-name|cancelLease
-argument_list|(
-name|s
-argument_list|,
-name|serverLabel
 argument_list|)
 expr_stmt|;
 comment|// Get all the regions the server was serving reassigned
@@ -3850,6 +3855,7 @@ literal|0L
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|// We don't need to return anything to the server because it isn't
@@ -4029,7 +4035,7 @@ block|}
 block|}
 comment|/** cancel a server's lease */
 specifier|private
-name|void
+name|boolean
 name|cancelLease
 parameter_list|(
 specifier|final
@@ -4040,9 +4046,12 @@ specifier|final
 name|long
 name|serverLabel
 parameter_list|)
-throws|throws
-name|IOException
 block|{
+name|boolean
+name|leaseCancelled
+init|=
+literal|false
+decl_stmt|;
 if|if
 condition|(
 name|serversToServerInfo
@@ -4075,7 +4084,14 @@ argument_list|,
 name|serverLabel
 argument_list|)
 expr_stmt|;
+name|leaseCancelled
+operator|=
+literal|true
+expr_stmt|;
 block|}
+return|return
+name|leaseCancelled
+return|;
 block|}
 comment|/** Process all the incoming messages from a server that's contacted us. */
 specifier|private
@@ -7322,6 +7338,31 @@ condition|)
 block|{
 comment|// We can't proceed until the root region is online and has been
 comment|// scanned
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"root region="
+operator|+
+name|rootRegionLocation
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|", rootScanned="
+operator|+
+name|rootScanned
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|false
 return|;
@@ -7366,6 +7407,38 @@ comment|// We can't proceed because not all of the meta regions are online.
 comment|// We can't block either because that would prevent the meta region
 comment|// online message from being processed. So return false to have this
 comment|// operation requeued.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"rootScanned="
+operator|+
+name|rootScanned
+operator|+
+literal|", numberOfMetaRegions="
+operator|+
+name|numberOfMetaRegions
+operator|.
+name|get
+argument_list|()
+operator|+
+literal|", onlineMetaRegions.size()="
+operator|+
+name|onlineMetaRegions
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|false
 return|;
@@ -10840,6 +10913,7 @@ operator|+
 literal|" lease expired"
 argument_list|)
 expr_stmt|;
+comment|// Remove the server from the known servers list
 name|HServerInfo
 name|storedInfo
 init|=
@@ -10850,62 +10924,9 @@ argument_list|(
 name|server
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|rootRegionLocation
-operator|!=
-literal|null
-operator|&&
-name|rootRegionLocation
-operator|.
-name|toString
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|storedInfo
-operator|.
-name|getServerAddress
-argument_list|()
-operator|.
-name|toString
-argument_list|()
-argument_list|)
-condition|)
-block|{
-name|rootRegionLocation
-operator|=
-literal|null
-expr_stmt|;
-name|unassignedRegions
-operator|.
-name|put
-argument_list|(
-name|HGlobals
-operator|.
-name|rootRegionInfo
-operator|.
-name|regionName
-argument_list|,
-name|HGlobals
-operator|.
-name|rootRegionInfo
-argument_list|)
-expr_stmt|;
-name|assignAttempts
-operator|.
-name|put
-argument_list|(
-name|HGlobals
-operator|.
-name|rootRegionInfo
-operator|.
-name|regionName
-argument_list|,
-literal|0L
-argument_list|)
-expr_stmt|;
-block|}
+comment|// NOTE: If the server was serving the root region, we cannot reassign it
+comment|// here because the new server will start serving the root region before
+comment|// the PendingServerShutdown operation has a chance to split the log file.
 try|try
 block|{
 name|msgQueue

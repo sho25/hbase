@@ -126,7 +126,41 @@ literal|2
 argument_list|)
 expr_stmt|;
 comment|// reduce HBase retries
-comment|//    Logger.getLogger(this.getClass().getPackage().getName()).setLevel(Level.DEBUG);
+name|Logger
+operator|.
+name|getRootLogger
+argument_list|()
+operator|.
+name|setLevel
+argument_list|(
+name|Level
+operator|.
+name|WARN
+argument_list|)
+expr_stmt|;
+name|Logger
+operator|.
+name|getLogger
+argument_list|(
+name|this
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getPackage
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+operator|.
+name|setLevel
+argument_list|(
+name|Level
+operator|.
+name|DEBUG
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * {@inheritDoc}    */
 annotation|@

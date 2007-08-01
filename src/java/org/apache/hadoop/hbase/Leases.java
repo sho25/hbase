@@ -598,7 +598,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Client explicitly cancels a lease.    *     * @param holderId id of lease holder    * @param resourceId id of resource being leased    * @throws IOException    */
+comment|/**    * Client explicitly cancels a lease.    *     * @param holderId id of lease holder    * @param resourceId id of resource being leased    */
 specifier|public
 name|void
 name|cancelLease
@@ -611,8 +611,6 @@ specifier|final
 name|long
 name|resourceId
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|LeaseName
 name|name
@@ -656,16 +654,8 @@ literal|null
 condition|)
 block|{
 comment|// It's possible that someone tries to renew the lease, but
-comment|// it just expired a moment ago.  So fail.
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Cannot cancel lease that is not held: "
-operator|+
-name|name
-argument_list|)
-throw|;
+comment|// it just expired a moment ago.  So just skip it.
+return|return;
 block|}
 name|sortedLeases
 operator|.
@@ -708,6 +698,7 @@ name|LeaseMonitor
 implements|implements
 name|Runnable
 block|{
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|run
@@ -816,6 +807,11 @@ block|}
 block|}
 block|}
 comment|/*    * A Lease name.    * More lightweight than String or Text.    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 class|class
 name|LeaseName
 implements|implements
@@ -855,6 +851,7 @@ operator|=
 name|rid
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -891,6 +888,7 @@ operator|.
 name|resourceId
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -942,6 +940,7 @@ return|return
 name|result
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -971,6 +970,7 @@ name|resourceId
 argument_list|)
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo
@@ -1081,6 +1081,11 @@ argument_list|)
 return|;
 block|}
 comment|/** This class tracks a single Lease. */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|private
 class|class
 name|Lease
@@ -1235,6 +1240,7 @@ name|leaseExpired
 argument_list|()
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1254,6 +1260,7 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1293,6 +1300,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Comparable
 comment|//////////////////////////////////////////////////////////////////////////////
+comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo

@@ -71,6 +71,7 @@ name|MASTER_ADDRESS
 init|=
 literal|"hbase.master"
 decl_stmt|;
+comment|/** default host address */
 specifier|static
 specifier|final
 name|String
@@ -232,6 +233,7 @@ argument_list|(
 literal|"info:"
 argument_list|)
 decl_stmt|;
+comment|/** Array of meta column names */
 specifier|static
 specifier|final
 name|Text
@@ -258,6 +260,20 @@ name|COLUMN_FAMILY
 operator|+
 literal|"regioninfo"
 argument_list|)
+decl_stmt|;
+comment|/** Array of column - contains HRegionInfo */
+specifier|static
+specifier|final
+name|Text
+index|[]
+name|COL_REGIONINFO_ARRAY
+init|=
+operator|new
+name|Text
+index|[]
+block|{
+name|COL_REGIONINFO
+block|}
 decl_stmt|;
 comment|/** ROOT/META column family member - contains HServerAddress.toString() */
 specifier|static
@@ -288,6 +304,16 @@ literal|"serverstartcode"
 argument_list|)
 decl_stmt|;
 comment|// Other constants
+comment|/** used by scanners, etc when they want to start at the beginning of a region */
+specifier|static
+specifier|final
+name|Text
+name|EMPTY_START_ROW
+init|=
+operator|new
+name|Text
+argument_list|()
+decl_stmt|;
 comment|/** When we encode strings, we always specify UTF8 encoding */
 specifier|static
 specifier|final
