@@ -146,8 +146,8 @@ literal|"row"
 argument_list|)
 decl_stmt|;
 specifier|private
-name|HClient
-name|client
+name|HTable
+name|table
 decl_stmt|;
 comment|/** constructor */
 specifier|public
@@ -156,14 +156,6 @@ parameter_list|()
 block|{
 name|super
 argument_list|()
-expr_stmt|;
-name|client
-operator|=
-operator|new
-name|HClient
-argument_list|(
-name|conf
-argument_list|)
 expr_stmt|;
 block|}
 comment|/** {@inheritDoc} */
@@ -203,7 +195,16 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-name|client
+name|HBaseAdmin
+name|admin
+init|=
+operator|new
+name|HBaseAdmin
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
+name|admin
 operator|.
 name|createTable
 argument_list|(
@@ -235,10 +236,13 @@ parameter_list|()
 block|{
 try|try
 block|{
-name|client
-operator|.
-name|openTable
+name|table
+operator|=
+operator|new
+name|HTable
 argument_list|(
+name|conf
+argument_list|,
 name|TABLE
 argument_list|)
 expr_stmt|;
@@ -246,14 +250,14 @@ comment|// store a value specifying an update time
 name|long
 name|lockid
 init|=
-name|client
+name|table
 operator|.
 name|startUpdate
 argument_list|(
 name|ROW
 argument_list|)
 decl_stmt|;
-name|client
+name|table
 operator|.
 name|put
 argument_list|(
@@ -271,7 +275,7 @@ name|UTF8_ENCODING
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|client
+name|table
 operator|.
 name|commit
 argument_list|(
@@ -283,14 +287,14 @@ expr_stmt|;
 comment|// store a value specifying 'now' as the update time
 name|lockid
 operator|=
-name|client
+name|table
 operator|.
 name|startUpdate
 argument_list|(
 name|ROW
 argument_list|)
 expr_stmt|;
-name|client
+name|table
 operator|.
 name|put
 argument_list|(
@@ -308,7 +312,7 @@ name|UTF8_ENCODING
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|client
+name|table
 operator|.
 name|commit
 argument_list|(
@@ -318,14 +322,14 @@ expr_stmt|;
 comment|// delete values older than T1
 name|lockid
 operator|=
-name|client
+name|table
 operator|.
 name|startUpdate
 argument_list|(
 name|ROW
 argument_list|)
 expr_stmt|;
-name|client
+name|table
 operator|.
 name|delete
 argument_list|(
@@ -334,7 +338,7 @@ argument_list|,
 name|COLUMN
 argument_list|)
 expr_stmt|;
-name|client
+name|table
 operator|.
 name|commit
 argument_list|(
@@ -349,7 +353,7 @@ name|byte
 index|[]
 name|bytes
 init|=
-name|client
+name|table
 operator|.
 name|get
 argument_list|(
@@ -395,7 +399,7 @@ index|[]
 index|[]
 name|values
 init|=
-name|client
+name|table
 operator|.
 name|get
 argument_list|(
@@ -416,7 +420,7 @@ expr_stmt|;
 comment|// the version from T0
 name|values
 operator|=
-name|client
+name|table
 operator|.
 name|get
 argument_list|(
@@ -494,7 +498,7 @@ comment|// now retrieve...
 comment|// the most recent version:
 name|bytes
 operator|=
-name|client
+name|table
 operator|.
 name|get
 argument_list|(
@@ -537,7 +541,7 @@ expr_stmt|;
 comment|// any version<= time T1
 name|values
 operator|=
-name|client
+name|table
 operator|.
 name|get
 argument_list|(
@@ -558,7 +562,7 @@ expr_stmt|;
 comment|// the version from T0
 name|values
 operator|=
-name|client
+name|table
 operator|.
 name|get
 argument_list|(
@@ -601,7 +605,7 @@ expr_stmt|;
 comment|// three versions older than now
 name|values
 operator|=
-name|client
+name|table
 operator|.
 name|get
 argument_list|(
@@ -643,13 +647,13 @@ comment|// Test scanners
 name|HScannerInterface
 name|scanner
 init|=
-name|client
+name|table
 operator|.
 name|obtainScanner
 argument_list|(
 name|COLUMNS
 argument_list|,
-name|HClient
+name|HConstants
 operator|.
 name|EMPTY_START_ROW
 argument_list|)
@@ -731,13 +735,13 @@ expr_stmt|;
 block|}
 name|scanner
 operator|=
-name|client
+name|table
 operator|.
 name|obtainScanner
 argument_list|(
 name|COLUMNS
 argument_list|,
-name|HClient
+name|HConstants
 operator|.
 name|EMPTY_START_ROW
 argument_list|,
@@ -821,13 +825,13 @@ expr_stmt|;
 block|}
 name|scanner
 operator|=
-name|client
+name|table
 operator|.
 name|obtainScanner
 argument_list|(
 name|COLUMNS
 argument_list|,
-name|HClient
+name|HConstants
 operator|.
 name|EMPTY_START_ROW
 argument_list|,

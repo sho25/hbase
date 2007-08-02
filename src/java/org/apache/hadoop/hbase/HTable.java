@@ -462,6 +462,15 @@ name|serverKey
 argument_list|)
 return|;
 block|}
+comment|/** @return the connection */
+name|HConnection
+name|getConnection
+parameter_list|()
+block|{
+return|return
+name|connection
+return|;
+block|}
 comment|/**    * Verifies that no update is in progress    */
 specifier|public
 specifier|synchronized

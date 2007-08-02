@@ -112,6 +112,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|protected
+specifier|volatile
 name|Configuration
 name|conf
 decl_stmt|;

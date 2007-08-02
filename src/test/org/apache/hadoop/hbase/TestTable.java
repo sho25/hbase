@@ -64,6 +64,7 @@ name|TestTable
 extends|extends
 name|HBaseClusterTestCase
 block|{
+comment|/** constructor */
 specifier|public
 name|TestTable
 parameter_list|()
@@ -74,6 +75,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * the test    * @throws IOException    */
 specifier|public
 name|void
 name|testCreateTable
@@ -82,11 +84,11 @@ throws|throws
 name|IOException
 block|{
 specifier|final
-name|HClient
-name|client
+name|HBaseAdmin
+name|admin
 init|=
 operator|new
-name|HClient
+name|HBaseAdmin
 argument_list|(
 name|conf
 argument_list|)
@@ -98,7 +100,7 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-name|client
+name|admin
 operator|.
 name|createTable
 argument_list|(
@@ -166,7 +168,7 @@ literal|null
 expr_stmt|;
 try|try
 block|{
-name|client
+name|admin
 operator|.
 name|createTable
 argument_list|(
@@ -259,7 +261,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|client
+name|admin
 operator|.
 name|createTable
 argument_list|(
@@ -268,7 +270,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-name|client
+name|admin
 operator|.
 name|createTable
 argument_list|(
@@ -414,7 +416,7 @@ parameter_list|()
 block|{
 try|try
 block|{
-name|client
+name|admin
 operator|.
 name|createTable
 argument_list|(
@@ -556,16 +558,16 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HClient
-name|client
+name|HBaseAdmin
+name|admin
 init|=
 operator|new
-name|HClient
+name|HBaseAdmin
 argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|client
+name|admin
 operator|.
 name|createTable
 argument_list|(
@@ -579,7 +581,7 @@ literal|"SOMEUPPERCASE"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|client
+name|admin
 operator|.
 name|createTable
 argument_list|(
@@ -592,10 +594,19 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Before fix, below would fail throwing a NoServerForRegionException.
-name|client
-operator|.
-name|openTable
+annotation|@
+name|SuppressWarnings
 argument_list|(
+literal|"unused"
+argument_list|)
+name|HTable
+name|table
+init|=
+operator|new
+name|HTable
+argument_list|(
+name|conf
+argument_list|,
 operator|new
 name|Text
 argument_list|(
@@ -603,7 +614,7 @@ name|getName
 argument_list|()
 argument_list|)
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 block|}
 block|}
 end_class

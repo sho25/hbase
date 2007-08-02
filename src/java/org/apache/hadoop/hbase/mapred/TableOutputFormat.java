@@ -191,7 +191,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HClient
+name|HTable
 import|;
 end_import
 
@@ -289,23 +289,23 @@ implements|implements
 name|RecordWriter
 block|{
 specifier|private
-name|HClient
-name|m_client
+name|HTable
+name|m_table
 decl_stmt|;
-comment|/**      * Instantiate a TableRecordWriter with the HBase HClient for writing.      *       * @param client      */
+comment|/**      * Instantiate a TableRecordWriter with the HBase HClient for writing.      *       * @param table      */
 specifier|public
 name|TableRecordWriter
 parameter_list|(
-name|HClient
-name|client
+name|HTable
+name|table
 parameter_list|)
 block|{
-name|m_client
+name|m_table
 operator|=
-name|client
+name|table
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)      * @see org.apache.hadoop.mapred.RecordWriter#close(org.apache.hadoop.mapred.Reporter)      */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|close
@@ -369,7 +369,7 @@ comment|// start transaction
 name|long
 name|xid
 init|=
-name|m_client
+name|m_table
 operator|.
 name|startUpdate
 argument_list|(
@@ -401,7 +401,7 @@ index|[
 name|i
 index|]
 decl_stmt|;
-name|m_client
+name|m_table
 operator|.
 name|put
 argument_list|(
@@ -423,7 +423,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// end transaction
-name|m_client
+name|m_table
 operator|.
 name|commit
 argument_list|(
@@ -440,6 +440,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/* (non-Javadoc)    * @see org.apache.hadoop.mapred.OutputFormatBase#getRecordWriter(org.apache.hadoop.fs.FileSystem, org.apache.hadoop.mapred.JobConf, java.lang.String, org.apache.hadoop.util.Progressable)    */
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 annotation|@
@@ -488,25 +489,20 @@ name|OUTPUT_TABLE
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|HClient
-name|client
+name|HTable
+name|table
 init|=
 literal|null
 decl_stmt|;
 try|try
 block|{
-name|client
+name|table
 operator|=
 operator|new
-name|HClient
+name|HTable
 argument_list|(
 name|job
-argument_list|)
-expr_stmt|;
-name|client
-operator|.
-name|openTable
-argument_list|(
+argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;
@@ -536,11 +532,11 @@ return|return
 operator|new
 name|TableRecordWriter
 argument_list|(
-name|client
+name|table
 argument_list|)
 return|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.mapred.OutputFormatBase#checkOutputSpecs(org.apache.hadoop.fs.FileSystem, org.apache.hadoop.mapred.JobConf)    */
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 annotation|@

@@ -85,8 +85,8 @@ extends|extends
 name|HBaseClusterTestCase
 block|{
 specifier|private
-name|HClient
-name|client
+name|HTable
+name|table
 decl_stmt|;
 comment|/** constructor */
 specifier|public
@@ -177,16 +177,6 @@ operator|.
 name|setUp
 argument_list|()
 expr_stmt|;
-name|this
-operator|.
-name|client
-operator|=
-operator|new
-name|HClient
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * The test    * @throws IOException    */
 specifier|public
@@ -197,17 +187,24 @@ throws|throws
 name|IOException
 block|{
 comment|// When the META table can be opened, the region servers are running
-name|this
-operator|.
-name|client
-operator|.
-name|openTable
+annotation|@
+name|SuppressWarnings
 argument_list|(
+literal|"unused"
+argument_list|)
+name|HTable
+name|meta
+init|=
+operator|new
+name|HTable
+argument_list|(
+name|conf
+argument_list|,
 name|HConstants
 operator|.
 name|META_TABLE_NAME
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 comment|// Put something into the meta table.
 name|String
 name|tableName
@@ -240,9 +237,16 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|client
+name|HBaseAdmin
+name|admin
+init|=
+operator|new
+name|HBaseAdmin
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
+name|admin
 operator|.
 name|createTable
 argument_list|(
@@ -252,10 +256,13 @@ expr_stmt|;
 comment|// put some values in the table
 name|this
 operator|.
-name|client
-operator|.
-name|openTable
+name|table
+operator|=
+operator|new
+name|HTable
 argument_list|(
+name|conf
+argument_list|,
 operator|new
 name|Text
 argument_list|(
@@ -275,14 +282,14 @@ decl_stmt|;
 name|long
 name|lockid
 init|=
-name|client
+name|table
 operator|.
 name|startUpdate
 argument_list|(
 name|row
 argument_list|)
 decl_stmt|;
-name|client
+name|table
 operator|.
 name|put
 argument_list|(
@@ -302,7 +309,7 @@ name|UTF8_ENCODING
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|client
+name|table
 operator|.
 name|commit
 argument_list|(
@@ -342,7 +349,7 @@ comment|// to a different server
 name|HScannerInterface
 name|scanner
 init|=
-name|client
+name|table
 operator|.
 name|obtainScanner
 argument_list|(

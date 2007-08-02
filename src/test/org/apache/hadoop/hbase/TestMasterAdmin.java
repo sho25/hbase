@@ -29,6 +29,10 @@ name|Text
 import|;
 end_import
 
+begin_comment
+comment|/** tests administrative functions */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -79,9 +83,10 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-name|HClient
-name|client
+name|HBaseAdmin
+name|admin
 decl_stmt|;
+comment|/** constructor */
 specifier|public
 name|TestMasterAdmin
 parameter_list|()
@@ -91,15 +96,12 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-name|client
+name|admin
 operator|=
-operator|new
-name|HClient
-argument_list|(
-name|conf
-argument_list|)
+literal|null
 expr_stmt|;
 block|}
+comment|/** the test */
 specifier|public
 name|void
 name|testMasterAdmin
@@ -107,14 +109,22 @@ parameter_list|()
 block|{
 try|try
 block|{
-name|client
+name|admin
+operator|=
+operator|new
+name|HBaseAdmin
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+name|admin
 operator|.
 name|createTable
 argument_list|(
 name|testDesc
 argument_list|)
 expr_stmt|;
-name|client
+name|admin
 operator|.
 name|disableTable
 argument_list|(
@@ -144,16 +154,25 @@ try|try
 block|{
 try|try
 block|{
-name|client
-operator|.
-name|openTable
+annotation|@
+name|SuppressWarnings
 argument_list|(
+literal|"unused"
+argument_list|)
+name|HTable
+name|table
+init|=
+operator|new
+name|HTable
+argument_list|(
+name|conf
+argument_list|,
 name|testDesc
 operator|.
 name|getName
 argument_list|()
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -163,7 +182,7 @@ parameter_list|)
 block|{
 comment|// Expected
 block|}
-name|client
+name|admin
 operator|.
 name|addColumn
 argument_list|(
@@ -179,7 +198,7 @@ literal|"col2:"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|client
+name|admin
 operator|.
 name|enableTable
 argument_list|(
@@ -191,7 +210,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-name|client
+name|admin
 operator|.
 name|deleteColumn
 argument_list|(
@@ -216,7 +235,7 @@ parameter_list|)
 block|{
 comment|// Expected
 block|}
-name|client
+name|admin
 operator|.
 name|disableTable
 argument_list|(
@@ -226,7 +245,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|client
+name|admin
 operator|.
 name|deleteColumn
 argument_list|(
@@ -262,7 +281,7 @@ finally|finally
 block|{
 try|try
 block|{
-name|client
+name|admin
 operator|.
 name|deleteTable
 argument_list|(

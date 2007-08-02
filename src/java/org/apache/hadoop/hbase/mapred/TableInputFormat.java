@@ -207,7 +207,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HClient
+name|HTable
 import|;
 end_import
 
@@ -330,8 +330,8 @@ name|Text
 index|[]
 name|m_cols
 decl_stmt|;
-name|HClient
-name|m_client
+name|HTable
+name|m_table
 decl_stmt|;
 comment|/**    * Iterate over an HBase table data, return (HStoreKey, KeyedDataArrayWritable) pairs    */
 class|class
@@ -392,7 +392,7 @@ argument_list|()
 expr_stmt|;
 name|m_scanner
 operator|=
-name|m_client
+name|m_table
 operator|.
 name|obtainScanner
 argument_list|(
@@ -413,7 +413,7 @@ literal|"end construct"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)      * @see org.apache.hadoop.mapred.RecordReader#close()      */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|close
@@ -465,7 +465,7 @@ name|KeyedDataArrayWritable
 argument_list|()
 return|;
 block|}
-comment|/* (non-Javadoc)      * @see org.apache.hadoop.mapred.RecordReader#getPos()      */
+comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|getPos
@@ -477,7 +477,7 @@ return|return
 literal|0
 return|;
 block|}
-comment|/* (non-Javadoc)      * @see org.apache.hadoop.mapred.RecordReader#getProgress()      */
+comment|/** {@inheritDoc} */
 specifier|public
 name|float
 name|getProgress
@@ -680,7 +680,7 @@ name|hasMore
 return|;
 block|}
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.mapred.InputFormat#getRecordReader(org.apache.hadoop.mapred.InputSplit, org.apache.hadoop.mapred.JobConf, org.apache.hadoop.mapred.Reporter)    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|RecordReader
 name|getRecordReader
@@ -762,7 +762,7 @@ name|Text
 index|[]
 name|startKeys
 init|=
-name|m_client
+name|m_table
 operator|.
 name|getStartKeys
 argument_list|()
@@ -884,7 +884,7 @@ return|return
 name|splits
 return|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.mapred.JobConfigurable#configure(org.apache.hadoop.mapred.JobConf)    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|configure
@@ -986,20 +986,15 @@ index|]
 argument_list|)
 expr_stmt|;
 block|}
-name|m_client
-operator|=
-operator|new
-name|HClient
-argument_list|(
-name|job
-argument_list|)
-expr_stmt|;
 try|try
 block|{
-name|m_client
-operator|.
-name|openTable
+name|m_table
+operator|=
+operator|new
+name|HTable
 argument_list|(
+name|job
+argument_list|,
 name|m_tableName
 argument_list|)
 expr_stmt|;
@@ -1026,7 +1021,7 @@ literal|"end configure"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.mapred.InputFormat#validateInput(org.apache.hadoop.mapred.JobConf)    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|validateInput

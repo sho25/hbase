@@ -48,6 +48,8 @@ comment|/**  * Test HClient.  */
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|TestHClient
@@ -75,6 +77,9 @@ specifier|private
 name|HClient
 name|client
 decl_stmt|;
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|setUp
@@ -100,6 +105,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** the test    * @throws Exception    */
 specifier|public
 name|void
 name|testCommandline

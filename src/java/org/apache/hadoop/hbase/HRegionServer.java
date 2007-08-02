@@ -593,15 +593,6 @@ name|Runnable
 implements|,
 name|RegionUnavailableListener
 block|{
-name|HClient
-name|client
-init|=
-operator|new
-name|HClient
-argument_list|(
-name|conf
-argument_list|)
-decl_stmt|;
 comment|/**      * {@inheritDoc}      */
 specifier|public
 name|void
@@ -1043,7 +1034,7 @@ name|HRegion
 operator|.
 name|removeRegionFromMETA
 argument_list|(
-name|client
+name|conf
 argument_list|,
 name|tableToUpdate
 argument_list|,
@@ -1135,7 +1126,7 @@ name|HRegion
 operator|.
 name|addRegionToMETA
 argument_list|(
-name|client
+name|conf
 argument_list|,
 name|tableToUpdate
 argument_list|,

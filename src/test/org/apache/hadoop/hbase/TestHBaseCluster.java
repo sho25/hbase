@@ -85,8 +85,12 @@ name|HTableDescriptor
 name|desc
 decl_stmt|;
 specifier|private
-name|HClient
-name|client
+name|HBaseAdmin
+name|admin
+decl_stmt|;
+specifier|private
+name|HTable
+name|table
 decl_stmt|;
 comment|/** constructor */
 specifier|public
@@ -106,7 +110,13 @@ literal|null
 expr_stmt|;
 name|this
 operator|.
-name|client
+name|admin
+operator|=
+literal|null
+expr_stmt|;
+name|this
+operator|.
+name|table
 operator|=
 literal|null
 expr_stmt|;
@@ -135,6 +145,9 @@ name|cleanup
 argument_list|()
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|tearDown
@@ -231,14 +244,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|client
-operator|=
-operator|new
-name|HClient
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 name|desc
 operator|=
 operator|new
@@ -275,11 +280,32 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|client
+name|admin
+operator|=
+operator|new
+name|HBaseAdmin
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+name|admin
 operator|.
 name|createTable
 argument_list|(
 name|desc
+argument_list|)
+expr_stmt|;
+name|table
+operator|=
+operator|new
+name|HTable
+argument_list|(
+name|conf
+argument_list|,
+name|desc
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -299,16 +325,6 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
-name|client
-operator|.
-name|openTable
-argument_list|(
-name|desc
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-expr_stmt|;
 comment|// Write out a bunch of values
 for|for
 control|(
@@ -328,7 +344,7 @@ block|{
 name|long
 name|writeid
 init|=
-name|client
+name|table
 operator|.
 name|startUpdate
 argument_list|(
@@ -341,7 +357,7 @@ name|k
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|client
+name|table
 operator|.
 name|put
 argument_list|(
@@ -359,7 +375,7 @@ name|getBytes
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|client
+name|table
 operator|.
 name|put
 argument_list|(
@@ -383,7 +399,7 @@ name|getBytes
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|client
+name|table
 operator|.
 name|commit
 argument_list|(
@@ -460,7 +476,7 @@ name|byte
 name|bodydata
 index|[]
 init|=
-name|client
+name|table
 operator|.
 name|get
 argument_list|(
@@ -533,7 +549,7 @@ argument_list|)
 expr_stmt|;
 name|bodydata
 operator|=
-name|client
+name|table
 operator|.
 name|get
 argument_list|(
@@ -656,7 +672,7 @@ decl_stmt|;
 name|HScannerInterface
 name|s
 init|=
-name|client
+name|table
 operator|.
 name|obtainScanner
 argument_list|(
@@ -989,7 +1005,7 @@ name|HTableDescriptor
 index|[]
 name|tables
 init|=
-name|client
+name|admin
 operator|.
 name|listTables
 argument_list|()
@@ -1083,7 +1099,7 @@ throws|throws
 name|IOException
 block|{
 comment|// Delete the table we created
-name|client
+name|admin
 operator|.
 name|deleteTable
 argument_list|(

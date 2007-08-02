@@ -83,8 +83,8 @@ init|=
 literal|null
 decl_stmt|;
 specifier|private
-name|HClient
-name|client
+name|HTable
+name|table
 init|=
 literal|null
 decl_stmt|;
@@ -791,6 +791,7 @@ name|DEBUG
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -804,16 +805,6 @@ name|super
 operator|.
 name|setUp
 argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|client
-operator|=
-operator|new
-name|HClient
-argument_list|(
-name|conf
-argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -867,17 +858,29 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// false positive = 0.0000001
-name|client
+name|HBaseAdmin
+name|admin
+init|=
+operator|new
+name|HBaseAdmin
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
+name|admin
 operator|.
 name|createTable
 argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
-name|client
-operator|.
-name|openTable
+name|table
+operator|=
+operator|new
+name|HTable
 argument_list|(
+name|conf
+argument_list|,
 name|desc
 operator|.
 name|getName
@@ -919,7 +922,7 @@ decl_stmt|;
 name|long
 name|lockid
 init|=
-name|client
+name|table
 operator|.
 name|startUpdate
 argument_list|(
@@ -929,7 +932,7 @@ name|i
 index|]
 argument_list|)
 decl_stmt|;
-name|client
+name|table
 operator|.
 name|put
 argument_list|(
@@ -947,7 +950,7 @@ name|UTF8_ENCODING
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|client
+name|table
 operator|.
 name|commit
 argument_list|(
@@ -1034,7 +1037,7 @@ name|byte
 index|[]
 name|value
 init|=
-name|client
+name|table
 operator|.
 name|get
 argument_list|(

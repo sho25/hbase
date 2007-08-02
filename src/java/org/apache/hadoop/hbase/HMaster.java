@@ -555,8 +555,8 @@ specifier|private
 name|HServerAddress
 name|address
 decl_stmt|;
-name|HClient
-name|client
+name|HConnection
+name|connection
 decl_stmt|;
 name|long
 name|metaRescanInterval
@@ -707,7 +707,7 @@ try|try
 block|{
 name|regionServer
 operator|=
-name|client
+name|connection
 operator|.
 name|getHRegionConnection
 argument_list|(
@@ -2692,10 +2692,11 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|client
+name|connection
 operator|=
-operator|new
-name|HClient
+name|HConnectionManager
+operator|.
+name|getConnection
 argument_list|(
 name|conf
 argument_list|)
@@ -6269,7 +6270,7 @@ return|;
 block|}
 name|server
 operator|=
-name|client
+name|connection
 operator|.
 name|getHRegionConnection
 argument_list|(
@@ -6458,7 +6459,7 @@ literal|1L
 decl_stmt|;
 name|server
 operator|=
-name|client
+name|connection
 operator|.
 name|getHRegionConnection
 argument_list|(
@@ -6722,7 +6723,7 @@ name|regionName
 expr_stmt|;
 name|server
 operator|=
-name|client
+name|connection
 operator|.
 name|getHRegionConnection
 argument_list|(
@@ -6828,7 +6829,7 @@ name|regionName
 expr_stmt|;
 name|server
 operator|=
-name|client
+name|connection
 operator|.
 name|getHRegionConnection
 argument_list|(
@@ -7377,7 +7378,7 @@ name|regionName
 expr_stmt|;
 name|server
 operator|=
-name|client
+name|connection
 operator|.
 name|getHRegionConnection
 argument_list|(
@@ -7505,7 +7506,7 @@ name|regionName
 expr_stmt|;
 name|server
 operator|=
-name|client
+name|connection
 operator|.
 name|getHRegionConnection
 argument_list|(
@@ -8094,9 +8095,9 @@ operator|.
 name|regionName
 decl_stmt|;
 name|HRegionInterface
-name|connection
+name|r
 init|=
-name|client
+name|connection
 operator|.
 name|getHRegionConnection
 argument_list|(
@@ -8108,7 +8109,7 @@ decl_stmt|;
 name|long
 name|scannerid
 init|=
-name|connection
+name|r
 operator|.
 name|openScanner
 argument_list|(
@@ -8137,7 +8138,7 @@ name|KeyedData
 index|[]
 name|data
 init|=
-name|connection
+name|r
 operator|.
 name|next
 argument_list|(
@@ -8197,7 +8198,7 @@ block|}
 block|}
 finally|finally
 block|{
-name|connection
+name|r
 operator|.
 name|close
 argument_list|(
@@ -8207,7 +8208,7 @@ expr_stmt|;
 block|}
 comment|// 2. Create the HRegion
 name|HRegion
-name|r
+name|region
 init|=
 name|HRegion
 operator|.
@@ -8235,7 +8236,7 @@ comment|// 3. Insert into meta
 name|HRegionInfo
 name|info
 init|=
-name|r
+name|region
 operator|.
 name|getRegionInfo
 argument_list|()
@@ -8243,7 +8244,7 @@ decl_stmt|;
 name|Text
 name|regionName
 init|=
-name|r
+name|region
 operator|.
 name|getRegionName
 argument_list|()
@@ -8282,7 +8283,7 @@ decl_stmt|;
 name|long
 name|lockid
 init|=
-name|connection
+name|r
 operator|.
 name|startUpdate
 argument_list|(
@@ -8293,7 +8294,7 @@ argument_list|,
 name|regionName
 argument_list|)
 decl_stmt|;
-name|connection
+name|r
 operator|.
 name|put
 argument_list|(
@@ -8311,7 +8312,7 @@ name|toByteArray
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|connection
+name|r
 operator|.
 name|commit
 argument_list|(
@@ -8328,12 +8329,12 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// 4. Close the new region to flush it to disk.  Close its log file too.
-name|r
+name|region
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|r
+name|region
 operator|.
 name|getLog
 argument_list|()
@@ -8741,7 +8742,7 @@ comment|// Get a connection to a meta server
 name|HRegionInterface
 name|server
 init|=
-name|client
+name|connection
 operator|.
 name|getHRegionConnection
 argument_list|(
@@ -11134,16 +11135,16 @@ condition|)
 block|{
 try|try
 block|{
-name|HClient
-name|client
+name|HBaseAdmin
+name|adm
 init|=
 operator|new
-name|HClient
+name|HBaseAdmin
 argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|client
+name|adm
 operator|.
 name|shutdown
 argument_list|()

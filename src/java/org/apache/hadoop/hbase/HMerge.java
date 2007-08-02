@@ -231,11 +231,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HClient
-name|client
+name|HConnection
+name|connection
 init|=
-operator|new
-name|HClient
+name|HConnectionManager
+operator|.
+name|getConnection
 argument_list|(
 name|conf
 argument_list|)
@@ -243,7 +244,7 @@ decl_stmt|;
 name|boolean
 name|masterIsRunning
 init|=
-name|client
+name|connection
 operator|.
 name|isMasterRunning
 argument_list|()
@@ -307,8 +308,6 @@ argument_list|(
 name|conf
 argument_list|,
 name|fs
-argument_list|,
-name|client
 argument_list|,
 name|tableName
 argument_list|)
@@ -892,8 +891,8 @@ extends|extends
 name|Merger
 block|{
 specifier|private
-name|HClient
-name|client
+name|HTable
+name|table
 decl_stmt|;
 specifier|private
 name|HScannerInterface
@@ -910,9 +909,6 @@ name|conf
 parameter_list|,
 name|FileSystem
 name|fs
-parameter_list|,
-name|HClient
-name|client
 parameter_list|,
 name|Text
 name|tableName
@@ -931,14 +927,13 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|client
+name|table
 operator|=
-name|client
-expr_stmt|;
-name|client
-operator|.
-name|openTable
+operator|new
+name|HTable
 argument_list|(
+name|conf
+argument_list|,
 name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
@@ -946,7 +941,7 @@ name|this
 operator|.
 name|metaScanner
 operator|=
-name|client
+name|table
 operator|.
 name|obtainScanner
 argument_list|(
@@ -1271,7 +1266,7 @@ try|try
 block|{
 name|lockid
 operator|=
-name|client
+name|table
 operator|.
 name|startUpdate
 argument_list|(
@@ -1281,7 +1276,7 @@ name|r
 index|]
 argument_list|)
 expr_stmt|;
-name|client
+name|table
 operator|.
 name|delete
 argument_list|(
@@ -1290,7 +1285,7 @@ argument_list|,
 name|COL_REGIONINFO
 argument_list|)
 expr_stmt|;
-name|client
+name|table
 operator|.
 name|delete
 argument_list|(
@@ -1299,7 +1294,7 @@ argument_list|,
 name|COL_SERVER
 argument_list|)
 expr_stmt|;
-name|client
+name|table
 operator|.
 name|delete
 argument_list|(
@@ -1308,7 +1303,7 @@ argument_list|,
 name|COL_STARTCODE
 argument_list|)
 expr_stmt|;
-name|client
+name|table
 operator|.
 name|commit
 argument_list|(
@@ -1354,7 +1349,7 @@ operator|-
 literal|1L
 condition|)
 block|{
-name|client
+name|table
 operator|.
 name|abort
 argument_list|(
@@ -1424,7 +1419,7 @@ try|try
 block|{
 name|lockid
 operator|=
-name|client
+name|table
 operator|.
 name|startUpdate
 argument_list|(
@@ -1434,7 +1429,7 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|client
+name|table
 operator|.
 name|put
 argument_list|(
@@ -1448,7 +1443,7 @@ name|toByteArray
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|client
+name|table
 operator|.
 name|commit
 argument_list|(
@@ -1494,7 +1489,7 @@ operator|-
 literal|1L
 condition|)
 block|{
-name|client
+name|table
 operator|.
 name|abort
 argument_list|(

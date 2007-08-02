@@ -521,15 +521,9 @@ name|SCAN
 block|}
 argument_list|)
 decl_stmt|;
-specifier|private
-specifier|final
+specifier|volatile
 name|Configuration
 name|conf
-decl_stmt|;
-specifier|private
-specifier|final
-name|HClient
-name|client
 decl_stmt|;
 specifier|private
 name|boolean
@@ -561,7 +555,7 @@ argument_list|(
 literal|"performance_evaluation"
 argument_list|)
 decl_stmt|;
-comment|/*    * Regex to parse lines in input file passed to mapreduce task.    */
+comment|/**    * Regex to parse lines in input file passed to mapreduce task.    */
 specifier|public
 specifier|static
 specifier|final
@@ -577,21 +571,24 @@ operator|+
 literal|"perClientRunRows=(\\d+),\\s+totalRows=(\\d+),\\s+clients=(\\d+)"
 argument_list|)
 decl_stmt|;
-comment|/*    * Enum for map metrics.  Keep it out here rather than inside in the Map    * inner-class so we can find associated properties.    */
+comment|/**    * Enum for map metrics.  Keep it out here rather than inside in the Map    * inner-class so we can find associated properties.    */
 specifier|protected
 specifier|static
 enum|enum
 name|Counter
 block|{
+comment|/** elapsed time */
 name|ELAPSED_TIME
 block|,
+comment|/** number of rows */
 name|ROWS
 block|}
+comment|/**    * Constructor    * @param c Configuration object    */
 specifier|public
 name|PerformanceEvaluation
 parameter_list|(
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|c
 parameter_list|)
 block|{
@@ -601,22 +598,13 @@ name|conf
 operator|=
 name|c
 expr_stmt|;
-name|this
-operator|.
-name|client
-operator|=
-operator|new
-name|HClient
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 block|}
-comment|/*    * Implementations can have their status set.    */
+comment|/**    * Implementations can have their status set.    */
 specifier|static
 interface|interface
 name|Status
 block|{
+comment|/**      * Sets status      * @param msg status message      * @throws IOException      */
 name|void
 name|setStatus
 parameter_list|(
@@ -628,7 +616,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-comment|/*    * MapReduce job that runs a performance evaluation client in each map task.    */
+comment|/**    * MapReduce job that runs a performance evaluation client in each map task.    */
 specifier|public
 specifier|static
 class|class
@@ -638,6 +626,7 @@ name|MapReduceBase
 implements|implements
 name|Mapper
 block|{
+comment|/** configuration parameter name that contains the command */
 specifier|public
 specifier|final
 specifier|static
@@ -654,6 +643,7 @@ specifier|private
 name|PerformanceEvaluation
 name|pe
 decl_stmt|;
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -682,12 +672,11 @@ operator|=
 operator|new
 name|PerformanceEvaluation
 argument_list|(
-operator|new
-name|HBaseConfiguration
-argument_list|()
+name|j
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|map
@@ -805,8 +794,6 @@ parameter_list|(
 name|String
 name|msg
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|reporter
 operator|.
@@ -894,9 +881,8 @@ specifier|private
 name|boolean
 name|checkTable
 parameter_list|(
-specifier|final
-name|HClient
-name|c
+name|HBaseAdmin
+name|admin
 parameter_list|)
 throws|throws
 name|IOException
@@ -905,7 +891,7 @@ name|HTableDescriptor
 index|[]
 name|extantTables
 init|=
-name|c
+name|admin
 operator|.
 name|listTables
 argument_list|()
@@ -980,7 +966,7 @@ operator|!
 name|tableExists
 condition|)
 block|{
-name|c
+name|admin
 operator|.
 name|createTable
 argument_list|(
@@ -1018,9 +1004,11 @@ name|IOException
 block|{
 name|checkTable
 argument_list|(
-name|this
-operator|.
-name|client
+operator|new
+name|HBaseAdmin
+argument_list|(
+name|conf
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Run a mapreduce job.  Run as many maps as asked-for clients.
@@ -1365,11 +1353,6 @@ argument_list|)
 decl_stmt|;
 specifier|protected
 specifier|final
-name|HClient
-name|client
-decl_stmt|;
-specifier|protected
-specifier|final
 name|int
 name|startRow
 decl_stmt|;
@@ -1388,11 +1371,24 @@ specifier|final
 name|Status
 name|status
 decl_stmt|;
+specifier|protected
+name|HBaseAdmin
+name|admin
+decl_stmt|;
+specifier|protected
+name|HTable
+name|table
+decl_stmt|;
+specifier|protected
+specifier|volatile
+name|Configuration
+name|conf
+decl_stmt|;
 name|Test
 parameter_list|(
 specifier|final
-name|HClient
-name|c
+name|Configuration
+name|conf
 parameter_list|,
 specifier|final
 name|int
@@ -1416,12 +1412,6 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|client
-operator|=
-name|c
-expr_stmt|;
-name|this
-operator|.
 name|startRow
 operator|=
 name|startRow
@@ -1443,6 +1433,18 @@ operator|.
 name|status
 operator|=
 name|status
+expr_stmt|;
+name|this
+operator|.
+name|table
+operator|=
+literal|null
+expr_stmt|;
+name|this
+operator|.
+name|conf
+operator|=
+name|conf
 expr_stmt|;
 block|}
 comment|/*      * @return Generated random value to insert into a table cell.      */
@@ -1546,10 +1548,23 @@ name|IOException
 block|{
 name|this
 operator|.
-name|client
-operator|.
-name|openTable
+name|admin
+operator|=
+operator|new
+name|HBaseAdmin
 argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|table
+operator|=
+operator|new
+name|HTable
+argument_list|(
+name|conf
+argument_list|,
 name|tableDescriptor
 operator|.
 name|getName
@@ -1557,6 +1572,11 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|void
 name|testTakedown
 parameter_list|()
@@ -1737,8 +1757,8 @@ block|{
 name|RandomReadTest
 parameter_list|(
 specifier|final
-name|HClient
-name|c
+name|Configuration
+name|conf
 parameter_list|,
 specifier|final
 name|int
@@ -1759,7 +1779,7 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-name|c
+name|conf
 argument_list|,
 name|startRow
 argument_list|,
@@ -1790,7 +1810,7 @@ name|IOException
 block|{
 name|this
 operator|.
-name|client
+name|table
 operator|.
 name|get
 argument_list|(
@@ -1801,6 +1821,8 @@ name|COLUMN_NAME
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|int
 name|getReportingPeriod
@@ -1834,8 +1856,8 @@ block|{
 name|RandomWriteTest
 parameter_list|(
 specifier|final
-name|HClient
-name|c
+name|Configuration
+name|conf
 parameter_list|,
 specifier|final
 name|int
@@ -1856,7 +1878,7 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-name|c
+name|conf
 argument_list|,
 name|startRow
 argument_list|,
@@ -1894,14 +1916,14 @@ decl_stmt|;
 name|long
 name|lockid
 init|=
-name|client
+name|table
 operator|.
 name|startUpdate
 argument_list|(
 name|row
 argument_list|)
 decl_stmt|;
-name|client
+name|table
 operator|.
 name|put
 argument_list|(
@@ -1913,7 +1935,7 @@ name|generateValue
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|client
+name|table
 operator|.
 name|commit
 argument_list|(
@@ -1972,8 +1994,8 @@ decl_stmt|;
 name|ScanTest
 parameter_list|(
 specifier|final
-name|HClient
-name|c
+name|Configuration
+name|conf
 parameter_list|,
 specifier|final
 name|int
@@ -1994,7 +2016,7 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-name|c
+name|conf
 argument_list|,
 name|startRow
 argument_list|,
@@ -2023,7 +2045,7 @@ name|this
 operator|.
 name|testScanner
 operator|=
-name|client
+name|table
 operator|.
 name|obtainScanner
 argument_list|(
@@ -2139,8 +2161,8 @@ block|{
 name|SequentialReadTest
 parameter_list|(
 specifier|final
-name|HClient
-name|c
+name|Configuration
+name|conf
 parameter_list|,
 specifier|final
 name|int
@@ -2161,7 +2183,7 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-name|c
+name|conf
 argument_list|,
 name|startRow
 argument_list|,
@@ -2185,7 +2207,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|client
+name|table
 operator|.
 name|get
 argument_list|(
@@ -2223,8 +2245,8 @@ block|{
 name|SequentialWriteTest
 parameter_list|(
 specifier|final
-name|HClient
-name|c
+name|Configuration
+name|conf
 parameter_list|,
 specifier|final
 name|int
@@ -2245,7 +2267,7 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-name|c
+name|conf
 argument_list|,
 name|startRow
 argument_list|,
@@ -2272,7 +2294,7 @@ block|{
 name|long
 name|lockid
 init|=
-name|client
+name|table
 operator|.
 name|startUpdate
 argument_list|(
@@ -2288,7 +2310,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|client
+name|table
 operator|.
 name|put
 argument_list|(
@@ -2300,7 +2322,7 @@ name|generateValue
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|client
+name|table
 operator|.
 name|commit
 argument_list|(
@@ -2387,7 +2409,7 @@ name|RandomReadTest
 argument_list|(
 name|this
 operator|.
-name|client
+name|conf
 argument_list|,
 name|startRow
 argument_list|,
@@ -2444,7 +2466,7 @@ name|RandomWriteTest
 argument_list|(
 name|this
 operator|.
-name|client
+name|conf
 argument_list|,
 name|startRow
 argument_list|,
@@ -2482,7 +2504,7 @@ name|ScanTest
 argument_list|(
 name|this
 operator|.
-name|client
+name|conf
 argument_list|,
 name|startRow
 argument_list|,
@@ -2520,7 +2542,7 @@ name|SequentialReadTest
 argument_list|(
 name|this
 operator|.
-name|client
+name|conf
 argument_list|,
 name|startRow
 argument_list|,
@@ -2558,7 +2580,7 @@ name|SequentialWriteTest
 argument_list|(
 name|this
 operator|.
-name|client
+name|conf
 argument_list|,
 name|startRow
 argument_list|,
@@ -2658,13 +2680,26 @@ expr_stmt|;
 block|}
 block|}
 decl_stmt|;
+name|HBaseAdmin
+name|admin
+init|=
+literal|null
+decl_stmt|;
 try|try
 block|{
-name|checkTable
+name|admin
+operator|=
+operator|new
+name|HBaseAdmin
 argument_list|(
 name|this
 operator|.
-name|client
+name|conf
+argument_list|)
+expr_stmt|;
+name|checkTable
+argument_list|(
+name|admin
 argument_list|)
 expr_stmt|;
 if|if
@@ -2779,9 +2814,14 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|client
+if|if
+condition|(
+name|admin
+operator|!=
+literal|null
+condition|)
+block|{
+name|admin
 operator|.
 name|deleteTable
 argument_list|(
@@ -2791,6 +2831,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 specifier|private
