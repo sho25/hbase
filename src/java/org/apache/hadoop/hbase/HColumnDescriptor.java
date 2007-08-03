@@ -491,7 +491,7 @@ operator|=
 name|COLUMN_DESCRIPTOR_VERSION
 expr_stmt|;
 block|}
-comment|/**    * @return    - name of column family    */
+comment|/** @return name of column family */
 specifier|public
 name|Text
 name|getName
@@ -501,7 +501,7 @@ return|return
 name|name
 return|;
 block|}
-comment|/**    * @return    - compression type being used for the column family    */
+comment|/** @return compression type being used for the column family */
 specifier|public
 name|CompressionType
 name|getCompression
@@ -574,7 +574,7 @@ return|return
 name|value
 return|;
 block|}
-comment|/**    * @return    - maximum number of versions    */
+comment|/** @return maximum number of versions */
 specifier|public
 name|int
 name|getMaxVersions
@@ -586,6 +586,7 @@ operator|.
 name|maxVersions
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -667,6 +668,7 @@ operator|+
 literal|")"
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -686,6 +688,7 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -808,9 +811,8 @@ return|return
 name|result
 return|;
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Writable
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -904,6 +906,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -991,9 +994,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Comparable
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo

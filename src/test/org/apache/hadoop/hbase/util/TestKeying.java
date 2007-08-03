@@ -27,6 +27,10 @@ name|TestCase
 import|;
 end_import
 
+begin_comment
+comment|/**  * Tests url transformations  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -34,6 +38,9 @@ name|TestKeying
 extends|extends
 name|TestCase
 block|{
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|setUp
@@ -47,6 +54,9 @@ name|setUp
 argument_list|()
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|tearDown
@@ -60,6 +70,7 @@ name|tearDown
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Test url transformations    * @throws Exception    */
 specifier|public
 name|void
 name|testURI

@@ -81,6 +81,10 @@ name|TestCase
 import|;
 end_import
 
+begin_comment
+comment|/**  * Tests for the page row filter  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -97,6 +101,9 @@ name|ROW_LIMIT
 init|=
 literal|3
 decl_stmt|;
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|setUp
@@ -118,6 +125,7 @@ name|ROW_LIMIT
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * test page size filter    * @throws Exception    */
 specifier|public
 name|void
 name|testPageSize
@@ -131,6 +139,7 @@ name|mainFilter
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Test filter serialization    * @throws Exception    */
 specifier|public
 name|void
 name|testSerialization

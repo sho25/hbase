@@ -168,7 +168,7 @@ argument_list|(
 literal|"^.*[\\\\+|^&*$\\[\\]\\}{)(]+.*$"
 argument_list|)
 decl_stmt|;
-comment|// The kind of match we are doing on a column:
+comment|/** The kind of match we are doing on a column: */
 specifier|private
 specifier|static
 enum|enum
@@ -183,11 +183,7 @@ block|,
 comment|/** Literal matching */
 name|SIMPLE
 block|}
-comment|// This class provides column matching functions that are more sophisticated
-comment|// than a simple string compare. There are three types of matching:
-comment|// 1. Match on the column family name only
-comment|// 2. Match on the column family + column key regex
-comment|// 3. Simple match: compare column family + column key literally
+comment|/**    * This class provides column matching functions that are more sophisticated    * than a simple string compare. There are three types of matching:    * 1. Match on the column family name only    * 2. Match on the column family + column key regex    * 3. Simple match: compare column family + column key literally    */
 specifier|private
 specifier|static
 class|class
@@ -371,7 +367,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|// Matching method
+comment|/** Matching method */
 name|boolean
 name|matches
 parameter_list|(
@@ -858,7 +854,7 @@ name|void
 name|close
 parameter_list|()
 function_decl|;
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HInternalScannerInterface#isWildcardScanner()    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|isWildcardScanner
@@ -870,7 +866,7 @@ operator|.
 name|wildcardMatch
 return|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.HInternalScannerInterface#isMultipleMatchScanner()    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|isMultipleMatchScanner

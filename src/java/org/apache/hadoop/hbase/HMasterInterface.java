@@ -64,6 +64,7 @@ name|HMasterInterface
 extends|extends
 name|VersionedProtocol
 block|{
+comment|/** Interface version */
 specifier|public
 specifier|static
 specifier|final
@@ -72,18 +73,14 @@ name|versionID
 init|=
 literal|1L
 decl_stmt|;
-comment|// initial version
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|// Check to see if master is available
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|/** @return true if master is available */
 specifier|public
 name|boolean
 name|isMasterRunning
 parameter_list|()
 function_decl|;
-comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Admin tools would use these cmds
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|/**    * Creates a new table    * @param desc table descriptor    * @throws IOException    */
 specifier|public
 name|void
 name|createTable
@@ -94,6 +91,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Deletes a table    * @param tableName    * @throws IOException    */
 specifier|public
 name|void
 name|deleteTable
@@ -104,6 +102,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Adds a column to the specified table    * @param tableName    * @param column column descriptor    * @throws IOException    */
 specifier|public
 name|void
 name|addColumn
@@ -117,6 +116,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Deletes a column from the specified table    * @param tableName    * @param columnName    * @throws IOException    */
 specifier|public
 name|void
 name|deleteColumn
@@ -130,6 +130,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Puts the table on-line (only needed if table has been previously taken offline)    * @param tableName    * @throws IOException    */
 specifier|public
 name|void
 name|enableTable
@@ -140,6 +141,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Take table offline    *     * @param tableName    * @throws IOException    */
 specifier|public
 name|void
 name|disableTable
@@ -150,7 +152,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Shutdown an HBase cluster.    */
+comment|/**    * Shutdown an HBase cluster.    * @throws IOException    */
 specifier|public
 name|void
 name|shutdown
@@ -158,9 +160,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|// These are the method calls of last resort when trying to find an HRegion
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|/**    * Get the location of the root region    * @return address of server that serves the root region    */
 specifier|public
 name|HServerAddress
 name|findRootRegion

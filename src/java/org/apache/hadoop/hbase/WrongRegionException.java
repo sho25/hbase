@@ -25,6 +25,10 @@ name|IOException
 import|;
 end_import
 
+begin_comment
+comment|/**  * Thrown when a request contains a key which is not part of this region  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -40,6 +44,7 @@ name|serialVersionUID
 init|=
 literal|993179627856392526L
 decl_stmt|;
+comment|/** constructor */
 specifier|public
 name|WrongRegionException
 parameter_list|()
@@ -48,6 +53,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Constructor    * @param s message    */
 specifier|public
 name|WrongRegionException
 parameter_list|(

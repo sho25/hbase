@@ -40,7 +40,7 @@ import|;
 end_import
 
 begin_comment
-comment|/*******************************************************************************  * HRegionServers interact with the HMasterRegionInterface to report on local   * goings-on and to obtain data-handling instructions from the HMaster.  *********************************************/
+comment|/**  * HRegionServers interact with the HMasterRegionInterface to report on local   * goings-on and to obtain data-handling instructions from the HMaster.  */
 end_comment
 
 begin_interface
@@ -50,6 +50,7 @@ name|HMasterRegionInterface
 extends|extends
 name|VersionedProtocol
 block|{
+comment|/** Interface version number */
 specifier|public
 specifier|static
 specifier|final
@@ -58,6 +59,7 @@ name|versionID
 init|=
 literal|1L
 decl_stmt|;
+comment|/**    * Called when a region server first starts    * @param info    * @throws IOException    */
 specifier|public
 name|void
 name|regionServerStartup
@@ -68,6 +70,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Called to renew lease, tell master what the region server is doing and to    * receive new instructions from the master    *     * @param info server's address and start code    * @param msgs things the region server wants to tell the master    * @return instructions from the master to the region server    * @throws IOException    */
 specifier|public
 name|HMsg
 index|[]

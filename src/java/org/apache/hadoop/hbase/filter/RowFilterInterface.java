@@ -71,7 +71,7 @@ name|void
 name|reset
 parameter_list|()
 function_decl|;
-comment|/**    * Called to let filter know the final decision (to pass or filter) on a     * given row.  With out HScanner calling this, the filter does not know if a     * row passed filtering even if it passed the row itself because other     * filters may have failed the row. E.g. when this filter is a member of a     * RowFilterSet with an OR operator.    *     * @see RowFilterSet    * @param key    */
+comment|/**    * Called to let filter know the final decision (to pass or filter) on a     * given row.  With out HScanner calling this, the filter does not know if a     * row passed filtering even if it passed the row itself because other     * filters may have failed the row. E.g. when this filter is a member of a     * RowFilterSet with an OR operator.    *     * @see RowFilterSet    * @param filtered    * @param key    */
 name|void
 name|rowProcessed
 parameter_list|(

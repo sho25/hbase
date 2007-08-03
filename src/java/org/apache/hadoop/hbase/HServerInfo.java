@@ -40,7 +40,7 @@ import|;
 end_import
 
 begin_comment
-comment|/*******************************************************************************  * HRSInfo contains metainfo about an HRegionServer, including details about the  * source machine and load statistics.  ******************************************************************************/
+comment|/**  * HServerInfo contains metainfo about an HRegionServer, Currently it only  * contains the server start code.  *   * In the future it will contain information about the source machine and  * load statistics.  */
 end_comment
 
 begin_class
@@ -58,6 +58,7 @@ specifier|private
 name|long
 name|startCode
 decl_stmt|;
+comment|/** default constructor - used by Writable */
 specifier|public
 name|HServerInfo
 parameter_list|()
@@ -77,6 +78,7 @@ operator|=
 literal|0
 expr_stmt|;
 block|}
+comment|/**    * Constructs a fully initialized object    * @param serverAddress    * @param startCode    */
 specifier|public
 name|HServerInfo
 parameter_list|(
@@ -104,6 +106,7 @@ operator|=
 name|startCode
 expr_stmt|;
 block|}
+comment|/**    * Construct a new object using another as input (like a copy constructor)    * @param other    */
 specifier|public
 name|HServerInfo
 parameter_list|(
@@ -134,6 +137,7 @@ name|getStartCode
 argument_list|()
 expr_stmt|;
 block|}
+comment|/** @return the server address */
 specifier|public
 name|HServerAddress
 name|getServerAddress
@@ -143,6 +147,7 @@ return|return
 name|serverAddress
 return|;
 block|}
+comment|/** @return the server start code */
 specifier|public
 name|long
 name|getStartCode
@@ -152,6 +157,7 @@ return|return
 name|startCode
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -173,9 +179,8 @@ operator|.
 name|startCode
 return|;
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Writable
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -205,6 +210,7 @@ name|readLong
 argument_list|()
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write

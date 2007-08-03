@@ -243,7 +243,7 @@ operator|.
 name|bytes
 return|;
 block|}
-comment|/**    * Get the current size of the buffer.    */
+comment|/**    * @return the current size of the buffer.    */
 specifier|public
 name|int
 name|getSize
@@ -276,7 +276,7 @@ operator|.
 name|length
 return|;
 block|}
-comment|// inherit javadoc
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -319,7 +319,7 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
-comment|// inherit javadoc
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -361,6 +361,9 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Below methods copied from BytesWritable
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|hashCode
@@ -405,6 +408,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+comment|/**    * Compares the bytes in this object to the specified byte array    * @param that    * @return Positive if left is bigger than right, 0 if they are equal, and    *         negative if left is smaller than right.    */
 specifier|public
 name|int
 name|compareTo
@@ -463,7 +467,9 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * Are the two byte sequences equal?    */
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|equals
@@ -492,7 +498,9 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Generate the stream of bytes as hex pairs separated by ' '.    */
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -615,6 +623,7 @@ operator|.
 name|Comparator
 argument_list|()
 decl_stmt|;
+comment|/** constructor */
 specifier|public
 name|Comparator
 parameter_list|()
@@ -627,7 +636,9 @@ name|class
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Compare the buffers in serialized form.      */
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compare

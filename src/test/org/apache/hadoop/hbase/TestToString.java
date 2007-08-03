@@ -39,6 +39,10 @@ name|TestCase
 import|;
 end_import
 
+begin_comment
+comment|/**  * Tests toString methods.  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -46,6 +50,7 @@ name|TestToString
 extends|extends
 name|TestCase
 block|{
+comment|/**    * tests toString methods on HSeverAddress, HServerInfo    * @throws Exception    */
 specifier|public
 name|void
 name|testServerInfo
@@ -112,6 +117,7 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Tests toString method on HRegionInfo    * @throws Exception    */
 specifier|public
 name|void
 name|testHRegionInfo

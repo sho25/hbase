@@ -199,6 +199,7 @@ operator|++
 expr_stmt|;
 block|}
 comment|//end incrementWeight()
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -220,6 +221,7 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -282,7 +284,7 @@ name|result
 return|;
 block|}
 comment|// Writable
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#write(java.io.DataOutput)    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -317,7 +319,7 @@ name|weight
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#readFields(java.io.DataInput)    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -359,7 +361,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// Comparable
-comment|/* (non-Javadoc)    * @see java.lang.Comparable#compareTo(java.lang.Object)    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo

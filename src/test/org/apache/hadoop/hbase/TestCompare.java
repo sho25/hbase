@@ -50,6 +50,7 @@ name|TestCompare
 extends|extends
 name|TestCase
 block|{
+comment|/** test case */
 specifier|public
 name|void
 name|testHRegionInfo

@@ -26,6 +26,7 @@ name|TestMergeMeta
 extends|extends
 name|AbstractMergeTestBase
 block|{
+comment|/**    * test case    */
 specifier|public
 name|void
 name|testMergeMeta

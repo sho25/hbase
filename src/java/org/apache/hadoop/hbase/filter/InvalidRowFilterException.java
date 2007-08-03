@@ -36,6 +36,7 @@ name|serialVersionUID
 init|=
 literal|2667894046345657865L
 decl_stmt|;
+comment|/** constructor */
 specifier|public
 name|InvalidRowFilterException
 parameter_list|()
@@ -44,6 +45,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * constructor    * @param s message    */
 specifier|public
 name|InvalidRowFilterException
 parameter_list|(

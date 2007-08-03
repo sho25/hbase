@@ -50,7 +50,7 @@ import|;
 end_import
 
 begin_comment
-comment|/*******************************************************************************  * HScannerInterface iterates through a set of rows.  It's implemented by several classes.  ******************************************************************************/
+comment|/**  * HScannerInterface iterates through a set of rows.  It's implemented by  * several classes.  */
 end_comment
 
 begin_interface
@@ -58,6 +58,7 @@ specifier|public
 interface|interface
 name|HScannerInterface
 block|{
+comment|/**    * Get the next set of values    * @param key will contain the row and timestamp upon return    * @param results will contain an entry for each column family member and its value    * @return true if data was returned    * @throws IOException    */
 specifier|public
 name|boolean
 name|next
@@ -77,6 +78,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Closes a scanner and releases any resources it has allocated    * @throws IOException    */
 specifier|public
 name|void
 name|close

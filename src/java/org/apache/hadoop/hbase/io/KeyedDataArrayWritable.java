@@ -143,6 +143,7 @@ name|data
 expr_stmt|;
 block|}
 comment|// Writable
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -205,6 +206,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write

@@ -133,10 +133,8 @@ return|return
 name|data
 return|;
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Writable
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#write(java.io.DataOutput)    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -175,7 +173,7 @@ name|data
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#readFields(java.io.DataInput)    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields

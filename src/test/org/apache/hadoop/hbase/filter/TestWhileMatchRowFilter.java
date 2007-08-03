@@ -81,6 +81,10 @@ name|Text
 import|;
 end_import
 
+begin_comment
+comment|/**  * Tests for the while-match filter  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -94,6 +98,9 @@ decl_stmt|;
 name|WhileMatchRowFilter
 name|wmRegExpRowFilter
 decl_stmt|;
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|setUp
@@ -135,6 +142,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Tests while match stop row    * @throws Exception    */
 specifier|public
 name|void
 name|testWhileMatchStopRow
@@ -148,6 +156,7 @@ name|wmStopRowFilter
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Tests while match regex    * @throws Exception    */
 specifier|public
 name|void
 name|testWhileMatchRegExp
@@ -161,6 +170,7 @@ name|wmRegExpRowFilter
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Tests serialization    * @throws Exception    */
 specifier|public
 name|void
 name|testSerialization

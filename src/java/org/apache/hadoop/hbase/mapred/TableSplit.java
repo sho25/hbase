@@ -191,7 +191,7 @@ return|return
 name|m_endRow
 return|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.mapred.InputSplit#getLength()    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|getLength
@@ -202,7 +202,7 @@ return|return
 literal|0
 return|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.mapred.InputSplit#getLocations()    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|String
 index|[]
@@ -217,7 +217,7 @@ index|[]
 block|{ }
 return|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#readFields(java.io.DataInput)    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -250,7 +250,7 @@ name|in
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#write(java.io.DataOutput)    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -283,6 +283,7 @@ name|out
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

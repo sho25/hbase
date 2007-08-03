@@ -505,7 +505,7 @@ name|HRegionInterface
 argument_list|>
 name|servers
 decl_stmt|;
-comment|/** constructor      * @param conf Configuration object      */
+comment|/**       * constructor      * @param conf Configuration object      */
 annotation|@
 name|SuppressWarnings
 argument_list|(

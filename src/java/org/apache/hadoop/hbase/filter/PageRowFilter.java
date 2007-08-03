@@ -192,7 +192,7 @@ operator|=
 literal|0
 expr_stmt|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|rowProcessed
@@ -200,6 +200,11 @@ parameter_list|(
 name|boolean
 name|filtered
 parameter_list|,
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|Text
 name|rowKey
 parameter_list|)

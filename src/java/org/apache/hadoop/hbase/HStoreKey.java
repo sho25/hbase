@@ -420,7 +420,7 @@ operator|=
 name|timestamp
 expr_stmt|;
 block|}
-comment|/**    * @return Approximate size in bytes of this key.    */
+comment|/** @return Approximate size in bytes of this key. */
 specifier|public
 name|long
 name|getSize
@@ -445,7 +445,7 @@ literal|8
 comment|/* There is no sizeof in java. Presume long is 8 (64bit machine)*/
 return|;
 block|}
-comment|/**    * Construct a new HStoreKey from another    *     * @param other the source key    */
+comment|/**    * Constructs a new HStoreKey from another    *     * @param other the source key    */
 specifier|public
 name|HStoreKey
 parameter_list|(
@@ -590,7 +590,7 @@ return|return
 name|timestamp
 return|;
 block|}
-comment|/**    * @param other Key to compare against. Compares row and column.    * @return True if same row and column.    * @see #matchesWithoutColumn(HStoreKey)    * @see #matchesRowFamily(HStoreKey)    */
+comment|/**    * Compares the row and column of two keys    * @param other Key to compare against. Compares row and column.    * @return True if same row and column.    * @see #matchesWithoutColumn(HStoreKey)    * @see #matchesRowFamily(HStoreKey)    */
 specifier|public
 name|boolean
 name|matchesRowCol
@@ -627,7 +627,7 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**    * @param other Key to copmare against. Compares row and timestamp.    *     * @return True if same row and timestamp is greater than<code>other</code>    * @see #matchesRowCol(HStoreKey)    * @see #matchesRowFamily(HStoreKey)    */
+comment|/**    * Compares the row and timestamp of two keys    *     * @param other Key to copmare against. Compares row and timestamp.    *     * @return True if same row and timestamp is greater than<code>other</code>    * @see #matchesRowCol(HStoreKey)    * @see #matchesRowFamily(HStoreKey)    */
 specifier|public
 name|boolean
 name|matchesWithoutColumn
@@ -660,7 +660,7 @@ name|getTimestamp
 argument_list|()
 return|;
 block|}
-comment|/**    * @param that Key to compare against. Compares row and column family    *     * @return true if same row and column family    * @throws InvalidColumnNameException     * @see #matchesRowCol(HStoreKey)    * @see #matchesWithoutColumn(HStoreKey)    */
+comment|/**    * Compares the row and column family of two keys    *     * @param that Key to compare against. Compares row and column family    *     * @return true if same row and column family    * @throws InvalidColumnNameException     * @see #matchesRowCol(HStoreKey)    * @see #matchesWithoutColumn(HStoreKey)    */
 specifier|public
 name|boolean
 name|matchesRowFamily
@@ -706,6 +706,7 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -731,6 +732,7 @@ operator|+
 name|timestamp
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -750,6 +752,7 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -794,10 +797,8 @@ return|return
 name|result
 return|;
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Comparable
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|/* (non-Javadoc)    * @see java.lang.Comparable#compareTo(java.lang.Object)    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo
@@ -895,10 +896,8 @@ return|return
 name|result
 return|;
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Writable
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#write(java.io.DataOutput)    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -931,7 +930,7 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#readFields(java.io.DataInput)    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields

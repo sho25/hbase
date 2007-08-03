@@ -122,7 +122,7 @@ import|;
 end_import
 
 begin_comment
-comment|/*******************************************************************************  * Each HStore maintains a bunch of different data files.  *  * The filename is a mix of the parent dir, the region name, the column name,   * and the file identifier.  *   * This class handles all that path-building stuff for you.  ******************************************************************************/
+comment|/**  * Each HStore maintains a bunch of different data files.  *  * An HStoreFile tracks 4 things: its parent dir, the region identifier, the   * column family, and the file identifier.  If you know those four things, you  * know how to obtain the right HStoreFile.  *  * When merging or splitting HRegions, we might want to modify one of the   * params for an HStoreFile (effectively moving it elsewhere).  *   * The filename is a mix of the parent dir, the region name, the column name,   * and the file identifier.  *   * This class handles all that path-building stuff for you.  */
 end_comment
 
 begin_class
@@ -218,7 +218,7 @@ decl_stmt|;
 name|Configuration
 name|conf
 decl_stmt|;
-comment|/**    * An HStoreFile tracks 4 things: its parent dir, the region identifier, the     * column family, and the file identifier.  If you know those four things, you    * know how to obtain the right HStoreFile.    *    * When merging or splitting HRegions, we might want to modify one of the     * params for an HStoreFile (effectively moving it elsewhere).    */
+comment|/** Constructor used by Writable */
 name|HStoreFile
 parameter_list|(
 name|Configuration
@@ -266,6 +266,7 @@ operator|=
 literal|0
 expr_stmt|;
 block|}
+comment|/**    * Constructor that fully initializes the object    * @param conf Configuration object    * @param dir directory path    * @param regionName name of the region    * @param colFamily name of the column family    * @param fileId file identifier    */
 name|HStoreFile
 parameter_list|(
 name|Configuration
@@ -323,7 +324,7 @@ operator|=
 name|fileId
 expr_stmt|;
 block|}
-comment|// Get the individual components
+comment|/** @return the directory path */
 name|Path
 name|getDir
 parameter_list|()
@@ -332,6 +333,7 @@ return|return
 name|dir
 return|;
 block|}
+comment|/** @return the region name */
 name|Text
 name|getRegionName
 parameter_list|()
@@ -340,6 +342,7 @@ return|return
 name|regionName
 return|;
 block|}
+comment|/** @return the column family */
 name|Text
 name|getColFamily
 parameter_list|()
@@ -348,6 +351,7 @@ return|return
 name|colFamily
 return|;
 block|}
+comment|/** @return the file identifier */
 name|long
 name|fileId
 parameter_list|()
@@ -357,6 +361,7 @@ name|fileId
 return|;
 block|}
 comment|// Build full filenames from those components
+comment|/** @return path for MapFile */
 name|Path
 name|getMapFilePath
 parameter_list|()
@@ -382,6 +387,7 @@ name|fileId
 argument_list|)
 return|;
 block|}
+comment|/** @return path for info file */
 name|Path
 name|getInfoFilePath
 parameter_list|()
@@ -409,6 +415,7 @@ return|;
 block|}
 comment|// Static methods to build partial paths to internal directories.  Useful for
 comment|// HStore construction and log-rebuilding.
+comment|/** @return the map directory path */
 specifier|static
 name|Path
 name|getMapDir
@@ -450,6 +457,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+comment|/** @return the info directory path */
 specifier|static
 name|Path
 name|getInfoDir
@@ -491,6 +499,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+comment|/** @return the bloom filter directory path */
 specifier|static
 name|Path
 name|getFilterDir
@@ -532,6 +541,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+comment|/** @return the HStore directory path */
 specifier|static
 name|Path
 name|getHStoreDir
@@ -567,6 +577,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+comment|/** @return the HRegion directory path */
 specifier|static
 name|Path
 name|getHRegionDir
@@ -594,7 +605,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Obtain a brand-new randomly-named HStoreFile.  Checks the existing    * filesystem if the file already exists.    */
+comment|/**    * @return a brand-new randomly-named HStoreFile.    *     * Checks the filesystem to determine if the file already exists. If so, it    * will keep generating names until it generates a name that does not exist.    */
 specifier|static
 name|HStoreFile
 name|obtainNewHStoreFile
@@ -740,7 +751,7 @@ name|fileId
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a series of HStoreFiles loaded from the given directory.    *     * There must be a matching 'mapdir' and 'loginfo' pair of files.    * If only one exists, we'll delete it.    */
+comment|/**    * Creates a series of HStoreFiles loaded from the given directory.    *     * There must be a matching 'mapdir' and 'loginfo' pair of files.    * If only one exists, we'll delete it.    *    * @param conf Configuration object    * @param dir directory path    * @param regionName region name    * @param colFamily column family    * @param fs file system    * @return Vector of HStoreFiles    * @throws IOException    */
 specifier|static
 name|Vector
 argument_list|<
@@ -1057,10 +1068,8 @@ return|return
 name|results
 return|;
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
 comment|// File handling
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Break this HStoreFile file into two new parts, which live in different     * brand-new HRegions.    */
+comment|/**    * Break this HStoreFile file into two new parts, which live in different     * brand-new HRegions.    *    * @param midKey the key which will be the starting key of the second region    * @param dstA the file which will contain keys from the start of the source    * @param dstB the file which will contain keys from midKey to end of source    * @param fs file system    * @param c configuration    * @throws IOException    */
 name|void
 name|splitStoreFile
 parameter_list|(
@@ -1331,7 +1340,7 @@ name|seqid
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Write to this HStoreFile with all the contents of the given source HStoreFiles.    * We are merging multiple regions into a single new one.    */
+comment|/**    * Merges the contents of the given source HStoreFiles into a single new one.    *    * @param srcFiles files to be merged    * @param fs file system    * @param conf configuration object    * @throws IOException    */
 name|void
 name|mergeStoreFiles
 parameter_list|(
@@ -1384,32 +1393,12 @@ try|try
 block|{
 for|for
 control|(
-name|Iterator
-argument_list|<
-name|HStoreFile
-argument_list|>
-name|it
-init|=
-name|srcFiles
-operator|.
-name|iterator
-argument_list|()
-init|;
-name|it
-operator|.
-name|hasNext
-argument_list|()
-condition|;
-control|)
-block|{
 name|HStoreFile
 name|src
-init|=
-name|it
-operator|.
-name|next
-argument_list|()
-decl_stmt|;
+range|:
+name|srcFiles
+control|)
+block|{
 name|MapFile
 operator|.
 name|Reader
@@ -1556,7 +1545,7 @@ name|unifiedSeqId
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Read in an info file, give it a unique ID. */
+comment|/**     * Reads in an info file, and gives it a unique ID.    *    * @param fs file system    * @return new unique id    * @throws IOException    */
 name|long
 name|loadInfo
 parameter_list|(
@@ -1629,7 +1618,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/** Write the file-identifier to disk */
+comment|/**    * Writes the file-identifier to disk    *     * @param fs file system    * @param infonum file id    * @throws IOException    */
 name|void
 name|writeInfo
 parameter_list|(
@@ -1688,6 +1677,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1709,6 +1699,7 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1762,10 +1753,8 @@ return|return
 name|result
 return|;
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Writable
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#write(java.io.DataOutput)    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -1808,7 +1797,7 @@ name|fileId
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.io.Writable#readFields(java.io.DataInput)    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -1860,10 +1849,8 @@ name|readLong
 argument_list|()
 expr_stmt|;
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Comparable
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|/* (non-Javadoc)    * @see java.lang.Comparable#compareTo(java.lang.Object)    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo

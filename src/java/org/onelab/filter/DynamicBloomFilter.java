@@ -131,6 +131,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|//end constructor
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -200,6 +201,7 @@ operator|++
 expr_stmt|;
 block|}
 comment|//end add()
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -322,6 +324,7 @@ expr_stmt|;
 block|}
 block|}
 comment|//end and()
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -383,6 +386,7 @@ literal|false
 return|;
 block|}
 comment|//end membershipTest()
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -418,6 +422,7 @@ expr_stmt|;
 block|}
 block|}
 comment|//end not()
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -540,6 +545,7 @@ expr_stmt|;
 block|}
 block|}
 comment|//end or()
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -662,6 +668,7 @@ expr_stmt|;
 block|}
 block|}
 comment|//end xor()
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -721,6 +728,7 @@ argument_list|()
 return|;
 block|}
 comment|//end toString()
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -808,6 +816,7 @@ name|dbf
 return|;
 block|}
 comment|//end clone()
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -829,6 +838,7 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -877,6 +887,7 @@ name|result
 return|;
 block|}
 comment|// Writable
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -925,6 +936,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -982,6 +994,7 @@ expr_stmt|;
 block|}
 block|}
 comment|// Comparable
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

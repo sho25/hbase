@@ -111,6 +111,10 @@ name|TestCase
 import|;
 end_import
 
+begin_comment
+comment|/**  * Tests filter sets  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -172,6 +176,9 @@ index|[]
 argument_list|>
 name|colvalues
 decl_stmt|;
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|setUp
@@ -334,6 +341,7 @@ name|filters
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Test "must pass one"    * @throws Exception    */
 specifier|public
 name|void
 name|testMPONE
@@ -347,6 +355,7 @@ name|filterMPONE
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Test "must pass all"    * @throws Exception    */
 specifier|public
 name|void
 name|testMPALL
@@ -360,6 +369,7 @@ name|filterMPALL
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Test serialization    * @throws Exception    */
 specifier|public
 name|void
 name|testSerialization

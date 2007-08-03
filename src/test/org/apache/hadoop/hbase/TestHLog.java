@@ -120,6 +120,7 @@ name|HBaseTestCase
 implements|implements
 name|HConstants
 block|{
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -640,6 +641,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

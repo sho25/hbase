@@ -150,6 +150,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|//end constructor
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1294,6 +1295,7 @@ block|}
 comment|//end for -i
 block|}
 comment|//end createVector()
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1315,6 +1317,7 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1424,6 +1427,7 @@ name|result
 return|;
 block|}
 comment|// Writable
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1582,6 +1586,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1782,6 +1787,7 @@ expr_stmt|;
 block|}
 block|}
 comment|// Comparable
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

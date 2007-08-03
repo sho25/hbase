@@ -107,6 +107,10 @@ name|PatternLayout
 import|;
 end_import
 
+begin_comment
+comment|/**  * Initializes test environment  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -116,8 +120,8 @@ specifier|private
 name|StaticTestEnvironment
 parameter_list|()
 block|{}
-empty_stmt|;
 comment|// Not instantiable
+comment|/** configuration parameter name for test directory */
 specifier|public
 specifier|static
 specifier|final
@@ -126,6 +130,7 @@ name|TEST_DIRECTORY_KEY
 init|=
 literal|"test.build.data"
 decl_stmt|;
+comment|/** set to true if "DEBUGGING" is set in the environment */
 specifier|public
 specifier|static
 name|boolean
@@ -133,6 +138,7 @@ name|debugging
 init|=
 literal|false
 decl_stmt|;
+comment|/**    * Initializes parameters used in the test environment:    *     * Sets the configuration parameter TEST_DIRECTORY_KEY if not already set.    * Sets the boolean debugging if "DEBUGGING" is set in the environment.    * If debugging is enabled, reconfigures loggin so that the root log level is    * set to WARN and the logging level for the package is set to DEBUG.    */
 annotation|@
 name|SuppressWarnings
 argument_list|(

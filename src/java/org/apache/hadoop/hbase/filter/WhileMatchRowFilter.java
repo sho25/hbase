@@ -143,6 +143,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Constructor    * @param filter    */
 specifier|public
 name|WhileMatchRowFilter
 parameter_list|(
@@ -169,7 +170,7 @@ operator|.
 name|filter
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|reset
@@ -205,7 +206,7 @@ name|reset
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|processAlways
@@ -234,7 +235,7 @@ name|filterAllRemaining
 argument_list|()
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|filter
@@ -288,7 +289,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|filter
@@ -363,7 +364,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|filterNotNull
@@ -463,7 +464,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|rowProcessed
@@ -487,7 +488,7 @@ name|rowKey
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|validate
@@ -507,7 +508,7 @@ name|columns
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -624,7 +625,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write

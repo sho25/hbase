@@ -25,6 +25,10 @@ name|IOException
 import|;
 end_import
 
+begin_comment
+comment|/**  * Thrown by a region server if it is sent a request for a region it is not  * serving.  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -44,6 +48,7 @@ literal|17
 operator|-
 literal|1L
 decl_stmt|;
+comment|/** default constructor */
 specifier|public
 name|NotServingRegionException
 parameter_list|()
@@ -52,6 +57,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Constructor    * @param s message    */
 specifier|public
 name|NotServingRegionException
 parameter_list|(

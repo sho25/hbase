@@ -25,6 +25,10 @@ name|IOException
 import|;
 end_import
 
+begin_comment
+comment|/**  * Tests merging a normal table's regions  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -32,6 +36,7 @@ name|TestMergeTable
 extends|extends
 name|AbstractMergeTestBase
 block|{
+comment|/**    * Test case    * @throws IOException    */
 specifier|public
 name|void
 name|testMergeTable

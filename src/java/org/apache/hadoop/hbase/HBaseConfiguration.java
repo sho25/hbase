@@ -29,6 +29,10 @@ name|Configuration
 import|;
 end_import
 
+begin_comment
+comment|/**  * Adds HBase configuration files to a Configuration  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -36,6 +40,7 @@ name|HBaseConfiguration
 extends|extends
 name|Configuration
 block|{
+comment|/** constructor */
 specifier|public
 name|HBaseConfiguration
 parameter_list|()

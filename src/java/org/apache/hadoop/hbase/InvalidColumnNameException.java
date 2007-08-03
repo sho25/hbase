@@ -25,6 +25,10 @@ name|IOException
 import|;
 end_import
 
+begin_comment
+comment|/**  * Thrown when an invalid column name is encountered  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -44,6 +48,7 @@ literal|29
 operator|-
 literal|1L
 decl_stmt|;
+comment|/** default constructor */
 specifier|public
 name|InvalidColumnNameException
 parameter_list|()
@@ -52,6 +57,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Constructor    * @param s message    */
 specifier|public
 name|InvalidColumnNameException
 parameter_list|(

@@ -324,7 +324,7 @@ name|columns
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.mapred.MapReduceBase#configure(org.apache.hadoop.mapred.JobConf)    */
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

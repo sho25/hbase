@@ -263,7 +263,7 @@ return|return
 name|name
 return|;
 block|}
-comment|/**    * Add a column family.    * @param family HColumnDescriptor of familyto add.    */
+comment|/**    * Adds a column family.    * @param family HColumnDescriptor of familyto add.    */
 specifier|public
 name|void
 name|addFamily
@@ -303,7 +303,7 @@ name|family
 argument_list|)
 return|;
 block|}
-comment|/** All the column families in this table.    *     *  TODO: What is this used for? Seems Dangerous to let people play with our    *  private members.    *      *  @return map of family members    */
+comment|/**     * All the column families in this table.    *     *  TODO: What is this used for? Seems Dangerous to let people play with our    *  private members.    *      *  @return map of family members    */
 specifier|public
 name|TreeMap
 argument_list|<
@@ -318,6 +318,7 @@ return|return
 name|families
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -342,6 +343,7 @@ operator|.
 name|families
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -361,6 +363,7 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -430,9 +433,8 @@ return|return
 name|result
 return|;
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Writable
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -495,6 +497,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -570,9 +573,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Comparable
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo

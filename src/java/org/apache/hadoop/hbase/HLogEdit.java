@@ -40,7 +40,7 @@ import|;
 end_import
 
 begin_comment
-comment|/*******************************************************************************  * A log value.  *  * These aren't sortable; you need to sort by the matching HLogKey.  * The table and row are already identified in HLogKey.  * This just indicates the column and value.  ******************************************************************************/
+comment|/**  * A log value.  *  * These aren't sortable; you need to sort by the matching HLogKey.  * The table and row are already identified in HLogKey.  * This just indicates the column and value.  */
 end_comment
 
 begin_class
@@ -67,6 +67,7 @@ specifier|private
 name|long
 name|timestamp
 decl_stmt|;
+comment|/**    * Default constructor used by Writable    */
 specifier|public
 name|HLogEdit
 parameter_list|()
@@ -75,6 +76,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Construct a fully initialized HLogEdit    * @param column column name    * @param bval value    * @param timestamp timestamp for modification    */
 specifier|public
 name|HLogEdit
 parameter_list|(
@@ -111,6 +113,7 @@ operator|=
 name|timestamp
 expr_stmt|;
 block|}
+comment|/** @return the column */
 specifier|public
 name|Text
 name|getColumn
@@ -122,6 +125,7 @@ operator|.
 name|column
 return|;
 block|}
+comment|/** @return the value */
 specifier|public
 name|byte
 index|[]
@@ -134,6 +138,7 @@ operator|.
 name|val
 return|;
 block|}
+comment|/** @return the timestamp */
 specifier|public
 name|long
 name|getTimestamp
@@ -145,6 +150,7 @@ operator|.
 name|timestamp
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -179,9 +185,8 @@ name|trim
 argument_list|()
 return|;
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Writable
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -229,6 +234,7 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields

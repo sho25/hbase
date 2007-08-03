@@ -81,6 +81,10 @@ name|TestCase
 import|;
 end_import
 
+begin_comment
+comment|/**  * Tests the stop row filter  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -124,6 +128,9 @@ decl_stmt|;
 name|RowFilterInterface
 name|mainFilter
 decl_stmt|;
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|setUp
@@ -145,6 +152,7 @@ name|STOP_ROW
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Tests identification of the stop row    * @throws Exception    */
 specifier|public
 name|void
 name|testStopRowIdentification
@@ -158,6 +166,7 @@ name|mainFilter
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Tests serialization    * @throws Exception    */
 specifier|public
 name|void
 name|testSerialization

@@ -130,13 +130,16 @@ name|RowFilterSet
 implements|implements
 name|RowFilterInterface
 block|{
+comment|/** set operator */
 specifier|public
 specifier|static
 enum|enum
 name|Operator
 block|{
+comment|/** !AND */
 name|MUST_PASS_ALL
 block|,
+comment|/** !OR */
 name|MUST_PASS_ONE
 block|}
 specifier|private
@@ -232,7 +235,7 @@ operator|=
 name|operator
 expr_stmt|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|validate
@@ -284,7 +287,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|reset
@@ -329,7 +332,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|rowProcessed
@@ -384,7 +387,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|processAlways
@@ -439,7 +442,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|filterAllRemaining
@@ -583,7 +586,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|filter
@@ -785,7 +788,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|filter
@@ -1008,7 +1011,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|filterNotNull
@@ -1216,7 +1219,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -1411,7 +1414,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write

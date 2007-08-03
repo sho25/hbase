@@ -115,6 +115,10 @@ name|Text
 import|;
 end_import
 
+begin_comment
+comment|/**  * Tests for regular expression row filter  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -161,6 +165,7 @@ name|HOST_PREFIX
 init|=
 literal|"org.apache.site-"
 decl_stmt|;
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|protected
@@ -242,6 +247,7 @@ name|colvalues
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Tests filtering using a regex on the row key    * @throws Exception    */
 specifier|public
 name|void
 name|testRegexOnRow
@@ -255,6 +261,7 @@ name|mainFilter
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Tests filtering using a regex on row and colum    * @throws Exception    */
 specifier|public
 name|void
 name|testRegexOnRowAndColumn
@@ -268,6 +275,7 @@ name|mainFilter
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Only return values that are not null    * @throws Exception    */
 specifier|public
 name|void
 name|testFilterNotNull
@@ -281,6 +289,7 @@ name|mainFilter
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Test serialization    * @throws Exception    */
 specifier|public
 name|void
 name|testSerialization

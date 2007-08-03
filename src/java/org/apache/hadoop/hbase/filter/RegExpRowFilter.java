@@ -316,7 +316,12 @@ name|columnFilter
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|void
 name|rowProcessed
@@ -330,7 +335,7 @@ parameter_list|)
 block|{
 comment|//doesn't care
 block|}
-comment|/**    *     * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|processAlways

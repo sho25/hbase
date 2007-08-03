@@ -25,6 +25,10 @@ name|IOException
 import|;
 end_import
 
+begin_comment
+comment|/**  * Thrown when a table exists but should not  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -32,6 +36,19 @@ name|TableExistsException
 extends|extends
 name|IOException
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+literal|1L
+operator|<<
+literal|7
+operator|-
+literal|1L
+decl_stmt|;
+comment|/** default constructor */
 specifier|public
 name|TableExistsException
 parameter_list|()
@@ -40,6 +57,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Constructor    *     * @param s message    */
 specifier|public
 name|TableExistsException
 parameter_list|(
