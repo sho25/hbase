@@ -1310,26 +1310,13 @@ literal|"table name cannot be null or zero length"
 argument_list|)
 throw|;
 block|}
-if|if
-condition|(
 name|closedTables
 operator|.
-name|contains
+name|remove
 argument_list|(
 name|tableName
 argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalStateException
-argument_list|(
-literal|"table closed: "
-operator|+
-name|tableName
-argument_list|)
-throw|;
-block|}
+expr_stmt|;
 name|SortedMap
 argument_list|<
 name|Text
@@ -1427,26 +1414,13 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
 name|closedTables
 operator|.
-name|contains
+name|remove
 argument_list|(
 name|tableName
 argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalStateException
-argument_list|(
-literal|"table closed: "
-operator|+
-name|tableName
-argument_list|)
-throw|;
-block|}
+expr_stmt|;
 name|SortedMap
 argument_list|<
 name|Text
@@ -1720,7 +1694,7 @@ throw|throw
 operator|new
 name|IllegalStateException
 argument_list|(
-literal|"table closed: "
+literal|"table already closed: "
 operator|+
 name|tableName
 argument_list|)
@@ -1752,7 +1726,7 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"table was not opened: "
+literal|"table not open: "
 operator|+
 name|tableName
 argument_list|)
