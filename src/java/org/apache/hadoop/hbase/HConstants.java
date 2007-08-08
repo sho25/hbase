@@ -224,13 +224,20 @@ comment|// Defines for the column names used in both ROOT and META HBase 'meta' 
 comment|/** The ROOT and META column family */
 specifier|static
 specifier|final
+name|String
+name|COLUMN_FAMILY_STR
+init|=
+literal|"info:"
+decl_stmt|;
+specifier|static
+specifier|final
 name|Text
 name|COLUMN_FAMILY
 init|=
 operator|new
 name|Text
 argument_list|(
-literal|"info:"
+name|COLUMN_FAMILY_STR
 argument_list|)
 decl_stmt|;
 comment|/** Array of meta column names */

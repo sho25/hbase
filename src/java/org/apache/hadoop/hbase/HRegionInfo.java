@@ -253,6 +253,9 @@ decl_stmt|;
 name|boolean
 name|offLine
 decl_stmt|;
+name|boolean
+name|split
+decl_stmt|;
 name|HTableDescriptor
 name|tableDesc
 decl_stmt|;
@@ -305,6 +308,12 @@ name|offLine
 operator|=
 literal|false
 expr_stmt|;
+name|this
+operator|.
+name|split
+operator|=
+literal|false
+expr_stmt|;
 block|}
 comment|/**    * Construct a HRegionInfo object from byte array    *     * @param serializedBytes    * @throws IOException    */
 specifier|public
@@ -350,6 +359,43 @@ name|startKey
 parameter_list|,
 name|Text
 name|endKey
+parameter_list|)
+throws|throws
+name|IllegalArgumentException
+block|{
+name|this
+argument_list|(
+name|regionId
+argument_list|,
+name|tableDesc
+argument_list|,
+name|startKey
+argument_list|,
+name|endKey
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Construct HRegionInfo with explicit parameters    *     * @param regionId the region id    * @param tableDesc the table descriptor    * @param startKey first key in region    * @param endKey end of key range    * @param split true if this region has split and we have daughter regions    * regions that may or may not hold references to this region.    * @throws IllegalArgumentException    */
+specifier|public
+name|HRegionInfo
+parameter_list|(
+name|long
+name|regionId
+parameter_list|,
+name|HTableDescriptor
+name|tableDesc
+parameter_list|,
+name|Text
+name|startKey
+parameter_list|,
+name|Text
+name|endKey
+parameter_list|,
+specifier|final
+name|boolean
+name|split
 parameter_list|)
 throws|throws
 name|IllegalArgumentException
@@ -472,6 +518,12 @@ name|offLine
 operator|=
 literal|false
 expr_stmt|;
+name|this
+operator|.
+name|split
+operator|=
+name|split
+expr_stmt|;
 block|}
 comment|/** @return the endKey */
 specifier|public
@@ -523,6 +575,30 @@ return|return
 name|tableDesc
 return|;
 block|}
+comment|/**    * @return True if has been split and has daughters.    */
+specifier|public
+name|boolean
+name|isSplit
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|split
+return|;
+block|}
+comment|/**    * @return True if this region is offline.    */
+specifier|public
+name|boolean
+name|isOffline
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|offLine
+return|;
+block|}
 comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
@@ -550,7 +626,27 @@ operator|.
 name|toString
 argument_list|()
 operator|+
-literal|">, tableDesc: {"
+literal|">,"
+operator|+
+operator|(
+name|isOffline
+argument_list|()
+condition|?
+literal|" offline: true,"
+else|:
+literal|""
+operator|)
+operator|+
+operator|(
+name|isSplit
+argument_list|()
+condition|?
+literal|" split: true,"
+else|:
+literal|""
+operator|)
+operator|+
+literal|" tableDesc: {"
 operator|+
 name|this
 operator|.
@@ -717,6 +813,13 @@ argument_list|(
 name|offLine
 argument_list|)
 expr_stmt|;
+name|out
+operator|.
+name|writeBoolean
+argument_list|(
+name|split
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * {@inheritDoc}    */
 specifier|public
@@ -777,6 +880,15 @@ expr_stmt|;
 name|this
 operator|.
 name|offLine
+operator|=
+name|in
+operator|.
+name|readBoolean
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|split
 operator|=
 name|in
 operator|.

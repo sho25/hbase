@@ -81,6 +81,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|HashSet
 import|;
 end_import
@@ -319,6 +329,38 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Keying
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Writables
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|io
 operator|.
 name|DataInputBuffer
@@ -349,20 +391,6 @@ name|hadoop
 operator|.
 name|ipc
 operator|.
-name|RemoteException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|ipc
-operator|.
 name|RPC
 import|;
 end_import
@@ -377,7 +405,7 @@ name|hadoop
 operator|.
 name|ipc
 operator|.
-name|Server
+name|RemoteException
 import|;
 end_import
 
@@ -389,9 +417,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|util
+name|ipc
 operator|.
-name|StringUtils
+name|Server
 import|;
 end_import
 
@@ -496,14 +524,6 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HMaster
 operator|.
 name|class
@@ -597,6 +617,11 @@ name|boolean
 name|rootRegion
 decl_stmt|;
 specifier|protected
+specifier|final
+name|Text
+name|tableName
+decl_stmt|;
+specifier|protected
 specifier|abstract
 name|void
 name|initialScan
@@ -608,6 +633,34 @@ name|void
 name|maintenanceScan
 parameter_list|()
 function_decl|;
+name|BaseScanner
+parameter_list|(
+specifier|final
+name|Text
+name|tableName
+parameter_list|)
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|tableName
+operator|=
+name|tableName
+expr_stmt|;
+name|this
+operator|.
+name|rootRegion
+operator|=
+name|tableName
+operator|.
+name|equals
+argument_list|(
+name|ROOT_TABLE_NAME
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**      * {@inheritDoc}      */
 specifier|public
 name|void
@@ -701,8 +754,48 @@ operator|+
 name|region
 operator|.
 name|regionName
+operator|+
+literal|" on "
+operator|+
+name|region
+operator|.
+name|server
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Array to hold list of split parents found.  Scan adds to list.  After
+comment|// scan we go check if parents can be removed.
+name|Map
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|TreeMap
+argument_list|<
+name|Text
+argument_list|,
+name|byte
+index|[]
+argument_list|>
+argument_list|>
+name|splitParents
+init|=
+operator|new
+name|HashMap
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|TreeMap
+argument_list|<
+name|Text
+argument_list|,
+name|byte
+index|[]
+argument_list|>
+argument_list|>
+argument_list|()
+decl_stmt|;
 try|try
 block|{
 name|regionServer
@@ -917,6 +1010,24 @@ argument_list|,
 name|startCode
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|isSplitParent
+argument_list|(
+name|info
+argument_list|)
+condition|)
+block|{
+name|splitParents
+operator|.
+name|put
+argument_list|(
+name|info
+argument_list|,
+name|results
+argument_list|)
+expr_stmt|;
+block|}
 name|numberOfRegionsFound
 operator|+=
 literal|1
@@ -1037,7 +1148,91 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|"Closing scanner"
+argument_list|,
 name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|// Scan is finished.  Take a look at split parents to see if any
+comment|// we can clean up.
+if|if
+condition|(
+name|splitParents
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|TreeMap
+argument_list|<
+name|Text
+argument_list|,
+name|byte
+index|[]
+argument_list|>
+argument_list|>
+name|e
+range|:
+name|splitParents
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+name|TreeMap
+argument_list|<
+name|Text
+argument_list|,
+name|byte
+index|[]
+argument_list|>
+name|results
+init|=
+name|e
+operator|.
+name|getValue
+argument_list|()
+decl_stmt|;
+name|cleanupSplits
+argument_list|(
+name|e
+operator|.
+name|getKey
+argument_list|()
+argument_list|,
+name|HRegion
+operator|.
+name|getSplit
+argument_list|(
+name|results
+argument_list|,
+name|HRegion
+operator|.
+name|COL_SPLITA
+argument_list|)
+argument_list|,
+name|HRegion
+operator|.
+name|getSplit
+argument_list|(
+name|results
+argument_list|,
+name|HRegion
+operator|.
+name|COL_SPLITB
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1063,6 +1258,378 @@ operator|+
 literal|" complete"
 argument_list|)
 expr_stmt|;
+block|}
+specifier|private
+name|boolean
+name|isSplitParent
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|info
+parameter_list|)
+block|{
+name|boolean
+name|result
+init|=
+literal|false
+decl_stmt|;
+comment|// Skip if not a split region.
+if|if
+condition|(
+operator|!
+name|info
+operator|.
+name|isSplit
+argument_list|()
+condition|)
+block|{
+return|return
+name|result
+return|;
+block|}
+if|if
+condition|(
+operator|!
+name|info
+operator|.
+name|isOffline
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Region is split but not offline: "
+operator|+
+name|info
+operator|.
+name|regionName
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+literal|true
+return|;
+block|}
+comment|/*       * @param info      * @param splitA      * @param splitB      * @return True if we removed<code>info</code> and this region has      * been cleaned up.      * @throws IOException      */
+specifier|private
+name|boolean
+name|cleanupSplits
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|info
+parameter_list|,
+specifier|final
+name|HRegionInfo
+name|splitA
+parameter_list|,
+specifier|final
+name|HRegionInfo
+name|splitB
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|boolean
+name|result
+init|=
+literal|false
+decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Checking "
+operator|+
+name|info
+operator|.
+name|getRegionName
+argument_list|()
+operator|+
+literal|" to see if daughter "
+operator|+
+literal|"splits still hold references"
+argument_list|)
+expr_stmt|;
+block|}
+name|boolean
+name|noReferencesA
+init|=
+name|splitA
+operator|==
+literal|null
+decl_stmt|;
+name|boolean
+name|noReferencesB
+init|=
+name|splitB
+operator|==
+literal|null
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|noReferencesA
+condition|)
+block|{
+name|noReferencesA
+operator|=
+name|hasReferences
+argument_list|(
+name|info
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|,
+name|splitA
+argument_list|,
+name|HRegion
+operator|.
+name|COL_SPLITA
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|!
+name|noReferencesB
+condition|)
+block|{
+name|noReferencesB
+operator|=
+name|hasReferences
+argument_list|(
+name|info
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|,
+name|splitB
+argument_list|,
+name|HRegion
+operator|.
+name|COL_SPLITB
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+operator|!
+operator|(
+name|noReferencesA
+operator|&&
+name|noReferencesB
+operator|)
+condition|)
+block|{
+comment|// No references.  Remove this item from table and deleted region on
+comment|// disk.
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Deleting region "
+operator|+
+name|info
+operator|.
+name|getRegionName
+argument_list|()
+operator|+
+literal|" because daughter splits no longer hold references"
+argument_list|)
+expr_stmt|;
+name|HRegion
+operator|.
+name|deleteRegion
+argument_list|(
+name|fs
+argument_list|,
+name|dir
+argument_list|,
+name|info
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|HRegion
+operator|.
+name|removeRegionFromMETA
+argument_list|(
+name|conf
+argument_list|,
+name|this
+operator|.
+name|tableName
+argument_list|,
+name|info
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|result
+operator|=
+literal|true
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Done checking "
+operator|+
+name|info
+operator|.
+name|getRegionName
+argument_list|()
+operator|+
+literal|": splitA: "
+operator|+
+name|noReferencesA
+operator|+
+literal|", splitB: "
+operator|+
+name|noReferencesB
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|result
+return|;
+block|}
+specifier|protected
+name|boolean
+name|hasReferences
+parameter_list|(
+specifier|final
+name|Text
+name|regionName
+parameter_list|,
+specifier|final
+name|HRegionInfo
+name|split
+parameter_list|,
+specifier|final
+name|Text
+name|column
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|boolean
+name|result
+init|=
+name|HRegion
+operator|.
+name|hasReferences
+argument_list|(
+name|fs
+argument_list|,
+name|fs
+operator|.
+name|makeQualified
+argument_list|(
+name|dir
+argument_list|)
+argument_list|,
+name|split
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|result
+condition|)
+block|{
+return|return
+name|result
+return|;
+block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|split
+operator|.
+name|getRegionName
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" no longer has references to "
+operator|+
+name|regionName
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+name|HTable
+name|t
+init|=
+operator|new
+name|HTable
+argument_list|(
+name|conf
+argument_list|,
+name|this
+operator|.
+name|tableName
+argument_list|)
+decl_stmt|;
+try|try
+block|{
+name|HRegion
+operator|.
+name|removeSplitFromMETA
+argument_list|(
+name|t
+argument_list|,
+name|regionName
+argument_list|,
+name|column
+argument_list|)
+expr_stmt|;
+block|}
+finally|finally
+block|{
+name|t
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+name|result
+return|;
 block|}
 specifier|protected
 name|void
@@ -1145,6 +1712,22 @@ operator|+
 name|info
 operator|.
 name|regionName
+operator|+
+literal|" (offline: "
+operator|+
+name|info
+operator|.
+name|isOffline
+argument_list|()
+operator|+
+literal|", split: "
+operator|+
+name|info
+operator|.
+name|isSplit
+argument_list|()
+operator|+
+literal|")"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1263,51 +1846,6 @@ name|startCode
 operator|)
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"region unassigned: "
-operator|+
-name|info
-operator|.
-name|regionName
-operator|+
-literal|" serverName: "
-operator|+
-name|serverName
-operator|+
-operator|(
-name|storedInfo
-operator|==
-literal|null
-condition|?
-literal|" storedInfo == null"
-else|:
-operator|(
-literal|" startCode="
-operator|+
-name|startCode
-operator|+
-literal|", storedStartCode="
-operator|+
-name|storedInfo
-operator|.
-name|getStartCode
-argument_list|()
-operator|)
-operator|)
-argument_list|)
-expr_stmt|;
-block|}
 comment|// The current assignment is no good; load the region.
 name|unassignedRegions
 operator|.
@@ -1337,6 +1875,52 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+elseif|else
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Finished if "
+operator|+
+name|info
+operator|.
+name|getRegionName
+argument_list|()
+operator|+
+literal|" is assigned: "
+operator|+
+literal|"unassigned: "
+operator|+
+name|unassignedRegions
+operator|.
+name|containsKey
+argument_list|(
+name|info
+operator|.
+name|regionName
+argument_list|)
+operator|+
+literal|", pending: "
+operator|+
+name|pendingRegions
+operator|.
+name|contains
+argument_list|(
+name|info
+operator|.
+name|regionName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 specifier|volatile
@@ -1354,9 +1938,12 @@ specifier|public
 name|RootScanner
 parameter_list|()
 block|{
-name|rootRegion
-operator|=
-literal|true
+name|super
+argument_list|(
+name|HConstants
+operator|.
+name|ROOT_TABLE_NAME
+argument_list|)
 expr_stmt|;
 block|}
 specifier|private
@@ -1407,7 +1994,9 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{           }
+block|{
+comment|// continue
+block|}
 block|}
 if|if
 condition|(
@@ -1499,6 +2088,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"Scan ROOT region"
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -1509,6 +2100,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|"Scan ROOT region"
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -1535,7 +2128,9 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{           }
+block|{
+comment|// continue
+block|}
 block|}
 block|}
 block|}
@@ -1781,9 +2376,12 @@ specifier|public
 name|MetaScanner
 parameter_list|()
 block|{
-name|rootRegion
-operator|=
-literal|false
+name|super
+argument_list|(
+name|HConstants
+operator|.
+name|META_TABLE_NAME
+argument_list|)
 expr_stmt|;
 block|}
 specifier|private
@@ -1837,7 +2435,9 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{           }
+block|{
+comment|// continue
+block|}
 block|}
 if|if
 condition|(
@@ -1928,6 +2528,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"Scan one META region"
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -1938,6 +2540,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|"Scan one META region"
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -1964,7 +2568,9 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{           }
+block|{
+comment|//continue
+block|}
 block|}
 block|}
 block|}
@@ -2168,7 +2774,9 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{         }
+block|{
+comment|// continue
+block|}
 block|}
 return|return
 name|closed
@@ -2385,9 +2993,9 @@ block|}
 name|Path
 name|rootRegionDir
 init|=
-name|HStoreFile
+name|HRegion
 operator|.
-name|getHRegionDir
+name|getRegionDir
 argument_list|(
 name|dir
 argument_list|,
@@ -2541,6 +3149,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|""
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -3070,6 +3680,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|""
+argument_list|,
 name|ex
 argument_list|)
 expr_stmt|;
@@ -3086,6 +3698,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|"Failed startup"
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -3152,7 +3766,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Processing "
+literal|"Main processing loop: "
 operator|+
 name|op
 operator|.
@@ -3202,10 +3816,35 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{             }
+block|{
+comment|// continue
+block|}
 block|}
 try|try
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Put "
+operator|+
+name|op
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" back on queue"
+argument_list|)
+expr_stmt|;
+block|}
 name|msgQueue
 operator|.
 name|put
@@ -3224,7 +3863,9 @@ throw|throw
 operator|new
 name|RuntimeException
 argument_list|(
-literal|"Putting into msgQueue was interrupted."
+literal|"Putting into msgQueue was "
+operator|+
+literal|"interrupted."
 argument_list|,
 name|e
 argument_list|)
@@ -3270,6 +3911,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|""
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -3279,6 +3922,13 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"Processing pending operations: "
+operator|+
+name|op
+operator|.
+name|toString
+argument_list|()
+argument_list|,
 name|ex
 argument_list|)
 expr_stmt|;
@@ -3371,6 +4021,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"root scanner"
+argument_list|,
 name|iex
 argument_list|)
 expr_stmt|;
@@ -3396,6 +4048,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"meta scanner"
+argument_list|,
 name|iex
 argument_list|)
 expr_stmt|;
@@ -3422,6 +4076,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"server"
+argument_list|,
 name|iex
 argument_list|)
 expr_stmt|;
@@ -4563,7 +5219,7 @@ name|HMsg
 operator|.
 name|MSG_REPORT_SPLIT
 case|:
-comment|// A region has split and the old server is serving the two new regions.
+comment|// A region has split.
 name|HRegionInfo
 name|newRegionA
 init|=
@@ -4965,7 +5621,11 @@ argument_list|()
 decl_stmt|;
 name|PendingOperation
 parameter_list|()
-block|{}
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+block|}
 specifier|abstract
 name|boolean
 name|process
@@ -4994,14 +5654,17 @@ name|long
 name|oldStartCode
 decl_stmt|;
 specifier|private
+specifier|transient
 name|boolean
 name|logSplit
 decl_stmt|;
 specifier|private
+specifier|transient
 name|boolean
 name|rootChecked
 decl_stmt|;
 specifier|private
+specifier|transient
 name|boolean
 name|rootRescanned
 decl_stmt|;
@@ -5113,6 +5776,24 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"PendingServerShutdown of "
+operator|+
+name|this
+operator|.
+name|deadServer
+operator|.
+name|toString
+argument_list|()
+return|;
+block|}
 comment|/** Finds regions that the dead region server was serving */
 specifier|private
 name|void
@@ -5222,6 +5903,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|"Shutdown scanning of meta region"
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -5375,48 +6058,49 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|byte
-index|[]
-name|bytes
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"shutdown scanner looking at "
+operator|+
+name|row
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Check server name.  If null, be conservative and treat as though
+comment|// region had been on shutdown server (could be null because we
+comment|// missed edits in hlog because hdfs does not do write-append).
+name|String
+name|serverName
 init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|serverName
+operator|=
+name|Keying
+operator|.
+name|bytesToString
+argument_list|(
 name|results
 operator|.
 name|get
 argument_list|(
 name|COL_SERVER
 argument_list|)
-decl_stmt|;
-name|String
-name|serverName
-init|=
-literal|null
-decl_stmt|;
-if|if
-condition|(
-name|bytes
-operator|==
-literal|null
-operator|||
-name|bytes
-operator|.
-name|length
-operator|==
-literal|0
-condition|)
-block|{
-comment|// No server
-continue|continue;
-block|}
-try|try
-block|{
-name|serverName
-operator|=
-operator|new
-name|String
-argument_list|(
-name|bytes
-argument_list|,
-name|UTF8_ENCODING
 argument_list|)
 expr_stmt|;
 block|}
@@ -5430,6 +6114,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|"Server name"
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -5437,6 +6123,17 @@ break|break;
 block|}
 if|if
 condition|(
+name|serverName
+operator|!=
+literal|null
+operator|&&
+name|serverName
+operator|.
+name|length
+argument_list|()
+operator|>
+literal|0
+operator|&&
 name|deadServerName
 operator|.
 name|compareTo
@@ -5448,143 +6145,59 @@ literal|0
 condition|)
 block|{
 comment|// This isn't the server you're looking for - move along
-continue|continue;
-block|}
-name|bytes
-operator|=
-name|results
-operator|.
-name|get
-argument_list|(
-name|COL_STARTCODE
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
-name|bytes
-operator|==
-literal|null
-operator|||
-name|bytes
+name|LOG
 operator|.
-name|length
-operator|==
-literal|0
-condition|)
-block|{
-comment|// No start code
-continue|continue;
-block|}
-name|long
-name|startCode
-init|=
-operator|-
-literal|1L
-decl_stmt|;
-try|try
-block|{
-name|startCode
-operator|=
-name|Long
-operator|.
-name|valueOf
-argument_list|(
-operator|new
-name|String
-argument_list|(
-name|bytes
-argument_list|,
-name|UTF8_ENCODING
-argument_list|)
-argument_list|)
-operator|.
-name|longValue
+name|isDebugEnabled
 argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|UnsupportedEncodingException
-name|e
-parameter_list|)
+condition|)
 block|{
 name|LOG
 operator|.
-name|error
+name|debug
 argument_list|(
-name|e
+literal|"Server name "
+operator|+
+name|serverName
+operator|+
+literal|" is not same as "
+operator|+
+name|deadServerName
+operator|+
+literal|": Passing"
 argument_list|)
 expr_stmt|;
-break|break;
 block|}
-if|if
-condition|(
-name|oldStartCode
-operator|!=
-name|startCode
-condition|)
-block|{
-comment|// Close but no cigar
 continue|continue;
 block|}
 comment|// Bingo! Found it.
-name|bytes
+name|HRegionInfo
+name|info
+init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|info
 operator|=
+operator|(
+name|HRegionInfo
+operator|)
+name|Writables
+operator|.
+name|getWritable
+argument_list|(
 name|results
 operator|.
 name|get
 argument_list|(
 name|COL_REGIONINFO
 argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|bytes
-operator|==
-literal|null
-operator|||
-name|bytes
-operator|.
-name|length
-operator|==
-literal|0
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"no value for "
-operator|+
-name|COL_REGIONINFO
-argument_list|)
-throw|;
-block|}
-name|inbuf
-operator|.
-name|reset
-argument_list|(
-name|bytes
 argument_list|,
-name|bytes
-operator|.
-name|length
-argument_list|)
-expr_stmt|;
-name|HRegionInfo
-name|info
-init|=
 operator|new
 name|HRegionInfo
 argument_list|()
-decl_stmt|;
-try|try
-block|{
-name|info
-operator|.
-name|readFields
-argument_list|(
-name|inbuf
 argument_list|)
 expr_stmt|;
 block|}
@@ -5594,30 +6207,12 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-if|if
-condition|(
-name|e
-operator|instanceof
-name|RemoteException
-condition|)
-block|{
-name|e
-operator|=
-name|RemoteExceptionHandler
-operator|.
-name|decodeRemoteException
-argument_list|(
-operator|(
-name|RemoteException
-operator|)
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 name|LOG
 operator|.
 name|error
 argument_list|(
+literal|"Read fields"
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -5627,14 +6222,18 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-name|serverName
-operator|+
-literal|" was serving "
-operator|+
 name|info
 operator|.
-name|toString
+name|getRegionName
 argument_list|()
+operator|+
+literal|" was on shutdown server<"
+operator|+
+name|serverName
+operator|+
+literal|"> (or server is null). Marking unassigned if "
+operator|+
+literal|"meta and clearing pendingRegions"
 argument_list|)
 expr_stmt|;
 if|if
@@ -5809,6 +6408,18 @@ argument_list|,
 name|info
 argument_list|)
 expr_stmt|;
+comment|// If was pending, remove otherwise will obstruct its getting
+comment|// reassigned.
+name|pendingRegions
+operator|.
+name|remove
+argument_list|(
+name|info
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 block|}
@@ -5862,6 +6473,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|"Closing scanner"
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -6097,9 +6710,41 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"server shutdown: "
+literal|"process shutdown of server "
 operator|+
-name|deadServerName
+name|deadServer
+operator|+
+literal|": logSplit: "
+operator|+
+name|this
+operator|.
+name|logSplit
+operator|+
+literal|", rootChecked: "
+operator|+
+name|this
+operator|.
+name|rootChecked
+operator|+
+literal|", rootRescanned: "
+operator|+
+name|this
+operator|.
+name|rootRescanned
+operator|+
+literal|", numberOfMetaRegions: "
+operator|+
+name|numberOfMetaRegions
+operator|.
+name|get
+argument_list|()
+operator|+
+literal|", onlineMetaRegions.size(): "
+operator|+
+name|onlineMetaRegions
+operator|.
+name|size
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
@@ -6264,6 +6909,24 @@ condition|)
 block|{
 comment|// We can't proceed until the root region is online and has been
 comment|// scanned
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"process server shutdown scanning root region "
+operator|+
+literal|"cancelled because rootRegionLocation is null"
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|false
 return|;
@@ -6296,7 +6959,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"scanning root region"
+literal|"process server shutdown scanning root region on "
+operator|+
+name|rootRegionLocation
+operator|.
+name|getBindAddress
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -6380,6 +7048,37 @@ throw|;
 block|}
 block|}
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"process server shutdown scanning root region on "
+operator|+
+name|rootRegionLocation
+operator|.
+name|getBindAddress
+argument_list|()
+operator|+
+literal|" finished "
+operator|+
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|rootRescanned
 operator|=
 literal|true
@@ -6431,6 +7130,38 @@ comment|// We can't proceed because not all of the meta regions are online.
 comment|// We can't block either because that would prevent the meta region
 comment|// online message from being processed. So return false to have this
 comment|// operation requeued.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Requeuing shutdown because rootScanned: "
+operator|+
+name|rootScanned
+operator|+
+literal|", numberOfMetaRegions: "
+operator|+
+name|numberOfMetaRegions
+operator|.
+name|get
+argument_list|()
+operator|+
+literal|", onlineMetaRegions.size(): "
+operator|+
+name|onlineMetaRegions
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|false
 return|;
@@ -6457,6 +7188,42 @@ init|=
 operator|-
 literal|1L
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"process server shutdown scanning "
+operator|+
+name|r
+operator|.
+name|regionName
+operator|+
+literal|" on "
+operator|+
+name|r
+operator|.
+name|server
+operator|+
+literal|" "
+operator|+
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|server
 operator|=
 name|connection
@@ -6501,6 +7268,42 @@ operator|.
 name|regionName
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"process server shutdown finished scanning "
+operator|+
+name|r
+operator|.
+name|regionName
+operator|+
+literal|" on "
+operator|+
+name|r
+operator|.
+name|server
+operator|+
+literal|" "
+operator|+
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 break|break;
 block|}
@@ -6644,6 +7447,24 @@ block|}
 block|}
 annotation|@
 name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"PendingCloseReport of "
+operator|+
+name|this
+operator|.
+name|regionInfo
+operator|.
+name|getRegionName
+argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
 name|boolean
 name|process
 parameter_list|()
@@ -6763,6 +7584,38 @@ comment|// We can't proceed because not all of the meta regions are online.
 comment|// We can't block either because that would prevent the meta region
 comment|// online message from being processed. So return false to have this
 comment|// operation requeued.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Requeuing close because rootScanned="
+operator|+
+name|rootScanned
+operator|+
+literal|", numberOfMetaRegions="
+operator|+
+name|numberOfMetaRegions
+operator|.
+name|get
+argument_list|()
+operator|+
+literal|", onlineMetaRegions.size()="
+operator|+
+name|onlineMetaRegions
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|false
 return|;
@@ -7121,17 +7974,12 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"failed to delete region "
+literal|"failed delete region "
 operator|+
 name|regionInfo
 operator|.
 name|regionName
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|error
-argument_list|(
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -7259,10 +8107,28 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|"Start code"
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"PendingOpenOperation from "
+operator|+
+name|serverAddress
+operator|.
+name|toString
+argument_list|()
+return|;
 block|}
 annotation|@
 name|Override
@@ -7407,7 +8273,7 @@ block|{
 comment|// We can't proceed because not all of the meta regions are online.
 comment|// We can't block either because that would prevent the meta region
 comment|// online message from being processed. So return false to have this
-comment|// operation requeued.
+comment|// operation requeue
 if|if
 condition|(
 name|LOG
@@ -7420,18 +8286,18 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"rootScanned="
+literal|"Requeuing open because rootScanned: "
 operator|+
 name|rootScanned
 operator|+
-literal|", numberOfMetaRegions="
+literal|", numberOfMetaRegions: "
 operator|+
 name|numberOfMetaRegions
 operator|.
 name|get
 argument_list|()
 operator|+
-literal|", onlineMetaRegions.size()="
+literal|", onlineMetaRegions.size(): "
 operator|+
 name|onlineMetaRegions
 operator|.
@@ -7696,6 +8562,17 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// If updated successfully, remove from pending list.
+name|pendingRegions
+operator|.
+name|remove
+argument_list|(
+name|region
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+expr_stmt|;
 break|break;
 block|}
 catch|catch
@@ -7738,16 +8615,6 @@ name|e
 throw|;
 block|}
 block|}
-name|pendingRegions
-operator|.
-name|remove
-argument_list|(
-name|region
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-expr_stmt|;
 block|}
 return|return
 literal|true
@@ -8811,17 +9678,13 @@ name|KeyedData
 index|[]
 name|values
 init|=
-literal|null
-decl_stmt|;
-name|values
-operator|=
 name|server
 operator|.
 name|next
 argument_list|(
 name|scannerId
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|values
@@ -9151,6 +10014,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|""
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -9337,7 +10202,7 @@ name|MetaRegion
 name|m
 parameter_list|,
 name|HRegionInterface
-name|server
+name|srvr
 parameter_list|)
 throws|throws
 name|IOException
@@ -9523,6 +10388,45 @@ range|:
 name|unservedRegions
 control|)
 block|{
+if|if
+condition|(
+name|i
+operator|.
+name|offLine
+operator|&&
+name|i
+operator|.
+name|isSplit
+argument_list|()
+condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Skipping region "
+operator|+
+name|i
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" because it is "
+operator|+
+literal|"offline because it has been split"
+argument_list|)
+expr_stmt|;
+block|}
+continue|continue;
+block|}
 comment|// Update meta table
 if|if
 condition|(
@@ -9695,12 +10599,7 @@ operator|+
 name|i
 operator|.
 name|regionName
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|error
-argument_list|(
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -9762,6 +10661,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|""
+argument_list|,
 name|iex
 argument_list|)
 expr_stmt|;
@@ -10023,12 +10924,15 @@ specifier|protected
 name|void
 name|updateRegionInfo
 parameter_list|(
+specifier|final
 name|HRegionInterface
-name|server
+name|srvr
 parameter_list|,
+specifier|final
 name|Text
 name|regionName
 parameter_list|,
+specifier|final
 name|HRegionInfo
 name|i
 parameter_list|)
@@ -10065,7 +10969,7 @@ argument_list|(
 name|s
 argument_list|)
 expr_stmt|;
-name|server
+name|srvr
 operator|.
 name|put
 argument_list|(
@@ -10118,7 +11022,7 @@ name|MetaRegion
 name|m
 parameter_list|,
 name|HRegionInterface
-name|server
+name|srvr
 parameter_list|)
 throws|throws
 name|IOException
@@ -10218,12 +11122,7 @@ operator|+
 name|i
 operator|.
 name|regionName
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|error
-argument_list|(
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -10235,7 +11134,7 @@ name|postProcessMeta
 argument_list|(
 name|m
 argument_list|,
-name|server
+name|srvr
 argument_list|)
 expr_stmt|;
 block|}
@@ -10518,12 +11417,7 @@ operator|+
 name|i
 operator|.
 name|regionName
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|error
-argument_list|(
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -10582,6 +11476,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|""
+argument_list|,
 name|iex
 argument_list|)
 expr_stmt|;
@@ -10634,7 +11530,7 @@ name|MetaRegion
 name|m
 parameter_list|,
 name|HRegionInterface
-name|server
+name|srvr
 parameter_list|)
 throws|throws
 name|IOException
@@ -10661,7 +11557,7 @@ argument_list|)
 expr_stmt|;
 name|updateRegionInfo
 argument_list|(
-name|server
+name|srvr
 argument_list|,
 name|m
 operator|.
@@ -10722,6 +11618,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|""
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -10777,6 +11675,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|""
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -10828,7 +11728,7 @@ name|MetaRegion
 name|m
 parameter_list|,
 name|HRegionInterface
-name|server
+name|srvr
 parameter_list|)
 throws|throws
 name|IOException
@@ -10855,7 +11755,7 @@ argument_list|)
 expr_stmt|;
 name|updateRegionInfo
 argument_list|(
-name|server
+name|srvr
 argument_list|,
 name|m
 operator|.
@@ -11102,14 +12002,9 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Can not start master because "
-operator|+
-name|StringUtils
-operator|.
-name|stringifyException
-argument_list|(
+literal|"Can not start master"
+argument_list|,
 name|t
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|System
@@ -11160,14 +12055,9 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Can not stop master because "
-operator|+
-name|StringUtils
-operator|.
-name|stringifyException
-argument_list|(
+literal|"Can not stop master"
+argument_list|,
 name|t
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|System

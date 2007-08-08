@@ -646,7 +646,7 @@ operator|.
 name|toString
 argument_list|()
 operator|+
-literal|"closing ("
+literal|" closing ("
 operator|+
 literal|"Adding to retiringRegions)"
 argument_list|)
@@ -1032,7 +1032,7 @@ try|try
 block|{
 name|HRegion
 operator|.
-name|removeRegionFromMETA
+name|writeSplitToMETA
 argument_list|(
 name|conf
 argument_list|,
@@ -1041,6 +1041,22 @@ argument_list|,
 name|region
 operator|.
 name|getRegionName
+argument_list|()
+argument_list|,
+name|newRegions
+index|[
+literal|0
+index|]
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|,
+name|newRegions
+index|[
+literal|1
+index|]
+operator|.
+name|getRegionInfo
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1494,6 +1510,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|""
+argument_list|,
 name|iex
 argument_list|)
 expr_stmt|;
@@ -1625,8 +1643,8 @@ init|(
 name|logRollerLock
 init|)
 block|{
-comment|// If the number of log entries is high enough, roll the log.  This is a
-comment|// very fast operation, but should not be done too frequently.
+comment|// If the number of log entries is high enough, roll the log.  This
+comment|// is a very fast operation, but should not be done too frequently.
 name|int
 name|nEntries
 init|=
@@ -1705,6 +1723,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|""
+argument_list|,
 name|iex
 argument_list|)
 expr_stmt|;
@@ -2610,6 +2630,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|""
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -2898,22 +2920,6 @@ literal|true
 expr_stmt|;
 break|break;
 default|default:
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Got default message"
-argument_list|)
-expr_stmt|;
-block|}
 try|try
 block|{
 name|toDo
@@ -3008,6 +3014,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|""
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -3133,6 +3141,13 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"On abort, closed hlog"
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -3178,6 +3193,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|"Abort close of log"
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -3265,6 +3282,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|""
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -3402,6 +3421,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+literal|""
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
@@ -4996,6 +5017,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|""
+argument_list|,
 name|iex
 argument_list|)
 expr_stmt|;
@@ -5634,6 +5657,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|""
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;

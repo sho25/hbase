@@ -301,7 +301,7 @@ name|logfiles
 operator|.
 name|length
 operator|+
-literal|" log files in "
+literal|" log(s) in "
 operator|+
 name|srcDir
 operator|.
@@ -349,6 +349,27 @@ name|i
 operator|++
 control|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Splitting "
+operator|+
+name|logfiles
+index|[
+name|i
+index|]
+argument_list|)
+expr_stmt|;
+block|}
 name|SequenceFile
 operator|.
 name|Reader
@@ -430,9 +451,9 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|HStoreFile
+name|HRegion
 operator|.
-name|getHRegionDir
+name|getRegionDir
 argument_list|(
 name|rootDir
 argument_list|,
@@ -488,6 +509,27 @@ argument_list|(
 name|regionName
 argument_list|,
 name|w
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Edit "
+operator|+
+name|key
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

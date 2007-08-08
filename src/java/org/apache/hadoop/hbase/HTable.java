@@ -570,6 +570,17 @@ argument_list|)
 throw|;
 block|}
 block|}
+specifier|public
+name|Text
+name|getTableName
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|tableName
+return|;
+block|}
 comment|/**    * Gets the starting row key for every region in the currently open table    * @return Array of region starting row keys    */
 specifier|public
 name|Text

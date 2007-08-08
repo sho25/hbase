@@ -115,6 +115,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -148,6 +176,20 @@ specifier|public
 class|class
 name|HMemcache
 block|{
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|HMemcache
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 name|TreeMap
 argument_list|<
 name|HStoreKey
@@ -212,7 +254,7 @@ operator|new
 name|HLocking
 argument_list|()
 decl_stmt|;
-comment|/*    * Approximate size in bytes of the payload carried by this memcache.    */
+comment|/*    * Approximate size in bytes of the payload carried by this memcache.    * Does not consider deletes nor adding again on same key.    */
 specifier|private
 name|AtomicLong
 name|size
@@ -635,7 +677,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @return Approximate size in bytes of payload carried by this memcache.    */
+comment|/**    * @return Approximate size in bytes of payload carried by this memcache.    * Does not take into consideration deletes nor adding again on same key.    */
 specifier|public
 name|long
 name|getSize

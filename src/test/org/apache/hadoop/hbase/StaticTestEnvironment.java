@@ -219,15 +219,7 @@ operator|.
 name|getRootLogger
 argument_list|()
 decl_stmt|;
-name|rootLogger
-operator|.
-name|setLevel
-argument_list|(
-name|Level
-operator|.
-name|WARN
-argument_list|)
-expr_stmt|;
+comment|// rootLogger.setLevel(Level.WARN);
 name|Level
 name|logLevel
 init|=

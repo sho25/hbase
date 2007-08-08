@@ -2072,7 +2072,9 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{             }
+block|{
+comment|// continue
+block|}
 block|}
 if|if
 condition|(

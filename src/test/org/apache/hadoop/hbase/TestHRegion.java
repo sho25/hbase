@@ -156,6 +156,9 @@ name|HBaseTestCase
 implements|implements
 name|RegionUnavailableListener
 block|{
+specifier|private
+specifier|static
+specifier|final
 name|Logger
 name|LOG
 init|=
@@ -163,10 +166,9 @@ name|Logger
 operator|.
 name|getLogger
 argument_list|(
-name|this
+name|TestHRegion
 operator|.
-name|getClass
-argument_list|()
+name|class
 operator|.
 name|getName
 argument_list|()
@@ -181,11 +183,13 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Since all the "tests" depend on the results of the previous test, they are    * not Junit tests that can stand alone. Consequently we have a single Junit    * test that runs the "sub-tests" as private methods.    */
+comment|/**    * Since all the "tests" depend on the results of the previous test, they are    * not Junit tests that can stand alone. Consequently we have a single Junit    * test that runs the "sub-tests" as private methods.    * @throws IOException     */
 specifier|public
 name|void
 name|testHRegion
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 try|try
 block|{
@@ -217,11 +221,7 @@ name|cleanup
 argument_list|()
 expr_stmt|;
 block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
+finally|finally
 block|{
 if|if
 condition|(
@@ -236,14 +236,6 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 specifier|private
@@ -4171,6 +4163,8 @@ name|out
 operator|.
 name|println
 argument_list|(
+literal|"UNEXPECTED COLUMN "
+operator|+
 name|col
 argument_list|)
 expr_stmt|;

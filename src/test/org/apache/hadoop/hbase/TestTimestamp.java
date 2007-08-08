@@ -466,12 +466,15 @@ name|s
 init|=
 name|cluster
 operator|.
-name|regionServers
+name|regionThreads
 operator|.
 name|get
 argument_list|(
 literal|0
 argument_list|)
+operator|.
+name|getRegionServer
+argument_list|()
 decl_stmt|;
 for|for
 control|(

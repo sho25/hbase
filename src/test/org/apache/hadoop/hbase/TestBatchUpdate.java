@@ -107,12 +107,12 @@ name|table
 init|=
 literal|null
 decl_stmt|;
-comment|/** constructor */
+comment|/** constructor     * @throws UnsupportedEncodingException */
 specifier|public
 name|TestBatchUpdate
 parameter_list|()
-block|{
-try|try
+throws|throws
+name|UnsupportedEncodingException
 block|{
 name|value
 operator|=
@@ -125,17 +125,6 @@ operator|.
 name|UTF8_ENCODING
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|UnsupportedEncodingException
-name|e
-parameter_list|)
-block|{
-name|fail
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 comment|/**    * {@inheritDoc}    */
 annotation|@

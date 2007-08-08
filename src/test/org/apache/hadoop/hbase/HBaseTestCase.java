@@ -212,9 +212,9 @@ decl_stmt|;
 name|Path
 name|regionDir
 init|=
-name|HStoreFile
+name|HRegion
 operator|.
-name|getHRegionDir
+name|getRegionDir
 argument_list|(
 name|dir
 argument_list|,

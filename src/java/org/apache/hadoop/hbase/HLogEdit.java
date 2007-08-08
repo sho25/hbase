@@ -208,7 +208,7 @@ argument_list|)
 expr_stmt|;
 name|out
 operator|.
-name|writeShort
+name|writeInt
 argument_list|(
 name|this
 operator|.
@@ -263,7 +263,7 @@ name|byte
 index|[
 name|in
 operator|.
-name|readShort
+name|readInt
 argument_list|()
 index|]
 expr_stmt|;

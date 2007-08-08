@@ -637,6 +637,13 @@ name|nextSize
 init|=
 literal|0
 decl_stmt|;
+name|Text
+name|midKey
+init|=
+operator|new
+name|Text
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -689,6 +696,11 @@ operator|=
 name|currentRegion
 operator|.
 name|largestHStore
+argument_list|(
+name|midKey
+argument_list|)
+operator|.
+name|getAggregate
 argument_list|()
 expr_stmt|;
 block|}
@@ -720,6 +732,11 @@ operator|=
 name|nextRegion
 operator|.
 name|largestHStore
+argument_list|(
+name|midKey
+argument_list|)
+operator|.
+name|getAggregate
 argument_list|()
 expr_stmt|;
 name|long
