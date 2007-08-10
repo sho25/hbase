@@ -121,6 +121,20 @@ name|*
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicInteger
+import|;
+end_import
+
 begin_comment
 comment|/**  * HLog stores all the edits to the HStore.  *   * It performs logfile-rolling, so external callers are not aware that the   * underlying file is being rolled.  *  *<p>A single HLog is used by several HRegions simultaneously.  *   *<p>Each HRegion is identified by a unique long<code>int</code>. HRegions do  * not need to declare themselves before using the HLog; they simply include  * their HRegion-id in the {@link #append(Text, Text, Text, TreeMap, long)} or   * {@link #completeCacheFlush(Text, Text, long)} calls.  *  *<p>An HLog consists of multiple on-disk files, which have a chronological  * order. As data is flushed to other (better) on-disk structures, the log  * becomes obsolete.  We can destroy all the log messages for a given  * HRegion-id up to the most-recent CACHEFLUSH message from that HRegion.  *  *<p>It's only practical to delete entire files.  Thus, we delete an entire   * on-disk file F when all of the messages in F have a log-sequence-id that's   * older (smaller) than the most-recent CACHEFLUSH message for every HRegion   * that has a message in F.  *   *<p>TODO: Vuk Ercegovac also pointed out that keeping HBase HRegion edit logs  * in HDFS is currently flawed. HBase writes edits to logs and to a memcache.  * The 'atomic' write to the log is meant to serve as insurance against  * abnormal RegionServer exit: on startup, the log is rerun to reconstruct an  * HRegion's last wholesome state. But files in HDFS do not 'exist' until they  * are cleanly closed -- something that will not happen if RegionServer exits  * without running its 'close'.  */
 end_comment
@@ -207,6 +221,7 @@ name|Path
 argument_list|>
 argument_list|()
 decl_stmt|;
+specifier|volatile
 name|boolean
 name|insideCacheFlush
 init|=
@@ -229,12 +244,13 @@ name|Long
 argument_list|>
 argument_list|()
 decl_stmt|;
+specifier|volatile
 name|boolean
 name|closed
 init|=
 literal|false
 decl_stmt|;
-specifier|transient
+specifier|volatile
 name|long
 name|logSeqNum
 init|=
@@ -245,11 +261,14 @@ name|filenum
 init|=
 literal|0
 decl_stmt|;
-specifier|transient
-name|int
+name|AtomicInteger
 name|numEntries
 init|=
+operator|new
+name|AtomicInteger
+argument_list|(
 literal|0
+argument_list|)
 decl_stmt|;
 name|Integer
 name|rollLock
@@ -530,6 +549,13 @@ name|key
 operator|.
 name|toString
 argument_list|()
+operator|+
+literal|"="
+operator|+
+name|val
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -712,6 +738,49 @@ expr_stmt|;
 name|rollWriter
 argument_list|()
 expr_stmt|;
+block|}
+specifier|synchronized
+name|void
+name|setSequenceNumber
+parameter_list|(
+name|long
+name|newvalue
+parameter_list|)
+block|{
+if|if
+condition|(
+name|newvalue
+operator|>
+name|logSeqNum
+condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"changing sequence number from "
+operator|+
+name|logSeqNum
+operator|+
+literal|" to "
+operator|+
+name|newvalue
+argument_list|)
+expr_stmt|;
+block|}
+name|logSeqNum
+operator|=
+name|newvalue
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Roll the log writer.  That is, start writing log messages to a new file.    *    * The 'rollLock' prevents us from entering rollWriter() more than    * once at a time.    *    * The 'this' lock limits access to the current writer so    * we don't append multiple items simultaneously.    *     * @throws IOException    */
 name|void
@@ -1074,8 +1143,11 @@ block|}
 name|this
 operator|.
 name|numEntries
-operator|=
+operator|.
+name|set
+argument_list|(
 literal|0
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -1326,7 +1398,9 @@ name|logEdit
 argument_list|)
 expr_stmt|;
 name|numEntries
-operator|++
+operator|.
+name|getAndIncrement
+argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -1337,6 +1411,9 @@ parameter_list|()
 block|{
 return|return
 name|numEntries
+operator|.
+name|get
+argument_list|()
 return|;
 block|}
 comment|/**    * Obtain a log sequence number.  This seizes the whole HLog    * lock, but it shouldn't last too long.    */
@@ -1517,7 +1594,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 name|numEntries
-operator|++
+operator|.
+name|getAndIncrement
+argument_list|()
 expr_stmt|;
 comment|// Remember the most-recent flush for each region.
 comment|// This is used to delete obsolete log files.

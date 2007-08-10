@@ -228,6 +228,7 @@ name|LAST_CHAR
 init|=
 literal|'z'
 decl_stmt|;
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -297,6 +298,7 @@ literal|128
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

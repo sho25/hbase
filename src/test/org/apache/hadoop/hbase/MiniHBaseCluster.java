@@ -480,6 +480,7 @@ name|e
 throw|;
 block|}
 block|}
+comment|/** runs the master server */
 specifier|public
 specifier|static
 class|class
@@ -521,6 +522,7 @@ operator|=
 name|m
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -544,6 +546,7 @@ name|run
 argument_list|()
 expr_stmt|;
 block|}
+comment|/** @return master server */
 specifier|public
 name|HMaster
 name|getMaster
@@ -556,6 +559,7 @@ name|master
 return|;
 block|}
 block|}
+comment|/** runs region servers */
 specifier|public
 specifier|static
 class|class
@@ -595,6 +599,7 @@ operator|=
 name|r
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -618,6 +623,7 @@ name|run
 argument_list|()
 expr_stmt|;
 block|}
+comment|/** @return the region server */
 specifier|public
 name|HRegionServer
 name|getRegionServer
@@ -797,6 +803,7 @@ return|return
 name|threads
 return|;
 block|}
+comment|/**    * Starts a region server thread running    *     * @throws IOException    */
 specifier|public
 name|void
 name|startRegionServer
@@ -949,7 +956,7 @@ name|abort
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Shut down the specified region server cleanly    *     * @param serverNumber    */
+comment|/**    * Shut down the specified region server cleanly    *     * @param serverNumber    * @return the region server that was stopped    */
 specifier|public
 name|HRegionServer
 name|stopRegionServer

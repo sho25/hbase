@@ -177,6 +177,10 @@ name|WritableComparable
 import|;
 end_import
 
+begin_comment
+comment|/**  * Test HStoreFile  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -1368,6 +1372,13 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|previous
+operator|!=
+literal|null
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -1380,6 +1391,7 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Now test reading from the top.
 name|top
 operator|=
@@ -1535,8 +1547,9 @@ expr_stmt|;
 comment|// Next test using a midkey that does not exist in the file.
 comment|// First, do a key that is< than first key. Ensure splits behave
 comment|// properly.
-name|midkey
-operator|=
+name|WritableComparable
+name|badkey
+init|=
 operator|new
 name|HStoreKey
 argument_list|(
@@ -1546,7 +1559,7 @@ argument_list|(
 literal|"   "
 argument_list|)
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|bottom
 operator|=
 operator|new
@@ -1573,10 +1586,10 @@ name|Range
 operator|.
 name|bottom
 argument_list|,
-name|midkey
+name|badkey
 argument_list|)
 expr_stmt|;
-comment|// When midkey is< than the bottom, should return no values.
+comment|// When badkey is< than the bottom, should return no values.
 name|assertFalse
 argument_list|(
 name|bottom
@@ -1616,7 +1629,7 @@ name|Range
 operator|.
 name|top
 argument_list|,
-name|midkey
+name|badkey
 argument_list|)
 expr_stmt|;
 name|first
@@ -1641,7 +1654,7 @@ name|key
 operator|.
 name|compareTo
 argument_list|(
-name|midkey
+name|badkey
 argument_list|)
 operator|>=
 literal|0
@@ -1766,8 +1779,8 @@ literal|'z'
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Test when midkey is> than last key in file ('||'> 'zz').
-name|midkey
+comment|// Test when badkey is> than last key in file ('||'> 'zz').
+name|badkey
 operator|=
 operator|new
 name|HStoreKey
@@ -1805,7 +1818,7 @@ name|Range
 operator|.
 name|bottom
 argument_list|,
-name|midkey
+name|badkey
 argument_list|)
 expr_stmt|;
 name|first
@@ -1968,7 +1981,7 @@ name|Range
 operator|.
 name|top
 argument_list|,
-name|midkey
+name|badkey
 argument_list|)
 expr_stmt|;
 name|assertFalse

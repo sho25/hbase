@@ -1343,9 +1343,9 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|,
-name|HMaster
+name|HConstants
 operator|.
-name|METACOLUMNS
+name|COLUMN_FAMILY_ARRAY
 argument_list|,
 operator|new
 name|Text

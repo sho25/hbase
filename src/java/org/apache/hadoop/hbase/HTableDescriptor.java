@@ -149,7 +149,7 @@ name|HColumnDescriptor
 argument_list|>
 name|families
 decl_stmt|;
-comment|/*    * Legal table names can only contain 'word characters':    * i.e.<code>[a-zA-Z_0-9]</code>.    * Lets be restrictive until a reason to be otherwise. One reason to limit    * characters in table name is to ensure table regions as entries in META    * regions can be found (See HADOOP-1581 'HBASE: Un-openable tablename bug').    */
+comment|/*    * Legal table names can only contain 'word characters':    * i.e.<code>[a-zA-Z_0-9-.]</code>.    * Lets be restrictive until a reason to be otherwise. One reason to limit    * characters in table name is to ensure table regions as entries in META    * regions can be found (See HADOOP-1581 'HBASE: Un-openable tablename bug').    */
 specifier|private
 specifier|static
 specifier|final
@@ -160,7 +160,7 @@ name|Pattern
 operator|.
 name|compile
 argument_list|(
-literal|"[\\w-]+"
+literal|"^[\\w-.]+$"
 argument_list|)
 decl_stmt|;
 comment|/** Constructs an empty object */

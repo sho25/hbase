@@ -530,6 +530,10 @@ operator|new
 name|Random
 argument_list|()
 decl_stmt|;
+specifier|private
+name|long
+name|maxSeqId
+decl_stmt|;
 comment|/**    * An HStore is a set of zero or more MapFiles, which stretch backwards over     * time.  A given HStore is responsible for a certain set of columns for a    * row in the HRegion.    *    *<p>The HRegion starts writing to its set of HStores when the HRegion's     * memcache is flushed.  This results in a round of new MapFiles, one for    * each HStore.    *    *<p>There's no reason to consider append-logging at this level; all logging     * and locking is handled at the HRegion level.  HStore just provides    * services to manage sets of MapFiles.  One of the most important of those    * services is MapFile-compaction services.    *    *<p>The only thing having to do with logs that HStore needs to deal with is    * the reconstructionLog.  This is a segment of an HRegion's log that might    * NOT be present upon startup.  If the param is NULL, there's nothing to do.    * If the param is non-NULL, we need to process the log to reconstruct    * a TreeMap that might not have been written to disk before the process    * died.    *    *<p>It's assumed that after this constructor returns, the reconstructionLog    * file will be deleted (by whoever has instantiated the HStore).    *    * @param dir log file directory    * @param regionName name of region    * @param family name of column family    * @param fs file system object    * @param reconstructionLog existing log file to apply if any    * @param conf configuration object    * @throws IOException    */
 name|HStore
 parameter_list|(
@@ -993,12 +997,48 @@ expr_stmt|;
 block|}
 block|}
 block|}
+name|this
+operator|.
+name|maxSeqId
+operator|=
+name|maxSeqID
+expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"maximum sequence id for hstore "
+operator|+
+name|storeName
+operator|+
+literal|" is "
+operator|+
+name|this
+operator|.
+name|maxSeqId
+argument_list|)
+expr_stmt|;
+block|}
 name|doReconstructionLog
 argument_list|(
 name|reconstructionLog
 argument_list|,
-name|maxSeqID
+name|maxSeqId
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|maxSeqId
+operator|+=
+literal|1
 expr_stmt|;
 comment|// Compact all the MapFiles into a single file.  The resulting MapFile
 comment|// should be "timeless"; that is, it should not have an associated seq-ID,
@@ -1075,6 +1115,16 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+name|long
+name|getMaxSequenceId
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|maxSeqId
+return|;
 block|}
 comment|/*    * Read the reconstructionLog to see whether we need to build a brand-new     * MapFile out of non-flushed log entries.      *    * We can ignore any log message that has a sequence ID that's equal to or     * lower than maxSeqID.  (Because we know such log messages are already     * reflected in the MapFiles.)    */
 specifier|private
@@ -1237,6 +1287,45 @@ operator|<=
 name|maxSeqID
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Skipping edit<"
+operator|+
+name|key
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|"="
+operator|+
+name|val
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|"> key sequence: "
+operator|+
+name|key
+operator|.
+name|getLogSeqNum
+argument_list|()
+operator|+
+literal|" max sequence: "
+operator|+
+name|maxSeqID
+argument_list|)
+expr_stmt|;
+block|}
 continue|continue;
 block|}
 comment|// Check this edit is for me. Also, guard against writing
@@ -1375,12 +1464,21 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Applying edit "
+literal|"Applying edit<"
 operator|+
 name|k
 operator|.
 name|toString
 argument_list|()
+operator|+
+literal|"="
+operator|+
+name|val
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|">"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1941,16 +2039,6 @@ operator|.
 name|bloomFilter
 argument_list|)
 decl_stmt|;
-name|int
-name|count
-init|=
-literal|0
-decl_stmt|;
-name|int
-name|total
-init|=
-literal|0
-decl_stmt|;
 try|try
 block|{
 for|for
@@ -1980,9 +2068,6 @@ operator|.
 name|getKey
 argument_list|()
 decl_stmt|;
-name|total
-operator|++
-expr_stmt|;
 if|if
 condition|(
 name|this
@@ -2018,9 +2103,6 @@ name|getValue
 argument_list|()
 argument_list|)
 argument_list|)
-expr_stmt|;
-name|count
-operator|++
 expr_stmt|;
 block|}
 block|}
@@ -4617,6 +4699,11 @@ name|HStoreScanner
 extends|extends
 name|HAbstractScanner
 block|{
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"hiding"
+argument_list|)
 specifier|private
 name|MapFile
 operator|.

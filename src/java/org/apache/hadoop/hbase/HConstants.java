@@ -205,7 +205,7 @@ init|=
 operator|new
 name|Text
 argument_list|(
-literal|"--ROOT--"
+literal|"-ROOT-"
 argument_list|)
 decl_stmt|;
 comment|/** The META table's name. */
@@ -217,11 +217,11 @@ init|=
 operator|new
 name|Text
 argument_list|(
-literal|"--META--"
+literal|".META."
 argument_list|)
 decl_stmt|;
 comment|// Defines for the column names used in both ROOT and META HBase 'meta' tables.
-comment|/** The ROOT and META column family */
+comment|/** The ROOT and META column family (string) */
 specifier|static
 specifier|final
 name|String
@@ -229,6 +229,7 @@ name|COLUMN_FAMILY_STR
 init|=
 literal|"info:"
 decl_stmt|;
+comment|/** The ROOT and META column family (Text) */
 specifier|static
 specifier|final
 name|Text

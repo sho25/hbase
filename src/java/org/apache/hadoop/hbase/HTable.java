@@ -570,6 +570,7 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|/** @return the table name */
 specifier|public
 name|Text
 name|getTableName

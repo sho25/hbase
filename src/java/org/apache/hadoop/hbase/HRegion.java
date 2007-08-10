@@ -1445,6 +1445,11 @@ specifier|private
 name|long
 name|desiredMaxFileSize
 decl_stmt|;
+specifier|private
+specifier|final
+name|long
+name|maxSequenceId
+decl_stmt|;
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Constructor
 comment|//////////////////////////////////////////////////////////////////////////////
@@ -1586,6 +1591,12 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Load in all the HStores.
+name|long
+name|maxSeqId
+init|=
+operator|-
+literal|1
+decl_stmt|;
 for|for
 control|(
 name|Map
@@ -1624,12 +1635,9 @@ name|getKey
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|stores
-operator|.
-name|put
-argument_list|(
-name|colFamily
-argument_list|,
+name|HStore
+name|store
+init|=
 operator|new
 name|HStore
 argument_list|(
@@ -1652,6 +1660,67 @@ name|oldLogFile
 argument_list|,
 name|conf
 argument_list|)
+decl_stmt|;
+name|stores
+operator|.
+name|put
+argument_list|(
+name|colFamily
+argument_list|,
+name|store
+argument_list|)
+expr_stmt|;
+name|long
+name|storeSeqId
+init|=
+name|store
+operator|.
+name|getMaxSequenceId
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|storeSeqId
+operator|>
+name|maxSeqId
+condition|)
+block|{
+name|maxSeqId
+operator|=
+name|storeSeqId
+expr_stmt|;
+block|}
+block|}
+name|this
+operator|.
+name|maxSequenceId
+operator|=
+name|maxSeqId
+expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"maximum sequence id for region "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionName
+argument_list|()
+operator|+
+literal|" is "
+operator|+
+name|this
+operator|.
+name|maxSequenceId
 argument_list|)
 expr_stmt|;
 block|}
@@ -1802,6 +1871,16 @@ operator|+
 literal|" available"
 argument_list|)
 expr_stmt|;
+block|}
+name|long
+name|getMaxSequenceId
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|maxSequenceId
+return|;
 block|}
 comment|/** Returns a HRegionInfo object for this region */
 name|HRegionInfo
@@ -2252,6 +2331,13 @@ argument_list|(
 literal|"Close came back null (Implement abort of close?)"
 argument_list|)
 expr_stmt|;
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"close returned empty vector of HStoreFiles"
+argument_list|)
+throw|;
 block|}
 comment|// Tell listener that region is now closed and that they can therefore
 comment|// clean up any outstanding references.
@@ -3124,6 +3210,13 @@ name|size
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|biggest
+operator|!=
+literal|null
+condition|)
+block|{
 name|biggest
 operator|.
 name|setSplitable
@@ -3131,6 +3224,7 @@ argument_list|(
 name|splitable
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|biggest
 return|;
@@ -5568,6 +5662,7 @@ block|}
 block|}
 block|}
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -7657,24 +7752,9 @@ literal|null
 return|;
 block|}
 return|return
-call|(
-name|HRegionInfo
-call|)
-argument_list|(
 operator|(
-name|bytes
-operator|==
-literal|null
-operator|||
-name|bytes
-operator|.
-name|length
-operator|==
-literal|0
+name|HRegionInfo
 operator|)
-condition|?
-literal|null
-else|:
 name|Writables
 operator|.
 name|getWritable
@@ -7684,7 +7764,6 @@ argument_list|,
 operator|new
 name|HRegionInfo
 argument_list|()
-argument_list|)
 argument_list|)
 return|;
 block|}
@@ -7964,6 +8043,7 @@ return|return
 name|startCode
 return|;
 block|}
+comment|/**    * Computes the Path of the HRegion    *     * @param dir parent directory    * @param regionName name of the region    * @return Path of HRegion directory    */
 specifier|public
 specifier|static
 name|Path

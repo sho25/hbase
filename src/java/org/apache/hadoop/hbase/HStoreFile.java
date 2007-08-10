@@ -401,13 +401,16 @@ name|HSTORE_FILTER_DIR
 init|=
 literal|"filter"
 decl_stmt|;
+comment|/**     * For split HStoreFiles, specifies if the file covers the lower half or    * the upper half of the key range    */
 specifier|public
 specifier|static
 enum|enum
 name|Range
 block|{
+comment|/** HStoreFile contains upper half of key range */
 name|top
 block|,
+comment|/** HStoreFile contains lower half of key range */
 name|bottom
 block|}
 comment|/*    * Regex that will work for straight filenames and for reference names.    * If reference, then the regex has more than just one group.  Group 1 is    * this files id.  Group 2 the referenced region name, etc.    */
@@ -603,6 +606,8 @@ comment|/*    * Data structure to hold reference to a store file over in another
 specifier|static
 class|class
 name|Reference
+implements|implements
+name|Writable
 block|{
 name|Text
 name|regionName
@@ -718,6 +723,9 @@ operator|.
 name|regionName
 return|;
 block|}
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -742,6 +750,7 @@ name|region
 return|;
 block|}
 comment|// Make it serializable.
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -793,6 +802,7 @@ name|out
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -2018,6 +2028,18 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Failed match of store file name "
+operator|+
+name|p
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+throw|;
 block|}
 return|return
 name|m
@@ -2980,6 +3002,7 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -3008,6 +3031,7 @@ literal|"Unsupported"
 argument_list|)
 throw|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -3040,6 +3064,7 @@ name|val
 argument_list|)
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -3120,6 +3145,7 @@ name|val
 argument_list|)
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -3140,6 +3166,7 @@ return|return
 literal|null
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -3277,6 +3304,7 @@ return|return
 literal|false
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -3313,6 +3341,7 @@ name|reset
 argument_list|()
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -3369,6 +3398,7 @@ specifier|final
 name|Filter
 name|bloomFilter
 decl_stmt|;
+comment|/**        * Constructor        *         * @param fs        * @param dirName        * @param conf        * @param filter        * @throws IOException        */
 specifier|public
 name|Reader
 parameter_list|(
@@ -3615,6 +3645,7 @@ specifier|final
 name|Filter
 name|bloomFilter
 decl_stmt|;
+comment|/**        * Constructor        *         * @param conf        * @param fs        * @param dirName        * @param keyClass        * @param valClass        * @param compression        * @param filter        * @throws IOException        */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -4016,6 +4047,7 @@ else|:
 name|l
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -4063,6 +4095,7 @@ literal|""
 operator|)
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

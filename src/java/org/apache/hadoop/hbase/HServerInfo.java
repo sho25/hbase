@@ -58,6 +58,10 @@ specifier|private
 name|long
 name|startCode
 decl_stmt|;
+specifier|private
+name|HServerLoad
+name|load
+decl_stmt|;
 comment|/** default constructor - used by Writable */
 specifier|public
 name|HServerInfo
@@ -77,8 +81,16 @@ name|startCode
 operator|=
 literal|0
 expr_stmt|;
+name|this
+operator|.
+name|load
+operator|=
+operator|new
+name|HServerLoad
+argument_list|()
+expr_stmt|;
 block|}
-comment|/**    * Constructs a fully initialized object    * @param serverAddress    * @param startCode    */
+comment|/**    * Constructor    * @param serverAddress    * @param startCode    */
 specifier|public
 name|HServerInfo
 parameter_list|(
@@ -104,6 +116,14 @@ operator|.
 name|startCode
 operator|=
 name|startCode
+expr_stmt|;
+name|this
+operator|.
+name|load
+operator|=
+operator|new
+name|HServerLoad
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Construct a new object using another as input (like a copy constructor)    * @param other    */
@@ -135,6 +155,41 @@ name|other
 operator|.
 name|getStartCode
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|load
+operator|=
+name|other
+operator|.
+name|getLoad
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * @return the load    */
+specifier|public
+name|HServerLoad
+name|getLoad
+parameter_list|()
+block|{
+return|return
+name|load
+return|;
+block|}
+comment|/**    * @param load the load to set    */
+specifier|public
+name|void
+name|setLoad
+parameter_list|(
+name|HServerLoad
+name|load
+parameter_list|)
+block|{
+name|this
+operator|.
+name|load
+operator|=
+name|load
 expr_stmt|;
 block|}
 comment|/** @return the server address */
@@ -177,6 +232,17 @@ operator|+
 name|this
 operator|.
 name|startCode
+operator|+
+literal|", load: ("
+operator|+
+name|this
+operator|.
+name|load
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|")"
 return|;
 block|}
 comment|// Writable
@@ -209,6 +275,15 @@ operator|.
 name|readLong
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|load
+operator|.
+name|readFields
+argument_list|(
+name|in
+argument_list|)
+expr_stmt|;
 block|}
 comment|/** {@inheritDoc} */
 specifier|public
@@ -237,6 +312,15 @@ argument_list|(
 name|this
 operator|.
 name|startCode
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|load
+operator|.
+name|write
+argument_list|(
+name|out
 argument_list|)
 expr_stmt|;
 block|}

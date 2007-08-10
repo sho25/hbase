@@ -141,16 +141,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|SortedSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Timer
 import|;
 end_import
@@ -232,6 +222,20 @@ operator|.
 name|atomic
 operator|.
 name|AtomicInteger
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicReference
 import|;
 end_import
 
@@ -440,7 +444,7 @@ name|HMasterRegionInterface
 implements|,
 name|Runnable
 block|{
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|getProtocolVersion
@@ -581,20 +585,12 @@ decl_stmt|;
 name|long
 name|metaRescanInterval
 decl_stmt|;
-specifier|volatile
-name|HServerAddress
-name|rootRegionLocation
-decl_stmt|;
-comment|/**    * Columns in the 'meta' ROOT and META tables.    */
-specifier|static
 specifier|final
-name|Text
-name|METACOLUMNS
-index|[]
-init|=
-block|{
-name|COLUMN_FAMILY
-block|}
+name|AtomicReference
+argument_list|<
+name|HServerAddress
+argument_list|>
+name|rootRegionLocation
 decl_stmt|;
 comment|/**    * Base HRegion scanner class. Holds utilty common to<code>ROOT</code> and    *<code>META</code> HRegion scanners.    *     *<p>How do we know if all regions are assigned? After the initial scan of    * the<code>ROOT</code> and<code>META</code> regions, all regions known at    * that time will have been or are in the process of being assigned.</p>    *     *<p>When a region is split the region server notifies the master of the    * split and the new regions are assigned. But suppose the master loses the    * split message? We need to periodically rescan the<code>ROOT</code> and    *<code>META</code> regions.    *<ul>    *<li>If we rescan, any regions that are new but not assigned will have    *    no server info. Any regions that are not being served by the same    *    server will get re-assigned.</li>    *          *<li>Thus a periodic rescan of the root region will find any new    *<code>META</code> regions where we missed the<code>META</code> split    *    message or we failed to detect a server death and consequently need to    *    assign the region to a new server.</li>    *            *<li>if we keep track of all the known<code>META</code> regions, then    *    we can rescan them periodically. If we do this then we can detect any    *    regions for which we missed a region split message.</li>    *</ul>    *        * Thus just keeping track of all the<code>META</code> regions permits    * periodic rescanning which will detect unassigned regions (new or    * otherwise) without the need to keep track of every region.</p>    *     *<p>So the<code>ROOT</code> region scanner needs to wake up:    *<ol>    *<li>when the master receives notification that the<code>ROOT</code>    * region has been opened.</li>    *<li>periodically after the first scan</li>    *</ol>    *     * The<code>META</code>  scanner needs to wake up:    *<ol>    *<li>when a<code>META</code> region comes on line</li>    *</li>periodically to rescan the online<code>META</code> regions</li>    *</ol>    *     *<p>A<code>META</code> region is not 'online' until it has been scanned    * once.    */
 specifier|abstract
@@ -603,15 +599,6 @@ name|BaseScanner
 implements|implements
 name|Runnable
 block|{
-specifier|private
-specifier|final
-name|Text
-name|FIRST_ROW
-init|=
-operator|new
-name|Text
-argument_list|()
-decl_stmt|;
 specifier|protected
 name|boolean
 name|rootRegion
@@ -661,7 +648,7 @@ name|ROOT_TABLE_NAME
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * {@inheritDoc}      */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|run
@@ -819,9 +806,9 @@ name|region
 operator|.
 name|regionName
 argument_list|,
-name|METACOLUMNS
+name|COLUMN_FAMILY_ARRAY
 argument_list|,
-name|FIRST_ROW
+name|EMPTY_START_ROW
 argument_list|,
 name|System
 operator|.
@@ -1155,8 +1142,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Scan is finished.  Take a look at split parents to see if any
-comment|// we can clean up.
+comment|// Scan is finished.  Take a look at split parents to see if any we can clean up.
 if|if
 condition|(
 name|splitParents
@@ -1745,7 +1731,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|TreeMap
+name|Map
 argument_list|<
 name|Text
 argument_list|,
@@ -1799,6 +1785,11 @@ expr_stmt|;
 block|}
 return|return;
 block|}
+synchronized|synchronized
+init|(
+name|serversToServerInfo
+init|)
+block|{
 name|storedInfo
 operator|=
 name|serversToServerInfo
@@ -1808,6 +1799,7 @@ argument_list|(
 name|serverName
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -1927,7 +1919,7 @@ specifier|volatile
 name|boolean
 name|rootScanned
 decl_stmt|;
-comment|/**    * Scanner for the<code>ROOT</code> HRegion.    */
+comment|/** Scanner for the<code>ROOT</code> HRegion. */
 class|class
 name|RootScanner
 extends|extends
@@ -1966,12 +1958,20 @@ operator|<
 name|numRetries
 condition|)
 block|{
+synchronized|synchronized
+init|(
+name|rootRegionLocation
+init|)
+block|{
 while|while
 condition|(
 operator|!
 name|closed
 operator|&&
 name|rootRegionLocation
+operator|.
+name|get
+argument_list|()
 operator|==
 literal|null
 condition|)
@@ -1981,12 +1981,10 @@ comment|// regionServerReport message from the HRegionServer that has been
 comment|// allocated the ROOT region below.
 try|try
 block|{
-name|Thread
+name|rootRegionLocation
 operator|.
-name|sleep
-argument_list|(
-name|threadWakeFrequency
-argument_list|)
+name|wait
+argument_list|()
 expr_stmt|;
 block|}
 catch|catch
@@ -1998,6 +1996,7 @@ block|{
 comment|// continue
 block|}
 block|}
+block|}
 if|if
 condition|(
 name|closed
@@ -2007,18 +2006,21 @@ continue|continue;
 block|}
 try|try
 block|{
+comment|// Don't interrupt us while we're working
 synchronized|synchronized
 init|(
 name|rootScannerLock
 init|)
 block|{
-comment|// Don't interrupt us while we're working
 name|scanRegion
 argument_list|(
 operator|new
 name|MetaRegion
 argument_list|(
 name|rootRegionLocation
+operator|.
+name|get
+argument_list|()
 argument_list|,
 name|HGlobals
 operator|.
@@ -2113,6 +2115,7 @@ operator|!
 name|closed
 condition|)
 block|{
+comment|// sleep before retry
 try|try
 block|{
 name|Thread
@@ -2229,7 +2232,7 @@ operator|=
 name|startKey
 expr_stmt|;
 block|}
-comment|/**      * {@inheritDoc}      */
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -2251,7 +2254,7 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**      * {@inheritDoc}      */
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -2283,7 +2286,7 @@ name|result
 return|;
 block|}
 comment|// Comparable
-comment|/**      * {@inheritDoc}      */
+comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo
@@ -2416,6 +2419,9 @@ operator|!
 name|rootScanned
 operator|&&
 name|rootRegionLocation
+operator|.
+name|get
+argument_list|()
 operator|==
 literal|null
 condition|)
@@ -2448,12 +2454,12 @@ continue|continue;
 block|}
 try|try
 block|{
+comment|// Don't interrupt us while we're working
 synchronized|synchronized
 init|(
 name|metaScannerLock
 init|)
 block|{
-comment|// Don't interrupt us while we're working
 name|scanRegion
 argument_list|(
 name|region
@@ -2553,6 +2559,7 @@ operator|!
 name|closed
 condition|)
 block|{
+comment|// sleep before retry
 try|try
 block|{
 name|Thread
@@ -2800,7 +2807,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 comment|/**    * The 'unassignedRegions' table maps from a region name to a HRegionInfo     * record, which includes the region's table, its id, and its start/end keys.    *     * We fill 'unassignedRecords' by scanning ROOT and META tables, learning the    * set of all known valid regions.    */
-name|SortedMap
+name|Map
 argument_list|<
 name|Text
 argument_list|,
@@ -2809,7 +2816,7 @@ argument_list|>
 name|unassignedRegions
 decl_stmt|;
 comment|/**    * The 'assignAttempts' table maps from regions to a timestamp that indicates    * the last time we *tried* to assign the region to a RegionServer. If the     * timestamp is out of date, then we can try to reassign it.    */
-name|SortedMap
+name|Map
 argument_list|<
 name|Text
 argument_list|,
@@ -2818,18 +2825,18 @@ argument_list|>
 name|assignAttempts
 decl_stmt|;
 comment|/**    * Regions that have been assigned, and the server has reported that it has    * started serving it, but that we have not yet recorded in the meta table.    */
-name|SortedSet
+name|Set
 argument_list|<
 name|Text
 argument_list|>
 name|pendingRegions
 decl_stmt|;
 comment|/**    * The 'killList' is a list of regions that are going to be closed, but not    * reopened.    */
-name|SortedMap
+name|Map
 argument_list|<
 name|String
 argument_list|,
-name|TreeMap
+name|HashMap
 argument_list|<
 name|Text
 argument_list|,
@@ -2839,41 +2846,48 @@ argument_list|>
 name|killList
 decl_stmt|;
 comment|/** 'killedRegions' contains regions that are in the process of being closed */
-name|SortedSet
+name|Set
 argument_list|<
 name|Text
 argument_list|>
 name|killedRegions
 decl_stmt|;
 comment|/**    * 'regionsToDelete' contains regions that need to be deleted, but cannot be    * until the region server closes it    */
-name|SortedSet
+name|Set
 argument_list|<
 name|Text
 argument_list|>
 name|regionsToDelete
 decl_stmt|;
-comment|/** The map of known server names to server info */
-name|SortedMap
+comment|/**     * The map of known server names to server info    *     * Access to this map and loadToServers and serversToLoad must be synchronized    * on this object    */
+name|Map
 argument_list|<
 name|String
 argument_list|,
 name|HServerInfo
 argument_list|>
 name|serversToServerInfo
-init|=
-name|Collections
-operator|.
-name|synchronizedSortedMap
-argument_list|(
-operator|new
-name|TreeMap
+decl_stmt|;
+comment|/** SortedMap server load -> Set of server names */
+name|SortedMap
+argument_list|<
+name|HServerLoad
+argument_list|,
+name|Set
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+name|loadToServers
+decl_stmt|;
+comment|/** Map of server names -> server load */
+name|Map
 argument_list|<
 name|String
 argument_list|,
-name|HServerInfo
+name|HServerLoad
 argument_list|>
-argument_list|()
-argument_list|)
+name|serversToLoad
 decl_stmt|;
 comment|/** Build the HMaster out of a raw configuration item.    *     * @param conf - Configuration object    * @throws IOException    */
 specifier|public
@@ -3149,7 +3163,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|""
+literal|"bootstrap"
 argument_list|,
 name|e
 argument_list|)
@@ -3331,7 +3345,12 @@ name|this
 operator|.
 name|rootRegionLocation
 operator|=
-literal|null
+operator|new
+name|AtomicReference
+argument_list|<
+name|HServerAddress
+argument_list|>
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -3429,10 +3448,10 @@ name|unassignedRegions
 operator|=
 name|Collections
 operator|.
-name|synchronizedSortedMap
+name|synchronizedMap
 argument_list|(
 operator|new
-name|TreeMap
+name|HashMap
 argument_list|<
 name|Text
 argument_list|,
@@ -3464,30 +3483,14 @@ name|assignAttempts
 operator|=
 name|Collections
 operator|.
-name|synchronizedSortedMap
+name|synchronizedMap
 argument_list|(
 operator|new
-name|TreeMap
+name|HashMap
 argument_list|<
 name|Text
 argument_list|,
 name|Long
-argument_list|>
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|pendingRegions
-operator|=
-name|Collections
-operator|.
-name|synchronizedSortedSet
-argument_list|(
-operator|new
-name|TreeSet
-argument_list|<
-name|Text
 argument_list|>
 argument_list|()
 argument_list|)
@@ -3514,18 +3517,34 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
+name|pendingRegions
+operator|=
+name|Collections
+operator|.
+name|synchronizedSet
+argument_list|(
+operator|new
+name|HashSet
+argument_list|<
+name|Text
+argument_list|>
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
 name|killList
 operator|=
 name|Collections
 operator|.
-name|synchronizedSortedMap
+name|synchronizedMap
 argument_list|(
 operator|new
-name|TreeMap
+name|HashMap
 argument_list|<
 name|String
 argument_list|,
-name|TreeMap
+name|HashMap
 argument_list|<
 name|Text
 argument_list|,
@@ -3541,10 +3560,10 @@ name|killedRegions
 operator|=
 name|Collections
 operator|.
-name|synchronizedSortedSet
+name|synchronizedSet
 argument_list|(
 operator|new
-name|TreeSet
+name|HashSet
 argument_list|<
 name|Text
 argument_list|>
@@ -3557,15 +3576,57 @@ name|regionsToDelete
 operator|=
 name|Collections
 operator|.
-name|synchronizedSortedSet
+name|synchronizedSet
 argument_list|(
 operator|new
-name|TreeSet
+name|HashSet
 argument_list|<
 name|Text
 argument_list|>
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|serversToServerInfo
+operator|=
+operator|new
+name|HashMap
+argument_list|<
+name|String
+argument_list|,
+name|HServerInfo
+argument_list|>
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|loadToServers
+operator|=
+operator|new
+name|TreeMap
+argument_list|<
+name|HServerLoad
+argument_list|,
+name|Set
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|serversToLoad
+operator|=
+operator|new
+name|HashMap
+argument_list|<
+name|String
+argument_list|,
+name|HServerLoad
+argument_list|>
+argument_list|()
 expr_stmt|;
 comment|// We're almost open for business
 name|this
@@ -3589,7 +3650,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * @return HServerAddress of the master server    */
+comment|/** @return HServerAddress of the master server */
 specifier|public
 name|HServerAddress
 name|getMasterAddress
@@ -3680,7 +3741,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|""
+literal|"thread start"
 argument_list|,
 name|ex
 argument_list|)
@@ -3704,7 +3765,7 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Main processing loop
+comment|/*      * Main processing loop      */
 for|for
 control|(
 name|PendingOperation
@@ -3863,9 +3924,7 @@ throw|throw
 operator|new
 name|RuntimeException
 argument_list|(
-literal|"Putting into msgQueue was "
-operator|+
-literal|"interrupted."
+literal|"Putting into msgQueue was interrupted."
 argument_list|,
 name|e
 argument_list|)
@@ -3911,7 +3970,12 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|""
+literal|"main processing loop: "
+operator|+
+name|op
+operator|.
+name|toString
+argument_list|()
 argument_list|,
 name|e
 argument_list|)
@@ -3964,7 +4028,6 @@ name|letRegionServersShutdown
 argument_list|()
 expr_stmt|;
 comment|/*      * Clean up and close up shop      */
-comment|// Wake other threads so they notice the close
 synchronized|synchronized
 init|(
 name|rootScannerLock
@@ -3975,6 +4038,7 @@ operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
+comment|// Wake root scanner
 block|}
 synchronized|synchronized
 init|(
@@ -3986,6 +4050,7 @@ operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
+comment|// Wake meta scanner
 block|}
 name|server
 operator|.
@@ -4002,12 +4067,12 @@ comment|// Turn off the lease monitor
 comment|// Join up with all threads
 try|try
 block|{
-comment|// Wait for the root scanner to finish.
 name|rootScannerThread
 operator|.
 name|join
 argument_list|()
 expr_stmt|;
+comment|// Wait for the root scanner to finish.
 block|}
 catch|catch
 parameter_list|(
@@ -4015,8 +4080,6 @@ name|Exception
 name|iex
 parameter_list|)
 block|{
-comment|// Print if ever there is an interrupt (Just for kicks. Remove if it
-comment|// ever happens).
 name|LOG
 operator|.
 name|warn
@@ -4029,12 +4092,12 @@ expr_stmt|;
 block|}
 try|try
 block|{
-comment|// Join the thread till it finishes.
 name|metaScannerThread
 operator|.
 name|join
 argument_list|()
 expr_stmt|;
+comment|// Wait for meta scanner to finish.
 block|}
 catch|catch
 parameter_list|(
@@ -4042,8 +4105,6 @@ name|Exception
 name|iex
 parameter_list|)
 block|{
-comment|// Print if ever there is an interrupt (Just for kicks. Remove if it
-comment|// ever happens).
 name|LOG
 operator|.
 name|warn
@@ -4056,13 +4117,14 @@ expr_stmt|;
 block|}
 try|try
 block|{
-comment|// Join until its finished.  TODO: Maybe do in parallel in its own thread
-comment|// as is done in TaskTracker if its taking a long time to go down.
+comment|// TODO: Maybe do in parallel in its own thread as is done in TaskTracker
+comment|// if its taking a long time to go down.
 name|server
 operator|.
 name|join
 argument_list|()
 expr_stmt|;
+comment|// Wait for server to finish.
 block|}
 catch|catch
 parameter_list|(
@@ -4070,8 +4132,6 @@ name|InterruptedException
 name|iex
 parameter_list|)
 block|{
-comment|// Print if ever there is an interrupt (Just for kicks. Remove if it
-comment|// ever happens).
 name|LOG
 operator|.
 name|warn
@@ -4095,6 +4155,11 @@ specifier|private
 name|void
 name|letRegionServersShutdown
 parameter_list|()
+block|{
+synchronized|synchronized
+init|(
+name|serversToServerInfo
+init|)
 block|{
 while|while
 condition|(
@@ -4126,9 +4191,9 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-name|Thread
+name|serversToServerInfo
 operator|.
-name|sleep
+name|wait
 argument_list|(
 name|threadWakeFrequency
 argument_list|)
@@ -4144,10 +4209,9 @@ comment|// continue
 block|}
 block|}
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|// HMasterRegionInterface
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * {@inheritDoc}    */
+block|}
+comment|/*    * HMasterRegionInterface    */
+comment|/** {@inheritDoc} */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -4194,6 +4258,11 @@ expr_stmt|;
 comment|// If we get the startup message but there's an old server by that
 comment|// name, then we can timeout the old one right away and register
 comment|// the new one.
+synchronized|synchronized
+init|(
+name|serversToServerInfo
+init|)
+block|{
 name|storedInfo
 operator|=
 name|serversToServerInfo
@@ -4203,6 +4272,67 @@ argument_list|(
 name|s
 argument_list|)
 expr_stmt|;
+name|HServerLoad
+name|load
+init|=
+name|serversToLoad
+operator|.
+name|remove
+argument_list|(
+name|s
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|load
+operator|!=
+literal|null
+condition|)
+block|{
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|servers
+init|=
+name|loadToServers
+operator|.
+name|get
+argument_list|(
+name|load
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|servers
+operator|!=
+literal|null
+condition|)
+block|{
+name|servers
+operator|.
+name|remove
+argument_list|(
+name|s
+argument_list|)
+expr_stmt|;
+name|loadToServers
+operator|.
+name|put
+argument_list|(
+name|load
+argument_list|,
+name|servers
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+name|serversToServerInfo
+operator|.
+name|notifyAll
+argument_list|()
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|storedInfo
@@ -4245,6 +4375,25 @@ throw|;
 block|}
 block|}
 comment|// Either way, record the new server
+synchronized|synchronized
+init|(
+name|serversToServerInfo
+init|)
+block|{
+name|HServerLoad
+name|load
+init|=
+operator|new
+name|HServerLoad
+argument_list|()
+decl_stmt|;
+name|serverInfo
+operator|.
+name|setLoad
+argument_list|(
+name|load
+argument_list|)
+expr_stmt|;
 name|serversToServerInfo
 operator|.
 name|put
@@ -4254,6 +4403,62 @@ argument_list|,
 name|serverInfo
 argument_list|)
 expr_stmt|;
+name|serversToLoad
+operator|.
+name|put
+argument_list|(
+name|s
+argument_list|,
+name|load
+argument_list|)
+expr_stmt|;
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|servers
+init|=
+name|loadToServers
+operator|.
+name|get
+argument_list|(
+name|load
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|servers
+operator|==
+literal|null
+condition|)
+block|{
+name|servers
+operator|=
+operator|new
+name|HashSet
+argument_list|<
+name|String
+argument_list|>
+argument_list|()
+expr_stmt|;
+block|}
+name|servers
+operator|.
+name|add
+argument_list|(
+name|s
+argument_list|)
+expr_stmt|;
+name|loadToServers
+operator|.
+name|put
+argument_list|(
+name|load
+argument_list|,
+name|servers
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 operator|!
@@ -4268,24 +4473,6 @@ argument_list|(
 name|s
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"Created lease for "
-operator|+
-name|serverLabel
-argument_list|)
-expr_stmt|;
-block|}
 name|serverLeases
 operator|.
 name|createLease
@@ -4319,7 +4506,7 @@ name|hashCode
 argument_list|()
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|HMsg
 index|[]
@@ -4336,7 +4523,7 @@ throws|throws
 name|IOException
 block|{
 name|String
-name|s
+name|serverName
 init|=
 name|serverInfo
 operator|.
@@ -4354,7 +4541,7 @@ name|serverLabel
 init|=
 name|getServerLabel
 argument_list|(
-name|s
+name|serverName
 argument_list|)
 decl_stmt|;
 if|if
@@ -4379,11 +4566,13 @@ name|MSG_REPORT_EXITING
 condition|)
 block|{
 comment|// HRegionServer is shutting down. Cancel the server's lease.
+comment|// Note that cancelling the server's lease takes care of updating
+comment|// serversToServerInfo, etc.
 if|if
 condition|(
 name|cancelLease
 argument_list|(
-name|s
+name|serverName
 argument_list|,
 name|serverLabel
 argument_list|)
@@ -4397,7 +4586,7 @@ name|info
 argument_list|(
 literal|"Region server "
 operator|+
-name|s
+name|serverName
 operator|+
 literal|": MSG_REPORT_EXITING"
 argument_list|)
@@ -4454,8 +4643,11 @@ argument_list|)
 condition|)
 block|{
 name|rootRegionLocation
-operator|=
+operator|.
+name|set
+argument_list|(
 literal|null
+argument_list|)
 expr_stmt|;
 block|}
 elseif|else
@@ -4550,14 +4742,22 @@ return|;
 block|}
 name|HServerInfo
 name|storedInfo
-init|=
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|serversToServerInfo
+init|)
+block|{
+name|storedInfo
+operator|=
 name|serversToServerInfo
 operator|.
 name|get
 argument_list|(
-name|s
+name|serverName
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|storedInfo
@@ -4579,7 +4779,7 @@ name|debug
 argument_list|(
 literal|"received server report from unknown server: "
 operator|+
-name|s
+name|serverName
 argument_list|)
 expr_stmt|;
 block|}
@@ -4636,10 +4836,17 @@ name|debug
 argument_list|(
 literal|"region server race condition detected: "
 operator|+
-name|s
+name|serverName
 argument_list|)
 expr_stmt|;
 block|}
+name|cancelLease
+argument_list|(
+name|serverName
+argument_list|,
+name|serverLabel
+argument_list|)
+expr_stmt|;
 return|return
 operator|new
 name|HMsg
@@ -4669,16 +4876,147 @@ argument_list|,
 name|serverLabel
 argument_list|)
 expr_stmt|;
-comment|// Refresh the info object
+comment|// Refresh the info object and the load information
+synchronized|synchronized
+init|(
+name|serversToServerInfo
+init|)
+block|{
 name|serversToServerInfo
 operator|.
 name|put
 argument_list|(
-name|s
+name|serverName
 argument_list|,
 name|serverInfo
 argument_list|)
 expr_stmt|;
+name|HServerLoad
+name|load
+init|=
+name|serversToLoad
+operator|.
+name|get
+argument_list|(
+name|serverName
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|load
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|load
+operator|.
+name|equals
+argument_list|(
+name|serverInfo
+operator|.
+name|getLoad
+argument_list|()
+argument_list|)
+condition|)
+block|{
+comment|// We have previous information about the load on this server
+comment|// and the load on this server has changed
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|servers
+init|=
+name|loadToServers
+operator|.
+name|get
+argument_list|(
+name|load
+argument_list|)
+decl_stmt|;
+comment|// Note that servers should never be null because loadToServers
+comment|// and serversToLoad are manipulated in pairs
+name|servers
+operator|.
+name|remove
+argument_list|(
+name|serverName
+argument_list|)
+expr_stmt|;
+name|loadToServers
+operator|.
+name|put
+argument_list|(
+name|load
+argument_list|,
+name|servers
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Set the current load information
+name|load
+operator|=
+name|serverInfo
+operator|.
+name|getLoad
+argument_list|()
+expr_stmt|;
+name|serversToLoad
+operator|.
+name|put
+argument_list|(
+name|serverName
+argument_list|,
+name|load
+argument_list|)
+expr_stmt|;
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|servers
+init|=
+name|loadToServers
+operator|.
+name|get
+argument_list|(
+name|load
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|servers
+operator|==
+literal|null
+condition|)
+block|{
+name|servers
+operator|=
+operator|new
+name|HashSet
+argument_list|<
+name|String
+argument_list|>
+argument_list|()
+expr_stmt|;
+block|}
+name|servers
+operator|.
+name|add
+argument_list|(
+name|serverName
+argument_list|)
+expr_stmt|;
+name|loadToServers
+operator|.
+name|put
+argument_list|(
+name|load
+argument_list|,
+name|servers
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Next, process messages for this server
 return|return
 name|processMsgs
@@ -4690,7 +5028,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/** cancel a server's lease */
+comment|/** Cancel a server's lease and update its load information */
 specifier|private
 name|boolean
 name|cancelLease
@@ -4709,19 +5047,29 @@ name|leaseCancelled
 init|=
 literal|false
 decl_stmt|;
-if|if
-condition|(
+synchronized|synchronized
+init|(
+name|serversToServerInfo
+init|)
+block|{
+name|HServerInfo
+name|info
+init|=
 name|serversToServerInfo
 operator|.
 name|remove
 argument_list|(
 name|serverName
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|info
 operator|!=
 literal|null
 condition|)
 block|{
-comment|// Only cancel lease once.
+comment|// Only cancel lease and update load information once.
 comment|// This method can be called a couple of times during shutdown.
 name|LOG
 operator|.
@@ -4745,12 +5093,74 @@ name|leaseCancelled
 operator|=
 literal|true
 expr_stmt|;
+comment|// update load information
+name|HServerLoad
+name|load
+init|=
+name|serversToLoad
+operator|.
+name|remove
+argument_list|(
+name|serverName
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|load
+operator|!=
+literal|null
+condition|)
+block|{
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|servers
+init|=
+name|loadToServers
+operator|.
+name|get
+argument_list|(
+name|load
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|servers
+operator|!=
+literal|null
+condition|)
+block|{
+name|servers
+operator|.
+name|remove
+argument_list|(
+name|serverName
+argument_list|)
+expr_stmt|;
+name|loadToServers
+operator|.
+name|put
+argument_list|(
+name|load
+argument_list|,
+name|servers
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+name|serversToServerInfo
+operator|.
+name|notifyAll
+argument_list|()
+expr_stmt|;
 block|}
 return|return
 name|leaseCancelled
 return|;
 block|}
-comment|/** Process all the incoming messages from a server that's contacted us. */
+comment|/**     * Process all the incoming messages from a server that's contacted us.    *     * Note that we never need to update the server's load information because    * that has already been done in regionServerReport.    */
 specifier|private
 name|HMsg
 index|[]
@@ -4779,7 +5189,18 @@ name|HMsg
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|TreeMap
+name|String
+name|serverName
+init|=
+name|info
+operator|.
+name|getServerAddress
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+decl_stmt|;
+name|HashMap
 argument_list|<
 name|Text
 argument_list|,
@@ -4791,13 +5212,7 @@ name|killList
 operator|.
 name|remove
 argument_list|(
-name|info
-operator|.
-name|getServerAddress
-argument_list|()
-operator|.
-name|toString
-argument_list|()
+name|serverName
 argument_list|)
 decl_stmt|;
 comment|// Get reports on what the RegionServer did.
@@ -4973,8 +5388,15 @@ literal|0
 condition|)
 block|{
 comment|// Store the Root Region location (in memory)
+synchronized|synchronized
+init|(
 name|rootRegionLocation
-operator|=
+init|)
+block|{
+name|rootRegionLocation
+operator|.
+name|set
+argument_list|(
 operator|new
 name|HServerAddress
 argument_list|(
@@ -4983,7 +5405,14 @@ operator|.
 name|getServerAddress
 argument_list|()
 argument_list|)
+argument_list|)
 expr_stmt|;
+name|rootRegionLocation
+operator|.
+name|notifyAll
+argument_list|()
+expr_stmt|;
+block|}
 break|break;
 block|}
 comment|// Note that the table has been assigned and is waiting for the meta
@@ -5076,8 +5505,11 @@ condition|)
 block|{
 comment|// Root region
 name|rootRegionLocation
-operator|=
+operator|.
+name|set
+argument_list|(
 literal|null
+argument_list|)
 expr_stmt|;
 name|unassignedRegions
 operator|.
@@ -5157,6 +5589,9 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+comment|// NOTE: we cannot put the region into unassignedRegions as that
+comment|//       could create a race with the pending close if it gets
+comment|//       reassigned before the close is processed.
 name|unassignedRegions
 operator|.
 name|remove
@@ -5209,9 +5644,6 @@ name|e
 argument_list|)
 throw|;
 block|}
-comment|// NOTE: we cannot put the region into unassignedRegions as that
-comment|//       could create a race with the pending close if it gets
-comment|//       reassigned before the close is processed.
 block|}
 break|break;
 case|case
@@ -5422,47 +5854,49 @@ expr_stmt|;
 block|}
 block|}
 comment|// Figure out what the RegionServer ought to do, and write back.
-if|if
-condition|(
-name|unassignedRegions
-operator|.
-name|size
-argument_list|()
-operator|>
-literal|0
-condition|)
-block|{
-comment|// Open new regions as necessary
-name|int
-name|targetForServer
-init|=
-operator|(
-name|int
-operator|)
-name|Math
-operator|.
-name|ceil
+name|assignRegions
 argument_list|(
-name|unassignedRegions
-operator|.
-name|size
-argument_list|()
-operator|/
-operator|(
-literal|1.0
-operator|*
-name|serversToServerInfo
-operator|.
-name|size
-argument_list|()
-operator|)
+name|info
+argument_list|,
+name|serverName
+argument_list|,
+name|returnMsgs
 argument_list|)
-decl_stmt|;
-name|int
-name|counter
-init|=
-literal|0
-decl_stmt|;
+expr_stmt|;
+return|return
+name|returnMsgs
+operator|.
+name|toArray
+argument_list|(
+operator|new
+name|HMsg
+index|[
+name|returnMsgs
+operator|.
+name|size
+argument_list|()
+index|]
+argument_list|)
+return|;
+block|}
+comment|/**    * Assigns regions to region servers attempting to balance the load across    * all region servers    *     * @param info    * @param serverName    * @param returnMsgs    */
+specifier|private
+name|void
+name|assignRegions
+parameter_list|(
+name|HServerInfo
+name|info
+parameter_list|,
+name|String
+name|serverName
+parameter_list|,
+name|ArrayList
+argument_list|<
+name|HMsg
+argument_list|>
+name|returnMsgs
+parameter_list|)
+block|{
 name|long
 name|now
 init|=
@@ -5471,15 +5905,94 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
+name|TreeSet
+argument_list|<
+name|Text
+argument_list|>
+name|regionsToAssign
+init|=
+operator|new
+name|TreeSet
+argument_list|<
+name|Text
+argument_list|>
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|Text
+argument_list|,
+name|Long
+argument_list|>
+name|e
+range|:
+name|assignAttempts
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+name|now
+operator|-
+name|e
+operator|.
+name|getValue
+argument_list|()
+operator|>
+name|maxRegionOpenTime
+condition|)
+block|{
+name|regionsToAssign
+operator|.
+name|add
+argument_list|(
+name|e
+operator|.
+name|getKey
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+name|int
+name|nRegionsToAssign
+init|=
+name|regionsToAssign
+operator|.
+name|size
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|nRegionsToAssign
+operator|>
+literal|0
+condition|)
+block|{
+if|if
+condition|(
+name|serversToServerInfo
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|1
+condition|)
+block|{
+comment|// Only one server. An unlikely case but still possible.
+comment|// Assign all unassigned regions to it.
 for|for
 control|(
 name|Text
-name|curRegionName
+name|regionName
 range|:
-name|unassignedRegions
-operator|.
-name|keySet
-argument_list|()
+name|regionsToAssign
 control|)
 block|{
 name|HRegionInfo
@@ -5489,47 +6002,34 @@ name|unassignedRegions
 operator|.
 name|get
 argument_list|(
-name|curRegionName
+name|regionName
 argument_list|)
 decl_stmt|;
-name|long
-name|assignedTime
-init|=
-name|assignAttempts
-operator|.
-name|get
-argument_list|(
-name|curRegionName
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|now
-operator|-
-name|assignedTime
-operator|>
-name|maxRegionOpenTime
-condition|)
-block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
 literal|"assigning region "
 operator|+
-name|regionInfo
-operator|.
 name|regionName
 operator|+
 literal|" to server "
 operator|+
-name|info
+name|serverName
+argument_list|)
+expr_stmt|;
+name|assignAttempts
 operator|.
-name|getServerAddress
-argument_list|()
+name|put
+argument_list|(
+name|regionName
+argument_list|,
+name|Long
 operator|.
-name|toString
-argument_list|()
+name|valueOf
+argument_list|(
+name|now
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|returnMsgs
@@ -5547,11 +6047,455 @@ name|regionInfo
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+block|}
+else|else
+block|{
+comment|// Multiple servers in play.
+comment|// We need to allocate regions only to most lightly loaded servers.
+name|HServerLoad
+name|thisServersLoad
+init|=
+name|info
+operator|.
+name|getLoad
+argument_list|()
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|serversToServerInfo
+init|)
+block|{
+name|SortedMap
+argument_list|<
+name|HServerLoad
+argument_list|,
+name|Set
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+name|lightServers
+init|=
+name|loadToServers
+operator|.
+name|headMap
+argument_list|(
+name|thisServersLoad
+argument_list|)
+decl_stmt|;
+comment|// How many regions we can assign to more lightly loaded servers?
+name|int
+name|nregions
+init|=
+literal|0
+decl_stmt|;
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|HServerLoad
+argument_list|,
+name|Set
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+name|e
+range|:
+name|lightServers
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+name|HServerLoad
+name|lightLoad
+init|=
+operator|new
+name|HServerLoad
+argument_list|(
+name|e
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|getNumberOfRequests
+argument_list|()
+argument_list|,
+name|e
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|getNumberOfRegions
+argument_list|()
+argument_list|)
+decl_stmt|;
+do|do
+block|{
+name|lightLoad
+operator|.
+name|setNumberOfRegions
+argument_list|(
+name|lightLoad
+operator|.
+name|getNumberOfRegions
+argument_list|()
+operator|+
+literal|1
+argument_list|)
+expr_stmt|;
+name|nregions
+operator|+=
+literal|1
+expr_stmt|;
+block|}
+do|while
+condition|(
+name|lightLoad
+operator|.
+name|compareTo
+argument_list|(
+name|thisServersLoad
+argument_list|)
+operator|<=
+literal|0
+operator|&&
+name|nregions
+operator|<
+name|nRegionsToAssign
+condition|)
+do|;
+name|nregions
+operator|*=
+name|e
+operator|.
+name|getValue
+argument_list|()
+operator|.
+name|size
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|nregions
+operator|>=
+name|nRegionsToAssign
+condition|)
+block|{
+break|break;
+block|}
+block|}
+name|nRegionsToAssign
+operator|-=
+name|nregions
+expr_stmt|;
+if|if
+condition|(
+name|nRegionsToAssign
+operator|>
+literal|0
+condition|)
+block|{
+comment|// We still have more regions to assign. See how many we can assign
+comment|// before this server becomes more heavily loaded than the next
+comment|// most heavily loaded server.
+name|SortedMap
+argument_list|<
+name|HServerLoad
+argument_list|,
+name|Set
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+name|heavyServers
+init|=
+name|loadToServers
+operator|.
+name|tailMap
+argument_list|(
+name|thisServersLoad
+argument_list|)
+decl_stmt|;
+name|int
+name|nservers
+init|=
+literal|0
+decl_stmt|;
+name|HServerLoad
+name|heavierLoad
+init|=
+literal|null
+decl_stmt|;
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|HServerLoad
+argument_list|,
+name|Set
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+name|e
+range|:
+name|heavyServers
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|servers
+init|=
+name|e
+operator|.
+name|getValue
+argument_list|()
+decl_stmt|;
+name|nservers
+operator|+=
+name|servers
+operator|.
+name|size
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|e
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|compareTo
+argument_list|(
+name|thisServersLoad
+argument_list|)
+operator|==
+literal|0
+condition|)
+block|{
+comment|// This is the load factor of the server we are considering
+name|nservers
+operator|-=
+literal|1
+expr_stmt|;
+continue|continue;
+block|}
+comment|// If we get here, we are at the first load entry that is a
+comment|// heavier load than the server we are considering
+name|heavierLoad
+operator|=
+name|e
+operator|.
+name|getKey
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+name|nregions
+operator|=
+literal|0
+expr_stmt|;
+if|if
+condition|(
+name|heavierLoad
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// There is a more heavily loaded server
+for|for
+control|(
+name|HServerLoad
+name|load
+init|=
+operator|new
+name|HServerLoad
+argument_list|(
+name|thisServersLoad
+operator|.
+name|getNumberOfRequests
+argument_list|()
+argument_list|,
+name|thisServersLoad
+operator|.
+name|getNumberOfRegions
+argument_list|()
+argument_list|)
+init|;
+name|load
+operator|.
+name|compareTo
+argument_list|(
+name|heavierLoad
+argument_list|)
+operator|<=
+literal|0
+operator|&&
+name|nregions
+operator|<
+name|nRegionsToAssign
+condition|;
+name|load
+operator|.
+name|setNumberOfRegions
+argument_list|(
+name|load
+operator|.
+name|getNumberOfRegions
+argument_list|()
+operator|+
+literal|1
+argument_list|)
+operator|,
+name|nregions
+operator|++
+control|)
+block|{               }
+block|}
+if|if
+condition|(
+name|nregions
+operator|<
+name|nRegionsToAssign
+condition|)
+block|{
+comment|// There are some more heavily loaded servers
+comment|// but we can't assign all the regions to this server.
+if|if
+condition|(
+name|nservers
+operator|>
+literal|0
+condition|)
+block|{
+comment|// There are other servers that can share the load.
+comment|// Split regions that need assignment across the servers.
+name|nregions
+operator|=
+operator|(
+name|int
+operator|)
+name|Math
+operator|.
+name|ceil
+argument_list|(
+operator|(
+literal|1.0
+operator|*
+name|nRegionsToAssign
+operator|)
+operator|/
+operator|(
+literal|1.0
+operator|*
+name|nservers
+operator|)
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// No other servers with same load.
+comment|// Split regions over all available servers
+name|nregions
+operator|=
+operator|(
+name|int
+operator|)
+name|Math
+operator|.
+name|ceil
+argument_list|(
+operator|(
+literal|1.0
+operator|*
+name|nRegionsToAssign
+operator|)
+operator|/
+operator|(
+literal|1.0
+operator|*
+name|serversToServerInfo
+operator|.
+name|size
+argument_list|()
+operator|)
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+else|else
+block|{
+comment|// Assign all regions to this server
+name|nregions
+operator|=
+name|nRegionsToAssign
+expr_stmt|;
+block|}
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|Text
+argument_list|,
+name|HRegionInfo
+argument_list|>
+name|e
+range|:
+name|unassignedRegions
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+name|Text
+name|regionName
+init|=
+name|e
+operator|.
+name|getKey
+argument_list|()
+decl_stmt|;
+name|HRegionInfo
+name|regionInfo
+init|=
+name|e
+operator|.
+name|getValue
+argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"assigning region "
+operator|+
+name|regionName
+operator|+
+literal|" to server "
+operator|+
+name|serverName
+argument_list|)
+expr_stmt|;
 name|assignAttempts
 operator|.
 name|put
 argument_list|(
-name|curRegionName
+name|regionName
 argument_list|,
 name|Long
 operator|.
@@ -5561,64 +6505,43 @@ name|now
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|counter
-operator|++
+name|returnMsgs
+operator|.
+name|add
+argument_list|(
+operator|new
+name|HMsg
+argument_list|(
+name|HMsg
+operator|.
+name|MSG_REGION_OPEN
+argument_list|,
+name|regionInfo
+argument_list|)
+argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
-name|counter
-operator|>=
-name|targetForServer
+operator|--
+name|nregions
+operator|<=
+literal|0
 condition|)
 block|{
 break|break;
 block|}
 block|}
 block|}
-return|return
-name|returnMsgs
-operator|.
-name|toArray
-argument_list|(
-operator|new
-name|HMsg
-index|[
-name|returnMsgs
-operator|.
-name|size
-argument_list|()
-index|]
-argument_list|)
-return|;
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|// Some internal classes to manage msg-passing and client operations
-comment|//////////////////////////////////////////////////////////////////////////////
+block|}
+block|}
+block|}
+comment|/*    * Some internal classes to manage msg-passing and client operations    */
 specifier|private
 specifier|abstract
 class|class
 name|PendingOperation
 block|{
-specifier|protected
-specifier|final
-name|Text
-index|[]
-name|columns
-init|=
-block|{
-name|COLUMN_FAMILY
-block|}
-decl_stmt|;
-specifier|protected
-specifier|final
-name|Text
-name|startRow
-init|=
-operator|new
-name|Text
-argument_list|()
-decl_stmt|;
 name|PendingOperation
 parameter_list|()
 block|{
@@ -5648,10 +6571,6 @@ decl_stmt|;
 specifier|private
 name|String
 name|deadServerName
-decl_stmt|;
-specifier|private
-name|long
-name|oldStartCode
 decl_stmt|;
 specifier|private
 specifier|transient
@@ -5750,15 +6669,6 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|oldStartCode
-operator|=
-name|serverInfo
-operator|.
-name|getStartCode
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
 name|logSplit
 operator|=
 literal|false
@@ -5776,6 +6686,7 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -5839,13 +6750,6 @@ name|Text
 argument_list|,
 name|HRegionInfo
 argument_list|>
-argument_list|()
-decl_stmt|;
-name|DataInputBuffer
-name|inbuf
-init|=
-operator|new
-name|DataInputBuffer
 argument_list|()
 decl_stmt|;
 try|try
@@ -6064,6 +6968,10 @@ name|LOG
 operator|.
 name|isDebugEnabled
 argument_list|()
+operator|&&
+name|row
+operator|!=
+literal|null
 condition|)
 block|{
 name|LOG
@@ -6290,7 +7198,7 @@ name|deadServerName
 argument_list|)
 condition|)
 block|{
-name|TreeMap
+name|HashMap
 argument_list|<
 name|Text
 argument_list|,
@@ -6408,8 +7316,8 @@ argument_list|,
 name|info
 argument_list|)
 expr_stmt|;
-comment|// If was pending, remove otherwise will obstruct its getting
-comment|// reassigned.
+comment|// If it was pending, remove.
+comment|// Otherwise will obstruct its getting reassigned.
 name|pendingRegions
 operator|.
 name|remove
@@ -6801,6 +7709,9 @@ block|{
 if|if
 condition|(
 name|rootRegionLocation
+operator|.
+name|get
+argument_list|()
 operator|!=
 literal|null
 operator|&&
@@ -6809,12 +7720,18 @@ operator|.
 name|equals
 argument_list|(
 name|rootRegionLocation
+operator|.
+name|get
+argument_list|()
 argument_list|)
 condition|)
 block|{
 name|rootRegionLocation
-operator|=
+operator|.
+name|set
+argument_list|(
 literal|null
+argument_list|)
 expr_stmt|;
 name|unassignedRegions
 operator|.
@@ -6900,6 +7817,9 @@ block|}
 if|if
 condition|(
 name|rootRegionLocation
+operator|.
+name|get
+argument_list|()
 operator|==
 literal|null
 operator|||
@@ -6907,8 +7827,7 @@ operator|!
 name|rootScanned
 condition|)
 block|{
-comment|// We can't proceed until the root region is online and has been
-comment|// scanned
+comment|// We can't proceed until the root region is online and has been scanned
 if|if
 condition|(
 name|LOG
@@ -6938,6 +7857,9 @@ operator|.
 name|getHRegionConnection
 argument_list|(
 name|rootRegionLocation
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|scannerId
@@ -6963,6 +7885,9 @@ literal|"process server shutdown scanning root region on "
 operator|+
 name|rootRegionLocation
 operator|.
+name|get
+argument_list|()
+operator|.
 name|getBindAddress
 argument_list|()
 argument_list|)
@@ -6980,9 +7905,9 @@ name|rootRegionInfo
 operator|.
 name|regionName
 argument_list|,
-name|columns
+name|COLUMN_FAMILY_ARRAY
 argument_list|,
-name|startRow
+name|EMPTY_START_ROW
 argument_list|,
 name|System
 operator|.
@@ -7063,6 +7988,9 @@ argument_list|(
 literal|"process server shutdown scanning root region on "
 operator|+
 name|rootRegionLocation
+operator|.
+name|get
+argument_list|()
 operator|.
 name|getBindAddress
 argument_list|()
@@ -7245,9 +8173,9 @@ name|r
 operator|.
 name|regionName
 argument_list|,
-name|columns
+name|COLUMN_FAMILY_ARRAY
 argument_list|,
-name|startRow
+name|EMPTY_START_ROW
 argument_list|,
 name|System
 operator|.
@@ -7445,6 +8373,7 @@ literal|false
 expr_stmt|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -7486,6 +8415,15 @@ name|tries
 operator|++
 control|)
 block|{
+if|if
+condition|(
+name|closed
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
 name|LOG
 operator|.
 name|info
@@ -7506,21 +8444,15 @@ name|server
 decl_stmt|;
 if|if
 condition|(
-name|closed
-condition|)
-block|{
-return|return
-literal|true
-return|;
-block|}
-if|if
-condition|(
 name|rootRegion
 condition|)
 block|{
 if|if
 condition|(
 name|rootRegionLocation
+operator|.
+name|get
+argument_list|()
 operator|==
 literal|null
 operator|||
@@ -7549,6 +8481,9 @@ operator|.
 name|getHRegionConnection
 argument_list|(
 name|rootRegionLocation
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|onlineMetaRegions
@@ -8114,6 +9049,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -8153,6 +9089,15 @@ name|tries
 operator|++
 control|)
 block|{
+if|if
+condition|(
+name|closed
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
 name|LOG
 operator|.
 name|info
@@ -8181,21 +9126,15 @@ name|server
 decl_stmt|;
 if|if
 condition|(
-name|closed
-condition|)
-block|{
-return|return
-literal|true
-return|;
-block|}
-if|if
-condition|(
 name|rootRegion
 condition|)
 block|{
 if|if
 condition|(
 name|rootRegionLocation
+operator|.
+name|get
+argument_list|()
 operator|==
 literal|null
 operator|||
@@ -8203,8 +9142,7 @@ operator|!
 name|rootScanned
 condition|)
 block|{
-comment|// We can't proceed until the root region is online and has been
-comment|// scanned
+comment|// We can't proceed until the root region is online and has been scanned
 if|if
 condition|(
 name|LOG
@@ -8220,6 +9158,9 @@ argument_list|(
 literal|"root region="
 operator|+
 name|rootRegionLocation
+operator|.
+name|get
+argument_list|()
 operator|.
 name|toString
 argument_list|()
@@ -8249,6 +9190,9 @@ operator|.
 name|getHRegionConnection
 argument_list|(
 name|rootRegionLocation
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -8273,7 +9217,7 @@ block|{
 comment|// We can't proceed because not all of the meta regions are online.
 comment|// We can't block either because that would prevent the meta region
 comment|// online message from being processed. So return false to have this
-comment|// operation requeue
+comment|// operation requeued.
 if|if
 condition|(
 name|LOG
@@ -8621,10 +9565,8 @@ literal|true
 return|;
 block|}
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|// HMasterInterface
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * {@inheritDoc}    */
+comment|/*    * HMasterInterface    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|isMasterRunning
@@ -8635,7 +9577,7 @@ operator|!
 name|closed
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|shutdown
@@ -8699,7 +9641,7 @@ literal|10
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|createTable
@@ -8831,7 +9773,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/*    * Set of tables currently in creation. Access needs to be synchronized.    */
+comment|/* Set of tables currently in creation. Access needs to be synchronized. */
 specifier|private
 name|Set
 argument_list|<
@@ -8922,7 +9864,6 @@ name|newRegion
 operator|.
 name|regionName
 argument_list|)
-operator|)
 condition|?
 name|onlineMetaRegions
 operator|.
@@ -8953,6 +9894,7 @@ operator|.
 name|lastKey
 argument_list|()
 argument_list|)
+operator|)
 decl_stmt|;
 name|Text
 name|metaRegionName
@@ -8982,12 +9924,7 @@ name|openScanner
 argument_list|(
 name|metaRegionName
 argument_list|,
-operator|new
-name|Text
-index|[]
-block|{
-name|COL_REGIONINFO
-block|}
+name|COL_REGIONINFO_ARRAY
 argument_list|,
 name|tableName
 argument_list|,
@@ -9012,10 +9949,9 @@ argument_list|(
 name|scannerid
 argument_list|)
 decl_stmt|;
-comment|// Test data and that the row for the data is for our table. If
-comment|// table does not exist, scanner will return row after where our table
-comment|// would be inserted if it exists so look for exact match on table
-comment|// name.
+comment|// Test data and that the row for the data is for our table. If table
+comment|// does not exist, scanner will return row after where our table would
+comment|// be inserted if it exists so look for exact match on table name.
 if|if
 condition|(
 name|data
@@ -9257,7 +10193,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|deleteTable
@@ -9287,7 +10223,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|addColumn
@@ -9313,7 +10249,7 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|deleteColumn
@@ -9344,7 +10280,7 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|enableTable
@@ -9367,7 +10303,7 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|disableTable
@@ -9390,7 +10326,7 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|HServerAddress
 name|findRootRegion
@@ -9398,16 +10334,19 @@ parameter_list|()
 block|{
 return|return
 name|rootRegionLocation
+operator|.
+name|get
+argument_list|()
 return|;
 block|}
-comment|// Helper classes for HMasterInterface
+comment|/*    * Helper classes for HMasterInterface    */
 specifier|private
 specifier|abstract
 class|class
 name|TableOperation
 block|{
 specifier|private
-name|SortedSet
+name|Set
 argument_list|<
 name|MetaRegion
 argument_list|>
@@ -9418,7 +10357,7 @@ name|Text
 name|tableName
 decl_stmt|;
 specifier|protected
-name|TreeSet
+name|Set
 argument_list|<
 name|HRegionInfo
 argument_list|>
@@ -9451,7 +10390,7 @@ operator|.
 name|metaRegions
 operator|=
 operator|new
-name|TreeSet
+name|HashSet
 argument_list|<
 name|MetaRegion
 argument_list|>
@@ -9468,7 +10407,7 @@ operator|.
 name|unservedRegions
 operator|=
 operator|new
-name|TreeSet
+name|HashSet
 argument_list|<
 name|HRegionInfo
 argument_list|>
@@ -9630,7 +10569,7 @@ name|m
 operator|.
 name|regionName
 argument_list|,
-name|METACOLUMNS
+name|COLUMN_FAMILY_ARRAY
 argument_list|,
 name|tableName
 argument_list|,
@@ -10135,14 +11074,22 @@ condition|)
 block|{
 name|HServerInfo
 name|s
-init|=
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|serversToServerInfo
+init|)
+block|{
+name|s
+operator|=
 name|serversToServerInfo
 operator|.
 name|get
 argument_list|(
 name|serverName
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 name|result
 operator|=
 name|s
@@ -10202,7 +11149,7 @@ name|MetaRegion
 name|m
 parameter_list|,
 name|HRegionInterface
-name|srvr
+name|server
 parameter_list|)
 throws|throws
 name|IOException
@@ -10220,11 +11167,11 @@ name|boolean
 name|online
 decl_stmt|;
 specifier|protected
-name|TreeMap
+name|Map
 argument_list|<
 name|String
 argument_list|,
-name|TreeSet
+name|HashSet
 argument_list|<
 name|HRegionInfo
 argument_list|>
@@ -10232,11 +11179,11 @@ argument_list|>
 name|servedRegions
 init|=
 operator|new
-name|TreeMap
+name|HashMap
 argument_list|<
 name|String
 argument_list|,
-name|TreeSet
+name|HashSet
 argument_list|<
 name|HRegionInfo
 argument_list|>
@@ -10300,7 +11247,7 @@ name|startCode
 argument_list|)
 condition|)
 block|{
-name|TreeSet
+name|HashSet
 argument_list|<
 name|HRegionInfo
 argument_list|>
@@ -10323,7 +11270,7 @@ block|{
 name|regions
 operator|=
 operator|new
-name|TreeSet
+name|HashSet
 argument_list|<
 name|HRegionInfo
 argument_list|>
@@ -10706,7 +11653,12 @@ name|i
 operator|.
 name|regionName
 argument_list|,
+name|Long
+operator|.
+name|valueOf
+argument_list|(
 literal|0L
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -10759,7 +11711,7 @@ name|Entry
 argument_list|<
 name|String
 argument_list|,
-name|TreeSet
+name|HashSet
 argument_list|<
 name|HRegionInfo
 argument_list|>
@@ -10796,7 +11748,7 @@ continue|continue;
 comment|// Already being served
 block|}
 comment|// Cause regions being served to be taken off-line and disabled
-name|TreeMap
+name|HashMap
 argument_list|<
 name|Text
 argument_list|,
@@ -10821,7 +11773,7 @@ block|{
 name|localKillList
 operator|=
 operator|new
-name|TreeMap
+name|HashMap
 argument_list|<
 name|Text
 argument_list|,
@@ -10926,7 +11878,7 @@ name|updateRegionInfo
 parameter_list|(
 specifier|final
 name|HRegionInterface
-name|srvr
+name|server
 parameter_list|,
 specifier|final
 name|Text
@@ -10969,7 +11921,7 @@ argument_list|(
 name|s
 argument_list|)
 expr_stmt|;
-name|srvr
+name|server
 operator|.
 name|put
 argument_list|(
@@ -11022,7 +11974,7 @@ name|MetaRegion
 name|m
 parameter_list|,
 name|HRegionInterface
-name|srvr
+name|server
 parameter_list|)
 throws|throws
 name|IOException
@@ -11030,7 +11982,7 @@ block|{
 comment|// For regions that are being served, mark them for deletion
 for|for
 control|(
-name|TreeSet
+name|HashSet
 argument_list|<
 name|HRegionInfo
 argument_list|>
@@ -11134,7 +12086,7 @@ name|postProcessMeta
 argument_list|(
 name|m
 argument_list|,
-name|srvr
+name|server
 argument_list|)
 expr_stmt|;
 block|}
@@ -11530,7 +12482,7 @@ name|MetaRegion
 name|m
 parameter_list|,
 name|HRegionInterface
-name|srvr
+name|server
 parameter_list|)
 throws|throws
 name|IOException
@@ -11557,7 +12509,7 @@ argument_list|)
 expr_stmt|;
 name|updateRegionInfo
 argument_list|(
-name|srvr
+name|server
 argument_list|,
 name|m
 operator|.
@@ -11728,7 +12680,7 @@ name|MetaRegion
 name|m
 parameter_list|,
 name|HRegionInterface
-name|srvr
+name|server
 parameter_list|)
 throws|throws
 name|IOException
@@ -11755,7 +12707,7 @@ argument_list|)
 expr_stmt|;
 name|updateRegionInfo
 argument_list|(
-name|srvr
+name|server
 argument_list|,
 name|m
 operator|.
@@ -11767,9 +12719,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|// Managing leases
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|/*    * Managing leases    */
 comment|/** Instantiated to monitor the health of a region server */
 specifier|private
 class|class
@@ -11799,7 +12749,7 @@ operator|=
 name|server
 expr_stmt|;
 block|}
-comment|/**      * {@inheritDoc}      */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|leaseExpired
@@ -11814,17 +12764,104 @@ operator|+
 literal|" lease expired"
 argument_list|)
 expr_stmt|;
-comment|// Remove the server from the known servers list
+comment|// Remove the server from the known servers list and update load info
 name|HServerInfo
-name|storedInfo
-init|=
+name|info
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|serversToServerInfo
+init|)
+block|{
+name|info
+operator|=
 name|serversToServerInfo
 operator|.
 name|remove
 argument_list|(
 name|server
 argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|info
+operator|!=
+literal|null
+condition|)
+block|{
+name|String
+name|serverName
+init|=
+name|info
+operator|.
+name|getServerAddress
+argument_list|()
+operator|.
+name|toString
+argument_list|()
 decl_stmt|;
+name|HServerLoad
+name|load
+init|=
+name|serversToLoad
+operator|.
+name|remove
+argument_list|(
+name|serverName
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|load
+operator|!=
+literal|null
+condition|)
+block|{
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|servers
+init|=
+name|loadToServers
+operator|.
+name|get
+argument_list|(
+name|load
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|servers
+operator|!=
+literal|null
+condition|)
+block|{
+name|servers
+operator|.
+name|remove
+argument_list|(
+name|serverName
+argument_list|)
+expr_stmt|;
+name|loadToServers
+operator|.
+name|put
+argument_list|(
+name|load
+argument_list|,
+name|servers
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+name|serversToServerInfo
+operator|.
+name|notifyAll
+argument_list|()
+expr_stmt|;
+block|}
 comment|// NOTE: If the server was serving the root region, we cannot reassign it
 comment|// here because the new server will start serving the root region before
 comment|// the PendingServerShutdown operation has a chance to split the log file.
@@ -11837,7 +12874,7 @@ argument_list|(
 operator|new
 name|PendingServerShutdown
 argument_list|(
-name|storedInfo
+name|info
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -11860,9 +12897,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|// Main program
-comment|//////////////////////////////////////////////////////////////////////////////
+comment|/*    * Main program    */
 specifier|private
 specifier|static
 name|void

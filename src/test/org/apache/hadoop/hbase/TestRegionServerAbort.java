@@ -94,7 +94,9 @@ name|TestRegionServerAbort
 parameter_list|()
 block|{
 name|super
-argument_list|()
+argument_list|(
+literal|2
+argument_list|)
 expr_stmt|;
 name|conf
 operator|.
@@ -122,7 +124,7 @@ name|setInt
 argument_list|(
 literal|"hbase.client.retries.number"
 argument_list|,
-literal|2
+literal|3
 argument_list|)
 expr_stmt|;
 comment|// reduce HBase retries

@@ -156,7 +156,6 @@ name|HBaseTestCase
 implements|implements
 name|RegionUnavailableListener
 block|{
-specifier|private
 specifier|static
 specifier|final
 name|Logger
