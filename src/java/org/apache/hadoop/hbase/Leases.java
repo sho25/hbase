@@ -285,22 +285,13 @@ name|void
 name|close
 parameter_list|()
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
 literal|"closing leases"
 argument_list|)
 expr_stmt|;
-block|}
 name|this
 operator|.
 name|running
@@ -354,22 +345,13 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
 literal|"leases closed"
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|/* A client obtains a lease... */
 comment|/**    * Obtain a lease    *     * @param holderId id of lease holder    * @param resourceId id of resource being leased    * @param listener listener that will process lease expirations    */
@@ -469,24 +451,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Created lease "
-operator|+
-name|name
-argument_list|)
-expr_stmt|;
-block|}
+comment|//    if (LOG.isDebugEnabled()) {
+comment|//      LOG.debug("Created lease " + name);
+comment|//    }
 block|}
 comment|/* A client renews a lease... */
 comment|/**    * Renew a lease    *     * @param holderId id of lease holder    * @param resourceId id of resource being leased    * @throws IOException    */
@@ -579,24 +546,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Renewed lease "
-operator|+
-name|name
-argument_list|)
-expr_stmt|;
-block|}
+comment|//    if (LOG.isDebugEnabled()) {
+comment|//      LOG.debug("Renewed lease " + name);
+comment|//    }
 block|}
 comment|/**    * Client explicitly cancels a lease.    *     * @param holderId id of lease holder    * @param resourceId id of resource being leased    */
 specifier|public
@@ -673,24 +625,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Cancel lease "
-operator|+
-name|name
-argument_list|)
-expr_stmt|;
-block|}
+comment|//    if (LOG.isDebugEnabled()) {
+comment|//      LOG.debug("Cancel lease " + name);
+comment|//    }
 block|}
 comment|/** LeaseMonitor is a thread that expires Leases that go on too long. */
 class|class
@@ -1215,17 +1152,9 @@ name|void
 name|expired
 parameter_list|()
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Lease expired "
 operator|+
@@ -1233,7 +1162,6 @@ name|getLeaseName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|listener
 operator|.
 name|leaseExpired

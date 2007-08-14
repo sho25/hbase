@@ -173,6 +173,22 @@ name|Text
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Writables
+import|;
+end_import
+
 begin_comment
 comment|/**   * A non-instantiable class that has a static method capable of compacting  * a table by merging adjacent regions that have grown too small.  */
 end_comment
@@ -1062,10 +1078,18 @@ block|}
 name|HRegionInfo
 name|region
 init|=
-operator|new
+operator|(
 name|HRegionInfo
+operator|)
+name|Writables
+operator|.
+name|getWritable
 argument_list|(
 name|bytes
+argument_list|,
+operator|new
+name|HRegionInfo
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if

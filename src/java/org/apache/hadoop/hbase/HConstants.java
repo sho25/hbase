@@ -311,6 +311,34 @@ operator|+
 literal|"serverstartcode"
 argument_list|)
 decl_stmt|;
+comment|/** the lower half of a split region */
+specifier|static
+specifier|final
+name|Text
+name|COL_SPLITA
+init|=
+operator|new
+name|Text
+argument_list|(
+name|COLUMN_FAMILY_STR
+operator|+
+literal|"splitA"
+argument_list|)
+decl_stmt|;
+comment|/** the upper half of a split region */
+specifier|static
+specifier|final
+name|Text
+name|COL_SPLITB
+init|=
+operator|new
+name|Text
+argument_list|(
+name|COLUMN_FAMILY_STR
+operator|+
+literal|"splitB"
+argument_list|)
+decl_stmt|;
 comment|// Other constants
 comment|/** used by scanners, etc when they want to start at the beginning of a region */
 specifier|static

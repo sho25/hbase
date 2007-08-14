@@ -1663,7 +1663,12 @@ name|fs
 operator|.
 name|listPaths
 argument_list|(
+operator|new
+name|Path
+index|[]
+block|{
 name|infodir
+block|}
 argument_list|)
 decl_stmt|;
 name|Vector
@@ -1906,7 +1911,12 @@ name|fs
 operator|.
 name|listPaths
 argument_list|(
+operator|new
+name|Path
+index|[]
+block|{
 name|mapdir
+block|}
 argument_list|)
 decl_stmt|;
 for|for

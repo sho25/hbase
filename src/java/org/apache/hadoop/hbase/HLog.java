@@ -307,7 +307,12 @@ name|fs
 operator|.
 name|listPaths
 argument_list|(
+operator|new
+name|Path
+index|[]
+block|{
 name|srcDir
+block|}
 argument_list|)
 decl_stmt|;
 name|LOG

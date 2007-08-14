@@ -169,6 +169,22 @@ name|Text
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Writables
+import|;
+end_import
+
 begin_comment
 comment|/**  * A standalone HRegion directory reader.  Currently reads content on  * file system only.  * TODO: Add dumping of HStoreFile content and HLog.  */
 end_comment
@@ -1060,10 +1076,15 @@ condition|)
 block|{
 name|value
 operator|=
-operator|new
-name|HRegionInfo
+name|Writables
+operator|.
+name|getWritable
 argument_list|(
 name|colvalue
+argument_list|,
+operator|new
+name|HRegionInfo
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
