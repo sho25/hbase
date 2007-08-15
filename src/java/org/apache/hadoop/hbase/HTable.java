@@ -2655,7 +2655,7 @@ parameter_list|(
 name|HStoreKey
 name|key
 parameter_list|,
-name|TreeMap
+name|SortedMap
 argument_list|<
 name|Text
 argument_list|,

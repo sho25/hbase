@@ -25,7 +25,7 @@ name|hadoop
 operator|.
 name|io
 operator|.
-name|*
+name|Text
 import|;
 end_import
 
@@ -35,7 +35,7 @@ name|java
 operator|.
 name|io
 operator|.
-name|*
+name|IOException
 import|;
 end_import
 
@@ -45,7 +45,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|*
+name|SortedMap
 import|;
 end_import
 
@@ -66,7 +66,7 @@ parameter_list|(
 name|HStoreKey
 name|key
 parameter_list|,
-name|TreeMap
+name|SortedMap
 argument_list|<
 name|Text
 argument_list|,
