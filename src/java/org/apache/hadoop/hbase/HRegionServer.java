@@ -1113,7 +1113,7 @@ name|lockid
 init|=
 name|t
 operator|.
-name|startBatchUpdate
+name|startUpdate
 argument_list|(
 name|oldRegionInfo
 operator|.
@@ -1195,7 +1195,7 @@ argument_list|)
 expr_stmt|;
 name|t
 operator|.
-name|commitBatch
+name|commit
 argument_list|(
 name|lockid
 argument_list|)
@@ -1222,7 +1222,7 @@ name|lockid
 operator|=
 name|t
 operator|.
-name|startBatchUpdate
+name|startUpdate
 argument_list|(
 name|newRegions
 index|[
@@ -1257,7 +1257,7 @@ argument_list|)
 expr_stmt|;
 name|t
 operator|.
-name|commitBatch
+name|commit
 argument_list|(
 name|lockid
 argument_list|)
@@ -4336,7 +4336,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// HRegionInterface
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|HRegionInfo
 name|getRegionInfo
@@ -4363,7 +4363,7 @@ name|getRegionInfo
 argument_list|()
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|batchUpdate
@@ -4483,7 +4483,7 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|byte
 index|[]
@@ -4523,7 +4523,7 @@ name|column
 argument_list|)
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|byte
 index|[]
@@ -4570,7 +4570,7 @@ name|numVersions
 argument_list|)
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|byte
 index|[]
@@ -4623,7 +4623,7 @@ name|numVersions
 argument_list|)
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|KeyedData
 index|[]
@@ -4737,7 +4737,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|KeyedData
 index|[]
@@ -4969,69 +4969,7 @@ index|]
 argument_list|)
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
-specifier|public
-name|long
-name|startUpdate
-parameter_list|(
-name|Text
-name|regionName
-parameter_list|,
-name|long
-name|clientid
-parameter_list|,
-name|Text
-name|row
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|requestCount
-operator|.
-name|incrementAndGet
-argument_list|()
-expr_stmt|;
-name|HRegion
-name|region
-init|=
-name|getRegion
-argument_list|(
-name|regionName
-argument_list|)
-decl_stmt|;
-name|long
-name|lockid
-init|=
-name|region
-operator|.
-name|startUpdate
-argument_list|(
-name|row
-argument_list|)
-decl_stmt|;
-name|this
-operator|.
-name|leases
-operator|.
-name|createLease
-argument_list|(
-name|clientid
-argument_list|,
-name|lockid
-argument_list|,
-operator|new
-name|RegionListener
-argument_list|(
-name|region
-argument_list|,
-name|lockid
-argument_list|)
-argument_list|)
-expr_stmt|;
-return|return
-name|lockid
-return|;
-block|}
+comment|/*    * NOTE: When startUpdate, put, delete, abort, commit and renewLease are    * removed from HRegionInterface, these methods (with the exception of    * renewLease) must remain, as they are called by batchUpdate (renewLease    * can just be removed)    *     * However, the remaining methods can become protected instead of public    * at that point.    */
 comment|/** Create a lease for an update. If it times out, the update is aborted */
 specifier|private
 specifier|static
@@ -5070,7 +5008,7 @@ operator|=
 name|lockId
 expr_stmt|;
 block|}
-comment|/**      * {@inheritDoc}      */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|leaseExpired
@@ -5138,7 +5076,70 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
+specifier|public
+name|long
+name|startUpdate
+parameter_list|(
+name|Text
+name|regionName
+parameter_list|,
+name|long
+name|clientid
+parameter_list|,
+name|Text
+name|row
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|requestCount
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
+name|HRegion
+name|region
+init|=
+name|getRegion
+argument_list|(
+name|regionName
+argument_list|)
+decl_stmt|;
+name|long
+name|lockid
+init|=
+name|region
+operator|.
+name|startUpdate
+argument_list|(
+name|row
+argument_list|)
+decl_stmt|;
+name|this
+operator|.
+name|leases
+operator|.
+name|createLease
+argument_list|(
+name|clientid
+argument_list|,
+name|lockid
+argument_list|,
+operator|new
+name|RegionListener
+argument_list|(
+name|region
+argument_list|,
+name|lockid
+argument_list|)
+argument_list|)
+expr_stmt|;
+return|return
+name|lockid
+return|;
+block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|put
@@ -5203,7 +5204,7 @@ name|val
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|delete
@@ -5255,7 +5256,7 @@ name|column
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|abort
@@ -5304,7 +5305,7 @@ name|lockid
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|commit
@@ -5361,7 +5362,7 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    */
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|renewLease

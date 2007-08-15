@@ -227,6 +227,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|//TODO
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Start an atomic row insertion/update.  No changes are committed until the
 comment|// call to commit() returns. A call to abort() will abandon any updates in progress.
@@ -237,7 +238,9 @@ comment|// called, the system will automatically call abort() on the client's be
 comment|//
 comment|// The client can gain extra time with a call to renewLease().
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**     * Start an atomic row insertion/update.  No changes are committed until the     * call to commit() returns. A call to abort() will abandon any updates in progress.    *    * Callers to this method are given a lease for each unique lockid; before the    * lease expires, either abort() or commit() must be called. If it is not     * called, the system will automatically call abort() on the client's behalf.    *    * The client can gain extra time with a call to renewLease().    * Start an atomic row insertion or update    *     * @param regionName region name    * @param clientid a unique value to identify the client    * @param row Name of row to start update against.    * @return Row lockid.    * @throws IOException    */
+comment|/**     * Start an atomic row insertion/update.  No changes are committed until the     * call to commit() returns. A call to abort() will abandon any updates in progress.    *    * Callers to this method are given a lease for each unique lockid; before the    * lease expires, either abort() or commit() must be called. If it is not     * called, the system will automatically call abort() on the client's behalf.    *    * The client can gain extra time with a call to renewLease().    * Start an atomic row insertion or update    *     * @param regionName region name    * @param clientid a unique value to identify the client    * @param row Name of row to start update against.    * @return Row lockid.    * @throws IOException    *     * Deprecated. Use @see {@link #batchUpdate(Text, long, BatchUpdate)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|long
 name|startUpdate
@@ -257,7 +260,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**     * Change a value for the specified column    *    * @param regionName region name    * @param clientid a unique value to identify the client    * @param lockid lock id returned from startUpdate    * @param column column whose value is being set    * @param val new value for column    * @throws IOException    */
+comment|/**     * Change a value for the specified column    *    * @param regionName region name    * @param clientid a unique value to identify the client    * @param lockid lock id returned from startUpdate    * @param column column whose value is being set    * @param val new value for column    * @throws IOException    *     * Deprecated. Use @see {@link #batchUpdate(Text, long, BatchUpdate)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|put
@@ -286,7 +291,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**     * Delete the value for a column    *    * @param regionName region name    * @param clientid a unique value to identify the client    * @param lockid lock id returned from startUpdate    * @param column name of column whose value is to be deleted    * @throws IOException    */
+comment|/**     * Delete the value for a column    *    * @param regionName region name    * @param clientid a unique value to identify the client    * @param lockid lock id returned from startUpdate    * @param column name of column whose value is to be deleted    * @throws IOException    *     * Deprecated. Use @see {@link #batchUpdate(Text, long, BatchUpdate)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|delete
@@ -310,7 +317,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**     * Abort a row mutation    *    * @param regionName region name    * @param clientid a unique value to identify the client    * @param lockid lock id returned from startUpdate    * @throws IOException    */
+comment|/**     * Abort a row mutation    *    * @param regionName region name    * @param clientid a unique value to identify the client    * @param lockid lock id returned from startUpdate    * @throws IOException    *     * Deprecated. Use @see {@link #batchUpdate(Text, long, BatchUpdate)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|abort
@@ -330,7 +339,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**     * Finalize a row mutation    *    * @param regionName region name    * @param clientid a unique value to identify the client    * @param lockid lock id returned from startUpdate    * @param timestamp the time (in milliseconds to associate with this change)    * @throws IOException    */
+comment|/**     * Finalize a row mutation    *    * @param regionName region name    * @param clientid a unique value to identify the client    * @param lockid lock id returned from startUpdate    * @param timestamp the time (in milliseconds to associate with this change)    * @throws IOException    *     * Deprecated. Use @see {@link #batchUpdate(Text, long, BatchUpdate)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|commit
@@ -354,7 +365,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Renew lease on update    *     * @param lockid lock id returned from startUpdate    * @param clientid a unique value to identify the client    * @throws IOException    */
+comment|/**    * Renew lease on update    *     * @param lockid lock id returned from startUpdate    * @param clientid a unique value to identify the client    * @throws IOException    *     * Deprecated. Use @see {@link #batchUpdate(Text, long, BatchUpdate)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|renewLease
@@ -424,6 +437,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|//TODO
 comment|/**    * Close a scanner    *     * @param scannerId the scanner id returned by openScanner    * @throws IOException    */
 specifier|public
 name|void

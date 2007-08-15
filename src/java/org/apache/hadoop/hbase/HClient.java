@@ -1065,7 +1065,7 @@ operator|.
 name|get
 argument_list|()
 operator|.
-name|startBatchUpdate
+name|startUpdate
 argument_list|(
 name|row
 argument_list|)
@@ -1108,7 +1108,7 @@ operator|.
 name|get
 argument_list|()
 operator|.
-name|abortBatch
+name|abort
 argument_list|(
 name|lockid
 argument_list|)
@@ -1180,7 +1180,7 @@ operator|.
 name|get
 argument_list|()
 operator|.
-name|commitBatch
+name|commit
 argument_list|(
 name|lockid
 argument_list|,
@@ -1188,7 +1188,7 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Start an atomic row insertion/update.  No changes are committed until the     * call to commit() returns. A call to abort() will abandon any updates in progress.    *    * Callers to this method are given a lease for each unique lockid; before the    * lease expires, either abort() or commit() must be called. If it is not     * called, the system will automatically call abort() on the client's behalf.    *    * The client can gain extra time with a call to renewLease().    * Start an atomic row insertion or update    *     * @param row Name of row to start update against.    * @return Row lockid.    * @throws IOException    */
+comment|/**     * Start an atomic row insertion/update.  No changes are committed until the     * call to commit() returns. A call to abort() will abandon any updates in progress.    *    * Callers to this method are given a lease for each unique lockid; before the    * lease expires, either abort() or commit() must be called. If it is not     * called, the system will automatically call abort() on the client's behalf.    *    * The client can gain extra time with a call to renewLease().    * Start an atomic row insertion or update    *     * @param row Name of row to start update against.    * @return Row lockid.    */
 specifier|public
 name|long
 name|startUpdate
@@ -1197,8 +1197,6 @@ specifier|final
 name|Text
 name|row
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -1234,7 +1232,7 @@ name|row
 argument_list|)
 return|;
 block|}
-comment|/**     * Change a value for the specified column.    * Runs {@link #abort(long)} if exception thrown.    *    * @param lockid lock id returned from startUpdate    * @param column column whose value is being set    * @param val new value for column    * @throws IOException    */
+comment|/**     * Change a value for the specified column.    * Runs {@link #abort(long)} if exception thrown.    *    * @param lockid lock id returned from startUpdate    * @param column column whose value is being set    * @param val new value for column    */
 specifier|public
 name|void
 name|put
@@ -1249,8 +1247,6 @@ name|byte
 name|val
 index|[]
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -1289,7 +1285,7 @@ name|val
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Delete the value for a column    *    * @param lockid              - lock id returned from startUpdate    * @param column              - name of column whose value is to be deleted    * @throws IOException    */
+comment|/**     * Delete the value for a column    *    * @param lockid              - lock id returned from startUpdate    * @param column              - name of column whose value is to be deleted    */
 specifier|public
 name|void
 name|delete
@@ -1300,8 +1296,6 @@ parameter_list|,
 name|Text
 name|column
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -1338,7 +1332,7 @@ name|column
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Abort a row mutation    *    * @param lockid              - lock id returned from startUpdate    * @throws IOException    */
+comment|/**     * Abort a row mutation    *    * @param lockid              - lock id returned from startUpdate    */
 specifier|public
 name|void
 name|abort
@@ -1346,8 +1340,6 @@ parameter_list|(
 name|long
 name|lockid
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -1453,16 +1445,19 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Renew lease on update    *     * @param lockid              - lock id returned from startUpdate    * @throws IOException    */
+comment|/**    * Renew lease on update    *     * @param lockid              - lock id returned from startUpdate    */
 specifier|public
 name|void
 name|renewLease
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|long
 name|lockid
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -1484,18 +1479,6 @@ literal|"Must open table first"
 argument_list|)
 throw|;
 block|}
-name|this
-operator|.
-name|table
-operator|.
-name|get
-argument_list|()
-operator|.
-name|renewLease
-argument_list|(
-name|lockid
-argument_list|)
-expr_stmt|;
 block|}
 specifier|private
 name|void

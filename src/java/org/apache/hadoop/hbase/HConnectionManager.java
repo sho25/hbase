@@ -2242,6 +2242,8 @@ operator|-
 literal|1
 condition|)
 block|{
+name|metaServers
+operator|=
 name|findServersForTable
 argument_list|(
 name|META_TABLE_NAME

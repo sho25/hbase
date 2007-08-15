@@ -221,7 +221,7 @@ name|lockid
 init|=
 name|a
 operator|.
-name|startBatchUpdate
+name|startUpdate
 argument_list|(
 name|row
 argument_list|)
@@ -324,7 +324,7 @@ name|lockid
 operator|=
 name|b
 operator|.
-name|startBatchUpdate
+name|startUpdate
 argument_list|(
 name|key
 operator|.

@@ -1799,7 +1799,7 @@ name|lockid
 init|=
 name|t
 operator|.
-name|startBatchUpdate
+name|startUpdate
 argument_list|(
 name|regionName
 argument_list|)

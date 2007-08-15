@@ -220,7 +220,7 @@ try|try
 block|{
 name|table
 operator|.
-name|commitBatch
+name|commit
 argument_list|(
 operator|-
 literal|1L
@@ -255,7 +255,7 @@ name|lockid
 init|=
 name|table
 operator|.
-name|startBatchUpdate
+name|startUpdate
 argument_list|(
 operator|new
 name|Text
@@ -333,7 +333,7 @@ argument_list|)
 expr_stmt|;
 name|table
 operator|.
-name|commitBatch
+name|commit
 argument_list|(
 name|lockid
 argument_list|)
@@ -342,7 +342,7 @@ name|lockid
 operator|=
 name|table
 operator|.
-name|startBatchUpdate
+name|startUpdate
 argument_list|(
 operator|new
 name|Text

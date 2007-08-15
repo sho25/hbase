@@ -2742,7 +2742,7 @@ name|lockid
 init|=
 name|table
 operator|.
-name|startBatchUpdate
+name|startUpdate
 argument_list|(
 name|t
 argument_list|)
