@@ -152,6 +152,11 @@ comment|/**  * Write a table, sorting by the input key  */
 end_comment
 
 begin_class
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 specifier|abstract
 class|class

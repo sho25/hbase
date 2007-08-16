@@ -103,7 +103,7 @@ name|HBaseTestCase
 extends|extends
 name|TestCase
 block|{
-specifier|public
+specifier|protected
 specifier|final
 specifier|static
 name|String
@@ -111,7 +111,7 @@ name|COLFAMILY_NAME1
 init|=
 literal|"colfamily1:"
 decl_stmt|;
-specifier|public
+specifier|protected
 specifier|final
 specifier|static
 name|String
@@ -119,7 +119,7 @@ name|COLFAMILY_NAME2
 init|=
 literal|"colfamily2:"
 decl_stmt|;
-specifier|public
+specifier|protected
 specifier|final
 specifier|static
 name|String
@@ -139,7 +139,7 @@ name|localFs
 init|=
 literal|null
 decl_stmt|;
-specifier|public
+specifier|protected
 specifier|static
 specifier|final
 name|char
@@ -147,7 +147,7 @@ name|FIRST_CHAR
 init|=
 literal|'a'
 decl_stmt|;
-specifier|public
+specifier|protected
 specifier|static
 specifier|final
 name|char

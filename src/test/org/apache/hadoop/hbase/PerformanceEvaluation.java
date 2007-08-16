@@ -617,6 +617,11 @@ name|IOException
 function_decl|;
 block|}
 comment|/**    * MapReduce job that runs a performance evaluation client in each map task.    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 specifier|static
 class|class

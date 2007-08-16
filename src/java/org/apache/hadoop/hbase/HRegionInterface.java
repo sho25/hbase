@@ -69,7 +69,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|KeyedData
+name|MapWritable
 import|;
 end_import
 
@@ -210,10 +210,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get all the data for the specified row    *     * @param regionName region name    * @param row row key    * @return array of values    * @throws IOException    */
+comment|/**    * Get all the data for the specified row    *     * @param regionName region name    * @param row row key    * @return map of values    * @throws IOException    */
 specifier|public
-name|KeyedData
-index|[]
+name|MapWritable
 name|getRow
 parameter_list|(
 specifier|final
@@ -227,7 +226,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|//TODO
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Start an atomic row insertion/update.  No changes are committed until the
 comment|// call to commit() returns. A call to abort() will abandon any updates in progress.
@@ -425,10 +423,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the next set of values    *     * @param scannerId clientId passed to openScanner    * @return array of values    * @throws IOException    */
+comment|/**    * Get the next set of values    *     * @param scannerId clientId passed to openScanner    * @return map of values    * @throws IOException    */
 specifier|public
-name|KeyedData
-index|[]
+name|MapWritable
 name|next
 parameter_list|(
 name|long
@@ -437,7 +434,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|//TODO
 comment|/**    * Close a scanner    *     * @param scannerId the scanner id returned by openScanner    * @throws IOException    */
 specifier|public
 name|void

@@ -53,7 +53,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|KeyedDataArrayWritable
+name|MapWritable
 import|;
 end_import
 
@@ -105,7 +105,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Pass the key, value to reduce    *    * @see org.apache.hadoop.hbase.mapred.TableMap#map(org.apache.hadoop.hbase.HStoreKey, org.apache.hadoop.hbase.io.KeyedDataArrayWritable, org.apache.hadoop.hbase.mapred.TableOutputCollector, org.apache.hadoop.mapred.Reporter)    */
+comment|/**    * Pass the key, value to reduce    *    * @see org.apache.hadoop.hbase.mapred.TableMap#map(org.apache.hadoop.hbase.HStoreKey, org.apache.hadoop.hbase.io.MapWritable, org.apache.hadoop.hbase.mapred.TableOutputCollector, org.apache.hadoop.mapred.Reporter)    */
 annotation|@
 name|Override
 specifier|public
@@ -115,7 +115,7 @@ parameter_list|(
 name|HStoreKey
 name|key
 parameter_list|,
-name|KeyedDataArrayWritable
+name|MapWritable
 name|value
 parameter_list|,
 name|TableOutputCollector

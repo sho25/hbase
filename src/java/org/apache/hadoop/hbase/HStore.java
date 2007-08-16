@@ -2456,6 +2456,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|long
+name|maxId
+init|=
+name|maxSeenSeqID
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|compactLock
@@ -2657,7 +2662,7 @@ comment|// Compute the max-sequenceID seen in any of the to-be-compacted
 comment|// TreeMaps if it hasn't been passed in to us.
 if|if
 condition|(
-name|maxSeenSeqID
+name|maxId
 operator|==
 operator|-
 literal|1
@@ -2692,10 +2697,10 @@ if|if
 condition|(
 name|seqid
 operator|>
-name|maxSeenSeqID
+name|maxId
 condition|)
 block|{
-name|maxSeenSeqID
+name|maxId
 operator|=
 name|seqid
 expr_stmt|;
@@ -2752,7 +2757,7 @@ operator|!
 name|deleteSequenceInfo
 operator|)
 operator|&&
-name|maxSeenSeqID
+name|maxId
 operator|>=
 literal|0
 condition|)
@@ -2763,7 +2768,7 @@ name|writeInfo
 argument_list|(
 name|fs
 argument_list|,
-name|maxSeenSeqID
+name|maxId
 argument_list|)
 expr_stmt|;
 block|}
@@ -3094,9 +3099,11 @@ block|}
 block|}
 block|}
 block|}
+comment|/** Interface for generic reader for compactions */
 interface|interface
 name|CompactionReader
 block|{
+comment|/**      * Closes the reader      * @throws IOException      */
 specifier|public
 name|void
 name|close
@@ -3104,6 +3111,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**      * Get the next key/value pair      *       * @param key      * @param val      * @return true if more data was returned      * @throws IOException      */
 specifier|public
 name|boolean
 name|next
@@ -3117,6 +3125,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**      * Resets the reader      * @throws IOException      */
 specifier|public
 name|void
 name|reset
@@ -3125,6 +3134,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
+comment|/** A compaction reader for MapFile */
 class|class
 name|MapFileCompactionReader
 implements|implements
@@ -3152,6 +3162,7 @@ operator|=
 name|r
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|close
@@ -3167,6 +3178,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|next
@@ -3193,6 +3205,7 @@ name|val
 argument_list|)
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|reset
@@ -5440,6 +5453,7 @@ name|firstRow
 argument_list|)
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

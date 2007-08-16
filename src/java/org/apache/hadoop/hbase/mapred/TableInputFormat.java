@@ -43,7 +43,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|TreeMap
+name|SortedMap
 import|;
 end_import
 
@@ -53,7 +53,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
+name|TreeMap
 import|;
 end_import
 
@@ -68,34 +68,6 @@ operator|.
 name|fs
 operator|.
 name|Path
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Writable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|WritableComparable
 import|;
 end_import
 
@@ -251,7 +223,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|KeyedData
+name|ImmutableBytesWritable
 import|;
 end_import
 
@@ -267,7 +239,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|KeyedDataArrayWritable
+name|MapWritable
 import|;
 end_import
 
@@ -296,7 +268,7 @@ name|InputFormat
 argument_list|<
 name|HStoreKey
 argument_list|,
-name|KeyedDataArrayWritable
+name|MapWritable
 argument_list|>
 implements|,
 name|JobConfigurable
@@ -338,7 +310,7 @@ decl_stmt|;
 name|HTable
 name|m_table
 decl_stmt|;
-comment|/**    * Iterate over an HBase table data, return (HStoreKey, KeyedDataArrayWritable) pairs    */
+comment|/**    * Iterate over an HBase table data,    * return (HStoreKey, MapWritable<Text, ImmutableBytesWritable>) pairs    */
 class|class
 name|TableRecordReader
 implements|implements
@@ -346,7 +318,7 @@ name|RecordReader
 argument_list|<
 name|HStoreKey
 argument_list|,
-name|KeyedDataArrayWritable
+name|MapWritable
 argument_list|>
 block|{
 specifier|private
@@ -354,7 +326,7 @@ name|HScannerInterface
 name|m_scanner
 decl_stmt|;
 specifier|private
-name|TreeMap
+name|SortedMap
 argument_list|<
 name|Text
 argument_list|,
@@ -463,16 +435,47 @@ name|HStoreKey
 argument_list|()
 return|;
 block|}
-comment|/**      * @return KeyedDataArrayWritable of KeyedData      *      * @see org.apache.hadoop.mapred.RecordReader#createValue()      */
+comment|/**      * @return MapWritable      *      * @see org.apache.hadoop.mapred.RecordReader#createValue()      */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
-name|KeyedDataArrayWritable
+name|MapWritable
 name|createValue
 parameter_list|()
 block|{
 return|return
 operator|new
-name|KeyedDataArrayWritable
+name|MapWritable
+argument_list|(
+operator|(
+name|Class
+operator|)
+name|Text
+operator|.
+name|class
+argument_list|,
+operator|(
+name|Class
+operator|)
+name|ImmutableBytesWritable
+operator|.
+name|class
+argument_list|,
+operator|(
+name|Map
+operator|)
+operator|new
+name|TreeMap
+argument_list|<
+name|Text
+argument_list|,
+name|ImmutableBytesWritable
+argument_list|>
 argument_list|()
+argument_list|)
 return|;
 block|}
 comment|/** {@inheritDoc} */
@@ -498,7 +501,12 @@ return|return
 literal|0
 return|;
 block|}
-comment|/**      * @param key HStoreKey as input key.      * @param value KeyedDataArrayWritable as input value      *       * Converts HScannerInterface.next(HStoreKey, TreeMap(Text, byte[])) to      *                                (HStoreKey, KeyedDataArrayWritable)      * @return true if there was more data      * @throws IOException      */
+comment|/**      * @param key HStoreKey as input key.      * @param value MapWritable as input value      *       * Converts HScannerInterface.next(HStoreKey, SortedMap<Text, byte[]>) to      * HStoreKey, MapWritable<Text, ImmutableBytesWritable>      *       * @return true if there was more data      * @throws IOException      */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 name|boolean
 name|next
@@ -506,7 +514,7 @@ parameter_list|(
 name|HStoreKey
 name|key
 parameter_list|,
-name|KeyedDataArrayWritable
+name|MapWritable
 name|value
 parameter_list|)
 throws|throws
@@ -577,24 +585,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|KeyedDataArrayWritable
-name|rowVal
-init|=
-name|value
-decl_stmt|;
-name|ArrayList
-argument_list|<
-name|KeyedData
-argument_list|>
-name|columns
-init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|KeyedData
-argument_list|>
-argument_list|()
-decl_stmt|;
 for|for
 control|(
 name|Map
@@ -614,34 +604,18 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|HStoreKey
-name|keyCol
-init|=
-operator|new
-name|HStoreKey
-argument_list|(
-name|tKey
-argument_list|)
-decl_stmt|;
-name|keyCol
+name|value
 operator|.
-name|setColumn
+name|put
 argument_list|(
 name|e
 operator|.
 name|getKey
 argument_list|()
-argument_list|)
-expr_stmt|;
-name|columns
-operator|.
-name|add
-argument_list|(
-operator|new
-name|KeyedData
-argument_list|(
-name|keyCol
 argument_list|,
+operator|new
+name|ImmutableBytesWritable
+argument_list|(
 name|e
 operator|.
 name|getValue
@@ -650,26 +624,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// set the output
-name|rowVal
-operator|.
-name|set
-argument_list|(
-name|columns
-operator|.
-name|toArray
-argument_list|(
-operator|new
-name|KeyedData
-index|[
-name|columns
-operator|.
-name|size
-argument_list|()
-index|]
-argument_list|)
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 name|LOG
@@ -684,12 +638,13 @@ name|hasMore
 return|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|RecordReader
 argument_list|<
 name|HStoreKey
 argument_list|,
-name|KeyedDataArrayWritable
+name|MapWritable
 argument_list|>
 name|getRecordReader
 parameter_list|(

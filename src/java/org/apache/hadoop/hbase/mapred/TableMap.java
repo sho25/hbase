@@ -137,7 +137,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|KeyedDataArrayWritable
+name|MapWritable
 import|;
 end_import
 
@@ -200,6 +200,11 @@ comment|/**  * Scan an HBase table to sort by a specified sort column.  * If the
 end_comment
 
 begin_class
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 specifier|abstract
 class|class
@@ -289,7 +294,7 @@ name|job
 operator|.
 name|setOutputValueClass
 argument_list|(
-name|KeyedDataArrayWritable
+name|MapWritable
 operator|.
 name|class
 argument_list|)
@@ -394,7 +399,7 @@ operator|)
 name|key
 argument_list|,
 operator|(
-name|KeyedDataArrayWritable
+name|MapWritable
 operator|)
 name|value
 argument_list|,
@@ -420,7 +425,7 @@ parameter_list|(
 name|HStoreKey
 name|key
 parameter_list|,
-name|KeyedDataArrayWritable
+name|MapWritable
 name|value
 parameter_list|,
 name|TableOutputCollector

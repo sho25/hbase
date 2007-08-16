@@ -49,7 +49,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|KeyedDataArrayWritable
+name|MapWritable
 import|;
 end_import
 
@@ -141,11 +141,11 @@ name|hasNext
 argument_list|()
 condition|)
 block|{
-name|KeyedDataArrayWritable
+name|MapWritable
 name|r
 init|=
 operator|(
-name|KeyedDataArrayWritable
+name|MapWritable
 operator|)
 name|values
 operator|.

@@ -67,7 +67,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|KeyedDataArrayWritable
+name|MapWritable
 import|;
 end_import
 
@@ -81,11 +81,21 @@ class|class
 name|TableOutputCollector
 block|{
 comment|/** The collector object */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 name|OutputCollector
 name|collector
 decl_stmt|;
 comment|/**    * Restrict Table Map/Reduce's output to be a Text key and a record.    *     * @param key    * @param value    * @throws IOException    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 name|void
 name|collect
@@ -93,7 +103,7 @@ parameter_list|(
 name|Text
 name|key
 parameter_list|,
-name|KeyedDataArrayWritable
+name|MapWritable
 name|value
 parameter_list|)
 throws|throws
