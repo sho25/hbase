@@ -293,6 +293,11 @@ class|class
 name|TableInputFormat
 implements|implements
 name|InputFormat
+argument_list|<
+name|HStoreKey
+argument_list|,
+name|KeyedDataArrayWritable
+argument_list|>
 implements|,
 name|JobConfigurable
 block|{
@@ -338,6 +343,11 @@ class|class
 name|TableRecordReader
 implements|implements
 name|RecordReader
+argument_list|<
+name|HStoreKey
+argument_list|,
+name|KeyedDataArrayWritable
+argument_list|>
 block|{
 specifier|private
 name|HScannerInterface
@@ -443,7 +453,7 @@ expr_stmt|;
 block|}
 comment|/**      * @return HStoreKey      *      * @see org.apache.hadoop.mapred.RecordReader#createKey()      */
 specifier|public
-name|WritableComparable
+name|HStoreKey
 name|createKey
 parameter_list|()
 block|{
@@ -455,7 +465,7 @@ return|;
 block|}
 comment|/**      * @return KeyedDataArrayWritable of KeyedData      *      * @see org.apache.hadoop.mapred.RecordReader#createValue()      */
 specifier|public
-name|Writable
+name|KeyedDataArrayWritable
 name|createValue
 parameter_list|()
 block|{
@@ -493,10 +503,10 @@ specifier|public
 name|boolean
 name|next
 parameter_list|(
-name|Writable
+name|HStoreKey
 name|key
 parameter_list|,
-name|Writable
+name|KeyedDataArrayWritable
 name|value
 parameter_list|)
 throws|throws
@@ -517,9 +527,6 @@ expr_stmt|;
 name|HStoreKey
 name|tKey
 init|=
-operator|(
-name|HStoreKey
-operator|)
 name|key
 decl_stmt|;
 name|boolean
@@ -573,9 +580,6 @@ block|{
 name|KeyedDataArrayWritable
 name|rowVal
 init|=
-operator|(
-name|KeyedDataArrayWritable
-operator|)
 name|value
 decl_stmt|;
 name|ArrayList
@@ -680,9 +684,13 @@ name|hasMore
 return|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|RecordReader
+argument_list|<
+name|HStoreKey
+argument_list|,
+name|KeyedDataArrayWritable
+argument_list|>
 name|getRecordReader
 parameter_list|(
 name|InputSplit

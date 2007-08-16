@@ -249,6 +249,11 @@ class|class
 name|TableOutputFormat
 extends|extends
 name|OutputFormatBase
+argument_list|<
+name|Text
+argument_list|,
+name|KeyedDataArrayWritable
+argument_list|>
 block|{
 comment|/** JobConf parameter that specifies the output table */
 specifier|public
@@ -287,6 +292,11 @@ class|class
 name|TableRecordWriter
 implements|implements
 name|RecordWriter
+argument_list|<
+name|Text
+argument_list|,
+name|KeyedDataArrayWritable
+argument_list|>
 block|{
 specifier|private
 name|HTable
@@ -324,10 +334,10 @@ specifier|public
 name|void
 name|write
 parameter_list|(
-name|WritableComparable
+name|Text
 name|key
 parameter_list|,
-name|Writable
+name|KeyedDataArrayWritable
 name|value
 parameter_list|)
 throws|throws
@@ -343,17 +353,11 @@ expr_stmt|;
 name|Text
 name|tKey
 init|=
-operator|(
-name|Text
-operator|)
 name|key
 decl_stmt|;
 name|KeyedDataArrayWritable
 name|tValue
 init|=
-operator|(
-name|KeyedDataArrayWritable
-operator|)
 name|value
 decl_stmt|;
 name|KeyedData
