@@ -111,7 +111,6 @@ implements|implements
 name|ParserConstants
 block|{
 specifier|private
-specifier|static
 name|String
 name|QueryString
 decl_stmt|;

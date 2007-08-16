@@ -35,9 +35,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|HClient
+name|Configuration
 import|;
 end_import
 
@@ -52,8 +52,8 @@ specifier|public
 name|ReturnMsg
 name|execute
 parameter_list|(
-name|HClient
-name|client
+name|Configuration
+name|conf
 parameter_list|)
 block|{
 name|clear
@@ -111,7 +111,7 @@ argument_list|()
 operator|.
 name|exec
 argument_list|(
-literal|"cls"
+literal|"cmd /C cls"
 argument_list|)
 expr_stmt|;
 block|}

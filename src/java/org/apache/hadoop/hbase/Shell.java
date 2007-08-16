@@ -187,15 +187,6 @@ operator|new
 name|HBaseConfiguration
 argument_list|()
 decl_stmt|;
-name|HClient
-name|client
-init|=
-operator|new
-name|HClient
-argument_list|(
-name|conf
-argument_list|)
-decl_stmt|;
 name|ConsoleReader
 name|reader
 init|=
@@ -323,7 +314,7 @@ name|cmd
 operator|.
 name|execute
 argument_list|(
-name|client
+name|conf
 argument_list|)
 expr_stmt|;
 block|}
