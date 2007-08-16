@@ -1858,7 +1858,25 @@ name|getInfoFilePath
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Mapfile "
+operator|+
+name|mapfile
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" does not exist. "
+operator|+
+literal|"Cleaned up info file.  Continuing..."
+argument_list|)
+expr_stmt|;
+continue|continue;
 block|}
+comment|// TODO: Confirm referent exists.
 comment|// Found map and sympathetic info file.  Add this hstorefile to result.
 name|results
 operator|.
@@ -2453,22 +2471,13 @@ operator|.
 name|Reader
 name|in
 init|=
-operator|new
-name|MapFile
+name|src
 operator|.
-name|Reader
+name|getReader
 argument_list|(
 name|fs
 argument_list|,
-name|src
-operator|.
-name|getMapFilePath
-argument_list|()
-operator|.
-name|toString
-argument_list|()
-argument_list|,
-name|conf
+literal|null
 argument_list|)
 decl_stmt|;
 try|try
@@ -2773,9 +2782,9 @@ name|p
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Renames the mapfiles and info directories under the passed    *<code>hsf</code> directory.    * @param fs    * @param hsf    * @throws IOException    */
+comment|/**    * Renames the mapfiles and info directories under the passed    *<code>hsf</code> directory.    * @param fs    * @param hsf    * @return True if succeeded.    * @throws IOException    */
 specifier|public
-name|void
+name|boolean
 name|rename
 parameter_list|(
 specifier|final
@@ -2789,6 +2798,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|boolean
+name|success
+init|=
 name|fs
 operator|.
 name|rename
@@ -2801,7 +2813,36 @@ operator|.
 name|getMapFilePath
 argument_list|()
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|success
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed rename of "
+operator|+
+name|getMapFilePath
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|hsf
+operator|.
+name|getMapFilePath
+argument_list|()
+argument_list|)
 expr_stmt|;
+return|return
+name|success
+return|;
+block|}
+name|success
+operator|=
 name|fs
 operator|.
 name|rename
@@ -2815,6 +2856,33 @@ name|getInfoFilePath
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|success
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed rename of "
+operator|+
+name|getInfoFilePath
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|hsf
+operator|.
+name|getInfoFilePath
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|success
+return|;
 block|}
 comment|/**    * A facade for a {@link MapFile.Reader} that serves up either the top or    * bottom half of a MapFile (where 'bottom' is the first half of the file    * containing the keys that sort lowest and 'top' is the second half of the    * file with keys that sort greater than those of the bottom half).    * Subclasses BloomFilterMapFile.Reader in case     *     *<p>This file is not splitable.  Calls to {@link #midKey()} return null.    */
 specifier|static

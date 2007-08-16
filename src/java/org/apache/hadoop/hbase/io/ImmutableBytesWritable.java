@@ -243,6 +243,24 @@ operator|.
 name|bytes
 return|;
 block|}
+comment|/**    * @param b Use passed bytes as backing array for this instance.    */
+specifier|public
+name|void
+name|set
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|b
+parameter_list|)
+block|{
+name|this
+operator|.
+name|bytes
+operator|=
+name|b
+expr_stmt|;
+block|}
 comment|/**    * @return the current size of the buffer.    */
 specifier|public
 name|int

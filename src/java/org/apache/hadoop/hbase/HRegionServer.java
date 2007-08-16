@@ -857,8 +857,8 @@ name|isClosed
 argument_list|()
 condition|)
 block|{
-continue|continue;
 comment|// Skip if closed
+continue|continue;
 block|}
 if|if
 condition|(
@@ -1360,7 +1360,7 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-comment|/* Runs periodically to flush memcache.    *     * Memcache flush is also called just before compaction and just before    * split so memcache is best prepared for the the long trip across    * compactions/splits during which it will not be able to flush to disk.    */
+comment|/* Runs periodically to flush memcache.    */
 class|class
 name|Flusher
 implements|implements

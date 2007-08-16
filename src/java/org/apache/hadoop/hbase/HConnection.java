@@ -72,7 +72,7 @@ name|boolean
 name|isMasterRunning
 parameter_list|()
 function_decl|;
-comment|/**    * @param tableName Table to check.    * @return True if table exists already.    */
+comment|/**    * Checks if<code>tableName</code> exists.    * @param tableName Table to check.    * @return True if table exists already.    */
 specifier|public
 name|boolean
 name|tableExists

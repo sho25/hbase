@@ -67,6 +67,13 @@ specifier|private
 name|long
 name|timestamp
 decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|MAX_VALUE_LEN
+init|=
+literal|128
+decl_stmt|;
 comment|/**    * Default constructor used by Writable    */
 specifier|public
 name|HLogEdit
@@ -150,7 +157,7 @@ operator|.
 name|timestamp
 return|;
 block|}
-comment|/** {@inheritDoc} */
+comment|/**    * @return First column name, timestamp, and first 128 bytes of the value    * bytes as a String.    */
 annotation|@
 name|Override
 specifier|public
@@ -167,6 +174,34 @@ try|try
 block|{
 name|value
 operator|=
+operator|(
+name|this
+operator|.
+name|val
+operator|.
+name|length
+operator|>
+name|MAX_VALUE_LEN
+operator|)
+condition|?
+operator|new
+name|String
+argument_list|(
+name|this
+operator|.
+name|val
+argument_list|,
+literal|0
+argument_list|,
+name|MAX_VALUE_LEN
+argument_list|,
+name|HConstants
+operator|.
+name|UTF8_ENCODING
+argument_list|)
+operator|+
+literal|"..."
+else|:
 operator|new
 name|String
 argument_list|(

@@ -1115,7 +1115,7 @@ break|break;
 block|}
 block|}
 block|}
-comment|/**    * Examine a single map for the desired key.    *    * We assume that all locking is done at a higher-level. No locking within     * this method.    *    * TODO - This is kinda slow.  We need a data structure that allows for     * proximity-searches, not just precise-matches.    * @param map    * @param key    * @param numVersions    * @return Ordered list of items found in passed<code>map</code>    */
+comment|/**    * Examine a single map for the desired key.    *    * We assume that all locking is done at a higher-level. No locking within     * this method.    *    * TODO - This is kinda slow.  We need a data structure that allows for     * proximity-searches, not just precise-matches.    *     * @param map    * @param key    * @param numVersions    * @return Ordered list of items found in passed<code>map</code>    */
 name|ArrayList
 argument_list|<
 name|byte
@@ -1157,6 +1157,9 @@ index|[]
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|// TODO: If get is of a particular version -- numVersions == 1 -- we
+comment|// should be able to avoid all of the tailmap creations and iterations
+comment|// below.
 name|HStoreKey
 name|curKey
 init|=
@@ -1164,19 +1167,6 @@ operator|new
 name|HStoreKey
 argument_list|(
 name|key
-operator|.
-name|getRow
-argument_list|()
-argument_list|,
-name|key
-operator|.
-name|getColumn
-argument_list|()
-argument_list|,
-name|key
-operator|.
-name|getTimestamp
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|SortedMap
@@ -1249,6 +1239,10 @@ operator|==
 literal|0
 condition|)
 block|{
+comment|// TODO: Shouldn't this be a continue rather than a break?  Perhaps
+comment|// the intent is that this DELETE_BYTES is meant to suppress older
+comment|// info -- see 5.4 Compactions in BigTable -- but how does this jibe
+comment|// with being able to remove one version only?
 break|break;
 block|}
 name|result

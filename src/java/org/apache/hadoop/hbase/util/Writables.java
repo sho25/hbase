@@ -229,7 +229,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Set bytes into the passed Writable by calling its    * {@link Writable#readFields(java.io.DataInput)}.    * @param bytes    * @param w An empty Writable (usually made by calling the null-arg    * constructor).    * @return The passed Writable after its readFields has been called fed    * by the passed<code>bytes</code> array or null if passed null or    * empty<code>bytes</code>.    * @throws IOException    */
+comment|/**    * Set bytes into the passed Writable by calling its    * {@link Writable#readFields(java.io.DataInput)}.    * @param bytes    * @param w An empty Writable (usually made by calling the null-arg    * constructor).    * @return The passed Writable after its readFields has been called fed    * by the passed<code>bytes</code> array or IllegalArgumentException    * if passed null or an empty<code>bytes</code> array.    * @throws IOException    * @throws IllegalArgumentException    */
 specifier|public
 specifier|static
 name|Writable
@@ -264,7 +264,9 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"Con't build a writable with empty bytes array"
+literal|"Can't build a writable with empty "
+operator|+
+literal|"bytes array"
 argument_list|)
 throw|;
 block|}

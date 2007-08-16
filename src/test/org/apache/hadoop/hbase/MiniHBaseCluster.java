@@ -1234,6 +1234,24 @@ expr_stmt|;
 comment|// Close the file system.  Will complain if files open so helps w/ leaks.
 try|try
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|cluster
+operator|!=
+literal|null
+operator|&&
+name|this
+operator|.
+name|cluster
+operator|.
+name|getFileSystem
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|cluster
@@ -1244,6 +1262,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(

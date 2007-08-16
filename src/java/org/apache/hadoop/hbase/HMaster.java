@@ -1447,11 +1447,10 @@ block|}
 if|if
 condition|(
 operator|!
-operator|(
 name|noReferencesA
 operator|&&
+operator|!
 name|noReferencesB
-operator|)
 condition|)
 block|{
 comment|// No references.  Remove this item from table and deleted region on
@@ -1698,7 +1697,7 @@ name|boolean
 name|accept
 parameter_list|(
 name|Path
-name|path
+name|p
 parameter_list|)
 block|{
 return|return
@@ -1706,7 +1705,7 @@ name|HStoreFile
 operator|.
 name|isReference
 argument_list|(
-name|path
+name|p
 argument_list|)
 return|;
 block|}
@@ -1879,42 +1878,6 @@ operator|.
 name|regionName
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"not assigning region: "
-operator|+
-name|info
-operator|.
-name|regionName
-operator|+
-literal|" (offline: "
-operator|+
-name|info
-operator|.
-name|isOffline
-argument_list|()
-operator|+
-literal|", split: "
-operator|+
-name|info
-operator|.
-name|isSplit
-argument_list|()
-operator|+
-literal|")"
-argument_list|)
-expr_stmt|;
-block|}
 return|return;
 block|}
 name|HServerInfo
@@ -2064,52 +2027,6 @@ operator|.
 name|valueOf
 argument_list|(
 literal|0L
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Finished if "
-operator|+
-name|info
-operator|.
-name|getRegionName
-argument_list|()
-operator|+
-literal|" is assigned: "
-operator|+
-literal|"unassigned: "
-operator|+
-name|unassignedRegions
-operator|.
-name|containsKey
-argument_list|(
-name|info
-operator|.
-name|regionName
-argument_list|)
-operator|+
-literal|", pending: "
-operator|+
-name|pendingRegions
-operator|.
-name|contains
-argument_list|(
-name|info
-operator|.
-name|regionName
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -9250,17 +9167,24 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"root region="
+literal|"root region: "
 operator|+
+operator|(
+operator|(
 name|rootRegionLocation
-operator|.
-name|get
-argument_list|()
+operator|!=
+literal|null
+operator|)
+condition|?
+name|rootRegionLocation
 operator|.
 name|toString
 argument_list|()
+else|:
+literal|"null"
+operator|)
 operator|+
-literal|", rootScanned="
+literal|", rootScanned: "
 operator|+
 name|rootScanned
 argument_list|)
