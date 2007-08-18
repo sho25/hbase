@@ -1203,7 +1203,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Scan is finished.  Take a look at split parents to see if any we can clean up.
+comment|// Scan is finished.  Take a look at split parents to see if any we can
+comment|// clean up.
 if|if
 condition|(
 name|splitParents
@@ -1238,18 +1239,12 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|SortedMap
-argument_list|<
-name|Text
-argument_list|,
-name|byte
-index|[]
-argument_list|>
-name|results
+name|HRegionInfo
+name|hri
 init|=
 name|e
 operator|.
-name|getValue
+name|getKey
 argument_list|()
 decl_stmt|;
 name|cleanupSplits
@@ -1260,48 +1255,12 @@ name|regionName
 argument_list|,
 name|regionServer
 argument_list|,
+name|hri
+argument_list|,
 name|e
 operator|.
-name|getKey
+name|getValue
 argument_list|()
-argument_list|,
-operator|(
-name|HRegionInfo
-operator|)
-name|Writables
-operator|.
-name|getWritable
-argument_list|(
-name|results
-operator|.
-name|get
-argument_list|(
-name|COL_SPLITA
-argument_list|)
-argument_list|,
-operator|new
-name|HRegionInfo
-argument_list|()
-argument_list|)
-argument_list|,
-operator|(
-name|HRegionInfo
-operator|)
-name|Writables
-operator|.
-name|getWritable
-argument_list|(
-name|results
-operator|.
-name|get
-argument_list|(
-name|COL_SPLITB
-argument_list|)
-argument_list|,
-operator|new
-name|HRegionInfo
-argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1328,6 +1287,7 @@ literal|" complete"
 argument_list|)
 expr_stmt|;
 block|}
+comment|/*      * @param info Region to check.      * @return True if this is a split parent.      */
 specifier|private
 name|boolean
 name|isSplitParent
@@ -1337,12 +1297,6 @@ name|HRegionInfo
 name|info
 parameter_list|)
 block|{
-name|boolean
-name|result
-init|=
-literal|false
-decl_stmt|;
-comment|// Skip if not a split region.
 if|if
 condition|(
 operator|!
@@ -1353,7 +1307,7 @@ argument_list|()
 condition|)
 block|{
 return|return
-name|result
+literal|false
 return|;
 block|}
 if|if
@@ -1381,7 +1335,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**      * @param metaRegionName      * @param server HRegionInterface of meta server to talk to       * @param info HRegionInfo of split parent      * @param splitA low key range child region       * @param splitB upper key range child region      * @return True if we removed<code>info</code> and this region has      * been cleaned up.      * @throws IOException      */
+comment|/*      * If daughters no longer hold reference to the parents, delete the parent.      * @param metaRegionName Meta region name.      * @param server HRegionInterface of meta server to talk to       * @param parent HRegionInfo of split parent      * @param rowContent Content of<code>parent</code> row in      *<code>metaRegionName</code>      * @return True if we removed<code>parent</code> from meta table and from      * the filesystem.      * @throws IOException      */
 specifier|private
 name|boolean
 name|cleanupSplits
@@ -1392,19 +1346,20 @@ name|metaRegionName
 parameter_list|,
 specifier|final
 name|HRegionInterface
-name|server
+name|srvr
 parameter_list|,
 specifier|final
 name|HRegionInfo
-name|info
+name|parent
 parameter_list|,
-specifier|final
-name|HRegionInfo
-name|splitA
-parameter_list|,
-specifier|final
-name|HRegionInfo
-name|splitB
+name|SortedMap
+argument_list|<
+name|Text
+argument_list|,
+name|byte
+index|[]
+argument_list|>
+name|rowContent
 parameter_list|)
 throws|throws
 name|IOException
@@ -1428,99 +1383,69 @@ name|debug
 argument_list|(
 literal|"Checking "
 operator|+
-name|info
+name|parent
 operator|.
 name|getRegionName
 argument_list|()
 operator|+
-literal|" to see if daughter "
-operator|+
-literal|"splits still hold references"
+literal|" to see if daughter splits still hold references"
 argument_list|)
 expr_stmt|;
 block|}
 name|boolean
-name|noReferencesA
+name|hasReferencesA
 init|=
-name|splitA
-operator|==
-literal|null
-decl_stmt|;
-name|boolean
-name|noReferencesB
-init|=
-name|splitB
-operator|==
-literal|null
-decl_stmt|;
-if|if
-condition|(
-operator|!
-name|noReferencesA
-condition|)
-block|{
-name|noReferencesA
-operator|=
 name|hasReferences
 argument_list|(
 name|metaRegionName
 argument_list|,
-name|server
+name|srvr
 argument_list|,
-name|info
+name|parent
 operator|.
 name|getRegionName
 argument_list|()
 argument_list|,
-name|splitA
+name|rowContent
 argument_list|,
 name|COL_SPLITA
 argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-operator|!
-name|noReferencesB
-condition|)
-block|{
-name|noReferencesB
-operator|=
+decl_stmt|;
+name|boolean
+name|hasReferencesB
+init|=
 name|hasReferences
 argument_list|(
 name|metaRegionName
 argument_list|,
-name|server
+name|srvr
 argument_list|,
-name|info
+name|parent
 operator|.
 name|getRegionName
 argument_list|()
 argument_list|,
-name|splitB
+name|rowContent
 argument_list|,
 name|COL_SPLITB
 argument_list|)
-expr_stmt|;
-block|}
+decl_stmt|;
 if|if
 condition|(
 operator|!
-name|noReferencesA
+name|hasReferencesA
 operator|&&
 operator|!
-name|noReferencesB
+name|hasReferencesB
 condition|)
 block|{
-comment|// No references.  Remove this item from table and deleted region on
-comment|// disk.
 name|LOG
 operator|.
 name|info
 argument_list|(
 literal|"Deleting region "
 operator|+
-name|info
+name|parent
 operator|.
 name|getRegionName
 argument_list|()
@@ -1539,7 +1464,7 @@ name|fs
 argument_list|,
 name|dir
 argument_list|,
-name|info
+name|parent
 operator|.
 name|getRegionName
 argument_list|()
@@ -1552,7 +1477,7 @@ name|warn
 argument_list|(
 literal|"Deletion of "
 operator|+
-name|info
+name|parent
 operator|.
 name|getRegionName
 argument_list|()
@@ -1575,7 +1500,7 @@ name|b
 operator|.
 name|startUpdate
 argument_list|(
-name|info
+name|parent
 operator|.
 name|getRegionName
 argument_list|()
@@ -1608,7 +1533,7 @@ argument_list|,
 name|COL_STARTCODE
 argument_list|)
 expr_stmt|;
-name|server
+name|srvr
 operator|.
 name|batchUpdate
 argument_list|(
@@ -1641,18 +1566,18 @@ name|debug
 argument_list|(
 literal|"Done checking "
 operator|+
-name|info
+name|parent
 operator|.
 name|getRegionName
 argument_list|()
 operator|+
 literal|": splitA: "
 operator|+
-name|noReferencesA
+name|hasReferencesA
 operator|+
 literal|", splitB: "
 operator|+
-name|noReferencesB
+name|hasReferencesB
 argument_list|)
 expr_stmt|;
 block|}
@@ -1660,6 +1585,7 @@ return|return
 name|result
 return|;
 block|}
+comment|/*       * Checks if a daughter region -- either splitA or splitB -- still holds      * references to parent.  If not, removes reference to the split from      * the parent meta region row.      * @param metaRegionName Name of meta region to look in.      * @param srvr Where region resides.      * @param parent Parent region name.       * @param rowContent Keyed content of the parent row in meta region.      * @param splitColumn Column name of daughter split to examine      * @return True if still has references to parent.      * @throws IOException      */
 specifier|protected
 name|boolean
 name|hasReferences
@@ -1670,19 +1596,24 @@ name|metaRegionName
 parameter_list|,
 specifier|final
 name|HRegionInterface
-name|server
+name|srvr
 parameter_list|,
 specifier|final
 name|Text
-name|regionName
+name|parent
 parameter_list|,
-specifier|final
-name|HRegionInfo
-name|split
+name|SortedMap
+argument_list|<
+name|Text
+argument_list|,
+name|byte
+index|[]
+argument_list|>
+name|rowContent
 parameter_list|,
 specifier|final
 name|Text
-name|column
+name|splitColumn
 parameter_list|)
 throws|throws
 name|IOException
@@ -1692,6 +1623,32 @@ name|result
 init|=
 literal|false
 decl_stmt|;
+name|HRegionInfo
+name|split
+init|=
+name|Writables
+operator|.
+name|getHRegionInfoOrNull
+argument_list|(
+name|rowContent
+operator|.
+name|get
+argument_list|(
+name|splitColumn
+argument_list|)
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|split
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+name|result
+return|;
+block|}
 for|for
 control|(
 name|Text
@@ -1736,7 +1693,8 @@ name|family
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|// Look for reference files.
+comment|// Look for reference files.  Call listPaths with an anonymous
+comment|// instance of PathFilter.
 name|Path
 index|[]
 name|ps
@@ -1756,7 +1714,7 @@ name|boolean
 name|accept
 parameter_list|(
 name|Path
-name|p
+name|path
 parameter_list|)
 block|{
 return|return
@@ -1764,7 +1722,7 @@ name|HStoreFile
 operator|.
 name|isReference
 argument_list|(
-name|p
+name|path
 argument_list|)
 return|;
 block|}
@@ -1822,7 +1780,7 @@ argument_list|()
 operator|+
 literal|" no longer has references to "
 operator|+
-name|regionName
+name|parent
 operator|.
 name|toString
 argument_list|()
@@ -1843,7 +1801,7 @@ name|b
 operator|.
 name|startUpdate
 argument_list|(
-name|regionName
+name|parent
 argument_list|)
 decl_stmt|;
 name|b
@@ -1852,10 +1810,10 @@ name|delete
 argument_list|(
 name|lockid
 argument_list|,
-name|column
+name|splitColumn
 argument_list|)
 expr_stmt|;
-name|server
+name|srvr
 operator|.
 name|batchUpdate
 argument_list|(
@@ -2285,6 +2243,24 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+comment|// If for some reason we get some other kind of exception,
+comment|// at least log it rather than go out silently.
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Unexpected exception"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 if|if
 condition|(
@@ -2729,6 +2705,24 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+comment|// If for some reason we get some other kind of exception,
+comment|// at least log it rather than go out silently.
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Unexpected exception"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 if|if
 condition|(

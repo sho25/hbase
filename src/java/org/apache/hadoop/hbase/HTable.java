@@ -2256,7 +2256,9 @@ argument_list|)
 name|long
 name|lockid
 parameter_list|)
-block|{   }
+block|{
+comment|// noop
+block|}
 comment|/**    * Implements the scanner interface for the HBase client.    * If there are multiple regions in a table, this scanner will iterate    * through them all.    */
 specifier|protected
 class|class

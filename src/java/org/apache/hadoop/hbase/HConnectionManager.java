@@ -266,11 +266,15 @@ name|HConnectionManager
 implements|implements
 name|HConstants
 block|{
+comment|/*    * Private. Not instantiable.    */
 specifier|private
 name|HConnectionManager
 parameter_list|()
-block|{}
-comment|// Not instantiable
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+block|}
 comment|// A Map of master HServerAddress -> connection information for that instance
 comment|// Note that although the Map is synchronized, the objects it contains
 comment|// are mutable and hence require synchronized access to them
@@ -1495,7 +1499,7 @@ name|Text
 argument_list|,
 name|HRegionLocation
 argument_list|>
-name|servers
+name|tableServers
 init|=
 operator|new
 name|TreeMap
@@ -1507,7 +1511,7 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 comment|// Reload information for the whole table
-name|servers
+name|tableServers
 operator|.
 name|putAll
 argument_list|(
@@ -1525,13 +1529,114 @@ name|isDebugEnabled
 argument_list|()
 condition|)
 block|{
+name|StringBuilder
+name|sb
+init|=
+operator|new
+name|StringBuilder
+argument_list|()
+decl_stmt|;
+name|int
+name|count
+init|=
+literal|0
+decl_stmt|;
+for|for
+control|(
+name|HRegionLocation
+name|location
+range|:
+name|tableServers
+operator|.
+name|values
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+name|sb
+operator|.
+name|length
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|" "
+argument_list|)
+expr_stmt|;
+block|}
+name|sb
+operator|.
+name|append
+argument_list|(
+name|count
+operator|++
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|". "
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|"address="
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+name|location
+operator|.
+name|getServerAddress
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|", "
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+name|location
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Result of findTable: "
+literal|"Result of findTable on "
 operator|+
-name|servers
+name|tableName
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|": "
+operator|+
+name|sb
 operator|.
 name|toString
 argument_list|()
@@ -1539,7 +1644,7 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-name|servers
+name|tableServers
 return|;
 block|}
 comment|/** {@inheritDoc} */
@@ -1900,7 +2005,7 @@ name|Text
 argument_list|,
 name|HRegionLocation
 argument_list|>
-name|servers
+name|srvrs
 init|=
 operator|new
 name|TreeMap
@@ -1959,7 +2064,7 @@ name|locateRootRegion
 argument_list|()
 expr_stmt|;
 block|}
-name|servers
+name|srvrs
 operator|.
 name|putAll
 argument_list|(
@@ -2081,7 +2186,7 @@ throw|;
 block|}
 block|}
 block|}
-name|servers
+name|srvrs
 operator|.
 name|putAll
 argument_list|(
@@ -2196,7 +2301,7 @@ name|tableName
 argument_list|)
 throw|;
 block|}
-name|servers
+name|srvrs
 operator|.
 name|putAll
 argument_list|(
@@ -2301,7 +2406,7 @@ control|)
 block|{
 try|try
 block|{
-name|servers
+name|srvrs
 operator|.
 name|putAll
 argument_list|(
@@ -2394,72 +2499,11 @@ name|put
 argument_list|(
 name|tableName
 argument_list|,
-name|servers
+name|srvrs
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|int
-name|count
-init|=
-literal|0
-decl_stmt|;
-for|for
-control|(
-name|Map
-operator|.
-name|Entry
-argument_list|<
-name|Text
-argument_list|,
-name|HRegionLocation
-argument_list|>
-name|e
-range|:
-name|servers
-operator|.
-name|entrySet
-argument_list|()
-control|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Region "
-operator|+
-operator|(
-literal|1
-operator|+
-name|count
-operator|++
-operator|)
-operator|+
-literal|" of "
-operator|+
-name|servers
-operator|.
-name|size
-argument_list|()
-operator|+
-literal|": "
-operator|+
-name|e
-operator|.
-name|getValue
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 return|return
-name|servers
+name|srvrs
 return|;
 block|}
 comment|/*      * Load the meta table from the root table.      *       * @return map of first row to TableInfo for all meta regions      * @throws IOException      */
