@@ -2613,6 +2613,11 @@ name|threadWakeFrequency
 argument_list|)
 expr_stmt|;
 comment|// Server
+name|boolean
+name|masterRequestedStop
+init|=
+literal|false
+decl_stmt|;
 try|try
 block|{
 name|this
@@ -3019,6 +3024,10 @@ literal|"Got regionserver stop message"
 argument_list|)
 expr_stmt|;
 block|}
+name|masterRequestedStop
+operator|=
+literal|true
+expr_stmt|;
 name|stopRequested
 operator|=
 literal|true
@@ -3395,6 +3404,12 @@ expr_stmt|;
 block|}
 try|try
 block|{
+if|if
+condition|(
+operator|!
+name|masterRequestedStop
+condition|)
+block|{
 name|HMsg
 index|[]
 name|exitMsg
@@ -3481,6 +3496,7 @@ argument_list|,
 name|exitMsg
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -5123,6 +5139,11 @@ block|}
 block|}
 block|}
 comment|/** {@inheritDoc} */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 name|long
 name|startUpdate
@@ -5186,6 +5207,11 @@ name|lockid
 return|;
 block|}
 comment|/** {@inheritDoc} */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 name|void
 name|put
@@ -5251,6 +5277,11 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/** {@inheritDoc} */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 name|void
 name|delete
@@ -5303,6 +5334,11 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/** {@inheritDoc} */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 name|void
 name|abort
@@ -5352,6 +5388,11 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/** {@inheritDoc} */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 name|void
 name|commit
@@ -5409,6 +5450,11 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/** {@inheritDoc} */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 name|void
 name|renewLease
