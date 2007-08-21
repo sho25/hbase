@@ -98,7 +98,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A HColumnDescriptor contains information about a column family such as the  * number of versions, compression settings, etc.  */
+comment|/**  * An HColumnDescriptor contains information about a column family such as the  * number of versions, compression settings, etc.  */
 end_comment
 
 begin_class
@@ -121,7 +121,7 @@ operator|)
 literal|1
 decl_stmt|;
 comment|// Legal family names can only contain 'word characters' and end in a colon.
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|Pattern
@@ -149,41 +149,19 @@ block|,
 comment|/** Compress sequences of records together in blocks. */
 name|BLOCK
 block|}
-comment|// Internal values for compression type used for serialization
-specifier|private
+comment|/**    * Default compression type.    */
+specifier|public
 specifier|static
 specifier|final
-name|byte
-name|COMPRESSION_NONE
+name|CompressionType
+name|DEFAULT_COMPRESSION_TYPE
 init|=
-operator|(
-name|byte
-operator|)
-literal|0
+name|CompressionType
+operator|.
+name|NONE
 decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|byte
-name|COMPRESSION_RECORD
-init|=
-operator|(
-name|byte
-operator|)
-literal|1
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|byte
-name|COMPRESSION_BLOCK
-init|=
-operator|(
-name|byte
-operator|)
-literal|2
-decl_stmt|;
-specifier|private
+comment|/**    * Default number of versions of a record to keep.    */
+specifier|public
 specifier|static
 specifier|final
 name|int
@@ -191,39 +169,75 @@ name|DEFAULT_N_VERSIONS
 init|=
 literal|3
 decl_stmt|;
+comment|/**    * Default setting for whether to serve from memory or not.    */
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_IN_MEMORY
+init|=
+literal|false
+decl_stmt|;
+comment|/**    * Default maximum length of cell contents.    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_MAX_VALUE_LENGTH
+init|=
+name|Integer
+operator|.
+name|MAX_VALUE
+decl_stmt|;
+comment|/**    * Default bloom filter description.    */
+specifier|public
+specifier|static
+specifier|final
+name|BloomFilterDescriptor
+name|DEFAULT_BLOOM_FILTER_DESCRIPTOR
+init|=
+literal|null
+decl_stmt|;
+comment|// Column family name
+specifier|private
 name|Text
 name|name
 decl_stmt|;
-comment|// Column family name
+comment|// Number of versions to keep
+specifier|private
 name|int
 name|maxVersions
 decl_stmt|;
-comment|// Number of versions to keep
-name|byte
+comment|// Compression setting if any
+specifier|private
+name|CompressionType
 name|compressionType
 decl_stmt|;
-comment|// Compression setting if any
+comment|// Serve reads from in-memory cache
+specifier|private
 name|boolean
 name|inMemory
 decl_stmt|;
-comment|// Serve reads from in-memory cache
+comment|// Maximum value size
+specifier|private
 name|int
 name|maxValueLength
 decl_stmt|;
-comment|// Maximum value size
+comment|// True if bloom filter was specified
 specifier|private
 name|boolean
 name|bloomFilterSpecified
 decl_stmt|;
-comment|// True if bloom filter was specified
+comment|// Descriptor of bloom filter
+specifier|private
 name|BloomFilterDescriptor
 name|bloomFilter
 decl_stmt|;
-comment|// Descriptor of bloom filter
+comment|// Version number of this class
+specifier|private
 name|byte
 name|versionNumber
 decl_stmt|;
-comment|// Version number of this class
 comment|/**    * Default constructor. Must be present for Writable.    */
 specifier|public
 name|HColumnDescriptor
@@ -268,21 +282,19 @@ argument_list|)
 argument_list|,
 name|DEFAULT_N_VERSIONS
 argument_list|,
-name|CompressionType
-operator|.
-name|NONE
+name|DEFAULT_COMPRESSION_TYPE
 argument_list|,
-literal|false
+name|DEFAULT_IN_MEMORY
 argument_list|,
 name|Integer
 operator|.
 name|MAX_VALUE
 argument_list|,
-literal|null
+name|DEFAULT_BLOOM_FILTER_DESCRIPTOR
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor - specify all parameters.    * @param name                - Column family name    * @param maxVersions         - Maximum number of versions to keep    * @param compression         - Compression type    * @param inMemory            - If true, column data should be kept in a    *                              HRegionServer's cache    * @param maxValueLength      - Restrict values to&lt;= this value    * @param bloomFilter         - Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
+comment|/**    * Constructor    * Specify all parameters.    * @param name Column family name    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param maxValueLength Restrict values to&lt;= this value    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -398,64 +410,6 @@ name|maxVersions
 operator|=
 name|maxVersions
 expr_stmt|;
-if|if
-condition|(
-name|compression
-operator|==
-name|CompressionType
-operator|.
-name|NONE
-condition|)
-block|{
-name|this
-operator|.
-name|compressionType
-operator|=
-name|COMPRESSION_NONE
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|compression
-operator|==
-name|CompressionType
-operator|.
-name|BLOCK
-condition|)
-block|{
-name|this
-operator|.
-name|compressionType
-operator|=
-name|COMPRESSION_BLOCK
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|compression
-operator|==
-name|CompressionType
-operator|.
-name|RECORD
-condition|)
-block|{
-name|this
-operator|.
-name|compressionType
-operator|=
-name|COMPRESSION_RECORD
-expr_stmt|;
-block|}
-else|else
-block|{
-assert|assert
-operator|(
-literal|false
-operator|)
-assert|;
-block|}
 name|this
 operator|.
 name|inMemory
@@ -494,6 +448,12 @@ name|versionNumber
 operator|=
 name|COLUMN_DESCRIPTOR_VERSION
 expr_stmt|;
+name|this
+operator|.
+name|compressionType
+operator|=
+name|compression
+expr_stmt|;
 block|}
 comment|/** @return name of column family */
 specifier|public
@@ -511,71 +471,10 @@ name|CompressionType
 name|getCompression
 parameter_list|()
 block|{
-name|CompressionType
-name|value
-init|=
-literal|null
-decl_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|compressionType
-operator|==
-name|COMPRESSION_NONE
-condition|)
-block|{
-name|value
-operator|=
-name|CompressionType
-operator|.
-name|NONE
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|this
-operator|.
-name|compressionType
-operator|==
-name|COMPRESSION_BLOCK
-condition|)
-block|{
-name|value
-operator|=
-name|CompressionType
-operator|.
-name|BLOCK
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|this
-operator|.
-name|compressionType
-operator|==
-name|COMPRESSION_RECORD
-condition|)
-block|{
-name|value
-operator|=
-name|CompressionType
-operator|.
-name|RECORD
-expr_stmt|;
-block|}
-else|else
-block|{
-assert|assert
-operator|(
-literal|false
-operator|)
-assert|;
-block|}
 return|return
-name|value
+name|this
+operator|.
+name|compressionType
 return|;
 block|}
 comment|/** @return maximum number of versions */
@@ -590,6 +489,54 @@ operator|.
 name|maxVersions
 return|;
 block|}
+comment|/**    * @return Compression type setting.    */
+specifier|public
+name|CompressionType
+name|getCompressionType
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|compressionType
+return|;
+block|}
+comment|/**    * @return True if we are to keep all in use HRegionServer cache.    */
+specifier|public
+name|boolean
+name|isInMemory
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|inMemory
+return|;
+block|}
+comment|/**    * @return Maximum value length.    */
+specifier|public
+name|int
+name|getMaxValueLength
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|maxValueLength
+return|;
+block|}
+comment|/**    * @return Bloom filter descriptor or null if none set.    */
+specifier|public
+name|BloomFilterDescriptor
+name|getBloomFilter
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|bloomFilter
+return|;
+block|}
 comment|/** {@inheritDoc} */
 annotation|@
 name|Override
@@ -598,43 +545,6 @@ name|String
 name|toString
 parameter_list|()
 block|{
-name|String
-name|compression
-init|=
-literal|"none"
-decl_stmt|;
-switch|switch
-condition|(
-name|compressionType
-condition|)
-block|{
-case|case
-name|COMPRESSION_NONE
-case|:
-break|break;
-case|case
-name|COMPRESSION_RECORD
-case|:
-name|compression
-operator|=
-literal|"record"
-expr_stmt|;
-break|break;
-case|case
-name|COMPRESSION_BLOCK
-case|:
-name|compression
-operator|=
-literal|"block"
-expr_stmt|;
-break|break;
-default|default:
-assert|assert
-operator|(
-literal|false
-operator|)
-assert|;
-block|}
 return|return
 literal|"("
 operator|+
@@ -646,7 +556,9 @@ name|maxVersions
 operator|+
 literal|", compression: "
 operator|+
-name|compression
+name|this
+operator|.
+name|compressionType
 operator|+
 literal|", in memory: "
 operator|+
@@ -726,14 +638,9 @@ argument_list|()
 expr_stmt|;
 name|result
 operator|^=
-name|Byte
-operator|.
-name|valueOf
-argument_list|(
 name|this
 operator|.
 name|compressionType
-argument_list|)
 operator|.
 name|hashCode
 argument_list|()
@@ -854,14 +761,25 @@ operator|.
 name|readInt
 argument_list|()
 expr_stmt|;
+name|int
+name|ordinal
+init|=
+name|in
+operator|.
+name|readInt
+argument_list|()
+decl_stmt|;
 name|this
 operator|.
 name|compressionType
 operator|=
-name|in
+name|CompressionType
 operator|.
-name|readByte
+name|values
 argument_list|()
+index|[
+name|ordinal
+index|]
 expr_stmt|;
 name|this
 operator|.
@@ -950,11 +868,14 @@ argument_list|)
 expr_stmt|;
 name|out
 operator|.
-name|writeByte
+name|writeInt
 argument_list|(
 name|this
 operator|.
 name|compressionType
+operator|.
+name|ordinal
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|out
@@ -1074,25 +995,15 @@ condition|)
 block|{
 name|result
 operator|=
-name|Integer
-operator|.
-name|valueOf
-argument_list|(
 name|this
 operator|.
 name|compressionType
-argument_list|)
 operator|.
 name|compareTo
-argument_list|(
-name|Integer
-operator|.
-name|valueOf
 argument_list|(
 name|other
 operator|.
 name|compressionType
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

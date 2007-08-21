@@ -173,19 +173,31 @@ literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+name|htd
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|assertEquals
 argument_list|(
 literal|"Table descriptor"
 argument_list|,
 literal|"name: hank, families: "
 operator|+
-literal|"{hankfamily:=(hankfamily:, max versions: 3, compression: none, "
+literal|"{hankfamily:=(hankfamily:, max versions: 3, compression: NONE, "
 operator|+
 literal|"in memory: false, max value length: 2147483647, bloom filter: none), "
 operator|+
 literal|"hankotherfamily:=(hankotherfamily:, max versions: 10, "
 operator|+
-literal|"compression: block, in memory: true, max value length: 1000, "
+literal|"compression: BLOCK, in memory: true, max value length: 1000, "
 operator|+
 literal|"bloom filter: none)}"
 argument_list|,
@@ -239,11 +251,11 @@ literal|"name: hank, "
 operator|+
 literal|"families: {hankfamily:=(hankfamily:, max versions: 3, "
 operator|+
-literal|"compression: none, in memory: false, max value length: 2147483647, "
+literal|"compression: NONE, in memory: false, max value length: 2147483647, "
 operator|+
 literal|"bloom filter: none), hankotherfamily:=(hankotherfamily:, "
 operator|+
-literal|"max versions: 10, compression: block, in memory: true, max value "
+literal|"max versions: 10, compression: BLOCK, in memory: true, max value "
 operator|+
 literal|"length: 1000, bloom filter: none)}}"
 argument_list|,
