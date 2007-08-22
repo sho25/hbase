@@ -496,6 +496,7 @@ name|HMasterRegionInterface
 implements|,
 name|Runnable
 block|{
+comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|getProtocolVersion
@@ -1525,7 +1526,12 @@ name|b
 init|=
 operator|new
 name|BatchUpdate
+argument_list|(
+name|rand
+operator|.
+name|nextLong
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|long
 name|lockid
@@ -1826,7 +1832,12 @@ name|b
 init|=
 operator|new
 name|BatchUpdate
+argument_list|(
+name|rand
+operator|.
+name|nextLong
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|long
 name|lockid
@@ -2471,9 +2482,8 @@ decl_stmt|;
 name|Integer
 name|rootScannerLock
 init|=
+operator|new
 name|Integer
-operator|.
-name|valueOf
 argument_list|(
 literal|0
 argument_list|)
@@ -3115,9 +3125,8 @@ decl_stmt|;
 name|Integer
 name|metaScannerLock
 init|=
+operator|new
 name|Integer
-operator|.
-name|valueOf
 argument_list|(
 literal|0
 argument_list|)
@@ -4005,6 +4014,13 @@ expr_stmt|;
 try|try
 block|{
 comment|// Start things up
+name|this
+operator|.
+name|serverLeases
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
 name|this
 operator|.
 name|rootScannerThread
@@ -7839,7 +7855,12 @@ name|b
 init|=
 operator|new
 name|BatchUpdate
+argument_list|(
+name|rand
+operator|.
+name|nextLong
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|long
 name|lockid
@@ -9091,7 +9112,12 @@ name|b
 init|=
 operator|new
 name|BatchUpdate
+argument_list|(
+name|rand
+operator|.
+name|nextLong
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|long
 name|lockid
@@ -9771,7 +9797,12 @@ name|b
 init|=
 operator|new
 name|BatchUpdate
+argument_list|(
+name|rand
+operator|.
+name|nextLong
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|long
 name|lockid
@@ -10474,7 +10505,12 @@ name|b
 init|=
 operator|new
 name|BatchUpdate
+argument_list|(
+name|rand
+operator|.
+name|nextLong
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|long
 name|lockid
@@ -11768,7 +11804,12 @@ name|b
 init|=
 operator|new
 name|BatchUpdate
+argument_list|(
+name|rand
+operator|.
+name|nextLong
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|lockid
 operator|=
@@ -12498,7 +12539,12 @@ name|b
 init|=
 operator|new
 name|BatchUpdate
+argument_list|(
+name|rand
+operator|.
+name|nextLong
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|long
 name|lockid

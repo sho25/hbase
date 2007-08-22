@@ -3144,6 +3144,7 @@ name|IOException
 function_decl|;
 block|}
 comment|/** A compaction reader for MapFile */
+specifier|static
 class|class
 name|MapFileCompactionReader
 implements|implements
@@ -4933,6 +4934,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/*    * Data structure to hold result of a look at store file sizes.    */
+specifier|static
 class|class
 name|HStoreSize
 block|{
@@ -5950,8 +5952,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/** Shut it down! */
-annotation|@
-name|Override
 specifier|public
 name|void
 name|close

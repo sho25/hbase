@@ -1746,8 +1746,6 @@ literal|null
 expr_stmt|;
 block|}
 comment|/** Shut down map iterators, and release the lock */
-annotation|@
-name|Override
 specifier|public
 name|void
 name|close

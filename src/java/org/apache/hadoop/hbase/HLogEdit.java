@@ -68,6 +68,7 @@ name|long
 name|timestamp
 decl_stmt|;
 specifier|private
+specifier|static
 specifier|final
 name|int
 name|MAX_VALUE_LEN

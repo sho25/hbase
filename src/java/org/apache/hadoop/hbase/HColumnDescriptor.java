@@ -120,7 +120,7 @@ name|byte
 operator|)
 literal|1
 decl_stmt|;
-comment|// Legal family names can only contain 'word characters' and end in a colon.
+comment|/** Legal family names can only contain 'word characters' and end in a colon. */
 specifier|public
 specifier|static
 specifier|final

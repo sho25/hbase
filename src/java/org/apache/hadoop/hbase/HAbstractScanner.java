@@ -847,13 +847,6 @@ name|int
 name|i
 parameter_list|)
 function_decl|;
-comment|/** Mechanism used to shut down the whole scan */
-specifier|public
-specifier|abstract
-name|void
-name|close
-parameter_list|()
-function_decl|;
 comment|/** {@inheritDoc} */
 specifier|public
 name|boolean

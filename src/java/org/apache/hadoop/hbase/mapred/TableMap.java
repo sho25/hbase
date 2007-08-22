@@ -329,25 +329,6 @@ name|columns
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|configure
-parameter_list|(
-name|JobConf
-name|job
-parameter_list|)
-block|{
-name|super
-operator|.
-name|configure
-argument_list|(
-name|job
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Input:    * @param key is of type HStoreKey    * @param value is of type KeyedDataArrayWritable    * @param output output collector    * @param reporter object to use for status updates    * @throws IOException    *     * Output:    * The key is a specific column, including the input key or any value    * The value is of type LabeledData    */
 specifier|public
 name|void

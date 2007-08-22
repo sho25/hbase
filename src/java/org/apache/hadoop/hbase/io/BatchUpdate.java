@@ -69,16 +69,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Random
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -121,18 +111,14 @@ argument_list|<
 name|BatchOperation
 argument_list|>
 block|{
-comment|// used to generate lock ids
-specifier|private
-name|Random
-name|rand
-decl_stmt|;
 comment|// the row being updated
 specifier|private
 name|Text
 name|row
 decl_stmt|;
-comment|// the lockid
+comment|// the lockid - not used on server side
 specifier|private
+specifier|transient
 name|long
 name|lockid
 decl_stmt|;
@@ -144,19 +130,11 @@ name|BatchOperation
 argument_list|>
 name|operations
 decl_stmt|;
-comment|/** constructor */
+comment|/** Default constructor - used by Writable. */
 specifier|public
 name|BatchUpdate
 parameter_list|()
 block|{
-name|this
-operator|.
-name|rand
-operator|=
-operator|new
-name|Random
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|row
@@ -171,6 +149,50 @@ name|lockid
 operator|=
 operator|-
 literal|1L
+expr_stmt|;
+name|this
+operator|.
+name|operations
+operator|=
+operator|new
+name|ArrayList
+argument_list|<
+name|BatchOperation
+argument_list|>
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * Client side constructor. Clients need to provide the lockid by some means    * such as Random.nextLong()    *     * @param lockid    */
+specifier|public
+name|BatchUpdate
+parameter_list|(
+name|long
+name|lockid
+parameter_list|)
+block|{
+name|this
+operator|.
+name|row
+operator|=
+operator|new
+name|Text
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|lockid
+operator|=
+name|Long
+operator|.
+name|valueOf
+argument_list|(
+name|Math
+operator|.
+name|abs
+argument_list|(
+name|lockid
+argument_list|)
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -220,25 +242,6 @@ operator|.
 name|row
 operator|=
 name|row
-expr_stmt|;
-name|this
-operator|.
-name|lockid
-operator|=
-name|Long
-operator|.
-name|valueOf
-argument_list|(
-name|Math
-operator|.
-name|abs
-argument_list|(
-name|rand
-operator|.
-name|nextLong
-argument_list|()
-argument_list|)
-argument_list|)
 expr_stmt|;
 return|return
 name|this

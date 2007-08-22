@@ -200,6 +200,13 @@ argument_list|(
 literal|"Lease.monitor"
 argument_list|)
 expr_stmt|;
+block|}
+comment|/** Starts the lease monitor */
+specifier|public
+name|void
+name|start
+parameter_list|()
+block|{
 name|leaseMonitorThread
 operator|.
 name|start

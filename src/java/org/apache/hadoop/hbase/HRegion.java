@@ -273,12 +273,6 @@ init|=
 literal|"merges"
 decl_stmt|;
 specifier|static
-name|String
-name|TMPREGION_PREFIX
-init|=
-literal|"tmpregion_"
-decl_stmt|;
-specifier|static
 specifier|final
 name|Random
 name|rand
@@ -4041,8 +4035,12 @@ name|toArray
 argument_list|(
 operator|new
 name|HStore
-index|[]
-block|{}
+index|[
+name|storelist
+operator|.
+name|size
+argument_list|()
+index|]
 argument_list|)
 argument_list|,
 name|filter

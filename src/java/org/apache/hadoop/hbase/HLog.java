@@ -273,9 +273,8 @@ decl_stmt|;
 name|Integer
 name|rollLock
 init|=
+operator|new
 name|Integer
-operator|.
-name|valueOf
 argument_list|(
 literal|0
 argument_list|)
