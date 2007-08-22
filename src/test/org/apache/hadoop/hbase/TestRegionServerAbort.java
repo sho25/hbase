@@ -124,7 +124,7 @@ name|setInt
 argument_list|(
 literal|"hbase.client.retries.number"
 argument_list|,
-literal|3
+literal|5
 argument_list|)
 expr_stmt|;
 comment|// reduce HBase retries
