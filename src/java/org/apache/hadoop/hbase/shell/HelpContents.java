@@ -98,6 +98,22 @@ name|load
 operator|.
 name|put
 argument_list|(
+literal|"FS"
+argument_list|,
+operator|new
+name|String
+index|[]
+block|{
+literal|"Hadoop FsShell operations."
+block|,
+literal|"FS -copyFromLocal /home/user/backup.dat fs/user/backup;"
+block|}
+argument_list|)
+block|;
+name|load
+operator|.
+name|put
+argument_list|(
 literal|"CLEAR"
 argument_list|,
 operator|new

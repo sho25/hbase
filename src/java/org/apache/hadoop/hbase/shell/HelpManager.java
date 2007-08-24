@@ -160,7 +160,7 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"\nType 'help<command>;' to see command-specific "
+literal|"Type 'help<command>;' to see command-specific "
 operator|+
 literal|"usage.\n"
 argument_list|)
@@ -200,13 +200,6 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|()
-expr_stmt|;
 block|}
 else|else
 block|{
@@ -223,13 +216,6 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|()
-expr_stmt|;
 name|String
 index|[]
 name|msg
@@ -398,8 +384,6 @@ name|cmdType
 index|[
 literal|1
 index|]
-operator|+
-literal|"\n"
 argument_list|)
 expr_stmt|;
 block|}
