@@ -1404,29 +1404,6 @@ name|result
 init|=
 literal|false
 decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Checking "
-operator|+
-name|parent
-operator|.
-name|getRegionName
-argument_list|()
-operator|+
-literal|" to see if daughter splits still hold references"
-argument_list|)
-expr_stmt|;
-block|}
 name|boolean
 name|hasReferencesA
 init|=
@@ -1592,6 +1569,7 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+elseif|else
 if|if
 condition|(
 name|LOG
@@ -1600,18 +1578,19 @@ name|isDebugEnabled
 argument_list|()
 condition|)
 block|{
+comment|// If debug, note we checked and current state of daughters.
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Done checking "
+literal|"Checked "
 operator|+
 name|parent
 operator|.
 name|getRegionName
 argument_list|()
 operator|+
-literal|": splitA: "
+literal|" for references: splitA: "
 operator|+
 name|hasReferencesA
 operator|+

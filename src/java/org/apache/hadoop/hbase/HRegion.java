@@ -2815,7 +2815,7 @@ literal|true
 expr_stmt|;
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 name|store
 operator|.
@@ -6506,7 +6506,7 @@ name|p
 argument_list|)
 return|;
 block|}
-comment|/**    * Computes the Path of the HRegion    *     * @param dir parent directory    * @param regionName name of the region    * @return Path of HRegion directory    */
+comment|/**    * Computes the Path of the HRegion    *     * @param dir hbase home directory    * @param regionName name of the region    * @return Path of HRegion directory    */
 specifier|public
 specifier|static
 name|Path

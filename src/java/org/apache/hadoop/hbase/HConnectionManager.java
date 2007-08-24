@@ -3041,7 +3041,7 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|" server(s) for "
+literal|" region(s) for "
 operator|+
 name|tableName
 operator|+
