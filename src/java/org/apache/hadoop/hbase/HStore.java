@@ -3998,7 +3998,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Redoing a failed compaction"
+literal|"Redo failed compaction (missing 'done' file)"
 argument_list|)
 expr_stmt|;
 return|return;
@@ -4390,13 +4390,17 @@ name|finalCompactedFile
 argument_list|)
 expr_stmt|;
 block|}
-finally|finally
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|error
 argument_list|(
-literal|"Failed replacing compacted files.  Compacted fle is "
+literal|"Failed replacing compacted files. Compacted file is "
 operator|+
 name|finalCompactedFile
 operator|.
@@ -4410,7 +4414,9 @@ operator|.
 name|toString
 argument_list|()
 operator|+
-literal|" some of which may have been removed"
+literal|" some of which may have been already removed"
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}

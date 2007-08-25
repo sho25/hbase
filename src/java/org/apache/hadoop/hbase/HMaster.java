@@ -6214,6 +6214,7 @@ return|;
 block|}
 comment|/*    * Assigns regions to region servers attempting to balance the load across    * all region servers    *     * @param info    * @param serverName    * @param returnMsgs    */
 specifier|private
+specifier|synchronized
 name|void
 name|assignRegions
 parameter_list|(

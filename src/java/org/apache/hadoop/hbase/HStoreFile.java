@@ -2873,10 +2873,9 @@ name|getMapFilePath
 argument_list|()
 argument_list|)
 expr_stmt|;
-return|return
-name|success
-return|;
 block|}
+else|else
+block|{
 name|src
 operator|=
 name|getInfoFilePath
@@ -2940,6 +2939,7 @@ name|getInfoFilePath
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|success
