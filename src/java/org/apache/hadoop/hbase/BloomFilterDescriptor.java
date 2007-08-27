@@ -60,7 +60,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**   * Supplied as a parameter to HColumnDescriptor to specify what kind of  * bloom filter to use for a column, and its configuration parameters  */
+comment|/**   * Supplied as a parameter to HColumnDescriptor to specify what kind of  * bloom filter to use for a column, and its configuration parameters.  *   * There is no way to automatically determine the vector size and the number of  * hash functions to use. In particular, bloom filters are very sensitive to the  * number of elements inserted into them. For HBase, the number of entries  * depends on the size of the data stored in the column. Currently the default  * region size is 64MB, so the number of entries is approximately   * 64MB / (average value size for column).  *   * If m denotes the number of bits in the Bloom filter (vectorSize),  * n denotes the number of elements inserted into the Bloom filter and  * k represents the number of hash functions used (nbHash), then according to  * Broder and Mitzenmacher,  *   * ( http://www.eecs.harvard.edu/~michaelm/NEWWORK/postscripts/BloomFilterSurvey.pdf )  *   * the probability of false positives is minimized when k is approximately  * m/n ln(2).  *   */
 end_comment
 
 begin_class
@@ -70,34 +70,30 @@ name|BloomFilterDescriptor
 implements|implements
 name|WritableComparable
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|double
+name|DEFAULT_NUMBER_OF_HASH_FUNCTIONS
+init|=
+literal|4.0
+decl_stmt|;
 comment|/*    * Specify the kind of bloom filter that will be instantiated    */
-comment|/**    *<i>Bloom filter</i>, as defined by Bloom in 1970.    */
+comment|/** The type of bloom filter */
 specifier|public
 specifier|static
-specifier|final
-name|int
+enum|enum
+name|BloomFilterType
+block|{
+comment|/**<i>Bloom filter</i>, as defined by Bloom in 1970. */
 name|BLOOMFILTER
-init|=
-literal|1
-decl_stmt|;
-comment|/**    *<i>counting Bloom filter</i>, as defined by Fan et al. in a ToN 2000 paper.    */
-specifier|public
-specifier|static
-specifier|final
-name|int
+block|,
+comment|/**      *<i>Counting Bloom filter</i>, as defined by Fan et al. in a ToN 2000 paper.      */
 name|COUNTING_BLOOMFILTER
-init|=
-literal|2
-decl_stmt|;
-comment|/**    *<i>retouched Bloom filter</i>, as defined in the CoNEXT 2006 paper.    */
-specifier|public
-specifier|static
-specifier|final
-name|int
+block|,
+comment|/**      *<i>Retouched Bloom filter</i>, as defined in the CoNEXT 2006 paper.      */
 name|RETOUCHED_BLOOMFILTER
-init|=
-literal|3
-decl_stmt|;
+block|}
 comment|/** Default constructor - used in conjunction with Writable */
 specifier|public
 name|BloomFilterDescriptor
@@ -107,16 +103,103 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Creates a BloomFilterDescriptor for the specified type of filter, fixes    * the number of hash functions to 4 and computes a vector size using:    *     * vectorSize = ceil((4 * n) / ln(2))    *     * @param type    * @param numberOfEntries    */
+specifier|public
+name|BloomFilterDescriptor
+parameter_list|(
+specifier|final
+name|BloomFilterType
+name|type
+parameter_list|,
+specifier|final
+name|int
+name|numberOfEntries
+parameter_list|)
+block|{
+switch|switch
+condition|(
+name|type
+condition|)
+block|{
+case|case
+name|BLOOMFILTER
+case|:
+case|case
+name|COUNTING_BLOOMFILTER
+case|:
+case|case
+name|RETOUCHED_BLOOMFILTER
+case|:
+name|this
+operator|.
+name|filterType
+operator|=
+name|type
+expr_stmt|;
+break|break;
+default|default:
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Invalid bloom filter type: "
+operator|+
+name|type
+argument_list|)
+throw|;
+block|}
+name|this
+operator|.
+name|nbHash
+operator|=
+operator|(
+name|int
+operator|)
+name|DEFAULT_NUMBER_OF_HASH_FUNCTIONS
+expr_stmt|;
+name|this
+operator|.
+name|vectorSize
+operator|=
+operator|(
+name|int
+operator|)
+name|Math
+operator|.
+name|ceil
+argument_list|(
+operator|(
+name|DEFAULT_NUMBER_OF_HASH_FUNCTIONS
+operator|*
+operator|(
+literal|1.0
+operator|*
+name|numberOfEntries
+operator|)
+operator|)
+operator|/
+name|Math
+operator|.
+name|log
+argument_list|(
+literal|2.0
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * @param type The kind of bloom filter to use.    * @param vectorSize The vector size of<i>this</i> filter.    * @param nbHash The number of hash functions to consider.    */
 specifier|public
 name|BloomFilterDescriptor
 parameter_list|(
-name|int
+specifier|final
+name|BloomFilterType
 name|type
 parameter_list|,
+specifier|final
 name|int
 name|vectorSize
 parameter_list|,
+specifier|final
 name|int
 name|nbHash
 parameter_list|)
@@ -166,7 +249,7 @@ operator|=
 name|nbHash
 expr_stmt|;
 block|}
-name|int
+name|BloomFilterType
 name|filterType
 decl_stmt|;
 name|int
@@ -301,14 +384,9 @@ block|{
 name|int
 name|result
 init|=
-name|Integer
-operator|.
-name|valueOf
-argument_list|(
 name|this
 operator|.
 name|filterType
-argument_list|)
 operator|.
 name|hashCode
 argument_list|()
@@ -357,12 +435,25 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|filterType
-operator|=
+name|int
+name|ordinal
+init|=
 name|in
 operator|.
 name|readInt
 argument_list|()
+decl_stmt|;
+name|this
+operator|.
+name|filterType
+operator|=
+name|BloomFilterType
+operator|.
+name|values
+argument_list|()
+index|[
+name|ordinal
+index|]
 expr_stmt|;
 name|vectorSize
 operator|=
@@ -395,6 +486,9 @@ operator|.
 name|writeInt
 argument_list|(
 name|filterType
+operator|.
+name|ordinal
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|out
@@ -436,10 +530,16 @@ init|=
 name|this
 operator|.
 name|filterType
+operator|.
+name|ordinal
+argument_list|()
 operator|-
 name|other
 operator|.
 name|filterType
+operator|.
+name|ordinal
+argument_list|()
 decl_stmt|;
 if|if
 condition|(
