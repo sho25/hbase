@@ -799,13 +799,15 @@ literal|" scanning meta region "
 operator|+
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|+
 literal|" on "
 operator|+
 name|region
 operator|.
-name|server
+name|getServer
+argument_list|()
 operator|.
 name|toString
 argument_list|()
@@ -852,7 +854,8 @@ name|getHRegionConnection
 argument_list|(
 name|region
 operator|.
-name|server
+name|getServer
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|scannerId
@@ -863,7 +866,8 @@ name|openScanner
 argument_list|(
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|COLUMN_FAMILY_ARRAY
 argument_list|,
@@ -1286,7 +1290,8 @@ name|cleanupSplits
 argument_list|(
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|regionServer
 argument_list|,
@@ -1316,7 +1321,8 @@ literal|" scan of meta region "
 operator|+
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|+
 literal|" complete"
 argument_list|)
@@ -2478,12 +2484,15 @@ name|MetaRegion
 implements|implements
 name|Comparable
 block|{
+specifier|private
 name|HServerAddress
 name|server
 decl_stmt|;
+specifier|private
 name|Text
 name|regionName
 decl_stmt|;
+specifier|private
 name|Text
 name|startKey
 decl_stmt|;
@@ -2499,24 +2508,107 @@ name|Text
 name|startKey
 parameter_list|)
 block|{
+if|if
+condition|(
+name|server
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"server cannot be null"
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|server
 operator|=
 name|server
 expr_stmt|;
+if|if
+condition|(
+name|regionName
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"regionName cannot be null"
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|regionName
 operator|=
+operator|new
+name|Text
+argument_list|(
 name|regionName
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
 name|startKey
 operator|=
-name|startKey
+operator|new
+name|Text
+argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|startKey
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|startKey
+operator|.
+name|set
+argument_list|(
+name|startKey
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|/** @return the regionName */
+specifier|public
+name|Text
+name|getRegionName
+parameter_list|()
+block|{
+return|return
+name|regionName
+return|;
+block|}
+comment|/** @return the server */
+specifier|public
+name|HServerAddress
+name|getServer
+parameter_list|()
+block|{
+return|return
+name|server
+return|;
+block|}
+comment|/** @return the startKey */
+specifier|public
+name|Text
+name|getStartKey
+parameter_list|()
+block|{
+return|return
+name|startKey
+return|;
 block|}
 comment|/** {@inheritDoc} */
 annotation|@
@@ -2600,7 +2692,8 @@ name|compareTo
 argument_list|(
 name|other
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -2620,7 +2713,8 @@ name|compareTo
 argument_list|(
 name|other
 operator|.
-name|startKey
+name|getStartKey
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2757,7 +2851,8 @@ name|put
 argument_list|(
 name|region
 operator|.
-name|startKey
+name|getStartKey
+argument_list|()
 argument_list|,
 name|region
 argument_list|)
@@ -8590,13 +8685,15 @@ literal|"process server shutdown scanning "
 operator|+
 name|r
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|+
 literal|" on "
 operator|+
 name|r
 operator|.
-name|server
+name|getServer
+argument_list|()
 operator|+
 literal|" "
 operator|+
@@ -8618,7 +8715,8 @@ name|getHRegionConnection
 argument_list|(
 name|r
 operator|.
-name|server
+name|getServer
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|scannerId
@@ -8629,7 +8727,8 @@ name|openScanner
 argument_list|(
 name|r
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|COLUMN_FAMILY_ARRAY
 argument_list|,
@@ -8651,7 +8750,8 @@ name|scannerId
 argument_list|,
 name|r
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
@@ -8670,13 +8770,15 @@ literal|"process server shutdown finished scanning "
 operator|+
 name|r
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|+
 literal|" on "
 operator|+
 name|r
 operator|.
-name|server
+name|getServer
+argument_list|()
 operator|+
 literal|" "
 operator|+
@@ -9071,7 +9173,8 @@ name|metaRegionName
 operator|=
 name|r
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 expr_stmt|;
 name|server
 operator|=
@@ -9081,7 +9184,8 @@ name|getHRegionConnection
 argument_list|(
 name|r
 operator|.
-name|server
+name|getServer
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -9722,7 +9826,8 @@ name|metaRegionName
 operator|=
 name|r
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 expr_stmt|;
 name|server
 operator|=
@@ -9732,7 +9837,8 @@ name|getHRegionConnection
 argument_list|(
 name|r
 operator|.
-name|server
+name|getServer
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -10319,7 +10425,8 @@ name|metaRegionName
 init|=
 name|m
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 decl_stmt|;
 name|HRegionInterface
 name|server
@@ -10330,7 +10437,8 @@ name|getHRegionConnection
 argument_list|(
 name|m
 operator|.
-name|server
+name|getServer
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|long
@@ -10959,7 +11067,8 @@ name|getHRegionConnection
 argument_list|(
 name|m
 operator|.
-name|server
+name|getServer
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Open a scanner on the meta region
@@ -10972,7 +11081,8 @@ name|openScanner
 argument_list|(
 name|m
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|COLUMN_FAMILY_ARRAY
 argument_list|,
@@ -11850,7 +11960,8 @@ name|batchUpdate
 argument_list|(
 name|m
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|System
 operator|.
@@ -12754,7 +12865,8 @@ name|server
 argument_list|,
 name|m
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|i
 argument_list|)
@@ -12952,7 +13064,8 @@ name|server
 argument_list|,
 name|m
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|i
 argument_list|)
