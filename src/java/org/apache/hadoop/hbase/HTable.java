@@ -1794,7 +1794,7 @@ name|filter
 argument_list|)
 return|;
 block|}
-comment|/**     * Start a batch of row insertions/updates.    *     * No changes are committed until the call to commitBatchUpdate returns.    * A call to abortBatchUpdate will abandon the entire batch.    *    * @param row name of row to be updated    * @return lockid to be used in subsequent put, delete and commit calls    *     * Deprecated. Batch operations are now the default. startBatchUpdate is now    * implemented by @see {@link #startUpdate(Text)}     */
+comment|/**     * Start a batch of row insertions/updates.    *     * No changes are committed until the call to commitBatchUpdate returns.    * A call to abortBatchUpdate will abandon the entire batch.    *    * @param row name of row to be updated    * @return lockid to be used in subsequent put, delete and commit calls    *     * @deprecated Batch operations are now the default. startBatchUpdate is now    * implemented by @see {@link #startUpdate(Text)}     */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1814,7 +1814,7 @@ name|row
 argument_list|)
 return|;
 block|}
-comment|/**     * Abort a batch mutation    * @param lockid lock id returned by startBatchUpdate    *     * Deprecated. Batch operations are now the default. abortBatch is now     * implemented by @see {@link #abort(long)}    */
+comment|/**     * Abort a batch mutation    * @param lockid lock id returned by startBatchUpdate    *     * @deprecated Batch operations are now the default. abortBatch is now     * implemented by @see {@link #abort(long)}    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1833,7 +1833,7 @@ name|lockid
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Finalize a batch mutation    *    * @param lockid lock id returned by startBatchUpdate    * @throws IOException    *     * Deprecated. Batch operations are now the default. commitBatch(long) is now    * implemented by @see {@link #commit(long)}    */
+comment|/**     * Finalize a batch mutation    *    * @param lockid lock id returned by startBatchUpdate    * @throws IOException    *     * @deprecated Batch operations are now the default. commitBatch(long) is now    * implemented by @see {@link #commit(long)}    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1858,7 +1858,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Finalize a batch mutation    *    * @param lockid lock id returned by startBatchUpdate    * @param timestamp time to associate with all the changes    * @throws IOException    *     * Deprecated. Batch operations are now the default. commitBatch(long, long)    * is now implemented by @see {@link #commit(long, long)}    */
+comment|/**     * Finalize a batch mutation    *    * @param lockid lock id returned by startBatchUpdate    * @param timestamp time to associate with all the changes    * @throws IOException    *     * @deprecated Batch operations are now the default. commitBatch(long, long)    * is now implemented by @see {@link #commit(long, long)}    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2306,7 +2306,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Renew lease on update    *     * @param lockid              - lock id returned from startUpdate    *     * Deprecated. Batch updates are now the default. Consequently this method    * does nothing.    */
+comment|/**    * Renew lease on update    *     * @param lockid              - lock id returned from startUpdate    *     * @deprecated Batch updates are now the default. Consequently this method    * does nothing.    */
 annotation|@
 name|Deprecated
 specifier|public

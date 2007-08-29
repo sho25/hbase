@@ -573,7 +573,7 @@ name|compareTo
 argument_list|(
 name|m_endRow
 argument_list|)
-operator|<
+operator|>=
 literal|0
 operator|)
 condition|)

@@ -501,7 +501,9 @@ return|return
 name|htd
 return|;
 block|}
+comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param r    * @param column    * @throws IOException    */
 specifier|protected
+specifier|static
 name|void
 name|addContent
 parameter_list|(
@@ -590,7 +592,9 @@ name|endKey
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param updater  An instance of {@link Loader}.    * @param column    * @throws IOException    */
 specifier|protected
+specifier|static
 name|void
 name|addContent
 parameter_list|(
@@ -626,7 +630,9 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param updater  An instance of {@link Loader}.    * @param column    * @param startKeyBytes Where to start the rows inserted    * @param endKey Where to stop inserting rows.    * @throws IOException    */
 specifier|protected
+specifier|static
 name|void
 name|addContent
 parameter_list|(
@@ -865,7 +871,9 @@ name|FIRST_CHAR
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Interface used by the addContent methods so either a HTable or a HRegion    * can be passed to the methods.    */
 specifier|public
+specifier|static
 interface|interface
 name|Loader
 block|{
@@ -918,7 +926,9 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
+comment|/**    * A class that makes a {@link Loader} out of a {@link HRegion}    */
 specifier|public
+specifier|static
 class|class
 name|HRegionLoader
 implements|implements
@@ -1044,7 +1054,9 @@ argument_list|)
 return|;
 block|}
 block|}
+comment|/**    * A class that makes a {@link Loader} out of a {@link HTable}    */
 specifier|public
+specifier|static
 class|class
 name|HTableLoader
 implements|implements
@@ -1156,7 +1168,7 @@ name|this
 operator|.
 name|table
 operator|.
-name|startBatchUpdate
+name|startUpdate
 argument_list|(
 name|row
 argument_list|)

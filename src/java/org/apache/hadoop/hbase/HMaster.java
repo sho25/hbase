@@ -13247,15 +13247,18 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-throw|throw
-operator|new
-name|RuntimeException
+comment|// continue.  We used to throw a RuntimeException here but on exit
+comment|// this put is often interrupted.  For now, just log these iterrupts
+comment|// rather than throw an exception
+name|LOG
+operator|.
+name|warn
 argument_list|(
-literal|"Putting into msgQueue was interrupted."
-argument_list|,
-name|e
+literal|"MsgQueue.put was interrupted (If we are exiting, this msg "
+operator|+
+literal|"can be ignored"
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 block|}
 block|}
