@@ -1580,6 +1580,28 @@ block|}
 block|}
 catch|catch
 parameter_list|(
+name|RuntimeException
+name|ex
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"error initializing HMemcache scanner: "
+argument_list|,
+name|ex
+argument_list|)
+expr_stmt|;
+name|close
+argument_list|()
+expr_stmt|;
+throw|throw
+name|ex
+throw|;
+block|}
+catch|catch
+parameter_list|(
 name|IOException
 name|ex
 parameter_list|)
@@ -1588,6 +1610,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+literal|"error initializing HMemcache scanner: "
+argument_list|,
 name|ex
 argument_list|)
 expr_stmt|;
