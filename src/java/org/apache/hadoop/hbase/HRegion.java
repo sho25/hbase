@@ -1023,6 +1023,11 @@ specifier|final
 name|int
 name|blockingMemcacheSize
 decl_stmt|;
+specifier|protected
+specifier|final
+name|long
+name|threadWakeFrequency
+decl_stmt|;
 specifier|private
 specifier|final
 name|HLocking
@@ -1106,6 +1111,21 @@ operator|=
 operator|new
 name|HMemcache
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|threadWakeFrequency
+operator|=
+name|conf
+operator|.
+name|getLong
+argument_list|(
+name|THREAD_WAKE_FREQUENCY
+argument_list|,
+literal|10
+operator|*
+literal|1000
+argument_list|)
 expr_stmt|;
 comment|// Declare the regionName.  This is a unique string for the region, used to
 comment|// build a unique filename.
@@ -4147,17 +4167,27 @@ name|void
 name|checkResources
 parameter_list|()
 block|{
-if|if
+name|boolean
+name|blocked
+init|=
+literal|false
+decl_stmt|;
+while|while
 condition|(
+operator|!
 name|checkCommitsSinceFlush
 argument_list|()
 condition|)
 block|{
-return|return;
-block|}
+if|if
+condition|(
+operator|!
+name|blocked
+condition|)
+block|{
 name|LOG
 operator|.
-name|warn
+name|info
 argument_list|(
 literal|"Blocking updates for '"
 operator|+
@@ -4197,17 +4227,17 @@ operator|+
 literal|" size"
 argument_list|)
 expr_stmt|;
-while|while
-condition|(
-operator|!
-name|checkCommitsSinceFlush
-argument_list|()
-condition|)
-block|{
+block|}
+name|blocked
+operator|=
+literal|true
+expr_stmt|;
 try|try
 block|{
 name|wait
-argument_list|()
+argument_list|(
+name|threadWakeFrequency
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -4219,9 +4249,14 @@ block|{
 comment|// continue;
 block|}
 block|}
+if|if
+condition|(
+name|blocked
+condition|)
+block|{
 name|LOG
 operator|.
-name|warn
+name|info
 argument_list|(
 literal|"Unblocking updates for '"
 operator|+
@@ -4236,6 +4271,7 @@ operator|+
 literal|"'"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/*    * @return True if commits since flush is under the blocking threshold.    */
 specifier|private

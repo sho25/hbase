@@ -269,11 +269,7 @@ comment|/**    * Constructor    */
 specifier|public
 name|HMemcache
 parameter_list|()
-block|{
-name|super
-argument_list|()
-expr_stmt|;
-block|}
+block|{}
 comment|/** represents the state of the memcache at a specified point in time */
 specifier|static
 class|class
@@ -1509,6 +1505,7 @@ name|i
 index|]
 operator|=
 operator|(
+comment|/*firstRow != null&&*/
 name|firstRow
 operator|.
 name|getLength
