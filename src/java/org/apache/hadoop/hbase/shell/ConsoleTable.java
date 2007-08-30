@@ -17,6 +17,26 @@ name|shell
 package|;
 end_package
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|PrintStream
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|UnsupportedEncodingException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Manufactures console table, but stupid.  */
 end_comment
@@ -26,6 +46,43 @@ specifier|public
 class|class
 name|ConsoleTable
 block|{
+specifier|private
+specifier|static
+name|PrintStream
+name|out
+decl_stmt|;
+static|static
+block|{
+try|try
+block|{
+name|out
+operator|=
+operator|new
+name|PrintStream
+argument_list|(
+name|System
+operator|.
+name|out
+argument_list|,
+literal|true
+argument_list|,
+literal|"UTF-8"
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|UnsupportedEncodingException
+name|e
+parameter_list|)
+block|{
+name|e
+operator|.
+name|printStackTrace
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 specifier|public
 specifier|static
 name|void
@@ -35,8 +92,6 @@ name|String
 name|name
 parameter_list|)
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|println
@@ -44,8 +99,6 @@ argument_list|(
 literal|"+------+----------------------+"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -53,8 +106,6 @@ argument_list|(
 literal|"| No.  | "
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -64,8 +115,6 @@ argument_list|,
 name|name
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|println
@@ -80,8 +129,6 @@ name|void
 name|printFoot
 parameter_list|()
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|println
@@ -89,8 +136,6 @@ argument_list|(
 literal|"+------+----------------------+"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|println
@@ -109,8 +154,6 @@ name|String
 name|name
 parameter_list|)
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|println
@@ -133,8 +176,6 @@ name|interval
 init|=
 literal|20
 decl_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -142,8 +183,6 @@ argument_list|(
 literal|"| "
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -155,8 +194,6 @@ operator|+
 literal|1
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -164,8 +201,6 @@ argument_list|(
 literal|" | "
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -182,8 +217,6 @@ name|interval
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|println
@@ -211,8 +244,6 @@ name|i
 operator|++
 control|)
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -220,8 +251,6 @@ argument_list|(
 literal|"| "
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -231,8 +260,6 @@ argument_list|,
 literal|""
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -265,8 +292,6 @@ name|length
 argument_list|()
 condition|)
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -291,8 +316,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -312,8 +335,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|System
-operator|.
 name|out
 operator|.
 name|println
@@ -325,8 +346,6 @@ block|}
 block|}
 else|else
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -334,8 +353,6 @@ argument_list|(
 literal|"| "
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -347,8 +364,6 @@ operator|+
 literal|1
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -356,8 +371,6 @@ argument_list|(
 literal|" | "
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -367,8 +380,6 @@ argument_list|,
 name|name
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|println
@@ -384,8 +395,6 @@ name|void
 name|selectHead
 parameter_list|()
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|println
@@ -395,8 +404,6 @@ operator|+
 literal|"----------------------+----------------------+"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -404,8 +411,6 @@ argument_list|(
 literal|"| No.  | "
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -415,8 +420,6 @@ argument_list|,
 literal|"Row"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -424,8 +427,6 @@ argument_list|(
 literal|" | "
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -435,8 +436,6 @@ argument_list|,
 literal|"Column"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -444,8 +443,6 @@ argument_list|(
 literal|" | "
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -455,8 +452,6 @@ argument_list|,
 literal|"Cell"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|println
@@ -483,8 +478,6 @@ name|String
 name|cellData
 parameter_list|)
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|println
@@ -523,8 +516,6 @@ name|interval
 init|=
 literal|20
 decl_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -532,8 +523,6 @@ argument_list|(
 literal|"| "
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -545,8 +534,6 @@ operator|+
 literal|1
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -563,8 +550,6 @@ argument_list|()
 operator|>
 literal|20
 condition|)
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -582,8 +567,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 else|else
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -593,8 +576,6 @@ argument_list|,
 name|key
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -611,8 +592,6 @@ argument_list|()
 operator|>
 literal|20
 condition|)
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -630,8 +609,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 else|else
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -641,8 +618,6 @@ argument_list|,
 name|column
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -659,8 +634,6 @@ argument_list|()
 operator|>
 literal|20
 condition|)
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -678,8 +651,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 else|else
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -689,8 +660,6 @@ argument_list|,
 name|cellData
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|println
@@ -698,7 +667,7 @@ argument_list|(
 literal|" |"
 argument_list|)
 expr_stmt|;
-comment|// System.out.println(getBiggerInt(new int[]{ 3, 1, 9}));
+comment|// out.println(getBiggerInt(new int[]{ 3, 1, 9}));
 name|int
 name|biggerStrLength
 init|=
@@ -744,8 +713,6 @@ name|i
 operator|++
 control|)
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -753,8 +720,6 @@ argument_list|(
 literal|"| "
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -764,8 +729,6 @@ argument_list|,
 literal|""
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -817,8 +780,6 @@ name|length
 argument_list|()
 condition|)
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -843,8 +804,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -858,8 +817,6 @@ block|}
 block|}
 else|else
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -879,8 +836,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -917,8 +872,6 @@ name|length
 argument_list|()
 condition|)
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -943,8 +896,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -958,8 +909,6 @@ block|}
 block|}
 else|else
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -979,8 +928,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -1017,8 +964,6 @@ name|length
 argument_list|()
 condition|)
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -1043,8 +988,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -1058,8 +1001,6 @@ block|}
 block|}
 else|else
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -1079,8 +1020,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|System
-operator|.
 name|out
 operator|.
 name|println
@@ -1092,8 +1031,6 @@ block|}
 block|}
 else|else
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -1101,8 +1038,6 @@ argument_list|(
 literal|"| "
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -1114,8 +1049,6 @@ operator|+
 literal|1
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -1123,8 +1056,6 @@ argument_list|(
 literal|" | "
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -1134,8 +1065,6 @@ argument_list|,
 name|key
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -1143,8 +1072,6 @@ argument_list|(
 literal|" | "
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -1154,8 +1081,6 @@ argument_list|,
 name|column
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|print
@@ -1163,8 +1088,6 @@ argument_list|(
 literal|" | "
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|printf
@@ -1174,8 +1097,6 @@ argument_list|,
 name|cellData
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|println
@@ -1247,8 +1168,6 @@ name|void
 name|selectFoot
 parameter_list|()
 block|{
-name|System
-operator|.
 name|out
 operator|.
 name|println
@@ -1258,8 +1177,6 @@ operator|+
 literal|"----------------------+----------------------+"
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
 name|out
 operator|.
 name|println

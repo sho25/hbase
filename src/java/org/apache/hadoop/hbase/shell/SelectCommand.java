@@ -500,6 +500,10 @@ operator|new
 name|String
 argument_list|(
 name|value
+argument_list|,
+name|HConstants
+operator|.
+name|UTF8_ENCODING
 argument_list|)
 decl_stmt|;
 if|if
@@ -665,6 +669,10 @@ operator|new
 name|String
 argument_list|(
 name|value
+argument_list|,
+name|HConstants
+operator|.
+name|UTF8_ENCODING
 argument_list|)
 decl_stmt|;
 if|if
@@ -881,6 +889,10 @@ operator|new
 name|String
 argument_list|(
 name|value
+argument_list|,
+name|HConstants
+operator|.
+name|UTF8_ENCODING
 argument_list|)
 decl_stmt|;
 name|ConsoleTable
@@ -1151,6 +1163,10 @@ name|rs3
 index|[
 name|i
 index|]
+argument_list|,
+name|HConstants
+operator|.
+name|UTF8_ENCODING
 argument_list|)
 argument_list|)
 expr_stmt|;
