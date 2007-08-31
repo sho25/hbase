@@ -139,6 +139,20 @@ name|hadoop
 operator|.
 name|io
 operator|.
+name|MapWritable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
 name|Text
 import|;
 end_import
@@ -225,22 +239,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|MapWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|mapred
 operator|.
 name|TableMap
@@ -260,6 +258,22 @@ operator|.
 name|mapred
 operator|.
 name|TableOutputCollector
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|mapred
+operator|.
+name|TableReduce
 import|;
 end_import
 
@@ -595,7 +609,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**      * Pass the key, and reversed value to reduce      *      * @see org.apache.hadoop.hbase.mapred.TableMap#map(org.apache.hadoop.hbase.HStoreKey, org.apache.hadoop.hbase.io.MapWritable, org.apache.hadoop.hbase.mapred.TableOutputCollector, org.apache.hadoop.mapred.Reporter)      */
+comment|/**      * Pass the key, and reversed value to reduce      *      * @see org.apache.hadoop.hbase.mapred.TableMap#map(org.apache.hadoop.hbase.HStoreKey, org.apache.hadoop.io.MapWritable, org.apache.hadoop.hbase.mapred.TableOutputCollector, org.apache.hadoop.mapred.Reporter)      */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -777,33 +791,7 @@ name|outval
 init|=
 operator|new
 name|MapWritable
-argument_list|(
-operator|(
-name|Class
-operator|)
-name|Text
-operator|.
-name|class
-argument_list|,
-operator|(
-name|Class
-operator|)
-name|ImmutableBytesWritable
-operator|.
-name|class
-argument_list|,
-operator|(
-name|Map
-operator|)
-operator|new
-name|TreeMap
-argument_list|<
-name|Text
-argument_list|,
-name|ImmutableBytesWritable
-argument_list|>
 argument_list|()
-argument_list|)
 decl_stmt|;
 name|outval
 operator|.
@@ -835,7 +823,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test hbase mapreduce jobs against single region and multi-region tables.    */
+comment|/**    * Test hbase mapreduce jobs against single region and multi-region tables.    * @throws IOException    */
 specifier|public
 name|void
 name|testTableMapReduce
@@ -1105,7 +1093,7 @@ argument_list|,
 name|jobConf
 argument_list|)
 expr_stmt|;
-name|IdentityTableReduce
+name|TableReduce
 operator|.
 name|initJob
 argument_list|(
@@ -1340,7 +1328,7 @@ argument_list|,
 name|jobConf
 argument_list|)
 expr_stmt|;
-name|IdentityTableReduce
+name|TableReduce
 operator|.
 name|initJob
 argument_list|(
@@ -1536,6 +1524,11 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"null"
+argument_list|)
 specifier|private
 name|void
 name|verify
@@ -1695,6 +1688,16 @@ operator|++
 expr_stmt|;
 block|}
 comment|// verify second value is the reverse of the first
+name|assertNotNull
+argument_list|(
+name|firstValue
+argument_list|)
+expr_stmt|;
+name|assertNotNull
+argument_list|(
+name|secondValue
+argument_list|)
+expr_stmt|;
 name|assertEquals
 argument_list|(
 name|firstValue

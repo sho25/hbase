@@ -91,11 +91,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|io
-operator|.
-name|MapWritable
+name|Configuration
 import|;
 end_import
 
@@ -107,9 +105,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|io
 operator|.
-name|Configuration
+name|MapWritable
 import|;
 end_import
 
@@ -138,20 +136,6 @@ operator|.
 name|io
 operator|.
 name|Writable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|WritableComparable
 import|;
 end_import
 
@@ -664,7 +648,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|WritableComparable
+name|Writable
 argument_list|,
 name|Writable
 argument_list|>
@@ -1072,7 +1056,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|WritableComparable
+name|Writable
 argument_list|,
 name|Writable
 argument_list|>
@@ -1509,7 +1493,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|WritableComparable
+name|Writable
 argument_list|,
 name|Writable
 argument_list|>

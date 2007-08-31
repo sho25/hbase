@@ -85,8 +85,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
 name|io
 operator|.
 name|MapWritable
@@ -118,20 +116,6 @@ operator|.
 name|io
 operator|.
 name|Writable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|WritableComparable
 import|;
 end_import
 
@@ -324,7 +308,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Extract the grouping columns from value to construct a new key.    *     * Pass the new key and value to reduce.    * If any of the grouping columns are not found in the value, the record is skipped.    *    * @see org.apache.hadoop.hbase.mapred.TableMap#map(org.apache.hadoop.hbase.HStoreKey, org.apache.hadoop.hbase.io.MapWritable, org.apache.hadoop.hbase.mapred.TableOutputCollector, org.apache.hadoop.mapred.Reporter)    */
+comment|/**    * Extract the grouping columns from value to construct a new key.    *     * Pass the new key and value to reduce.    * If any of the grouping columns are not found in the value, the record is skipped.    *    * @see org.apache.hadoop.hbase.mapred.TableMap#map(org.apache.hadoop.hbase.HStoreKey, org.apache.hadoop.io.MapWritable, org.apache.hadoop.hbase.mapred.TableOutputCollector, org.apache.hadoop.mapred.Reporter)    */
 annotation|@
 name|Override
 specifier|public
@@ -445,7 +429,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|WritableComparable
+name|Writable
 argument_list|,
 name|Writable
 argument_list|>
