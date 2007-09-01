@@ -169,7 +169,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|HGlobals
 import|;
 end_import
 
@@ -663,9 +663,9 @@ name|Arrays
 operator|.
 name|equals
 argument_list|(
-name|HConstants
+name|HGlobals
 operator|.
-name|DELETE_BYTES
+name|deleteBytes
 operator|.
 name|get
 argument_list|()
@@ -777,9 +777,9 @@ name|Arrays
 operator|.
 name|equals
 argument_list|(
-name|HConstants
+name|HGlobals
 operator|.
-name|DELETE_BYTES
+name|deleteBytes
 operator|.
 name|get
 argument_list|()

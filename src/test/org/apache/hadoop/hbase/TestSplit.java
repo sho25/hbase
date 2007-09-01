@@ -757,6 +757,10 @@ operator|new
 name|String
 argument_list|(
 name|b
+argument_list|,
+name|HConstants
+operator|.
+name|UTF8_ENCODING
 argument_list|)
 argument_list|)
 argument_list|)

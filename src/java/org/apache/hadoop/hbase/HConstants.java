@@ -23,22 +23,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|ImmutableBytesWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|io
 operator|.
 name|Text
@@ -196,6 +180,18 @@ comment|// This HRegion is never split.
 comment|// region name = table + startkey + regionid. This is the row key.
 comment|// each row in the root and meta tables describes exactly 1 region
 comment|// Do we ever need to know all the information that we are storing?
+comment|// Note that the name of the root table starts with "-" and the name of the
+comment|// meta table starts with "." Why? it's a trick. It turns out that when we
+comment|// store region names in memory, we use a SortedMap. Since "-" sorts before
+comment|// "." (and since no other table name can start with either of these
+comment|// characters, the root region will always be the first entry in such a Map,
+comment|// followed by all the meta regions (which will be ordered by their starting
+comment|// row key as well), followed by all user tables. So when the Master is
+comment|// choosing regions to assign, it will always choose the root region first,
+comment|// followed by the meta regions, followed by user regions. Since the root
+comment|// and meta regions always need to be on-line, this ensures that they will
+comment|// be the first to be reassigned if the server(s) they are being served by
+comment|// should go down.
 comment|/** The root table's name. */
 specifier|static
 specifier|final
@@ -357,36 +353,6 @@ name|String
 name|UTF8_ENCODING
 init|=
 literal|"UTF-8"
-decl_stmt|;
-comment|/** Value stored for a deleted item */
-specifier|static
-specifier|final
-name|ImmutableBytesWritable
-name|DELETE_BYTES
-init|=
-operator|new
-name|ImmutableBytesWritable
-argument_list|(
-literal|"HBASE::DELETEVAL"
-operator|.
-name|getBytes
-argument_list|()
-argument_list|)
-decl_stmt|;
-comment|/** Value written to HLog on a complete cache flush */
-specifier|static
-specifier|final
-name|ImmutableBytesWritable
-name|COMPLETE_CACHEFLUSH
-init|=
-operator|new
-name|ImmutableBytesWritable
-argument_list|(
-literal|"HBASE::CACHEFLUSH"
-operator|.
-name|getBytes
-argument_list|()
-argument_list|)
 decl_stmt|;
 block|}
 end_interface

@@ -1624,7 +1624,9 @@ name|HLog
 operator|.
 name|METACOLUMN
 argument_list|,
-name|COMPLETE_CACHEFLUSH
+name|HGlobals
+operator|.
+name|completeCacheFlush
 operator|.
 name|get
 argument_list|()

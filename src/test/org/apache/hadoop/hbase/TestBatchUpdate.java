@@ -472,6 +472,10 @@ name|e
 operator|.
 name|getValue
 argument_list|()
+argument_list|,
+name|HConstants
+operator|.
+name|UTF8_ENCODING
 argument_list|)
 argument_list|)
 expr_stmt|;

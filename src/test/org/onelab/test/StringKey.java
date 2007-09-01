@@ -19,6 +19,30 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|UnsupportedEncodingException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|onelab
@@ -45,24 +69,30 @@ specifier|public
 name|StringKey
 parameter_list|()
 block|{}
-comment|/**    * Construct a Key using the specified String and default weight    *     * @param key String key value    */
+comment|/**    * Construct a Key using the specified String and default weight    *     * @param key String key value    * @throws UnsupportedEncodingException    */
 specifier|public
 name|StringKey
 parameter_list|(
 name|String
 name|key
 parameter_list|)
+throws|throws
+name|UnsupportedEncodingException
 block|{
 name|super
 argument_list|(
 name|key
 operator|.
 name|getBytes
-argument_list|()
+argument_list|(
+name|HConstants
+operator|.
+name|UTF8_ENCODING
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct a Key using the specified string and weight    *     * @param key - String key value    * @param weight key weight    */
+comment|/**    * Construct a Key using the specified string and weight    *     * @param key - String key value    * @param weight key weight    * @throws UnsupportedEncodingException    */
 specifier|public
 name|StringKey
 parameter_list|(
@@ -72,13 +102,19 @@ parameter_list|,
 name|double
 name|weight
 parameter_list|)
+throws|throws
+name|UnsupportedEncodingException
 block|{
 name|super
 argument_list|(
 name|key
 operator|.
 name|getBytes
-argument_list|()
+argument_list|(
+name|HConstants
+operator|.
+name|UTF8_ENCODING
+argument_list|)
 argument_list|,
 name|weight
 argument_list|)

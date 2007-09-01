@@ -769,6 +769,10 @@ operator|new
 name|String
 argument_list|(
 name|bytes
+argument_list|,
+name|HConstants
+operator|.
+name|UTF8_ENCODING
 argument_list|)
 argument_list|)
 decl_stmt|;

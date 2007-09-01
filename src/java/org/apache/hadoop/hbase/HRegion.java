@@ -4312,7 +4312,9 @@ name|IOException
 block|{
 if|if
 condition|(
-name|DELETE_BYTES
+name|HGlobals
+operator|.
+name|deleteBytes
 operator|.
 name|compareTo
 argument_list|(
@@ -4362,7 +4364,9 @@ name|lockid
 argument_list|,
 name|targetCol
 argument_list|,
-name|DELETE_BYTES
+name|HGlobals
+operator|.
+name|deleteBytes
 operator|.
 name|get
 argument_list|()

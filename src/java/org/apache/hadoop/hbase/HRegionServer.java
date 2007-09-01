@@ -4921,7 +4921,9 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|DELETE_BYTES
+name|HGlobals
+operator|.
+name|deleteBytes
 operator|.
 name|compareTo
 argument_list|(

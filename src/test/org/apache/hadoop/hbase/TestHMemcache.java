@@ -29,6 +29,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|UnsupportedEncodingException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|Iterator
@@ -362,6 +372,8 @@ argument_list|,
 name|ii
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|columns
 operator|.
 name|put
@@ -374,9 +386,24 @@ name|toString
 argument_list|()
 operator|.
 name|getBytes
-argument_list|()
+argument_list|(
+name|HConstants
+operator|.
+name|UTF8_ENCODING
+argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|UnsupportedEncodingException
+name|e
+parameter_list|)
+block|{
+name|fail
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 name|hmc
 operator|.
@@ -742,6 +769,8 @@ index|[]
 argument_list|>
 name|row
 parameter_list|)
+throws|throws
+name|UnsupportedEncodingException
 block|{
 name|int
 name|i
@@ -812,6 +841,10 @@ operator|new
 name|String
 argument_list|(
 name|value
+argument_list|,
+name|HConstants
+operator|.
+name|UTF8_ENCODING
 argument_list|)
 operator|.
 name|trim
@@ -828,11 +861,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/** Test getFull from memcache */
+comment|/** Test getFull from memcache    * @throws UnsupportedEncodingException    */
 specifier|public
 name|void
 name|testGetFull
 parameter_list|()
+throws|throws
+name|UnsupportedEncodingException
 block|{
 name|addRows
 argument_list|(

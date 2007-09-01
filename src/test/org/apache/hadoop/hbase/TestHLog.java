@@ -551,7 +551,9 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|COMPLETE_CACHEFLUSH
+name|HGlobals
+operator|.
+name|completeCacheFlush
 operator|.
 name|compareTo
 argument_list|(

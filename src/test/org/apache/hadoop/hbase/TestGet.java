@@ -376,7 +376,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**     * Constructor    * @throws IOException    */
+comment|/**     * the test    * @throws IOException    */
 specifier|public
 name|void
 name|testGet
@@ -806,7 +806,11 @@ argument_list|,
 literal|"region2"
 operator|.
 name|getBytes
-argument_list|()
+argument_list|(
+name|HConstants
+operator|.
+name|UTF8_ENCODING
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|String
@@ -858,7 +862,11 @@ argument_list|,
 literal|"junk"
 operator|.
 name|getBytes
-argument_list|()
+argument_list|(
+name|HConstants
+operator|.
+name|UTF8_ENCODING
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|r

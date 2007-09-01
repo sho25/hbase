@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|UnsupportedEncodingException
+import|;
+end_import
+
+begin_import
+import|import
 name|junit
 operator|.
 name|framework
@@ -50,11 +60,13 @@ name|TestFilter
 extends|extends
 name|TestCase
 block|{
-comment|/** Test a BloomFilter */
+comment|/** Test a BloomFilter    * @throws UnsupportedEncodingException    */
 specifier|public
 name|void
 name|testBloomFilter
 parameter_list|()
+throws|throws
+name|UnsupportedEncodingException
 block|{
 name|Filter
 name|bf
@@ -170,11 +182,13 @@ argument_list|)
 expr_stmt|;
 comment|// False positive
 block|}
-comment|/** Test a CountingBloomFilter */
+comment|/** Test a CountingBloomFilter    * @throws UnsupportedEncodingException    */
 specifier|public
 name|void
 name|testCountingBloomFilter
 parameter_list|()
+throws|throws
+name|UnsupportedEncodingException
 block|{
 name|Filter
 name|bf
@@ -290,11 +304,13 @@ argument_list|)
 expr_stmt|;
 comment|// False positive
 block|}
-comment|/** Test a DynamicBloomFilter */
+comment|/** Test a DynamicBloomFilter    * @throws UnsupportedEncodingException    */
 specifier|public
 name|void
 name|testDynamicBloomFilter
 parameter_list|()
+throws|throws
+name|UnsupportedEncodingException
 block|{
 name|Filter
 name|bf

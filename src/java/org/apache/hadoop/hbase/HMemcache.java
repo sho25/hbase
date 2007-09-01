@@ -1220,9 +1220,9 @@ condition|)
 block|{
 if|if
 condition|(
-name|HConstants
+name|HGlobals
 operator|.
-name|DELETE_BYTES
+name|deleteBytes
 operator|.
 name|compareTo
 argument_list|(

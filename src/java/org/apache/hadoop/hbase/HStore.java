@@ -4581,9 +4581,9 @@ name|readval
 operator|.
 name|equals
 argument_list|(
-name|HConstants
+name|HGlobals
 operator|.
-name|DELETE_BYTES
+name|deleteBytes
 argument_list|)
 condition|)
 block|{
@@ -4846,9 +4846,9 @@ name|readval
 operator|.
 name|equals
 argument_list|(
-name|HConstants
+name|HGlobals
 operator|.
-name|DELETE_BYTES
+name|deleteBytes
 argument_list|)
 condition|)
 block|{
@@ -4910,9 +4910,9 @@ name|readval
 operator|.
 name|equals
 argument_list|(
-name|HConstants
+name|HGlobals
 operator|.
-name|DELETE_BYTES
+name|deleteBytes
 argument_list|)
 condition|)
 block|{

@@ -167,12 +167,17 @@ name|DEFAULT_BELL_ENABLED
 init|=
 literal|true
 decl_stmt|;
-comment|/** Main method */
+comment|/** Main method    *     * @param args not used    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
 name|main
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|String
 name|args
 index|[]
@@ -504,7 +509,7 @@ else|:
 literal|"    --> "
 return|;
 block|}
-comment|/** return a string of code execution time. */
+comment|/**    * @param watch true if execution time should be computed and returned    * @param start start of time interval    * @param end end of time interval    * @return a string of code execution time. */
 specifier|public
 specifier|static
 name|String

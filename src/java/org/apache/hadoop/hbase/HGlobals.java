@@ -15,8 +15,34 @@ name|hbase
 package|;
 end_package
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|UnsupportedEncodingException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|ImmutableBytesWritable
+import|;
+end_import
+
 begin_comment
-comment|/**  * Global values used for finding and scanning the root and meta tables.  */
+comment|/**  * Global values that require initialization that cannot be done in HConstants  */
 end_comment
 
 begin_class
@@ -26,21 +52,43 @@ name|HGlobals
 implements|implements
 name|HConstants
 block|{
+comment|/** table descriptor for root table */
+specifier|public
 specifier|static
 name|HTableDescriptor
 name|rootTableDesc
 init|=
 literal|null
 decl_stmt|;
+comment|/** region info for the root region */
+specifier|public
 specifier|static
 name|HRegionInfo
 name|rootRegionInfo
 init|=
 literal|null
 decl_stmt|;
+comment|/** table descriptor for meta table */
+specifier|public
 specifier|static
 name|HTableDescriptor
 name|metaTableDesc
+init|=
+literal|null
+decl_stmt|;
+comment|/** Value stored for a deleted item */
+specifier|public
+specifier|static
+name|ImmutableBytesWritable
+name|deleteBytes
+init|=
+literal|null
+decl_stmt|;
+comment|/** Value written to HLog on a complete cache flush */
+specifier|public
+specifier|static
+name|ImmutableBytesWritable
+name|completeCacheFlush
 init|=
 literal|null
 decl_stmt|;
@@ -136,6 +184,47 @@ literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
+try|try
+block|{
+name|deleteBytes
+operator|=
+operator|new
+name|ImmutableBytesWritable
+argument_list|(
+literal|"HBASE::DELETEVAL"
+operator|.
+name|getBytes
+argument_list|(
+name|UTF8_ENCODING
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|completeCacheFlush
+operator|=
+operator|new
+name|ImmutableBytesWritable
+argument_list|(
+literal|"HBASE::CACHEFLUSH"
+operator|.
+name|getBytes
+argument_list|(
+name|UTF8_ENCODING
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|UnsupportedEncodingException
+name|e
+parameter_list|)
+block|{
+assert|assert
+operator|(
+literal|false
+operator|)
+assert|;
+block|}
 block|}
 block|}
 end_class
