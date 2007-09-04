@@ -1145,13 +1145,6 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-name|HRegionInfo
-name|info
-init|=
-operator|new
-name|HRegionInfo
-argument_list|()
-decl_stmt|;
 while|while
 condition|(
 literal|true
@@ -1225,6 +1218,13 @@ name|COL_REGIONINFO
 argument_list|)
 condition|)
 block|{
+name|HRegionInfo
+name|info
+init|=
+operator|new
+name|HRegionInfo
+argument_list|()
+decl_stmt|;
 name|info
 operator|=
 operator|(
