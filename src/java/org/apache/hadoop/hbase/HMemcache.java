@@ -269,7 +269,11 @@ comment|/**    * Constructor    */
 specifier|public
 name|HMemcache
 parameter_list|()
-block|{}
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+block|}
 comment|/** represents the state of the memcache at a specified point in time */
 specifier|static
 class|class
@@ -320,6 +324,9 @@ operator|.
 name|sequenceId
 operator|=
 name|i
+operator|.
+name|longValue
+argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -380,10 +387,15 @@ name|Snapshot
 argument_list|(
 name|memcache
 argument_list|,
+name|Long
+operator|.
+name|valueOf
+argument_list|(
 name|log
 operator|.
 name|startCacheFlush
 argument_list|()
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|this
@@ -1351,13 +1363,16 @@ literal|"unchecked"
 argument_list|)
 name|HMemcacheScanner
 parameter_list|(
+specifier|final
 name|long
 name|timestamp
 parameter_list|,
+specifier|final
 name|Text
 name|targetCols
 index|[]
 parameter_list|,
+specifier|final
 name|Text
 name|firstRow
 parameter_list|)
@@ -1394,7 +1409,7 @@ literal|1
 index|]
 expr_stmt|;
 comment|//NOTE: Since we iterate through the backing maps from 0 to n, we need
-comment|//      to put the memcache first, the newest history second, ..., etc.
+comment|// to put the memcache first, the newest history second, ..., etc.
 name|backingMaps
 index|[
 literal|0
@@ -1667,6 +1682,16 @@ name|int
 name|i
 parameter_list|)
 block|{
+name|boolean
+name|result
+init|=
+literal|false
+decl_stmt|;
+while|while
+condition|(
+literal|true
+condition|)
+block|{
 if|if
 condition|(
 operator|!
@@ -1684,17 +1709,12 @@ argument_list|(
 name|i
 argument_list|)
 expr_stmt|;
-return|return
-literal|false
-return|;
+break|break;
 block|}
-name|this
-operator|.
-name|keys
-index|[
-name|i
-index|]
-operator|=
+comment|// Check key is< than passed timestamp for this scanner.
+name|HStoreKey
+name|hsk
+init|=
 name|keyIterators
 index|[
 name|i
@@ -1702,6 +1722,42 @@ index|]
 operator|.
 name|next
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|hsk
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|(
+literal|"Unexpected null key"
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
+name|hsk
+operator|.
+name|getTimestamp
+argument_list|()
+operator|<=
+name|this
+operator|.
+name|timestamp
+condition|)
+block|{
+name|this
+operator|.
+name|keys
+index|[
+name|i
+index|]
+operator|=
+name|hsk
 expr_stmt|;
 name|this
 operator|.
@@ -1723,8 +1779,15 @@ name|i
 index|]
 argument_list|)
 expr_stmt|;
-return|return
+name|result
+operator|=
 literal|true
+expr_stmt|;
+break|break;
+block|}
+block|}
+return|return
+name|result
 return|;
 block|}
 comment|/** Shut down an individual map iterator. */
