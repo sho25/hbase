@@ -136,13 +136,13 @@ name|setUp
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** The test */
+comment|/**    * @throws IOException    */
 specifier|public
 name|void
 name|testAppend
 parameter_list|()
-block|{
-try|try
+throws|throws
+name|IOException
 block|{
 name|Path
 name|dir
@@ -625,22 +625,6 @@ name|dir
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 comment|/** {@inheritDoc} */

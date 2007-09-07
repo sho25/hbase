@@ -3688,6 +3688,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// NOTE: This test depends on testBatchWrite succeeding
+specifier|private
 name|void
 name|splitAndMerge
 parameter_list|()
@@ -5070,6 +5071,13 @@ name|printStackTrace
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|cluster
+operator|!=
+literal|null
+condition|)
+block|{
 name|cluster
 operator|.
 name|shutdown
@@ -5079,6 +5087,7 @@ name|cluster
 operator|=
 literal|null
 expr_stmt|;
+block|}
 comment|// Delete all the DFS files
 name|deleteFile
 argument_list|(

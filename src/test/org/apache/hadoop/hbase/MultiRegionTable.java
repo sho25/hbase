@@ -279,11 +279,9 @@ operator|.
 name|getFileSystem
 argument_list|()
 decl_stmt|;
-name|assertTrue
+name|assertNotNull
 argument_list|(
 name|fs
-operator|!=
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// Get connection on the meta table and get count of rows.
@@ -749,7 +747,7 @@ block|{
 comment|// continue
 block|}
 block|}
-name|assertTrue
+name|assertNull
 argument_list|(
 name|getSplitParentInfo
 argument_list|(
@@ -757,8 +755,6 @@ name|meta
 argument_list|,
 name|parent
 argument_list|)
-operator|==
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// Assert cleaned up.

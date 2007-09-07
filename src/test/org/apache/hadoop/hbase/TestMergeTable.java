@@ -44,6 +44,11 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|assertNotNull
+argument_list|(
+name|dfsCluster
+argument_list|)
+expr_stmt|;
 name|MiniHBaseCluster
 name|hCluster
 init|=

@@ -21,6 +21,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|UnsupportedEncodingException
 import|;
 end_import
@@ -107,7 +117,7 @@ name|table
 init|=
 literal|null
 decl_stmt|;
-comment|/** constructor     * @throws UnsupportedEncodingException */
+comment|/**    * @throws UnsupportedEncodingException    */
 specifier|public
 name|TestBatchUpdate
 parameter_list|()
@@ -162,8 +172,6 @@ name|CONTENTS_STR
 argument_list|)
 argument_list|)
 expr_stmt|;
-try|try
-block|{
 name|HBaseAdmin
 name|admin
 init|=
@@ -194,27 +202,13 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
-block|}
-block|}
-comment|/** the test case */
+comment|/**    * @throws IOException    */
 specifier|public
 name|void
 name|testBatchUpdate
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 try|try
 block|{
@@ -264,8 +258,6 @@ literal|"row1"
 argument_list|)
 argument_list|)
 decl_stmt|;
-try|try
-block|{
 try|try
 block|{
 annotation|@
@@ -480,22 +472,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 block|}

@@ -15,6 +15,16 @@ name|hbase
 package|;
 end_package
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
 begin_comment
 comment|/** Tests region merging */
 end_comment
@@ -26,14 +36,19 @@ name|TestMergeMeta
 extends|extends
 name|AbstractMergeTestBase
 block|{
-comment|/**    * test case    */
+comment|/**    * test case    * @throws IOException    */
 specifier|public
 name|void
 name|testMergeMeta
 parameter_list|()
+throws|throws
+name|IOException
 block|{
-try|try
-block|{
+name|assertNotNull
+argument_list|(
+name|dfsCluster
+argument_list|)
+expr_stmt|;
 name|HMerge
 operator|.
 name|merge
@@ -47,22 +62,6 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Throwable
-name|t
-parameter_list|)
-block|{
-name|t
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 block|}
 end_class

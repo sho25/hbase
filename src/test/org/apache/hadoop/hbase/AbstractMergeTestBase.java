@@ -29,16 +29,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|UnsupportedEncodingException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|Random
@@ -142,8 +132,13 @@ literal|"contents:"
 argument_list|)
 decl_stmt|;
 specifier|protected
+specifier|final
 name|Random
 name|rand
+init|=
+operator|new
+name|Random
+argument_list|()
 decl_stmt|;
 specifier|protected
 name|HTableDescriptor
@@ -180,12 +175,6 @@ block|{
 name|super
 operator|.
 name|setUp
-argument_list|()
-expr_stmt|;
-name|rand
-operator|=
-operator|new
-name|Random
 argument_list|()
 expr_stmt|;
 name|desc
@@ -249,8 +238,6 @@ name|partialValue
 argument_list|)
 expr_stmt|;
 block|}
-try|try
-block|{
 name|value
 operator|=
 operator|new
@@ -269,19 +256,6 @@ name|UTF8_ENCODING
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|UnsupportedEncodingException
-name|e
-parameter_list|)
-block|{
-name|fail
-argument_list|()
-expr_stmt|;
-block|}
-try|try
-block|{
 name|dfsCluster
 operator|=
 operator|new
@@ -300,6 +274,13 @@ operator|)
 literal|null
 argument_list|)
 expr_stmt|;
+comment|// We create three data regions: The first is too large to merge since it
+comment|// will be> 64 MB in size. The second two will be smaller and will be
+comment|// selected for merging.
+comment|// To ensure that the first region is larger than 64MB we need to write at
+comment|// least 65536 rows. We will make certain by writing 70000
+try|try
+block|{
 name|fs
 operator|=
 name|dfsCluster
@@ -322,29 +303,6 @@ argument_list|(
 name|dir
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Throwable
-name|t
-parameter_list|)
-block|{
-name|t
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
-block|}
-comment|// We create three data regions: The first is too large to merge since it
-comment|// will be> 64 MB in size. The second two will be smaller and will be
-comment|// selected for merging.
-comment|// To ensure that the first region is larger than 64MB we need to write at
-comment|// least 65536 rows. We will make certain by writing 70000
-try|try
-block|{
 name|Text
 name|row_70001
 init|=
@@ -512,15 +470,10 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|Throwable
-name|t
+name|Exception
+name|e
 parameter_list|)
 block|{
-name|t
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|dfsCluster
@@ -534,9 +487,9 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
-name|fail
-argument_list|()
-expr_stmt|;
+throw|throw
+name|e
+throw|;
 block|}
 block|}
 comment|/**    * {@inheritDoc}    */
@@ -554,11 +507,19 @@ operator|.
 name|tearDown
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|dfsCluster
+operator|!=
+literal|null
+condition|)
+block|{
 name|dfsCluster
 operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 specifier|private
 name|HRegion

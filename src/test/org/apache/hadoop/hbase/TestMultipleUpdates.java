@@ -125,8 +125,6 @@ name|CONTENTS_STR
 argument_list|)
 argument_list|)
 expr_stmt|;
-try|try
-block|{
 name|HBaseAdmin
 name|admin
 init|=
@@ -156,22 +154,6 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 comment|/** the test */
 specifier|public

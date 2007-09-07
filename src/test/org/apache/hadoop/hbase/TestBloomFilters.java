@@ -17,6 +17,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -765,19 +775,19 @@ argument_list|)
 expr_stmt|;
 comment|// and roll log too
 block|}
-comment|/** Test that specifies explicit parameters for the bloom filter */
+comment|/**    * Test that specifies explicit parameters for the bloom filter    * @throws IOException    */
 specifier|public
 name|void
 name|testExplicitParameters
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|HTable
 name|table
 init|=
 literal|null
 decl_stmt|;
-try|try
-block|{
 comment|// Setup
 name|HTableDescriptor
 name|desc
@@ -945,22 +955,6 @@ name|lockid
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
-block|}
 try|try
 block|{
 comment|// Give cache flusher and log roller a chance to run
@@ -994,15 +988,6 @@ parameter_list|)
 block|{
 comment|// ignore
 block|}
-try|try
-block|{
-if|if
-condition|(
-name|table
-operator|!=
-literal|null
-condition|)
-block|{
 for|for
 control|(
 name|int
@@ -1076,36 +1061,19 @@ expr_stmt|;
 block|}
 block|}
 block|}
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
-block|}
-block|}
-comment|/** Test that uses computed for the bloom filter */
+comment|/**    * Test that uses computed for the bloom filter    * @throws IOException    */
 specifier|public
 name|void
 name|testComputedParameters
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|HTable
 name|table
 init|=
 literal|null
 decl_stmt|;
-try|try
-block|{
 comment|// Setup
 name|HTableDescriptor
 name|desc
@@ -1280,22 +1248,6 @@ name|lockid
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
-block|}
 try|try
 block|{
 comment|// Give cache flusher and log roller a chance to run
@@ -1329,15 +1281,6 @@ parameter_list|)
 block|{
 comment|// ignore
 block|}
-try|try
-block|{
-if|if
-condition|(
-name|table
-operator|!=
-literal|null
-condition|)
-block|{
 for|for
 control|(
 name|int
@@ -1409,23 +1352,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 block|}
