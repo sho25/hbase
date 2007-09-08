@@ -211,6 +211,7 @@ name|debugging
 operator|=
 literal|true
 expr_stmt|;
+block|}
 name|Logger
 name|rootLogger
 init|=
@@ -219,13 +220,21 @@ operator|.
 name|getRootLogger
 argument_list|()
 decl_stmt|;
-comment|// rootLogger.setLevel(Level.WARN);
+name|rootLogger
+operator|.
+name|setLevel
+argument_list|(
+name|Level
+operator|.
+name|WARN
+argument_list|)
+expr_stmt|;
 name|Level
 name|logLevel
 init|=
 name|Level
 operator|.
-name|INFO
+name|DEBUG
 decl_stmt|;
 name|value
 operator|=
@@ -393,7 +402,6 @@ operator|.
 name|WARN
 expr_stmt|;
 block|}
-block|}
 name|ConsoleAppender
 name|consoleAppender
 init|=
@@ -483,6 +491,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
 name|Logger
 operator|.
 name|getLogger
@@ -503,7 +512,6 @@ argument_list|(
 name|logLevel
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 end_class

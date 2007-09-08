@@ -1608,8 +1608,24 @@ expr_stmt|;
 name|close
 argument_list|()
 expr_stmt|;
-throw|throw
+name|IOException
+name|e
+init|=
+operator|new
+name|IOException
+argument_list|(
+literal|"error initializing HMemcache scanner"
+argument_list|)
+decl_stmt|;
+name|e
+operator|.
+name|initCause
+argument_list|(
 name|ex
+argument_list|)
+expr_stmt|;
+throw|throw
+name|e
 throw|;
 block|}
 catch|catch
