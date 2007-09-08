@@ -183,7 +183,8 @@ specifier|volatile
 name|Configuration
 name|conf
 decl_stmt|;
-specifier|protected
+comment|/** constructor */
+specifier|public
 name|HBaseTestCase
 parameter_list|()
 block|{
@@ -197,7 +198,8 @@ name|HBaseConfiguration
 argument_list|()
 expr_stmt|;
 block|}
-specifier|protected
+comment|/**    * @param name    */
+specifier|public
 name|HBaseTestCase
 parameter_list|(
 name|String
@@ -216,9 +218,10 @@ name|HBaseConfiguration
 argument_list|()
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
-specifier|protected
+specifier|public
 name|void
 name|setUp
 parameter_list|()
@@ -272,9 +275,10 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
-specifier|protected
+specifier|public
 name|void
 name|tearDown
 parameter_list|()

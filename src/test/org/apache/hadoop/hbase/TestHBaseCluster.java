@@ -145,22 +145,6 @@ name|cleanup
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|tearDown
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-name|super
-operator|.
-name|tearDown
-argument_list|()
-expr_stmt|;
-block|}
 specifier|private
 specifier|static
 specifier|final

@@ -88,15 +88,6 @@ literal|"table3"
 argument_list|)
 block|}
 decl_stmt|;
-comment|/** constructor */
-specifier|public
-name|TestListTables
-parameter_list|()
-block|{
-name|super
-argument_list|()
-expr_stmt|;
-block|}
 comment|/** {@inheritDoc} */
 annotation|@
 name|Override

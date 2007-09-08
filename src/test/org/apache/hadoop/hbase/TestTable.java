@@ -64,17 +64,6 @@ name|TestTable
 extends|extends
 name|HBaseClusterTestCase
 block|{
-comment|/** constructor */
-specifier|public
-name|TestTable
-parameter_list|()
-block|{
-name|super
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * the test    * @throws IOException    */
 specifier|public
 name|void

@@ -246,9 +246,10 @@ name|dir
 init|=
 literal|null
 decl_stmt|;
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
-specifier|protected
+specifier|public
 name|void
 name|setUp
 parameter_list|()
@@ -295,9 +296,10 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
-specifier|protected
+specifier|public
 name|void
 name|tearDown
 parameter_list|()

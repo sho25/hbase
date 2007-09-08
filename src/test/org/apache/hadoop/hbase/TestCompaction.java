@@ -81,38 +81,6 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/** {@inheritDoc} */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|setUp
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-name|super
-operator|.
-name|setUp
-argument_list|()
-expr_stmt|;
-block|}
-comment|/** {@inheritDoc} */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|tearDown
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-name|super
-operator|.
-name|tearDown
-argument_list|()
-expr_stmt|;
-block|}
 comment|/**    * Run compaction and flushing memcache    * @throws Exception    */
 specifier|public
 name|void

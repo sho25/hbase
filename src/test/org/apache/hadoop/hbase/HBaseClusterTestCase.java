@@ -38,7 +38,8 @@ decl_stmt|;
 name|int
 name|regionServers
 decl_stmt|;
-specifier|protected
+comment|/**    * constructor    */
+specifier|public
 name|HBaseClusterTestCase
 parameter_list|()
 block|{
@@ -48,7 +49,8 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-specifier|protected
+comment|/**    * @param regionServers    */
+specifier|public
 name|HBaseClusterTestCase
 parameter_list|(
 name|int
@@ -67,7 +69,8 @@ operator|=
 name|regionServers
 expr_stmt|;
 block|}
-specifier|protected
+comment|/**    * @param name    */
+specifier|public
 name|HBaseClusterTestCase
 parameter_list|(
 name|String
@@ -82,7 +85,8 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-specifier|protected
+comment|/**    * @param miniHdfs    */
+specifier|public
 name|HBaseClusterTestCase
 parameter_list|(
 specifier|final
@@ -106,7 +110,8 @@ operator|=
 literal|1
 expr_stmt|;
 block|}
-specifier|protected
+comment|/**    * @param name    * @param miniHdfs    */
+specifier|public
 name|HBaseClusterTestCase
 parameter_list|(
 name|String

@@ -120,22 +120,6 @@ name|HBaseTestCase
 implements|implements
 name|HConstants
 block|{
-comment|/** {@inheritDoc} */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|setUp
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-name|super
-operator|.
-name|setUp
-argument_list|()
-expr_stmt|;
-block|}
 comment|/**    * @throws IOException    */
 specifier|public
 name|void
@@ -626,22 +610,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-comment|/** {@inheritDoc} */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|tearDown
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-name|super
-operator|.
-name|tearDown
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 end_class

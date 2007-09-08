@@ -164,22 +164,6 @@ name|DEBUG
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|setUp
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-name|super
-operator|.
-name|setUp
-argument_list|()
-expr_stmt|;
-block|}
 comment|/**    * The test    * @throws IOException    */
 specifier|public
 name|void

@@ -173,15 +173,6 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/** Constructor */
-specifier|public
-name|TestHRegion
-parameter_list|()
-block|{
-name|super
-argument_list|()
-expr_stmt|;
-block|}
 comment|/**    * Since all the "tests" depend on the results of the previous test, they are    * not Junit tests that can stand alone. Consequently we have a single Junit    * test that runs the "sub-tests" as private methods.    * @throws IOException     */
 specifier|public
 name|void
