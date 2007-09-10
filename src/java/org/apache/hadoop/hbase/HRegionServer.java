@@ -2019,7 +2019,7 @@ name|getLong
 argument_list|(
 literal|"hbase.regionserver.msginterval"
 argument_list|,
-literal|15
+literal|3
 operator|*
 literal|1000
 argument_list|)
