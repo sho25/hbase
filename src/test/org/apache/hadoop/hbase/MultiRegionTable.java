@@ -328,7 +328,7 @@ decl_stmt|;
 name|addContent
 argument_list|(
 operator|new
-name|HTableLoader
+name|HTableIncommon
 argument_list|(
 name|t
 argument_list|)

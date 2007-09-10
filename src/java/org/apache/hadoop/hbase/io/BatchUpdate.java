@@ -182,16 +182,11 @@ name|this
 operator|.
 name|lockid
 operator|=
-name|Long
-operator|.
-name|valueOf
-argument_list|(
 name|Math
 operator|.
 name|abs
 argument_list|(
 name|lockid
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|this
@@ -249,7 +244,7 @@ operator|.
 name|lockid
 return|;
 block|}
-comment|/**     * Change a value for the specified column    *    * @param lockid              - lock id returned from startUpdate    * @param column              - column whose value is being set    * @param val                 - new value for column    */
+comment|/**     * Change a value for the specified column    *    * @param lid lock id returned from startUpdate    * @param column column whose value is being set    * @param val new value for column    */
 specifier|public
 specifier|synchronized
 name|void
@@ -257,7 +252,7 @@ name|put
 parameter_list|(
 specifier|final
 name|long
-name|lockid
+name|lid
 parameter_list|,
 specifier|final
 name|Text
@@ -275,7 +270,7 @@ name|this
 operator|.
 name|lockid
 operator|!=
-name|lockid
+name|lid
 condition|)
 block|{
 throw|throw
@@ -284,7 +279,7 @@ name|IllegalArgumentException
 argument_list|(
 literal|"invalid lockid "
 operator|+
-name|lockid
+name|lid
 argument_list|)
 throw|;
 block|}
@@ -302,7 +297,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Delete the value for a column    *    * @param lockid              - lock id returned from startUpdate    * @param column              - name of column whose value is to be deleted    */
+comment|/**     * Delete the value for a column    * Deletes the cell whose row/column/commit-timestamp match those of the    * delete.    * @param lid lock id returned from startUpdate    * @param column name of column whose value is to be deleted    */
 specifier|public
 specifier|synchronized
 name|void
@@ -310,7 +305,7 @@ name|delete
 parameter_list|(
 specifier|final
 name|long
-name|lockid
+name|lid
 parameter_list|,
 specifier|final
 name|Text
@@ -323,7 +318,7 @@ name|this
 operator|.
 name|lockid
 operator|!=
-name|lockid
+name|lid
 condition|)
 block|{
 throw|throw
@@ -332,7 +327,7 @@ name|IllegalArgumentException
 argument_list|(
 literal|"invalid lockid "
 operator|+
-name|lockid
+name|lid
 argument_list|)
 throw|;
 block|}

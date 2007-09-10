@@ -31,6 +31,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|SortedMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|TreeMap
 import|;
 end_import
@@ -879,7 +889,7 @@ parameter_list|(
 name|HStoreKey
 name|key
 parameter_list|,
-name|TreeMap
+name|SortedMap
 argument_list|<
 name|Text
 argument_list|,

@@ -119,7 +119,7 @@ name|versionID
 init|=
 literal|1L
 decl_stmt|;
-comment|/**     * Get metainfo about an HRegion    *     * @param regionName                  - name of the region    * @return                            - HRegionInfo object for region    * @throws NotServingRegionException    */
+comment|/**     * Get metainfo about an HRegion    *     * @param regionName name of the region    * @return HRegionInfo object for region    * @throws NotServingRegionException    */
 specifier|public
 name|HRegionInfo
 name|getRegionInfo
@@ -237,6 +237,26 @@ name|timestamp
 parameter_list|,
 name|BatchUpdate
 name|b
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp.    *    * @param regionName region name    * @param row row key    * @param column column key    * @param timestamp Delete all entries that have this timestamp or older    * @throws IOException    */
+specifier|public
+name|void
+name|deleteAll
+parameter_list|(
+name|Text
+name|regionName
+parameter_list|,
+name|Text
+name|row
+parameter_list|,
+name|Text
+name|column
+parameter_list|,
+name|long
+name|timestamp
 parameter_list|)
 throws|throws
 name|IOException

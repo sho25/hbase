@@ -136,8 +136,6 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-try|try
-block|{
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -165,6 +163,9 @@ name|e
 parameter_list|)
 block|{
 comment|// Expected
+comment|// This exception is not actually thrown.  It doesn't look like it should
+comment|// thrown since the connection manager is already filled w/ data
+comment|// -- noticed by St.Ack 09/09/2007
 block|}
 name|admin
 operator|.
@@ -245,24 +246,6 @@ literal|"col2:"
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
-block|}
-finally|finally
-block|{
 name|admin
 operator|.
 name|deleteTable
@@ -273,7 +256,6 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 end_class

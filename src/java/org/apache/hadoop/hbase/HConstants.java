@@ -192,7 +192,7 @@ comment|// followed by the meta regions, followed by user regions. Since the roo
 comment|// and meta regions always need to be on-line, this ensures that they will
 comment|// be the first to be reassigned if the server(s) they are being served by
 comment|// should go down.
-comment|/** The root table's name. */
+comment|/** The root table's name.*/
 specifier|static
 specifier|final
 name|Text
@@ -336,15 +336,23 @@ literal|"splitB"
 argument_list|)
 decl_stmt|;
 comment|// Other constants
-comment|/** used by scanners, etc when they want to start at the beginning of a region */
+comment|/**    * An empty instance of Text.    */
+specifier|static
+specifier|final
+name|Text
+name|EMPTY_TEXT
+init|=
+operator|new
+name|Text
+argument_list|()
+decl_stmt|;
+comment|/**    * Used by scanners, etc when they want to start at the beginning of a region    */
 specifier|static
 specifier|final
 name|Text
 name|EMPTY_START_ROW
 init|=
-operator|new
-name|Text
-argument_list|()
+name|EMPTY_TEXT
 decl_stmt|;
 comment|/** When we encode strings, we always specify UTF8 encoding */
 specifier|static
@@ -353,6 +361,25 @@ name|String
 name|UTF8_ENCODING
 init|=
 literal|"UTF-8"
+decl_stmt|;
+comment|/**    * Timestamp to use when we want to refer to the latest cell.    * This is the timestamp sent by clients when no timestamp is specified on    * commit.    */
+specifier|static
+specifier|final
+name|long
+name|LATEST_TIMESTAMP
+init|=
+name|Long
+operator|.
+name|MAX_VALUE
+decl_stmt|;
+comment|/**    * Define for 'return-all-versions'.    */
+specifier|static
+specifier|final
+name|int
+name|ALL_VERSIONS
+init|=
+operator|-
+literal|1
 decl_stmt|;
 block|}
 end_interface
