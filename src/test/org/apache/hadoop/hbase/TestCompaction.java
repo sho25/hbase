@@ -532,7 +532,9 @@ argument_list|()
 expr_stmt|;
 comment|// Now assert that there are 4 versions of a record only: thats the
 comment|// 3 versions that should be in the compacted store and then the one more
-comment|// we added when we compacted.
+comment|// we added when we flushed. But could be 3 only if the flush happened
+comment|// before the compaction started though we tried to have the threads run
+comment|// concurrently (On hudson this happens).
 name|byte
 index|[]
 name|secondRowBytes
@@ -598,8 +600,29 @@ literal|100
 comment|/*Too many*/
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Count of "
+operator|+
+name|secondRow
+operator|+
+literal|": "
+operator|+
+name|bytes
+operator|.
+name|length
+argument_list|)
+expr_stmt|;
 name|assertTrue
 argument_list|(
+name|bytes
+operator|.
+name|length
+operator|==
+literal|3
+operator|||
 name|bytes
 operator|.
 name|length
