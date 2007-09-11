@@ -549,6 +549,12 @@ specifier|volatile
 name|boolean
 name|abortRequested
 decl_stmt|;
+comment|// If false, the file system has become unavailable
+specifier|protected
+specifier|volatile
+name|boolean
+name|fsOk
+decl_stmt|;
 specifier|final
 name|Path
 name|rootDir
@@ -1925,6 +1931,12 @@ literal|false
 expr_stmt|;
 name|this
 operator|.
+name|fsOk
+operator|=
+literal|true
+expr_stmt|;
+name|this
+operator|.
 name|rootDir
 operator|=
 name|rootDir
@@ -2399,6 +2411,15 @@ throw|throw
 name|e
 throw|;
 block|}
+block|}
+comment|/** @return the HLog */
+name|HLog
+name|getLog
+parameter_list|()
+block|{
+return|return
+name|log
+return|;
 block|}
 comment|/**    * Sets a flag that will cause all the HRegionServer threads to shut down    * in an orderly fashion.    *<p>FOR DEBUGGING ONLY    */
 specifier|synchronized
@@ -4967,6 +4988,7 @@ name|e
 throw|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|batchUpdate
@@ -5697,6 +5719,7 @@ name|column
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|deleteAll
@@ -5932,11 +5955,11 @@ name|boolean
 name|checkFileSystem
 parameter_list|()
 block|{
-name|boolean
+if|if
+condition|(
 name|fsOk
-init|=
-literal|true
-decl_stmt|;
+condition|)
+block|{
 if|if
 condition|(
 operator|!
@@ -5967,6 +5990,7 @@ name|fsOk
 operator|=
 literal|false
 expr_stmt|;
+block|}
 block|}
 return|return
 name|fsOk
