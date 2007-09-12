@@ -181,18 +181,6 @@ name|HStoreKey
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|log4j
-operator|.
-name|Logger
-import|;
-end_import
-
 begin_comment
 comment|/**  * Scan an HBase table to sort by a specified sort column.  * If the column does not exist, the record is not passed to Reduce.  *  */
 end_comment
@@ -212,24 +200,6 @@ name|MapReduceBase
 implements|implements
 name|Mapper
 block|{
-specifier|private
-specifier|static
-specifier|final
-name|Logger
-name|LOG
-init|=
-name|Logger
-operator|.
-name|getLogger
-argument_list|(
-name|TableMap
-operator|.
-name|class
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-decl_stmt|;
 specifier|private
 name|TableOutputCollector
 name|m_collector
@@ -347,13 +317,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"start map"
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|m_collector
@@ -385,13 +348,6 @@ argument_list|,
 name|m_collector
 argument_list|,
 name|reporter
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"end map"
 argument_list|)
 expr_stmt|;
 block|}

@@ -337,14 +337,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"start write"
-argument_list|)
-expr_stmt|;
-comment|// start transaction
 name|long
 name|xid
 init|=
@@ -355,6 +347,7 @@ argument_list|(
 name|key
 argument_list|)
 decl_stmt|;
+comment|// start transaction
 for|for
 control|(
 name|Map
@@ -402,7 +395,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// end transaction
 name|m_table
 operator|.
 name|commit
@@ -410,13 +402,7 @@ argument_list|(
 name|xid
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"end write"
-argument_list|)
-expr_stmt|;
+comment|// end transaction
 block|}
 block|}
 comment|/** {@inheritDoc} */
@@ -462,13 +448,6 @@ throws|throws
 name|IOException
 block|{
 comment|// expecting exactly one path
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"start get writer"
-argument_list|)
-expr_stmt|;
 name|Text
 name|tableName
 init|=
@@ -518,13 +497,6 @@ throw|throw
 name|e
 throw|;
 block|}
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"end get writer"
-argument_list|)
-expr_stmt|;
 return|return
 operator|new
 name|TableRecordWriter

@@ -135,18 +135,6 @@ name|Reporter
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|log4j
-operator|.
-name|Logger
-import|;
-end_import
-
 begin_comment
 comment|/**  * Write a table, sorting by the input key  */
 end_comment
@@ -166,24 +154,6 @@ name|MapReduceBase
 implements|implements
 name|Reducer
 block|{
-specifier|private
-specifier|static
-specifier|final
-name|Logger
-name|LOG
-init|=
-name|Logger
-operator|.
-name|getLogger
-argument_list|(
-name|TableReduce
-operator|.
-name|class
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-decl_stmt|;
 name|TableOutputCollector
 name|m_collector
 decl_stmt|;
@@ -273,13 +243,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"start reduce"
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|m_collector
@@ -308,13 +271,6 @@ argument_list|,
 name|m_collector
 argument_list|,
 name|reporter
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"end reduce"
 argument_list|)
 expr_stmt|;
 block|}

@@ -351,13 +351,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"start construct"
-argument_list|)
-expr_stmt|;
 name|m_row
 operator|=
 operator|new
@@ -385,13 +378,6 @@ name|m_endRow
 operator|=
 name|endRow
 expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"end construct"
-argument_list|)
-expr_stmt|;
 block|}
 comment|/** {@inheritDoc} */
 specifier|public
@@ -401,24 +387,10 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"start close"
-argument_list|)
-expr_stmt|;
 name|m_scanner
 operator|.
 name|close
 argument_list|()
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"end close"
-argument_list|)
 expr_stmt|;
 block|}
 comment|/**      * @return HStoreKey      *      * @see org.apache.hadoop.mapred.RecordReader#createKey()      */
@@ -492,13 +464,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"start next"
-argument_list|)
-expr_stmt|;
 name|m_row
 operator|.
 name|clear
@@ -598,13 +563,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"end next"
-argument_list|)
-expr_stmt|;
 return|return
 name|hasMore
 return|;
@@ -686,13 +644,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"start getSplits"
-argument_list|)
-expr_stmt|;
 name|Text
 index|[]
 name|startKeys
@@ -791,6 +742,14 @@ name|Text
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -808,13 +767,7 @@ index|]
 argument_list|)
 expr_stmt|;
 block|}
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"end splits"
-argument_list|)
-expr_stmt|;
+block|}
 return|return
 name|splits
 return|;
@@ -828,13 +781,6 @@ name|JobConf
 name|job
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"start configure"
-argument_list|)
-expr_stmt|;
 name|Path
 index|[]
 name|tableNames
@@ -948,13 +894,6 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"end configure"
-argument_list|)
-expr_stmt|;
 block|}
 comment|/** {@inheritDoc} */
 specifier|public
