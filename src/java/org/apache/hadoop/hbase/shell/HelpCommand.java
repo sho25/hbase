@@ -46,6 +46,11 @@ specifier|public
 name|ReturnMsg
 name|execute
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|Configuration
 name|conf
 parameter_list|)

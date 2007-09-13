@@ -864,7 +864,8 @@ name|info
 operator|.
 name|tableDesc
 operator|.
-name|families
+name|getFamilies
+argument_list|()
 operator|.
 name|size
 argument_list|()

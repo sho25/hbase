@@ -45,7 +45,7 @@ name|FAMILY_INDICATOR
 init|=
 literal|":"
 decl_stmt|;
-comment|/** Execute a command */
+comment|/** Execute a command    * @param conf Configuration    * @return Result of command execution    */
 specifier|public
 name|ReturnMsg
 name|execute

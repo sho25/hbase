@@ -51,6 +51,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collections
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Iterator
 import|;
 end_import
@@ -62,6 +72,16 @@ operator|.
 name|util
 operator|.
 name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|SortedMap
 import|;
 end_import
 
@@ -138,9 +158,13 @@ name|HTableDescriptor
 implements|implements
 name|WritableComparable
 block|{
+specifier|private
 name|Text
 name|name
 decl_stmt|;
+comment|// TODO: Does this need to be a treemap?  Can it be a HashMap?
+specifier|private
+specifier|final
 name|TreeMap
 argument_list|<
 name|Text
@@ -742,6 +766,28 @@ block|}
 block|}
 return|return
 name|result
+return|;
+block|}
+comment|/**    * @return Immutable sorted map of families.    */
+specifier|public
+name|SortedMap
+argument_list|<
+name|Text
+argument_list|,
+name|HColumnDescriptor
+argument_list|>
+name|getFamilies
+parameter_list|()
+block|{
+return|return
+name|Collections
+operator|.
+name|unmodifiableSortedMap
+argument_list|(
+name|this
+operator|.
+name|families
+argument_list|)
 return|;
 block|}
 block|}

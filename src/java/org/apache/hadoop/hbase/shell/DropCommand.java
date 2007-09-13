@@ -29,6 +29,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -69,6 +79,10 @@ name|Text
 import|;
 end_import
 
+begin_comment
+comment|/**  * Drops tables.  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -77,8 +91,11 @@ extends|extends
 name|BasicCommand
 block|{
 specifier|private
-name|Text
-name|table
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|tableList
 decl_stmt|;
 specifier|public
 name|ReturnMsg
@@ -90,21 +107,19 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|this
-operator|.
-name|table
+name|tableList
 operator|==
 literal|null
 condition|)
-return|return
+block|{
+throw|throw
 operator|new
-name|ReturnMsg
+name|IllegalArgumentException
 argument_list|(
-literal|0
-argument_list|,
-literal|"Syntax error : Please check 'Drop' syntax."
+literal|"List of tables is null"
 argument_list|)
-return|;
+throw|;
+block|}
 try|try
 block|{
 name|HBaseAdmin
@@ -116,22 +131,46 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
+for|for
+control|(
+name|String
+name|table
+range|:
+name|tableList
+control|)
+block|{
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"Dropping "
+operator|+
+name|table
+operator|+
+literal|"... Please wait."
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|deleteTable
 argument_list|(
-name|this
-operator|.
+operator|new
+name|Text
+argument_list|(
 name|table
 argument_list|)
+argument_list|)
 expr_stmt|;
+block|}
 return|return
 operator|new
 name|ReturnMsg
 argument_list|(
 literal|1
 argument_list|,
-literal|"Table droped successfully."
+literal|"Table(s) dropped successfully."
 argument_list|)
 return|;
 block|}
@@ -147,33 +186,30 @@ name|ReturnMsg
 argument_list|(
 literal|0
 argument_list|,
-literal|"error msg : "
-operator|+
+name|extractErrMsg
+argument_list|(
 name|e
-operator|.
-name|toString
-argument_list|()
+argument_list|)
 argument_list|)
 return|;
 block|}
 block|}
 specifier|public
 name|void
-name|setArgument
+name|setTableList
 parameter_list|(
+name|List
+argument_list|<
 name|String
-name|table
+argument_list|>
+name|tableList
 parameter_list|)
 block|{
 name|this
 operator|.
-name|table
+name|tableList
 operator|=
-operator|new
-name|Text
-argument_list|(
-name|table
-argument_list|)
+name|tableList
 expr_stmt|;
 block|}
 block|}

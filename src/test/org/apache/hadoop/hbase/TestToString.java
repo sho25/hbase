@@ -191,15 +191,15 @@ literal|"Table descriptor"
 argument_list|,
 literal|"name: hank, families: "
 operator|+
-literal|"{hankfamily:=(hankfamily:, max versions: 3, compression: NONE, "
+literal|"{hankfamily:={name: hankfamily, max versions: 3, compression: NONE, "
 operator|+
-literal|"in memory: false, max value length: 2147483647, bloom filter: none), "
+literal|"in memory: false, max length: 2147483647, bloom filter: none}, "
 operator|+
-literal|"hankotherfamily:=(hankotherfamily:, max versions: 10, "
+literal|"hankotherfamily:={name: hankotherfamily, max versions: 10, "
 operator|+
-literal|"compression: BLOCK, in memory: true, max value length: 1000, "
+literal|"compression: BLOCK, in memory: true, max length: 1000, "
 operator|+
-literal|"bloom filter: none)}"
+literal|"bloom filter: none}}"
 argument_list|,
 name|htd
 operator|.
@@ -245,19 +245,17 @@ name|assertEquals
 argument_list|(
 literal|"HRegionInfo"
 argument_list|,
-literal|"regionname: hank,,-1, startKey:<>, tableDesc: {"
+literal|"regionname: hank,,-1, startKey:<>, tableDesc: {name: hank, "
 operator|+
-literal|"name: hank, "
+literal|"families: {hankfamily:={name: hankfamily, max versions: 3, "
 operator|+
-literal|"families: {hankfamily:=(hankfamily:, max versions: 3, "
+literal|"compression: NONE, in memory: false, max length: 2147483647, "
 operator|+
-literal|"compression: NONE, in memory: false, max value length: 2147483647, "
+literal|"bloom filter: none}, hankotherfamily:={name: hankotherfamily, "
 operator|+
-literal|"bloom filter: none), hankotherfamily:=(hankotherfamily:, "
+literal|"max versions: 10, compression: BLOCK, in memory: true, "
 operator|+
-literal|"max versions: 10, compression: BLOCK, in memory: true, max value "
-operator|+
-literal|"length: 1000, bloom filter: none)}}"
+literal|"max length: 1000, bloom filter: none}}}"
 argument_list|,
 name|hri
 operator|.

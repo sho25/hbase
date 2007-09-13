@@ -545,10 +545,31 @@ name|String
 name|toString
 parameter_list|()
 block|{
-return|return
-literal|"("
-operator|+
+comment|// Output a name minus ':'.
+name|String
+name|tmp
+init|=
 name|name
+operator|.
+name|toString
+argument_list|()
+decl_stmt|;
+return|return
+literal|"{name: "
+operator|+
+name|tmp
+operator|.
+name|substring
+argument_list|(
+literal|0
+argument_list|,
+name|tmp
+operator|.
+name|length
+argument_list|()
+operator|-
+literal|1
+argument_list|)
 operator|+
 literal|", max versions: "
 operator|+
@@ -564,7 +585,7 @@ literal|", in memory: "
 operator|+
 name|inMemory
 operator|+
-literal|", max value length: "
+literal|", max length: "
 operator|+
 name|maxValueLength
 operator|+
@@ -581,7 +602,7 @@ else|:
 literal|"none"
 operator|)
 operator|+
-literal|")"
+literal|"}"
 return|;
 block|}
 comment|/** {@inheritDoc} */

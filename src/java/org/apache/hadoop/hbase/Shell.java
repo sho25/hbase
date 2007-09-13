@@ -150,7 +150,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An hbase shell.  *   * @see<a href="http://wiki.apache.org/lucene-hadoop/Hbase/HbaseShell">HBaseShell</a>  */
+comment|/**  * An hbase shell.  *   * @see<a href="http://wiki.apache.org/lucene-hadoop/Hbase/HbaseShell">HbaseShell</a>  */
 end_comment
 
 begin_class
@@ -167,7 +167,7 @@ name|DEFAULT_BELL_ENABLED
 init|=
 literal|true
 decl_stmt|;
-comment|/** Main method    *     * @param args not used    * @throws IOException    */
+comment|/**    * Main method    * @param args not used    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -504,7 +504,7 @@ literal|""
 argument_list|)
 operator|)
 condition|?
-literal|"HBase> "
+literal|"Hbase> "
 else|:
 literal|"    --> "
 return|;

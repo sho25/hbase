@@ -69,6 +69,10 @@ name|HTableDescriptor
 import|;
 end_import
 
+begin_comment
+comment|/**  * Shows all available tables.  */
+end_comment
+
 begin_class
 specifier|public
 class|class

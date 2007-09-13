@@ -41,6 +41,10 @@ name|Configuration
 import|;
 end_import
 
+begin_comment
+comment|/**  * Clears the console screen.   */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -52,6 +56,11 @@ specifier|public
 name|ReturnMsg
 name|execute
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|Configuration
 name|conf
 parameter_list|)

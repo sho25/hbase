@@ -17,16 +17,22 @@ name|shell
 package|;
 end_package
 
+begin_comment
+comment|/**  * Message returned when a {@link Command} is  * {@link Command#execute(org.apache.hadoop.conf.Configuration)}'ed.  */
+end_comment
+
 begin_class
 specifier|public
 class|class
 name|ReturnMsg
 block|{
 specifier|private
+specifier|final
 name|String
 name|msg
 decl_stmt|;
 specifier|private
+specifier|final
 name|int
 name|type
 decl_stmt|;

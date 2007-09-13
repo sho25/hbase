@@ -78,6 +78,20 @@ index|[]
 argument_list|>
 argument_list|()
 block|;
+name|String
+name|columnName
+operator|=
+literal|"column_name: "
+operator|+
+literal|"\n\t  column_family_name"
+operator|+
+literal|"\n\t| column_family_name:column_label_name"
+block|;
+name|String
+name|columnList
+operator|=
+literal|"{column_name, [, column_name] ... | *}"
+block|;
 name|load
 operator|.
 name|put
@@ -88,7 +102,7 @@ operator|new
 name|String
 index|[]
 block|{
-literal|"List all tables."
+literal|"List all available tables"
 block|,
 literal|"SHOW TABLES;"
 block|}
@@ -120,7 +134,7 @@ operator|new
 name|String
 index|[]
 block|{
-literal|"Clear the screen."
+literal|"Clear the screen"
 block|,
 literal|"CLEAR;"
 block|}
@@ -136,9 +150,9 @@ operator|new
 name|String
 index|[]
 block|{
-literal|"Describe a table's columnfamilies."
+literal|"Print information about tables"
 block|,
-literal|"DESCRIBE<table_name>;"
+literal|"[DESCRIBE|DESC] table_name;"
 block|}
 argument_list|)
 block|;
@@ -152,13 +166,27 @@ operator|new
 name|String
 index|[]
 block|{
-literal|"Create a table"
+literal|"Create tables"
 block|,
-literal|"CREATE<table_name>"
+literal|"CREATE TABLE table_name"
 operator|+
-literal|"\n\t  COLUMNFAMILIES('cf_name1'[, 'cf_name2', ...]);"
+literal|"\n\t(column_family_spec [, column_family_spec] ...);"
 operator|+
-literal|"\n    [LIMIT=versions_limit];"
+literal|"\n\n"
+operator|+
+literal|"column_family_spec:"
+operator|+
+literal|"\n\tcolumn_family_name"
+operator|+
+literal|"\n\t[MAX_VERSIONS=n]"
+operator|+
+literal|"\n\t[MAX_LENGTH=n]"
+operator|+
+literal|"\n\t[COMPRESSION=NONE|RECORD|BLOCK]"
+operator|+
+literal|"\n\t[IN_MEMORY]"
+operator|+
+literal|"\n\t[BLOOMFILTER=NONE|BLOOM|COUNTING|RETOUCHED VECTOR_SIZE=n NUM_HASH=n]"
 block|}
 argument_list|)
 block|;
@@ -172,9 +200,9 @@ operator|new
 name|String
 index|[]
 block|{
-literal|"Drop columnfamilie(s) from a table or drop table(s)"
+literal|"Drop tables"
 block|,
-literal|"DROP table_name1[, table_name2, ...] | cf_name1[, cf_name2, ...];"
+literal|"DROP TABLE table_name [, table_name] ...;"
 block|}
 argument_list|)
 block|;
@@ -188,15 +216,17 @@ operator|new
 name|String
 index|[]
 block|{
-literal|"Insert row into table"
+literal|"Insert values into tables"
 block|,
-literal|"INSERT<table_name>"
+literal|"INSERT INTO table_name"
 operator|+
-literal|"\n\t('column_name1'[, 'column_name2', ...])"
+literal|"\n\t(column_name, ...) VALUES ('value', ...)"
 operator|+
-literal|"\n\t    VALUES('entry1'[, 'entry2', ...])"
+literal|"\n\tWHERE row='row_key';"
 operator|+
-literal|"\n    WHERE row='row_key';"
+literal|"\n\n"
+operator|+
+name|columnName
 block|}
 argument_list|)
 block|;
@@ -210,13 +240,19 @@ operator|new
 name|String
 index|[]
 block|{
-literal|"Delete cell or row in table."
+literal|"Delete a subset of the data in a table"
 block|,
-literal|"DELETE<table_name>"
+literal|"DELETE "
 operator|+
-literal|"\n\t    WHERE row='row_key;"
+name|columnList
 operator|+
-literal|"\n    [AND column='column_name'];"
+literal|"\n\tFROM table_name"
+operator|+
+literal|"\n\tWHERE row='row-key';"
+operator|+
+literal|"\n\n"
+operator|+
+name|columnName
 block|}
 argument_list|)
 block|;
@@ -230,17 +266,47 @@ operator|new
 name|String
 index|[]
 block|{
-literal|"Select values from a table"
+literal|"Select values from tables"
 block|,
-literal|"SELECT<table_name>"
+literal|"SELECT "
 operator|+
-literal|"\n\t    [WHERE row='row_key']"
+name|columnList
 operator|+
-literal|"\n    [AND column='column_name'];"
+literal|" FROM table_name"
 operator|+
-literal|"\n    [AND time='timestamp'];"
+literal|"\n\t[WHERE row='row_key' | STARTING FROM 'row-key']"
 operator|+
-literal|"\n    [LIMIT=versions_limit];"
+literal|"\n\t[NUM_VERSIONS = version_count]"
+operator|+
+literal|"\n\t[TIMESTAMP 'timestamp']"
+operator|+
+literal|"\n\t[LIMIT = row_count]"
+operator|+
+literal|"\n\t[INTO FILE 'file_name'];"
+block|}
+argument_list|)
+block|;
+name|load
+operator|.
+name|put
+argument_list|(
+literal|"ALTER"
+argument_list|,
+operator|new
+name|String
+index|[]
+block|{
+literal|"Alter the structure of a table"
+block|,
+literal|"ALTER TABLE table_name"
+operator|+
+literal|"\n\t  ADD column_spec"
+operator|+
+literal|"\n\t| ADD (column_spec, column_spec, ...)"
+operator|+
+literal|"\n\t| DROP column_family_name"
+operator|+
+literal|"\n\t| CHANGE column_spec;"
 block|}
 argument_list|)
 block|;

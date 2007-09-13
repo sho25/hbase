@@ -53,7 +53,7 @@ specifier|final
 name|String
 name|APP_NAME
 init|=
-literal|"HBase Shell"
+literal|"Hbase Shell"
 decl_stmt|;
 comment|/** version of the code */
 specifier|public
@@ -62,7 +62,7 @@ specifier|final
 name|String
 name|APP_VERSION
 init|=
-literal|"0.0.1"
+literal|"0.0.2"
 decl_stmt|;
 comment|/** help contents map */
 specifier|public
@@ -108,11 +108,6 @@ name|void
 name|printVersion
 parameter_list|()
 block|{
-name|ClearCommand
-operator|.
-name|clear
-argument_list|()
-expr_stmt|;
 name|System
 operator|.
 name|out
@@ -200,6 +195,13 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|()
+expr_stmt|;
 block|}
 else|else
 block|{
@@ -251,7 +253,7 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"Unknown Command : Type 'help' for usage."
+literal|"Unknown Command : Type 'help;' for usage."
 argument_list|)
 expr_stmt|;
 block|}
@@ -378,12 +380,14 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"\n>>> "
+literal|"\nSyntax:\n"
 operator|+
 name|cmdType
 index|[
 literal|1
 index|]
+operator|+
+literal|"\n"
 argument_list|)
 expr_stmt|;
 block|}
