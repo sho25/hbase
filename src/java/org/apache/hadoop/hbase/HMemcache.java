@@ -91,16 +91,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Vector
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|concurrent
 operator|.
 name|atomic
@@ -190,6 +180,8 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+comment|// Note that since these structures are always accessed with a lock held,
+comment|// no additional synchronization is required.
 name|TreeMap
 argument_list|<
 name|HStoreKey
@@ -210,7 +202,7 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 specifier|final
-name|Vector
+name|ArrayList
 argument_list|<
 name|TreeMap
 argument_list|<
@@ -223,7 +215,7 @@ argument_list|>
 name|history
 init|=
 operator|new
-name|Vector
+name|ArrayList
 argument_list|<
 name|TreeMap
 argument_list|<
@@ -790,7 +782,7 @@ name|get
 argument_list|(
 name|history
 operator|.
-name|elementAt
+name|get
 argument_list|(
 name|i
 argument_list|)
@@ -921,7 +913,7 @@ name|cur
 init|=
 name|history
 operator|.
-name|elementAt
+name|get
 argument_list|(
 name|i
 argument_list|)
@@ -1331,7 +1323,7 @@ name|getKeys
 argument_list|(
 name|history
 operator|.
-name|elementAt
+name|get
 argument_list|(
 name|i
 argument_list|)
@@ -1347,18 +1339,12 @@ condition|?
 name|versions
 else|:
 operator|(
-name|results
-operator|!=
-literal|null
-condition|?
 name|versions
 operator|-
 name|results
 operator|.
 name|size
 argument_list|()
-else|:
-name|versions
 operator|)
 argument_list|)
 argument_list|)
@@ -1682,8 +1668,8 @@ operator|+
 literal|1
 index|]
 expr_stmt|;
-comment|//NOTE: Since we iterate through the backing maps from 0 to n, we need
-comment|// to put the memcache first, the newest history second, ..., etc.
+comment|// Note that since we iterate through the backing maps from 0 to n, we
+comment|// need to put the memcache first, the newest history second, ..., etc.
 name|backingMaps
 index|[
 literal|0
@@ -1714,11 +1700,13 @@ block|{
 name|backingMaps
 index|[
 name|i
+operator|+
+literal|1
 index|]
 operator|=
 name|history
 operator|.
-name|elementAt
+name|get
 argument_list|(
 name|i
 argument_list|)
@@ -1793,15 +1781,12 @@ index|[
 name|i
 index|]
 operator|=
-operator|(
-comment|/*firstRow != null&&*/
 name|firstRow
 operator|.
 name|getLength
 argument_list|()
 operator|!=
 literal|0
-operator|)
 condition|?
 name|backingMaps
 index|[

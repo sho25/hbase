@@ -3650,7 +3650,9 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-return|return;
+throw|throw
+name|e
+throw|;
 block|}
 name|this
 operator|.
@@ -4690,6 +4692,16 @@ name|void
 name|letRegionServersShutdown
 parameter_list|()
 block|{
+if|if
+condition|(
+operator|!
+name|fsOk
+condition|)
+block|{
+comment|// Forget waiting for the region servers if the file system has gone
+comment|// away. Just exit as quickly as possible.
+return|return;
+block|}
 synchronized|synchronized
 init|(
 name|serversToServerInfo

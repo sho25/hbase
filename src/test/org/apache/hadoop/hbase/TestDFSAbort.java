@@ -78,16 +78,6 @@ literal|5
 argument_list|)
 expr_stmt|;
 comment|// and number of retries
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.client.retries.number"
-argument_list|,
-literal|5
-argument_list|)
-expr_stmt|;
-comment|// reduce HBase retries
 name|Logger
 operator|.
 name|getRootLogger

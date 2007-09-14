@@ -3044,6 +3044,11 @@ literal|"Got call server startup message"
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|fsOk
+condition|)
+block|{
 name|closeAllRegions
 argument_list|()
 expr_stmt|;
@@ -3051,6 +3056,7 @@ name|restart
 operator|=
 literal|true
 expr_stmt|;
+block|}
 break|break;
 case|case
 name|HMsg
@@ -3083,6 +3089,11 @@ literal|true
 expr_stmt|;
 break|break;
 default|default:
+if|if
+condition|(
+name|fsOk
+condition|)
+block|{
 try|try
 block|{
 name|toDo
@@ -3115,6 +3126,7 @@ argument_list|,
 name|e
 argument_list|)
 throw|;
+block|}
 block|}
 block|}
 block|}
@@ -3297,6 +3309,12 @@ condition|(
 name|abortRequested
 condition|)
 block|{
+if|if
+condition|(
+name|fsOk
+condition|)
+block|{
+comment|// Only try to clean up if the file system is available
 try|try
 block|{
 name|log
@@ -3366,6 +3384,7 @@ name|closeAllRegions
 argument_list|()
 expr_stmt|;
 comment|// Don't leave any open file handles
+block|}
 name|LOG
 operator|.
 name|info

@@ -48,12 +48,12 @@ block|{
 name|super
 argument_list|()
 expr_stmt|;
-name|addDefaultResource
+name|addResource
 argument_list|(
 literal|"hbase-default.xml"
 argument_list|)
 expr_stmt|;
-name|addDefaultResource
+name|addResource
 argument_list|(
 literal|"hbase-site.xml"
 argument_list|)
