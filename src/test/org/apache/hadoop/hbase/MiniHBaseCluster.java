@@ -756,9 +756,9 @@ return|return
 name|threads
 return|;
 block|}
-comment|/**    * Starts a region server thread running    *     * @throws IOException    */
+comment|/**    * Starts a region server thread running    *     * @throws IOException    * @return Name of regionserver started.    */
 specifier|public
-name|void
+name|String
 name|startRegionServer
 parameter_list|()
 throws|throws
@@ -790,6 +790,12 @@ argument_list|(
 name|t
 argument_list|)
 expr_stmt|;
+return|return
+name|t
+operator|.
+name|getName
+argument_list|()
+return|;
 block|}
 specifier|private
 specifier|static
@@ -809,7 +815,7 @@ name|IOException
 block|{
 specifier|final
 name|HRegionServer
-name|hsr
+name|hrs
 init|=
 operator|new
 name|HRegionServer
@@ -823,11 +829,31 @@ init|=
 operator|new
 name|RegionServerThread
 argument_list|(
-name|hsr
+name|hrs
 argument_list|,
 name|index
 argument_list|)
 decl_stmt|;
+name|t
+operator|.
+name|setName
+argument_list|(
+literal|"regionserver"
+operator|+
+name|t
+operator|.
+name|getRegionServer
+argument_list|()
+operator|.
+name|server
+operator|.
+name|getListenerAddress
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|t
 operator|.
 name|start
@@ -954,9 +980,9 @@ return|return
 name|server
 return|;
 block|}
-comment|/**    * Wait for the specified region server to stop    * Removes this thread from list of running threads.    * @param serverNumber    */
+comment|/**    * Wait for the specified region server to stop    * Removes this thread from list of running threads.    * @param serverNumber    * @return Name of region server that just went down.    */
 specifier|public
-name|void
+name|String
 name|waitOnRegionServer
 parameter_list|(
 name|int
@@ -1012,6 +1038,12 @@ name|printStackTrace
 argument_list|()
 expr_stmt|;
 block|}
+return|return
+name|regionServerThread
+operator|.
+name|getName
+argument_list|()
+return|;
 block|}
 comment|/**    * Wait for Mini HBase Cluster to shut down.    */
 specifier|public
@@ -1139,6 +1171,13 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|regionServerThreads
+operator|!=
+literal|null
+condition|)
+block|{
 synchronized|synchronized
 init|(
 name|regionServerThreads
@@ -1182,6 +1221,7 @@ name|e
 parameter_list|)
 block|{
 comment|// continue
+block|}
 block|}
 block|}
 block|}

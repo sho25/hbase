@@ -1526,6 +1526,8 @@ parameter_list|()
 block|{
 while|while
 condition|(
+name|this
+operator|.
 name|insideCacheFlush
 condition|)
 block|{
@@ -1544,6 +1546,8 @@ block|{
 comment|// continue
 block|}
 block|}
+name|this
+operator|.
 name|insideCacheFlush
 operator|=
 literal|true
@@ -1586,6 +1590,8 @@ block|}
 if|if
 condition|(
 operator|!
+name|this
+operator|.
 name|insideCacheFlush
 condition|)
 block|{
@@ -1654,6 +1660,22 @@ argument_list|,
 name|logSeqId
 argument_list|)
 expr_stmt|;
+name|insideCacheFlush
+operator|=
+literal|false
+expr_stmt|;
+name|notifyAll
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * Abort a cache flush.    * This method will clear waits on {@link #insideCacheFlush} but if this    * method is called, we are losing data.  TODO: Fix.    */
+specifier|synchronized
+name|void
+name|abort
+parameter_list|()
+block|{
+name|this
+operator|.
 name|insideCacheFlush
 operator|=
 literal|false

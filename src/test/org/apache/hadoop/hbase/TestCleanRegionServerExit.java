@@ -41,6 +41,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|io
@@ -84,6 +112,21 @@ name|TestCleanRegionServerExit
 extends|extends
 name|HBaseClusterTestCase
 block|{
+specifier|private
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|this
+operator|.
+name|getClass
+argument_list|()
+argument_list|)
+decl_stmt|;
 specifier|private
 name|HTable
 name|table
@@ -304,12 +347,19 @@ argument_list|)
 expr_stmt|;
 comment|// Start up a new region server to take over serving of root and meta
 comment|// after we shut down the current meta/root host.
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Started "
+operator|+
 name|this
 operator|.
 name|cluster
 operator|.
 name|startRegionServer
 argument_list|()
+argument_list|)
 expr_stmt|;
 comment|// Now shutdown the region server and wait for it to go down.
 name|this
@@ -321,6 +371,10 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
 name|this
 operator|.
 name|cluster
@@ -328,6 +382,9 @@ operator|.
 name|waitOnRegionServer
 argument_list|(
 literal|0
+argument_list|)
+operator|+
+literal|" is down"
 argument_list|)
 expr_stmt|;
 comment|// Verify that the client can find the data after the region has been moved

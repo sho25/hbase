@@ -3362,6 +3362,7 @@ comment|//
 comment|// When execution returns from snapshotMemcacheForLog() with a non-NULL
 comment|// value, the HMemcache will have a snapshot object stored that must be
 comment|// explicitly cleaned up using a call to deleteSnapshot().
+comment|//
 name|HMemcache
 operator|.
 name|Snapshot
@@ -3396,6 +3397,8 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+try|try
+block|{
 name|long
 name|logCacheFlushId
 init|=
@@ -3492,6 +3495,33 @@ argument_list|,
 name|logCacheFlushId
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"Interrupted while flushing. Edits lost. FIX! HADOOP-1903"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|log
+operator|.
+name|abort
+argument_list|()
+expr_stmt|;
+throw|throw
+name|e
+throw|;
+block|}
+finally|finally
+block|{
 comment|// C. Delete the now-irrelevant memcache snapshot; its contents have been
 comment|//    dumped to disk-based HStores.
 name|memcache
@@ -3499,6 +3529,7 @@ operator|.
 name|deleteSnapshot
 argument_list|()
 expr_stmt|;
+block|}
 comment|// D. Finally notify anyone waiting on memcache to clear:
 comment|// e.g. checkResources().
 synchronized|synchronized

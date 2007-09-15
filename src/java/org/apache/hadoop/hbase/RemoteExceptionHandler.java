@@ -72,11 +72,69 @@ specifier|public
 class|class
 name|RemoteExceptionHandler
 block|{
+comment|/* Not instantiable */
 specifier|private
 name|RemoteExceptionHandler
 parameter_list|()
-block|{}
-comment|// not instantiable
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * Examine passed IOException.  See if its carrying a RemoteException. If so,    * run {@link #decodeRemoteException(RemoteException)} on it.  Otherwise,    * pass back<code>e</code> unaltered.    * @param e Exception to examine.    * @return Decoded RemoteException carried by<code>e</code> or    *<code>e</code> unaltered.    */
+specifier|public
+specifier|static
+name|IOException
+name|checkIOException
+parameter_list|(
+specifier|final
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|IOException
+name|result
+init|=
+name|e
+decl_stmt|;
+if|if
+condition|(
+name|e
+operator|instanceof
+name|RemoteException
+condition|)
+block|{
+try|try
+block|{
+name|result
+operator|=
+name|RemoteExceptionHandler
+operator|.
+name|decodeRemoteException
+argument_list|(
+operator|(
+name|RemoteException
+operator|)
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ex
+parameter_list|)
+block|{
+name|result
+operator|=
+name|ex
+expr_stmt|;
+block|}
+block|}
+return|return
+name|result
+return|;
+block|}
 comment|/**    * Converts org.apache.hadoop.ipc.RemoteException into original exception,    * if possible. If the original exception is an Error or a RuntimeException,    * throws the original exception.    *     * @param re original exception    * @return decoded RemoteException if it is an instance of or a subclass of    *         IOException, or the original RemoteException if it cannot be decoded.    *     * @throws IOException indicating a server error ocurred if the decoded     *         exception is not an IOException. The decoded exception is set as    *         the cause.    */
 annotation|@
 name|SuppressWarnings
@@ -201,31 +259,41 @@ parameter_list|(
 name|ClassNotFoundException
 name|x
 parameter_list|)
-block|{     }
+block|{
+comment|// continue
+block|}
 catch|catch
 parameter_list|(
 name|NoSuchMethodException
 name|x
 parameter_list|)
-block|{     }
+block|{
+comment|// continue
+block|}
 catch|catch
 parameter_list|(
 name|IllegalAccessException
 name|x
 parameter_list|)
-block|{     }
+block|{
+comment|// continue
+block|}
 catch|catch
 parameter_list|(
 name|InvocationTargetException
 name|x
 parameter_list|)
-block|{     }
+block|{
+comment|// continue
+block|}
 catch|catch
 parameter_list|(
 name|InstantiationException
 name|x
 parameter_list|)
-block|{     }
+block|{
+comment|// continue
+block|}
 return|return
 name|i
 return|;
