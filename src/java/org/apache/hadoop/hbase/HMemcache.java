@@ -390,6 +390,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|// From here on, any failure is catastrophic requiring replay of hlog
 name|this
 operator|.
 name|snapshot

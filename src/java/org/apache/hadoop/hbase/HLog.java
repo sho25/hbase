@@ -1518,7 +1518,7 @@ return|return
 name|results
 return|;
 block|}
-comment|/**    * By acquiring a log sequence ID, we can allow log messages    * to continue while we flush the cache.    *    * Set a flag so that we do not roll the log between the start    * and complete of a cache-flush.  Otherwise the log-seq-id for    * the flush will not appear in the correct logfile.    * @return sequence ID to pass {@link #completeCacheFlush(Text, Text, long)}    * @see #completeCacheFlush(Text, Text, long)    */
+comment|/**    * By acquiring a log sequence ID, we can allow log messages    * to continue while we flush the cache.    *    * Set a flag so that we do not roll the log between the start    * and complete of a cache-flush.  Otherwise the log-seq-id for    * the flush will not appear in the correct logfile.    * @return sequence ID to pass {@link #completeCacheFlush(Text, Text, long)}    * @see #completeCacheFlush(Text, Text, long)    * @see #abortCacheFlush()    */
 specifier|synchronized
 name|long
 name|startCacheFlush
@@ -1582,6 +1582,8 @@ name|IOException
 block|{
 if|if
 condition|(
+name|this
+operator|.
 name|closed
 condition|)
 block|{
@@ -1605,10 +1607,9 @@ literal|"completeCacheFlush(), but 'insideCacheFlush' flag is false"
 argument_list|)
 throw|;
 block|}
-name|writer
-operator|.
-name|append
-argument_list|(
+name|HLogKey
+name|key
+init|=
 operator|new
 name|HLogKey
 argument_list|(
@@ -1622,6 +1623,14 @@ name|METAROW
 argument_list|,
 name|logSeqId
 argument_list|)
+decl_stmt|;
+name|this
+operator|.
+name|writer
+operator|.
+name|append
+argument_list|(
+name|key
 argument_list|,
 operator|new
 name|HLogEdit
@@ -1644,6 +1653,8 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|numEntries
 operator|.
 name|getAndIncrement
@@ -1651,15 +1662,44 @@ argument_list|()
 expr_stmt|;
 comment|// Remember the most-recent flush for each region.
 comment|// This is used to delete obsolete log files.
+name|this
+operator|.
 name|regionToLastFlush
 operator|.
 name|put
 argument_list|(
 name|regionName
 argument_list|,
+name|Long
+operator|.
+name|valueOf
+argument_list|(
 name|logSeqId
 argument_list|)
+argument_list|)
 expr_stmt|;
+name|cleanup
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * Abort a cache flush.    * This method will clear waits on {@link #insideCacheFlush}.  Call if the    * flush fails.  Note that the only recovery for an aborted flush currently    * is a restart of the regionserver so the snapshot content dropped by the    * failure gets restored to the  memcache.    */
+specifier|synchronized
+name|void
+name|abortCacheFlush
+parameter_list|()
+block|{
+name|cleanup
+argument_list|()
+expr_stmt|;
+block|}
+specifier|private
+specifier|synchronized
+name|void
+name|cleanup
+parameter_list|()
+block|{
+name|this
+operator|.
 name|insideCacheFlush
 operator|=
 literal|false

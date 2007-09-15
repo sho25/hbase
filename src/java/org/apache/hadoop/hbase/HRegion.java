@@ -3078,7 +3078,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Each HRegion is given a periodic chance to flush the cache, which it should    * only take if there have been a lot of uncommitted writes.    */
+comment|/**    * Each HRegion is given a periodic chance to flush the cache, which it should    * only take if there have been a lot of uncommitted writes.    * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
 name|void
 name|optionallyFlush
 parameter_list|()
@@ -3164,7 +3164,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Flush the cache.  This is called periodically to minimize the amount of    * log processing needed upon startup.    *     *<p>The returned Vector is a list of all the files used by the component    * HStores. It is a list of HStoreFile objects.  If the returned value is    * NULL, then the flush could not be executed, because the HRegion is busy    * doing something else storage-intensive.  The caller should check back    * later.    *    *<p>This method may block for some time, so it should not be called from a     * time-sensitive thread.    *     * @param disableFutureWrites indicates that the caller intends to     * close() the HRegion shortly, so the HRegion should not take on any new and     * potentially long-lasting disk operations. This flush() should be the final    * pre-close() disk operation.    */
+comment|/**    * Flush the cache.  This is called periodically to minimize the amount of    * log processing needed upon startup.    *     *<p>The returned Vector is a list of all the files used by the component    * HStores. It is a list of HStoreFile objects.  If the returned value is    * NULL, then the flush could not be executed, because the HRegion is busy    * doing something else storage-intensive.  The caller should check back    * later.    *    *<p>This method may block for some time, so it should not be called from a     * time-sensitive thread.    *     * @param disableFutureWrites indicates that the caller intends to     * close() the HRegion shortly, so the HRegion should not take on any new and     * potentially long-lasting disk operations. This flush() should be the final    * pre-close() disk operation.    * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
 name|void
 name|flushcache
 parameter_list|(
@@ -3297,7 +3297,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Flushing the cache is a little tricky. We have a lot of updates in the    * HMemcache, all of which have also been written to the log. We need to    * write those updates in the HMemcache out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the HMemcache was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the HMemcache from    * the log.)    *     *<p>So, we have a three-step process:    *     *<ul><li>A. Flush the memcache to the on-disk stores, noting the current    * sequence ID for the log.<li>    *     *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memcache-flush.</li>    *     *<li>C. Get rid of the memcache structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *     *<p> This method may block for some time.    */
+comment|/**    * Flushing the cache is a little tricky. We have a lot of updates in the    * HMemcache, all of which have also been written to the log. We need to    * write those updates in the HMemcache out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the HMemcache was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the HMemcache from    * the log.)    *     *<p>So, we have a three-step process:    *     *<ul><li>A. Flush the memcache to the on-disk stores, noting the current    * sequence ID for the log.<li>    *     *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memcache-flush.</li>    *     *<li>C. Get rid of the memcache structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *     *<p> This method may block for some time.    * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
 name|void
 name|internalFlushcache
 parameter_list|()
@@ -3361,7 +3361,8 @@ comment|// zoom past unless we lock it.
 comment|//
 comment|// When execution returns from snapshotMemcacheForLog() with a non-NULL
 comment|// value, the HMemcache will have a snapshot object stored that must be
-comment|// explicitly cleaned up using a call to deleteSnapshot().
+comment|// explicitly cleaned up using a call to deleteSnapshot() or by calling
+comment|// abort.
 comment|//
 name|HMemcache
 operator|.
@@ -3397,6 +3398,10 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+comment|// Any failure from here on out will be catastrophic requiring server
+comment|// restart so hlog content can be replayed and put back into the memcache.
+comment|// Otherwise, the snapshot content while backed up in the hlog, it will not
+comment|// be part of the current running servers state.
 try|try
 block|{
 name|long
@@ -3475,6 +3480,8 @@ comment|// B.  Write a FLUSHCACHE-COMPLETE message to the log.
 comment|//     This tells future readers that the HStores were emitted correctly,
 comment|//     and that all updates to the log for this regionName that have lower
 comment|//     log-sequence-ids can be safely ignored.
+name|this
+operator|.
 name|log
 operator|.
 name|completeCacheFlush
@@ -3502,28 +3509,33 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-name|LOG
+comment|// An exception here means that the snapshot was not persisted.
+comment|// The hlog needs to be replayed so its content is restored to memcache.
+comment|// Currently, only a server restart will do this.
+name|this
 operator|.
-name|fatal
-argument_list|(
-literal|"Interrupted while flushing. Edits lost. FIX! HADOOP-1903"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
 name|log
 operator|.
-name|abort
+name|abortCacheFlush
 argument_list|()
 expr_stmt|;
 throw|throw
+operator|new
+name|DroppedSnapshotException
+argument_list|(
 name|e
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
 throw|;
 block|}
 finally|finally
 block|{
 comment|// C. Delete the now-irrelevant memcache snapshot; its contents have been
-comment|//    dumped to disk-based HStores.
+comment|//    dumped to disk-based HStores or, if error, clear aborted snapshot.
+name|this
+operator|.
 name|memcache
 operator|.
 name|deleteSnapshot
@@ -5400,7 +5412,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/*     * Add updates to the log and add values to the memcache.    * Warning: Assumption is caller has lock on passed in row.    * @param row Row to update.    * @param timestamp Timestamp to record the updates against    * @param updatesByColumn Cell updates by column    * @throws IOException    */
+comment|/*     * Add updates first to the hlog and then add values to memcache.    * Warning: Assumption is caller has lock on passed in row.    * @param row Row to update.    * @param timestamp Timestamp to record the updates against    * @param updatesByColumn Cell updates by column    * @throws IOException    */
 specifier|private
 name|void
 name|update

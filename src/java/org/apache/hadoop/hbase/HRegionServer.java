@@ -1503,6 +1503,42 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
+name|DroppedSnapshotException
+name|e
+parameter_list|)
+block|{
+comment|// Cache flush can fail in a few places.  If it fails in a critical
+comment|// section, we get a DroppedSnapshotException and a replay of hlog
+comment|// is required. Currently the only way to do this is a restart of
+comment|// the server.
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"Replay of hlog required. Forcing server restart"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|checkFileSystem
+argument_list|()
+condition|)
+block|{
+break|break;
+block|}
+name|HRegionServer
+operator|.
+name|this
+operator|.
+name|stop
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
 name|IOException
 name|iex
 parameter_list|)
@@ -2211,12 +2247,14 @@ return|return
 name|log
 return|;
 block|}
-comment|/**    * Sets a flag that will cause all the HRegionServer threads to shut down    * in an orderly fashion.    *<p>FOR DEBUGGING ONLY    */
+comment|/**    * Sets a flag that will cause all the HRegionServer threads to shut down    * in an orderly fashion.  Used by unit tests and called by {@link Flusher}    * if it judges server needs to be restarted.    */
 specifier|synchronized
 name|void
 name|stop
 parameter_list|()
 block|{
+name|this
+operator|.
 name|stopRequested
 operator|.
 name|set
@@ -2235,6 +2273,8 @@ name|void
 name|abort
 parameter_list|()
 block|{
+name|this
+operator|.
 name|abortRequested
 operator|=
 literal|true
@@ -2889,6 +2929,8 @@ block|{
 comment|// Only try to clean up if the file system is available
 try|try
 block|{
+name|this
+operator|.
 name|log
 operator|.
 name|close
@@ -3128,11 +3170,19 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"main thread exiting"
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" exiting"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * Start Chore Threads, Server, Worker and lease checker threads. Install an    * UncaughtExceptionHandler that calls abort of RegionServer if we get    * an unhandled exception.  We cannot set the handler on all threads.    * Server's internal Listener thread is off limits.  For Server, if an OOME,    * it waits a while then retries.  Meantime, a flush or a compaction that    * tries to run should trigger same critical condition and the shutdown will    * run.  On its way out, this server will shut down Server.  Leases are sort    * of inbetween. It has an internal thread that while it inherits from    * Chore, it keeps its own internal stop mechanism so needs to be stopped    * by this hosting server.    */
+comment|/*    * Start Chore Threads, Server, Worker and lease checker threads. Install an    * UncaughtExceptionHandler that calls abort of RegionServer if we get    * an unhandled exception.  We cannot set the handler on all threads.    * Server's internal Listener thread is off limits.  For Server, if an OOME,    * it waits a while then retries.  Meantime, a flush or a compaction that    * tries to run should trigger same critical condition and the shutdown will    * run.  On its way out, this server will shut down Server.  Leases are sort    * of inbetween. It has an internal thread that while it inherits from    * Chore, it keeps its own internal stop mechanism so needs to be stopped    * by this hosting server.  Worker logs the exception and exits.    */
 specifier|private
 name|void
 name|startAllServices
@@ -3847,7 +3897,9 @@ throw|throw
 operator|new
 name|RuntimeException
 argument_list|(
-literal|"Putting into msgQueue was interrupted."
+literal|"Putting into msgQueue was "
+operator|+
+literal|"interrupted."
 argument_list|,
 name|ex
 argument_list|)

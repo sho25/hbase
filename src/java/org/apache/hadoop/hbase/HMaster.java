@@ -2973,7 +2973,7 @@ condition|)
 block|{
 comment|// If filesystem is OK, is the exception a ConnectionException?
 comment|// If so, mark the server as down.  No point scanning either
-comment|// if no server to put meta region on.
+comment|// if no server to put meta region on. TODO.
 if|if
 condition|(
 name|e
