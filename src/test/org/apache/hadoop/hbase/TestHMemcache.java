@@ -51,6 +51,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|SortedMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|TreeMap
 import|;
 end_import
@@ -501,7 +511,7 @@ operator|.
 name|size
 argument_list|()
 decl_stmt|;
-name|TreeMap
+name|SortedMap
 argument_list|<
 name|HStoreKey
 argument_list|,

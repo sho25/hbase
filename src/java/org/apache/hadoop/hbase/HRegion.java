@@ -6310,6 +6310,7 @@ return|return
 name|multipleMatchers
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|next

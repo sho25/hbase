@@ -178,6 +178,13 @@ argument_list|<
 name|RegionServerThread
 argument_list|>
 name|regionThreads
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|RegionServerThread
+argument_list|>
+argument_list|()
 decl_stmt|;
 specifier|private
 name|boolean
@@ -408,7 +415,9 @@ expr_stmt|;
 name|this
 operator|.
 name|regionThreads
-operator|=
+operator|.
+name|addAll
+argument_list|(
 name|startRegionServers
 argument_list|(
 name|this
@@ -416,6 +425,7 @@ operator|.
 name|conf
 argument_list|,
 name|nRegionNodes
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1171,24 +1181,12 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|regionServerThreads
-operator|!=
-literal|null
-condition|)
-block|{
+comment|// regionServerThreads can never be null because they are initialized when
+comment|// the class is constructed.
 synchronized|synchronized
 init|(
 name|regionServerThreads
 init|)
-block|{
-if|if
-condition|(
-name|regionServerThreads
-operator|!=
-literal|null
-condition|)
 block|{
 for|for
 control|(
@@ -1221,8 +1219,6 @@ name|e
 parameter_list|)
 block|{
 comment|// continue
-block|}
-block|}
 block|}
 block|}
 block|}
@@ -1274,20 +1270,10 @@ operator|)
 operator|+
 literal|" "
 operator|+
-operator|(
-operator|(
-name|regionServerThreads
-operator|==
-literal|null
-operator|)
-condition|?
-literal|0
-else|:
 name|regionServerThreads
 operator|.
 name|size
 argument_list|()
-operator|)
 operator|+
 literal|" region server(s)"
 argument_list|)
