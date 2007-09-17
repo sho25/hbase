@@ -118,9 +118,25 @@ operator|new
 name|String
 index|[]
 block|{
-literal|"Hadoop FsShell operations."
+literal|"Hadoop FsShell operations"
 block|,
 literal|"FS -copyFromLocal /home/user/backup.dat fs/user/backup;"
+block|}
+argument_list|)
+block|;
+name|load
+operator|.
+name|put
+argument_list|(
+literal|"JAR"
+argument_list|,
+operator|new
+name|String
+index|[]
+block|{
+literal|"Hadoop RunJar util"
+block|,
+literal|"JAR ./build/hadoop-examples.jar pi 10 10;"
 block|}
 argument_list|)
 block|;

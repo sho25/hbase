@@ -350,7 +350,7 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"Syntax error : Type 'help' for usage: "
+literal|"Syntax error : Type 'help;' for usage.\nMessage : "
 operator|+
 name|msg
 index|[
@@ -365,13 +365,32 @@ name|TokenMgrError
 name|te
 parameter_list|)
 block|{
+name|String
+index|[]
+name|msg
+init|=
+name|te
+operator|.
+name|getMessage
+argument_list|()
+operator|.
+name|split
+argument_list|(
+literal|"[\n]"
+argument_list|)
+decl_stmt|;
 name|System
 operator|.
 name|out
 operator|.
 name|println
 argument_list|(
-literal|"Lexical error : Type 'help' for usage."
+literal|"Lexical error : Type 'help;' for usage.\nMessage : "
+operator|+
+name|msg
+index|[
+literal|0
+index|]
 argument_list|)
 expr_stmt|;
 block|}
