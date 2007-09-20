@@ -51,16 +51,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|net
-operator|.
-name|ConnectException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|ArrayList
@@ -581,6 +571,7 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|getProtocolVersion
@@ -2971,24 +2962,8 @@ name|checkFileSystem
 argument_list|()
 condition|)
 block|{
-comment|// If filesystem is OK, is the exception a ConnectionException?
-comment|// If so, mark the server as down.  No point scanning either
-comment|// if no server to put meta region on. TODO.
-if|if
-condition|(
-name|e
-operator|instanceof
-name|ConnectException
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Region hosting server is gone."
-argument_list|)
-expr_stmt|;
-block|}
+continue|continue;
+comment|// avoid sleeping
 block|}
 block|}
 block|}
@@ -4157,6 +4132,8 @@ name|address
 return|;
 block|}
 comment|/** Main processing loop */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -5167,6 +5144,26 @@ comment|// Note that cancelling the server's lease takes care of updating
 comment|// serversToServerInfo, etc.
 if|if
 condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Region server "
+operator|+
+name|serverName
+operator|+
+literal|": MSG_REPORT_EXITING -- cancelling lease"
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
 name|cancelLease
 argument_list|(
 name|serverName
@@ -5185,7 +5182,7 @@ literal|"Region server "
 operator|+
 name|serverName
 operator|+
-literal|": MSG_REPORT_EXITING"
+literal|": MSG_REPORT_EXITING -- lease cancelled"
 argument_list|)
 expr_stmt|;
 comment|// Get all the regions the server was serving reassigned
@@ -11524,7 +11521,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|""
+literal|"closing scanner"
 argument_list|,
 name|e
 argument_list|)

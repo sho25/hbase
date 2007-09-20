@@ -228,6 +228,7 @@ specifier|private
 name|HBaseAdmin
 name|admin
 decl_stmt|;
+comment|/** constructor */
 specifier|public
 name|TestHBaseShell
 parameter_list|()
@@ -239,6 +240,7 @@ comment|/*One region server only*/
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -500,6 +502,7 @@ name|sglQuotedColumnFamily
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @throws Exception    */
 specifier|public
 name|void
 name|testInsertSelectDelete

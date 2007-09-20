@@ -548,6 +548,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|getProtocolVersion
@@ -777,6 +778,7 @@ name|meta
 init|=
 literal|null
 decl_stmt|;
+comment|/**      * @param stop      */
 specifier|public
 name|SplitOrCompactChecker
 parameter_list|(
@@ -802,6 +804,7 @@ name|stop
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|closing
@@ -873,6 +876,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|closed
@@ -934,6 +938,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**      * Scan for splits or compactions to run.  Run any we find.      */
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|chore
@@ -1434,6 +1440,7 @@ name|Flusher
 extends|extends
 name|Chore
 block|{
+comment|/**      * @param period      * @param stop      */
 specifier|public
 name|Flusher
 parameter_list|(
@@ -1454,6 +1461,9 @@ name|stop
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|chore
@@ -1613,6 +1623,7 @@ operator|*
 literal|1000
 argument_list|)
 decl_stmt|;
+comment|/**      * @param period      * @param stop      */
 specifier|public
 name|LogRoller
 parameter_list|(
@@ -1633,6 +1644,9 @@ name|stop
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|chore
@@ -2782,7 +2796,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|""
+literal|"Processing message (Retry: "
+operator|+
+name|tries
+operator|+
+literal|")"
 argument_list|,
 name|e
 argument_list|)
@@ -3015,7 +3033,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|""
+literal|"Close and delete failed"
 argument_list|,
 name|RemoteExceptionHandler
 operator|.
@@ -3136,7 +3154,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|""
+literal|"Failed to send exiting message to master: "
 argument_list|,
 name|RemoteExceptionHandler
 operator|.
@@ -3685,6 +3703,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|run
@@ -5175,7 +5194,13 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|""
+literal|"Opening scanner (fsOk: "
+operator|+
+name|this
+operator|.
+name|fsOk
+operator|+
+literal|")"
 argument_list|,
 name|RemoteExceptionHandler
 operator|.
@@ -5754,7 +5779,6 @@ block|}
 block|}
 comment|/**    * Checks to see if the file system is still accessible.    * If not, sets abortRequested and stopRequested    *     * @return false if file system is not available    */
 specifier|protected
-specifier|synchronized
 name|boolean
 name|checkFileSystem
 parameter_list|()

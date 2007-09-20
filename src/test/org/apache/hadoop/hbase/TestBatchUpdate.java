@@ -124,6 +124,9 @@ parameter_list|()
 throws|throws
 name|UnsupportedEncodingException
 block|{
+name|super
+argument_list|()
+expr_stmt|;
 name|value
 operator|=
 literal|"abcd"

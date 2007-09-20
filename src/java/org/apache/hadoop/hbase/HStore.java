@@ -5908,7 +5908,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|""
+literal|"Failed getting store size"
 argument_list|,
 name|e
 argument_list|)

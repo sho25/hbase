@@ -110,8 +110,13 @@ specifier|public
 class|class
 name|TestSplit
 extends|extends
-name|HBaseTestCase
+name|MultiRegionTable
 block|{
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"hiding"
+argument_list|)
 specifier|static
 specifier|final
 name|Log
