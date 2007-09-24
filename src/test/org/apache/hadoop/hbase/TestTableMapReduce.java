@@ -476,6 +476,38 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/** constructor */
+specifier|public
+name|TestTableMapReduce
+parameter_list|()
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+comment|// Make lease timeout longer, lease checks less frequent
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.master.lease.period"
+argument_list|,
+literal|10
+operator|*
+literal|1000
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.master.lease.thread.wakefrequency"
+argument_list|,
+literal|5
+operator|*
+literal|1000
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
