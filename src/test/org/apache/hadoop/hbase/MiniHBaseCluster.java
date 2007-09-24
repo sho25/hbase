@@ -285,7 +285,7 @@ name|this
 operator|.
 name|cluster
 operator|=
-literal|null
+name|dfsCluster
 expr_stmt|;
 name|init
 argument_list|(
@@ -1306,6 +1306,7 @@ literal|" region server(s)"
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
 name|void
 name|shutdown
 parameter_list|()

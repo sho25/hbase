@@ -654,11 +654,33 @@ operator|!=
 literal|null
 condition|)
 block|{
+try|try
+block|{
 name|fs
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"During tear down got a "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * Pass the given key and processed record reduce    */

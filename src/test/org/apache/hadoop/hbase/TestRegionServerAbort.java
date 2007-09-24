@@ -41,6 +41,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|io
@@ -84,6 +112,24 @@ name|TestRegionServerAbort
 extends|extends
 name|HBaseClusterTestCase
 block|{
+specifier|private
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|this
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+decl_stmt|;
 specifier|private
 name|HTable
 name|table
@@ -321,6 +367,10 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
 name|this
 operator|.
 name|cluster
@@ -329,12 +379,21 @@ name|waitOnRegionServer
 argument_list|(
 literal|0
 argument_list|)
+operator|+
+literal|" has been shutdown"
+argument_list|)
 expr_stmt|;
-comment|// Verify that the client can find the data after the region has been moved
-comment|// to a different server
 name|HScannerInterface
 name|scanner
 init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+comment|// Verify that the client can find the data after the region has moved
+comment|// to a different server
+name|scanner
+operator|=
 name|table
 operator|.
 name|obtainScanner
@@ -347,9 +406,16 @@ operator|new
 name|Text
 argument_list|()
 argument_list|)
-decl_stmt|;
-try|try
-block|{
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Obtained scanner "
+operator|+
+name|scanner
+argument_list|)
+expr_stmt|;
 name|HStoreKey
 name|key
 init|=
@@ -448,11 +514,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Success!"
 argument_list|)
@@ -460,6 +524,15 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Closing scanner "
+operator|+
+name|scanner
+argument_list|)
+expr_stmt|;
 name|scanner
 operator|.
 name|close
