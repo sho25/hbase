@@ -135,50 +135,8 @@ name|AtomicInteger
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicLong
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|locks
-operator|.
-name|Lock
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|locks
-operator|.
-name|ReentrantLock
-import|;
-end_import
-
 begin_comment
-comment|/**  * HLog stores all the edits to the HStore.  *   * It performs logfile-rolling, so external callers are not aware that the   * underlying file is being rolled.  *  *<p>A single HLog is used by several HRegions simultaneously.  *   *<p>Each HRegion is identified by a unique long<code>int</code>. HRegions do  * not need to declare themselves before using the HLog; they simply include  * their HRegion-id in the<code>append</code> or   *<code>completeCacheFlush</code> calls.  *  *<p>An HLog consists of multiple on-disk files, which have a chronological  * order. As data is flushed to other (better) on-disk structures, the log  * becomes obsolete.  We can destroy all the log messages for a given  * HRegion-id up to the most-recent CACHEFLUSH message from that HRegion.  *  *<p>It's only practical to delete entire files.  Thus, we delete an entire   * on-disk file F when all of the messages in F have a log-sequence-id that's   * older (smaller) than the most-recent CACHEFLUSH message for every HRegion   * that has a message in F.  *   *<p>synchronized methods can never execute in parallel. However, between the  * start of a cache flush and the completion point, appends are allowed but log  * rolling is not. To prevent log rolling taking place during this period, a  * separate reentrant lock is used.  *   *<p>TODO: Vuk Ercegovac also pointed out that keeping HBase HRegion edit logs  * in HDFS is currently flawed. HBase writes edits to logs and to a memcache.  * The 'atomic' write to the log is meant to serve as insurance against  * abnormal RegionServer exit: on startup, the log is rerun to reconstruct an  * HRegion's last wholesome state. But files in HDFS do not 'exist' until they  * are cleanly closed -- something that will not happen if RegionServer exits  * without running its 'close'.  */
+comment|/**  * HLog stores all the edits to the HStore.  *   * It performs logfile-rolling, so external callers are not aware that the   * underlying file is being rolled.  *  *<p>A single HLog is used by several HRegions simultaneously.  *   *<p>Each HRegion is identified by a unique long<code>int</code>. HRegions do  * not need to declare themselves before using the HLog; they simply include  * their HRegion-id in the<code>append</code> or   *<code>completeCacheFlush</code> calls.  *  *<p>An HLog consists of multiple on-disk files, which have a chronological  * order. As data is flushed to other (better) on-disk structures, the log  * becomes obsolete.  We can destroy all the log messages for a given  * HRegion-id up to the most-recent CACHEFLUSH message from that HRegion.  *  *<p>It's only practical to delete entire files.  Thus, we delete an entire   * on-disk file F when all of the messages in F have a log-sequence-id that's   * older (smaller) than the most-recent CACHEFLUSH message for every HRegion   * that has a message in F.  *   *<p>TODO: Vuk Ercegovac also pointed out that keeping HBase HRegion edit logs  * in HDFS is currently flawed. HBase writes edits to logs and to a memcache.  * The 'atomic' write to the log is meant to serve as insurance against  * abnormal RegionServer exit: on startup, the log is rerun to reconstruct an  * HRegion's last wholesome state. But files in HDFS do not 'exist' until they  * are cleanly closed -- something that will not happen if RegionServer exits  * without running its 'close'.  */
 end_comment
 
 begin_class
@@ -263,16 +221,22 @@ name|Path
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|HashMap
+specifier|volatile
+name|boolean
+name|insideCacheFlush
+init|=
+literal|false
+decl_stmt|;
+name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
 name|Long
 argument_list|>
-name|lastSeqWritten
+name|regionToLastFlush
 init|=
 operator|new
-name|HashMap
+name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
@@ -286,16 +250,12 @@ name|closed
 init|=
 literal|false
 decl_stmt|;
-name|AtomicLong
+specifier|volatile
+name|long
 name|logSeqNum
 init|=
-operator|new
-name|AtomicLong
-argument_list|(
 literal|0
-argument_list|)
 decl_stmt|;
-specifier|volatile
 name|long
 name|filenum
 init|=
@@ -310,18 +270,16 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-comment|// This lock prevents starting a log roll during a cache flush.
-comment|// synchronized is insufficient because a cache flush spans two method calls.
-specifier|private
-specifier|final
-name|Lock
-name|cacheFlushLock
+name|Integer
+name|rollLock
 init|=
 operator|new
-name|ReentrantLock
-argument_list|()
+name|Integer
+argument_list|(
+literal|0
+argument_list|)
 decl_stmt|;
-comment|/**    * Split up a bunch of log files, that are no longer being written to,    * into new files, one per region.  Delete the old log files when finished.    *     * @param rootDir Root directory of the HBase instance    * @param srcDir Directory of log files to split:    * e.g.<code>${ROOTDIR}/log_HOST_PORT</code>    * @param fs FileSystem    * @param conf HBaseConfiguration    * @throws IOException    */
+comment|/**    * Split up a bunch of log files, that are no longer being written to,    * into new files, one per region.  Delete the old log files when ready.    * @param rootDir Root directory of the HBase instance    * @param srcDir Directory of log files to split:    * e.g.<code>${ROOTDIR}/log_HOST_PORT</code>    * @param fs FileSystem    * @param conf HBaseConfiguration    * @throws IOException    */
 specifier|static
 name|void
 name|splitLog
@@ -824,7 +782,6 @@ name|rollWriter
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Called by HRegionServer when it opens a new region to ensure that log    * sequence numbers are always greater than the latest sequence number of    * the region being brought on-line.    *     * @param newvalue    */
 specifier|synchronized
 name|void
 name|setSequenceNumber
@@ -838,9 +795,6 @@ condition|(
 name|newvalue
 operator|>
 name|logSeqNum
-operator|.
-name|get
-argument_list|()
 condition|)
 block|{
 if|if
@@ -866,20 +820,43 @@ argument_list|)
 expr_stmt|;
 block|}
 name|logSeqNum
-operator|.
-name|set
-argument_list|(
+operator|=
 name|newvalue
-argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Roll the log writer.  That is, start writing log messages to a new file.    *     * Because a log cannot be rolled during a cache flush, and a cache flush    * spans two method calls, a special lock needs to be obtained so that a    * cache flush cannot start when the log is being rolled and the log cannot    * be rolled during a cache flush.    *     * Note that this method cannot be synchronized because it is possible that    * startCacheFlush runs, obtaining the cacheFlushLock, then this method could    * start which would obtain the lock on this but block on obtaining the     * cacheFlushLock and then completeCacheFlush could be called which would     * wait for the lock on this and consequently never release the cacheFlushLock    *     * @throws IOException    */
+comment|/**    * Roll the log writer.  That is, start writing log messages to a new file.    *    * The 'rollLock' prevents us from entering rollWriter() more than    * once at a time.    *    * The 'this' lock limits access to the current writer so    * we don't append multiple items simultaneously.    *     * @throws IOException    */
 name|void
 name|rollWriter
 parameter_list|()
 throws|throws
 name|IOException
+block|{
+synchronized|synchronized
+init|(
+name|rollLock
+init|)
+block|{
+comment|// Try to roll the writer to a new file.  We may have to
+comment|// wait for a cache-flush to complete.  In the process,
+comment|// compute a list of old log files that can be deleted.
+name|Vector
+argument_list|<
+name|Path
+argument_list|>
+name|toDeleteList
+init|=
+operator|new
+name|Vector
+argument_list|<
+name|Path
+argument_list|>
+argument_list|()
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|this
+init|)
 block|{
 if|if
 condition|(
@@ -894,21 +871,31 @@ literal|"Cannot roll log; log is closed"
 argument_list|)
 throw|;
 block|}
-name|cacheFlushLock
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
-comment|// prevent cache flushes
+comment|// Make sure we do not roll the log while inside a
+comment|// cache-flush.  Otherwise, the log sequence number for
+comment|// the CACHEFLUSH operation will appear in a "newer" log file
+comment|// than it should.
+while|while
+condition|(
+name|insideCacheFlush
+condition|)
+block|{
 try|try
 block|{
-comment|// Now that we have locked out cache flushes, lock this to prevent other
-comment|// changes.
-synchronized|synchronized
-init|(
-name|this
-init|)
+name|wait
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|ie
+parameter_list|)
 block|{
+comment|// continue;
+block|}
+block|}
+comment|// Close the current writer (if any), and grab a new one.
 if|if
 condition|(
 name|writer
@@ -916,7 +903,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-comment|// Close the current writer (if any), get a new one.
 name|writer
 operator|.
 name|close
@@ -967,9 +953,6 @@ operator|.
 name|put
 argument_list|(
 name|logSeqNum
-operator|.
-name|get
-argument_list|()
 operator|-
 literal|1
 argument_list|,
@@ -1043,7 +1026,7 @@ control|(
 name|Long
 name|l
 range|:
-name|lastSeqWritten
+name|regionToLastFlush
 operator|.
 name|values
 argument_list|()
@@ -1070,55 +1053,106 @@ name|curSeqNum
 expr_stmt|;
 block|}
 block|}
-comment|// Get the set of all sequence numbers that are older than the oldest
-comment|// pending region operation
-name|TreeSet
+comment|// Next, remove all files with a final ID that's older
+comment|// than the oldest pending region-operation.
+for|for
+control|(
+name|Iterator
 argument_list|<
 name|Long
 argument_list|>
-name|sequenceNumbers
+name|it
 init|=
-operator|new
-name|TreeSet
-argument_list|<
-name|Long
-argument_list|>
-argument_list|()
-decl_stmt|;
-name|sequenceNumbers
-operator|.
-name|addAll
-argument_list|(
 name|outputfiles
-operator|.
-name|headMap
-argument_list|(
-name|oldestOutstandingSeqNum
-argument_list|)
 operator|.
 name|keySet
 argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// Remove all files with a final ID that's older than the oldest
-comment|// pending region-operation.
-for|for
-control|(
-name|Long
-name|seq
-range|:
-name|sequenceNumbers
+operator|.
+name|iterator
+argument_list|()
+init|;
+name|it
+operator|.
+name|hasNext
+argument_list|()
+condition|;
 control|)
+block|{
+name|long
+name|maxSeqNum
+init|=
+name|it
+operator|.
+name|next
+argument_list|()
+operator|.
+name|longValue
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|maxSeqNum
+operator|<
+name|oldestOutstandingSeqNum
+condition|)
 block|{
 name|Path
 name|p
 init|=
 name|outputfiles
 operator|.
-name|remove
+name|get
 argument_list|(
-name|seq
+name|maxSeqNum
 argument_list|)
+decl_stmt|;
+name|it
+operator|.
+name|remove
+argument_list|()
+expr_stmt|;
+name|toDeleteList
+operator|.
+name|add
+argument_list|(
+name|p
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+break|break;
+block|}
+block|}
+block|}
+comment|// Actually delete them, if any!
+for|for
+control|(
+name|Iterator
+argument_list|<
+name|Path
+argument_list|>
+name|it
+init|=
+name|toDeleteList
+operator|.
+name|iterator
+argument_list|()
+init|;
+name|it
+operator|.
+name|hasNext
+argument_list|()
+condition|;
+control|)
+block|{
+name|Path
+name|p
+init|=
+name|it
+operator|.
+name|next
+argument_list|()
 decl_stmt|;
 if|if
 condition|(
@@ -1157,15 +1191,6 @@ name|set
 argument_list|(
 literal|0
 argument_list|)
-expr_stmt|;
-block|}
-block|}
-finally|finally
-block|{
-name|cacheFlushLock
-operator|.
-name|unlock
-argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -1261,7 +1286,7 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
-comment|/**    * Append a set of edits to the log. Log edits are keyed by regionName,    * rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for    * a given key-range of the HRegion (TODO).  Any edits that do not have a    * matching {@link HConstants#COMPLETE_CACHEFLUSH} message can be discarded.    *    *<p>Logs cannot be restarted once closed, or once the HLog process dies.    * Each time the HLog starts, it must create a new log.  This means that    * other systems should process the log appropriately upon each startup    * (and prior to initializing HLog).    *    * synchronized prevents appends during the completion of a cache flush or    * for the duration of a log roll.    *     * @param regionName    * @param tableName    * @param row    * @param columns    * @param timestamp    * @throws IOException    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by regionName,    * rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for    * a given key-range of the HRegion (TODO).  Any edits that do not have a    * matching {@link HConstants#COMPLETE_CACHEFLUSH} message can be discarded.    *    *<p>Logs cannot be restarted once closed, or once the HLog process dies.    * Each time the HLog starts, it must create a new log.  This means that    * other systems should process the log appropriately upon each startup    * (and prior to initializing HLog).    *    * We need to seize a lock on the writer so that writes are atomic.    * @param regionName    * @param tableName    * @param row    * @param columns    * @param timestamp    * @throws IOException    */
 specifier|synchronized
 name|void
 name|append
@@ -1315,11 +1340,23 @@ name|size
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// The 'lastSeqWritten' map holds the sequence number of the most recent
-comment|// write for each region. When the cache is flushed, the entry for the
-comment|// region being flushed is removed if the sequence number of the flush
-comment|// is greater than or equal to the value in lastSeqWritten
-name|lastSeqWritten
+comment|// The 'regionToLastFlush' map holds the sequence id of the
+comment|// most recent flush for every regionName.  However, for regions
+comment|// that don't have any flush yet, the relevant operation is the
+comment|// first one that's been added.
+if|if
+condition|(
+name|regionToLastFlush
+operator|.
+name|get
+argument_list|(
+name|regionName
+argument_list|)
+operator|==
+literal|null
+condition|)
+block|{
+name|regionToLastFlush
 operator|.
 name|put
 argument_list|(
@@ -1327,14 +1364,11 @@ name|regionName
 argument_list|,
 name|seqNum
 index|[
-name|seqNum
-operator|.
-name|length
-operator|-
-literal|1
+literal|0
 index|]
 argument_list|)
 expr_stmt|;
+block|}
 name|int
 name|counter
 init|=
@@ -1413,7 +1447,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @return How many items have been added to the log    *     * Because numEntries is an AtomicInteger, no locking is required.    */
+comment|/** @return How many items have been added to the log */
 name|int
 name|getNumEntries
 parameter_list|()
@@ -1425,21 +1459,19 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**    * Obtain a log sequence number.    *     * Because it is only called from a synchronized method, no additional locking    * is required.    */
-specifier|private
+comment|/**    * Obtain a log sequence number.  This seizes the whole HLog    * lock, but it shouldn't last too long.    */
+specifier|synchronized
 name|long
 name|obtainSeqNum
 parameter_list|()
 block|{
 return|return
 name|logSeqNum
-operator|.
-name|getAndIncrement
-argument_list|()
+operator|++
 return|;
 block|}
-comment|/**    * Obtain a specified number of sequence numbers    *     * Because it is only called from a synchronized method, no additional locking    * is required.    *     * @param num - number of sequence numbers to obtain    * @return - array of sequence numbers    */
-specifier|private
+comment|/**    * Obtain a specified number of sequence numbers    *     * @param num - number of sequence numbers to obtain    * @return - array of sequence numbers    */
+specifier|synchronized
 name|long
 index|[]
 name|obtainSeqNum
@@ -1448,16 +1480,6 @@ name|int
 name|num
 parameter_list|)
 block|{
-name|long
-name|sequenceNumber
-init|=
-name|logSeqNum
-operator|.
-name|getAndAdd
-argument_list|(
-name|num
-argument_list|)
-decl_stmt|;
 name|long
 index|[]
 name|results
@@ -1488,7 +1510,7 @@ index|[
 name|i
 index|]
 operator|=
-name|sequenceNumber
+name|logSeqNum
 operator|++
 expr_stmt|;
 block|}
@@ -1496,15 +1518,41 @@ return|return
 name|results
 return|;
 block|}
-comment|/**    * By acquiring a log sequence ID, we can allow log messages    * to continue while we flush the cache.    *    * Acquire a lock so that we do not roll the log between the start    * and completion of a cache-flush.  Otherwise the log-seq-id for    * the flush will not appear in the correct logfile.    *     * @return sequence ID to pass {@link #completeCacheFlush(Text, Text, long)}    * @see #completeCacheFlush(Text, Text, long)    * @see #abortCacheFlush()    */
+comment|/**    * By acquiring a log sequence ID, we can allow log messages    * to continue while we flush the cache.    *    * Set a flag so that we do not roll the log between the start    * and complete of a cache-flush.  Otherwise the log-seq-id for    * the flush will not appear in the correct logfile.    * @return sequence ID to pass {@link #completeCacheFlush(Text, Text, long)}    * @see #completeCacheFlush(Text, Text, long)    * @see #abortCacheFlush()    */
 specifier|synchronized
 name|long
 name|startCacheFlush
 parameter_list|()
 block|{
-name|cacheFlushLock
+while|while
+condition|(
+name|this
 operator|.
-name|lock
+name|insideCacheFlush
+condition|)
+block|{
+try|try
+block|{
+name|wait
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|ie
+parameter_list|)
+block|{
+comment|// continue
+block|}
+block|}
+name|this
+operator|.
+name|insideCacheFlush
+operator|=
+literal|true
+expr_stmt|;
+name|notifyAll
 argument_list|()
 expr_stmt|;
 return|return
@@ -1512,7 +1560,7 @@ name|obtainSeqNum
 argument_list|()
 return|;
 block|}
-comment|/**     * Complete the cache flush    *     * Protected by this.lock()    *     * @param regionName    * @param tableName    * @param logSeqId    * @throws IOException    */
+comment|/** Complete the cache flush    * @param regionName    * @param tableName    * @param logSeqId    * @throws IOException    */
 specifier|synchronized
 name|void
 name|completeCacheFlush
@@ -1532,8 +1580,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-try|try
-block|{
 if|if
 condition|(
 name|this
@@ -1543,10 +1589,27 @@ condition|)
 block|{
 return|return;
 block|}
-name|writer
+if|if
+condition|(
+operator|!
+name|this
 operator|.
-name|append
+name|insideCacheFlush
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
 argument_list|(
+literal|"Impossible situation: inside "
+operator|+
+literal|"completeCacheFlush(), but 'insideCacheFlush' flag is false"
+argument_list|)
+throw|;
+block|}
+name|HLogKey
+name|key
+init|=
 operator|new
 name|HLogKey
 argument_list|(
@@ -1560,6 +1623,14 @@ name|METAROW
 argument_list|,
 name|logSeqId
 argument_list|)
+decl_stmt|;
+name|this
+operator|.
+name|writer
+operator|.
+name|append
+argument_list|(
+name|key
 argument_list|,
 operator|new
 name|HLogEdit
@@ -1582,60 +1653,74 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|numEntries
 operator|.
 name|getAndIncrement
 argument_list|()
 expr_stmt|;
+comment|// Remember the most-recent flush for each region.
+comment|// This is used to delete obsolete log files.
+name|this
+operator|.
+name|regionToLastFlush
+operator|.
+name|put
+argument_list|(
+name|regionName
+argument_list|,
 name|Long
-name|seq
-init|=
-name|lastSeqWritten
 operator|.
-name|get
+name|valueOf
 argument_list|(
-name|regionName
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|seq
-operator|!=
-literal|null
-operator|&&
 name|logSeqId
-operator|>=
-name|seq
-condition|)
-block|{
-name|lastSeqWritten
-operator|.
-name|remove
-argument_list|(
-name|regionName
+argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-block|}
-finally|finally
-block|{
-name|cacheFlushLock
-operator|.
-name|unlock
+name|cleanup
 argument_list|()
 expr_stmt|;
 block|}
-block|}
 comment|/**    * Abort a cache flush.    * This method will clear waits on {@link #insideCacheFlush}.  Call if the    * flush fails.  Note that the only recovery for an aborted flush currently    * is a restart of the regionserver so the snapshot content dropped by the    * failure gets restored to the  memcache.    */
+specifier|synchronized
 name|void
 name|abortCacheFlush
 parameter_list|()
 block|{
+name|cleanup
+argument_list|()
+expr_stmt|;
+block|}
+specifier|private
+specifier|synchronized
+name|void
+name|cleanup
+parameter_list|()
+block|{
 name|this
 operator|.
-name|cacheFlushLock
+name|insideCacheFlush
+operator|=
+literal|false
+expr_stmt|;
+name|notifyAll
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * Abort a cache flush.    * This method will clear waits on {@link #insideCacheFlush} but if this    * method is called, we are losing data.  TODO: Fix.    */
+specifier|synchronized
+name|void
+name|abort
+parameter_list|()
+block|{
+name|this
 operator|.
-name|unlock
+name|insideCacheFlush
+operator|=
+literal|false
+expr_stmt|;
+name|notifyAll
 argument_list|()
 expr_stmt|;
 block|}
