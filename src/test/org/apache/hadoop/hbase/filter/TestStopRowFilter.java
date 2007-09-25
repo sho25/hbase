@@ -375,6 +375,18 @@ literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|assertFalse
+argument_list|(
+literal|"Filter a null"
+argument_list|,
+name|filter
+operator|.
+name|filter
+argument_list|(
+literal|null
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class
