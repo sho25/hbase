@@ -78,8 +78,6 @@ block|{
 name|super
 argument_list|()
 expr_stmt|;
-comment|//    conf.setInt("ipc.client.timeout", 5000);            // reduce ipc client timeout
-comment|//    conf.setInt("ipc.client.connect.max.retries", 5);   // and number of retries
 name|Logger
 operator|.
 name|getRootLogger

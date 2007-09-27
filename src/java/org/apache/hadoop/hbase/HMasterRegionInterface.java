@@ -33,6 +33,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|io
+operator|.
+name|MapWritable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|ipc
 operator|.
 name|VersionedProtocol
@@ -59,9 +73,9 @@ name|versionID
 init|=
 literal|1L
 decl_stmt|;
-comment|/**    * Called when a region server first starts    * @param info    * @throws IOException    */
+comment|/**    * Called when a region server first starts    * @param info    * @throws IOException    * @return Configuration for the regionserver to use: e.g. filesystem,    * hbase rootdir, etc.    */
 specifier|public
-name|void
+name|MapWritable
 name|regionServerStartup
 parameter_list|(
 name|HServerInfo
