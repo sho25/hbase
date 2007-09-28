@@ -525,7 +525,7 @@ operator|)
 condition|?
 literal|"Hbase> "
 else|:
-literal|"    --> "
+literal|"   --> "
 return|;
 block|}
 comment|/**    * @param watch true if execution time should be computed and returned    * @param start start of time interval    * @param end end of time interval    * @return a string of code execution time. */
@@ -545,11 +545,9 @@ name|end
 parameter_list|)
 block|{
 return|return
-operator|(
 name|watch
-operator|)
 condition|?
-literal|"("
+literal|" ("
 operator|+
 name|String
 operator|.
@@ -557,6 +555,10 @@ name|format
 argument_list|(
 literal|"%.2f"
 argument_list|,
+name|Double
+operator|.
+name|valueOf
+argument_list|(
 operator|(
 name|end
 operator|-
@@ -564,6 +566,7 @@ name|start
 operator|)
 operator|*
 literal|0.001
+argument_list|)
 argument_list|)
 operator|+
 literal|" sec)"

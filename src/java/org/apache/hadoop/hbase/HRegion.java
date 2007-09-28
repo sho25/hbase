@@ -4248,7 +4248,7 @@ return|return
 name|keys
 return|;
 block|}
-comment|/**    * Return an iterator that scans over the HRegion, returning the indicated     * columns for only the rows that match the data filter.  This Iterator must be closed by the caller.    *    * @param cols columns desired in result set    * @param firstRow row which is the starting point of the scan    * @param timestamp only return rows whose timestamp is<= this value    * @param filter row filter    * @return HScannerInterface    * @throws IOException    */
+comment|/**    * Return an iterator that scans over the HRegion, returning the indicated     * columns for only the rows that match the data filter.  This Iterator must    * be closed by the caller.    *    * @param cols columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param firstRow row which is the starting point of the scan    * @param timestamp only return rows whose timestamp is<= this value    * @param filter row filter    * @return HScannerInterface    * @throws IOException    */
 specifier|public
 name|HInternalScannerInterface
 name|getScanner
@@ -5927,10 +5927,14 @@ decl_stmt|;
 specifier|private
 name|boolean
 name|wildcardMatch
+init|=
+literal|false
 decl_stmt|;
 specifier|private
 name|boolean
 name|multipleMatchers
+init|=
+literal|false
 decl_stmt|;
 specifier|private
 name|RowFilterInterface
@@ -6023,18 +6027,6 @@ name|scanners
 operator|.
 name|length
 index|]
-expr_stmt|;
-name|this
-operator|.
-name|wildcardMatch
-operator|=
-literal|false
-expr_stmt|;
-name|this
-operator|.
-name|multipleMatchers
-operator|=
-literal|false
 expr_stmt|;
 comment|// Advance to the first key in each store.
 comment|// All results will match the required column-set and scanTime.
@@ -6290,7 +6282,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**      * {@inheritDoc}      */
 specifier|public
 name|boolean
 name|isWildcardScanner
@@ -6300,7 +6291,6 @@ return|return
 name|wildcardMatch
 return|;
 block|}
-comment|/**      * {@inheritDoc}      */
 specifier|public
 name|boolean
 name|isMultipleMatchScanner
@@ -6310,7 +6300,6 @@ return|return
 name|multipleMatchers
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|next

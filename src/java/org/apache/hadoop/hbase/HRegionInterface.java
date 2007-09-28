@@ -264,7 +264,7 @@ function_decl|;
 comment|//
 comment|// remote scanner interface
 comment|//
-comment|/**    * Opens a remote scanner with a RowFilter.    *     * @param regionName name of region to scan    * @param columns columns to scan    * @param startRow starting row to scan    * @param timestamp only return values whose timestamp is<= this value    * @param filter RowFilter for filtering results at the row-level.    *    * @return scannerId scanner identifier used in other calls    * @throws IOException    */
+comment|/**    * Opens a remote scanner with a RowFilter.    *     * @param regionName name of region to scan    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex for column family name. A column name is judged to be    * regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row to scan    * @param timestamp only return values whose timestamp is<= this value    * @param filter RowFilter for filtering results at the row-level.    *    * @return scannerId scanner identifier used in other calls    * @throws IOException    */
 specifier|public
 name|long
 name|openScanner

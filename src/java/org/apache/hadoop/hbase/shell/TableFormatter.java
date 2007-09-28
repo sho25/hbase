@@ -17,78 +17,45 @@ name|shell
 package|;
 end_package
 
-begin_import
-import|import
-name|junit
-operator|.
-name|framework
-operator|.
-name|TestCase
-import|;
-end_import
-
-begin_import
-import|import
-name|junit
-operator|.
-name|framework
-operator|.
-name|TestSuite
-import|;
-end_import
-
-begin_import
-import|import
-name|junit
-operator|.
-name|textui
-operator|.
-name|TestRunner
-import|;
-end_import
-
 begin_comment
-comment|/**  * Test the console table class  */
+comment|/**  * Interface implemented by table formatters outputting select results.  */
 end_comment
 
-begin_class
+begin_interface
 specifier|public
-class|class
-name|TestConsoleTable
-extends|extends
-name|TestCase
+interface|interface
+name|TableFormatter
 block|{
+comment|/**    * Output header.    * @param titles Titles to emit.    */
 specifier|public
 name|void
-name|testPrintTable
-parameter_list|()
-block|{        }
-specifier|public
-specifier|static
-name|void
-name|main
+name|header
 parameter_list|(
+specifier|final
 name|String
 index|[]
-name|args
+name|titles
 parameter_list|)
-block|{
-name|TestRunner
-operator|.
-name|run
-argument_list|(
-operator|new
-name|TestSuite
-argument_list|(
-name|TestConsoleTable
-operator|.
-name|class
-argument_list|)
-argument_list|)
-expr_stmt|;
+function_decl|;
+comment|/**    * Output footer.    */
+specifier|public
+name|void
+name|footer
+parameter_list|()
+function_decl|;
+comment|/**    * Output a row.    * @param cells    */
+specifier|public
+name|void
+name|row
+parameter_list|(
+specifier|final
+name|String
+index|[]
+name|cells
+parameter_list|)
+function_decl|;
 block|}
-block|}
-end_class
+end_interface
 
 end_unit
 

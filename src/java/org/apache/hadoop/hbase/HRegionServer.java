@@ -5130,7 +5130,6 @@ block|}
 comment|//
 comment|// remote scanner interface
 comment|//
-comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|openScanner

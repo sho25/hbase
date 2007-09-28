@@ -81,6 +81,20 @@ extends|extends
 name|BasicCommand
 block|{
 specifier|private
+specifier|static
+specifier|final
+name|String
+index|[]
+name|HEADER
+init|=
+operator|new
+name|String
+index|[]
+block|{
+literal|"Table Name"
+block|}
+decl_stmt|;
+specifier|private
 name|String
 name|command
 decl_stmt|;
@@ -100,15 +114,17 @@ name|command
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 operator|new
 name|ReturnMsg
 argument_list|(
 literal|0
 argument_list|,
-literal|"Syntax error : Please check 'Show' syntax."
+literal|"Syntax error : Please check 'Show' syntax"
 argument_list|)
 return|;
+block|}
 try|try
 block|{
 name|HBaseAdmin
@@ -165,15 +181,23 @@ name|ReturnMsg
 argument_list|(
 literal|0
 argument_list|,
-literal|"Table not found."
+literal|"Table not found"
 argument_list|)
 return|;
 block|}
-name|ConsoleTable
+name|TableFormatter
+name|formatter
+init|=
+name|TableFormatterFactory
 operator|.
-name|printHead
+name|get
+argument_list|()
+decl_stmt|;
+name|formatter
+operator|.
+name|header
 argument_list|(
-literal|"Table Name"
+name|HEADER
 argument_list|)
 expr_stmt|;
 for|for
@@ -205,19 +229,22 @@ operator|.
 name|toString
 argument_list|()
 decl_stmt|;
-name|ConsoleTable
+name|formatter
 operator|.
-name|printTable
+name|row
 argument_list|(
-name|i
-argument_list|,
+operator|new
+name|String
+index|[]
+block|{
 name|tableName
+block|}
 argument_list|)
 expr_stmt|;
 block|}
-name|ConsoleTable
+name|formatter
 operator|.
-name|printFoot
+name|footer
 argument_list|()
 expr_stmt|;
 return|return
@@ -228,7 +255,7 @@ literal|1
 argument_list|,
 name|tableLength
 operator|+
-literal|" table(s) found."
+literal|" table(s) in set"
 argument_list|)
 return|;
 block|}
@@ -238,7 +265,7 @@ name|ReturnMsg
 argument_list|(
 literal|0
 argument_list|,
-literal|"Missing parameters. Please check 'Show' syntax."
+literal|"Missing parameters. Please check 'Show' syntax"
 argument_list|)
 return|;
 block|}

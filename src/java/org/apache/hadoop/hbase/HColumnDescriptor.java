@@ -537,7 +537,6 @@ operator|.
 name|bloomFilter
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

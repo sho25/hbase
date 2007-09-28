@@ -1379,7 +1379,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**     * Get all the data for the specified row    *     * @param row         - row key    * @return            - map of colums to values    * @throws IOException    */
+comment|/**     * Get all the data for the specified row    *     * @param row row key    * @return map of colums to values    * @throws IOException    */
 specifier|public
 name|SortedMap
 argument_list|<
@@ -1644,7 +1644,7 @@ return|return
 name|results
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns array of columns to return    * @param startRow starting row in table to scan    * @return scanner    * @throws IOException    */
+comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @return scanner    * @throws IOException    */
 specifier|public
 name|HScannerInterface
 name|obtainScanner
@@ -1675,7 +1675,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns array of columns to return    * @param startRow starting row in table to scan    * @param timestamp only return results whose timestamp<= this value    * @return scanner    * @throws IOException    */
+comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param timestamp only return results whose timestamp<= this value    * @return scanner    * @throws IOException    */
 specifier|public
 name|HScannerInterface
 name|obtainScanner
@@ -1706,7 +1706,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns array of columns to return    * @param startRow starting row in table to scan    * @param filter a row filter using row-key regexp and/or column data filter.    * @return scanner    * @throws IOException    */
+comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param filter a row filter using row-key regexp and/or column data filter.    * @return scanner    * @throws IOException    */
 specifier|public
 name|HScannerInterface
 name|obtainScanner
@@ -1740,7 +1740,7 @@ name|filter
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns array of columns to return    * @param startRow starting row in table to scan    * @param timestamp only return results whose timestamp<= this value    * @param filter a row filter using row-key regexp and/or column data filter.    * @return scanner    * @throws IOException    */
+comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param timestamp only return results whose timestamp<= this value    * @param filter a row filter using row-key regexp and/or column data filter.    * @return scanner    * @throws IOException    */
 specifier|public
 name|HScannerInterface
 name|obtainScanner

@@ -193,7 +193,7 @@ block|,
 comment|/** Literal matching */
 name|SIMPLE
 block|}
-comment|/**    * This class provides column matching functions that are more sophisticated    * than a simple string compare. There are three types of matching:    * 1. Match on the column family name only    * 2. Match on the column family + column key regex    * 3. Simple match: compare column family + column key literally    */
+comment|/**    * This class provides column matching functions that are more sophisticated    * than a simple string compare. There are three types of matching:    *<ol>    *<li>Match on the column family name only</li>    *<li>Match on the column family + column key regex</li>    *<li>Simple match: compare column family + column key literally</li>    *</ul>    */
 specifier|private
 specifier|static
 class|class

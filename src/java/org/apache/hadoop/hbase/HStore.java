@@ -6359,15 +6359,6 @@ name|Exception
 name|ex
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Failed construction"
-argument_list|,
-name|ex
-argument_list|)
-expr_stmt|;
 name|close
 argument_list|()
 expr_stmt|;
