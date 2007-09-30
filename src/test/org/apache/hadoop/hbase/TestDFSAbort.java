@@ -70,50 +70,6 @@ name|TestDFSAbort
 extends|extends
 name|HBaseClusterTestCase
 block|{
-comment|/** constructor */
-specifier|public
-name|TestDFSAbort
-parameter_list|()
-block|{
-name|super
-argument_list|()
-expr_stmt|;
-name|Logger
-operator|.
-name|getRootLogger
-argument_list|()
-operator|.
-name|setLevel
-argument_list|(
-name|Level
-operator|.
-name|WARN
-argument_list|)
-expr_stmt|;
-name|Logger
-operator|.
-name|getLogger
-argument_list|(
-name|this
-operator|.
-name|getClass
-argument_list|()
-operator|.
-name|getPackage
-argument_list|()
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-operator|.
-name|setLevel
-argument_list|(
-name|Level
-operator|.
-name|DEBUG
-argument_list|)
-expr_stmt|;
-block|}
 comment|/** {@inheritDoc} */
 annotation|@
 name|Override
@@ -123,6 +79,8 @@ name|setUp
 parameter_list|()
 throws|throws
 name|Exception
+block|{
+try|try
 block|{
 name|super
 operator|.
@@ -169,6 +127,22 @@ name|desc
 argument_list|)
 expr_stmt|;
 block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|e
+operator|.
+name|printStackTrace
+argument_list|()
+expr_stmt|;
+throw|throw
+name|e
+throw|;
+block|}
+block|}
 comment|/**    * @throws Exception    */
 specifier|public
 name|void
@@ -176,6 +150,8 @@ name|testDFSAbort
 parameter_list|()
 throws|throws
 name|Exception
+block|{
+try|try
 block|{
 comment|// By now the Mini DFS is running, Mini HBase is running and we have
 comment|// created a table. Now let's yank the rug out from HBase
@@ -193,6 +169,22 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|e
+operator|.
+name|printStackTrace
+argument_list|()
+expr_stmt|;
+throw|throw
+name|e
+throw|;
+block|}
 block|}
 comment|/**    * @param args unused    */
 specifier|public

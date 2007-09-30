@@ -801,6 +801,7 @@ name|stop
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|closing
@@ -872,6 +873,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|closed
@@ -2262,6 +2264,8 @@ comment|// We the MSG_CALL_SERVER_STARTUP on startup but we can also
 comment|// get it when the master is panicing because for instance
 comment|// the HDFS has been yanked out from under it.  Be wary of
 comment|// this message.
+try|try
+block|{
 if|if
 condition|(
 name|checkFileSystem
@@ -2272,6 +2276,46 @@ name|closeAllRegions
 argument_list|()
 expr_stmt|;
 name|restart
+operator|=
+literal|true
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"file system available check failed. "
+operator|+
+literal|"Shutting down server."
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|stopRequested
+operator|.
+name|set
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|fsOk
+operator|=
+literal|false
+expr_stmt|;
+name|this
+operator|.
+name|abortRequested
 operator|=
 literal|true
 expr_stmt|;
@@ -4413,6 +4457,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|requestCount
 operator|.
 name|incrementAndGet
@@ -4474,6 +4521,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|requestCount
 operator|.
 name|incrementAndGet
@@ -4541,6 +4591,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|requestCount
 operator|.
 name|incrementAndGet
@@ -4596,6 +4649,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|requestCount
 operator|.
 name|incrementAndGet
@@ -4709,6 +4765,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|requestCount
 operator|.
 name|incrementAndGet
@@ -4916,6 +4975,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|requestCount
 operator|.
 name|incrementAndGet
@@ -5130,6 +5192,7 @@ block|}
 comment|//
 comment|// remote scanner interface
 comment|//
+comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|openScanner
@@ -5155,6 +5218,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|requestCount
 operator|.
 name|incrementAndGet
@@ -5253,7 +5319,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Opening scanner (fsOk: "
+literal|"Error opening scanner (fsOk: "
 operator|+
 name|this
 operator|.
@@ -5289,6 +5355,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|requestCount
 operator|.
 name|incrementAndGet
@@ -5836,6 +5905,47 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Called to verify that this server is up and running.    *     * @throws IOException    */
+specifier|private
+name|void
+name|checkOpen
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|stopRequested
+operator|.
+name|get
+argument_list|()
+operator|||
+name|abortRequested
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Server not running"
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
+operator|!
+name|fsOk
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"File system not available"
+argument_list|)
+throw|;
+block|}
+block|}
 comment|/**    * Checks to see if the file system is still accessible.    * If not, sets abortRequested and stopRequested    *     * @return false if file system is not available    */
 specifier|protected
 name|boolean
@@ -5867,23 +5977,6 @@ operator|.
 name|conf
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Failed get of filesystem"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 if|if
 condition|(
 name|fs
@@ -5896,11 +5989,52 @@ operator|.
 name|isFileSystemAvailable
 argument_list|(
 name|fs
-argument_list|,
-name|stopRequested
 argument_list|)
 condition|)
 block|{
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"Shutting down HRegionServer: file system not available"
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|abortRequested
+operator|=
+literal|true
+expr_stmt|;
+name|this
+operator|.
+name|stopRequested
+operator|.
+name|set
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|fsOk
+operator|=
+literal|false
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Failed get of filesystem"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|fatal
@@ -6040,6 +6174,7 @@ return|return
 name|regionsToCheck
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|getProtocolVersion

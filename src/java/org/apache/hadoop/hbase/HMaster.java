@@ -2436,6 +2436,7 @@ block|{
 comment|// We ran out of tries. Make sure the file system is still available
 if|if
 condition|(
+operator|!
 name|checkFileSystem
 argument_list|()
 condition|)
@@ -2958,6 +2959,7 @@ comment|// We ran out of tries. Make sure the file system is still
 comment|// available
 if|if
 condition|(
+operator|!
 name|checkFileSystem
 argument_list|()
 condition|)
@@ -4094,8 +4096,6 @@ operator|.
 name|isFileSystemAvailable
 argument_list|(
 name|fs
-argument_list|,
-name|closed
 argument_list|)
 condition|)
 block|{

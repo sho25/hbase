@@ -144,8 +144,6 @@ name|HREGIONDIR_PREFIX
 init|=
 literal|"hregion_"
 decl_stmt|;
-comment|// TODO: Someone may try to name a column family 'log'.  If they
-comment|// do, it will clash with the HREGION log dir subdirectory. FIX.
 comment|/** Used to construct the name of the log directory for a region server */
 specifier|static
 specifier|final

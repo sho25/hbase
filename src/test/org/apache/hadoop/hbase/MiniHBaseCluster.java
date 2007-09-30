@@ -124,7 +124,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class creates a single process HBase cluster for junit testing.  * One thread is created for each server.  *   *<p>TestCases do not need to subclass to start a HBaseCluster.  Call  * {@link #startMaster(Configuration)} and  * {@link #startRegionServers(Configuration, int)} to startup master and  * region servers.  Save off the returned values and pass them to  * {@link #shutdown(org.apache.hadoop.hbase.MiniHBaseCluster.MasterThread, List)}  * to shut it all down when done.  *   */
+comment|/**  * This class creates a single process HBase cluster for junit testing.  * One thread is created for each server.  *  *<p>TestCases do not need to subclass to start a HBaseCluster.  Call  * {@link #startMaster(Configuration)} and  * {@link #startRegionServers(Configuration, int)} to startup master and  * region servers.  Save off the returned values and pass them to  * {@link #shutdown(org.apache.hadoop.hbase.MiniHBaseCluster.MasterThread, List)}  * to shut it all down when done.  *  */
 end_comment
 
 begin_class
@@ -164,6 +164,10 @@ name|FileSystem
 name|fs
 decl_stmt|;
 specifier|private
+name|boolean
+name|shutdownDFS
+decl_stmt|;
+specifier|private
 name|Path
 name|parentdir
 decl_stmt|;
@@ -192,7 +196,7 @@ name|deleteOnExit
 init|=
 literal|true
 decl_stmt|;
-comment|/**    * Starts a MiniHBaseCluster on top of a new MiniDFSCluster    *     * @param conf    * @param nRegionNodes    * @throws IOException     */
+comment|/**    * Starts a MiniHBaseCluster on top of a new MiniDFSCluster    *    * @param conf    * @param nRegionNodes    * @throws IOException    */
 specifier|public
 name|MiniHBaseCluster
 parameter_list|(
@@ -219,7 +223,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Start a MiniHBaseCluster. Use the native file system unless    * miniHdfsFilesystem is set to true.    *     * @param conf    * @param nRegionNodes    * @param miniHdfsFilesystem    * @throws IOException    */
+comment|/**    * Start a MiniHBaseCluster. Use the native file system unless    * miniHdfsFilesystem is set to true.    *    * @param conf    * @param nRegionNodes    * @param miniHdfsFilesystem    * @throws IOException    */
 specifier|public
 name|MiniHBaseCluster
 parameter_list|(
@@ -250,7 +254,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Starts a MiniHBaseCluster on top of an existing HDFSCluster    *     * Note that if you use this constructor, you should shut down the mini dfs    * cluster in your test case.    *     * @param conf    * @param nRegionNodes    * @param dfsCluster    * @throws IOException     */
+comment|/**    * Starts a MiniHBaseCluster on top of an existing HDFSCluster    *    ****************************************************************************    *            *  *  *  *  *  N O T E  *  *  *  *  *    *    * If you use this constructor, you should shut down the mini dfs cluster    * in your test case.    *    *            *  *  *  *  *  N O T E  *  *  *  *  *    ****************************************************************************    *    * @param conf    * @param nRegionNodes    * @param dfsCluster    * @throws IOException    */
 specifier|public
 name|MiniHBaseCluster
 parameter_list|(
@@ -287,13 +291,19 @@ name|cluster
 operator|=
 name|dfsCluster
 expr_stmt|;
+name|this
+operator|.
+name|shutdownDFS
+operator|=
+literal|false
+expr_stmt|;
 name|init
 argument_list|(
 name|nRegionNodes
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor.    * @param conf    * @param nRegionNodes    * @param miniHdfsFilesystem If true, set the hbase mini    * cluster atop a mini hdfs cluster.  Otherwise, use the    * filesystem configured in<code>conf</code>.    * @param format the mini hdfs cluster    * @param deleteOnExit clean up mini hdfs files    * @throws IOException     */
+comment|/**    * Constructor.    * @param conf    * @param nRegionNodes    * @param miniHdfsFilesystem If true, set the hbase mini    * cluster atop a mini hdfs cluster.  Otherwise, use the    * filesystem configured in<code>conf</code>.    * @param format the mini hdfs cluster    * @param deleteOnExit clean up mini hdfs files    * @throws IOException    */
 specifier|public
 name|MiniHBaseCluster
 parameter_list|(
@@ -327,6 +337,12 @@ operator|.
 name|deleteOnExit
 operator|=
 name|deleteOnExit
+expr_stmt|;
+name|this
+operator|.
+name|shutdownDFS
+operator|=
+literal|false
 expr_stmt|;
 if|if
 condition|(
@@ -363,6 +379,12 @@ name|cluster
 operator|.
 name|getFileSystem
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|shutdownDFS
+operator|=
+literal|true
 expr_stmt|;
 block|}
 else|else
@@ -793,7 +815,7 @@ return|return
 name|threads
 return|;
 block|}
-comment|/**    * Starts a region server thread running    *     * @throws IOException    * @return Name of regionserver started.    */
+comment|/**    * Starts a region server thread running    *    * @throws IOException    * @return Name of regionserver started.    */
 specifier|public
 name|String
 name|startRegionServer
@@ -900,7 +922,7 @@ return|return
 name|t
 return|;
 block|}
-comment|/**    * Get the cluster on which this HBase cluster is running    *     * @return MiniDFSCluster    */
+comment|/**    * Get the cluster on which this HBase cluster is running    *    * @return MiniDFSCluster    */
 specifier|public
 name|MiniDFSCluster
 name|getDFSCluster
@@ -910,7 +932,7 @@ return|return
 name|cluster
 return|;
 block|}
-comment|/**     * @return Returns the rpc address actually used by the master server, because    * the supplied port is not necessarily the actual port used.    */
+comment|/**    * @return Returns the rpc address actually used by the master server, because    * the supplied port is not necessarily the actual port used.    */
 specifier|public
 name|HServerAddress
 name|getHMasterAddress
@@ -928,7 +950,7 @@ name|getMasterAddress
 argument_list|()
 return|;
 block|}
-comment|/**    * Cause a region server to exit without cleaning up    *     * @param serverNumber    */
+comment|/**    * Cause a region server to exit without cleaning up    *    * @param serverNumber    */
 specifier|public
 name|void
 name|abortRegionServer
@@ -972,7 +994,7 @@ name|abort
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Shut down the specified region server cleanly    *     * @param serverNumber    * @return the region server that was stopped    */
+comment|/**    * Shut down the specified region server cleanly    *    * @param serverNumber    * @return the region server that was stopped    */
 specifier|public
 name|HRegionServer
 name|stopRegionServer
@@ -1306,6 +1328,7 @@ literal|" region server(s)"
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Shut down the mini HBase cluster    */
 specifier|public
 name|void
 name|shutdown
@@ -1328,6 +1351,8 @@ try|try
 block|{
 if|if
 condition|(
+name|shutdownDFS
+operator|&&
 name|cluster
 operator|!=
 literal|null
