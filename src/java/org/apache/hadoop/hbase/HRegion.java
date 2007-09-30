@@ -1038,6 +1038,11 @@ specifier|final
 name|long
 name|threadWakeFrequency
 decl_stmt|;
+specifier|protected
+specifier|final
+name|int
+name|optionalFlushCount
+decl_stmt|;
 specifier|private
 specifier|final
 name|HLocking
@@ -1135,6 +1140,19 @@ argument_list|,
 literal|10
 operator|*
 literal|1000
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|optionalFlushCount
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.hregion.memcache.optionalflushcount"
+argument_list|,
+literal|10
 argument_list|)
 expr_stmt|;
 comment|// Declare the regionName.  This is a unique string for the region, used to
@@ -3116,12 +3134,17 @@ name|getSize
 argument_list|()
 operator|>
 literal|0
-operator|&&
+condition|)
+block|{
+if|if
+condition|(
 name|this
 operator|.
 name|noFlushCount
 operator|>=
-literal|10
+name|this
+operator|.
+name|optionalFlushCount
 condition|)
 block|{
 name|LOG
@@ -3142,17 +3165,8 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|memcache
-operator|.
-name|getSize
-argument_list|()
-operator|>
-literal|0
-condition|)
+block|}
+else|else
 block|{
 comment|// Only increment if something in the cache.
 comment|// Gets zero'd when a flushcache is called.
@@ -3448,6 +3462,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+try|try
+block|{
 comment|// A.  Flush memcache to all the HStores.
 comment|// Keep running vector of all store files that includes both old and the
 comment|// just-made new flush store file.
@@ -3476,32 +3492,6 @@ name|sequenceId
 argument_list|)
 expr_stmt|;
 block|}
-comment|// B.  Write a FLUSHCACHE-COMPLETE message to the log.
-comment|//     This tells future readers that the HStores were emitted correctly,
-comment|//     and that all updates to the log for this regionName that have lower
-comment|//     log-sequence-ids can be safely ignored.
-name|this
-operator|.
-name|log
-operator|.
-name|completeCacheFlush
-argument_list|(
-name|this
-operator|.
-name|regionInfo
-operator|.
-name|regionName
-argument_list|,
-name|regionInfo
-operator|.
-name|tableDesc
-operator|.
-name|getName
-argument_list|()
-argument_list|,
-name|logCacheFlushId
-argument_list|)
-expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -3529,6 +3519,35 @@ name|getMessage
 argument_list|()
 argument_list|)
 throw|;
+block|}
+comment|// If we get to here, the HStores have been written. If we get an
+comment|// error in completeCacheFlush it will release the lock it is holding
+comment|// B.  Write a FLUSHCACHE-COMPLETE message to the log.
+comment|//     This tells future readers that the HStores were emitted correctly,
+comment|//     and that all updates to the log for this regionName that have lower
+comment|//     log-sequence-ids can be safely ignored.
+name|this
+operator|.
+name|log
+operator|.
+name|completeCacheFlush
+argument_list|(
+name|this
+operator|.
+name|regionInfo
+operator|.
+name|regionName
+argument_list|,
+name|regionInfo
+operator|.
+name|tableDesc
+operator|.
+name|getName
+argument_list|()
+argument_list|,
+name|logCacheFlushId
+argument_list|)
+expr_stmt|;
 block|}
 finally|finally
 block|{
