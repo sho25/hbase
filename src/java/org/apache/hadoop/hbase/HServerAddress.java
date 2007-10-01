@@ -132,7 +132,7 @@ name|colonIndex
 init|=
 name|hostAndPort
 operator|.
-name|indexOf
+name|lastIndexOf
 argument_list|(
 literal|':'
 argument_list|)
