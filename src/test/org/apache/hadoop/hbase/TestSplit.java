@@ -817,13 +817,15 @@ name|interval
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test that a region is cleaned up after its daughter splits release all    * references.    * @throws IOException    */
+comment|/**    * Test that a region is cleaned up after its daughter splits release all    * references.    * @throws Exception    */
 specifier|public
 name|void
 name|testSplitRegionIsDeleted
 parameter_list|()
 throws|throws
-name|IOException
+name|Exception
+block|{
+try|try
 block|{
 comment|// Start up a hbase cluster
 name|MiniHBaseCluster
@@ -892,6 +894,26 @@ operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"test failed"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+throw|throw
+name|e
+throw|;
 block|}
 block|}
 specifier|private

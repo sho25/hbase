@@ -701,6 +701,11 @@ specifier|final
 name|int
 name|msgInterval
 decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|serverLeaseTimeout
+decl_stmt|;
 comment|// Remote HMaster
 specifier|private
 specifier|final
@@ -1830,6 +1835,21 @@ operator|*
 literal|1000
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|serverLeaseTimeout
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.master.lease.period"
+argument_list|,
+literal|30
+operator|*
+literal|1000
+argument_list|)
+expr_stmt|;
 comment|// Cache flushing chore thread.
 name|this
 operator|.
@@ -2061,6 +2081,11 @@ name|reportForDuty
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|long
+name|lastMsg
+init|=
+literal|0
+decl_stmt|;
 while|while
 condition|(
 operator|!
@@ -2070,11 +2095,6 @@ name|get
 argument_list|()
 condition|)
 block|{
-name|long
-name|lastMsg
-init|=
-literal|0
-decl_stmt|;
 comment|// Now ask master what it wants us to do and tell it what we have done
 for|for
 control|(
@@ -2091,13 +2111,55 @@ argument_list|()
 condition|;
 control|)
 block|{
-if|if
-condition|(
-operator|(
+name|long
+name|now
+init|=
 name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|lastMsg
+operator|!=
+literal|0
+operator|&&
+operator|(
+name|now
+operator|-
+name|lastMsg
+operator|)
+operator|>=
+name|serverLeaseTimeout
+condition|)
+block|{
+comment|// It has been way too long since we last reported to the master.
+comment|// Commit suicide.
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"unable to report to master for "
+operator|+
+operator|(
+name|now
+operator|-
+name|lastMsg
+operator|)
+operator|+
+literal|" milliseconds - aborting server"
+argument_list|)
+expr_stmt|;
+name|abort
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+if|if
+condition|(
+operator|(
+name|now
 operator|-
 name|lastMsg
 operator|)
@@ -2495,7 +2557,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|// while (!stopRequested.get())
 name|this
 operator|.
 name|sleeper
@@ -2506,6 +2567,7 @@ name|lastMsg
 argument_list|)
 expr_stmt|;
 block|}
+comment|// while (!stopRequested.get())
 block|}
 block|}
 catch|catch
@@ -3482,6 +3544,11 @@ name|result
 init|=
 literal|null
 decl_stmt|;
+name|long
+name|lastMsg
+init|=
+literal|0
+decl_stmt|;
 while|while
 condition|(
 operator|!
@@ -3491,11 +3558,6 @@ name|get
 argument_list|()
 condition|)
 block|{
-name|long
-name|lastMsg
-init|=
-literal|0
-decl_stmt|;
 try|try
 block|{
 name|this
@@ -3535,6 +3597,13 @@ name|regionServerStartup
 argument_list|(
 name|serverInfo
 argument_list|)
+expr_stmt|;
+name|lastMsg
+operator|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 expr_stmt|;
 if|if
 condition|(
