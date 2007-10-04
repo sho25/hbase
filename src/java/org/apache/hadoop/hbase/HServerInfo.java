@@ -212,6 +212,22 @@ return|return
 name|startCode
 return|;
 block|}
+comment|/**    * @param startCode the startCode to set    */
+specifier|public
+name|void
+name|setStartCode
+parameter_list|(
+name|long
+name|startCode
+parameter_list|)
+block|{
+name|this
+operator|.
+name|startCode
+operator|=
+name|startCode
+expr_stmt|;
+block|}
 comment|/** {@inheritDoc} */
 annotation|@
 name|Override

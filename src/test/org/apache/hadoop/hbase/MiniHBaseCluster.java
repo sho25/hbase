@@ -254,7 +254,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Starts a MiniHBaseCluster on top of an existing HDFSCluster    *    ****************************************************************************    *            *  *  *  *  *  N O T E  *  *  *  *  *    *    * If you use this constructor, you should shut down the mini dfs cluster    * in your test case.    *    *            *  *  *  *  *  N O T E  *  *  *  *  *    ****************************************************************************    *    * @param conf    * @param nRegionNodes    * @param dfsCluster    * @throws IOException    */
+comment|/**    * Starts a MiniHBaseCluster on top of an existing HDFSCluster    *    *<pre>    ****************************************************************************    *            *  *  *  *  *  N O T E  *  *  *  *  *    *    * If you use this constructor, you should shut down the mini dfs cluster    * in your test case.    *    *            *  *  *  *  *  N O T E  *  *  *  *  *    ****************************************************************************    *</pre>    *    * @param conf    * @param nRegionNodes    * @param dfsCluster    * @throws IOException    */
 specifier|public
 name|MiniHBaseCluster
 parameter_list|(
@@ -948,6 +948,18 @@ argument_list|()
 operator|.
 name|getMasterAddress
 argument_list|()
+return|;
+block|}
+comment|/**    * @return the thread running the HMaster    */
+specifier|public
+name|MasterThread
+name|getMasterThread
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|masterThread
 return|;
 block|}
 comment|/**    * Cause a region server to exit without cleaning up    *    * @param serverNumber    */

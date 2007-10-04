@@ -4535,33 +4535,6 @@ name|iex
 argument_list|)
 expr_stmt|;
 block|}
-try|try
-block|{
-comment|// TODO: Maybe do in parallel in its own thread as is done in TaskTracker
-comment|// if its taking a long time to go down.
-name|server
-operator|.
-name|join
-argument_list|()
-expr_stmt|;
-comment|// Wait for server to finish.
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|iex
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"server"
-argument_list|,
-name|iex
-argument_list|)
-expr_stmt|;
-block|}
 name|LOG
 operator|.
 name|info

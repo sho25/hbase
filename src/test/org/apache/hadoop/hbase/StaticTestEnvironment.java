@@ -402,6 +402,7 @@ operator|.
 name|WARN
 expr_stmt|;
 block|}
+block|}
 name|ConsoleAppender
 name|consoleAppender
 init|=
@@ -489,7 +490,6 @@ argument_list|(
 literal|"%d %-5p [%t] %l: %m%n"
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 name|Logger

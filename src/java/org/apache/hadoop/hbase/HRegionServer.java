@@ -3462,25 +3462,6 @@ operator|.
 name|splitOrCompactCheckerThread
 argument_list|)
 expr_stmt|;
-try|try
-block|{
-name|this
-operator|.
-name|server
-operator|.
-name|join
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-comment|// No means of asking server if its done... .so just assume it is even
-comment|// if an interrupt.
-block|}
 block|}
 specifier|private
 name|void

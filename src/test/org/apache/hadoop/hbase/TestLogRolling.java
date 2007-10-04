@@ -263,6 +263,21 @@ operator|*
 literal|1000
 argument_list|)
 expr_stmt|;
+comment|// Reduce thread wake frequency so that other threads can get
+comment|// a chance to run.
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|THREAD_WAKE_FREQUENCY
+argument_list|,
+literal|2
+operator|*
+literal|1000
+argument_list|)
+expr_stmt|;
 name|String
 name|className
 init|=
