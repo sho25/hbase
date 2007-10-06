@@ -45,14 +45,37 @@ name|FAMILY_INDICATOR
 init|=
 literal|":"
 decl_stmt|;
+specifier|public
+enum|enum
+name|CommandType
+block|{
+name|DDL
+block|,
+name|UPDATE
+block|,
+name|SELECT
+block|,
+name|INSERT
+block|,
+name|DELETE
+block|,
+name|SHELL
+block|}
 comment|/** Execute a command    * @param conf Configuration    * @return Result of command execution    */
 specifier|public
 name|ReturnMsg
 name|execute
 parameter_list|(
+specifier|final
 name|Configuration
 name|conf
 parameter_list|)
+function_decl|;
+comment|/**    * @return Type of this command whether DDL, SELECT, INSERT, UPDATE, DELETE,    * or SHELL.    */
+specifier|public
+name|CommandType
+name|getCommandType
+parameter_list|()
 function_decl|;
 block|}
 end_interface

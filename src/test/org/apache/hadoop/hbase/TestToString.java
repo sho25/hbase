@@ -95,6 +95,8 @@ name|address
 argument_list|,
 operator|-
 literal|1
+argument_list|,
+literal|60030
 argument_list|)
 decl_stmt|;
 name|assertEquals

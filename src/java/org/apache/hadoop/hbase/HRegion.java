@@ -1491,6 +1491,7 @@ name|maxSequenceId
 return|;
 block|}
 comment|/** Returns a HRegionInfo object for this region */
+specifier|public
 name|HRegionInfo
 name|getRegionInfo
 parameter_list|()

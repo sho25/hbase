@@ -17,8 +17,46 @@ name|shell
 package|;
 end_package
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|Writer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shell
+operator|.
+name|formatter
+operator|.
+name|AsciiTableFormatter
+import|;
+end_import
+
 begin_comment
-comment|/**  * Interface implemented by table formatters outputting select results.  */
+comment|/**  * Interface implemented by table formatters outputting select results.  * Implementations must have a constructor that takes a Writer.  * @see AsciiTableFormatter  */
 end_comment
 
 begin_interface
@@ -26,7 +64,7 @@ specifier|public
 interface|interface
 name|TableFormatter
 block|{
-comment|/**    * Output header.    * @param titles Titles to emit.    */
+comment|/**    * Output header.    * @param titles Titles to emit.    * @throws IOException    */
 specifier|public
 name|void
 name|header
@@ -36,14 +74,18 @@ name|String
 index|[]
 name|titles
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Output footer.    */
+comment|/**    * Output footer.    * @throws IOException    */
 specifier|public
 name|void
 name|footer
 parameter_list|()
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Output a row.    * @param cells    */
+comment|/**    * Output a row.    * @param cells    * @throws IOException    */
 specifier|public
 name|void
 name|row
@@ -53,6 +95,14 @@ name|String
 index|[]
 name|cells
 parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * @return Output stream being used (This is in interface to enforce fact    * that formatters use Writers -- that they operate on character streams    * rather than on byte streams).    */
+specifier|public
+name|Writer
+name|getOut
+parameter_list|()
 function_decl|;
 block|}
 end_interface

@@ -73,6 +73,13 @@ name|DEFAULT_HOST
 operator|+
 literal|":60000"
 decl_stmt|;
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_MASTER_INFOPORT
+init|=
+literal|60010
+decl_stmt|;
 comment|/** Parameter name for hbase.regionserver address. */
 specifier|static
 specifier|final
@@ -89,7 +96,14 @@ name|DEFAULT_REGIONSERVER_ADDRESS
 init|=
 name|DEFAULT_HOST
 operator|+
-literal|":60010"
+literal|":60020"
+decl_stmt|;
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_REGIONSERVER_INFOPORT
+init|=
+literal|60030
 decl_stmt|;
 comment|/** Parameter name for what region server interface to use. */
 specifier|static

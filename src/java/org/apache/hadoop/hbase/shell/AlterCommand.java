@@ -31,6 +31,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|Writer
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|HashMap
@@ -182,6 +192,19 @@ name|column
 decl_stmt|;
 comment|// column to be dropped
 specifier|public
+name|AlterCommand
+parameter_list|(
+name|Writer
+name|o
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|o
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
 name|ReturnMsg
 name|execute
 parameter_list|(
@@ -257,10 +280,6 @@ name|c
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|out
-operator|.
 name|println
 argument_list|(
 literal|"Adding "
@@ -306,10 +325,6 @@ argument_list|,
 name|table
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|out
-operator|.
 name|println
 argument_list|(
 literal|"Dropping "
@@ -428,10 +443,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|System
-operator|.
-name|out
-operator|.
 name|println
 argument_list|(
 literal|"Disabling "
@@ -466,10 +477,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|System
-operator|.
-name|out
-operator|.
 name|println
 argument_list|(
 literal|"Enabling "
@@ -565,6 +572,19 @@ name|operationType
 operator|=
 name|operationType
 expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|CommandType
+name|getCommandType
+parameter_list|()
+block|{
+return|return
+name|CommandType
+operator|.
+name|DDL
+return|;
 block|}
 block|}
 end_class

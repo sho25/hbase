@@ -275,6 +275,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" "
+operator|+
 name|Integer
 operator|.
 name|toString
@@ -329,7 +339,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"closing leases"
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" closing leases"
 argument_list|)
 expr_stmt|;
 name|this
@@ -392,7 +410,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"leases closed"
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" closed leases"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1189,7 +1215,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Lease expired "
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" lease expired "
 operator|+
 name|getLeaseName
 argument_list|()

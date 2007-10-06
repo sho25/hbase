@@ -245,7 +245,7 @@ block|}
 comment|/** {@inheritDoc} */
 annotation|@
 name|Override
-specifier|public
+specifier|protected
 name|void
 name|setUp
 parameter_list|()
@@ -302,7 +302,7 @@ block|}
 comment|/** {@inheritDoc} */
 annotation|@
 name|Override
-specifier|public
+specifier|protected
 name|void
 name|tearDown
 parameter_list|()

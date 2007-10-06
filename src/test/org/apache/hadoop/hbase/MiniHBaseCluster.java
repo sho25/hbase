@@ -254,7 +254,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Starts a MiniHBaseCluster on top of an existing HDFSCluster    *    *<pre>    ****************************************************************************    *            *  *  *  *  *  N O T E  *  *  *  *  *    *    * If you use this constructor, you should shut down the mini dfs cluster    * in your test case.    *    *            *  *  *  *  *  N O T E  *  *  *  *  *    ****************************************************************************    *</pre>    *    * @param conf    * @param nRegionNodes    * @param dfsCluster    * @throws IOException    */
+comment|/**    * Starts a MiniHBaseCluster on top of an existing HDFSCluster    *<pre>    ****************************************************************************    *            *  *  *  *  *  N O T E  *  *  *  *  *    *    * If you use this constructor, you should shut down the mini dfs cluster    * in your test case.    *    *            *  *  *  *  *  N O T E  *  *  *  *  *    ****************************************************************************    *</pre>    *    * @param conf    * @param nRegionNodes    * @param dfsCluster    * @throws IOException    */
 specifier|public
 name|MiniHBaseCluster
 parameter_list|(
@@ -611,7 +611,6 @@ operator|=
 name|r
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1558,6 +1557,20 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+specifier|public
+name|ArrayList
+argument_list|<
+name|RegionServerThread
+argument_list|>
+name|getRegionThreads
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|regionThreads
+return|;
 block|}
 block|}
 end_class
