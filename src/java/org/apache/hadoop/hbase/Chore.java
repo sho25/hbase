@@ -73,22 +73,6 @@ name|Sleeper
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Threads
-import|;
-end_import
-
 begin_comment
 comment|/**  * Chore is a task performed on a period in hbase.  The chore is run in its own  * thread. This base abstract class provides while loop and sleeping facility.  * If an unhandled exception, the threads exit is logged.  * Implementers just need to add checking if there is work to be done and if  * so, do it.  Its the base of most of the chore threads in hbase.  */
 end_comment

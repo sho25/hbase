@@ -926,16 +926,6 @@ literal|" scanning meta region "
 operator|+
 name|region
 operator|.
-name|getRegionName
-argument_list|()
-operator|+
-literal|" on "
-operator|+
-name|region
-operator|.
-name|getServer
-argument_list|()
-operator|.
 name|toString
 argument_list|()
 argument_list|)
@@ -1249,6 +1239,8 @@ expr_stmt|;
 block|}
 if|if
 condition|(
+name|this
+operator|.
 name|rootRegion
 condition|)
 block|{
@@ -1433,7 +1425,7 @@ literal|" scan of meta region "
 operator|+
 name|region
 operator|.
-name|getRegionName
+name|toString
 argument_list|()
 operator|+
 literal|" complete"
@@ -2128,6 +2120,28 @@ block|}
 block|}
 if|if
 condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Checking "
+operator|+
+name|info
+operator|.
+name|regionName
+operator|+
+literal|" is assigned"
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
 operator|!
 operator|(
 name|unassignedRegions
@@ -2164,6 +2178,28 @@ operator|)
 condition|)
 block|{
 comment|// The current assignment is no good
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Current assignment of "
+operator|+
+name|info
+operator|.
+name|regionName
+operator|+
+literal|" is no good"
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Recover the region server's log if there is one.
 if|if
 condition|(
@@ -2254,6 +2290,27 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Split "
+operator|+
+name|logDir
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -2338,6 +2395,11 @@ name|void
 name|scanRoot
 parameter_list|()
 block|{
+name|boolean
+name|succeeded
+init|=
+literal|false
+decl_stmt|;
 name|int
 name|tries
 init|=
@@ -2437,6 +2499,10 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|succeeded
+operator|=
+literal|true
+expr_stmt|;
 break|break;
 block|}
 catch|catch
@@ -2495,7 +2561,8 @@ operator|-
 literal|1
 condition|)
 block|{
-comment|// We ran out of tries. Make sure the file system is still available
+comment|// We ran out of tries. Make sure the file system is still
+comment|// available
 if|if
 condition|(
 operator|!
@@ -2532,6 +2599,17 @@ operator|.
 name|sleep
 argument_list|()
 expr_stmt|;
+block|}
+if|if
+condition|(
+operator|!
+name|succeeded
+condition|)
+block|{
+comment|// We tried numretries to reach root and failed.  Is it gone.
+comment|// Currently we just flounder.  Should we reallocate root?
+comment|// This would be catastrophic?
+comment|// unassignRootRegion();
 block|}
 block|}
 annotation|@
@@ -2682,6 +2760,44 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"regionname: "
+operator|+
+name|this
+operator|.
+name|regionName
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|", startKey:<"
+operator|+
+name|this
+operator|.
+name|startKey
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|">, server: "
+operator|+
+name|this
+operator|.
+name|server
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|"}"
+return|;
+block|}
 comment|/** @return the regionName */
 specifier|public
 name|Text
@@ -2819,6 +2935,28 @@ name|getStartKey
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|result
+operator|==
+literal|0
+condition|)
+block|{
+comment|// Might be on different host?
+name|result
+operator|=
+name|this
+operator|.
+name|server
+operator|.
+name|compareTo
+argument_list|(
+name|other
+operator|.
+name|server
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 return|return
 name|result
@@ -2826,17 +2964,31 @@ return|;
 block|}
 block|}
 comment|/** Set by root scanner to indicate the number of meta regions */
+specifier|final
 name|AtomicInteger
 name|numberOfMetaRegions
+init|=
+operator|new
+name|AtomicInteger
+argument_list|()
 decl_stmt|;
 comment|/** Work for the meta scanner is queued up here */
+specifier|final
 name|BlockingQueue
 argument_list|<
 name|MetaRegion
 argument_list|>
 name|metaRegionsToScan
+init|=
+operator|new
+name|LinkedBlockingQueue
+argument_list|<
+name|MetaRegion
+argument_list|>
+argument_list|()
 decl_stmt|;
 comment|/** These are the online meta regions */
+specifier|final
 name|SortedMap
 argument_list|<
 name|Text
@@ -2844,6 +2996,20 @@ argument_list|,
 name|MetaRegion
 argument_list|>
 name|onlineMetaRegions
+init|=
+name|Collections
+operator|.
+name|synchronizedSortedMap
+argument_list|(
+operator|new
+name|TreeMap
+argument_list|<
+name|Text
+argument_list|,
+name|MetaRegion
+argument_list|>
+argument_list|()
+argument_list|)
 decl_stmt|;
 comment|/** Set by meta scanner after initial scan */
 specifier|volatile
@@ -2992,7 +3158,12 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Scan one META region"
+literal|"Scan one META region: "
+operator|+
+name|region
+operator|.
+name|toString
+argument_list|()
 argument_list|,
 name|e
 argument_list|)
@@ -3004,11 +3175,43 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Scan one META region"
+literal|"Scan one META region: "
+operator|+
+name|region
+operator|.
+name|toString
+argument_list|()
 argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
+comment|// The region may have moved (TestRegionServerAbort, etc.).  If
+comment|// so, either it won't be in the onlineMetaRegions list or its host
+comment|// address has changed and the containsValue will fail. If not
+comment|// found, best thing to do here is probably break.
+if|if
+condition|(
+operator|!
+name|onlineMetaRegions
+operator|.
+name|containsValue
+argument_list|(
+name|region
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Scanned region is no longer in map of online "
+operator|+
+literal|"regions or its value has changed"
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
 if|if
 condition|(
 name|tries
@@ -3032,7 +3235,6 @@ comment|// avoid sleeping
 block|}
 block|}
 block|}
-block|}
 catch|catch
 parameter_list|(
 name|Exception
@@ -3051,6 +3253,7 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Sleep before going around again.
 name|sleeper
 operator|.
 name|sleep
@@ -3289,6 +3492,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 comment|/**    * The 'unassignedRegions' table maps from a region name to a HRegionInfo     * record, which includes the region's table, its id, and its start/end keys.    *     * We fill 'unassignedRecords' by scanning ROOT and META tables, learning the    * set of all known valid regions.    *     *<p>Items are removed from this list when a region server reports in that    * the region has been deployed.    */
+specifier|final
 name|SortedMap
 argument_list|<
 name|Text
@@ -3296,8 +3500,23 @@ argument_list|,
 name|HRegionInfo
 argument_list|>
 name|unassignedRegions
+init|=
+name|Collections
+operator|.
+name|synchronizedSortedMap
+argument_list|(
+operator|new
+name|TreeMap
+argument_list|<
+name|Text
+argument_list|,
+name|HRegionInfo
+argument_list|>
+argument_list|()
+argument_list|)
 decl_stmt|;
 comment|/**    * The 'assignAttempts' table maps from regions to a timestamp that indicates    * the last time we *tried* to assign the region to a RegionServer. If the     * timestamp is out of date, then we can try to reassign it.    */
+specifier|final
 name|Map
 argument_list|<
 name|Text
@@ -3305,6 +3524,20 @@ argument_list|,
 name|Long
 argument_list|>
 name|assignAttempts
+init|=
+name|Collections
+operator|.
+name|synchronizedMap
+argument_list|(
+operator|new
+name|HashMap
+argument_list|<
+name|Text
+argument_list|,
+name|Long
+argument_list|>
+argument_list|()
+argument_list|)
 decl_stmt|;
 comment|/**    * Regions that have been assigned, and the server has reported that it has    * started serving it, but that we have not yet recorded in the meta table.    */
 name|Set
@@ -3883,43 +4116,6 @@ expr_stmt|;
 comment|// Scans the meta table
 name|this
 operator|.
-name|numberOfMetaRegions
-operator|=
-operator|new
-name|AtomicInteger
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|metaRegionsToScan
-operator|=
-operator|new
-name|LinkedBlockingQueue
-argument_list|<
-name|MetaRegion
-argument_list|>
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|onlineMetaRegions
-operator|=
-name|Collections
-operator|.
-name|synchronizedSortedMap
-argument_list|(
-operator|new
-name|TreeMap
-argument_list|<
-name|Text
-argument_list|,
-name|MetaRegion
-argument_list|>
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
 name|initialMetaScanComplete
 operator|=
 literal|false
@@ -3932,78 +4128,8 @@ operator|new
 name|MetaScanner
 argument_list|()
 expr_stmt|;
-name|this
-operator|.
-name|unassignedRegions
-operator|=
-name|Collections
-operator|.
-name|synchronizedSortedMap
-argument_list|(
-operator|new
-name|TreeMap
-argument_list|<
-name|Text
-argument_list|,
-name|HRegionInfo
-argument_list|>
+name|unassignRootRegion
 argument_list|()
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|unassignedRegions
-operator|.
-name|put
-argument_list|(
-name|HGlobals
-operator|.
-name|rootRegionInfo
-operator|.
-name|regionName
-argument_list|,
-name|HGlobals
-operator|.
-name|rootRegionInfo
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|assignAttempts
-operator|=
-name|Collections
-operator|.
-name|synchronizedMap
-argument_list|(
-operator|new
-name|HashMap
-argument_list|<
-name|Text
-argument_list|,
-name|Long
-argument_list|>
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|assignAttempts
-operator|.
-name|put
-argument_list|(
-name|HGlobals
-operator|.
-name|rootRegionInfo
-operator|.
-name|regionName
-argument_list|,
-name|Long
-operator|.
-name|valueOf
-argument_list|(
-literal|0L
-argument_list|)
-argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -4158,6 +4284,59 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+comment|/*    * Unassign the root region.    * This method would be used in case where root region server had died    * without reporting in.  Currently, we just flounder and never recover.  We    * could 'notice' dead region server in root scanner -- if we failed access    * multiple times -- but reassigning root is catastrophic.    */
+name|void
+name|unassignRootRegion
+parameter_list|()
+block|{
+name|this
+operator|.
+name|rootRegionLocation
+operator|.
+name|set
+argument_list|(
+literal|null
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|unassignedRegions
+operator|.
+name|put
+argument_list|(
+name|HGlobals
+operator|.
+name|rootRegionInfo
+operator|.
+name|regionName
+argument_list|,
+name|HGlobals
+operator|.
+name|rootRegionInfo
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|assignAttempts
+operator|.
+name|put
+argument_list|(
+name|HGlobals
+operator|.
+name|rootRegionInfo
+operator|.
+name|regionName
+argument_list|,
+name|Long
+operator|.
+name|valueOf
+argument_list|(
+literal|0L
+argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// TODO: If the old root region server had a log, it needs splitting.
 block|}
 comment|/**    * Checks to see if the file system is still accessible.    * If not, sets closed    * @return false if file system is not available    */
 specifier|protected
@@ -9989,18 +10168,22 @@ extends|extends
 name|PendingOperation
 block|{
 specifier|private
+specifier|final
 name|boolean
 name|rootRegion
 decl_stmt|;
 specifier|private
+specifier|final
 name|HRegionInfo
 name|region
 decl_stmt|;
 specifier|private
+specifier|final
 name|HServerAddress
 name|serverAddress
 decl_stmt|;
 specifier|private
+specifier|final
 name|byte
 index|[]
 name|startCode
@@ -10016,8 +10199,13 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
+comment|// If true, the region which just came on-line is a META region.
+comment|// We need to look in the ROOT region for its information.  Otherwise,
+comment|// its just an ordinary region. Look for it in the META table.
+name|this
+operator|.
+name|rootRegion
+operator|=
 name|region
 operator|.
 name|tableDesc
@@ -10029,27 +10217,7 @@ name|equals
 argument_list|(
 name|META_TABLE_NAME
 argument_list|)
-condition|)
-block|{
-comment|// The region which just came on-line is a META region.
-comment|// We need to look in the ROOT region for its information.
-name|this
-operator|.
-name|rootRegion
-operator|=
-literal|true
 expr_stmt|;
-block|}
-else|else
-block|{
-comment|// Just an ordinary region. Look for it in the META table.
-name|this
-operator|.
-name|rootRegion
-operator|=
-literal|false
-expr_stmt|;
-block|}
 name|this
 operator|.
 name|region
@@ -10080,7 +10248,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -10138,7 +10305,7 @@ name|info
 argument_list|(
 name|region
 operator|.
-name|getRegionName
+name|toString
 argument_list|()
 operator|+
 literal|" open on "
@@ -10160,6 +10327,8 @@ name|server
 decl_stmt|;
 if|if
 condition|(
+name|this
+operator|.
 name|rootRegion
 condition|)
 block|{
@@ -10176,7 +10345,7 @@ operator|!
 name|rootScanned
 condition|)
 block|{
-comment|// We can't proceed until the root region is online and has been scanned
+comment|// We can't proceed until root region is online and scanned
 if|if
 condition|(
 name|LOG
@@ -10304,10 +10473,6 @@ block|}
 name|MetaRegion
 name|r
 init|=
-literal|null
-decl_stmt|;
-if|if
-condition|(
 name|onlineMetaRegions
 operator|.
 name|containsKey
@@ -10317,10 +10482,7 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
-condition|)
-block|{
-name|r
-operator|=
+condition|?
 name|onlineMetaRegions
 operator|.
 name|get
@@ -10330,12 +10492,7 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-name|r
-operator|=
+else|:
 name|onlineMetaRegions
 operator|.
 name|get
@@ -10353,8 +10510,7 @@ operator|.
 name|lastKey
 argument_list|()
 argument_list|)
-expr_stmt|;
-block|}
+decl_stmt|;
 name|metaRegionName
 operator|=
 name|r
@@ -10502,12 +10658,18 @@ init|=
 operator|new
 name|MetaRegion
 argument_list|(
+name|this
+operator|.
 name|serverAddress
 argument_list|,
+name|this
+operator|.
 name|region
 operator|.
 name|regionName
 argument_list|,
+name|this
+operator|.
 name|region
 operator|.
 name|startKey
@@ -10522,6 +10684,20 @@ block|{
 comment|// Put it on the queue to be scanned for the first time.
 try|try
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Adding "
+operator|+
+name|m
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" to regions to scan"
+argument_list|)
+expr_stmt|;
 name|metaRegionsToScan
 operator|.
 name|put
@@ -10550,10 +10726,24 @@ block|}
 else|else
 block|{
 comment|// Add it to the online meta regions
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Adding to onlineMetaRegions: "
+operator|+
+name|m
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|onlineMetaRegions
 operator|.
 name|put
 argument_list|(
+name|this
+operator|.
 name|region
 operator|.
 name|startKey

@@ -88,7 +88,6 @@ name|TestRegionServerAbort
 extends|extends
 name|HBaseClusterTestCase
 block|{
-specifier|private
 specifier|final
 name|Log
 name|LOG
@@ -106,7 +105,6 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-specifier|private
 name|HTable
 name|table
 decl_stmt|;
@@ -126,7 +124,7 @@ name|setInt
 argument_list|(
 literal|"ipc.client.timeout"
 argument_list|,
-literal|5000
+literal|10000
 argument_list|)
 expr_stmt|;
 comment|// reduce client timeout
@@ -179,6 +177,7 @@ name|META_TABLE_NAME
 argument_list|)
 decl_stmt|;
 comment|// Put something into the meta table.
+specifier|final
 name|String
 name|tableName
 init|=
@@ -243,6 +242,7 @@ name|tableName
 argument_list|)
 argument_list|)
 expr_stmt|;
+specifier|final
 name|Text
 name|row
 init|=
@@ -324,6 +324,21 @@ operator|+
 literal|" has been shutdown"
 argument_list|)
 expr_stmt|;
+comment|// Run verification in a thread so I can concurrently run a thread-dumper
+comment|// while we're waiting (because in this test sometimes the meta scanner
+comment|// looks to be be stuck).
+name|Runnable
+name|runnable
+init|=
+operator|new
+name|Runnable
+argument_list|()
+block|{
+specifier|public
+name|void
+name|run
+parameter_list|()
+block|{
 name|HScannerInterface
 name|scanner
 init|=
@@ -463,6 +478,18 @@ literal|"Success!"
 argument_list|)
 expr_stmt|;
 block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|e
+operator|.
+name|printStackTrace
+argument_list|()
+expr_stmt|;
+block|}
 finally|finally
 block|{
 if|if
@@ -481,13 +508,50 @@ operator|+
 name|scanner
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|scanner
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
 block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|e
+operator|.
+name|printStackTrace
+argument_list|()
+expr_stmt|;
 block|}
+block|}
+block|}
+block|}
+block|}
+decl_stmt|;
+name|Thread
+name|t
+init|=
+operator|new
+name|Thread
+argument_list|(
+name|runnable
+argument_list|)
+decl_stmt|;
+name|t
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
+name|threadDumpingJoin
+argument_list|(
+name|t
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class
