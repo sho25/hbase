@@ -615,26 +615,6 @@ operator|.
 name|get
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|" Indexing ["
-operator|+
-name|doc
-operator|+
-literal|"]"
-argument_list|)
-expr_stmt|;
-block|}
 name|writer
 operator|.
 name|addDocument

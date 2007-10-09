@@ -356,7 +356,7 @@ name|request
 operator|.
 name|getParameter
 argument_list|(
-literal|"query"
+literal|"q"
 argument_list|)
 decl_stmt|;
 if|if
@@ -375,7 +375,7 @@ name|out
 operator|.
 name|write
 argument_list|(
-literal|"\n<form action=\"/hql.jsp\" method=\"post\">\n<p>\n<label for=\"query\">Query:</label>\n<input type=\"text\" name=\"query\" id=\"query\" size=\"40\" value=\""
+literal|"\n<form action=\"/hql.jsp\" method=\"get\">\n<p>\n<label for=\"query\">Query:</label>\n<input type=\"text\" name=\"q\" id=\"q\" size=\"40\" value=\""
 argument_list|)
 expr_stmt|;
 name|out
@@ -528,7 +528,7 @@ name|out
 operator|.
 name|write
 argument_list|(
-literal|"\n</body>\n</html>"
+literal|"\n</body>\n</html>\n"
 argument_list|)
 expr_stmt|;
 block|}
