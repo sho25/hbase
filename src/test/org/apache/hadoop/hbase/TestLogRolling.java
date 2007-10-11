@@ -17,16 +17,6 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -536,7 +526,11 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{     }
+block|{
+comment|// continue
+block|}
+name|this
+operator|.
 name|logdir
 operator|=
 name|cluster
@@ -716,7 +710,9 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{         }
+block|{
+comment|// continue
+block|}
 block|}
 block|}
 block|}
@@ -724,11 +720,12 @@ specifier|private
 name|int
 name|countLogFiles
 parameter_list|(
+specifier|final
 name|boolean
 name|print
 parameter_list|)
 throws|throws
-name|IOException
+name|Exception
 block|{
 name|Path
 index|[]
@@ -745,6 +742,8 @@ operator|new
 name|Path
 index|[]
 block|{
+name|this
+operator|.
 name|logdir
 block|}
 argument_list|)
@@ -853,22 +852,40 @@ block|{
 name|startAndWriteData
 argument_list|()
 expr_stmt|;
+name|int
+name|count
+init|=
+name|countLogFiles
+argument_list|(
+literal|true
+argument_list|)
+decl_stmt|;
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Finished writing. Sleeping to let cache flusher and log roller run"
+literal|"Finished writing. There are "
+operator|+
+name|count
+operator|+
+literal|" log files. "
+operator|+
+literal|"Sleeping to let cache flusher and log roller run"
 argument_list|)
 expr_stmt|;
+while|while
+condition|(
+name|count
+operator|>
+literal|2
+condition|)
+block|{
 try|try
 block|{
-comment|// Wait for log roller and cache flusher to run a few times...
 name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|30L
-operator|*
 literal|1000L
 argument_list|)
 expr_stmt|;
@@ -889,19 +906,17 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Wake from sleep"
-argument_list|)
-expr_stmt|;
-name|assertTrue
-argument_list|(
+name|count
+operator|=
 name|countLogFiles
 argument_list|(
 literal|true
 argument_list|)
+expr_stmt|;
+block|}
+name|assertTrue
+argument_list|(
+name|count
 operator|<=
 literal|2
 argument_list|)

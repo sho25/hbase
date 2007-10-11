@@ -267,6 +267,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
 specifier|static
 specifier|final
 name|String
@@ -296,12 +297,15 @@ argument_list|(
 literal|"METAROW"
 argument_list|)
 decl_stmt|;
+specifier|final
 name|FileSystem
 name|fs
 decl_stmt|;
+specifier|final
 name|Path
 name|dir
 decl_stmt|;
+specifier|final
 name|Configuration
 name|conf
 decl_stmt|;
@@ -309,11 +313,14 @@ specifier|final
 name|long
 name|threadWakeFrequency
 decl_stmt|;
+comment|/*    * Current log file.    */
 name|SequenceFile
 operator|.
 name|Writer
 name|writer
 decl_stmt|;
+comment|/*    * Map of all log files but the current one.     */
+specifier|final
 name|TreeMap
 argument_list|<
 name|Long
@@ -331,7 +338,9 @@ name|Path
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|HashMap
+comment|/*    * Map of region to last sequence/edit id.     */
+specifier|final
+name|Map
 argument_list|<
 name|Text
 argument_list|,
@@ -448,7 +457,7 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HashMap
+name|Map
 argument_list|<
 name|Text
 argument_list|,
@@ -836,12 +845,15 @@ block|}
 comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * HLog object is started up.    *    * @param fs    * @param dir    * @param conf    * @throws IOException    */
 name|HLog
 parameter_list|(
+specifier|final
 name|FileSystem
 name|fs
 parameter_list|,
+specifier|final
 name|Path
 name|dir
 parameter_list|,
+specifier|final
 name|Configuration
 name|conf
 parameter_list|)
@@ -961,7 +973,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    * Because a log cannot be rolled during a cache flush, and a cache flush    * spans two method calls, a special lock needs to be obtained so that a cache    * flush cannot start when the log is being rolled and the log cannot be    * rolled during a cache flush.    *    * Note that this method cannot be synchronized because it is possible that    * startCacheFlush runs, obtaining the cacheFlushLock, then this method could    * start which would obtain the lock on this but block on obtaining the    * cacheFlushLock and then completeCacheFlush could be called which would wait    * for the lock on this and consequently never release the cacheFlushLock    *    * @throws IOException    */
+comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    * Because a log cannot be rolled during a cache flush, and a cache flush    * spans two method calls, a special lock needs to be obtained so that a cache    * flush cannot start when the log is being rolled and the log cannot be    * rolled during a cache flush.    *    *<p>Note that this method cannot be synchronized because it is possible that    * startCacheFlush runs, obtaining the cacheFlushLock, then this method could    * start which would obtain the lock on this but block on obtaining the    * cacheFlushLock and then completeCacheFlush could be called which would wait    * for the lock on this and consequently never release the cacheFlushLock    *    * @throws IOException    */
 specifier|synchronized
 name|void
 name|rollWriter
@@ -985,6 +997,8 @@ condition|)
 block|{
 if|if
 condition|(
+name|this
+operator|.
 name|cacheFlushLock
 operator|.
 name|tryLock
@@ -1012,7 +1026,9 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{       }
+block|{
+comment|// continue
+block|}
 block|}
 if|if
 condition|(
@@ -1024,6 +1040,8 @@ condition|(
 name|locked
 condition|)
 block|{
+name|this
+operator|.
 name|cacheFlushLock
 operator|.
 name|unlock
@@ -1043,12 +1061,16 @@ try|try
 block|{
 if|if
 condition|(
+name|this
+operator|.
 name|writer
 operator|!=
 literal|null
 condition|)
 block|{
 comment|// Close the current writer, get a new one.
+name|this
+operator|.
 name|writer
 operator|.
 name|close
@@ -1096,16 +1118,27 @@ condition|)
 block|{
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|sequenceLock
 init|)
 block|{
+name|this
+operator|.
 name|outputfiles
 operator|.
 name|put
 argument_list|(
+name|Long
+operator|.
+name|valueOf
+argument_list|(
+name|this
+operator|.
 name|logSeqNum
 operator|-
 literal|1
+argument_list|)
 argument_list|,
 name|p
 argument_list|)
@@ -1130,8 +1163,12 @@ name|SequenceFile
 operator|.
 name|createWriter
 argument_list|(
+name|this
+operator|.
 name|fs
 argument_list|,
+name|this
+operator|.
 name|conf
 argument_list|,
 name|newPath
@@ -1155,6 +1192,86 @@ name|newPath
 argument_list|)
 expr_stmt|;
 comment|// Can we delete any of the old log files?
+if|if
+condition|(
+name|this
+operator|.
+name|outputfiles
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|lastSeqWritten
+operator|.
+name|size
+argument_list|()
+operator|<=
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Last sequence written is empty. Deleting all old hlogs"
+argument_list|)
+expr_stmt|;
+comment|// If so, then no new writes have come in since all regions were
+comment|// flushed (and removed from the lastSeqWritten map). Means can
+comment|// remove all but currently open log file.
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|Long
+argument_list|,
+name|Path
+argument_list|>
+name|e
+range|:
+name|this
+operator|.
+name|outputfiles
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+name|deleteLogFile
+argument_list|(
+name|e
+operator|.
+name|getValue
+argument_list|()
+argument_list|,
+name|e
+operator|.
+name|getKey
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+name|this
+operator|.
+name|outputfiles
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// Get oldest edit/sequence id.  If logs are older than this id,
+comment|// then safe to remove.
 name|TreeSet
 argument_list|<
 name|Long
@@ -1167,22 +1284,14 @@ argument_list|<
 name|Long
 argument_list|>
 argument_list|(
+name|this
+operator|.
 name|lastSeqWritten
 operator|.
 name|values
 argument_list|()
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|sequenceNumbers
-operator|.
-name|size
-argument_list|()
-operator|>
-literal|0
-condition|)
-block|{
 name|long
 name|oldestOutstandingSeqNum
 init|=
@@ -1190,9 +1299,12 @@ name|sequenceNumbers
 operator|.
 name|first
 argument_list|()
+operator|.
+name|longValue
+argument_list|()
 decl_stmt|;
-comment|// Get the set of all log files whose final ID is older than the oldest
-comment|// pending region operation
+comment|// Get the set of all log files whose final ID is older than the
+comment|// oldest pending region operation
 name|sequenceNumbers
 operator|.
 name|clear
@@ -1202,11 +1314,18 @@ name|sequenceNumbers
 operator|.
 name|addAll
 argument_list|(
+name|this
+operator|.
 name|outputfiles
 operator|.
 name|headMap
 argument_list|(
+name|Long
+operator|.
+name|valueOf
+argument_list|(
 name|oldestOutstandingSeqNum
+argument_list|)
 argument_list|)
 operator|.
 name|keySet
@@ -1214,6 +1333,24 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Now remove old log files (if any)
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Found "
+operator|+
+name|sequenceNumbers
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" logs to remove "
+operator|+
+literal|"using oldest outstanding seqnum of "
+operator|+
+name|oldestOutstandingSeqNum
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|Long
@@ -1222,35 +1359,21 @@ range|:
 name|sequenceNumbers
 control|)
 block|{
-name|Path
-name|p
-init|=
+name|deleteLogFile
+argument_list|(
+name|this
+operator|.
 name|outputfiles
 operator|.
 name|remove
 argument_list|(
 name|seq
 argument_list|)
-decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"removing old log file "
-operator|+
-name|p
-operator|.
-name|toString
-argument_list|()
+argument_list|,
+name|seq
 argument_list|)
 expr_stmt|;
-name|fs
-operator|.
-name|delete
-argument_list|(
-name|p
-argument_list|)
-expr_stmt|;
+block|}
 block|}
 block|}
 name|this
@@ -1262,12 +1385,55 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+name|this
+operator|.
 name|cacheFlushLock
 operator|.
 name|unlock
 argument_list|()
 expr_stmt|;
 block|}
+block|}
+specifier|private
+name|void
+name|deleteLogFile
+parameter_list|(
+specifier|final
+name|Path
+name|p
+parameter_list|,
+specifier|final
+name|Long
+name|seqno
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"removing old log file "
+operator|+
+name|p
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" whose highest sequence/edit id is "
+operator|+
+name|seqno
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|p
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * This is a convenience method that computes a new filename with a given    * file-number.    */
 name|Path
@@ -1292,7 +1458,12 @@ name|format
 argument_list|(
 literal|"%1$03d"
 argument_list|,
+name|Long
+operator|.
+name|valueOf
+argument_list|(
 name|fn
+argument_list|)
 argument_list|)
 argument_list|)
 return|;
@@ -1415,26 +1586,43 @@ name|size
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// The 'lastSeqWritten' map holds the sequence number of the most recent
+comment|// The 'lastSeqWritten' map holds the sequence number of the oldest
 comment|// write for each region. When the cache is flushed, the entry for the
 comment|// region being flushed is removed if the sequence number of the flush
-comment|// is greater than or equal to the value in lastSeqWritten
+comment|// is greater than or equal to the value in lastSeqWritten.
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|lastSeqWritten
+operator|.
+name|containsKey
+argument_list|(
+name|regionName
+argument_list|)
+condition|)
+block|{
+name|this
+operator|.
 name|lastSeqWritten
 operator|.
 name|put
 argument_list|(
 name|regionName
 argument_list|,
+name|Long
+operator|.
+name|valueOf
+argument_list|(
 name|seqNum
 index|[
-name|seqNum
-operator|.
-name|length
-operator|-
-literal|1
+literal|0
 index|]
 argument_list|)
+argument_list|)
 expr_stmt|;
+block|}
 name|int
 name|counter
 init|=
@@ -1497,6 +1685,8 @@ argument_list|,
 name|timestamp
 argument_list|)
 decl_stmt|;
+name|this
+operator|.
 name|writer
 operator|.
 name|append
@@ -1506,6 +1696,8 @@ argument_list|,
 name|logEdit
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|numEntries
 operator|++
 expr_stmt|;
@@ -1566,6 +1758,8 @@ index|]
 decl_stmt|;
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|sequenceLock
 init|)
 block|{
@@ -1589,6 +1783,8 @@ index|[
 name|i
 index|]
 operator|=
+name|this
+operator|.
 name|logSeqNum
 operator|++
 expr_stmt|;
@@ -1603,6 +1799,8 @@ name|long
 name|startCacheFlush
 parameter_list|()
 block|{
+name|this
+operator|.
 name|cacheFlushLock
 operator|.
 name|lock
@@ -1644,6 +1842,8 @@ condition|)
 block|{
 return|return;
 block|}
+name|this
+operator|.
 name|writer
 operator|.
 name|append
@@ -1683,12 +1883,16 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|numEntries
 operator|++
 expr_stmt|;
 name|Long
 name|seq
 init|=
+name|this
+operator|.
 name|lastSeqWritten
 operator|.
 name|get
@@ -1705,8 +1909,13 @@ operator|&&
 name|logSeqId
 operator|>=
 name|seq
+operator|.
+name|longValue
+argument_list|()
 condition|)
 block|{
+name|this
+operator|.
 name|lastSeqWritten
 operator|.
 name|remove
@@ -1718,6 +1927,8 @@ block|}
 block|}
 finally|finally
 block|{
+name|this
+operator|.
 name|cacheFlushLock
 operator|.
 name|unlock
