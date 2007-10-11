@@ -552,7 +552,7 @@ name|out
 operator|.
 name|write
 argument_list|(
-literal|"</title>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"/static/hbase.css\" />\n</head>\n\n<body>\n<h1><a href=\"http://wiki.apache.org/lucene-hadoop/Hbase\">Hbase</a> Master: "
+literal|"</title>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"/static/hbase.css\" />\n</head>\n\n<body>\n\n<a id=\"logo\" href=\"http://wiki.apache.org/lucene-hadoop/Hbase\"><img src=\"/static/hbase_logo_med.gif\" alt=\"Hbase Logo\" title=\"Hbase Logo\" /></a>\n<h1 id=\"page_title\">Master: "
 argument_list|)
 expr_stmt|;
 name|out
@@ -569,7 +569,7 @@ name|out
 operator|.
 name|write
 argument_list|(
-literal|"</h1>\n<p><a href=\"/hql.jsp\">HQL</a>,\n<a href=\"/logs/\">Local logs</a>,<a href=\"/stacks\">Thread Dump</a></p>\n\n<h2>Master Attributes</h2>\n<table>\n<tr><th>Attribute Name</th><th>Value</th></tr>\n<tr><td>Filesystem</td><td>"
+literal|"</h1>\n<p id=\"links_menu\"><a href=\"/hql.jsp\">HQL</a>,<a href=\"/logs/\">Local logs</a>,<a href=\"/stacks\">Thread Dump</a></p>\n<hr id=\"head_rule\" />\n\n<h2>Master Attributes</h2>\n<table>\n<tr><th>Attribute Name</th><th>Value</th></tr>\n<tr><td>Filesystem</td><td>"
 argument_list|)
 expr_stmt|;
 name|out
@@ -1004,7 +1004,7 @@ name|out
 operator|.
 name|write
 argument_list|(
-literal|"\n</body>\n</html>"
+literal|"\n</body>\n</html>\n"
 argument_list|)
 expr_stmt|;
 block|}
