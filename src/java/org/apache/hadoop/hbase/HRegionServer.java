@@ -5268,6 +5268,8 @@ block|{
 name|checkOpen
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
 name|requestCount
 operator|.
 name|incrementAndGet
@@ -5877,6 +5879,8 @@ init|=
 name|getRegion
 argument_list|(
 name|regionName
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 return|return
@@ -6253,11 +6257,15 @@ name|IOException
 block|{
 if|if
 condition|(
+name|this
+operator|.
 name|stopRequested
 operator|.
 name|get
 argument_list|()
 operator|||
+name|this
+operator|.
 name|abortRequested
 condition|)
 block|{

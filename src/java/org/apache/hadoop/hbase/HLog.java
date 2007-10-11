@@ -1351,6 +1351,16 @@ operator|+
 name|oldestOutstandingSeqNum
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|sequenceNumbers
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
 for|for
 control|(
 name|Long
@@ -1373,6 +1383,7 @@ argument_list|,
 name|seq
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
