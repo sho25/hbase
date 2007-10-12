@@ -924,7 +924,7 @@ name|rollWriter
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Called by HRegionServer when it opens a new region to ensure that log    * sequence numbers are always greater than the latest sequence number of the    * region being brought on-line.    *    * @param newvalue    */
+comment|/**    * Called by HRegionServer when it opens a new region to ensure that log    * sequence numbers are always greater than the latest sequence number of the    * region being brought on-line.    *    * @param newvalue We'll set log edit/sequence number to this value if it    * is greater than the current value.    */
 name|void
 name|setSequenceNumber
 parameter_list|(
@@ -1333,6 +1333,63 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Now remove old log files (if any)
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+comment|// Find region associated with oldest key -- helps debugging.
+name|Text
+name|oldestRegion
+init|=
+literal|null
+decl_stmt|;
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|Text
+argument_list|,
+name|Long
+argument_list|>
+name|e
+range|:
+name|this
+operator|.
+name|lastSeqWritten
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+name|e
+operator|.
+name|getValue
+argument_list|()
+operator|.
+name|longValue
+argument_list|()
+operator|==
+name|oldestOutstandingSeqNum
+condition|)
+block|{
+name|oldestRegion
+operator|=
+name|e
+operator|.
+name|getKey
+argument_list|()
+expr_stmt|;
+break|break;
+block|}
+block|}
 name|LOG
 operator|.
 name|debug
@@ -1349,8 +1406,13 @@ operator|+
 literal|"using oldest outstanding seqnum of "
 operator|+
 name|oldestOutstandingSeqNum
+operator|+
+literal|" from region "
+operator|+
+name|oldestRegion
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|sequenceNumbers

@@ -4359,6 +4359,7 @@ block|}
 name|void
 name|openRegion
 parameter_list|(
+specifier|final
 name|HRegionInfo
 name|regionInfo
 parameter_list|)
@@ -4442,7 +4443,7 @@ name|setSequenceNumber
 argument_list|(
 name|region
 operator|.
-name|getMaxSequenceId
+name|getMinSequenceId
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5879,8 +5880,6 @@ init|=
 name|getRegion
 argument_list|(
 name|regionName
-argument_list|,
-literal|false
 argument_list|)
 decl_stmt|;
 return|return

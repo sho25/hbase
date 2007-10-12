@@ -1059,7 +1059,7 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|long
-name|maxSequenceId
+name|minSequenceId
 decl_stmt|;
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Constructor
@@ -1316,7 +1316,7 @@ block|}
 block|}
 name|this
 operator|.
-name|maxSequenceId
+name|minSequenceId
 operator|=
 name|maxSeqId
 expr_stmt|;
@@ -1332,7 +1332,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"maximum sequence id for region "
+literal|"Next sequence id for region "
 operator|+
 name|regionInfo
 operator|.
@@ -1343,7 +1343,7 @@ literal|" is "
 operator|+
 name|this
 operator|.
-name|maxSequenceId
+name|minSequenceId
 argument_list|)
 expr_stmt|;
 block|}
@@ -1480,14 +1480,15 @@ literal|" available"
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @return Updates to this region need to have a sequence id that is>= to    * the this number.    */
 name|long
-name|getMaxSequenceId
+name|getMinSequenceId
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|maxSequenceId
+name|minSequenceId
 return|;
 block|}
 comment|/** Returns a HRegionInfo object for this region */
@@ -4455,6 +4456,16 @@ comment|// will be extremely rare; we'll deal with it when it happens.
 name|checkResources
 argument_list|()
 expr_stmt|;
+comment|// Get a read lock. We will not be able to get one if we are closing or
+comment|// if this region is being split.  In neither case should we be allowing
+comment|// updates.
+name|this
+operator|.
+name|lock
+operator|.
+name|obtainReadLock
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -4483,16 +4494,6 @@ literal|" closed"
 argument_list|)
 throw|;
 block|}
-comment|// Get a read lock. We will not be able to get one if we are closing or
-comment|// if this region is being split.  In neither case should we be allowing
-comment|// updates.
-name|this
-operator|.
-name|lock
-operator|.
-name|obtainReadLock
-argument_list|()
-expr_stmt|;
 try|try
 block|{
 comment|// We obtain a per-row lock, so other clients will block while one client
@@ -4616,7 +4617,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Unblocking updates for '"
+literal|"Unblocking updates for region "
+operator|+
+name|getRegionName
+argument_list|()
+operator|+
+literal|" '"
 operator|+
 name|Thread
 operator|.
