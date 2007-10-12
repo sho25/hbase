@@ -3575,6 +3575,7 @@ argument_list|>
 name|regionsToDelete
 decl_stmt|;
 comment|/**     * The map of known server names to server info    *     * Access to this map and loadToServers and serversToLoad must be synchronized    * on this object    */
+specifier|final
 name|Map
 argument_list|<
 name|String
@@ -3582,6 +3583,15 @@ argument_list|,
 name|HServerInfo
 argument_list|>
 name|serversToServerInfo
+init|=
+operator|new
+name|HashMap
+argument_list|<
+name|String
+argument_list|,
+name|HServerInfo
+argument_list|>
+argument_list|()
 decl_stmt|;
 comment|/** SortedMap server load -> Set of server names */
 name|SortedMap
@@ -4204,19 +4214,6 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|serversToServerInfo
-operator|=
-operator|new
-name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|HServerInfo
-argument_list|>
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
 name|loadToServers
 operator|=
 operator|new
@@ -4534,6 +4531,8 @@ control|)
 block|{
 name|op
 operator|=
+name|this
+operator|.
 name|shutdownQueue
 operator|.
 name|poll
@@ -7584,7 +7583,7 @@ return|return
 name|nRegions
 return|;
 block|}
-comment|/*    * Assign all to the only server. An unlikely case but still possible. @param    * regionsToAssign @param serverName @param returnMsgs    */
+comment|/*    * Assign all to the only server. An unlikely case but still possible.    * @param regionsToAssign    * @param serverName    * @param returnMsgs    */
 specifier|private
 name|void
 name|assignRegionsToOneServer
@@ -7801,8 +7800,9 @@ implements|implements
 name|Delayed
 block|{
 specifier|private
+specifier|final
 name|long
-name|delay
+name|expire
 decl_stmt|;
 specifier|private
 name|HServerAddress
@@ -7890,14 +7890,6 @@ parameter_list|)
 block|{
 name|super
 argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|delay
-operator|=
-name|leaseTimeout
-operator|/
-literal|2
 expr_stmt|;
 name|this
 operator|.
@@ -8005,6 +7997,21 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Set the future time at which we expect to be released from the
+comment|// DelayQueue we're inserted in on lease expiration.
+name|this
+operator|.
+name|expire
+operator|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|+
+name|leaseTimeout
+operator|/
+literal|2
+expr_stmt|;
 block|}
 comment|/** {@inheritDoc} */
 specifier|public
@@ -8020,7 +8027,14 @@ name|unit
 operator|.
 name|convert
 argument_list|(
-name|delay
+name|this
+operator|.
+name|expire
+operator|-
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|,
 name|TimeUnit
 operator|.

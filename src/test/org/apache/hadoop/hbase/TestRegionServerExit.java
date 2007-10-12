@@ -78,13 +78,13 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tests region server failover when a region server exits.  */
+comment|/**  * Tests region server failover when a region server exits both cleanly and  * when it aborts.  */
 end_comment
 
 begin_class
 specifier|public
 class|class
-name|TestRegionServerAbort
+name|TestRegionServerExit
 extends|extends
 name|HBaseClusterTestCase
 block|{
@@ -110,7 +110,7 @@ name|table
 decl_stmt|;
 comment|/** constructor */
 specifier|public
-name|TestRegionServerAbort
+name|TestRegionServerExit
 parameter_list|()
 block|{
 name|super
@@ -149,23 +149,15 @@ argument_list|)
 expr_stmt|;
 comment|// reduce HBase retries
 block|}
-comment|/**    * The test    * @throws IOException    */
+comment|/**    * Test abort of region server.    * @throws IOException    */
 specifier|public
 name|void
-name|testRegionServerAbort
+name|testAbort
 parameter_list|()
 throws|throws
 name|IOException
 block|{
 comment|// When the META table can be opened, the region servers are running
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
-name|HTable
-name|meta
-init|=
 operator|new
 name|HTable
 argument_list|(
@@ -175,8 +167,8 @@ name|HConstants
 operator|.
 name|META_TABLE_NAME
 argument_list|)
-decl_stmt|;
-comment|// Put something into the meta table.
+expr_stmt|;
+comment|// Create table and add a row.
 specifier|final
 name|String
 name|tableName
@@ -184,6 +176,174 @@ init|=
 name|getName
 argument_list|()
 decl_stmt|;
+name|Text
+name|row
+init|=
+name|createTableAndAddRow
+argument_list|(
+name|tableName
+argument_list|)
+decl_stmt|;
+comment|// Start up a new region server to take over serving of root and meta
+comment|// after we shut down the current meta/root host.
+name|this
+operator|.
+name|cluster
+operator|.
+name|startRegionServer
+argument_list|()
+expr_stmt|;
+comment|// Now abort the region server and wait for it to go down.
+name|this
+operator|.
+name|cluster
+operator|.
+name|abortRegionServer
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|this
+operator|.
+name|cluster
+operator|.
+name|waitOnRegionServer
+argument_list|(
+literal|0
+argument_list|)
+operator|+
+literal|" has been aborted"
+argument_list|)
+expr_stmt|;
+name|Thread
+name|t
+init|=
+name|startVerificationThread
+argument_list|(
+name|tableName
+argument_list|,
+name|row
+argument_list|)
+decl_stmt|;
+name|t
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
+name|threadDumpingJoin
+argument_list|(
+name|t
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Test abort of region server.    * @throws IOException    */
+specifier|public
+name|void
+name|REMOVEtestCleanExit
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+comment|// When the META table can be opened, the region servers are running
+operator|new
+name|HTable
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|,
+name|HConstants
+operator|.
+name|META_TABLE_NAME
+argument_list|)
+expr_stmt|;
+comment|// Create table and add a row.
+specifier|final
+name|String
+name|tableName
+init|=
+name|getName
+argument_list|()
+decl_stmt|;
+name|Text
+name|row
+init|=
+name|createTableAndAddRow
+argument_list|(
+name|tableName
+argument_list|)
+decl_stmt|;
+comment|// Start up a new region server to take over serving of root and meta
+comment|// after we shut down the current meta/root host.
+name|this
+operator|.
+name|cluster
+operator|.
+name|startRegionServer
+argument_list|()
+expr_stmt|;
+comment|// Now shutdown the region server and wait for it to go down.
+name|this
+operator|.
+name|cluster
+operator|.
+name|stopRegionServer
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|this
+operator|.
+name|cluster
+operator|.
+name|waitOnRegionServer
+argument_list|(
+literal|0
+argument_list|)
+operator|+
+literal|" has been shutdown"
+argument_list|)
+expr_stmt|;
+name|Thread
+name|t
+init|=
+name|startVerificationThread
+argument_list|(
+name|tableName
+argument_list|,
+name|row
+argument_list|)
+decl_stmt|;
+name|t
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
+name|threadDumpingJoin
+argument_list|(
+name|t
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+name|Text
+name|createTableAndAddRow
+parameter_list|(
+specifier|final
+name|String
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 name|HTableDescriptor
 name|desc
 init|=
@@ -289,44 +449,24 @@ argument_list|(
 name|lockid
 argument_list|)
 expr_stmt|;
-comment|// Start up a new region server to take over serving of root and meta
-comment|// after we shut down the current meta/root host.
-name|this
-operator|.
-name|cluster
-operator|.
-name|startRegionServer
-argument_list|()
-expr_stmt|;
-comment|// Now shutdown the region server and wait for it to go down.
-name|this
-operator|.
-name|cluster
-operator|.
-name|abortRegionServer
-argument_list|(
-literal|0
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|this
-operator|.
-name|cluster
-operator|.
-name|waitOnRegionServer
-argument_list|(
-literal|0
-argument_list|)
-operator|+
-literal|" has been shutdown"
-argument_list|)
-expr_stmt|;
-comment|// Run verification in a thread so I can concurrently run a thread-dumper
-comment|// while we're waiting (because in this test sometimes the meta scanner
-comment|// looks to be be stuck).
+return|return
+name|row
+return|;
+block|}
+comment|/*    * Run verification in a thread so I can concurrently run a thread-dumper    * while we're waiting (because in this test sometimes the meta scanner    * looks to be be stuck).    * @param tableName Name of table to find.    * @param row Row we expect to find.    * @return Verification thread.  Caller needs to calls start on it.    */
+specifier|private
+name|Thread
+name|startVerificationThread
+parameter_list|(
+specifier|final
+name|String
+name|tableName
+parameter_list|,
+specifier|final
+name|Text
+name|row
+parameter_list|)
+block|{
 name|Runnable
 name|runnable
 init|=
@@ -533,25 +673,13 @@ block|}
 block|}
 block|}
 decl_stmt|;
-name|Thread
-name|t
-init|=
+return|return
 operator|new
 name|Thread
 argument_list|(
 name|runnable
 argument_list|)
-decl_stmt|;
-name|t
-operator|.
-name|start
-argument_list|()
-expr_stmt|;
-name|threadDumpingJoin
-argument_list|(
-name|t
-argument_list|)
-expr_stmt|;
+return|;
 block|}
 block|}
 end_class
