@@ -243,7 +243,7 @@ block|}
 comment|/**    * Test abort of region server.    * @throws IOException    */
 specifier|public
 name|void
-name|REMOVEtestCleanExit
+name|testCleanExit
 parameter_list|()
 throws|throws
 name|IOException

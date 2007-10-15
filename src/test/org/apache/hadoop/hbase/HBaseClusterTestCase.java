@@ -219,11 +219,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|super
-operator|.
-name|setUp
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|cluster
@@ -244,6 +239,11 @@ operator|.
 name|miniHdfs
 argument_list|)
 expr_stmt|;
+name|super
+operator|.
+name|setUp
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -259,6 +259,13 @@ operator|.
 name|tearDown
 argument_list|()
 expr_stmt|;
+name|HConnectionManager
+operator|.
+name|deleteConnection
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -268,6 +275,8 @@ operator|!=
 literal|null
 condition|)
 block|{
+try|try
+block|{
 name|this
 operator|.
 name|cluster
@@ -276,13 +285,25 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
-name|HConnectionManager
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
 operator|.
-name|deleteConnection
+name|warn
 argument_list|(
-name|conf
+literal|"Closing mini dfs"
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
+block|}
+block|}
+comment|// ReflectionUtils.printThreadInfo(new PrintWriter(System.out),
+comment|//  "Temporary end-of-test thread dump debugging HADOOP-2040: " + getName());
 block|}
 comment|/**    * Use this utility method debugging why cluster won't go down.  On a    * period it throws a thread dump.  Method ends when all cluster    * regionservers and master threads are no long alive.    */
 specifier|public

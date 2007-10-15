@@ -27,6 +27,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|PrintWriter
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -167,6 +177,20 @@ name|WritableComparable
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|ReflectionUtils
+import|;
+end_import
+
 begin_comment
 comment|/**  * Test HStoreFile  */
 end_comment
@@ -223,11 +247,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|super
-operator|.
-name|setUp
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|cluster
@@ -272,6 +291,11 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|super
+operator|.
+name|setUp
+argument_list|()
+expr_stmt|;
 block|}
 comment|/** {@inheritDoc} */
 annotation|@
@@ -283,6 +307,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|super
+operator|.
+name|tearDown
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -292,6 +321,8 @@ operator|!=
 literal|null
 condition|)
 block|{
+try|try
+block|{
 name|this
 operator|.
 name|cluster
@@ -300,11 +331,25 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
-name|super
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
 operator|.
-name|tearDown
-argument_list|()
+name|warn
+argument_list|(
+literal|"Closing down mini DFS"
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
+block|}
+block|}
+comment|// ReflectionUtils.printThreadInfo(new PrintWriter(System.out),
+comment|//  "Temporary end-of-test thread dump debugging HADOOP-2040: " + getName());
 block|}
 specifier|private
 name|Path
