@@ -615,11 +615,26 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-comment|// Commented out because fails on an hp+ubuntu though passes on all local
+comment|// Commented out because fails on an hp+ubuntu single-processor w/ 1G and
+comment|// "Intel(R) Pentium(R) 4 CPU 3.20GHz" though passes on all local
 comment|// machines and even on hudson.  On said machine, its reporting in the
 comment|// LOG line above that there are 3 items in row so it should pass the
 comment|// below test.
-comment|// assertTrue(bytes.length == 3 || bytes.length == 4);
+name|assertTrue
+argument_list|(
+name|bytes
+operator|.
+name|length
+operator|==
+literal|3
+operator|||
+name|bytes
+operator|.
+name|length
+operator|==
+literal|4
+argument_list|)
+expr_stmt|;
 comment|// Now add deletes to memcache and then flush it.  That will put us over
 comment|// the compaction threshold of 3 store files.  Compacting these store files
 comment|// should result in a compacted store file that has no references to the
@@ -686,9 +701,28 @@ comment|/*Too many*/
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Commenting out to fix build.  Failing on hp+ubunutu combination
-comment|// "Intel(R) Pentium(R) 4 CPU 3.20GHz".
-comment|// assertTrue(this.r.needsCompaction());
+comment|// Add a bit of data and flush it so we for sure have the compaction limit
+comment|// for store files.  Usually by this time we will have but if compaction
+comment|// included the flush that ran 'concurrently', there may be just the
+comment|// compacted store and the flush above when we added deletes.  Add more
+comment|// content to be certain.
+name|createBunchOfSmallStoreFiles
+argument_list|(
+name|this
+operator|.
+name|r
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|this
+operator|.
+name|r
+operator|.
+name|needsCompaction
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|r
@@ -840,6 +874,92 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
+block|}
+specifier|private
+name|void
+name|createBunchOfSmallStoreFiles
+parameter_list|(
+specifier|final
+name|HRegion
+name|region
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+specifier|final
+name|String
+name|xyz
+init|=
+operator|new
+name|String
+argument_list|(
+literal|"xyz"
+argument_list|)
+decl_stmt|;
+name|byte
+index|[]
+name|bytes
+init|=
+name|xyz
+operator|.
+name|getBytes
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+literal|1
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|long
+name|lid
+init|=
+name|region
+operator|.
+name|startUpdate
+argument_list|(
+operator|new
+name|Text
+argument_list|(
+name|xyz
+argument_list|)
+argument_list|)
+decl_stmt|;
+name|region
+operator|.
+name|put
+argument_list|(
+name|lid
+argument_list|,
+name|COLUMN_FAMILY_TEXT
+argument_list|,
+name|bytes
+argument_list|)
+expr_stmt|;
+name|region
+operator|.
+name|commit
+argument_list|(
+name|lid
+argument_list|)
+expr_stmt|;
+name|region
+operator|.
+name|flushcache
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 end_class
