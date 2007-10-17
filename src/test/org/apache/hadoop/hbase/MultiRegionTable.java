@@ -193,7 +193,7 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/**    * Make a multi-region table.  Presumption is that table already exists.    * Makes it multi-region by filling with data and provoking splits.    * Asserts parent region is cleaned up after its daughter splits release all    * references.    * @param conf    * @param cluster    * @param localFs    * @param tableName    * @param columnName    * @throws IOException    */
+comment|/**    * Make a multi-region table.  Presumption is that table already exists and    * that there is only one regionserver. Makes it multi-region by filling with    * data and provoking splits. Asserts parent region is cleaned up after its    * daughter splits release all references.    * @param conf    * @param cluster    * @param localFs    * @param tableName    * @param columnName    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -357,11 +357,43 @@ argument_list|,
 name|columnName
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Finished content loading"
+argument_list|)
+expr_stmt|;
 comment|// All is running in the one JVM so I should be able to get the single
 comment|// region instance and bring on a split.
+comment|// Presumption is that there is only one regionserver.
 name|HRegionInfo
 name|hri
 init|=
+literal|null
+decl_stmt|;
+name|HRegion
+name|r
+init|=
+literal|null
+decl_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+literal|30
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|hri
+operator|=
 name|t
 operator|.
 name|getRegionLocation
@@ -373,13 +405,22 @@ argument_list|)
 operator|.
 name|getRegionInfo
 argument_list|()
-decl_stmt|;
-name|HRegion
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Region location: "
+operator|+
+name|hri
+argument_list|)
+expr_stmt|;
 name|r
-init|=
+operator|=
 name|cluster
 operator|.
-name|regionThreads
+name|getRegionThreads
+argument_list|()
 operator|.
 name|get
 argument_list|(
@@ -398,7 +439,43 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+if|if
+condition|(
+name|r
+operator|!=
+literal|null
+condition|)
+block|{
+break|break;
+block|}
+try|try
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Waiting on region to come online"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 comment|// Flush will provoke a split next time the split-checker thread runs.
 name|r
 operator|.
@@ -516,6 +593,15 @@ name|COL_REGIONINFO
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Found parent region: "
+operator|+
+name|parent
+argument_list|)
+expr_stmt|;
 name|assertTrue
 argument_list|(
 name|parent
@@ -1121,6 +1207,16 @@ operator|.
 name|toString
 argument_list|()
 argument_list|)
+operator|&&
+name|hri
+operator|.
+name|getRegionId
+argument_list|()
+operator|==
+name|parent
+operator|.
+name|getRegionId
+argument_list|()
 condition|)
 block|{
 return|return
