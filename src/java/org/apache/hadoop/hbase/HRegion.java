@@ -540,16 +540,6 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-name|Math
-operator|.
-name|abs
-argument_list|(
-name|rand
-operator|.
-name|nextLong
-argument_list|()
-argument_list|)
-argument_list|,
 name|tabledesc
 argument_list|,
 name|startKey
@@ -568,7 +558,8 @@ name|merges
 argument_list|,
 name|newRegionInfo
 operator|.
-name|regionName
+name|getEncodedName
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -716,7 +707,8 @@ name|merges
 argument_list|,
 name|newRegionInfo
 operator|.
-name|regionName
+name|getEncodedName
+argument_list|()
 argument_list|,
 name|colFamily
 argument_list|,
@@ -1171,7 +1163,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|regionName
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|Path
@@ -1236,7 +1229,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|families
 argument_list|()
@@ -1270,7 +1264,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|regionName
+name|getEncodedName
+argument_list|()
 argument_list|,
 name|e
 operator|.
@@ -1474,7 +1469,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|+
 literal|" available"
 argument_list|)
@@ -1491,7 +1487,7 @@ operator|.
 name|minSequenceId
 return|;
 block|}
-comment|/** Returns a HRegionInfo object for this region */
+comment|/** @return a HRegionInfo object for this region */
 specifier|public
 name|HRegionInfo
 name|getRegionInfo
@@ -1564,7 +1560,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|+
 literal|" already closed"
 argument_list|)
@@ -1693,7 +1690,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
@@ -1750,27 +1748,19 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-name|Math
+name|this
 operator|.
-name|abs
-argument_list|(
-name|rand
+name|regionInfo
 operator|.
-name|nextLong
+name|getTableDesc
 argument_list|()
-argument_list|)
 argument_list|,
 name|this
 operator|.
 name|regionInfo
 operator|.
-name|tableDesc
-argument_list|,
-name|this
-operator|.
-name|regionInfo
-operator|.
-name|startKey
+name|getStartKey
+argument_list|()
 argument_list|,
 name|midKey
 argument_list|)
@@ -1784,7 +1774,8 @@ name|splits
 argument_list|,
 name|regionAInfo
 operator|.
-name|regionName
+name|getEncodedName
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -1813,21 +1804,12 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-name|Math
-operator|.
-name|abs
-argument_list|(
-name|rand
-operator|.
-name|nextLong
-argument_list|()
-argument_list|)
-argument_list|,
 name|this
 operator|.
 name|regionInfo
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 argument_list|,
 name|midKey
 argument_list|,
@@ -1843,7 +1825,8 @@ name|splits
 argument_list|,
 name|regionBInfo
 operator|.
-name|regionName
+name|getEncodedName
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -1961,7 +1944,11 @@ name|HStoreFile
 operator|.
 name|Reference
 argument_list|(
-name|getRegionName
+name|this
+operator|.
+name|regionInfo
+operator|.
+name|getEncodedName
 argument_list|()
 argument_list|,
 name|h
@@ -1996,7 +1983,8 @@ name|splits
 argument_list|,
 name|regionAInfo
 operator|.
-name|regionName
+name|getEncodedName
+argument_list|()
 argument_list|,
 name|h
 operator|.
@@ -2027,7 +2015,11 @@ name|HStoreFile
 operator|.
 name|Reference
 argument_list|(
-name|getRegionName
+name|this
+operator|.
+name|regionInfo
+operator|.
+name|getEncodedName
 argument_list|()
 argument_list|,
 name|h
@@ -2062,7 +2054,8 @@ name|splits
 argument_list|,
 name|regionBInfo
 operator|.
-name|regionName
+name|getEncodedName
+argument_list|()
 argument_list|,
 name|h
 operator|.
@@ -2197,7 +2190,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|+
 literal|" complete; "
 operator|+
@@ -2259,7 +2253,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|startKey
+name|getStartKey
+argument_list|()
 operator|.
 name|getLength
 argument_list|()
@@ -2272,7 +2267,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|startKey
+name|getStartKey
+argument_list|()
 operator|.
 name|compareTo
 argument_list|(
@@ -2289,7 +2285,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|endKey
+name|getEndKey
+argument_list|()
 operator|.
 name|getLength
 argument_list|()
@@ -2302,7 +2299,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|endKey
+name|getEndKey
+argument_list|()
 operator|.
 name|compareTo
 argument_list|(
@@ -2334,8 +2332,8 @@ name|Path
 name|splits
 parameter_list|,
 specifier|final
-name|Text
-name|regionName
+name|String
+name|region
 parameter_list|)
 block|{
 return|return
@@ -2345,7 +2343,7 @@ name|getRegionDir
 argument_list|(
 name|splits
 argument_list|,
-name|regionName
+name|region
 argument_list|)
 return|;
 block|}
@@ -2410,7 +2408,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|startKey
+name|getStartKey
+argument_list|()
 return|;
 block|}
 comment|/** @return end key for region */
@@ -2424,7 +2423,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|endKey
+name|getEndKey
+argument_list|()
 return|;
 block|}
 comment|/** @return region id */
@@ -2438,7 +2438,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|regionId
+name|getRegionId
+argument_list|()
 return|;
 block|}
 comment|/** @return region name */
@@ -2452,7 +2453,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 return|;
 block|}
 comment|/** @return root directory path */
@@ -2476,7 +2478,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 return|;
 block|}
 comment|/** @return HLog in use for this region */
@@ -3280,7 +3283,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -3351,7 +3355,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|+
 literal|". Size "
 operator|+
@@ -3445,7 +3450,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|+
 literal|" with sequence id "
 operator|+
@@ -3538,11 +3544,13 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|regionInfo
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -3592,7 +3600,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|+
 literal|" in "
 operator|+
@@ -4676,16 +4685,12 @@ name|IOException
 block|{
 if|if
 condition|(
-name|HGlobals
+name|HLogEdit
 operator|.
-name|deleteBytes
-operator|.
-name|compareTo
+name|isDeleted
 argument_list|(
 name|val
 argument_list|)
-operator|==
-literal|0
 condition|)
 block|{
 throw|throw
@@ -4728,7 +4733,7 @@ name|lockid
 argument_list|,
 name|targetCol
 argument_list|,
-name|HGlobals
+name|HLogEdit
 operator|.
 name|deleteBytes
 operator|.
@@ -4870,7 +4875,7 @@ name|put
 argument_list|(
 name|column
 argument_list|,
-name|HGlobals
+name|HLogEdit
 operator|.
 name|deleteBytes
 operator|.
@@ -5345,11 +5350,9 @@ control|)
 block|{
 if|if
 condition|(
-name|HGlobals
+name|HLogEdit
 operator|.
-name|deleteBytes
-operator|.
-name|equals
+name|isDeleted
 argument_list|(
 name|e
 operator|.
@@ -5488,11 +5491,13 @@ name|append
 argument_list|(
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|regionInfo
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -5537,7 +5542,8 @@ operator|(
 operator|(
 name|regionInfo
 operator|.
-name|startKey
+name|getStartKey
+argument_list|()
 operator|.
 name|getLength
 argument_list|()
@@ -5548,7 +5554,8 @@ operator|||
 operator|(
 name|regionInfo
 operator|.
-name|startKey
+name|getStartKey
+argument_list|()
 operator|.
 name|compareTo
 argument_list|(
@@ -5563,7 +5570,8 @@ operator|(
 operator|(
 name|regionInfo
 operator|.
-name|endKey
+name|getEndKey
+argument_list|()
 operator|.
 name|getLength
 argument_list|()
@@ -5574,7 +5582,8 @@ operator|||
 operator|(
 name|regionInfo
 operator|.
-name|endKey
+name|getEndKey
+argument_list|()
 operator|.
 name|compareTo
 argument_list|(
@@ -5600,19 +5609,22 @@ literal|"HRegion "
 operator|+
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|+
 literal|", startKey='"
 operator|+
 name|regionInfo
 operator|.
-name|startKey
+name|getStartKey
+argument_list|()
 operator|+
-literal|"', endKey='"
+literal|"', getEndKey()='"
 operator|+
 name|regionInfo
 operator|.
-name|endKey
+name|getEndKey
+argument_list|()
 operator|+
 literal|"', row='"
 operator|+
@@ -5654,7 +5666,8 @@ condition|(
 operator|!
 name|regionInfo
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|hasFamily
 argument_list|(
@@ -5674,13 +5687,15 @@ literal|" does not exist in HRegion "
 operator|+
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|+
 literal|" for table "
 operator|+
 name|regionInfo
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -6308,6 +6323,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/** @return true if the scanner is a wild card scanner */
 specifier|public
 name|boolean
 name|isWildcardScanner
@@ -6317,6 +6333,7 @@ return|return
 name|wildcardMatch
 return|;
 block|}
+comment|/** @return true if the scanner is a multiple match scanner */
 specifier|public
 name|boolean
 name|isMultipleMatchScanner
@@ -6326,6 +6343,7 @@ return|return
 name|multipleMatchers
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|next
@@ -6716,11 +6734,9 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|HGlobals
+name|HLogEdit
 operator|.
-name|deleteBytes
-operator|.
-name|equals
+name|isDeleted
 argument_list|(
 name|e
 operator|.
@@ -7276,7 +7292,8 @@ name|rootDir
 argument_list|,
 name|info
 operator|.
-name|regionName
+name|getEncodedName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|FileSystem
@@ -7388,7 +7405,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Deletes all the files for a HRegion    *     * @param fs the file system object    * @param baseDirectory base directory for HBase    * @param regionName name of the region to delete    * @throws IOException    * @return True if deleted.    */
+comment|/**    * Deletes all the files for a HRegion    *     * @param fs the file system object    * @param baseDirectory base directory for HBase    * @param name region file name    * @throws IOException    * @return True if deleted.    */
 specifier|static
 name|boolean
 name|deleteRegion
@@ -7399,8 +7416,8 @@ parameter_list|,
 name|Path
 name|baseDirectory
 parameter_list|,
-name|Text
-name|regionName
+name|String
+name|name
 parameter_list|)
 throws|throws
 name|IOException
@@ -7419,7 +7436,7 @@ argument_list|(
 name|baseDirectory
 argument_list|)
 argument_list|,
-name|regionName
+name|name
 argument_list|)
 decl_stmt|;
 return|return
@@ -7431,7 +7448,7 @@ name|p
 argument_list|)
 return|;
 block|}
-comment|/**    * Computes the Path of the HRegion    *     * @param dir hbase home directory    * @param regionName name of the region    * @return Path of HRegion directory    */
+comment|/**    * Computes the Path of the HRegion    *     * @param dir hbase home directory    * @param name region file name    * @return Path of HRegion directory    */
 specifier|public
 specifier|static
 name|Path
@@ -7442,8 +7459,8 @@ name|Path
 name|dir
 parameter_list|,
 specifier|final
-name|Text
-name|regionName
+name|String
+name|name
 parameter_list|)
 block|{
 return|return
@@ -7457,7 +7474,7 @@ name|Path
 argument_list|(
 name|HREGIONDIR_PREFIX
 operator|+
-name|regionName
+name|name
 argument_list|)
 argument_list|)
 return|;

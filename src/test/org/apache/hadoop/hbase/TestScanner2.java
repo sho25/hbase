@@ -1437,7 +1437,8 @@ literal|"Expected region named for test"
 argument_list|,
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|.
 name|toString
 argument_list|()
@@ -1465,7 +1466,8 @@ argument_list|)
 argument_list|,
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|HTableDescriptor
@@ -1473,7 +1475,8 @@ name|desc
 init|=
 name|region
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 decl_stmt|;
 name|Path
 name|homedir
@@ -1511,8 +1514,6 @@ argument_list|(
 operator|new
 name|HRegionInfo
 argument_list|(
-literal|2L
-argument_list|,
 name|desc
 argument_list|,
 literal|null
@@ -1545,8 +1546,6 @@ argument_list|(
 operator|new
 name|HRegionInfo
 argument_list|(
-literal|3L
-argument_list|,
 name|desc
 argument_list|,
 operator|new

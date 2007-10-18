@@ -472,8 +472,8 @@ decl_stmt|;
 name|Path
 name|dir
 decl_stmt|;
-name|Text
-name|regionName
+name|String
+name|encodedRegionName
 decl_stmt|;
 name|HColumnDescriptor
 name|family
@@ -594,14 +594,14 @@ specifier|private
 name|int
 name|compactionThreshold
 decl_stmt|;
-comment|/**    * An HStore is a set of zero or more MapFiles, which stretch backwards over     * time.  A given HStore is responsible for a certain set of columns for a    * row in the HRegion.    *    *<p>The HRegion starts writing to its set of HStores when the HRegion's     * memcache is flushed.  This results in a round of new MapFiles, one for    * each HStore.    *    *<p>There's no reason to consider append-logging at this level; all logging     * and locking is handled at the HRegion level.  HStore just provides    * services to manage sets of MapFiles.  One of the most important of those    * services is MapFile-compaction services.    *    *<p>The only thing having to do with logs that HStore needs to deal with is    * the reconstructionLog.  This is a segment of an HRegion's log that might    * NOT be present upon startup.  If the param is NULL, there's nothing to do.    * If the param is non-NULL, we need to process the log to reconstruct    * a TreeMap that might not have been written to disk before the process    * died.    *    *<p>It's assumed that after this constructor returns, the reconstructionLog    * file will be deleted (by whoever has instantiated the HStore).    *    * @param dir log file directory    * @param regionName name of region    * @param family name of column family    * @param fs file system object    * @param reconstructionLog existing log file to apply if any    * @param conf configuration object    * @throws IOException    */
+comment|/**    * An HStore is a set of zero or more MapFiles, which stretch backwards over     * time.  A given HStore is responsible for a certain set of columns for a    * row in the HRegion.    *    *<p>The HRegion starts writing to its set of HStores when the HRegion's     * memcache is flushed.  This results in a round of new MapFiles, one for    * each HStore.    *    *<p>There's no reason to consider append-logging at this level; all logging     * and locking is handled at the HRegion level.  HStore just provides    * services to manage sets of MapFiles.  One of the most important of those    * services is MapFile-compaction services.    *    *<p>The only thing having to do with logs that HStore needs to deal with is    * the reconstructionLog.  This is a segment of an HRegion's log that might    * NOT be present upon startup.  If the param is NULL, there's nothing to do.    * If the param is non-NULL, we need to process the log to reconstruct    * a TreeMap that might not have been written to disk before the process    * died.    *    *<p>It's assumed that after this constructor returns, the reconstructionLog    * file will be deleted (by whoever has instantiated the HStore).    *    * @param dir log file directory    * @param encodedRegionName filename friendly name of region    * @param family name of column family    * @param fs file system object    * @param reconstructionLog existing log file to apply if any    * @param conf configuration object    * @throws IOException    */
 name|HStore
 parameter_list|(
 name|Path
 name|dir
 parameter_list|,
-name|Text
-name|regionName
+name|String
+name|encodedRegionName
 parameter_list|,
 name|HColumnDescriptor
 name|family
@@ -638,9 +638,9 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|regionName
+name|encodedRegionName
 operator|=
-name|regionName
+name|encodedRegionName
 expr_stmt|;
 name|this
 operator|.
@@ -680,10 +680,7 @@ name|storeName
 operator|=
 name|this
 operator|.
-name|regionName
-operator|.
-name|toString
-argument_list|()
+name|encodedRegionName
 operator|+
 literal|"/"
 operator|+
@@ -790,7 +787,7 @@ name|getMapDir
 argument_list|(
 name|dir
 argument_list|,
-name|regionName
+name|encodedRegionName
 argument_list|,
 name|familyName
 argument_list|)
@@ -812,7 +809,7 @@ name|getInfoDir
 argument_list|(
 name|dir
 argument_list|,
-name|regionName
+name|encodedRegionName
 argument_list|,
 name|familyName
 argument_list|)
@@ -859,7 +856,7 @@ name|getFilterDir
 argument_list|(
 name|dir
 argument_list|,
-name|regionName
+name|encodedRegionName
 argument_list|,
 name|familyName
 argument_list|)
@@ -938,7 +935,7 @@ name|conf
 argument_list|,
 name|dir
 argument_list|,
-name|regionName
+name|encodedRegionName
 argument_list|,
 name|familyName
 argument_list|,
@@ -1237,6 +1234,16 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
+name|Text
+name|thisRegionName
+init|=
+name|HRegionInfo
+operator|.
+name|decodeRegionName
+argument_list|(
+name|encodedRegionName
+argument_list|)
+decl_stmt|;
 name|HLogKey
 name|key
 init|=
@@ -1357,9 +1364,7 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
-name|this
-operator|.
-name|regionName
+name|thisRegionName
 argument_list|)
 operator|||
 operator|!
@@ -1419,9 +1424,7 @@ argument_list|)
 operator|+
 literal|", my region: "
 operator|+
-name|this
-operator|.
-name|regionName
+name|thisRegionName
 operator|+
 literal|", my column: "
 operator|+
@@ -2033,7 +2036,7 @@ name|conf
 argument_list|,
 name|dir
 argument_list|,
-name|regionName
+name|encodedRegionName
 argument_list|,
 name|familyName
 argument_list|,
@@ -2425,7 +2428,7 @@ name|this
 operator|.
 name|compactionDir
 argument_list|,
-name|regionName
+name|encodedRegionName
 argument_list|,
 name|familyName
 argument_list|)
@@ -2532,7 +2535,7 @@ name|this
 operator|.
 name|compactionDir
 argument_list|,
-name|regionName
+name|encodedRegionName
 argument_list|,
 name|familyName
 argument_list|,
@@ -4116,11 +4119,9 @@ block|}
 if|if
 condition|(
 operator|!
-name|HGlobals
+name|HLogEdit
 operator|.
-name|deleteBytes
-operator|.
-name|equals
+name|isDeleted
 argument_list|(
 name|value
 argument_list|)
@@ -4208,7 +4209,7 @@ name|this
 operator|.
 name|compactionDir
 argument_list|,
-name|regionName
+name|encodedRegionName
 argument_list|,
 name|familyName
 argument_list|)
@@ -4365,7 +4366,7 @@ name|this
 operator|.
 name|compactionDir
 argument_list|,
-name|regionName
+name|encodedRegionName
 argument_list|,
 name|familyName
 argument_list|,
@@ -4386,7 +4387,7 @@ name|conf
 argument_list|,
 name|dir
 argument_list|,
-name|regionName
+name|encodedRegionName
 argument_list|,
 name|familyName
 argument_list|,
@@ -4827,13 +4828,14 @@ condition|)
 block|{
 if|if
 condition|(
+name|HLogEdit
+operator|.
+name|isDeleted
+argument_list|(
 name|readval
 operator|.
-name|equals
-argument_list|(
-name|HGlobals
-operator|.
-name|deleteBytes
+name|get
+argument_list|()
 argument_list|)
 condition|)
 block|{

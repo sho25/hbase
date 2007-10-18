@@ -291,8 +291,6 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-literal|1
-argument_list|,
 name|htd
 argument_list|,
 literal|null
@@ -401,21 +399,6 @@ argument_list|)
 decl_stmt|;
 comment|// Assert can get rows out of new regions.  Should be able to get first
 comment|// row from first region and the midkey from second region.
-name|byte
-index|[]
-name|b
-init|=
-operator|new
-name|byte
-index|[]
-block|{
-name|FIRST_CHAR
-block|,
-name|FIRST_CHAR
-block|,
-name|FIRST_CHAR
-block|}
-decl_stmt|;
 name|assertGet
 argument_list|(
 name|regions
@@ -428,7 +411,7 @@ argument_list|,
 operator|new
 name|Text
 argument_list|(
-name|b
+name|START_KEY
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -457,7 +440,7 @@ argument_list|,
 operator|new
 name|Text
 argument_list|(
-name|b
+name|START_KEY
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -775,6 +758,19 @@ name|FIRST_CHAR
 operator|)
 operator|/
 literal|3
+decl_stmt|;
+name|byte
+index|[]
+name|b
+init|=
+name|START_KEY
+operator|.
+name|getBytes
+argument_list|(
+name|HConstants
+operator|.
+name|UTF8_ENCODING
+argument_list|)
 decl_stmt|;
 for|for
 control|(

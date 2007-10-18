@@ -763,6 +763,7 @@ comment|// into web context.
 name|InfoServer
 name|infoServer
 decl_stmt|;
+comment|/** region server process name */
 specifier|public
 specifier|static
 specifier|final
@@ -1137,7 +1138,8 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -1233,15 +1235,17 @@ argument_list|)
 decl_stmt|;
 name|oldRegionInfo
 operator|.
-name|offLine
-operator|=
+name|setOffline
+argument_list|(
 literal|true
+argument_list|)
 expr_stmt|;
 name|oldRegionInfo
 operator|.
-name|split
-operator|=
+name|setSplit
+argument_list|(
 literal|true
+argument_list|)
 expr_stmt|;
 name|t
 operator|.
@@ -4375,7 +4379,8 @@ name|get
 argument_list|(
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -4521,7 +4526,8 @@ name|remove
 argument_list|(
 name|hri
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -5485,6 +5491,7 @@ block|}
 comment|//
 comment|// remote scanner interface
 comment|//
+comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|openScanner
@@ -6087,6 +6094,7 @@ name|onlineRegions
 argument_list|)
 return|;
 block|}
+comment|/** @return the request count */
 specifier|public
 name|AtomicInteger
 name|getRequestCount

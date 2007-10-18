@@ -535,7 +535,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|HGlobals
+name|HLogEdit
 operator|.
 name|completeCacheFlush
 operator|.

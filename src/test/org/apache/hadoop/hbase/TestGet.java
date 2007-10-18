@@ -215,11 +215,12 @@ init|=
 operator|new
 name|Text
 argument_list|(
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -479,8 +480,6 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-literal|0L
-argument_list|,
 name|desc
 argument_list|,
 literal|null
@@ -499,7 +498,8 @@ name|dir
 argument_list|,
 name|info
 operator|.
-name|regionName
+name|getEncodedName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|fs
@@ -600,7 +600,7 @@ operator|.
 name|reset
 argument_list|()
 expr_stmt|;
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 operator|.
@@ -623,7 +623,7 @@ name|Writables
 operator|.
 name|getBytes
 argument_list|(
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 argument_list|)

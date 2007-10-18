@@ -789,6 +789,7 @@ comment|// and the attribute name used stuffing this instance into web context.
 name|InfoServer
 name|infoServer
 decl_stmt|;
+comment|/** Name of master server */
 specifier|public
 specifier|static
 specifier|final
@@ -1472,7 +1473,8 @@ literal|"Region is split but not offline: "
 operator|+
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1588,7 +1590,7 @@ name|dir
 argument_list|,
 name|parent
 operator|.
-name|getRegionName
+name|getEncodedName
 argument_list|()
 argument_list|)
 condition|)
@@ -1811,7 +1813,7 @@ argument_list|)
 argument_list|,
 name|split
 operator|.
-name|getRegionName
+name|getEncodedName
 argument_list|()
 argument_list|,
 name|HStoreKey
@@ -1989,7 +1991,8 @@ if|if
 condition|(
 name|info
 operator|.
-name|offLine
+name|isOffline
+argument_list|()
 comment|// offline
 operator|||
 name|killedRegions
@@ -1998,7 +2001,8 @@ name|contains
 argument_list|(
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 comment|// queued for offline
 operator|||
@@ -2008,7 +2012,8 @@ name|contains
 argument_list|(
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -2019,7 +2024,8 @@ name|remove
 argument_list|(
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assignAttempts
@@ -2028,7 +2034,8 @@ name|remove
 argument_list|(
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return;
@@ -2075,7 +2082,8 @@ name|containsKey
 argument_list|(
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -2096,7 +2104,8 @@ literal|"not assigning region (on kill list): "
 operator|+
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2134,7 +2143,8 @@ literal|"Checking "
 operator|+
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|+
 literal|" is assigned"
 argument_list|)
@@ -2150,7 +2160,8 @@ name|containsKey
 argument_list|(
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 operator|||
 name|pendingRegions
@@ -2159,7 +2170,8 @@ name|contains
 argument_list|(
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 operator|)
 operator|&&
@@ -2194,7 +2206,8 @@ literal|"Current assignment of "
 operator|+
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|+
 literal|" is no good"
 argument_list|)
@@ -2339,7 +2352,8 @@ name|put
 argument_list|(
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|info
 argument_list|)
@@ -2350,7 +2364,8 @@ name|put
 argument_list|(
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|Long
 operator|.
@@ -2488,11 +2503,12 @@ operator|.
 name|get
 argument_list|()
 argument_list|,
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 literal|null
 argument_list|)
@@ -2652,6 +2668,7 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
+comment|/** Describes a meta region and its server */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -2760,6 +2777,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -3718,11 +3736,12 @@ name|getRegionDir
 argument_list|(
 name|dir
 argument_list|,
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 operator|.
-name|regionName
+name|getEncodedName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|LOG
@@ -3786,7 +3805,7 @@ name|HRegion
 operator|.
 name|createHRegion
 argument_list|(
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 argument_list|,
@@ -3808,19 +3827,9 @@ name|HRegion
 operator|.
 name|createHRegion
 argument_list|(
-operator|new
 name|HRegionInfo
-argument_list|(
-literal|1L
-argument_list|,
-name|HGlobals
 operator|.
-name|metaTableDesc
-argument_list|,
-literal|null
-argument_list|,
-literal|null
-argument_list|)
+name|firstMetaRegionInfo
 argument_list|,
 name|this
 operator|.
@@ -4302,13 +4311,14 @@ name|unassignedRegions
 operator|.
 name|put
 argument_list|(
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 argument_list|)
@@ -4319,11 +4329,12 @@ name|assignAttempts
 operator|.
 name|put
 argument_list|(
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|Long
 operator|.
@@ -5736,7 +5747,8 @@ if|if
 condition|(
 name|info
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -5760,7 +5772,8 @@ if|if
 condition|(
 name|info
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -5790,7 +5803,8 @@ name|put
 argument_list|(
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|info
 argument_list|)
@@ -5803,7 +5817,8 @@ name|put
 argument_list|(
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|Long
 operator|.
@@ -6381,7 +6396,8 @@ name|get
 argument_list|(
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -6417,7 +6433,8 @@ literal|" should not have opened region "
 operator|+
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -6459,7 +6476,8 @@ literal|" serving "
 operator|+
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Remove from unassigned list so we don't assign it to someone else
@@ -6471,7 +6489,8 @@ name|remove
 argument_list|(
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
@@ -6482,22 +6501,25 @@ name|remove
 argument_list|(
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
 condition|(
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|.
 name|compareTo
 argument_list|(
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 operator|==
 literal|0
@@ -6543,7 +6565,8 @@ name|add
 argument_list|(
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Queue up an update to note the region location.
@@ -6602,22 +6625,25 @@ literal|" no longer serving "
 operator|+
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
 condition|(
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|.
 name|compareTo
 argument_list|(
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 operator|==
 literal|0
@@ -6637,7 +6663,8 @@ name|put
 argument_list|(
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|region
 argument_list|)
@@ -6648,7 +6675,8 @@ name|put
 argument_list|(
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|Long
 operator|.
@@ -6679,7 +6707,8 @@ name|remove
 argument_list|(
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -6696,7 +6725,8 @@ name|remove
 argument_list|(
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -6718,7 +6748,8 @@ name|remove
 argument_list|(
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assignAttempts
@@ -6727,7 +6758,8 @@ name|remove
 argument_list|(
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 try|try
@@ -6862,26 +6894,30 @@ literal|"region "
 operator|+
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|+
 literal|" split. New regions are: "
 operator|+
 name|newRegionA
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|+
 literal|", "
 operator|+
 name|newRegionB
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
 condition|(
 name|region
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -6968,7 +7004,8 @@ name|add
 argument_list|(
 name|i
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -8510,7 +8547,8 @@ if|if
 condition|(
 name|info
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -8583,7 +8621,8 @@ name|containsKey
 argument_list|(
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -8593,7 +8632,8 @@ name|remove
 argument_list|(
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|killList
@@ -8611,7 +8651,8 @@ name|remove
 argument_list|(
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assignAttempts
@@ -8620,7 +8661,8 @@ name|remove
 argument_list|(
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
@@ -8631,7 +8673,8 @@ name|contains
 argument_list|(
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -8642,7 +8685,8 @@ name|remove
 argument_list|(
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|todo
@@ -8673,7 +8717,8 @@ name|put
 argument_list|(
 name|info
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|info
 argument_list|)
@@ -8798,9 +8843,10 @@ name|e
 operator|.
 name|info
 operator|.
-name|offLine
-operator|=
+name|setOffline
+argument_list|(
 literal|true
+argument_list|)
 expr_stmt|;
 name|b
 operator|.
@@ -9060,13 +9106,14 @@ name|unassignedRegions
 operator|.
 name|put
 argument_list|(
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 argument_list|)
@@ -9075,11 +9122,12 @@ name|assignAttempts
 operator|.
 name|put
 argument_list|(
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|Long
 operator|.
@@ -9225,11 +9273,12 @@ name|server
 operator|.
 name|openScanner
 argument_list|(
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|COLUMN_FAMILY_ARRAY
 argument_list|,
@@ -9249,11 +9298,12 @@ name|server
 argument_list|,
 name|scannerId
 argument_list|,
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 break|break;
@@ -9651,7 +9701,8 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -9741,7 +9792,8 @@ literal|"region closed: "
 operator|+
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Mark the Region as unavailable in the appropriate meta table
@@ -9777,11 +9829,12 @@ return|;
 block|}
 name|metaRegionName
 operator|=
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 expr_stmt|;
 name|server
 operator|=
@@ -9961,7 +10014,8 @@ name|startUpdate
 argument_list|(
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -9988,9 +10042,10 @@ condition|)
 block|{
 name|regionInfo
 operator|.
-name|offLine
-operator|=
+name|setOffline
+argument_list|(
 literal|true
+argument_list|)
 expr_stmt|;
 name|b
 operator|.
@@ -10083,7 +10138,8 @@ literal|"reassign region: "
 operator|+
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|unassignedRegions
@@ -10092,7 +10148,8 @@ name|put
 argument_list|(
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|regionInfo
 argument_list|)
@@ -10103,7 +10160,8 @@ name|put
 argument_list|(
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|Long
 operator|.
@@ -10132,7 +10190,8 @@ name|dir
 argument_list|,
 name|regionInfo
 operator|.
-name|regionName
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -10159,7 +10218,8 @@ literal|"failed delete region "
 operator|+
 name|regionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|e
 argument_list|)
@@ -10222,7 +10282,8 @@ name|rootRegion
 operator|=
 name|region
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -10262,6 +10323,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -10407,11 +10469,12 @@ return|;
 block|}
 name|metaRegionName
 operator|=
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 expr_stmt|;
 name|server
 operator|=
@@ -10654,7 +10717,8 @@ if|if
 condition|(
 name|region
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -10680,13 +10744,15 @@ name|this
 operator|.
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|this
 operator|.
 name|region
 operator|.
-name|startKey
+name|getRegionName
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -10760,7 +10826,8 @@ name|this
 operator|.
 name|region
 operator|.
-name|startKey
+name|getRegionName
+argument_list|()
 argument_list|,
 name|m
 argument_list|)
@@ -10923,11 +10990,6 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-name|rand
-operator|.
-name|nextLong
-argument_list|()
-argument_list|,
 name|desc
 argument_list|,
 literal|null
@@ -11043,7 +11105,8 @@ name|tableName
 init|=
 name|newRegion
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -11101,7 +11164,8 @@ name|containsKey
 argument_list|(
 name|newRegion
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 condition|?
 name|onlineMetaRegions
@@ -11110,7 +11174,8 @@ name|get
 argument_list|(
 name|newRegion
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 else|:
 name|onlineMetaRegions
@@ -12058,7 +12123,8 @@ if|if
 condition|(
 name|info
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -12311,7 +12377,8 @@ return|return
 operator|!
 name|info
 operator|.
-name|offLine
+name|isOffline
+argument_list|()
 return|;
 block|}
 specifier|protected
@@ -12526,7 +12593,8 @@ if|if
 condition|(
 name|i
 operator|.
-name|offLine
+name|isOffline
+argument_list|()
 operator|&&
 name|i
 operator|.
@@ -12578,7 +12646,8 @@ literal|"updating columns in row: "
 operator|+
 name|i
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -12602,7 +12671,8 @@ name|startUpdate
 argument_list|(
 name|i
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|updateRegionInfo
@@ -12663,7 +12733,8 @@ literal|"updated columns in row: "
 operator|+
 name|i
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -12682,7 +12753,8 @@ name|containsKey
 argument_list|(
 name|i
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -12692,7 +12764,8 @@ name|put
 argument_list|(
 name|i
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|i
 argument_list|)
@@ -12703,7 +12776,8 @@ name|put
 argument_list|(
 name|i
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|Long
 operator|.
@@ -12724,7 +12798,8 @@ name|remove
 argument_list|(
 name|i
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assignAttempts
@@ -12733,7 +12808,8 @@ name|remove
 argument_list|(
 name|i
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -12861,7 +12937,8 @@ literal|"adding region "
 operator|+
 name|i
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|+
 literal|" to local kill list"
 argument_list|)
@@ -12873,7 +12950,8 @@ name|put
 argument_list|(
 name|i
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|i
 argument_list|)
@@ -12941,10 +13019,11 @@ name|IOException
 block|{
 name|i
 operator|.
-name|offLine
-operator|=
+name|setOffline
+argument_list|(
 operator|!
 name|online
+argument_list|)
 expr_stmt|;
 name|b
 operator|.
@@ -13031,7 +13110,8 @@ name|add
 argument_list|(
 name|i
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -13058,7 +13138,8 @@ name|dir
 argument_list|,
 name|i
 operator|.
-name|regionName
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -13076,7 +13157,8 @@ literal|"failed to delete region "
 operator|+
 name|i
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|RemoteExceptionHandler
 operator|.
@@ -13235,7 +13317,8 @@ name|startUpdate
 argument_list|(
 name|i
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|b
@@ -13284,7 +13367,8 @@ literal|"updated columns in row: "
 operator|+
 name|i
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -13349,7 +13433,8 @@ control|)
 block|{
 name|i
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|families
 argument_list|()
@@ -13384,7 +13469,8 @@ name|dir
 argument_list|,
 name|i
 operator|.
-name|regionName
+name|getEncodedName
+argument_list|()
 argument_list|,
 name|columnName
 argument_list|)
@@ -13402,7 +13488,8 @@ name|dir
 argument_list|,
 name|i
 operator|.
-name|regionName
+name|getEncodedName
+argument_list|()
 argument_list|,
 name|columnName
 argument_list|)
@@ -13473,7 +13560,8 @@ comment|// When the region is brought on-line, it will find the column missing
 comment|// and create it.
 name|i
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|addFamily
 argument_list|(

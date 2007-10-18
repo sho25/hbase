@@ -1197,6 +1197,8 @@ block|{
 if|if
 condition|(
 operator|!
+name|HLogEdit
+operator|.
 name|isDeleted
 argument_list|(
 name|es
@@ -1475,6 +1477,8 @@ block|}
 if|if
 condition|(
 operator|!
+name|HLogEdit
+operator|.
 name|isDeleted
 argument_list|(
 name|es
@@ -1526,6 +1530,8 @@ name|key
 parameter_list|)
 block|{
 return|return
+name|HLogEdit
+operator|.
 name|isDeleted
 argument_list|(
 name|this
@@ -1537,37 +1543,6 @@ argument_list|(
 name|key
 argument_list|)
 argument_list|)
-return|;
-block|}
-comment|/**    * @param value    * @return True if an entry and its content is {@link HGlobals.deleteBytes}.    */
-name|boolean
-name|isDeleted
-parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|value
-parameter_list|)
-block|{
-return|return
-operator|(
-name|value
-operator|==
-literal|null
-operator|)
-condition|?
-literal|false
-else|:
-name|HGlobals
-operator|.
-name|deleteBytes
-operator|.
-name|compareTo
-argument_list|(
-name|value
-argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 comment|/**    * Return a scanner over the keys in the HMemcache    */

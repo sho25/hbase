@@ -165,8 +165,6 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-literal|1
-argument_list|,
 operator|new
 name|HTableDescriptor
 argument_list|(
@@ -184,8 +182,6 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-literal|2
-argument_list|,
 operator|new
 name|HTableDescriptor
 argument_list|(
@@ -232,8 +228,6 @@ operator|=
 operator|new
 name|HRegionInfo
 argument_list|(
-literal|1
-argument_list|,
 name|t
 argument_list|,
 literal|null
@@ -246,8 +240,6 @@ operator|=
 operator|new
 name|HRegionInfo
 argument_list|(
-literal|2
-argument_list|,
 name|t
 argument_list|,
 name|midway
@@ -303,8 +295,6 @@ operator|=
 operator|new
 name|HRegionInfo
 argument_list|(
-literal|1
-argument_list|,
 name|t
 argument_list|,
 operator|new
@@ -325,8 +315,6 @@ operator|=
 operator|new
 name|HRegionInfo
 argument_list|(
-literal|2
-argument_list|,
 name|t
 argument_list|,
 operator|new
@@ -359,8 +347,6 @@ operator|=
 operator|new
 name|HRegionInfo
 argument_list|(
-literal|1
-argument_list|,
 name|t
 argument_list|,
 operator|new
@@ -381,8 +367,6 @@ operator|=
 operator|new
 name|HRegionInfo
 argument_list|(
-literal|2
-argument_list|,
 name|t
 argument_list|,
 operator|new
@@ -415,8 +399,6 @@ operator|=
 operator|new
 name|HRegionInfo
 argument_list|(
-literal|1
-argument_list|,
 name|t
 argument_list|,
 operator|new
@@ -437,8 +419,6 @@ operator|=
 operator|new
 name|HRegionInfo
 argument_list|(
-literal|2
-argument_list|,
 name|t
 argument_list|,
 operator|new

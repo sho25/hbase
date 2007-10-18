@@ -663,7 +663,7 @@ name|d
 argument_list|,
 name|parent
 operator|.
-name|getRegionName
+name|getEncodedName
 argument_list|()
 argument_list|)
 decl_stmt|;

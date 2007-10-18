@@ -643,7 +643,12 @@ name|getRegionDir
 argument_list|(
 name|rootDir
 argument_list|,
-name|regionName
+name|HRegionInfo
+operator|.
+name|rootRegionInfo
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 argument_list|,
 name|HREGION_OLDLOGFILE_NAME
@@ -1942,7 +1947,7 @@ name|HLog
 operator|.
 name|METACOLUMN
 argument_list|,
-name|HGlobals
+name|HLogEdit
 operator|.
 name|completeCacheFlush
 operator|.

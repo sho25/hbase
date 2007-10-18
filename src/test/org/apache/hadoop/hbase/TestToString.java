@@ -17,20 +17,6 @@ end_package
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
-begin_import
-import|import
 name|junit
 operator|.
 name|framework
@@ -118,63 +104,19 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests toString method on HRegionInfo    * @throws Exception    */
+comment|/**    * Test HTableDescriptor.toString();    */
 specifier|public
 name|void
-name|testHRegionInfo
+name|testHTableDescriptor
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|HTableDescriptor
 name|htd
 init|=
-operator|new
 name|HTableDescriptor
-argument_list|(
-literal|"hank"
-argument_list|)
+operator|.
+name|rootTableDesc
 decl_stmt|;
-name|htd
-operator|.
-name|addFamily
-argument_list|(
-operator|new
-name|HColumnDescriptor
-argument_list|(
-literal|"hankfamily:"
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|htd
-operator|.
-name|addFamily
-argument_list|(
-operator|new
-name|HColumnDescriptor
-argument_list|(
-operator|new
-name|Text
-argument_list|(
-literal|"hankotherfamily:"
-argument_list|)
-argument_list|,
-literal|10
-argument_list|,
-name|HColumnDescriptor
-operator|.
-name|CompressionType
-operator|.
-name|BLOCK
-argument_list|,
-literal|true
-argument_list|,
-literal|1000
-argument_list|,
-literal|null
-argument_list|)
-argument_list|)
-expr_stmt|;
 name|System
 operator|.
 name|out
@@ -191,17 +133,11 @@ name|assertEquals
 argument_list|(
 literal|"Table descriptor"
 argument_list|,
-literal|"name: hank, families: "
+literal|"name: -ROOT-, families: {info:={name: "
 operator|+
-literal|"{hankfamily:={name: hankfamily, max versions: 3, compression: NONE, "
+literal|"info, max versions: 1, compression: NONE, in memory: false, max "
 operator|+
-literal|"in memory: false, max length: 2147483647, bloom filter: none}, "
-operator|+
-literal|"hankotherfamily:={name: hankotherfamily, max versions: 10, "
-operator|+
-literal|"compression: BLOCK, in memory: true, max length: 1000, "
-operator|+
-literal|"bloom filter: none}}"
+literal|"length: 2147483647, bloom filter: none}}"
 argument_list|,
 name|htd
 operator|.
@@ -209,27 +145,19 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+comment|/**    * Tests HRegionInfo.toString()    */
+specifier|public
+name|void
+name|testHRegionInfo
+parameter_list|()
+block|{
 name|HRegionInfo
 name|hri
 init|=
-operator|new
 name|HRegionInfo
-argument_list|(
-operator|-
-literal|1
-argument_list|,
-name|htd
-argument_list|,
-operator|new
-name|Text
-argument_list|()
-argument_list|,
-operator|new
-name|Text
-argument_list|(
-literal|"10"
-argument_list|)
-argument_list|)
+operator|.
+name|rootRegionInfo
 decl_stmt|;
 name|System
 operator|.
@@ -247,17 +175,11 @@ name|assertEquals
 argument_list|(
 literal|"HRegionInfo"
 argument_list|,
-literal|"regionname: hank,,-1, startKey:<>, tableDesc: {name: hank, "
+literal|"regionname: -ROOT-,,0, startKey:<>, tableDesc: {name: -ROOT-, "
 operator|+
-literal|"families: {hankfamily:={name: hankfamily, max versions: 3, "
+literal|"families: {info:={name: info, max versions: 1, compression: NONE, "
 operator|+
-literal|"compression: NONE, in memory: false, max length: 2147483647, "
-operator|+
-literal|"bloom filter: none}, hankotherfamily:={name: hankotherfamily, "
-operator|+
-literal|"max versions: 10, compression: BLOCK, in memory: true, "
-operator|+
-literal|"max length: 1000, bloom filter: none}}}"
+literal|"in memory: false, max length: 2147483647, bloom filter: none}}}"
 argument_list|,
 name|hri
 operator|.

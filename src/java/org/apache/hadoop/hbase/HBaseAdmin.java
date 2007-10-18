@@ -713,7 +713,8 @@ if|if
 condition|(
 name|info
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -1122,7 +1123,8 @@ operator|=
 operator|!
 name|info
 operator|.
-name|offLine
+name|isOffline
+argument_list|()
 expr_stmt|;
 break|break;
 block|}
@@ -1558,7 +1560,8 @@ name|disabled
 operator|=
 name|info
 operator|.
-name|offLine
+name|isOffline
+argument_list|()
 expr_stmt|;
 break|break;
 block|}

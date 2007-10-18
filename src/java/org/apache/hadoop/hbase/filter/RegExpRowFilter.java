@@ -167,9 +167,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|io
 operator|.
-name|HGlobals
+name|Text
 import|;
 end_import
 
@@ -181,9 +181,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|Text
+name|HLogEdit
 import|;
 end_import
 
@@ -659,17 +659,10 @@ operator|!=
 literal|null
 operator|&&
 operator|!
-name|Arrays
+name|HLogEdit
 operator|.
-name|equals
+name|isDeleted
 argument_list|(
-name|HGlobals
-operator|.
-name|deleteBytes
-operator|.
-name|get
-argument_list|()
-argument_list|,
 name|data
 argument_list|)
 condition|)
@@ -773,17 +766,10 @@ argument_list|()
 argument_list|)
 operator|&&
 operator|!
-name|Arrays
+name|HLogEdit
 operator|.
-name|equals
+name|isDeleted
 argument_list|(
-name|HGlobals
-operator|.
-name|deleteBytes
-operator|.
-name|get
-argument_list|()
-argument_list|,
 name|col
 operator|.
 name|getValue

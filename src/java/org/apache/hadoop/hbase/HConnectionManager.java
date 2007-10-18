@@ -1255,7 +1255,8 @@ if|if
 condition|(
 name|info
 operator|.
-name|startKey
+name|getStartKey
+argument_list|()
 operator|.
 name|getLength
 argument_list|()
@@ -1269,7 +1270,8 @@ name|add
 argument_list|(
 name|info
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2687,11 +2689,12 @@ name|rootRegion
 operator|.
 name|getRegionInfo
 argument_list|(
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 break|break;
@@ -2834,7 +2837,7 @@ argument_list|,
 operator|new
 name|HRegionLocation
 argument_list|(
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 argument_list|,
@@ -3195,7 +3198,8 @@ condition|(
 operator|!
 name|regionInfo
 operator|.
-name|tableDesc
+name|getTableDesc
+argument_list|()
 operator|.
 name|getName
 argument_list|()
@@ -3330,7 +3334,8 @@ name|put
 argument_list|(
 name|regionInfo
 operator|.
-name|startKey
+name|getStartKey
+argument_list|()
 argument_list|,
 operator|new
 name|HRegionLocation

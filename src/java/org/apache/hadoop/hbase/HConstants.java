@@ -73,6 +73,7 @@ name|DEFAULT_HOST
 operator|+
 literal|":60000"
 decl_stmt|;
+comment|/** default port for master web api */
 specifier|static
 specifier|final
 name|int
@@ -98,6 +99,7 @@ name|DEFAULT_HOST
 operator|+
 literal|":60020"
 decl_stmt|;
+comment|/** default port for region server web api */
 specifier|static
 specifier|final
 name|int

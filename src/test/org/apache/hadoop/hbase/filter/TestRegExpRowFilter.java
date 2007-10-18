@@ -121,7 +121,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HGlobals
+name|HLogEdit
 import|;
 end_import
 
@@ -913,7 +913,7 @@ block|}
 argument_list|)
 argument_list|)
 argument_list|,
-name|HGlobals
+name|HLogEdit
 operator|.
 name|deleteBytes
 operator|.

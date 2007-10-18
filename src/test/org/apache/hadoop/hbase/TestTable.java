@@ -93,7 +93,7 @@ name|admin
 operator|.
 name|createTable
 argument_list|(
-name|HGlobals
+name|HTableDescriptor
 operator|.
 name|rootTableDesc
 argument_list|)
@@ -139,7 +139,7 @@ name|msg
 operator|.
 name|contains
 argument_list|(
-name|HGlobals
+name|HTableDescriptor
 operator|.
 name|rootTableDesc
 operator|.
@@ -161,7 +161,7 @@ name|admin
 operator|.
 name|createTable
 argument_list|(
-name|HGlobals
+name|HTableDescriptor
 operator|.
 name|metaTableDesc
 argument_list|)
@@ -207,7 +207,7 @@ name|msg
 operator|.
 name|contains
 argument_list|(
-name|HGlobals
+name|HTableDescriptor
 operator|.
 name|metaTableDesc
 operator|.

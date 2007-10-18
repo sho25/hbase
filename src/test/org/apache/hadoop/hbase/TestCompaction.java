@@ -146,16 +146,9 @@ init|=
 name|COLFAMILY_NAME1
 decl_stmt|;
 specifier|private
-specifier|static
 specifier|final
 name|Text
 name|STARTROW
-init|=
-operator|new
-name|Text
-argument_list|(
-name|START_KEY_BYTES
-argument_list|)
 decl_stmt|;
 specifier|private
 specifier|static
@@ -201,6 +194,21 @@ name|COMPACTION_THRESHOLD
 init|=
 name|MAXVERSIONS
 decl_stmt|;
+comment|/** constructor */
+specifier|public
+name|TestCompaction
+parameter_list|()
+block|{
+name|STARTROW
+operator|=
+operator|new
+name|Text
+argument_list|(
+name|START_KEY
+argument_list|)
+expr_stmt|;
+block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -250,8 +258,6 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-literal|1
-argument_list|,
 name|htd
 argument_list|,
 literal|null
@@ -284,6 +290,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -539,31 +546,15 @@ name|byte
 index|[]
 name|secondRowBytes
 init|=
-operator|new
-name|byte
-index|[
-name|START_KEY_BYTES
+name|START_KEY
 operator|.
-name|length
-index|]
-decl_stmt|;
-name|System
-operator|.
-name|arraycopy
+name|getBytes
 argument_list|(
-name|START_KEY_BYTES
-argument_list|,
-literal|0
-argument_list|,
-name|secondRowBytes
-argument_list|,
-literal|0
-argument_list|,
-name|START_KEY_BYTES
+name|HConstants
 operator|.
-name|length
+name|UTF8_ENCODING
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 comment|// Increment the least significant character so we get to next row.
 name|secondRowBytes
 index|[

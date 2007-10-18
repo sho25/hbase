@@ -1097,7 +1097,8 @@ condition|(
 operator|!
 name|region
 operator|.
-name|offLine
+name|isOffline
+argument_list|()
 condition|)
 block|{
 throw|throw
@@ -1108,7 +1109,8 @@ literal|"region "
 operator|+
 name|region
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 operator|+
 literal|" is not disabled"
 argument_list|)
@@ -1288,7 +1290,8 @@ name|equals
 argument_list|(
 name|latestRegion
 operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -1419,9 +1422,10 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|offLine
-operator|=
+name|setOffline
+argument_list|(
 literal|true
+argument_list|)
 expr_stmt|;
 name|newRegion
 operator|.
@@ -1610,7 +1614,7 @@ name|fs
 argument_list|,
 name|conf
 argument_list|,
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 argument_list|,
@@ -1778,7 +1782,7 @@ name|fs
 argument_list|,
 name|conf
 argument_list|,
-name|HGlobals
+name|HRegionInfo
 operator|.
 name|rootRegionInfo
 argument_list|,
@@ -1956,9 +1960,10 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|offLine
-operator|=
+name|setOffline
+argument_list|(
 literal|true
+argument_list|)
 expr_stmt|;
 name|newRegion
 operator|.

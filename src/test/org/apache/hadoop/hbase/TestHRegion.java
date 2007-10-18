@@ -495,8 +495,6 @@ argument_list|,
 operator|new
 name|HRegionInfo
 argument_list|(
-literal|1
-argument_list|,
 name|desc
 argument_list|,
 literal|null
