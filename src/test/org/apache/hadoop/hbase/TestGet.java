@@ -496,10 +496,15 @@ name|getRegionDir
 argument_list|(
 name|dir
 argument_list|,
+name|HRegionInfo
+operator|.
+name|encodeRegionName
+argument_list|(
 name|info
 operator|.
-name|getEncodedName
+name|getRegionName
 argument_list|()
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|fs

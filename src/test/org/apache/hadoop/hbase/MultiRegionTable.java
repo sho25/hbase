@@ -194,6 +194,11 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|/**    * Make a multi-region table.  Presumption is that table already exists and    * that there is only one regionserver. Makes it multi-region by filling with    * data and provoking splits. Asserts parent region is cleaned up after its    * daughter splits release all references.    * @param conf    * @param cluster    * @param localFs    * @param tableName    * @param columnName    * @throws IOException    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"null"
+argument_list|)
 specifier|public
 specifier|static
 name|void
@@ -661,10 +666,15 @@ name|getRegionDir
 argument_list|(
 name|d
 argument_list|,
+name|HRegionInfo
+operator|.
+name|encodeRegionName
+argument_list|(
 name|parent
 operator|.
-name|getEncodedName
+name|getRegionName
 argument_list|()
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|assertTrue

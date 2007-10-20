@@ -645,10 +645,10 @@ name|rootDir
 argument_list|,
 name|HRegionInfo
 operator|.
-name|rootRegionInfo
-operator|.
-name|getEncodedName
-argument_list|()
+name|encodeRegionName
+argument_list|(
+name|regionName
+argument_list|)
 argument_list|)
 argument_list|,
 name|HREGION_OLDLOGFILE_NAME

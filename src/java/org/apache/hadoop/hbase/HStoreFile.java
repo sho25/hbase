@@ -91,7 +91,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Random
+name|ArrayList
 import|;
 end_import
 
@@ -101,7 +101,17 @@ name|java
 operator|.
 name|util
 operator|.
-name|Vector
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Random
 import|;
 end_import
 
@@ -499,7 +509,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor that fully initializes the object    * @param conf Configuration object    * @param dir directory path    * @param regionName name of the region    * @param colFamily name of the column family    * @param fileId file identifier    */
+comment|/**    * Constructor that fully initializes the object    * @param conf Configuration object    * @param dir directory path    * @param encodedRegionName name of the region    * @param colFamily name of the column family    * @param fileId file identifier    */
 name|HStoreFile
 parameter_list|(
 specifier|final
@@ -1612,7 +1622,7 @@ return|;
 block|}
 comment|/*    * Creates a series of HStoreFiles loaded from the given directory.    * There must be a matching 'mapdir' and 'loginfo' pair of files.    * If only one exists, we'll delete it.    *    * @param conf Configuration object    * @param dir directory path    * @param regionName region name    * @param colFamily column family    * @param fs file system    * @return List of store file instances loaded from passed dir.    * @throws IOException    */
 specifier|static
-name|Vector
+name|List
 argument_list|<
 name|HStoreFile
 argument_list|>
@@ -1668,14 +1678,14 @@ name|infodir
 block|}
 argument_list|)
 decl_stmt|;
-name|Vector
+name|ArrayList
 argument_list|<
 name|HStoreFile
 argument_list|>
 name|results
 init|=
 operator|new
-name|Vector
+name|ArrayList
 argument_list|<
 name|HStoreFile
 argument_list|>
@@ -1685,14 +1695,14 @@ operator|.
 name|length
 argument_list|)
 decl_stmt|;
-name|Vector
+name|ArrayList
 argument_list|<
 name|Path
 argument_list|>
 name|mapfiles
 init|=
 operator|new
-name|Vector
+name|ArrayList
 argument_list|<
 name|Path
 argument_list|>
@@ -2397,7 +2407,7 @@ comment|/**    * Merges the contents of the given source HStoreFiles into a sing
 name|void
 name|mergeStoreFiles
 parameter_list|(
-name|Vector
+name|List
 argument_list|<
 name|HStoreFile
 argument_list|>
