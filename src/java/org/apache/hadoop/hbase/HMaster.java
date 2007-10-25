@@ -187,7 +187,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|Delayed
+name|DelayQueue
 import|;
 end_import
 
@@ -199,7 +199,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|DelayQueue
+name|Delayed
 import|;
 end_import
 
@@ -5726,7 +5726,7 @@ name|MSG_REPORT_EXITING
 condition|)
 block|{
 comment|// HRegionServer is shutting down. Cancel the server's lease.
-comment|// Note that cancelling the server's lease takes care of updating
+comment|// Note that canceling the server's lease takes care of updating
 comment|// serversToServerInfo, etc.
 if|if
 condition|(
@@ -10972,7 +10972,6 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|shutdown
@@ -11026,7 +11025,10 @@ init|=
 operator|new
 name|Timer
 argument_list|(
-literal|"Shutdown"
+name|getName
+argument_list|()
+operator|+
+literal|"-Shutdown"
 argument_list|)
 decl_stmt|;
 name|t
@@ -13891,6 +13893,8 @@ name|HMaster
 argument_list|>
 name|masterClass
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(
@@ -13969,6 +13973,31 @@ condition|)
 block|{
 try|try
 block|{
+comment|// If 'local', defer to LocalHBaseCluster instance.
+if|if
+condition|(
+name|LocalHBaseCluster
+operator|.
+name|isLocal
+argument_list|(
+name|conf
+argument_list|)
+condition|)
+block|{
+operator|(
+operator|new
+name|LocalHBaseCluster
+argument_list|(
+name|conf
+argument_list|)
+operator|)
+operator|.
+name|startup
+argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
 name|Constructor
 argument_list|<
 name|?
@@ -14001,6 +14030,7 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -14040,6 +14070,24 @@ condition|)
 block|{
 try|try
 block|{
+if|if
+condition|(
+name|LocalHBaseCluster
+operator|.
+name|isLocal
+argument_list|(
+name|conf
+argument_list|)
+condition|)
+block|{
+name|LocalHBaseCluster
+operator|.
+name|doLocal
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+block|}
 name|HBaseAdmin
 name|adm
 init|=
@@ -14087,7 +14135,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Main program    * @param args    */
+comment|/**    * Main program    * @param args    * @throws IOException     */
 specifier|public
 specifier|static
 name|void
@@ -14097,6 +14145,8 @@ name|String
 index|[]
 name|args
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|doMain
 argument_list|(

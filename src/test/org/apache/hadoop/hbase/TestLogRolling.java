@@ -535,7 +535,8 @@ name|logdir
 operator|=
 name|cluster
 operator|.
-name|regionThreads
+name|getRegionThreads
+argument_list|()
 operator|.
 name|get
 argument_list|(

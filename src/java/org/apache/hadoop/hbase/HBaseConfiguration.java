@@ -59,6 +59,21 @@ literal|"hbase-site.xml"
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Create a clone of passed configuration.    * @param c Configuration to clone.    */
+specifier|public
+name|HBaseConfiguration
+parameter_list|(
+specifier|final
+name|Configuration
+name|c
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|c
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 

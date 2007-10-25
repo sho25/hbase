@@ -68,7 +68,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Abstract base class for HBase cluster junit tests.  Spins up cluster on  * {@link #setUp()} and takes it down again in {@link #tearDown()}.  */
+comment|/**  * Abstract base class for HBase cluster junit tests.  Spins up an hbase  * cluster in setup and tears it down again in tearDown.  */
 end_comment
 
 begin_class
@@ -317,19 +317,11 @@ name|this
 operator|.
 name|cluster
 operator|.
-name|regionThreads
+name|getRegionThreads
+argument_list|()
 operator|!=
 literal|null
 condition|)
-block|{
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|cluster
-operator|.
-name|regionThreads
-init|)
 block|{
 for|for
 control|(
@@ -340,7 +332,8 @@ name|this
 operator|.
 name|cluster
 operator|.
-name|regionThreads
+name|getRegionThreads
+argument_list|()
 control|)
 block|{
 name|threadDumpingJoin
@@ -350,14 +343,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
 name|threadDumpingJoin
 argument_list|(
 name|this
 operator|.
 name|cluster
 operator|.
-name|getMasterThread
+name|getMaster
 argument_list|()
 argument_list|)
 expr_stmt|;

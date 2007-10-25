@@ -63,6 +63,13 @@ name|DEFAULT_HOST
 init|=
 literal|"0.0.0.0"
 decl_stmt|;
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_MASTER_PORT
+init|=
+literal|60000
+decl_stmt|;
 comment|/** Default master address */
 specifier|static
 specifier|final
@@ -71,7 +78,9 @@ name|DEFAULT_MASTER_ADDRESS
 init|=
 name|DEFAULT_HOST
 operator|+
-literal|":60000"
+literal|":"
+operator|+
+name|DEFAULT_MASTER_PORT
 decl_stmt|;
 comment|/** default port for master web api */
 specifier|static

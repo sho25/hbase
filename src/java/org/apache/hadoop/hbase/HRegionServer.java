@@ -725,7 +725,6 @@ name|serverLeaseTimeout
 decl_stmt|;
 comment|// Remote HMaster
 specifier|private
-specifier|final
 name|HMasterRegionInterface
 name|hbaseMaster
 decl_stmt|;
@@ -2069,43 +2068,6 @@ operator|.
 name|threadWakeFrequency
 argument_list|)
 expr_stmt|;
-comment|// Remote HMaster
-name|this
-operator|.
-name|hbaseMaster
-operator|=
-operator|(
-name|HMasterRegionInterface
-operator|)
-name|RPC
-operator|.
-name|waitForProxy
-argument_list|(
-name|HMasterRegionInterface
-operator|.
-name|class
-argument_list|,
-name|HMasterRegionInterface
-operator|.
-name|versionID
-argument_list|,
-operator|new
-name|HServerAddress
-argument_list|(
-name|conf
-operator|.
-name|get
-argument_list|(
-name|MASTER_ADDRESS
-argument_list|)
-argument_list|)
-operator|.
-name|getInetSocketAddress
-argument_list|()
-argument_list|,
-name|conf
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * The HRegionServer sticks in this loop until closed. It repeatedly checks    * in with the HMaster, sending heartbeats& reports, and receiving HRegion     * load/unload instructions.    */
 specifier|public
@@ -2113,12 +2075,6 @@ name|void
 name|run
 parameter_list|()
 block|{
-comment|// Set below if HMaster asked us stop.
-name|boolean
-name|masterRequestedStop
-init|=
-literal|false
-decl_stmt|;
 try|try
 block|{
 name|init
@@ -2493,10 +2449,6 @@ literal|"Got regionserver stop message"
 argument_list|)
 expr_stmt|;
 block|}
-name|masterRequestedStop
-operator|=
-literal|true
-expr_stmt|;
 name|stopRequested
 operator|.
 name|set
@@ -2893,16 +2845,6 @@ expr_stmt|;
 block|}
 try|try
 block|{
-if|if
-condition|(
-operator|!
-name|masterRequestedStop
-operator|&&
-name|closedRegions
-operator|!=
-literal|null
-condition|)
-block|{
 name|HMsg
 index|[]
 name|exitMsg
@@ -2989,7 +2931,6 @@ argument_list|,
 name|exitMsg
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 catch|catch
 parameter_list|(
@@ -3736,6 +3677,8 @@ specifier|private
 name|MapWritable
 name|reportForDuty
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(
@@ -3753,6 +3696,45 @@ literal|"Telling master we are up"
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Do initial RPC setup.
+name|this
+operator|.
+name|hbaseMaster
+operator|=
+operator|(
+name|HMasterRegionInterface
+operator|)
+name|RPC
+operator|.
+name|waitForProxy
+argument_list|(
+name|HMasterRegionInterface
+operator|.
+name|class
+argument_list|,
+name|HMasterRegionInterface
+operator|.
+name|versionID
+argument_list|,
+operator|new
+name|HServerAddress
+argument_list|(
+name|conf
+operator|.
+name|get
+argument_list|(
+name|MASTER_ADDRESS
+argument_list|)
+argument_list|)
+operator|.
+name|getInetSocketAddress
+argument_list|()
+argument_list|,
+name|this
+operator|.
+name|conf
+argument_list|)
+expr_stmt|;
 name|MapWritable
 name|result
 init|=
@@ -6738,6 +6720,30 @@ condition|)
 block|{
 try|try
 block|{
+comment|// If 'local', don't start a region server here.  Defer to
+comment|// LocalHBaseCluster.  It manages 'local' clusters.
+if|if
+condition|(
+name|LocalHBaseCluster
+operator|.
+name|isLocal
+argument_list|(
+name|conf
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Not starting a distinct region server because "
+operator|+
+literal|"hbase.master is set to 'local' mode"
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|Constructor
 argument_list|<
 name|?
@@ -6793,6 +6799,7 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(

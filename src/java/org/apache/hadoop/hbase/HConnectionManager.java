@@ -546,7 +546,16 @@ name|this
 operator|.
 name|conf
 operator|=
+name|LocalHBaseCluster
+operator|.
+name|doLocal
+argument_list|(
+operator|new
+name|HBaseConfiguration
+argument_list|(
 name|conf
+argument_list|)
+argument_list|)
 expr_stmt|;
 name|String
 name|serverClassName

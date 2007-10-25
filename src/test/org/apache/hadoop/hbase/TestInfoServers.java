@@ -226,9 +226,6 @@ name|port
 init|=
 name|miniHbase
 operator|.
-name|getMasterThread
-argument_list|()
-operator|.
 name|getMaster
 argument_list|()
 operator|.

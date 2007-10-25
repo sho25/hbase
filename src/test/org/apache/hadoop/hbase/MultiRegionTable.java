@@ -1418,14 +1418,15 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|MiniHBaseCluster
+name|LocalHBaseCluster
 operator|.
 name|RegionServerThread
 name|thread
 range|:
 name|cluster
 operator|.
-name|regionThreads
+name|getRegionThreads
+argument_list|()
 control|)
 block|{
 name|SortedMap
