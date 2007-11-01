@@ -151,7 +151,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertFalse
 argument_list|(
 name|bf
 operator|.
@@ -165,8 +165,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// False positive
-name|assertTrue
+name|assertFalse
 argument_list|(
 name|bf
 operator|.
@@ -180,7 +179,6 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// False positive
 block|}
 comment|/** Test a CountingBloomFilter    * @throws UnsupportedEncodingException    */
 specifier|public
@@ -273,7 +271,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertFalse
 argument_list|(
 name|bf
 operator|.
@@ -287,8 +285,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// False positive
-name|assertTrue
+name|assertFalse
 argument_list|(
 name|bf
 operator|.
@@ -302,7 +299,6 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// False positive
 block|}
 comment|/** Test a DynamicBloomFilter    * @throws UnsupportedEncodingException    */
 specifier|public
@@ -411,7 +407,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertFalse
 argument_list|(
 name|bf
 operator|.
@@ -425,7 +421,6 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// False positive
 block|}
 block|}
 end_class
