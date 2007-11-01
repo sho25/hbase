@@ -351,6 +351,36 @@ name|tableName
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|// We created the table.  Get the parent region here now.  One will
+comment|// have been created though nought in it.
+name|HRegionInfo
+name|parent
+init|=
+name|t
+operator|.
+name|getRegionLocation
+argument_list|(
+name|HConstants
+operator|.
+name|EMPTY_START_ROW
+argument_list|)
+operator|.
+name|getRegionInfo
+argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Parent region "
+operator|+
+name|parent
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Now add content.
 name|addContent
 argument_list|(
 operator|new
@@ -370,8 +400,10 @@ literal|"Finished content loading"
 argument_list|)
 expr_stmt|;
 comment|// All is running in the one JVM so I should be able to get the single
-comment|// region instance and bring on a split.
-comment|// Presumption is that there is only one regionserver.
+comment|// region instance and bring on a split. Presumption is that there is only
+comment|// one regionserver.   Of not, the split may already have happened by the
+comment|// time we got here.  If so, then the region found when we go searching
+comment|// with EMPTY_START_ROW will be one of the unsplittable daughters.
 name|HRegionInfo
 name|hri
 init|=
@@ -578,12 +610,11 @@ name|getSplitParentInfo
 argument_list|(
 name|meta
 argument_list|,
-name|hri
+name|parent
 argument_list|)
 decl_stmt|;
-name|HRegionInfo
 name|parent
-init|=
+operator|=
 name|Writables
 operator|.
 name|getHRegionInfoOrNull
@@ -597,7 +628,7 @@ operator|.
 name|COL_REGIONINFO
 argument_list|)
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|LOG
 operator|.
 name|info
