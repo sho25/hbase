@@ -184,7 +184,7 @@ name|msgs
 argument_list|)
 return|;
 block|}
-comment|/**    * @param args    * @throws IOException     */
+comment|/**    * @param args    */
 specifier|public
 specifier|static
 name|void
@@ -194,8 +194,6 @@ name|String
 index|[]
 name|args
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|doMain
 argument_list|(

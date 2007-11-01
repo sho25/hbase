@@ -2142,10 +2142,6 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|storedInfo
-operator|!=
-literal|null
-operator|&&
 name|deadServers
 operator|.
 name|contains
@@ -2184,10 +2180,32 @@ literal|" is assigned"
 argument_list|)
 expr_stmt|;
 block|}
+comment|/*        * If the server is not dead and either:        *   the stored info is not null and the start code does not match        * or:        *   the stored info is null and the region is neither unassigned nor pending        * then:        */
 if|if
 condition|(
 operator|!
+name|deadServer
+operator|&&
 operator|(
+operator|(
+name|storedInfo
+operator|!=
+literal|null
+operator|&&
+name|storedInfo
+operator|.
+name|getStartCode
+argument_list|()
+operator|!=
+name|startCode
+operator|)
+operator|||
+operator|(
+name|storedInfo
+operator|==
+literal|null
+operator|&&
+operator|!
 name|unassignedRegions
 operator|.
 name|containsKey
@@ -2197,7 +2215,8 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
-operator|||
+operator|&&
+operator|!
 name|pendingRegions
 operator|.
 name|contains
@@ -2207,23 +2226,6 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
-operator|)
-operator|&&
-operator|(
-name|storedInfo
-operator|==
-literal|null
-operator|||
-operator|(
-name|storedInfo
-operator|.
-name|getStartCode
-argument_list|()
-operator|!=
-name|startCode
-operator|&&
-operator|!
-name|deadServer
 operator|)
 operator|)
 condition|)
@@ -10972,6 +10974,7 @@ name|get
 argument_list|()
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|shutdown
@@ -13893,8 +13896,6 @@ name|HMaster
 argument_list|>
 name|masterClass
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -14135,7 +14136,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Main program    * @param args    * @throws IOException     */
+comment|/**    * Main program    * @param args    */
 specifier|public
 specifier|static
 name|void
@@ -14145,8 +14146,6 @@ name|String
 index|[]
 name|args
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|doMain
 argument_list|(
