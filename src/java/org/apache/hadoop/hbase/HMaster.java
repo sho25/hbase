@@ -9474,7 +9474,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|rootScanned
+name|rootRescanned
 operator|||
 name|numberOfMetaRegions
 operator|.
@@ -9505,7 +9505,7 @@ name|debug
 argument_list|(
 literal|"Requeuing shutdown because rootScanned: "
 operator|+
-name|rootScanned
+name|rootRescanned
 operator|+
 literal|", numberOfMetaRegions: "
 operator|+
