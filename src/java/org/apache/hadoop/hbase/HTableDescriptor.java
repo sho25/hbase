@@ -312,7 +312,7 @@ name|family
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Constructs an empty object */
+comment|/**    * Constructs an empty object.    * For deserializing an HTableDescriptor instance only.    * @see #HTableDescriptor(String)    */
 specifier|public
 name|HTableDescriptor
 parameter_list|()
