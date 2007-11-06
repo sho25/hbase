@@ -1397,6 +1397,12 @@ block|{
 break|break;
 block|}
 block|}
+comment|// Clear results else subsequent results polluted w/ previous finds.
+name|results
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 block|}
 name|formatter
 operator|.

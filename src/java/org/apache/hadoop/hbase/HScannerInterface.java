@@ -17,15 +17,11 @@ end_package
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
+name|java
 operator|.
 name|io
 operator|.
-name|Text
+name|Closeable
 import|;
 end_import
 
@@ -45,7 +41,31 @@ name|java
 operator|.
 name|util
 operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|SortedMap
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|Text
 import|;
 end_import
 
@@ -57,6 +77,26 @@ begin_interface
 specifier|public
 interface|interface
 name|HScannerInterface
+extends|extends
+name|Closeable
+extends|,
+name|Iterable
+argument_list|<
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|HStoreKey
+argument_list|,
+name|SortedMap
+argument_list|<
+name|Text
+argument_list|,
+name|byte
+index|[]
+argument_list|>
+argument_list|>
+argument_list|>
 block|{
 comment|/**    * Grab the next row's worth of values. The scanner will return the most    * recent data value for each row that is not newer than the target time    * passed when the scanner was created.    * @param key will contain the row and timestamp upon return    * @param results will contain an entry for each column family member and its    * value    * @return true if data was returned    * @throws IOException    */
 specifier|public
