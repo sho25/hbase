@@ -201,6 +201,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseConfiguration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HTable
 import|;
 end_import
@@ -279,7 +293,11 @@ comment|/** constructor */
 specifier|public
 name|TableOutputFormat
 parameter_list|()
-block|{}
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * Convert Reduce output (key, value) to (HStoreKey, KeyedDataArrayWritable)     * and write to an HBase table    */
 specifier|protected
 class|class
@@ -322,7 +340,9 @@ argument_list|)
 name|Reporter
 name|reporter
 parameter_list|)
-block|{}
+block|{
+comment|// Nothing to do.
+block|}
 comment|/** {@inheritDoc} */
 specifier|public
 name|void
@@ -474,7 +494,11 @@ operator|=
 operator|new
 name|HTable
 argument_list|(
+operator|new
+name|HBaseConfiguration
+argument_list|(
 name|job
+argument_list|)
 argument_list|,
 name|tableName
 argument_list|)

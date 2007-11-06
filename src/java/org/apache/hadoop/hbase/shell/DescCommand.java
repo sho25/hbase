@@ -45,9 +45,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configuration
+name|HBaseConfiguration
 import|;
 end_import
 
@@ -202,7 +202,7 @@ name|ReturnMsg
 name|execute
 parameter_list|(
 specifier|final
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|)
 block|{

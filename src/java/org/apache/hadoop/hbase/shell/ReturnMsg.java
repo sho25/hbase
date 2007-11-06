@@ -17,8 +17,22 @@ name|shell
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseConfiguration
+import|;
+end_import
+
 begin_comment
-comment|/**  * Message returned when a {@link Command} is  * {@link Command#execute(org.apache.hadoop.conf.Configuration)}'ed.  */
+comment|/**  * Message returned when a {@link Command} is  * {@link Command#execute(HBaseConfiguration)}'ed.  */
 end_comment
 
 begin_class

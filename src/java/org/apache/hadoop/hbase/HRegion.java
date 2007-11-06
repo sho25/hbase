@@ -475,7 +475,7 @@ literal|"Cannot merge non-adjacent regions"
 argument_list|)
 throw|;
 block|}
-name|Configuration
+name|HBaseConfiguration
 name|conf
 init|=
 name|a
@@ -1005,7 +1005,7 @@ decl_stmt|;
 name|FileSystem
 name|fs
 decl_stmt|;
-name|Configuration
+name|HBaseConfiguration
 name|conf
 decl_stmt|;
 name|HRegionInfo
@@ -1106,7 +1106,7 @@ parameter_list|,
 name|FileSystem
 name|fs
 parameter_list|,
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|,
 name|HRegionInfo
@@ -2564,7 +2564,7 @@ return|;
 block|}
 comment|/** @return Configuration object */
 specifier|public
-name|Configuration
+name|HBaseConfiguration
 name|getConf
 parameter_list|()
 block|{
@@ -7368,7 +7368,7 @@ name|Path
 name|rootDir
 parameter_list|,
 specifier|final
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|,
 specifier|final

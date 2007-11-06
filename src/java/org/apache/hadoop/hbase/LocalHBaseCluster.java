@@ -163,7 +163,7 @@ literal|":"
 decl_stmt|;
 specifier|private
 specifier|final
-name|Configuration
+name|HBaseConfiguration
 name|conf
 decl_stmt|;
 comment|/**    * Constructor.    * @param conf    * @throws IOException    */
@@ -171,7 +171,7 @@ specifier|public
 name|LocalHBaseCluster
 parameter_list|(
 specifier|final
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|)
 throws|throws
@@ -190,7 +190,7 @@ specifier|public
 name|LocalHBaseCluster
 parameter_list|(
 specifier|final
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|,
 specifier|final
@@ -760,11 +760,11 @@ expr_stmt|;
 block|}
 comment|/**    * Changes<code>hbase.master</code> from 'local' to 'localhost:PORT' in    * passed Configuration instance.    * @param c    * @return The passed<code>c</code> configuration modified if hbase.master    * value was 'local' otherwise, unaltered.    */
 specifier|static
-name|Configuration
+name|HBaseConfiguration
 name|doLocal
 parameter_list|(
 specifier|final
-name|Configuration
+name|HBaseConfiguration
 name|c
 parameter_list|)
 block|{
@@ -888,7 +888,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Configuration
+name|HBaseConfiguration
 name|conf
 init|=
 operator|new

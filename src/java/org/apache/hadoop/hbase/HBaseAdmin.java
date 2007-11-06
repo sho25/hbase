@@ -31,7 +31,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|NoSuchElementException
+name|Map
 import|;
 end_import
 
@@ -41,7 +41,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
+name|NoSuchElementException
 import|;
 end_import
 
@@ -91,9 +91,27 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configuration
+name|io
+operator|.
+name|ImmutableBytesWritable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Writables
 import|;
 end_import
 
@@ -153,38 +171,6 @@ name|RemoteException
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|ImmutableBytesWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Writables
-import|;
-end_import
-
 begin_comment
 comment|/**  * Provides administrative functions for HBase  */
 end_comment
@@ -238,7 +224,7 @@ comment|/**    * Constructor    *     * @param conf Configuration object    * @t
 specifier|public
 name|HBaseAdmin
 parameter_list|(
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|)
 throws|throws

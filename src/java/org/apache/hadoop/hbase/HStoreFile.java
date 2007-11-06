@@ -473,7 +473,7 @@ name|fileId
 decl_stmt|;
 specifier|private
 specifier|final
-name|Configuration
+name|HBaseConfiguration
 name|conf
 decl_stmt|;
 specifier|private
@@ -483,7 +483,7 @@ decl_stmt|;
 comment|/** Shutdown constructor used by Writable */
 name|HStoreFile
 parameter_list|(
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|)
 block|{
@@ -513,7 +513,7 @@ comment|/**    * Constructor that fully initializes the object    * @param conf 
 name|HStoreFile
 parameter_list|(
 specifier|final
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|,
 specifier|final
@@ -552,7 +552,7 @@ block|}
 comment|/**    * Constructor that fully initializes the object    * @param conf Configuration object    * @param dir directory path    * @param encodedRegionName file name friendly name of the region    * @param colFamily name of the column family    * @param fileId file identifier    * @param ref Reference to another HStoreFile.    */
 name|HStoreFile
 parameter_list|(
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|,
 name|Path
@@ -1475,7 +1475,7 @@ specifier|static
 name|HStoreFile
 name|obtainNewHStoreFile
 parameter_list|(
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|,
 name|Path
@@ -1628,7 +1628,7 @@ name|HStoreFile
 argument_list|>
 name|loadHStoreFiles
 parameter_list|(
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|,
 name|Path

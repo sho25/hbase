@@ -45,9 +45,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configuration
+name|HBaseConfiguration
 import|;
 end_import
 
@@ -84,7 +84,7 @@ name|SuppressWarnings
 argument_list|(
 literal|"unused"
 argument_list|)
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|)
 block|{

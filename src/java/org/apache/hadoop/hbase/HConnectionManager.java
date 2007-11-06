@@ -131,9 +131,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configuration
+name|io
+operator|.
+name|ImmutableBytesWritable
 import|;
 end_import
 
@@ -145,23 +147,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|ipc
+name|hbase
 operator|.
-name|RPC
-import|;
-end_import
-
-begin_import
-import|import
-name|org
+name|util
 operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|ipc
-operator|.
-name|RemoteException
+name|Writables
 import|;
 end_import
 
@@ -215,11 +205,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|ipc
 operator|.
-name|io
-operator|.
-name|ImmutableBytesWritable
+name|RPC
 import|;
 end_import
 
@@ -231,11 +219,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|ipc
 operator|.
-name|util
-operator|.
-name|Writables
+name|RemoteException
 import|;
 end_import
 
@@ -293,7 +279,7 @@ specifier|static
 name|HConnection
 name|getConnection
 parameter_list|(
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|)
 block|{
@@ -362,7 +348,7 @@ specifier|static
 name|void
 name|deleteConnection
 parameter_list|(
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|)
 block|{
@@ -485,7 +471,7 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|volatile
-name|Configuration
+name|HBaseConfiguration
 name|conf
 decl_stmt|;
 comment|// Map tableName -> (Map startRow -> (HRegionInfo, HServerAddress)
@@ -538,7 +524,7 @@ argument_list|)
 specifier|public
 name|TableServers
 parameter_list|(
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|)
 block|{

@@ -53,20 +53,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
-operator|.
-name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|dfs
 operator|.
 name|MiniDFSCluster
@@ -142,7 +128,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|private
-name|Configuration
+name|HBaseConfiguration
 name|conf
 decl_stmt|;
 specifier|private
@@ -175,7 +161,7 @@ comment|/**    * Starts a MiniHBaseCluster on top of a new MiniDFSCluster    *  
 specifier|public
 name|MiniHBaseCluster
 parameter_list|(
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|,
 name|int
@@ -202,7 +188,7 @@ comment|/**    * Start a MiniHBaseCluster. Use the native file system unless    
 specifier|public
 name|MiniHBaseCluster
 parameter_list|(
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|,
 name|int
@@ -233,7 +219,7 @@ comment|/**    * Starts a MiniHBaseCluster on top of an existing HDFSCluster    
 specifier|public
 name|MiniHBaseCluster
 parameter_list|(
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|,
 name|int
@@ -282,7 +268,7 @@ comment|/**    * Constructor.    * @param conf    * @param nRegionNodes    * @pa
 specifier|public
 name|MiniHBaseCluster
 parameter_list|(
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|,
 name|int

@@ -45,9 +45,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|fs
 operator|.
-name|Configuration
+name|FsShell
 import|;
 end_import
 
@@ -59,9 +59,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|fs
+name|hbase
 operator|.
-name|FsShell
+name|HBaseConfiguration
 import|;
 end_import
 
@@ -119,7 +119,7 @@ name|SuppressWarnings
 argument_list|(
 literal|"unused"
 argument_list|)
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|)
 block|{

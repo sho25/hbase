@@ -63,20 +63,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
-operator|.
-name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|dfs
 operator|.
 name|MiniDFSCluster
@@ -119,9 +105,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|Text
+name|util
+operator|.
+name|Writables
 import|;
 end_import
 
@@ -133,11 +121,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|io
 operator|.
-name|util
-operator|.
-name|Writables
+name|Text
 import|;
 end_import
 
@@ -691,7 +677,7 @@ decl_stmt|;
 try|try
 block|{
 comment|// Initialization
-name|Configuration
+name|HBaseConfiguration
 name|conf
 init|=
 operator|new

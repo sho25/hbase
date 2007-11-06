@@ -707,7 +707,7 @@ decl_stmt|;
 name|Path
 name|dir
 decl_stmt|;
-name|Configuration
+name|HBaseConfiguration
 name|conf
 decl_stmt|;
 name|FileSystem
@@ -3700,7 +3700,7 @@ comment|/** Build the HMaster out of a raw configuration item.    *     * @param
 specifier|public
 name|HMaster
 parameter_list|(
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|)
 throws|throws
@@ -3748,7 +3748,7 @@ parameter_list|,
 name|HServerAddress
 name|address
 parameter_list|,
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|)
 throws|throws
@@ -13942,7 +13942,7 @@ name|printUsageAndExit
 argument_list|()
 expr_stmt|;
 block|}
-name|Configuration
+name|HBaseConfiguration
 name|conf
 init|=
 operator|new

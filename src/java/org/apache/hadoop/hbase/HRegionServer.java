@@ -624,7 +624,7 @@ name|serverInfo
 decl_stmt|;
 specifier|protected
 specifier|final
-name|Configuration
+name|HBaseConfiguration
 name|conf
 decl_stmt|;
 specifier|private
@@ -1769,7 +1769,7 @@ comment|/**    * Starts a HRegionServer at the default location    * @param conf
 specifier|public
 name|HRegionServer
 parameter_list|(
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|)
 throws|throws
@@ -1801,7 +1801,7 @@ parameter_list|(
 name|HServerAddress
 name|address
 parameter_list|,
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|)
 throws|throws

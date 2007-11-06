@@ -532,7 +532,7 @@ block|}
 argument_list|)
 decl_stmt|;
 specifier|volatile
-name|Configuration
+name|HBaseConfiguration
 name|conf
 decl_stmt|;
 specifier|private
@@ -598,7 +598,7 @@ specifier|public
 name|PerformanceEvaluation
 parameter_list|(
 specifier|final
-name|Configuration
+name|HBaseConfiguration
 name|c
 parameter_list|)
 block|{
@@ -687,7 +687,11 @@ operator|=
 operator|new
 name|PerformanceEvaluation
 argument_list|(
+operator|new
+name|HBaseConfiguration
+argument_list|(
 name|j
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1396,13 +1400,13 @@ name|table
 decl_stmt|;
 specifier|protected
 specifier|volatile
-name|Configuration
+name|HBaseConfiguration
 name|conf
 decl_stmt|;
 name|Test
 parameter_list|(
 specifier|final
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|,
 specifier|final
@@ -1801,7 +1805,7 @@ block|{
 name|RandomReadTest
 parameter_list|(
 specifier|final
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|,
 specifier|final
@@ -1900,7 +1904,7 @@ block|{
 name|RandomWriteTest
 parameter_list|(
 specifier|final
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|,
 specifier|final
@@ -2038,7 +2042,7 @@ decl_stmt|;
 name|ScanTest
 parameter_list|(
 specifier|final
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|,
 specifier|final
@@ -2205,7 +2209,7 @@ block|{
 name|SequentialReadTest
 parameter_list|(
 specifier|final
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|,
 specifier|final
@@ -2289,7 +2293,7 @@ block|{
 name|SequentialWriteTest
 parameter_list|(
 specifier|final
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|,
 specifier|final

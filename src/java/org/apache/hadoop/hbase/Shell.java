@@ -323,7 +323,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Configuration
+name|HBaseConfiguration
 name|conf
 init|=
 operator|new

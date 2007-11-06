@@ -226,7 +226,7 @@ expr_stmt|;
 block|}
 specifier|protected
 specifier|volatile
-name|Configuration
+name|HBaseConfiguration
 name|conf
 decl_stmt|;
 comment|/**    * constructor    */

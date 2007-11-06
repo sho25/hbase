@@ -222,7 +222,7 @@ name|SuppressWarnings
 argument_list|(
 literal|"unused"
 argument_list|)
-name|Configuration
+name|HBaseConfiguration
 name|conf
 parameter_list|)
 block|{
