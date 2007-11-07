@@ -409,7 +409,7 @@ name|out
 operator|.
 name|write
 argument_list|(
-literal|"</h1>\n<p id=\"links_menu\"><a href=\"/logs/\">Local logs</a>,<a href=\"/stacks\">Thread Dump</a></p>\n<hr id=\"head_rule\" />\n\n<h2>Region Server Attributes</h2>\n<table>\n<tr><th>Attribute Name</th><th>Value</th></tr>\n<tr><td>Load</td><td>"
+literal|"</h1>\n<p id=\"links_menu\"><a href=\"/logs/\">Local logs</a>,<a href=\"/stacks\">Thread Dump</a>,<a href=\"/logLevel\">Log Level</a></p>\n<hr id=\"head_rule\" />\n\n<h2>Region Server Attributes</h2>\n<table>\n<tr><th>Attribute Name</th><th>Value</th><th>Description</th></tr>\n<tr><td>Load</td><td>"
 argument_list|)
 expr_stmt|;
 name|out
@@ -429,7 +429,7 @@ name|out
 operator|.
 name|write
 argument_list|(
-literal|"</td></tr>\n</table>\n\n<h2>Online Regions</h2>\n"
+literal|"</td><td>Requests/<em>hbase.regionserver.msginterval</em> + count of loaded regions</td></tr>\n</table>\n\n<h2>Online Regions</h2>\n"
 argument_list|)
 expr_stmt|;
 if|if

@@ -462,6 +462,27 @@ operator|.
 name|class
 argument_list|)
 expr_stmt|;
+name|addServlet
+argument_list|(
+literal|"logLevel"
+argument_list|,
+literal|"/logLevel"
+argument_list|,
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|log
+operator|.
+name|LogLevel
+operator|.
+name|Servlet
+operator|.
+name|class
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Set a value in the webapp context. These values are available to the jsp    * pages as "application.getAttribute(name)".    * @param name The name of the attribute    * @param value The value of the attribute    */
 specifier|public

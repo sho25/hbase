@@ -531,6 +531,20 @@ operator|.
 name|getServersToServerInfo
 argument_list|()
 decl_stmt|;
+name|int
+name|interval
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.regionserver.msginterval"
+argument_list|,
+literal|6000
+argument_list|)
+operator|/
+literal|1000
+decl_stmt|;
 name|out
 operator|.
 name|write
@@ -569,7 +583,7 @@ name|out
 operator|.
 name|write
 argument_list|(
-literal|"</h1>\n<p id=\"links_menu\"><a href=\"/hql.jsp\">HQL</a>,<a href=\"/logs/\">Local logs</a>,<a href=\"/stacks\">Thread Dump</a></p>\n<hr id=\"head_rule\" />\n\n<h2>Master Attributes</h2>\n<table>\n<tr><th>Attribute Name</th><th>Value</th></tr>\n<tr><td>Filesystem</td><td>"
+literal|"</h1>\n<p id=\"links_menu\"><a href=\"/hql.jsp\">HQL</a>,<a href=\"/logs/\">Local logs</a>,<a href=\"/stacks\">Thread Dump</a>,<a href=\"/logLevel\">Log Level</a></p>\n<hr id=\"head_rule\" />\n\n<h2>Master Attributes</h2>\n<table>\n<tr><th>Attribute Name</th><th>Value</th><th>Description</th></tr>\n<tr><td>Filesystem</td><td>"
 argument_list|)
 expr_stmt|;
 name|out
@@ -588,7 +602,7 @@ name|out
 operator|.
 name|write
 argument_list|(
-literal|"</td></tr>\n<tr><td>Hbase Root Directory</td><td>"
+literal|"</td><td>Filesystem hbase is running on</td></tr>\n<tr><td>Hbase Root Directory</td><td>"
 argument_list|)
 expr_stmt|;
 name|out
@@ -608,7 +622,7 @@ name|out
 operator|.
 name|write
 argument_list|(
-literal|"</td></tr>\n</table>\n\n<h2>Online META Regions</h2>\n"
+literal|"</td><td>Location of hbase home directory</td></tr>\n</table>\n\n<h2>Online META Regions</h2>\n"
 argument_list|)
 expr_stmt|;
 if|if
@@ -837,7 +851,7 @@ name|out
 operator|.
 name|write
 argument_list|(
-literal|"\n<table>\n<tr><th>Address</th><th>Start Code</th><th>Load</th></tr>\n"
+literal|"\n<table>\n<tr><th>Address</th><th>Start Code</th><th>Load</th></tr>\n\n"
 argument_list|)
 expr_stmt|;
 for|for
@@ -996,7 +1010,21 @@ name|out
 operator|.
 name|write
 argument_list|(
-literal|"\n</table>\n"
+literal|"\n</table>\n<p>Load is requests per<em>hbase.regionsserver.msginterval</em> ("
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|print
+argument_list|(
+name|interval
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|write
+argument_list|(
+literal|" second(s)) and count of regions loaded</p>\n"
 argument_list|)
 expr_stmt|;
 block|}

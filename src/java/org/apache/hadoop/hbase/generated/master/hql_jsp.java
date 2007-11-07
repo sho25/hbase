@@ -375,7 +375,7 @@ name|out
 operator|.
 name|write
 argument_list|(
-literal|"\n<form action=\"/hql.jsp\" method=\"get\">\n<p>\n<label for=\"query\">Query:</label>\n<input type=\"text\" name=\"q\" id=\"q\" size=\"40\" value=\""
+literal|"\n<form action=\"/hql.jsp\" method=\"get\">\n<p>\n<label for=\"query\">Query:</label>\n<input type=\"text\" name=\"q\" id=\"q\" size=\"60\" value=\""
 argument_list|)
 expr_stmt|;
 name|out
@@ -389,7 +389,7 @@ name|out
 operator|.
 name|write
 argument_list|(
-literal|"\" />\n<input type=\"submit\" value=\"submit\" />\n</p>\n</form>\n<p>Enter 'help;' -- thats 'help' plus a semi-colon -- for a list of<em>HQL</em> commands.\n Data Definition, SHELL, INSERTS, DELETES, and UPDATE commands are disabled in this interface\n</p>\n \n "
+literal|"\" />\n<input type=\"submit\" value=\"submit\" />\n</p>\n</form>\n<p>Enter 'help;' -- thats 'help' plus a semi-colon -- for the list of<em>HQL</em> commands.\n Data Definition, SHELL, INSERTS, DELETES, and UPDATE commands are disabled in this interface\n</p>\n \n "
 argument_list|)
 expr_stmt|;
 if|if
