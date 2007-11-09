@@ -1079,7 +1079,7 @@ operator|.
 name|getRow
 argument_list|()
 argument_list|)
-operator|>
+operator|<
 literal|0
 condition|)
 block|{

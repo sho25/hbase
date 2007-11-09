@@ -6756,7 +6756,7 @@ name|regionServerClass
 operator|.
 name|getConstructor
 argument_list|(
-name|Configuration
+name|HBaseConfiguration
 operator|.
 name|class
 argument_list|)
