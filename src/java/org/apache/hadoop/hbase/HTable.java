@@ -2172,7 +2172,7 @@ name|column
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Delete all values for a column    *     * @param row Row to update    * @param column name of column whose value is to be deleted    * @throws IOException     */
+comment|/**     * Delete all cells that match the passed row and column.    * @param row Row to update    * @param column name of column whose value is to be deleted    * @throws IOException     */
 specifier|public
 name|void
 name|deleteAll
@@ -2198,7 +2198,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Delete all values for a column    *     * @param row Row to update    * @param column name of column whose value is to be deleted    * @param ts Delete all cells of the same timestamp or older.    * @throws IOException     */
+comment|/**     * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp.    * @param row Row to update    * @param column name of column whose value is to be deleted    * @param ts Delete all cells of the same timestamp or older.    * @throws IOException     */
 specifier|public
 name|void
 name|deleteAll
