@@ -684,18 +684,6 @@ operator|.
 name|getFileSystem
 argument_list|()
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Shutting down Mini DFS "
-argument_list|)
-expr_stmt|;
-name|cluster
-operator|.
-name|shutdown
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|fs
@@ -713,6 +701,28 @@ expr_stmt|;
 name|fs
 operator|.
 name|close
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|this
+operator|.
+name|cluster
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Shutting down Mini DFS "
+argument_list|)
+expr_stmt|;
+name|cluster
+operator|.
+name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
