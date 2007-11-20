@@ -3539,6 +3539,7 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|Iterator
 argument_list|<

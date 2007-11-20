@@ -218,16 +218,9 @@ specifier|final
 name|long
 name|waitTime
 init|=
-name|conf
-operator|.
-name|getLong
-argument_list|(
-literal|"hbase.master.meta.thread.rescanfrequency"
-argument_list|,
-literal|10L
+literal|20L
 operator|*
 literal|1000L
-argument_list|)
 decl_stmt|;
 comment|// This size should make it so we always split using the addContent
 comment|// below.  After adding all data, the first region is 1.3M. Should
@@ -502,9 +495,12 @@ block|}
 comment|// Flush will provoke a split next time the split-checker thread runs.
 name|r
 operator|.
-name|flushcache
+name|internalFlushcache
 argument_list|(
-literal|false
+name|r
+operator|.
+name|snapshotMemcaches
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Now, wait until split makes it into the meta table.
@@ -759,12 +755,25 @@ comment|// Wait till the parent only has reference to remaining split, one that
 comment|// still has references.
 while|while
 condition|(
+literal|true
+condition|)
+block|{
+name|data
+operator|=
 name|getSplitParentInfo
 argument_list|(
 name|meta
 argument_list|,
 name|parent
 argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|data
+operator|==
+literal|null
+operator|||
+name|data
 operator|.
 name|size
 argument_list|()
@@ -790,6 +799,9 @@ parameter_list|)
 block|{
 comment|// continue
 block|}
+continue|continue;
+block|}
+break|break;
 block|}
 name|LOG
 operator|.
@@ -797,12 +809,7 @@ name|info
 argument_list|(
 literal|"Parent split returned "
 operator|+
-name|getSplitParentInfo
-argument_list|(
-name|meta
-argument_list|,
-name|parent
-argument_list|)
+name|data
 operator|.
 name|keySet
 argument_list|()

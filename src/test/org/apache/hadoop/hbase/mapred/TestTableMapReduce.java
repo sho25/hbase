@@ -277,6 +277,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|StaticTestEnvironment
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|ImmutableBytesWritable
@@ -548,6 +562,53 @@ block|{
 name|super
 argument_list|()
 expr_stmt|;
+comment|// Make the thread wake frequency a little slower so other threads
+comment|// can run
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.server.thread.wakefrequency"
+argument_list|,
+literal|2000
+argument_list|)
+expr_stmt|;
+comment|// Make sure the cache gets flushed so we trigger a compaction(s) and
+comment|// hence splits.
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.hregion.memcache.flush.size"
+argument_list|,
+literal|1024
+operator|*
+literal|1024
+argument_list|)
+expr_stmt|;
+comment|// Always compact if there is more than one store file.
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.hstore.compactionThreshold"
+argument_list|,
+literal|2
+argument_list|)
+expr_stmt|;
+comment|// This size should make it so we always split using the addContent
+comment|// below. After adding all data, the first region is 1.3M
+name|conf
+operator|.
+name|setLong
+argument_list|(
+literal|"hbase.hregion.max.filesize"
+argument_list|,
+literal|256
+operator|*
+literal|1024
+argument_list|)
+expr_stmt|;
 comment|// Make lease timeout longer, lease checks less frequent
 name|conf
 operator|.
@@ -586,19 +647,6 @@ name|super
 operator|.
 name|setUp
 argument_list|()
-expr_stmt|;
-comment|// This size is picked so the table is split into two
-comment|// after addContent in testMultiRegionTableMapReduce.
-name|conf
-operator|.
-name|setLong
-argument_list|(
-literal|"hbase.hregion.max.filesize"
-argument_list|,
-literal|256
-operator|*
-literal|1024
-argument_list|)
 expr_stmt|;
 name|dfsCluster
 operator|=
@@ -680,23 +728,13 @@ name|Exception
 name|e
 parameter_list|)
 block|{
-if|if
-condition|(
-name|dfsCluster
-operator|!=
-literal|null
-condition|)
-block|{
-name|dfsCluster
+name|StaticTestEnvironment
 operator|.
-name|shutdown
-argument_list|()
-expr_stmt|;
+name|shutdownDfs
+argument_list|(
 name|dfsCluster
-operator|=
-literal|null
+argument_list|)
 expr_stmt|;
-block|}
 throw|throw
 name|e
 throw|;
@@ -730,54 +768,13 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|dfsCluster
-operator|!=
-literal|null
-condition|)
-block|{
-name|dfsCluster
+name|StaticTestEnvironment
 operator|.
-name|shutdown
-argument_list|()
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|fs
-operator|!=
-literal|null
-condition|)
-block|{
-try|try
-block|{
-name|fs
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|info
+name|shutdownDfs
 argument_list|(
-literal|"During tear down got a "
-operator|+
-name|e
-operator|.
-name|getMessage
-argument_list|()
+name|dfsCluster
 argument_list|)
 expr_stmt|;
-block|}
-block|}
 block|}
 comment|/**    * Pass the given key and processed record reduce    */
 specifier|public
@@ -1107,6 +1104,8 @@ name|SINGLE_REGION_TABLE_NAME
 argument_list|)
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 for|for
 control|(
 name|int
@@ -1340,6 +1339,15 @@ name|SINGLE_REGION_TABLE_NAME
 argument_list|)
 expr_stmt|;
 block|}
+finally|finally
+block|{
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 comment|/*    * Test against multiple regions.    * @throws IOException    */
 specifier|private
 name|void
@@ -1399,8 +1407,6 @@ name|desc
 argument_list|)
 expr_stmt|;
 comment|// Populate a table into multiple regions
-name|MultiRegionTable
-operator|.
 name|makeMultiRegionTable
 argument_list|(
 name|conf
@@ -1430,6 +1436,8 @@ name|MULTI_REGION_TABLE_NAME
 argument_list|)
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|Text
 index|[]
 name|startKeys
@@ -1560,6 +1568,15 @@ argument_list|,
 name|MULTI_REGION_TABLE_NAME
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 specifier|private
 name|void

@@ -221,6 +221,10 @@ name|MAX_VALUE
 decl_stmt|;
 specifier|private
 name|HRegion
+name|r
+decl_stmt|;
+specifier|private
+name|HRegionIncommon
 name|region
 decl_stmt|;
 comment|/** Compare the HRegionInfo we read from HBase to what we stored */
@@ -405,7 +409,7 @@ try|try
 block|{
 name|scanner
 operator|=
-name|region
+name|r
 operator|.
 name|getScanner
 argument_list|(
@@ -771,7 +775,7 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
-name|region
+name|r
 operator|=
 operator|new
 name|HRegion
@@ -787,6 +791,14 @@ argument_list|,
 name|REGION_INFO
 argument_list|,
 literal|null
+argument_list|)
+expr_stmt|;
+name|region
+operator|=
+operator|new
+name|HRegionIncommon
+argument_list|(
+name|r
 argument_list|)
 expr_stmt|;
 comment|// Write information to the meta table
@@ -866,7 +878,7 @@ name|getRegionInfo
 argument_list|()
 expr_stmt|;
 comment|// Close and re-open
-name|region
+name|r
 operator|.
 name|close
 argument_list|()
@@ -876,7 +888,7 @@ operator|.
 name|rollWriter
 argument_list|()
 expr_stmt|;
-name|region
+name|r
 operator|=
 operator|new
 name|HRegion
@@ -892,6 +904,14 @@ argument_list|,
 name|REGION_INFO
 argument_list|,
 literal|null
+argument_list|)
+expr_stmt|;
+name|region
+operator|=
+operator|new
+name|HRegionIncommon
+argument_list|(
+name|r
 argument_list|)
 expr_stmt|;
 comment|// Verify we can get the data back now that it is on disk.
@@ -994,9 +1014,7 @@ comment|// flush cache
 name|region
 operator|.
 name|flushcache
-argument_list|(
-literal|false
-argument_list|)
+argument_list|()
 expr_stmt|;
 comment|// Validate again
 name|scan
@@ -1013,7 +1031,7 @@ name|getRegionInfo
 argument_list|()
 expr_stmt|;
 comment|// Close and reopen
-name|region
+name|r
 operator|.
 name|close
 argument_list|()
@@ -1023,7 +1041,7 @@ operator|.
 name|rollWriter
 argument_list|()
 expr_stmt|;
-name|region
+name|r
 operator|=
 operator|new
 name|HRegion
@@ -1039,6 +1057,14 @@ argument_list|,
 name|REGION_INFO
 argument_list|,
 literal|null
+argument_list|)
+expr_stmt|;
+name|region
+operator|=
+operator|new
+name|HRegionIncommon
+argument_list|(
+name|r
 argument_list|)
 expr_stmt|;
 comment|// Validate again
@@ -1124,9 +1150,7 @@ comment|// flush cache
 name|region
 operator|.
 name|flushcache
-argument_list|(
-literal|false
-argument_list|)
+argument_list|()
 expr_stmt|;
 comment|// Validate again
 name|scan
@@ -1143,7 +1167,7 @@ name|getRegionInfo
 argument_list|()
 expr_stmt|;
 comment|// Close and reopen
-name|region
+name|r
 operator|.
 name|close
 argument_list|()
@@ -1153,7 +1177,7 @@ operator|.
 name|rollWriter
 argument_list|()
 expr_stmt|;
-name|region
+name|r
 operator|=
 operator|new
 name|HRegion
@@ -1171,6 +1195,14 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+name|region
+operator|=
+operator|new
+name|HRegionIncommon
+argument_list|(
+name|r
+argument_list|)
+expr_stmt|;
 comment|// Validate again
 name|scan
 argument_list|(
@@ -1186,7 +1218,7 @@ name|getRegionInfo
 argument_list|()
 expr_stmt|;
 comment|// clean up
-name|region
+name|r
 operator|.
 name|close
 argument_list|()
@@ -1199,19 +1231,13 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-if|if
-condition|(
-name|cluster
-operator|!=
-literal|null
-condition|)
-block|{
-name|cluster
+name|StaticTestEnvironment
 operator|.
-name|shutdown
-argument_list|()
+name|shutdownDfs
+argument_list|(
+name|cluster
+argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 block|}

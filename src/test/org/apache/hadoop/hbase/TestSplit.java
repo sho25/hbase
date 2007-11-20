@@ -142,6 +142,16 @@ block|{
 name|super
 argument_list|()
 expr_stmt|;
+comment|// Always compact if there is more than one store file.
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.hstore.compactionThreshold"
+argument_list|,
+literal|2
+argument_list|)
+expr_stmt|;
 comment|// Make lease timeout longer, lease checks less frequent
 name|conf
 operator|.
@@ -177,6 +187,19 @@ operator|*
 literal|1000
 argument_list|)
 expr_stmt|;
+comment|// This size should make it so we always split using the addContent
+comment|// below.  After adding all data, the first region is 1.3M
+name|conf
+operator|.
+name|setLong
+argument_list|(
+literal|"hbase.hregion.max.filesize"
+argument_list|,
+literal|1024
+operator|*
+literal|128
+argument_list|)
+expr_stmt|;
 name|Logger
 operator|.
 name|getRootLogger
@@ -210,35 +233,6 @@ argument_list|(
 name|Level
 operator|.
 name|DEBUG
-argument_list|)
-expr_stmt|;
-block|}
-comment|/** {@inheritDoc} */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|setUp
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-name|super
-operator|.
-name|setUp
-argument_list|()
-expr_stmt|;
-comment|// This size should make it so we always split using the addContent
-comment|// below.  After adding all data, the first region is 1.3M
-name|conf
-operator|.
-name|setLong
-argument_list|(
-literal|"hbase.hregion.max.filesize"
-argument_list|,
-literal|1024
-operator|*
-literal|128
 argument_list|)
 expr_stmt|;
 block|}
@@ -369,7 +363,12 @@ expr_stmt|;
 name|region
 operator|.
 name|internalFlushcache
+argument_list|(
+name|region
+operator|.
+name|snapshotMemcaches
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|Text
 name|midkey
@@ -563,14 +562,43 @@ argument_list|,
 name|COLFAMILY_NAME1
 argument_list|)
 expr_stmt|;
+name|long
+name|startTime
+init|=
+name|region
+operator|.
+name|snapshotMemcaches
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|startTime
+operator|==
+operator|-
+literal|1
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"cache flush not needed"
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|regions
 index|[
 name|i
 index|]
 operator|.
 name|internalFlushcache
-argument_list|()
+argument_list|(
+name|startTime
+argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|// Assert that even if one store file is larger than a reference, the
 comment|// region is still deemed unsplitable (Can't split region if references
@@ -639,8 +667,6 @@ name|i
 operator|++
 control|)
 block|{
-name|assertTrue
-argument_list|(
 name|regions
 index|[
 name|i
@@ -648,7 +674,6 @@ index|]
 operator|.
 name|compactStores
 argument_list|()
-argument_list|)
 expr_stmt|;
 block|}
 name|TreeMap
@@ -821,6 +846,21 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+comment|// Make sure the cache gets flushed so we trigger a compaction(s) and
+comment|// hence splits. This is done here rather than in the constructor because
+comment|// the first test runs without a cluster, and will block when the cache
+comment|// fills up.
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.hregion.memcache.flush.size"
+argument_list|,
+literal|1024
+operator|*
+literal|1024
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 comment|// Start up a hbase cluster
@@ -1219,10 +1259,8 @@ name|regions
 init|=
 name|r
 operator|.
-name|closeAndSplit
+name|splitRegion
 argument_list|(
-name|midKey
-argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;

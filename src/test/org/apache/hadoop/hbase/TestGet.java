@@ -61,7 +61,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|TreeMap
+name|Map
 import|;
 end_import
 
@@ -236,7 +236,7 @@ name|void
 name|verifyGet
 parameter_list|(
 specifier|final
-name|HRegion
+name|HRegionIncommon
 name|r
 parameter_list|,
 specifier|final
@@ -285,7 +285,7 @@ name|value
 argument_list|)
 expr_stmt|;
 comment|// Find out what getFull returns
-name|TreeMap
+name|Map
 argument_list|<
 name|Text
 argument_list|,
@@ -534,7 +534,7 @@ name|conf
 argument_list|)
 decl_stmt|;
 name|HRegion
-name|r
+name|region
 init|=
 operator|new
 name|HRegion
@@ -550,6 +550,15 @@ argument_list|,
 name|info
 argument_list|,
 literal|null
+argument_list|)
+decl_stmt|;
+name|HRegionIncommon
+name|r
+init|=
+operator|new
+name|HRegionIncommon
+argument_list|(
+name|region
 argument_list|)
 decl_stmt|;
 comment|// Write information to the table
@@ -746,7 +755,7 @@ name|SERVER_ADDRESS
 argument_list|)
 expr_stmt|;
 comment|// Close and re-open region, forcing updates to disk
-name|r
+name|region
 operator|.
 name|close
 argument_list|()
@@ -756,7 +765,7 @@ operator|.
 name|rollWriter
 argument_list|()
 expr_stmt|;
-name|r
+name|region
 operator|=
 operator|new
 name|HRegion
@@ -772,6 +781,14 @@ argument_list|,
 name|info
 argument_list|,
 literal|null
+argument_list|)
+expr_stmt|;
+name|r
+operator|=
+operator|new
+name|HRegionIncommon
+argument_list|(
+name|region
 argument_list|)
 expr_stmt|;
 comment|// Read it back
@@ -894,7 +911,7 @@ name|otherServerName
 argument_list|)
 expr_stmt|;
 comment|// Close region and re-open it
-name|r
+name|region
 operator|.
 name|close
 argument_list|()
@@ -904,7 +921,7 @@ operator|.
 name|rollWriter
 argument_list|()
 expr_stmt|;
-name|r
+name|region
 operator|=
 operator|new
 name|HRegion
@@ -922,6 +939,14 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+name|r
+operator|=
+operator|new
+name|HRegionIncommon
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
 comment|// Read it back
 name|verifyGet
 argument_list|(
@@ -931,7 +956,7 @@ name|otherServerName
 argument_list|)
 expr_stmt|;
 comment|// Close region once and for all
-name|r
+name|region
 operator|.
 name|close
 argument_list|()
@@ -944,19 +969,13 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-if|if
-condition|(
-name|cluster
-operator|!=
-literal|null
-condition|)
-block|{
-name|cluster
+name|StaticTestEnvironment
 operator|.
-name|shutdown
-argument_list|()
+name|shutdownDfs
+argument_list|(
+name|cluster
+argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 block|}

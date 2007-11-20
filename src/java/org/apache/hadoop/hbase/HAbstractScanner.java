@@ -923,6 +923,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|scannerClosed
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 comment|// Find the next row label (and timestamp)
 name|Text
 name|chosenRow
@@ -1315,6 +1324,7 @@ return|return
 name|insertedItem
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|Iterator
 argument_list|<

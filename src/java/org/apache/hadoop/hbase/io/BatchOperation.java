@@ -92,8 +92,10 @@ specifier|static
 enum|enum
 name|Operation
 block|{
+comment|/** update a field */
 name|PUT
 block|,
+comment|/** delete a field */
 name|DELETE
 block|}
 specifier|private
@@ -169,7 +171,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a put operation    *     * @param column column name    * @param value column value    */
+comment|/**    * Creates a put operation    *    * @param operation the operation (put or get)    * @param column column name    * @param value column value    */
 specifier|public
 name|BatchOperation
 parameter_list|(

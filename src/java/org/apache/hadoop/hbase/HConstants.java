@@ -63,6 +63,7 @@ name|DEFAULT_HOST
 init|=
 literal|"0.0.0.0"
 decl_stmt|;
+comment|/** default port that the master listens on */
 specifier|static
 specifier|final
 name|int

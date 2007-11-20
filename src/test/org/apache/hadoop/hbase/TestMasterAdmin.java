@@ -100,6 +100,17 @@ name|admin
 operator|=
 literal|null
 expr_stmt|;
+comment|// Make the thread wake frequency a little slower so other threads
+comment|// can run
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.server.thread.wakefrequency"
+argument_list|,
+literal|2000
+argument_list|)
+expr_stmt|;
 block|}
 comment|/** @throws Exception */
 specifier|public

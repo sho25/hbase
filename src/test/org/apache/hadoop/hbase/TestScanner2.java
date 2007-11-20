@@ -429,6 +429,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * @throws Exception    */
 specifier|public
 name|void
 name|testStopRow
@@ -576,6 +577,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * @throws Exception    */
 specifier|public
 name|void
 name|testIterator
@@ -908,6 +910,15 @@ name|keySet
 argument_list|()
 control|)
 block|{
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+name|c
+argument_list|)
+expr_stmt|;
 name|assertTrue
 argument_list|(
 name|c
@@ -926,11 +937,11 @@ operator|++
 expr_stmt|;
 block|}
 block|}
-name|assertTrue
+name|assertEquals
 argument_list|(
-name|count
-operator|==
 literal|1
+argument_list|,
+name|count
 argument_list|)
 expr_stmt|;
 name|scanner
@@ -1646,12 +1657,12 @@ name|assertEquals
 argument_list|(
 literal|"Expected one region"
 argument_list|,
+literal|1
+argument_list|,
 name|regions
 operator|.
 name|size
 argument_list|()
-argument_list|,
-literal|1
 argument_list|)
 expr_stmt|;
 name|HRegionInfo
@@ -2367,12 +2378,12 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
-name|hri
+name|region
 operator|.
 name|getRegionId
 argument_list|()
 argument_list|,
-name|region
+name|hri
 operator|.
 name|getRegionId
 argument_list|()

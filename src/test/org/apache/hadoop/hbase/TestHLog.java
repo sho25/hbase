@@ -227,9 +227,17 @@ try|try
 block|{
 comment|// Write columns named 1, 2, 3, etc. and then values of single byte
 comment|// 1, 2, 3...
+name|long
+name|timestamp
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 name|TreeMap
 argument_list|<
-name|Text
+name|HStoreKey
 argument_list|,
 name|byte
 index|[]
@@ -239,7 +247,7 @@ init|=
 operator|new
 name|TreeMap
 argument_list|<
-name|Text
+name|HStoreKey
 argument_list|,
 name|byte
 index|[]
@@ -266,6 +274,11 @@ operator|.
 name|put
 argument_list|(
 operator|new
+name|HStoreKey
+argument_list|(
+name|row
+argument_list|,
+operator|new
 name|Text
 argument_list|(
 name|Integer
@@ -274,6 +287,9 @@ name|toString
 argument_list|(
 name|i
 argument_list|)
+argument_list|)
+argument_list|,
+name|timestamp
 argument_list|)
 argument_list|,
 operator|new
@@ -292,14 +308,6 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-name|long
-name|timestamp
-init|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-decl_stmt|;
 name|log
 operator|.
 name|append
@@ -308,11 +316,7 @@ name|regionName
 argument_list|,
 name|tableName
 argument_list|,
-name|row
-argument_list|,
 name|cols
-argument_list|,
-name|timestamp
 argument_list|)
 expr_stmt|;
 name|long

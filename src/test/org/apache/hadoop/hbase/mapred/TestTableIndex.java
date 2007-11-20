@@ -195,20 +195,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseTestCase
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HColumnDescriptor
 import|;
 end_import
@@ -308,6 +294,20 @@ operator|.
 name|hbase
 operator|.
 name|MultiRegionTable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|StaticTestEnvironment
 import|;
 end_import
 
@@ -460,7 +460,7 @@ specifier|public
 class|class
 name|TestTableIndex
 extends|extends
-name|HBaseTestCase
+name|MultiRegionTable
 block|{
 specifier|private
 specifier|static
@@ -558,6 +558,7 @@ name|hCluster
 init|=
 literal|null
 decl_stmt|;
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -572,6 +573,29 @@ operator|.
 name|setUp
 argument_list|()
 expr_stmt|;
+comment|// Make sure the cache gets flushed so we trigger a compaction(s) and
+comment|// hence splits.
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.hregion.memcache.flush.size"
+argument_list|,
+literal|1024
+operator|*
+literal|1024
+argument_list|)
+expr_stmt|;
+comment|// Always compact if there is more than one store file.
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.hstore.compactionThreshold"
+argument_list|,
+literal|2
+argument_list|)
+expr_stmt|;
 comment|// This size should make it so we always split using the addContent
 comment|// below. After adding all data, the first region is 1.3M
 name|conf
@@ -580,7 +604,7 @@ name|setLong
 argument_list|(
 literal|"hbase.hregion.max.filesize"
 argument_list|,
-literal|256
+literal|128
 operator|*
 literal|1024
 argument_list|)
@@ -688,8 +712,6 @@ name|desc
 argument_list|)
 expr_stmt|;
 comment|// Populate a table into multiple regions
-name|MultiRegionTable
-operator|.
 name|makeMultiRegionTable
 argument_list|(
 name|conf
@@ -744,28 +766,19 @@ name|Exception
 name|e
 parameter_list|)
 block|{
-if|if
-condition|(
-name|dfsCluster
-operator|!=
-literal|null
-condition|)
-block|{
-name|dfsCluster
+name|StaticTestEnvironment
 operator|.
-name|shutdown
-argument_list|()
-expr_stmt|;
+name|shutdownDfs
+argument_list|(
 name|dfsCluster
-operator|=
-literal|null
+argument_list|)
 expr_stmt|;
-block|}
 throw|throw
 name|e
 throw|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -793,19 +806,13 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|dfsCluster
-operator|!=
-literal|null
-condition|)
-block|{
-name|dfsCluster
+name|StaticTestEnvironment
 operator|.
-name|shutdown
-argument_list|()
+name|shutdownDfs
+argument_list|(
+name|dfsCluster
+argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|/**    * Test HBase map/reduce    *     * @throws IOException    */
 annotation|@
