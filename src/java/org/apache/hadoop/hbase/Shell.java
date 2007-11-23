@@ -61,20 +61,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
-operator|.
-name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|shell
@@ -254,9 +240,9 @@ literal|""
 argument_list|)
 operator|)
 condition|?
-literal|"Hbase> "
+literal|"hql> "
 else|:
-literal|"   --> "
+literal|"  --> "
 return|;
 block|}
 comment|/**    * @param watch true if execution time should be computed and returned    * @param start start of time interval    * @param end end of time interval    * @return a string of code execution time. */
