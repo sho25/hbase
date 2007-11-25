@@ -822,13 +822,8 @@ control|)
 block|{
 name|r
 operator|.
-name|internalFlushcache
-argument_list|(
-name|r
-operator|.
-name|snapshotMemcaches
+name|flushcache
 argument_list|()
-argument_list|)
 expr_stmt|;
 block|}
 block|}

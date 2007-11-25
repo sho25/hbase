@@ -156,6 +156,17 @@ operator|.
 name|INFO
 argument_list|)
 expr_stmt|;
+comment|// Make the thread wake frequency a little slower so other threads
+comment|// can run
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.server.thread.wakefrequency"
+argument_list|,
+literal|2000
+argument_list|)
+expr_stmt|;
 comment|// Make lease timeout longer, lease checks less frequent
 name|conf
 operator|.
@@ -550,6 +561,10 @@ argument_list|)
 decl_stmt|;
 name|assertNotNull
 argument_list|(
+literal|"no data for row "
+operator|+
+name|rowlabel
+argument_list|,
 name|bodydata
 argument_list|)
 expr_stmt|;

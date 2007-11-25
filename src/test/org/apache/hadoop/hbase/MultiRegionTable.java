@@ -492,15 +492,26 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Flush will provoke a split next time the split-checker thread runs.
-name|r
+comment|// Flush the cache
+name|cluster
 operator|.
-name|internalFlushcache
+name|getRegionThreads
+argument_list|()
+operator|.
+name|get
+argument_list|(
+literal|0
+argument_list|)
+operator|.
+name|getRegionServer
+argument_list|()
+operator|.
+name|getCacheFlushListener
+argument_list|()
+operator|.
+name|flushRequested
 argument_list|(
 name|r
-operator|.
-name|snapshotMemcaches
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Now, wait until split makes it into the meta table.

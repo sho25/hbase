@@ -626,6 +626,8 @@ name|HREGION_LOGDIR_NAME
 argument_list|)
 argument_list|,
 name|conf
+argument_list|,
+literal|null
 argument_list|)
 argument_list|,
 name|fs
@@ -633,6 +635,8 @@ argument_list|,
 name|conf
 argument_list|,
 name|info
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|)
@@ -1939,15 +1943,8 @@ name|this
 operator|.
 name|region
 operator|.
-name|internalFlushcache
-argument_list|(
-name|this
-operator|.
-name|region
-operator|.
-name|snapshotMemcaches
+name|flushcache
 argument_list|()
-argument_list|)
 expr_stmt|;
 block|}
 block|}

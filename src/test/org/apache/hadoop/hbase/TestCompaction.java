@@ -256,6 +256,8 @@ argument_list|,
 name|this
 operator|.
 name|conf
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|HTableDescriptor
@@ -300,6 +302,8 @@ operator|.
 name|conf
 argument_list|,
 name|hri
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|)

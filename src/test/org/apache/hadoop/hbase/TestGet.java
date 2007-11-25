@@ -531,6 +531,8 @@ literal|"log"
 argument_list|)
 argument_list|,
 name|conf
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|HRegion
@@ -548,6 +550,8 @@ argument_list|,
 name|conf
 argument_list|,
 name|info
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|)
@@ -781,6 +785,8 @@ argument_list|,
 name|info
 argument_list|,
 literal|null
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|r
@@ -935,6 +941,8 @@ argument_list|,
 name|conf
 argument_list|,
 name|info
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|)

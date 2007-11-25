@@ -439,6 +439,8 @@ argument_list|,
 name|newlogdir
 argument_list|,
 name|conf
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|desc
@@ -493,6 +495,8 @@ literal|null
 argument_list|,
 literal|null
 argument_list|)
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|)

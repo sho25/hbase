@@ -49,6 +49,7 @@ specifier|private
 name|AtomicBoolean
 name|stop
 decl_stmt|;
+comment|/**    * @param sleep    * @param stop    */
 specifier|public
 name|Sleeper
 parameter_list|(
@@ -82,10 +83,7 @@ parameter_list|()
 block|{
 name|sleep
 argument_list|(
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
+name|period
 argument_list|)
 expr_stmt|;
 block|}

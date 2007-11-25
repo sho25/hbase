@@ -773,6 +773,8 @@ literal|"log"
 argument_list|)
 argument_list|,
 name|conf
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|r
@@ -789,6 +791,8 @@ argument_list|,
 name|conf
 argument_list|,
 name|REGION_INFO
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|)
@@ -902,6 +906,8 @@ argument_list|,
 name|conf
 argument_list|,
 name|REGION_INFO
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|)
@@ -1057,6 +1063,8 @@ argument_list|,
 name|REGION_INFO
 argument_list|,
 literal|null
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|region
@@ -1191,6 +1199,8 @@ argument_list|,
 name|conf
 argument_list|,
 name|REGION_INFO
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|)

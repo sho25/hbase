@@ -522,6 +522,8 @@ name|HREGION_LOGDIR_NAME
 argument_list|)
 argument_list|,
 name|conf
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -726,6 +728,8 @@ name|i
 index|]
 argument_list|,
 literal|null
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|currentSize
@@ -760,6 +764,8 @@ name|i
 operator|+
 literal|1
 index|]
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|)
@@ -1640,6 +1646,8 @@ operator|.
 name|rootRegionInfo
 argument_list|,
 literal|null
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|HInternalScannerInterface
@@ -1806,6 +1814,8 @@ argument_list|,
 name|HRegionInfo
 operator|.
 name|rootRegionInfo
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|)

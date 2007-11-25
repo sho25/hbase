@@ -399,13 +399,6 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
-specifier|private
-specifier|volatile
-name|long
-name|noFlushCount
-init|=
-literal|0
-decl_stmt|;
 comment|/**    * Merge two HRegions.  They must be available on the current    * HRegionServer. Returns a brand-new active HRegion, also    * running on the current HRegionServer.    */
 specifier|static
 name|HRegion
@@ -849,6 +842,8 @@ argument_list|,
 name|newRegionInfo
 argument_list|,
 name|newRegionDir
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 comment|// Get rid of merges directory
@@ -1132,6 +1127,15 @@ specifier|final
 name|int
 name|memcacheFlushSize
 decl_stmt|;
+specifier|private
+specifier|volatile
+name|long
+name|lastFlushTime
+decl_stmt|;
+specifier|final
+name|CacheFlushListener
+name|flushListener
+decl_stmt|;
 specifier|final
 name|int
 name|blockingMemcacheSize
@@ -1140,11 +1144,6 @@ specifier|protected
 specifier|final
 name|long
 name|threadWakeFrequency
-decl_stmt|;
-specifier|protected
-specifier|final
-name|int
-name|optionalFlushCount
 decl_stmt|;
 specifier|private
 specifier|final
@@ -1194,7 +1193,7 @@ decl_stmt|;
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Constructor
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * HRegion constructor.    *    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param rootDir root directory for HBase instance    * @param fs is the filesystem.      * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * @param initialFiles If there are initial files (implying that the HRegion    * is new), then read them from the supplied path.    *     * @throws IOException    */
+comment|/**    * HRegion constructor.    *    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param rootDir root directory for HBase instance    * @param fs is the filesystem.      * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * @param initialFiles If there are initial files (implying that the HRegion    * is new), then read them from the supplied path.    * @param listener an object that implements CacheFlushListener or null    *     * @throws IOException    */
 specifier|public
 name|HRegion
 parameter_list|(
@@ -1215,6 +1214,9 @@ name|regionInfo
 parameter_list|,
 name|Path
 name|initialFiles
+parameter_list|,
+name|CacheFlushListener
+name|listener
 parameter_list|)
 throws|throws
 name|IOException
@@ -1278,19 +1280,6 @@ argument_list|,
 literal|10
 operator|*
 literal|1000
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|optionalFlushCount
-operator|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.hregion.memcache.optionalflushcount"
-argument_list|,
-literal|10
 argument_list|)
 expr_stmt|;
 comment|// Declare the regionName.  This is a unique string for the region, used to
@@ -1568,6 +1557,12 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
+name|flushListener
+operator|=
+name|listener
+expr_stmt|;
+name|this
+operator|.
 name|blockingMemcacheSize
 operator|=
 name|this
@@ -1605,6 +1600,15 @@ operator|.
 name|compacting
 operator|=
 literal|false
+expr_stmt|;
+name|this
+operator|.
+name|lastFlushTime
+operator|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 expr_stmt|;
 name|LOG
 operator|.
@@ -2032,6 +2036,18 @@ return|return
 name|this
 operator|.
 name|fs
+return|;
+block|}
+comment|/** @return the last time the region was flushed */
+specifier|public
+name|long
+name|getLastFlushTime
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|lastFlushTime
 return|;
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
@@ -2578,6 +2594,8 @@ argument_list|,
 name|regionAInfo
 argument_list|,
 name|dirA
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|HRegion
@@ -2597,6 +2615,8 @@ argument_list|,
 name|regionBInfo
 argument_list|,
 name|dirB
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 comment|// Cleanup
@@ -3221,8 +3241,8 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Flush the cache if necessary. This is called periodically to minimize the    * amount of log processing needed upon startup.    *     *<p>The returned Vector is a list of all the files used by the component    * HStores. It is a list of HStoreFile objects.  If the returned value is    * NULL, then the flush could not be executed, because the HRegion is busy    * doing something else storage-intensive.  The caller should check back    * later.    *    *<p>This method may block for some time, so it should not be called from a     * time-sensitive thread.    *     * @param disableFutureWrites indicates that the caller intends to     * close() the HRegion shortly, so the HRegion should not take on any new and     * potentially long-lasting disk operations. This flush() should be the final    * pre-close() disk operation.    * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
-name|void
+comment|/**    * Flush the cache.    *     * When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a     * time-sensitive thread.    *     * @return true if cache was flushed    *     * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
+name|boolean
 name|flushcache
 parameter_list|()
 throws|throws
@@ -3249,123 +3269,9 @@ name|get
 argument_list|()
 condition|)
 block|{
-return|return;
-block|}
-name|boolean
-name|needFlush
-init|=
+return|return
 literal|false
-decl_stmt|;
-name|long
-name|memcacheSize
-init|=
-name|this
-operator|.
-name|memcacheSize
-operator|.
-name|get
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|memcacheSize
-operator|>
-name|this
-operator|.
-name|memcacheFlushSize
-condition|)
-block|{
-name|needFlush
-operator|=
-literal|true
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|memcacheSize
-operator|>
-literal|0
-condition|)
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|noFlushCount
-operator|>=
-name|this
-operator|.
-name|optionalFlushCount
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Optional flush called "
-operator|+
-name|this
-operator|.
-name|noFlushCount
-operator|+
-literal|" times when data present without flushing.  Forcing one."
-argument_list|)
-expr_stmt|;
-name|needFlush
-operator|=
-literal|true
-expr_stmt|;
-block|}
-else|else
-block|{
-comment|// Only increment if something in the cache.
-comment|// Gets zero'd when a flushcache is called.
-name|this
-operator|.
-name|noFlushCount
-operator|++
-expr_stmt|;
-block|}
-block|}
-if|if
-condition|(
-operator|!
-name|needFlush
-condition|)
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Cache flush not needed for region "
-operator|+
-name|regionInfo
-operator|.
-name|getRegionName
-argument_list|()
-operator|+
-literal|". Cache size="
-operator|+
-name|memcacheSize
-operator|+
-literal|", cache flush threshold="
-operator|+
-name|this
-operator|.
-name|memcacheFlushSize
-argument_list|)
-expr_stmt|;
-block|}
-return|return;
+return|;
 block|}
 synchronized|synchronized
 init|(
@@ -3430,15 +3336,11 @@ name|writesEnabled
 argument_list|)
 expr_stmt|;
 block|}
-return|return;
+return|return
+literal|false
+return|;
 block|}
 block|}
-name|this
-operator|.
-name|noFlushCount
-operator|=
-literal|0
-expr_stmt|;
 name|long
 name|startTime
 init|=
@@ -3459,11 +3361,12 @@ expr_stmt|;
 block|}
 try|try
 block|{
+return|return
 name|internalFlushcache
 argument_list|(
 name|startTime
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 finally|finally
 block|{
@@ -3499,6 +3402,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/*    * It is assumed that updates are blocked for the duration of this method    */
+specifier|private
 name|long
 name|snapshotMemcaches
 parameter_list|()
@@ -3597,8 +3501,9 @@ return|return
 name|startTime
 return|;
 block|}
-comment|/**    * Flushing the cache is a little tricky. We have a lot of updates in the    * HMemcache, all of which have also been written to the log. We need to    * write those updates in the HMemcache out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the HMemcache was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the HMemcache from    * the log.)    *     *<p>So, we have a three-step process:    *     *<ul><li>A. Flush the memcache to the on-disk stores, noting the current    * sequence ID for the log.<li>    *     *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memcache-flush.</li>    *     *<li>C. Get rid of the memcache structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *     *<p> This method may block for some time.    * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
-name|void
+comment|/**    * Flushing the cache is a little tricky. We have a lot of updates in the    * HMemcache, all of which have also been written to the log. We need to    * write those updates in the HMemcache out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the HMemcache was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the HMemcache from    * the log.)    *     *<p>So, we have a three-step process:    *     *<ul><li>A. Flush the memcache to the on-disk stores, noting the current    * sequence ID for the log.<li>    *     *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memcache-flush.</li>    *     *<li>C. Get rid of the memcache structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *     *<p> This method may block for some time.    *     * @param startTime the time the cache was snapshotted or -1 if a flush is    * not needed    *     * @return true if the cache was flushed    *     * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
+specifier|private
+name|boolean
 name|internalFlushcache
 parameter_list|(
 name|long
@@ -3627,13 +3532,20 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Not flushing cache: snapshotMemcaches() determined that "
+literal|"Not flushing cache for region "
 operator|+
-literal|"there was nothing to do"
+name|regionInfo
+operator|.
+name|getRegionName
+argument_list|()
+operator|+
+literal|": snapshotMemcaches() determined that there was nothing to do"
 argument_list|)
 expr_stmt|;
 block|}
-return|return;
+return|return
+literal|false
+return|;
 block|}
 comment|// We pass the log to the HMemcache, so we can lock down both
 comment|// simultaneously.  We only have to do this for a moment: we need the
@@ -3658,11 +3570,6 @@ comment|// Any failure from here on out will be catastrophic requiring server
 comment|// restart so hlog content can be replayed and put back into the memcache.
 comment|// Otherwise, the snapshot content while backed up in the hlog, it will not
 comment|// be part of the current running servers state.
-name|long
-name|logCacheFlushId
-init|=
-name|sequenceId
-decl_stmt|;
 try|try
 block|{
 comment|// A.  Flush memcache to all the HStores.
@@ -3742,7 +3649,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|logCacheFlushId
+name|sequenceId
 argument_list|)
 expr_stmt|;
 comment|// D. Finally notify anyone waiting on memcache to clear:
@@ -3788,10 +3695,15 @@ operator|-
 name|startTime
 operator|)
 operator|+
-literal|"ms"
+literal|"ms, sequenceid="
+operator|+
+name|sequenceId
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+literal|true
+return|;
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// get() methods for client use.
@@ -5130,6 +5042,11 @@ argument_list|,
 name|updatesByColumn
 argument_list|)
 expr_stmt|;
+name|long
+name|memcacheSize
+init|=
+literal|0
+decl_stmt|;
 for|for
 control|(
 name|Map
@@ -5166,6 +5083,8 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
+name|memcacheSize
+operator|=
 name|this
 operator|.
 name|memcacheSize
@@ -5210,6 +5129,32 @@ argument_list|(
 name|key
 argument_list|,
 name|val
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|this
+operator|.
+name|flushListener
+operator|!=
+literal|null
+operator|&&
+name|memcacheSize
+operator|>
+name|this
+operator|.
+name|memcacheFlushSize
+condition|)
+block|{
+comment|// Request a cache flush
+name|this
+operator|.
+name|flushListener
+operator|.
+name|flushRequested
+argument_list|(
+name|this
 argument_list|)
 expr_stmt|;
 block|}
@@ -6247,6 +6192,8 @@ name|HREGION_LOGDIR_NAME
 argument_list|)
 argument_list|,
 name|conf
+argument_list|,
+literal|null
 argument_list|)
 argument_list|,
 name|fs
@@ -6256,6 +6203,8 @@ argument_list|,
 name|info
 argument_list|,
 name|initialFiles
+argument_list|,
+literal|null
 argument_list|)
 return|;
 block|}
