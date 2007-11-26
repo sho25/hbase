@@ -135,6 +135,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Map
 import|;
 end_import
@@ -185,7 +195,9 @@ name|java
 operator|.
 name|util
 operator|.
-name|Vector
+name|concurrent
+operator|.
+name|BlockingQueue
 import|;
 end_import
 
@@ -197,7 +209,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|BlockingQueue
+name|ConcurrentHashMap
 import|;
 end_import
 
@@ -700,7 +712,7 @@ argument_list|>
 name|retiringRegions
 init|=
 operator|new
-name|HashMap
+name|ConcurrentHashMap
 argument_list|<
 name|Text
 argument_list|,
@@ -719,18 +731,23 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
-name|Vector
+name|List
 argument_list|<
 name|HMsg
 argument_list|>
 name|outboundMsgs
 init|=
+name|Collections
+operator|.
+name|synchronizedList
+argument_list|(
 operator|new
-name|Vector
+name|ArrayList
 argument_list|<
 name|HMsg
 argument_list|>
 argument_list|()
+argument_list|)
 decl_stmt|;
 specifier|final
 name|int
@@ -2498,6 +2515,17 @@ implements|implements
 name|LogRollListener
 block|{
 specifier|private
+specifier|final
+name|Integer
+name|rollLock
+init|=
+operator|new
+name|Integer
+argument_list|(
+literal|0
+argument_list|)
+decl_stmt|;
+specifier|private
 specifier|volatile
 name|boolean
 name|rollLog
@@ -2521,7 +2549,6 @@ comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
-specifier|synchronized
 name|void
 name|run
 parameter_list|()
@@ -2535,9 +2562,26 @@ name|get
 argument_list|()
 condition|)
 block|{
+while|while
+condition|(
+operator|!
+name|rollLog
+operator|&&
+operator|!
+name|stopRequested
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+synchronized|synchronized
+init|(
+name|rollLock
+init|)
+block|{
 try|try
 block|{
-name|this
+name|rollLock
 operator|.
 name|wait
 argument_list|(
@@ -2553,12 +2597,18 @@ parameter_list|)
 block|{
 continue|continue;
 block|}
+block|}
+block|}
 if|if
 condition|(
 operator|!
 name|rollLog
 condition|)
 block|{
+comment|// There's only two reasons to break out of the while loop.
+comment|// 1. Log roll requested
+comment|// 2. Stop requested
+comment|// so if a log roll was not requested, continue and break out of loop
 continue|continue;
 block|}
 synchronized|synchronized
@@ -2641,20 +2691,25 @@ block|}
 block|}
 comment|/** {@inheritDoc} */
 specifier|public
-specifier|synchronized
 name|void
 name|logRollRequested
 parameter_list|()
+block|{
+synchronized|synchronized
+init|(
+name|rollLock
+init|)
 block|{
 name|rollLog
 operator|=
 literal|true
 expr_stmt|;
-name|this
+name|rollLock
 operator|.
 name|notifyAll
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * Starts a HRegionServer at the default location    * @param conf    * @throws IOException    */
@@ -3084,6 +3139,7 @@ argument_list|()
 index|]
 argument_list|)
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|outboundMsgs
@@ -3091,7 +3147,6 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
-block|}
 try|try
 block|{
 name|this
@@ -4778,11 +4833,6 @@ name|HRegion
 name|region
 parameter_list|)
 block|{
-synchronized|synchronized
-init|(
-name|outboundMsgs
-init|)
-block|{
 name|outboundMsgs
 operator|.
 name|add
@@ -4802,7 +4852,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-block|}
 comment|/** Add to the outbound message buffer */
 specifier|private
 name|void
@@ -4811,11 +4860,6 @@ parameter_list|(
 name|HRegion
 name|region
 parameter_list|)
-block|{
-synchronized|synchronized
-init|(
-name|outboundMsgs
-init|)
 block|{
 name|outboundMsgs
 operator|.
@@ -4836,7 +4880,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-block|}
 comment|/**    * Add to the outbound message buffer    *     * When a region splits, we need to tell the master that there are two new     * regions that need to be assigned.    *     * We do not need to inform the master about the old region, because we've    * updated the meta or root regions, and the master will pick that up on its    * next rescan of the root or meta tables.    */
 name|void
 name|reportSplit
@@ -4850,11 +4893,6 @@ parameter_list|,
 name|HRegionInfo
 name|newRegionB
 parameter_list|)
-block|{
-synchronized|synchronized
-init|(
-name|outboundMsgs
-init|)
 block|{
 name|outboundMsgs
 operator|.
@@ -4901,7 +4939,6 @@ name|newRegionB
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// HMaster-given operations

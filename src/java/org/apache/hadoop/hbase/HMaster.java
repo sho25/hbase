@@ -93,6 +93,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Map
 import|;
 end_import
@@ -133,16 +143,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|SortedSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Timer
 import|;
 end_import
@@ -173,7 +173,9 @@ name|java
 operator|.
 name|util
 operator|.
-name|TreeSet
+name|concurrent
+operator|.
+name|BlockingQueue
 import|;
 end_import
 
@@ -185,7 +187,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|BlockingQueue
+name|ConcurrentHashMap
 import|;
 end_import
 
@@ -2008,11 +2010,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
 comment|// Skip region - if ...
 if|if
 condition|(
@@ -2087,6 +2084,11 @@ operator|!=
 literal|0
 condition|)
 block|{
+synchronized|synchronized
+init|(
+name|killList
+init|)
+block|{
 name|Map
 argument_list|<
 name|Text
@@ -2143,6 +2145,7 @@ expr_stmt|;
 block|}
 return|return;
 block|}
+block|}
 name|storedInfo
 operator|=
 name|serversToServerInfo
@@ -2152,21 +2155,15 @@ argument_list|(
 name|serverName
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
+name|deadServer
+operator|=
 name|deadServers
 operator|.
 name|contains
 argument_list|(
 name|serverName
 argument_list|)
-condition|)
-block|{
-name|deadServer
-operator|=
-literal|true
 expr_stmt|;
-block|}
 block|}
 if|if
 condition|(
@@ -2191,7 +2188,7 @@ literal|" is assigned"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*          * If the server is not dead and either:          *   the stored info is not null and the start code does not match          * or:          *   the stored info is null and the region is neither unassigned nor pending          * then:          */
+comment|/*        * If the server is not dead and either:        *   the stored info is not null and the start code does not match        * or:        *   the stored info is null and the region is neither unassigned nor pending        * then:        */
 if|if
 condition|(
 operator|!
@@ -2430,7 +2427,6 @@ literal|0L
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 block|}
@@ -3551,10 +3547,6 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-comment|/////////////////////////////////////////////////////////////////////////////
-comment|//
-comment|// Access to all of the following objects MUST be synchronized on
-comment|// serversToServerInfo
 comment|/** The map of known server names to server info */
 specifier|final
 name|Map
@@ -3566,7 +3558,7 @@ argument_list|>
 name|serversToServerInfo
 init|=
 operator|new
-name|HashMap
+name|ConcurrentHashMap
 argument_list|<
 name|String
 argument_list|,
@@ -3582,12 +3574,17 @@ name|String
 argument_list|>
 name|deadServers
 init|=
+name|Collections
+operator|.
+name|synchronizedSet
+argument_list|(
 operator|new
 name|HashSet
 argument_list|<
 name|String
 argument_list|>
 argument_list|()
+argument_list|)
 decl_stmt|;
 comment|/** SortedMap server load -> Set of server names */
 specifier|final
@@ -3602,6 +3599,10 @@ argument_list|>
 argument_list|>
 name|loadToServers
 init|=
+name|Collections
+operator|.
+name|synchronizedSortedMap
+argument_list|(
 operator|new
 name|TreeMap
 argument_list|<
@@ -3613,6 +3614,7 @@ name|String
 argument_list|>
 argument_list|>
 argument_list|()
+argument_list|)
 decl_stmt|;
 comment|/** Map of server names -> server load */
 specifier|final
@@ -3625,7 +3627,7 @@ argument_list|>
 name|serversToLoad
 init|=
 operator|new
-name|HashMap
+name|ConcurrentHashMap
 argument_list|<
 name|String
 argument_list|,
@@ -3643,6 +3645,10 @@ name|HRegionInfo
 argument_list|>
 name|unassignedRegions
 init|=
+name|Collections
+operator|.
+name|synchronizedSortedMap
+argument_list|(
 operator|new
 name|TreeMap
 argument_list|<
@@ -3651,6 +3657,7 @@ argument_list|,
 name|HRegionInfo
 argument_list|>
 argument_list|()
+argument_list|)
 decl_stmt|;
 comment|/**    * The 'assignAttempts' table maps from regions to a timestamp that indicates    * the last time we *tried* to assign the region to a RegionServer. If the     * timestamp is out of date, then we can try to reassign it.    */
 specifier|final
@@ -3663,7 +3670,7 @@ argument_list|>
 name|assignAttempts
 init|=
 operator|new
-name|HashMap
+name|ConcurrentHashMap
 argument_list|<
 name|Text
 argument_list|,
@@ -3679,12 +3686,17 @@ name|Text
 argument_list|>
 name|pendingRegions
 init|=
+name|Collections
+operator|.
+name|synchronizedSet
+argument_list|(
 operator|new
 name|HashSet
 argument_list|<
 name|Text
 argument_list|>
 argument_list|()
+argument_list|)
 decl_stmt|;
 comment|/**    * The 'killList' is a list of regions that are going to be closed, but not    * reopened.    */
 specifier|final
@@ -3702,7 +3714,7 @@ argument_list|>
 name|killList
 init|=
 operator|new
-name|HashMap
+name|ConcurrentHashMap
 argument_list|<
 name|String
 argument_list|,
@@ -3723,12 +3735,17 @@ name|Text
 argument_list|>
 name|killedRegions
 init|=
+name|Collections
+operator|.
+name|synchronizedSet
+argument_list|(
 operator|new
 name|HashSet
 argument_list|<
 name|Text
 argument_list|>
 argument_list|()
+argument_list|)
 decl_stmt|;
 comment|/**    * 'regionsToDelete' contains regions that need to be deleted, but cannot be    * until the region server closes it    */
 specifier|final
@@ -3738,15 +3755,38 @@ name|Text
 argument_list|>
 name|regionsToDelete
 init|=
+name|Collections
+operator|.
+name|synchronizedSet
+argument_list|(
 operator|new
 name|HashSet
 argument_list|<
 name|Text
 argument_list|>
 argument_list|()
+argument_list|)
 decl_stmt|;
-comment|//
-comment|/////////////////////////////////////////////////////////////////////////////
+comment|/** Set of tables currently in creation. */
+specifier|private
+name|Set
+argument_list|<
+name|Text
+argument_list|>
+name|tableInCreation
+init|=
+name|Collections
+operator|.
+name|synchronizedSet
+argument_list|(
+operator|new
+name|HashSet
+argument_list|<
+name|Text
+argument_list|>
+argument_list|()
+argument_list|)
+decl_stmt|;
 comment|/** Build the HMaster out of a raw configuration item.    *     * @param conf - Configuration object    * @throws IOException    */
 specifier|public
 name|HMaster
@@ -4289,7 +4329,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * Unassign the root region.    * This method would be used in case where root region server had died    * without reporting in.  Currently, we just flounder and never recover.  We    * could 'notice' dead region server in root scanner -- if we failed access    * multiple times -- but reassigning root is catastrophic.    *     * Note: This method must be called from inside a synchronized block on    * serversToServerInfo    */
+comment|/*    * Unassign the root region.    * This method would be used in case where root region server had died    * without reporting in.  Currently, we just flounder and never recover.  We    * could 'notice' dead region server in root scanner -- if we failed access    * multiple times -- but reassigning root is catastrophic.    *     */
 name|void
 name|unassignRootRegion
 parameter_list|()
@@ -5291,11 +5331,6 @@ operator|+
 name|s
 argument_list|)
 expr_stmt|;
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
 name|HServerLoad
 name|load
 init|=
@@ -5376,7 +5411,7 @@ name|get
 argument_list|()
 condition|)
 block|{
-comment|// The startup message was from a know server with the same name.
+comment|// The startup message was from a known server with the same name.
 comment|// Timeout the old one right away.
 name|HServerAddress
 name|root
@@ -5497,12 +5532,6 @@ argument_list|,
 name|servers
 argument_list|)
 expr_stmt|;
-name|serversToServerInfo
-operator|.
-name|notifyAll
-argument_list|()
-expr_stmt|;
-block|}
 if|if
 condition|(
 operator|!
@@ -5823,11 +5852,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
 name|this
 operator|.
 name|unassignedRegions
@@ -5861,7 +5885,6 @@ literal|0L
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 block|}
@@ -5903,22 +5926,14 @@ return|;
 block|}
 name|HServerInfo
 name|storedInfo
-decl_stmt|;
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
-name|storedInfo
-operator|=
+init|=
 name|serversToServerInfo
 operator|.
 name|get
 argument_list|(
 name|serverName
 argument_list|)
-expr_stmt|;
-block|}
+decl_stmt|;
 if|if
 condition|(
 name|storedInfo
@@ -6038,11 +6053,6 @@ name|serverLabel
 argument_list|)
 expr_stmt|;
 comment|// Refresh the info object and the load information
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
 name|serversToServerInfo
 operator|.
 name|put
@@ -6177,7 +6187,6 @@ argument_list|,
 name|servers
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Next, process messages for this server
 return|return
 name|processMsgs
@@ -6208,11 +6217,6 @@ name|leaseCancelled
 init|=
 literal|false
 decl_stmt|;
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
 name|HServerInfo
 name|info
 init|=
@@ -6338,6 +6342,11 @@ expr_stmt|;
 block|}
 block|}
 block|}
+synchronized|synchronized
+init|(
+name|serversToServerInfo
+init|)
+block|{
 name|serversToServerInfo
 operator|.
 name|notifyAll
@@ -6398,11 +6407,6 @@ name|regionsToKill
 init|=
 literal|null
 decl_stmt|;
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
 name|regionsToKill
 operator|=
 name|killList
@@ -6412,7 +6416,6 @@ argument_list|(
 name|serverName
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Get reports on what the RegionServer did.
 for|for
 control|(
@@ -6442,11 +6445,6 @@ operator|.
 name|getRegionInfo
 argument_list|()
 decl_stmt|;
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
 switch|switch
 condition|(
 name|incomingMsgs
@@ -7007,13 +7005,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-block|}
 comment|// Process the kill list
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
 if|if
 condition|(
 name|regionsToKill
@@ -7057,7 +7049,6 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|// Figure out what the RegionServer ought to do, and write back.
@@ -7112,14 +7103,14 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
-name|SortedSet
+name|Set
 argument_list|<
 name|Text
 argument_list|>
 name|regionsToAssign
 init|=
 operator|new
-name|TreeSet
+name|HashSet
 argument_list|<
 name|Text
 argument_list|>
@@ -7127,7 +7118,9 @@ argument_list|()
 decl_stmt|;
 synchronized|synchronized
 init|(
-name|serversToServerInfo
+name|this
+operator|.
+name|assignAttempts
 init|)
 block|{
 for|for
@@ -7182,6 +7175,7 @@ name|getKey
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 name|int
@@ -7271,6 +7265,29 @@ argument_list|>
 argument_list|>
 name|heavyServers
 init|=
+operator|new
+name|TreeMap
+argument_list|<
+name|HServerLoad
+argument_list|,
+name|Set
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+argument_list|()
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|loadToServers
+init|)
+block|{
+name|heavyServers
+operator|.
+name|putAll
+argument_list|(
 name|this
 operator|.
 name|loadToServers
@@ -7279,7 +7296,9 @@ name|tailMap
 argument_list|(
 name|thisServersLoad
 argument_list|)
-decl_stmt|;
+argument_list|)
+expr_stmt|;
+block|}
 name|int
 name|nservers
 init|=
@@ -7589,8 +7608,7 @@ block|}
 block|}
 block|}
 block|}
-block|}
-comment|/*    * @param nRegionsToAssign    * @param thisServersLoad    * @return How many regions we can assign to more lightly loaded servers    *     * Note: this method MUST be called from inside a synchronized block on    * serversToServerInfo    */
+comment|/*    * @param nRegionsToAssign    * @param thisServersLoad    * @return How many regions we can assign to more lightly loaded servers    */
 specifier|private
 name|int
 name|regionsPerServer
@@ -7615,6 +7633,29 @@ argument_list|>
 argument_list|>
 name|lightServers
 init|=
+operator|new
+name|TreeMap
+argument_list|<
+name|HServerLoad
+argument_list|,
+name|Set
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+argument_list|()
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|loadToServers
+init|)
+block|{
+name|lightServers
+operator|.
+name|putAll
+argument_list|(
 name|this
 operator|.
 name|loadToServers
@@ -7623,7 +7664,9 @@ name|headMap
 argument_list|(
 name|thisServersLoad
 argument_list|)
-decl_stmt|;
+argument_list|)
+expr_stmt|;
+block|}
 name|int
 name|nRegions
 init|=
@@ -7738,7 +7781,7 @@ name|void
 name|assignRegionsToOneServer
 parameter_list|(
 specifier|final
-name|SortedSet
+name|Set
 argument_list|<
 name|Text
 argument_list|>
@@ -7771,11 +7814,6 @@ name|regionName
 range|:
 name|regionsToAssign
 control|)
-block|{
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
 block|{
 name|HRegionInfo
 name|regionInfo
@@ -7835,7 +7873,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
 comment|/*    * Some internal classes to manage msg-passing and region server operations    */
 specifier|private
 specifier|abstract
@@ -7844,11 +7881,7 @@ name|RegionServerOperation
 block|{
 name|RegionServerOperation
 parameter_list|()
-block|{
-name|super
-argument_list|()
-expr_stmt|;
-block|}
+block|{}
 specifier|abstract
 name|boolean
 name|process
@@ -8640,11 +8673,6 @@ argument_list|(
 name|todo
 argument_list|)
 expr_stmt|;
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
 if|if
 condition|(
 name|killList
@@ -8663,13 +8691,33 @@ name|HRegionInfo
 argument_list|>
 name|regionsToKill
 init|=
+operator|new
+name|HashMap
+argument_list|<
+name|Text
+argument_list|,
+name|HRegionInfo
+argument_list|>
+argument_list|()
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|killList
+init|)
+block|{
+name|regionsToKill
+operator|.
+name|putAll
+argument_list|(
 name|killList
 operator|.
 name|get
 argument_list|(
 name|deadServerName
 argument_list|)
-decl_stmt|;
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|regionsToKill
@@ -8722,6 +8770,11 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
+synchronized|synchronized
+init|(
+name|regionsToDelete
+init|)
+block|{
 if|if
 condition|(
 name|regionsToDelete
@@ -8765,6 +8818,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
+block|}
 else|else
 block|{
 comment|// Get region reassigned
@@ -8792,7 +8846,6 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 block|}
@@ -8993,11 +9046,6 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
 name|unassignedRegions
 operator|.
 name|put
@@ -9021,7 +9069,6 @@ literal|0L
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 annotation|@
@@ -9177,15 +9224,9 @@ comment|// We should never get here because whenever an object of this type
 comment|// is created, a check is made to see if it is the root server.
 comment|// and unassignRootRegion() is called then. However, in the
 comment|// unlikely event that we do end up here, let's do the right thing.
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
 name|unassignRootRegion
 argument_list|()
 expr_stmt|;
-block|}
 name|rootRegionUnavailable
 operator|=
 literal|true
@@ -9554,20 +9595,41 @@ return|return
 literal|true
 return|;
 block|}
+name|List
+argument_list|<
+name|MetaRegion
+argument_list|>
+name|regions
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|MetaRegion
+argument_list|>
+argument_list|()
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|onlineMetaRegions
 init|)
 block|{
+name|regions
+operator|.
+name|addAll
+argument_list|(
+name|onlineMetaRegions
+operator|.
+name|values
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 for|for
 control|(
 name|MetaRegion
 name|r
 range|:
-name|onlineMetaRegions
-operator|.
-name|values
-argument_list|()
+name|regions
 control|)
 block|{
 name|HRegionInterface
@@ -9705,12 +9767,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
 name|deadServers
 operator|.
 name|remove
@@ -9718,7 +9774,6 @@ argument_list|(
 name|deadServerName
 argument_list|)
 expr_stmt|;
-block|}
 break|break;
 block|}
 catch|catch
@@ -10263,11 +10318,6 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
 name|unassignedRegions
 operator|.
 name|put
@@ -10297,7 +10347,6 @@ literal|0L
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 elseif|else
 if|if
@@ -10682,6 +10731,15 @@ block|}
 name|MetaRegion
 name|r
 init|=
+literal|null
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|onlineMetaRegions
+init|)
+block|{
+name|r
+operator|=
 name|onlineMetaRegions
 operator|.
 name|containsKey
@@ -10719,7 +10777,8 @@ operator|.
 name|lastKey
 argument_list|()
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 name|metaRegionName
 operator|=
 name|r
@@ -10967,11 +11026,6 @@ expr_stmt|;
 block|}
 block|}
 comment|// If updated successfully, remove from pending list.
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
 name|pendingRegions
 operator|.
 name|remove
@@ -10982,7 +11036,6 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 break|break;
 block|}
 catch|catch
@@ -11221,21 +11274,6 @@ block|}
 block|}
 block|}
 block|}
-comment|/* Set of tables currently in creation. Access needs to be synchronized. */
-specifier|private
-name|Set
-argument_list|<
-name|Text
-argument_list|>
-name|tableInCreation
-init|=
-operator|new
-name|HashSet
-argument_list|<
-name|Text
-argument_list|>
-argument_list|()
-decl_stmt|;
 specifier|private
 name|void
 name|createTable
@@ -11258,11 +11296,6 @@ operator|.
 name|getName
 argument_list|()
 decl_stmt|;
-synchronized|synchronized
-init|(
-name|tableInCreation
-init|)
-block|{
 if|if
 condition|(
 name|tableInCreation
@@ -11294,7 +11327,6 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-block|}
 try|try
 block|{
 comment|// 1. Check to see if table already exists. Get meta region where
@@ -11611,11 +11643,6 @@ name|closeAndDelete
 argument_list|()
 expr_stmt|;
 comment|// 5. Get it assigned to a server
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
 name|this
 operator|.
 name|unassignedRegions
@@ -11644,13 +11671,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-block|}
 finally|finally
-block|{
-synchronized|synchronized
-init|(
-name|tableInCreation
-init|)
 block|{
 name|tableInCreation
 operator|.
@@ -11665,7 +11686,6 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|/** {@inheritDoc} */
@@ -11910,6 +11930,11 @@ name|firstMetaRegion
 init|=
 literal|null
 decl_stmt|;
+synchronized|synchronized
+init|(
+name|onlineMetaRegions
+init|)
+block|{
 if|if
 condition|(
 name|onlineMetaRegions
@@ -11959,11 +11984,6 @@ name|lastKey
 argument_list|()
 expr_stmt|;
 block|}
-synchronized|synchronized
-init|(
-name|onlineMetaRegions
-init|)
-block|{
 name|this
 operator|.
 name|metaRegions
@@ -12519,22 +12539,14 @@ condition|)
 block|{
 name|HServerInfo
 name|s
-decl_stmt|;
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
-name|s
-operator|=
+init|=
 name|serversToServerInfo
 operator|.
 name|get
 argument_list|(
 name|serverName
 argument_list|)
-expr_stmt|;
-block|}
+decl_stmt|;
 name|result
 operator|=
 name|s
@@ -12926,11 +12938,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
 if|if
 condition|(
 name|online
@@ -13007,7 +13014,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
 comment|// Process regions currently being served
 if|if
 condition|(
@@ -13078,32 +13084,6 @@ name|HRegionInfo
 argument_list|>
 name|localKillList
 init|=
-literal|null
-decl_stmt|;
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
-name|localKillList
-operator|=
-name|killList
-operator|.
-name|get
-argument_list|(
-name|serverName
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|localKillList
-operator|==
-literal|null
-condition|)
-block|{
-name|localKillList
-operator|=
 operator|new
 name|HashMap
 argument_list|<
@@ -13112,7 +13092,42 @@ argument_list|,
 name|HRegionInfo
 argument_list|>
 argument_list|()
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|killList
+init|)
+block|{
+name|HashMap
+argument_list|<
+name|Text
+argument_list|,
+name|HRegionInfo
+argument_list|>
+name|killedRegions
+init|=
+name|killList
+operator|.
+name|get
+argument_list|(
+name|serverName
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|killedRegions
+operator|!=
+literal|null
+condition|)
+block|{
+name|localKillList
+operator|.
+name|putAll
+argument_list|(
+name|killedRegions
+argument_list|)
 expr_stmt|;
+block|}
 block|}
 for|for
 control|(
@@ -13189,11 +13204,6 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
 name|killList
 operator|.
 name|put
@@ -13203,7 +13213,6 @@ argument_list|,
 name|localKillList
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 name|servedRegions
@@ -13314,11 +13323,6 @@ range|:
 name|s
 control|)
 block|{
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
 name|regionsToDelete
 operator|.
 name|add
@@ -13329,7 +13333,6 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|// Unserved regions we can delete now
@@ -13859,21 +13862,14 @@ expr_stmt|;
 comment|// Remove the server from the known servers list and update load info
 name|HServerInfo
 name|info
-decl_stmt|;
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
-name|info
-operator|=
+init|=
 name|serversToServerInfo
 operator|.
 name|remove
 argument_list|(
 name|server
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|info
@@ -13984,6 +13980,11 @@ name|server
 argument_list|)
 expr_stmt|;
 block|}
+synchronized|synchronized
+init|(
+name|serversToServerInfo
+init|)
+block|{
 name|serversToServerInfo
 operator|.
 name|notifyAll
