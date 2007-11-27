@@ -368,7 +368,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Sets the table to be created.    * @param table Table to be created    */
+comment|/**    * Sets the table to be created.    * @param tableName Table to be created    */
 specifier|public
 name|void
 name|setTable
