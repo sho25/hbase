@@ -117,6 +117,34 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|HConnection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConnectionManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|io
 operator|.
 name|Text
@@ -184,7 +212,7 @@ argument_list|()
 decl_stmt|;
 specifier|private
 name|String
-name|table
+name|tableName
 decl_stmt|;
 specifier|private
 name|String
@@ -214,6 +242,49 @@ parameter_list|)
 block|{
 try|try
 block|{
+name|HConnection
+name|conn
+init|=
+name|HConnectionManager
+operator|.
+name|getConnection
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|conn
+operator|.
+name|tableExists
+argument_list|(
+operator|new
+name|Text
+argument_list|(
+name|this
+operator|.
+name|tableName
+argument_list|)
+argument_list|)
+condition|)
+block|{
+return|return
+operator|new
+name|ReturnMsg
+argument_list|(
+literal|0
+argument_list|,
+literal|"'"
+operator|+
+name|this
+operator|.
+name|tableName
+operator|+
+literal|"' Table not found"
+argument_list|)
+return|;
+block|}
 name|HBaseAdmin
 name|admin
 init|=
@@ -248,7 +319,7 @@ name|disableTable
 argument_list|(
 name|admin
 argument_list|,
-name|table
+name|tableName
 argument_list|)
 expr_stmt|;
 name|columns
@@ -288,7 +359,7 @@ name|c
 operator|+
 literal|" to "
 operator|+
-name|table
+name|tableName
 operator|+
 literal|"... Please wait."
 argument_list|)
@@ -300,7 +371,7 @@ argument_list|(
 operator|new
 name|Text
 argument_list|(
-name|table
+name|tableName
 argument_list|)
 argument_list|,
 name|columnDesc
@@ -311,7 +382,7 @@ name|enableTable
 argument_list|(
 name|admin
 argument_list|,
-name|table
+name|tableName
 argument_list|)
 expr_stmt|;
 break|break;
@@ -322,7 +393,7 @@ name|disableTable
 argument_list|(
 name|admin
 argument_list|,
-name|table
+name|tableName
 argument_list|)
 expr_stmt|;
 name|println
@@ -333,7 +404,7 @@ name|column
 operator|+
 literal|" from "
 operator|+
-name|table
+name|tableName
 operator|+
 literal|"... Please wait."
 argument_list|)
@@ -352,7 +423,7 @@ argument_list|(
 operator|new
 name|Text
 argument_list|(
-name|table
+name|tableName
 argument_list|)
 argument_list|,
 operator|new
@@ -366,7 +437,7 @@ name|enableTable
 argument_list|(
 name|admin
 argument_list|,
-name|table
+name|tableName
 argument_list|)
 expr_stmt|;
 break|break;
@@ -509,7 +580,7 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|table
+name|tableName
 operator|=
 name|t
 expr_stmt|;
