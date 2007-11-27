@@ -3355,6 +3355,18 @@ parameter_list|)
 block|{
 if|if
 condition|(
+name|e
+operator|instanceof
+name|TableNotFoundException
+condition|)
+block|{
+throw|throw
+name|e
+throw|;
+comment|// don't retry
+block|}
+if|if
+condition|(
 name|tries
 operator|==
 name|numRetries
