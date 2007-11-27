@@ -7095,6 +7095,16 @@ argument_list|>
 name|returnMsgs
 parameter_list|)
 block|{
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|assignAttempts
+init|)
+block|{
+comment|// We need to hold a lock on assign attempts while we figure out what to
+comment|// do so that multiple threads do not execute this method in parallel
+comment|// resulting in assigning the same region to multiple servers.
 name|long
 name|now
 init|=
@@ -7116,13 +7126,6 @@ name|Text
 argument_list|>
 argument_list|()
 decl_stmt|;
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|assignAttempts
-init|)
-block|{
 for|for
 control|(
 name|Map
@@ -7175,7 +7178,6 @@ name|getKey
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 name|int
@@ -7604,6 +7606,7 @@ literal|0
 condition|)
 block|{
 break|break;
+block|}
 block|}
 block|}
 block|}
@@ -9544,8 +9547,9 @@ condition|)
 block|{
 comment|// We can't proceed because not all of the meta regions are online.
 comment|// We can't block either because that would prevent the meta region
-comment|// online message from being processed. So return false to have this
-comment|// operation requeued.
+comment|// online message from being processed. In order to prevent spinning
+comment|// in the run queue, put this request on the delay queue to give
+comment|// other threads the opportunity to get the meta regions on-line.
 if|if
 condition|(
 name|LOG
@@ -9562,8 +9566,29 @@ literal|"Requeuing shutdown because not all meta regions are online"
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|expire
+operator|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|+
+name|leaseTimeout
+operator|/
+literal|2
+expr_stmt|;
+name|shutdownQueue
+operator|.
+name|put
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
+comment|// Return true so run() does not put us back on the msgQueue
 return|return
-literal|false
+literal|true
 return|;
 block|}
 for|for
