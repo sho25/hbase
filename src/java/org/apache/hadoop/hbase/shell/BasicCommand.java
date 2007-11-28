@@ -196,6 +196,16 @@ name|endsWith
 argument_list|(
 name|FAMILY_INDICATOR
 argument_list|)
+operator|&&
+name|column
+operator|.
+name|indexOf
+argument_list|(
+name|FAMILY_INDICATOR
+argument_list|)
+operator|==
+operator|-
+literal|1
 operator|)
 condition|?
 name|column

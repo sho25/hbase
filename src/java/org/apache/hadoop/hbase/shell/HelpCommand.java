@@ -85,20 +85,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
-operator|.
-name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|HBaseConfiguration
@@ -267,7 +253,7 @@ operator|=
 name|argument
 expr_stmt|;
 block|}
-comment|/**    * add help contents     */
+comment|/**    * add help contents    */
 specifier|private
 name|Map
 operator|<
@@ -312,9 +298,9 @@ operator|new
 name|String
 index|[]
 block|{
-literal|"List all user tables"
+literal|"Show information about selected title"
 block|,
-literal|"SHOW TABLES;"
+literal|"SHOW TABLES[or substitution variable name];"
 block|}
 argument_list|)
 block|;
@@ -522,11 +508,120 @@ literal|"EXIT;"
 block|}
 argument_list|)
 block|;
+comment|// A Algebraic Query Commands
+comment|// this is a tentative query language based on a hbase which uses relational
+comment|// model of
+comment|// data.
+name|load
+operator|.
+name|put
+argument_list|(
+literal|"TABLE"
+argument_list|,
+operator|new
+name|String
+index|[]
+block|{
+literal|"Load a table"
+block|,
+literal|"A = table('table_name');"
+block|}
+argument_list|)
+block|;
+name|load
+operator|.
+name|put
+argument_list|(
+literal|"SUBSTITUTE"
+argument_list|,
+operator|new
+name|String
+index|[]
+block|{
+literal|"Substitute expression to [A~Z]"
+block|,
+literal|"D = A.projection('cf_name1'[, 'cf_name2']);"
+block|}
+argument_list|)
+block|;
+name|load
+operator|.
+name|put
+argument_list|(
+literal|"SAVE"
+argument_list|,
+operator|new
+name|String
+index|[]
+block|{
+literal|"Save results into specified table (It runs a mapreduce job)"
+block|,
+literal|"SAVE A INTO table('table_name');"
+block|}
+argument_list|)
+block|;
+comment|// Relational Operations
+name|load
+operator|.
+name|put
+argument_list|(
+literal|"PROJECTION"
+argument_list|,
+operator|new
+name|String
+index|[]
+block|{
+literal|"Selects a subset of the columnfamilies of a relation"
+block|,
+literal|"A = TABLE('table_name');"
+operator|+
+literal|" B = A.Projection('cf_name1'[, 'cf_name2']);"
+block|}
+argument_list|)
+block|;
+name|load
+operator|.
+name|put
+argument_list|(
+literal|"SELECTION"
+argument_list|,
+operator|new
+name|String
+index|[]
+block|{
+literal|"Selects a subset of the rows in a relation that satisfy a selection condition (>,<, AND, OR, etc.)"
+block|,
+literal|"A = Table('table_name');"
+operator|+
+literal|" B = A.Selection(cf_name1> 100 [AND cf_name2 = 'string_value']);"
+block|}
+argument_list|)
+block|;
+comment|// Aggregation Functions
+comment|//TODO : and apply aggregate function independently to each group of rows
+name|load
+operator|.
+name|put
+argument_list|(
+literal|"GROUP"
+argument_list|,
+operator|new
+name|String
+index|[]
+block|{
+literal|"Group rows by value of an attribute"
+block|,
+literal|"A = Table('table_name');"
+operator|+
+literal|" B = Group A by ('cf_name1'[, 'cf_name2']);"
+block|}
+argument_list|)
+block|;
 return|return
 name|load
 return|;
 block|}
-comment|/** Print out the program version.     * @throws IOException */
+comment|/**    * Print out the program version.    *     * @throws IOException    */
 specifier|public
 name|void
 name|printVersion
