@@ -5715,6 +5715,13 @@ operator|.
 name|MSG_REPORT_EXITING
 condition|)
 block|{
+synchronized|synchronized
+init|(
+name|serversToServerInfo
+init|)
+block|{
+try|try
+block|{
 comment|// HRegionServer is shutting down. Cancel the server's lease.
 comment|// Note that canceling the server's lease takes care of updating
 comment|// serversToServerInfo, etc.
@@ -5897,6 +5904,16 @@ index|[
 literal|0
 index|]
 return|;
+block|}
+finally|finally
+block|{
+name|serversToServerInfo
+operator|.
+name|notifyAll
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 block|}
 if|if
 condition|(
@@ -6341,17 +6358,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
-name|serversToServerInfo
-operator|.
-name|notifyAll
-argument_list|()
-expr_stmt|;
 block|}
 return|return
 name|leaseCancelled

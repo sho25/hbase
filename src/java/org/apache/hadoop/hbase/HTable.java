@@ -2036,7 +2036,7 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Start an atomic row insertion/update.  No changes are committed until the     * call to commit() returns. A call to abort() will abandon any updates in    * progress.    *    *     * @param row Name of row to start update against.  Note, choose row names    * with care.  Rows are sorted lexicographically (comparison is done    * using {@link Text#compareTo(Object)}.  If your keys are numeric,    * lexicographic sorting means that 46 sorts AFTER 450 (If you want to use    * numerics for keys, zero-pad).    * @return Row lock id..    * @see #commit(long)    * @see #commit(long, long)    * @see #abort(long)    */
+comment|/**     * Start an atomic row insertion/update.  No changes are committed until the     * call to commit() returns. A call to abort() will abandon any updates in    * progress.    *     *<p>    * Example:    *<br>    *<pre><span style="font-family: monospace;">    * long lockid = table.startUpdate(new Text(article.getName()));    * for (File articleInfo: article.listFiles(new NonDirectories())) {    *   String article = null;    *   try {    *     DataInputStream in = new DataInputStream(new FileInputStream(articleInfo));    *     article = in.readUTF();    *   } catch (IOException e) {    *     // Input error - abandon update    *     table.abort(lockid);    *     throw e;    *   }    *   try {    *     table.put(lockid, columnName(articleInfo.getName()), article.getBytes());    *   } catch (RuntimeException e) {    *     // Put failed - abandon update    *     table.abort(lockid);    *     throw e;    *   }    * }    * table.commit(lockid);    *</span></pre>    *    *     * @param row Name of row to start update against.  Note, choose row names    * with care.  Rows are sorted lexicographically (comparison is done    * using {@link Text#compareTo(Object)}.  If your keys are numeric,    * lexicographic sorting means that 46 sorts AFTER 450 (If you want to use    * numerics for keys, zero-pad).    * @return Row lock id..    * @see #commit(long)    * @see #commit(long, long)    * @see #abort(long)    */
 specifier|public
 specifier|synchronized
 name|long
@@ -2400,7 +2400,7 @@ comment|// continue
 block|}
 block|}
 block|}
-comment|/**     * Abort a row mutation    *    * @param lockid lock id returned from startUpdate    */
+comment|/**     * Abort a row mutation.    *     * This method should be called only when an update has been started and it    * is determined that the update should not be committed.    *     * Releases resources being held by the update in progress.    *    * @param lockid lock id returned from startUpdate    */
 specifier|public
 specifier|synchronized
 name|void
@@ -2451,7 +2451,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Finalize a row mutation    * When this method is specified, we pass the server a value that says use    * the 'latest' timestamp.  If we are doing a put, on the server-side, cells    * will be given the servers's current timestamp.  If the we are commiting    * deletes, then delete removes the most recently modified cell of stipulated    * column.    * @param lockid lock id returned from startUpdate    * @throws IOException    */
+comment|/**     * Finalize a row mutation.    *     * When this method is specified, we pass the server a value that says use    * the 'latest' timestamp.  If we are doing a put, on the server-side, cells    * will be given the servers's current timestamp.  If the we are commiting    * deletes, then delete removes the most recently modified cell of stipulated    * column.    *     * @see #commit(long, long)    *     * @param lockid lock id returned from startUpdate    * @throws IOException    */
 specifier|public
 name|void
 name|commit
@@ -2470,7 +2470,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Finalize a row mutation    * @param lockid lock id returned from startUpdate    * @param timestamp time to associate with the change    * @throws IOException    */
+comment|/**     * Finalize a row mutation and release any resources associated with the update.    *     * @param lockid lock id returned from startUpdate    * @param timestamp time to associate with the change    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
