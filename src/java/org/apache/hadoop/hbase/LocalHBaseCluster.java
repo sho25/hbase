@@ -143,6 +143,7 @@ name|DEFAULT_NO
 init|=
 literal|1
 decl_stmt|;
+comment|/** local mode */
 specifier|public
 specifier|static
 specifier|final
@@ -151,6 +152,7 @@ name|LOCAL
 init|=
 literal|"local"
 decl_stmt|;
+comment|/** 'local:' */
 specifier|public
 specifier|static
 specifier|final
@@ -435,6 +437,14 @@ argument_list|(
 name|serverNumber
 argument_list|)
 decl_stmt|;
+while|while
+condition|(
+name|regionServerThread
+operator|.
+name|isAlive
+argument_list|()
+condition|)
+block|{
 try|try
 block|{
 name|LOG
@@ -471,6 +481,7 @@ operator|.
 name|printStackTrace
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 return|return
 name|regionServerThread
@@ -701,6 +712,16 @@ operator|!=
 literal|null
 condition|)
 block|{
+while|while
+condition|(
+name|this
+operator|.
+name|master
+operator|.
+name|isAlive
+argument_list|()
+condition|)
+block|{
 try|try
 block|{
 name|this
@@ -718,6 +739,7 @@ name|e
 parameter_list|)
 block|{
 comment|// continue
+block|}
 block|}
 block|}
 name|LOG

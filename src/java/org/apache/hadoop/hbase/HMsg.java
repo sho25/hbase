@@ -115,6 +115,15 @@ name|MSG_REPORT_CLOSE
 init|=
 literal|101
 decl_stmt|;
+comment|/** region server is processing open request */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+name|MSG_REPORT_PROCESS_OPEN
+init|=
+literal|102
+decl_stmt|;
 comment|/**    * region server split the region associated with this message.    *     * note that this message is immediately followed by two MSG_REPORT_OPEN    * messages, one for each of the new regions resulting from the split    */
 specifier|public
 specifier|static
@@ -292,6 +301,17 @@ operator|.
 name|append
 argument_list|(
 literal|"MSG_REGION_CLOSE_WITHOUT_REPORT : "
+argument_list|)
+expr_stmt|;
+break|break;
+case|case
+name|MSG_REPORT_PROCESS_OPEN
+case|:
+name|message
+operator|.
+name|append
+argument_list|(
+literal|"MSG_REPORT_PROCESS_OPEN : "
 argument_list|)
 expr_stmt|;
 break|break;

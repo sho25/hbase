@@ -544,11 +544,6 @@ name|getLog
 argument_list|()
 expr_stmt|;
 comment|// When the META table can be opened, the region servers are running
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|HTable
 name|meta
 init|=
@@ -562,6 +557,8 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 comment|// Create the test table and open it
 name|HTableDescriptor
 name|desc
@@ -619,6 +616,8 @@ name|tableName
 argument_list|)
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 for|for
 control|(
 name|int
@@ -707,6 +706,24 @@ block|{
 comment|// continue
 block|}
 block|}
+block|}
+block|}
+finally|finally
+block|{
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+finally|finally
+block|{
+name|meta
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 comment|/**    * Tests that logs are deleted    *     * @throws Exception    */

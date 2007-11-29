@@ -359,6 +359,16 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+while|while
+condition|(
+name|this
+operator|.
+name|leaseMonitorThread
+operator|.
+name|isAlive
+argument_list|()
+condition|)
+block|{
 try|try
 block|{
 name|this
@@ -383,6 +393,7 @@ name|iex
 parameter_list|)
 block|{
 comment|// Ignore
+block|}
 block|}
 synchronized|synchronized
 init|(
@@ -701,6 +712,7 @@ name|LeaseMonitor
 extends|extends
 name|Chore
 block|{
+comment|/**      * @param p      * @param s      */
 specifier|public
 name|LeaseMonitor
 parameter_list|(
@@ -719,6 +731,9 @@ name|s
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|chore
