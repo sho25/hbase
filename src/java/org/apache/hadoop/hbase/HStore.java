@@ -981,6 +981,17 @@ argument_list|(
 name|itKey
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|HLogEdit
+operator|.
+name|isDeleted
+argument_list|(
+name|val
+argument_list|)
+condition|)
+block|{
 name|results
 operator|.
 name|put
@@ -990,6 +1001,7 @@ argument_list|,
 name|val
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 elseif|else
 if|if
