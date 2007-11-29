@@ -262,6 +262,25 @@ argument_list|,
 name|tableAname
 argument_list|)
 decl_stmt|;
+comment|// Assert the metadata is good.
+name|HTableDescriptor
+name|meta
+init|=
+name|a
+operator|.
+name|getMetadata
+argument_list|()
+decl_stmt|;
+name|assertTrue
+argument_list|(
+name|meta
+operator|.
+name|equals
+argument_list|(
+name|tableAdesc
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|long
 name|lockid
 init|=
