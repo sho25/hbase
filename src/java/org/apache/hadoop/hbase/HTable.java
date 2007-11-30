@@ -1536,7 +1536,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**     * Get all the data for the specified row    *     * @param row row key    * @return map of colums to values    * @throws IOException    */
+comment|/**     * Get all the data for the specified row at the latest timestamp    *     * @param row row key    * @return map of colums to values    * @throws IOException    */
 specifier|public
 name|SortedMap
 argument_list|<
@@ -1549,6 +1549,37 @@ name|getRow
 parameter_list|(
 name|Text
 name|row
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|getRow
+argument_list|(
+name|row
+argument_list|,
+name|HConstants
+operator|.
+name|LATEST_TIMESTAMP
+argument_list|)
+return|;
+block|}
+comment|/**     * Get all the data for the specified row at a specified timestamp    *     * @param row row key    * @return map of colums to values    * @throws IOException    */
+specifier|public
+name|SortedMap
+argument_list|<
+name|Text
+argument_list|,
+name|byte
+index|[]
+argument_list|>
+name|getRow
+parameter_list|(
+name|Text
+name|row
+parameter_list|,
+name|long
+name|ts
 parameter_list|)
 throws|throws
 name|IOException
@@ -1614,6 +1645,8 @@ name|getRegionName
 argument_list|()
 argument_list|,
 name|row
+argument_list|,
+name|ts
 argument_list|)
 expr_stmt|;
 break|break;
