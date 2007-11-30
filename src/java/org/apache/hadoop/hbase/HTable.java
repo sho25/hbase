@@ -3363,7 +3363,6 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**      * {@inheritDoc}      */
 specifier|public
 name|boolean
 name|next
@@ -3402,6 +3401,13 @@ name|values
 init|=
 literal|null
 decl_stmt|;
+comment|// Clear the results so we don't inherit any values from any previous
+comment|// calls to next.
+name|results
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 do|do
 block|{
 name|values
