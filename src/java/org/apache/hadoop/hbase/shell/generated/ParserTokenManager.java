@@ -6938,7 +6938,7 @@ case|:
 if|if
 condition|(
 operator|(
-literal|0x7fffffe87fffffeL
+literal|0x47fffffe87fffffeL
 operator|&
 name|l
 operator|)
