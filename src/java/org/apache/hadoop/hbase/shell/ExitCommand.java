@@ -74,13 +74,13 @@ name|HBaseConfiguration
 name|conf
 parameter_list|)
 block|{
-comment|// TOD: Is this the best way to exit?  Would be a problem if shell is run
+comment|// TOD: Is this the best way to exit? Would be a problem if shell is run
 comment|// inside another program -- St.Ack 09/11/2007
 name|System
 operator|.
 name|exit
 argument_list|(
-literal|1
+literal|9999
 argument_list|)
 expr_stmt|;
 return|return

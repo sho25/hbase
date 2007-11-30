@@ -38,7 +38,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Takes the lowest-common-denominator {@link Writer} doing its own printlns,  * etc.  * @see<a href="http://wiki.apache.org/lucene-hadoop/Hbase/HbaseShell">HBaseShell</a>  */
+comment|/**  * Takes the lowest-common-denominator {@link Writer} doing its own printlns,  * etc.  *   * @see<a  *      href="http://wiki.apache.org/lucene-hadoop/Hbase/HbaseShell">HBaseShell</a>  */
 end_comment
 
 begin_class
@@ -68,6 +68,13 @@ argument_list|(
 literal|"line.separator"
 argument_list|)
 decl_stmt|;
+specifier|public
+specifier|final
+name|String
+name|TABLE_NOT_FOUND
+init|=
+literal|" is non-existant table."
+decl_stmt|;
 comment|// Shutdown constructor.
 annotation|@
 name|SuppressWarnings
@@ -84,7 +91,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param o A Writer.    */
+comment|/**    * Constructor    *     * @param o A Writer.    */
 specifier|public
 name|BasicCommand
 parameter_list|(
@@ -178,7 +185,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Appends, if it does not exist, a delimiter (colon)     * at the end of the column name.    */
+comment|/**    * Appends, if it does not exist, a delimiter (colon) at the end of the column    * name.    */
 specifier|protected
 name|String
 name|appendDelimiter

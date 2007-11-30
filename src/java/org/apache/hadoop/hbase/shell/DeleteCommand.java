@@ -244,7 +244,9 @@ name|this
 operator|.
 name|tableName
 operator|+
-literal|"' Table not found"
+literal|"'"
+operator|+
+name|TABLE_NOT_FOUND
 argument_list|)
 return|;
 block|}
@@ -394,7 +396,7 @@ operator|=
 name|row
 expr_stmt|;
 block|}
-comment|/**    * Sets the column list.    * @param columnList    */
+comment|/**    * Sets the column list.    *     * @param columnList    */
 specifier|public
 name|void
 name|setColumnList

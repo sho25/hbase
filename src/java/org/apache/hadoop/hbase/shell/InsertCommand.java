@@ -235,7 +235,9 @@ name|this
 operator|.
 name|tableName
 operator|+
-literal|"' Table not found"
+literal|"'"
+operator|+
+name|TABLE_NOT_FOUND
 argument_list|)
 return|;
 block|}
@@ -261,7 +263,7 @@ name|ReturnMsg
 argument_list|(
 literal|0
 argument_list|,
-literal|"Mismatch between values list and columnfamilies list"
+literal|"Mismatch between values list and columnfamilies list."
 argument_list|)
 return|;
 try|try

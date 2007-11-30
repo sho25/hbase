@@ -510,7 +510,9 @@ name|this
 operator|.
 name|tableName
 operator|+
-literal|"' Table not found"
+literal|"'"
+operator|+
+name|TABLE_NOT_FOUND
 argument_list|)
 return|;
 block|}
@@ -583,7 +585,7 @@ argument_list|(
 name|count
 argument_list|)
 operator|+
-literal|" row(s) in set"
+literal|" row(s) in set."
 argument_list|)
 return|;
 block|}
@@ -1102,7 +1104,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Data structure with columns to use scanning and whether or not the    * scan could return more than one column.    */
+comment|/**    * Data structure with columns to use scanning and whether or not the scan    * could return more than one column.    */
 class|class
 name|ParsedColumns
 block|{
@@ -1484,7 +1486,7 @@ return|return
 name|count
 return|;
 block|}
-comment|/**    * Make sense of the supplied list of columns.    * @param admin Admin to use.    * @return Interpretation of supplied list of columns.    */
+comment|/**    * Make sense of the supplied list of columns.    *     * @param admin Admin to use.    * @return Interpretation of supplied list of columns.    */
 specifier|public
 name|ParsedColumns
 name|getColumns
@@ -1673,8 +1675,8 @@ name|column
 init|=
 literal|null
 decl_stmt|;
-comment|// Add '$' to column name if we are scanning.  Scanners support
-comment|// regex column names.  Adding '$', the column becomes a
+comment|// Add '$' to column name if we are scanning. Scanners support
+comment|// regex column names. Adding '$', the column becomes a
 comment|// regex that does an explicit match on the supplied column name.
 comment|// Otherwise, if the specified column is a column family, then
 comment|// default behavior is to fetch all columns that have a matching

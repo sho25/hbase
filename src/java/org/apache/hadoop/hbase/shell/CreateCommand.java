@@ -255,7 +255,7 @@ name|this
 operator|.
 name|tableName
 operator|+
-literal|"' Table already exist"
+literal|"' table already exist."
 argument_list|)
 return|;
 block|}
@@ -368,7 +368,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Sets the table to be created.    * @param tableName Table to be created    */
+comment|/**    * Sets the table to be created.    *     * @param tableName Table to be created    */
 specifier|public
 name|void
 name|setTable
@@ -388,7 +388,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Adds a column specification.      * @param columnSpec Column specification    */
+comment|/**    * Adds a column specification.    *     * @param columnSpec Column specification    */
 specifier|public
 name|void
 name|addColumnSpec

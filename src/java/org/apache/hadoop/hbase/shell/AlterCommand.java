@@ -281,7 +281,9 @@ name|this
 operator|.
 name|tableName
 operator|+
-literal|"' Table not found"
+literal|"'"
+operator|+
+name|TABLE_NOT_FOUND
 argument_list|)
 return|;
 block|}

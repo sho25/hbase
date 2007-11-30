@@ -100,7 +100,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Table formatter.  * Specify formatter by setting "hbaseshell.formatter" property in  *<code>hbase-site.xml</code> or by setting system property  *<code>hbaseshell.formatter</code>. System property setting prevails over all  * other configurations.  Outputs UTF-8 encoded Strings even if  * original data is binary.  On static initialization, changes System.out to be  * a UTF-8 output stream.  * .  *<p>TODO: Mysql has --skip-column-names and --silent which inserts a tab as  * separator.  Also has --html and --xml.  *<p>To use the html formatter, currently set HBASE_OPTS as in:  *<code>$ HBASE_OPTS="-Dhbaseshell.formatter=org.apache.hadoop.hbase.shell.formatter.HtmlTableFormatter" ./bin/hbase shell</code>  *</p>  */
+comment|/**  * Table formatter. Specify formatter by setting "hbaseshell.formatter" property  * in<code>hbase-site.xml</code> or by setting system property  *<code>hbaseshell.formatter</code>. System property setting prevails over  * all other configurations. Outputs UTF-8 encoded Strings even if original data  * is binary. On static initialization, changes System.out to be a UTF-8 output  * stream. .  *<p>  * TODO: Mysql has --skip-column-names and --silent which inserts a tab as  * separator. Also has --html and --xml.  *<p>  * To use the html formatter, currently set HBASE_OPTS as in:  *<code>$ HBASE_OPTS="-Dhbaseshell.formatter=org.apache.hadoop.hbase.shell.formatter.HtmlTableFormatter" ./bin/hbase shell</code>  *</p>  */
 end_comment
 
 begin_class

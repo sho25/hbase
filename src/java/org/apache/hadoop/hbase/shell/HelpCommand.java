@@ -318,7 +318,7 @@ literal|"Hadoop FsShell; entering a lone 'FS;' "
 operator|+
 literal|"will emit usage"
 block|,
-literal|"FS -copyFromLocal /home/user/backup.dat fs/user/backup;"
+literal|"FS [-option] arguments..;"
 block|}
 argument_list|)
 block|;
@@ -334,7 +334,7 @@ index|[]
 block|{
 literal|"Hadoop RunJar util"
 block|,
-literal|"JAR ./build/hadoop-examples.jar pi 10 10;"
+literal|"JAR jarFile [mainClass] arguments...;"
 block|}
 argument_list|)
 block|;
@@ -598,7 +598,7 @@ block|}
 argument_list|)
 block|;
 comment|// Aggregation Functions
-comment|//TODO : and apply aggregate function independently to each group of rows
+comment|// TODO : and apply aggregate function independently to each group of rows
 name|load
 operator|.
 name|put

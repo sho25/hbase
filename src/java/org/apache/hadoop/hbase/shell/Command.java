@@ -61,7 +61,7 @@ name|DELETE
 block|,
 name|SHELL
 block|}
-comment|/** Execute a command    * @param conf Configuration    * @return Result of command execution    */
+comment|/**    * Execute a command    *     * @param conf Configuration    * @return Result of command execution    */
 specifier|public
 name|ReturnMsg
 name|execute
@@ -71,7 +71,7 @@ name|HBaseConfiguration
 name|conf
 parameter_list|)
 function_decl|;
-comment|/**    * @return Type of this command whether DDL, SELECT, INSERT, UPDATE, DELETE,    * or SHELL.    */
+comment|/**    * @return Type of this command whether DDL, SELECT, INSERT, UPDATE, DELETE,    *         or SHELL.    */
 specifier|public
 name|CommandType
 name|getCommandType

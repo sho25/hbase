@@ -223,7 +223,7 @@ name|ReturnMsg
 argument_list|(
 literal|0
 argument_list|,
-literal|"Syntax error : Please check 'Show' syntax"
+literal|"Syntax error : Please check 'Show' syntax."
 argument_list|)
 return|;
 block|}
@@ -283,7 +283,7 @@ name|ReturnMsg
 argument_list|(
 literal|0
 argument_list|,
-literal|"No tables found"
+literal|"No tables found."
 argument_list|)
 return|;
 block|}
@@ -357,7 +357,7 @@ literal|1
 argument_list|,
 name|tableLength
 operator|+
-literal|" table(s) in set"
+literal|" table(s) in set."
 argument_list|)
 return|;
 block|}

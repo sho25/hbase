@@ -56,7 +56,7 @@ operator|=
 name|condition
 expr_stmt|;
 block|}
-comment|/**    * Return argument of an operation    * @return argument    */
+comment|/**    * Return argument of an operation    *     * @return argument    */
 specifier|public
 name|String
 name|getArgument
@@ -66,7 +66,7 @@ return|return
 name|argument
 return|;
 block|}
-comment|/**    * Return operation    * @return operation    */
+comment|/**    * Return operation    *     * @return operation    */
 specifier|public
 name|String
 name|getOperation

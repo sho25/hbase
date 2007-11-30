@@ -52,7 +52,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Clears the console screen.   */
+comment|/**  * Clears the console screen.  */
 end_comment
 
 begin_class

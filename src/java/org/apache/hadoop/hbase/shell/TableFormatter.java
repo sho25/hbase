@@ -56,7 +56,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Interface implemented by table formatters outputting select results.  * Implementations must have a constructor that takes a Writer.  * @see AsciiTableFormatter  */
+comment|/**  * Interface implemented by table formatters outputting select results.  * Implementations must have a constructor that takes a Writer.  *   * @see AsciiTableFormatter  */
 end_comment
 
 begin_interface
@@ -64,7 +64,7 @@ specifier|public
 interface|interface
 name|TableFormatter
 block|{
-comment|/**    * Output header.    * @param titles Titles to emit.    * @throws IOException    */
+comment|/**    * Output header.    *     * @param titles Titles to emit.    * @throws IOException    */
 specifier|public
 name|void
 name|header
@@ -77,7 +77,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Output footer.    * @throws IOException    */
+comment|/**    * Output footer.    *     * @throws IOException    */
 specifier|public
 name|void
 name|footer
@@ -85,7 +85,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Output a row.    * @param cells    * @throws IOException    */
+comment|/**    * Output a row.    *     * @param cells    * @throws IOException    */
 specifier|public
 name|void
 name|row
@@ -98,7 +98,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @return Output stream being used (This is in interface to enforce fact    * that formatters use Writers -- that they operate on character streams    * rather than on byte streams).    */
+comment|/**    * @return Output stream being used (This is in interface to enforce fact that    *         formatters use Writers -- that they operate on character streams    *         rather than on byte streams).    */
 specifier|public
 name|Writer
 name|getOut

@@ -220,7 +220,7 @@ name|ReturnMsg
 argument_list|(
 literal|0
 argument_list|,
-literal|"Syntax error : Please check 'Describe' syntax"
+literal|"Syntax error : Please check 'Describe' syntax."
 argument_list|)
 return|;
 try|try
@@ -254,7 +254,7 @@ name|ReturnMsg
 argument_list|(
 literal|0
 argument_list|,
-literal|"Table not found"
+literal|"Table not found."
 argument_list|)
 return|;
 block|}
@@ -460,7 +460,7 @@ name|columns
 operator|.
 name|length
 operator|+
-literal|" columnfamily(s) in set"
+literal|" columnfamily(s) in set."
 argument_list|)
 return|;
 block|}
