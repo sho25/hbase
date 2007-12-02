@@ -63,7 +63,9 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashMap
+name|concurrent
+operator|.
+name|ConcurrentHashMap
 import|;
 end_import
 
@@ -566,7 +568,7 @@ expr_stmt|;
 block|}
 block|}
 specifier|private
-name|HashMap
+name|Map
 argument_list|<
 name|String
 argument_list|,
@@ -575,7 +577,7 @@ argument_list|>
 name|columnMap
 init|=
 operator|new
-name|HashMap
+name|ConcurrentHashMap
 argument_list|<
 name|String
 argument_list|,

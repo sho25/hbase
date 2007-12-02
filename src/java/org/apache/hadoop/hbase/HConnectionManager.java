@@ -97,6 +97,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ConcurrentHashMap
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -499,7 +511,7 @@ name|closedTables
 decl_stmt|;
 comment|// Set of tables currently being located
 specifier|private
-name|HashSet
+name|Set
 argument_list|<
 name|Text
 argument_list|>
@@ -507,7 +519,7 @@ name|tablesBeingLocated
 decl_stmt|;
 comment|// Known region HServerAddress.toString() -> HRegionInterface
 specifier|private
-name|HashMap
+name|Map
 argument_list|<
 name|String
 argument_list|,
@@ -654,12 +666,8 @@ name|this
 operator|.
 name|tablesToServers
 operator|=
-name|Collections
-operator|.
-name|synchronizedMap
-argument_list|(
 operator|new
-name|HashMap
+name|ConcurrentHashMap
 argument_list|<
 name|Text
 argument_list|,
@@ -671,7 +679,6 @@ name|HRegionLocation
 argument_list|>
 argument_list|>
 argument_list|()
-argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -693,19 +700,24 @@ name|this
 operator|.
 name|tablesBeingLocated
 operator|=
+name|Collections
+operator|.
+name|synchronizedSet
+argument_list|(
 operator|new
 name|HashSet
 argument_list|<
 name|Text
 argument_list|>
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
 name|servers
 operator|=
 operator|new
-name|HashMap
+name|ConcurrentHashMap
 argument_list|<
 name|String
 argument_list|,

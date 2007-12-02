@@ -41,16 +41,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Iterator
 import|;
 end_import
@@ -121,7 +111,9 @@ name|java
 operator|.
 name|util
 operator|.
-name|Vector
+name|Map
+operator|.
+name|Entry
 import|;
 end_import
 
@@ -131,9 +123,9 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
+name|concurrent
 operator|.
-name|Entry
+name|ConcurrentHashMap
 import|;
 end_import
 
@@ -695,7 +687,7 @@ name|Map
 argument_list|<
 name|Text
 argument_list|,
-name|Vector
+name|List
 argument_list|<
 name|HStoreFile
 argument_list|>
@@ -707,7 +699,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|Vector
+name|List
 argument_list|<
 name|HStoreFile
 argument_list|>
@@ -746,7 +738,7 @@ name|Entry
 argument_list|<
 name|Text
 argument_list|,
-name|Vector
+name|List
 argument_list|<
 name|HStoreFile
 argument_list|>
@@ -767,7 +759,7 @@ operator|.
 name|getKey
 argument_list|()
 decl_stmt|;
-name|Vector
+name|List
 argument_list|<
 name|HStoreFile
 argument_list|>
@@ -877,7 +869,7 @@ name|Map
 argument_list|<
 name|Text
 argument_list|,
-name|Vector
+name|List
 argument_list|<
 name|HStoreFile
 argument_list|>
@@ -888,14 +880,14 @@ name|Map
 argument_list|<
 name|Text
 argument_list|,
-name|Vector
+name|List
 argument_list|<
 name|HStoreFile
 argument_list|>
 argument_list|>
 name|byFamily
 parameter_list|,
-name|Vector
+name|List
 argument_list|<
 name|HStoreFile
 argument_list|>
@@ -910,7 +902,7 @@ range|:
 name|storeFiles
 control|)
 block|{
-name|Vector
+name|List
 argument_list|<
 name|HStoreFile
 argument_list|>
@@ -936,7 +928,7 @@ block|{
 name|v
 operator|=
 operator|new
-name|Vector
+name|ArrayList
 argument_list|<
 name|HStoreFile
 argument_list|>
@@ -980,7 +972,7 @@ argument_list|>
 name|rowsToLocks
 init|=
 operator|new
-name|HashMap
+name|ConcurrentHashMap
 argument_list|<
 name|Text
 argument_list|,
@@ -998,7 +990,7 @@ argument_list|>
 name|locksToRows
 init|=
 operator|new
-name|HashMap
+name|ConcurrentHashMap
 argument_list|<
 name|Long
 argument_list|,
@@ -1016,7 +1008,7 @@ argument_list|>
 name|stores
 init|=
 operator|new
-name|HashMap
+name|ConcurrentHashMap
 argument_list|<
 name|Text
 argument_list|,
@@ -1040,7 +1032,7 @@ argument_list|>
 name|targetColumns
 init|=
 operator|new
-name|HashMap
+name|ConcurrentHashMap
 argument_list|<
 name|Long
 argument_list|,
@@ -1666,7 +1658,7 @@ return|;
 block|}
 comment|/**    * Close down this HRegion.  Flush the cache, shut down each HStore, don't     * service any more calls.    *    *<p>This method could take some time to execute, so don't call it from a     * time-sensitive thread.    *     * @return Vector of all the storage files that the HRegion's component     * HStores make use of.  It's a list of all HStoreFile objects. Returns empty    * vector if already closed and null if judged that it should not close.    *     * @throws IOException    */
 specifier|public
-name|Vector
+name|List
 argument_list|<
 name|HStoreFile
 argument_list|>
@@ -1683,7 +1675,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Close down this HRegion.  Flush the cache unless abort parameter is true,    * Shut down each HStore, don't service any more calls.    *    * This method could take some time to execute, so don't call it from a     * time-sensitive thread.    *     * @param abort true if server is aborting (only during testing)    * @return Vector of all the storage files that the HRegion's component     * HStores make use of.  It's a list of HStoreFile objects.  Can be null if    * we are not to close at this time or we are already closed.    *     * @throws IOException    */
-name|Vector
+name|List
 argument_list|<
 name|HStoreFile
 argument_list|>
@@ -1828,14 +1820,14 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|Vector
+name|List
 argument_list|<
 name|HStoreFile
 argument_list|>
 name|result
 init|=
 operator|new
-name|Vector
+name|ArrayList
 argument_list|<
 name|HStoreFile
 argument_list|>
@@ -2354,7 +2346,7 @@ block|}
 comment|// Now close the HRegion.  Close returns all store files or null if not
 comment|// supposed to close (? What to do in this case? Implement abort of close?)
 comment|// Close also does wait on outstanding rows and calls a flush just-in-case.
-name|Vector
+name|List
 argument_list|<
 name|HStoreFile
 argument_list|>

@@ -298,6 +298,11 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+synchronized|synchronized
+init|(
+name|regionThreads
+init|)
+block|{
 name|RegionServerThread
 name|t
 init|=
@@ -330,6 +335,7 @@ expr_stmt|;
 return|return
 name|t
 return|;
+block|}
 block|}
 comment|/** runs region servers */
 specifier|public
@@ -427,7 +433,14 @@ parameter_list|)
 block|{
 name|RegionServerThread
 name|regionServerThread
-init|=
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|regionThreads
+init|)
+block|{
+name|regionServerThread
+operator|=
 name|this
 operator|.
 name|regionThreads
@@ -436,7 +449,8 @@ name|remove
 argument_list|(
 name|serverNumber
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 while|while
 condition|(
 name|regionServerThread
@@ -599,6 +613,11 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+synchronized|synchronized
+init|(
+name|regionThreads
+init|)
+block|{
 for|for
 control|(
 name|RegionServerThread
@@ -614,6 +633,7 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 return|return
 name|this

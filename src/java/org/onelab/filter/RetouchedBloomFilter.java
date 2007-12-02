@@ -73,6 +73,26 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collections
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Random
 import|;
 end_import
@@ -92,7 +112,7 @@ implements|implements
 name|RemoveScheme
 block|{
 comment|/**    * KeyList vector (or ElementList Vector, as defined in the paper) of false positives.    */
-name|ArrayList
+name|List
 argument_list|<
 name|Key
 argument_list|>
@@ -100,7 +120,7 @@ index|[]
 name|fpVector
 decl_stmt|;
 comment|/**    * KeyList vector of keys recorded in the filter.    */
-name|ArrayList
+name|List
 argument_list|<
 name|Key
 argument_list|>
@@ -353,7 +373,7 @@ specifier|public
 name|void
 name|addFalsePositive
 parameter_list|(
-name|ArrayList
+name|List
 argument_list|<
 name|Key
 argument_list|>
@@ -862,7 +882,7 @@ name|index
 argument_list|)
 throw|;
 block|}
-name|ArrayList
+name|List
 argument_list|<
 name|Key
 argument_list|>
@@ -873,7 +893,7 @@ index|[
 name|index
 index|]
 decl_stmt|;
-name|ArrayList
+name|List
 argument_list|<
 name|Key
 argument_list|>
@@ -1021,7 +1041,7 @@ parameter_list|(
 name|Key
 name|k
 parameter_list|,
-name|ArrayList
+name|List
 argument_list|<
 name|Key
 argument_list|>
@@ -1178,7 +1198,7 @@ specifier|private
 name|double
 name|getWeight
 parameter_list|(
-name|ArrayList
+name|List
 argument_list|<
 name|Key
 argument_list|>
@@ -1224,7 +1244,7 @@ block|{
 name|fpVector
 operator|=
 operator|new
-name|ArrayList
+name|List
 index|[
 name|vectorSize
 index|]
@@ -1232,7 +1252,7 @@ expr_stmt|;
 name|keyVector
 operator|=
 operator|new
-name|ArrayList
+name|List
 index|[
 name|vectorSize
 index|]
@@ -1265,24 +1285,34 @@ index|[
 name|i
 index|]
 operator|=
+name|Collections
+operator|.
+name|synchronizedList
+argument_list|(
 operator|new
 name|ArrayList
 argument_list|<
 name|Key
 argument_list|>
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|keyVector
 index|[
 name|i
 index|]
 operator|=
+name|Collections
+operator|.
+name|synchronizedList
+argument_list|(
 operator|new
 name|ArrayList
 argument_list|<
 name|Key
 argument_list|>
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|ratio
 index|[
@@ -1464,7 +1494,7 @@ name|i
 operator|++
 control|)
 block|{
-name|ArrayList
+name|List
 argument_list|<
 name|Key
 argument_list|>
@@ -1519,7 +1549,7 @@ name|i
 operator|++
 control|)
 block|{
-name|ArrayList
+name|List
 argument_list|<
 name|Key
 argument_list|>
@@ -1626,7 +1656,7 @@ name|i
 operator|++
 control|)
 block|{
-name|ArrayList
+name|List
 argument_list|<
 name|Key
 argument_list|>
@@ -1700,7 +1730,7 @@ name|i
 operator|++
 control|)
 block|{
-name|ArrayList
+name|List
 argument_list|<
 name|Key
 argument_list|>
@@ -1837,7 +1867,7 @@ name|i
 operator|++
 control|)
 block|{
-name|ArrayList
+name|List
 argument_list|<
 name|Key
 argument_list|>
@@ -1848,7 +1878,7 @@ index|[
 name|i
 index|]
 decl_stmt|;
-name|ArrayList
+name|List
 argument_list|<
 name|Key
 argument_list|>
@@ -1925,7 +1955,7 @@ name|i
 operator|++
 control|)
 block|{
-name|ArrayList
+name|List
 argument_list|<
 name|Key
 argument_list|>
@@ -1936,7 +1966,7 @@ index|[
 name|i
 index|]
 decl_stmt|;
-name|ArrayList
+name|List
 argument_list|<
 name|Key
 argument_list|>

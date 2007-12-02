@@ -53,7 +53,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
+name|Collection
 import|;
 end_import
 
@@ -63,7 +63,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Collection
+name|List
 import|;
 end_import
 
@@ -213,7 +213,7 @@ specifier|public
 name|void
 name|add
 parameter_list|(
-name|ArrayList
+name|List
 argument_list|<
 name|Key
 argument_list|>
