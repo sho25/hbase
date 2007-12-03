@@ -621,6 +621,12 @@ name|void
 name|close
 parameter_list|()
 block|{
+if|if
+condition|(
+operator|!
+name|closed
+condition|)
+block|{
 name|closed
 operator|=
 literal|true
@@ -643,6 +649,7 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * Verifies that no update is in progress    */
 specifier|public
@@ -1564,7 +1571,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 return|;
 block|}
-comment|/**     * Get all the data for the specified row at a specified timestamp    *     * @param row row key    * @return map of colums to values    * @throws IOException    */
+comment|/**     * Get all the data for the specified row at a specified timestamp    *     * @param row row key    * @param ts timestamp    * @return map of colums to values    * @throws IOException    */
 specifier|public
 name|SortedMap
 argument_list|<
