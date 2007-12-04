@@ -43,16 +43,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Map
 import|;
 end_import
@@ -1242,6 +1232,8 @@ argument_list|(
 name|conf
 argument_list|,
 name|SINGLE_REGION_TABLE_NAME
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 annotation|@
@@ -1360,6 +1352,8 @@ argument_list|(
 name|conf
 argument_list|,
 name|SINGLE_REGION_TABLE_NAME
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// verify map-reduce results
@@ -1619,6 +1613,9 @@ name|conf
 parameter_list|,
 name|String
 name|tableName
+parameter_list|,
+name|boolean
+name|printValues
 parameter_list|)
 throws|throws
 name|IOException
@@ -1702,6 +1699,11 @@ name|results
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|printValues
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -1760,6 +1762,7 @@ name|UTF8_ENCODING
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}

@@ -827,11 +827,16 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|long
-name|firstK
+name|boolean
+name|printResults
 init|=
-literal|32
+literal|false
 decl_stmt|;
+if|if
+condition|(
+name|printResults
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -839,11 +844,12 @@ argument_list|(
 literal|"Print table contents before map/reduce"
 argument_list|)
 expr_stmt|;
+block|}
 name|scanTable
 argument_list|(
 name|conf
 argument_list|,
-name|firstK
+name|printResults
 argument_list|)
 expr_stmt|;
 annotation|@
@@ -980,6 +986,11 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|printResults
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -987,11 +998,12 @@ argument_list|(
 literal|"Print table contents after map/reduce"
 argument_list|)
 expr_stmt|;
+block|}
 name|scanTable
 argument_list|(
 name|conf
 argument_list|,
-name|firstK
+name|printResults
 argument_list|)
 expr_stmt|;
 comment|// verify index results
@@ -1158,8 +1170,8 @@ parameter_list|(
 name|HBaseConfiguration
 name|c
 parameter_list|,
-name|long
-name|firstK
+name|boolean
+name|printResults
 parameter_list|)
 throws|throws
 name|IOException
@@ -1203,11 +1215,6 @@ operator|.
 name|EMPTY_START_ROW
 argument_list|)
 decl_stmt|;
-name|long
-name|count
-init|=
-literal|0
-decl_stmt|;
 try|try
 block|{
 name|HStoreKey
@@ -1250,10 +1257,9 @@ condition|)
 block|{
 if|if
 condition|(
-name|count
-operator|<
-name|firstK
+name|printResults
 condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -1266,6 +1272,7 @@ name|getRow
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|Map
@@ -1287,10 +1294,9 @@ control|)
 block|{
 if|if
 condition|(
-name|count
-operator|<
-name|firstK
+name|printResults
 condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -1319,9 +1325,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|count
-operator|++
-expr_stmt|;
+block|}
 block|}
 block|}
 finally|finally

@@ -286,6 +286,13 @@ operator|.
 name|isMasterRunning
 argument_list|()
 decl_stmt|;
+name|HConnectionManager
+operator|.
+name|deleteConnection
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|tableName

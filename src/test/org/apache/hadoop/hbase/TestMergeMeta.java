@@ -36,6 +36,35 @@ name|TestMergeMeta
 extends|extends
 name|AbstractMergeTestBase
 block|{
+comment|/** constructor */
+specifier|public
+name|TestMergeMeta
+parameter_list|()
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+name|conf
+operator|.
+name|setLong
+argument_list|(
+literal|"hbase.client.pause"
+argument_list|,
+literal|1
+operator|*
+literal|1000
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.client.retries.number"
+argument_list|,
+literal|2
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * test case    * @throws IOException    */
 specifier|public
 name|void
