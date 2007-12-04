@@ -110,7 +110,7 @@ name|StopRowFilter
 implements|implements
 name|RowFilterInterface
 block|{
-specifier|private
+specifier|protected
 name|Text
 name|stopRowKey
 decl_stmt|;
