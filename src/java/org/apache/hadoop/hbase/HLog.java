@@ -570,6 +570,16 @@ name|debug
 argument_list|(
 literal|"Splitting "
 operator|+
+name|i
+operator|+
+literal|" of "
+operator|+
+name|logfiles
+operator|.
+name|length
+operator|+
+literal|": "
+operator|+
 name|logfiles
 index|[
 name|i
@@ -598,7 +608,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|info
 argument_list|(
 literal|"Skipping "
 operator|+
@@ -651,8 +661,14 @@ operator|new
 name|HLogEdit
 argument_list|()
 decl_stmt|;
-while|while
-condition|(
+name|int
+name|count
+init|=
+literal|0
+decl_stmt|;
+for|for
+control|(
+init|;
 name|in
 operator|.
 name|next
@@ -661,7 +677,10 @@ name|key
 argument_list|,
 name|val
 argument_list|)
-condition|)
+condition|;
+name|count
+operator|++
+control|)
 block|{
 name|Text
 name|regionName
@@ -725,7 +744,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"getting new log file writer for path "
+literal|"Creating new log file writer for path "
 operator|+
 name|logfile
 argument_list|)
@@ -764,6 +783,16 @@ expr_stmt|;
 block|}
 if|if
 condition|(
+name|count
+operator|%
+literal|100
+operator|==
+literal|0
+operator|&&
+name|count
+operator|>
+literal|0
+operator|&&
 name|LOG
 operator|.
 name|isDebugEnabled
@@ -774,19 +803,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Edit "
+literal|"Applied "
 operator|+
-name|key
-operator|.
-name|toString
-argument_list|()
+name|count
 operator|+
-literal|"="
-operator|+
-name|val
-operator|.
-name|toString
-argument_list|()
+literal|" edits"
 argument_list|)
 expr_stmt|;
 block|}
@@ -797,6 +818,26 @@ argument_list|(
 name|key
 argument_list|,
 name|val
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Applied "
+operator|+
+name|count
+operator|+
+literal|" total edits"
 argument_list|)
 expr_stmt|;
 block|}

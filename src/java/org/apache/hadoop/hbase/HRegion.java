@@ -2006,7 +2006,7 @@ operator|.
 name|conf
 return|;
 block|}
-comment|/** @return region directory Path */
+comment|/** @return region directory Path    * @see HRegion#getRegionDir(Path, String)    */
 specifier|public
 name|Path
 name|getRegionDir
@@ -3512,29 +3512,6 @@ operator|-
 literal|1
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Not flushing cache for region "
-operator|+
-name|regionInfo
-operator|.
-name|getRegionName
-argument_list|()
-operator|+
-literal|": snapshotMemcaches() determined that there was nothing to do"
-argument_list|)
-expr_stmt|;
-block|}
 return|return
 literal|false
 return|;
@@ -6336,7 +6313,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Deletes all the files for a HRegion    *     * @param fs the file system object    * @param baseDirectory base directory for HBase    * @param name region file name    * @throws IOException    * @return True if deleted.    */
+comment|/**    * Deletes all the files for a HRegion    *     * @param fs the file system object    * @param baseDirectory base directory for HBase    * @param name region file name ENCODED!    * @throws IOException    * @return True if deleted.    * @see HRegionInfo#encodeRegionName(Text)    */
 specifier|static
 name|boolean
 name|deleteRegion
@@ -6370,6 +6347,27 @@ argument_list|,
 name|name
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"DELETING region "
+operator|+
+name|p
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 name|fs
 operator|.
@@ -6379,7 +6377,7 @@ name|p
 argument_list|)
 return|;
 block|}
-comment|/**    * Computes the Path of the HRegion    *     * @param dir hbase home directory    * @param name region file name    * @return Path of HRegion directory    */
+comment|/**    * Computes the Path of the HRegion    *     * @param dir hbase home directory    * @param name region file name ENCODED!    * @return Path of HRegion directory    * @see HRegionInfo#encodeRegionName(Text)    */
 specifier|public
 specifier|static
 name|Path

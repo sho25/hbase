@@ -1228,15 +1228,6 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-literal|" scanner: "
-operator|+
-name|Long
-operator|.
-name|valueOf
-argument_list|(
-name|scannerId
-argument_list|)
-operator|+
 literal|" regioninfo: {"
 operator|+
 name|info
@@ -2197,29 +2188,6 @@ operator|.
 name|contains
 argument_list|(
 name|serverName
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Checking "
-operator|+
-name|info
-operator|.
-name|getRegionName
-argument_list|()
-operator|+
-literal|" is assigned"
 argument_list|)
 expr_stmt|;
 block|}
