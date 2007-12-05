@@ -223,6 +223,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|HTable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|io
 operator|.
 name|Text
@@ -376,14 +390,17 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|focusTable
+name|HTable
+name|table
+init|=
+name|getTable
 argument_list|(
 name|pathSegments
 index|[
 literal|0
 index|]
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|pathSegments
@@ -403,6 +420,8 @@ block|{
 comment|// get a region list
 name|getTableRegions
 argument_list|(
+name|table
+argument_list|,
 name|request
 argument_list|,
 name|response
@@ -429,6 +448,8 @@ block|{
 comment|// get a row
 name|getRow
 argument_list|(
+name|table
+argument_list|,
 name|request
 argument_list|,
 name|response
@@ -541,6 +562,9 @@ specifier|private
 name|void
 name|getRow
 parameter_list|(
+name|HTable
+name|table
+parameter_list|,
 specifier|final
 name|HttpServletRequest
 name|request
@@ -657,8 +681,6 @@ name|timestampStr
 operator|==
 literal|null
 condition|?
-name|this
-operator|.
 name|table
 operator|.
 name|getRow
@@ -670,8 +692,6 @@ name|row
 argument_list|)
 argument_list|)
 else|:
-name|this
-operator|.
 name|table
 operator|.
 name|getRow
@@ -780,8 +800,6 @@ index|[]
 argument_list|>
 name|prefiltered_result
 init|=
-name|this
-operator|.
 name|table
 operator|.
 name|getRow
@@ -1211,14 +1229,17 @@ name|IOException
 throws|,
 name|ServletException
 block|{
-name|focusTable
+name|HTable
+name|table
+init|=
+name|getTable
 argument_list|(
 name|pathSegments
 index|[
 literal|0
 index|]
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 switch|switch
 condition|(
 name|ContentType
@@ -1239,6 +1260,8 @@ name|XML
 case|:
 name|putRowXml
 argument_list|(
+name|table
+argument_list|,
 name|request
 argument_list|,
 name|response
@@ -1253,6 +1276,8 @@ case|:
 name|doNotAcceptable
 argument_list|(
 name|response
+argument_list|,
+literal|"Don't support multipart/related yet..."
 argument_list|)
 expr_stmt|;
 break|break;
@@ -1278,6 +1303,9 @@ specifier|private
 name|void
 name|putRowXml
 parameter_list|(
+name|HTable
+name|table
+parameter_list|,
 specifier|final
 name|HttpServletRequest
 name|request
@@ -1423,8 +1451,6 @@ argument_list|)
 decl_stmt|;
 name|lock_id
 operator|=
-name|this
-operator|.
 name|table
 operator|.
 name|startUpdate
@@ -1550,8 +1576,6 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// put the value
-name|this
-operator|.
 name|table
 operator|.
 name|put
@@ -1572,8 +1596,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|this
-operator|.
 name|table
 operator|.
 name|commit
@@ -1591,8 +1613,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|this
-operator|.
 name|table
 operator|.
 name|commit
@@ -1624,8 +1644,6 @@ operator|-
 literal|1
 condition|)
 block|{
-name|this
-operator|.
 name|table
 operator|.
 name|abort
@@ -1648,6 +1666,9 @@ specifier|private
 name|void
 name|getTableRegions
 parameter_list|(
+name|HTable
+name|table
+parameter_list|,
 specifier|final
 name|HttpServletRequest
 name|request
@@ -1664,8 +1685,6 @@ name|Text
 index|[]
 name|startKeys
 init|=
-name|this
-operator|.
 name|table
 operator|.
 name|getStartKeys
@@ -2290,14 +2309,17 @@ throws|,
 name|ServletException
 block|{
 comment|// grab the table we're operating on
-name|focusTable
+name|HTable
+name|table
+init|=
+name|getTable
 argument_list|(
 name|getTableName
 argument_list|(
 name|pathSegments
 argument_list|)
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|Text
 name|key
 init|=
@@ -2387,8 +2409,6 @@ name|i
 operator|++
 control|)
 block|{
-name|this
-operator|.
 name|table
 operator|.
 name|deleteAll

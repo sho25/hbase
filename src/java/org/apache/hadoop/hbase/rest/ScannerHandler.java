@@ -135,6 +135,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HTable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -1165,15 +1179,18 @@ name|IOException
 throws|,
 name|ServletException
 block|{
-comment|// focus on the table
-name|focusTable
+comment|// get the table
+name|HTable
+name|table
+init|=
+name|getTable
 argument_list|(
 name|getTableName
 argument_list|(
 name|pathSegments
 argument_list|)
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 comment|// get the list of columns we're supposed to interact with
 name|String
 index|[]
@@ -1364,8 +1381,6 @@ operator|==
 literal|null
 operator|)
 condition|?
-name|this
-operator|.
 name|table
 operator|.
 name|obtainScanner
@@ -1375,8 +1390,6 @@ argument_list|,
 name|startRow
 argument_list|)
 else|:
-name|this
-operator|.
 name|table
 operator|.
 name|obtainScanner
