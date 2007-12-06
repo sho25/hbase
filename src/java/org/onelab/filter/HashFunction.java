@@ -200,6 +200,8 @@ name|i
 operator|++
 control|)
 block|{
+name|initval
+operator|=
 name|result
 index|[
 name|i
