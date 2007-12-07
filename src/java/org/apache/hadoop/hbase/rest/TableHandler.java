@@ -1547,11 +1547,41 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-comment|// decode the base64'd value
 name|byte
 index|[]
 name|value
 init|=
+operator|new
+name|byte
+index|[
+literal|0
+index|]
+decl_stmt|;
+comment|// for some reason there's no value here. probably indicates that
+comment|// the consumer passed a null as the cell value.
+if|if
+condition|(
+name|value_node
+operator|.
+name|getFirstChild
+argument_list|()
+operator|!=
+literal|null
+operator|&&
+name|value_node
+operator|.
+name|getFirstChild
+argument_list|()
+operator|.
+name|getNodeValue
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// decode the base64'd value
+name|value
+operator|=
 name|org
 operator|.
 name|apache
@@ -1574,7 +1604,8 @@ operator|.
 name|getNodeValue
 argument_list|()
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 comment|// put the value
 name|table
 operator|.
