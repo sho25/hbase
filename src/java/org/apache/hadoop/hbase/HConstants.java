@@ -192,13 +192,12 @@ specifier|final
 name|long
 name|DEFAULT_MAX_FILE_SIZE
 init|=
-literal|64
+literal|256
 operator|*
 literal|1024
 operator|*
 literal|1024
 decl_stmt|;
-comment|// 64MB
 comment|// Always store the location of the root table's HRegion.
 comment|// This HRegion is never split.
 comment|// region name = table + startkey + regionid. This is the row key.

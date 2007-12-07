@@ -1529,7 +1529,7 @@ name|merges
 argument_list|)
 expr_stmt|;
 block|}
-comment|// By default, we flush the cache when 16M.
+comment|// By default, we flush the cache when 64M.
 name|this
 operator|.
 name|memcacheFlushSize
@@ -1544,7 +1544,7 @@ literal|1024
 operator|*
 literal|1024
 operator|*
-literal|16
+literal|64
 argument_list|)
 expr_stmt|;
 name|this
