@@ -3979,8 +3979,6 @@ argument_list|,
 name|this
 operator|.
 name|conf
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|HRegion
@@ -4001,8 +3999,6 @@ argument_list|,
 name|this
 operator|.
 name|conf
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 comment|// Add first region from the META table to the ROOT region.
@@ -11689,8 +11685,6 @@ argument_list|,
 name|this
 operator|.
 name|conf
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 comment|// 3. Insert into meta

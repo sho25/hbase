@@ -17,15 +17,11 @@ end_package
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
+name|java
 operator|.
 name|io
 operator|.
-name|*
+name|DataInput
 import|;
 end_import
 
@@ -35,7 +31,31 @@ name|java
 operator|.
 name|io
 operator|.
-name|*
+name|DataOutput
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|Writable
 import|;
 end_import
 
@@ -402,7 +422,6 @@ name|result
 return|;
 block|}
 comment|// Writable
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -450,7 +469,6 @@ name|readInt
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write

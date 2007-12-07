@@ -395,7 +395,43 @@ argument_list|(
 name|region
 argument_list|)
 decl_stmt|;
-comment|// Assert can get rows out of new regions.  Should be able to get first
+try|try
+block|{
+comment|// Need to open the regions.
+comment|// TODO: Add an 'open' to HRegion... don't do open by constructing
+comment|// instance.
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|regions
+operator|.
+name|length
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|regions
+index|[
+name|i
+index|]
+operator|=
+name|openClosedRegion
+argument_list|(
+name|regions
+index|[
+name|i
+index|]
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Assert can get rows out of new regions. Should be able to get first
 comment|// row from first region and the midkey from second region.
 name|assertGet
 argument_list|(
@@ -494,7 +530,7 @@ name|Text
 argument_list|()
 expr_stmt|;
 comment|// Even after above splits, still needs split but after splits its
-comment|// unsplitable because biggest store file is reference.  References
+comment|// unsplitable because biggest store file is reference. References
 comment|// make the store unsplittable, until something bigger comes along.
 name|assertFalse
 argument_list|(
@@ -512,7 +548,8 @@ index|]
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Add so much data to this region, we create a store file that is> than
+comment|// Add so much data to this region, we create a store file that is>
+comment|// than
 comment|// one of our unsplitable references.
 comment|// it will.
 for|for
@@ -600,7 +637,7 @@ name|Text
 argument_list|()
 expr_stmt|;
 comment|// Even after above splits, still needs split but after splits its
-comment|// unsplitable because biggest store file is reference.  References
+comment|// unsplitable because biggest store file is reference. References
 comment|// make the store unsplittable, until something bigger comes along.
 name|assertFalse
 argument_list|(
@@ -663,7 +700,7 @@ name|HRegion
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|// Split these two daughter regions so then I'll have 4 regions.  Will
+comment|// Split these two daughter regions so then I'll have 4 regions. Will
 comment|// split because added data above.
 for|for
 control|(
@@ -726,10 +763,13 @@ operator|.
 name|toString
 argument_list|()
 argument_list|,
+name|openClosedRegion
+argument_list|(
 name|rs
 index|[
 name|j
 index|]
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -741,7 +781,7 @@ argument_list|(
 literal|"Made 4 regions"
 argument_list|)
 expr_stmt|;
-comment|// The splits should have been even.  Test I can get some arbitrary row out
+comment|// The splits should have been even. Test I can get some arbitrary row out
 comment|// of each.
 name|int
 name|interval
@@ -807,6 +847,93 @@ operator|+=
 name|interval
 expr_stmt|;
 block|}
+block|}
+finally|finally
+block|{
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|regions
+operator|.
+name|length
+condition|;
+name|i
+operator|++
+control|)
+block|{
+try|try
+block|{
+name|regions
+index|[
+name|i
+index|]
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+comment|// Ignore.
+block|}
+block|}
+block|}
+block|}
+specifier|private
+name|HRegion
+name|openClosedRegion
+parameter_list|(
+specifier|final
+name|HRegion
+name|closedRegion
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+operator|new
+name|HRegion
+argument_list|(
+name|closedRegion
+operator|.
+name|getRootDir
+argument_list|()
+argument_list|,
+name|closedRegion
+operator|.
+name|getLog
+argument_list|()
+argument_list|,
+name|closedRegion
+operator|.
+name|getFilesystem
+argument_list|()
+argument_list|,
+name|closedRegion
+operator|.
+name|getConf
+argument_list|()
+argument_list|,
+name|closedRegion
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|,
+literal|null
+argument_list|,
+literal|null
+argument_list|)
+return|;
 block|}
 comment|/**    * Test that a region is cleaned up after its daughter splits release all    * references.    * @throws Exception    */
 specifier|public

@@ -2590,6 +2590,11 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
+name|regionA
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|HRegion
 name|regionB
 init|=
@@ -2611,6 +2616,11 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
+name|regionB
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 comment|// Cleanup
 name|boolean
 name|deleted
@@ -6108,7 +6118,7 @@ throw|;
 block|}
 block|}
 comment|// Utility methods
-comment|/**    * Convenience method creating new HRegions. Used by createTable and by the    * bootstrap code in the HMaster constructor.    * Note, this method creates an {@link HLog} for the created region. It    * needs to be closed explicitly.  Use {@link HRegion#getLog()} to get    * access.    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @param initialFiles InitialFiles to pass new HRegion. Pass null if none.    * @return new HRegion    *     * @throws IOException    */
+comment|/**    * Convenience method creating new HRegions. Used by createTable and by the    * bootstrap code in the HMaster constructor.    * Note, this method creates an {@link HLog} for the created region. It    * needs to be closed explicitly.  Use {@link HRegion#getLog()} to get    * access.    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @return new HRegion    *     * @throws IOException    */
 specifier|static
 name|HRegion
 name|createHRegion
@@ -6124,10 +6134,6 @@ parameter_list|,
 specifier|final
 name|HBaseConfiguration
 name|conf
-parameter_list|,
-specifier|final
-name|Path
-name|initialFiles
 parameter_list|)
 throws|throws
 name|IOException
@@ -6199,7 +6205,7 @@ name|conf
 argument_list|,
 name|info
 argument_list|,
-name|initialFiles
+literal|null
 argument_list|,
 literal|null
 argument_list|)
