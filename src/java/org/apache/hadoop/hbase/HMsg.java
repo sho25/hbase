@@ -116,6 +116,15 @@ name|MSG_REGION_CLOSE_WITHOUT_REPORT
 init|=
 literal|6
 decl_stmt|;
+comment|/** Stop serving user regions */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+name|MSG_REGIONSERVER_QUIESCE
+init|=
+literal|7
+decl_stmt|;
 comment|// Messages sent from the region server to the master
 comment|/** region server is now serving the specified region */
 specifier|public
@@ -153,7 +162,7 @@ name|MSG_REPORT_SPLIT
 init|=
 literal|103
 decl_stmt|;
-comment|/**    * region server is shutting down    *     * note that this message is followed by MSG_REPORT_CLOSE messages for each    * region the region server was serving.    */
+comment|/**    * region server is shutting down    *     * note that this message is followed by MSG_REPORT_CLOSE messages for each    * region the region server was serving, unless it was told to quiesce.    */
 specifier|public
 specifier|static
 specifier|final
@@ -161,6 +170,15 @@ name|byte
 name|MSG_REPORT_EXITING
 init|=
 literal|104
+decl_stmt|;
+comment|/** region server has closed all user regions but is still serving meta regions */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+name|MSG_REPORT_QUIESCED
+init|=
+literal|105
 decl_stmt|;
 name|byte
 name|msg
@@ -325,6 +343,17 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
+name|MSG_REGIONSERVER_QUIESCE
+case|:
+name|message
+operator|.
+name|append
+argument_list|(
+literal|"MSG_REGIONSERVER_QUIESCE : "
+argument_list|)
+expr_stmt|;
+break|break;
+case|case
 name|MSG_REPORT_PROCESS_OPEN
 case|:
 name|message
@@ -376,6 +405,17 @@ operator|.
 name|append
 argument_list|(
 literal|"MSG_REPORT_EXITING : "
+argument_list|)
+expr_stmt|;
+break|break;
+case|case
+name|MSG_REPORT_QUIESCED
+case|:
+name|message
+operator|.
+name|append
+argument_list|(
+literal|"MSG_REPORT_QUIESCED : "
 argument_list|)
 expr_stmt|;
 break|break;

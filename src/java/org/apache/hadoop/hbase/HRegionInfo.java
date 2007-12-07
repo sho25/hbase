@@ -739,6 +739,51 @@ return|return
 name|tableDesc
 return|;
 block|}
+comment|/** @return true if this is the root region */
+specifier|public
+name|boolean
+name|isRootRegion
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|tableDesc
+operator|.
+name|isRootRegion
+argument_list|()
+return|;
+block|}
+comment|/** @return true if this is the meta table */
+specifier|public
+name|boolean
+name|isMetaTable
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|tableDesc
+operator|.
+name|isMetaTable
+argument_list|()
+return|;
+block|}
+comment|/** @return true if this region is a meta region */
+specifier|public
+name|boolean
+name|isMetaRegion
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|tableDesc
+operator|.
+name|isMetaRegion
+argument_list|()
+return|;
+block|}
 comment|/**    * @return True if has been split and has daughters.    */
 specifier|public
 name|boolean
