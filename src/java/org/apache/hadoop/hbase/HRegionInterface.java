@@ -281,6 +281,23 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Delete all cells that match the passed row and whose    * timestamp is equal-to or older than the passed timestamp.    *    * @param regionName region name    * @param row row key    * @param timestamp Delete all entries that have this timestamp or older    * @throws IOException    */
+specifier|public
+name|void
+name|deleteAll
+parameter_list|(
+name|Text
+name|regionName
+parameter_list|,
+name|Text
+name|row
+parameter_list|,
+name|long
+name|timestamp
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|//
 comment|// remote scanner interface
 comment|//
