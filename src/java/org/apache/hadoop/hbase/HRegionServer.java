@@ -6463,7 +6463,7 @@ argument_list|(
 name|scannerId
 argument_list|)
 decl_stmt|;
-name|HInternalScannerInterface
+name|HScannerInterface
 name|s
 init|=
 name|scanners
@@ -6752,7 +6752,7 @@ init|=
 operator|-
 literal|1L
 decl_stmt|;
-name|HInternalScannerInterface
+name|HScannerInterface
 name|s
 init|=
 name|r
@@ -6887,7 +6887,7 @@ argument_list|(
 name|scannerId
 argument_list|)
 decl_stmt|;
-name|HInternalScannerInterface
+name|HScannerInterface
 name|s
 init|=
 literal|null
@@ -6957,7 +6957,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|HInternalScannerInterface
+name|HScannerInterface
 argument_list|>
 name|scanners
 init|=
@@ -6970,7 +6970,7 @@ name|HashMap
 argument_list|<
 name|String
 argument_list|,
-name|HInternalScannerInterface
+name|HScannerInterface
 argument_list|>
 argument_list|()
 argument_list|)
@@ -7020,7 +7020,7 @@ operator|+
 literal|" lease expired"
 argument_list|)
 expr_stmt|;
-name|HInternalScannerInterface
+name|HScannerInterface
 name|s
 init|=
 literal|null

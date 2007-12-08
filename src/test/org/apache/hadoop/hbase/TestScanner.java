@@ -346,7 +346,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HInternalScannerInterface
+name|HScannerInterface
 name|scanner
 init|=
 literal|null
@@ -606,7 +606,7 @@ block|}
 block|}
 finally|finally
 block|{
-name|HInternalScannerInterface
+name|HScannerInterface
 name|s
 init|=
 name|scanner

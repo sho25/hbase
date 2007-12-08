@@ -1171,7 +1171,7 @@ name|column
 argument_list|)
 block|}
 decl_stmt|;
-name|HInternalScannerInterface
+name|HScannerInterface
 name|s
 init|=
 name|r

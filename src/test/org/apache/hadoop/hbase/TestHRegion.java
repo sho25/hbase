@@ -1567,7 +1567,7 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 expr_stmt|;
-name|HInternalScannerInterface
+name|HScannerInterface
 name|s
 init|=
 name|r
@@ -3913,7 +3913,7 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
-name|HInternalScannerInterface
+name|HScannerInterface
 name|s
 init|=
 name|r
