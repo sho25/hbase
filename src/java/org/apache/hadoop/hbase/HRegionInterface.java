@@ -298,6 +298,26 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Delete all cells for a row with matching column family with timestamps    * less than or equal to<i>timestamp</i>.    *    * @param regionName The name of the region to operate on    * @param row The row to operate on    * @param family The column family to match    * @param timestamp Timestamp to match    */
+specifier|public
+name|void
+name|deleteFamily
+parameter_list|(
+name|Text
+name|regionName
+parameter_list|,
+name|Text
+name|row
+parameter_list|,
+name|Text
+name|family
+parameter_list|,
+name|long
+name|timestamp
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|//
 comment|// remote scanner interface
 comment|//
