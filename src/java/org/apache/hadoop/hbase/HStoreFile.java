@@ -2171,6 +2171,8 @@ argument_list|(
 name|p
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|out
 operator|.
 name|writeUTF
@@ -2218,11 +2220,15 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|out
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 comment|/*    * @see writeSplitInfo(Path p, HStoreFile hsf, FileSystem fs)    */
 specifier|static

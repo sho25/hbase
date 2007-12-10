@@ -625,6 +625,20 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
+name|HLogKey
+name|key
+init|=
+operator|new
+name|HLogKey
+argument_list|()
+decl_stmt|;
+name|HLogEdit
+name|val
+init|=
+operator|new
+name|HLogEdit
+argument_list|()
+decl_stmt|;
 name|SequenceFile
 operator|.
 name|Reader
@@ -647,20 +661,6 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|HLogKey
-name|key
-init|=
-operator|new
-name|HLogKey
-argument_list|()
-decl_stmt|;
-name|HLogEdit
-name|val
-init|=
-operator|new
-name|HLogEdit
-argument_list|()
-decl_stmt|;
 name|int
 name|count
 init|=
@@ -747,6 +747,13 @@ argument_list|(
 literal|"Creating new log file writer for path "
 operator|+
 name|logfile
+operator|+
+literal|"; map content "
+operator|+
+name|logWriters
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -771,11 +778,17 @@ operator|.
 name|class
 argument_list|)
 expr_stmt|;
+comment|// Use copy of regionName; regionName object is reused inside in
+comment|// HStoreKey.getRegionName so its content changes as we iterate.
 name|logWriters
 operator|.
 name|put
 argument_list|(
+operator|new
+name|Text
+argument_list|(
 name|regionName
+argument_list|)
 argument_list|,
 name|w
 argument_list|)
@@ -785,7 +798,7 @@ if|if
 condition|(
 name|count
 operator|%
-literal|100
+literal|10000
 operator|==
 literal|0
 operator|&&

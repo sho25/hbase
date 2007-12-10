@@ -3546,6 +3546,8 @@ name|BLOOMFILTER_FILE_NAME
 argument_list|)
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|bloomFilter
 operator|.
 name|write
@@ -3553,11 +3555,15 @@ argument_list|(
 name|out
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
 name|out
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|LOG
