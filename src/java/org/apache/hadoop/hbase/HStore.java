@@ -9281,45 +9281,6 @@ name|moreToFollow
 operator|=
 literal|false
 expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"page limit"
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|dataFilter
-operator|!=
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"ROWKEY = "
-operator|+
-name|chosenRow
-operator|+
-literal|", FILTERED = "
-operator|+
-name|filtered
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 if|if

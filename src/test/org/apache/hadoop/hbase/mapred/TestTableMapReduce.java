@@ -2032,31 +2032,6 @@ operator|.
 name|UTF8_ENCODING
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"row="
-operator|+
-name|key
-operator|.
-name|getRow
-argument_list|()
-operator|+
-literal|": first value="
-operator|+
-name|first
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 name|String
 name|second
@@ -2099,39 +2074,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"row="
-operator|+
-name|key
-operator|.
-name|getRow
-argument_list|()
-operator|+
-literal|": second value="
-operator|+
-operator|new
-name|String
-argument_list|(
-name|secondValue
-argument_list|,
-name|HConstants
-operator|.
-name|UTF8_ENCODING
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
 name|byte
 index|[]
 name|secondReversed
@@ -2218,7 +2160,20 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"second key is not the reverse of first"
+literal|"second key is not the reverse of first. row="
+operator|+
+name|key
+operator|.
+name|getRow
+argument_list|()
+operator|+
+literal|", first value="
+operator|+
+name|first
+operator|+
+literal|", second value="
+operator|+
+name|second
 argument_list|)
 expr_stmt|;
 block|}

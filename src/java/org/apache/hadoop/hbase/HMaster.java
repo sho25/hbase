@@ -4827,34 +4827,15 @@ name|t
 argument_list|)
 expr_stmt|;
 block|}
+comment|// The region servers won't all exit until we stop scanning the meta regions
+name|stopScanners
+argument_list|()
+expr_stmt|;
+comment|// Wait for all the remaining region servers to report in.
 name|letRegionServersShutdown
 argument_list|()
 expr_stmt|;
 comment|/*      * Clean up and close up shop      */
-synchronized|synchronized
-init|(
-name|rootScannerLock
-init|)
-block|{
-name|rootScannerThread
-operator|.
-name|interrupt
-argument_list|()
-expr_stmt|;
-comment|// Wake root scanner
-block|}
-synchronized|synchronized
-init|(
-name|metaScannerLock
-init|)
-block|{
-name|metaScannerThread
-operator|.
-name|interrupt
-argument_list|()
-expr_stmt|;
-comment|// Wake meta scanner
-block|}
 if|if
 condition|(
 name|this
@@ -5192,6 +5173,55 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
+block|}
+comment|/*    * Stop the root and meta scanners so that the region servers serving meta    * regions can shut down.    */
+specifier|private
+name|void
+name|stopScanners
+parameter_list|()
+block|{
+synchronized|synchronized
+init|(
+name|rootScannerLock
+init|)
+block|{
+if|if
+condition|(
+name|rootScannerThread
+operator|.
+name|isAlive
+argument_list|()
+condition|)
+block|{
+name|rootScannerThread
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+comment|// Wake root scanner
+block|}
+block|}
+synchronized|synchronized
+init|(
+name|metaScannerLock
+init|)
+block|{
+if|if
+condition|(
+name|metaScannerThread
+operator|.
+name|isAlive
+argument_list|()
+condition|)
+block|{
+name|metaScannerThread
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+comment|// Wake meta scanner
+block|}
 block|}
 block|}
 comment|/*    * Wait on regionservers to report in    * with {@link #regionServerReport(HServerInfo, HMsg[])} so they get notice    * the master is going down.  Waits until all region servers come back with    * a MSG_REGIONSERVER_STOP which will cancel their lease or until leases held    * by remote region servers have expired.    */
@@ -5911,6 +5941,9 @@ name|set
 argument_list|(
 literal|true
 argument_list|)
+expr_stmt|;
+name|stopScanners
+argument_list|()
 expr_stmt|;
 synchronized|synchronized
 init|(
