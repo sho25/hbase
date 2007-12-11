@@ -1543,7 +1543,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**     * Get all the data for the specified row at the latest timestamp    *     * @param row row key    * @return map of colums to values    * @throws IOException    */
+comment|/**     * Get all the data for the specified row at the latest timestamp    *     * @param row row key    * @return Map of columns to values.  Map is empty if row does not exist.    * @throws IOException    */
 specifier|public
 name|SortedMap
 argument_list|<
@@ -1571,7 +1571,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 return|;
 block|}
-comment|/**     * Get all the data for the specified row at a specified timestamp    *     * @param row row key    * @param ts timestamp    * @return map of colums to values    * @throws IOException    */
+comment|/**     * Get all the data for the specified row at a specified timestamp    *     * @param row row key    * @param ts timestamp    * @return Map of columns to values.  Map is empty if row does not exist.    * @throws IOException    */
 specifier|public
 name|SortedMap
 argument_list|<
@@ -2194,7 +2194,7 @@ name|row
 argument_list|)
 return|;
 block|}
-comment|/**     * Change a value for the specified column.    * Runs {@link #abort(long)} if exception thrown.    *    * @param lockid lock id returned from startUpdate    * @param column column whose value is being set    * @param val new value for column    */
+comment|/**     * Update a value for the specified column.    * Runs {@link #abort(long)} if exception thrown.    *    * @param lockid lock id returned from startUpdate    * @param column column whose value is being set    * @param val new value for column.  Cannot be null.    */
 specifier|public
 name|void
 name|put
@@ -2248,7 +2248,7 @@ name|val
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Change a value for the specified column.    * Runs {@link #abort(long)} if exception thrown.    *    * @param lockid lock id returned from startUpdate    * @param column column whose value is being set    * @param val new value for column    * @throws IOException throws this if the writable can't be    * converted into a byte array     */
+comment|/**     * Update a value for the specified column.    * Runs {@link #abort(long)} if exception thrown.    *    * @param lockid lock id returned from startUpdate    * @param column column whose value is being set    * @param val new value for column.  Cannot be null.    * @throws IOException throws this if the writable can't be    * converted into a byte array     */
 specifier|public
 name|void
 name|put
