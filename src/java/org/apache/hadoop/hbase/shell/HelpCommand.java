@@ -486,6 +486,8 @@ literal|"ALTER TABLE table_name ADD column_spec | "
 operator|+
 literal|"ADD (column_spec, column_spec, ...) | "
 operator|+
+literal|"CHANGE column_family column_spec | "
+operator|+
 literal|"DROP column_family_name | "
 operator|+
 literal|"CHANGE column_spec;"

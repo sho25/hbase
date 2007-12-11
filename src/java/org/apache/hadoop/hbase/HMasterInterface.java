@@ -116,6 +116,23 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Modifies an existing column on the specified table    * @param tableName    * @param columnName name of the column to edit    * @param descriptor new column descriptor    * @throws IOException    */
+specifier|public
+name|void
+name|modifyColumn
+parameter_list|(
+name|Text
+name|tableName
+parameter_list|,
+name|Text
+name|columnName
+parameter_list|,
+name|HColumnDescriptor
+name|descriptor
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Deletes a column from the specified table    * @param tableName    * @param columnName    * @throws IOException    */
 specifier|public
 name|void
