@@ -106,7 +106,7 @@ name|Sleeper
 name|sleeper
 decl_stmt|;
 specifier|protected
-specifier|final
+specifier|volatile
 name|AtomicBoolean
 name|stop
 decl_stmt|;
@@ -145,6 +145,9 @@ operator|=
 name|s
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -152,9 +155,21 @@ parameter_list|()
 block|{
 try|try
 block|{
+while|while
+condition|(
+operator|!
 name|initialChore
 argument_list|()
+condition|)
+block|{
+name|this
+operator|.
+name|sleeper
+operator|.
+name|sleep
+argument_list|()
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|sleeper
@@ -209,13 +224,16 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Override to run a task before we start looping.    */
+comment|/**    * Override to run a task before we start looping.    * @return true if initial chore was successful    */
 specifier|protected
-name|void
+name|boolean
 name|initialChore
 parameter_list|()
 block|{
 comment|// Default does nothing.
+return|return
+literal|true
+return|;
 block|}
 comment|/**    * Look for chores.  If any found, do them else just return.    */
 specifier|protected

@@ -4703,7 +4703,7 @@ name|join
 argument_list|(
 name|this
 operator|.
-name|logRoller
+name|workerThread
 argument_list|)
 expr_stmt|;
 name|join
@@ -4731,7 +4731,7 @@ name|join
 argument_list|(
 name|this
 operator|.
-name|workerThread
+name|logRoller
 argument_list|)
 expr_stmt|;
 block|}
@@ -7161,6 +7161,7 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|deleteFamily

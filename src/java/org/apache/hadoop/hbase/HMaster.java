@@ -691,14 +691,10 @@ literal|true
 argument_list|)
 decl_stmt|;
 specifier|volatile
-name|AtomicBoolean
+name|boolean
 name|shutdownRequested
 init|=
-operator|new
-name|AtomicBoolean
-argument_list|(
 literal|false
-argument_list|)
 decl_stmt|;
 specifier|volatile
 name|AtomicInteger
@@ -713,28 +709,38 @@ decl_stmt|;
 specifier|volatile
 name|boolean
 name|fsOk
+init|=
+literal|true
 decl_stmt|;
+specifier|final
 name|Path
 name|dir
 decl_stmt|;
+specifier|final
 name|HBaseConfiguration
 name|conf
 decl_stmt|;
+specifier|final
 name|FileSystem
 name|fs
 decl_stmt|;
+specifier|final
 name|Random
 name|rand
 decl_stmt|;
+specifier|final
 name|int
 name|threadWakeFrequency
 decl_stmt|;
+specifier|final
 name|int
 name|numRetries
 decl_stmt|;
+specifier|final
 name|long
 name|maxRegionOpenTime
 decl_stmt|;
+specifier|volatile
 name|DelayQueue
 argument_list|<
 name|RegionServerOperation
@@ -748,6 +754,7 @@ name|RegionServerOperation
 argument_list|>
 argument_list|()
 decl_stmt|;
+specifier|volatile
 name|BlockingQueue
 argument_list|<
 name|RegionServerOperation
@@ -761,28 +768,34 @@ name|RegionServerOperation
 argument_list|>
 argument_list|()
 decl_stmt|;
+specifier|final
 name|int
 name|leaseTimeout
 decl_stmt|;
 specifier|private
+specifier|final
 name|Leases
 name|serverLeases
 decl_stmt|;
 specifier|private
+specifier|final
 name|Server
 name|server
 decl_stmt|;
 specifier|private
+specifier|final
 name|HServerAddress
 name|address
 decl_stmt|;
+specifier|final
 name|HConnection
 name|connection
 decl_stmt|;
+specifier|final
 name|int
 name|metaRescanInterval
 decl_stmt|;
-specifier|final
+specifier|volatile
 name|AtomicReference
 argument_list|<
 name|HServerAddress
@@ -798,6 +811,7 @@ argument_list|(
 literal|null
 argument_list|)
 decl_stmt|;
+specifier|final
 name|Lock
 name|splitLogLock
 init|=
@@ -807,6 +821,7 @@ argument_list|()
 decl_stmt|;
 comment|// A Sleeper that sleeps for threadWakeFrequency
 specifier|protected
+specifier|final
 name|Sleeper
 name|sleeper
 decl_stmt|;
@@ -842,7 +857,7 @@ name|tableName
 decl_stmt|;
 specifier|protected
 specifier|abstract
-name|void
+name|boolean
 name|initialScan
 parameter_list|()
 function_decl|;
@@ -895,13 +910,14 @@ block|}
 annotation|@
 name|Override
 specifier|protected
-name|void
+name|boolean
 name|initialChore
 parameter_list|()
 block|{
+return|return
 name|initialScan
 argument_list|()
-expr_stmt|;
+return|;
 block|}
 annotation|@
 name|Override
@@ -2267,6 +2283,9 @@ comment|// data in the meta region. Once we are on-line, dead server log
 comment|// recovery is handled by lease expiration and ProcessServerShutdown
 if|if
 condition|(
+operator|!
+name|initialMetaScanComplete
+operator|&&
 name|serverName
 operator|.
 name|length
@@ -2412,6 +2431,8 @@ block|}
 specifier|volatile
 name|boolean
 name|rootScanned
+init|=
+literal|false
 decl_stmt|;
 comment|/** Scanner for the<code>ROOT</code> HRegion. */
 class|class
@@ -2437,28 +2458,18 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-name|void
+name|boolean
 name|scanRoot
 parameter_list|()
 block|{
-name|int
-name|tries
+comment|// Don't retry if we get an error while scanning. Errors are most often
+comment|// caused by the server going away. Wait until next rescan interval when
+comment|// things should be back to normal
+name|boolean
+name|scanSuccessful
 init|=
-literal|0
+literal|false
 decl_stmt|;
-while|while
-condition|(
-operator|!
-name|closed
-operator|.
-name|get
-argument_list|()
-operator|&&
-name|tries
-operator|<
-name|numRetries
-condition|)
-block|{
 synchronized|synchronized
 init|(
 name|rootRegionLocation
@@ -2509,7 +2520,9 @@ name|get
 argument_list|()
 condition|)
 block|{
-continue|continue;
+return|return
+name|scanSuccessful
+return|;
 block|}
 try|try
 block|{
@@ -2541,7 +2554,10 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-break|break;
+name|scanSuccessful
+operator|=
+literal|true
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -2558,17 +2574,6 @@ argument_list|(
 name|e
 argument_list|)
 expr_stmt|;
-name|tries
-operator|+=
-literal|1
-expr_stmt|;
-if|if
-condition|(
-name|tries
-operator|==
-literal|1
-condition|)
-block|{
 name|LOG
 operator|.
 name|warn
@@ -2578,41 +2583,10 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Scan ROOT region"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|tries
-operator|==
-name|numRetries
-operator|-
-literal|1
-condition|)
-block|{
-comment|// We ran out of tries. Make sure the file system is still
-comment|// available
-if|if
-condition|(
-operator|!
+comment|// Make sure the file system is still available
 name|checkFileSystem
 argument_list|()
-condition|)
-block|{
-continue|continue;
-comment|// Avoid sleeping.
-block|}
-block|}
-block|}
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -2632,27 +2606,25 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-name|sleeper
-operator|.
-name|sleep
-argument_list|()
-expr_stmt|;
-block|}
+return|return
+name|scanSuccessful
+return|;
 block|}
 annotation|@
 name|Override
 specifier|protected
-name|void
+name|boolean
 name|initialScan
 parameter_list|()
 block|{
+name|rootScanned
+operator|=
 name|scanRoot
 argument_list|()
 expr_stmt|;
+return|return
 name|rootScanned
-operator|=
-literal|true
-expr_stmt|;
+return|;
 block|}
 annotation|@
 name|Override
@@ -2667,9 +2639,11 @@ expr_stmt|;
 block|}
 block|}
 specifier|private
+specifier|final
 name|RootScanner
 name|rootScannerThread
 decl_stmt|;
+specifier|final
 name|Integer
 name|rootScannerLock
 init|=
@@ -2993,7 +2967,7 @@ return|;
 block|}
 block|}
 comment|/** Set by root scanner to indicate the number of meta regions */
-specifier|final
+specifier|volatile
 name|AtomicInteger
 name|numberOfMetaRegions
 init|=
@@ -3002,7 +2976,7 @@ name|AtomicInteger
 argument_list|()
 decl_stmt|;
 comment|/** Work for the meta scanner is queued up here */
-specifier|final
+specifier|volatile
 name|BlockingQueue
 argument_list|<
 name|MetaRegion
@@ -3017,7 +2991,7 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 comment|/** These are the online meta regions */
-specifier|final
+specifier|volatile
 name|SortedMap
 argument_list|<
 name|Text
@@ -3044,6 +3018,8 @@ comment|/** Set by meta scanner after initial scan */
 specifier|volatile
 name|boolean
 name|initialMetaScanComplete
+init|=
+literal|false
 decl_stmt|;
 comment|/**    * MetaScanner<code>META</code> table.    *     * When a<code>META</code> server comes on line, a MetaRegion object is    * queued up by regionServerReport() and this thread wakes up.    *    * It's important to do this work in a separate thread, or else the blocking     * action would prevent other work from getting done.    */
 class|class
@@ -3051,6 +3027,21 @@ name|MetaScanner
 extends|extends
 name|BaseScanner
 block|{
+specifier|private
+specifier|final
+name|List
+argument_list|<
+name|MetaRegion
+argument_list|>
+name|metaRegionsToRescan
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|MetaRegion
+argument_list|>
+argument_list|()
+decl_stmt|;
 comment|/** Constructor */
 specifier|public
 name|MetaScanner
@@ -3069,31 +3060,21 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-name|void
+name|boolean
 name|scanOneMetaRegion
 parameter_list|(
 name|MetaRegion
 name|region
 parameter_list|)
 block|{
-name|int
-name|tries
+comment|// Don't retry if we get an error while scanning. Errors are most often
+comment|// caused by the server going away. Wait until next rescan interval when
+comment|// things should be back to normal
+name|boolean
+name|scanSuccessful
 init|=
-literal|0
+literal|false
 decl_stmt|;
-while|while
-condition|(
-operator|!
-name|closed
-operator|.
-name|get
-argument_list|()
-operator|&&
-name|tries
-operator|<
-name|numRetries
-condition|)
-block|{
 while|while
 condition|(
 operator|!
@@ -3127,7 +3108,9 @@ name|get
 argument_list|()
 condition|)
 block|{
-continue|continue;
+return|return
+name|scanSuccessful
+return|;
 block|}
 try|try
 block|{
@@ -3155,7 +3138,10 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
-break|break;
+name|scanSuccessful
+operator|=
+literal|true
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -3172,17 +3158,6 @@ argument_list|(
 name|e
 argument_list|)
 expr_stmt|;
-name|tries
-operator|+=
-literal|1
-expr_stmt|;
-if|if
-condition|(
-name|tries
-operator|==
-literal|1
-condition|)
-block|{
 name|LOG
 operator|.
 name|warn
@@ -3197,28 +3172,10 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Scan one META region: "
-operator|+
-name|region
-operator|.
-name|toString
-argument_list|()
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 comment|// The region may have moved (TestRegionServerAbort, etc.).  If
 comment|// so, either it won't be in the onlineMetaRegions list or its host
 comment|// address has changed and the containsValue will fail. If not
-comment|// found, best thing to do here is probably break.
+comment|// found, best thing to do here is probably return.
 if|if
 condition|(
 operator|!
@@ -3227,6 +3184,9 @@ operator|.
 name|containsValue
 argument_list|(
 name|region
+operator|.
+name|getStartKey
+argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -3239,30 +3199,14 @@ operator|+
 literal|"regions or its value has changed"
 argument_list|)
 expr_stmt|;
-break|break;
+return|return
+name|scanSuccessful
+return|;
 block|}
-if|if
-condition|(
-name|tries
-operator|==
-name|numRetries
-operator|-
-literal|1
-condition|)
-block|{
-comment|// We ran out of tries. Make sure the file system is still
-comment|// available
-if|if
-condition|(
-operator|!
+comment|// Make sure the file system is still available
 name|checkFileSystem
 argument_list|()
-condition|)
-block|{
-continue|continue;
-comment|// avoid sleeping
-block|}
-block|}
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -3282,18 +3226,14 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Sleep before going around again.
-name|sleeper
-operator|.
-name|sleep
-argument_list|()
-expr_stmt|;
-block|}
+return|return
+name|scanSuccessful
+return|;
 block|}
 annotation|@
 name|Override
 specifier|protected
-name|void
+name|boolean
 name|initialScan
 parameter_list|()
 block|{
@@ -3346,21 +3286,60 @@ block|}
 if|if
 condition|(
 name|region
+operator|==
+literal|null
+operator|&&
+name|metaRegionsToRescan
+operator|.
+name|size
+argument_list|()
+operator|!=
+literal|0
+condition|)
+block|{
+name|region
+operator|=
+name|metaRegionsToRescan
+operator|.
+name|remove
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|region
 operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+operator|!
 name|scanOneMetaRegion
+argument_list|(
+name|region
+argument_list|)
+condition|)
+block|{
+name|metaRegionsToRescan
+operator|.
+name|add
 argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
 name|initialMetaScanComplete
 operator|=
 literal|true
 expr_stmt|;
+return|return
+literal|true
+return|;
 block|}
 annotation|@
 name|Override
@@ -3514,9 +3493,11 @@ argument_list|()
 return|;
 block|}
 block|}
+specifier|final
 name|MetaScanner
 name|metaScannerThread
 decl_stmt|;
+specifier|final
 name|Integer
 name|metaScannerLock
 init|=
@@ -3527,7 +3508,7 @@ literal|0
 argument_list|)
 decl_stmt|;
 comment|/** The map of known server names to server info */
-specifier|final
+specifier|volatile
 name|Map
 argument_list|<
 name|String
@@ -3546,7 +3527,7 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 comment|/** Set of known dead servers */
-specifier|final
+specifier|volatile
 name|Set
 argument_list|<
 name|String
@@ -3566,7 +3547,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|/** SortedMap server load -> Set of server names */
-specifier|final
+specifier|volatile
 name|SortedMap
 argument_list|<
 name|HServerLoad
@@ -3596,7 +3577,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|/** Map of server names -> server load */
-specifier|final
+specifier|volatile
 name|Map
 argument_list|<
 name|String
@@ -3615,7 +3596,7 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 comment|/**    * The 'unassignedRegions' table maps from a HRegionInfo to a timestamp that    * indicates the last time we *tried* to assign the region to a RegionServer.    * If the timestamp is out of date, then we can try to reassign it.     *     * We fill 'unassignedRecords' by scanning ROOT and META tables, learning the    * set of all known valid regions.    *     *<p>Items are removed from this list when a region server reports in that    * the region has been deployed.    */
-specifier|final
+specifier|volatile
 name|SortedMap
 argument_list|<
 name|HRegionInfo
@@ -3639,7 +3620,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|/**    * Regions that have been assigned, and the server has reported that it has    * started serving it, but that we have not yet recorded in the meta table.    */
-specifier|final
+specifier|volatile
 name|Set
 argument_list|<
 name|Text
@@ -3659,7 +3640,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|/**    * The 'killList' is a list of regions that are going to be closed, but not    * reopened.    */
-specifier|final
+specifier|volatile
 name|Map
 argument_list|<
 name|String
@@ -3688,7 +3669,7 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 comment|/** 'killedRegions' contains regions that are in the process of being closed */
-specifier|final
+specifier|volatile
 name|Set
 argument_list|<
 name|Text
@@ -3708,7 +3689,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|/**    * 'regionsToDelete' contains regions that need to be deleted, but cannot be    * until the region server closes it    */
-specifier|final
+specifier|volatile
 name|Set
 argument_list|<
 name|Text
@@ -3729,6 +3710,7 @@ argument_list|)
 decl_stmt|;
 comment|/** Set of tables currently in creation. */
 specifier|private
+specifier|volatile
 name|Set
 argument_list|<
 name|Text
@@ -3805,12 +3787,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|this
-operator|.
-name|fsOk
-operator|=
-literal|true
-expr_stmt|;
 name|this
 operator|.
 name|dir
@@ -4214,12 +4190,6 @@ expr_stmt|;
 comment|// The root region
 name|this
 operator|.
-name|rootScanned
-operator|=
-literal|false
-expr_stmt|;
-name|this
-operator|.
 name|rootScannerThread
 operator|=
 operator|new
@@ -4227,12 +4197,6 @@ name|RootScanner
 argument_list|()
 expr_stmt|;
 comment|// Scans the meta table
-name|this
-operator|.
-name|initialMetaScanComplete
-operator|=
-literal|false
-expr_stmt|;
 name|this
 operator|.
 name|metaScannerThread
@@ -4440,9 +4404,6 @@ if|if
 condition|(
 operator|!
 name|shutdownRequested
-operator|.
-name|get
-argument_list|()
 operator|&&
 operator|!
 name|closed
@@ -5697,9 +5658,6 @@ argument_list|(
 name|serverName
 argument_list|)
 decl_stmt|;
-comment|//    if (LOG.isDebugEnabled()) {
-comment|//      LOG.debug("received heartbeat from " + serverName);
-comment|//    }
 if|if
 condition|(
 name|msgs
@@ -5975,9 +5933,6 @@ block|}
 if|if
 condition|(
 name|shutdownRequested
-operator|.
-name|get
-argument_list|()
 operator|&&
 operator|!
 name|closed
@@ -6120,6 +6075,11 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
+synchronized|synchronized
+init|(
+name|serversToServerInfo
+init|)
+block|{
 name|cancelLease
 argument_list|(
 name|serverName
@@ -6127,6 +6087,12 @@ argument_list|,
 name|serverLabel
 argument_list|)
 expr_stmt|;
+name|serversToServerInfo
+operator|.
+name|notifyAll
+argument_list|()
+expr_stmt|;
+block|}
 return|return
 operator|new
 name|HMsg
@@ -6333,6 +6299,15 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|info
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// Only cancel lease and update load information once.
+comment|// This method can be called a couple of times during shutdown.
+if|if
+condition|(
 name|rootRegionLocation
 operator|.
 name|get
@@ -6358,15 +6333,6 @@ name|unassignRootRegion
 argument_list|()
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|info
-operator|!=
-literal|null
-condition|)
-block|{
-comment|// Only cancel lease and update load information once.
-comment|// This method can be called a couple of times during shutdown.
 name|LOG
 operator|.
 name|info
@@ -6549,7 +6515,7 @@ operator|.
 name|toString
 argument_list|()
 operator|+
-literal|"from "
+literal|" from "
 operator|+
 name|serverName
 argument_list|)
@@ -11059,11 +11025,8 @@ expr_stmt|;
 name|this
 operator|.
 name|shutdownRequested
-operator|.
-name|set
-argument_list|(
+operator|=
 literal|true
-argument_list|)
 expr_stmt|;
 block|}
 comment|/** {@inheritDoc} */

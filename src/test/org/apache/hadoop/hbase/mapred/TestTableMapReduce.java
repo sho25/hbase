@@ -562,27 +562,6 @@ block|{
 name|super
 argument_list|()
 expr_stmt|;
-comment|// The region server doesn't have to talk to the master quite so often
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.regionserver.msginterval"
-argument_list|,
-literal|2000
-argument_list|)
-expr_stmt|;
-comment|// Make the thread wake frequency a little slower so other threads
-comment|// can run
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.server.thread.wakefrequency"
-argument_list|,
-literal|2000
-argument_list|)
-expr_stmt|;
 comment|// Make sure the cache gets flushed so we trigger a compaction(s) and
 comment|// hence splits.
 name|conf

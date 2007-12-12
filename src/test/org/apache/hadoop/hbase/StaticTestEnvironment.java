@@ -546,7 +546,7 @@ name|consoleLayout
 operator|.
 name|setConversionPattern
 argument_list|(
-literal|"%d %-5p [%t] %l: %m%n"
+literal|"%d %-5p [%t] %C{2}(%L): %m%n"
 argument_list|)
 expr_stmt|;
 block|}
