@@ -105,7 +105,7 @@ name|String
 operator|.
 name|valueOf
 argument_list|(
-name|status
+literal|7
 argument_list|)
 block|}
 decl_stmt|;
