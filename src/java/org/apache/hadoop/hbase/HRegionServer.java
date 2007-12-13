@@ -634,7 +634,7 @@ comment|// of HRegionServer in isolation. We use AtomicBoolean rather than
 comment|// plain boolean so we can pass a reference to Chore threads.  Otherwise,
 comment|// Chore threads need to know about the hosting class.
 specifier|protected
-specifier|final
+specifier|volatile
 name|AtomicBoolean
 name|stopRequested
 init|=
@@ -645,7 +645,7 @@ literal|false
 argument_list|)
 decl_stmt|;
 specifier|protected
-specifier|final
+specifier|volatile
 name|AtomicBoolean
 name|quiesced
 init|=
@@ -689,7 +689,7 @@ argument_list|()
 decl_stmt|;
 comment|// region name -> HRegion
 specifier|protected
-specifier|final
+specifier|volatile
 name|SortedMap
 argument_list|<
 name|Text
@@ -713,7 +713,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|protected
-specifier|final
+specifier|volatile
 name|Map
 argument_list|<
 name|Text
@@ -741,7 +741,7 @@ name|ReentrantReadWriteLock
 argument_list|()
 decl_stmt|;
 specifier|private
-specifier|final
+specifier|volatile
 name|List
 argument_list|<
 name|HMsg
@@ -798,7 +798,7 @@ name|leases
 decl_stmt|;
 comment|// Request counter
 specifier|private
-specifier|final
+specifier|volatile
 name|AtomicInteger
 name|requestCount
 init|=
@@ -1461,16 +1461,8 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getTableDesc
+name|isMetaTable
 argument_list|()
-operator|.
-name|getName
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|META_TABLE_NAME
-argument_list|)
 condition|)
 block|{
 comment|// We need to update the root region

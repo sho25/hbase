@@ -1159,6 +1159,17 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
+name|Integer
+name|splitLock
+init|=
+operator|new
+name|Integer
+argument_list|(
+literal|0
+argument_list|)
+decl_stmt|;
+specifier|private
+specifier|final
 name|long
 name|desiredMaxFileSize
 decl_stmt|;
@@ -1713,6 +1724,11 @@ return|return
 literal|null
 return|;
 block|}
+synchronized|synchronized
+init|(
+name|splitLock
+init|)
+block|{
 name|lock
 operator|.
 name|writeLock
@@ -1892,6 +1908,7 @@ operator|.
 name|unlock
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
@@ -2171,6 +2188,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+synchronized|synchronized
+init|(
+name|splitLock
+init|)
+block|{
 name|Text
 name|midKey
 init|=
@@ -2180,6 +2202,11 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
+name|closed
+operator|.
+name|get
+argument_list|()
+operator|||
 operator|!
 name|needsSplit
 argument_list|(
@@ -2724,6 +2751,7 @@ expr_stmt|;
 return|return
 name|regions
 return|;
+block|}
 block|}
 comment|/*    * Iterates through all the HStores and finds the one with the largest    * MapFile size. If the size is greater than the (currently hard-coded)    * threshold, returns true indicating that the region should be split. The    * midKey for the largest MapFile is returned through the midKey parameter.    * It is possible for us to rule the region non-splitable even in excess of    * configured size.  This happens if region contains a reference file.  If    * a reference file, the region can not be split.    *     * Note that there is no need to do locking in this method because it calls    * largestHStore which does the necessary locking.    *     * @param midKey midKey of the largest MapFile    * @return true if the region should be split. midKey is set by this method.    * Check it for a midKey value on return.    */
 name|boolean
@@ -3904,7 +3932,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 return|;
 block|}
-comment|/**    * Fetch all the columns for the indicated row at a specified timestamp.    * Returns a TreeMap that maps column names to values.    *    * We should eventually use Bloom filters here, to reduce running time.  If     * the database has many column families and is very sparse, then we could be     * checking many files needlessly.  A small Bloom for each row would help us     * determine which column groups are useful for that row.  That would let us     * avoid a bunch of disk activity.    *    * @param row    * @return Map<columnName, byte[]> values    * @throws IOException    */
+comment|/**    * Fetch all the columns for the indicated row at a specified timestamp.    * Returns a TreeMap that maps column names to values.    *    * We should eventually use Bloom filters here, to reduce running time.  If     * the database has many column families and is very sparse, then we could be     * checking many files needlessly.  A small Bloom for each row would help us     * determine which column groups are useful for that row.  That would let us     * avoid a bunch of disk activity.    *    * @param row    * @param ts    * @return Map<columnName, byte[]> values    * @throws IOException    */
 specifier|public
 name|Map
 argument_list|<
@@ -4903,7 +4931,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Delete all cells for a row with matching column family with timestamps    * less than or equal to<i>timestamp</i>.    *    * @param row The row to operate on    * @param family The column family to match    * @param timestamp Timestamp to match    */
+comment|/**    * Delete all cells for a row with matching column family with timestamps    * less than or equal to<i>timestamp</i>.    *    * @param row The row to operate on    * @param family The column family to match    * @param timestamp Timestamp to match    * @throws IOException    */
 specifier|public
 name|void
 name|deleteFamily

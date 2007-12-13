@@ -851,11 +851,6 @@ name|boolean
 name|rootRegion
 decl_stmt|;
 specifier|protected
-specifier|final
-name|Text
-name|tableName
-decl_stmt|;
-specifier|protected
 specifier|abstract
 name|boolean
 name|initialScan
@@ -870,8 +865,8 @@ function_decl|;
 name|BaseScanner
 parameter_list|(
 specifier|final
-name|Text
-name|tableName
+name|boolean
+name|rootRegion
 parameter_list|,
 specifier|final
 name|int
@@ -891,20 +886,9 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|tableName
-operator|=
-name|tableName
-expr_stmt|;
-name|this
-operator|.
 name|rootRegion
 operator|=
-name|tableName
-operator|.
-name|equals
-argument_list|(
-name|ROOT_TABLE_NAME
-argument_list|)
+name|rootRegion
 expr_stmt|;
 block|}
 annotation|@
@@ -2447,9 +2431,7 @@ parameter_list|()
 block|{
 name|super
 argument_list|(
-name|HConstants
-operator|.
-name|ROOT_TABLE_NAME
+literal|true
 argument_list|,
 name|metaRescanInterval
 argument_list|,
@@ -3049,9 +3031,7 @@ parameter_list|()
 block|{
 name|super
 argument_list|(
-name|HConstants
-operator|.
-name|META_TABLE_NAME
+literal|false
 argument_list|,
 name|metaRescanInterval
 argument_list|,
@@ -5142,6 +5122,22 @@ name|void
 name|stopScanners
 parameter_list|()
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"telling root scanner to stop"
+argument_list|)
+expr_stmt|;
+block|}
 synchronized|synchronized
 init|(
 name|rootScannerLock
@@ -5163,6 +5159,22 @@ expr_stmt|;
 comment|// Wake root scanner
 block|}
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"telling meta scanner to stop"
+argument_list|)
+expr_stmt|;
+block|}
 synchronized|synchronized
 init|(
 name|metaScannerLock
@@ -5183,6 +5195,22 @@ argument_list|()
 expr_stmt|;
 comment|// Wake meta scanner
 block|}
+block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"meta and root scanners notified"
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 comment|/*    * Wait on regionservers to report in    * with {@link #regionServerReport(HServerInfo, HMsg[])} so they get notice    * the master is going down.  Waits until all region servers come back with    * a MSG_REGIONSERVER_STOP which will cancel their lease or until leases held    * by remote region servers have expired.    */
@@ -5871,13 +5899,20 @@ operator|+
 literal|" quiesced"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
 name|quiescedMetaServers
 operator|.
 name|incrementAndGet
 argument_list|()
-operator|==
+expr_stmt|;
+block|}
+block|}
+if|if
+condition|(
+name|quiescedMetaServers
+operator|.
+name|get
+argument_list|()
+operator|>=
 name|serversToServerInfo
 operator|.
 name|size
@@ -5927,7 +5962,16 @@ argument_list|()
 expr_stmt|;
 comment|// Wake main thread
 block|}
-block|}
+synchronized|synchronized
+init|(
+name|serversToServerInfo
+init|)
+block|{
+name|serversToServerInfo
+operator|.
+name|notifyAll
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 if|if
@@ -7117,16 +7161,8 @@ if|if
 condition|(
 name|region
 operator|.
-name|getTableDesc
+name|isMetaTable
 argument_list|()
-operator|.
-name|getName
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|META_TABLE_NAME
-argument_list|)
 condition|)
 block|{
 comment|// A meta region has split.
@@ -8925,16 +8961,8 @@ if|if
 condition|(
 name|info
 operator|.
-name|getTableDesc
+name|isMetaTable
 argument_list|()
-operator|.
-name|getName
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|META_TABLE_NAME
-argument_list|)
 condition|)
 block|{
 if|if
