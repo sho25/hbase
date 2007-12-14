@@ -219,9 +219,9 @@ name|b
 argument_list|,
 name|initval
 argument_list|)
-argument_list|)
 operator|%
 name|maxValue
+argument_list|)
 expr_stmt|;
 block|}
 return|return
