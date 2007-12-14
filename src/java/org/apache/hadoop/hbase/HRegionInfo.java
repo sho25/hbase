@@ -116,6 +116,10 @@ name|String
 operator|.
 name|valueOf
 argument_list|(
+name|Math
+operator|.
+name|abs
+argument_list|(
 name|JenkinsHash
 operator|.
 name|hash
@@ -131,6 +135,7 @@ name|getLength
 argument_list|()
 argument_list|,
 literal|0
+argument_list|)
 argument_list|)
 argument_list|)
 return|;
@@ -867,7 +872,16 @@ operator|.
 name|toString
 argument_list|()
 operator|+
-literal|">,"
+literal|">, encodedName("
+operator|+
+name|encodeRegionName
+argument_list|(
+name|this
+operator|.
+name|regionName
+argument_list|)
+operator|+
+literal|")"
 operator|+
 operator|(
 name|isOffline

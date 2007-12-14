@@ -2597,6 +2597,18 @@ literal|"starting "
 operator|+
 name|this
 operator|.
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|familyName
+operator|+
+literal|" ("
+operator|+
+name|this
+operator|.
 name|storeName
 operator|+
 operator|(
@@ -2614,9 +2626,9 @@ name|reconstructionLog
 argument_list|)
 operator|)
 condition|?
-literal|" (no reconstruction log)"
+literal|") (no reconstruction log)"
 else|:
-literal|" with reconstruction log: "
+literal|" with reconstruction log: ("
 operator|+
 name|reconstructionLog
 operator|.
@@ -2712,9 +2724,17 @@ name|debug
 argument_list|(
 literal|"maximum sequence id for hstore "
 operator|+
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|familyName
+operator|+
+literal|" ("
+operator|+
 name|storeName
 operator|+
-literal|" is "
+literal|") is "
 operator|+
 name|this
 operator|.
@@ -3309,7 +3329,21 @@ literal|"loading bloom filter for "
 operator|+
 name|this
 operator|.
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|familyName
+operator|+
+literal|" ("
+operator|+
+name|this
+operator|.
 name|storeName
+operator|+
+literal|")"
 argument_list|)
 expr_stmt|;
 block|}
@@ -3407,7 +3441,21 @@ literal|"creating bloom filter for "
 operator|+
 name|this
 operator|.
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|familyName
+operator|+
+literal|" ("
+operator|+
+name|this
+operator|.
 name|storeName
+operator|+
+literal|")"
 argument_list|)
 expr_stmt|;
 block|}
@@ -3526,7 +3574,21 @@ literal|"flushing bloom filter for "
 operator|+
 name|this
 operator|.
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|familyName
+operator|+
+literal|" ("
+operator|+
+name|this
+operator|.
 name|storeName
+operator|+
+literal|")"
 argument_list|)
 expr_stmt|;
 block|}
@@ -3580,7 +3642,21 @@ literal|"flushed bloom filter for "
 operator|+
 name|this
 operator|.
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|familyName
+operator|+
+literal|" ("
+operator|+
+name|this
+operator|.
 name|storeName
+operator|+
+literal|")"
 argument_list|)
 expr_stmt|;
 block|}
@@ -3721,7 +3797,21 @@ literal|"closed "
 operator|+
 name|this
 operator|.
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|familyName
+operator|+
+literal|" ("
+operator|+
+name|this
+operator|.
 name|storeName
+operator|+
+literal|")"
 argument_list|)
 expr_stmt|;
 return|return
@@ -4051,6 +4141,18 @@ operator|.
 name|length
 argument_list|()
 argument_list|)
+operator|+
+literal|" for "
+operator|+
+name|this
+operator|.
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|familyName
 argument_list|)
 expr_stmt|;
 block|}
@@ -4186,6 +4288,18 @@ name|curCompactStore
 operator|.
 name|toString
 argument_list|()
+operator|+
+literal|" for "
+operator|+
+name|this
+operator|.
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|familyName
 argument_list|)
 expr_stmt|;
 block|}
@@ -4328,7 +4442,21 @@ literal|"nothing to compact for "
 operator|+
 name|this
 operator|.
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|familyName
+operator|+
+literal|" ("
+operator|+
+name|this
+operator|.
 name|storeName
+operator|+
+literal|")"
 argument_list|)
 expr_stmt|;
 block|}
@@ -4365,6 +4493,18 @@ name|curCompactStore
 operator|.
 name|toString
 argument_list|()
+operator|+
+literal|" for "
+operator|+
+name|this
+operator|.
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|familyName
 operator|+
 literal|" failed"
 argument_list|)
@@ -4664,6 +4804,18 @@ argument_list|()
 else|:
 literal|""
 operator|)
+operator|+
+literal|" for "
+operator|+
+name|this
+operator|.
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|familyName
 argument_list|)
 expr_stmt|;
 name|closeCompactionReaders
@@ -5229,7 +5381,17 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Exception closing reader"
+literal|"Exception closing reader for "
+operator|+
+name|this
+operator|.
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|familyName
 argument_list|,
 name|e
 argument_list|)
@@ -5643,7 +5805,17 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Redo failed compaction (missing 'done' file)"
+literal|"Redo failed compaction (missing 'done' file) for "
+operator|+
+name|this
+operator|.
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|familyName
 argument_list|)
 expr_stmt|;
 return|return;
@@ -5827,6 +5999,18 @@ name|dir
 operator|.
 name|toString
 argument_list|()
+operator|+
+literal|" for "
+operator|+
+name|this
+operator|.
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|familyName
 argument_list|)
 expr_stmt|;
 block|}
@@ -5855,6 +6039,18 @@ name|finalCompactedFile
 operator|.
 name|toString
 argument_list|()
+operator|+
+literal|" for "
+operator|+
+name|this
+operator|.
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|familyName
 argument_list|)
 expr_stmt|;
 return|return;
@@ -6045,7 +6241,19 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed replacing compacted files. Compacted file is "
+literal|"Failed replacing compacted files for "
+operator|+
+name|this
+operator|.
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|familyName
+operator|+
+literal|". Compacted file is "
 operator|+
 name|finalCompactedFile
 operator|.
@@ -7154,15 +7362,10 @@ name|getTimestamp
 argument_list|()
 return|;
 block|}
-else|else
-block|{
 return|return
 literal|false
 return|;
 block|}
-block|}
-else|else
-block|{
 comment|// otherwise, we want to match on row and column
 return|return
 name|target
@@ -7172,7 +7375,6 @@ argument_list|(
 name|origin
 argument_list|)
 return|;
-block|}
 block|}
 comment|/**    * Test that the<i>target</i> matches the<i>origin</i>. If the<i>origin</i>    * has an empty column, then it just tests row equivalence. Otherwise, it uses    * HStoreKey.matchesRowCol().    * @param origin Key we're testing against    * @param target Key we're testing    */
 specifier|private
@@ -7218,8 +7420,6 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-else|else
-block|{
 comment|// otherwise, we want to match on row and column
 return|return
 name|target
@@ -7229,7 +7429,6 @@ argument_list|(
 name|origin
 argument_list|)
 return|;
-block|}
 block|}
 comment|/*    * Data structure to hold result of a look at store file sizes.    */
 specifier|static
@@ -7531,7 +7730,17 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed getting store size"
+literal|"Failed getting store size for "
+operator|+
+name|this
+operator|.
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|familyName
 argument_list|,
 name|e
 argument_list|)
@@ -8133,7 +8342,13 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Sub-scanner close"
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|familyName
+operator|+
+literal|" closing sub-scanner"
 argument_list|,
 name|e
 argument_list|)
@@ -8228,7 +8443,13 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Scanner close"
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|familyName
+operator|+
+literal|" closing scanner"
 argument_list|,
 name|e
 argument_list|)
@@ -9407,7 +9628,13 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed closeing scanner "
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|familyName
+operator|+
+literal|" failed closing scanner "
 operator|+
 name|i
 argument_list|,
@@ -9510,7 +9737,13 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"number of active scanners less than zero: "
+name|regionName
+operator|+
+literal|"/"
+operator|+
+name|familyName
+operator|+
+literal|" number of active scanners less than zero: "
 operator|+
 name|numberOfScanners
 operator|+

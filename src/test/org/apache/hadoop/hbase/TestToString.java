@@ -175,11 +175,13 @@ name|assertEquals
 argument_list|(
 literal|"HRegionInfo"
 argument_list|,
-literal|"regionname: -ROOT-,,0, startKey:<>, tableDesc: {name: -ROOT-, "
+literal|"regionname: -ROOT-,,0, startKey:<>, encodedName(70236052) tableDesc: "
 operator|+
-literal|"families: {info:={name: info, max versions: 1, compression: NONE, "
+literal|"{name: -ROOT-, families: {info:={name: info, max versions: 1, "
 operator|+
-literal|"in memory: false, max length: 2147483647, bloom filter: none}}}"
+literal|"compression: NONE, in memory: false, max length: 2147483647, bloom "
+operator|+
+literal|"filter: none}}}"
 argument_list|,
 name|hri
 operator|.
