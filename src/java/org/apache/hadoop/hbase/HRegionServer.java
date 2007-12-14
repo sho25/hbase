@@ -827,6 +827,64 @@ name|REGIONSERVER
 init|=
 literal|"regionserver"
 decl_stmt|;
+comment|/**    * Thread to shutdown the region server in an orderly manner.  This thread    * is registered as a shutdown hook in the HRegionServer constructor and is    * only called when the HRegionServer receives a kill signal.    */
+class|class
+name|ShutdownThread
+extends|extends
+name|Thread
+block|{
+specifier|private
+specifier|final
+name|HRegionServer
+name|instance
+decl_stmt|;
+specifier|public
+name|ShutdownThread
+parameter_list|(
+name|HRegionServer
+name|instance
+parameter_list|)
+block|{
+name|this
+operator|.
+name|instance
+operator|=
+name|instance
+expr_stmt|;
+block|}
+specifier|public
+specifier|synchronized
+name|void
+name|start
+parameter_list|()
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting shutdown thread."
+argument_list|)
+expr_stmt|;
+comment|// tell the region server to stop and wait for it to complete
+name|instance
+operator|.
+name|stop
+argument_list|()
+expr_stmt|;
+name|instance
+operator|.
+name|join
+argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Shutdown thread complete"
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 comment|/** Queue entry passed to flusher, compactor and splitter threads */
 class|class
 name|QueueEntry
@@ -2984,6 +3042,22 @@ argument_list|,
 name|this
 operator|.
 name|threadWakeFrequency
+argument_list|)
+expr_stmt|;
+comment|// Register shutdown hook for HRegionServer, runs an orderly shutdown
+comment|// when a kill signal is recieved
+name|Runtime
+operator|.
+name|getRuntime
+argument_list|()
+operator|.
+name|addShutdownHook
+argument_list|(
+operator|new
+name|ShutdownThread
+argument_list|(
+name|this
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -8003,9 +8077,11 @@ condition|)
 block|{
 name|printUsageAndExit
 argument_list|(
-literal|"There is no regionserver stop mechanism. To stop "
+literal|"To shutdown the regionserver run "
 operator|+
-literal|"regionservers, shutdown the hbase master"
+literal|"bin/hbase-daemon.sh stop regionserver or send a kill signal to"
+operator|+
+literal|"the regionserver pid"
 argument_list|)
 expr_stmt|;
 block|}
