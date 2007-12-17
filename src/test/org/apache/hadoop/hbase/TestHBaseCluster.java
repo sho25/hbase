@@ -69,30 +69,6 @@ name|Text
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|log4j
-operator|.
-name|Level
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|log4j
-operator|.
-name|Logger
-import|;
-end_import
-
 begin_comment
 comment|/**  * Test HBase Master and Region servers, client API   */
 end_comment
@@ -143,18 +119,6 @@ operator|.
 name|table
 operator|=
 literal|null
-expr_stmt|;
-name|Logger
-operator|.
-name|getRootLogger
-argument_list|()
-operator|.
-name|setLevel
-argument_list|(
-name|Level
-operator|.
-name|INFO
-argument_list|)
 expr_stmt|;
 comment|// Make the thread wake frequency a little slower so other threads
 comment|// can run
@@ -564,6 +528,10 @@ argument_list|(
 literal|"no data for row "
 operator|+
 name|rowlabel
+operator|+
+literal|"/"
+operator|+
+name|CONTENTS_BASIC
 argument_list|,
 name|bodydata
 argument_list|)
@@ -580,9 +548,6 @@ name|HConstants
 operator|.
 name|UTF8_ENCODING
 argument_list|)
-operator|.
-name|trim
-argument_list|()
 decl_stmt|;
 name|String
 name|teststr
@@ -591,13 +556,13 @@ name|CONTENTSTR
 operator|+
 name|k
 decl_stmt|;
-name|assertEquals
+name|assertTrue
 argument_list|(
 literal|"Incorrect value for key: ("
 operator|+
 name|rowlabel
 operator|+
-literal|","
+literal|"/"
 operator|+
 name|CONTENTS_BASIC
 operator|+
@@ -611,9 +576,14 @@ name|bodystr
 operator|+
 literal|"'"
 argument_list|,
-name|bodystr
-argument_list|,
 name|teststr
+operator|.
+name|compareTo
+argument_list|(
+name|bodystr
+argument_list|)
+operator|==
+literal|0
 argument_list|)
 expr_stmt|;
 name|collabel
@@ -637,6 +607,19 @@ argument_list|,
 name|collabel
 argument_list|)
 expr_stmt|;
+name|assertNotNull
+argument_list|(
+literal|"no data for row "
+operator|+
+name|rowlabel
+operator|+
+literal|"/"
+operator|+
+name|collabel
+argument_list|,
+name|bodydata
+argument_list|)
+expr_stmt|;
 name|bodystr
 operator|=
 operator|new
@@ -648,9 +631,6 @@ name|HConstants
 operator|.
 name|UTF8_ENCODING
 argument_list|)
-operator|.
-name|trim
-argument_list|()
 expr_stmt|;
 name|teststr
 operator|=
@@ -658,13 +638,13 @@ name|ANCHORSTR
 operator|+
 name|k
 expr_stmt|;
-name|assertEquals
+name|assertTrue
 argument_list|(
 literal|"Incorrect value for key: ("
 operator|+
 name|rowlabel
 operator|+
-literal|","
+literal|"/"
 operator|+
 name|collabel
 operator|+
@@ -678,9 +658,14 @@ name|bodystr
 operator|+
 literal|"'"
 argument_list|,
-name|bodystr
-argument_list|,
 name|teststr
+operator|.
+name|compareTo
+argument_list|(
+name|bodystr
+argument_list|)
+operator|==
+literal|0
 argument_list|)
 expr_stmt|;
 block|}
