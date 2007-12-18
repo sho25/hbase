@@ -2308,7 +2308,12 @@ argument_list|()
 argument_list|,
 name|midKey
 argument_list|,
-literal|null
+name|this
+operator|.
+name|regionInfo
+operator|.
+name|getEndKey
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|Path
