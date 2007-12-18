@@ -386,7 +386,9 @@ literal|"CREATE TABLE table_name (column_family_name [MAX_VERSIONS=n] "
 operator|+
 literal|"[MAX_LENGTH=n] [COMPRESSION=NONE|RECORD|BLOCK] [IN_MEMORY] "
 operator|+
-literal|"[BLOOMFILTER=NONE|BLOOM|COUNTING|RETOUCHED VECTOR_SIZE=n NUM_HASH=n], "
+literal|"[BLOOMFILTER=NONE|BLOOMFILTER|COUNTING_BLOOMFILTER|RETOUCHED_BLOOMFILTER "
+operator|+
+literal|"VECTOR_SIZE=n NUM_HASH=n], "
 operator|+
 literal|"...)"
 block|}
