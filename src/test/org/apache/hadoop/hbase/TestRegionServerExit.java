@@ -142,32 +142,42 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"ipc.client.timeout"
-argument_list|,
-literal|10000
-argument_list|)
-expr_stmt|;
-comment|// reduce client timeout
-name|conf
-operator|.
-name|setInt
-argument_list|(
 literal|"ipc.client.connect.max.retries"
 argument_list|,
 literal|5
 argument_list|)
 expr_stmt|;
-comment|// and number of retries
+comment|// reduce ipc retries
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"ipc.client.timeout"
+argument_list|,
+literal|10000
+argument_list|)
+expr_stmt|;
+comment|// and ipc timeout
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.client.pause"
+argument_list|,
+literal|10000
+argument_list|)
+expr_stmt|;
+comment|// increase client timeout
 name|conf
 operator|.
 name|setInt
 argument_list|(
 literal|"hbase.client.retries.number"
 argument_list|,
-literal|5
+literal|10
 argument_list|)
 expr_stmt|;
-comment|// reduce HBase retries
+comment|// increase HBase retries
 block|}
 comment|/**    * Test abort of region server.    * @throws IOException    */
 specifier|public
