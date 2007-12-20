@@ -3461,6 +3461,17 @@ name|bloomFilter
 operator|=
 name|filter
 expr_stmt|;
+comment|// Force reading of the mapfile index by calling midKey.
+comment|// Reading the index will bring the index into memory over
+comment|// here on the client and then close the index file freeing
+comment|// up socket connection and resources in the datanode.
+comment|// Usually, the first access on a MapFile.Reader will load the
+comment|// index force the issue in HStoreFile MapFiles because an
+comment|// access may not happen for some time; meantime we're
+comment|// using up datanode resources.  See HADOOP-2341.
+name|midKey
+argument_list|()
+expr_stmt|;
 block|}
 comment|/** {@inheritDoc} */
 annotation|@

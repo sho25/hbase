@@ -50,6 +50,14 @@ name|HStoreKey
 implements|implements
 name|WritableComparable
 block|{
+specifier|public
+specifier|static
+specifier|final
+name|char
+name|COLUMN_FAMILY_DELIMITER
+init|=
+literal|':'
+decl_stmt|;
 comment|// TODO: Move these utility methods elsewhere (To a Column class?).
 comment|/**    * Extracts the column family name from a column    * For example, returns 'info' if the specified column was 'info:server'    * @param col name of column    * @return column family name    * @throws InvalidColumnNameException     */
 specifier|public
@@ -263,13 +271,46 @@ block|{
 name|int
 name|offset
 init|=
+operator|-
+literal|1
+decl_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
 name|col
 operator|.
-name|find
+name|getLength
+argument_list|()
+condition|;
+name|i
+operator|++
+control|)
+block|{
+if|if
+condition|(
+name|col
+operator|.
+name|charAt
 argument_list|(
-literal|":"
+name|i
 argument_list|)
-decl_stmt|;
+operator|==
+name|COLUMN_FAMILY_DELIMITER
+condition|)
+block|{
+name|offset
+operator|=
+name|i
+expr_stmt|;
+break|break;
+block|}
+block|}
 if|if
 condition|(
 name|offset
@@ -854,7 +895,6 @@ name|result
 return|;
 block|}
 comment|// Comparable
-comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo
@@ -888,10 +928,14 @@ decl_stmt|;
 if|if
 condition|(
 name|result
-operator|==
+operator|!=
 literal|0
 condition|)
 block|{
+return|return
+name|result
+return|;
+block|}
 name|result
 operator|=
 name|this
@@ -908,12 +952,16 @@ expr_stmt|;
 if|if
 condition|(
 name|result
-operator|==
+operator|!=
 literal|0
 condition|)
 block|{
+return|return
+name|result
+return|;
+block|}
 comment|// The below older timestamps sorting ahead of newer timestamps looks
-comment|// wrong but it is intentional.  This way, newer timestamps are first
+comment|// wrong but it is intentional. This way, newer timestamps are first
 comment|// found when we iterate over a memcache and newer versions are the
 comment|// first we trip over when reading from a store file.
 if|if
@@ -949,8 +997,6 @@ operator|=
 operator|-
 literal|1
 expr_stmt|;
-block|}
-block|}
 block|}
 return|return
 name|result

@@ -4961,13 +4961,6 @@ expr_stmt|;
 try|try
 block|{
 comment|// find the HStore for the column family
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|family
-argument_list|)
-expr_stmt|;
 name|HStore
 name|store
 init|=
@@ -5577,17 +5570,13 @@ block|{
 name|Text
 name|family
 init|=
-operator|new
-name|Text
-argument_list|(
 name|HStoreKey
 operator|.
 name|extractFamily
 argument_list|(
 name|columnName
-argument_list|)
-operator|+
-literal|":"
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 if|if
@@ -6000,6 +5989,12 @@ name|i
 operator|++
 control|)
 block|{
+comment|// TODO: The cols passed in here can include columns from other
+comment|// stores; add filter so only pertinent columns are passed.
+comment|//
+comment|// Also, if more than one store involved, need to replicate filters.
+comment|// At least WhileMatchRowFilter will mess up the scan if only
+comment|// one shared across many rows. See HADOOP-2467.
 name|scanners
 index|[
 name|i
@@ -6018,6 +6013,28 @@ name|cols
 argument_list|,
 name|firstRow
 argument_list|,
+operator|(
+name|i
+operator|>
+literal|0
+operator|&&
+name|filter
+operator|!=
+literal|null
+operator|)
+condition|?
+operator|(
+name|RowFilterInterface
+operator|)
+name|Writables
+operator|.
+name|clone
+argument_list|(
+name|filter
+argument_list|,
+name|conf
+argument_list|)
+else|:
 name|filter
 argument_list|)
 expr_stmt|;
@@ -6069,8 +6086,8 @@ throw|throw
 name|e
 throw|;
 block|}
-comment|//       Advance to the first key in each store.
-comment|//       All results will match the required column-set and scanTime.
+comment|// Advance to the first key in each store.
+comment|// All results will match the required column-set and scanTime.
 name|this
 operator|.
 name|resultSets

@@ -621,6 +621,7 @@ literal|null
 argument_list|)
 return|;
 block|}
+comment|/**    * Create a table of name<code>name</code> with {@link COLUMNS} for    * families.    * @param name Name to give table.    * @return Column descriptor.    */
 specifier|protected
 name|HTableDescriptor
 name|createTableDescriptor
@@ -639,6 +640,7 @@ name|MAXVERSIONS
 argument_list|)
 return|;
 block|}
+comment|/**    * Create a table of name<code>name</code> with {@link COLUMNS} for    * families.    * @param name Name to give table.    * @param versions How many versions to allow per column.    * @return Column descriptor.    */
 specifier|protected
 name|HTableDescriptor
 name|createTableDescriptor
