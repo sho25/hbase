@@ -1386,6 +1386,9 @@ operator|.
 name|getKey
 argument_list|()
 argument_list|)
+operator|.
+name|toText
+argument_list|()
 decl_stmt|;
 name|HStore
 name|store

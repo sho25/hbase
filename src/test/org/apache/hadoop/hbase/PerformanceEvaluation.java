@@ -39,16 +39,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|UnsupportedEncodingException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|text
 operator|.
 name|SimpleDateFormat
@@ -2325,6 +2315,7 @@ literal|"sequentialWrite"
 return|;
 block|}
 block|}
+comment|/*    * Format passed integer.    * This method takes some time and is done inline uploading data.  For    * example, doing the mapfile test, generation of the key and value    * consumes about 30% of CPU time.    * @param i    * @return Integer as String zero padded.    */
 specifier|static
 name|Text
 name|format
@@ -2354,7 +2345,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/*    * @return Generated random value to insert into a table cell.    */
+comment|/*    * This method takes some time and is done inline uploading data.  For    * example, doing the mapfile test, generation of the key and value    * consumes about 30% of CPU time.    * @return Generated random value to insert into a table cell.    */
 specifier|static
 name|byte
 index|[]
@@ -2365,76 +2356,25 @@ name|Random
 name|r
 parameter_list|)
 block|{
-name|StringBuilder
-name|val
-init|=
-operator|new
-name|StringBuilder
-argument_list|()
-decl_stmt|;
-while|while
-condition|(
-name|val
-operator|.
-name|length
-argument_list|()
-operator|<
-name|ROW_LENGTH
-condition|)
-block|{
-name|val
-operator|.
-name|append
-argument_list|(
-name|Long
-operator|.
-name|toString
-argument_list|(
-name|r
-operator|.
-name|nextLong
-argument_list|()
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
 name|byte
 index|[]
-name|value
+name|b
 init|=
-literal|null
+operator|new
+name|byte
+index|[
+name|ROW_LENGTH
+index|]
 decl_stmt|;
-try|try
-block|{
-name|value
-operator|=
-name|val
+name|r
 operator|.
-name|toString
-argument_list|()
-operator|.
-name|getBytes
+name|nextBytes
 argument_list|(
-name|HConstants
-operator|.
-name|UTF8_ENCODING
+name|b
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|UnsupportedEncodingException
-name|e
-parameter_list|)
-block|{
-assert|assert
-operator|(
-literal|false
-operator|)
-assert|;
-block|}
 return|return
-name|value
+name|b
 return|;
 block|}
 specifier|static
@@ -2906,10 +2846,15 @@ decl_stmt|;
 name|Path
 name|mf
 init|=
+name|fs
+operator|.
+name|makeQualified
+argument_list|(
 operator|new
 name|Path
 argument_list|(
 literal|"performanceevaluation.mapfile"
+argument_list|)
 argument_list|)
 decl_stmt|;
 if|if
@@ -3044,7 +2989,11 @@ operator|-
 name|startTime
 operator|)
 operator|+
-literal|"ms"
+literal|"ms (Note: generation of keys "
+operator|+
+literal|"and values is done inline and has been seen to consume "
+operator|+
+literal|"significant time: e.g. ~30% of cpu time"
 argument_list|)
 expr_stmt|;
 comment|// Do random reads.
@@ -3171,7 +3120,11 @@ operator|-
 name|startTime
 operator|)
 operator|+
-literal|"ms"
+literal|"ms (Note: generation of "
+operator|+
+literal|"random key is done in line and takes a significant amount of cpu "
+operator|+
+literal|"time: e.g 10-15%"
 argument_list|)
 expr_stmt|;
 comment|// Do random reads.
