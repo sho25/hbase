@@ -3973,6 +3973,11 @@ comment|// which file to interlace (favor references first, etc.)
 comment|//
 comment|// Related, looks like 'merging compactions' in BigTable paper interlaces
 comment|// a memcache flush.  We don't.
+name|int
+name|entries
+init|=
+literal|0
+decl_stmt|;
 try|try
 block|{
 for|for
@@ -4027,6 +4032,9 @@ name|familyName
 argument_list|)
 condition|)
 block|{
+name|entries
+operator|++
+expr_stmt|;
 name|out
 operator|.
 name|append
@@ -4150,11 +4158,15 @@ literal|"Added "
 operator|+
 name|name
 operator|+
-literal|" with sequence id "
+literal|" with "
+operator|+
+name|entries
+operator|+
+literal|" entries, sequence id "
 operator|+
 name|logCacheFlushId
 operator|+
-literal|" and size "
+literal|", and size "
 operator|+
 name|StringUtils
 operator|.
