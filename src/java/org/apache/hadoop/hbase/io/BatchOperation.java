@@ -76,7 +76,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Batch update operations such as put, delete, and deleteAll.  */
+comment|/**  * Batch update operation.  *   * If value is null, its a DELETE operation.  If its non-null, its a PUT.  * This object is purposely bare-bones because many instances are created  * during bulk uploads.  We have one class for DELETEs and PUTs rather than  * a class per type because it makes the serialization easier.  * @see BatchUpdate   */
 end_comment
 
 begin_class
@@ -86,32 +86,17 @@ name|BatchOperation
 implements|implements
 name|Writable
 block|{
-comment|/**     * Operation types.    * @see org.apache.hadoop.io.SequenceFile.Writer    */
-specifier|public
-specifier|static
-enum|enum
-name|Operation
-block|{
-comment|/** update a field */
-name|PUT
-block|,
-comment|/** delete a field */
-name|DELETE
-block|}
-specifier|private
-name|Operation
-name|op
-decl_stmt|;
 specifier|private
 name|Text
 name|column
 decl_stmt|;
+comment|// A null value defines DELETE operations.
 specifier|private
 name|byte
 index|[]
 name|value
 decl_stmt|;
-comment|/** default constructor used by Writable */
+comment|/** Default constructor used by Writable */
 specifier|public
 name|BatchOperation
 parameter_list|()
@@ -124,7 +109,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a DELETE operation    *     * @param column column name    */
+comment|/**    * Creates a DELETE batch operation.    * @param column column name    */
 specifier|public
 name|BatchOperation
 parameter_list|(
@@ -135,17 +120,13 @@ parameter_list|)
 block|{
 name|this
 argument_list|(
-name|Operation
-operator|.
-name|DELETE
-argument_list|,
 name|column
 argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a PUT operation    *     * @param column column name    * @param value column value    */
+comment|/**    * Create a batch operation.    * @param column column name    * @param value column value.  If non-null, this is a PUT operation.    */
 specifier|public
 name|BatchOperation
 parameter_list|(
@@ -159,42 +140,6 @@ index|[]
 name|value
 parameter_list|)
 block|{
-name|this
-argument_list|(
-name|Operation
-operator|.
-name|PUT
-argument_list|,
-name|column
-argument_list|,
-name|value
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Creates a put operation    *    * @param operation the operation (put or get)    * @param column column name    * @param value column value    */
-specifier|public
-name|BatchOperation
-parameter_list|(
-specifier|final
-name|Operation
-name|operation
-parameter_list|,
-specifier|final
-name|Text
-name|column
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|value
-parameter_list|)
-block|{
-name|this
-operator|.
-name|op
-operator|=
-name|operation
-expr_stmt|;
 name|this
 operator|.
 name|column
@@ -215,19 +160,9 @@ name|getColumn
 parameter_list|()
 block|{
 return|return
-name|column
-return|;
-block|}
-comment|/**    * @return the operation    */
-specifier|public
-name|Operation
-name|getOp
-parameter_list|()
-block|{
-return|return
 name|this
 operator|.
-name|op
+name|column
 return|;
 block|}
 comment|/**    * @return the value    */
@@ -238,43 +173,42 @@ name|getValue
 parameter_list|()
 block|{
 return|return
+name|this
+operator|.
 name|value
 return|;
 block|}
-comment|//
-comment|// Writable
-comment|//
-comment|/**    * {@inheritDoc}    */
+comment|/**    * @return True if this is a PUT operation (this.value is not null).    */
+specifier|public
+name|boolean
+name|isPut
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|value
+operator|!=
+literal|null
+return|;
+block|}
+comment|// Writable methods
+comment|// This is a hotspot when updating deserializing incoming client submissions.
+comment|// In Performance Evaluation sequentialWrite, 70% of object allocations are
+comment|// done in here.
 specifier|public
 name|void
 name|readFields
 parameter_list|(
+specifier|final
 name|DataInput
 name|in
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|int
-name|ordinal
-init|=
-name|in
-operator|.
-name|readInt
-argument_list|()
-decl_stmt|;
 name|this
 operator|.
-name|op
-operator|=
-name|Operation
-operator|.
-name|values
-argument_list|()
-index|[
-name|ordinal
-index|]
-expr_stmt|;
 name|column
 operator|.
 name|readFields
@@ -282,17 +216,17 @@ argument_list|(
 name|in
 argument_list|)
 expr_stmt|;
+comment|// Is there a value to read?
 if|if
 condition|(
-name|this
+name|in
 operator|.
-name|op
-operator|==
-name|Operation
-operator|.
-name|PUT
+name|readBoolean
+argument_list|()
 condition|)
 block|{
+name|this
+operator|.
 name|value
 operator|=
 operator|new
@@ -308,34 +242,26 @@ name|in
 operator|.
 name|readFully
 argument_list|(
+name|this
+operator|.
 name|value
 argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|write
 parameter_list|(
+specifier|final
 name|DataOutput
 name|out
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|out
-operator|.
-name|writeInt
-argument_list|(
 name|this
 operator|.
-name|op
-operator|.
-name|ordinal
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|column
 operator|.
 name|write
@@ -343,15 +269,22 @@ argument_list|(
 name|out
 argument_list|)
 expr_stmt|;
+name|boolean
+name|p
+init|=
+name|isPut
+argument_list|()
+decl_stmt|;
+name|out
+operator|.
+name|writeBoolean
+argument_list|(
+name|p
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
-name|this
-operator|.
-name|op
-operator|==
-name|Operation
-operator|.
-name|PUT
+name|p
 condition|)
 block|{
 name|out

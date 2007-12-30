@@ -244,7 +244,7 @@ operator|.
 name|lockid
 return|;
 block|}
-comment|/**     * Change a value for the specified column    *    * @param lid lock id returned from startUpdate    * @param column column whose value is being set    * @param val new value for column    */
+comment|/**     * Change a value for the specified column    *    * @param lid lock id returned from startUpdate    * @param column column whose value is being set    * @param val new value for column.  Cannot be null (can be empty).    */
 specifier|public
 specifier|synchronized
 name|void
@@ -280,6 +280,22 @@ argument_list|(
 literal|"invalid lockid "
 operator|+
 name|lid
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
+name|val
+operator|==
+literal|null
+condition|)
+block|{
+comment|// If null, the PUT becomes a DELETE operation.
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Passed value cannot be null"
 argument_list|)
 throw|;
 block|}
@@ -365,11 +381,11 @@ block|}
 comment|//
 comment|// Writable
 comment|//
-comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|readFields
 parameter_list|(
+specifier|final
 name|DataInput
 name|in
 parameter_list|)
@@ -429,11 +445,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|write
 parameter_list|(
+specifier|final
 name|DataOutput
 name|out
 parameter_list|)
