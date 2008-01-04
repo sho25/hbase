@@ -608,11 +608,14 @@ name|ServletException
 throws|,
 name|IOException
 block|{
-name|doMethodNotAllowed
+name|deleteScanner
 argument_list|(
 name|response
 argument_list|,
-literal|"Not hooked back up yet!"
+name|pathSegments
+index|[
+literal|2
+index|]
 argument_list|)
 expr_stmt|;
 block|}
