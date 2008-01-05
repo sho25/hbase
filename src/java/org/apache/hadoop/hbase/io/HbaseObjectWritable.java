@@ -548,6 +548,18 @@ name|code
 operator|++
 argument_list|)
 expr_stmt|;
+name|addToMap
+argument_list|(
+name|byte
+index|[]
+index|[]
+operator|.
+expr|class
+argument_list|,
+name|code
+operator|++
+argument_list|)
+expr_stmt|;
 comment|// Hadoop types
 name|addToMap
 argument_list|(
