@@ -260,6 +260,13 @@ name|RELAUNCH_FLAG
 init|=
 literal|7
 decl_stmt|;
+specifier|public
+specifier|static
+name|int
+name|EXIT_FLAG
+init|=
+literal|9999
+decl_stmt|;
 comment|/** Return the boolean value indicating whether end of command or not */
 specifier|static
 name|boolean

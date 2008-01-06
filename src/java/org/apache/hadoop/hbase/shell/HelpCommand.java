@@ -500,6 +500,22 @@ name|load
 operator|.
 name|put
 argument_list|(
+literal|"TRUNCATE"
+argument_list|,
+operator|new
+name|String
+index|[]
+block|{
+literal|"Truncate table is used to clean all data from a table"
+block|,
+literal|"TRUNCATE TABLE table_name;"
+block|}
+argument_list|)
+block|;
+name|load
+operator|.
+name|put
+argument_list|(
 literal|"EXIT"
 argument_list|,
 operator|new

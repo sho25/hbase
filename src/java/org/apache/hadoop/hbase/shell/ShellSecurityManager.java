@@ -100,7 +100,9 @@ if|if
 condition|(
 name|status
 operator|!=
-literal|9999
+name|Shell
+operator|.
+name|EXIT_FLAG
 condition|)
 block|{
 comment|// throw new ExitException(status);

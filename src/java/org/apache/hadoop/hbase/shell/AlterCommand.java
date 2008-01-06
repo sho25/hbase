@@ -276,6 +276,11 @@ name|o
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 name|ReturnMsg
 name|execute
@@ -889,7 +894,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * Given a column name, column spec, and original descriptor, returns an     * instance of HColumnDescriptor representing the column spec, with empty    * values drawn from the original as defaults    */
+comment|/**    * Given a column name, column spec, and original descriptor, returns an    * instance of HColumnDescriptor representing the column spec, with empty    * values drawn from the original as defaults    */
 specifier|protected
 name|HColumnDescriptor
 name|getColumnDescriptor
