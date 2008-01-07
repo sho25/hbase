@@ -170,8 +170,6 @@ argument_list|(
 operator|new
 name|Text
 argument_list|(
-name|this
-operator|.
 name|tableName
 argument_list|)
 argument_list|)
@@ -185,8 +183,6 @@ literal|0
 argument_list|,
 literal|"'"
 operator|+
-name|this
-operator|.
 name|tableName
 operator|+
 literal|"'"

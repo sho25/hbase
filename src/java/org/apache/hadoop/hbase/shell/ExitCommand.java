@@ -41,6 +41,20 @@ name|HBaseConfiguration
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Shell
+import|;
+end_import
+
 begin_class
 specifier|public
 class|class
@@ -80,7 +94,9 @@ name|System
 operator|.
 name|exit
 argument_list|(
-literal|9999
+name|Shell
+operator|.
+name|EXIT_FLAG
 argument_list|)
 expr_stmt|;
 return|return

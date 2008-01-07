@@ -300,7 +300,7 @@ index|[]
 block|{
 literal|"Show information about selected title"
 block|,
-literal|"SHOW TABLES[or substitution variable name];"
+literal|"SHOW TABLES [or substitution variable name];"
 block|}
 argument_list|)
 block|;
@@ -424,7 +424,9 @@ literal|"Insert values into table"
 block|,
 literal|"INSERT INTO table_name (column_name, ...) "
 operator|+
-literal|"VALUES ('value', ...) WHERE row='row_key';"
+literal|"VALUES ('value', ...) WHERE row='row_key'"
+operator|+
+literal|" [TIMESTAMP 'timestamp'];"
 block|}
 argument_list|)
 block|;

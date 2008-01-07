@@ -208,8 +208,6 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|this
-operator|.
 name|tableName
 operator|==
 literal|null
@@ -242,8 +240,6 @@ name|conn
 operator|.
 name|tableExists
 argument_list|(
-name|this
-operator|.
 name|tableName
 argument_list|)
 condition|)
@@ -302,8 +298,6 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
-name|this
-operator|.
 name|tableName
 argument_list|)
 condition|)

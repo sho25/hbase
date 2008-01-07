@@ -482,8 +482,6 @@ try|try
 block|{
 if|if
 condition|(
-name|this
-operator|.
 name|columnList
 operator|.
 name|contains
@@ -543,8 +541,6 @@ literal|0
 init|;
 name|i
 operator|<
-name|this
-operator|.
 name|columnList
 operator|.
 name|size
@@ -561,8 +557,6 @@ literal|null
 decl_stmt|;
 if|if
 condition|(
-name|this
-operator|.
 name|columnList
 operator|.
 name|get
@@ -580,8 +574,6 @@ operator|=
 operator|new
 name|Text
 argument_list|(
-name|this
-operator|.
 name|columnList
 operator|.
 name|get
@@ -596,8 +588,6 @@ operator|=
 operator|new
 name|Text
 argument_list|(
-name|this
-operator|.
 name|columnList
 operator|.
 name|get
