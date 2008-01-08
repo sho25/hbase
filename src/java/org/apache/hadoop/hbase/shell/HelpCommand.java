@@ -462,7 +462,7 @@ literal|"Select values from table"
 block|,
 literal|"SELECT {column_name, [, column_name] ... | *} FROM table_name "
 operator|+
-literal|"[WHERE row='row_key' | STARTING FROM 'row-key'] "
+literal|"[WHERE row='row_key' | STARTING FROM 'row-key' [UNTIL 'stop-key']] "
 operator|+
 literal|"[NUM_VERSIONS = version_count] "
 operator|+
