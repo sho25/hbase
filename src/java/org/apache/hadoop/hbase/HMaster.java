@@ -2277,7 +2277,52 @@ operator|.
 name|getRegionName
 argument_list|()
 operator|+
-literal|" is no good"
+literal|" is no good: storedInfo: "
+operator|+
+name|storedInfo
+operator|+
+literal|", startCode: "
+operator|+
+name|startCode
+operator|+
+literal|", storedInfo.startCode: "
+operator|+
+operator|(
+operator|(
+name|storedInfo
+operator|!=
+literal|null
+operator|)
+condition|?
+name|storedInfo
+operator|.
+name|getStartCode
+argument_list|()
+else|:
+operator|-
+literal|1
+operator|)
+operator|+
+literal|", unassignedRegions: "
+operator|+
+name|unassignedRegions
+operator|.
+name|containsKey
+argument_list|(
+name|info
+argument_list|)
+operator|+
+literal|", pendingRegions: "
+operator|+
+name|pendingRegions
+operator|.
+name|contains
+argument_list|(
+name|info
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -4475,7 +4520,7 @@ expr_stmt|;
 name|startServiceThreads
 argument_list|()
 expr_stmt|;
-comment|/*      * Main processing loop      */
+comment|/* Main processing loop */
 try|try
 block|{
 for|for
@@ -5149,6 +5194,22 @@ argument_list|(
 literal|"Failed startup"
 argument_list|,
 name|e
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Started service threads"
 argument_list|)
 expr_stmt|;
 block|}

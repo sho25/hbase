@@ -653,11 +653,24 @@ argument_list|(
 literal|"Shutting down Mini DFS "
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|cluster
 operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+comment|/// Can get a java.lang.reflect.UndeclaredThrowableException thrown
+comment|// here because of an InterruptedException. Don't let exceptions in
+comment|// here be cause of test failure.
+block|}
 block|}
 block|}
 block|}

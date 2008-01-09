@@ -76,7 +76,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * As CharSequence is to String, so is TextSequence to {@link Text}  * (except a TextSequence is a Text whereas a String is a CharSequence). Use  * when you want to conserve on object creation.  *   *<p>Use with care. If danger that the passed in {@link Text} instance can  * change during the life of this TextSequence, concretize this TextSequence  * by calling {@link #toText()}.  *   *<p>Equals considers a Text equal if the TextSequence brackets the same bytes.  *   *<p>TODO: Should this be an Interface as CharSequence is?  */
+comment|/**  * As CharSequence is to String, so is TextSequence to {@link Text}  * (except a TextSequence is a Text whereas a String is a CharSequence). Use  * when you want to conserve on object creation.  *   *<p>Use with care. If danger that the passed in {@link Text} instance can  * change during the life of this TextSequence, concretize this TextSequence  * by calling {@link #toText()}.  *   *<p>Equals considers a Text equal if the TextSequence brackets the same bytes.  *   *<p>TextSequence will not always work as a Text.  For instance, the following  * fails<code>Text c = new Text(new TextSequence(new Text("some string")));  *</code> because the Text constructor accesses private Text data members  * making the new instance from the passed 'Text'.  *   *<p>TODO: Should this be an Interface as CharSequence is?  */
 end_comment
 
 begin_class

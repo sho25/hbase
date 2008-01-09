@@ -691,6 +691,8 @@ name|dir
 argument_list|)
 expr_stmt|;
 comment|// Start up HBase cluster
+comment|// Only one region server.  MultiRegionServer manufacturing code below
+comment|// depends on there being one region server only.
 name|hCluster
 operator|=
 operator|new
@@ -1202,7 +1204,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Print table contents before map/reduce"
+literal|"Print table contents before map/reduce for "
+operator|+
+name|SINGLE_REGION_TABLE_NAME
 argument_list|)
 expr_stmt|;
 name|scanTable
@@ -1300,6 +1304,15 @@ argument_list|,
 name|jobConf
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Started "
+operator|+
+name|SINGLE_REGION_TABLE_NAME
+argument_list|)
+expr_stmt|;
 name|JobClient
 operator|.
 name|runJob
@@ -1307,20 +1320,13 @@ argument_list|(
 name|jobConf
 argument_list|)
 expr_stmt|;
-block|}
-finally|finally
-block|{
-name|mrCluster
-operator|.
-name|shutdown
-argument_list|()
-expr_stmt|;
-block|}
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Print table contents after map/reduce"
+literal|"Print table contents after map/reduce for "
+operator|+
+name|SINGLE_REGION_TABLE_NAME
 argument_list|)
 expr_stmt|;
 name|scanTable
@@ -1336,6 +1342,15 @@ argument_list|(
 name|SINGLE_REGION_TABLE_NAME
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|mrCluster
+operator|.
+name|shutdown
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 finally|finally
 block|{
@@ -1542,11 +1557,26 @@ argument_list|,
 name|jobConf
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Started "
+operator|+
+name|MULTI_REGION_TABLE_NAME
+argument_list|)
+expr_stmt|;
 name|JobClient
 operator|.
 name|runJob
 argument_list|(
 name|jobConf
+argument_list|)
+expr_stmt|;
+comment|// verify map-reduce results
+name|verify
+argument_list|(
+name|MULTI_REGION_TABLE_NAME
 argument_list|)
 expr_stmt|;
 block|}
@@ -1558,12 +1588,6 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
-comment|// verify map-reduce results
-name|verify
-argument_list|(
-name|MULTI_REGION_TABLE_NAME
-argument_list|)
-expr_stmt|;
 block|}
 finally|finally
 block|{

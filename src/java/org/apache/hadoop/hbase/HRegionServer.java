@@ -4858,7 +4858,16 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Telling master we are up"
+literal|"Telling master at "
+operator|+
+name|conf
+operator|.
+name|get
+argument_list|(
+name|MASTER_ADDRESS
+argument_list|)
+operator|+
+literal|" that we are up"
 argument_list|)
 expr_stmt|;
 block|}
