@@ -3752,6 +3752,24 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+try|try
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+name|pause
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+comment|// continue
+block|}
 block|}
 catch|catch
 parameter_list|(

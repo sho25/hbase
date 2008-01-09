@@ -581,6 +581,21 @@ name|INFO
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Enable mapreduce loggging for the mapreduce jobs.
+name|Logger
+operator|.
+name|getLogger
+argument_list|(
+literal|"org.apache.hadoop.mapred"
+argument_list|)
+operator|.
+name|setLevel
+argument_list|(
+name|Level
+operator|.
+name|DEBUG
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Common method to close down a MiniDFSCluster and the associated file system    *     * @param cluster    */
 specifier|public

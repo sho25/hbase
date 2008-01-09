@@ -21,6 +21,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|io
@@ -40,6 +68,24 @@ name|TestMasterAdmin
 extends|extends
 name|HBaseClusterTestCase
 block|{
+specifier|private
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|this
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -170,6 +216,23 @@ argument_list|(
 name|testDesc
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Table "
+operator|+
+name|testDesc
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" created"
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|disableTable
@@ -178,6 +241,23 @@ name|testDesc
 operator|.
 name|getName
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Table "
+operator|+
+name|testDesc
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" disabled"
 argument_list|)
 expr_stmt|;
 try|try
@@ -210,7 +290,7 @@ parameter_list|)
 block|{
 comment|// Expected
 comment|// This exception is not actually thrown.  It doesn't look like it should
-comment|// thrown since the connection manager is already filled w/ data
+comment|// throw since the connection manager is already filled w/ data
 comment|// -- noticed by St.Ack 09/09/2007
 block|}
 name|admin
