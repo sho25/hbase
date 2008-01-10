@@ -1459,12 +1459,15 @@ operator|.
 name|headMap
 argument_list|(
 operator|(
-name|oldestOutstandingSeqNum
-operator|+
 name|Long
 operator|.
 name|valueOf
 argument_list|(
+name|oldestOutstandingSeqNum
+operator|.
+name|longValue
+argument_list|()
+operator|+
 literal|1L
 argument_list|)
 operator|)
@@ -1520,6 +1523,9 @@ name|longValue
 argument_list|()
 operator|==
 name|oldestOutstandingSeqNum
+operator|.
+name|longValue
+argument_list|()
 condition|)
 block|{
 name|oldestRegion

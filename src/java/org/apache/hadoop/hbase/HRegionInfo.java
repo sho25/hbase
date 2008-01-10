@@ -316,17 +316,9 @@ argument_list|()
 decl_stmt|;
 name|result
 operator|^=
-name|Long
-operator|.
-name|valueOf
-argument_list|(
 name|this
 operator|.
 name|regionId
-argument_list|)
-operator|.
-name|hashCode
-argument_list|()
 expr_stmt|;
 name|result
 operator|^=

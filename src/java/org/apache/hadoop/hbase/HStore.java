@@ -1110,15 +1110,6 @@ decl_stmt|;
 comment|// TODO: If get is of a particular version -- numVersions == 1 -- we
 comment|// should be able to avoid all of the tailmap creations and iterations
 comment|// below.
-name|HStoreKey
-name|curKey
-init|=
-operator|new
-name|HStoreKey
-argument_list|(
-name|key
-argument_list|)
-decl_stmt|;
 name|SortedMap
 argument_list|<
 name|HStoreKey
@@ -1132,7 +1123,7 @@ name|map
 operator|.
 name|tailMap
 argument_list|(
-name|curKey
+name|key
 argument_list|)
 decl_stmt|;
 for|for
@@ -1168,7 +1159,7 @@ name|itKey
 operator|.
 name|matchesRowCol
 argument_list|(
-name|curKey
+name|key
 argument_list|)
 condition|)
 block|{
@@ -1196,18 +1187,6 @@ name|get
 argument_list|(
 name|itKey
 argument_list|)
-argument_list|)
-expr_stmt|;
-name|curKey
-operator|.
-name|setVersion
-argument_list|(
-name|itKey
-operator|.
-name|getTimestamp
-argument_list|()
-operator|-
-literal|1
 argument_list|)
 expr_stmt|;
 block|}

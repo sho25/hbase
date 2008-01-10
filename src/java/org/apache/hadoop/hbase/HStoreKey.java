@@ -577,17 +577,9 @@ argument_list|()
 expr_stmt|;
 name|result
 operator|^=
-name|Long
-operator|.
-name|valueOf
-argument_list|(
 name|this
 operator|.
 name|timestamp
-argument_list|)
-operator|.
-name|hashCode
-argument_list|()
 expr_stmt|;
 return|return
 name|result
