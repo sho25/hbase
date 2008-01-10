@@ -330,8 +330,7 @@ name|tableName
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|// We created the table.  Get the parent region here now.  One will
-comment|// have been created though nought in it.
+comment|// Get the parent region here now.
 name|HRegionInfo
 name|parent
 init|=
@@ -818,7 +817,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Parent split returned "
+literal|"Parent split info returned "
 operator|+
 name|data
 operator|.
@@ -1112,11 +1111,19 @@ return|;
 block|}
 finally|finally
 block|{
+if|if
+condition|(
+name|s
+operator|!=
+literal|null
+condition|)
+block|{
 name|s
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/*    * @return Return row info for passed in region or null if not found in scan.    */
