@@ -723,17 +723,37 @@ argument_list|()
 operator|+
 literal|" and daughters are "
 operator|+
+operator|(
+operator|(
+name|splitA
+operator|!=
+literal|null
+operator|)
+condition|?
 name|splitA
 operator|.
 name|getRegionName
 argument_list|()
+else|:
+literal|"-"
+operator|)
 operator|+
 literal|", "
 operator|+
+operator|(
+operator|(
+name|splitB
+operator|!=
+literal|null
+operator|)
+condition|?
 name|splitB
 operator|.
 name|getRegionName
 argument_list|()
+else|:
+literal|"-"
+operator|)
 argument_list|)
 expr_stmt|;
 comment|// Recalibrate will cause us to wait on new regions' deployment
