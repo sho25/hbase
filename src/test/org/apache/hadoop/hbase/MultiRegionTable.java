@@ -1471,6 +1471,22 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|r
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Passed region is null"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|LOG
 operator|.
 name|info
