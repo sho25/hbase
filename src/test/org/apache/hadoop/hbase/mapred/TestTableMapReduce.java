@@ -367,6 +367,20 @@ name|Reporter
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|mapred
+operator|.
+name|OutputCollector
+import|;
+end_import
+
 begin_comment
 comment|/**  * Test Map/Reduce job over HBase tables  */
 end_comment
@@ -785,16 +799,12 @@ class|class
 name|ProcessContentsMapper
 extends|extends
 name|TableMap
+argument_list|<
+name|Text
+argument_list|,
+name|MapWritable
+argument_list|>
 block|{
-comment|/** constructor */
-specifier|public
-name|ProcessContentsMapper
-parameter_list|()
-block|{
-name|super
-argument_list|()
-expr_stmt|;
-block|}
 comment|/**      * Pass the key, and reversed value to reduce      *      * @see org.apache.hadoop.hbase.mapred.TableMap#map(org.apache.hadoop.hbase.HStoreKey, org.apache.hadoop.io.MapWritable, org.apache.hadoop.hbase.mapred.TableOutputCollector, org.apache.hadoop.mapred.Reporter)      */
 annotation|@
 name|SuppressWarnings
@@ -813,7 +823,12 @@ parameter_list|,
 name|MapWritable
 name|value
 parameter_list|,
-name|TableOutputCollector
+name|OutputCollector
+argument_list|<
+name|Text
+argument_list|,
+name|MapWritable
+argument_list|>
 name|output
 parameter_list|,
 annotation|@

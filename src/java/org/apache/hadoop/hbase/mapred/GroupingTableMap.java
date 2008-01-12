@@ -167,6 +167,20 @@ name|hadoop
 operator|.
 name|mapred
 operator|.
+name|OutputCollector
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|mapred
+operator|.
 name|Reporter
 import|;
 end_import
@@ -181,6 +195,11 @@ class|class
 name|GroupingTableMap
 extends|extends
 name|TableMap
+argument_list|<
+name|Text
+argument_list|,
+name|MapWritable
+argument_list|>
 block|{
 comment|/**    * JobConf parameter to specify the columns used to produce the key passed to     * collect from the map phase    */
 specifier|public
@@ -196,16 +215,12 @@ name|Text
 index|[]
 name|m_columns
 decl_stmt|;
-comment|/** default constructor */
-specifier|public
-name|GroupingTableMap
-parameter_list|()
-block|{
-name|super
-argument_list|()
-expr_stmt|;
-block|}
 comment|/**    * Use this before submitting a TableMap job. It will appropriately set up the    * JobConf.    *    * @param table table to be processed    * @param columns space separated list of columns to fetch    * @param groupColumns space separated list of columns used to form the key    * used in collect    * @param mapper map class    * @param job job configuration object    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 specifier|static
 name|void
@@ -332,7 +347,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Extract the grouping columns from value to construct a new key.    *     * Pass the new key and value to reduce.    * If any of the grouping columns are not found in the value, the record is skipped.    *    * @see org.apache.hadoop.hbase.mapred.TableMap#map(org.apache.hadoop.hbase.HStoreKey, org.apache.hadoop.io.MapWritable, org.apache.hadoop.hbase.mapred.TableOutputCollector, org.apache.hadoop.mapred.Reporter)    */
+comment|/**    * Extract the grouping columns from value to construct a new key.    *     * Pass the new key and value to reduce.    * If any of the grouping columns are not found in the value, the record is skipped.    *    * @see org.apache.hadoop.hbase.mapred.TableMap#map(org.apache.hadoop.hbase.HStoreKey, org.apache.hadoop.io.MapWritable, org.apache.hadoop.mapred.OutputCollector, org.apache.hadoop.mapred.Reporter)    */
 annotation|@
 name|Override
 specifier|public
@@ -350,7 +365,12 @@ parameter_list|,
 name|MapWritable
 name|value
 parameter_list|,
-name|TableOutputCollector
+name|OutputCollector
+argument_list|<
+name|Text
+argument_list|,
+name|MapWritable
+argument_list|>
 name|output
 parameter_list|,
 annotation|@

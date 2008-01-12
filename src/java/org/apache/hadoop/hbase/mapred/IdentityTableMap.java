@@ -79,6 +79,20 @@ name|hadoop
 operator|.
 name|mapred
 operator|.
+name|OutputCollector
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|mapred
+operator|.
 name|Reporter
 import|;
 end_import
@@ -93,6 +107,11 @@ class|class
 name|IdentityTableMap
 extends|extends
 name|TableMap
+argument_list|<
+name|Text
+argument_list|,
+name|MapWritable
+argument_list|>
 block|{
 comment|/** constructor */
 specifier|public
@@ -103,7 +122,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Pass the key, value to reduce    *    * @see org.apache.hadoop.hbase.mapred.TableMap#map(org.apache.hadoop.hbase.HStoreKey, org.apache.hadoop.io.MapWritable, org.apache.hadoop.hbase.mapred.TableOutputCollector, org.apache.hadoop.mapred.Reporter)    */
+comment|/**    * Pass the key, value to reduce    *    * @see org.apache.hadoop.hbase.mapred.TableMap#map(org.apache.hadoop.hbase.HStoreKey, org.apache.hadoop.io.MapWritable, org.apache.hadoop.mapred.OutputCollector, org.apache.hadoop.mapred.Reporter)    */
 annotation|@
 name|Override
 specifier|public
@@ -116,7 +135,12 @@ parameter_list|,
 name|MapWritable
 name|value
 parameter_list|,
-name|TableOutputCollector
+name|OutputCollector
+argument_list|<
+name|Text
+argument_list|,
+name|MapWritable
+argument_list|>
 name|output
 parameter_list|,
 annotation|@
