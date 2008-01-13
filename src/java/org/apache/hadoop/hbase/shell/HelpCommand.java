@@ -460,7 +460,7 @@ index|[]
 block|{
 literal|"Select values from table"
 block|,
-literal|"SELECT {column_name, [, column_name] ... | *} FROM table_name "
+literal|"SELECT {column_name, [, column_name] ... | expr[alias] | * } FROM table_name "
 operator|+
 literal|"[WHERE row='row_key' | STARTING FROM 'row-key' [UNTIL 'stop-key']] "
 operator|+

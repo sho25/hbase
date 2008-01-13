@@ -334,7 +334,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Selects values from tables.  *   * TODO: INTO FILE is not yet implemented.  */
+comment|/**  * Selects values from tables.  */
 end_comment
 
 begin_class
@@ -387,6 +387,12 @@ comment|// Count of versions to return.
 specifier|private
 name|int
 name|version
+decl_stmt|;
+specifier|private
+name|boolean
+name|countFunction
+init|=
+literal|false
 decl_stmt|;
 specifier|private
 name|boolean
@@ -612,6 +618,18 @@ condition|(
 name|whereClause
 condition|)
 block|{
+if|if
+condition|(
+name|countFunction
+condition|)
+block|{
+name|count
+operator|=
+literal|1
+expr_stmt|;
+block|}
+else|else
+block|{
 name|count
 operator|=
 name|compoundWherePrint
@@ -621,6 +639,7 @@ argument_list|,
 name|admin
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 else|else
 block|{
@@ -1106,7 +1125,7 @@ argument_list|()
 expr_stmt|;
 block|}
 return|return
-name|count
+literal|1
 return|;
 block|}
 specifier|private
@@ -1481,6 +1500,9 @@ condition|(
 name|count
 operator|==
 literal|0
+operator|&&
+operator|!
+name|countFunction
 condition|)
 block|{
 name|formatter
@@ -1508,6 +1530,12 @@ operator|.
 name|getRow
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|countFunction
+condition|)
+block|{
 for|for
 control|(
 name|Text
@@ -1586,9 +1614,6 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-name|count
-operator|++
-expr_stmt|;
 if|if
 condition|(
 name|limit
@@ -1603,6 +1628,10 @@ block|{
 break|break;
 block|}
 block|}
+block|}
+name|count
+operator|++
+expr_stmt|;
 comment|// Clear results else subsequent results polluted w/ previous finds.
 name|results
 operator|.
@@ -1621,6 +1650,9 @@ operator|.
 name|HTML_OPTION
 operator|!=
 literal|null
+operator|&&
+operator|!
+name|countFunction
 condition|)
 block|{
 name|formatter
@@ -2128,6 +2160,21 @@ name|Text
 argument_list|(
 name|rowKey
 argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|void
+name|setCountFunction
+parameter_list|(
+name|boolean
+name|countFunction
+parameter_list|)
+block|{
+name|this
+operator|.
+name|countFunction
+operator|=
+name|countFunction
 expr_stmt|;
 block|}
 specifier|public
