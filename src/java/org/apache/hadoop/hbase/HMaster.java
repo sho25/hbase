@@ -495,9 +495,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|io
 operator|.
-name|MapWritable
+name|HbaseMapWritable
 import|;
 end_import
 
@@ -1056,7 +1058,7 @@ index|[]
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|MapWritable
+name|HbaseMapWritable
 name|values
 init|=
 name|regionServer
@@ -5226,6 +5228,22 @@ literal|"Started service threads"
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Started service threads"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/*    * Start shutting down the master    */
 specifier|private
@@ -5454,7 +5472,7 @@ argument_list|(
 literal|"unused"
 argument_list|)
 specifier|public
-name|MapWritable
+name|HbaseMapWritable
 name|regionServerStartup
 parameter_list|(
 name|HServerInfo
@@ -5727,17 +5745,17 @@ return|;
 block|}
 comment|/**    * @return Subset of configuration to pass initializing regionservers: e.g.    * the filesystem to use and root directory to use.    */
 specifier|protected
-name|MapWritable
+name|HbaseMapWritable
 name|createConfigurationSubset
 parameter_list|()
 block|{
-name|MapWritable
+name|HbaseMapWritable
 name|mw
 init|=
 name|addConfig
 argument_list|(
 operator|new
-name|MapWritable
+name|HbaseMapWritable
 argument_list|()
 argument_list|,
 name|HConstants
@@ -5755,11 +5773,11 @@ argument_list|)
 return|;
 block|}
 specifier|private
-name|MapWritable
+name|HbaseMapWritable
 name|addConfig
 parameter_list|(
 specifier|final
-name|MapWritable
+name|HbaseMapWritable
 name|mw
 parameter_list|,
 specifier|final
@@ -8722,7 +8740,7 @@ condition|(
 literal|true
 condition|)
 block|{
-name|MapWritable
+name|HbaseMapWritable
 name|values
 init|=
 literal|null
@@ -11462,7 +11480,7 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|MapWritable
+name|HbaseMapWritable
 name|data
 init|=
 name|server
@@ -12132,7 +12150,7 @@ init|=
 operator|-
 literal|1L
 decl_stmt|;
-name|MapWritable
+name|HbaseMapWritable
 name|values
 init|=
 name|server

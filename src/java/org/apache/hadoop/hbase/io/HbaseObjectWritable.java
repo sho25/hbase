@@ -273,9 +273,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|io
 operator|.
-name|MapWritable
+name|HbaseMapWritable
 import|;
 end_import
 
@@ -583,7 +585,7 @@ argument_list|)
 expr_stmt|;
 name|addToMap
 argument_list|(
-name|MapWritable
+name|HbaseMapWritable
 operator|.
 name|class
 argument_list|,

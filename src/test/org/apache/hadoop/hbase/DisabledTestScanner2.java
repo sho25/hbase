@@ -247,9 +247,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|io
 operator|.
-name|MapWritable
+name|HbaseMapWritable
 import|;
 end_import
 
@@ -282,20 +284,6 @@ operator|.
 name|util
 operator|.
 name|Writables
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|MapWritable
 import|;
 end_import
 
@@ -2362,7 +2350,7 @@ index|[]
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|MapWritable
+name|HbaseMapWritable
 name|values
 init|=
 name|regionServer

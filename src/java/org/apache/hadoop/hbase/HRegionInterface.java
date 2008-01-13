@@ -65,9 +65,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|io
 operator|.
-name|MapWritable
+name|HbaseMapWritable
 import|;
 end_import
 
@@ -210,7 +212,7 @@ name|IOException
 function_decl|;
 comment|/**    * Get all the data for the specified row    *     * @param regionName region name    * @param row row key    * @return map of values    * @throws IOException    */
 specifier|public
-name|MapWritable
+name|HbaseMapWritable
 name|getRow
 parameter_list|(
 specifier|final
@@ -226,7 +228,7 @@ name|IOException
 function_decl|;
 comment|/**    * Get all the data for the specified row at a given timestamp    *     * @param regionName region name    * @param row row key    * @return map of values    * @throws IOException    */
 specifier|public
-name|MapWritable
+name|HbaseMapWritable
 name|getRow
 parameter_list|(
 specifier|final
@@ -347,7 +349,7 @@ name|IOException
 function_decl|;
 comment|/**    * Get the next set of values    *     * @param scannerId clientId passed to openScanner    * @return map of values    * @throws IOException    */
 specifier|public
-name|MapWritable
+name|HbaseMapWritable
 name|next
 parameter_list|(
 name|long

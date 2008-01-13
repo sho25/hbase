@@ -123,9 +123,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|io
 operator|.
-name|MapWritable
+name|HbaseMapWritable
 import|;
 end_import
 
@@ -656,7 +658,7 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-name|MapWritable
+name|HbaseMapWritable
 name|values
 init|=
 name|server
@@ -1047,7 +1049,7 @@ condition|(
 literal|true
 condition|)
 block|{
-name|MapWritable
+name|HbaseMapWritable
 name|values
 init|=
 name|server
@@ -1485,7 +1487,7 @@ condition|(
 literal|true
 condition|)
 block|{
-name|MapWritable
+name|HbaseMapWritable
 name|values
 init|=
 name|server

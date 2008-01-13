@@ -525,9 +525,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|io
 operator|.
-name|MapWritable
+name|HbaseMapWritable
 import|;
 end_import
 
@@ -4152,7 +4154,7 @@ name|void
 name|init
 parameter_list|(
 specifier|final
-name|MapWritable
+name|HbaseMapWritable
 name|c
 parameter_list|)
 throws|throws
@@ -4845,7 +4847,7 @@ block|}
 block|}
 comment|/*    * Let the master know we're here    * Run initialization using parameters passed us by the master.    */
 specifier|private
-name|MapWritable
+name|HbaseMapWritable
 name|reportForDuty
 parameter_list|()
 throws|throws
@@ -4915,7 +4917,7 @@ operator|.
 name|conf
 argument_list|)
 expr_stmt|;
-name|MapWritable
+name|HbaseMapWritable
 name|result
 init|=
 literal|null
@@ -6357,7 +6359,7 @@ block|}
 block|}
 comment|/** {@inheritDoc} */
 specifier|public
-name|MapWritable
+name|HbaseMapWritable
 name|getRow
 parameter_list|(
 specifier|final
@@ -6386,7 +6388,7 @@ return|;
 block|}
 comment|/** {@inheritDoc} */
 specifier|public
-name|MapWritable
+name|HbaseMapWritable
 name|getRow
 parameter_list|(
 specifier|final
@@ -6422,11 +6424,11 @@ argument_list|(
 name|regionName
 argument_list|)
 decl_stmt|;
-name|MapWritable
+name|HbaseMapWritable
 name|result
 init|=
 operator|new
-name|MapWritable
+name|HbaseMapWritable
 argument_list|()
 decl_stmt|;
 name|Map
@@ -6512,7 +6514,7 @@ block|}
 block|}
 comment|/** {@inheritDoc} */
 specifier|public
-name|MapWritable
+name|HbaseMapWritable
 name|next
 parameter_list|(
 specifier|final
@@ -6581,11 +6583,11 @@ name|scannerId
 argument_list|)
 expr_stmt|;
 comment|// Collect values to be returned here
-name|MapWritable
+name|HbaseMapWritable
 name|values
 init|=
 operator|new
-name|MapWritable
+name|HbaseMapWritable
 argument_list|()
 decl_stmt|;
 name|HStoreKey
