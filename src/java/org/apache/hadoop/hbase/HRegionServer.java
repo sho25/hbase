@@ -5037,7 +5037,7 @@ specifier|private
 name|void
 name|reportOpen
 parameter_list|(
-name|HRegion
+name|HRegionInfo
 name|region
 parameter_list|)
 block|{
@@ -5053,9 +5053,6 @@ operator|.
 name|MSG_REPORT_OPEN
 argument_list|,
 name|region
-operator|.
-name|getRegionInfo
-argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -5065,7 +5062,7 @@ specifier|private
 name|void
 name|reportClose
 parameter_list|(
-name|HRegion
+name|HRegionInfo
 name|region
 parameter_list|)
 block|{
@@ -5081,9 +5078,6 @@ operator|.
 name|MSG_REPORT_CLOSE
 argument_list|,
 name|region
-operator|.
-name|getRegionInfo
-argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -5605,9 +5599,20 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+comment|// Mark the region offline.
+comment|// TODO: add an extra field in HRegionInfo to indicate that there is
+comment|// an error. We can't do that now because that would be an incompatible
+comment|// change that would require a migration
+name|regionInfo
+operator|.
+name|setOffline
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 name|reportClose
 argument_list|(
-name|region
+name|regionInfo
 argument_list|)
 expr_stmt|;
 return|return;
@@ -5666,7 +5671,7 @@ expr_stmt|;
 block|}
 name|reportOpen
 argument_list|(
-name|region
+name|regionInfo
 argument_list|)
 expr_stmt|;
 block|}
@@ -5747,7 +5752,7 @@ condition|)
 block|{
 name|reportClose
 argument_list|(
-name|region
+name|hri
 argument_list|)
 expr_stmt|;
 block|}
@@ -5851,6 +5856,8 @@ operator|.
 name|close
 argument_list|(
 name|abortRequested
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -6048,9 +6055,7 @@ block|{
 name|region
 operator|.
 name|close
-argument_list|(
-literal|false
-argument_list|)
+argument_list|()
 expr_stmt|;
 block|}
 catch|catch

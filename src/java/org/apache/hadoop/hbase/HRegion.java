@@ -1627,10 +1627,12 @@ return|return
 name|close
 argument_list|(
 literal|false
+argument_list|,
+literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Close down this HRegion.  Flush the cache unless abort parameter is true,    * Shut down each HStore, don't service any more calls.    *    * This method could take some time to execute, so don't call it from a     * time-sensitive thread.    *     * @param abort true if server is aborting (only during testing)    * @return Vector of all the storage files that the HRegion's component     * HStores make use of.  It's a list of HStoreFile objects.  Can be null if    * we are not to close at this time or we are already closed.    *     * @throws IOException    */
+comment|/**    * Close down this HRegion.  Flush the cache unless abort parameter is true,    * Shut down each HStore, don't service any more calls.    *    * This method could take some time to execute, so don't call it from a     * time-sensitive thread.    *     * @param abort true if server is aborting (only during testing)    * @param listener call back to alert caller on close status    * @return Vector of all the storage files that the HRegion's component     * HStores make use of.  It's a list of HStoreFile objects.  Can be null if    * we are not to close at this time or we are already closed.    *     * @throws IOException    */
 name|List
 argument_list|<
 name|HStoreFile
@@ -1639,6 +1641,10 @@ name|close
 parameter_list|(
 name|boolean
 name|abort
+parameter_list|,
+specifier|final
+name|RegionUnavailableListener
+name|listener
 parameter_list|)
 throws|throws
 name|IOException
@@ -1767,6 +1773,25 @@ comment|// outstanding updates.
 name|waitOnRowLocks
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|listener
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// If there is a listener, let them know that we have now
+comment|// acquired all the necessary locks and are starting to
+comment|// do the close
+name|listener
+operator|.
+name|closing
+argument_list|(
+name|getRegionName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Don't flush the cache if we are aborting
 if|if
 condition|(
@@ -1825,6 +1850,24 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|listener
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// If there is a listener, tell them that the region is now
+comment|// closed.
+name|listener
+operator|.
+name|closed
+argument_list|(
+name|getRegionName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
@@ -2308,25 +2351,6 @@ name|dirB
 argument_list|)
 throw|;
 block|}
-comment|// Notify the caller that we are about to close the region. This moves
-comment|// us to the 'retiring' queue. Means no more updates coming in -- just
-comment|// whatever is outstanding.
-if|if
-condition|(
-name|listener
-operator|!=
-literal|null
-condition|)
-block|{
-name|listener
-operator|.
-name|closing
-argument_list|(
-name|getRegionName
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 comment|// Now close the HRegion.  Close returns all store files or null if not
 comment|// supposed to close (? What to do in this case? Implement abort of close?)
 comment|// Close also does wait on outstanding rows and calls a flush just-in-case.
@@ -2337,7 +2361,11 @@ argument_list|>
 name|hstoreFilesToSplit
 init|=
 name|close
-argument_list|()
+argument_list|(
+literal|false
+argument_list|,
+name|listener
+argument_list|)
 decl_stmt|;
 if|if
 condition|(

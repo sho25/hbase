@@ -2257,7 +2257,7 @@ operator|)
 operator|)
 condition|)
 block|{
-comment|// The current assignment is no good
+comment|// The current assignment is invalid
 if|if
 condition|(
 name|LOG
@@ -2277,7 +2277,7 @@ operator|.
 name|getRegionName
 argument_list|()
 operator|+
-literal|" is no good: storedInfo: "
+literal|" is not valid: storedInfo: "
 operator|+
 name|storedInfo
 operator|+
@@ -4323,6 +4323,14 @@ argument_list|(
 literal|null
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|shutdownRequested
+condition|)
+block|{
 name|this
 operator|.
 name|unassignedRegions
@@ -4336,6 +4344,7 @@ argument_list|,
 name|ZERO_L
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * Checks to see if the file system is still accessible.    * If not, sets closed    * @return false if file system is not available    */
 specifier|protected
@@ -7100,6 +7109,26 @@ literal|0
 condition|)
 block|{
 comment|// Root region
+if|if
+condition|(
+name|region
+operator|.
+name|isOffline
+argument_list|()
+condition|)
+block|{
+comment|// Can't proceed without root region. Shutdown.
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"root region is marked offline"
+argument_list|)
+expr_stmt|;
+name|shutdown
+argument_list|()
+expr_stmt|;
+block|}
 name|unassignRootRegion
 argument_list|()
 expr_stmt|;
@@ -7109,7 +7138,11 @@ block|{
 name|boolean
 name|reassignRegion
 init|=
-literal|true
+operator|!
+name|region
+operator|.
+name|isOffline
+argument_list|()
 decl_stmt|;
 name|boolean
 name|deleteRegion

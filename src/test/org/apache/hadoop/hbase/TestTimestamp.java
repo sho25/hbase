@@ -378,6 +378,12 @@ operator|.
 name|conf
 argument_list|,
 literal|1
+argument_list|,
+name|this
+operator|.
+name|cluster
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 try|try
