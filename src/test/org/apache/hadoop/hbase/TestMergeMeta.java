@@ -84,7 +84,10 @@ name|merge
 argument_list|(
 name|conf
 argument_list|,
-name|fs
+name|dfsCluster
+operator|.
+name|getFileSystem
+argument_list|()
 argument_list|,
 name|HConstants
 operator|.

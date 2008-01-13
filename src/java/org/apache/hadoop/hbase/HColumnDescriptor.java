@@ -97,6 +97,22 @@ name|WritableComparable
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|TextSequence
+import|;
+end_import
+
 begin_comment
 comment|/**  * An HColumnDescriptor contains information about a column family such as the  * number of versions, compression settings, etc.  *   * It is used as input when creating a table or adding a column. Once set, the  * parameters that specify a column cannot be changed without deleting the  * column and recreating it. If there is data stored in the column, it will be  * deleted when the column is deleted.  */
 end_comment
@@ -237,6 +253,14 @@ comment|// Version number of this class
 specifier|private
 name|byte
 name|versionNumber
+decl_stmt|;
+comment|// Family name without the ':'
+specifier|private
+specifier|transient
+name|Text
+name|familyName
+init|=
+literal|null
 decl_stmt|;
 comment|/**    * Default constructor. Must be present for Writable.    */
 specifier|public
@@ -465,6 +489,56 @@ return|return
 name|name
 return|;
 block|}
+comment|/** @return name of column family without trailing ':' */
+specifier|public
+specifier|synchronized
+name|Text
+name|getFamilyName
+parameter_list|()
+block|{
+if|if
+condition|(
+name|name
+operator|!=
+literal|null
+condition|)
+block|{
+if|if
+condition|(
+name|familyName
+operator|==
+literal|null
+condition|)
+block|{
+name|familyName
+operator|=
+operator|new
+name|TextSequence
+argument_list|(
+name|name
+argument_list|,
+literal|0
+argument_list|,
+name|name
+operator|.
+name|getLength
+argument_list|()
+operator|-
+literal|1
+argument_list|)
+operator|.
+name|toText
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+name|familyName
+return|;
+block|}
+return|return
+literal|null
+return|;
+block|}
 comment|/** @return compression type being used for the column family */
 specifier|public
 name|CompressionType
@@ -537,6 +611,7 @@ operator|.
 name|bloomFilter
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

@@ -544,10 +544,6 @@ init|=
 literal|null
 decl_stmt|;
 specifier|private
-name|FileSystem
-name|fs
-decl_stmt|;
-specifier|private
 name|Path
 name|dir
 decl_stmt|;
@@ -567,11 +563,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|super
-operator|.
-name|setUp
-argument_list|()
-expr_stmt|;
 comment|// Make sure the cache gets flushed so we trigger a compaction(s) and
 comment|// hence splits.
 name|conf
@@ -656,15 +647,15 @@ operator|)
 literal|null
 argument_list|)
 expr_stmt|;
-try|try
-block|{
-name|fs
-operator|=
-name|dfsCluster
+comment|// Must call super.setUp after mini dfs cluster is started or else
+comment|// filesystem ends up being local
+name|super
 operator|.
-name|getFileSystem
+name|setUp
 argument_list|()
 expr_stmt|;
+try|try
+block|{
 name|dir
 operator|=
 operator|new
@@ -691,6 +682,8 @@ argument_list|,
 literal|1
 argument_list|,
 name|dfsCluster
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Create a table.
@@ -717,7 +710,9 @@ name|conf
 argument_list|,
 name|hCluster
 argument_list|,
-literal|null
+name|this
+operator|.
+name|fs
 argument_list|,
 name|TABLE_NAME
 argument_list|,
@@ -1359,9 +1354,11 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|this
-operator|.
-name|testDir
+name|getUnitTestdir
+argument_list|(
+name|getName
+argument_list|()
+argument_list|)
 argument_list|,
 literal|"index_"
 operator|+
@@ -1393,13 +1390,21 @@ argument_list|,
 name|localDir
 argument_list|)
 expr_stmt|;
+name|FileSystem
+name|localfs
+init|=
+name|FileSystem
+operator|.
+name|getLocal
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
 name|Path
 index|[]
 name|indexDirs
 init|=
-name|this
-operator|.
-name|localFs
+name|localfs
 operator|.
 name|listPaths
 argument_list|(

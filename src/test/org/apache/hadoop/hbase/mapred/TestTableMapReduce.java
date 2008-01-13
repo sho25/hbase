@@ -109,20 +109,6 @@ name|hadoop
 operator|.
 name|fs
 operator|.
-name|FileSystem
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
 name|Path
 import|;
 end_import
@@ -485,10 +471,6 @@ init|=
 literal|null
 decl_stmt|;
 specifier|private
-name|FileSystem
-name|fs
-decl_stmt|;
-specifier|private
 name|Path
 name|dir
 decl_stmt|;
@@ -657,11 +639,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|super
-operator|.
-name|setUp
-argument_list|()
-expr_stmt|;
 name|dfsCluster
 operator|=
 operator|new
@@ -680,15 +657,15 @@ operator|)
 literal|null
 argument_list|)
 expr_stmt|;
-try|try
-block|{
-name|fs
-operator|=
-name|dfsCluster
+comment|// Must call super.setup() after starting mini dfs cluster. Otherwise
+comment|// we get a local file system instead of hdfs
+name|super
 operator|.
-name|getFileSystem
+name|setUp
 argument_list|()
 expr_stmt|;
+try|try
+block|{
 name|dir
 operator|=
 operator|new
@@ -717,6 +694,8 @@ argument_list|,
 literal|1
 argument_list|,
 name|dfsCluster
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|LOG

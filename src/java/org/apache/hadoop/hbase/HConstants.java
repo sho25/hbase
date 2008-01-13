@@ -162,14 +162,6 @@ name|DEFAULT_HBASE_DIR
 init|=
 literal|"/hbase"
 decl_stmt|;
-comment|/** Used to construct the name of the directory in which a HRegion resides */
-specifier|static
-specifier|final
-name|String
-name|HREGIONDIR_PREFIX
-init|=
-literal|"hregion_"
-decl_stmt|;
 comment|/** Used to construct the name of the log directory for a region server */
 specifier|static
 specifier|final

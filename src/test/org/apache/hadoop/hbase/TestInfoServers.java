@@ -112,6 +112,8 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|setUp
@@ -125,6 +127,8 @@ name|setUp
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|tearDown
@@ -138,6 +142,7 @@ name|tearDown
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * @throws Exception    */
 specifier|public
 name|void
 name|testInfoServersAreUp

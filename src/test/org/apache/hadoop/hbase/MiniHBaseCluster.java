@@ -215,7 +215,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Starts a MiniHBaseCluster on top of an existing HDFSCluster    *<pre>    ****************************************************************************    *            *  *  *  *  *  N O T E  *  *  *  *  *    *    * If you use this constructor, you should shut down the mini dfs cluster    * in your test case.    *    *            *  *  *  *  *  N O T E  *  *  *  *  *    ****************************************************************************    *</pre>    *    * @param conf    * @param nRegionNodes    * @param dfsCluster    * @throws IOException    */
+comment|/**    * Starts a MiniHBaseCluster on top of an existing HDFSCluster    *<pre>    ****************************************************************************    *            *  *  *  *  *  N O T E  *  *  *  *  *    *    * If you use this constructor, you should shut down the mini dfs cluster    * in your test case.    *    *            *  *  *  *  *  N O T E  *  *  *  *  *    ****************************************************************************    *</pre>    *    * @param conf    * @param nRegionNodes    * @param dfsCluster    * @param deleteOnExit    * @throws IOException    */
 specifier|public
 name|MiniHBaseCluster
 parameter_list|(
@@ -227,6 +227,9 @@ name|nRegionNodes
 parameter_list|,
 name|MiniDFSCluster
 name|dfsCluster
+parameter_list|,
+name|boolean
+name|deleteOnExit
 parameter_list|)
 throws|throws
 name|IOException
@@ -257,6 +260,12 @@ operator|.
 name|shutdownDFS
 operator|=
 literal|false
+expr_stmt|;
+name|this
+operator|.
+name|deleteOnExit
+operator|=
+name|deleteOnExit
 expr_stmt|;
 name|init
 argument_list|(

@@ -300,6 +300,13 @@ name|int
 name|hashCode
 decl_stmt|;
 specifier|private
+specifier|transient
+name|String
+name|encodedName
+init|=
+literal|null
+decl_stmt|;
+specifier|private
 name|void
 name|setHashCode
 parameter_list|()
@@ -716,6 +723,32 @@ return|return
 name|regionName
 return|;
 block|}
+comment|/** @return the encoded region name */
+specifier|public
+specifier|synchronized
+name|String
+name|getEncodedName
+parameter_list|()
+block|{
+if|if
+condition|(
+name|encodedName
+operator|==
+literal|null
+condition|)
+block|{
+name|encodedName
+operator|=
+name|encodeRegionName
+argument_list|(
+name|regionName
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|encodedName
+return|;
+block|}
 comment|/** @return the startKey */
 specifier|public
 name|Text
@@ -866,12 +899,8 @@ argument_list|()
 operator|+
 literal|">, encodedName("
 operator|+
-name|encodeRegionName
-argument_list|(
-name|this
-operator|.
-name|regionName
-argument_list|)
+name|getEncodedName
+argument_list|()
 operator|+
 literal|")"
 operator|+

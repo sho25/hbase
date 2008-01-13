@@ -354,7 +354,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
+specifier|protected
 name|void
 name|threadDumpingJoin
 parameter_list|(

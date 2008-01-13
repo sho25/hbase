@@ -71,11 +71,25 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|commons
 operator|.
-name|conf
+name|logging
 operator|.
-name|Configuration
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
 import|;
 end_import
 
@@ -165,6 +179,21 @@ name|HBaseTestCase
 extends|extends
 name|TestCase
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|HBaseTestCase
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|protected
 specifier|final
 specifier|static
@@ -218,6 +247,12 @@ name|COLFAMILY_NAME3
 argument_list|)
 block|}
 decl_stmt|;
+specifier|private
+name|boolean
+name|localfs
+init|=
+literal|false
+decl_stmt|;
 specifier|protected
 name|Path
 name|testDir
@@ -226,7 +261,7 @@ literal|null
 decl_stmt|;
 specifier|protected
 name|FileSystem
-name|localFs
+name|fs
 init|=
 literal|null
 decl_stmt|;
@@ -294,7 +329,7 @@ specifier|volatile
 name|HBaseConfiguration
 name|conf
 decl_stmt|;
-comment|/**    * constructor    */
+comment|/** constructor */
 specifier|public
 name|HBaseTestCase
 parameter_list|()
@@ -357,12 +392,21 @@ name|UnsupportedEncodingException
 name|e
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"error during initialization"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 name|fail
 argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
+comment|/**    * {@inheritDoc}    *     * Note that this method must be called after the mini hdfs cluster has    * started or we end up with a local file system.    *     */
 annotation|@
 name|Override
 specifier|protected
@@ -377,6 +421,66 @@ operator|.
 name|setUp
 argument_list|()
 expr_stmt|;
+name|localfs
+operator|=
+operator|(
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"fs.default.name"
+argument_list|,
+literal|"file:///"
+argument_list|)
+operator|.
+name|compareTo
+argument_list|(
+literal|"file::///"
+argument_list|)
+operator|==
+literal|0
+operator|)
+expr_stmt|;
+try|try
+block|{
+name|this
+operator|.
+name|fs
+operator|=
+name|FileSystem
+operator|.
+name|get
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"error getting file system"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+throw|throw
+name|e
+throw|;
+block|}
+try|try
+block|{
+if|if
+condition|(
+name|localfs
+condition|)
+block|{
 name|this
 operator|.
 name|testDir
@@ -387,22 +491,9 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|localFs
-operator|=
-name|FileSystem
-operator|.
-name|getLocal
-argument_list|(
-name|this
-operator|.
-name|conf
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
-name|localFs
+name|fs
 operator|.
 name|exists
 argument_list|(
@@ -410,13 +501,63 @@ name|testDir
 argument_list|)
 condition|)
 block|{
-name|localFs
+name|fs
 operator|.
 name|delete
 argument_list|(
 name|testDir
 argument_list|)
 expr_stmt|;
+block|}
+block|}
+else|else
+block|{
+name|this
+operator|.
+name|testDir
+operator|=
+name|fs
+operator|.
+name|makeQualified
+argument_list|(
+operator|new
+name|Path
+argument_list|(
+name|conf
+operator|.
+name|get
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_DIR
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_HBASE_DIR
+argument_list|)
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"error during setup"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+throw|throw
+name|e
+throw|;
 block|}
 block|}
 comment|/** {@inheritDoc} */
@@ -429,23 +570,18 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+try|try
+block|{
+if|if
+condition|(
+name|localfs
+condition|)
+block|{
 if|if
 condition|(
 name|this
 operator|.
-name|localFs
-operator|!=
-literal|null
-operator|&&
-name|this
-operator|.
-name|testDir
-operator|!=
-literal|null
-operator|&&
-name|this
-operator|.
-name|localFs
+name|fs
 operator|.
 name|exists
 argument_list|(
@@ -455,11 +591,29 @@ condition|)
 block|{
 name|this
 operator|.
-name|localFs
+name|fs
 operator|.
 name|delete
 argument_list|(
 name|testDir
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"error during tear down"
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}
@@ -481,9 +635,16 @@ return|return
 operator|new
 name|Path
 argument_list|(
+name|conf
+operator|.
+name|get
+argument_list|(
 name|StaticTestEnvironment
 operator|.
 name|TEST_DIRECTORY_KEY
+argument_list|,
+literal|"test/build/data"
+argument_list|)
 argument_list|,
 name|testName
 argument_list|)
@@ -493,12 +654,6 @@ specifier|protected
 name|HRegion
 name|createNewHRegion
 parameter_list|(
-name|Path
-name|dir
-parameter_list|,
-name|Configuration
-name|c
-parameter_list|,
 name|HTableDescriptor
 name|desc
 parameter_list|,
@@ -511,13 +666,53 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
-name|createNewHRegion
+name|FileSystem
+name|fs
+init|=
+name|FileSystem
+operator|.
+name|get
 argument_list|(
-name|dir
+name|conf
+argument_list|)
+decl_stmt|;
+name|Path
+name|rootdir
+init|=
+name|fs
+operator|.
+name|makeQualified
+argument_list|(
+operator|new
+name|Path
+argument_list|(
+name|conf
+operator|.
+name|get
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_DIR
 argument_list|,
-name|c
-argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_HBASE_DIR
+argument_list|)
+argument_list|)
+argument_list|)
+decl_stmt|;
+name|fs
+operator|.
+name|mkdirs
+argument_list|(
+name|rootdir
+argument_list|)
+expr_stmt|;
+return|return
+name|HRegion
+operator|.
+name|createHRegion
+argument_list|(
 operator|new
 name|HRegionInfo
 argument_list|(
@@ -527,93 +722,51 @@ name|startKey
 argument_list|,
 name|endKey
 argument_list|)
+argument_list|,
+name|rootdir
+argument_list|,
+name|conf
 argument_list|)
 return|;
 block|}
 specifier|protected
 name|HRegion
-name|createNewHRegion
+name|openClosedRegion
 parameter_list|(
-name|Path
-name|dir
-parameter_list|,
-name|Configuration
-name|c
-parameter_list|,
-name|HRegionInfo
-name|info
+specifier|final
+name|HRegion
+name|closedRegion
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Path
-name|regionDir
-init|=
-name|HRegion
-operator|.
-name|getRegionDir
-argument_list|(
-name|dir
-argument_list|,
-name|HRegionInfo
-operator|.
-name|encodeRegionName
-argument_list|(
-name|info
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-argument_list|)
-decl_stmt|;
-name|FileSystem
-name|fs
-init|=
-name|dir
-operator|.
-name|getFileSystem
-argument_list|(
-name|c
-argument_list|)
-decl_stmt|;
-name|fs
-operator|.
-name|mkdirs
-argument_list|(
-name|regionDir
-argument_list|)
-expr_stmt|;
 return|return
 operator|new
 name|HRegion
 argument_list|(
-name|dir
-argument_list|,
-operator|new
-name|HLog
-argument_list|(
-name|fs
-argument_list|,
-operator|new
-name|Path
-argument_list|(
-name|regionDir
-argument_list|,
-name|HConstants
+name|closedRegion
 operator|.
-name|HREGION_LOGDIR_NAME
-argument_list|)
+name|basedir
 argument_list|,
-name|conf
+name|closedRegion
+operator|.
+name|getLog
+argument_list|()
 argument_list|,
-literal|null
-argument_list|)
+name|closedRegion
+operator|.
+name|getFilesystem
+argument_list|()
 argument_list|,
-name|fs
+name|closedRegion
+operator|.
+name|getConf
+argument_list|()
 argument_list|,
-name|conf
-argument_list|,
-name|info
+name|closedRegion
+operator|.
+name|getRegionInfo
+argument_list|()
 argument_list|,
 literal|null
 argument_list|,
@@ -1266,6 +1419,7 @@ specifier|static
 interface|interface
 name|FlushCache
 block|{
+comment|/**      * @throws IOException      */
 specifier|public
 name|void
 name|flushcache
@@ -1280,6 +1434,7 @@ specifier|static
 interface|interface
 name|Incommon
 block|{
+comment|/**      * @param row      * @param column      * @return value for row/column pair      * @throws IOException      */
 specifier|public
 name|byte
 index|[]
@@ -1294,6 +1449,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**      * @param row      * @param column      * @param versions      * @return value for row/column pair for number of versions requested      * @throws IOException      */
 specifier|public
 name|byte
 index|[]
@@ -1312,6 +1468,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**      * @param row      * @param column      * @param ts      * @param versions      * @return value for row/column/timestamp tuple for number of versions      * @throws IOException      */
 specifier|public
 name|byte
 index|[]
@@ -1333,6 +1490,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**      * @param row      * @return batch update identifier      * @throws IOException      */
 specifier|public
 name|long
 name|startBatchUpdate
@@ -1344,6 +1502,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**      * @param lockid      * @param column      * @param val      * @throws IOException      */
 specifier|public
 name|void
 name|put
@@ -1361,6 +1520,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**      * @param lockid      * @param column      * @throws IOException      */
 specifier|public
 name|void
 name|delete
@@ -1374,6 +1534,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**      * @param row      * @param column      * @param ts      * @throws IOException      */
 specifier|public
 name|void
 name|deleteAll
@@ -1390,6 +1551,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**      * @param lockid      * @throws IOException      */
 specifier|public
 name|void
 name|commit
@@ -1400,6 +1562,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**      * @param lockid      * @param ts      * @throws IOException      */
 specifier|public
 name|void
 name|commit
@@ -1413,6 +1576,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**      * @param lockid      * @throws IOException      */
 specifier|public
 name|void
 name|abort
@@ -1423,6 +1587,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**      * @param columns      * @param firstRow      * @param ts      * @return scanner for specified columns, first row and timestamp      * @throws IOException      */
 specifier|public
 name|HScannerInterface
 name|getScanner
@@ -1489,6 +1654,7 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|/**      * @param HRegion      */
 specifier|public
 name|HRegionIncommon
 parameter_list|(
@@ -1510,15 +1676,19 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|abort
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|long
 name|lockid
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.
@@ -1527,6 +1697,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|commit
@@ -1547,10 +1718,16 @@ name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|commit
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|long
 name|lockid
 parameter_list|,
@@ -1588,6 +1765,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|put
@@ -1602,8 +1780,6 @@ name|byte
 index|[]
 name|val
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|checkBatch
 argument_list|()
@@ -1622,6 +1798,7 @@ name|val
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|delete
@@ -1632,8 +1809,6 @@ parameter_list|,
 name|Text
 name|column
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|checkBatch
 argument_list|()
@@ -1650,6 +1825,7 @@ name|column
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|deleteAll
@@ -1680,6 +1856,7 @@ name|ts
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|startBatchUpdate
@@ -1687,8 +1864,6 @@ parameter_list|(
 name|Text
 name|row
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 return|return
 name|startUpdate
@@ -1697,6 +1872,7 @@ name|row
 argument_list|)
 return|;
 block|}
+comment|/**      * @param row      * @return update id      */
 specifier|public
 name|long
 name|startUpdate
@@ -1704,8 +1880,6 @@ parameter_list|(
 name|Text
 name|row
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -1756,6 +1930,7 @@ name|row
 argument_list|)
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|HScannerInterface
 name|getScanner
@@ -1790,6 +1965,7 @@ literal|null
 argument_list|)
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|byte
 index|[]
@@ -1817,6 +1993,7 @@ name|column
 argument_list|)
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|byte
 index|[]
@@ -1850,6 +2027,7 @@ name|versions
 argument_list|)
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|byte
 index|[]
@@ -1888,6 +2066,7 @@ name|versions
 argument_list|)
 return|;
 block|}
+comment|/**      * @param row      * @return values for each column in the specified row      * @throws IOException      */
 specifier|public
 name|Map
 argument_list|<
@@ -1913,6 +2092,7 @@ name|row
 argument_list|)
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|flushcache
@@ -1941,6 +2121,7 @@ specifier|final
 name|HTable
 name|table
 decl_stmt|;
+comment|/**      * @param table      */
 specifier|public
 name|HTableIncommon
 parameter_list|(
@@ -1959,6 +2140,7 @@ operator|=
 name|table
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|abort
@@ -1966,8 +2148,6 @@ parameter_list|(
 name|long
 name|lockid
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.
@@ -1979,6 +2159,7 @@ name|lockid
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|commit
@@ -1999,6 +2180,7 @@ name|lockid
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|commit
@@ -2025,6 +2207,7 @@ name|ts
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|put
@@ -2039,8 +2222,6 @@ name|byte
 index|[]
 name|val
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.
@@ -2056,6 +2237,7 @@ name|val
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|delete
@@ -2066,8 +2248,6 @@ parameter_list|,
 name|Text
 name|column
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.
@@ -2081,6 +2261,7 @@ name|column
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|deleteAll
@@ -2111,6 +2292,7 @@ name|ts
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|startBatchUpdate
@@ -2130,6 +2312,7 @@ name|row
 argument_list|)
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|HScannerInterface
 name|getScanner
@@ -2164,6 +2347,7 @@ literal|null
 argument_list|)
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|byte
 index|[]
@@ -2191,6 +2375,7 @@ name|column
 argument_list|)
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|byte
 index|[]
@@ -2224,6 +2409,7 @@ name|versions
 argument_list|)
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|byte
 index|[]

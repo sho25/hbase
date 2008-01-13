@@ -60,6 +60,8 @@ argument_list|,
 literal|1
 argument_list|,
 name|dfsCluster
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 try|try
@@ -70,7 +72,10 @@ name|merge
 argument_list|(
 name|conf
 argument_list|,
-name|fs
+name|dfsCluster
+operator|.
+name|getFileSystem
+argument_list|()
 argument_list|,
 name|desc
 operator|.
