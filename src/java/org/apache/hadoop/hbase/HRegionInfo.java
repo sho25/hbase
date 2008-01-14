@@ -897,6 +897,15 @@ operator|.
 name|toString
 argument_list|()
 operator|+
+literal|">, endKey:<"
+operator|+
+name|this
+operator|.
+name|endKey
+operator|.
+name|toString
+argument_list|()
+operator|+
 literal|">, encodedName("
 operator|+
 name|getEncodedName

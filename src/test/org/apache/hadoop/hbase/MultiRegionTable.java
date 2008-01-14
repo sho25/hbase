@@ -699,40 +699,6 @@ name|parent
 operator|.
 name|getRegionName
 argument_list|()
-operator|+
-literal|" and daughters are "
-operator|+
-operator|(
-operator|(
-name|splitA
-operator|!=
-literal|null
-operator|)
-condition|?
-name|splitA
-operator|.
-name|getRegionName
-argument_list|()
-else|:
-literal|"-"
-operator|)
-operator|+
-literal|", "
-operator|+
-operator|(
-operator|(
-name|splitB
-operator|!=
-literal|null
-operator|)
-condition|?
-name|splitB
-operator|.
-name|getRegionName
-argument_list|()
-else|:
-literal|"-"
-operator|)
 argument_list|)
 expr_stmt|;
 comment|// Recalibrate will cause us to wait on new regions' deployment
@@ -749,6 +715,35 @@ argument_list|,
 name|retries
 argument_list|,
 name|waitTime
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|splitA
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"splitA was already null. Assuming it was previously compacted."
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Daughter splitA: "
+operator|+
+name|splitA
+operator|.
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Compact a region at a time so we can test case where one region has
@@ -827,6 +822,36 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|splitB
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"splitB was already null. Assuming it was previously compacted."
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Daughter splitB: "
+operator|+
+name|splitA
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Call second split.
 name|compact
 argument_list|(
@@ -835,6 +860,7 @@ argument_list|,
 name|splitB
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Now wait until parent disappears.
 name|LOG
 operator|.

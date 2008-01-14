@@ -91,35 +91,30 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Gets the servers of the given table.    *     * @param tableName - the table to be located    * @return map of startRow -> RegionLocation    * @throws IOException - if the table can not be located after retrying    */
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the reigon in     * question    */
 specifier|public
-name|SortedMap
-argument_list|<
-name|Text
-argument_list|,
 name|HRegionLocation
-argument_list|>
-name|getTableServers
+name|locateRegion
 parameter_list|(
 name|Text
 name|tableName
+parameter_list|,
+name|Text
+name|row
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Reloads servers for the specified table.    *     * @param tableName name of table whose servers are to be reloaded    * @return map of start key -> RegionLocation    * @throws IOException    */
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the reigon in     * question    */
 specifier|public
-name|SortedMap
-argument_list|<
-name|Text
-argument_list|,
 name|HRegionLocation
-argument_list|>
-name|reloadTableServers
+name|relocateRegion
 parameter_list|(
-specifier|final
 name|Text
 name|tableName
+parameter_list|,
+name|Text
+name|row
 parameter_list|)
 throws|throws
 name|IOException

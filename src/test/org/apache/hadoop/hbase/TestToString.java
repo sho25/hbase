@@ -175,7 +175,7 @@ name|assertEquals
 argument_list|(
 literal|"HRegionInfo"
 argument_list|,
-literal|"regionname: -ROOT-,,0, startKey:<>, encodedName(70236052) tableDesc: "
+literal|"regionname: -ROOT-,,0, startKey:<>, endKey:<>, encodedName(70236052) tableDesc: "
 operator|+
 literal|"{name: -ROOT-, families: {info:={name: info, max versions: 1, "
 operator|+

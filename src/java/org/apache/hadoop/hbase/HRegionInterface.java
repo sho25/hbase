@@ -246,6 +246,42 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Return all the data for the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it.    *     * @param regionName region name    * @param row row key    * @return map of values    * @throws IOException    */
+specifier|public
+name|HbaseMapWritable
+name|getClosestRowBefore
+parameter_list|(
+specifier|final
+name|Text
+name|regionName
+parameter_list|,
+specifier|final
+name|Text
+name|row
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Return all the data for the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it, at or immediately before     *<i>ts</i>.    *     * @param regionName region name    * @param row row key    * @return map of values    * @throws IOException    */
+specifier|public
+name|HbaseMapWritable
+name|getClosestRowBefore
+parameter_list|(
+specifier|final
+name|Text
+name|regionName
+parameter_list|,
+specifier|final
+name|Text
+name|row
+parameter_list|,
+specifier|final
+name|long
+name|ts
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Applies a batch of updates via one RPC    *     * @param regionName name of the region to update    * @param timestamp the time to be associated with the changes    * @param b BatchUpdate    * @throws IOException    */
 specifier|public
 name|void
