@@ -77,7 +77,7 @@ name|hadoop
 operator|.
 name|io
 operator|.
-name|WritableComparable
+name|Writable
 import|;
 end_import
 
@@ -91,7 +91,7 @@ specifier|abstract
 class|class
 name|Filter
 implements|implements
-name|WritableComparable
+name|Writable
 block|{
 comment|/** The vector size of<i>this</i> filter. */
 name|int
@@ -347,44 +347,6 @@ expr_stmt|;
 block|}
 block|}
 comment|//end add()
-comment|/** {@inheritDoc} */
-annotation|@
-name|Override
-specifier|public
-name|int
-name|hashCode
-parameter_list|()
-block|{
-name|int
-name|result
-init|=
-name|Integer
-operator|.
-name|valueOf
-argument_list|(
-name|this
-operator|.
-name|nbHash
-argument_list|)
-operator|.
-name|hashCode
-argument_list|()
-decl_stmt|;
-name|result
-operator|^=
-name|Integer
-operator|.
-name|valueOf
-argument_list|(
-name|this
-operator|.
-name|vectorSize
-argument_list|)
-expr_stmt|;
-return|return
-name|result
-return|;
-block|}
 comment|// Writable interface
 comment|/** {@inheritDoc} */
 specifier|public
@@ -461,57 +423,6 @@ operator|.
 name|nbHash
 argument_list|)
 expr_stmt|;
-block|}
-comment|// Comparable interface
-comment|/** {@inheritDoc} */
-specifier|public
-name|int
-name|compareTo
-parameter_list|(
-name|Object
-name|o
-parameter_list|)
-block|{
-name|Filter
-name|other
-init|=
-operator|(
-name|Filter
-operator|)
-name|o
-decl_stmt|;
-name|int
-name|result
-init|=
-name|this
-operator|.
-name|vectorSize
-operator|-
-name|other
-operator|.
-name|vectorSize
-decl_stmt|;
-if|if
-condition|(
-name|result
-operator|==
-literal|0
-condition|)
-block|{
-name|result
-operator|=
-name|this
-operator|.
-name|nbHash
-operator|-
-name|other
-operator|.
-name|nbHash
-expr_stmt|;
-block|}
-return|return
-name|result
-return|;
 block|}
 block|}
 end_class
