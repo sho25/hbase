@@ -1703,33 +1703,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Looking in "
-operator|+
-name|parentTable
-operator|+
-literal|" for "
-operator|+
-name|tableName
-operator|+
-literal|"/"
-operator|+
-name|row
-operator|+
-literal|", got a cache hit with "
-operator|+
-name|location
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-expr_stmt|;
 return|return
 name|location
 return|;

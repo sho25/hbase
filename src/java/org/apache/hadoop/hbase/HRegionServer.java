@@ -6791,7 +6791,6 @@ name|results
 argument_list|)
 condition|)
 block|{
-comment|/*        LOG.debug("RegionServer scanning on row " + key.getRow());*/
 for|for
 control|(
 name|Map
