@@ -517,6 +517,17 @@ name|BatchUpdate
 argument_list|>
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|connection
+operator|.
+name|locateRegion
+argument_list|(
+name|tableName
+argument_list|,
+name|EMPTY_START_ROW
+argument_list|)
+expr_stmt|;
 name|tableDoesNotExist
 operator|=
 literal|false

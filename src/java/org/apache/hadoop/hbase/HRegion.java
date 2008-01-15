@@ -4073,6 +4073,17 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|key
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 comment|// now that we've found our key, get the values
 name|TreeMap
 argument_list|<

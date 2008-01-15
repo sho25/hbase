@@ -939,6 +939,10 @@ name|map
 operator|.
 name|isEmpty
 argument_list|()
+operator|||
+name|key
+operator|==
+literal|null
 condition|)
 block|{
 return|return;
@@ -6755,6 +6759,15 @@ argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|key
+operator|==
+literal|null
+condition|)
+block|{
+return|return;
+block|}
 name|this
 operator|.
 name|lock

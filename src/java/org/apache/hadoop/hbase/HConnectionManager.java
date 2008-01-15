@@ -1825,6 +1825,25 @@ operator|.
 name|LATEST_TIMESTAMP
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|regionInfoRow
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|TableNotFoundException
+argument_list|(
+literal|"Table '"
+operator|+
+name|tableName
+operator|+
+literal|"' does not exist."
+argument_list|)
+throw|;
+block|}
 comment|// convert the MapWritable into a Map we can use
 name|SortedMap
 argument_list|<

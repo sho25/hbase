@@ -6612,6 +6612,17 @@ name|ts
 argument_list|)
 decl_stmt|;
 comment|// convert to a MapWritable
+if|if
+condition|(
+name|map
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 for|for
 control|(
 name|Map
