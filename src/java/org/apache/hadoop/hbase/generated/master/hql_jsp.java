@@ -83,7 +83,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shell
+name|hql
 operator|.
 name|TableFormatter
 import|;
@@ -99,7 +99,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shell
+name|hql
 operator|.
 name|ReturnMsg
 import|;
@@ -115,11 +115,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shell
+name|hql
 operator|.
 name|generated
 operator|.
-name|Parser
+name|HQLParser
 import|;
 end_import
 
@@ -133,7 +133,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shell
+name|hql
 operator|.
 name|Command
 import|;
@@ -149,7 +149,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shell
+name|hql
 operator|.
 name|formatter
 operator|.
@@ -409,11 +409,11 @@ argument_list|(
 literal|"\n<hr/>\n "
 argument_list|)
 expr_stmt|;
-name|Parser
+name|HQLParser
 name|parser
 init|=
 operator|new
-name|Parser
+name|HQLParser
 argument_list|(
 name|query
 argument_list|,

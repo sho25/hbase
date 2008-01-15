@@ -211,7 +211,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shell
+name|hql
 operator|.
 name|ShowCommand
 import|;
@@ -227,7 +227,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shell
+name|hql
 operator|.
 name|TableFormatter
 import|;
@@ -243,7 +243,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shell
+name|hql
 operator|.
 name|ReturnMsg
 import|;
@@ -259,7 +259,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shell
+name|hql
 operator|.
 name|formatter
 operator|.
