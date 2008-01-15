@@ -1649,6 +1649,16 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|Text
+name|regionName
+init|=
+name|this
+operator|.
+name|regionInfo
+operator|.
+name|getRegionName
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 name|isClosed
@@ -1661,12 +1671,7 @@ name|info
 argument_list|(
 literal|"region "
 operator|+
-name|this
-operator|.
-name|regionInfo
-operator|.
-name|getRegionName
-argument_list|()
+name|regionName
 operator|+
 literal|" already closed"
 argument_list|)
@@ -1679,16 +1684,6 @@ synchronized|synchronized
 init|(
 name|splitLock
 init|)
-block|{
-name|lock
-operator|.
-name|writeLock
-argument_list|()
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
-try|try
 block|{
 synchronized|synchronized
 init|(
@@ -1706,6 +1701,47 @@ operator|.
 name|flushing
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"waiting for"
+operator|+
+operator|(
+name|writestate
+operator|.
+name|compacting
+condition|?
+literal|" compaction"
+else|:
+literal|""
+operator|)
+operator|+
+operator|(
+name|writestate
+operator|.
+name|flushing
+condition|?
+operator|(
+name|writestate
+operator|.
+name|compacting
+condition|?
+literal|","
+else|:
+literal|""
+operator|)
+operator|+
+literal|" cache flush"
+else|:
+literal|""
+operator|)
+operator|+
+literal|" to complete for region "
+operator|+
+name|regionName
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|writestate
@@ -1731,7 +1767,37 @@ name|writesEnabled
 operator|=
 literal|false
 expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"compactions and cache flushes disabled for region "
+operator|+
+name|regionName
+argument_list|)
+expr_stmt|;
 block|}
+name|lock
+operator|.
+name|writeLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"new updates and scanners for region "
+operator|+
+name|regionName
+operator|+
+literal|" disabled"
+argument_list|)
+expr_stmt|;
+try|try
+block|{
 comment|// Wait for active scanners to finish. The write lock we hold will prevent
 comment|// new scanners from being created.
 synchronized|synchronized
@@ -1749,6 +1815,20 @@ operator|!=
 literal|0
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"waiting for "
+operator|+
+name|activeScannerCount
+operator|.
+name|get
+argument_list|()
+operator|+
+literal|" scanners to finish"
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|activeScannerCount
@@ -1767,11 +1847,29 @@ comment|// continue
 block|}
 block|}
 block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"no more active scanners for region "
+operator|+
+name|regionName
+argument_list|)
+expr_stmt|;
 comment|// Write lock means no more row locks can be given out.  Wait on
 comment|// outstanding row locks to come in before we close so we do not drop
 comment|// outstanding updates.
 name|waitOnRowLocks
 argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"no more write locks outstanding on region "
+operator|+
+name|regionName
+argument_list|)
 expr_stmt|;
 if|if
 condition|(
@@ -2191,14 +2289,6 @@ return|return
 literal|null
 return|;
 block|}
-name|long
-name|startTime
-init|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-decl_stmt|;
 name|Path
 name|splits
 init|=
@@ -2669,56 +2759,6 @@ block|,
 name|regionB
 block|}
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Region split of "
-operator|+
-name|this
-operator|.
-name|regionInfo
-operator|.
-name|getRegionName
-argument_list|()
-operator|+
-literal|" complete; "
-operator|+
-literal|"new regions: "
-operator|+
-name|regions
-index|[
-literal|0
-index|]
-operator|.
-name|getRegionName
-argument_list|()
-operator|+
-literal|", "
-operator|+
-name|regions
-index|[
-literal|1
-index|]
-operator|.
-name|getRegionName
-argument_list|()
-operator|+
-literal|". Split took "
-operator|+
-name|StringUtils
-operator|.
-name|formatTimeDiff
-argument_list|(
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-argument_list|,
-name|startTime
-argument_list|)
-argument_list|)
-expr_stmt|;
 return|return
 name|regions
 return|;
@@ -3178,17 +3218,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|lock
-operator|.
-name|readLock
-argument_list|()
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
-comment|// Prevent splits and closes
-try|try
-block|{
 if|if
 condition|(
 name|this
@@ -3271,6 +3300,19 @@ literal|false
 return|;
 block|}
 block|}
+try|try
+block|{
+name|lock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+comment|// Prevent splits and closes
+try|try
+block|{
 name|long
 name|startTime
 init|=
@@ -3289,14 +3331,24 @@ name|snapshotMemcaches
 argument_list|()
 expr_stmt|;
 block|}
-try|try
-block|{
 return|return
 name|internalFlushcache
 argument_list|(
 name|startTime
 argument_list|)
 return|;
+block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 finally|finally
 block|{
@@ -3317,18 +3369,6 @@ name|notifyAll
 argument_list|()
 expr_stmt|;
 block|}
-block|}
-block|}
-finally|finally
-block|{
-name|lock
-operator|.
-name|readLock
-argument_list|()
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 comment|/*    * It is assumed that updates are blocked for the duration of this method    */
@@ -3933,7 +3973,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Return all the data for the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it, at or immediately before     *<i>ts</i>.    *     * @param row row key    * @return map of values    * @throws IOException    */
+comment|/**    * Return all the data for the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it, at or immediately before     *<i>ts</i>.    *     * @param row row key    * @param ts    * @return map of values    * @throws IOException    */
 specifier|public
 name|Map
 argument_list|<
@@ -5973,6 +6013,22 @@ operator|>
 literal|0
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"waiting for "
+operator|+
+name|this
+operator|.
+name|rowsToLocks
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" row locks"
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|this

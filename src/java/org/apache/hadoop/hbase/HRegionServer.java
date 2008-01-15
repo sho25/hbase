@@ -1163,6 +1163,10 @@ name|meta
 init|=
 literal|null
 decl_stmt|;
+specifier|private
+name|long
+name|startTime
+decl_stmt|;
 comment|/** constructor */
 specifier|public
 name|Splitter
@@ -1182,6 +1186,13 @@ name|Text
 name|regionName
 parameter_list|)
 block|{
+name|startTime
+operator|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+expr_stmt|;
 name|lock
 operator|.
 name|writeLock
@@ -1808,7 +1819,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"region split, META update, and report to master all"
+literal|"region split, META updated, and report to master all"
 operator|+
 literal|" successful. Old region="
 operator|+
@@ -1836,6 +1847,20 @@ index|]
 operator|.
 name|getRegionName
 argument_list|()
+operator|+
+literal|". Split took "
+operator|+
+name|StringUtils
+operator|.
+name|formatTimeDiff
+argument_list|(
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
+name|startTime
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Do not serve the new regions. Let the Master assign them.
