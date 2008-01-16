@@ -1135,14 +1135,6 @@ literal|"t20 bytes"
 argument_list|)
 expr_stmt|;
 comment|// try "050", should get stuff from "040"
-name|t50
-operator|=
-operator|new
-name|Text
-argument_list|(
-literal|"050"
-argument_list|)
-expr_stmt|;
 name|results
 operator|=
 name|region

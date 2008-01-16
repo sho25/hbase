@@ -7892,6 +7892,17 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|HStoreKey
+name|searchKey
+init|=
+operator|new
+name|HStoreKey
+argument_list|(
+name|row
+argument_list|,
+name|timestamp
+argument_list|)
+decl_stmt|;
 name|Text
 name|previousRow
 init|=
@@ -7916,15 +7927,15 @@ init|(
 name|map
 init|)
 block|{
-comment|// start at the beginning of the map
-comment|// TODO: this sucks. do a clever binary search instead.
+comment|// don't bother with the rest of this if the file is empty
 name|map
 operator|.
 name|reset
 argument_list|()
 expr_stmt|;
-while|while
+if|if
 condition|(
+operator|!
 name|map
 operator|.
 name|next
@@ -7934,6 +7945,77 @@ argument_list|,
 name|readval
 argument_list|)
 condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
+name|HStoreKey
+name|finalKey
+init|=
+operator|new
+name|HStoreKey
+argument_list|()
+decl_stmt|;
+name|map
+operator|.
+name|finalKey
+argument_list|(
+name|finalKey
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|finalKey
+operator|.
+name|getRow
+argument_list|()
+operator|.
+name|compareTo
+argument_list|(
+name|row
+argument_list|)
+operator|<
+literal|0
+condition|)
+block|{
+return|return
+name|finalKey
+operator|.
+name|getRow
+argument_list|()
+return|;
+block|}
+comment|// seek to the exact row, or the one that would be immediately before it
+name|readkey
+operator|=
+operator|(
+name|HStoreKey
+operator|)
+name|map
+operator|.
+name|getClosest
+argument_list|(
+name|searchKey
+argument_list|,
+name|readval
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|readkey
+operator|==
+literal|null
+condition|)
+block|{
+comment|// didn't find anything that would match, so returns
+return|return
+literal|null
+return|;
+block|}
+do|do
 block|{
 if|if
 condition|(
@@ -7972,9 +8054,8 @@ block|}
 comment|// getting here means that we matched the row, but the timestamp
 comment|// is too recent - hopefully one of the next cells will match
 comment|// better, so keep rolling
+continue|continue;
 block|}
-comment|// if the row key we just read is beyond the key we're searching for,
-comment|// then we're done; return the last key we saw before this one
 elseif|else
 if|if
 condition|(
@@ -7997,6 +8078,8 @@ operator|>
 literal|0
 condition|)
 block|{
+comment|// if the row key we just read is beyond the key we're searching for,
+comment|// then we're done; return the last key we saw before this one
 return|return
 name|previousRow
 return|;
@@ -8032,6 +8115,18 @@ comment|// otherwise, ignore this key, because it doesn't fulfill our
 comment|// requirements.
 block|}
 block|}
+do|while
+condition|(
+name|map
+operator|.
+name|next
+argument_list|(
+name|readkey
+argument_list|,
+name|readval
+argument_list|)
+condition|)
+do|;
 block|}
 comment|// getting here means we exhausted all of the cells in the mapfile.
 comment|// whatever satisfying row we reached previously is the row we should
