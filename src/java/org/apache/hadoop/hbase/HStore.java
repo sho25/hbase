@@ -2742,12 +2742,11 @@ name|this
 operator|.
 name|compactionDir
 operator|=
-operator|new
-name|Path
+name|HRegion
+operator|.
+name|getCompactionDir
 argument_list|(
 name|basedir
-argument_list|,
-literal|"compaction.dir"
 argument_list|)
 expr_stmt|;
 name|this
@@ -4976,70 +4975,6 @@ name|storeName
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|this
-operator|.
-name|fs
-operator|.
-name|exists
-argument_list|(
-name|compactionDir
-argument_list|)
-condition|)
-block|{
-comment|// Clean out its content in prep. for this new compaction.  Has either
-comment|// aborted previous compaction or it has content of a previous
-comment|// compaction.
-name|Path
-index|[]
-name|toRemove
-init|=
-name|this
-operator|.
-name|fs
-operator|.
-name|listPaths
-argument_list|(
-operator|new
-name|Path
-index|[]
-block|{
-name|compactionDir
-block|}
-argument_list|)
-decl_stmt|;
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|toRemove
-operator|.
-name|length
-condition|;
-name|i
-operator|++
-control|)
-block|{
-name|this
-operator|.
-name|fs
-operator|.
-name|delete
-argument_list|(
-name|toRemove
-index|[
-name|i
-index|]
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 comment|// Storefiles are keyed by sequence id. The oldest file comes first.
 comment|// We need to return out of here a List that has the newest file first.
 name|List
@@ -5152,12 +5087,6 @@ name|compactionDir
 operator|.
 name|toString
 argument_list|()
-operator|+
-literal|" for "
-operator|+
-name|this
-operator|.
-name|storeName
 operator|+
 literal|" failed"
 argument_list|)
