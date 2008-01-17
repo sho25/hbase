@@ -2154,7 +2154,9 @@ name|getLong
 argument_list|(
 literal|"hbase.regionserver.optionalcacheflushinterval"
 argument_list|,
-literal|60L
+literal|30
+operator|*
+literal|60
 operator|*
 literal|1000L
 argument_list|)
