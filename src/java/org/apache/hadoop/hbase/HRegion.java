@@ -1891,7 +1891,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"no more write locks outstanding on region "
+literal|"no more row locks outstanding on region "
 operator|+
 name|regionName
 argument_list|)
