@@ -4547,21 +4547,20 @@ expr_stmt|;
 comment|/* Main processing loop */
 try|try
 block|{
-for|for
-control|(
-name|RegionServerOperation
-name|op
-init|=
-literal|null
-init|;
+while|while
+condition|(
 operator|!
 name|closed
 operator|.
 name|get
 argument_list|()
-condition|;
-control|)
+condition|)
 block|{
+name|RegionServerOperation
+name|op
+init|=
+literal|null
+decl_stmt|;
 if|if
 condition|(
 name|shutdownRequested
@@ -8529,10 +8528,6 @@ name|logSplit
 decl_stmt|;
 specifier|private
 name|boolean
-name|rootChecked
-decl_stmt|;
-specifier|private
-name|boolean
 name|rootRescanned
 decl_stmt|;
 specifier|private
@@ -8620,12 +8615,6 @@ expr_stmt|;
 name|this
 operator|.
 name|logSplit
-operator|=
-literal|false
-expr_stmt|;
-name|this
-operator|.
-name|rootChecked
 operator|=
 literal|false
 expr_stmt|;
@@ -9552,12 +9541,6 @@ name|this
 operator|.
 name|logSplit
 operator|+
-literal|", rootChecked: "
-operator|+
-name|this
-operator|.
-name|rootChecked
-operator|+
 literal|", rootRescanned: "
 operator|+
 name|this
@@ -9642,12 +9625,6 @@ block|}
 if|if
 condition|(
 operator|!
-name|rootChecked
-condition|)
-block|{
-if|if
-condition|(
-operator|!
 name|rootAvailable
 argument_list|()
 condition|)
@@ -9658,7 +9635,6 @@ comment|// rootAvailable() has already put it on the delayedToDoQueue
 return|return
 literal|true
 return|;
-block|}
 block|}
 if|if
 condition|(
@@ -9703,42 +9679,6 @@ condition|)
 block|{
 return|return
 literal|true
-return|;
-block|}
-if|if
-condition|(
-name|rootRegionLocation
-operator|.
-name|get
-argument_list|()
-operator|==
-literal|null
-operator|||
-operator|!
-name|rootScanned
-condition|)
-block|{
-comment|// We can't proceed until the root region is online and has been scanned
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"process server shutdown scanning root region "
-operator|+
-literal|"cancelled because rootRegionLocation is null"
-argument_list|)
-expr_stmt|;
-block|}
-return|return
-literal|false
 return|;
 block|}
 name|server
