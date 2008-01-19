@@ -38,6 +38,23 @@ specifier|public
 interface|interface
 name|HConstants
 block|{
+comment|// For migration
+comment|/** name of version file */
+specifier|static
+specifier|final
+name|String
+name|VERSION_FILE_NAME
+init|=
+literal|"hbase.version"
+decl_stmt|;
+comment|/** version of file system */
+specifier|static
+specifier|final
+name|String
+name|FILE_SYSTEM_VERSION
+init|=
+literal|"0.1"
+decl_stmt|;
 comment|// Configuration parameters
 comment|// TODO: URL for hbase master like hdfs URLs with host and port.
 comment|// Like jdbc URLs?  URLs could be used to refer to table cells?

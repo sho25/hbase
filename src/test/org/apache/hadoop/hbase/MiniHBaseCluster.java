@@ -99,6 +99,22 @@ name|Logger
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FSUtils
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class creates a single process HBase cluster. One thread is created for  * each server.  */
 end_comment
@@ -437,6 +453,15 @@ name|fs
 operator|.
 name|mkdirs
 argument_list|(
+name|parentdir
+argument_list|)
+expr_stmt|;
+name|FSUtils
+operator|.
+name|setVersion
+argument_list|(
+name|fs
+argument_list|,
 name|parentdir
 argument_list|)
 expr_stmt|;
