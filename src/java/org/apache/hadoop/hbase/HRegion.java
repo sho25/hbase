@@ -327,6 +327,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|io
+operator|.
+name|WritableUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|util
 operator|.
 name|StringUtils
@@ -5597,7 +5611,7 @@ name|updatesByColumn
 argument_list|)
 expr_stmt|;
 name|long
-name|memcacheSize
+name|size
 init|=
 literal|0
 decl_stmt|;
@@ -5637,7 +5651,7 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
-name|memcacheSize
+name|size
 operator|=
 name|this
 operator|.
@@ -5694,7 +5708,7 @@ name|flushListener
 operator|!=
 literal|null
 operator|&&
-name|memcacheSize
+name|size
 operator|>
 name|this
 operator|.
@@ -6326,7 +6340,7 @@ condition|?
 operator|(
 name|RowFilterInterface
 operator|)
-name|Writables
+name|WritableUtils
 operator|.
 name|clone
 argument_list|(
@@ -7088,7 +7102,7 @@ name|activeScannerCount
 init|)
 block|{
 name|int
-name|scanners
+name|count
 init|=
 name|activeScannerCount
 operator|.
@@ -7097,7 +7111,7 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|scanners
+name|count
 operator|<
 literal|0
 condition|)
@@ -7108,7 +7122,7 @@ name|error
 argument_list|(
 literal|"active scanner count less than zero: "
 operator|+
-name|scanners
+name|count
 operator|+
 literal|" resetting to zero"
 argument_list|)
@@ -7120,14 +7134,14 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|scanners
+name|count
 operator|=
 literal|0
 expr_stmt|;
 block|}
 if|if
 condition|(
-name|scanners
+name|count
 operator|==
 literal|0
 condition|)

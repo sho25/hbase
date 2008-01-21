@@ -485,8 +485,9 @@ decl_stmt|;
 name|HBaseConfiguration
 name|conf
 init|=
-operator|new
-name|HBaseConfiguration
+name|master
+operator|.
+name|getConfiguration
 argument_list|()
 decl_stmt|;
 name|TableFormatter

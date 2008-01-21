@@ -1331,10 +1331,17 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-comment|// need retry logic?
-throw|throw
-name|e
-throw|;
+comment|// Retry once.
+name|metaLocation
+operator|=
+name|relocateRegion
+argument_list|(
+name|META_TABLE_NAME
+argument_list|,
+name|startRow
+argument_list|)
+expr_stmt|;
+continue|continue;
 block|}
 finally|finally
 block|{

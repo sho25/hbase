@@ -14166,6 +14166,18 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * @return Return configuration being used by this server.    */
+specifier|public
+name|HBaseConfiguration
+name|getConfiguration
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|conf
+return|;
+block|}
 comment|/*    * Main program    */
 specifier|private
 specifier|static
