@@ -267,9 +267,9 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|fatal
 argument_list|(
-literal|"Failed file system available test. Thread: "
+literal|"File system is not available.. Thread: "
 operator|+
 name|Thread
 operator|.

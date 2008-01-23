@@ -7485,6 +7485,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Computes the Path of the HRegion    *     * @param rootdir qualified path of HBase root directory    * @param info HRegionInfo for the region    * @return qualified path of region directory    */
+specifier|public
 specifier|static
 name|Path
 name|getRegionDir

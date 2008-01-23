@@ -3961,7 +3961,9 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"file system not correct version. Run hbase.util.Migrate"
+literal|"File system needs upgrade. Run "
+operator|+
+literal|"the '${HBASE_HOME}/bin/hbase migrate' script"
 argument_list|)
 throw|;
 block|}
