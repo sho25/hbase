@@ -367,6 +367,25 @@ operator|+
 literal|"splitB"
 argument_list|)
 decl_stmt|;
+comment|/** All the columns in the catalog -ROOT- and .META. tables.    */
+specifier|static
+specifier|final
+name|Text
+index|[]
+name|ALL_META_COLUMNS
+init|=
+block|{
+name|COL_REGIONINFO
+block|,
+name|COL_SERVER
+block|,
+name|COL_STARTCODE
+block|,
+name|COL_SPLITA
+block|,
+name|COL_SPLITB
+block|}
+decl_stmt|;
 comment|// Other constants
 comment|/**    * An empty instance of Text.    */
 specifier|static

@@ -906,12 +906,12 @@ operator|.
 name|toString
 argument_list|()
 operator|+
-literal|">, encodedName("
+literal|">, encodedName: "
 operator|+
 name|getEncodedName
 argument_list|()
 operator|+
-literal|")"
+literal|","
 operator|+
 operator|(
 name|isOffline
