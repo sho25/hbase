@@ -1516,7 +1516,6 @@ return|;
 block|}
 comment|/**    * Get reader for the store file map file.    * Client is responsible for closing file when done.    * @param fs    * @param bloomFilter If null, no filtering is done.    * @return MapFile.Reader    * @throws IOException    */
 specifier|public
-specifier|synchronized
 name|MapFile
 operator|.
 name|Reader
@@ -1533,13 +1532,10 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
+return|return
 name|isReference
 argument_list|()
-condition|)
-block|{
-return|return
+condition|?
 operator|new
 name|HStoreFile
 operator|.
@@ -1569,9 +1565,7 @@ argument_list|()
 argument_list|,
 name|bloomFilter
 argument_list|)
-return|;
-block|}
-return|return
+else|:
 operator|new
 name|BloomFilterMapFile
 operator|.
