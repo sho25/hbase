@@ -629,6 +629,13 @@ condition|(
 name|rs
 operator|!=
 literal|null
+condition|)
+block|{
+if|if
+condition|(
+name|rs
+operator|!=
+literal|null
 operator|&&
 name|rs
 operator|.
@@ -689,6 +696,7 @@ name|getMsg
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|queryStr
 operator|=
 operator|new
