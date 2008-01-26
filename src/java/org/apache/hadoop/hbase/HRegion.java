@@ -1086,6 +1086,7 @@ specifier|final
 name|Path
 name|regionCompactionDir
 decl_stmt|;
+comment|/*    * Data structure of write state flags used coordinating flushes,    * compactions and closes.    */
 specifier|static
 class|class
 name|WriteState
@@ -1104,13 +1105,19 @@ name|compacting
 init|=
 literal|false
 decl_stmt|;
-comment|// Gets set by last flush before close.  If set, cannot compact or flush
-comment|// again.
+comment|// Gets set in close. If set, cannot compact or flush again.
 specifier|volatile
 name|boolean
 name|writesEnabled
 init|=
 literal|true
+decl_stmt|;
+comment|// Gets set in close to prevent new compaction starting
+specifier|volatile
+name|boolean
+name|disableCompactions
+init|=
+literal|false
 decl_stmt|;
 block|}
 specifier|volatile
@@ -1729,6 +1736,18 @@ init|(
 name|writestate
 init|)
 block|{
+comment|// Can be a compaction running and it can take a long time to
+comment|// complete -- minutes.  Meantime, we want flushes to keep happening
+comment|// if we are taking on lots of updates.  But we don't want another
+comment|// compaction to start so set disableCompactions flag.
+name|this
+operator|.
+name|writestate
+operator|.
+name|disableCompactions
+operator|=
+literal|true
+expr_stmt|;
 while|while
 condition|(
 name|writestate
@@ -3185,6 +3204,13 @@ operator|&&
 name|writestate
 operator|.
 name|writesEnabled
+operator|&&
+operator|!
+name|this
+operator|.
+name|writestate
+operator|.
+name|disableCompactions
 condition|)
 block|{
 name|writestate
@@ -3223,6 +3249,14 @@ operator|+
 name|writestate
 operator|.
 name|writesEnabled
+operator|+
+literal|", writestate.disableCompactions="
+operator|+
+name|this
+operator|.
+name|writestate
+operator|.
+name|disableCompactions
 argument_list|)
 expr_stmt|;
 return|return
@@ -3376,12 +3410,10 @@ init|)
 block|{
 if|if
 condition|(
-operator|(
 operator|!
 name|writestate
 operator|.
 name|flushing
-operator|)
 operator|&&
 name|writestate
 operator|.
