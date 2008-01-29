@@ -4723,6 +4723,27 @@ name|e
 argument_list|)
 throw|;
 block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"main processing loop: "
+operator|+
+name|op
+operator|.
+name|toString
+argument_list|()
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -4736,9 +4757,18 @@ name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"Unhandled exception"
+literal|"Unhandled exception. Starting shutdown."
 argument_list|,
 name|t
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|closed
+operator|.
+name|set
+argument_list|(
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
