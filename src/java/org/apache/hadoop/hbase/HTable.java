@@ -834,6 +834,9 @@ name|metaLocation
 init|=
 literal|null
 decl_stmt|;
+name|HRegionInterface
+name|server
+decl_stmt|;
 comment|// scan over the each meta region
 do|do
 block|{
@@ -852,9 +855,8 @@ name|startRow
 argument_list|)
 expr_stmt|;
 comment|// connect to the server hosting the .META. region
-name|HRegionInterface
 name|server
-init|=
+operator|=
 name|connection
 operator|.
 name|getHRegionConnection
@@ -864,7 +866,7 @@ operator|.
 name|getServerAddress
 argument_list|()
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 comment|// open a scanner over the meta region
 name|scannerId
 operator|=
@@ -882,7 +884,7 @@ argument_list|()
 argument_list|,
 name|COLUMN_FAMILY_ARRAY
 argument_list|,
-name|EMPTY_START_ROW
+name|tableName
 argument_list|,
 name|LATEST_TIMESTAMP
 argument_list|,
@@ -1028,18 +1030,9 @@ name|isOffline
 argument_list|()
 condition|)
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Region "
-operator|+
-name|info
-operator|+
-literal|" was offline!"
-argument_list|)
-expr_stmt|;
-break|break;
+continue|continue
+name|SCANNER_LOOP
+continue|;
 block|}
 if|if
 condition|(
@@ -1049,18 +1042,9 @@ name|isSplit
 argument_list|()
 condition|)
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Region "
-operator|+
-name|info
-operator|+
-literal|" was split!"
-argument_list|)
-expr_stmt|;
-break|break;
+continue|continue
+name|SCANNER_LOOP
+continue|;
 block|}
 name|keyList
 operator|.
@@ -1075,6 +1059,14 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|// close that remote scanner
+name|server
+operator|.
+name|close
+argument_list|(
+name|scannerId
+argument_list|)
+expr_stmt|;
 comment|// advance the startRow to the end key of the current region
 name|startRow
 operator|=

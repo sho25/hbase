@@ -1460,7 +1460,7 @@ block|}
 block|}
 block|}
 comment|/*    * Compact the passed in region<code>r</code>.     * @param cluster    * @param r    * @throws IOException    */
-specifier|private
+specifier|protected
 specifier|static
 name|void
 name|compact
