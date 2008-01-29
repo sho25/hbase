@@ -936,6 +936,34 @@ literal|"start"
 argument_list|)
 condition|)
 block|{
+continue|continue;
+block|}
+elseif|else
+if|if
+condition|(
+name|cmd
+operator|.
+name|equals
+argument_list|(
+literal|"stop"
+argument_list|)
+condition|)
+block|{
+name|printUsageAndExit
+argument_list|(
+literal|"To shutdown the REST server run "
+operator|+
+literal|"bin/hbase-daemon.sh stop rest or send a kill signal to "
+operator|+
+literal|"the REST server pid"
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Print out usage if we get to here.
+name|printUsageAndExit
+argument_list|()
+expr_stmt|;
+block|}
 name|org
 operator|.
 name|mortbay
@@ -1002,34 +1030,6 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
-break|break;
-block|}
-elseif|else
-if|if
-condition|(
-name|cmd
-operator|.
-name|equals
-argument_list|(
-literal|"stop"
-argument_list|)
-condition|)
-block|{
-name|printUsageAndExit
-argument_list|(
-literal|"To shutdown the REST server run "
-operator|+
-literal|"bin/hbase-daemon.sh stop rest or send a kill signal to "
-operator|+
-literal|"the REST server pid"
-argument_list|)
-expr_stmt|;
-block|}
-comment|// Print out usage if we get to here.
-name|printUsageAndExit
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 comment|/**    * @param args    * @throws Exception     */
 specifier|public
