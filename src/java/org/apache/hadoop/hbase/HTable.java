@@ -784,7 +784,12 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Gets the starting row key for every region in the currently open table    * @return Array of region starting row keys    */
+comment|/**    * Gets the starting row key for every region in the currently open table    * @return Array of region starting row keys    * @throws IOException    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"null"
+argument_list|)
 specifier|public
 name|Text
 index|[]
@@ -2805,7 +2810,7 @@ comment|// continue
 block|}
 block|}
 block|}
-comment|/**    * Completely delete the row's cells of the same timestamp or older.    *    * @param row Key of the row you want to completely delete.    * @param ts Timestamp of cells to delete    */
+comment|/**    * Completely delete the row's cells of the same timestamp or older.    *    * @param row Key of the row you want to completely delete.    * @param ts Timestamp of cells to delete    * @throws IOException    */
 specifier|public
 name|void
 name|deleteAll
@@ -2972,7 +2977,7 @@ comment|// continue
 block|}
 block|}
 block|}
-comment|/**    * Completely delete the row's cells.    *    * @param row Key of the row you want to completely delete.    */
+comment|/**    * Completely delete the row's cells.    *    * @param row Key of the row you want to completely delete.    * @throws IOException    */
 specifier|public
 name|void
 name|deleteAll
@@ -2994,7 +2999,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete all cells for a row with matching column family with timestamps    * less than or equal to<i>timestamp</i>.    *    * @param row The row to operate on    * @param family The column family to match    * @param timestamp Timestamp to match    */
+comment|/**    * Delete all cells for a row with matching column family with timestamps    * less than or equal to<i>timestamp</i>.    *    * @param row The row to operate on    * @param family The column family to match    * @param timestamp Timestamp to match    * @throws IOException    */
 specifier|public
 name|void
 name|deleteFamily
@@ -3167,7 +3172,7 @@ comment|// continue
 block|}
 block|}
 block|}
-comment|/**    * Delete all cells for a row with matching column family at all timestamps.    *    * @param row The row to operate on    * @param family The column family to match    */
+comment|/**    * Delete all cells for a row with matching column family at all timestamps.    *    * @param row The row to operate on    * @param family The column family to match    * @throws IOException    */
 specifier|public
 name|void
 name|deleteFamily
@@ -4018,6 +4023,7 @@ return|return
 literal|true
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|next
