@@ -1160,7 +1160,7 @@ argument_list|()
 argument_list|,
 name|COLUMN_FAMILY_ARRAY
 argument_list|,
-name|EMPTY_START_ROW
+name|startRow
 argument_list|,
 name|LATEST_TIMESTAMP
 argument_list|,
@@ -1369,7 +1369,7 @@ name|startRow
 operator|.
 name|compareTo
 argument_list|(
-name|EMPTY_START_ROW
+name|LAST_ROW
 argument_list|)
 operator|!=
 literal|0

@@ -405,6 +405,14 @@ name|EMPTY_START_ROW
 init|=
 name|EMPTY_TEXT
 decl_stmt|;
+comment|/**      * Used by scanners and others when they're trying to detect the end of a      * table      */
+specifier|static
+specifier|final
+name|Text
+name|LAST_ROW
+init|=
+name|EMPTY_TEXT
+decl_stmt|;
 comment|/** When we encode strings, we always specify UTF8 encoding */
 specifier|static
 specifier|final
