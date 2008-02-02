@@ -7752,9 +7752,17 @@ argument_list|,
 name|timestamp
 argument_list|)
 decl_stmt|;
-comment|// for when we have MapFile.Reader#getClosest before functionality
-comment|/*        Text row_from_mapfile = null;         WritableComparable value = null;                   HStoreKey hskResult =            (HStoreKey)maparray[i].getClosest(rowKey, value, true);                  if (hskResult != null) {           row_from_mapfile = hskResult.getRow();         }*/
-comment|/*        LOG.debug("Best from this mapfile was " + row_from_mapfile);*/
+comment|// if the result from the mapfile is null, then we know that
+comment|// the mapfile was empty and can move on to the next one.
+if|if
+condition|(
+name|row_from_mapfile
+operator|==
+literal|null
+condition|)
+block|{
+continue|continue;
+block|}
 comment|// short circuit on an exact match
 if|if
 condition|(
@@ -7793,7 +7801,6 @@ name|row_from_mapfile
 expr_stmt|;
 block|}
 block|}
-comment|/*      LOG.debug("Went searching for " + row + ", found " + bestSoFar);*/
 return|return
 name|bestSoFar
 return|;
