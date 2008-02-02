@@ -9185,7 +9185,13 @@ name|row
 argument_list|)
 expr_stmt|;
 block|}
-else|else
+elseif|else
+if|if
+condition|(
+name|e
+operator|.
+name|regionOffline
+condition|)
 block|{
 name|HRegion
 operator|.
