@@ -373,6 +373,30 @@ name|org
 operator|.
 name|apache
 operator|.
+name|log4j
+operator|.
+name|Level
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|log4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|lucene
 operator|.
 name|index
@@ -577,6 +601,21 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+comment|// Enable DEBUG-level MR logging.
+name|Logger
+operator|.
+name|getLogger
+argument_list|(
+literal|"org.apache.hadoop.mapred"
+argument_list|)
+operator|.
+name|setLevel
+argument_list|(
+name|Level
+operator|.
+name|DEBUG
+argument_list|)
+expr_stmt|;
 comment|// Make sure the cache gets flushed so we trigger a compaction(s) and
 comment|// hence splits.
 name|conf
@@ -590,16 +629,6 @@ operator|*
 literal|1024
 argument_list|)
 expr_stmt|;
-comment|// Always compact if there is more than one store file.
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.hstore.compactionThreshold"
-argument_list|,
-literal|2
-argument_list|)
-expr_stmt|;
 comment|// This size should make it so we always split using the addContent
 comment|// below. After adding all data, the first region is 1.3M
 name|conf
@@ -608,7 +637,7 @@ name|setLong
 argument_list|(
 literal|"hbase.hregion.max.filesize"
 argument_list|,
-literal|128
+literal|1024
 operator|*
 literal|1024
 argument_list|)

@@ -151,7 +151,7 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create an HStoreKey specifying the row and column names    * The timestamp defaults to Long.MAX_VALUE    *     * @param row row key    * @param column column key    */
+comment|/**    * Create an HStoreKey specifying the row and column names    * The timestamp defaults to LATEST_TIMESTAMP    *     * @param row row key    * @param column column key    */
 specifier|public
 name|HStoreKey
 parameter_list|(
@@ -168,9 +168,9 @@ name|row
 argument_list|,
 name|column
 argument_list|,
-name|Long
+name|HConstants
 operator|.
-name|MAX_VALUE
+name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
 block|}

@@ -1112,13 +1112,6 @@ name|writesEnabled
 init|=
 literal|true
 decl_stmt|;
-comment|// Gets set in close to prevent new compaction starting
-specifier|volatile
-name|boolean
-name|disableCompactions
-init|=
-literal|false
-decl_stmt|;
 block|}
 specifier|volatile
 name|WriteState
@@ -1569,7 +1562,7 @@ name|getInt
 argument_list|(
 literal|"hbase.hregion.memcache.block.multiplier"
 argument_list|,
-literal|2
+literal|1
 argument_list|)
 expr_stmt|;
 comment|// By default we split region if a file> DEFAULT_MAX_FILE_SIZE.
@@ -1736,17 +1729,22 @@ init|(
 name|writestate
 init|)
 block|{
-comment|// Can be a compaction running and it can take a long time to
-comment|// complete -- minutes.  Meantime, we want flushes to keep happening
-comment|// if we are taking on lots of updates.  But we don't want another
-comment|// compaction to start so set disableCompactions flag.
-name|this
-operator|.
+comment|// Disable compacting and flushing by background threads for this
+comment|// region.
 name|writestate
 operator|.
-name|disableCompactions
+name|writesEnabled
 operator|=
-literal|true
+literal|false
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"compactions and cache flushes disabled for region "
+operator|+
+name|regionName
+argument_list|)
 expr_stmt|;
 while|while
 condition|(
@@ -1817,23 +1815,6 @@ block|{
 comment|// continue
 block|}
 block|}
-comment|// Disable compacting and flushing by background threads for this
-comment|// region.
-name|writestate
-operator|.
-name|writesEnabled
-operator|=
-literal|false
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"compactions and cache flushes disabled for region "
-operator|+
-name|regionName
-argument_list|)
-expr_stmt|;
 block|}
 name|lock
 operator|.
@@ -2876,21 +2857,6 @@ return|return
 literal|false
 return|;
 block|}
-name|long
-name|triggerSize
-init|=
-name|this
-operator|.
-name|desiredMaxFileSize
-operator|+
-operator|(
-name|this
-operator|.
-name|desiredMaxFileSize
-operator|/
-literal|2
-operator|)
-decl_stmt|;
 name|boolean
 name|split
 init|=
@@ -2900,7 +2866,9 @@ operator|.
 name|getAggregate
 argument_list|()
 operator|>=
-name|triggerSize
+name|this
+operator|.
+name|desiredMaxFileSize
 operator|)
 decl_stmt|;
 if|if
@@ -3067,29 +3035,6 @@ operator|!
 name|needsCompaction
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"region "
-operator|+
-name|regionInfo
-operator|.
-name|getRegionName
-argument_list|()
-operator|+
-literal|" does not need compaction"
-argument_list|)
-expr_stmt|;
-block|}
 return|return
 literal|false
 return|;
@@ -3204,13 +3149,6 @@ operator|&&
 name|writestate
 operator|.
 name|writesEnabled
-operator|&&
-operator|!
-name|this
-operator|.
-name|writestate
-operator|.
-name|disableCompactions
 condition|)
 block|{
 name|writestate
@@ -3249,14 +3187,6 @@ operator|+
 name|writestate
 operator|.
 name|writesEnabled
-operator|+
-literal|", writestate.disableCompactions="
-operator|+
-name|this
-operator|.
-name|writestate
-operator|.
-name|disableCompactions
 argument_list|)
 expr_stmt|;
 return|return

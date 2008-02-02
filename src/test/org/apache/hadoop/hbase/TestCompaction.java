@@ -234,6 +234,15 @@ operator|*
 literal|1024
 argument_list|)
 expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.hregion.memcache.block.multiplier"
+argument_list|,
+literal|2
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|cluster
