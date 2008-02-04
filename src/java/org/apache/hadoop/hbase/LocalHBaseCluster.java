@@ -946,6 +946,23 @@ argument_list|(
 name|MASTER_ADDRESS
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|address
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|(
+literal|"Address is null for "
+operator|+
+name|MASTER_ADDRESS
+argument_list|)
+throw|;
+block|}
 name|String
 name|port
 init|=
