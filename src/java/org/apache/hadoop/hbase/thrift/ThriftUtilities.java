@@ -294,6 +294,10 @@ name|inMemory
 argument_list|,
 name|in
 operator|.
+name|blockCacheEnabled
+argument_list|,
+name|in
+operator|.
 name|maxValueLength
 argument_list|,
 name|bloom
@@ -360,6 +364,15 @@ operator|=
 name|in
 operator|.
 name|isInMemory
+argument_list|()
+expr_stmt|;
+name|col
+operator|.
+name|blockCacheEnabled
+operator|=
+name|in
+operator|.
+name|isBlockCacheEnabled
 argument_list|()
 expr_stmt|;
 name|col

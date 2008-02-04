@@ -847,6 +847,10 @@ argument_list|,
 comment|// not in memory
 name|HColumnDescriptor
 operator|.
+name|DEFAULT_BLOCK_CACHE_ENABLED
+argument_list|,
+name|HColumnDescriptor
+operator|.
 name|DEFAULT_MAX_VALUE_LENGTH
 argument_list|,
 name|bloomFilter
@@ -1138,6 +1142,10 @@ operator|.
 name|DEFAULT_IN_MEMORY
 argument_list|,
 comment|// not in memory
+name|HColumnDescriptor
+operator|.
+name|DEFAULT_BLOCK_CACHE_ENABLED
+argument_list|,
 name|HColumnDescriptor
 operator|.
 name|DEFAULT_MAX_VALUE_LENGTH

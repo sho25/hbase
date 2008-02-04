@@ -1558,6 +1558,8 @@ name|NONE
 argument_list|,
 literal|false
 argument_list|,
+literal|false
+argument_list|,
 name|Integer
 operator|.
 name|MAX_VALUE
