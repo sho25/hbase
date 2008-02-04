@@ -134,7 +134,7 @@ init|=
 operator|(
 name|byte
 operator|)
-literal|2
+literal|1
 decl_stmt|;
 comment|/** Legal family names can only contain 'word characters' and end in a colon. */
 specifier|public
@@ -194,15 +194,6 @@ name|DEFAULT_IN_MEMORY
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * Default setting for whether to use a block cache or not.    */
-specifier|public
-specifier|static
-specifier|final
-name|boolean
-name|DEFAULT_BLOCK_CACHE_ENABLED
-init|=
-literal|false
-decl_stmt|;
 comment|/**    * Default maximum length of cell contents.    */
 specifier|public
 specifier|static
@@ -242,11 +233,6 @@ comment|// Serve reads from in-memory cache
 specifier|private
 name|boolean
 name|inMemory
-decl_stmt|;
-comment|// Serve reads from in-memory block cache
-specifier|private
-name|boolean
-name|blockCacheEnabled
 decl_stmt|;
 comment|// Maximum value size
 specifier|private
@@ -324,8 +310,6 @@ name|DEFAULT_COMPRESSION_TYPE
 argument_list|,
 name|DEFAULT_IN_MEMORY
 argument_list|,
-name|DEFAULT_BLOCK_CACHE_ENABLED
-argument_list|,
 name|Integer
 operator|.
 name|MAX_VALUE
@@ -334,7 +318,7 @@ name|DEFAULT_BLOOM_FILTER_DESCRIPTOR
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * Specify all parameters.    * @param name Column family name    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param maxValueLength Restrict values to&lt;= this value    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
+comment|/**    * Constructor    * Specify all parameters.    * @param name Column family name    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param maxValueLength Restrict values to&lt;= this value    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -353,10 +337,6 @@ parameter_list|,
 specifier|final
 name|boolean
 name|inMemory
-parameter_list|,
-specifier|final
-name|boolean
-name|blockCacheEnabled
 parameter_list|,
 specifier|final
 name|int
@@ -459,12 +439,6 @@ operator|.
 name|inMemory
 operator|=
 name|inMemory
-expr_stmt|;
-name|this
-operator|.
-name|blockCacheEnabled
-operator|=
-name|blockCacheEnabled
 expr_stmt|;
 name|this
 operator|.
@@ -613,16 +587,6 @@ operator|.
 name|inMemory
 return|;
 block|}
-comment|/**    * @return True if MapFile blocks should be cached.    */
-specifier|public
-name|boolean
-name|isBlockCacheEnabled
-parameter_list|()
-block|{
-return|return
-name|blockCacheEnabled
-return|;
-block|}
 comment|/**    * @return Maximum value length.    */
 specifier|public
 name|int
@@ -694,10 +658,6 @@ operator|+
 literal|", in memory: "
 operator|+
 name|inMemory
-operator|+
-literal|", block cache enabled: "
-operator|+
-name|blockCacheEnabled
 operator|+
 literal|", max length: "
 operator|+
@@ -789,20 +749,6 @@ argument_list|(
 name|this
 operator|.
 name|inMemory
-argument_list|)
-operator|.
-name|hashCode
-argument_list|()
-expr_stmt|;
-name|result
-operator|^=
-name|Boolean
-operator|.
-name|valueOf
-argument_list|(
-name|this
-operator|.
-name|blockCacheEnabled
 argument_list|)
 operator|.
 name|hashCode
@@ -976,25 +922,6 @@ name|in
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|this
-operator|.
-name|versionNumber
-operator|>
-literal|1
-condition|)
-block|{
-name|this
-operator|.
-name|blockCacheEnabled
-operator|=
-name|in
-operator|.
-name|readBoolean
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 comment|/** {@inheritDoc} */
 specifier|public
@@ -1086,15 +1013,6 @@ name|out
 argument_list|)
 expr_stmt|;
 block|}
-name|out
-operator|.
-name|writeBoolean
-argument_list|(
-name|this
-operator|.
-name|blockCacheEnabled
-argument_list|)
-expr_stmt|;
 block|}
 comment|// Comparable
 comment|/** {@inheritDoc} */
@@ -1213,51 +1131,6 @@ condition|(
 name|this
 operator|.
 name|inMemory
-condition|)
-block|{
-name|result
-operator|=
-operator|-
-literal|1
-expr_stmt|;
-block|}
-else|else
-block|{
-name|result
-operator|=
-literal|1
-expr_stmt|;
-block|}
-block|}
-if|if
-condition|(
-name|result
-operator|==
-literal|0
-condition|)
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|blockCacheEnabled
-operator|==
-name|other
-operator|.
-name|blockCacheEnabled
-condition|)
-block|{
-name|result
-operator|=
-literal|0
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|this
-operator|.
-name|blockCacheEnabled
 condition|)
 block|{
 name|result

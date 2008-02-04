@@ -837,8 +837,6 @@ name|NONE
 argument_list|,
 literal|false
 argument_list|,
-literal|false
-argument_list|,
 name|Integer
 operator|.
 name|MAX_VALUE
@@ -868,8 +866,6 @@ name|NONE
 argument_list|,
 literal|false
 argument_list|,
-literal|false
-argument_list|,
 name|Integer
 operator|.
 name|MAX_VALUE
@@ -896,8 +892,6 @@ argument_list|,
 name|CompressionType
 operator|.
 name|NONE
-argument_list|,
-literal|false
 argument_list|,
 literal|false
 argument_list|,

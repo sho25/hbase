@@ -135,11 +135,9 @@ literal|"Table descriptor"
 argument_list|,
 literal|"name: -ROOT-, families: {info:={name: "
 operator|+
-literal|"info, max versions: 1, compression: NONE, in memory: false, "
+literal|"info, max versions: 1, compression: NONE, in memory: false, max "
 operator|+
-literal|"block cache enabled: false, max length: 2147483647, "
-operator|+
-literal|"bloom filter: none}}"
+literal|"length: 2147483647, bloom filter: none}}"
 argument_list|,
 name|htd
 operator|.
