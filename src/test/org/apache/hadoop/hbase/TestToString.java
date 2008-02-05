@@ -179,9 +179,9 @@ literal|"regionname: -ROOT-,,0, startKey:<>, endKey:<>, encodedName: 70236052, t
 operator|+
 literal|"{name: -ROOT-, families: {info:={name: info, max versions: 1, "
 operator|+
-literal|"compression: NONE, in memory: false, block cache enabled: false, "
+literal|"compression: NONE, in memory: false, max length: 2147483647, bloom "
 operator|+
-literal|"max length: 2147483647, bloom filter: none}}}"
+literal|"filter: none}}}"
 argument_list|,
 name|hri
 operator|.
