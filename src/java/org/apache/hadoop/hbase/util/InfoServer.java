@@ -786,7 +786,9 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"webapps not found in CLASSPATH"
+literal|"webapps not found in CLASSPATH: "
+operator|+
+name|path
 argument_list|)
 throw|;
 return|return

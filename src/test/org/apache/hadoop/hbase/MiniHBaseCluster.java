@@ -712,6 +712,15 @@ name|void
 name|shutdown
 parameter_list|()
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|hbaseCluster
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|hbaseCluster
@@ -719,6 +728,7 @@ operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|shutdownDFS
