@@ -1546,19 +1546,6 @@ argument_list|)
 expr_stmt|;
 comment|// Mark old region as offline and split in META.
 comment|// NOTE: there is no need for retry logic here. HTable does it for us.
-name|long
-name|lockid
-init|=
-name|t
-operator|.
-name|startUpdate
-argument_list|(
-name|oldRegionInfo
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-decl_stmt|;
 name|oldRegionInfo
 operator|.
 name|setOffline
@@ -1573,12 +1560,22 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-name|t
+name|BatchUpdate
+name|update
+init|=
+operator|new
+name|BatchUpdate
+argument_list|(
+name|oldRegionInfo
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|update
 operator|.
 name|put
 argument_list|(
-name|lockid
-argument_list|,
 name|COL_REGIONINFO
 argument_list|,
 name|Writables
@@ -1589,12 +1586,10 @@ name|oldRegionInfo
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|t
+name|update
 operator|.
 name|put
 argument_list|(
-name|lockid
-argument_list|,
 name|COL_SPLITA
 argument_list|,
 name|Writables
@@ -1611,12 +1606,10 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|t
+name|update
 operator|.
 name|put
 argument_list|(
-name|lockid
-argument_list|,
 name|COL_SPLITB
 argument_list|,
 name|Writables
@@ -1637,7 +1630,7 @@ name|t
 operator|.
 name|commit
 argument_list|(
-name|lockid
+name|update
 argument_list|)
 expr_stmt|;
 comment|// Add new regions to META
@@ -1658,11 +1651,10 @@ name|i
 operator|++
 control|)
 block|{
-name|lockid
+name|update
 operator|=
-name|t
-operator|.
-name|startUpdate
+operator|new
+name|BatchUpdate
 argument_list|(
 name|newRegions
 index|[
@@ -1673,12 +1665,10 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|t
+name|update
 operator|.
 name|put
 argument_list|(
-name|lockid
-argument_list|,
 name|COL_REGIONINFO
 argument_list|,
 name|Writables
@@ -1699,9 +1689,10 @@ name|t
 operator|.
 name|commit
 argument_list|(
-name|lockid
+name|update
 argument_list|)
 expr_stmt|;
+comment|/*        long lockid = t.startUpdate(newRegions[i].getRegionName());         t.put(lockid, COL_REGIONINFO, Writables.getBytes(           newRegions[i].getRegionInfo()));         t.commit(lockid);*/
 block|}
 comment|// Now tell the master about the new regions
 if|if
@@ -6790,9 +6781,6 @@ parameter_list|(
 name|Text
 name|regionName
 parameter_list|,
-name|long
-name|timestamp
-parameter_list|,
 name|BatchUpdate
 name|b
 parameter_list|)
@@ -6823,8 +6811,6 @@ name|region
 operator|.
 name|batchUpdate
 argument_list|(
-name|timestamp
-argument_list|,
 name|b
 argument_list|)
 expr_stmt|;

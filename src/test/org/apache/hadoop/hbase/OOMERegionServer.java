@@ -135,17 +135,12 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Override
 specifier|public
 name|void
 name|batchUpdate
 parameter_list|(
 name|Text
 name|regionName
-parameter_list|,
-name|long
-name|timestamp
 parameter_list|,
 name|BatchUpdate
 name|b
@@ -158,8 +153,6 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|regionName
-argument_list|,
-name|timestamp
 argument_list|,
 name|b
 argument_list|)

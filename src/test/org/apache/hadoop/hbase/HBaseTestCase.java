@@ -1270,7 +1270,7 @@ name|lockid
 init|=
 name|updater
 operator|.
-name|startBatchUpdate
+name|startUpdate
 argument_list|(
 name|t
 argument_list|)
@@ -1440,6 +1440,17 @@ specifier|static
 interface|interface
 name|Incommon
 block|{
+comment|/**      * @param row      * @throws IOException      */
+specifier|public
+name|long
+name|startUpdate
+parameter_list|(
+name|Text
+name|row
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**      * @param row      * @param column      * @return value for row/column pair      * @throws IOException      */
 specifier|public
 name|byte
@@ -1492,18 +1503,6 @@ name|ts
 parameter_list|,
 name|int
 name|versions
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**      * @param row      * @return batch update identifier      * @throws IOException      */
-specifier|public
-name|long
-name|startBatchUpdate
-parameter_list|(
-specifier|final
-name|Text
-name|row
 parameter_list|)
 throws|throws
 name|IOException
@@ -1751,12 +1750,19 @@ try|try
 block|{
 name|this
 operator|.
+name|batch
+operator|.
+name|setTimestamp
+argument_list|(
+name|ts
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
 name|region
 operator|.
 name|batchUpdate
 argument_list|(
-name|ts
-argument_list|,
 name|batch
 argument_list|)
 expr_stmt|;
@@ -1796,8 +1802,6 @@ name|batch
 operator|.
 name|put
 argument_list|(
-name|lockid
-argument_list|,
 name|column
 argument_list|,
 name|val
@@ -1825,8 +1829,6 @@ name|batch
 operator|.
 name|delete
 argument_list|(
-name|lockid
-argument_list|,
 name|column
 argument_list|)
 expr_stmt|;
@@ -1862,22 +1864,6 @@ name|ts
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
-specifier|public
-name|long
-name|startBatchUpdate
-parameter_list|(
-name|Text
-name|row
-parameter_list|)
-block|{
-return|return
-name|startUpdate
-argument_list|(
-name|row
-argument_list|)
-return|;
-block|}
 comment|/**      * @param row      * @return update id      */
 specifier|public
 name|long
@@ -1904,19 +1890,6 @@ literal|"Update already in progress"
 argument_list|)
 throw|;
 block|}
-name|long
-name|lockid
-init|=
-name|Math
-operator|.
-name|abs
-argument_list|(
-name|rand
-operator|.
-name|nextLong
-argument_list|()
-argument_list|)
-decl_stmt|;
 name|this
 operator|.
 name|batch
@@ -1924,16 +1897,11 @@ operator|=
 operator|new
 name|BatchUpdate
 argument_list|(
-name|lockid
+name|row
 argument_list|)
 expr_stmt|;
 return|return
-name|batch
-operator|.
-name|startUpdate
-argument_list|(
-name|row
-argument_list|)
+literal|1
 return|;
 block|}
 comment|/** {@inheritDoc} */
@@ -2301,7 +2269,7 @@ block|}
 comment|/** {@inheritDoc} */
 specifier|public
 name|long
-name|startBatchUpdate
+name|startUpdate
 parameter_list|(
 name|Text
 name|row

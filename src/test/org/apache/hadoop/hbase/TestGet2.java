@@ -530,7 +530,7 @@ name|lockid
 init|=
 name|region_incommon
 operator|.
-name|startBatchUpdate
+name|startUpdate
 argument_list|(
 name|t
 argument_list|)
@@ -565,7 +565,7 @@ name|lockid
 operator|=
 name|region_incommon
 operator|.
-name|startBatchUpdate
+name|startUpdate
 argument_list|(
 name|t
 argument_list|)
@@ -810,7 +810,7 @@ name|lockid
 init|=
 name|region_incommon
 operator|.
-name|startBatchUpdate
+name|startUpdate
 argument_list|(
 name|t10
 argument_list|)
@@ -843,7 +843,7 @@ name|lockid
 operator|=
 name|region_incommon
 operator|.
-name|startBatchUpdate
+name|startUpdate
 argument_list|(
 name|t20
 argument_list|)
@@ -876,7 +876,7 @@ name|lockid
 operator|=
 name|region_incommon
 operator|.
-name|startBatchUpdate
+name|startUpdate
 argument_list|(
 name|t30
 argument_list|)
@@ -909,7 +909,7 @@ name|lockid
 operator|=
 name|region_incommon
 operator|.
-name|startBatchUpdate
+name|startUpdate
 argument_list|(
 name|t40
 argument_list|)

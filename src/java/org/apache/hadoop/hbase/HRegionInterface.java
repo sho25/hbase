@@ -290,9 +290,6 @@ parameter_list|(
 name|Text
 name|regionName
 parameter_list|,
-name|long
-name|timestamp
-parameter_list|,
 name|BatchUpdate
 name|b
 parameter_list|)

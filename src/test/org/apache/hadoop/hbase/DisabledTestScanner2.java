@@ -601,7 +601,7 @@ name|id
 init|=
 name|inc
 operator|.
-name|startBatchUpdate
+name|startUpdate
 argument_list|(
 operator|new
 name|Text

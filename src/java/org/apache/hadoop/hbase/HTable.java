@@ -1943,6 +1943,8 @@ argument_list|)
 return|;
 block|}
 comment|/**     * Start an atomic row insertion/update.  No changes are committed until the     * call to commit() returns. A call to abort() will abandon any updates in    * progress.    *     *<p>    * Example:    *<br>    *<pre><span style="font-family: monospace;">    * long lockid = table.startUpdate(new Text(article.getName()));    * for (File articleInfo: article.listFiles(new NonDirectories())) {    *   String article = null;    *   try {    *     DataInputStream in = new DataInputStream(new FileInputStream(articleInfo));    *     article = in.readUTF();    *   } catch (IOException e) {    *     // Input error - abandon update    *     table.abort(lockid);    *     throw e;    *   }    *   try {    *     table.put(lockid, columnName(articleInfo.getName()), article.getBytes());    *   } catch (RuntimeException e) {    *     // Put failed - abandon update    *     table.abort(lockid);    *     throw e;    *   }    * }    * table.commit(lockid);    *</span></pre>    *    *     * @param row Name of row to start update against.  Note, choose row names    * with care.  Rows are sorted lexicographically (comparison is done    * using {@link Text#compareTo(Object)}.  If your keys are numeric,    * lexicographic sorting means that 46 sorts AFTER 450 (If you want to use    * numerics for keys, zero-pad).    * @return Row lock id..    * @see #commit(long)    * @see #commit(long, long)    * @see #abort(long)    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|synchronized
 name|long
@@ -1968,26 +1970,17 @@ argument_list|(
 operator|new
 name|BatchUpdate
 argument_list|(
-name|rand
-operator|.
-name|nextLong
-argument_list|()
+name|row
 argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
-name|batch
-operator|.
-name|get
-argument_list|()
-operator|.
-name|startUpdate
-argument_list|(
-name|row
-argument_list|)
+literal|1
 return|;
 block|}
 comment|/**     * Update a value for the specified column.    * Runs {@link #abort(long)} if exception thrown.    *    * @param lockid lock id returned from startUpdate    * @param column column whose value is being set    * @param val new value for column.  Cannot be null.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|put
@@ -2006,6 +1999,21 @@ block|{
 name|checkClosed
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|lockid
+operator|!=
+literal|1
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Invalid lock id!"
+argument_list|)
+throw|;
+block|}
 if|if
 condition|(
 name|val
@@ -2033,8 +2041,6 @@ argument_list|()
 operator|.
 name|put
 argument_list|(
-name|lockid
-argument_list|,
 name|column
 argument_list|,
 name|val
@@ -2042,6 +2048,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**     * Update a value for the specified column.    * Runs {@link #abort(long)} if exception thrown.    *    * @param lockid lock id returned from startUpdate    * @param column column whose value is being set    * @param val new value for column.  Cannot be null.    * @throws IOException throws this if the writable can't be    * converted into a byte array     */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|put
@@ -2074,6 +2082,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**     * Delete the value for a column.    * Deletes the cell whose row/column/commit-timestamp match those of the    * delete.    * @param lockid lock id returned from startUpdate    * @param column name of column whose value is to be deleted    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|delete
@@ -2088,6 +2098,21 @@ block|{
 name|checkClosed
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|lockid
+operator|!=
+literal|1
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Invalid lock id!"
+argument_list|)
+throw|;
+block|}
 name|updateInProgress
 argument_list|(
 literal|true
@@ -2100,8 +2125,6 @@ argument_list|()
 operator|.
 name|delete
 argument_list|(
-name|lockid
-argument_list|,
 name|column
 argument_list|)
 expr_stmt|;
@@ -2381,6 +2404,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**     * Abort a row mutation.    *     * This method should be called only when an update has been started and it    * is determined that the update should not be committed.    *     * Releases resources being held by the update in progress.    *    * @param lockid lock id returned from startUpdate    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|synchronized
 name|void
@@ -2395,31 +2420,16 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|batch
-operator|.
-name|get
-argument_list|()
-operator|!=
-literal|null
-operator|&&
-name|batch
-operator|.
-name|get
-argument_list|()
-operator|.
-name|getLockid
-argument_list|()
-operator|!=
 name|lockid
+operator|!=
+literal|1
 condition|)
 block|{
 throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"invalid lock id "
-operator|+
-name|lockid
+literal|"Invalid lock id!"
 argument_list|)
 throw|;
 block|}
@@ -2432,6 +2442,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**     * Finalize a row mutation.    *     * When this method is specified, we pass the server a value that says use    * the 'latest' timestamp.  If we are doing a put, on the server-side, cells    * will be given the servers's current timestamp.  If the we are commiting    * deletes, then delete removes the most recently modified cell of stipulated    * column.    *     * @see #commit(long, long)    *     * @param lockid lock id returned from startUpdate    * @throws IOException    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|commit
@@ -2451,8 +2463,9 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**     * Finalize a row mutation and release any resources associated with the update.    *     * @param lockid lock id returned from startUpdate    * @param timestamp time to associate with the change    * @throws IOException    */
+annotation|@
+name|Deprecated
 specifier|public
-specifier|synchronized
 name|void
 name|commit
 parameter_list|(
@@ -2466,9 +2479,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 name|updateInProgress
 argument_list|(
 literal|true
@@ -2476,29 +2486,67 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|batch
-operator|.
-name|get
-argument_list|()
-operator|.
-name|getLockid
-argument_list|()
-operator|!=
 name|lockid
+operator|!=
+literal|1
 condition|)
 block|{
 throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"invalid lock id "
-operator|+
-name|lockid
+literal|"Invalid lock id!"
 argument_list|)
 throw|;
 block|}
 try|try
 block|{
+name|batch
+operator|.
+name|get
+argument_list|()
+operator|.
+name|setTimestamp
+argument_list|(
+name|timestamp
+argument_list|)
+expr_stmt|;
+name|commit
+argument_list|(
+name|batch
+operator|.
+name|get
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+finally|finally
+block|{
+name|batch
+operator|.
+name|set
+argument_list|(
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|/**    * Commit a BatchUpdate to the table.    */
+specifier|public
+specifier|synchronized
+name|void
+name|commit
+parameter_list|(
+specifier|final
+name|BatchUpdate
+name|batchUpdate
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|checkClosed
+argument_list|()
+expr_stmt|;
 name|getRegionServerWithRetries
 argument_list|(
 operator|new
@@ -2507,10 +2555,7 @@ argument_list|<
 name|Boolean
 argument_list|>
 argument_list|(
-name|batch
-operator|.
-name|get
-argument_list|()
+name|batchUpdate
 operator|.
 name|getRow
 argument_list|()
@@ -2535,12 +2580,7 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|,
-name|timestamp
-argument_list|,
-name|batch
-operator|.
-name|get
-argument_list|()
+name|batchUpdate
 argument_list|)
 expr_stmt|;
 return|return
@@ -2550,17 +2590,6 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-block|}
-finally|finally
-block|{
-name|batch
-operator|.
-name|set
-argument_list|(
-literal|null
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/**    * Implements the scanner interface for the HBase client.    * If there are multiple regions in a table, this scanner will iterate    * through them all.    */
 specifier|protected
