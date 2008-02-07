@@ -327,6 +327,20 @@ name|hadoop
 operator|.
 name|fs
 operator|.
+name|FileStatus
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
 name|FileSystem
 import|;
 end_import
@@ -1742,15 +1756,15 @@ name|getFamilyName
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// Look for reference files.  Call listPaths with an anonymous
+comment|// Look for reference files.  Call listStatus with an anonymous
 comment|// instance of PathFilter.
-name|Path
+name|FileStatus
 index|[]
 name|ps
 init|=
 name|fs
 operator|.
-name|listPaths
+name|listStatus
 argument_list|(
 name|p
 argument_list|,
@@ -5621,21 +5635,11 @@ name|get
 argument_list|()
 condition|)
 block|{
-name|long
-name|serverLabel
-init|=
-name|getServerLabel
-argument_list|(
-name|s
-argument_list|)
-decl_stmt|;
 name|serverLeases
 operator|.
 name|createLease
 argument_list|(
-name|serverLabel
-argument_list|,
-name|serverLabel
+name|s
 argument_list|,
 operator|new
 name|ServerExpirer
@@ -5720,22 +5724,6 @@ return|return
 name|mw
 return|;
 block|}
-specifier|private
-name|long
-name|getServerLabel
-parameter_list|(
-specifier|final
-name|String
-name|s
-parameter_list|)
-block|{
-return|return
-name|s
-operator|.
-name|hashCode
-argument_list|()
-return|;
-block|}
 comment|/** {@inheritDoc} */
 specifier|public
 name|HMsg
@@ -5765,14 +5753,6 @@ argument_list|()
 operator|.
 name|trim
 argument_list|()
-decl_stmt|;
-name|long
-name|serverLabel
-init|=
-name|getServerLabel
-argument_list|(
-name|serverName
-argument_list|)
 decl_stmt|;
 if|if
 condition|(
@@ -5833,8 +5813,6 @@ condition|(
 name|cancelLease
 argument_list|(
 name|serverName
-argument_list|,
-name|serverLabel
 argument_list|)
 condition|)
 block|{
@@ -6173,8 +6151,6 @@ block|{
 name|cancelLease
 argument_list|(
 name|serverName
-argument_list|,
-name|serverLabel
 argument_list|)
 expr_stmt|;
 name|serversToServerInfo
@@ -6207,9 +6183,7 @@ name|serverLeases
 operator|.
 name|renewLease
 argument_list|(
-name|serverLabel
-argument_list|,
-name|serverLabel
+name|serverName
 argument_list|)
 expr_stmt|;
 comment|// Refresh the info object and the load information
@@ -6366,10 +6340,6 @@ parameter_list|(
 specifier|final
 name|String
 name|serverName
-parameter_list|,
-specifier|final
-name|long
-name|serverLabel
 parameter_list|)
 block|{
 name|boolean
@@ -6436,9 +6406,7 @@ name|serverLeases
 operator|.
 name|cancelLease
 argument_list|(
-name|serverLabel
-argument_list|,
-name|serverLabel
+name|serverName
 argument_list|)
 expr_stmt|;
 name|leaseCancelled
@@ -13679,7 +13647,6 @@ name|conf
 return|;
 block|}
 comment|/*    * Data structure used to return results out of the toRowMap method.    */
-specifier|private
 class|class
 name|RowMap
 block|{
@@ -13697,7 +13664,6 @@ index|[]
 argument_list|>
 name|map
 decl_stmt|;
-specifier|private
 name|RowMap
 parameter_list|(
 specifier|final
@@ -13728,7 +13694,6 @@ operator|=
 name|m
 expr_stmt|;
 block|}
-specifier|private
 name|Text
 name|getRow
 parameter_list|()
@@ -13739,7 +13704,6 @@ operator|.
 name|row
 return|;
 block|}
-specifier|private
 name|SortedMap
 argument_list|<
 name|Text

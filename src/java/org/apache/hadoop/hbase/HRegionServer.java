@@ -6642,9 +6642,7 @@ name|leases
 operator|.
 name|renewLease
 argument_list|(
-name|scannerId
-argument_list|,
-name|scannerId
+name|scannerName
 argument_list|)
 expr_stmt|;
 comment|// Collect values to be returned here
@@ -6952,9 +6950,7 @@ name|leases
 operator|.
 name|createLease
 argument_list|(
-name|scannerId
-argument_list|,
-name|scannerId
+name|scannerName
 argument_list|,
 operator|new
 name|ScannerListener
@@ -7079,9 +7075,7 @@ name|leases
 operator|.
 name|cancelLease
 argument_list|(
-name|scannerId
-argument_list|,
-name|scannerId
+name|scannerName
 argument_list|)
 expr_stmt|;
 block|}
