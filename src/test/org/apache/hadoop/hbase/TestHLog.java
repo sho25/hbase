@@ -659,8 +659,6 @@ argument_list|(
 name|log
 operator|.
 name|filenum
-operator|-
-literal|1
 argument_list|)
 decl_stmt|;
 name|log
