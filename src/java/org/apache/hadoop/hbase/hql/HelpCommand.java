@@ -91,6 +91,22 @@ name|HBaseConfiguration
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|VersionInfo
+import|;
+end_import
+
 begin_class
 specifier|public
 class|class
@@ -127,16 +143,7 @@ specifier|final
 name|String
 name|APP_NAME
 init|=
-literal|"Hbase Shell"
-decl_stmt|;
-comment|/** version of the code */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|APP_VERSION
-init|=
-literal|"0.0.2"
+literal|"HQL"
 decl_stmt|;
 comment|/** help contents map */
 specifier|public
@@ -548,11 +555,14 @@ name|APP_NAME
 operator|+
 literal|", "
 operator|+
-name|APP_VERSION
+name|VersionInfo
+operator|.
+name|getVersion
+argument_list|()
 operator|+
 literal|" version.\n"
 operator|+
-literal|"Copyright (c) 2007 by udanax, "
+literal|"Copyright (c) 2008 by udanax, "
 operator|+
 literal|"licensed to Apache Software Foundation.\n"
 operator|+
