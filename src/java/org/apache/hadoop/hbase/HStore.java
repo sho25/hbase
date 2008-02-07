@@ -3150,6 +3150,11 @@ literal|1
 expr_stmt|;
 comment|// Finally, start up all the map readers! (There could be more than one
 comment|// since we haven't compacted yet.)
+name|boolean
+name|first
+init|=
+literal|true
+decl_stmt|;
 for|for
 control|(
 name|Map
@@ -3169,6 +3174,53 @@ operator|.
 name|entrySet
 argument_list|()
 control|)
+block|{
+if|if
+condition|(
+name|first
+condition|)
+block|{
+comment|// Use a block cache (if configured) for the first reader only
+comment|// so as to control memory usage.
+name|this
+operator|.
+name|readers
+operator|.
+name|put
+argument_list|(
+name|e
+operator|.
+name|getKey
+argument_list|()
+argument_list|,
+name|e
+operator|.
+name|getValue
+argument_list|()
+operator|.
+name|getReader
+argument_list|(
+name|this
+operator|.
+name|fs
+argument_list|,
+name|this
+operator|.
+name|bloomFilter
+argument_list|,
+name|family
+operator|.
+name|isBlockCacheEnabled
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|first
+operator|=
+literal|false
+expr_stmt|;
+block|}
+else|else
 block|{
 name|this
 operator|.
@@ -3198,6 +3250,7 @@ name|bloomFilter
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/*     * @param hstoreFiles    * @return Maximum sequence number found or -1.    * @throws IOException    */
@@ -6552,6 +6605,8 @@ name|put
 argument_list|(
 name|orderVal
 argument_list|,
+comment|// Use a block cache (if configured) for this reader since
+comment|// it is the only one.
 name|finalCompactedFile
 operator|.
 name|getReader
@@ -6563,6 +6618,11 @@ argument_list|,
 name|this
 operator|.
 name|bloomFilter
+argument_list|,
+name|family
+operator|.
+name|isBlockCacheEnabled
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;

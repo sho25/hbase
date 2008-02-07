@@ -135,9 +135,11 @@ literal|"Table descriptor"
 argument_list|,
 literal|"name: -ROOT-, families: {info:={name: "
 operator|+
-literal|"info, max versions: 1, compression: NONE, in memory: false, max "
+literal|"info, max versions: 1, compression: NONE, in memory: false, "
 operator|+
-literal|"length: 2147483647, bloom filter: none}}"
+literal|"block cache enabled: false, max length: 2147483647, "
+operator|+
+literal|"bloom filter: none}}"
 argument_list|,
 name|htd
 operator|.
@@ -179,9 +181,9 @@ literal|"regionname: -ROOT-,,0, startKey:<>, endKey:<>, encodedName: 70236052, t
 operator|+
 literal|"{name: -ROOT-, families: {info:={name: info, max versions: 1, "
 operator|+
-literal|"compression: NONE, in memory: false, max length: 2147483647, bloom "
+literal|"compression: NONE, in memory: false, block cache enabled: false, "
 operator|+
-literal|"filter: none}}}"
+literal|"max length: 2147483647, bloom filter: none}}}"
 argument_list|,
 name|hri
 operator|.
