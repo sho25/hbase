@@ -282,7 +282,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Applies a batch of updates via one RPC    *     * @param regionName name of the region to update    * @param timestamp the time to be associated with the changes    * @param b BatchUpdate    * @throws IOException    */
+comment|/**    * Applies a batch of updates via one RPC    *     * @param regionName name of the region to update    * @param b BatchUpdate    * @throws IOException    */
 specifier|public
 name|void
 name|batchUpdate

@@ -4566,7 +4566,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// set() methods for client use.
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * @param timestamp    * @param b    * @throws IOException    */
+comment|/**    * @param b    * @throws IOException    */
 specifier|public
 name|void
 name|batchUpdate
