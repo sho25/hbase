@@ -2283,13 +2283,61 @@ name|row
 argument_list|)
 condition|)
 block|{
-return|return
+name|HRegionLocation
+name|rl
+init|=
 name|tableLocations
 operator|.
 name|get
 argument_list|(
 name|row
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|rl
+operator|!=
+literal|null
+operator|&&
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Cache hit in table locations for row<"
+operator|+
+name|row
+operator|+
+literal|"> and tableName "
+operator|+
+name|tableName
+operator|+
+literal|": location server "
+operator|+
+name|rl
+operator|.
+name|getServerAddress
+argument_list|()
+operator|+
+literal|", location region name "
+operator|+
+name|rl
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|rl
 return|;
 block|}
 comment|// cut the cache so that we only get the part that could contain
@@ -2369,6 +2417,28 @@ operator|>
 literal|0
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Found possible location for "
+operator|+
+name|row
+operator|+
+literal|", "
+operator|+
+name|possibleRegion
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 name|possibleRegion
 return|;
@@ -2516,6 +2586,9 @@ literal|0
 condition|)
 block|{
 comment|// delete any matching entry
+name|HRegionLocation
+name|rl
+init|=
 name|tableLocations
 operator|.
 name|remove
@@ -2525,7 +2598,39 @@ operator|.
 name|lastKey
 argument_list|()
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|rl
+operator|!=
+literal|null
+operator|&&
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Removed "
+operator|+
+name|rl
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getRegionName
+argument_list|()
+operator|+
+literal|" from cache because of "
+operator|+
+name|row
+argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -3099,6 +3204,26 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Found ROOT "
+operator|+
+name|HRegionInfo
+operator|.
+name|rootRegionInfo
+argument_list|)
+expr_stmt|;
+block|}
 break|break;
 block|}
 catch|catch
@@ -3198,7 +3323,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|// if the adress is null by this point, then the retries have failed,
+comment|// if the address is null by this point, then the retries have failed,
 comment|// and we're sort of sunk
 if|if
 condition|(
