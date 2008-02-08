@@ -97,6 +97,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
 name|HMaster
 import|;
 end_import
@@ -124,6 +126,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|master
 operator|.
 name|HMaster
 operator|.

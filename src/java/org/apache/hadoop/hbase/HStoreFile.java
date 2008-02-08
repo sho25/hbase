@@ -2000,6 +2000,7 @@ literal|""
 operator|)
 return|;
 block|}
+specifier|public
 specifier|static
 name|Path
 name|getMapDir
@@ -2040,6 +2041,7 @@ argument_list|)
 return|;
 block|}
 comment|/** @return the info directory path */
+specifier|public
 specifier|static
 name|Path
 name|getInfoDir
@@ -2080,6 +2082,7 @@ argument_list|)
 return|;
 block|}
 comment|/** @return the bloom filter directory path */
+specifier|public
 specifier|static
 name|Path
 name|getFilterDir

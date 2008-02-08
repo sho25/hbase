@@ -163,6 +163,22 @@ name|RemoteException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|HMasterInterface
+import|;
+end_import
+
 begin_comment
 comment|/**  * Provides administrative functions for HBase  */
 end_comment

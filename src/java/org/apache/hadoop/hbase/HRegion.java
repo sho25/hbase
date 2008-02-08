@@ -7156,6 +7156,7 @@ block|}
 block|}
 comment|// Utility methods
 comment|/**    * Convenience method creating new HRegions. Used by createTable and by the    * bootstrap code in the HMaster constructor.    * Note, this method creates an {@link HLog} for the created region. It    * needs to be closed explicitly.  Use {@link HRegion#getLog()} to get    * access.    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @return new HRegion    *     * @throws IOException    */
+specifier|public
 specifier|static
 name|HRegion
 name|createHRegion
@@ -7262,6 +7263,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Inserts a new region's meta information into the passed    *<code>meta</code> region. Used by the HMaster bootstrap code adding    * new table to ROOT table.    *     * @param meta META HRegion to be updated    * @param r HRegion to add to<code>meta</code>    *    * @throws IOException    * @see {@link #removeRegionFromMETA(HRegion, HRegion)}    */
+specifier|public
 specifier|static
 name|void
 name|addRegionToMETA
@@ -7370,6 +7372,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Delete a region's meta information from the passed    *<code>meta</code> region.    *     * @param srvr META server to be updated    * @param metaRegionName Meta region name    * @param regionNmae HRegion to remove from<code>meta</code>    *    * @throws IOException    * @see {@link #addRegionToMETA(HRegion, HRegion)}    */
+specifier|public
 specifier|static
 name|void
 name|removeRegionFromMETA
@@ -7404,6 +7407,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Utility method used by HMaster marking regions offlined.    * @param srvr META server to be updated    * @param metaRegionName Meta region name    * @param info HRegion to update in<code>meta</code>    *    * @throws IOException    * @see {@link #addRegionToMETA(HRegion, HRegion)}    */
+specifier|public
 specifier|static
 name|void
 name|offlineRegionInMETA
@@ -7483,6 +7487,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Deletes all the files for a HRegion    *     * @param fs the file system object    * @param rootdir qualified path of HBase root directory    * @param info HRegionInfo for region to be deleted    * @throws IOException    * @return True if deleted.    */
+specifier|public
 specifier|static
 name|boolean
 name|deleteRegion

@@ -115,6 +115,22 @@ name|FSUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|HMaster
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class creates a single process HBase cluster. One thread is created for  * each server.  */
 end_comment

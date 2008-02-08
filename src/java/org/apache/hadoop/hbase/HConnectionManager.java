@@ -251,6 +251,22 @@ name|RemoteException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|HMasterInterface
+import|;
+end_import
+
 begin_comment
 comment|/**  * A non-instantiable class that manages connections to multiple tables in  * multiple HBase instances  */
 end_comment

@@ -1772,6 +1772,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Split up a bunch of log files, that are no longer being written to, into    * new files, one per region. Delete the old log files when finished.    *    * @param rootDir qualified root directory of the HBase instance    * @param srcDir Directory of log files to split: e.g.    *<code>${ROOTDIR}/log_HOST_PORT</code>    * @param fs FileSystem    * @param conf HBaseConfiguration    * @throws IOException    */
+specifier|public
 specifier|static
 name|void
 name|splitLog

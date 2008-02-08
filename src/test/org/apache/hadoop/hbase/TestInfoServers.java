@@ -234,7 +234,8 @@ operator|.
 name|getMaster
 argument_list|()
 operator|.
-name|infoServer
+name|getInfoServer
+argument_list|()
 operator|.
 name|getPort
 argument_list|()
