@@ -718,11 +718,6 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 comment|/**    * @throws Exception    */
@@ -769,8 +764,6 @@ argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
-try|try
-block|{
 specifier|final
 name|String
 name|lastKey
@@ -879,15 +872,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-finally|finally
-block|{
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-block|}
 comment|/**    * @throws Exception    */
 specifier|public
 name|void
@@ -911,8 +895,6 @@ operator|.
 name|ROOT_TABLE_NAME
 argument_list|)
 decl_stmt|;
-try|try
-block|{
 name|HScannerInterface
 name|scanner
 init|=
@@ -968,15 +950,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-finally|finally
-block|{
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-block|}
 comment|/**    * Test getting scanners with regexes for column names.    * @throws IOException     */
 specifier|public
 name|void
@@ -1025,8 +998,6 @@ argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
-try|try
-block|{
 comment|// Add a row to columns without qualifiers and then two with.  Make one
 comment|// numbers only so easy to find w/ a regex.
 name|long
@@ -1134,15 +1105,6 @@ operator|+
 literal|"$"
 argument_list|)
 expr_stmt|;
-block|}
-finally|finally
-block|{
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 comment|/*    * Create a scanner w/ passed in column name regex.  Assert we only get    * back one column that matches.    * @param table    * @param regexColumnname    * @throws IOException    */
 specifier|private
@@ -1345,8 +1307,6 @@ argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
-try|try
-block|{
 for|for
 control|(
 name|char
@@ -1456,15 +1416,6 @@ argument_list|,
 name|colKeys
 argument_list|)
 expr_stmt|;
-block|}
-finally|finally
-block|{
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 comment|/**    * @param admin    * @param tableName    * @return Returns column keys used making table.    * @throws IOException    */
 specifier|private
@@ -1952,8 +1903,6 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 decl_stmt|;
-try|try
-block|{
 comment|// First add a new table.  Its intial region will be added to META region.
 name|HBaseAdmin
 name|admin
@@ -2217,15 +2166,6 @@ name|closeAndDelete
 argument_list|()
 expr_stmt|;
 block|}
-block|}
-block|}
-finally|finally
-block|{
-name|metaTable
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 specifier|private

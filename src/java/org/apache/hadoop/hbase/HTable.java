@@ -381,45 +381,6 @@ name|boolean
 name|tableDoesNotExist
 decl_stmt|;
 comment|// For row mutation operations
-specifier|protected
-specifier|volatile
-name|boolean
-name|closed
-decl_stmt|;
-specifier|protected
-name|void
-name|checkClosed
-parameter_list|()
-block|{
-if|if
-condition|(
-name|tableDoesNotExist
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalStateException
-argument_list|(
-literal|"table does not exist: "
-operator|+
-name|tableName
-argument_list|)
-throw|;
-block|}
-if|if
-condition|(
-name|closed
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalStateException
-argument_list|(
-literal|"table is closed"
-argument_list|)
-throw|;
-block|}
-block|}
 comment|/**    * Creates an object to access a HBase table    *     * @param conf configuration object    * @param tableName name of the table    * @throws IOException    */
 specifier|public
 name|HTable
@@ -433,14 +394,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|closed
-operator|=
-literal|true
-expr_stmt|;
-name|tableDoesNotExist
-operator|=
-literal|true
-expr_stmt|;
 name|this
 operator|.
 name|connection
@@ -516,14 +469,6 @@ argument_list|,
 name|EMPTY_START_ROW
 argument_list|)
 expr_stmt|;
-name|tableDoesNotExist
-operator|=
-literal|false
-expr_stmt|;
-name|closed
-operator|=
-literal|false
-expr_stmt|;
 block|}
 comment|/**    * Find region location hosting passed row using cached info    * @param row Row to find.    * @return Location of row.    */
 name|HRegionLocation
@@ -535,9 +480,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 return|return
 name|this
 operator|.
@@ -566,9 +508,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 return|return
 name|reload
 condition|?
@@ -603,45 +542,9 @@ name|HConnection
 name|getConnection
 parameter_list|()
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 return|return
 name|connection
 return|;
-block|}
-comment|/**    * Releases resources associated with this table. After calling close(), all    * other methods will throw an IllegalStateException    */
-specifier|public
-specifier|synchronized
-name|void
-name|close
-parameter_list|()
-block|{
-if|if
-condition|(
-operator|!
-name|closed
-condition|)
-block|{
-name|closed
-operator|=
-literal|true
-expr_stmt|;
-name|batch
-operator|.
-name|set
-argument_list|(
-literal|null
-argument_list|)
-expr_stmt|;
-name|connection
-operator|.
-name|close
-argument_list|(
-name|tableName
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/**    * Verifies that no update is in progress    */
 specifier|public
@@ -810,9 +713,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 name|List
 argument_list|<
 name|Text
@@ -1184,9 +1084,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 return|return
 name|getRegionServerWithRetries
 argument_list|(
@@ -1253,9 +1150,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 name|byte
 index|[]
 index|[]
@@ -1407,9 +1301,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 name|byte
 index|[]
 index|[]
@@ -1587,9 +1478,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 name|HbaseMapWritable
 name|value
 init|=
@@ -1925,9 +1813,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 return|return
 operator|new
 name|ClientScanner
@@ -1955,9 +1840,6 @@ name|Text
 name|row
 parameter_list|)
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 name|updateInProgress
 argument_list|(
 literal|false
@@ -1996,9 +1878,6 @@ name|val
 index|[]
 parameter_list|)
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|lockid
@@ -2095,9 +1974,6 @@ name|Text
 name|column
 parameter_list|)
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|lockid
@@ -2175,9 +2051,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 name|getRegionServerWithRetries
 argument_list|(
 operator|new
@@ -2239,9 +2112,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 name|getRegionServerWithRetries
 argument_list|(
 operator|new
@@ -2327,9 +2197,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 name|getRegionServerWithRetries
 argument_list|(
 operator|new
@@ -2415,9 +2282,6 @@ name|long
 name|lockid
 parameter_list|)
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|lockid
@@ -2544,9 +2408,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 name|getRegionServerWithRetries
 argument_list|(
 operator|new
@@ -2751,9 +2612,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 comment|// close the previous scanner if it's open
 if|if
 condition|(
@@ -3121,9 +2979,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|this
@@ -3294,9 +3149,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|checkClosed
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|scannerId
@@ -3821,6 +3673,15 @@ block|}
 return|return
 literal|null
 return|;
+block|}
+annotation|@
+name|Deprecated
+specifier|public
+name|void
+name|close
+parameter_list|()
+block|{
+comment|// do nothing...
 block|}
 block|}
 end_class

@@ -130,15 +130,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Discard all the information about this table    * @param tableName the name of the table to close    */
-specifier|public
-name|void
-name|close
-parameter_list|(
-name|Text
-name|tableName
-parameter_list|)
-function_decl|;
 block|}
 end_interface
 

@@ -1100,8 +1100,6 @@ name|SINGLE_REGION_TABLE_NAME
 argument_list|)
 argument_list|)
 decl_stmt|;
-try|try
-block|{
 for|for
 control|(
 name|int
@@ -1346,15 +1344,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-finally|finally
-block|{
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-block|}
 comment|/*    * Test against multiple regions.    * @throws IOException    */
 specifier|private
 name|void
@@ -1443,8 +1432,6 @@ name|MULTI_REGION_TABLE_NAME
 argument_list|)
 argument_list|)
 decl_stmt|;
-try|try
-block|{
 name|Text
 index|[]
 name|startKeys
@@ -1579,15 +1566,6 @@ block|{
 name|mrCluster
 operator|.
 name|shutdown
-argument_list|()
-expr_stmt|;
-block|}
-block|}
-finally|finally
-block|{
-name|table
-operator|.
-name|close
 argument_list|()
 expr_stmt|;
 block|}
