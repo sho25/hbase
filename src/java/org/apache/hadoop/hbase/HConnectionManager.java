@@ -341,8 +341,6 @@ operator|.
 name|get
 argument_list|(
 name|HBASE_DIR
-argument_list|,
-name|DEFAULT_HBASE_DIR
 argument_list|)
 decl_stmt|;
 name|connection
@@ -399,9 +397,6 @@ init|(
 name|HBASE_INSTANCES
 init|)
 block|{
-name|TableServers
-name|instance
-init|=
 name|HBASE_INSTANCES
 operator|.
 name|remove
@@ -411,11 +406,9 @@ operator|.
 name|get
 argument_list|(
 name|HBASE_DIR
-argument_list|,
-name|DEFAULT_HBASE_DIR
 argument_list|)
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 block|}
 block|}
 comment|/* Encapsulates finding the servers for an HBase instance */

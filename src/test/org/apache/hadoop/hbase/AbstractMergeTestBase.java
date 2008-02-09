@@ -307,6 +307,31 @@ operator|)
 literal|null
 argument_list|)
 expr_stmt|;
+comment|// Set the hbase.rootdir to be the home directory in mini dfs.
+name|this
+operator|.
+name|conf
+operator|.
+name|set
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_DIR
+argument_list|,
+name|this
+operator|.
+name|dfsCluster
+operator|.
+name|getFileSystem
+argument_list|()
+operator|.
+name|getHomeDirectory
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Note: we must call super.setUp after starting the mini cluster or
 comment|// we will end up with a local file system
 name|super

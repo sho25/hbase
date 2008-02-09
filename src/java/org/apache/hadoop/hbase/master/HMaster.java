@@ -4013,8 +4013,6 @@ operator|.
 name|get
 argument_list|(
 name|HBASE_DIR
-argument_list|,
-name|DEFAULT_HBASE_DIR
 argument_list|)
 argument_list|)
 argument_list|,
@@ -4035,12 +4033,12 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Build the HMaster    * @param rootdir base directory of this HBase instance    * @param address server address and port number    * @param conf configuration    *     * @throws IOException    */
+comment|/**     * Build the HMaster    * @param rd base directory of this HBase instance.  Must be fully    * qualified so includes filesystem to use.    * @param address server address and port number    * @param conf configuration    *     * @throws IOException    */
 specifier|public
 name|HMaster
 parameter_list|(
 name|Path
-name|rootdir
+name|rd
 parameter_list|,
 name|HServerAddress
 name|address
@@ -4072,11 +4070,13 @@ name|this
 operator|.
 name|rootdir
 operator|=
+name|this
+operator|.
 name|fs
 operator|.
 name|makeQualified
 argument_list|(
-name|rootdir
+name|rd
 argument_list|)
 expr_stmt|;
 name|this

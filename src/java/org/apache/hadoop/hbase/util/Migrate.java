@@ -814,7 +814,8 @@ argument_list|(
 operator|new
 name|Path
 argument_list|(
-comment|// get HBase root dir
+name|this
+operator|.
 name|conf
 operator|.
 name|get
@@ -822,10 +823,6 @@ argument_list|(
 name|HConstants
 operator|.
 name|HBASE_DIR
-argument_list|,
-name|HConstants
-operator|.
-name|DEFAULT_HBASE_DIR
 argument_list|)
 argument_list|)
 argument_list|)

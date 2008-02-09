@@ -415,8 +415,6 @@ operator|.
 name|get
 argument_list|(
 name|HBASE_DIR
-argument_list|,
-name|DEFAULT_HBASE_DIR
 argument_list|)
 argument_list|)
 argument_list|)
@@ -1450,8 +1448,6 @@ operator|.
 name|get
 argument_list|(
 name|HBASE_DIR
-argument_list|,
-name|DEFAULT_HBASE_DIR
 argument_list|)
 argument_list|)
 argument_list|)
