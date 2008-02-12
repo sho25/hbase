@@ -129,8 +129,6 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|HMaster
-operator|.
 name|MetaRegion
 import|;
 end_import
@@ -826,8 +824,6 @@ name|Entry
 argument_list|<
 name|Text
 argument_list|,
-name|HMaster
-operator|.
 name|MetaRegion
 argument_list|>
 name|e

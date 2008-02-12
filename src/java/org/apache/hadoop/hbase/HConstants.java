@@ -38,6 +38,18 @@ specifier|public
 interface|interface
 name|HConstants
 block|{
+specifier|static
+specifier|final
+name|Long
+name|ZERO_L
+init|=
+name|Long
+operator|.
+name|valueOf
+argument_list|(
+literal|0L
+argument_list|)
+decl_stmt|;
 comment|// For migration
 comment|/** name of version file */
 specifier|static
