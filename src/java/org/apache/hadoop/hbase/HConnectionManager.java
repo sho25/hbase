@@ -1909,27 +1909,6 @@ name|HRegionInfo
 argument_list|()
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|regionInfo
-operator|.
-name|isOffline
-argument_list|()
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalStateException
-argument_list|(
-literal|"region offline: "
-operator|+
-name|regionInfo
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-throw|;
-block|}
 comment|// possible we got a region of a different table...
 if|if
 condition|(
@@ -1957,6 +1936,27 @@ operator|+
 name|tableName
 operator|+
 literal|"' was not found."
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
+name|regionInfo
+operator|.
+name|isOffline
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"region offline: "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionName
+argument_list|()
 argument_list|)
 throw|;
 block|}
@@ -2078,6 +2078,19 @@ throw|throw
 name|e
 throw|;
 block|}
+block|}
+catch|catch
+parameter_list|(
+name|TableNotFoundException
+name|e
+parameter_list|)
+block|{
+comment|// if we got this error, probably means the table just plain doesn't
+comment|// exist. rethrow the error immediately. this should always be coming
+comment|// from the HTable constructor.
+throw|throw
+name|e
+throw|;
 block|}
 catch|catch
 parameter_list|(
