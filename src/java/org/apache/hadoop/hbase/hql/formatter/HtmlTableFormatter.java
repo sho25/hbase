@@ -443,6 +443,11 @@ throw|;
 block|}
 block|}
 comment|/**    * @param titles List of titles.  Pass null if no formatting (i.e.    * no header, no footer, etc.    * @throws IOException     */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"static-access"
+argument_list|)
 specifier|public
 name|void
 name|header
@@ -469,6 +474,21 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+name|this
+operator|.
+name|outputter
+operator|.
+name|setState
+argument_list|(
+name|this
+operator|.
+name|outputter
+operator|.
+name|BEFORE_XML_DECLARATION
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
 comment|// Can't add a 'border=1' attribute because its included on the end in
 name|this
 operator|.
