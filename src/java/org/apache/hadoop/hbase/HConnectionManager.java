@@ -31,16 +31,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Collections
 import|;
 end_import
@@ -72,16 +62,6 @@ operator|.
 name|util
 operator|.
 name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Set
 import|;
 end_import
 
@@ -264,6 +244,22 @@ operator|.
 name|master
 operator|.
 name|HMasterInterface
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|SoftSortedMap
 import|;
 end_import
 
@@ -539,7 +535,7 @@ name|Map
 argument_list|<
 name|Text
 argument_list|,
-name|SortedMap
+name|SoftSortedMap
 argument_list|<
 name|Text
 argument_list|,
@@ -547,7 +543,22 @@ name|HRegionLocation
 argument_list|>
 argument_list|>
 name|cachedRegionLocations
+init|=
+operator|new
+name|ConcurrentHashMap
+argument_list|<
+name|Text
+argument_list|,
+name|SoftSortedMap
+argument_list|<
+name|Text
+argument_list|,
+name|HRegionLocation
+argument_list|>
+argument_list|>
+argument_list|()
 decl_stmt|;
+empty_stmt|;
 comment|/**       * constructor      * @param conf Configuration object      */
 annotation|@
 name|SuppressWarnings
@@ -673,24 +684,6 @@ operator|.
 name|masterChecked
 operator|=
 literal|false
-expr_stmt|;
-name|this
-operator|.
-name|cachedRegionLocations
-operator|=
-operator|new
-name|ConcurrentHashMap
-argument_list|<
-name|Text
-argument_list|,
-name|SortedMap
-argument_list|<
-name|Text
-argument_list|,
-name|HRegionLocation
-argument_list|>
-argument_list|>
-argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -2190,7 +2183,7 @@ name|row
 parameter_list|)
 block|{
 comment|// find the map of cached locations for this table
-name|SortedMap
+name|SoftSortedMap
 argument_list|<
 name|Text
 argument_list|,
@@ -2216,7 +2209,7 @@ block|{
 name|tableLocations
 operator|=
 operator|new
-name|TreeMap
+name|SoftSortedMap
 argument_list|<
 name|Text
 argument_list|,
@@ -2314,7 +2307,7 @@ return|;
 block|}
 comment|// cut the cache so that we only get the part that could contain
 comment|// regions that match our key
-name|SortedMap
+name|SoftSortedMap
 argument_list|<
 name|Text
 argument_list|,
@@ -2435,7 +2428,7 @@ name|row
 parameter_list|)
 block|{
 comment|// find the map of cached locations for this table
-name|SortedMap
+name|SoftSortedMap
 argument_list|<
 name|Text
 argument_list|,
@@ -2461,7 +2454,7 @@ block|{
 name|tableLocations
 operator|=
 operator|new
-name|TreeMap
+name|SoftSortedMap
 argument_list|<
 name|Text
 argument_list|,
@@ -2492,7 +2485,7 @@ condition|)
 block|{
 comment|// cut the cache so that we only get the part that could contain
 comment|// regions that match our key
-name|SortedMap
+name|SoftSortedMap
 argument_list|<
 name|Text
 argument_list|,
@@ -2631,7 +2624,7 @@ name|getStartKey
 argument_list|()
 decl_stmt|;
 comment|// find the map of cached locations for this table
-name|SortedMap
+name|SoftSortedMap
 argument_list|<
 name|Text
 argument_list|,
@@ -2657,7 +2650,7 @@ block|{
 name|tableLocations
 operator|=
 operator|new
-name|TreeMap
+name|SoftSortedMap
 argument_list|<
 name|Text
 argument_list|,
