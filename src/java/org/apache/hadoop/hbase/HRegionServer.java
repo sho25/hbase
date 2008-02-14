@@ -4191,6 +4191,29 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Master sent us hbase.rootdir to use. Should be fully qualified
+comment|// path with file system specification included.  Set 'fs.default.name'
+comment|// to match the filesystem on hbase.rootdir else underlying hadoop hdfs
+comment|// accessors will be going against wrong filesystem (unless all is set
+comment|// to defaults).
+name|this
+operator|.
+name|conf
+operator|.
+name|set
+argument_list|(
+literal|"fs.default.name"
+argument_list|,
+name|this
+operator|.
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"hbase.rootdir"
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|fs
