@@ -155,6 +155,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
 name|HBaseAdmin
 import|;
 end_import
@@ -223,9 +225,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|io
 operator|.
-name|HTable
+name|Text
 import|;
 end_import
 
@@ -237,9 +239,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|Text
+name|client
+operator|.
+name|HTable
 import|;
 end_import
 

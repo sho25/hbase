@@ -215,7 +215,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTable
+name|io
+operator|.
+name|ImmutableBytesWritable
 import|;
 end_import
 
@@ -229,9 +231,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|client
 operator|.
-name|ImmutableBytesWritable
+name|HTable
 import|;
 end_import
 

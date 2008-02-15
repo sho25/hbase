@@ -67,6 +67,22 @@ name|ReflectionUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|HConnectionManager
+import|;
+end_import
+
 begin_comment
 comment|/**  * Abstract base class for HBase cluster junit tests.  Spins up an hbase  * cluster in setup and tears it down again in tearDown.  */
 end_comment

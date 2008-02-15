@@ -71,7 +71,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConnection
+name|client
+operator|.
+name|HBaseAdmin
 import|;
 end_import
 
@@ -85,19 +87,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConnectionManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
+name|client
 operator|.
 name|HTable
 import|;
@@ -114,6 +104,20 @@ operator|.
 name|io
 operator|.
 name|Text
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|MasterNotRunningException
 import|;
 end_import
 
@@ -200,12 +204,13 @@ argument_list|,
 literal|"Syntax error : Please check 'Insert' syntax."
 argument_list|)
 return|;
-name|HConnection
-name|conn
+try|try
+block|{
+name|HBaseAdmin
+name|admin
 init|=
-name|HConnectionManager
-operator|.
-name|getConnection
+operator|new
+name|HBaseAdmin
 argument_list|(
 name|conf
 argument_list|)
@@ -213,7 +218,7 @@ decl_stmt|;
 if|if
 condition|(
 operator|!
-name|conn
+name|admin
 operator|.
 name|tableExists
 argument_list|(
@@ -424,6 +429,23 @@ name|msg
 index|[
 literal|0
 index|]
+argument_list|)
+return|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|MasterNotRunningException
+name|e
+parameter_list|)
+block|{
+return|return
+operator|new
+name|ReturnMsg
+argument_list|(
+literal|0
+argument_list|,
+literal|"Master is not running!"
 argument_list|)
 return|;
 block|}

@@ -151,6 +151,22 @@ name|Text
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|HTable
+import|;
+end_import
+
 begin_comment
 comment|/**  * Utility class to build a table of multiple regions.  */
 end_comment

@@ -87,6 +87,22 @@ name|Text
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|HBaseAdmin
+import|;
+end_import
+
 begin_comment
 comment|/**  * Testing, info servers are disabled.  This test enables then and checks that  * they serve pages.  */
 end_comment

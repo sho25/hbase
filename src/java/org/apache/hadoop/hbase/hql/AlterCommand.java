@@ -77,6 +77,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
 name|HBaseAdmin
 import|;
 end_import
@@ -133,6 +135,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
 name|HConnection
 import|;
 end_import
@@ -146,6 +150,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|client
 operator|.
 name|HConnectionManager
 import|;

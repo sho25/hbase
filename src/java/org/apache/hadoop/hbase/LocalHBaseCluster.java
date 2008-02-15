@@ -137,6 +137,22 @@ name|HMaster
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|HBaseAdmin
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class creates a single process HBase cluster. One thread is created for  * a master and one per region server.  *   * Call {@link #startup()} to start the cluster running and {@link #shutdown()}  * to close it all down. {@link #join} the cluster is you want to wait on  * shutdown completion.  *   *<p>Runs master on port 60000 by default.  Because we can't just kill the  * process -- not till HADOOP-1700 gets fixed and even then.... -- we need to  * be able to find the master with a remote client to run shutdown.  To use a  * port other than 60000, set the hbase.master to a value of 'local:PORT':  * that is 'local', not 'localhost', and the port number the master should use  * instead of 60000.  *   *<p>To make 'local' mode more responsive, make values such as  *<code>hbase.regionserver.msginterval</code>,  *<code>hbase.master.meta.thread.rescanfrequency</code>, and  *<code>hbase.server.thread.wakefrequency</code> a second or less.  */
 end_comment
