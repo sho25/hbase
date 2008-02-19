@@ -3343,11 +3343,6 @@ condition|(
 name|top
 condition|)
 block|{
-name|checkKey
-argument_list|(
-name|key
-argument_list|)
-expr_stmt|;
 name|super
 operator|.
 name|finalKey

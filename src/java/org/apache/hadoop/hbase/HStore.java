@@ -1228,8 +1228,6 @@ return|return
 name|row
 return|;
 block|}
-else|else
-block|{
 comment|// no precise matches, so return the one that is closer to the search
 comment|// key (greatest)
 return|return
@@ -1246,7 +1244,6 @@ name|key_memcache
 else|:
 name|key_snapshot
 return|;
-block|}
 block|}
 block|}
 finally|finally
@@ -1437,23 +1434,14 @@ argument_list|(
 name|search_key
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
+return|return
 name|headMap
 operator|.
 name|isEmpty
 argument_list|()
-condition|)
-block|{
-comment|/*        LOG.debug("Went searching for " + key + ", found nothing!");*/
-return|return
+condition|?
 literal|null
-return|;
-block|}
-else|else
-block|{
-comment|/*        LOG.debug("Went searching for " + key + ", found " + headMap.lastKey().getRow());*/
-return|return
+else|:
 name|headMap
 operator|.
 name|lastKey
@@ -1462,7 +1450,6 @@ operator|.
 name|getRow
 argument_list|()
 return|;
-block|}
 block|}
 comment|/**      * Examine a single map for the desired key.      *      * TODO - This is kinda slow.  We need a data structure that allows for       * proximity-searches, not just precise-matches.      *       * @param map      * @param key      * @param numVersions      * @return Ordered list of items found in passed<code>map</code>.  If no      * matching values, returns an empty list (does not return null).      */
 specifier|private
@@ -7766,17 +7753,6 @@ name|bestSoFar
 init|=
 literal|null
 decl_stmt|;
-name|HStoreKey
-name|rowKey
-init|=
-operator|new
-name|HStoreKey
-argument_list|(
-name|row
-argument_list|,
-name|timestamp
-argument_list|)
-decl_stmt|;
 comment|// process each store file
 for|for
 control|(
@@ -8511,6 +8487,11 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|splitable
+condition|)
+block|{
 name|MapFile
 operator|.
 name|Reader
@@ -8557,9 +8538,6 @@ name|r
 operator|.
 name|next
 argument_list|(
-operator|(
-name|WritableComparable
-operator|)
 name|firstKey
 argument_list|,
 name|value
@@ -8569,15 +8547,12 @@ name|r
 operator|.
 name|finalKey
 argument_list|(
-operator|(
-name|WritableComparable
-operator|)
 name|lastKey
 argument_list|)
 expr_stmt|;
 comment|// get the midkey
 name|HStoreKey
-name|midkey
+name|mk
 init|=
 operator|(
 name|HStoreKey
@@ -8589,31 +8564,16 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|midkey
+name|mk
 operator|!=
 literal|null
 condition|)
 block|{
-name|midKey
-operator|.
-name|set
-argument_list|(
-operator|(
-operator|(
-name|HStoreKey
-operator|)
-name|midkey
-operator|)
-operator|.
-name|getRow
-argument_list|()
-argument_list|)
-expr_stmt|;
 comment|// if the midkey is the same as the first and last keys, then we cannot
 comment|// (ever) split this region.
 if|if
 condition|(
-name|midkey
+name|mk
 operator|.
 name|getRow
 argument_list|()
@@ -8626,7 +8586,7 @@ name|getRow
 argument_list|()
 argument_list|)
 operator|&&
-name|midkey
+name|mk
 operator|.
 name|getRow
 argument_list|()
@@ -8651,6 +8611,18 @@ argument_list|,
 literal|false
 argument_list|)
 return|;
+block|}
+comment|// Otherwise, set midKey
+name|midKey
+operator|.
+name|set
+argument_list|(
+name|mk
+operator|.
+name|getRow
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 block|}

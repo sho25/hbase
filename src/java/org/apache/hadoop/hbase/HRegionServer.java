@@ -1724,7 +1724,6 @@ argument_list|(
 name|update
 argument_list|)
 expr_stmt|;
-comment|/*        long lockid = t.startUpdate(newRegions[i].getRegionName());         t.put(lockid, COL_REGIONINFO, Writables.getBytes(           newRegions[i].getRegionInfo()));         t.commit(lockid);*/
 block|}
 comment|// Now tell the master about the new regions
 if|if
@@ -1774,7 +1773,7 @@ literal|" successful. Old region="
 operator|+
 name|oldRegionInfo
 operator|.
-name|getRegionName
+name|toString
 argument_list|()
 operator|+
 literal|", new regions: "
@@ -1784,7 +1783,7 @@ index|[
 literal|0
 index|]
 operator|.
-name|getRegionName
+name|toString
 argument_list|()
 operator|+
 literal|", "
@@ -1794,7 +1793,7 @@ index|[
 literal|1
 index|]
 operator|.
-name|getRegionName
+name|toString
 argument_list|()
 operator|+
 literal|". Split took "
