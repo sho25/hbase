@@ -235,7 +235,7 @@ argument_list|,
 operator|new
 name|File
 argument_list|(
-literal|"build/contrib/hbase/test"
+literal|"build/hbase/test"
 argument_list|)
 operator|.
 name|getAbsolutePath
