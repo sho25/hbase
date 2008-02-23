@@ -1083,6 +1083,7 @@ name|MASTER
 init|=
 literal|"master"
 decl_stmt|;
+comment|/** @return InfoServer object */
 specifier|public
 name|InfoServer
 name|getInfoServer
@@ -1584,10 +1585,11 @@ name|rootdir
 argument_list|)
 expr_stmt|;
 block|}
-elseif|else
-if|if
-condition|(
-operator|!
+else|else
+block|{
+name|String
+name|fsversion
+init|=
 name|FSUtils
 operator|.
 name|checkVersion
@@ -1596,20 +1598,36 @@ name|fs
 argument_list|,
 name|rootdir
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|fsversion
+operator|==
+literal|null
+operator|||
+name|fsversion
+operator|.
+name|compareTo
+argument_list|(
+name|FILE_SYSTEM_VERSION
+argument_list|)
+operator|!=
+literal|0
 condition|)
 block|{
 comment|// Output on stdout so user sees it in terminal.
 name|String
 name|message
 init|=
-literal|"The HBase data files stored on the FileSystem are "
+literal|"The HBase data files stored on the FileSystem "
 operator|+
-literal|"from an earlier version of HBase. You need to run "
+literal|"are from an earlier version of HBase. You need to run "
 operator|+
-literal|"'${HBASE_HOME}/bin/hbase migrate' to bring your installation"
+literal|"'${HBASE_HOME}/bin/hbase migrate' to bring your installation "
 operator|+
 literal|"up-to-date."
 decl_stmt|;
+comment|// Output on stdout so user sees it in terminal.
 name|System
 operator|.
 name|out
@@ -1630,6 +1648,7 @@ argument_list|(
 name|message
 argument_list|)
 throw|;
+block|}
 block|}
 if|if
 condition|(

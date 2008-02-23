@@ -311,10 +311,10 @@ return|return
 name|available
 return|;
 block|}
-comment|/**    * Verifies current version of file system    *     * @param fs    * @param rootdir    * @return true if the current file system is the correct version    * @throws IOException    */
+comment|/**    * Verifies current version of file system    *     * @param fs    * @param rootdir    * @return null if no version file exists, version string otherwise.    * @throws IOException    */
 specifier|public
 specifier|static
-name|boolean
+name|String
 name|checkVersion
 parameter_list|(
 name|FileSystem
@@ -339,10 +339,10 @@ operator|.
 name|VERSION_FILE_NAME
 argument_list|)
 decl_stmt|;
-name|boolean
-name|versionOk
+name|String
+name|version
 init|=
-literal|false
+literal|null
 decl_stmt|;
 if|if
 condition|(
@@ -372,37 +372,23 @@ name|VERSION_FILE_NAME
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|String
 name|version
-init|=
+operator|=
 name|DataInputStream
 operator|.
 name|readUTF
 argument_list|(
 name|s
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|s
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|versionOk
-operator|=
-name|version
-operator|.
-name|compareTo
-argument_list|(
-name|HConstants
-operator|.
-name|FILE_SYSTEM_VERSION
-argument_list|)
-operator|==
-literal|0
-expr_stmt|;
 block|}
 return|return
-name|versionOk
+name|version
 return|;
 block|}
 comment|/**    * Sets version of file system    *     * @param fs    * @param rootdir    * @throws IOException    */

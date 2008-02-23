@@ -697,11 +697,6 @@ block|}
 block|}
 name|region
 operator|.
-name|compactIfNeeded
-argument_list|()
-expr_stmt|;
-name|region
-operator|.
 name|close
 argument_list|()
 expr_stmt|;

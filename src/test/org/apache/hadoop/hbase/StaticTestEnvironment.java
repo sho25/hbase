@@ -564,13 +564,27 @@ operator|!
 name|debugging
 condition|)
 block|{
-comment|// Turn off all the filter logging unless debug is set.
+comment|// Turn off all the and connection logging unless debug is set.
 comment|// It is way too noisy.
 name|Logger
 operator|.
 name|getLogger
 argument_list|(
 literal|"org.apache.hadoop.hbase.filter"
+argument_list|)
+operator|.
+name|setLevel
+argument_list|(
+name|Level
+operator|.
+name|INFO
+argument_list|)
+expr_stmt|;
+name|Logger
+operator|.
+name|getLogger
+argument_list|(
+literal|"org.apache.hadoop.hbase.client"
 argument_list|)
 operator|.
 name|setLevel

@@ -121,6 +121,22 @@ name|HTable
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|BatchUpdate
+import|;
+end_import
+
 begin_comment
 comment|/** test the scanner API at all levels */
 end_comment
@@ -447,12 +463,11 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|long
-name|lockid
+name|BatchUpdate
+name|b
 init|=
-name|table
-operator|.
-name|startUpdate
+operator|new
+name|BatchUpdate
 argument_list|(
 name|row
 operator|.
@@ -482,12 +497,10 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|table
+name|b
 operator|.
 name|put
 argument_list|(
-name|lockid
-argument_list|,
 name|val
 operator|.
 name|getKey
@@ -504,7 +517,7 @@ name|table
 operator|.
 name|commit
 argument_list|(
-name|lockid
+name|b
 argument_list|)
 expr_stmt|;
 block|}
@@ -515,7 +528,7 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-name|SortedMap
+name|Map
 argument_list|<
 name|Text
 argument_list|,

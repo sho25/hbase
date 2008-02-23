@@ -133,6 +133,11 @@ name|MapWritable
 argument_list|>
 name|output
 parameter_list|,
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|Reporter
 name|reporter
 parameter_list|)
@@ -150,9 +155,6 @@ block|{
 name|MapWritable
 name|r
 init|=
-operator|(
-name|MapWritable
-operator|)
 name|values
 operator|.
 name|next

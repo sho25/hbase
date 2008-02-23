@@ -38,6 +38,7 @@ specifier|public
 interface|interface
 name|HConstants
 block|{
+comment|/** long constant for zero */
 specifier|static
 specifier|final
 name|Long
@@ -65,7 +66,7 @@ specifier|final
 name|String
 name|FILE_SYSTEM_VERSION
 init|=
-literal|"0.1"
+literal|"2"
 decl_stmt|;
 comment|// Configuration parameters
 comment|// TODO: URL for hbase master like hdfs URLs with host and port.
