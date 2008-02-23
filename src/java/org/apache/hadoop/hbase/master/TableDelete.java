@@ -208,13 +208,11 @@ range|:
 name|s
 control|)
 block|{
-name|this
-operator|.
 name|master
 operator|.
-name|regionsToDelete
+name|regionManager
 operator|.
-name|add
+name|markRegionForDeletion
 argument_list|(
 name|i
 operator|.

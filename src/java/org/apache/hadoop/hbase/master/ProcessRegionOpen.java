@@ -412,7 +412,10 @@ condition|(
 operator|!
 name|master
 operator|.
-name|initialMetaScanComplete
+name|regionManager
+operator|.
+name|isInitialMetaScanComplete
+argument_list|()
 condition|)
 block|{
 comment|// Put it on the queue to be scanned for the first time.
@@ -434,9 +437,9 @@ argument_list|)
 expr_stmt|;
 name|master
 operator|.
-name|metaRegionsToScan
+name|regionManager
 operator|.
-name|put
+name|addMetaRegionToScan
 argument_list|(
 name|m
 argument_list|)
@@ -476,17 +479,10 @@ argument_list|)
 expr_stmt|;
 name|master
 operator|.
-name|onlineMetaRegions
+name|regionManager
 operator|.
-name|put
+name|putMetaRegionOnline
 argument_list|(
-name|this
-operator|.
-name|regionInfo
-operator|.
-name|getStartKey
-argument_list|()
-argument_list|,
 name|m
 argument_list|)
 expr_stmt|;
@@ -495,9 +491,9 @@ block|}
 comment|// If updated successfully, remove from pending list.
 name|master
 operator|.
-name|pendingRegions
+name|regionManager
 operator|.
-name|remove
+name|noLongerPending
 argument_list|(
 name|regionInfo
 operator|.

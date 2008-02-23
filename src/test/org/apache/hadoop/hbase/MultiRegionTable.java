@@ -743,6 +743,8 @@ argument_list|)
 decl_stmt|;
 name|assertTrue
 argument_list|(
+literal|"parentDir should exist"
+argument_list|,
 name|fs
 operator|.
 name|exists

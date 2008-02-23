@@ -2586,6 +2586,15 @@ name|lastKey
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// there is a possibility that the reference was garbage collected
+comment|// in the instant since we checked isEmpty().
+if|if
+condition|(
+name|possibleRegion
+operator|!=
+literal|null
+condition|)
+block|{
 name|Text
 name|endKey
 init|=
@@ -2646,6 +2655,7 @@ block|}
 return|return
 name|possibleRegion
 return|;
+block|}
 block|}
 block|}
 block|}

@@ -295,13 +295,11 @@ argument_list|)
 expr_stmt|;
 name|master
 operator|.
-name|unassignedRegions
+name|regionManager
 operator|.
-name|put
+name|setUnassigned
 argument_list|(
 name|regionInfo
-argument_list|,
-name|ZERO_L
 argument_list|)
 expr_stmt|;
 block|}

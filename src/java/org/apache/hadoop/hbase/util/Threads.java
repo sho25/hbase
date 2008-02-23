@@ -107,7 +107,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**      * Utility method that sets name, daemon status and starts passed thread.      * @param t      * @param name      * @param handler A handler to set on the thread.  Pass null if want to      * use default handler.      * @return Returns the passed Thread<code>t</code>.      */
+comment|/**    * Utility method that sets name, daemon status and starts passed thread.    * @param t    * @param name    * @param handler A handler to set on the thread.  Pass null if want to    * use default handler.    * @return Returns the passed Thread<code>t</code>.    */
 specifier|public
 specifier|static
 name|Thread
