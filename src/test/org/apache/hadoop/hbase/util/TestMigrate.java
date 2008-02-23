@@ -421,7 +421,7 @@ name|root
 argument_list|)
 expr_stmt|;
 comment|/*        * First load files from an old style HBase file structure        */
-comment|// Current directory is .../workspace/project/build/contrib/hbase/test/data
+comment|// Current directory is .../project/build/test/data
 name|FileSystem
 name|localfs
 init|=
@@ -448,10 +448,10 @@ operator|.
 name|CUR_DIR
 argument_list|,
 comment|// this path is for running test with ant
-literal|"../../../../../src/contrib/hbase/src/testdata/HADOOP-2478-testdata.zip"
+literal|"../../../src/testdata/HADOOP-2478-testdata.zip"
 argument_list|)
 comment|// and this path is for when you want to run inside eclipse
-comment|/*"src/contrib/hbase/src/testdata/HADOOP-2478-testdata.zip")*/
+comment|/*"src/testdata/HADOOP-2478-testdata.zip")*/
 argument_list|)
 decl_stmt|;
 name|ZipInputStream
