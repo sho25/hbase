@@ -306,7 +306,7 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/**    * space delimited list of columns     * @see org.apache.hadoop.hbase.HAbstractScanner for column name wildcards    */
+comment|/**    * space delimited list of columns     * @see org.apache.hadoop.hbase.regionserver.HAbstractScanner for column name wildcards    */
 specifier|public
 specifier|static
 specifier|final

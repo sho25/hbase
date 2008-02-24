@@ -3144,7 +3144,7 @@ return|return
 name|split
 return|;
 block|}
-comment|/**    * Only do a compaction if it is necessary    *     * @return    * @throws IOException    */
+comment|/**    * Only do a compaction if it is necessary    *     * @return whether or not there was a compaction    * @throws IOException    */
 specifier|public
 name|boolean
 name|compactIfNeeded

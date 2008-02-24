@@ -4951,7 +4951,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Sets a flag that will cause all the HRegionServer threads to shut down    * in an orderly fashion.  Used by unit tests and called by {@link Flusher}    * if it judges server needs to be restarted.    */
+comment|/**    * Sets a flag that will cause all the HRegionServer threads to shut down    * in an orderly fashion.  Used by unit tests and called by Flusher    * if it judges server needs to be restarted.    */
 specifier|public
 specifier|synchronized
 name|void

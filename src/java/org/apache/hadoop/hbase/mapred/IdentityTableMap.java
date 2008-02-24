@@ -124,7 +124,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Pass the key, value to reduce    *    * @see org.apache.hadoop.hbase.mapred.TableMap#map(org.apache.hadoop.hbase.HStoreKey, org.apache.hadoop.io.MapWritable, org.apache.hadoop.mapred.OutputCollector, org.apache.hadoop.mapred.Reporter)    */
+comment|/**    * Pass the key, value to reduce    *    * @see org.apache.hadoop.hbase.mapred.TableMap#map(org.apache.hadoop.hbase.regionserver.HStoreKey, org.apache.hadoop.io.MapWritable, org.apache.hadoop.mapred.OutputCollector, org.apache.hadoop.mapred.Reporter)    */
 annotation|@
 name|Override
 specifier|public
