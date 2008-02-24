@@ -159,7 +159,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
+name|HStoreKey
 import|;
 end_import
 
@@ -173,7 +173,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|HTableDescriptor
 import|;
 end_import
 
@@ -804,7 +804,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/** For HADOOP-2443 */
+comment|/**    * For HADOOP-2443    * @throws IOException    */
 specifier|public
 name|void
 name|testGetClosestRowBefore
@@ -831,19 +831,6 @@ name|createTableDescriptor
 argument_list|(
 name|getName
 argument_list|()
-argument_list|)
-decl_stmt|;
-name|HRegionInfo
-name|hri
-init|=
-operator|new
-name|HRegionInfo
-argument_list|(
-name|htd
-argument_list|,
-literal|null
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|region

@@ -275,6 +275,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HStoreKey
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -373,20 +387,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionLocation
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -446,22 +446,6 @@ operator|.
 name|regionserver
 operator|.
 name|HRegionInterface
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|HStoreKey
 import|;
 end_import
 
@@ -760,7 +744,6 @@ argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
-empty_stmt|;
 comment|/**       * constructor      * @param conf Configuration object      */
 annotation|@
 name|SuppressWarnings
@@ -1539,6 +1522,10 @@ name|scannerId
 operator|!=
 operator|-
 literal|1L
+operator|&&
+name|server
+operator|!=
+literal|null
 condition|)
 block|{
 name|server
@@ -1579,6 +1566,7 @@ index|]
 argument_list|)
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|HRegionLocation
 name|locateRegion
@@ -1603,6 +1591,7 @@ literal|true
 argument_list|)
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|HRegionLocation
 name|relocateRegion

@@ -51,8 +51,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|HStoreKey
 import|;
 end_import
@@ -184,7 +182,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Scan an HBase table to sort by a specified sort column.  * If the column does not exist, the record is not passed to Reduce.  *  */
+comment|/**  * Scan an HBase table to sort by a specified sort column.  * If the column does not exist, the record is not passed to Reduce.  *  * @param<K> WritableComparable key class  * @param<V> Writable value class  */
 end_comment
 
 begin_class

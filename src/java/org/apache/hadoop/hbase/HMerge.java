@@ -257,22 +257,6 @@ name|HRegion
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|HStoreKey
-import|;
-end_import
-
 begin_comment
 comment|/**   * A non-instantiable class that has a static method capable of compacting  * a table by merging adjacent regions that have grown too small.  */
 end_comment
@@ -1801,19 +1785,6 @@ name|r
 operator|++
 control|)
 block|{
-name|long
-name|lockid
-init|=
-name|Math
-operator|.
-name|abs
-argument_list|(
-name|rand
-operator|.
-name|nextLong
-argument_list|()
-argument_list|)
-decl_stmt|;
 name|BatchUpdate
 name|b
 init|=

@@ -181,9 +181,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|client
 operator|.
-name|HStoreKey
+name|HTable
 import|;
 end_import
 
@@ -197,9 +197,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|HTable
+name|HStoreKey
 import|;
 end_import
 

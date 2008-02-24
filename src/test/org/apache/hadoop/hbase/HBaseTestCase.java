@@ -1457,7 +1457,7 @@ specifier|static
 interface|interface
 name|Incommon
 block|{
-comment|/**      * @param row      * @throws IOException      */
+comment|/**      * @param row      * @return update id      * @throws IOException      */
 specifier|public
 name|long
 name|startUpdate

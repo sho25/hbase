@@ -111,9 +111,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|io
 operator|.
-name|HStoreKey
+name|BatchUpdate
 import|;
 end_import
 
@@ -419,12 +419,11 @@ name|k
 operator|++
 control|)
 block|{
-name|long
-name|writeid
+name|BatchUpdate
+name|b
 init|=
-name|table
-operator|.
-name|startUpdate
+operator|new
+name|BatchUpdate
 argument_list|(
 operator|new
 name|Text
@@ -435,12 +434,10 @@ name|k
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|table
+name|b
 operator|.
 name|put
 argument_list|(
-name|writeid
-argument_list|,
 name|CONTENTS_BASIC
 argument_list|,
 operator|(
@@ -457,12 +454,10 @@ name|UTF8_ENCODING
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|table
+name|b
 operator|.
 name|put
 argument_list|(
-name|writeid
-argument_list|,
 operator|new
 name|Text
 argument_list|(
@@ -489,7 +484,7 @@ name|table
 operator|.
 name|commit
 argument_list|(
-name|writeid
+name|b
 argument_list|)
 expr_stmt|;
 block|}

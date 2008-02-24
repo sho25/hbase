@@ -221,8 +221,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|HStoreKey
 import|;
 end_import
@@ -424,6 +422,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|close
@@ -596,6 +595,7 @@ name|hasMore
 return|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|RecordReader
 argument_list|<
@@ -799,6 +799,7 @@ return|return
 name|splits
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|configure
@@ -925,6 +926,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|validateInput

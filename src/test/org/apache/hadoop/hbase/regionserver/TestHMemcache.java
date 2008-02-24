@@ -95,6 +95,20 @@ name|HConstants
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HStoreKey
+import|;
+end_import
+
 begin_comment
 comment|/** memcache test case */
 end_comment

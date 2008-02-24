@@ -401,6 +401,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HStoreKey
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -519,7 +533,7 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
-comment|/**    * Merge two HRegions.  They must be available on the current    * HRegionServer. Returns a brand-new active HRegion, also    * running on the current HRegionServer.    */
+comment|/**    * Merge two HRegions.  They must be available on the current    * HRegionServer. Returns a brand-new active HRegion, also    * running on the current HRegionServer.    *     * @param srcA    * @param srcB    * @return new merged HRegion    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -2295,7 +2309,7 @@ comment|//
 comment|// These methods are meant to be called periodically by the HRegionServer for
 comment|// upkeep.
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * @return returns size of largest HStore.  Also returns whether store is    * splitable or not (Its not splitable if region has a store that has a    * reference store file).    */
+comment|/**    * @param midkey    * @return returns size of largest HStore.  Also returns whether store is    * splitable or not (Its not splitable if region has a store that has a    * reference store file).    */
 specifier|public
 name|HStoreSize
 name|largestHStore
@@ -3286,7 +3300,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Compact all the stores.  This should be called periodically to make sure     * the stores are kept manageable.      *    *<p>This operation could block for a long time, so don't call it from a     * time-sensitive thread.    *    * @return Returns TRUE if the compaction has completed.  FALSE, if the    * compaction was not carried out, because the HRegion is busy doing    * something else storage-intensive (like flushing the cache). The caller    * should check back later.    *     * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    */
+comment|/**    * Compact all the stores.  This should be called periodically to make sure     * the stores are kept manageable.      *    *<p>This operation could block for a long time, so don't call it from a     * time-sensitive thread.    *    * @return Returns TRUE if the compaction has completed.  FALSE, if the    * compaction was not carried out, because the HRegion is busy doing    * something else storage-intensive (like flushing the cache). The caller    * should check back later.    *     * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    *     * @throws IOException    */
 specifier|public
 name|boolean
 name|compactStores
@@ -6350,6 +6364,7 @@ name|toString
 argument_list|()
 return|;
 block|}
+comment|/** @return Path of region base directory */
 specifier|public
 name|Path
 name|getBaseDir

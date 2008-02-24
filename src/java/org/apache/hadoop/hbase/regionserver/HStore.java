@@ -247,6 +247,20 @@ name|hadoop
 operator|.
 name|fs
 operator|.
+name|FileStatus
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
 name|FileSystem
 import|;
 end_import
@@ -512,6 +526,20 @@ operator|.
 name|hbase
 operator|.
 name|HColumnDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HStoreKey
 import|;
 end_import
 
@@ -1159,7 +1187,7 @@ break|break;
 block|}
 block|}
 block|}
-comment|/**      * Find the key that matches<i>row</i> exactly, or the one that immediately      * preceeds it.      */
+comment|/**      * @param row      * @param timestamp      * @return the key that matches<i>row</i> exactly, or the one that      * immediately preceeds it.      */
 specifier|public
 name|Text
 name|getRowKeyAtOrBefore
@@ -1171,8 +1199,6 @@ parameter_list|,
 name|long
 name|timestamp
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.
@@ -1278,9 +1304,7 @@ return|return
 name|key_memcache
 return|;
 block|}
-else|else
-block|{
-comment|// if either is a precise match, return the original row.
+elseif|else
 if|if
 condition|(
 operator|(
@@ -1310,10 +1334,19 @@ argument_list|)
 operator|)
 condition|)
 block|{
+comment|// if either is a precise match, return the original row.
 return|return
 name|row
 return|;
 block|}
+elseif|else
+if|if
+condition|(
+name|key_memcache
+operator|!=
+literal|null
+condition|)
+block|{
 comment|// no precise matches, so return the one that is closer to the search
 comment|// key (greatest)
 return|return
@@ -1331,6 +1364,9 @@ else|:
 name|key_snapshot
 return|;
 block|}
+return|return
+literal|null
+return|;
 block|}
 finally|finally
 block|{
@@ -3835,20 +3871,15 @@ expr_stmt|;
 block|}
 comment|// Look first at info files.  If a reference, these contain info we need
 comment|// to create the HStoreFile.
-name|Path
+name|FileStatus
 name|infofiles
 index|[]
 init|=
 name|fs
 operator|.
-name|listPaths
+name|listStatus
 argument_list|(
-operator|new
-name|Path
-index|[]
-block|{
 name|infodir
-block|}
 argument_list|)
 decl_stmt|;
 name|ArrayList
@@ -3887,12 +3918,32 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|Path
-name|p
-range|:
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
 name|infofiles
+operator|.
+name|length
+condition|;
+name|i
+operator|++
 control|)
 block|{
+name|Path
+name|p
+init|=
+name|infofiles
+index|[
+name|i
+index|]
+operator|.
+name|getPath
+argument_list|()
+decl_stmt|;
 name|Matcher
 name|m
 init|=
@@ -4053,20 +4104,15 @@ expr_stmt|;
 block|}
 comment|// List paths by experience returns fully qualified names -- at least when
 comment|// running on a mini hdfs cluster.
-name|Path
+name|FileStatus
 name|datfiles
 index|[]
 init|=
 name|fs
 operator|.
-name|listPaths
+name|listStatus
 argument_list|(
-operator|new
-name|Path
-index|[]
-block|{
 name|mapdir
-block|}
 argument_list|)
 decl_stmt|;
 for|for
@@ -4086,6 +4132,17 @@ name|i
 operator|++
 control|)
 block|{
+name|Path
+name|p
+init|=
+name|datfiles
+index|[
+name|i
+index|]
+operator|.
+name|getPath
+argument_list|()
+decl_stmt|;
 comment|// If does not have sympathetic info file, delete.
 if|if
 condition|(
@@ -4098,10 +4155,7 @@ name|fs
 operator|.
 name|makeQualified
 argument_list|(
-name|datfiles
-index|[
-name|i
-index|]
+name|p
 argument_list|)
 argument_list|)
 condition|)
@@ -4110,10 +4164,7 @@ name|fs
 operator|.
 name|delete
 argument_list|(
-name|datfiles
-index|[
-name|i
-index|]
+name|p
 argument_list|)
 expr_stmt|;
 block|}
@@ -7778,7 +7829,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Find the key that matches<i>row</i> exactly, or the one that immediately    * preceeds it.    */
+comment|/**    * @return the key that matches<i>row</i> exactly, or the one that immediately    * preceeds it.    * @param row    * @param timestamp    * @throws IOException    */
 specifier|public
 name|Text
 name|getRowKeyAtOrBefore

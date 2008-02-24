@@ -149,8 +149,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|HStoreKey
 import|;
 end_import

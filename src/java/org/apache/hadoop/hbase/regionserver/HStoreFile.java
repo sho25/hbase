@@ -365,6 +365,20 @@ name|HBaseConfiguration
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HStoreKey
+import|;
+end_import
+
 begin_comment
 comment|/**  * A HStore data file.  HStores usually have one or more of these files.  They  * are produced by flushing the memcache to disk.  *  *<p>Each HStore maintains a bunch of different data files. The filename is a  * mix of the parent dir, the region name, the column name, and a file  * identifier. The name may also be a reference to a store file located  * elsewhere. This class handles all that path-building stuff for you.  *   *<p>An HStoreFile usually tracks 4 things: its parent dir, the region  * identifier, the column family, and the file identifier.  If you know those  * four things, you know how to obtain the right HStoreFile.  HStoreFiles may  * also refernce store files in another region serving either from  * the top-half of the remote file or from the bottom-half.  Such references  * are made fast splitting regions.  *   *<p>Plain HStoreFiles are named for a randomly generated id as in:  *<code>1278437856009925445</code>  A file by this name is made in both the  *<code>mapfiles</code> and<code>info</code> subdirectories of a  * HStore columnfamily directoy: E.g. If the column family is 'anchor:', then  * under the region directory there is a subdirectory named 'anchor' within  * which is a 'mapfiles' and 'info' subdirectory.  In each will be found a  * file named something like<code>1278437856009925445</code>, one to hold the  * data in 'mapfiles' and one under 'info' that holds the sequence id for this  * store file.  *   *<p>References to store files located over in some other region look like  * this:  *<code>1278437856009925445.hbaserepository,qAReLZD-OyQORZWq_vqR1k==,959247014679548184</code>:  * i.e. an id followed by the name of the referenced region.  The data  * ('mapfiles') of HStoreFile references are empty. The accompanying  *<code>info</code> file contains the  * midkey, the id of the remote store we're referencing and whether we're  * to serve the top or bottom region of the remote store file.  Note, a region  * is not splitable if it has instances of store file references (References  * are cleaned up by compactions).  *   *<p>When merging or splitting HRegions, we might want to modify one of the   * params for an HStoreFile (effectively moving it elsewhere).  */
 end_comment
@@ -2030,6 +2044,7 @@ literal|""
 operator|)
 return|;
 block|}
+comment|/**    * @param dir    * @param encodedRegionName    * @param colFamily    * @return path for map file directory    */
 specifier|public
 specifier|static
 name|Path
@@ -2070,7 +2085,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/** @return the info directory path */
+comment|/**    * @param dir    * @param encodedRegionName    * @param colFamily    * @return the info directory path    */
 specifier|public
 specifier|static
 name|Path
@@ -2111,7 +2126,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/** @return the bloom filter directory path */
+comment|/**    * @param dir    * @param encodedRegionName    * @param colFamily    * @return the bloom filter directory path    */
 specifier|public
 specifier|static
 name|Path
@@ -2766,6 +2781,7 @@ operator|=
 name|filter
 expr_stmt|;
 block|}
+comment|/**        * @param fs        * @param dirName        * @param conf        * @param filter        * @param blockCacheEnabled        * @throws IOException        */
 specifier|public
 name|Reader
 parameter_list|(

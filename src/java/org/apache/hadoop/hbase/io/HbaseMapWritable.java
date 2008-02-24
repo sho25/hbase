@@ -181,8 +181,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|HStoreKey
 import|;
 end_import
@@ -758,6 +756,7 @@ return|return
 name|b
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -852,6 +851,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields

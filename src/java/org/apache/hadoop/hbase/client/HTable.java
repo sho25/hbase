@@ -383,6 +383,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HStoreKey
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -426,22 +440,6 @@ operator|.
 name|hbase
 operator|.
 name|NotServingRegionException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|HStoreKey
 import|;
 end_import
 
@@ -616,7 +614,7 @@ name|EMPTY_START_ROW
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Find region location hosting passed row using cached info    * @param row Row to find.    * @return Location of row.    */
+comment|/**    * Find region location hosting passed row using cached info    * @param row Row to find.    * @return Location of row.    * @throws IOException    */
 specifier|public
 name|HRegionLocation
 name|getRegionLocation
@@ -2542,7 +2540,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Commit a BatchUpdate to the table.    */
+comment|/**    * Commit a BatchUpdate to the table.    * @param batchUpdate    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
@@ -3821,6 +3819,7 @@ return|return
 literal|null
 return|;
 block|}
+comment|/**    * Does nothing anymore    */
 annotation|@
 name|Deprecated
 specifier|public

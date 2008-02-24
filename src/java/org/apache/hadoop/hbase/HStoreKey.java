@@ -12,8 +12,6 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
-operator|.
-name|regionserver
 package|;
 end_package
 
@@ -41,37 +39,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|InvalidColumnNameException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|io
 operator|.
 name|*
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
 import|;
 end_import
 
@@ -616,6 +586,7 @@ name|result
 return|;
 block|}
 comment|// Comparable
+comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo
@@ -814,7 +785,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Extracts the column family name from a column    * For example, returns 'info' if the specified column was 'info:server'    * @param col name of column    * @return column famile as a TextSequence based on the passed    *<code>col</code>.  If<code>col</code> is reused, make a new Text of    * the result by calling {@link TextSequence#toText()}.    * @throws InvalidColumnNameException     */
+comment|/**    * Extracts the column family name from a column    * For example, returns 'info' if the specified column was 'info:server'    * @param col name of column    * @param withColon set to true if colon separator should be returned    * @return column famile as a TextSequence based on the passed    *<code>col</code>.  If<code>col</code> is reused, make a new Text of    * the result by calling {@link TextSequence#toText()}.    * @throws InvalidColumnNameException     */
 specifier|public
 specifier|static
 name|TextSequence

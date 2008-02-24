@@ -81,8 +81,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
 name|HStoreKey
 import|;
 end_import
@@ -349,7 +347,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Extract the grouping columns from value to construct a new key.    *     * Pass the new key and value to reduce.    * If any of the grouping columns are not found in the value, the record is skipped.    *    * @see org.apache.hadoop.hbase.mapred.TableMap#map(org.apache.hadoop.hbase.regionserver.HStoreKey, org.apache.hadoop.io.MapWritable, org.apache.hadoop.mapred.OutputCollector, org.apache.hadoop.mapred.Reporter)    */
+comment|/**    * Extract the grouping columns from value to construct a new key.    *     * Pass the new key and value to reduce.    * If any of the grouping columns are not found in the value, the record is skipped.    *    * @see org.apache.hadoop.hbase.mapred.TableMap#map(org.apache.hadoop.hbase.HStoreKey, org.apache.hadoop.io.MapWritable, org.apache.hadoop.mapred.OutputCollector, org.apache.hadoop.mapred.Reporter)    */
 annotation|@
 name|Override
 specifier|public

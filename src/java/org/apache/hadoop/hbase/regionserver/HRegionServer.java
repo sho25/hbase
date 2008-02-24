@@ -671,6 +671,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HStoreKey
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Leases
 import|;
 end_import
@@ -7698,6 +7712,7 @@ operator|.
 name|serverInfo
 return|;
 block|}
+comment|/** @return the info server */
 specifier|public
 name|InfoServer
 name|getInfoServer
