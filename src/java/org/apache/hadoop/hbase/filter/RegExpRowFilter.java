@@ -183,6 +183,8 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
 name|HLogEdit
 import|;
 end_import

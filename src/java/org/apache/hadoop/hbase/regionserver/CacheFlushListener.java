@@ -12,23 +12,27 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|regionserver
 package|;
 end_package
 
 begin_comment
-comment|/**  * Mechanism by which the HLog requests a log roll  */
+comment|/**  * Implementors of this interface want to be notified when an HRegion  * determines that a cache flush is needed. A CacheFlushListener (or null)  * must be passed to the HRegion constructor.  */
 end_comment
 
 begin_interface
 specifier|public
 interface|interface
-name|LogRollListener
+name|CacheFlushListener
 block|{
-comment|/** Request that the log be rolled */
-specifier|public
+comment|/**    * Tell the listener the cache needs to be flushed.    *     * @param region the HRegion requesting the cache flush    */
 name|void
-name|logRollRequested
-parameter_list|()
+name|flushRequested
+parameter_list|(
+name|HRegion
+name|region
+parameter_list|)
 function_decl|;
 block|}
 end_interface

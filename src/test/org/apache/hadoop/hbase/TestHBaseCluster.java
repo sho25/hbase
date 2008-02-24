@@ -101,6 +101,22 @@ name|HTable
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HStoreKey
+import|;
+end_import
+
 begin_comment
 comment|/**  * Test HBase Master and Region servers, client API   */
 end_comment

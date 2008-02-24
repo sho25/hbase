@@ -131,6 +131,38 @@ name|HMaster
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HRegionServer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HRegion
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class creates a single process HBase cluster. One thread is created for  * each server.  */
 end_comment
@@ -641,7 +673,8 @@ literal|"Aborting "
 operator|+
 name|server
 operator|.
-name|serverInfo
+name|getServerInfo
+argument_list|()
 operator|.
 name|toString
 argument_list|()
@@ -857,6 +890,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Call flushCache on all regions on all participating regionservers.    * @throws IOException    */
+specifier|public
 name|void
 name|flushcache
 parameter_list|()
@@ -888,7 +922,8 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|onlineRegions
+name|getOnlineRegions
+argument_list|()
 operator|.
 name|values
 argument_list|()

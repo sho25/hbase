@@ -79,6 +79,22 @@ name|Text
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HStoreKey
+import|;
+end_import
+
 begin_comment
 comment|/**  * HScannerInterface iterates through a set of rows.  It's implemented by  * several classes.  Implements {@link Iterable} but be sure to still call  * {@link #close()} when done with your {@link Iterator}  */
 end_comment

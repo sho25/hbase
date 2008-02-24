@@ -383,34 +383,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInterface
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HStoreKey
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -467,7 +439,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInterface
+name|regionserver
+operator|.
+name|HStoreKey
 import|;
 end_import
 
@@ -481,7 +455,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HStoreKey
+name|regionserver
+operator|.
+name|HRegionInterface
 import|;
 end_import
 

@@ -12,6 +12,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|regionserver
 package|;
 end_package
 
@@ -98,6 +100,34 @@ operator|.
 name|ipc
 operator|.
 name|VersionedProtocol
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|NotServingRegionException
 import|;
 end_import
 

@@ -12,51 +12,25 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|regionserver
 package|;
 end_package
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
 begin_comment
-comment|/**  * Used as a callback mechanism so that an HRegion can notify the HRegionServer  * of the different stages making an HRegion unavailable.  Regions are made  * unavailable during region split operations.  */
+comment|/**  * Mechanism by which the HLog requests a log roll  */
 end_comment
 
 begin_interface
 specifier|public
 interface|interface
-name|RegionUnavailableListener
+name|LogRollListener
 block|{
-comment|/**    *<code>regionName</code> is closing.    * Listener should stop accepting new writes but can continue to service    * outstanding transactions.    * @param regionName    */
+comment|/** Request that the log be rolled */
 specifier|public
 name|void
-name|closing
-parameter_list|(
-specifier|final
-name|Text
-name|regionName
-parameter_list|)
-function_decl|;
-comment|/**    *<code>regionName</code> is closed and no longer available.    * Listener should clean up any references to<code>regionName</code>    * @param regionName    */
-specifier|public
-name|void
-name|closed
-parameter_list|(
-specifier|final
-name|Text
-name|regionName
-parameter_list|)
+name|logRollRequested
+parameter_list|()
 function_decl|;
 block|}
 end_interface

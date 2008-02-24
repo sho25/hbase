@@ -12,6 +12,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|regionserver
 package|;
 end_package
 
@@ -76,6 +78,20 @@ operator|.
 name|io
 operator|.
 name|Text
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
 import|;
 end_import
 

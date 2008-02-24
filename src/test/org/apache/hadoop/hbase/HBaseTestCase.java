@@ -173,6 +173,22 @@ name|HTable
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HRegion
+import|;
+end_import
+
 begin_comment
 comment|/**  * Abstract base class for test cases. Performs all static initialization  */
 end_comment
@@ -746,7 +762,8 @@ name|HRegion
 argument_list|(
 name|closedRegion
 operator|.
-name|basedir
+name|getBaseDir
+argument_list|()
 argument_list|,
 name|closedRegion
 operator|.

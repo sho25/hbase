@@ -12,8 +12,24 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|regionserver
 package|;
 end_package
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HScannerInterface
+import|;
+end_import
 
 begin_comment
 comment|/**  * Internally, we need to be able to determine if the scanner is doing wildcard  * column matches (when only a column family is specified or if a column regex  * is specified) or if multiple members of the same column family were  * specified. If so, we need to ignore the timestamp to ensure that we get all  * the family members, as they may have been last updated at different times.  */

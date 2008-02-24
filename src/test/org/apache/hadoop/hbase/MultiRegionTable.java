@@ -167,6 +167,54 @@ name|HTable
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HRegion
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HRegionServer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HStoreKey
+import|;
+end_import
+
 begin_comment
 comment|/**  * Utility class to build a table of multiple regions.  */
 end_comment
@@ -500,7 +548,8 @@ name|r
 operator|=
 name|server
 operator|.
-name|onlineRegions
+name|getOnlineRegions
+argument_list|()
 operator|.
 name|get
 argument_list|(
@@ -1617,7 +1666,8 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|onlineRegions
+name|getOnlineRegions
+argument_list|()
 decl_stmt|;
 comment|// Retry if ConcurrentModification... alternative of sync'ing is not
 comment|// worth it for sake of unit test.

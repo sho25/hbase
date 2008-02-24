@@ -29,6 +29,22 @@ name|Text
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HRegionInterface
+import|;
+end_import
+
 begin_comment
 comment|/**  * HConstants holds a bunch of HBase-related constants  */
 end_comment

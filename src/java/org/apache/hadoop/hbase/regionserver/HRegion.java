@@ -12,6 +12,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|regionserver
 package|;
 end_package
 
@@ -347,6 +349,118 @@ name|StringUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseConfiguration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HColumnDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HScannerInterface
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|DroppedSnapshotException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|WrongRegionException
+import|;
+end_import
+
 begin_comment
 comment|/**  * HRegion stores data for a certain region of a table.  It stores all columns  * for each row. A given table consists of one or more HRegions.  *  *<p>We maintain multiple HStores for a single HRegion.  *   *<p>An HStore is a set of rows with some column data; together,  * they make up all the data for the rows.    *  *<p>Each HRegion has a 'startKey' and 'endKey'.  *     *<p>The first is inclusive, the second is exclusive (except for  * the final region)  The endKey of region 0 is the same as  * startKey for region 1 (if it exists).  The startKey for the  * first region is null. The endKey for the final region is null.  *  *<p>Locking at the HRegion level serves only one purpose: preventing the  * region from being closed (and consequently split) while other operations  * are ongoing. Each row level operation obtains both a row lock and a region  * read lock for the duration of the operation. While a scanner is being  * constructed, getScanner holds a read lock. If the scanner is successfully  * constructed, it holds a read lock until it is closed. A close takes out a  * write lock and consequently will block for ongoing operations and will block  * new operations from starting while the close is in progress.  *   *<p>An HRegion is defined by its table and its key extent.  *   *<p>It consists of at least one HStore.  The number of HStores should be   * configurable, so that data which is accessed together is stored in the same  * HStore.  Right now, we approximate that by building a single HStore for   * each column family.  (This config info will be communicated via the   * tabledesc.)  *   *<p>The HTableDescriptor contains metainfo about the HRegion's table.  * regionName is a unique identifier for this HRegion. (startKey, endKey]  * defines the keyspace for this HRegion.  */
 end_comment
@@ -406,6 +520,7 @@ literal|false
 argument_list|)
 decl_stmt|;
 comment|/**    * Merge two HRegions.  They must be available on the current    * HRegionServer. Returns a brand-new active HRegion, also    * running on the current HRegionServer.    */
+specifier|public
 specifier|static
 name|HRegion
 name|closeAndMerge
@@ -2070,6 +2185,7 @@ argument_list|()
 return|;
 block|}
 comment|/** @return region id */
+specifier|public
 name|long
 name|getRegionId
 parameter_list|()
@@ -2099,6 +2215,7 @@ argument_list|()
 return|;
 block|}
 comment|/** @return HTableDescriptor for this region */
+specifier|public
 name|HTableDescriptor
 name|getTableDesc
 parameter_list|()
@@ -2125,6 +2242,7 @@ name|log
 return|;
 block|}
 comment|/** @return Configuration object */
+specifier|public
 name|HBaseConfiguration
 name|getConf
 parameter_list|()
@@ -2136,6 +2254,7 @@ name|conf
 return|;
 block|}
 comment|/** @return region directory Path */
+specifier|public
 name|Path
 name|getRegionDir
 parameter_list|()
@@ -2147,6 +2266,7 @@ name|regiondir
 return|;
 block|}
 comment|/** @return FileSystem being used by this region */
+specifier|public
 name|FileSystem
 name|getFilesystem
 parameter_list|()
@@ -2176,8 +2296,7 @@ comment|// These methods are meant to be called periodically by the HRegionServe
 comment|// upkeep.
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/**    * @return returns size of largest HStore.  Also returns whether store is    * splitable or not (Its not splitable if region has a store that has a    * reference store file).    */
-name|HStore
-operator|.
+specifier|public
 name|HStoreSize
 name|largestHStore
 parameter_list|(
@@ -2185,8 +2304,6 @@ name|Text
 name|midkey
 parameter_list|)
 block|{
-name|HStore
-operator|.
 name|HStoreSize
 name|biggest
 init|=
@@ -2208,8 +2325,6 @@ name|values
 argument_list|()
 control|)
 block|{
-name|HStore
-operator|.
 name|HStoreSize
 name|size
 init|=
@@ -2872,8 +2987,6 @@ name|Text
 name|midKey
 parameter_list|)
 block|{
-name|HStore
-operator|.
 name|HStoreSize
 name|biggest
 init|=
@@ -3032,6 +3145,7 @@ name|split
 return|;
 block|}
 comment|/**    * Only do a compaction if it is necessary    *     * @return    * @throws IOException    */
+specifier|public
 name|boolean
 name|compactIfNeeded
 parameter_list|()
@@ -3173,6 +3287,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Compact all the stores.  This should be called periodically to make sure     * the stores are kept manageable.      *    *<p>This operation could block for a long time, so don't call it from a     * time-sensitive thread.    *    * @return Returns TRUE if the compaction has completed.  FALSE, if the    * compaction was not carried out, because the HRegion is busy doing    * something else storage-intensive (like flushing the cache). The caller    * should check back later.    *     * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    */
+specifier|public
 name|boolean
 name|compactStores
 parameter_list|()
@@ -3374,6 +3489,7 @@ block|}
 block|}
 block|}
 comment|/**    * Flush the cache.    *     * When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a     * time-sensitive thread.    *     * @return true if cache was flushed    *     * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
+specifier|public
 name|boolean
 name|flushcache
 parameter_list|()
@@ -6234,7 +6350,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-specifier|private
+specifier|public
 name|Path
 name|getBaseDir
 parameter_list|()
@@ -7608,6 +7724,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Computes the Path of the HRegion    *     * @param tabledir qualified path for table    * @param name region file name ENCODED!    * @return Path of HRegion directory    * @see HRegionInfo#encodeRegionName(Text)    */
+specifier|public
 specifier|static
 name|Path
 name|getRegionDir
