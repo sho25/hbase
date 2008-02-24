@@ -627,8 +627,9 @@ operator|.
 name|getType
 argument_list|()
 operator|>
-operator|-
-literal|1
+name|Constants
+operator|.
+name|ERROR_CODE
 condition|)
 name|System
 operator|.
@@ -666,8 +667,9 @@ operator|.
 name|getType
 argument_list|()
 operator|==
-operator|-
-literal|9
+name|Constants
+operator|.
+name|ERROR_CODE
 condition|)
 name|System
 operator|.
