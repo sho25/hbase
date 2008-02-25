@@ -475,6 +475,22 @@ name|WrongRegionException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
+name|HRegionInterface
+import|;
+end_import
+
 begin_comment
 comment|/**  * HRegion stores data for a certain region of a table.  It stores all columns  * for each row. A given table consists of one or more HRegions.  *  *<p>We maintain multiple HStores for a single HRegion.  *   *<p>An HStore is a set of rows with some column data; together,  * they make up all the data for the rows.    *  *<p>Each HRegion has a 'startKey' and 'endKey'.  *     *<p>The first is inclusive, the second is exclusive (except for  * the final region)  The endKey of region 0 is the same as  * startKey for region 1 (if it exists).  The startKey for the  * first region is null. The endKey for the final region is null.  *  *<p>Locking at the HRegion level serves only one purpose: preventing the  * region from being closed (and consequently split) while other operations  * are ongoing. Each row level operation obtains both a row lock and a region  * read lock for the duration of the operation. While a scanner is being  * constructed, getScanner holds a read lock. If the scanner is successfully  * constructed, it holds a read lock until it is closed. A close takes out a  * write lock and consequently will block for ongoing operations and will block  * new operations from starting while the close is in progress.  *   *<p>An HRegion is defined by its table and its key extent.  *   *<p>It consists of at least one HStore.  The number of HStores should be   * configurable, so that data which is accessed together is stored in the same  * HStore.  Right now, we approximate that by building a single HStore for   * each column family.  (This config info will be communicated via the   * tabledesc.)  *   *<p>The HTableDescriptor contains metainfo about the HRegion's table.  * regionName is a unique identifier for this HRegion. (startKey, endKey]  * defines the keyspace for this HRegion.  */
 end_comment

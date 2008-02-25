@@ -13,7 +13,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
+name|ipc
 package|;
 end_package
 

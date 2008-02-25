@@ -51,7 +51,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|ipc
 operator|.
 name|HRegionInterface
 import|;
