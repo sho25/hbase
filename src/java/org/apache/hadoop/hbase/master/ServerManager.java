@@ -1430,7 +1430,7 @@ name|master
 operator|.
 name|regionManager
 operator|.
-name|getMarkedClosedNoReopen
+name|getMarkedToClose
 argument_list|(
 name|serverName
 argument_list|)
@@ -1810,7 +1810,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|// Process the kill list
+comment|// Tell the region server to close regions that we have marked for closing.
 if|if
 condition|(
 name|regionsToKill
@@ -1844,12 +1844,27 @@ name|i
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// Transition the region from toClose to closing state
 name|master
 operator|.
 name|regionManager
 operator|.
 name|setClosing
 argument_list|(
+name|i
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|master
+operator|.
+name|regionManager
+operator|.
+name|noLongerMarkedToClose
+argument_list|(
+name|serverName
+argument_list|,
 name|i
 operator|.
 name|getRegionName

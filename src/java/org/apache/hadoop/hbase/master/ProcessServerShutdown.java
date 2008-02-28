@@ -825,7 +825,7 @@ name|master
 operator|.
 name|regionManager
 operator|.
-name|isMarkedClosedNoReopen
+name|isMarkedToClose
 argument_list|(
 name|deadServerName
 argument_list|,
@@ -840,7 +840,7 @@ name|master
 operator|.
 name|regionManager
 operator|.
-name|noLongerMarkedClosedNoReopen
+name|noLongerMarkedToClose
 argument_list|(
 name|deadServerName
 argument_list|,

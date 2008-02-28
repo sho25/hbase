@@ -558,7 +558,7 @@ argument_list|>
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/**    * The 'killList' is a list of regions that are going to be closed, but not    * reopened.    */
+comment|/**    * List of regions that are going to be closed.    */
 specifier|private
 specifier|final
 name|Map
@@ -572,7 +572,7 @@ argument_list|,
 name|HRegionInfo
 argument_list|>
 argument_list|>
-name|killList
+name|regionsToClose
 init|=
 operator|new
 name|ConcurrentHashMap
@@ -588,14 +588,35 @@ argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/** 'killedRegions' contains regions that are in the process of being closed */
+comment|/** Regions that are in the process of being closed */
 specifier|private
 specifier|final
 name|Set
 argument_list|<
 name|Text
 argument_list|>
-name|killedRegions
+name|closingRegions
+init|=
+name|Collections
+operator|.
+name|synchronizedSet
+argument_list|(
+operator|new
+name|HashSet
+argument_list|<
+name|Text
+argument_list|>
+argument_list|()
+argument_list|)
+decl_stmt|;
+comment|/** Regions that are being reassigned for load balancing. */
+specifier|private
+specifier|final
+name|Set
+argument_list|<
+name|Text
+argument_list|>
+name|regionsBeingReassigned
 init|=
 name|Collections
 operator|.
@@ -2286,10 +2307,10 @@ name|info
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Mark a region to be closed and not reopened */
+comment|/** Mark a region to be closed */
 specifier|public
 name|void
-name|markClosedNoReopen
+name|markToClose
 parameter_list|(
 name|String
 name|serverName
@@ -2300,7 +2321,7 @@ parameter_list|)
 block|{
 synchronized|synchronized
 init|(
-name|killList
+name|regionsToClose
 init|)
 block|{
 name|Map
@@ -2309,9 +2330,9 @@ name|Text
 argument_list|,
 name|HRegionInfo
 argument_list|>
-name|serverKillList
+name|serverToClose
 init|=
-name|killList
+name|regionsToClose
 operator|.
 name|get
 argument_list|(
@@ -2320,12 +2341,12 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|serverKillList
+name|serverToClose
 operator|!=
 literal|null
 condition|)
 block|{
-name|serverKillList
+name|serverToClose
 operator|.
 name|put
 argument_list|(
@@ -2343,7 +2364,7 @@ block|}
 comment|/** Mark a bunch of regions as closed not reopen at once for a server */
 specifier|public
 name|void
-name|markClosedNoReopenBulk
+name|markToCloseBulk
 parameter_list|(
 name|String
 name|serverName
@@ -2357,7 +2378,7 @@ argument_list|>
 name|map
 parameter_list|)
 block|{
-name|killList
+name|regionsToClose
 operator|.
 name|put
 argument_list|(
@@ -2375,14 +2396,14 @@ name|Text
 argument_list|,
 name|HRegionInfo
 argument_list|>
-name|getMarkedClosedNoReopen
+name|getMarkedToClose
 parameter_list|(
 name|String
 name|serverName
 parameter_list|)
 block|{
 return|return
-name|killList
+name|regionsToClose
 operator|.
 name|get
 argument_list|(
@@ -2393,7 +2414,7 @@ block|}
 comment|/**    * Check if a region is marked as closed not reopen.    */
 specifier|public
 name|boolean
-name|isMarkedClosedNoReopen
+name|isMarkedToClose
 parameter_list|(
 name|String
 name|serverName
@@ -2404,7 +2425,7 @@ parameter_list|)
 block|{
 synchronized|synchronized
 init|(
-name|killList
+name|regionsToClose
 init|)
 block|{
 name|Map
@@ -2413,9 +2434,9 @@ name|Text
 argument_list|,
 name|HRegionInfo
 argument_list|>
-name|regionsToKill
+name|serverToClose
 init|=
-name|killList
+name|regionsToClose
 operator|.
 name|get
 argument_list|(
@@ -2424,11 +2445,11 @@ argument_list|)
 decl_stmt|;
 return|return
 operator|(
-name|regionsToKill
+name|serverToClose
 operator|!=
 literal|null
 operator|&&
-name|regionsToKill
+name|serverToClose
 operator|.
 name|containsKey
 argument_list|(
@@ -2441,7 +2462,7 @@ block|}
 comment|/**    * Mark a region as no longer waiting to be closed and not reopened.     */
 specifier|public
 name|void
-name|noLongerMarkedClosedNoReopen
+name|noLongerMarkedToClose
 parameter_list|(
 name|String
 name|serverName
@@ -2452,7 +2473,7 @@ parameter_list|)
 block|{
 synchronized|synchronized
 init|(
-name|killList
+name|regionsToClose
 init|)
 block|{
 name|Map
@@ -2461,9 +2482,9 @@ name|Text
 argument_list|,
 name|HRegionInfo
 argument_list|>
-name|serverKillList
+name|serverToClose
 init|=
-name|killList
+name|regionsToClose
 operator|.
 name|get
 argument_list|(
@@ -2472,12 +2493,12 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|serverKillList
+name|serverToClose
 operator|!=
 literal|null
 condition|)
 block|{
-name|serverKillList
+name|serverToClose
 operator|.
 name|remove
 argument_list|(
@@ -2497,7 +2518,7 @@ name|regionName
 parameter_list|)
 block|{
 return|return
-name|killedRegions
+name|closingRegions
 operator|.
 name|contains
 argument_list|(
@@ -2514,7 +2535,7 @@ name|Text
 name|regionName
 parameter_list|)
 block|{
-name|killedRegions
+name|closingRegions
 operator|.
 name|remove
 argument_list|(
@@ -2531,7 +2552,7 @@ name|Text
 name|regionName
 parameter_list|)
 block|{
-name|killedRegions
+name|closingRegions
 operator|.
 name|add
 argument_list|(

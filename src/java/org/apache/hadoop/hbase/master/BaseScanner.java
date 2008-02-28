@@ -1612,7 +1612,7 @@ if|if
 condition|(
 name|regionManager
 operator|.
-name|isMarkedClosedNoReopen
+name|isMarkedToClose
 argument_list|(
 name|serverName
 argument_list|,

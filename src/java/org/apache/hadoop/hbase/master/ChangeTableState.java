@@ -584,7 +584,7 @@ name|master
 operator|.
 name|regionManager
 operator|.
-name|getMarkedClosedNoReopen
+name|getMarkedToClose
 argument_list|(
 name|serverName
 argument_list|)
@@ -683,7 +683,7 @@ name|master
 operator|.
 name|regionManager
 operator|.
-name|markClosedNoReopenBulk
+name|markToCloseBulk
 argument_list|(
 name|serverName
 argument_list|,
