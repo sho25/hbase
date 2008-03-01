@@ -209,6 +209,22 @@ name|HColumnDescriptor
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|BatchUpdate
+import|;
+end_import
+
 begin_comment
 comment|/**  * Test log deletion as logs are rolled.  */
 end_comment
@@ -320,14 +336,14 @@ operator|*
 literal|1024L
 argument_list|)
 expr_stmt|;
-comment|// We roll the log after every 256 writes
+comment|// We roll the log after every 32 writes
 name|conf
 operator|.
 name|setInt
 argument_list|(
 literal|"hbase.regionserver.maxlogentries"
 argument_list|,
-literal|256
+literal|32
 argument_list|)
 expr_stmt|;
 comment|// For less frequently updated regions flush after every 2 flushes
@@ -485,11 +501,6 @@ name|Exception
 block|{
 try|try
 block|{
-name|super
-operator|.
-name|setUp
-argument_list|()
-expr_stmt|;
 name|dfs
 operator|=
 operator|new
@@ -532,6 +543,11 @@ operator|.
 name|toString
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|super
+operator|.
+name|setUp
+argument_list|()
 expr_stmt|;
 block|}
 catch|catch
@@ -689,9 +705,6 @@ name|getLog
 argument_list|()
 expr_stmt|;
 comment|// When the META table can be opened, the region servers are running
-name|HTable
-name|meta
-init|=
 operator|new
 name|HTable
 argument_list|(
@@ -701,7 +714,7 @@ name|HConstants
 operator|.
 name|META_TABLE_NAME
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 comment|// Create the test table and open it
 name|HTableDescriptor
 name|desc
@@ -768,19 +781,18 @@ literal|1
 init|;
 name|i
 operator|<=
-literal|2048
+literal|256
 condition|;
 name|i
 operator|++
 control|)
 block|{
-comment|// 2048 writes should cause 8 log rolls
-name|long
-name|lockid
+comment|// 256 writes should cause 8 log rolls
+name|BatchUpdate
+name|b
 init|=
-name|table
-operator|.
-name|startUpdate
+operator|new
+name|BatchUpdate
 argument_list|(
 operator|new
 name|Text
@@ -798,12 +810,10 @@ argument_list|)
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|table
+name|b
 operator|.
 name|put
 argument_list|(
-name|lockid
-argument_list|,
 name|HConstants
 operator|.
 name|COLUMN_FAMILY
@@ -815,19 +825,19 @@ name|table
 operator|.
 name|commit
 argument_list|(
-name|lockid
+name|b
 argument_list|)
 expr_stmt|;
 if|if
 condition|(
 name|i
 operator|%
-literal|256
+literal|32
 operator|==
 literal|0
 condition|)
 block|{
-comment|// After every 256 writes sleep to let the log roller run
+comment|// After every 32 writes sleep to let the log roller run
 try|try
 block|{
 name|Thread
@@ -947,6 +957,12 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
+operator|(
+literal|"actual count: "
+operator|+
+name|count
+operator|)
+argument_list|,
 name|count
 operator|<=
 literal|2
