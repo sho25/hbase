@@ -107,7 +107,7 @@ name|MetaScanner
 extends|extends
 name|BaseScanner
 block|{
-comment|/** Work for the meta scanner is queued up here */
+comment|/** Initial work for the meta scanner is queued up here */
 specifier|private
 specifier|volatile
 name|BlockingQueue
@@ -167,6 +167,9 @@ name|closed
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Don't retry if we get an error while scanning. Errors are most often
+comment|// caused by the server going away. Wait until next rescan interval when
+comment|// things should be back to normal
 specifier|private
 name|boolean
 name|scanOneMetaRegion
@@ -175,9 +178,6 @@ name|MetaRegion
 name|region
 parameter_list|)
 block|{
-comment|// Don't retry if we get an error while scanning. Errors are most often
-comment|// caused by the server going away. Wait until next rescan interval when
-comment|// things should be back to normal
 name|boolean
 name|scanSuccessful
 init|=
@@ -366,9 +366,18 @@ operator|.
 name|get
 argument_list|()
 operator|&&
+operator|(
 name|region
 operator|==
 literal|null
+operator|&&
+name|metaRegionsToScan
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+operator|)
 operator|&&
 operator|!
 name|metaRegionsScanned

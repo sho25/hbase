@@ -83,7 +83,10 @@ parameter_list|()
 block|{
 name|sleep
 argument_list|(
-name|period
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

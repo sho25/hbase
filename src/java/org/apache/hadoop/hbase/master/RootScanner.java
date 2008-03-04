@@ -94,14 +94,14 @@ name|closed
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Don't retry if we get an error while scanning. Errors are most often
+comment|// caused by the server going away. Wait until next rescan interval when
+comment|// things should be back to normal
 specifier|private
 name|boolean
 name|scanRoot
 parameter_list|()
 block|{
-comment|// Don't retry if we get an error while scanning. Errors are most often
-comment|// caused by the server going away. Wait until next rescan interval when
-comment|// things should be back to normal
 name|boolean
 name|scanSuccessful
 init|=
