@@ -227,6 +227,51 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
+specifier|public
+name|void
+name|setUp
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+comment|// These are needed for the new and improved Map/Reduce framework
+name|System
+operator|.
+name|setProperty
+argument_list|(
+literal|"hadoop.log.dir"
+argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"hadoop.log.dir"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|set
+argument_list|(
+literal|"mapred.output.dir"
+argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"hadoop.tmp.dir"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|super
+operator|.
+name|setUp
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * Make a multi-region table.  Presumption is that table already exists and    * that there is only one regionserver. Makes it multi-region by filling with    * data and provoking splits. Asserts parent region is cleaned up after its    * daughter splits release all references.    * @param conf    * @param cluster    * @param fs    * @param tableName    * @param columnName    * @throws IOException    */
 annotation|@
 name|SuppressWarnings
@@ -958,7 +1003,7 @@ name|info
 argument_list|(
 literal|"Daughter splitB: "
 operator|+
-name|splitA
+name|splitB
 operator|.
 name|getRegionName
 argument_list|()

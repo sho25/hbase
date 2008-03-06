@@ -744,11 +744,11 @@ argument_list|(
 literal|"unused"
 argument_list|)
 specifier|final
-name|WritableComparable
+name|Object
 name|key
 parameter_list|,
 specifier|final
-name|Writable
+name|Object
 name|value
 parameter_list|,
 specifier|final
