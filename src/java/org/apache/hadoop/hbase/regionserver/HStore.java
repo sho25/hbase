@@ -3658,61 +3658,6 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Passing on edit "
-operator|+
-name|key
-operator|.
-name|getRegionName
-argument_list|()
-operator|+
-literal|", "
-operator|+
-name|column
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|": "
-operator|+
-operator|new
-name|String
-argument_list|(
-name|val
-operator|.
-name|getVal
-argument_list|()
-argument_list|,
-name|UTF8_ENCODING
-argument_list|)
-operator|+
-literal|", my region: "
-operator|+
-name|info
-operator|.
-name|getRegionName
-argument_list|()
-operator|+
-literal|", my column: "
-operator|+
-name|family
-operator|.
-name|getFamilyName
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 continue|continue;
 block|}
 name|HStoreKey
