@@ -469,6 +469,34 @@ operator|+
 name|s
 argument_list|)
 expr_stmt|;
+comment|// Do the lease check up here. There might already be one out on this
+comment|// server expecially if it just shutdown and came back up near-immediately
+comment|// after.
+if|if
+condition|(
+operator|!
+name|master
+operator|.
+name|closed
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+name|serverLeases
+operator|.
+name|createLease
+argument_list|(
+name|s
+argument_list|,
+operator|new
+name|ServerExpirer
+argument_list|(
+name|s
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 name|HServerLoad
 name|load
 init|=
@@ -680,31 +708,6 @@ argument_list|,
 name|servers
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|master
-operator|.
-name|closed
-operator|.
-name|get
-argument_list|()
-condition|)
-block|{
-name|serverLeases
-operator|.
-name|createLease
-argument_list|(
-name|s
-argument_list|,
-operator|new
-name|ServerExpirer
-argument_list|(
-name|s
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/** {@inheritDoc} */
 specifier|public

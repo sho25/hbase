@@ -31,6 +31,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|UnsupportedEncodingException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -53,7 +63,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashMap
+name|List
 import|;
 end_import
 
@@ -64,40 +74,6 @@ operator|.
 name|util
 operator|.
 name|SortedMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|UnsupportedEncodingException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HServerAddress
 import|;
 end_import
 
@@ -125,20 +101,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -151,9 +113,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|Text
+name|HServerAddress
 import|;
 end_import
 
@@ -167,9 +129,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|HbaseMapWritable
+name|HServerInfo
 import|;
 end_import
 
@@ -197,9 +157,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|io
 operator|.
-name|Writables
+name|HbaseMapWritable
 import|;
 end_import
 
@@ -231,7 +191,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|HLog
 import|;
 end_import
 
@@ -247,7 +207,37 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HLog
+name|HRegion
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Writables
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|Text
 import|;
 end_import
 
@@ -693,30 +683,6 @@ literal|0
 condition|)
 block|{
 comment|// This isn't the server you're looking for - move along
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Server name "
-operator|+
-name|serverName
-operator|+
-literal|" is not same as "
-operator|+
-name|deadServerName
-operator|+
-literal|": Passing"
-argument_list|)
-expr_stmt|;
-block|}
 continue|continue;
 block|}
 comment|// Bingo! Found it.
@@ -739,24 +705,6 @@ condition|)
 block|{
 continue|continue;
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|info
-operator|.
-name|getRegionName
-argument_list|()
-operator|+
-literal|" was on shutdown server<"
-operator|+
-name|serverName
-operator|+
-literal|"> (or server is null). Marking unassigned in "
-operator|+
-literal|"meta and clearing pendingRegions"
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|info
