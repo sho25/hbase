@@ -241,6 +241,22 @@ name|HColumnDescriptor
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|Cell
+import|;
+end_import
+
 begin_comment
 comment|/**  * Tests user specifiable time stamps putting, getting and scanning.  Also  * tests same in presence of deletes.  Test cores are written so can be  * run against an HRegion and against an HTable: i.e. both local and remote.  */
 end_comment
@@ -895,10 +911,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|byte
+name|Cell
 index|[]
-index|[]
-name|bytesBytes
+name|cellValues
 init|=
 name|incommon
 operator|.
@@ -916,7 +931,7 @@ name|assertEquals
 argument_list|(
 literal|1
 argument_list|,
-name|bytesBytes
+name|cellValues
 operator|.
 name|length
 argument_list|)
@@ -928,10 +943,13 @@ name|Writables
 operator|.
 name|bytesToLong
 argument_list|(
-name|bytesBytes
+name|cellValues
 index|[
 literal|0
 index|]
+operator|.
+name|getValue
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -1001,6 +1019,9 @@ name|ROW
 argument_list|,
 name|COLUMN
 argument_list|)
+operator|.
+name|getValue
+argument_list|()
 decl_stmt|;
 name|assertEquals
 argument_list|(
@@ -1019,10 +1040,9 @@ argument_list|)
 expr_stmt|;
 comment|// Now assert that if we ask for multiple versions, that they come out in
 comment|// order.
-name|byte
+name|Cell
 index|[]
-index|[]
-name|bytesBytes
+name|cellValues
 init|=
 name|incommon
 operator|.
@@ -1043,7 +1063,7 @@ name|tss
 operator|.
 name|length
 argument_list|,
-name|bytesBytes
+name|cellValues
 operator|.
 name|length
 argument_list|)
@@ -1057,7 +1077,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|bytesBytes
+name|cellValues
 operator|.
 name|length
 condition|;
@@ -1072,10 +1092,13 @@ name|Writables
 operator|.
 name|bytesToLong
 argument_list|(
-name|bytesBytes
+name|cellValues
 index|[
 name|i
 index|]
+operator|.
+name|getValue
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -1090,7 +1113,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Specify a timestamp get multiple versions.
-name|bytesBytes
+name|cellValues
 operator|=
 name|incommon
 operator|.
@@ -1105,7 +1128,7 @@ index|[
 literal|0
 index|]
 argument_list|,
-name|bytesBytes
+name|cellValues
 operator|.
 name|length
 operator|-
@@ -1121,7 +1144,7 @@ literal|1
 init|;
 name|i
 operator|<
-name|bytesBytes
+name|cellValues
 operator|.
 name|length
 condition|;
@@ -1136,10 +1159,13 @@ name|Writables
 operator|.
 name|bytesToLong
 argument_list|(
-name|bytesBytes
+name|cellValues
 index|[
 name|i
 index|]
+operator|.
+name|getValue
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|assertEquals

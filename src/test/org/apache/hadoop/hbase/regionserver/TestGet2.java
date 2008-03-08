@@ -177,6 +177,22 @@ name|HTableDescriptor
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|Cell
+import|;
+end_import
+
 begin_comment
 comment|/**  * {@link TestGet} is a medley of tests of get all done up as a single test.  * This class   */
 end_comment
@@ -693,7 +709,7 @@ argument_list|,
 name|right_now
 argument_list|)
 expr_stmt|;
-name|assertCellValueEquals
+name|assertCellEquals
 argument_list|(
 name|region
 argument_list|,
@@ -709,7 +725,7 @@ argument_list|,
 literal|"new text"
 argument_list|)
 expr_stmt|;
-name|assertCellValueEquals
+name|assertCellEquals
 argument_list|(
 name|region
 argument_list|,
@@ -731,7 +747,7 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-name|assertCellValueEquals
+name|assertCellEquals
 argument_list|(
 name|region
 argument_list|,
@@ -747,7 +763,7 @@ argument_list|,
 literal|"new text"
 argument_list|)
 expr_stmt|;
-name|assertCellValueEquals
+name|assertCellEquals
 argument_list|(
 name|region
 argument_list|,
@@ -1036,8 +1052,7 @@ name|Map
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|results
 init|=
@@ -1066,6 +1081,9 @@ index|[
 literal|0
 index|]
 argument_list|)
+operator|.
+name|getValue
+argument_list|()
 argument_list|)
 argument_list|,
 literal|"t10 bytes"
@@ -1099,6 +1117,9 @@ index|[
 literal|0
 index|]
 argument_list|)
+operator|.
+name|getValue
+argument_list|()
 argument_list|)
 argument_list|,
 literal|"t20 bytes"
@@ -1141,6 +1162,9 @@ index|[
 literal|0
 index|]
 argument_list|)
+operator|.
+name|getValue
+argument_list|()
 argument_list|)
 argument_list|,
 literal|"t40 bytes"
@@ -1180,6 +1204,9 @@ index|[
 literal|0
 index|]
 argument_list|)
+operator|.
+name|getValue
+argument_list|()
 argument_list|)
 argument_list|,
 literal|"t10 bytes"
@@ -1213,6 +1240,9 @@ index|[
 literal|0
 index|]
 argument_list|)
+operator|.
+name|getValue
+argument_list|()
 argument_list|)
 argument_list|,
 literal|"t20 bytes"
@@ -1246,6 +1276,9 @@ index|[
 literal|0
 index|]
 argument_list|)
+operator|.
+name|getValue
+argument_list|()
 argument_list|)
 argument_list|,
 literal|"t40 bytes"
@@ -1294,70 +1327,6 @@ block|}
 block|}
 specifier|private
 name|void
-name|assertCellValueEquals
-parameter_list|(
-specifier|final
-name|HRegion
-name|region
-parameter_list|,
-specifier|final
-name|Text
-name|row
-parameter_list|,
-specifier|final
-name|Text
-name|column
-parameter_list|,
-specifier|final
-name|long
-name|timestamp
-parameter_list|,
-specifier|final
-name|String
-name|value
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|Map
-argument_list|<
-name|Text
-argument_list|,
-name|byte
-index|[]
-argument_list|>
-name|result
-init|=
-name|region
-operator|.
-name|getFull
-argument_list|(
-name|row
-argument_list|,
-name|timestamp
-argument_list|)
-decl_stmt|;
-name|assertEquals
-argument_list|(
-literal|"cell value at a given timestamp"
-argument_list|,
-operator|new
-name|String
-argument_list|(
-name|result
-operator|.
-name|get
-argument_list|(
-name|column
-argument_list|)
-argument_list|)
-argument_list|,
-name|value
-argument_list|)
-expr_stmt|;
-block|}
-specifier|private
-name|void
 name|assertColumnsPresent
 parameter_list|(
 specifier|final
@@ -1375,8 +1344,7 @@ name|Map
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|result
 init|=
@@ -1400,8 +1368,7 @@ name|Entry
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|e
 range|:
@@ -1458,6 +1425,9 @@ operator|new
 name|Text
 argument_list|(
 name|e
+operator|.
+name|getValue
+argument_list|()
 operator|.
 name|getValue
 argument_list|()

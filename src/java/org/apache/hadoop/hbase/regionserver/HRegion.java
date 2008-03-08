@@ -301,6 +301,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|io
+operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Writables
@@ -3963,8 +3979,7 @@ comment|// get() methods for client use.
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/**    * Fetch a single data item.    * @param row    * @param column    * @return column value    * @throws IOException    */
 specifier|public
-name|byte
-index|[]
+name|Cell
 name|get
 parameter_list|(
 name|Text
@@ -3976,8 +3991,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
+name|Cell
 index|[]
 name|results
 init|=
@@ -4017,8 +4031,7 @@ return|;
 block|}
 comment|/**    * Fetch multiple versions of a single data item    *     * @param row    * @param column    * @param numVersions    * @return array of values one element per version    * @throws IOException    */
 specifier|public
-name|byte
-index|[]
+name|Cell
 index|[]
 name|get
 parameter_list|(
@@ -4051,8 +4064,7 @@ return|;
 block|}
 comment|/**    * Fetch multiple versions of a single data item, with timestamp.    *    * @param row    * @param column    * @param timestamp    * @param numVersions    * @return array of values one element per version that matches the timestamp    * @throws IOException    */
 specifier|public
-name|byte
-index|[]
+name|Cell
 index|[]
 name|get
 parameter_list|(
@@ -4156,8 +4168,7 @@ name|Map
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|getFull
 parameter_list|(
@@ -4184,8 +4195,7 @@ name|Map
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|getFull
 parameter_list|(
@@ -4220,8 +4230,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|result
 init|=
@@ -4230,8 +4239,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -4285,8 +4293,7 @@ name|Map
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|getClosestRowBefore
 parameter_list|(
@@ -4435,8 +4442,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|result
 init|=
@@ -4445,8 +4451,7 @@ name|TreeMap
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;

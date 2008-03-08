@@ -149,6 +149,22 @@ name|StaticTestEnvironment
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|Cell
+import|;
+end_import
+
 begin_comment
 comment|/**  * Test the functionality of deleteFamily.  */
 end_comment
@@ -711,7 +727,7 @@ block|}
 comment|// most recent for A,B,C should be fine
 comment|// A,B at older timestamps should be gone
 comment|// C should be fine for older timestamps
-name|assertCellValueEquals
+name|assertCellEquals
 argument_list|(
 name|region
 argument_list|,
@@ -729,7 +745,7 @@ name|flush
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertCellValueEquals
+name|assertCellEquals
 argument_list|(
 name|region
 argument_list|,
@@ -742,7 +758,7 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-name|assertCellValueEquals
+name|assertCellEquals
 argument_list|(
 name|region
 argument_list|,
@@ -755,7 +771,7 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-name|assertCellValueEquals
+name|assertCellEquals
 argument_list|(
 name|region
 argument_list|,
@@ -773,7 +789,7 @@ name|flush
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertCellValueEquals
+name|assertCellEquals
 argument_list|(
 name|region
 argument_list|,
@@ -786,7 +802,7 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-name|assertCellValueEquals
+name|assertCellEquals
 argument_list|(
 name|region
 argument_list|,
@@ -799,7 +815,7 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-name|assertCellValueEquals
+name|assertCellEquals
 argument_list|(
 name|region
 argument_list|,
@@ -817,7 +833,7 @@ name|flush
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertCellValueEquals
+name|assertCellEquals
 argument_list|(
 name|region
 argument_list|,
@@ -835,7 +851,7 @@ name|flush
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertCellValueEquals
+name|assertCellEquals
 argument_list|(
 name|region
 argument_list|,
@@ -884,7 +900,7 @@ expr_stmt|;
 block|}
 comment|// A,B for latest timestamp should be gone
 comment|// C should still be fine
-name|assertCellValueEquals
+name|assertCellEquals
 argument_list|(
 name|region
 argument_list|,
@@ -897,7 +913,7 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-name|assertCellValueEquals
+name|assertCellEquals
 argument_list|(
 name|region
 argument_list|,
@@ -910,7 +926,7 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-name|assertCellValueEquals
+name|assertCellEquals
 argument_list|(
 name|region
 argument_list|,
@@ -928,7 +944,7 @@ name|flush
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertCellValueEquals
+name|assertCellEquals
 argument_list|(
 name|region
 argument_list|,
@@ -946,7 +962,7 @@ name|flush
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertCellValueEquals
+name|assertCellEquals
 argument_list|(
 name|region
 argument_list|,
@@ -964,136 +980,6 @@ name|flush
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-specifier|private
-name|void
-name|assertCellValueEquals
-parameter_list|(
-specifier|final
-name|HRegion
-name|region
-parameter_list|,
-specifier|final
-name|Text
-name|row
-parameter_list|,
-specifier|final
-name|Text
-name|column
-parameter_list|,
-specifier|final
-name|long
-name|timestamp
-parameter_list|,
-specifier|final
-name|String
-name|value
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|Map
-argument_list|<
-name|Text
-argument_list|,
-name|byte
-index|[]
-argument_list|>
-name|result
-init|=
-name|region
-operator|.
-name|getFull
-argument_list|(
-name|row
-argument_list|,
-name|timestamp
-argument_list|)
-decl_stmt|;
-name|byte
-index|[]
-name|cell_value
-init|=
-name|result
-operator|.
-name|get
-argument_list|(
-name|column
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|value
-operator|==
-literal|null
-condition|)
-block|{
-name|assertEquals
-argument_list|(
-name|column
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|" at timestamp "
-operator|+
-name|timestamp
-argument_list|,
-literal|null
-argument_list|,
-name|cell_value
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-if|if
-condition|(
-name|cell_value
-operator|==
-literal|null
-condition|)
-block|{
-name|fail
-argument_list|(
-name|column
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|" at timestamp "
-operator|+
-name|timestamp
-operator|+
-literal|"\" was expected to be \""
-operator|+
-name|value
-operator|+
-literal|" but was null"
-argument_list|)
-expr_stmt|;
-block|}
-name|assertEquals
-argument_list|(
-name|column
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|" at timestamp "
-operator|+
-name|timestamp
-argument_list|,
-name|value
-argument_list|,
-operator|new
-name|String
-argument_list|(
-name|cell_value
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 specifier|private
 name|String

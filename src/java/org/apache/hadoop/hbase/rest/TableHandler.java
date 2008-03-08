@@ -251,6 +251,22 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|mortbay
 operator|.
 name|servlet
@@ -676,8 +692,7 @@ name|Map
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|result
 init|=
@@ -767,14 +782,6 @@ break|break;
 case|case
 name|MIME
 case|:
-name|outputRowMime
-argument_list|(
-name|response
-argument_list|,
-name|result
-argument_list|)
-expr_stmt|;
-break|break;
 default|default:
 name|doNotAcceptable
 argument_list|(
@@ -799,8 +806,7 @@ name|Map
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|prefiltered_result
 init|=
@@ -887,8 +893,7 @@ name|Map
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|m
 init|=
@@ -897,13 +902,12 @@ name|HashMap
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
 comment|// get an array of all the columns retrieved
-name|Object
+name|Text
 index|[]
 name|columns_retrieved
 init|=
@@ -913,7 +917,19 @@ name|keySet
 argument_list|()
 operator|.
 name|toArray
+argument_list|(
+operator|new
+name|Text
+index|[
+name|prefiltered_result
+operator|.
+name|keySet
 argument_list|()
+operator|.
+name|size
+argument_list|()
+index|]
+argument_list|)
 decl_stmt|;
 comment|// copy over those cells with requested column names
 for|for
@@ -1002,14 +1018,6 @@ break|break;
 case|case
 name|MIME
 case|:
-name|outputRowMime
-argument_list|(
-name|response
-argument_list|,
-name|m
-argument_list|)
-expr_stmt|;
-break|break;
 default|default:
 name|doNotAcceptable
 argument_list|(
@@ -1043,8 +1051,7 @@ name|Map
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|result
 parameter_list|)
@@ -1092,11 +1099,67 @@ argument_list|(
 name|ROW
 argument_list|)
 expr_stmt|;
+name|HashMap
+argument_list|<
+name|Text
+argument_list|,
+name|byte
+index|[]
+argument_list|>
+name|converted
+init|=
+operator|new
+name|HashMap
+argument_list|<
+name|Text
+argument_list|,
+name|byte
+index|[]
+argument_list|>
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|Text
+argument_list|,
+name|Cell
+argument_list|>
+name|entry
+range|:
+name|result
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+name|converted
+operator|.
+name|put
+argument_list|(
+name|entry
+operator|.
+name|getKey
+argument_list|()
+argument_list|,
+name|entry
+operator|.
+name|getValue
+argument_list|()
+operator|.
+name|getValue
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|outputColumnsXml
 argument_list|(
 name|outputter
 argument_list|,
-name|result
+name|converted
 argument_list|)
 expr_stmt|;
 name|outputter
@@ -1119,97 +1182,23 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/*    * @param response    * @param result    * Output the results contained in result as a multipart/related response.    */
-specifier|private
-name|void
-name|outputRowMime
-parameter_list|(
-specifier|final
-name|HttpServletResponse
-name|response
-parameter_list|,
-specifier|final
-name|Map
-argument_list|<
-name|Text
-argument_list|,
-name|byte
-index|[]
-argument_list|>
-name|result
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|response
-operator|.
-name|setStatus
-argument_list|(
-name|result
-operator|.
-name|size
-argument_list|()
-operator|>
-literal|0
-condition|?
-literal|200
-else|:
-literal|204
-argument_list|)
-expr_stmt|;
-comment|// This code ties me to the jetty server.
-name|MultiPartResponse
-name|mpr
-init|=
-operator|new
-name|MultiPartResponse
-argument_list|(
-name|response
-argument_list|)
-decl_stmt|;
-comment|// Content type should look like this for multipart:
-comment|// Content-type: multipart/related;start="<rootpart*94ebf1e6-7eb5-43f1-85f4-2615fc40c5d6@example.jaxws.sun.com>";type="application/xop+xml";boundary="uuid:94ebf1e6-7eb5-43f1-85f4-2615fc40c5d6";start-info="text/xml"
-name|String
-name|ct
-init|=
-name|ContentType
-operator|.
-name|MIME
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|";charset=\"UTF-8\";boundary=\""
-operator|+
-name|mpr
-operator|.
-name|getBoundary
-argument_list|()
-operator|+
-literal|"\""
-decl_stmt|;
-comment|// Setting content type is broken.  I'm unable to set parameters on the
-comment|// content-type; They get stripped.  Can't set boundary, etc.
-comment|// response.addHeader("Content-Type", ct);
-name|response
-operator|.
-name|setContentType
-argument_list|(
-name|ct
-argument_list|)
-expr_stmt|;
-name|outputColumnsMime
-argument_list|(
-name|mpr
-argument_list|,
-name|result
-argument_list|)
-expr_stmt|;
-name|mpr
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
+comment|// private void outputRowMime(final HttpServletResponse response,
+comment|//     final Map<Text, Cell> result)
+comment|// throws IOException {
+comment|//   response.setStatus(result.size()> 0? 200: 204);
+comment|//   // This code ties me to the jetty server.
+comment|//   MultiPartResponse mpr = new MultiPartResponse(response);
+comment|//   // Content type should look like this for multipart:
+comment|//   // Content-type: multipart/related;start="<rootpart*94ebf1e6-7eb5-43f1-85f4-2615fc40c5d6@example.jaxws.sun.com>";type="application/xop+xml";boundary="uuid:94ebf1e6-7eb5-43f1-85f4-2615fc40c5d6";start-info="text/xml"
+comment|//   String ct = ContentType.MIME.toString() + ";charset=\"UTF-8\";boundary=\"" +
+comment|//     mpr.getBoundary() + "\"";
+comment|//   // Setting content type is broken.  I'm unable to set parameters on the
+comment|//   // content-type; They get stripped.  Can't set boundary, etc.
+comment|//   // response.addHeader("Content-Type", ct);
+comment|//   response.setContentType(ct);
+comment|//   outputColumnsMime(mpr, result);
+comment|//   mpr.close();
+comment|// }
 comment|/*    * @param request    * @param response    * @param pathSegments    * Do a put based on the client request.    */
 specifier|private
 name|void

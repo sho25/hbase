@@ -623,6 +623,22 @@ name|hbase
 operator|.
 name|io
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
 name|HbaseMapWritable
 import|;
 end_import
@@ -4570,8 +4586,7 @@ return|;
 block|}
 comment|/** {@inheritDoc} */
 specifier|public
-name|byte
-index|[]
+name|Cell
 name|get
 parameter_list|(
 specifier|final
@@ -4629,8 +4644,7 @@ block|}
 block|}
 comment|/** {@inheritDoc} */
 specifier|public
-name|byte
-index|[]
+name|Cell
 index|[]
 name|get
 parameter_list|(
@@ -4695,8 +4709,7 @@ block|}
 block|}
 comment|/** {@inheritDoc} */
 specifier|public
-name|byte
-index|[]
+name|Cell
 index|[]
 name|get
 parameter_list|(
@@ -4843,8 +4856,7 @@ name|Map
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|map
 init|=
@@ -4865,8 +4877,7 @@ name|Entry
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|es
 range|:
@@ -4891,14 +4902,10 @@ name|getKey
 argument_list|()
 argument_list|)
 argument_list|,
-operator|new
-name|ImmutableBytesWritable
-argument_list|(
 name|es
 operator|.
 name|getValue
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -5000,8 +5007,7 @@ name|Map
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|map
 init|=
@@ -5034,8 +5040,7 @@ name|Entry
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|es
 range|:
@@ -5060,14 +5065,10 @@ name|getKey
 argument_list|()
 argument_list|)
 argument_list|,
-operator|new
-name|ImmutableBytesWritable
-argument_list|(
 name|es
 operator|.
 name|getValue
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

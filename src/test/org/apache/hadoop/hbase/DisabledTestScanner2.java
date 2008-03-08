@@ -2712,6 +2712,9 @@ name|HConstants
 operator|.
 name|COL_REGIONINFO
 argument_list|)
+operator|.
+name|getValue
+argument_list|()
 decl_stmt|;
 name|HRegionInfo
 name|hri

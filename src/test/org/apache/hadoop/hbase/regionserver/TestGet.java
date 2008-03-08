@@ -217,6 +217,22 @@ name|StaticTestEnvironment
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|Cell
+import|;
+end_import
+
 begin_comment
 comment|/** Test case for get */
 end_comment
@@ -299,8 +315,7 @@ throws|throws
 name|IOException
 block|{
 comment|// This should return a value because there is only one family member
-name|byte
-index|[]
+name|Cell
 name|value
 init|=
 name|r
@@ -341,8 +356,7 @@ name|Map
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|values
 init|=
@@ -410,6 +424,9 @@ name|get
 argument_list|(
 name|column
 argument_list|)
+operator|.
+name|getValue
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|assertEquals

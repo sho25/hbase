@@ -708,11 +708,10 @@ break|break;
 case|case
 name|MIME
 case|:
-name|outputScannerEntryMime
+comment|/*          outputScannerEntryMime(response, sr);*/
+name|doNotAcceptable
 argument_list|(
 name|response
-argument_list|,
-name|sr
 argument_list|)
 expr_stmt|;
 break|break;
@@ -930,269 +929,48 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-specifier|private
-name|void
-name|outputScannerEntryMime
-parameter_list|(
-specifier|final
-name|HttpServletResponse
-name|response
-parameter_list|,
-specifier|final
-name|ScannerRecord
-name|sr
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|response
-operator|.
-name|setStatus
-argument_list|(
-literal|200
-argument_list|)
-expr_stmt|;
-comment|// This code ties me to the jetty server.
-name|MultiPartResponse
-name|mpr
-init|=
-operator|new
-name|MultiPartResponse
-argument_list|(
-name|response
-argument_list|)
-decl_stmt|;
-comment|// Content type should look like this for multipart:
-comment|// Content-type: multipart/related;start="<rootpart*94ebf1e6-7eb5-43f1-85f4-2615fc40c5d6@example.jaxws.sun.com>";type="application/xop+xml";boundary="uuid:94ebf1e6-7eb5-43f1-85f4-2615fc40c5d6";start-info="text/xml"
-name|String
-name|ct
-init|=
-name|ContentType
-operator|.
-name|MIME
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|";charset=\"UTF-8\";boundary=\""
-operator|+
-name|mpr
-operator|.
-name|getBoundary
-argument_list|()
-operator|+
-literal|"\""
-decl_stmt|;
-comment|// Setting content type is broken.  I'm unable to set parameters on the
-comment|// content-type; They get stripped.  Can't set boundary, etc.
-comment|// response.addHeader("Content-Type", ct);
-name|response
-operator|.
-name|setContentType
-argument_list|(
-name|ct
-argument_list|)
-expr_stmt|;
-comment|// Write row, key-column and timestamp each in its own part.
-name|mpr
-operator|.
-name|startPart
-argument_list|(
-literal|"application/octet-stream"
-argument_list|,
-operator|new
-name|String
-index|[]
-block|{
-literal|"Content-Description: row"
-block|,
-literal|"Content-Transfer-Encoding: binary"
-block|,
-literal|"Content-Length: "
-operator|+
-name|sr
-operator|.
-name|getKey
-argument_list|()
-operator|.
-name|getRow
-argument_list|()
-operator|.
-name|getBytes
-argument_list|()
-operator|.
-name|length
-block|}
-argument_list|)
-expr_stmt|;
-name|mpr
-operator|.
-name|getOut
-argument_list|()
-operator|.
-name|write
-argument_list|(
-name|sr
-operator|.
-name|getKey
-argument_list|()
-operator|.
-name|getRow
-argument_list|()
-operator|.
-name|getBytes
-argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// Usually key-column is empty when scanning.
-if|if
-condition|(
-name|sr
-operator|.
-name|getKey
-argument_list|()
-operator|.
-name|getColumn
-argument_list|()
-operator|!=
-literal|null
-operator|&&
-name|sr
-operator|.
-name|getKey
-argument_list|()
-operator|.
-name|getColumn
-argument_list|()
-operator|.
-name|getLength
-argument_list|()
-operator|>
-literal|0
-condition|)
-block|{
-name|mpr
-operator|.
-name|startPart
-argument_list|(
-literal|"application/octet-stream"
-argument_list|,
-operator|new
-name|String
-index|[]
-block|{
-literal|"Content-Description: key-column"
-block|,
-literal|"Content-Transfer-Encoding: binary"
-block|,
-literal|"Content-Length: "
-operator|+
-name|sr
-operator|.
-name|getKey
-argument_list|()
-operator|.
-name|getColumn
-argument_list|()
-operator|.
-name|getBytes
-argument_list|()
-operator|.
-name|length
-block|}
-argument_list|)
-expr_stmt|;
-block|}
-name|mpr
-operator|.
-name|getOut
-argument_list|()
-operator|.
-name|write
-argument_list|(
-name|sr
-operator|.
-name|getKey
-argument_list|()
-operator|.
-name|getColumn
-argument_list|()
-operator|.
-name|getBytes
-argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// TODO: Fix. Need to write out the timestamp in the ordained timestamp
-comment|// format.
-name|byte
-index|[]
-name|timestampBytes
-init|=
-name|Long
-operator|.
-name|toString
-argument_list|(
-name|sr
-operator|.
-name|getKey
-argument_list|()
-operator|.
-name|getTimestamp
-argument_list|()
-argument_list|)
-operator|.
-name|getBytes
-argument_list|()
-decl_stmt|;
-name|mpr
-operator|.
-name|startPart
-argument_list|(
-literal|"application/octet-stream"
-argument_list|,
-operator|new
-name|String
-index|[]
-block|{
-literal|"Content-Description: timestamp"
-block|,
-literal|"Content-Transfer-Encoding: binary"
-block|,
-literal|"Content-Length: "
-operator|+
-name|timestampBytes
-operator|.
-name|length
-block|}
-argument_list|)
-expr_stmt|;
-name|mpr
-operator|.
-name|getOut
-argument_list|()
-operator|.
-name|write
-argument_list|(
-name|timestampBytes
-argument_list|)
-expr_stmt|;
-comment|// Write out columns
-name|outputColumnsMime
-argument_list|(
-name|mpr
-argument_list|,
-name|sr
-operator|.
-name|getValue
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|mpr
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
+comment|// private void outputScannerEntryMime(final HttpServletResponse response,
+comment|//   final ScannerRecord sr)
+comment|// throws IOException {
+comment|//   response.setStatus(200);
+comment|//   // This code ties me to the jetty server.
+comment|//   MultiPartResponse mpr = new MultiPartResponse(response);
+comment|//   // Content type should look like this for multipart:
+comment|//   // Content-type: multipart/related;start="<rootpart*94ebf1e6-7eb5-43f1-85f4-2615fc40c5d6@example.jaxws.sun.com>";type="application/xop+xml";boundary="uuid:94ebf1e6-7eb5-43f1-85f4-2615fc40c5d6";start-info="text/xml"
+comment|//   String ct = ContentType.MIME.toString() + ";charset=\"UTF-8\";boundary=\"" +
+comment|//     mpr.getBoundary() + "\"";
+comment|//   // Setting content type is broken.  I'm unable to set parameters on the
+comment|//   // content-type; They get stripped.  Can't set boundary, etc.
+comment|//   // response.addHeader("Content-Type", ct);
+comment|//   response.setContentType(ct);
+comment|//   // Write row, key-column and timestamp each in its own part.
+comment|//   mpr.startPart("application/octet-stream",
+comment|//       new String [] {"Content-Description: row",
+comment|//         "Content-Transfer-Encoding: binary",
+comment|//         "Content-Length: " + sr.getKey().getRow().getBytes().length});
+comment|//   mpr.getOut().write(sr.getKey().getRow().getBytes());
+comment|//
+comment|//   // Usually key-column is empty when scanning.
+comment|//   if (sr.getKey().getColumn() != null&&
+comment|//       sr.getKey().getColumn().getLength()> 0) {
+comment|//     mpr.startPart("application/octet-stream",
+comment|//       new String [] {"Content-Description: key-column",
+comment|//         "Content-Transfer-Encoding: binary",
+comment|//         "Content-Length: " + sr.getKey().getColumn().getBytes().length});
+comment|//   }
+comment|//   mpr.getOut().write(sr.getKey().getColumn().getBytes());
+comment|//   // TODO: Fix. Need to write out the timestamp in the ordained timestamp
+comment|//   // format.
+comment|//   byte [] timestampBytes = Long.toString(sr.getKey().getTimestamp()).getBytes();
+comment|//   mpr.startPart("application/octet-stream",
+comment|//       new String [] {"Content-Description: timestamp",
+comment|//         "Content-Transfer-Encoding: binary",
+comment|//         "Content-Length: " + timestampBytes.length});
+comment|//   mpr.getOut().write(timestampBytes);
+comment|//   // Write out columns
+comment|//   outputColumnsMime(mpr, sr.getValue());
+comment|//   mpr.close();
+comment|// }
 comment|/*    * Create scanner    * @param request    * @param response    * @param pathSegments    * @throws IOException    */
 specifier|private
 name|void

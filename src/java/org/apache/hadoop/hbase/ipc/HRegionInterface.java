@@ -71,6 +71,22 @@ name|hbase
 operator|.
 name|io
 operator|.
+name|Cell
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
 name|HbaseMapWritable
 import|;
 end_import
@@ -149,7 +165,7 @@ specifier|final
 name|long
 name|versionID
 init|=
-literal|1L
+literal|2L
 decl_stmt|;
 comment|/**     * Get metainfo about an HRegion    *     * @param regionName name of the region    * @return HRegionInfo object for region    * @throws NotServingRegionException    */
 specifier|public
@@ -165,8 +181,7 @@ name|NotServingRegionException
 function_decl|;
 comment|/**    * Retrieve a single value from the specified region for the specified row    * and column keys    *     * @param regionName name of region    * @param row row key    * @param column column key    * @return alue for that region/row/column    * @throws IOException    */
 specifier|public
-name|byte
-index|[]
+name|Cell
 name|get
 parameter_list|(
 specifier|final
@@ -186,8 +201,7 @@ name|IOException
 function_decl|;
 comment|/**    * Get the specified number of versions of the specified row and column    *     * @param regionName region name    * @param row row key    * @param column column key    * @param numVersions number of versions to return    * @return array of values    * @throws IOException    */
 specifier|public
-name|byte
-index|[]
+name|Cell
 index|[]
 name|get
 parameter_list|(
@@ -212,8 +226,7 @@ name|IOException
 function_decl|;
 comment|/**    * Get the specified number of versions of the specified row and column with    * the specified timestamp.    *    * @param regionName region name    * @param row row key    * @param column column key    * @param timestamp timestamp    * @param numVersions number of versions to return    * @return array of values    * @throws IOException    */
 specifier|public
-name|byte
-index|[]
+name|Cell
 index|[]
 name|get
 parameter_list|(

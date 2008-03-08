@@ -796,6 +796,9 @@ name|rowlabel
 argument_list|,
 name|CONTENTS_BASIC
 argument_list|)
+operator|.
+name|getValue
+argument_list|()
 decl_stmt|;
 name|assertNotNull
 argument_list|(
@@ -870,6 +873,9 @@ name|rowlabel
 argument_list|,
 name|collabel
 argument_list|)
+operator|.
+name|getValue
+argument_list|()
 expr_stmt|;
 name|bodystr
 operator|=

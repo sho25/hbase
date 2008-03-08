@@ -183,6 +183,22 @@ name|StaticTestEnvironment
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|Cell
+import|;
+end_import
+
 begin_comment
 comment|/**  * Test compactions  */
 end_comment
@@ -515,13 +531,10 @@ argument_list|,
 name|COLUMN_FAMILY
 argument_list|)
 expr_stmt|;
-name|byte
+name|Cell
 index|[]
-index|[]
-name|bytes
+name|cellValues
 init|=
-name|this
-operator|.
 name|r
 operator|.
 name|get
@@ -537,7 +550,7 @@ decl_stmt|;
 comment|// Assert that I can get> 5 versions (Should be at least 5 in there).
 name|assertTrue
 argument_list|(
-name|bytes
+name|cellValues
 operator|.
 name|length
 operator|>=
@@ -703,10 +716,8 @@ argument_list|(
 name|secondRowBytes
 argument_list|)
 decl_stmt|;
-name|bytes
+name|cellValues
 operator|=
-name|this
-operator|.
 name|r
 operator|.
 name|get
@@ -729,7 +740,7 @@ name|secondRow
 operator|+
 literal|": "
 operator|+
-name|bytes
+name|cellValues
 operator|.
 name|length
 argument_list|)
@@ -741,13 +752,13 @@ comment|// LOG line above that there are 3 items in row so it should pass the
 comment|// below test.
 name|assertTrue
 argument_list|(
-name|bytes
+name|cellValues
 operator|.
 name|length
 operator|==
 literal|3
 operator|||
-name|bytes
+name|cellValues
 operator|.
 name|length
 operator|==
@@ -758,8 +769,6 @@ comment|// Now add deletes to memcache and then flush it.  That will put us over
 comment|// the compaction threshold of 3 store files.  Compacting these store files
 comment|// should result in a compacted store file that has no references to the
 comment|// deleted row.
-name|this
-operator|.
 name|r
 operator|.
 name|deleteAll
@@ -779,8 +788,6 @@ comment|// verify that it is removed as we compact.
 comment|// Assert all delted.
 name|assertNull
 argument_list|(
-name|this
-operator|.
 name|r
 operator|.
 name|get
@@ -794,8 +801,6 @@ comment|/*Too many*/
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
 name|r
 operator|.
 name|flushcache
@@ -803,8 +808,6 @@ argument_list|()
 expr_stmt|;
 name|assertNull
 argument_list|(
-name|this
-operator|.
 name|r
 operator|.
 name|get
@@ -832,8 +835,6 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|this
-operator|.
 name|r
 operator|.
 name|compactIfNeeded
@@ -841,10 +842,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Assert that the first row is still deleted.
-name|bytes
+name|cellValues
 operator|=
-name|this
-operator|.
 name|r
 operator|.
 name|get
@@ -859,7 +858,7 @@ argument_list|)
 expr_stmt|;
 name|assertNull
 argument_list|(
-name|bytes
+name|cellValues
 argument_list|)
 expr_stmt|;
 comment|// Assert the store files do not have the first record 'aaa' keys in them.

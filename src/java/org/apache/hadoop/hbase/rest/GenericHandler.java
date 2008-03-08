@@ -217,6 +217,22 @@ name|HTable
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|Cell
+import|;
+end_import
+
 begin_comment
 comment|/**  * GenericHandler contains some basic common stuff that all the individual  * REST handler types take advantage of.  */
 end_comment
@@ -931,94 +947,18 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-specifier|protected
-name|void
-name|outputColumnsMime
-parameter_list|(
-specifier|final
-name|MultiPartResponse
-name|mpr
-parameter_list|,
-specifier|final
-name|Map
-argument_list|<
-name|Text
-argument_list|,
-name|byte
-index|[]
-argument_list|>
-name|m
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-for|for
-control|(
-name|Map
-operator|.
-name|Entry
-argument_list|<
-name|Text
-argument_list|,
-name|byte
-index|[]
-argument_list|>
-name|e
-range|:
-name|m
-operator|.
-name|entrySet
-argument_list|()
-control|)
-block|{
-name|mpr
-operator|.
-name|startPart
-argument_list|(
-literal|"application/octet-stream"
-argument_list|,
-operator|new
-name|String
-index|[]
-block|{
-literal|"Content-Description: "
-operator|+
-name|e
-operator|.
-name|getKey
-argument_list|()
-operator|.
-name|toString
-argument_list|()
-block|,
-literal|"Content-Transfer-Encoding: binary"
-block|,
-literal|"Content-Length: "
-operator|+
-name|e
-operator|.
-name|getValue
-argument_list|()
-operator|.
-name|length
-block|}
-argument_list|)
-expr_stmt|;
-name|mpr
-operator|.
-name|getOut
-argument_list|()
-operator|.
-name|write
-argument_list|(
-name|e
-operator|.
-name|getValue
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-block|}
+comment|//  Commented - multipart support is currently nonexistant.
+comment|//  protected void outputColumnsMime(final MultiPartResponse mpr,
+comment|//     final Map<Text, Cell> m)
+comment|//   throws IOException {
+comment|//     for (Map.Entry<Text, Cell> e: m.entrySet()) {
+comment|//       mpr.startPart("application/octet-stream",
+comment|//         new String [] {"Content-Description: " + e.getKey().toString(),
+comment|//           "Content-Transfer-Encoding: binary",
+comment|//           "Content-Length: " + e.getValue().getValue().length});
+comment|//       mpr.getOut().write(e.getValue().getValue());
+comment|//     }
+comment|//   }
 comment|/*    * Get an HTable instance by it's table name.    */
 specifier|protected
 name|HTable

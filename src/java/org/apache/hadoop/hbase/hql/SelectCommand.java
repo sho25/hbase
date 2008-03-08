@@ -309,6 +309,22 @@ name|HBaseAdmin
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|Cell
+import|;
+end_import
+
 begin_comment
 comment|/**  * Selects values from tables.  */
 end_comment
@@ -727,8 +743,7 @@ literal|0
 condition|)
 block|{
 comment|// A number of versions has been specified.
-name|byte
-index|[]
+name|Cell
 index|[]
 name|result
 init|=
@@ -872,6 +887,9 @@ name|result
 index|[
 name|ii
 index|]
+operator|.
+name|getValue
+argument_list|()
 argument_list|)
 block|}
 argument_list|)
@@ -895,6 +913,9 @@ name|result
 index|[
 name|ii
 index|]
+operator|.
+name|getValue
+argument_list|()
 argument_list|)
 block|}
 argument_list|)
@@ -916,8 +937,7 @@ name|Entry
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|e
 range|:
@@ -997,6 +1017,9 @@ argument_list|(
 name|key
 argument_list|,
 name|e
+operator|.
+name|getValue
+argument_list|()
 operator|.
 name|getValue
 argument_list|()

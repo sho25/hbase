@@ -201,6 +201,22 @@ name|StaticTestEnvironment
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|Cell
+import|;
+end_import
+
 begin_comment
 comment|/**  * {@Link TestHRegion} does a split but this TestCase adds testing of fast  * split and manufactures odd-ball split scenarios.  */
 end_comment
@@ -1026,8 +1042,7 @@ throws|throws
 name|IOException
 block|{
 comment|// Now I have k, get values out and assert they are as expected.
-name|byte
-index|[]
+name|Cell
 index|[]
 name|results
 init|=
@@ -1075,6 +1090,9 @@ name|results
 index|[
 name|j
 index|]
+operator|.
+name|getValue
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Row should be equal to value every time.
