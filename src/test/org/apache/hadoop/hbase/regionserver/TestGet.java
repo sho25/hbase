@@ -416,7 +416,7 @@ name|server
 init|=
 name|Writables
 operator|.
-name|bytesToString
+name|cellToString
 argument_list|(
 name|values
 operator|.
@@ -424,9 +424,6 @@ name|get
 argument_list|(
 name|column
 argument_list|)
-operator|.
-name|getValue
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|assertEquals

@@ -573,6 +573,22 @@ name|Cell
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|RowResult
+import|;
+end_import
+
 begin_comment
 comment|/**  * HStore maintains a bunch of data files.  It is responsible for maintaining   * the memory/file hierarchy and for periodic flushes to disk and compacting   * edits to the file.  *  * Locking and transactions are handled at a higher level.  This API should not   * be called directly by any writer, but rather by an HRegion manager.  */
 end_comment

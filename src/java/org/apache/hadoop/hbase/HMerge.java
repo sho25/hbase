@@ -1773,10 +1773,9 @@ operator|new
 name|Text
 argument_list|()
 argument_list|,
-name|System
+name|HConstants
 operator|.
-name|currentTimeMillis
-argument_list|()
+name|LATEST_TIMESTAMP
 argument_list|,
 literal|null
 argument_list|)

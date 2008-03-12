@@ -87,6 +87,22 @@ name|hbase
 operator|.
 name|io
 operator|.
+name|RowResult
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
 name|HbaseMapWritable
 import|;
 end_import
@@ -425,7 +441,7 @@ name|IOException
 function_decl|;
 comment|/**    * Get the next set of values    *     * @param scannerId clientId passed to openScanner    * @return map of values    * @throws IOException    */
 specifier|public
-name|HbaseMapWritable
+name|RowResult
 name|next
 parameter_list|(
 name|long

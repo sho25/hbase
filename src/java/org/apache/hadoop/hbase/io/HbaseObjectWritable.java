@@ -353,6 +353,22 @@ name|Cell
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|RowResult
+import|;
+end_import
+
 begin_comment
 comment|/**   * This is a customized version of the polymorphic hadoop  * {@link ObjectWritable}.  It removes UTF8 (HADOOP-414).  * Using {@link Text} intead of UTF-8 saves ~2% CPU between reading and writing  * objects running a short sequentialWrite Performance Evaluation test just in  * ObjectWritable alone; more when we're doing randomRead-ing.  Other  * optimizations include our passing codes for classes instead of the  * actual class names themselves.  This makes it so this class needs amendment  * if non-Writable classes are introduced -- if passed a Writable for which we  * have no code, we just do the old-school passing of the class name, etc. --  * but passing codes the  savings are large particularly when cell  * data is small (If< a couple of kilobytes, the encoding/decoding of class  * name and reflection to instantiate class was costing in excess of the cell  * handling).  */
 end_comment
@@ -804,6 +820,16 @@ name|printStackTrace
 argument_list|()
 expr_stmt|;
 block|}
+name|addToMap
+argument_list|(
+name|RowResult
+operator|.
+name|class
+argument_list|,
+name|code
+operator|++
+argument_list|)
+expr_stmt|;
 block|}
 specifier|private
 name|Class
