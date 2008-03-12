@@ -103,6 +103,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|SortedMap
 import|;
 end_import
@@ -984,6 +994,12 @@ parameter_list|(
 name|HStoreKey
 name|key
 parameter_list|,
+name|Set
+argument_list|<
+name|Text
+argument_list|>
+name|columns
+parameter_list|,
 name|SortedMap
 argument_list|<
 name|Text
@@ -1016,6 +1032,8 @@ name|memcache
 argument_list|,
 name|key
 argument_list|,
+name|columns
+argument_list|,
 name|results
 argument_list|)
 expr_stmt|;
@@ -1030,6 +1048,8 @@ argument_list|(
 name|snapshot
 argument_list|,
 name|key
+argument_list|,
+name|columns
 argument_list|,
 name|results
 argument_list|)
@@ -1065,6 +1085,12 @@ name|map
 parameter_list|,
 name|HStoreKey
 name|key
+parameter_list|,
+name|Set
+argument_list|<
+name|Text
+argument_list|>
+name|columns
 parameter_list|,
 name|SortedMap
 argument_list|<
@@ -1181,6 +1207,23 @@ name|val
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|columns
+operator|==
+literal|null
+operator|||
+name|columns
+operator|.
+name|contains
+argument_list|(
+name|itKey
+operator|.
+name|getColumn
+argument_list|()
+argument_list|)
+condition|)
+block|{
 name|results
 operator|.
 name|put
@@ -1199,6 +1242,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 elseif|else
@@ -6836,12 +6880,19 @@ comment|////////////////////////////////////////////////////////////////////////
 comment|// Accessors.
 comment|// (This is the only section that is directly useful!)
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Return all the available columns for the given key.  The key indicates a     * row and timestamp, but not a column name.    *    * The returned object should map column names to byte arrays (byte[]).    */
+comment|/**    * Return all the available columns for the given key.  The key indicates a     * row and timestamp, but not a column name.    *    * The returned object should map column names to Cells.    */
 name|void
 name|getFull
 parameter_list|(
 name|HStoreKey
 name|key
+parameter_list|,
+specifier|final
+name|Set
+argument_list|<
+name|Text
+argument_list|>
+name|columns
 parameter_list|,
 name|TreeMap
 argument_list|<
@@ -6877,6 +6928,7 @@ argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|// if the key is null, we're not even looking for anything. return.
 if|if
 condition|(
 name|key
@@ -6896,11 +6948,14 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
+comment|// get from the memcache first.
 name|memcache
 operator|.
 name|getFull
 argument_list|(
 name|key
+argument_list|,
+name|columns
 argument_list|,
 name|results
 argument_list|)
@@ -6916,6 +6971,7 @@ init|=
 name|getReaders
 argument_list|()
 decl_stmt|;
+comment|// examine each mapfile
 for|for
 control|(
 name|int
@@ -6945,16 +7001,20 @@ index|[
 name|i
 index|]
 decl_stmt|;
+comment|// synchronize on the map so that no one else iterates it at the same
+comment|// time
 synchronized|synchronized
 init|(
 name|map
 init|)
 block|{
+comment|// seek back to the beginning
 name|map
 operator|.
 name|reset
 argument_list|()
 expr_stmt|;
+comment|// seek to the closest key that should match the row we're looking for
 name|ImmutableBytesWritable
 name|readval
 init|=
@@ -7034,6 +7094,23 @@ condition|)
 block|{
 break|break;
 block|}
+if|if
+condition|(
+name|columns
+operator|==
+literal|null
+operator|||
+name|columns
+operator|.
+name|contains
+argument_list|(
+name|readkey
+operator|.
+name|getColumn
+argument_list|()
+argument_list|)
+condition|)
+block|{
 name|results
 operator|.
 name|put
@@ -7059,6 +7136,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 name|readval
 operator|=
 operator|new

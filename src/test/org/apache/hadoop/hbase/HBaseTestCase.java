@@ -2090,6 +2090,12 @@ operator|.
 name|getFull
 argument_list|(
 name|row
+argument_list|,
+literal|null
+argument_list|,
+name|HConstants
+operator|.
+name|LATEST_TIMESTAMP
 argument_list|)
 return|;
 block|}
@@ -2487,6 +2493,8 @@ operator|.
 name|getFull
 argument_list|(
 name|row
+argument_list|,
+literal|null
 argument_list|,
 name|timestamp
 argument_list|)

@@ -730,6 +730,8 @@ name|getFull
 argument_list|(
 name|hsk
 argument_list|,
+literal|null
+argument_list|,
 name|all
 argument_list|)
 expr_stmt|;
