@@ -157,6 +157,7 @@ begin_class
 class|class
 name|RowMap
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -174,10 +175,12 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
+specifier|private
 specifier|final
 name|Text
 name|row
 decl_stmt|;
+specifier|private
 specifier|final
 name|SortedMap
 argument_list|<
@@ -245,7 +248,6 @@ name|map
 return|;
 block|}
 comment|/*    * Convert an HbaseMapWritable to a Map keyed by column.    * Utility method used scanning meta regions    * @param mw The MapWritable to convert.  Cannot be null.    * @return Returns a SortedMap currently.  TODO: This looks like it could    * be a plain Map.    */
-specifier|public
 specifier|static
 name|RowMap
 name|fromHbaseMapWritable

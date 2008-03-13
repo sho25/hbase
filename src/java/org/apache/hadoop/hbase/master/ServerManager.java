@@ -43,16 +43,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|SortedMap
 import|;
 end_import
@@ -301,7 +291,6 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|/** The map of known server names to server info */
-specifier|private
 specifier|final
 name|Map
 argument_list|<
@@ -321,7 +310,6 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 comment|/** Set of known dead servers */
-specifier|private
 specifier|final
 name|Set
 argument_list|<
@@ -372,7 +360,6 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|/** Map of server names -> server load */
-specifier|private
 specifier|final
 name|Map
 argument_list|<
@@ -391,7 +378,6 @@ name|HServerLoad
 argument_list|>
 argument_list|()
 decl_stmt|;
-specifier|private
 name|HMaster
 name|master
 decl_stmt|;
@@ -400,6 +386,7 @@ specifier|final
 name|Leases
 name|serverLeases
 decl_stmt|;
+comment|/**    * @param master    */
 specifier|public
 name|ServerManager
 parameter_list|(
@@ -437,7 +424,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Let the server manager know a new regionserver has come online */
+comment|/**    * Let the server manager know a new regionserver has come online    *     * @param serverInfo    */
 specifier|public
 name|void
 name|regionServerStartup
@@ -709,7 +696,7 @@ name|servers
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
+comment|/**    * @param serverInfo    * @param msgs    * @return messages from master to region server indicating what region    * server should do.    *     * @throws IOException    */
 specifier|public
 name|HMsg
 index|[]
@@ -1906,7 +1893,7 @@ index|]
 argument_list|)
 return|;
 block|}
-comment|/** A region has split. **/
+comment|/**    * A region has split.    *    * @param serverName    * @param serverInfo    * @param region    * @param splitA    * @param splitB    * @param returnMsgs    */
 specifier|private
 name|void
 name|processSplitRegion
@@ -2310,237 +2297,6 @@ block|}
 block|}
 block|}
 block|}
-comment|/** Region server reporting that it has closed a region */
-specifier|private
-name|void
-name|processRegionClose
-parameter_list|(
-name|String
-name|serverName
-parameter_list|,
-name|HServerInfo
-name|info
-parameter_list|,
-name|HRegionInfo
-name|region
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|info
-operator|.
-name|getServerAddress
-argument_list|()
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|" no longer serving "
-operator|+
-name|region
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|region
-operator|.
-name|isRootRegion
-argument_list|()
-condition|)
-block|{
-if|if
-condition|(
-name|region
-operator|.
-name|isOffline
-argument_list|()
-condition|)
-block|{
-comment|// Can't proceed without root region. Shutdown.
-name|LOG
-operator|.
-name|fatal
-argument_list|(
-literal|"root region is marked offline"
-argument_list|)
-expr_stmt|;
-name|master
-operator|.
-name|shutdown
-argument_list|()
-expr_stmt|;
-block|}
-name|master
-operator|.
-name|regionManager
-operator|.
-name|unassignRootRegion
-argument_list|()
-expr_stmt|;
-block|}
-else|else
-block|{
-name|boolean
-name|reassignRegion
-init|=
-operator|!
-name|region
-operator|.
-name|isOffline
-argument_list|()
-decl_stmt|;
-name|boolean
-name|deleteRegion
-init|=
-literal|false
-decl_stmt|;
-if|if
-condition|(
-name|master
-operator|.
-name|regionManager
-operator|.
-name|isClosing
-argument_list|(
-name|region
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-condition|)
-block|{
-name|master
-operator|.
-name|regionManager
-operator|.
-name|noLongerClosing
-argument_list|(
-name|region
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|reassignRegion
-operator|=
-literal|false
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|master
-operator|.
-name|regionManager
-operator|.
-name|isMarkedForDeletion
-argument_list|(
-name|region
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-condition|)
-block|{
-name|master
-operator|.
-name|regionManager
-operator|.
-name|regionDeleted
-argument_list|(
-name|region
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|reassignRegion
-operator|=
-literal|false
-expr_stmt|;
-name|deleteRegion
-operator|=
-literal|true
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|region
-operator|.
-name|isMetaTable
-argument_list|()
-condition|)
-block|{
-comment|// Region is part of the meta table. Remove it from onlineMetaRegions
-name|master
-operator|.
-name|regionManager
-operator|.
-name|offlineMetaRegion
-argument_list|(
-name|region
-operator|.
-name|getStartKey
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-comment|// NOTE: we cannot put the region into unassignedRegions as that
-comment|//       could create a race with the pending close if it gets
-comment|//       reassigned before the close is processed.
-name|master
-operator|.
-name|regionManager
-operator|.
-name|noLongerUnassigned
-argument_list|(
-name|region
-argument_list|)
-expr_stmt|;
-try|try
-block|{
-name|master
-operator|.
-name|toDoQueue
-operator|.
-name|put
-argument_list|(
-operator|new
-name|ProcessRegionClose
-argument_list|(
-name|master
-argument_list|,
-name|region
-argument_list|,
-name|reassignRegion
-argument_list|,
-name|deleteRegion
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"Putting into toDoQueue was interrupted."
-argument_list|,
-name|e
-argument_list|)
-throw|;
-block|}
-block|}
-block|}
 comment|/** Cancel a server's lease and update its load information */
 specifier|private
 name|boolean
@@ -2687,7 +2443,7 @@ return|return
 name|leaseCancelled
 return|;
 block|}
-comment|/** compute the average load across all region servers */
+comment|/** @return the average load across all region servers */
 specifier|public
 name|int
 name|averageLoad
@@ -2697,6 +2453,7 @@ return|return
 literal|0
 return|;
 block|}
+comment|/** @return the number of active servers */
 specifier|public
 name|int
 name|numServers
@@ -2709,7 +2466,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/** get HServerInfo from a server address */
+comment|/**    * @param address server address    * @return HServerInfo for the given server address    */
 specifier|public
 name|HServerInfo
 name|getServerInfo
@@ -2790,6 +2547,7 @@ name|loadToServers
 argument_list|)
 return|;
 block|}
+comment|/**    * Wakes up threads waiting on serversToServerInfo    */
 specifier|public
 name|void
 name|notifyServers
@@ -3119,6 +2877,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * @param serverName    */
 specifier|public
 name|void
 name|removeDeadServer
@@ -3135,6 +2894,7 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param serverName    * @return true if server is dead    */
 specifier|public
 name|boolean
 name|isDead

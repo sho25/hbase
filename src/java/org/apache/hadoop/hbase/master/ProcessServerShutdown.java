@@ -73,7 +73,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|SortedMap
+name|Set
 import|;
 end_import
 
@@ -144,22 +144,6 @@ operator|.
 name|hbase
 operator|.
 name|RemoteExceptionHandler
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|HbaseMapWritable
 import|;
 end_import
 
@@ -338,7 +322,7 @@ name|info
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param serverInfo    */
+comment|/**    * @param master    * @param serverInfo    */
 specifier|public
 name|ProcessServerShutdown
 parameter_list|(
@@ -493,7 +477,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|ArrayList
+name|List
 argument_list|<
 name|ToDoEntry
 argument_list|>
@@ -506,7 +490,7 @@ name|ToDoEntry
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|HashSet
+name|Set
 argument_list|<
 name|HRegionInfo
 argument_list|>
@@ -516,6 +500,19 @@ operator|new
 name|HashSet
 argument_list|<
 name|HRegionInfo
+argument_list|>
+argument_list|()
+decl_stmt|;
+name|List
+argument_list|<
+name|Text
+argument_list|>
+name|emptyRows
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|Text
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -684,6 +681,8 @@ name|master
 operator|.
 name|getHRegionInfo
 argument_list|(
+name|row
+argument_list|,
 name|values
 argument_list|)
 decl_stmt|;
@@ -694,6 +693,13 @@ operator|==
 literal|null
 condition|)
 block|{
+name|emptyRows
+operator|.
+name|add
+argument_list|(
+name|row
+argument_list|)
+expr_stmt|;
 continue|continue;
 block|}
 if|if
@@ -913,6 +919,45 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+comment|// Scan complete. Remove any rows which had empty HRegionInfos
+if|if
+condition|(
+name|emptyRows
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Found "
+operator|+
+name|emptyRows
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" rows with empty HRegionInfo while scanning meta region "
+operator|+
+name|regionName
+argument_list|)
+expr_stmt|;
+name|master
+operator|.
+name|deleteEmptyMetaRows
+argument_list|(
+name|server
+argument_list|,
+name|regionName
+argument_list|,
+name|emptyRows
+argument_list|)
+expr_stmt|;
 block|}
 comment|// Update server in root/meta entries
 for|for

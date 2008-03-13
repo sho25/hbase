@@ -47,7 +47,17 @@ name|java
 operator|.
 name|util
 operator|.
-name|SortedMap
+name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
 import|;
 end_import
 
@@ -222,22 +232,6 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|HbaseMapWritable
 import|;
 end_import
 
@@ -553,6 +547,7 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
+comment|/** @return true if initial scan completed successfully */
 specifier|public
 name|boolean
 name|isInitialScanComplete
@@ -647,6 +642,19 @@ name|RowResult
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|List
+argument_list|<
+name|Text
+argument_list|>
+name|emptyRows
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|Text
+argument_list|>
+argument_list|()
+decl_stmt|;
 try|try
 block|{
 name|regionServer
@@ -730,6 +738,11 @@ operator|.
 name|getHRegionInfo
 argument_list|(
 name|values
+operator|.
+name|getRow
+argument_list|()
+argument_list|,
+name|values
 argument_list|)
 decl_stmt|;
 if|if
@@ -739,6 +752,16 @@ operator|==
 literal|null
 condition|)
 block|{
+name|emptyRows
+operator|.
+name|add
+argument_list|(
+name|values
+operator|.
+name|getRow
+argument_list|()
+argument_list|)
+expr_stmt|;
 continue|continue;
 block|}
 name|String
@@ -948,8 +971,53 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Scan is finished.  Take a look at split parents to see if any we can
-comment|// clean up.
+comment|// Scan is finished.
+comment|// First clean up any meta region rows which had null HRegionInfos
+if|if
+condition|(
+name|emptyRows
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Found "
+operator|+
+name|emptyRows
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" rows with empty HRegionInfo while scanning meta region "
+operator|+
+name|region
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|master
+operator|.
+name|deleteEmptyMetaRows
+argument_list|(
+name|regionServer
+argument_list|,
+name|region
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|,
+name|emptyRows
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Take a look at split parents to see if any we can clean up.
 if|if
 condition|(
 name|splitParents
@@ -1255,7 +1323,7 @@ name|result
 return|;
 block|}
 comment|/*     * Checks if a daughter region -- either splitA or splitB -- still holds    * references to parent.  If not, removes reference to the split from    * the parent meta region row.    * @param metaRegionName Name of meta region to look in.    * @param srvr Where region resides.    * @param parent Parent region name.     * @param rowContent Keyed content of the parent row in meta region.    * @param splitColumn Column name of daughter split to examine    * @return True if still has references to parent.    * @throws IOException    */
-specifier|protected
+specifier|private
 name|boolean
 name|hasReferences
 parameter_list|(
