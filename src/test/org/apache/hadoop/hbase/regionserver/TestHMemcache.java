@@ -137,8 +137,6 @@ extends|extends
 name|TestCase
 block|{
 specifier|private
-name|HStore
-operator|.
 name|Memcache
 name|hmemcache
 decl_stmt|;
@@ -186,8 +184,6 @@ operator|.
 name|hmemcache
 operator|=
 operator|new
-name|HStore
-operator|.
 name|Memcache
 argument_list|()
 expr_stmt|;
@@ -261,8 +257,6 @@ name|void
 name|addRows
 parameter_list|(
 specifier|final
-name|HStore
-operator|.
 name|Memcache
 name|hmc
 parameter_list|)
@@ -355,8 +349,6 @@ name|void
 name|runSnapshot
 parameter_list|(
 specifier|final
-name|HStore
-operator|.
 name|Memcache
 name|hmc
 parameter_list|)
