@@ -1557,6 +1557,11 @@ name|skippedEdits
 init|=
 literal|0
 decl_stmt|;
+name|long
+name|editsCount
+init|=
+literal|0
+decl_stmt|;
 while|while
 condition|(
 name|logReader
@@ -1597,32 +1602,6 @@ name|skippedEdits
 operator|++
 expr_stmt|;
 continue|continue;
-block|}
-if|if
-condition|(
-name|skippedEdits
-operator|>
-literal|0
-operator|&&
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Skipped "
-operator|+
-name|skippedEdits
-operator|+
-literal|" edits because sequence id<= "
-operator|+
-name|maxSeqID
-argument_list|)
-expr_stmt|;
 block|}
 comment|// Check this edit is for me. Also, guard against writing
 comment|// METACOLUMN info such as HBASE::CACHEFLUSH entries
@@ -1697,6 +1676,22 @@ name|getTimestamp
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|reconstructedCache
+operator|.
+name|put
+argument_list|(
+name|k
+argument_list|,
+name|val
+operator|.
+name|getVal
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|editsCount
+operator|++
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|LOG
@@ -1709,34 +1704,17 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Applying edit<"
+literal|"Applied "
 operator|+
-name|k
-operator|.
-name|toString
-argument_list|()
+name|editsCount
 operator|+
-literal|"="
+literal|", skipped "
 operator|+
-name|val
-operator|.
-name|toString
-argument_list|()
+name|skippedEdits
 operator|+
-literal|">"
-argument_list|)
-expr_stmt|;
-block|}
-name|reconstructedCache
-operator|.
-name|put
-argument_list|(
-name|k
-argument_list|,
-name|val
-operator|.
-name|getVal
-argument_list|()
+literal|" because sequence id<= "
+operator|+
+name|maxSeqID
 argument_list|)
 expr_stmt|;
 block|}

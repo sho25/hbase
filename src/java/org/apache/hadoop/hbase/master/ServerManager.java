@@ -1551,9 +1551,6 @@ operator|+
 literal|" no longer serving "
 operator|+
 name|region
-operator|.
-name|getRegionName
-argument_list|()
 argument_list|)
 expr_stmt|;
 if|if

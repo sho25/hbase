@@ -1418,7 +1418,7 @@ name|getLong
 argument_list|(
 literal|"hbase.hbasemaster.maxregionopen"
 argument_list|,
-literal|30
+literal|60
 operator|*
 literal|1000
 argument_list|)
@@ -2783,6 +2783,7 @@ operator|.
 name|getName
 argument_list|()
 decl_stmt|;
+comment|// TODO: Not thread safe check.
 if|if
 condition|(
 name|tableInCreation

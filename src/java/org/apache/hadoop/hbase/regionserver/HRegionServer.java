@@ -1017,7 +1017,7 @@ name|ReentrantReadWriteLock
 argument_list|()
 decl_stmt|;
 specifier|private
-specifier|volatile
+specifier|final
 name|List
 argument_list|<
 name|HMsg
@@ -1081,12 +1081,6 @@ init|=
 operator|new
 name|AtomicInteger
 argument_list|()
-decl_stmt|;
-comment|// A sleeper that sleeps for msgInterval.
-specifier|private
-specifier|final
-name|Sleeper
-name|sleeper
 decl_stmt|;
 comment|// Info server.  Default access so can be used by unit tests.  REGIONSERVER
 comment|// is name of the webapp and the attribute name used stuffing this instance
@@ -1365,22 +1359,6 @@ argument_list|(
 name|worker
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|sleeper
-operator|=
-operator|new
-name|Sleeper
-argument_list|(
-name|this
-operator|.
-name|msgInterval
-argument_list|,
-name|this
-operator|.
-name|stopRequested
-argument_list|)
-expr_stmt|;
 comment|// Server to handle client requests
 name|this
 operator|.
@@ -1514,12 +1492,30 @@ name|quiesceRequested
 init|=
 literal|false
 decl_stmt|;
+comment|// A sleeper that sleeps for msgInterval.
+name|Sleeper
+name|sleeper
+init|=
+operator|new
+name|Sleeper
+argument_list|(
+name|this
+operator|.
+name|msgInterval
+argument_list|,
+name|this
+operator|.
+name|stopRequested
+argument_list|)
+decl_stmt|;
 try|try
 block|{
 name|init
 argument_list|(
 name|reportForDuty
-argument_list|()
+argument_list|(
+name|sleeper
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|long
@@ -1527,15 +1523,6 @@ name|lastMsg
 init|=
 literal|0
 decl_stmt|;
-while|while
-condition|(
-operator|!
-name|stopRequested
-operator|.
-name|get
-argument_list|()
-condition|)
-block|{
 comment|// Now ask master what it wants us to do and tell it what we have done
 for|for
 control|(
@@ -1616,6 +1603,8 @@ literal|null
 decl_stmt|;
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|outboundMsgs
 init|)
 block|{
@@ -1637,7 +1626,6 @@ argument_list|()
 index|]
 argument_list|)
 expr_stmt|;
-block|}
 name|this
 operator|.
 name|outboundMsgs
@@ -1645,6 +1633,7 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+block|}
 try|try
 block|{
 name|this
@@ -1894,7 +1883,9 @@ break|break;
 block|}
 block|}
 name|reportForDuty
-argument_list|()
+argument_list|(
+name|sleeper
+argument_list|)
 expr_stmt|;
 name|restart
 operator|=
@@ -2049,6 +2040,8 @@ operator|.
 name|MSG_REGION_OPEN
 condition|)
 block|{
+name|this
+operator|.
 name|outboundMsgs
 operator|.
 name|add
@@ -2182,8 +2175,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-name|this
-operator|.
 name|sleeper
 operator|.
 name|sleep
@@ -2193,8 +2184,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// for
-block|}
-comment|// while (!stopRequested.get())
 block|}
 catch|catch
 parameter_list|(
@@ -3261,7 +3250,11 @@ comment|/*    * Let the master know we're here    * Run initialization using par
 specifier|private
 name|HbaseMapWritable
 name|reportForDuty
-parameter_list|()
+parameter_list|(
+specifier|final
+name|Sleeper
+name|sleeper
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -3428,8 +3421,6 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
 name|sleeper
 operator|.
 name|sleep
@@ -4044,17 +4035,9 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-comment|// Mark the region offline.
 comment|// TODO: add an extra field in HRegionInfo to indicate that there is
 comment|// an error. We can't do that now because that would be an incompatible
 comment|// change that would require a migration
-name|regionInfo
-operator|.
-name|setOffline
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 name|reportClose
 argument_list|(
 name|regionInfo

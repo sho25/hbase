@@ -2236,31 +2236,6 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Creating new log file writer for path "
-operator|+
-name|logfile
-operator|+
-literal|"; map content "
-operator|+
-name|logWriters
-operator|.
-name|toString
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 name|w
 operator|=
 name|SequenceFile
@@ -2302,6 +2277,28 @@ argument_list|,
 name|w
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Creating new log file writer for path "
+operator|+
+name|logfile
+operator|+
+literal|" and region "
+operator|+
+name|regionName
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|old
@@ -2393,36 +2390,6 @@ name|oldlogfile
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-operator|&&
-name|count
-operator|>
-literal|0
-operator|&&
-name|count
-operator|%
-literal|10000
-operator|==
-literal|0
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Applied "
-operator|+
-name|count
-operator|+
-literal|" edits"
-argument_list|)
-expr_stmt|;
 block|}
 name|w
 operator|.

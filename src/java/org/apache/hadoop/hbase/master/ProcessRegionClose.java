@@ -143,6 +143,18 @@ name|regionInfo
 operator|.
 name|getRegionName
 argument_list|()
+operator|+
+literal|", "
+operator|+
+name|this
+operator|.
+name|reassignRegion
+operator|+
+literal|", "
+operator|+
+name|this
+operator|.
+name|deleteRegion
 return|;
 block|}
 annotation|@
@@ -234,7 +246,14 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-else|else
+elseif|else
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|reassignRegion
+condition|)
 block|{
 name|HRegion
 operator|.
