@@ -227,16 +227,19 @@ argument_list|(
 name|waitTime
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|(
+name|long
+name|slept
+init|=
 name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
 operator|-
 name|now
-operator|)
+decl_stmt|;
+if|if
+condition|(
+name|slept
 operator|>
 operator|(
 literal|10
@@ -251,7 +254,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"We slept ten times longer than scheduled: "
+literal|"We slept "
+operator|+
+name|slept
+operator|+
+literal|"ms, ten times longer than scheduled: "
 operator|+
 name|this
 operator|.
