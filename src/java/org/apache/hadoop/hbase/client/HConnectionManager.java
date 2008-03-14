@@ -1323,6 +1323,21 @@ decl_stmt|;
 comment|// scan over the each meta region
 do|do
 block|{
+for|for
+control|(
+name|int
+name|triesSoFar
+init|=
+literal|0
+init|;
+name|triesSoFar
+operator|<
+name|numRetries
+condition|;
+name|triesSoFar
+operator|++
+control|)
+block|{
 try|try
 block|{
 comment|// turn the start row into a location
@@ -1471,6 +1486,8 @@ operator|.
 name|getEndKey
 argument_list|()
 expr_stmt|;
+comment|// break out of retry loop
+break|break;
 block|}
 catch|catch
 parameter_list|(
@@ -1511,6 +1528,7 @@ argument_list|(
 name|scannerId
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
