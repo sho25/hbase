@@ -4333,7 +4333,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Return all the data for the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it, at or immediately before     *<i>ts</i>.    *     * @param row row key    * @param ts    * @return map of values    * @throws IOException    */
+comment|/**    * Return all the data for the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it, at or immediately before     *<i>ts</i>.    *     * @param row row key    * @return map of values    * @throws IOException    */
 specifier|public
 name|Map
 argument_list|<
