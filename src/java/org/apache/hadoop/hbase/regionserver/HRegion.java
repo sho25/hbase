@@ -4346,10 +4346,6 @@ parameter_list|(
 specifier|final
 name|Text
 name|row
-parameter_list|,
-specifier|final
-name|long
-name|ts
 parameter_list|)
 throws|throws
 name|IOException
@@ -4407,8 +4403,6 @@ operator|.
 name|getRowKeyAtOrBefore
 argument_list|(
 name|row
-argument_list|,
-name|ts
 argument_list|)
 decl_stmt|;
 comment|// if it happens to be an exact match, we can stop looping
@@ -4428,8 +4422,6 @@ operator|new
 name|HStoreKey
 argument_list|(
 name|closestKey
-argument_list|,
-name|ts
 argument_list|)
 expr_stmt|;
 break|break;
@@ -4466,8 +4458,6 @@ operator|new
 name|HStoreKey
 argument_list|(
 name|closestKey
-argument_list|,
-name|ts
 argument_list|)
 expr_stmt|;
 block|}

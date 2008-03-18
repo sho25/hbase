@@ -1989,10 +1989,6 @@ name|getRegionName
 argument_list|()
 argument_list|,
 name|metaKey
-argument_list|,
-name|HConstants
-operator|.
-name|LATEST_TIMESTAMP
 argument_list|)
 decl_stmt|;
 if|if
