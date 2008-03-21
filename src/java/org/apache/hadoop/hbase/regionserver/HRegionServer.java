@@ -679,22 +679,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|ImmutableBytesWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ipc
 operator|.
 name|HMasterRegionInterface
@@ -5916,7 +5900,6 @@ name|serverInfo
 return|;
 block|}
 comment|/** @return the info server */
-comment|/**    * Get the InfoServer this HRegionServer has put up.    */
 specifier|public
 name|InfoServer
 name|getInfoServer
@@ -5926,7 +5909,7 @@ return|return
 name|infoServer
 return|;
 block|}
-comment|/**    * Check if a stop has been requested.    */
+comment|/**    * @return true if a stop has been requested.    */
 specifier|public
 name|boolean
 name|isStopRequested
@@ -5939,7 +5922,7 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/** Get the write lock for the server */
+comment|/** @return the write lock for the server */
 name|ReentrantReadWriteLock
 operator|.
 name|WriteLock
@@ -6259,73 +6242,35 @@ condition|(
 name|this
 operator|.
 name|fsOk
+operator|&&
+name|fs
+operator|!=
+literal|null
 condition|)
 block|{
 try|try
 block|{
-if|if
-condition|(
-name|fs
-operator|!=
-literal|null
-operator|&&
-operator|!
 name|FSUtils
 operator|.
-name|isFileSystemAvailable
+name|checkFileSystemAvailable
 argument_list|(
 name|fs
 argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|fatal
-argument_list|(
-literal|"Shutting down HRegionServer: file system not available"
-argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|abortRequested
-operator|=
-literal|true
-expr_stmt|;
-name|this
-operator|.
-name|stopRequested
-operator|.
-name|set
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-name|fsOk
-operator|=
-literal|false
-expr_stmt|;
-block|}
 block|}
 catch|catch
 parameter_list|(
-name|Exception
+name|IOException
 name|e
 parameter_list|)
 block|{
 name|LOG
 operator|.
-name|error
-argument_list|(
-literal|"Failed get of filesystem"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
 name|fatal
 argument_list|(
 literal|"Shutting down HRegionServer: file system not available"
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 name|this

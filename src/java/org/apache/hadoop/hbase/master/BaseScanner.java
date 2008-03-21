@@ -1234,9 +1234,6 @@ operator|+
 literal|" because daughter splits no longer hold references"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
 name|HRegion
 operator|.
 name|deleteRegion
@@ -1251,23 +1248,7 @@ name|rootdir
 argument_list|,
 name|parent
 argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Deletion of "
-operator|+
-name|parent
-operator|.
-name|getRegionName
-argument_list|()
-operator|+
-literal|" failed"
-argument_list|)
 expr_stmt|;
-block|}
 name|HRegion
 operator|.
 name|removeRegionFromMETA

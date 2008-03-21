@@ -3840,7 +3840,7 @@ name|r
 operator|=
 name|HRegion
 operator|.
-name|closeAndMerge
+name|mergeAdjacent
 argument_list|(
 name|subregions
 index|[

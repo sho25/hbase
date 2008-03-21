@@ -372,6 +372,9 @@ name|HConstants
 operator|.
 name|HBASE_DIR
 argument_list|,
+operator|new
+name|Path
+argument_list|(
 name|dfsCluster
 operator|.
 name|getFileSystem
@@ -379,6 +382,9 @@ argument_list|()
 operator|.
 name|getHomeDirectory
 argument_list|()
+argument_list|,
+literal|"hbase"
+argument_list|)
 operator|.
 name|toString
 argument_list|()
@@ -905,7 +911,7 @@ operator|++
 control|)
 block|{
 name|String
-name|relativePath
+name|path
 init|=
 name|stats
 index|[
@@ -917,11 +923,6 @@ argument_list|()
 operator|.
 name|toString
 argument_list|()
-operator|.
-name|substring
-argument_list|(
-name|rootdirlength
-argument_list|)
 decl_stmt|;
 if|if
 condition|(
@@ -942,7 +943,7 @@ name|println
 argument_list|(
 literal|"d "
 operator|+
-name|relativePath
+name|path
 argument_list|)
 expr_stmt|;
 name|listPaths
@@ -971,7 +972,7 @@ name|println
 argument_list|(
 literal|"f "
 operator|+
-name|relativePath
+name|path
 operator|+
 literal|" size="
 operator|+

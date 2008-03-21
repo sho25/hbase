@@ -95,7 +95,7 @@ operator|=
 literal|0
 expr_stmt|;
 block|}
-comment|/**    * Create a new Cell with a given value and timestamp. Used by HStore.    */
+comment|/**    * Create a new Cell with a given value and timestamp. Used by HStore.    * @param value    * @param timestamp    */
 specifier|public
 name|Cell
 parameter_list|(
@@ -144,6 +144,7 @@ block|}
 comment|//
 comment|// Writable
 comment|//
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -190,6 +191,7 @@ name|valueSize
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write

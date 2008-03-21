@@ -1171,9 +1171,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|String
-name|fsversion
-init|=
 name|FSUtils
 operator|.
 name|checkVersion
@@ -1181,58 +1178,10 @@ argument_list|(
 name|fs
 argument_list|,
 name|rootdir
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|fsversion
-operator|==
-literal|null
-operator|||
-name|fsversion
-operator|.
-name|compareTo
-argument_list|(
-name|FILE_SYSTEM_VERSION
-argument_list|)
-operator|!=
-literal|0
-condition|)
-block|{
-comment|// Output on stdout so user sees it in terminal.
-name|String
-name|message
-init|=
-literal|"The HBase data files stored on the FileSystem "
-operator|+
-literal|"are from an earlier version of HBase. You need to run "
-operator|+
-literal|"'${HBASE_HOME}/bin/hbase migrate' to bring your installation "
-operator|+
-literal|"up-to-date."
-decl_stmt|;
-comment|// Output on stdout so user sees it in terminal.
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"WARNING! "
-operator|+
-name|message
-operator|+
-literal|" Master shutting down..."
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-name|message
-argument_list|)
-throw|;
-block|}
 block|}
 if|if
 condition|(
@@ -1592,22 +1541,29 @@ condition|(
 name|fsOk
 condition|)
 block|{
-if|if
-condition|(
-operator|!
+try|try
+block|{
 name|FSUtils
 operator|.
-name|isFileSystemAvailable
+name|checkFileSystemAvailable
 argument_list|(
 name|fs
 argument_list|)
-condition|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
 block|{
 name|LOG
 operator|.
 name|fatal
 argument_list|(
 literal|"Shutting down HBase cluster: file system not available"
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 name|closed
