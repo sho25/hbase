@@ -23,7 +23,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|TreeMap
+name|SortedMap
 import|;
 end_import
 
@@ -124,7 +124,7 @@ name|boolean
 name|filterNotNull
 parameter_list|(
 specifier|final
-name|TreeMap
+name|SortedMap
 argument_list|<
 name|Text
 argument_list|,

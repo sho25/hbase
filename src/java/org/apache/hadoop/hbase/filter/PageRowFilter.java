@@ -53,7 +53,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|TreeMap
+name|SortedMap
 import|;
 end_import
 
@@ -367,7 +367,7 @@ argument_list|(
 literal|"unused"
 argument_list|)
 specifier|final
-name|TreeMap
+name|SortedMap
 argument_list|<
 name|Text
 argument_list|,

@@ -153,22 +153,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|ImmutableBytesWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|filter
 operator|.
 name|RowFilterInterface
@@ -899,27 +883,6 @@ operator|)
 condition|)
 block|{
 break|break;
-block|}
-comment|// Filter out null criteria columns that are not null
-if|if
-condition|(
-name|dataFilter
-operator|!=
-literal|null
-condition|)
-block|{
-name|filtered
-operator|=
-name|dataFilter
-operator|.
-name|filterNotNull
-argument_list|(
-name|resultSets
-index|[
-name|i
-index|]
-argument_list|)
-expr_stmt|;
 block|}
 comment|// NOTE: We used to do results.putAll(resultSets[i]);
 comment|// but this had the effect of overwriting newer

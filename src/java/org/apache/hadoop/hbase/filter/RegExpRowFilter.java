@@ -103,7 +103,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|TreeMap
+name|SortedMap
 import|;
 end_import
 
@@ -728,7 +728,7 @@ name|boolean
 name|filterNotNull
 parameter_list|(
 specifier|final
-name|TreeMap
+name|SortedMap
 argument_list|<
 name|Text
 argument_list|,
@@ -845,7 +845,7 @@ literal|"filterNotNull returning true for colKey: "
 operator|+
 name|col
 operator|+
-literal|", column not found in given TreeMap<Text, byte[]>."
+literal|", column not found in given SortedMap<Text, byte[]>."
 argument_list|)
 expr_stmt|;
 block|}

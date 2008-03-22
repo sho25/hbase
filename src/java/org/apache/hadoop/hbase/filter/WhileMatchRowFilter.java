@@ -53,7 +53,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|TreeMap
+name|SortedMap
 import|;
 end_import
 
@@ -100,7 +100,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * WhileMatchRowFilter is a wrapper filter that filters everything after the   * first filtered row.  Once the nested filter returns true for either of it's   * filter(..) methods or filterNotNull(TreeMap<Text, byte[]>), this wrapper's   * filterAllRemaining() will return true.  All filtering methods will   * thereafter defer to the result of filterAllRemaining().  */
+comment|/**  * WhileMatchRowFilter is a wrapper filter that filters everything after the   * first filtered row.  Once the nested filter returns true for either of it's   * filter(..) methods or filterNotNull(SortedMap<Text, byte[]>), this wrapper's   * filterAllRemaining() will return true.  All filtering methods will   * thereafter defer to the result of filterAllRemaining().  */
 end_comment
 
 begin_class
@@ -370,7 +370,7 @@ name|boolean
 name|filterNotNull
 parameter_list|(
 specifier|final
-name|TreeMap
+name|SortedMap
 argument_list|<
 name|Text
 argument_list|,
