@@ -1163,15 +1163,6 @@ name|SAFEMODE_GET
 argument_list|)
 condition|)
 block|{
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-name|message
-argument_list|)
-expr_stmt|;
 name|LOG
 operator|.
 name|info
