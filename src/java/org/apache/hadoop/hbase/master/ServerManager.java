@@ -1955,14 +1955,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"region "
+literal|"Region "
 operator|+
 name|region
 operator|.
 name|getRegionName
 argument_list|()
 operator|+
-literal|" split. New regions are: "
+literal|" split; new regions: "
 operator|+
 name|newRegionA
 operator|.

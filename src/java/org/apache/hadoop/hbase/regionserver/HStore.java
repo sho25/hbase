@@ -3448,7 +3448,7 @@ operator|.
 name|toString
 argument_list|()
 operator|+
-literal|": "
+literal|": HStoreFile="
 operator|+
 name|hsf
 operator|.
@@ -3461,7 +3461,7 @@ operator|.
 name|isReference
 argument_list|()
 condition|?
-literal|" "
+literal|", Reference="
 operator|+
 name|hsf
 operator|.
@@ -3474,7 +3474,7 @@ else|:
 literal|""
 operator|)
 operator|+
-literal|" for "
+literal|" for Store="
 operator|+
 name|this
 operator|.
