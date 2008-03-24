@@ -40,9 +40,13 @@ comment|/** constructor */
 specifier|public
 name|TestMergeMeta
 parameter_list|()
+throws|throws
+name|Exception
 block|{
 name|super
-argument_list|()
+argument_list|(
+literal|false
+argument_list|)
 expr_stmt|;
 name|conf
 operator|.

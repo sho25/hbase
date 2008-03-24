@@ -166,10 +166,7 @@ try|try
 block|{
 comment|// By now the Mini DFS is running, Mini HBase is running and we have
 comment|// created a table. Now let's yank the rug out from HBase
-name|cluster
-operator|.
-name|getDFSCluster
-argument_list|()
+name|dfsCluster
 operator|.
 name|shutdown
 argument_list|()

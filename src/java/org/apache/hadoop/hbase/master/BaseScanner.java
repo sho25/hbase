@@ -1340,7 +1340,7 @@ name|split
 init|=
 name|Writables
 operator|.
-name|getHRegionInfoOrNull
+name|getHRegionInfo
 argument_list|(
 name|rowContent
 operator|.
@@ -1348,9 +1348,6 @@ name|get
 argument_list|(
 name|splitColumn
 argument_list|)
-operator|.
-name|getValue
-argument_list|()
 argument_list|)
 decl_stmt|;
 if|if

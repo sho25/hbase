@@ -208,7 +208,7 @@ specifier|public
 class|class
 name|MultiRegionTable
 extends|extends
-name|HBaseTestCase
+name|HBaseClusterTestCase
 block|{
 specifier|static
 specifier|final
@@ -227,16 +227,13 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/** {@inheritDoc} */
-annotation|@
-name|Override
 specifier|public
-name|void
-name|setUp
+name|MultiRegionTable
 parameter_list|()
-throws|throws
-name|Exception
 block|{
+name|super
+argument_list|()
+expr_stmt|;
 comment|// These are needed for the new and improved Map/Reduce framework
 name|System
 operator|.
@@ -265,11 +262,6 @@ argument_list|(
 literal|"hadoop.tmp.dir"
 argument_list|)
 argument_list|)
-expr_stmt|;
-name|super
-operator|.
-name|setUp
-argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Make a multi-region table.  Presumption is that table already exists and    * that there is only one regionserver. Makes it multi-region by filling with    * data and provoking splits. Asserts parent region is cleaned up after its    * daughter splits release all references.    * @param conf    * @param cluster    * @param fs    * @param tableName    * @param columnName    * @throws IOException    */
