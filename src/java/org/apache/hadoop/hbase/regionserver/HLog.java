@@ -2483,12 +2483,75 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Exception processing "
+operator|+
+name|logfiles
+index|[
+name|i
+index|]
+operator|.
+name|getPath
+argument_list|()
+operator|+
+literal|" -- continuing. Possible DATA LOSS!"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 finally|finally
+block|{
+try|try
 block|{
 name|in
 operator|.
 name|close
 argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Close in finally threw exception -- continuing"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Delete the input file now so we do not replay edits.  We could
+comment|// have gotten here because of an exception.  If so, probably
+comment|// nothing we can do about it. Replaying it, it could work but we
+comment|// could be stuck replaying for ever. Just continue though we
+comment|// could have lost some edits.
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|logfiles
+index|[
+name|i
+index|]
+operator|.
+name|getPath
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 block|}
