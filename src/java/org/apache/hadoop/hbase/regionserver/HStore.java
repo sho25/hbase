@@ -305,6 +305,20 @@ name|hadoop
 operator|.
 name|fs
 operator|.
+name|FileStatus
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
 name|Path
 import|;
 end_import
@@ -1146,31 +1160,6 @@ argument_list|(
 literal|"starting "
 operator|+
 name|storeName
-operator|+
-operator|(
-operator|(
-name|reconstructionLog
-operator|==
-literal|null
-operator|||
-operator|!
-name|fs
-operator|.
-name|exists
-argument_list|(
-name|reconstructionLog
-argument_list|)
-operator|)
-condition|?
-literal|" (no reconstruction log)"
-else|:
-literal|" with reconstruction log: "
-operator|+
-name|reconstructionLog
-operator|.
-name|toString
-argument_list|()
-operator|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1262,6 +1251,8 @@ name|maxSeqId
 argument_list|)
 expr_stmt|;
 block|}
+try|try
+block|{
 name|doReconstructionLog
 argument_list|(
 name|reconstructionLog
@@ -1269,6 +1260,36 @@ argument_list|,
 name|maxSeqId
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+comment|// Presume we got here because of some HDFS issue or because of a lack of
+comment|// HADOOP-1700; for now keep going but this is probably not what we want
+comment|// long term.  If we got here there has been data-loss
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Exception processing reconstruction log "
+operator|+
+name|reconstructionLog
+operator|+
+literal|" opening "
+operator|+
+name|this
+operator|.
+name|storeName
+operator|+
+literal|" -- continuing.  Probably DATA LOSS!"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 comment|// By default, we compact if an HStore has more than
 comment|// MIN_COMMITS_FOR_COMPACTION map files
 name|this
@@ -1508,6 +1529,44 @@ argument_list|)
 condition|)
 block|{
 comment|// Nothing to do.
+return|return;
+block|}
+comment|// Check its not empty.
+name|FileStatus
+index|[]
+name|stats
+init|=
+name|fs
+operator|.
+name|listStatus
+argument_list|(
+name|reconstructionLog
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|stats
+operator|==
+literal|null
+operator|||
+name|stats
+operator|.
+name|length
+operator|==
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Passed reconstruction log "
+operator|+
+name|reconstructionLog
+operator|+
+literal|" is zero-length"
+argument_list|)
+expr_stmt|;
 return|return;
 block|}
 name|long
