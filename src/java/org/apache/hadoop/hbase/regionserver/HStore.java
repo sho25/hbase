@@ -451,6 +451,20 @@ name|hadoop
 operator|.
 name|util
 operator|.
+name|Progressable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
 name|StringUtils
 import|;
 end_import
@@ -845,7 +859,7 @@ operator|new
 name|ReentrantReadWriteLock
 argument_list|()
 decl_stmt|;
-comment|/**    * An HStore is a set of zero or more MapFiles, which stretch backwards over     * time.  A given HStore is responsible for a certain set of columns for a    * row in the HRegion.    *    *<p>The HRegion starts writing to its set of HStores when the HRegion's     * memcache is flushed.  This results in a round of new MapFiles, one for    * each HStore.    *    *<p>There's no reason to consider append-logging at this level; all logging     * and locking is handled at the HRegion level.  HStore just provides    * services to manage sets of MapFiles.  One of the most important of those    * services is MapFile-compaction services.    *    *<p>The only thing having to do with logs that HStore needs to deal with is    * the reconstructionLog.  This is a segment of an HRegion's log that might    * NOT be present upon startup.  If the param is NULL, there's nothing to do.    * If the param is non-NULL, we need to process the log to reconstruct    * a TreeMap that might not have been written to disk before the process    * died.    *    *<p>It's assumed that after this constructor returns, the reconstructionLog    * file will be deleted (by whoever has instantiated the HStore).    *    * @param basedir qualified path under which the region directory lives    * @param info HRegionInfo for this region    * @param family HColumnDescriptor for this column    * @param fs file system object    * @param reconstructionLog existing log file to apply if any    * @param conf configuration object    * @throws IOException    */
+comment|/**    * An HStore is a set of zero or more MapFiles, which stretch backwards over     * time.  A given HStore is responsible for a certain set of columns for a    * row in the HRegion.    *    *<p>The HRegion starts writing to its set of HStores when the HRegion's     * memcache is flushed.  This results in a round of new MapFiles, one for    * each HStore.    *    *<p>There's no reason to consider append-logging at this level; all logging     * and locking is handled at the HRegion level.  HStore just provides    * services to manage sets of MapFiles.  One of the most important of those    * services is MapFile-compaction services.    *    *<p>The only thing having to do with logs that HStore needs to deal with is    * the reconstructionLog.  This is a segment of an HRegion's log that might    * NOT be present upon startup.  If the param is NULL, there's nothing to do.    * If the param is non-NULL, we need to process the log to reconstruct    * a TreeMap that might not have been written to disk before the process    * died.    *    *<p>It's assumed that after this constructor returns, the reconstructionLog    * file will be deleted (by whoever has instantiated the HStore).    *    * @param basedir qualified path under which the region directory lives    * @param info HRegionInfo for this region    * @param family HColumnDescriptor for this column    * @param fs file system object    * @param reconstructionLog existing log file to apply if any    * @param conf configuration object    * @param reporter Call on a period so hosting server can report we're    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    * @throws IOException    */
 name|HStore
 parameter_list|(
 name|Path
@@ -865,6 +879,10 @@ name|reconstructionLog
 parameter_list|,
 name|HBaseConfiguration
 name|conf
+parameter_list|,
+specifier|final
+name|Progressable
+name|reporter
 parameter_list|)
 throws|throws
 name|IOException
@@ -1258,6 +1276,8 @@ argument_list|(
 name|reconstructionLog
 argument_list|,
 name|maxSeqId
+argument_list|,
+name|reporter
 argument_list|)
 expr_stmt|;
 block|}
@@ -1507,6 +1527,10 @@ parameter_list|,
 specifier|final
 name|long
 name|maxSeqID
+parameter_list|,
+specifier|final
+name|Progressable
+name|reporter
 parameter_list|)
 throws|throws
 name|UnsupportedEncodingException
@@ -1641,6 +1665,21 @@ name|editsCount
 init|=
 literal|0
 decl_stmt|;
+comment|// How many edits to apply before we send a progress report.
+name|int
+name|reportInterval
+init|=
+name|this
+operator|.
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.hstore.report.interval.edits"
+argument_list|,
+literal|2000
+argument_list|)
+decl_stmt|;
 while|while
 condition|(
 name|logReader
@@ -1770,6 +1809,29 @@ expr_stmt|;
 name|editsCount
 operator|++
 expr_stmt|;
+comment|// Every 2k edits, tell the reporter we're making progress.
+comment|// Have seen 60k edits taking 3minutes to complete.
+if|if
+condition|(
+name|reporter
+operator|!=
+literal|null
+operator|&&
+operator|(
+name|editsCount
+operator|%
+name|reportInterval
+operator|)
+operator|==
+literal|0
+condition|)
+block|{
+name|reporter
+operator|.
+name|progress
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 if|if
 condition|(

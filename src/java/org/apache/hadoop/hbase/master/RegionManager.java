@@ -2307,22 +2307,33 @@ init|(
 name|unassignedRegions
 init|)
 block|{
-comment|// Region server has acknowledged request to open region.
+comment|// Region server is reporting in that its working on region open
+comment|// (We can get more than one of these messages if region is replaying
+comment|// a bunch of edits and taking a while to open).
 comment|// Extend region open time by max region open time.
+name|this
+operator|.
 name|unassignedRegions
 operator|.
 name|put
 argument_list|(
 name|info
 argument_list|,
+name|Long
+operator|.
+name|valueOf
+argument_list|(
 name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
 operator|+
+name|this
+operator|.
 name|master
 operator|.
 name|maxRegionOpenTime
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
