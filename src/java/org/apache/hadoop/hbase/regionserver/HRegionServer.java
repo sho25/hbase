@@ -1313,6 +1313,8 @@ operator|=
 operator|new
 name|Flusher
 argument_list|(
+name|conf
+argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
@@ -1720,6 +1722,13 @@ name|set
 argument_list|(
 literal|true
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|outboundMsgs
+operator|.
+name|clear
+argument_list|()
 expr_stmt|;
 continue|continue;
 block|}
@@ -2236,7 +2245,7 @@ argument_list|()
 expr_stmt|;
 name|compactSplitThread
 operator|.
-name|interrupt
+name|interruptPolitely
 argument_list|()
 expr_stmt|;
 synchronized|synchronized
@@ -4140,12 +4149,12 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
+block|}
 name|reportOpen
 argument_list|(
 name|regionInfo
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|/*    * Add a MSG_REPORT_PROCESS_OPEN to the outbound queue.    * This method is called while region is in the queue of regions to process    * and then while the region is being opened, it is called from the Worker    * thread that is running the region open.    * @param hri Region to add the message for    */
 specifier|protected
@@ -6021,21 +6030,6 @@ operator|.
 name|writeLock
 argument_list|()
 return|;
-block|}
-name|void
-name|compactionRequested
-parameter_list|(
-name|QueueEntry
-name|e
-parameter_list|)
-block|{
-name|compactSplitThread
-operator|.
-name|compactionRequested
-argument_list|(
-name|e
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * @return Immutable list of this servers regions.    */
 specifier|public

@@ -103,16 +103,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Iterator
 import|;
 end_import
@@ -933,7 +923,7 @@ break|break;
 block|}
 block|}
 block|}
-comment|/**    * @param row    * @param timestamp    * @return the key that matches<i>row</i> exactly, or the one that    * immediately preceeds it.    */
+comment|/**    * @param row    * @param timestamp    */
 name|void
 name|getRowKeyAtOrBefore
 parameter_list|(
@@ -949,8 +939,6 @@ name|Long
 argument_list|>
 name|candidateKeys
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.

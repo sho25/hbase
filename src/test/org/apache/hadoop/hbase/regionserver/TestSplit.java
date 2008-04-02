@@ -73,20 +73,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|dfs
-operator|.
-name|MiniDFSCluster
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|io
 operator|.
 name|Text
@@ -169,6 +155,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HColumnDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -184,20 +184,6 @@ operator|.
 name|hbase
 operator|.
 name|HScannerInterface
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|StaticTestEnvironment
 import|;
 end_import
 
@@ -376,6 +362,17 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|htd
+operator|.
+name|addFamily
+argument_list|(
+operator|new
+name|HColumnDescriptor
+argument_list|(
+name|COLFAMILY_NAME3
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|region
 operator|=
 name|createNewHRegion
@@ -444,18 +441,14 @@ expr_stmt|;
 name|Text
 name|midkey
 init|=
-operator|new
-name|Text
-argument_list|()
-decl_stmt|;
-name|assertTrue
-argument_list|(
 name|region
 operator|.
-name|needsSplit
+name|compactStores
+argument_list|()
+decl_stmt|;
+name|assertNotNull
 argument_list|(
 name|midkey
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|HRegion
@@ -465,6 +458,8 @@ init|=
 name|split
 argument_list|(
 name|region
+argument_list|,
+name|midkey
 argument_list|)
 decl_stmt|;
 try|try
@@ -563,18 +558,6 @@ name|midkey
 argument_list|)
 expr_stmt|;
 comment|// Now prove can't split regions that have references.
-name|Text
-index|[]
-name|midkeys
-init|=
-operator|new
-name|Text
-index|[
-name|regions
-operator|.
-name|length
-index|]
-decl_stmt|;
 for|for
 control|(
 name|int
@@ -592,38 +575,8 @@ name|i
 operator|++
 control|)
 block|{
-name|midkeys
-index|[
-name|i
-index|]
-operator|=
-operator|new
-name|Text
-argument_list|()
-expr_stmt|;
-comment|// Even after above splits, still needs split but after splits its
-comment|// unsplitable because biggest store file is reference. References
-comment|// make the store unsplittable, until something bigger comes along.
-name|assertFalse
-argument_list|(
-name|regions
-index|[
-name|i
-index|]
-operator|.
-name|needsSplit
-argument_list|(
-name|midkeys
-index|[
-name|i
-index|]
-argument_list|)
-argument_list|)
-expr_stmt|;
 comment|// Add so much data to this region, we create a store file that is>
-comment|// than
-comment|// one of our unsplitable references.
-comment|// it will.
+comment|// than one of our unsplitable references. it will.
 for|for
 control|(
 name|int
@@ -679,9 +632,19 @@ name|flushcache
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Assert that even if one store file is larger than a reference, the
-comment|// region is still deemed unsplitable (Can't split region if references
-comment|// presen).
+name|Text
+index|[]
+name|midkeys
+init|=
+operator|new
+name|Text
+index|[
+name|regions
+operator|.
+name|length
+index|]
+decl_stmt|;
+comment|// To make regions splitable force compaction.
 for|for
 control|(
 name|int
@@ -704,48 +667,6 @@ index|[
 name|i
 index|]
 operator|=
-operator|new
-name|Text
-argument_list|()
-expr_stmt|;
-comment|// Even after above splits, still needs split but after splits its
-comment|// unsplitable because biggest store file is reference. References
-comment|// make the store unsplittable, until something bigger comes along.
-name|assertFalse
-argument_list|(
-name|regions
-index|[
-name|i
-index|]
-operator|.
-name|needsSplit
-argument_list|(
-name|midkeys
-index|[
-name|i
-index|]
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-comment|// To make regions splitable force compaction.
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|regions
-operator|.
-name|length
-condition|;
-name|i
-operator|++
-control|)
-block|{
 name|regions
 index|[
 name|i
@@ -795,14 +716,33 @@ name|HRegion
 index|[]
 name|rs
 init|=
+literal|null
+decl_stmt|;
+if|if
+condition|(
+name|midkeys
+index|[
+name|i
+index|]
+operator|!=
+literal|null
+condition|)
+block|{
+name|rs
+operator|=
 name|split
 argument_list|(
 name|regions
 index|[
 name|i
 index|]
+argument_list|,
+name|midkeys
+index|[
+name|i
+index|]
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 for|for
 control|(
 name|int
@@ -844,6 +784,7 @@ index|]
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 name|LOG
@@ -1233,27 +1174,14 @@ parameter_list|(
 specifier|final
 name|HRegion
 name|r
+parameter_list|,
+specifier|final
+name|Text
+name|midKey
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Text
-name|midKey
-init|=
-operator|new
-name|Text
-argument_list|()
-decl_stmt|;
-name|assertTrue
-argument_list|(
-name|r
-operator|.
-name|needsSplit
-argument_list|(
-name|midKey
-argument_list|)
-argument_list|)
-expr_stmt|;
 comment|// Assert can get mid key from passed region.
 name|assertGet
 argument_list|(
@@ -1273,6 +1201,8 @@ operator|.
 name|splitRegion
 argument_list|(
 literal|null
+argument_list|,
+name|midKey
 argument_list|)
 decl_stmt|;
 name|assertEquals

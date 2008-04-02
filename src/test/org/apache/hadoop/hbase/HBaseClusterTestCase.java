@@ -217,6 +217,7 @@ specifier|protected
 name|boolean
 name|startDfs
 decl_stmt|;
+comment|/** default constructor */
 specifier|public
 name|HBaseClusterTestCase
 parameter_list|()
@@ -227,7 +228,7 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Start a MiniHBaseCluster with regionServers region servers in-process to    * start with. Also, start a MiniDfsCluster before starting the hbase cluster.    * The configuration used will be edited so that this works correctly.    */
+comment|/**    * Start a MiniHBaseCluster with regionServers region servers in-process to    * start with. Also, start a MiniDfsCluster before starting the hbase cluster.    * The configuration used will be edited so that this works correctly.    * @param regionServers number of region servers to start.    */
 specifier|public
 name|HBaseClusterTestCase
 parameter_list|(
@@ -243,7 +244,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Start a MiniHBaseCluster with regionServers region servers in-process to    * start with. Optionally, startDfs indicates if a MiniDFSCluster should be    * started. If startDfs is false, the assumption is that an external DFS is    * configured in hbase-site.xml and is already started, or you have started a    * MiniDFSCluster on your own and edited the configuration in memory. (You     * can modify the config used by overriding the preHBaseClusterSetup method.)    */
+comment|/**    * Start a MiniHBaseCluster with regionServers region servers in-process to    * start with. Optionally, startDfs indicates if a MiniDFSCluster should be    * started. If startDfs is false, the assumption is that an external DFS is    * configured in hbase-site.xml and is already started, or you have started a    * MiniDFSCluster on your own and edited the configuration in memory. (You     * can modify the config used by overriding the preHBaseClusterSetup method.)    * @param regionServers number of region servers to start.    * @param startDfs set to true if MiniDFS should be started    */
 specifier|public
 name|HBaseClusterTestCase
 parameter_list|(
@@ -279,6 +280,11 @@ throws|throws
 name|Exception
 block|{   }
 comment|/**    * Actually start the MiniHBase instance.    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|protected
 name|void
 name|HBaseClusterSetup
@@ -299,6 +305,7 @@ argument_list|,
 name|regionServers
 argument_list|)
 expr_stmt|;
+comment|// opening the META table ensures that cluster is running
 name|HTable
 name|meta
 init|=

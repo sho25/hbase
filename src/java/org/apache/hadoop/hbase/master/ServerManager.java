@@ -696,7 +696,7 @@ name|servers
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param serverInfo    * @param msgs    * @return messages from master to region server indicating what region    * server should do.    *     * @throws IOException    */
+comment|/**    * Called to process the messages sent from the region server to the master    * along with the heart beat.    *     * @param serverInfo    * @param msgs    * @return messages from master to region server indicating what region    * server should do.    *     * @throws IOException    */
 specifier|public
 name|HMsg
 index|[]
@@ -760,13 +760,9 @@ expr_stmt|;
 return|return
 operator|new
 name|HMsg
-index|[]
-block|{
-name|msgs
 index|[
 literal|0
 index|]
-block|}
 return|;
 block|}
 elseif|else
@@ -850,6 +846,37 @@ name|get
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|msgs
+operator|.
+name|length
+operator|>
+literal|0
+operator|&&
+name|msgs
+index|[
+literal|0
+index|]
+operator|.
+name|getMsg
+argument_list|()
+operator|==
+name|HMsg
+operator|.
+name|MSG_REPORT_QUIESCED
+condition|)
+block|{
+comment|// Server is already quiesced, but we aren't ready to shut down
+comment|// return empty response
+return|return
+operator|new
+name|HMsg
+index|[
+literal|0
+index|]
+return|;
+block|}
 comment|// Tell the server to stop serving any user regions
 return|return
 operator|new

@@ -23,16 +23,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|File
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|IOException
 import|;
 end_import
@@ -269,7 +259,7 @@ name|IOException
 block|{
 try|try
 block|{
-name|setup
+name|init
 argument_list|()
 expr_stmt|;
 name|locks
@@ -293,38 +283,9 @@ expr_stmt|;
 name|read
 argument_list|()
 expr_stmt|;
-name|cleanup
-argument_list|()
-expr_stmt|;
 block|}
 finally|finally
 block|{
-if|if
-condition|(
-name|r
-operator|!=
-literal|null
-condition|)
-block|{
-name|r
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|log
-operator|!=
-literal|null
-condition|)
-block|{
-name|log
-operator|.
-name|closeAndDelete
-argument_list|()
-expr_stmt|;
-block|}
 name|StaticTestEnvironment
 operator|.
 name|shutdownDfs
@@ -465,14 +426,45 @@ name|numInserted
 init|=
 literal|0
 decl_stmt|;
-comment|// Create directories, start mini cluster, etc.
-specifier|private
+comment|/** {@inheritDoc} */
+annotation|@
+name|Override
+specifier|public
 name|void
-name|setup
+name|setUp
 parameter_list|()
 throws|throws
-name|IOException
+name|Exception
 block|{
+name|this
+operator|.
+name|conf
+operator|.
+name|set
+argument_list|(
+literal|"hbase.hstore.compactionThreshold"
+argument_list|,
+literal|"2"
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|StaticTestEnvironment
+operator|.
+name|debugging
+condition|)
+block|{
+name|conf
+operator|.
+name|setLong
+argument_list|(
+literal|"hbase.hregion.max.filesize"
+argument_list|,
+literal|65536
+argument_list|)
+expr_stmt|;
+block|}
 name|cluster
 operator|=
 operator|new
@@ -490,6 +482,13 @@ index|[]
 operator|)
 literal|null
 argument_list|)
+expr_stmt|;
+name|fs
+operator|=
+name|cluster
+operator|.
+name|getFileSystem
+argument_list|()
 expr_stmt|;
 comment|// Set the hbase.rootdir to be the home directory in mini dfs.
 name|this
@@ -516,6 +515,20 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|super
+operator|.
+name|setUp
+argument_list|()
+expr_stmt|;
+block|}
+comment|// Create directories, start mini cluster, etc.
+specifier|private
+name|void
+name|init
+parameter_list|()
+throws|throws
+name|IOException
+block|{
 name|desc
 operator|=
 operator|new
@@ -570,6 +583,13 @@ operator|new
 name|HRegionIncommon
 argument_list|(
 name|r
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"setup completed."
 argument_list|)
 expr_stmt|;
 block|}
@@ -684,11 +704,9 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Write "
 operator|+
@@ -723,11 +741,9 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Cache flush elapsed time: "
 operator|+
@@ -924,11 +940,9 @@ name|teststr
 argument_list|)
 expr_stmt|;
 block|}
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Read "
 operator|+
@@ -948,6 +962,13 @@ operator|)
 operator|/
 literal|1000.0
 operator|)
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"basic completed."
 argument_list|)
 expr_stmt|;
 block|}
@@ -1098,6 +1119,13 @@ argument_list|(
 literal|"Bad family"
 argument_list|,
 name|exceptionThrown
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"badPuts completed."
 argument_list|)
 expr_stmt|;
 block|}
@@ -1410,6 +1438,13 @@ comment|// Go around again.
 block|}
 block|}
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"locks completed."
+argument_list|)
+expr_stmt|;
 block|}
 comment|// Test scanners. Writes contents:firstcol and anchor:secondcol
 specifier|private
@@ -1594,11 +1629,9 @@ operator|+=
 literal|2
 expr_stmt|;
 block|}
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Write "
 operator|+
@@ -1872,11 +1905,9 @@ argument_list|,
 name|numFetched
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Scanned "
 operator|+
@@ -1917,11 +1948,9 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Cache flush elapsed time: "
 operator|+
@@ -2183,11 +2212,9 @@ argument_list|,
 name|numFetched
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Scanned "
 operator|+
@@ -2337,11 +2364,9 @@ operator|+=
 literal|2
 expr_stmt|;
 block|}
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Write "
 operator|+
@@ -2613,11 +2638,9 @@ argument_list|,
 name|numFetched
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Scanned "
 operator|+
@@ -2654,11 +2677,9 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Cache flush elapsed time: "
 operator|+
@@ -2906,11 +2927,9 @@ argument_list|,
 name|numFetched
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Scanned "
 operator|+
@@ -3174,11 +3193,9 @@ argument_list|,
 name|numFetched
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Scanned "
 operator|+
@@ -3204,6 +3221,13 @@ literal|1000.0
 operator|)
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"scan completed."
+argument_list|)
+expr_stmt|;
 block|}
 comment|// Do a large number of writes. Disabled if not debugging because it takes a
 comment|// long time to run.
@@ -3223,6 +3247,13 @@ operator|.
 name|debugging
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"batchWrite completed."
+argument_list|)
+expr_stmt|;
 return|return;
 block|}
 name|long
@@ -3378,11 +3409,9 @@ operator|==
 literal|0
 condition|)
 block|{
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Flushing write #"
 operator|+
@@ -3433,7 +3462,7 @@ condition|)
 block|{
 name|System
 operator|.
-name|out
+name|err
 operator|.
 name|print
 argument_list|(
@@ -3469,11 +3498,9 @@ operator|-
 name|logStart
 operator|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"  elapsed time: "
 operator|+
@@ -3499,14 +3526,11 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
 name|r
 operator|.
-name|compactIfNeeded
+name|compactStores
 argument_list|()
-condition|)
-block|{
+expr_stmt|;
 name|totalCompact
 operator|=
 name|System
@@ -3516,11 +3540,9 @@ argument_list|()
 operator|-
 name|startCompact
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Region compacted - elapsedTime: "
 operator|+
@@ -3531,19 +3553,6 @@ literal|1000.0
 operator|)
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"No compaction required."
-argument_list|)
-expr_stmt|;
-block|}
 name|long
 name|endTime
 init|=
@@ -3561,27 +3570,23 @@ operator|-
 name|startTime
 operator|)
 decl_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
-argument_list|()
+name|info
+argument_list|(
+literal|""
+argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Batch-write complete."
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Wrote "
 operator|+
@@ -3594,11 +3599,9 @@ operator|+
 literal|" bytes"
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Total flush-time: "
 operator|+
@@ -3609,11 +3612,9 @@ literal|1000.0
 operator|)
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Total compact-time: "
 operator|+
@@ -3624,11 +3625,9 @@ literal|1000.0
 operator|)
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Total log-time: "
 operator|+
@@ -3639,11 +3638,9 @@ literal|1000.0
 operator|)
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Total time elapsed: "
 operator|+
@@ -3654,11 +3651,9 @@ literal|1000.0
 operator|)
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Total time, rows/second: "
 operator|+
@@ -3673,11 +3668,9 @@ operator|)
 operator|)
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Adjusted time (not including flush, compact, or log): "
 operator|+
@@ -3696,11 +3689,9 @@ literal|1000.0
 operator|)
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Adjusted time, rows/second: "
 operator|+
@@ -3723,12 +3714,19 @@ operator|)
 operator|)
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
+name|info
+argument_list|(
+literal|""
+argument_list|)
+expr_stmt|;
+name|LOG
 operator|.
-name|println
-argument_list|()
+name|info
+argument_list|(
+literal|"batchWrite completed."
+argument_list|)
 expr_stmt|;
 block|}
 comment|// NOTE: This test depends on testBatchWrite succeeding
@@ -3747,6 +3745,19 @@ operator|.
 name|getRegionDir
 argument_list|()
 decl_stmt|;
+name|Text
+name|midKey
+init|=
+name|r
+operator|.
+name|compactStores
+argument_list|()
+decl_stmt|;
+name|assertNotNull
+argument_list|(
+name|midKey
+argument_list|)
+expr_stmt|;
 name|long
 name|startTime
 init|=
@@ -3764,6 +3775,8 @@ operator|.
 name|splitRegion
 argument_list|(
 name|this
+argument_list|,
+name|midKey
 argument_list|)
 decl_stmt|;
 if|if
@@ -3773,11 +3786,9 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Split region elapsed time: "
 operator|+
@@ -3806,6 +3817,45 @@ argument_list|,
 literal|2
 argument_list|)
 expr_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|subregions
+operator|.
+name|length
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|subregions
+index|[
+name|i
+index|]
+operator|=
+name|openClosedRegion
+argument_list|(
+name|subregions
+index|[
+name|i
+index|]
+argument_list|)
+expr_stmt|;
+name|subregions
+index|[
+name|i
+index|]
+operator|.
+name|compactStores
+argument_list|()
+expr_stmt|;
+block|}
 comment|// Now merge it back together
 name|Path
 name|oldRegion1
@@ -3861,11 +3911,9 @@ argument_list|(
 name|r
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Merge regions elapsed time: "
 operator|+
@@ -3905,6 +3953,13 @@ name|oldRegionPath
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"splitAndMerge completed."
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * {@inheritDoc}    */
 specifier|public
@@ -4222,11 +4277,9 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"UNEXPECTED COLUMN "
 operator|+
@@ -4282,11 +4335,9 @@ argument_list|,
 name|anchorFetched
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Scanned "
 operator|+
@@ -4550,11 +4601,9 @@ argument_list|,
 name|numFetched
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Scanned "
 operator|+
@@ -4766,11 +4815,9 @@ argument_list|,
 name|numFetched
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Scanned "
 operator|+
@@ -4953,11 +5000,9 @@ argument_list|,
 name|fetched
 argument_list|)
 expr_stmt|;
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 literal|"Scanned "
 operator|+
@@ -4988,119 +5033,11 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-block|}
-specifier|private
-specifier|static
-name|void
-name|deleteFile
-parameter_list|(
-name|File
-name|f
-parameter_list|)
-block|{
-if|if
-condition|(
-name|f
+name|LOG
 operator|.
-name|isDirectory
-argument_list|()
-condition|)
-block|{
-name|File
-index|[]
-name|children
-init|=
-name|f
-operator|.
-name|listFiles
-argument_list|()
-decl_stmt|;
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|children
-operator|.
-name|length
-condition|;
-name|i
-operator|++
-control|)
-block|{
-name|deleteFile
+name|info
 argument_list|(
-name|children
-index|[
-name|i
-index|]
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-name|f
-operator|.
-name|delete
-argument_list|()
-expr_stmt|;
-block|}
-specifier|private
-name|void
-name|cleanup
-parameter_list|()
-block|{
-try|try
-block|{
-name|r
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-name|r
-operator|=
-literal|null
-expr_stmt|;
-name|log
-operator|.
-name|closeAndDelete
-argument_list|()
-expr_stmt|;
-name|log
-operator|=
-literal|null
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-block|}
-comment|// Delete all the DFS files
-name|deleteFile
-argument_list|(
-operator|new
-name|File
-argument_list|(
-name|System
-operator|.
-name|getProperty
-argument_list|(
-literal|"test.build.data"
-argument_list|)
-argument_list|,
-literal|"dfs"
-argument_list|)
+literal|"read completed."
 argument_list|)
 expr_stmt|;
 block|}
