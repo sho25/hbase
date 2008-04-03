@@ -638,6 +638,7 @@ literal|" to kill list"
 argument_list|)
 expr_stmt|;
 block|}
+comment|// this marks the regions to be closed
 name|localKillList
 operator|.
 name|put
@@ -648,6 +649,19 @@ name|getRegionName
 argument_list|()
 argument_list|,
 name|i
+argument_list|)
+expr_stmt|;
+comment|// this marks the regions to be offlined once they are closed
+name|master
+operator|.
+name|regionManager
+operator|.
+name|markRegionForOffline
+argument_list|(
+name|i
+operator|.
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

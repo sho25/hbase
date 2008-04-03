@@ -3209,7 +3209,15 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Startkey and midkey are same, not splitting"
+literal|"Startkey ("
+operator|+
+name|startKey
+operator|+
+literal|") and midkey + ("
+operator|+
+name|midKey
+operator|+
+literal|") are same, not splitting"
 argument_list|)
 expr_stmt|;
 return|return

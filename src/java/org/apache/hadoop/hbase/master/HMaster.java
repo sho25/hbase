@@ -2646,6 +2646,10 @@ parameter_list|,
 name|HMsg
 name|msgs
 index|[]
+parameter_list|,
+name|HRegionInfo
+index|[]
+name|mostLoadedRegions
 parameter_list|)
 throws|throws
 name|IOException
@@ -2658,6 +2662,8 @@ argument_list|(
 name|serverInfo
 argument_list|,
 name|msgs
+argument_list|,
+name|mostLoadedRegions
 argument_list|)
 return|;
 block|}

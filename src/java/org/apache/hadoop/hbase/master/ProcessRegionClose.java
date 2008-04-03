@@ -72,7 +72,7 @@ import|;
 end_import
 
 begin_comment
-comment|/** * ProcessRegionClose is instantiated when a region server reports that it * has closed a region. */
+comment|/**  * ProcessRegionClose is the way we do post-processing on a closed region. We  * only spawn one of these asynchronous tasks when the region needs to be   * either offlined or deleted. We used to create one of these tasks whenever  * a region was closed, but since closing a region that isn't being offlined  * or deleted doesn't actually require post processing, it's no longer   * necessary.  */
 end_comment
 
 begin_class
@@ -83,13 +83,13 @@ name|ProcessRegionStatusChange
 block|{
 specifier|private
 name|boolean
-name|reassignRegion
+name|offlineRegion
 decl_stmt|;
 specifier|private
 name|boolean
 name|deleteRegion
 decl_stmt|;
-comment|/**   * @param regionInfo   * @param reassignRegion   * @param deleteRegion   */
+comment|/**   * @param master   * @param regionInfo Region to operate on   * @param offlineRegion if true, set the region to offline in meta   * @param deleteRegion if true, delete the region row from meta and then   * delete the region files from disk.   */
 specifier|public
 name|ProcessRegionClose
 parameter_list|(
@@ -100,7 +100,7 @@ name|HRegionInfo
 name|regionInfo
 parameter_list|,
 name|boolean
-name|reassignRegion
+name|offlineRegion
 parameter_list|,
 name|boolean
 name|deleteRegion
@@ -115,9 +115,9 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|reassignRegion
+name|offlineRegion
 operator|=
-name|reassignRegion
+name|offlineRegion
 expr_stmt|;
 name|this
 operator|.
@@ -148,7 +148,7 @@ literal|", "
 operator|+
 name|this
 operator|.
-name|reassignRegion
+name|offlineRegion
 operator|+
 literal|", "
 operator|+
@@ -249,12 +249,11 @@ block|}
 elseif|else
 if|if
 condition|(
-operator|!
-name|this
-operator|.
-name|reassignRegion
+name|offlineRegion
 condition|)
 block|{
+comment|// offline the region in meta and then note that we've offlined the
+comment|// region.
 name|HRegion
 operator|.
 name|offlineRegionInMETA
@@ -265,6 +264,18 @@ argument_list|,
 name|metaRegionName
 argument_list|,
 name|regionInfo
+argument_list|)
+expr_stmt|;
+name|master
+operator|.
+name|regionManager
+operator|.
+name|regionOfflined
+argument_list|(
+name|regionInfo
+operator|.
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -297,34 +308,8 @@ block|}
 continue|continue;
 block|}
 block|}
-if|if
-condition|(
-name|reassignRegion
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"reassign region: "
-operator|+
-name|regionInfo
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|master
-operator|.
-name|regionManager
-operator|.
-name|setUnassigned
-argument_list|(
-name|regionInfo
-argument_list|)
-expr_stmt|;
-block|}
-elseif|else
+comment|// now that meta is updated, if we need to delete the region's files, now's
+comment|// the time.
 if|if
 condition|(
 name|deleteRegion

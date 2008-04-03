@@ -254,6 +254,22 @@ operator|=
 name|numberOfRegions
 expr_stmt|;
 block|}
+comment|/**    * @param numberOfRequests the numberOfRequests to set    */
+specifier|public
+name|void
+name|setNumberOfRequests
+parameter_list|(
+name|int
+name|numberOfRequests
+parameter_list|)
+block|{
+name|this
+operator|.
+name|numberOfRequests
+operator|=
+name|numberOfRequests
+expr_stmt|;
+block|}
 comment|// Writable
 comment|/** {@inheritDoc} */
 specifier|public

@@ -85,6 +85,20 @@ name|HMsg
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HRegionInfo
+import|;
+end_import
+
 begin_comment
 comment|/**  * HRegionServers interact with the HMasterRegionInterface to report on local   * goings-on and to obtain data-handling instructions from the HMaster.  */
 end_comment
@@ -116,7 +130,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called to renew lease, tell master what the region server is doing and to    * receive new instructions from the master    *     * @param info server's address and start code    * @param msgs things the region server wants to tell the master    * @return instructions from the master to the region server    * @throws IOException    */
+comment|/**    * Called to renew lease, tell master what the region server is doing and to    * receive new instructions from the master    *     * @param info server's address and start code    * @param msgs things the region server wants to tell the master    * @param mostLoadedRegions Array of HRegionInfos that should contain the     * reporting server's most loaded regions. These are candidates for being    * rebalanced.    * @return instructions from the master to the region server    * @throws IOException    */
 specifier|public
 name|HMsg
 index|[]
@@ -127,6 +141,10 @@ name|info
 parameter_list|,
 name|HMsg
 name|msgs
+index|[]
+parameter_list|,
+name|HRegionInfo
+name|mostLoadedRegions
 index|[]
 parameter_list|)
 throws|throws

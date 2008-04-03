@@ -830,6 +830,17 @@ name|code
 operator|++
 argument_list|)
 expr_stmt|;
+name|addToMap
+argument_list|(
+name|HRegionInfo
+index|[]
+operator|.
+expr|class
+argument_list|,
+name|code
+operator|++
+argument_list|)
+expr_stmt|;
 block|}
 specifier|private
 name|Class

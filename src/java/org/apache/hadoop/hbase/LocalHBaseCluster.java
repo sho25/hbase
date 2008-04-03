@@ -461,6 +461,41 @@ operator|.
 name|regionServer
 return|;
 block|}
+comment|/**      * Block until the region server has come online, indicating it is ready      * to be used.      */
+specifier|public
+name|void
+name|waitForServerOnline
+parameter_list|()
+block|{
+while|while
+condition|(
+operator|!
+name|regionServer
+operator|.
+name|isOnline
+argument_list|()
+condition|)
+block|{
+try|try
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+comment|// continue waiting
+block|}
+block|}
+block|}
 block|}
 comment|/**    * @return the HMaster thread    */
 specifier|public

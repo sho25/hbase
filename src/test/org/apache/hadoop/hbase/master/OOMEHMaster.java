@@ -117,6 +117,20 @@ name|HMsg
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HRegionInfo
+import|;
+end_import
+
 begin_comment
 comment|/**  * An HMaster that runs out of memory.  * Everytime a region server reports in, add to the retained heap of memory.  * Needs to be started manually as in  *<code>${HBASE_HOME}/bin/hbase ./bin/hbase org.apache.hadoop.hbase.OOMEHMaster start/code>.  */
 end_comment
@@ -197,6 +211,10 @@ parameter_list|,
 name|HMsg
 index|[]
 name|msgs
+parameter_list|,
+name|HRegionInfo
+index|[]
+name|mostLoadedRegions
 parameter_list|)
 throws|throws
 name|IOException
@@ -225,6 +243,8 @@ argument_list|(
 name|serverInfo
 argument_list|,
 name|msgs
+argument_list|,
+name|mostLoadedRegions
 argument_list|)
 return|;
 block|}

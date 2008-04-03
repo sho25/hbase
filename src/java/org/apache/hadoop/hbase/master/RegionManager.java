@@ -63,30 +63,6 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|BlockingQueue
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|LinkedBlockingQueue
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
 name|locks
 operator|.
 name|Lock
@@ -124,16 +100,6 @@ operator|.
 name|util
 operator|.
 name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|HashMap
 import|;
 end_import
 
@@ -512,7 +478,7 @@ argument_list|>
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/**    * The 'unassignedRegions' table maps from a HRegionInfo to a timestamp that    * indicates the last time we *tried* to assign the region to a RegionServer.    * If the timestamp is out of date, then we can try to reassign it.     *     * We fill 'unassignedRecords' by scanning ROOT and META tables, learning the    * set of all known valid regions.    *     *<p>Items are removed from this list when a region server reports in that    * the region has been deployed.    */
+comment|/**    * The 'unassignedRegions' table maps from a HRegionInfo to a timestamp that    * indicates the last time we *tried* to assign the region to a RegionServer.    * If the timestamp is out of date, then we can try to reassign it.     *     * We fill 'unassignedRecords' by scanning ROOT and META tables, learning the    * set of all known valid regions.    *     *<p>Items are removed from this list when a region server reports in that    * the region has been deployed.    *    * TODO: Need to be a sorted map?    */
 specifier|private
 specifier|final
 name|SortedMap
@@ -609,14 +575,14 @@ argument_list|>
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/** Regions that are being reassigned for load balancing. */
+comment|/**    * 'regionsToDelete' contains regions that need to be deleted, but cannot be    * until the region server closes it    */
 specifier|private
 specifier|final
 name|Set
 argument_list|<
 name|Text
 argument_list|>
-name|regionsBeingReassigned
+name|regionsToDelete
 init|=
 name|Collections
 operator|.
@@ -630,14 +596,14 @@ argument_list|>
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/**    * 'regionsToDelete' contains regions that need to be deleted, but cannot be    * until the region server closes it    */
+comment|/**    * Set of regions that, once closed, should be marked as offline so that they    * are not reassigned.    */
 specifier|private
 specifier|final
 name|Set
 argument_list|<
 name|Text
 argument_list|>
-name|regionsToDelete
+name|regionsToOffline
 init|=
 name|Collections
 operator|.
@@ -782,6 +748,10 @@ parameter_list|,
 name|String
 name|serverName
 parameter_list|,
+name|HRegionInfo
+index|[]
+name|mostLoadedRegions
+parameter_list|,
 name|ArrayList
 argument_list|<
 name|HMsg
@@ -789,6 +759,14 @@ argument_list|>
 name|returnMsgs
 parameter_list|)
 block|{
+name|HServerLoad
+name|thisServersLoad
+init|=
+name|info
+operator|.
+name|getLoad
+argument_list|()
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|unassignedRegions
@@ -797,128 +775,98 @@ block|{
 comment|// We need to hold a lock on assign attempts while we figure out what to
 comment|// do so that multiple threads do not execute this method in parallel
 comment|// resulting in assigning the same region to multiple servers.
-name|long
-name|now
-init|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-decl_stmt|;
+comment|// figure out what regions need to be assigned and aren't currently being
+comment|// worked on elsewhere.
 name|Set
 argument_list|<
 name|HRegionInfo
 argument_list|>
 name|regionsToAssign
 init|=
-operator|new
-name|HashSet
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|()
-decl_stmt|;
-for|for
-control|(
-name|Map
-operator|.
-name|Entry
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|Long
-argument_list|>
-name|e
-range|:
-name|unassignedRegions
-operator|.
-name|entrySet
-argument_list|()
-control|)
-block|{
-name|HRegionInfo
-name|i
-init|=
-name|e
-operator|.
-name|getKey
+name|regionsAwaitingAssignment
 argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|numberOfMetaRegions
-operator|.
-name|get
-argument_list|()
-operator|!=
-name|onlineMetaRegions
+name|regionsToAssign
 operator|.
 name|size
 argument_list|()
-operator|&&
-operator|!
-name|i
-operator|.
-name|isMetaRegion
-argument_list|()
+operator|==
+literal|0
 condition|)
 block|{
-comment|// Can't assign user regions until all meta regions have been assigned
-comment|// and are on-line
-continue|continue;
-block|}
-name|long
-name|diff
+comment|// There are no regions waiting to be assigned. This is an opportunity
+comment|// for us to check if this server is overloaded.
+name|double
+name|avgLoad
 init|=
-name|now
-operator|-
-name|e
+name|master
 operator|.
-name|getValue
-argument_list|()
+name|serverManager
 operator|.
-name|longValue
+name|getAverageLoad
 argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|diff
+name|avgLoad
 operator|>
-name|master
+literal|2.0
+operator|&&
+name|thisServersLoad
 operator|.
-name|maxRegionOpenTime
+name|getNumberOfRegions
+argument_list|()
+operator|>
+name|avgLoad
 condition|)
 block|{
-name|regionsToAssign
+if|if
+condition|(
+name|LOG
 operator|.
-name|add
-argument_list|(
-name|e
-operator|.
-name|getKey
+name|isDebugEnabled
 argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Server "
+operator|+
+name|serverName
+operator|+
+literal|" is overloaded. Server load: "
+operator|+
+name|thisServersLoad
+operator|.
+name|getNumberOfRegions
+argument_list|()
+operator|+
+literal|" avg: "
+operator|+
+name|avgLoad
+argument_list|)
+expr_stmt|;
+block|}
+name|unassignSomeRegions
+argument_list|(
+name|thisServersLoad
+argument_list|,
+name|avgLoad
+argument_list|,
+name|mostLoadedRegions
+argument_list|,
+name|returnMsgs
 argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|int
-name|nRegionsToAssign
-init|=
-name|regionsToAssign
-operator|.
-name|size
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|nRegionsToAssign
-operator|<=
-literal|0
-condition|)
+else|else
 block|{
-comment|// No regions to assign.  Return.
-return|return;
-block|}
+comment|// if there's only one server, just give it all the regions
 if|if
 condition|(
 name|master
@@ -940,17 +888,60 @@ argument_list|,
 name|returnMsgs
 argument_list|)
 expr_stmt|;
-comment|// Finished.  Return.
-return|return;
 block|}
-comment|// Multiple servers in play.
-comment|// We need to allocate regions only to most lightly loaded servers.
+else|else
+block|{
+comment|// otherwise, give this server a few regions taking into account the
+comment|// load of all the other servers.
+name|assignRegionsToMultipleServers
+argument_list|(
+name|thisServersLoad
+argument_list|,
+name|regionsToAssign
+argument_list|,
+name|serverName
+argument_list|,
+name|returnMsgs
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+block|}
+comment|/**    * Make region assignments taking into account multiple servers' loads.    */
+specifier|private
+name|void
+name|assignRegionsToMultipleServers
+parameter_list|(
+specifier|final
 name|HServerLoad
 name|thisServersLoad
+parameter_list|,
+specifier|final
+name|Set
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regionsToAssign
+parameter_list|,
+specifier|final
+name|String
+name|serverName
+parameter_list|,
+specifier|final
+name|ArrayList
+argument_list|<
+name|HMsg
+argument_list|>
+name|returnMsgs
+parameter_list|)
+block|{
+name|int
+name|nRegionsToAssign
 init|=
-name|info
+name|regionsToAssign
 operator|.
-name|getLoad
+name|size
 argument_list|()
 decl_stmt|;
 name|int
@@ -977,149 +968,28 @@ block|{
 comment|// We still have more regions to assign. See how many we can assign
 comment|// before this server becomes more heavily loaded than the next
 comment|// most heavily loaded server.
-name|SortedMap
-argument_list|<
 name|HServerLoad
-argument_list|,
-name|Set
-argument_list|<
-name|String
-argument_list|>
-argument_list|>
-name|heavyServers
+name|heavierLoad
 init|=
 operator|new
-name|TreeMap
-argument_list|<
 name|HServerLoad
-argument_list|,
-name|Set
-argument_list|<
-name|String
-argument_list|>
-argument_list|>
 argument_list|()
 decl_stmt|;
-synchronized|synchronized
-init|(
-name|master
-operator|.
-name|serverManager
-operator|.
-name|loadToServers
-init|)
-block|{
-name|heavyServers
-operator|.
-name|putAll
-argument_list|(
-name|master
-operator|.
-name|serverManager
-operator|.
-name|loadToServers
-operator|.
-name|tailMap
-argument_list|(
-name|thisServersLoad
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
 name|int
 name|nservers
 init|=
-literal|0
-decl_stmt|;
-name|HServerLoad
-name|heavierLoad
-init|=
-literal|null
-decl_stmt|;
-for|for
-control|(
-name|Map
-operator|.
-name|Entry
-argument_list|<
-name|HServerLoad
-argument_list|,
-name|Set
-argument_list|<
-name|String
-argument_list|>
-argument_list|>
-name|e
-range|:
-name|heavyServers
-operator|.
-name|entrySet
-argument_list|()
-control|)
-block|{
-name|Set
-argument_list|<
-name|String
-argument_list|>
-name|servers
-init|=
-name|e
-operator|.
-name|getValue
-argument_list|()
-decl_stmt|;
-name|nservers
-operator|+=
-name|servers
-operator|.
-name|size
-argument_list|()
-expr_stmt|;
-if|if
-condition|(
-name|e
-operator|.
-name|getKey
-argument_list|()
-operator|.
-name|compareTo
+name|computeNextHeaviestLoad
 argument_list|(
 name|thisServersLoad
-argument_list|)
-operator|==
-literal|0
-condition|)
-block|{
-comment|// This is the load factor of the server we are considering
-name|nservers
-operator|-=
-literal|1
-expr_stmt|;
-continue|continue;
-block|}
-comment|// If we get here, we are at the first load entry that is a
-comment|// heavier load than the server we are considering
+argument_list|,
 name|heavierLoad
-operator|=
-name|e
-operator|.
-name|getKey
-argument_list|()
-expr_stmt|;
-break|break;
-block|}
+argument_list|)
+decl_stmt|;
 name|nregions
 operator|=
 literal|0
 expr_stmt|;
-if|if
-condition|(
-name|heavierLoad
-operator|!=
-literal|null
-condition|)
-block|{
-comment|// There is a more heavily loaded server
+comment|// Advance past any less-loaded servers
 for|for
 control|(
 name|HServerLoad
@@ -1169,7 +1039,6 @@ operator|++
 control|)
 block|{
 comment|// continue;
-block|}
 block|}
 if|if
 condition|(
@@ -1269,13 +1138,14 @@ operator|.
 name|maxAssignInOneGo
 expr_stmt|;
 block|}
+name|long
 name|now
-operator|=
+init|=
 name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 for|for
 control|(
 name|HRegionInfo
@@ -1342,7 +1212,6 @@ block|}
 block|}
 block|}
 block|}
-block|}
 comment|/*    * @param nRegionsToAssign    * @param thisServersLoad    * @return How many regions we can assign to more lightly loaded servers    */
 specifier|private
 name|int
@@ -1350,7 +1219,7 @@ name|regionsPerServer
 parameter_list|(
 specifier|final
 name|int
-name|nRegionsToAssign
+name|numUnassignedRegions
 parameter_list|,
 specifier|final
 name|HServerLoad
@@ -1380,6 +1249,7 @@ argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|// Get all the servers who are more lightly loaded than this one.
 synchronized|synchronized
 init|(
 name|master
@@ -1406,6 +1276,10 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Examine the list of servers that are more lightly loaded than this one.
+comment|// Pretend that we will assign regions to these more lightly loaded servers
+comment|// until they reach load equal with ours. Then, see how many regions are left
+comment|// unassigned. That is how many regions we should assign to this server.
 name|int
 name|nRegions
 init|=
@@ -1487,7 +1361,7 @@ literal|0
 operator|&&
 name|nRegions
 operator|<
-name|nRegionsToAssign
+name|numUnassignedRegions
 condition|)
 do|;
 name|nRegions
@@ -1504,7 +1378,7 @@ if|if
 condition|(
 name|nRegions
 operator|>=
-name|nRegionsToAssign
+name|numUnassignedRegions
 condition|)
 block|{
 break|break;
@@ -1512,6 +1386,289 @@ block|}
 block|}
 return|return
 name|nRegions
+return|;
+block|}
+comment|/**    * Get the set of regions that should be assignable in this pass.    */
+specifier|private
+name|Set
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regionsAwaitingAssignment
+parameter_list|()
+block|{
+name|long
+name|now
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
+comment|// set of regions we want to assign to this server
+name|Set
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regionsToAssign
+init|=
+operator|new
+name|HashSet
+argument_list|<
+name|HRegionInfo
+argument_list|>
+argument_list|()
+decl_stmt|;
+comment|// Look over the set of regions that aren't currently assigned to
+comment|// determine which we should assign to this server.
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|Long
+argument_list|>
+name|e
+range|:
+name|unassignedRegions
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+name|HRegionInfo
+name|i
+init|=
+name|e
+operator|.
+name|getKey
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|numberOfMetaRegions
+operator|.
+name|get
+argument_list|()
+operator|!=
+name|onlineMetaRegions
+operator|.
+name|size
+argument_list|()
+operator|&&
+operator|!
+name|i
+operator|.
+name|isMetaRegion
+argument_list|()
+condition|)
+block|{
+comment|// Can't assign user regions until all meta regions have been assigned
+comment|// and are on-line
+continue|continue;
+block|}
+comment|// If the last attempt to open this region was pretty recent, then we
+comment|// don't want to try and assign it.
+name|long
+name|diff
+init|=
+name|now
+operator|-
+name|e
+operator|.
+name|getValue
+argument_list|()
+operator|.
+name|longValue
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|diff
+operator|>
+name|master
+operator|.
+name|maxRegionOpenTime
+condition|)
+block|{
+name|regionsToAssign
+operator|.
+name|add
+argument_list|(
+name|e
+operator|.
+name|getKey
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+return|return
+name|regionsToAssign
+return|;
+block|}
+comment|/**    * Figure out the load that is next highest amongst all regionservers. Also,    * return how many servers exist at that load.     */
+specifier|private
+name|int
+name|computeNextHeaviestLoad
+parameter_list|(
+name|HServerLoad
+name|referenceLoad
+parameter_list|,
+name|HServerLoad
+name|heavierLoad
+parameter_list|)
+block|{
+name|SortedMap
+argument_list|<
+name|HServerLoad
+argument_list|,
+name|Set
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+name|heavyServers
+init|=
+operator|new
+name|TreeMap
+argument_list|<
+name|HServerLoad
+argument_list|,
+name|Set
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+argument_list|()
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|master
+operator|.
+name|serverManager
+operator|.
+name|loadToServers
+init|)
+block|{
+name|heavyServers
+operator|.
+name|putAll
+argument_list|(
+name|master
+operator|.
+name|serverManager
+operator|.
+name|loadToServers
+operator|.
+name|tailMap
+argument_list|(
+name|referenceLoad
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+name|int
+name|nservers
+init|=
+literal|0
+decl_stmt|;
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|HServerLoad
+argument_list|,
+name|Set
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+name|e
+range|:
+name|heavyServers
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|servers
+init|=
+name|e
+operator|.
+name|getValue
+argument_list|()
+decl_stmt|;
+name|nservers
+operator|+=
+name|servers
+operator|.
+name|size
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|e
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|compareTo
+argument_list|(
+name|referenceLoad
+argument_list|)
+operator|==
+literal|0
+condition|)
+block|{
+comment|// This is the load factor of the server we are considering
+name|nservers
+operator|-=
+literal|1
+expr_stmt|;
+continue|continue;
+block|}
+comment|// If we get here, we are at the first load entry that is a
+comment|// heavier load than the server we are considering
+name|heavierLoad
+operator|.
+name|setNumberOfRequests
+argument_list|(
+name|e
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|getNumberOfRequests
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|heavierLoad
+operator|.
+name|setNumberOfRegions
+argument_list|(
+name|e
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|getNumberOfRegions
+argument_list|()
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
+return|return
+name|nservers
 return|;
 block|}
 comment|/*    * Assign all to the only server. An unlikely case but still possible.    * @param regionsToAssign    * @param serverName    * @param returnMsgs    */
@@ -1601,6 +1758,187 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * The server checking in right now is overloaded. We will tell it to close    * some or all of its most loaded regions, allowing it to reduce its load.    * The closed regions will then get picked up by other underloaded machines.    */
+specifier|private
+specifier|synchronized
+name|void
+name|unassignSomeRegions
+parameter_list|(
+specifier|final
+name|HServerLoad
+name|load
+parameter_list|,
+specifier|final
+name|double
+name|avgLoad
+parameter_list|,
+specifier|final
+name|HRegionInfo
+index|[]
+name|mostLoadedRegions
+parameter_list|,
+name|ArrayList
+argument_list|<
+name|HMsg
+argument_list|>
+name|returnMsgs
+parameter_list|)
+block|{
+name|int
+name|numRegionsToClose
+init|=
+name|load
+operator|.
+name|getNumberOfRegions
+argument_list|()
+operator|-
+operator|(
+name|int
+operator|)
+name|Math
+operator|.
+name|ceil
+argument_list|(
+name|avgLoad
+argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Choosing to reassign "
+operator|+
+name|numRegionsToClose
+operator|+
+literal|" regions. mostLoadedRegions has "
+operator|+
+name|mostLoadedRegions
+operator|.
+name|length
+operator|+
+literal|" regions in it."
+argument_list|)
+expr_stmt|;
+name|int
+name|regionIdx
+init|=
+literal|0
+decl_stmt|;
+name|int
+name|regionsClosed
+init|=
+literal|0
+decl_stmt|;
+while|while
+condition|(
+name|regionsClosed
+operator|<
+name|numRegionsToClose
+operator|&&
+name|regionIdx
+operator|<
+name|mostLoadedRegions
+operator|.
+name|length
+condition|)
+block|{
+name|HRegionInfo
+name|currentRegion
+init|=
+name|mostLoadedRegions
+index|[
+name|regionIdx
+index|]
+decl_stmt|;
+name|regionIdx
+operator|++
+expr_stmt|;
+comment|// skip the region if it's meta or root
+if|if
+condition|(
+name|currentRegion
+operator|.
+name|isRootRegion
+argument_list|()
+operator|||
+name|currentRegion
+operator|.
+name|isMetaTable
+argument_list|()
+condition|)
+block|{
+continue|continue;
+block|}
+if|if
+condition|(
+name|isClosing
+argument_list|(
+name|currentRegion
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Skipping region "
+operator|+
+name|currentRegion
+operator|.
+name|getRegionName
+argument_list|()
+operator|+
+literal|" because it is already closing."
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Going to close region "
+operator|+
+name|currentRegion
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// make a message to close the region
+name|returnMsgs
+operator|.
+name|add
+argument_list|(
+operator|new
+name|HMsg
+argument_list|(
+name|HMsg
+operator|.
+name|MSG_REGION_CLOSE
+argument_list|,
+name|currentRegion
+argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// mark the region as closing
+name|setClosing
+argument_list|(
+name|currentRegion
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// increment the count of regions we've marked
+name|regionsClosed
+operator|++
+expr_stmt|;
+block|}
+block|}
 comment|/**    * @return Read-only map of online regions.    */
 specifier|public
 name|Map
@@ -1621,7 +1959,7 @@ name|onlineMetaRegions
 argument_list|)
 return|;
 block|}
-comment|/*    * Stop the root and meta scanners so that the region servers serving meta    * regions can shut down.    */
+comment|/**    * Stop the root and meta scanners so that the region servers serving meta    * regions can shut down.    */
 specifier|public
 name|void
 name|stopScanners
@@ -1761,12 +2099,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Block until meta regions are online or we're shutting down.    * @return true if we found meta regions, false if we're closing.    */
 specifier|public
 name|boolean
 name|waitForMetaRegionsOrClose
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 return|return
 name|metaScannerThread
@@ -1775,7 +2112,7 @@ name|waitForMetaRegionsOrClose
 argument_list|()
 return|;
 block|}
-comment|/**    * Search our map of online meta regions to find the first meta region that     * should contain a pointer to<i>newRegion</i>.     */
+comment|/**    * Search our map of online meta regions to find the first meta region that     * should contain a pointer to<i>newRegion</i>.    * @param newRegion    * @return MetaRegion where the newRegion should live    */
 specifier|public
 name|MetaRegion
 name|getFirstMetaRegionForRegion
@@ -1853,8 +2190,6 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-else|else
-block|{
 return|return
 name|onlineMetaRegions
 operator|.
@@ -1880,8 +2215,7 @@ return|;
 block|}
 block|}
 block|}
-block|}
-comment|/**    * Get a set of all the meta regions that contain info about a given table.    */
+comment|/**    * Get a set of all the meta regions that contain info about a given table.    * @param tableName Table you need to know all the meta regions for    * @return set of MetaRegion objects that contain the table    */
 specifier|public
 name|Set
 argument_list|<
@@ -1985,6 +2319,7 @@ return|return
 name|metaRegions
 return|;
 block|}
+comment|/**    * Create a new HRegion, put a row for it into META (or ROOT), and mark the    * new region unassigned so that it will get assigned to a region server.    * @param newRegion HRegionInfo for the region to create    * @param server server hosting the META (or ROOT) region where the new    * region needs to be noted    * @param metaRegionName name of the meta region where new region is to be    * written    * @throws IOException    */
 specifier|public
 name|void
 name|createRegion
@@ -2094,7 +2429,7 @@ name|ZERO_L
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Set a MetaRegion as online. */
+comment|/**     * Set a MetaRegion as online.     * @param metaRegion     */
 specifier|public
 name|void
 name|putMetaRegionOnline
@@ -2116,7 +2451,7 @@ name|metaRegion
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Get a list of online MetaRegions */
+comment|/**     * Get a list of online MetaRegions     * @return list of MetaRegion objects    */
 specifier|public
 name|List
 argument_list|<
@@ -2158,7 +2493,7 @@ return|return
 name|regions
 return|;
 block|}
-comment|/** count of online meta regions */
+comment|/**     * Count of online meta regions     * @return count of online meta regions    */
 specifier|public
 name|int
 name|numOnlineMetaRegions
@@ -2171,7 +2506,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/** Check if a meta region is online by its name */
+comment|/**     * Check if a meta region is online by its name     * @param startKey name of the meta region to check    * @return true if the region is online, false otherwise    */
 specifier|public
 name|boolean
 name|isMetaRegionOnline
@@ -2189,7 +2524,7 @@ name|startKey
 argument_list|)
 return|;
 block|}
-comment|/** Set an online MetaRegion offline - remove it from the map. **/
+comment|/**     * Set an online MetaRegion offline - remove it from the map.     * @param startKey region name    */
 specifier|public
 name|void
 name|offlineMetaRegion
@@ -2206,7 +2541,7 @@ name|startKey
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Check if a region is unassigned */
+comment|/**     * Check if a region is on the unassigned list    * @param info HRegionInfo to check for    * @return true if on the unassigned list, false if it isn't. Note that this    * means a region could not be on the unassigned list AND not be assigned, if    * it happens to be between states.    */
 specifier|public
 name|boolean
 name|isUnassigned
@@ -2224,7 +2559,7 @@ name|info
 argument_list|)
 return|;
 block|}
-comment|/** Check if a region is pending */
+comment|/**    * Check if a region is pending     * @param regionName name of the region    * @return true if pending, false otherwise    */
 specifier|public
 name|boolean
 name|isPending
@@ -2242,7 +2577,7 @@ name|regionName
 argument_list|)
 return|;
 block|}
-comment|/** Set a region to unassigned */
+comment|/**     * Set a region to unassigned     * @param info Region to set unassigned    */
 specifier|public
 name|void
 name|setUnassigned
@@ -2298,7 +2633,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/** Set a region to pending assignment */
+comment|/**    * Set a region to pending assignment     * @param regionName    */
 specifier|public
 name|void
 name|setPending
@@ -2315,7 +2650,7 @@ name|regionName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Unset region's pending status */
+comment|/**    * Unset region's pending status     * @param regionName     */
 specifier|public
 name|void
 name|noLongerPending
@@ -2332,7 +2667,7 @@ name|regionName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Update the deadline for a region assignment to be completed */
+comment|/**    * Extend the update assignment deadline for a region.    * @param info Region whose deadline you want to extend    */
 specifier|public
 name|void
 name|updateAssignmentDeadline
@@ -2377,7 +2712,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/** Unset a region's unassigned status */
+comment|/**     * Unset a region's unassigned status     * @param info Region you want to take off the unassigned list    */
 specifier|public
 name|void
 name|noLongerUnassigned
@@ -2394,7 +2729,7 @@ name|info
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Mark a region to be closed */
+comment|/**    * Mark a region to be closed. Server manager will inform hosting region server    * to close the region at its next opportunity.    * @param serverName address info of server    * @param info region to close    */
 specifier|public
 name|void
 name|markToClose
@@ -2448,7 +2783,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/** Mark a bunch of regions as closed not reopen at once for a server */
+comment|/**    * Mark a bunch of regions as to close at once for a server     * @param serverName address info of server    * @param map map of region names to region infos of regions to close    */
 specifier|public
 name|void
 name|markToCloseBulk
@@ -2475,7 +2810,7 @@ name|map
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Get a map of region names to region infos waiting to be offlined for a     * given server     */
+comment|/**     * Get a map of region names to region infos waiting to be offlined for a     * given server     * @param serverName    * @return map of region names to region infos to close    */
 specifier|public
 name|Map
 argument_list|<
@@ -2498,7 +2833,7 @@ name|serverName
 argument_list|)
 return|;
 block|}
-comment|/**    * Check if a region is marked as closed not reopen.    */
+comment|/**    * Check if a region is marked as to close    * @param serverName address info of server    * @param regionName name of the region we might want to close    * @return true if the region is marked to close, false otherwise    */
 specifier|public
 name|boolean
 name|isMarkedToClose
@@ -2546,7 +2881,7 @@ operator|)
 return|;
 block|}
 block|}
-comment|/**    * Mark a region as no longer waiting to be closed and not reopened.     */
+comment|/**    * Mark a region as no longer waiting to be closed. Either it was closed or     * we don't want to close it anymore for some reason.    * @param serverName address info of server    * @param regionName name of the region    */
 specifier|public
 name|void
 name|noLongerMarkedToClose
@@ -2595,7 +2930,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/** Check if a region is closing */
+comment|/**     * Check if a region is closing     * @param regionName     * @return true if the region is marked as closing, false otherwise    */
 specifier|public
 name|boolean
 name|isClosing
@@ -2613,7 +2948,7 @@ name|regionName
 argument_list|)
 return|;
 block|}
-comment|/** Set a region as no longer closing (closed?) */
+comment|/**     * Set a region as no longer closing (closed?)     * @param regionName    */
 specifier|public
 name|void
 name|noLongerClosing
@@ -2630,7 +2965,7 @@ name|regionName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** mark a region as closing */
+comment|/**     * Mark a region as closing     * @param regionName    */
 specifier|public
 name|void
 name|setClosing
@@ -2647,7 +2982,7 @@ name|regionName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add a meta region to the scan queue    */
+comment|/**    * Add a meta region to the scan queue    * @param m MetaRegion that needs to get scanned    * @throws InterruptedException    */
 specifier|public
 name|void
 name|addMetaRegionToScan
@@ -2666,7 +3001,7 @@ name|m
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Mark a region as to be deleted */
+comment|/**     * Mark a region as to be deleted     * @param regionName    */
 specifier|public
 name|void
 name|markRegionForDeletion
@@ -2683,7 +3018,7 @@ name|regionName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Note that a region to delete has been deleted */
+comment|/**     * Note that a region to delete has been deleted     * @param regionName    */
 specifier|public
 name|void
 name|regionDeleted
@@ -2700,7 +3035,59 @@ name|regionName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Check if a region is marked for deletion */
+comment|/**     * Note that a region should be offlined as soon as its closed.     * @param regionName    */
+specifier|public
+name|void
+name|markRegionForOffline
+parameter_list|(
+name|Text
+name|regionName
+parameter_list|)
+block|{
+name|regionsToOffline
+operator|.
+name|add
+argument_list|(
+name|regionName
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**     * Check if a region is marked for offline     * @param regionName    * @return true if marked for offline, false otherwise    */
+specifier|public
+name|boolean
+name|isMarkedForOffline
+parameter_list|(
+name|Text
+name|regionName
+parameter_list|)
+block|{
+return|return
+name|regionsToOffline
+operator|.
+name|contains
+argument_list|(
+name|regionName
+argument_list|)
+return|;
+block|}
+comment|/**     * Region was offlined as planned, remove it from the list to offline     * @param regionName    */
+specifier|public
+name|void
+name|regionOfflined
+parameter_list|(
+name|Text
+name|regionName
+parameter_list|)
+block|{
+name|regionsToOffline
+operator|.
+name|remove
+argument_list|(
+name|regionName
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Check if a region is marked for deletion     * @param regionName    * @return true if marked for deletion, false otherwise    */
 specifier|public
 name|boolean
 name|isMarkedForDeletion
@@ -2718,6 +3105,7 @@ name|regionName
 argument_list|)
 return|;
 block|}
+comment|/**     * Check if the initial root scan has been completed.    * @return true if scan completed, false otherwise    */
 specifier|public
 name|boolean
 name|isInitialRootScanComplete
@@ -2730,6 +3118,7 @@ name|isInitialScanComplete
 argument_list|()
 return|;
 block|}
+comment|/**     * Check if the initial meta scan has been completed.    * @return true if meta completed, false otherwise    */
 specifier|public
 name|boolean
 name|isInitialMetaScanComplete
@@ -2742,6 +3131,7 @@ name|isInitialScanComplete
 argument_list|()
 return|;
 block|}
+comment|/**     * Get the root region location.    * @return HServerAddress describing root region server.    */
 specifier|public
 name|HServerAddress
 name|getRootRegionLocation
@@ -2754,6 +3144,7 @@ name|get
 argument_list|()
 return|;
 block|}
+comment|/**    * Block until either the root region location is available or we're shutting    * down.    */
 specifier|public
 name|void
 name|waitForRootRegionLocation
@@ -2804,6 +3195,7 @@ block|}
 block|}
 block|}
 block|}
+comment|/**    * Return the number of meta regions.    * @return number of meta regions    */
 specifier|public
 name|int
 name|numMetaRegions
@@ -2816,6 +3208,7 @@ name|get
 argument_list|()
 return|;
 block|}
+comment|/**    * Bump the count of meta regions up one    */
 specifier|public
 name|void
 name|incrementNumMetaRegions
@@ -2827,6 +3220,7 @@ name|incrementAndGet
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Set the root region location.    * @param address Address of the region server where the root lives    */
 specifier|public
 name|void
 name|setRootRegionLocation
@@ -2858,6 +3252,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Set the number of meta regions.    * @param num Number of meta regions    */
 specifier|public
 name|void
 name|setNumMetaRegions

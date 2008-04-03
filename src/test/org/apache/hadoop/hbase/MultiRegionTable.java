@@ -51,16 +51,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|SortedMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|TreeMap
 import|;
 end_import
@@ -227,6 +217,7 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|/**    * Default constructor    */
 specifier|public
 name|MultiRegionTable
 parameter_list|()
@@ -1674,7 +1665,7 @@ name|getRegionThreads
 argument_list|()
 control|)
 block|{
-name|SortedMap
+name|Map
 argument_list|<
 name|Text
 argument_list|,
