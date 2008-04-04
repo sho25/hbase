@@ -117,6 +117,22 @@ name|HTable
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|BatchUpdate
+import|;
+end_import
+
 begin_comment
 comment|/**  * Deletes values from tables.  */
 end_comment
@@ -235,12 +251,11 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|long
-name|lockID
+name|BatchUpdate
+name|bu
 init|=
-name|hTable
-operator|.
-name|startUpdate
+operator|new
+name|BatchUpdate
 argument_list|(
 name|rowKey
 argument_list|)
@@ -258,12 +273,10 @@ name|hTable
 argument_list|)
 control|)
 block|{
-name|hTable
+name|bu
 operator|.
 name|delete
 argument_list|(
-name|lockID
-argument_list|,
 operator|new
 name|Text
 argument_list|(
@@ -276,7 +289,7 @@ name|hTable
 operator|.
 name|commit
 argument_list|(
-name|lockID
+name|bu
 argument_list|)
 expr_stmt|;
 block|}

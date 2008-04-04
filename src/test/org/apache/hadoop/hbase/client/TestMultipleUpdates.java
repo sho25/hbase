@@ -74,10 +74,12 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tests that HClient protects against multiple updates  */
+comment|/**  * Tests that HClient protects against multiple updates. This test case will  * be removed at the same time that HTable.startuUpdate and friends are   * removed.  */
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|TestMultipleUpdates
