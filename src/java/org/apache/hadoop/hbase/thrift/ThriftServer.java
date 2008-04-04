@@ -85,7 +85,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|SortedMap
+name|Map
 import|;
 end_import
 
@@ -1659,7 +1659,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|SortedMap
+name|Map
 argument_list|<
 name|Text
 argument_list|,
@@ -1679,7 +1679,7 @@ argument_list|,
 name|timestamp
 argument_list|)
 decl_stmt|;
-comment|// copy the map from type<Text, byte[]> to<byte[], byte[]>
+comment|// copy the map from type<Text, Cell> to<byte[], byte[]>
 name|HashMap
 argument_list|<
 name|byte
@@ -2973,7 +2973,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|SortedMap
+name|Map
 operator|.
 name|Entry
 argument_list|<

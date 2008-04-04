@@ -4891,7 +4891,7 @@ name|Text
 argument_list|>
 name|columns
 parameter_list|,
-name|TreeMap
+name|Map
 argument_list|<
 name|Text
 argument_list|,
@@ -5051,7 +5051,7 @@ name|Long
 argument_list|>
 name|deletes
 parameter_list|,
-name|TreeMap
+name|Map
 argument_list|<
 name|Text
 argument_list|,

@@ -567,7 +567,7 @@ name|Long
 argument_list|>
 name|deletes
 parameter_list|,
-name|SortedMap
+name|Map
 argument_list|<
 name|Text
 argument_list|,
@@ -671,7 +671,7 @@ name|Long
 argument_list|>
 name|deletes
 parameter_list|,
-name|SortedMap
+name|Map
 argument_list|<
 name|Text
 argument_list|,

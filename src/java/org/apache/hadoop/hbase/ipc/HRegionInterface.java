@@ -99,22 +99,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|HbaseMapWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|io
 operator|.
 name|Text
@@ -271,7 +255,7 @@ name|IOException
 function_decl|;
 comment|/**    * Get all the data for the specified row at a given timestamp    *     * @param regionName region name    * @param row row key    * @return map of values    * @throws IOException    */
 specifier|public
-name|HbaseMapWritable
+name|RowResult
 name|getRow
 parameter_list|(
 specifier|final
@@ -291,7 +275,7 @@ name|IOException
 function_decl|;
 comment|/**    * Return all the data for the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it.    *     * @param regionName region name    * @param row row key    * @return map of values    * @throws IOException    */
 specifier|public
-name|HbaseMapWritable
+name|RowResult
 name|getClosestRowBefore
 parameter_list|(
 specifier|final
@@ -307,7 +291,7 @@ name|IOException
 function_decl|;
 comment|/**    * Get selected columns for the specified row at a given timestamp.    *     * @param regionName region name    * @param row row key    * @return map of values    * @throws IOException    */
 specifier|public
-name|HbaseMapWritable
+name|RowResult
 name|getRow
 parameter_list|(
 specifier|final
@@ -332,7 +316,7 @@ name|IOException
 function_decl|;
 comment|/**    * Get selected columns for the specified row at the latest timestamp.    *     * @param regionName region name    * @param row row key    * @return map of values    * @throws IOException    */
 specifier|public
-name|HbaseMapWritable
+name|RowResult
 name|getRow
 parameter_list|(
 specifier|final
