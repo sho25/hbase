@@ -537,38 +537,6 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|setUp
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-comment|// this.conf.set(HConstants.HBASE_DIR, "file:///opt/benchmark/hadoop/hbase");
-name|this
-operator|.
-name|conf
-operator|.
-name|set
-argument_list|(
-name|HConstants
-operator|.
-name|MASTER_ADDRESS
-argument_list|,
-literal|"0.0.0.0:60100"
-argument_list|)
-expr_stmt|;
-comment|// Must call super.setup() after starting mini dfs cluster. Otherwise
-comment|// we get a local file system instead of hdfs
-name|super
-operator|.
-name|setUp
-argument_list|()
-expr_stmt|;
-block|}
-comment|/**    * {@inheritDoc}    */
-annotation|@
-name|Override
-specifier|public
-name|void
 name|tearDown
 parameter_list|()
 throws|throws
