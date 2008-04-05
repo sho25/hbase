@@ -2811,6 +2811,11 @@ name|e
 argument_list|)
 throw|;
 block|}
+name|sleeper
+operator|.
+name|sleep
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 block|}
