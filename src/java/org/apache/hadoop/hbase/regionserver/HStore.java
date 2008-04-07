@@ -2757,6 +2757,19 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Don't flush if there are no entries.
+if|if
+condition|(
+name|cache
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|0
+condition|)
+block|{
+return|return;
+block|}
 synchronized|synchronized
 init|(
 name|flushLock
