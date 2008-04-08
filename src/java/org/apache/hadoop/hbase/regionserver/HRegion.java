@@ -7202,6 +7202,11 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/** {@inheritDoc} */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"null"
+argument_list|)
 specifier|public
 name|boolean
 name|next
@@ -7226,6 +7231,8 @@ name|moreToFollow
 init|=
 literal|false
 decl_stmt|;
+do|do
+block|{
 comment|// Find the lowest-possible key.
 name|Text
 name|chosenRow
@@ -7630,6 +7637,23 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
+block|}
+do|while
+condition|(
+name|filter
+operator|!=
+literal|null
+operator|&&
+name|filter
+operator|.
+name|filterNotNull
+argument_list|(
+name|results
+argument_list|)
+operator|&&
+name|moreToFollow
+condition|)
+do|;
 comment|// Make sure scanners closed if no more results
 if|if
 condition|(
@@ -7671,42 +7695,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-if|if
-condition|(
-name|filter
-operator|!=
-literal|null
-operator|&&
-name|filter
-operator|.
-name|filterNotNull
-argument_list|(
-name|results
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Filter return true on assembled Results in hstore"
-argument_list|)
-expr_stmt|;
-return|return
-name|moreToFollow
-operator|==
-literal|true
-operator|&&
-name|this
-operator|.
-name|next
-argument_list|(
-name|key
-argument_list|,
-name|results
-argument_list|)
-return|;
 block|}
 return|return
 name|moreToFollow
