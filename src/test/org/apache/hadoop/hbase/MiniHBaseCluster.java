@@ -495,6 +495,24 @@ name|getRegionServers
 argument_list|()
 return|;
 block|}
+comment|/**    * Grab a numbered region server of your choice.    * @param serverNumber    * @return region server    */
+specifier|public
+name|HRegionServer
+name|getRegionServer
+parameter_list|(
+name|int
+name|serverNumber
+parameter_list|)
+block|{
+return|return
+name|hbaseCluster
+operator|.
+name|getRegionServer
+argument_list|(
+name|serverNumber
+argument_list|)
+return|;
+block|}
 block|}
 end_class
 

@@ -409,6 +409,33 @@ name|t
 return|;
 block|}
 block|}
+comment|/**    * @param serverNumber    * @return region server    */
+specifier|public
+name|HRegionServer
+name|getRegionServer
+parameter_list|(
+name|int
+name|serverNumber
+parameter_list|)
+block|{
+synchronized|synchronized
+init|(
+name|regionThreads
+init|)
+block|{
+return|return
+name|regionThreads
+operator|.
+name|get
+argument_list|(
+name|serverNumber
+argument_list|)
+operator|.
+name|getRegionServer
+argument_list|()
+return|;
+block|}
+block|}
 comment|/** runs region servers */
 specifier|public
 specifier|static
