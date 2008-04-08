@@ -12,6 +12,8 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|regionserver
 package|;
 end_package
 
@@ -41,26 +43,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Iterator
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|SortedMap
 import|;
 end_import
@@ -79,34 +61,30 @@ name|Text
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HStoreKey
+import|;
+end_import
+
 begin_comment
-comment|/**  * HScannerInterface iterates through a set of rows.  It's implemented by  * several classes.  Implements {@link Iterable} but be sure to still call  * {@link #close()} when done with your {@link Iterator}  */
+comment|/**  * Internal scanners differ from client-side scanners in that they operate on  * HStoreKeys and byte[] instead of RowResults. This is because they are   * actually close to how the data is physically stored, and therefore it is more  * convenient to interact with them that way. It is also much easier to merge   * the results across SortedMaps that RowResults.   *  * Additionally, we need to be able to determine if the scanner is doing wildcard  * column matches (when only a column family is specified or if a column regex  * is specified) or if multiple members of the same column family were  * specified. If so, we need to ignore the timestamp to ensure that we get all  * the family members, as they may have been last updated at different times.  */
 end_comment
 
 begin_interface
 specifier|public
 interface|interface
-name|HScannerInterface
+name|InternalScanner
 extends|extends
 name|Closeable
-extends|,
-name|Iterable
-argument_list|<
-name|Map
-operator|.
-name|Entry
-argument_list|<
-name|HStoreKey
-argument_list|,
-name|SortedMap
-argument_list|<
-name|Text
-argument_list|,
-name|byte
-index|[]
-argument_list|>
-argument_list|>
-argument_list|>
 block|{
 comment|/**    * Grab the next row's worth of values. The scanner will return the most    * recent data value for each row that is not newer than the target time    * passed when the scanner was created.    * @param key will contain the row and timestamp upon return    * @param results will contain an entry for each column family member and its    * value    * @return true if data was returned    * @throws IOException    */
 specifier|public
@@ -128,13 +106,25 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Closes a scanner and releases any resources it has allocated    * @throws IOException    */
+comment|/**    * Closes the scanner and releases any resources it has allocated    * @throws IOException    */
 specifier|public
 name|void
 name|close
 parameter_list|()
 throws|throws
 name|IOException
+function_decl|;
+comment|/** @return true if the scanner is matching a column family or regex */
+specifier|public
+name|boolean
+name|isWildcardScanner
+parameter_list|()
+function_decl|;
+comment|/** @return true if the scanner is matching multiple column family members */
+specifier|public
+name|boolean
+name|isMultipleMatchScanner
+parameter_list|()
 function_decl|;
 block|}
 end_interface

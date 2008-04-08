@@ -163,6 +163,22 @@ name|Reporter
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|BatchUpdate
+import|;
+end_import
+
 begin_comment
 comment|/**  * Write a table, sorting by the input key  */
 end_comment
@@ -197,7 +213,7 @@ name|V
 argument_list|,
 name|Text
 argument_list|,
-name|MapWritable
+name|BatchUpdate
 argument_list|>
 block|{
 comment|/**    * Use this before submitting a TableReduce job. It will    * appropriately set up the JobConf.    *     * @param table    * @param reducer    * @param job    */
@@ -248,6 +264,24 @@ argument_list|,
 name|table
 argument_list|)
 expr_stmt|;
+name|job
+operator|.
+name|setOutputKeyClass
+argument_list|(
+name|Text
+operator|.
+name|class
+argument_list|)
+expr_stmt|;
+name|job
+operator|.
+name|setOutputValueClass
+argument_list|(
+name|BatchUpdate
+operator|.
+name|class
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    *     * @param key    * @param values    * @param output    * @param reporter    * @throws IOException    */
 specifier|public
@@ -268,7 +302,7 @@ name|OutputCollector
 argument_list|<
 name|Text
 argument_list|,
-name|MapWritable
+name|BatchUpdate
 argument_list|>
 name|output
 parameter_list|,

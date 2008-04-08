@@ -2087,7 +2087,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @return a scanner over the keys in the Memcache    */
-name|HInternalScannerInterface
+name|InternalScanner
 name|getScanner
 parameter_list|(
 name|long
@@ -2174,7 +2174,7 @@ expr_stmt|;
 block|}
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|// MemcacheScanner implements the HScannerInterface.
+comment|// MemcacheScanner implements the InternalScanner.
 comment|// It lets the caller scan the contents of the Memcache.
 comment|//////////////////////////////////////////////////////////////////////////////
 class|class

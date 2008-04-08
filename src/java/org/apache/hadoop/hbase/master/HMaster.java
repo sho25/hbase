@@ -2789,6 +2789,16 @@ break|break;
 block|}
 catch|catch
 parameter_list|(
+name|TableExistsException
+name|e
+parameter_list|)
+block|{
+throw|throw
+name|e
+throw|;
+block|}
+catch|catch
+parameter_list|(
 name|IOException
 name|e
 parameter_list|)
@@ -2820,6 +2830,7 @@ block|}
 block|}
 block|}
 specifier|private
+specifier|synchronized
 name|void
 name|createTable
 parameter_list|(
@@ -2841,40 +2852,6 @@ operator|.
 name|getName
 argument_list|()
 decl_stmt|;
-comment|// TODO: Not thread safe check.
-if|if
-condition|(
-name|tableInCreation
-operator|.
-name|contains
-argument_list|(
-name|tableName
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|TableExistsException
-argument_list|(
-literal|"Table "
-operator|+
-name|tableName
-operator|+
-literal|" in process "
-operator|+
-literal|"of being created"
-argument_list|)
-throw|;
-block|}
-name|tableInCreation
-operator|.
-name|add
-argument_list|(
-name|tableName
-argument_list|)
-expr_stmt|;
-try|try
-block|{
 comment|// 1. Check to see if table already exists. Get meta region where
 comment|// table would sit should it exist. Open scanner on it. If a region
 comment|// for the table we want to create already exists, then table already
@@ -2923,10 +2900,7 @@ name|COL_REGIONINFO_ARRAY
 argument_list|,
 name|tableName
 argument_list|,
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
+name|LATEST_TIMESTAMP
 argument_list|,
 literal|null
 argument_list|)
@@ -3013,23 +2987,6 @@ argument_list|,
 name|metaRegionName
 argument_list|)
 expr_stmt|;
-block|}
-finally|finally
-block|{
-name|tableInCreation
-operator|.
-name|remove
-argument_list|(
-name|newRegion
-operator|.
-name|getTableDesc
-argument_list|()
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/** {@inheritDoc} */
 specifier|public

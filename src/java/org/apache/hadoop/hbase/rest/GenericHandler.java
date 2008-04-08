@@ -844,8 +844,7 @@ name|Map
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|m
 parameter_list|)
@@ -864,8 +863,7 @@ name|Entry
 argument_list|<
 name|Text
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|e
 range|:
@@ -934,6 +932,9 @@ operator|.
 name|encodeBytes
 argument_list|(
 name|e
+operator|.
+name|getValue
+argument_list|()
 operator|.
 name|getValue
 argument_list|()

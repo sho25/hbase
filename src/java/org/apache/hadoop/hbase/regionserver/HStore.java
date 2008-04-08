@@ -7394,7 +7394,7 @@ comment|////////////////////////////////////////////////////////////////////////
 comment|// File administration
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/**    * Return a scanner for both the memcache and the HStore files    */
-name|HInternalScannerInterface
+name|InternalScanner
 name|getScanner
 parameter_list|(
 name|long

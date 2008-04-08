@@ -289,6 +289,25 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"First table creation completed"
+argument_list|,
+name|admin
+operator|.
+name|listTables
+argument_list|()
+operator|.
+name|length
+operator|==
+literal|1
+argument_list|)
+expr_stmt|;
+name|boolean
+name|gotException
+init|=
+literal|false
+decl_stmt|;
 try|try
 block|{
 name|admin
@@ -305,6 +324,10 @@ name|TableExistsException
 name|e
 parameter_list|)
 block|{
+name|gotException
+operator|=
+literal|true
+expr_stmt|;
 name|msg
 operator|=
 name|e
@@ -313,6 +336,13 @@ name|getMessage
 argument_list|()
 expr_stmt|;
 block|}
+name|assertTrue
+argument_list|(
+literal|"Didn't get a TableExistsException!"
+argument_list|,
+name|gotException
+argument_list|)
+expr_stmt|;
 name|assertTrue
 argument_list|(
 literal|"Unexpected exception message "
@@ -468,7 +498,20 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-comment|// ignore.
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"Got an IOException... "
+operator|+
+name|e
+argument_list|)
+expr_stmt|;
+name|fail
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 block|}

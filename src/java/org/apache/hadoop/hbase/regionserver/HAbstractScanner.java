@@ -148,7 +148,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Abstract base class that implements the HScannerInterface.  * Used by the concrete HMemcacheScanner and HStoreScanners  */
+comment|/**  * Abstract base class that implements the InternalScanner.  * Used by the concrete HMemcacheScanner and HStoreScanners  */
 end_comment
 
 begin_class
@@ -157,7 +157,7 @@ specifier|abstract
 class|class
 name|HAbstractScanner
 implements|implements
-name|HInternalScannerInterface
+name|InternalScanner
 block|{
 specifier|final
 name|Log
@@ -870,7 +870,7 @@ operator|.
 name|multipleMatchers
 return|;
 block|}
-comment|/**    * Get the next set of values for this scanner.    *     * @param key The key that matched    * @param results All the results for<code>key</code>    * @return true if a match was found    * @throws IOException    *     * @see org.apache.hadoop.hbase.HScannerInterface#next(org.apache.hadoop.hbase.HStoreKey, java.util.SortedMap)    */
+comment|/**    * Get the next set of values for this scanner.    *     * @param key The key that matched    * @param results All the results for<code>key</code>    * @return true if a match was found    * @throws IOException    *     * @see org.apache.hadoop.hbase.InternalScanner#next(org.apache.hadoop.hbase.HStoreKey, java.util.SortedMap)    */
 specifier|public
 name|boolean
 name|next

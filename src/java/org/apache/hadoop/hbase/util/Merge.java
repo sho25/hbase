@@ -655,7 +655,7 @@ name|info1
 init|=
 name|Writables
 operator|.
-name|getHRegionInfoOrNull
+name|getHRegionInfo
 argument_list|(
 name|rootRegion
 operator|.
@@ -667,9 +667,6 @@ name|HConstants
 operator|.
 name|COL_REGIONINFO
 argument_list|)
-operator|.
-name|getValue
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|HRegionInfo
@@ -677,7 +674,7 @@ name|info2
 init|=
 name|Writables
 operator|.
-name|getHRegionInfoOrNull
+name|getHRegionInfo
 argument_list|(
 name|rootRegion
 operator|.
@@ -689,9 +686,6 @@ name|HConstants
 operator|.
 name|COL_REGIONINFO
 argument_list|)
-operator|.
-name|getValue
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|HRegion
@@ -976,7 +970,7 @@ name|info1
 init|=
 name|Writables
 operator|.
-name|getHRegionInfoOrNull
+name|getHRegionInfo
 argument_list|(
 name|metaRegion1
 operator|.
@@ -988,9 +982,6 @@ name|HConstants
 operator|.
 name|COL_REGIONINFO
 argument_list|)
-operator|.
-name|getValue
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|HRegion
@@ -1036,7 +1027,7 @@ name|info2
 init|=
 name|Writables
 operator|.
-name|getHRegionInfoOrNull
+name|getHRegionInfo
 argument_list|(
 name|metaRegion2
 operator|.
@@ -1048,9 +1039,6 @@ name|HConstants
 operator|.
 name|COL_REGIONINFO
 argument_list|)
-operator|.
-name|getValue
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|HRegion

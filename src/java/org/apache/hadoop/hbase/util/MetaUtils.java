@@ -255,7 +255,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HScannerInterface
+name|HStoreKey
 import|;
 end_import
 
@@ -269,7 +269,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HStoreKey
+name|regionserver
+operator|.
+name|InternalScanner
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|Cell
 import|;
 end_import
 
@@ -900,7 +918,7 @@ name|openRootRegion
 argument_list|()
 expr_stmt|;
 block|}
-name|HScannerInterface
+name|InternalScanner
 name|rootScanner
 init|=
 name|rootRegion
@@ -1072,7 +1090,7 @@ argument_list|(
 name|metaRegionInfo
 argument_list|)
 decl_stmt|;
-name|HScannerInterface
+name|InternalScanner
 name|metaScanner
 init|=
 name|metaRegion

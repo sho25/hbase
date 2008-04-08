@@ -346,6 +346,28 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Clear any existing operations; may be hangovers from previous use of
+comment|// this instance.
+if|if
+condition|(
+name|this
+operator|.
+name|operations
+operator|.
+name|size
+argument_list|()
+operator|!=
+literal|0
+condition|)
+block|{
+name|this
+operator|.
+name|operations
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
 name|row
 operator|.
 name|readFields

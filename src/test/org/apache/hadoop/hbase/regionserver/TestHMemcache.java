@@ -1274,7 +1274,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|HInternalScannerInterface
+name|InternalScanner
 name|scanner
 init|=
 name|this

@@ -407,20 +407,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HScannerInterface
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HServerAddress
 import|;
 end_import
@@ -5204,7 +5190,7 @@ argument_list|(
 name|scannerId
 argument_list|)
 decl_stmt|;
-name|HScannerInterface
+name|InternalScanner
 name|s
 init|=
 name|scanners
@@ -5491,7 +5477,7 @@ init|=
 operator|-
 literal|1L
 decl_stmt|;
-name|HScannerInterface
+name|InternalScanner
 name|s
 init|=
 name|r
@@ -5624,7 +5610,7 @@ argument_list|(
 name|scannerId
 argument_list|)
 decl_stmt|;
-name|HScannerInterface
+name|InternalScanner
 name|s
 init|=
 literal|null
@@ -5692,7 +5678,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|HScannerInterface
+name|InternalScanner
 argument_list|>
 name|scanners
 init|=
@@ -5705,7 +5691,7 @@ name|HashMap
 argument_list|<
 name|String
 argument_list|,
-name|HScannerInterface
+name|InternalScanner
 argument_list|>
 argument_list|()
 argument_list|)
@@ -5755,7 +5741,7 @@ operator|+
 literal|" lease expired"
 argument_list|)
 expr_stmt|;
-name|HScannerInterface
+name|InternalScanner
 name|s
 init|=
 literal|null

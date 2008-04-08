@@ -553,20 +553,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HScannerInterface
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|DroppedSnapshotException
 import|;
 end_import
@@ -5075,9 +5061,9 @@ return|return
 name|keys
 return|;
 block|}
-comment|/**    * Return an iterator that scans over the HRegion, returning the indicated     * columns for only the rows that match the data filter.  This Iterator must    * be closed by the caller.    *    * @param cols columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param firstRow row which is the starting point of the scan    * @param timestamp only return rows whose timestamp is<= this value    * @param filter row filter    * @return HScannerInterface    * @throws IOException    */
+comment|/**    * Return an iterator that scans over the HRegion, returning the indicated     * columns for only the rows that match the data filter.  This Iterator must    * be closed by the caller.    *    * @param cols columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param firstRow row which is the starting point of the scan    * @param timestamp only return rows whose timestamp is<= this value    * @param filter row filter    * @return InternalScanner    * @throws IOException    */
 specifier|public
-name|HScannerInterface
+name|InternalScanner
 name|getScanner
 parameter_list|(
 name|Text
@@ -6907,10 +6893,10 @@ specifier|private
 class|class
 name|HScanner
 implements|implements
-name|HScannerInterface
+name|InternalScanner
 block|{
 specifier|private
-name|HInternalScannerInterface
+name|InternalScanner
 index|[]
 name|scanners
 decl_stmt|;
@@ -6973,7 +6959,7 @@ operator|.
 name|scanners
 operator|=
 operator|new
-name|HInternalScannerInterface
+name|InternalScanner
 index|[
 name|stores
 operator|.
@@ -7896,6 +7882,34 @@ argument_list|(
 literal|"Unimplemented serverside. "
 operator|+
 literal|"next(HStoreKey, StortedMap(...) is more efficient"
+argument_list|)
+throw|;
+block|}
+comment|/** {@inheritDoc} */
+specifier|public
+name|boolean
+name|isWildcardScanner
+parameter_list|()
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"Unimplemented on HScanner"
+argument_list|)
+throw|;
+block|}
+comment|/** {@inheritDoc} */
+specifier|public
+name|boolean
+name|isMultipleMatchScanner
+parameter_list|()
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"Unimplemented on HScanner"
 argument_list|)
 throw|;
 block|}

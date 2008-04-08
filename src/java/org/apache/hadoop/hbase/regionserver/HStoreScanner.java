@@ -181,7 +181,7 @@ begin_class
 class|class
 name|HStoreScanner
 implements|implements
-name|HInternalScannerInterface
+name|InternalScanner
 block|{
 specifier|static
 specifier|final
@@ -198,7 +198,7 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|HInternalScannerInterface
+name|InternalScanner
 index|[]
 name|scanners
 decl_stmt|;
@@ -295,7 +295,7 @@ operator|.
 name|scanners
 operator|=
 operator|new
-name|HInternalScannerInterface
+name|InternalScanner
 index|[
 literal|2
 index|]
