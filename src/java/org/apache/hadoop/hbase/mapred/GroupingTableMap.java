@@ -83,22 +83,6 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|RowResult
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
 name|Cell
 import|;
 end_import
@@ -115,21 +99,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|ImmutableBytesWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|MapWritable
+name|RowResult
 import|;
 end_import
 
@@ -144,20 +114,6 @@ operator|.
 name|io
 operator|.
 name|Text
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Writable
 import|;
 end_import
 
@@ -373,7 +329,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Extract the grouping columns from value to construct a new key.    *     * Pass the new key and value to reduce.    * If any of the grouping columns are not found in the value, the record is skipped.    *    * @see org.apache.hadoop.hbase.mapred.TableMap#map(org.apache.hadoop.hbase.HStoreKey, org.apache.hadoop.io.MapWritable, org.apache.hadoop.mapred.OutputCollector, org.apache.hadoop.mapred.Reporter)    */
+comment|/**    * Extract the grouping columns from value to construct a new key.    *     * Pass the new key and value to reduce.    * If any of the grouping columns are not found in the value, the record is skipped.    */
 annotation|@
 name|Override
 specifier|public

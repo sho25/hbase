@@ -37,35 +37,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HStoreKey
-import|;
-end_import
-
-begin_import
-import|import
-name|org
+name|io
 operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|mapred
-operator|.
-name|JobConf
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|mapred
-operator|.
-name|Mapper
+name|RowResult
 import|;
 end_import
 
@@ -80,6 +54,20 @@ operator|.
 name|io
 operator|.
 name|Text
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|mapred
+operator|.
+name|JobConf
 import|;
 end_import
 
@@ -111,22 +99,6 @@ name|Reporter
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|RowResult
-import|;
-end_import
-
 begin_comment
 comment|/**  * Pass the given key and record as-is to reduce  */
 end_comment
@@ -153,6 +125,11 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Use this before submitting a TableMap job. It will    * appropriately set up the JobConf.    *     * @param table table name    * @param columns columns to scan    * @param mapper mapper class    * @param job job configuration    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 specifier|static
 name|void
@@ -198,7 +175,7 @@ name|job
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Pass the key, value to reduce    *    * @see org.apache.hadoop.hbase.mapred.TableMap#map(org.apache.hadoop.hbase.HStoreKey, org.apache.hadoop.io.MapWritable, org.apache.hadoop.mapred.OutputCollector, org.apache.hadoop.mapred.Reporter)    */
+comment|/**    * Pass the key, value to reduce    */
 annotation|@
 name|Override
 specifier|public
