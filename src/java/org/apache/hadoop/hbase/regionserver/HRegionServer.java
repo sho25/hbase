@@ -55,6 +55,18 @@ begin_import
 import|import
 name|java
 operator|.
+name|lang
+operator|.
+name|reflect
+operator|.
+name|Member
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|net
 operator|.
 name|InetSocketAddress
@@ -310,6 +322,20 @@ operator|.
 name|conf
 operator|.
 name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|dfs
+operator|.
+name|AlreadyBeingCreatedException
 import|;
 end_import
 
@@ -3468,6 +3494,46 @@ break|break;
 block|}
 catch|catch
 parameter_list|(
+name|Leases
+operator|.
+name|LeaseStillHeldException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Lease "
+operator|+
+name|e
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" already held on master. Check "
+operator|+
+literal|"DNS configuration so that all region servers are"
+operator|+
+literal|"reporting their true IPs and not 127.0.0.1. Otherwise, this"
+operator|+
+literal|"problem should resolve itself after the lease period of "
+operator|+
+name|this
+operator|.
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"hbase.master.lease.period"
+argument_list|)
+operator|+
+literal|" seconds expires over on the master"
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
 name|IOException
 name|e
 parameter_list|)
@@ -3481,6 +3547,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
 name|sleeper
 operator|.
 name|sleep
@@ -3488,8 +3555,6 @@ argument_list|(
 name|lastMsg
 argument_list|)
 expr_stmt|;
-continue|continue;
-block|}
 block|}
 return|return
 name|result

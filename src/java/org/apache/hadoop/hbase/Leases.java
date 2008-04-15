@@ -109,6 +109,16 @@ name|TimeUnit
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Leases  *  * There are several server classes in HBase that need to track external  * clients that occasionally send heartbeats.  *   *<p>These external clients hold resources in the server class.  * Those resources need to be released if the external client fails to send a  * heartbeat after some interval of time passes.  *  *<p>The Leases class is a general reusable class for this kind of pattern.  * An instance of the Leases class will create a thread to do its dirty work.    * You should close() the instance if you want to clean up the thread properly.  */
 end_comment
@@ -417,7 +427,7 @@ literal|" closed leases"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Obtain a lease    *     * @param leaseName name of the lease    * @param listener listener that will process lease expirations    */
+comment|/**    * Obtain a lease    *     * @param leaseName name of the lease    * @param listener listener that will process lease expirations    * @throws LeaseStillHeldException     */
 specifier|public
 name|void
 name|createLease
@@ -429,6 +439,8 @@ specifier|final
 name|LeaseListener
 name|listener
 parameter_list|)
+throws|throws
+name|LeaseStillHeldException
 block|{
 if|if
 condition|(
@@ -472,13 +484,9 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IllegalStateException
+name|LeaseStillHeldException
 argument_list|(
-literal|"lease '"
-operator|+
 name|leaseName
-operator|+
-literal|"' already exists"
 argument_list|)
 throw|;
 block|}
@@ -498,6 +506,46 @@ argument_list|(
 name|lease
 argument_list|)
 expr_stmt|;
+block|}
+block|}
+comment|/**    * Thrown if we are asked create a lease but lease on passed name already    * exists.    */
+specifier|public
+specifier|static
+class|class
+name|LeaseStillHeldException
+extends|extends
+name|IOException
+block|{
+specifier|private
+specifier|final
+name|String
+name|leaseName
+decl_stmt|;
+specifier|public
+name|LeaseStillHeldException
+parameter_list|(
+specifier|final
+name|String
+name|name
+parameter_list|)
+block|{
+name|this
+operator|.
+name|leaseName
+operator|=
+name|name
+expr_stmt|;
+block|}
+specifier|public
+name|String
+name|getName
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|leaseName
+return|;
 block|}
 block|}
 comment|/**    * Renew a lease    *     * @param leaseName name of lease    */
