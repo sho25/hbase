@@ -2727,14 +2727,39 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|internalFlushCache
-argument_list|(
+name|SortedMap
+argument_list|<
+name|HStoreKey
+argument_list|,
+name|byte
+index|[]
+argument_list|>
+name|cache
+init|=
+name|this
+operator|.
 name|memcache
 operator|.
-name|getSnapshot
+name|snapshot
 argument_list|()
+decl_stmt|;
+name|internalFlushCache
+argument_list|(
+name|cache
 argument_list|,
 name|logCacheFlushId
+argument_list|)
+expr_stmt|;
+comment|// If an exception happens flushing, we let it out without clearing
+comment|// the memcache snapshot.  The old snapshot will be returned when we say
+comment|// 'snapshot', the next time flush comes around.
+name|this
+operator|.
+name|memcache
+operator|.
+name|clearSnapshot
+argument_list|(
+name|cache
 argument_list|)
 expr_stmt|;
 block|}
@@ -2770,6 +2795,9 @@ condition|)
 block|{
 return|return;
 block|}
+comment|// TODO:  We can fail in the below block before we complete adding this
+comment|// flush to list of store files.  Add cleanup of anything put on filesystem
+comment|// if we fail.
 synchronized|synchronized
 init|(
 name|flushLock
@@ -2803,14 +2831,6 @@ literal|1L
 argument_list|,
 literal|null
 argument_list|)
-decl_stmt|;
-name|String
-name|name
-init|=
-name|flushedFile
-operator|.
-name|toString
-argument_list|()
 decl_stmt|;
 name|MapFile
 operator|.
@@ -3073,7 +3093,10 @@ name|debug
 argument_list|(
 literal|"Added "
 operator|+
-name|name
+name|flushedFile
+operator|.
+name|toString
+argument_list|()
 operator|+
 literal|" with "
 operator|+
@@ -6105,8 +6128,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// map of HStoreKeys that are candidates for holding the row key that
-comment|// most closely matches what we're looking for. we'll have to update it
+comment|// Map of HStoreKeys that are candidates for holding the row key that
+comment|// most closely matches what we're looking for. We'll have to update it
 comment|// deletes found all over the place as we go along before finally reading
 comment|// the best key out of it at the end.
 name|SortedMap
@@ -6126,7 +6149,7 @@ name|Long
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|// obtain read lock
+comment|// Obtain read lock
 name|this
 operator|.
 name|lock
@@ -6139,6 +6162,7 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+comment|// Process each store file
 name|MapFile
 operator|.
 name|Reader
@@ -6148,7 +6172,6 @@ init|=
 name|getReaders
 argument_list|()
 decl_stmt|;
-comment|// process each store file
 for|for
 control|(
 name|int
@@ -6182,7 +6205,9 @@ name|candidateKeys
 argument_list|)
 expr_stmt|;
 block|}
-comment|// finally, check the memcache
+comment|// Finally, check the memcache
+name|this
+operator|.
 name|memcache
 operator|.
 name|getRowKeyAtOrBefore
@@ -6192,17 +6217,15 @@ argument_list|,
 name|candidateKeys
 argument_list|)
 expr_stmt|;
-comment|// return the best key from candidateKeys
-if|if
-condition|(
-operator|!
+comment|// Return the best key from candidateKeys
+return|return
 name|candidateKeys
 operator|.
 name|isEmpty
 argument_list|()
-condition|)
-block|{
-return|return
+condition|?
+literal|null
+else|:
 name|candidateKeys
 operator|.
 name|lastKey
@@ -6210,10 +6233,6 @@ argument_list|()
 operator|.
 name|getRow
 argument_list|()
-return|;
-block|}
-return|return
-literal|null
 return|;
 block|}
 finally|finally
