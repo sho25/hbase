@@ -2703,7 +2703,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Flush changes to disk
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Prior to doing a cache flush, we need to snapshot the memcache. Locking is    * handled by the memcache.    */
+comment|/**    * Prior to doing a cache flush, we need to snapshot the memcache.    * TODO: This method is ugly.  Why let client of HStore run snapshots.  How    * do we know they'll be cleaned up?    */
 name|void
 name|snapshotMemcache
 parameter_list|()

@@ -679,10 +679,6 @@ argument_list|(
 name|matcher
 argument_list|)
 expr_stmt|;
-comment|// TODO: Does this multipleMatchers matter any more now that scanners
-comment|// are done at the store level?  It might have mattered when scanners
-comment|// could have been done at the region level when memcache was at the
-comment|// region level rather than down here at store level.
 if|if
 condition|(
 name|matchers

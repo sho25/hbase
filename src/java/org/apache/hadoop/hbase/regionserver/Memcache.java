@@ -53,6 +53,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Collections
 import|;
 end_import
@@ -64,6 +74,16 @@ operator|.
 name|util
 operator|.
 name|HashMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|HashSet
 import|;
 end_import
 
@@ -338,7 +358,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates a snapshot of the current Memcache    * Must be followed by a call to {@link #clearSnapshot(SortedMap)}    * @return Snapshot. Never null.  May have no entries.    */
+comment|/**    * Creates a snapshot of the current Memcache or returns existing snapshot.    * Must be followed by a call to {@link #clearSnapshot(SortedMap)}    * @return Snapshot. Never null.  May have no entries.    */
 name|SortedMap
 argument_list|<
 name|HStoreKey
@@ -376,11 +396,13 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|debug
 argument_list|(
-literal|"Returning extant snapshot. Is there another ongoing "
+literal|"Returning existing snapshot. Either the snapshot was run "
 operator|+
-literal|"flush or did last attempt fail?"
+literal|"by the region -- normal operation but to be fixed -- or there is "
+operator|+
+literal|"another ongoing flush or did we fail last attempt?"
 argument_list|)
 expr_stmt|;
 return|return
@@ -945,7 +967,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Return all the available columns for the given key.  The key indicates a     * row and timestamp, but not a column name.    *    * The returned object should map column names to byte arrays (byte[]).    * @param key    * @param results    */
+comment|/**    * Return all the available columns for the given key.  The key indicates a     * row and timestamp, but not a column name.    * @param key    * @param columns Pass null for all columns else the wanted subset.    * @param deletes Map to accumulate deletes found.    * @param results Where to stick row results found.    */
 name|void
 name|getFull
 parameter_list|(
@@ -2574,12 +2596,13 @@ name|Text
 name|currentRow
 decl_stmt|;
 specifier|private
-specifier|final
 name|Set
 argument_list|<
 name|Text
 argument_list|>
 name|columns
+init|=
+literal|null
 decl_stmt|;
 name|MemcacheScanner
 parameter_list|(
@@ -2621,20 +2644,57 @@ name|this
 operator|.
 name|columns
 operator|=
-name|this
-operator|.
-name|isWildcardScanner
-argument_list|()
-condition|?
-name|this
-operator|.
-name|okCols
-operator|.
-name|keySet
-argument_list|()
-else|:
 literal|null
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|isWildcardScanner
+argument_list|()
+condition|)
+block|{
+name|this
+operator|.
+name|columns
+operator|=
+operator|new
+name|HashSet
+argument_list|<
+name|Text
+argument_list|>
+argument_list|()
+expr_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|targetCols
+operator|.
+name|length
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|this
+operator|.
+name|columns
+operator|.
+name|add
+argument_list|(
+name|targetCols
+index|[
+name|i
+index|]
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 block|}
 annotation|@
 name|Override
