@@ -59,6 +59,20 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|locks
+operator|.
+name|ReentrantLock
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|TimeUnit
 import|;
 end_import
@@ -280,14 +294,12 @@ name|server
 decl_stmt|;
 specifier|private
 specifier|final
-name|Integer
+name|ReentrantLock
 name|lock
 init|=
 operator|new
-name|Integer
-argument_list|(
-literal|0
-argument_list|)
+name|ReentrantLock
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
@@ -444,10 +456,21 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|r
+operator|==
+literal|null
+condition|)
+block|{
+continue|continue;
+block|}
+if|if
+condition|(
 operator|!
-name|flushImmediately
+name|flushRegion
 argument_list|(
 name|r
+argument_list|,
+literal|false
 argument_list|)
 condition|)
 block|{
@@ -580,53 +603,57 @@ block|}
 block|}
 comment|/**    * Only interrupt once it's done with a run through the work loop.    */
 name|void
-name|interruptPolitely
+name|interruptIfNecessary
 parameter_list|()
 block|{
-synchronized|synchronized
-init|(
+if|if
+condition|(
 name|lock
-init|)
+operator|.
+name|tryLock
+argument_list|()
+condition|)
 block|{
+name|this
+operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Flush a region right away, while respecting concurrency with the async    * flushing that is always going on.    */
+comment|/**    * Flush a region right away, while respecting concurrency with the async    * flushing that is always going on.    *     * @param region the region to be flushed    * @param removeFromQueue true if the region needs to be removed from the    * flush queue. False if called from the main run loop and true if called from    * flushSomeRegions to relieve memory pressure from the region server.    *     *<p>In the main run loop, regions have already been removed from the flush    * queue, and if this method is called for the relief of memory pressure,    * this may not be necessarily true. We want to avoid trying to remove     * region from the queue because if it has already been removed, it reqires a    * sequential scan of the queue to determine that it is not in the queue.    *     *<p>If called from flushSomeRegions, the region may be in the queue but    * it may have been determined that the region had a significant amout of     * memory in use and needed to be flushed to relieve memory pressure. In this    * case, its flush may preempt the pending request in the queue, and if so,    * it needs to be removed from the queue to avoid flushing the region multiple    * times.    *     * @return true if the region was successfully flushed, false otherwise. If     * false, there will be accompanying log messages explaining why the log was    * not flushed.    */
 specifier|private
 name|boolean
-name|flushImmediately
+name|flushRegion
 parameter_list|(
 name|HRegion
 name|region
+parameter_list|,
+name|boolean
+name|removeFromQueue
 parameter_list|)
-block|{
-try|try
-block|{
-if|if
-condition|(
-name|region
-operator|!=
-literal|null
-condition|)
 block|{
 synchronized|synchronized
 init|(
 name|regionsInQueue
 init|)
 block|{
-comment|// take the region out of the set and the queue, if it happens to be
-comment|// in the queue. this didn't used to be a constraint, but now that
-comment|// HBASE-512 is in play, we need to try and limit double-flushing
-comment|// regions.
+comment|// take the region out of the set. If removeFromQueue is true, remove it
+comment|// from the queue too if it is there. This didn't used to be a constraint,
+comment|// but now that HBASE-512 is in play, we need to try and limit
+comment|// double-flushing of regions.
+if|if
+condition|(
 name|regionsInQueue
 operator|.
 name|remove
 argument_list|(
 name|region
 argument_list|)
-expr_stmt|;
+operator|&&
+name|removeFromQueue
+condition|)
+block|{
 name|flushQueue
 operator|.
 name|remove
@@ -635,12 +662,13 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
-synchronized|synchronized
-init|(
 name|lock
-init|)
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
 block|{
-comment|// Don't interrupt while we're working
 if|if
 condition|(
 name|region
@@ -658,8 +686,6 @@ argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
-block|}
-block|}
 block|}
 block|}
 catch|catch
@@ -699,6 +725,9 @@ operator|.
 name|stop
 argument_list|()
 expr_stmt|;
+return|return
+literal|false
+return|;
 block|}
 catch|catch
 parameter_list|(
@@ -749,6 +778,15 @@ block|{
 return|return
 literal|false
 return|;
+block|}
+block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 return|return
@@ -991,11 +1029,20 @@ name|firstKey
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|flushImmediately
+if|if
+condition|(
+operator|!
+name|flushRegion
 argument_list|(
 name|biggestMemcacheRegion
+argument_list|,
+literal|true
 argument_list|)
-expr_stmt|;
+condition|)
+block|{
+comment|// Something bad happened - give up.
+break|break;
+block|}
 block|}
 block|}
 block|}
