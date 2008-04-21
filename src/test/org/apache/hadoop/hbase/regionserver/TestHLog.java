@@ -741,7 +741,8 @@ name|computeFilename
 argument_list|(
 name|log
 operator|.
-name|filenum
+name|getFilenum
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|log

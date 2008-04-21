@@ -399,6 +399,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|FSUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Writables
 import|;
 end_import
@@ -588,7 +604,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HRegion stores data for a certain region of a table.  It stores all columns  * for each row. A given table consists of one or more HRegions.  *  *<p>We maintain multiple HStores for a single HRegion.  *   *<p>An HStore is a set of rows with some column data; together,  * they make up all the data for the rows.    *  *<p>Each HRegion has a 'startKey' and 'endKey'.  *     *<p>The first is inclusive, the second is exclusive (except for  * the final region)  The endKey of region 0 is the same as  * startKey for region 1 (if it exists).  The startKey for the  * first region is null. The endKey for the final region is null.  *  *<p>Locking at the HRegion level serves only one purpose: preventing the  * region from being closed (and consequently split) while other operations  * are ongoing. Each row level operation obtains both a row lock and a region  * read lock for the duration of the operation. While a scanner is being  * constructed, getScanner holds a read lock. If the scanner is successfully  * constructed, it holds a read lock until it is closed. A close takes out a  * write lock and consequently will block for ongoing operations and will block  * new operations from starting while the close is in progress.  *   *<p>An HRegion is defined by its table and its key extent.  *   *<p>It consists of at least one HStore.  The number of HStores should be   * configurable, so that data which is accessed together is stored in the same  * HStore.  Right now, we approximate that by building a single HStore for   * each column family.  (This config info will be communicated via the   * tabledesc.)  *   *<p>The HTableDescriptor contains metainfo about the HRegion's table.  * regionName is a unique identifier for this HRegion. (startKey, endKey]  * defines the keyspace for this HRegion.  */
+comment|/**  * HRegion stores data for a certain region of a table.  It stores all columns  * for each row. A given table consists of one or more HRegions.  *  *<p>We maintain multiple HStores for a single HRegion.  *   *<p>An HStore is a set of rows with some column data; together,  * they make up all the data for the rows.    *  *<p>Each HRegion has a 'startKey' and 'endKey'.  *<p>The first is inclusive, the second is exclusive (except for  * the final region)  The endKey of region 0 is the same as  * startKey for region 1 (if it exists).  The startKey for the  * first region is null. The endKey for the final region is null.  *  *<p>Locking at the HRegion level serves only one purpose: preventing the  * region from being closed (and consequently split) while other operations  * are ongoing. Each row level operation obtains both a row lock and a region  * read lock for the duration of the operation. While a scanner is being  * constructed, getScanner holds a read lock. If the scanner is successfully  * constructed, it holds a read lock until it is closed. A close takes out a  * write lock and consequently will block for ongoing operations and will block  * new operations from starting while the close is in progress.  *   *<p>An HRegion is defined by its table and its key extent.  *   *<p>It consists of at least one HStore.  The number of HStores should be   * configurable, so that data which is accessed together is stored in the same  * HStore.  Right now, we approximate that by building a single HStore for   * each column family.  (This config info will be communicated via the   * tabledesc.)  *   *<p>The HTableDescriptor contains metainfo about the HRegion's table.  * regionName is a unique identifier for this HRegion. (startKey, endKey]  * defines the keyspace for this HRegion.  */
 end_comment
 
 begin_class
@@ -1257,7 +1273,7 @@ name|tabledesc
 argument_list|)
 expr_stmt|;
 comment|// Because we compacted the source regions we should have no more than two
-comment|// HStoreFiles per family and there will be no reference stores
+comment|// HStoreFiles per family and there will be no reference store
 name|List
 argument_list|<
 name|HStoreFile
@@ -1329,7 +1345,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Adjusting sequence number of storeFile "
+literal|"Adjusting sequence id of storeFile "
 operator|+
 name|srcFiles
 operator|.
@@ -1337,6 +1353,14 @@ name|get
 argument_list|(
 literal|1
 argument_list|)
+operator|+
+literal|" down by one; sequence id A="
+operator|+
+name|seqA
+operator|+
+literal|", sequence id B="
+operator|+
+name|seqB
 argument_list|)
 expr_stmt|;
 block|}
@@ -2198,6 +2222,38 @@ argument_list|,
 name|HREGION_OLDLOGFILE_NAME
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Opening region "
+operator|+
+name|this
+operator|.
+name|regionInfo
+operator|.
+name|getRegionName
+argument_list|()
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|regionCompactionDir
@@ -2370,11 +2426,14 @@ name|oldLogFile
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Add one to the current maximum sequence id so new edits are beyond.
 name|this
 operator|.
 name|minSequenceId
 operator|=
 name|maxSeqId
+operator|+
+literal|1
 expr_stmt|;
 if|if
 condition|(
@@ -2526,6 +2585,15 @@ operator|.
 name|regionInfo
 operator|.
 name|getRegionName
+argument_list|()
+operator|+
+literal|"/"
+operator|+
+name|this
+operator|.
+name|regionInfo
+operator|.
+name|getEncodedName
 argument_list|()
 operator|+
 literal|" available"
@@ -2856,10 +2924,7 @@ name|abort
 condition|)
 block|{
 name|internalFlushcache
-argument_list|(
-name|snapshotMemcaches
 argument_list|()
-argument_list|)
 expr_stmt|;
 block|}
 name|List
@@ -3719,10 +3784,12 @@ name|debug
 argument_list|(
 literal|"Cleaned up "
 operator|+
-name|splits
+name|FSUtils
 operator|.
-name|toString
-argument_list|()
+name|getPath
+argument_list|(
+name|splits
+argument_list|)
 operator|+
 literal|" "
 operator|+
@@ -4109,29 +4176,9 @@ expr_stmt|;
 comment|// Prevent splits and closes
 try|try
 block|{
-name|long
-name|startTime
-init|=
-operator|-
-literal|1
-decl_stmt|;
-synchronized|synchronized
-init|(
-name|updateLock
-init|)
-block|{
-comment|// Stop updates while we snapshot the memcaches
-name|startTime
-operator|=
-name|snapshotMemcaches
-argument_list|()
-expr_stmt|;
-block|}
 return|return
 name|internalFlushcache
-argument_list|(
-name|startTime
-argument_list|)
+argument_list|()
 return|;
 block|}
 finally|finally
@@ -4167,29 +4214,15 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/*    * It is assumed that updates are blocked for the duration of this method    */
+comment|/**    * Flushing the cache is a little tricky. We have a lot of updates in the    * HMemcache, all of which have also been written to the log. We need to    * write those updates in the HMemcache out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the HMemcache was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the HMemcache from    * the log.)    *     *<p>So, we have a three-step process:    *     *<ul><li>A. Flush the memcache to the on-disk stores, noting the current    * sequence ID for the log.<li>    *     *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memcache-flush.</li>    *     *<li>C. Get rid of the memcache structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *     *<p> This method may block for some time.    *     * @return true if the cache was flushed    *     * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
 specifier|private
-name|long
-name|snapshotMemcaches
+name|boolean
+name|internalFlushcache
 parameter_list|()
+throws|throws
+name|IOException
 block|{
-if|if
-condition|(
-name|this
-operator|.
-name|memcacheSize
-operator|.
-name|get
-argument_list|()
-operator|==
-literal|0
-condition|)
-block|{
-return|return
-operator|-
-literal|1
-return|;
-block|}
+specifier|final
 name|long
 name|startTime
 init|=
@@ -4198,6 +4231,20 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
+comment|// Clear flush flag.
+name|this
+operator|.
+name|flushRequested
+operator|=
+literal|false
+expr_stmt|;
+comment|// Record latest flush time
+name|this
+operator|.
+name|lastFlushTime
+operator|=
+name|startTime
+expr_stmt|;
 if|if
 condition|(
 name|LOG
@@ -4219,7 +4266,7 @@ operator|.
 name|getRegionName
 argument_list|()
 operator|+
-literal|". Size "
+literal|". Current region memcache size "
 operator|+
 name|StringUtils
 operator|.
@@ -4235,37 +4282,19 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// We reset the aggregate memcache size here so that subsequent updates
-comment|// will add to the unflushed size
-name|this
-operator|.
-name|memcacheSize
-operator|.
-name|set
-argument_list|(
-literal|0L
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|flushRequested
-operator|=
-literal|false
-expr_stmt|;
-comment|// Record latest flush time
-name|this
-operator|.
-name|lastFlushTime
-operator|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-expr_stmt|;
+comment|// Stop updates while we snapshot the memcache of all stores. We only have
+comment|// to do this for a moment.  Its quick.  The subsequent sequence id that
+comment|// goes into the HLog after we've flushed all these snapshots also goes
+comment|// into the info file that sits beside the flushed files.
+synchronized|synchronized
+init|(
+name|updateLock
+init|)
+block|{
 for|for
 control|(
 name|HStore
-name|hstore
+name|s
 range|:
 name|stores
 operator|.
@@ -4273,50 +4302,13 @@ name|values
 argument_list|()
 control|)
 block|{
-name|hstore
+name|s
 operator|.
-name|snapshotMemcache
+name|snapshot
 argument_list|()
 expr_stmt|;
 block|}
-return|return
-name|startTime
-return|;
 block|}
-comment|/**    * Flushing the cache is a little tricky. We have a lot of updates in the    * HMemcache, all of which have also been written to the log. We need to    * write those updates in the HMemcache out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the HMemcache was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the HMemcache from    * the log.)    *     *<p>So, we have a three-step process:    *     *<ul><li>A. Flush the memcache to the on-disk stores, noting the current    * sequence ID for the log.<li>    *     *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memcache-flush.</li>    *     *<li>C. Get rid of the memcache structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *     *<p> This method may block for some time.    *     * @param startTime the time the cache was snapshotted or -1 if a flush is    * not needed    *     * @return true if the cache was flushed    *     * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
-specifier|private
-name|boolean
-name|internalFlushcache
-parameter_list|(
-name|long
-name|startTime
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-if|if
-condition|(
-name|startTime
-operator|==
-operator|-
-literal|1
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-comment|// We pass the log to the HMemcache, so we can lock down both
-comment|// simultaneously.  We only have to do this for a moment: we need the
-comment|// HMemcache state at the time of a known log sequence number. Since
-comment|// multiple HRegions may write to a single HLog, the sequence numbers may
-comment|// zoom past unless we lock it.
-comment|//
-comment|// When execution returns from snapshotMemcacheForLog() with a non-NULL
-comment|// value, the HMemcache will have a snapshot object stored that must be
-comment|// explicitly cleaned up using a call to deleteSnapshot() or by calling
-comment|// abort.
-comment|//
 name|long
 name|sequenceId
 init|=
@@ -4345,13 +4337,67 @@ name|values
 argument_list|()
 control|)
 block|{
+name|long
+name|flushed
+init|=
 name|hstore
 operator|.
 name|flushCache
 argument_list|(
 name|sequenceId
 argument_list|)
+decl_stmt|;
+comment|// Subtract amount flushed.
+name|long
+name|size
+init|=
+name|this
+operator|.
+name|memcacheSize
+operator|.
+name|addAndGet
+argument_list|(
+operator|-
+name|flushed
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|size
+operator|<
+literal|0
+condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Memcache size went negative "
+operator|+
+name|size
+operator|+
+literal|"; resetting"
+argument_list|)
 expr_stmt|;
+block|}
+name|this
+operator|.
+name|memcacheSize
+operator|.
+name|set
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 catch|catch
@@ -4454,7 +4500,7 @@ operator|-
 name|startTime
 operator|)
 operator|+
-literal|"ms, sequenceid="
+literal|"ms, sequence id="
 operator|+
 name|sequenceId
 argument_list|)
@@ -6323,22 +6369,12 @@ name|memcacheSize
 operator|.
 name|addAndGet
 argument_list|(
+name|getEntrySize
+argument_list|(
 name|key
-operator|.
-name|getSize
-argument_list|()
-operator|+
-operator|(
+argument_list|,
 name|val
-operator|==
-literal|null
-condition|?
-literal|0
-else|:
-name|val
-operator|.
-name|length
-operator|)
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|stores
@@ -6402,6 +6438,39 @@ literal|true
 expr_stmt|;
 block|}
 block|}
+block|}
+comment|/*    * Calculate size of passed key/value pair.    * Used here when we update region to figure what to add to this.memcacheSize    * Also used in Store when flushing calculating size of flush.  Both need to    * use same method making size calculation.    * @param key    * @param value    * @return Size of the passed key + value    */
+specifier|static
+name|long
+name|getEntrySize
+parameter_list|(
+specifier|final
+name|HStoreKey
+name|key
+parameter_list|,
+name|byte
+index|[]
+name|value
+parameter_list|)
+block|{
+return|return
+name|key
+operator|.
+name|getSize
+argument_list|()
+operator|+
+operator|(
+name|value
+operator|==
+literal|null
+condition|?
+literal|0
+else|:
+name|value
+operator|.
+name|length
+operator|)
+return|;
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Support code
@@ -7903,7 +7972,6 @@ block|}
 block|}
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|Iterator
 argument_list|<
@@ -8070,7 +8138,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Convenience method to open a HRegion.    * @param info Info for region to be opened.    * @param rootDir Root directory for HBase instance    * @param log HLog for region to use    * @param conf    * @return new HRegion    *     * @throws IOException    */
+comment|/**    * Convenience method to open a HRegion outside of an HRegionServer context.    * @param info Info for region to be opened.    * @param rootDir Root directory for HBase instance    * @param log HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf    * @return new HRegion    *     * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -8113,7 +8181,24 @@ name|info
 argument_list|)
 expr_stmt|;
 block|}
-return|return
+if|if
+condition|(
+name|info
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|(
+literal|"Passed region info is null"
+argument_list|)
+throw|;
+block|}
+name|HRegion
+name|r
+init|=
 operator|new
 name|HRegion
 argument_list|(
@@ -8149,6 +8234,27 @@ literal|null
 argument_list|,
 literal|null
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|log
+operator|!=
+literal|null
+condition|)
+block|{
+name|log
+operator|.
+name|setSequenceNumber
+argument_list|(
+name|r
+operator|.
+name|getMinSequenceId
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|r
 return|;
 block|}
 comment|/**    * Inserts a new region's meta information into the passed    *<code>meta</code> region. Used by the HMaster bootstrap code adding    * new table to ROOT table.    *     * @param meta META HRegion to be updated    * @param r HRegion to add to<code>meta</code>    *    * @throws IOException    */

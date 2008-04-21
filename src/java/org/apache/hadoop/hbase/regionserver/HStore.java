@@ -561,6 +561,22 @@ name|Cell
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FSUtils
+import|;
+end_import
+
 begin_comment
 comment|/**  * HStore maintains a bunch of data files.  It is responsible for maintaining   * the memory/file hierarchy and for periodic flushes to disk and compacting   * edits to the file.  *  * Locking and transactions are handled at a higher level.  This API should not   * be called directly by any writer, but rather by an HRegion manager.  */
 end_comment
@@ -1130,29 +1146,11 @@ name|loadOrCreateBloomFilter
 argument_list|()
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"starting "
-operator|+
-name|storeName
-argument_list|)
-expr_stmt|;
-block|}
 comment|// Go through the 'mapdir' and 'infodir' together, make sure that all
 comment|// MapFiles are in a reliable state.  Every entry in 'mapdir' must have a
 comment|// corresponding one in 'loginfodir'. Without a corresponding log info
 comment|// file, the entry in 'mapdir' must be deleted.
-comment|// loadHStoreFiles also computes the max sequence id
+comment|// loadHStoreFiles also computes the max sequence id internally.
 name|this
 operator|.
 name|maxSeqId
@@ -1186,11 +1184,22 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"maximum sequence id for hstore "
+literal|"Loaded "
 operator|+
+name|this
+operator|.
+name|storefiles
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" file(s) in hstore "
+operator|+
+name|this
+operator|.
 name|storeName
 operator|+
-literal|" is "
+literal|", max sequence id "
 operator|+
 name|this
 operator|.
@@ -1239,13 +1248,6 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Move maxSeqId on by one. Why here?  And not in HRegion?
-name|this
-operator|.
-name|maxSeqId
-operator|+=
-literal|1
-expr_stmt|;
 comment|// Finally, start up all the map readers! (There could be more than one
 comment|// since we haven't compacted yet.)
 name|boolean
@@ -1781,34 +1783,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"infodir: "
-operator|+
-name|infodir
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|" mapdir: "
-operator|+
-name|mapdir
-operator|.
-name|toString
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 comment|// Look first at info files.  If a reference, these contain info we need
 comment|// to create the HStoreFile.
 name|FileStatus
@@ -1923,35 +1897,6 @@ literal|1
 argument_list|)
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"loading file "
-operator|+
-name|p
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|", isReference="
-operator|+
-name|isReference
-operator|+
-literal|", file id="
-operator|+
-name|fid
-argument_list|)
-expr_stmt|;
-block|}
 name|HStoreFile
 name|curfile
 init|=
@@ -2116,11 +2061,47 @@ continue|continue;
 block|}
 comment|// TODO: Confirm referent exists.
 comment|// Found map and sympathetic info file.  Add this hstorefile to result.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"loaded "
+operator|+
+name|FSUtils
+operator|.
+name|getPath
+argument_list|(
+name|p
+argument_list|)
+operator|+
+literal|", isReference="
+operator|+
+name|isReference
+operator|+
+literal|", sequence id="
+operator|+
+name|storeSeqId
+argument_list|)
+expr_stmt|;
+block|}
 name|results
 operator|.
 name|put
 argument_list|(
+name|Long
+operator|.
+name|valueOf
+argument_list|(
 name|storeSeqId
+argument_list|)
 argument_list|,
 name|curfile
 argument_list|)
@@ -2703,9 +2684,9 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Flush changes to disk
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Prior to doing a cache flush, we need to snapshot the memcache.    * TODO: This method is ugly.  Why let client of HStore run snapshots.  How    * do we know they'll be cleaned up?    */
+comment|/**    * Snapshot this stores memcache.  Call before running    * {@link #flushCache(long)} so it has some work to do.    */
 name|void
-name|snapshotMemcache
+name|snapshot
 parameter_list|()
 block|{
 name|this
@@ -2716,8 +2697,8 @@ name|snapshot
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Write out a brand-new set of items to the disk.    *    * We should only store key/vals that are appropriate for the data-columns     * stored in this HStore.    *    * Also, we are not expecting any reads of this MapFile just yet.    *    * Return the entire list of HStoreFiles currently used by the HStore.    *    * @param logCacheFlushId flush sequence number    * @throws IOException    */
-name|void
+comment|/**    * Write out current snapshot.  Presumes {@link #snapshot()} has been called    * previously.    * @param logCacheFlushId flush sequence number    * @return count of bytes flushed    * @throws IOException    */
+name|long
 name|flushCache
 parameter_list|(
 specifier|final
@@ -2727,6 +2708,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Get the snapshot to flush.  Presumes that a call to
+comment|// this.memcache.snapshot() has happened earlier up in the chain.
 name|SortedMap
 argument_list|<
 name|HStoreKey
@@ -2740,16 +2723,19 @@ name|this
 operator|.
 name|memcache
 operator|.
-name|snapshot
+name|getSnapshot
 argument_list|()
 decl_stmt|;
+name|long
+name|flushed
+init|=
 name|internalFlushCache
 argument_list|(
 name|cache
 argument_list|,
 name|logCacheFlushId
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 comment|// If an exception happens flushing, we let it out without clearing
 comment|// the memcache snapshot.  The old snapshot will be returned when we say
 comment|// 'snapshot', the next time flush comes around.
@@ -2762,9 +2748,12 @@ argument_list|(
 name|cache
 argument_list|)
 expr_stmt|;
+return|return
+name|flushed
+return|;
 block|}
 specifier|private
-name|void
+name|long
 name|internalFlushCache
 parameter_list|(
 name|SortedMap
@@ -2782,6 +2771,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|long
+name|flushed
+init|=
+literal|0
+decl_stmt|;
 comment|// Don't flush if there are no entries.
 if|if
 condition|(
@@ -2793,7 +2787,9 @@ operator|==
 literal|0
 condition|)
 block|{
-return|return;
+return|return
+name|flushed
+return|;
 block|}
 comment|// TODO:  We can fail in the below block before we complete adding this
 comment|// flush to list of store files.  Add cleanup of anything put on filesystem
@@ -2867,11 +2863,6 @@ comment|// Related, looks like 'merging compactions' in BigTable paper interlace
 comment|// a memcache flush.  We don't.
 name|int
 name|entries
-init|=
-literal|0
-decl_stmt|;
-name|long
-name|cacheSize
 init|=
 literal|0
 decl_stmt|;
@@ -2957,24 +2948,16 @@ name|bytes
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|cacheSize
+name|flushed
 operator|+=
+name|HRegion
+operator|.
+name|getEntrySize
+argument_list|(
 name|curkey
-operator|.
-name|getSize
-argument_list|()
-operator|+
-operator|(
+argument_list|,
 name|bytes
-operator|!=
-literal|null
-condition|?
-name|bytes
-operator|.
-name|length
-else|:
-literal|0
-operator|)
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -3093,10 +3076,15 @@ name|debug
 argument_list|(
 literal|"Added "
 operator|+
+name|FSUtils
+operator|.
+name|getPath
+argument_list|(
 name|flushedFile
 operator|.
-name|toString
+name|getMapFilePath
 argument_list|()
+argument_list|)
 operator|+
 literal|" with "
 operator|+
@@ -3112,7 +3100,7 @@ name|StringUtils
 operator|.
 name|humanReadableInt
 argument_list|(
-name|cacheSize
+name|flushed
 argument_list|)
 operator|+
 literal|", file size "
@@ -3123,12 +3111,6 @@ name|humanReadableInt
 argument_list|(
 name|newStoreSize
 argument_list|)
-operator|+
-literal|" for "
-operator|+
-name|this
-operator|.
-name|storeName
 argument_list|)
 expr_stmt|;
 block|}
@@ -3147,6 +3129,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+return|return
+name|flushed
+return|;
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Compaction
@@ -3208,28 +3193,6 @@ operator|<
 literal|1
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Not compacting "
-operator|+
-name|this
-operator|.
-name|storeName
-operator|+
-literal|" because no store files to compact."
-argument_list|)
-expr_stmt|;
-block|}
 return|return
 name|checkSplit
 argument_list|()
@@ -3260,28 +3223,6 @@ name|isReference
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Not compacting "
-operator|+
-name|this
-operator|.
-name|storeName
-operator|+
-literal|" because only one store file and it is not a reference"
-argument_list|)
-expr_stmt|;
-block|}
 return|return
 name|checkSplit
 argument_list|()
@@ -3299,37 +3240,6 @@ operator|<
 name|compactionThreshold
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Not compacting "
-operator|+
-name|this
-operator|.
-name|storeName
-operator|+
-literal|" because number of stores "
-operator|+
-name|filesToCompact
-operator|.
-name|size
-argument_list|()
-operator|+
-literal|"< compaction threshold "
-operator|+
-name|compactionThreshold
-argument_list|)
-expr_stmt|;
-block|}
 return|return
 name|checkSplit
 argument_list|()
@@ -3392,18 +3302,22 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|" files using "
+literal|" files "
 operator|+
-name|compactionDir
+name|filesToCompact
 operator|.
 name|toString
 argument_list|()
 operator|+
-literal|" for "
+literal|" into "
 operator|+
-name|this
+name|compactionDir
 operator|.
-name|storeName
+name|toUri
+argument_list|()
+operator|.
+name|getPath
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -3646,37 +3560,12 @@ operator|.
 name|toString
 argument_list|()
 operator|+
-literal|": HStoreFile="
+literal|": "
 operator|+
 name|hsf
 operator|.
 name|toString
 argument_list|()
-operator|+
-operator|(
-name|hsf
-operator|.
-name|isReference
-argument_list|()
-condition|?
-literal|", Reference="
-operator|+
-name|hsf
-operator|.
-name|getReference
-argument_list|()
-operator|.
-name|toString
-argument_list|()
-else|:
-literal|""
-operator|)
-operator|+
-literal|" for Store="
-operator|+
-name|this
-operator|.
-name|storeName
 argument_list|)
 expr_stmt|;
 name|closeCompactionReaders
@@ -4556,39 +4445,27 @@ name|debug
 argument_list|(
 literal|"moving "
 operator|+
+name|FSUtils
+operator|.
+name|getPath
+argument_list|(
 name|compactedFile
 operator|.
-name|toString
+name|getMapFilePath
 argument_list|()
-operator|+
-literal|" in "
-operator|+
-name|this
-operator|.
-name|compactionDir
-operator|.
-name|toString
-argument_list|()
+argument_list|)
 operator|+
 literal|" to "
 operator|+
+name|FSUtils
+operator|.
+name|getPath
+argument_list|(
 name|finalCompactedFile
 operator|.
-name|toString
+name|getMapFilePath
 argument_list|()
-operator|+
-literal|" in "
-operator|+
-name|basedir
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|" for "
-operator|+
-name|this
-operator|.
-name|storeName
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -4615,14 +4492,11 @@ literal|"Failed move of compacted file "
 operator|+
 name|finalCompactedFile
 operator|.
+name|getMapFilePath
+argument_list|()
+operator|.
 name|toString
 argument_list|()
-operator|+
-literal|" for "
-operator|+
-name|this
-operator|.
-name|storeName
 argument_list|)
 expr_stmt|;
 return|return;

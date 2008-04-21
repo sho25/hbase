@@ -53,16 +53,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Collections
 import|;
 end_import
@@ -358,14 +348,8 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates a snapshot of the current Memcache or returns existing snapshot.    * Must be followed by a call to {@link #clearSnapshot(SortedMap)}    * @return Snapshot. Never null.  May have no entries.    */
-name|SortedMap
-argument_list|<
-name|HStoreKey
-argument_list|,
-name|byte
-index|[]
-argument_list|>
+comment|/**    * Creates a snapshot of the current Memcache.    * Snapshot must be cleared by call to {@link #clearSnapshot(SortedMap)}    * To get the snapshot made by this method, use    * {@link #getSnapshot}.    */
+name|void
 name|snapshot
 parameter_list|()
 block|{
@@ -381,7 +365,8 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-comment|// If snapshot has entries, then flusher failed or didn't call cleanup.
+comment|// If snapshot currently has entries, then flusher failed or didn't call
+comment|// cleanup.  Log a warning.
 if|if
 condition|(
 name|this
@@ -398,19 +383,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Returning existing snapshot. Either the snapshot was run "
+literal|"Snapshot called again without clearing previous. "
 operator|+
-literal|"by the region -- normal operation but to be fixed -- or there is "
-operator|+
-literal|"another ongoing flush or did we fail last attempt?"
+literal|"Doing nothing. Another ongoing flush or did we fail last attempt?"
 argument_list|)
 expr_stmt|;
-return|return
-name|this
-operator|.
-name|snapshot
-return|;
 block|}
+else|else
+block|{
 comment|// We used to synchronize on the memcache here but we're inside a
 comment|// write lock so removed it. Comment is left in case removal was a
 comment|// mistake. St.Ack
@@ -442,11 +422,7 @@ name|createSynchronizedSortedMap
 argument_list|()
 expr_stmt|;
 block|}
-return|return
-name|this
-operator|.
-name|snapshot
-return|;
+block|}
 block|}
 finally|finally
 block|{
@@ -462,7 +438,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Return the current snapshot.    * @return Return snapshot.    * @see {@link #snapshot()}    * @see {@link #clearSnapshot(SortedMap)}    */
+comment|/**    * Return the current snapshot.    * Called by flusher to get current snapshot made by a previous    * call to {@link snapshot}.    * @return Return snapshot.    * @see {@link #snapshot()}    * @see {@link #clearSnapshot(SortedMap)}    */
 name|SortedMap
 argument_list|<
 name|HStoreKey

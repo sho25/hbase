@@ -389,6 +389,22 @@ name|RemoteExceptionHandler
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FSUtils
+import|;
+end_import
+
 begin_comment
 comment|/**  * HLog stores all the edits to the HStore.  *  * It performs logfile-rolling, so external callers are not aware that the  * underlying file is being rolled.  *  *<p>  * A single HLog is used by several HRegions simultaneously.  *  *<p>  * Each HRegion is identified by a unique long<code>int</code>. HRegions do  * not need to declare themselves before using the HLog; they simply include  * their HRegion-id in the<code>append</code> or  *<code>completeCacheFlush</code> calls.  *  *<p>  * An HLog consists of multiple on-disk files, which have a chronological order.  * As data is flushed to other (better) on-disk structures, the log becomes  * obsolete. We can destroy all the log messages for a given HRegion-id up to  * the most-recent CACHEFLUSH message from that HRegion.  *  *<p>  * It's only practical to delete entire files. Thus, we delete an entire on-disk  * file F when all of the messages in F have a log-sequence-id that's older  * (smaller) than the most-recent CACHEFLUSH message for every HRegion that has  * a message in F.  *  *<p>  * Synchronized methods can never execute in parallel. However, between the  * start of a cache flush and the completion point, appends are allowed but log  * rolling is not. To prevent log rolling taking place during this period, a  * separate reentrant lock is used.  *  *<p>  * TODO: Vuk Ercegovac also pointed out that keeping HBase HRegion edit logs in  * HDFS is currently flawed. HBase writes edits to logs and to a memcache. The  * 'atomic' write to the log is meant to serve as insurance against abnormal  * RegionServer exit: on startup, the log is rerun to reconstruct an HRegion's  * last wholesome state. But files in HDFS do not 'exist' until they are cleanly  * closed -- something that will not happen if RegionServer exits without  * running its 'close'.  */
 end_comment
@@ -519,6 +535,7 @@ name|Long
 argument_list|>
 argument_list|()
 decl_stmt|;
+specifier|private
 specifier|volatile
 name|boolean
 name|closed
@@ -536,18 +553,21 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
+specifier|private
 specifier|volatile
 name|long
 name|logSeqNum
 init|=
 literal|0
 decl_stmt|;
+specifier|private
 specifier|volatile
 name|long
 name|filenum
 init|=
 literal|0
 decl_stmt|;
+specifier|private
 specifier|volatile
 name|long
 name|old_filenum
@@ -555,6 +575,7 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+specifier|private
 specifier|volatile
 name|int
 name|numEntries
@@ -692,6 +713,17 @@ expr_stmt|;
 name|rollWriter
 argument_list|()
 expr_stmt|;
+block|}
+comment|/*    * Accessor for tests.    * @return Current state of the monotonically increasing file id.    */
+name|long
+name|getFilenum
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|filenum
+return|;
 block|}
 comment|/**    * Get the compression type for the hlog files.    * @param c Configuration to use.    * @return the kind of compression to use    */
 specifier|private
@@ -848,12 +880,12 @@ name|debug
 argument_list|(
 literal|"Closing current log writer "
 operator|+
-name|p
+name|FSUtils
 operator|.
-name|toString
-argument_list|()
-operator|+
-literal|" to get a new one"
+name|getPath
+argument_list|(
+name|p
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -951,9 +983,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"new log writer created at "
+literal|"New log writer created at "
 operator|+
+name|FSUtils
+operator|.
+name|getPath
+argument_list|(
 name|newPath
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Can we delete any of the old log files?
@@ -1267,10 +1304,12 @@ name|info
 argument_list|(
 literal|"removing old log file "
 operator|+
-name|p
+name|FSUtils
 operator|.
-name|toString
-argument_list|()
+name|getPath
+argument_list|(
+name|p
+argument_list|)
 operator|+
 literal|" whose highest sequence/edit id is "
 operator|+

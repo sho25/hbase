@@ -1737,7 +1737,7 @@ operator|(
 name|isReference
 argument_list|()
 condition|?
-literal|"/"
+literal|"-"
 operator|+
 name|reference
 operator|.

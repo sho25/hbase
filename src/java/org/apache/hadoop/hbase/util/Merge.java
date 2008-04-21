@@ -885,6 +885,38 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Merging regions "
+operator|+
+name|this
+operator|.
+name|region1
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" and "
+operator|+
+name|this
+operator|.
+name|region2
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" in table "
+operator|+
+name|this
+operator|.
+name|tableName
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Scan the root region for all the meta regions that contain the regions
 comment|// we're merging.
 name|MetaScannerListener
@@ -898,6 +930,8 @@ argument_list|,
 name|region2
 argument_list|)
 decl_stmt|;
+name|this
+operator|.
 name|utils
 operator|.
 name|scanRootRegion
@@ -955,9 +989,30 @@ name|region2
 argument_list|)
 throw|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Found meta for region1 "
+operator|+
+name|meta1
+operator|.
+name|getRegionName
+argument_list|()
+operator|+
+literal|", meta for region2 "
+operator|+
+name|meta2
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|HRegion
 name|metaRegion1
 init|=
+name|this
+operator|.
 name|utils
 operator|.
 name|getMetaRegion
@@ -984,6 +1039,27 @@ name|COL_REGIONINFO
 argument_list|)
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|info1
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|(
+literal|"info1 is null using key "
+operator|+
+name|region1
+operator|+
+literal|" in "
+operator|+
+name|meta1
+argument_list|)
+throw|;
+block|}
 name|HRegion
 name|metaRegion2
 init|=
@@ -1041,6 +1117,23 @@ name|COL_REGIONINFO
 argument_list|)
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|info2
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|(
+literal|"info2 is null using key "
+operator|+
+name|meta2
+argument_list|)
+throw|;
+block|}
 name|HRegion
 name|merged
 init|=
@@ -1280,7 +1373,7 @@ name|getLog
 argument_list|()
 decl_stmt|;
 name|HRegion
-name|region1
+name|r1
 init|=
 name|HRegion
 operator|.
@@ -1302,7 +1395,7 @@ decl_stmt|;
 try|try
 block|{
 name|HRegion
-name|region2
+name|r2
 init|=
 name|HRegion
 operator|.
@@ -1329,9 +1422,9 @@ name|HRegion
 operator|.
 name|merge
 argument_list|(
-name|region1
+name|r1
 argument_list|,
-name|region2
+name|r2
 argument_list|)
 expr_stmt|;
 block|}
@@ -1340,13 +1433,13 @@ block|{
 if|if
 condition|(
 operator|!
-name|region2
+name|r2
 operator|.
 name|isClosed
 argument_list|()
 condition|)
 block|{
-name|region2
+name|r2
 operator|.
 name|close
 argument_list|()
@@ -1359,13 +1452,13 @@ block|{
 if|if
 condition|(
 operator|!
-name|region1
+name|r1
 operator|.
 name|isClosed
 argument_list|()
 condition|)
 block|{
-name|region1
+name|r1
 operator|.
 name|close
 argument_list|()
@@ -1554,6 +1647,7 @@ name|status
 init|=
 literal|0
 decl_stmt|;
+comment|// Why we duplicate code here? St.Ack
 if|if
 condition|(
 name|WritableComparator

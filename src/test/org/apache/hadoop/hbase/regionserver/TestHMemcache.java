@@ -809,6 +809,11 @@ operator|.
 name|size
 argument_list|()
 decl_stmt|;
+name|hmc
+operator|.
+name|snapshot
+argument_list|()
+expr_stmt|;
 name|SortedMap
 argument_list|<
 name|HStoreKey
@@ -820,7 +825,7 @@ name|ss
 init|=
 name|hmc
 operator|.
-name|snapshot
+name|getSnapshot
 argument_list|()
 decl_stmt|;
 comment|// Make some assertions about what just happened.

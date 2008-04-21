@@ -225,7 +225,11 @@ comment|/**    * Not instantiable    */
 specifier|private
 name|FSUtils
 parameter_list|()
-block|{}
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * Checks to see if the specified file system is available    *     * @param fs    * @throws IOException    */
 specifier|public
 specifier|static
@@ -633,6 +637,26 @@ throw|throw
 name|io
 throw|;
 block|}
+block|}
+comment|/**    * Return the 'path' component of a Path.  In Hadoop, Path is an URI.  This    * method returns the 'path' component of a Path's URI: e.g. If a Path is    *<code>hdfs://example.org:9000/hbase_trunk/TestTable/compaction.dir</code>,    * this method returns<code>/hbase_trunk/TestTable/compaction.dir</code>.    * This method is useful if you want to print out a Path without qualifying    * Filesystem instance.    * @param p Filesystem Path whose 'path' component we are to return.    * @return Path portion of the Filesystem     */
+specifier|public
+specifier|static
+name|String
+name|getPath
+parameter_list|(
+name|Path
+name|p
+parameter_list|)
+block|{
+return|return
+name|p
+operator|.
+name|toUri
+argument_list|()
+operator|.
+name|getPath
+argument_list|()
+return|;
 block|}
 block|}
 end_class
