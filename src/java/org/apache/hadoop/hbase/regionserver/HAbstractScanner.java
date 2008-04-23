@@ -502,6 +502,7 @@ name|wildCardmatch
 return|;
 block|}
 block|}
+comment|// Holds matchers for each column family
 specifier|protected
 name|TreeMap
 argument_list|<
@@ -514,19 +515,19 @@ argument_list|>
 argument_list|>
 name|okCols
 decl_stmt|;
-comment|// Holds matchers for each column family
+comment|// True when scanning is done
 specifier|protected
+specifier|volatile
 name|boolean
 name|scannerClosed
 init|=
 literal|false
 decl_stmt|;
-comment|// True when scanning is done
+comment|// The timestamp to match entries against
 specifier|protected
 name|long
 name|timestamp
 decl_stmt|;
-comment|// The timestamp to match entries against
 specifier|private
 name|boolean
 name|wildcardMatch

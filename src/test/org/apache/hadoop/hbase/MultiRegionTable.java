@@ -663,10 +663,10 @@ expr_stmt|;
 comment|// Flush the cache
 name|server
 operator|.
-name|getCacheFlushListener
+name|getFlushRequester
 argument_list|()
 operator|.
-name|flushRequested
+name|request
 argument_list|(
 name|r
 argument_list|)

@@ -6097,10 +6097,10 @@ operator|.
 name|requestCount
 return|;
 block|}
-comment|/** @return reference to CacheFlushListener */
+comment|/** @return reference to FlushRequester */
 specifier|public
-name|CacheFlushListener
-name|getCacheFlushListener
+name|FlushRequester
+name|getFlushRequester
 parameter_list|()
 block|{
 return|return

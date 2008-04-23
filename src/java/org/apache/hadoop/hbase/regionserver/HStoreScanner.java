@@ -541,15 +541,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// As we have now successfully completed initialization, increment the
-comment|// activeScanner count.
-name|store
-operator|.
-name|activeScanners
-operator|.
-name|incrementAndGet
-argument_list|()
-expr_stmt|;
 block|}
 comment|/** @return true if the scanner is a wild card scanner */
 specifier|public
@@ -1379,8 +1370,6 @@ name|void
 name|close
 parameter_list|()
 block|{
-try|try
-block|{
 for|for
 control|(
 name|int
@@ -1416,16 +1405,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-finally|finally
-block|{
-name|store
-operator|.
-name|updateActiveScanners
-argument_list|()
-expr_stmt|;
-block|}
-block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|Iterator
 argument_list|<

@@ -18,17 +18,17 @@ package|;
 end_package
 
 begin_comment
-comment|/**  * Implementors of this interface want to be notified when an HRegion  * determines that a cache flush is needed. A CacheFlushListener (or null)  * must be passed to the HRegion constructor.  */
+comment|/**  * Implementors of this interface want to be notified when an HRegion  * determines that a cache flush is needed. A FlushRequester (or null)  * must be passed to the HRegion constructor so it knows who to call when it  * has a filled memcache.  */
 end_comment
 
 begin_interface
 specifier|public
 interface|interface
-name|CacheFlushListener
+name|FlushRequester
 block|{
 comment|/**    * Tell the listener the cache needs to be flushed.    *     * @param region the HRegion requesting the cache flush    */
 name|void
-name|flushRequested
+name|request
 parameter_list|(
 name|HRegion
 name|region

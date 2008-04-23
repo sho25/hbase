@@ -583,6 +583,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|NotServingRegionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|WrongRegionException
 import|;
 end_import
@@ -1978,6 +1992,7 @@ init|=
 literal|true
 decl_stmt|;
 block|}
+specifier|private
 specifier|volatile
 name|WriteState
 name|writestate
@@ -1996,37 +2011,37 @@ name|long
 name|lastFlushTime
 decl_stmt|;
 specifier|final
-name|CacheFlushListener
+name|FlushRequester
 name|flushListener
 decl_stmt|;
+specifier|private
 specifier|final
 name|int
 name|blockingMemcacheSize
 decl_stmt|;
-specifier|protected
 specifier|final
 name|long
 name|threadWakeFrequency
 decl_stmt|;
+comment|// Used to guard splits and closes
 specifier|private
 specifier|final
 name|ReentrantReadWriteLock
-name|lock
+name|splitsAndClosesLock
 init|=
 operator|new
 name|ReentrantReadWriteLock
 argument_list|()
 decl_stmt|;
+comment|// Stop updates lock
 specifier|private
 specifier|final
-name|Integer
-name|updateLock
+name|ReentrantReadWriteLock
+name|updatesLock
 init|=
 operator|new
-name|Integer
-argument_list|(
-literal|0
-argument_list|)
+name|ReentrantReadWriteLock
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
@@ -2044,6 +2059,7 @@ specifier|final
 name|long
 name|minSequenceId
 decl_stmt|;
+specifier|private
 specifier|final
 name|AtomicInteger
 name|activeScannerCount
@@ -2079,7 +2095,7 @@ parameter_list|,
 name|Path
 name|initialFiles
 parameter_list|,
-name|CacheFlushListener
+name|FlushRequester
 name|flushListener
 parameter_list|)
 throws|throws
@@ -2127,7 +2143,7 @@ parameter_list|,
 name|Path
 name|initialFiles
 parameter_list|,
-name|CacheFlushListener
+name|FlushRequester
 name|flushListener
 parameter_list|,
 specifier|final
@@ -2803,7 +2819,7 @@ comment|// continue
 block|}
 block|}
 block|}
-name|lock
+name|splitsAndClosesLock
 operator|.
 name|writeLock
 argument_list|()
@@ -2815,7 +2831,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"new updates and scanners for region "
+literal|"Updates and scanners for region "
 operator|+
 name|regionName
 operator|+
@@ -2824,8 +2840,8 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|// Wait for active scanners to finish. The write lock we hold will prevent
-comment|// new scanners from being created.
+comment|// Wait for active scanners to finish. The write lock we hold will
+comment|// prevent new scanners from being created.
 synchronized|synchronized
 init|(
 name|activeScannerCount
@@ -3009,7 +3025,7 @@ return|;
 block|}
 finally|finally
 block|{
-name|lock
+name|splitsAndClosesLock
 operator|.
 name|writeLock
 argument_list|()
@@ -4035,7 +4051,7 @@ operator|+
 name|getRegionName
 argument_list|()
 operator|+
-literal|". Took "
+literal|" in "
 operator|+
 name|StringUtils
 operator|.
@@ -4165,7 +4181,8 @@ block|}
 block|}
 try|try
 block|{
-name|lock
+comment|// Prevent splits and closes
+name|splitsAndClosesLock
 operator|.
 name|readLock
 argument_list|()
@@ -4173,7 +4190,6 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
-comment|// Prevent splits and closes
 try|try
 block|{
 return|return
@@ -4183,7 +4199,7 @@ return|;
 block|}
 finally|finally
 block|{
-name|lock
+name|splitsAndClosesLock
 operator|.
 name|readLock
 argument_list|()
@@ -4286,10 +4302,17 @@ comment|// Stop updates while we snapshot the memcache of all stores. We only ha
 comment|// to do this for a moment.  Its quick.  The subsequent sequence id that
 comment|// goes into the HLog after we've flushed all these snapshots also goes
 comment|// into the info file that sits beside the flushed files.
-synchronized|synchronized
-init|(
-name|updateLock
-init|)
+name|this
+operator|.
+name|updatesLock
+operator|.
+name|writeLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
 block|{
 for|for
 control|(
@@ -4308,6 +4331,19 @@ name|snapshot
 argument_list|()
 expr_stmt|;
 block|}
+block|}
+finally|finally
+block|{
+name|this
+operator|.
+name|updatesLock
+operator|.
+name|writeLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
 block|}
 name|long
 name|sequenceId
@@ -4831,7 +4867,7 @@ argument_list|(
 name|row
 argument_list|)
 expr_stmt|;
-name|lock
+name|splitsAndClosesLock
 operator|.
 name|readLock
 argument_list|()
@@ -5022,7 +5058,7 @@ return|;
 block|}
 finally|finally
 block|{
-name|lock
+name|splitsAndClosesLock
 operator|.
 name|readLock
 argument_list|()
@@ -5128,7 +5164,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|lock
+name|splitsAndClosesLock
 operator|.
 name|readLock
 argument_list|()
@@ -5295,7 +5331,7 @@ return|;
 block|}
 finally|finally
 block|{
-name|lock
+name|splitsAndClosesLock
 operator|.
 name|readLock
 argument_list|()
@@ -6292,12 +6328,23 @@ condition|)
 block|{
 return|return;
 block|}
-synchronized|synchronized
-init|(
-name|updateLock
-init|)
+name|boolean
+name|flush
+init|=
+literal|false
+decl_stmt|;
+name|this
+operator|.
+name|updatesLock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
 block|{
-comment|// prevent a cache flush
 name|this
 operator|.
 name|log
@@ -6400,8 +6447,8 @@ name|val
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
+name|flush
+operator|=
 name|this
 operator|.
 name|flushListener
@@ -6418,14 +6465,32 @@ operator|>
 name|this
 operator|.
 name|memcacheFlushSize
+expr_stmt|;
+block|}
+finally|finally
+block|{
+name|this
+operator|.
+name|updatesLock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|flush
 condition|)
 block|{
-comment|// Request a cache flush
+comment|// Request a cache flush.  Do it outside update lock.
 name|this
 operator|.
 name|flushListener
 operator|.
-name|flushRequested
+name|request
 argument_list|(
 name|this
 argument_list|)
@@ -6436,7 +6501,6 @@ name|flushRequested
 operator|=
 literal|true
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|/*    * Calculate size of passed key/value pair.    * Used here when we update region to figure what to add to this.memcacheSize    * Also used in Store when flushing calculating size of flush.  Both need to    * use same method making size calculation.    * @param key    * @param value    * @return Size of the passed key + value    */
@@ -6613,7 +6677,7 @@ argument_list|(
 name|row
 argument_list|)
 expr_stmt|;
-name|lock
+name|splitsAndClosesLock
 operator|.
 name|readLock
 argument_list|()
@@ -6635,7 +6699,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|NotServingRegionException
 argument_list|(
 literal|"Region "
 operator|+
@@ -6736,7 +6800,7 @@ block|}
 block|}
 finally|finally
 block|{
-name|lock
+name|splitsAndClosesLock
 operator|.
 name|readLock
 argument_list|()
