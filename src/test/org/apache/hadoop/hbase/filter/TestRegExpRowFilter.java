@@ -482,7 +482,7 @@ name|c
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterRowKey
 argument_list|(
 name|t
 argument_list|)
@@ -502,7 +502,7 @@ name|yahooSite
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterRowKey
 argument_list|(
 operator|new
 name|Text
@@ -575,7 +575,7 @@ name|c
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterColumn
 argument_list|(
 name|t
 argument_list|,
@@ -629,7 +629,7 @@ name|c
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterColumn
 argument_list|(
 name|r
 argument_list|,
@@ -648,7 +648,7 @@ name|c
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterColumn
 argument_list|(
 name|r
 argument_list|,
@@ -674,7 +674,7 @@ name|c
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterColumn
 argument_list|(
 name|r
 argument_list|,
@@ -697,7 +697,7 @@ name|c
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterColumn
 argument_list|(
 operator|new
 name|Text
@@ -810,7 +810,7 @@ name|thirdToLast
 argument_list|,
 name|filter
 operator|.
-name|filterNotNull
+name|filterRow
 argument_list|(
 name|colvalues
 argument_list|)
@@ -849,7 +849,7 @@ name|secondToLast
 argument_list|,
 name|filter
 operator|.
-name|filterNotNull
+name|filterRow
 argument_list|(
 name|colvalues
 argument_list|)
@@ -887,7 +887,7 @@ name|LAST_CHAR
 argument_list|,
 name|filter
 operator|.
-name|filterNotNull
+name|filterRow
 argument_list|(
 name|colvalues
 argument_list|)
@@ -933,7 +933,7 @@ literal|" mapping to null."
 argument_list|,
 name|filter
 operator|.
-name|filterNotNull
+name|filterRow
 argument_list|(
 name|colvalues
 argument_list|)

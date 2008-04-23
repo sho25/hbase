@@ -300,7 +300,7 @@ block|}
 comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|boolean
-name|filter
+name|filterRowKey
 parameter_list|(
 annotation|@
 name|SuppressWarnings
@@ -320,7 +320,7 @@ block|}
 comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|boolean
-name|filter
+name|filterColumn
 parameter_list|(
 annotation|@
 name|SuppressWarnings
@@ -359,7 +359,7 @@ block|}
 comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|boolean
-name|filterNotNull
+name|filterRow
 parameter_list|(
 annotation|@
 name|SuppressWarnings

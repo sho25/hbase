@@ -670,7 +670,7 @@ name|filtered
 init|=
 name|filter
 operator|.
-name|filter
+name|filterColumn
 argument_list|(
 operator|new
 name|Text
@@ -747,7 +747,7 @@ name|filtered
 init|=
 name|filter
 operator|.
-name|filter
+name|filterRowKey
 argument_list|(
 name|testText
 argument_list|)

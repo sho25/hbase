@@ -740,7 +740,7 @@ literal|null
 condition|?
 name|dataFilter
 operator|.
-name|filter
+name|filterRowKey
 argument_list|(
 name|chosenRow
 argument_list|)
@@ -1020,7 +1020,7 @@ name|filtered
 operator|=
 name|dataFilter
 operator|.
-name|filter
+name|filterColumn
 argument_list|(
 name|chosenRow
 argument_list|,

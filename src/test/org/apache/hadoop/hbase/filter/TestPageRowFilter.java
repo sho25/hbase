@@ -302,7 +302,7 @@ name|filterOut
 init|=
 name|filter
 operator|.
-name|filter
+name|filterRowKey
 argument_list|(
 name|row
 argument_list|)

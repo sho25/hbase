@@ -480,7 +480,7 @@ block|}
 comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|boolean
-name|filter
+name|filterRowKey
 parameter_list|(
 specifier|final
 name|Text
@@ -548,7 +548,7 @@ block|}
 comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|boolean
-name|filter
+name|filterColumn
 parameter_list|(
 specifier|final
 name|Text
@@ -566,7 +566,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|filter
+name|filterRowKey
 argument_list|(
 name|rowKey
 argument_list|)
@@ -725,7 +725,7 @@ block|}
 comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|boolean
-name|filterNotNull
+name|filterRow
 parameter_list|(
 specifier|final
 name|SortedMap

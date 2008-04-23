@@ -71,7 +71,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|filter
+name|filterRowKey
 parameter_list|(
 specifier|final
 name|Text

@@ -7707,7 +7707,7 @@ literal|false
 else|:
 name|filter
 operator|.
-name|filterNotNull
+name|filterRow
 argument_list|(
 name|results
 argument_list|)

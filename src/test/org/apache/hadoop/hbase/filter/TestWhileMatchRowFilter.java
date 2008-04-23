@@ -287,7 +287,7 @@ literal|"'"
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterRowKey
 argument_list|(
 operator|new
 name|Text
@@ -307,7 +307,7 @@ literal|"'"
 argument_list|,
 name|innerFilter
 operator|.
-name|filter
+name|filterRowKey
 argument_list|(
 operator|new
 name|Text
@@ -332,7 +332,7 @@ literal|"'"
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterRowKey
 argument_list|(
 operator|new
 name|Text
@@ -352,7 +352,7 @@ literal|"'"
 argument_list|,
 name|innerFilter
 operator|.
-name|filter
+name|filterRowKey
 argument_list|(
 operator|new
 name|Text
@@ -406,7 +406,7 @@ literal|"filter: filterNotNull"
 argument_list|,
 name|filter
 operator|.
-name|filterNotNull
+name|filterRow
 argument_list|(
 literal|null
 argument_list|)
@@ -449,7 +449,7 @@ literal|"'"
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterRowKey
 argument_list|(
 operator|new
 name|Text
@@ -469,7 +469,7 @@ literal|"'"
 argument_list|,
 name|innerFilter
 operator|.
-name|filter
+name|filterRowKey
 argument_list|(
 operator|new
 name|Text
@@ -494,7 +494,7 @@ literal|"'"
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterRowKey
 argument_list|(
 operator|new
 name|Text
@@ -514,7 +514,7 @@ literal|"'"
 argument_list|,
 name|innerFilter
 operator|.
-name|filter
+name|filterRowKey
 argument_list|(
 operator|new
 name|Text
@@ -576,7 +576,7 @@ literal|"'"
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterColumn
 argument_list|(
 operator|new
 name|Text

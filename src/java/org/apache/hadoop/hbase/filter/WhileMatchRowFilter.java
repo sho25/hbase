@@ -238,7 +238,7 @@ block|}
 comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
-name|filter
+name|filterRowKey
 parameter_list|(
 specifier|final
 name|Text
@@ -251,7 +251,7 @@ name|this
 operator|.
 name|filter
 operator|.
-name|filter
+name|filterRowKey
 argument_list|(
 name|rowKey
 argument_list|)
@@ -292,7 +292,7 @@ block|}
 comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
-name|filter
+name|filterColumn
 parameter_list|(
 specifier|final
 name|Text
@@ -314,7 +314,7 @@ name|this
 operator|.
 name|filter
 operator|.
-name|filter
+name|filterColumn
 argument_list|(
 name|rowKey
 argument_list|,
@@ -367,7 +367,7 @@ block|}
 comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
-name|filterNotNull
+name|filterRow
 parameter_list|(
 specifier|final
 name|SortedMap
@@ -386,7 +386,7 @@ name|this
 operator|.
 name|filter
 operator|.
-name|filterNotNull
+name|filterRow
 argument_list|(
 name|columns
 argument_list|)

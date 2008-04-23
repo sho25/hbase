@@ -233,7 +233,7 @@ block|}
 comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
-name|filter
+name|filterRowKey
 parameter_list|(
 specifier|final
 name|Text
@@ -307,7 +307,7 @@ block|}
 comment|/**    * {@inheritDoc}    *    * Because StopRowFilter does not examine column information, this method     * defaults to calling the rowKey-only version of filter.    */
 specifier|public
 name|boolean
-name|filter
+name|filterColumn
 parameter_list|(
 annotation|@
 name|SuppressWarnings
@@ -339,7 +339,7 @@ name|data
 parameter_list|)
 block|{
 return|return
-name|filter
+name|filterRowKey
 argument_list|(
 name|rowKey
 argument_list|)
@@ -348,7 +348,7 @@ block|}
 comment|/** {@inheritDoc}    *    * Because StopRowFilter does not examine column information, this method     * defaults to calling filterAllRemaining().    *     * @param columns    */
 specifier|public
 name|boolean
-name|filterNotNull
+name|filterRow
 parameter_list|(
 annotation|@
 name|SuppressWarnings

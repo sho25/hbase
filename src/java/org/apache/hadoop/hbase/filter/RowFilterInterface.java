@@ -92,18 +92,18 @@ name|boolean
 name|filterAllRemaining
 parameter_list|()
 function_decl|;
-comment|/**    * Filters on just a row key.    *     * @param rowKey    * @return true if given row key is filtered and row should not be processed.    */
+comment|/**    * Filters on just a row key. This is the first chance to stop a row.    *     * @param rowKey    * @return true if given row key is filtered and row should not be processed.    */
 name|boolean
-name|filter
+name|filterRowKey
 parameter_list|(
 specifier|final
 name|Text
 name|rowKey
 parameter_list|)
 function_decl|;
-comment|/**    * Filters on row key and/or a column key.    *     * @param rowKey    *          row key to filter on. May be null for no filtering of row key.    * @param colKey    *          column whose data will be filtered    * @param data    *          column value    * @return true if row filtered and should not be processed.    */
+comment|/**    * Filters on row key, column name, and column value. This will take individual columns out of a row,     * but the rest of the row will still get through.    *     * @param rowKey row key to filter on.    * @param colunmName column name to filter on    * @param columnValue column value to filter on    * @return true if row filtered and should not be processed.    */
 name|boolean
-name|filter
+name|filterColumn
 parameter_list|(
 specifier|final
 name|Text
@@ -111,17 +111,17 @@ name|rowKey
 parameter_list|,
 specifier|final
 name|Text
-name|colKey
+name|colunmName
 parameter_list|,
 specifier|final
 name|byte
 index|[]
-name|data
+name|columnValue
 parameter_list|)
 function_decl|;
-comment|/**    * Filters a row if:    * 1) The given row (@param columns) has a columnKey expected to be null AND     * the value associated with that columnKey is non-null.    * 2) The filter has a criterion for a particular columnKey, but that     * columnKey is not in the given row (@param columns).    *     * Note that filterNotNull does not care whether the values associated with a     * columnKey match.  Also note that a "null value" associated with a columnKey     * is expressed as HConstants.DELETE_BYTES.    *     * @param columns    * @return true if null/non-null criteria not met.    */
+comment|/**    * Filter on the fully assembled row. This is the last chance to stop a row.     *     * @param columns    * @return true if row filtered and should not be processed.    */
 name|boolean
-name|filterNotNull
+name|filterRow
 parameter_list|(
 specifier|final
 name|SortedMap

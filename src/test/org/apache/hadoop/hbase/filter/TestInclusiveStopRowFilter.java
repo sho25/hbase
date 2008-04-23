@@ -265,7 +265,7 @@ name|GOOD_ROW
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterRowKey
 argument_list|(
 name|GOOD_ROW
 argument_list|)
@@ -279,7 +279,7 @@ name|STOP_ROW
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterRowKey
 argument_list|(
 name|STOP_ROW
 argument_list|)
@@ -293,7 +293,7 @@ name|PAST_STOP_ROW
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterRowKey
 argument_list|(
 name|PAST_STOP_ROW
 argument_list|)
@@ -307,7 +307,7 @@ name|GOOD_ROW
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterColumn
 argument_list|(
 name|GOOD_ROW
 argument_list|,
@@ -325,7 +325,7 @@ name|STOP_ROW
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterColumn
 argument_list|(
 name|STOP_ROW
 argument_list|,
@@ -343,7 +343,7 @@ name|PAST_STOP_ROW
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterColumn
 argument_list|(
 name|PAST_STOP_ROW
 argument_list|,
@@ -369,7 +369,7 @@ literal|"FilterNotNull"
 argument_list|,
 name|filter
 operator|.
-name|filterNotNull
+name|filterRow
 argument_list|(
 literal|null
 argument_list|)
@@ -381,7 +381,7 @@ literal|"Filter a null"
 argument_list|,
 name|filter
 operator|.
-name|filter
+name|filterRowKey
 argument_list|(
 literal|null
 argument_list|)
