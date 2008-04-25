@@ -2348,28 +2348,6 @@ operator|>
 literal|0
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Found possible location for "
-operator|+
-name|row
-operator|+
-literal|", "
-operator|+
-name|possibleRegion
-argument_list|)
-expr_stmt|;
-block|}
 return|return
 name|possibleRegion
 return|;
