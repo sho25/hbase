@@ -3170,7 +3170,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"dfs.datanode.dns.interface"
+literal|"hbase.regionserver.dns.interface"
 argument_list|,
 literal|"default"
 argument_list|)
