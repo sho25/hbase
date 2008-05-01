@@ -477,10 +477,9 @@ name|COLUMN_FAMILY_ARRAY
 argument_list|,
 name|tableName
 argument_list|,
-name|System
+name|HConstants
 operator|.
-name|currentTimeMillis
-argument_list|()
+name|LATEST_TIMESTAMP
 argument_list|,
 literal|null
 argument_list|)

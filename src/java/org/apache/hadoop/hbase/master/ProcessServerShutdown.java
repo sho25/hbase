@@ -1122,10 +1122,9 @@ name|COLUMN_FAMILY_ARRAY
 argument_list|,
 name|EMPTY_START_ROW
 argument_list|,
-name|System
+name|HConstants
 operator|.
-name|currentTimeMillis
-argument_list|()
+name|LATEST_TIMESTAMP
 argument_list|,
 literal|null
 argument_list|)
@@ -1227,10 +1226,9 @@ name|COLUMN_FAMILY_ARRAY
 argument_list|,
 name|EMPTY_START_ROW
 argument_list|,
-name|System
+name|HConstants
 operator|.
-name|currentTimeMillis
-argument_list|()
+name|LATEST_TIMESTAMP
 argument_list|,
 literal|null
 argument_list|)
