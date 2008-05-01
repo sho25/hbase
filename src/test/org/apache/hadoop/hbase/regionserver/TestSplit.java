@@ -127,7 +127,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MultiRegionTable
+name|HBaseClusterTestCase
 import|;
 end_import
 
@@ -198,7 +198,7 @@ specifier|public
 class|class
 name|TestSplit
 extends|extends
-name|MultiRegionTable
+name|HBaseClusterTestCase
 block|{
 annotation|@
 name|SuppressWarnings
