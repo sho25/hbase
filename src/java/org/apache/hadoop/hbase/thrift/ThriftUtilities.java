@@ -300,6 +300,10 @@ name|in
 operator|.
 name|maxValueLength
 argument_list|,
+name|in
+operator|.
+name|timeToLive
+argument_list|,
 name|bloom
 argument_list|)
 decl_stmt|;

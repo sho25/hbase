@@ -134,7 +134,7 @@ init|=
 operator|(
 name|byte
 operator|)
-literal|2
+literal|3
 decl_stmt|;
 comment|/** Legal family names can only contain 'word characters' and end in a colon. */
 specifier|public
@@ -214,6 +214,17 @@ name|Integer
 operator|.
 name|MAX_VALUE
 decl_stmt|;
+comment|/**    * Default time to live of cell contents.    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_TIME_TO_LIVE
+init|=
+name|HConstants
+operator|.
+name|FOREVER
+decl_stmt|;
 comment|/**    * Default bloom filter description.    */
 specifier|public
 specifier|static
@@ -252,6 +263,11 @@ comment|// Maximum value size
 specifier|private
 name|int
 name|maxValueLength
+decl_stmt|;
+comment|// Time to live of cell contents, in seconds from last timestamp
+specifier|private
+name|int
+name|timeToLive
 decl_stmt|;
 comment|// True if bloom filter was specified
 specifier|private
@@ -330,11 +346,13 @@ name|Integer
 operator|.
 name|MAX_VALUE
 argument_list|,
+name|DEFAULT_TIME_TO_LIVE
+argument_list|,
 name|DEFAULT_BLOOM_FILTER_DESCRIPTOR
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * Specify all parameters.    * @param name Column family name    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param maxValueLength Restrict values to&lt;= this value    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
+comment|/**    * Constructor    * Specify all parameters.    * @param name Column family name    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param maxValueLength Restrict values to&lt;= this value    * @param timeToLive Time-to-live of cell contents, in seconds from last timestamp    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -361,6 +379,10 @@ parameter_list|,
 specifier|final
 name|int
 name|maxValueLength
+parameter_list|,
+specifier|final
+name|int
+name|timeToLive
 parameter_list|,
 specifier|final
 name|BloomFilterDescriptor
@@ -471,6 +493,12 @@ operator|.
 name|maxValueLength
 operator|=
 name|maxValueLength
+expr_stmt|;
+name|this
+operator|.
+name|timeToLive
+operator|=
+name|timeToLive
 expr_stmt|;
 name|this
 operator|.
@@ -625,6 +653,18 @@ operator|.
 name|maxValueLength
 return|;
 block|}
+comment|/**    * @return Time to live.    */
+specifier|public
+name|int
+name|getTimeToLive
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|timeToLive
+return|;
+block|}
 comment|/**    * @return True if MapFile blocks should be cached.    */
 specifier|public
 name|boolean
@@ -702,6 +742,25 @@ operator|+
 literal|", max length: "
 operator|+
 name|maxValueLength
+operator|+
+literal|", time to live: "
+operator|+
+operator|(
+name|timeToLive
+operator|==
+name|HConstants
+operator|.
+name|FOREVER
+condition|?
+literal|"FOREVER"
+else|:
+name|Integer
+operator|.
+name|toString
+argument_list|(
+name|timeToLive
+argument_list|)
+operator|)
 operator|+
 literal|", bloom filter: "
 operator|+
@@ -817,6 +876,20 @@ argument_list|(
 name|this
 operator|.
 name|maxValueLength
+argument_list|)
+operator|.
+name|hashCode
+argument_list|()
+expr_stmt|;
+name|result
+operator|^=
+name|Integer
+operator|.
+name|valueOf
+argument_list|(
+name|this
+operator|.
+name|timeToLive
 argument_list|)
 operator|.
 name|hashCode
@@ -995,6 +1068,25 @@ name|readBoolean
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|this
+operator|.
+name|versionNumber
+operator|>
+literal|2
+condition|)
+block|{
+name|this
+operator|.
+name|timeToLive
+operator|=
+name|in
+operator|.
+name|readInt
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/** {@inheritDoc} */
 specifier|public
@@ -1086,6 +1178,15 @@ name|out
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|this
+operator|.
+name|versionNumber
+operator|>
+literal|1
+condition|)
+block|{
 name|out
 operator|.
 name|writeBoolean
@@ -1095,6 +1196,26 @@ operator|.
 name|blockCacheEnabled
 argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|this
+operator|.
+name|versionNumber
+operator|>
+literal|2
+condition|)
+block|{
+name|out
+operator|.
+name|writeInt
+argument_list|(
+name|this
+operator|.
+name|timeToLive
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|// Comparable
 comment|/** {@inheritDoc} */
@@ -1290,6 +1411,24 @@ operator|-
 name|this
 operator|.
 name|maxValueLength
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|result
+operator|==
+literal|0
+condition|)
+block|{
+name|result
+operator|=
+name|other
+operator|.
+name|timeToLive
+operator|-
+name|this
+operator|.
+name|timeToLive
 expr_stmt|;
 block|}
 if|if

@@ -930,6 +930,10 @@ name|Integer
 operator|.
 name|MAX_VALUE
 argument_list|,
+name|HConstants
+operator|.
+name|FOREVER
+argument_list|,
 literal|null
 argument_list|)
 argument_list|)
@@ -961,6 +965,10 @@ name|Integer
 operator|.
 name|MAX_VALUE
 argument_list|,
+name|HConstants
+operator|.
+name|FOREVER
+argument_list|,
 literal|null
 argument_list|)
 argument_list|)
@@ -991,6 +999,10 @@ argument_list|,
 name|Integer
 operator|.
 name|MAX_VALUE
+argument_list|,
+name|HConstants
+operator|.
+name|FOREVER
 argument_list|,
 literal|null
 argument_list|)

@@ -391,7 +391,7 @@ literal|"Create tables"
 block|,
 literal|"CREATE TABLE table_name (column_family_name [MAX_VERSIONS=n] "
 operator|+
-literal|"[MAX_LENGTH=n] [COMPRESSION=NONE|RECORD|BLOCK] [IN_MEMORY] "
+literal|"[MAX_LENGTH=n] [COMPRESSION=NONE|RECORD|BLOCK] [IN_MEMORY] [TTL=n]"
 operator|+
 literal|"[BLOOMFILTER=NONE|BLOOMFILTER|COUNTING_BLOOMFILTER|RETOUCHED_BLOOMFILTER "
 operator|+

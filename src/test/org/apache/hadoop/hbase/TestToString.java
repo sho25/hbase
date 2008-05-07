@@ -139,7 +139,7 @@ literal|"info, max versions: 1, compression: NONE, in memory: false, "
 operator|+
 literal|"block cache enabled: false, max length: 2147483647, "
 operator|+
-literal|"bloom filter: none}}"
+literal|"time to live: FOREVER, bloom filter: none}}"
 argument_list|,
 name|htd
 operator|.
@@ -183,7 +183,7 @@ literal|"{name: -ROOT-, families: {info:={name: info, max versions: 1, "
 operator|+
 literal|"compression: NONE, in memory: false, block cache enabled: false, "
 operator|+
-literal|"max length: 2147483647, bloom filter: none}}}"
+literal|"max length: 2147483647, time to live: FOREVER, bloom filter: none}}}"
 argument_list|,
 name|hri
 operator|.

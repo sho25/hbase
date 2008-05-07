@@ -897,6 +897,10 @@ name|HColumnDescriptor
 operator|.
 name|DEFAULT_MAX_VALUE_LENGTH
 argument_list|,
+name|HColumnDescriptor
+operator|.
+name|DEFAULT_TIME_TO_LIVE
+argument_list|,
 name|bloomFilter
 argument_list|)
 argument_list|)
@@ -1192,6 +1196,10 @@ argument_list|,
 name|HColumnDescriptor
 operator|.
 name|DEFAULT_MAX_VALUE_LENGTH
+argument_list|,
+name|HColumnDescriptor
+operator|.
+name|DEFAULT_TIME_TO_LIVE
 argument_list|,
 name|bloomFilter
 argument_list|)

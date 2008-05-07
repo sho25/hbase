@@ -461,6 +461,15 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+comment|/**    * Unlimited time-to-live.    */
+specifier|static
+specifier|final
+name|int
+name|FOREVER
+init|=
+operator|-
+literal|1
+decl_stmt|;
 block|}
 end_interface
 
