@@ -102,9 +102,7 @@ return|return
 literal|false
 return|;
 block|}
-name|boolean
-name|result
-init|=
+return|return
 name|this
 operator|.
 name|stopRowKey
@@ -115,31 +113,6 @@ name|rowKey
 argument_list|)
 operator|<
 literal|0
-decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Filter result for rowKey: "
-operator|+
-name|rowKey
-operator|+
-literal|".  Result: "
-operator|+
-name|result
-argument_list|)
-expr_stmt|;
-block|}
-return|return
-name|result
 return|;
 block|}
 block|}
