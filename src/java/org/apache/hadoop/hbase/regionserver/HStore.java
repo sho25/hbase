@@ -3400,10 +3400,14 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Compact the back-HStores.  This method may take some time, so the calling     * thread must be able to block for long periods.    *     *<p>During this time, the HStore can work as usual, getting values from    * MapFiles and writing new MapFiles from the Memcache.    *     * Existing MapFiles are not destroyed until the new compacted TreeMap is     * completely written-out to disk.    *    * The compactLock prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *     * We don't want to hold the structureLock for the whole time, as a compact()     * can be lengthy and we want to allow cache-flushes during this period.    *     * @return mid key if a split is needed, null otherwise    * @throws IOException    */
+comment|/**    * Compact the back-HStores.  This method may take some time, so the calling     * thread must be able to block for long periods.    *     *<p>During this time, the HStore can work as usual, getting values from    * MapFiles and writing new MapFiles from the Memcache.    *     * Existing MapFiles are not destroyed until the new compacted TreeMap is     * completely written-out to disk.    *    * The compactLock prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *     * We don't want to hold the structureLock for the whole time, as a compact()     * can be lengthy and we want to allow cache-flushes during this period.    *     * @param force True to force a compaction regardless of thresholds (Needed    * by merge).    * @return mid key if a split is needed, null otherwise    * @throws IOException    */
 name|Text
 name|compact
-parameter_list|()
+parameter_list|(
+specifier|final
+name|boolean
+name|force
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -3449,6 +3453,9 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+operator|!
+name|force
+operator|&&
 operator|!
 name|hasReferences
 argument_list|(
