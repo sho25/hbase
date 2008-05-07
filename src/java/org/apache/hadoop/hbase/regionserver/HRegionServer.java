@@ -1527,6 +1527,9 @@ name|stopRequested
 operator|.
 name|get
 argument_list|()
+operator|&&
+name|isHealthy
+argument_list|()
 condition|;
 control|)
 block|{
@@ -3080,7 +3083,68 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* Run some housekeeping tasks before we go into 'hibernation' sleeping at    * the end of the main HRegionServer run loop.    */
+comment|/*    * Verify that server is healthy    */
+specifier|private
+name|boolean
+name|isHealthy
+parameter_list|()
+block|{
+if|if
+condition|(
+operator|!
+name|fsOk
+condition|)
+block|{
+comment|// File system problem
+return|return
+literal|false
+return|;
+block|}
+comment|// Verify that all threads are alive
+if|if
+condition|(
+operator|!
+operator|(
+name|leases
+operator|.
+name|isAlive
+argument_list|()
+operator|&&
+name|compactSplitThread
+operator|.
+name|isAlive
+argument_list|()
+operator|&&
+name|cacheFlusher
+operator|.
+name|isAlive
+argument_list|()
+operator|&&
+name|logRoller
+operator|.
+name|isAlive
+argument_list|()
+operator|&&
+name|workerThread
+operator|.
+name|isAlive
+argument_list|()
+operator|)
+condition|)
+block|{
+comment|// One or more threads are no longer alive - shut down
+name|stop
+argument_list|()
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+return|return
+literal|true
+return|;
+block|}
+comment|/*    * Run some housekeeping tasks before we go into 'hibernation' sleeping at    * the end of the main HRegionServer run loop.    */
 specifier|private
 name|void
 name|housekeeping
