@@ -3986,7 +3986,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"starting compaction on region "
+literal|"checking compaction on region "
 operator|+
 name|getRegionName
 argument_list|()
@@ -4046,7 +4046,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"compaction completed on region "
+literal|"compaction checking completed on region "
 operator|+
 name|getRegionName
 argument_list|()
