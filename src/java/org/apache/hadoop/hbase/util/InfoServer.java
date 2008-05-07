@@ -306,7 +306,7 @@ name|System
 operator|.
 name|getProperty
 argument_list|(
-literal|"hadoop.log.dir"
+literal|"hbase.log.dir"
 argument_list|)
 decl_stmt|;
 if|if
