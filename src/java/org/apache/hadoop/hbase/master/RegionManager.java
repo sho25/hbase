@@ -404,9 +404,6 @@ argument_list|(
 name|RegionManager
 operator|.
 name|class
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -575,27 +572,6 @@ argument_list|>
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/**    * 'regionsToDelete' contains regions that need to be deleted, but cannot be    * until the region server closes it    */
-specifier|private
-specifier|final
-name|Set
-argument_list|<
-name|Text
-argument_list|>
-name|regionsToDelete
-init|=
-name|Collections
-operator|.
-name|synchronizedSet
-argument_list|(
-operator|new
-name|HashSet
-argument_list|<
-name|Text
-argument_list|>
-argument_list|()
-argument_list|)
-decl_stmt|;
 comment|/**    * Set of regions that, once closed, should be marked as offline so that they    * are not reassigned.    */
 specifier|private
 specifier|final
@@ -624,6 +600,7 @@ name|int
 name|maxAssignInOneGo
 decl_stmt|;
 specifier|private
+specifier|final
 name|HMaster
 name|master
 decl_stmt|;
@@ -1421,6 +1398,12 @@ argument_list|()
 decl_stmt|;
 comment|// Look over the set of regions that aren't currently assigned to
 comment|// determine which we should assign to this server.
+synchronized|synchronized
+init|(
+name|unassignedRegions
+init|)
+block|{
+comment|//must synchronize when iterating
 for|for
 control|(
 name|Map
@@ -1504,6 +1487,7 @@ name|getKey
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 return|return
@@ -1950,14 +1934,24 @@ argument_list|>
 name|getOnlineMetaRegions
 parameter_list|()
 block|{
+synchronized|synchronized
+init|(
+name|onlineMetaRegions
+init|)
+block|{
 return|return
-name|Collections
-operator|.
-name|unmodifiableSortedMap
+operator|new
+name|TreeMap
+argument_list|<
+name|Text
+argument_list|,
+name|MetaRegion
+argument_list|>
 argument_list|(
 name|onlineMetaRegions
 argument_list|)
 return|;
+block|}
 block|}
 comment|/**    * Stop the root and meta scanners so that the region servers serving meta    * regions can shut down.    */
 specifier|public
@@ -2800,17 +2794,60 @@ argument_list|>
 name|map
 parameter_list|)
 block|{
+synchronized|synchronized
+init|(
+name|regionsToClose
+init|)
+block|{
+name|Map
+argument_list|<
+name|Text
+argument_list|,
+name|HRegionInfo
+argument_list|>
+name|regions
+init|=
+name|regionsToClose
+operator|.
+name|get
+argument_list|(
+name|serverName
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|regions
+operator|!=
+literal|null
+condition|)
+block|{
+name|regions
+operator|.
+name|putAll
+argument_list|(
+name|map
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|regions
+operator|=
+name|map
+expr_stmt|;
+block|}
 name|regionsToClose
 operator|.
 name|put
 argument_list|(
 name|serverName
 argument_list|,
-name|map
+name|regions
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Get a map of region names to region infos waiting to be offlined for a     * given server     * @param serverName    * @return map of region names to region infos to close    */
+block|}
+comment|/**     * Remove the map of region names to region infos waiting to be offlined for a     * given server    *      * @param serverName    * @return map of region names to region infos to close    */
 specifier|public
 name|Map
 argument_list|<
@@ -2818,7 +2855,7 @@ name|Text
 argument_list|,
 name|HRegionInfo
 argument_list|>
-name|getMarkedToClose
+name|removeMarkedToClose
 parameter_list|(
 name|String
 name|serverName
@@ -2827,7 +2864,7 @@ block|{
 return|return
 name|regionsToClose
 operator|.
-name|get
+name|remove
 argument_list|(
 name|serverName
 argument_list|)
@@ -2930,6 +2967,23 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * Called when all regions for a particular server have been closed    *     * @param serverName    */
+specifier|public
+name|void
+name|allRegionsClosed
+parameter_list|(
+name|String
+name|serverName
+parameter_list|)
+block|{
+name|regionsToClose
+operator|.
+name|remove
+argument_list|(
+name|serverName
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**     * Check if a region is closing     * @param regionName     * @return true if the region is marked as closing, false otherwise    */
 specifier|public
 name|boolean
@@ -3001,40 +3055,6 @@ name|m
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Mark a region as to be deleted     * @param regionName    */
-specifier|public
-name|void
-name|markRegionForDeletion
-parameter_list|(
-name|Text
-name|regionName
-parameter_list|)
-block|{
-name|regionsToDelete
-operator|.
-name|add
-argument_list|(
-name|regionName
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**     * Note that a region to delete has been deleted     * @param regionName    */
-specifier|public
-name|void
-name|regionDeleted
-parameter_list|(
-name|Text
-name|regionName
-parameter_list|)
-block|{
-name|regionsToDelete
-operator|.
-name|remove
-argument_list|(
-name|regionName
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**     * Note that a region should be offlined as soon as its closed.     * @param regionName    */
 specifier|public
 name|void
@@ -3086,24 +3106,6 @@ argument_list|(
 name|regionName
 argument_list|)
 expr_stmt|;
-block|}
-comment|/**    * Check if a region is marked for deletion     * @param regionName    * @return true if marked for deletion, false otherwise    */
-specifier|public
-name|boolean
-name|isMarkedForDeletion
-parameter_list|(
-name|Text
-name|regionName
-parameter_list|)
-block|{
-return|return
-name|regionsToDelete
-operator|.
-name|contains
-argument_list|(
-name|regionName
-argument_list|)
-return|;
 block|}
 comment|/**     * Check if the initial root scan has been completed.    * @return true if scan completed, false otherwise    */
 specifier|public

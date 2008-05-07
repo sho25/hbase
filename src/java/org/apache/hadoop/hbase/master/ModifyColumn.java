@@ -61,6 +61,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|InvalidColumnNameException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ipc
 operator|.
 name|HRegionInterface
@@ -236,7 +250,7 @@ block|{
 comment|// otherwise, we have an error.
 throw|throw
 operator|new
-name|IOException
+name|InvalidColumnNameException
 argument_list|(
 literal|"Column family '"
 operator|+

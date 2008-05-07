@@ -1579,25 +1579,24 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
-comment|// queued for offline
-operator|||
-name|regionManager
-operator|.
-name|isMarkedForDeletion
-argument_list|(
-name|info
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
 condition|)
 block|{
-comment|// queued for delete
+comment|// queued for offline
 name|regionManager
 operator|.
 name|noLongerUnassigned
 argument_list|(
 name|info
+argument_list|)
+expr_stmt|;
+name|regionManager
+operator|.
+name|noLongerPending
+argument_list|(
+name|info
+operator|.
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return;

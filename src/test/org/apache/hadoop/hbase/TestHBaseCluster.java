@@ -47,16 +47,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|TreeMap
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -306,9 +296,6 @@ name|scanner
 argument_list|()
 expr_stmt|;
 name|listTables
-argument_list|()
-expr_stmt|;
-name|cleanup
 argument_list|()
 expr_stmt|;
 block|}
@@ -1225,25 +1212,6 @@ argument_list|(
 name|ANCHOR
 argument_list|)
 argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-specifier|private
-name|void
-name|cleanup
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-comment|// Delete the table we created
-name|admin
-operator|.
-name|deleteTable
-argument_list|(
-name|desc
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
