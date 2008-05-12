@@ -446,8 +446,6 @@ name|Exception
 name|e
 parameter_list|)
 block|{
-name|StaticTestEnvironment
-operator|.
 name|shutdownDfs
 argument_list|(
 name|dfsCluster

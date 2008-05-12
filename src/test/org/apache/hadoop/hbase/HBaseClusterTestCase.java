@@ -481,8 +481,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|StaticTestEnvironment
-operator|.
 name|shutdownDfs
 argument_list|(
 name|dfsCluster
@@ -558,8 +556,6 @@ condition|(
 name|startDfs
 condition|)
 block|{
-name|StaticTestEnvironment
-operator|.
 name|shutdownDfs
 argument_list|(
 name|dfsCluster

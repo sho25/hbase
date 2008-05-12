@@ -173,20 +173,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|StaticTestEnvironment
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HConstants
 import|;
 end_import
@@ -276,9 +262,7 @@ expr_stmt|;
 name|scan
 argument_list|()
 expr_stmt|;
-name|batchWrite
-argument_list|()
-expr_stmt|;
+comment|//      batchWrite();
 name|splitAndMerge
 argument_list|()
 expr_stmt|;
@@ -288,8 +272,6 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|StaticTestEnvironment
-operator|.
 name|shutdownDfs
 argument_list|(
 name|cluster
@@ -449,14 +431,6 @@ argument_list|,
 literal|"2"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|StaticTestEnvironment
-operator|.
-name|debugging
-condition|)
-block|{
 name|conf
 operator|.
 name|setLong
@@ -466,7 +440,6 @@ argument_list|,
 literal|65536
 argument_list|)
 expr_stmt|;
-block|}
 name|cluster
 operator|=
 operator|new
@@ -3160,23 +3133,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-operator|!
-name|StaticTestEnvironment
-operator|.
-name|debugging
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"batchWrite completed."
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
 name|long
 name|totalFlush
 init|=
@@ -4557,216 +4513,37 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// Verify testBatchWrite data
-if|if
-condition|(
-name|StaticTestEnvironment
-operator|.
-name|debugging
-condition|)
-block|{
-name|startTime
-operator|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-expr_stmt|;
-name|s
-operator|=
-name|r
-operator|.
-name|getScanner
-argument_list|(
-operator|new
-name|Text
-index|[]
-block|{
-name|CONTENTS_BODY
-block|}
-argument_list|,
-operator|new
-name|Text
-argument_list|()
-argument_list|,
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
-try|try
-block|{
-name|int
-name|numFetched
-init|=
-literal|0
-decl_stmt|;
-name|HStoreKey
-name|curKey
-init|=
-operator|new
-name|HStoreKey
-argument_list|()
-decl_stmt|;
-name|TreeMap
-argument_list|<
-name|Text
-argument_list|,
-name|byte
-index|[]
-argument_list|>
-name|curVals
-init|=
-operator|new
-name|TreeMap
-argument_list|<
-name|Text
-argument_list|,
-name|byte
-index|[]
-argument_list|>
-argument_list|()
-decl_stmt|;
-name|int
-name|k
-init|=
-literal|0
-decl_stmt|;
-while|while
-condition|(
-name|s
-operator|.
-name|next
-argument_list|(
-name|curKey
-argument_list|,
-name|curVals
-argument_list|)
-condition|)
-block|{
-for|for
-control|(
-name|Iterator
-argument_list|<
-name|Text
-argument_list|>
-name|it
-init|=
-name|curVals
-operator|.
-name|keySet
-argument_list|()
-operator|.
-name|iterator
-argument_list|()
-init|;
-name|it
-operator|.
-name|hasNext
-argument_list|()
-condition|;
-control|)
-block|{
-name|Text
-name|col
-init|=
-name|it
-operator|.
-name|next
-argument_list|()
-decl_stmt|;
-name|byte
-index|[]
-name|val
-init|=
-name|curVals
-operator|.
-name|get
-argument_list|(
-name|col
-argument_list|)
-decl_stmt|;
-name|assertTrue
-argument_list|(
-name|col
-operator|.
-name|compareTo
-argument_list|(
-name|CONTENTS_BODY
-argument_list|)
-operator|==
-literal|0
-argument_list|)
-expr_stmt|;
-name|assertNotNull
-argument_list|(
-name|val
-argument_list|)
-expr_stmt|;
-name|numFetched
-operator|++
-expr_stmt|;
-block|}
-name|curVals
-operator|.
-name|clear
-argument_list|()
-expr_stmt|;
-name|k
-operator|++
-expr_stmt|;
-block|}
-name|assertEquals
-argument_list|(
-literal|"Inserted "
-operator|+
-name|N_ROWS
-operator|+
-literal|" values, but fetched "
-operator|+
-name|numFetched
-argument_list|,
-name|N_ROWS
-argument_list|,
-name|numFetched
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Scanned "
-operator|+
-name|N_ROWS
-operator|+
-literal|" rows from disk. Elapsed time: "
-operator|+
-operator|(
-operator|(
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-operator|-
-name|startTime
-operator|)
-operator|/
-literal|1000.0
-operator|)
-argument_list|)
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|s
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-block|}
+comment|//    if(StaticTestEnvironment.debugging) {
+comment|//      startTime = System.currentTimeMillis();
+comment|//      s = r.getScanner(new Text[] { CONTENTS_BODY }, new Text(),
+comment|//          System.currentTimeMillis(), null);
+comment|//
+comment|//      try {
+comment|//        int numFetched = 0;
+comment|//        HStoreKey curKey = new HStoreKey();
+comment|//        TreeMap<Text, byte []> curVals = new TreeMap<Text, byte []>();
+comment|//        int k = 0;
+comment|//        while(s.next(curKey, curVals)) {
+comment|//          for(Iterator<Text> it = curVals.keySet().iterator(); it.hasNext(); ) {
+comment|//            Text col = it.next();
+comment|//            byte [] val = curVals.get(col);
+comment|//            assertTrue(col.compareTo(CONTENTS_BODY) == 0);
+comment|//            assertNotNull(val);
+comment|//            numFetched++;
+comment|//          }
+comment|//          curVals.clear();
+comment|//          k++;
+comment|//        }
+comment|//        assertEquals("Inserted " + N_ROWS + " values, but fetched " + numFetched, N_ROWS, numFetched);
+comment|//
+comment|//        LOG.info("Scanned " + N_ROWS
+comment|//            + " rows from disk. Elapsed time: "
+comment|//            + ((System.currentTimeMillis() - startTime) / 1000.0));
+comment|//
+comment|//      } finally {
+comment|//        s.close();
+comment|//      }
+comment|//    }
 comment|// Test a scanner which only specifies the column family name
 name|cols
 operator|=

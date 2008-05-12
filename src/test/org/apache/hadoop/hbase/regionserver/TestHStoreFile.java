@@ -197,20 +197,6 @@ name|HStoreKey
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|StaticTestEnvironment
-import|;
-end_import
-
 begin_comment
 comment|/**  * Test HStoreFile  */
 end_comment
@@ -332,8 +318,6 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-name|StaticTestEnvironment
-operator|.
 name|shutdownDfs
 argument_list|(
 name|cluster
@@ -361,8 +345,6 @@ operator|.
 name|tearDown
 argument_list|()
 expr_stmt|;
-name|StaticTestEnvironment
-operator|.
 name|shutdownDfs
 argument_list|(
 name|cluster

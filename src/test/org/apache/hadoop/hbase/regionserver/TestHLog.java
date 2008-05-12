@@ -151,20 +151,6 @@ name|HStoreKey
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|StaticTestEnvironment
-import|;
-end_import
-
 begin_comment
 comment|/** JUnit test case for HLog */
 end_comment
@@ -312,8 +298,6 @@ name|dir
 argument_list|)
 expr_stmt|;
 block|}
-name|StaticTestEnvironment
-operator|.
 name|shutdownDfs
 argument_list|(
 name|cluster

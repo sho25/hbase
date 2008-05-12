@@ -2994,7 +2994,7 @@ operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
-name|StaticTestEnvironment
+name|HBaseTestCase
 operator|.
 name|shutdownDfs
 argument_list|(
