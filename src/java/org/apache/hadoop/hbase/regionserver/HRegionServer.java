@@ -1721,11 +1721,8 @@ name|i
 init|=
 literal|0
 init|;
-name|i
-operator|<
-name|msgs
-operator|.
-name|length
+operator|!
+name|restart
 operator|&&
 operator|!
 name|stopRequested
@@ -1733,8 +1730,11 @@ operator|.
 name|get
 argument_list|()
 operator|&&
-operator|!
-name|restart
+name|i
+operator|<
+name|msgs
+operator|.
+name|length
 condition|;
 name|i
 operator|++
@@ -2005,6 +2005,11 @@ block|}
 block|}
 block|}
 block|}
+comment|// Reset tries count if we had a successful transaction.
+name|tries
+operator|=
+literal|0
+expr_stmt|;
 if|if
 condition|(
 name|restart
@@ -2022,13 +2027,8 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
-break|break;
+continue|continue;
 block|}
-comment|// Reset tries count if we had a successful transaction.
-name|tries
-operator|=
-literal|0
-expr_stmt|;
 block|}
 catch|catch
 parameter_list|(

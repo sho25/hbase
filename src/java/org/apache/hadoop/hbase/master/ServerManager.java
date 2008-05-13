@@ -115,6 +115,20 @@ name|java
 operator|.
 name|util
 operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicInteger
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Collections
 import|;
 end_import
@@ -298,6 +312,17 @@ name|class
 operator|.
 name|getName
 argument_list|()
+argument_list|)
+decl_stmt|;
+specifier|private
+specifier|final
+name|AtomicInteger
+name|quiescedServers
+init|=
+operator|new
+name|AtomicInteger
+argument_list|(
+literal|0
 argument_list|)
 decl_stmt|;
 comment|/** The map of known server names to server info */
@@ -843,9 +868,7 @@ operator|+
 literal|" quiesced"
 argument_list|)
 expr_stmt|;
-name|master
-operator|.
-name|quiescedMetaServers
+name|quiescedServers
 operator|.
 name|incrementAndGet
 argument_list|()
@@ -856,7 +879,12 @@ if|if
 condition|(
 name|master
 operator|.
-name|quiescedMetaServers
+name|shutdownRequested
+condition|)
+block|{
+if|if
+condition|(
+name|quiescedServers
 operator|.
 name|get
 argument_list|()
@@ -884,10 +912,6 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|master
-operator|.
-name|shutdownRequested
-operator|&&
 operator|!
 name|master
 operator|.
@@ -943,6 +967,7 @@ name|MSG_REGIONSERVER_QUIESCE
 argument_list|)
 block|}
 return|;
+block|}
 block|}
 if|if
 condition|(
