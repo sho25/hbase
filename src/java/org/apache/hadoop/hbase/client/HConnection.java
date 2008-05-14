@@ -29,16 +29,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|SortedMap
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -181,7 +171,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the reigon in     * question    */
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the reigon in     * question    * @throws IOException    */
 specifier|public
 name|HRegionLocation
 name|locateRegion
@@ -195,7 +185,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the reigon in     * question    */
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the reigon in     * question    * @throws IOException    */
 specifier|public
 name|HRegionLocation
 name|relocateRegion
@@ -219,6 +209,41 @@ name|regionServer
 parameter_list|)
 throws|throws
 name|IOException
+function_decl|;
+comment|/**    * Find region location hosting passed row    * @param tableName    * @param row Row to find.    * @param reload If true do not use cache, otherwise bypass.    * @return Location of row.    * @throws IOException    */
+name|HRegionLocation
+name|getRegionLocation
+parameter_list|(
+name|Text
+name|tableName
+parameter_list|,
+name|Text
+name|row
+parameter_list|,
+name|boolean
+name|reload
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and     * this method will manage the process of doing retries with timed waits     * and refinds of missing regions.    *    * @param<T> the type of the return value    * @param callable    * @return an object of type T    * @throws IOException    * @throws RuntimeException    */
+specifier|public
+parameter_list|<
+name|T
+parameter_list|>
+name|T
+name|getRegionServerWithRetries
+parameter_list|(
+name|ServerCallable
+argument_list|<
+name|T
+argument_list|>
+name|callable
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|RuntimeException
 function_decl|;
 block|}
 end_interface
