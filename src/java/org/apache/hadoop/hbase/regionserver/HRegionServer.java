@@ -6096,6 +6096,16 @@ name|get
 argument_list|()
 return|;
 block|}
+comment|/**    *     * @return the configuration    */
+specifier|public
+name|HBaseConfiguration
+name|getConfiguration
+parameter_list|()
+block|{
+return|return
+name|conf
+return|;
+block|}
 comment|/** @return the write lock for the server */
 name|ReentrantReadWriteLock
 operator|.

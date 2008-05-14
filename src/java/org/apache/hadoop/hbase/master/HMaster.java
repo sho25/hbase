@@ -1699,6 +1699,19 @@ name|getServersToLoad
 argument_list|()
 return|;
 block|}
+comment|/** @return The average load */
+specifier|public
+name|double
+name|getAverageLoad
+parameter_list|()
+block|{
+return|return
+name|serverManager
+operator|.
+name|getAverageLoad
+argument_list|()
+return|;
+block|}
 comment|/**    * @return Location of the<code>-ROOT-</code> region.    */
 specifier|public
 name|HServerAddress

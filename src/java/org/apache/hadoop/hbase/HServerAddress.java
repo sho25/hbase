@@ -302,7 +302,7 @@ operator|+
 name|port
 expr_stmt|;
 block|}
-comment|/** @return host name */
+comment|/** @return bind address */
 specifier|public
 name|String
 name|getBindAddress
@@ -328,6 +328,19 @@ return|return
 name|address
 operator|.
 name|getPort
+argument_list|()
+return|;
+block|}
+comment|/** @return host name */
+specifier|public
+name|String
+name|getHostname
+parameter_list|()
+block|{
+return|return
+name|address
+operator|.
+name|getHostName
 argument_list|()
 return|;
 block|}

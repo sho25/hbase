@@ -150,9 +150,27 @@ name|toString
 parameter_list|()
 block|{
 return|return
+name|toString
+argument_list|(
+literal|1
+argument_list|)
+return|;
+block|}
+comment|/**    * Returns toString() with the number of requests divided by the message interval in seconds    * @param msgInterval    * @return The load as a String    */
+specifier|public
+name|String
+name|toString
+parameter_list|(
+name|int
+name|msgInterval
+parameter_list|)
+block|{
+return|return
 literal|"requests: "
 operator|+
 name|numberOfRequests
+operator|/
+name|msgInterval
 operator|+
 literal|" regions: "
 operator|+
