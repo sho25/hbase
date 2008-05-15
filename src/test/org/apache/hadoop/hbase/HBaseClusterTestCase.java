@@ -157,20 +157,6 @@ name|HTable
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
 begin_comment
 comment|/**  * Abstract base class for HBase cluster junit tests.  Spins up an hbase  * cluster in setup and tears it down again in tearDown.  */
 end_comment
@@ -278,7 +264,9 @@ name|preHBaseClusterSetup
 parameter_list|()
 throws|throws
 name|Exception
-block|{   }
+block|{
+comment|// continue
+block|}
 comment|/**    * Actually start the MiniHBase instance.    */
 annotation|@
 name|SuppressWarnings
@@ -314,11 +302,7 @@ name|HTable
 argument_list|(
 name|conf
 argument_list|,
-operator|new
-name|Text
-argument_list|(
 literal|".META."
-argument_list|)
 argument_list|)
 decl_stmt|;
 block|}
@@ -329,7 +313,9 @@ name|postHBaseClusterSetup
 parameter_list|()
 throws|throws
 name|Exception
-block|{   }
+block|{
+comment|// continue
+block|}
 annotation|@
 name|Override
 specifier|protected

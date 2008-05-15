@@ -455,7 +455,7 @@ literal|"null"
 else|:
 name|info
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;

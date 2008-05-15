@@ -38,7 +38,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * lookup3.c, by Bob Jenkins, May 2006, Public Domain.  *<a href="http://burtleburtle.net/bob/c/lookup3.c">lookup3.c</a>  *  * You can use this free for any purpose.  It's in the public domain.  * It has no warranty.  *   * Produces 32-bit hash for hash table lookup.  */
+comment|/**  * Produces 32-bit hash for hash table lookup.  *   *<pre>lookup3.c, by Bob Jenkins, May 2006, Public Domain.  *  * You can use this free for any purpose.  It's in the public domain.  * It has no warranty.  *</pre>  *   * @see<a href="http://burtleburtle.net/bob/c/lookup3.c">lookup3.c</a>  * @see<a href="http://www.ddj.com/184410284">Hash Functions (and how this  * function compares to others such as CRC, MD?, etc</a>  * @see<a href="http://burtleburtle.net/bob/hash/doobs.html">Has update on the  * Dr. Dobbs Article</a>  */
 end_comment
 
 begin_class
@@ -103,6 +103,31 @@ operator|&
 name|INT_MASK
 return|;
 block|}
+comment|/**    * Alternate form for hashing an entire byte array    *     * @param bytes    * @return hash value    */
+specifier|public
+specifier|static
+name|int
+name|hash
+parameter_list|(
+name|byte
+index|[]
+name|bytes
+parameter_list|)
+block|{
+return|return
+name|hash
+argument_list|(
+name|bytes
+argument_list|,
+name|bytes
+operator|.
+name|length
+argument_list|,
+operator|-
+literal|1
+argument_list|)
+return|;
+block|}
 comment|/**    * Alternate form for hashing an entire byte array    *     * @param bytes     * @param initval    * @return hash value    */
 specifier|public
 specifier|static
@@ -130,7 +155,7 @@ name|initval
 argument_list|)
 return|;
 block|}
-comment|/**    * taken from  hashlittle() -- hash a variable-length key into a 32-bit value    *     * @param key the key (the unaligned variable-length array of bytes)    * @param nbytes number of bytes to include in hash    * @param initval can be any integer value    * @return a 32-bit value.  Every bit of the key affects every bit of the    * return value.  Two keys differing by one or two bits will have totally    * different hash values.    *     * The best hash table sizes are powers of 2.  There is no need to do mod a    * prime (mod is sooo slow!).  If you need less than 32 bits, use a bitmask.    * For example, if you need only 10 bits, do h = (h& hashmask(10));    * In which case, the hash table should have hashsize(10) elements.    *     * If you are hashing n strings byte[][] k, do it like this:    * for (int i = 0, h = 0; i< n; ++i) h = hash( k[i], h);    *     * By Bob Jenkins, 2006.  bob_jenkins@burtleburtle.net.  You may use this    * code any way you wish, private, educational, or commercial.  It's free.    *     * Use for hash table lookup, or anything where one collision in 2^^32 is    * acceptable.  Do NOT use for cryptographic purposes.   */
+comment|/**    * taken from  hashlittle() -- hash a variable-length key into a 32-bit value    *     * @param key the key (the unaligned variable-length array of bytes)    * @param nbytes number of bytes to include in hash    * @param initval can be any integer value    * @return a 32-bit value.  Every bit of the key affects every bit of the    * return value.  Two keys differing by one or two bits will have totally    * different hash values.    *     *<p>The best hash table sizes are powers of 2.  There is no need to do mod    * a prime (mod is sooo slow!).  If you need less than 32 bits, use a bitmask.    * For example, if you need only 10 bits, do    *<code>h = (h& hashmask(10));</code>    * In which case, the hash table should have hashsize(10) elements.    *     *<p>If you are hashing n strings byte[][] k, do it like this:    * for (int i = 0, h = 0; i< n; ++i) h = hash( k[i], h);    *     *<p>By Bob Jenkins, 2006.  bob_jenkins@burtleburtle.net.  You may use this    * code any way you wish, private, educational, or commercial.  It's free.    *     *<p>Use for hash table lookup, or anything where one collision in 2^^32 is    * acceptable.  Do NOT use for cryptographic purposes.   */
 specifier|public
 specifier|static
 name|int

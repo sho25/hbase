@@ -101,9 +101,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|io
 operator|.
-name|Text
+name|ImmutableBytesWritable
 import|;
 end_import
 
@@ -244,7 +246,7 @@ name|IndexOutputFormat
 extends|extends
 name|OutputFormatBase
 argument_list|<
-name|Text
+name|ImmutableBytesWritable
 argument_list|,
 name|LuceneDocumentWrapper
 argument_list|>
@@ -268,7 +270,7 @@ name|Override
 specifier|public
 name|RecordWriter
 argument_list|<
-name|Text
+name|ImmutableBytesWritable
 argument_list|,
 name|LuceneDocumentWrapper
 argument_list|>
@@ -572,7 +574,7 @@ return|return
 operator|new
 name|RecordWriter
 argument_list|<
-name|Text
+name|ImmutableBytesWritable
 argument_list|,
 name|LuceneDocumentWrapper
 argument_list|>
@@ -597,7 +599,7 @@ name|SuppressWarnings
 argument_list|(
 literal|"unused"
 argument_list|)
-name|Text
+name|ImmutableBytesWritable
 name|key
 parameter_list|,
 name|LuceneDocumentWrapper

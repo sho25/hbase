@@ -462,9 +462,6 @@ argument_list|()
 operator|.
 name|getOnlineRegions
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 name|r

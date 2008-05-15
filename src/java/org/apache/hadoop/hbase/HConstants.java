@@ -23,9 +23,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|Text
+name|ipc
+operator|.
+name|HRegionInterface
 import|;
 end_import
 
@@ -39,9 +41,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
+name|util
 operator|.
-name|HRegionInterface
+name|Bytes
 import|;
 end_import
 
@@ -66,6 +68,13 @@ name|valueOf
 argument_list|(
 literal|0L
 argument_list|)
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|NINES
+init|=
+literal|"99999999999999"
 decl_stmt|;
 comment|// For migration
 comment|/** name of version file */
@@ -248,11 +257,13 @@ comment|// should go down.
 comment|/** The root table's name.*/
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 name|ROOT_TABLE_NAME
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 literal|"-ROOT-"
 argument_list|)
@@ -260,11 +271,13 @@ decl_stmt|;
 comment|/** The META table's name. */
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 name|META_TABLE_NAME
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 literal|".META."
 argument_list|)
@@ -278,14 +291,16 @@ name|COLUMN_FAMILY_STR
 init|=
 literal|"info:"
 decl_stmt|;
-comment|/** The ROOT and META column family (Text) */
+comment|/** The ROOT and META column family */
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 name|COLUMN_FAMILY
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 name|COLUMN_FAMILY_STR
 argument_list|)
@@ -293,12 +308,14 @@ decl_stmt|;
 comment|/** Array of meta column names */
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 index|[]
 name|COLUMN_FAMILY_ARRAY
 init|=
 operator|new
-name|Text
+name|byte
+index|[]
 index|[]
 block|{
 name|COLUMN_FAMILY
@@ -307,13 +324,15 @@ decl_stmt|;
 comment|/** ROOT/META column family member - contains HRegionInfo */
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 name|COL_REGIONINFO
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
-name|COLUMN_FAMILY
+name|COLUMN_FAMILY_STR
 operator|+
 literal|"regioninfo"
 argument_list|)
@@ -321,12 +340,14 @@ decl_stmt|;
 comment|/** Array of column - contains HRegionInfo */
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 index|[]
 name|COL_REGIONINFO_ARRAY
 init|=
 operator|new
-name|Text
+name|byte
+index|[]
 index|[]
 block|{
 name|COL_REGIONINFO
@@ -335,13 +356,15 @@ decl_stmt|;
 comment|/** ROOT/META column family member - contains HServerAddress.toString() */
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 name|COL_SERVER
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
-name|COLUMN_FAMILY
+name|COLUMN_FAMILY_STR
 operator|+
 literal|"server"
 argument_list|)
@@ -349,13 +372,15 @@ decl_stmt|;
 comment|/** ROOT/META column family member - contains server start code (a long) */
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 name|COL_STARTCODE
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
-name|COLUMN_FAMILY
+name|COLUMN_FAMILY_STR
 operator|+
 literal|"serverstartcode"
 argument_list|)
@@ -363,11 +388,13 @@ decl_stmt|;
 comment|/** the lower half of a split region */
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 name|COL_SPLITA
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 name|COLUMN_FAMILY_STR
 operator|+
@@ -377,11 +404,13 @@ decl_stmt|;
 comment|/** the upper half of a split region */
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 name|COL_SPLITB
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 name|COLUMN_FAMILY_STR
 operator|+
@@ -391,7 +420,8 @@ decl_stmt|;
 comment|/** All the columns in the catalog -ROOT- and .META. tables.    */
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 index|[]
 name|ALL_META_COLUMNS
 init|=
@@ -408,31 +438,45 @@ name|COL_SPLITB
 block|}
 decl_stmt|;
 comment|// Other constants
-comment|/**    * An empty instance of Text.    */
+comment|/**    * An empty instance.    */
 specifier|static
 specifier|final
-name|Text
-name|EMPTY_TEXT
+name|byte
+index|[]
+name|EMPTY_BYTE_ARRAY
 init|=
 operator|new
-name|Text
-argument_list|()
+name|byte
+index|[
+literal|0
+index|]
 decl_stmt|;
 comment|/**    * Used by scanners, etc when they want to start at the beginning of a region    */
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 name|EMPTY_START_ROW
 init|=
-name|EMPTY_TEXT
+name|EMPTY_BYTE_ARRAY
+decl_stmt|;
+comment|/**    * Last row in a table.    */
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|EMPTY_END_ROW
+init|=
+name|EMPTY_START_ROW
 decl_stmt|;
 comment|/**      * Used by scanners and others when they're trying to detect the end of a      * table      */
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 name|LAST_ROW
 init|=
-name|EMPTY_TEXT
+name|EMPTY_BYTE_ARRAY
 decl_stmt|;
 comment|/** When we encode strings, we always specify UTF8 encoding */
 specifier|static

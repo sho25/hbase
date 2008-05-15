@@ -35,11 +35,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
 name|io
 operator|.
-name|HbaseMapWritable
+name|MapWritable
 import|;
 end_import
 
@@ -110,18 +108,18 @@ name|HMasterRegionInterface
 extends|extends
 name|VersionedProtocol
 block|{
-comment|/** Interface version number */
+comment|/** Interface version number.    * Version 2 was when the regionServerStartup was changed to return a    * MapWritable instead of a HbaseMapWritable.    */
 specifier|public
 specifier|static
 specifier|final
 name|long
 name|versionID
 init|=
-literal|1L
+literal|2L
 decl_stmt|;
 comment|/**    * Called when a region server first starts    * @param info    * @throws IOException    * @return Configuration for the regionserver to use: e.g. filesystem,    * hbase rootdir, etc.    */
 specifier|public
-name|HbaseMapWritable
+name|MapWritable
 name|regionServerStartup
 parameter_list|(
 name|HServerInfo

@@ -55,9 +55,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|Text
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -87,25 +89,28 @@ implements|implements
 name|Writable
 block|{
 specifier|private
-name|Text
+name|byte
+index|[]
 name|column
+init|=
+literal|null
 decl_stmt|;
 comment|// A null value defines DELETE operations.
 specifier|private
 name|byte
 index|[]
 name|value
+init|=
+literal|null
 decl_stmt|;
-comment|/** Default constructor used by Writable */
+comment|/**    * Default constructor    */
 specifier|public
 name|BatchOperation
 parameter_list|()
 block|{
 name|this
 argument_list|(
-operator|new
-name|Text
-argument_list|()
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -114,7 +119,8 @@ specifier|public
 name|BatchOperation
 parameter_list|(
 specifier|final
-name|Text
+name|byte
+index|[]
 name|column
 parameter_list|)
 block|{
@@ -131,7 +137,8 @@ specifier|public
 name|BatchOperation
 parameter_list|(
 specifier|final
-name|Text
+name|byte
+index|[]
 name|column
 parameter_list|,
 specifier|final
@@ -155,7 +162,8 @@ expr_stmt|;
 block|}
 comment|/**    * @return the column    */
 specifier|public
-name|Text
+name|byte
+index|[]
 name|getColumn
 parameter_list|()
 block|{
@@ -210,8 +218,10 @@ block|{
 name|this
 operator|.
 name|column
+operator|=
+name|Bytes
 operator|.
-name|readFields
+name|readByteArray
 argument_list|(
 name|in
 argument_list|)
@@ -260,13 +270,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|Bytes
+operator|.
+name|writeByteArray
+argument_list|(
+name|out
+argument_list|,
 name|this
 operator|.
 name|column
-operator|.
-name|write
-argument_list|(
-name|out
 argument_list|)
 expr_stmt|;
 name|boolean

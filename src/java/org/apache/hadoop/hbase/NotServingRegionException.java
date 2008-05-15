@@ -25,6 +25,22 @@ name|IOException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
 begin_comment
 comment|/**  * Thrown by a region server if it is sent a request for a region it is not  * serving.  */
 end_comment
@@ -68,6 +84,27 @@ block|{
 name|super
 argument_list|(
 name|s
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Constructor    * @param s message    */
+specifier|public
+name|NotServingRegionException
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|s
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|s
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

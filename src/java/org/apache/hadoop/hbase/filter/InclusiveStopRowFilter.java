@@ -25,9 +25,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|Text
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -56,7 +58,8 @@ specifier|public
 name|InclusiveStopRowFilter
 parameter_list|(
 specifier|final
-name|Text
+name|byte
+index|[]
 name|stopRowKey
 parameter_list|)
 block|{
@@ -74,7 +77,8 @@ name|boolean
 name|filterRowKey
 parameter_list|(
 specifier|final
-name|Text
+name|byte
+index|[]
 name|rowKey
 parameter_list|)
 block|{
@@ -87,9 +91,8 @@ condition|)
 block|{
 if|if
 condition|(
-name|this
-operator|.
-name|stopRowKey
+name|getStopRowKey
+argument_list|()
 operator|==
 literal|null
 condition|)
@@ -103,12 +106,13 @@ literal|false
 return|;
 block|}
 return|return
-name|this
-operator|.
-name|stopRowKey
+name|Bytes
 operator|.
 name|compareTo
 argument_list|(
+name|getStopRowKey
+argument_list|()
+argument_list|,
 name|rowKey
 argument_list|)
 operator|<

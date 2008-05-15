@@ -215,9 +215,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|Text
+name|HConstants
 import|;
 end_import
 
@@ -231,7 +231,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -449,7 +451,7 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-specifier|protected
+specifier|private
 specifier|final
 name|boolean
 name|rootRegion
@@ -644,14 +646,16 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|>
 name|emptyRows
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -993,12 +997,19 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|" rows with empty HRegionInfo while scanning meta region "
+literal|" rows with empty HRegionInfo "
 operator|+
+literal|"while scanning meta region "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|region
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|master
@@ -1150,7 +1161,8 @@ name|boolean
 name|cleanupSplits
 parameter_list|(
 specifier|final
-name|Text
+name|byte
+index|[]
 name|metaRegionName
 parameter_list|,
 specifier|final
@@ -1308,7 +1320,8 @@ name|boolean
 name|hasReferences
 parameter_list|(
 specifier|final
-name|Text
+name|byte
+index|[]
 name|metaRegionName
 parameter_list|,
 specifier|final
@@ -1316,14 +1329,16 @@ name|HRegionInterface
 name|srvr
 parameter_list|,
 specifier|final
-name|Text
+name|byte
+index|[]
 name|parent
 parameter_list|,
 name|RowResult
 name|rowContent
 parameter_list|,
 specifier|final
-name|Text
+name|byte
+index|[]
 name|splitColumn
 parameter_list|)
 throws|throws
@@ -1390,10 +1405,7 @@ operator|.
 name|getTableDesc
 argument_list|()
 operator|.
-name|families
-argument_list|()
-operator|.
-name|values
+name|getFamilies
 argument_list|()
 control|)
 block|{
@@ -1413,7 +1425,7 @@ argument_list|()
 argument_list|,
 name|family
 operator|.
-name|getFamilyName
+name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1737,16 +1749,21 @@ name|debug
 argument_list|(
 literal|"Current assignment of "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|info
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 operator|+
-literal|" is not valid: storedInfo: "
+literal|" is not valid: serverInfo: "
 operator|+
 name|storedInfo
 operator|+
-literal|", startCode: "
+literal|", passed startCode: "
 operator|+
 name|startCode
 operator|+

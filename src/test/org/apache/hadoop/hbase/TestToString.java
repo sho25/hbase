@@ -115,7 +115,7 @@ name|htd
 init|=
 name|HTableDescriptor
 operator|.
-name|rootTableDesc
+name|ROOT_TABLEDESC
 decl_stmt|;
 name|System
 operator|.
@@ -133,13 +133,13 @@ name|assertEquals
 argument_list|(
 literal|"Table descriptor"
 argument_list|,
-literal|"name: -ROOT-, families: {info:={name: "
+literal|"name: -ROOT-, families: [{name: "
 operator|+
 literal|"info, max versions: 1, compression: NONE, in memory: false, "
 operator|+
 literal|"block cache enabled: false, max length: 2147483647, "
 operator|+
-literal|"time to live: FOREVER, bloom filter: none}}"
+literal|"time to live: FOREVER, bloom filter: none}]"
 argument_list|,
 name|htd
 operator|.
@@ -159,7 +159,7 @@ name|hri
 init|=
 name|HRegionInfo
 operator|.
-name|rootRegionInfo
+name|ROOT_REGIONINFO
 decl_stmt|;
 name|System
 operator|.
@@ -179,11 +179,11 @@ literal|"HRegionInfo"
 argument_list|,
 literal|"regionname: -ROOT-,,0, startKey:<>, endKey:<>, encodedName: 70236052, tableDesc: "
 operator|+
-literal|"{name: -ROOT-, families: {info:={name: info, max versions: 1, "
+literal|"{name: -ROOT-, families: [{name: info, max versions: 1, "
 operator|+
 literal|"compression: NONE, in memory: false, block cache enabled: false, "
 operator|+
-literal|"max length: 2147483647, time to live: FOREVER, bloom filter: none}}}"
+literal|"max length: 2147483647, time to live: FOREVER, bloom filter: none}]}"
 argument_list|,
 name|hri
 operator|.

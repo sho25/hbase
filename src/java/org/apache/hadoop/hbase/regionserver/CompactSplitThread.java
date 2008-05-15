@@ -95,20 +95,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|util
 operator|.
 name|StringUtils
@@ -228,6 +214,22 @@ operator|.
 name|io
 operator|.
 name|BatchUpdate
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -454,7 +456,8 @@ expr_stmt|;
 try|try
 block|{
 comment|// Don't interrupt us while we are working
-name|Text
+name|byte
+index|[]
 name|midKey
 init|=
 name|r
@@ -627,10 +630,15 @@ name|debug
 argument_list|(
 literal|"Compaction requested for region: "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|r
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 synchronized|synchronized
@@ -675,7 +683,8 @@ name|HRegion
 name|region
 parameter_list|,
 specifier|final
-name|Text
+name|byte
+index|[]
 name|midKey
 parameter_list|)
 throws|throws
@@ -1051,10 +1060,13 @@ argument_list|(
 literal|"unused"
 argument_list|)
 specifier|final
-name|Text
+name|byte
+index|[]
 name|regionName
 parameter_list|)
-block|{   }
+block|{
+comment|// continue
+block|}
 comment|/** {@inheritDoc} */
 specifier|public
 name|void
@@ -1066,10 +1078,13 @@ argument_list|(
 literal|"unused"
 argument_list|)
 specifier|final
-name|Text
+name|byte
+index|[]
 name|regionName
 parameter_list|)
-block|{   }
+block|{
+comment|// continue
+block|}
 comment|/**    * Only interrupt once it's done with a run through the work loop.    */
 name|void
 name|interruptIfNecessary

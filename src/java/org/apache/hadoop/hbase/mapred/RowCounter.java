@@ -107,7 +107,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|RowResult
+name|ImmutableBytesWritable
 import|;
 end_import
 
@@ -119,9 +119,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|io
 operator|.
-name|Text
+name|RowResult
 import|;
 end_import
 
@@ -236,7 +238,7 @@ name|RowCounter
 extends|extends
 name|TableMap
 argument_list|<
-name|Text
+name|ImmutableBytesWritable
 argument_list|,
 name|RowResult
 argument_list|>
@@ -277,7 +279,7 @@ specifier|public
 name|void
 name|map
 parameter_list|(
-name|Text
+name|ImmutableBytesWritable
 name|row
 parameter_list|,
 name|RowResult
@@ -285,7 +287,7 @@ name|value
 parameter_list|,
 name|OutputCollector
 argument_list|<
-name|Text
+name|ImmutableBytesWritable
 argument_list|,
 name|RowResult
 argument_list|>
@@ -313,7 +315,8 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|Cell
 argument_list|>
@@ -504,7 +507,7 @@ operator|.
 name|getClass
 argument_list|()
 argument_list|,
-name|Text
+name|ImmutableBytesWritable
 operator|.
 name|class
 argument_list|,

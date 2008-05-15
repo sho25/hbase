@@ -17,20 +17,6 @@ name|regionserver
 package|;
 end_package
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
 begin_comment
 comment|/**  * Used as a callback mechanism so that an HRegion can notify the HRegionServer  * of the different stages making an HRegion unavailable.  Regions are made  * unavailable during region split operations.  */
 end_comment
@@ -46,7 +32,8 @@ name|void
 name|closing
 parameter_list|(
 specifier|final
-name|Text
+name|byte
+index|[]
 name|regionName
 parameter_list|)
 function_decl|;
@@ -56,7 +43,8 @@ name|void
 name|closed
 parameter_list|(
 specifier|final
-name|Text
+name|byte
+index|[]
 name|regionName
 parameter_list|)
 function_decl|;

@@ -59,6 +59,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|TreeMap
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -115,7 +125,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Writables
+name|Bytes
 import|;
 end_import
 
@@ -127,9 +137,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|Text
+name|util
+operator|.
+name|Writables
 import|;
 end_import
 
@@ -183,7 +195,8 @@ name|HMaster
 name|master
 parameter_list|,
 specifier|final
-name|Text
+name|byte
+index|[]
 name|tableName
 parameter_list|,
 specifier|final
@@ -565,22 +578,28 @@ continue|continue;
 comment|// Already being served
 block|}
 comment|// Cause regions being served to be taken off-line and disabled
-name|HashMap
+name|Map
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|HRegionInfo
 argument_list|>
 name|localKillList
 init|=
 operator|new
-name|HashMap
+name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|HRegionInfo
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 decl_stmt|;
 for|for
 control|(
@@ -645,7 +664,8 @@ expr_stmt|;
 block|}
 name|Map
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|HRegionInfo
 argument_list|>

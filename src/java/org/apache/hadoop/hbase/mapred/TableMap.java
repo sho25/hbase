@@ -51,7 +51,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HStoreKey
+name|io
+operator|.
+name|ImmutableBytesWritable
 import|;
 end_import
 
@@ -63,23 +65,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
-operator|.
-name|MapWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
+name|hbase
 operator|.
 name|io
 operator|.
-name|Text
+name|RowResult
 import|;
 end_import
 
@@ -181,38 +171,6 @@ name|Reporter
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|RowResult
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|BatchUpdate
-import|;
-end_import
-
 begin_comment
 comment|/**  * Scan an HBase table to sort by a specified sort column.  * If the column does not exist, the record is not passed to Reduce.  *  * @param<K> WritableComparable key class  * @param<V> Writable value class  */
 end_comment
@@ -241,7 +199,7 @@ name|MapReduceBase
 implements|implements
 name|Mapper
 argument_list|<
-name|Text
+name|ImmutableBytesWritable
 argument_list|,
 name|RowResult
 argument_list|,
@@ -349,7 +307,7 @@ specifier|abstract
 name|void
 name|map
 parameter_list|(
-name|Text
+name|ImmutableBytesWritable
 name|key
 parameter_list|,
 name|RowResult

@@ -35,20 +35,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|HRegionInfo
@@ -113,7 +99,8 @@ name|ColumnOperation
 block|{
 specifier|private
 specifier|final
-name|Text
+name|byte
+index|[]
 name|columnName
 decl_stmt|;
 name|DeleteColumn
@@ -123,11 +110,13 @@ name|HMaster
 name|master
 parameter_list|,
 specifier|final
-name|Text
+name|byte
+index|[]
 name|tableName
 parameter_list|,
 specifier|final
-name|Text
+name|byte
+index|[]
 name|columnName
 parameter_list|)
 throws|throws
@@ -193,10 +182,7 @@ operator|.
 name|getTableDesc
 argument_list|()
 operator|.
-name|families
-argument_list|()
-operator|.
-name|remove
+name|removeFamily
 argument_list|(
 name|columnName
 argument_list|)
@@ -214,7 +200,7 @@ name|i
 argument_list|)
 expr_stmt|;
 comment|// Delete the directories used by the column
-name|String
+name|int
 name|encodedName
 init|=
 name|i

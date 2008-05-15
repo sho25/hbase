@@ -103,20 +103,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|HBaseTestCase
@@ -204,6 +190,22 @@ operator|.
 name|io
 operator|.
 name|BatchUpdate
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -306,11 +308,13 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 name|CONTENTS_BASIC
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 literal|"contents:basic"
 argument_list|)
@@ -342,11 +346,13 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 name|CONTENTS_BODY
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 literal|"contents:body"
 argument_list|)
@@ -354,11 +360,13 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 name|CONTENTS_FIRSTCOL
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 literal|"contents:firstcol"
 argument_list|)
@@ -366,11 +374,13 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 name|ANCHOR_SECONDCOL
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 literal|"anchor:secondcol"
 argument_list|)
@@ -606,8 +616,9 @@ init|=
 operator|new
 name|BatchUpdate
 argument_list|(
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 literal|"row_"
 operator|+
@@ -644,8 +655,9 @@ name|batchUpdate
 operator|.
 name|put
 argument_list|(
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 name|ANCHORNUM
 operator|+
@@ -739,7 +751,8 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 expr_stmt|;
-name|Text
+name|byte
+index|[]
 name|collabel
 init|=
 literal|null
@@ -759,11 +772,13 @@ name|k
 operator|++
 control|)
 block|{
-name|Text
+name|byte
+index|[]
 name|rowlabel
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 literal|"row_"
 operator|+
@@ -841,8 +856,9 @@ argument_list|)
 expr_stmt|;
 name|collabel
 operator|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 name|ANCHORNUM
 operator|+
@@ -965,8 +981,9 @@ init|=
 operator|new
 name|BatchUpdate
 argument_list|(
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 literal|"Some old key"
 argument_list|)
@@ -981,8 +998,9 @@ name|batchUpdate
 operator|.
 name|put
 argument_list|(
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 name|unregisteredColName
 argument_list|)
@@ -1103,12 +1121,12 @@ name|void
 name|run
 parameter_list|()
 block|{
-name|long
+name|Integer
 index|[]
 name|lockids
 init|=
 operator|new
-name|long
+name|Integer
 index|[
 name|lockCount
 index|]
@@ -1131,11 +1149,13 @@ control|)
 block|{
 try|try
 block|{
-name|Text
+name|byte
+index|[]
 name|rowid
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 name|Integer
 operator|.
@@ -1242,15 +1262,10 @@ name|r
 operator|.
 name|releaseRowLock
 argument_list|(
-name|r
-operator|.
-name|getRowFromLock
-argument_list|(
 name|lockids
 index|[
 name|i
 index|]
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -1358,13 +1373,11 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|Text
+name|byte
+index|[]
 name|cols
 index|[]
 init|=
-operator|new
-name|Text
-index|[]
 block|{
 name|CONTENTS_FIRSTCOL
 block|,
@@ -1458,8 +1471,9 @@ init|=
 operator|new
 name|BatchUpdate
 argument_list|(
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 literal|"row_vals1_"
 operator|+
@@ -1575,9 +1589,9 @@ name|getScanner
 argument_list|(
 name|cols
 argument_list|,
-operator|new
-name|Text
-argument_list|()
+name|HConstants
+operator|.
+name|EMPTY_START_ROW
 argument_list|,
 name|System
 operator|.
@@ -1603,7 +1617,8 @@ argument_list|()
 decl_stmt|;
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
@@ -1613,12 +1628,17 @@ init|=
 operator|new
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 decl_stmt|;
 name|int
 name|k
@@ -1641,7 +1661,8 @@ for|for
 control|(
 name|Iterator
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|>
 name|it
 init|=
@@ -1660,7 +1681,8 @@ argument_list|()
 condition|;
 control|)
 block|{
-name|Text
+name|byte
+index|[]
 name|col
 init|=
 name|it
@@ -1719,10 +1741,12 @@ control|)
 block|{
 if|if
 condition|(
-name|col
+name|Bytes
 operator|.
 name|compareTo
 argument_list|(
+name|col
+argument_list|,
 name|cols
 index|[
 name|j
@@ -1883,9 +1907,9 @@ name|getScanner
 argument_list|(
 name|cols
 argument_list|,
-operator|new
-name|Text
-argument_list|()
+name|HConstants
+operator|.
+name|EMPTY_START_ROW
 argument_list|,
 name|System
 operator|.
@@ -1910,7 +1934,8 @@ argument_list|()
 decl_stmt|;
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
@@ -1920,12 +1945,17 @@ init|=
 operator|new
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 decl_stmt|;
 name|int
 name|k
@@ -1948,7 +1978,8 @@ for|for
 control|(
 name|Iterator
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|>
 name|it
 init|=
@@ -1967,7 +1998,8 @@ argument_list|()
 condition|;
 control|)
 block|{
-name|Text
+name|byte
+index|[]
 name|col
 init|=
 name|it
@@ -2026,10 +2058,12 @@ control|)
 block|{
 if|if
 condition|(
-name|col
+name|Bytes
 operator|.
 name|compareTo
 argument_list|(
+name|col
+argument_list|,
 name|cols
 index|[
 name|j
@@ -2188,8 +2222,9 @@ init|=
 operator|new
 name|BatchUpdate
 argument_list|(
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 literal|"row_vals1_"
 operator|+
@@ -2304,9 +2339,9 @@ name|getScanner
 argument_list|(
 name|cols
 argument_list|,
-operator|new
-name|Text
-argument_list|()
+name|HConstants
+operator|.
+name|EMPTY_START_ROW
 argument_list|,
 name|System
 operator|.
@@ -2331,7 +2366,8 @@ argument_list|()
 decl_stmt|;
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
@@ -2341,12 +2377,17 @@ init|=
 operator|new
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 decl_stmt|;
 name|int
 name|k
@@ -2369,7 +2410,8 @@ for|for
 control|(
 name|Iterator
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|>
 name|it
 init|=
@@ -2388,7 +2430,8 @@ argument_list|()
 condition|;
 control|)
 block|{
-name|Text
+name|byte
+index|[]
 name|col
 init|=
 name|it
@@ -2447,10 +2490,12 @@ control|)
 block|{
 if|if
 condition|(
-name|col
+name|Bytes
 operator|.
 name|compareTo
 argument_list|(
+name|col
+argument_list|,
 name|cols
 index|[
 name|j
@@ -2607,9 +2652,9 @@ name|getScanner
 argument_list|(
 name|cols
 argument_list|,
-operator|new
-name|Text
-argument_list|()
+name|HConstants
+operator|.
+name|EMPTY_START_ROW
 argument_list|,
 name|System
 operator|.
@@ -2634,7 +2679,8 @@ argument_list|()
 decl_stmt|;
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
@@ -2644,12 +2690,17 @@ init|=
 operator|new
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 decl_stmt|;
 name|int
 name|k
@@ -2672,7 +2723,8 @@ for|for
 control|(
 name|Iterator
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|>
 name|it
 init|=
@@ -2691,7 +2743,8 @@ argument_list|()
 condition|;
 control|)
 block|{
-name|Text
+name|byte
+index|[]
 name|col
 init|=
 name|it
@@ -2750,10 +2803,12 @@ control|)
 block|{
 if|if
 condition|(
-name|col
+name|Bytes
 operator|.
 name|compareTo
 argument_list|(
+name|col
+argument_list|,
 name|cols
 index|[
 name|j
@@ -2863,8 +2918,9 @@ name|getScanner
 argument_list|(
 name|cols
 argument_list|,
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 literal|"row_vals1_500"
 argument_list|)
@@ -2892,7 +2948,8 @@ argument_list|()
 decl_stmt|;
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
@@ -2902,12 +2959,17 @@ init|=
 operator|new
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 decl_stmt|;
 name|int
 name|k
@@ -2930,7 +2992,8 @@ for|for
 control|(
 name|Iterator
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|>
 name|it
 init|=
@@ -2949,7 +3012,8 @@ argument_list|()
 condition|;
 control|)
 block|{
-name|Text
+name|byte
+index|[]
 name|col
 init|=
 name|it
@@ -3008,10 +3072,12 @@ control|)
 block|{
 if|if
 condition|(
-name|col
+name|Bytes
 operator|.
 name|compareTo
 argument_list|(
+name|col
+argument_list|,
 name|cols
 index|[
 name|j
@@ -3226,8 +3292,9 @@ init|=
 operator|new
 name|BatchUpdate
 argument_list|(
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 literal|"row_"
 operator|+
@@ -3619,7 +3686,8 @@ operator|.
 name|getRegionDir
 argument_list|()
 decl_stmt|;
-name|Text
+name|byte
+index|[]
 name|midKey
 init|=
 name|r
@@ -3846,7 +3914,8 @@ argument_list|(
 literal|"unused"
 argument_list|)
 specifier|final
-name|Text
+name|byte
+index|[]
 name|regionName
 parameter_list|)
 block|{
@@ -3863,7 +3932,8 @@ argument_list|(
 literal|"unused"
 argument_list|)
 specifier|final
-name|Text
+name|byte
+index|[]
 name|regionName
 parameter_list|)
 block|{
@@ -3878,27 +3948,22 @@ throws|throws
 name|IOException
 block|{
 comment|// First verify the data written by testBasic()
-name|Text
+name|byte
+index|[]
 index|[]
 name|cols
 init|=
-operator|new
-name|Text
-index|[]
 block|{
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 name|ANCHORNUM
 operator|+
 literal|"[0-9]+"
 argument_list|)
 block|,
-operator|new
-name|Text
-argument_list|(
 name|CONTENTS_BASIC
-argument_list|)
 block|}
 decl_stmt|;
 name|long
@@ -3918,9 +3983,9 @@ name|getScanner
 argument_list|(
 name|cols
 argument_list|,
-operator|new
-name|Text
-argument_list|()
+name|HConstants
+operator|.
+name|EMPTY_START_ROW
 argument_list|,
 name|System
 operator|.
@@ -3951,7 +4016,8 @@ argument_list|()
 decl_stmt|;
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
@@ -3961,12 +4027,17 @@ init|=
 operator|new
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 decl_stmt|;
 name|int
 name|k
@@ -3989,7 +4060,8 @@ for|for
 control|(
 name|Iterator
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|>
 name|it
 init|=
@@ -4008,7 +4080,8 @@ argument_list|()
 condition|;
 control|)
 block|{
-name|Text
+name|byte
+index|[]
 name|col
 init|=
 name|it
@@ -4030,25 +4103,21 @@ decl_stmt|;
 name|String
 name|curval
 init|=
-operator|new
-name|String
+name|Bytes
+operator|.
+name|toString
 argument_list|(
 name|val
-argument_list|,
-name|HConstants
-operator|.
-name|UTF8_ENCODING
 argument_list|)
-operator|.
-name|trim
-argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|col
+name|Bytes
 operator|.
 name|compareTo
 argument_list|(
+name|col
+argument_list|,
 name|CONTENTS_BASIC
 argument_list|)
 operator|==
@@ -4098,10 +4167,12 @@ block|}
 elseif|else
 if|if
 condition|(
-name|col
+name|Bytes
 operator|.
 name|toString
-argument_list|()
+argument_list|(
+name|col
+argument_list|)
 operator|.
 name|startsWith
 argument_list|(
@@ -4127,7 +4198,12 @@ argument_list|()
 operator|+
 literal|", Value for "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|col
+argument_list|)
 operator|+
 literal|" should start with: "
 operator|+
@@ -4246,7 +4322,8 @@ comment|// Verify testScan data
 name|cols
 operator|=
 operator|new
-name|Text
+name|byte
+index|[]
 index|[]
 block|{
 name|CONTENTS_FIRSTCOL
@@ -4269,9 +4346,9 @@ name|getScanner
 argument_list|(
 name|cols
 argument_list|,
-operator|new
-name|Text
-argument_list|()
+name|HConstants
+operator|.
+name|EMPTY_START_ROW
 argument_list|,
 name|System
 operator|.
@@ -4297,7 +4374,8 @@ argument_list|()
 decl_stmt|;
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
@@ -4307,12 +4385,17 @@ init|=
 operator|new
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 decl_stmt|;
 name|int
 name|k
@@ -4335,7 +4418,8 @@ for|for
 control|(
 name|Iterator
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|>
 name|it
 init|=
@@ -4354,7 +4438,8 @@ argument_list|()
 condition|;
 control|)
 block|{
-name|Text
+name|byte
+index|[]
 name|col
 init|=
 name|it
@@ -4413,10 +4498,12 @@ control|)
 block|{
 if|if
 condition|(
-name|col
+name|Bytes
 operator|.
 name|compareTo
 argument_list|(
+name|col
+argument_list|,
 name|cols
 index|[
 name|j
@@ -4512,47 +4599,17 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Verify testBatchWrite data
-comment|//    if(StaticTestEnvironment.debugging) {
-comment|//      startTime = System.currentTimeMillis();
-comment|//      s = r.getScanner(new Text[] { CONTENTS_BODY }, new Text(),
-comment|//          System.currentTimeMillis(), null);
-comment|//
-comment|//      try {
-comment|//        int numFetched = 0;
-comment|//        HStoreKey curKey = new HStoreKey();
-comment|//        TreeMap<Text, byte []> curVals = new TreeMap<Text, byte []>();
-comment|//        int k = 0;
-comment|//        while(s.next(curKey, curVals)) {
-comment|//          for(Iterator<Text> it = curVals.keySet().iterator(); it.hasNext(); ) {
-comment|//            Text col = it.next();
-comment|//            byte [] val = curVals.get(col);
-comment|//            assertTrue(col.compareTo(CONTENTS_BODY) == 0);
-comment|//            assertNotNull(val);
-comment|//            numFetched++;
-comment|//          }
-comment|//          curVals.clear();
-comment|//          k++;
-comment|//        }
-comment|//        assertEquals("Inserted " + N_ROWS + " values, but fetched " + numFetched, N_ROWS, numFetched);
-comment|//
-comment|//        LOG.info("Scanned " + N_ROWS
-comment|//            + " rows from disk. Elapsed time: "
-comment|//            + ((System.currentTimeMillis() - startTime) / 1000.0));
-comment|//
-comment|//      } finally {
-comment|//        s.close();
-comment|//      }
-comment|//    }
 comment|// Test a scanner which only specifies the column family name
 name|cols
 operator|=
 operator|new
-name|Text
+name|byte
+index|[]
 index|[]
 block|{
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 literal|"anchor:"
 argument_list|)
@@ -4573,9 +4630,9 @@ name|getScanner
 argument_list|(
 name|cols
 argument_list|,
-operator|new
-name|Text
-argument_list|()
+name|HConstants
+operator|.
+name|EMPTY_START_ROW
 argument_list|,
 name|System
 operator|.
@@ -4601,7 +4658,8 @@ argument_list|()
 decl_stmt|;
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
@@ -4611,12 +4669,17 @@ init|=
 operator|new
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 decl_stmt|;
 while|while
 condition|(
@@ -4634,7 +4697,8 @@ for|for
 control|(
 name|Iterator
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|>
 name|it
 init|=

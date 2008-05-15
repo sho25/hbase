@@ -620,8 +620,6 @@ parameter_list|(
 name|MetaRegion
 name|m
 parameter_list|)
-throws|throws
-name|InterruptedException
 block|{
 name|metaRegionsToScan
 operator|.

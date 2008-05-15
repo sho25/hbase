@@ -37,6 +37,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HServerAddress
 import|;
 end_import
@@ -65,7 +79,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|io
+operator|.
+name|BatchUpdate
 import|;
 end_import
 
@@ -81,23 +97,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Writables
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|BatchUpdate
+name|Bytes
 import|;
 end_import
 
@@ -123,6 +123,11 @@ index|[]
 name|startCode
 decl_stmt|;
 comment|/**    * @param master    * @param info    * @param regionInfo    * @throws IOException    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|ProcessRegionOpen
 parameter_list|(
@@ -158,9 +163,9 @@ name|this
 operator|.
 name|startCode
 operator|=
-name|Writables
+name|Bytes
 operator|.
-name|longToBytes
+name|toBytes
 argument_list|(
 name|info
 operator|.
@@ -226,7 +231,7 @@ name|info
 argument_list|(
 name|regionInfo
 operator|.
-name|toString
+name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|" open on "
@@ -261,18 +266,23 @@ literal|"updating row "
 operator|+
 name|regionInfo
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" in table "
+literal|" in region "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|metaRegionName
+argument_list|)
 operator|+
 literal|" with startcode "
 operator|+
-name|Writables
+name|Bytes
 operator|.
-name|bytesToLong
+name|toLong
 argument_list|(
 name|startCode
 argument_list|)
@@ -303,9 +313,9 @@ name|put
 argument_list|(
 name|COL_SERVER
 argument_list|,
-name|Writables
+name|Bytes
 operator|.
-name|stringToBytes
+name|toBytes
 argument_list|(
 name|serverAddress
 operator|.

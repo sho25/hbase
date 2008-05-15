@@ -65,9 +65,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|Text
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -283,11 +285,13 @@ name|i
 operator|++
 control|)
 block|{
-name|Text
+name|byte
+index|[]
 name|row
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 name|Integer
 operator|.

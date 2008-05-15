@@ -123,9 +123,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|io
 operator|.
-name|Text
+name|ImmutableBytesWritable
 import|;
 end_import
 
@@ -238,7 +240,7 @@ name|TableOutputFormat
 extends|extends
 name|OutputFormatBase
 argument_list|<
-name|Text
+name|ImmutableBytesWritable
 argument_list|,
 name|BatchUpdate
 argument_list|>
@@ -273,7 +275,7 @@ name|TableRecordWriter
 implements|implements
 name|RecordWriter
 argument_list|<
-name|Text
+name|ImmutableBytesWritable
 argument_list|,
 name|BatchUpdate
 argument_list|>
@@ -316,7 +318,7 @@ specifier|public
 name|void
 name|write
 parameter_list|(
-name|Text
+name|ImmutableBytesWritable
 name|key
 parameter_list|,
 name|BatchUpdate
@@ -377,18 +379,14 @@ throws|throws
 name|IOException
 block|{
 comment|// expecting exactly one path
-name|Text
+name|String
 name|tableName
 init|=
-operator|new
-name|Text
-argument_list|(
 name|job
 operator|.
 name|get
 argument_list|(
 name|OUTPUT_TABLE
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|HTable

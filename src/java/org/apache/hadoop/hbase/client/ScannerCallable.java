@@ -73,20 +73,6 @@ name|RowResult
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
 begin_comment
 comment|/**  * Retryable scanner  */
 end_comment
@@ -122,7 +108,8 @@ literal|false
 decl_stmt|;
 specifier|private
 specifier|final
-name|Text
+name|byte
+index|[]
 index|[]
 name|columns
 decl_stmt|;
@@ -141,14 +128,17 @@ parameter_list|(
 name|HConnection
 name|connection
 parameter_list|,
-name|Text
+name|byte
+index|[]
 name|tableName
 parameter_list|,
-name|Text
+name|byte
+index|[]
 index|[]
 name|columns
 parameter_list|,
-name|Text
+name|byte
+index|[]
 name|startRow
 parameter_list|,
 name|long

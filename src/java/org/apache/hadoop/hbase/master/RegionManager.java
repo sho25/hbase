@@ -89,6 +89,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -100,16 +110,6 @@ operator|.
 name|util
 operator|.
 name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|HashSet
 import|;
 end_import
 
@@ -169,23 +169,19 @@ name|java
 operator|.
 name|util
 operator|.
-name|concurrent
-operator|.
-name|ConcurrentHashMap
+name|TreeSet
 import|;
 end_import
 
 begin_import
 import|import
-name|org
+name|java
 operator|.
-name|apache
+name|util
 operator|.
-name|hadoop
+name|concurrent
 operator|.
-name|io
-operator|.
-name|Text
+name|ConcurrentHashMap
 import|;
 end_import
 
@@ -345,6 +341,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Threads
 import|;
 end_import
@@ -455,7 +467,8 @@ specifier|private
 specifier|final
 name|SortedMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|MetaRegion
 argument_list|>
@@ -468,11 +481,16 @@ argument_list|(
 operator|new
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|MetaRegion
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 argument_list|)
 decl_stmt|;
 comment|/**    * The 'unassignedRegions' table maps from a HRegionInfo to a timestamp that    * indicates the last time we *tried* to assign the region to a RegionServer.    * If the timestamp is out of date, then we can try to reassign it.     *     * We fill 'unassignedRecords' by scanning ROOT and META tables, learning the    * set of all known valid regions.    *     *<p>Items are removed from this list when a region server reports in that    * the region has been deployed.    *    * TODO: Need to be a sorted map?    */
@@ -505,7 +523,8 @@ specifier|private
 specifier|final
 name|Set
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|>
 name|pendingRegions
 init|=
@@ -514,11 +533,16 @@ operator|.
 name|synchronizedSet
 argument_list|(
 operator|new
-name|HashSet
+name|TreeSet
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 argument_list|)
 decl_stmt|;
 comment|/**    * List of regions that are going to be closed.    */
@@ -530,7 +554,8 @@ name|String
 argument_list|,
 name|Map
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|HRegionInfo
 argument_list|>
@@ -544,7 +569,8 @@ name|String
 argument_list|,
 name|Map
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|HRegionInfo
 argument_list|>
@@ -556,7 +582,8 @@ specifier|private
 specifier|final
 name|Set
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|>
 name|closingRegions
 init|=
@@ -565,11 +592,16 @@ operator|.
 name|synchronizedSet
 argument_list|(
 operator|new
-name|HashSet
+name|TreeSet
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 argument_list|)
 decl_stmt|;
 comment|/**    * Set of regions that, once closed, should be marked as offline so that they    * are not reassigned.    */
@@ -577,7 +609,8 @@ specifier|private
 specifier|final
 name|Set
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|>
 name|regionsToOffline
 init|=
@@ -586,11 +619,16 @@ operator|.
 name|synchronizedSet
 argument_list|(
 operator|new
-name|HashSet
+name|TreeSet
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// How many regions to assign a server at a time.
@@ -708,7 +746,7 @@ name|put
 argument_list|(
 name|HRegionInfo
 operator|.
-name|rootRegionInfo
+name|ROOT_REGIONINFO
 argument_list|,
 name|ZERO_L
 argument_list|)
@@ -1137,10 +1175,15 @@ name|info
 argument_list|(
 literal|"assigning region "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|regionInfo
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 operator|+
 literal|" to server "
 operator|+
@@ -1701,10 +1744,15 @@ name|info
 argument_list|(
 literal|"assigning region "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|regionInfo
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 operator|+
 literal|" to the only server "
 operator|+
@@ -1927,7 +1975,8 @@ comment|/**    * @return Read-only map of online regions.    */
 specifier|public
 name|Map
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|MetaRegion
 argument_list|>
@@ -1940,13 +1989,9 @@ name|onlineMetaRegions
 init|)
 block|{
 return|return
-operator|new
-name|TreeMap
-argument_list|<
-name|Text
-argument_list|,
-name|MetaRegion
-argument_list|>
+name|Collections
+operator|.
+name|unmodifiableMap
 argument_list|(
 name|onlineMetaRegions
 argument_list|)
@@ -2217,11 +2262,13 @@ name|MetaRegion
 argument_list|>
 name|getMetaRegionsForTable
 parameter_list|(
-name|Text
+name|byte
+index|[]
 name|tableName
 parameter_list|)
 block|{
-name|Text
+name|byte
+index|[]
 name|firstMetaRegion
 init|=
 literal|null
@@ -2324,7 +2371,8 @@ parameter_list|,
 name|HRegionInterface
 name|server
 parameter_list|,
-name|Text
+name|byte
+index|[]
 name|metaRegionName
 parameter_list|)
 throws|throws
@@ -2358,7 +2406,8 @@ operator|.
 name|getRegionInfo
 argument_list|()
 decl_stmt|;
-name|Text
+name|byte
+index|[]
 name|regionName
 init|=
 name|region
@@ -2505,7 +2554,8 @@ specifier|public
 name|boolean
 name|isMetaRegionOnline
 parameter_list|(
-name|Text
+name|byte
+index|[]
 name|startKey
 parameter_list|)
 block|{
@@ -2523,7 +2573,8 @@ specifier|public
 name|void
 name|offlineMetaRegion
 parameter_list|(
-name|Text
+name|byte
+index|[]
 name|startKey
 parameter_list|)
 block|{
@@ -2558,7 +2609,8 @@ specifier|public
 name|boolean
 name|isPending
 parameter_list|(
-name|Text
+name|byte
+index|[]
 name|regionName
 parameter_list|)
 block|{
@@ -2632,7 +2684,8 @@ specifier|public
 name|void
 name|setPending
 parameter_list|(
-name|Text
+name|byte
+index|[]
 name|regionName
 parameter_list|)
 block|{
@@ -2649,7 +2702,8 @@ specifier|public
 name|void
 name|noLongerPending
 parameter_list|(
-name|Text
+name|byte
+index|[]
 name|regionName
 parameter_list|)
 block|{
@@ -2742,7 +2796,8 @@ init|)
 block|{
 name|Map
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|HRegionInfo
 argument_list|>
@@ -2787,7 +2842,8 @@ name|serverName
 parameter_list|,
 name|Map
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|HRegionInfo
 argument_list|>
@@ -2801,7 +2857,8 @@ init|)
 block|{
 name|Map
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|HRegionInfo
 argument_list|>
@@ -2851,7 +2908,8 @@ comment|/**     * Remove the map of region names to region infos waiting to be o
 specifier|public
 name|Map
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|HRegionInfo
 argument_list|>
@@ -2878,7 +2936,8 @@ parameter_list|(
 name|String
 name|serverName
 parameter_list|,
-name|Text
+name|byte
+index|[]
 name|regionName
 parameter_list|)
 block|{
@@ -2889,7 +2948,8 @@ init|)
 block|{
 name|Map
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|HRegionInfo
 argument_list|>
@@ -2926,7 +2986,8 @@ parameter_list|(
 name|String
 name|serverName
 parameter_list|,
-name|Text
+name|byte
+index|[]
 name|regionName
 parameter_list|)
 block|{
@@ -2937,7 +2998,8 @@ init|)
 block|{
 name|Map
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|HRegionInfo
 argument_list|>
@@ -2989,7 +3051,8 @@ specifier|public
 name|boolean
 name|isClosing
 parameter_list|(
-name|Text
+name|byte
+index|[]
 name|regionName
 parameter_list|)
 block|{
@@ -3007,7 +3070,8 @@ specifier|public
 name|void
 name|noLongerClosing
 parameter_list|(
-name|Text
+name|byte
+index|[]
 name|regionName
 parameter_list|)
 block|{
@@ -3024,7 +3088,8 @@ specifier|public
 name|void
 name|setClosing
 parameter_list|(
-name|Text
+name|byte
+index|[]
 name|regionName
 parameter_list|)
 block|{
@@ -3060,7 +3125,8 @@ specifier|public
 name|void
 name|markRegionForOffline
 parameter_list|(
-name|Text
+name|byte
+index|[]
 name|regionName
 parameter_list|)
 block|{
@@ -3077,7 +3143,8 @@ specifier|public
 name|boolean
 name|isMarkedForOffline
 parameter_list|(
-name|Text
+name|byte
+index|[]
 name|regionName
 parameter_list|)
 block|{
@@ -3095,7 +3162,8 @@ specifier|public
 name|void
 name|regionOfflined
 parameter_list|(
-name|Text
+name|byte
+index|[]
 name|regionName
 parameter_list|)
 block|{

@@ -299,9 +299,6 @@ operator|.
 name|getFamilies
 argument_list|()
 operator|.
-name|values
-argument_list|()
-operator|.
 name|toArray
 argument_list|(
 operator|new

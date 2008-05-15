@@ -91,20 +91,6 @@ name|HServerAddress
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
 begin_comment
 comment|/**  * A region server that will OOME.  * Everytime {@link #batchUpdate(Text, long, BatchUpdate)} is called, we add  * keep around a reference to the batch.  Use this class to test OOME extremes.  * Needs to be started manually as in  *<code>${HBASE_HOME}/bin/hbase ./bin/hbase org.apache.hadoop.hbase.OOMERegionServer start</code>.  */
 end_comment
@@ -169,7 +155,8 @@ specifier|public
 name|void
 name|batchUpdate
 parameter_list|(
-name|Text
+name|byte
+index|[]
 name|regionName
 parameter_list|,
 name|BatchUpdate

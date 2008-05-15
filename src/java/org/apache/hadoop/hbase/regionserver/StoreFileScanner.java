@@ -103,9 +103,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|MapFile
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -119,7 +121,7 @@ name|hadoop
 operator|.
 name|io
 operator|.
-name|Text
+name|MapFile
 import|;
 end_import
 
@@ -184,12 +186,14 @@ name|long
 name|timestamp
 parameter_list|,
 specifier|final
-name|Text
+name|byte
+index|[]
 index|[]
 name|targetCols
 parameter_list|,
 specifier|final
-name|Text
+name|byte
+index|[]
 name|firstRow
 parameter_list|)
 throws|throws
@@ -261,7 +265,8 @@ name|void
 name|openReaders
 parameter_list|(
 specifier|final
-name|Text
+name|byte
+index|[]
 name|firstRow
 parameter_list|)
 throws|throws
@@ -426,9 +431,12 @@ expr_stmt|;
 if|if
 condition|(
 name|firstRow
+operator|!=
+literal|null
+operator|&&
+name|firstRow
 operator|.
-name|getLength
-argument_list|()
+name|length
 operator|!=
 literal|0
 condition|)
@@ -502,7 +510,8 @@ name|key
 parameter_list|,
 name|SortedMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
@@ -578,17 +587,6 @@ name|getTimestamp
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|key
-operator|.
-name|setColumn
-argument_list|(
-operator|new
-name|Text
-argument_list|(
-literal|""
-argument_list|)
-argument_list|)
-expr_stmt|;
 for|for
 control|(
 name|int
@@ -619,6 +617,10 @@ literal|null
 operator|)
 operator|&&
 operator|(
+name|Bytes
+operator|.
+name|compareTo
+argument_list|(
 name|keys
 index|[
 name|i
@@ -626,9 +628,7 @@ index|]
 operator|.
 name|getRow
 argument_list|()
-operator|.
-name|compareTo
-argument_list|(
+argument_list|,
 name|viableRow
 operator|.
 name|getRow
@@ -700,9 +700,6 @@ name|results
 operator|.
 name|put
 argument_list|(
-operator|new
-name|Text
-argument_list|(
 name|keys
 index|[
 name|i
@@ -710,7 +707,6 @@ index|]
 operator|.
 name|getColumn
 argument_list|()
-argument_list|)
 argument_list|,
 name|vals
 index|[
@@ -755,6 +751,10 @@ operator|)
 operator|&&
 operator|(
 operator|(
+name|Bytes
+operator|.
+name|compareTo
+argument_list|(
 name|keys
 index|[
 name|i
@@ -762,9 +762,7 @@ index|]
 operator|.
 name|getRow
 argument_list|()
-operator|.
-name|compareTo
-argument_list|(
+argument_list|,
 name|viableRow
 operator|.
 name|getRow
@@ -830,7 +828,8 @@ name|ViableRow
 block|{
 specifier|private
 specifier|final
-name|Text
+name|byte
+index|[]
 name|row
 decl_stmt|;
 specifier|private
@@ -841,7 +840,8 @@ decl_stmt|;
 name|ViableRow
 parameter_list|(
 specifier|final
-name|Text
+name|byte
+index|[]
 name|r
 parameter_list|,
 specifier|final
@@ -862,8 +862,8 @@ operator|=
 name|t
 expr_stmt|;
 block|}
-specifier|public
-name|Text
+name|byte
+index|[]
 name|getRow
 parameter_list|()
 block|{
@@ -873,7 +873,6 @@ operator|.
 name|row
 return|;
 block|}
-specifier|public
 name|long
 name|getTimestamp
 parameter_list|()
@@ -894,7 +893,8 @@ throws|throws
 name|IOException
 block|{
 comment|// Find the next viable row label (and timestamp).
-name|Text
+name|byte
+index|[]
 name|viableRow
 init|=
 literal|null
@@ -977,6 +977,10 @@ literal|null
 operator|)
 operator|||
 operator|(
+name|Bytes
+operator|.
+name|compareTo
+argument_list|(
 name|keys
 index|[
 name|i
@@ -984,9 +988,7 @@ index|]
 operator|.
 name|getRow
 argument_list|()
-operator|.
-name|compareTo
-argument_list|(
+argument_list|,
 name|viableRow
 argument_list|)
 operator|<
@@ -995,6 +997,10 @@ operator|)
 operator|||
 operator|(
 operator|(
+name|Bytes
+operator|.
+name|compareTo
+argument_list|(
 name|keys
 index|[
 name|i
@@ -1002,9 +1008,7 @@ index|]
 operator|.
 name|getRow
 argument_list|()
-operator|.
-name|compareTo
-argument_list|(
+argument_list|,
 name|viableRow
 argument_list|)
 operator|==
@@ -1049,9 +1053,6 @@ condition|)
 block|{
 name|viableRow
 operator|=
-operator|new
-name|Text
-argument_list|(
 name|keys
 index|[
 name|i
@@ -1059,7 +1060,6 @@ index|]
 operator|.
 name|getRow
 argument_list|()
-argument_list|)
 expr_stmt|;
 name|viableTimestamp
 operator|=
@@ -1117,7 +1117,9 @@ parameter_list|(
 name|int
 name|i
 parameter_list|,
-name|Text
+specifier|final
+name|byte
+index|[]
 name|firstRow
 parameter_list|)
 throws|throws
@@ -1640,10 +1642,15 @@ name|debug
 argument_list|(
 literal|"Replaced Scanner Readers at row "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|viableRow
 operator|.
 name|getRow
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

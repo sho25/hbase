@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  * $Id$  *  * Copyright   Critical Software S.A., All Rights Reserved.  * (www.criticalsoftware.com)  *  * This software is the proprietary information of Critical Software S.A.  * Use is subject to license terms.  *  * Last changed on : $Date$  * Last changed by : $Author$  */
+comment|/**  * Copyright 2008 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -85,6 +85,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|HTable
@@ -152,6 +166,22 @@ operator|.
 name|filter
 operator|.
 name|StopRowFilter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|ImmutableBytesWritable
 import|;
 end_import
 
@@ -288,7 +318,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Base for {@link TableInputFormat}s. Receives a {@link HTable}, a  * {@link Text}[] of input columns and optionally a {@link RowFilterInterface}.  * Subclasses may use other {@link TableRecordReader} implementations.  *<p>  * An example of a subclass:  *<code>  *   class ExampleTIF extends TableInputFormatBase implements JobConfigurable {  *  *     public void configure(JobConf job) {  *       HTable exampleTable = new HTable(new HBaseConfiguration(job),  *         new Text("exampleTable"));  *       // mandatory  *       setHTable(exampleTable);  *       Text[] inputColumns = new Text[] { new Text("columnA"),  *         new Text("columnB") };  *       // mandatory  *       setInputColums(inputColumns);  *       RowFilterInterface exampleFilter = new RegExpRowFilter("keyPrefix.*");  *       // optional  *       setRowFilter(exampleFilter);  *     }  *  *     public void validateInput(JobConf job) throws IOException {  *     }  *  }  *</code>  */
+comment|/**  * A Base for {@link TableInputFormat}s. Receives a {@link HTable}, a  * {@link Text}[] of input columns and optionally a {@link RowFilterInterface}.  * Subclasses may use other TableRecordReader implementations.  *<p>  * An example of a subclass:  *<code>  *   class ExampleTIF extends TableInputFormatBase implements JobConfigurable {  *  *     public void configure(JobConf job) {  *       HTable exampleTable = new HTable(new HBaseConfiguration(job),  *         Bytes.toBytes("exampleTable"));  *       // mandatory  *       setHTable(exampleTable);  *       Text[] inputColumns = new byte [][] { Bytes.toBytes("columnA"),  *         Bytes.toBytes("columnB") };  *       // mandatory  *       setInputColums(inputColumns);  *       RowFilterInterface exampleFilter = new RegExpRowFilter("keyPrefix.*");  *       // optional  *       setRowFilter(exampleFilter);  *     }  *  *     public void validateInput(JobConf job) throws IOException {  *     }  *  }  *</code>  */
 end_comment
 
 begin_class
@@ -299,7 +329,7 @@ name|TableInputFormatBase
 implements|implements
 name|InputFormat
 argument_list|<
-name|Text
+name|ImmutableBytesWritable
 argument_list|,
 name|RowResult
 argument_list|>
@@ -319,7 +349,8 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|Text
+name|byte
+index|[]
 index|[]
 name|inputColumns
 decl_stmt|;
@@ -342,17 +373,19 @@ name|TableRecordReader
 implements|implements
 name|RecordReader
 argument_list|<
-name|Text
+name|ImmutableBytesWritable
 argument_list|,
 name|RowResult
 argument_list|>
 block|{
 specifier|private
-name|Text
+name|byte
+index|[]
 name|startRow
 decl_stmt|;
 specifier|private
-name|Text
+name|byte
+index|[]
 name|endRow
 decl_stmt|;
 specifier|private
@@ -368,7 +401,8 @@ name|HTable
 name|htable
 decl_stmt|;
 specifier|private
-name|Text
+name|byte
+index|[]
 index|[]
 name|trrInputColumns
 decl_stmt|;
@@ -391,8 +425,7 @@ operator|&&
 operator|(
 name|endRow
 operator|.
-name|getLength
-argument_list|()
+name|length
 operator|>
 literal|0
 operator|)
@@ -528,7 +561,9 @@ specifier|public
 name|void
 name|setInputColumns
 parameter_list|(
-name|Text
+specifier|final
+name|byte
+index|[]
 index|[]
 name|inputColumns
 parameter_list|)
@@ -545,7 +580,9 @@ specifier|public
 name|void
 name|setStartRow
 parameter_list|(
-name|Text
+specifier|final
+name|byte
+index|[]
 name|startRow
 parameter_list|)
 block|{
@@ -561,7 +598,9 @@ specifier|public
 name|void
 name|setEndRow
 parameter_list|(
-name|Text
+specifier|final
+name|byte
+index|[]
 name|endRow
 parameter_list|)
 block|{
@@ -604,15 +643,15 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**      * @return Text      *      * @see org.apache.hadoop.mapred.RecordReader#createKey()      */
+comment|/**      * @return ImmutableBytesWritable      *      * @see org.apache.hadoop.mapred.RecordReader#createKey()      */
 specifier|public
-name|Text
+name|ImmutableBytesWritable
 name|createKey
 parameter_list|()
 block|{
 return|return
 operator|new
-name|Text
+name|ImmutableBytesWritable
 argument_list|()
 return|;
 block|}
@@ -661,7 +700,7 @@ specifier|public
 name|boolean
 name|next
 parameter_list|(
-name|Text
+name|ImmutableBytesWritable
 name|key
 parameter_list|,
 name|RowResult
@@ -686,22 +725,27 @@ init|=
 name|result
 operator|!=
 literal|null
+operator|&&
+name|result
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
 decl_stmt|;
 if|if
 condition|(
 name|hasMore
 condition|)
 block|{
-name|Writables
+name|key
 operator|.
-name|copyWritable
+name|set
 argument_list|(
 name|result
 operator|.
 name|getRow
 argument_list|()
-argument_list|,
-name|key
 argument_list|)
 expr_stmt|;
 name|Writables
@@ -719,11 +763,11 @@ name|hasMore
 return|;
 block|}
 block|}
-comment|/**    * Builds a {@link TableRecordReader}. If no {@link TableRecordReader} was    * provided uses the default.    *    * @see org.apache.hadoop.mapred.InputFormat#getRecordReader(InputSplit,    *      JobConf, Reporter)    */
+comment|/**    * Builds a TableRecordReader. If no TableRecordReader was provided, uses    * the default.    *    * @see org.apache.hadoop.mapred.InputFormat#getRecordReader(InputSplit,    *      JobConf, Reporter)    */
 specifier|public
 name|RecordReader
 argument_list|<
-name|Text
+name|ImmutableBytesWritable
 argument_list|,
 name|RowResult
 argument_list|>
@@ -852,7 +896,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Text
+name|byte
+index|[]
 index|[]
 name|startKeys
 init|=
@@ -1038,9 +1083,9 @@ index|[
 name|lastPos
 index|]
 else|:
-operator|new
-name|Text
-argument_list|()
+name|HConstants
+operator|.
+name|EMPTY_START_ROW
 argument_list|)
 expr_stmt|;
 if|if
@@ -1082,7 +1127,8 @@ specifier|protected
 name|void
 name|setInputColums
 parameter_list|(
-name|Text
+name|byte
+index|[]
 index|[]
 name|inputColumns
 parameter_list|)

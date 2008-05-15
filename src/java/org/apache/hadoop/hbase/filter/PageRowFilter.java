@@ -57,20 +57,6 @@ name|SortedMap
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
 begin_comment
 comment|/**  * Implementation of RowFilterInterface that limits results to a specific page  * size. It terminates scanning once the number of filter-passed results is>=  * the given page size.  *   *<p>  * Note that this filter cannot guarantee that the number of results returned  * to a client are<= page size. This is because the filter is applied  * separately on different region servers. It does however optimize the scan of  * individual HRegions by making sure that the page size is never exceeded  * locally.  *</p>  */
 end_comment
@@ -132,7 +118,8 @@ argument_list|(
 literal|"unused"
 argument_list|)
 specifier|final
-name|Text
+name|byte
+index|[]
 index|[]
 name|columns
 parameter_list|)
@@ -163,7 +150,8 @@ name|SuppressWarnings
 argument_list|(
 literal|"unused"
 argument_list|)
-name|Text
+name|byte
+index|[]
 name|rowKey
 parameter_list|)
 block|{
@@ -217,8 +205,9 @@ argument_list|(
 literal|"unused"
 argument_list|)
 specifier|final
-name|Text
-name|rowKey
+name|byte
+index|[]
+name|r
 parameter_list|)
 block|{
 return|return
@@ -237,7 +226,8 @@ argument_list|(
 literal|"unused"
 argument_list|)
 specifier|final
-name|Text
+name|byte
+index|[]
 name|rowKey
 parameter_list|,
 annotation|@
@@ -246,7 +236,8 @@ argument_list|(
 literal|"unused"
 argument_list|)
 specifier|final
-name|Text
+name|byte
+index|[]
 name|colKey
 parameter_list|,
 annotation|@
@@ -278,7 +269,8 @@ argument_list|)
 specifier|final
 name|SortedMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]

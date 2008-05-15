@@ -183,6 +183,22 @@ name|BatchUpdate
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
 begin_comment
 comment|/**  * Test log deletion as logs are rolled.  */
 end_comment
@@ -303,16 +319,14 @@ expr_stmt|;
 block|}
 name|value
 operator|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
 name|v
 operator|.
 name|toString
 argument_list|()
-operator|.
-name|getBytes
-argument_list|(
-name|HConstants
-operator|.
-name|UTF8_ENCODING
 argument_list|)
 expr_stmt|;
 block|}
@@ -502,9 +516,6 @@ argument_list|(
 name|HConstants
 operator|.
 name|COLUMN_FAMILY
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -532,11 +543,7 @@ name|HTable
 argument_list|(
 name|conf
 argument_list|,
-operator|new
-name|Text
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 decl_stmt|;
 for|for
@@ -674,9 +681,6 @@ argument_list|(
 name|server
 operator|.
 name|getOnlineRegions
-argument_list|()
-operator|.
-name|values
 argument_list|()
 argument_list|)
 decl_stmt|;

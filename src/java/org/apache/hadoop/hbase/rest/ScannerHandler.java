@@ -199,6 +199,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|JenkinsHash
 import|;
 end_import
@@ -791,9 +807,6 @@ name|rowResult
 operator|.
 name|getRow
 argument_list|()
-operator|.
-name|getBytes
-argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -912,7 +925,8 @@ argument_list|(
 name|COLUMN
 argument_list|)
 decl_stmt|;
-name|Text
+name|byte
+index|[]
 index|[]
 name|columns
 init|=
@@ -928,12 +942,13 @@ block|{
 name|columns
 operator|=
 operator|new
-name|Text
+name|byte
 index|[
 name|raw_columns
 operator|.
 name|length
 index|]
+index|[]
 expr_stmt|;
 for|for
 control|(
@@ -958,8 +973,9 @@ index|[
 name|i
 index|]
 operator|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 name|URLDecoder
 operator|.
@@ -1003,7 +1019,8 @@ name|TIMESTAMP
 argument_list|)
 decl_stmt|;
 comment|// TODO: Are these decodings redundant?
-name|Text
+name|byte
+index|[]
 name|startRow
 init|=
 name|request
@@ -1019,8 +1036,9 @@ name|HConstants
 operator|.
 name|EMPTY_START_ROW
 else|:
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 name|URLDecoder
 operator|.
@@ -1040,7 +1058,8 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// Empty start row is same value as empty end row.
-name|Text
+name|byte
+index|[]
 name|endRow
 init|=
 name|request
@@ -1056,8 +1075,9 @@ name|HConstants
 operator|.
 name|EMPTY_START_ROW
 else|:
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 name|URLDecoder
 operator|.

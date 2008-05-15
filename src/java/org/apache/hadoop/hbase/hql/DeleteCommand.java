@@ -258,6 +258,9 @@ operator|new
 name|BatchUpdate
 argument_list|(
 name|rowKey
+operator|.
+name|getBytes
+argument_list|()
 argument_list|)
 decl_stmt|;
 for|for
@@ -277,11 +280,10 @@ name|bu
 operator|.
 name|delete
 argument_list|(
-operator|new
-name|Text
-argument_list|(
 name|column
-argument_list|)
+operator|.
+name|getBytes
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

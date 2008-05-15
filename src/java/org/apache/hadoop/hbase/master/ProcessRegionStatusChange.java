@@ -45,20 +45,6 @@ name|HRegionInfo
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
 begin_comment
 comment|/**  * Abstract class that performs common operations for   * @see #ProcessRegionClose and @see #ProcessRegionOpen  */
 end_comment
@@ -87,7 +73,8 @@ name|metaRegion
 decl_stmt|;
 specifier|protected
 specifier|final
-name|Text
+name|byte
+index|[]
 name|metaRegionName
 decl_stmt|;
 comment|/**    * @param master    * @param regionInfo    */
@@ -132,7 +119,7 @@ name|metaRegionName
 operator|=
 name|HRegionInfo
 operator|.
-name|rootRegionInfo
+name|ROOT_REGIONINFO
 operator|.
 name|getRegionName
 argument_list|()

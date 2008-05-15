@@ -234,12 +234,15 @@ index|[
 name|i
 index|]
 operator|.
-name|getName
+name|getNameAsString
 argument_list|()
 operator|.
 name|equals
 argument_list|(
 name|tableName
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -251,9 +254,6 @@ name|i
 index|]
 operator|.
 name|getFamilies
-argument_list|()
-operator|.
-name|values
 argument_list|()
 operator|.
 name|toArray
@@ -292,7 +292,7 @@ name|HTableDescriptor
 argument_list|(
 name|tableName
 operator|.
-name|toString
+name|getBytes
 argument_list|()
 argument_list|)
 decl_stmt|;

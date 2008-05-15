@@ -119,20 +119,6 @@ name|ObjectWritable
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
 begin_comment
 comment|/**  * Implementation of RowFilterInterface that represents a set of RowFilters  * which will be evaluated with a specified boolean operator MUST_PASS_ALL   * (!AND) or MUST_PASS_ONE (!OR).  Since you can use RowFilterSets as children   * of RowFilterSet, you can create a hierarchy of filters to be evaluated.  */
 end_comment
@@ -241,7 +227,8 @@ name|void
 name|validate
 parameter_list|(
 specifier|final
-name|Text
+name|byte
+index|[]
 index|[]
 name|columns
 parameter_list|)
@@ -292,7 +279,8 @@ parameter_list|(
 name|boolean
 name|filtered
 parameter_list|,
-name|Text
+name|byte
+index|[]
 name|rowKey
 parameter_list|)
 block|{
@@ -426,7 +414,8 @@ name|boolean
 name|filterRowKey
 parameter_list|(
 specifier|final
-name|Text
+name|byte
+index|[]
 name|rowKey
 parameter_list|)
 block|{
@@ -558,11 +547,13 @@ name|boolean
 name|filterColumn
 parameter_list|(
 specifier|final
-name|Text
+name|byte
+index|[]
 name|rowKey
 parameter_list|,
 specifier|final
-name|Text
+name|byte
+index|[]
 name|colKey
 parameter_list|,
 specifier|final
@@ -713,7 +704,8 @@ parameter_list|(
 specifier|final
 name|SortedMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]

@@ -97,20 +97,6 @@ name|IllegalArgument
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
 begin_class
 specifier|public
 class|class
@@ -274,13 +260,9 @@ init|=
 operator|new
 name|HColumnDescriptor
 argument_list|(
-operator|new
-name|Text
-argument_list|(
 name|in
 operator|.
 name|name
-argument_list|)
 argument_list|,
 name|in
 operator|.
@@ -335,9 +317,6 @@ operator|=
 name|in
 operator|.
 name|getName
-argument_list|()
-operator|.
-name|getBytes
 argument_list|()
 expr_stmt|;
 name|col

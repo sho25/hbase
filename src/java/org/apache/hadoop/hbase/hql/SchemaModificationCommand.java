@@ -604,11 +604,10 @@ init|=
 operator|new
 name|HColumnDescriptor
 argument_list|(
-operator|new
-name|Text
-argument_list|(
 name|column
-argument_list|)
+operator|.
+name|getBytes
+argument_list|()
 argument_list|,
 name|maxVersions
 argument_list|,

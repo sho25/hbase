@@ -45,9 +45,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|io
 operator|.
-name|MapWritable
+name|BatchUpdate
 import|;
 end_import
 
@@ -59,9 +61,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|io
 operator|.
-name|Text
+name|ImmutableBytesWritable
 import|;
 end_import
 
@@ -163,22 +167,6 @@ name|Reporter
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|BatchUpdate
-import|;
-end_import
-
 begin_comment
 comment|/**  * Write a table, sorting by the input key  */
 end_comment
@@ -211,7 +199,7 @@ name|K
 argument_list|,
 name|V
 argument_list|,
-name|Text
+name|ImmutableBytesWritable
 argument_list|,
 name|BatchUpdate
 argument_list|>
@@ -268,7 +256,7 @@ name|job
 operator|.
 name|setOutputKeyClass
 argument_list|(
-name|Text
+name|ImmutableBytesWritable
 operator|.
 name|class
 argument_list|)
@@ -300,7 +288,7 @@ name|values
 parameter_list|,
 name|OutputCollector
 argument_list|<
-name|Text
+name|ImmutableBytesWritable
 argument_list|,
 name|BatchUpdate
 argument_list|>

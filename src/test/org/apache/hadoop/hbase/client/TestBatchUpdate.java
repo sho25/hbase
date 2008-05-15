@@ -159,9 +159,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|Text
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -187,11 +189,13 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 name|CONTENTS
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 name|CONTENTS_STR
 argument_list|)
@@ -315,11 +319,7 @@ init|=
 operator|new
 name|BatchUpdate
 argument_list|(
-operator|new
-name|Text
-argument_list|(
 literal|"row1"
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|bu
@@ -350,11 +350,7 @@ operator|=
 operator|new
 name|BatchUpdate
 argument_list|(
-operator|new
-name|Text
-argument_list|(
 literal|"row2"
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|bu
@@ -373,7 +369,8 @@ argument_list|(
 name|bu
 argument_list|)
 expr_stmt|;
-name|Text
+name|byte
+index|[]
 index|[]
 name|columns
 init|=
@@ -390,9 +387,9 @@ name|getScanner
 argument_list|(
 name|columns
 argument_list|,
-operator|new
-name|Text
-argument_list|()
+name|HConstants
+operator|.
+name|EMPTY_START_ROW
 argument_list|)
 decl_stmt|;
 for|for
@@ -409,7 +406,8 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|Cell
 argument_list|>

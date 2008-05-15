@@ -49,16 +49,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|TreeMap
-import|;
-end_import
-
-begin_import
-import|import
 name|junit
 operator|.
 name|framework
@@ -134,20 +124,6 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HStoreKey
 import|;
 end_import
 
@@ -241,7 +217,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|RowResult
+name|Cell
 import|;
 end_import
 
@@ -257,7 +233,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|Cell
+name|RowResult
 import|;
 end_import
 
@@ -269,9 +245,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|Text
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -320,11 +298,13 @@ literal|"A:col1"
 decl_stmt|;
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 name|TEXT_COLUMN1
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 name|COLUMN1
 argument_list|)
@@ -338,11 +318,13 @@ literal|"B:col2"
 decl_stmt|;
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 name|TEXT_COLUMN2
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 name|COLUMN2
 argument_list|)
@@ -350,7 +332,8 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 index|[]
 name|columns
 init|=
@@ -447,11 +430,7 @@ name|HTable
 argument_list|(
 name|conf
 argument_list|,
-operator|new
-name|Text
-argument_list|(
 name|TABLE_NAME
-argument_list|)
 argument_list|)
 decl_stmt|;
 for|for
@@ -475,9 +454,6 @@ init|=
 operator|new
 name|BatchUpdate
 argument_list|(
-operator|new
-name|Text
-argument_list|(
 literal|"row_"
 operator|+
 name|String
@@ -487,7 +463,6 @@ argument_list|(
 literal|"%1$05d"
 argument_list|,
 name|i
-argument_list|)
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -583,11 +558,7 @@ name|HTable
 argument_list|(
 name|conf
 argument_list|,
-operator|new
-name|Text
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|Scanner
@@ -647,16 +618,13 @@ name|HTable
 argument_list|(
 name|conf
 argument_list|,
-operator|new
-name|Text
-argument_list|(
 name|tableName
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|Map
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
@@ -666,7 +634,8 @@ init|=
 operator|new
 name|HashMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
@@ -783,7 +752,8 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|Cell
 argument_list|>

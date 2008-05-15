@@ -35,9 +35,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|Text
+name|HRegionLocation
 import|;
 end_import
 
@@ -51,23 +51,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
-operator|.
-name|HMasterInterface
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|MasterNotRunningException
+name|HServerAddress
 import|;
 end_import
 
@@ -95,7 +79,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionLocation
+name|MasterNotRunningException
 import|;
 end_import
 
@@ -109,7 +93,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerAddress
+name|ipc
+operator|.
+name|HMasterInterface
 import|;
 end_import
 
@@ -158,7 +144,8 @@ name|boolean
 name|tableExists
 parameter_list|(
 specifier|final
-name|Text
+name|byte
+index|[]
 name|tableName
 parameter_list|)
 function_decl|;
@@ -176,10 +163,14 @@ specifier|public
 name|HRegionLocation
 name|locateRegion
 parameter_list|(
-name|Text
+specifier|final
+name|byte
+index|[]
 name|tableName
 parameter_list|,
-name|Text
+specifier|final
+name|byte
+index|[]
 name|row
 parameter_list|)
 throws|throws
@@ -190,10 +181,14 @@ specifier|public
 name|HRegionLocation
 name|relocateRegion
 parameter_list|(
-name|Text
+specifier|final
+name|byte
+index|[]
 name|tableName
 parameter_list|,
-name|Text
+specifier|final
+name|byte
+index|[]
 name|row
 parameter_list|)
 throws|throws
@@ -214,10 +209,12 @@ comment|/**    * Find region location hosting passed row    * @param tableName  
 name|HRegionLocation
 name|getRegionLocation
 parameter_list|(
-name|Text
+name|byte
+index|[]
 name|tableName
 parameter_list|,
-name|Text
+name|byte
+index|[]
 name|row
 parameter_list|,
 name|boolean

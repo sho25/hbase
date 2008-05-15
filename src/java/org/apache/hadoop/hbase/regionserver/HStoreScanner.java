@@ -33,17 +33,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|TreeMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|SortedMap
+name|ArrayList
 import|;
 end_import
 
@@ -63,16 +53,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|List
 import|;
 end_import
@@ -83,7 +63,27 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|SortedMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|TreeMap
 import|;
 end_import
 
@@ -123,9 +123,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|Text
+name|HConstants
 import|;
 end_import
 
@@ -169,7 +169,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -205,7 +207,8 @@ decl_stmt|;
 specifier|private
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
@@ -249,11 +252,13 @@ parameter_list|(
 name|HStore
 name|store
 parameter_list|,
-name|Text
+name|byte
+index|[]
 index|[]
 name|targetCols
 parameter_list|,
-name|Text
+name|byte
+index|[]
 name|firstRow
 parameter_list|,
 name|long
@@ -498,12 +503,17 @@ operator|=
 operator|new
 name|TreeMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 expr_stmt|;
 if|if
 condition|(
@@ -572,7 +582,8 @@ name|key
 parameter_list|,
 name|SortedMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
@@ -602,7 +613,8 @@ name|moreToFollow
 condition|)
 block|{
 comment|// Find the lowest-possible key.
-name|Text
+name|byte
+index|[]
 name|chosenRow
 init|=
 literal|null
@@ -647,6 +659,10 @@ operator|==
 literal|null
 operator|||
 operator|(
+name|Bytes
+operator|.
+name|compareTo
+argument_list|(
 name|keys
 index|[
 name|i
@@ -654,9 +670,7 @@ index|]
 operator|.
 name|getRow
 argument_list|()
-operator|.
-name|compareTo
-argument_list|(
+argument_list|,
 name|chosenRow
 argument_list|)
 operator|<
@@ -665,6 +679,10 @@ operator|)
 operator|||
 operator|(
 operator|(
+name|Bytes
+operator|.
+name|compareTo
+argument_list|(
 name|keys
 index|[
 name|i
@@ -672,9 +690,7 @@ index|]
 operator|.
 name|getRow
 argument_list|()
-operator|.
-name|compareTo
-argument_list|(
+argument_list|,
 name|chosenRow
 argument_list|)
 operator|==
@@ -698,9 +714,6 @@ condition|)
 block|{
 name|chosenRow
 operator|=
-operator|new
-name|Text
-argument_list|(
 name|keys
 index|[
 name|i
@@ -708,7 +721,6 @@ index|]
 operator|.
 name|getRow
 argument_list|()
-argument_list|)
 expr_stmt|;
 name|chosenTimestamp
 operator|=
@@ -771,7 +783,7 @@ name|setColumn
 argument_list|(
 name|HConstants
 operator|.
-name|EMPTY_TEXT
+name|EMPTY_BYTE_ARRAY
 argument_list|)
 expr_stmt|;
 comment|// Keep list of deleted cell keys within this row.  We need this
@@ -832,6 +844,10 @@ name|moreToFollow
 operator|)
 operator|&&
 operator|(
+name|Bytes
+operator|.
+name|compareTo
+argument_list|(
 name|keys
 index|[
 name|i
@@ -839,9 +855,7 @@ index|]
 operator|.
 name|getRow
 argument_list|()
-operator|.
-name|compareTo
-argument_list|(
+argument_list|,
 name|chosenRow
 argument_list|)
 operator|==
@@ -892,7 +906,7 @@ argument_list|()
 argument_list|,
 name|HConstants
 operator|.
-name|EMPTY_TEXT
+name|EMPTY_BYTE_ARRAY
 argument_list|,
 name|key
 operator|.
@@ -906,7 +920,8 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
@@ -1126,6 +1141,10 @@ literal|null
 operator|)
 operator|&&
 operator|(
+name|Bytes
+operator|.
+name|compareTo
+argument_list|(
 name|keys
 index|[
 name|i
@@ -1133,9 +1152,7 @@ index|]
 operator|.
 name|getRow
 argument_list|()
-operator|.
-name|compareTo
-argument_list|(
+argument_list|,
 name|chosenRow
 argument_list|)
 operator|<=
@@ -1416,7 +1433,8 @@ name|HStoreKey
 argument_list|,
 name|SortedMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]

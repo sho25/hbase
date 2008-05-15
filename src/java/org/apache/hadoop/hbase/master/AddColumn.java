@@ -71,20 +71,6 @@ name|HRegionInterface
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
 begin_comment
 comment|/** Instantiated to add a column family to a table */
 end_comment
@@ -107,7 +93,8 @@ name|HMaster
 name|master
 parameter_list|,
 specifier|final
-name|Text
+name|byte
+index|[]
 name|tableName
 parameter_list|,
 specifier|final

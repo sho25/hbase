@@ -69,20 +69,6 @@ name|HRegionInterface
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
 begin_comment
 comment|/**  * Implements Callable, used to define the particular actions you would  * like to take with retry logic.  * @param<T> the class that the ServerCallable handles  *   */
 end_comment
@@ -108,12 +94,14 @@ name|connection
 decl_stmt|;
 specifier|protected
 specifier|final
-name|Text
+name|byte
+index|[]
 name|tableName
 decl_stmt|;
 specifier|protected
 specifier|final
-name|Text
+name|byte
+index|[]
 name|row
 decl_stmt|;
 specifier|protected
@@ -131,10 +119,12 @@ parameter_list|(
 name|HConnection
 name|connection
 parameter_list|,
-name|Text
+name|byte
+index|[]
 name|tableName
 parameter_list|,
-name|Text
+name|byte
+index|[]
 name|row
 parameter_list|)
 block|{
@@ -216,7 +206,8 @@ return|;
 block|}
 comment|/** @return the region name */
 specifier|public
-name|Text
+name|byte
+index|[]
 name|getRegionName
 parameter_list|()
 block|{
@@ -232,7 +223,8 @@ return|;
 block|}
 comment|/** @return the row */
 specifier|public
-name|Text
+name|byte
+index|[]
 name|getRow
 parameter_list|()
 block|{

@@ -65,9 +65,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|hbase
 operator|.
-name|Text
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -82,8 +84,9 @@ name|StopRowFilter
 implements|implements
 name|RowFilterInterface
 block|{
-specifier|protected
-name|Text
+specifier|private
+name|byte
+index|[]
 name|stopRowKey
 decl_stmt|;
 comment|/**    * Default constructor, filters nothing. Required though for RPC    * deserialization.    */
@@ -100,7 +103,8 @@ specifier|public
 name|StopRowFilter
 parameter_list|(
 specifier|final
-name|Text
+name|byte
+index|[]
 name|stopRowKey
 parameter_list|)
 block|{
@@ -113,7 +117,8 @@ expr_stmt|;
 block|}
 comment|/**    * An accessor for the stopRowKey    *     * @return the filter's stopRowKey    */
 specifier|public
-name|Text
+name|byte
+index|[]
 name|getStopRowKey
 parameter_list|()
 block|{
@@ -134,7 +139,8 @@ argument_list|(
 literal|"unused"
 argument_list|)
 specifier|final
-name|Text
+name|byte
+index|[]
 index|[]
 name|columns
 parameter_list|)
@@ -162,7 +168,8 @@ parameter_list|(
 name|boolean
 name|filtered
 parameter_list|,
-name|Text
+name|byte
+index|[]
 name|rowKey
 parameter_list|)
 block|{
@@ -194,7 +201,8 @@ name|boolean
 name|filterRowKey
 parameter_list|(
 specifier|final
-name|Text
+name|byte
+index|[]
 name|rowKey
 parameter_list|)
 block|{
@@ -223,12 +231,12 @@ literal|false
 return|;
 block|}
 return|return
-name|this
-operator|.
-name|stopRowKey
+name|Bytes
 operator|.
 name|compareTo
 argument_list|(
+name|stopRowKey
+argument_list|,
 name|rowKey
 argument_list|)
 operator|<=
@@ -246,7 +254,8 @@ argument_list|(
 literal|"unused"
 argument_list|)
 specifier|final
-name|Text
+name|byte
+index|[]
 name|rowKey
 parameter_list|,
 annotation|@
@@ -255,7 +264,8 @@ argument_list|(
 literal|"unused"
 argument_list|)
 specifier|final
-name|Text
+name|byte
+index|[]
 name|colKey
 parameter_list|,
 annotation|@
@@ -289,7 +299,8 @@ argument_list|)
 specifier|final
 name|SortedMap
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|byte
 index|[]
@@ -313,15 +324,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|this
+operator|.
 name|stopRowKey
 operator|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|readByteArray
 argument_list|(
 name|in
-operator|.
-name|readUTF
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -336,14 +347,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|out
+name|Bytes
 operator|.
-name|writeUTF
+name|writeByteArray
 argument_list|(
-name|stopRowKey
+name|out
+argument_list|,
+name|this
 operator|.
-name|toString
-argument_list|()
+name|stopRowKey
 argument_list|)
 expr_stmt|;
 block|}

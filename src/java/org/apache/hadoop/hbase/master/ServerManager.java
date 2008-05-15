@@ -273,20 +273,6 @@ name|HConstants
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
 begin_comment
 comment|/**  * The ServerManager class manages info about region servers - HServerInfo,   * load numbers, dying servers, etc.  */
 end_comment
@@ -1556,7 +1542,8 @@ argument_list|()
 decl_stmt|;
 name|Map
 argument_list|<
-name|Text
+name|byte
+index|[]
 argument_list|,
 name|HRegionInfo
 argument_list|>
@@ -1607,9 +1594,6 @@ name|incomingMsgs
 index|[
 name|i
 index|]
-operator|.
-name|toString
-argument_list|()
 operator|+
 literal|" from "
 operator|+
@@ -2107,26 +2091,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|serverInfo
-operator|.
-name|getServerAddress
-argument_list|()
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|" serving "
-operator|+
-name|region
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-expr_stmt|;
 comment|// it was assigned, and it's not a duplicate assignment, so take it out
 comment|// of the unassigned list.
 name|master
@@ -2895,7 +2859,9 @@ parameter_list|(
 name|InterruptedException
 name|e
 parameter_list|)
-block|{}
+block|{
+comment|// continue
+block|}
 block|}
 block|}
 block|}
