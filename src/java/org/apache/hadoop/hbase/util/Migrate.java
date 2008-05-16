@@ -1711,10 +1711,12 @@ name|Path
 argument_list|(
 name|rootdir
 argument_list|,
-name|tableName
+name|Bytes
 operator|.
 name|toString
-argument_list|()
+argument_list|(
+name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|fs
