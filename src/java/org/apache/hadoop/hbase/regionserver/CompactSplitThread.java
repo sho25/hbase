@@ -259,8 +259,6 @@ name|CompactSplitThread
 extends|extends
 name|Thread
 implements|implements
-name|RegionUnavailableListener
-implements|,
 name|HConstants
 block|{
 specifier|static
@@ -288,11 +286,6 @@ name|HTable
 name|meta
 init|=
 literal|null
-decl_stmt|;
-specifier|private
-specifier|volatile
-name|long
-name|startTime
 decl_stmt|;
 specifier|private
 specifier|final
@@ -700,6 +693,15 @@ name|getRegionInfo
 argument_list|()
 decl_stmt|;
 specifier|final
+name|long
+name|startTime
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
+specifier|final
 name|HRegion
 index|[]
 name|newRegions
@@ -708,8 +710,6 @@ name|region
 operator|.
 name|splitRegion
 argument_list|(
-name|this
-argument_list|,
 name|midKey
 argument_list|)
 decl_stmt|;
@@ -1048,42 +1048,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Do not serve the new regions. Let the Master assign them.
-block|}
-comment|/** {@inheritDoc} */
-specifier|public
-name|void
-name|closing
-parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
-specifier|final
-name|byte
-index|[]
-name|regionName
-parameter_list|)
-block|{
-comment|// continue
-block|}
-comment|/** {@inheritDoc} */
-specifier|public
-name|void
-name|closed
-parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
-specifier|final
-name|byte
-index|[]
-name|regionName
-parameter_list|)
-block|{
-comment|// continue
 block|}
 comment|/**    * Only interrupt once it's done with a run through the work loop.    */
 name|void

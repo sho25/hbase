@@ -1178,8 +1178,6 @@ name|r
 operator|.
 name|splitRegion
 argument_list|(
-literal|null
-argument_list|,
 name|midKey
 argument_list|)
 decl_stmt|;
