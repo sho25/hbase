@@ -1800,7 +1800,12 @@ name|NoServerForRegionException
 argument_list|(
 literal|"Unable to find region for "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|row
+argument_list|)
 operator|+
 literal|" after "
 operator|+
@@ -2298,7 +2303,12 @@ name|debug
 argument_list|(
 literal|"Cache hit in table locations for row<"
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|row
+argument_list|)
 operator|+
 literal|"> and tableName "
 operator|+
