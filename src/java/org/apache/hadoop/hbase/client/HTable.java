@@ -2063,6 +2063,35 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**     * Get a scanner on the current table starting at first row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @return scanner    * @throws IOException    */
+specifier|public
+name|Scanner
+name|getScanner
+parameter_list|(
+specifier|final
+name|Text
+index|[]
+name|columns
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|getScanner
+argument_list|(
+name|Bytes
+operator|.
+name|toByteArrays
+argument_list|(
+name|columns
+argument_list|)
+argument_list|,
+name|HConstants
+operator|.
+name|EMPTY_START_ROW
+argument_list|)
+return|;
+block|}
 comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @return scanner    * @throws IOException    */
 specifier|public
 name|Scanner
@@ -2094,6 +2123,37 @@ name|startRow
 operator|.
 name|getBytes
 argument_list|()
+argument_list|)
+return|;
+block|}
+comment|/**     * Get a scanner on the current table starting at first row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @return scanner    * @throws IOException    */
+specifier|public
+name|Scanner
+name|getScanner
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+index|[]
+name|columns
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|getScanner
+argument_list|(
+name|columns
+argument_list|,
+name|HConstants
+operator|.
+name|EMPTY_START_ROW
+argument_list|,
+name|HConstants
+operator|.
+name|LATEST_TIMESTAMP
+argument_list|,
+literal|null
 argument_list|)
 return|;
 block|}
@@ -2942,7 +3002,12 @@ argument_list|)
 operator|+
 literal|" starting at key '"
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|startRow
+argument_list|)
 operator|+
 literal|"'"
 argument_list|)
@@ -3127,9 +3192,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Advancing internal scanner to startKey "
+literal|"Advancing internal scanner to startKey at "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|localStartKey
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

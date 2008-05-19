@@ -166,7 +166,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|testname
+name|testHMsg
 parameter_list|()
 throws|throws
 name|Exception

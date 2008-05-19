@@ -1297,7 +1297,7 @@ literal|"Checked "
 operator|+
 name|parent
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|" for references: splitA: "

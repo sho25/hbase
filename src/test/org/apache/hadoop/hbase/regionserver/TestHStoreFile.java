@@ -957,7 +957,7 @@ operator|.
 name|Reference
 name|otherReference
 init|=
-name|HStore
+name|HStoreFile
 operator|.
 name|readSplitInfo
 argument_list|(

@@ -514,6 +514,22 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CLIENT_RETRIES_NUMBER_KEY
+init|=
+literal|"hbase.client.retries.number"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_CLIENT_RETRIES
+init|=
+literal|5
+decl_stmt|;
 block|}
 end_interface
 

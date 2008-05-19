@@ -4671,10 +4671,15 @@ name|debug
 argument_list|(
 literal|"closing region "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|region
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

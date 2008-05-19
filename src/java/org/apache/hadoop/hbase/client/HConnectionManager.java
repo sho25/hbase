@@ -885,6 +885,11 @@ parameter_list|()
 throws|throws
 name|MasterNotRunningException
 block|{
+name|HServerAddress
+name|masterLocation
+init|=
+literal|null
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|this
@@ -923,12 +928,9 @@ name|tries
 operator|++
 control|)
 block|{
-name|HServerAddress
-name|masterLocation
+name|String
+name|m
 init|=
-operator|new
-name|HServerAddress
-argument_list|(
 name|this
 operator|.
 name|conf
@@ -939,8 +941,15 @@ name|MASTER_ADDRESS
 argument_list|,
 name|DEFAULT_MASTER_ADDRESS
 argument_list|)
-argument_list|)
 decl_stmt|;
+name|masterLocation
+operator|=
+operator|new
+name|HServerAddress
+argument_list|(
+name|m
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|HMasterInterface
@@ -1073,7 +1082,18 @@ block|{
 throw|throw
 operator|new
 name|MasterNotRunningException
+argument_list|(
+name|masterLocation
+operator|==
+literal|null
+condition|?
+literal|""
+else|:
+name|masterLocation
+operator|.
+name|toString
 argument_list|()
+argument_list|)
 throw|;
 block|}
 return|return
@@ -2971,7 +2991,7 @@ name|localTimeouts
 init|=
 literal|0
 decl_stmt|;
-comment|// ask the master which server has the root region
+comment|// Ask the master which server has the root region
 while|while
 condition|(
 name|rootRegionAddress
@@ -2997,6 +3017,15 @@ operator|==
 literal|null
 condition|)
 block|{
+comment|// Increment and then only sleep if retries left.
+if|if
+condition|(
+operator|++
+name|localTimeouts
+operator|<
+name|numRetries
+condition|)
+block|{
 try|try
 block|{
 if|if
@@ -3011,7 +3040,19 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Sleeping. Waiting for root region."
+literal|"Sleeping "
+operator|+
+name|pause
+operator|+
+literal|"ms. Waiting for root "
+operator|+
+literal|"region. Attempt "
+operator|+
+name|tries
+operator|+
+literal|" of "
+operator|+
+name|numRetries
 argument_list|)
 expr_stmt|;
 block|}
@@ -3047,9 +3088,7 @@ parameter_list|)
 block|{
 comment|// continue
 block|}
-name|localTimeouts
-operator|++
-expr_stmt|;
+block|}
 block|}
 block|}
 if|if
