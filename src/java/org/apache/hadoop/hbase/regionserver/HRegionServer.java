@@ -817,6 +817,20 @@ name|hadoop
 operator|.
 name|io
 operator|.
+name|Text
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
 name|Writable
 import|;
 end_import
@@ -1798,13 +1812,11 @@ index|[
 name|i
 index|]
 operator|.
-name|getMsg
+name|getType
 argument_list|()
 condition|)
 block|{
 case|case
-name|HMsg
-operator|.
 name|MSG_CALL_SERVER_STARTUP
 case|:
 comment|// We the MSG_CALL_SERVER_STARTUP on startup but we can also
@@ -1927,8 +1939,6 @@ expr_stmt|;
 block|}
 break|break;
 case|case
-name|HMsg
-operator|.
 name|MSG_REGIONSERVER_STOP
 case|:
 name|stopRequested
@@ -1940,8 +1950,6 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|HMsg
-operator|.
 name|MSG_REGIONSERVER_QUIESCE
 case|:
 if|if
@@ -2389,13 +2397,9 @@ index|[
 literal|0
 index|]
 operator|=
-operator|new
-name|HMsg
-argument_list|(
 name|HMsg
 operator|.
-name|MSG_REPORT_EXITING
-argument_list|)
+name|REPORT_EXITING
 expr_stmt|;
 comment|// Tell the master what regions we are/were serving
 name|int
@@ -2421,6 +2425,8 @@ operator|new
 name|HMsg
 argument_list|(
 name|HMsg
+operator|.
+name|Type
 operator|.
 name|MSG_REPORT_CLOSE
 argument_list|,
@@ -3196,12 +3202,14 @@ name|e
 operator|.
 name|msg
 operator|.
-name|getMsg
-argument_list|()
-operator|==
+name|isType
+argument_list|(
 name|HMsg
 operator|.
+name|Type
+operator|.
 name|MSG_REGION_OPEN
+argument_list|)
 condition|)
 block|{
 name|addProcessingMessage
@@ -3571,7 +3579,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/** Add to the outbound message buffer */
+comment|/* Add to the outbound message buffer */
 specifier|private
 name|void
 name|reportOpen
@@ -3589,6 +3597,8 @@ name|HMsg
 argument_list|(
 name|HMsg
 operator|.
+name|Type
+operator|.
 name|MSG_REPORT_OPEN
 argument_list|,
 name|region
@@ -3596,13 +3606,35 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Add to the outbound message buffer */
+comment|/* Add to the outbound message buffer */
 specifier|private
 name|void
 name|reportClose
 parameter_list|(
 name|HRegionInfo
 name|region
+parameter_list|)
+block|{
+name|reportClose
+argument_list|(
+name|region
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
+comment|/* Add to the outbound message buffer */
+specifier|private
+name|void
+name|reportClose
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|region
+parameter_list|,
+specifier|final
+name|Text
+name|message
 parameter_list|)
 block|{
 name|outboundMsgs
@@ -3614,9 +3646,13 @@ name|HMsg
 argument_list|(
 name|HMsg
 operator|.
+name|Type
+operator|.
 name|MSG_REPORT_CLOSE
 argument_list|,
 name|region
+argument_list|,
+name|message
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -3644,9 +3680,34 @@ name|HMsg
 argument_list|(
 name|HMsg
 operator|.
+name|Type
+operator|.
 name|MSG_REPORT_SPLIT
 argument_list|,
 name|oldRegion
+argument_list|,
+operator|new
+name|Text
+argument_list|(
+name|oldRegion
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" split; daughters: "
+operator|+
+name|newRegionA
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|", "
+operator|+
+name|newRegionB
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -3658,6 +3719,8 @@ operator|new
 name|HMsg
 argument_list|(
 name|HMsg
+operator|.
+name|Type
 operator|.
 name|MSG_REPORT_OPEN
 argument_list|,
@@ -3674,6 +3737,8 @@ name|HMsg
 argument_list|(
 name|HMsg
 operator|.
+name|Type
+operator|.
 name|MSG_REPORT_OPEN
 argument_list|,
 name|newRegionB
@@ -3684,14 +3749,18 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// HMaster-given operations
 comment|//////////////////////////////////////////////////////////////////////////////
+comment|/*    * Data structure to hold a HMsg and retries count.    */
 specifier|private
 specifier|static
 class|class
 name|ToDoEntry
 block|{
+specifier|private
 name|int
 name|tries
 decl_stmt|;
+specifier|private
+specifier|final
 name|HMsg
 name|msg
 decl_stmt|;
@@ -3825,13 +3894,11 @@ name|e
 operator|.
 name|msg
 operator|.
-name|getMsg
+name|getType
 argument_list|()
 condition|)
 block|{
 case|case
-name|HMsg
-operator|.
 name|MSG_REGIONSERVER_QUIESCE
 case|:
 name|closeUserRegions
@@ -3839,8 +3906,6 @@ argument_list|()
 expr_stmt|;
 break|break;
 case|case
-name|HMsg
-operator|.
 name|MSG_REGION_OPEN
 case|:
 comment|// Open a region
@@ -3856,8 +3921,6 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|HMsg
-operator|.
 name|MSG_REGION_CLOSE
 case|:
 comment|// Close a region
@@ -3875,8 +3938,6 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|HMsg
-operator|.
 name|MSG_REGION_CLOSE_WITHOUT_REPORT
 case|:
 comment|// Close a region, don't reply
@@ -4204,6 +4265,17 @@ comment|// change that would require a migration
 name|reportClose
 argument_list|(
 name|regionInfo
+argument_list|,
+operator|new
+name|Text
+argument_list|(
+name|StringUtils
+operator|.
+name|stringifyException
+argument_list|(
+name|e
+argument_list|)
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return;
@@ -4283,6 +4355,8 @@ operator|new
 name|HMsg
 argument_list|(
 name|HMsg
+operator|.
+name|Type
 operator|.
 name|MSG_REPORT_PROCESS_OPEN
 argument_list|,
@@ -4741,13 +4815,9 @@ name|outboundMsgs
 operator|.
 name|add
 argument_list|(
-operator|new
-name|HMsg
-argument_list|(
 name|HMsg
 operator|.
-name|MSG_REPORT_EXITING
-argument_list|)
+name|REPORT_EXITING
 argument_list|)
 expr_stmt|;
 block|}
@@ -4757,13 +4827,9 @@ name|outboundMsgs
 operator|.
 name|add
 argument_list|(
-operator|new
-name|HMsg
-argument_list|(
 name|HMsg
 operator|.
-name|MSG_REPORT_QUIESCED
-argument_list|)
+name|REPORT_QUIESCED
 argument_list|)
 expr_stmt|;
 block|}

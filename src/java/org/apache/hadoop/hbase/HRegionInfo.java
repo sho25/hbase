@@ -1406,6 +1406,17 @@ name|HRegionInfo
 operator|)
 name|o
 decl_stmt|;
+if|if
+condition|(
+name|other
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|1
+return|;
+block|}
 comment|// Are regions of same table?
 name|int
 name|result

@@ -393,6 +393,20 @@ name|Writables
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|Text
+import|;
+end_import
+
 begin_comment
 comment|/**  * Class to manage assigning regions to servers, state of root and meta, etc.  */
 end_comment
@@ -491,6 +505,18 @@ name|Bytes
 operator|.
 name|BYTES_COMPARATOR
 argument_list|)
+argument_list|)
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|Text
+name|OVERLOADED
+init|=
+operator|new
+name|Text
+argument_list|(
+literal|"Overloaded"
 argument_list|)
 decl_stmt|;
 comment|/**    * The 'unassignedRegions' table maps from a HRegionInfo to a timestamp that    * indicates the last time we *tried* to assign the region to a RegionServer.    * If the timestamp is out of date, then we can try to reassign it.     *     * We fill 'unassignedRecords' by scanning ROOT and META tables, learning the    * set of all known valid regions.    *     *<p>Items are removed from this list when a region server reports in that    * the region has been deployed.    *    * TODO: Need to be a sorted map?    */
@@ -1213,6 +1239,8 @@ name|HMsg
 argument_list|(
 name|HMsg
 operator|.
+name|Type
+operator|.
 name|MSG_REGION_OPEN
 argument_list|,
 name|regionInfo
@@ -1782,6 +1810,8 @@ name|HMsg
 argument_list|(
 name|HMsg
 operator|.
+name|Type
+operator|.
 name|MSG_REGION_OPEN
 argument_list|,
 name|regionInfo
@@ -1950,9 +1980,13 @@ name|HMsg
 argument_list|(
 name|HMsg
 operator|.
+name|Type
+operator|.
 name|MSG_REGION_CLOSE
 argument_list|,
 name|currentRegion
+argument_list|,
+name|OVERLOADED
 argument_list|)
 argument_list|)
 expr_stmt|;

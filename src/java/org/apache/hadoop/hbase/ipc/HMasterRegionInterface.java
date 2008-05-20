@@ -108,14 +108,14 @@ name|HMasterRegionInterface
 extends|extends
 name|VersionedProtocol
 block|{
-comment|/** Interface version number.    * Version 2 was when the regionServerStartup was changed to return a    * MapWritable instead of a HbaseMapWritable.    */
+comment|/**    * Interface version number.    * Version 2 was when the regionServerStartup was changed to return a    * MapWritable instead of a HbaseMapWritable as part of HBASE-82 changes.    * Version 3 was when HMsg was refactored so it could carry optional    * messages (HBASE-504).    */
 specifier|public
 specifier|static
 specifier|final
 name|long
 name|versionID
 init|=
-literal|2L
+literal|3L
 decl_stmt|;
 comment|/**    * Called when a region server first starts    * @param info    * @throws IOException    * @return Configuration for the regionserver to use: e.g. filesystem,    * hbase rootdir, etc.    */
 specifier|public

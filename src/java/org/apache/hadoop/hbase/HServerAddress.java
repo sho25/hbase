@@ -575,13 +575,32 @@ name|o
 parameter_list|)
 block|{
 name|HServerAddress
-name|other
+name|that
 init|=
 operator|(
 name|HServerAddress
 operator|)
 name|o
 decl_stmt|;
+comment|// Addresses as Strings may not compare though address is for the one
+comment|// server with only difference being that one address has hostname
+comment|// resolved whereas other only has IP.
+if|if
+condition|(
+name|this
+operator|.
+name|address
+operator|.
+name|equals
+argument_list|(
+name|that
+operator|.
+name|address
+argument_list|)
+condition|)
+return|return
+literal|0
+return|;
 return|return
 name|this
 operator|.
@@ -590,7 +609,7 @@ argument_list|()
 operator|.
 name|compareTo
 argument_list|(
-name|other
+name|that
 operator|.
 name|toString
 argument_list|()

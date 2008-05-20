@@ -273,6 +273,20 @@ name|HConstants
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|Text
+import|;
+end_import
+
 begin_comment
 comment|/**  * The ServerManager class manages info about region servers - HServerInfo,   * load numbers, dying servers, etc.  */
 end_comment
@@ -283,6 +297,7 @@ name|ServerManager
 implements|implements
 name|HConstants
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -399,6 +414,7 @@ name|HServerLoad
 argument_list|>
 argument_list|()
 decl_stmt|;
+specifier|private
 name|HMaster
 name|master
 decl_stmt|;
@@ -445,7 +461,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Let the server manager know a new regionserver has come online    *     * @param serverInfo    */
+comment|/**    * Let the server manager know a new regionserver has come online    * @param serverInfo    */
 specifier|public
 name|void
 name|regionServerStartup
@@ -472,14 +488,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"received start message from: "
+literal|"Received start message from: "
 operator|+
 name|s
 argument_list|)
 expr_stmt|;
 comment|// Do the lease check up here. There might already be one out on this
-comment|// server expecially if it just shutdown and came back up near-immediately
-comment|// after.
+comment|// server expecially if it just shutdown and came back up near-immediately.
 if|if
 condition|(
 operator|!
@@ -760,13 +775,16 @@ name|HMsg
 index|[]
 name|regionServerReport
 parameter_list|(
+specifier|final
 name|HServerInfo
 name|serverInfo
 parameter_list|,
+specifier|final
 name|HMsg
 name|msgs
 index|[]
 parameter_list|,
+specifier|final
 name|HRegionInfo
 index|[]
 name|mostLoadedRegions
@@ -804,12 +822,14 @@ index|[
 literal|0
 index|]
 operator|.
-name|getMsg
-argument_list|()
-operator|==
+name|isType
+argument_list|(
 name|HMsg
 operator|.
+name|Type
+operator|.
 name|MSG_REPORT_EXITING
+argument_list|)
 condition|)
 block|{
 name|processRegionServerExit
@@ -820,11 +840,9 @@ name|msgs
 argument_list|)
 expr_stmt|;
 return|return
-operator|new
 name|HMsg
-index|[
-literal|0
-index|]
+operator|.
+name|EMPTY_HMSG_ARRAY
 return|;
 block|}
 elseif|else
@@ -835,12 +853,14 @@ index|[
 literal|0
 index|]
 operator|.
-name|getMsg
-argument_list|()
-operator|==
+name|isType
+argument_list|(
 name|HMsg
 operator|.
+name|Type
+operator|.
 name|MSG_REPORT_QUIESCED
+argument_list|)
 condition|)
 block|{
 name|LOG
@@ -920,22 +940,22 @@ index|[
 literal|0
 index|]
 operator|.
-name|getMsg
-argument_list|()
-operator|==
+name|isType
+argument_list|(
 name|HMsg
 operator|.
+name|Type
+operator|.
 name|MSG_REPORT_QUIESCED
+argument_list|)
 condition|)
 block|{
 comment|// Server is already quiesced, but we aren't ready to shut down
 comment|// return empty response
 return|return
-operator|new
 name|HMsg
-index|[
-literal|0
-index|]
+operator|.
+name|EMPTY_HMSG_ARRAY
 return|;
 block|}
 comment|// Tell the server to stop serving any user regions
@@ -944,13 +964,9 @@ operator|new
 name|HMsg
 index|[]
 block|{
-operator|new
-name|HMsg
-argument_list|(
 name|HMsg
 operator|.
-name|MSG_REGIONSERVER_QUIESCE
-argument_list|)
+name|REGIONSERVER_QUIESCE
 block|}
 return|;
 block|}
@@ -973,13 +989,9 @@ operator|new
 name|HMsg
 index|[]
 block|{
-operator|new
-name|HMsg
-argument_list|(
 name|HMsg
 operator|.
-name|MSG_REGIONSERVER_STOP
-argument_list|)
+name|REGIONSERVER_STOP
 block|}
 return|;
 block|}
@@ -1025,13 +1037,9 @@ operator|new
 name|HMsg
 index|[]
 block|{
-operator|new
-name|HMsg
-argument_list|(
 name|HMsg
 operator|.
-name|MSG_CALL_SERVER_STARTUP
-argument_list|)
+name|CALL_SERVER_STARTUP
 block|}
 return|;
 block|}
@@ -1096,13 +1104,9 @@ operator|new
 name|HMsg
 index|[]
 block|{
-operator|new
-name|HMsg
-argument_list|(
 name|HMsg
 operator|.
-name|MSG_REGIONSERVER_STOP
-argument_list|)
+name|REGIONSERVER_STOP
 block|}
 return|;
 block|}
@@ -1145,26 +1149,6 @@ block|{
 comment|// HRegionServer is shutting down. Cancel the server's lease.
 comment|// Note that canceling the server's lease takes care of updating
 comment|// serversToServerInfo, etc.
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Region server "
-operator|+
-name|serverName
-operator|+
-literal|": MSG_REPORT_EXITING -- cancelling lease"
-argument_list|)
-expr_stmt|;
-block|}
 if|if
 condition|(
 name|cancelLease
@@ -1216,6 +1200,22 @@ name|i
 operator|++
 control|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Processing "
+operator|+
+name|msgs
+index|[
+name|i
+index|]
+operator|+
+literal|" from "
+operator|+
+name|serverName
+argument_list|)
+expr_stmt|;
 name|HRegionInfo
 name|info
 init|=
@@ -1298,7 +1298,6 @@ block|}
 block|}
 comment|// We don't need to return anything to the server because it isn't
 comment|// going to do any more work.
-comment|/*        return new HMsg[0];*/
 block|}
 finally|finally
 block|{
@@ -1576,17 +1575,20 @@ name|i
 operator|++
 control|)
 block|{
-if|if
-condition|(
-name|LOG
+name|HRegionInfo
+name|region
+init|=
+name|incomingMsgs
+index|[
+name|i
+index|]
 operator|.
-name|isDebugEnabled
+name|getRegionInfo
 argument_list|()
-condition|)
-block|{
+decl_stmt|;
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Received "
 operator|+
@@ -1600,18 +1602,6 @@ operator|+
 name|serverName
 argument_list|)
 expr_stmt|;
-block|}
-name|HRegionInfo
-name|region
-init|=
-name|incomingMsgs
-index|[
-name|i
-index|]
-operator|.
-name|getRegionInfo
-argument_list|()
-decl_stmt|;
 switch|switch
 condition|(
 name|incomingMsgs
@@ -1619,13 +1609,11 @@ index|[
 name|i
 index|]
 operator|.
-name|getMsg
+name|getType
 argument_list|()
 condition|)
 block|{
 case|case
-name|HMsg
-operator|.
 name|MSG_REPORT_PROCESS_OPEN
 case|:
 name|master
@@ -1639,8 +1627,6 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|HMsg
-operator|.
 name|MSG_REPORT_OPEN
 case|:
 name|processRegionOpen
@@ -1656,8 +1642,6 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|HMsg
-operator|.
 name|MSG_REPORT_CLOSE
 case|:
 name|processRegionClose
@@ -1669,8 +1653,6 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|HMsg
-operator|.
 name|MSG_REPORT_SPLIT
 case|:
 name|processSplitRegion
@@ -1702,14 +1684,14 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Impossible state during msg processing.  Instruction: "
+literal|"Impossible state during message processing. Instruction: "
 operator|+
 name|incomingMsgs
 index|[
 name|i
 index|]
 operator|.
-name|getMsg
+name|getType
 argument_list|()
 argument_list|)
 throw|;
@@ -1742,6 +1724,8 @@ operator|new
 name|HMsg
 argument_list|(
 name|HMsg
+operator|.
+name|Type
 operator|.
 name|MSG_REGION_CLOSE
 argument_list|,
@@ -1855,32 +1839,6 @@ operator|.
 name|setUnassigned
 argument_list|(
 name|newRegionB
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Region "
-operator|+
-name|region
-operator|.
-name|getRegionName
-argument_list|()
-operator|+
-literal|" split; new regions: "
-operator|+
-name|newRegionA
-operator|.
-name|getRegionName
-argument_list|()
-operator|+
-literal|", "
-operator|+
-name|newRegionB
-operator|.
-name|getRegionName
-argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
@@ -2082,9 +2040,17 @@ name|HMsg
 argument_list|(
 name|HMsg
 operator|.
+name|Type
+operator|.
 name|MSG_REGION_CLOSE_WITHOUT_REPORT
 argument_list|,
 name|region
+argument_list|,
+operator|new
+name|Text
+argument_list|(
+literal|"Duplicate assignment"
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2191,23 +2157,6 @@ name|HRegionInfo
 name|region
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|serverInfo
-operator|.
-name|getServerAddress
-argument_list|()
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|" no longer serving "
-operator|+
-name|region
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|region
