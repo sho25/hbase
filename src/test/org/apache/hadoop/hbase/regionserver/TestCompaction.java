@@ -534,14 +534,14 @@ literal|100
 comment|/*Too many*/
 argument_list|)
 decl_stmt|;
-comment|// Assert that I can get> 5 versions (Should be at least 5 in there).
+comment|// Assert that I can get 3 versions since it is the max I should get
 name|assertTrue
 argument_list|(
 name|cellValues
 operator|.
 name|length
-operator|>=
-literal|5
+operator|==
+literal|3
 argument_list|)
 expr_stmt|;
 name|r

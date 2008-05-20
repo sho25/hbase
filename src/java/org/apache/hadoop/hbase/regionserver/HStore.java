@@ -5644,7 +5644,7 @@ index|]
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the value for the indicated HStoreKey.  Grab the target value and the     * previous 'numVersions-1' values, as well.    *    * If 'numVersions' is negative, the method returns all available versions.    * @param key    * @param numVersions Number of versions to fetch.  Must be> 0.    * @return values for the specified versions    * @throws IOException    */
+comment|/**    * Get the value for the indicated HStoreKey.  Grab the target value and the     * previous 'numVersions-1' values, as well.    *    * Use {@link HConstants.ALL_VERSIONS} to retrieve all versions.    * @param key    * @param numVersions Number of versions to fetch.  Must be> 0.    * @return values for the specified versions    * @throws IOException    */
 name|Cell
 index|[]
 name|get
@@ -6140,6 +6140,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Small method to check if we are over the max number of versions    * or we acheived this family max versions.     * The later happens when we have the situation described in HBASE-621.    * @param numVersions    * @param results    * @return     */
 specifier|private
 name|boolean
 name|hasEnoughVersions
@@ -6157,16 +6158,24 @@ name|results
 parameter_list|)
 block|{
 return|return
-name|numVersions
-operator|>
-literal|0
-operator|&&
+operator|(
 name|results
 operator|.
 name|size
 argument_list|()
 operator|>=
 name|numVersions
+operator|||
+name|results
+operator|.
+name|size
+argument_list|()
+operator|>=
+name|family
+operator|.
+name|getMaxVersions
+argument_list|()
+operator|)
 return|;
 block|}
 comment|/**    * Get<code>versions</code> keys matching the origin key's    * row/column/timestamp and those of an older vintage    * Default access so can be accessed out of {@link HRegionServer}.    * @param origin Where to start searching.    * @param versions How many versions to return. Pass    * {@link HConstants.ALL_VERSIONS} to retrieve all. Versions will include    * size of passed<code>allKeys</code> in its count.    * @param allKeys List of keys prepopulated by keys we found in memcache.    * This method returns this passed list with all matching keys found in    * stores appended.    * @return The passed<code>allKeys</code> with<code>versions</code> of    * matching keys found in store files appended.    * @throws IOException    */
@@ -6206,10 +6215,6 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|versions
-operator|!=
-name|ALL_VERSIONS
-operator|&&
 name|keys
 operator|.
 name|size
@@ -6435,10 +6440,6 @@ block|}
 comment|// if we've collected enough versions, then exit the loop.
 if|if
 condition|(
-name|versions
-operator|!=
-name|ALL_VERSIONS
-operator|&&
 name|keys
 operator|.
 name|size

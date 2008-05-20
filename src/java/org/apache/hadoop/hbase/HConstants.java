@@ -502,8 +502,9 @@ specifier|final
 name|int
 name|ALL_VERSIONS
 init|=
-operator|-
-literal|1
+name|Integer
+operator|.
+name|MAX_VALUE
 decl_stmt|;
 comment|/**    * Unlimited time-to-live.    */
 specifier|static

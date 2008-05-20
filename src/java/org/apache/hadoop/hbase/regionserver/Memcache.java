@@ -2907,12 +2907,6 @@ block|}
 block|}
 if|if
 condition|(
-name|versions
-operator|!=
-name|HConstants
-operator|.
-name|ALL_VERSIONS
-operator|&&
 name|result
 operator|.
 name|size
