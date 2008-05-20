@@ -2350,15 +2350,6 @@ argument_list|)
 expr_stmt|;
 name|out
 operator|.
-name|writeInt
-argument_list|(
-name|this
-operator|.
-name|encodedRegionName
-argument_list|)
-expr_stmt|;
-name|out
-operator|.
 name|writeLong
 argument_list|(
 name|fileid
