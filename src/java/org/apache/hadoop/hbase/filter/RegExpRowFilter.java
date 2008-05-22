@@ -164,7 +164,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of RowFilterInterface that can filter by rowkey regular  * expression and/or individual column values (equals comparison only).  * Multiple column filters imply an implicit conjunction of filter criteria.  */
+comment|/**  * Implementation of RowFilterInterface that can filter by rowkey regular  * expression and/or individual column values (equals comparison only). Multiple  * column filters imply an implicit conjunction of filter criteria.  *   * Note that column value filtering in this interface has been replaced by  * {@link ColumnValueFilter}.  */
 end_comment
 
 begin_class
@@ -257,7 +257,9 @@ operator|=
 name|rowKeyRegExp
 expr_stmt|;
 block|}
-comment|/**    * Constructor that takes a row key regular expression to filter on.    *     * @param rowKeyRegExp    * @param columnFilter    */
+comment|/**    * @deprecated Column filtering has been replaced by {@link ColumnValueFilter}    * Constructor that takes a row key regular expression to filter on.    *     * @param rowKeyRegExp    * @param columnFilter    */
+annotation|@
+name|Deprecated
 specifier|public
 name|RegExpRowFilter
 parameter_list|(
@@ -321,7 +323,9 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Specify a value that must be matched for the given column.    *     * @param colKey    *          the column to match on    * @param value    *          the value that must equal the stored value.    */
+comment|/**    * @deprecated Column filtering has been replaced by {@link ColumnValueFilter}    * Specify a value that must be matched for the given column.    *     * @param colKey    *          the column to match on    * @param value    *          the value that must equal the stored value.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|setColumnFilter
@@ -365,7 +369,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Set column filters for a number of columns.    *     * @param columnFilter    *          Map of columns with value criteria.    */
+comment|/**    * @deprecated Column filtering has been replaced by {@link ColumnValueFilter}    * Set column filters for a number of columns.    *     * @param columnFilter    *          Map of columns with value criteria.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|setColumnFilters
