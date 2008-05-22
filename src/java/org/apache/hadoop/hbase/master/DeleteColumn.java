@@ -226,6 +226,8 @@ name|encodedName
 argument_list|,
 name|columnName
 argument_list|)
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|this
@@ -246,6 +248,8 @@ name|encodedName
 argument_list|,
 name|columnName
 argument_list|)
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}

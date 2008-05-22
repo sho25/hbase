@@ -273,20 +273,6 @@ name|hadoop
 operator|.
 name|fs
 operator|.
-name|FileUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
 name|Path
 import|;
 end_import
@@ -2462,6 +2448,8 @@ operator|.
 name|delete
 argument_list|(
 name|oldLogFile
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -2533,6 +2521,8 @@ operator|.
 name|delete
 argument_list|(
 name|splits
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -2562,6 +2552,8 @@ operator|.
 name|delete
 argument_list|(
 name|merges
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -3731,6 +3723,8 @@ operator|.
 name|delete
 argument_list|(
 name|splits
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 comment|// Get rid of splits directory
@@ -3833,17 +3827,17 @@ name|regionCompactionDir
 argument_list|)
 condition|)
 block|{
-name|FileUtil
-operator|.
-name|fullyDelete
-argument_list|(
 name|this
 operator|.
 name|fs
-argument_list|,
+operator|.
+name|delete
+argument_list|(
 name|this
 operator|.
 name|regionCompactionDir
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -8010,6 +8004,7 @@ block|}
 block|}
 block|}
 block|}
+comment|/**      * @return an iterator for the scanner      */
 specifier|public
 name|Iterator
 argument_list|<
@@ -8594,13 +8589,13 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|FileUtil
-operator|.
-name|fullyDelete
-argument_list|(
 name|fs
-argument_list|,
+operator|.
+name|delete
+argument_list|(
 name|regiondir
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}

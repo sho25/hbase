@@ -133,7 +133,7 @@ name|hadoop
 operator|.
 name|mapred
 operator|.
-name|OutputFormatBase
+name|FileOutputFormat
 import|;
 end_import
 
@@ -244,7 +244,7 @@ specifier|public
 class|class
 name|IndexOutputFormat
 extends|extends
-name|OutputFormatBase
+name|FileOutputFormat
 argument_list|<
 name|ImmutableBytesWritable
 argument_list|,
@@ -265,6 +265,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -300,10 +301,12 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|job
+name|FileOutputFormat
 operator|.
 name|getOutputPath
-argument_list|()
+argument_list|(
+name|job
+argument_list|)
 argument_list|,
 name|name
 argument_list|)
@@ -346,6 +349,8 @@ operator|.
 name|delete
 argument_list|(
 name|perm
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 specifier|final
@@ -395,6 +400,9 @@ decl_stmt|;
 try|try
 block|{
 name|Class
+argument_list|<
+name|?
+argument_list|>
 name|analyzerClass
 init|=
 name|Class
@@ -515,6 +523,9 @@ block|{
 try|try
 block|{
 name|Class
+argument_list|<
+name|?
+argument_list|>
 name|similarityClass
 init|=
 name|Class
@@ -580,7 +591,6 @@ name|LuceneDocumentWrapper
 argument_list|>
 argument_list|()
 block|{
-specifier|private
 name|boolean
 name|closed
 decl_stmt|;
@@ -652,6 +662,8 @@ operator|new
 name|Thread
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run

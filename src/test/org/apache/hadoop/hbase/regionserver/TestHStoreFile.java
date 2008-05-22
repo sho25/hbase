@@ -2080,6 +2080,8 @@ operator|.
 name|delete
 argument_list|(
 name|p
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -2506,6 +2508,8 @@ operator|.
 name|delete
 argument_list|(
 name|p
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -2519,6 +2523,8 @@ operator|.
 name|delete
 argument_list|(
 name|p
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}

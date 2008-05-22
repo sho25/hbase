@@ -183,7 +183,7 @@ name|hadoop
 operator|.
 name|mapred
 operator|.
-name|OutputFormatBase
+name|FileOutputFormat
 import|;
 end_import
 
@@ -238,7 +238,7 @@ specifier|public
 class|class
 name|TableOutputFormat
 extends|extends
-name|OutputFormatBase
+name|FileOutputFormat
 argument_list|<
 name|ImmutableBytesWritable
 argument_list|,
@@ -318,6 +318,11 @@ specifier|public
 name|void
 name|write
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|ImmutableBytesWritable
 name|key
 parameter_list|,

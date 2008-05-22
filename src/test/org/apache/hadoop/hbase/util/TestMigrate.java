@@ -690,6 +690,8 @@ name|HConstants
 operator|.
 name|VERSION_FILE_NAME
 argument_list|)
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|u

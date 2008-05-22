@@ -123,9 +123,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
+name|mapred
 operator|.
-name|Text
+name|FileInputFormat
 import|;
 end_import
 
@@ -206,10 +206,12 @@ name|Path
 index|[]
 name|tableNames
 init|=
-name|job
+name|FileInputFormat
 operator|.
 name|getInputPaths
-argument_list|()
+argument_list|(
+name|job
+argument_list|)
 decl_stmt|;
 name|String
 name|colArg
@@ -339,10 +341,12 @@ name|Path
 index|[]
 name|tableNames
 init|=
-name|job
+name|FileInputFormat
 operator|.
 name|getInputPaths
-argument_list|()
+argument_list|(
+name|job
+argument_list|)
 decl_stmt|;
 if|if
 condition|(

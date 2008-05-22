@@ -310,6 +310,8 @@ operator|.
 name|delete
 argument_list|(
 name|mf
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}

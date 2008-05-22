@@ -186,6 +186,8 @@ name|rowKeyRegExp
 init|=
 literal|null
 decl_stmt|;
+annotation|@
+name|Deprecated
 specifier|private
 name|Map
 argument_list|<
@@ -212,6 +214,8 @@ operator|.
 name|BYTES_COMPARATOR
 argument_list|)
 decl_stmt|;
+annotation|@
+name|Deprecated
 specifier|private
 name|Set
 argument_list|<
@@ -701,6 +705,8 @@ return|return
 literal|false
 return|;
 block|}
+annotation|@
+name|Deprecated
 specifier|private
 name|boolean
 name|filtersByColumnValue
@@ -1074,6 +1080,8 @@ argument_list|)
 throw|;
 block|}
 block|}
+annotation|@
+name|Deprecated
 specifier|private
 name|Set
 argument_list|<

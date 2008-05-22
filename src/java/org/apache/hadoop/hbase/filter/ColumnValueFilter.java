@@ -242,6 +242,11 @@ specifier|public
 name|boolean
 name|filterRowKey
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|final
 name|byte
 index|[]
@@ -257,6 +262,11 @@ specifier|public
 name|boolean
 name|filterColumn
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|final
 name|byte
 index|[]
@@ -528,14 +538,25 @@ parameter_list|()
 block|{
 comment|// Nothing.
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|rowProcessed
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|final
 name|boolean
 name|filtered
 parameter_list|,
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|final
 name|byte
 index|[]
@@ -549,6 +570,11 @@ specifier|public
 name|void
 name|validate
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|final
 name|byte
 index|[]

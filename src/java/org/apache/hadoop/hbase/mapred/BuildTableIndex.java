@@ -113,6 +113,20 @@ name|hadoop
 operator|.
 name|mapred
 operator|.
+name|FileOutputFormat
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|mapred
+operator|.
 name|JobClient
 import|;
 end_import
@@ -190,6 +204,7 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** default constructor */
 specifier|public
 name|BuildTableIndex
 parameter_list|()
@@ -198,6 +213,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * @param args    * @throws IOException    */
 specifier|public
 name|void
 name|run
@@ -553,6 +569,13 @@ name|content
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|columnNames
+operator|!=
+literal|null
+condition|)
+block|{
 name|JobConf
 name|jobConf
 init|=
@@ -582,6 +605,8 @@ name|jobConf
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+comment|/**    * @param conf    * @param numMapTasks    * @param numReduceTasks    * @param indexDir    * @param tableName    * @param columnNames    * @return JobConf    */
 specifier|public
 name|JobConf
 name|createJob
@@ -668,10 +693,12 @@ operator|.
 name|class
 argument_list|)
 expr_stmt|;
-name|jobConf
+name|FileOutputFormat
 operator|.
 name|setOutputPath
 argument_list|(
+name|jobConf
+argument_list|,
 operator|new
 name|Path
 argument_list|(
@@ -832,6 +859,7 @@ name|UTF8_ENCODING
 argument_list|)
 return|;
 block|}
+comment|/**    * @param args    * @throws IOException    */
 specifier|public
 specifier|static
 name|void

@@ -3354,6 +3354,8 @@ operator|.
 name|delete
 argument_list|(
 name|oldRegion1
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|fs
@@ -3361,6 +3363,8 @@ operator|.
 name|delete
 argument_list|(
 name|oldRegion2
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|fs
@@ -3368,6 +3372,8 @@ operator|.
 name|delete
 argument_list|(
 name|oldRegionPath
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
