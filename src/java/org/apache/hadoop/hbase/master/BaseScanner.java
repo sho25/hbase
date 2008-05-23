@@ -1146,7 +1146,7 @@ literal|"Region is split but not offline: "
 operator|+
 name|info
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1239,7 +1239,7 @@ literal|"Deleting region "
 operator|+
 name|parent
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|" because daughter splits no longer hold references"
@@ -1510,10 +1510,7 @@ name|debug
 argument_list|(
 name|split
 operator|.
-name|getRegionName
-argument_list|()
-operator|.
-name|toString
+name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|" no longer has references to "
@@ -1665,7 +1662,7 @@ literal|"not assigning region (on kill list): "
 operator|+
 name|info
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1749,15 +1746,10 @@ name|debug
 argument_list|(
 literal|"Current assignment of "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|info
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
-argument_list|)
 operator|+
 literal|" is not valid: serverInfo: "
 operator|+

@@ -1856,7 +1856,12 @@ name|encodedRegionName
 operator|+
 literal|"/"
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|colFamily
+argument_list|)
 operator|+
 literal|"/"
 operator|+
