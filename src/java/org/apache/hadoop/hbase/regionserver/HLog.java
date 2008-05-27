@@ -2539,7 +2539,18 @@ literal|"Applied "
 operator|+
 name|count
 operator|+
-literal|" total edits"
+literal|" total edits from "
+operator|+
+name|logfiles
+index|[
+name|i
+index|]
+operator|.
+name|getPath
+argument_list|()
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
