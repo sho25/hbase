@@ -23,6 +23,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|EOFException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|IOException
 import|;
 end_import
@@ -1289,13 +1299,13 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|IOException
+name|EOFException
 name|e
 parameter_list|)
 block|{
-comment|// Presume we got here because of some HDFS issue or because of a lack of
-comment|// HADOOP-1700; for now keep going but this is probably not what we want
-comment|// long term.  If we got here there has been data-loss
+comment|// Presume we got here because of lack of HADOOP-1700; for now keep going
+comment|// but this is probably not what we want long term.  If we got here there
+comment|// has been data-loss
 name|LOG
 operator|.
 name|warn
@@ -1306,20 +1316,46 @@ name|reconstructionLog
 operator|+
 literal|" opening "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|this
 operator|.
 name|storeName
-argument_list|)
 operator|+
-literal|" -- continuing.  Probably DATA LOSS!"
+literal|" -- continuing.  Probably lack-of-HADOOP-1700 causing DATA LOSS!"
 argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+comment|// Presume we got here because of some HDFS issue. Don't just keep going.
+comment|// Fail to open the HStore.  Probably means we'll fail over and over
+comment|// again until human intervention but alternative has us skipping logs
+comment|// and losing edits: HBASE-642.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Exception processing reconstruction log "
+operator|+
+name|reconstructionLog
+operator|+
+literal|" opening "
+operator|+
+name|this
+operator|.
+name|storeName
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+throw|throw
+name|e
+throw|;
 block|}
 comment|// Finally, start up all the map readers! (There could be more than one
 comment|// since we haven't compacted yet.)
@@ -1348,6 +1384,15 @@ name|entrySet
 argument_list|()
 control|)
 block|{
+name|MapFile
+operator|.
+name|Reader
+name|r
+init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
 if|if
 condition|(
 name|first
@@ -1355,17 +1400,8 @@ condition|)
 block|{
 comment|// Use a block cache (if configured) for the first reader only
 comment|// so as to control memory usage.
-name|this
-operator|.
-name|readers
-operator|.
-name|put
-argument_list|(
-name|e
-operator|.
-name|getKey
-argument_list|()
-argument_list|,
+name|r
+operator|=
 name|e
 operator|.
 name|getValue
@@ -1386,7 +1422,6 @@ operator|.
 name|isBlockCacheEnabled
 argument_list|()
 argument_list|)
-argument_list|)
 expr_stmt|;
 name|first
 operator|=
@@ -1395,17 +1430,8 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|this
-operator|.
-name|readers
-operator|.
-name|put
-argument_list|(
-name|e
-operator|.
-name|getKey
-argument_list|()
-argument_list|,
+name|r
+operator|=
 name|e
 operator|.
 name|getValue
@@ -1421,9 +1447,109 @@ name|this
 operator|.
 name|bloomFilter
 argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|EOFException
+name|eofe
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed open of reader "
+operator|+
+name|e
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|"; attempting fix"
+argument_list|,
+name|eofe
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+comment|// Try fixing this file.. if we can.
+name|MapFile
+operator|.
+name|fix
+argument_list|(
+name|this
+operator|.
+name|fs
+argument_list|,
+name|e
+operator|.
+name|getValue
+argument_list|()
+operator|.
+name|getMapFilePath
+argument_list|()
+argument_list|,
+name|HStoreFile
+operator|.
+name|HbaseMapFile
+operator|.
+name|KEY_CLASS
+argument_list|,
+name|HStoreFile
+operator|.
+name|HbaseMapFile
+operator|.
+name|VALUE_CLASS
+argument_list|,
+literal|false
+argument_list|,
+name|this
+operator|.
+name|conf
 argument_list|)
 expr_stmt|;
 block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|fixe
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed fix of "
+operator|+
+name|e
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|"...continuing; Probable DATA LOSS!!!"
+argument_list|,
+name|fixe
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
+block|}
+name|this
+operator|.
+name|readers
+operator|.
+name|put
+argument_list|(
+name|e
+operator|.
+name|getKey
+argument_list|()
+argument_list|,
+name|r
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 name|HColumnDescriptor
@@ -2133,7 +2259,7 @@ argument_list|()
 operator|+
 literal|" does not exist. "
 operator|+
-literal|"Cleaned up info file.  Continuing..."
+literal|"Cleaned up info file.  Continuing...Probable DATA LOSS!!!"
 argument_list|)
 expr_stmt|;
 continue|continue;
