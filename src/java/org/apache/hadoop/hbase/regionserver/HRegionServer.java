@@ -3260,9 +3260,8 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Sets a flag that will cause all the HRegionServer threads to shut down    * in an orderly fashion.  Used by unit tests and called by Flusher    * if it judges server needs to be restarted.    */
+comment|/**    * Sets a flag that will cause all the HRegionServer threads to shut down    * in an orderly fashion.  Used by unit tests.    */
 specifier|public
-specifier|synchronized
 name|void
 name|stop
 parameter_list|()
@@ -3276,14 +3275,19 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+synchronized|synchronized
+init|(
+name|this
+init|)
+block|{
 name|notifyAll
 argument_list|()
 expr_stmt|;
 comment|// Wakes run() if it is sleeping
 block|}
+block|}
 comment|/**    * Cause the server to exit without closing the regions it is serving, the    * log it is using and without notifying the master.    * Used unit testing and on catastrophic events such as HDFS is yanked out    * from under hbase or we OOME.    */
 specifier|public
-specifier|synchronized
 name|void
 name|abort
 parameter_list|()
@@ -6623,20 +6627,8 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|abortRequested
-operator|=
-literal|true
-expr_stmt|;
-name|this
-operator|.
-name|stopRequested
-operator|.
-name|set
-argument_list|(
-literal|true
-argument_list|)
+name|abort
+argument_list|()
 expr_stmt|;
 name|fsOk
 operator|=
