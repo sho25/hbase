@@ -2432,6 +2432,11 @@ block|{
 specifier|static
 specifier|final
 name|Class
+argument_list|<
+name|?
+extends|extends
+name|Writable
+argument_list|>
 name|KEY_CLASS
 init|=
 name|HStoreKey
@@ -2441,6 +2446,11 @@ decl_stmt|;
 specifier|static
 specifier|final
 name|Class
+argument_list|<
+name|?
+extends|extends
+name|Writable
+argument_list|>
 name|VALUE_CLASS
 init|=
 name|ImmutableBytesWritable
@@ -2693,7 +2703,7 @@ name|MapFile
 operator|.
 name|Writer
 block|{
-comment|/**        * @param conf        * @param fs        * @param dirName        * @param keyClass        * @param valClass        * @param compression        * @throws IOException        */
+comment|/**        * @param conf        * @param fs        * @param dirName        * @param compression        * @throws IOException        */
 specifier|public
 name|HbaseWriter
 parameter_list|(
