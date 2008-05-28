@@ -7866,7 +7866,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed closeing scanner "
+literal|"Failed closing scanner "
 operator|+
 name|i
 argument_list|,
@@ -7884,6 +7884,14 @@ index|]
 operator|=
 literal|null
 expr_stmt|;
+comment|// These data members can be null if exception in constructor
+if|if
+condition|(
+name|resultSets
+operator|!=
+literal|null
+condition|)
+block|{
 name|resultSets
 index|[
 name|i
@@ -7891,6 +7899,14 @@ index|]
 operator|=
 literal|null
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|keys
+operator|!=
+literal|null
+condition|)
+block|{
 name|keys
 index|[
 name|i
@@ -7898,6 +7914,7 @@ index|]
 operator|=
 literal|null
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**      * {@inheritDoc}      */

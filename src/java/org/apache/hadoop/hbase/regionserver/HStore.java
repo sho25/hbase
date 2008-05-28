@@ -2059,6 +2059,40 @@ operator|.
 name|getPath
 argument_list|()
 decl_stmt|;
+comment|// Check for empty info file.  Should never be the case but can happen
+comment|// after data loss in hdfs for whatever reason (upgrade, etc.): HBASE-646
+if|if
+condition|(
+name|this
+operator|.
+name|fs
+operator|.
+name|getFileStatus
+argument_list|(
+name|p
+argument_list|)
+operator|.
+name|getLen
+argument_list|()
+operator|<=
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Skipping "
+operator|+
+name|p
+operator|+
+literal|" because its empty.  DATA LOSS?  Can "
+operator|+
+literal|"this scenario be repaired?  HBASE-646"
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
 name|Matcher
 name|m
 init|=
@@ -2264,6 +2298,38 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
+if|if
+condition|(
+name|isEmptyDataFile
+argument_list|(
+name|mapfile
+argument_list|)
+condition|)
+block|{
+name|curfile
+operator|.
+name|delete
+argument_list|()
+expr_stmt|;
+comment|// We can have empty data file if data loss in hdfs.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Mapfile "
+operator|+
+name|mapfile
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" has empty data. "
+operator|+
+literal|"Deleting.  Continuing...Probable DATA LOSS!!!  See HBASE-646."
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
 comment|// TODO: Confirm referent exists.
 comment|// Found map and sympathetic info file.  Add this hstorefile to result.
 if|if
@@ -2392,6 +2458,56 @@ block|}
 block|}
 return|return
 name|results
+return|;
+block|}
+comment|/*     * @param mapfile    * @return True if the passed mapfile has a zero-length data component (its    * broken).    * @throws IOException    */
+specifier|private
+name|boolean
+name|isEmptyDataFile
+parameter_list|(
+specifier|final
+name|Path
+name|mapfile
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+comment|// Mapfiles are made of 'data' and 'index' files.  Confirm 'data' is
+comment|// non-null if it exists (may not have been written to yet).
+name|Path
+name|dataFile
+init|=
+operator|new
+name|Path
+argument_list|(
+name|mapfile
+argument_list|,
+literal|"data"
+argument_list|)
+decl_stmt|;
+return|return
+name|this
+operator|.
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|dataFile
+argument_list|)
+operator|&&
+name|this
+operator|.
+name|fs
+operator|.
+name|getFileStatus
+argument_list|(
+name|dataFile
+argument_list|)
+operator|.
+name|getLen
+argument_list|()
+operator|==
+literal|0
 return|;
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
