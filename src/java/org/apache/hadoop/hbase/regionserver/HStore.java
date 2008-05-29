@@ -5960,7 +5960,7 @@ index|]
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the value for the indicated HStoreKey.  Grab the target value and the     * previous 'numVersions-1' values, as well.    *    * Use {@link HConstants.ALL_VERSIONS} to retrieve all versions.    * @param key    * @param numVersions Number of versions to fetch.  Must be> 0.    * @return values for the specified versions    * @throws IOException    */
+comment|/**    * Get the value for the indicated HStoreKey.  Grab the target value and the     * previous<code>numVersions - 1</code> values, as well.    *    * Use {@link HConstants.ALL_VERSIONS} to retrieve all versions.    * @param key    * @param numVersions Number of versions to fetch.  Must be> 0.    * @return values for the specified versions    * @throws IOException    */
 name|Cell
 index|[]
 name|get

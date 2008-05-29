@@ -487,19 +487,14 @@ name|TableServers
 argument_list|>
 name|HBASE_INSTANCES
 init|=
-name|Collections
-operator|.
-name|synchronizedMap
-argument_list|(
 operator|new
-name|HashMap
+name|ConcurrentHashMap
 argument_list|<
 name|String
 argument_list|,
 name|TableServers
 argument_list|>
 argument_list|()
-argument_list|)
 decl_stmt|;
 comment|/**    * Get the connection object for the instance specified by the configuration    * If no current connection exists, create a new connection for that instance    * @param conf    * @return HConnection object for the instance specified by the configuration    */
 specifier|public
@@ -708,6 +703,7 @@ name|conf
 decl_stmt|;
 comment|// Known region HServerAddress.toString() -> HRegionInterface
 specifier|private
+specifier|final
 name|Map
 argument_list|<
 name|String
@@ -715,12 +711,22 @@ argument_list|,
 name|HRegionInterface
 argument_list|>
 name|servers
+init|=
+operator|new
+name|ConcurrentHashMap
+argument_list|<
+name|String
+argument_list|,
+name|HRegionInterface
+argument_list|>
+argument_list|()
 decl_stmt|;
 specifier|private
 name|HRegionLocation
 name|rootRegionLocation
 decl_stmt|;
 specifier|private
+specifier|final
 name|Map
 argument_list|<
 name|Integer
@@ -880,19 +886,6 @@ operator|.
 name|masterChecked
 operator|=
 literal|false
-expr_stmt|;
-name|this
-operator|.
-name|servers
-operator|=
-operator|new
-name|ConcurrentHashMap
-argument_list|<
-name|String
-argument_list|,
-name|HRegionInterface
-argument_list|>
-argument_list|()
 expr_stmt|;
 block|}
 comment|/** {@inheritDoc} */
