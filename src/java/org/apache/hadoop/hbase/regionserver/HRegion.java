@@ -6606,7 +6606,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Make sure this is a valid column for the current table    * @param columnName    * @throws IOException    */
+comment|/*    * Make sure this is a valid column for the current table    * @param columnName    * @throws NoSuchColumnFamilyException    */
 specifier|private
 name|void
 name|checkColumn
@@ -6617,7 +6617,7 @@ index|[]
 name|columnName
 parameter_list|)
 throws|throws
-name|IOException
+name|NoSuchColumnFamilyException
 block|{
 if|if
 condition|(
@@ -6644,7 +6644,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|NoSuchColumnFamilyException
 argument_list|(
 literal|"Column family on "
 operator|+
