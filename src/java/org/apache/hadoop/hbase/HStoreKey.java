@@ -885,7 +885,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * @param column    * @return New byte array that holds<code>column</code> family prefix.    * @see #parseColumn(byte[])    */
+comment|/**    * @param column    * @return New byte array that holds<code>column</code> family prefix.    * @throws ColumnNameParseException     * @see #parseColumn(byte[])    */
 specifier|public
 specifier|static
 name|byte
@@ -897,6 +897,8 @@ name|byte
 index|[]
 name|column
 parameter_list|)
+throws|throws
+name|ColumnNameParseException
 block|{
 name|int
 name|index
@@ -915,7 +917,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IllegalArgumentException
+name|ColumnNameParseException
 argument_list|(
 literal|"No ':' delimiter between "
 operator|+
@@ -1187,7 +1189,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * @param c Column name    * @return Return array of size two whose first element has the family    * prefix of passed column<code>c</code> and whose second element is the    * column qualifier.    */
+comment|/**    * @param c Column name    * @return Return array of size two whose first element has the family    * prefix of passed column<code>c</code> and whose second element is the    * column qualifier.    * @throws ColumnNameParseException     */
 specifier|public
 specifier|static
 name|byte
@@ -1200,6 +1202,8 @@ name|byte
 index|[]
 name|c
 parameter_list|)
+throws|throws
+name|ColumnNameParseException
 block|{
 name|byte
 index|[]
@@ -1231,7 +1235,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IllegalArgumentException
+name|ColumnNameParseException
 argument_list|(
 literal|"Impossible column name: "
 operator|+

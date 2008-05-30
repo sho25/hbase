@@ -15,16 +15,6 @@ name|hbase
 package|;
 end_package
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Thrown when an invalid column name is encountered  */
 end_comment
@@ -34,7 +24,7 @@ specifier|public
 class|class
 name|InvalidColumnNameException
 extends|extends
-name|IOException
+name|DoNotRetryIOException
 block|{
 specifier|private
 specifier|static

@@ -548,7 +548,7 @@ name|leaseName
 return|;
 block|}
 block|}
-comment|/**    * Renew a lease    *     * @param leaseName name of lease    */
+comment|/**    * Renew a lease    *     * @param leaseName name of lease    * @throws LeaseException     */
 specifier|public
 name|void
 name|renewLease
@@ -557,6 +557,8 @@ specifier|final
 name|String
 name|leaseName
 parameter_list|)
+throws|throws
+name|LeaseException
 block|{
 synchronized|synchronized
 init|(
@@ -582,7 +584,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IllegalArgumentException
+name|LeaseException
 argument_list|(
 literal|"lease '"
 operator|+
@@ -620,7 +622,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Client explicitly cancels a lease.    *     * @param leaseName name of lease    */
+comment|/**    * Client explicitly cancels a lease.    *     * @param leaseName name of lease    * @throws LeaseException     */
 specifier|public
 name|void
 name|cancelLease
@@ -629,6 +631,8 @@ specifier|final
 name|String
 name|leaseName
 parameter_list|)
+throws|throws
+name|LeaseException
 block|{
 synchronized|synchronized
 init|(
@@ -654,7 +658,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IllegalArgumentException
+name|LeaseException
 argument_list|(
 literal|"lease '"
 operator|+
