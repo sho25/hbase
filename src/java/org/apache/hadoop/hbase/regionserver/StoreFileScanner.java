@@ -300,6 +300,18 @@ name|i
 operator|++
 control|)
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|readers
+index|[
+name|i
+index|]
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|readers
@@ -310,6 +322,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|// Open our own copies of the Readers here inside in the scanner.
@@ -1111,6 +1124,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * The user didn't want to start scanning at the first row. This method    * seeks to the requested row.    *    * @param i which iterator to advance    * @param firstRow seek to this row    * @return true if this is the first row or if the row was not found    */
+specifier|private
 name|boolean
 name|findFirstRow
 parameter_list|(
@@ -1273,6 +1287,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Get the next value from the specified reader.    *     * @param i which reader to fetch next value from    * @return true if there is more data available    */
+specifier|private
 name|boolean
 name|getNext
 parameter_list|(
@@ -1425,6 +1440,7 @@ name|result
 return|;
 block|}
 comment|/** Close down the indicated reader. */
+specifier|private
 name|void
 name|closeSubScanner
 parameter_list|(

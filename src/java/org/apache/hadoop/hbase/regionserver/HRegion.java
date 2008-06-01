@@ -4393,13 +4393,16 @@ block|}
 block|}
 catch|catch
 parameter_list|(
-name|IOException
-name|e
+name|Throwable
+name|t
 parameter_list|)
 block|{
 comment|// An exception here means that the snapshot was not persisted.
 comment|// The hlog needs to be replayed so its content is restored to memcache.
 comment|// Currently, only a server restart will do this.
+comment|// We used to only catch IOEs but its possible that we'd get other
+comment|// exceptions -- e.g. HBASE-659 was about an NPE -- so now we catch
+comment|// all and sundry.
 name|this
 operator|.
 name|log
@@ -4407,15 +4410,22 @@ operator|.
 name|abortCacheFlush
 argument_list|()
 expr_stmt|;
-throw|throw
+name|DroppedSnapshotException
+name|dse
+init|=
 operator|new
 name|DroppedSnapshotException
-argument_list|(
-name|e
-operator|.
-name|getMessage
 argument_list|()
+decl_stmt|;
+name|dse
+operator|.
+name|initCause
+argument_list|(
+name|t
 argument_list|)
+expr_stmt|;
+throw|throw
+name|dse
 throw|;
 block|}
 comment|// If we get to here, the HStores have been written. If we get an
