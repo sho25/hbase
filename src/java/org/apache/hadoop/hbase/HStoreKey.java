@@ -885,7 +885,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * @param column    * @return New byte array that holds<code>column</code> family prefix.    * @throws ColumnNameParseException     * @see #parseColumn(byte[])    */
+comment|/**    * @param column    * @return New byte array that holds<code>column</code> family prefix only    * (Does not include the colon DELIMITER).    * @throws ColumnNameParseException     * @see #parseColumn(byte[])    */
 specifier|public
 specifier|static
 name|byte

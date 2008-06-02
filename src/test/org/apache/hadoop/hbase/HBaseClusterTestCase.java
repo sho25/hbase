@@ -275,7 +275,7 @@ literal|"unused"
 argument_list|)
 specifier|protected
 name|void
-name|HBaseClusterSetup
+name|hBaseClusterSetup
 parameter_list|()
 throws|throws
 name|Exception
@@ -427,7 +427,7 @@ name|preHBaseClusterSetup
 argument_list|()
 expr_stmt|;
 comment|// start the instance
-name|HBaseClusterSetup
+name|hBaseClusterSetup
 argument_list|()
 expr_stmt|;
 comment|// run post-cluster setup
