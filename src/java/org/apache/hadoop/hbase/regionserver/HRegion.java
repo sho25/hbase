@@ -4257,6 +4257,12 @@ comment|// Stop updates while we snapshot the memcache of all stores. We only ha
 comment|// to do this for a moment.  Its quick.  The subsequent sequence id that
 comment|// goes into the HLog after we've flushed all these snapshots also goes
 comment|// into the info file that sits beside the flushed files.
+name|long
+name|sequenceId
+init|=
+operator|-
+literal|1L
+decl_stmt|;
 name|this
 operator|.
 name|updatesLock
@@ -4286,6 +4292,13 @@ name|snapshot
 argument_list|()
 expr_stmt|;
 block|}
+name|sequenceId
+operator|=
+name|log
+operator|.
+name|startCacheFlush
+argument_list|()
+expr_stmt|;
 block|}
 finally|finally
 block|{
@@ -4300,14 +4313,6 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
-name|long
-name|sequenceId
-init|=
-name|log
-operator|.
-name|startCacheFlush
-argument_list|()
-decl_stmt|;
 comment|// Any failure from here on out will be catastrophic requiring server
 comment|// restart so hlog content can be replayed and put back into the memcache.
 comment|// Otherwise, the snapshot content while backed up in the hlog, it will not
