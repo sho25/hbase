@@ -92,13 +92,14 @@ name|VERSION_FILE_NAME
 init|=
 literal|"hbase.version"
 decl_stmt|;
-comment|/** version of file system */
+comment|/**    * Current version of file system    * Version 3 added 'historian' family to .META.    */
+specifier|public
 specifier|static
 specifier|final
 name|String
 name|FILE_SYSTEM_VERSION
 init|=
-literal|"2"
+literal|"3"
 decl_stmt|;
 comment|// Configuration parameters
 comment|// TODO: URL for hbase master like hdfs URLs with host and port.
@@ -298,6 +299,14 @@ name|COLUMN_FAMILY_STR
 init|=
 literal|"info:"
 decl_stmt|;
+comment|/** The META historian column family (string) */
+specifier|static
+specifier|final
+name|String
+name|COLUMN_FAMILY_HISTORIAN_STR
+init|=
+literal|"historian:"
+decl_stmt|;
 comment|/** The ROOT and META column family */
 specifier|static
 specifier|final
@@ -310,6 +319,20 @@ operator|.
 name|toBytes
 argument_list|(
 name|COLUMN_FAMILY_STR
+argument_list|)
+decl_stmt|;
+comment|/** The META historian column family */
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|COLUMN_FAMILY_HISTORIAN
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|COLUMN_FAMILY_HISTORIAN_STR
 argument_list|)
 decl_stmt|;
 comment|/** Array of meta column names */

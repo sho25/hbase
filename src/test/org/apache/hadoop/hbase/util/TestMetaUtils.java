@@ -207,11 +207,6 @@ operator|.
 name|conf
 argument_list|)
 decl_stmt|;
-name|utils
-operator|.
-name|initialize
-argument_list|()
-expr_stmt|;
 comment|// Add a new column to the third table, getName() + '2', and remove the old.
 specifier|final
 name|byte
