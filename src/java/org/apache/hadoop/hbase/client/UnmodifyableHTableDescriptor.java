@@ -67,48 +67,6 @@ name|UnmodifyableHTableDescriptor
 extends|extends
 name|HTableDescriptor
 block|{
-comment|/*    * Constructs an empty object.    * For deserializing an HTableDescriptor instance only.    */
-name|UnmodifyableHTableDescriptor
-parameter_list|()
-block|{
-name|super
-argument_list|()
-expr_stmt|;
-block|}
-comment|/*    * Constructor.    * @param name Table name.    * @throws IllegalArgumentException if passed a table name    * that is made of other than 'word' characters, underscore or period: i.e.    *<code>[a-zA-Z_0-9.].    * @see<a href="HADOOP-1581">HADOOP-1581 HBASE: Un-openable tablename bug</a>    */
-name|UnmodifyableHTableDescriptor
-parameter_list|(
-specifier|final
-name|String
-name|name
-parameter_list|)
-block|{
-name|this
-argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|name
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-comment|/*    * Constructor.    * @param name Table name.    * @throws IllegalArgumentException if passed a table name    * that is made of other than 'word' characters, underscore or period: i.e.    *<code>[a-zA-Z_0-9.].    * @see<a href="HADOOP-1581">HADOOP-1581 HBASE: Un-openable tablename bug</a>    */
-name|UnmodifyableHTableDescriptor
-parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|name
-parameter_list|)
-block|{
-name|super
-argument_list|(
-name|name
-argument_list|)
-expr_stmt|;
-block|}
 comment|/*    * Create an unmodifyable copy of an HTableDescriptor    * @param desc    */
 name|UnmodifyableHTableDescriptor
 parameter_list|(
