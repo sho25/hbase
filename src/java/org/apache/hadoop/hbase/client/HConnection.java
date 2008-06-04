@@ -158,6 +158,18 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @param tableName    * @return table metadata     * @throws IOException    */
+specifier|public
+name|HTableDescriptor
+name|getHTableDescriptor
+parameter_list|(
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the reigon in     * question    * @throws IOException    */
 specifier|public
 name|HRegionLocation

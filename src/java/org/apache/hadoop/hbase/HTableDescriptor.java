@@ -677,6 +677,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @return Name of this table and then a map of all of the column family    * descriptors.    * @see #getNameAsString()    */
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString

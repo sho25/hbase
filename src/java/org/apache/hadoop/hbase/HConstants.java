@@ -76,6 +76,13 @@ name|NINES
 init|=
 literal|"99999999999999"
 decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|ZEROES
+init|=
+literal|"00000000000000"
+decl_stmt|;
 comment|// For migration
 comment|/** name of version file */
 specifier|static

@@ -379,7 +379,7 @@ specifier|protected
 interface|interface
 name|MetaScannerVisitor
 block|{
-comment|/**      * Visitor method that accepts a RowResult and the meta region location.      * Implementations can return false to stop the region's loop if it becomes      * unnecessary for some reason.      *       * @param rowResult      * @param metaLocation      * @return A boolean to know if it should continue to loop in the region      * @throws IOException      */
+comment|/**      * Visitor method that accepts a RowResult and the meta region location.      * Implementations can return false to stop the region's loop if it becomes      * unnecessary for some reason.      *       * @param rowResult      * @param metaLocation      * @param info      * @return A boolean to know if it should continue to loop in the region      * @throws IOException      */
 specifier|public
 name|boolean
 name|processRow
