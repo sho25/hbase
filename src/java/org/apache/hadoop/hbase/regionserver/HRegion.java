@@ -691,6 +691,11 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
+specifier|private
+specifier|final
+name|RegionHistorian
+name|historian
+decl_stmt|;
 comment|/**    * Merge two HRegions.  The regions must be adjacent andmust not overlap.    *     * @param srcA    * @param srcB    * @return new merged HRegion    * @throws IOException    */
 specifier|public
 specifier|static
@@ -2269,6 +2274,15 @@ argument_list|,
 name|HREGION_OLDLOGFILE_NAME
 argument_list|)
 decl_stmt|;
+name|this
+operator|.
+name|historian
+operator|=
+name|RegionHistorian
+operator|.
+name|getInstance
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|LOG
@@ -3782,7 +3796,9 @@ block|,
 name|regionB
 block|}
 decl_stmt|;
-name|RegionHistorian
+name|this
+operator|.
+name|historian
 operator|.
 name|addRegionSplit
 argument_list|(
@@ -4069,7 +4085,9 @@ operator|+
 name|timeTaken
 argument_list|)
 expr_stmt|;
-name|RegionHistorian
+name|this
+operator|.
+name|historian
 operator|.
 name|addRegionCompaction
 argument_list|(
@@ -4572,7 +4590,10 @@ operator|.
 name|isMetaRegion
 argument_list|()
 condition|)
-name|RegionHistorian
+block|{
+name|this
+operator|.
+name|historian
 operator|.
 name|addRegionFlush
 argument_list|(
@@ -4581,6 +4602,7 @@ argument_list|,
 name|timeTaken
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 literal|true
@@ -8246,6 +8268,7 @@ argument_list|(
 name|regionDir
 argument_list|)
 expr_stmt|;
+comment|// Note in historian the creation of new region.
 if|if
 condition|(
 operator|!
@@ -8254,13 +8277,18 @@ operator|.
 name|isMetaRegion
 argument_list|()
 condition|)
+block|{
 name|RegionHistorian
+operator|.
+name|getInstance
+argument_list|()
 operator|.
 name|addRegionCreation
 argument_list|(
 name|info
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 operator|new
 name|HRegion

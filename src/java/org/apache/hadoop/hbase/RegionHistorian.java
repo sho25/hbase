@@ -168,7 +168,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The Region Historian task is to keep track of every modification a region  * has to go trought. Public methods are used to update the information in the  * .META. table and to retreive it.  */
+comment|/**  * The Region Historian task is to keep track of every modification a region  * has to go through. Public methods are used to update the information in the  *<code>.META.</code> table and to retrieve it.  This is a Singleton.  By  * default, the Historian is offline; it will not log.  Its enabled in the  * regionserver and master down in their guts after there's some certainty the  * .META. has been deployed.  */
 end_comment
 
 begin_class
@@ -178,6 +178,7 @@ name|RegionHistorian
 implements|implements
 name|HConstants
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -319,56 +320,16 @@ name|key
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Default constructor. Initializes reference to .META. table    *    */
+comment|/**    * Default constructor. Initializes reference to .META. table.  Inaccessible.    * Use {@link #getInstance(HBaseConfiguration)} to obtain the Singleton    * instance of this class.    */
 specifier|private
 name|RegionHistorian
 parameter_list|()
 block|{
-name|HBaseConfiguration
-name|conf
-init|=
-operator|new
-name|HBaseConfiguration
+name|super
 argument_list|()
-decl_stmt|;
-try|try
-block|{
-name|metaTable
-operator|=
-operator|new
-name|HTable
-argument_list|(
-name|conf
-argument_list|,
-name|META_TABLE_NAME
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Region historian is ready."
-argument_list|)
 expr_stmt|;
 block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|ioe
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Unable to create RegionHistorian"
-argument_list|,
-name|ioe
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-comment|/**    * Singleton method    *     * @return The region historian    */
+comment|/**    * Get the RegionHistorian Singleton instance.    * @param c Configuration to use.  Used to create an {@link HTable} homed    * on<code>.META.</code>.  The HTable instance is lazily instantiated to     * allow for the getting and storing aside of an Historian instance even    * in the case where<code>.META.</code> has not yet deployed.    * @return The region historian    */
 specifier|public
 specifier|static
 name|RegionHistorian
@@ -393,9 +354,8 @@ return|return
 name|historian
 return|;
 block|}
-comment|/**    * Returns, for a given region name, an ordered list by timestamp of all    * values in the historian column of the .META. table.    *     * @param regionName    *          Region name as a string    * @return List of RegionHistoryInformation    */
+comment|/**    * Returns, for a given region name, an ordered list by timestamp of all    * values in the historian column of the .META. table.    * @param regionName    *          Region name as a string    * @return List of RegionHistoryInformation or null if we're offline.    */
 specifier|public
-specifier|static
 name|List
 argument_list|<
 name|RegionHistoryInformation
@@ -406,9 +366,17 @@ name|String
 name|regionName
 parameter_list|)
 block|{
-name|getInstance
+if|if
+condition|(
+operator|!
+name|isOnline
 argument_list|()
-expr_stmt|;
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 name|List
 argument_list|<
 name|RegionHistoryInformation
@@ -448,7 +416,7 @@ name|Cell
 index|[]
 name|cells
 init|=
-name|historian
+name|this
 operator|.
 name|metaTable
 operator|.
@@ -553,9 +521,8 @@ return|return
 name|informations
 return|;
 block|}
-comment|/**    * Method to add a creation event to the row in the .META table    *     * @param info    */
+comment|/**    * Method to add a creation event to the row in the .META table    * @param info    */
 specifier|public
-specifier|static
 name|void
 name|addRegionAssignment
 parameter_list|(
@@ -582,9 +549,8 @@ name|info
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Method to add a creation event to the row in the .META table    *     * @param info    */
+comment|/**    * Method to add a creation event to the row in the .META table    * @param info    */
 specifier|public
-specifier|static
 name|void
 name|addRegionCreation
 parameter_list|(
@@ -606,9 +572,8 @@ name|info
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Method to add a opening event to the row in the .META table    *     * @param info    * @param address    */
+comment|/**    * Method to add a opening event to the row in the .META table    * @param info    * @param address    */
 specifier|public
-specifier|static
 name|void
 name|addRegionOpen
 parameter_list|(
@@ -640,7 +605,6 @@ expr_stmt|;
 block|}
 comment|/**    * Method to add a split event to the rows in the .META table with    * information from oldInfo.    * @param oldInfo    * @param newInfo1     * @param newInfo2    */
 specifier|public
-specifier|static
 name|void
 name|addRegionSplit
 parameter_list|(
@@ -695,9 +659,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Method to add a compaction event to the row in the .META table    *     * @param info    */
+comment|/**    * Method to add a compaction event to the row in the .META table    * @param info    */
 specifier|public
-specifier|static
 name|void
 name|addRegionCompaction
 parameter_list|(
@@ -733,9 +696,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Method to add a flush event to the row in the .META table    *     * @param info    */
+comment|/**    * Method to add a flush event to the row in the .META table    * @param info    */
 specifier|public
-specifier|static
 name|void
 name|addRegionFlush
 parameter_list|(
@@ -773,7 +735,6 @@ block|}
 block|}
 comment|/**    * Method to add an event with LATEST_TIMESTAMP.    * @param column    * @param text    * @param info    */
 specifier|private
-specifier|static
 name|void
 name|add
 parameter_list|(
@@ -802,7 +763,6 @@ expr_stmt|;
 block|}
 comment|/**    * Method to add an event with provided information.    * @param column    * @param text    * @param info    * @param timestamp    */
 specifier|private
-specifier|static
 name|void
 name|add
 parameter_list|(
@@ -823,15 +783,22 @@ block|{
 if|if
 condition|(
 operator|!
+name|isOnline
+argument_list|()
+condition|)
+block|{
+comment|// Its a noop
+return|return;
+block|}
+if|if
+condition|(
+operator|!
 name|info
 operator|.
 name|isMetaRegion
 argument_list|()
 condition|)
 block|{
-name|getInstance
-argument_list|()
-expr_stmt|;
 name|BatchUpdate
 name|batch
 init|=
@@ -867,7 +834,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-name|historian
+name|this
 operator|.
 name|metaTable
 operator|.
@@ -1009,7 +976,7 @@ return|return
 name|timestamp
 return|;
 block|}
-comment|/**      * Returns the value of the timestamp processed      * with the date formater.      * @return      */
+comment|/**      * @return The value of the timestamp processed with the date formater.      */
 specifier|public
 name|String
 name|getTimestampAsString
@@ -1034,6 +1001,75 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+block|}
+comment|/**    * @return True if the historian is online. When offline, will not add    * updates to the .META. table.    */
+specifier|public
+name|boolean
+name|isOnline
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|metaTable
+operator|!=
+literal|null
+return|;
+block|}
+comment|/**    * @param c Online the historian.  Invoke after cluster has spun up.    */
+specifier|public
+name|void
+name|online
+parameter_list|(
+specifier|final
+name|HBaseConfiguration
+name|c
+parameter_list|)
+block|{
+try|try
+block|{
+name|this
+operator|.
+name|metaTable
+operator|=
+operator|new
+name|HTable
+argument_list|(
+name|c
+argument_list|,
+name|META_TABLE_NAME
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Unable to create RegionHistorian"
+argument_list|,
+name|ioe
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|/**    * Offlines the historian.    * @see #online(HBaseConfiguration)    */
+specifier|public
+name|void
+name|offline
+parameter_list|()
+block|{
+name|this
+operator|.
+name|metaTable
+operator|=
+literal|null
+expr_stmt|;
 block|}
 block|}
 end_class

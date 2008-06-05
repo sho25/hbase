@@ -462,7 +462,8 @@ name|leaseTimeout
 argument_list|,
 name|master
 operator|.
-name|conf
+name|getConfiguration
+argument_list|()
 operator|.
 name|getInt
 argument_list|(

@@ -1254,7 +1254,8 @@ name|fs
 argument_list|,
 name|master
 operator|.
-name|conf
+name|getConfiguration
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

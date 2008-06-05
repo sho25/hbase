@@ -232,6 +232,16 @@ operator|.
 name|master
 argument_list|)
 block|{
+specifier|private
+specifier|final
+name|RegionHistorian
+name|historian
+init|=
+name|RegionHistorian
+operator|.
+name|getInstance
+argument_list|()
+decl_stmt|;
 specifier|public
 name|Boolean
 name|call
@@ -356,7 +366,38 @@ argument_list|,
 name|b
 argument_list|)
 expr_stmt|;
-name|RegionHistorian
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|historian
+operator|.
+name|isOnline
+argument_list|()
+condition|)
+block|{
+comment|// This is safest place to do the onlining of the historian in
+comment|// the master.  When we get to here, we know there is a .META.
+comment|// for the historian to go against.
+name|this
+operator|.
+name|historian
+operator|.
+name|online
+argument_list|(
+name|this
+operator|.
+name|master
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+name|this
+operator|.
+name|historian
 operator|.
 name|addRegionOpen
 argument_list|(

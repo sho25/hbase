@@ -330,20 +330,9 @@ name|flushcache
 argument_list|()
 expr_stmt|;
 block|}
-comment|// make sure we're starting at 0 so that it's easy to predict what the
-comment|// results of our tests should be.
-name|assertEquals
-argument_list|(
-literal|"Starting memcache size"
-argument_list|,
-literal|0
-argument_list|,
-name|server
-operator|.
-name|getGlobalMemcacheSize
-argument_list|()
-argument_list|)
-expr_stmt|;
+comment|// We used to assert that the memsize here was zero but with the addition
+comment|// of region historian, its no longer true; an entry is added for the
+comment|// flushes run above.
 block|}
 comment|/**    * Make sure that region server thinks all the memcaches are as big as we were    * hoping they would be.    */
 specifier|public
@@ -377,12 +366,15 @@ argument_list|)
 decl_stmt|;
 comment|// make sure the region server says it is using as much memory as we think
 comment|// it is.
-name|assertEquals
+comment|// Global cache size is now polluted by region historian data.  We used
+comment|// to be able to do direct compare of global memcache and the data added
+comment|// but not since HBASE-533 went in.  Compare has to be a bit sloppy.
+name|assertTrue
 argument_list|(
 literal|"Global memcache size"
 argument_list|,
 name|dataSize
-argument_list|,
+operator|<=
 name|server
 operator|.
 name|getGlobalMemcacheSize
@@ -476,18 +468,28 @@ argument_list|,
 literal|500
 argument_list|)
 decl_stmt|;
-name|assertEquals
-argument_list|(
-literal|"Expected memcache size"
-argument_list|,
-name|dataAdded
-operator|+
-name|startingDataSize
-argument_list|,
+comment|// Global cache size is now polluted by region historian data.  We used
+comment|// to be able to do direct compare of global memcache and the data added
+comment|// but not since HBASE-533 went in.
+name|long
+name|cacheSize
+init|=
 name|server
 operator|.
 name|getGlobalMemcacheSize
 argument_list|()
+decl_stmt|;
+name|assertTrue
+argument_list|(
+literal|"Expected memcache size"
+argument_list|,
+operator|(
+name|dataAdded
+operator|+
+name|startingDataSize
+operator|)
+operator|<=
+name|cacheSize
 argument_list|)
 expr_stmt|;
 name|populate
