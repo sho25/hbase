@@ -667,34 +667,18 @@ parameter_list|(
 name|HRegionInfo
 name|info
 parameter_list|,
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|String
 name|timeTaken
 parameter_list|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|add
-argument_list|(
-name|HistorianColumnKey
-operator|.
-name|REGION_COMPACTION
-operator|.
-name|key
-argument_list|,
-literal|"Region compaction completed in "
-operator|+
-name|timeTaken
-argument_list|,
-name|info
-argument_list|)
-expr_stmt|;
-block|}
+comment|// Disabled.  Noop.  If this regionserver is hosting the .META. AND is
+comment|// holding the reclaimMemcacheMemory global lock, we deadlock.  For now,
+comment|// just disable logging of flushes and compactions.
 block|}
 comment|/**    * Method to add a flush event to the row in the .META table    * @param info    */
 specifier|public
@@ -704,34 +688,18 @@ parameter_list|(
 name|HRegionInfo
 name|info
 parameter_list|,
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|String
 name|timeTaken
 parameter_list|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|add
-argument_list|(
-name|HistorianColumnKey
-operator|.
-name|REGION_FLUSH
-operator|.
-name|key
-argument_list|,
-literal|"Region flush completed in "
-operator|+
-name|timeTaken
-argument_list|,
-name|info
-argument_list|)
-expr_stmt|;
-block|}
+comment|// Disabled.  Noop.  If this regionserver is hosting the .META. AND is
+comment|// holding the reclaimMemcacheMemory global lock, we deadlock.  For now,
+comment|// just disable logging of flushes and compactions.
 block|}
 comment|/**    * Method to add an event with LATEST_TIMESTAMP.    * @param column    * @param text    * @param info    */
 specifier|private
@@ -1040,6 +1008,22 @@ argument_list|,
 name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Onlined"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -1070,6 +1054,22 @@ name|metaTable
 operator|=
 literal|null
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Offlined"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 end_class
