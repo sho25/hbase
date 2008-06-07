@@ -664,21 +664,43 @@ specifier|public
 name|void
 name|addRegionCompaction
 parameter_list|(
+specifier|final
 name|HRegionInfo
 name|info
 parameter_list|,
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
+specifier|final
 name|String
 name|timeTaken
 parameter_list|)
 block|{
-comment|// Disabled.  Noop.  If this regionserver is hosting the .META. AND is
-comment|// holding the reclaimMemcacheMemory global lock, we deadlock.  For now,
-comment|// just disable logging of flushes and compactions.
+comment|// While historian can not log flushes because it could deadlock the
+comment|// regionserver -- see the note in addRegionFlush -- there should be no
+comment|// such danger compacting; compactions are not allowed when
+comment|// Flusher#flushSomeRegions is run.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|add
+argument_list|(
+name|HistorianColumnKey
+operator|.
+name|REGION_COMPACTION
+operator|.
+name|key
+argument_list|,
+literal|"Region compaction completed in "
+operator|+
+name|timeTaken
+argument_list|,
+name|info
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Method to add a flush event to the row in the .META table    * @param info    */
 specifier|public
@@ -698,8 +720,9 @@ name|timeTaken
 parameter_list|)
 block|{
 comment|// Disabled.  Noop.  If this regionserver is hosting the .META. AND is
-comment|// holding the reclaimMemcacheMemory global lock, we deadlock.  For now,
-comment|// just disable logging of flushes and compactions.
+comment|// holding the reclaimMemcacheMemory global lock --
+comment|// see Flusher#flushSomeRegions --  we deadlock.  For now, just disable
+comment|// logging of flushes.
 block|}
 comment|/**    * Method to add an event with LATEST_TIMESTAMP.    * @param column    * @param text    * @param info    */
 specifier|private
