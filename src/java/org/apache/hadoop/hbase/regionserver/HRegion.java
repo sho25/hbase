@@ -4580,6 +4580,20 @@ operator|+
 literal|"ms, sequence id="
 operator|+
 name|sequenceId
+operator|+
+literal|", "
+operator|+
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
+name|this
+operator|.
+name|memcacheSize
+operator|.
+name|get
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 if|if
@@ -5815,7 +5829,17 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-literal|"': Memcache size "
+literal|"' on region "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|getRegionName
+argument_list|()
+argument_list|)
+operator|+
+literal|": Memcache size "
 operator|+
 name|StringUtils
 operator|.

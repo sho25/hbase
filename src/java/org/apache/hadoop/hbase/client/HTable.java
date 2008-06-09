@@ -3943,7 +3943,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// close the previous scanner if it's open
+comment|// Close the previous scanner if it's open
 if|if
 condition|(
 name|this
@@ -4026,6 +4026,11 @@ argument_list|,
 name|HConstants
 operator|.
 name|EMPTY_BYTE_ARRAY
+argument_list|)
+operator|||
+name|filterSaysStop
+argument_list|(
+name|endKey
 argument_list|)
 condition|)
 block|{
@@ -4137,6 +4142,49 @@ throw|;
 block|}
 return|return
 literal|true
+return|;
+block|}
+comment|/**      * @param endKey      * @return Returns true if the passed region endkey is judged beyond      * filter.      */
+specifier|private
+name|boolean
+name|filterSaysStop
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|endKey
+parameter_list|)
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|filter
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+comment|// Let the filter see current row.
+name|this
+operator|.
+name|filter
+operator|.
+name|filterRowKey
+argument_list|(
+name|endKey
+argument_list|)
+expr_stmt|;
+return|return
+name|this
+operator|.
+name|filter
+operator|.
+name|filterAllRemaining
+argument_list|()
 return|;
 block|}
 comment|/** {@inheritDoc} */
