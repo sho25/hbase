@@ -814,6 +814,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|/**    * An HStore is a set of zero or more MapFiles, which stretch backwards over     * time.  A given HStore is responsible for a certain set of columns for a    * row in the HRegion.    *    *<p>The HRegion starts writing to its set of HStores when the HRegion's     * memcache is flushed.  This results in a round of new MapFiles, one for    * each HStore.    *    *<p>There's no reason to consider append-logging at this level; all logging     * and locking is handled at the HRegion level.  HStore just provides    * services to manage sets of MapFiles.  One of the most important of those    * services is MapFile-compaction services.    *    *<p>The only thing having to do with logs that HStore needs to deal with is    * the reconstructionLog.  This is a segment of an HRegion's log that might    * NOT be present upon startup.  If the param is NULL, there's nothing to do.    * If the param is non-NULL, we need to process the log to reconstruct    * a TreeMap that might not have been written to disk before the process    * died.    *    *<p>It's assumed that after this constructor returns, the reconstructionLog    * file will be deleted (by whoever has instantiated the HStore).    *    * @param basedir qualified path under which the region directory lives    * @param info HRegionInfo for this region    * @param family HColumnDescriptor for this column    * @param fs file system object    * @param reconstructionLog existing log file to apply if any    * @param conf configuration object    * @param reporter Call on a period so hosting server can report we're    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    * @throws IOException    */
+specifier|protected
 name|HStore
 parameter_list|(
 name|Path
@@ -2937,6 +2938,7 @@ comment|////////////////////////////////////////////////////////////////////////
 comment|// End bloom filters
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/**    * Adds a value to the memcache    *     * @param key    * @param value    */
+specifier|protected
 name|void
 name|add
 parameter_list|(
@@ -8317,6 +8319,7 @@ comment|////////////////////////////////////////////////////////////////////////
 comment|// File administration
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/**    * Return a scanner for both the memcache and the HStore files    */
+specifier|protected
 name|InternalScanner
 name|getScanner
 parameter_list|(

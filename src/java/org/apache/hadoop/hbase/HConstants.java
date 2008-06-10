@@ -188,6 +188,14 @@ name|REGION_SERVER_CLASS
 init|=
 literal|"hbase.regionserver.class"
 decl_stmt|;
+comment|/** Parameter name for what region server implementation to use. */
+specifier|static
+specifier|final
+name|String
+name|REGION_SERVER_IMPL
+init|=
+literal|"hbase.regionserver.impl"
+decl_stmt|;
 comment|/** Default region server interface class name. */
 specifier|static
 specifier|final
