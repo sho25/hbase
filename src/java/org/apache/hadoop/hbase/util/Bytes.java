@@ -560,7 +560,7 @@ block|}
 comment|/**    * Converts a byte array to a long value    * @param bytes    * @return the long value    */
 specifier|public
 specifier|static
-name|long
+name|int
 name|toInt
 parameter_list|(
 name|byte
@@ -583,7 +583,7 @@ condition|)
 block|{
 return|return
 operator|-
-literal|1L
+literal|1
 return|;
 block|}
 return|return
