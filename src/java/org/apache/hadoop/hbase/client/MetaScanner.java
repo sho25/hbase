@@ -25,6 +25,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -191,11 +201,6 @@ argument_list|(
 name|configuration
 argument_list|)
 decl_stmt|;
-name|HRegionLocation
-name|metaLocation
-init|=
-literal|null
-decl_stmt|;
 name|boolean
 name|toContinue
 init|=
@@ -227,7 +232,7 @@ argument_list|,
 name|NINES
 argument_list|)
 decl_stmt|;
-comment|// Scan over the each meta region
+comment|// Scan over each meta region
 do|do
 block|{
 name|ScannerCallable
@@ -257,17 +262,6 @@ operator|.
 name|getRegionServerWithRetries
 argument_list|(
 name|callable
-argument_list|)
-expr_stmt|;
-name|metaLocation
-operator|=
-name|connection
-operator|.
-name|locateRegion
-argument_list|(
-name|META_TABLE_NAME
-argument_list|,
-name|startRow
 argument_list|)
 expr_stmt|;
 while|while
@@ -316,6 +310,45 @@ name|COL_REGIONINFO
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|List
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|parse
+init|=
+name|HRegionInfo
+operator|.
+name|parseMetaRegionRow
+argument_list|(
+name|info
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|HRegionLocation
+name|regionLocation
+init|=
+name|connection
+operator|.
+name|locateRegion
+argument_list|(
+name|parse
+operator|.
+name|get
+argument_list|(
+literal|0
+argument_list|)
+argument_list|,
+name|parse
+operator|.
+name|get
+argument_list|(
+literal|1
+argument_list|)
+argument_list|)
+decl_stmt|;
 name|toContinue
 operator|=
 name|visitor
@@ -324,7 +357,7 @@ name|processRow
 argument_list|(
 name|rowResult
 argument_list|,
-name|metaLocation
+name|regionLocation
 argument_list|,
 name|info
 argument_list|)
@@ -379,7 +412,7 @@ specifier|protected
 interface|interface
 name|MetaScannerVisitor
 block|{
-comment|/**      * Visitor method that accepts a RowResult and the meta region location.      * Implementations can return false to stop the region's loop if it becomes      * unnecessary for some reason.      *       * @param rowResult      * @param metaLocation      * @param info      * @return A boolean to know if it should continue to loop in the region      * @throws IOException      */
+comment|/**      * Visitor method that accepts a RowResult and the meta region location.      * Implementations can return false to stop the region's loop if it becomes      * unnecessary for some reason.      *       * @param rowResult      * @param regionLocation      * @param info      * @return A boolean to know if it should continue to loop in the region      * @throws IOException      */
 specifier|public
 name|boolean
 name|processRow
@@ -388,7 +421,7 @@ name|RowResult
 name|rowResult
 parameter_list|,
 name|HRegionLocation
-name|metaLocation
+name|regionLocation
 parameter_list|,
 name|HRegionInfo
 name|info

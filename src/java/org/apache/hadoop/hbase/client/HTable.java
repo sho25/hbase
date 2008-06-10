@@ -1360,7 +1360,7 @@ argument_list|(
 literal|"unused"
 argument_list|)
 name|HRegionLocation
-name|metaLocation
+name|regionLocation
 parameter_list|,
 name|HRegionInfo
 name|info
@@ -1508,7 +1508,7 @@ name|RowResult
 name|rowResult
 parameter_list|,
 name|HRegionLocation
-name|metaLocation
+name|regionLocation
 parameter_list|,
 name|HRegionInfo
 name|hri
@@ -1571,7 +1571,7 @@ name|put
 argument_list|(
 name|info
 argument_list|,
-name|metaLocation
+name|regionLocation
 operator|.
 name|getServerAddress
 argument_list|()

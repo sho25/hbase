@@ -1399,7 +1399,7 @@ argument_list|(
 literal|"unused"
 argument_list|)
 name|HRegionLocation
-name|metaLocation
+name|regionLocation
 parameter_list|,
 name|HRegionInfo
 name|info
