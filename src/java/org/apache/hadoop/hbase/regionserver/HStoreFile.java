@@ -2748,7 +2748,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.index.interval"
+literal|"hbase.io.index.interval"
 argument_list|,
 literal|128
 argument_list|)
