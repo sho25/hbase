@@ -1155,11 +1155,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"table "
+literal|"Deleted "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|tableName
-operator|+
-literal|" deleted"
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1402,7 +1405,12 @@ name|NoSuchElementException
 argument_list|(
 literal|"table "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|tableName
+argument_list|)
 operator|+
 literal|" not found"
 argument_list|)
@@ -1588,7 +1596,12 @@ name|debug
 argument_list|(
 literal|"Sleep. Waiting for first region to be enabled from "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1624,7 +1637,12 @@ name|debug
 argument_list|(
 literal|"Wake. Waiting for first region to be enabled from "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1635,7 +1653,12 @@ name|info
 argument_list|(
 literal|"Enabled table "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1878,7 +1901,12 @@ name|NoSuchElementException
 argument_list|(
 literal|"table "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|tableName
+argument_list|)
 operator|+
 literal|" not found"
 argument_list|)
@@ -2063,7 +2091,12 @@ name|debug
 argument_list|(
 literal|"Sleep. Waiting for first region to be disabled from "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -2108,9 +2141,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Disabled table "
+literal|"Disabled "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
