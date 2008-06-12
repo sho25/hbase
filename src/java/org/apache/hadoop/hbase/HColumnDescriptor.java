@@ -198,6 +198,79 @@ name|DEFAULT_BLOOM_FILTER_DESCRIPTOR
 init|=
 literal|null
 decl_stmt|;
+comment|// Defines for jruby/shell
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|NAME
+init|=
+literal|"NAME"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MAX_VERSIONS
+init|=
+literal|"MAX_VERSIONS"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|COMPRESSION
+init|=
+literal|"COMPRESSION"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|IN_MEMORY
+init|=
+literal|"IN_MEMORY"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|BLOCKCACHE
+init|=
+literal|"BLOCKCACHE"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MAX_LENGTH
+init|=
+literal|"MAX_LENGTH"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|TTL
+init|=
+literal|"TTL"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|BLOOMFILTER
+init|=
+literal|"BLOOMFILTER"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|FOREVER
+init|=
+literal|"FOREVER"
+decl_stmt|;
 comment|// Column family name
 specifier|private
 name|byte
@@ -781,7 +854,11 @@ name|toString
 parameter_list|()
 block|{
 return|return
-literal|"{name: "
+literal|"{"
+operator|+
+name|NAME
+operator|+
+literal|" => '"
 operator|+
 name|Bytes
 operator|.
@@ -790,29 +867,53 @@ argument_list|(
 name|name
 argument_list|)
 operator|+
-literal|", max versions: "
+literal|"', "
+operator|+
+name|MAX_VERSIONS
+operator|+
+literal|" => "
 operator|+
 name|maxVersions
 operator|+
-literal|", compression: "
+literal|", "
+operator|+
+name|COMPRESSION
+operator|+
+literal|" => "
 operator|+
 name|this
 operator|.
 name|compressionType
 operator|+
-literal|", in memory: "
+literal|", "
+operator|+
+name|IN_MEMORY
+operator|+
+literal|" => "
 operator|+
 name|inMemory
 operator|+
-literal|", block cache enabled: "
+literal|", "
+operator|+
+name|BLOCKCACHE
+operator|+
+literal|" => "
 operator|+
 name|blockCacheEnabled
 operator|+
-literal|", max length: "
+literal|", "
+operator|+
+name|MAX_LENGTH
+operator|+
+literal|" => "
 operator|+
 name|maxValueLength
 operator|+
-literal|", time to live: "
+literal|", "
+operator|+
+name|TTL
+operator|+
+literal|" => "
 operator|+
 operator|(
 name|timeToLive
@@ -831,7 +932,11 @@ name|timeToLive
 argument_list|)
 operator|)
 operator|+
-literal|", bloom filter: "
+literal|", "
+operator|+
+name|BLOOMFILTER
+operator|+
+literal|" => "
 operator|+
 operator|(
 name|bloomFilterSpecified
@@ -841,7 +946,9 @@ operator|.
 name|toString
 argument_list|()
 else|:
-literal|"none"
+name|CompressionType
+operator|.
+name|NONE
 operator|)
 operator|+
 literal|"}"

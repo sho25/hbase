@@ -817,18 +817,18 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-literal|" regioninfo: {"
+literal|" {"
 operator|+
 name|info
 operator|.
 name|toString
 argument_list|()
 operator|+
-literal|"}, server: "
+literal|"}, SERVER => '"
 operator|+
 name|serverName
 operator|+
-literal|", startCode: "
+literal|"', STARTCODE => "
 operator|+
 name|startCode
 argument_list|)

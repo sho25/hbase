@@ -309,6 +309,14 @@ name|nameAsString
 init|=
 literal|""
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|FAMILIES
+init|=
+literal|"FAMILIES"
+decl_stmt|;
 comment|// Key is hash of the family name.
 specifier|private
 specifier|final
@@ -737,7 +745,11 @@ name|toString
 parameter_list|()
 block|{
 return|return
-literal|"name: "
+name|HColumnDescriptor
+operator|.
+name|NAME
+operator|+
+literal|" => '"
 operator|+
 name|Bytes
 operator|.
@@ -748,7 +760,11 @@ operator|.
 name|name
 argument_list|)
 operator|+
-literal|", families: "
+literal|"', "
+operator|+
+name|FAMILIES
+operator|+
+literal|" => "
 operator|+
 name|this
 operator|.
