@@ -1450,13 +1450,19 @@ name|toString
 parameter_list|()
 block|{
 return|return
-literal|"regionname: "
+literal|"REGION => {"
+operator|+
+name|HColumnDescriptor
+operator|.
+name|NAME
+operator|+
+literal|" => '"
 operator|+
 name|this
 operator|.
 name|regionNameStr
 operator|+
-literal|", startKey:<"
+literal|"', STARTKEY => '"
 operator|+
 name|Bytes
 operator|.
@@ -1467,7 +1473,7 @@ operator|.
 name|startKey
 argument_list|)
 operator|+
-literal|">, endKey:<"
+literal|"', ENDKEY => '"
 operator|+
 name|Bytes
 operator|.
@@ -1478,7 +1484,7 @@ operator|.
 name|endKey
 argument_list|)
 operator|+
-literal|">, encodedName: "
+literal|"', ENCODED => "
 operator|+
 name|getEncodedName
 argument_list|()
@@ -1489,7 +1495,7 @@ operator|(
 name|isOffline
 argument_list|()
 condition|?
-literal|" offline: true,"
+literal|" OFFLINE => true,"
 else|:
 literal|""
 operator|)
@@ -1498,12 +1504,12 @@ operator|(
 name|isSplit
 argument_list|()
 condition|?
-literal|" split: true,"
+literal|" SPLIT => true,"
 else|:
 literal|""
 operator|)
 operator|+
-literal|" tableDesc: {"
+literal|" TABLE => {"
 operator|+
 name|this
 operator|.
