@@ -79,9 +79,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ipc
-operator|.
-name|HRegionInterface
+name|TableNotDisabledException
 import|;
 end_import
 
@@ -111,7 +109,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableNotDisabledException
+name|ipc
+operator|.
+name|HRegionInterface
 import|;
 end_import
 
@@ -218,9 +218,6 @@ operator|new
 name|TableNotDisabledException
 argument_list|(
 name|tableName
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 throw|;
 block|}

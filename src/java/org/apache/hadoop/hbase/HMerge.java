@@ -1226,11 +1226,11 @@ throw|throw
 operator|new
 name|TableNotDisabledException
 argument_list|(
-literal|"region "
+literal|"Region "
 operator|+
 name|hri
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|" is not disabled"

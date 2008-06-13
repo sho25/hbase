@@ -25,6 +25,22 @@ name|IOException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
 begin_comment
 comment|/**  * Thrown if a table should be offline but is not  */
 end_comment
@@ -68,6 +84,26 @@ block|{
 name|super
 argument_list|(
 name|s
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * @param tableName Name of table that is not disabled    */
+specifier|public
+name|TableNotDisabledException
+parameter_list|(
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|tableName
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
