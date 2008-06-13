@@ -91,6 +91,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -227,7 +243,12 @@ name|InvalidColumnNameException
 argument_list|(
 literal|"Column family '"
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|columnName
+argument_list|)
 operator|+
 literal|"' doesn't exist, so cannot be modified."
 argument_list|)

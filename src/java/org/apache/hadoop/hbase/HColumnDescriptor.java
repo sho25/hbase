@@ -129,75 +129,6 @@ block|,
 comment|/** Compress sequences of records together in blocks. */
 name|BLOCK
 block|}
-comment|/**    * Default compression type.    */
-specifier|public
-specifier|static
-specifier|final
-name|CompressionType
-name|DEFAULT_COMPRESSION_TYPE
-init|=
-name|CompressionType
-operator|.
-name|NONE
-decl_stmt|;
-comment|/**    * Default number of versions of a record to keep.    */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_N_VERSIONS
-init|=
-literal|3
-decl_stmt|;
-comment|/**    * Default setting for whether to serve from memory or not.    */
-specifier|public
-specifier|static
-specifier|final
-name|boolean
-name|DEFAULT_IN_MEMORY
-init|=
-literal|false
-decl_stmt|;
-comment|/**    * Default setting for whether to use a block cache or not.    */
-specifier|public
-specifier|static
-specifier|final
-name|boolean
-name|DEFAULT_BLOCK_CACHE_ENABLED
-init|=
-literal|false
-decl_stmt|;
-comment|/**    * Default maximum length of cell contents.    */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_MAX_VALUE_LENGTH
-init|=
-name|Integer
-operator|.
-name|MAX_VALUE
-decl_stmt|;
-comment|/**    * Default time to live of cell contents.    */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_TIME_TO_LIVE
-init|=
-name|HConstants
-operator|.
-name|FOREVER
-decl_stmt|;
-comment|/**    * Default bloom filter description.    */
-specifier|public
-specifier|static
-specifier|final
-name|BloomFilterDescriptor
-name|DEFAULT_BLOOM_FILTER_DESCRIPTOR
-init|=
-literal|null
-decl_stmt|;
 comment|// Defines for jruby/shell
 specifier|public
 specifier|static
@@ -271,6 +202,86 @@ name|FOREVER
 init|=
 literal|"FOREVER"
 decl_stmt|;
+comment|/**    * Default compression type.    */
+specifier|public
+specifier|static
+specifier|final
+name|CompressionType
+name|DEFAULT_COMPRESSION
+init|=
+name|CompressionType
+operator|.
+name|NONE
+decl_stmt|;
+comment|/**    * Default number of versions of a record to keep.    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_MAX_VERSIONS
+init|=
+literal|3
+decl_stmt|;
+comment|/**    * Default maximum cell length.    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_MAX_LENGTH
+init|=
+name|Integer
+operator|.
+name|MAX_VALUE
+decl_stmt|;
+comment|/**    * Default setting for whether to serve from memory or not.    */
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_IN_MEMORY
+init|=
+literal|false
+decl_stmt|;
+comment|/**    * Default setting for whether to use a block cache or not.    */
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_BLOCKCACHE
+init|=
+literal|false
+decl_stmt|;
+comment|/**    * Default maximum length of cell contents.    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_MAX_VALUE_LENGTH
+init|=
+name|Integer
+operator|.
+name|MAX_VALUE
+decl_stmt|;
+comment|/**    * Default time to live of cell contents.    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_TTL
+init|=
+name|HConstants
+operator|.
+name|FOREVER
+decl_stmt|;
+comment|/**    * Default bloom filter description.    */
+specifier|public
+specifier|static
+specifier|final
+name|BloomFilterDescriptor
+name|DEFAULT_BLOOMFILTER
+init|=
+literal|null
+decl_stmt|;
 comment|// Column family name
 specifier|private
 name|byte
@@ -282,14 +293,14 @@ specifier|private
 name|int
 name|maxVersions
 init|=
-name|DEFAULT_N_VERSIONS
+name|DEFAULT_MAX_VERSIONS
 decl_stmt|;
 comment|// Compression setting if any
 specifier|private
 name|CompressionType
 name|compressionType
 init|=
-name|DEFAULT_COMPRESSION_TYPE
+name|DEFAULT_COMPRESSION
 decl_stmt|;
 comment|// Serve reads from in-memory cache
 specifier|private
@@ -303,25 +314,21 @@ specifier|private
 name|boolean
 name|blockCacheEnabled
 init|=
-name|DEFAULT_BLOCK_CACHE_ENABLED
+name|DEFAULT_BLOCKCACHE
 decl_stmt|;
 comment|// Maximum value size
 specifier|private
 name|int
 name|maxValueLength
 init|=
-name|Integer
-operator|.
-name|MAX_VALUE
+name|DEFAULT_MAX_LENGTH
 decl_stmt|;
 comment|// Time to live of cell contents, in seconds from last timestamp
 specifier|private
 name|int
 name|timeToLive
 init|=
-name|HConstants
-operator|.
-name|FOREVER
+name|DEFAULT_TTL
 decl_stmt|;
 comment|// True if bloom filter was specified
 specifier|private
@@ -335,7 +342,7 @@ specifier|private
 name|BloomFilterDescriptor
 name|bloomFilter
 init|=
-name|DEFAULT_BLOOM_FILTER_DESCRIPTOR
+name|DEFAULT_BLOOMFILTER
 decl_stmt|;
 comment|/**    * Default constructor. Must be present for Writable.    */
 specifier|public
@@ -415,21 +422,21 @@ name|EMPTY_BYTE_ARRAY
 else|:
 name|columnName
 argument_list|,
-name|DEFAULT_N_VERSIONS
+name|DEFAULT_MAX_VERSIONS
 argument_list|,
-name|DEFAULT_COMPRESSION_TYPE
+name|DEFAULT_COMPRESSION
 argument_list|,
 name|DEFAULT_IN_MEMORY
 argument_list|,
-name|DEFAULT_BLOCK_CACHE_ENABLED
+name|DEFAULT_BLOCKCACHE
 argument_list|,
 name|Integer
 operator|.
 name|MAX_VALUE
 argument_list|,
-name|DEFAULT_TIME_TO_LIVE
+name|DEFAULT_TTL
 argument_list|,
-name|DEFAULT_BLOOM_FILTER_DESCRIPTOR
+name|DEFAULT_BLOOMFILTER
 argument_list|)
 expr_stmt|;
 block|}
@@ -751,6 +758,23 @@ return|return
 name|name
 return|;
 block|}
+comment|/**    * @return Name of this column family    */
+specifier|public
+name|String
+name|getNameAsString
+parameter_list|()
+block|{
+return|return
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|this
+operator|.
+name|name
+argument_list|)
+return|;
+block|}
 comment|/** @return compression type being used for the column family */
 specifier|public
 name|CompressionType
@@ -879,13 +903,13 @@ literal|", "
 operator|+
 name|COMPRESSION
 operator|+
-literal|" => "
+literal|" => '"
 operator|+
 name|this
 operator|.
 name|compressionType
 operator|+
-literal|", "
+literal|"', "
 operator|+
 name|IN_MEMORY
 operator|+

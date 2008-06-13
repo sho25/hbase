@@ -1001,7 +1001,7 @@ argument_list|,
 comment|// not in memory
 name|HColumnDescriptor
 operator|.
-name|DEFAULT_BLOCK_CACHE_ENABLED
+name|DEFAULT_BLOCKCACHE
 argument_list|,
 name|HColumnDescriptor
 operator|.
@@ -1009,7 +1009,7 @@ name|DEFAULT_MAX_VALUE_LENGTH
 argument_list|,
 name|HColumnDescriptor
 operator|.
-name|DEFAULT_TIME_TO_LIVE
+name|DEFAULT_TTL
 argument_list|,
 name|bloomFilter
 argument_list|)
@@ -1302,7 +1302,7 @@ argument_list|,
 comment|// not in memory
 name|HColumnDescriptor
 operator|.
-name|DEFAULT_BLOCK_CACHE_ENABLED
+name|DEFAULT_BLOCKCACHE
 argument_list|,
 name|HColumnDescriptor
 operator|.
@@ -1310,7 +1310,7 @@ name|DEFAULT_MAX_VALUE_LENGTH
 argument_list|,
 name|HColumnDescriptor
 operator|.
-name|DEFAULT_TIME_TO_LIVE
+name|DEFAULT_TTL
 argument_list|,
 name|bloomFilter
 argument_list|)
