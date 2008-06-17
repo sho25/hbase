@@ -699,16 +699,35 @@ index|[]
 name|c
 parameter_list|)
 block|{
-name|int
-name|index
-init|=
+return|return
+name|hasFamily
+argument_list|(
+name|c
+argument_list|,
 name|HStoreKey
 operator|.
 name|getFamilyDelimiterIndex
 argument_list|(
 name|c
 argument_list|)
-decl_stmt|;
+argument_list|)
+return|;
+block|}
+comment|/**    * Checks to see if this table contains the given column family    * @param c Family name or column name.    * @param index Index to column family delimiter    * @return true if the table contains the specified family name    */
+specifier|public
+name|boolean
+name|hasFamily
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|c
+parameter_list|,
+specifier|final
+name|int
+name|index
+parameter_list|)
+block|{
 comment|// If index is -1, then presume we were passed a column family name minus
 comment|// the colon delimiter.
 return|return
@@ -745,7 +764,7 @@ name|toString
 parameter_list|()
 block|{
 return|return
-name|HColumnDescriptor
+name|HConstants
 operator|.
 name|NAME
 operator|+
