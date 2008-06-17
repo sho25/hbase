@@ -1005,7 +1005,7 @@ name|DEFAULT_BLOCKCACHE
 argument_list|,
 name|HColumnDescriptor
 operator|.
-name|DEFAULT_MAX_VALUE_LENGTH
+name|DEFAULT_LENGTH
 argument_list|,
 name|HColumnDescriptor
 operator|.
@@ -1306,7 +1306,7 @@ name|DEFAULT_BLOCKCACHE
 argument_list|,
 name|HColumnDescriptor
 operator|.
-name|DEFAULT_MAX_VALUE_LENGTH
+name|DEFAULT_LENGTH
 argument_list|,
 name|HColumnDescriptor
 operator|.

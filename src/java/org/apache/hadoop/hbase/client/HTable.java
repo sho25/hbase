@@ -3443,7 +3443,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete all cells for a row with matching column family at all timestamps.    *    * @param row The row to operate on    * @param family The column family to match    * @throws IOException    */
+comment|/**    * Delete all cells for a row with matching column family at all timestamps.    *    * @param row The row to operate on    * @param family The column family to match    * @param timestamp Timestamp to match    * @throws IOException    */
 specifier|public
 name|void
 name|deleteFamily
@@ -3455,6 +3455,10 @@ parameter_list|,
 specifier|final
 name|Text
 name|family
+parameter_list|,
+specifier|final
+name|long
+name|timestamp
 parameter_list|)
 throws|throws
 name|IOException
@@ -3471,13 +3475,11 @@ operator|.
 name|getBytes
 argument_list|()
 argument_list|,
-name|HConstants
-operator|.
-name|LATEST_TIMESTAMP
+name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete all cells for a row with matching column family at all timestamps.    *    * @param row The row to operate on    * @param family The column family to match    * @throws IOException    */
+comment|/**    * Delete all cells for a row with matching column family at all timestamps.    *    * @param row The row to operate on    * @param family The column family to match    * @param timestamp Timestamp to match    * @throws IOException    */
 specifier|public
 name|void
 name|deleteFamily
@@ -3489,6 +3491,10 @@ parameter_list|,
 specifier|final
 name|String
 name|family
+parameter_list|,
+specifier|final
+name|long
+name|timestamp
 parameter_list|)
 throws|throws
 name|IOException
@@ -3509,9 +3515,7 @@ argument_list|(
 name|family
 argument_list|)
 argument_list|,
-name|HConstants
-operator|.
-name|LATEST_TIMESTAMP
+name|timestamp
 argument_list|)
 expr_stmt|;
 block|}

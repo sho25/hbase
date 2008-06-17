@@ -2035,16 +2035,12 @@ throw|throw
 operator|new
 name|TableNotFoundException
 argument_list|(
-literal|"Table '"
-operator|+
 name|Bytes
 operator|.
 name|toString
 argument_list|(
 name|tableName
 argument_list|)
-operator|+
-literal|"' does not exist."
 argument_list|)
 throw|;
 block|}
@@ -2163,7 +2159,7 @@ literal|"region offline: "
 operator|+
 name|regionInfo
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 throw|;

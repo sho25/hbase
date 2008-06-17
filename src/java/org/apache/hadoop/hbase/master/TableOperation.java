@@ -693,9 +693,12 @@ throw|throw
 operator|new
 name|TableNotFoundException
 argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|tableName
-operator|+
-literal|" does not exist"
+argument_list|)
 argument_list|)
 throw|;
 block|}

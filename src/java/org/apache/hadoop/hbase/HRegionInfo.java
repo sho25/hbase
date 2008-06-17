@@ -1452,7 +1452,7 @@ block|{
 return|return
 literal|"REGION => {"
 operator|+
-name|HColumnDescriptor
+name|HConstants
 operator|.
 name|NAME
 operator|+

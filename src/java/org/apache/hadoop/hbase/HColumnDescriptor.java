@@ -134,22 +134,6 @@ specifier|public
 specifier|static
 specifier|final
 name|String
-name|NAME
-init|=
-literal|"NAME"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|MAX_VERSIONS
-init|=
-literal|"MAX_VERSIONS"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
 name|COMPRESSION
 init|=
 literal|"COMPRESSION"
@@ -174,9 +158,9 @@ specifier|public
 specifier|static
 specifier|final
 name|String
-name|MAX_LENGTH
+name|LENGTH
 init|=
-literal|"MAX_LENGTH"
+literal|"LENGTH"
 decl_stmt|;
 specifier|public
 specifier|static
@@ -218,7 +202,7 @@ specifier|public
 specifier|static
 specifier|final
 name|int
-name|DEFAULT_MAX_VERSIONS
+name|DEFAULT_VERSIONS
 init|=
 literal|3
 decl_stmt|;
@@ -227,7 +211,7 @@ specifier|public
 specifier|static
 specifier|final
 name|int
-name|DEFAULT_MAX_LENGTH
+name|DEFAULT_LENGTH
 init|=
 name|Integer
 operator|.
@@ -250,17 +234,6 @@ name|boolean
 name|DEFAULT_BLOCKCACHE
 init|=
 literal|false
-decl_stmt|;
-comment|/**    * Default maximum length of cell contents.    */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_MAX_VALUE_LENGTH
-init|=
-name|Integer
-operator|.
-name|MAX_VALUE
 decl_stmt|;
 comment|/**    * Default time to live of cell contents.    */
 specifier|public
@@ -293,7 +266,7 @@ specifier|private
 name|int
 name|maxVersions
 init|=
-name|DEFAULT_MAX_VERSIONS
+name|DEFAULT_VERSIONS
 decl_stmt|;
 comment|// Compression setting if any
 specifier|private
@@ -321,7 +294,7 @@ specifier|private
 name|int
 name|maxValueLength
 init|=
-name|DEFAULT_MAX_LENGTH
+name|DEFAULT_LENGTH
 decl_stmt|;
 comment|// Time to live of cell contents, in seconds from last timestamp
 specifier|private
@@ -422,7 +395,7 @@ name|EMPTY_BYTE_ARRAY
 else|:
 name|columnName
 argument_list|,
-name|DEFAULT_MAX_VERSIONS
+name|DEFAULT_VERSIONS
 argument_list|,
 name|DEFAULT_COMPRESSION
 argument_list|,
@@ -880,6 +853,8 @@ block|{
 return|return
 literal|"{"
 operator|+
+name|HConstants
+operator|.
 name|NAME
 operator|+
 literal|" => '"
@@ -893,7 +868,9 @@ argument_list|)
 operator|+
 literal|"', "
 operator|+
-name|MAX_VERSIONS
+name|HConstants
+operator|.
+name|VERSIONS
 operator|+
 literal|" => "
 operator|+
@@ -927,7 +904,7 @@ name|blockCacheEnabled
 operator|+
 literal|", "
 operator|+
-name|MAX_LENGTH
+name|LENGTH
 operator|+
 literal|" => "
 operator|+

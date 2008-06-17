@@ -19,11 +19,15 @@ end_package
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|io
+name|apache
 operator|.
-name|IOException
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|DoNotRetryIOException
 import|;
 end_import
 
@@ -36,7 +40,7 @@ specifier|public
 class|class
 name|NoSuchColumnFamilyException
 extends|extends
-name|IOException
+name|DoNotRetryIOException
 block|{
 specifier|public
 name|NoSuchColumnFamilyException

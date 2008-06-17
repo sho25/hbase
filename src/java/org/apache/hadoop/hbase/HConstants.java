@@ -569,6 +569,22 @@ name|DEFAULT_CLIENT_RETRIES
 init|=
 literal|5
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|NAME
+init|=
+literal|"NAME"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|VERSIONS
+init|=
+literal|"VERSIONS"
+decl_stmt|;
 block|}
 end_interface
 
