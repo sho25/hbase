@@ -971,6 +971,26 @@ argument_list|,
 name|TABLENAME
 argument_list|)
 decl_stmt|;
+comment|// Force client to relocate the region now the start code has changed
+name|t
+operator|.
+name|getConnection
+argument_list|()
+operator|.
+name|relocateRegion
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|TABLENAME
+argument_list|)
+argument_list|,
+name|HConstants
+operator|.
+name|EMPTY_BYTE_ARRAY
+argument_list|)
+expr_stmt|;
 name|int
 name|count
 init|=
