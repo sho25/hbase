@@ -1277,6 +1277,7 @@ name|connection
 return|;
 block|}
 comment|/**    * @return table metadata     * @throws IOException    */
+comment|// Why is this deprecated?  What should be used instead? St.Ack
 annotation|@
 name|Deprecated
 specifier|public
