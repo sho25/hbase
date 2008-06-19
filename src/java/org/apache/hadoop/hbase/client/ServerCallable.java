@@ -70,7 +70,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implements Callable, used to define the particular actions you would  * like to take with retry logic.  * @param<T> the class that the ServerCallable handles  *   */
+comment|/**  * Abstract class that implemetns Callable, used by retryable actions.  * @param<T> the class that the ServerCallable handles  */
 end_comment
 
 begin_class

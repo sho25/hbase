@@ -116,7 +116,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *   */
+comment|/**  * Cluster connection.  * {@link HConnectionManager} manages instances of this class.  */
 end_comment
 
 begin_interface

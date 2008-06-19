@@ -51,20 +51,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionLocation
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|filter
 operator|.
 name|RowFilterInterface
@@ -88,7 +74,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Retryable scanner  */
+comment|/**  * Retries scanner operations such as create, next, etc.  * Used by {@link Scanner}s made by {@link HTable}.  */
 end_comment
 
 begin_class

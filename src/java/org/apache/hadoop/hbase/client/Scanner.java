@@ -54,7 +54,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Interface for client-side scanning.   */
+comment|/**  * Interface for client-side scanning.  * Go to {@link HTable} to obtain instances.  */
 end_comment
 
 begin_interface

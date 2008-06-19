@@ -329,7 +329,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Get the RegionHistorian Singleton instance.    * @param c Configuration to use.  Used to create an {@link HTable} homed    * on<code>.META.</code>.  The HTable instance is lazily instantiated to     * allow for the getting and storing aside of an Historian instance even    * in the case where<code>.META.</code> has not yet deployed.    * @return The region historian    */
+comment|/**    * Get the RegionHistorian Singleton instance.    * @return The region historian    */
 specifier|public
 specifier|static
 name|RegionHistorian

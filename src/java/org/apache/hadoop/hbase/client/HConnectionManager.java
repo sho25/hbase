@@ -468,7 +468,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A non-instantiable class that manages connections to multiple tables in  * multiple HBase instances  */
+comment|/**  * A non-instantiable class that manages connections to multiple tables in  * multiple HBase instances.  *   * Used by {@link HTable} and {@link HBaseAdmin}  */
 end_comment
 
 begin_class
