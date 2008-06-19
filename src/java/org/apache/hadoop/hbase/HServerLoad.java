@@ -110,35 +110,17 @@ operator|=
 name|numberOfRegions
 expr_stmt|;
 block|}
-comment|/**    * @return load factor for this server    */
+comment|/**    * Originally, this method factored in the effect of requests going to the    * server as well. However, this does not interact very well with the current    * region rebalancing code, which only factors number of regions. For the     * interim, until we can figure out how to make rebalancing use all the info    * available, we're just going to make load purely the number of regions.    *    * @return load factor for this server    */
 specifier|public
 name|int
 name|getLoad
 parameter_list|()
 block|{
-name|int
-name|load
-init|=
-name|numberOfRequests
-operator|==
-literal|0
-condition|?
-literal|1
-else|:
-name|numberOfRequests
-decl_stmt|;
-name|load
-operator|*=
-name|numberOfRegions
-operator|==
-literal|0
-condition|?
-literal|1
-else|:
-name|numberOfRegions
-expr_stmt|;
+comment|// int load = numberOfRequests == 0 ? 1 : numberOfRequests;
+comment|// load *= numberOfRegions == 0 ? 1 : numberOfRegions;
+comment|// return load;
 return|return
-name|load
+name|numberOfRegions
 return|;
 block|}
 comment|/** {@inheritDoc} */
