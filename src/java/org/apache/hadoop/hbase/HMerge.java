@@ -405,7 +405,7 @@ argument_list|()
 decl_stmt|;
 name|HConnectionManager
 operator|.
-name|deleteConnection
+name|deleteConnectionInfo
 argument_list|(
 name|conf
 argument_list|)

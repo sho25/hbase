@@ -581,7 +581,7 @@ comment|/**    * Delete connection information for the instance specified by the
 specifier|public
 specifier|static
 name|void
-name|deleteConnection
+name|deleteConnectionInfo
 parameter_list|(
 name|HBaseConfiguration
 name|conf
@@ -603,6 +603,25 @@ argument_list|(
 name|HBASE_DIR
 argument_list|)
 argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|/**    * Clear the static map of connection info.    */
+specifier|public
+specifier|static
+name|void
+name|deleteConnectionInfo
+parameter_list|()
+block|{
+synchronized|synchronized
+init|(
+name|HBASE_INSTANCES
+init|)
+block|{
+name|HBASE_INSTANCES
+operator|.
+name|clear
+argument_list|()
 expr_stmt|;
 block|}
 block|}

@@ -1265,6 +1265,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**    * Used by unit tests and tools to do low-level manipulations.  Not for    * general use.    * @return An HConnection instance.    */
 specifier|public
 name|HConnection
 name|getConnection

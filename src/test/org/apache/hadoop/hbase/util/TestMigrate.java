@@ -807,12 +807,8 @@ comment|// created earlier when no master was around.  The fact that there was n
 comment|// master gets cached.  Need to delete so we go get master afresh.
 name|HConnectionManager
 operator|.
-name|deleteConnection
-argument_list|(
-name|this
-operator|.
-name|conf
-argument_list|)
+name|deleteConnectionInfo
+argument_list|()
 expr_stmt|;
 name|LOG
 operator|.
@@ -958,6 +954,12 @@ argument_list|(
 name|retries
 argument_list|)
 expr_stmt|;
+comment|// Delete again so we go get it all fresh.
+name|HConnectionManager
+operator|.
+name|deleteConnectionInfo
+argument_list|()
+expr_stmt|;
 name|HTable
 name|t
 init|=
@@ -971,26 +973,6 @@ argument_list|,
 name|TABLENAME
 argument_list|)
 decl_stmt|;
-comment|// Force client to relocate the region now the start code has changed
-name|t
-operator|.
-name|getConnection
-argument_list|()
-operator|.
-name|relocateRegion
-argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|TABLENAME
-argument_list|)
-argument_list|,
-name|HConstants
-operator|.
-name|EMPTY_BYTE_ARRAY
-argument_list|)
-expr_stmt|;
 name|int
 name|count
 init|=
@@ -1087,6 +1069,11 @@ block|}
 block|}
 finally|finally
 block|{
+name|HConnectionManager
+operator|.
+name|deleteConnectionInfo
+argument_list|()
+expr_stmt|;
 name|cluster
 operator|.
 name|shutdown
