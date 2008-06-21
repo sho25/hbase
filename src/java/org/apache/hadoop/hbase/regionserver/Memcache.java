@@ -2767,6 +2767,13 @@ name|origin
 operator|.
 name|getColumn
 argument_list|()
+operator|!=
+literal|null
+operator|&&
+name|origin
+operator|.
+name|getColumn
+argument_list|()
 operator|.
 name|length
 operator|==
@@ -3245,6 +3252,12 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
+name|long
+name|latestTimestamp
+init|=
+operator|-
+literal|1
+decl_stmt|;
 while|while
 condition|(
 name|results
@@ -3435,6 +3448,36 @@ block|{
 continue|continue;
 block|}
 block|}
+comment|// We should never return HConstants.LATEST_TIMESTAMP as the time for
+comment|// the row. As a compromise, we return the largest timestamp for the
+comment|// entries that we find that match.
+if|if
+condition|(
+name|c
+operator|.
+name|getTimestamp
+argument_list|()
+operator|!=
+name|HConstants
+operator|.
+name|LATEST_TIMESTAMP
+operator|&&
+name|c
+operator|.
+name|getTimestamp
+argument_list|()
+operator|>
+name|latestTimestamp
+condition|)
+block|{
+name|latestTimestamp
+operator|=
+name|c
+operator|.
+name|getTimestamp
+argument_list|()
+expr_stmt|;
+block|}
 name|results
 operator|.
 name|put
@@ -3457,6 +3500,28 @@ argument_list|(
 name|this
 operator|.
 name|currentRow
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Set the timestamp to the largest one for the row if we would otherwise
+comment|// return HConstants.LATEST_TIMESTAMP
+if|if
+condition|(
+name|key
+operator|.
+name|getTimestamp
+argument_list|()
+operator|==
+name|HConstants
+operator|.
+name|LATEST_TIMESTAMP
+condition|)
+block|{
+name|key
+operator|.
+name|setVersion
+argument_list|(
+name|latestTimestamp
 argument_list|)
 expr_stmt|;
 block|}

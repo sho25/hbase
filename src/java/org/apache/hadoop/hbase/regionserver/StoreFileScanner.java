@@ -174,6 +174,7 @@ operator|new
 name|ReentrantReadWriteLock
 argument_list|()
 decl_stmt|;
+comment|/**    * @param store    * @param timestamp    * @param targetCols    * @param firstRow    * @throws IOException    */
 specifier|public
 name|StoreFileScanner
 parameter_list|(
@@ -950,6 +951,52 @@ name|i
 operator|++
 control|)
 block|{
+comment|// The first key that we find that matches may have a timestamp greater
+comment|// than the one we're looking for. We have to advance to see if there
+comment|// is an older version present, since timestamps are sorted descending
+while|while
+condition|(
+name|keys
+index|[
+name|i
+index|]
+operator|!=
+literal|null
+operator|&&
+name|keys
+index|[
+name|i
+index|]
+operator|.
+name|getTimestamp
+argument_list|()
+operator|>
+name|this
+operator|.
+name|timestamp
+operator|&&
+name|columnMatch
+argument_list|(
+name|i
+argument_list|)
+operator|&&
+name|getNext
+argument_list|(
+name|i
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+name|columnMatch
+argument_list|(
+name|i
+argument_list|)
+condition|)
+block|{
+break|break;
+block|}
+block|}
 if|if
 condition|(
 operator|(
@@ -960,27 +1007,9 @@ index|]
 operator|!=
 literal|null
 operator|)
-operator|&&
-operator|(
-name|columnMatch
-argument_list|(
-name|i
-argument_list|)
-operator|)
-operator|&&
-operator|(
-name|keys
-index|[
-name|i
-index|]
-operator|.
-name|getTimestamp
-argument_list|()
-operator|<=
-name|this
-operator|.
-name|timestamp
-operator|)
+comment|// If we get here and keys[i] is not null, we already know that the
+comment|// column matches and the timestamp of the row is less than or equal
+comment|// to this.timestamp, so we do not need to test that here
 operator|&&
 operator|(
 operator|(
@@ -1407,8 +1436,6 @@ literal|true
 expr_stmt|;
 break|break;
 block|}
-else|else
-block|{
 if|if
 condition|(
 name|LOG
@@ -1431,7 +1458,6 @@ operator|+
 literal|": expired, skipped"
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 block|}
@@ -1616,6 +1642,7 @@ block|}
 block|}
 block|}
 comment|// Implementation of ChangedReadersObserver
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|updateReaders

@@ -43,16 +43,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Iterator
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Map
 import|;
 end_import
@@ -74,18 +64,6 @@ operator|.
 name|util
 operator|.
 name|Vector
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-operator|.
-name|Entry
 import|;
 end_import
 
@@ -846,6 +824,7 @@ operator|.
 name|multipleMatchers
 return|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 specifier|abstract
 name|boolean
@@ -867,36 +846,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-specifier|public
-name|Iterator
-argument_list|<
-name|Entry
-argument_list|<
-name|HStoreKey
-argument_list|,
-name|SortedMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|byte
-index|[]
-argument_list|>
-argument_list|>
-argument_list|>
-name|iterator
-parameter_list|()
-block|{
-throw|throw
-operator|new
-name|UnsupportedOperationException
-argument_list|(
-literal|"Unimplemented serverside. "
-operator|+
-literal|"next(HStoreKey, StortedMap(...) is more efficient"
-argument_list|)
-throw|;
-block|}
 block|}
 end_class
 
