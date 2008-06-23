@@ -290,7 +290,7 @@ literal|"updated columns in row: "
 operator|+
 name|i
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;

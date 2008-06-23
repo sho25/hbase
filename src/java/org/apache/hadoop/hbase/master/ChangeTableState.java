@@ -432,7 +432,7 @@ literal|"updating columns in row: "
 operator|+
 name|i
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -498,7 +498,7 @@ literal|"updated columns in row: "
 operator|+
 name|i
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -671,7 +671,7 @@ literal|"adding region "
 operator|+
 name|i
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|" to kill list"

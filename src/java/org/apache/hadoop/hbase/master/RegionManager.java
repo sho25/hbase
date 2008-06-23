@@ -2017,7 +2017,7 @@ literal|"Going to close region "
 operator|+
 name|currentRegion
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;

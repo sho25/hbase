@@ -817,8 +817,6 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-literal|" {"
-operator|+
 name|info
 operator|.
 name|toString

@@ -375,6 +375,16 @@ literal|true
 argument_list|)
 expr_stmt|;
 comment|// Verify that everything is back up.
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting up the verification thread for "
+operator|+
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|Thread
 name|t
 init|=
@@ -450,6 +460,16 @@ literal|false
 argument_list|)
 expr_stmt|;
 comment|// Verify that everything is back up.
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting up the verification thread for "
+operator|+
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|Thread
 name|t
 init|=
