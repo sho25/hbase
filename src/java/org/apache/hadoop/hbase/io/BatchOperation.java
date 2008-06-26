@@ -256,6 +256,28 @@ operator|!=
 literal|null
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"column => "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|this
+operator|.
+name|column
+argument_list|)
+operator|+
+literal|", value => '...'"
+return|;
+block|}
 comment|// Writable methods
 comment|// This is a hotspot when updating deserializing incoming client submissions.
 comment|// In Performance Evaluation sequentialWrite, 70% of object allocations are

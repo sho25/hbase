@@ -512,10 +512,15 @@ condition|?
 operator|(
 literal|" for region "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|r
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 operator|)
 else|:
 literal|""
@@ -561,10 +566,15 @@ condition|?
 operator|(
 literal|" for region "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|r
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 operator|)
 else|:
 literal|""
@@ -802,10 +812,15 @@ name|info
 argument_list|(
 literal|"Updating "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|t
 operator|.
 name|getTableName
 argument_list|()
+argument_list|)
 operator|+
 literal|" with region split info"
 argument_list|)
