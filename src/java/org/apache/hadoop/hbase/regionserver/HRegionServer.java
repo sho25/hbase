@@ -5688,6 +5688,15 @@ argument_list|()
 expr_stmt|;
 block|}
 return|return
+name|values
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|0
+condition|?
+literal|null
+else|:
 operator|new
 name|RowResult
 argument_list|(

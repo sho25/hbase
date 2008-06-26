@@ -4128,7 +4128,7 @@ name|CLIENT_LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Advancing internal scanner to startKey at "
+literal|"Advancing internal scanner to startKey at '"
 operator|+
 name|Bytes
 operator|.
@@ -4136,6 +4136,8 @@ name|toString
 argument_list|(
 name|localStartKey
 argument_list|)
+operator|+
+literal|"'"
 argument_list|)
 expr_stmt|;
 block|}
@@ -4294,16 +4296,18 @@ expr_stmt|;
 block|}
 do|while
 condition|(
+operator|(
 name|values
-operator|!=
+operator|==
 literal|null
-operator|&&
+operator|||
 name|values
 operator|.
 name|size
 argument_list|()
 operator|==
 literal|0
+operator|)
 operator|&&
 name|nextScanner
 argument_list|()
