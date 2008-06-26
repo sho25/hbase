@@ -1311,7 +1311,7 @@ return|return
 name|meta
 return|;
 block|}
-comment|/**    * Set a single region on/offline.    * This is a tool to repair tables that have offlined tables in their midst.    * Can happen on occasion.  Use at your own risk.  Call from a bit of java    * or jython script.  This method is 'expensive' in that it creates a    * {@link HTable} instance per invocation to go against<code>.META.</code>    * @param c A configuration that has its<code>hbase.master</code>    * properly set.    * @param row Row in the catalog .META. table whose HRegionInfo's offline    * status we want to change.    * @param onlineOffline Pass<code>true</code> to online the region.    * @throws IOException    */
+comment|/**    * Set a single region on/offline.    * This is a tool to repair tables that have offlined tables in their midst.    * Can happen on occasion.  Use at your own risk.  Call from a bit of java    * or jython script.  This method is 'expensive' in that it creates a    * {@link HTable} instance per invocation to go against<code>.META.</code>    * @param c A configuration that has its<code>hbase.master</code>    * properly set.    * @param row Row in the catalog .META. table whose HRegionInfo's offline    * status we want to change.    * @param onlineOffline Pass<code>true</code> to OFFLINE the region.    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
