@@ -138,7 +138,7 @@ name|boolean
 name|isMasterRunning
 parameter_list|()
 function_decl|;
-comment|/**    * Checks if<code>tableName</code> exists.    * @param tableName Table to check.    * @return True if table exists already.    */
+comment|/**    * Checks if<code>tableName</code> exists.    * @param tableName Table to check.    * @return True if table exists already.    * @throws MasterNotRunningException    */
 specifier|public
 name|boolean
 name|tableExists
@@ -148,6 +148,20 @@ name|byte
 index|[]
 name|tableName
 parameter_list|)
+throws|throws
+name|MasterNotRunningException
+function_decl|;
+comment|/**    * @param tableName    * @return true if the table is enabled, false otherwise    * @throws IOException    */
+specifier|public
+name|boolean
+name|isTableEnabled
+parameter_list|(
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * List all the userspace tables.  In other words, scan the META table.    *    * If we wanted this to be really fast, we could implement a special    * catalog table that just contains table names and their descriptors.    * Right now, it only exists as part of the META table's region info.    *    * @return - returns an array of HTableDescriptors     * @throws IOException    */
 specifier|public
