@@ -6978,11 +6978,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HStoreKey
-name|searchKey
-init|=
-literal|null
-decl_stmt|;
 name|ImmutableBytesWritable
 name|readval
 init|=
@@ -7173,6 +7168,22 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+name|HStoreKey
+name|deletedOrExpiredRow
+init|=
+literal|null
+decl_stmt|;
+name|boolean
+name|foundCandidate
+init|=
+literal|false
+decl_stmt|;
+while|while
+condition|(
+operator|!
+name|foundCandidate
+condition|)
+block|{
 comment|// seek to the exact row, or the one that would be immediately before it
 name|readkey
 operator|=
@@ -7270,9 +7281,12 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|foundCandidate
+operator|=
+literal|true
+expr_stmt|;
+continue|continue;
 block|}
-else|else
-block|{
 if|if
 condition|(
 name|LOG
@@ -7294,7 +7308,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
+name|deletedOrExpiredRow
+operator|=
+name|stripTimestamp
+argument_list|(
+name|readkey
+argument_list|)
+expr_stmt|;
 block|}
 elseif|else
 if|if
@@ -7316,7 +7336,7 @@ condition|)
 block|{
 comment|// if the row key we just read is beyond the key we're searching for,
 comment|// then we're done. return.
-return|return;
+break|break;
 block|}
 else|else
 block|{
@@ -7374,9 +7394,12 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|foundCandidate
+operator|=
+literal|true
+expr_stmt|;
+continue|continue;
 block|}
-else|else
-block|{
 if|if
 condition|(
 name|LOG
@@ -7398,7 +7421,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
+name|deletedOrExpiredRow
+operator|=
+name|stripTimestamp
+argument_list|(
+name|readkey
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 do|while
@@ -7413,6 +7442,33 @@ name|readval
 argument_list|)
 condition|)
 do|;
+comment|// If we get here and have no candidates but we did find a deleted or
+comment|// expired candidate, we need to look at the key before that
+if|if
+condition|(
+operator|!
+name|foundCandidate
+operator|&&
+name|deletedOrExpiredRow
+operator|!=
+literal|null
+condition|)
+block|{
+name|searchKey
+operator|=
+name|deletedOrExpiredRow
+expr_stmt|;
+name|deletedOrExpiredRow
+operator|=
+literal|null
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// No candidates and no deleted or expired candidates. Give up.
+break|break;
+block|}
+block|}
 comment|// arriving here just means that we consumed the whole rest of the map
 comment|// without going "past" the key we're searching for. we can just fall
 comment|// through here.
