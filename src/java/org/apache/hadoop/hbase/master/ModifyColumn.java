@@ -199,7 +199,6 @@ control|)
 block|{
 if|if
 condition|(
-operator|!
 name|i
 operator|.
 name|getTableDesc
