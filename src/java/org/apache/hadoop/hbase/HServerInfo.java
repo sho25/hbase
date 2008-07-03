@@ -232,6 +232,22 @@ return|return
 name|serverAddress
 return|;
 block|}
+comment|/**    * Change the server address.    * @param serverAddress New server address    */
+specifier|public
+name|void
+name|setServerAddress
+parameter_list|(
+name|HServerAddress
+name|serverAddress
+parameter_list|)
+block|{
+name|this
+operator|.
+name|serverAddress
+operator|=
+name|serverAddress
+expr_stmt|;
+block|}
 comment|/** @return the server start code */
 specifier|public
 name|long

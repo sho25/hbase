@@ -65,16 +65,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|net
-operator|.
-name|UnknownHostException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|ArrayList
@@ -917,20 +907,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|net
-operator|.
-name|DNS
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|util
 operator|.
 name|Progressable
@@ -1465,6 +1441,8 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
+comment|// Address is givin a default IP for the moment. Will be changed after
+comment|// calling the master.
 name|this
 operator|.
 name|serverInfo
@@ -1478,8 +1456,7 @@ argument_list|(
 operator|new
 name|InetSocketAddress
 argument_list|(
-name|getThisIP
-argument_list|()
+name|DEFAULT_HOST
 argument_list|,
 name|this
 operator|.
@@ -2680,6 +2657,43 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Master may have sent us a new address with the other configs.
+comment|// Update our address in this case. See HBASE-719
+if|if
+condition|(
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"hbase.regionserver.address"
+argument_list|)
+operator|!=
+literal|null
+condition|)
+name|serverInfo
+operator|.
+name|setServerAddress
+argument_list|(
+operator|new
+name|HServerAddress
+argument_list|(
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"hbase.regionserver.address"
+argument_list|)
+argument_list|,
+name|serverInfo
+operator|.
+name|getServerAddress
+argument_list|()
+operator|.
+name|getPort
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// Master sent us hbase.rootdir to use. Should be fully qualified
 comment|// path with file system specification included.  Set 'fs.default.name'
 comment|// to match the filesystem on hbase.rootdir else underlying hadoop hdfs
@@ -2839,7 +2853,12 @@ literal|"log"
 operator|+
 literal|"_"
 operator|+
-name|getThisIP
+name|serverInfo
+operator|.
+name|getServerAddress
+argument_list|()
+operator|.
+name|getBindAddress
 argument_list|()
 operator|+
 literal|"_"
@@ -3302,30 +3321,6 @@ return|return
 name|this
 operator|.
 name|log
-return|;
-block|}
-comment|/*    * Use interface to get the 'real' IP for this host. 'serverInfo' is sent to    * master.  Should have the real IP of this host rather than 'localhost' or    * 0.0.0.0 or 127.0.0.1 in it.    * @return This servers' IP.    */
-specifier|private
-name|String
-name|getThisIP
-parameter_list|()
-throws|throws
-name|UnknownHostException
-block|{
-return|return
-name|DNS
-operator|.
-name|getDefaultIP
-argument_list|(
-name|conf
-operator|.
-name|get
-argument_list|(
-literal|"hbase.regionserver.dns.interface"
-argument_list|,
-literal|"default"
-argument_list|)
-argument_list|)
 return|;
 block|}
 comment|/**    * Sets a flag that will cause all the HRegionServer threads to shut down    * in an orderly fashion.  Used by unit tests.    */
