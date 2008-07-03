@@ -841,6 +841,16 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+comment|// Inform the HRegionServer that the parent HRegion is no-longer online.
+name|this
+operator|.
+name|server
+operator|.
+name|removeFromOnlineRegions
+argument_list|(
+name|oldRegionInfo
+argument_list|)
+expr_stmt|;
 name|BatchUpdate
 name|update
 init|=
