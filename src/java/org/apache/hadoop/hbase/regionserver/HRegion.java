@@ -4382,6 +4382,9 @@ comment|// Stop updates while we snapshot the memcache of all stores. We only ha
 comment|// to do this for a moment.  Its quick.  The subsequent sequence id that
 comment|// goes into the HLog after we've flushed all these snapshots also goes
 comment|// into the info file that sits beside the flushed files.
+comment|// We also set the memcache size to zero here before we allow updates
+comment|// again so its value will represent the size of the updates received
+comment|// during the flush
 name|long
 name|sequenceId
 init|=
@@ -4424,6 +4427,15 @@ operator|.
 name|startCacheFlush
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|memcacheSize
+operator|.
+name|set
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
 block|}
 finally|finally
 block|{
@@ -4442,6 +4454,11 @@ comment|// Any failure from here on out will be catastrophic requiring server
 comment|// restart so hlog content can be replayed and put back into the memcache.
 comment|// Otherwise, the snapshot content while backed up in the hlog, it will not
 comment|// be part of the current running servers state.
+name|long
+name|flushed
+init|=
+literal|0
+decl_stmt|;
 try|try
 block|{
 comment|// A.  Flush memcache to all the HStores.
@@ -4458,67 +4475,15 @@ name|values
 argument_list|()
 control|)
 block|{
-name|long
 name|flushed
-init|=
+operator|+=
 name|hstore
 operator|.
 name|flushCache
 argument_list|(
 name|sequenceId
 argument_list|)
-decl_stmt|;
-comment|// Subtract amount flushed.
-name|long
-name|size
-init|=
-name|this
-operator|.
-name|memcacheSize
-operator|.
-name|addAndGet
-argument_list|(
-operator|-
-name|flushed
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|size
-operator|<
-literal|0
-condition|)
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Memcache size went negative "
-operator|+
-name|size
-operator|+
-literal|"; resetting"
-argument_list|)
 expr_stmt|;
-block|}
-name|this
-operator|.
-name|memcacheSize
-operator|.
-name|set
-argument_list|(
-literal|0
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 catch|catch
@@ -4647,12 +4612,7 @@ name|StringUtils
 operator|.
 name|humanReadableInt
 argument_list|(
-name|this
-operator|.
-name|memcacheSize
-operator|.
-name|get
-argument_list|()
+name|flushed
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -6561,15 +6521,6 @@ operator|.
 name|getKey
 argument_list|()
 decl_stmt|;
-name|byte
-index|[]
-name|val
-init|=
-name|e
-operator|.
-name|getValue
-argument_list|()
-decl_stmt|;
 name|size
 operator|=
 name|this
@@ -6578,14 +6529,6 @@ name|memcacheSize
 operator|.
 name|addAndGet
 argument_list|(
-name|getEntrySize
-argument_list|(
-name|key
-argument_list|,
-name|val
-argument_list|)
-argument_list|)
-expr_stmt|;
 name|getStore
 argument_list|(
 name|key
@@ -6598,7 +6541,11 @@ name|add
 argument_list|(
 name|key
 argument_list|,
-name|val
+name|e
+operator|.
+name|getValue
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -6754,39 +6701,6 @@ argument_list|(
 name|column
 argument_list|)
 argument_list|)
-return|;
-block|}
-comment|/*    * Calculate size of passed key/value pair.    * Used here when we update region to figure what to add to this.memcacheSize    * Also used in Store when flushing calculating size of flush.  Both need to    * use same method making size calculation.    * @param key    * @param value    * @return Size of the passed key + value    */
-specifier|static
-name|long
-name|getEntrySize
-parameter_list|(
-specifier|final
-name|HStoreKey
-name|key
-parameter_list|,
-name|byte
-index|[]
-name|value
-parameter_list|)
-block|{
-return|return
-name|key
-operator|.
-name|getSize
-argument_list|()
-operator|+
-operator|(
-name|value
-operator|==
-literal|null
-condition|?
-literal|0
-else|:
-name|value
-operator|.
-name|length
-operator|)
 return|;
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////

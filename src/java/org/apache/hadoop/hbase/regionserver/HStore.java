@@ -2937,9 +2937,9 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// End bloom filters
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Adds a value to the memcache    *     * @param key    * @param value    */
+comment|/**    * Adds a value to the memcache    *     * @param key    * @param value    * @return memcache size delta    */
 specifier|protected
-name|void
+name|long
 name|add
 parameter_list|(
 name|HStoreKey
@@ -2960,6 +2960,7 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+return|return
 name|this
 operator|.
 name|memcache
@@ -2970,7 +2971,7 @@ name|key
 argument_list|,
 name|value
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 finally|finally
 block|{
@@ -3373,14 +3374,22 @@ argument_list|)
 expr_stmt|;
 name|flushed
 operator|+=
-name|HRegion
-operator|.
-name|getEntrySize
-argument_list|(
 name|curkey
-argument_list|,
+operator|.
+name|getSize
+argument_list|()
+operator|+
+operator|(
 name|bytes
-argument_list|)
+operator|==
+literal|null
+condition|?
+literal|0
+else|:
+name|bytes
+operator|.
+name|length
+operator|)
 expr_stmt|;
 block|}
 else|else
