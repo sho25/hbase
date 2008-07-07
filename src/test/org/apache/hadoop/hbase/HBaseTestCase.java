@@ -591,7 +591,7 @@ argument_list|)
 operator|.
 name|compareTo
 argument_list|(
-literal|"file::///"
+literal|"file:///"
 argument_list|)
 operator|==
 literal|0
