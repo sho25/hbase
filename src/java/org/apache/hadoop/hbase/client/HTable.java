@@ -1846,7 +1846,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at the latest timestamp    *     * @param row row key    * @param columns Array of column names you want to retrieve.    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get selected columns for the specified row at the latest timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @return RowResult is empty if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -1880,7 +1880,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at the latest timestamp    *     * @param row row key    * @param columns Array of column names you want to retrieve.    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get selected columns for the specified row at the latest timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @return RowResult is empty if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -1916,7 +1916,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at the latest timestamp    *     * @param row row key    * @param columns Array of column names you want to retrieve.    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get selected columns for the specified row at the latest timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @return RowResult is empty if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -1948,7 +1948,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at a specified timestamp    *     * @param row row key    * @param columns Array of column names you want to retrieve.       * @param ts timestamp    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get selected columns for the specified row at a specified timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @return RowResult is empty if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -1988,7 +1988,7 @@ name|ts
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at a specified timestamp    *     * @param row row key    * @param columns Array of column names you want to retrieve.       * @param ts timestamp    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get selected columns for the specified row at a specified timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @return RowResult is empty if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -2030,7 +2030,7 @@ name|ts
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at a specified timestamp    *     * @param row row key    * @param columns Array of column names you want to retrieve.       * @param ts timestamp    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get selected columns for the specified row at a specified timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @return RowResult is empty if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
