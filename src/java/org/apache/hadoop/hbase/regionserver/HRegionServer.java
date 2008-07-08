@@ -3548,7 +3548,7 @@ literal|" that we are up"
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Do initial RPC setup.
+comment|// Do initial RPC setup.  The final argument indicates that the RPC should retry indefinitely.
 name|this
 operator|.
 name|hbaseMaster
@@ -3585,6 +3585,9 @@ argument_list|,
 name|this
 operator|.
 name|conf
+argument_list|,
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 name|MapWritable
