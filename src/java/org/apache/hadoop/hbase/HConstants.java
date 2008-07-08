@@ -253,6 +253,18 @@ literal|1024
 operator|*
 literal|1024
 decl_stmt|;
+comment|/** Default size of a reservation block   */
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_SIZE_RESERVATION_BLOCK
+init|=
+literal|1024
+operator|*
+literal|1024
+operator|*
+literal|5
+decl_stmt|;
 comment|// Always store the location of the root table's HRegion.
 comment|// This HRegion is never split.
 comment|// region name = table + startkey + regionid. This is the row key.
