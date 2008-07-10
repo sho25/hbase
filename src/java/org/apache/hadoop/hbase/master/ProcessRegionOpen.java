@@ -510,6 +510,17 @@ argument_list|(
 name|m
 argument_list|)
 expr_stmt|;
+comment|// Interrupting the Meta Scanner sleep so that it can
+comment|// process regions right away
+name|master
+operator|.
+name|regionManager
+operator|.
+name|metaScannerThread
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 comment|// If updated successfully, remove from pending list.
