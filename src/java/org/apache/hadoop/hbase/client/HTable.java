@@ -2704,6 +2704,46 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Completely delete the row's cells.    *    * @param row Key of the row you want to completely delete.    * @throws IOException    */
+specifier|public
+name|void
+name|deleteAll
+parameter_list|(
+specifier|final
+name|Text
+name|row
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|deleteAll
+argument_list|(
+name|row
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Completely delete the row's cells.    *    * @param row Key of the row you want to completely delete.    * @throws IOException    */
+specifier|public
+name|void
+name|deleteAll
+parameter_list|(
+specifier|final
+name|String
+name|row
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|deleteAll
+argument_list|(
+name|row
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Completely delete the row's cells.    *    * @param row Key of the row you want to completely delete.    * @param column column to be deleted    * @throws IOException    */
 specifier|public
 name|void
