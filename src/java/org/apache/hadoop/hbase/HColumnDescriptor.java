@@ -236,6 +236,15 @@ name|DEFAULT_BLOCKCACHE
 init|=
 literal|false
 decl_stmt|;
+comment|/**    * Default setting for whether or not to use bloomfilters.    */
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_BLOOMFILTER
+init|=
+literal|false
+decl_stmt|;
 comment|/**    * Default time to live of cell contents.    */
 specifier|public
 specifier|static
