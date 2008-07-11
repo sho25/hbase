@@ -904,12 +904,6 @@ index|]
 operator|.
 name|getName
 argument_list|()
-operator|.
-name|toString
-argument_list|()
-operator|.
-name|getBytes
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1027,12 +1021,6 @@ name|startKeys
 index|[
 name|i
 index|]
-operator|.
-name|toString
-argument_list|()
-operator|.
-name|getBytes
-argument_list|()
 expr_stmt|;
 name|regions
 operator|.
