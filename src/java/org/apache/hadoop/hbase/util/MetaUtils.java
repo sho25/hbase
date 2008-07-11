@@ -1780,7 +1780,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|private
+comment|/**    * Update COL_REGIONINFO in meta region r with HRegionInfo hri    *     * @param r    * @param hri    * @throws IOException    */
+specifier|public
 name|void
 name|updateMETARegionInfo
 parameter_list|(

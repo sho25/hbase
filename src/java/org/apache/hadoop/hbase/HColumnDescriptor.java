@@ -103,6 +103,7 @@ block|{
 comment|// For future backward compatibility
 comment|// Version 3 was when column names becaome byte arrays and when we picked up
 comment|// Time-to-live feature.  Version 4 was when we moved to byte arrays, HBASE-82.
+comment|// Version 5 was when bloom filter descriptors were removed.
 specifier|private
 specifier|static
 specifier|final
@@ -112,7 +113,7 @@ init|=
 operator|(
 name|byte
 operator|)
-literal|4
+literal|5
 decl_stmt|;
 comment|/**     * The type of compression.    * @see org.apache.hadoop.io.SequenceFile.Writer    */
 specifier|public
@@ -246,15 +247,6 @@ name|HConstants
 operator|.
 name|FOREVER
 decl_stmt|;
-comment|/**    * Default bloom filter description.    */
-specifier|public
-specifier|static
-specifier|final
-name|BloomFilterDescriptor
-name|DEFAULT_BLOOMFILTER
-init|=
-literal|null
-decl_stmt|;
 comment|// Column family name
 specifier|private
 name|byte
@@ -306,16 +298,9 @@ decl_stmt|;
 comment|// True if bloom filter was specified
 specifier|private
 name|boolean
-name|bloomFilterSpecified
-init|=
-literal|false
-decl_stmt|;
-comment|// Descriptor of bloom filter
-specifier|private
-name|BloomFilterDescriptor
 name|bloomFilter
 init|=
-name|DEFAULT_BLOOMFILTER
+literal|false
 decl_stmt|;
 comment|/**    * Default constructor. Must be present for Writable.    */
 specifier|public
@@ -409,7 +394,7 @@ name|MAX_VALUE
 argument_list|,
 name|DEFAULT_TTL
 argument_list|,
-name|DEFAULT_BLOOMFILTER
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -447,7 +432,7 @@ name|int
 name|timeToLive
 parameter_list|,
 specifier|final
-name|BloomFilterDescriptor
+name|boolean
 name|bloomFilter
 parameter_list|)
 block|{
@@ -517,20 +502,6 @@ operator|.
 name|bloomFilter
 operator|=
 name|bloomFilter
-expr_stmt|;
-name|this
-operator|.
-name|bloomFilterSpecified
-operator|=
-name|this
-operator|.
-name|bloomFilter
-operator|==
-literal|null
-condition|?
-literal|false
-else|:
-literal|true
 expr_stmt|;
 name|this
 operator|.
@@ -830,10 +801,10 @@ return|return
 name|blockCacheEnabled
 return|;
 block|}
-comment|/**    * @return Bloom filter descriptor or null if none set.    */
+comment|/**    * @return true if a bloom filter is enabled    */
 specifier|public
-name|BloomFilterDescriptor
-name|getBloomFilter
+name|boolean
+name|isBloomFilterEnabled
 parameter_list|()
 block|{
 return|return
@@ -939,18 +910,7 @@ name|BLOOMFILTER
 operator|+
 literal|" => "
 operator|+
-operator|(
-name|bloomFilterSpecified
-condition|?
 name|bloomFilter
-operator|.
-name|toString
-argument_list|()
-else|:
-name|CompressionType
-operator|.
-name|NONE
-operator|)
 operator|+
 literal|"}"
 return|;
@@ -1082,7 +1042,7 @@ name|valueOf
 argument_list|(
 name|this
 operator|.
-name|bloomFilterSpecified
+name|bloomFilter
 argument_list|)
 operator|.
 name|hashCode
@@ -1100,23 +1060,6 @@ operator|.
 name|hashCode
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|bloomFilterSpecified
-condition|)
-block|{
-name|result
-operator|^=
-name|this
-operator|.
-name|bloomFilter
-operator|.
-name|hashCode
-argument_list|()
-expr_stmt|;
-block|}
 return|return
 name|result
 return|;
@@ -1261,7 +1204,7 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|bloomFilterSpecified
+name|bloomFilter
 operator|=
 name|in
 operator|.
@@ -1270,16 +1213,27 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|bloomFilterSpecified
+name|this
+operator|.
+name|bloomFilter
+operator|&&
+name|versionNumber
+operator|<
+literal|5
 condition|)
 block|{
-name|bloomFilter
-operator|=
+comment|// If a bloomFilter is enabled and the column descriptor is less than
+comment|// version 5, we need to skip over it to read the rest of the column
+comment|// descriptor. There are no BloomFilterDescriptors written to disk for
+comment|// column descriptors with a version number>= 5
+name|BloomFilterDescriptor
+name|junk
+init|=
 operator|new
 name|BloomFilterDescriptor
 argument_list|()
-expr_stmt|;
-name|bloomFilter
+decl_stmt|;
+name|junk
 operator|.
 name|readFields
 argument_list|(
@@ -1396,22 +1350,9 @@ name|writeBoolean
 argument_list|(
 name|this
 operator|.
-name|bloomFilterSpecified
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|bloomFilterSpecified
-condition|)
-block|{
 name|bloomFilter
-operator|.
-name|write
-argument_list|(
-name|out
 argument_list|)
 expr_stmt|;
-block|}
 name|out
 operator|.
 name|writeBoolean
@@ -1655,11 +1596,11 @@ if|if
 condition|(
 name|this
 operator|.
-name|bloomFilterSpecified
+name|bloomFilter
 operator|==
 name|other
 operator|.
-name|bloomFilterSpecified
+name|bloomFilter
 condition|)
 block|{
 name|result
@@ -1672,7 +1613,7 @@ if|if
 condition|(
 name|this
 operator|.
-name|bloomFilterSpecified
+name|bloomFilter
 condition|)
 block|{
 name|result
@@ -1688,31 +1629,6 @@ operator|=
 literal|1
 expr_stmt|;
 block|}
-block|}
-if|if
-condition|(
-name|result
-operator|==
-literal|0
-operator|&&
-name|this
-operator|.
-name|bloomFilterSpecified
-condition|)
-block|{
-name|result
-operator|=
-name|this
-operator|.
-name|bloomFilter
-operator|.
-name|compareTo
-argument_list|(
-name|other
-operator|.
-name|bloomFilter
-argument_list|)
-expr_stmt|;
 block|}
 return|return
 name|result

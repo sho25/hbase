@@ -579,6 +579,18 @@ name|bf
 return|;
 block|}
 comment|//end clone()
+comment|/**    * @return size of the the bloomfilter    */
+specifier|public
+name|int
+name|getVectorSize
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|vectorSize
+return|;
+block|}
 comment|// Writable
 comment|/** {@inheritDoc} */
 annotation|@

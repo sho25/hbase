@@ -64,6 +64,8 @@ comment|/**   * Supplied as a parameter to HColumnDescriptor to specify what kin
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|BloomFilterDescriptor
@@ -353,15 +355,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-specifier|public
-name|BloomFilterType
-name|getType
-parameter_list|()
-block|{
-return|return
-name|filterType
-return|;
-block|}
+comment|/** @return the vector size */
 specifier|public
 name|int
 name|getVectorSize
@@ -371,6 +365,7 @@ return|return
 name|vectorSize
 return|;
 block|}
+comment|/** @return number of hash functions */
 specifier|public
 name|int
 name|getNbHash

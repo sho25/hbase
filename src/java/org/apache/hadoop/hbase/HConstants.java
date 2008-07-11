@@ -92,14 +92,14 @@ name|VERSION_FILE_NAME
 init|=
 literal|"hbase.version"
 decl_stmt|;
-comment|/**    * Current version of file system    * Version 3 added 'historian' family to .META.    */
+comment|/**    * Current version of file system    * Version 4 supports only one kind of bloom filter    */
 specifier|public
 specifier|static
 specifier|final
 name|String
 name|FILE_SYSTEM_VERSION
 init|=
-literal|"3"
+literal|"4"
 decl_stmt|;
 comment|// Configuration parameters
 comment|// TODO: URL for hbase master like hdfs URLs with host and port.

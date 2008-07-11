@@ -387,7 +387,13 @@ name|fs
 argument_list|,
 name|store
 operator|.
-name|bloomFilter
+name|getFamily
+argument_list|()
+operator|.
+name|isBloomFilterEnabled
+argument_list|()
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}

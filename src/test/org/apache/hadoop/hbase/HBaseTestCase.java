@@ -984,7 +984,7 @@ name|HConstants
 operator|.
 name|FOREVER
 argument_list|,
-literal|null
+literal|false
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1015,7 +1015,7 @@ name|HConstants
 operator|.
 name|FOREVER
 argument_list|,
-literal|null
+literal|false
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1046,7 +1046,7 @@ name|HConstants
 operator|.
 name|FOREVER
 argument_list|,
-literal|null
+literal|false
 argument_list|)
 argument_list|)
 expr_stmt|;

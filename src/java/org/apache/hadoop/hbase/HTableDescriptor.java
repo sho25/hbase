@@ -195,7 +195,7 @@ name|HConstants
 operator|.
 name|FOREVER
 argument_list|,
-literal|null
+literal|false
 argument_list|)
 block|}
 argument_list|)
@@ -245,7 +245,7 @@ name|HConstants
 operator|.
 name|FOREVER
 argument_list|,
-literal|null
+literal|false
 argument_list|)
 block|,
 operator|new
@@ -277,7 +277,7 @@ name|HConstants
 operator|.
 name|FOREVER
 argument_list|,
-literal|null
+literal|false
 argument_list|)
 block|}
 argument_list|)

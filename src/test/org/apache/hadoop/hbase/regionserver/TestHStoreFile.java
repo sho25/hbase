@@ -763,7 +763,9 @@ name|CompressionType
 operator|.
 name|NONE
 argument_list|,
-literal|null
+literal|false
+argument_list|,
+literal|0
 argument_list|)
 decl_stmt|;
 name|writeStoreFile
@@ -784,7 +786,9 @@ name|this
 operator|.
 name|fs
 argument_list|,
-literal|null
+literal|false
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 comment|// Split on a row, not in middle of row.  Midkey returned by reader
@@ -1031,7 +1035,9 @@ name|this
 operator|.
 name|fs
 argument_list|,
-literal|null
+literal|false
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|HStoreKey
