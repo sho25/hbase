@@ -799,12 +799,24 @@ name|connection
 return|;
 block|}
 comment|/**    * @return table metadata     * @throws IOException    */
-comment|// Why is this deprecated?  What should be used instead? St.Ack
 annotation|@
 name|Deprecated
 specifier|public
 name|HTableDescriptor
 name|getMetadata
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+return|return
+name|getTableDescriptor
+argument_list|()
+return|;
+block|}
+comment|/**    * @return table metadata     * @throws IOException    */
+specifier|public
+name|HTableDescriptor
+name|getTableDescriptor
 parameter_list|()
 throws|throws
 name|IOException
