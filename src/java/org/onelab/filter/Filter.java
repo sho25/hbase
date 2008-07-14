@@ -94,6 +94,7 @@ implements|implements
 name|Writable
 block|{
 comment|/** The vector size of<i>this</i> filter. */
+specifier|protected
 name|int
 name|vectorSize
 decl_stmt|;
@@ -103,6 +104,7 @@ name|HashFunction
 name|hash
 decl_stmt|;
 comment|/** The number of hash function to consider. */
+specifier|protected
 name|int
 name|nbHash
 decl_stmt|;
