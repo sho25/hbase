@@ -56,6 +56,14 @@ name|UnmodifyableHTableDescriptor
 extends|extends
 name|HTableDescriptor
 block|{
+specifier|public
+name|UnmodifyableHTableDescriptor
+parameter_list|()
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+block|}
 comment|/*    * Create an unmodifyable copy of an HTableDescriptor    * @param desc    */
 name|UnmodifyableHTableDescriptor
 parameter_list|(
