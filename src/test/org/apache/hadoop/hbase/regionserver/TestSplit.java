@@ -1032,8 +1032,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|curVals
 init|=
@@ -1043,8 +1042,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 argument_list|(
 name|Bytes
@@ -1093,6 +1091,9 @@ name|get
 argument_list|(
 name|col
 argument_list|)
+operator|.
+name|getValue
+argument_list|()
 decl_stmt|;
 name|byte
 index|[]

@@ -2231,8 +2231,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 argument_list|>
 argument_list|>
@@ -2249,8 +2248,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|values
 parameter_list|)
@@ -2301,8 +2299,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|values
 parameter_list|)
@@ -2375,9 +2372,6 @@ name|entry
 operator|.
 name|getValue
 argument_list|()
-operator|.
-name|getValue
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2447,8 +2441,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|values
 parameter_list|)

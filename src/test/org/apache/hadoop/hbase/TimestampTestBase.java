@@ -902,8 +902,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|value
 init|=
@@ -913,8 +912,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 argument_list|(
 name|Bytes
@@ -959,6 +957,9 @@ name|get
 argument_list|(
 name|COLUMN
 argument_list|)
+operator|.
+name|getValue
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|assertTrue

@@ -46,7 +46,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Read-only table descriptor.  * Returned out of {@link HTable.getTableDescriptor}.  */
+comment|/**  * Read-only table descriptor.  */
 end_comment
 
 begin_class

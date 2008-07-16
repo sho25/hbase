@@ -909,8 +909,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|results
 init|=
@@ -920,8 +919,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 argument_list|(
 name|Bytes
@@ -956,6 +954,9 @@ name|HConstants
 operator|.
 name|COL_REGIONINFO
 argument_list|)
+operator|.
+name|getValue
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -1097,8 +1098,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|results
 init|=
@@ -1108,8 +1108,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 argument_list|(
 name|Bytes
@@ -1144,6 +1143,9 @@ name|HConstants
 operator|.
 name|COL_REGIONINFO
 argument_list|)
+operator|.
+name|getValue
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if

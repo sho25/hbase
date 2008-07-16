@@ -579,7 +579,6 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-specifier|private
 specifier|final
 name|ReentrantReadWriteLock
 name|lock
@@ -2567,8 +2566,8 @@ name|snapshot
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Write out current snapshot.  Presumes {@link #snapshot()} has been called    * previously.    * @param logCacheFlushId flush sequence number    * @return count of bytes flushed    * @throws IOException    */
-name|long
+comment|/**    * Write out current snapshot.  Presumes {@link #snapshot()} has been called    * previously.    * @param logCacheFlushId flush sequence number    * @return true if a compaction is needed    * @throws IOException    */
+name|boolean
 name|flushCache
 parameter_list|(
 specifier|final
@@ -2596,8 +2595,8 @@ operator|.
 name|getSnapshot
 argument_list|()
 decl_stmt|;
-name|long
-name|flushed
+name|boolean
+name|compactionNeeded
 init|=
 name|internalFlushCache
 argument_list|(
@@ -2619,11 +2618,11 @@ name|cache
 argument_list|)
 expr_stmt|;
 return|return
-name|flushed
+name|compactionNeeded
 return|;
 block|}
 specifier|private
-name|long
+name|boolean
 name|internalFlushCache
 parameter_list|(
 name|SortedMap
@@ -2658,7 +2657,7 @@ literal|0
 condition|)
 block|{
 return|return
-name|flushed
+literal|false
 return|;
 block|}
 comment|// TODO:  We can fail in the below block before we complete adding this
@@ -2983,7 +2982,12 @@ expr_stmt|;
 block|}
 block|}
 return|return
-name|flushed
+name|storefiles
+operator|.
+name|size
+argument_list|()
+operator|>=
+name|compactionThreshold
 return|;
 block|}
 comment|/*    * Change readers adding into place the Reader produced by this new flush.    * @param logCacheFlushId    * @param flushedFile    * @throws IOException    */
@@ -3358,12 +3362,7 @@ name|getReader
 argument_list|(
 name|fs
 argument_list|,
-name|this
-operator|.
-name|family
-operator|.
-name|isBloomFilterEnabled
-argument_list|()
+literal|false
 argument_list|,
 literal|false
 argument_list|)

@@ -57,6 +57,22 @@ name|SortedMap
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|Cell
+import|;
+end_import
+
 begin_comment
 comment|/**  * Implementation of RowFilterInterface that limits results to a specific page  * size. It terminates scanning once the number of filter-passed results is>=  * the given page size.  *   *<p>  * Note that this filter cannot guarantee that the number of results returned  * to a client are<= page size. This is because the filter is applied  * separately on different region servers. It does however optimize the scan of  * individual HRegions by making sure that the page size is never exceeded  * locally.  *</p>  */
 end_comment
@@ -272,8 +288,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|columns
 parameter_list|)

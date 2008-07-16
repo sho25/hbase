@@ -41,6 +41,22 @@ name|Writable
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|Cell
+import|;
+end_import
+
 begin_comment
 comment|/**  *   * Interface used for row-level filters applied to HRegion.HScanner scan  * results during calls to next().  */
 end_comment
@@ -119,8 +135,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|columns
 parameter_list|)

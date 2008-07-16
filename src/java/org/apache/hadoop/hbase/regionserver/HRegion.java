@@ -4315,7 +4315,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Flushing the cache is a little tricky. We have a lot of updates in the    * HMemcache, all of which have also been written to the log. We need to    * write those updates in the HMemcache out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the HMemcache was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the HMemcache from    * the log.)    *     *<p>So, we have a three-step process:    *     *<ul><li>A. Flush the memcache to the on-disk stores, noting the current    * sequence ID for the log.<li>    *     *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memcache-flush.</li>    *     *<li>C. Get rid of the memcache structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *     *<p> This method may block for some time.    *     * @return true if the cache was flushed    *     * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
+comment|/**    * Flushing the cache is a little tricky. We have a lot of updates in the    * HMemcache, all of which have also been written to the log. We need to    * write those updates in the HMemcache out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the HMemcache was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the HMemcache from    * the log.)    *     *<p>So, we have a three-step process:    *     *<ul><li>A. Flush the memcache to the on-disk stores, noting the current    * sequence ID for the log.<li>    *     *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memcache-flush.</li>    *     *<li>C. Get rid of the memcache structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *     *<p> This method may block for some time.    *     * @return true if the region needs compacting    *     * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
 specifier|private
 name|boolean
 name|internalFlushcache
@@ -4454,10 +4454,10 @@ comment|// Any failure from here on out will be catastrophic requiring server
 comment|// restart so hlog content can be replayed and put back into the memcache.
 comment|// Otherwise, the snapshot content while backed up in the hlog, it will not
 comment|// be part of the current running servers state.
-name|long
-name|flushed
+name|boolean
+name|compactionRequested
 init|=
-literal|0
+literal|false
 decl_stmt|;
 try|try
 block|{
@@ -4475,15 +4475,26 @@ name|values
 argument_list|()
 control|)
 block|{
-name|flushed
-operator|+=
+name|boolean
+name|needsCompaction
+init|=
 name|hstore
 operator|.
 name|flushCache
 argument_list|(
 name|sequenceId
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|needsCompaction
+condition|)
+block|{
+name|compactionRequested
+operator|=
+literal|true
 expr_stmt|;
+block|}
 block|}
 block|}
 catch|catch
@@ -4510,7 +4521,17 @@ name|dse
 init|=
 operator|new
 name|DroppedSnapshotException
+argument_list|(
+literal|"region: "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|getRegionName
 argument_list|()
+argument_list|)
+argument_list|)
 decl_stmt|;
 name|dse
 operator|.
@@ -4606,14 +4627,9 @@ literal|"ms, sequence id="
 operator|+
 name|sequenceId
 operator|+
-literal|", "
+literal|", compaction requested="
 operator|+
-name|StringUtils
-operator|.
-name|humanReadableInt
-argument_list|(
-name|flushed
-argument_list|)
+name|compactionRequested
 argument_list|)
 expr_stmt|;
 if|if
@@ -4639,7 +4655,7 @@ expr_stmt|;
 block|}
 block|}
 return|return
-literal|true
+name|compactionRequested
 return|;
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
@@ -7277,8 +7293,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 index|[]
 name|resultSets
@@ -7608,8 +7623,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 argument_list|(
 name|Bytes
@@ -7679,8 +7693,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|results
 parameter_list|)
@@ -7911,8 +7924,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|e
 range|:

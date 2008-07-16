@@ -3210,8 +3210,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|results
 parameter_list|)
@@ -3528,9 +3527,6 @@ argument_list|(
 name|column
 argument_list|,
 name|c
-operator|.
-name|getValue
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

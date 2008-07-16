@@ -626,8 +626,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|columnMap
 init|=
@@ -637,8 +636,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -648,7 +646,15 @@ name|put
 argument_list|(
 name|TEXT_COLUMN1
 argument_list|,
+operator|new
+name|Cell
+argument_list|(
 name|VALUE
+argument_list|,
+name|HConstants
+operator|.
+name|LATEST_TIMESTAMP
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|RegExpRowFilter

@@ -57,6 +57,22 @@ name|SortedMap
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|Cell
+import|;
+end_import
+
 begin_comment
 comment|/**  * WhileMatchRowFilter is a wrapper filter that filters everything after the   * first filtered row.  Once the nested filter returns true for either of it's   * filter(..) methods or filterNotNull(SortedMap<Text, byte[]>), this wrapper's   * filterAllRemaining() will return true.  All filtering methods will   * thereafter defer to the result of filterAllRemaining().  */
 end_comment
@@ -244,8 +260,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|,
-name|byte
-index|[]
+name|Cell
 argument_list|>
 name|columns
 parameter_list|)

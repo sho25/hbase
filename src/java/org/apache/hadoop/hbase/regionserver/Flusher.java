@@ -113,26 +113,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|TreeMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Comparator
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|ConcurrentModificationException
 import|;
 end_import
@@ -636,8 +616,9 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-comment|// See javadoc comment above for removeFromQueue on why we do not
-comment|// compact if removeFromQueue is true.
+comment|// See comment above for removeFromQueue on why we do not
+comment|// compact if removeFromQueue is true. Note that region.flushCache()
+comment|// only returns true if a flush is done and if a compaction is needed.
 if|if
 condition|(
 name|region
