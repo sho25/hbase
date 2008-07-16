@@ -3320,6 +3320,35 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Commit a RowsBatchUpdate to the table.    * @param batchUpdate    * @throws IOException    */
+specifier|public
+specifier|synchronized
+name|void
+name|commit
+parameter_list|(
+specifier|final
+name|List
+argument_list|<
+name|BatchUpdate
+argument_list|>
+name|batchUpdates
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+for|for
+control|(
+name|BatchUpdate
+name|batchUpdate
+range|:
+name|batchUpdates
+control|)
+name|commit
+argument_list|(
+name|batchUpdate
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Implements the scanner interface for the HBase client.    * If there are multiple regions in a table, this scanner will iterate    * through them all.    */
 specifier|protected
 class|class
