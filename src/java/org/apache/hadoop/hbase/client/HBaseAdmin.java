@@ -1230,13 +1230,6 @@ literal|"master has been shut down"
 argument_list|)
 throw|;
 block|}
-name|HTableDescriptor
-operator|.
-name|isLegalTableName
-argument_list|(
-name|tableName
-argument_list|)
-expr_stmt|;
 try|try
 block|{
 name|this
@@ -1428,13 +1421,6 @@ literal|"master has been shut down"
 argument_list|)
 throw|;
 block|}
-name|HTableDescriptor
-operator|.
-name|isLegalTableName
-argument_list|(
-name|tableName
-argument_list|)
-expr_stmt|;
 try|try
 block|{
 name|this
