@@ -298,7 +298,7 @@ name|htd
 init|=
 name|t
 operator|.
-name|getMetadata
+name|getTableDescriptor
 argument_list|()
 decl_stmt|;
 name|HColumnDescriptor
