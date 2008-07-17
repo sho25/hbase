@@ -3332,6 +3332,36 @@ expr_stmt|;
 block|}
 comment|/** {@inheritDoc} */
 specifier|public
+name|void
+name|modifyTableMeta
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+name|HTableDescriptor
+name|desc
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+operator|new
+name|ModifyTableMeta
+argument_list|(
+name|this
+argument_list|,
+name|tableName
+argument_list|,
+name|desc
+argument_list|)
+operator|.
+name|process
+argument_list|()
+expr_stmt|;
+block|}
+comment|/** {@inheritDoc} */
+specifier|public
 name|HServerAddress
 name|findRootRegion
 parameter_list|()

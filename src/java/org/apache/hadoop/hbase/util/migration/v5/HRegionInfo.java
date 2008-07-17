@@ -12,6 +12,12 @@ operator|.
 name|hadoop
 operator|.
 name|hbase
+operator|.
+name|util
+operator|.
+name|migration
+operator|.
+name|v5
 package|;
 end_package
 
@@ -75,6 +81,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -107,44 +127,21 @@ name|hadoop
 operator|.
 name|io
 operator|.
-name|VersionedWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
 name|WritableComparable
 import|;
 end_import
 
 begin_comment
-comment|/**  * HRegion information.  * Contains HRegion id, start and end keys, a reference to this  * HRegions' table descriptor, etc.  */
+comment|/**  * HRegion information.  * Contains HRegion id, start and end keys, a reference to this  * HRegions' table descriptor, etc.  *   *<p>This class has been modified so it instantiates using pre-v5 versions of  * the HTableDescriptor, etc: i.e. it will uses classes that in this  * migration v0_2 package.  */
 end_comment
 
 begin_class
 specifier|public
 class|class
 name|HRegionInfo
-extends|extends
-name|VersionedWritable
 implements|implements
 name|WritableComparable
 block|{
-specifier|private
-specifier|final
-name|byte
-name|VERSION
-init|=
-literal|0
-decl_stmt|;
 comment|/**    * @param regionName    * @return the encodedName    */
 specifier|public
 specifier|static
@@ -712,9 +709,6 @@ name|HTableDescriptor
 name|tableDesc
 parameter_list|)
 block|{
-name|super
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|regionId
@@ -765,9 +759,6 @@ specifier|public
 name|HRegionInfo
 parameter_list|()
 block|{
-name|super
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|tableDesc
@@ -879,9 +870,6 @@ parameter_list|)
 throws|throws
 name|IllegalArgumentException
 block|{
-name|super
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|tableDesc
@@ -996,9 +984,6 @@ name|HRegionInfo
 name|other
 parameter_list|)
 block|{
-name|super
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|endKey
@@ -1417,22 +1402,6 @@ return|return
 name|tableDesc
 return|;
 block|}
-comment|/**    * @param newDesc new table descriptor to use    */
-specifier|public
-name|void
-name|setTableDesc
-parameter_list|(
-name|HTableDescriptor
-name|newDesc
-parameter_list|)
-block|{
-name|this
-operator|.
-name|tableDesc
-operator|=
-name|newDesc
-expr_stmt|;
-block|}
 comment|/** @return true if this is the root region */
 specifier|public
 name|boolean
@@ -1650,15 +1619,6 @@ operator|.
 name|hashCode
 return|;
 block|}
-specifier|public
-name|byte
-name|getVersion
-parameter_list|()
-block|{
-return|return
-name|VERSION
-return|;
-block|}
 comment|//
 comment|// Writable
 comment|//
@@ -1673,13 +1633,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|super
-operator|.
-name|write
-argument_list|(
-name|out
-argument_list|)
-expr_stmt|;
 name|Bytes
 operator|.
 name|writeByteArray
@@ -1754,13 +1707,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|super
-operator|.
-name|readFields
-argument_list|(
-name|in
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|endKey

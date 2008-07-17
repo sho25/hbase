@@ -284,7 +284,7 @@ name|toString
 argument_list|(
 name|in
 operator|.
-name|isBloomFilterEnabled
+name|isBloomfilter
 argument_list|()
 argument_list|)
 expr_stmt|;

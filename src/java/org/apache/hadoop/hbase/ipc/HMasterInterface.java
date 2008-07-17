@@ -215,6 +215,21 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Modify a table's metadata    *     * @param tableName    * @param desc    */
+specifier|public
+name|void
+name|modifyTableMeta
+parameter_list|(
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+name|HTableDescriptor
+name|desc
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Shutdown an HBase cluster.    * @throws IOException    */
 specifier|public
 name|void

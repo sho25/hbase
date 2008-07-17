@@ -408,7 +408,6 @@ condition|)
 do|;
 block|}
 comment|/**    * Visitor class called to process each row of the .META. table    */
-specifier|protected
 interface|interface
 name|MetaScannerVisitor
 block|{

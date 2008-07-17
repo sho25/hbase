@@ -577,6 +577,7 @@ name|boolean
 name|multipleMatchers
 decl_stmt|;
 comment|/** Constructor for abstract base class */
+specifier|protected
 name|HAbstractScanner
 parameter_list|(
 name|long

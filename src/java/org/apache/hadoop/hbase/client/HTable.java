@@ -822,6 +822,9 @@ throws|throws
 name|IOException
 block|{
 return|return
+operator|new
+name|UnmodifyableHTableDescriptor
+argument_list|(
 name|this
 operator|.
 name|connection
@@ -831,6 +834,7 @@ argument_list|(
 name|this
 operator|.
 name|tableName
+argument_list|)
 argument_list|)
 return|;
 block|}
