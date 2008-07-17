@@ -3324,7 +3324,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Commit a RowsBatchUpdate to the table.    * @param batchUpdate    * @throws IOException    */
+comment|/**    * Commit a RowsBatchUpdate to the table.    * @param batchUpdates    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
