@@ -319,6 +319,7 @@ operator|+
 literal|")"
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -338,6 +339,7 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -372,6 +374,7 @@ name|result
 return|;
 block|}
 comment|// Writable
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -419,6 +422,7 @@ name|readInt
 argument_list|()
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -466,6 +470,7 @@ name|infoPort
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo

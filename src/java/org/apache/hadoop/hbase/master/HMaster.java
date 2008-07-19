@@ -2995,9 +2995,6 @@ argument_list|(
 name|scannerid
 argument_list|)
 decl_stmt|;
-comment|// Test data and that the row for the data is for our table. If table
-comment|// does not exist, scanner will return row after where our table would
-comment|// be inserted if it exists so look for exact match on table name.
 if|if
 condition|(
 name|data
@@ -3012,18 +3009,19 @@ operator|>
 literal|0
 condition|)
 block|{
-name|byte
-index|[]
-name|tn
-init|=
 name|HRegionInfo
+name|info
+init|=
+name|Writables
 operator|.
-name|getTableNameFromRegionName
+name|getHRegionInfo
 argument_list|(
 name|data
 operator|.
-name|getRow
-argument_list|()
+name|get
+argument_list|(
+name|COL_REGIONINFO
+argument_list|)
 argument_list|)
 decl_stmt|;
 if|if
@@ -3032,13 +3030,19 @@ name|Bytes
 operator|.
 name|equals
 argument_list|(
-name|tn
+name|info
+operator|.
+name|getTableDesc
+argument_list|()
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 name|tableName
 argument_list|)
 condition|)
 block|{
-comment|// Then a region for this table already exists. Ergo table exists.
+comment|// A region for this table already exists. Ergo table exists.
 throw|throw
 operator|new
 name|TableExistsException

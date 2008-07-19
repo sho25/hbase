@@ -123,7 +123,8 @@ specifier|final
 name|RowFilterInterface
 name|filter
 decl_stmt|;
-specifier|protected
+comment|/**    * @param connection    * @param tableName    * @param columns    * @param startRow    * @param timestamp    * @param filter    */
+specifier|public
 name|ScannerCallable
 parameter_list|(
 name|HConnection
