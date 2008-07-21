@@ -1647,6 +1647,8 @@ literal|" and deleted.  Or, if you are sure logs are vestige of old "
 operator|+
 literal|"failures in hbase, remove them and then rerun the migration.  "
 operator|+
+literal|"See 'Redo Logs' in http://wiki.apache.org/hadoop/Hbase/HowToMigrate. "
+operator|+
 literal|"Here are the problem log files: "
 operator|+
 name|unrecoveredLogs
