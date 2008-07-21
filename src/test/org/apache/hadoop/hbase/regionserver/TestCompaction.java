@@ -735,7 +735,12 @@ argument_list|(
 name|cellValues
 argument_list|)
 expr_stmt|;
-comment|// Assert the store files do not have the first record 'aaa' keys in them.
+comment|// Make sure the store files do have some 'aaa' keys in them.
+name|boolean
+name|containsStartRow
+init|=
+literal|false
+decl_stmt|;
 for|for
 control|(
 name|MapFile
@@ -794,8 +799,8 @@ name|val
 argument_list|)
 condition|)
 block|{
-name|assertFalse
-argument_list|(
+if|if
+condition|(
 name|Bytes
 operator|.
 name|equals
@@ -807,10 +812,28 @@ argument_list|()
 argument_list|,
 name|STARTROW
 argument_list|)
+condition|)
+block|{
+name|containsStartRow
+operator|=
+literal|true
+expr_stmt|;
+break|break;
+block|}
+block|}
+if|if
+condition|(
+name|containsStartRow
+condition|)
+block|{
+break|break;
+block|}
+block|}
+name|assertTrue
+argument_list|(
+name|containsStartRow
 argument_list|)
 expr_stmt|;
-block|}
-block|}
 block|}
 specifier|private
 name|void
