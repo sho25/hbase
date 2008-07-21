@@ -817,6 +817,8 @@ operator|.
 name|getName
 argument_list|()
 operator|+
+literal|" "
+operator|+
 name|info
 operator|.
 name|toString
@@ -1275,37 +1277,6 @@ expr_stmt|;
 name|result
 operator|=
 literal|true
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-comment|// If debug, note we checked and current state of daughters.
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Checked "
-operator|+
-name|parent
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|" for references: splitA: "
-operator|+
-name|hasReferencesA
-operator|+
-literal|", splitB: "
-operator|+
-name|hasReferencesB
-argument_list|)
 expr_stmt|;
 block|}
 return|return
