@@ -248,7 +248,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|TestRegionServerExit
+name|DisabledTestRegionServerExit
 extends|extends
 name|HBaseClusterTestCase
 block|{
@@ -274,7 +274,7 @@ name|table
 decl_stmt|;
 comment|/** constructor */
 specifier|public
-name|TestRegionServerExit
+name|DisabledTestRegionServerExit
 parameter_list|()
 block|{
 name|super
@@ -409,7 +409,7 @@ block|}
 comment|/**    * Test abort of region server.    * Test is flakey up on hudson.  Needs work.    * @throws IOException    */
 specifier|public
 name|void
-name|disabledTestCleanExit
+name|testCleanExit
 parameter_list|()
 throws|throws
 name|IOException
