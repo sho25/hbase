@@ -409,7 +409,7 @@ block|}
 comment|/**    * Test abort of region server.    * @throws IOException    */
 specifier|public
 name|void
-name|testCleanExit
+name|disabledTestCleanExit
 parameter_list|()
 throws|throws
 name|IOException
