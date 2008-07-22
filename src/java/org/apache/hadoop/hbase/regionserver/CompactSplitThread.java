@@ -806,25 +806,6 @@ operator|=
 name|meta
 expr_stmt|;
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Updating "
-operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|t
-operator|.
-name|getTableName
-argument_list|()
-argument_list|)
-operator|+
-literal|" with region split info"
-argument_list|)
-expr_stmt|;
 comment|// Mark old region as offline and split in META.
 comment|// NOTE: there is no need for retry logic here. HTable does it for us.
 name|oldRegionInfo
@@ -985,22 +966,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Now tell the master about the new regions
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Reporting region split to master"
-argument_list|)
-expr_stmt|;
-block|}
 name|server
 operator|.
 name|reportSplit

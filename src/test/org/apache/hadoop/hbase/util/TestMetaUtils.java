@@ -105,6 +105,22 @@ name|HTable
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|HConnectionManager
+import|;
+end_import
+
 begin_class
 specifier|public
 class|class
@@ -267,6 +283,12 @@ operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
+comment|// Delete again so we go get it all fresh.
+name|HConnectionManager
+operator|.
+name|deleteConnectionInfo
+argument_list|()
+expr_stmt|;
 comment|// Now assert columns were added and deleted.
 name|this
 operator|.
@@ -282,6 +304,7 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
+comment|// Now assert columns were added and deleted.
 name|HTable
 name|t
 init|=

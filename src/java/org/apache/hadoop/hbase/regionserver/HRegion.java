@@ -4434,6 +4434,23 @@ name|lastFlushTime
 operator|=
 name|startTime
 expr_stmt|;
+comment|// If nothing to flush, return and avoid logging start/stop flush.
+if|if
+condition|(
+name|this
+operator|.
+name|memcacheSize
+operator|.
+name|get
+argument_list|()
+operator|<=
+literal|0
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 if|if
 condition|(
 name|LOG
