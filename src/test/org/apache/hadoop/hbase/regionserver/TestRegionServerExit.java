@@ -406,7 +406,7 @@ name|t
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test abort of region server.    * @throws IOException    */
+comment|/**    * Test abort of region server.    * Test is flakey up on hudson.  Needs work.    * @throws IOException    */
 specifier|public
 name|void
 name|disabledTestCleanExit

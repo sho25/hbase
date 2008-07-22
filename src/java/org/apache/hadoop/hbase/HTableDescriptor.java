@@ -362,14 +362,6 @@ specifier|public
 specifier|static
 specifier|final
 name|String
-name|IN_MEMORY
-init|=
-literal|"IN_MEMORY"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
 name|READONLY
 init|=
 literal|"READONLY"
@@ -1165,6 +1157,8 @@ name|value
 init|=
 name|getValue
 argument_list|(
+name|HConstants
+operator|.
 name|IN_MEMORY
 argument_list|)
 decl_stmt|;
@@ -1197,6 +1191,8 @@ parameter_list|)
 block|{
 name|setValue
 argument_list|(
+name|HConstants
+operator|.
 name|IN_MEMORY
 argument_list|,
 name|Boolean

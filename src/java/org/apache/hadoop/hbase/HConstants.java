@@ -597,6 +597,14 @@ name|VERSIONS
 init|=
 literal|"VERSIONS"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|IN_MEMORY
+init|=
+literal|"IN_MEMORY"
+decl_stmt|;
 block|}
 end_interface
 

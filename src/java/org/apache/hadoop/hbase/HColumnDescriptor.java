@@ -179,14 +179,6 @@ specifier|public
 specifier|static
 specifier|final
 name|String
-name|IN_MEMORY
-init|=
-literal|"IN_MEMORY"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
 name|BLOCKCACHE
 init|=
 literal|"BLOCKCACHE"
@@ -211,14 +203,6 @@ specifier|public
 specifier|static
 specifier|final
 name|String
-name|VERSIONS
-init|=
-literal|"VERSIONS"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
 name|BLOOMFILTER
 init|=
 literal|"BLOOMFILTER"
@@ -238,14 +222,6 @@ name|String
 name|MAPFILE_INDEX_INTERVAL
 init|=
 literal|"MAPFILE_INDEX_INTERVAL"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|MEMCACHE_FLUSHSIZE
-init|=
-literal|"MEMCACHE_FLUSHSIZE"
 decl_stmt|;
 comment|/**    * Default compression type.    */
 specifier|public
@@ -1051,6 +1027,8 @@ name|value
 init|=
 name|getValue
 argument_list|(
+name|HConstants
+operator|.
 name|VERSIONS
 argument_list|)
 decl_stmt|;
@@ -1083,6 +1061,8 @@ parameter_list|)
 block|{
 name|setValue
 argument_list|(
+name|HConstants
+operator|.
 name|VERSIONS
 argument_list|,
 name|Integer
@@ -1164,6 +1144,8 @@ name|value
 init|=
 name|getValue
 argument_list|(
+name|HConstants
+operator|.
 name|IN_MEMORY
 argument_list|)
 decl_stmt|;
@@ -1196,6 +1178,8 @@ parameter_list|)
 block|{
 name|setValue
 argument_list|(
+name|HConstants
+operator|.
 name|IN_MEMORY
 argument_list|,
 name|Boolean
