@@ -1742,6 +1742,20 @@ name|debug
 argument_list|(
 literal|"Replaced Scanner Readers at row "
 operator|+
+operator|(
+name|viableRow
+operator|==
+literal|null
+operator|||
+name|viableRow
+operator|.
+name|getRow
+argument_list|()
+operator|==
+literal|null
+condition|?
+literal|"null"
+else|:
 name|Bytes
 operator|.
 name|toString
@@ -1751,6 +1765,7 @@ operator|.
 name|getRow
 argument_list|()
 argument_list|)
+operator|)
 argument_list|)
 expr_stmt|;
 block|}
