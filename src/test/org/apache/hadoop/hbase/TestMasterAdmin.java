@@ -309,14 +309,21 @@ decl_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|IllegalStateException
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionOfflineException
 name|e
 parameter_list|)
 block|{
 comment|// Expected
-comment|// This exception is not actually thrown.  It doesn't look like it should
-comment|// throw since the connection manager is already filled w/ data
-comment|// -- noticed by St.Ack 09/09/2007
 block|}
 name|admin
 operator|.
