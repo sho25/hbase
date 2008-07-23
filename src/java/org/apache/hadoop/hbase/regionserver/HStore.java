@@ -1963,13 +1963,6 @@ argument_list|,
 name|reference
 argument_list|)
 expr_stmt|;
-name|storeSize
-operator|+=
-name|curfile
-operator|.
-name|length
-argument_list|()
-expr_stmt|;
 name|long
 name|storeSeqId
 init|=
@@ -2222,6 +2215,13 @@ expr_stmt|;
 continue|continue;
 block|}
 block|}
+name|storeSize
+operator|+=
+name|curfile
+operator|.
+name|length
+argument_list|()
+expr_stmt|;
 comment|// TODO: Confirm referent exists.
 comment|// Found map and sympathetic info file.  Add this hstorefile to result.
 if|if
