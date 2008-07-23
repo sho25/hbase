@@ -3612,9 +3612,17 @@ name|countOfFiles
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
 literal|"Compaction size "
 operator|+
@@ -3629,6 +3637,7 @@ operator|+
 name|skipped
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/*        * We create a new list of MapFile.Reader objects so we don't screw up        * the caching associated with the currently-loaded ones. Our iteration-        * based access pattern is practically designed to ruin the cache.        */
 name|List
