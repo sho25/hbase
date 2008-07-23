@@ -595,6 +595,27 @@ name|column
 argument_list|)
 return|;
 block|}
+comment|/**    * Get the Cell that corresponds to column, using a String key    */
+specifier|public
+name|Cell
+name|get
+parameter_list|(
+name|String
+name|key
+parameter_list|)
+block|{
+return|return
+name|get
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|key
+argument_list|)
+argument_list|)
+return|;
+block|}
 comment|/**    * Row entry.    */
 specifier|public
 class|class
