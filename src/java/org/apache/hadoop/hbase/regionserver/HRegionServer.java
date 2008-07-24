@@ -1377,7 +1377,7 @@ name|getInt
 argument_list|(
 literal|"hbase.master.lease.period"
 argument_list|,
-literal|30
+literal|120
 operator|*
 literal|1000
 argument_list|)
