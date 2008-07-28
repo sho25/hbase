@@ -524,7 +524,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor.    * @param name Table name.    * @throws IllegalArgumentException if passed a table name    * that is made of other than 'word' characters, underscore or period: i.e.    *<code>[a-zA-Z_0-9.].    * @see<a href="HADOOP-1581">HADOOP-1581 HBASE: Un-openable tablename bug</a>    */
+comment|/**    * Constructor.    * @param name Table name.    * @throws IllegalArgumentException if passed a table name    * that is made of other than 'word' characters, underscore or period: i.e.    *<code>[a-zA-Z_0-9-.].    * @see<a href="HADOOP-1581">HADOOP-1581 HBASE: Un-openable tablename bug</a>    */
 specifier|public
 name|HTableDescriptor
 parameter_list|(
@@ -933,6 +933,49 @@ literal|"Name is null or empty"
 argument_list|)
 throw|;
 block|}
+if|if
+condition|(
+name|b
+index|[
+literal|0
+index|]
+operator|==
+literal|'.'
+operator|||
+name|b
+index|[
+literal|0
+index|]
+operator|==
+literal|'-'
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Illegal first character<"
+operator|+
+name|b
+index|[
+literal|0
+index|]
+operator|+
+literal|">. "
+operator|+
+literal|"User-space table names can only start with 'word "
+operator|+
+literal|"characters': i.e. [a-zA-Z_0-9]: "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|b
+argument_list|)
+argument_list|)
+throw|;
+block|}
 for|for
 control|(
 name|int
@@ -968,6 +1011,20 @@ name|i
 index|]
 operator|==
 literal|'_'
+operator|||
+name|b
+index|[
+name|i
+index|]
+operator|==
+literal|'-'
+operator|||
+name|b
+index|[
+name|i
+index|]
+operator|==
+literal|'.'
 condition|)
 block|{
 continue|continue;
@@ -987,7 +1044,7 @@ literal|">. "
 operator|+
 literal|"User-space table names can only contain 'word characters':"
 operator|+
-literal|"i.e. [a-zA-Z_0-9]: "
+literal|"i.e. [a-zA-Z_0-9-.]: "
 operator|+
 name|Bytes
 operator|.
