@@ -303,6 +303,24 @@ name|tableName
 operator|=
 name|tableName
 expr_stmt|;
+comment|// Don't wait for META table to come on line if we're enabling it
+if|if
+condition|(
+operator|!
+name|Bytes
+operator|.
+name|equals
+argument_list|(
+name|HConstants
+operator|.
+name|META_TABLE_NAME
+argument_list|,
+name|this
+operator|.
+name|tableName
+argument_list|)
+condition|)
+block|{
 comment|// We can not access any meta region if they have not already been
 comment|// assigned and scanned.
 if|if
@@ -323,6 +341,7 @@ operator|new
 name|MasterNotRunningException
 argument_list|()
 throw|;
+block|}
 block|}
 name|this
 operator|.
