@@ -439,7 +439,7 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 comment|/**    * Private constructor used internally creating table descriptors for     * catalog tables: e.g. .META. and -ROOT-.    */
-specifier|private
+specifier|protected
 name|HTableDescriptor
 parameter_list|(
 specifier|final
