@@ -3379,6 +3379,12 @@ condition|(
 operator|!
 name|force
 operator|&&
+operator|!
+name|hasReferences
+argument_list|(
+name|filesToCompact
+argument_list|)
+operator|&&
 name|filesToCompact
 operator|.
 name|size
