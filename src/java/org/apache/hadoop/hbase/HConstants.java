@@ -605,6 +605,35 @@ name|IN_MEMORY
 init|=
 literal|"IN_MEMORY"
 decl_stmt|;
+comment|/**    * This is a retry backoff multiplier table similar to the BSD TCP syn    * backoff table, a bit more aggressive than simple exponential backoff.    */
+specifier|public
+specifier|static
+name|int
+name|RETRY_BACKOFF
+index|[]
+init|=
+block|{
+literal|1
+block|,
+literal|1
+block|,
+literal|1
+block|,
+literal|1
+block|,
+literal|2
+block|,
+literal|4
+block|,
+literal|8
+block|,
+literal|16
+block|,
+literal|32
+block|,
+literal|64
+block|}
+decl_stmt|;
 block|}
 end_interface
 
