@@ -6914,6 +6914,8 @@ name|ttl
 decl_stmt|;
 if|if
 condition|(
+name|result
+operator|&&
 name|LOG
 operator|.
 name|isDebugEnabled
