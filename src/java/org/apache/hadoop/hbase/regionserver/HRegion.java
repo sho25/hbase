@@ -2651,7 +2651,14 @@ name|this
 operator|.
 name|memcacheFlushSize
 operator|*
-name|flushSize
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.hregion.memcache.block.multiplier"
+argument_list|,
+literal|1
+argument_list|)
 expr_stmt|;
 comment|// See if region is meant to run read-only.
 if|if
