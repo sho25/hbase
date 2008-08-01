@@ -2868,20 +2868,15 @@ condition|)
 block|{
 if|if
 condition|(
-name|ttl
-operator|==
-name|HConstants
-operator|.
-name|FOREVER
-operator|||
-name|now
-operator|<
+operator|!
+name|isExpired
+argument_list|(
 name|curkey
-operator|.
-name|getTimestamp
-argument_list|()
-operator|+
+argument_list|,
 name|ttl
+argument_list|,
+name|now
+argument_list|)
 condition|)
 block|{
 name|entries
@@ -2919,29 +2914,6 @@ operator|.
 name|length
 operator|)
 expr_stmt|;
-block|}
-else|else
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"internalFlushCache: "
-operator|+
-name|curkey
-operator|+
-literal|": expired, skipped"
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 block|}
@@ -4339,20 +4311,15 @@ comment|// Only write out objects which have a non-zero length key and
 comment|// value
 if|if
 condition|(
-name|ttl
-operator|==
-name|HConstants
-operator|.
-name|FOREVER
-operator|||
-name|now
-operator|<
+operator|!
+name|isExpired
+argument_list|(
 name|sk
-operator|.
-name|getTimestamp
-argument_list|()
-operator|+
+argument_list|,
 name|ttl
+argument_list|,
+name|now
+argument_list|)
 condition|)
 block|{
 name|compactedOut
@@ -4367,29 +4334,6 @@ name|smallestKey
 index|]
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"compactHStoreFiles: "
-operator|+
-name|sk
-operator|+
-literal|": expired, deleted"
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 block|}
@@ -5569,20 +5513,15 @@ condition|)
 block|{
 if|if
 condition|(
-name|ttl
-operator|==
-name|HConstants
-operator|.
-name|FOREVER
-operator|||
-name|now
-operator|<
+operator|!
+name|isExpired
+argument_list|(
 name|readkey
-operator|.
-name|getTimestamp
-argument_list|()
-operator|+
+argument_list|,
 name|ttl
+argument_list|,
+name|now
+argument_list|)
 condition|)
 block|{
 name|results
@@ -5614,29 +5553,6 @@ operator|new
 name|ImmutableBytesWritable
 argument_list|()
 expr_stmt|;
-block|}
-else|else
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"getFullFromMapFile: "
-operator|+
-name|readkey
-operator|+
-literal|": expired, skipped"
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 block|}
@@ -5813,7 +5729,7 @@ comment|// the store files, the cell with the delete marker may be in one file a
 comment|// the old non-delete cell value in a later store file. If we don't keep
 comment|// around the fact that the cell was deleted in a newer record, we end up
 comment|// returning the old value if user is asking for more than one version.
-comment|// This List of deletes should not large since we are only keeping rows
+comment|// This List of deletes should not be large since we are only keeping rows
 comment|// and columns that match those set on the scanner and which have delete
 comment|// values.  If memory usage becomes an issue, could redo as bloom filter.
 name|Map
@@ -5962,20 +5878,15 @@ condition|)
 block|{
 if|if
 condition|(
-name|ttl
-operator|==
-name|HConstants
-operator|.
-name|FOREVER
-operator|||
-name|now
-operator|<
+operator|!
+name|isExpired
+argument_list|(
 name|readkey
-operator|.
-name|getTimestamp
-argument_list|()
-operator|+
+argument_list|,
 name|ttl
+argument_list|,
+name|now
+argument_list|)
 condition|)
 block|{
 name|results
@@ -5997,29 +5908,6 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"get: "
-operator|+
-name|readkey
-operator|+
-literal|": expired, skipped"
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|// Perhaps only one version is wanted.  I could let this
 comment|// test happen later in the for loop test but it would cost
@@ -6096,20 +5984,15 @@ condition|)
 block|{
 if|if
 condition|(
-name|ttl
-operator|==
-name|HConstants
-operator|.
-name|FOREVER
-operator|||
-name|now
-operator|<
+operator|!
+name|isExpired
+argument_list|(
 name|readkey
-operator|.
-name|getTimestamp
-argument_list|()
-operator|+
+argument_list|,
 name|ttl
+argument_list|,
+name|now
+argument_list|)
 condition|)
 block|{
 name|results
@@ -6131,29 +6014,6 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"get: "
-operator|+
-name|readkey
-operator|+
-literal|": expired, skipped"
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 block|}
@@ -6456,20 +6316,15 @@ condition|)
 block|{
 if|if
 condition|(
-name|ttl
-operator|==
-name|HConstants
-operator|.
-name|FOREVER
-operator|||
-name|now
-operator|<
+operator|!
+name|isExpired
+argument_list|(
 name|readkey
-operator|.
-name|getTimestamp
-argument_list|()
-operator|+
+argument_list|,
 name|ttl
+argument_list|,
+name|now
+argument_list|)
 condition|)
 block|{
 name|keys
@@ -6483,29 +6338,6 @@ name|readkey
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"getKeys: "
-operator|+
-name|readkey
-operator|+
-literal|": expired, skipped"
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|// if we've collected enough versions, then exit the loop.
 if|if
@@ -6582,9 +6414,9 @@ throws|throws
 name|IOException
 block|{
 comment|// Map of HStoreKeys that are candidates for holding the row key that
-comment|// most closely matches what we're looking for. We'll have to update it
-comment|// deletes found all over the place as we go along before finally reading
-comment|// the best key out of it at the end.
+comment|// most closely matches what we're looking for. We'll have to update it as
+comment|// deletes are found all over the place as we go along before finally
+comment|// reading the best key out of it at the end.
 name|SortedMap
 argument_list|<
 name|HStoreKey
@@ -6602,7 +6434,27 @@ name|Long
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|// Obtain read lock
+comment|// Keep a list of deleted cell keys.  We need this because as we go through
+comment|// the store files, the cell with the delete marker may be in one file and
+comment|// the old non-delete cell value in a later store file. If we don't keep
+comment|// around the fact that the cell was deleted in a newer record, we end up
+comment|// returning the old value if user is asking for more than one version.
+comment|// This List of deletes should not be large since we are only keeping rows
+comment|// and columns that match those set on the scanner and which have delete
+comment|// values.  If memory usage becomes an issue, could redo as bloom filter.
+name|Set
+argument_list|<
+name|HStoreKey
+argument_list|>
+name|deletes
+init|=
+operator|new
+name|HashSet
+argument_list|<
+name|HStoreKey
+argument_list|>
+argument_list|()
+decl_stmt|;
 name|this
 operator|.
 name|lock
@@ -6615,8 +6467,22 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-comment|// Process each store file.  Run through from oldest to newest so deletes
-comment|// have chance to overshadow deleted cells
+comment|// First go to the memcache.  Pick up deletes and candidates.
+name|this
+operator|.
+name|memcache
+operator|.
+name|getRowKeyAtOrBefore
+argument_list|(
+name|row
+argument_list|,
+name|candidateKeys
+argument_list|,
+name|deletes
+argument_list|)
+expr_stmt|;
+comment|// Process each store file.  Run through from newest to oldest.
+comment|// This code below is very close to the body of the getKeys method.
 name|MapFile
 operator|.
 name|Reader
@@ -6631,16 +6497,18 @@ control|(
 name|int
 name|i
 init|=
-literal|0
-init|;
-name|i
-operator|<
 name|maparray
 operator|.
 name|length
+operator|-
+literal|1
+init|;
+name|i
+operator|>=
+literal|0
 condition|;
 name|i
-operator|++
+operator|--
 control|)
 block|{
 comment|// Update the candidate keys from the current map file
@@ -6654,21 +6522,11 @@ argument_list|,
 name|row
 argument_list|,
 name|candidateKeys
+argument_list|,
+name|deletes
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Finally, check the memcache
-name|this
-operator|.
-name|memcache
-operator|.
-name|getRowKeyAtOrBefore
-argument_list|(
-name|row
-argument_list|,
-name|candidateKeys
-argument_list|)
-expr_stmt|;
 comment|// Return the best key from candidateKeys
 return|return
 name|candidateKeys
@@ -6706,6 +6564,7 @@ specifier|private
 name|void
 name|rowAtOrBeforeFromMapFile
 parameter_list|(
+specifier|final
 name|MapFile
 operator|.
 name|Reader
@@ -6716,6 +6575,7 @@ name|byte
 index|[]
 name|row
 parameter_list|,
+specifier|final
 name|SortedMap
 argument_list|<
 name|HStoreKey
@@ -6723,6 +6583,13 @@ argument_list|,
 name|Long
 argument_list|>
 name|candidateKeys
+parameter_list|,
+specifier|final
+name|Set
+argument_list|<
+name|HStoreKey
+argument_list|>
+name|deletes
 parameter_list|)
 throws|throws
 name|IOException
@@ -6815,6 +6682,8 @@ name|row
 argument_list|,
 name|candidateKeys
 argument_list|,
+name|deletes
+argument_list|,
 name|now
 argument_list|)
 expr_stmt|;
@@ -6830,6 +6699,8 @@ argument_list|,
 name|row
 argument_list|,
 name|candidateKeys
+argument_list|,
+name|deletes
 argument_list|,
 name|now
 argument_list|)
@@ -6865,6 +6736,13 @@ argument_list|,
 name|Long
 argument_list|>
 name|candidateKeys
+parameter_list|,
+specifier|final
+name|Set
+argument_list|<
+name|HStoreKey
+argument_list|>
+name|deletes
 parameter_list|,
 specifier|final
 name|long
@@ -6947,9 +6825,116 @@ name|searchKey
 argument_list|,
 name|candidateKeys
 argument_list|,
+name|deletes
+argument_list|,
 name|now
 argument_list|)
 expr_stmt|;
+block|}
+comment|/*     * @param ttlSetting    * @param hsk    * @param now    * @param deletes    * @return True if key has not expired and is not in passed set of deletes.    */
+specifier|static
+name|boolean
+name|notExpiredAndNotInDeletes
+parameter_list|(
+specifier|final
+name|long
+name|ttl
+parameter_list|,
+specifier|final
+name|HStoreKey
+name|hsk
+parameter_list|,
+specifier|final
+name|long
+name|now
+parameter_list|,
+specifier|final
+name|Set
+argument_list|<
+name|HStoreKey
+argument_list|>
+name|deletes
+parameter_list|)
+block|{
+return|return
+operator|!
+name|isExpired
+argument_list|(
+name|hsk
+argument_list|,
+name|ttl
+argument_list|,
+name|now
+argument_list|)
+operator|&&
+operator|!
+name|deletes
+operator|.
+name|contains
+argument_list|(
+name|hsk
+argument_list|)
+return|;
+block|}
+specifier|private
+specifier|static
+name|boolean
+name|isExpired
+parameter_list|(
+specifier|final
+name|HStoreKey
+name|hsk
+parameter_list|,
+specifier|final
+name|long
+name|ttl
+parameter_list|,
+specifier|final
+name|long
+name|now
+parameter_list|)
+block|{
+name|boolean
+name|result
+init|=
+name|ttl
+operator|!=
+name|HConstants
+operator|.
+name|FOREVER
+operator|&&
+name|now
+operator|>
+name|hsk
+operator|.
+name|getTimestamp
+argument_list|()
+operator|+
+name|ttl
+decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"rowAtOrBeforeCandidate 1:"
+operator|+
+name|hsk
+operator|+
+literal|": expired, skipped"
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|result
+return|;
 block|}
 comment|/* Find a candidate for row that is at or before passed key, sk, in mapfile.    * @param map    * @param sk Key to go search the mapfile with.    * @param candidateKeys    * @param now    * @throws IOException    * @see {@link #rowAtOrBeforeCandidate(HStoreKey, org.apache.hadoop.io.MapFile.Reader, byte[], SortedMap, long)}    */
 specifier|private
@@ -6974,6 +6959,13 @@ argument_list|,
 name|Long
 argument_list|>
 name|candidateKeys
+parameter_list|,
+specifier|final
+name|Set
+argument_list|<
+name|HStoreKey
+argument_list|>
+name|deletes
 parameter_list|,
 specifier|final
 name|long
@@ -7088,20 +7080,18 @@ condition|)
 block|{
 if|if
 condition|(
-name|ttl
-operator|==
-name|HConstants
+name|notExpiredAndNotInDeletes
+argument_list|(
+name|this
 operator|.
-name|FOREVER
-operator|||
-name|now
-operator|<
+name|ttl
+argument_list|,
 name|readkey
-operator|.
-name|getTimestamp
-argument_list|()
-operator|+
-name|ttl
+argument_list|,
+name|now
+argument_list|,
+name|deletes
+argument_list|)
 condition|)
 block|{
 name|candidateKeys
@@ -7127,30 +7117,18 @@ name|foundCandidate
 operator|=
 literal|true
 expr_stmt|;
+comment|// NOTE! Continue.
 continue|continue;
-block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"rowAtOrBeforeCandidate 1:"
-operator|+
-name|readkey
-operator|+
-literal|": expired, skipped"
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 comment|// Deleted value.
+name|deletes
+operator|.
+name|add
+argument_list|(
+name|readkey
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|deletedOrExpiredRow
@@ -7214,20 +7192,18 @@ condition|)
 block|{
 if|if
 condition|(
-name|ttl
-operator|==
-name|HConstants
+name|notExpiredAndNotInDeletes
+argument_list|(
+name|this
 operator|.
-name|FOREVER
-operator|||
-name|now
-operator|<
+name|ttl
+argument_list|,
 name|readkey
-operator|.
-name|getTimestamp
-argument_list|()
-operator|+
-name|ttl
+argument_list|,
+name|now
+argument_list|,
+name|deletes
+argument_list|)
 condition|)
 block|{
 name|candidateKeys
@@ -7255,27 +7231,14 @@ literal|true
 expr_stmt|;
 continue|continue;
 block|}
-if|if
-condition|(
-name|LOG
+block|}
+name|deletes
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|add
 argument_list|(
-literal|"rowAtOrBeforeCandidate 2:"
-operator|+
 name|readkey
-operator|+
-literal|": expired, skipped"
 argument_list|)
 expr_stmt|;
-block|}
-block|}
 if|if
 condition|(
 name|deletedOrExpiredRow
@@ -7383,6 +7346,13 @@ argument_list|,
 name|Long
 argument_list|>
 name|candidateKeys
+parameter_list|,
+specifier|final
+name|Set
+argument_list|<
+name|HStoreKey
+argument_list|>
+name|deletes
 parameter_list|,
 specifier|final
 name|long
@@ -7518,20 +7488,18 @@ condition|)
 block|{
 if|if
 condition|(
-name|ttl
-operator|==
-name|HConstants
+name|notExpiredAndNotInDeletes
+argument_list|(
+name|this
 operator|.
-name|FOREVER
-operator|||
-name|now
-operator|<
+name|ttl
+argument_list|,
 name|readkey
-operator|.
-name|getTimestamp
-argument_list|()
-operator|+
-name|ttl
+argument_list|,
+name|now
+argument_list|,
+name|deletes
+argument_list|)
 condition|)
 block|{
 name|candidateKeys
@@ -7550,29 +7518,6 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"rowAtOrBeforeWithCandidates 1: "
-operator|+
-name|readkey
-operator|+
-literal|": expired, skipped"
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 else|else
@@ -7674,20 +7619,18 @@ condition|)
 block|{
 if|if
 condition|(
-name|ttl
-operator|==
-name|HConstants
+name|notExpiredAndNotInDeletes
+argument_list|(
+name|this
 operator|.
-name|FOREVER
-operator|||
-name|now
-operator|<
+name|ttl
+argument_list|,
 name|readkey
-operator|.
-name|getTimestamp
-argument_list|()
-operator|+
-name|ttl
+argument_list|,
+name|now
+argument_list|,
+name|deletes
+argument_list|)
 condition|)
 block|{
 name|candidateKeys
@@ -7707,29 +7650,6 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"rowAtOrBeforeWithCandidates 2: "
-operator|+
-name|readkey
-operator|+
-literal|": expired, skipped"
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 else|else

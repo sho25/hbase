@@ -1917,6 +1917,8 @@ specifier|private
 specifier|volatile
 name|boolean
 name|flushRequested
+init|=
+literal|false
 decl_stmt|;
 comment|// Default access because read by tests.
 specifier|final
@@ -2240,12 +2242,6 @@ operator|.
 name|flushListener
 operator|=
 name|flushListener
-expr_stmt|;
-name|this
-operator|.
-name|flushRequested
-operator|=
-literal|false
 expr_stmt|;
 name|this
 operator|.
@@ -5106,6 +5102,7 @@ block|}
 block|}
 block|}
 else|else
+block|{
 name|storeSet
 operator|.
 name|addAll
@@ -5116,6 +5113,7 @@ name|values
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// For each column name that is just a column family, open the store
 comment|// related to it and fetch everything for that row. HBASE-631
 comment|// Also remove each store from storeSet so that these stores
@@ -6088,12 +6086,15 @@ name|memcacheSize
 operator|.
 name|get
 argument_list|()
-operator|>=
+operator|>
 name|this
 operator|.
 name|blockingMemcacheSize
 condition|)
 block|{
+name|requestFlush
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -6885,11 +6886,10 @@ name|this
 operator|.
 name|flushRequested
 operator|&&
+name|isFlushSize
+argument_list|(
 name|size
-operator|>
-name|this
-operator|.
-name|memcacheFlushSize
+argument_list|)
 expr_stmt|;
 block|}
 finally|finally
@@ -6911,6 +6911,31 @@ name|flush
 condition|)
 block|{
 comment|// Request a cache flush.  Do it outside update lock.
+name|requestFlush
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+specifier|private
+name|void
+name|requestFlush
+parameter_list|()
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|flushListener
+operator|==
+literal|null
+operator|||
+name|this
+operator|.
+name|flushRequested
+condition|)
+block|{
+return|return;
+block|}
 name|this
 operator|.
 name|flushListener
@@ -6926,7 +6951,42 @@ name|flushRequested
 operator|=
 literal|true
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Flush requested on "
+operator|+
+name|this
+argument_list|)
+expr_stmt|;
 block|}
+block|}
+comment|/*    * @param size    * @return True if size is over the flush threshold    */
+specifier|private
+name|boolean
+name|isFlushSize
+parameter_list|(
+specifier|final
+name|long
+name|size
+parameter_list|)
+block|{
+return|return
+name|size
+operator|>
+name|this
+operator|.
+name|memcacheFlushSize
+return|;
 block|}
 comment|// Do any reconstruction needed from the log
 annotation|@

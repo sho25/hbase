@@ -556,7 +556,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|T10
+name|T20
 argument_list|)
 argument_list|)
 expr_stmt|;
