@@ -2651,14 +2651,7 @@ name|this
 operator|.
 name|memcacheFlushSize
 operator|*
-name|conf
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.hregion.memcache.block.multiplier"
-argument_list|,
-literal|1
-argument_list|)
+name|flushSize
 expr_stmt|;
 comment|// See if region is meant to run read-only.
 if|if
@@ -6092,9 +6085,6 @@ operator|.
 name|blockingMemcacheSize
 condition|)
 block|{
-name|requestFlush
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 operator|!
