@@ -642,7 +642,7 @@ argument_list|>
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/*    * Sorted Map of readers keyed by sequence id (Most recent should be last in    * in list).    */
+comment|/*    * Sorted Map of readers keyed by sequence id (Most recent is last in list).    */
 specifier|private
 specifier|final
 name|SortedMap
@@ -3436,7 +3436,8 @@ name|checkSplit
 argument_list|()
 return|;
 block|}
-comment|// HBASE-745, preparing all store file size for incremental compacting selection.
+comment|// HBASE-745, preparing all store file size for incremental compacting
+comment|// selection.
 name|int
 name|countOfFiles
 init|=
@@ -3630,9 +3631,20 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Compaction size "
+literal|"Compaction size of "
 operator|+
+name|this
+operator|.
+name|storeNameStr
+operator|+
+literal|": "
+operator|+
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
 name|totalSize
+argument_list|)
 operator|+
 literal|", skipped "
 operator|+
@@ -5669,6 +5681,7 @@ condition|)
 do|;
 block|}
 block|}
+comment|/**    * @return Array of readers ordered oldest to newest.    */
 name|MapFile
 operator|.
 name|Reader
@@ -6555,7 +6568,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Find the key that matches<i>row</i> exactly, or the one that immediately    * preceeds it. WARNING: Only use this method on a table where writes occur     * with stricly increasing timestamps. This method assumes this pattern of     * writes in order to make it reasonably performant.     */
+comment|/**    * Find the key that matches<i>row</i> exactly, or the one that immediately    * preceeds it. WARNING: Only use this method on a table where writes occur     * with stricly increasing timestamps. This method assumes this pattern of     * writes in order to make it reasonably performant.    * @param row    * @return Found row    * @throws IOException    */
 name|byte
 index|[]
 name|getRowKeyAtOrBefore
@@ -6602,7 +6615,8 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-comment|// Process each store file
+comment|// Process each store file.  Run through from oldest to newest so deletes
+comment|// have chance to overshadow deleted cells
 name|MapFile
 operator|.
 name|Reader
@@ -6617,21 +6631,19 @@ control|(
 name|int
 name|i
 init|=
+literal|0
+init|;
+name|i
+operator|<
 name|maparray
 operator|.
 name|length
-operator|-
-literal|1
-init|;
-name|i
-operator|>=
-literal|0
 condition|;
 name|i
-operator|--
+operator|++
 control|)
 block|{
-comment|// update the candidate keys from the current map file
+comment|// Update the candidate keys from the current map file
 name|rowAtOrBeforeFromMapFile
 argument_list|(
 name|maparray
@@ -6689,7 +6701,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Check an individual MapFile for the row at or before a given key     * and timestamp    */
+comment|/*    * Check an individual MapFile for the row at or before a given key     * and timestamp    * @param map    * @param row    * @param candidateKeys    * @throws IOException    */
 specifier|private
 name|void
 name|rowAtOrBeforeFromMapFile
@@ -6715,18 +6727,18 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|ImmutableBytesWritable
-name|readval
+name|HStoreKey
+name|startKey
 init|=
 operator|new
-name|ImmutableBytesWritable
+name|HStoreKey
 argument_list|()
 decl_stmt|;
-name|HStoreKey
-name|readkey
+name|ImmutableBytesWritable
+name|startValue
 init|=
 operator|new
-name|HStoreKey
+name|ImmutableBytesWritable
 argument_list|()
 decl_stmt|;
 synchronized|synchronized
@@ -6734,7 +6746,7 @@ init|(
 name|map
 init|)
 block|{
-comment|// don't bother with the rest of this if the file is empty
+comment|// Don't bother with the rest of this if the file is empty
 name|map
 operator|.
 name|reset
@@ -6747,10 +6759,31 @@ name|map
 operator|.
 name|next
 argument_list|(
-name|readkey
+name|startKey
 argument_list|,
-name|readval
+name|startValue
 argument_list|)
+condition|)
+block|{
+return|return;
+block|}
+comment|// If start row for this file is beyond passed in row, return; nothing
+comment|// in here is of use to us.
+if|if
+condition|(
+name|Bytes
+operator|.
+name|compareTo
+argument_list|(
+name|startKey
+operator|.
+name|getRow
+argument_list|()
+argument_list|,
+name|row
+argument_list|)
+operator|>
+literal|0
 condition|)
 block|{
 return|return;
@@ -6763,8 +6796,7 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
-comment|// if there aren't any candidate keys yet, we'll do some things slightly
-comment|// different
+comment|// if there aren't any candidate keys yet, we'll do some things different
 if|if
 condition|(
 name|candidateKeys
@@ -6773,8 +6805,10 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-name|rowKeyFromMapFileEmptyKeys
+name|rowAtOrBeforeCandidate
 argument_list|(
+name|startKey
+argument_list|,
 name|map
 argument_list|,
 name|row
@@ -6787,8 +6821,10 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|rowKeyAtOrBeforeExistingCandKeys
+name|rowAtOrBeforeWithCandidates
 argument_list|(
+name|startKey
+argument_list|,
 name|map
 argument_list|,
 name|row
@@ -6801,19 +6837,27 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/* Find a candidate for row that is at or before passed row in passed    * mapfile.    * @param startKey First key in the mapfile.    * @param map    * @param row    * @param candidateKeys    * @param now    * @throws IOException    */
 specifier|private
 name|void
-name|rowKeyFromMapFileEmptyKeys
+name|rowAtOrBeforeCandidate
 parameter_list|(
+specifier|final
+name|HStoreKey
+name|startKey
+parameter_list|,
+specifier|final
 name|MapFile
 operator|.
 name|Reader
 name|map
 parameter_list|,
+specifier|final
 name|byte
 index|[]
 name|row
 parameter_list|,
+specifier|final
 name|SortedMap
 argument_list|<
 name|HStoreKey
@@ -6822,51 +6866,29 @@ name|Long
 argument_list|>
 name|candidateKeys
 parameter_list|,
+specifier|final
 name|long
 name|now
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// if the row we're looking for is past the end of this mapfile, set the
+comment|// search key to be the last key.  If its a deleted key, then we'll back
+comment|// up to the row before and return that.
+name|HStoreKey
+name|finalKey
+init|=
+name|getFinalKey
+argument_list|(
+name|map
+argument_list|)
+decl_stmt|;
 name|HStoreKey
 name|searchKey
 init|=
-operator|new
-name|HStoreKey
-argument_list|(
-name|row
-argument_list|)
+literal|null
 decl_stmt|;
-name|ImmutableBytesWritable
-name|readval
-init|=
-operator|new
-name|ImmutableBytesWritable
-argument_list|()
-decl_stmt|;
-name|HStoreKey
-name|readkey
-init|=
-operator|new
-name|HStoreKey
-argument_list|()
-decl_stmt|;
-comment|// if the row we're looking for is past the end of this mapfile, just
-comment|// save time and add the last key to the candidates.
-name|HStoreKey
-name|finalKey
-init|=
-operator|new
-name|HStoreKey
-argument_list|()
-decl_stmt|;
-name|map
-operator|.
-name|finalKey
-argument_list|(
-name|finalKey
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|Bytes
@@ -6884,44 +6906,119 @@ operator|<
 literal|0
 condition|)
 block|{
-name|candidateKeys
-operator|.
-name|put
-argument_list|(
-name|stripTimestamp
-argument_list|(
+name|searchKey
+operator|=
 name|finalKey
-argument_list|)
-argument_list|,
+expr_stmt|;
+block|}
+else|else
+block|{
+name|searchKey
+operator|=
 operator|new
-name|Long
+name|HStoreKey
 argument_list|(
-name|finalKey
-operator|.
-name|getTimestamp
-argument_list|()
-argument_list|)
+name|row
 argument_list|)
 expr_stmt|;
-return|return;
+if|if
+condition|(
+name|searchKey
+operator|.
+name|compareTo
+argument_list|(
+name|startKey
+argument_list|)
+operator|<
+literal|0
+condition|)
+block|{
+name|searchKey
+operator|=
+name|startKey
+expr_stmt|;
 block|}
+block|}
+name|rowAtOrBeforeCandidate
+argument_list|(
+name|map
+argument_list|,
+name|searchKey
+argument_list|,
+name|candidateKeys
+argument_list|,
+name|now
+argument_list|)
+expr_stmt|;
+block|}
+comment|/* Find a candidate for row that is at or before passed key, sk, in mapfile.    * @param map    * @param sk Key to go search the mapfile with.    * @param candidateKeys    * @param now    * @throws IOException    * @see {@link #rowAtOrBeforeCandidate(HStoreKey, org.apache.hadoop.io.MapFile.Reader, byte[], SortedMap, long)}    */
+specifier|private
+name|void
+name|rowAtOrBeforeCandidate
+parameter_list|(
+specifier|final
+name|MapFile
+operator|.
+name|Reader
+name|map
+parameter_list|,
+specifier|final
 name|HStoreKey
-name|deletedOrExpiredRow
+name|sk
+parameter_list|,
+specifier|final
+name|SortedMap
+argument_list|<
+name|HStoreKey
+argument_list|,
+name|Long
+argument_list|>
+name|candidateKeys
+parameter_list|,
+specifier|final
+name|long
+name|now
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|HStoreKey
+name|searchKey
+init|=
+name|sk
+decl_stmt|;
+name|HStoreKey
+name|readkey
+init|=
+operator|new
+name|HStoreKey
+argument_list|()
+decl_stmt|;
+name|ImmutableBytesWritable
+name|readval
+init|=
+operator|new
+name|ImmutableBytesWritable
+argument_list|()
+decl_stmt|;
+name|HStoreKey
+name|knownNoGoodKey
 init|=
 literal|null
 decl_stmt|;
+for|for
+control|(
 name|boolean
 name|foundCandidate
 init|=
 literal|false
-decl_stmt|;
-while|while
-condition|(
+init|;
 operator|!
 name|foundCandidate
-condition|)
+condition|;
+control|)
 block|{
-comment|// seek to the exact row, or the one that would be immediately before it
+comment|// Seek to the exact row, or the one that would be immediately before it
 name|readkey
 operator|=
 operator|(
@@ -6945,12 +7042,17 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// didn't find anything that would match, so return
-return|return;
+comment|// If null, we are at the start or end of the file.
+break|break;
 block|}
+name|HStoreKey
+name|deletedOrExpiredRow
+init|=
+literal|null
+decl_stmt|;
 do|do
 block|{
-comment|// if we have an exact match on row, and it's not a delete, save this
+comment|// If we have an exact match on row, and it's not a delete, save this
 comment|// as a candidate key
 if|if
 condition|(
@@ -6963,7 +7065,10 @@ operator|.
 name|getRow
 argument_list|()
 argument_list|,
-name|row
+name|searchKey
+operator|.
+name|getRow
+argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -7036,7 +7141,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"rowAtOrBeforeFromMapFile:"
+literal|"rowAtOrBeforeCandidate 1:"
 operator|+
 name|readkey
 operator|+
@@ -7045,13 +7150,23 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// Deleted value.
+if|if
+condition|(
+name|deletedOrExpiredRow
+operator|==
+literal|null
+condition|)
+block|{
 name|deletedOrExpiredRow
 operator|=
-name|stripTimestamp
+operator|new
+name|HStoreKey
 argument_list|(
 name|readkey
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 elseif|else
 if|if
@@ -7065,19 +7180,22 @@ operator|.
 name|getRow
 argument_list|()
 argument_list|,
-name|row
+name|searchKey
+operator|.
+name|getRow
+argument_list|()
 argument_list|)
 operator|>
 literal|0
 condition|)
 block|{
 comment|// if the row key we just read is beyond the key we're searching for,
-comment|// then we're done. return.
+comment|// then we're done.
 break|break;
 block|}
 else|else
 block|{
-comment|// so, the row key doesn't match, but we haven't gone past the row
+comment|// So, the row key doesn't match, but we haven't gone past the row
 comment|// we're seeking yet, so this row is a candidate for closest
 comment|// (assuming that it isn't a delete).
 if|if
@@ -7149,7 +7267,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"rowAtOrBeforeFromMapFile:"
+literal|"rowAtOrBeforeCandidate 2:"
 operator|+
 name|readkey
 operator|+
@@ -7158,13 +7276,22 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|deletedOrExpiredRow
+operator|==
+literal|null
+condition|)
+block|{
 name|deletedOrExpiredRow
 operator|=
-name|stripTimestamp
+operator|new
+name|HStoreKey
 argument_list|(
 name|readkey
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 do|while
@@ -7177,6 +7304,21 @@ name|readkey
 argument_list|,
 name|readval
 argument_list|)
+operator|&&
+operator|(
+name|knownNoGoodKey
+operator|==
+literal|null
+operator|||
+name|readkey
+operator|.
+name|compareTo
+argument_list|(
+name|knownNoGoodKey
+argument_list|)
+operator|<
+literal|0
+operator|)
 condition|)
 do|;
 comment|// If we get here and have no candidates but we did find a deleted or
@@ -7191,13 +7333,17 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|searchKey
+name|knownNoGoodKey
 operator|=
 name|deletedOrExpiredRow
 expr_stmt|;
-name|deletedOrExpiredRow
+name|searchKey
 operator|=
-literal|null
+operator|new
+name|BeforeThisStoreKey
+argument_list|(
+name|deletedOrExpiredRow
+argument_list|)
 expr_stmt|;
 block|}
 else|else
@@ -7206,23 +7352,30 @@ comment|// No candidates and no deleted or expired candidates. Give up.
 break|break;
 block|}
 block|}
-comment|// arriving here just means that we consumed the whole rest of the map
+comment|// Arriving here just means that we consumed the whole rest of the map
 comment|// without going "past" the key we're searching for. we can just fall
 comment|// through here.
 block|}
 specifier|private
 name|void
-name|rowKeyAtOrBeforeExistingCandKeys
+name|rowAtOrBeforeWithCandidates
 parameter_list|(
+specifier|final
+name|HStoreKey
+name|startKey
+parameter_list|,
+specifier|final
 name|MapFile
 operator|.
 name|Reader
 name|map
 parameter_list|,
+specifier|final
 name|byte
 index|[]
 name|row
 parameter_list|,
+specifier|final
 name|SortedMap
 argument_list|<
 name|HStoreKey
@@ -7231,6 +7384,7 @@ name|Long
 argument_list|>
 name|candidateKeys
 parameter_list|,
+specifier|final
 name|long
 name|now
 parameter_list|)
@@ -7238,9 +7392,11 @@ throws|throws
 name|IOException
 block|{
 name|HStoreKey
-name|strippedKey
+name|readkey
 init|=
-literal|null
+operator|new
+name|HStoreKey
+argument_list|()
 decl_stmt|;
 name|ImmutableBytesWritable
 name|readval
@@ -7249,16 +7405,12 @@ operator|new
 name|ImmutableBytesWritable
 argument_list|()
 decl_stmt|;
-name|HStoreKey
-name|readkey
-init|=
-operator|new
-name|HStoreKey
-argument_list|()
-decl_stmt|;
 comment|// if there are already candidate keys, we need to start our search
 comment|// at the earliest possible key so that we can discover any possible
-comment|// deletes for keys between the start and the search key.
+comment|// deletes for keys between the start and the search key.  Back up to start
+comment|// of the row in case there are deletes for this candidate in this mapfile
+comment|// BUT do not backup before the first key in the mapfile else getClosest
+comment|// will return null
 name|HStoreKey
 name|searchKey
 init|=
@@ -7274,125 +7426,24 @@ name|getRow
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// if the row we're looking for is past the end of this mapfile, just
-comment|// save time and add the last key to the candidates.
-name|HStoreKey
-name|finalKey
-init|=
-operator|new
-name|HStoreKey
-argument_list|()
-decl_stmt|;
-name|map
-operator|.
-name|finalKey
-argument_list|(
-name|finalKey
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
-name|Bytes
+name|searchKey
 operator|.
 name|compareTo
 argument_list|(
-name|finalKey
-operator|.
-name|getRow
-argument_list|()
-argument_list|,
-name|searchKey
-operator|.
-name|getRow
-argument_list|()
+name|startKey
 argument_list|)
 operator|<
 literal|0
 condition|)
 block|{
-name|strippedKey
+name|searchKey
 operator|=
-name|stripTimestamp
-argument_list|(
-name|finalKey
-argument_list|)
-expr_stmt|;
-comment|// if the candidate keys has a cell like this one already,
-comment|// then we might want to update the timestamp we're using on it
-if|if
-condition|(
-name|candidateKeys
-operator|.
-name|containsKey
-argument_list|(
-name|strippedKey
-argument_list|)
-condition|)
-block|{
-name|long
-name|bestCandidateTs
-init|=
-name|candidateKeys
-operator|.
-name|get
-argument_list|(
-name|strippedKey
-argument_list|)
-operator|.
-name|longValue
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|bestCandidateTs
-operator|<
-name|finalKey
-operator|.
-name|getTimestamp
-argument_list|()
-condition|)
-block|{
-name|candidateKeys
-operator|.
-name|put
-argument_list|(
-name|strippedKey
-argument_list|,
-operator|new
-name|Long
-argument_list|(
-name|finalKey
-operator|.
-name|getTimestamp
-argument_list|()
-argument_list|)
-argument_list|)
+name|startKey
 expr_stmt|;
 block|}
-block|}
-else|else
-block|{
-comment|// otherwise, this is a new key, so put it up as a candidate
-name|candidateKeys
-operator|.
-name|put
-argument_list|(
-name|strippedKey
-argument_list|,
-operator|new
-name|Long
-argument_list|(
-name|finalKey
-operator|.
-name|getTimestamp
-argument_list|()
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-return|return;
-block|}
-comment|// seek to the exact row, or the one that would be immediately before it
+comment|// Seek to the exact row, or the one that would be immediately before it
 name|readkey
 operator|=
 operator|(
@@ -7416,11 +7467,17 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// didn't find anything that would match, so return
+comment|// If null, we are at the start or end of the file.
+comment|// Didn't find anything that would match, so return
 return|return;
 block|}
 do|do
 block|{
+name|HStoreKey
+name|strippedKey
+init|=
+literal|null
+decl_stmt|;
 comment|// if we have an exact match on row, and it's not a delete, save this
 comment|// as a candidate key
 if|if
@@ -7508,7 +7565,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"rowAtOrBeforeFromMapFile: "
+literal|"rowAtOrBeforeWithCandidates 1: "
 operator|+
 name|readkey
 operator|+
@@ -7520,7 +7577,7 @@ block|}
 block|}
 else|else
 block|{
-comment|// if the candidate keys contain any that might match by timestamp,
+comment|// If the candidate keys contain any that might match by timestamp,
 comment|// then check for a match and remove it if it's too young to
 comment|// survive the delete
 if|if
@@ -7586,8 +7643,8 @@ literal|0
 condition|)
 block|{
 comment|// if the row key we just read is beyond the key we're searching for,
-comment|// then we're done. return.
-return|return;
+comment|// then we're done.
+break|break;
 block|}
 else|else
 block|{
@@ -7598,7 +7655,7 @@ argument_list|(
 name|readkey
 argument_list|)
 expr_stmt|;
-comment|// so, the row key doesn't match, but we haven't gone past the row
+comment|// So, the row key doesn't match, but we haven't gone past the row
 comment|// we're seeking yet, so this row is a candidate for closest
 comment|// (assuming that it isn't a delete).
 if|if
@@ -7639,10 +7696,15 @@ name|put
 argument_list|(
 name|strippedKey
 argument_list|,
+name|Long
+operator|.
+name|valueOf
+argument_list|(
 name|readkey
 operator|.
 name|getTimestamp
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -7660,7 +7722,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"rowAtOrBeforeFromMapFile: "
+literal|"rowAtOrBeforeWithCandidates 2: "
 operator|+
 name|readkey
 operator|+
@@ -7672,7 +7734,7 @@ block|}
 block|}
 else|else
 block|{
-comment|// if the candidate keys contain any that might match by timestamp,
+comment|// If the candidate keys contain any that might match by timestamp,
 comment|// then check for a match and remove it if it's too young to
 comment|// survive the delete
 if|if
@@ -7732,6 +7794,38 @@ name|readval
 argument_list|)
 condition|)
 do|;
+block|}
+comment|/*    * @param mf MapFile to dig in.    * @return Final key from passed<code>mf</code>    * @throws IOException    */
+specifier|private
+name|HStoreKey
+name|getFinalKey
+parameter_list|(
+specifier|final
+name|MapFile
+operator|.
+name|Reader
+name|mf
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|HStoreKey
+name|finalKey
+init|=
+operator|new
+name|HStoreKey
+argument_list|()
+decl_stmt|;
+name|mf
+operator|.
+name|finalKey
+argument_list|(
+name|finalKey
+argument_list|)
+expr_stmt|;
+return|return
+name|finalKey
+return|;
 block|}
 specifier|static
 name|HStoreKey

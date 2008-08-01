@@ -502,7 +502,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Compaction failed"
+literal|"Compaction/Split failed"
 operator|+
 operator|(
 name|r

@@ -172,7 +172,7 @@ name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
 decl_stmt|;
-comment|/**    * Default constructor used serializing.    */
+comment|/**    * Default constructor used serializing.  Do not use directly.    */
 specifier|public
 name|BatchUpdate
 parameter_list|()
