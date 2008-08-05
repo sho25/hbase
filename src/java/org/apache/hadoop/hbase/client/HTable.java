@@ -373,7 +373,7 @@ specifier|private
 name|HBaseConfiguration
 name|configuration
 decl_stmt|;
-comment|/**    * Creates an object to access a HBase table    *    * @param tableName name of the table    * @throws IOException    */
+comment|/**    * Creates an object to access a HBase table    *    * @param tableName name of the table    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|HTable
 parameter_list|(
@@ -445,7 +445,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table    *     * @param conf configuration object    * @param tableName name of the table    * @throws IOException    */
+comment|/**    * Creates an object to access a HBase table    *     * @param conf configuration object    * @param tableName name of the table    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|HTable
 parameter_list|(
@@ -549,7 +549,7 @@ name|EMPTY_START_ROW
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException    */
+comment|/**    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 specifier|static
 name|boolean
@@ -619,7 +619,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * @param conf HBaseConfiguration object    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException    */
+comment|/**    * @param conf HBaseConfiguration object    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 specifier|static
 name|boolean
@@ -705,7 +705,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Find region location hosting passed row using cached info    * @param row Row to find.    * @return Location of row.    * @throws IOException    */
+comment|/**    * Find region location hosting passed row using cached info    * @param row Row to find.    * @return Location of row.    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|HRegionLocation
 name|getRegionLocation
@@ -1208,7 +1208,7 @@ return|return
 name|regionMap
 return|;
 block|}
-comment|/**    * Get a single value for the specified row and column    *     * @param row row key    * @param column column name    * @return value for specified row/column    * @throws IOException    */
+comment|/**    * Get a single value for the specified row and column    *     * @param row row key    * @param column column name    * @return value for specified row/column    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|Cell
 name|get
@@ -1239,7 +1239,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a single value for the specified row and column    *    * @param row row key    * @param column column name    * @param numVersions - number of versions to retrieve    * @return value for specified row/column    * @throws IOException    */
+comment|/**     * Get a single value for the specified row and column    *    * @param row row key    * @param column column name    * @param numVersions - number of versions to retrieve    * @return value for specified row/column    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|Cell
 index|[]
@@ -1493,7 +1493,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**     * Get the specified number of versions of the specified row and column with    * the specified timestamp.    *    * @param row         - row key    * @param column      - column name    * @param timestamp   - timestamp    * @param numVersions - number of versions to retrieve    * @return            - array of values that match the above criteria    * @throws IOException    */
+comment|/**     * Get the specified number of versions of the specified row and column with    * the specified timestamp.    *    * @param row         - row key    * @param column      - column name    * @param timestamp   - timestamp    * @param numVersions - number of versions to retrieve    * @return            - array of values that match the above criteria    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|Cell
 index|[]
@@ -1739,7 +1739,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**     * Get all the data for the specified row at the latest timestamp    *     * @param row row key    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get all the data for the specified row at the latest timestamp    *     * @param row row key    * @return RowResult is empty if row does not exist.    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|RowResult
 name|getRow
@@ -1809,7 +1809,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 return|;
 block|}
-comment|/**     * Get all the data for the specified row at a specified timestamp    *     * @param row row key    * @param ts timestamp    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get all the data for the specified row at a specified timestamp    *     * @param row row key    * @param ts timestamp    * @return RowResult is empty if row does not exist.    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|RowResult
 name|getRow
@@ -1932,7 +1932,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at the latest timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get selected columns for the specified row at the latest timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @return RowResult is empty if row does not exist.    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|RowResult
 name|getRow
@@ -2034,7 +2034,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at a specified timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get selected columns for the specified row at a specified timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @return RowResult is empty if row does not exist.    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|RowResult
 name|getRow
@@ -2189,7 +2189,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at first row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @return scanner    * @throws IOException    */
+comment|/**     * Get a scanner on the current table starting at first row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @return scanner    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|Scanner
 name|getScanner
@@ -2247,7 +2247,7 @@ name|EMPTY_START_ROW
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @return scanner    * @throws IOException    */
+comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @return scanner    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|Scanner
 name|getScanner
@@ -2493,7 +2493,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at the specified row and    * ending just before<code>stopRow<code>.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param stopRow Row to stop scanning on. Once we hit this row we stop    * returning values; i.e. we return the row before this one but not the    *<code>stopRow</code> itself.    * @param timestamp only return results whose timestamp<= this value    * @return scanner    * @throws IOException    */
+comment|/**     * Get a scanner on the current table starting at the specified row and    * ending just before<code>stopRow<code>.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param stopRow Row to stop scanning on. Once we hit this row we stop    * returning values; i.e. we return the row before this one but not the    *<code>stopRow</code> itself.    * @param timestamp only return results whose timestamp<= this value    * @return scanner    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|Scanner
 name|getScanner
@@ -2644,7 +2644,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param timestamp only return results whose timestamp<= this value    * @param filter a row filter using row-key regexp and/or column data filter.    * @return scanner    * @throws IOException    */
+comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param timestamp only return results whose timestamp<= this value    * @param filter a row filter using row-key regexp and/or column data filter.    * @return scanner    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|Scanner
 name|getScanner
@@ -2790,7 +2790,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Completely delete the row's cells.    *    * @param row Key of the row you want to completely delete.    * @throws IOException    */
+comment|/**    * Completely delete the row's cells.    *    * @param row Key of the row you want to completely delete.    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|void
 name|deleteAll
@@ -2913,7 +2913,7 @@ name|ts
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Completely delete the row's cells.    *    * @param row Key of the row you want to completely delete.    * @param ts Delete all cells of the same timestamp or older.    * @throws IOException    */
+comment|/**    * Completely delete the row's cells.    *    * @param row Key of the row you want to completely delete.    * @param ts Delete all cells of the same timestamp or older.    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|void
 name|deleteAll
@@ -2939,7 +2939,7 @@ name|ts
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Delete all cells that match the passed row and column.    * @param row Row to update    * @param column name of column whose value is to be deleted    * @throws IOException     */
+comment|/**     * Delete all cells that match the passed row and column.    * @param row Row to update    * @param column name of column whose value is to be deleted    * @throws IOException     * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|void
 name|deleteAll
@@ -2995,7 +2995,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp.    * @param row Row to update    * @param column name of column whose value is to be deleted    * @param ts Delete all cells of the same timestamp or older.    * @throws IOException     */
+comment|/**     * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp.    * @param row Row to update    * @param column name of column whose value is to be deleted    * @param ts Delete all cells of the same timestamp or older.    * @throws IOException     * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|void
 name|deleteAll
@@ -3182,7 +3182,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete all cells for a row with matching column family at all timestamps.    *    * @param row The row to operate on    * @param family The column family to match    * @param timestamp Timestamp to match    * @throws IOException    */
+comment|/**    * Delete all cells for a row with matching column family at all timestamps.    *    * @param row The row to operate on    * @param family The column family to match    * @param timestamp Timestamp to match    * @throws IOException    * @deprecated Use String or byte [] overload instead    */
 specifier|public
 name|void
 name|deleteFamily

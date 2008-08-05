@@ -981,11 +981,7 @@ name|HTable
 argument_list|(
 name|conf
 argument_list|,
-operator|new
-name|Text
-argument_list|(
 literal|"notATable"
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|fail
@@ -1071,11 +1067,7 @@ name|HTable
 argument_list|(
 name|conf
 argument_list|,
-operator|new
-name|Text
-argument_list|(
 literal|"notATable"
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|fail
