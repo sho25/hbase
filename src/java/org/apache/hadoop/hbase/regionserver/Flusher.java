@@ -886,13 +886,6 @@ argument_list|(
 name|r
 argument_list|)
 expr_stmt|;
-name|r
-operator|.
-name|setLastFlushTime
-argument_list|(
-name|now
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 block|}

@@ -1913,13 +1913,6 @@ argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
-specifier|private
-specifier|volatile
-name|boolean
-name|flushRequested
-init|=
-literal|false
-decl_stmt|;
 comment|// Default access because read by tests.
 specifier|final
 name|Map
@@ -1990,6 +1983,13 @@ name|flushing
 init|=
 literal|false
 decl_stmt|;
+comment|// Set when a flush has been requested.
+specifier|volatile
+name|boolean
+name|flushRequested
+init|=
+literal|false
+decl_stmt|;
 comment|// Set while a compaction is running.
 specifier|volatile
 name|boolean
@@ -2044,6 +2044,16 @@ return|return
 name|this
 operator|.
 name|readOnly
+return|;
+block|}
+name|boolean
+name|isFlushRequested
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|flushRequested
 return|;
 block|}
 block|}
@@ -3224,21 +3234,6 @@ operator|.
 name|lastFlushTime
 return|;
 block|}
-comment|/** @param t the lastFlushTime */
-name|void
-name|setLastFlushTime
-parameter_list|(
-name|long
-name|t
-parameter_list|)
-block|{
-name|this
-operator|.
-name|lastFlushTime
-operator|=
-name|t
-expr_stmt|;
-block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// HRegion maintenance.
 comment|//
@@ -4304,6 +4299,8 @@ operator|.
 name|writesEnabled
 condition|)
 block|{
+name|this
+operator|.
 name|writestate
 operator|.
 name|flushing
@@ -4391,6 +4388,14 @@ name|flushing
 operator|=
 literal|false
 expr_stmt|;
+name|this
+operator|.
+name|writestate
+operator|.
+name|flushRequested
+operator|=
+literal|false
+expr_stmt|;
 name|writestate
 operator|.
 name|notifyAll
@@ -4417,12 +4422,6 @@ name|currentTimeMillis
 argument_list|()
 decl_stmt|;
 comment|// Clear flush flag.
-name|this
-operator|.
-name|flushRequested
-operator|=
-literal|false
-expr_stmt|;
 comment|// Record latest flush time
 name|this
 operator|.
@@ -6872,17 +6871,6 @@ expr_stmt|;
 block|}
 name|flush
 operator|=
-name|this
-operator|.
-name|flushListener
-operator|!=
-literal|null
-operator|&&
-operator|!
-name|this
-operator|.
-name|flushRequested
-operator|&&
 name|isFlushSize
 argument_list|(
 name|size
@@ -6925,14 +6913,33 @@ operator|.
 name|flushListener
 operator|==
 literal|null
-operator|||
-name|this
-operator|.
-name|flushRequested
 condition|)
 block|{
 return|return;
 block|}
+synchronized|synchronized
+init|(
+name|writestate
+init|)
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|writestate
+operator|.
+name|isFlushRequested
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
+name|writestate
+operator|.
+name|flushRequested
+operator|=
+literal|true
+expr_stmt|;
 name|this
 operator|.
 name|flushListener
@@ -6942,12 +6949,7 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|flushRequested
-operator|=
-literal|true
-expr_stmt|;
+block|}
 if|if
 condition|(
 name|LOG
