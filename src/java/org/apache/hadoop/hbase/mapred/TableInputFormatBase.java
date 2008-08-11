@@ -99,6 +99,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|UnknownScannerException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|HTable
@@ -317,6 +331,20 @@ name|Reporter
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
+import|;
+end_import
+
 begin_comment
 comment|/**  * A Base for {@link TableInputFormat}s. Receives a {@link HTable}, a  * {@link Text}[] of input columns and optionally a {@link RowFilterInterface}.  * Subclasses may use other TableRecordReader implementations.  *<p>  * An example of a subclass:  *<code>  *   class ExampleTIF extends TableInputFormatBase implements JobConfigurable {  *  *     public void configure(JobConf job) {  *       HTable exampleTable = new HTable(new HBaseConfiguration(job),  *         Bytes.toBytes("exampleTable"));  *       // mandatory  *       setHTable(exampleTable);  *       Text[] inputColumns = new byte [][] { Bytes.toBytes("columnA"),  *         Bytes.toBytes("columnB") };  *       // mandatory  *       setInputColums(inputColumns);  *       RowFilterInterface exampleFilter = new RegExpRowFilter("keyPrefix.*");  *       // optional  *       setRowFilter(exampleFilter);  *     }  *  *     public void validateInput(JobConf job) throws IOException {  *     }  *  }  *</code>  */
 end_comment
@@ -389,6 +417,11 @@ index|[]
 name|endRow
 decl_stmt|;
 specifier|private
+name|byte
+index|[]
+name|lastRow
+decl_stmt|;
+specifier|private
 name|RowFilterInterface
 name|trrRowFilter
 decl_stmt|;
@@ -406,11 +439,15 @@ index|[]
 index|[]
 name|trrInputColumns
 decl_stmt|;
-comment|/**      * Build the scanner. Not done in constructor to allow for extension.      *      * @throws IOException      */
+comment|/**      * Restart from survivable exceptions by creating a new scanner.      *      * @throws IOException      */
 specifier|public
 name|void
-name|init
-parameter_list|()
+name|restart
+parameter_list|(
+name|byte
+index|[]
+name|firstRow
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -512,7 +549,7 @@ name|getScanner
 argument_list|(
 name|trrInputColumns
 argument_list|,
-name|startRow
+name|firstRow
 argument_list|,
 name|endRow
 argument_list|)
@@ -533,12 +570,26 @@ name|getScanner
 argument_list|(
 name|trrInputColumns
 argument_list|,
-name|startRow
+name|firstRow
 argument_list|,
 name|trrRowFilter
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+comment|/**      * Build the scanner. Not done in constructor to allow for extension.      *      * @throws IOException      */
+specifier|public
+name|void
+name|init
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|restart
+argument_list|(
+name|startRow
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**      * @param htable the {@link HTable} to scan.      */
 specifier|public
@@ -690,7 +741,7 @@ return|return
 literal|0
 return|;
 block|}
-comment|/**      * @param key HStoreKey as input key.      * @param value MapWritable as input value      *      * Converts Scanner.next() to Text, RowResult      *      * @return true if there was more data      * @throws IOException      */
+comment|/**      * @param key HStoreKey as input key.      * @param value MapWritable as input value      * @return true if there was more data      * @throws IOException      */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -711,14 +762,62 @@ name|IOException
 block|{
 name|RowResult
 name|result
-init|=
+decl_stmt|;
+try|try
+block|{
+name|result
+operator|=
 name|this
 operator|.
 name|scanner
 operator|.
 name|next
 argument_list|()
-decl_stmt|;
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|UnknownScannerException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"recovered from "
+operator|+
+name|StringUtils
+operator|.
+name|stringifyException
+argument_list|(
+name|e
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|restart
+argument_list|(
+name|lastRow
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|scanner
+operator|.
+name|next
+argument_list|()
+expr_stmt|;
+comment|// skip presumed already mapped row
+name|result
+operator|=
+name|this
+operator|.
+name|scanner
+operator|.
+name|next
+argument_list|()
+expr_stmt|;
+block|}
 name|boolean
 name|hasMore
 init|=
@@ -747,6 +846,13 @@ operator|.
 name|getRow
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|lastRow
+operator|=
+name|key
+operator|.
+name|get
+argument_list|()
 expr_stmt|;
 name|Writables
 operator|.
