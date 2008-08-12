@@ -306,6 +306,14 @@ init|=
 literal|"regions"
 decl_stmt|;
 specifier|protected
+specifier|static
+specifier|final
+name|String
+name|TABLES
+init|=
+literal|"tables"
+decl_stmt|;
+specifier|protected
 specifier|final
 name|Log
 name|LOG

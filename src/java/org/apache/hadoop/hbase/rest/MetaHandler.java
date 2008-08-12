@@ -144,7 +144,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * MetaHandler fields all requests for metadata at the instance level. At the  * momment this is only GET requests to /.  */
+comment|/**  * MetaHandler fields all requests for metadata at the instance level. At the  * moment this is only GET requests to /.  */
 end_comment
 
 begin_class
