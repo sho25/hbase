@@ -1221,7 +1221,12 @@ name|oldestOutstandingSeqNum
 operator|+
 literal|" from region "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|oldestRegion
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
