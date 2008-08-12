@@ -1543,8 +1543,6 @@ name|getInt
 argument_list|(
 literal|"hbase.regionserver.lease.period"
 argument_list|,
-literal|3
-operator|*
 literal|60
 operator|*
 literal|1000
