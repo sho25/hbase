@@ -6940,6 +6940,8 @@ name|flushRequested
 operator|=
 literal|true
 expr_stmt|;
+block|}
+comment|// Make request outside of synchronize block; HBASE-818.
 name|this
 operator|.
 name|flushListener
@@ -6949,7 +6951,6 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|LOG
