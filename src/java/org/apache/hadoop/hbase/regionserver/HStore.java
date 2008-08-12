@@ -3593,6 +3593,58 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|filesToCompact
+operator|.
+name|size
+argument_list|()
+operator|<=
+literal|1
+condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Skipped compaction of 1 file; compaction size of "
+operator|+
+name|this
+operator|.
+name|storeNameStr
+operator|+
+literal|": "
+operator|+
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
+name|totalSize
+argument_list|)
+operator|+
+literal|"; Skipped "
+operator|+
+name|point
+operator|+
+literal|" files, size: "
+operator|+
+name|skipped
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|checkSplit
+argument_list|()
+return|;
+block|}
+if|if
+condition|(
 name|LOG
 operator|.
 name|isDebugEnabled
@@ -3618,11 +3670,11 @@ argument_list|(
 name|totalSize
 argument_list|)
 operator|+
-literal|", skipped "
+literal|"; Skipped "
 operator|+
 name|point
 operator|+
-literal|", "
+literal|" files , size: "
 operator|+
 name|skipped
 argument_list|)
