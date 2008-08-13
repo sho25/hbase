@@ -1725,6 +1725,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -1759,6 +1761,8 @@ argument_list|,
 name|column
 argument_list|,
 name|ts
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -1935,6 +1939,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
+argument_list|,
+literal|null
 argument_list|)
 return|;
 block|}
@@ -2531,6 +2537,8 @@ argument_list|,
 literal|null
 argument_list|,
 name|timestamp
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|Cell

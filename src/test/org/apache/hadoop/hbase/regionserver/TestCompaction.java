@@ -671,6 +671,8 @@ name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// Now, before compacting, remove all instances of the first row so can

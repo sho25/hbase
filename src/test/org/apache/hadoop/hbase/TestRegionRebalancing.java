@@ -953,6 +953,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|bu
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|region

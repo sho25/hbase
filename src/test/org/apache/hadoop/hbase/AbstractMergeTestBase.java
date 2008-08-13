@@ -574,6 +574,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 if|if

@@ -692,6 +692,8 @@ literal|0
 index|]
 argument_list|,
 name|t1
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 if|if
@@ -866,6 +868,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 if|if

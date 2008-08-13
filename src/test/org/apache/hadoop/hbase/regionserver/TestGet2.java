@@ -416,6 +416,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|batchUpdate
@@ -446,6 +448,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|batchUpdate
@@ -476,6 +480,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|Map
@@ -544,6 +550,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|results
@@ -610,6 +618,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|results
@@ -671,6 +681,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|results
@@ -853,6 +865,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|results
@@ -1029,6 +1043,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|results
@@ -1175,6 +1191,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|batchUpdate
@@ -1200,6 +1218,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|results
@@ -1947,6 +1967,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|batchUpdate
@@ -1977,6 +1999,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|batchUpdate
@@ -2007,6 +2031,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|batchUpdate
@@ -2037,6 +2063,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|batchUpdate
@@ -2062,6 +2090,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|batchUpdate
@@ -2092,6 +2122,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// try finding "015"
@@ -2548,6 +2580,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|batchUpdate
@@ -2578,6 +2612,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|batchUpdate
@@ -2608,6 +2644,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// try finding "035"
@@ -2729,6 +2767,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// try finding "035"
@@ -2970,6 +3010,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|bu
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|assertSpecifiedColumns
@@ -3168,6 +3210,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -3250,6 +3294,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -3314,6 +3360,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -3396,6 +3444,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|assertNull
@@ -3544,6 +3594,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// flush
@@ -3571,6 +3623,8 @@ operator|)
 literal|null
 argument_list|,
 name|LATEST_TIMESTAMP
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -3624,6 +3678,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// flush
@@ -3651,6 +3707,8 @@ operator|)
 literal|null
 argument_list|,
 name|LATEST_TIMESTAMP
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -3790,6 +3848,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// flush
@@ -3817,6 +3877,8 @@ operator|)
 literal|null
 argument_list|,
 name|LATEST_TIMESTAMP
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -3902,6 +3964,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// flush
@@ -3929,6 +3993,8 @@ operator|)
 literal|null
 argument_list|,
 name|LATEST_TIMESTAMP
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -4009,6 +4075,8 @@ operator|.
 name|batchUpdate
 argument_list|(
 name|batchUpdate
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// assert i get the third column only
@@ -4030,6 +4098,8 @@ operator|)
 literal|null
 argument_list|,
 name|LATEST_TIMESTAMP
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -4164,6 +4234,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|int
