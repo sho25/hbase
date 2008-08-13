@@ -267,7 +267,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get selected columns for the specified row at a given timestamp.    *     * @param regionName region name    * @param row row key    * @return map of values    * @throws IOException    */
+comment|/**    * Get selected columns for the specified row at a given timestamp.    *     * @param regionName region name    * @param row row key    * @param lockId lock id    * @return map of values    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -291,11 +291,15 @@ parameter_list|,
 specifier|final
 name|long
 name|ts
+parameter_list|,
+specifier|final
+name|long
+name|lockId
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Applies a batch of updates via one RPC    *     * @param regionName name of the region to update    * @param b BatchUpdate    * @throws IOException    */
+comment|/**    * Applies a batch of updates via one RPC    *     * @param regionName name of the region to update    * @param b BatchUpdate    * @param lockId lock id    * @throws IOException    */
 specifier|public
 name|void
 name|batchUpdate
@@ -308,11 +312,15 @@ parameter_list|,
 specifier|final
 name|BatchUpdate
 name|b
+parameter_list|,
+specifier|final
+name|long
+name|lockId
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp.    *    * @param regionName region name    * @param row row key    * @param column column key    * @param timestamp Delete all entries that have this timestamp or older    * @throws IOException    */
+comment|/**    * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp.    *    * @param regionName region name    * @param row row key    * @param column column key    * @param timestamp Delete all entries that have this timestamp or older    * @param lockId lock id    * @throws IOException    */
 specifier|public
 name|void
 name|deleteAll
@@ -331,11 +339,14 @@ name|column
 parameter_list|,
 name|long
 name|timestamp
+parameter_list|,
+name|long
+name|lockId
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete all cells that match the passed row and whose    * timestamp is equal-to or older than the passed timestamp.    *    * @param regionName region name    * @param row row key    * @param timestamp Delete all entries that have this timestamp or older    * @throws IOException    */
+comment|/**    * Delete all cells that match the passed row and whose    * timestamp is equal-to or older than the passed timestamp.    *    * @param regionName region name    * @param row row key    * @param timestamp Delete all entries that have this timestamp or older    * @param lockId lock id    * @throws IOException    */
 specifier|public
 name|void
 name|deleteAll
@@ -350,11 +361,14 @@ name|row
 parameter_list|,
 name|long
 name|timestamp
+parameter_list|,
+name|long
+name|lockId
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete all cells for a row with matching column family with timestamps    * less than or equal to<i>timestamp</i>.    *    * @param regionName The name of the region to operate on    * @param row The row to operate on    * @param family The column family to match    * @param timestamp Timestamp to match    */
+comment|/**    * Delete all cells for a row with matching column family with timestamps    * less than or equal to<i>timestamp</i>.    *    * @param regionName The name of the region to operate on    * @param row The row to operate on    * @param family The column family to match    * @param timestamp Timestamp to match    * @param lockId lock id    */
 specifier|public
 name|void
 name|deleteFamily
@@ -373,6 +387,9 @@ name|family
 parameter_list|,
 name|long
 name|timestamp
+parameter_list|,
+name|long
+name|lockId
 parameter_list|)
 throws|throws
 name|IOException
@@ -428,6 +445,41 @@ name|close
 parameter_list|(
 name|long
 name|scannerId
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Opens a remote row lock.    *    * @param regionName name of region    * @param row row to lock    * @return lockId lock identifier    * @throws IOException    */
+specifier|public
+name|long
+name|lockRow
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|regionName
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|row
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Releases a remote row lock.    *    * @param lockId the lock id returned by lockRow    * @throws IOException    */
+specifier|public
+name|void
+name|unlockRow
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|regionName
+parameter_list|,
+specifier|final
+name|long
+name|lockId
 parameter_list|)
 throws|throws
 name|IOException

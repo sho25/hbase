@@ -2570,6 +2570,9 @@ argument_list|(
 name|metaRegionName
 argument_list|,
 name|b
+argument_list|,
+operator|-
+literal|1L
 argument_list|)
 expr_stmt|;
 comment|// 4. Close the new region to flush it to disk.  Close its log file too.

@@ -291,6 +291,9 @@ argument_list|(
 name|regionName
 argument_list|,
 name|b
+argument_list|,
+operator|-
+literal|1L
 argument_list|)
 expr_stmt|;
 name|LOG

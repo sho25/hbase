@@ -8850,6 +8850,9 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
+argument_list|,
+operator|-
+literal|1L
 argument_list|)
 expr_stmt|;
 block|}
@@ -8931,6 +8934,9 @@ argument_list|(
 name|metaRegionName
 argument_list|,
 name|b
+argument_list|,
+operator|-
+literal|1L
 argument_list|)
 expr_stmt|;
 block|}
