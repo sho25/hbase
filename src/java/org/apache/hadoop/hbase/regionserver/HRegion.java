@@ -5436,7 +5436,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Get<code>versions</code> keys matching the origin key's    * row/column/timestamp and those of an older vintage    * Default access so can be accessed out of {@link HRegionServer}.    * @param origin Where to start searching.    * @param versions How many versions to return. Pass    * {@link HConstants.ALL_VERSIONS} to retrieve all.    * @return Ordered list of<code>versions</code> keys going from newest back.    * @throws IOException    */
+comment|/*    * Get<code>versions</code> keys matching the origin key's    * row/column/timestamp and those of an older vintage.    * @param origin Where to start searching.    * @param versions How many versions to return. Pass    * {@link HConstants.ALL_VERSIONS} to retrieve all.    * @return Ordered list of<code>versions</code> keys going from newest back.    * @throws IOException    */
 specifier|private
 name|Set
 argument_list|<
@@ -5533,6 +5533,14 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|long
+name|now
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|HStore
@@ -5563,6 +5571,8 @@ argument_list|(
 name|origin
 argument_list|,
 name|versions
+argument_list|,
+name|now
 argument_list|)
 decl_stmt|;
 if|if
@@ -6296,6 +6306,9 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
+comment|// Delete ALL verisons rather than MAX_VERSIONS.  If we just did
+comment|// MAX_VERSIONS, then if 2* MAX_VERSION cells, subsequent gets would
+comment|// get old stuff.
 name|deleteMultiple
 argument_list|(
 name|row
@@ -6357,6 +6370,14 @@ argument_list|,
 name|row
 argument_list|)
 decl_stmt|;
+name|long
+name|now
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 try|try
 block|{
 for|for
@@ -6389,6 +6410,8 @@ name|ts
 argument_list|)
 argument_list|,
 name|ALL_VERSIONS
+argument_list|,
+name|now
 argument_list|)
 decl_stmt|;
 name|TreeMap
@@ -6491,6 +6514,14 @@ argument_list|,
 name|row
 argument_list|)
 decl_stmt|;
+name|long
+name|now
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 try|try
 block|{
 comment|// find the HStore for the column family
@@ -6522,6 +6553,8 @@ name|timestamp
 argument_list|)
 argument_list|,
 name|ALL_VERSIONS
+argument_list|,
+name|now
 argument_list|)
 decl_stmt|;
 comment|// delete all the cells
@@ -6588,7 +6621,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Delete one or many cells.    * Used to support {@link #deleteAll(byte [], byte [], long)} and deletion of    * latest cell.    *     * @param row    * @param column    * @param ts Timestamp to start search on.    * @param versions How many versions to delete. Pass    * {@link HConstants#ALL_VERSIONS} to delete all.    * @throws IOException    */
+comment|/*    * Delete one or many cells.    * Used to support {@link #deleteAll(byte [], byte [], long)} and deletion of    * latest cell.    * @param row    * @param column    * @param ts Timestamp to start search on.    * @param versions How many versions to delete. Pass    * {@link HConstants#ALL_VERSIONS} to delete all.    * @throws IOException    */
 specifier|private
 name|void
 name|deleteMultiple
