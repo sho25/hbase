@@ -2001,7 +2001,7 @@ literal|"Skipping region "
 operator|+
 name|currentRegion
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|" because it is already closing."
