@@ -5692,6 +5692,22 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|b
+operator|.
+name|getRow
+argument_list|()
+operator|==
+literal|null
+condition|)
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"update has null row"
+argument_list|)
+throw|;
 name|checkOpen
 argument_list|()
 expr_stmt|;
