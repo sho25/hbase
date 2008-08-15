@@ -881,7 +881,7 @@ name|getLong
 argument_list|(
 literal|"hbase.client.pause"
 argument_list|,
-literal|10
+literal|2
 operator|*
 literal|1000
 argument_list|)
@@ -2741,12 +2741,26 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"reloading table servers because: "
+literal|"Attempt "
+operator|+
+name|tries
+operator|+
+literal|" of "
+operator|+
+name|this
+operator|.
+name|numRetries
+operator|+
+literal|" failed with<"
 operator|+
 name|e
-operator|.
-name|getMessage
-argument_list|()
+operator|+
+literal|">. Retrying after sleep of "
+operator|+
+name|getPauseTime
+argument_list|(
+name|tries
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

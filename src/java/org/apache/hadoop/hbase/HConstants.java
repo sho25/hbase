@@ -619,9 +619,11 @@ literal|1
 block|,
 literal|1
 block|,
-literal|1
+literal|2
 block|,
 literal|2
+block|,
+literal|4
 block|,
 literal|4
 block|,
@@ -630,8 +632,6 @@ block|,
 literal|16
 block|,
 literal|32
-block|,
-literal|64
 block|}
 decl_stmt|;
 block|}
