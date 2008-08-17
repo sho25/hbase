@@ -4509,7 +4509,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
+name|HRegion
+name|r
+init|=
 operator|new
 name|HRegion
 argument_list|(
@@ -4540,11 +4542,16 @@ name|conf
 argument_list|,
 name|regionInfo
 argument_list|,
-literal|null
-argument_list|,
 name|this
 operator|.
 name|cacheFlusher
+argument_list|)
+decl_stmt|;
+name|r
+operator|.
+name|initialize
+argument_list|(
+literal|null
 argument_list|,
 operator|new
 name|Progressable
@@ -4563,6 +4570,9 @@ expr_stmt|;
 block|}
 block|}
 argument_list|)
+expr_stmt|;
+return|return
+name|r
 return|;
 block|}
 comment|/*    * Add a MSG_REPORT_PROCESS_OPEN to the outbound queue.    * This method is called while region is in the queue of regions to process    * and then while the region is being opened, it is called from the Worker    * thread that is running the region open.    * @param hri Region to add the message for    */

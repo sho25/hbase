@@ -1567,6 +1567,11 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
+name|val
+operator|.
+name|isTransactionEntry
+argument_list|()
+operator|||
 name|Bytes
 operator|.
 name|equals
@@ -6032,6 +6037,7 @@ name|versions
 return|;
 block|}
 comment|/**    * Get<code>versions</code> keys matching the origin key's    * row/column/timestamp and those of an older vintage.    * Default access so can be accessed out of {@link HRegionServer}.    * @param origin Where to start searching.    * @param numVersions How many versions to return. Pass    * {@link HConstants.ALL_VERSIONS} to retrieve all.    * @param now    * @return Matching keys.    * @throws IOException    */
+specifier|public
 name|List
 argument_list|<
 name|HStoreKey

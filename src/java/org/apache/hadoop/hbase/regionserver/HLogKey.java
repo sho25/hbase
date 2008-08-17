@@ -58,7 +58,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Key for an entry in the change log.  *   * The log intermingles edits to many tables and rows, so each log entry   * identifies the appropriate table and row.  Within a table and row, they're   * also sorted.  */
+comment|/**  * A Key for an entry in the change log.  *   * The log intermingles edits to many tables and rows, so each log entry   * identifies the appropriate table and row.  Within a table and row, they're   * also sorted.  *   * Some Transactional edits (START, COMMIT, ABORT) will not have an associated row.  */
 end_comment
 
 begin_class
@@ -155,6 +155,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// A bunch of accessors
 comment|//////////////////////////////////////////////////////////////////////////////
+specifier|public
 name|byte
 index|[]
 name|getRegionName
@@ -164,6 +165,7 @@ return|return
 name|regionName
 return|;
 block|}
+specifier|public
 name|byte
 index|[]
 name|getTablename
@@ -173,6 +175,7 @@ return|return
 name|tablename
 return|;
 block|}
+specifier|public
 name|byte
 index|[]
 name|getRow
@@ -182,6 +185,7 @@ return|return
 name|row
 return|;
 block|}
+specifier|public
 name|long
 name|getLogSeqNum
 parameter_list|()

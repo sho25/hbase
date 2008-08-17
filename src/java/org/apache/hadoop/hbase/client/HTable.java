@@ -2781,7 +2781,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
+name|ClientScanner
+name|s
+init|=
 operator|new
 name|ClientScanner
 argument_list|(
@@ -2793,6 +2795,14 @@ name|timestamp
 argument_list|,
 name|filter
 argument_list|)
+decl_stmt|;
+name|s
+operator|.
+name|initialize
+argument_list|()
+expr_stmt|;
+return|return
+name|s
 return|;
 block|}
 comment|/**    * Completely delete the row's cells.    *    * @param row Key of the row you want to completely delete.    * @throws IOException    */
@@ -3861,8 +3871,6 @@ parameter_list|,
 name|RowFilterInterface
 name|filter
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 argument_list|(
@@ -3906,8 +3914,6 @@ specifier|final
 name|RowFilterInterface
 name|filter
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -3986,6 +3992,14 @@ name|columns
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+specifier|public
+name|void
+name|initialize
+parameter_list|()
+throws|throws
+name|IOException
+block|{
 name|nextScanner
 argument_list|()
 expr_stmt|;
