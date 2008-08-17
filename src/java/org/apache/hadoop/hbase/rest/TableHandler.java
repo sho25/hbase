@@ -427,7 +427,17 @@ name|pathSegments
 operator|.
 name|length
 operator|==
-literal|1
+literal|0
+operator|||
+name|pathSegments
+index|[
+literal|0
+index|]
+operator|.
+name|length
+argument_list|()
+operator|<=
+literal|0
 condition|)
 block|{
 comment|// if it's a creation operation
@@ -449,14 +459,14 @@ name|tableName
 init|=
 name|pathSegments
 index|[
-literal|1
+literal|0
 index|]
 decl_stmt|;
 if|if
 condition|(
 name|pathSegments
 index|[
-literal|2
+literal|1
 index|]
 operator|.
 name|toLowerCase
@@ -481,7 +491,7 @@ if|if
 condition|(
 name|pathSegments
 index|[
-literal|2
+literal|1
 index|]
 operator|.
 name|toLowerCase
@@ -1350,7 +1360,7 @@ name|tableName
 init|=
 name|pathSegments
 index|[
-literal|1
+literal|0
 index|]
 decl_stmt|;
 name|admin
@@ -1701,7 +1711,7 @@ name|tableName
 init|=
 name|pathSegments
 index|[
-literal|1
+literal|0
 index|]
 decl_stmt|;
 name|NodeList

@@ -248,14 +248,6 @@ specifier|private
 specifier|static
 specifier|final
 name|String
-name|TABLES
-init|=
-literal|"tables"
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|String
 name|SCANNER
 init|=
 literal|"scanner"
@@ -519,22 +511,20 @@ name|pathSegments
 operator|.
 name|length
 operator|==
-literal|1
-operator|&&
+literal|0
+operator|||
 name|pathSegments
 index|[
 literal|0
 index|]
 operator|.
-name|toLowerCase
+name|length
 argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|TABLES
-argument_list|)
+operator|<=
+literal|0
 condition|)
 block|{
+comment|// if it was a root request, it must be a create table request
 name|tableHandler
 operator|.
 name|doPost
@@ -551,7 +541,7 @@ block|}
 else|else
 block|{
 comment|// there should be at least two path segments (table name and row or
-comment|// scanner)
+comment|// scanner or disable/enable operation)
 if|if
 condition|(
 name|pathSegments
@@ -645,33 +635,10 @@ block|}
 elseif|else
 if|if
 condition|(
-name|pathSegments
-index|[
-literal|0
-index|]
-operator|.
-name|toLowerCase
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|TABLES
-argument_list|)
-operator|&&
-name|pathSegments
-index|[
-literal|1
-index|]
-operator|.
-name|length
-argument_list|()
-operator|>
-literal|0
-operator|&&
 operator|(
 name|pathSegments
 index|[
-literal|2
+literal|1
 index|]
 operator|.
 name|toLowerCase
@@ -686,7 +653,7 @@ argument_list|)
 operator|||
 name|pathSegments
 index|[
-literal|2
+literal|1
 index|]
 operator|.
 name|toLowerCase
@@ -699,6 +666,12 @@ operator|.
 name|ENABLE
 argument_list|)
 operator|)
+operator|&&
+name|pathSegments
+operator|.
+name|length
+operator|==
+literal|2
 condition|)
 block|{
 name|tableHandler
@@ -747,7 +720,6 @@ name|ServletException
 throws|,
 name|IOException
 block|{
-comment|// Equate PUT with a POST.
 name|String
 index|[]
 name|pathSegments
@@ -763,24 +735,11 @@ name|pathSegments
 operator|.
 name|length
 operator|==
-literal|2
+literal|1
 operator|&&
 name|pathSegments
 index|[
 literal|0
-index|]
-operator|.
-name|toLowerCase
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|TABLES
-argument_list|)
-operator|&&
-name|pathSegments
-index|[
-literal|1
 index|]
 operator|.
 name|length
@@ -789,6 +748,7 @@ operator|>
 literal|0
 condition|)
 block|{
+comment|// if it has only table name
 name|tableHandler
 operator|.
 name|doPut
@@ -803,6 +763,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
+comment|// Equate PUT with a POST.
 name|doPost
 argument_list|(
 name|request
@@ -842,24 +803,11 @@ name|pathSegments
 operator|.
 name|length
 operator|==
-literal|2
+literal|1
 operator|&&
 name|pathSegments
 index|[
 literal|0
-index|]
-operator|.
-name|toLowerCase
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|TABLES
-argument_list|)
-operator|&&
-name|pathSegments
-index|[
-literal|1
 index|]
 operator|.
 name|length
@@ -868,6 +816,7 @@ operator|>
 literal|0
 condition|)
 block|{
+comment|// if it only has only table name
 name|tableHandler
 operator|.
 name|doDelete
