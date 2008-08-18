@@ -378,7 +378,7 @@ end_import
 begin_class
 specifier|public
 class|class
-name|TestHLogRecovery
+name|DisabledTestHLogRecovery
 extends|extends
 name|HBaseClusterTestCase
 block|{
@@ -392,7 +392,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestHLogRecovery
+name|DisabledTestHLogRecovery
 operator|.
 name|class
 argument_list|)
@@ -497,7 +497,7 @@ name|table
 decl_stmt|;
 comment|/** constructor */
 specifier|public
-name|TestHLogRecovery
+name|DisabledTestHLogRecovery
 parameter_list|()
 block|{
 name|super
