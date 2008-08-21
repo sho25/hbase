@@ -2106,6 +2106,15 @@ operator|new
 name|ReentrantReadWriteLock
 argument_list|()
 decl_stmt|;
+specifier|private
+specifier|final
+name|ReentrantReadWriteLock
+name|newScannerLock
+init|=
+operator|new
+name|ReentrantReadWriteLock
+argument_list|()
+decl_stmt|;
 comment|// Stop updates lock
 specifier|private
 specifier|final
@@ -2907,7 +2916,7 @@ comment|// continue
 block|}
 block|}
 block|}
-name|splitsAndClosesLock
+name|newScannerLock
 operator|.
 name|writeLock
 argument_list|()
@@ -2919,7 +2928,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Updates and scanners disabled for region "
+literal|"Scanners disabled for region "
 operator|+
 name|this
 argument_list|)
@@ -2984,6 +2993,25 @@ operator|+
 name|this
 argument_list|)
 expr_stmt|;
+name|splitsAndClosesLock
+operator|.
+name|writeLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Updates disabled for region "
+operator|+
+name|this
+argument_list|)
+expr_stmt|;
+try|try
+block|{
 comment|// Write lock means no more row locks can be given out.  Wait on
 comment|// outstanding row locks to come in before we close so we do not drop
 comment|// outstanding updates.
@@ -3070,6 +3098,18 @@ block|}
 finally|finally
 block|{
 name|splitsAndClosesLock
+operator|.
+name|writeLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+finally|finally
+block|{
+name|newScannerLock
 operator|.
 name|writeLock
 argument_list|()
@@ -4040,6 +4080,16 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|splitsAndClosesLock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
+block|{
 name|byte
 index|[]
 name|midKey
@@ -4260,6 +4310,18 @@ block|}
 return|return
 name|midKey
 return|;
+block|}
+finally|finally
+block|{
+name|splitsAndClosesLock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Flush the cache.    *     * When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a     * time-sensitive thread.    *     * @return true if cache was flushed    *     * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
 specifier|public
@@ -4902,6 +4964,16 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|splitsAndClosesLock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
+block|{
 if|if
 condition|(
 name|this
@@ -4962,6 +5034,18 @@ argument_list|,
 name|numVersions
 argument_list|)
 return|;
+block|}
+finally|finally
+block|{
+name|splitsAndClosesLock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Fetch all the columns for the indicated row at a specified timestamp.    * Returns a TreeMap that maps column names to values.    *    * We should eventually use Bloom filters here, to reduce running time.  If     * the database has many column families and is very sparse, then we could be     * checking many files needlessly.  A small Bloom for each row would help us     * determine which column groups are useful for that row.  That would let us     * avoid a bunch of disk activity.    *    * @param row    * @param columns Array of columns you'd like to retrieve. When null, get all.    * @param ts    * @return Map<columnName, Cell> values    * @throws IOException    */
 specifier|public
@@ -5648,7 +5732,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|splitsAndClosesLock
+name|newScannerLock
 operator|.
 name|readLock
 argument_list|()
@@ -5779,7 +5863,7 @@ return|;
 block|}
 finally|finally
 block|{
-name|splitsAndClosesLock
+name|newScannerLock
 operator|.
 name|readLock
 argument_list|()
