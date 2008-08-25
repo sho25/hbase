@@ -362,6 +362,11 @@ name|HConnection
 name|connection
 decl_stmt|;
 specifier|private
+specifier|volatile
+name|HBaseConfiguration
+name|conf
+decl_stmt|;
+specifier|private
 specifier|final
 name|long
 name|pause
@@ -396,6 +401,12 @@ name|getConnection
 argument_list|(
 name|conf
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|conf
+operator|=
+name|conf
 expr_stmt|;
 name|this
 operator|.
@@ -1188,6 +1199,14 @@ block|{
 comment|// continue
 block|}
 block|}
+comment|// Delete cached information to prevent clients from using old locations
+name|HConnectionManager
+operator|.
+name|deleteConnectionInfo
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
