@@ -499,6 +499,9 @@ argument_list|)
 argument_list|,
 name|column
 argument_list|,
+operator|-
+literal|1
+argument_list|,
 name|HColumnDescriptor
 operator|.
 name|DEFAULT_VERSIONS
@@ -530,6 +533,9 @@ name|T00
 argument_list|)
 argument_list|,
 name|column
+argument_list|,
+operator|-
+literal|1
 argument_list|,
 name|HColumnDescriptor
 operator|.
@@ -744,6 +750,9 @@ name|r
 argument_list|,
 name|column
 argument_list|,
+operator|-
+literal|1
+argument_list|,
 literal|100
 argument_list|)
 decl_stmt|;
@@ -768,6 +777,9 @@ name|r
 argument_list|,
 name|column
 argument_list|,
+operator|-
+literal|1
+argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
@@ -789,6 +801,9 @@ argument_list|(
 name|r
 argument_list|,
 name|column
+argument_list|,
+operator|-
+literal|1
 argument_list|,
 name|HConstants
 operator|.

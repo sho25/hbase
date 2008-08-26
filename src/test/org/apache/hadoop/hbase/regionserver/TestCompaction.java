@@ -530,6 +530,9 @@ name|STARTROW
 argument_list|,
 name|COLUMN_FAMILY_TEXT
 argument_list|,
+operator|-
+literal|1
+argument_list|,
 literal|100
 comment|/*Too many*/
 argument_list|)
@@ -611,6 +614,9 @@ name|secondRowBytes
 argument_list|,
 name|COLUMN_FAMILY_TEXT
 argument_list|,
+operator|-
+literal|1
+argument_list|,
 literal|100
 comment|/*Too many*/
 argument_list|)
@@ -688,6 +694,9 @@ name|STARTROW
 argument_list|,
 name|COLUMN_FAMILY_TEXT
 argument_list|,
+operator|-
+literal|1
+argument_list|,
 literal|100
 comment|/*Too many*/
 argument_list|)
@@ -725,6 +734,9 @@ argument_list|(
 name|STARTROW
 argument_list|,
 name|COLUMN_FAMILY_TEXT
+argument_list|,
+operator|-
+literal|1
 argument_list|,
 literal|100
 comment|/*Too many*/
@@ -799,6 +811,9 @@ argument_list|(
 name|STARTROW
 argument_list|,
 name|COLUMN_FAMILY_TEXT
+argument_list|,
+operator|-
+literal|1
 argument_list|,
 literal|100
 comment|/*Too many*/
