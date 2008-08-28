@@ -368,24 +368,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct a column descriptor specifying only the family name     * The other attributes are defaulted.    *     * @param columnName - column family name    */
-specifier|public
-name|HColumnDescriptor
-parameter_list|(
-specifier|final
-name|Text
-name|columnName
-parameter_list|)
-block|{
-name|this
-argument_list|(
-name|columnName
-operator|.
-name|getBytes
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Construct a column descriptor specifying only the family name     * The other attributes are defaulted.    *     * @param columnName Column family name.  Must have the ':' ending.    */
 specifier|public
 name|HColumnDescriptor

@@ -407,20 +407,6 @@ name|Writables
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
 begin_comment
 comment|/**  * Class to manage assigning regions to servers, state of root and meta, etc.  */
 end_comment
@@ -524,11 +510,13 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|Text
+name|byte
+index|[]
 name|OVERLOADED
 init|=
-operator|new
-name|Text
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 literal|"Overloaded"
 argument_list|)

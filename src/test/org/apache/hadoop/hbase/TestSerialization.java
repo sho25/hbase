@@ -127,20 +127,6 @@ name|Writables
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
 begin_comment
 comment|/**  * Test HBase Writables serializations  */
 end_comment
@@ -260,11 +246,10 @@ operator|.
 name|EMPTY_BYTE_ARRAY
 argument_list|)
 argument_list|,
-operator|new
-name|Text
-argument_list|(
 literal|"Some message"
-argument_list|)
+operator|.
+name|getBytes
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|mb

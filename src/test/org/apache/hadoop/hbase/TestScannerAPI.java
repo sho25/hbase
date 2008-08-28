@@ -203,20 +203,6 @@ name|Bytes
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
 begin_comment
 comment|/** test the scanner API at all levels */
 end_comment
@@ -240,20 +226,12 @@ operator|.
 name|toByteArrays
 argument_list|(
 operator|new
-name|Text
+name|String
 index|[]
 block|{
-operator|new
-name|Text
-argument_list|(
 literal|"a:"
-argument_list|)
 block|,
-operator|new
-name|Text
-argument_list|(
 literal|"b:"
-argument_list|)
 block|}
 argument_list|)
 decl_stmt|;

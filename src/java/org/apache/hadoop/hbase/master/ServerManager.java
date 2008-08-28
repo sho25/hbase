@@ -287,20 +287,6 @@ name|HConstants
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
 begin_comment
 comment|/**  * The ServerManager class manages info about region servers - HServerInfo,   * load numbers, dying servers, etc.  */
 end_comment
@@ -2090,11 +2076,10 @@ name|MSG_REGION_CLOSE_WITHOUT_REPORT
 argument_list|,
 name|region
 argument_list|,
-operator|new
-name|Text
-argument_list|(
 literal|"Duplicate assignment"
-argument_list|)
+operator|.
+name|getBytes
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;

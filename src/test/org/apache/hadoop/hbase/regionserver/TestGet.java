@@ -97,20 +97,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
-operator|.
-name|Text
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|HBaseTestCase
@@ -689,9 +675,6 @@ name|batchUpdate
 operator|.
 name|put
 argument_list|(
-operator|new
-name|Text
-argument_list|(
 name|Bytes
 operator|.
 name|toString
@@ -702,7 +685,6 @@ name|COLUMN_FAMILY
 argument_list|)
 operator|+
 literal|"region"
-argument_list|)
 argument_list|,
 name|Bytes
 operator|.
@@ -775,9 +757,6 @@ name|batchUpdate
 operator|.
 name|put
 argument_list|(
-operator|new
-name|Text
-argument_list|(
 name|Bytes
 operator|.
 name|toString
@@ -788,7 +767,6 @@ name|COLUMN_FAMILY
 argument_list|)
 operator|+
 literal|"region"
-argument_list|)
 argument_list|,
 literal|"region2"
 operator|.
@@ -832,9 +810,6 @@ name|batchUpdate
 operator|.
 name|put
 argument_list|(
-operator|new
-name|Text
-argument_list|(
 name|Bytes
 operator|.
 name|toString
@@ -845,7 +820,6 @@ name|COLUMN_FAMILY
 argument_list|)
 operator|+
 literal|"junk"
-argument_list|)
 argument_list|,
 literal|"junk"
 operator|.
