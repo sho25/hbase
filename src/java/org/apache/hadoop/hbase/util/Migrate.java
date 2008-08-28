@@ -753,32 +753,6 @@ return|return
 literal|0
 return|;
 block|}
-if|if
-condition|(
-name|versionStr
-operator|==
-literal|null
-operator|||
-name|Float
-operator|.
-name|parseFloat
-argument_list|(
-name|versionStr
-argument_list|)
-operator|<
-name|HBASE_0_1_VERSION
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Install 0.1.x of hbase and run its "
-operator|+
-literal|"migration first"
-argument_list|)
-throw|;
-block|}
 name|float
 name|version
 init|=
