@@ -116,6 +116,27 @@ name|double
 name|weight
 parameter_list|)
 block|{
+name|set
+argument_list|(
+name|value
+argument_list|,
+name|weight
+argument_list|)
+expr_stmt|;
+block|}
+comment|//end constructor
+specifier|public
+name|void
+name|set
+parameter_list|(
+name|byte
+index|[]
+name|value
+parameter_list|,
+name|double
+name|weight
+parameter_list|)
+block|{
 if|if
 condition|(
 name|value
@@ -144,7 +165,6 @@ operator|=
 name|weight
 expr_stmt|;
 block|}
-comment|//end constructor
 comment|/** @return byte[] The value of<i>this</i> key. */
 specifier|public
 name|byte
