@@ -3524,47 +3524,6 @@ argument_list|,
 name|mapdir
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-operator|&&
-name|lowTimestamp
-operator|>
-literal|0l
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Time since last major compaction on store "
-operator|+
-name|this
-operator|.
-name|storeNameStr
-operator|+
-literal|": "
-operator|+
-operator|(
-operator|(
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-operator|-
-name|lowTimestamp
-operator|)
-operator|/
-literal|1000
-operator|)
-operator|+
-literal|" seconds"
-argument_list|)
-expr_stmt|;
-block|}
 name|lastMajorCompaction
 operator|=
 name|System
