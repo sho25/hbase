@@ -5510,7 +5510,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/*    * Get<code>versions</code> keys matching the origin key's    * row/column/timestamp and those of an older vintage.    * @param origin Where to start searching.    * @param versions How many versions to return. Pass    * {@link HConstants.ALL_VERSIONS} to retrieve all.    * @return Ordered list of<code>versions</code> keys going from newest back.    * @throws IOException    */
+comment|/*    * Get<code>versions</code> keys matching the origin key's    * row/column/timestamp and those of an older vintage.    * Public so available when debugging.    * @param origin Where to start searching.    * @param versions How many versions to return. Pass HConstants.ALL_VERSIONS    * to retrieve all.    * @return Ordered list of<code>versions</code> keys going from newest back.    * @throws IOException    */
 specifier|private
 name|Set
 argument_list|<
@@ -6460,7 +6460,7 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-comment|// Delete ALL verisons rather than MAX_VERSIONS.  If we just did
+comment|// Delete ALL versions rather than MAX_VERSIONS.  If we just did
 comment|// MAX_VERSIONS, then if 2* MAX_VERSION cells, subsequent gets would
 comment|// get old stuff.
 name|deleteMultiple
@@ -7373,8 +7373,8 @@ name|reporter
 argument_list|)
 return|;
 block|}
-comment|/*    * @param column    * @return Store that goes with the family on passed<code>column</code>.    * TODO: Make this lookup faster.    */
-specifier|protected
+comment|/**    * Return HStore instance.    * Use with caution.  Exposed for use of fixup utilities.    * @param column Name of column family hosted by this region.    * @return Store that goes with the family on passed<code>column</code>.    * TODO: Make this lookup faster.    */
+specifier|public
 name|HStore
 name|getStore
 parameter_list|(
@@ -9584,9 +9584,6 @@ name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
 argument_list|,
-operator|(
-name|long
-operator|)
 operator|-
 literal|1L
 argument_list|)
@@ -9671,9 +9668,6 @@ name|metaRegionName
 argument_list|,
 name|b
 argument_list|,
-operator|(
-name|long
-operator|)
 operator|-
 literal|1L
 argument_list|)
