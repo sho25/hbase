@@ -144,14 +144,14 @@ name|HRegionInterface
 extends|extends
 name|VersionedProtocol
 block|{
-comment|/**    * Protocol version.    * Upped to 3 when we went from Text to byte arrays for row and column names.    */
+comment|/**    * Protocol version.    * Upped to 4 when we removed overloaded methods from the protocol.    */
 specifier|public
 specifier|static
 specifier|final
 name|long
 name|versionID
 init|=
-literal|3L
+literal|4L
 decl_stmt|;
 comment|/**     * Get metainfo about an HRegion    *     * @param regionName name of the region    * @return HRegionInfo object for region    * @throws NotServingRegionException    */
 specifier|public
