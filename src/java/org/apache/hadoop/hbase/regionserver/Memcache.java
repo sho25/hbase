@@ -203,6 +203,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HStoreKey
 import|;
 end_import
@@ -270,6 +284,10 @@ specifier|final
 name|long
 name|ttl
 decl_stmt|;
+specifier|private
+name|HRegionInfo
+name|regionInfo
+decl_stmt|;
 comment|// Note that since these structures are always accessed with a lock held,
 comment|// so no additional synchronization is required.
 comment|// The currently active sorted map of edits.
@@ -324,14 +342,23 @@ name|HConstants
 operator|.
 name|FOREVER
 expr_stmt|;
+name|this
+operator|.
+name|regionInfo
+operator|=
+literal|null
+expr_stmt|;
 block|}
-comment|/**    * Constructor.    * @param ttl The TTL for cache entries, in milliseconds.    */
+comment|/**    * Constructor.    * @param ttl The TTL for cache entries, in milliseconds.    * @param regionInfo The HRI for this cache     */
 specifier|public
 name|Memcache
 parameter_list|(
 specifier|final
 name|long
 name|ttl
+parameter_list|,
+name|HRegionInfo
+name|regionInfo
 parameter_list|)
 block|{
 name|this
@@ -339,6 +366,12 @@ operator|.
 name|ttl
 operator|=
 name|ttl
+expr_stmt|;
+name|this
+operator|.
+name|regionInfo
+operator|=
+name|regionInfo
 expr_stmt|;
 block|}
 comment|/*    * Utility method.    * @return sycnhronized sorted map of HStoreKey to byte arrays.    */
@@ -1761,10 +1794,12 @@ operator|.
 name|isEmpty
 argument_list|()
 operator|&&
-name|Bytes
+name|HStoreKey
 operator|.
-name|compareTo
+name|compareTwoRowKeys
 argument_list|(
+name|regionInfo
+argument_list|,
 name|tailMap
 operator|.
 name|firstKey
@@ -1820,10 +1855,12 @@ name|found_key
 operator|==
 literal|null
 operator|||
-name|Bytes
+name|HStoreKey
 operator|.
-name|compareTo
+name|compareTwoRowKeys
 argument_list|(
+name|regionInfo
+argument_list|,
 name|found_key
 operator|.
 name|getRow
@@ -1846,10 +1883,12 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|Bytes
+name|HStoreKey
 operator|.
-name|compareTo
+name|compareTwoRowKeys
 argument_list|(
+name|regionInfo
+argument_list|,
 name|found_key
 operator|.
 name|getRow

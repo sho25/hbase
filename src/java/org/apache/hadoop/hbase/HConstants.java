@@ -310,6 +310,15 @@ argument_list|(
 literal|".META."
 argument_list|)
 decl_stmt|;
+comment|/** delimiter used between portions of a region name */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|META_ROW_DELIMITER
+init|=
+literal|','
+decl_stmt|;
 comment|// Defines for the column names used in both ROOT and META HBase 'meta' tables.
 comment|/** The ROOT and META column family (string) */
 specifier|static

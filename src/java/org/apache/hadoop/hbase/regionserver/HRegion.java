@@ -5372,10 +5372,12 @@ decl_stmt|;
 comment|// if it happens to be an exact match, we can stop looping
 if|if
 condition|(
-name|Bytes
+name|HStoreKey
 operator|.
-name|equals
+name|equalsTwoRowKeys
 argument_list|(
+name|regionInfo
+argument_list|,
 name|row
 argument_list|,
 name|closestKey
@@ -5404,10 +5406,12 @@ name|key
 operator|==
 literal|null
 operator|||
-name|Bytes
+name|HStoreKey
 operator|.
-name|compareTo
+name|compareTwoRowKeys
 argument_list|(
+name|regionInfo
+argument_list|,
 name|closestKey
 argument_list|,
 name|key
