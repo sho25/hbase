@@ -6590,15 +6590,6 @@ index|[]
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"GETKEYS REMOVE "
-operator|+
-name|keys
-argument_list|)
-expr_stmt|;
 for|for
 control|(
 name|HStoreKey
