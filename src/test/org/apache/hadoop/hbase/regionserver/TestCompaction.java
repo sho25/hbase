@@ -500,8 +500,7 @@ expr_stmt|;
 block|}
 comment|// Add more content.  Now there are about 5 versions of each column.
 comment|// Default is that there only 3 (MAXVERSIONS) versions allowed per column.
-comment|// Assert> 3 and then after compaction, assert that only 3 versions
-comment|// available.
+comment|// Assert == 3 when we ask for versions.
 name|addContent
 argument_list|(
 operator|new
@@ -557,29 +556,7 @@ operator|.
 name|compactStores
 argument_list|()
 expr_stmt|;
-name|assertEquals
-argument_list|(
-name|r
-operator|.
-name|getStore
-argument_list|(
-name|COLUMN_FAMILY_TEXT
-argument_list|)
-operator|.
-name|getStorefiles
-argument_list|()
-operator|.
-name|size
-argument_list|()
-argument_list|,
-literal|1
-argument_list|)
-expr_stmt|;
-comment|// Now assert that there are 4 versions of a record only: thats the
-comment|// 3 versions that should be in the compacted store and then the one more
-comment|// we added when we flushed. But could be 3 only if the flush happened
-comment|// before the compaction started though we tried to have the threads run
-comment|// concurrently (On hudson this happens).
+comment|// Always 3 version if that is what max versions is.
 name|byte
 index|[]
 name|secondRowBytes
@@ -641,11 +618,6 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-comment|// Commented out because fails on an hp+ubuntu single-processor w/ 1G and
-comment|// "Intel(R) Pentium(R) 4 CPU 3.20GHz" though passes on all local
-comment|// machines and even on hudson.  On said machine, its reporting in the
-comment|// LOG line above that there are 3 items in row so it should pass the
-comment|// below test.
 name|assertTrue
 argument_list|(
 name|cellValues
@@ -653,12 +625,6 @@ operator|.
 name|length
 operator|==
 literal|3
-operator|||
-name|cellValues
-operator|.
-name|length
-operator|==
-literal|4
 argument_list|)
 expr_stmt|;
 comment|// Now add deletes to memcache and then flush it.  That will put us over
@@ -681,9 +647,7 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-comment|// Now, before compacting, remove all instances of the first row so can
-comment|// verify that it is removed as we compact.
-comment|// Assert all delted.
+comment|// Assert deleted.
 name|assertNull
 argument_list|(
 name|r
@@ -707,24 +671,6 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-name|assertEquals
-argument_list|(
-name|r
-operator|.
-name|getStore
-argument_list|(
-name|COLUMN_FAMILY_TEXT
-argument_list|)
-operator|.
-name|getStorefiles
-argument_list|()
-operator|.
-name|size
-argument_list|()
-argument_list|,
-literal|2
-argument_list|)
-expr_stmt|;
 name|assertNull
 argument_list|(
 name|r
@@ -743,11 +689,7 @@ comment|/*Too many*/
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Add a bit of data and flush it so we for sure have the compaction limit
-comment|// for store files.  Usually by this time we will have but if compaction
-comment|// included the flush that ran 'concurrently', there may be just the
-comment|// compacted store and the flush above when we added deletes.  Add more
-comment|// content to be certain.
+comment|// Add a bit of data and flush.  Start adding at 'bbb'.
 name|createSmallerStoreFile
 argument_list|(
 name|this
@@ -759,47 +701,6 @@ name|r
 operator|.
 name|flushcache
 argument_list|()
-expr_stmt|;
-name|assertEquals
-argument_list|(
-name|r
-operator|.
-name|getStore
-argument_list|(
-name|COLUMN_FAMILY_TEXT
-argument_list|)
-operator|.
-name|getStorefiles
-argument_list|()
-operator|.
-name|size
-argument_list|()
-argument_list|,
-literal|3
-argument_list|)
-expr_stmt|;
-name|r
-operator|.
-name|compactStores
-argument_list|()
-expr_stmt|;
-name|assertEquals
-argument_list|(
-name|r
-operator|.
-name|getStore
-argument_list|(
-name|COLUMN_FAMILY_TEXT
-argument_list|)
-operator|.
-name|getStorefiles
-argument_list|()
-operator|.
-name|size
-argument_list|()
-argument_list|,
-literal|2
-argument_list|)
 expr_stmt|;
 comment|// Assert that the first row is still deleted.
 name|cellValues
@@ -821,7 +722,64 @@ argument_list|)
 expr_stmt|;
 name|assertNull
 argument_list|(
-name|cellValues
+name|r
+operator|.
+name|get
+argument_list|(
+name|STARTROW
+argument_list|,
+name|COLUMN_FAMILY_TEXT
+argument_list|,
+operator|-
+literal|1
+argument_list|,
+literal|100
+comment|/*Too many*/
+argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// Force major compaction.
+name|r
+operator|.
+name|compactStores
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+name|r
+operator|.
+name|getStore
+argument_list|(
+name|COLUMN_FAMILY_TEXT
+argument_list|)
+operator|.
+name|getStorefiles
+argument_list|()
+operator|.
+name|size
+argument_list|()
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
+name|assertNull
+argument_list|(
+name|r
+operator|.
+name|get
+argument_list|(
+name|STARTROW
+argument_list|,
+name|COLUMN_FAMILY_TEXT
+argument_list|,
+operator|-
+literal|1
+argument_list|,
+literal|100
+comment|/*Too many*/
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Make sure the store files do have some 'aaa' keys in them.

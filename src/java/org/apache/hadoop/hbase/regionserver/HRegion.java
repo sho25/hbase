@@ -4067,8 +4067,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Called by compaction thread and after region is opened to compact the    * HStores if necessary.    *    *<p>This operation could block for a long time, so don't call it from a     * time-sensitive thread.    *    * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    *     * @param majorCompaction True to force a major compaction regardless of thresholds    * @return mid key if split is needed    * @throws IOException    */
-specifier|private
+comment|/*    * Called by compaction thread and after region is opened to compact the    * HStores if necessary.    *    *<p>This operation could block for a long time, so don't call it from a     * time-sensitive thread.    *    * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    *     * @param majorCompaction True to force a major compaction regardless of thresholds    * @return mid key if split is needed    * @throws IOException    */
 name|byte
 index|[]
 name|compactStores

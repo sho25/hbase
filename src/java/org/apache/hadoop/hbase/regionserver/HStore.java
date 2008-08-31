@@ -4266,7 +4266,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Reverse order so we newest is first.
+comment|// Reverse order so newest is first.
 name|List
 argument_list|<
 name|MapFile
@@ -4299,7 +4299,7 @@ name|Reader
 index|[]
 name|rdrs
 init|=
-name|pReaders
+name|copy
 operator|.
 name|toArray
 argument_list|(
@@ -4308,10 +4308,7 @@ name|MapFile
 operator|.
 name|Reader
 index|[
-name|copy
-operator|.
-name|size
-argument_list|()
+literal|0
 index|]
 argument_list|)
 decl_stmt|;
@@ -4499,11 +4496,6 @@ operator|.
 name|length
 condition|)
 block|{
-comment|// Find the reader with the smallest key.  If two files have same key
-comment|// but different values -- i.e. one is delete and other is non-delete
-comment|// value -- we will find the first, the one that was written later and
-comment|// therefore the one whose value should make it out to the compacted
-comment|// store file.
 name|int
 name|smallestKey
 init|=
@@ -4619,7 +4611,7 @@ else|else
 block|{
 name|timesSeen
 operator|=
-literal|0
+literal|1
 expr_stmt|;
 block|}
 comment|// Added majorCompaction here to make sure all versions make it to
@@ -4661,8 +4653,7 @@ operator|!=
 literal|0
 condition|)
 block|{
-comment|// Only write out objects which have a non-zero length key and
-comment|// value
+comment|// Only write out objects with non-zero length key and value
 if|if
 condition|(
 operator|!
@@ -4687,6 +4678,14 @@ index|[
 name|smallestKey
 index|]
 argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// HBASE-855 remove one from timesSeen because it did not make it
+comment|// past expired check -- don't count against max versions.
+name|timesSeen
+operator|--
 expr_stmt|;
 block|}
 block|}
