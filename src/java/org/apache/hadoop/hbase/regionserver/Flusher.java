@@ -614,6 +614,7 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
+block|}
 try|try
 block|{
 comment|// See comment above for removeFromQueue on why we do not
@@ -647,10 +648,10 @@ name|DroppedSnapshotException
 name|ex
 parameter_list|)
 block|{
-comment|// Cache flush can fail in a few places.  If it fails in a critical
+comment|// Cache flush can fail in a few places. If it fails in a critical
 comment|// section, we get a DroppedSnapshotException and a replay of hlog
 comment|// is required. Currently the only way to do this is a restart of
-comment|// the server.  Abort because hdfs is probably bad (HBASE-644 is a case
+comment|// the server. Abort because hdfs is probably bad (HBASE-644 is a case
 comment|// where hdfs was bad but passed the hdfs check).
 name|LOG
 operator|.
@@ -728,7 +729,6 @@ operator|.
 name|unlock
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 return|return
 literal|true
