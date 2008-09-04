@@ -1341,7 +1341,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * This is a convenience method that computes a new filename with a given    * file-number.    */
+comment|/**    * This is a convenience method that computes a new filename with a given    * file-number.    * @param fn    * @return Path    */
 specifier|public
 name|Path
 name|computeFilename
@@ -1751,7 +1751,7 @@ name|logEdit
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Append an entry to the log.    *     * @param regionName    * @param tableName    * @param row    * @param logEdit    * @throws IOException    */
+comment|/** Append an entry to the log.    *     * @param regionInfo    * @param row    * @param logEdit    * @throws IOException    */
 specifier|public
 name|void
 name|append

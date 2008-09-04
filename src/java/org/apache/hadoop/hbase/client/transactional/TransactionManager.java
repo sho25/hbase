@@ -258,7 +258,7 @@ name|transactionId
 argument_list|)
 return|;
 block|}
-comment|/**    * Try and commit a transaction.    *     * @param transactionState    * @return    * @throws IOException    */
+comment|/**    * Try and commit a transaction.    *     * @param transactionState    * @throws IOException    */
 specifier|public
 name|void
 name|tryCommit

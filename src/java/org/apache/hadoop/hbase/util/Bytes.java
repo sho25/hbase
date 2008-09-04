@@ -742,7 +742,7 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**    * @param b    * @return Runs {@link WritableComparator#hashBytes(byte[], int)} on the    * passed in array.  This method is what {@link Text} and    * {@link ImmutableBytesWritable} use calculating hash code.    */
+comment|/**    * @param b    * @return Runs {@link WritableComparator#hashBytes(byte[], int)} on the    * passed in array.  This method is what {@link org.apache.hadoop.io.Text} and    * {@link ImmutableBytesWritable} use calculating hash code.    */
 specifier|public
 specifier|static
 name|int
@@ -765,7 +765,7 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * @param b    * @return Runs {@link WritableComparator#hashBytes(byte[], int)} on the    * passed in array.  This method is what {@link Text} and    * {@link ImmutableBytesWritable} use calculating hash code.    */
+comment|/**    * @param b    * @param length    * @return Runs {@link WritableComparator#hashBytes(byte[], int)} on the    * passed in array.  This method is what {@link org.apache.hadoop.io.Text} and    * {@link ImmutableBytesWritable} use calculating hash code.    */
 specifier|public
 specifier|static
 name|int
@@ -816,7 +816,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @param b    * @return A hash of<code>b</code> as an Integer that can be used as key in    * Maps.    */
+comment|/**    * @param b    * @param length    * @return A hash of<code>b</code> as an Integer that can be used as key in    * Maps.    */
 specifier|public
 specifier|static
 name|Integer

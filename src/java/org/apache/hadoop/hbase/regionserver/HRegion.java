@@ -2153,7 +2153,7 @@ decl_stmt|;
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Constructor
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * HRegion constructor.    *    * @param basedir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param basedir qualified path of directory where region should be located,    * usually the table directory.    * @param fs is the filesystem.      * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * @param initialFiles If there are initial files (implying that the HRegion    * is new), then read them from the supplied path.    * @param flushListener an object that implements CacheFlushListener or null    * @param reporter Call on a period so hosting server can report we're    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    * @throws IOException    */
+comment|/**    * HRegion constructor.    *    * @param basedir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.      * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param flushListener an object that implements CacheFlushListener or null    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    */
 specifier|public
 name|HRegion
 parameter_list|(
@@ -5007,7 +5007,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Fetch all the columns for the indicated row at a specified timestamp.    * Returns a TreeMap that maps column names to values.    *    * We should eventually use Bloom filters here, to reduce running time.  If     * the database has many column families and is very sparse, then we could be     * checking many files needlessly.  A small Bloom for each row would help us     * determine which column groups are useful for that row.  That would let us     * avoid a bunch of disk activity.    *    * @param row    * @param columns Array of columns you'd like to retrieve. When null, get all.    * @param ts    * @return Map<columnName, Cell> values    * @throws IOException    */
+comment|/**    * Fetch all the columns for the indicated row at a specified timestamp.    * Returns a TreeMap that maps column names to values.    *    * We should eventually use Bloom filters here, to reduce running time.  If     * the database has many column families and is very sparse, then we could be     * checking many files needlessly.  A small Bloom for each row would help us     * determine which column groups are useful for that row.  That would let us     * avoid a bunch of disk activity.    *    * @param row    * @param columns Array of columns you'd like to retrieve. When null, get all.    * @param ts    * @param lockid    * @return Map<columnName, Cell> values    * @throws IOException    */
 specifier|public
 name|Map
 argument_list|<
@@ -5863,7 +5863,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param b    * @throws IOException    */
+comment|/**    * @param b    * @param writeToWAL    * @throws IOException    */
 specifier|public
 name|void
 name|batchUpdate
@@ -5889,7 +5889,7 @@ name|writeToWAL
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param b    * @throws IOException    */
+comment|/**    * @param b    * @param lockid    * @throws IOException    */
 specifier|public
 name|void
 name|batchUpdate
@@ -5915,7 +5915,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param b    * @param writeToWal if true, then we write this update to the log    * @throws IOException    */
+comment|/**    * @param b    * @param lockid    * @param writeToWAL if true, then we write this update to the log    * @throws IOException    */
 specifier|public
 name|void
 name|batchUpdate

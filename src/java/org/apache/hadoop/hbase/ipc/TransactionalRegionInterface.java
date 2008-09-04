@@ -394,7 +394,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Commit the transaction.    *     * @param transactionId    * @return    */
+comment|/**    * Commit the transaction.    *     * @param transactionId    */
 specifier|public
 name|void
 name|commit
@@ -410,7 +410,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Abort the transaction.    *     * @param transactionId    * @return    */
+comment|/**    * Abort the transaction.    *     * @param transactionId    */
 specifier|public
 name|void
 name|abort

@@ -1531,7 +1531,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Utility method to compare two row keys.    * This is required because of the meta delimiters.    * This is a hack.    * @param regioninfo    * @param rowA    * @param rowB    * @return value of the comparison    */
+comment|/**    * Utility method to compare two row keys.    * This is required because of the meta delimiters.    * This is a hack.    * @param regionInfo    * @param rowA    * @param rowB    * @return value of the comparison    */
 specifier|public
 specifier|static
 name|int
@@ -1647,7 +1647,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Utility method to check if two row keys are equal.    * This is required because of the meta delimiters    * This is a hack    * @param regioninfo    * @param rowA    * @param rowB    * @return if it's equal    */
+comment|/**    * Utility method to check if two row keys are equal.    * This is required because of the meta delimiters    * This is a hack    * @param regionInfo    * @param rowA    * @param rowB    * @return if it's equal    */
 specifier|public
 specifier|static
 name|boolean
