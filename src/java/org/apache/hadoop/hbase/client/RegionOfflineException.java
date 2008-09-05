@@ -19,11 +19,15 @@ end_package
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|io
+name|apache
 operator|.
-name|IOException
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|RegionException
 import|;
 end_import
 
@@ -36,7 +40,7 @@ specifier|public
 class|class
 name|RegionOfflineException
 extends|extends
-name|IOException
+name|RegionException
 block|{
 specifier|private
 specifier|static

@@ -173,6 +173,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|RegionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|RemoteExceptionHandler
 import|;
 end_import
@@ -188,20 +202,6 @@ operator|.
 name|hbase
 operator|.
 name|TableExistsException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|TableNotFoundException
 import|;
 end_import
 
@@ -648,7 +648,7 @@ break|break;
 block|}
 catch|catch
 parameter_list|(
-name|TableNotFoundException
+name|RegionException
 name|e
 parameter_list|)
 block|{
@@ -1556,11 +1556,14 @@ argument_list|(
 name|tableName
 argument_list|)
 condition|)
+block|{
 throw|throw
 operator|new
-name|IOException
+name|RegionException
 argument_list|(
-literal|"unable to disable table "
+literal|"Retries exhausted, it took too long to wait"
+operator|+
+literal|" for the table "
 operator|+
 name|Bytes
 operator|.
@@ -1568,8 +1571,11 @@ name|toString
 argument_list|(
 name|tableName
 argument_list|)
+operator|+
+literal|" to be disabled."
 argument_list|)
 throw|;
+block|}
 name|LOG
 operator|.
 name|info

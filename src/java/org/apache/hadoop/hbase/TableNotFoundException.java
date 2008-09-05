@@ -15,16 +15,6 @@ name|hbase
 package|;
 end_package
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
 begin_comment
 comment|/** Thrown when a table can not be located */
 end_comment
@@ -34,7 +24,7 @@ specifier|public
 class|class
 name|TableNotFoundException
 extends|extends
-name|IOException
+name|RegionException
 block|{
 specifier|private
 specifier|static
