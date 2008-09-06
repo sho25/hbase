@@ -502,6 +502,8 @@ operator|.
 name|deleteConnectionInfo
 argument_list|(
 name|conf
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 if|if

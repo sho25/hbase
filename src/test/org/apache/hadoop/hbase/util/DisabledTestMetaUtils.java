@@ -291,7 +291,11 @@ comment|// Delete again so we go get it all fresh.
 name|HConnectionManager
 operator|.
 name|deleteConnectionInfo
-argument_list|()
+argument_list|(
+name|conf
+argument_list|,
+literal|false
+argument_list|)
 expr_stmt|;
 comment|// Now assert columns were added and deleted.
 name|this
