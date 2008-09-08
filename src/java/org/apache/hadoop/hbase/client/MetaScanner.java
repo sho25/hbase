@@ -75,6 +75,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HStoreKey
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|RowResult
@@ -191,11 +205,15 @@ name|ZEROES
 argument_list|)
 decl_stmt|;
 comment|// Scan over each meta region
-do|do
-block|{
 name|ScannerCallable
 name|callable
 init|=
+literal|null
+decl_stmt|;
+do|do
+block|{
+name|callable
+operator|=
 operator|new
 name|ScannerCallable
 argument_list|(
@@ -211,7 +229,7 @@ name|LATEST_TIMESTAMP
 argument_list|,
 literal|null
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 comment|// Open scanner
 name|connection
 operator|.
@@ -296,10 +314,15 @@ block|}
 block|}
 do|while
 condition|(
-name|Bytes
+name|HStoreKey
 operator|.
-name|compareTo
+name|compareTwoRowKeys
 argument_list|(
+name|callable
+operator|.
+name|getHRegionInfo
+argument_list|()
+argument_list|,
 name|startRow
 argument_list|,
 name|LAST_ROW

@@ -301,9 +301,6 @@ name|byte
 index|[]
 argument_list|>
 name|memcache
-init|=
-name|createSynchronizedSortedMap
-argument_list|()
 decl_stmt|;
 comment|// Snapshot of memcache.  Made for flusher.
 specifier|private
@@ -316,9 +313,6 @@ name|byte
 index|[]
 argument_list|>
 name|snapshot
-init|=
-name|createSynchronizedSortedMap
-argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
@@ -342,11 +336,28 @@ name|HConstants
 operator|.
 name|FOREVER
 expr_stmt|;
+comment|// Set default to be the first meta region.
 name|this
 operator|.
 name|regionInfo
 operator|=
-literal|null
+name|HRegionInfo
+operator|.
+name|FIRST_META_REGIONINFO
+expr_stmt|;
+name|this
+operator|.
+name|memcache
+operator|=
+name|createSynchronizedSortedMap
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|snapshot
+operator|=
+name|createSynchronizedSortedMap
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Constructor.    * @param ttl The TTL for cache entries, in milliseconds.    * @param regionInfo The HRI for this cache     */
@@ -373,10 +384,23 @@ name|regionInfo
 operator|=
 name|regionInfo
 expr_stmt|;
+name|this
+operator|.
+name|memcache
+operator|=
+name|createSynchronizedSortedMap
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|snapshot
+operator|=
+name|createSynchronizedSortedMap
+argument_list|()
+expr_stmt|;
 block|}
-comment|/*    * Utility method.    * @return sycnhronized sorted map of HStoreKey to byte arrays.    */
+comment|/*    * Utility method using HSKWritableComparator    * @return sycnhronized sorted map of HStoreKey to byte arrays.    */
 specifier|private
-specifier|static
 name|SortedMap
 argument_list|<
 name|HStoreKey
@@ -400,7 +424,17 @@ argument_list|,
 name|byte
 index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+operator|new
+name|HStoreKey
+operator|.
+name|HStoreKeyWritableComparator
+argument_list|(
+name|this
+operator|.
+name|regionInfo
+argument_list|)
+argument_list|)
 argument_list|)
 return|;
 block|}
@@ -899,10 +933,12 @@ name|a
 return|;
 block|}
 return|return
-name|Bytes
+name|HStoreKey
 operator|.
-name|compareTo
+name|compareTwoRowKeys
 argument_list|(
+name|regionInfo
+argument_list|,
 name|a
 argument_list|,
 name|b
@@ -1022,6 +1058,10 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
+argument_list|,
+name|this
+operator|.
+name|regionInfo
 argument_list|)
 decl_stmt|;
 name|SortedMap
@@ -1070,10 +1110,12 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|Bytes
+name|HStoreKey
 operator|.
-name|compareTo
+name|compareTwoRowKeys
 argument_list|(
+name|regionInfo
+argument_list|,
 name|itKey
 operator|.
 name|getRow
@@ -1084,9 +1126,7 @@ argument_list|)
 operator|<=
 literal|0
 condition|)
-block|{
 continue|continue;
-block|}
 comment|// Note: Not suppressing deletes or expired cells.
 name|result
 operator|=
@@ -1523,10 +1563,12 @@ block|}
 elseif|else
 if|if
 condition|(
-name|Bytes
+name|HStoreKey
 operator|.
-name|compareTo
+name|compareTwoRowKeys
 argument_list|(
+name|regionInfo
+argument_list|,
 name|key
 operator|.
 name|getRow
@@ -1552,6 +1594,7 @@ name|v
 range|:
 name|victims
 control|)
+block|{
 name|map
 operator|.
 name|remove
@@ -1559,6 +1602,7 @@ argument_list|(
 name|v
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * @param row Row to look for.    * @param candidateKeys Map of candidate keys (Accumulation over lots of    * lookup over stores and memcaches)    * @param deletes Deletes collected so far.    */
 name|void
@@ -1731,6 +1775,10 @@ operator|new
 name|HStoreKey
 argument_list|(
 name|row
+argument_list|,
+name|this
+operator|.
+name|regionInfo
 argument_list|)
 else|:
 operator|new
@@ -1743,6 +1791,10 @@ argument_list|()
 operator|.
 name|getRow
 argument_list|()
+argument_list|,
+name|this
+operator|.
+name|regionInfo
 argument_list|)
 decl_stmt|;
 name|List
@@ -2244,10 +2296,12 @@ operator|!=
 literal|null
 operator|&&
 operator|!
-name|Bytes
+name|HStoreKey
 operator|.
-name|equals
+name|equalsTwoRowKeys
 argument_list|(
+name|regionInfo
+argument_list|,
 name|lastRowFound
 argument_list|,
 name|found_key
@@ -2388,6 +2442,10 @@ argument_list|()
 operator|.
 name|getRow
 argument_list|()
+argument_list|,
+name|this
+operator|.
+name|regionInfo
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -2553,6 +2611,11 @@ argument_list|,
 name|key
 operator|.
 name|getColumn
+argument_list|()
+argument_list|,
+name|key
+operator|.
+name|getHRegionInfo
 argument_list|()
 argument_list|)
 return|;
@@ -3096,10 +3159,12 @@ comment|// out of the loop entirely.
 if|if
 condition|(
 operator|!
-name|Bytes
+name|HStoreKey
 operator|.
-name|equals
+name|equalsTwoRowKeys
 argument_list|(
+name|regionInfo
+argument_list|,
 name|key
 operator|.
 name|getRow

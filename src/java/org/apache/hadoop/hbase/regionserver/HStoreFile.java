@@ -519,7 +519,12 @@ specifier|final
 name|Reference
 name|reference
 decl_stmt|;
-comment|/**    * Constructor that fully initializes the object    * @param conf Configuration object    * @param basedir qualified path that is parent of region directory    * @param encodedRegionName file name friendly name of the region    * @param colFamily name of the column family    * @param fileId file identifier    * @param ref Reference to another HStoreFile.    * @throws IOException    */
+specifier|private
+specifier|final
+name|HRegionInfo
+name|hri
+decl_stmt|;
+comment|/**    * Constructor that fully initializes the object    * @param conf Configuration object    * @param basedir qualified path that is parent of region directory    * @param colFamily name of the column family    * @param fileId file identifier    * @param ref Reference to another HStoreFile.    * @param hri The region info for this file (HACK HBASE-868). TODO: Fix.    * @throws IOException    */
 name|HStoreFile
 parameter_list|(
 name|HBaseConfiguration
@@ -531,8 +536,9 @@ parameter_list|,
 name|Path
 name|basedir
 parameter_list|,
-name|int
-name|encodedRegionName
+specifier|final
+name|HRegionInfo
+name|hri
 parameter_list|,
 name|byte
 index|[]
@@ -570,13 +576,22 @@ name|this
 operator|.
 name|encodedRegionName
 operator|=
-name|encodedRegionName
+name|hri
+operator|.
+name|getEncodedName
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
 name|colFamily
 operator|=
 name|colFamily
+expr_stmt|;
+name|this
+operator|.
+name|hri
+operator|=
+name|hri
 expr_stmt|;
 name|long
 name|id
@@ -1695,6 +1710,10 @@ argument_list|,
 name|bloomFilter
 argument_list|,
 name|nrows
+argument_list|,
+name|this
+operator|.
+name|hri
 argument_list|)
 return|;
 block|}
@@ -2279,20 +2298,6 @@ name|?
 extends|extends
 name|Writable
 argument_list|>
-name|KEY_CLASS
-init|=
-name|HStoreKey
-operator|.
-name|class
-decl_stmt|;
-specifier|static
-specifier|final
-name|Class
-argument_list|<
-name|?
-extends|extends
-name|Writable
-argument_list|>
 name|VALUE_CLASS
 init|=
 name|ImmutableBytesWritable
@@ -2588,6 +2593,10 @@ name|SequenceFile
 operator|.
 name|CompressionType
 name|compression
+parameter_list|,
+specifier|final
+name|HRegionInfo
+name|hri
 parameter_list|)
 throws|throws
 name|IOException
@@ -2600,7 +2609,13 @@ name|fs
 argument_list|,
 name|dirName
 argument_list|,
-name|KEY_CLASS
+operator|new
+name|HStoreKey
+operator|.
+name|HStoreKeyWritableComparator
+argument_list|(
+name|hri
+argument_list|)
 argument_list|,
 name|VALUE_CLASS
 argument_list|,
@@ -3034,7 +3049,7 @@ specifier|final
 name|FileSystem
 name|fs
 decl_stmt|;
-comment|/**        * @param conf        * @param fs        * @param dirName        * @param compression        * @param filter        * @param nrows        * @throws IOException        */
+comment|/**        * @param conf        * @param fs        * @param dirName        * @param compression        * @param filter        * @param nrows        * @param hri        * @throws IOException        */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -3063,6 +3078,10 @@ name|filter
 parameter_list|,
 name|int
 name|nrows
+parameter_list|,
+specifier|final
+name|HRegionInfo
+name|hri
 parameter_list|)
 throws|throws
 name|IOException
@@ -3076,6 +3095,8 @@ argument_list|,
 name|dirName
 argument_list|,
 name|compression
+argument_list|,
+name|hri
 argument_list|)
 expr_stmt|;
 name|this

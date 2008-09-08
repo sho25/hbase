@@ -217,6 +217,14 @@ name|THREAD_WAKE_FREQUENCY
 init|=
 literal|"hbase.server.thread.wakefrequency"
 decl_stmt|;
+comment|/** Parameter name for how often a region should should perform a major compaction */
+specifier|static
+specifier|final
+name|String
+name|MAJOR_COMPACTION_PERIOD
+init|=
+literal|"hbase.hregion.majorcompaction"
+decl_stmt|;
 comment|/** Parameter name for HBase instance root directory */
 specifier|static
 specifier|final

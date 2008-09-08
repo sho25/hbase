@@ -55,6 +55,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HStoreKey
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -1569,10 +1583,12 @@ block|}
 comment|// Compare start keys.
 name|result
 operator|=
-name|Bytes
+name|HStoreKey
 operator|.
-name|compareTo
+name|compareTwoRowKeys
 argument_list|(
+name|other
+argument_list|,
 name|this
 operator|.
 name|startKey
@@ -1595,10 +1611,12 @@ return|;
 block|}
 comment|// Compare end keys.
 return|return
-name|Bytes
+name|HStoreKey
 operator|.
-name|compareTo
+name|compareTwoRowKeys
 argument_list|(
+name|other
+argument_list|,
 name|this
 operator|.
 name|endKey
