@@ -27,6 +27,10 @@ name|HColumnDescriptor
 import|;
 end_import
 
+begin_comment
+comment|/**  * Immutable HColumnDescriptor  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -34,6 +38,7 @@ name|UnmodifyableHColumnDescriptor
 extends|extends
 name|HColumnDescriptor
 block|{
+comment|/**    * @param desc    */
 specifier|public
 name|UnmodifyableHColumnDescriptor
 parameter_list|(
@@ -50,6 +55,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|void
 name|setValue
@@ -73,6 +83,11 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|void
 name|setValue
@@ -94,6 +109,11 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|void
 name|setMaxVersions
@@ -112,6 +132,11 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|void
 name|setInMemory
@@ -130,6 +155,11 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|void
 name|setBlockCacheEnabled
@@ -148,6 +178,11 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|void
 name|setMaxValueLength
@@ -166,6 +201,11 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|void
 name|setTimeToLive
@@ -184,6 +224,11 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|void
 name|setCompressionType
@@ -202,6 +247,11 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|void
 name|setMapFileIndexInterval

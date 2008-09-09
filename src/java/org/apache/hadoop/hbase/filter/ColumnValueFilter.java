@@ -138,21 +138,27 @@ name|ColumnValueFilter
 implements|implements
 name|RowFilterInterface
 block|{
-comment|/** Comparison operator. */
+comment|/** Comparison operators. */
 specifier|public
 enum|enum
 name|CompareOp
 block|{
+comment|/** less than */
 name|LESS
 block|,
+comment|/** less than or equal to */
 name|LESS_OR_EQUAL
 block|,
+comment|/** equals */
 name|EQUAL
 block|,
+comment|/** not equal */
 name|NOT_EQUAL
 block|,
+comment|/** greater than or equal to */
 name|GREATER_OR_EQUAL
 block|,
+comment|/** greater than */
 name|GREATER
 block|;   }
 specifier|private
@@ -253,7 +259,6 @@ operator|=
 name|comparator
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|filterRowKey
@@ -273,7 +278,6 @@ return|return
 literal|false
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|filterColumn
@@ -416,7 +420,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|filterAllRemaining
@@ -426,7 +429,6 @@ return|return
 literal|false
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|filterRow
@@ -535,7 +537,6 @@ operator|.
 name|length
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|processAlways
@@ -545,7 +546,6 @@ return|return
 literal|false
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|reset
@@ -553,7 +553,6 @@ parameter_list|()
 block|{
 comment|// Nothing.
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|rowProcessed
@@ -580,7 +579,6 @@ parameter_list|)
 block|{
 comment|// Nothing
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|validate
@@ -599,7 +597,6 @@ parameter_list|)
 block|{
 comment|// Nothing
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -680,7 +677,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write

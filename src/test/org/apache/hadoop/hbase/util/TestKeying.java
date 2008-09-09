@@ -38,7 +38,6 @@ name|TestKeying
 extends|extends
 name|TestCase
 block|{
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|protected
@@ -54,7 +53,6 @@ name|setUp
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|protected

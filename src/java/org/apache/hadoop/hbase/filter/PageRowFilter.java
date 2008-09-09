@@ -123,7 +123,6 @@ operator|=
 name|pageSize
 expr_stmt|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|void
 name|validate
@@ -142,7 +141,6 @@ parameter_list|)
 block|{
 comment|// Doesn't filter columns
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|void
 name|reset
@@ -153,7 +151,6 @@ operator|=
 literal|0
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|rowProcessed
@@ -184,7 +181,6 @@ operator|++
 expr_stmt|;
 block|}
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|boolean
 name|processAlways
@@ -194,7 +190,6 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|boolean
 name|filterAllRemaining
@@ -210,7 +205,6 @@ operator|.
 name|pageSize
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|boolean
 name|filterRowKey
@@ -231,7 +225,6 @@ name|filterAllRemaining
 argument_list|()
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|boolean
 name|filterColumn
@@ -272,7 +265,6 @@ name|filterAllRemaining
 argument_list|()
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|boolean
 name|filterRow
@@ -298,7 +290,6 @@ name|filterAllRemaining
 argument_list|()
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|void
 name|readFields
@@ -320,7 +311,6 @@ name|readLong
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|void
 name|write

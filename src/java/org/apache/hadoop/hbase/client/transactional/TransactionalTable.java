@@ -228,6 +228,7 @@ name|TransactionalTable
 extends|extends
 name|HTable
 block|{
+comment|/**    * @param conf    * @param tableName    * @throws IOException    */
 specifier|public
 name|TransactionalTable
 parameter_list|(
@@ -250,6 +251,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param conf    * @param tableName    * @throws IOException    */
 specifier|public
 name|TransactionalTable
 parameter_list|(
@@ -341,6 +343,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**      * @param connection      * @param tableName      * @param row      * @param transactionState      */
 specifier|public
 name|TransactionalServerCallable
 parameter_list|(

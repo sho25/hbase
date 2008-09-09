@@ -383,7 +383,6 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|run
@@ -843,7 +842,6 @@ operator|=
 name|region2
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|processRow

@@ -215,7 +215,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify a table's metadata    *     * @param tableName    * @param desc    */
+comment|/**    * Modify a table's metadata    *     * @param tableName    * @param desc    * @throws IOException    */
 specifier|public
 name|void
 name|modifyTableMeta

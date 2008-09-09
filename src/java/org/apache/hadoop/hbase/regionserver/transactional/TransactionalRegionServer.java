@@ -443,6 +443,7 @@ specifier|final
 name|CleanOldTransactionsChore
 name|cleanOldTransactionsThread
 decl_stmt|;
+comment|/**    * @param conf    * @throws IOException    */
 specifier|public
 name|TransactionalRegionServer
 parameter_list|(
@@ -472,6 +473,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param address    * @param conf    * @throws IOException    */
 specifier|public
 name|TransactionalRegionServer
 parameter_list|(
@@ -506,7 +508,6 @@ name|stopRequested
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1455,7 +1456,6 @@ name|e
 throw|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|deleteAll

@@ -576,7 +576,6 @@ return|return
 name|multipleMatchers
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|next
@@ -1416,7 +1415,6 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|close

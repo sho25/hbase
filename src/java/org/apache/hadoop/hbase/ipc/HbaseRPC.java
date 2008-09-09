@@ -421,6 +421,11 @@ specifier|private
 name|String
 name|methodName
 decl_stmt|;
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|private
 name|Class
 index|[]
@@ -435,10 +440,12 @@ specifier|private
 name|Configuration
 name|conf
 decl_stmt|;
+comment|/** default constructor */
 specifier|public
 name|Invocation
 parameter_list|()
 block|{}
+comment|/**      * @param method      * @param parameters      */
 specifier|public
 name|Invocation
 parameter_list|(
@@ -475,7 +482,7 @@ operator|=
 name|parameters
 expr_stmt|;
 block|}
-comment|/** The name of the method invoked. */
+comment|/** @return The name of the method invoked. */
 specifier|public
 name|String
 name|getMethodName
@@ -485,7 +492,12 @@ return|return
 name|methodName
 return|;
 block|}
-comment|/** The parameter classes. */
+comment|/** @return The parameter classes. */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 name|Class
 index|[]
@@ -496,7 +508,7 @@ return|return
 name|parameterClasses
 return|;
 block|}
-comment|/** The parameter instances. */
+comment|/** @return The parameter instances. */
 specifier|public
 name|Object
 index|[]
@@ -667,6 +679,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -1006,6 +1020,7 @@ name|isClosed
 init|=
 literal|false
 decl_stmt|;
+comment|/**      * @param address      * @param ticket      * @param conf      * @param factory      */
 specifier|public
 name|Invoker
 parameter_list|(
@@ -1052,6 +1067,11 @@ specifier|public
 name|Object
 name|invoke
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|Object
 name|proxy
 parameter_list|,
@@ -1157,6 +1177,11 @@ block|}
 block|}
 block|}
 comment|/**    * A version mismatch for the RPC protocol.    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"serial"
+argument_list|)
 specifier|public
 specifier|static
 class|class
@@ -1236,7 +1261,7 @@ return|return
 name|interfaceName
 return|;
 block|}
-comment|/**      * Get the client's preferred version      */
+comment|/**      * @return the client's preferred version      */
 specifier|public
 name|long
 name|getClientVersion
@@ -1246,7 +1271,7 @@ return|return
 name|clientVersion
 return|;
 block|}
-comment|/**      * Get the server's agreed to version.      */
+comment|/**      * @return the server's agreed to version.      */
 specifier|public
 name|long
 name|getServerVersion
@@ -1257,6 +1282,12 @@ name|serverVersion
 return|;
 block|}
 block|}
+comment|/**    * @param protocol    * @param clientVersion    * @param addr    * @param conf    * @param maxAttempts    * @return proxy    * @throws IOException    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 specifier|static
 name|VersionedProtocol
@@ -1420,7 +1451,7 @@ comment|// IGNORE
 block|}
 block|}
 block|}
-comment|/** Construct a client-side proxy object that implements the named protocol,    * talking to a server at the named address. */
+comment|/**    * Construct a client-side proxy object that implements the named protocol,    * talking to a server at the named address.    *    * @param protocol    * @param clientVersion    * @param addr    * @param conf    * @param factory    * @return proxy    * @throws IOException    */
 specifier|public
 specifier|static
 name|VersionedProtocol
@@ -1464,7 +1495,7 @@ name|factory
 argument_list|)
 return|;
 block|}
-comment|/** Construct a client-side proxy object that implements the named protocol,    * talking to a server at the named address. */
+comment|/**    * Construct a client-side proxy object that implements the named protocol,    * talking to a server at the named address.    *    * @param protocol    * @param clientVersion    * @param addr    * @param ticket    * @param conf    * @param factory    * @return proxy    * @throws IOException    */
 specifier|public
 specifier|static
 name|VersionedProtocol
@@ -1651,7 +1682,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/** Expert: Make multiple, parallel calls to a set of servers. */
+comment|/**    * Expert: Make multiple, parallel calls to a set of servers.    *    * @param method    * @param params    * @param addrs    * @param conf    * @return values    * @throws IOException    */
 specifier|public
 specifier|static
 name|Object
@@ -1841,7 +1872,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/** Construct a server for a protocol implementation instance listening on a    * port and address. */
+comment|/**    * Construct a server for a protocol implementation instance listening on a    * port and address.    *    * @param instance    * @param bindAddress    * @param port    * @param conf    * @return Server    * @throws IOException    */
 specifier|public
 specifier|static
 name|Server
@@ -1882,7 +1913,7 @@ name|conf
 argument_list|)
 return|;
 block|}
-comment|/** Construct a server for a protocol implementation instance listening on a    * port and address. */
+comment|/**    * Construct a server for a protocol implementation instance listening on a    * port and address.    *    * @param instance    * @param bindAddress    * @param port    * @param numHandlers    * @param verbose    * @param conf    * @return Server    * @throws IOException    */
 specifier|public
 specifier|static
 name|Server
@@ -1963,7 +1994,7 @@ specifier|private
 name|boolean
 name|verbose
 decl_stmt|;
-comment|/** Construct an RPC server.      * @param instance the instance whose methods will be called      * @param conf the configuration to use      * @param bindAddress the address to bind on to listen for connection      * @param port the port to listen for connections on      */
+comment|/**      * Construct an RPC server.      * @param instance the instance whose methods will be called      * @param conf the configuration to use      * @param bindAddress the address to bind on to listen for connection      * @param port the port to listen for connections on      * @throws IOException      */
 specifier|public
 name|Server
 parameter_list|(
@@ -2049,7 +2080,7 @@ literal|1
 index|]
 return|;
 block|}
-comment|/** Construct an RPC server.      * @param instance the instance whose methods will be called      * @param conf the configuration to use      * @param bindAddress the address to bind on to listen for connection      * @param port the port to listen for connections on      * @param numHandlers the number of method handler threads to run      * @param verbose whether each call should be logged      */
+comment|/** Construct an RPC server.      * @param instance the instance whose methods will be called      * @param conf the configuration to use      * @param bindAddress the address to bind on to listen for connection      * @param port the port to listen for connections on      * @param numHandlers the number of method handler threads to run      * @param verbose whether each call should be logged      * @throws IOException      */
 specifier|public
 name|Server
 parameter_list|(
@@ -2122,6 +2153,8 @@ operator|=
 name|verbose
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|Writable
 name|call

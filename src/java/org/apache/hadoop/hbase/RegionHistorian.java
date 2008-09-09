@@ -223,6 +223,7 @@ argument_list|(
 literal|"EEE, d MMM yyyy HH:mm:ss"
 argument_list|)
 decl_stmt|;
+comment|//TODO: Why is this public? Appears to only apply internally.
 specifier|public
 specifier|static
 enum|enum
@@ -521,7 +522,7 @@ return|return
 name|informations
 return|;
 block|}
-comment|/**    * Method to add a creation event to the row in the .META table    * @param info    */
+comment|/**    * Method to add a creation event to the row in the .META table    * @param info    * @param serverName    */
 specifier|public
 name|void
 name|addRegionAssignment
@@ -659,7 +660,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Method to add a compaction event to the row in the .META table    * @param info    */
+comment|/**    * Method to add a compaction event to the row in the .META table    * @param info    * @param timeTaken    */
 specifier|public
 name|void
 name|addRegionCompaction
@@ -702,7 +703,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Method to add a flush event to the row in the .META table    * @param info    */
+comment|/**    * Method to add a flush event to the row in the .META table    * @param info    * @param timeTaken    */
 specifier|public
 name|void
 name|addRegionFlush
@@ -879,6 +880,7 @@ specifier|private
 name|String
 name|description
 decl_stmt|;
+comment|/**      * @param timestamp      * @param event      * @param description      */
 specifier|public
 name|RegionHistoryInformation
 parameter_list|(
@@ -911,7 +913,6 @@ operator|=
 name|description
 expr_stmt|;
 block|}
-comment|/**      * Returns the inverse value of Long.compareTo      */
 specifier|public
 name|int
 name|compareTo
@@ -940,6 +941,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+comment|/** @return the event */
 specifier|public
 name|String
 name|getEvent
@@ -949,6 +951,7 @@ return|return
 name|event
 return|;
 block|}
+comment|/** @return the description */
 specifier|public
 name|String
 name|getDescription
@@ -958,6 +961,7 @@ return|return
 name|description
 return|;
 block|}
+comment|/** @return the timestamp */
 specifier|public
 name|long
 name|getTimestamp

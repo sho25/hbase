@@ -166,7 +166,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A SortedMap implementation that uses SoftReferences internally to make it  * play well with the GC when in a low-memory situation.  */
+comment|/**  * A SortedMap implementation that uses SoftReferences internally to make it  * play well with the GC when in a low-memory situation.  *   * @param<K> key class  * @param<V> value class  */
 end_comment
 
 begin_class
@@ -917,6 +917,11 @@ name|hardValues
 return|;
 block|}
 comment|/**    * Check the reference queue and delete anything that has since gone away    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|private
 name|void
 name|checkReferences
@@ -1107,6 +1112,11 @@ specifier|public
 name|V2
 name|setValue
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|V2
 name|value
 parameter_list|)

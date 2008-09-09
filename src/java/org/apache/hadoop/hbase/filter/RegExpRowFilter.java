@@ -312,7 +312,6 @@ name|columnFilter
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -332,7 +331,6 @@ parameter_list|)
 block|{
 comment|//doesn't care
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|processAlways
@@ -462,7 +460,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|void
 name|reset
@@ -470,7 +467,6 @@ parameter_list|()
 block|{
 comment|// Nothing to reset
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|boolean
 name|filterAllRemaining
@@ -480,7 +476,6 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|boolean
 name|filterRowKey
@@ -521,7 +516,6 @@ else|:
 literal|false
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|boolean
 name|filterColumn
@@ -625,7 +619,6 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|boolean
 name|filterRow
@@ -815,7 +808,6 @@ return|return
 name|rowKeyPattern
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|void
 name|readFields
@@ -975,7 +967,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|void
 name|validate
@@ -1148,7 +1139,6 @@ return|return
 name|cols
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|void
 name|write

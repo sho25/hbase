@@ -311,7 +311,6 @@ specifier|private
 name|HRegionIncommon
 name|region
 decl_stmt|;
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

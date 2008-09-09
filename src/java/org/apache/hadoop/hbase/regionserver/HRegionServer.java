@@ -1200,7 +1200,6 @@ operator|=
 name|instance
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -4020,7 +4019,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|run
@@ -5050,7 +5048,6 @@ block|}
 comment|//
 comment|// HRegionInterface
 comment|//
-comment|/** {@inheritDoc} */
 specifier|public
 name|HRegionInfo
 name|getRegionInfo
@@ -5078,7 +5075,6 @@ name|getRegionInfo
 argument_list|()
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|Cell
 index|[]
@@ -5152,7 +5148,6 @@ name|e
 throw|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|RowResult
 name|getRow
@@ -5321,7 +5316,6 @@ name|e
 throw|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|RowResult
 name|getClosestRowBefore
@@ -5387,7 +5381,6 @@ name|e
 throw|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|RowResult
 name|next
@@ -5580,7 +5573,6 @@ name|e
 throw|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|batchUpdate
@@ -5836,7 +5828,6 @@ block|}
 comment|//
 comment|// remote scanner interface
 comment|//
-comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|openScanner
@@ -6094,7 +6085,6 @@ return|return
 name|scannerId
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|close
@@ -6233,7 +6223,6 @@ operator|=
 name|n
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|leaseExpired
@@ -6311,7 +6300,6 @@ block|}
 comment|//
 comment|// Methods that do the actual work for the remote API
 comment|//
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|deleteAll
@@ -6367,7 +6355,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|deleteAll
@@ -6416,7 +6403,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|deleteFamily
@@ -6463,7 +6449,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|lockRow
@@ -6784,7 +6769,6 @@ return|return
 name|rl
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|unlockRow
@@ -7028,7 +7012,6 @@ operator|=
 name|region
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|leaseExpired
@@ -7809,7 +7792,6 @@ return|return
 name|regionsToCheck
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|getProtocolVersion

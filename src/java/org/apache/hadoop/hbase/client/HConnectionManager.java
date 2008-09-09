@@ -982,7 +982,6 @@ name|tries
 index|]
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|HMasterInterface
 name|getMaster
@@ -1211,7 +1210,6 @@ operator|.
 name|master
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|isMasterRunning
@@ -1247,7 +1245,6 @@ return|return
 literal|true
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|tableExists
@@ -1398,7 +1395,6 @@ name|META_TABLE_NAME
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|HRegionLocation
 name|getRegionLocation
@@ -1440,7 +1436,6 @@ name|row
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|HTableDescriptor
 index|[]
@@ -1473,7 +1468,6 @@ operator|new
 name|MetaScannerVisitor
 argument_list|()
 block|{
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|processRow
@@ -1554,7 +1548,6 @@ index|]
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|isTableEnabled
@@ -1909,6 +1902,7 @@ decl_stmt|;
 name|HTableDescriptor
 name|result
 decl_stmt|;
+comment|//TODO: change visibility to protected
 specifier|public
 name|HTableDescriptorFinder
 parameter_list|(
@@ -1997,7 +1991,6 @@ name|result
 return|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|HTableDescriptor
 name|getHTableDescriptor
@@ -2108,7 +2101,6 @@ return|return
 name|result
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|HRegionLocation
 name|locateRegion
@@ -2140,7 +2132,6 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|HRegionLocation
 name|relocateRegion
@@ -3414,7 +3405,6 @@ name|location
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|HRegionInterface
 name|getHRegionConnection
@@ -3908,7 +3898,6 @@ name|rootRegionAddress
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 parameter_list|<
 name|T

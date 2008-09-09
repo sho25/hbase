@@ -388,6 +388,7 @@ specifier|final
 name|HBaseConfiguration
 name|conf
 decl_stmt|;
+comment|/**    * @param region    */
 specifier|public
 name|TransactionalHLogManager
 parameter_list|(
@@ -478,6 +479,7 @@ operator|=
 name|conf
 expr_stmt|;
 block|}
+comment|/**    * @param transactionId    * @throws IOException    */
 specifier|public
 name|void
 name|writeStartToLog
@@ -516,6 +518,7 @@ name|logEdit
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param transactionId    * @param update    * @throws IOException    */
 specifier|public
 name|void
 name|writeUpdateToLog
@@ -590,6 +593,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * @param transactionId    * @throws IOException    */
 specifier|public
 name|void
 name|writeCommitToLog
@@ -628,6 +632,7 @@ name|logEdit
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param transactionId    * @throws IOException    */
 specifier|public
 name|void
 name|writeAbortToLog
@@ -666,6 +671,7 @@ name|logEdit
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param reconstructionLog    * @param maxSeqID    * @param reporter    * @return map of batch updates    * @throws UnsupportedEncodingException    * @throws IOException    */
 specifier|public
 name|Map
 argument_list|<

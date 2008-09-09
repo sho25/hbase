@@ -383,7 +383,6 @@ literal|2
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -528,7 +527,6 @@ literal|" exiting"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|request
@@ -851,6 +849,11 @@ specifier|final
 name|HRegion
 name|r
 parameter_list|,
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|final
 name|long
 name|now

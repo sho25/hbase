@@ -671,6 +671,7 @@ specifier|final
 name|int
 name|oldTransactionFlushTrigger
 decl_stmt|;
+comment|/**    * @param basedir    * @param log    * @param fs    * @param conf    * @param regionInfo    * @param flushListener    */
 specifier|public
 name|TransactionalRegion
 parameter_list|(
@@ -960,6 +961,7 @@ return|return
 name|minPendingStartSequenceId
 return|;
 block|}
+comment|/**    * @param transactionId    * @throws IOException    */
 specifier|public
 name|void
 name|beginTransaction
@@ -1754,7 +1756,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Add a write to the transaction. Does not get applied until commit process.    *     * @param b    * @throws IOException    */
+comment|/**    * Add a write to the transaction. Does not get applied until commit process.    *     * @param transactionId    * @param b    * @throws IOException    */
 specifier|public
 name|void
 name|batchUpdate
@@ -1795,7 +1797,7 @@ name|b
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add a delete to the transaction. Does not get applied until commit process.    * FIXME, not sure about this approach    *     * @param b    * @throws IOException    */
+comment|/**    * Add a delete to the transaction. Does not get applied until commit process.    * FIXME, not sure about this approach    *     * @param transactionId    * @param row    * @param timestamp    * @throws IOException    */
 specifier|public
 name|void
 name|deleteAll
@@ -1916,6 +1918,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * @param transactionId    * @return true if commit is successful    * @throws IOException    */
 specifier|public
 name|boolean
 name|commitRequest
@@ -2123,7 +2126,7 @@ name|hasConflict
 argument_list|()
 return|;
 block|}
-comment|/**    * Commit the transaction.    *     * @param transactionId    * @return    * @throws IOException    */
+comment|/**    * Commit the transaction.    *     * @param transactionId    * @throws IOException    */
 specifier|public
 name|void
 name|commit
@@ -2216,7 +2219,7 @@ name|state
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Commit the transaction.    *     * @param transactionId    * @return    * @throws IOException    */
+comment|/**    * Commit the transaction.    *     * @param transactionId    * @throws IOException    */
 specifier|public
 name|void
 name|abort
@@ -2867,7 +2870,6 @@ operator|=
 name|n
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|leaseExpired
@@ -3007,6 +3009,7 @@ specifier|private
 name|InternalScanner
 name|scanner
 decl_stmt|;
+comment|/**      * @param transactionId      * @param scanner      */
 specifier|public
 name|ScannerWrapper
 parameter_list|(

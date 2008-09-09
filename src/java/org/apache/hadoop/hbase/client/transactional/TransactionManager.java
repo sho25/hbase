@@ -180,6 +180,7 @@ specifier|final
 name|TransactionLogger
 name|transactionLogger
 decl_stmt|;
+comment|/**    * @param conf    */
 specifier|public
 name|TransactionManager
 parameter_list|(
@@ -199,6 +200,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param transactionLogger    * @param conf    */
 specifier|public
 name|TransactionManager
 parameter_list|(
@@ -258,7 +260,7 @@ name|transactionId
 argument_list|)
 return|;
 block|}
-comment|/**    * Try and commit a transaction.    *     * @param transactionState    * @throws IOException    */
+comment|/**    * Try and commit a transaction.    *     * @param transactionState    * @throws IOException    * @throws CommitUnsuccessfulException    */
 specifier|public
 name|void
 name|tryCommit

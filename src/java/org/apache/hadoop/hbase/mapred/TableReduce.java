@@ -168,7 +168,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Write a table, sorting by the input key  */
+comment|/**  * Write a table, sorting by the input key  *  * @param<K> key class  * @param<V> value class  */
 end_comment
 
 begin_class

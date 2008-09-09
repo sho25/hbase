@@ -56,6 +56,7 @@ name|UnmodifyableHTableDescriptor
 extends|extends
 name|HTableDescriptor
 block|{
+comment|/** Default constructor */
 specifier|public
 name|UnmodifyableHTableDescriptor
 parameter_list|()
@@ -191,6 +192,11 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|void
 name|setInMemory
@@ -209,6 +215,11 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|void
 name|setReadOnly
@@ -227,6 +238,11 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|void
 name|setValue
@@ -250,6 +266,11 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|void
 name|setValue
@@ -271,6 +292,11 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|void
 name|setMaxFileSize
@@ -289,6 +315,11 @@ throw|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|void
 name|setMemcacheFlushSize

@@ -354,7 +354,6 @@ return|return
 name|address
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -374,7 +373,6 @@ name|stringValue
 operator|)
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -396,7 +394,6 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -430,7 +427,6 @@ block|}
 comment|//
 comment|// Writable
 comment|//
-comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|readFields
@@ -502,7 +498,6 @@ name|port
 expr_stmt|;
 block|}
 block|}
-comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|write
@@ -565,7 +560,6 @@ block|}
 comment|//
 comment|// Comparable
 comment|//
-comment|/**    * {@inheritDoc}    */
 specifier|public
 name|int
 name|compareTo

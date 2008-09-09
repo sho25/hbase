@@ -438,6 +438,7 @@ name|EMPTY_RESULT_VALUE
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param args    * @return the JobConf    * @throws IOException    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -697,6 +698,7 @@ operator|=
 name|c
 expr_stmt|;
 block|}
+comment|/**    * @param args    * @throws Exception    */
 specifier|public
 specifier|static
 name|void

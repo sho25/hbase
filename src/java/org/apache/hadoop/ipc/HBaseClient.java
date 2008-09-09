@@ -50,6 +50,7 @@ name|HBaseClient
 extends|extends
 name|Client
 block|{
+comment|/**    * @param valueClass    * @param conf    * @param factory    */
 specifier|public
 name|HBaseClient
 parameter_list|(
@@ -73,6 +74,7 @@ name|factory
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param valueClass    * @param conf    */
 specifier|public
 name|HBaseClient
 parameter_list|(

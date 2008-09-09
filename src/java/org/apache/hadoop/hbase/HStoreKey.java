@@ -827,7 +827,6 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -861,7 +860,6 @@ operator|+
 name|timestamp
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -881,7 +879,6 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -923,7 +920,6 @@ name|result
 return|;
 block|}
 comment|// Comparable
-comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo
@@ -2005,7 +2001,6 @@ name|elements
 return|;
 block|}
 comment|// Writable
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -2046,7 +2041,6 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -2102,6 +2096,7 @@ specifier|final
 name|HRegionInfo
 name|hri
 decl_stmt|;
+comment|/** @param hri */
 specifier|public
 name|HStoreKeyWritableComparator
 parameter_list|(
@@ -2124,6 +2119,8 @@ operator|=
 name|hri
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compare

@@ -27,6 +27,10 @@ name|FileNotFoundException
 import|;
 end_import
 
+begin_comment
+comment|//TODO: remove
+end_comment
+
 begin_import
 import|import
 name|java

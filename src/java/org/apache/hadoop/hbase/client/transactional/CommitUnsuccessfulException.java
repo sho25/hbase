@@ -24,12 +24,18 @@ comment|/** Thrown when a transaction cannot be committed.   *   */
 end_comment
 
 begin_class
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"serial"
+argument_list|)
 specifier|public
 class|class
 name|CommitUnsuccessfulException
 extends|extends
 name|Exception
 block|{
+comment|/** Default Constructor */
 specifier|public
 name|CommitUnsuccessfulException
 parameter_list|()
@@ -38,6 +44,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * @param arg0 message    * @param arg1 cause    */
 specifier|public
 name|CommitUnsuccessfulException
 parameter_list|(
@@ -56,6 +63,7 @@ name|arg1
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param arg0 message    */
 specifier|public
 name|CommitUnsuccessfulException
 parameter_list|(
@@ -69,6 +77,7 @@ name|arg0
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param arg0 cause    */
 specifier|public
 name|CommitUnsuccessfulException
 parameter_list|(

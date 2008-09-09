@@ -65,7 +65,7 @@ name|RootScanner
 extends|extends
 name|BaseScanner
 block|{
-comment|/** Constructor */
+comment|/**    * Constructor    *     * @param master    * @param regionManager    */
 specifier|public
 name|RootScanner
 parameter_list|(

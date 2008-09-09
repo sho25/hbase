@@ -185,6 +185,7 @@ name|COMPRESSION
 init|=
 literal|"COMPRESSION"
 decl_stmt|;
+comment|//TODO: change to protected
 specifier|public
 specifier|static
 specifier|final
@@ -193,6 +194,7 @@ name|BLOCKCACHE
 init|=
 literal|"BLOCKCACHE"
 decl_stmt|;
+comment|//TODO: change to protected
 specifier|public
 specifier|static
 specifier|final
@@ -201,6 +203,7 @@ name|LENGTH
 init|=
 literal|"LENGTH"
 decl_stmt|;
+comment|//TODO: change to protected
 specifier|public
 specifier|static
 specifier|final
@@ -209,6 +212,7 @@ name|TTL
 init|=
 literal|"TTL"
 decl_stmt|;
+comment|//TODO: change to protected
 specifier|public
 specifier|static
 specifier|final
@@ -217,6 +221,7 @@ name|BLOOMFILTER
 init|=
 literal|"BLOOMFILTER"
 decl_stmt|;
+comment|//TODO: change to protected
 specifier|public
 specifier|static
 specifier|final
@@ -225,12 +230,14 @@ name|FOREVER
 init|=
 literal|"FOREVER"
 decl_stmt|;
+comment|//TODO: change to protected
 specifier|public
 specifier|static
 specifier|final
 name|String
 name|MAPFILE_INDEX_INTERVAL
 init|=
+comment|//TODO: change to protected
 literal|"MAPFILE_INDEX_INTERVAL"
 decl_stmt|;
 comment|/**    * Default compression type.    */
@@ -1474,7 +1481,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1621,7 +1627,6 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1641,7 +1646,6 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1685,7 +1689,11 @@ name|result
 return|;
 block|}
 comment|// Writable
-comment|/** {@inheritDoc} */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 name|void
 name|readFields
@@ -1986,7 +1994,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -2066,7 +2073,6 @@ expr_stmt|;
 block|}
 block|}
 comment|// Comparable
-comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo

@@ -626,7 +626,6 @@ literal|true
 return|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|run

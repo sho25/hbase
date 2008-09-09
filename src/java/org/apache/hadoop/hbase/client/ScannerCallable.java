@@ -212,7 +212,6 @@ literal|true
 expr_stmt|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|RowResult
 name|call

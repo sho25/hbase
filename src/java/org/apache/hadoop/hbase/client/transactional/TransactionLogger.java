@@ -28,13 +28,17 @@ specifier|public
 interface|interface
 name|TransactionLogger
 block|{
+comment|/** Transaction status values */
 enum|enum
 name|TransactionStatus
 block|{
+comment|/** Transaction is pending */
 name|PENDING
 block|,
+comment|/** Transaction was committed */
 name|COMMITTED
 block|,
+comment|/** Transaction was aborted */
 name|ABORTED
 block|}
 comment|/**    * Create a new transaction log. Return the transaction's globally unique id.    * Log's initial value should be PENDING    *     * @return transaction id    */
@@ -42,6 +46,7 @@ name|long
 name|createNewTransactionLog
 parameter_list|()
 function_decl|;
+comment|/**    * @param transactionId    * @return transaction status    */
 name|TransactionStatus
 name|getStatusForTransaction
 parameter_list|(
@@ -49,6 +54,7 @@ name|long
 name|transactionId
 parameter_list|)
 function_decl|;
+comment|/**    * @param transactionId    * @param status    */
 name|void
 name|setStatusForTransaction
 parameter_list|(

@@ -210,7 +210,6 @@ operator|=
 name|startKey
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -285,7 +284,6 @@ return|return
 name|startKey
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -314,7 +312,6 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -346,7 +343,6 @@ name|result
 return|;
 block|}
 comment|// Comparable
-comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo

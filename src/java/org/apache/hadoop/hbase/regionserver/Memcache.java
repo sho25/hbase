@@ -3560,7 +3560,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -3938,7 +3937,6 @@ operator|>
 literal|0
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|close

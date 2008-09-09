@@ -576,7 +576,6 @@ return|return
 name|timestamp
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -602,7 +601,6 @@ operator|+
 name|timestamp
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -622,7 +620,6 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -768,7 +765,6 @@ name|result
 return|;
 block|}
 comment|// Writable
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -801,7 +797,6 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields

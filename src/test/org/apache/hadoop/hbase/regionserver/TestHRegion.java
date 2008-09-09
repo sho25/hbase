@@ -402,7 +402,6 @@ name|numInserted
 init|=
 literal|0
 decl_stmt|;
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

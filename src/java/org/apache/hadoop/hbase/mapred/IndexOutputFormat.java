@@ -265,7 +265,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

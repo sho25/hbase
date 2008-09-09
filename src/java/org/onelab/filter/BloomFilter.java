@@ -163,7 +163,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|//end constructor
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -233,7 +232,6 @@ expr_stmt|;
 block|}
 block|}
 comment|//end add()
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -300,7 +298,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|//end and()
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -381,7 +378,6 @@ literal|true
 return|;
 block|}
 comment|//end memberhsipTest()
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -402,7 +398,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|//end not()
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -467,7 +462,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|//end or()
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -532,7 +526,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|//and xor()
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -548,7 +541,6 @@ argument_list|()
 return|;
 block|}
 comment|//end toString()
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -592,7 +584,6 @@ name|vectorSize
 return|;
 block|}
 comment|// Writable
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -709,7 +700,6 @@ name|bytes
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

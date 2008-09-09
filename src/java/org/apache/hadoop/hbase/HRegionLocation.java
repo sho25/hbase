@@ -63,7 +63,6 @@ operator|=
 name|serverAddress
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -88,7 +87,6 @@ operator|.
 name|regionInfo
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -110,7 +108,6 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -164,7 +161,6 @@ block|}
 comment|//
 comment|// Comparable
 comment|//
-comment|/**    * {@inheritDoc}    */
 specifier|public
 name|int
 name|compareTo

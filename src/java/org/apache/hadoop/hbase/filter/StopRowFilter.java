@@ -144,7 +144,6 @@ operator|.
 name|stopRowKey
 return|;
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|void
 name|validate
@@ -163,7 +162,6 @@ parameter_list|)
 block|{
 comment|// Doesn't filter columns
 block|}
-comment|/**    *     * {@inheritDoc}    */
 specifier|public
 name|void
 name|reset
@@ -171,7 +169,6 @@ parameter_list|()
 block|{
 comment|// Nothing to reset
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -191,7 +188,6 @@ parameter_list|)
 block|{
 comment|// Doesn't care
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|processAlways
@@ -201,7 +197,6 @@ return|return
 literal|false
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|filterAllRemaining
@@ -211,7 +206,6 @@ return|return
 literal|false
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|filterRowKey
@@ -259,7 +253,7 @@ operator|<=
 literal|0
 return|;
 block|}
-comment|/**    * {@inheritDoc}    *    * Because StopRowFilter does not examine column information, this method     * defaults to calling the rowKey-only version of filter.    */
+comment|/**    * Because StopRowFilter does not examine column information, this method     * defaults to calling the rowKey-only version of filter.    */
 specifier|public
 name|boolean
 name|filterColumn
@@ -302,7 +296,7 @@ name|rowKey
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc}    *    * Because StopRowFilter does not examine column information, this method     * defaults to calling filterAllRemaining().    *     * @param columns    */
+comment|/**    * Because StopRowFilter does not examine column information, this method     * defaults to calling filterAllRemaining().    */
 specifier|public
 name|boolean
 name|filterRow
@@ -328,7 +322,6 @@ name|filterAllRemaining
 argument_list|()
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -351,7 +344,6 @@ name|in
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write

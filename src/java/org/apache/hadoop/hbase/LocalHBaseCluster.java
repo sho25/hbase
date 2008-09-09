@@ -286,6 +286,11 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Constructor.    * @param conf Configuration to use.  Post construction has the master's    * address.    * @param noRegionServers Count of regionservers to start.    * @throws IOException    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 name|LocalHBaseCluster
 parameter_list|(
@@ -1029,6 +1034,7 @@ literal|" region server(s)"
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param t    * @throws InterruptedException    */
 specifier|public
 name|void
 name|threadDumpingJoin

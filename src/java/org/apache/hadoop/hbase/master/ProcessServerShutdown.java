@@ -37,6 +37,10 @@ name|UnsupportedEncodingException
 import|;
 end_import
 
+begin_comment
+comment|//TODO: remove
+end_comment
+
 begin_import
 import|import
 name|java
@@ -438,7 +442,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -976,7 +979,6 @@ name|master
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|Boolean
 name|call
@@ -1078,7 +1080,6 @@ name|master
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|Boolean
 name|call

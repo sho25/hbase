@@ -747,7 +747,6 @@ specifier|private
 name|PerformanceEvaluation
 name|pe
 decl_stmt|;
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -784,7 +783,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|map

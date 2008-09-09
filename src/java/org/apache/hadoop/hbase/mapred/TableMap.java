@@ -208,7 +208,7 @@ argument_list|,
 name|V
 argument_list|>
 block|{
-comment|/**    * Use this before submitting a TableMap job. It will    * appropriately set up the JobConf.    *     * @param table table name    * @param columns columns to scan    * @param mapper mapper class    * @param job job configuration    */
+comment|/**    * Use this before submitting a TableMap job. It will    * appropriately set up the JobConf.    *     * @param table table name    * @param columns columns to scan    * @param mapper mapper class    * @param outputKeyClass    * @param outputValueClass    * @param job job configuration    */
 specifier|public
 specifier|static
 name|void

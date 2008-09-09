@@ -271,7 +271,6 @@ name|dir
 init|=
 literal|null
 decl_stmt|;
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -362,7 +361,6 @@ name|setUp
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

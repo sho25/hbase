@@ -342,6 +342,7 @@ name|ImmutableBytesWritable
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|//TODO: Why can't the following be private? They are only used within this class.
 specifier|public
 specifier|static
 specifier|final
@@ -418,6 +419,7 @@ literal|1024
 operator|*
 literal|64
 decl_stmt|;
+comment|// End TODO:
 comment|// Key is hash of the family name.
 specifier|private
 specifier|final
@@ -1871,7 +1873,6 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1891,7 +1892,6 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1975,7 +1975,6 @@ name|result
 return|;
 block|}
 comment|// Writable
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -2171,7 +2170,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -2314,7 +2312,6 @@ expr_stmt|;
 block|}
 block|}
 comment|// Comparable
-comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo

@@ -170,7 +170,6 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|//end constructor
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1326,7 +1325,6 @@ comment|//end for -i
 block|}
 comment|//end createVector()
 comment|// Writable
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1485,7 +1483,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

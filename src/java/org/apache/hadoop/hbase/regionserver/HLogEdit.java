@@ -207,16 +207,21 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/** If transactional log entry, these are the op codes */
 specifier|public
 enum|enum
 name|TransactionalOperation
 block|{
+comment|/** start transaction */
 name|START
 block|,
+comment|/** Equivalent to append in non-transactional environment */
 name|WRITE
 block|,
+comment|/** Transaction commit entry */
 name|COMMIT
 block|,
+comment|/** Abort transaction entry */
 name|ABORT
 block|}
 specifier|private
@@ -444,6 +449,7 @@ operator|.
 name|timestamp
 return|;
 block|}
+comment|/** @return true if entry is a transactional entry */
 specifier|public
 name|boolean
 name|isTransactionEntry
@@ -589,7 +595,6 @@ literal|")"
 return|;
 block|}
 comment|// Writable
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -689,7 +694,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields

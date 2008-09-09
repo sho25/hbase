@@ -1710,7 +1710,6 @@ block|}
 block|}
 block|}
 comment|// Implementation of ChangedReadersObserver
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|updateReaders

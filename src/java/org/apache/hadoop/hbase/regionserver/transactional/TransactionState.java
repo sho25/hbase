@@ -316,6 +316,8 @@ name|hasScan
 init|=
 literal|false
 decl_stmt|;
+comment|//TODO: Why don't these methods and the class itself use default access?
+comment|//      They are only referenced from within this package.
 specifier|public
 name|TransactionState
 parameter_list|(

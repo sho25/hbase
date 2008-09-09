@@ -100,7 +100,6 @@ decl_stmt|;
 name|WhileMatchRowFilter
 name|wmRegExpRowFilter
 decl_stmt|;
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|protected

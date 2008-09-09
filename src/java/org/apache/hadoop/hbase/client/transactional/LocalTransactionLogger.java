@@ -75,6 +75,7 @@ specifier|static
 name|LocalTransactionLogger
 name|instance
 decl_stmt|;
+comment|/**    * Creates singleton if it does not exist    *     * @return reference to singleton    */
 specifier|public
 specifier|synchronized
 specifier|static
@@ -137,7 +138,7 @@ parameter_list|()
 block|{
 comment|// Enforce singlton
 block|}
-comment|// Gives back random longs to minimize possibility of collision
+comment|/** @return random longs to minimize possibility of collision */
 specifier|public
 name|long
 name|createNewTransactionLog

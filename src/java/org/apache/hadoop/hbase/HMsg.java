@@ -97,6 +97,7 @@ specifier|static
 enum|enum
 name|Type
 block|{
+comment|/** null message */
 name|MSG_NONE
 block|,
 comment|// Message types sent from master to region server
@@ -157,6 +158,7 @@ init|=
 literal|null
 decl_stmt|;
 comment|// Some useful statics.  Use these rather than create a new HMsg each time.
+comment|//TODO: move the following to HRegionServer
 specifier|public
 specifier|static
 specifier|final
@@ -185,6 +187,7 @@ operator|.
 name|MSG_REPORT_QUIESCED
 argument_list|)
 decl_stmt|;
+comment|//TODO: Move to o.a.h.h.master
 specifier|public
 specifier|static
 specifier|final
@@ -199,6 +202,7 @@ operator|.
 name|MSG_REGIONSERVER_QUIESCE
 argument_list|)
 decl_stmt|;
+comment|//TODO: Move to o.a.h.h.master
 specifier|public
 specifier|static
 specifier|final
@@ -213,6 +217,7 @@ operator|.
 name|MSG_REGIONSERVER_STOP
 argument_list|)
 decl_stmt|;
+comment|//TODO: Move to o.a.h.h.master
 specifier|public
 specifier|static
 specifier|final
@@ -227,6 +232,7 @@ operator|.
 name|MSG_CALL_SERVER_STARTUP
 argument_list|)
 decl_stmt|;
+comment|//TODO: Move to o.a.h.h.master
 specifier|public
 specifier|static
 specifier|final
@@ -382,6 +388,7 @@ operator|.
 name|info
 return|;
 block|}
+comment|/** @return the type of message */
 specifier|public
 name|Type
 name|getType
@@ -416,6 +423,7 @@ name|other
 argument_list|)
 return|;
 block|}
+comment|/** @return the message type */
 specifier|public
 name|byte
 index|[]
@@ -428,7 +436,6 @@ operator|.
 name|message
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -631,7 +638,6 @@ block|}
 comment|// ////////////////////////////////////////////////////////////////////////////
 comment|// Writable
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|write
@@ -710,7 +716,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|readFields

@@ -232,7 +232,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Writable Map.  * Like {@link org.apache.hadoop.io.MapWritable} but dumb. It will fail  * if passed a Writable it has not already been told about. Its also been  * primed with hbase Writables.  Keys are always byte arrays.  Thats other  * difference from MapWritable.  * TODO: Have generics enforce V is a subclass of Writable and K is a byte []  * only.  */
+comment|/**  * A Writable Map.  * Like {@link org.apache.hadoop.io.MapWritable} but dumb. It will fail  * if passed a Writable it has not already been told about. Its also been  * primed with hbase Writables.  Keys are always byte arrays.  Thats other  * difference from MapWritable.  *  * @param<K> key  * @param<V> value  */
 end_comment
 
 begin_class
@@ -479,7 +479,6 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|clear
@@ -491,7 +490,6 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|containsKey
@@ -509,7 +507,6 @@ name|key
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|containsValue
@@ -527,7 +524,6 @@ name|value
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|Set
 argument_list|<
@@ -549,7 +545,6 @@ name|entrySet
 argument_list|()
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|V
 name|get
@@ -567,7 +562,6 @@ name|key
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|isEmpty
@@ -580,7 +574,6 @@ name|isEmpty
 argument_list|()
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|Set
 argument_list|<
@@ -597,7 +590,6 @@ name|keySet
 argument_list|()
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|size
@@ -610,7 +602,6 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|Collection
 argument_list|<
@@ -931,7 +922,6 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -1020,7 +1010,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 name|void
 name|readFields

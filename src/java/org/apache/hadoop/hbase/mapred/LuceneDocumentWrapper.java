@@ -47,6 +47,10 @@ name|IOException
 import|;
 end_import
 
+begin_comment
+comment|//TODO: remove
+end_comment
+
 begin_import
 import|import
 name|org
@@ -89,6 +93,7 @@ specifier|private
 name|Document
 name|doc
 decl_stmt|;
+comment|/**    * @param doc    */
 specifier|public
 name|LuceneDocumentWrapper
 parameter_list|(
@@ -103,6 +108,7 @@ operator|=
 name|doc
 expr_stmt|;
 block|}
+comment|/**    * @return the document    */
 specifier|public
 name|Document
 name|get
@@ -116,11 +122,14 @@ specifier|public
 name|void
 name|readFields
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|DataInput
 name|in
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 comment|// intentionally left blank
 block|}
@@ -128,11 +137,14 @@ specifier|public
 name|void
 name|write
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|DataOutput
 name|out
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 comment|// intentionally left blank
 block|}

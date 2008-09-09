@@ -69,6 +69,8 @@ argument_list|(
 literal|0L
 argument_list|)
 decl_stmt|;
+comment|//TODO: NINES is only used in HBaseAdmin and HConnectionManager. Move to client
+comment|//      package and change visibility to default
 specifier|static
 specifier|final
 name|String
@@ -76,6 +78,8 @@ name|NINES
 init|=
 literal|"99999999999999"
 decl_stmt|;
+comment|//TODO: ZEROS is only used in HConnectionManager and MetaScanner. Move to
+comment|//      client package and change visibility to default
 specifier|static
 specifier|final
 name|String
@@ -582,6 +586,8 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+comment|//TODO: HBASE_CLIENT_RETRIES_NUMBER_KEY is only used by TestMigrate. Move it
+comment|//      there.
 specifier|public
 specifier|static
 specifier|final
@@ -590,6 +596,7 @@ name|HBASE_CLIENT_RETRIES_NUMBER_KEY
 init|=
 literal|"hbase.client.retries.number"
 decl_stmt|;
+comment|//TODO: DEFAULT_CLIENT_RETRIES is not referenced anywhere. Remove it.
 specifier|public
 specifier|static
 specifier|final
@@ -598,6 +605,10 @@ name|DEFAULT_CLIENT_RETRIES
 init|=
 literal|5
 decl_stmt|;
+comment|//TODO: although the following are referenced widely to format strings for
+comment|//      the shell. They really aren't a part of the public API. It would be
+comment|//      nice if we could put them somewhere where they did not need to be
+comment|//      public. They could have package visibility
 specifier|public
 specifier|static
 specifier|final

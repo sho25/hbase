@@ -297,7 +297,6 @@ operator|=
 name|table
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|close
@@ -313,7 +312,6 @@ parameter_list|)
 block|{
 comment|// Nothing to do.
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -341,7 +339,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 annotation|@
@@ -441,7 +438,6 @@ name|table
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 annotation|@

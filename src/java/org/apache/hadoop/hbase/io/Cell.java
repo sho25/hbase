@@ -433,7 +433,6 @@ literal|0
 index|]
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -584,7 +583,6 @@ block|}
 comment|//
 comment|// Writable
 comment|//
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -684,7 +682,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -777,7 +774,6 @@ block|}
 comment|//
 comment|// Iterable
 comment|//
-comment|/** {@inheritDoc} */
 specifier|public
 name|Iterator
 argument_list|<
@@ -811,7 +807,6 @@ decl_stmt|;
 name|CellIterator
 parameter_list|()
 block|{     }
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|hasNext
@@ -825,7 +820,6 @@ operator|.
 name|length
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|Cell
 name|next
@@ -851,7 +845,6 @@ index|]
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|remove

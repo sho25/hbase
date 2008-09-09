@@ -141,6 +141,11 @@ argument_list|,
 name|BatchUpdate
 argument_list|>
 block|{
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|private
 specifier|static
 specifier|final

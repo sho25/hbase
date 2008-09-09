@@ -136,7 +136,6 @@ literal|"table3"
 argument_list|)
 block|}
 decl_stmt|;
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

@@ -328,7 +328,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public

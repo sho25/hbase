@@ -809,6 +809,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * @return log sequence number    */
 specifier|public
 name|long
 name|getSequenceNumber
@@ -2167,6 +2168,7 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * @param column    * @return true if the column is a meta column    */
 specifier|public
 specifier|static
 name|boolean

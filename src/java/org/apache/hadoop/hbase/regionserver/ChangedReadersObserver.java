@@ -36,7 +36,7 @@ specifier|public
 interface|interface
 name|ChangedReadersObserver
 block|{
-comment|/**    * Notify observers.    */
+comment|/**    * Notify observers.    * @throws IOException    */
 name|void
 name|updateReaders
 parameter_list|()

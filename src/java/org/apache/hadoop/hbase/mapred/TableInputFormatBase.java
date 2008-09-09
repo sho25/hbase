@@ -439,7 +439,7 @@ index|[]
 index|[]
 name|trrInputColumns
 decl_stmt|;
-comment|/**      * Restart from survivable exceptions by creating a new scanner.      *      * @throws IOException      */
+comment|/**      * Restart from survivable exceptions by creating a new scanner.      *      * @param firstRow      * @throws IOException      */
 specifier|public
 name|void
 name|restart
@@ -678,13 +678,10 @@ operator|=
 name|rowFilter
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|close
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.
@@ -718,7 +715,6 @@ name|RowResult
 argument_list|()
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|getPos
@@ -730,7 +726,6 @@ return|return
 literal|0
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|float
 name|getProgress

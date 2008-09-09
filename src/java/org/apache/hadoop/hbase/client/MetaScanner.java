@@ -112,6 +112,10 @@ import|;
 end_import
 
 begin_comment
+comment|//TODO: remove
+end_comment
+
+begin_comment
 comment|/**  * Scanner class that contains the<code>.META.</code> table scanning logic   * and uses a Retryable scanner. Provided visitors will be called  * for each row.  */
 end_comment
 

@@ -225,7 +225,6 @@ operator|=
 name|leaseCheckFrequency
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -509,6 +508,11 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Thrown if we are asked create a lease but lease on passed name already    * exists.    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"serial"
+argument_list|)
 specifier|public
 specifier|static
 class|class
@@ -521,6 +525,7 @@ specifier|final
 name|String
 name|leaseName
 decl_stmt|;
+comment|/**      * @param name      */
 specifier|public
 name|LeaseStillHeldException
 parameter_list|(
@@ -536,6 +541,7 @@ operator|=
 name|name
 expr_stmt|;
 block|}
+comment|/** @return name of lease */
 specifier|public
 name|String
 name|getName
@@ -753,7 +759,6 @@ operator|.
 name|listener
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -781,7 +786,6 @@ name|hashCode
 argument_list|()
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -798,7 +802,6 @@ name|hashCode
 argument_list|()
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|getDelay
@@ -827,7 +830,6 @@ name|MILLISECONDS
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo

@@ -125,6 +125,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|//end constructor
+comment|/**    * @param value    * @param weight    */
 specifier|public
 name|void
 name|set
@@ -219,7 +220,6 @@ operator|++
 expr_stmt|;
 block|}
 comment|//end incrementWeight()
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -241,7 +241,6 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -304,7 +303,6 @@ name|result
 return|;
 block|}
 comment|// Writable
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -339,7 +337,6 @@ name|weight
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -381,7 +378,6 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// Comparable
-comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo

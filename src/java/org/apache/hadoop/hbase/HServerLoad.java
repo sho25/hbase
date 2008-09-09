@@ -123,7 +123,6 @@ return|return
 name|numberOfRegions
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -159,7 +158,6 @@ operator|+
 name|numberOfRegions
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -179,7 +177,6 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -271,7 +268,6 @@ name|numberOfRequests
 expr_stmt|;
 block|}
 comment|// Writable
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -297,7 +293,6 @@ name|readInt
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -324,7 +319,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Comparable
-comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo

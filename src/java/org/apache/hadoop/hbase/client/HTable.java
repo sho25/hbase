@@ -3347,6 +3347,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|//TODO: change visibility to protected
 specifier|public
 name|void
 name|initialize
@@ -3657,7 +3658,6 @@ name|filterAllRemaining
 argument_list|()
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|RowResult
 name|next
@@ -3735,7 +3735,6 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**      * {@inheritDoc}      */
 specifier|public
 name|void
 name|close
@@ -3785,7 +3784,6 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|Iterator
 argument_list|<

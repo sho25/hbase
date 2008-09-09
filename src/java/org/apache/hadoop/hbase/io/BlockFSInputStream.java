@@ -227,7 +227,11 @@ comment|/**    * @param in    * @param fileLength    * @param blockSize the size
 annotation|@
 name|SuppressWarnings
 argument_list|(
+block|{
 literal|"unchecked"
+block|,
+literal|"serial"
+block|}
 argument_list|)
 specifier|public
 name|BlockFSInputStream
@@ -403,8 +407,6 @@ specifier|synchronized
 name|long
 name|getPos
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 return|return
 name|pos
@@ -417,8 +419,6 @@ specifier|synchronized
 name|int
 name|available
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 return|return
 call|(
@@ -471,6 +471,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 specifier|synchronized
 name|boolean
@@ -885,6 +890,11 @@ return|;
 block|}
 annotation|@
 name|Override
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|void
 name|mark

@@ -216,7 +216,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get selected columns for the specified row at a given timestamp.    *     * @param regionName region name    * @param row row key    * @param lockId lock id    * @return map of values    * @throws IOException    */
+comment|/**    * Get selected columns for the specified row at a given timestamp.    *     * @param regionName region name    * @param row row key    * @param columns columns to get    * @param ts time stamp    * @param lockId lock id    * @return map of values    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -317,7 +317,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete all cells for a row with matching column family with timestamps    * less than or equal to<i>timestamp</i>.    *    * @param regionName The name of the region to operate on    * @param row The row to operate on    * @param family The column family to match    * @param timestamp Timestamp to match    * @param lockId lock id    */
+comment|/**    * Delete all cells for a row with matching column family with timestamps    * less than or equal to<i>timestamp</i>.    *    * @param regionName The name of the region to operate on    * @param row The row to operate on    * @param family The column family to match    * @param timestamp Timestamp to match    * @param lockId lock id    * @throws IOException    */
 specifier|public
 name|void
 name|deleteFamily
@@ -416,7 +416,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Releases a remote row lock.    *    * @param lockId the lock id returned by lockRow    * @throws IOException    */
+comment|/**    * Releases a remote row lock.    *    * @param regionName    * @param lockId the lock id returned by lockRow    * @throws IOException    */
 specifier|public
 name|void
 name|unlockRow

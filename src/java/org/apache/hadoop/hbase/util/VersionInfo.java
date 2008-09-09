@@ -163,7 +163,7 @@ else|:
 literal|"Unknown"
 return|;
 block|}
-comment|/**    * Get the subversion URL for the root hbase directory.    */
+comment|/**    * Get the subversion URL for the root hbase directory.    * @return the url    */
 specifier|public
 specifier|static
 name|String
@@ -183,6 +183,7 @@ else|:
 literal|"Unknown"
 return|;
 block|}
+comment|/**    * @param args    */
 specifier|public
 specifier|static
 name|void

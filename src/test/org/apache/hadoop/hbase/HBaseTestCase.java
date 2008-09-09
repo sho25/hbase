@@ -562,7 +562,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * {@inheritDoc}    *     * Note that this method must be called after the mini hdfs cluster has    * started or we end up with a local file system.    *     */
+comment|/**    * Note that this method must be called after the mini hdfs cluster has    * started or we end up with a local file system.    */
 annotation|@
 name|Override
 specifier|protected
@@ -702,7 +702,6 @@ name|e
 throw|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|protected
@@ -1721,7 +1720,6 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|commit
@@ -1742,8 +1740,6 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-empty_stmt|;
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|deleteAll
@@ -1778,7 +1774,6 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|ScannerIncommon
 name|getScanner
@@ -1817,7 +1812,6 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|Cell
 name|get
@@ -1869,7 +1863,6 @@ literal|0
 index|]
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|Cell
 index|[]
@@ -1907,7 +1900,6 @@ name|versions
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|Cell
 index|[]
@@ -1982,7 +1974,6 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|flushcache
@@ -2061,7 +2052,6 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|commit
@@ -2080,8 +2070,6 @@ name|batchUpdate
 argument_list|)
 expr_stmt|;
 block|}
-empty_stmt|;
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|deleteAll
@@ -2114,7 +2102,6 @@ name|ts
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|ScannerIncommon
 name|getScanner
@@ -2153,7 +2140,6 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|Cell
 name|get
@@ -2182,7 +2168,6 @@ name|column
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|Cell
 index|[]
@@ -2217,7 +2202,6 @@ name|versions
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|Cell
 index|[]

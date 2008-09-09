@@ -103,7 +103,6 @@ name|ROW_LIMIT
 init|=
 literal|3
 decl_stmt|;
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|protected

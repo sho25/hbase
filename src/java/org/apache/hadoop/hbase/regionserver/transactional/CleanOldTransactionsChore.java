@@ -96,6 +96,7 @@ specifier|final
 name|TransactionalRegionServer
 name|regionServer
 decl_stmt|;
+comment|/**    * @param regionServer    * @param stopRequest    */
 specifier|public
 name|CleanOldTransactionsChore
 parameter_list|(

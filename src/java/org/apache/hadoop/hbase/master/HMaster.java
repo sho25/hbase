@@ -755,7 +755,6 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|getProtocolVersion
@@ -2547,7 +2546,6 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/*    * HMasterRegionInterface    */
-comment|/** {@inheritDoc} */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -2710,7 +2708,6 @@ return|return
 name|mw
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|HMsg
 index|[]
@@ -2744,7 +2741,6 @@ argument_list|)
 return|;
 block|}
 comment|/*    * HMasterInterface    */
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|isMasterRunning
@@ -2758,7 +2754,6 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|shutdown
@@ -2778,7 +2773,6 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|createTable
@@ -3080,7 +3074,6 @@ name|metaRegionName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|deleteTable
@@ -3139,7 +3132,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|addColumn
@@ -3168,7 +3160,6 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|modifyColumn
@@ -3203,7 +3194,6 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|deleteColumn
@@ -3240,7 +3230,6 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|enableTable
@@ -3287,7 +3276,6 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|disableTable
@@ -3334,7 +3322,6 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|modifyTableMeta
@@ -3364,7 +3351,6 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|HServerAddress
 name|findRootRegion

@@ -61,6 +61,10 @@ name|HConstants
 import|;
 end_import
 
+begin_comment
+comment|//TODO: remove
+end_comment
+
 begin_import
 import|import
 name|org
@@ -276,6 +280,8 @@ specifier|private
 name|IndexConfiguration
 name|indexConf
 decl_stmt|;
+annotation|@
+name|Override
 specifier|public
 name|void
 name|configure
@@ -341,6 +347,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|close
@@ -375,6 +383,11 @@ name|LuceneDocumentWrapper
 argument_list|>
 name|output
 parameter_list|,
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|Reporter
 name|reporter
 parameter_list|)

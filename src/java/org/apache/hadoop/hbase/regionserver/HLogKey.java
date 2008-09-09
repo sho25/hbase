@@ -155,6 +155,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// A bunch of accessors
 comment|//////////////////////////////////////////////////////////////////////////////
+comment|/** @return region name */
 specifier|public
 name|byte
 index|[]
@@ -165,6 +166,7 @@ return|return
 name|regionName
 return|;
 block|}
+comment|/** @return table name */
 specifier|public
 name|byte
 index|[]
@@ -175,6 +177,7 @@ return|return
 name|tablename
 return|;
 block|}
+comment|/** @return row key */
 specifier|public
 name|byte
 index|[]
@@ -185,6 +188,7 @@ return|return
 name|row
 return|;
 block|}
+comment|/** @return log sequence number */
 specifier|public
 name|long
 name|getLogSeqNum
@@ -194,7 +198,6 @@ return|return
 name|logSeqNum
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -233,7 +236,6 @@ operator|+
 name|logSeqNum
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -253,7 +255,6 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -293,7 +294,6 @@ block|}
 comment|//
 comment|// Comparable
 comment|//
-comment|/**    * {@inheritDoc}    */
 specifier|public
 name|int
 name|compareTo
@@ -398,7 +398,6 @@ block|}
 comment|//
 comment|// Writable
 comment|//
-comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|write
@@ -450,7 +449,6 @@ name|logSeqNum
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    */
 specifier|public
 name|void
 name|readFields

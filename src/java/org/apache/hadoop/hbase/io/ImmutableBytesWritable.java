@@ -294,7 +294,6 @@ operator|.
 name|length
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -337,7 +336,6 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -379,7 +377,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Below methods copied from BytesWritable
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -485,7 +482,6 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -537,7 +533,6 @@ return|return
 literal|false
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -675,7 +670,6 @@ name|class
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

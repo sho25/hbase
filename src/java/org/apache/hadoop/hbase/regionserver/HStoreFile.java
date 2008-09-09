@@ -1772,7 +1772,6 @@ else|:
 name|l
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -2140,7 +2139,6 @@ operator|.
 name|encodedRegionName
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -2161,7 +2159,6 @@ name|region
 return|;
 block|}
 comment|// Make it serializable.
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -2215,7 +2212,6 @@ name|out
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -2576,7 +2572,7 @@ name|MapFile
 operator|.
 name|Writer
 block|{
-comment|/**        * @param conf        * @param fs        * @param dirName        * @param compression        * @throws IOException        */
+comment|/**        * @param conf        * @param fs        * @param dirName        * @param compression        * @param hri        * @throws IOException        */
 specifier|public
 name|HbaseWriter
 parameter_list|(
@@ -2812,7 +2808,6 @@ return|return
 name|filter
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -2906,7 +2901,6 @@ return|return
 literal|null
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -3166,7 +3160,6 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -3210,7 +3203,6 @@ name|val
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -3519,7 +3511,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -3625,7 +3616,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -3658,7 +3648,6 @@ name|val
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -3786,7 +3775,6 @@ return|return
 name|closest
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -3807,7 +3795,6 @@ return|return
 literal|null
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -3919,7 +3906,6 @@ return|return
 name|result
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -3952,7 +3938,6 @@ name|reset
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

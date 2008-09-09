@@ -175,7 +175,6 @@ operator|/
 literal|2
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|getDelay
@@ -204,7 +203,6 @@ name|MILLISECONDS
 argument_list|)
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|int
 name|compareTo

@@ -237,7 +237,6 @@ operator|=
 name|operator
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|validate
@@ -266,7 +265,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|reset
@@ -287,7 +285,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|rowProcessed
@@ -319,7 +316,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|processAlways
@@ -350,7 +346,6 @@ return|return
 literal|false
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|filterAllRemaining
@@ -424,7 +419,6 @@ return|return
 name|result
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|filterRowKey
@@ -557,7 +551,6 @@ return|return
 name|result
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|filterColumn
@@ -712,7 +705,6 @@ return|return
 name|result
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|filterRow
@@ -850,7 +842,6 @@ return|return
 name|result
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -951,7 +942,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write

@@ -817,7 +817,6 @@ return|return
 literal|false
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|isWildcardScanner
@@ -829,7 +828,6 @@ operator|.
 name|wildcardMatch
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|isMultipleMatchScanner
@@ -841,7 +839,6 @@ operator|.
 name|multipleMatchers
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 specifier|abstract
 name|boolean

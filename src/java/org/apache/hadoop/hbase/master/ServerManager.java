@@ -2179,6 +2179,11 @@ specifier|private
 name|void
 name|processRegionClose
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|HServerInfo
 name|serverInfo
 parameter_list|,
@@ -2938,7 +2943,6 @@ operator|=
 name|server
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|leaseExpired

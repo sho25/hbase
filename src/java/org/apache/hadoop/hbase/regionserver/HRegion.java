@@ -7986,7 +7986,6 @@ block|}
 block|}
 block|}
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -8014,7 +8013,6 @@ name|hashCode
 argument_list|()
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -8034,7 +8032,6 @@ name|hashCode
 argument_list|()
 return|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -8469,7 +8466,6 @@ name|incrementAndGet
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -9128,7 +9124,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**      * {@inheritDoc}      */
 specifier|public
 name|void
 name|close
@@ -9232,7 +9227,6 @@ block|}
 block|}
 block|}
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|isWildcardScanner
@@ -9246,7 +9240,6 @@ literal|"Unimplemented on HScanner"
 argument_list|)
 throw|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|boolean
 name|isMultipleMatchScanner

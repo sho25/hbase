@@ -224,6 +224,7 @@ name|Cell
 argument_list|>
 name|cells
 decl_stmt|;
+comment|/** default constructor for writable */
 specifier|public
 name|RowResult
 parameter_list|()
@@ -244,7 +245,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a RowResult from a row and Cell map    */
+comment|/**    * Create a RowResult from a row and Cell map    * @param row    * @param m    */
 specifier|public
 name|RowResult
 parameter_list|(
@@ -277,7 +278,7 @@ operator|=
 name|m
 expr_stmt|;
 block|}
-comment|/**    * Get the row for this RowResult    */
+comment|/**    * Get the row for this RowResult    * @return the row    */
 specifier|public
 name|byte
 index|[]
@@ -356,9 +357,6 @@ name|key
 parameter_list|)
 block|{
 return|return
-operator|(
-name|Cell
-operator|)
 name|this
 operator|.
 name|cells
@@ -594,7 +592,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Get the Cell that corresponds to column    */
+comment|/**    * Get the Cell that corresponds to column    * @param column    * @return the Cell    */
 specifier|public
 name|Cell
 name|get
@@ -615,7 +613,7 @@ name|column
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the Cell that corresponds to column, using a String key    */
+comment|/**    * Get the Cell that corresponds to column, using a String key    * @param key    * @return the Cell    */
 specifier|public
 name|Cell
 name|get

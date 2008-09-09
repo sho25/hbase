@@ -136,7 +136,6 @@ decl_stmt|;
 name|RowFilterInterface
 name|mainFilter
 decl_stmt|;
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|protected

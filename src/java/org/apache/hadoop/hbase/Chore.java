@@ -145,7 +145,6 @@ operator|=
 name|s
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

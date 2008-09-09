@@ -20,12 +20,18 @@ comment|/**  * Thrown if issue with passed column name.  */
 end_comment
 
 begin_class
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"serial"
+argument_list|)
 specifier|public
 class|class
 name|ColumnNameParseException
 extends|extends
 name|DoNotRetryIOException
 block|{
+comment|/** default constructor */
 specifier|public
 name|ColumnNameParseException
 parameter_list|()
@@ -34,6 +40,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * @param message    */
 specifier|public
 name|ColumnNameParseException
 parameter_list|(

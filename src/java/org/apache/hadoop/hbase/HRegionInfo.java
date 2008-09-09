@@ -279,6 +279,7 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+comment|//TODO: Move NO_HASH to HStoreFile which is really the only place it is used.
 specifier|public
 specifier|static
 specifier|final
@@ -1197,7 +1198,6 @@ operator|=
 name|offLine
 expr_stmt|;
 block|}
-comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -1277,7 +1277,6 @@ operator|+
 literal|"}"
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -1299,7 +1298,6 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -1328,7 +1326,6 @@ block|}
 comment|//
 comment|// Writable
 comment|//
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1411,7 +1408,6 @@ name|hashCode
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public
@@ -1526,7 +1522,6 @@ block|}
 comment|//
 comment|// Comparable
 comment|//
-comment|/**    * {@inheritDoc}    */
 specifier|public
 name|int
 name|compareTo

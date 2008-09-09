@@ -201,7 +201,6 @@ return|return
 name|m_endRow
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|long
 name|getLength
@@ -212,7 +211,6 @@ return|return
 literal|0
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|String
 index|[]
@@ -227,7 +225,6 @@ index|[]
 block|{ }
 return|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields
@@ -272,7 +269,6 @@ name|in
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -317,7 +313,6 @@ name|m_endRow
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

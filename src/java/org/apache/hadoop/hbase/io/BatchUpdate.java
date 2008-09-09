@@ -217,7 +217,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Initialize a BatchUpdate operation on a row with a specific timestamp.    *     * @param row    */
+comment|/**    * Initialize a BatchUpdate operation on a row with a specific timestamp.    *     * @param row    * @param timestamp    */
 specifier|public
 name|BatchUpdate
 parameter_list|(
@@ -242,7 +242,7 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Initialize a BatchUpdate operation on a row with a specific timestamp.    *     * @param row    */
+comment|/**    * Initialize a BatchUpdate operation on a row with a specific timestamp.    *     * @param row    * @param timestamp    */
 specifier|public
 name|BatchUpdate
 parameter_list|(
@@ -290,7 +290,7 @@ return|return
 name|row
 return|;
 block|}
-comment|/**    * Return the timestamp this BatchUpdate will be committed with.    */
+comment|/**    * @return the timestamp this BatchUpdate will be committed with.    */
 specifier|public
 name|long
 name|getTimestamp
@@ -300,7 +300,7 @@ return|return
 name|timestamp
 return|;
 block|}
-comment|/**    * Set this BatchUpdate's timestamp.    */
+comment|/**    * Set this BatchUpdate's timestamp.    *     * @param timestamp    */
 specifier|public
 name|void
 name|setTimestamp

@@ -111,7 +111,7 @@ name|versionID
 init|=
 literal|1L
 decl_stmt|;
-comment|/**    * Sent to initiate a transaction.    *     * @param transactionId    * @param regionName name of region    */
+comment|/**    * Sent to initiate a transaction.    *     * @param transactionId    * @param regionName name of region    * @throws IOException    */
 specifier|public
 name|void
 name|beginTransaction
@@ -127,7 +127,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Retrieve a single value from the specified region for the specified row and    * column keys    *     * @param regionName name of region    * @param row row key    * @param column column key    * @return alue for that region/row/column    * @throws IOException    */
+comment|/**    * Retrieve a single value from the specified region for the specified row and    * column keys    *    * @param transactionId    * @param regionName name of region    * @param row row key    * @param column column key    * @return alue for that region/row/column    * @throws IOException    */
 specifier|public
 name|Cell
 name|get
@@ -153,7 +153,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the specified number of versions of the specified row and column    *     * @param regionName region name    * @param row row key    * @param column column key    * @param numVersions number of versions to return    * @return array of values    * @throws IOException    */
+comment|/**    * Get the specified number of versions of the specified row and column    *     * @param transactionId    * @param regionName region name    * @param row row key    * @param column column key    * @param numVersions number of versions to return    * @return array of values    * @throws IOException    */
 specifier|public
 name|Cell
 index|[]
@@ -184,7 +184,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the specified number of versions of the specified row and column with    * the specified timestamp.    *     * @param regionName region name    * @param row row key    * @param column column key    * @param timestamp timestamp    * @param numVersions number of versions to return    * @return array of values    * @throws IOException    */
+comment|/**    * Get the specified number of versions of the specified row and column with    * the specified timestamp.    *     * @param transactionId    * @param regionName region name    * @param row row key    * @param column column key    * @param timestamp timestamp    * @param numVersions number of versions to return    * @return array of values    * @throws IOException    */
 specifier|public
 name|Cell
 index|[]
@@ -219,7 +219,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get all the data for the specified row at a given timestamp    *     * @param regionName region name    * @param row row key    * @return map of values    * @throws IOException    */
+comment|/**    * Get all the data for the specified row at a given timestamp    *     * @param transactionId    * @param regionName region name    * @param row row key    * @param ts timestamp    * @return map of values    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -244,7 +244,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get selected columns for the specified row at a given timestamp.    *     * @param regionName region name    * @param row row key    * @return map of values    * @throws IOException    */
+comment|/**    * Get selected columns for the specified row at a given timestamp.    *     * @param transactionId    * @param regionName region name    * @param row row key    * @param columns colums to get    * @param ts timestamp    * @return map of values    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -275,7 +275,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get selected columns for the specified row at the latest timestamp.    *     * @param regionName region name    * @param row row key    * @return map of values    * @throws IOException    */
+comment|/**    * Get selected columns for the specified row at the latest timestamp.    *     * @param transactionId    * @param regionName region name    * @param row row key    * @param columns columns to get    * @return map of values    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -302,7 +302,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete all cells that match the passed row and whose timestamp is equal-to    * or older than the passed timestamp.    *     * @param regionName region name    * @param row row key    * @param timestamp Delete all entries that have this timestamp or older    * @throws IOException    */
+comment|/**    * Delete all cells that match the passed row and whose timestamp is equal-to    * or older than the passed timestamp.    *     * @param transactionId    * @param regionName region name    * @param row row key    * @param timestamp Delete all entries that have this timestamp or older    * @throws IOException    */
 specifier|public
 name|void
 name|deleteAll
@@ -358,7 +358,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Applies a batch of updates via one RPC    *     * @param regionName name of the region to update    * @param b BatchUpdate    * @throws IOException    */
+comment|/**    * Applies a batch of updates via one RPC    *     * @param transactionId    * @param regionName name of the region to update    * @param b BatchUpdate    * @throws IOException    */
 specifier|public
 name|void
 name|batchUpdate
@@ -378,7 +378,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Ask if we can commit the given transaction.    *     * @param transactionId    * @return true if we can commit    */
+comment|/**    * Ask if we can commit the given transaction.    *    * @param regionName    * @param transactionId    * @return true if we can commit    * @throws IOException    */
 specifier|public
 name|boolean
 name|commitRequest
@@ -394,7 +394,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Commit the transaction.    *     * @param transactionId    */
+comment|/**    * Commit the transaction.    *    * @param regionName    * @param transactionId    * @throws IOException    */
 specifier|public
 name|void
 name|commit
@@ -410,7 +410,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Abort the transaction.    *     * @param transactionId    */
+comment|/**    * Abort the transaction.    *    * @param regionName    * @param transactionId    * @throws IOException    */
 specifier|public
 name|void
 name|abort

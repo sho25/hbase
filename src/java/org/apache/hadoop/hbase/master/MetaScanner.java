@@ -138,7 +138,7 @@ name|MetaRegion
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/** Constructor */
+comment|/**    * Constructor    *     * @param master    * @param regionManager    */
 specifier|public
 name|MetaScanner
 parameter_list|(

@@ -350,7 +350,6 @@ block|}
 block|}
 comment|//end add()
 comment|// Writable interface
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|write
@@ -380,7 +379,6 @@ name|vectorSize
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|readFields

@@ -30,12 +30,18 @@ comment|/**  * Thrown during flush if the possibility snapshot content was not p
 end_comment
 
 begin_class
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"serial"
+argument_list|)
 specifier|public
 class|class
 name|DroppedSnapshotException
 extends|extends
 name|IOException
 block|{
+comment|/**    * @param msg    */
 specifier|public
 name|DroppedSnapshotException
 parameter_list|(
@@ -49,6 +55,7 @@ name|msg
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * default constructor    */
 specifier|public
 name|DroppedSnapshotException
 parameter_list|()

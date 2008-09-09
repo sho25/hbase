@@ -1016,12 +1016,6 @@ literal|"yzabcdef"
 argument_list|)
 block|}
 decl_stmt|;
-comment|//  /** {@inheritDoc} */
-comment|//  @Override
-comment|//  public void setUp() throws Exception {
-comment|//    conf.set("hbase.hregion.memcache.flush.size", "100");// flush cache every 100 bytes
-comment|//  }
-comment|//
 comment|/**    * Test that uses automatic bloom filter    * @throws IOException    */
 annotation|@
 name|SuppressWarnings

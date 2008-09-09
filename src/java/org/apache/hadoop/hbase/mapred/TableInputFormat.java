@@ -193,7 +193,6 @@ name|COLUMN_LIST
 init|=
 literal|"hbase.mapred.tablecolumns"
 decl_stmt|;
-comment|/** {@inheritDoc} */
 specifier|public
 name|void
 name|configure
@@ -325,7 +324,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/** {@inheritDoc} */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 specifier|public
 name|void
 name|validateInput

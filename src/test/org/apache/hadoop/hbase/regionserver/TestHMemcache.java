@@ -250,7 +250,6 @@ name|ANCHORSTR
 init|=
 literal|"anchorstr"
 decl_stmt|;
-comment|/** {@inheritDoc} */
 annotation|@
 name|Override
 specifier|public

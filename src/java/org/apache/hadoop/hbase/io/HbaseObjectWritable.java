@@ -897,6 +897,7 @@ specifier|private
 name|Configuration
 name|conf
 decl_stmt|;
+comment|/** default constructor for writable */
 specifier|public
 name|HbaseObjectWritable
 parameter_list|()
@@ -905,6 +906,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * @param instance    */
 specifier|public
 name|HbaseObjectWritable
 parameter_list|(
@@ -918,6 +920,7 @@ name|instance
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param declaredClass    * @param instance    */
 specifier|public
 name|HbaseObjectWritable
 parameter_list|(
@@ -944,7 +947,7 @@ operator|=
 name|instance
 expr_stmt|;
 block|}
-comment|/** Return the instance, or null if none. */
+comment|/** @return the instance, or null if none. */
 specifier|public
 name|Object
 name|get
@@ -954,7 +957,7 @@ return|return
 name|instance
 return|;
 block|}
-comment|/** Return the class this is meant to be. */
+comment|/** @return the class this is meant to be. */
 specifier|public
 name|Class
 argument_list|<
@@ -967,7 +970,7 @@ return|return
 name|declaredClass
 return|;
 block|}
-comment|/** Reset the instance. */
+comment|/**    * Reset the instance.    * @param instance    */
 specifier|public
 name|void
 name|set
@@ -992,6 +995,8 @@ operator|=
 name|instance
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -1068,6 +1073,7 @@ name|?
 argument_list|>
 name|declaredClass
 decl_stmt|;
+comment|/** default constructor for writable */
 specifier|public
 name|NullInstance
 parameter_list|()
@@ -1078,6 +1084,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * @param declaredClass      * @param conf      */
 specifier|public
 name|NullInstance
 parameter_list|(
@@ -1103,11 +1110,6 @@ operator|=
 name|declaredClass
 expr_stmt|;
 block|}
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"boxing"
-argument_list|)
 specifier|public
 name|void
 name|readFields
@@ -1155,11 +1157,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Write out the code byte for passed Class.    * @param out    * @param c    * @throws IOException    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"boxing"
-argument_list|)
 specifier|static
 name|void
 name|writeClassCode
@@ -1222,15 +1219,11 @@ name|code
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Write a {@link Writable}, {@link String}, primitive type, or an array of    * the preceding. */
+comment|/**    * Write a {@link Writable}, {@link String}, primitive type, or an array of    * the preceding.    * @param out    * @param instance    * @param declaredClass    * @param conf    * @throws IOException    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
-block|{
-literal|"boxing"
-block|,
 literal|"unchecked"
-block|}
 argument_list|)
 specifier|public
 specifier|static
@@ -1784,7 +1777,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/** Read a {@link Writable}, {@link String}, primitive type, or an array of    * the preceding. */
+comment|/**    * Read a {@link Writable}, {@link String}, primitive type, or an array of    * the preceding.    * @param in    * @param conf    * @return the object    * @throws IOException    */
 specifier|public
 specifier|static
 name|Object
@@ -1810,15 +1803,11 @@ name|conf
 argument_list|)
 return|;
 block|}
-comment|/** Read a {@link Writable}, {@link String}, primitive type, or an array of    * the preceding. */
+comment|/**    * Read a {@link Writable}, {@link String}, primitive type, or an array of    * the preceding.    * @param in    * @param objectWritable    * @param conf    * @return the object    * @throws IOException    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
-block|{
 literal|"unchecked"
-block|,
-literal|"boxing"
-block|}
 argument_list|)
 specifier|public
 specifier|static
@@ -2387,11 +2376,6 @@ return|return
 name|instance
 return|;
 block|}
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"boxing"
-argument_list|)
 specifier|private
 specifier|static
 name|void
