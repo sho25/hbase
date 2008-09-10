@@ -796,6 +796,21 @@ expr_stmt|;
 block|}
 else|else
 block|{
+if|if
+condition|(
+operator|!
+name|info
+operator|.
+name|isOffline
+argument_list|()
+operator|&&
+operator|!
+name|info
+operator|.
+name|isSplit
+argument_list|()
+condition|)
+block|{
 comment|// Get region reassigned
 name|regions
 operator|.
@@ -804,6 +819,7 @@ argument_list|(
 name|info
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|// If it was pending, remove.
 name|master
