@@ -2348,7 +2348,7 @@ specifier|final
 name|boolean
 name|blockCacheEnabled
 decl_stmt|;
-comment|/**        * @param fs        * @param dirName        * @param conf        * @throws IOException        */
+comment|/**        * @param fs        * @param dirName        * @param conf        * @param hri        * @throws IOException        */
 specifier|public
 name|HbaseReader
 parameter_list|(
