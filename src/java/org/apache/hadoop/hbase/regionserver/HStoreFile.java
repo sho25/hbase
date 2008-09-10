@@ -1621,6 +1621,10 @@ argument_list|,
 name|bloomFilter
 argument_list|,
 name|blockCacheEnabled
+argument_list|,
+name|this
+operator|.
+name|hri
 argument_list|)
 return|;
 block|}
@@ -1643,6 +1647,10 @@ argument_list|,
 name|bloomFilter
 argument_list|,
 name|blockCacheEnabled
+argument_list|,
+name|this
+operator|.
+name|hri
 argument_list|)
 return|;
 block|}
@@ -2352,6 +2360,9 @@ name|dirName
 parameter_list|,
 name|Configuration
 name|conf
+parameter_list|,
+name|HRegionInfo
+name|hri
 parameter_list|)
 throws|throws
 name|IOException
@@ -2365,10 +2376,12 @@ argument_list|,
 name|conf
 argument_list|,
 literal|false
+argument_list|,
+name|hri
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**        * @param fs        * @param dirName        * @param conf        * @param blockCacheEnabled        * @throws IOException        */
+comment|/**        * @param fs        * @param dirName        * @param conf        * @param blockCacheEnabled        * @param hri        * @throws IOException        */
 specifier|public
 name|HbaseReader
 parameter_list|(
@@ -2383,6 +2396,9 @@ name|conf
 parameter_list|,
 name|boolean
 name|blockCacheEnabled
+parameter_list|,
+name|HRegionInfo
+name|hri
 parameter_list|)
 throws|throws
 name|IOException
@@ -2393,7 +2409,13 @@ name|fs
 argument_list|,
 name|dirName
 argument_list|,
-literal|null
+operator|new
+name|HStoreKey
+operator|.
+name|HStoreKeyWritableComparator
+argument_list|(
+name|hri
+argument_list|)
 argument_list|,
 name|conf
 argument_list|,
@@ -2413,7 +2435,13 @@ name|fs
 argument_list|,
 name|dirName
 argument_list|,
-literal|null
+operator|new
+name|HStoreKey
+operator|.
+name|HStoreKeyWritableComparator
+argument_list|(
+name|hri
+argument_list|)
 argument_list|,
 name|conf
 argument_list|)
@@ -2662,7 +2690,7 @@ specifier|final
 name|BloomFilter
 name|bloomFilter
 decl_stmt|;
-comment|/**        * @param fs        * @param dirName        * @param conf        * @param filter        * @param blockCacheEnabled        * @throws IOException        */
+comment|/**        * @param fs        * @param dirName        * @param conf        * @param filter        * @param blockCacheEnabled        * @param hri        * @throws IOException        */
 specifier|public
 name|Reader
 parameter_list|(
@@ -2682,6 +2710,9 @@ parameter_list|,
 specifier|final
 name|boolean
 name|blockCacheEnabled
+parameter_list|,
+name|HRegionInfo
+name|hri
 parameter_list|)
 throws|throws
 name|IOException
@@ -2695,6 +2726,8 @@ argument_list|,
 name|conf
 argument_list|,
 name|blockCacheEnabled
+argument_list|,
+name|hri
 argument_list|)
 expr_stmt|;
 if|if
@@ -3363,6 +3396,10 @@ parameter_list|,
 specifier|final
 name|WritableComparable
 name|midKey
+parameter_list|,
+specifier|final
+name|HRegionInfo
+name|hri
 parameter_list|)
 throws|throws
 name|IOException
@@ -3382,6 +3419,8 @@ argument_list|,
 literal|false
 argument_list|,
 literal|false
+argument_list|,
+name|hri
 argument_list|)
 expr_stmt|;
 block|}
@@ -3414,6 +3453,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|blockCacheEnabled
+parameter_list|,
+specifier|final
+name|HRegionInfo
+name|hri
 parameter_list|)
 throws|throws
 name|IOException
@@ -3429,6 +3472,8 @@ argument_list|,
 name|filter
 argument_list|,
 name|blockCacheEnabled
+argument_list|,
+name|hri
 argument_list|)
 expr_stmt|;
 name|top

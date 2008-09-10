@@ -1529,7 +1529,17 @@ argument_list|,
 name|byte
 index|[]
 argument_list|>
-argument_list|()
+argument_list|(
+operator|new
+name|HStoreKey
+operator|.
+name|HStoreKeyWritableComparator
+argument_list|(
+name|this
+operator|.
+name|info
+argument_list|)
+argument_list|)
 decl_stmt|;
 name|SequenceFile
 operator|.
@@ -4423,7 +4433,15 @@ index|]
 operator|=
 operator|new
 name|HStoreKey
-argument_list|()
+argument_list|(
+name|HConstants
+operator|.
+name|EMPTY_BYTE_ARRAY
+argument_list|,
+name|this
+operator|.
+name|info
+argument_list|)
 expr_stmt|;
 name|vals
 index|[
@@ -6738,7 +6756,15 @@ name|HStoreKey
 argument_list|,
 name|Long
 argument_list|>
-argument_list|()
+argument_list|(
+operator|new
+name|HStoreKey
+operator|.
+name|HStoreKeyWritableComparator
+argument_list|(
+name|info
+argument_list|)
+argument_list|)
 decl_stmt|;
 comment|// Keep a list of deleted cell keys.  We need this because as we go through
 comment|// the store files, the cell with the delete marker may be in one file and
@@ -6946,6 +6972,15 @@ condition|)
 block|{
 return|return;
 block|}
+name|startKey
+operator|.
+name|setHRegionInfo
+argument_list|(
+name|this
+operator|.
+name|info
+argument_list|)
+expr_stmt|;
 comment|// If start row for this file is beyond passed in row, return; nothing
 comment|// in here is of use to us.
 if|if
@@ -6954,6 +6989,8 @@ name|HStoreKey
 operator|.
 name|compareTwoRowKeys
 argument_list|(
+name|this
+operator|.
 name|info
 argument_list|,
 name|startKey
@@ -7114,10 +7151,8 @@ name|HStoreKey
 argument_list|(
 name|row
 argument_list|,
-name|HConstants
+name|this
 operator|.
-name|EMPTY_BYTE_ARRAY
-argument_list|,
 name|info
 argument_list|)
 expr_stmt|;
@@ -7308,12 +7343,30 @@ name|searchKey
 init|=
 name|sk
 decl_stmt|;
+if|if
+condition|(
+name|searchKey
+operator|.
+name|getHRegionInfo
+argument_list|()
+operator|==
+literal|null
+condition|)
+block|{
+name|searchKey
+operator|.
+name|setHRegionInfo
+argument_list|(
+name|this
+operator|.
+name|info
+argument_list|)
+expr_stmt|;
+block|}
 name|HStoreKey
 name|readkey
 init|=
-operator|new
-name|HStoreKey
-argument_list|()
+literal|null
 decl_stmt|;
 name|ImmutableBytesWritable
 name|readval
@@ -7373,6 +7426,16 @@ literal|null
 decl_stmt|;
 do|do
 block|{
+comment|// Set this region into the readkey.
+name|readkey
+operator|.
+name|setHRegionInfo
+argument_list|(
+name|this
+operator|.
+name|info
+argument_list|)
+expr_stmt|;
 comment|// If we have an exact match on row, and it's not a delete, save this
 comment|// as a candidate key
 if|if
@@ -7381,6 +7444,8 @@ name|HStoreKey
 operator|.
 name|equalsTwoRowKeys
 argument_list|(
+name|this
+operator|.
 name|info
 argument_list|,
 name|readkey
@@ -7461,6 +7526,8 @@ name|HStoreKey
 operator|.
 name|compareTwoRowKeys
 argument_list|(
+name|this
+operator|.
 name|info
 argument_list|,
 name|readkey
@@ -7690,9 +7757,7 @@ block|{
 name|HStoreKey
 name|readkey
 init|=
-operator|new
-name|HStoreKey
-argument_list|()
+literal|null
 decl_stmt|;
 name|ImmutableBytesWritable
 name|readval
@@ -7721,10 +7786,8 @@ operator|.
 name|getRow
 argument_list|()
 argument_list|,
-name|HConstants
+name|this
 operator|.
-name|EMPTY_BYTE_ARRAY
-argument_list|,
 name|info
 argument_list|)
 decl_stmt|;
@@ -8129,6 +8192,15 @@ operator|.
 name|finalKey
 argument_list|(
 name|finalKey
+argument_list|)
+expr_stmt|;
+name|finalKey
+operator|.
+name|setHRegionInfo
+argument_list|(
+name|this
+operator|.
+name|info
 argument_list|)
 expr_stmt|;
 return|return

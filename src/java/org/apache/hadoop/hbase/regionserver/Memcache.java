@@ -1850,6 +1850,8 @@ name|HStoreKey
 operator|.
 name|compareTwoRowKeys
 argument_list|(
+name|this
+operator|.
 name|regionInfo
 argument_list|,
 name|tailMap
@@ -1911,6 +1913,8 @@ name|HStoreKey
 operator|.
 name|compareTwoRowKeys
 argument_list|(
+name|this
+operator|.
 name|regionInfo
 argument_list|,
 name|found_key
@@ -1939,6 +1943,8 @@ name|HStoreKey
 operator|.
 name|compareTwoRowKeys
 argument_list|(
+name|this
+operator|.
 name|regionInfo
 argument_list|,
 name|found_key
@@ -2300,6 +2306,8 @@ name|HStoreKey
 operator|.
 name|equalsTwoRowKeys
 argument_list|(
+name|this
+operator|.
 name|regionInfo
 argument_list|,
 name|lastRowFound

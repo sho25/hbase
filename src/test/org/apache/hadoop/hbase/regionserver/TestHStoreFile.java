@@ -1365,6 +1365,8 @@ operator|.
 name|bottom
 argument_list|,
 name|midkey
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|boolean
@@ -1471,6 +1473,8 @@ operator|.
 name|top
 argument_list|,
 name|midkey
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|first
@@ -1631,6 +1635,8 @@ operator|.
 name|bottom
 argument_list|,
 name|badkey
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// When badkey is< than the bottom, should return no values.
@@ -1674,6 +1680,8 @@ operator|.
 name|top
 argument_list|,
 name|badkey
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|first
@@ -1863,6 +1871,8 @@ operator|.
 name|bottom
 argument_list|,
 name|badkey
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|first
@@ -2030,6 +2040,8 @@ operator|.
 name|top
 argument_list|,
 name|badkey
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|assertFalse
@@ -2172,6 +2184,8 @@ operator|.
 name|bottom
 argument_list|,
 name|midkey
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// When midkey is< than the bottom, should return no values.
@@ -2215,6 +2229,8 @@ operator|.
 name|top
 argument_list|,
 name|midkey
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|boolean
@@ -2347,6 +2363,8 @@ operator|.
 name|bottom
 argument_list|,
 name|midkey
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|first
@@ -2458,6 +2476,8 @@ operator|.
 name|top
 argument_list|,
 name|midkey
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|assertFalse
