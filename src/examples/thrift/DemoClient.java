@@ -363,6 +363,10 @@ name|TTransport
 import|;
 end_import
 
+begin_comment
+comment|/*  * Instructions:  * 1. Run Thrift to generate the java module HBase  *    thrift --gen java ../../../src/java/org/apache/hadoop/hbase/thrift/Hbase.thrift  * 2. Acquire a jar of compiled Thrift java classes.  As of this writing, HBase ships   *    with this jar (libthrift-[VERSION].jar).  If this jar is not present, or it is   *    out-of-date with your current version of thrift, you can compile the jar   *    yourself by executing {ant} in {$THRIFT_HOME}/lib/java.  * 3. Compile and execute this file with both the libthrift jar and the gen-java/   *    directory in the classpath.  This can be done on the command-line with the   *    following lines: (from the directory containing this file and gen-java/)  *      *    javac -cp /path/to/libthrift/jar.jar:gen-java/ DemoClient.java  *    mv DemoClient.class gen-java/org/apache/hadoop/hbase/thrift/  *    java -cp /path/to/libthrift/jar.jar:gen-java/ org.apache.hadoop.hbase.thrift.DemoClient  *   */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -627,6 +631,16 @@ argument_list|)
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|client
+operator|.
+name|isTableEnabled
+argument_list|(
+name|name
+argument_list|)
+condition|)
+block|{
 name|System
 operator|.
 name|out
@@ -641,15 +655,6 @@ name|name
 argument_list|)
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|client
-operator|.
-name|isTableEnabled
-argument_list|(
-name|name
-argument_list|)
-condition|)
 name|client
 operator|.
 name|disableTable
@@ -657,6 +662,7 @@ argument_list|(
 name|name
 argument_list|)
 expr_stmt|;
+block|}
 name|System
 operator|.
 name|out
@@ -1135,10 +1141,7 @@ name|mutateRow
 argument_list|(
 name|t
 argument_list|,
-name|bytes
-argument_list|(
-literal|"foo"
-argument_list|)
+name|valid
 argument_list|,
 name|mutations
 argument_list|)
@@ -1933,7 +1936,7 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"column name is "
+literal|"column with name: "
 operator|+
 operator|new
 name|String
