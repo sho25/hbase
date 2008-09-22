@@ -643,6 +643,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ValueOverMaxLengthException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Leases
 operator|.
 name|LeaseStillHeldException
@@ -5792,7 +5806,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|ValueOverMaxLengthException
 argument_list|(
 literal|"Value in column "
 operator|+
