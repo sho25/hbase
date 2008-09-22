@@ -801,8 +801,7 @@ specifier|private
 name|int
 name|currentValue
 init|=
-operator|-
-literal|1
+literal|0
 decl_stmt|;
 name|CellIterator
 parameter_list|()
@@ -825,11 +824,9 @@ name|Cell
 name|next
 parameter_list|()
 block|{
-name|currentValue
-operator|+=
-literal|1
-expr_stmt|;
-return|return
+name|Cell
+name|c
+init|=
 operator|new
 name|Cell
 argument_list|(
@@ -843,6 +840,12 @@ index|[
 name|currentValue
 index|]
 argument_list|)
+decl_stmt|;
+name|currentValue
+operator|++
+expr_stmt|;
+return|return
+name|c
 return|;
 block|}
 specifier|public
