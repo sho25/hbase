@@ -159,6 +159,20 @@ name|hadoop
 operator|.
 name|mapred
 operator|.
+name|MapReduceBase
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|mapred
+operator|.
 name|OutputCollector
 import|;
 end_import
@@ -186,6 +200,8 @@ specifier|public
 class|class
 name|GroupingTableMap
 extends|extends
+name|MapReduceBase
+implements|implements
 name|TableMap
 argument_list|<
 name|ImmutableBytesWritable
@@ -240,7 +256,9 @@ name|JobConf
 name|job
 parameter_list|)
 block|{
-name|initJob
+name|TableMapReduceUtil
+operator|.
+name|initTableMapJob
 argument_list|(
 name|table
 argument_list|,
@@ -350,8 +368,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Extract the grouping columns from value to construct a new key.    *     * Pass the new key and value to reduce.    * If any of the grouping columns are not found in the value, the record is skipped.    */
-annotation|@
-name|Override
 specifier|public
 name|void
 name|map

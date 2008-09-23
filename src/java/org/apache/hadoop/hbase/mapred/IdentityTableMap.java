@@ -83,6 +83,20 @@ name|hadoop
 operator|.
 name|mapred
 operator|.
+name|MapReduceBase
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|mapred
+operator|.
 name|OutputCollector
 import|;
 end_import
@@ -110,6 +124,8 @@ specifier|public
 class|class
 name|IdentityTableMap
 extends|extends
+name|MapReduceBase
+implements|implements
 name|TableMap
 argument_list|<
 name|ImmutableBytesWritable
@@ -155,9 +171,9 @@ name|JobConf
 name|job
 parameter_list|)
 block|{
-name|TableMap
+name|TableMapReduceUtil
 operator|.
-name|initJob
+name|initTableMapJob
 argument_list|(
 name|table
 argument_list|,
@@ -178,8 +194,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Pass the key, value to reduce    */
-annotation|@
-name|Override
 specifier|public
 name|void
 name|map

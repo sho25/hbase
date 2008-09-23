@@ -107,6 +107,20 @@ name|hadoop
 operator|.
 name|mapred
 operator|.
+name|MapReduceBase
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|mapred
+operator|.
 name|OutputCollector
 import|;
 end_import
@@ -134,6 +148,8 @@ specifier|public
 class|class
 name|IdentityTableReduce
 extends|extends
+name|MapReduceBase
+implements|implements
 name|TableReduce
 argument_list|<
 name|ImmutableBytesWritable
@@ -165,8 +181,6 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|/**    * No aggregation, output pairs of (key, record)    *    * @see org.apache.hadoop.hbase.mapred.TableReduce#reduce(org.apache.hadoop.io.WritableComparable, java.util.Iterator, org.apache.hadoop.mapred.OutputCollector, org.apache.hadoop.mapred.Reporter)    */
-annotation|@
-name|Override
 specifier|public
 name|void
 name|reduce

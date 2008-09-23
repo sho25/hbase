@@ -197,6 +197,20 @@ name|hadoop
 operator|.
 name|mapred
 operator|.
+name|MapReduceBase
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|mapred
+operator|.
 name|OutputCollector
 import|;
 end_import
@@ -268,13 +282,15 @@ specifier|public
 class|class
 name|RowCounter
 extends|extends
+name|MapReduceBase
+implements|implements
 name|TableMap
 argument_list|<
 name|ImmutableBytesWritable
 argument_list|,
 name|RowResult
 argument_list|>
-implements|implements
+implements|,
 name|Tool
 block|{
 comment|/* Name of this 'program'    */
@@ -322,8 +338,6 @@ name|Counters
 block|{
 name|ROWS
 block|}
-annotation|@
-name|Override
 specifier|public
 name|void
 name|map
@@ -538,9 +552,9 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Second argument is the table name.
-name|TableMap
+name|TableMapReduceUtil
 operator|.
-name|initJob
+name|initTableMapJob
 argument_list|(
 name|args
 index|[
