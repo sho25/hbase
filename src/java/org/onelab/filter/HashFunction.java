@@ -29,7 +29,39 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|Hash
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|JenkinsHash
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|MurmurHash
 import|;
 end_import
 
@@ -53,7 +85,12 @@ specifier|private
 name|int
 name|maxValue
 decl_stmt|;
-comment|/**    * Constructor.    *<p>    * Builds a hash function that must obey to a given maximum number of returned values and a highest value.    * @param maxValue The maximum highest returned value.    * @param nbHash The number of resulting hashed values.    */
+comment|/** Hashing algorithm to use. */
+specifier|private
+name|Hash
+name|hashFunction
+decl_stmt|;
+comment|/**    * Constructor.    *<p>    * Builds a hash function that must obey to a given maximum number of returned values and a highest value.    * @param maxValue The maximum highest returned value.    * @param nbHash The number of resulting hashed values.    * @param hashType type of the hashing function (see {@link Hash}).    */
 specifier|public
 name|HashFunction
 parameter_list|(
@@ -62,6 +99,9 @@ name|maxValue
 parameter_list|,
 name|int
 name|nbHash
+parameter_list|,
+name|int
+name|hashType
 parameter_list|)
 block|{
 if|if
@@ -106,6 +146,32 @@ name|nbHash
 operator|=
 name|nbHash
 expr_stmt|;
+name|this
+operator|.
+name|hashFunction
+operator|=
+name|Hash
+operator|.
+name|getInstance
+argument_list|(
+name|hashType
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|hashFunction
+operator|==
+literal|null
+condition|)
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"hashType must be known"
+argument_list|)
+throw|;
 block|}
 comment|//end constructor
 comment|/** Clears<i>this</i> hash function. A NOOP */
@@ -211,7 +277,7 @@ name|Math
 operator|.
 name|abs
 argument_list|(
-name|JenkinsHash
+name|hashFunction
 operator|.
 name|hash
 argument_list|(

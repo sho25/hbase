@@ -1107,6 +1107,9 @@ name|toHexString
 argument_list|(
 name|JenkinsHash
 operator|.
+name|getInstance
+argument_list|()
+operator|.
 name|hash
 argument_list|(
 name|scanner

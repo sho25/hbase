@@ -61,6 +61,22 @@ begin_comment
 comment|//TODO: remove
 end_comment
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Hash
+import|;
+end_import
+
 begin_comment
 comment|/**  * Implements a<i>counting Bloom filter</i>, as defined by Fan et al. in a ToN  * 2000 paper.  *<p>  * A counting Bloom filter is an improvement to standard a Bloom filter as it  * allows dynamic additions and deletions of set membership information.  This   * is achieved through the use of a counting vector instead of a bit vector.  *   * contract<a href="http://www.one-lab.org">European Commission One-Lab Project 034819</a>.  *  * @version 1.1 - 19 Jan. 08  *   * @see org.onelab.filter.Filter The general behavior of a filter  *   * @see<a href="http://portal.acm.org/citation.cfm?id=343571.343572">Summary cache: a scalable wide-area web cache sharing protocol</a>  */
 end_comment
@@ -93,7 +109,7 @@ specifier|public
 name|CountingBloomFilter
 parameter_list|()
 block|{}
-comment|/**    * Constructor    * @param vectorSize The vector size of<i>this</i> filter.    * @param nbHash The number of hash function to consider.    */
+comment|/**    * Constructor    * @param vectorSize The vector size of<i>this</i> filter.    * @param nbHash The number of hash function to consider.    * @param hashType type of the hashing function (see {@link Hash}).    */
 specifier|public
 name|CountingBloomFilter
 parameter_list|(
@@ -102,6 +118,9 @@ name|vectorSize
 parameter_list|,
 name|int
 name|nbHash
+parameter_list|,
+name|int
+name|hashType
 parameter_list|)
 block|{
 name|super
@@ -109,6 +128,8 @@ argument_list|(
 name|vectorSize
 argument_list|,
 name|nbHash
+argument_list|,
+name|hashType
 argument_list|)
 expr_stmt|;
 name|buckets
@@ -931,6 +952,8 @@ argument_list|(
 name|vectorSize
 argument_list|,
 name|nbHash
+argument_list|,
+name|hashType
 argument_list|)
 decl_stmt|;
 name|cbf

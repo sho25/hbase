@@ -47,6 +47,22 @@ name|IOException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Hash
+import|;
+end_import
+
 begin_comment
 comment|/**  * Implements a<i>dynamic Bloom filter</i>, as defined in the INFOCOM 2006 paper.  *<p>  * A dynamic Bloom filter (DBF) makes use of a<code>s * m</code> bit matrix but  * each of the<code>s</code> rows is a standard Bloom filter. The creation   * process of a DBF is iterative. At the start, the DBF is a<code>1 * m</code>  * bit matrix, i.e., it is composed of a single standard Bloom filter.  * It assumes that<code>n<sub>r</sub></code> elements are recorded in the   * initial bit vector, where<code>n<sub>r</sub><= n</code> (<code>n</code> is  * the cardinality of the set<code>A</code> to record in the filter).    *<p>  * As the size of<code>A</code> grows during the execution of the application,  * several keys must be inserted in the DBF.  When inserting a key into the DBF,  * one must first get an active Bloom filter in the matrix.  A Bloom filter is  * active when the number of recorded keys,<code>n<sub>r</sub></code>, is   * strictly less than the current cardinality of<code>A</code>,<code>n</code>.  * If an active Bloom filter is found, the key is inserted and   *<code>n<sub>r</sub></code> is incremented by one. On the other hand, if there  * is no active Bloom filter, a new one is created (i.e., a new row is added to  * the matrix) according to the current size of<code>A</code> and the element  * is added in this new Bloom filter and the<code>n<sub>r</sub></code> value of  * this new Bloom filter is set to one.  A given key is said to belong to the  * DBF if the<code>k</code> positions are set to one in one of the matrix rows.  *   * contract<a href="http://www.one-lab.org">European Commission One-Lab Project 034819</a>.  *  * @version 1.0 - 6 Feb. 07  *   * @see org.onelab.filter.Filter The general behavior of a filter  * @see org.onelab.filter.BloomFilter A Bloom filter  *   * @see<a href="http://www.cse.fau.edu/~jie/research/publications/Publication_files/infocom2006.pdf">Theory and Network Applications of Dynamic Bloom Filters</a>  */
 end_comment
@@ -79,7 +95,7 @@ specifier|public
 name|DynamicBloomFilter
 parameter_list|()
 block|{ }
-comment|/**    * Constructor.    *<p>    * Builds an empty Dynamic Bloom filter.    * @param vectorSize The number of bits in the vector.    * @param nbHash The number of hash function to consider.    * @param nr The threshold for the maximum number of keys to record in a dynamic Bloom filter row.    */
+comment|/**    * Constructor.    *<p>    * Builds an empty Dynamic Bloom filter.    * @param vectorSize The number of bits in the vector.    * @param nbHash The number of hash function to consider.    * @param hashType type of the hashing function (see {@link Hash}).    * @param nr The threshold for the maximum number of keys to record in a dynamic Bloom filter row.    */
 specifier|public
 name|DynamicBloomFilter
 parameter_list|(
@@ -90,6 +106,9 @@ name|int
 name|nbHash
 parameter_list|,
 name|int
+name|hashType
+parameter_list|,
+name|int
 name|nr
 parameter_list|)
 block|{
@@ -98,6 +117,8 @@ argument_list|(
 name|vectorSize
 argument_list|,
 name|nbHash
+argument_list|,
+name|hashType
 argument_list|)
 expr_stmt|;
 name|this
@@ -135,6 +156,10 @@ argument_list|,
 name|this
 operator|.
 name|nbHash
+argument_list|,
+name|this
+operator|.
+name|hashType
 argument_list|)
 expr_stmt|;
 block|}
@@ -746,6 +771,8 @@ name|vectorSize
 argument_list|,
 name|nbHash
 argument_list|,
+name|hashType
+argument_list|,
 name|nr
 argument_list|)
 decl_stmt|;
@@ -1044,6 +1071,8 @@ argument_list|(
 name|vectorSize
 argument_list|,
 name|nbHash
+argument_list|,
+name|hashType
 argument_list|)
 expr_stmt|;
 name|matrix
