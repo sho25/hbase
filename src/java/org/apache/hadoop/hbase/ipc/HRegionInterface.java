@@ -144,14 +144,14 @@ name|HRegionInterface
 extends|extends
 name|VersionedProtocol
 block|{
-comment|/**    * Protocol version.    * Upped to 4 when we removed overloaded methods from the protocol.    */
+comment|/**    * Protocol version.    * Upped to 5 when we added scanner caching    */
 specifier|public
 specifier|static
 specifier|final
 name|long
 name|versionID
 init|=
-literal|4L
+literal|5L
 decl_stmt|;
 comment|/**     * Get metainfo about an HRegion    *     * @param regionName name of the region    * @return HRegionInfo object for region    * @throws NotServingRegionException    */
 specifier|public
@@ -383,6 +383,21 @@ name|next
 parameter_list|(
 name|long
 name|scannerId
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Get the next set of values    * @param scannerId clientId passed to openScanner    * @param numberOfRows the number of rows to fetch    * @return map of values    * @throws IOException    */
+specifier|public
+name|RowResult
+index|[]
+name|next
+parameter_list|(
+name|long
+name|scannerId
+parameter_list|,
+name|int
+name|numberOfRows
 parameter_list|)
 throws|throws
 name|IOException
