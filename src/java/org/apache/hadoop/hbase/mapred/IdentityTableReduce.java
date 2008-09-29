@@ -180,7 +180,7 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/**    * No aggregation, output pairs of (key, record)    *    * @see org.apache.hadoop.hbase.mapred.TableReduce#reduce(org.apache.hadoop.io.WritableComparable, java.util.Iterator, org.apache.hadoop.mapred.OutputCollector, org.apache.hadoop.mapred.Reporter)    */
+comment|/**    * No aggregation, output pairs of (key, record)    */
 specifier|public
 name|void
 name|reduce

@@ -258,7 +258,7 @@ name|initval
 argument_list|)
 return|;
 block|}
-comment|/**    * Calculate a hash using bytes from 0 to<code>length</code>, and    * the provided seed value    * @param bytes input bytes    * @param length length of the valid bytes to consider    * @param initval seed value    * @return    */
+comment|/**    * Calculate a hash using bytes from 0 to<code>length</code>, and    * the provided seed value    * @param bytes input bytes    * @param length length of the valid bytes to consider    * @param initval seed value    * @return hash value    */
 specifier|public
 specifier|abstract
 name|int
