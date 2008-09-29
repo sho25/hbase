@@ -355,13 +355,13 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**    * Construct a column descriptor specifying only the family name     * The other attributes are defaulted.    *     * @param columnName - column family name    */
+comment|/**    * Construct a column descriptor specifying only the family name     * The other attributes are defaulted.    *     * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and end in a<code>:<code>    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
 specifier|final
 name|String
-name|columnName
+name|familyName
 parameter_list|)
 block|{
 name|this
@@ -370,28 +370,28 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|columnName
+name|familyName
 argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct a column descriptor specifying only the family name     * The other attributes are defaulted.    *     * @param columnName Column family name.  Must have the ':' ending.    */
+comment|/**    * Construct a column descriptor specifying only the family name     * The other attributes are defaulted.    *     * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and end in a<code>:<code>    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|columnName
+name|familyName
 parameter_list|)
 block|{
 name|this
 argument_list|(
-name|columnName
+name|familyName
 operator|==
 literal|null
 operator|||
-name|columnName
+name|familyName
 operator|.
 name|length
 operator|<=
@@ -401,7 +401,7 @@ name|HConstants
 operator|.
 name|EMPTY_BYTE_ARRAY
 else|:
-name|columnName
+name|familyName
 argument_list|,
 name|DEFAULT_VERSIONS
 argument_list|,
@@ -482,14 +482,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Constructor    * @param columnName Column family name.  Must have the ':' ending.    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param maxValueLength Restrict values to&lt;= this value    * @param timeToLive Time-to-live of cell contents, in seconds from last timestamp    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and end in a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param maxValueLength Restrict values to&lt;= this value    * @param timeToLive Time-to-live of cell contents, in seconds from last timestamp    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|columnName
+name|familyName
 parameter_list|,
 specifier|final
 name|int
@@ -522,7 +522,7 @@ parameter_list|)
 block|{
 name|isLegalFamilyName
 argument_list|(
-name|columnName
+name|familyName
 argument_list|)
 expr_stmt|;
 name|this
@@ -531,7 +531,7 @@ name|name
 operator|=
 name|stripColon
 argument_list|(
-name|columnName
+name|familyName
 argument_list|)
 expr_stmt|;
 if|if
