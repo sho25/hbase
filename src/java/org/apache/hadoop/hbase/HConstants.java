@@ -549,6 +549,16 @@ name|LAST_ROW
 init|=
 name|EMPTY_BYTE_ARRAY
 decl_stmt|;
+comment|/**    * Max length a row can have because of the limitation in TFile.    */
+specifier|static
+specifier|final
+name|int
+name|MAX_ROW_LENGTH
+init|=
+literal|1024
+operator|*
+literal|64
+decl_stmt|;
 comment|/** When we encode strings, we always specify UTF8 encoding */
 specifier|static
 specifier|final
