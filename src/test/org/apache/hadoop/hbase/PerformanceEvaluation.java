@@ -1038,7 +1038,7 @@ if|if
 condition|(
 name|extantTables
 index|[
-literal|1
+name|i
 index|]
 operator|.
 name|equals
