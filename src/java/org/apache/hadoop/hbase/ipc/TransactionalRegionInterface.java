@@ -102,14 +102,14 @@ name|TransactionalRegionInterface
 extends|extends
 name|HRegionInterface
 block|{
-comment|/** Interface version number */
+comment|/** Interface version number    *  Moved to 2 for hbase-576.    */
 specifier|public
 specifier|static
 specifier|final
 name|long
 name|versionID
 init|=
-literal|1L
+literal|2L
 decl_stmt|;
 comment|/**    * Sent to initiate a transaction.    *     * @param transactionId    * @param regionName name of region    * @throws IOException    */
 specifier|public

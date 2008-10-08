@@ -94,14 +94,14 @@ name|HMasterInterface
 extends|extends
 name|VersionedProtocol
 block|{
-comment|/**    * Interface version.    * Version was incremented to 2 when we brought the hadoop RPC local to hbase    * -- HADOOP-2495 and then to 3 when we changed the RPC to send codes instead    * of actual class names (HADOOP-2519).    *<p>Version 4 when we moved to all byte arrays (HBASE-42).    */
+comment|/**    * Interface version.    * Version was incremented to 2 when we brought the hadoop RPC local to hbase    * -- HADOOP-2495 and then to 3 when we changed the RPC to send codes instead    * of actual class names (HADOOP-2519).    *<p>Version 4 when we moved to all byte arrays (HBASE-42).    *<p>Version 5  HBASE-576.    */
 specifier|public
 specifier|static
 specifier|final
 name|long
 name|versionID
 init|=
-literal|4L
+literal|5L
 decl_stmt|;
 comment|/** @return true if master is available */
 specifier|public

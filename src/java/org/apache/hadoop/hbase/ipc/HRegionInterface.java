@@ -144,14 +144,14 @@ name|HRegionInterface
 extends|extends
 name|VersionedProtocol
 block|{
-comment|/**    * Protocol version.    * Upped to 5 when we added scanner caching    */
+comment|/**    * Protocol version.    * Upped to 5 when we added scanner caching    *<p>HBASE-576, we moved this to 6.    */
 specifier|public
 specifier|static
 specifier|final
 name|long
 name|versionID
 init|=
-literal|5L
+literal|6L
 decl_stmt|;
 comment|/**     * Get metainfo about an HRegion    *     * @param regionName name of the region    * @return HRegionInfo object for region    * @throws NotServingRegionException    */
 specifier|public
