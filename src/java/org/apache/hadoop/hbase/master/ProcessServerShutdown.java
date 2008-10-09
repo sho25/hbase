@@ -239,6 +239,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|RowResult
@@ -608,10 +624,12 @@ name|debug
 argument_list|(
 literal|"shutdown scanner looking at "
 operator|+
-name|row
+name|Bytes
 operator|.
 name|toString
-argument_list|()
+argument_list|(
+name|row
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
