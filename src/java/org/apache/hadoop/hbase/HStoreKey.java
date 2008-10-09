@@ -1189,7 +1189,7 @@ throw|throw
 operator|new
 name|ColumnNameParseException
 argument_list|(
-literal|"No ':' delimiter between "
+literal|"Missing ':' delimiter between "
 operator|+
 literal|"column family and qualifier in the passed column name<"
 operator|+
