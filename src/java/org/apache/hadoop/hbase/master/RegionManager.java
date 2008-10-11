@@ -854,8 +854,15 @@ operator|==
 literal|0
 condition|)
 block|{
-comment|// There are no regions waiting to be assigned. This is an opportunity
-comment|// for us to check if this server is overloaded.
+comment|// There are no regions waiting to be assigned.
+if|if
+condition|(
+name|allRegionsAssigned
+argument_list|()
+condition|)
+block|{
+comment|// We only do load balancing once all regions are assigned.
+comment|// This prevents churn while the cluster is starting up.
 name|double
 name|avgLoad
 init|=
@@ -920,6 +927,7 @@ argument_list|,
 name|returnMsgs
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 else|else
@@ -3315,6 +3323,31 @@ name|metaScannerThread
 operator|.
 name|isInitialScanComplete
 argument_list|()
+return|;
+block|}
+comment|/**     * @return true if the initial meta scan is complete and there are no    * unassigned or pending regions    */
+specifier|public
+name|boolean
+name|allRegionsAssigned
+parameter_list|()
+block|{
+return|return
+name|isInitialMetaScanComplete
+argument_list|()
+operator|&&
+name|unassignedRegions
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|0
+operator|&&
+name|pendingRegions
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|0
 return|;
 block|}
 comment|/**     * Get the root region location.    * @return HServerAddress describing root region server.    */

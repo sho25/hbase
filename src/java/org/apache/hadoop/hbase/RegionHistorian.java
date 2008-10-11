@@ -332,6 +332,7 @@ expr_stmt|;
 block|}
 comment|/**    * Get the RegionHistorian Singleton instance.    * @return The region historian    */
 specifier|public
+specifier|synchronized
 specifier|static
 name|RegionHistorian
 name|getInstance
