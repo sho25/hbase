@@ -724,10 +724,15 @@ name|debug
 argument_list|(
 literal|"removing meta region "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|info
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 operator|+
 literal|" from online meta regions"
 argument_list|)
@@ -921,7 +926,12 @@ argument_list|()
 operator|+
 literal|" rows with empty HRegionInfo while scanning meta region "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|regionName
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|master
@@ -1135,10 +1145,15 @@ name|debug
 argument_list|(
 literal|"process server shutdown scanning "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|m
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 operator|+
 literal|" on "
 operator|+
@@ -1492,10 +1507,15 @@ name|debug
 argument_list|(
 literal|"process server shutdown finished scanning "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|r
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 operator|+
 literal|" on "
 operator|+
