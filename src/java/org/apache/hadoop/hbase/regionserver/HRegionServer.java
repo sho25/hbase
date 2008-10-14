@@ -2426,6 +2426,15 @@ block|{
 comment|// Only try to clean up if the file system is available
 try|try
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|log
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|log
@@ -2440,6 +2449,7 @@ argument_list|(
 literal|"On abort, closed hlog"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
