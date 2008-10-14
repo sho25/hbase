@@ -222,17 +222,6 @@ index|[]
 name|getRegionName
 parameter_list|()
 block|{
-if|if
-condition|(
-name|location
-operator|==
-literal|null
-condition|)
-block|{
-return|return
-literal|null
-return|;
-block|}
 return|return
 name|location
 operator|.
