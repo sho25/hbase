@@ -2322,14 +2322,11 @@ argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|reassignRegion
-condition|)
-block|{
-comment|// either the region is being offlined or deleted. we want to do those
-comment|// operations asynchronously, so we'll creating a todo item for that.
+comment|// NOTE: we cannot put the region into unassignedRegions as that
+comment|//       changes the ordering of the messages we've received. In
+comment|//       this case, a close could be processed before an open
+comment|//       resulting in the master not agreeing on the region's
+comment|//       state.
 try|try
 block|{
 name|master
@@ -2346,6 +2343,8 @@ argument_list|,
 name|region
 argument_list|,
 name|offlineRegion
+argument_list|,
+name|reassignRegion
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2365,20 +2364,6 @@ argument_list|,
 name|e
 argument_list|)
 throw|;
-block|}
-block|}
-else|else
-block|{
-comment|// we are reassigning the region eventually, so set it unassigned
-name|master
-operator|.
-name|regionManager
-operator|.
-name|setUnassigned
-argument_list|(
-name|region
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 block|}

@@ -72,7 +72,12 @@ specifier|final
 name|boolean
 name|offlineRegion
 decl_stmt|;
-comment|/**   * @param master   * @param regionInfo Region to operate on   * @param offlineRegion if true, set the region to offline in meta   * delete the region files from disk.   */
+specifier|protected
+specifier|final
+name|boolean
+name|reassignRegion
+decl_stmt|;
+comment|/**   * @param master   * @param regionInfo Region to operate on   * @param offlineRegion if true, set the region to offline in meta   * @param reassignRegion if true, region is to be reassigned   */
 specifier|public
 name|ProcessRegionClose
 parameter_list|(
@@ -84,6 +89,9 @@ name|regionInfo
 parameter_list|,
 name|boolean
 name|offlineRegion
+parameter_list|,
+name|boolean
+name|reassignRegion
 parameter_list|)
 block|{
 name|super
@@ -98,6 +106,12 @@ operator|.
 name|offlineRegion
 operator|=
 name|offlineRegion
+expr_stmt|;
+name|this
+operator|.
+name|reassignRegion
+operator|=
+name|reassignRegion
 expr_stmt|;
 block|}
 annotation|@
@@ -136,6 +150,15 @@ block|{
 name|Boolean
 name|result
 init|=
+literal|null
+decl_stmt|;
+if|if
+condition|(
+name|offlineRegion
+condition|)
+block|{
+name|result
+operator|=
 operator|new
 name|RetryableMetaOperation
 argument_list|<
@@ -170,29 +193,18 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Mark the Region as unavailable in the appropriate meta table
+comment|// We can't proceed unless the meta region we are going to update
+comment|// is online. metaRegionAvailable() will put this operation on the
+comment|// delayedToDoQueue, so return true so the operation is not put
+comment|// back on the toDoQueue
 if|if
 condition|(
-operator|!
 name|metaRegionAvailable
 argument_list|()
 condition|)
 block|{
-comment|// We can't proceed unless the meta region we are going to update
-comment|// is online. metaRegionAvailable() has put this operation on the
-comment|// delayedToDoQueue, so return true so the operation is not put
-comment|// back on the toDoQueue
-return|return
-literal|true
-return|;
-block|}
-if|if
-condition|(
-name|offlineRegion
-condition|)
-block|{
-comment|// offline the region in meta and then note that we've offlined the
-comment|// region.
+comment|// offline the region in meta and then note that we've offlined
+comment|// the region.
 name|HRegion
 operator|.
 name|offlineRegionInMETA
@@ -225,7 +237,35 @@ block|}
 operator|.
 name|doWithRetries
 argument_list|()
-decl_stmt|;
+expr_stmt|;
+name|result
+operator|=
+name|result
+operator|==
+literal|null
+condition|?
+literal|true
+else|:
+name|result
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|reassignRegion
+condition|)
+block|{
+comment|// we are reassigning the region eventually, so set it unassigned
+name|master
+operator|.
+name|regionManager
+operator|.
+name|setUnassigned
+argument_list|(
+name|regionInfo
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 name|result
 operator|==
