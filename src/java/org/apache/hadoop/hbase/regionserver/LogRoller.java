@@ -370,6 +370,27 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
+name|FailedLogCloseException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"Forcing server shutdown"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|server
+operator|.
+name|abort
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
 name|IOException
 name|ex
 parameter_list|)
@@ -378,7 +399,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Log rolling failed"
+literal|"Log rolling failed with ioe: "
 argument_list|,
 name|RemoteExceptionHandler
 operator|.

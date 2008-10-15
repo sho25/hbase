@@ -655,7 +655,7 @@ name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"Replay of hlog required. Forcing server restart"
+literal|"Replay of hlog required. Forcing server shutdown"
 argument_list|,
 name|ex
 argument_list|)
