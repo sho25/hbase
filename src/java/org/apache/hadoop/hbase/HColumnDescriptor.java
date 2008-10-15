@@ -482,7 +482,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and end in a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param maxValueLength Restrict values to&lt;= this value    * @param timeToLive Time-to-live of cell contents, in seconds from last timestamp    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and end in a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param maxValueLength Restrict values to&lt;= this value    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -1264,7 +1264,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @return Time to live.    */
+comment|/**    * @return Time-to-live of cell contents, in seconds.    */
 specifier|public
 name|int
 name|getTimeToLive
@@ -1278,25 +1278,27 @@ argument_list|(
 name|TTL
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
+return|return
+operator|(
 name|value
 operator|!=
 literal|null
-condition|)
-return|return
+operator|)
+condition|?
 name|Integer
 operator|.
 name|valueOf
 argument_list|(
 name|value
 argument_list|)
-return|;
-return|return
+operator|.
+name|intValue
+argument_list|()
+else|:
 name|DEFAULT_TTL
 return|;
 block|}
-comment|/**    * @param timeToLive    */
+comment|/**    * @param timeToLive Time-to-live of cell contents, in seconds.    */
 specifier|public
 name|void
 name|setTimeToLive
@@ -1345,6 +1347,9 @@ name|valueOf
 argument_list|(
 name|value
 argument_list|)
+operator|.
+name|booleanValue
+argument_list|()
 return|;
 return|return
 name|DEFAULT_BLOCKCACHE

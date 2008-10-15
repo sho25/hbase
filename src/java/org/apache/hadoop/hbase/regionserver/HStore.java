@@ -574,6 +574,7 @@ specifier|final
 name|HBaseConfiguration
 name|conf
 decl_stmt|;
+comment|// ttl in milliseconds.
 specifier|protected
 name|long
 name|ttl
@@ -782,6 +783,7 @@ name|conf
 operator|=
 name|conf
 expr_stmt|;
+comment|// getTimeToLive returns ttl in seconds.  Convert to milliseconds.
 name|this
 operator|.
 name|ttl
@@ -799,12 +801,14 @@ name|HConstants
 operator|.
 name|FOREVER
 condition|)
+block|{
 name|this
 operator|.
 name|ttl
 operator|*=
 literal|1000
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|memcache
