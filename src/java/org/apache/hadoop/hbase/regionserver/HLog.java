@@ -900,10 +900,10 @@ name|initCause
 argument_list|(
 name|e
 argument_list|)
-operator|:
-throw|throw
-argument_list|e
 expr_stmt|;
+throw|throw
+name|e
+throw|;
 block|}
 name|Path
 name|p
