@@ -879,7 +879,9 @@ block|{
 comment|// Failed close of log file.  Means we're losing edits.  For now,
 comment|// shut ourselves down to minimize loss.  Alternative is to try and
 comment|// keep going.  See HBASE-930.
-throw|throw
+name|FailedLogCloseException
+name|flce
+init|=
 operator|new
 name|FailedLogCloseException
 argument_list|(
@@ -891,7 +893,17 @@ name|filenum
 argument_list|,
 name|e
 argument_list|)
-throw|;
+decl_stmt|;
+name|flce
+operator|.
+name|initCause
+argument_list|(
+name|e
+argument_list|)
+operator|:
+throw|throw
+argument_list|e
+expr_stmt|;
 block|}
 name|Path
 name|p
