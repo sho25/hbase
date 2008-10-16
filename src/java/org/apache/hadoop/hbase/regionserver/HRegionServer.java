@@ -1711,10 +1711,9 @@ name|serverLeaseTimeout
 condition|)
 block|{
 comment|// It has been way too long since we last reported to the master.
-comment|// Commit suicide.
 name|LOG
 operator|.
-name|fatal
+name|warn
 argument_list|(
 literal|"unable to report to master for "
 operator|+
@@ -1724,13 +1723,9 @@ operator|-
 name|lastMsg
 operator|)
 operator|+
-literal|" milliseconds - aborting server"
+literal|" milliseconds - retrying"
 argument_list|)
 expr_stmt|;
-name|abort
-argument_list|()
-expr_stmt|;
-break|break;
 block|}
 if|if
 condition|(
@@ -2245,7 +2240,7 @@ else|else
 block|{
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
 literal|"Exceeded max retries: "
 operator|+
@@ -2256,17 +2251,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
 name|checkFileSystem
-argument_list|()
-condition|)
-block|{
-continue|continue;
-block|}
-comment|// Something seriously wrong. Shutdown.
-name|stop
 argument_list|()
 expr_stmt|;
 block|}
@@ -3586,8 +3571,6 @@ specifier|final
 name|Sleeper
 name|sleeper
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -3614,10 +3597,29 @@ literal|" that we are up"
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Do initial RPC setup.  The final argument indicates that the RPC should retry indefinitely.
-name|this
+name|HMasterRegionInterface
+name|master
+init|=
+literal|null
+decl_stmt|;
+while|while
+condition|(
+operator|!
+name|stopRequested
 operator|.
-name|hbaseMaster
+name|get
+argument_list|()
+operator|&&
+name|master
+operator|==
+literal|null
+condition|)
+block|{
+try|try
+block|{
+comment|// Do initial RPC setup.  The final argument indicates that the RPC
+comment|// should retry indefinitely.
+name|master
 operator|=
 operator|(
 name|HMasterRegionInterface
@@ -3655,6 +3657,35 @@ argument_list|,
 operator|-
 literal|1
 argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unable to connect to master. Retrying. Error was:"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|sleeper
+operator|.
+name|sleep
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+name|this
+operator|.
+name|hbaseMaster
+operator|=
+name|master
 expr_stmt|;
 name|MapWritable
 name|result
