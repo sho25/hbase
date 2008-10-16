@@ -453,7 +453,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnection
+name|ServerConnection
 import|;
 end_import
 
@@ -469,7 +469,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HConnectionManager
+name|ServerConnectionManager
 import|;
 end_import
 
@@ -927,7 +927,7 @@ name|HServerAddress
 name|address
 decl_stmt|;
 specifier|final
-name|HConnection
+name|ServerConnection
 name|connection
 decl_stmt|;
 specifier|final
@@ -1426,7 +1426,7 @@ name|this
 operator|.
 name|connection
 operator|=
-name|HConnectionManager
+name|ServerConnectionManager
 operator|.
 name|getConnection
 argument_list|(
@@ -3356,11 +3356,29 @@ name|HServerAddress
 name|findRootRegion
 parameter_list|()
 block|{
-return|return
+name|HServerAddress
+name|rootServer
+init|=
+literal|null
+decl_stmt|;
+if|if
+condition|(
+name|regionManager
+operator|.
+name|allRegionsAssigned
+argument_list|()
+condition|)
+block|{
+name|rootServer
+operator|=
 name|regionManager
 operator|.
 name|getRootRegionLocation
 argument_list|()
+expr_stmt|;
+block|}
+return|return
+name|rootServer
 return|;
 block|}
 comment|/*    * Managing leases    */

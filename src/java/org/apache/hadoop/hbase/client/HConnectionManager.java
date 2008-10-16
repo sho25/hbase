@@ -478,15 +478,11 @@ name|HConnectionManager
 implements|implements
 name|HConstants
 block|{
-comment|/*    * Private. Not instantiable.    */
-specifier|private
+comment|/*    * Not instantiable.    */
+specifier|protected
 name|HConnectionManager
 parameter_list|()
-block|{
-name|super
-argument_list|()
-expr_stmt|;
-block|}
+block|{}
 comment|// A Map of master HServerAddress -> connection information for that instance
 comment|// Note that although the Map is synchronized, the objects it contains
 comment|// are mutable and hence require synchronized access to them
@@ -633,7 +629,7 @@ specifier|static
 class|class
 name|TableServers
 implements|implements
-name|HConnection
+name|ServerConnection
 implements|,
 name|HConstants
 block|{
@@ -949,9 +945,14 @@ name|int
 name|tries
 parameter_list|)
 block|{
+name|int
+name|ntries
+init|=
+name|tries
+decl_stmt|;
 if|if
 condition|(
-name|tries
+name|ntries
 operator|>=
 name|HConstants
 operator|.
@@ -959,7 +960,7 @@ name|RETRY_BACKOFF
 operator|.
 name|length
 condition|)
-name|tries
+name|ntries
 operator|=
 name|HConstants
 operator|.
@@ -978,9 +979,24 @@ name|HConstants
 operator|.
 name|RETRY_BACKOFF
 index|[
-name|tries
+name|ntries
 index|]
 return|;
+block|}
+specifier|public
+name|void
+name|setRootRegionLocation
+parameter_list|(
+name|HRegionLocation
+name|rootRegion
+parameter_list|)
+block|{
+name|this
+operator|.
+name|rootRegionLocation
+operator|=
+name|rootRegion
+expr_stmt|;
 block|}
 specifier|public
 name|HMasterInterface
@@ -1915,8 +1931,7 @@ decl_stmt|;
 name|HTableDescriptor
 name|result
 decl_stmt|;
-comment|//TODO: change visibility to protected
-specifier|public
+specifier|protected
 name|HTableDescriptorFinder
 parameter_list|(
 name|byte

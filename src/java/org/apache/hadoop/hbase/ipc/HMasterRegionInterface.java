@@ -97,6 +97,20 @@ name|HRegionInfo
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HServerAddress
+import|;
+end_import
+
 begin_comment
 comment|/**  * HRegionServers interact with the HMasterRegionInterface to report on local   * goings-on and to obtain data-handling instructions from the HMaster.  *<p>Changes here need to be reflected in HbaseObjectWritable HbaseRPC#Invoker.  */
 end_comment
@@ -147,6 +161,12 @@ index|[]
 parameter_list|)
 throws|throws
 name|IOException
+function_decl|;
+comment|/**    * @return Root region region server address. Unlike    * HMasterInterface.findRootRegion, does not wait until all regions are     * assigned.    */
+specifier|public
+name|HServerAddress
+name|getRootRegionLocation
+parameter_list|()
 function_decl|;
 block|}
 end_interface
