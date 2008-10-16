@@ -890,8 +890,6 @@ operator|+
 name|this
 operator|.
 name|filenum
-argument_list|,
-name|e
 argument_list|)
 decl_stmt|;
 name|flce
