@@ -269,7 +269,25 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp.    *    * @param regionName region name    * @param row row key    * @param column column key    * @param timestamp Delete all entries that have this timestamp or older    * @param lockId lock id    * @throws IOException    */
+comment|/**    * Applies a batch of updates via one RPC for many rows    *     * @param regionName name of the region to update    * @param b BatchUpdate[]    * @throws IOException    */
+specifier|public
+name|int
+name|batchUpdates
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|regionName
+parameter_list|,
+specifier|final
+name|BatchUpdate
+index|[]
+name|b
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Delete all cells that match the passed row and column and whose timestamp    * is equal-to or older than the passed timestamp.    *     * @param regionName region name    * @param row row key    * @param column column key    * @param timestamp Delete all entries that have this timestamp or older    * @param lockId lock id    * @throws IOException    */
 specifier|public
 name|void
 name|deleteAll

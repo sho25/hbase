@@ -268,6 +268,25 @@ name|IOException
 throws|,
 name|RuntimeException
 function_decl|;
+comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and    * this method will pass it to the defined region server.    * @param<T> the type of the return value    * @param callable    * @return an object of type T    * @throws IOException    * @throws RuntimeException    */
+specifier|public
+parameter_list|<
+name|T
+parameter_list|>
+name|T
+name|getRegionServerForWithoutRetries
+parameter_list|(
+name|ServerCallable
+argument_list|<
+name|T
+argument_list|>
+name|callable
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|RuntimeException
+function_decl|;
 block|}
 end_interface
 

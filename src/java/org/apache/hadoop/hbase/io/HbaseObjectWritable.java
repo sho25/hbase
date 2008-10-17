@@ -909,6 +909,17 @@ name|printStackTrace
 argument_list|()
 expr_stmt|;
 block|}
+name|addToMap
+argument_list|(
+name|BatchUpdate
+index|[]
+operator|.
+expr|class
+argument_list|,
+name|code
+operator|++
+argument_list|)
+expr_stmt|;
 block|}
 specifier|private
 name|Class

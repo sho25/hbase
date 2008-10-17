@@ -1958,6 +1958,28 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|table
+operator|.
+name|setAutoFlush
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|table
+operator|.
+name|setWriteBufferSize
+argument_list|(
+literal|1024
+operator|*
+literal|1024
+operator|*
+literal|12
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|SuppressWarnings
@@ -1970,7 +1992,13 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// Empty
+name|this
+operator|.
+name|table
+operator|.
+name|flushCommits
+argument_list|()
+expr_stmt|;
 block|}
 comment|/*      * Run test      * @return Elapsed time.      * @throws IOException      */
 name|long
