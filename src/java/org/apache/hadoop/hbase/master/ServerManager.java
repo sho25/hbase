@@ -1808,6 +1808,18 @@ argument_list|,
 name|returnMsgs
 argument_list|)
 expr_stmt|;
+comment|// Send any pending table actions.
+name|master
+operator|.
+name|regionManager
+operator|.
+name|applyActions
+argument_list|(
+name|serverInfo
+argument_list|,
+name|returnMsgs
+argument_list|)
+expr_stmt|;
 return|return
 name|returnMsgs
 operator|.
@@ -1851,6 +1863,21 @@ argument_list|>
 name|returnMsgs
 parameter_list|)
 block|{
+comment|// Cancel any actions pending for the affected region.
+comment|// This prevents the master from sending a SPLIT message if the table
+comment|// has already split by the region server.
+name|master
+operator|.
+name|regionManager
+operator|.
+name|endActions
+argument_list|(
+name|region
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|HRegionInfo
 name|newRegionA
 init|=

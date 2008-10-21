@@ -647,6 +647,17 @@ argument_list|)
 expr_stmt|;
 name|addToMap
 argument_list|(
+name|Writable
+index|[]
+operator|.
+expr|class
+argument_list|,
+name|code
+operator|++
+argument_list|)
+expr_stmt|;
+name|addToMap
+argument_list|(
 name|HbaseMapWritable
 operator|.
 name|class

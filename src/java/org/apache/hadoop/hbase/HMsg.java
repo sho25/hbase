@@ -107,6 +107,12 @@ block|,
 comment|/** Stop serving the specified region */
 name|MSG_REGION_CLOSE
 block|,
+comment|/** Split the specified region */
+name|MSG_REGION_SPLIT
+block|,
+comment|/** Compact the specified region */
+name|MSG_REGION_COMPACT
+block|,
 comment|/** Region server is unknown to master. Restart */
 name|MSG_CALL_SERVER_STARTUP
 block|,

@@ -672,6 +672,33 @@ block|,
 literal|32
 block|}
 decl_stmt|;
+comment|/** modifyTable op for replacing the table descriptor */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MODIFY_TABLE_SET_HTD
+init|=
+literal|1
+decl_stmt|;
+comment|/** modifyTable op for forcing a split */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MODIFY_TABLE_SPLIT
+init|=
+literal|2
+decl_stmt|;
+comment|/** modifyTable op for forcing a compaction */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MODIFY_TABLE_COMPACT
+init|=
+literal|3
+decl_stmt|;
 block|}
 end_interface
 

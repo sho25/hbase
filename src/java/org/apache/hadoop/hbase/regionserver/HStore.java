@@ -3476,6 +3476,18 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|boolean
+name|forceSplit
+init|=
+name|this
+operator|.
+name|info
+operator|.
+name|shouldSplit
+argument_list|(
+literal|false
+argument_list|)
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|compactLock
@@ -3690,7 +3702,9 @@ condition|)
 block|{
 return|return
 name|checkSplit
-argument_list|()
+argument_list|(
+name|forceSplit
+argument_list|)
 return|;
 block|}
 if|if
@@ -3728,7 +3742,9 @@ argument_list|)
 expr_stmt|;
 return|return
 name|checkSplit
-argument_list|()
+argument_list|(
+name|forceSplit
+argument_list|)
 return|;
 block|}
 comment|// HBASE-745, preparing all store file size for incremental compacting
@@ -3973,7 +3989,9 @@ expr_stmt|;
 block|}
 return|return
 name|checkSplit
-argument_list|()
+argument_list|(
+name|forceSplit
+argument_list|)
 return|;
 block|}
 if|if
@@ -4311,7 +4329,9 @@ block|}
 block|}
 return|return
 name|checkSplit
-argument_list|()
+argument_list|(
+name|forceSplit
+argument_list|)
 return|;
 block|}
 comment|/*    * Compact a list of MapFile.Readers into MapFile.Writer.    *     * We work by iterating through the readers in parallel. We always increment    * the lowest-ranked one. Updates to a single row/column will appear ranked    * by timestamp.    * @param compactedOut Where to write compaction.    * @param pReaders List of readers sorted oldest to newest.    * @param majorCompaction True to force a major compaction regardless of    * thresholds    * @throws IOException    */
@@ -8393,7 +8413,10 @@ block|}
 comment|/**    * Determines if HStore can be split    *     * @return a StoreSize if store can be split, null otherwise    */
 name|StoreSize
 name|checkSplit
-parameter_list|()
+parameter_list|(
+name|boolean
+name|force
+parameter_list|)
 block|{
 if|if
 condition|(
@@ -8413,11 +8436,16 @@ return|;
 block|}
 if|if
 condition|(
+operator|!
+name|force
+operator|&&
+operator|(
 name|storeSize
 operator|<
 name|this
 operator|.
 name|desiredMaxFileSize
+operator|)
 condition|)
 block|{
 return|return

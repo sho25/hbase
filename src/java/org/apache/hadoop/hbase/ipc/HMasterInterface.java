@@ -77,6 +77,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|io
+operator|.
+name|Writable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|ipc
 operator|.
 name|VersionedProtocol
@@ -94,14 +108,14 @@ name|HMasterInterface
 extends|extends
 name|VersionedProtocol
 block|{
-comment|/**    * Interface version.    * Version was incremented to 2 when we brought the hadoop RPC local to hbase    * -- HADOOP-2495 and then to 3 when we changed the RPC to send codes instead    * of actual class names (HADOOP-2519).    *<p>Version 4 when we moved to all byte arrays (HBASE-42).    *<p>Version 5  HBASE-576.    */
+comment|/**    * Interface version.    * Version was incremented to 2 when we brought the hadoop RPC local to hbase    * -- HADOOP-2495 and then to 3 when we changed the RPC to send codes instead    * of actual class names (HADOOP-2519).    *<p>Version 4 when we moved to all byte arrays (HBASE-42).    *<p>Version 5  HBASE-576.    *<p>Version 6  modifyTable.    */
 specifier|public
 specifier|static
 specifier|final
 name|long
 name|versionID
 init|=
-literal|5L
+literal|6L
 decl_stmt|;
 comment|/** @return true if master is available */
 specifier|public
@@ -215,17 +229,21 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify a table's metadata    *     * @param tableName    * @param desc    * @throws IOException    */
+comment|/**    * Modify a table's metadata    *     * @param tableName    * @param op    * @param args    * @throws IOException    */
 specifier|public
 name|void
-name|modifyTableMeta
+name|modifyTable
 parameter_list|(
 name|byte
 index|[]
 name|tableName
 parameter_list|,
-name|HTableDescriptor
-name|desc
+name|int
+name|op
+parameter_list|,
+name|Writable
+index|[]
+name|args
 parameter_list|)
 throws|throws
 name|IOException
