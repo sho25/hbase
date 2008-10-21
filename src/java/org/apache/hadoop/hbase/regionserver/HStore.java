@@ -2377,15 +2377,22 @@ name|mapfiles
 operator|.
 name|add
 argument_list|(
+name|this
+operator|.
+name|fs
+operator|.
+name|makeQualified
+argument_list|(
 name|mapfile
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
 comment|// List paths by experience returns fully qualified names -- at least when
 comment|// running on a mini hdfs cluster.
 name|FileStatus
-name|datfiles
 index|[]
+name|datfiles
 init|=
 name|fs
 operator|.
@@ -2423,6 +2430,16 @@ name|getPath
 argument_list|()
 decl_stmt|;
 comment|// If does not have sympathetic info file, delete.
+name|Path
+name|qualifiedP
+init|=
+name|fs
+operator|.
+name|makeQualified
+argument_list|(
+name|p
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 operator|!
@@ -2430,12 +2447,7 @@ name|mapfiles
 operator|.
 name|contains
 argument_list|(
-name|fs
-operator|.
-name|makeQualified
-argument_list|(
-name|p
-argument_list|)
+name|qualifiedP
 argument_list|)
 condition|)
 block|{
