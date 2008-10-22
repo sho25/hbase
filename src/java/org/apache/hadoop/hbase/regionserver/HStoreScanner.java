@@ -43,6 +43,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -54,6 +64,16 @@ operator|.
 name|util
 operator|.
 name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
 import|;
 end_import
 
@@ -806,14 +826,14 @@ comment|// deleted values. This List should not ever grow too large since we
 comment|// are only keeping rows and columns that match those set on the
 comment|// scanner and which have delete values.  If memory usage becomes a
 comment|// problem, could redo as bloom filter.
-name|List
+name|Set
 argument_list|<
 name|HStoreKey
 argument_list|>
 name|deletes
 init|=
 operator|new
-name|ArrayList
+name|HashSet
 argument_list|<
 name|HStoreKey
 argument_list|>
@@ -986,19 +1006,7 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-if|if
-condition|(
-operator|!
-name|deletes
-operator|.
-name|contains
-argument_list|(
-name|hsk
-argument_list|)
-condition|)
-block|{
-comment|// Key changes as we cycle the for loop so add a copy to
-comment|// the set of deletes.
+comment|// Only first key encountered is added; deletes is a Set.
 name|deletes
 operator|.
 name|add
@@ -1010,7 +1018,6 @@ name|hsk
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 elseif|else
 if|if

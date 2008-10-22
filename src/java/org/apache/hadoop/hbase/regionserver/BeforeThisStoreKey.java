@@ -116,7 +116,8 @@ specifier|public
 name|int
 name|compareTo
 parameter_list|(
-name|Object
+specifier|final
+name|HStoreKey
 name|o
 parameter_list|)
 block|{
