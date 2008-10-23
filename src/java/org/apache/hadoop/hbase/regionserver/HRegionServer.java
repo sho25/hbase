@@ -3136,7 +3136,9 @@ literal|" exists"
 argument_list|)
 throw|;
 block|}
-return|return
+name|HLog
+name|newlog
+init|=
 operator|new
 name|HLog
 argument_list|(
@@ -3148,6 +3150,14 @@ name|conf
 argument_list|,
 name|logRoller
 argument_list|)
+decl_stmt|;
+name|newlog
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
+return|return
+name|newlog
 return|;
 block|}
 comment|/*    * Start Chore Threads, Server, Worker and lease checker threads. Install an    * UncaughtExceptionHandler that calls abort of RegionServer if we get    * an unhandled exception.  We cannot set the handler on all threads.    * Server's internal Listener thread is off limits.  For Server, if an OOME,    * it waits a while then retries.  Meantime, a flush or a compaction that    * tries to run should trigger same critical condition and the shutdown will    * run.  On its way out, this server will shut down Server.  Leases are sort    * of inbetween. It has an internal thread that while it inherits from    * Chore, it keeps its own internal stop mechanism so needs to be stopped    * by this hosting server.  Worker logs the exception and exits.    */
