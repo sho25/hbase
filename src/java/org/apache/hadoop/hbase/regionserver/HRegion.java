@@ -4898,57 +4898,59 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// get() methods for client use.
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Fetch multiple versions of a single data item, with timestamp.    *    * @param row    * @param column    * @param timestamp    * @param numVersions    * @return array of values one element per version that matches the timestamp,     * or null if there are no matches.    * @throws IOException    */
+comment|/**    * Fetch multiple versions of a single data item, with timestamp.    *    * @param row    * @param column    * @param ts    * @param nv    * @return array of values one element per version that matches the timestamp,     * or null if there are no matches.    * @throws IOException    */
 specifier|public
 name|Cell
 index|[]
 name|get
 parameter_list|(
+specifier|final
 name|byte
 index|[]
 name|row
 parameter_list|,
+specifier|final
 name|byte
 index|[]
 name|column
 parameter_list|,
+specifier|final
 name|long
-name|timestamp
+name|ts
 parameter_list|,
+specifier|final
 name|int
-name|numVersions
+name|nv
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
+name|long
 name|timestamp
+init|=
+name|ts
 operator|==
 operator|-
 literal|1
-condition|)
-block|{
-name|timestamp
-operator|=
-name|Long
+condition|?
+name|HConstants
 operator|.
-name|MAX_VALUE
-expr_stmt|;
-block|}
-if|if
-condition|(
+name|LATEST_TIMESTAMP
+else|:
+name|ts
+decl_stmt|;
+name|int
 name|numVersions
+init|=
+name|nv
 operator|==
 operator|-
 literal|1
-condition|)
-block|{
-name|numVersions
-operator|=
+condition|?
 literal|1
-expr_stmt|;
-block|}
+else|:
+name|nv
+decl_stmt|;
 name|splitsAndClosesLock
 operator|.
 name|readLock
@@ -5903,7 +5905,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// set() methods for client use.
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Batch update many rows and take splitsAndClosesLock so we don't get     * blocked while updating.    * @param bus     */
+comment|/**    * Batch update many rows    * @param bus     * @param locks    * @throws IOException    */
 specifier|public
 name|void
 name|batchUpdate
@@ -5918,16 +5920,6 @@ name|locks
 parameter_list|)
 throws|throws
 name|IOException
-block|{
-name|splitsAndClosesLock
-operator|.
-name|readLock
-argument_list|()
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
-try|try
 block|{
 for|for
 control|(
@@ -5958,18 +5950,6 @@ index|[
 name|i
 index|]
 argument_list|)
-expr_stmt|;
-block|}
-block|}
-finally|finally
-block|{
-name|splitsAndClosesLock
-operator|.
-name|readLock
-argument_list|()
-operator|.
-name|unlock
-argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -6075,6 +6055,16 @@ comment|// will be extremely rare; we'll deal with it when it happens.
 name|checkResources
 argument_list|()
 expr_stmt|;
+name|splitsAndClosesLock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
+block|{
 comment|// We obtain a per-row lock, so other clients will block while one client
 comment|// performs an update. The read lock is released by the client calling
 comment|// #commit or #abort or if the HRegionServer lease on the lock expires.
@@ -6393,6 +6383,18 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+finally|finally
+block|{
+name|splitsAndClosesLock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 comment|/*    * Check if resources to support an update.    *     * For now, just checks memcache saturation.    *     * Here we synchronize on HRegion, a broad scoped lock.  Its appropriate    * given we're figuring in here whether this region is able to take on    * writes.  This is only method with a synchronize (at time of writing),    * this and the synchronize on 'this' inside in internalFlushCache to send    * the notify.    */
 specifier|private
 name|void
@@ -6612,6 +6614,11 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Delete all cells of the same age as the passed timestamp or older.    * @param row    * @param ts Delete all entries that have this timestamp or older    * @param lockid Row lock    * @throws IOException    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 name|void
 name|deleteAll
@@ -6766,6 +6773,11 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Delete all cells for a row with matching column family with timestamps    * less than or equal to<i>timestamp</i>.    *    * @param row The row to operate on    * @param family The column family to match    * @param timestamp Timestamp to match    * @param lockid Row lock    * @throws IOException    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 name|void
 name|deleteFamily
@@ -6921,6 +6933,11 @@ expr_stmt|;
 block|}
 block|}
 comment|/*    * Delete one or many cells.    * Used to support {@link #deleteAll(byte [], byte [], long)} and deletion of    * latest cell.    * @param row    * @param column    * @param ts Timestamp to start search on.    * @param versions How many versions to delete. Pass    * {@link HConstants#ALL_VERSIONS} to delete all.    * @throws IOException    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|private
 name|void
 name|deleteMultiple
@@ -7074,6 +7091,11 @@ throw|;
 block|}
 block|}
 comment|/**    * Private implementation.    *     * localput() is used for both puts and deletes. We just place the values    * into a per-row pending area, until a commit() or abort() call is received.    * (Or until the user's write-lock expires.)    *     * @param lockid    * @param key     * @param val Value to enter into cell    * @throws IOException    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|private
 name|void
 name|localput
@@ -7943,12 +7965,9 @@ return|return
 literal|true
 return|;
 block|}
-else|else
-block|{
 return|return
 literal|false
 return|;
-block|}
 block|}
 block|}
 comment|/**    * Returns existing row lock if found, otherwise    * obtains a new row lock and returns it.    * @param lockid    * @return lockid    */
@@ -9609,6 +9628,11 @@ name|r
 return|;
 block|}
 comment|/**    * Inserts a new region's meta information into the passed    *<code>meta</code> region. Used by the HMaster bootstrap code adding    * new table to ROOT table.    *     * @param meta META HRegion to be updated    * @param r HRegion to add to<code>meta</code>    *    * @throws IOException    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 specifier|static
 name|void
