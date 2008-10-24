@@ -852,10 +852,15 @@ name|info
 argument_list|(
 literal|"Started "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|table
 operator|.
 name|getTableName
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|JobClient
