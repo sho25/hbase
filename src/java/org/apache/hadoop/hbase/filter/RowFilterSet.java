@@ -237,6 +237,35 @@ operator|=
 name|operator
 expr_stmt|;
 block|}
+comment|/** Get the operator.    *     * @return operator    */
+specifier|public
+name|Operator
+name|getOperator
+parameter_list|()
+block|{
+return|return
+name|operator
+return|;
+block|}
+comment|/** Add a filter.    *     * @param filter    */
+specifier|public
+name|void
+name|addFilter
+parameter_list|(
+name|RowFilterInterface
+name|filter
+parameter_list|)
+block|{
+name|this
+operator|.
+name|filters
+operator|.
+name|add
+argument_list|(
+name|filter
+argument_list|)
+expr_stmt|;
+block|}
 specifier|public
 name|void
 name|validate
