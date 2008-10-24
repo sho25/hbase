@@ -870,7 +870,7 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
-name|unassignRootRegion
+name|reassignRootRegion
 argument_list|()
 expr_stmt|;
 block|}
@@ -897,9 +897,20 @@ literal|"RegionManager.metaScanner"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * Unassign the root region.    * This method would be used in case where root region server had died    * without reporting in.  Currently, we just flounder and never recover.  We    * could 'notice' dead region server in root scanner -- if we failed access    * multiple times -- but reassigning root is catastrophic.    *     */
 name|void
-name|unassignRootRegion
+name|unsetRootRegion
+parameter_list|()
+block|{
+name|rootRegionLocation
+operator|.
+name|set
+argument_list|(
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
+name|void
+name|reassignRootRegion
 parameter_list|()
 block|{
 name|rootRegionLocation
@@ -3388,7 +3399,7 @@ name|regionName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add a meta region to the scan queue    * @param m MetaRegion that needs to get scanned    * @throws InterruptedException    */
+comment|/**    * Add a meta region to the scan queue    * @param m MetaRegion that needs to get scanned    */
 specifier|public
 name|void
 name|addMetaRegionToScan
@@ -3396,8 +3407,6 @@ parameter_list|(
 name|MetaRegion
 name|m
 parameter_list|)
-throws|throws
-name|InterruptedException
 block|{
 name|metaScannerThread
 operator|.
@@ -3651,7 +3660,7 @@ name|num
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param regionName    */
+comment|/**    * @param regionName    * @param info    * @param server    * @param op    */
 specifier|public
 name|void
 name|startAction
@@ -3739,7 +3748,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * @param regionName    */
+comment|/**    * @param regionName    * @param op    */
 specifier|public
 name|void
 name|endAction

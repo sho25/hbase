@@ -2629,7 +2629,11 @@ name|debug
 argument_list|(
 literal|"Splitting "
 operator|+
+operator|(
 name|i
+operator|+
+literal|1
+operator|)
 operator|+
 literal|" of "
 operator|+
@@ -2934,7 +2938,12 @@ name|logfile
 operator|+
 literal|" and region "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|regionName
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

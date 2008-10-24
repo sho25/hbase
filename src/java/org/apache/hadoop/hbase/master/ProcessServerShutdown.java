@@ -31,20 +31,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|UnsupportedEncodingException
-import|;
-end_import
-
-begin_comment
-comment|//TODO: remove
-end_comment
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|ArrayList
@@ -272,12 +258,19 @@ extends|extends
 name|RegionServerOperation
 block|{
 specifier|private
+specifier|final
 name|HServerAddress
 name|deadServer
 decl_stmt|;
 specifier|private
+specifier|final
 name|String
 name|deadServerName
+decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
+name|rootRegionServer
 decl_stmt|;
 specifier|private
 name|Path
@@ -339,7 +332,7 @@ name|info
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param master    * @param serverInfo    */
+comment|/**    * @param master    * @param serverInfo    * @param rootRegionServer    */
 specifier|public
 name|ProcessServerShutdown
 parameter_list|(
@@ -348,6 +341,9 @@ name|master
 parameter_list|,
 name|HServerInfo
 name|serverInfo
+parameter_list|,
+name|boolean
+name|rootRegionServer
 parameter_list|)
 block|{
 name|super
@@ -374,6 +370,12 @@ name|deadServer
 operator|.
 name|toString
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|rootRegionServer
+operator|=
+name|rootRegionServer
 expr_stmt|;
 name|this
 operator|.
@@ -1334,6 +1336,14 @@ name|rootAvailable
 argument_list|()
 condition|)
 block|{
+comment|// Get root region assigned now that log has been split
+name|master
+operator|.
+name|regionManager
+operator|.
+name|reassignRootRegion
+argument_list|()
+expr_stmt|;
 comment|// Return true so that worker does not put this request back on the
 comment|// toDoQueue.
 comment|// rootAvailable() has already put it on the delayedToDoQueue

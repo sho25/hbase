@@ -687,6 +687,11 @@ operator|.
 name|getRootRegionLocation
 argument_list|()
 decl_stmt|;
+name|boolean
+name|rootServer
+init|=
+literal|false
+decl_stmt|;
 if|if
 condition|(
 name|root
@@ -708,13 +713,21 @@ name|master
 operator|.
 name|regionManager
 operator|.
-name|unassignRootRegion
-argument_list|()
+name|setRootRegionLocation
+argument_list|(
+literal|null
+argument_list|)
+expr_stmt|;
+name|rootServer
+operator|=
+literal|true
 expr_stmt|;
 block|}
+try|try
+block|{
 name|master
 operator|.
-name|delayedToDoQueue
+name|toDoQueue
 operator|.
 name|put
 argument_list|(
@@ -724,9 +737,28 @@ argument_list|(
 name|master
 argument_list|,
 name|storedInfo
+argument_list|,
+name|rootServer
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Insertion into toDoQueue was interrupted"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|// record new server
 name|load
@@ -1283,7 +1315,7 @@ name|master
 operator|.
 name|regionManager
 operator|.
-name|unassignRootRegion
+name|reassignRootRegion
 argument_list|()
 expr_stmt|;
 block|}
@@ -2296,7 +2328,7 @@ name|master
 operator|.
 name|regionManager
 operator|.
-name|unassignRootRegion
+name|reassignRootRegion
 argument_list|()
 expr_stmt|;
 block|}
@@ -2498,7 +2530,7 @@ name|master
 operator|.
 name|regionManager
 operator|.
-name|unassignRootRegion
+name|reassignRootRegion
 argument_list|()
 expr_stmt|;
 block|}
@@ -3023,6 +3055,11 @@ argument_list|(
 name|server
 argument_list|)
 decl_stmt|;
+name|boolean
+name|rootServer
+init|=
+literal|false
+decl_stmt|;
 if|if
 condition|(
 name|info
@@ -3055,12 +3092,19 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+comment|// NOTE: If the server was serving the root region, we cannot reassign
+comment|// it here because the new server will start serving the root region
+comment|// before ProcessServerShutdown has a chance to split the log file.
 name|master
 operator|.
 name|regionManager
 operator|.
-name|unassignRootRegion
+name|unsetRootRegion
 argument_list|()
+expr_stmt|;
+name|rootServer
+operator|=
+literal|true
 expr_stmt|;
 block|}
 name|String
@@ -3154,9 +3198,6 @@ name|notifyAll
 argument_list|()
 expr_stmt|;
 block|}
-comment|// NOTE: If the server was serving the root region, we cannot reassign it
-comment|// here because the new server will start serving the root region before
-comment|// the ProcessServerShutdown operation has a chance to split the log file.
 if|if
 condition|(
 name|info
@@ -3164,9 +3205,11 @@ operator|!=
 literal|null
 condition|)
 block|{
+try|try
+block|{
 name|master
 operator|.
-name|delayedToDoQueue
+name|toDoQueue
 operator|.
 name|put
 argument_list|(
@@ -3176,9 +3219,28 @@ argument_list|(
 name|master
 argument_list|,
 name|info
+argument_list|,
+name|rootServer
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Insertion into toDoQueue was interrupted"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 block|}

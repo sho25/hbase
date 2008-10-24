@@ -445,8 +445,6 @@ argument_list|()
 condition|)
 block|{
 comment|// Put it on the queue to be scanned for the first time.
-try|try
-block|{
 name|LOG
 operator|.
 name|debug
@@ -470,23 +468,6 @@ argument_list|(
 name|m
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"Putting into metaRegionsToScan was interrupted."
-argument_list|,
-name|e
-argument_list|)
-throw|;
-block|}
 block|}
 else|else
 block|{
