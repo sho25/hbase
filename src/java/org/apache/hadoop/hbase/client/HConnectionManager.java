@@ -433,7 +433,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|SoftSortedMap
+name|SoftValueSortedMap
 import|;
 end_import
 
@@ -482,7 +482,11 @@ comment|/*    * Not instantiable.    */
 specifier|protected
 name|HConnectionManager
 parameter_list|()
-block|{}
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+block|}
 comment|// A Map of master HServerAddress -> connection information for that instance
 comment|// Note that although the Map is synchronized, the objects it contains
 comment|// are mutable and hence require synchronized access to them
@@ -573,7 +577,7 @@ return|return
 name|connection
 return|;
 block|}
-comment|/**    * Delete connection information for the instance specified by the configuration    * @param conf    * @param stopProxy    */
+comment|/**    * Delete connection information for the instance specified by configuration    * @param conf    * @param stopProxy    */
 specifier|public
 specifier|static
 name|void
@@ -767,7 +771,7 @@ name|Map
 argument_list|<
 name|Integer
 argument_list|,
-name|SoftSortedMap
+name|SoftValueSortedMap
 argument_list|<
 name|byte
 index|[]
@@ -786,7 +790,7 @@ name|HashMap
 argument_list|<
 name|Integer
 argument_list|,
-name|SoftSortedMap
+name|SoftValueSortedMap
 argument_list|<
 name|byte
 index|[]
@@ -1157,7 +1161,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// We either cannot connect to master or it is not running. Sleep& retry
+comment|// Cannot connect to master or it is not running. Sleep& retry
 try|try
 block|{
 name|Thread
@@ -2866,7 +2870,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|SoftSortedMap
+name|SoftValueSortedMap
 argument_list|<
 name|byte
 index|[]
@@ -2893,7 +2897,7 @@ block|{
 name|tableLocations
 operator|=
 operator|new
-name|SoftSortedMap
+name|SoftValueSortedMap
 argument_list|<
 name|byte
 index|[]
@@ -3002,7 +3006,7 @@ return|;
 block|}
 comment|// Cut the cache so that we only get the part that could contain
 comment|// regions that match our key
-name|SoftSortedMap
+name|SoftValueSortedMap
 argument_list|<
 name|byte
 index|[]
@@ -3142,7 +3146,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|SoftSortedMap
+name|SoftValueSortedMap
 argument_list|<
 name|byte
 index|[]
@@ -3169,7 +3173,7 @@ block|{
 name|tableLocations
 operator|=
 operator|new
-name|SoftSortedMap
+name|SoftValueSortedMap
 argument_list|<
 name|byte
 index|[]
@@ -3205,7 +3209,7 @@ condition|)
 block|{
 comment|// cut the cache so that we only get the part that could contain
 comment|// regions that match our key
-name|SoftSortedMap
+name|SoftValueSortedMap
 argument_list|<
 name|byte
 index|[]
@@ -3372,7 +3376,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|SoftSortedMap
+name|SoftValueSortedMap
 argument_list|<
 name|byte
 index|[]
@@ -3399,7 +3403,7 @@ block|{
 name|tableLocations
 operator|=
 operator|new
-name|SoftSortedMap
+name|SoftValueSortedMap
 argument_list|<
 name|byte
 index|[]
@@ -3614,7 +3618,7 @@ return|return
 name|server
 return|;
 block|}
-comment|/*      * Repeatedly try to find the root region by asking the master for where it is      * @return HRegionLocation for root region if found      * @throws NoServerForRegionException - if the root region can not be located      * after retrying      * @throws IOException       */
+comment|/*      * Repeatedly try to find the root region by asking the master for where it is      * @return HRegionLocation for root region if found      * @throws NoServerForRegionException - if the root region can not be      * located after retrying      * @throws IOException       */
 specifier|private
 name|HRegionLocation
 name|locateRootRegion
