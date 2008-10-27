@@ -120,7 +120,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Leases  *  * There are several server classes in HBase that need to track external  * clients that occasionally send heartbeats.  *   *<p>These external clients hold resources in the server class.  * Those resources need to be released if the external client fails to send a  * heartbeat after some interval of time passes.  *  *<p>The Leases class is a general reusable class for this kind of pattern.  * An instance of the Leases class will create a thread to do its dirty work.    * You should close() the instance if you want to clean up the thread properly.  */
+comment|/**  * Leases  *  * There are several server classes in HBase that need to track external  * clients that occasionally send heartbeats.  *   *<p>These external clients hold resources in the server class.  * Those resources need to be released if the external client fails to send a  * heartbeat after some interval of time passes.  *  *<p>The Leases class is a general reusable class for this kind of pattern.  * An instance of the Leases class will create a thread to do its dirty work.    * You should close() the instance if you want to clean up the thread properly.  *   *<p>  * NOTE: This class extends Thread rather than Chore because the sleep time  * can be interrupted when there is something to do, rather than the Chore  * sleep time which is invariant.  */
 end_comment
 
 begin_class

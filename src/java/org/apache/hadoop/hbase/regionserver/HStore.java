@@ -1433,6 +1433,11 @@ name|maxSeqId
 return|;
 block|}
 comment|/*    * Read the reconstructionLog to see whether we need to build a brand-new     * MapFile out of non-flushed log entries.      *    * We can ignore any log message that has a sequence ID that's equal to or     * lower than maxSeqID.  (Because we know such log messages are already     * reflected in the MapFiles.)    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|private
 name|void
 name|doReconstructionLog
@@ -3488,6 +3493,11 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
+name|boolean
+name|doMajorCompaction
+init|=
+name|majorCompaction
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|compactLock
@@ -3567,8 +3577,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// Check to see if we need to do a major compaction on this region.
-comment|// If so, change majorCompaction to true to skip the incremental compacting below.
-comment|// Only check if majorCompaction is not true.
+comment|// If so, change doMajorCompaction to true to skip the incremental
+comment|// compacting below. Only check if doMajorCompaction is not true.
 name|long
 name|lastMajorCompaction
 init|=
@@ -3577,7 +3587,7 @@ decl_stmt|;
 if|if
 condition|(
 operator|!
-name|majorCompaction
+name|doMajorCompaction
 condition|)
 block|{
 name|Path
@@ -3675,7 +3685,7 @@ literal|" seconds"
 argument_list|)
 expr_stmt|;
 block|}
-name|majorCompaction
+name|doMajorCompaction
 operator|=
 literal|true
 expr_stmt|;
@@ -3684,7 +3694,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|majorCompaction
+name|doMajorCompaction
 operator|&&
 operator|!
 name|hasReferences
@@ -3856,7 +3866,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|majorCompaction
+name|doMajorCompaction
 operator|&&
 operator|!
 name|hasReferences
@@ -4251,7 +4261,7 @@ name|writer
 argument_list|,
 name|rdrs
 argument_list|,
-name|majorCompaction
+name|doMajorCompaction
 argument_list|)
 expr_stmt|;
 block|}
@@ -4309,7 +4319,7 @@ name|storeSize
 argument_list|)
 operator|+
 operator|(
-name|majorCompaction
+name|doMajorCompaction
 condition|?
 literal|""
 else|:
@@ -6761,6 +6771,11 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Find the key that matches<i>row</i> exactly, or the one that immediately    * preceeds it. WARNING: Only use this method on a table where writes occur     * with stricly increasing timestamps. This method assumes this pattern of     * writes in order to make it reasonably performant.    * @param row    * @return Found row    * @throws IOException    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 name|byte
 index|[]
 name|getRowKeyAtOrBefore

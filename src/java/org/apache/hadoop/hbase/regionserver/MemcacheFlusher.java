@@ -192,12 +192,12 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Thread that flushes cache on request  * @see FlushRequester  */
+comment|/**  * Thread that flushes cache on request  *  * NOTE: This class extends Thread rather than Chore because the sleep time  * can be interrupted when there is something to do, rather than the Chore  * sleep time which is invariant.  *   * @see FlushRequester  */
 end_comment
 
 begin_class
 class|class
-name|Flusher
+name|MemcacheFlusher
 extends|extends
 name|Thread
 implements|implements
@@ -212,7 +212,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|Flusher
+name|MemcacheFlusher
 operator|.
 name|class
 argument_list|)
@@ -278,7 +278,7 @@ name|globalMemcacheLimitLowMark
 decl_stmt|;
 comment|/**    * @param conf    * @param server    */
 specifier|public
-name|Flusher
+name|MemcacheFlusher
 parameter_list|(
 specifier|final
 name|HBaseConfiguration

@@ -98,7 +98,7 @@ import|;
 end_import
 
 begin_comment
-comment|/** Runs periodically to determine if the HLog should be rolled */
+comment|/**  * Runs periodically to determine if the HLog should be rolled  *   * NOTE: This class extends Thread rather than Chore because the sleep time  * can be interrupted when there is something to do, rather than the Chore  * sleep time which is invariant.  */
 end_comment
 
 begin_class

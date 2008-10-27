@@ -250,7 +250,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**   * Compact region on request and then run split if appropriate  */
+comment|/**   * Compact region on request and then run split if appropriate  *  * NOTE: This class extends Thread rather than Chore because the sleep time  * can be interrupted when there is something to do, rather than the Chore  * sleep time which is invariant.  */
 end_comment
 
 begin_class

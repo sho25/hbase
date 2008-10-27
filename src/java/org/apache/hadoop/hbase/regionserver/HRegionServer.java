@@ -1317,18 +1317,23 @@ name|compactSplitThread
 decl_stmt|;
 comment|// Cache flushing
 specifier|final
-name|Flusher
+name|MemcacheFlusher
 name|cacheFlusher
 decl_stmt|;
 comment|// HLog and HLog roller.  log is protected rather than private to avoid
 comment|// eclipse warning when accessed by inner classes
 specifier|protected
+specifier|volatile
 name|HLog
 name|log
 decl_stmt|;
 specifier|final
 name|LogRoller
 name|logRoller
+decl_stmt|;
+specifier|final
+name|LogFlusher
+name|logFlusher
 decl_stmt|;
 comment|// flag set after we're done setting up server threads (used for testing)
 specifier|protected
@@ -1478,7 +1483,7 @@ operator|.
 name|cacheFlusher
 operator|=
 operator|new
-name|Flusher
+name|MemcacheFlusher
 argument_list|(
 name|conf
 argument_list|,
@@ -1505,6 +1510,23 @@ operator|new
 name|LogRoller
 argument_list|(
 name|this
+argument_list|)
+expr_stmt|;
+comment|// Log flushing thread
+name|this
+operator|.
+name|logFlusher
+operator|=
+operator|new
+name|LogFlusher
+argument_list|(
+name|this
+operator|.
+name|threadWakeFrequency
+argument_list|,
+name|this
+operator|.
+name|stopRequested
 argument_list|)
 expr_stmt|;
 comment|// Task thread to process requests from Master
@@ -2062,6 +2084,15 @@ operator|=
 name|setupHLog
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|logFlusher
+operator|.
+name|setHLog
+argument_list|(
+name|log
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -2457,13 +2488,16 @@ operator|.
 name|interruptIfNecessary
 argument_list|()
 expr_stmt|;
+name|logFlusher
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
 name|compactSplitThread
 operator|.
 name|interruptIfNecessary
 argument_list|()
 expr_stmt|;
-name|this
-operator|.
 name|logRoller
 operator|.
 name|interruptIfNecessary
@@ -2952,6 +2986,15 @@ operator|=
 name|setupHLog
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|logFlusher
+operator|.
+name|setHLog
+argument_list|(
+name|log
+argument_list|)
+expr_stmt|;
 name|startServiceThreads
 argument_list|()
 expr_stmt|;
@@ -3151,16 +3194,11 @@ argument_list|,
 name|logRoller
 argument_list|)
 decl_stmt|;
-name|newlog
-operator|.
-name|start
-argument_list|()
-expr_stmt|;
 return|return
 name|newlog
 return|;
 block|}
-comment|/*    * Start Chore Threads, Server, Worker and lease checker threads. Install an    * UncaughtExceptionHandler that calls abort of RegionServer if we get    * an unhandled exception.  We cannot set the handler on all threads.    * Server's internal Listener thread is off limits.  For Server, if an OOME,    * it waits a while then retries.  Meantime, a flush or a compaction that    * tries to run should trigger same critical condition and the shutdown will    * run.  On its way out, this server will shut down Server.  Leases are sort    * of inbetween. It has an internal thread that while it inherits from    * Chore, it keeps its own internal stop mechanism so needs to be stopped    * by this hosting server.  Worker logs the exception and exits.    */
+comment|/*    * Start maintanence Threads, Server, Worker and lease checker threads.    * Install an UncaughtExceptionHandler that calls abort of RegionServer if we    * get an unhandled exception.  We cannot set the handler on all threads.    * Server's internal Listener thread is off limits.  For Server, if an OOME,    * it waits a while then retries.  Meantime, a flush or a compaction that    * tries to run should trigger same critical condition and the shutdown will    * run.  On its way out, this server will shut down Server.  Leases are sort    * of inbetween. It has an internal thread that while it inherits from    * Chore, it keeps its own internal stop mechanism so needs to be stopped    * by this hosting server.  Worker logs the exception and exits.    */
 specifier|private
 name|void
 name|startServiceThreads
@@ -3228,6 +3266,21 @@ argument_list|,
 name|n
 operator|+
 literal|".logRoller"
+argument_list|,
+name|handler
+argument_list|)
+expr_stmt|;
+name|Threads
+operator|.
+name|setDaemonThreadRunning
+argument_list|(
+name|this
+operator|.
+name|logFlusher
+argument_list|,
+name|n
+operator|+
+literal|".logFlusher"
 argument_list|,
 name|handler
 argument_list|)
@@ -5899,6 +5952,11 @@ parameter_list|,
 name|BatchUpdate
 name|b
 parameter_list|,
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|long
 name|lockId
 parameter_list|)
