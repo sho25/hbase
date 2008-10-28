@@ -813,6 +813,8 @@ parameter_list|()
 block|{
 return|return
 name|currentValue
+operator|+
+literal|1
 operator|<
 name|values
 operator|.
