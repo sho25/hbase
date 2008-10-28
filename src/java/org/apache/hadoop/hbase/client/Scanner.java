@@ -77,6 +77,18 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @param nbRows number of rows to return    * @return Between zero and<param>nbRows</param> RowResults    * @throws IOException    */
+specifier|public
+name|RowResult
+index|[]
+name|next
+parameter_list|(
+name|int
+name|nbRows
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Closes the scanner and releases any resources it has allocated    */
 specifier|public
 name|void
