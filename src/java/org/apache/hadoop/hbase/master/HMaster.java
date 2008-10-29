@@ -615,6 +615,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|metrics
+operator|.
+name|MasterMetrics
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|HRegion
@@ -1035,6 +1053,10 @@ name|serverManager
 decl_stmt|;
 name|RegionManager
 name|regionManager
+decl_stmt|;
+specifier|private
+name|MasterMetrics
+name|metrics
 decl_stmt|;
 comment|/** Build the HMaster out of a raw configuration item.    *     * @param conf - Configuration object    * @throws IOException    */
 specifier|public
@@ -2389,6 +2411,15 @@ name|void
 name|startServiceThreads
 parameter_list|()
 block|{
+comment|// Do after main thread name has been set
+name|this
+operator|.
+name|metrics
+operator|=
+operator|new
+name|MasterMetrics
+argument_list|()
+expr_stmt|;
 try|try
 block|{
 name|regionManager
@@ -4183,6 +4214,18 @@ expr_stmt|;
 block|}
 return|return
 name|rootServer
+return|;
+block|}
+comment|/**    * @return Server metrics    */
+specifier|public
+name|MasterMetrics
+name|getMetrics
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|metrics
 return|;
 block|}
 comment|/*    * Managing leases    */

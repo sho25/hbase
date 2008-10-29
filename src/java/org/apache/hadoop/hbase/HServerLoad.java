@@ -80,21 +80,45 @@ name|int
 name|numberOfRegions
 decl_stmt|;
 comment|// number of regions being served
+comment|/*    * Number of storefiles on the regionserver    */
+specifier|private
+name|int
+name|storefiles
+decl_stmt|;
+comment|/*    * Size of the memcaches on this machine in MB.    */
+specifier|private
+name|int
+name|memcacheSizeMB
+decl_stmt|;
 comment|/*    * TODO: Other metrics that might be considered when the master is actually    * doing load balancing instead of merely trying to decide where to assign    * a region:    *<ul>    *<li># of CPUs, heap size (to determine the "class" of machine). For    *       now, we consider them to be homogeneous.</li>    *<li>#requests per region (Map<{String|HRegionInfo}, Integer>)</li>    *<li>#compactions and/or #splits (churn)</li>    *<li>server death rate (maybe there is something wrong with this server)</li>    *</ul>    */
 comment|/** default constructior (used by Writable) */
 specifier|public
 name|HServerLoad
 parameter_list|()
-block|{}
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * Constructor    * @param numberOfRequests    * @param numberOfRegions    */
 specifier|public
 name|HServerLoad
 parameter_list|(
+specifier|final
 name|int
 name|numberOfRequests
 parameter_list|,
+specifier|final
 name|int
 name|numberOfRegions
+parameter_list|,
+specifier|final
+name|int
+name|storefiles
+parameter_list|,
+specifier|final
+name|int
+name|memcacheSizeMB
 parameter_list|)
 block|{
 name|this
@@ -108,6 +132,46 @@ operator|.
 name|numberOfRegions
 operator|=
 name|numberOfRegions
+expr_stmt|;
+name|this
+operator|.
+name|storefiles
+operator|=
+name|storefiles
+expr_stmt|;
+name|this
+operator|.
+name|memcacheSizeMB
+operator|=
+name|memcacheSizeMB
+expr_stmt|;
+block|}
+specifier|public
+name|HServerLoad
+parameter_list|(
+specifier|final
+name|HServerLoad
+name|hsl
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|hsl
+operator|.
+name|numberOfRequests
+argument_list|,
+name|hsl
+operator|.
+name|numberOfRegions
+argument_list|,
+name|hsl
+operator|.
+name|storefiles
+argument_list|,
+name|hsl
+operator|.
+name|memcacheSizeMB
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Originally, this method factored in the effect of requests going to the    * server as well. However, this does not interact very well with the current    * region rebalancing code, which only factors number of regions. For the     * interim, until we can figure out how to make rebalancing use all the info    * available, we're just going to make load purely the number of regions.    *    * @return load factor for this server    */
@@ -234,7 +298,62 @@ return|return
 name|numberOfRequests
 return|;
 block|}
-comment|// Setters
+comment|/**    * @return Count of storefiles on this regionserver    */
+specifier|public
+name|int
+name|getStorefiles
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|storefiles
+return|;
+block|}
+comment|/**    * @return Size of memcaches in kb.    */
+specifier|public
+name|int
+name|getMemcacheSizeInKB
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|memcacheSizeMB
+return|;
+block|}
+comment|/**    * @param storefiles Count of storefiles on this server.    */
+specifier|public
+name|void
+name|setStorefiles
+parameter_list|(
+name|int
+name|storefiles
+parameter_list|)
+block|{
+name|this
+operator|.
+name|storefiles
+operator|=
+name|storefiles
+expr_stmt|;
+block|}
+comment|/**    * @param memcacheSizeInKB Size of memcache in kb.    */
+specifier|public
+name|void
+name|setMemcacheSizeInKB
+parameter_list|(
+name|int
+name|memcacheSizeInKB
+parameter_list|)
+block|{
+name|this
+operator|.
+name|memcacheSizeMB
+operator|=
+name|memcacheSizeInKB
+expr_stmt|;
+block|}
 comment|/**    * @param numberOfRegions the numberOfRegions to set    */
 specifier|public
 name|void

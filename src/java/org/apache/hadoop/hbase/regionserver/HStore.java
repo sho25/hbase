@@ -8985,6 +8985,20 @@ name|copy
 return|;
 block|}
 block|}
+comment|/**    * @return Count of store files    */
+name|int
+name|getStorefilesCount
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|storefiles
+operator|.
+name|size
+argument_list|()
+return|;
+block|}
 class|class
 name|StoreSize
 block|{
