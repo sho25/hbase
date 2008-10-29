@@ -3436,9 +3436,6 @@ if|if
 condition|(
 name|index
 operator|!=
-name|updates
-operator|.
-name|length
 operator|-
 literal|1
 condition|)
