@@ -39,6 +39,20 @@ name|Configuration
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|Writable
+import|;
+end_import
+
 begin_comment
 comment|/**  * Subclass of hadoop's Client just so we can make some methods accessible  * in {@link org.apache.hadoop.hbase.ipc.HbaseRPC}  */
 end_comment
@@ -55,6 +69,11 @@ specifier|public
 name|HBaseClient
 parameter_list|(
 name|Class
+argument_list|<
+name|?
+extends|extends
+name|Writable
+argument_list|>
 name|valueClass
 parameter_list|,
 name|Configuration
@@ -71,28 +90,6 @@ argument_list|,
 name|conf
 argument_list|,
 name|factory
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * @param valueClass    * @param conf    */
-specifier|public
-name|HBaseClient
-parameter_list|(
-name|Class
-argument_list|<
-name|?
-argument_list|>
-name|valueClass
-parameter_list|,
-name|Configuration
-name|conf
-parameter_list|)
-block|{
-name|super
-argument_list|(
-name|valueClass
-argument_list|,
-name|conf
 argument_list|)
 expr_stmt|;
 block|}

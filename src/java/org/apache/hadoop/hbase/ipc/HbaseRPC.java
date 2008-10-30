@@ -429,7 +429,8 @@ name|Writable
 implements|,
 name|Configurable
 block|{
-comment|// Here we maintain two static maps of method names to code and vice versa.
+comment|// Here, for hbase, we maintain two static maps of method names to code and
+comment|// vice versa.
 specifier|private
 specifier|static
 specifier|final
@@ -533,6 +534,7 @@ name|code
 argument_list|)
 expr_stmt|;
 block|}
+comment|// End of hbase modifications.
 specifier|private
 name|String
 name|methodName
@@ -819,12 +821,14 @@ name|String
 name|toString
 parameter_list|()
 block|{
-name|StringBuffer
+name|StringBuilder
 name|buffer
 init|=
 operator|new
-name|StringBuffer
-argument_list|()
+name|StringBuilder
+argument_list|(
+literal|256
+argument_list|)
 decl_stmt|;
 name|buffer
 operator|.
@@ -921,6 +925,7 @@ operator|.
 name|conf
 return|;
 block|}
+comment|// Hbase additions.
 specifier|private
 specifier|static
 name|void
@@ -1152,6 +1157,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|// End of hbase additions.
 block|}
 comment|/* Cache a client using its socket factory as the hash key */
 specifier|static
@@ -1212,6 +1218,7 @@ operator|==
 literal|null
 condition|)
 block|{
+comment|// Make an hbase client instead of hadoop Client.
 name|client
 operator|=
 operator|new
@@ -1449,14 +1456,33 @@ parameter_list|)
 throws|throws
 name|Throwable
 block|{
+specifier|final
+name|boolean
+name|logDebug
+init|=
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+decl_stmt|;
 name|long
 name|startTime
 init|=
+literal|0
+decl_stmt|;
+if|if
+condition|(
+name|logDebug
+condition|)
+block|{
+name|startTime
+operator|=
 name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
-decl_stmt|;
+expr_stmt|;
+block|}
 name|HbaseObjectWritable
 name|value
 init|=
@@ -1480,6 +1506,11 @@ argument_list|,
 name|ticket
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|logDebug
+condition|)
+block|{
 name|long
 name|callTime
 init|=
@@ -1506,6 +1537,7 @@ operator|+
 name|callTime
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|value
 operator|.
@@ -1675,6 +1707,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// HBase does limited number of reconnects which is different from hadoop.
 name|int
 name|reconnectAttempts
 init|=

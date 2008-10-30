@@ -187,7 +187,7 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|dfs
+name|hdfs
 operator|.
 name|DistributedFileSystem
 import|;
@@ -201,7 +201,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|dfs
+name|hdfs
+operator|.
+name|protocol
 operator|.
 name|FSConstants
 import|;

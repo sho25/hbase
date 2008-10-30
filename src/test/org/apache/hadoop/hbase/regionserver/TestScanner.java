@@ -65,7 +65,7 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|dfs
+name|hdfs
 operator|.
 name|MiniDFSCluster
 import|;

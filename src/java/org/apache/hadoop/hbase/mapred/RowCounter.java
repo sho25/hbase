@@ -169,6 +169,20 @@ name|hadoop
 operator|.
 name|mapred
 operator|.
+name|FileOutputFormat
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|mapred
+operator|.
 name|JobClient
 import|;
 end_import
@@ -592,10 +606,12 @@ name|class
 argument_list|)
 expr_stmt|;
 comment|// First arg is the output directory.
-name|c
+name|FileOutputFormat
 operator|.
 name|setOutputPath
 argument_list|(
+name|c
+argument_list|,
 operator|new
 name|Path
 argument_list|(
