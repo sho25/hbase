@@ -1651,6 +1651,28 @@ literal|60030
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|serverInfo
+operator|.
+name|getServerAddress
+argument_list|()
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|(
+literal|"Server address cannot be null; "
+operator|+
+literal|"hbase-958 debugging"
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|numRegionsToReport

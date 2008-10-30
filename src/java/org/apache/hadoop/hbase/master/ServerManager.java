@@ -1648,6 +1648,26 @@ argument_list|(
 name|serverName
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|serverInfo
+operator|.
+name|getServerAddress
+argument_list|()
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|(
+literal|"Server address cannot be null; "
+operator|+
+literal|"hbase-958 debugging"
+argument_list|)
+throw|;
+block|}
 comment|// Get reports on what the RegionServer did.
 for|for
 control|(

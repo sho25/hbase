@@ -173,6 +173,25 @@ operator|.
 name|getServerAddress
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|serverAddress
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|(
+literal|"Server address cannot be null; "
+operator|+
+literal|"hbase-958 debugging"
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|startCode
@@ -420,7 +439,11 @@ init|=
 operator|new
 name|MetaRegion
 argument_list|(
+operator|new
+name|HServerAddress
+argument_list|(
 name|serverAddress
+argument_list|)
 argument_list|,
 name|regionInfo
 operator|.
