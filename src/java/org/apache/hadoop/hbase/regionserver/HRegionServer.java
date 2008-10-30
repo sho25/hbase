@@ -2424,6 +2424,32 @@ name|checkFileSystem
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|this
+operator|.
+name|stopRequested
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Stop was requested, clearing the toDo "
+operator|+
+literal|"despite of the exception"
+argument_list|)
+expr_stmt|;
+name|toDo
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+continue|continue;
+block|}
 block|}
 block|}
 comment|// Do some housekeeping before going to sleep
