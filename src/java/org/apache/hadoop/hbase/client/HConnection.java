@@ -29,6 +29,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -80,6 +90,22 @@ operator|.
 name|hbase
 operator|.
 name|MasterNotRunningException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|BatchUpdate
 import|;
 end_import
 
@@ -286,6 +312,24 @@ throws|throws
 name|IOException
 throws|,
 name|RuntimeException
+function_decl|;
+comment|/**    * Process a batch of rows. Currently it only works for updates until     * HBASE-880 is available. Does the retries.    * @param list A batch of rows to process    * @param tableName The name of the table    * @throws IOException    */
+specifier|public
+name|void
+name|processBatchOfRows
+parameter_list|(
+name|ArrayList
+argument_list|<
+name|BatchUpdate
+argument_list|>
+name|list
+parameter_list|,
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 block|}
 end_interface
