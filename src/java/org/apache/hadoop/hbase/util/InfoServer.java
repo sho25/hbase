@@ -194,34 +194,60 @@ name|logContext
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|name
-operator|.
-name|equals
-argument_list|(
-literal|"master"
-argument_list|)
-condition|)
-block|{
-comment|// Put up the rest webapp.
-name|this
-operator|.
-name|webServer
-operator|.
-name|addWebApplication
-argument_list|(
-literal|"/api"
-argument_list|,
-name|getWebAppDir
-argument_list|(
-literal|"rest"
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/**   * Get the pathname to the<code>path</code> files.   * @param path Path to find.   * @return the pathname as a URL   */
+specifier|protected
+name|String
+name|getWebAppsPath
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+comment|// Hack: webapps is not a unique enough element to find in CLASSPATH
+comment|// We'll more than likely find the hadoop webapps dir.  So, instead
+comment|// look for the 'master' webapp in the webapps subdir.  That should
+comment|// get us the hbase context.  Presumption is that place where the
+comment|// master webapp resides is where we want this InfoServer picking up
+comment|// web applications.
+specifier|final
+name|String
+name|master
+init|=
+literal|"master"
+decl_stmt|;
+name|String
+name|p
+init|=
+name|getWebAppDir
+argument_list|(
+name|master
+argument_list|)
+decl_stmt|;
+comment|// Now strip master + the separator off the end of our context
+return|return
+name|p
+operator|.
+name|substring
+argument_list|(
+literal|0
+argument_list|,
+name|p
+operator|.
+name|length
+argument_list|()
+operator|-
+operator|(
+name|master
+operator|.
+name|length
+argument_list|()
+operator|+
+literal|1
+comment|/* The separator*/
+operator|)
+argument_list|)
+return|;
+block|}
 specifier|private
 specifier|static
 name|String
@@ -264,6 +290,17 @@ operator|+
 name|path
 argument_list|)
 throw|;
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"URL "
+operator|+
+name|url
+argument_list|)
+expr_stmt|;
 return|return
 name|url
 operator|.
