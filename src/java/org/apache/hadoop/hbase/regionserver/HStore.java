@@ -7710,6 +7710,8 @@ expr_stmt|;
 name|searchKey
 operator|=
 operator|new
+name|HStoreKey
+operator|.
 name|BeforeThisStoreKey
 argument_list|(
 name|deletedOrExpiredRow
