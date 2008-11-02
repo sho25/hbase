@@ -1927,20 +1927,23 @@ comment|// If a bloomFilter is enabled and the column descriptor is less than
 comment|// version 5, we need to skip over it to read the rest of the column
 comment|// descriptor. There are no BloomFilterDescriptors written to disk for
 comment|// column descriptors with a version number>= 5
-name|BloomFilterDescriptor
-name|junk
-init|=
+throw|throw
 operator|new
-name|BloomFilterDescriptor
-argument_list|()
-decl_stmt|;
-name|junk
-operator|.
-name|readFields
+name|UnsupportedClassVersionError
 argument_list|(
-name|in
+name|this
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" does not support backward compatibility with versions older "
+operator|+
+literal|"than version 5"
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
 if|if
 condition|(
