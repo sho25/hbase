@@ -194,6 +194,30 @@ name|logContext
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|name
+operator|.
+name|equals
+argument_list|(
+literal|"master"
+argument_list|)
+condition|)
+block|{
+comment|// Put up the rest webapp.
+name|webServer
+operator|.
+name|addWebApplication
+argument_list|(
+literal|"/api"
+argument_list|,
+name|getWebAppDir
+argument_list|(
+literal|"rest"
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**   * Get the pathname to the<code>path</code> files.   * @param path Path to find.   * @return the pathname as a URL   */
 specifier|protected
