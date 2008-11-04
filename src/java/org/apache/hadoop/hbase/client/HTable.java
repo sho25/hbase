@@ -875,11 +875,6 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Gets the starting row key for every region in the currently open table    *     * @return Array of region starting row keys    * @throws IOException    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"null"
-argument_list|)
 specifier|public
 name|byte
 index|[]
@@ -3555,11 +3550,6 @@ specifier|protected
 name|long
 name|scanTime
 decl_stmt|;
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"hiding"
-argument_list|)
 specifier|private
 name|boolean
 name|closed

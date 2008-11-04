@@ -224,15 +224,6 @@ init|=
 literal|0
 decl_stmt|;
 comment|/**    * @param in    * @param fileLength    * @param blockSize the size of each block in bytes.    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-block|{
-literal|"unchecked"
-block|,
-literal|"serial"
-block|}
-argument_list|)
 specifier|public
 name|BlockFSInputStream
 parameter_list|(
@@ -743,7 +734,12 @@ name|blocks
 operator|.
 name|get
 argument_list|(
+name|Long
+operator|.
+name|valueOf
+argument_list|(
 name|targetBlockStart
+argument_list|)
 argument_list|)
 decl_stmt|;
 if|if
@@ -786,7 +782,12 @@ name|blocks
 operator|.
 name|put
 argument_list|(
+name|Long
+operator|.
+name|valueOf
+argument_list|(
 name|targetBlockStart
+argument_list|)
 argument_list|,
 name|block
 argument_list|)
