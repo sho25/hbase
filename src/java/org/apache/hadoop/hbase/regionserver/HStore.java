@@ -6319,11 +6319,6 @@ init|(
 name|map
 init|)
 block|{
-name|map
-operator|.
-name|reset
-argument_list|()
-expr_stmt|;
 comment|// Do the priming read
 name|ImmutableBytesWritable
 name|readval
@@ -6357,7 +6352,9 @@ block|{
 comment|// map.getClosest returns null if the passed key is> than the
 comment|// last key in the map file.  getClosest is a bit of a misnomer
 comment|// since it returns exact match or the next closest key AFTER not
-comment|// BEFORE.
+comment|// BEFORE.  We use getClosest because we're usually passed a
+comment|// key that has a timestamp of maximum long to indicate we want
+comment|// most recent update.
 continue|continue;
 block|}
 if|if
@@ -8420,29 +8417,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|mf
-operator|instanceof
-name|HBaseMapFile
-operator|.
-name|HBaseReader
-condition|)
-block|{
-return|return
-operator|(
-operator|(
-name|HBaseMapFile
-operator|.
-name|HBaseReader
-operator|)
-name|mf
-operator|)
-operator|.
-name|getFinalKey
-argument_list|()
-return|;
-block|}
 name|HStoreKey
 name|finalKey
 init|=
@@ -8820,7 +8794,44 @@ argument_list|(
 name|mapIndex
 argument_list|)
 decl_stmt|;
-comment|// get the midkey
+comment|// Get first, last, and mid keys.
+name|r
+operator|.
+name|reset
+argument_list|()
+expr_stmt|;
+name|HStoreKey
+name|firstKey
+init|=
+operator|new
+name|HStoreKey
+argument_list|()
+decl_stmt|;
+name|HStoreKey
+name|lastKey
+init|=
+operator|new
+name|HStoreKey
+argument_list|()
+decl_stmt|;
+name|r
+operator|.
+name|next
+argument_list|(
+name|firstKey
+argument_list|,
+operator|new
+name|ImmutableBytesWritable
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|r
+operator|.
+name|finalKey
+argument_list|(
+name|lastKey
+argument_list|)
+expr_stmt|;
 name|HStoreKey
 name|mk
 init|=
@@ -8854,10 +8865,7 @@ operator|.
 name|getRow
 argument_list|()
 argument_list|,
-name|r
-operator|.
-name|getFirstKey
-argument_list|()
+name|firstKey
 operator|.
 name|getRow
 argument_list|()
@@ -8874,10 +8882,7 @@ operator|.
 name|getRow
 argument_list|()
 argument_list|,
-name|r
-operator|.
-name|getFinalKey
-argument_list|()
+name|lastKey
 operator|.
 name|getRow
 argument_list|()
