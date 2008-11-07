@@ -108,7 +108,7 @@ name|InfoServer
 extends|extends
 name|HttpServer
 block|{
-comment|/**    * Create a status server on the given port.    * The jsp scripts are taken from src/webapps/<code>name<code>.    * @param name The name of the server    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and     * increment by 1 until it finds a free port.    */
+comment|/**    * Create a status server on the given port.    * The jsp scripts are taken from src/webapps/<code>name<code>.    * @param name The name of the server    * @param bindAddress    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and     * increment by 1 until it finds a free port.    * @throws IOException    */
 specifier|public
 name|InfoServer
 parameter_list|(
@@ -219,7 +219,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**   * Get the pathname to the<code>path</code> files.   * @param path Path to find.   * @return the pathname as a URL   */
+comment|/**    * Get the pathname to the<code>path</code> files.    * @return the pathname as a URL    */
+annotation|@
+name|Override
 specifier|protected
 name|String
 name|getWebAppsPath

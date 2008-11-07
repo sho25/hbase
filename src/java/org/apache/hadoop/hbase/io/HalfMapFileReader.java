@@ -127,20 +127,6 @@ name|hadoop
 operator|.
 name|io
 operator|.
-name|MapFile
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
 name|Writable
 import|;
 end_import
@@ -160,7 +146,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A facade for a {@link MapFile.Reader} that serves up either the top or  * bottom half of a MapFile where 'bottom' is the first half of the file  * containing the keys that sort lowest and 'top' is the second half of the  * file with keys that sort greater than those of the bottom half.  The top  * includes the split files midkey, of the key that follows if it does not  * exist in the file.  *   *<p>This type works in tandem with the {@link Reference} type.  This class  * is used reading while Reference is used writing.  *   *<p>This file is not splitable.  Calls to {@link #midKey()} return null.  */
+comment|/**  * A facade for a {@link org.apache.hadoop.io.MapFile.Reader} that serves up  * either the top or bottom half of a MapFile where 'bottom' is the first half  * of the file containing the keys that sort lowest and 'top' is the second half  * of the file with keys that sort greater than those of the bottom half.  * The top includes the split files midkey, of the key that follows if it does  * not exist in the file.  *   *<p>This type works in tandem with the {@link Reference} type.  This class  * is used reading while Reference is used writing.  *   *<p>This file is not splitable.  Calls to {@link #midKey()} return null.  */
 end_comment
 
 begin_class
@@ -188,6 +174,7 @@ name|firstNextCall
 init|=
 literal|true
 decl_stmt|;
+comment|/**    * @param fs    * @param dirName    * @param conf    * @param r    * @param mk    * @param hri    * @throws IOException    */
 specifier|public
 name|HalfMapFileReader
 parameter_list|(
@@ -241,6 +228,7 @@ name|hri
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param fs    * @param dirName    * @param conf    * @param r    * @param mk    * @param filter    * @param blockCacheEnabled    * @param hri    * @throws IOException    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -409,6 +397,11 @@ argument_list|)
 throw|;
 block|}
 block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 annotation|@
 name|Override
 specifier|public
