@@ -6705,7 +6705,7 @@ operator|>=
 name|versions
 return|;
 block|}
-comment|/**    * Get<code>versions</code> of keys matching the origin key's    * row/column/timestamp and those of an older vintage.    * @param origin Where to start searching.    * @param versions How many versions to return. Pass    * {@link HConstants#ALL_VERSIONS} to retrieve all.    * @param now    * @return Matching keys.    * @throws IOException    */
+comment|/**    * Get<code>versions</code> of keys matching the origin key's    * row/column/timestamp and those of an older vintage.    * @param origin Where to start searching.    * @param versions How many versions to return. Pass    * {@link HConstants#ALL_VERSIONS} to retrieve all.    * @param now    * @param columnPattern regex pattern for column matching. if columnPattern    * is not null, we use column pattern to match columns. And the columnPattern    * only works when origin's column is null or its length is zero.    * @return Matching keys.    * @throws IOException    */
 specifier|public
 name|List
 argument_list|<
@@ -6724,6 +6724,10 @@ parameter_list|,
 specifier|final
 name|long
 name|now
+parameter_list|,
+specifier|final
+name|Pattern
+name|columnPattern
 parameter_list|)
 throws|throws
 name|IOException
@@ -6776,6 +6780,8 @@ argument_list|,
 name|deletes
 argument_list|,
 name|now
+argument_list|,
+name|columnPattern
 argument_list|)
 decl_stmt|;
 comment|// If we got sufficient versions from memcache, return.
@@ -6898,6 +6904,42 @@ name|readkey
 argument_list|)
 condition|)
 block|{
+comment|// if the column pattern is not null, we use it for column matching.
+comment|// we will skip the keys whose column doesn't match the pattern.
+if|if
+condition|(
+name|columnPattern
+operator|!=
+literal|null
+condition|)
+block|{
+if|if
+condition|(
+operator|!
+operator|(
+name|columnPattern
+operator|.
+name|matcher
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|readkey
+operator|.
+name|getColumn
+argument_list|()
+argument_list|)
+argument_list|)
+operator|.
+name|matches
+argument_list|()
+operator|)
+condition|)
+block|{
+continue|continue;
+block|}
+block|}
 comment|// if the cell address matches, then we definitely want this key.
 if|if
 condition|(
