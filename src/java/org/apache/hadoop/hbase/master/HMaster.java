@@ -4200,9 +4200,10 @@ literal|null
 decl_stmt|;
 if|if
 condition|(
+operator|!
 name|regionManager
 operator|.
-name|isInitialMetaScanComplete
+name|inSafeMode
 argument_list|()
 condition|)
 block|{

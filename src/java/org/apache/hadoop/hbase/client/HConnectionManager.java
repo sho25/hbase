@@ -778,6 +778,7 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 specifier|private
+specifier|volatile
 name|HRegionLocation
 name|rootRegionLocation
 decl_stmt|;

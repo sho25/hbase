@@ -475,6 +475,13 @@ argument_list|(
 literal|null
 argument_list|)
 decl_stmt|;
+specifier|private
+specifier|volatile
+name|boolean
+name|safeMode
+init|=
+literal|true
+decl_stmt|;
 specifier|final
 name|Lock
 name|splitLogLock
@@ -1002,7 +1009,8 @@ block|{
 comment|// There are no regions waiting to be assigned.
 if|if
 condition|(
-name|allRegionsAssigned
+operator|!
+name|inSafeMode
 argument_list|()
 condition|)
 block|{
@@ -3481,10 +3489,16 @@ block|}
 comment|/**     * @return true if the initial meta scan is complete and there are no    * unassigned or pending regions    */
 specifier|public
 name|boolean
-name|allRegionsAssigned
+name|inSafeMode
 parameter_list|()
 block|{
-return|return
+if|if
+condition|(
+name|safeMode
+condition|)
+block|{
+if|if
+condition|(
 name|isInitialMetaScanComplete
 argument_list|()
 operator|&&
@@ -3501,6 +3515,33 @@ name|size
 argument_list|()
 operator|==
 literal|0
+condition|)
+block|{
+name|safeMode
+operator|=
+literal|false
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"exiting safe mode"
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"in safe mode"
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+return|return
+name|safeMode
 return|;
 block|}
 comment|/**     * Get the root region location.    * @return HServerAddress describing root region server.    */
