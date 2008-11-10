@@ -286,15 +286,6 @@ name|regionServers
 argument_list|)
 expr_stmt|;
 comment|// opening the META table ensures that cluster is running
-comment|// We need to sleep because we cannot open a HTable when the cluster
-comment|// is not ready
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-literal|5000
-argument_list|)
-expr_stmt|;
 operator|new
 name|HTable
 argument_list|(

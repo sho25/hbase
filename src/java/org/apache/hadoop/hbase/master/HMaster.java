@@ -4202,7 +4202,7 @@ if|if
 condition|(
 name|regionManager
 operator|.
-name|allRegionsAssigned
+name|isInitialMetaScanComplete
 argument_list|()
 condition|)
 block|{
