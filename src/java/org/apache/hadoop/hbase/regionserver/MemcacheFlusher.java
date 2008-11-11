@@ -762,6 +762,25 @@ operator|.
 name|getCopyOfOnlineRegionsSortedBySize
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|m
+operator|.
+name|size
+argument_list|()
+operator|<=
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"No online regions to flush though we've been asked flush some."
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 comment|// keep flushing until we hit the low water mark
 while|while
 condition|(
