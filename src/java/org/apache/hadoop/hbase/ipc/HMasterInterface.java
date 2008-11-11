@@ -83,22 +83,8 @@ name|Writable
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|ipc
-operator|.
-name|VersionedProtocol
-import|;
-end_import
-
 begin_comment
-comment|/**  * Clients interact with the HMasterInterface to gain access to meta-level  * HBase functionality, like finding an HRegionServer and creating/destroying  * tables.  */
+comment|/**  * Clients interact with the HMasterInterface to gain access to meta-level  * HBase functionality, like finding an HRegionServer and creating/destroying  * tables.  *   *<p>NOTE: if you change the interface, you must change the RPC version  * number in HBaseRPCProtocolVersion  *   */
 end_comment
 
 begin_interface
@@ -106,17 +92,8 @@ specifier|public
 interface|interface
 name|HMasterInterface
 extends|extends
-name|VersionedProtocol
+name|HBaseRPCProtocolVersion
 block|{
-comment|/**    * Interface version.    * Version was incremented to 2 when we brought the hadoop RPC local to hbase    * -- HADOOP-2495 and then to 3 when we changed the RPC to send codes instead    * of actual class names (HADOOP-2519).    *<p>Version 4 when we moved to all byte arrays (HBASE-42).    *<p>Version 5  HBASE-576.    *<p>Version 6  modifyTable.    */
-specifier|public
-specifier|static
-specifier|final
-name|long
-name|versionID
-init|=
-literal|6L
-decl_stmt|;
 comment|/** @return true if master is available */
 specifier|public
 name|boolean

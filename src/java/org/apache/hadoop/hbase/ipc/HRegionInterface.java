@@ -99,20 +99,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|ipc
-operator|.
-name|VersionedProtocol
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|HRegionInfo
@@ -134,7 +120,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Clients interact with HRegionServers using a handle to the HRegionInterface.  */
+comment|/**  * Clients interact with HRegionServers using a handle to the HRegionInterface.  *   *<p>NOTE: if you change the interface, you must change the RPC version  * number in HBaseRPCProtocolVersion  *   */
 end_comment
 
 begin_interface
@@ -142,17 +128,8 @@ specifier|public
 interface|interface
 name|HRegionInterface
 extends|extends
-name|VersionedProtocol
+name|HBaseRPCProtocolVersion
 block|{
-comment|/**    * Protocol version.    * Upped to 5 when we added scanner caching    *<p>HBASE-576, we moved this to 6.    */
-specifier|public
-specifier|static
-specifier|final
-name|long
-name|versionID
-init|=
-literal|6L
-decl_stmt|;
 comment|/**     * Get metainfo about an HRegion    *     * @param regionName name of the region    * @return HRegionInfo object for region    * @throws NotServingRegionException    */
 specifier|public
 name|HRegionInfo
@@ -269,7 +246,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Applies a batch of updates via one RPC for many rows    *     * @param regionName name of the region to update    * @param b BatchUpdate[]    * @throws IOException    */
+comment|/**    * Applies a batch of updates via one RPC for many rows    *     * @param regionName name of the region to update    * @param b BatchUpdate[]    * @throws IOException    * @return number of updates applied    */
 specifier|public
 name|int
 name|batchUpdates

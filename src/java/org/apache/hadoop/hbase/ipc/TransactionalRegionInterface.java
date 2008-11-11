@@ -92,7 +92,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Interface for transactional region servers.  *   */
+comment|/**  * Interface for transactional region servers.  *   *<p>NOTE: if you change the interface, you must change the RPC version  * number in HBaseRPCProtocolVersion  *   */
 end_comment
 
 begin_interface
@@ -102,15 +102,6 @@ name|TransactionalRegionInterface
 extends|extends
 name|HRegionInterface
 block|{
-comment|/** Interface version number    *  Moved to 2 for hbase-576.    */
-specifier|public
-specifier|static
-specifier|final
-name|long
-name|versionID
-init|=
-literal|2L
-decl_stmt|;
 comment|/**    * Sent to initiate a transaction.    *     * @param transactionId    * @param regionName name of region    * @throws IOException    */
 specifier|public
 name|void

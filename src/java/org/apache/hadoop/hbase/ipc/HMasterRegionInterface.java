@@ -49,20 +49,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|ipc
-operator|.
-name|VersionedProtocol
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|HServerInfo
@@ -112,7 +98,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HRegionServers interact with the HMasterRegionInterface to report on local   * goings-on and to obtain data-handling instructions from the HMaster.  *<p>Changes here need to be reflected in HbaseObjectWritable HbaseRPC#Invoker.  */
+comment|/**  * HRegionServers interact with the HMasterRegionInterface to report on local   * goings-on and to obtain data-handling instructions from the HMaster.  *<p>Changes here need to be reflected in HbaseObjectWritable HbaseRPC#Invoker.  *   *<p>NOTE: if you change the interface, you must change the RPC version  * number in HBaseRPCProtocolVersion  *   */
 end_comment
 
 begin_interface
@@ -120,17 +106,8 @@ specifier|public
 interface|interface
 name|HMasterRegionInterface
 extends|extends
-name|VersionedProtocol
+name|HBaseRPCProtocolVersion
 block|{
-comment|/**    * Interface version number.    * Version 2 was when the regionServerStartup was changed to return a    * MapWritable instead of a HbaseMapWritable as part of HBASE-82 changes.    * Version 3 was when HMsg was refactored so it could carry optional    * messages (HBASE-504).    *<p>HBASE-576 we moved this to 4.    */
-specifier|public
-specifier|static
-specifier|final
-name|long
-name|versionID
-init|=
-literal|4L
-decl_stmt|;
 comment|/**    * Called when a region server first starts    * @param info    * @throws IOException    * @return Configuration for the regionserver to use: e.g. filesystem,    * hbase rootdir, etc.    */
 specifier|public
 name|MapWritable
