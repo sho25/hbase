@@ -2860,8 +2860,9 @@ name|HConstants
 operator|.
 name|COLUMN_FAMILY
 argument_list|,
-literal|1
+literal|10
 argument_list|,
+comment|// Ten is arbitrary number.  Keep versions to help debuggging.
 name|HColumnDescriptor
 operator|.
 name|CompressionType
@@ -2910,8 +2911,9 @@ name|HConstants
 operator|.
 name|COLUMN_FAMILY
 argument_list|,
-literal|1
+literal|10
 argument_list|,
+comment|// Ten is arbitrary number.  Keep versions to help debuggging.
 name|HColumnDescriptor
 operator|.
 name|CompressionType
