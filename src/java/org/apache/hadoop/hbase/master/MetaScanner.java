@@ -169,7 +169,7 @@ expr_stmt|;
 block|}
 comment|// Don't retry if we get an error while scanning. Errors are most often
 comment|// caused by the server going away. Wait until next rescan interval when
-comment|// things should be back to normal
+comment|// things should be back to normal.
 specifier|private
 name|boolean
 name|scanOneMetaRegion
@@ -178,11 +178,6 @@ name|MetaRegion
 name|region
 parameter_list|)
 block|{
-name|boolean
-name|scanSuccessful
-init|=
-literal|false
-decl_stmt|;
 while|while
 condition|(
 operator|!
@@ -226,7 +221,7 @@ argument_list|()
 condition|)
 block|{
 return|return
-name|scanSuccessful
+literal|false
 return|;
 block|}
 try|try
@@ -250,10 +245,6 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
-name|scanSuccessful
-operator|=
-literal|true
-expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -312,7 +303,7 @@ literal|"regions or its value has changed"
 argument_list|)
 expr_stmt|;
 return|return
-name|scanSuccessful
+literal|false
 return|;
 block|}
 comment|// Make sure the file system is still available
@@ -341,7 +332,7 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-name|scanSuccessful
+literal|true
 return|;
 block|}
 annotation|@
@@ -486,6 +477,11 @@ operator|.
 name|getListOfOnlineMetaRegions
 argument_list|()
 decl_stmt|;
+name|int
+name|regionCount
+init|=
+literal|0
+decl_stmt|;
 for|for
 control|(
 name|MetaRegion
@@ -499,12 +495,26 @@ argument_list|(
 name|r
 argument_list|)
 expr_stmt|;
+name|regionCount
+operator|++
+expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"All "
+operator|+
+name|regionCount
+operator|+
+literal|" .META. region(s) scanned"
+argument_list|)
+expr_stmt|;
 name|metaRegionsScanned
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Called by the meta scanner when it has completed scanning all meta     * regions. This wakes up any threads that were waiting for this to happen.    */
+comment|/*    * Called by the meta scanner when it has completed scanning all meta     * regions. This wakes up any threads that were waiting for this to happen.    * @param totalRows Total rows scanned.    * @param regionCount Count of regions in  .META. table.    * @return False if number of meta regions matches count of online regions.    */
 specifier|private
 specifier|synchronized
 name|boolean
@@ -534,13 +544,6 @@ return|return
 literal|false
 return|;
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"all meta regions scanned"
-argument_list|)
-expr_stmt|;
 name|notifyAll
 argument_list|()
 expr_stmt|;

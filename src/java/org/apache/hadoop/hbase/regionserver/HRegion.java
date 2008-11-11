@@ -1684,9 +1684,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Compactions and cache flushes disabled for region "
+literal|"Closing "
 operator|+
 name|this
+operator|+
+literal|": compactions& flushes disabled "
 argument_list|)
 expr_stmt|;
 while|while
@@ -1767,15 +1769,6 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Scanners disabled for region "
-operator|+
-name|this
-argument_list|)
-expr_stmt|;
 try|try
 block|{
 comment|// Wait for active scanners to finish. The write lock we hold will
@@ -1827,15 +1820,6 @@ comment|// continue
 block|}
 block|}
 block|}
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"No more active scanners for region "
-operator|+
-name|this
-argument_list|)
-expr_stmt|;
 name|splitsAndClosesLock
 operator|.
 name|writeLock
@@ -1848,7 +1832,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Updates disabled for region "
+literal|"Updates disabled for region, no outstanding scanners on "
 operator|+
 name|this
 argument_list|)
@@ -1929,7 +1913,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"closed "
+literal|"Closed "
 operator|+
 name|this
 argument_list|)

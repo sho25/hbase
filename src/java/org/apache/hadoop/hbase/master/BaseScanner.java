@@ -659,6 +659,11 @@ index|[]
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|int
+name|rows
+init|=
+literal|0
+decl_stmt|;
 try|try
 block|{
 name|regionServer
@@ -697,11 +702,6 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-name|int
-name|numberOfRegionsFound
-init|=
-literal|0
-decl_stmt|;
 while|while
 condition|(
 literal|true
@@ -797,43 +797,6 @@ name|COL_STARTCODE
 argument_list|)
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-name|Thread
-operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|" "
-operator|+
-name|info
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|"}, SERVER => '"
-operator|+
-name|serverName
-operator|+
-literal|"', STARTCODE => "
-operator|+
-name|startCode
-argument_list|)
-expr_stmt|;
-block|}
 comment|// Note Region has been assigned.
 name|checkAssigned
 argument_list|(
@@ -862,7 +825,7 @@ name|values
 argument_list|)
 expr_stmt|;
 block|}
-name|numberOfRegionsFound
+name|rows
 operator|+=
 literal|1
 expr_stmt|;
@@ -876,7 +839,7 @@ name|regionManager
 operator|.
 name|setNumMetaRegions
 argument_list|(
-name|numberOfRegionsFound
+name|rows
 argument_list|)
 expr_stmt|;
 block|}
@@ -1095,7 +1058,11 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-literal|" scan of meta region "
+literal|" scan of "
+operator|+
+name|rows
+operator|+
+literal|" row(s) of meta region "
 operator|+
 name|region
 operator|.

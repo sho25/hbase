@@ -94,19 +94,12 @@ name|closed
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Don't retry if we get an error while scanning. Errors are most often
-comment|// caused by the server going away. Wait until next rescan interval when
-comment|// things should be back to normal
+comment|/*    * Don't retry if we get an error while scanning. Errors are most often    *    * caused by the server going away. Wait until next rescan interval when    * things should be back to normal.    * @return True if successfully scanned.    */
 specifier|private
 name|boolean
 name|scanRoot
 parameter_list|()
 block|{
-name|boolean
-name|scanSuccessful
-init|=
-literal|false
-decl_stmt|;
 name|master
 operator|.
 name|waitForRootRegionLocation
@@ -123,7 +116,7 @@ argument_list|()
 condition|)
 block|{
 return|return
-name|scanSuccessful
+literal|false
 return|;
 block|}
 try|try
@@ -165,10 +158,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|scanSuccessful
-operator|=
-literal|true
-expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -220,7 +209,7 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-name|scanSuccessful
+literal|true
 return|;
 block|}
 annotation|@
@@ -230,6 +219,8 @@ name|boolean
 name|initialScan
 parameter_list|()
 block|{
+name|this
+operator|.
 name|initialScanComplete
 operator|=
 name|scanRoot
