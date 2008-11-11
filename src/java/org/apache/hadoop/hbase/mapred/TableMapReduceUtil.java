@@ -270,6 +270,8 @@ parameter_list|,
 name|JobConf
 name|job
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|initTableReduceJob
 argument_list|(
