@@ -96,14 +96,14 @@ name|VERSION_FILE_NAME
 init|=
 literal|"hbase.version"
 decl_stmt|;
-comment|/**    * Current version of file system    * Version 4 supports only one kind of bloom filter    */
+comment|/**    * Current version of file system    * Version 4 supports only one kind of bloom filter.    * Version 5 changes versions in catalog table regions.    */
 specifier|public
 specifier|static
 specifier|final
 name|String
 name|FILE_SYSTEM_VERSION
 init|=
-literal|"4"
+literal|"5"
 decl_stmt|;
 comment|// Configuration parameters
 comment|// TODO: URL for hbase master like hdfs URLs with host and port.
