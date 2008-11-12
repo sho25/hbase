@@ -389,59 +389,6 @@ name|rootRescanned
 operator|=
 literal|false
 expr_stmt|;
-name|StringBuilder
-name|dirName
-init|=
-operator|new
-name|StringBuilder
-argument_list|(
-literal|"log_"
-argument_list|)
-decl_stmt|;
-name|dirName
-operator|.
-name|append
-argument_list|(
-name|deadServer
-operator|.
-name|getBindAddress
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|dirName
-operator|.
-name|append
-argument_list|(
-literal|"_"
-argument_list|)
-expr_stmt|;
-name|dirName
-operator|.
-name|append
-argument_list|(
-name|serverInfo
-operator|.
-name|getStartCode
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|dirName
-operator|.
-name|append
-argument_list|(
-literal|"_"
-argument_list|)
-expr_stmt|;
-name|dirName
-operator|.
-name|append
-argument_list|(
-name|deadServer
-operator|.
-name|getPort
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|oldLogDir
@@ -453,10 +400,12 @@ name|master
 operator|.
 name|rootdir
 argument_list|,
-name|dirName
+name|HLog
 operator|.
-name|toString
-argument_list|()
+name|getHLogDirectoryName
+argument_list|(
+name|serverInfo
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1336,7 +1285,13 @@ name|rootAvailable
 argument_list|()
 condition|)
 block|{
-comment|// Get root region assigned now that log has been split
+if|if
+condition|(
+name|rootRegionServer
+condition|)
+block|{
+comment|// Get root region assigned now that log has been split and if the
+comment|// dead server was serving the root region
 name|master
 operator|.
 name|regionManager
@@ -1344,6 +1299,7 @@ operator|.
 name|reassignRootRegion
 argument_list|()
 expr_stmt|;
+block|}
 comment|// Return true so that worker does not put this request back on the
 comment|// toDoQueue.
 comment|// rootAvailable() has already put it on the delayedToDoQueue

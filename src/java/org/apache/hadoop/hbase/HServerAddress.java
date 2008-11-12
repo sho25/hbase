@@ -74,6 +74,11 @@ comment|/**  * HServerAddress is a "label" for a HBase server that combines the 
 end_comment
 
 begin_class
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 class|class
 name|HServerAddress
