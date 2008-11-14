@@ -4591,6 +4591,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
+literal|"Worker: "
+operator|+
 name|e
 operator|.
 name|msg
@@ -6094,6 +6096,11 @@ specifier|final
 name|byte
 index|[]
 name|row
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
@@ -6126,6 +6133,8 @@ operator|.
 name|getClosestRowBefore
 argument_list|(
 name|row
+argument_list|,
+name|columnFamily
 argument_list|)
 decl_stmt|;
 return|return

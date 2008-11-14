@@ -2521,7 +2521,7 @@ name|getServerAddress
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// query the root region for the location of the meta region
+comment|// Query the root region for the location of the meta region
 name|RowResult
 name|regionInfoRow
 init|=
@@ -2538,6 +2538,10 @@ name|getRegionName
 argument_list|()
 argument_list|,
 name|metaKey
+argument_list|,
+name|HConstants
+operator|.
+name|COLUMN_FAMILY
 argument_list|)
 decl_stmt|;
 if|if

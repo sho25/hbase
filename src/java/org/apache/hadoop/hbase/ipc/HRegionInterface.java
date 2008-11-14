@@ -175,7 +175,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Return all the data for the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it.    *     * @param regionName region name    * @param row row key    * @return map of values    * @throws IOException    */
+comment|/**    * Return all the data for the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it.    *     * @param regionName region name    * @param row row key    * @param columnFamily Column family to look for row in.    * @return map of values    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getClosestRowBefore
@@ -189,6 +189,11 @@ specifier|final
 name|byte
 index|[]
 name|row
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException

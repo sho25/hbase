@@ -4150,6 +4150,29 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Return all the data for the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it, at or immediately before     *<i>ts</i>.    *     * @param row row key    * @return map of values    * @throws IOException    */
+name|RowResult
+name|getClosestRowBefore
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|row
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|getClosestRowBefore
+argument_list|(
+name|row
+argument_list|,
+name|HConstants
+operator|.
+name|COLUMN_FAMILY
+argument_list|)
+return|;
+block|}
+comment|/**    * Return all the data for the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it, at or immediately before     *<i>ts</i>.    *     * @param row row key    * @param columnFamily    * @return map of values    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getClosestRowBefore
@@ -4158,6 +4181,11 @@ specifier|final
 name|byte
 index|[]
 name|row
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
@@ -4184,18 +4212,14 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-comment|// examine each column family for the preceeding or matching key
-for|for
-control|(
 name|HStore
 name|store
-range|:
-name|stores
-operator|.
-name|values
-argument_list|()
-control|)
-block|{
+init|=
+name|getStore
+argument_list|(
+name|columnFamily
+argument_list|)
+decl_stmt|;
 comment|// get the closest key
 name|byte
 index|[]
@@ -4208,7 +4232,8 @@ argument_list|(
 name|row
 argument_list|)
 decl_stmt|;
-comment|// if it happens to be an exact match, we can stop looping
+comment|// If it happens to be an exact match, we can stop looping.
+comment|// Otherwise, we need to check if it's the max and move to the next
 if|if
 condition|(
 name|HStoreKey
@@ -4235,9 +4260,8 @@ operator|.
 name|regionInfo
 argument_list|)
 expr_stmt|;
-break|break;
 block|}
-comment|// otherwise, we need to check if it's the max and move to the next
+elseif|else
 if|if
 condition|(
 name|closestKey
@@ -4280,19 +4304,13 @@ name|regionInfo
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-if|if
-condition|(
-name|key
-operator|==
-literal|null
-condition|)
+else|else
 block|{
 return|return
 literal|null
 return|;
 block|}
-comment|// now that we've found our key, get the values
+comment|// Now that we've found our key, get the values
 name|HbaseMapWritable
 argument_list|<
 name|byte
@@ -4312,18 +4330,7 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
-for|for
-control|(
-name|HStore
-name|s
-range|:
-name|stores
-operator|.
-name|values
-argument_list|()
-control|)
-block|{
-name|s
+name|store
 operator|.
 name|getFull
 argument_list|(
@@ -4334,7 +4341,6 @@ argument_list|,
 name|cells
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 operator|new
 name|RowResult
