@@ -321,6 +321,14 @@ name|key
 expr_stmt|;
 block|}
 block|}
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|SPLIT_PREFIX
+init|=
+literal|"Region split from: "
+decl_stmt|;
 comment|/**    * Default constructor. Initializes reference to .META. table.  Inaccessible.    * Use {@link #getInstance(HBaseConfiguration)} to obtain the Singleton    * instance of this class.    */
 specifier|private
 name|RegionHistorian
@@ -649,7 +657,7 @@ name|REGION_SPLIT
 operator|.
 name|key
 argument_list|,
-literal|"Region split from  : "
+name|SPLIT_PREFIX
 operator|+
 name|oldInfo
 operator|.

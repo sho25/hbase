@@ -2962,7 +2962,7 @@ name|MAX_VALUE
 argument_list|,
 name|HConstants
 operator|.
-name|FOREVER
+name|WEEK_IN_SECONDS
 argument_list|,
 literal|false
 argument_list|)

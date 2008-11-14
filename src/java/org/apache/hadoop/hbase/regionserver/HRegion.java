@@ -8889,7 +8889,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Delete a region's meta information from the passed    *<code>meta</code> region.    *     * @param srvr META server to be updated    * @param metaRegionName Meta region name    * @param regionName HRegion to remove from<code>meta</code>    *    * @throws IOException    */
+comment|/**    * Delete a region's meta information from the passed    *<code>meta</code> region.  Removes content in the 'info' column family.    * Does not remove region historian info.    *     * @param srvr META server to be updated    * @param metaRegionName Meta region name    * @param regionName HRegion to remove from<code>meta</code>    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -8914,11 +8914,15 @@ name|IOException
 block|{
 name|srvr
 operator|.
-name|deleteAll
+name|deleteFamily
 argument_list|(
 name|metaRegionName
 argument_list|,
 name|regionName
+argument_list|,
+name|HConstants
+operator|.
+name|COLUMN_FAMILY
 argument_list|,
 name|HConstants
 operator|.

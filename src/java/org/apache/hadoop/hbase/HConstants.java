@@ -596,6 +596,18 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|WEEK_IN_SECONDS
+init|=
+literal|7
+operator|*
+literal|24
+operator|*
+literal|3600
+decl_stmt|;
 comment|//TODO: HBASE_CLIENT_RETRIES_NUMBER_KEY is only used by TestMigrate. Move it
 comment|//      there.
 specifier|public
