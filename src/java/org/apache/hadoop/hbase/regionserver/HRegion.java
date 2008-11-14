@@ -4172,7 +4172,7 @@ name|COLUMN_FAMILY
 argument_list|)
 return|;
 block|}
-comment|/**    * Return all the data for the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it, at or immediately before     *<i>ts</i>.    *     * @param row row key    * @param columnFamily    * @return map of values    * @throws IOException    */
+comment|/**    * Return all the data for the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it, at or immediately before     *<i>ts</i>.    *     * @param row row key    * @param columnFamily Must include the column family delimiter character.    * @return map of values    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getClosestRowBefore
@@ -4330,6 +4330,7 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|// This will get all results for this store.
 name|store
 operator|.
 name|getFull
