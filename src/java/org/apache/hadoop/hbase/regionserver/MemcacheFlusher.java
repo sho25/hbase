@@ -623,6 +623,9 @@ operator|.
 name|compactionRequested
 argument_list|(
 name|region
+argument_list|,
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

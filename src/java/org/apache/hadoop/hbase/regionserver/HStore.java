@@ -2155,6 +2155,11 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+name|boolean
+name|majorCompaction
+init|=
+literal|false
+decl_stmt|;
 try|try
 block|{
 name|storeSeqId
@@ -2445,6 +2450,13 @@ operator|+
 literal|", length="
 operator|+
 name|length
+operator|+
+literal|", majorCompaction="
+operator|+
+name|curfile
+operator|.
+name|isMajorCompaction
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -3232,6 +3244,15 @@ name|humanReadableInt
 argument_list|(
 name|newStoreSize
 argument_list|)
+operator|+
+literal|" to "
+operator|+
+name|this
+operator|.
+name|info
+operator|.
+name|getRegionNameAsString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -3682,11 +3703,6 @@ block|}
 comment|// Check to see if we need to do a major compaction on this region.
 comment|// If so, change doMajorCompaction to true to skip the incremental
 comment|// compacting below. Only check if doMajorCompaction is not true.
-name|long
-name|lastMajorCompaction
-init|=
-literal|0L
-decl_stmt|;
 if|if
 condition|(
 operator|!
@@ -3696,19 +3712,26 @@ block|{
 name|doMajorCompaction
 operator|=
 name|isMajorCompaction
-argument_list|()
+argument_list|(
+name|filesToCompact
+argument_list|)
 expr_stmt|;
 block|}
+name|boolean
+name|references
+init|=
+name|hasReferences
+argument_list|(
+name|filesToCompact
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 operator|!
 name|doMajorCompaction
 operator|&&
 operator|!
-name|hasReferences
-argument_list|(
-name|filesToCompact
-argument_list|)
+name|references
 operator|&&
 name|filesToCompact
 operator|.
@@ -3877,10 +3900,7 @@ operator|!
 name|doMajorCompaction
 operator|&&
 operator|!
-name|hasReferences
-argument_list|(
-name|filesToCompact
-argument_list|)
+name|references
 condition|)
 block|{
 comment|// Here we select files for incremental compaction.
@@ -4043,7 +4063,7 @@ literal|"; Skipped "
 operator|+
 name|point
 operator|+
-literal|" files , size: "
+literal|" file(s), size: "
 operator|+
 name|skipped
 argument_list|)
@@ -4120,14 +4140,24 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"started compaction of "
+literal|"Started compaction of "
 operator|+
 name|rdrs
 operator|.
 name|size
 argument_list|()
 operator|+
-literal|" files into "
+literal|" file(s)"
+operator|+
+operator|(
+name|references
+condition|?
+literal|"(hasReferences=true)"
+else|:
+literal|" "
+operator|)
+operator|+
+literal|" into "
 operator|+
 name|FSUtils
 operator|.
@@ -4201,6 +4231,8 @@ argument_list|(
 name|fs
 argument_list|,
 name|maxId
+argument_list|,
+name|doMajorCompaction
 argument_list|)
 expr_stmt|;
 comment|// Move the compaction into place.
@@ -4223,7 +4255,17 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Completed compaction of "
+literal|"Completed "
+operator|+
+operator|(
+name|doMajorCompaction
+condition|?
+literal|"major"
+else|:
+literal|""
+operator|)
+operator|+
+literal|" compaction of "
 operator|+
 name|this
 operator|.
@@ -4237,22 +4279,6 @@ name|humanReadableInt
 argument_list|(
 name|storeSize
 argument_list|)
-operator|+
-operator|(
-name|doMajorCompaction
-condition|?
-literal|""
-else|:
-literal|"; time since last major compaction: "
-operator|+
-operator|(
-name|lastMajorCompaction
-operator|/
-literal|1000
-operator|)
-operator|+
-literal|" seconds"
-operator|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -4347,10 +4373,31 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/*    * @return True if we should run a major compaction.    */
-specifier|private
 name|boolean
 name|isMajorCompaction
 parameter_list|()
+throws|throws
+name|IOException
+block|{
+return|return
+name|isMajorCompaction
+argument_list|(
+literal|null
+argument_list|)
+return|;
+block|}
+comment|/*    * @param filesToCompact Files to compact. Can be null.    * @return True if we should run a major compaction.    */
+specifier|private
+name|boolean
+name|isMajorCompaction
+parameter_list|(
+specifier|final
+name|List
+argument_list|<
+name|HStoreFile
+argument_list|>
+name|filesToCompact
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -4416,6 +4463,86 @@ argument_list|>
 literal|0l
 condition|)
 block|{
+comment|// Major compaction time has elapsed.
+name|long
+name|elapsedTime
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|lowTimestamp
+decl_stmt|;
+if|if
+condition|(
+name|filesToCompact
+operator|!=
+literal|null
+operator|&&
+name|filesToCompact
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|1
+operator|&&
+name|filesToCompact
+operator|.
+name|get
+argument_list|(
+literal|0
+argument_list|)
+operator|.
+name|isMajorCompaction
+argument_list|()
+operator|&&
+operator|(
+name|this
+operator|.
+name|ttl
+operator|==
+name|HConstants
+operator|.
+name|FOREVER
+operator|||
+name|elapsedTime
+operator|<
+name|this
+operator|.
+name|ttl
+operator|)
+condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Skipping major compaction because only one (major) "
+operator|+
+literal|"compacted file only and elapsedTime "
+operator|+
+name|elapsedTime
+operator|+
+literal|" is< ttl="
+operator|+
+name|this
+operator|.
+name|ttl
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+else|else
+block|{
 if|if
 condition|(
 name|LOG
@@ -4457,6 +4584,7 @@ name|result
 operator|=
 literal|true
 expr_stmt|;
+block|}
 block|}
 return|return
 name|result
@@ -5259,6 +5387,11 @@ operator|-
 literal|1
 argument_list|,
 literal|null
+argument_list|,
+name|compactedFile
+operator|.
+name|isMajorCompaction
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if

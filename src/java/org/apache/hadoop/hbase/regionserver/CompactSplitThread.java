@@ -634,14 +634,19 @@ literal|" exiting"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param r HRegion store belongs to    */
+comment|/**    * @param r HRegion store belongs to    * @param why Why compaction requested -- used in debug messages    */
 specifier|public
 specifier|synchronized
 name|void
 name|compactionRequested
 parameter_list|(
+specifier|final
 name|HRegion
 name|r
+parameter_list|,
+specifier|final
+name|String
+name|why
 parameter_list|)
 block|{
 if|if
@@ -662,7 +667,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Compaction requested for region: "
+literal|"Compaction requested for region "
 operator|+
 name|Bytes
 operator|.
@@ -673,6 +678,24 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
+operator|+
+operator|(
+name|why
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|why
+operator|.
+name|isEmpty
+argument_list|()
+condition|?
+literal|" because: "
+operator|+
+name|why
+else|:
+literal|""
+operator|)
 argument_list|)
 expr_stmt|;
 synchronized|synchronized
