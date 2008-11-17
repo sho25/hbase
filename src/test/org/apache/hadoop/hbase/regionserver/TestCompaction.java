@@ -568,7 +568,7 @@ operator|.
 name|compactStores
 argument_list|()
 expr_stmt|;
-comment|// Always 3 version if that is what max versions is.
+comment|// Always 3 versions if that is what max versions is.
 name|byte
 index|[]
 name|secondRowBytes
@@ -647,7 +647,7 @@ name|r
 operator|.
 name|deleteAll
 argument_list|(
-name|STARTROW
+name|secondRowBytes
 argument_list|,
 name|COLUMN_FAMILY_TEXT
 argument_list|,
@@ -666,7 +666,7 @@ name|r
 operator|.
 name|get
 argument_list|(
-name|STARTROW
+name|secondRowBytes
 argument_list|,
 name|COLUMN_FAMILY_TEXT
 argument_list|,
@@ -689,7 +689,7 @@ name|r
 operator|.
 name|get
 argument_list|(
-name|STARTROW
+name|secondRowBytes
 argument_list|,
 name|COLUMN_FAMILY_TEXT
 argument_list|,
@@ -714,14 +714,14 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-comment|// Assert that the first row is still deleted.
+comment|// Assert that the second row is still deleted.
 name|cellValues
 operator|=
 name|r
 operator|.
 name|get
 argument_list|(
-name|STARTROW
+name|secondRowBytes
 argument_list|,
 name|COLUMN_FAMILY_TEXT
 argument_list|,
@@ -738,7 +738,7 @@ name|r
 operator|.
 name|get
 argument_list|(
-name|STARTROW
+name|secondRowBytes
 argument_list|,
 name|COLUMN_FAMILY_TEXT
 argument_list|,
@@ -782,7 +782,7 @@ name|r
 operator|.
 name|get
 argument_list|(
-name|STARTROW
+name|secondRowBytes
 argument_list|,
 name|COLUMN_FAMILY_TEXT
 argument_list|,
@@ -794,7 +794,14 @@ comment|/*Too many*/
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Make sure the store files do have some 'aaa' keys in them.
+comment|// Make sure the store files do have some 'aaa' keys in them -- exactly 3.
+comment|// Also, that compacted store files do not have any secondRowBytes because
+comment|// they were deleted.
+name|int
+name|count
+init|=
+literal|0
+decl_stmt|;
 name|boolean
 name|containsStartRow
 init|=
@@ -877,20 +884,42 @@ name|containsStartRow
 operator|=
 literal|true
 expr_stmt|;
-break|break;
+name|count
+operator|++
+expr_stmt|;
 block|}
-block|}
-if|if
-condition|(
-name|containsStartRow
-condition|)
+else|else
 block|{
-break|break;
+comment|// After major compaction, should be none of these rows in compacted
+comment|// file.
+name|assertFalse
+argument_list|(
+name|Bytes
+operator|.
+name|equals
+argument_list|(
+name|key
+operator|.
+name|getRow
+argument_list|()
+argument_list|,
+name|secondRowBytes
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 name|assertTrue
 argument_list|(
 name|containsStartRow
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|count
+operator|==
+literal|3
 argument_list|)
 expr_stmt|;
 comment|// Do a simple TTL test.
@@ -940,6 +969,26 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+name|count
+operator|=
+name|count
+argument_list|()
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|count
+operator|==
+literal|0
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+name|int
+name|count
+parameter_list|()
+throws|throws
+name|IOException
+block|{
 name|int
 name|count
 init|=
@@ -1008,13 +1057,9 @@ operator|++
 expr_stmt|;
 block|}
 block|}
-name|assertTrue
-argument_list|(
+return|return
 name|count
-operator|==
-literal|0
-argument_list|)
-expr_stmt|;
+return|;
 block|}
 specifier|private
 name|void
