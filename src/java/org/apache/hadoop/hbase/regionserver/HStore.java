@@ -5111,24 +5111,8 @@ operator|=
 literal|1
 expr_stmt|;
 block|}
-comment|// Added majorCompaction here to make sure all versions make it to
-comment|// the major compaction so we do not remove the wrong last versions
-comment|// this effected HBASE-826
-if|if
-condition|(
-name|timesSeen
-operator|<=
-name|family
-operator|.
-name|getMaxVersions
-argument_list|()
-operator|||
-operator|!
-name|majorCompaction
-condition|)
-block|{
-comment|// Keep old versions until we have maxVersions worth.
-comment|// Then just skip them.
+comment|// Don't write empty rows or columns.  Only remove cells on major
+comment|// compaction.  Remove if expired of> VERSIONS
 if|if
 condition|(
 name|sk
@@ -5150,10 +5134,28 @@ operator|!=
 literal|0
 condition|)
 block|{
-comment|// Only write out objects with non-zero length key and value
+name|boolean
+name|expired
+init|=
+literal|false
+decl_stmt|;
 if|if
 condition|(
 operator|!
+name|majorCompaction
+operator|||
+operator|(
+name|timesSeen
+operator|<=
+name|family
+operator|.
+name|getMaxVersions
+argument_list|()
+operator|&&
+operator|!
+operator|(
+name|expired
+operator|=
 name|isExpired
 argument_list|(
 name|sk
@@ -5162,6 +5164,8 @@ name|ttl
 argument_list|,
 name|now
 argument_list|)
+operator|)
+operator|)
 condition|)
 block|{
 name|compactedOut
@@ -5177,14 +5181,16 @@ index|]
 argument_list|)
 expr_stmt|;
 block|}
-else|else
+if|if
+condition|(
+name|expired
+condition|)
 block|{
 comment|// HBASE-855 remove one from timesSeen because it did not make it
 comment|// past expired check -- don't count against max versions.
 name|timesSeen
 operator|--
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|// Update last-seen items
@@ -7738,9 +7744,7 @@ name|long
 name|now
 parameter_list|)
 block|{
-name|boolean
-name|result
-init|=
+return|return
 name|ttl
 operator|!=
 name|HConstants
@@ -7755,31 +7759,6 @@ name|getTimestamp
 argument_list|()
 operator|+
 name|ttl
-decl_stmt|;
-if|if
-condition|(
-name|result
-operator|&&
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"rowAtOrBeforeCandidate 1:"
-operator|+
-name|hsk
-operator|+
-literal|": expired, skipped"
-argument_list|)
-expr_stmt|;
-block|}
-return|return
-name|result
 return|;
 block|}
 comment|/* Find a candidate for row that is at or before passed key, sk, in mapfile.    * @param map    * @param sk Key to go search the mapfile with.    * @param candidateKeys    * @param now    * @throws IOException    * @see {@link #rowAtOrBeforeCandidate(HStoreKey, org.apache.hadoop.io.MapFile.Reader, byte[], SortedMap, long)}    */

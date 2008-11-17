@@ -33,38 +33,6 @@ name|Hash
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|JenkinsHash
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|MurmurHash
-import|;
-end_import
-
 begin_comment
 comment|/**  * Implements a hash object that returns a certain number of hashed values.  *<p>  * It is based on the SHA-1 algorithm.   *   * @see org.onelab.filter.Filter The general behavior of a filter  *  * @version 1.0 - 2 Feb. 07  *   * @see org.onelab.filter.Key The general behavior of a key being stored in a filter  * @see org.onelab.filter.Filter The general behavior of a filter  *   * @see<a href="http://www.itl.nist.gov/fipspubs/fip180-1.htm">SHA-1 algorithm</a>  */
 end_comment
@@ -180,13 +148,7 @@ name|void
 name|clear
 parameter_list|()
 block|{   }
-comment|//end clear()
 comment|/**    * Hashes a specified key into several integers.    * @param k The specified key.    * @return The array of hashed values.    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|public
 name|int
 index|[]

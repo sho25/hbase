@@ -41,6 +41,9 @@ specifier|abstract
 class|class
 name|Hash
 block|{
+comment|// TODO: Fix the design tangle that has classes over in org.onelab.filter
+comment|// referring to this class.  Would need to also move the Jenkins and Murmur
+comment|// hashing function too.
 comment|/** Constant to denote invalid hash type. */
 specifier|public
 specifier|static
