@@ -45,6 +45,24 @@ name|HTableDescriptor
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|tableindexed
+operator|.
+name|IndexSpecification
+import|;
+end_import
+
 begin_comment
 comment|/**  * Read-only table descriptor.  */
 end_comment
@@ -84,6 +102,11 @@ name|getUnmodifyableFamilies
 argument_list|(
 name|desc
 argument_list|)
+argument_list|,
+name|desc
+operator|.
+name|getIndexes
+argument_list|()
 argument_list|,
 name|desc
 operator|.
@@ -326,6 +349,24 @@ name|setMemcacheFlushSize
 parameter_list|(
 name|int
 name|memcacheFlushSize
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"HTableDescriptor is read-only"
+argument_list|)
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|addIndex
+parameter_list|(
+name|IndexSpecification
+name|index
 parameter_list|)
 block|{
 throw|throw

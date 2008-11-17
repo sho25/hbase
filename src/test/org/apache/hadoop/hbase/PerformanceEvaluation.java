@@ -2624,6 +2624,7 @@ return|;
 block|}
 block|}
 comment|/*    * Format passed integer.    * @param number    * @return Returns zero-prefixed 10-byte wide decimal version of passed    * number (Does absolute in case number is negative).    */
+specifier|public
 specifier|static
 name|byte
 index|[]

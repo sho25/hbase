@@ -512,6 +512,7 @@ comment|/**  * Regionserver which provides transactional support for atomic tran
 end_comment
 
 begin_class
+specifier|public
 class|class
 name|TransactionalRegion
 extends|extends
@@ -2399,7 +2400,7 @@ name|getWriteSet
 argument_list|()
 control|)
 block|{
-name|super
+name|this
 operator|.
 name|batchUpdate
 argument_list|(
