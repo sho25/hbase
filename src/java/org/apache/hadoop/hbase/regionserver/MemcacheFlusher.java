@@ -750,6 +750,9 @@ name|void
 name|flushSomeRegions
 parameter_list|()
 block|{
+comment|// keep flushing until we hit the low water mark
+for|for
+control|(
 name|SortedMap
 argument_list|<
 name|Long
@@ -764,7 +767,17 @@ name|server
 operator|.
 name|getCopyOfOnlineRegionsSortedBySize
 argument_list|()
-decl_stmt|;
+init|;
+name|server
+operator|.
+name|getGlobalMemcacheSize
+argument_list|()
+operator|>=
+name|globalMemcacheLimitLowMark
+condition|;
+control|)
+block|{
+comment|// flush the region with the biggest memcache
 if|if
 condition|(
 name|m
@@ -779,23 +792,26 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"No online regions to flush though we've been asked flush some."
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
-comment|// keep flushing until we hit the low water mark
-while|while
-condition|(
+literal|"No online regions to flush though we've been asked flush "
+operator|+
+literal|"some; globalMemcacheSize="
+operator|+
+name|this
+operator|.
 name|server
 operator|.
 name|getGlobalMemcacheSize
 argument_list|()
-operator|>=
+operator|+
+literal|", globalMemcacheLimitLowMark="
+operator|+
+name|this
+operator|.
 name|globalMemcacheLimitLowMark
-condition|)
-block|{
-comment|// flush the region with the biggest memcache
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
 name|HRegion
 name|biggestMemcacheRegion
 init|=
