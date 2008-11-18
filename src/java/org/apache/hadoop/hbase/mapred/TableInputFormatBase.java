@@ -982,7 +982,7 @@ return|return
 name|trr
 return|;
 block|}
-comment|/**    * Calculates the splits that will serve as input for the map tasks.    *<ul>    * Splits are created in number equal to the smallest between numSplits and    * the number of {@link HRegion}s in the table. If the number of splits is    * smaller than the number of {@link HRegion}s then splits are spanned across    * multiple {@link HRegion}s and are grouped the most evenly possible. In the    * case splits are uneven the bigger splits are placed first in the    * {@link InputSplit} array.    *    * @param job the map task {@link JobConf}    * @param numSplits a hint to calculate the number of splits    *    * @return the input splits    *    * @see org.apache.hadoop.mapred.InputFormat#getSplits(org.apache.hadoop.mapred.JobConf, int)    */
+comment|/**    * Calculates the splits that will serve as input for the map tasks.    *<ul>    * Splits are created in number equal to the smallest between numSplits and    * the number of {@link HRegion}s in the table. If the number of splits is    * smaller than the number of {@link HRegion}s then splits are spanned across    * multiple {@link HRegion}s and are grouped the most evenly possible. In the    * case splits are uneven the bigger splits are placed first in the    * {@link InputSplit} array.    *    * @param job the map task {@link JobConf}    * @param numSplits a hint to calculate the number of splits (mapred.map.tasks).    *    * @return the input splits    *    * @see org.apache.hadoop.mapred.InputFormat#getSplits(org.apache.hadoop.mapred.JobConf, int)    */
 specifier|public
 name|InputSplit
 index|[]
@@ -1149,6 +1149,25 @@ literal|1
 else|:
 name|lastPos
 expr_stmt|;
+name|String
+name|regionLocation
+init|=
+name|table
+operator|.
+name|getRegionLocation
+argument_list|(
+name|startKeys
+index|[
+name|startPos
+index|]
+argument_list|)
+operator|.
+name|getServerAddress
+argument_list|()
+operator|.
+name|getHostname
+argument_list|()
+decl_stmt|;
 name|splits
 index|[
 name|i
@@ -1187,19 +1206,13 @@ else|:
 name|HConstants
 operator|.
 name|EMPTY_START_ROW
+argument_list|,
+name|regionLocation
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
 literal|"split: "
 operator|+
@@ -1213,7 +1226,6 @@ name|i
 index|]
 argument_list|)
 expr_stmt|;
-block|}
 name|startPos
 operator|=
 name|lastPos
