@@ -160,11 +160,7 @@ name|GREATER_OR_EQUAL
 block|,
 comment|/** greater than */
 name|GREATER
-block|,
-comment|// Below are more specific operators.
-comment|/** sub-string. Case insensitive. */
-name|SUB_STRING
-block|;        }
+block|;   }
 specifier|private
 name|byte
 index|[]
@@ -435,44 +431,6 @@ index|[]
 name|data
 parameter_list|)
 block|{
-comment|// Special case for Substring operator
-if|if
-condition|(
-name|compareOp
-operator|==
-name|CompareOp
-operator|.
-name|SUB_STRING
-condition|)
-block|{
-return|return
-operator|!
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|data
-argument_list|)
-operator|.
-name|toLowerCase
-argument_list|()
-operator|.
-name|contains
-argument_list|(
-operator|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|value
-argument_list|)
-operator|)
-operator|.
-name|toLowerCase
-argument_list|()
-argument_list|)
-return|;
-block|}
 name|int
 name|compareResult
 decl_stmt|;
@@ -597,6 +555,15 @@ argument_list|>
 name|columns
 parameter_list|)
 block|{
+if|if
+condition|(
+name|columns
+operator|==
+literal|null
+condition|)
+return|return
+literal|false
+return|;
 if|if
 condition|(
 name|filterIfColumnMissing
