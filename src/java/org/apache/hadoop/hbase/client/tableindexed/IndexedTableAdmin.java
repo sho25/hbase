@@ -399,16 +399,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|indexTableDesc
-operator|.
-name|setRowKeyComparator
-argument_list|(
-name|indexSpec
-operator|.
-name|getKeyComparator
-argument_list|()
-argument_list|)
-expr_stmt|;
 return|return
 name|indexTableDesc
 return|;

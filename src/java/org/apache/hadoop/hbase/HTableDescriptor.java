@@ -368,14 +368,6 @@ decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
-name|String
-name|ROW_KEY_COMPARATOR
-init|=
-literal|"ROW_KEY_COMPARATOR"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
 name|ImmutableBytesWritable
 name|IS_META_KEY
 init|=

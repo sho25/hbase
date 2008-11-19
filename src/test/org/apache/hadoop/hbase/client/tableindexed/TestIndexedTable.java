@@ -291,9 +291,9 @@ specifier|private
 specifier|static
 specifier|final
 name|String
-name|INDEX_COL_A_ASC
+name|INDEX_COL_A
 init|=
-literal|"A-Acending"
+literal|"A"
 decl_stmt|;
 specifier|private
 specifier|static
@@ -410,11 +410,9 @@ init|=
 operator|new
 name|IndexSpecification
 argument_list|(
-name|INDEX_COL_A_ASC
+name|INDEX_COL_A
 argument_list|,
 name|COL_A
-argument_list|,
-literal|true
 argument_list|)
 decl_stmt|;
 name|desc
@@ -586,7 +584,7 @@ name|table
 operator|.
 name|getIndexedScanner
 argument_list|(
-name|INDEX_COL_A_ASC
+name|INDEX_COL_A
 argument_list|,
 name|HConstants
 operator|.

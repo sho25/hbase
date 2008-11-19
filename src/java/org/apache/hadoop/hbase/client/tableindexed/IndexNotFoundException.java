@@ -40,6 +40,14 @@ name|IndexNotFoundException
 extends|extends
 name|IOException
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+literal|6533971528557000965L
+decl_stmt|;
 specifier|public
 name|IndexNotFoundException
 parameter_list|()
