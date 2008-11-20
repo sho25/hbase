@@ -703,6 +703,18 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
+comment|/* Closing can take some time; use the closing flag if there is stuff we don't want    * to do while in closing state; e.g. like offer this region up to the master as a region    * to close if the carrying regionserver is overloaded.  Once set, it is never cleared.    */
+specifier|private
+specifier|final
+name|AtomicBoolean
+name|closing
+init|=
+operator|new
+name|AtomicBoolean
+argument_list|(
+literal|false
+argument_list|)
+decl_stmt|;
 specifier|private
 specifier|final
 name|RegionHistorian
@@ -1610,6 +1622,21 @@ name|get
 argument_list|()
 return|;
 block|}
+comment|/**    * @return True if closing process has started.    */
+specifier|public
+name|boolean
+name|isClosing
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|closing
+operator|.
+name|get
+argument_list|()
+return|;
+block|}
 comment|/**    * Close down this HRegion.  Flush the cache, shut down each HStore, don't     * service any more calls.    *    *<p>This method could take some time to execute, so don't call it from a     * time-sensitive thread.    *     * @return Vector of all the storage files that the HRegion's component     * HStores make use of.  It's a list of all HStoreFile objects. Returns empty    * vector if already closed and null if judged that it should not close.    *     * @throws IOException    */
 specifier|public
 name|List
@@ -1662,6 +1689,15 @@ return|return
 literal|null
 return|;
 block|}
+name|this
+operator|.
+name|closing
+operator|.
+name|set
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 synchronized|synchronized
 init|(
 name|splitLock
