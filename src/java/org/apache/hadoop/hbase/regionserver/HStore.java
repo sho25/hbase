@@ -4147,7 +4147,7 @@ operator|+
 operator|(
 name|references
 condition|?
-literal|"(hasReferences=true)"
+literal|", hasReferences=true,"
 else|:
 literal|" "
 operator|)

@@ -228,21 +228,6 @@ expr_stmt|;
 comment|// Don't interrupt us. We're working
 try|try
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Rolling hlog. Number of entries: "
-operator|+
-name|server
-operator|.
-name|getLog
-argument_list|()
-operator|.
-name|getNumEntries
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|server
 operator|.
 name|getLog
