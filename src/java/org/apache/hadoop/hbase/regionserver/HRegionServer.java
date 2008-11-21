@@ -1840,15 +1840,6 @@ condition|;
 control|)
 block|{
 comment|// Try to get the root region location from the master.
-if|if
-condition|(
-operator|!
-name|haveRootRegion
-operator|.
-name|get
-argument_list|()
-condition|)
-block|{
 name|HServerAddress
 name|rootServer
 init|=
@@ -1890,7 +1881,6 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 name|long
 name|now
@@ -3244,21 +3234,6 @@ name|Thread
 block|{
 specifier|private
 specifier|final
-name|Log
-name|LOG
-init|=
-name|LogFactory
-operator|.
-name|getLog
-argument_list|(
-name|this
-operator|.
-name|getClass
-argument_list|()
-argument_list|)
-decl_stmt|;
-specifier|private
-specifier|final
 name|HRegionServer
 name|instance
 decl_stmt|;
@@ -3319,21 +3294,6 @@ name|MajorCompactionChecker
 extends|extends
 name|Chore
 block|{
-specifier|private
-specifier|final
-name|Log
-name|LOG
-init|=
-name|LogFactory
-operator|.
-name|getLog
-argument_list|(
-name|this
-operator|.
-name|getClass
-argument_list|()
-argument_list|)
-decl_stmt|;
 specifier|private
 specifier|final
 name|HRegionServer
@@ -3477,7 +3437,6 @@ block|}
 block|}
 block|}
 block|}
-empty_stmt|;
 comment|/**    * Report the status of the server. A server is online once all the startup     * is completed (setting up filesystem, starting service threads, etc.). This    * method is designed mostly to be useful in tests.    * @return true if online, false if not.    */
 specifier|public
 name|boolean
