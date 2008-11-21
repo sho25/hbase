@@ -1840,6 +1840,15 @@ condition|;
 control|)
 block|{
 comment|// Try to get the root region location from the master.
+if|if
+condition|(
+operator|!
+name|haveRootRegion
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
 name|HServerAddress
 name|rootServer
 init|=
@@ -1881,6 +1890,7 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|long
 name|now
