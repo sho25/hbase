@@ -751,6 +751,12 @@ name|flushSomeRegions
 parameter_list|()
 block|{
 comment|// keep flushing until we hit the low water mark
+name|long
+name|globalMemcacheSize
+init|=
+operator|-
+literal|1
+decl_stmt|;
 for|for
 control|(
 name|SortedMap
@@ -768,11 +774,17 @@ operator|.
 name|getCopyOfOnlineRegionsSortedBySize
 argument_list|()
 init|;
+operator|(
+name|globalMemcacheSize
+operator|=
 name|server
 operator|.
 name|getGlobalMemcacheSize
 argument_list|()
+operator|)
 operator|>=
+name|this
+operator|.
 name|globalMemcacheLimitLowMark
 condition|;
 control|)
@@ -796,12 +808,7 @@ literal|"No online regions to flush though we've been asked flush "
 operator|+
 literal|"some; globalMemcacheSize="
 operator|+
-name|this
-operator|.
-name|server
-operator|.
-name|getGlobalMemcacheSize
-argument_list|()
+name|globalMemcacheSize
 operator|+
 literal|", globalMemcacheLimitLowMark="
 operator|+
@@ -825,6 +832,34 @@ name|firstKey
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Forced flushing of "
+operator|+
+name|biggestMemcacheRegion
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" because global memcache limit of "
+operator|+
+name|this
+operator|.
+name|globalMemcacheLimit
+operator|+
+literal|" exceeded; currenly "
+operator|+
+name|globalMemcacheSize
+operator|+
+literal|" and flushing till "
+operator|+
+name|this
+operator|.
+name|globalMemcacheLimitLowMark
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 operator|!
