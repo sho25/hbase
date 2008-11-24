@@ -199,6 +199,18 @@ argument_list|(
 literal|"requests"
 argument_list|)
 decl_stmt|;
+comment|/**    * Count of stores open on the regionserver.    */
+specifier|public
+specifier|final
+name|MetricsIntValue
+name|stores
+init|=
+operator|new
+name|MetricsIntValue
+argument_list|(
+literal|"stores"
+argument_list|)
+decl_stmt|;
 comment|/**    * Count of storefiles open on the regionserver.    */
 specifier|public
 specifier|final
@@ -330,6 +342,17 @@ init|(
 name|this
 init|)
 block|{
+name|this
+operator|.
+name|stores
+operator|.
+name|pushMetric
+argument_list|(
+name|this
+operator|.
+name|metricsRecord
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|storefiles
@@ -553,6 +576,25 @@ argument_list|(
 name|this
 operator|.
 name|regions
+operator|.
+name|get
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|", stores="
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+name|this
+operator|.
+name|stores
 operator|.
 name|get
 argument_list|()
