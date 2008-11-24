@@ -276,7 +276,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A HStore data file.  HStores usually have one or more of these files.  They  * are produced by flushing the memcache to disk.  *  *<p>Each HStore maintains a bunch of different data files. The filename is a  * mix of the parent dir, the region name, the column name, and a file  * identifier. The name may also be a reference to a store file located  * elsewhere. This class handles all that path-building stuff for you.  *   *<p>An HStoreFile usually tracks 4 things: its parent dir, the region  * identifier, the column family, and the file identifier.  If you know those  * four things, you know how to obtain the right HStoreFile.  HStoreFiles may  * also refernce store files in another region serving either from  * the top-half of the remote file or from the bottom-half.  Such references  * are made fast splitting regions.  *   *<p>Plain HStoreFiles are named for a randomly generated id as in:  *<code>1278437856009925445</code>  A file by this name is made in both the  *<code>mapfiles</code> and<code>info</code> subdirectories of a  * HStore columnfamily directoy: E.g. If the column family is 'anchor:', then  * under the region directory there is a subdirectory named 'anchor' within  * which is a 'mapfiles' and 'info' subdirectory.  In each will be found a  * file named something like<code>1278437856009925445</code>, one to hold the  * data in 'mapfiles' and one under 'info' that holds the sequence id for this  * store file.  *   *<p>References to store files located over in some other region look like  * this:  *<code>1278437856009925445.hbaserepository,qAReLZD-OyQORZWq_vqR1k==,959247014679548184</code>:  * i.e. an id followed by the name of the referenced region.  The data  * ('mapfiles') of HStoreFile references are empty. The accompanying  *<code>info</code> file contains the  * midkey, the id of the remote store we're referencing and whether we're  * to serve the top or bottom region of the remote store file.  Note, a region  * is not splitable if it has instances of store file references (References  * are cleaned up by compactions).  *   *<p>When merging or splitting HRegions, we might want to modify one of the   * params for an HStoreFile (effectively moving it elsewhere).  */
+comment|/**  * A HStore data file.  HStores usually have one or more of these files.  They  * are produced by flushing the memcache to disk.  *  *<p>Each HStore maintains a bunch of different data files. The filename is a  * mix of the parent dir, the region name, the column name, and a file  * identifier. The name may also be a reference to a store file located  * elsewhere. This class handles all that path-building stuff for you.  *   *<p>An HStoreFile usually tracks 4 things: its parent dir, the region  * identifier, the column family, and the file identifier.  If you know those  * four things, you know how to obtain the right HStoreFile.  HStoreFiles may  * also reference store files in another region serving either from  * the top-half of the remote file or from the bottom-half.  Such references  * are made fast splitting regions.  *   *<p>Plain HStoreFiles are named for a randomly generated id as in:  *<code>1278437856009925445</code>  A file by this name is made in both the  *<code>mapfiles</code> and<code>info</code> subdirectories of a  * HStore columnfamily directoy: E.g. If the column family is 'anchor:', then  * under the region directory there is a subdirectory named 'anchor' within  * which is a 'mapfiles' and 'info' subdirectory.  In each will be found a  * file named something like<code>1278437856009925445</code>, one to hold the  * data in 'mapfiles' and one under 'info' that holds the sequence id for this  * store file.  *   *<p>References to store files located over in some other region look like  * this:  *<code>1278437856009925445.hbaserepository,qAReLZD-OyQORZWq_vqR1k==,959247014679548184</code>:  * i.e. an id followed by the name of the referenced region.  The data  * ('mapfiles') of HStoreFile references are empty. The accompanying  *<code>info</code> file contains the  * midkey, the id of the remote store we're referencing and whether we're  * to serve the top or bottom region of the remote store file.  Note, a region  * is not splitable if it has instances of store file references (References  * are cleaned up by compactions).  *   *<p>When merging or splitting HRegions, we might want to modify one of the   * params for an HStoreFile (effectively moving it elsewhere).  */
 end_comment
 
 begin_class
@@ -397,6 +397,10 @@ name|boolean
 name|majorCompaction
 init|=
 literal|false
+decl_stmt|;
+specifier|private
+name|long
+name|indexLength
 decl_stmt|;
 comment|/**    * Constructor that fully initializes the object    * @param conf Configuration object    * @param basedir qualified path that is parent of region directory    * @param colFamily name of the column family    * @param fileId file identifier    * @param ref Reference to another HStoreFile.    * @param hri The region info for this file (HACK HBASE-868). TODO: Fix.    * @throws IOException    */
 name|HStoreFile
@@ -1822,6 +1826,60 @@ operator|/
 literal|2
 else|:
 name|l
+return|;
+block|}
+comment|/**    * @return Length of the store map file index.    * @throws IOException    */
+specifier|public
+specifier|synchronized
+name|long
+name|indexLength
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|indexLength
+operator|==
+literal|0
+condition|)
+block|{
+name|Path
+name|p
+init|=
+operator|new
+name|Path
+argument_list|(
+name|getMapFilePath
+argument_list|(
+name|reference
+argument_list|)
+argument_list|,
+name|MapFile
+operator|.
+name|INDEX_FILE_NAME
+argument_list|)
+decl_stmt|;
+name|indexLength
+operator|=
+name|p
+operator|.
+name|getFileSystem
+argument_list|(
+name|conf
+argument_list|)
+operator|.
+name|getFileStatus
+argument_list|(
+name|p
+argument_list|)
+operator|.
+name|getLen
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+name|indexLength
 return|;
 block|}
 annotation|@
