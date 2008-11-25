@@ -1438,6 +1438,24 @@ argument_list|(
 name|serverName
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|serverName
+operator|+
+literal|": load: "
+operator|+
+name|load
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|master

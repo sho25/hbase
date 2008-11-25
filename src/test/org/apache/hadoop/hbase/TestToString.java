@@ -71,38 +71,6 @@ argument_list|,
 name|hostport
 argument_list|)
 expr_stmt|;
-name|HServerInfo
-name|info
-init|=
-operator|new
-name|HServerInfo
-argument_list|(
-name|address
-argument_list|,
-operator|-
-literal|1
-argument_list|,
-literal|60030
-argument_list|)
-decl_stmt|;
-name|assertEquals
-argument_list|(
-literal|"HServerInfo"
-argument_list|,
-literal|"address: "
-operator|+
-name|hostport
-operator|+
-literal|", startcode: -1"
-operator|+
-literal|", load: (requests: 0 regions: 0)"
-argument_list|,
-name|info
-operator|.
-name|toString
-argument_list|()
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 end_class
