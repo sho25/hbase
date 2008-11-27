@@ -2195,22 +2195,6 @@ argument_list|(
 name|hsl
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"sending server load: "
-operator|+
-name|hsl
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|requestCount
