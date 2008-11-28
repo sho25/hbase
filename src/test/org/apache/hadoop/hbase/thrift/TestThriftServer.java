@@ -1009,7 +1009,7 @@ argument_list|(
 name|failed2
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertNull
 argument_list|(
 name|handler
 operator|.
@@ -1019,13 +1019,6 @@ name|tableAname
 argument_list|,
 name|rowBname
 argument_list|)
-operator|.
-name|columns
-operator|.
-name|size
-argument_list|()
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 comment|// Teardown
@@ -1487,7 +1480,7 @@ name|valueCname
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertNull
 argument_list|(
 name|handler
 operator|.
@@ -1497,13 +1490,6 @@ name|tableAname
 argument_list|,
 name|rowBname
 argument_list|)
-operator|.
-name|columns
-operator|.
-name|size
-argument_list|()
-argument_list|,
-literal|0
 argument_list|)
 expr_stmt|;
 comment|// Teardown
