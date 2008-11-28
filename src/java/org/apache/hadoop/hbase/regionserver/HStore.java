@@ -3659,6 +3659,13 @@ operator|<=
 literal|0
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"no store files to compact"
+argument_list|)
+expr_stmt|;
 return|return
 literal|null
 return|;
@@ -3728,12 +3735,18 @@ operator|&&
 operator|!
 name|references
 operator|&&
+operator|(
+name|forceSplit
+operator|||
+operator|(
 name|filesToCompact
 operator|.
 name|size
 argument_list|()
 operator|<
 name|compactionThreshold
+operator|)
+operator|)
 condition|)
 block|{
 return|return
@@ -9135,6 +9148,24 @@ name|splitable
 condition|)
 block|{
 comment|// RETURN IN MIDDLE OF FUNCTION!!! If not splitable, just return.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|curHSF
+operator|+
+literal|" is not splittable"
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|null
 return|;
@@ -9285,6 +9316,22 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"cannot split because midkey is the same as first or last row"
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|null
 return|;

@@ -3927,6 +3927,31 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"sending MSG_REGION_COMPACT "
+operator|+
+name|pair
+operator|.
+name|getFirst
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|addr
+argument_list|)
+expr_stmt|;
+block|}
 name|returnMsgs
 operator|.
 name|add
@@ -3998,6 +4023,31 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"sending MSG_REGION_SPLIT "
+operator|+
+name|pair
+operator|.
+name|getFirst
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|addr
+argument_list|)
+expr_stmt|;
+block|}
 name|returnMsgs
 operator|.
 name|add

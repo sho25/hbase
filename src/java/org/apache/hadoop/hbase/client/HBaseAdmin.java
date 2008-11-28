@@ -2160,6 +2160,11 @@ break|break;
 case|case
 name|HConstants
 operator|.
+name|MODIFY_TABLE_COMPACT
+case|:
+case|case
+name|HConstants
+operator|.
 name|MODIFY_TABLE_SPLIT
 case|:
 block|{
@@ -2251,7 +2256,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"SPLIT with arg requires byte[] or ImmutableBytesWritable"
+literal|"SPLIT or COMPACT with arg requires byte[] or ImmutableBytesWritable"
 argument_list|)
 throw|;
 block|}

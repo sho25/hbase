@@ -5333,6 +5333,13 @@ name|getRegionName
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// flush the memcache for the region
+name|region
+operator|.
+name|flushcache
+argument_list|()
+expr_stmt|;
+comment|// flag that the region should be split
 name|region
 operator|.
 name|regionInfo
@@ -5342,6 +5349,7 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+comment|// force a compaction
 name|compactSplitThread
 operator|.
 name|compactionRequested
@@ -5369,6 +5377,13 @@ name|getRegionName
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// flush the memcache for the region
+name|region
+operator|.
+name|flushcache
+argument_list|()
+expr_stmt|;
+comment|// force a compaction
 name|compactSplitThread
 operator|.
 name|compactionRequested
