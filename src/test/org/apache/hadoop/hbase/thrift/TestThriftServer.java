@@ -1090,6 +1090,15 @@ argument_list|,
 name|time1
 argument_list|)
 expr_stmt|;
+comment|// Sleep to assure that 'time1' and 'time2' will be different even with a
+comment|// coarse grained system timer.
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
+expr_stmt|;
 comment|// Apply timestamped BatchMutations for rowA and rowB
 name|long
 name|time2
@@ -1559,6 +1568,15 @@ name|getMutations
 argument_list|()
 argument_list|,
 name|time1
+argument_list|)
+expr_stmt|;
+comment|// Sleep to assure that 'time1' and 'time2' will be different even with a
+comment|// coarse grained system timer.
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
 argument_list|)
 expr_stmt|;
 comment|// Apply timestamped BatchMutations for rowA and rowB
