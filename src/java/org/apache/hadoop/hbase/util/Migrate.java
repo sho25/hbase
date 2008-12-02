@@ -1083,6 +1083,29 @@ operator|.
 name|COLUMN_FAMILY_HISTORIAN
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|hcd
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"No region historian family in: "
+operator|+
+name|hri
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return
+name|result
+return|;
+block|}
 comment|// Set historian records so they timeout after a week.
 if|if
 condition|(
