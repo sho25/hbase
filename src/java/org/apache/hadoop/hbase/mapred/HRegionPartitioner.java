@@ -146,7 +146,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is used to partition the output keys into groups of keys.  * Keys are grouped according to the regions that currently exist  * so that each reducer fills a single region so load is distributed.  */
+comment|/**  * This is used to partition the output keys into groups of keys.  * Keys are grouped according to the regions that currently exist  * so that each reducer fills a single region so load is distributed.  *   * @param<K2>  * @param<V2>  */
 end_comment
 
 begin_class
@@ -267,8 +267,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-annotation|@
-name|Override
 specifier|public
 name|int
 name|getPartition
@@ -276,6 +274,11 @@ parameter_list|(
 name|ImmutableBytesWritable
 name|key
 parameter_list|,
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|V2
 name|value
 parameter_list|,
@@ -410,12 +413,9 @@ operator|%
 name|numPartitions
 return|;
 block|}
-else|else
-block|{
 return|return
 name|i
 return|;
-block|}
 block|}
 block|}
 comment|// if above fails to find start key that match we need to return something

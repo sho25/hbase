@@ -115,8 +115,6 @@ name|expr
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Override
 specifier|public
 name|int
 name|compareTo
@@ -149,8 +147,6 @@ else|:
 literal|0
 return|;
 block|}
-annotation|@
-name|Override
 specifier|public
 name|void
 name|readFields
@@ -176,8 +172,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Override
 specifier|public
 name|void
 name|write
