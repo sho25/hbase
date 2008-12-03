@@ -5976,6 +5976,10 @@ index|[]
 argument_list|>
 name|columns
 parameter_list|,
+specifier|final
+name|int
+name|numVersions
+parameter_list|,
 name|Map
 argument_list|<
 name|byte
@@ -5988,6 +5992,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|int
+name|versions
+init|=
+name|versionsToReturn
+argument_list|(
+name|numVersions
+argument_list|)
+decl_stmt|;
 name|Map
 argument_list|<
 name|byte
@@ -6039,6 +6051,8 @@ argument_list|(
 name|key
 argument_list|,
 name|columns
+argument_list|,
+name|versions
 argument_list|,
 name|deletes
 argument_list|,
@@ -6096,6 +6110,8 @@ name|key
 argument_list|,
 name|columns
 argument_list|,
+name|versions
+argument_list|,
 name|deletes
 argument_list|,
 name|results
@@ -6135,6 +6151,9 @@ name|byte
 index|[]
 argument_list|>
 name|columns
+parameter_list|,
+name|int
+name|numVersions
 parameter_list|,
 name|Map
 argument_list|<
@@ -6220,7 +6239,8 @@ name|getColumn
 argument_list|()
 decl_stmt|;
 comment|// if we're looking for this column (or all of them), and there isn't
-comment|// already a value for this column in the results map, and the key we
+comment|// already a value for this column in the results map or there is a value
+comment|// but we haven't collected enough versions yet, and the key we
 comment|// just read matches, then we'll consider it
 if|if
 condition|(
@@ -6237,6 +6257,7 @@ name|readcol
 argument_list|)
 operator|)
 operator|&&
+operator|(
 operator|!
 name|results
 operator|.
@@ -6244,6 +6265,19 @@ name|containsKey
 argument_list|(
 name|readcol
 argument_list|)
+operator|||
+name|results
+operator|.
+name|get
+argument_list|(
+name|readcol
+argument_list|)
+operator|.
+name|getNumValues
+argument_list|()
+operator|<
+name|numVersions
+operator|)
 operator|&&
 name|key
 operator|.
@@ -6388,6 +6422,17 @@ name|now
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+operator|!
+name|results
+operator|.
+name|containsKey
+argument_list|(
+name|readcol
+argument_list|)
+condition|)
+block|{
 name|results
 operator|.
 name|put
@@ -6409,6 +6454,30 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|results
+operator|.
+name|get
+argument_list|(
+name|readcol
+argument_list|)
+operator|.
+name|add
+argument_list|(
+name|readval
+operator|.
+name|get
+argument_list|()
+argument_list|,
+name|readkey
+operator|.
+name|getTimestamp
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 comment|// need to reinstantiate the readval so we can reuse it,
 comment|// otherwise next iteration will destroy our result
 name|readval

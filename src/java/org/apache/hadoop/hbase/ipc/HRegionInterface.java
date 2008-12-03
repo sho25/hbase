@@ -198,7 +198,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get selected columns for the specified row at a given timestamp.    *     * @param regionName region name    * @param row row key    * @param columns columns to get    * @param ts time stamp    * @param lockId lock id    * @return map of values    * @throws IOException    */
+comment|/**    * Get selected columns for the specified row at a given timestamp.    *     * @param regionName region name    * @param row row key    * @param columns columns to get    * @param ts time stamp    * @param numVersions number of versions    * @param lockId lock id    * @return map of values    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -222,6 +222,10 @@ parameter_list|,
 specifier|final
 name|long
 name|ts
+parameter_list|,
+specifier|final
+name|int
+name|numVersions
 parameter_list|,
 specifier|final
 name|long

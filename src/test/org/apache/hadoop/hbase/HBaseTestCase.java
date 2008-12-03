@@ -1970,6 +1970,8 @@ name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
 argument_list|,
+literal|1
+argument_list|,
 literal|null
 argument_list|)
 return|;
@@ -2559,6 +2561,8 @@ argument_list|,
 literal|null
 argument_list|,
 name|timestamp
+argument_list|,
+literal|1
 argument_list|,
 literal|null
 argument_list|)

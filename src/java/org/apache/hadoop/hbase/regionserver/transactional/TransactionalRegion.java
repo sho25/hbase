@@ -1678,6 +1678,8 @@ name|columns
 argument_list|,
 name|ts
 argument_list|,
+literal|1
+argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
@@ -1700,6 +1702,8 @@ argument_list|,
 name|columns
 argument_list|,
 name|ts
+argument_list|,
+literal|1
 argument_list|,
 literal|null
 argument_list|)

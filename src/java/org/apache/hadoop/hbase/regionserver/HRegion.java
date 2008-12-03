@@ -3870,9 +3870,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Fetch all the columns for the indicated row at a specified timestamp.    * Returns a TreeMap that maps column names to values.    *    * We should eventually use Bloom filters here, to reduce running time.  If     * the database has many column families and is very sparse, then we could be     * checking many files needlessly.  A small Bloom for each row would help us     * determine which column groups are useful for that row.  That would let us     * avoid a bunch of disk activity.    *    * @param row    * @param columns Array of columns you'd like to retrieve. When null, get all.    * @param ts    * @param lockid    * @return Map<columnName, Cell> values    * @throws IOException    */
+comment|/**    * Fetch all the columns for the indicated row at a specified timestamp.    * Returns a HbaseMapWritable that maps column names to values.    *    * We should eventually use Bloom filters here, to reduce running time.  If     * the database has many column families and is very sparse, then we could be     * checking many files needlessly.  A small Bloom for each row would help us     * determine which column groups are useful for that row.  That would let us     * avoid a bunch of disk activity.    *    * @param row    * @param columns Array of columns you'd like to retrieve. When null, get all.    * @param ts    * @param numVersions number of versions to retrieve    * @param lockid    * @return HbaseMapWritable<columnName, Cell> values    * @throws IOException    */
 specifier|public
-name|Map
+name|HbaseMapWritable
 argument_list|<
 name|byte
 index|[]
@@ -3897,6 +3897,10 @@ parameter_list|,
 specifier|final
 name|long
 name|ts
+parameter_list|,
+specifier|final
+name|int
+name|numVersions
 parameter_list|,
 specifier|final
 name|Integer
@@ -3969,7 +3973,7 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
-name|TreeMap
+name|HbaseMapWritable
 argument_list|<
 name|byte
 index|[]
@@ -3979,18 +3983,14 @@ argument_list|>
 name|result
 init|=
 operator|new
-name|TreeMap
+name|HbaseMapWritable
 argument_list|<
 name|byte
 index|[]
 argument_list|,
 name|Cell
 argument_list|>
-argument_list|(
-name|Bytes
-operator|.
-name|BYTES_COMPARATOR
-argument_list|)
+argument_list|()
 decl_stmt|;
 comment|// Get the concerned columns or all of them
 if|if
@@ -4125,6 +4125,8 @@ name|key
 argument_list|,
 literal|null
 argument_list|,
+name|numVersions
+argument_list|,
 name|result
 argument_list|)
 expr_stmt|;
@@ -4153,6 +4155,8 @@ argument_list|(
 name|key
 argument_list|,
 name|columns
+argument_list|,
+name|numVersions
 argument_list|,
 name|result
 argument_list|)
@@ -4366,6 +4370,8 @@ argument_list|(
 name|key
 argument_list|,
 literal|null
+argument_list|,
+literal|1
 argument_list|,
 name|cells
 argument_list|)

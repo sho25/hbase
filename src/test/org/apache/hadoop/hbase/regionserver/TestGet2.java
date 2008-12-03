@@ -3819,6 +3819,8 @@ name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
 argument_list|,
+literal|1
+argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
@@ -3903,6 +3905,8 @@ name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
 argument_list|,
+literal|1
+argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
@@ -3968,6 +3972,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
+argument_list|,
+literal|1
 argument_list|,
 literal|null
 argument_list|)
@@ -4052,6 +4058,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
+argument_list|,
+literal|1
 argument_list|,
 literal|null
 argument_list|)
@@ -4232,6 +4240,8 @@ literal|null
 argument_list|,
 name|LATEST_TIMESTAMP
 argument_list|,
+literal|1
+argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
@@ -4315,6 +4325,8 @@ operator|)
 literal|null
 argument_list|,
 name|LATEST_TIMESTAMP
+argument_list|,
+literal|1
 argument_list|,
 literal|null
 argument_list|)
@@ -4486,6 +4498,8 @@ literal|null
 argument_list|,
 name|LATEST_TIMESTAMP
 argument_list|,
+literal|1
+argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
@@ -4602,6 +4616,8 @@ literal|null
 argument_list|,
 name|LATEST_TIMESTAMP
 argument_list|,
+literal|1
+argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
@@ -4706,6 +4722,8 @@ operator|)
 literal|null
 argument_list|,
 name|LATEST_TIMESTAMP
+argument_list|,
+literal|1
 argument_list|,
 literal|null
 argument_list|)
@@ -4842,6 +4860,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
+argument_list|,
+literal|1
 argument_list|,
 literal|null
 argument_list|)

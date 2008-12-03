@@ -738,6 +738,8 @@ name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
 argument_list|,
+literal|1
+argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
@@ -1689,6 +1691,8 @@ name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
 argument_list|,
+literal|1
+argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
@@ -1754,6 +1758,8 @@ argument_list|,
 name|neededColumns
 argument_list|,
 name|ts
+argument_list|,
+literal|1
 argument_list|,
 literal|null
 argument_list|)
@@ -2003,6 +2009,8 @@ name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
 argument_list|,
+literal|1
+argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
@@ -2067,6 +2075,8 @@ argument_list|,
 name|neededColumns
 argument_list|,
 name|ts
+argument_list|,
+literal|1
 argument_list|,
 literal|null
 argument_list|)
