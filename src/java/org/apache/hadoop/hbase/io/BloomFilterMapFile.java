@@ -393,15 +393,20 @@ name|filterFile
 argument_list|)
 condition|)
 block|{
-throw|throw
-operator|new
-name|FileNotFoundException
+name|LOG
+operator|.
+name|warn
 argument_list|(
-literal|"Could not find bloom filter: "
+literal|"FileNotFound: "
 operator|+
 name|filterFile
+operator|+
+literal|"; proceeding without"
 argument_list|)
-throw|;
+expr_stmt|;
+return|return
+literal|null
+return|;
 block|}
 name|BloomFilter
 name|filter
@@ -747,9 +752,14 @@ name|filter
 condition|)
 block|{
 comment|/*           * There is no way to automatically determine the vector size and the          * number of hash functions to use. In particular, bloom filters are          * very sensitive to the number of elements inserted into them. For          * HBase, the number of entries depends on the size of the data stored          * in the column. Currently the default region size is 256MB, so the          * number of entries is approximately           * 256MB / (average value size for column).          *           * If m denotes the number of bits in the Bloom filter (vectorSize),          * n denotes the number of elements inserted into the Bloom filter and          * k represents the number of hash functions used (nbHash), then          * according to Broder and Mitzenmacher,          *           * ( http://www.eecs.harvard.edu/~michaelm/NEWWORK/postscripts/BloomFilterSurvey.pdf )          *           * the probability of false positives is minimized when k is          * approximately m/n ln(2).          *           * If we fix the number of hash functions and know the number of          * entries, then the optimal vector size m = (k * n) / ln(2)          */
-name|this
-operator|.
-name|bloomFilter
+name|BloomFilter
+name|f
+init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|f
 operator|=
 operator|new
 name|BloomFilter
@@ -791,6 +801,29 @@ argument_list|(
 name|conf
 argument_list|)
 argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IllegalArgumentException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed creating bloomfilter; proceeding without"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+name|this
+operator|.
+name|bloomFilter
+operator|=
+name|f
 expr_stmt|;
 block|}
 else|else

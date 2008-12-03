@@ -849,7 +849,7 @@ name|this
 operator|.
 name|globalMemcacheLimit
 operator|+
-literal|" exceeded; currenly "
+literal|" exceeded; currently "
 operator|+
 name|globalMemcacheSize
 operator|+
@@ -871,7 +871,13 @@ literal|true
 argument_list|)
 condition|)
 block|{
-comment|// Something bad happened - give up.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Flush failed"
+argument_list|)
+expr_stmt|;
 break|break;
 block|}
 block|}
