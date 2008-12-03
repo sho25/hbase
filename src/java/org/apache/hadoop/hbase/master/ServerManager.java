@@ -713,10 +713,8 @@ name|master
 operator|.
 name|regionManager
 operator|.
-name|setRootRegionLocation
-argument_list|(
-literal|null
-argument_list|)
+name|unsetRootRegion
+argument_list|()
 expr_stmt|;
 name|rootServer
 operator|=
@@ -1438,6 +1436,13 @@ argument_list|(
 name|serverName
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|load
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|master
@@ -1455,10 +1460,6 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|load
-operator|!=
-literal|null
-operator|&&
 operator|!
 name|load
 operator|.
@@ -1509,6 +1510,7 @@ argument_list|,
 name|servers
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|// Set the current load information
@@ -3221,25 +3223,6 @@ argument_list|(
 name|server
 argument_list|)
 expr_stmt|;
-block|}
-synchronized|synchronized
-init|(
-name|serversToServerInfo
-init|)
-block|{
-name|serversToServerInfo
-operator|.
-name|notifyAll
-argument_list|()
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|info
-operator|!=
-literal|null
-condition|)
-block|{
 try|try
 block|{
 name|master
@@ -3270,12 +3253,23 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Insertion into toDoQueue was interrupted"
+literal|"insert into toDoQueue was interrupted"
 argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+synchronized|synchronized
+init|(
+name|serversToServerInfo
+init|)
+block|{
+name|serversToServerInfo
+operator|.
+name|notifyAll
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 block|}

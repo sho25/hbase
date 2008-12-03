@@ -159,6 +159,22 @@ name|HRegionInterface
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Sleeper
+import|;
+end_import
+
 begin_comment
 comment|/**  * Uses Callable pattern so that operations against meta regions do not need  * to duplicate retry logic.  */
 end_comment
@@ -190,6 +206,11 @@ operator|.
 name|getClass
 argument_list|()
 argument_list|)
+decl_stmt|;
+specifier|protected
+specifier|final
+name|Sleeper
+name|sleeper
 decl_stmt|;
 specifier|protected
 specifier|final
@@ -226,6 +247,22 @@ operator|.
 name|master
 operator|=
 name|master
+expr_stmt|;
+name|this
+operator|.
+name|sleeper
+operator|=
+operator|new
+name|Sleeper
+argument_list|(
+name|master
+operator|.
+name|threadWakeFrequency
+argument_list|,
+name|master
+operator|.
+name|closed
+argument_list|)
 expr_stmt|;
 block|}
 specifier|protected
@@ -471,8 +508,6 @@ name|e
 argument_list|)
 throw|;
 block|}
-name|master
-operator|.
 name|sleeper
 operator|.
 name|sleep

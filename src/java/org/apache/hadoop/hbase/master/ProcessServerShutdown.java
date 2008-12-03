@@ -273,6 +273,12 @@ name|boolean
 name|rootRegionServer
 decl_stmt|;
 specifier|private
+name|boolean
+name|rootRegionReassigned
+init|=
+literal|false
+decl_stmt|;
+specifier|private
 name|Path
 name|oldLogDir
 decl_stmt|;
@@ -1280,18 +1286,18 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-operator|!
-name|rootAvailable
-argument_list|()
-condition|)
-block|{
-if|if
-condition|(
+name|this
+operator|.
 name|rootRegionServer
+operator|&&
+operator|!
+name|this
+operator|.
+name|rootRegionReassigned
 condition|)
 block|{
-comment|// Get root region assigned now that log has been split and if the
-comment|// dead server was serving the root region
+comment|// The server that died was serving the root region. Now that the log
+comment|// has been split, get it reassigned.
 name|master
 operator|.
 name|regionManager
@@ -1299,7 +1305,24 @@ operator|.
 name|reassignRootRegion
 argument_list|()
 expr_stmt|;
+comment|// avoid multiple root region reassignment
+name|this
+operator|.
+name|rootRegionReassigned
+operator|=
+literal|true
+expr_stmt|;
+comment|// When we call rootAvailable below, it will put us on the delayed
+comment|// to do queue to allow some time to pass during which the root
+comment|// region will hopefully get reassigned.
 block|}
+if|if
+condition|(
+operator|!
+name|rootAvailable
+argument_list|()
+condition|)
+block|{
 comment|// Return true so that worker does not put this request back on the
 comment|// toDoQueue.
 comment|// rootAvailable() has already put it on the delayedToDoQueue

@@ -202,10 +202,6 @@ operator|==
 literal|null
 condition|)
 block|{
-name|master
-operator|.
-name|sleeper
-operator|.
 name|sleep
 argument_list|()
 expr_stmt|;

@@ -21,20 +21,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|util
-operator|.
-name|Map
-import|;
-end_import
-
-begin_comment
-comment|//TODO: remove
-end_comment
-
-begin_import
-import|import
-name|java
-operator|.
 name|io
 operator|.
 name|IOException

@@ -2773,9 +2773,12 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Check for empty file.
-if|if
-condition|(
+comment|// Check for possibly empty file. With appends, currently Hadoop reports
+comment|// a zero length even if the file has been sync'd. Revisit if
+comment|// HADOOP-4751 is committed.
+name|boolean
+name|possiblyEmpty
+init|=
 name|logfiles
 index|[
 name|i
@@ -2785,27 +2788,7 @@ name|getLen
 argument_list|()
 operator|<=
 literal|0
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Skipping "
-operator|+
-name|logfiles
-index|[
-name|i
-index|]
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|" because zero length"
-argument_list|)
-expr_stmt|;
-continue|continue;
-block|}
+decl_stmt|;
 name|HLogKey
 name|key
 init|=
@@ -2820,6 +2803,8 @@ operator|new
 name|HLogEdit
 argument_list|()
 decl_stmt|;
+try|try
+block|{
 name|SequenceFile
 operator|.
 name|Reader
@@ -3295,6 +3280,24 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+if|if
+condition|(
+name|possiblyEmpty
+condition|)
+block|{
+continue|continue;
+block|}
+throw|throw
+name|e
+throw|;
 block|}
 block|}
 block|}

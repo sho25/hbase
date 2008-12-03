@@ -313,6 +313,28 @@ literal|true
 decl_stmt|;
 if|if
 condition|(
+name|master
+operator|.
+name|regionManager
+operator|.
+name|numMetaRegions
+argument_list|()
+operator|!=
+name|master
+operator|.
+name|regionManager
+operator|.
+name|numOnlineMetaRegions
+argument_list|()
+condition|)
+block|{
+comment|// We can't proceed because not all of the meta regions are online.
+comment|// We can't block either because that would prevent the meta region
+comment|// online message from being processed. In order to prevent spinning
+comment|// in the run queue, put this request on the delay queue to give
+comment|// other threads the opportunity to get the meta regions on-line.
+if|if
+condition|(
 name|LOG
 operator|.
 name|isDebugEnabled
@@ -342,37 +364,6 @@ name|numOnlineMetaRegions
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-if|if
-condition|(
-name|master
-operator|.
-name|regionManager
-operator|.
-name|numMetaRegions
-argument_list|()
-operator|!=
-name|master
-operator|.
-name|regionManager
-operator|.
-name|numOnlineMetaRegions
-argument_list|()
-condition|)
-block|{
-comment|// We can't proceed because not all of the meta regions are online.
-comment|// We can't block either because that would prevent the meta region
-comment|// online message from being processed. In order to prevent spinning
-comment|// in the run queue, put this request on the delay queue to give
-comment|// other threads the opportunity to get the meta regions on-line.
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
