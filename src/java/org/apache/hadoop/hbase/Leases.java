@@ -286,6 +286,23 @@ parameter_list|)
 block|{
 continue|continue;
 block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"Unexpected exception killed leases thread"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
 if|if
 condition|(
 name|lease

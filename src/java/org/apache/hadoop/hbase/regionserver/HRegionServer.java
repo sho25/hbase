@@ -3491,13 +3491,23 @@ argument_list|()
 operator|instanceof
 name|OutOfMemoryError
 operator|)
+operator|||
+name|e
+operator|.
+name|getMessage
+argument_list|()
+operator|.
+name|contains
+argument_list|(
+literal|"java.lang.OutOfMemoryError"
+argument_list|)
 condition|)
 block|{
 name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"OOME, aborting."
+literal|"OutOfMemoryError, aborting."
 argument_list|,
 name|e
 argument_list|)
@@ -9436,6 +9446,16 @@ operator|new
 name|IOException
 argument_list|(
 literal|"Server not running"
+operator|+
+operator|(
+name|this
+operator|.
+name|abortRequested
+condition|?
+literal|", aborting"
+else|:
+literal|""
+operator|)
 argument_list|)
 throw|;
 block|}
