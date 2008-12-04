@@ -1885,7 +1885,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get more than one version of all columns for the specified row    * at a specified timestamp    *     * @param row row key    * @param ts timestamp    * @param numVersions number of versions to return    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get more than one version of all columns for the specified row    * at a specified timestamp    *     * @param row row key    * @param timestamp timestamp    * @param numVersions number of versions to return    * @return RowResult is empty if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
