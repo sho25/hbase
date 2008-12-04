@@ -966,6 +966,7 @@ return|;
 block|}
 comment|/**    * Check if the regionserver's memcache memory usage is greater than the     * limit. If so, flush regions with the biggest memcaches until we're down    * to the lower limit. This method blocks callers until we're down to a safe    * amount of memcache consumption.    */
 specifier|public
+specifier|synchronized
 name|void
 name|reclaimMemcacheMemory
 parameter_list|()
@@ -985,7 +986,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/*    * Emergency!  Need to flush memory.  While running this method all updates    * to this regionserver are blocked.    */
+comment|/*    * Emergency!  Need to flush memory.    */
 specifier|private
 specifier|synchronized
 name|void
@@ -1097,9 +1098,14 @@ argument_list|()
 operator|+
 literal|" because global memcache limit of "
 operator|+
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
 name|this
 operator|.
 name|globalMemcacheLimit
+argument_list|)
 operator|+
 literal|" exceeded; currently "
 operator|+
