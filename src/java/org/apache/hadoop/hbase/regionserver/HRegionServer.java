@@ -667,7 +667,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|UnknownScannerException
+name|UnknownRowLockException
 import|;
 end_import
 
@@ -681,7 +681,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|UnknownRowLockException
+name|UnknownScannerException
 import|;
 end_import
 
@@ -855,7 +855,39 @@ name|hbase
 operator|.
 name|ipc
 operator|.
+name|HBaseRPC
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
 name|HBaseRPCProtocolVersion
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
+name|HBaseServer
 import|;
 end_import
 
@@ -888,22 +920,6 @@ operator|.
 name|ipc
 operator|.
 name|HRegionInterface
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
-name|HbaseRPC
 import|;
 end_import
 
@@ -1030,20 +1046,6 @@ operator|.
 name|io
 operator|.
 name|Writable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|ipc
-operator|.
-name|Server
 import|;
 end_import
 
@@ -1270,7 +1272,7 @@ decl_stmt|;
 comment|// Server to handle client requests.  Default access so can be accessed by
 comment|// unit tests.
 specifier|final
-name|Server
+name|HBaseServer
 name|server
 decl_stmt|;
 comment|// Leases
@@ -1630,7 +1632,7 @@ name|this
 operator|.
 name|server
 operator|=
-name|HbaseRPC
+name|HBaseRPC
 operator|.
 name|getServer
 argument_list|(
@@ -3004,7 +3006,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|HbaseRPC
+name|HBaseRPC
 operator|.
 name|stopProxy
 argument_list|(
@@ -4919,7 +4921,7 @@ operator|=
 operator|(
 name|HMasterRegionInterface
 operator|)
-name|HbaseRPC
+name|HBaseRPC
 operator|.
 name|waitForProxy
 argument_list|(

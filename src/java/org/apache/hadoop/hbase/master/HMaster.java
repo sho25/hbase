@@ -571,6 +571,22 @@ name|hbase
 operator|.
 name|ipc
 operator|.
+name|HBaseServer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
 name|HMasterInterface
 import|;
 end_import
@@ -619,7 +635,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HbaseRPC
+name|HBaseRPC
 import|;
 end_import
 
@@ -809,20 +825,6 @@ name|RemoteException
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|ipc
-operator|.
-name|Server
-import|;
-end_import
-
 begin_comment
 comment|/**  * HMaster is the "master server" for a HBase.  * There is only one HMaster for a single HBase deployment.  *   * NOTE: This class extends Thread rather than Chore because the sleep time  * can be interrupted when there is something to do, rather than the Chore  * sleep time which is invariant.  */
 end_comment
@@ -861,19 +863,9 @@ specifier|public
 name|long
 name|getProtocolVersion
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|String
 name|protocol
 parameter_list|,
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|long
 name|clientVersion
 parameter_list|)
@@ -973,7 +965,7 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
-name|Server
+name|HBaseServer
 name|server
 decl_stmt|;
 specifier|private
@@ -1425,7 +1417,7 @@ name|this
 operator|.
 name|server
 operator|=
-name|HbaseRPC
+name|HBaseRPC
 operator|.
 name|getServer
 argument_list|(
@@ -2614,11 +2606,6 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/*    * HMasterRegionInterface    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|public
 name|MapWritable
 name|regionServerStartup
@@ -2634,7 +2621,7 @@ comment|// the HRS side.
 name|String
 name|rsAddress
 init|=
-name|Server
+name|HBaseServer
 operator|.
 name|getRemoteAddress
 argument_list|()
@@ -2696,7 +2683,7 @@ comment|// Get the real address of the HRS.
 name|String
 name|rsAddress
 init|=
-name|Server
+name|HBaseServer
 operator|.
 name|getRemoteAddress
 argument_list|()

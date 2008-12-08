@@ -3663,7 +3663,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"no store files to compact"
+name|this
+operator|.
+name|storeNameStr
+operator|+
+literal|": no store files to compact"
 argument_list|)
 expr_stmt|;
 return|return

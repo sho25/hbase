@@ -433,7 +433,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HbaseRPC
+name|HBaseRPC
 import|;
 end_import
 
@@ -1110,7 +1110,7 @@ init|=
 operator|(
 name|HMasterInterface
 operator|)
-name|HbaseRPC
+name|HBaseRPC
 operator|.
 name|getProxy
 argument_list|(
@@ -3527,7 +3527,7 @@ operator|=
 operator|(
 name|HRegionInterface
 operator|)
-name|HbaseRPC
+name|HBaseRPC
 operator|.
 name|waitForProxy
 argument_list|(
@@ -4628,7 +4628,7 @@ condition|(
 name|stopProxy
 condition|)
 block|{
-name|HbaseRPC
+name|HBaseRPC
 operator|.
 name|stopProxy
 argument_list|(
@@ -4666,7 +4666,7 @@ name|values
 argument_list|()
 control|)
 block|{
-name|HbaseRPC
+name|HBaseRPC
 operator|.
 name|stopProxy
 argument_list|(

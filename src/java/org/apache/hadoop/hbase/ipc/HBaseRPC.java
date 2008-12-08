@@ -309,34 +309,6 @@ name|hadoop
 operator|.
 name|ipc
 operator|.
-name|Client
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|ipc
-operator|.
-name|HBaseClient
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|ipc
-operator|.
 name|VersionedProtocol
 import|;
 end_import
@@ -392,7 +364,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|HbaseRPC
+name|HBaseRPC
 block|{
 comment|// Leave this out in the hadoop ipc package but keep class name.  Do this
 comment|// so that we dont' get the logging of this class's invocations by doing our
@@ -411,7 +383,7 @@ literal|"org.apache.hadoop.ipc.HbaseRPC"
 argument_list|)
 decl_stmt|;
 specifier|private
-name|HbaseRPC
+name|HBaseRPC
 parameter_list|()
 block|{
 name|super
@@ -1170,7 +1142,7 @@ name|Map
 argument_list|<
 name|SocketFactory
 argument_list|,
-name|Client
+name|HBaseClient
 argument_list|>
 name|clients
 init|=
@@ -1179,14 +1151,14 @@ name|HashMap
 argument_list|<
 name|SocketFactory
 argument_list|,
-name|Client
+name|HBaseClient
 argument_list|>
 argument_list|()
 decl_stmt|;
 comment|/**      * Construct& cache an IPC client with the user-provided SocketFactory       * if no cached client exists.      *       * @param conf Configuration      * @return an IPC client      */
 specifier|private
 specifier|synchronized
-name|Client
+name|HBaseClient
 name|getClient
 parameter_list|(
 name|Configuration
@@ -1201,7 +1173,7 @@ comment|// and Clients have connection pools.  So we can either (a) lose some
 comment|// connection pooling and leak sockets, or (b) use the same timeout for all
 comment|// configurations.  Since the IPC is usually intended globally, not
 comment|// per-job, we choose (a).
-name|Client
+name|HBaseClient
 name|client
 init|=
 name|clients
@@ -1263,7 +1235,7 @@ block|}
 comment|/**      * Construct& cache an IPC client with the default SocketFactory       * if no cached client exists.      *       * @param conf Configuration      * @return an IPC client      */
 specifier|private
 specifier|synchronized
-name|Client
+name|HBaseClient
 name|getClient
 parameter_list|(
 name|Configuration
@@ -1287,7 +1259,7 @@ specifier|private
 name|void
 name|stopClient
 parameter_list|(
-name|Client
+name|HBaseClient
 name|client
 parameter_list|)
 block|{
@@ -1382,7 +1354,7 @@ name|UserGroupInformation
 name|ticket
 decl_stmt|;
 specifier|private
-name|Client
+name|HBaseClient
 name|client
 decl_stmt|;
 specifier|private
@@ -2148,7 +2120,7 @@ name|i
 index|]
 argument_list|)
 expr_stmt|;
-name|Client
+name|HBaseClient
 name|client
 init|=
 name|CLIENTS
@@ -2366,15 +2338,7 @@ specifier|static
 class|class
 name|Server
 extends|extends
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|ipc
-operator|.
-name|Server
+name|HBaseServer
 block|{
 specifier|private
 name|Object
