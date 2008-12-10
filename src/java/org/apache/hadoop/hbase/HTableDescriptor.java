@@ -921,6 +921,17 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|indexes
+operator|.
+name|putAll
+argument_list|(
+name|desc
+operator|.
+name|indexes
+argument_list|)
+expr_stmt|;
 block|}
 comment|/*    * Set meta flags on this table.    * Called by constructors.    * @param name    */
 specifier|private
@@ -2175,6 +2186,37 @@ operator|.
 name|append
 argument_list|(
 name|families
+operator|.
+name|values
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|s
+operator|.
+name|append
+argument_list|(
+literal|", "
+argument_list|)
+expr_stmt|;
+name|s
+operator|.
+name|append
+argument_list|(
+literal|"INDEXES"
+argument_list|)
+expr_stmt|;
+name|s
+operator|.
+name|append
+argument_list|(
+literal|" => "
+argument_list|)
+expr_stmt|;
+name|s
+operator|.
+name|append
+argument_list|(
+name|indexes
 operator|.
 name|values
 argument_list|()

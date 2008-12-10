@@ -983,6 +983,13 @@ argument_list|,
 name|columns
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|baseResult
+operator|!=
+literal|null
+condition|)
+block|{
 name|colValues
 operator|.
 name|putAll
@@ -990,6 +997,7 @@ argument_list|(
 name|baseResult
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 for|for
 control|(
