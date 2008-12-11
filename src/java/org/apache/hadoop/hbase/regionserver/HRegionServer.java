@@ -79,6 +79,18 @@ begin_import
 import|import
 name|java
 operator|.
+name|lang
+operator|.
+name|reflect
+operator|.
+name|Field
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|net
 operator|.
 name|InetSocketAddress
@@ -1805,22 +1817,6 @@ index|]
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Register shutdown hook for HRegionServer, runs an orderly shutdown
-comment|// when a kill signal is recieved
-name|Runtime
-operator|.
-name|getRuntime
-argument_list|()
-operator|.
-name|addShutdownHook
-argument_list|(
-operator|new
-name|ShutdownThread
-argument_list|(
-name|this
-argument_list|)
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * The HRegionServer sticks in this loop until closed. It repeatedly checks    * in with the HMaster, sending heartbeats& reports, and receiving HRegion     * load/unload instructions.    */
 specifier|public
@@ -3029,6 +3025,49 @@ name|LOG
 operator|.
 name|info
 argument_list|(
+literal|"Running hdfs shutdown thread"
+argument_list|)
+expr_stmt|;
+name|hdfsShutdownThread
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
+try|try
+block|{
+name|hdfsShutdownThread
+operator|.
+name|join
+argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Hdfs shutdown thread completed."
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"hdfsShutdownThread.join() was interrupted"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
 name|Thread
 operator|.
 name|currentThread
@@ -3201,6 +3240,34 @@ name|this
 operator|.
 name|conf
 argument_list|)
+expr_stmt|;
+comment|// Register shutdown hook for HRegionServer, runs an orderly shutdown
+comment|// when a kill signal is recieved
+name|Runtime
+operator|.
+name|getRuntime
+argument_list|()
+operator|.
+name|addShutdownHook
+argument_list|(
+operator|new
+name|ShutdownThread
+argument_list|(
+name|this
+argument_list|,
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|hdfsShutdownThread
+operator|=
+name|suppressHdfsShutdownHook
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -3756,12 +3823,20 @@ specifier|final
 name|HRegionServer
 name|instance
 decl_stmt|;
-comment|/**      * @param instance      */
+specifier|private
+specifier|final
+name|Thread
+name|mainThread
+decl_stmt|;
+comment|/**      * @param instance      * @param mainThread      */
 specifier|public
 name|ShutdownThread
 parameter_list|(
 name|HRegionServer
 name|instance
+parameter_list|,
+name|Thread
+name|mainThread
 parameter_list|)
 block|{
 name|this
@@ -3769,6 +3844,12 @@ operator|.
 name|instance
 operator|=
 name|instance
+expr_stmt|;
+name|this
+operator|.
+name|mainThread
+operator|=
+name|mainThread
 expr_stmt|;
 block|}
 annotation|@
@@ -3785,16 +3866,19 @@ argument_list|(
 literal|"Starting shutdown thread."
 argument_list|)
 expr_stmt|;
-comment|// tell the region server to stop and wait for it to complete
+comment|// tell the region server to stop
 name|instance
 operator|.
 name|stop
 argument_list|()
 expr_stmt|;
-name|instance
+comment|// Wait for main thread to exit.
+name|Threads
 operator|.
-name|join
-argument_list|()
+name|shutdown
+argument_list|(
+name|mainThread
+argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
@@ -3805,6 +3889,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// We need to call HDFS shutdown when we are done shutting down
+specifier|private
+name|Thread
+name|hdfsShutdownThread
+decl_stmt|;
 comment|/*    * Inner class that runs on a long period checking if regions need major    * compaction.    */
 specifier|private
 specifier|static
@@ -3954,6 +4043,122 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+block|}
+comment|/**    * So, HDFS caches FileSystems so when you call FileSystem.get it's fast. In    * order to make sure things are cleaned up, it also creates a shutdown hook    * so that all filesystems can be closed when the process is terminated. This    * conveniently runs concurrently with our own shutdown handler, and    * therefore causes all the filesystems to be closed before the server can do    * all its necessary cleanup.    *    * The crazy dirty reflection in this method sneaks into the FileSystem cache    * and grabs the shutdown hook, removes it from the list of active shutdown    * hooks, and hangs onto it until later. Then, after we're properly done with    * our graceful shutdown, we can execute the hdfs hook manually to make sure    * loose ends are tied up.    *    * This seems quite fragile and susceptible to breaking if Hadoop changes    * anything about the way this cleanup is managed. Keep an eye on things.    */
+specifier|private
+name|Thread
+name|suppressHdfsShutdownHook
+parameter_list|()
+block|{
+try|try
+block|{
+name|Field
+name|field
+init|=
+name|FileSystem
+operator|.
+name|class
+operator|.
+name|getDeclaredField
+argument_list|(
+literal|"clientFinalizer"
+argument_list|)
+decl_stmt|;
+name|field
+operator|.
+name|setAccessible
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|Thread
+name|hdfsClientFinalizer
+init|=
+operator|(
+name|Thread
+operator|)
+name|field
+operator|.
+name|get
+argument_list|(
+literal|null
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|hdfsClientFinalizer
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"client finalizer is null, can't suppress!"
+argument_list|)
+throw|;
+block|}
+name|Runtime
+operator|.
+name|getRuntime
+argument_list|()
+operator|.
+name|removeShutdownHook
+argument_list|(
+name|hdfsClientFinalizer
+argument_list|)
+expr_stmt|;
+return|return
+name|hdfsClientFinalizer
+return|;
+block|}
+catch|catch
+parameter_list|(
+name|NoSuchFieldException
+name|nsfe
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"Couldn't find field 'clientFinalizer' in FileSystem!"
+argument_list|,
+name|nsfe
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Failed to suppress HDFS shutdown hook"
+argument_list|)
+throw|;
+block|}
+catch|catch
+parameter_list|(
+name|IllegalAccessException
+name|iae
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"Couldn't access field 'clientFinalizer' in FileSystem!"
+argument_list|,
+name|iae
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Failed to suppress HDFS shutdown hook"
+argument_list|)
+throw|;
 block|}
 block|}
 comment|/**    * Report the status of the server. A server is online once all the startup     * is completed (setting up filesystem, starting service threads, etc.). This    * method is designed mostly to be useful in tests.    * @return true if online, false if not.    */
