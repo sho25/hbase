@@ -55,6 +55,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|io
+operator|.
+name|HeapSize
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -102,6 +118,8 @@ name|WritableComparable
 argument_list|<
 name|HStoreKey
 argument_list|>
+implements|,
+name|HeapSize
 block|{
 comment|/**    * Colon character in UTF-8    */
 specifier|public
@@ -144,6 +162,17 @@ name|HRegionInfo
 name|regionInfo
 init|=
 literal|null
+decl_stmt|;
+comment|/**    * Estimated size tax paid for each instance of HSK.  Estimate based on    * study of jhat and jprofiler numbers.    */
+comment|// In jprofiler, says shallow size is 48 bytes.  Add to it cost of two
+comment|// byte arrays and then something for the HRI hosting.
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|ESTIMATED_HEAP_TAX
+init|=
+literal|48
 decl_stmt|;
 comment|/** Default constructor used in conjunction with Writable interface */
 specifier|public
@@ -509,28 +538,6 @@ name|regionInfo
 operator|=
 name|regionInfo
 expr_stmt|;
-block|}
-comment|/** @return Approximate size in bytes of this key. */
-specifier|public
-name|long
-name|getSize
-parameter_list|()
-block|{
-return|return
-name|getRow
-argument_list|()
-operator|.
-name|length
-operator|+
-name|getColumn
-argument_list|()
-operator|.
-name|length
-operator|+
-name|Bytes
-operator|.
-name|SIZEOF_LONG
-return|;
 block|}
 comment|/**    * Constructs a new HStoreKey from another    *     * @param other the source key    */
 specifier|public
@@ -2197,6 +2204,33 @@ name|readLong
 argument_list|()
 expr_stmt|;
 block|}
+specifier|public
+name|long
+name|heapSize
+parameter_list|()
+block|{
+return|return
+name|getRow
+argument_list|()
+operator|.
+name|length
+operator|+
+name|Bytes
+operator|.
+name|ESTIMATED_HEAP_TAX
+operator|+
+name|getColumn
+argument_list|()
+operator|.
+name|length
+operator|+
+name|Bytes
+operator|.
+name|ESTIMATED_HEAP_TAX
+operator|+
+name|ESTIMATED_HEAP_TAX
+return|;
+block|}
 comment|/**    * Passed as comparator for memcache and for store files.  See HBASE-868.    */
 specifier|public
 specifier|static
@@ -2391,7 +2425,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getSize
+name|heapSize
 parameter_list|()
 block|{
 return|return
@@ -2399,7 +2433,7 @@ name|this
 operator|.
 name|beforeThisKey
 operator|.
-name|getSize
+name|heapSize
 argument_list|()
 return|;
 block|}

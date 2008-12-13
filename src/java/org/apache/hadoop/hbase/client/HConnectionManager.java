@@ -4053,27 +4053,6 @@ name|exceptions
 argument_list|)
 throw|;
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"reloading table servers because: "
-operator|+
-name|t
-operator|.
-name|getMessage
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 try|try
 block|{

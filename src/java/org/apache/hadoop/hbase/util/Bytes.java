@@ -200,6 +200,16 @@ name|Byte
 operator|.
 name|SIZE
 decl_stmt|;
+comment|/**    * Estimate of size cost to pay beyond payload in jvm for instance of byte [].    * Estimate based on study of jhat and jprofiler numbers.    */
+comment|// JHat says BU is 56 bytes.
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|ESTIMATED_HEAP_TAX
+init|=
+literal|16
+decl_stmt|;
 comment|/**    * Pass this to TreeMaps where byte [] are keys.    */
 specifier|public
 specifier|static

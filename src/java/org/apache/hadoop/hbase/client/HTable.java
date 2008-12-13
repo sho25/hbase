@@ -606,7 +606,7 @@ name|getLong
 argument_list|(
 literal|"hbase.client.write.buffer"
 argument_list|,
-literal|10485760
+literal|2097152
 argument_list|)
 expr_stmt|;
 name|this
@@ -3843,7 +3843,7 @@ name|currentWriteBufferSize
 operator|+=
 name|batchUpdate
 operator|.
-name|getSize
+name|heapSize
 argument_list|()
 expr_stmt|;
 if|if
@@ -3900,7 +3900,7 @@ name|currentWriteBufferSize
 operator|+=
 name|bu
 operator|.
-name|getSize
+name|heapSize
 argument_list|()
 expr_stmt|;
 block|}

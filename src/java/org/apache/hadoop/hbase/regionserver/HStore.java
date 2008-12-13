@@ -2907,6 +2907,7 @@ specifier|private
 name|boolean
 name|internalFlushCache
 parameter_list|(
+specifier|final
 name|SortedMap
 argument_list|<
 name|HStoreKey
@@ -2916,6 +2917,7 @@ index|[]
 argument_list|>
 name|cache
 parameter_list|,
+specifier|final
 name|long
 name|logCacheFlushId
 parameter_list|)
@@ -3126,22 +3128,18 @@ argument_list|)
 expr_stmt|;
 name|flushed
 operator|+=
+name|this
+operator|.
+name|memcache
+operator|.
+name|heapSize
+argument_list|(
 name|curkey
-operator|.
-name|getSize
-argument_list|()
-operator|+
-operator|(
+argument_list|,
 name|bytes
-operator|==
+argument_list|,
 literal|null
-condition|?
-literal|0
-else|:
-name|bytes
-operator|.
-name|length
-operator|)
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -3218,7 +3216,7 @@ literal|" entries, sequence id "
 operator|+
 name|logCacheFlushId
 operator|+
-literal|", data size "
+literal|", data size ~"
 operator|+
 name|StringUtils
 operator|.
