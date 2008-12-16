@@ -3426,6 +3426,18 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
+comment|// Get current size of memcaches.
+specifier|final
+name|long
+name|currentMemcacheSize
+init|=
+name|this
+operator|.
+name|memcacheSize
+operator|.
+name|get
+argument_list|()
+decl_stmt|;
 try|try
 block|{
 for|for
@@ -3459,15 +3471,6 @@ operator|.
 name|getCompleteCacheFlushSequenceId
 argument_list|(
 name|sequenceId
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|memcacheSize
-operator|.
-name|set
-argument_list|(
-literal|0
 argument_list|)
 expr_stmt|;
 block|}
@@ -3530,6 +3533,17 @@ literal|true
 expr_stmt|;
 block|}
 block|}
+comment|// Set down the memcache size by amount of flush.
+name|this
+operator|.
+name|memcacheSize
+operator|.
+name|addAndGet
+argument_list|(
+operator|-
+name|currentMemcacheSize
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -3623,6 +3637,14 @@ name|isDebugEnabled
 argument_list|()
 condition|)
 block|{
+name|long
+name|now
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 name|String
 name|timeTaken
 init|=
@@ -3630,10 +3652,7 @@ name|StringUtils
 operator|.
 name|formatTimeDiff
 argument_list|(
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
+name|now
 argument_list|,
 name|startTime
 argument_list|)
@@ -3642,17 +3661,23 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Finished memcache flush for region "
+literal|"Finished memcache flush of ~"
+operator|+
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
+name|currentMemcacheSize
+argument_list|)
+operator|+
+literal|" for region "
 operator|+
 name|this
 operator|+
 literal|" in "
 operator|+
 operator|(
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
+name|now
 operator|-
 name|startTime
 operator|)
@@ -5172,7 +5197,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/*    * Check if resources to support an update.    *     * For now, just checks memcache saturation.    *     * Here we synchronize on HRegion, a broad scoped lock.  Its appropriate    * given we're figuring in here whether this region is able to take on    * writes.  This is only method with a synchronize (at time of writing),    * this and the synchronize on 'this' inside in internalFlushCache to send    * the notify.    */
+comment|/*    * Check if resources to support an update.    *     * Here we synchronize on HRegion, a broad scoped lock.  Its appropriate    * given we're figuring in here whether this region is able to take on    * writes.  This is only method with a synchronize (at time of writing),    * this and the synchronize on 'this' inside in internalFlushCache to send    * the notify.    */
 specifier|private
 name|void
 name|checkResources
