@@ -563,33 +563,6 @@ operator|.
 name|getRow
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-operator|&&
-name|row
-operator|!=
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"shutdown scanner looking at "
-operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|row
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
 comment|// Check server name.  If null, be conservative and treat as though
 comment|// region had been on shutdown server (could be null because we
 comment|// missed edits in hlog because hdfs does not do write-append).
@@ -630,7 +603,37 @@ block|{
 comment|// This isn't the server you're looking for - move along
 continue|continue;
 block|}
-comment|// Bingo! Found it.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+operator|&&
+name|row
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Shutdown scanner for "
+operator|+
+name|serverName
+operator|+
+literal|" processing "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|row
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 name|HRegionInfo
 name|info
 init|=

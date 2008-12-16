@@ -2096,6 +2096,11 @@ name|regionsClosed
 init|=
 literal|0
 decl_stmt|;
+name|int
+name|skippedClosing
+init|=
+literal|0
+decl_stmt|;
 while|while
 condition|(
 name|regionsClosed
@@ -2147,19 +2152,8 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Skipping region "
-operator|+
-name|currentRegion
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|" because it is already closing."
-argument_list|)
+name|skippedClosing
+operator|++
 expr_stmt|;
 continue|continue;
 block|}
@@ -2209,6 +2203,17 @@ name|regionsClosed
 operator|++
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Skipped "
+operator|+
+name|skippedClosing
+operator|+
+literal|" region(s) as already closing"
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * @return Read-only map of online regions.    */
 specifier|public
