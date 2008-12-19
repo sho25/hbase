@@ -512,6 +512,8 @@ operator|.
 name|stopRegionServer
 argument_list|(
 literal|2
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|cluster

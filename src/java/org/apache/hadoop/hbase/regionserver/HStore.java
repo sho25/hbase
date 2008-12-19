@@ -6784,7 +6784,7 @@ block|{
 name|MapFile
 operator|.
 name|Reader
-name|map
+name|r
 init|=
 name|maparray
 index|[
@@ -6793,7 +6793,7 @@ index|]
 decl_stmt|;
 synchronized|synchronized
 init|(
-name|map
+name|r
 init|)
 block|{
 comment|// Do the priming read
@@ -6810,7 +6810,7 @@ init|=
 operator|(
 name|HStoreKey
 operator|)
-name|map
+name|r
 operator|.
 name|getClosest
 argument_list|(
@@ -6878,7 +6878,7 @@ operator|new
 name|ImmutableBytesWritable
 argument_list|()
 init|;
-name|map
+name|r
 operator|.
 name|next
 argument_list|(
