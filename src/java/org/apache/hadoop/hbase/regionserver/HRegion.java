@@ -3025,12 +3025,12 @@ operator|.
 name|info
 argument_list|(
 literal|"starting "
+operator|+
 operator|(
 name|majorCompaction
 condition|?
-else|:
 literal|"major"
-operator|:
+else|:
 literal|""
 operator|)
 operator|+
