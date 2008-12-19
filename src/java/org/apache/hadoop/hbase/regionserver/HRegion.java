@@ -3024,7 +3024,17 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"starting compaction on region "
+literal|"starting "
+operator|(
+name|majorCompaction
+condition|?
+else|:
+literal|"major"
+operator|:
+literal|""
+operator|)
+operator|+
+literal|" compaction on region "
 operator|+
 name|this
 argument_list|)
