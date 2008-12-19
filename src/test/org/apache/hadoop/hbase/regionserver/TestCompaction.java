@@ -334,7 +334,7 @@ name|setInt
 argument_list|(
 literal|"hbase.hregion.memcache.block.multiplier"
 argument_list|,
-literal|2
+literal|10
 argument_list|)
 expr_stmt|;
 name|this
