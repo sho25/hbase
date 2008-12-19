@@ -296,17 +296,6 @@ operator|+
 name|path
 argument_list|)
 throw|;
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"URL "
-operator|+
-name|url
-argument_list|)
-expr_stmt|;
 return|return
 name|url
 operator|.
