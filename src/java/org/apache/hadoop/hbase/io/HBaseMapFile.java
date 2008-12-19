@@ -182,7 +182,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Hbase customizations of MapFile.  */
+comment|/**  * HBase customizations of MapFile.  */
 end_comment
 
 begin_class

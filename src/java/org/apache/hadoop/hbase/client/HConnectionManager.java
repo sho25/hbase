@@ -4493,6 +4493,14 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
+name|long
+name|sleepTime
+init|=
+name|getPauseTime
+argument_list|(
+name|tries
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|LOG
@@ -4505,9 +4513,23 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"reloading table servers because region "
+literal|"Eeloading table servers because region "
 operator|+
-literal|"server didn't accept updates "
+literal|"server didn't accept updates; tries="
+operator|+
+name|tries
+operator|+
+literal|" of max="
+operator|+
+name|this
+operator|.
+name|numRetries
+operator|+
+literal|", waiting="
+operator|+
+name|sleepTime
+operator|+
+literal|"ms"
 argument_list|)
 expr_stmt|;
 block|}
@@ -4520,10 +4542,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-name|getPauseTime
-argument_list|(
-name|tries
-argument_list|)
+name|sleepTime
 argument_list|)
 expr_stmt|;
 name|tries
