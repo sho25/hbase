@@ -540,7 +540,7 @@ name|getInt
 argument_list|(
 literal|"hbase.io.index.interval"
 argument_list|,
-literal|32
+literal|128
 argument_list|)
 argument_list|)
 expr_stmt|;
