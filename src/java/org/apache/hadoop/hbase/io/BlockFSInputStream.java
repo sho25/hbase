@@ -81,6 +81,18 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|ThreadFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|TimeUnit
 import|;
 end_import
@@ -220,7 +232,48 @@ init|=
 name|Executors
 operator|.
 name|newSingleThreadScheduledExecutor
+argument_list|(
+operator|new
+name|ThreadFactory
 argument_list|()
+block|{
+specifier|public
+name|Thread
+name|newThread
+parameter_list|(
+name|Runnable
+name|r
+parameter_list|)
+block|{
+name|Thread
+name|t
+init|=
+operator|new
+name|Thread
+argument_list|(
+name|r
+argument_list|)
+decl_stmt|;
+name|t
+operator|.
+name|setDaemon
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|t
+operator|.
+name|setName
+argument_list|(
+literal|"BlockFSInputStream referenceQueue Checker"
+argument_list|)
+expr_stmt|;
+return|return
+name|t
+return|;
+block|}
+block|}
+argument_list|)
 decl_stmt|;
 comment|/*    * The registration of this object in EXECUTOR.    */
 specifier|private
@@ -456,6 +509,13 @@ block|}
 block|}
 expr_stmt|;
 comment|// Register a Runnable that runs checkReferences on a period.
+specifier|final
+name|int
+name|hashcode
+init|=
+name|hashCode
+argument_list|()
+decl_stmt|;
 name|this
 operator|.
 name|registration
@@ -498,6 +558,10 @@ argument_list|(
 literal|"Cleared "
 operator|+
 name|cleared
+operator|+
+literal|" in "
+operator|+
+name|hashcode
 argument_list|)
 expr_stmt|;
 block|}
