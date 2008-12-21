@@ -4172,20 +4172,6 @@ operator|)
 name|t
 throw|;
 block|}
-if|if
-condition|(
-name|t
-operator|instanceof
-name|IOException
-condition|)
-block|{
-throw|throw
-operator|(
-name|IOException
-operator|)
-name|t
-throw|;
-block|}
 block|}
 return|return
 literal|null
@@ -4219,6 +4205,11 @@ condition|)
 block|{
 return|return;
 block|}
+name|boolean
+name|retryOnlyOne
+init|=
+literal|false
+decl_stmt|;
 name|Collections
 operator|.
 name|sort
@@ -4381,6 +4372,8 @@ name|region
 argument_list|)
 operator|||
 name|isLastRow
+operator|||
+name|retryOnlyOne
 condition|)
 block|{
 specifier|final
@@ -4513,7 +4506,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Eeloading table servers because region "
+literal|"Reloading table servers because region "
 operator|+
 literal|"server didn't accept updates; tries="
 operator|+
@@ -4533,9 +4526,6 @@ literal|"ms"
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Basic waiting time. If many updates are flushed, tests have shown
-comment|// that this is barely needed but when commiting 1 update this may
-comment|// get retried hundreds of times.
 try|try
 block|{
 name|Thread
@@ -4567,6 +4557,10 @@ name|length
 operator|+
 name|index
 expr_stmt|;
+name|retryOnlyOne
+operator|=
+literal|true
+expr_stmt|;
 name|region
 operator|=
 name|getRegionLocation
@@ -4593,6 +4587,13 @@ argument_list|()
 operator|.
 name|getRegionName
 argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
+name|retryOnlyOne
+operator|=
+literal|false
 expr_stmt|;
 block|}
 name|currentRegion
