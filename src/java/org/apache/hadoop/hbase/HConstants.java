@@ -711,6 +711,17 @@ name|MODIFY_TABLE_COMPACT
 init|=
 literal|3
 decl_stmt|;
+comment|// Messages client can send master.
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MODIFY_CLOSE_REGION
+init|=
+name|MODIFY_TABLE_COMPACT
+operator|+
+literal|1
+decl_stmt|;
 block|}
 end_interface
 

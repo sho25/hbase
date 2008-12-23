@@ -416,27 +416,6 @@ block|}
 continue|continue;
 block|}
 comment|// Update meta table
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"updating columns in row: "
-operator|+
-name|i
-operator|.
-name|getRegionNameAsString
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 name|BatchUpdate
 name|b
 init|=
@@ -497,7 +476,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"updated columns in row: "
+literal|"Updated columns in row: "
 operator|+
 name|i
 operator|.
