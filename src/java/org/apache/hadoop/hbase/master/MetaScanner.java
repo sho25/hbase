@@ -564,6 +564,13 @@ name|get
 argument_list|()
 condition|)
 block|{
+synchronized|synchronized
+init|(
+name|master
+operator|.
+name|regionManager
+init|)
+block|{
 if|if
 condition|(
 name|regionManager
@@ -583,6 +590,7 @@ argument_list|()
 condition|)
 block|{
 break|break;
+block|}
 block|}
 try|try
 block|{

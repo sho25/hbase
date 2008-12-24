@@ -887,9 +887,19 @@ specifier|public
 name|long
 name|getProtocolVersion
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|String
 name|protocol
 parameter_list|,
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|long
 name|clientVersion
 parameter_list|)
@@ -2637,8 +2647,6 @@ parameter_list|(
 name|HServerInfo
 name|serverInfo
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 comment|// Set the address for now even tho it will not be persisted on
 comment|// the HRS side.
@@ -4409,11 +4417,13 @@ name|this
 operator|.
 name|regionManager
 operator|.
-name|markToClose
+name|setClosing
 argument_list|(
 name|servername
 argument_list|,
 name|hri
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|MetaRegion

@@ -1301,6 +1301,13 @@ operator|.
 name|getRegionInfo
 argument_list|()
 decl_stmt|;
+synchronized|synchronized
+init|(
+name|master
+operator|.
+name|regionManager
+init|)
+block|{
 if|if
 condition|(
 name|info
@@ -1346,10 +1353,8 @@ name|master
 operator|.
 name|regionManager
 operator|.
-name|isMarkedToClose
+name|isOfflined
 argument_list|(
-name|serverName
-argument_list|,
 name|info
 operator|.
 name|getRegionName
@@ -1364,8 +1369,23 @@ operator|.
 name|setUnassigned
 argument_list|(
 name|info
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|master
+operator|.
+name|regionManager
+operator|.
+name|removeRegion
+argument_list|(
+name|info
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -1632,24 +1652,6 @@ name|HMsg
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|Map
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|HRegionInfo
-argument_list|>
-name|regionsToKill
-init|=
-name|master
-operator|.
-name|regionManager
-operator|.
-name|removeMarkedToClose
-argument_list|(
-name|serverName
-argument_list|)
-decl_stmt|;
 if|if
 condition|(
 name|serverInfo
@@ -1729,15 +1731,6 @@ block|{
 case|case
 name|MSG_REPORT_PROCESS_OPEN
 case|:
-name|master
-operator|.
-name|regionManager
-operator|.
-name|updateAssignmentDeadline
-argument_list|(
-name|region
-argument_list|)
-expr_stmt|;
 break|break;
 case|case
 name|MSG_REPORT_OPEN
@@ -1759,8 +1752,6 @@ name|MSG_REPORT_CLOSE
 case|:
 name|processRegionClose
 argument_list|(
-name|serverInfo
-argument_list|,
 name|region
 argument_list|)
 expr_stmt|;
@@ -1810,23 +1801,27 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|// Tell the region server to close regions that we have marked for closing.
-if|if
-condition|(
-name|regionsToKill
-operator|!=
-literal|null
-condition|)
+synchronized|synchronized
+init|(
+name|master
+operator|.
+name|regionManager
+init|)
 block|{
+comment|// Tell the region server to close regions that we have marked for closing.
 for|for
 control|(
 name|HRegionInfo
 name|i
 range|:
-name|regionsToKill
+name|master
 operator|.
-name|values
-argument_list|()
+name|regionManager
+operator|.
+name|getMarkedToClose
+argument_list|(
+name|serverName
+argument_list|)
 control|)
 block|{
 name|returnMsgs
@@ -1851,7 +1846,7 @@ name|master
 operator|.
 name|regionManager
 operator|.
-name|setClosing
+name|setClosed
 argument_list|(
 name|i
 operator|.
@@ -1859,7 +1854,6 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|// Figure out what the RegionServer ought to do, and write back.
 name|master
@@ -1889,6 +1883,7 @@ argument_list|,
 name|returnMsgs
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|returnMsgs
 operator|.
@@ -1932,6 +1927,13 @@ argument_list|>
 name|returnMsgs
 parameter_list|)
 block|{
+synchronized|synchronized
+init|(
+name|master
+operator|.
+name|regionManager
+init|)
+block|{
 comment|// Cancel any actions pending for the affected region.
 comment|// This prevents the master from sending a SPLIT message if the table
 comment|// has already split by the region server.
@@ -1962,6 +1964,8 @@ operator|.
 name|setUnassigned
 argument_list|(
 name|newRegionA
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|HRegionInfo
@@ -1979,6 +1983,8 @@ operator|.
 name|setUnassigned
 argument_list|(
 name|newRegionB
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 if|if
@@ -2011,6 +2017,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+block|}
 comment|/** Region server is reporting that a region is now opened */
 specifier|private
 name|void
@@ -2039,6 +2046,13 @@ name|duplicateAssignment
 init|=
 literal|false
 decl_stmt|;
+synchronized|synchronized
+init|(
+name|master
+operator|.
+name|regionManager
+init|)
+block|{
 if|if
 condition|(
 operator|!
@@ -2049,6 +2063,19 @@ operator|.
 name|isUnassigned
 argument_list|(
 name|region
+argument_list|)
+operator|&&
+operator|!
+name|master
+operator|.
+name|regionManager
+operator|.
+name|isAssigned
+argument_list|(
+name|region
+operator|.
+name|getRegionName
+argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -2196,17 +2223,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// it was assigned, and it's not a duplicate assignment, so take it out
-comment|// of the unassigned list.
-name|master
-operator|.
-name|regionManager
-operator|.
-name|noLongerUnassigned
-argument_list|(
-name|region
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|region
@@ -2215,6 +2231,17 @@ name|isRootRegion
 argument_list|()
 condition|)
 block|{
+comment|// it was assigned, and it's not a duplicate assignment, so take it out
+comment|// of the unassigned list.
+name|master
+operator|.
+name|regionManager
+operator|.
+name|removeRegion
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
 comment|// Store the Root Region location (in memory)
 name|HServerAddress
 name|rootServer
@@ -2305,21 +2332,21 @@ block|}
 block|}
 block|}
 block|}
+block|}
 specifier|private
 name|void
 name|processRegionClose
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
-name|HServerInfo
-name|serverInfo
-parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|)
+block|{
+synchronized|synchronized
+init|(
+name|master
+operator|.
+name|regionManager
+init|)
 block|{
 if|if
 condition|(
@@ -2330,6 +2357,20 @@ argument_list|()
 condition|)
 block|{
 comment|// Root region
+name|master
+operator|.
+name|connection
+operator|.
+name|unsetRootRegionLocation
+argument_list|()
+expr_stmt|;
+name|master
+operator|.
+name|regionManager
+operator|.
+name|unsetRootRegion
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|region
@@ -2351,80 +2392,10 @@ operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
+return|return;
 block|}
-name|master
-operator|.
-name|connection
-operator|.
-name|setRootRegionLocation
-argument_list|(
-literal|null
-argument_list|)
-expr_stmt|;
-name|master
-operator|.
-name|regionManager
-operator|.
-name|reassignRootRegion
-argument_list|()
-expr_stmt|;
 block|}
-else|else
-block|{
-name|boolean
-name|reassignRegion
-init|=
-operator|!
-name|region
-operator|.
-name|isOffline
-argument_list|()
-decl_stmt|;
-name|boolean
-name|offlineRegion
-init|=
-literal|false
-decl_stmt|;
-comment|// either this region is being closed because it was marked to close, or
-comment|// the region server is going down peacefully. in either case, we should
-comment|// at least try to remove it from the closing list.
-name|master
-operator|.
-name|regionManager
-operator|.
-name|noLongerClosing
-argument_list|(
-name|region
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// if the region is marked to be offlined, we don't want to reassign it.
-if|if
-condition|(
-name|master
-operator|.
-name|regionManager
-operator|.
-name|isMarkedForOffline
-argument_list|(
-name|region
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-condition|)
-block|{
-name|reassignRegion
-operator|=
-literal|false
-expr_stmt|;
-name|offlineRegion
-operator|=
-literal|true
-expr_stmt|;
-block|}
+elseif|else
 if|if
 condition|(
 name|region
@@ -2447,25 +2418,38 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// if the region is already on the unassigned list, let's remove it. this
-comment|// is safe because if it's going to be reassigned, it'll get added again
-comment|// shortly. if it's not going to get reassigned, then we need to make
-comment|// sure it's not on the unassigned list, because that would contend with
-comment|// the ProcessRegionClose going on asynchronously.
+name|boolean
+name|offlineRegion
+init|=
 name|master
 operator|.
 name|regionManager
 operator|.
-name|noLongerUnassigned
+name|isOfflined
 argument_list|(
 name|region
+operator|.
+name|getRegionName
+argument_list|()
 argument_list|)
-expr_stmt|;
-comment|// NOTE: we cannot put the region into unassignedRegions as that
-comment|//       changes the ordering of the messages we've received. In
-comment|//       this case, a close could be processed before an open
-comment|//       resulting in the master not agreeing on the region's
-comment|//       state.
+decl_stmt|;
+name|boolean
+name|reassignRegion
+init|=
+operator|!
+name|region
+operator|.
+name|isOffline
+argument_list|()
+operator|&&
+operator|!
+name|offlineRegion
+decl_stmt|;
+comment|// NOTE: If the region was just being closed and not offlined, we cannot
+comment|//       mark the region unassignedRegions as that changes the ordering of
+comment|//       the messages we've received. In this case, a close could be
+comment|//       processed before an open resulting in the master not agreeing on
+comment|//       the region's state.
 try|try
 block|{
 name|master
@@ -2531,6 +2515,8 @@ argument_list|(
 name|serverName
 argument_list|)
 decl_stmt|;
+comment|// Only cancel lease and update load information once.
+comment|// This method can be called a couple of times during shutdown.
 if|if
 condition|(
 name|info
@@ -2538,8 +2524,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-comment|// Only cancel lease and update load information once.
-comment|// This method can be called a couple of times during shutdown.
 if|if
 condition|(
 name|master

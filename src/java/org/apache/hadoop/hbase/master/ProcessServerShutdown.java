@@ -584,6 +584,10 @@ decl_stmt|;
 if|if
 condition|(
 name|serverName
+operator|!=
+literal|null
+operator|&&
+name|serverName
 operator|.
 name|length
 argument_list|()
@@ -662,6 +666,13 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
+synchronized|synchronized
+init|(
+name|master
+operator|.
+name|regionManager
+init|)
+block|{
 if|if
 condition|(
 name|info
@@ -735,47 +746,46 @@ name|master
 operator|.
 name|regionManager
 operator|.
-name|isMarkedToClose
+name|isOfflined
 argument_list|(
-name|deadServerName
-argument_list|,
 name|info
 operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
+operator|||
+name|info
+operator|.
+name|isOffline
+argument_list|()
 condition|)
 block|{
 name|master
 operator|.
 name|regionManager
 operator|.
-name|noLongerMarkedToClose
-argument_list|(
-name|deadServerName
-argument_list|,
-name|info
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|master
-operator|.
-name|regionManager
-operator|.
-name|noLongerUnassigned
+name|removeRegion
 argument_list|(
 name|info
 argument_list|)
 expr_stmt|;
 comment|// Mark region offline
+if|if
+condition|(
+operator|!
+name|info
+operator|.
+name|isOffline
+argument_list|()
+condition|)
+block|{
 name|todo
 operator|.
 name|regionOffline
 operator|=
 literal|true
 expr_stmt|;
+block|}
 block|}
 else|else
 block|{
@@ -804,19 +814,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// If it was pending, remove.
-name|master
-operator|.
-name|regionManager
-operator|.
-name|noLongerPending
-argument_list|(
-name|info
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-expr_stmt|;
+block|}
 block|}
 block|}
 finally|finally
@@ -953,6 +951,8 @@ operator|.
 name|setUnassigned
 argument_list|(
 name|info
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -1299,6 +1299,13 @@ operator|.
 name|rootRegionReassigned
 condition|)
 block|{
+comment|// avoid multiple root region reassignment
+name|this
+operator|.
+name|rootRegionReassigned
+operator|=
+literal|true
+expr_stmt|;
 comment|// The server that died was serving the root region. Now that the log
 comment|// has been split, get it reassigned.
 name|master
@@ -1307,13 +1314,6 @@ name|regionManager
 operator|.
 name|reassignRootRegion
 argument_list|()
-expr_stmt|;
-comment|// avoid multiple root region reassignment
-name|this
-operator|.
-name|rootRegionReassigned
-operator|=
-literal|true
 expr_stmt|;
 comment|// When we call rootAvailable below, it will put us on the delayed
 comment|// to do queue to allow some time to pass during which the root
@@ -1519,15 +1519,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|master
-operator|.
-name|regionManager
-operator|.
-name|allRegionsClosed
-argument_list|(
-name|deadServerName
-argument_list|)
-expr_stmt|;
 name|master
 operator|.
 name|serverManager

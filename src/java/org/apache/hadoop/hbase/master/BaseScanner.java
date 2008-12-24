@@ -1511,6 +1511,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+synchronized|synchronized
+init|(
+name|regionManager
+init|)
+block|{
 comment|// Skip region - if ...
 if|if
 condition|(
@@ -1522,7 +1527,7 @@ comment|// offline
 operator|||
 name|regionManager
 operator|.
-name|isClosing
+name|isOfflined
 argument_list|(
 name|info
 operator|.
@@ -1534,19 +1539,9 @@ block|{
 comment|// queued for offline
 name|regionManager
 operator|.
-name|noLongerUnassigned
+name|removeRegion
 argument_list|(
 name|info
-argument_list|)
-expr_stmt|;
-name|regionManager
-operator|.
-name|noLongerPending
-argument_list|(
-name|info
-operator|.
-name|getRegionName
-argument_list|()
 argument_list|)
 expr_stmt|;
 return|return;
@@ -1575,10 +1570,8 @@ if|if
 condition|(
 name|regionManager
 operator|.
-name|isMarkedToClose
+name|isOfflined
 argument_list|(
-name|serverName
-argument_list|,
 name|info
 operator|.
 name|getRegionName
@@ -1633,12 +1626,27 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*      * If the server is a dead server or its startcode is off -- either null      * or doesn't match the start code for the address -- then add it to the      * list of unassigned regions IF not already there (or pending open).      */
+comment|/*        * If the server is a dead server or its startcode is off -- either null        * or doesn't match the start code for the address -- then add it to the        * list of unassigned regions IF not already there (or pending open).        */
 if|if
 condition|(
-operator|!
+operator|(
 name|deadServer
+operator|||
+operator|(
+name|storedInfo
+operator|==
+literal|null
+operator|||
+name|storedInfo
+operator|.
+name|getStartCode
+argument_list|()
+operator|!=
+name|startCode
+operator|)
+operator|)
 operator|&&
+operator|(
 operator|!
 name|regionManager
 operator|.
@@ -1658,17 +1666,16 @@ name|getRegionName
 argument_list|()
 argument_list|)
 operator|&&
-operator|(
-name|storedInfo
-operator|==
-literal|null
-operator|||
-name|storedInfo
+operator|!
+name|regionManager
 operator|.
-name|getStartCode
+name|isAssigned
+argument_list|(
+name|info
+operator|.
+name|getRegionName
 argument_list|()
-operator|!=
-name|startCode
+argument_list|)
 operator|)
 condition|)
 block|{
@@ -1692,7 +1699,20 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" is not valid: serverInfo: "
+literal|" is not valid."
+operator|+
+operator|(
+name|storedInfo
+operator|==
+literal|null
+condition|?
+literal|" Server '"
+operator|+
+name|serverName
+operator|+
+literal|"' unknown."
+else|:
+literal|" serverInfo: "
 operator|+
 name|storedInfo
 operator|+
@@ -1702,42 +1722,13 @@ name|startCode
 operator|+
 literal|", storedInfo.startCode: "
 operator|+
-operator|(
-operator|(
-name|storedInfo
-operator|!=
-literal|null
-operator|)
-condition|?
 name|storedInfo
 operator|.
 name|getStartCode
 argument_list|()
-else|:
-operator|-
-literal|1
 operator|)
 operator|+
-literal|", unassignedRegions: "
-operator|+
-name|regionManager
-operator|.
-name|isUnassigned
-argument_list|(
-name|info
-argument_list|)
-operator|+
-literal|", pendingRegions: "
-operator|+
-name|regionManager
-operator|.
-name|isPending
-argument_list|(
-name|info
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
+literal|" Region is not unassigned, assigned or pending"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1903,8 +1894,11 @@ operator|.
 name|setUnassigned
 argument_list|(
 name|info
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * Notify the thread to die at the end of its next run    */

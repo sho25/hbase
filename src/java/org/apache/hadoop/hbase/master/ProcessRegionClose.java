@@ -203,8 +203,8 @@ name|metaRegionAvailable
 argument_list|()
 condition|)
 block|{
-comment|// offline the region in meta and then note that we've offlined
-comment|// the region.
+comment|// offline the region in meta and then remove it from the
+comment|// set of regions in transition
 name|HRegion
 operator|.
 name|offlineRegionInMETA
@@ -220,12 +220,9 @@ name|master
 operator|.
 name|regionManager
 operator|.
-name|regionOfflined
+name|removeRegion
 argument_list|(
 name|regionInfo
-operator|.
-name|getRegionName
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -263,6 +260,8 @@ operator|.
 name|setUnassigned
 argument_list|(
 name|regionInfo
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
