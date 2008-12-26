@@ -3038,6 +3038,17 @@ argument_list|(
 name|this
 operator|.
 name|hdfsShutdownThread
+argument_list|,
+name|this
+operator|.
+name|conf
+operator|.
+name|getLong
+argument_list|(
+literal|"hbase.dfs.shutdown.wait"
+argument_list|,
+literal|30000
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -3064,6 +3075,10 @@ parameter_list|(
 specifier|final
 name|Thread
 name|t
+parameter_list|,
+specifier|final
+name|long
+name|dfsShutdownWait
 parameter_list|)
 block|{
 if|if
@@ -3085,6 +3100,8 @@ operator|.
 name|shutdown
 argument_list|(
 name|t
+argument_list|,
+name|dfsShutdownWait
 argument_list|)
 expr_stmt|;
 block|}
