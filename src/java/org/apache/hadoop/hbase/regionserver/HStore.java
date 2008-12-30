@@ -3878,6 +3878,26 @@ operator|.
 name|getMapFilePath
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|path
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Path is null for "
+operator|+
+name|file
+argument_list|)
+expr_stmt|;
+return|return
+literal|null
+return|;
+block|}
 name|int
 name|len
 init|=
