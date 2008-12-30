@@ -2662,6 +2662,7 @@ throws|throws
 name|IOException
 block|{
 return|return
+operator|!
 name|this
 operator|.
 name|fs
@@ -2670,7 +2671,7 @@ name|exists
 argument_list|(
 name|f
 argument_list|)
-operator|&&
+operator|||
 name|this
 operator|.
 name|fs
