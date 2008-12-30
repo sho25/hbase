@@ -4380,14 +4380,12 @@ throw|throw
 operator|new
 name|IllegalStateException
 argument_list|(
-literal|"Cannot assign a region that is not currently unassigned. Region: "
+literal|"Cannot assign a region that is not currently unassigned. "
 operator|+
-name|Bytes
-operator|.
+literal|"State: "
+operator|+
 name|toString
-argument_list|(
-name|regionName
-argument_list|)
+argument_list|()
 argument_list|)
 throw|;
 block|}
@@ -4446,14 +4444,12 @@ throw|throw
 operator|new
 name|IllegalStateException
 argument_list|(
-literal|"Cannot set a region as pending if it has not been assigned. Region: "
+literal|"Cannot set a region as pending if it has not been assigned. "
 operator|+
-name|Bytes
-operator|.
+literal|"State: "
+operator|+
 name|toString
-argument_list|(
-name|regionName
-argument_list|)
+argument_list|()
 argument_list|)
 throw|;
 block|}
@@ -4567,17 +4563,19 @@ name|IllegalStateException
 argument_list|(
 literal|"Cannot set a region to be closed if it was not already marked as"
 operator|+
-literal|" closing. Region: "
+literal|" closing. State: "
 operator|+
-name|Bytes
-operator|.
 name|toString
-argument_list|(
-name|regionName
-argument_list|)
+argument_list|()
 argument_list|)
 throw|;
 block|}
+name|this
+operator|.
+name|closing
+operator|=
+literal|false
+expr_stmt|;
 name|this
 operator|.
 name|closed
@@ -4605,7 +4603,7 @@ name|toString
 parameter_list|()
 block|{
 return|return
-literal|"region name: "
+literal|"name="
 operator|+
 name|Bytes
 operator|.
@@ -4616,37 +4614,37 @@ operator|.
 name|regionName
 argument_list|)
 operator|+
-literal|", isUnassigned: "
+literal|", isUnassigned="
 operator|+
 name|this
 operator|.
 name|unassigned
 operator|+
-literal|", isAssigned: "
+literal|", isAssigned="
 operator|+
 name|this
 operator|.
 name|assigned
 operator|+
-literal|", isPending: "
+literal|", isPending="
 operator|+
 name|this
 operator|.
 name|pending
 operator|+
-literal|", isClosing: "
+literal|", isClosing="
 operator|+
 name|this
 operator|.
 name|closing
 operator|+
-literal|", isClosed: "
+literal|", isClosed="
 operator|+
 name|this
 operator|.
 name|closed
 operator|+
-literal|", isOfflined: "
+literal|", isOfflined="
 operator|+
 name|this
 operator|.
