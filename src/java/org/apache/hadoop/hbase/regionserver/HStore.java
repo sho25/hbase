@@ -2265,8 +2265,12 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
+comment|// References don't have data or index components under mapfile.
 if|if
 condition|(
+operator|!
+name|isReference
+operator|&&
 name|isEmptyDataFile
 argument_list|(
 name|mapfile
@@ -2299,6 +2303,9 @@ continue|continue;
 block|}
 if|if
 condition|(
+operator|!
+name|isReference
+operator|&&
 name|isEmptyIndexFile
 argument_list|(
 name|mapfile
@@ -2661,7 +2668,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/*     * @param mapfile    * @return True if the passed mapfile has a zero-length index component (its    * broken).    * @throws IOException    */
+comment|/*     * @param f    * @return True if the passed file does not exist or is zero-length (its    * broken).    * @throws IOException    */
 specifier|private
 name|boolean
 name|isEmptyFile
