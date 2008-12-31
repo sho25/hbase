@@ -397,6 +397,32 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Returns true if any cells exist for the given coordinate.    *     * @param regionName The name of the region    * @param row The row    * @param column The column, or null for any    * @param timestamp The timestamp, or LATEST_TIMESTAMP for any    * @param lockId lock id    * @return true if the row exists, false otherwise    * @throws IOException    */
+specifier|public
+name|boolean
+name|exists
+parameter_list|(
+name|byte
+index|[]
+name|regionName
+parameter_list|,
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|byte
+index|[]
+name|column
+parameter_list|,
+name|long
+name|timestamp
+parameter_list|,
+name|long
+name|lockID
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|//
 comment|// remote scanner interface
 comment|//
