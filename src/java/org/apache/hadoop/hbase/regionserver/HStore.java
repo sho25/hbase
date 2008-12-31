@@ -165,6 +165,18 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|CopyOnWriteArraySet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|locks
 operator|.
 name|ReentrantReadWriteLock
@@ -745,14 +757,14 @@ decl_stmt|;
 comment|// All access must be synchronized.
 specifier|private
 specifier|final
-name|Set
+name|CopyOnWriteArraySet
 argument_list|<
 name|ChangedReadersObserver
 argument_list|>
 name|changedReaderObservers
 init|=
 operator|new
-name|HashSet
+name|CopyOnWriteArraySet
 argument_list|<
 name|ChangedReadersObserver
 argument_list|>
@@ -3369,13 +3381,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|changedReaderObservers
-init|)
-block|{
 for|for
 control|(
 name|ChangedReadersObserver
@@ -3393,7 +3398,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-block|}
 comment|/*    * @param o Observer who wants to know about changes in set of Readers    */
 name|void
 name|addChangedReaderObserver
@@ -3401,13 +3405,6 @@ parameter_list|(
 name|ChangedReadersObserver
 name|o
 parameter_list|)
-block|{
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|changedReaderObservers
-init|)
 block|{
 name|this
 operator|.
@@ -3419,7 +3416,6 @@ name|o
 argument_list|)
 expr_stmt|;
 block|}
-block|}
 comment|/*    * @param o Observer no longer interested in changes in set of Readers.    */
 name|void
 name|deleteChangedReaderObserver
@@ -3427,13 +3423,6 @@ parameter_list|(
 name|ChangedReadersObserver
 name|o
 parameter_list|)
-block|{
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|changedReaderObservers
-init|)
 block|{
 if|if
 condition|(
@@ -3457,7 +3446,6 @@ operator|+
 name|o
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
