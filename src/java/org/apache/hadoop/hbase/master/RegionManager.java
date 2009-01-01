@@ -548,7 +548,7 @@ argument_list|(
 literal|"Overloaded"
 argument_list|)
 decl_stmt|;
-comment|/*    * Map of region name to RegionState for regions that are in transition such as    *     * unassigned -> assigned -> pending -> open    * closing -> closed -> offline    * closing -> closed -> unassigned -> assigned -> pending -> open    *     * At the end of a transition, removeRegion is used to remove the region from    * the map (since it is no longer in transition)    *     * Note: Needs to be SortedMap so we can specify a comparator    *     */
+comment|/*    * Map of region name to RegionState for regions that are in transition such as    *     * unassigned -> assigned -> pending -> open    * closing -> closed -> offline    * closing -> closed -> unassigned -> assigned -> pending -> open    *     * At the end of a transition, removeRegion is used to remove the region from    * the map (since it is no longer in transition)    *     * Note: Needs to be SortedMap so we can specify a comparator    *     * @see RegionState inner-class below    */
 specifier|private
 specifier|final
 name|SortedMap
@@ -4167,7 +4167,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/*    * State of a Region.    * Used while regions are making transitions from unassigned to assigned to    * opened, etc.    */
+comment|/*    * State of a Region as it transitions from closed to open, etc.  See    * note on regionsInTransition data member above for listing of state    * transitions.    */
 specifier|private
 specifier|static
 class|class
@@ -4180,15 +4180,8 @@ argument_list|>
 block|{
 specifier|private
 specifier|final
-name|byte
-index|[]
-name|regionName
-decl_stmt|;
-specifier|private
 name|HRegionInfo
 name|regionInfo
-init|=
-literal|null
 decl_stmt|;
 specifier|private
 specifier|volatile
@@ -4232,6 +4225,7 @@ name|offlined
 init|=
 literal|false
 decl_stmt|;
+comment|/* Set when region is assigned.      */
 specifier|private
 name|String
 name|serverName
@@ -4240,33 +4234,10 @@ literal|null
 decl_stmt|;
 name|RegionState
 parameter_list|(
-name|byte
-index|[]
-name|regionName
-parameter_list|)
-block|{
-name|this
-operator|.
-name|regionName
-operator|=
-name|regionName
-expr_stmt|;
-block|}
-name|RegionState
-parameter_list|(
 name|HRegionInfo
 name|info
 parameter_list|)
 block|{
-name|this
-operator|.
-name|regionName
-operator|=
-name|info
-operator|.
-name|getRegionName
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|regionInfo
@@ -4280,7 +4251,12 @@ name|getRegionName
 parameter_list|()
 block|{
 return|return
-name|regionName
+name|this
+operator|.
+name|regionInfo
+operator|.
+name|getRegionName
+argument_list|()
 return|;
 block|}
 specifier|synchronized
@@ -4294,6 +4270,7 @@ operator|.
 name|regionInfo
 return|;
 block|}
+comment|/*      * @return Server this region was assigned to      */
 specifier|synchronized
 name|String
 name|getServerName
@@ -4360,10 +4337,12 @@ return|return
 name|assigned
 return|;
 block|}
+comment|/*      * @param serverName Server region was assigned to.      */
 specifier|synchronized
 name|void
 name|setAssigned
 parameter_list|(
+specifier|final
 name|String
 name|serverName
 parameter_list|)
@@ -4609,9 +4588,8 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|this
-operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 operator|+
 literal|", isUnassigned="
@@ -4687,7 +4665,8 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|)
 operator|.
 name|hashCode
@@ -4720,9 +4699,8 @@ name|Bytes
 operator|.
 name|compareTo
 argument_list|(
-name|this
-operator|.
-name|regionName
+name|getRegionName
+argument_list|()
 argument_list|,
 name|o
 operator|.

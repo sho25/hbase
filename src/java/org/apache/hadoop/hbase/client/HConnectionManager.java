@@ -830,10 +830,6 @@ argument_list|>
 argument_list|>
 name|cachedRegionLocations
 init|=
-name|Collections
-operator|.
-name|synchronizedMap
-argument_list|(
 operator|new
 name|HashMap
 argument_list|<
@@ -848,7 +844,6 @@ name|HRegionLocation
 argument_list|>
 argument_list|>
 argument_list|()
-argument_list|)
 decl_stmt|;
 comment|/**       * constructor      * @param conf Configuration object      */
 annotation|@
@@ -2398,7 +2393,7 @@ return|;
 block|}
 block|}
 block|}
-comment|/**       * Search one of the meta tables (-ROOT- or .META.) for the HRegionLocation       * info that contains the table and row we're seeking.       */
+comment|/*       * Search one of the meta tables (-ROOT- or .META.) for the HRegionLocation       * info that contains the table and row we're seeking.       */
 specifier|private
 name|HRegionLocation
 name|locateRegionInMeta
@@ -2429,9 +2424,8 @@ name|location
 init|=
 literal|null
 decl_stmt|;
-comment|// if we're supposed to be using the cache, then check it for a possible
-comment|// hit. otherwise, delete any existing cached location so it won't
-comment|// interfere.
+comment|// If supposed to be using the cache, then check it for a possible hit.
+comment|// Otherwise, delete any existing cached location so it won't interfere.
 if|if
 condition|(
 name|useCache
@@ -2928,67 +2922,20 @@ index|[]
 name|row
 parameter_list|)
 block|{
-comment|// find the map of cached locations for this table
-name|Integer
-name|key
+name|SoftValueSortedMap
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|HRegionLocation
+argument_list|>
+name|tableLocations
 init|=
-name|Bytes
-operator|.
-name|mapKey
+name|getTableLocations
 argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|SoftValueSortedMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|HRegionLocation
-argument_list|>
-name|tableLocations
-init|=
-name|cachedRegionLocations
-operator|.
-name|get
-argument_list|(
-name|key
-argument_list|)
-decl_stmt|;
-comment|// if tableLocations for this table isn't built yet, make one
-if|if
-condition|(
-name|tableLocations
-operator|==
-literal|null
-condition|)
-block|{
-name|tableLocations
-operator|=
-operator|new
-name|SoftValueSortedMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|HRegionLocation
-argument_list|>
-argument_list|(
-name|Bytes
-operator|.
-name|BYTES_COMPARATOR
-argument_list|)
-expr_stmt|;
-name|cachedRegionLocations
-operator|.
-name|put
-argument_list|(
-name|key
-argument_list|,
-name|tableLocations
-argument_list|)
-expr_stmt|;
-block|}
 comment|// start to examine the cache. we can only do cache actions
 comment|// if there's something in the cache for this table.
 if|if
@@ -3032,7 +2979,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Cache hit in table locations for row<"
+literal|"Cache hit for row<"
 operator|+
 name|Bytes
 operator|.
@@ -3041,7 +2988,7 @@ argument_list|(
 name|row
 argument_list|)
 operator|+
-literal|"> and tableName "
+literal|"> in tableName "
 operator|+
 name|Bytes
 operator|.
@@ -3188,7 +3135,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**      * Delete a cached location, if it satisfies the table name and row      * requirements.      */
+comment|/*      * Delete a cached location, if it satisfies the table name and row      * requirements.      */
 specifier|private
 name|void
 name|deleteCachedLocation
@@ -3204,67 +3151,20 @@ index|[]
 name|row
 parameter_list|)
 block|{
-comment|// find the map of cached locations for this table
-name|Integer
-name|key
+name|SoftValueSortedMap
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|HRegionLocation
+argument_list|>
+name|tableLocations
 init|=
-name|Bytes
-operator|.
-name|mapKey
+name|getTableLocations
 argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|SoftValueSortedMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|HRegionLocation
-argument_list|>
-name|tableLocations
-init|=
-name|cachedRegionLocations
-operator|.
-name|get
-argument_list|(
-name|key
-argument_list|)
-decl_stmt|;
-comment|// if tableLocations for this table isn't built yet, make one
-if|if
-condition|(
-name|tableLocations
-operator|==
-literal|null
-condition|)
-block|{
-name|tableLocations
-operator|=
-operator|new
-name|SoftValueSortedMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|HRegionLocation
-argument_list|>
-argument_list|(
-name|Bytes
-operator|.
-name|BYTES_COMPARATOR
-argument_list|)
-expr_stmt|;
-name|cachedRegionLocations
-operator|.
-name|put
-argument_list|(
-name|key
-argument_list|,
-name|tableLocations
-argument_list|)
-expr_stmt|;
-block|}
 comment|// start to examine the cache. we can only do cache actions
 comment|// if there's something in the cache for this table.
 if|if
@@ -3392,7 +3292,18 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" from cache because of "
+literal|" for tableName="
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|tableName
+argument_list|)
+operator|+
+literal|" from cache "
+operator|+
+literal|"because of "
 operator|+
 name|Bytes
 operator|.
@@ -3407,7 +3318,105 @@ block|}
 block|}
 block|}
 block|}
-comment|/**       * Put a newly discovered HRegionLocation into the cache.       */
+comment|/*      * @param tableName      * @return Map of cached locations for passed<code>tableName</code>      */
+specifier|private
+name|SoftValueSortedMap
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|HRegionLocation
+argument_list|>
+name|getTableLocations
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+block|{
+comment|// find the map of cached locations for this table
+name|Integer
+name|key
+init|=
+name|Bytes
+operator|.
+name|mapKey
+argument_list|(
+name|tableName
+argument_list|)
+decl_stmt|;
+name|SoftValueSortedMap
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|HRegionLocation
+argument_list|>
+name|result
+init|=
+literal|null
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|cachedRegionLocations
+init|)
+block|{
+name|result
+operator|=
+name|this
+operator|.
+name|cachedRegionLocations
+operator|.
+name|get
+argument_list|(
+name|key
+argument_list|)
+expr_stmt|;
+comment|// if tableLocations for this table isn't built yet, make one
+if|if
+condition|(
+name|result
+operator|==
+literal|null
+condition|)
+block|{
+name|result
+operator|=
+operator|new
+name|SoftValueSortedMap
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|HRegionLocation
+argument_list|>
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|cachedRegionLocations
+operator|.
+name|put
+argument_list|(
+name|key
+argument_list|,
+name|result
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+return|return
+name|result
+return|;
+block|}
+comment|/*      * Put a newly discovered HRegionLocation into the cache.      */
 specifier|private
 name|void
 name|cacheLocation
@@ -3434,68 +3443,20 @@ operator|.
 name|getStartKey
 argument_list|()
 decl_stmt|;
-comment|// find the map of cached locations for this table
-name|Integer
-name|key
+name|SoftValueSortedMap
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|HRegionLocation
+argument_list|>
+name|tableLocations
 init|=
-name|Bytes
-operator|.
-name|mapKey
+name|getTableLocations
 argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|SoftValueSortedMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|HRegionLocation
-argument_list|>
-name|tableLocations
-init|=
-name|cachedRegionLocations
-operator|.
-name|get
-argument_list|(
-name|key
-argument_list|)
-decl_stmt|;
-comment|// if tableLocations for this table isn't built yet, make one
-if|if
-condition|(
-name|tableLocations
-operator|==
-literal|null
-condition|)
-block|{
-name|tableLocations
-operator|=
-operator|new
-name|SoftValueSortedMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|HRegionLocation
-argument_list|>
-argument_list|(
-name|Bytes
-operator|.
-name|BYTES_COMPARATOR
-argument_list|)
-expr_stmt|;
-name|cachedRegionLocations
-operator|.
-name|put
-argument_list|(
-name|key
-argument_list|,
-name|tableLocations
-argument_list|)
-expr_stmt|;
-block|}
-comment|// save the HRegionLocation under the startKey
 name|tableLocations
 operator|.
 name|put
@@ -4538,9 +4499,18 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Reloading table servers because region "
+literal|"Reloading region "
 operator|+
-literal|"server didn't accept updates; tries="
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|currentRegion
+argument_list|)
+operator|+
+literal|" location because regionserver didn't accept updates; "
+operator|+
+literal|"tries="
 operator|+
 name|tries
 operator|+
