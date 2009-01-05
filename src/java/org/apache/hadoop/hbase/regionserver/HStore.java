@@ -4421,10 +4421,41 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|List
+argument_list|<
+name|HStoreFile
+argument_list|>
+name|filesToCompact
+init|=
+literal|null
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|storefiles
+init|)
+block|{
+comment|// filesToCompact are sorted oldest to newest.
+name|filesToCompact
+operator|=
+operator|new
+name|ArrayList
+argument_list|<
+name|HStoreFile
+argument_list|>
+argument_list|(
+name|this
+operator|.
+name|storefiles
+operator|.
+name|values
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 name|isMajorCompaction
 argument_list|(
-literal|null
+name|filesToCompact
 argument_list|)
 return|;
 block|}
@@ -4484,35 +4515,36 @@ argument_list|,
 name|mapdir
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|lowTimestamp
-argument_list|<
-operator|(
+name|long
+name|now
+init|=
 name|System
 operator|.
 name|currentTimeMillis
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|lowTimestamp
+operator|>
+literal|0l
+operator|&&
+name|lowTimestamp
+operator|<
 operator|(
-operator|)
+name|now
 operator|-
 name|this
 operator|.
 name|majorCompactionTime
 operator|)
-operator|&&
-name|lowTimestamp
-argument_list|>
-literal|0l
 condition|)
 block|{
 comment|// Major compaction time has elapsed.
 name|long
 name|elapsedTime
 init|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
+name|now
 operator|-
 name|lowTimestamp
 decl_stmt|;
@@ -4568,13 +4600,17 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Skipping major compaction because only one (major) "
+literal|"Skipping major compaction of "
 operator|+
-literal|"compacted file only and elapsedTime "
+name|this
+operator|.
+name|storeNameStr
+operator|+
+literal|" because one (major) compacted file only and elapsedTime "
 operator|+
 name|elapsedTime
 operator|+
-literal|" is< ttl="
+literal|"ms is< ttl="
 operator|+
 name|this
 operator|.
@@ -4597,28 +4633,21 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Major compaction triggered on store: "
+literal|"Major compaction triggered on store "
 operator|+
 name|this
 operator|.
 name|storeNameStr
 operator|+
-literal|". Time since last major compaction: "
+literal|"; time since last major compaction "
 operator|+
 operator|(
-operator|(
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
+name|now
 operator|-
 name|lowTimestamp
 operator|)
-operator|/
-literal|1000
-operator|)
 operator|+
-literal|" seconds"
+literal|"ms"
 argument_list|)
 expr_stmt|;
 block|}
