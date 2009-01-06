@@ -435,13 +435,14 @@ expr_stmt|;
 comment|// tell the master to split the table
 name|admin
 operator|.
-name|modifyTable
+name|split
+argument_list|(
+name|Bytes
+operator|.
+name|toString
 argument_list|(
 name|tableName
-argument_list|,
-name|HConstants
-operator|.
-name|MODIFY_TABLE_SPLIT
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// give some time for the split to happen

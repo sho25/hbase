@@ -80,11 +80,6 @@ comment|/**  * HMsg is for communicating instructions between the HMaster and th
 end_comment
 
 begin_class
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"serial"
-argument_list|)
 specifier|public
 class|class
 name|HMsg
@@ -143,6 +138,12 @@ name|MSG_REPORT_EXITING
 block|,
 comment|/** Region server has closed all user regions but is still serving meta      * regions      */
 name|MSG_REPORT_QUIESCED
+block|,
+comment|/**      * Flush      */
+name|MSG_REGION_FLUSH
+block|,
+comment|/**      * Run Major Compaction      */
+name|MSG_REGION_MAJOR_COMPACT
 block|,   }
 specifier|private
 name|Type

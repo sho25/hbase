@@ -741,6 +741,35 @@ name|String
 name|why
 parameter_list|)
 block|{
+name|compactionRequested
+argument_list|(
+name|r
+argument_list|,
+literal|false
+argument_list|,
+name|why
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * @param r HRegion store belongs to    * @param force Whether next compaction should be major    * @param why Why compaction requested -- used in debug messages    */
+specifier|public
+specifier|synchronized
+name|void
+name|compactionRequested
+parameter_list|(
+specifier|final
+name|HRegion
+name|r
+parameter_list|,
+specifier|final
+name|boolean
+name|force
+parameter_list|,
+specifier|final
+name|String
+name|why
+parameter_list|)
+block|{
 if|if
 condition|(
 name|this
@@ -755,11 +784,36 @@ condition|)
 block|{
 return|return;
 block|}
+name|r
+operator|.
+name|setForceMajorCompaction
+argument_list|(
+name|force
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Compaction requested for region "
+literal|"Compaction "
+operator|+
+operator|(
+name|force
+condition|?
+literal|"(major) "
+else|:
+literal|""
+operator|)
+operator|+
+literal|"requested for region "
 operator|+
 name|Bytes
 operator|.
@@ -800,6 +854,7 @@ literal|""
 operator|)
 argument_list|)
 expr_stmt|;
+block|}
 synchronized|synchronized
 init|(
 name|regionsInQueue
@@ -1209,6 +1264,16 @@ name|limit
 operator|=
 name|limit
 expr_stmt|;
+block|}
+name|int
+name|getLimit
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|limit
+return|;
 block|}
 comment|/**    * Only interrupt once it's done with a run through the work loop.    */
 name|void

@@ -4117,6 +4117,12 @@ case|:
 case|case
 name|MODIFY_TABLE_COMPACT
 case|:
+case|case
+name|MODIFY_TABLE_MAJOR_COMPACT
+case|:
+case|case
+name|MODIFY_TABLE_FLUSH
+case|:
 if|if
 condition|(
 name|args
@@ -4188,6 +4194,8 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|this
+operator|.
 name|regionManager
 operator|.
 name|startAction
@@ -4232,6 +4240,8 @@ argument_list|(
 name|tableName
 argument_list|)
 control|)
+name|this
+operator|.
 name|regionManager
 operator|.
 name|startAction

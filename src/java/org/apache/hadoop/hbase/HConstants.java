@@ -722,6 +722,26 @@ name|MODIFY_TABLE_COMPACT
 operator|+
 literal|1
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MODIFY_TABLE_FLUSH
+init|=
+name|MODIFY_CLOSE_REGION
+operator|+
+literal|1
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MODIFY_TABLE_MAJOR_COMPACT
+init|=
+name|MODIFY_TABLE_FLUSH
+operator|+
+literal|1
+decl_stmt|;
 block|}
 end_interface
 
