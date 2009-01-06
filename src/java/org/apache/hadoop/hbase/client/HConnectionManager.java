@@ -4181,6 +4181,9 @@ parameter_list|,
 name|byte
 index|[]
 name|rowKey
+parameter_list|,
+name|boolean
+name|reload
 parameter_list|)
 throws|throws
 name|IOException
@@ -4210,11 +4213,6 @@ name|int
 name|tries
 init|=
 literal|0
-decl_stmt|;
-name|boolean
-name|reload
-init|=
-literal|false
 decl_stmt|;
 while|while
 condition|(
@@ -4391,6 +4389,8 @@ argument_list|)
 operator|.
 name|getRow
 argument_list|()
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|byte
@@ -4491,6 +4491,8 @@ argument_list|)
 operator|.
 name|getRow
 argument_list|()
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|region
@@ -4732,6 +4734,8 @@ argument_list|)
 operator|.
 name|getRow
 argument_list|()
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|region
