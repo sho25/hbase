@@ -262,10 +262,11 @@ specifier|final
 name|HServerAddress
 name|deadServer
 decl_stmt|;
+comment|/*    * Cache of the server name.    */
 specifier|private
 specifier|final
 name|String
-name|deadServerName
+name|deadServerStr
 decl_stmt|;
 specifier|private
 specifier|final
@@ -281,10 +282,6 @@ decl_stmt|;
 specifier|private
 name|Path
 name|oldLogDir
-decl_stmt|;
-specifier|private
-name|boolean
-name|logSplit
 decl_stmt|;
 specifier|private
 name|boolean
@@ -368,7 +365,7 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|deadServerName
+name|deadServerStr
 operator|=
 name|this
 operator|.
@@ -382,12 +379,6 @@ operator|.
 name|rootRegionServer
 operator|=
 name|rootRegionServer
-expr_stmt|;
-name|this
-operator|.
-name|logSplit
-operator|=
-literal|false
 expr_stmt|;
 name|this
 operator|.
@@ -427,13 +418,10 @@ literal|"ProcessServerShutdown of "
 operator|+
 name|this
 operator|.
-name|deadServer
-operator|.
-name|toString
-argument_list|()
+name|deadServerStr
 return|;
 block|}
-comment|/** Finds regions that the dead region server was serving */
+comment|/** Finds regions that the dead region server was serving    */
 specifier|protected
 name|void
 name|scanMetaRegion
@@ -563,9 +551,10 @@ operator|.
 name|getRow
 argument_list|()
 decl_stmt|;
-comment|// Check server name.  If null, be conservative and treat as though
-comment|// region had been on shutdown server (could be null because we
-comment|// missed edits in hlog because hdfs does not do write-append).
+comment|// Check server name.  If null, skip (We used to consider it was on
+comment|// shutdown server but that would mean that we'd reassign regions that
+comment|// were already out being assigned, ones that were product of a split
+comment|// that happened while the shutdown was being processed.
 name|String
 name|serverName
 init|=
@@ -584,24 +573,16 @@ decl_stmt|;
 if|if
 condition|(
 name|serverName
-operator|!=
+operator|==
 literal|null
-operator|&&
-name|serverName
+operator|||
+operator|!
+name|deadServerStr
 operator|.
-name|length
-argument_list|()
-operator|>
-literal|0
-operator|&&
-name|deadServerName
-operator|.
-name|compareTo
+name|equals
 argument_list|(
 name|serverName
 argument_list|)
-operator|!=
-literal|0
 condition|)
 block|{
 comment|// This isn't the server you're looking for - move along
@@ -1173,18 +1154,34 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|boolean
+name|logSplit
+init|=
+name|this
+operator|.
+name|master
+operator|.
+name|serverManager
+operator|.
+name|isDeadServerLogsSplit
+argument_list|(
+name|this
+operator|.
+name|deadServerStr
+argument_list|)
+decl_stmt|;
 name|LOG
 operator|.
 name|info
 argument_list|(
 literal|"process shutdown of server "
 operator|+
-name|deadServer
+name|this
+operator|.
+name|deadServerStr
 operator|+
 literal|": logSplit: "
 operator|+
-name|this
-operator|.
 name|logSplit
 operator|+
 literal|", rootRescanned: "
@@ -1282,9 +1279,18 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-name|logSplit
-operator|=
-literal|true
+name|this
+operator|.
+name|master
+operator|.
+name|serverManager
+operator|.
+name|setDeadServerLogsSplit
+argument_list|(
+name|this
+operator|.
+name|deadServerStr
+argument_list|)
 expr_stmt|;
 block|}
 if|if
@@ -1519,15 +1525,38 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// Remove this server from dead servers list.  Finished splitting logs.
+name|this
+operator|.
 name|master
 operator|.
 name|serverManager
 operator|.
 name|removeDeadServer
 argument_list|(
-name|deadServerName
+name|deadServerStr
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Removed "
+operator|+
+name|deadServerStr
+operator|+
+literal|" from deadservers Map"
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|true
 return|;

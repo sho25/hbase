@@ -2644,12 +2644,12 @@ specifier|public
 name|MapWritable
 name|regionServerStartup
 parameter_list|(
+specifier|final
 name|HServerInfo
 name|serverInfo
 parameter_list|)
 block|{
-comment|// Set the address for now even tho it will not be persisted on
-comment|// the HRS side.
+comment|// Set the address for now even tho it will not be persisted on HRS side.
 name|String
 name|rsAddress
 init|=
@@ -2677,7 +2677,9 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// register with server manager
+comment|// Register with server manager
+name|this
+operator|.
 name|serverManager
 operator|.
 name|regionServerStartup
@@ -2685,7 +2687,7 @@ argument_list|(
 name|serverInfo
 argument_list|)
 expr_stmt|;
-comment|// send back some config info
+comment|// Send back some config info
 return|return
 name|createConfigurationSubset
 argument_list|()

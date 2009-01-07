@@ -1516,14 +1516,13 @@ init|(
 name|regionManager
 init|)
 block|{
-comment|// Skip region - if ...
+comment|// Skip region - if
 if|if
 condition|(
 name|info
 operator|.
 name|isOffline
 argument_list|()
-comment|// offline
 operator|||
 name|regionManager
 operator|.
@@ -1550,6 +1549,11 @@ name|HServerInfo
 name|storedInfo
 init|=
 literal|null
+decl_stmt|;
+name|boolean
+name|deadServerAndLogsSplit
+init|=
+literal|false
 decl_stmt|;
 name|boolean
 name|deadServer
@@ -1605,6 +1609,8 @@ return|return;
 block|}
 name|storedInfo
 operator|=
+name|this
+operator|.
 name|master
 operator|.
 name|serverManager
@@ -1616,6 +1622,8 @@ argument_list|)
 expr_stmt|;
 name|deadServer
 operator|=
+name|this
+operator|.
 name|master
 operator|.
 name|serverManager
@@ -1625,18 +1633,36 @@ argument_list|(
 name|serverName
 argument_list|)
 expr_stmt|;
+name|deadServerAndLogsSplit
+operator|=
+name|this
+operator|.
+name|master
+operator|.
+name|serverManager
+operator|.
+name|isDeadServerLogsSplit
+argument_list|(
+name|serverName
+argument_list|)
+expr_stmt|;
 block|}
-comment|/*        * If the server is a dead server or its startcode is off -- either null        * or doesn't match the start code for the address -- then add it to the        * list of unassigned regions IF not already there (or pending open).        */
+comment|/*        * If the server is a dead server and its logs have been split or its        * not on the dead server lists and its startcode is off -- either null        * or doesn't match the start code for the address -- then add it to the        * list of unassigned regions IF not already there (or pending open).        */
 if|if
 condition|(
 operator|(
-name|deadServer
+name|deadServerAndLogsSplit
 operator|||
+operator|(
+operator|!
+name|deadServer
+operator|&&
 operator|(
 name|storedInfo
 operator|==
 literal|null
 operator|||
+operator|(
 name|storedInfo
 operator|.
 name|getStartCode
@@ -1645,38 +1671,17 @@ operator|!=
 name|startCode
 operator|)
 operator|)
-operator|&&
-operator|(
-operator|!
-name|regionManager
-operator|.
-name|isUnassigned
-argument_list|(
-name|info
-argument_list|)
-operator|&&
-operator|!
-name|regionManager
-operator|.
-name|isPending
-argument_list|(
-name|info
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-operator|&&
-operator|!
-name|regionManager
-operator|.
-name|isAssigned
-argument_list|(
-name|info
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
 operator|)
+operator|)
+operator|&&
+name|this
+operator|.
+name|regionManager
+operator|.
+name|assignable
+argument_list|(
+name|info
+argument_list|)
 condition|)
 block|{
 comment|// The current assignment is invalid
@@ -1699,7 +1704,15 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" is not valid."
+literal|" is not valid; deadServerAndLogsSplit="
+operator|+
+name|deadServerAndLogsSplit
+operator|+
+literal|", deadServer="
+operator|+
+name|deadServer
+operator|+
+literal|". "
 operator|+
 operator|(
 name|storedInfo
