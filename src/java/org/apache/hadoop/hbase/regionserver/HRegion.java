@@ -4333,7 +4333,7 @@ argument_list|(
 name|columnFamily
 argument_list|)
 decl_stmt|;
-comment|// get the closest key
+comment|// get the closest key. (HStore.getRowKeyAtOrBefore can return null)
 name|byte
 index|[]
 name|closestKey
@@ -4345,8 +4345,15 @@ argument_list|(
 name|row
 argument_list|)
 decl_stmt|;
-comment|// If it happens to be an exact match, we can stop looping.
+comment|// If it happens to be an exact match, we can stop.
 comment|// Otherwise, we need to check if it's the max and move to the next
+if|if
+condition|(
+name|closestKey
+operator|!=
+literal|null
+condition|)
+block|{
 if|if
 condition|(
 name|HStoreKey
@@ -4374,34 +4381,11 @@ name|regionInfo
 argument_list|)
 expr_stmt|;
 block|}
-elseif|else
 if|if
 condition|(
-name|closestKey
-operator|!=
-literal|null
-operator|&&
-operator|(
 name|key
 operator|==
 literal|null
-operator|||
-name|HStoreKey
-operator|.
-name|compareTwoRowKeys
-argument_list|(
-name|regionInfo
-argument_list|,
-name|closestKey
-argument_list|,
-name|key
-operator|.
-name|getRow
-argument_list|()
-argument_list|)
-operator|>
-literal|0
-operator|)
 condition|)
 block|{
 name|key
@@ -4417,7 +4401,13 @@ name|regionInfo
 argument_list|)
 expr_stmt|;
 block|}
-else|else
+block|}
+if|if
+condition|(
+name|key
+operator|==
+literal|null
+condition|)
 block|{
 return|return
 literal|null
@@ -5253,7 +5243,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Performs an atomic check and save operation. Checks if    * the specified expected values have changed, and if not    * applies the update.    *     * @param b the update to apply    * @param expectedValues the expected values to check    * @param writeToWAL whether or not to write to the write ahead log    */
+comment|/**    * Performs an atomic check and save operation. Checks if    * the specified expected values have changed, and if not    * applies the update.    *     * @param b the update to apply    * @param expectedValues the expected values to check    * @param lockid    * @param writeToWAL whether or not to write to the write ahead log    * @return true if update was applied    * @throws IOException    */
 specifier|public
 name|boolean
 name|checkAndSave
@@ -8172,9 +8162,6 @@ comment|// At least WhileMatchRowFilter will mess up the scan if only
 comment|// one shared across many rows. See HADOOP-2467.
 name|f
 operator|=
-operator|(
-name|RowFilterInterface
-operator|)
 name|WritableUtils
 operator|.
 name|clone

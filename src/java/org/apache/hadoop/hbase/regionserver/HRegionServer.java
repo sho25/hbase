@@ -3098,7 +3098,7 @@ literal|" exiting"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Run and wait on passed thread in HRS context.    * @param t    */
+comment|/**    * Run and wait on passed thread in HRS context.    * @param t    * @param dfsShutdownWait    */
 specifier|public
 name|void
 name|runThread
@@ -3900,6 +3900,8 @@ name|SafeModeThread
 extends|extends
 name|Thread
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run

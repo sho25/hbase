@@ -289,7 +289,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Applies a batch of updates to one row atomically via one RPC    * if the columns specified in expectedValues match    * the given values in expectedValues    *     * @param regionName name of the region to update    * @param b BatchUpdate    * @param expectedValues map of column names to expected data values.    * @throws IOException    */
+comment|/**    * Applies a batch of updates to one row atomically via one RPC    * if the columns specified in expectedValues match    * the given values in expectedValues    *     * @param regionName name of the region to update    * @param b BatchUpdate    * @param expectedValues map of column names to expected data values.    * @return true if update was applied    * @throws IOException    */
 specifier|public
 name|boolean
 name|checkAndSave
@@ -441,7 +441,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Returns true if any cells exist for the given coordinate.    *     * @param regionName The name of the region    * @param row The row    * @param column The column, or null for any    * @param timestamp The timestamp, or LATEST_TIMESTAMP for any    * @param lockId lock id    * @return true if the row exists, false otherwise    * @throws IOException    */
+comment|/**    * Returns true if any cells exist for the given coordinate.    *     * @param regionName The name of the region    * @param row The row    * @param column The column, or null for any    * @param timestamp The timestamp, or LATEST_TIMESTAMP for any    * @param lockID lock id    * @return true if the row exists, false otherwise    * @throws IOException    */
 specifier|public
 name|boolean
 name|exists

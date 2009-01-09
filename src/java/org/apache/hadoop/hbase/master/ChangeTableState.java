@@ -479,9 +479,12 @@ name|master
 operator|.
 name|regionManager
 operator|.
-name|assignable
+name|regionIsOpening
 argument_list|(
 name|i
+operator|.
+name|getRegionName
+argument_list|()
 argument_list|)
 condition|)
 block|{

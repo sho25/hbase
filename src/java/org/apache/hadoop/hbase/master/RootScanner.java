@@ -65,22 +65,17 @@ name|RootScanner
 extends|extends
 name|BaseScanner
 block|{
-comment|/**    * Constructor    *     * @param master    * @param regionManager    */
+comment|/**    * Constructor    *     * @param master    */
 specifier|public
 name|RootScanner
 parameter_list|(
 name|HMaster
 name|master
-parameter_list|,
-name|RegionManager
-name|regionManager
 parameter_list|)
 block|{
 name|super
 argument_list|(
 name|master
-argument_list|,
-name|regionManager
 argument_list|,
 literal|true
 argument_list|,
