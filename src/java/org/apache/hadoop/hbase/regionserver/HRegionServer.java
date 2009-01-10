@@ -3798,6 +3798,14 @@ operator|instanceof
 name|OutOfMemoryError
 operator|)
 operator|||
+operator|(
+name|e
+operator|.
+name|getMessage
+argument_list|()
+operator|!=
+literal|null
+operator|&&
 name|e
 operator|.
 name|getMessage
@@ -3807,6 +3815,7 @@ name|contains
 argument_list|(
 literal|"java.lang.OutOfMemoryError"
 argument_list|)
+operator|)
 condition|)
 block|{
 name|LOG
