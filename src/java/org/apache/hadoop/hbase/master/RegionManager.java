@@ -4814,6 +4814,9 @@ if|if
 condition|(
 operator|!
 name|pendingClose
+operator|&&
+operator|!
+name|pendingOpen
 condition|)
 block|{
 throw|throw
@@ -4822,7 +4825,7 @@ name|IllegalStateException
 argument_list|(
 literal|"Cannot set a region to be closed if it was not already marked as"
 operator|+
-literal|" pending close. State: "
+literal|" pending close or pending open. State: "
 operator|+
 name|toString
 argument_list|()
