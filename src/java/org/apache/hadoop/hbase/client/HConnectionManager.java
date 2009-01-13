@@ -3742,12 +3742,6 @@ argument_list|(
 literal|"Found ROOT at "
 operator|+
 name|rootRegionAddress
-operator|+
-literal|" (server="
-operator|+
-name|server
-operator|+
-literal|")"
 argument_list|)
 expr_stmt|;
 block|}
