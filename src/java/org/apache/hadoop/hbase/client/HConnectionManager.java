@@ -1209,7 +1209,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Attempt "
+literal|"getMaster attempt "
 operator|+
 name|tries
 operator|+
@@ -1219,16 +1219,14 @@ name|this
 operator|.
 name|numRetries
 operator|+
-literal|" failed with<"
-operator|+
-name|e
-operator|+
-literal|">. Retrying after sleep of "
+literal|" failed; retrying after sleep of "
 operator|+
 name|getPauseTime
 argument_list|(
 name|tries
 argument_list|)
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}
@@ -2845,7 +2843,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Attempt "
+literal|"locateRegionInMeta attempt "
 operator|+
 name|tries
 operator|+
@@ -2855,16 +2853,14 @@ name|this
 operator|.
 name|numRetries
 operator|+
-literal|" failed with<"
-operator|+
-name|e
-operator|+
-literal|">. Retrying after sleep of "
+literal|" failed; retrying after sleep of "
 operator|+
 name|getPauseTime
 argument_list|(
 name|tries
 argument_list|)
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}
@@ -3743,11 +3739,15 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Found ROOT "
+literal|"Found ROOT at "
 operator|+
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
+name|rootRegionAddress
+operator|+
+literal|" (server="
+operator|+
+name|server
+operator|+
+literal|")"
 argument_list|)
 expr_stmt|;
 block|}
