@@ -450,6 +450,12 @@ specifier|final
 name|long
 name|loggingPeriodForAverageLoad
 decl_stmt|;
+comment|/* The regionserver will not be assigned or asked close regions if it    * is currently opening>= this many regions.    */
+specifier|private
+specifier|final
+name|int
+name|nobalancingCount
+decl_stmt|;
 comment|/**    * @param master    */
 specifier|public
 name|ServerManager
@@ -502,6 +508,22 @@ argument_list|(
 literal|"hbase.master.avgload.logging.period"
 argument_list|,
 literal|60000
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|nobalancingCount
+operator|=
+name|master
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.regions.nobalancing.count"
+argument_list|,
+literal|4
 argument_list|)
 expr_stmt|;
 block|}
@@ -1590,7 +1612,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/** RegionServer is checking in, no exceptional circumstances */
+comment|/* RegionServer is checking in, no exceptional circumstances    * @param serverName    * @param serverInfo    * @param mostLoadedRegions    * @param msgs    * @return    * @throws IOException    */
 specifier|private
 name|HMsg
 index|[]
@@ -1860,6 +1882,11 @@ argument_list|)
 throw|;
 block|}
 comment|// Get reports on what the RegionServer did.
+name|int
+name|openingCount
+init|=
+literal|0
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -1918,6 +1945,9 @@ block|{
 case|case
 name|MSG_REPORT_PROCESS_OPEN
 case|:
+name|openingCount
+operator|++
+expr_stmt|;
 break|break;
 case|case
 name|MSG_REPORT_OPEN
@@ -2043,6 +2073,19 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Figure out what the RegionServer ought to do, and write back.
+comment|// Should we tell it close regions because its overloaded?  If its
+comment|// currently opening regions, leave it alone till all are open.
+if|if
+condition|(
+name|openingCount
+operator|<
+name|this
+operator|.
+name|nobalancingCount
+condition|)
+block|{
+name|this
+operator|.
 name|master
 operator|.
 name|regionManager
@@ -2058,7 +2101,10 @@ argument_list|,
 name|returnMsgs
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Send any pending table actions.
+name|this
+operator|.
 name|master
 operator|.
 name|regionManager

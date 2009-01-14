@@ -952,7 +952,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/*    * Assigns regions to region servers attempting to balance the load across    * all region servers    *    * Note that no synchronization is necessary as the caller     * (ServerManager.processMsgs) already owns the monitor for the RegionManager.    *     * @param info    * @param serverName    * @param returnMsgs    */
+comment|/*    * Assigns regions to region servers attempting to balance the load across    * all region servers. Note that no synchronization is necessary as the caller     * (ServerManager.processMsgs) already owns the monitor for the RegionManager.    *     * @param info    * @param serverName    * @param returnMsgs    */
 name|void
 name|assignRegions
 parameter_list|(
