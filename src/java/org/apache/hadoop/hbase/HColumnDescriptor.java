@@ -308,7 +308,7 @@ specifier|final
 name|boolean
 name|DEFAULT_BLOCKCACHE
 init|=
-literal|true
+literal|false
 decl_stmt|;
 comment|/**    * Default setting for whether or not to use bloomfilters.    */
 specifier|public

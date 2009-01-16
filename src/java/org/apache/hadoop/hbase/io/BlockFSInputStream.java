@@ -265,7 +265,7 @@ name|t
 operator|.
 name|setName
 argument_list|(
-literal|"BlockFSInputStream referenceQueue Checker"
+literal|"BlockFSInputStreamReferenceQueueChecker"
 argument_list|)
 expr_stmt|;
 return|return
@@ -392,7 +392,7 @@ name|blockSize
 operator|=
 name|blockSize
 expr_stmt|;
-comment|// a memory-sensitive map that has soft references to values
+comment|// A memory-sensitive map that has soft references to values
 name|this
 operator|.
 name|blocks
@@ -522,7 +522,7 @@ name|registration
 operator|=
 name|EXECUTOR
 operator|.
-name|scheduleAtFixedRate
+name|scheduleWithFixedDelay
 argument_list|(
 operator|new
 name|Runnable
@@ -555,7 +555,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Cleared "
+literal|"Checker cleared "
 operator|+
 name|cleared
 operator|+
@@ -568,9 +568,9 @@ block|}
 block|}
 block|}
 argument_list|,
-literal|10
+literal|1
 argument_list|,
-literal|10
+literal|1
 argument_list|,
 name|TimeUnit
 operator|.
@@ -1057,6 +1057,39 @@ name|registration
 argument_list|)
 expr_stmt|;
 block|}
+name|int
+name|cleared
+init|=
+name|checkReferences
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+operator|&&
+name|cleared
+operator|>
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Close cleared "
+operator|+
+name|cleared
+operator|+
+literal|" in "
+operator|+
+name|hashCode
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|blockStream
@@ -1139,13 +1172,9 @@ parameter_list|()
 block|{
 if|if
 condition|(
-name|closed
-operator|||
 name|this
 operator|.
-name|blocks
-operator|==
-literal|null
+name|closed
 condition|)
 block|{
 return|return
