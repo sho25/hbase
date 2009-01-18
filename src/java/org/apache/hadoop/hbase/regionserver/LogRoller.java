@@ -287,6 +287,11 @@ argument_list|)
 expr_stmt|;
 name|server
 operator|.
+name|checkFileSystem
+argument_list|()
+expr_stmt|;
+name|server
+operator|.
 name|abort
 argument_list|()
 expr_stmt|;
@@ -312,6 +317,11 @@ argument_list|)
 expr_stmt|;
 name|server
 operator|.
+name|checkFileSystem
+argument_list|()
+expr_stmt|;
+name|server
+operator|.
 name|abort
 argument_list|()
 expr_stmt|;
@@ -324,7 +334,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|error
+name|fatal
 argument_list|(
 literal|"Log rolling failed with ioe: "
 argument_list|,
@@ -339,6 +349,12 @@ expr_stmt|;
 name|server
 operator|.
 name|checkFileSystem
+argument_list|()
+expr_stmt|;
+comment|// Abort if we get here.  We probably won't recover an IOE. HBASE-1132
+name|server
+operator|.
+name|abort
 argument_list|()
 expr_stmt|;
 block|}
