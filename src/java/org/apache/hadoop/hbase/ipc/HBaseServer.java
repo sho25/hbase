@@ -481,13 +481,14 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// 1 : Introduce ping and server does not throw away RPCs
+comment|// 3 : RPC was refactored in 0.19
 specifier|public
 specifier|static
 specifier|final
 name|byte
 name|CURRENT_VERSION
 init|=
-literal|2
+literal|3
 decl_stmt|;
 comment|/**    * How many calls/handler are allowed in the queue.    */
 specifier|private
