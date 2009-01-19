@@ -2863,7 +2863,7 @@ name|Path
 argument_list|(
 name|dir
 argument_list|,
-literal|"compaction.dir"
+name|HREGION_COMPACTIONDIR_NAME
 argument_list|)
 return|;
 block|}

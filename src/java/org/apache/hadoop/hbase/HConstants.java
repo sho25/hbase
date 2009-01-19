@@ -253,6 +253,14 @@ name|HREGION_OLDLOGFILE_NAME
 init|=
 literal|"oldlogfile.log"
 decl_stmt|;
+comment|/** Used to construct the name of the compaction directory during compaction */
+specifier|static
+specifier|final
+name|String
+name|HREGION_COMPACTIONDIR_NAME
+init|=
+literal|"compaction.dir"
+decl_stmt|;
 comment|/** Default maximum file size */
 specifier|static
 specifier|final

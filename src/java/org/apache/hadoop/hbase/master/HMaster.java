@@ -849,6 +849,20 @@ name|RemoteException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
+import|;
+end_import
+
 begin_comment
 comment|/**  * HMaster is the "master server" for a HBase.  * There is only one HMaster for a single HBase deployment.  *   * NOTE: This class extends Thread rather than Chore because the sleep time  * can be interrupted when there is something to do, rather than the Chore  * sleep time which is invariant.  */
 end_comment
@@ -1834,6 +1848,47 @@ name|serverManager
 operator|.
 name|getAverageLoad
 argument_list|()
+return|;
+block|}
+comment|/** @return the number of regions on filesystem */
+specifier|public
+name|int
+name|countRegionsOnFS
+parameter_list|()
+block|{
+try|try
+block|{
+return|return
+name|regionManager
+operator|.
+name|countRegionsOnFS
+argument_list|()
+return|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Get count of Regions on FileSystem error : "
+operator|+
+name|StringUtils
+operator|.
+name|stringifyException
+argument_list|(
+name|e
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+operator|-
+literal|1
 return|;
 block|}
 comment|/**    * @return Location of the<code>-ROOT-</code> region.    */
