@@ -626,20 +626,10 @@ name|HBASE_CLIENT_RETRIES_NUMBER_KEY
 init|=
 literal|"hbase.client.retries.number"
 decl_stmt|;
-comment|//TODO: DEFAULT_CLIENT_RETRIES is not referenced anywhere. Remove it.
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_CLIENT_RETRIES
-init|=
-literal|5
-decl_stmt|;
 comment|//TODO: although the following are referenced widely to format strings for
 comment|//      the shell. They really aren't a part of the public API. It would be
 comment|//      nice if we could put them somewhere where they did not need to be
 comment|//      public. They could have package visibility
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -647,7 +637,6 @@ name|NAME
 init|=
 literal|"NAME"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -655,7 +644,6 @@ name|VERSIONS
 init|=
 literal|"VERSIONS"
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String

@@ -145,6 +145,9 @@ class|class
 name|HColumnDescriptor
 implements|implements
 name|WritableComparable
+argument_list|<
+name|HColumnDescriptor
+argument_list|>
 block|{
 comment|// For future backward compatibility
 comment|// Version 3 was when column names become byte arrays and when we picked up
@@ -1705,6 +1708,9 @@ block|{
 return|return
 name|compareTo
 argument_list|(
+operator|(
+name|HColumnDescriptor
+operator|)
 name|obj
 argument_list|)
 operator|==
@@ -1754,11 +1760,6 @@ name|result
 return|;
 block|}
 comment|// Writable
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 specifier|public
 name|void
 name|readFields
@@ -2145,18 +2146,10 @@ specifier|public
 name|int
 name|compareTo
 parameter_list|(
-name|Object
+name|HColumnDescriptor
 name|o
 parameter_list|)
 block|{
-name|HColumnDescriptor
-name|other
-init|=
-operator|(
-name|HColumnDescriptor
-operator|)
-name|o
-decl_stmt|;
 name|int
 name|result
 init|=
@@ -2168,7 +2161,7 @@ name|this
 operator|.
 name|name
 argument_list|,
-name|other
+name|o
 operator|.
 name|getName
 argument_list|()
@@ -2191,7 +2184,7 @@ operator|.
 name|hashCode
 argument_list|()
 operator|-
-name|other
+name|o
 operator|.
 name|values
 operator|.

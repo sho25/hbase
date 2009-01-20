@@ -172,11 +172,6 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Converts org.apache.hadoop.ipc.RemoteException into original exception,    * if possible. If the original exception is an Error or a RuntimeException,    * throws the original exception.    *     * @param re original exception    * @return decoded RemoteException if it is an instance of or a subclass of    *         IOException, or the original RemoteException if it cannot be decoded.    *     * @throws IOException indicating a server error ocurred if the decoded     *         exception is not an IOException. The decoded exception is set as    *         the cause.    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|public
 specifier|static
 name|IOException
@@ -197,6 +192,9 @@ decl_stmt|;
 try|try
 block|{
 name|Class
+argument_list|<
+name|?
+argument_list|>
 name|c
 init|=
 name|Class
@@ -210,6 +208,9 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 name|Class
+argument_list|<
+name|?
+argument_list|>
 index|[]
 name|parameterTypes
 init|=
@@ -220,6 +221,9 @@ name|class
 block|}
 decl_stmt|;
 name|Constructor
+argument_list|<
+name|?
+argument_list|>
 name|ctor
 init|=
 name|c

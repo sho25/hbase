@@ -20,17 +20,21 @@ comment|/**  * Thrown when a value is longer than the specified LENGTH  */
 end_comment
 
 begin_class
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"serial"
-argument_list|)
 specifier|public
 class|class
 name|ValueOverMaxLengthException
 extends|extends
 name|DoNotRetryIOException
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+operator|-
+literal|5525656352372008316L
+decl_stmt|;
 comment|/**    * default constructor    */
 specifier|public
 name|ValueOverMaxLengthException

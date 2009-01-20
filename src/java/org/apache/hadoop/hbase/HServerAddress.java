@@ -74,16 +74,14 @@ comment|/**  * HServerAddress is a "label" for a HBase server that combines the 
 end_comment
 
 begin_class
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|public
 class|class
 name|HServerAddress
 implements|implements
 name|WritableComparable
+argument_list|<
+name|HServerAddress
+argument_list|>
 block|{
 specifier|private
 name|InetSocketAddress
@@ -393,6 +391,9 @@ name|this
 operator|.
 name|compareTo
 argument_list|(
+operator|(
+name|HServerAddress
+operator|)
 name|o
 argument_list|)
 operator|==
@@ -569,18 +570,10 @@ specifier|public
 name|int
 name|compareTo
 parameter_list|(
-name|Object
+name|HServerAddress
 name|o
 parameter_list|)
 block|{
-name|HServerAddress
-name|that
-init|=
-operator|(
-name|HServerAddress
-operator|)
-name|o
-decl_stmt|;
 comment|// Addresses as Strings may not compare though address is for the one
 comment|// server with only difference being that one address has hostname
 comment|// resolved whereas other only has IP.
@@ -592,7 +585,7 @@ name|address
 operator|.
 name|equals
 argument_list|(
-name|that
+name|o
 operator|.
 name|address
 argument_list|)
@@ -608,7 +601,7 @@ argument_list|()
 operator|.
 name|compareTo
 argument_list|(
-name|that
+name|o
 operator|.
 name|toString
 argument_list|()

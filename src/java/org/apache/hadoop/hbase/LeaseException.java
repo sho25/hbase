@@ -20,17 +20,20 @@ comment|/**  * Reports a problem with a lease  */
 end_comment
 
 begin_class
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"serial"
-argument_list|)
 specifier|public
 class|class
 name|LeaseException
 extends|extends
 name|DoNotRetryIOException
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+literal|8179703995292418650L
+decl_stmt|;
 comment|/** default constructor */
 specifier|public
 name|LeaseException

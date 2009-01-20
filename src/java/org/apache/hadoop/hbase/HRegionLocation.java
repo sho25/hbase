@@ -20,16 +20,14 @@ comment|/**  * Contains the HRegionInfo for the region and the HServerAddress fo
 end_comment
 
 begin_class
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|public
 class|class
 name|HRegionLocation
 implements|implements
 name|Comparable
+argument_list|<
+name|HRegionLocation
+argument_list|>
 block|{
 specifier|private
 name|HRegionInfo
@@ -102,6 +100,9 @@ name|this
 operator|.
 name|compareTo
 argument_list|(
+operator|(
+name|HRegionLocation
+operator|)
 name|o
 argument_list|)
 operator|==
@@ -165,18 +166,10 @@ specifier|public
 name|int
 name|compareTo
 parameter_list|(
-name|Object
+name|HRegionLocation
 name|o
 parameter_list|)
 block|{
-name|HRegionLocation
-name|other
-init|=
-operator|(
-name|HRegionLocation
-operator|)
-name|o
-decl_stmt|;
 name|int
 name|result
 init|=
@@ -186,7 +179,7 @@ name|regionInfo
 operator|.
 name|compareTo
 argument_list|(
-name|other
+name|o
 operator|.
 name|regionInfo
 argument_list|)
@@ -206,7 +199,7 @@ name|serverAddress
 operator|.
 name|compareTo
 argument_list|(
-name|other
+name|o
 operator|.
 name|serverAddress
 argument_list|)

@@ -30,17 +30,20 @@ comment|/**  * Subclass if exception is not meant to be retried: e.g.  * {@link 
 end_comment
 
 begin_class
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"serial"
-argument_list|)
 specifier|public
 class|class
 name|DoNotRetryIOException
 extends|extends
 name|IOException
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+literal|1197446454511704139L
+decl_stmt|;
 comment|/**    * default constructor    */
 specifier|public
 name|DoNotRetryIOException

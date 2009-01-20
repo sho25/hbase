@@ -20,17 +20,21 @@ comment|/**  * Thrown if issue with passed column name.  */
 end_comment
 
 begin_class
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"serial"
-argument_list|)
 specifier|public
 class|class
 name|ColumnNameParseException
 extends|extends
 name|DoNotRetryIOException
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+operator|-
+literal|2897373353949942302L
+decl_stmt|;
 comment|/** default constructor */
 specifier|public
 name|ColumnNameParseException

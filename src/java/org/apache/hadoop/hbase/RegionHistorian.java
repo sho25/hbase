@@ -197,14 +197,6 @@ specifier|private
 name|HTable
 name|metaTable
 decl_stmt|;
-specifier|private
-name|GregorianCalendar
-name|cal
-init|=
-operator|new
-name|GregorianCalendar
-argument_list|()
-decl_stmt|;
 comment|/** Singleton reference */
 specifier|private
 specifier|static
@@ -212,7 +204,6 @@ name|RegionHistorian
 name|historian
 decl_stmt|;
 comment|/** Date formater for the timestamp in RegionHistoryInformation */
-specifier|private
 specifier|static
 name|SimpleDateFormat
 name|dateFormat
@@ -223,8 +214,7 @@ argument_list|(
 literal|"EEE, d MMM yyyy HH:mm:ss"
 argument_list|)
 decl_stmt|;
-comment|//TODO: Why is this public? Appears to only apply internally.
-specifier|public
+specifier|private
 specifier|static
 enum|enum
 name|HistorianColumnKey
@@ -301,7 +291,6 @@ literal|"assignment"
 argument_list|)
 argument_list|)
 block|;
-specifier|public
 name|byte
 index|[]
 name|key
@@ -720,11 +709,6 @@ parameter_list|(
 name|HRegionInfo
 name|info
 parameter_list|,
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|String
 name|timeTaken
 parameter_list|)
@@ -877,6 +861,14 @@ argument_list|<
 name|RegionHistoryInformation
 argument_list|>
 block|{
+specifier|private
+name|GregorianCalendar
+name|cal
+init|=
+operator|new
+name|GregorianCalendar
+argument_list|()
+decl_stmt|;
 specifier|private
 name|long
 name|timestamp

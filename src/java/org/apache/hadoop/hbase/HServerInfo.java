@@ -69,6 +69,9 @@ class|class
 name|HServerInfo
 implements|implements
 name|WritableComparable
+argument_list|<
+name|HServerInfo
+argument_list|>
 block|{
 specifier|private
 name|HServerAddress
@@ -331,6 +334,9 @@ block|{
 return|return
 name|compareTo
 argument_list|(
+operator|(
+name|HServerInfo
+operator|)
 name|obj
 argument_list|)
 operator|==
@@ -469,18 +475,10 @@ specifier|public
 name|int
 name|compareTo
 parameter_list|(
-name|Object
+name|HServerInfo
 name|o
 parameter_list|)
 block|{
-name|HServerInfo
-name|that
-init|=
-operator|(
-name|HServerInfo
-operator|)
-name|o
-decl_stmt|;
 name|int
 name|result
 init|=
@@ -489,7 +487,7 @@ argument_list|()
 operator|.
 name|compareTo
 argument_list|(
-name|that
+name|o
 operator|.
 name|getServerAddress
 argument_list|()
@@ -512,7 +510,7 @@ name|this
 operator|.
 name|infoPort
 operator|!=
-name|that
+name|o
 operator|.
 name|infoPort
 condition|)
@@ -522,7 +520,7 @@ name|this
 operator|.
 name|infoPort
 operator|-
-name|that
+name|o
 operator|.
 name|infoPort
 return|;
@@ -532,7 +530,7 @@ condition|(
 name|getStartCode
 argument_list|()
 operator|==
-name|that
+name|o
 operator|.
 name|getStartCode
 argument_list|()
@@ -551,7 +549,7 @@ argument_list|(
 name|getStartCode
 argument_list|()
 operator|-
-name|that
+name|o
 operator|.
 name|getStartCode
 argument_list|()

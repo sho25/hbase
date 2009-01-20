@@ -104,16 +104,14 @@ comment|/**  * This class encapsulates metrics for determining the load on a HRe
 end_comment
 
 begin_class
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|public
 class|class
 name|HServerLoad
 implements|implements
 name|WritableComparable
+argument_list|<
+name|HServerLoad
+argument_list|>
 block|{
 comment|/** number of regions */
 comment|// could just use regionLoad.size() but master.RegionManager likes to play
@@ -840,6 +838,9 @@ block|{
 return|return
 name|compareTo
 argument_list|(
+operator|(
+name|HServerLoad
+operator|)
 name|o
 argument_list|)
 operator|==
@@ -925,7 +926,8 @@ name|count
 operator|+=
 name|info
 operator|.
-name|storefiles
+name|getStorefiles
+argument_list|()
 expr_stmt|;
 return|return
 name|count
@@ -953,7 +955,8 @@ name|count
 operator|+=
 name|info
 operator|.
-name|memcacheSizeMB
+name|getMemcacheSizeMB
+argument_list|()
 expr_stmt|;
 return|return
 name|count
@@ -981,7 +984,8 @@ name|count
 operator|+=
 name|info
 operator|.
-name|storefileIndexSizeMB
+name|getStorefileIndexSizeMB
+argument_list|()
 expr_stmt|;
 return|return
 name|count
@@ -1279,25 +1283,17 @@ specifier|public
 name|int
 name|compareTo
 parameter_list|(
-name|Object
+name|HServerLoad
 name|o
 parameter_list|)
 block|{
-name|HServerLoad
-name|other
-init|=
-operator|(
-name|HServerLoad
-operator|)
-name|o
-decl_stmt|;
 return|return
 name|this
 operator|.
 name|getLoad
 argument_list|()
 operator|-
-name|other
+name|o
 operator|.
 name|getLoad
 argument_list|()
