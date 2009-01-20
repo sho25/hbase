@@ -122,20 +122,10 @@ name|prefix
 expr_stmt|;
 block|}
 comment|/**    * Default Constructor, filters nothing. Required for RPC    * deserialization    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|public
 name|PrefixRowFilter
 parameter_list|()
 block|{ }
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|public
 name|void
 name|reset
@@ -143,11 +133,6 @@ parameter_list|()
 block|{
 comment|// Nothing to reset
 block|}
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|public
 name|void
 name|rowProcessed
@@ -247,11 +232,6 @@ return|return
 literal|false
 return|;
 block|}
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|public
 name|boolean
 name|filterColumn
@@ -276,11 +256,6 @@ return|return
 literal|false
 return|;
 block|}
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|public
 name|boolean
 name|filterRow
@@ -300,11 +275,6 @@ return|return
 literal|false
 return|;
 block|}
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|public
 name|void
 name|validate

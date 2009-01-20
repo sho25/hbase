@@ -305,20 +305,6 @@ name|hadoop
 operator|.
 name|io
 operator|.
-name|ObjectWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
 name|Text
 import|;
 end_import
@@ -1295,25 +1281,35 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|Object
+name|instanceObj
+init|=
+name|instance
+decl_stmt|;
+name|Class
+name|declClass
+init|=
+name|declaredClass
+decl_stmt|;
 if|if
 condition|(
-name|instance
+name|instanceObj
 operator|==
 literal|null
 condition|)
 block|{
 comment|// null
-name|instance
+name|instanceObj
 operator|=
 operator|new
 name|NullInstance
 argument_list|(
-name|declaredClass
+name|declClass
 argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
-name|declaredClass
+name|declClass
 operator|=
 name|Writable
 operator|.
@@ -1324,12 +1320,12 @@ name|writeClassCode
 argument_list|(
 name|out
 argument_list|,
-name|declaredClass
+name|declClass
 argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|declaredClass
+name|declClass
 operator|.
 name|isArray
 argument_list|()
@@ -1340,7 +1336,7 @@ comment|// If bytearray, just dump it out -- avoid the recursion and
 comment|// byte-at-a-time we were previously doing.
 if|if
 condition|(
-name|declaredClass
+name|declClass
 operator|.
 name|equals
 argument_list|(
@@ -1361,7 +1357,7 @@ operator|(
 name|byte
 index|[]
 operator|)
-name|instance
+name|instanceObj
 argument_list|)
 expr_stmt|;
 block|}
@@ -1374,7 +1370,7 @@ name|Array
 operator|.
 name|getLength
 argument_list|(
-name|instance
+name|instanceObj
 argument_list|)
 decl_stmt|;
 name|out
@@ -1407,12 +1403,12 @@ name|Array
 operator|.
 name|get
 argument_list|(
-name|instance
+name|instanceObj
 argument_list|,
 name|i
 argument_list|)
 argument_list|,
-name|declaredClass
+name|declClass
 operator|.
 name|getComponentType
 argument_list|()
@@ -1426,7 +1422,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|declaredClass
+name|declClass
 operator|==
 name|String
 operator|.
@@ -1443,14 +1439,14 @@ argument_list|,
 operator|(
 name|String
 operator|)
-name|instance
+name|instanceObj
 argument_list|)
 expr_stmt|;
 block|}
 elseif|else
 if|if
 condition|(
-name|declaredClass
+name|declClass
 operator|.
 name|isPrimitive
 argument_list|()
@@ -1459,7 +1455,7 @@ block|{
 comment|// primitive type
 if|if
 condition|(
-name|declaredClass
+name|declClass
 operator|==
 name|Boolean
 operator|.
@@ -1475,7 +1471,7 @@ operator|(
 operator|(
 name|Boolean
 operator|)
-name|instance
+name|instanceObj
 operator|)
 operator|.
 name|booleanValue
@@ -1486,7 +1482,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|declaredClass
+name|declClass
 operator|==
 name|Character
 operator|.
@@ -1502,7 +1498,7 @@ operator|(
 operator|(
 name|Character
 operator|)
-name|instance
+name|instanceObj
 operator|)
 operator|.
 name|charValue
@@ -1513,7 +1509,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|declaredClass
+name|declClass
 operator|==
 name|Byte
 operator|.
@@ -1529,7 +1525,7 @@ operator|(
 operator|(
 name|Byte
 operator|)
-name|instance
+name|instanceObj
 operator|)
 operator|.
 name|byteValue
@@ -1540,7 +1536,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|declaredClass
+name|declClass
 operator|==
 name|Short
 operator|.
@@ -1556,7 +1552,7 @@ operator|(
 operator|(
 name|Short
 operator|)
-name|instance
+name|instanceObj
 operator|)
 operator|.
 name|shortValue
@@ -1567,7 +1563,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|declaredClass
+name|declClass
 operator|==
 name|Integer
 operator|.
@@ -1583,7 +1579,7 @@ operator|(
 operator|(
 name|Integer
 operator|)
-name|instance
+name|instanceObj
 operator|)
 operator|.
 name|intValue
@@ -1594,7 +1590,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|declaredClass
+name|declClass
 operator|==
 name|Long
 operator|.
@@ -1610,7 +1606,7 @@ operator|(
 operator|(
 name|Long
 operator|)
-name|instance
+name|instanceObj
 operator|)
 operator|.
 name|longValue
@@ -1621,7 +1617,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|declaredClass
+name|declClass
 operator|==
 name|Float
 operator|.
@@ -1637,7 +1633,7 @@ operator|(
 operator|(
 name|Float
 operator|)
-name|instance
+name|instanceObj
 operator|)
 operator|.
 name|floatValue
@@ -1648,7 +1644,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|declaredClass
+name|declClass
 operator|==
 name|Double
 operator|.
@@ -1664,7 +1660,7 @@ operator|(
 operator|(
 name|Double
 operator|)
-name|instance
+name|instanceObj
 operator|)
 operator|.
 name|doubleValue
@@ -1675,7 +1671,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|declaredClass
+name|declClass
 operator|==
 name|Void
 operator|.
@@ -1692,7 +1688,7 @@ name|IllegalArgumentException
 argument_list|(
 literal|"Not a primitive: "
 operator|+
-name|declaredClass
+name|declClass
 argument_list|)
 throw|;
 block|}
@@ -1700,7 +1696,7 @@ block|}
 elseif|else
 if|if
 condition|(
-name|declaredClass
+name|declClass
 operator|.
 name|isEnum
 argument_list|()
@@ -1717,7 +1713,7 @@ operator|(
 operator|(
 name|Enum
 operator|)
-name|instance
+name|instanceObj
 operator|)
 operator|.
 name|name
@@ -1734,7 +1730,7 @@ name|class
 operator|.
 name|isAssignableFrom
 argument_list|(
-name|declaredClass
+name|declClass
 argument_list|)
 condition|)
 block|{
@@ -1745,7 +1741,7 @@ name|?
 argument_list|>
 name|c
 init|=
-name|instance
+name|instanceObj
 operator|.
 name|getClass
 argument_list|()
@@ -1801,7 +1797,7 @@ operator|(
 operator|(
 name|Writable
 operator|)
-name|instance
+name|instanceObj
 operator|)
 operator|.
 name|write
@@ -1818,11 +1814,11 @@ name|IOException
 argument_list|(
 literal|"Can't write: "
 operator|+
-name|instance
+name|instanceObj
 operator|+
 literal|" as "
 operator|+
-name|declaredClass
+name|declClass
 argument_list|)
 throw|;
 block|}

@@ -38,17 +38,20 @@ comment|/**  * Thrown if a region server is passed an unknown transaction id  */
 end_comment
 
 begin_class
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"serial"
-argument_list|)
 specifier|public
 class|class
 name|UnknownTransactionException
 extends|extends
 name|DoNotRetryIOException
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+literal|698575374929591099L
+decl_stmt|;
 comment|/** constructor */
 specifier|public
 name|UnknownTransactionException

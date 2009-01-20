@@ -413,6 +413,8 @@ name|hits
 decl_stmt|,
 name|misses
 decl_stmt|;
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -649,11 +651,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Override
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|public
 specifier|synchronized
 name|boolean
@@ -1131,11 +1128,6 @@ return|;
 block|}
 annotation|@
 name|Override
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|public
 name|void
 name|mark

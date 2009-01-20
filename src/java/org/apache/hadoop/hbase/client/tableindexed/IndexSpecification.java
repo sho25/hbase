@@ -438,11 +438,6 @@ argument_list|)
 return|;
 block|}
 comment|/** {@inheritDoc} */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|public
 name|void
 name|readFields

@@ -327,7 +327,6 @@ literal|"ROW"
 argument_list|)
 argument_list|)
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|Log

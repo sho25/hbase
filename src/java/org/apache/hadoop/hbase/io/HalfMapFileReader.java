@@ -149,6 +149,10 @@ begin_comment
 comment|/**  * A facade for a {@link org.apache.hadoop.io.MapFile.Reader} that serves up  * either the top or bottom half of a MapFile where 'bottom' is the first half  * of the file containing the keys that sort lowest and 'top' is the second half  * of the file with keys that sort greater than those of the bottom half.  * The top includes the split files midkey, of the key that follows if it does  * not exist in the file.  *   *<p>This type works in tandem with the {@link Reference} type.  This class  * is used reading while Reference is used writing.  *   *<p>This file is not splitable.  Calls to {@link #midKey()} return null.  */
 end_comment
 
+begin_comment
+comment|//TODO should be fixed generic warnings from MapFile methods
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -229,11 +233,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @param fs    * @param dirName    * @param conf    * @param r    * @param mk    * @param filter    * @param blockCacheEnabled    * @param hri    * @throws IOException    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|public
 name|HalfMapFileReader
 parameter_list|(
@@ -628,11 +627,7 @@ block|}
 annotation|@
 name|SuppressWarnings
 argument_list|(
-block|{
-literal|"unused"
-block|,
 literal|"unchecked"
-block|}
 argument_list|)
 annotation|@
 name|Override

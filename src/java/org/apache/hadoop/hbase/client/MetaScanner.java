@@ -95,26 +95,6 @@ name|RowResult
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
-import|;
-end_import
-
-begin_comment
-comment|//TODO: remove
-end_comment
-
 begin_comment
 comment|/**  * Scanner class that contains the<code>.META.</code> table scanning logic   * and uses a Retryable scanner. Provided visitors will be called  * for each row.  */
 end_comment

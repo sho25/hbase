@@ -241,14 +241,27 @@ begin_comment
 comment|/**  * On write, all keys are added to a bloom filter.  On read, all keys are  * tested first against bloom filter. Keys are HStoreKey.  If passed bloom  * filter is null, just passes invocation to parent.  */
 end_comment
 
+begin_comment
+comment|// TODO should be fixed generic warnings from MapFile methods
+end_comment
+
 begin_class
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 class|class
 name|BloomFilterMapFile
 extends|extends
 name|HBaseMapFile
 block|{
-specifier|private
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"hiding"
+argument_list|)
 specifier|static
 specifier|final
 name|Log
@@ -677,11 +690,6 @@ name|FileSystem
 name|fs
 decl_stmt|;
 comment|/**      * @param conf      * @param fs      * @param dirName      * @param compression      * @param filter      * @param nrows      * @param hri      * @throws IOException      */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|public
 name|Writer
 parameter_list|(

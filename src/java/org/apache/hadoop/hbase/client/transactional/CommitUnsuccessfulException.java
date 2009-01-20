@@ -24,17 +24,20 @@ comment|/** Thrown when a transaction cannot be committed.   *   */
 end_comment
 
 begin_class
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"serial"
-argument_list|)
 specifier|public
 class|class
 name|CommitUnsuccessfulException
 extends|extends
 name|Exception
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+literal|7062921444531109202L
+decl_stmt|;
 comment|/** Default Constructor */
 specifier|public
 name|CommitUnsuccessfulException

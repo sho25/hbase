@@ -4182,6 +4182,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|boolean
+name|reloadFlag
+init|=
+name|reload
+decl_stmt|;
 name|getMaster
 argument_list|()
 expr_stmt|;
@@ -4225,7 +4230,7 @@ name|tableName
 argument_list|,
 name|rowKey
 argument_list|,
-name|reload
+name|reloadFlag
 argument_list|)
 expr_stmt|;
 block|}
@@ -4252,7 +4257,7 @@ condition|)
 block|{
 break|break;
 block|}
-name|reload
+name|reloadFlag
 operator|=
 literal|true
 expr_stmt|;

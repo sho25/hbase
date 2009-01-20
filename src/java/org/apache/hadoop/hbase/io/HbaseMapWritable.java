@@ -232,7 +232,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Writable Map.  * Like {@link org.apache.hadoop.io.MapWritable} but dumb. It will fail  * if passed a value type that it has not already been told about. Its  been  * primed with hbase Writables and byte [].  Keys are always byte arrays.  *  * @param<byte []> key  * @param<V> value Expects a Writable or byte [].  */
+comment|/**  * A Writable Map.  * Like {@link org.apache.hadoop.io.MapWritable} but dumb. It will fail  * if passed a value type that it has not already been told about. Its  been  * primed with hbase Writables and byte [].  Keys are always byte arrays.  *  * @param<byte []> key  TODO: Parameter K is never used, could be removed.  * @param<V> value Expects a Writable or byte [].  */
 end_comment
 
 begin_class
@@ -828,11 +828,7 @@ comment|/** @return the Class class for the specified id */
 annotation|@
 name|SuppressWarnings
 argument_list|(
-block|{
-literal|"unchecked"
-block|,
 literal|"boxing"
-block|}
 argument_list|)
 specifier|protected
 name|Class
@@ -858,11 +854,7 @@ comment|/** @return the id for the specified Class */
 annotation|@
 name|SuppressWarnings
 argument_list|(
-block|{
-literal|"unchecked"
-block|,
 literal|"boxing"
-block|}
 argument_list|)
 specifier|protected
 name|byte
