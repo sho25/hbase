@@ -806,6 +806,8 @@ argument_list|,
 literal|1024L
 operator|*
 literal|1024L
+operator|*
+literal|64L
 argument_list|)
 expr_stmt|;
 name|this
