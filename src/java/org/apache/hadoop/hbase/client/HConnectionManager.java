@@ -2324,10 +2324,13 @@ operator|==
 literal|null
 condition|)
 block|{
-return|return
+name|this
+operator|.
+name|rootRegionLocation
+operator|=
 name|locateRootRegion
 argument_list|()
-return|;
+expr_stmt|;
 block|}
 return|return
 name|rootRegionLocation
