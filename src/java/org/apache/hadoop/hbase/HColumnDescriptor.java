@@ -101,6 +101,60 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|rest
+operator|.
+name|exception
+operator|.
+name|HBaseRestException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|rest
+operator|.
+name|serializer
+operator|.
+name|IRestSerializer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|rest
+operator|.
+name|serializer
+operator|.
+name|ISerializable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -135,6 +189,14 @@ name|WritableComparable
 import|;
 end_import
 
+begin_import
+import|import
+name|agilejson
+operator|.
+name|TOJSON
+import|;
+end_import
+
 begin_comment
 comment|/**  * An HColumnDescriptor contains information about a column family such as the  * number of versions, compression settings, etc.  *   * It is used as input when creating a table or adding a column. Once set, the  * parameters that specify a column cannot be changed without deleting the  * column and recreating it. If there is data stored in the column, it will be  * deleted when the column is deleted.  */
 end_comment
@@ -144,6 +206,8 @@ specifier|public
 class|class
 name|HColumnDescriptor
 implements|implements
+name|ISerializable
+implements|,
 name|WritableComparable
 argument_list|<
 name|HColumnDescriptor
@@ -804,6 +868,17 @@ name|name
 return|;
 block|}
 comment|/**    * @return Name of this column family with colon as required by client API    */
+annotation|@
+name|TOJSON
+argument_list|(
+name|fieldName
+operator|=
+literal|"name"
+argument_list|,
+name|base64
+operator|=
+literal|true
+argument_list|)
 specifier|public
 name|byte
 index|[]
@@ -1003,6 +1078,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/** @return compression type being used for the column family */
+annotation|@
+name|TOJSON
 specifier|public
 name|CompressionType
 name|getCompression
@@ -1060,6 +1137,8 @@ name|NONE
 return|;
 block|}
 comment|/** @return maximum number of versions */
+annotation|@
+name|TOJSON
 specifier|public
 name|int
 name|getMaxVersions
@@ -1121,6 +1200,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @return Compression type setting.    */
+annotation|@
+name|TOJSON
 specifier|public
 name|CompressionType
 name|getCompressionType
@@ -1180,6 +1261,13 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @return True if we are to keep all in use HRegionServer cache.    */
+annotation|@
+name|TOJSON
+argument_list|(
+name|prefixLength
+operator|=
+literal|2
+argument_list|)
 specifier|public
 name|boolean
 name|isInMemory
@@ -1241,6 +1329,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @return Maximum value length.    */
+annotation|@
+name|TOJSON
 specifier|public
 specifier|synchronized
 name|int
@@ -1322,6 +1412,8 @@ literal|null
 expr_stmt|;
 block|}
 comment|/**    * @return Time-to-live of cell contents, in seconds.    */
+annotation|@
+name|TOJSON
 specifier|public
 name|int
 name|getTimeToLive
@@ -1378,6 +1470,13 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @return True if MapFile blocks should be cached.    */
+annotation|@
+name|TOJSON
+argument_list|(
+name|prefixLength
+operator|=
+literal|2
+argument_list|)
 specifier|public
 name|boolean
 name|isBlockCacheEnabled
@@ -1435,6 +1534,13 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @return true if a bloom filter is enabled    */
+annotation|@
+name|TOJSON
+argument_list|(
+name|prefixLength
+operator|=
+literal|2
+argument_list|)
 specifier|public
 name|boolean
 name|isBloomfilter
@@ -2217,6 +2323,25 @@ block|}
 return|return
 name|result
 return|;
+block|}
+comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.rest.xml.IOutputXML#toXML()    */
+specifier|public
+name|void
+name|restSerialize
+parameter_list|(
+name|IRestSerializer
+name|serializer
+parameter_list|)
+throws|throws
+name|HBaseRestException
+block|{
+name|serializer
+operator|.
+name|serializeColumnDescriptor
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class

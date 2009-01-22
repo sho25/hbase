@@ -119,6 +119,60 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|rest
+operator|.
+name|exception
+operator|.
+name|HBaseRestException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|rest
+operator|.
+name|serializer
+operator|.
+name|IRestSerializer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|rest
+operator|.
+name|serializer
+operator|.
+name|ISerializable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -139,8 +193,16 @@ name|Writable
 import|;
 end_import
 
+begin_import
+import|import
+name|agilejson
+operator|.
+name|TOJSON
+import|;
+end_import
+
 begin_comment
-comment|/**  * Cell - Used to transport a cell value (byte[]) and the timestamp it was   * stored with together as a result for get and getRow methods. This promotes  * the timestamp of a cell to a first-class value, making it easy to take   * note of temporal data. Cell is used all the way from HStore up to HTable.  */
+comment|/**  * Cell - Used to transport a cell value (byte[]) and the timestamp it was  * stored with together as a result for get and getRow methods. This promotes  * the timestamp of a cell to a first-class value, making it easy to take note  * of temporal data. Cell is used all the way from HStore up to HTable.  */
 end_comment
 
 begin_class
@@ -162,6 +224,8 @@ name|byte
 index|[]
 argument_list|>
 argument_list|>
+implements|,
+name|ISerializable
 block|{
 specifier|protected
 specifier|final
@@ -218,7 +282,7 @@ specifier|public
 name|Cell
 parameter_list|()
 block|{   }
-comment|/**    * Create a new Cell with a given value and timestamp. Used by HStore.    * @param value    * @param timestamp    */
+comment|/**    * Create a new Cell with a given value and timestamp. Used by HStore.    *     * @param value    * @param timestamp    */
 specifier|public
 name|Cell
 parameter_list|(
@@ -242,7 +306,7 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a new Cell with a given value and timestamp. Used by HStore.    * @param value    * @param timestamp    */
+comment|/**    * Create a new Cell with a given value and timestamp. Used by HStore.    *     * @param value    * @param timestamp    */
 specifier|public
 name|Cell
 parameter_list|(
@@ -264,7 +328,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param vals array of values    * @param ts array of timestamps    */
+comment|/**    * @param vals    *          array of values    * @param ts    *          array of timestamps    */
 specifier|public
 name|Cell
 parameter_list|(
@@ -290,7 +354,7 @@ name|ts
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param vals array of values    * @param ts array of timestamps    */
+comment|/**    * @param vals    *          array of values    * @param ts    *          array of timestamps    */
 specifier|public
 name|Cell
 parameter_list|(
@@ -358,6 +422,13 @@ expr_stmt|;
 block|}
 block|}
 comment|/** @return the current cell's value */
+annotation|@
+name|TOJSON
+argument_list|(
+name|base64
+operator|=
+literal|true
+argument_list|)
 specifier|public
 name|byte
 index|[]
@@ -377,6 +448,8 @@ argument_list|)
 return|;
 block|}
 comment|/** @return the current cell's timestamp */
+annotation|@
+name|TOJSON
 specifier|public
 name|long
 name|getTimestamp
@@ -402,7 +475,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/** Add values and timestamps of another cell into this cell     * @param c Cell    */
+comment|/**    * Add values and timestamps of another cell into this cell    *     * @param c    *          Cell    */
 specifier|public
 name|void
 name|mergeCell
@@ -421,7 +494,7 @@ name|valueMap
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Add a new timestamp and value to this cell    * @param val value    * @param ts timestamp    */
+comment|/**    * Add a new timestamp and value to this cell    *     * @param val    *          value    * @param ts    *          timestamp    */
 specifier|public
 name|void
 name|add
@@ -831,6 +904,25 @@ literal|"remove is not supported"
 argument_list|)
 throw|;
 block|}
+block|}
+comment|/*    * (non-Javadoc)    *     * @see    * org.apache.hadoop.hbase.rest.serializer.ISerializable#restSerialize(org    * .apache.hadoop.hbase.rest.serializer.IRestSerializer)    */
+specifier|public
+name|void
+name|restSerialize
+parameter_list|(
+name|IRestSerializer
+name|serializer
+parameter_list|)
+throws|throws
+name|HBaseRestException
+block|{
+name|serializer
+operator|.
+name|serializeCell
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class
