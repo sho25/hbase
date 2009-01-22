@@ -119,6 +119,8 @@ return|;
 block|}
 comment|/**    * taken from  hashlittle() -- hash a variable-length key into a 32-bit value    *     * @param key the key (the unaligned variable-length array of bytes)    * @param nbytes number of bytes to include in hash    * @param initval can be any integer value    * @return a 32-bit value.  Every bit of the key affects every bit of the    * return value.  Two keys differing by one or two bits will have totally    * different hash values.    *     *<p>The best hash table sizes are powers of 2.  There is no need to do mod    * a prime (mod is sooo slow!).  If you need less than 32 bits, use a bitmask.    * For example, if you need only 10 bits, do    *<code>h = (h& hashmask(10));</code>    * In which case, the hash table should have hashsize(10) elements.    *     *<p>If you are hashing n strings byte[][] k, do it like this:    * for (int i = 0, h = 0; i< n; ++i) h = hash( k[i], h);    *     *<p>By Bob Jenkins, 2006.  bob_jenkins@burtleburtle.net.  You may use this    * code any way you wish, private, educational, or commercial.  It's free.    *     *<p>Use for hash table lookup, or anything where one collision in 2^^32 is    * acceptable.  Do NOT use for cryptographic purposes.   */
 annotation|@
+name|Override
+annotation|@
 name|SuppressWarnings
 argument_list|(
 literal|"fallthrough"

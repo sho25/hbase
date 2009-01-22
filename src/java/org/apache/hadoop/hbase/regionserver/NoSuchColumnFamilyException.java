@@ -36,17 +36,21 @@ comment|/**  * Thrown if request for nonexistent column family.  */
 end_comment
 
 begin_class
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"serial"
-argument_list|)
 specifier|public
 class|class
 name|NoSuchColumnFamilyException
 extends|extends
 name|DoNotRetryIOException
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+operator|-
+literal|6569952730832331274L
+decl_stmt|;
 comment|/** default constructor */
 specifier|public
 name|NoSuchColumnFamilyException

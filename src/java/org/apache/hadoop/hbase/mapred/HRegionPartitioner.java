@@ -274,11 +274,6 @@ parameter_list|(
 name|ImmutableBytesWritable
 name|key
 parameter_list|,
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|V2
 name|value
 parameter_list|,

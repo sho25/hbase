@@ -67,6 +67,9 @@ class|class
 name|HLogKey
 implements|implements
 name|WritableComparable
+argument_list|<
+name|HLogKey
+argument_list|>
 block|{
 specifier|private
 name|byte
@@ -249,6 +252,9 @@ block|{
 return|return
 name|compareTo
 argument_list|(
+operator|(
+name|HLogKey
+operator|)
 name|obj
 argument_list|)
 operator|==
@@ -298,18 +304,10 @@ specifier|public
 name|int
 name|compareTo
 parameter_list|(
-name|Object
+name|HLogKey
 name|o
 parameter_list|)
 block|{
-name|HLogKey
-name|other
-init|=
-operator|(
-name|HLogKey
-operator|)
-name|o
-decl_stmt|;
 name|int
 name|result
 init|=
@@ -321,7 +319,7 @@ name|this
 operator|.
 name|regionName
 argument_list|,
-name|other
+name|o
 operator|.
 name|regionName
 argument_list|)
@@ -343,7 +341,7 @@ name|this
 operator|.
 name|row
 argument_list|,
-name|other
+name|o
 operator|.
 name|row
 argument_list|)
@@ -361,7 +359,7 @@ name|this
 operator|.
 name|logSeqNum
 operator|<
-name|other
+name|o
 operator|.
 name|logSeqNum
 condition|)
@@ -379,7 +377,7 @@ name|this
 operator|.
 name|logSeqNum
 operator|>
-name|other
+name|o
 operator|.
 name|logSeqNum
 condition|)

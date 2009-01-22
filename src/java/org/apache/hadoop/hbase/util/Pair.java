@@ -179,6 +179,8 @@ operator|)
 return|;
 block|}
 annotation|@
+name|Override
+annotation|@
 name|SuppressWarnings
 argument_list|(
 literal|"unchecked"
@@ -225,6 +227,8 @@ name|second
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|hashCode
@@ -282,6 +286,8 @@ name|hashCode
 argument_list|()
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString

@@ -39,20 +39,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_comment
-comment|//TODO: remove
-end_comment
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -122,11 +108,6 @@ specifier|public
 name|void
 name|readFields
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|DataInput
 name|in
 parameter_list|)
@@ -137,11 +118,6 @@ specifier|public
 name|void
 name|write
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|DataOutput
 name|out
 parameter_list|)

@@ -97,22 +97,6 @@ name|Random
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Hash
-import|;
-end_import
-
 begin_comment
 comment|/**  * Implements a<i>retouched Bloom filter</i>, as defined in the CoNEXT 2006 paper.  *<p>  * It allows the removal of selected false positives at the cost of introducing  * random false negatives, and with the benefit of eliminating some random false  * positives at the same time.  *   * contract<a href="http://www.one-lab.org">European Commission One-Lab Project 034819</a>.  *  * @version 1.0 - 7 Feb. 07  *   * @see org.onelab.filter.Filter The general behavior of a filter  * @see org.onelab.filter.BloomFilter A Bloom filter  * @see org.onelab.filter.RemoveScheme The different selective clearing algorithms  *   * @see<a href="http://www-rp.lip6.fr/site_npa/site_rp/_publications/740-rbf_cameraready.pdf">Retouched Bloom Filters: Allowing Networked Applications to Trade Off Selected False Positives Against False Negatives</a>  */
 end_comment

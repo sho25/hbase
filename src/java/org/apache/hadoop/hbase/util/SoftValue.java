@@ -139,11 +139,6 @@ specifier|public
 name|V
 name|setValue
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|V
 name|value
 parameter_list|)

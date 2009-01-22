@@ -170,6 +170,11 @@ name|TableInputFormatBase
 implements|implements
 name|JobConfigurable
 block|{
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"hiding"
+argument_list|)
 specifier|private
 specifier|final
 name|Log
@@ -324,11 +329,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 specifier|public
 name|void
 name|validateInput

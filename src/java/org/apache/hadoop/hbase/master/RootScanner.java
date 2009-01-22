@@ -65,7 +65,7 @@ name|RootScanner
 extends|extends
 name|BaseScanner
 block|{
-comment|/**    * Constructor    *     * @param master    */
+comment|/**    * Constructor    * @param master    */
 specifier|public
 name|RootScanner
 parameter_list|(
@@ -89,7 +89,7 @@ name|closed
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * Don't retry if we get an error while scanning. Errors are most often    *    * caused by the server going away. Wait until next rescan interval when    * things should be back to normal.    * @return True if successfully scanned.    */
+comment|/**    * Don't retry if we get an error while scanning. Errors are most often    *    * caused by the server going away. Wait until next rescan interval when    * things should be back to normal.    * @return True if successfully scanned.    */
 specifier|private
 name|boolean
 name|scanRoot

@@ -259,11 +259,6 @@ specifier|public
 name|void
 name|doUpdates
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|MetricsContext
 name|unused
 parameter_list|)

@@ -71,6 +71,9 @@ class|class
 name|Key
 implements|implements
 name|WritableComparable
+argument_list|<
+name|Key
+argument_list|>
 block|{
 comment|/** Byte value of key */
 name|byte
@@ -235,6 +238,9 @@ name|this
 operator|.
 name|compareTo
 argument_list|(
+operator|(
+name|Key
+operator|)
 name|o
 argument_list|)
 operator|==
@@ -382,18 +388,10 @@ specifier|public
 name|int
 name|compareTo
 parameter_list|(
-name|Object
+name|Key
 name|o
 parameter_list|)
 block|{
-name|Key
-name|other
-init|=
-operator|(
-name|Key
-operator|)
-name|o
-decl_stmt|;
 name|int
 name|result
 init|=
@@ -403,7 +401,7 @@ name|bytes
 operator|.
 name|length
 operator|-
-name|other
+name|o
 operator|.
 name|getBytes
 argument_list|()
@@ -440,7 +438,7 @@ index|[
 name|i
 index|]
 operator|-
-name|other
+name|o
 operator|.
 name|bytes
 index|[
@@ -465,7 +463,7 @@ name|this
 operator|.
 name|weight
 operator|-
-name|other
+name|o
 operator|.
 name|weight
 argument_list|)

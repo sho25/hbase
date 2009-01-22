@@ -96,11 +96,6 @@ comment|/**  * Scan an HBase table to sort by a specified sort column.  * If the
 end_comment
 
 begin_interface
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|public
 interface|interface
 name|TableMap
@@ -108,6 +103,9 @@ parameter_list|<
 name|K
 extends|extends
 name|WritableComparable
+parameter_list|<
+name|K
+parameter_list|>
 parameter_list|,
 name|V
 extends|extends

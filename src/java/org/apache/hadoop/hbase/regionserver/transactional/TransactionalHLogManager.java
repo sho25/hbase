@@ -346,7 +346,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Responsible for writing and reading (recovering) transactional information  * to/from the HLog.  *   *   */
+comment|/**  * Responsible for writing and reading (recovering) transactional information  * to/from the HLog.  */
 end_comment
 
 begin_class

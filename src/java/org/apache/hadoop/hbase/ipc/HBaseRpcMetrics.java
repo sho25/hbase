@@ -103,20 +103,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|ipc
-operator|.
-name|Server
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|metrics
 operator|.
 name|MetricsContext
@@ -348,6 +334,9 @@ init|)
 block|{
 comment|// Iterate through the rpcMetrics hashmap to propogate the different rpc metrics.
 name|Set
+argument_list|<
+name|String
+argument_list|>
 name|keys
 init|=
 name|metricsList
@@ -356,6 +345,9 @@ name|keySet
 argument_list|()
 decl_stmt|;
 name|Iterator
+argument_list|<
+name|String
+argument_list|>
 name|keyIter
 init|=
 name|keys

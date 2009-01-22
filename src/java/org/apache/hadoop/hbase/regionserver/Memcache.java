@@ -991,11 +991,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * @param a    * @param b    * @return Return lowest of a or b or null if both a and b are null    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|private
 name|byte
 index|[]

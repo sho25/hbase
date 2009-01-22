@@ -47,36 +47,6 @@ name|IOException
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Arrays
-import|;
-end_import
-
-begin_comment
-comment|//TODO: remove
-end_comment
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Hash
-import|;
-end_import
-
 begin_comment
 comment|/**  * Implements a<i>counting Bloom filter</i>, as defined by Fan et al. in a ToN  * 2000 paper.  *<p>  * A counting Bloom filter is an improvement to standard a Bloom filter as it  * allows dynamic additions and deletions of set membership information.  This   * is achieved through the use of a counting vector instead of a bit vector.  *   * contract<a href="http://www.one-lab.org">European Commission One-Lab Project 034819</a>.  *  * @version 1.1 - 19 Jan. 08  *   * @see org.onelab.filter.Filter The general behavior of a filter  *   * @see<a href="http://portal.acm.org/citation.cfm?id=343571.343572">Summary cache: a scalable wide-area web cache sharing protocol</a>  */
 end_comment
@@ -805,12 +775,9 @@ return|return
 name|res
 return|;
 block|}
-else|else
-block|{
 return|return
 literal|0
 return|;
-block|}
 block|}
 annotation|@
 name|Override
@@ -934,11 +901,6 @@ block|}
 comment|//end or()
 annotation|@
 name|Override
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|public
 name|void
 name|xor
@@ -1100,7 +1062,6 @@ return|return
 name|cbf
 return|;
 block|}
-comment|//end clone()
 comment|// Writable
 annotation|@
 name|Override
@@ -1220,10 +1181,6 @@ block|}
 block|}
 block|}
 end_class
-
-begin_comment
-comment|//end class
-end_comment
 
 end_unit
 

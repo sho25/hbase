@@ -47,6 +47,8 @@ return|return
 name|_instance
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|hash
@@ -235,9 +237,6 @@ condition|)
 block|{
 name|h
 operator|^=
-operator|(
-name|int
-operator|)
 name|data
 index|[
 name|length
@@ -257,9 +256,6 @@ condition|)
 block|{
 name|h
 operator|^=
-operator|(
-name|int
-operator|)
 name|data
 index|[
 name|length
@@ -279,9 +275,6 @@ condition|)
 block|{
 name|h
 operator|^=
-operator|(
-name|int
-operator|)
 name|data
 index|[
 name|length

@@ -311,7 +311,6 @@ name|ServerManager
 implements|implements
 name|HConstants
 block|{
-specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -527,7 +526,7 @@ literal|4
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * Look to see if we have ghost references to this regionserver such as    * still-existing leases or if regionserver is on the dead servers list    * getting its logs processed.    * @param serverInfo    * @return True if still ghost references and we have not been able to clear    * them or the server is shutting down.    */
+comment|/**    * Look to see if we have ghost references to this regionserver such as    * still-existing leases or if regionserver is on the dead servers list    * getting its logs processed.    * @param serverInfo    * @return True if still ghost references and we have not been able to clear    * them or the server is shutting down.    */
 specifier|private
 name|boolean
 name|checkForGhostReferences
@@ -1612,7 +1611,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/* RegionServer is checking in, no exceptional circumstances    * @param serverName    * @param serverInfo    * @param mostLoadedRegions    * @param msgs    * @return    * @throws IOException    */
+comment|/**    *  RegionServer is checking in, no exceptional circumstances    * @param serverName    * @param serverInfo    * @param mostLoadedRegions    * @param msgs    * @return    * @throws IOException    */
 specifier|private
 name|HMsg
 index|[]
@@ -3274,11 +3273,6 @@ name|ServerExpirer
 implements|implements
 name|LeaseListener
 block|{
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"hiding"
-argument_list|)
 specifier|private
 name|String
 name|server

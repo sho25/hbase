@@ -36,17 +36,20 @@ comment|/**  * Thrown when an operation requires the root and all meta regions t
 end_comment
 
 begin_class
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"serial"
-argument_list|)
 specifier|public
 class|class
 name|NotAllMetaRegionsOnlineException
 extends|extends
 name|DoNotRetryIOException
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+literal|6439786157874827523L
+decl_stmt|;
 comment|/**    * default constructor    */
 specifier|public
 name|NotAllMetaRegionsOnlineException

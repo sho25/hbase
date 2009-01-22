@@ -212,11 +212,6 @@ name|RowResult
 argument_list|>
 name|output
 parameter_list|,
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|Reporter
 name|reporter
 parameter_list|)

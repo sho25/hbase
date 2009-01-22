@@ -23,20 +23,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|FileNotFoundException
-import|;
-end_import
-
-begin_comment
-comment|//TODO: remove
-end_comment
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|IOException
 import|;
 end_import
@@ -2031,11 +2017,6 @@ name|getClass
 argument_list|()
 argument_list|)
 decl_stmt|;
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|public
 name|boolean
 name|processRow

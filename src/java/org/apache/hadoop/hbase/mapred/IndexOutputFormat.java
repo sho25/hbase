@@ -603,11 +603,6 @@ specifier|public
 name|void
 name|write
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|ImmutableBytesWritable
 name|key
 parameter_list|,

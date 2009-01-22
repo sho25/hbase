@@ -370,11 +370,6 @@ name|RowResult
 argument_list|>
 name|output
 parameter_list|,
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|Reporter
 name|reporter
 parameter_list|)
@@ -470,11 +465,7 @@ comment|/**    * @param args    * @return the JobConf    * @throws IOException  
 annotation|@
 name|SuppressWarnings
 argument_list|(
-block|{
 literal|"unused"
-block|,
-literal|"deprecation"
-block|}
 argument_list|)
 specifier|public
 name|JobConf

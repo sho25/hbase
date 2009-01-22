@@ -8017,11 +8017,6 @@ parameter_list|,
 name|BatchUpdate
 name|b
 parameter_list|,
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|long
 name|lockId
 parameter_list|)
@@ -10578,11 +10573,6 @@ specifier|final
 name|String
 name|protocol
 parameter_list|,
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|final
 name|long
 name|clientVersion

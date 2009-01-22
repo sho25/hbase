@@ -310,11 +310,6 @@ specifier|public
 name|void
 name|putAll
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|Map
 name|map
 parameter_list|)
@@ -463,11 +458,6 @@ specifier|public
 name|boolean
 name|containsValue
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|Object
 name|value
 parameter_list|)

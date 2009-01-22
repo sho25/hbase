@@ -561,7 +561,6 @@ init|=
 literal|100
 decl_stmt|;
 comment|// Do a flush if we have this many old transactions..
-specifier|private
 specifier|static
 specifier|final
 name|Log
