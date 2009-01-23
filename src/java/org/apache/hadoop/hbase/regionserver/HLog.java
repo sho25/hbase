@@ -1855,7 +1855,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Append a set of edits to the log. Log edits are keyed by regionName,    * rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for a    * given key-range of the HRegion (TODO). Any edits that do not have a    * matching {@link HConstants#COMPLETE_CACHEFLUSH} message can be discarded.    *    *<p>    * Logs cannot be restarted once closed, or once the HLog process dies. Each    * time the HLog starts, it must create a new log. This means that other    * systems should process the log appropriately upon each startup (and prior    * to initializing HLog).    *    * synchronized prevents appends during the completion of a cache flush or for    * the duration of a log roll.    *    * @param regionName    * @param tableName    * @param row    * @param columns    * @param timestamp    * @throws IOException    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by regionName,    * rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for a    * given key-range of the HRegion (TODO). Any edits that do not have a    * matching {@link HConstants#COMPLETE_CACHEFLUSH} message can be discarded.    *    *<p>    * Logs cannot be restarted once closed, or once the HLog process dies. Each    * time the HLog starts, it must create a new log. This means that other    * systems should process the log appropriately upon each startup (and prior    * to initializing HLog).    *    * synchronized prevents appends during the completion of a cache flush or for    * the duration of a log roll.    *    * @param regionName    * @param tableName    * @param edits    * @param sync    * @throws IOException    */
 name|void
 name|append
 parameter_list|(
@@ -1875,6 +1875,9 @@ name|byte
 index|[]
 argument_list|>
 name|edits
+parameter_list|,
+name|boolean
+name|sync
 parameter_list|)
 throws|throws
 name|IOException
@@ -2027,6 +2030,8 @@ argument_list|(
 name|logKey
 argument_list|,
 name|logEdit
+argument_list|,
+name|sync
 argument_list|)
 expr_stmt|;
 name|this
@@ -2184,6 +2189,9 @@ name|logKey
 parameter_list|,
 name|HLogEdit
 name|logEdit
+parameter_list|,
+name|boolean
+name|sync
 parameter_list|)
 throws|throws
 name|IOException
@@ -2203,6 +2211,8 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|sync
+operator|||
 operator|++
 name|unflushedEntries
 operator|>=
@@ -2379,11 +2389,26 @@ argument_list|,
 name|seqNum
 argument_list|)
 decl_stmt|;
+name|boolean
+name|sync
+init|=
+name|regionInfo
+operator|.
+name|isMetaRegion
+argument_list|()
+operator|||
+name|regionInfo
+operator|.
+name|isRootRegion
+argument_list|()
+decl_stmt|;
 name|doWrite
 argument_list|(
 name|logKey
 argument_list|,
 name|logEdit
+argument_list|,
+name|sync
 argument_list|)
 expr_stmt|;
 name|this

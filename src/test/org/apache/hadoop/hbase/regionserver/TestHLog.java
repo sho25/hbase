@@ -484,6 +484,8 @@ argument_list|,
 name|tableName
 argument_list|,
 name|edit
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -704,6 +706,8 @@ argument_list|,
 name|tableName
 argument_list|,
 name|cols
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|long
