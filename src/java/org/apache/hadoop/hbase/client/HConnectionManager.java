@@ -809,6 +809,7 @@ name|HRegionInterface
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|// Used by master and region servers during safe mode only
 specifier|private
 specifier|volatile
 name|HRegionLocation
@@ -1031,6 +1032,7 @@ name|ntries
 index|]
 return|;
 block|}
+comment|// Used by master and region servers during safe mode only
 specifier|public
 name|void
 name|unsetRootRegionLocation
@@ -1043,6 +1045,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+comment|// Used by master and region servers during safe mode only
 specifier|public
 name|void
 name|setRootRegionLocation
@@ -2324,13 +2327,10 @@ operator|==
 literal|null
 condition|)
 block|{
-name|this
-operator|.
-name|rootRegionLocation
-operator|=
+return|return
 name|locateRootRegion
 argument_list|()
-expr_stmt|;
+return|;
 block|}
 return|return
 name|rootRegionLocation

@@ -138,6 +138,8 @@ name|TestSerialization
 extends|extends
 name|HBaseTestCase
 block|{
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|setUp
@@ -151,6 +153,8 @@ name|setUp
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|tearDown
@@ -292,9 +296,15 @@ block|{
 name|HMsg
 name|m
 init|=
+operator|new
+name|HMsg
+argument_list|(
 name|HMsg
 operator|.
-name|REGIONSERVER_QUIESCE
+name|Type
+operator|.
+name|MSG_REGIONSERVER_QUIESCE
+argument_list|)
 decl_stmt|;
 name|byte
 index|[]

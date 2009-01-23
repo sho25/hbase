@@ -165,9 +165,8 @@ argument_list|<
 name|Boolean
 argument_list|>
 argument_list|(
-name|this
-operator|.
-name|metaRegion
+name|getMetaRegion
+argument_list|()
 argument_list|,
 name|this
 operator|.

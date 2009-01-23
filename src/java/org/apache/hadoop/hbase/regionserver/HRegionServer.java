@@ -1146,6 +1146,34 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|HMsg
+name|REPORT_EXITING
+init|=
+operator|new
+name|HMsg
+argument_list|(
+name|Type
+operator|.
+name|MSG_REPORT_EXITING
+argument_list|)
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|HMsg
+name|REPORT_QUIESCED
+init|=
+operator|new
+name|HMsg
+argument_list|(
+name|Type
+operator|.
+name|MSG_REPORT_QUIESCED
+argument_list|)
+decl_stmt|;
 comment|// Set when a report to the master comes back with a message asking us to
 comment|// shutdown.  Also set by call to stop when debugging or running unit tests
 comment|// of HRegionServer in isolation. We use AtomicBoolean rather than
@@ -1409,9 +1437,9 @@ specifier|final
 name|LogFlusher
 name|logFlusher
 decl_stmt|;
-comment|// safemode processing
-name|SafeModeThread
-name|safeModeThread
+comment|// limit compactions while starting up
+name|CompactionLimitThread
+name|compactionLimitThread
 decl_stmt|;
 comment|// flag set after we're done setting up server threads (used for testing)
 specifier|protected
@@ -2273,6 +2301,53 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|safeMode
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+if|if
+condition|(
+operator|!
+name|msgs
+index|[
+name|i
+index|]
+operator|.
+name|isInSafeMode
+argument_list|()
+condition|)
+block|{
+name|this
+operator|.
+name|connection
+operator|.
+name|unsetRootRegionLocation
+argument_list|()
+expr_stmt|;
+synchronized|synchronized
+init|(
+name|safeMode
+init|)
+block|{
+name|safeMode
+operator|.
+name|set
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+name|safeMode
+operator|.
+name|notifyAll
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+block|}
 switch|switch
 condition|(
 name|msgs
@@ -2928,8 +3003,6 @@ index|[
 literal|0
 index|]
 operator|=
-name|HMsg
-operator|.
 name|REPORT_EXITING
 expr_stmt|;
 comment|// Tell the master what regions we are/were serving
@@ -3905,7 +3978,7 @@ block|}
 comment|/**    * Thread for toggling safemode after some configurable interval.    */
 specifier|private
 class|class
-name|SafeModeThread
+name|CompactionLimitThread
 extends|extends
 name|Thread
 block|{
@@ -3916,60 +3989,17 @@ name|void
 name|run
 parameter_list|()
 block|{
-comment|// first, wait the required interval before turning off safemode
-name|int
-name|safemodeInterval
-init|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.regionserver.safemode.period"
-argument_list|,
-literal|120
-operator|*
-literal|1000
-argument_list|)
-decl_stmt|;
-try|try
+comment|// First wait until we exit safe mode
+synchronized|synchronized
+init|(
+name|safeMode
+init|)
 block|{
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-name|safemodeInterval
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|ex
-parameter_list|)
-block|{
-comment|// turn off safemode and limits on the way out due to some kind of
-comment|// abnormal condition so we do not prevent such things as memcache
-comment|// flushes and worsen the situation
+while|while
+condition|(
 name|safeMode
 operator|.
-name|set
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
-name|compactSplitThread
-operator|.
-name|setLimit
-argument_list|(
-operator|-
-literal|1
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
+name|get
 argument_list|()
 condition|)
 block|{
@@ -3977,31 +4007,27 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-name|this
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|" exiting on interrupt"
+literal|"Waiting to exit safe mode"
 argument_list|)
 expr_stmt|;
-block|}
-return|return;
-block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"leaving safe mode"
-argument_list|)
-expr_stmt|;
+try|try
+block|{
 name|safeMode
 operator|.
-name|set
-argument_list|(
-literal|false
-argument_list|)
+name|wait
+argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+comment|// ignore
+block|}
+block|}
+block|}
 comment|// now that safemode is off, slowly increase the per-cycle compaction
 comment|// limit, finally setting it to unlimited (-1)
 name|int
@@ -5176,16 +5202,15 @@ block|}
 comment|// Set up the safe mode handler if safe mode has been configured.
 if|if
 condition|(
+operator|!
 name|conf
 operator|.
-name|getInt
+name|getBoolean
 argument_list|(
-literal|"hbase.regionserver.safemode.period"
+literal|"hbase.regionserver.safemode"
 argument_list|,
-literal|0
+literal|true
 argument_list|)
-operator|<
-literal|1
 condition|)
 block|{
 name|safeMode
@@ -5215,10 +5240,10 @@ else|else
 block|{
 name|this
 operator|.
-name|safeModeThread
+name|compactionLimitThread
 operator|=
 operator|new
-name|SafeModeThread
+name|CompactionLimitThread
 argument_list|()
 expr_stmt|;
 name|Threads
@@ -5227,7 +5252,7 @@ name|setDaemonThreadRunning
 argument_list|(
 name|this
 operator|.
-name|safeModeThread
+name|compactionLimitThread
 argument_list|,
 name|n
 operator|+
@@ -7401,8 +7426,6 @@ name|outboundMsgs
 operator|.
 name|add
 argument_list|(
-name|HMsg
-operator|.
 name|REPORT_EXITING
 argument_list|)
 expr_stmt|;
@@ -7413,8 +7436,6 @@ name|outboundMsgs
 operator|.
 name|add
 argument_list|(
-name|HMsg
-operator|.
 name|REPORT_QUIESCED
 argument_list|)
 expr_stmt|;
