@@ -177,10 +177,22 @@ parameter_list|)
 throws|throws
 name|MasterNotRunningException
 function_decl|;
-comment|/**    * @param tableName    * @return true if the table is enabled, false otherwise    * @throws IOException    */
+comment|/**    * A table that isTableEnabled == false and isTableDisabled == false    * is possible. This happens when a table has a lot of regions    * that must be processed.    * @param tableName    * @return true if the table is enabled, false otherwise    * @throws IOException    */
 specifier|public
 name|boolean
 name|isTableEnabled
+parameter_list|(
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * @param tableName    * @return true if the table is disabled, false otherwise    * @throws IOException    */
+specifier|public
+name|boolean
+name|isTableDisabled
 parameter_list|(
 name|byte
 index|[]
