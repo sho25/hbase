@@ -1069,6 +1069,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZooKeeperWrapper
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|io
 operator|.
 name|MapWritable
@@ -1464,6 +1480,11 @@ argument_list|,
 name|InternalScanner
 argument_list|>
 argument_list|()
+decl_stmt|;
+specifier|private
+specifier|final
+name|ZooKeeperWrapper
+name|zooKeeperWrapper
 decl_stmt|;
 comment|/**    * Starts a HRegionServer at the default location    * @param conf    * @throws IOException    */
 specifier|public
@@ -1888,6 +1909,16 @@ index|]
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|zooKeeperWrapper
+operator|=
+operator|new
+name|ZooKeeperWrapper
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * The HRegionServer sticks in this loop until closed. It repeatedly checks    * in with the HMaster, sending heartbeats& reports, and receiving HRegion     * load/unload instructions.    */
 specifier|public
@@ -1963,9 +1994,9 @@ block|{
 name|HServerAddress
 name|rootServer
 init|=
-name|hbaseMaster
+name|zooKeeperWrapper
 operator|.
-name|getRootRegionLocation
+name|readRootRegionLocation
 argument_list|()
 decl_stmt|;
 if|if

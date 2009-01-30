@@ -509,6 +509,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZooKeeperWrapper
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|ipc
 operator|.
 name|RemoteException
@@ -845,6 +861,10 @@ name|HRegionLocation
 argument_list|>
 argument_list|>
 argument_list|()
+decl_stmt|;
+specifier|private
+name|ZooKeeperWrapper
+name|zooKeeperWrapper
 decl_stmt|;
 comment|/**       * constructor      * @param conf Configuration object      */
 annotation|@
@@ -3623,6 +3643,34 @@ return|return
 name|server
 return|;
 block|}
+specifier|private
+specifier|synchronized
+name|ZooKeeperWrapper
+name|getZooKeeperWrapper
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|zooKeeperWrapper
+operator|==
+literal|null
+condition|)
+block|{
+name|zooKeeperWrapper
+operator|=
+operator|new
+name|ZooKeeperWrapper
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|zooKeeperWrapper
+return|;
+block|}
 comment|/*      * Repeatedly try to find the root region by asking the master for where it is      * @return HRegionLocation for root region if found      * @throws NoServerForRegionException - if the root region can not be      * located after retrying      * @throws IOException       */
 specifier|private
 name|HRegionLocation
@@ -3634,6 +3682,14 @@ block|{
 name|getMaster
 argument_list|()
 expr_stmt|;
+comment|// We lazily instantiate the ZooKeeper object because we don't want to
+comment|// make the constructor have to throw IOException or handle it itself.
+name|ZooKeeperWrapper
+name|zooKeeperWrapper
+init|=
+name|getZooKeeperWrapper
+argument_list|()
+decl_stmt|;
 name|HServerAddress
 name|rootRegionAddress
 init|=
@@ -3671,13 +3727,29 @@ operator|<
 name|numRetries
 condition|)
 block|{
+comment|// Don't read root region until we're out of safe mode so we know
+comment|// that the meta regions have been assigned.
+name|boolean
+name|outOfSafeMode
+init|=
+name|zooKeeperWrapper
+operator|.
+name|checkOutOfSafeMode
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|outOfSafeMode
+condition|)
+block|{
 name|rootRegionAddress
 operator|=
-name|master
+name|zooKeeperWrapper
 operator|.
-name|findRootRegion
+name|readRootRegionLocation
 argument_list|()
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|rootRegionAddress

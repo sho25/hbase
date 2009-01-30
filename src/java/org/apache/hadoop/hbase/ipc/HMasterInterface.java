@@ -51,20 +51,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerAddress
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -232,12 +218,6 @@ name|shutdown
 parameter_list|()
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Get the location of the root region    * @return address of server that serves the root region    */
-specifier|public
-name|HServerAddress
-name|findRootRegion
-parameter_list|()
 function_decl|;
 block|}
 end_interface
