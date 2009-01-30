@@ -91,6 +91,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|io
+operator|.
+name|SequenceFile
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|util
 operator|.
 name|Progressable
@@ -108,24 +122,6 @@ operator|.
 name|util
 operator|.
 name|ReflectionUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|SequenceFile
-operator|.
-name|CompressionType
 import|;
 end_import
 
@@ -232,7 +228,7 @@ import|;
 end_import
 
 begin_comment
-comment|/** A file-based map from keys to values.  *  *<p>This is copy of Hadoop SequenceFile brought local so we can fix bugs;  * e.g. hbase-1097</p>  *   *<p>A map is a directory containing two files, the<code>data</code> file,  * containing all keys and values in the map, and a smaller<code>index</code>  * file, containing a fraction of the keys.  The fraction is determined by  * {@link Writer#getIndexInterval()}.  *  *<p>The index file is read entirely into memory.  Thus key implementations  * should try to keep themselves small.  *  *<p>Map files are created by adding entries in-order.  To maintain a large  * database, perform updates by copying the previous version of a database and  * merging in a sorted change list, to create a new version of the database in  * a new file.  Sorting large change lists can be done with {@link  * SequenceFile.Sorter}.  */
+comment|/** A file-based map from keys to values.  *  *<p>This is copy of Hadoop SequenceFile brought local so we can fix bugs;  * e.g. hbase-1097</p>  *   *<p>A map is a directory containing two files, the<code>data</code> file,  * containing all keys and values in the map, and a smaller<code>index</code>  * file, containing a fraction of the keys.  The fraction is determined by  * {@link Writer#getIndexInterval()}.  *  *<p>The index file is read entirely into memory.  Thus key implementations  * should try to keep themselves small.  *  *<p>Map files are created by adding entries in-order.  To maintain a large  * database, perform updates by copying the previous version of a database and  * merging in a sorted change list, to create a new version of the database in  * a new file.  Sorting large change lists can be done with {@link  * org.apache.hadoop.io.SequenceFile.Sorter}.  */
 end_comment
 
 begin_class
@@ -430,6 +426,8 @@ parameter_list|,
 name|Class
 name|valClass
 parameter_list|,
+name|SequenceFile
+operator|.
 name|CompressionType
 name|compress
 parameter_list|,
@@ -486,6 +484,8 @@ parameter_list|,
 name|Class
 name|valClass
 parameter_list|,
+name|SequenceFile
+operator|.
 name|CompressionType
 name|compress
 parameter_list|,
@@ -547,6 +547,8 @@ parameter_list|,
 name|Class
 name|valClass
 parameter_list|,
+name|SequenceFile
+operator|.
 name|CompressionType
 name|compress
 parameter_list|)
@@ -885,6 +887,8 @@ name|LongWritable
 operator|.
 name|class
 argument_list|,
+name|SequenceFile
+operator|.
 name|CompressionType
 operator|.
 name|BLOCK
