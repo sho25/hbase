@@ -771,6 +771,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZooKeeperWrapper
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hdfs
 operator|.
 name|DistributedFileSystem
@@ -972,6 +988,11 @@ decl_stmt|;
 specifier|final
 name|int
 name|leaseTimeout
+decl_stmt|;
+specifier|private
+specifier|final
+name|ZooKeeperWrapper
+name|zooKeeperWrapper
 decl_stmt|;
 specifier|volatile
 name|DelayQueue
@@ -1553,6 +1574,14 @@ operator|.
 name|closed
 argument_list|)
 expr_stmt|;
+name|zooKeeperWrapper
+operator|=
+operator|new
+name|ZooKeeperWrapper
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 name|serverManager
 operator|=
 operator|new
@@ -2105,11 +2134,6 @@ name|stop
 argument_list|()
 expr_stmt|;
 comment|// Stop server
-name|serverManager
-operator|.
-name|stop
-argument_list|()
-expr_stmt|;
 name|regionManager
 operator|.
 name|stop
@@ -2465,11 +2489,6 @@ expr_stmt|;
 try|try
 block|{
 name|regionManager
-operator|.
-name|start
-argument_list|()
-expr_stmt|;
-name|serverManager
 operator|.
 name|start
 argument_list|()
@@ -4782,6 +4801,16 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+comment|/**    * Get the ZK wrapper object    * @return    */
+specifier|public
+name|ZooKeeperWrapper
+name|getZooKeeperWrapper
+parameter_list|()
+block|{
+return|return
+name|zooKeeperWrapper
+return|;
 block|}
 comment|/*    * Main program    */
 specifier|private

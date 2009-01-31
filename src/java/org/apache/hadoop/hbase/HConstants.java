@@ -266,6 +266,22 @@ name|DEFAULT_ZOOKEEPER_SAFE_MODE_ZNODE
 init|=
 literal|"safe-mode"
 decl_stmt|;
+comment|/** Parameter name for ZooKeeper ZNode storing safe mode. */
+specifier|static
+specifier|final
+name|String
+name|ZOOKEEPER_RS_ZNODE
+init|=
+literal|"zookeeper.znode.rs"
+decl_stmt|;
+comment|/** Default ZooKeeper ZNode storing safe mode. */
+specifier|static
+specifier|final
+name|String
+name|DEFAULT_ZOOKEEPER_RS_ZNODE
+init|=
+literal|"rs"
+decl_stmt|;
 comment|/** Parameter name for hbase.regionserver address. */
 specifier|static
 specifier|final

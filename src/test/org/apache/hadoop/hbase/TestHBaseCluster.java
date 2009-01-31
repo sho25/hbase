@@ -256,17 +256,6 @@ operator|*
 literal|1000
 argument_list|)
 expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.master.lease.thread.wakefrequency"
-argument_list|,
-literal|5
-operator|*
-literal|1000
-argument_list|)
-expr_stmt|;
 comment|// Increase the amount of time between client retries
 name|conf
 operator|.

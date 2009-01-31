@@ -931,11 +931,10 @@ argument_list|)
 expr_stmt|;
 name|zooKeeperWrapper
 operator|=
-operator|new
-name|ZooKeeperWrapper
-argument_list|(
-name|conf
-argument_list|)
+name|master
+operator|.
+name|getZooKeeperWrapper
+argument_list|()
 expr_stmt|;
 name|zooKeeperNumRetries
 operator|=

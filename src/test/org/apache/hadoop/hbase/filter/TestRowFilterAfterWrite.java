@@ -510,17 +510,6 @@ operator|*
 literal|1000
 argument_list|)
 expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.master.lease.thread.wakefrequency"
-argument_list|,
-literal|5
-operator|*
-literal|1000
-argument_list|)
-expr_stmt|;
 comment|// For debugging
 name|conf
 operator|.

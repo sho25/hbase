@@ -241,48 +241,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|LeaseException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|Leases
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|LeaseListener
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HConstants
 import|;
 end_import
@@ -314,6 +272,62 @@ operator|.
 name|HMsg
 operator|.
 name|Type
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZooKeeperWrapper
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|WatchedEvent
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|Watcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|Watcher
+operator|.
+name|Event
+operator|.
+name|EventType
 import|;
 end_import
 
@@ -410,6 +424,11 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
+specifier|private
+specifier|final
+name|ZooKeeperWrapper
+name|zooKeeperWrapper
+decl_stmt|;
 comment|/** The map of known server names to server info */
 specifier|final
 name|Map
@@ -429,7 +448,7 @@ name|HServerInfo
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/**    * Set of known dead servers.  On lease expiration, servers are added here.    * Boolean holds whether its logs have been split or not.  Initially set to    * false.    */
+comment|/**    * Set of known dead servers.  On znode expiration, servers are added here.    * Boolean holds whether its logs have been split or not.  Initially set to    * false.    */
 specifier|private
 specifier|final
 name|Map
@@ -502,11 +521,6 @@ specifier|private
 name|HMaster
 name|master
 decl_stmt|;
-specifier|private
-specifier|final
-name|Leases
-name|serverLeases
-decl_stmt|;
 comment|// Last time we logged average load.
 specifier|private
 specifier|volatile
@@ -540,29 +554,12 @@ name|master
 operator|=
 name|master
 expr_stmt|;
-name|serverLeases
+name|zooKeeperWrapper
 operator|=
-operator|new
-name|Leases
-argument_list|(
 name|master
 operator|.
-name|leaseTimeout
-argument_list|,
-name|master
-operator|.
-name|getConfiguration
+name|getZooKeeperWrapper
 argument_list|()
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.master.lease.thread.wakefrequency"
-argument_list|,
-literal|15
-operator|*
-literal|1000
-argument_list|)
-argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -597,7 +594,7 @@ literal|4
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Look to see if we have ghost references to this regionserver such as    * still-existing leases or if regionserver is on the dead servers list    * getting its logs processed.    * @param serverInfo    * @return True if still ghost references and we have not been able to clear    * them or the server is shutting down.    */
+comment|/**    * Look to see if we have ghost references to this regionserver such as    * if regionserver is on the dead servers list getting its logs processed.    * @param serverInfo    * @return True if still ghost references and we have not been able to clear    * them or the server is shutting down.    */
 specifier|private
 name|boolean
 name|checkForGhostReferences
@@ -623,11 +620,6 @@ argument_list|()
 decl_stmt|;
 name|boolean
 name|result
-init|=
-literal|false
-decl_stmt|;
-name|boolean
-name|lease
 init|=
 literal|false
 decl_stmt|;
@@ -679,67 +671,6 @@ block|{
 comment|// Continue
 block|}
 block|}
-if|if
-condition|(
-operator|!
-name|lease
-condition|)
-block|{
-try|try
-block|{
-name|this
-operator|.
-name|serverLeases
-operator|.
-name|createLease
-argument_list|(
-name|s
-argument_list|,
-operator|new
-name|ServerExpirer
-argument_list|(
-name|s
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Leases
-operator|.
-name|LeaseStillHeldException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Waiting on current lease to expire for "
-operator|+
-name|e
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|sleepTime
-operator|=
-name|this
-operator|.
-name|master
-operator|.
-name|leaseTimeout
-operator|/
-literal|4
-expr_stmt|;
-continue|continue;
-block|}
-name|lease
-operator|=
-literal|true
-expr_stmt|;
-block|}
 comment|// May be on list of dead servers.  If so, wait till we've cleared it.
 name|String
 name|addr
@@ -781,35 +712,6 @@ name|master
 operator|.
 name|threadWakeFrequency
 expr_stmt|;
-try|try
-block|{
-comment|// Keep up lease.  May be here> lease expiration.
-name|this
-operator|.
-name|serverLeases
-operator|.
-name|renewLease
-argument_list|(
-name|s
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|LeaseException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Failed renewal. Retrying."
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 continue|continue;
 block|}
 name|result
@@ -845,6 +747,33 @@ operator|.
 name|trim
 argument_list|()
 decl_stmt|;
+name|Watcher
+name|watcher
+init|=
+operator|new
+name|ServerExpirer
+argument_list|(
+name|serverInfo
+operator|.
+name|getServerAddress
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+operator|.
+name|trim
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|zooKeeperWrapper
+operator|.
+name|updateRSLocationGetWatch
+argument_list|(
+name|serverInfo
+argument_list|,
+name|watcher
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -1429,7 +1358,7 @@ init|(
 name|serversToServerInfo
 init|)
 block|{
-name|cancelLease
+name|removeServerInfo
 argument_list|(
 name|serverName
 argument_list|)
@@ -1485,18 +1414,16 @@ init|)
 block|{
 try|try
 block|{
-comment|// HRegionServer is shutting down. Cancel the server's lease.
-comment|// Note that canceling the server's lease takes care of updating
-comment|// serversToServerInfo, etc.
+comment|// HRegionServer is shutting down.
 if|if
 condition|(
-name|cancelLease
+name|removeServerInfo
 argument_list|(
 name|serverName
 argument_list|)
 condition|)
 block|{
-comment|// Only process the exit message if the server still has a lease.
+comment|// Only process the exit message if the server still has registered info.
 comment|// Otherwise we could end up processing the server exit twice.
 name|LOG
 operator|.
@@ -1506,7 +1433,7 @@ literal|"Region server "
 operator|+
 name|serverName
 operator|+
-literal|": MSG_REPORT_EXITING -- lease cancelled"
+literal|": MSG_REPORT_EXITING"
 argument_list|)
 expr_stmt|;
 comment|// Get all the regions the server was serving reassigned
@@ -1693,16 +1620,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// All's well.  Renew the server's lease.
-comment|// This will always succeed; otherwise, the fetch of serversToServerInfo
-comment|// would have failed above.
-name|serverLeases
-operator|.
-name|renewLease
-argument_list|(
-name|serverName
-argument_list|)
-expr_stmt|;
 comment|// Refresh the info object and the load information
 name|serversToServerInfo
 operator|.
@@ -2811,10 +2728,10 @@ throw|;
 block|}
 block|}
 block|}
-comment|/** Cancel a server's lease and update its load information */
+comment|/** Update a server load information because it's shutting down*/
 specifier|private
 name|boolean
-name|cancelLease
+name|removeServerInfo
 parameter_list|(
 specifier|final
 name|String
@@ -2822,7 +2739,7 @@ name|serverName
 parameter_list|)
 block|{
 name|boolean
-name|leaseCancelled
+name|infoUpdated
 init|=
 literal|false
 decl_stmt|;
@@ -2836,7 +2753,7 @@ argument_list|(
 name|serverName
 argument_list|)
 decl_stmt|;
-comment|// Only cancel lease and update load information once.
+comment|// Only update load information once.
 comment|// This method can be called a couple of times during shutdown.
 if|if
 condition|(
@@ -2849,7 +2766,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Cancelling lease for "
+literal|"Removing server's info "
 operator|+
 name|serverName
 argument_list|)
@@ -2885,51 +2802,7 @@ name|unsetRootRegion
 argument_list|()
 expr_stmt|;
 block|}
-try|try
-block|{
-name|serverLeases
-operator|.
-name|cancelLease
-argument_list|(
-name|serverName
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|LeaseException
-name|e
-parameter_list|)
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Cancelling "
-operator|+
-name|serverName
-operator|+
-literal|" got "
-operator|+
-name|e
-operator|.
-name|getMessage
-argument_list|()
-operator|+
-literal|"...continuing"
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-name|leaseCancelled
+name|infoUpdated
 operator|=
 literal|true
 expr_stmt|;
@@ -2997,7 +2870,7 @@ block|}
 block|}
 block|}
 return|return
-name|leaseCancelled
+name|infoUpdated
 return|;
 block|}
 comment|/**     * Compute the average load across all region servers.     * Currently, this uses a very naive computation - just uses the number of     * regions being served, ignoring stats about number of requests.    * @return the average load    */
@@ -3274,7 +3147,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/*    * Wait on regionservers to report in    * with {@link #regionServerReport(HServerInfo, HMsg[])} so they get notice    * the master is going down.  Waits until all region servers come back with    * a MSG_REGIONSERVER_STOP which will cancel their lease or until leases held    * by remote region servers have expired.    */
+comment|/*    * Wait on regionservers to report in    * with {@link #regionServerReport(HServerInfo, HMsg[])} so they get notice    * the master is going down.  Waits until all region servers come back with    * a MSG_REGIONSERVER_STOP.    */
 name|void
 name|letRegionServersShutdown
 parameter_list|()
@@ -3310,9 +3183,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Waiting on following regionserver(s) to go down (or "
-operator|+
-literal|"region server lease expiration, whichever happens first): "
+literal|"Waiting on following regionserver(s) to go down "
 operator|+
 name|serversToServerInfo
 operator|.
@@ -3343,12 +3214,12 @@ block|}
 block|}
 block|}
 block|}
-comment|/** Instantiated to monitor the health of a region server */
+comment|/** Watcher triggered when a RS znode is deleted */
 specifier|private
 class|class
 name|ServerExpirer
 implements|implements
-name|LeaseListener
+name|Watcher
 block|{
 specifier|private
 name|String
@@ -3369,8 +3240,26 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|leaseExpired
-parameter_list|()
+name|process
+parameter_list|(
+name|WatchedEvent
+name|event
+parameter_list|)
+block|{
+if|if
+condition|(
+name|event
+operator|.
+name|getType
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|EventType
+operator|.
+name|NodeDeleted
+argument_list|)
+condition|)
 block|{
 name|LOG
 operator|.
@@ -3378,7 +3267,7 @@ name|info
 argument_list|(
 name|server
 operator|+
-literal|" lease expired"
+literal|" znode expired"
 argument_list|)
 expr_stmt|;
 comment|// Remove the server from the known servers list and update load info
@@ -3429,7 +3318,8 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-comment|// NOTE: If the server was serving the root region, we cannot reassign
+comment|// NOTE: If the server was serving the root region, we cannot
+comment|// reassign
 comment|// it here because the new server will start serving the root region
 comment|// before ProcessServerShutdown has a chance to split the log file.
 name|master
@@ -3577,42 +3467,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/** Start up the server manager */
-specifier|public
-name|void
-name|start
-parameter_list|()
-block|{
-comment|// Leases are not the same as Chore threads. Set name differently.
-name|this
-operator|.
-name|serverLeases
-operator|.
-name|setName
-argument_list|(
-literal|"ServerManager.leaseChecker"
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|serverLeases
-operator|.
-name|start
-argument_list|()
-expr_stmt|;
-block|}
-comment|/** Shut down the server manager */
-specifier|public
-name|void
-name|stop
-parameter_list|()
-block|{
-comment|// stop monitor lease monitor
-name|serverLeases
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 block|}
 comment|/**    * @param serverName    */
 specifier|public
