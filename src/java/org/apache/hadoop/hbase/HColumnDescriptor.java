@@ -803,31 +803,15 @@ if|if
 condition|(
 name|Character
 operator|.
-name|isLetterOrDigit
+name|isISOControl
 argument_list|(
 name|b
 index|[
 name|i
 index|]
 argument_list|)
-operator|||
-name|b
-index|[
-name|i
-index|]
-operator|==
-literal|'_'
-operator|||
-name|b
-index|[
-name|i
-index|]
-operator|==
-literal|'.'
 condition|)
 block|{
-continue|continue;
-block|}
 throw|throw
 operator|new
 name|IllegalArgumentException
@@ -839,9 +823,7 @@ index|[
 name|i
 index|]
 operator|+
-literal|">. Family names  can only contain  'word characters' and must end"
-operator|+
-literal|"with a colon: "
+literal|">. Family names cannot contain control characters: "
 operator|+
 name|Bytes
 operator|.
@@ -851,6 +833,7 @@ name|b
 argument_list|)
 argument_list|)
 throw|;
+block|}
 block|}
 return|return
 name|b
