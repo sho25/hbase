@@ -2316,8 +2316,6 @@ name|TableDirFilter
 implements|implements
 name|PathFilter
 block|{
-annotation|@
-name|Override
 specifier|public
 name|boolean
 name|accept
@@ -2361,8 +2359,6 @@ name|RegionDirFilter
 implements|implements
 name|PathFilter
 block|{
-annotation|@
-name|Override
 specifier|public
 name|boolean
 name|accept
@@ -5485,8 +5481,6 @@ name|hashCode
 argument_list|()
 return|;
 block|}
-annotation|@
-name|Override
 specifier|public
 name|int
 name|compareTo

@@ -386,8 +386,6 @@ name|storefileIndexSizeMB
 expr_stmt|;
 block|}
 comment|// Writable
-annotation|@
-name|Override
 specifier|public
 name|void
 name|readFields
@@ -462,8 +460,6 @@ name|readInt
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Override
 specifier|public
 name|void
 name|write

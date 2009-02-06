@@ -73,8 +73,6 @@ name|otherWatcher
 expr_stmt|;
 block|}
 comment|/**    * @param event WatchedEvent from ZooKeeper.    */
-annotation|@
-name|Override
 specifier|public
 name|void
 name|process
