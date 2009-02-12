@@ -911,6 +911,22 @@ name|hbase
 operator|.
 name|ipc
 operator|.
+name|HBaseRPCErrorHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
 name|HBaseRPCProtocolVersion
 import|;
 end_import
@@ -1145,6 +1161,8 @@ implements|implements
 name|HConstants
 implements|,
 name|HRegionInterface
+implements|,
+name|HBaseRPCErrorHandler
 implements|,
 name|Runnable
 block|{
@@ -1764,6 +1782,15 @@ argument_list|,
 literal|false
 argument_list|,
 name|conf
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|server
+operator|.
+name|setErrorHandler
+argument_list|(
+name|this
 argument_list|)
 expr_stmt|;
 comment|// Address is givin a default IP for the moment. Will be changed after
@@ -3911,7 +3938,7 @@ operator|)
 return|;
 block|}
 comment|/*    * Check if an OOME and if so, call abort.    * @param e    * @return True if we OOME'd and are aborting.    */
-specifier|private
+specifier|public
 name|boolean
 name|checkOOME
 parameter_list|(

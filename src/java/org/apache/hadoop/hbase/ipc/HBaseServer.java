@@ -752,6 +752,12 @@ name|handlers
 init|=
 literal|null
 decl_stmt|;
+specifier|private
+name|HBaseRPCErrorHandler
+name|errorHandler
+init|=
+literal|null
+decl_stmt|;
 comment|/**    * A convenience method to bind to a given address and report     * better exceptions if the address is not a valid host.    * @param socket the socket to bind    * @param address the address to bind to    * @param backlog the number of connections allowed in the queue    * @throws BindException if the address can't be bound    * @throws UnknownHostException if the address isn't a valid host name    * @throws IOException other random errors from bind    */
 specifier|public
 specifier|static
@@ -1482,6 +1488,50 @@ name|OutOfMemoryError
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|errorHandler
+operator|!=
+literal|null
+condition|)
+block|{
+if|if
+condition|(
+name|errorHandler
+operator|.
+name|checkOOME
+argument_list|(
+name|e
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getName
+argument_list|()
+operator|+
+literal|": exiting on OOME"
+argument_list|)
+expr_stmt|;
+name|closeCurrentConnection
+argument_list|(
+name|key
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|cleanupConnections
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+block|}
+else|else
+block|{
 comment|// we can run out of memory if we have too many threads
 comment|// log the event and sleep for a minute and give
 comment|// some thread(s) a chance to finish
@@ -1522,6 +1572,7 @@ name|Exception
 name|ie
 parameter_list|)
 block|{}
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -2460,6 +2511,38 @@ name|OutOfMemoryError
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|errorHandler
+operator|!=
+literal|null
+condition|)
+block|{
+if|if
+condition|(
+name|errorHandler
+operator|.
+name|checkOOME
+argument_list|(
+name|e
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getName
+argument_list|()
+operator|+
+literal|": exiting on OOME"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+block|}
+else|else
+block|{
 comment|//
 comment|// we can run out of memory if we have too many threads
 comment|// log the event and sleep for a minute and give
@@ -2490,6 +2573,7 @@ name|Exception
 name|ie
 parameter_list|)
 block|{}
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -4410,6 +4494,50 @@ block|}
 block|}
 catch|catch
 parameter_list|(
+name|OutOfMemoryError
+name|e
+parameter_list|)
+block|{
+if|if
+condition|(
+name|errorHandler
+operator|!=
+literal|null
+condition|)
+block|{
+if|if
+condition|(
+name|errorHandler
+operator|.
+name|checkOOME
+argument_list|(
+name|e
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|getName
+argument_list|()
+operator|+
+literal|": exiting on OOME"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+block|}
+else|else
+block|{
+comment|// rethrow if no handler
+throw|throw
+name|e
+throw|;
+block|}
+block|}
+catch|catch
+parameter_list|(
 name|Exception
 name|e
 parameter_list|)
@@ -4970,6 +5098,22 @@ operator|.
 name|size
 argument_list|()
 return|;
+block|}
+comment|/**    * Set the handler for calling out of RPC for error conditions.    * @param handler the handler implementation    */
+specifier|public
+name|void
+name|setErrorHandler
+parameter_list|(
+name|HBaseRPCErrorHandler
+name|handler
+parameter_list|)
+block|{
+name|this
+operator|.
+name|errorHandler
+operator|=
+name|handler
+expr_stmt|;
 block|}
 comment|/**    * When the read or write buffer size is larger than this limit, i/o will be     * done in chunks of this size. Most RPC requests and responses would be    * be smaller.    */
 specifier|private
