@@ -2004,8 +2004,6 @@ name|HStoreKey
 operator|.
 name|equalsTwoRowKeys
 argument_list|(
-name|currentRegion
-argument_list|,
 name|endKey
 argument_list|,
 name|HConstants
@@ -3158,11 +3156,6 @@ name|HStoreKey
 operator|.
 name|equalsTwoRowKeys
 argument_list|(
-name|possibleRegion
-operator|.
-name|getRegionInfo
-argument_list|()
-argument_list|,
 name|endKey
 argument_list|,
 name|HConstants
@@ -3174,11 +3167,6 @@ name|HStoreKey
 operator|.
 name|compareTwoRowKeys
 argument_list|(
-name|possibleRegion
-operator|.
-name|getRegionInfo
-argument_list|()
-argument_list|,
 name|endKey
 argument_list|,
 name|row
@@ -3302,11 +3290,6 @@ name|HStoreKey
 operator|.
 name|compareTwoRowKeys
 argument_list|(
-name|possibleRegion
-operator|.
-name|getRegionInfo
-argument_list|()
-argument_list|,
 name|endKey
 argument_list|,
 name|row

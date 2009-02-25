@@ -234,9 +234,7 @@ operator|new
 name|HStoreKey
 operator|.
 name|HStoreKeyWritableComparator
-argument_list|(
-name|hri
-argument_list|)
+argument_list|()
 argument_list|,
 name|conf
 argument_list|,
@@ -260,9 +258,7 @@ operator|new
 name|HStoreKey
 operator|.
 name|HStoreKeyWritableComparator
-argument_list|(
-name|hri
-argument_list|)
+argument_list|()
 argument_list|,
 name|conf
 argument_list|)
@@ -453,9 +449,7 @@ operator|new
 name|HStoreKey
 operator|.
 name|HStoreKeyWritableComparator
-argument_list|(
-name|hri
-argument_list|)
+argument_list|()
 argument_list|,
 name|VALUE_CLASS
 argument_list|,

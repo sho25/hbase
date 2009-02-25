@@ -3691,7 +3691,7 @@ argument_list|()
 expr_stmt|;
 for|for
 control|(
-name|HStore
+name|Store
 name|store
 range|:
 name|r
@@ -4919,7 +4919,7 @@ name|Entry
 argument_list|<
 name|Integer
 argument_list|,
-name|HStore
+name|Store
 argument_list|>
 name|ee
 range|:
@@ -4931,7 +4931,7 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|HStore
+name|Store
 name|store
 init|=
 name|ee

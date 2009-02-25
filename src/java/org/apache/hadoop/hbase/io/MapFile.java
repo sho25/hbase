@@ -893,7 +893,7 @@ name|progress
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** The number of entries that are added before an index entry is added.*/
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.io.StoreFileWriter#getIndexInterval()      */
 specifier|public
 name|int
 name|getIndexInterval
@@ -903,7 +903,7 @@ return|return
 name|indexInterval
 return|;
 block|}
-comment|/** Sets the index interval.      * @see #getIndexInterval()      */
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.io.StoreFileWriter#setIndexInterval(int)      */
 specifier|public
 name|void
 name|setIndexInterval
@@ -940,7 +940,7 @@ name|interval
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Close the map. */
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.io.StoreFileWriter#close()      */
 specifier|public
 specifier|synchronized
 name|void
@@ -960,7 +960,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** Append a key/value pair to the map.  The key must be greater or equal      * to the previous key added to the map. */
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.io.StoreFileWriter#append(org.apache.hadoop.io.WritableComparable, org.apache.hadoop.io.Writable)      */
 specifier|public
 specifier|synchronized
 name|void
@@ -1188,7 +1188,7 @@ name|long
 index|[]
 name|positions
 decl_stmt|;
-comment|/** Returns the class of keys in this file. */
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.io.StoreFileReader#getKeyClass()      */
 specifier|public
 name|Class
 argument_list|<
@@ -1204,7 +1204,7 @@ name|getKeyClass
 argument_list|()
 return|;
 block|}
-comment|/** Returns the class of values in this file. */
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.io.StoreFileReader#getValueClass()      */
 specifier|public
 name|Class
 argument_list|<
@@ -1774,7 +1774,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/** Re-positions the reader before its first key. */
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.io.StoreFileReader#reset()      */
 specifier|public
 specifier|synchronized
 name|void
@@ -1791,7 +1791,7 @@ name|firstPosition
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Get the key at approximately the middle of the file.      *       * @throws IOException      */
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.io.StoreFileReader#midKey()      */
 specifier|public
 specifier|synchronized
 name|WritableComparable
@@ -1839,7 +1839,7 @@ name|pos
 index|]
 return|;
 block|}
-comment|/** Reads the final key from the file.      *      * @param key key to read into      */
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.io.StoreFileReader#finalKey(org.apache.hadoop.io.WritableComparable)      */
 specifier|public
 specifier|synchronized
 name|void
@@ -1918,7 +1918,7 @@ expr_stmt|;
 comment|// restore position
 block|}
 block|}
-comment|/** Positions the reader at the named key, or if none such exists, at the      * first entry after the named key.  Returns true iff the named key exists      * in this map.      */
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.io.StoreFileReader#seek(org.apache.hadoop.io.WritableComparable)      */
 specifier|public
 specifier|synchronized
 name|boolean
@@ -2313,7 +2313,7 @@ operator|)
 return|;
 comment|// key not found.
 block|}
-comment|/** Read the next key/value pair in the map into<code>key</code> and      *<code>val</code>.  Returns true if such a pair exists and false when at      * the end of the map */
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.io.StoreFileReader#next(org.apache.hadoop.io.WritableComparable, org.apache.hadoop.io.Writable)      */
 specifier|public
 specifier|synchronized
 name|boolean
@@ -2339,7 +2339,7 @@ name|val
 argument_list|)
 return|;
 block|}
-comment|/** Return the value for the named key, or null if none exists. */
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.io.StoreFileReader#get(org.apache.hadoop.io.WritableComparable, org.apache.hadoop.io.Writable)      */
 specifier|public
 specifier|synchronized
 name|Writable
@@ -2378,7 +2378,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**       * Finds the record that is the closest match to the specified key.      * Returns<code>key</code> or if it does not exist, at the first entry      * after the named key.      *  -     * @param key       - key that we're trying to find -     * @param val       - data value if key is found -     * @return          - the key that was the closest match or null if eof.      */
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.io.StoreFileReader#getClosest(org.apache.hadoop.io.WritableComparable, org.apache.hadoop.io.Writable)      */
 specifier|public
 specifier|synchronized
 name|WritableComparable
@@ -2404,7 +2404,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**       * Finds the record that is the closest match to the specified key.      *       * @param key       - key that we're trying to find      * @param val       - data value if key is found      * @param before    - IF true, and<code>key</code> does not exist, return      * the first entry that falls just before the<code>key</code>.  Otherwise,      * return the record that sorts just after.      * @return          - the key that was the closest match or null if eof.      */
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.io.StoreFileReader#getClosest(org.apache.hadoop.io.WritableComparable, org.apache.hadoop.io.Writable, boolean)      */
 specifier|public
 specifier|synchronized
 name|WritableComparable
@@ -2471,7 +2471,7 @@ return|return
 name|nextKey
 return|;
 block|}
-comment|/** Close the map. */
+comment|/* (non-Javadoc)      * @see org.apache.hadoop.hbase.io.StoreFileReader#close()      */
 specifier|public
 specifier|synchronized
 name|void

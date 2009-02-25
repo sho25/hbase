@@ -944,10 +944,7 @@ name|Cell
 argument_list|(
 name|HLogEdit
 operator|.
-name|deleteBytes
-operator|.
-name|get
-argument_list|()
+name|DELETED_BYTES
 argument_list|,
 name|HConstants
 operator|.

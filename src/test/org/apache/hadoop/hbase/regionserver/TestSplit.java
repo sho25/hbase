@@ -682,11 +682,18 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|""
+operator|+
 name|addContent
 argument_list|(
 name|region
 argument_list|,
 name|COLFAMILY_NAME3
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|region
@@ -696,7 +703,7 @@ argument_list|()
 expr_stmt|;
 name|byte
 index|[]
-name|midkey
+name|splitRow
 init|=
 name|region
 operator|.
@@ -705,7 +712,21 @@ argument_list|()
 decl_stmt|;
 name|assertNotNull
 argument_list|(
-name|midkey
+name|splitRow
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"SplitRow: "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|splitRow
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|HRegion
@@ -716,7 +737,7 @@ name|split
 argument_list|(
 name|region
 argument_list|,
-name|midkey
+name|splitRow
 argument_list|)
 decl_stmt|;
 try|try
@@ -783,7 +804,7 @@ index|]
 argument_list|,
 name|COLFAMILY_NAME3
 argument_list|,
-name|midkey
+name|splitRow
 argument_list|)
 expr_stmt|;
 comment|// Test I can get scanner and that it starts at right place.
@@ -813,7 +834,7 @@ index|]
 argument_list|,
 name|COLFAMILY_NAME3
 argument_list|,
-name|midkey
+name|splitRow
 argument_list|)
 expr_stmt|;
 comment|// Now prove can't split regions that have references.
@@ -1427,7 +1448,7 @@ parameter_list|,
 specifier|final
 name|byte
 index|[]
-name|midKey
+name|splitRow
 parameter_list|)
 throws|throws
 name|IOException
@@ -1439,7 +1460,7 @@ name|r
 argument_list|,
 name|COLFAMILY_NAME3
 argument_list|,
-name|midKey
+name|splitRow
 argument_list|)
 expr_stmt|;
 name|HRegion
@@ -1450,7 +1471,7 @@ name|r
 operator|.
 name|splitRegion
 argument_list|(
-name|midKey
+name|splitRow
 argument_list|)
 decl_stmt|;
 name|assertEquals

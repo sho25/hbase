@@ -964,12 +964,14 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|HLogEdit
-operator|.
-name|completeCacheFlush
+name|Bytes
 operator|.
 name|compareTo
 argument_list|(
+name|HLogEdit
+operator|.
+name|COMPLETE_CACHE_FLUSH
+argument_list|,
 name|val
 operator|.
 name|getVal

@@ -1874,8 +1874,6 @@ name|HStoreKey
 operator|.
 name|compareTwoRowKeys
 argument_list|(
-name|o
-argument_list|,
 name|this
 operator|.
 name|startKey
@@ -1902,8 +1900,6 @@ name|HStoreKey
 operator|.
 name|compareTwoRowKeys
 argument_list|(
-name|o
-argument_list|,
 name|this
 operator|.
 name|endKey

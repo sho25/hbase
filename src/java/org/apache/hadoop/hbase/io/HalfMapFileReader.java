@@ -307,15 +307,6 @@ operator|)
 name|mk
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|midkey
-operator|.
-name|setHRegionInfo
-argument_list|(
-name|hri
-argument_list|)
-expr_stmt|;
 comment|// Is it top or bottom half?
 name|this
 operator|.

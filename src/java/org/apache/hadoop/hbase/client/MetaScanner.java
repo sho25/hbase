@@ -320,11 +320,6 @@ name|HStoreKey
 operator|.
 name|compareTwoRowKeys
 argument_list|(
-name|callable
-operator|.
-name|getHRegionInfo
-argument_list|()
-argument_list|,
 name|startRow
 argument_list|,
 name|LAST_ROW

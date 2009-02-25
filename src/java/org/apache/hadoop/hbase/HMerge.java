@@ -1774,15 +1774,6 @@ name|results
 argument_list|)
 condition|)
 block|{
-name|key
-operator|.
-name|setHRegionInfo
-argument_list|(
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-argument_list|)
-expr_stmt|;
 for|for
 control|(
 name|Cell

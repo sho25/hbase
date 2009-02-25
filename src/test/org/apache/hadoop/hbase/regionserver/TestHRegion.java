@@ -775,6 +775,26 @@ operator|+
 name|k
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|k
+operator|%
+literal|100
+operator|==
+literal|0
+condition|)
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|rowlabel
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|byte
 index|[]
 name|bodydata
@@ -2299,7 +2319,7 @@ operator|/
 literal|2
 operator|)
 operator|+
-literal|" rows. Elapsed time: "
+literal|" rows (second half). Elapsed time: "
 operator|+
 operator|(
 operator|(
@@ -3202,7 +3222,7 @@ argument_list|()
 decl_stmt|;
 name|byte
 index|[]
-name|midKey
+name|splitRow
 init|=
 name|r
 operator|.
@@ -3211,7 +3231,7 @@ argument_list|()
 decl_stmt|;
 name|assertNotNull
 argument_list|(
-name|midKey
+name|splitRow
 argument_list|)
 expr_stmt|;
 name|long
@@ -3230,7 +3250,7 @@ name|r
 operator|.
 name|splitRegion
 argument_list|(
-name|midKey
+name|splitRow
 argument_list|)
 decl_stmt|;
 if|if
@@ -3738,7 +3758,12 @@ name|NUM_VALS
 operator|+
 literal|" "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|CONTENTS_BASIC
+argument_list|)
 operator|+
 literal|" values, but fetched "
 operator|+

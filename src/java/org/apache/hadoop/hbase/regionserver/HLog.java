@@ -2634,10 +2634,7 @@ name|METACOLUMN
 argument_list|,
 name|HLogEdit
 operator|.
-name|completeCacheFlush
-operator|.
-name|get
-argument_list|()
+name|COMPLETE_CACHE_FLUSH
 argument_list|,
 name|System
 operator|.

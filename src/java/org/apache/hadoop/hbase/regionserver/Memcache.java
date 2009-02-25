@@ -239,20 +239,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HStoreKey
 import|;
 end_import
@@ -317,10 +303,6 @@ specifier|final
 name|long
 name|ttl
 decl_stmt|;
-specifier|private
-name|HRegionInfo
-name|regionInfo
-decl_stmt|;
 comment|// Note that since these structures are always accessed with a lock held,
 comment|// so no additional synchronization is required.
 comment|// The currently active sorted map of edits.
@@ -369,15 +351,6 @@ name|HConstants
 operator|.
 name|FOREVER
 expr_stmt|;
-comment|// Set default to be the first meta region.
-name|this
-operator|.
-name|regionInfo
-operator|=
-name|HRegionInfo
-operator|.
-name|FIRST_META_REGIONINFO
-expr_stmt|;
 name|this
 operator|.
 name|memcache
@@ -400,9 +373,6 @@ parameter_list|(
 specifier|final
 name|long
 name|ttl
-parameter_list|,
-name|HRegionInfo
-name|regionInfo
 parameter_list|)
 block|{
 name|this
@@ -410,12 +380,6 @@ operator|.
 name|ttl
 operator|=
 name|ttl
-expr_stmt|;
-name|this
-operator|.
-name|regionInfo
-operator|=
-name|regionInfo
 expr_stmt|;
 name|this
 operator|.
@@ -432,7 +396,12 @@ name|createSynchronizedSortedMap
 argument_list|()
 expr_stmt|;
 block|}
-comment|/*    * Utility method using HSKWritableComparator    * @return sycnhronized sorted map of HStoreKey to byte arrays.    */
+comment|/*    * Utility method using HSKWritableComparator    * @return synchronized sorted map of HStoreKey to byte arrays.    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|private
 name|SortedMap
 argument_list|<
@@ -462,11 +431,7 @@ operator|new
 name|HStoreKey
 operator|.
 name|HStoreKeyWritableComparator
-argument_list|(
-name|this
-operator|.
-name|regionInfo
-argument_list|)
+argument_list|()
 argument_list|)
 argument_list|)
 return|;
@@ -1034,8 +999,6 @@ name|HStoreKey
 operator|.
 name|compareTwoRowKeys
 argument_list|(
-name|regionInfo
-argument_list|,
 name|a
 argument_list|,
 name|b
@@ -1155,10 +1118,6 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
-argument_list|,
-name|this
-operator|.
-name|regionInfo
 argument_list|)
 decl_stmt|;
 name|SortedMap
@@ -1211,8 +1170,6 @@ name|HStoreKey
 operator|.
 name|compareTwoRowKeys
 argument_list|(
-name|regionInfo
-argument_list|,
 name|itKey
 operator|.
 name|getRow
@@ -1711,8 +1668,6 @@ name|HStoreKey
 operator|.
 name|compareTwoRowKeys
 argument_list|(
-name|regionInfo
-argument_list|,
 name|key
 operator|.
 name|getRow
@@ -1919,10 +1874,6 @@ operator|new
 name|HStoreKey
 argument_list|(
 name|row
-argument_list|,
-name|this
-operator|.
-name|regionInfo
 argument_list|)
 else|:
 operator|new
@@ -1935,10 +1886,6 @@ argument_list|()
 operator|.
 name|getRow
 argument_list|()
-argument_list|,
-name|this
-operator|.
-name|regionInfo
 argument_list|)
 decl_stmt|;
 name|List
@@ -1994,10 +1941,6 @@ name|HStoreKey
 operator|.
 name|compareTwoRowKeys
 argument_list|(
-name|this
-operator|.
-name|regionInfo
-argument_list|,
 name|tailMap
 operator|.
 name|firstKey
@@ -2057,10 +2000,6 @@ name|HStoreKey
 operator|.
 name|compareTwoRowKeys
 argument_list|(
-name|this
-operator|.
-name|regionInfo
-argument_list|,
 name|found_key
 operator|.
 name|getRow
@@ -2087,10 +2026,6 @@ name|HStoreKey
 operator|.
 name|compareTwoRowKeys
 argument_list|(
-name|this
-operator|.
-name|regionInfo
-argument_list|,
 name|found_key
 operator|.
 name|getRow
@@ -2117,7 +2052,7 @@ argument_list|)
 argument_list|)
 condition|)
 block|{
-name|HStore
+name|Store
 operator|.
 name|handleDeleted
 argument_list|(
@@ -2145,7 +2080,7 @@ else|else
 block|{
 if|if
 condition|(
-name|HStore
+name|Store
 operator|.
 name|notExpiredAndNotInDeletes
 argument_list|(
@@ -2450,10 +2385,6 @@ name|HStoreKey
 operator|.
 name|equalsTwoRowKeys
 argument_list|(
-name|this
-operator|.
-name|regionInfo
-argument_list|,
 name|lastRowFound
 argument_list|,
 name|found_key
@@ -2479,7 +2410,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|HStore
+name|Store
 operator|.
 name|notExpiredAndNotInDeletes
 argument_list|(
@@ -2594,10 +2525,6 @@ argument_list|()
 operator|.
 name|getRow
 argument_list|()
-argument_list|,
-name|this
-operator|.
-name|regionInfo
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -2640,7 +2567,7 @@ argument_list|)
 argument_list|)
 condition|)
 block|{
-name|HStore
+name|Store
 operator|.
 name|handleDeleted
 argument_list|(
@@ -2763,11 +2690,6 @@ argument_list|,
 name|key
 operator|.
 name|getColumn
-argument_list|()
-argument_list|,
-name|key
-operator|.
-name|getHRegionInfo
 argument_list|()
 argument_list|)
 return|;
@@ -2904,7 +2826,7 @@ block|{
 comment|// Filter out expired results
 if|if
 condition|(
-name|HStore
+name|Store
 operator|.
 name|notExpiredAndNotInDeletes
 argument_list|(
@@ -3327,8 +3249,6 @@ name|HStoreKey
 operator|.
 name|equalsTwoRowKeys
 argument_list|(
-name|regionInfo
-argument_list|,
 name|key
 operator|.
 name|getRow
@@ -3430,7 +3350,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|HStore
+name|Store
 operator|.
 name|notExpiredAndNotInDeletes
 argument_list|(
@@ -3983,10 +3903,7 @@ name|Cell
 argument_list|(
 name|HLogEdit
 operator|.
-name|deleteBytes
-operator|.
-name|get
-argument_list|()
+name|DELETED_BYTES
 argument_list|,
 name|e
 operator|.

@@ -437,7 +437,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HStore
+name|InternalScanner
 import|;
 end_import
 
@@ -453,7 +453,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|InternalScanner
+name|Store
 import|;
 end_import
 
@@ -1840,7 +1840,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HStore
+name|Store
 name|store
 range|:
 name|super

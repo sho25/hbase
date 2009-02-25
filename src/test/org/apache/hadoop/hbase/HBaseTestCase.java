@@ -1065,10 +1065,10 @@ return|return
 name|htd
 return|;
 block|}
-comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param r    * @param column    * @throws IOException    */
+comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param r    * @param column    * @throws IOException    * @return count of what we added.    */
 specifier|protected
 specifier|static
-name|void
+name|long
 name|addContent
 parameter_list|(
 specifier|final
@@ -1131,6 +1131,7 @@ operator|=
 name|START_KEY_BYTES
 expr_stmt|;
 block|}
+return|return
 name|addContent
 argument_list|(
 operator|new
@@ -1153,12 +1154,12 @@ argument_list|,
 operator|-
 literal|1
 argument_list|)
-expr_stmt|;
+return|;
 block|}
-comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param updater  An instance of {@link Incommon}.    * @param column    * @throws IOException    */
+comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param updater  An instance of {@link Incommon}.    * @param column    * @throws IOException    * @return count of what we added.    */
 specifier|protected
 specifier|static
-name|void
+name|long
 name|addContent
 parameter_list|(
 specifier|final
@@ -1172,6 +1173,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+return|return
 name|addContent
 argument_list|(
 name|updater
@@ -1182,12 +1184,12 @@ name|START_KEY_BYTES
 argument_list|,
 literal|null
 argument_list|)
-expr_stmt|;
+return|;
 block|}
-comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param updater  An instance of {@link Incommon}.    * @param column    * @param startKeyBytes Where to start the rows inserted    * @param endKey Where to stop inserting rows.    * @throws IOException    */
+comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param updater  An instance of {@link Incommon}.    * @param column    * @param startKeyBytes Where to start the rows inserted    * @param endKey Where to stop inserting rows.    * @return count of what we added.    * @throws IOException    */
 specifier|protected
 specifier|static
-name|void
+name|long
 name|addContent
 parameter_list|(
 specifier|final
@@ -1211,6 +1213,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+return|return
 name|addContent
 argument_list|(
 name|updater
@@ -1224,12 +1227,12 @@ argument_list|,
 operator|-
 literal|1
 argument_list|)
-expr_stmt|;
+return|;
 block|}
-comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param updater  An instance of {@link Incommon}.    * @param column    * @param startKeyBytes Where to start the rows inserted    * @param endKey Where to stop inserting rows.    * @param ts Timestamp to write the content with.    * @throws IOException    */
+comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param updater  An instance of {@link Incommon}.    * @param column    * @param startKeyBytes Where to start the rows inserted    * @param endKey Where to stop inserting rows.    * @param ts Timestamp to write the content with.    * @return count of what we added.    * @throws IOException    */
 specifier|protected
 specifier|static
-name|void
+name|long
 name|addContent
 parameter_list|(
 specifier|final
@@ -1257,6 +1260,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|long
+name|count
+init|=
+literal|0
+decl_stmt|;
 comment|// Add rows of three characters.  The first character starts with the
 comment|// 'a' character and runs up to 'z'.  Per first character, we run the
 comment|// second character over same range.  And same for the third so rows
@@ -1453,6 +1461,9 @@ argument_list|(
 name|batchUpdate
 argument_list|)
 expr_stmt|;
+name|count
+operator|++
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -1527,6 +1538,9 @@ operator|=
 name|FIRST_CHAR
 expr_stmt|;
 block|}
+return|return
+name|count
+return|;
 block|}
 comment|/**    * Implementors can flushcache.    */
 specifier|public
@@ -2008,27 +2022,6 @@ specifier|private
 name|BatchUpdate
 name|batch
 decl_stmt|;
-specifier|private
-name|void
-name|checkBatch
-parameter_list|()
-block|{
-if|if
-condition|(
-name|batch
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalStateException
-argument_list|(
-literal|"No batch update in progress."
-argument_list|)
-throw|;
-block|}
-block|}
 comment|/**      * @param table      */
 specifier|public
 name|HTableIncommon

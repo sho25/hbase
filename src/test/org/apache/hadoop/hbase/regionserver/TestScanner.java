@@ -907,6 +907,12 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Added: "
+operator|+
 name|addContent
 argument_list|(
 name|hri
@@ -918,6 +924,7 @@ argument_list|(
 name|HConstants
 operator|.
 name|COL_REGIONINFO
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
