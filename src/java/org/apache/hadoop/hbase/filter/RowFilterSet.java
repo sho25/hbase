@@ -247,6 +247,19 @@ return|return
 name|operator
 return|;
 block|}
+comment|/** Get the filters.    *     * @return filters    */
+specifier|public
+name|Set
+argument_list|<
+name|RowFilterInterface
+argument_list|>
+name|getFilters
+parameter_list|()
+block|{
+return|return
+name|filters
+return|;
+block|}
 comment|/** Add a filter.    *     * @param filter    */
 specifier|public
 name|void
