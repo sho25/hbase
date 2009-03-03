@@ -285,6 +285,17 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+specifier|protected
+name|boolean
+name|isTop
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|top
+return|;
+block|}
 specifier|public
 name|HFileScanner
 name|getScanner

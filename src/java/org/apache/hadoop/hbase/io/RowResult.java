@@ -385,10 +385,20 @@ specifier|public
 name|Cell
 name|put
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|byte
 index|[]
 name|key
 parameter_list|,
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|Cell
 name|value
 parameter_list|)
@@ -410,6 +420,11 @@ specifier|public
 name|void
 name|putAll
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|Map
 name|map
 parameter_list|)
@@ -445,6 +460,11 @@ specifier|public
 name|Cell
 name|remove
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|Object
 name|key
 parameter_list|)
@@ -500,6 +520,11 @@ specifier|public
 name|boolean
 name|containsValue
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|Object
 name|value
 parameter_list|)
@@ -631,7 +656,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * This method used solely for the REST serialization    *     * @return    */
+comment|/**    * This method used solely for the REST serialization    *     * @return Cells    */
 annotation|@
 name|TOJSON
 specifier|public
@@ -984,6 +1009,11 @@ specifier|public
 name|Cell
 name|setValue
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|Cell
 name|c
 parameter_list|)

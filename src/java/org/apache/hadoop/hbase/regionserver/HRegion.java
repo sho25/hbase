@@ -5859,11 +5859,15 @@ name|byte
 index|[]
 argument_list|>
 argument_list|(
-operator|new
 name|HStoreKey
 operator|.
-name|HStoreKeyWritableComparator
+name|getWritableComparator
+argument_list|(
+name|store
+operator|.
+name|getHRegionInfo
 argument_list|()
+argument_list|)
 argument_list|)
 decl_stmt|;
 for|for
@@ -6025,11 +6029,15 @@ name|byte
 index|[]
 argument_list|>
 argument_list|(
-operator|new
 name|HStoreKey
 operator|.
-name|HStoreKeyWritableComparator
+name|getWritableComparator
+argument_list|(
+name|store
+operator|.
+name|getHRegionInfo
 argument_list|()
+argument_list|)
 argument_list|)
 decl_stmt|;
 for|for
@@ -6179,11 +6187,15 @@ name|byte
 index|[]
 argument_list|>
 argument_list|(
-operator|new
 name|HStoreKey
 operator|.
-name|HStoreKeyWritableComparator
+name|getWritableComparator
+argument_list|(
+name|store
+operator|.
+name|getHRegionInfo
 argument_list|()
+argument_list|)
 argument_list|)
 decl_stmt|;
 for|for
@@ -6375,11 +6387,15 @@ name|byte
 index|[]
 argument_list|>
 argument_list|(
-operator|new
 name|HStoreKey
 operator|.
-name|HStoreKeyWritableComparator
+name|getWritableComparator
+argument_list|(
+name|store
+operator|.
+name|getHRegionInfo
 argument_list|()
+argument_list|)
 argument_list|)
 decl_stmt|;
 for|for
@@ -6494,6 +6510,9 @@ operator|>
 literal|0
 condition|)
 block|{
+comment|// I think the below map doesn't have to be exactly storetd.  Its deletes
+comment|// they don't have to go in in exact sorted order (we don't have to worry
+comment|// about the meta or root sort comparator here).
 name|TreeMap
 argument_list|<
 name|HStoreKey
@@ -6515,7 +6534,7 @@ argument_list|(
 operator|new
 name|HStoreKey
 operator|.
-name|HStoreKeyWritableComparator
+name|HStoreKeyComparator
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -6742,6 +6761,9 @@ operator|==
 literal|null
 condition|)
 block|{
+comment|// I think the below map doesn't have to be exactly storetd.  Its deletes
+comment|// they don't have to go in in exact sorted order (we don't have to worry
+comment|// about the meta or root sort comparator here).
 name|targets
 operator|=
 operator|new
@@ -6756,7 +6778,7 @@ argument_list|(
 operator|new
 name|HStoreKey
 operator|.
-name|HStoreKeyWritableComparator
+name|HStoreKeyComparator
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -8245,9 +8267,9 @@ operator|==
 literal|null
 operator|||
 operator|(
-name|HStoreKey
+name|Bytes
 operator|.
-name|compareTwoRowKeys
+name|compareTo
 argument_list|(
 name|this
 operator|.
@@ -8267,9 +8289,9 @@ operator|)
 operator|||
 operator|(
 operator|(
-name|HStoreKey
+name|Bytes
 operator|.
-name|compareTwoRowKeys
+name|compareTo
 argument_list|(
 name|this
 operator|.
@@ -8383,9 +8405,9 @@ index|]
 operator|!=
 literal|null
 operator|&&
-name|HStoreKey
+name|Bytes
 operator|.
-name|compareTwoRowKeys
+name|compareTo
 argument_list|(
 name|this
 operator|.
@@ -8530,9 +8552,9 @@ literal|null
 operator|)
 operator|&&
 operator|(
-name|HStoreKey
+name|Bytes
 operator|.
-name|compareTwoRowKeys
+name|compareTo
 argument_list|(
 name|this
 operator|.
@@ -9298,11 +9320,15 @@ name|byte
 index|[]
 argument_list|>
 argument_list|(
-operator|new
 name|HStoreKey
 operator|.
-name|HStoreKeyWritableComparator
+name|getWritableComparator
+argument_list|(
+name|r
+operator|.
+name|getRegionInfo
 argument_list|()
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|edits
@@ -9728,9 +9754,9 @@ literal|0
 operator|)
 operator|||
 operator|(
-name|HStoreKey
+name|Bytes
 operator|.
-name|compareTwoRowKeys
+name|compareTo
 argument_list|(
 name|info
 operator|.
@@ -9757,9 +9783,9 @@ literal|0
 operator|)
 operator|||
 operator|(
-name|HStoreKey
+name|Bytes
 operator|.
-name|compareTwoRowKeys
+name|compareTo
 argument_list|(
 name|info
 operator|.
@@ -9908,9 +9934,9 @@ literal|null
 operator|)
 operator|||
 operator|(
-name|HStoreKey
+name|Bytes
 operator|.
-name|compareTwoRowKeys
+name|compareTo
 argument_list|(
 name|srcA
 operator|.
@@ -10177,9 +10203,9 @@ argument_list|)
 condition|?
 name|EMPTY_BYTE_ARRAY
 else|:
-name|HStoreKey
+name|Bytes
 operator|.
-name|compareTwoRowKeys
+name|compareTo
 argument_list|(
 name|a
 operator|.
@@ -10235,9 +10261,9 @@ argument_list|)
 condition|?
 name|EMPTY_BYTE_ARRAY
 else|:
-name|HStoreKey
+name|Bytes
 operator|.
-name|compareTwoRowKeys
+name|compareTo
 argument_list|(
 name|a
 operator|.

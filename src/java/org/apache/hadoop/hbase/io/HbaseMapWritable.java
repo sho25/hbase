@@ -242,18 +242,6 @@ name|instance
 init|=
 literal|null
 decl_stmt|;
-comment|// Static maps of code to class and vice versa.  Includes types used in hbase
-comment|// only. These maps are now initialized in a static loader interface instead
-comment|// of in a static contructor for this class, this is done so that it is
-comment|// possible to have a regular contructor here, so that different params can
-comment|// be used.
-comment|// Removed the old types like Text from the maps, if needed to add more types
-comment|// this can be done in the StaticHBaseMapWritableLoader interface. Only
-comment|// byte[] and Cell are supported now.
-comment|//   static final Map<Byte, Class<?>> CODE_TO_CLASS =
-comment|//     new HashMap<Byte, Class<?>>();
-comment|//   static final Map<Class<?>, Byte> CLASS_TO_CODE =
-comment|//     new HashMap<Class<?>, Byte>();
 comment|/**    * The default contructor where a TreeMap is used    **/
 specifier|public
 name|HbaseMapWritable
@@ -277,7 +265,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**   * Contructor where another SortedMap can be used   *    * @param map the SortedMap to be used    **/
+comment|/**    * Contructor where another SortedMap can be used    *     * @param map the SortedMap to be used     */
 specifier|public
 name|HbaseMapWritable
 parameter_list|(

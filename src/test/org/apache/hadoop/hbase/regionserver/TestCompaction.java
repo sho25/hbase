@@ -1117,8 +1117,6 @@ argument_list|)
 argument_list|,
 operator|(
 literal|"bbb"
-operator|+
-name|PUNCTUATION
 operator|)
 operator|.
 name|getBytes

@@ -3165,7 +3165,12 @@ argument_list|)
 operator|||
 name|HStoreKey
 operator|.
-name|compareTwoRowKeys
+name|getComparator
+argument_list|(
+name|tableName
+argument_list|)
+operator|.
+name|compareRows
 argument_list|(
 name|endKey
 argument_list|,
@@ -3288,7 +3293,12 @@ if|if
 condition|(
 name|HStoreKey
 operator|.
-name|compareTwoRowKeys
+name|getComparator
+argument_list|(
+name|tableName
+argument_list|)
+operator|.
+name|compareRows
 argument_list|(
 name|endKey
 argument_list|,

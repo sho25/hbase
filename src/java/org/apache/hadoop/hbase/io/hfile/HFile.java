@@ -467,14 +467,24 @@ comment|/**    * Default compression: none.    */
 specifier|public
 specifier|final
 specifier|static
-name|String
-name|DEFAULT_COMPRESSION
+name|Compression
+operator|.
+name|Algorithm
+name|DEFAULT_COMPRESSION_ALGORITHM
 init|=
 name|Compression
 operator|.
 name|Algorithm
 operator|.
 name|NONE
+decl_stmt|;
+specifier|public
+specifier|final
+specifier|static
+name|String
+name|DEFAULT_COMPRESSION
+init|=
+name|DEFAULT_COMPRESSION_ALGORITHM
 operator|.
 name|getName
 argument_list|()
@@ -702,10 +712,12 @@ argument_list|,
 literal|null
 argument_list|,
 literal|null
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Constructor that takes a Path.      * @param fs      * @param path      * @param blocksize      * @param compress      * @param comparator      * @throws IOException      */
+comment|/**      * Constructor that takes a Path.      * @param fs      * @param path      * @param blocksize      * @param compress      * @param comparator      * @param bloomfilter      * @throws IOException       * @throws IOException      */
 specifier|public
 name|Writer
 parameter_list|(
@@ -735,6 +747,66 @@ block|{
 name|this
 argument_list|(
 name|fs
+argument_list|,
+name|path
+argument_list|,
+name|blocksize
+argument_list|,
+name|compress
+operator|==
+literal|null
+condition|?
+name|DEFAULT_COMPRESSION_ALGORITHM
+else|:
+name|Compression
+operator|.
+name|getCompressionAlgorithmByName
+argument_list|(
+name|compress
+argument_list|)
+argument_list|,
+name|comparator
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**      * Constructor that takes a Path.      * @param fs      * @param path      * @param blocksize      * @param compress      * @param comparator      * @param bloomfilter      * @throws IOException      */
+specifier|public
+name|Writer
+parameter_list|(
+name|FileSystem
+name|fs
+parameter_list|,
+name|Path
+name|path
+parameter_list|,
+name|int
+name|blocksize
+parameter_list|,
+name|Compression
+operator|.
+name|Algorithm
+name|compress
+parameter_list|,
+specifier|final
+name|RawComparator
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|comparator
+parameter_list|,
+specifier|final
+name|boolean
+name|bloomfilter
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|this
+argument_list|(
+name|fs
 operator|.
 name|create
 argument_list|(
@@ -746,6 +818,8 @@ argument_list|,
 name|compress
 argument_list|,
 name|comparator
+argument_list|,
+name|bloomfilter
 argument_list|)
 expr_stmt|;
 name|this
@@ -770,7 +844,7 @@ operator|=
 name|path
 expr_stmt|;
 block|}
-comment|/**      * Constructor that takes a stream.      * @param ostream Stream to use.      * @param blocksize      * @param compress      * @param c      * @throws IOException      */
+comment|/**      * Constructor that takes a stream.      * @param ostream Stream to use.      * @param blocksize      * @param compress      * @param c      * @param bloomfilter      * @throws IOException      */
 specifier|public
 name|Writer
 parameter_list|(
@@ -793,6 +867,64 @@ name|byte
 index|[]
 argument_list|>
 name|c
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|this
+argument_list|(
+name|ostream
+argument_list|,
+name|blocksize
+argument_list|,
+name|compress
+operator|==
+literal|null
+condition|?
+name|DEFAULT_COMPRESSION_ALGORITHM
+else|:
+name|Compression
+operator|.
+name|getCompressionAlgorithmByName
+argument_list|(
+name|compress
+argument_list|)
+argument_list|,
+name|c
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**      * Constructor that takes a stream.      * @param ostream Stream to use.      * @param blocksize      * @param compress      * @param c      * @param bloomfilter      * @throws IOException      */
+specifier|public
+name|Writer
+parameter_list|(
+specifier|final
+name|FSDataOutputStream
+name|ostream
+parameter_list|,
+specifier|final
+name|int
+name|blocksize
+parameter_list|,
+specifier|final
+name|Compression
+operator|.
+name|Algorithm
+name|compress
+parameter_list|,
+specifier|final
+name|RawComparator
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|c
+parameter_list|,
+specifier|final
+name|boolean
+name|bloomfilter
 parameter_list|)
 throws|throws
 name|IOException
@@ -844,25 +976,13 @@ name|this
 operator|.
 name|compressAlgo
 operator|=
-name|Compression
-operator|.
-name|getCompressionAlgorithmByName
-argument_list|(
 name|compress
 operator|==
 literal|null
 condition|?
-name|Compression
-operator|.
-name|Algorithm
-operator|.
-name|NONE
-operator|.
-name|getName
-argument_list|()
+name|DEFAULT_COMPRESSION_ALGORITHM
 else|:
 name|compress
-argument_list|)
 expr_stmt|;
 block|}
 comment|/*      * If at block boundary, opens new block.      * @throws IOException      */
@@ -1298,7 +1418,7 @@ name|getName
 argument_list|()
 return|;
 block|}
-comment|/**      * Add key/value to file.      * Keys must be added in an order that agrees with the RawComparator passed      * on construction.      * @param key Key to add.  Cannot be empty nor null.      * @param value Value to add.  Cannot be empty nor null.      * @throws IOException      */
+comment|/**      * Add key/value to file.      * Keys must be added in an order that agrees with the Comparator passed      * on construction.      * @param key Key to add.  Cannot be empty nor null.      * @param value Value to add.  Cannot be empty nor null.      * @throws IOException      */
 specifier|public
 name|void
 name|append
@@ -1503,7 +1623,7 @@ name|IOException
 argument_list|(
 literal|"Added a key not lexically larger than"
 operator|+
-literal|" previous: key="
+literal|" previous key="
 operator|+
 name|Bytes
 operator|.
@@ -2338,23 +2458,14 @@ argument_list|()
 operator|+
 literal|", firstKey="
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|getFirstKey
+name|toStringFirstKey
 argument_list|()
-argument_list|)
 operator|+
 literal|", lastKey="
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|getLastKey
+name|toStringLastKey
 argument_list|()
-argument_list|)
+operator|)
 operator|+
 literal|", avgKeyLen="
 operator|+
@@ -2381,7 +2492,36 @@ operator|+
 name|this
 operator|.
 name|fileSize
-operator|)
+return|;
+block|}
+specifier|protected
+name|String
+name|toStringFirstKey
+parameter_list|()
+block|{
+return|return
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|getFirstKey
+argument_list|()
+argument_list|)
+return|;
+block|}
+specifier|protected
+name|String
+name|toStringLastKey
+parameter_list|()
+block|{
+return|return
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|getFirstKey
+argument_list|()
+argument_list|)
 return|;
 block|}
 specifier|public
@@ -2570,9 +2710,9 @@ name|BlockIndex
 operator|.
 name|readIndex
 argument_list|(
-name|Bytes
+name|this
 operator|.
-name|BYTES_RAWCOMPARATOR
+name|comparator
 argument_list|,
 name|this
 operator|.
@@ -2653,6 +2793,10 @@ block|{
 return|return
 operator|(
 name|RawComparator
+argument_list|<
+name|byte
+index|[]
+argument_list|>
 operator|)
 name|Class
 operator|.
@@ -4213,6 +4357,8 @@ literal|0
 condition|)
 do|;
 comment|// ok we are at the end, so go back a littleeeeee....
+comment|// The 8 in the below is intentionally different to the 16s in the above
+comment|// Do the math you you'll figure it.
 name|block
 operator|.
 name|position
@@ -4949,6 +5095,7 @@ init|=
 literal|0
 decl_stmt|;
 comment|/* Needed doing lookup on blocks.      */
+specifier|final
 name|RawComparator
 argument_list|<
 name|byte

@@ -171,6 +171,12 @@ name|buffer
 operator|.
 name|append
 argument_list|(
+name|regionName
+operator|==
+literal|null
+condition|?
+literal|""
+else|:
 name|Bytes
 operator|.
 name|toString
@@ -190,6 +196,12 @@ name|buffer
 operator|.
 name|append
 argument_list|(
+name|row
+operator|==
+literal|null
+condition|?
+literal|""
+else|:
 name|Bytes
 operator|.
 name|toString

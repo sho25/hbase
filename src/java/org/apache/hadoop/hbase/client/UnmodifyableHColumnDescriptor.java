@@ -27,6 +27,24 @@ name|HColumnDescriptor
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|Compression
+import|;
+end_import
+
 begin_comment
 comment|/**  * Immutable HColumnDescriptor  */
 end_comment
@@ -193,7 +211,9 @@ specifier|public
 name|void
 name|setCompressionType
 parameter_list|(
-name|CompressionType
+name|Compression
+operator|.
+name|Algorithm
 name|type
 parameter_list|)
 block|{

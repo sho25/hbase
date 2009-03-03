@@ -291,7 +291,11 @@ comment|/** For Writable compatibility */
 specifier|public
 name|Cell
 parameter_list|()
-block|{   }
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * Create a new Cell with a given value and timestamp. Used by HStore.    *     * @param value    * @param timestamp    */
 specifier|public
 name|Cell

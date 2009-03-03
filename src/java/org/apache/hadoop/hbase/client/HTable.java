@@ -4020,6 +4020,10 @@ argument_list|()
 expr_stmt|;
 block|}
 return|return
+name|Boolean
+operator|.
+name|valueOf
+argument_list|(
 name|server
 operator|.
 name|exists
@@ -4040,10 +4044,14 @@ name|timestamp
 argument_list|,
 name|lockId
 argument_list|)
+argument_list|)
 return|;
 block|}
 block|}
 argument_list|)
+operator|.
+name|booleanValue
+argument_list|()
 return|;
 block|}
 comment|/**    * Commit a BatchUpdate to the table.    * If autoFlush is false, the update is buffered    * @param batchUpdate    * @throws IOException    */

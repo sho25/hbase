@@ -1264,6 +1264,7 @@ name|compressName
 return|;
 block|}
 block|}
+specifier|public
 specifier|static
 name|Algorithm
 name|getCompressionAlgorithmByName

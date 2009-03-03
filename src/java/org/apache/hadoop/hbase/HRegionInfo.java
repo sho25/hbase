@@ -1870,9 +1870,9 @@ block|}
 comment|// Compare start keys.
 name|result
 operator|=
-name|HStoreKey
+name|Bytes
 operator|.
-name|compareTwoRowKeys
+name|compareTo
 argument_list|(
 name|this
 operator|.
@@ -1896,9 +1896,9 @@ return|;
 block|}
 comment|// Compare end keys.
 return|return
-name|HStoreKey
+name|Bytes
 operator|.
-name|compareTwoRowKeys
+name|compareTo
 argument_list|(
 name|this
 operator|.

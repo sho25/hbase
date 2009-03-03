@@ -1062,9 +1062,7 @@ argument_list|,
 comment|// Max versions
 name|HColumnDescriptor
 operator|.
-name|CompressionType
-operator|.
-name|NONE
+name|DEFAULT_COMPRESSION
 argument_list|,
 comment|// no compression
 name|HColumnDescriptor
