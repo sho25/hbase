@@ -7945,11 +7945,6 @@ block|{
 name|checkOpen
 argument_list|()
 expr_stmt|;
-name|requestCount
-operator|.
-name|incrementAndGet
-argument_list|()
-expr_stmt|;
 name|ArrayList
 argument_list|<
 name|RowResult
@@ -8026,6 +8021,11 @@ name|i
 operator|++
 control|)
 block|{
+name|requestCount
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
 comment|// Collect values to be returned here
 name|HbaseMapWritable
 argument_list|<
