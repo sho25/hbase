@@ -2710,9 +2710,9 @@ name|BlockIndex
 operator|.
 name|readIndex
 argument_list|(
-name|this
+name|Bytes
 operator|.
-name|comparator
+name|BYTES_RAWCOMPARATOR
 argument_list|,
 name|this
 operator|.
@@ -2978,6 +2978,20 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|trailer
+operator|.
+name|metaIndexCount
+operator|==
+literal|0
+condition|)
+block|{
+return|return
+literal|null
+return|;
+comment|// there are no meta blocks
+block|}
 if|if
 condition|(
 name|metaIndex

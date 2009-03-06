@@ -216,6 +216,7 @@ name|SIZE
 decl_stmt|;
 comment|/**    * Estimate of size cost to pay beyond payload in jvm for instance of byte [].    * Estimate based on study of jhat and jprofiler numbers.    */
 comment|// JHat says BU is 56 bytes.
+comment|// SizeOf which uses java.lang.instrument says 24 bytes. (3 longs?)
 specifier|public
 specifier|static
 specifier|final
