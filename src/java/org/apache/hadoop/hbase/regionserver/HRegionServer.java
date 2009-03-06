@@ -8464,9 +8464,7 @@ operator|.
 name|reclaimMemcacheMemory
 argument_list|()
 expr_stmt|;
-name|boolean
-name|result
-init|=
+return|return
 name|region
 operator|.
 name|checkAndSave
@@ -8483,11 +8481,8 @@ name|getRowLock
 argument_list|()
 argument_list|)
 argument_list|,
-literal|false
+literal|true
 argument_list|)
-decl_stmt|;
-return|return
-name|result
 return|;
 block|}
 catch|catch
