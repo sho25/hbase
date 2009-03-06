@@ -1524,6 +1524,12 @@ operator|.
 name|Reader
 name|logReader
 init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|logReader
+operator|=
 operator|new
 name|SequenceFile
 operator|.
@@ -1539,7 +1545,27 @@ name|this
 operator|.
 name|conf
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed opening reconstruction log though check for null-size passed. "
+operator|+
+literal|"POSSIBLE DATA LOSS!! Soldiering on"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 try|try
 block|{
 name|HLogKey
