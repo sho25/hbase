@@ -1974,17 +1974,6 @@ name|bufferLength
 init|=
 literal|640
 decl_stmt|;
-name|char
-index|[]
-name|c
-init|=
-operator|new
-name|char
-index|[
-name|bufferLength
-index|]
-decl_stmt|;
-comment|// 40 characters * sizeof(UTF16)
 comment|// TODO make s maxLength and c size values in configuration
 if|if
 condition|(
@@ -2023,6 +2012,11 @@ index|]
 return|;
 block|}
 block|}
+name|char
+index|[]
+name|c
+decl_stmt|;
+comment|// 40 characters * sizeof(UTF16)
 while|while
 condition|(
 name|r
@@ -2031,6 +2025,14 @@ name|ready
 argument_list|()
 condition|)
 block|{
+name|c
+operator|=
+operator|new
+name|char
+index|[
+name|bufferLength
+index|]
+expr_stmt|;
 name|int
 name|n
 init|=
