@@ -502,11 +502,6 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|ServerStats
-operator|.
-name|registerAsConcrete
-argument_list|()
-expr_stmt|;
 name|File
 name|dir
 init|=
@@ -590,11 +585,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|QuorumStats
-operator|.
-name|registerAsConcrete
-argument_list|()
-expr_stmt|;
 comment|// Create map of peers
 name|HashMap
 argument_list|<
@@ -1060,11 +1050,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-name|ServerStats
-operator|.
-name|unregister
-argument_list|()
-expr_stmt|;
 block|}
 specifier|private
 name|void
@@ -1097,11 +1082,6 @@ literal|"Waiting for shutdown of standalone server"
 argument_list|)
 throw|;
 block|}
-name|ServerStats
-operator|.
-name|unregister
-argument_list|()
-expr_stmt|;
 block|}
 comment|// XXX: From o.a.zk.t.ClientBase
 specifier|private
