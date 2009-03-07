@@ -856,8 +856,6 @@ parameter_list|(
 name|HMaster
 name|master
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|HBaseConfiguration
 name|conf
@@ -1028,6 +1026,9 @@ operator|!
 name|master
 operator|.
 name|shutdownRequested
+operator|.
+name|get
+argument_list|()
 condition|)
 block|{
 synchronized|synchronized
@@ -4195,7 +4196,7 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Set the root region location.    * @param address Address of the region server where the root lives    * @throws IOException If there's a problem connection to ZooKeeper.    */
+comment|/**    * Set the root region location.    * @param address Address of the region server where the root lives    */
 specifier|public
 name|void
 name|setRootRegionLocation
@@ -4203,8 +4204,6 @@ parameter_list|(
 name|HServerAddress
 name|address
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|writeRootRegionLocationToZooKeeper
 argument_list|(

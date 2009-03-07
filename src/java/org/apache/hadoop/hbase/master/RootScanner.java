@@ -85,7 +85,7 @@ name|metaRescanInterval
 argument_list|,
 name|master
 operator|.
-name|closed
+name|shutdownRequested
 argument_list|)
 expr_stmt|;
 block|}

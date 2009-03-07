@@ -917,9 +917,19 @@ specifier|public
 name|long
 name|getProtocolVersion
 parameter_list|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|String
 name|protocol
 parameter_list|,
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|long
 name|clientVersion
 parameter_list|)
@@ -945,10 +955,14 @@ literal|true
 argument_list|)
 decl_stmt|;
 specifier|volatile
-name|boolean
+name|AtomicBoolean
 name|shutdownRequested
 init|=
+operator|new
+name|AtomicBoolean
+argument_list|(
 literal|false
+argument_list|)
 decl_stmt|;
 specifier|volatile
 name|boolean
@@ -1925,6 +1939,9 @@ if|if
 condition|(
 operator|!
 name|shutdownRequested
+operator|.
+name|get
+argument_list|()
 operator|&&
 operator|!
 name|closed
@@ -2019,7 +2036,20 @@ comment|// check if we should be shutting down
 if|if
 condition|(
 name|shutdownRequested
-operator|&&
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+comment|// The region servers won't all exit until we stop scanning the
+comment|// meta regions
+name|regionManager
+operator|.
+name|stopScanners
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
 name|serverManager
 operator|.
 name|numServers
@@ -2032,6 +2062,7 @@ name|startShutdown
 argument_list|()
 expr_stmt|;
 break|break;
+block|}
 block|}
 comment|// work on the TodoQueue. If that fails, we should shut down.
 if|if
@@ -2068,12 +2099,6 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|// The region servers won't all exit until we stop scanning the meta regions
-name|regionManager
-operator|.
-name|stopScanners
-argument_list|()
-expr_stmt|;
 comment|// Wait for all the remaining region servers to report in.
 name|serverManager
 operator|.
@@ -2922,8 +2947,11 @@ expr_stmt|;
 name|this
 operator|.
 name|shutdownRequested
-operator|=
+operator|.
+name|set
+argument_list|(
 literal|true
+argument_list|)
 expr_stmt|;
 block|}
 specifier|public
@@ -5029,7 +5057,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Get the ZK wrapper object    * @return    */
+comment|/**    * Get the ZK wrapper object    * @return the zookeeper wrapper    */
 specifier|public
 name|ZooKeeperWrapper
 name|getZooKeeperWrapper
