@@ -4641,7 +4641,7 @@ index|[]
 name|column
 parameter_list|,
 specifier|final
-name|int
+name|long
 name|amount
 parameter_list|)
 throws|throws
