@@ -105,6 +105,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|WeakHashMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|ConcurrentHashMap
@@ -385,6 +395,22 @@ name|hbase
 operator|.
 name|ipc
 operator|.
+name|HBaseRPC
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
 name|HBaseRPCProtocolVersion
 import|;
 end_import
@@ -418,22 +444,6 @@ operator|.
 name|ipc
 operator|.
 name|HRegionInterface
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
-name|HBaseRPC
 import|;
 end_import
 
@@ -551,24 +561,24 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|// A Map of master HServerAddress -> connection information for that instance
-comment|// Note that although the Map is synchronized, the objects it contains
-comment|// are mutable and hence require synchronized access to them
+comment|// A Map of master HBaseConfiguration -> connection information for that
+comment|// instance. Note that although the Map is synchronized, the objects it
+comment|// contains are mutable and hence require synchronized access to them
 specifier|private
 specifier|static
 specifier|final
 name|Map
 argument_list|<
-name|String
+name|HBaseConfiguration
 argument_list|,
 name|TableServers
 argument_list|>
 name|HBASE_INSTANCES
 init|=
 operator|new
-name|ConcurrentHashMap
+name|WeakHashMap
 argument_list|<
-name|String
+name|HBaseConfiguration
 argument_list|,
 name|TableServers
 argument_list|>
@@ -592,23 +602,13 @@ init|(
 name|HBASE_INSTANCES
 init|)
 block|{
-name|String
-name|instanceName
-init|=
-name|conf
-operator|.
-name|get
-argument_list|(
-name|HBASE_DIR
-argument_list|)
-decl_stmt|;
 name|connection
 operator|=
 name|HBASE_INSTANCES
 operator|.
 name|get
 argument_list|(
-name|instanceName
+name|conf
 argument_list|)
 expr_stmt|;
 if|if
@@ -630,7 +630,7 @@ name|HBASE_INSTANCES
 operator|.
 name|put
 argument_list|(
-name|instanceName
+name|conf
 argument_list|,
 name|connection
 argument_list|)
@@ -667,11 +667,6 @@ operator|.
 name|remove
 argument_list|(
 name|conf
-operator|.
-name|get
-argument_list|(
-name|HBASE_DIR
-argument_list|)
 argument_list|)
 decl_stmt|;
 if|if
