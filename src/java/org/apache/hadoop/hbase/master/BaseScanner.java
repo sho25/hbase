@@ -1486,7 +1486,7 @@ name|info
 parameter_list|,
 specifier|final
 name|String
-name|serverName
+name|serverAddress
 parameter_list|,
 specifier|final
 name|long
@@ -1495,6 +1495,42 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|String
+name|serverName
+init|=
+literal|null
+decl_stmt|;
+if|if
+condition|(
+name|serverAddress
+operator|!=
+literal|null
+operator|&&
+name|serverAddress
+operator|.
+name|length
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|serverName
+operator|=
+name|HServerInfo
+operator|.
+name|getServerName
+argument_list|(
+name|serverAddress
+argument_list|,
+name|startCode
+argument_list|)
+expr_stmt|;
+block|}
+name|HServerInfo
+name|storedInfo
+init|=
+literal|null
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|this
@@ -1504,7 +1540,14 @@ operator|.
 name|regionManager
 init|)
 block|{
-comment|/*        * We don't assign regions that are offline, in transition or were on        * a dead server. Regions that were on a dead server will get reassigned        * by ProcessServerShutdown        */
+if|if
+condition|(
+name|serverName
+operator|!=
+literal|null
+condition|)
+block|{
+comment|/*          * We don't assign regions that are offline, in transition or were on          * a dead server. Regions that were on a dead server will get reassigned          * by ProcessServerShutdown          */
 if|if
 condition|(
 name|info
@@ -1522,7 +1565,7 @@ name|regionIsInTransition
 argument_list|(
 name|info
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 operator|||
@@ -1540,21 +1583,6 @@ condition|)
 block|{
 return|return;
 block|}
-name|HServerInfo
-name|storedInfo
-init|=
-literal|null
-decl_stmt|;
-if|if
-condition|(
-name|serverName
-operator|.
-name|length
-argument_list|()
-operator|!=
-literal|0
-condition|)
-block|{
 name|storedInfo
 operator|=
 name|this
@@ -1569,19 +1597,13 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*        * If the startcode is off -- either null or doesn't match the start code        * for the address -- then add it to the list of unassigned regions.        */
+comment|// If we can't find the HServerInfo, then add it to the list of
+comment|//  unassigned regions.
 if|if
 condition|(
 name|storedInfo
 operator|==
 literal|null
-operator|||
-name|storedInfo
-operator|.
-name|getStartCode
-argument_list|()
-operator|!=
-name|startCode
 condition|)
 block|{
 comment|// The current assignment is invalid
@@ -1606,32 +1628,15 @@ argument_list|()
 operator|+
 literal|" is not valid; "
 operator|+
-operator|(
-name|storedInfo
-operator|==
-literal|null
-condition|?
 literal|" Server '"
 operator|+
-name|serverName
+name|serverAddress
 operator|+
-literal|"' unknown."
-else|:
-literal|" serverInfo: "
-operator|+
-name|storedInfo
-operator|+
-literal|", passed startCode: "
+literal|"' startCode: "
 operator|+
 name|startCode
 operator|+
-literal|", storedInfo.startCode: "
-operator|+
-name|storedInfo
-operator|.
-name|getStartCode
-argument_list|()
-operator|)
+literal|" unknown."
 argument_list|)
 expr_stmt|;
 block|}
@@ -1652,36 +1657,10 @@ name|isInitialMetaScanComplete
 argument_list|()
 operator|&&
 name|serverName
-operator|.
-name|length
-argument_list|()
 operator|!=
-literal|0
+literal|null
 condition|)
 block|{
-name|StringBuilder
-name|dirName
-init|=
-operator|new
-name|StringBuilder
-argument_list|(
-literal|"log_"
-argument_list|)
-decl_stmt|;
-name|dirName
-operator|.
-name|append
-argument_list|(
-name|serverName
-operator|.
-name|replace
-argument_list|(
-literal|":"
-argument_list|,
-literal|"_"
-argument_list|)
-argument_list|)
-expr_stmt|;
 name|Path
 name|logDir
 init|=
@@ -1694,10 +1673,12 @@ name|master
 operator|.
 name|rootdir
 argument_list|,
-name|dirName
+name|HLog
 operator|.
-name|toString
-argument_list|()
+name|getHLogDirectoryName
+argument_list|(
+name|serverName
+argument_list|)
 argument_list|)
 decl_stmt|;
 try|try

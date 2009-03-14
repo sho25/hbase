@@ -119,20 +119,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerAddress
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HServerInfo
 import|;
 end_import
@@ -259,14 +245,8 @@ name|RegionServerOperation
 block|{
 specifier|private
 specifier|final
-name|HServerAddress
-name|deadServer
-decl_stmt|;
-comment|/*    * Cache of the server name.    */
-specifier|private
-specifier|final
 name|String
-name|deadServerStr
+name|deadServer
 decl_stmt|;
 specifier|private
 specifier|final
@@ -362,21 +342,12 @@ name|this
 operator|.
 name|deadServer
 operator|=
+name|HServerInfo
+operator|.
+name|getServerName
+argument_list|(
 name|serverInfo
-operator|.
-name|getServerAddress
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|deadServerStr
-operator|=
-name|this
-operator|.
-name|deadServer
-operator|.
-name|toString
-argument_list|()
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -428,7 +399,7 @@ literal|"ProcessServerShutdown of "
 operator|+
 name|this
 operator|.
-name|deadServerStr
+name|deadServer
 return|;
 block|}
 comment|/** Finds regions that the dead region server was serving    */
@@ -566,7 +537,7 @@ comment|// shutdown server but that would mean that we'd reassign regions that
 comment|// were already out being assigned, ones that were product of a split
 comment|// that happened while the shutdown was being processed.
 name|String
-name|serverName
+name|serverAddress
 init|=
 name|Writables
 operator|.
@@ -580,6 +551,52 @@ name|COL_SERVER
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|long
+name|startCode
+init|=
+name|Writables
+operator|.
+name|cellToLong
+argument_list|(
+name|values
+operator|.
+name|get
+argument_list|(
+name|COL_STARTCODE
+argument_list|)
+argument_list|)
+decl_stmt|;
+name|String
+name|serverName
+init|=
+literal|null
+decl_stmt|;
+if|if
+condition|(
+name|serverAddress
+operator|!=
+literal|null
+operator|&&
+name|serverAddress
+operator|.
+name|length
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|serverName
+operator|=
+name|HServerInfo
+operator|.
+name|getServerName
+argument_list|(
+name|serverAddress
+argument_list|,
+name|startCode
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|serverName
@@ -587,7 +604,7 @@ operator|==
 literal|null
 operator|||
 operator|!
-name|deadServerStr
+name|deadServer
 operator|.
 name|equals
 argument_list|(
@@ -741,7 +758,7 @@ name|isOfflined
 argument_list|(
 name|info
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 operator|||
@@ -1172,7 +1189,7 @@ literal|"process shutdown of server "
 operator|+
 name|this
 operator|.
-name|deadServerStr
+name|deadServer
 operator|+
 literal|": logSplit: "
 operator|+
@@ -1519,7 +1536,7 @@ name|serverManager
 operator|.
 name|removeDeadServer
 argument_list|(
-name|deadServerStr
+name|deadServer
 argument_list|)
 expr_stmt|;
 if|if
@@ -1536,7 +1553,7 @@ name|debug
 argument_list|(
 literal|"Removed "
 operator|+
-name|deadServerStr
+name|deadServer
 operator|+
 literal|" from deadservers Map"
 argument_list|)

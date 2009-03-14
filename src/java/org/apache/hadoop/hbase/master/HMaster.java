@@ -2737,6 +2737,8 @@ specifier|final
 name|HServerInfo
 name|serverInfo
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 comment|// Set the address for now even tho it will not be persisted on HRS side.
 name|String

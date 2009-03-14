@@ -246,9 +246,6 @@ parameter_list|(
 name|String
 name|serverName
 parameter_list|,
-name|long
-name|startCode
-parameter_list|,
 name|HRegionInfo
 name|info
 parameter_list|)
@@ -258,8 +255,6 @@ condition|(
 name|isBeingServed
 argument_list|(
 name|serverName
-argument_list|,
-name|startCode
 argument_list|)
 condition|)
 block|{
@@ -483,7 +478,7 @@ name|regionIsOpening
 argument_list|(
 name|i
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 condition|)

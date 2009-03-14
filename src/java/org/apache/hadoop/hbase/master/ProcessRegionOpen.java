@@ -127,14 +127,8 @@ name|ProcessRegionStatusChange
 block|{
 specifier|protected
 specifier|final
-name|HServerAddress
-name|serverAddress
-decl_stmt|;
-specifier|protected
-specifier|final
-name|byte
-index|[]
-name|startCode
+name|HServerInfo
+name|serverInfo
 decl_stmt|;
 comment|/**    * @param master    * @param info    * @param regionInfo    * @throws IOException    */
 annotation|@
@@ -164,20 +158,9 @@ argument_list|,
 name|regionInfo
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|serverAddress
-operator|=
-name|info
-operator|.
-name|getServerAddress
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
-name|this
-operator|.
-name|serverAddress
+name|info
 operator|==
 literal|null
 condition|)
@@ -186,7 +169,7 @@ throw|throw
 operator|new
 name|NullPointerException
 argument_list|(
-literal|"Server address cannot be null; "
+literal|"HServerInfo cannot be null; "
 operator|+
 literal|"hbase-958 debugging"
 argument_list|)
@@ -194,17 +177,9 @@ throw|;
 block|}
 name|this
 operator|.
-name|startCode
+name|serverInfo
 operator|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 name|info
-operator|.
-name|getStartCode
-argument_list|()
-argument_list|)
 expr_stmt|;
 block|}
 annotation|@
@@ -217,10 +192,12 @@ block|{
 return|return
 literal|"PendingOpenOperation from "
 operator|+
-name|serverAddress
+name|HServerInfo
 operator|.
-name|toString
-argument_list|()
+name|getServerName
+argument_list|(
+name|serverInfo
+argument_list|)
 return|;
 block|}
 annotation|@
@@ -277,7 +254,10 @@ argument_list|()
 operator|+
 literal|" open on "
 operator|+
-name|serverAddress
+name|serverInfo
+operator|.
+name|getServerAddress
+argument_list|()
 operator|.
 name|toString
 argument_list|()
@@ -319,20 +299,20 @@ argument_list|(
 name|metaRegionName
 argument_list|)
 operator|+
+literal|" with "
+operator|+
 literal|" with startcode "
 operator|+
-name|Bytes
+name|serverInfo
 operator|.
-name|toLong
-argument_list|(
-name|startCode
-argument_list|)
+name|getStartCode
+argument_list|()
 operator|+
 literal|" and server "
 operator|+
-name|serverAddress
+name|serverInfo
 operator|.
-name|toString
+name|getServerAddress
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -358,7 +338,10 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|serverAddress
+name|serverInfo
+operator|.
+name|getServerAddress
+argument_list|()
 operator|.
 name|toString
 argument_list|()
@@ -371,7 +354,15 @@ name|put
 argument_list|(
 name|COL_STARTCODE
 argument_list|,
-name|startCode
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|serverInfo
+operator|.
+name|getStartCode
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|server
@@ -423,7 +414,10 @@ name|addRegionOpen
 argument_list|(
 name|regionInfo
 argument_list|,
-name|serverAddress
+name|serverInfo
+operator|.
+name|getServerAddress
+argument_list|()
 argument_list|)
 expr_stmt|;
 synchronized|synchronized
@@ -448,7 +442,10 @@ argument_list|(
 operator|new
 name|HServerAddress
 argument_list|(
-name|serverAddress
+name|serverInfo
+operator|.
+name|getServerAddress
+argument_list|()
 argument_list|)
 argument_list|,
 name|regionInfo
@@ -474,6 +471,14 @@ argument_list|()
 condition|)
 block|{
 comment|// Put it on the queue to be scanned for the first time.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -488,6 +493,7 @@ operator|+
 literal|" to regions to scan"
 argument_list|)
 expr_stmt|;
+block|}
 name|master
 operator|.
 name|regionManager
@@ -501,6 +507,14 @@ block|}
 else|else
 block|{
 comment|// Add it to the online meta regions
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -513,6 +527,7 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|master
 operator|.
 name|regionManager

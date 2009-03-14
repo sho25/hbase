@@ -55,20 +55,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HStoreKey
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -243,6 +229,7 @@ operator|-
 literal|1
 decl_stmt|;
 specifier|private
+specifier|transient
 name|byte
 index|[]
 name|regionName
@@ -994,7 +981,7 @@ return|return
 name|b
 return|;
 block|}
-comment|/**    * Separate elements of a regionName.    * @param regionName    * @return Array of byte[] containing tableName, startKey and id    */
+comment|/**    * Separate elements of a regionName.    * @param regionName    * @return Array of byte[] containing tableName, startKey and id    * @throws IOException    */
 specifier|public
 specifier|static
 name|byte
@@ -1910,7 +1897,7 @@ name|endKey
 argument_list|)
 return|;
 block|}
-comment|/**    * For internal use in forcing splits ahead of file size limit.    */
+comment|/**    * For internal use in forcing splits ahead of file size limit.    * @param b    * @return previous value    */
 specifier|public
 name|boolean
 name|shouldSplit

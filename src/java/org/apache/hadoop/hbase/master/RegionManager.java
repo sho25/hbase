@@ -625,8 +625,7 @@ specifier|private
 specifier|final
 name|SortedMap
 argument_list|<
-name|byte
-index|[]
+name|String
 argument_list|,
 name|RegionState
 argument_list|>
@@ -639,16 +638,11 @@ argument_list|(
 operator|new
 name|TreeMap
 argument_list|<
-name|byte
-index|[]
+name|String
 argument_list|,
 name|RegionState
 argument_list|>
-argument_list|(
-name|Bytes
-operator|.
-name|BYTES_COMPARATOR
-argument_list|)
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// How many regions to assign a server at a time.
@@ -1007,7 +1001,7 @@ name|HRegionInfo
 operator|.
 name|ROOT_REGIONINFO
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1060,7 +1054,7 @@ name|HRegionInfo
 operator|.
 name|ROOT_REGIONINFO
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|,
 name|s
@@ -1069,15 +1063,12 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/*    * Assigns regions to region servers attempting to balance the load across    * all region servers. Note that no synchronization is necessary as the caller     * (ServerManager.processMsgs) already owns the monitor for the RegionManager.    *     * @param info    * @param serverName    * @param returnMsgs    */
+comment|/*    * Assigns regions to region servers attempting to balance the load across    * all region servers. Note that no synchronization is necessary as the caller     * (ServerManager.processMsgs) already owns the monitor for the RegionManager.    *     * @param info    * @param mostLoadedRegions    * @param returnMsgs    */
 name|void
 name|assignRegions
 parameter_list|(
 name|HServerInfo
 name|info
-parameter_list|,
-name|String
-name|serverName
 parameter_list|,
 name|HRegionInfo
 index|[]
@@ -1190,7 +1181,10 @@ name|debug
 argument_list|(
 literal|"Server "
 operator|+
-name|serverName
+name|info
+operator|.
+name|getServerName
+argument_list|()
 operator|+
 literal|" is overloaded. Server load: "
 operator|+
@@ -1213,7 +1207,7 @@ expr_stmt|;
 block|}
 name|unassignSomeRegions
 argument_list|(
-name|serverName
+name|info
 argument_list|,
 name|thisServersLoad
 argument_list|,
@@ -1246,7 +1240,7 @@ name|assignRegionsToOneServer
 argument_list|(
 name|regionsToAssign
 argument_list|,
-name|serverName
+name|info
 argument_list|,
 name|returnMsgs
 argument_list|)
@@ -1262,7 +1256,7 @@ name|thisServersLoad
 argument_list|,
 name|regionsToAssign
 argument_list|,
-name|serverName
+name|info
 argument_list|,
 name|returnMsgs
 argument_list|)
@@ -1287,8 +1281,8 @@ argument_list|>
 name|regionsToAssign
 parameter_list|,
 specifier|final
-name|String
-name|serverName
+name|HServerInfo
+name|info
 parameter_list|,
 specifier|final
 name|ArrayList
@@ -1518,14 +1512,20 @@ argument_list|)
 operator|+
 literal|" to server "
 operator|+
-name|serverName
+name|info
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|s
 operator|.
 name|setPendingOpen
 argument_list|(
-name|serverName
+name|info
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
@@ -1539,7 +1539,10 @@ operator|.
 name|getRegionInfo
 argument_list|()
 argument_list|,
-name|serverName
+name|info
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|returnMsgs
@@ -2014,8 +2017,8 @@ argument_list|>
 name|regionsToAssign
 parameter_list|,
 specifier|final
-name|String
-name|serverName
+name|HServerInfo
+name|info
 parameter_list|,
 specifier|final
 name|ArrayList
@@ -2051,14 +2054,20 @@ argument_list|)
 operator|+
 literal|" to the only server "
 operator|+
-name|serverName
+name|info
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|s
 operator|.
 name|setPendingOpen
 argument_list|(
-name|serverName
+name|info
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
@@ -2072,7 +2081,10 @@ operator|.
 name|getRegionInfo
 argument_list|()
 argument_list|,
-name|serverName
+name|info
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|returnMsgs
@@ -2106,8 +2118,8 @@ name|void
 name|unassignSomeRegions
 parameter_list|(
 specifier|final
-name|String
-name|serverName
+name|HServerInfo
+name|info
 parameter_list|,
 specifier|final
 name|HServerLoad
@@ -2219,13 +2231,12 @@ condition|)
 block|{
 continue|continue;
 block|}
-name|byte
-index|[]
+name|String
 name|regionName
 init|=
 name|currentRegion
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 decl_stmt|;
 if|if
@@ -2241,18 +2252,24 @@ operator|++
 expr_stmt|;
 continue|continue;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
 literal|"Going to close region "
 operator|+
-name|currentRegion
-operator|.
-name|getRegionNameAsString
-argument_list|()
+name|regionName
 argument_list|)
 expr_stmt|;
+block|}
 comment|// make a message to close the region
 name|returnMsgs
 operator|.
@@ -2279,7 +2296,10 @@ expr_stmt|;
 comment|// mark the region as closing
 name|setClosing
 argument_list|(
-name|serverName
+name|info
+operator|.
+name|getServerName
+argument_list|()
 argument_list|,
 name|currentRegion
 argument_list|,
@@ -2288,10 +2308,7 @@ argument_list|)
 expr_stmt|;
 name|setPendingClose
 argument_list|(
-name|currentRegion
-operator|.
-name|getRegionName
-argument_list|()
+name|regionName
 argument_list|)
 expr_stmt|;
 comment|// increment the count of regions we've marked
@@ -3244,7 +3261,7 @@ name|remove
 argument_list|(
 name|info
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3254,8 +3271,7 @@ specifier|public
 name|boolean
 name|regionIsInTransition
 parameter_list|(
-name|byte
-index|[]
+name|String
 name|regionName
 parameter_list|)
 block|{
@@ -3273,8 +3289,7 @@ specifier|public
 name|boolean
 name|regionIsOpening
 parameter_list|(
-name|byte
-index|[]
+name|String
 name|regionName
 parameter_list|)
 block|{
@@ -3334,7 +3349,7 @@ name|get
 argument_list|(
 name|info
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -3359,7 +3374,7 @@ name|put
 argument_list|(
 name|info
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|,
 name|s
@@ -3416,7 +3431,7 @@ name|get
 argument_list|(
 name|info
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -3444,8 +3459,7 @@ specifier|public
 name|boolean
 name|isPendingOpen
 parameter_list|(
-name|byte
-index|[]
+name|String
 name|regionName
 parameter_list|)
 block|{
@@ -3488,8 +3502,7 @@ specifier|public
 name|void
 name|setOpen
 parameter_list|(
-name|byte
-index|[]
+name|String
 name|regionName
 parameter_list|)
 block|{
@@ -3528,8 +3541,7 @@ specifier|public
 name|boolean
 name|isOfflined
 parameter_list|(
-name|byte
-index|[]
+name|String
 name|regionName
 parameter_list|)
 block|{
@@ -3603,7 +3615,7 @@ name|get
 argument_list|(
 name|regionInfo
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -3640,7 +3652,7 @@ name|put
 argument_list|(
 name|regionInfo
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
 argument_list|,
 name|s
@@ -3743,8 +3755,7 @@ specifier|public
 name|void
 name|setPendingClose
 parameter_list|(
-name|byte
-index|[]
+name|String
 name|regionName
 parameter_list|)
 block|{
@@ -3783,8 +3794,7 @@ specifier|public
 name|void
 name|setClosed
 parameter_list|(
-name|byte
-index|[]
+name|String
 name|regionName
 parameter_list|)
 block|{
