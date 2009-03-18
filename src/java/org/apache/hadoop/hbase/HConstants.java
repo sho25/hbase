@@ -166,24 +166,6 @@ name|ZOOKEEPER_CONFIG_NAME
 init|=
 literal|"zoo.cfg"
 decl_stmt|;
-comment|/** Parameter name for ZooKeeper session timeout (in milliseconds). */
-specifier|static
-specifier|final
-name|String
-name|ZOOKEEPER_SESSION_TIMEOUT
-init|=
-literal|"zookeeper.session.timeout"
-decl_stmt|;
-comment|/** Default ZooKeeper session timeout. In milliseconds. */
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_ZOOKEEPER_SESSION_TIMEOUT
-init|=
-literal|10
-operator|*
-literal|1000
-decl_stmt|;
 comment|/** Parameter name for number of times to retry writes to ZooKeeper. */
 specifier|static
 specifier|final
@@ -217,70 +199,6 @@ init|=
 literal|2
 operator|*
 literal|1000
-decl_stmt|;
-comment|/** Parameter name for HBase parent ZNode in ZooKeeper. */
-specifier|static
-specifier|final
-name|String
-name|ZOOKEEPER_PARENT_ZNODE
-init|=
-literal|"zookeeper.znode.parent"
-decl_stmt|;
-comment|/** Default HBase parent ZNode in ZooKeeper. */
-specifier|static
-specifier|final
-name|String
-name|DEFAULT_ZOOKEEPER_PARENT_ZNODE
-init|=
-literal|"/hbase"
-decl_stmt|;
-comment|/** Parameter name for ZooKeeper ZNode storing root server location. */
-specifier|static
-specifier|final
-name|String
-name|ZOOKEEPER_ROOT_SERVER_ZNODE
-init|=
-literal|"zookeeper.znode.rootserver"
-decl_stmt|;
-comment|/** Default ZooKeeper ZNode storing root server location. */
-specifier|static
-specifier|final
-name|String
-name|DEFAULT_ZOOKEEPER_ROOT_SERVER_ZNODE
-init|=
-literal|"root-region-server"
-decl_stmt|;
-comment|/** Parameter name for ZooKeeper ZNode storing safe mode. */
-specifier|static
-specifier|final
-name|String
-name|ZOOKEEPER_SAFE_MODE_ZNODE
-init|=
-literal|"zookeeper.znode.safemode"
-decl_stmt|;
-comment|/** Default ZooKeeper ZNode storing safe mode. */
-specifier|static
-specifier|final
-name|String
-name|DEFAULT_ZOOKEEPER_SAFE_MODE_ZNODE
-init|=
-literal|"safe-mode"
-decl_stmt|;
-comment|/** Parameter name for ZooKeeper ZNode storing safe mode. */
-specifier|static
-specifier|final
-name|String
-name|ZOOKEEPER_RS_ZNODE
-init|=
-literal|"zookeeper.znode.rs"
-decl_stmt|;
-comment|/** Default ZooKeeper ZNode storing safe mode. */
-specifier|static
-specifier|final
-name|String
-name|DEFAULT_ZOOKEEPER_RS_ZNODE
-init|=
-literal|"rs"
 decl_stmt|;
 comment|/** Parameter name for hbase.regionserver address. */
 specifier|static
