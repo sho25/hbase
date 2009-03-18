@@ -321,9 +321,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|super
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|conf
@@ -344,24 +341,6 @@ operator|new
 name|HMaster
 argument_list|(
 name|conf
-argument_list|)
-expr_stmt|;
-comment|// Set the master's port for the HRegionServers
-name|conf
-operator|.
-name|set
-argument_list|(
-name|MASTER_ADDRESS
-argument_list|,
-name|this
-operator|.
-name|master
-operator|.
-name|getMasterAddress
-argument_list|()
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Start the HRegionServers.  Always have region servers come up on
@@ -1222,7 +1201,8 @@ return|return
 name|c
 return|;
 block|}
-comment|// Need to rewrite address in Configuration if not done already.
+comment|// Need to rewrite address in Configuration if not done already. This is
+comment|// for the case when we're using the deprecated master.address property.
 name|String
 name|address
 init|=
@@ -1240,15 +1220,9 @@ operator|==
 literal|null
 condition|)
 block|{
-throw|throw
-operator|new
-name|NullPointerException
-argument_list|(
-literal|"Address is null for "
-operator|+
-name|MASTER_ADDRESS
-argument_list|)
-throw|;
+return|return
+name|c
+return|;
 block|}
 name|String
 name|port
@@ -1313,7 +1287,9 @@ argument_list|(
 name|MASTER_ADDRESS
 argument_list|)
 decl_stmt|;
-return|return
+name|boolean
+name|addressIsLocal
+init|=
 name|address
 operator|==
 literal|null
@@ -1331,6 +1307,24 @@ name|startsWith
 argument_list|(
 name|LOCAL_COLON
 argument_list|)
+decl_stmt|;
+name|boolean
+name|distributedOff
+init|=
+operator|!
+name|c
+operator|.
+name|getBoolean
+argument_list|(
+literal|"run.distributed"
+argument_list|,
+literal|false
+argument_list|)
+decl_stmt|;
+return|return
+name|addressIsLocal
+operator|&&
+name|distributedOff
 return|;
 block|}
 comment|/**    * Test things basically work.    * @param args    * @throws IOException    */

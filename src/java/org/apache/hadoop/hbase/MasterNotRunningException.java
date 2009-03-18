@@ -71,6 +71,20 @@ name|s
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Constructor taking another exception.    * @param e Exception to grab data from.    */
+specifier|public
+name|MasterNotRunningException
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 
