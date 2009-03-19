@@ -185,7 +185,7 @@ operator|+
 literal|"/index.html"
 argument_list|)
 argument_list|,
-literal|"Master"
+literal|"master"
 argument_list|)
 expr_stmt|;
 name|port
@@ -221,7 +221,7 @@ operator|+
 literal|"/index.html"
 argument_list|)
 argument_list|,
-literal|"Region Server"
+literal|"regionserver"
 argument_list|)
 expr_stmt|;
 block|}
@@ -374,7 +374,7 @@ name|assertTrue
 argument_list|(
 name|content
 operator|.
-name|matches
+name|contains
 argument_list|(
 name|expected
 argument_list|)
