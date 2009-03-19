@@ -252,8 +252,18 @@ parameter_list|)
 block|{
 try|try
 block|{
-name|parseConfig
+name|Properties
+name|properties
+init|=
+name|parseZooKeeperConfig
 argument_list|()
+decl_stmt|;
+name|QuorumPeerConfig
+operator|.
+name|parseProperties
+argument_list|(
+name|properties
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -301,14 +311,14 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Parse zoo.cfg, injecting HBase Configuration variables in.    * @throws Exception if anything goes wrong parsing config    */
+comment|/**    * Parse ZooKeeper's zoo.cfg, injecting HBase Configuration variables in.    * @return Properties parsed from config stream with variables substituted.    * @throws IOException if anything goes wrong parsing config    */
 specifier|public
 specifier|static
-name|void
-name|parseConfig
+name|Properties
+name|parseZooKeeperConfig
 parameter_list|()
 throws|throws
-name|Exception
+name|IOException
 block|{
 name|ClassLoader
 name|cl
@@ -330,23 +340,24 @@ argument_list|(
 name|ZOOKEEPER_CONFIG_NAME
 argument_list|)
 decl_stmt|;
+return|return
 name|parseConfig
 argument_list|(
 name|inputStream
 argument_list|)
-expr_stmt|;
+return|;
 block|}
-comment|/**    * This is a separate method from parseConfig() so that we can test by passing    * in our own InputStreams rather than reading directly from zoo.cfg.    * Parse zoo.cfg, injecting HBase Configuration variables in.    * @param inputStream InputStream to parse.    * @throws Exception if anything goes wrong parsing config    */
+comment|/**    * Parse ZooKeeper's zoo.cfg, injecting HBase Configuration variables in.    * This method is used for testing so we can pass our own InputStream.    * @param inputStream InputStream to read from.    * @return Properties parsed from config stream with variables substituted.    * @throws IOException if anything goes wrong parsing config    */
 specifier|public
 specifier|static
-name|void
+name|Properties
 name|parseConfig
 parameter_list|(
 name|InputStream
 name|inputStream
 parameter_list|)
 throws|throws
-name|Exception
+name|IOException
 block|{
 name|HBaseConfiguration
 name|conf
@@ -639,13 +650,9 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|QuorumPeerConfig
-operator|.
-name|parseProperties
-argument_list|(
+return|return
 name|properties
-argument_list|)
-expr_stmt|;
+return|;
 block|}
 block|}
 end_class
