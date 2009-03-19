@@ -61,6 +61,7 @@ operator|=
 name|serverAddress
 expr_stmt|;
 block|}
+comment|/**    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
 specifier|public
@@ -85,6 +86,7 @@ operator|.
 name|regionInfo
 return|;
 block|}
+comment|/**    * @see java.lang.Object#equals(java.lang.Object)    */
 annotation|@
 name|Override
 specifier|public
@@ -95,6 +97,42 @@ name|Object
 name|o
 parameter_list|)
 block|{
+if|if
+condition|(
+name|this
+operator|==
+name|o
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+if|if
+condition|(
+name|o
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+if|if
+condition|(
+operator|!
+operator|(
+name|o
+operator|instanceof
+name|HRegionLocation
+operator|)
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 return|return
 name|this
 operator|.
@@ -109,6 +147,7 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/**    * @see java.lang.Object#hashCode()    */
 annotation|@
 name|Override
 specifier|public

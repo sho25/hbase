@@ -212,6 +212,9 @@ name|this
 operator|.
 name|prevRate
 operator|=
+operator|(
+name|float
+operator|)
 name|value
 operator|/
 name|diff

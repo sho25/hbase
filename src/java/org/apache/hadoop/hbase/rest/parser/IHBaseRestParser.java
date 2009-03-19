@@ -120,7 +120,7 @@ specifier|public
 interface|interface
 name|IHBaseRestParser
 block|{
-comment|/**    * Parses a HTableDescriptor given the input array.    *     * @param input    * @return    * @throws HBaseRestException    */
+comment|/**    * Parses a HTableDescriptor given the input array.    *     * @param input    * @return HTableDescriptor    * @throws HBaseRestException    */
 specifier|public
 name|HTableDescriptor
 name|getTableDescriptor

@@ -464,7 +464,7 @@ name|initialize
 argument_list|()
 expr_stmt|;
 block|}
-specifier|protected
+specifier|public
 specifier|volatile
 name|HBaseConfiguration
 name|conf
@@ -1646,31 +1646,6 @@ specifier|final
 name|HRegion
 name|region
 decl_stmt|;
-specifier|private
-name|BatchUpdate
-name|batch
-decl_stmt|;
-specifier|private
-name|void
-name|checkBatch
-parameter_list|()
-block|{
-if|if
-condition|(
-name|batch
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalStateException
-argument_list|(
-literal|"No update in progress"
-argument_list|)
-throw|;
-block|}
-block|}
 comment|/**      * @param HRegion      */
 specifier|public
 name|HRegionIncommon
@@ -1685,12 +1660,6 @@ operator|.
 name|region
 operator|=
 name|HRegion
-expr_stmt|;
-name|this
-operator|.
-name|batch
-operator|=
-literal|null
 expr_stmt|;
 block|}
 specifier|public
@@ -1977,10 +1946,6 @@ specifier|final
 name|HTable
 name|table
 decl_stmt|;
-specifier|private
-name|BatchUpdate
-name|batch
-decl_stmt|;
 comment|/**      * @param table      */
 specifier|public
 name|HTableIncommon
@@ -1998,12 +1963,6 @@ operator|.
 name|table
 operator|=
 name|table
-expr_stmt|;
-name|this
-operator|.
-name|batch
-operator|=
-literal|null
 expr_stmt|;
 block|}
 specifier|public
@@ -2374,6 +2333,11 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 name|Iterator
 name|iterator
@@ -2456,6 +2420,22 @@ expr_stmt|;
 block|}
 specifier|public
 name|Iterator
+argument_list|<
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|HStoreKey
+argument_list|,
+name|SortedMap
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|Cell
+argument_list|>
+argument_list|>
+argument_list|>
 name|iterator
 parameter_list|()
 block|{
@@ -2538,10 +2518,12 @@ condition|)
 block|{
 name|assertEquals
 argument_list|(
-name|column
+name|Bytes
 operator|.
 name|toString
-argument_list|()
+argument_list|(
+name|column
+argument_list|)
 operator|+
 literal|" at timestamp "
 operator|+
@@ -2564,10 +2546,12 @@ condition|)
 block|{
 name|fail
 argument_list|(
-name|column
+name|Bytes
 operator|.
 name|toString
-argument_list|()
+argument_list|(
+name|column
+argument_list|)
 operator|+
 literal|" at timestamp "
 operator|+
@@ -2590,10 +2574,12 @@ condition|)
 block|{
 name|assertEquals
 argument_list|(
-name|column
+name|Bytes
 operator|.
 name|toString
-argument_list|()
+argument_list|(
+name|column
+argument_list|)
 operator|+
 literal|" at timestamp "
 operator|+
@@ -2615,11 +2601,6 @@ block|}
 block|}
 block|}
 comment|/**    * Initializes parameters used in the test environment:    *     * Sets the configuration parameter TEST_DIRECTORY_KEY if not already set.    * Sets the boolean debugging if "DEBUGGING" is set in the environment.    * If debugging is enabled, reconfigures loggin so that the root log level is    * set to WARN and the logging level for the package is set to DEBUG.    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|public
 specifier|static
 name|void

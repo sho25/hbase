@@ -243,7 +243,7 @@ operator|<=
 literal|0
 return|;
 block|}
-comment|/**    * Because StopRowFilter does not examine column information, this method     * defaults to calling the rowKey-only version of filter.    */
+comment|/**    * Because StopRowFilter does not examine column information, this method     * defaults to calling the rowKey-only version of filter.    * @param rowKey     * @param colKey     * @param data     * @return boolean    */
 specifier|public
 name|boolean
 name|filterColumn
@@ -271,7 +271,7 @@ name|rowKey
 argument_list|)
 return|;
 block|}
-comment|/**    * Because StopRowFilter does not examine column information, this method     * defaults to calling filterAllRemaining().    */
+comment|/**    * Because StopRowFilter does not examine column information, this method     * defaults to calling filterAllRemaining().    * @param columns     * @return boolean    */
 specifier|public
 name|boolean
 name|filterRow

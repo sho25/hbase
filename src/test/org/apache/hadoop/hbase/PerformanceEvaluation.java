@@ -526,7 +526,7 @@ name|PerformanceEvaluation
 implements|implements
 name|HConstants
 block|{
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|Log
@@ -591,6 +591,7 @@ argument_list|)
 decl_stmt|;
 specifier|protected
 specifier|static
+specifier|final
 name|HTableDescriptor
 name|TABLE_DESCRIPTOR
 decl_stmt|;
@@ -878,11 +879,6 @@ specifier|public
 name|void
 name|map
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|final
 name|Object
 name|key
@@ -1979,11 +1975,6 @@ literal|12
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|void
 name|testTakedown
 parameter_list|()
@@ -2174,14 +2165,11 @@ name|status
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 name|void
 name|testRow
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|final
 name|int
 name|i
@@ -2228,11 +2216,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|int
-name|count
-init|=
-literal|0
-decl_stmt|;
+comment|//int count = 0;
 for|for
 control|(
 name|RowResult
@@ -2335,11 +2319,6 @@ name|Override
 name|void
 name|testRow
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|final
 name|int
 name|i
@@ -2442,11 +2421,6 @@ name|Override
 name|void
 name|testRow
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|final
 name|int
 name|i
@@ -2631,11 +2605,6 @@ name|Override
 name|void
 name|testRow
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|final
 name|int
 name|i
@@ -3275,6 +3244,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
+throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
@@ -3282,7 +3252,7 @@ literal|"Invalid command value: "
 operator|+
 name|cmd
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
 name|status
 operator|.
@@ -3327,11 +3297,6 @@ operator|new
 name|Status
 argument_list|()
 block|{
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|public
 name|void
 name|setStatus

@@ -43,27 +43,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
 import|;
 end_import
 
@@ -294,20 +274,6 @@ operator|.
 name|http
 operator|.
 name|SocketListener
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|mortbay
-operator|.
-name|jetty
-operator|.
-name|servlet
-operator|.
-name|WebApplicationContext
 import|;
 end_import
 
@@ -2123,8 +2089,6 @@ parameter_list|(
 name|HttpServletRequest
 name|request
 parameter_list|)
-throws|throws
-name|HBaseRestException
 block|{
 return|return
 name|HBaseRestParserFactory
@@ -2605,9 +2569,6 @@ argument_list|(
 name|ncsa
 argument_list|)
 expr_stmt|;
-name|WebApplicationContext
-name|context
-init|=
 name|webServer
 operator|.
 name|addWebApplication
@@ -2621,7 +2582,7 @@ argument_list|(
 literal|"rest"
 argument_list|)
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|webServer
 operator|.
 name|start

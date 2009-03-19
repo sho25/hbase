@@ -431,7 +431,7 @@ name|closeRootAndMeta
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * For HBASE-71. Try a few different configurations of starting and stopping    * region servers to see if the assignment or regions is pretty balanced.    */
+comment|/**    * For HBASE-71. Try a few different configurations of starting and stopping    * region servers to see if the assignment or regions is pretty balanced.    * @throws IOException     */
 specifier|public
 name|void
 name|testRebalancing

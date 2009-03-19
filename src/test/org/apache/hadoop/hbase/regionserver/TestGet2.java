@@ -1091,7 +1091,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/** For HBASE-694 */
+comment|/** For HBASE-694     * @throws IOException    */
 specifier|public
 name|void
 name|testGetClosestRowBefore2
@@ -1971,7 +1971,7 @@ name|DEFAULT_VERSIONS
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test file of multiple deletes and with deletes as final key.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-751">HBASE-751</a>    */
+comment|/**    * Test file of multiple deletes and with deletes as final key.    * @throws IOException     * @see<a href="https://issues.apache.org/jira/browse/HBASE-751">HBASE-751</a>    */
 specifier|public
 name|void
 name|testGetClosestRowBefore3
@@ -4215,7 +4215,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * For HBASE-40    */
+comment|/**    * For HBASE-40    * @throws IOException     */
 specifier|public
 name|void
 name|testGetFullWithSpecifiedColumns

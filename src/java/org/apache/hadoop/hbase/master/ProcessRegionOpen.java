@@ -131,11 +131,6 @@ name|HServerInfo
 name|serverInfo
 decl_stmt|;
 comment|/**    * @param master    * @param info    * @param regionInfo    * @throws IOException    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|public
 name|ProcessRegionOpen
 parameter_list|(

@@ -149,7 +149,7 @@ specifier|private
 name|String
 name|indexId
 decl_stmt|;
-comment|/** Construct an "simple" index spec for a single column. */
+comment|/** Construct an "simple" index spec for a single column.     * @param indexId     * @param indexedColumn    */
 specifier|public
 name|IndexSpecification
 parameter_list|(

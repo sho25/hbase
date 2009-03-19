@@ -532,7 +532,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * @param tableName    * @param rowName    * @param timestamp    * @return    * @throws HBaseRestException    */
+comment|/**    * @param tableName    * @param rowName    * @param timestamp    * @return RowResult    * @throws HBaseRestException    */
 specifier|public
 name|RowResult
 name|get

@@ -1523,9 +1523,14 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|store
 operator|.
 name|storeName
+argument_list|)
 operator|+
 literal|" failed closing scanner "
 operator|+

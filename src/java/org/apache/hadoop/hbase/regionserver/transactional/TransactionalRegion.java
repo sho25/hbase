@@ -576,7 +576,7 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|// Collection of active transactions (PENDING) keyed by id.
-specifier|private
+specifier|protected
 name|Map
 argument_list|<
 name|String
@@ -2596,7 +2596,7 @@ name|key
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
+specifier|protected
 name|TransactionState
 name|getTransactionState
 parameter_list|(
@@ -3022,19 +3022,10 @@ name|min
 return|;
 block|}
 comment|// TODO, resolve from the global transaction log
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
-specifier|private
+specifier|protected
 name|void
 name|resolveTransactionFromLog
-parameter_list|(
-specifier|final
-name|long
-name|transactionId
-parameter_list|)
+parameter_list|()
 block|{
 throw|throw
 operator|new
@@ -3174,12 +3165,7 @@ literal|"Checking transaction status in transaction log"
 argument_list|)
 expr_stmt|;
 name|resolveTransactionFromLog
-argument_list|(
-name|s
-operator|.
-name|getTransactionId
 argument_list|()
-argument_list|)
 expr_stmt|;
 break|break;
 default|default:

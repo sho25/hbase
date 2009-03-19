@@ -184,7 +184,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A facade for a {@link org.apache.hadoop.io.hfile.HFile.Reader} that serves up  * either the top or bottom half of a HFile where 'bottom' is the first half  * of the file containing the keys that sort lowest and 'top' is the second half  * of the file with keys that sort greater than those of the bottom half.  * The top includes the split files midkey, of the key that follows if it does  * not exist in the file.  *   *<p>This type works in tandem with the {@link Reference} type.  This class  * is used reading while Reference is used writing.  *   *<p>This file is not splitable.  Calls to {@link #midKey()} return null.  */
+comment|/**  * A facade for a {@link org.apache.hadoop.hbase.io.hfile.HFile.Reader} that serves up  * either the top or bottom half of a HFile where 'bottom' is the first half  * of the file containing the keys that sort lowest and 'top' is the second half  * of the file with keys that sort greater than those of the bottom half.  * The top includes the split files midkey, of the key that follows if it does  * not exist in the file.  *   *<p>This type works in tandem with the {@link Reference} type.  This class  * is used reading while Reference is used writing.  *   *<p>This file is not splitable.  Calls to {@link #midkey()} return null.  */
 end_comment
 
 begin_class
@@ -210,20 +210,20 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|boolean
 name|top
 decl_stmt|;
 comment|// This is the key we split around.  Its the first possible entry on a row:
 comment|// i.e. empty column and a timestamp of LATEST_TIMESTAMP.
-specifier|private
+specifier|protected
 specifier|final
 name|byte
 index|[]
 name|splitkey
 decl_stmt|;
-comment|/**    * @param fs    * @param f    * @param c    * @param r    * @throws IOException    */
+comment|/**    * @param fs    * @param p    * @param c    * @param r    * @throws IOException    */
 specifier|public
 name|HalfHFileReader
 parameter_list|(
@@ -296,6 +296,8 @@ operator|.
 name|top
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HFileScanner
 name|getScanner
@@ -776,6 +778,8 @@ block|}
 block|}
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]
@@ -794,8 +798,6 @@ name|getLastKey
 argument_list|()
 return|;
 block|}
-else|else
-block|{
 name|HFileScanner
 name|scanner
 init|=
@@ -858,7 +860,8 @@ return|return
 literal|null
 return|;
 block|}
-block|}
+annotation|@
+name|Override
 specifier|public
 name|byte
 index|[]

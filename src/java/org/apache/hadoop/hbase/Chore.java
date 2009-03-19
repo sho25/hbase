@@ -145,6 +145,7 @@ operator|=
 name|s
 expr_stmt|;
 block|}
+comment|/**    * @see java.lang.Thread#run()    */
 annotation|@
 name|Override
 specifier|public

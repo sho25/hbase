@@ -640,11 +640,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Test HBase map/reduce    *     * @throws IOException    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"static-access"
-argument_list|)
 specifier|public
 name|void
 name|testTableIndex
@@ -1576,11 +1571,6 @@ specifier|static
 name|void
 name|main
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|String
 index|[]
 name|args

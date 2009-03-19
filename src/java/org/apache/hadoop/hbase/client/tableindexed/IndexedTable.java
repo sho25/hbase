@@ -269,7 +269,6 @@ extends|extends
 name|TransactionalTable
 block|{
 comment|// FIXME, these belong elsewhere
-specifier|public
 specifier|static
 specifier|final
 name|byte
@@ -283,7 +282,6 @@ argument_list|(
 literal|"__INDEX__"
 argument_list|)
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|byte

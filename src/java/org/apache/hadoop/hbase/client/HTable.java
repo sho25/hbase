@@ -2226,7 +2226,7 @@ name|rowLock
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at a specified timestamp    * using existing row lock.    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @param rl row lock    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get selected columns for the specified row at a specified timestamp    * using existing row lock.    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @param numVersions     * @param rl row lock    * @return RowResult is empty if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow

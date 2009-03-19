@@ -576,10 +576,12 @@ argument_list|)
 argument_list|)
 argument_list|)
 argument_list|,
-name|tableName
+name|Bytes
 operator|.
 name|toString
-argument_list|()
+argument_list|(
+name|tableName
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|Path
@@ -861,17 +863,27 @@ name|info
 argument_list|(
 literal|"merging regions "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|currentRegion
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 operator|+
 literal|" and "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|nextRegion
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|HRegion
@@ -909,17 +921,27 @@ name|info
 argument_list|(
 literal|"not merging regions "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|currentRegion
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 operator|+
 literal|" and "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|nextRegion
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|currentRegion
@@ -1133,7 +1155,12 @@ name|NoSuchElementException
 argument_list|(
 literal|"meta region entry missing "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|COL_REGIONINFO
+argument_list|)
 argument_list|)
 throw|;
 block|}
@@ -1288,10 +1315,15 @@ name|info
 argument_list|(
 literal|"Row:<"
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|currentRow
 operator|.
 name|getRow
 argument_list|()
+argument_list|)
 operator|+
 literal|">"
 argument_list|)
@@ -1529,10 +1561,15 @@ name|debug
 argument_list|(
 literal|"updated columns in row: "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|regionsToDelete
 index|[
 name|r
 index|]
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1597,10 +1634,15 @@ name|debug
 argument_list|(
 literal|"updated columns in row: "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|newRegion
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -2017,10 +2059,15 @@ name|debug
 argument_list|(
 literal|"updated columns in row: "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|regionsToDelete
 index|[
 name|r
 index|]
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -2089,10 +2136,15 @@ name|debug
 argument_list|(
 literal|"updated columns in row: "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|newRegion
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

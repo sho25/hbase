@@ -289,6 +289,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|zookeeper
 operator|.
 name|ZooKeeperWrapper
@@ -453,7 +469,7 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 comment|/**    * Set of known dead servers.  On znode expiration, servers are added here.    * This is needed in case of a network partitioning where the server's lease    * expires, but the server is still running. After the network is healed,    * and it's server logs are recovered, it will be told to call server startup    * because by then, its regions have probably been reassigned.    */
-specifier|private
+specifier|protected
 specifier|final
 name|Set
 argument_list|<
@@ -522,7 +538,7 @@ name|HServerLoad
 argument_list|>
 argument_list|()
 decl_stmt|;
-specifier|private
+specifier|protected
 name|HMaster
 name|master
 decl_stmt|;
@@ -2334,10 +2350,15 @@ argument_list|()
 operator|+
 literal|" should not have opened region "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|region
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

@@ -221,6 +221,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|util
 operator|.
 name|StringUtils
@@ -728,10 +744,15 @@ condition|?
 operator|(
 literal|" for region "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|r
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 operator|)
 else|:
 literal|""
@@ -968,10 +989,15 @@ condition|?
 operator|(
 literal|" for region "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|region
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 operator|)
 else|:
 literal|""
@@ -1055,6 +1081,9 @@ name|regionsToCompact
 init|=
 operator|new
 name|ArrayList
+argument_list|<
+name|HRegion
+argument_list|>
 argument_list|()
 decl_stmt|;
 for|for

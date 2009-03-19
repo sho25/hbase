@@ -24,7 +24,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A generic class for pairs.  */
+comment|/**  * A generic class for pairs.  * @param<T1>   * @param<T2>   */
 end_comment
 
 begin_class
@@ -121,7 +121,7 @@ operator|=
 name|b
 expr_stmt|;
 block|}
-comment|/**    * Return the first element stored in the pair.    */
+comment|/**    * Return the first element stored in the pair.    * @return T1    */
 specifier|public
 name|T1
 name|getFirst
@@ -131,7 +131,7 @@ return|return
 name|first
 return|;
 block|}
-comment|/**    * Return the second element stored in the pair.    */
+comment|/**    * Return the second element stored in the pair.    * @return T2    */
 specifier|public
 name|T2
 name|getSecond

@@ -1145,10 +1145,12 @@ decl_stmt|;
 name|String
 name|value
 init|=
-name|row
+name|Bytes
 operator|.
 name|toString
-argument_list|()
+argument_list|(
+name|row
+argument_list|)
 decl_stmt|;
 name|BatchUpdate
 name|b
@@ -1345,24 +1347,26 @@ name|error
 argument_list|(
 literal|"non existant key: "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|testKeys
 index|[
 name|i
 index|]
+argument_list|)
 operator|+
 literal|" returned value: "
 operator|+
-operator|new
-name|String
+name|Bytes
+operator|.
+name|toString
 argument_list|(
 name|value
 operator|.
 name|getValue
 argument_list|()
-argument_list|,
-name|HConstants
-operator|.
-name|UTF8_ENCODING
 argument_list|)
 argument_list|)
 expr_stmt|;

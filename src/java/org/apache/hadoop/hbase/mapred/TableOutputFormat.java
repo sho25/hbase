@@ -270,6 +270,7 @@ argument_list|)
 decl_stmt|;
 comment|/**    * Convert Reduce output (key, value) to (HStoreKey, KeyedDataArrayWritable)     * and write to an HBase table    */
 specifier|protected
+specifier|static
 class|class
 name|TableRecordWriter
 implements|implements

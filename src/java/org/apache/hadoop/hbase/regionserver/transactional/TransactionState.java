@@ -321,15 +321,16 @@ name|ABORTED
 block|}
 comment|/**    * Simple container of the range of the scanners we've opened. Used to check    * for conflicting writes.    */
 specifier|private
+specifier|static
 class|class
 name|ScanRange
 block|{
-specifier|private
+specifier|protected
 name|byte
 index|[]
 name|startRow
 decl_stmt|;
-specifier|private
+specifier|protected
 name|byte
 index|[]
 name|endRow
@@ -359,7 +360,7 @@ operator|=
 name|endRow
 expr_stmt|;
 block|}
-comment|/**      * Check if this scan range contains the given key.      *       * @param rowKey      * @return      */
+comment|/**      * Check if this scan range contains the given key.      *       * @param rowKey      * @return boolean      */
 specifier|public
 name|boolean
 name|contains
@@ -1195,7 +1196,7 @@ return|return
 name|startSequenceNumber
 return|;
 block|}
-comment|/**    * Set the startSequenceNumber.    *     * @param startSequenceNumber.    */
+comment|/**    * Set the startSequenceNumber.    *     * @param startSequenceNumber    */
 name|void
 name|setStartSequenceNumber
 parameter_list|(

@@ -1362,7 +1362,7 @@ literal|0
 argument_list|)
 return|;
 block|}
-comment|/**    * Converts a byte array to a long value    * @param bytes    * @return the long value    */
+comment|/**    * Converts a byte array to a long value    * @param bytes    * @param offset     * @return the long value    */
 specifier|public
 specifier|static
 name|long
@@ -1387,7 +1387,7 @@ name|SIZEOF_LONG
 argument_list|)
 return|;
 block|}
-comment|/**    * Converts a byte array to a long value    * @param bytes    * @return the long value    */
+comment|/**    * Converts a byte array to a long value    * @param bytes    * @param offset     * @param length     * @return the long value    */
 specifier|public
 specifier|static
 name|long

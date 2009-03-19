@@ -181,7 +181,7 @@ block|,
 comment|/** HStoreFile contains lower half of key range */
 name|bottom
 block|}
-comment|/**    * Constructor    * @param r    * @param s This is a serialized storekey with the row we are to split on,    * an empty column and a timestamp of the LATEST_TIMESTAMP.  This is the first    * possible entry in a row.  This is what we are splitting around.    * @param fr    */
+comment|/**    * Constructor    * @param s This is a serialized storekey with the row we are to split on,    * an empty column and a timestamp of the LATEST_TIMESTAMP.  This is the first    * possible entry in a row.  This is what we are splitting around.    * @param fr    */
 specifier|public
 name|Reference
 parameter_list|(
@@ -244,6 +244,9 @@ return|return
 name|splitkey
 return|;
 block|}
+comment|/**    * @see java.lang.Object#toString()    */
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString

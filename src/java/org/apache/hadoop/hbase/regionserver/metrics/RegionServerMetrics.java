@@ -191,22 +191,6 @@ name|MetricsIntValue
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|metrics
-operator|.
-name|util
-operator|.
-name|MetricsTimeVaryingRate
-import|;
-end_import
-
 begin_comment
 comment|/**   * This class is for maintaining the various regionserver statistics  * and publishing them through the metrics interfaces.  *<p>  * This class has a number of metrics variables that are publicly accessible;  * these variables (objects) have methods to update their values.  */
 end_comment
@@ -406,7 +390,7 @@ parameter_list|()
 block|{
 comment|// nought to do.
 block|}
-comment|/**    * Since this object is a registered updater, this method will be called    * periodically, e.g. every 5 seconds.    */
+comment|/**    * Since this object is a registered updater, this method will be called    * periodically, e.g. every 5 seconds.    * @param unused     */
 specifier|public
 name|void
 name|doUpdates

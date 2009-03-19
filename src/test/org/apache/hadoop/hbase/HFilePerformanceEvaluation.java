@@ -607,7 +607,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
+specifier|protected
 name|void
 name|runBenchmark
 parameter_list|(
@@ -1161,8 +1161,6 @@ parameter_list|,
 name|int
 name|totalRows
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|super
 argument_list|(
@@ -1213,11 +1211,6 @@ name|Override
 name|void
 name|doRow
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|int
 name|i
 parameter_list|)
@@ -1342,11 +1335,6 @@ name|Override
 name|void
 name|doRow
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|int
 name|i
 parameter_list|)
@@ -1483,11 +1471,6 @@ name|Override
 name|void
 name|doRow
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|int
 name|i
 parameter_list|)
@@ -1680,11 +1663,6 @@ name|Override
 name|void
 name|doRow
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|int
 name|i
 parameter_list|)
@@ -1788,7 +1766,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * @param args    * @throws IOException     */
+comment|/**    * @param args    * @throws Exception     * @throws IOException     */
 specifier|public
 specifier|static
 name|void

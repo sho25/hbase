@@ -260,7 +260,7 @@ name|StressTestTransactions
 extends|extends
 name|HBaseClusterTestCase
 block|{
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|Log
@@ -331,7 +331,7 @@ name|PRE_COMMIT_SLEEP
 init|=
 literal|10
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|Random
@@ -355,7 +355,6 @@ argument_list|(
 literal|"family:"
 argument_list|)
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|byte
@@ -373,12 +372,12 @@ specifier|private
 name|HBaseAdmin
 name|admin
 decl_stmt|;
-specifier|private
+specifier|protected
 name|TransactionalTable
 index|[]
 name|tables
 decl_stmt|;
-specifier|private
+specifier|protected
 name|TransactionManager
 name|transactionManager
 decl_stmt|;
@@ -669,7 +668,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-specifier|private
+specifier|protected
 name|byte
 index|[]
 name|makeSTRow
@@ -690,7 +689,7 @@ name|i
 argument_list|)
 return|;
 block|}
-specifier|private
+specifier|protected
 name|byte
 index|[]
 name|makeMTRow
@@ -711,14 +710,13 @@ name|i
 argument_list|)
 return|;
 block|}
-specifier|private
 specifier|static
 name|int
 name|nextThreadNum
 init|=
 literal|1
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|AtomicBoolean
@@ -730,7 +728,6 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|AtomicBoolean

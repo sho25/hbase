@@ -950,16 +950,40 @@ literal|0
 decl_stmt|;
 for|for
 control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
 name|byte
 index|[]
-name|colname
+argument_list|,
+name|Cell
+argument_list|>
+name|entry
 range|:
 name|row
 operator|.
-name|keySet
+name|entrySet
 argument_list|()
 control|)
 block|{
+name|byte
+index|[]
+name|colname
+init|=
+name|entry
+operator|.
+name|getKey
+argument_list|()
+decl_stmt|;
+name|Cell
+name|cell
+init|=
+name|entry
+operator|.
+name|getValue
+argument_list|()
+decl_stmt|;
 name|String
 name|expectedColname
 init|=
@@ -997,18 +1021,13 @@ argument_list|)
 expr_stmt|;
 comment|// Value is column name as bytes.  Usually result is
 comment|// 100 bytes in size at least. This is the default size
-comment|// for BytesWriteable.  For comparison, comvert bytes to
+comment|// for BytesWriteable.  For comparison, convert bytes to
 comment|// String and trim to remove trailing null bytes.
 name|byte
 index|[]
 name|value
 init|=
-name|row
-operator|.
-name|get
-argument_list|(
-name|colname
-argument_list|)
+name|cell
 operator|.
 name|getValue
 argument_list|()

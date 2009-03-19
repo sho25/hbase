@@ -1674,8 +1674,6 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-else|else
-block|{
 name|byte
 index|[]
 index|[]
@@ -1713,7 +1711,6 @@ name|timestamp
 argument_list|)
 argument_list|)
 return|;
-block|}
 block|}
 catch|catch
 parameter_list|(

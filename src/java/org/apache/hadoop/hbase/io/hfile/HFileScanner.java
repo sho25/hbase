@@ -60,7 +60,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Consider the key stream of all the keys in the file,     *<code>k[0] .. k[n]</code>, where there are n keys in the file.    * @param key Key to find    * @return false if key<= k[0] or true with scanner in position 'i' such    * that: k[i]< key.  Furthermore: there may be a k[i+1], such that    * k[i]< key<= k[i+1] but there may also NOT be a k[i+1], and next() will    * return false (EOF).    */
+comment|/**    * Consider the key stream of all the keys in the file,     *<code>k[0] .. k[n]</code>, where there are n keys in the file.    * @param key Key to find    * @return false if key<= k[0] or true with scanner in position 'i' such    * that: k[i]< key.  Furthermore: there may be a k[i+1], such that    * k[i]< key<= k[i+1] but there may also NOT be a k[i+1], and next() will    * return false (EOF).    * @throws IOException    */
 specifier|public
 name|boolean
 name|seekBefore

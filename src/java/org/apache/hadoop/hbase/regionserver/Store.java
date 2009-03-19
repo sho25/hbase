@@ -649,14 +649,12 @@ literal|0L
 decl_stmt|;
 specifier|private
 specifier|final
-name|Integer
+name|Object
 name|flushLock
 init|=
 operator|new
-name|Integer
-argument_list|(
-literal|0
-argument_list|)
+name|Object
+argument_list|()
 decl_stmt|;
 specifier|final
 name|ReentrantReadWriteLock
@@ -730,14 +728,12 @@ name|compactionDir
 decl_stmt|;
 specifier|private
 specifier|final
-name|Integer
+name|Object
 name|compactLock
 init|=
 operator|new
-name|Integer
-argument_list|(
-literal|0
-argument_list|)
+name|Object
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
@@ -1364,9 +1360,14 @@ name|reconstructionLog
 operator|+
 literal|" opening "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|this
 operator|.
 name|storeName
+argument_list|)
 operator|+
 literal|" -- continuing.  Probably lack-of-HADOOP-1700 causing DATA LOSS!"
 argument_list|,
@@ -1394,9 +1395,14 @@ name|reconstructionLog
 operator|+
 literal|" opening "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|this
 operator|.
 name|storeName
+argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -8502,6 +8508,7 @@ name|size
 return|;
 block|}
 comment|/*    * Datastructure that holds size and row to split a file around.    */
+specifier|static
 class|class
 name|StoreSize
 block|{

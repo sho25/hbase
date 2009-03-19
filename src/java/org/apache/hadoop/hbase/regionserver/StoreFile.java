@@ -641,8 +641,6 @@ specifier|final
 name|Path
 name|p
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|Matcher
 name|m
@@ -1081,6 +1079,8 @@ name|cache
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|String
 name|toStringFirstKey
@@ -1127,6 +1127,8 @@ return|return
 name|result
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|String
 name|toStringLastKey
@@ -1234,6 +1236,8 @@ literal|", half=bottom"
 operator|)
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|String
 name|toStringFirstKey
@@ -1280,6 +1284,8 @@ return|return
 name|result
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|String
 name|toStringLastKey
@@ -1358,7 +1364,7 @@ operator|.
 name|reader
 return|;
 block|}
-comment|/**    * @throws IOException    * @see #open()    */
+comment|/**    * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
@@ -1391,6 +1397,8 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -1559,7 +1567,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Get a store file writer. Client is responsible for closing file when done.    * If metadata, add BEFORE closing using    * {@link #appendMetadata(org.apache.hadoop.hbase.io.hfile.HFile.Writer, long)}.    * @param fs    * @param dir Path to family directory.  Makes the directory if doesn't exist.    * Creates a file with a unique name in this directory.    * @param blocksize    * @param algorithm Pass null to get default.    * @param c Pass null to get default.    * @return HFile.Writer    * @throws IOException    */
+comment|/**    * Get a store file writer. Client is responsible for closing file when done.    * If metadata, add BEFORE closing using    * {@link #appendMetadata(org.apache.hadoop.hbase.io.hfile.HFile.Writer, long)}.    * @param fs    * @param dir Path to family directory.  Makes the directory if doesn't exist.    * Creates a file with a unique name in this directory.    * @param blocksize    * @param algorithm Pass null to get default.    * @param c Pass null to get default.    * @param bloomfilter     * @return HFile.Writer    * @throws IOException    */
 specifier|public
 specifier|static
 name|HFile

@@ -254,7 +254,7 @@ parameter_list|()
 block|{
 comment|// nought to do.
 block|}
-comment|/**    * Since this object is a registered updater, this method will be called    * periodically, e.g. every 5 seconds.    */
+comment|/**    * Since this object is a registered updater, this method will be called    * periodically, e.g. every 5 seconds.    * @param unused     */
 specifier|public
 name|void
 name|doUpdates

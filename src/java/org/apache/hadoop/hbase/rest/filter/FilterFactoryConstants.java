@@ -78,6 +78,14 @@ name|MalformedFilterException
 extends|extends
 name|HBaseRestException
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+literal|1L
+decl_stmt|;
 specifier|public
 name|MalformedFilterException
 parameter_list|()

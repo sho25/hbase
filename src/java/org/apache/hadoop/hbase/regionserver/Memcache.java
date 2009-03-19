@@ -393,7 +393,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor.    * @param ttl The TTL for cache entries, in milliseconds.    * @param regionInfo The HRI for this cache     */
+comment|/**    * Constructor.    * @param ttl The TTL for cache entries, in milliseconds.    * @param c     * @param rc    */
 specifier|public
 name|Memcache
 parameter_list|(
@@ -2179,8 +2179,9 @@ argument_list|(
 name|found_key
 argument_list|)
 argument_list|,
-operator|new
 name|Long
+operator|.
+name|valueOf
 argument_list|(
 name|found_key
 operator|.
@@ -2516,8 +2517,9 @@ argument_list|(
 name|found_key
 argument_list|)
 argument_list|,
-operator|new
 name|Long
+operator|.
+name|valueOf
 argument_list|(
 name|found_key
 operator|.

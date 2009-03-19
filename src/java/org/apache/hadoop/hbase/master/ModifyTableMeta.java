@@ -315,11 +315,6 @@ specifier|protected
 name|void
 name|processScanItem
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|String
 name|serverName
 parameter_list|,
@@ -342,10 +337,12 @@ throw|throw
 operator|new
 name|TableNotDisabledException
 argument_list|(
-name|tableName
+name|Bytes
 operator|.
 name|toString
-argument_list|()
+argument_list|(
+name|tableName
+argument_list|)
 argument_list|)
 throw|;
 block|}

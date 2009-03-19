@@ -986,14 +986,12 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
-name|Integer
+name|Object
 name|splitLock
 init|=
 operator|new
-name|Integer
-argument_list|(
-literal|0
-argument_list|)
+name|Object
+argument_list|()
 decl_stmt|;
 specifier|private
 name|long
@@ -10423,11 +10421,21 @@ argument_list|()
 operator|+
 literal|" with start key<"
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|startKey
+argument_list|)
 operator|+
 literal|"> and end key<"
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|endKey
+argument_list|)
 operator|+
 literal|">"
 argument_list|)
@@ -11611,10 +11619,6 @@ decl_stmt|;
 name|int
 name|val
 init|=
-call|(
-name|int
-call|)
-argument_list|(
 name|value
 index|[
 name|value
@@ -11627,7 +11631,6 @@ literal|1
 index|]
 operator|&
 literal|0xff
-argument_list|)
 decl_stmt|;
 name|int
 name|total

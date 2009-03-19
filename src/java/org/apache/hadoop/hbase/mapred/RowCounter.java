@@ -462,11 +462,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @param args    * @return the JobConf    * @throws IOException    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|public
 name|JobConf
 name|createSubmittableJob

@@ -71,6 +71,7 @@ name|desc
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setValue(byte[], byte[])    */
 annotation|@
 name|Override
 specifier|public
@@ -94,6 +95,7 @@ literal|"HColumnDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
+comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setValue(java.lang.String, java.lang.String)    */
 annotation|@
 name|Override
 specifier|public
@@ -115,6 +117,7 @@ literal|"HColumnDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
+comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setMaxVersions(int)    */
 annotation|@
 name|Override
 specifier|public
@@ -133,6 +136,7 @@ literal|"HColumnDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
+comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setInMemory(boolean)    */
 annotation|@
 name|Override
 specifier|public
@@ -151,6 +155,7 @@ literal|"HColumnDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
+comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setBlockCacheEnabled(boolean)    */
 annotation|@
 name|Override
 specifier|public
@@ -169,6 +174,7 @@ literal|"HColumnDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
+comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setMaxValueLength(int)    */
 annotation|@
 name|Override
 specifier|public
@@ -187,6 +193,7 @@ literal|"HColumnDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
+comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setTimeToLive(int)    */
 annotation|@
 name|Override
 specifier|public
@@ -205,6 +212,7 @@ literal|"HColumnDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
+comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setCompressionType(org.apache.hadoop.hbase.io.hfile.Compression.Algorithm)    */
 annotation|@
 name|Override
 specifier|public
@@ -225,6 +233,7 @@ literal|"HColumnDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
+comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setMapFileIndexInterval(int)    */
 annotation|@
 name|Override
 specifier|public

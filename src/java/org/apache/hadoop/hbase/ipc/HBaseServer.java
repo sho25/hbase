@@ -512,7 +512,7 @@ argument_list|(
 literal|"org.apache.hadoop.ipc.HBaseServer"
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|ThreadLocal
@@ -528,7 +528,7 @@ name|HBaseServer
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/** Returns the server instance called under or null.  May be called under    * {@link #call(Writable, long)} implementations, and under {@link Writable}    * methods of paramters and return values.  Permits applications to access    * the server context.*/
+comment|/** Returns the server instance called under or null.  May be called under    * {@link #call(Writable, long)} implementations, and under {@link Writable}    * methods of paramters and return values.  Permits applications to access    * the server context.    * @return HBaseServer    */
 specifier|public
 specifier|static
 name|HBaseServer
@@ -543,7 +543,7 @@ argument_list|()
 return|;
 block|}
 comment|/** This is set to Call object before Handler invokes an RPC and reset    * after the call returns.    */
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|ThreadLocal
@@ -559,7 +559,7 @@ name|Call
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/** Returns the remote side ip address when invoked inside an RPC     *  Returns null incase of an error.    */
+comment|/** Returns the remote side ip address when invoked inside an RPC     *  Returns null incase of an error.    *  @return InetAddress    */
 specifier|public
 specifier|static
 name|InetAddress
@@ -596,7 +596,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/** Returns remote address as a string when invoked inside an RPC.    *  Returns null in case of an error.    */
+comment|/** Returns remote address as a string when invoked inside an RPC.    *  Returns null in case of an error.    *  @return String    */
 specifier|public
 specifier|static
 name|String
@@ -624,11 +624,11 @@ name|getHostAddress
 argument_list|()
 return|;
 block|}
-specifier|private
+specifier|protected
 name|String
 name|bindAddress
 decl_stmt|;
-specifier|private
+specifier|protected
 name|int
 name|port
 decl_stmt|;
@@ -638,7 +638,7 @@ name|int
 name|handlerCount
 decl_stmt|;
 comment|// number of handler threads
-specifier|private
+specifier|protected
 name|Class
 argument_list|<
 name|?
@@ -648,13 +648,13 @@ argument_list|>
 name|paramClass
 decl_stmt|;
 comment|// class of call parameters
-specifier|private
+specifier|protected
 name|int
 name|maxIdleTime
 decl_stmt|;
 comment|// the maximum idle time after
 comment|// which a client may be disconnected
-specifier|private
+specifier|protected
 name|int
 name|thresholdIdleConnections
 decl_stmt|;
@@ -667,12 +667,12 @@ name|maxConnectionsToNuke
 decl_stmt|;
 comment|// the max number of
 comment|// connections to nuke
-comment|//during a cleanup
+comment|// during a cleanup
 specifier|protected
 name|HBaseRpcMetrics
 name|rpcMetrics
 decl_stmt|;
-specifier|private
+specifier|protected
 name|Configuration
 name|conf
 decl_stmt|;
@@ -680,25 +680,25 @@ specifier|private
 name|int
 name|maxQueueSize
 decl_stmt|;
-specifier|private
+specifier|protected
 name|int
 name|socketSendBufferSize
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|boolean
 name|tcpNoDelay
 decl_stmt|;
 comment|// if T then disable Nagle's Algorithm
 specifier|volatile
-specifier|private
+specifier|protected
 name|boolean
 name|running
 init|=
 literal|true
 decl_stmt|;
 comment|// true while server runs
-specifier|private
+specifier|protected
 name|BlockingQueue
 argument_list|<
 name|Call
@@ -706,7 +706,7 @@ argument_list|>
 name|callQueue
 decl_stmt|;
 comment|// queued calls
-specifier|private
+specifier|protected
 name|List
 argument_list|<
 name|Connection
@@ -733,13 +733,13 @@ name|listener
 init|=
 literal|null
 decl_stmt|;
-specifier|private
+specifier|protected
 name|Responder
 name|responder
 init|=
 literal|null
 decl_stmt|;
-specifier|private
+specifier|protected
 name|int
 name|numConnections
 init|=
@@ -752,7 +752,7 @@ name|handlers
 init|=
 literal|null
 decl_stmt|;
-specifier|private
+specifier|protected
 name|HBaseRPCErrorHandler
 name|errorHandler
 init|=
@@ -857,12 +857,9 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
-else|else
-block|{
 throw|throw
 name|e
 throw|;
-block|}
 block|}
 block|}
 comment|/** A call queued for handling. */
@@ -871,28 +868,28 @@ specifier|static
 class|class
 name|Call
 block|{
-specifier|private
+specifier|protected
 name|int
 name|id
 decl_stmt|;
 comment|// the client's call id
-specifier|private
+specifier|protected
 name|Writable
 name|param
 decl_stmt|;
 comment|// the parameter passed
-specifier|private
+specifier|protected
 name|Connection
 name|connection
 decl_stmt|;
 comment|// connection to client
-specifier|private
+specifier|protected
 name|long
 name|timestamp
 decl_stmt|;
 comment|// the time received when response is null
 comment|// the time served when response is not null
-specifier|private
+specifier|protected
 name|ByteBuffer
 name|response
 decl_stmt|;
@@ -1518,8 +1515,6 @@ expr_stmt|;
 name|closeCurrentConnection
 argument_list|(
 name|key
-argument_list|,
-name|e
 argument_list|)
 expr_stmt|;
 name|cleanupConnections
@@ -1547,8 +1542,6 @@ expr_stmt|;
 name|closeCurrentConnection
 argument_list|(
 name|key
-argument_list|,
-name|e
 argument_list|)
 expr_stmt|;
 name|cleanupConnections
@@ -1614,8 +1607,6 @@ block|{
 name|closeCurrentConnection
 argument_list|(
 name|key
-argument_list|,
-name|e
 argument_list|)
 expr_stmt|;
 block|}
@@ -1698,9 +1689,6 @@ name|closeCurrentConnection
 parameter_list|(
 name|SelectionKey
 name|key
-parameter_list|,
-name|Throwable
-name|e
 parameter_list|)
 block|{
 if|if
@@ -1873,8 +1861,6 @@ operator|=
 operator|new
 name|Connection
 argument_list|(
-name|readKey
-argument_list|,
 name|channel
 argument_list|,
 name|System
@@ -2477,8 +2463,6 @@ range|:
 name|calls
 control|)
 block|{
-try|try
-block|{
 name|doPurge
 argument_list|(
 name|call
@@ -2486,23 +2470,6 @@ argument_list|,
 name|now
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Error in purging old calls "
-operator|+
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 catch|catch
@@ -2729,8 +2696,6 @@ parameter_list|,
 name|long
 name|now
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|LinkedList
 argument_list|<
@@ -2770,18 +2735,19 @@ name|hasNext
 argument_list|()
 condition|)
 block|{
-name|call
-operator|=
+name|Call
+name|nextCall
+init|=
 name|iter
 operator|.
 name|next
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|now
 operator|>
-name|call
+name|nextCall
 operator|.
 name|timestamp
 operator|+
@@ -2790,7 +2756,7 @@ condition|)
 block|{
 name|closeConnection
 argument_list|(
-name|call
+name|nextCall
 operator|.
 name|connection
 argument_list|)
@@ -3313,7 +3279,7 @@ literal|false
 decl_stmt|;
 comment|//if the connection header that
 comment|//follows version is read.
-specifier|private
+specifier|protected
 name|SocketChannel
 name|channel
 decl_stmt|;
@@ -3325,7 +3291,7 @@ specifier|private
 name|ByteBuffer
 name|dataLengthBuffer
 decl_stmt|;
-specifier|private
+specifier|protected
 name|LinkedList
 argument_list|<
 name|Call
@@ -3348,7 +3314,7 @@ specifier|private
 name|int
 name|dataLength
 decl_stmt|;
-specifier|private
+specifier|protected
 name|Socket
 name|socket
 decl_stmt|;
@@ -3362,7 +3328,7 @@ specifier|private
 name|int
 name|remotePort
 decl_stmt|;
-specifier|private
+specifier|protected
 name|UserGroupInformation
 name|ticket
 init|=
@@ -3371,9 +3337,6 @@ decl_stmt|;
 specifier|public
 name|Connection
 parameter_list|(
-name|SelectionKey
-name|key
-parameter_list|,
 name|SocketChannel
 name|channel
 parameter_list|,
@@ -3570,7 +3533,7 @@ literal|0
 return|;
 block|}
 comment|/* Decrement the outstanding RPC count */
-specifier|private
+specifier|protected
 name|void
 name|decRpcCount
 parameter_list|()
@@ -3589,7 +3552,7 @@ name|rpcCount
 operator|++
 expr_stmt|;
 block|}
-specifier|private
+specifier|protected
 name|boolean
 name|timedOut
 parameter_list|(
@@ -3875,8 +3838,6 @@ return|return
 name|count
 return|;
 block|}
-else|else
-block|{
 name|processHeader
 argument_list|()
 expr_stmt|;
@@ -3889,7 +3850,6 @@ operator|=
 literal|null
 expr_stmt|;
 continue|continue;
-block|}
 block|}
 return|return
 name|count
@@ -4028,13 +3988,11 @@ argument_list|)
 expr_stmt|;
 comment|// queue the call; maybe blocked here
 block|}
-specifier|private
+specifier|protected
 specifier|synchronized
 name|void
 name|close
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 name|data
 operator|=
@@ -4784,8 +4742,6 @@ name|this
 operator|.
 name|port
 argument_list|)
-argument_list|,
-name|this
 argument_list|)
 expr_stmt|;
 name|this
@@ -4809,7 +4765,7 @@ name|Responder
 argument_list|()
 expr_stmt|;
 block|}
-specifier|private
+specifier|protected
 name|void
 name|closeConnection
 parameter_list|(
@@ -4835,22 +4791,13 @@ name|numConnections
 operator|--
 expr_stmt|;
 block|}
-try|try
-block|{
 name|connection
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
 block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{     }
-block|}
-comment|/** Sets the socket buffer size used for responding to RPCs */
+comment|/** Sets the socket buffer size used for responding to RPCs.    * @param size    */
 specifier|public
 name|void
 name|setSocketSendBufSize
@@ -4872,8 +4819,6 @@ specifier|synchronized
 name|void
 name|start
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 name|responder
 operator|.
@@ -5028,7 +4973,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/** Wait for the server to be stopped.    * Does not wait for all subthreads to finish.    *  See {@link #stop()}.    */
+comment|/** Wait for the server to be stopped.    * Does not wait for all subthreads to finish.    *  See {@link #stop()}.    * @throws InterruptedException    */
 specifier|public
 specifier|synchronized
 name|void
@@ -5061,7 +5006,7 @@ name|getAddress
 argument_list|()
 return|;
 block|}
-comment|/** Called for each call. */
+comment|/** Called for each call.     * @param param     * @param receiveTime     * @return Writable     * @throws IOException    */
 specifier|public
 specifier|abstract
 name|Writable
@@ -5127,7 +5072,7 @@ literal|1024
 decl_stmt|;
 comment|//should not be more than 64KB.
 comment|/**    * This is a wrapper around {@link WritableByteChannel#write(ByteBuffer)}.    * If the amount of data is large, it writes to channel in smaller chunks.     * This is to avoid jdk from creating many direct buffers as the size of     * buffer increases. This also minimizes extra copies in NIO layer    * as a result of multiple write operations required to write a large     * buffer.      *    * @see WritableByteChannel#write(ByteBuffer)    */
-specifier|private
+specifier|protected
 specifier|static
 name|int
 name|channelWrite
@@ -5169,7 +5114,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * This is a wrapper around {@link ReadableByteChannel#read(ByteBuffer)}.    * If the amount of data is large, it writes to channel in smaller chunks.     * This is to avoid jdk from creating many direct buffers as the size of     * ByteBuffer increases. There should not be any performance degredation.    *     * @see ReadableByteChannel#read(ByteBuffer)    */
-specifier|private
+specifier|protected
 specifier|static
 name|int
 name|channelRead

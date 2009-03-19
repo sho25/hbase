@@ -369,7 +369,7 @@ block|{
 comment|// Leave this out in the hadoop ipc package but keep class name.  Do this
 comment|// so that we dont' get the logging of this class's invocations by doing our
 comment|// blanket enabling DEBUG on the o.a.h.h. package.
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|Log
@@ -1155,8 +1155,12 @@ name|HBaseClient
 argument_list|>
 argument_list|()
 decl_stmt|;
+specifier|protected
+name|ClientCache
+parameter_list|()
+block|{}
 comment|/**      * Construct& cache an IPC client with the user-provided SocketFactory       * if no cached client exists.      *       * @param conf Configuration      * @return an IPC client      */
-specifier|private
+specifier|protected
 specifier|synchronized
 name|HBaseClient
 name|getClient
@@ -1217,12 +1221,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-operator|(
-operator|(
-name|HBaseClient
-operator|)
 name|client
-operator|)
 operator|.
 name|incCount
 argument_list|()
@@ -1233,7 +1232,7 @@ name|client
 return|;
 block|}
 comment|/**      * Construct& cache an IPC client with the default SocketFactory       * if no cached client exists.      *       * @param conf Configuration      * @return an IPC client      */
-specifier|private
+specifier|protected
 specifier|synchronized
 name|HBaseClient
 name|getClient
@@ -1255,7 +1254,7 @@ argument_list|)
 return|;
 block|}
 comment|/**      * Stop a RPC client connection       * A RPC client is closed only when its reference count becomes zero.      */
-specifier|private
+specifier|protected
 name|void
 name|stopClient
 parameter_list|(
@@ -1268,24 +1267,14 @@ init|(
 name|this
 init|)
 block|{
-operator|(
-operator|(
-name|HBaseClient
-operator|)
 name|client
-operator|)
 operator|.
 name|decCount
 argument_list|()
 expr_stmt|;
 if|if
 condition|(
-operator|(
-operator|(
-name|HBaseClient
-operator|)
 name|client
-operator|)
 operator|.
 name|isZeroReference
 argument_list|()
@@ -1295,12 +1284,7 @@ name|clients
 operator|.
 name|remove
 argument_list|(
-operator|(
-operator|(
-name|HBaseClient
-operator|)
 name|client
-operator|)
 operator|.
 name|getSocketFactory
 argument_list|()
@@ -1310,12 +1294,7 @@ block|}
 block|}
 if|if
 condition|(
-operator|(
-operator|(
-name|HBaseClient
-operator|)
 name|client
-operator|)
 operator|.
 name|isZeroReference
 argument_list|()
@@ -1329,7 +1308,8 @@ expr_stmt|;
 block|}
 block|}
 block|}
-specifier|private
+specifier|protected
+specifier|final
 specifier|static
 name|ClientCache
 name|CLIENTS
@@ -1410,11 +1390,6 @@ specifier|public
 name|Object
 name|invoke
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|Object
 name|proxy
 parameter_list|,
@@ -1519,7 +1494,7 @@ return|;
 block|}
 comment|/* close the IPC client that's responsible for this invoker's RPCs */
 specifier|synchronized
-specifier|private
+specifier|protected
 name|void
 name|close
 parameter_list|()
@@ -1955,8 +1930,6 @@ return|return
 name|proxy
 return|;
 block|}
-else|else
-block|{
 throw|throw
 operator|new
 name|VersionMismatch
@@ -1971,7 +1944,6 @@ argument_list|,
 name|serverVersion
 argument_list|)
 throw|;
-block|}
 block|}
 comment|/**    * Construct a client-side proxy object with the default SocketFactory    *     * @param protocol    * @param clientVersion    * @param addr    * @param conf    * @return a proxy instance    * @throws IOException    */
 specifier|public
@@ -2783,8 +2755,6 @@ operator|)
 name|target
 throw|;
 block|}
-else|else
-block|{
 name|IOException
 name|ioe
 init|=
@@ -2810,7 +2780,6 @@ expr_stmt|;
 throw|throw
 name|ioe
 throw|;
-block|}
 block|}
 catch|catch
 parameter_list|(
@@ -2846,7 +2815,7 @@ throw|;
 block|}
 block|}
 block|}
-specifier|private
+specifier|protected
 specifier|static
 name|void
 name|log
@@ -2855,22 +2824,27 @@ name|String
 name|value
 parameter_list|)
 block|{
+name|String
+name|v
+init|=
+name|value
+decl_stmt|;
 if|if
 condition|(
-name|value
+name|v
 operator|!=
 literal|null
 operator|&&
-name|value
+name|v
 operator|.
 name|length
 argument_list|()
 operator|>
 literal|55
 condition|)
-name|value
+name|v
 operator|=
-name|value
+name|v
 operator|.
 name|substring
 argument_list|(
@@ -2885,7 +2859,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-name|value
+name|v
 argument_list|)
 expr_stmt|;
 block|}

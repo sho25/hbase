@@ -323,16 +323,10 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|byte
-index|[]
-name|CONTENTS_MINUS_COLON
+name|String
+name|CONTENTS_BASIC_STR
 init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"contents"
-argument_list|)
+literal|"contents:basic"
 decl_stmt|;
 specifier|private
 specifier|static
@@ -345,7 +339,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"contents:basic"
+name|CONTENTS_BASIC_STR
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -368,20 +362,6 @@ operator|.
 name|toBytes
 argument_list|(
 literal|"anchor:"
-argument_list|)
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|ANCHOR_MINUS_COLON
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"anchor"
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -604,6 +584,13 @@ name|k
 operator|++
 control|)
 block|{
+name|String
+name|rowlabelStr
+init|=
+literal|"row_"
+operator|+
+name|k
+decl_stmt|;
 name|byte
 index|[]
 name|rowlabel
@@ -612,9 +599,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"row_"
-operator|+
-name|k
+name|rowlabelStr
 argument_list|)
 decl_stmt|;
 name|byte
@@ -637,11 +622,11 @@ name|assertNotNull
 argument_list|(
 literal|"no data for row "
 operator|+
-name|rowlabel
+name|rowlabelStr
 operator|+
 literal|"/"
 operator|+
-name|CONTENTS_BASIC
+name|CONTENTS_BASIC_STR
 argument_list|,
 name|bodydata
 argument_list|)
@@ -670,11 +655,11 @@ name|assertTrue
 argument_list|(
 literal|"Incorrect value for key: ("
 operator|+
-name|rowlabel
+name|rowlabelStr
 operator|+
 literal|"/"
 operator|+
-name|CONTENTS_BASIC
+name|CONTENTS_BASIC_STR
 operator|+
 literal|"), expected: '"
 operator|+
@@ -696,15 +681,20 @@ operator|==
 literal|0
 argument_list|)
 expr_stmt|;
+name|String
+name|collabelStr
+init|=
+name|ANCHORNUM
+operator|+
+name|k
+decl_stmt|;
 name|collabel
 operator|=
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|ANCHORNUM
-operator|+
-name|k
+name|collabelStr
 argument_list|)
 expr_stmt|;
 name|bodydata
@@ -725,11 +715,11 @@ name|assertNotNull
 argument_list|(
 literal|"no data for row "
 operator|+
-name|rowlabel
+name|rowlabelStr
 operator|+
 literal|"/"
 operator|+
-name|collabel
+name|collabelStr
 argument_list|,
 name|bodydata
 argument_list|)
@@ -756,11 +746,11 @@ name|assertTrue
 argument_list|(
 literal|"Incorrect value for key: ("
 operator|+
-name|rowlabel
+name|rowlabelStr
 operator|+
 literal|"/"
 operator|+
-name|collabel
+name|collabelStr
 operator|+
 literal|"), expected: '"
 operator|+
@@ -959,14 +949,24 @@ name|assertTrue
 argument_list|(
 literal|"Error at:"
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|curVals
 operator|.
 name|getRow
 argument_list|()
+argument_list|)
 operator|+
 literal|", Value for "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|col
+argument_list|)
 operator|+
 literal|" should start with: "
 operator|+
@@ -1008,14 +1008,24 @@ name|assertTrue
 argument_list|(
 literal|"Error at:"
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|curVals
 operator|.
 name|getRow
 argument_list|()
+argument_list|)
 operator|+
 literal|", Value for "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|col
+argument_list|)
 operator|+
 literal|" should start with: "
 operator|+

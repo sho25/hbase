@@ -746,10 +746,15 @@ name|info
 argument_list|(
 literal|"row: "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|result
 operator|.
 name|getRow
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 for|for

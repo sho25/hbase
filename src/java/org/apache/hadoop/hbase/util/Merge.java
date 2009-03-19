@@ -943,30 +943,36 @@ name|info
 argument_list|(
 literal|"Merging regions "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|this
 operator|.
 name|region1
-operator|.
-name|toString
-argument_list|()
+argument_list|)
 operator|+
 literal|" and "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|this
 operator|.
 name|region2
-operator|.
-name|toString
-argument_list|()
+argument_list|)
 operator|+
 literal|" in table "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|this
 operator|.
 name|tableName
-operator|.
-name|toString
-argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Scan the root region for all the meta regions that contain the regions
@@ -1012,7 +1018,12 @@ name|IOException
 argument_list|(
 literal|"Could not find meta region for "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|region1
+argument_list|)
 argument_list|)
 throw|;
 block|}
@@ -1037,7 +1048,12 @@ name|IOException
 argument_list|(
 literal|"Could not find meta region for "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|region2
+argument_list|)
 argument_list|)
 throw|;
 block|}
@@ -1047,17 +1063,27 @@ name|info
 argument_list|(
 literal|"Found meta for region1 "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|meta1
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 operator|+
 literal|", meta for region2 "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|meta2
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|HRegion
@@ -1127,7 +1153,12 @@ name|NullPointerException
 argument_list|(
 literal|"info1 is null using key "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|region1
+argument_list|)
 operator|+
 literal|" in "
 operator|+
@@ -1290,10 +1321,15 @@ name|IOException
 argument_list|(
 literal|"Could not find meta region for "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|merged
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 argument_list|)
 throw|;
 block|}
@@ -1428,14 +1464,24 @@ name|IOException
 argument_list|(
 literal|"Could not find "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|region1
+argument_list|)
 operator|+
 literal|" in "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|meta1
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 argument_list|)
 throw|;
 block|}
@@ -1452,14 +1498,24 @@ name|IOException
 argument_list|(
 literal|"Cound not find "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|region2
+argument_list|)
 operator|+
 literal|" in "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|meta2
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 argument_list|)
 throw|;
 block|}

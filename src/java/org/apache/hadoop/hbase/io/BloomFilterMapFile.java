@@ -257,11 +257,6 @@ name|BloomFilterMapFile
 extends|extends
 name|HBaseMapFile
 block|{
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"hiding"
-argument_list|)
 specifier|static
 specifier|final
 name|Log
@@ -452,6 +447,7 @@ return|return
 name|filter
 return|;
 block|}
+comment|/**      * @see org.apache.hadoop.hbase.io.MapFile.Reader#get(org.apache.hadoop.io.WritableComparable, org.apache.hadoop.io.Writable)      */
 annotation|@
 name|Override
 specifier|public
@@ -545,6 +541,7 @@ return|return
 literal|null
 return|;
 block|}
+comment|/**      * @see org.apache.hadoop.hbase.io.MapFile.Reader#getClosest(org.apache.hadoop.io.WritableComparable, org.apache.hadoop.io.Writable)      */
 annotation|@
 name|Override
 specifier|public
@@ -836,6 +833,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * @see org.apache.hadoop.hbase.io.MapFile.Writer#append(org.apache.hadoop.io.WritableComparable, org.apache.hadoop.io.Writable)      */
 annotation|@
 name|Override
 specifier|public
@@ -879,6 +877,7 @@ name|val
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * @see org.apache.hadoop.hbase.io.MapFile.Writer#close()      */
 annotation|@
 name|Override
 specifier|public

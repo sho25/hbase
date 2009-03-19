@@ -235,6 +235,7 @@ expr_stmt|;
 block|}
 comment|/** @return the server address */
 specifier|public
+specifier|synchronized
 name|HServerAddress
 name|getServerAddress
 parameter_list|()
@@ -272,6 +273,7 @@ expr_stmt|;
 block|}
 comment|/** @return the server start code */
 specifier|public
+specifier|synchronized
 name|long
 name|getStartCode
 parameter_list|()
@@ -353,6 +355,7 @@ operator|.
 name|serverName
 return|;
 block|}
+comment|/**    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
 specifier|public
@@ -385,6 +388,7 @@ operator|+
 literal|")"
 return|;
 block|}
+comment|/**    * @see java.lang.Object#equals(java.lang.Object)    */
 annotation|@
 name|Override
 specifier|public
@@ -395,6 +399,43 @@ name|Object
 name|obj
 parameter_list|)
 block|{
+if|if
+condition|(
+name|this
+operator|==
+name|obj
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+if|if
+condition|(
+name|obj
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+if|if
+condition|(
+name|getClass
+argument_list|()
+operator|!=
+name|obj
+operator|.
+name|getClass
+argument_list|()
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 return|return
 name|compareTo
 argument_list|(
@@ -407,6 +448,7 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/**    * @see java.lang.Object#hashCode()    */
 annotation|@
 name|Override
 specifier|public

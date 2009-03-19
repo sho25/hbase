@@ -166,7 +166,6 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-specifier|protected
 specifier|static
 specifier|final
 name|byte
@@ -211,7 +210,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** constructor */
+comment|/** constructor     * @param startMiniHBase    */
 specifier|public
 name|AbstractMergeTestBase
 parameter_list|(

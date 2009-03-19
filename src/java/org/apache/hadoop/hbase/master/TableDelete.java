@@ -143,6 +143,22 @@ name|HRegion
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
 begin_comment
 comment|/**   * Instantiated to delete a table. Table must be offline.  */
 end_comment
@@ -196,11 +212,6 @@ specifier|protected
 name|void
 name|processScanItem
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|String
 name|serverName
 parameter_list|,
@@ -303,10 +314,15 @@ name|error
 argument_list|(
 literal|"failed to delete region "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|i
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 argument_list|,
 name|RemoteExceptionHandler
 operator|.
@@ -332,10 +348,12 @@ name|master
 operator|.
 name|rootdir
 argument_list|,
-name|tableName
+name|Bytes
 operator|.
 name|toString
-argument_list|()
+argument_list|(
+name|tableName
+argument_list|)
 argument_list|)
 argument_list|,
 literal|true

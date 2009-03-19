@@ -265,6 +265,14 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
+name|Random
+name|random
+init|=
+operator|new
+name|Random
+argument_list|()
+decl_stmt|;
 annotation|@
 name|Override
 specifier|public
@@ -324,9 +332,7 @@ name|Integer
 operator|.
 name|toString
 argument_list|(
-operator|new
-name|Random
-argument_list|()
+name|random
 operator|.
 name|nextInt
 argument_list|()

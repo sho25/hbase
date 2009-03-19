@@ -928,16 +928,26 @@ name|warn
 argument_list|(
 literal|"region info is null for row "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|key
 operator|.
 name|getRow
 argument_list|()
+argument_list|)
 operator|+
 literal|" in table "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|HConstants
 operator|.
 name|ROOT_TABLE_NAME
+argument_list|)
 argument_list|)
 expr_stmt|;
 continue|continue;
@@ -1117,10 +1127,15 @@ name|warn
 argument_list|(
 literal|"regioninfo null for row "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|key
 operator|.
 name|getRow
 argument_list|()
+argument_list|)
 operator|+
 literal|" in table "
 operator|+
@@ -1331,7 +1346,12 @@ name|IOException
 argument_list|(
 literal|"no information for row "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|row
+argument_list|)
 argument_list|)
 throw|;
 block|}

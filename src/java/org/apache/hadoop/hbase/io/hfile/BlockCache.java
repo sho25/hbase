@@ -38,7 +38,7 @@ specifier|public
 interface|interface
 name|BlockCache
 block|{
-comment|/**    * Add block to cache.    * @param blockNumber Zero-based file block number.    * @param buf The block contents wrapped in a ByteBuffer.    */
+comment|/**    * Add block to cache.    * @param blockName Zero-based file block number.    * @param buf The block contents wrapped in a ByteBuffer.    */
 specifier|public
 name|void
 name|cacheBlock
@@ -50,7 +50,7 @@ name|ByteBuffer
 name|buf
 parameter_list|)
 function_decl|;
-comment|/**    * Fetch block from cache.    * @param blockNumber Block number to fetch.    * @return Block or null if block is not in the cache.    */
+comment|/**    * Fetch block from cache.    * @param blockName Block number to fetch.    * @return Block or null if block is not in the cache.    */
 specifier|public
 name|ByteBuffer
 name|getBlock

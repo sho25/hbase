@@ -204,9 +204,6 @@ name|hostName
 parameter_list|,
 name|String
 name|port
-parameter_list|,
-name|HBaseServer
-name|server
 parameter_list|)
 block|{
 name|MetricsContext
@@ -304,7 +301,7 @@ argument_list|>
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/**    * Push the metrics to the monitoring subsystem on doUpdate() call.    */
+comment|/**    * Push the metrics to the monitoring subsystem on doUpdate() call.    * @param context    */
 specifier|public
 name|void
 name|doUpdates

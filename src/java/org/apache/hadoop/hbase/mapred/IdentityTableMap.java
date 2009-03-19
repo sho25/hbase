@@ -193,7 +193,7 @@ name|job
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Pass the key, value to reduce    */
+comment|/**    * Pass the key, value to reduce    * @param key     * @param value     * @param output     * @param reporter     * @throws IOException     */
 specifier|public
 name|void
 name|map

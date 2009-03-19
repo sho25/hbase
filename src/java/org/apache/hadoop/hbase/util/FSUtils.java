@@ -277,7 +277,7 @@ else|:
 literal|false
 return|;
 block|}
-comment|/**    * Check if directory exists.  If it does not, create it.    * @param dir    * @return    * @throws IOException    */
+comment|/**    * Check if directory exists.  If it does not, create it.    * @param fs     * @param dir    * @return Path    * @throws IOException    */
 specifier|public
 name|Path
 name|checkdir
@@ -316,7 +316,7 @@ return|return
 name|dir
 return|;
 block|}
-comment|/**    * Create file.    * @param fs    * @param p    * @return    * @throws IOException    */
+comment|/**    * Create file.    * @param fs    * @param p    * @return Path    * @throws IOException    */
 specifier|public
 specifier|static
 name|Path

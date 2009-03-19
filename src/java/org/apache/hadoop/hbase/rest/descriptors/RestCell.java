@@ -68,7 +68,7 @@ argument_list|()
 expr_stmt|;
 comment|// TODO Auto-generated constructor stub
 block|}
-comment|/**    *     */
+comment|/**    * @param name     * @param cell    */
 specifier|public
 name|RestCell
 parameter_list|(

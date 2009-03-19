@@ -272,7 +272,7 @@ operator|=
 name|buffer
 expr_stmt|;
 block|}
-comment|/** Returns the current contents of the buffer.    *  Data is only valid to {@link #getLength()}.    */
+comment|/** Returns the current contents of the buffer.    *  Data is only valid to {@link #getLength()}.    * @return byte[]     */
 specifier|public
 name|byte
 index|[]
@@ -286,7 +286,7 @@ name|getData
 argument_list|()
 return|;
 block|}
-comment|/** Returns the length of the valid data currently in the buffer. */
+comment|/** Returns the length of the valid data currently in the buffer.     * @return int    */
 specifier|public
 name|int
 name|getLength
@@ -299,7 +299,7 @@ name|getLength
 argument_list|()
 return|;
 block|}
-comment|/** Resets the buffer to empty. */
+comment|/** Resets the buffer to empty.     * @return DataOutputBuffer    */
 specifier|public
 name|DataOutputBuffer
 name|reset
@@ -320,7 +320,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/** Writes bytes from a DataInput directly into the buffer. */
+comment|/** Writes bytes from a DataInput directly into the buffer.     * @param in     * @param length     * @throws IOException    */
 specifier|public
 name|void
 name|write
@@ -344,7 +344,7 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Write to a file stream */
+comment|/** Write to a file stream     * @param out     * @throws IOException    */
 specifier|public
 name|void
 name|writeTo

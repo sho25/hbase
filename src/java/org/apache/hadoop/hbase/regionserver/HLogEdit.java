@@ -196,7 +196,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param value    * @return True if an entry and its content is {@link #DELETED_BYTES}.    */
+comment|/**    * @param value    * @param offset     * @param length     * @return True if an entry and its content is {@link #DELETED_BYTES}.    */
 specifier|public
 specifier|static
 name|boolean

@@ -256,7 +256,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|protected
 specifier|static
 specifier|final
 name|byte
@@ -1121,6 +1120,10 @@ argument_list|()
 decl_stmt|;
 name|assertNotNull
 argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|rows
 index|[
 name|i
@@ -1128,9 +1131,7 @@ index|]
 index|[
 name|j
 index|]
-operator|.
-name|toString
-argument_list|()
+argument_list|)
 argument_list|,
 name|bytes
 argument_list|)

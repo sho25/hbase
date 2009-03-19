@@ -423,7 +423,6 @@ specifier|static
 class|class
 name|FactoryMap
 block|{
-specifier|protected
 specifier|static
 name|boolean
 name|created
@@ -484,12 +483,9 @@ return|return
 name|f
 return|;
 block|}
-else|else
-block|{
 return|return
 literal|null
 return|;
-block|}
 block|}
 specifier|public
 name|FilterFactory

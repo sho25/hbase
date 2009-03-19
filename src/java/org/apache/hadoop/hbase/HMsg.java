@@ -449,6 +449,7 @@ operator|.
 name|safeMode
 return|;
 block|}
+comment|/**    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
 specifier|public
@@ -566,6 +567,7 @@ name|toString
 argument_list|()
 return|;
 block|}
+comment|/**    * @see java.lang.Object#equals(java.lang.Object)    */
 annotation|@
 name|Override
 specifier|public
@@ -576,6 +578,43 @@ name|Object
 name|obj
 parameter_list|)
 block|{
+if|if
+condition|(
+name|this
+operator|==
+name|obj
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+if|if
+condition|(
+name|obj
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+if|if
+condition|(
+name|getClass
+argument_list|()
+operator|!=
+name|obj
+operator|.
+name|getClass
+argument_list|()
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 name|HMsg
 name|that
 init|=
@@ -622,6 +661,7 @@ operator|==
 literal|null
 return|;
 block|}
+comment|/**    * @see java.lang.Object#hashCode()    */
 annotation|@
 name|Override
 specifier|public

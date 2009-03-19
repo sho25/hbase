@@ -580,6 +580,7 @@ name|SECONDS
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @see org.apache.hadoop.fs.FSInputStream#getPos()    */
 annotation|@
 name|Override
 specifier|public
@@ -592,6 +593,7 @@ return|return
 name|pos
 return|;
 block|}
+comment|/**    * @see java.io.InputStream#available()    */
 annotation|@
 name|Override
 specifier|public
@@ -611,6 +613,7 @@ name|pos
 argument_list|)
 return|;
 block|}
+comment|/**    * @see org.apache.hadoop.fs.FSInputStream#seek(long)    */
 annotation|@
 name|Override
 specifier|public
@@ -649,6 +652,7 @@ operator|-
 literal|1
 expr_stmt|;
 block|}
+comment|/**    * @see org.apache.hadoop.fs.FSInputStream#seekToNewSource(long)    */
 annotation|@
 name|Override
 specifier|public
@@ -666,6 +670,7 @@ return|return
 literal|false
 return|;
 block|}
+comment|/**    * @see java.io.InputStream#read()    */
 annotation|@
 name|Override
 specifier|public
@@ -738,6 +743,7 @@ return|return
 name|result
 return|;
 block|}
+comment|/**    * @see java.io.InputStream#read(byte[], int, int)    */
 annotation|@
 name|Override
 specifier|public
@@ -1007,6 +1013,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @see java.io.InputStream#close()    */
 annotation|@
 name|Override
 specifier|public
@@ -1126,6 +1133,7 @@ return|return
 literal|false
 return|;
 block|}
+comment|/**    * @see java.io.InputStream#mark(int)    */
 annotation|@
 name|Override
 specifier|public
@@ -1138,6 +1146,7 @@ parameter_list|)
 block|{
 comment|// Do nothing
 block|}
+comment|/**    * @see java.io.InputStream#reset()    */
 annotation|@
 name|Override
 specifier|public

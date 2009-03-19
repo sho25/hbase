@@ -595,7 +595,7 @@ name|byte
 operator|)
 literal|6
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|static
 name|byte
 index|[]
@@ -1913,7 +1913,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/** Write compressed bytes to outStream.       * Note: that it will NOT compress the bytes if they are not compressed.      * @param outStream : Stream to write compressed bytes into.      */
+comment|/** Write compressed bytes to outStream.       * Note: that it will NOT compress the bytes if they are not compressed.      * @param outStream : Stream to write compressed bytes into.      * @throws IllegalArgumentException       * @throws IOException       */
 specifier|public
 name|void
 name|writeCompressedBytes
@@ -1926,7 +1926,7 @@ name|IllegalArgumentException
 throws|,
 name|IOException
 function_decl|;
-comment|/**      * Size of stored data.      */
+comment|/**      * Size of stored data.      * @return int      */
 specifier|public
 name|int
 name|getSize
@@ -2813,6 +2813,8 @@ return|return
 literal|true
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|hashCode
@@ -2828,6 +2830,8 @@ literal|42
 return|;
 comment|// any arbitrary constant will do
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -3113,7 +3117,7 @@ comment|/** Implicit constructor: needed for the period of transition!*/
 name|Writer
 parameter_list|()
 block|{}
-comment|/** Create the named file. */
+comment|/** Create the named file.       * @param fs       * @param conf       * @param name       * @param keyClass       * @param valClass       * @throws IOException      */
 specifier|public
 name|Writer
 parameter_list|(
@@ -3155,7 +3159,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Create the named file with write-progress reporter. */
+comment|/** Create the named file with write-progress reporter.       * @param fs       * @param conf       * @param name       * @param keyClass       * @param valClass       * @param progress       * @param metadata       * @throws IOException      */
 specifier|public
 name|Writer
 parameter_list|(
@@ -3223,7 +3227,7 @@ name|metadata
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Create the named file with write-progress reporter. */
+comment|/** Create the named file with write-progress reporter.       * @param fs       * @param conf       * @param name       * @param keyClass       * @param valClass       * @param bufferSize       * @param replication       * @param blockSize       * @param progress       * @param metadata       * @throws IOException      */
 specifier|public
 name|Writer
 parameter_list|(
@@ -3262,8 +3266,6 @@ name|IOException
 block|{
 name|init
 argument_list|(
-name|name
-argument_list|,
 name|conf
 argument_list|,
 name|fs
@@ -3305,7 +3307,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/** Write to an arbitrary stream using a specified buffer size. */
-specifier|private
+specifier|protected
 name|Writer
 parameter_list|(
 name|Configuration
@@ -3334,8 +3336,6 @@ literal|false
 expr_stmt|;
 name|init
 argument_list|(
-literal|null
-argument_list|,
 name|conf
 argument_list|,
 name|out
@@ -3510,9 +3510,6 @@ argument_list|)
 name|void
 name|init
 parameter_list|(
-name|Path
-name|name
-parameter_list|,
 name|Configuration
 name|conf
 parameter_list|,
@@ -3714,7 +3711,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/** Returns the class of keys in this file. */
+comment|/** Returns the class of keys in this file.       * @return Class      */
 specifier|public
 name|Class
 name|getKeyClass
@@ -3724,7 +3721,7 @@ return|return
 name|keyClass
 return|;
 block|}
-comment|/** Returns the class of values in this file. */
+comment|/** Returns the class of values in this file.       * @return Class      */
 specifier|public
 name|Class
 name|getValueClass
@@ -3734,7 +3731,7 @@ return|return
 name|valClass
 return|;
 block|}
-comment|/** Returns the compression codec of data in this file. */
+comment|/** Returns the compression codec of data in this file.       * @return CompressionCodec      */
 specifier|public
 name|CompressionCodec
 name|getCompressionCodec
@@ -3744,7 +3741,7 @@ return|return
 name|codec
 return|;
 block|}
-comment|/** create a sync point */
+comment|/** create a sync point       * @throws IOException      */
 specifier|public
 name|void
 name|sync
@@ -3801,7 +3798,7 @@ return|return
 name|conf
 return|;
 block|}
-comment|/** Close the file. */
+comment|/** Close the file.       * @throws IOException      */
 specifier|public
 specifier|synchronized
 name|void
@@ -3906,7 +3903,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/** Append a key/value pair. */
+comment|/** Append a key/value pair.       * @param key       * @param val       * @throws IOException      */
 specifier|public
 specifier|synchronized
 name|void
@@ -3935,7 +3932,7 @@ name|val
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Append a key/value pair. */
+comment|/** Append a key/value pair.       * @param key       * @param val       * @throws IOException      */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -4240,7 +4237,7 @@ name|RecordCompressWriter
 extends|extends
 name|Writer
 block|{
-comment|/** Create the named file. */
+comment|/** Create the named file.       * @param fs       * @param conf       * @param name       * @param keyClass       * @param valClass       * @param codec       * @throws IOException      */
 specifier|public
 name|RecordCompressWriter
 parameter_list|(
@@ -4288,7 +4285,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Create the named file with write-progress reporter. */
+comment|/** Create the named file with write-progress reporter.       * @param fs       * @param conf       * @param name       * @param keyClass       * @param valClass       * @param codec       * @param progress       * @param metadata       * @throws IOException      */
 specifier|public
 name|RecordCompressWriter
 parameter_list|(
@@ -4361,7 +4358,7 @@ name|metadata
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Create the named file with write-progress reporter. */
+comment|/** Create the named file with write-progress reporter.       * @param fs       * @param conf       * @param name       * @param keyClass       * @param valClass       * @param bufferSize       * @param replication       * @param blockSize       * @param codec       * @param progress       * @param metadata       * @throws IOException      */
 specifier|public
 name|RecordCompressWriter
 parameter_list|(
@@ -4405,8 +4402,6 @@ name|super
 operator|.
 name|init
 argument_list|(
-name|name
-argument_list|,
 name|conf
 argument_list|,
 name|fs
@@ -4447,7 +4442,7 @@ name|finalizeFileHeader
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** Create the named file with write-progress reporter. */
+comment|/** Create the named file with write-progress reporter.       * @param fs       * @param conf       * @param name       * @param keyClass       * @param valClass       * @param codec       * @param progress       * @throws IOException      */
 specifier|public
 name|RecordCompressWriter
 parameter_list|(
@@ -4498,7 +4493,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/** Write to an arbitrary stream using a specified buffer size. */
-specifier|private
+specifier|protected
 name|RecordCompressWriter
 parameter_list|(
 name|Configuration
@@ -4532,8 +4527,6 @@ name|super
 operator|.
 name|init
 argument_list|(
-literal|null
-argument_list|,
 name|conf
 argument_list|,
 name|out
@@ -4559,6 +4552,8 @@ name|finalizeFileHeader
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 name|boolean
 name|isCompressed
 parameter_list|()
@@ -4567,6 +4562,8 @@ return|return
 literal|true
 return|;
 block|}
+annotation|@
+name|Override
 name|boolean
 name|isBlockCompressed
 parameter_list|()
@@ -4576,6 +4573,8 @@ literal|false
 return|;
 block|}
 comment|/** Append a key/value pair. */
+annotation|@
+name|Override
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -4754,6 +4753,8 @@ expr_stmt|;
 comment|// data
 block|}
 comment|/** Append a key/value pair. */
+annotation|@
+name|Override
 specifier|public
 specifier|synchronized
 name|void
@@ -4892,7 +4893,7 @@ specifier|private
 name|int
 name|compressionBlockSize
 decl_stmt|;
-comment|/** Create the named file. */
+comment|/** Create the named file.       * @param fs       * @param conf       * @param name       * @param keyClass       * @param valClass       * @param codec       * @throws IOException      */
 specifier|public
 name|BlockCompressWriter
 parameter_list|(
@@ -4961,7 +4962,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Create the named file with write-progress reporter. */
+comment|/** Create the named file with write-progress reporter.       * @param fs       * @param conf       * @param name       * @param keyClass       * @param valClass       * @param codec       * @param progress       * @param metadata       * @throws IOException      */
 specifier|public
 name|BlockCompressWriter
 parameter_list|(
@@ -5034,7 +5035,7 @@ name|metadata
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Create the named file with write-progress reporter. */
+comment|/** Create the named file with write-progress reporter.       * @param fs       * @param conf       * @param name       * @param keyClass       * @param valClass       * @param bufferSize       * @param replication       * @param blockSize       * @param codec       * @param progress       * @param metadata       * @throws IOException      */
 specifier|public
 name|BlockCompressWriter
 parameter_list|(
@@ -5078,8 +5079,6 @@ name|super
 operator|.
 name|init
 argument_list|(
-name|name
-argument_list|,
 name|conf
 argument_list|,
 name|fs
@@ -5132,7 +5131,7 @@ name|finalizeFileHeader
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** Create the named file with write-progress reporter. */
+comment|/** Create the named file with write-progress reporter.       * @param fs       * @param conf       * @param name       * @param keyClass       * @param valClass       * @param codec       * @param progress       * @throws IOException      */
 specifier|public
 name|BlockCompressWriter
 parameter_list|(
@@ -5183,7 +5182,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/** Write to an arbitrary stream using a specified buffer size. */
-specifier|private
+specifier|protected
 name|BlockCompressWriter
 parameter_list|(
 name|Configuration
@@ -5217,8 +5216,6 @@ name|super
 operator|.
 name|init
 argument_list|(
-literal|null
-argument_list|,
 name|conf
 argument_list|,
 name|out
@@ -5249,6 +5246,8 @@ name|finalizeFileHeader
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 name|boolean
 name|isCompressed
 parameter_list|()
@@ -5257,6 +5256,8 @@ return|return
 literal|true
 return|;
 block|}
+annotation|@
+name|Override
 name|boolean
 name|isBlockCompressed
 parameter_list|()
@@ -5386,6 +5387,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/** Compress and flush contents to dfs */
+annotation|@
+name|Override
 specifier|public
 specifier|synchronized
 name|void
@@ -5498,6 +5501,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/** Append a key/value pair. */
+annotation|@
+name|Override
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -5676,6 +5681,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/** Append a key/value pair. */
+annotation|@
+name|Override
 specifier|public
 specifier|synchronized
 name|void
@@ -6033,7 +6040,7 @@ specifier|private
 name|Deserializer
 name|valDeserializer
 decl_stmt|;
-comment|/** Open the named file. */
+comment|/** Open the named file.       * @param fs       * @param file       * @param conf       * @throws IOException      */
 specifier|public
 name|Reader
 parameter_list|(
@@ -6850,7 +6857,7 @@ name|c
 argument_list|)
 return|;
 block|}
-comment|/** Close the file. */
+comment|/** Close the file.       * @throws IOException      */
 specifier|public
 specifier|synchronized
 name|void
@@ -6933,7 +6940,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** Returns the name of the key class. */
+comment|/** Returns the name of the key class.       * @return String      */
 specifier|public
 name|String
 name|getKeyClassName
@@ -6943,7 +6950,7 @@ return|return
 name|keyClassName
 return|;
 block|}
-comment|/** Returns the class of keys in this file. */
+comment|/** Returns the class of keys in this file.       * @return Class      */
 specifier|public
 specifier|synchronized
 name|Class
@@ -6994,7 +7001,7 @@ return|return
 name|keyClass
 return|;
 block|}
-comment|/** Returns the name of the value class. */
+comment|/** Returns the name of the value class.       * @return String      */
 specifier|public
 name|String
 name|getValueClassName
@@ -7004,7 +7011,7 @@ return|return
 name|valClassName
 return|;
 block|}
-comment|/** Returns the class of values in this file. */
+comment|/** Returns the class of values in this file.       * @return Class      */
 specifier|public
 specifier|synchronized
 name|Class
@@ -7055,7 +7062,7 @@ return|return
 name|valClass
 return|;
 block|}
-comment|/** Returns true if values are compressed. */
+comment|/** Returns true if values are compressed.       * @return      */
 specifier|public
 name|boolean
 name|isCompressed

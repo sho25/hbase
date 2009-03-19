@@ -180,7 +180,7 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/**    * No aggregation, output pairs of (key, record)    */
+comment|/**    * No aggregation, output pairs of (key, record)    * @param key     * @param values     * @param output     * @param reporter     * @throws IOException     */
 specifier|public
 name|void
 name|reduce

@@ -466,14 +466,12 @@ function_decl|;
 comment|// will use this variable to synchronize and make sure we aren't interrupted
 comment|// mid-scan
 specifier|final
-name|Integer
+name|Object
 name|scannerLock
 init|=
 operator|new
-name|Integer
-argument_list|(
-literal|0
-argument_list|)
+name|Object
+argument_list|()
 decl_stmt|;
 name|BaseScanner
 parameter_list|(

@@ -248,15 +248,11 @@ throws|throws
 name|HBaseRestException
 block|{
 return|return
-operator|new
-name|String
-argument_list|(
 name|Base64
 operator|.
 name|encodeBytes
 argument_list|(
 name|b
-argument_list|)
 argument_list|)
 return|;
 block|}
@@ -295,6 +291,7 @@ decl_stmt|;
 block|}
 specifier|protected
 specifier|static
+specifier|final
 name|Encodings
 operator|.
 name|Encoding
@@ -427,6 +424,7 @@ block|}
 block|}
 specifier|protected
 specifier|static
+specifier|final
 name|byte
 name|COLON
 init|=

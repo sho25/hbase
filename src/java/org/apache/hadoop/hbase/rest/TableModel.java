@@ -738,7 +738,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Get table metadata.    *     * @param request    * @param response    * @param tableName    * @throws IOException    */
+comment|/**    * Get table metadata.    *    * @param tableName    * @return HTableDescriptor    * @throws HBaseRestException    */
 specifier|public
 name|HTableDescriptor
 name|getTableMetadata
@@ -848,7 +848,7 @@ return|return
 name|descriptor
 return|;
 block|}
-comment|/**    * Return region offsets.    *     * @param request    * @param response    */
+comment|/**    * Return region offsets.    * @param tableName     * @return Regions    * @throws HBaseRestException     */
 specifier|public
 name|Regions
 name|getTableRegions
@@ -1041,6 +1041,7 @@ throw|;
 block|}
 block|}
 specifier|public
+specifier|static
 class|class
 name|Regions
 implements|implements

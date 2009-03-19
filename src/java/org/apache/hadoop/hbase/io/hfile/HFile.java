@@ -478,6 +478,7 @@ name|Algorithm
 operator|.
 name|NONE
 decl_stmt|;
+comment|/** Default compression name: none. */
 specifier|public
 specifier|final
 specifier|static
@@ -717,7 +718,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Constructor that takes a Path.      * @param fs      * @param path      * @param blocksize      * @param compress      * @param comparator      * @param bloomfilter      * @throws IOException       * @throws IOException      */
+comment|/**      * Constructor that takes a Path.      * @param fs      * @param path      * @param blocksize      * @param compress      * @param comparator      * @throws IOException       * @throws IOException      */
 specifier|public
 name|Writer
 parameter_list|(
@@ -844,7 +845,7 @@ operator|=
 name|path
 expr_stmt|;
 block|}
-comment|/**      * Constructor that takes a stream.      * @param ostream Stream to use.      * @param blocksize      * @param compress      * @param c      * @param bloomfilter      * @throws IOException      */
+comment|/**      * Constructor that takes a stream.      * @param ostream Stream to use.      * @param blocksize      * @param compress      * @param c      * @throws IOException      */
 specifier|public
 name|Writer
 parameter_list|(
@@ -1396,6 +1397,8 @@ operator|.
 name|path
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -2428,6 +2431,8 @@ name|toString
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -5037,6 +5042,8 @@ argument_list|)
 throw|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString
@@ -5687,6 +5694,8 @@ return|return
 name|bi
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toString

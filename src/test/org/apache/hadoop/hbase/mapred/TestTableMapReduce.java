@@ -352,11 +352,6 @@ name|TestTableMapReduce
 extends|extends
 name|MultiRegionTable
 block|{
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"hiding"
-argument_list|)
 specifier|private
 specifier|static
 specifier|final
@@ -480,12 +475,7 @@ argument_list|,
 name|BatchUpdate
 argument_list|>
 block|{
-comment|/**      * Pass the key, and reversed value to reduce      */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
+comment|/**      * Pass the key, and reversed value to reduce      * @param key       * @param value       * @param output       * @param reporter       * @throws IOException       */
 specifier|public
 name|void
 name|map
@@ -504,11 +494,6 @@ name|BatchUpdate
 argument_list|>
 name|output
 parameter_list|,
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|Reporter
 name|reporter
 parameter_list|)
@@ -730,11 +715,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 name|MiniMRCluster
 name|mrCluster
 init|=
@@ -925,11 +905,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"null"
-argument_list|)
 specifier|private
 name|void
 name|verify

@@ -208,7 +208,7 @@ specifier|public
 class|class
 name|MapFilePerformanceEvaluation
 block|{
-specifier|private
+specifier|protected
 specifier|final
 name|HBaseConfiguration
 name|conf
@@ -316,12 +316,7 @@ block|}
 specifier|private
 name|void
 name|runBenchmarks
-parameter_list|(
-specifier|final
-name|String
-index|[]
-name|args
-parameter_list|)
+parameter_list|()
 throws|throws
 name|Exception
 block|{
@@ -587,7 +582,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
+specifier|protected
 name|void
 name|runBenchmark
 parameter_list|(
@@ -1182,11 +1177,6 @@ name|Override
 name|void
 name|doRow
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|int
 name|i
 parameter_list|)
@@ -1303,11 +1293,6 @@ name|Override
 name|void
 name|doRow
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|int
 name|i
 parameter_list|)
@@ -1417,11 +1402,6 @@ name|Override
 name|void
 name|doRow
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|int
 name|i
 parameter_list|)
@@ -1600,11 +1580,6 @@ name|Override
 name|void
 name|doRow
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 name|int
 name|i
 parameter_list|)
@@ -1679,7 +1654,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * @param args    * @throws IOException     */
+comment|/**    * @param args    * @throws Exception     * @throws IOException     */
 specifier|public
 specifier|static
 name|void
@@ -1701,9 +1676,7 @@ argument_list|()
 argument_list|)
 operator|.
 name|runBenchmarks
-argument_list|(
-name|args
-argument_list|)
+argument_list|()
 expr_stmt|;
 block|}
 block|}

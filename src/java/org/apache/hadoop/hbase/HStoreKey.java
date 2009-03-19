@@ -791,6 +791,7 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/**    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
 specifier|public
@@ -824,6 +825,7 @@ operator|+
 name|timestamp
 return|;
 block|}
+comment|/**    * @see java.lang.Object#equals(java.lang.Object)    */
 annotation|@
 name|Override
 specifier|public
@@ -835,6 +837,43 @@ name|Object
 name|obj
 parameter_list|)
 block|{
+if|if
+condition|(
+name|this
+operator|==
+name|obj
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+if|if
+condition|(
+name|obj
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+if|if
+condition|(
+name|getClass
+argument_list|()
+operator|!=
+name|obj
+operator|.
+name|getClass
+argument_list|()
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 specifier|final
 name|HStoreKey
 name|other
@@ -893,6 +932,9 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/**    * @see java.lang.Object#hashCode()    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|hashCode
@@ -929,7 +971,9 @@ name|c
 return|;
 block|}
 comment|// Comparable
-comment|/**    * @deprecated Use Comparators instead.  This can give wrong results.    */
+comment|/**    * @param o     * @return int    * @deprecated Use Comparators instead.  This can give wrong results.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|int
 name|compareTo
@@ -949,6 +993,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @param left    * @param right    * @return    * @deprecated Use Comparators instead.  This can give wrong results because    * does not take into account special handling needed for meta and root rows.    */
+annotation|@
+name|Deprecated
 specifier|static
 name|int
 name|compareTo
@@ -1511,7 +1557,12 @@ name|ColumnNameParseException
 argument_list|(
 literal|"Impossible column name: "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|c
+argument_list|)
 argument_list|)
 throw|;
 block|}
@@ -1617,9 +1668,6 @@ name|b
 operator|.
 name|length
 argument_list|,
-operator|(
-name|int
-operator|)
 name|COLUMN_FAMILY_DELIMITER
 argument_list|)
 return|;
@@ -3043,6 +3091,8 @@ name|HStoreKeyRootComparator
 extends|extends
 name|HStoreKeyMetaComparator
 block|{
+annotation|@
+name|Override
 specifier|protected
 name|int
 name|compareRows
@@ -3094,6 +3144,8 @@ name|HStoreKeyMetaComparator
 extends|extends
 name|HStoreKeyComparator
 block|{
+annotation|@
+name|Override
 specifier|protected
 name|int
 name|compareRows
@@ -3157,6 +3209,8 @@ name|class
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -3458,6 +3512,16 @@ name|RootStoreKeyComparator
 extends|extends
 name|MetaStoreKeyComparator
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+literal|1L
+decl_stmt|;
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compareRows
@@ -3509,6 +3573,8 @@ name|MetaStoreKeyComparator
 extends|extends
 name|StoreKeyComparator
 block|{
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compareRows
@@ -4692,7 +4758,7 @@ argument_list|()
 condition|?
 name|META_COMPARATOR
 else|:
-name|META_COMPARATOR
+name|PLAIN_COMPARATOR
 return|;
 block|}
 comment|/**    * @param tablename    * @return Compatible raw comparator    */

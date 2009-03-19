@@ -105,7 +105,7 @@ name|byte
 index|[]
 name|prefix
 decl_stmt|;
-comment|/**    * Constructor that takes a row prefix to filter on    */
+comment|/**    * Constructor that takes a row prefix to filter on    * @param prefix     */
 specifier|public
 name|PrefixRowFilter
 parameter_list|(

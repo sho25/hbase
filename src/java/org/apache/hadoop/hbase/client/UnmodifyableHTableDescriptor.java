@@ -213,6 +213,7 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
+comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setInMemory(boolean)    */
 annotation|@
 name|Override
 specifier|public
@@ -231,6 +232,7 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
+comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setReadOnly(boolean)    */
 annotation|@
 name|Override
 specifier|public
@@ -249,6 +251,7 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
+comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setValue(byte[], byte[])    */
 annotation|@
 name|Override
 specifier|public
@@ -272,6 +275,7 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
+comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setValue(java.lang.String, java.lang.String)    */
 annotation|@
 name|Override
 specifier|public
@@ -293,6 +297,7 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
+comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setMaxFileSize(long)    */
 annotation|@
 name|Override
 specifier|public
@@ -311,6 +316,7 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
+comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setMemcacheFlushSize(int)    */
 annotation|@
 name|Override
 specifier|public
@@ -329,6 +335,7 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
+comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#addIndex(org.apache.hadoop.hbase.client.tableindexed.IndexSpecification)    */
 annotation|@
 name|Override
 specifier|public

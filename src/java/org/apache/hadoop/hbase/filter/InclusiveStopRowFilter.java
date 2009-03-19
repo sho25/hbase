@@ -69,6 +69,7 @@ name|stopRowKey
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @see org.apache.hadoop.hbase.filter.StopRowFilter#filterRowKey(byte[])    */
 annotation|@
 name|Override
 specifier|public

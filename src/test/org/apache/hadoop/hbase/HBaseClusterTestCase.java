@@ -204,7 +204,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|protected
+specifier|public
 name|MiniHBaseCluster
 name|cluster
 decl_stmt|;
@@ -349,9 +349,7 @@ name|zooKeeperCluster
 operator|=
 operator|new
 name|MiniZooKeeperCluster
-argument_list|(
-name|conf
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|this
 operator|.

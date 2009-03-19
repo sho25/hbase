@@ -164,11 +164,6 @@ specifier|protected
 name|AbstractModel
 name|generateModel
 parameter_list|(
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"hiding"
-argument_list|)
 name|HBaseConfiguration
 name|conf
 parameter_list|,

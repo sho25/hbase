@@ -367,7 +367,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Extract the grouping columns from value to construct a new key.    *     * Pass the new key and value to reduce.    * If any of the grouping columns are not found in the value, the record is skipped.    */
+comment|/**    * Extract the grouping columns from value to construct a new key.    *     * Pass the new key and value to reduce.    * If any of the grouping columns are not found in the value, the record is skipped.    * @param key     * @param value     * @param output     * @param reporter     * @throws IOException     */
 specifier|public
 name|void
 name|map

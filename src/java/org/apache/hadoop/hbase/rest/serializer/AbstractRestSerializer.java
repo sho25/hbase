@@ -74,7 +74,7 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
-comment|/**    * Public constructor for AbstractRestSerializer. This is the constructor that    * should be called whenever creating a RestSerializer object.    *     * @param response    */
+comment|/**    * Public constructor for AbstractRestSerializer. This is the constructor that    * should be called whenever creating a RestSerializer object.    *     * @param response    * @param prettyPrint     */
 specifier|public
 name|AbstractRestSerializer
 parameter_list|(

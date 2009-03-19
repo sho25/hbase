@@ -272,6 +272,7 @@ name|boolean
 name|rootRescanned
 decl_stmt|;
 specifier|private
+specifier|static
 class|class
 name|ToDoEntry
 block|{

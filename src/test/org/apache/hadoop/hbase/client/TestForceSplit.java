@@ -75,20 +75,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -192,20 +178,8 @@ argument_list|(
 literal|"a:"
 argument_list|)
 decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|key_mmi
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"mmi"
-argument_list|)
-decl_stmt|;
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|setUp
@@ -230,7 +204,7 @@ literal|32
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * the test    * @throws IOException    */
+comment|/**    * the test    * @throws Exception     * @throws IOException    */
 specifier|public
 name|void
 name|testHTable

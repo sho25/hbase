@@ -515,6 +515,7 @@ name|storefileIndexSizeMB
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * @see java.lang.Object#toString()      */
 annotation|@
 name|Override
 specifier|public
@@ -708,6 +709,7 @@ return|return
 name|numberOfRegions
 return|;
 block|}
+comment|/**    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
 specifier|public
@@ -821,6 +823,7 @@ name|toString
 argument_list|()
 return|;
 block|}
+comment|/**    * @see java.lang.Object#equals(java.lang.Object)    */
 annotation|@
 name|Override
 specifier|public
@@ -831,6 +834,43 @@ name|Object
 name|o
 parameter_list|)
 block|{
+if|if
+condition|(
+name|this
+operator|==
+name|o
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+if|if
+condition|(
+name|o
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+if|if
+condition|(
+name|getClass
+argument_list|()
+operator|!=
+name|o
+operator|.
+name|getClass
+argument_list|()
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 return|return
 name|compareTo
 argument_list|(
@@ -843,6 +883,7 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/**    * @see java.lang.Object#hashCode()    */
 annotation|@
 name|Override
 specifier|public

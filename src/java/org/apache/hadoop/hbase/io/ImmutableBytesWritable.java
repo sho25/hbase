@@ -480,6 +480,7 @@ name|length
 argument_list|)
 return|;
 block|}
+comment|/**    * @see java.lang.Object#equals(java.lang.Object)    */
 annotation|@
 name|Override
 specifier|public
@@ -534,6 +535,7 @@ return|return
 literal|false
 return|;
 block|}
+comment|/**    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
 specifier|public
@@ -671,6 +673,7 @@ name|class
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * @see org.apache.hadoop.io.WritableComparator#compare(byte[], int, int, byte[], int, int)      */
 annotation|@
 name|Override
 specifier|public

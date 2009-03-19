@@ -505,14 +505,24 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|COL_REGIONINFO
+argument_list|)
 operator|+
 literal|" not found on "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|values
 operator|.
 name|getRow
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 continue|continue;
@@ -713,10 +723,15 @@ argument_list|()
 operator|+
 literal|" rows with empty HRegionInfo while scanning meta region "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|m
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|master

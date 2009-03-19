@@ -383,7 +383,7 @@ argument_list|(
 literal|"org.apache.hadoop.ipc.HBaseClass"
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
 name|Hashtable
 argument_list|<
 name|ConnectionId
@@ -401,7 +401,7 @@ name|Connection
 argument_list|>
 argument_list|()
 decl_stmt|;
-specifier|private
+specifier|protected
 name|Class
 argument_list|<
 name|?
@@ -411,12 +411,12 @@ argument_list|>
 name|valueClass
 decl_stmt|;
 comment|// class of call values
-specifier|private
+specifier|protected
 name|int
 name|counter
 decl_stmt|;
 comment|// counter for call ids
-specifier|private
+specifier|protected
 name|AtomicBoolean
 name|running
 init|=
@@ -428,34 +428,34 @@ argument_list|)
 decl_stmt|;
 comment|// if client runs
 specifier|final
-specifier|private
+specifier|protected
 name|Configuration
 name|conf
 decl_stmt|;
 specifier|final
-specifier|private
+specifier|protected
 name|int
 name|maxIdleTime
 decl_stmt|;
 comment|//connections will be culled if it was idle for
 comment|//maxIdleTime msecs
 specifier|final
-specifier|private
+specifier|protected
 name|int
 name|maxRetries
 decl_stmt|;
 comment|//the max. no. of retries for socket connections
-specifier|private
+specifier|protected
 name|boolean
 name|tcpNoDelay
 decl_stmt|;
 comment|// if T then disable Nagle's Algorithm
-specifier|private
+specifier|protected
 name|int
 name|pingInterval
 decl_stmt|;
 comment|// how often sends ping to the server in msecs
-specifier|private
+specifier|protected
 name|SocketFactory
 name|socketFactory
 decl_stmt|;
@@ -734,7 +734,7 @@ name|AtomicLong
 argument_list|()
 decl_stmt|;
 comment|// last I/O activity time
-specifier|private
+specifier|protected
 name|AtomicBoolean
 name|shouldCloseConnection
 init|=
@@ -884,7 +884,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**      * Add a call to this connection's call queue and notify      * a listener; synchronized.      * Returns false if called during shutdown.      * @param call to add      * @return true if the call was added.      */
-specifier|private
+specifier|protected
 specifier|synchronized
 name|boolean
 name|addCall
@@ -971,14 +971,13 @@ throw|throw
 name|e
 throw|;
 block|}
-else|else
-block|{
 name|sendPing
 argument_list|()
 expr_stmt|;
 block|}
-block|}
 comment|/** Read a byte from the stream.        * Send a ping if timeout on read. Retries if no failure is detected        * until a byte is read.        * @throws IOException for any IO problem other than socket timeout        */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|read
@@ -1017,6 +1016,8 @@ condition|)
 do|;
 block|}
 comment|/** Read bytes into a buffer starting from offset<code>off</code>        * Send a ping if timeout on read. Retries if no failure is detected        * until a byte is read.        *         * @return the total number of bytes read; -1 if the connection is closed.        */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|read
@@ -1072,7 +1073,7 @@ do|;
 block|}
 block|}
 comment|/** Connect to the server and set up the I/O streams. It then sends      * a header to the server and starts      * the connection thread that waits for responses.      */
-specifier|private
+specifier|protected
 specifier|synchronized
 name|void
 name|setupIOstreams
@@ -1623,7 +1624,7 @@ argument_list|()
 return|;
 block|}
 comment|/* Send a ping to the server if the time elapsed       * since last I/O activity is equal to or greater than the ping interval      */
-specifier|private
+specifier|protected
 specifier|synchronized
 name|void
 name|sendPing
@@ -1678,6 +1679,8 @@ expr_stmt|;
 block|}
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run
@@ -1742,7 +1745,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Initiates a call by sending the parameter to the remote server.      * Note: this is not called from the Connection thread, but by other      * threads.      */
+comment|/** Initiates a call by sending the parameter to the remote server.      * Note: this is not called from the Connection thread, but by other      * threads.      * @param call      */
 specifier|public
 name|void
 name|sendParam
@@ -2294,7 +2297,7 @@ specifier|private
 name|ParallelResults
 name|results
 decl_stmt|;
-specifier|private
+specifier|protected
 name|int
 name|index
 decl_stmt|;
@@ -2330,6 +2333,8 @@ name|index
 expr_stmt|;
 block|}
 comment|/** Deliver result to result collector. */
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|callComplete
@@ -2350,16 +2355,16 @@ specifier|static
 class|class
 name|ParallelResults
 block|{
-specifier|private
+specifier|protected
 name|Writable
 index|[]
 name|values
 decl_stmt|;
-specifier|private
+specifier|protected
 name|int
 name|size
 decl_stmt|;
-specifier|private
+specifier|protected
 name|int
 name|count
 decl_stmt|;
@@ -2387,7 +2392,7 @@ operator|=
 name|size
 expr_stmt|;
 block|}
-comment|/** Collect a result. */
+comment|/**      * Collect a result.      * @param call      */
 specifier|public
 specifier|synchronized
 name|void
@@ -2426,7 +2431,7 @@ expr_stmt|;
 comment|// then notify waiting caller
 block|}
 block|}
-comment|/** Construct an IPC client whose values are of the given {@link Writable}    * class. */
+comment|/**    * Construct an IPC client whose values are of the given {@link Writable}    * class.    * @param valueClass    * @param conf    * @param factory    */
 specifier|public
 name|HBaseClient
 parameter_list|(
@@ -2664,7 +2669,7 @@ parameter_list|)
 block|{       }
 block|}
 block|}
-comment|/** Make a call, passing<code>param</code>, to the IPC server running at    *<code>address</code>, returning the value.  Throws exceptions if there are    * network problems or if the remote code threw an exception. */
+comment|/** Make a call, passing<code>param</code>, to the IPC server running at    *<code>address</code>, returning the value.  Throws exceptions if there are    * network problems or if the remote code threw an exception.     * @param param     * @param address     * @return Writable     * @throws IOException    */
 specifier|public
 name|Writable
 name|call
@@ -2676,8 +2681,6 @@ name|InetSocketAddress
 name|address
 parameter_list|)
 throws|throws
-name|InterruptedException
-throws|,
 name|IOException
 block|{
 return|return
@@ -2705,8 +2708,6 @@ name|UserGroupInformation
 name|ticket
 parameter_list|)
 throws|throws
-name|InterruptedException
-throws|,
 name|IOException
 block|{
 name|Call
@@ -2798,8 +2799,6 @@ operator|.
 name|error
 throw|;
 block|}
-else|else
-block|{
 comment|// local exception
 throw|throw
 name|wrapException
@@ -2812,15 +2811,11 @@ name|error
 argument_list|)
 throw|;
 block|}
-block|}
-else|else
-block|{
 return|return
 name|call
 operator|.
 name|value
 return|;
-block|}
 block|}
 block|}
 comment|/**    * Take an IOException and the address we were trying to connect to    * and return an IOException with the input exception as the cause.    * The new exception provides the stack trace of the place where     * the exception is thrown and some extra diagnostics information.    * If the exception is ConnectException or SocketTimeoutException,     * return a new one of the same type; Otherwise return an IOException.    *     * @param addr target address    * @param exception the relevant exception    * @return an exception to throw    */
@@ -2920,7 +2915,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/** Makes a set of calls in parallel.  Each parameter is sent to the    * corresponding address.  When all values are available, or have timed out    * or errored, the collected results are returned in an array.  The array    * contains nulls for calls that timed out or errored.  */
+comment|/** Makes a set of calls in parallel.  Each parameter is sent to the    * corresponding address.  When all values are available, or have timed out    * or errored, the collected results are returned in an array.  The array    * contains nulls for calls that timed out or errored.      * @param params     * @param addresses     * @return  Writable[]    * @throws IOException    */
 specifier|public
 name|Writable
 index|[]

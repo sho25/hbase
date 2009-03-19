@@ -268,7 +268,12 @@ name|assertFalse
 argument_list|(
 literal|"Filtering on "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|GOOD_ROW
+argument_list|)
 argument_list|,
 name|filter
 operator|.
@@ -282,7 +287,12 @@ name|assertFalse
 argument_list|(
 literal|"Filtering on "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|STOP_ROW
+argument_list|)
 argument_list|,
 name|filter
 operator|.
@@ -296,7 +306,12 @@ name|assertTrue
 argument_list|(
 literal|"Filtering on "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|PAST_STOP_ROW
+argument_list|)
 argument_list|,
 name|filter
 operator|.
@@ -310,7 +325,12 @@ name|assertFalse
 argument_list|(
 literal|"Filtering on "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|GOOD_ROW
+argument_list|)
 argument_list|,
 name|filter
 operator|.
@@ -328,7 +348,12 @@ name|assertFalse
 argument_list|(
 literal|"Filtering on "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|STOP_ROW
+argument_list|)
 argument_list|,
 name|filter
 operator|.
@@ -346,7 +371,12 @@ name|assertTrue
 argument_list|(
 literal|"Filtering on "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|PAST_STOP_ROW
+argument_list|)
 argument_list|,
 name|filter
 operator|.

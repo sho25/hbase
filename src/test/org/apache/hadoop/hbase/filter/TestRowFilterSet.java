@@ -177,12 +177,14 @@ name|MAX_PAGES
 init|=
 literal|5
 decl_stmt|;
+specifier|static
 specifier|final
 name|char
 name|FIRST_CHAR
 init|=
 literal|'a'
 decl_stmt|;
+specifier|static
 specifier|final
 name|char
 name|LAST_CHAR

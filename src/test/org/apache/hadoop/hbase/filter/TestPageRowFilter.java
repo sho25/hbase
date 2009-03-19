@@ -97,6 +97,7 @@ block|{
 name|RowFilterInterface
 name|mainFilter
 decl_stmt|;
+specifier|static
 specifier|final
 name|int
 name|ROW_LIMIT

@@ -614,10 +614,15 @@ name|out
 operator|.
 name|println
 argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|r
 operator|.
 name|getRow
 argument_list|()
+argument_list|)
 operator|+
 literal|": row: "
 operator|+
@@ -874,6 +879,11 @@ literal|0
 decl_stmt|;
 for|for
 control|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|RowResult
 name|row
 range|:
@@ -1014,6 +1024,11 @@ literal|0
 decl_stmt|;
 for|for
 control|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|RowResult
 name|row
 range|:
@@ -1058,6 +1073,11 @@ literal|0
 expr_stmt|;
 for|for
 control|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|RowResult
 name|row
 range|:
@@ -1212,6 +1232,11 @@ literal|0
 decl_stmt|;
 for|for
 control|(
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|RowResult
 name|row
 range|:

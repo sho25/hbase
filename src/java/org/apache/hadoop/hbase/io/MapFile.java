@@ -240,7 +240,7 @@ specifier|public
 class|class
 name|MapFile
 block|{
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|Log
@@ -353,7 +353,7 @@ specifier|private
 name|WritableComparable
 name|lastKey
 decl_stmt|;
-comment|/** Create the named map for keys of the named class. */
+comment|/** Create the named map for keys of the named class.       * @param conf       * @param fs       * @param dirName       * @param keyClass       * @param valClass       * @throws IOException      */
 specifier|public
 name|Writer
 parameter_list|(
@@ -406,7 +406,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Create the named map for keys of the named class. */
+comment|/** Create the named map for keys of the named class.       * @param conf       * @param fs       * @param dirName       * @param keyClass       * @param valClass       * @param compress       * @param progress       * @throws IOException      */
 specifier|public
 name|Writer
 parameter_list|(
@@ -523,7 +523,7 @@ name|progress
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Create the named map for keys of the named class. */
+comment|/** Create the named map for keys of the named class.       * @param conf       * @param fs       * @param dirName       * @param keyClass       * @param valClass       * @param compress       * @throws IOException      */
 specifier|public
 name|Writer
 parameter_list|(
@@ -574,7 +574,7 @@ name|compress
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Create the named map using the named key comparator. */
+comment|/** Create the named map using the named key comparator.       * @param conf       * @param fs       * @param dirName       * @param comparator       * @param valClass       * @throws IOException      */
 specifier|public
 name|Writer
 parameter_list|(
@@ -617,7 +617,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Create the named map using the named key comparator. */
+comment|/** Create the named map using the named key comparator.       * @param conf       * @param fs       * @param dirName       * @param comparator       * @param valClass       * @param compress       * @throws IOException      */
 specifier|public
 name|Writer
 parameter_list|(
@@ -662,7 +662,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Create the named map using the named key comparator. */
+comment|/** Create the named map using the named key comparator.       * @param conf       * @param fs       * @param dirName       * @param comparator       * @param valClass       * @param compress       * @param progress       * @throws IOException      */
 specifier|public
 name|Writer
 parameter_list|(
@@ -714,7 +714,7 @@ name|progress
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Create the named map using the named key comparator. */
+comment|/** Create the named map using the named key comparator.       * @param conf       * @param fs       * @param dirName       * @param comparator       * @param valClass       * @param compress       * @param codec       * @param progress       * @throws IOException      */
 specifier|public
 name|Writer
 parameter_list|(
@@ -917,7 +917,7 @@ operator|=
 name|interval
 expr_stmt|;
 block|}
-comment|/** Sets the index interval and stores it in conf      * @see #getIndexInterval()      */
+comment|/** Sets the index interval and stores it in conf      * @param conf       * @param interval       * @see #getIndexInterval()      */
 specifier|public
 specifier|static
 name|void
@@ -1220,7 +1220,7 @@ name|getValueClass
 argument_list|()
 return|;
 block|}
-comment|/** Construct a map reader for the named map.*/
+comment|/** Construct a map reader for the named map.      * @param fs       * @param dirName       * @param conf       * @throws IOException      */
 specifier|public
 name|Reader
 parameter_list|(
@@ -1259,7 +1259,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Construct a map reader for the named map using the named comparator.*/
+comment|/** Construct a map reader for the named map using the named comparator.      * @param fs       * @param dirName       * @param comparator       * @param conf       * @throws IOException      */
 specifier|public
 name|Reader
 parameter_list|(
@@ -1627,14 +1627,11 @@ expr_stmt|;
 continue|continue;
 comment|// skip this entry
 block|}
-else|else
-block|{
 name|skip
 operator|=
 name|INDEX_SKIP
 expr_stmt|;
 comment|// reset skip
-block|}
 if|if
 condition|(
 name|count
@@ -2373,7 +2370,6 @@ return|return
 name|val
 return|;
 block|}
-else|else
 return|return
 literal|null
 return|;
@@ -2499,7 +2495,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/** Renames an existing map directory. */
+comment|/** Renames an existing map directory.     * @param fs     * @param oldName     * @param newName     * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -2563,7 +2559,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/** Deletes the named map file. */
+comment|/** Deletes the named map file.     * @param fs     * @param name     * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -2637,7 +2633,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * This method attempts to fix a corrupt MapFile by re-creating its index.    * @param fs filesystem    * @param dir directory containing the MapFile data and index    * @param keyClass key class (has to be a subclass of Writable)    * @param valueClass value class (has to be a subclass of Writable)    * @param dryrun do not perform any changes, just report what needs to be done    * @return number of valid entries in this MapFile, or -1 if no fixing was needed    * @throws Exception    */
+comment|/**    * This method attempts to fix a corrupt MapFile by re-creating its index.    * @param fs filesystem    * @param dir directory containing the MapFile data and index    * @param keyClass key class (has to be a subclass of Writable)    * @param valueClass value class (has to be a subclass of Writable)    * @param dryrun do not perform any changes, just report what needs to be done    * @param conf     * @return number of valid entries in this MapFile, or -1 if no fixing was needed    * @throws Exception    */
 specifier|public
 specifier|static
 name|long

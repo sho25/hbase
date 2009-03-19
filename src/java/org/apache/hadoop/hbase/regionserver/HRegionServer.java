@@ -1274,7 +1274,7 @@ specifier|final
 name|ServerConnection
 name|connection
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|AtomicBoolean
 name|haveRootRegion
@@ -4085,6 +4085,10 @@ name|CompactionLimitThread
 extends|extends
 name|Thread
 block|{
+specifier|protected
+name|CompactionLimitThread
+parameter_list|()
+block|{}
 annotation|@
 name|Override
 specifier|public
@@ -6181,11 +6185,11 @@ specifier|static
 class|class
 name|ToDoEntry
 block|{
-specifier|private
+specifier|protected
 name|int
 name|tries
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|HMsg
 name|msg
@@ -7009,8 +7013,8 @@ return|return
 name|r
 return|;
 block|}
-comment|/*    * Add a MSG_REPORT_PROCESS_OPEN to the outbound queue.    * This method is called while region is in the queue of regions to process    * and then while the region is being opened, it is called from the Worker    * thread that is running the region open.    * @param hri Region to add the message for    */
-specifier|protected
+comment|/**    * Add a MSG_REPORT_PROCESS_OPEN to the outbound queue.    * This method is called while region is in the queue of regions to process    * and then while the region is being opened, it is called from the Worker    * thread that is running the region open.    * @param hri Region to add the message for    */
+specifier|public
 name|void
 name|addProcessingMessage
 parameter_list|(

@@ -560,6 +560,7 @@ name|val
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
 specifier|public
@@ -948,7 +949,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/*    * (non-Javadoc)    *     * @see    * org.apache.hadoop.hbase.rest.serializer.ISerializable#restSerialize(org    * .apache.hadoop.hbase.rest.serializer.IRestSerializer)    */
+comment|/**    * @see    * org.apache.hadoop.hbase.rest.serializer.ISerializable#restSerialize(org    * .apache.hadoop.hbase.rest.serializer.IRestSerializer)    */
 specifier|public
 name|void
 name|restSerialize

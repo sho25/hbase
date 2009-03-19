@@ -182,6 +182,8 @@ name|TestHbaseObjectWritable
 extends|extends
 name|TestCase
 block|{
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|setUp
@@ -195,6 +197,8 @@ name|setUp
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|tearDown

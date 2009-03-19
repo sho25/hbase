@@ -370,11 +370,14 @@ operator|.
 name|toString
 argument_list|()
 decl_stmt|;
+name|assertTrue
+argument_list|(
 name|content
 operator|.
 name|matches
 argument_list|(
 name|expected
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

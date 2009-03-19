@@ -615,14 +615,12 @@ literal|false
 decl_stmt|;
 specifier|private
 specifier|final
-name|Integer
+name|Object
 name|sequenceLock
 init|=
 operator|new
-name|Integer
-argument_list|(
-literal|0
-argument_list|)
+name|Object
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|volatile
@@ -668,14 +666,12 @@ comment|// We synchronize on updateLock to prevent updates and to prevent a log 
 comment|// during an update
 specifier|private
 specifier|final
-name|Integer
+name|Object
 name|updateLock
 init|=
 operator|new
-name|Integer
-argument_list|(
-literal|0
-argument_list|)
+name|Object
+argument_list|()
 decl_stmt|;
 comment|/*    * If more than this many logs, force flush of oldest region to oldest edit    * goes to disk.  If too many and we crash, then will take forever replaying.    * Keep the number of logs tidy.    */
 specifier|private

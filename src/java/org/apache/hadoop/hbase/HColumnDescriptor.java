@@ -266,6 +266,8 @@ operator|)
 literal|7
 decl_stmt|;
 comment|/**     * The type of compression.    * @see org.apache.hadoop.io.SequenceFile.Writer    * @deprecated Replaced by {@link Compression.Algorithm}.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 enum|enum
@@ -380,6 +382,7 @@ name|Integer
 operator|.
 name|MAX_VALUE
 decl_stmt|;
+comment|/** Default maximum cell length as an Integer. */
 specifier|public
 specifier|static
 specifier|final
@@ -682,7 +685,7 @@ name|bloomFilter
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and end in a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param maxValueLength Restrict values to&lt;= this value    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and end in a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize    * @param maxValueLength Restrict values to&lt;= this value    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -1783,6 +1786,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
 specifier|public
@@ -1929,6 +1933,7 @@ name|toString
 argument_list|()
 return|;
 block|}
+comment|/**    * @see java.lang.Object#equals(java.lang.Object)    */
 annotation|@
 name|Override
 specifier|public
@@ -1939,6 +1944,42 @@ name|Object
 name|obj
 parameter_list|)
 block|{
+if|if
+condition|(
+name|this
+operator|==
+name|obj
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+if|if
+condition|(
+name|obj
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+if|if
+condition|(
+operator|!
+operator|(
+name|obj
+operator|instanceof
+name|HColumnDescriptor
+operator|)
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 return|return
 name|compareTo
 argument_list|(
@@ -1951,6 +1992,7 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/**    * @see java.lang.Object#hashCode()    */
 annotation|@
 name|Override
 specifier|public

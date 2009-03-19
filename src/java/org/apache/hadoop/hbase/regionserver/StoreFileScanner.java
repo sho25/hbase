@@ -862,6 +862,7 @@ expr_stmt|;
 block|}
 block|}
 comment|// Data stucture to hold next, viable row (and timestamp).
+specifier|static
 class|class
 name|ViableRow
 block|{

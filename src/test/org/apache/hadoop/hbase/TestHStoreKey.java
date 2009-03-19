@@ -108,6 +108,8 @@ name|TestHStoreKey
 extends|extends
 name|TestCase
 block|{
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|setUp
@@ -121,6 +123,8 @@ name|setUp
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|tearDown
@@ -1552,7 +1556,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test the byte comparator works same as the object comparator.    */
+comment|/**    * Test the byte comparator works same as the object comparator.    * @throws IOException     */
 specifier|public
 name|void
 name|testRawComparator
