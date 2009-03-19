@@ -3395,8 +3395,9 @@ literal|1
 expr_stmt|;
 block|}
 return|return
-name|result
+literal|0
 return|;
+comment|// are equal
 block|}
 specifier|protected
 name|int
