@@ -3353,24 +3353,10 @@ name|getColumn
 argument_list|()
 operator|==
 literal|null
-operator|&&
-name|right
-operator|.
-name|getColumn
-argument_list|()
-operator|!=
-literal|null
 condition|?
 operator|-
 literal|1
 else|:
-name|left
-operator|.
-name|getColumn
-argument_list|()
-operator|!=
-literal|null
-operator|&&
 name|right
 operator|.
 name|getColumn
@@ -3449,7 +3435,7 @@ literal|1
 expr_stmt|;
 block|}
 return|return
-literal|0
+name|result
 return|;
 comment|// are equal
 block|}
