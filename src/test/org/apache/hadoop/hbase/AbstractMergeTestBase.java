@@ -392,6 +392,13 @@ argument_list|(
 literal|"row_80001"
 argument_list|)
 decl_stmt|;
+comment|// XXX: Note that the number of rows we put in is different for each region
+comment|// because currently we don't have a good mechanism to handle merging two
+comment|// store files with the same sequence id. We can't just dumbly stick them
+comment|// in because it will screw up the order when the store files are loaded up.
+comment|// The sequence ids are used for arranging the store files, so if two files
+comment|// have the same id, one will overwrite the other one in our listing, which
+comment|// is very bad. See HBASE-1212 and HBASE-1274.
 name|HRegion
 index|[]
 name|regions
@@ -427,7 +434,7 @@ literal|null
 argument_list|,
 literal|80001
 argument_list|,
-literal|10000
+literal|11000
 argument_list|)
 block|}
 decl_stmt|;

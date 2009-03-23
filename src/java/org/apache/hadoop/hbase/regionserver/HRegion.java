@@ -9899,7 +9899,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Merge two HRegions.  The regions must be adjacent andmust not overlap.    *     * @param srcA    * @param srcB    * @return new merged HRegion    * @throws IOException    */
+comment|/**    * Merge two HRegions.  The regions must be adjacent and must not overlap.    *     * @param srcA    * @param srcB    * @return new merged HRegion    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -10599,7 +10599,9 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Files have same sequenceid"
+literal|"Files have same sequenceid: "
+operator|+
+name|seqA
 argument_list|)
 throw|;
 block|}
