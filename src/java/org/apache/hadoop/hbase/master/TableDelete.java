@@ -262,6 +262,30 @@ range|:
 name|unservedRegions
 control|)
 block|{
+if|if
+condition|(
+operator|!
+name|Bytes
+operator|.
+name|equals
+argument_list|(
+name|this
+operator|.
+name|tableName
+argument_list|,
+name|i
+operator|.
+name|getTableDesc
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+comment|// Don't delete regions that are not from our table.
+continue|continue;
+block|}
 comment|// Delete the region
 try|try
 block|{
