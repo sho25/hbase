@@ -1934,6 +1934,23 @@ name|getServersToServerInfo
 argument_list|()
 return|;
 block|}
+specifier|public
+name|Map
+argument_list|<
+name|HServerAddress
+argument_list|,
+name|HServerInfo
+argument_list|>
+name|getServerAddressToServerInfo
+parameter_list|()
+block|{
+return|return
+name|serverManager
+operator|.
+name|getServerAddressToServerInfo
+argument_list|()
+return|;
+block|}
 comment|/**    * @return Read-only map of servers to load.    */
 specifier|public
 name|Map
