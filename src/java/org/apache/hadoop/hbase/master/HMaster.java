@@ -1134,7 +1134,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"hbase.master.hostname"
+name|MASTER_HOST_NAME
 argument_list|)
 expr_stmt|;
 if|if
@@ -5170,11 +5170,21 @@ name|error
 argument_list|(
 literal|"deleting region: "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|regionName
+argument_list|)
 operator|+
 literal|" from meta region: "
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|metaRegionName
+argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -5467,26 +5477,6 @@ literal|"stop"
 argument_list|)
 condition|)
 block|{
-if|if
-condition|(
-name|LocalHBaseCluster
-operator|.
-name|isLocal
-argument_list|(
-name|conf
-argument_list|)
-condition|)
-block|{
-name|conf
-operator|=
-name|LocalHBaseCluster
-operator|.
-name|doLocal
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
-block|}
 name|HBaseAdmin
 name|adm
 init|=

@@ -1554,6 +1554,7 @@ name|addressString
 argument_list|)
 return|;
 block|}
+comment|/**    * Write address of master to ZooKeeper.    * @param address HServerAddress of master.    * @return true if operation succeeded, false otherwise.    */
 specifier|public
 name|boolean
 name|writeMasterAddress

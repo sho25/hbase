@@ -122,6 +122,14 @@ name|MASTER_ADDRESS
 init|=
 literal|"hbase.master"
 decl_stmt|;
+comment|/** Parameter name for master host name. */
+specifier|static
+specifier|final
+name|String
+name|MASTER_HOST_NAME
+init|=
+literal|"hbase.master.hostname"
+decl_stmt|;
 comment|/** default host address */
 specifier|static
 specifier|final
@@ -137,18 +145,6 @@ name|int
 name|DEFAULT_MASTER_PORT
 init|=
 literal|60000
-decl_stmt|;
-comment|/** Default master address */
-specifier|static
-specifier|final
-name|String
-name|DEFAULT_MASTER_ADDRESS
-init|=
-name|DEFAULT_HOST
-operator|+
-literal|":"
-operator|+
-name|DEFAULT_MASTER_PORT
 decl_stmt|;
 comment|/** default port for master web api */
 specifier|static
