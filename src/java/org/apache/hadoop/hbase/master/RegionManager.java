@@ -1562,9 +1562,6 @@ name|s
 operator|.
 name|getRegionInfo
 argument_list|()
-argument_list|,
-name|inSafeMode
-argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2104,9 +2101,6 @@ name|s
 operator|.
 name|getRegionInfo
 argument_list|()
-argument_list|,
-name|inSafeMode
-argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2287,9 +2281,6 @@ argument_list|,
 name|currentRegion
 argument_list|,
 name|OVERLOADED
-argument_list|,
-name|inSafeMode
-argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -4768,9 +4759,6 @@ argument_list|,
 name|pair
 operator|.
 name|getFirst
-argument_list|()
-argument_list|,
-name|inSafeMode
 argument_list|()
 argument_list|)
 argument_list|)

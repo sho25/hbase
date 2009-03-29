@@ -2414,13 +2414,9 @@ condition|)
 block|{
 if|if
 condition|(
-operator|!
-name|msgs
-index|[
-name|i
-index|]
+name|zooKeeperWrapper
 operator|.
-name|isInSafeMode
+name|checkOutOfSafeMode
 argument_list|()
 condition|)
 block|{

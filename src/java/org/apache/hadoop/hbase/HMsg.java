@@ -164,12 +164,6 @@ name|message
 init|=
 literal|null
 decl_stmt|;
-specifier|private
-name|boolean
-name|safeMode
-init|=
-literal|false
-decl_stmt|;
 comment|/** Default constructor. Used during deserialization */
 specifier|public
 name|HMsg
@@ -203,8 +197,6 @@ name|HRegionInfo
 argument_list|()
 argument_list|,
 literal|null
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -230,39 +222,6 @@ argument_list|,
 name|hri
 argument_list|,
 literal|null
-argument_list|,
-literal|false
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Constructor used by master to inform region servers if we are still in     * safe mode.    *     * @param type    * @param hri    * @param safeMode    */
-specifier|public
-name|HMsg
-parameter_list|(
-specifier|final
-name|HMsg
-operator|.
-name|Type
-name|type
-parameter_list|,
-specifier|final
-name|HRegionInfo
-name|hri
-parameter_list|,
-specifier|final
-name|boolean
-name|safeMode
-parameter_list|)
-block|{
-name|this
-argument_list|(
-name|type
-argument_list|,
-name|hri
-argument_list|,
-literal|null
-argument_list|,
-name|safeMode
 argument_list|)
 expr_stmt|;
 block|}
@@ -284,42 +243,6 @@ specifier|final
 name|byte
 index|[]
 name|msg
-parameter_list|)
-block|{
-name|this
-argument_list|(
-name|type
-argument_list|,
-name|hri
-argument_list|,
-name|msg
-argument_list|,
-literal|false
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Used by the master to inform region servers if we are still in safe mode    *     * @param type    * @param hri    * @param msg    * @param safemode    */
-specifier|public
-name|HMsg
-parameter_list|(
-specifier|final
-name|HMsg
-operator|.
-name|Type
-name|type
-parameter_list|,
-specifier|final
-name|HRegionInfo
-name|hri
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|msg
-parameter_list|,
-specifier|final
-name|boolean
-name|safemode
 parameter_list|)
 block|{
 if|if
@@ -369,12 +292,6 @@ operator|.
 name|message
 operator|=
 name|msg
-expr_stmt|;
-name|this
-operator|.
-name|safeMode
-operator|=
-name|safemode
 expr_stmt|;
 block|}
 comment|/**    * @return Region info or null if none associated with this message type.    */
@@ -435,18 +352,6 @@ return|return
 name|this
 operator|.
 name|message
-return|;
-block|}
-comment|/** @return safe mode */
-specifier|public
-name|boolean
-name|isInSafeMode
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|safeMode
 return|;
 block|}
 comment|/**    * @see java.lang.Object#toString()    */
@@ -551,15 +456,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|sb
-operator|.
-name|append
-argument_list|(
-literal|": safeMode="
-operator|+
-name|safeMode
-argument_list|)
-expr_stmt|;
 return|return
 name|sb
 operator|.
@@ -705,6 +601,7 @@ block|}
 comment|// ////////////////////////////////////////////////////////////////////////////
 comment|// Writable
 comment|//////////////////////////////////////////////////////////////////////////////
+comment|/**    * @see org.apache.hadoop.io.Writable#write(java.io.DataOutput)    */
 specifier|public
 name|void
 name|write
@@ -782,16 +679,8 @@ name|message
 argument_list|)
 expr_stmt|;
 block|}
-name|out
-operator|.
-name|writeBoolean
-argument_list|(
-name|this
-operator|.
-name|safeMode
-argument_list|)
-expr_stmt|;
 block|}
+comment|/**    * @see org.apache.hadoop.io.Writable#readFields(java.io.DataInput)    */
 specifier|public
 name|void
 name|readFields
@@ -858,15 +747,6 @@ name|in
 argument_list|)
 expr_stmt|;
 block|}
-name|this
-operator|.
-name|safeMode
-operator|=
-name|in
-operator|.
-name|readBoolean
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 end_class

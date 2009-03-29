@@ -2046,13 +2046,6 @@ operator|.
 name|MSG_REGION_CLOSE
 argument_list|,
 name|i
-argument_list|,
-name|master
-operator|.
-name|regionManager
-operator|.
-name|inSafeMode
-argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2441,13 +2434,6 @@ argument_list|,
 literal|"Duplicate assignment"
 operator|.
 name|getBytes
-argument_list|()
-argument_list|,
-name|master
-operator|.
-name|regionManager
-operator|.
-name|inSafeMode
 argument_list|()
 argument_list|)
 argument_list|)
