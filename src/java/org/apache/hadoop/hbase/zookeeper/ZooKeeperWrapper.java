@@ -546,6 +546,33 @@ name|masterAddressZNodeName
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * This is for testing KeeperException.SessionExpiredExcseption.    * See HBASE-1232.    * @return long session ID of this ZooKeeper session.    */
+specifier|public
+name|long
+name|getSessionID
+parameter_list|()
+block|{
+return|return
+name|zooKeeper
+operator|.
+name|getSessionId
+argument_list|()
+return|;
+block|}
+comment|/**    * This is for testing KeeperException.SessionExpiredExcseption.    * See HBASE-1232.    * @return byte[] password of this ZooKeeper session.    */
+specifier|public
+name|byte
+index|[]
+name|getSessionPassword
+parameter_list|()
+block|{
+return|return
+name|zooKeeper
+operator|.
+name|getSessionPasswd
+argument_list|()
+return|;
+block|}
 comment|/**    * This is for tests to directly set the ZooKeeper quorum servers.    * @param servers comma separated host:port ZooKeeper quorum servers.    */
 specifier|public
 specifier|static

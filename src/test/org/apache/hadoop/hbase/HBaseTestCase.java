@@ -2600,7 +2600,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Initializes parameters used in the test environment:    *     * Sets the configuration parameter TEST_DIRECTORY_KEY if not already set.    * Sets the boolean debugging if "DEBUGGING" is set in the environment.    * If debugging is enabled, reconfigures loggin so that the root log level is    * set to WARN and the logging level for the package is set to DEBUG.    */
+comment|/**    * Initializes parameters used in the test environment:    *     * Sets the configuration parameter TEST_DIRECTORY_KEY if not already set.    * Sets the boolean debugging if "DEBUGGING" is set in the environment.    * If debugging is enabled, reconfigures logging so that the root log level is    * set to WARN and the logging level for the package is set to DEBUG.    */
 specifier|public
 specifier|static
 name|void

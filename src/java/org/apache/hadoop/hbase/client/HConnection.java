@@ -141,6 +141,22 @@ name|HRegionInterface
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZooKeeperWrapper
+import|;
+end_import
+
 begin_comment
 comment|/**  * Cluster connection.  * {@link HConnectionManager} manages instances of this class.  */
 end_comment
@@ -150,6 +166,14 @@ specifier|public
 interface|interface
 name|HConnection
 block|{
+comment|/**    * Retrieve ZooKeeperWrapper used by the connection.    * @return ZooKeeperWrapper handle being used by the connection.    * @throws IOException    */
+specifier|public
+name|ZooKeeperWrapper
+name|getZooKeeperWrapper
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * @return proxy connection to master server for this instance    * @throws MasterNotRunningException    */
 specifier|public
 name|HMasterInterface

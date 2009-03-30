@@ -527,6 +527,46 @@ name|RemoteException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|WatchedEvent
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|Watcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|Watcher
+operator|.
+name|Event
+operator|.
+name|KeeperState
+import|;
+end_import
+
 begin_comment
 comment|/**  * A non-instantiable class that manages connections to multiple tables in  * multiple HBase instances.  *   * Used by {@link HTable} and {@link HBaseAdmin}  */
 end_comment
@@ -681,6 +721,8 @@ implements|implements
 name|ServerConnection
 implements|,
 name|HConstants
+implements|,
+name|Watcher
 block|{
 specifier|private
 specifier|static
@@ -1016,6 +1058,71 @@ name|ntries
 index|]
 return|;
 block|}
+comment|/**      * Called by ZooKeeper when an event occurs on our connection. We use this to      * detect our session expiring. When our session expires, we have lost our      * connection to ZooKeeper. Our handle is dead, and we need to recreate it.      *      * See http://hadoop.apache.org/zookeeper/docs/current/zookeeperProgrammers.html#ch_zkSessions      * for more information.      *      * @param event WatchedEvent witnessed by ZooKeeper.      */
+specifier|public
+name|void
+name|process
+parameter_list|(
+name|WatchedEvent
+name|event
+parameter_list|)
+block|{
+name|KeeperState
+name|state
+init|=
+name|event
+operator|.
+name|getState
+argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Got ZooKeeper event, state: "
+operator|+
+name|state
+operator|+
+literal|", type: "
+operator|+
+name|event
+operator|.
+name|getType
+argument_list|()
+operator|+
+literal|", path: "
+operator|+
+name|event
+operator|.
+name|getPath
+argument_list|()
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|state
+operator|==
+name|KeeperState
+operator|.
+name|Expired
+condition|)
+block|{
+name|resetZooKeeper
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+specifier|private
+specifier|synchronized
+name|void
+name|resetZooKeeper
+parameter_list|()
+block|{
+name|zooKeeperWrapper
+operator|=
+literal|null
+expr_stmt|;
+block|}
 comment|// Used by master and region servers during safe mode only
 specifier|public
 name|void
@@ -1067,8 +1174,15 @@ parameter_list|()
 throws|throws
 name|MasterNotRunningException
 block|{
+name|ZooKeeperWrapper
+name|zk
+init|=
+literal|null
+decl_stmt|;
 try|try
 block|{
+name|zk
+operator|=
 name|getZooKeeperWrapper
 argument_list|()
 expr_stmt|;
@@ -1134,7 +1248,7 @@ try|try
 block|{
 name|masterLocation
 operator|=
-name|zooKeeperWrapper
+name|zk
 operator|.
 name|readMasterAddressOrThrow
 argument_list|()
@@ -3611,7 +3725,7 @@ return|return
 name|server
 return|;
 block|}
-specifier|private
+specifier|public
 specifier|synchronized
 name|ZooKeeperWrapper
 name|getZooKeeperWrapper
@@ -3632,6 +3746,8 @@ operator|new
 name|ZooKeeperWrapper
 argument_list|(
 name|conf
+argument_list|,
+name|this
 argument_list|)
 expr_stmt|;
 block|}
@@ -3653,7 +3769,7 @@ expr_stmt|;
 comment|// We lazily instantiate the ZooKeeper object because we don't want to
 comment|// make the constructor have to throw IOException or handle it itself.
 name|ZooKeeperWrapper
-name|zooKeeperWrapper
+name|zk
 init|=
 name|getZooKeeperWrapper
 argument_list|()
@@ -3700,7 +3816,7 @@ comment|// that the meta regions have been assigned.
 name|boolean
 name|outOfSafeMode
 init|=
-name|zooKeeperWrapper
+name|zk
 operator|.
 name|checkOutOfSafeMode
 argument_list|()
@@ -3712,7 +3828,7 @@ condition|)
 block|{
 name|rootRegionAddress
 operator|=
-name|zooKeeperWrapper
+name|zk
 operator|.
 name|readRootRegionLocation
 argument_list|()

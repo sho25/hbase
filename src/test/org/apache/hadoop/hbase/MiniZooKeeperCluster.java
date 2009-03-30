@@ -328,6 +328,10 @@ specifier|private
 name|File
 name|baseDir
 decl_stmt|;
+specifier|private
+name|String
+name|quorumServers
+decl_stmt|;
 comment|// for distributed mode.
 specifier|private
 name|QuorumPeer
@@ -341,12 +345,10 @@ operator|.
 name|Factory
 name|standaloneServerFactory
 decl_stmt|;
-comment|/**    * @throws IOException    */
+comment|/** Create mini ZooKeeper cluster. */
 specifier|public
 name|MiniZooKeeperCluster
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.
@@ -382,6 +384,16 @@ argument_list|(
 literal|100
 argument_list|)
 expr_stmt|;
+block|}
+comment|/**    * @return String ZooKeeper quorum servers.    */
+specifier|public
+name|String
+name|getQuorumServers
+parameter_list|()
+block|{
+return|return
+name|quorumServers
+return|;
 block|}
 comment|/**    * @param numPeers    * @param baseDir    * @throws IOException    * @throws InterruptedException    */
 specifier|public
@@ -505,13 +517,17 @@ argument_list|(
 name|server
 argument_list|)
 expr_stmt|;
+name|quorumServers
+operator|=
+literal|"localhost:"
+operator|+
+name|CLIENT_PORT_START
+expr_stmt|;
 name|ZooKeeperWrapper
 operator|.
 name|setQuorumServers
 argument_list|(
-literal|"localhost:"
-operator|+
-name|CLIENT_PORT_START
+name|quorumServers
 argument_list|)
 expr_stmt|;
 if|if
@@ -729,19 +745,18 @@ name|port
 argument_list|)
 expr_stmt|;
 block|}
-name|String
-name|servers
-init|=
+name|quorumServers
+operator|=
 name|serversBuffer
 operator|.
 name|toString
 argument_list|()
-decl_stmt|;
+expr_stmt|;
 name|ZooKeeperWrapper
 operator|.
 name|setQuorumServers
 argument_list|(
-name|servers
+name|quorumServers
 argument_list|)
 expr_stmt|;
 comment|// Start quorum peer threads.
