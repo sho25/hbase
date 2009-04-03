@@ -1149,6 +1149,46 @@ name|StringUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|WatchedEvent
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|Watcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|Watcher
+operator|.
+name|Event
+operator|.
+name|EventType
+import|;
+end_import
+
 begin_comment
 comment|/**  * HRegionServer makes a set of HRegions available to clients.  It checks in with  * the HMaster. There are many HRegionServers in a single HBase deployment.  */
 end_comment
@@ -1165,6 +1205,8 @@ implements|,
 name|HBaseRPCErrorHandler
 implements|,
 name|Runnable
+implements|,
+name|Watcher
 block|{
 specifier|static
 specifier|final
@@ -1504,6 +1546,12 @@ specifier|final
 name|ZooKeeperWrapper
 name|zooKeeperWrapper
 decl_stmt|;
+comment|// A sleeper that sleeps for msgInterval.
+specifier|private
+specifier|final
+name|Sleeper
+name|sleeper
+decl_stmt|;
 comment|/**    * Starts a HRegionServer at the default location    * @param conf    * @throws IOException    */
 specifier|public
 name|HRegionServer
@@ -1638,6 +1686,20 @@ argument_list|,
 literal|120
 operator|*
 literal|1000
+argument_list|)
+expr_stmt|;
+name|sleeper
+operator|=
+operator|new
+name|Sleeper
+argument_list|(
+name|this
+operator|.
+name|msgInterval
+argument_list|,
+name|this
+operator|.
+name|stopRequested
 argument_list|)
 expr_stmt|;
 comment|// Cache flushing thread.
@@ -1871,6 +1933,9 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
+name|watchMasterAddress
+argument_list|()
+expr_stmt|;
 name|boolean
 name|startCodeOk
 init|=
@@ -1992,6 +2057,100 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * We register ourselves as a watcher on the master address ZNode. This is    * called by ZooKeeper when we get an event on that ZNode. When this method    * is called it means either our master has died, or a new one has come up.    * Either way we need to update our knowledge of the master.    * @param event WatchedEvent from ZooKeeper.    */
+specifier|public
+name|void
+name|process
+parameter_list|(
+name|WatchedEvent
+name|event
+parameter_list|)
+block|{
+name|EventType
+name|type
+init|=
+name|event
+operator|.
+name|getType
+argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Got ZooKeeper event, state: "
+operator|+
+name|event
+operator|.
+name|getState
+argument_list|()
+operator|+
+literal|", type: "
+operator|+
+name|type
+operator|+
+literal|", path: "
+operator|+
+name|event
+operator|.
+name|getPath
+argument_list|()
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|type
+operator|==
+name|EventType
+operator|.
+name|NodeCreated
+condition|)
+block|{
+name|getMaster
+argument_list|()
+expr_stmt|;
+block|}
+comment|// ZooKeeper watches are one time only, so we need to re-register our watch.
+name|watchMasterAddress
+argument_list|()
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|watchMasterAddress
+parameter_list|()
+block|{
+while|while
+condition|(
+operator|!
+name|stopRequested
+operator|.
+name|get
+argument_list|()
+operator|&&
+operator|!
+name|zooKeeperWrapper
+operator|.
+name|watchMasterAddress
+argument_list|(
+name|this
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unable to set watcher on ZooKeeper master address. Retrying."
+argument_list|)
+expr_stmt|;
+name|sleeper
+operator|.
+name|sleep
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 comment|/**    * The HRegionServer sticks in this loop until closed. It repeatedly checks    * in with the HMaster, sending heartbeats& reports, and receiving HRegion     * load/unload instructions.    */
 specifier|public
 name|void
@@ -2003,30 +2162,12 @@ name|quiesceRequested
 init|=
 literal|false
 decl_stmt|;
-comment|// A sleeper that sleeps for msgInterval.
-name|Sleeper
-name|sleeper
-init|=
-operator|new
-name|Sleeper
-argument_list|(
-name|this
-operator|.
-name|msgInterval
-argument_list|,
-name|this
-operator|.
-name|stopRequested
-argument_list|)
-decl_stmt|;
 try|try
 block|{
 name|init
 argument_list|(
 name|reportForDuty
-argument_list|(
-name|sleeper
-argument_list|)
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|long
@@ -2462,7 +2603,7 @@ case|case
 name|MSG_CALL_SERVER_STARTUP
 case|:
 comment|// We the MSG_CALL_SERVER_STARTUP on startup but we can also
-comment|// get it when the master is panicing because for instance
+comment|// get it when the master is panicking because for instance
 comment|// the HDFS has been yanked out from under it.  Be wary of
 comment|// this message.
 if|if
@@ -2567,9 +2708,7 @@ expr_stmt|;
 break|break;
 block|}
 name|reportForDuty
-argument_list|(
-name|sleeper
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|restart
 operator|=
@@ -5647,15 +5786,10 @@ name|logRoller
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * Let the master know we're here    * Run initialization using parameters passed us by the master.    */
 specifier|private
-name|MapWritable
-name|reportForDuty
-parameter_list|(
-specifier|final
-name|Sleeper
-name|sleeper
-parameter_list|)
+name|boolean
+name|getMaster
+parameter_list|()
 block|{
 name|HServerAddress
 name|masterAddress
@@ -5678,7 +5812,7 @@ argument_list|()
 condition|)
 block|{
 return|return
-literal|null
+literal|false
 return|;
 block|}
 try|try
@@ -5715,17 +5849,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Telling master at "
 operator|+
@@ -5734,7 +5860,6 @@ operator|+
 literal|" that we are up"
 argument_list|)
 expr_stmt|;
-block|}
 name|HMasterRegionInterface
 name|master
 init|=
@@ -5816,6 +5941,27 @@ name|hbaseMaster
 operator|=
 name|master
 expr_stmt|;
+return|return
+literal|true
+return|;
+block|}
+comment|/*    * Let the master know we're here    * Run initialization using parameters passed us by the master.    */
+specifier|private
+name|MapWritable
+name|reportForDuty
+parameter_list|()
+block|{
+if|if
+condition|(
+operator|!
+name|getMaster
+argument_list|()
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 name|MapWritable
 name|result
 init|=
