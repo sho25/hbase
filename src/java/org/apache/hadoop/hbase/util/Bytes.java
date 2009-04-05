@@ -1086,9 +1086,6 @@ return|return
 name|result
 return|;
 block|}
-name|offset
-operator|++
-expr_stmt|;
 name|int
 name|len
 init|=
