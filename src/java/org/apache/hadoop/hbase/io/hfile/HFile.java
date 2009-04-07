@@ -1498,6 +1498,15 @@ argument_list|(
 name|key
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|value
+operator|.
+name|length
+operator|>
+literal|0
+condition|)
+block|{
 name|this
 operator|.
 name|out
@@ -1507,6 +1516,7 @@ argument_list|(
 name|value
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Are we the first key in this block?
 if|if
 condition|(
@@ -1665,19 +1675,13 @@ condition|(
 name|value
 operator|==
 literal|null
-operator|||
-name|value
-operator|.
-name|length
-operator|<=
-literal|0
 condition|)
 block|{
 throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Value cannot be null or empty"
+literal|"Value cannot be null"
 argument_list|)
 throw|;
 block|}
