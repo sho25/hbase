@@ -518,26 +518,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**    * Add values and timestamps of another cell into this cell    *     * @param c    *          Cell    */
-specifier|public
-name|void
-name|mergeCell
-parameter_list|(
-name|Cell
-name|c
-parameter_list|)
-block|{
-name|valueMap
-operator|.
-name|putAll
-argument_list|(
-name|c
-operator|.
-name|valueMap
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Add a new timestamp and value to this cell    *     * @param val    *          value    * @param ts    *          timestamp    */
+comment|/**    * Add a new timestamp and value to this cell provided timestamp does not    * already exist    *     * @param val    * @param ts    */
 specifier|public
 name|void
 name|add
@@ -550,6 +531,17 @@ name|long
 name|ts
 parameter_list|)
 block|{
+if|if
+condition|(
+operator|!
+name|valueMap
+operator|.
+name|containsKey
+argument_list|(
+name|ts
+argument_list|)
+condition|)
+block|{
 name|valueMap
 operator|.
 name|put
@@ -559,6 +551,7 @@ argument_list|,
 name|val
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * @see java.lang.Object#toString()    */
 annotation|@
