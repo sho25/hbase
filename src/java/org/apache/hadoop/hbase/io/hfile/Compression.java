@@ -1069,21 +1069,6 @@ expr_stmt|;
 comment|// throw new AssertionError(
 comment|// "Compressor obtained from CodecPool is already finished()");
 block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Got a compressor: "
-operator|+
-name|compressor
-operator|.
-name|hashCode
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 name|compressor
 operator|.
 name|reset
@@ -1113,18 +1098,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Return a compressor: "
-operator|+
-name|compressor
-operator|.
-name|hashCode
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|CodecPool
 operator|.
 name|returnCompressor
@@ -1189,21 +1162,6 @@ expr_stmt|;
 comment|// throw new AssertionError(
 comment|// "Decompressor obtained from CodecPool is already finished()");
 block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Got a decompressor: "
-operator|+
-name|decompressor
-operator|.
-name|hashCode
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 name|decompressor
 operator|.
 name|reset
@@ -1233,18 +1191,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Returned a decompressor: "
-operator|+
-name|decompressor
-operator|.
-name|hashCode
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|CodecPool
 operator|.
 name|returnDecompressor
