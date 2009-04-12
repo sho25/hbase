@@ -182,7 +182,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|TestCompaction
+name|DisableTestCompaction
 extends|extends
 name|HBaseTestCase
 block|{
@@ -195,7 +195,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestCompaction
+name|DisableTestCompaction
 operator|.
 name|class
 operator|.
@@ -284,7 +284,7 @@ name|cluster
 decl_stmt|;
 comment|/** constructor */
 specifier|public
-name|TestCompaction
+name|DisableTestCompaction
 parameter_list|()
 block|{
 name|super
@@ -503,10 +503,15 @@ name|COLUMN_FAMILY
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// FIX!!
 name|Cell
 index|[]
 name|cellValues
 init|=
+name|Cell
+operator|.
+name|createSingleCellArray
+argument_list|(
 name|r
 operator|.
 name|get
@@ -521,14 +526,15 @@ argument_list|,
 literal|100
 comment|/*Too many*/
 argument_list|)
+argument_list|)
 decl_stmt|;
 comment|// Assert that I can get 3 versions since it is the max I should get
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|cellValues
 operator|.
 name|length
-operator|==
+argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
@@ -567,8 +573,13 @@ literal|1
 index|]
 operator|++
 expr_stmt|;
+comment|// FIX
 name|cellValues
 operator|=
+name|Cell
+operator|.
+name|createSingleCellArray
+argument_list|(
 name|r
 operator|.
 name|get
@@ -582,6 +593,7 @@ literal|1
 argument_list|,
 literal|100
 comment|/*Too many*/
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -689,8 +701,13 @@ name|flushcache
 argument_list|()
 expr_stmt|;
 comment|// Assert that the second row is still deleted.
+comment|// FIX
 name|cellValues
 operator|=
+name|Cell
+operator|.
+name|createSingleCellArray
+argument_list|(
 name|r
 operator|.
 name|get
@@ -704,6 +721,7 @@ literal|1
 argument_list|,
 literal|100
 comment|/*Too many*/
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|assertNull

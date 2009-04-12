@@ -572,6 +572,11 @@ name|HLogEdit
 argument_list|(
 name|transactionId
 argument_list|,
+name|update
+operator|.
+name|getRow
+argument_list|()
+argument_list|,
 name|op
 argument_list|,
 name|commitTime
@@ -942,12 +947,17 @@ operator|++
 expr_stmt|;
 continue|continue;
 block|}
+comment|// TODO: Change all below so we are not doing a getRow and getColumn
+comment|// against a KeyValue.  Each invocation creates a new instance.  St.Ack.
 comment|// Check this edit is for me.
 name|byte
 index|[]
 name|column
 init|=
 name|val
+operator|.
+name|getKeyValue
+argument_list|()
 operator|.
 name|getColumn
 argument_list|()
@@ -1115,7 +1125,10 @@ init|=
 operator|new
 name|BatchUpdate
 argument_list|(
-name|key
+name|val
+operator|.
+name|getKeyValue
+argument_list|()
 operator|.
 name|getRow
 argument_list|()
@@ -1125,7 +1138,10 @@ if|if
 condition|(
 name|val
 operator|.
-name|getVal
+name|getKeyValue
+argument_list|()
+operator|.
+name|getValue
 argument_list|()
 operator|!=
 literal|null
@@ -1137,12 +1153,18 @@ name|put
 argument_list|(
 name|val
 operator|.
+name|getKeyValue
+argument_list|()
+operator|.
 name|getColumn
 argument_list|()
 argument_list|,
 name|val
 operator|.
-name|getVal
+name|getKeyValue
+argument_list|()
+operator|.
+name|getValue
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1154,6 +1176,9 @@ operator|.
 name|delete
 argument_list|(
 name|val
+operator|.
+name|getKeyValue
+argument_list|()
 operator|.
 name|getColumn
 argument_list|()

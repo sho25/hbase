@@ -207,7 +207,7 @@ block|}
 comment|/**    * the test    * @throws Exception     * @throws IOException    */
 specifier|public
 name|void
-name|testHTable
+name|testForceSplit
 parameter_list|()
 throws|throws
 name|Exception
@@ -429,17 +429,7 @@ operator|*
 literal|1000
 argument_list|)
 expr_stmt|;
-comment|// check again
-name|table
-operator|=
-operator|new
-name|HTable
-argument_list|(
-name|conf
-argument_list|,
-name|tableName
-argument_list|)
-expr_stmt|;
+comment|// check again    table = new HTable(conf, tableName);
 name|m
 operator|=
 name|table

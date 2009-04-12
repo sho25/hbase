@@ -200,7 +200,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|TestThriftServer
+name|DisabledTestThriftServer
 extends|extends
 name|HBaseClusterTestCase
 block|{

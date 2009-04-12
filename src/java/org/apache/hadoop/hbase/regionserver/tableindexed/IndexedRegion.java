@@ -95,7 +95,17 @@ name|java
 operator|.
 name|util
 operator|.
-name|Set
+name|NavigableMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|NavigableSet
 import|;
 end_import
 
@@ -687,7 +697,7 @@ condition|)
 block|{
 return|return;
 block|}
-name|Set
+name|NavigableSet
 argument_list|<
 name|byte
 index|[]
@@ -699,7 +709,7 @@ argument_list|(
 name|indexesToUpdate
 argument_list|)
 decl_stmt|;
-name|SortedMap
+name|NavigableMap
 argument_list|<
 name|byte
 index|[]
@@ -781,10 +791,15 @@ operator|!=
 literal|null
 condition|)
 block|{
+comment|// TODO: Fix this profligacy!!! St.Ack
 name|Cell
 index|[]
 name|older
 init|=
+name|Cell
+operator|.
+name|createSingleCellArray
+argument_list|(
 name|super
 operator|.
 name|get
@@ -805,6 +820,7 @@ name|getTimestamp
 argument_list|()
 argument_list|,
 literal|1
+argument_list|)
 argument_list|)
 decl_stmt|;
 if|if
@@ -990,7 +1006,7 @@ block|}
 block|}
 comment|/** Return the columns needed for the update. */
 specifier|private
-name|Set
+name|NavigableSet
 argument_list|<
 name|byte
 index|[]
@@ -1004,7 +1020,7 @@ argument_list|>
 name|indexes
 parameter_list|)
 block|{
-name|Set
+name|NavigableSet
 argument_list|<
 name|byte
 index|[]
@@ -1189,7 +1205,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-name|SortedMap
+name|NavigableMap
 argument_list|<
 name|byte
 index|[]
@@ -1203,7 +1219,7 @@ name|BatchUpdate
 name|b
 parameter_list|)
 block|{
-name|SortedMap
+name|NavigableMap
 argument_list|<
 name|byte
 index|[]
@@ -1657,7 +1673,7 @@ literal|0
 condition|)
 block|{
 comment|// Need all columns
-name|Set
+name|NavigableSet
 argument_list|<
 name|byte
 index|[]
@@ -1976,7 +1992,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|Set
+name|NavigableSet
 argument_list|<
 name|byte
 index|[]

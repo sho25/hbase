@@ -59,6 +59,30 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -84,13 +108,13 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tests the stop row filter  */
+comment|/**  * Tests the inclusive stop row filter  */
 end_comment
 
 begin_class
 specifier|public
 class|class
-name|TestStopRowFilter
+name|DisabledTestInclusiveStopRowFilter
 extends|extends
 name|TestCase
 block|{
@@ -153,7 +177,7 @@ expr_stmt|;
 name|mainFilter
 operator|=
 operator|new
-name|StopRowFilter
+name|InclusiveStopRowFilter
 argument_list|(
 name|STOP_ROW
 argument_list|)
@@ -237,7 +261,7 @@ name|RowFilterInterface
 name|newFilter
 init|=
 operator|new
-name|StopRowFilter
+name|InclusiveStopRowFilter
 argument_list|()
 decl_stmt|;
 name|newFilter
@@ -283,7 +307,7 @@ name|GOOD_ROW
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertFalse
 argument_list|(
 literal|"Filtering on "
 operator|+
@@ -344,7 +368,7 @@ literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertFalse
 argument_list|(
 literal|"Filtering on "
 operator|+
@@ -408,6 +432,12 @@ name|filter
 operator|.
 name|filterRow
 argument_list|(
+operator|(
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+operator|)
 literal|null
 argument_list|)
 argument_list|)

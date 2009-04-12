@@ -43,7 +43,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|SortedMap
+name|List
 import|;
 end_import
 
@@ -57,23 +57,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HStoreKey
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|Cell
+name|KeyValue
 import|;
 end_import
 
@@ -88,20 +72,14 @@ name|InternalScanner
 extends|extends
 name|Closeable
 block|{
-comment|/**    * Grab the next row's worth of values. The scanner will return the most    * recent data value for each row that is not newer than the target time    * passed when the scanner was created.    * @param key will contain the row and timestamp upon return    * @param results will contain an entry for each column family member and its    * value    * @return true if data was returned    * @throws IOException    */
+comment|/**    * Grab the next row's worth of values. The scanner will return the most    * recent data value for each row that is not newer than the target time    * passed when the scanner was created.    * @param results    * @return true if data was returned    * @throws IOException    */
 specifier|public
 name|boolean
 name|next
 parameter_list|(
-name|HStoreKey
-name|key
-parameter_list|,
-name|SortedMap
+name|List
 argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|Cell
+name|KeyValue
 argument_list|>
 name|results
 parameter_list|)

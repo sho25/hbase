@@ -174,7 +174,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Key for a stored row.  */
+comment|/**  * A Key for a stored row.  * @deprecated Replaced by {@link KeyValue}.  */
 end_comment
 
 begin_class

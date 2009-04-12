@@ -67,7 +67,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Set
+name|NavigableSet
 import|;
 end_import
 
@@ -1349,7 +1349,7 @@ expr_stmt|;
 try|try
 block|{
 comment|// convert the columns array into a set so it's easy to check later.
-name|Set
+name|NavigableSet
 argument_list|<
 name|byte
 index|[]

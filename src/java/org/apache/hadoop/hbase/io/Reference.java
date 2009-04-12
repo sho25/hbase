@@ -113,6 +113,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -181,14 +195,14 @@ block|,
 comment|/** HStoreFile contains lower half of key range */
 name|bottom
 block|}
-comment|/**    * Constructor    * @param s This is a serialized storekey with the row we are to split on,    * an empty column and a timestamp of the LATEST_TIMESTAMP.  This is the first    * possible entry in a row.  This is what we are splitting around.    * @param fr    */
+comment|/**    * Constructor    * @param splitRow This is row we are splitting around.    * @param fr    */
 specifier|public
 name|Reference
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|s
+name|splitRow
 parameter_list|,
 specifier|final
 name|Range
@@ -199,7 +213,21 @@ name|this
 operator|.
 name|splitkey
 operator|=
-name|s
+name|splitRow
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
+name|KeyValue
+operator|.
+name|createFirstOnRow
+argument_list|(
+name|splitRow
+argument_list|)
+operator|.
+name|getKey
+argument_list|()
 expr_stmt|;
 name|this
 operator|.

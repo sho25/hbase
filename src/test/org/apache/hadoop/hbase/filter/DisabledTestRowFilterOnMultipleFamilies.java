@@ -260,7 +260,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|TestRowFilterOnMultipleFamilies
+name|DisabledTestRowFilterOnMultipleFamilies
 extends|extends
 name|HBaseClusterTestCase
 block|{
@@ -274,7 +274,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestRowFilterOnMultipleFamilies
+name|DisabledTestRowFilterOnMultipleFamilies
 operator|.
 name|class
 operator|.

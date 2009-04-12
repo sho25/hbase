@@ -57,18 +57,8 @@ name|*
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Arrays
-import|;
-end_import
-
 begin_comment
-comment|/**  * A Key for an entry in the change log.  *   * The log intermingles edits to many tables and rows, so each log entry   * identifies the appropriate table and row.  Within a table and row, they're   * also sorted.  *   * Some Transactional edits (START, COMMIT, ABORT) will not have an associated row.  */
+comment|/**  * A Key for an entry in the change log.  *   * The log intermingles edits to many tables and rows, so each log entry   * identifies the appropriate table and row.  Within a table and row, they're   * also sorted.  *   *<p>Some Transactional edits (START, COMMIT, ABORT) will not have an  * associated row.  */
 end_comment
 
 begin_class
@@ -92,11 +82,6 @@ index|[]
 name|tablename
 decl_stmt|;
 specifier|private
-name|byte
-index|[]
-name|row
-decl_stmt|;
-specifier|private
 name|long
 name|logSeqNum
 decl_stmt|;
@@ -111,13 +96,11 @@ literal|null
 argument_list|,
 literal|null
 argument_list|,
-literal|null
-argument_list|,
 literal|0L
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create the log key!    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *    * @param regionName  - name of region    * @param tablename   - name of table    * @param row         - row key    * @param logSeqNum   - log sequence number    */
+comment|/**    * Create the log key!    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *    * @param regionName  - name of region    * @param tablename   - name of table    * @param logSeqNum   - log sequence number    */
 specifier|public
 name|HLogKey
 parameter_list|(
@@ -130,11 +113,6 @@ specifier|final
 name|byte
 index|[]
 name|tablename
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|row
 parameter_list|,
 name|long
 name|logSeqNum
@@ -151,12 +129,6 @@ operator|.
 name|tablename
 operator|=
 name|tablename
-expr_stmt|;
-name|this
-operator|.
-name|row
-operator|=
-name|row
 expr_stmt|;
 name|this
 operator|.
@@ -188,17 +160,6 @@ parameter_list|()
 block|{
 return|return
 name|tablename
-return|;
-block|}
-comment|/** @return row key */
-specifier|public
-name|byte
-index|[]
-name|getRow
-parameter_list|()
-block|{
-return|return
-name|row
 return|;
 block|}
 comment|/** @return log sequence number */
@@ -233,15 +194,6 @@ operator|.
 name|toString
 argument_list|(
 name|regionName
-argument_list|)
-operator|+
-literal|"/"
-operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|row
 argument_list|)
 operator|+
 literal|"/"
@@ -311,26 +263,13 @@ block|{
 name|int
 name|result
 init|=
-name|Arrays
-operator|.
-name|hashCode
-argument_list|(
 name|this
 operator|.
 name|regionName
-argument_list|)
-decl_stmt|;
-name|result
-operator|^=
-name|Arrays
 operator|.
 name|hashCode
-argument_list|(
-name|this
-operator|.
-name|row
-argument_list|)
-expr_stmt|;
+argument_list|()
+decl_stmt|;
 name|result
 operator|^=
 name|this
@@ -375,28 +314,6 @@ operator|==
 literal|0
 condition|)
 block|{
-name|result
-operator|=
-name|Bytes
-operator|.
-name|compareTo
-argument_list|(
-name|this
-operator|.
-name|row
-argument_list|,
-name|o
-operator|.
-name|row
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|result
-operator|==
-literal|0
-condition|)
-block|{
 if|if
 condition|(
 name|this
@@ -430,7 +347,6 @@ name|result
 operator|=
 literal|1
 expr_stmt|;
-block|}
 block|}
 block|}
 return|return
@@ -472,17 +388,6 @@ operator|.
 name|tablename
 argument_list|)
 expr_stmt|;
-name|Bytes
-operator|.
-name|writeByteArray
-argument_list|(
-name|out
-argument_list|,
-name|this
-operator|.
-name|row
-argument_list|)
-expr_stmt|;
 name|out
 operator|.
 name|writeLong
@@ -515,17 +420,6 @@ expr_stmt|;
 name|this
 operator|.
 name|tablename
-operator|=
-name|Bytes
-operator|.
-name|readByteArray
-argument_list|(
-name|in
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|row
 operator|=
 name|Bytes
 operator|.

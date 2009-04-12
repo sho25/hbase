@@ -270,7 +270,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|TestRowFilterAfterWrite
+name|DisabledTestRowFilterAfterWrite
 extends|extends
 name|HBaseClusterTestCase
 block|{
@@ -284,7 +284,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestRowFilterAfterWrite
+name|DisabledTestRowFilterAfterWrite
 operator|.
 name|class
 operator|.
@@ -434,7 +434,7 @@ expr_stmt|;
 block|}
 comment|/** constructor */
 specifier|public
-name|TestRowFilterAfterWrite
+name|DisabledTestRowFilterAfterWrite
 parameter_list|()
 block|{
 name|super

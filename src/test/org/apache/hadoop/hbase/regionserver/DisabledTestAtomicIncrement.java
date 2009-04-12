@@ -178,7 +178,7 @@ end_import
 begin_class
 specifier|public
 class|class
-name|TestAtomicIncrement
+name|DisabledTestAtomicIncrement
 extends|extends
 name|HBaseClusterTestCase
 block|{
@@ -191,7 +191,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestAtomicIncrement
+name|DisabledTestAtomicIncrement
 operator|.
 name|class
 argument_list|)

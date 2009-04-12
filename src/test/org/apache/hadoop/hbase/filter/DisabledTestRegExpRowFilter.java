@@ -166,7 +166,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|TestRegExpRowFilter
+name|DisabledTestRegExpRowFilter
 extends|extends
 name|TestCase
 block|{

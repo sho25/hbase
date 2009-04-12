@@ -2677,7 +2677,7 @@ throw|;
 block|}
 try|try
 block|{
-comment|// locate the root region
+comment|// locate the root or meta region
 name|HRegionLocation
 name|metaLocation
 init|=
@@ -2699,7 +2699,7 @@ name|getServerAddress
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// Query the root region for the location of the meta region
+comment|// Query the root or meta region for the location of the meta region
 name|RowResult
 name|regionInfoRow
 init|=

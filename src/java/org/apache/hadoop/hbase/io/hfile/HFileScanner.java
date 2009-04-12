@@ -39,6 +39,20 @@ name|ByteBuffer
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValue
+import|;
+end_import
+
 begin_comment
 comment|/**  * A scanner allows you to position yourself within a HFile and  * scan through it.  It allows you to reposition yourself as well.  *   *<p>A scanner doesn't always have a key/value that it is pointing to  * when it is first created and before  * {@link #seekTo()}/{@link #seekTo(byte[])} are called.  * In this case, {@link #getKey()}/{@link #getValue()} returns null.  At most  * other times, a key and value will be available.  The general pattern is that  * you position the Scanner using the seekTo variants and then getKey and  * getValue.  */
 end_comment
@@ -60,6 +74,23 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+specifier|public
+name|int
+name|seekTo
+parameter_list|(
+name|byte
+index|[]
+name|key
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|length
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Consider the key stream of all the keys in the file,     *<code>k[0] .. k[n]</code>, where there are n keys in the file.    * @param key Key to find    * @return false if key<= k[0] or true with scanner in position 'i' such    * that: k[i]< key.  Furthermore: there may be a k[i+1], such that    * k[i]< key<= k[i+1] but there may also NOT be a k[i+1], and next() will    * return false (EOF).    * @throws IOException    */
 specifier|public
 name|boolean
@@ -68,6 +99,23 @@ parameter_list|(
 name|byte
 index|[]
 name|key
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+specifier|public
+name|boolean
+name|seekBefore
+parameter_list|(
+name|byte
+index|[]
+name|key
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|length
 parameter_list|)
 throws|throws
 name|IOException
@@ -98,6 +146,12 @@ comment|/**    * Gets a buffer view to the current value.  You must call    * {@
 specifier|public
 name|ByteBuffer
 name|getValue
+parameter_list|()
+function_decl|;
+comment|/**    * @return Instance of {@link KeyValue}.    */
+specifier|public
+name|KeyValue
+name|getKeyValue
 parameter_list|()
 function_decl|;
 comment|/**    * Convenience method to get a copy of the key as a string - interpreting the    * bytes as UTF8. You must call {@link #seekTo(byte[])} before this method.    * @return key as a string    */
