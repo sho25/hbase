@@ -4119,7 +4119,7 @@ literal|null
 operator|&&
 name|this
 operator|.
-name|comparator
+name|comparatorIgnoringType
 operator|.
 name|compare
 argument_list|(
