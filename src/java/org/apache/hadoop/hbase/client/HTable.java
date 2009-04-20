@@ -647,7 +647,7 @@ name|getInt
 argument_list|(
 literal|"hbase.client.scanner.caching"
 argument_list|,
-literal|30
+literal|1
 argument_list|)
 expr_stmt|;
 block|}
