@@ -6354,7 +6354,7 @@ literal|0
 condition|)
 block|{
 comment|// Not in file.
-continue|continue;
+break|break;
 block|}
 name|KeyValue
 name|deletedOrExpiredRow
