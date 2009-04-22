@@ -2413,6 +2413,29 @@ throws|throws
 name|IOException
 block|{
 return|return
+name|getWriter
+argument_list|(
+name|this
+operator|.
+name|homedir
+argument_list|)
+return|;
+block|}
+comment|/*    * @return Writer for this store.    * @param basedir Directory to put writer in.    * @throws IOException    */
+specifier|private
+name|HFile
+operator|.
+name|Writer
+name|getWriter
+parameter_list|(
+specifier|final
+name|Path
+name|basedir
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
 name|StoreFile
 operator|.
 name|getWriter
@@ -2421,9 +2444,7 @@ name|this
 operator|.
 name|fs
 argument_list|,
-name|this
-operator|.
-name|homedir
+name|basedir
 argument_list|,
 name|this
 operator|.
@@ -2784,6 +2805,8 @@ name|fs
 operator|.
 name|exists
 argument_list|(
+name|this
+operator|.
 name|compactionDir
 argument_list|)
 operator|&&
@@ -2792,6 +2815,8 @@ name|fs
 operator|.
 name|mkdirs
 argument_list|(
+name|this
+operator|.
 name|compactionDir
 argument_list|)
 condition|)
@@ -2802,6 +2827,8 @@ name|warn
 argument_list|(
 literal|"Mkdir on "
 operator|+
+name|this
+operator|.
 name|compactionDir
 operator|.
 name|toString
@@ -3111,7 +3138,11 @@ name|Writer
 name|writer
 init|=
 name|getWriter
-argument_list|()
+argument_list|(
+name|this
+operator|.
+name|compactionDir
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
