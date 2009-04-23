@@ -1684,7 +1684,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**     * Get all the data for the specified row at the latest timestamp    *     * @param row row key    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get all the data for the specified row at the latest timestamp    *     * @param row row key    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -1708,7 +1708,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**     * Get all the data for the specified row at the latest timestamp    *     * @param row row key    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get all the data for the specified row at the latest timestamp    *     * @param row row key    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -1732,7 +1732,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 return|;
 block|}
-comment|/**     * Get more than one version of all columns for the specified row    *     * @param row row key    * @param numVersions number of versions to return    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get more than one version of all columns for the specified row    *     * @param row row key    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -1770,7 +1770,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get more than one version of all columns for the specified row    *     * @param row row key    * @param numVersions number of versions to return    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get more than one version of all columns for the specified row    *     * @param row row key    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -1804,7 +1804,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get all the data for the specified row at a specified timestamp    *     * @param row row key    * @param ts timestamp    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get all the data for the specified row at a specified timestamp    *     * @param row row key    * @param ts timestamp    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -1834,7 +1834,7 @@ name|ts
 argument_list|)
 return|;
 block|}
-comment|/**     * Get all the data for the specified row at a specified timestamp    *     * @param row row key    * @param ts timestamp    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get all the data for the specified row at a specified timestamp    *     * @param row row key    * @param ts timestamp    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -1901,7 +1901,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get more than one version of all columns for the specified row    * at a specified timestamp    *     * @param row row key    * @param timestamp timestamp    * @param numVersions number of versions to return    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get more than one version of all columns for the specified row    * at a specified timestamp    *     * @param row row key    * @param timestamp timestamp    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -1937,7 +1937,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at the latest timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get selected columns for the specified row at the latest timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -1973,7 +1973,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at the latest timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get selected columns for the specified row at the latest timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -2005,7 +2005,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 return|;
 block|}
-comment|/**     * Get more than one version of selected columns for the specified row    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param numVersions number of versions to return    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get more than one version of selected columns for the specified row    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -2053,7 +2053,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get more than one version of selected columns for the specified row    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param numVersions number of versions to return    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get more than one version of selected columns for the specified row    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -2093,7 +2093,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at a specified timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get selected columns for the specified row at a specified timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -2135,7 +2135,7 @@ name|ts
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at a specified timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get selected columns for the specified row at a specified timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
@@ -2226,7 +2226,7 @@ name|rowLock
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at a specified timestamp    * using existing row lock.    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @param numVersions     * @param rl row lock    * @return RowResult is empty if row does not exist.    * @throws IOException    */
+comment|/**     * Get selected columns for the specified row at a specified timestamp    * using existing row lock.    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @param numVersions     * @param rl row lock    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    */
 specifier|public
 name|RowResult
 name|getRow
