@@ -360,6 +360,14 @@ name|LOWER_KEY
 init|=
 literal|"hbase.regionserver.globalMemcache.lowerLimit"
 decl_stmt|;
+specifier|private
+name|long
+name|blockingStoreFilesNumber
+decl_stmt|;
+specifier|private
+name|long
+name|blockingWaitTime
+decl_stmt|;
 comment|/**    * @param conf    * @param server    */
 specifier|public
 name|MemcacheFlusher
@@ -479,6 +487,60 @@ name|globalMemcacheLimitLowMark
 operator|=
 name|lower
 expr_stmt|;
+name|this
+operator|.
+name|blockingStoreFilesNumber
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.hstore.blockingStoreFiles"
+argument_list|,
+operator|-
+literal|1
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|blockingStoreFilesNumber
+operator|==
+operator|-
+literal|1
+condition|)
+block|{
+name|this
+operator|.
+name|blockingStoreFilesNumber
+operator|=
+literal|1
+operator|+
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.hstore.compactionThreshold"
+argument_list|,
+literal|3
+argument_list|)
+expr_stmt|;
+block|}
+name|this
+operator|.
+name|blockingWaitTime
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.hstore.blockingWaitTime"
+argument_list|,
+literal|90000
+argument_list|)
+expr_stmt|;
+comment|// default of 180 seconds
 name|LOG
 operator|.
 name|info
@@ -863,7 +925,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/*    * Flush a region.    *     * @param region the region to be flushed    * @param removeFromQueue True if the region needs to be removed from the    * flush queue. False if called from the main flusher run loop and true if    * called from flushSomeRegions to relieve memory pressure from the region    * server.  If<code>true</code>, we are in a state of emergency; we are not    * taking on updates regionserver-wide, not until memory is flushed.  In this    * case, do not let a compaction run inline with blocked updates. Compactions    * can take a long time. Stopping compactions, there is a danger that number    * of flushes will overwhelm compaction on a busy server; we'll have to see.    * That compactions do not run when called out of flushSomeRegions means that    * compactions can be reported by the historian without danger of deadlock    * (HBASE-670).    *     *<p>In the main run loop, regions have already been removed from the flush    * queue, and if this method is called for the relief of memory pressure,    * this may not be necessarily true. We want to avoid trying to remove     * region from the queue because if it has already been removed, it requires a    * sequential scan of the queue to determine that it is not in the queue.    *     *<p>If called from flushSomeRegions, the region may be in the queue but    * it may have been determined that the region had a significant amount of     * memory in use and needed to be flushed to relieve memory pressure. In this    * case, its flush may preempt the pending request in the queue, and if so,    * it needs to be removed from the queue to avoid flushing the region multiple    * times.    *     * @return true if the region was successfully flushed, false otherwise. If     * false, there will be accompanying log messages explaining why the log was    * not flushed.    */
+comment|/*    * Flush a region.    *     * @param region the region to be flushed    * @param removeFromQueue True if the region needs to be removed from the    * flush queue. False if called from the main flusher run loop and true if    * called from flushSomeRegions to relieve memory pressure from the region    * server.  If<code>true</code>, we are in a state of emergency; we are not    * taking on updates regionserver-wide, not until memory is flushed.  In this    * case, do not let a compaction run inline with blocked updates. Compactions    * can take a long time. Stopping compactions, there is a danger that number    * of flushes will overwhelm compaction on a busy server; we'll have to see.    * That compactions do not run when called out of flushSomeRegions means that    * compactions can be reported by the historian without danger of deadlock    * (HBASE-670).    *     *<p>In the main run loop, regions have already been removed from the flush    * queue, and if this method is called for the relief of memory pressure,    * this may not be necessarily true. We want to avoid trying to remove     * region from the queue because if it has already been removed, it requires a    * sequential scan of the queue to determine that it is not in the queue.    *     *<p>If called from flushSomeRegions, the region may be in the queue but    * it may have been determined that the region had a significant amount of     * memory in use and needed to be flushed to relieve memory pressure. In this    * case, its flush may preempt the pending request in the queue, and if so,    * it needs to be removed from the queue to avoid flushing the region    * multiple times.    *     * @return true if the region was successfully flushed, false otherwise. If     * false, there will be accompanying log messages explaining why the log was    * not flushed.    */
 specifier|private
 name|boolean
 name|flushRegion
@@ -875,15 +937,145 @@ name|boolean
 name|removeFromQueue
 parameter_list|)
 block|{
+comment|// Wait until it is safe to flush
+name|int
+name|count
+init|=
+literal|0
+decl_stmt|;
+name|boolean
+name|triggered
+init|=
+literal|false
+decl_stmt|;
+while|while
+condition|(
+name|count
+operator|++
+operator|<
+operator|(
+name|blockingWaitTime
+operator|/
+literal|500
+operator|)
+condition|)
+block|{
+for|for
+control|(
+name|Store
+name|hstore
+range|:
+name|region
+operator|.
+name|stores
+operator|.
+name|values
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+name|hstore
+operator|.
+name|getStorefilesCount
+argument_list|()
+operator|>
+name|this
+operator|.
+name|blockingStoreFilesNumber
+condition|)
+block|{
+if|if
+condition|(
+operator|!
+name|triggered
+condition|)
+block|{
+name|server
+operator|.
+name|compactSplitThread
+operator|.
+name|compactionRequested
+argument_list|(
+name|region
+argument_list|,
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Too many store files for region "
+operator|+
+name|region
+operator|+
+literal|": "
+operator|+
+name|hstore
+operator|.
+name|getStorefilesCount
+argument_list|()
+operator|+
+literal|", waiting"
+argument_list|)
+expr_stmt|;
+name|triggered
+operator|=
+literal|true
+expr_stmt|;
+block|}
+try|try
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|500
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+comment|// ignore
+block|}
+continue|continue;
+block|}
+block|}
+if|if
+condition|(
+name|triggered
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Compaction completed on region "
+operator|+
+name|region
+operator|+
+literal|", proceeding"
+argument_list|)
+expr_stmt|;
+block|}
+break|break;
+block|}
 synchronized|synchronized
 init|(
 name|regionsInQueue
 init|)
 block|{
+comment|// See comment above for removeFromQueue on why we do not
 comment|// take the region out of the set. If removeFromQueue is true, remove it
-comment|// from the queue too if it is there. This didn't used to be a constraint,
-comment|// but now that HBASE-512 is in play, we need to try and limit
-comment|// double-flushing of regions.
+comment|// from the queue too if it is there. This didn't used to be a
+comment|// constraint, but now that HBASE-512 is in play, we need to try and
+comment|// limit double-flushing of regions.
 if|if
 condition|(
 name|regionsInQueue
