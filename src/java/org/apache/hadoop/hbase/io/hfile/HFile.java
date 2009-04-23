@@ -873,7 +873,7 @@ operator|=
 name|path
 expr_stmt|;
 block|}
-comment|/**      * Constructor that takes a stream.      * @param ostream Stream to use.      * @param blocksize      * @param compress      * @param c RawComparator to use.      * @param c      * @throws IOException      */
+comment|/**      * Constructor that takes a stream.      * @param ostream Stream to use.      * @param blocksize      * @param compress      * @param c RawComparator to use.      * @throws IOException      */
 specifier|public
 name|Writer
 parameter_list|(

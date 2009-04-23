@@ -63,6 +63,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|HFile
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -687,7 +705,7 @@ operator|=
 name|length
 expr_stmt|;
 block|}
-comment|/**    * @param row    * @param timestamp    * @return KeyValue structure filled with specified values.    * @throws IllegalArgumentException    */
+comment|/**    * Constructs KeyValue structure filled with null value.    * @param row - row key (arbitrary byte array)    * @param timestamp    */
 specifier|public
 name|KeyValue
 parameter_list|(
@@ -713,7 +731,7 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param row    * @param timestamp    * @return KeyValue structure filled with specified values.    * @throws IllegalArgumentException    */
+comment|/**    * Constructs KeyValue structure filled with null value.    * @param row - row key (arbitrary byte array)    * @param timestamp    */
 specifier|public
 name|KeyValue
 parameter_list|(
@@ -743,7 +761,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param row    * @param column Column with delimiter between family and qualifier    * @return KeyValue structure filled with specified values.    * @throws IllegalArgumentException    */
+comment|/**    * Constructs KeyValue structure filled with null value.    * @param row - row key (arbitrary byte array)    * @param column Column with delimiter between family and qualifier    */
 specifier|public
 name|KeyValue
 parameter_list|(
@@ -766,7 +784,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param row    * @param column Column with delimiter between family and qualifier    * @return KeyValue structure filled with specified values.    * @throws IllegalArgumentException    */
+comment|/**    * Constructs KeyValue structure filled with null value.    * @param row - row key (arbitrary byte array)    * @param column Column with delimiter between family and qualifier    */
 specifier|public
 name|KeyValue
 parameter_list|(
@@ -791,7 +809,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param row    * @param column Column with delimiter between family and qualifier    * @param value    * @return KeyValue structure filled with specified values.    * @throws IllegalArgumentException    */
+comment|/**    * Constructs KeyValue structure filled with specified value.    * @param row - row key (arbitrary byte array)    * @param column Column with delimiter between family and qualifier    * @param value    */
 specifier|public
 name|KeyValue
 parameter_list|(
@@ -829,7 +847,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param row    * @param column Column with delimiter between family and qualifier    * @param value    * @return KeyValue structure filled with specified values.    * @throws IllegalArgumentException    */
+comment|/**    * Constructs KeyValue structure filled with specified value.    * @param row - row key (arbitrary byte array)    * @param column Column with delimiter between family and qualifier    * @param value    */
 specifier|public
 name|KeyValue
 parameter_list|(
@@ -863,7 +881,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param row    * @param column Column with delimiter between family and qualifier    * @param ts    * @return KeyValue structure filled with specified values.    * @throws IllegalArgumentException    */
+comment|/**    * Constructs KeyValue structure filled with null value.    * @param row - row key (arbitrary byte array)    * @param column Column with delimiter between family and qualifier    * @param ts    */
 specifier|public
 name|KeyValue
 parameter_list|(
@@ -892,7 +910,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param row    * @param column Column with delimiter between family and qualifier    * @param ts    * @return KeyValue structure filled with specified values.    * @throws IllegalArgumentException    */
+comment|/**    * Constructs KeyValue structure filled with null value.    * @param row - row key (arbitrary byte array)    * @param column Column with delimiter between family and qualifier    * @param ts    */
 specifier|public
 name|KeyValue
 parameter_list|(
@@ -925,7 +943,7 @@ name|Put
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param row    * @param column Column with delimiter between family and qualifier    * @param timestamp    * @param value    * @return KeyValue structure filled with specified values.    * @throws IllegalArgumentException    */
+comment|/**    * Constructs KeyValue structure filled with specified value.    * @param row - row key (arbitrary byte array)    * @param column Column with delimiter between family and qualifier    * @param timestamp    * @param value    */
 specifier|public
 name|KeyValue
 parameter_list|(
@@ -977,7 +995,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param row    * @param column Column with delimiter between family and qualifier    * @param timestamp    * @param value    * @return KeyValue structure filled with specified values.    * @throws IllegalArgumentException    */
+comment|/**    * Constructs KeyValue structure filled with specified value.    * @param row - row key (arbitrary byte array)    * @param column Column with delimiter between family and qualifier    * @param timestamp    * @param value    */
 specifier|public
 name|KeyValue
 parameter_list|(
@@ -1017,7 +1035,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param row    * @param column Column with delimiter between family and qualifier    * @param timestamp    * @param type    * @param value    * @return KeyValue structure filled with specified values.    * @throws IllegalArgumentException    */
+comment|/**    * Constructs KeyValue structure filled with specified value.    * @param row - row key (arbitrary byte array)    * @param column Column with delimiter between family and qualifier    * @param timestamp    * @param type    * @param value    */
 specifier|public
 name|KeyValue
 parameter_list|(
@@ -1067,7 +1085,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param row    * @param column Column with delimiter between family and qualifier    * @param timestamp    * @param type    * @return KeyValue structure filled with specified values.    * @throws IllegalArgumentException    */
+comment|/**    * Constructs KeyValue structure filled with null value.    * @param row - row key (arbitrary byte array)    * @param column Column with delimiter between family and qualifier    * @param timestamp    * @param type    */
 specifier|public
 name|KeyValue
 parameter_list|(
@@ -1127,7 +1145,7 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param row    * @param column Column with delimiter between family and qualifier    * @param timestamp    * @param type    * @param value    * @return KeyValue structure filled with specified values.    * @throws IllegalArgumentException    */
+comment|/**    * Constructs KeyValue structure filled with specified value.    * @param row - row key (arbitrary byte array)    * @param column Column with delimiter between family and qualifier    * @param timestamp    * @param type    * @param value    */
 specifier|public
 name|KeyValue
 parameter_list|(
@@ -1199,7 +1217,7 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param row    * @param roffset    * @param rlength    * @param column Column with delimiter between family and qualifier    * @param coffset Where to start reading the column.    * @param clength How long column is (including the family/qualifier delimiter.    * @param timestamp    * @param type    * @param value    * @param voffset    * @param vlength    * @return KeyValue    * @throws IllegalArgumentException    */
+comment|/**    * Constructs KeyValue structure filled with specified value.    * @param row - row key (arbitrary byte array)    * @param roffset    * @param rlength    * @param column Column with delimiter between family and qualifier    * @param coffset Where to start reading the column.    * @param clength How long column is (including the family/qualifier delimiter.    * @param timestamp    * @param type    * @param value    * @param voffset    * @param vlength    * @throws IllegalArgumentException    */
 specifier|public
 name|KeyValue
 parameter_list|(
@@ -1293,7 +1311,7 @@ operator|=
 literal|0
 expr_stmt|;
 block|}
-comment|/**    * Write KeyValue format into a byte array.    * @param row    * @param roffset    * @param rlength    * @param column    * @param coffset    * @param clength    * @param timestamp    * @param type    * @param value    * @param voffset    * @param vlength    * @return    */
+comment|/**    * Write KeyValue format into a byte array.    * @param row - row key (arbitrary byte array)    * @param roffset    * @param rlength    * @param column    * @param coffset    * @param clength    * @param timestamp    * @param type    * @param value    * @param voffset    * @param vlength    * @return    */
 specifier|static
 name|byte
 index|[]
@@ -1988,7 +2006,7 @@ name|getValueLength
 argument_list|()
 return|;
 block|}
-comment|/**    * @param b Key portion of a KeyValue.    * @return Key as a String.    */
+comment|/**    * @param k Key portion of a KeyValue.    * @return Key as a String.    */
 specifier|public
 specifier|static
 name|String
@@ -2701,7 +2719,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param rowlength Pass if you have it to save on an int creation.    * @return Offset into backing buffer at which the column begins    */
+comment|/**    * @param rowlength - length of row.    * @return Offset into backing buffer at which the column begins    */
 specifier|public
 name|int
 name|getColumnOffset
@@ -3938,7 +3956,7 @@ name|rrowlength
 argument_list|)
 return|;
 block|}
-comment|/**      * @param left      * @param row      * @return      */
+comment|/**      * @param left      * @param row - row key (arbitrary byte array)      * @return RawComparator      */
 specifier|public
 name|int
 name|compareRows
@@ -4587,7 +4605,7 @@ return|return
 name|c
 return|;
 block|}
-comment|/**      * @return Comparator that ignores key type; useful checking deletes      * @throws IOException      */
+comment|/**      * @return Comparator that ignores key type; useful checking deletes      */
 specifier|public
 name|KVComparator
 name|getComparatorIgnoringType
@@ -4641,7 +4659,7 @@ name|c
 return|;
 block|}
 block|}
-comment|/**    * @param row    * @return First possible KeyValue on passed<code>row</code>    */
+comment|/**    * @param row - row key (arbitrary byte array)    * @return First possible KeyValue on passed<code>row</code>    */
 specifier|public
 specifier|static
 name|KeyValue
@@ -4664,7 +4682,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 return|;
 block|}
-comment|/**    * @param row    * @param ts    * @return First possible key on passed<code>row</code> and timestamp.    */
+comment|/**    * @param row - row key (arbitrary byte array)    * @param ts - timestamp    * @return First possible key on passed<code>row</code> and timestamp.    */
 specifier|public
 specifier|static
 name|KeyValue
@@ -4691,7 +4709,7 @@ name|ts
 argument_list|)
 return|;
 block|}
-comment|/**    * @param row    * @param ts    * @return First possible key on passed<code>row</code>, column and timestamp.    */
+comment|/**    * @param row - row key (arbitrary byte array)    * @param ts - timestamp    * @return First possible key on passed<code>row</code>, column and timestamp.    */
 specifier|public
 specifier|static
 name|KeyValue

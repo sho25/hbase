@@ -165,7 +165,9 @@ name|int
 name|length
 parameter_list|)
 function_decl|;
-comment|/**    * Filters on row key, column name, and column value. This will take individual columns out of a row,     * but the rest of the row will still get through.    *     * @param rowKey row key to filter on.    * @param colunmName column name to filter on    * @param columnValue column value to filter on    * @return true if row filtered and should not be processed.    * @deprecated Use {@link #filterColumn(byte[], int, int, byte[], int, int, byte[], int, int)}    * instead.    */
+comment|/**    * Filters on row key, column name, and column value. This will take individual columns out of a row,     * but the rest of the row will still get through.    *     * @param rowKey row key to filter on.    * @param columnName column name to filter on    * @param columnValue column value to filter on    * @return true if row filtered and should not be processed.    * @deprecated Use {@link #filterColumn(byte[], int, int, byte[], int, int, byte[], int, int)}    * instead.    */
+annotation|@
+name|Deprecated
 name|boolean
 name|filterColumn
 parameter_list|(

@@ -310,7 +310,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * For a particular column, find all the matchers defined for the column.    * Compare the column family and column key using the matchers. The first one    * that matches returns true. If no matchers are successful, return false.    *     * @param family/store key    * @param kv KeyValue to test    * @return true if any of the matchers for the column match the column family    * and the column key.    *                     * @throws IOException    */
+comment|/**    * For a particular column, find all the matchers defined for the column.    * Compare the column family and column key using the matchers. The first one    * that matches returns true. If no matchers are successful, return false.    *     * @param kv KeyValue to test    * @return true if any of the matchers for the column match the column family    * and the column key.    *                     * @throws IOException    */
 specifier|protected
 name|boolean
 name|columnMatch

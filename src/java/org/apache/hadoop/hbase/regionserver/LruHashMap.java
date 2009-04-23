@@ -934,7 +934,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * Deletes the mapping for the specified key if it exists.    *    * @param o the key of the entry to be removed from the map    * @return the value associated with the specified key, or null    * if no mapping exists.    */
+comment|/**    * Deletes the mapping for the specified key if it exists.    *    * @param key the key of the entry to be removed from the map    * @return the value associated with the specified key, or null    * if no mapping exists.    */
 specifier|public
 specifier|synchronized
 name|V

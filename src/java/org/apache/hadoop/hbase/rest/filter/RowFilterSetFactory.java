@@ -288,7 +288,7 @@ name|set
 argument_list|)
 return|;
 block|}
-comment|/**    * A refactored method that encapsulates the creation of a RowFilter given a    * JSONObject with a correct form of: { "type" : "MY_TYPE", "args" : MY_ARGS,    * }    *     * @param filter    * @return    * @throws org.apache.hadoop.hbase.rest.exception.HBaseRestException    */
+comment|/**    * A refactored method that encapsulates the creation of a RowFilter given a    * JSONObject with a correct form of: { "type" : "MY_TYPE", "args" : MY_ARGS,    * }    *     * @param filter    * @return RowFilter    * @throws org.apache.hadoop.hbase.rest.exception.HBaseRestException    */
 specifier|protected
 name|RowFilterInterface
 name|getRowFilter

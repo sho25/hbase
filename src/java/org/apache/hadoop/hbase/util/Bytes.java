@@ -623,7 +623,7 @@ operator|+
 name|srcLength
 return|;
 block|}
-comment|/**    * Write a long value out to the specified byte array position.    * @param bytes the byte array    * @param offset position in the array    * @param b byte to write out    * @return incremented offset    */
+comment|/**    * Write a long value out to the specified byte array position.    * @param tgtBytes the byte array    * @param tgtOffset position in the array    * @param srcBytes byte to write out    * @return incremented offset    */
 specifier|public
 specifier|static
 name|int
@@ -2835,7 +2835,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Binary search for keys in indexes.    * @param arr array of byte arrays to search for    * @param key the key you want to find    * @param offset the offset in the key you want to find    * @param length the length of the key    * @param comparator a comparator to compare.    * @return    */
+comment|/**    * Binary search for keys in indexes.    * @param arr array of byte arrays to search for    * @param key the key you want to find    * @param offset the offset in the key you want to find    * @param length the length of the key    * @param comparator a comparator to compare.    * @return index of key    */
 specifier|public
 specifier|static
 name|int

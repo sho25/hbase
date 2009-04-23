@@ -4567,7 +4567,7 @@ comment|// /////////////////////////////////////////////////////////////////////
 comment|// Accessors.
 comment|// (This is the only section that is directly useful!)
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Return all the available columns for the given key.  The key indicates a     * row and timestamp, but not a column name.    *    * The returned object should map column names to Cells.    * @param origin Where to start searching.  Specifies a row and timestamp.    * Columns are specified in following arguments.    * @param columns Can be null which means get all    * @param columnPattern Can be null.    * @param numVersions    * @param versionsCounter Can be null.    * @param keyvalues    * @throws IOException    */
+comment|/**    * Return all the available columns for the given key.  The key indicates a     * row and timestamp, but not a column name.    *    * The returned object should map column names to Cells.    * @param key -  Where to start searching.  Specifies a row.    * Columns are specified in following arguments.    * @param columns Can be null which means get all    * @param columnPattern Can be null.    * @param numVersions    * @param versionsCounter Can be null.    * @param keyvalues    * @param now -  Where to start searching.  Specifies a timestamp.    * @throws IOException    */
 specifier|public
 name|void
 name|getFull

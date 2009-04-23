@@ -265,7 +265,7 @@ name|byte
 operator|)
 literal|7
 decl_stmt|;
-comment|/**     * The type of compression.    * @see org.apache.hadoop.io.SequenceFile.Writer    * @deprecated Replaced by {@link Compression.Algorithm}.    */
+comment|/**     * The type of compression.    * @see org.apache.hadoop.io.SequenceFile.Writer    * @deprecated    */
 annotation|@
 name|Deprecated
 specifier|public

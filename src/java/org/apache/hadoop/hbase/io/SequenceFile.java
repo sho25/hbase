@@ -7062,7 +7062,7 @@ return|return
 name|valClass
 return|;
 block|}
-comment|/** Returns true if values are compressed.       * @return      */
+comment|/** @return true if values are compressed. */
 specifier|public
 name|boolean
 name|isCompressed
@@ -7072,7 +7072,7 @@ return|return
 name|decompress
 return|;
 block|}
-comment|/** Returns true if records are block-compressed. */
+comment|/** @return true if records are block-compressed. */
 specifier|public
 name|boolean
 name|isBlockCompressed
@@ -7082,7 +7082,7 @@ return|return
 name|blockCompressed
 return|;
 block|}
-comment|/** Returns the compression codec of data in this file. */
+comment|/** @return the compression codec of data in this file. */
 specifier|public
 name|CompressionCodec
 name|getCompressionCodec
@@ -7092,7 +7092,7 @@ return|return
 name|codec
 return|;
 block|}
-comment|/** Returns the metadata object of the file */
+comment|/** @return the metadata object of the file */
 specifier|public
 name|Metadata
 name|getMetadata
