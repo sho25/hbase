@@ -1614,6 +1614,8 @@ name|row
 parameter_list|)
 throws|throws
 name|IOError
+throws|,
+name|NotFound
 block|{
 return|return
 name|getRowWithColumnsTs
@@ -1651,6 +1653,8 @@ name|columns
 parameter_list|)
 throws|throws
 name|IOError
+throws|,
+name|NotFound
 block|{
 return|return
 name|getRowWithColumnsTs
@@ -1684,6 +1688,8 @@ name|timestamp
 parameter_list|)
 throws|throws
 name|IOError
+throws|,
+name|NotFound
 block|{
 return|return
 name|getRowWithColumnsTs
@@ -1722,6 +1728,8 @@ name|timestamp
 parameter_list|)
 throws|throws
 name|IOError
+throws|,
+name|NotFound
 block|{
 try|try
 block|{
