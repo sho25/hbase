@@ -1391,35 +1391,9 @@ operator|new
 name|Random
 argument_list|()
 expr_stmt|;
-name|Path
-name|rootRegionDir
-init|=
-name|HRegion
-operator|.
-name|getRegionDir
-argument_list|(
-name|rootdir
-argument_list|,
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-argument_list|)
-decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Root region dir: "
-operator|+
-name|rootRegionDir
-operator|.
-name|toString
-argument_list|()
-argument_list|)
-expr_stmt|;
 try|try
 block|{
-comment|// Make sure the root directory exists!
+comment|// Make sure the hbase root directory exists!
 if|if
 condition|(
 operator|!
@@ -1462,14 +1436,17 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Make sure the root region directory exists!
 if|if
 condition|(
 operator|!
-name|fs
+name|FSUtils
 operator|.
-name|exists
+name|rootRegionExists
 argument_list|(
-name|rootRegionDir
+name|fs
+argument_list|,
+name|rootdir
 argument_list|)
 condition|)
 block|{
