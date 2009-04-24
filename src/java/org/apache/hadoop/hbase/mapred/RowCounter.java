@@ -262,6 +262,7 @@ name|NAME
 init|=
 literal|"rowcounter"
 decl_stmt|;
+comment|/**    * Mapper that runs the count.    */
 specifier|static
 class|class
 name|RowCounterMapper
