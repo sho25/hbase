@@ -5122,15 +5122,20 @@ argument_list|)
 throw|;
 block|}
 comment|// Make sure we do not return more than maximum versions for this store.
-return|return
-name|wantedVersions
-operator|>
+name|int
+name|maxVersions
+init|=
 name|this
 operator|.
 name|family
 operator|.
 name|getMaxVersions
 argument_list|()
+decl_stmt|;
+return|return
+name|wantedVersions
+operator|>
+name|maxVersions
 operator|&&
 name|wantedVersions
 operator|!=
@@ -5138,12 +5143,7 @@ name|HConstants
 operator|.
 name|ALL_VERSIONS
 condition|?
-name|this
-operator|.
-name|family
-operator|.
-name|getMaxVersions
-argument_list|()
+name|maxVersions
 else|:
 name|wantedVersions
 return|;

@@ -2590,6 +2590,14 @@ operator|-
 name|receivedTime
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -2628,6 +2636,7 @@ argument_list|(
 name|processingTime
 argument_list|)
 expr_stmt|;
+block|}
 name|MetricsTimeVaryingRate
 name|m
 init|=

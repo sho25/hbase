@@ -486,6 +486,14 @@ name|ImmutableBytesWritable
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|/*    * Cache the max versions rather than calculate it every time.    */
+specifier|private
+name|int
+name|cachedMaxVersions
+init|=
+operator|-
+literal|1
+decl_stmt|;
 comment|/**    * Default constructor. Must be present for Writable.    */
 specifier|public
 name|HColumnDescriptor
@@ -1222,9 +1230,20 @@ comment|/** @return maximum number of versions */
 annotation|@
 name|TOJSON
 specifier|public
+specifier|synchronized
 name|int
 name|getMaxVersions
 parameter_list|()
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|cachedMaxVersions
+operator|==
+operator|-
+literal|1
+condition|)
 block|{
 name|String
 name|value
@@ -1236,13 +1255,16 @@ operator|.
 name|VERSIONS
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
+name|this
+operator|.
+name|cachedMaxVersions
+operator|=
+operator|(
 name|value
 operator|!=
 literal|null
-condition|)
-return|return
+operator|)
+condition|?
 name|Integer
 operator|.
 name|valueOf
@@ -1252,9 +1274,14 @@ argument_list|)
 operator|.
 name|intValue
 argument_list|()
-return|;
-return|return
+else|:
 name|DEFAULT_VERSIONS
+expr_stmt|;
+block|}
+return|return
+name|this
+operator|.
+name|cachedMaxVersions
 return|;
 block|}
 comment|/**    * @param maxVersions maximum number of versions    */
