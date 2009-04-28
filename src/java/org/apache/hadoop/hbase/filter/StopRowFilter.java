@@ -309,7 +309,17 @@ name|compareTo
 argument_list|(
 name|stopRowKey
 argument_list|,
+literal|0
+argument_list|,
+name|stopRowKey
+operator|.
+name|length
+argument_list|,
 name|rowKey
+argument_list|,
+name|offset
+argument_list|,
+name|length
 argument_list|)
 operator|<=
 literal|0

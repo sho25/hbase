@@ -52,7 +52,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Utility creating hbase friendly keys.  * Use fabricating row names or column qualifiers.  *<p>TODO: Add createSchemeless key, a key that doesn't care if scheme is  * http or https.  */
+comment|/**  * Utility creating hbase friendly keys.  * Use fabricating row names or column qualifiers.  *<p>TODO: Add createSchemeless key, a key that doesn't care if scheme is  * http or https.  * @see Bytes#split(byte[], byte[], int)  */
 end_comment
 
 begin_class
