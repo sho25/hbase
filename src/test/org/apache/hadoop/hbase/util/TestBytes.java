@@ -281,7 +281,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"http://["
+literal|"http://]"
 argument_list|)
 decl_stmt|;
 name|byte
