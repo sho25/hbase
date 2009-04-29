@@ -2402,6 +2402,10 @@ name|tailset
 argument_list|)
 condition|)
 block|{
+name|enoughVersions
+operator|=
+literal|true
+expr_stmt|;
 break|break;
 block|}
 block|}
