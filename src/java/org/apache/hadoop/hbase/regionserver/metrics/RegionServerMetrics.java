@@ -670,7 +670,11 @@ name|Float
 operator|.
 name|valueOf
 argument_list|(
-name|getRequests
+name|this
+operator|.
+name|requests
+operator|.
+name|getPreviousIntervalValue
 argument_list|()
 argument_list|)
 argument_list|)
