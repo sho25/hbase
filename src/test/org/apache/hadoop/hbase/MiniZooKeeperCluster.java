@@ -81,6 +81,16 @@ name|java
 operator|.
 name|net
 operator|.
+name|BindException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
 name|InetSocketAddress
 import|;
 end_import
@@ -270,15 +280,6 @@ specifier|private
 specifier|static
 specifier|final
 name|int
-name|CLIENT_PORT_START
-init|=
-literal|21810
-decl_stmt|;
-comment|// use non-standard port
-specifier|private
-specifier|static
-specifier|final
-name|int
 name|LEADER_PORT_START
 init|=
 literal|31810
@@ -320,6 +321,13 @@ specifier|private
 name|boolean
 name|started
 decl_stmt|;
+specifier|private
+name|int
+name|clientPortStart
+init|=
+literal|21810
+decl_stmt|;
+comment|// use non-standard port
 specifier|private
 name|int
 name|numPeers
@@ -500,6 +508,13 @@ argument_list|,
 name|TICK_TIME
 argument_list|)
 decl_stmt|;
+while|while
+condition|(
+literal|true
+condition|)
+block|{
+try|try
+block|{
 name|standaloneServerFactory
 operator|=
 operator|new
@@ -507,9 +522,33 @@ name|NIOServerCnxn
 operator|.
 name|Factory
 argument_list|(
-name|CLIENT_PORT_START
+name|clientPortStart
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|BindException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Faild binding ZK Server to client port: "
+operator|+
+name|clientPortStart
+argument_list|)
+expr_stmt|;
+comment|//this port is already in use. try to use another
+name|clientPortStart
+operator|++
+expr_stmt|;
+continue|continue;
+block|}
+break|break;
+block|}
 name|standaloneServerFactory
 operator|.
 name|startup
@@ -521,7 +560,7 @@ name|quorumServers
 operator|=
 literal|"localhost:"
 operator|+
-name|CLIENT_PORT_START
+name|clientPortStart
 expr_stmt|;
 name|ZooKeeperWrapper
 operator|.
@@ -535,7 +574,7 @@ condition|(
 operator|!
 name|waitForServerUp
 argument_list|(
-name|CLIENT_PORT_START
+name|clientPortStart
 argument_list|,
 name|CONNECTION_TIMEOUT
 argument_list|)
@@ -687,7 +726,7 @@ expr_stmt|;
 name|int
 name|port
 init|=
-name|CLIENT_PORT_START
+name|clientPortStart
 operator|+
 name|id
 decl_stmt|;
@@ -793,7 +832,7 @@ block|{
 name|int
 name|port
 init|=
-name|CLIENT_PORT_START
+name|clientPortStart
 operator|+
 name|id
 decl_stmt|;
@@ -996,7 +1035,7 @@ block|{
 name|int
 name|port
 init|=
-name|CLIENT_PORT_START
+name|clientPortStart
 operator|+
 name|id
 decl_stmt|;
@@ -1040,7 +1079,7 @@ condition|(
 operator|!
 name|waitForServerDown
 argument_list|(
-name|CLIENT_PORT_START
+name|clientPortStart
 argument_list|,
 name|CONNECTION_TIMEOUT
 argument_list|)

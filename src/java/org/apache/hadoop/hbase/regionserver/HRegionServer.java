@@ -105,6 +105,16 @@ name|java
 operator|.
 name|net
 operator|.
+name|BindException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
 name|InetSocketAddress
 import|;
 end_import
@@ -5370,6 +5380,7 @@ argument_list|,
 literal|60030
 argument_list|)
 decl_stmt|;
+comment|// -1 is for disabling info server
 if|if
 condition|(
 name|port
@@ -5378,7 +5389,7 @@ literal|0
 condition|)
 block|{
 name|String
-name|a
+name|addr
 init|=
 name|this
 operator|.
@@ -5391,6 +5402,28 @@ argument_list|,
 literal|"0.0.0.0"
 argument_list|)
 decl_stmt|;
+comment|// check if auto port bind enabled
+name|boolean
+name|auto
+init|=
+name|this
+operator|.
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+literal|"hbase.regionserver.info.port.auto"
+argument_list|,
+literal|false
+argument_list|)
+decl_stmt|;
+while|while
+condition|(
+literal|true
+condition|)
+block|{
+try|try
+block|{
 name|this
 operator|.
 name|infoServer
@@ -5400,7 +5433,7 @@ name|InfoServer
 argument_list|(
 literal|"regionserver"
 argument_list|,
-name|a
+name|addr
 argument_list|,
 name|port
 argument_list|,
@@ -5425,6 +5458,48 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+break|break;
+block|}
+catch|catch
+parameter_list|(
+name|BindException
+name|e
+parameter_list|)
+block|{
+if|if
+condition|(
+operator|!
+name|auto
+condition|)
+block|{
+comment|// auto bind disabled throw BindException
+throw|throw
+name|e
+throw|;
+block|}
+comment|// auto bind enabled, try to use another port
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Failed binding http info server to port: "
+operator|+
+name|port
+argument_list|)
+expr_stmt|;
+name|port
+operator|++
+expr_stmt|;
+comment|// update HRS server info
+name|serverInfo
+operator|.
+name|setInfoPort
+argument_list|(
+name|port
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 block|}
 comment|// Set up the safe mode handler if safe mode has been configured.
 if|if

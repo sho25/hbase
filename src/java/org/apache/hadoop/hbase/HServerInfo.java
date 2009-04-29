@@ -294,6 +294,22 @@ operator|.
 name|infoPort
 return|;
 block|}
+comment|/**    * @param infoPort - new port of info server    */
+specifier|public
+name|void
+name|setInfoPort
+parameter_list|(
+name|int
+name|infoPort
+parameter_list|)
+block|{
+name|this
+operator|.
+name|infoPort
+operator|=
+name|infoPort
+expr_stmt|;
+block|}
 comment|/**    * @param startCode the startCode to set    */
 specifier|public
 specifier|synchronized
