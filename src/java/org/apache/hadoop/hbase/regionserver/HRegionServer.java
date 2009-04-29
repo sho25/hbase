@@ -1518,6 +1518,11 @@ specifier|final
 name|Sleeper
 name|sleeper
 decl_stmt|;
+specifier|private
+specifier|final
+name|long
+name|rpcTimeout
+decl_stmt|;
 comment|/**    * Starts a HRegionServer at the default location    * @param conf    * @throws IOException    */
 specifier|public
 name|HRegionServer
@@ -2022,6 +2027,19 @@ index|]
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|rpcTimeout
+operator|=
+name|conf
+operator|.
+name|getLong
+argument_list|(
+literal|"hbase.regionserver.lease.period"
+argument_list|,
+literal|60000
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * We register ourselves as a watcher on the master address ZNode. This is    * called by ZooKeeper when we get an event on that ZNode. When this method    * is called it means either our master has died, or a new one has come up.    * Either way we need to update our knowledge of the master.    * @param event WatchedEvent from ZooKeeper.    */
 specifier|public
@@ -3023,11 +3041,11 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|InterruptedException
-name|ex
+name|Exception
+name|e
 parameter_list|)
 block|{
-name|ex
+name|e
 operator|.
 name|printStackTrace
 argument_list|()
@@ -5877,6 +5895,10 @@ name|conf
 argument_list|,
 operator|-
 literal|1
+argument_list|,
+name|this
+operator|.
+name|rpcTimeout
 argument_list|)
 expr_stmt|;
 block|}

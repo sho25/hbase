@@ -2218,7 +2218,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|InterruptedException
+name|Exception
 name|ex
 parameter_list|)
 block|{

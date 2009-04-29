@@ -191,6 +191,54 @@ name|MetricsIntValue
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|metrics
+operator|.
+name|util
+operator|.
+name|MetricsTimeVaryingRate
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|metrics
+operator|.
+name|util
+operator|.
+name|MetricsLongValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|metrics
+operator|.
+name|util
+operator|.
+name|MetricsRegistry
+import|;
+end_import
+
 begin_comment
 comment|/**   * This class is for maintaining the various regionserver statistics  * and publishing them through the metrics interfaces.  *<p>  * This class has a number of metrics variables that are publicly accessible;  * these variables (objects) have methods to update their values.  */
 end_comment
@@ -241,6 +289,27 @@ literal|1024
 operator|*
 literal|1024
 decl_stmt|;
+specifier|private
+name|MetricsRegistry
+name|registry
+init|=
+operator|new
+name|MetricsRegistry
+argument_list|()
+decl_stmt|;
+specifier|public
+specifier|final
+name|MetricsTimeVaryingRate
+name|atomicIncrementTime
+init|=
+operator|new
+name|MetricsTimeVaryingRate
+argument_list|(
+literal|"atomicIncrementTime"
+argument_list|,
+name|registry
+argument_list|)
+decl_stmt|;
 comment|/**    * Count of regions carried by this regionserver    */
 specifier|public
 specifier|final
@@ -250,7 +319,9 @@ init|=
 operator|new
 name|MetricsIntValue
 argument_list|(
-literal|"hbase_regions"
+literal|"regions"
+argument_list|,
+name|registry
 argument_list|)
 decl_stmt|;
 comment|/*    * Count of requests to the regionservers since last call to metrics update    */
@@ -262,7 +333,7 @@ init|=
 operator|new
 name|MetricsRate
 argument_list|(
-literal|"hbase_requests"
+literal|"requests"
 argument_list|)
 decl_stmt|;
 comment|/**    * Count of stores open on the regionserver.    */
@@ -274,7 +345,9 @@ init|=
 operator|new
 name|MetricsIntValue
 argument_list|(
-literal|"hbase_stores"
+literal|"stores"
+argument_list|,
+name|registry
 argument_list|)
 decl_stmt|;
 comment|/**    * Count of storefiles open on the regionserver.    */
@@ -286,7 +359,9 @@ init|=
 operator|new
 name|MetricsIntValue
 argument_list|(
-literal|"hbase_storefiles"
+literal|"storefiles"
+argument_list|,
+name|registry
 argument_list|)
 decl_stmt|;
 comment|/**    * Sum of all the storefile index sizes in this regionserver in MB    */
@@ -298,7 +373,9 @@ init|=
 operator|new
 name|MetricsIntValue
 argument_list|(
-literal|"hbase_storefileIndexSizeMB"
+literal|"storefileIndexSizeMB"
+argument_list|,
+name|registry
 argument_list|)
 decl_stmt|;
 comment|/**    * Sum of all the memcache sizes in this regionserver in MB    */
@@ -310,7 +387,9 @@ init|=
 operator|new
 name|MetricsIntValue
 argument_list|(
-literal|"hbase_memcacheSizeMB"
+literal|"memcacheSizeMB"
+argument_list|,
+name|registry
 argument_list|)
 decl_stmt|;
 specifier|public
@@ -591,11 +670,7 @@ name|Float
 operator|.
 name|valueOf
 argument_list|(
-name|this
-operator|.
-name|requests
-operator|.
-name|getPreviousIntervalValue
+name|getRequests
 argument_list|()
 argument_list|)
 argument_list|)

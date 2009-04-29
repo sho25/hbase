@@ -135,6 +135,22 @@ name|MetricsIntValue
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|metrics
+operator|.
+name|util
+operator|.
+name|MetricsRegistry
+import|;
+end_import
+
 begin_comment
 comment|/**   * This class is for maintaining the various master statistics  * and publishing them through the metrics interfaces.  *<p>  * This class has a number of metrics variables that are publicly accessible;  * these variables (objects) have methods to update their values.  */
 end_comment
@@ -166,6 +182,15 @@ specifier|final
 name|MetricsRecord
 name|metricsRecord
 decl_stmt|;
+specifier|private
+specifier|final
+name|MetricsRegistry
+name|registry
+init|=
+operator|new
+name|MetricsRegistry
+argument_list|()
+decl_stmt|;
 comment|/*    * Count of requests to the cluster since last call to metrics update    */
 specifier|private
 specifier|final
@@ -176,6 +201,8 @@ operator|new
 name|MetricsIntValue
 argument_list|(
 literal|"cluster_requests"
+argument_list|,
+name|registry
 argument_list|)
 decl_stmt|;
 specifier|public
@@ -347,8 +374,15 @@ name|this
 operator|.
 name|cluster_requests
 operator|.
-name|inc
+name|set
 argument_list|(
+name|this
+operator|.
+name|cluster_requests
+operator|.
+name|get
+argument_list|()
+operator|+
 name|inc
 argument_list|)
 expr_stmt|;

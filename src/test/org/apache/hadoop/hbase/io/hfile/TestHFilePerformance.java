@@ -209,22 +209,6 @@ name|GzipCodec
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|compress
-operator|.
-name|LzoCodec
-import|;
-end_import
-
 begin_comment
 comment|/**  *  Set of long-running tests to measure performance of HFile.  *<p>  * Copied from  *<a href="https://issues.apache.org/jira/browse/HADOOP-3315">hadoop-3315 tfile</a>.  * Remove after tfile is committed and use the tfile version of this class  * instead.</p>  */
 end_comment
@@ -793,22 +777,6 @@ name|codec
 init|=
 literal|null
 decl_stmt|;
-if|if
-condition|(
-literal|"lzo"
-operator|.
-name|equals
-argument_list|(
-name|codecName
-argument_list|)
-condition|)
-name|codec
-operator|=
-operator|new
-name|LzoCodec
-argument_list|()
-expr_stmt|;
-elseif|else
 if|if
 condition|(
 literal|"gz"

@@ -5545,7 +5545,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Constructor      * @param trailer File tail structure with index stats.      */
+comment|/**      * @param c comparator used to compare keys.      */
 name|BlockIndex
 parameter_list|(
 specifier|final

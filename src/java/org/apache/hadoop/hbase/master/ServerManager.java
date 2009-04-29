@@ -683,6 +683,43 @@ name|serverName
 argument_list|)
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Server start was rejected: "
+operator|+
+name|serverInfo
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"serversToServerInfo.containsKey: "
+operator|+
+name|serversToServerInfo
+operator|.
+name|containsKey
+argument_list|(
+name|serverName
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"deadServers.contains: "
+operator|+
+name|deadServers
+operator|.
+name|contains
+argument_list|(
+name|serverName
+argument_list|)
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|Leases

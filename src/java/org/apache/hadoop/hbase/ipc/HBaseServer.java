@@ -1379,6 +1379,12 @@ operator|.
 name|this
 argument_list|)
 expr_stmt|;
+name|long
+name|lastPurgeTime
+init|=
+literal|0
+decl_stmt|;
+comment|// last check for old calls.
 while|while
 condition|(
 name|running

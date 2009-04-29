@@ -1152,12 +1152,14 @@ name|tcpNoDelay
 argument_list|)
 expr_stmt|;
 comment|// connection time out is 20s
-name|this
-operator|.
-name|socket
+name|NetUtils
 operator|.
 name|connect
 argument_list|(
+name|this
+operator|.
+name|socket
+argument_list|,
 name|remoteId
 operator|.
 name|getAddress
