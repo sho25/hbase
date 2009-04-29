@@ -275,13 +275,13 @@ name|HBASE_DIR
 init|=
 literal|"hbase.rootdir"
 decl_stmt|;
-comment|/** Used to construct the name of the log directory for a region server */
+comment|/** Used to construct the name of the log directory for a region server     * Use '@' as a special character to seperate the log files from table data */
 specifier|static
 specifier|final
 name|String
 name|HREGION_LOGDIR_NAME
 init|=
-literal|"log"
+literal|"@LOGS@"
 decl_stmt|;
 comment|/** Name of old log file for reconstruction */
 specifier|static

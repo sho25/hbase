@@ -3597,7 +3597,7 @@ name|dirName
 operator|.
 name|append
 argument_list|(
-literal|"_"
+literal|"/"
 argument_list|)
 expr_stmt|;
 name|dirName
