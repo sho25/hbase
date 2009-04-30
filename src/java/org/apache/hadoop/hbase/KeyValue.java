@@ -1751,7 +1751,8 @@ return|return
 name|bytes
 return|;
 block|}
-comment|// Needed doing 'contains' on List.
+comment|// Needed doing 'contains' on List.  Only compares the key portion, not the
+comment|// value.
 specifier|public
 name|boolean
 name|equals
@@ -3693,7 +3694,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**    * Compare KeyValues.    * Hosts a {@link KeyComparator}.    */
+comment|/**    * Compare KeyValues.  When we compare KeyValues, we only compare the Key    * portion.  This means two KeyValues with same Key but different Values are    * considered the same as far as this Comparator is concerned.    * Hosts a {@link KeyComparator}.    */
 specifier|public
 specifier|static
 class|class
@@ -5371,7 +5372,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Compare key portion of a {@link KeyValue}    */
+comment|/**    * Compare key portion of a {@link KeyValue}.    */
 specifier|public
 specifier|static
 class|class
