@@ -2064,8 +2064,6 @@ index|[]
 name|c
 parameter_list|)
 block|{
-comment|// If index is -1, then presume we were passed a column family name minus
-comment|// the colon delimiter.
 return|return
 name|families
 operator|.

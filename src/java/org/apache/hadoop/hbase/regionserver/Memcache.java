@@ -760,6 +760,33 @@ argument_list|(
 name|kv
 argument_list|)
 decl_stmt|;
+comment|// if false then memcache is not changed (look memcache.add(kv) docs)
+comment|// need to remove kv and add again to replace it
+if|if
+condition|(
+operator|!
+name|notpresent
+operator|&&
+name|this
+operator|.
+name|memcache
+operator|.
+name|remove
+argument_list|(
+name|kv
+argument_list|)
+condition|)
+block|{
+name|this
+operator|.
+name|memcache
+operator|.
+name|add
+argument_list|(
+name|kv
+argument_list|)
+expr_stmt|;
+block|}
 name|size
 operator|=
 name|heapSize

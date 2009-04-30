@@ -178,7 +178,7 @@ end_import
 begin_class
 specifier|public
 class|class
-name|DisabledTestAtomicIncrement
+name|TestAtomicIncrement
 extends|extends
 name|HBaseClusterTestCase
 block|{
@@ -191,7 +191,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|DisabledTestAtomicIncrement
+name|TestAtomicIncrement
 operator|.
 name|class
 argument_list|)
@@ -398,7 +398,7 @@ literal|0
 block|,
 literal|0
 block|,
-literal|1
+literal|2
 block|}
 decl_stmt|;
 name|BatchUpdate
@@ -428,7 +428,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|2L
+literal|3L
 argument_list|,
 name|table
 operator|.
@@ -456,7 +456,7 @@ argument_list|,
 name|column
 argument_list|,
 operator|-
-literal|4
+literal|5
 argument_list|)
 argument_list|)
 expr_stmt|;
