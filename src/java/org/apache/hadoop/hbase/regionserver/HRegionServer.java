@@ -6322,12 +6322,7 @@ argument_list|,
 name|oldRegion
 argument_list|,
 operator|(
-name|oldRegion
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|" split; daughters: "
+literal|"Daughters; "
 operator|+
 name|newRegionA
 operator|.

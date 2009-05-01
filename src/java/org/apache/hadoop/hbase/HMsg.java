@@ -417,7 +417,7 @@ name|this
 operator|.
 name|info
 operator|.
-name|getRegionNameAsString
+name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;

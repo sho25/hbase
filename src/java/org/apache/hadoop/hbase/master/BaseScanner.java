@@ -1184,7 +1184,14 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" because daughter splits no longer hold references"
+literal|" (encoded="
+operator|+
+name|parent
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|") because daughter splits no longer hold references"
 argument_list|)
 expr_stmt|;
 name|HRegion

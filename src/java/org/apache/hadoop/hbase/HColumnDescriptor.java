@@ -867,7 +867,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * @param b Family name.    * @return<code>b</code>    * @throws IllegalArgumentException If not null and not a legitimate family    * name: i.e. 'printable' and ends in a ':' (Null passes are allowed because    *<code>b</code> can be null when deserializing).    */
+comment|/**    * @param b Family name.    * @return<code>b</code>    * @throws IllegalArgumentException If not null and not a legitimate family    * name: i.e. 'printable' and ends in a ':' (Null passes are allowed because    *<code>b</code> can be null when deserializing).  Cannot start with a '.'    * either.    */
 specifier|public
 specifier|static
 name|byte
@@ -910,6 +910,33 @@ operator|new
 name|IllegalArgumentException
 argument_list|(
 literal|"Family names must end in a colon: "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|b
+argument_list|)
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
+name|b
+index|[
+literal|0
+index|]
+operator|==
+literal|'.'
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Family names cannot start with a "
+operator|+
+literal|"period: "
 operator|+
 name|Bytes
 operator|.
