@@ -280,7 +280,7 @@ index|]
 argument_list|)
 expr_stmt|;
 block|}
-name|setInputColums
+name|setInputColumns
 argument_list|(
 name|m_cols
 argument_list|)
