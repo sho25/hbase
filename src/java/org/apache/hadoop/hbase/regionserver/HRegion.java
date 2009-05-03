@@ -1190,7 +1190,7 @@ literal|"Opening region "
 operator|+
 name|this
 operator|+
-literal|"/"
+literal|", encoded="
 operator|+
 name|this
 operator|.
@@ -1300,10 +1300,6 @@ argument_list|,
 name|HREGION_OLDLOGFILE_NAME
 argument_list|)
 decl_stmt|;
-comment|// Write HRI to a file in case we need to recover .META.
-name|checkRegioninfoOnFilesystem
-argument_list|()
-expr_stmt|;
 comment|// Move prefab HStore files into place (if any).  This picks up split files
 comment|// and any merges from splits and merges dirs.
 if|if
@@ -1332,6 +1328,10 @@ name|regiondir
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Write HRI to a file in case we need to recover .META.
+name|checkRegioninfoOnFilesystem
+argument_list|()
+expr_stmt|;
 comment|// Load in all the HStores.
 name|long
 name|maxSeqId
@@ -8459,11 +8459,6 @@ name|incrementAndGet
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"null"
-argument_list|)
 specifier|public
 name|boolean
 name|next
@@ -11040,31 +11035,6 @@ block|}
 return|return
 name|byFamily
 return|;
-block|}
-comment|/*    * Method to list files in use by region    */
-specifier|static
-name|void
-name|listFiles
-parameter_list|(
-name|FileSystem
-name|fs
-parameter_list|,
-name|HRegion
-name|r
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|listPaths
-argument_list|(
-name|fs
-argument_list|,
-name|r
-operator|.
-name|getRegionDir
-argument_list|()
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * @return True if needs a mojor compaction.    * @throws IOException     */
 name|boolean
