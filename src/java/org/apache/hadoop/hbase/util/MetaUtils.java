@@ -1081,13 +1081,6 @@ operator|.
 name|COL_REGIONINFO
 operator|.
 name|length
-argument_list|,
-name|HConstants
-operator|.
-name|COLUMN_FAMILY_STR
-operator|.
-name|length
-argument_list|()
 argument_list|)
 operator|==
 literal|0

@@ -1551,14 +1551,6 @@ argument_list|(
 name|HLog
 operator|.
 name|METACOLUMN
-argument_list|,
-name|HLog
-operator|.
-name|METACOLUMN
-operator|.
-name|length
-operator|-
-literal|1
 argument_list|)
 operator|||
 operator|!
