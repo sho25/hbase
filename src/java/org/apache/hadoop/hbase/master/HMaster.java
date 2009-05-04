@@ -2816,7 +2816,25 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Set the address for now even tho it will not be persisted on HRS side.
+comment|// Set the address for now even tho it will not be persisted on HRS side
+comment|// If the address given is not the default one,
+comment|// use the IP given by the user.
+if|if
+condition|(
+name|serverInfo
+operator|.
+name|getServerAddress
+argument_list|()
+operator|.
+name|getBindAddress
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|DEFAULT_HOST
+argument_list|)
+condition|)
+block|{
 name|String
 name|rsAddress
 init|=
@@ -2844,6 +2862,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Register with server manager
 name|this
 operator|.

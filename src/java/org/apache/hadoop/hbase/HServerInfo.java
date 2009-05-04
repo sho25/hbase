@@ -97,6 +97,10 @@ name|serverName
 init|=
 literal|null
 decl_stmt|;
+specifier|private
+name|String
+name|name
+decl_stmt|;
 comment|/** default constructor - used by Writable */
 specifier|public
 name|HServerInfo
@@ -371,6 +375,32 @@ operator|.
 name|serverName
 return|;
 block|}
+comment|/**    * Get the hostname of the server    * @return hostname    */
+specifier|public
+name|String
+name|getName
+parameter_list|()
+block|{
+return|return
+name|name
+return|;
+block|}
+comment|/**    * Set the hostname of the server    * @param name hostname    */
+specifier|public
+name|void
+name|setName
+parameter_list|(
+name|String
+name|name
+parameter_list|)
+block|{
+name|this
+operator|.
+name|name
+operator|=
+name|name
+expr_stmt|;
+block|}
 comment|/**    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
@@ -529,6 +559,15 @@ operator|.
 name|readInt
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|name
+operator|=
+name|in
+operator|.
+name|readUTF
+argument_list|()
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -574,6 +613,13 @@ argument_list|(
 name|this
 operator|.
 name|infoPort
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|writeUTF
+argument_list|(
+name|name
 argument_list|)
 expr_stmt|;
 block|}
