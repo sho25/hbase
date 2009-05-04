@@ -845,6 +845,8 @@ operator|-
 literal|1
 argument_list|,
 literal|1245
+argument_list|,
+literal|"default name"
 argument_list|)
 decl_stmt|;
 name|byte

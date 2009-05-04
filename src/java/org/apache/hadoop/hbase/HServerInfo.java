@@ -117,6 +117,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|DEFAULT_REGIONSERVER_INFOPORT
+argument_list|,
+literal|"default name"
 argument_list|)
 expr_stmt|;
 block|}
@@ -133,6 +135,9 @@ parameter_list|,
 specifier|final
 name|int
 name|infoPort
+parameter_list|,
+name|String
+name|name
 parameter_list|)
 block|{
 name|this
@@ -160,6 +165,12 @@ operator|.
 name|infoPort
 operator|=
 name|infoPort
+expr_stmt|;
+name|this
+operator|.
+name|name
+operator|=
+name|name
 expr_stmt|;
 block|}
 comment|/**    * Construct a new object using another as input (like a copy constructor)    * @param other    */
