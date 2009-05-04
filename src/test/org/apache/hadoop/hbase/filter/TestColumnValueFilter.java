@@ -244,7 +244,7 @@ specifier|final
 name|String
 name|QUICK_REGEX
 init|=
-literal|"[q][u][i][c][k]"
+literal|".+quick.+"
 decl_stmt|;
 specifier|private
 name|RowFilterInterface

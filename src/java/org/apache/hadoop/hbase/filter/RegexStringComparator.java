@@ -142,9 +142,9 @@ operator|.
 name|find
 argument_list|()
 condition|?
-literal|1
-else|:
 literal|0
+else|:
+literal|1
 return|;
 block|}
 specifier|public
