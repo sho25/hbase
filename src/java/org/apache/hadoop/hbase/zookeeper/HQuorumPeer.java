@@ -340,6 +340,23 @@ argument_list|(
 name|ZOOKEEPER_CONFIG_NAME
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|inputStream
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|ZOOKEEPER_CONFIG_NAME
+operator|+
+literal|" not found"
+argument_list|)
+throw|;
+block|}
 return|return
 name|parseConfig
 argument_list|(
