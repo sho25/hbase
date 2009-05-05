@@ -517,7 +517,7 @@ name|thrift
 operator|.
 name|protocol
 operator|.
-name|TCompactProtocol
+name|TBinaryProtocol
 import|;
 end_import
 
@@ -545,7 +545,7 @@ name|thrift
 operator|.
 name|server
 operator|.
-name|THsHaServer
+name|TServer
 import|;
 end_import
 
@@ -559,7 +559,7 @@ name|thrift
 operator|.
 name|server
 operator|.
-name|TServer
+name|TThreadPoolServer
 import|;
 end_import
 
@@ -573,7 +573,7 @@ name|thrift
 operator|.
 name|transport
 operator|.
-name|TNonblockingServerSocket
+name|TServerSocket
 import|;
 end_import
 
@@ -587,7 +587,7 @@ name|thrift
 operator|.
 name|transport
 operator|.
-name|TNonblockingServerTransport
+name|TServerTransport
 import|;
 end_import
 
@@ -3647,11 +3647,11 @@ argument_list|(
 name|handler
 argument_list|)
 decl_stmt|;
-name|TNonblockingServerTransport
+name|TServerTransport
 name|serverTransport
 init|=
 operator|new
-name|TNonblockingServerSocket
+name|TServerSocket
 argument_list|(
 name|port
 argument_list|)
@@ -3660,16 +3660,20 @@ name|TProtocolFactory
 name|protFactory
 init|=
 operator|new
-name|TCompactProtocol
+name|TBinaryProtocol
 operator|.
 name|Factory
-argument_list|()
+argument_list|(
+literal|true
+argument_list|,
+literal|true
+argument_list|)
 decl_stmt|;
 name|TServer
 name|server
 init|=
 operator|new
-name|THsHaServer
+name|TThreadPoolServer
 argument_list|(
 name|processor
 argument_list|,
