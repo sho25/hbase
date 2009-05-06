@@ -221,6 +221,15 @@ operator|.
 name|getInfoPort
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|name
+operator|=
+name|other
+operator|.
+name|getName
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * @return the load    */
 specifier|public
