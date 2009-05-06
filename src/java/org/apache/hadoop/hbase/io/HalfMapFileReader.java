@@ -158,9 +158,9 @@ specifier|public
 class|class
 name|HalfMapFileReader
 extends|extends
-name|BloomFilterMapFile
+name|HBaseMapFile
 operator|.
-name|Reader
+name|HBaseReader
 block|{
 specifier|private
 specifier|final
@@ -226,13 +226,11 @@ name|mk
 argument_list|,
 literal|false
 argument_list|,
-literal|false
-argument_list|,
 name|hri
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param fs    * @param dirName    * @param conf    * @param r    * @param mk    * @param filter    * @param blockCacheEnabled    * @param hri    * @throws IOException    */
+comment|/**    * @param fs    * @param dirName    * @param conf    * @param r    * @param mk    * @param blockCacheEnabled    * @param hri    * @throws IOException    */
 specifier|public
 name|HalfMapFileReader
 parameter_list|(
@@ -261,10 +259,6 @@ name|mk
 parameter_list|,
 specifier|final
 name|boolean
-name|filter
-parameter_list|,
-specifier|final
-name|boolean
 name|blockCacheEnabled
 parameter_list|,
 specifier|final
@@ -281,8 +275,6 @@ argument_list|,
 name|dirName
 argument_list|,
 name|conf
-argument_list|,
-name|filter
 argument_list|,
 name|blockCacheEnabled
 argument_list|,
