@@ -265,7 +265,7 @@ name|byte
 operator|)
 literal|7
 decl_stmt|;
-comment|/**     * The type of compression.    * @see org.apache.hadoop.io.SequenceFile.Writer    * @deprecated    */
+comment|/**     * The type of compression.    * @see org.apache.hadoop.io.SequenceFile.Writer    * @deprecated Compression now means which compression library    * rather than 'what' to cmopress.  See {@link Compression.Algorithm}    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1438,7 +1438,7 @@ name|getCompression
 argument_list|()
 return|;
 block|}
-comment|/**    * @param type Compression type setting.    */
+comment|/**    * Compression types supported in hbase.    * LZO is not bundled as part of the hbase distribution.    * See<a href="http://wiki.apache.org/hadoop/UsingLzoCompression">LZO Compression</a>    * for how to enable it.    * @param type Compression type setting.    */
 specifier|public
 name|void
 name|setCompressionType
@@ -1457,6 +1457,14 @@ condition|(
 name|type
 condition|)
 block|{
+case|case
+name|LZO
+case|:
+name|compressionType
+operator|=
+literal|"LZO"
+expr_stmt|;
+break|break;
 case|case
 name|GZ
 case|:
