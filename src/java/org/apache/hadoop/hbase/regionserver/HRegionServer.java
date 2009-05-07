@@ -5717,10 +5717,8 @@ name|this
 operator|.
 name|toDo
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|<=
-literal|0
 condition|)
 block|{
 return|return;
@@ -5737,6 +5735,30 @@ operator|.
 name|toDo
 control|)
 block|{
+name|HMsg
+name|msg
+init|=
+name|e
+operator|.
+name|msg
+decl_stmt|;
+if|if
+condition|(
+name|msg
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Message is empty: "
+operator|+
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|e
@@ -6428,10 +6450,12 @@ comment|////////////////////////////////////////////////////////////////////////
 comment|/*    * Data structure to hold a HMsg and retries count.    */
 specifier|private
 specifier|static
+specifier|final
 class|class
 name|ToDoEntry
 block|{
 specifier|protected
+specifier|volatile
 name|int
 name|tries
 decl_stmt|;
@@ -6442,6 +6466,7 @@ name|msg
 decl_stmt|;
 name|ToDoEntry
 parameter_list|(
+specifier|final
 name|HMsg
 name|msg
 parameter_list|)
