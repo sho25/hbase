@@ -297,11 +297,25 @@ name|MasterNotRunningException
 argument_list|()
 throw|;
 block|}
+comment|// add the delimiters.
+comment|// TODO maybe check if this is necessary?
 name|this
 operator|.
 name|tableName
 operator|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|tableName
+argument_list|)
+operator|+
+literal|",,"
+argument_list|)
 expr_stmt|;
 comment|// Don't wait for META table to come on line if we're enabling it
 if|if
