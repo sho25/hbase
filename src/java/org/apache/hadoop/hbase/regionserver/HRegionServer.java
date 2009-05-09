@@ -2964,9 +2964,23 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
 name|checkFileSystem
 argument_list|()
+condition|)
+block|{
+comment|// Filesystem is OK.  Something is up w/ ZK or master.  Sleep
+comment|// a little while if only to stop our logging many times a
+comment|// millisecond.
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(

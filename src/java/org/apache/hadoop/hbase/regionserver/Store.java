@@ -1527,7 +1527,7 @@ operator|++
 expr_stmt|;
 continue|continue;
 block|}
-comment|// Check this edit is for me. Also, guard against writing the speical
+comment|// Check this edit is for me. Also, guard against writing the special
 comment|// METACOLUMN info such as HBASE::CACHEFLUSH entries
 name|KeyValue
 name|kv

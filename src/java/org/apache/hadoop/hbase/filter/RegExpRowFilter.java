@@ -679,14 +679,7 @@ condition|(
 name|data
 operator|!=
 literal|null
-operator|&&
-operator|!
-name|HLogEdit
-operator|.
-name|isDeleted
-argument_list|(
-name|data
-argument_list|)
+comment|/* DELETE IS IN KEY NOW&& !HLogEdit.isDeleted(data)*/
 condition|)
 block|{
 return|return
@@ -970,20 +963,7 @@ operator|.
 name|getKey
 argument_list|()
 argument_list|)
-operator|&&
-operator|!
-name|HLogEdit
-operator|.
-name|isDeleted
-argument_list|(
-name|col
-operator|.
-name|getValue
-argument_list|()
-operator|.
-name|getValue
-argument_list|()
-argument_list|)
+comment|/* DELETE IS IN KEY NOW&& !HLogEdit.isDeleted(col.getValue().getValue())*/
 condition|)
 block|{
 return|return

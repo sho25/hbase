@@ -931,46 +931,10 @@ expr_stmt|;
 comment|// Try a row that has all expected columnKeys and a null-expected columnKey
 comment|// that maps to a null value.
 comment|// Testing row with columnKeys: a-e, e maps to null
-name|colvalues
-operator|.
-name|put
-argument_list|(
-operator|new
-name|byte
-index|[]
-block|{
-name|LAST_CHAR
-block|}
-argument_list|,
-operator|new
-name|Cell
-argument_list|(
-name|HLogEdit
-operator|.
-name|DELETED_BYTES
-argument_list|,
-name|HConstants
-operator|.
-name|LATEST_TIMESTAMP
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|assertFalse
-argument_list|(
-literal|"Failed with last columnKey "
-operator|+
-name|LAST_CHAR
-operator|+
-literal|" mapping to null."
-argument_list|,
-name|filter
-operator|.
-name|filterRow
-argument_list|(
-name|colvalues
-argument_list|)
-argument_list|)
-expr_stmt|;
+comment|//    colvalues.put(new byte [] {LAST_CHAR},
+comment|//      new Cell(HLogEdit.DELETED_BYTES, HConstants.LATEST_TIMESTAMP));
+comment|//    assertFalse("Failed with last columnKey " + LAST_CHAR + " mapping to null.",
+comment|//      filter.filterRow(colvalues));
 block|}
 specifier|private
 name|byte
