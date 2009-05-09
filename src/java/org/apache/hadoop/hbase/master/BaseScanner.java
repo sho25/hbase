@@ -1545,14 +1545,7 @@ operator|.
 name|regionManager
 init|)
 block|{
-if|if
-condition|(
-name|serverName
-operator|!=
-literal|null
-condition|)
-block|{
-comment|/*          * We don't assign regions that are offline, in transition or were on          * a dead server. Regions that were on a dead server will get reassigned          * by ProcessServerShutdown          */
+comment|/*        * We don't assign regions that are offline, in transition or were on        * a dead server. Regions that were on a dead server will get reassigned        * by ProcessServerShutdown        */
 if|if
 condition|(
 name|info
@@ -1574,6 +1567,11 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 operator|||
+operator|(
+name|serverName
+operator|!=
+literal|null
+operator|&&
 name|this
 operator|.
 name|master
@@ -1584,10 +1582,18 @@ name|isDead
 argument_list|(
 name|serverName
 argument_list|)
+operator|)
 condition|)
 block|{
 return|return;
 block|}
+if|if
+condition|(
+name|serverName
+operator|!=
+literal|null
+condition|)
+block|{
 name|storedInfo
 operator|=
 name|this
