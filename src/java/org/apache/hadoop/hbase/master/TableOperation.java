@@ -303,19 +303,7 @@ name|this
 operator|.
 name|tableName
 operator|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|tableName
-argument_list|)
-operator|+
-literal|",,"
-argument_list|)
 expr_stmt|;
 comment|// Don't wait for META table to come on line if we're enabling it
 if|if
@@ -410,6 +398,24 @@ init|=
 literal|false
 decl_stmt|;
 comment|// Open a scanner on the meta region
+name|byte
+index|[]
+name|tableNameMetaStart
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|tableName
+argument_list|)
+operator|+
+literal|",,"
+argument_list|)
+decl_stmt|;
 name|long
 name|scannerId
 init|=
@@ -424,7 +430,7 @@ argument_list|()
 argument_list|,
 name|COLUMN_FAMILY_ARRAY
 argument_list|,
-name|tableName
+name|tableNameMetaStart
 argument_list|,
 name|HConstants
 operator|.
