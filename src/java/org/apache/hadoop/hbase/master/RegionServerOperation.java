@@ -313,6 +313,7 @@ literal|true
 decl_stmt|;
 if|if
 condition|(
+operator|(
 name|master
 operator|.
 name|regionManager
@@ -325,6 +326,14 @@ operator|.
 name|regionManager
 operator|.
 name|numOnlineMetaRegions
+argument_list|()
+operator|)
+operator|||
+name|master
+operator|.
+name|regionManager
+operator|.
+name|metaRegionsInTransition
 argument_list|()
 condition|)
 block|{
