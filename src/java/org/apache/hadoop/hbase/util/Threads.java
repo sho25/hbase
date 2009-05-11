@@ -179,12 +179,11 @@ name|shutdown
 argument_list|(
 name|t
 argument_list|,
-operator|-
-literal|1
+literal|0
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Shutdown passed thread using isAlive and join.    * @param joinwait Pass -1 if we're to wait forever.    * @param t Thread to shutdown    */
+comment|/**    * Shutdown passed thread using isAlive and join.    * @param joinwait Pass 0 if we're to wait forever.    * @param t Thread to shutdown    */
 specifier|public
 specifier|static
 name|void
@@ -209,22 +208,6 @@ condition|)
 block|{
 try|try
 block|{
-if|if
-condition|(
-name|joinwait
-operator|==
-operator|-
-literal|1
-condition|)
-block|{
-name|t
-operator|.
-name|join
-argument_list|()
-expr_stmt|;
-block|}
-else|else
-block|{
 name|t
 operator|.
 name|join
@@ -232,7 +215,6 @@ argument_list|(
 name|joinwait
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 catch|catch
 parameter_list|(
