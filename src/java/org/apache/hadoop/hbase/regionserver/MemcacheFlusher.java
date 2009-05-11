@@ -937,7 +937,8 @@ name|boolean
 name|removeFromQueue
 parameter_list|)
 block|{
-comment|// Wait until it is safe to flush
+comment|// Wait until it is safe to flush.
+comment|// TODO: Fix.  This block doesn't work if more than one store.
 name|int
 name|count
 init|=
@@ -973,12 +974,17 @@ name|values
 argument_list|()
 control|)
 block|{
-if|if
-condition|(
+name|int
+name|files
+init|=
 name|hstore
 operator|.
 name|getStorefilesCount
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|files
 operator|>
 name|this
 operator|.
@@ -1007,18 +1013,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Too many store files for region "
+literal|"Too many store files in store "
 operator|+
-name|region
+name|hstore
 operator|+
 literal|": "
 operator|+
-name|hstore
-operator|.
-name|getStorefilesCount
-argument_list|()
+name|files
 operator|+
-literal|", waiting"
+literal|", pausing"
 argument_list|)
 expr_stmt|;
 name|triggered
@@ -1056,7 +1059,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Compaction completed on region "
+literal|"Compaction triggered on region "
 operator|+
 name|region
 operator|+

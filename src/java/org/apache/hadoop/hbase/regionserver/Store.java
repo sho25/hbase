@@ -1084,55 +1084,6 @@ name|loadStoreFiles
 argument_list|()
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-operator|&&
-name|this
-operator|.
-name|storefiles
-operator|.
-name|size
-argument_list|()
-operator|>
-literal|0
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Loaded "
-operator|+
-name|this
-operator|.
-name|storefiles
-operator|.
-name|size
-argument_list|()
-operator|+
-literal|" file(s) in Store "
-operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|this
-operator|.
-name|storeName
-argument_list|)
-operator|+
-literal|", max sequence id "
-operator|+
-name|this
-operator|.
-name|maxSeqId
-argument_list|)
-expr_stmt|;
-block|}
 comment|// Do reconstruction log.
 name|runReconstructionLog
 argument_list|(
@@ -3247,23 +3198,23 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Completed "
+literal|"Completed"
 operator|+
 operator|(
 name|majorcompaction
 condition|?
-literal|"major"
+literal|" major "
 else|:
-literal|""
+literal|" "
 operator|)
 operator|+
-literal|" compaction of "
+literal|"compaction of "
 operator|+
 name|this
 operator|.
 name|storeNameStr
 operator|+
-literal|" store size is "
+literal|"; store size is "
 operator|+
 name|StringUtils
 operator|.

@@ -2335,6 +2335,43 @@ expr_stmt|;
 block|}
 block|}
 block|}
+name|long
+name|took
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|now
+decl_stmt|;
+if|if
+condition|(
+name|took
+operator|>
+literal|1000
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" took "
+operator|+
+name|took
+operator|+
+literal|"ms optional sync'ing HLog"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 specifier|private
@@ -2990,8 +3027,8 @@ block|}
 comment|// Check for possibly empty file. With appends, currently Hadoop reports
 comment|// a zero length even if the file has been sync'd. Revisit if
 comment|// HADOOP-4751 is committed.
-name|boolean
-name|possiblyEmpty
+name|long
+name|length
 init|=
 name|logfiles
 index|[
@@ -3000,8 +3037,6 @@ index|]
 operator|.
 name|getLen
 argument_list|()
-operator|<=
-literal|0
 decl_stmt|;
 name|HLogKey
 name|key
@@ -3504,9 +3539,23 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|possiblyEmpty
+name|length
+operator|<=
+literal|0
 condition|)
 block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Empty log, continuing: "
+operator|+
+name|logfiles
+index|[
+name|i
+index|]
+argument_list|)
+expr_stmt|;
 continue|continue;
 block|}
 throw|throw

@@ -1484,38 +1484,6 @@ name|maxSeqId
 operator|+
 literal|1
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Next sequence id for region "
-operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|regionInfo
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-operator|+
-literal|" is "
-operator|+
-name|this
-operator|.
-name|minSequenceId
-argument_list|)
-expr_stmt|;
-block|}
 comment|// Get rid of any splits or merges that were lost in-progress
 name|FSUtils
 operator|.
@@ -1610,7 +1578,11 @@ operator|.
 name|getEncodedName
 argument_list|()
 operator|+
-literal|" available"
+literal|" available; sequence id is "
+operator|+
+name|this
+operator|.
+name|minSequenceId
 argument_list|)
 expr_stmt|;
 block|}
@@ -3142,17 +3114,17 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"starting "
+literal|"Starting"
 operator|+
 operator|(
 name|majorCompaction
 condition|?
-literal|"major"
+literal|" major "
 else|:
-literal|""
+literal|" "
 operator|)
 operator|+
-literal|" compaction on region "
+literal|"compaction on region "
 operator|+
 name|this
 argument_list|)
@@ -5185,6 +5157,14 @@ name|row
 argument_list|)
 decl_stmt|;
 name|long
+name|now
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
+name|long
 name|commitTime
 init|=
 name|b
@@ -5194,10 +5174,7 @@ argument_list|()
 operator|==
 name|LATEST_TIMESTAMP
 condition|?
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
+name|now
 else|:
 name|b
 operator|.
