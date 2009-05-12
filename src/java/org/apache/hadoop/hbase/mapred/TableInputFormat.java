@@ -157,6 +157,20 @@ name|JobConfigurable
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
+import|;
+end_import
+
 begin_comment
 comment|/**  * Convert HBase tabular data into a format that is consumable by Map/Reduce.  */
 end_comment
@@ -319,7 +333,12 @@ name|LOG
 operator|.
 name|error
 argument_list|(
+name|StringUtils
+operator|.
+name|stringifyException
+argument_list|(
 name|e
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -364,6 +383,33 @@ operator|new
 name|IOException
 argument_list|(
 literal|"expecting one table name"
+argument_list|)
+throw|;
+block|}
+comment|// connected to table?
+if|if
+condition|(
+name|getHTable
+argument_list|()
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"could not connect to table '"
+operator|+
+name|tableNames
+index|[
+literal|0
+index|]
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|"'"
 argument_list|)
 throw|;
 block|}

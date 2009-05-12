@@ -1241,6 +1241,18 @@ operator|=
 name|inputColumns
 expr_stmt|;
 block|}
+comment|/**    * Allows subclasses to get the {@link HTable}.    */
+specifier|protected
+name|HTable
+name|getHTable
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|table
+return|;
+block|}
 comment|/**    * Allows subclasses to set the {@link HTable}.    *    * @param table to get the data from    */
 specifier|protected
 name|void
