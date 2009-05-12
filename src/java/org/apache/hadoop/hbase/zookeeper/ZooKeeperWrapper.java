@@ -588,6 +588,17 @@ operator|=
 name|servers
 expr_stmt|;
 block|}
+comment|/** @return comma separated host:port list of ZooKeeper quorum servers. */
+specifier|public
+specifier|static
+name|String
+name|getQuorumServers
+parameter_list|()
+block|{
+return|return
+name|quorumServers
+return|;
+block|}
 specifier|private
 specifier|static
 name|void

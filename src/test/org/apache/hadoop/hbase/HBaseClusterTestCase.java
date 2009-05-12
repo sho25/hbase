@@ -221,10 +221,6 @@ name|int
 name|regionServers
 decl_stmt|;
 specifier|protected
-name|int
-name|numZooKeeperPeers
-decl_stmt|;
-specifier|protected
 name|boolean
 name|startDfs
 decl_stmt|;
@@ -286,12 +282,6 @@ operator|.
 name|regionServers
 operator|=
 name|regionServers
-expr_stmt|;
-name|this
-operator|.
-name|numZooKeeperPeers
-operator|=
-literal|1
 expr_stmt|;
 block|}
 specifier|protected
@@ -357,8 +347,6 @@ name|zooKeeperCluster
 operator|.
 name|startup
 argument_list|(
-name|numZooKeeperPeers
-argument_list|,
 name|testDir
 argument_list|)
 expr_stmt|;

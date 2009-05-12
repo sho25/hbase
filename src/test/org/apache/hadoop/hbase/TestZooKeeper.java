@@ -427,7 +427,7 @@ expr_stmt|;
 name|String
 name|quorumServers
 init|=
-name|zooKeeperCluster
+name|ZooKeeperWrapper
 operator|.
 name|getQuorumServers
 argument_list|()
@@ -563,7 +563,7 @@ expr_stmt|;
 name|String
 name|quorumServers
 init|=
-name|zooKeeperCluster
+name|ZooKeeperWrapper
 operator|.
 name|getQuorumServers
 argument_list|()
