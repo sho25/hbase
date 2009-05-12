@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Copyright 2007 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright 2009 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -100,7 +100,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**   * A byte sequence that is usable as a key or value.  Based on  * {@link org.apache.hadoop.io.BytesWritable} only this class is NOT resizable  * and DOES NOT distinguish between the size of the seqeunce and the current  * capacity as {@link org.apache.hadoop.io.BytesWritable} does. Hence its  * comparatively 'immutable'.  */
+comment|/**   * A byte sequence that is usable as a key or value.  Based on  * {@link org.apache.hadoop.io.BytesWritable} only this class is NOT resizable  * and DOES NOT distinguish between the size of the seqeunce and the current  * capacity as {@link org.apache.hadoop.io.BytesWritable} does. Hence its  * comparatively 'immutable'. When creating a new instance of this class,  * the underlying byte [] is not copied, just referenced.  The backing  * buffer is accessed when we go to serialize.  */
 end_comment
 
 begin_class
@@ -117,6 +117,14 @@ specifier|private
 name|byte
 index|[]
 name|bytes
+decl_stmt|;
+specifier|private
+name|int
+name|offset
+decl_stmt|;
+specifier|private
+name|int
+name|length
 decl_stmt|;
 comment|/**    * Create a zero-size sequence.    */
 specifier|public
@@ -137,13 +145,18 @@ name|bytes
 parameter_list|)
 block|{
 name|this
+argument_list|(
+name|bytes
+argument_list|,
+literal|0
+argument_list|,
+name|bytes
 operator|.
-name|bytes
-operator|=
-name|bytes
+name|length
+argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Set the new ImmutableBytesWritable to a copy of the contents of the passed    *<code>ibw</code>.    * @param ibw the value to set this ImmutableBytesWritable to.    */
+comment|/**    * Set the new ImmutableBytesWritable to the contents of the passed    *<code>ibw</code>.    * @param ibw the value to set this ImmutableBytesWritable to.    */
 specifier|public
 name|ImmutableBytesWritable
 parameter_list|(
@@ -168,14 +181,14 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Set the value to a copy of the given byte range    * @param newData the new values to copy in    * @param offset the offset in newData to start at    * @param length the number of bytes to copy    */
+comment|/**    * Set the value to a given byte range    * @param bytes the new byte range to set to    * @param offset the offset in newData to start at    * @param length the number of bytes in the range    */
 specifier|public
 name|ImmutableBytesWritable
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|newData
+name|bytes
 parameter_list|,
 specifier|final
 name|int
@@ -190,28 +203,19 @@ name|this
 operator|.
 name|bytes
 operator|=
-operator|new
-name|byte
-index|[
-name|length
-index|]
+name|bytes
 expr_stmt|;
-name|System
-operator|.
-name|arraycopy
-argument_list|(
-name|newData
-argument_list|,
-name|offset
-argument_list|,
 name|this
 operator|.
-name|bytes
-argument_list|,
-literal|0
-argument_list|,
+name|offset
+operator|=
+name|offset
+expr_stmt|;
+name|this
+operator|.
 name|length
-argument_list|)
+operator|=
+name|length
 expr_stmt|;
 block|}
 comment|/**    * Get the data from the BytesWritable.    * @return The data is only valid between 0 and getSize() - 1.    */
@@ -292,9 +296,18 @@ block|}
 return|return
 name|this
 operator|.
-name|bytes
-operator|.
 name|length
+return|;
+block|}
+specifier|public
+name|int
+name|getOffset
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|offset
 return|;
 block|}
 specifier|public
@@ -310,15 +323,23 @@ name|IOException
 block|{
 name|this
 operator|.
+name|length
+operator|=
+name|in
+operator|.
+name|readInt
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
 name|bytes
 operator|=
 operator|new
 name|byte
 index|[
-name|in
+name|this
 operator|.
-name|readInt
-argument_list|()
+name|length
 index|]
 expr_stmt|;
 name|in
@@ -333,10 +354,14 @@ literal|0
 argument_list|,
 name|this
 operator|.
-name|bytes
-operator|.
 name|length
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|offset
+operator|=
+literal|0
 expr_stmt|;
 block|}
 specifier|public
@@ -356,8 +381,6 @@ name|writeInt
 argument_list|(
 name|this
 operator|.
-name|bytes
-operator|.
 name|length
 argument_list|)
 expr_stmt|;
@@ -369,11 +392,11 @@ name|this
 operator|.
 name|bytes
 argument_list|,
-literal|0
-argument_list|,
 name|this
 operator|.
-name|bytes
+name|offset
+argument_list|,
+name|this
 operator|.
 name|length
 argument_list|)
@@ -395,8 +418,6 @@ argument_list|(
 name|bytes
 argument_list|,
 name|this
-operator|.
-name|bytes
 operator|.
 name|length
 argument_list|)
@@ -437,8 +458,6 @@ name|diff
 init|=
 name|this
 operator|.
-name|bytes
-operator|.
 name|length
 operator|-
 name|that
@@ -465,8 +484,6 @@ argument_list|,
 literal|0
 argument_list|,
 name|this
-operator|.
-name|bytes
 operator|.
 name|length
 argument_list|,
