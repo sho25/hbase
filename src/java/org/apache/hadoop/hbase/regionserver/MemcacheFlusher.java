@@ -938,29 +938,15 @@ name|removeFromQueue
 parameter_list|)
 block|{
 comment|// Wait until it is safe to flush.
-comment|// TODO: Fix.  This block doesn't work if more than one store.
-name|int
-name|count
-init|=
-literal|0
-decl_stmt|;
 name|boolean
-name|triggered
-init|=
-literal|false
+name|toomany
 decl_stmt|;
-while|while
-condition|(
-name|count
-operator|++
-operator|<
-operator|(
-name|blockingWaitTime
-operator|/
-literal|500
-operator|)
-condition|)
+do|do
 block|{
+name|toomany
+operator|=
+literal|false
+expr_stmt|;
 for|for
 control|(
 name|Store
@@ -993,10 +979,32 @@ condition|)
 block|{
 if|if
 condition|(
-operator|!
-name|triggered
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Too many store files in store "
+operator|+
+name|hstore
+operator|+
+literal|": "
+operator|+
+name|files
+operator|+
+literal|", waiting"
+argument_list|)
+expr_stmt|;
+block|}
+name|toomany
+operator|=
+literal|true
+expr_stmt|;
 name|server
 operator|.
 name|compactSplitThread
@@ -1009,33 +1017,13 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Too many store files in store "
-operator|+
-name|hstore
-operator|+
-literal|": "
-operator|+
-name|files
-operator|+
-literal|", pausing"
-argument_list|)
-expr_stmt|;
-name|triggered
-operator|=
-literal|true
-expr_stmt|;
-block|}
 try|try
 block|{
 name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|500
+name|blockingWaitTime
 argument_list|)
 expr_stmt|;
 block|}
@@ -1047,28 +1035,14 @@ parameter_list|)
 block|{
 comment|// ignore
 block|}
-continue|continue;
 block|}
 block|}
-if|if
+block|}
+do|while
 condition|(
-name|triggered
+name|toomany
 condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Compaction triggered on region "
-operator|+
-name|region
-operator|+
-literal|", proceeding"
-argument_list|)
-expr_stmt|;
-block|}
-break|break;
-block|}
+do|;
 synchronized|synchronized
 init|(
 name|regionsInQueue
