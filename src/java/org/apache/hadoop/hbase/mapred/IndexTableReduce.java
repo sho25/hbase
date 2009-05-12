@@ -425,6 +425,16 @@ name|key
 operator|.
 name|get
 argument_list|()
+argument_list|,
+name|key
+operator|.
+name|getOffset
+argument_list|()
+argument_list|,
+name|key
+operator|.
+name|getLength
+argument_list|()
 argument_list|)
 argument_list|,
 name|Field
