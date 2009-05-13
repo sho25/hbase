@@ -634,7 +634,7 @@ name|EQUAL
 case|:
 return|return
 name|compareResult
-operator|==
+operator|!=
 literal|0
 return|;
 case|case
@@ -642,7 +642,7 @@ name|NOT_EQUAL
 case|:
 return|return
 name|compareResult
-operator|!=
+operator|==
 literal|0
 return|;
 case|case

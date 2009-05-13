@@ -502,7 +502,7 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|assertTrue
+name|assertFalse
 argument_list|(
 literal|"substrTrue"
 argument_list|,
@@ -536,7 +536,7 @@ name|length
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertFalse
+name|assertTrue
 argument_list|(
 literal|"substrFalse"
 argument_list|,
@@ -609,7 +609,7 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|assertTrue
+name|assertFalse
 argument_list|(
 literal|"regexTrue"
 argument_list|,
@@ -643,7 +643,7 @@ name|length
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertFalse
+name|assertTrue
 argument_list|(
 literal|"regexFalse"
 argument_list|,
