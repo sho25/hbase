@@ -190,7 +190,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|TestTransactions
+name|DisabledTestTransactions
 extends|extends
 name|HBaseClusterTestCase
 block|{
@@ -286,7 +286,7 @@ name|transactionManager
 decl_stmt|;
 comment|/** constructor */
 specifier|public
-name|TestTransactions
+name|DisabledTestTransactions
 parameter_list|()
 block|{
 name|conf
@@ -495,7 +495,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|testTwoTransactionsWithConflict
+name|TestTwoTransactionsWithConflict
 parameter_list|()
 throws|throws
 name|IOException

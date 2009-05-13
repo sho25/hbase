@@ -1405,11 +1405,11 @@ operator|new
 name|HLogKey
 argument_list|()
 decl_stmt|;
-name|HLogEdit
+name|KeyValue
 name|val
 init|=
 operator|new
-name|HLogEdit
+name|KeyValue
 argument_list|()
 decl_stmt|;
 name|long
@@ -1480,22 +1480,10 @@ continue|continue;
 block|}
 comment|// Check this edit is for me. Also, guard against writing the special
 comment|// METACOLUMN info such as HBASE::CACHEFLUSH entries
-name|KeyValue
-name|kv
-init|=
-name|val
-operator|.
-name|getKeyValue
-argument_list|()
-decl_stmt|;
 if|if
 condition|(
+comment|/* Commented out for now -- St.Ack val.isTransactionEntry() ||*/
 name|val
-operator|.
-name|isTransactionEntry
-argument_list|()
-operator|||
-name|kv
 operator|.
 name|matchingColumnNoDelimiter
 argument_list|(
@@ -1529,7 +1517,7 @@ argument_list|()
 argument_list|)
 operator|||
 operator|!
-name|kv
+name|val
 operator|.
 name|matchingFamily
 argument_list|(
@@ -1546,7 +1534,7 @@ name|reconstructedCache
 operator|.
 name|add
 argument_list|(
-name|kv
+name|val
 argument_list|)
 expr_stmt|;
 name|editsCount
