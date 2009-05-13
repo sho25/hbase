@@ -840,8 +840,6 @@ operator|.
 name|toString
 argument_list|()
 operator|+
-literal|" from "
-operator|+
 operator|(
 operator|(
 name|ticket
@@ -849,12 +847,16 @@ operator|==
 literal|null
 operator|)
 condition|?
-literal|"an unknown user"
+literal|" from an unknown user"
 else|:
+operator|(
+literal|" from "
+operator|+
 name|ticket
 operator|.
 name|getUserName
 argument_list|()
+operator|)
 operator|)
 argument_list|)
 expr_stmt|;
