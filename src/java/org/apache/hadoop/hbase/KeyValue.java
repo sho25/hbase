@@ -438,7 +438,7 @@ argument_list|(
 operator|(
 name|byte
 operator|)
-literal|16
+literal|12
 argument_list|)
 block|,
 name|DeleteFamily
@@ -446,7 +446,7 @@ argument_list|(
 operator|(
 name|byte
 operator|)
-literal|32
+literal|14
 argument_list|)
 block|,
 comment|// Maximum is used when searching; you look from maximum on down.
