@@ -182,7 +182,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|DisabledTestThriftServer
+name|TestThriftServer
 extends|extends
 name|HBaseClusterTestCase
 block|{
@@ -960,8 +960,9 @@ name|rowBname
 argument_list|)
 expr_stmt|;
 comment|// Assert that the deletes were applied
-name|assertFalse
-argument_list|(
+name|int
+name|size
+init|=
 name|handler
 operator|.
 name|get
@@ -975,12 +976,16 @@ argument_list|)
 operator|.
 name|size
 argument_list|()
-operator|==
+decl_stmt|;
+name|assertEquals
+argument_list|(
 literal|0
+argument_list|,
+name|size
 argument_list|)
 expr_stmt|;
-name|assertFalse
-argument_list|(
+name|size
+operator|=
 name|handler
 operator|.
 name|getRow
@@ -992,8 +997,12 @@ argument_list|)
 operator|.
 name|size
 argument_list|()
-operator|==
+expr_stmt|;
+name|assertEquals
+argument_list|(
 literal|0
+argument_list|,
+name|size
 argument_list|)
 expr_stmt|;
 comment|// Teardown
@@ -1258,7 +1267,10 @@ name|valueCname
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertFalse
+comment|// Maybe I'd reading this wrong but at line #187 above, the BatchMutations
+comment|// are adding a columnAname at time2 so the below should be true not false
+comment|// -- St.Ack
+name|assertTrue
 argument_list|(
 name|rowResult2
 operator|.
@@ -1422,8 +1434,9 @@ name|time2
 argument_list|)
 expr_stmt|;
 comment|// Assert that the timestamp-related methods retrieve the correct data
-name|assertFalse
-argument_list|(
+name|int
+name|size
+init|=
 name|handler
 operator|.
 name|getVerTs
@@ -1441,6 +1454,10 @@ argument_list|)
 operator|.
 name|size
 argument_list|()
+decl_stmt|;
+name|assertFalse
+argument_list|(
+name|size
 operator|>
 literal|0
 argument_list|)
@@ -1638,6 +1655,9 @@ name|rowAname
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// This used to be '1'.  I don't know why when we are asking for two columns
+comment|// and when the mutations above would seem to add two columns to the row.
+comment|// -- St.Ack 05/12/2009
 name|assertEquals
 argument_list|(
 name|rowResult1a
@@ -1647,7 +1667,7 @@ operator|.
 name|size
 argument_list|()
 argument_list|,
-literal|1
+literal|2
 argument_list|)
 expr_stmt|;
 name|assertTrue
