@@ -813,9 +813,12 @@ name|getLong
 argument_list|(
 literal|"hbase.regionserver.hlog.blocksize"
 argument_list|,
-literal|1024L
-operator|*
-literal|1024L
+name|this
+operator|.
+name|fs
+operator|.
+name|getDefaultBlockSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
@@ -880,6 +883,37 @@ argument_list|(
 literal|"hbase.regionserver.maxlogs"
 argument_list|,
 literal|64
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"HLog configuration: blocksize="
+operator|+
+name|this
+operator|.
+name|blocksize
+operator|+
+literal|", maxlogentries="
+operator|+
+name|this
+operator|.
+name|maxlogentries
+operator|+
+literal|", flushlogentries="
+operator|+
+name|this
+operator|.
+name|flushlogentries
+operator|+
+literal|", optionallogflushinternal="
+operator|+
+name|this
+operator|.
+name|optionalFlushInterval
+operator|+
+literal|"ms"
 argument_list|)
 expr_stmt|;
 name|rollWriter
@@ -1170,6 +1204,9 @@ operator|+
 name|this
 operator|.
 name|numEntries
+operator|.
+name|get
+argument_list|()
 operator|+
 literal|". "
 else|:
@@ -2368,7 +2405,14 @@ literal|" took "
 operator|+
 name|took
 operator|+
-literal|"ms optional sync'ing HLog"
+literal|"ms optional sync'ing HLog; editcount="
+operator|+
+name|this
+operator|.
+name|numEntries
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2415,6 +2459,14 @@ name|IOException
 block|{
 try|try
 block|{
+name|long
+name|now
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 name|this
 operator|.
 name|writer
@@ -2442,6 +2494,50 @@ condition|)
 block|{
 name|sync
 argument_list|()
+expr_stmt|;
+block|}
+name|long
+name|took
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|now
+decl_stmt|;
+if|if
+condition|(
+name|took
+operator|>
+literal|1000
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" took "
+operator|+
+name|took
+operator|+
+literal|"ms appending an edit to HLog; editcount="
+operator|+
+name|this
+operator|.
+name|numEntries
+operator|.
+name|get
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -3020,6 +3116,16 @@ name|i
 index|]
 operator|.
 name|getPath
+argument_list|()
+operator|+
+literal|", length="
+operator|+
+name|logfiles
+index|[
+name|i
+index|]
+operator|.
+name|getLen
 argument_list|()
 argument_list|)
 expr_stmt|;
