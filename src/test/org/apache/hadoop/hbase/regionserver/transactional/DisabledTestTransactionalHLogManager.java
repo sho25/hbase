@@ -188,7 +188,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|TestTransactionalHLogManager
+name|DisabledTestTransactionalHLogManager
 extends|extends
 name|HBaseTestCase
 implements|implements
