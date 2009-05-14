@@ -2944,6 +2944,13 @@ name|serverAddress
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|location
+argument_list|)
+expr_stmt|;
 name|cacheLocation
 argument_list|(
 name|tableName
