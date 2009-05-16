@@ -5353,6 +5353,8 @@ argument_list|(
 name|edits
 argument_list|,
 name|writeToWAL
+argument_list|,
+name|now
 argument_list|)
 expr_stmt|;
 block|}
@@ -5390,6 +5392,8 @@ argument_list|,
 name|LATEST_TIMESTAMP
 argument_list|,
 literal|1
+argument_list|,
+name|now
 argument_list|)
 expr_stmt|;
 block|}
@@ -5486,6 +5490,14 @@ init|=
 name|b
 operator|.
 name|getRow
+argument_list|()
+decl_stmt|;
+name|long
+name|now
+init|=
+name|System
+operator|.
+name|currentTimeMillis
 argument_list|()
 decl_stmt|;
 name|Integer
@@ -5613,10 +5625,7 @@ operator|==
 name|LATEST_TIMESTAMP
 operator|)
 condition|?
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
+name|now
 else|:
 name|b
 operator|.
@@ -5790,6 +5799,8 @@ argument_list|(
 name|edits
 argument_list|,
 name|writeToWAL
+argument_list|,
+name|now
 argument_list|)
 expr_stmt|;
 block|}
@@ -5827,6 +5838,8 @@ argument_list|,
 name|LATEST_TIMESTAMP
 argument_list|,
 literal|1
+argument_list|,
+name|now
 argument_list|)
 expr_stmt|;
 block|}
@@ -6191,6 +6204,11 @@ argument_list|,
 name|ts
 argument_list|,
 name|ALL_VERSIONS
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -6244,6 +6262,14 @@ name|row
 argument_list|)
 decl_stmt|;
 name|long
+name|now
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
+name|long
 name|time
 init|=
 name|ts
@@ -6259,10 +6285,7 @@ condition|)
 block|{
 name|time
 operator|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
+name|now
 expr_stmt|;
 block|}
 name|KeyValue
@@ -6358,6 +6381,8 @@ block|}
 name|update
 argument_list|(
 name|edits
+argument_list|,
+name|now
 argument_list|)
 expr_stmt|;
 block|}
@@ -6524,6 +6549,8 @@ block|}
 name|update
 argument_list|(
 name|edits
+argument_list|,
+name|now
 argument_list|)
 expr_stmt|;
 block|}
@@ -6673,6 +6700,8 @@ block|}
 name|update
 argument_list|(
 name|edits
+argument_list|,
+name|now
 argument_list|)
 expr_stmt|;
 block|}
@@ -6870,6 +6899,8 @@ block|}
 name|update
 argument_list|(
 name|edits
+argument_list|,
+name|now
 argument_list|)
 expr_stmt|;
 block|}
@@ -6889,7 +6920,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/*    * Delete one or many cells.    * Used to support {@link #deleteAll(byte [], byte [], long)} and deletion of    * latest cell.    * @param row    * @param column    * @param ts Timestamp to start search on.    * @param versions How many versions to delete. Pass    * {@link HConstants#ALL_VERSIONS} to delete all.    * @throws IOException    */
+comment|/*    * Delete one or many cells.    * Used to support {@link #deleteAll(byte [], byte [], long)} and deletion of    * latest cell.    * @param row    * @param column    * @param ts Timestamp to start search on.    * @param versions How many versions to delete. Pass    * {@link HConstants#ALL_VERSIONS} to delete all.    * @param now    * @throws IOException    */
 specifier|private
 name|void
 name|deleteMultiple
@@ -6911,6 +6942,10 @@ parameter_list|,
 specifier|final
 name|int
 name|versions
+parameter_list|,
+specifier|final
+name|long
+name|now
 parameter_list|)
 throws|throws
 name|IOException
@@ -6992,6 +7027,8 @@ block|}
 name|update
 argument_list|(
 name|edits
+argument_list|,
+name|now
 argument_list|)
 expr_stmt|;
 block|}
@@ -7138,7 +7175,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**     * Add updates first to the hlog and then add values to memcache.    * Warning: Assumption is caller has lock on passed in row.    * @param edits Cell updates by column    * @throws IOException    */
+comment|/**     * Add updates first to the hlog and then add values to memcache.    * Warning: Assumption is caller has lock on passed in row.    * @param edits Cell updates by column    * @praram now    * @throws IOException    */
 specifier|private
 name|void
 name|update
@@ -7149,6 +7186,10 @@ argument_list|<
 name|KeyValue
 argument_list|>
 name|edits
+parameter_list|,
+specifier|final
+name|long
+name|now
 parameter_list|)
 throws|throws
 name|IOException
@@ -7160,10 +7201,12 @@ argument_list|(
 name|edits
 argument_list|,
 literal|true
+argument_list|,
+name|now
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Add updates first to the hlog (if writeToWal) and then add values to memcache.    * Warning: Assumption is caller has lock on passed in row.    * @param writeToWAL if true, then we should write to the log    * @param updatesByColumn Cell updates by column    * @throws IOException    */
+comment|/**     * Add updates first to the hlog (if writeToWal) and then add values to memcache.    * Warning: Assumption is caller has lock on passed in row.    * @param writeToWAL if true, then we should write to the log    * @param updatesByColumn Cell updates by column    * @param now    * @throws IOException    */
 specifier|private
 name|void
 name|update
@@ -7177,6 +7220,10 @@ name|edits
 parameter_list|,
 name|boolean
 name|writeToWAL
+parameter_list|,
+specifier|final
+name|long
+name|now
 parameter_list|)
 throws|throws
 name|IOException
@@ -7249,6 +7296,8 @@ operator|.
 name|isRootRegion
 argument_list|()
 operator|)
+argument_list|,
+name|now
 argument_list|)
 expr_stmt|;
 block|}
@@ -9361,6 +9410,11 @@ operator|.
 name|update
 argument_list|(
 name|edits
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

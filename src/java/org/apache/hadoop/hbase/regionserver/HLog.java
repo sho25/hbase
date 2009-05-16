@@ -621,11 +621,6 @@ name|listener
 decl_stmt|;
 specifier|private
 specifier|final
-name|int
-name|maxlogentries
-decl_stmt|;
-specifier|private
-specifier|final
 name|long
 name|optionalFlushInterval
 decl_stmt|;
@@ -734,7 +729,8 @@ specifier|volatile
 name|long
 name|filenum
 init|=
-literal|0
+operator|-
+literal|1
 decl_stmt|;
 specifier|private
 specifier|volatile
@@ -754,6 +750,24 @@ name|AtomicInteger
 argument_list|(
 literal|0
 argument_list|)
+decl_stmt|;
+comment|// Size of edits written so far. Used figuring when to rotate logs.
+specifier|private
+specifier|final
+name|AtomicLong
+name|editsSize
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|0
+argument_list|)
+decl_stmt|;
+comment|// If> than this size, roll the log.
+specifier|private
+specifier|final
+name|long
+name|logrollsize
 decl_stmt|;
 comment|// This lock prevents starting a log roll during a cache flush.
 comment|// synchronized is insufficient because a cache flush spans two method calls.
@@ -776,6 +790,11 @@ init|=
 operator|new
 name|Object
 argument_list|()
+decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
+name|enabled
 decl_stmt|;
 comment|/*    * If more than this many logs, force flush of oldest region to oldest edit    * goes to disk.  If too many and we crash, then will take forever replaying.    * Keep the number of logs tidy.    */
 specifier|private
@@ -867,19 +886,6 @@ name|listener
 expr_stmt|;
 name|this
 operator|.
-name|maxlogentries
-operator|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.regionserver.maxlogentries"
-argument_list|,
-literal|100000
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
 name|flushlogentries
 operator|=
 name|conf
@@ -907,6 +913,34 @@ name|fs
 operator|.
 name|getDefaultBlockSize
 argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Roll at 95% of block size.
+name|float
+name|multi
+init|=
+name|conf
+operator|.
+name|getFloat
+argument_list|(
+literal|"hbase.regionserver.logroll.multiplier"
+argument_list|,
+literal|0.95f
+argument_list|)
+decl_stmt|;
+name|this
+operator|.
+name|logrollsize
+operator|=
+call|(
+name|long
+call|)
+argument_list|(
+name|this
+operator|.
+name|blocksize
+operator|*
+name|multi
 argument_list|)
 expr_stmt|;
 name|this
@@ -973,6 +1007,19 @@ argument_list|,
 literal|64
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|enabled
+operator|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+literal|"hbase.regionserver.hlog.enabled"
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -983,11 +1030,17 @@ name|this
 operator|.
 name|blocksize
 operator|+
-literal|", maxlogentries="
+literal|", rollsize="
 operator|+
 name|this
 operator|.
-name|maxlogentries
+name|logrollsize
+operator|+
+literal|", enabled="
+operator|+
+name|this
+operator|.
+name|enabled
 operator|+
 literal|", flushlogentries="
 operator|+
@@ -1008,7 +1061,7 @@ name|rollWriter
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Accessor for tests. Not a part of the public API.    * @return Current state of the monotonically increasing file id.    */
+comment|/**    * @return Current state of the monotonically increasing file id.    */
 specifier|public
 name|long
 name|getFilenum
@@ -1020,7 +1073,7 @@ operator|.
 name|filenum
 return|;
 block|}
-comment|/**    * Get the compression type for the hlog files.    * Commit logs SHOULD NOT be compressed.  You'll lose edits if the compression    * record is not complete.  In gzip, record is 32k so you could lose up to    * 32k of edits (All of this is moot till we have sync/flush in hdfs but    * still...).    * @param c Configuration to use.    * @return the kind of compression to use    */
+comment|/**    * Get the compression type for the hlog files    * @param c Configuration to use.    * @return the kind of compression to use    */
 specifier|private
 specifier|static
 name|CompressionType
@@ -1031,31 +1084,11 @@ name|Configuration
 name|c
 parameter_list|)
 block|{
-name|String
-name|name
-init|=
-name|c
-operator|.
-name|get
-argument_list|(
-literal|"hbase.io.seqfile.compression.type"
-argument_list|)
-decl_stmt|;
+comment|// Compression makes no sense for commit log.  Always return NONE.
 return|return
-name|name
-operator|==
-literal|null
-condition|?
 name|CompressionType
 operator|.
 name|NONE
-else|:
-name|CompressionType
-operator|.
-name|valueOf
-argument_list|(
-name|name
-argument_list|)
 return|;
 block|}
 comment|/**    * Called by HRegionServer when it opens a new region to ensure that log    * sequence numbers are always greater than the latest sequence number of the    * region being brought on-line.    *    * @param newvalue We'll set log edit/sequence number to this value if it    * is greater than the current value.    */
@@ -1180,9 +1213,21 @@ name|Path
 name|oldFile
 init|=
 name|cleanupCurrentWriter
-argument_list|()
+argument_list|(
+name|this
+operator|.
+name|filenum
+argument_list|)
 decl_stmt|;
-comment|// Create a new one.
+if|if
+condition|(
+name|this
+operator|.
+name|filenum
+operator|>=
+literal|0
+condition|)
+block|{
 name|this
 operator|.
 name|old_filenum
@@ -1191,6 +1236,7 @@ name|this
 operator|.
 name|filenum
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|filenum
@@ -1283,9 +1329,14 @@ name|oldFile
 operator|!=
 literal|null
 condition|?
-literal|"Closed "
+literal|"Roll "
 operator|+
+name|FSUtils
+operator|.
+name|getPath
+argument_list|(
 name|oldFile
+argument_list|)
 operator|+
 literal|", entries="
 operator|+
@@ -1296,12 +1347,35 @@ operator|.
 name|get
 argument_list|()
 operator|+
+literal|", calcsize="
+operator|+
+name|this
+operator|.
+name|editsSize
+operator|.
+name|get
+argument_list|()
+operator|+
+literal|", filesize="
+operator|+
+name|this
+operator|.
+name|fs
+operator|.
+name|getFileStatus
+argument_list|(
+name|oldFile
+argument_list|)
+operator|.
+name|getLen
+argument_list|()
+operator|+
 literal|". "
 else|:
 literal|""
 operator|)
 operator|+
-literal|"New log writer: "
+literal|"New hlog "
 operator|+
 name|FSUtils
 operator|.
@@ -1400,6 +1474,15 @@ block|}
 name|this
 operator|.
 name|numEntries
+operator|.
+name|set
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|editsSize
 operator|.
 name|set
 argument_list|(
@@ -1521,7 +1604,7 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|" logs to remove "
+literal|" hlogs to remove "
 operator|+
 literal|" out of total "
 operator|+
@@ -1624,7 +1707,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Too many logs: logs="
+literal|"Too many hlogs: logs="
 operator|+
 name|countOfLogs
 operator|+
@@ -1740,7 +1823,11 @@ comment|/*    * Cleans up current writer closing and adding to outputfiles.    *
 specifier|private
 name|Path
 name|cleanupCurrentWriter
-parameter_list|()
+parameter_list|(
+specifier|final
+name|long
+name|currentfilenum
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -1786,9 +1873,7 @@ name|FailedLogCloseException
 argument_list|(
 literal|"#"
 operator|+
-name|this
-operator|.
-name|filenum
+name|currentfilenum
 argument_list|)
 decl_stmt|;
 name|flce
@@ -1802,20 +1887,20 @@ throw|throw
 name|e
 throw|;
 block|}
+if|if
+condition|(
+name|currentfilenum
+operator|>=
+literal|0
+condition|)
+block|{
 name|oldFile
 operator|=
 name|computeFilename
 argument_list|(
-name|old_filenum
+name|currentfilenum
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|filenum
-operator|>
-literal|0
-condition|)
-block|{
 name|this
 operator|.
 name|outputfiles
@@ -1864,7 +1949,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"removing old log file "
+literal|"removing old hlog file "
 operator|+
 name|FSUtils
 operator|.
@@ -1900,6 +1985,15 @@ name|long
 name|fn
 parameter_list|)
 block|{
+if|if
+condition|(
+name|fn
+operator|<
+literal|0
+condition|)
+return|return
+literal|null
+return|;
 return|return
 operator|new
 name|Path
@@ -1971,7 +2065,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"closing log writer in "
+literal|"closing hlog writer in "
 operator|+
 name|this
 operator|.
@@ -2005,7 +2099,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/** Append an entry without a row to the log.    *     * @param regionInfo    * @param logEdit    * @throws IOException    */
+comment|/** Append an entry without a row to the log.    *     * @param regionInfo    * @param logEdit    * @param now    * @throws IOException    */
 specifier|public
 name|void
 name|append
@@ -2015,6 +2109,10 @@ name|regionInfo
 parameter_list|,
 name|KeyValue
 name|logEdit
+parameter_list|,
+specifier|final
+name|long
+name|now
 parameter_list|)
 throws|throws
 name|IOException
@@ -2032,10 +2130,12 @@ literal|0
 index|]
 argument_list|,
 name|logEdit
+argument_list|,
+name|now
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Append an entry to the log.    *     * @param regionInfo    * @param row    * @param logEdit    * @throws IOException    */
+comment|/** Append an entry to the log.    *     * @param regionInfo    * @param row    * @param logEdit    * @param now Time of this edit write.    * @throws IOException    */
 specifier|public
 name|void
 name|append
@@ -2049,6 +2149,10 @@ name|row
 parameter_list|,
 name|KeyValue
 name|logEdit
+parameter_list|,
+specifier|final
+name|long
+name|now
 parameter_list|)
 throws|throws
 name|IOException
@@ -2131,6 +2235,8 @@ argument_list|,
 name|tableName
 argument_list|,
 name|seqNum
+argument_list|,
+name|now
 argument_list|)
 decl_stmt|;
 name|boolean
@@ -2153,6 +2259,8 @@ argument_list|,
 name|logEdit
 argument_list|,
 name|sync
+argument_list|,
+name|now
 argument_list|)
 expr_stmt|;
 name|this
@@ -2172,14 +2280,14 @@ if|if
 condition|(
 name|this
 operator|.
-name|numEntries
+name|editsSize
 operator|.
 name|get
 argument_list|()
 operator|>
 name|this
 operator|.
-name|maxlogentries
+name|logrollsize
 condition|)
 block|{
 if|if
@@ -2197,7 +2305,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Append a set of edits to the log. Log edits are keyed by regionName,    * rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for a    * given key-range of the HRegion (TODO). Any edits that do not have a    * matching {@link HConstants#COMPLETE_CACHEFLUSH} message can be discarded.    *    *<p>    * Logs cannot be restarted once closed, or once the HLog process dies. Each    * time the HLog starts, it must create a new log. This means that other    * systems should process the log appropriately upon each startup (and prior    * to initializing HLog).    *    * synchronized prevents appends during the completion of a cache flush or for    * the duration of a log roll.    *    * @param regionName    * @param tableName    * @param edits    * @param sync    * @throws IOException    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by regionName,    * rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for a    * given key-range of the HRegion (TODO). Any edits that do not have a    * matching {@link HConstants#COMPLETE_CACHEFLUSH} message can be discarded.    *    *<p>    * Logs cannot be restarted once closed, or once the HLog process dies. Each    * time the HLog starts, it must create a new log. This means that other    * systems should process the log appropriately upon each startup (and prior    * to initializing HLog).    *    * synchronized prevents appends during the completion of a cache flush or for    * the duration of a log roll.    *    * @param regionName    * @param tableName    * @param edits    * @param sync    * @param now    * @throws IOException    */
 name|void
 name|append
 parameter_list|(
@@ -2217,6 +2325,10 @@ name|edits
 parameter_list|,
 name|boolean
 name|sync
+parameter_list|,
+specifier|final
+name|long
+name|now
 parameter_list|)
 throws|throws
 name|IOException
@@ -2306,6 +2418,8 @@ index|[
 name|counter
 operator|++
 index|]
+argument_list|,
+name|now
 argument_list|)
 decl_stmt|;
 name|doWrite
@@ -2315,6 +2429,8 @@ argument_list|,
 name|kv
 argument_list|,
 name|sync
+argument_list|,
+name|now
 argument_list|)
 expr_stmt|;
 name|this
@@ -2335,14 +2451,14 @@ if|if
 condition|(
 name|this
 operator|.
-name|numEntries
+name|editsSize
 operator|.
 name|get
 argument_list|()
 operator|>
 name|this
 operator|.
-name|maxlogentries
+name|logrollsize
 condition|)
 block|{
 name|requestLogRoll
@@ -2448,7 +2564,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Error flushing HLog"
+literal|"Error flushing hlog"
 argument_list|,
 name|e
 argument_list|)
@@ -2489,7 +2605,7 @@ literal|" took "
 operator|+
 name|took
 operator|+
-literal|"ms optional sync'ing HLog; editcount="
+literal|"ms optional sync'ing hlog; editcount="
 operator|+
 name|this
 operator|.
@@ -2537,20 +2653,43 @@ name|logEdit
 parameter_list|,
 name|boolean
 name|sync
+parameter_list|,
+specifier|final
+name|long
+name|now
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|enabled
+condition|)
+block|{
+return|return;
+block|}
 try|try
 block|{
-name|long
-name|now
-init|=
-name|System
+name|this
 operator|.
-name|currentTimeMillis
+name|editsSize
+operator|.
+name|addAndGet
+argument_list|(
+name|logKey
+operator|.
+name|heapSize
 argument_list|()
-decl_stmt|;
+operator|+
+name|logEdit
+operator|.
+name|heapSize
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|writer
@@ -2613,7 +2752,7 @@ literal|" took "
 operator|+
 name|took
 operator|+
-literal|"ms appending an edit to HLog; editcount="
+literal|"ms appending an edit to hlog; editcount="
 operator|+
 name|this
 operator|.
@@ -2635,7 +2774,7 @@ name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"Could not append. Requesting close of log"
+literal|"Could not append. Requesting close of hlog"
 argument_list|,
 name|e
 argument_list|)
@@ -2807,6 +2946,11 @@ argument_list|,
 name|tableName
 argument_list|,
 name|logSeqId
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 argument_list|,
 name|completeCacheFlushLogEdit
@@ -3015,7 +3159,7 @@ name|logfiles
 operator|.
 name|length
 operator|+
-literal|" log(s) in "
+literal|" hlog(s) in "
 operator|+
 name|srcDir
 operator|.
@@ -3095,7 +3239,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"log file splitting completed in "
+literal|"hlog file splitting completed in "
 operator|+
 operator|(
 name|endMillis
@@ -3227,7 +3371,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Splitting "
+literal|"Splitting hlog "
 operator|+
 operator|(
 name|i
@@ -3426,7 +3570,15 @@ literal|"Pushed "
 operator|+
 name|count
 operator|+
-literal|" entries"
+literal|" entries from "
+operator|+
+name|logfiles
+index|[
+name|i
+index|]
+operator|.
+name|getPath
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -3494,7 +3646,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Empty log, continuing: "
+literal|"Empty hlog, continuing: "
 operator|+
 name|logfiles
 index|[
@@ -3737,7 +3889,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Old log file "
+literal|"Old hlog file "
 operator|+
 name|logfile
 operator|+
@@ -3832,7 +3984,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Creating new log file writer for path "
+literal|"Creating new hlog file writer for path "
 operator|+
 name|logfile
 operator|+
@@ -4086,7 +4238,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Waiting for log writers to terminate, iteration #"
+literal|"Waiting for hlog writers to terminate, iteration #"
 operator|+
 name|i
 argument_list|)
@@ -4103,7 +4255,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Log writers were interrupted, possible data loss!"
+literal|"Hlog writers were interrupted, possible data loss!"
 argument_list|)
 expr_stmt|;
 block|}

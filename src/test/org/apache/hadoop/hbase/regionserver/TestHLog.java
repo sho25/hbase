@@ -492,6 +492,11 @@ argument_list|,
 name|edit
 argument_list|,
 literal|false
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -710,6 +715,11 @@ argument_list|,
 name|cols
 argument_list|,
 literal|false
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|long

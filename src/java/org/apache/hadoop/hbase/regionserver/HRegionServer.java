@@ -1503,13 +1503,13 @@ comment|// eclipse warning when accessed by inner classes
 specifier|protected
 specifier|volatile
 name|HLog
-name|log
+name|hlog
 decl_stmt|;
 name|LogRoller
-name|logRoller
+name|hlogRoller
 decl_stmt|;
 name|LogFlusher
-name|logFlusher
+name|hlogFlusher
 decl_stmt|;
 comment|// limit compactions while starting up
 name|CompactionLimitThread
@@ -2094,7 +2094,7 @@ expr_stmt|;
 comment|// Log rolling thread
 name|this
 operator|.
-name|logRoller
+name|hlogRoller
 operator|=
 operator|new
 name|LogRoller
@@ -2105,7 +2105,7 @@ expr_stmt|;
 comment|// Log flushing thread
 name|this
 operator|.
-name|logFlusher
+name|hlogFlusher
 operator|=
 operator|new
 name|LogFlusher
@@ -2899,7 +2899,7 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-name|log
+name|hlog
 operator|.
 name|closeAndDelete
 argument_list|()
@@ -2933,18 +2933,18 @@ name|currentTimeMillis
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|log
+name|hlog
 operator|=
 name|setupHLog
 argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|logFlusher
+name|hlogFlusher
 operator|.
 name|setHLog
 argument_list|(
-name|log
+name|hlog
 argument_list|)
 expr_stmt|;
 block|}
@@ -3371,7 +3371,7 @@ operator|.
 name|interruptIfNecessary
 argument_list|()
 expr_stmt|;
-name|logFlusher
+name|hlogFlusher
 operator|.
 name|interrupt
 argument_list|()
@@ -3381,7 +3381,7 @@ operator|.
 name|interruptIfNecessary
 argument_list|()
 expr_stmt|;
-name|logRoller
+name|hlogRoller
 operator|.
 name|interruptIfNecessary
 argument_list|()
@@ -3412,14 +3412,14 @@ if|if
 condition|(
 name|this
 operator|.
-name|log
+name|hlog
 operator|!=
 literal|null
 condition|)
 block|{
 name|this
 operator|.
-name|log
+name|hlog
 operator|.
 name|close
 argument_list|()
@@ -3488,7 +3488,7 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
-name|log
+name|hlog
 operator|.
 name|closeAndDelete
 argument_list|()
@@ -3989,18 +3989,18 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|log
+name|hlog
 operator|=
 name|setupHLog
 argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|logFlusher
+name|hlogFlusher
 operator|.
 name|setHLog
 argument_list|(
-name|log
+name|hlog
 argument_list|)
 expr_stmt|;
 comment|// Init in here rather than in constructor after thread name has been set
@@ -5229,7 +5229,7 @@ name|logdir
 argument_list|,
 name|conf
 argument_list|,
-name|logRoller
+name|hlogRoller
 argument_list|)
 decl_stmt|;
 return|return
@@ -5572,7 +5572,7 @@ name|setDaemonThreadRunning
 argument_list|(
 name|this
 operator|.
-name|logRoller
+name|hlogRoller
 argument_list|,
 name|n
 operator|+
@@ -5587,7 +5587,7 @@ name|setDaemonThreadRunning
 argument_list|(
 name|this
 operator|.
-name|logFlusher
+name|hlogFlusher
 argument_list|,
 name|n
 operator|+
@@ -5937,7 +5937,7 @@ operator|.
 name|isAlive
 argument_list|()
 operator|&&
-name|logRoller
+name|hlogRoller
 operator|.
 name|isAlive
 argument_list|()
@@ -6062,7 +6062,7 @@ block|{
 return|return
 name|this
 operator|.
-name|log
+name|hlog
 return|;
 block|}
 comment|/**    * Sets a flag that will cause all the HRegionServer threads to shut down    * in an orderly fashion.  Used by unit tests.    */
@@ -6175,7 +6175,7 @@ name|shutdown
 argument_list|(
 name|this
 operator|.
-name|logRoller
+name|hlogRoller
 argument_list|)
 expr_stmt|;
 block|}
@@ -7431,7 +7431,7 @@ try|try
 block|{
 name|this
 operator|.
-name|log
+name|hlog
 operator|.
 name|setSequenceNumber
 argument_list|(
@@ -7507,7 +7507,7 @@ argument_list|)
 argument_list|,
 name|this
 operator|.
-name|log
+name|hlog
 argument_list|,
 name|this
 operator|.

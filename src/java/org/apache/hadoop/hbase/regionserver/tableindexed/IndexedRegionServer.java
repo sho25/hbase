@@ -314,7 +314,7 @@ argument_list|)
 argument_list|,
 name|super
 operator|.
-name|log
+name|hlog
 argument_list|,
 name|super
 operator|.
