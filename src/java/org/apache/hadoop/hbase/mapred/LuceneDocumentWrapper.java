@@ -70,12 +70,13 @@ comment|/**  * A utility class used to pass a lucene document from reduce to Out
 end_comment
 
 begin_class
+specifier|public
 class|class
 name|LuceneDocumentWrapper
 implements|implements
 name|Writable
 block|{
-specifier|private
+specifier|protected
 name|Document
 name|doc
 decl_stmt|;
