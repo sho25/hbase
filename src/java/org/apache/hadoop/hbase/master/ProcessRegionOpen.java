@@ -130,7 +130,7 @@ specifier|final
 name|HServerInfo
 name|serverInfo
 decl_stmt|;
-comment|/**    * @param master    * @param info    * @param regionInfo    * @throws IOException    */
+comment|/**    * @param master    * @param info    * @param regionInfo    */
 specifier|public
 name|ProcessRegionOpen
 parameter_list|(
@@ -143,8 +143,6 @@ parameter_list|,
 name|HRegionInfo
 name|regionInfo
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|super
 argument_list|(

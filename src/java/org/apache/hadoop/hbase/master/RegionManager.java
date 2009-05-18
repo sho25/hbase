@@ -5046,16 +5046,18 @@ operator|.
 name|unassigned
 condition|)
 block|{
-throw|throw
-operator|new
-name|IllegalStateException
+name|LOG
+operator|.
+name|warn
 argument_list|(
-literal|"Cannot assign a region that is not currently unassigned. State: "
+literal|"Cannot assign a region that is not currently unassigned. "
+operator|+
+literal|"FIX!! State: "
 operator|+
 name|toString
 argument_list|()
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 name|this
 operator|.
@@ -5126,16 +5128,18 @@ operator|!
 name|pendingOpen
 condition|)
 block|{
-throw|throw
-operator|new
-name|IllegalStateException
+name|LOG
+operator|.
+name|warn
 argument_list|(
-literal|"Cannot set a region as open if it has not been pending. State: "
+literal|"Cannot set a region as open if it has not been pending. "
+operator|+
+literal|"FIX!! State: "
 operator|+
 name|toString
 argument_list|()
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 name|this
 operator|.
@@ -5271,18 +5275,18 @@ operator|!
 name|closing
 condition|)
 block|{
-throw|throw
-operator|new
-name|IllegalStateException
+name|LOG
+operator|.
+name|warn
 argument_list|(
-literal|"Cannot set a region as pending close if it has not been closing. "
+literal|"Cannot set a region as pending close if it has not been "
 operator|+
-literal|"State: "
+literal|"closing.  FIX!! State: "
 operator|+
 name|toString
 argument_list|()
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 name|this
 operator|.

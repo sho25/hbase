@@ -1985,7 +1985,7 @@ name|msgs
 argument_list|)
 return|;
 block|}
-comment|/**     * Process all the incoming messages from a server that's contacted us.    *     * Note that we never need to update the server's load information because    * that has already been done in regionServerReport.    */
+comment|/*    * Process all the incoming messages from a server that's contacted us.    * Note that we never need to update the server's load information because    * that has already been done in regionServerReport.    * @param serverInfo    * @param mostLoadedRegions    * @param incomingMsgs    * @return    */
 specifier|private
 name|HMsg
 index|[]
@@ -2002,8 +2002,6 @@ name|HMsg
 name|incomingMsgs
 index|[]
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|ArrayList
 argument_list|<
@@ -2039,6 +2037,8 @@ argument_list|)
 throw|;
 block|}
 comment|// Get reports on what the RegionServer did.
+comment|// Be careful that in message processors we don't throw exceptions that
+comment|// break the switch below because then we might drop messages on the floor.
 name|int
 name|openingCount
 init|=
@@ -2089,6 +2089,16 @@ name|serverInfo
 operator|.
 name|getServerName
 argument_list|()
+operator|+
+literal|"; "
+operator|+
+name|i
+operator|+
+literal|" of "
+operator|+
+name|incomingMsgs
+operator|.
+name|length
 argument_list|)
 expr_stmt|;
 switch|switch
@@ -2149,15 +2159,13 @@ index|[
 operator|++
 name|i
 index|]
-argument_list|,
-name|returnMsgs
 argument_list|)
 expr_stmt|;
 break|break;
 default|default:
-throw|throw
-operator|new
-name|IOException
+name|LOG
+operator|.
+name|warn
 argument_list|(
 literal|"Impossible state during message processing. Instruction: "
 operator|+
@@ -2169,7 +2177,7 @@ operator|.
 name|getType
 argument_list|()
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 block|}
 synchronized|synchronized
@@ -2288,7 +2296,7 @@ index|]
 argument_list|)
 return|;
 block|}
-comment|/**    * A region has split.    *    * @param region    * @param splitA    * @param splitB    * @param returnMsgs    */
+comment|/*    * A region has split.    *    * @param region    * @param splitA    * @param splitB    * @param returnMsgs    */
 specifier|private
 name|void
 name|processSplitRegion
@@ -2301,12 +2309,6 @@ name|splitA
 parameter_list|,
 name|HMsg
 name|splitB
-parameter_list|,
-name|ArrayList
-argument_list|<
-name|HMsg
-argument_list|>
-name|returnMsgs
 parameter_list|)
 block|{
 synchronized|synchronized
@@ -2400,7 +2402,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/** Region server is reporting that a region is now opened */
+comment|/*    * Region server is reporting that a region is now opened    * @param serverInfo    * @param region    * @param returnMsgs    */
 specifier|private
 name|void
 name|processRegionOpen
@@ -2417,8 +2419,6 @@ name|HMsg
 argument_list|>
 name|returnMsgs
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|boolean
 name|duplicateAssignment
@@ -2687,7 +2687,28 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Queue up an update to note the region location.
+comment|// Queue up an update to note the region location.  Do inside
+comment|// a retry loop in case interrupted.
+name|boolean
+name|succeeded
+init|=
+literal|false
+decl_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+literal|10
+condition|;
+name|i
+operator|++
+control|)
+block|{
 try|try
 block|{
 name|master
@@ -2707,6 +2728,10 @@ name|region
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|succeeded
+operator|=
+literal|true
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -2714,20 +2739,38 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-throw|throw
-operator|new
-name|RuntimeException
+name|LOG
+operator|.
+name|warn
 argument_list|(
 literal|"Putting into toDoQueue was interrupted."
 argument_list|,
 name|e
 argument_list|)
-throw|;
+expr_stmt|;
+block|}
+block|}
+if|if
+condition|(
+operator|!
+name|succeeded
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"FAILED ADDING OPEN TO TODO QUEUE: "
+operator|+
+name|serverInfo
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 block|}
 block|}
 block|}
+comment|/*    * @param region    * @throws Exception    */
 specifier|private
 name|void
 name|processRegionClose
