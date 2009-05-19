@@ -4060,10 +4060,17 @@ comment|// regionServerReport message from the HRegionServer that has been
 comment|// allocated the ROOT region below.
 try|try
 block|{
+comment|// Cycle rather than hold here in case master is closed meantime.
 name|rootRegionLocation
 operator|.
 name|wait
-argument_list|()
+argument_list|(
+name|this
+operator|.
+name|master
+operator|.
+name|threadWakeFrequency
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
