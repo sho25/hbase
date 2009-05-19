@@ -2001,6 +2001,22 @@ name|index
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
+name|void
+name|removeIndex
+parameter_list|(
+name|String
+name|indexId
+parameter_list|)
+block|{
+name|indexes
+operator|.
+name|remove
+argument_list|(
+name|indexId
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Adds a column family.    * @param family HColumnDescriptor of familyto add.    */
 specifier|public
 name|void
