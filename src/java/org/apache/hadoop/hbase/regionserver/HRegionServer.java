@@ -5708,7 +5708,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"hbase.master.info.bindAddress"
+literal|"hbase.regionserver.info.bindAddress"
 argument_list|,
 literal|"0.0.0.0"
 argument_list|)
