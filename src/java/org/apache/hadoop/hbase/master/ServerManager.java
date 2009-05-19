@@ -2732,6 +2732,7 @@ name|succeeded
 operator|=
 literal|true
 expr_stmt|;
+break|break;
 block|}
 catch|catch
 parameter_list|(
