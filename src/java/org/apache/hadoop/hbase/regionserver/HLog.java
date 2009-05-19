@@ -3307,6 +3307,49 @@ operator|.
 name|BYTES_COMPARATOR
 argument_list|)
 decl_stmt|;
+try|try
+block|{
+name|int
+name|maxSteps
+init|=
+name|Double
+operator|.
+name|valueOf
+argument_list|(
+name|Math
+operator|.
+name|ceil
+argument_list|(
+operator|(
+name|logfiles
+operator|.
+name|length
+operator|*
+literal|1.0
+operator|)
+operator|/
+name|DEFAULT_NUMBER_CONCURRENT_LOG_READS
+argument_list|)
+argument_list|)
+operator|.
+name|intValue
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|int
+name|step
+init|=
+literal|0
+init|;
+name|step
+operator|<
+name|maxSteps
+condition|;
+name|step
+operator|++
+control|)
+block|{
 specifier|final
 name|Map
 argument_list|<
@@ -3337,20 +3380,40 @@ operator|.
 name|BYTES_COMPARATOR
 argument_list|)
 decl_stmt|;
-try|try
-block|{
+comment|// Stop at logfiles.length when it's the last step
+name|int
+name|endIndex
+init|=
+name|step
+operator|==
+name|maxSteps
+operator|-
+literal|1
+condition|?
+name|logfiles
+operator|.
+name|length
+else|:
+name|step
+operator|*
+name|DEFAULT_NUMBER_CONCURRENT_LOG_READS
+operator|+
+name|DEFAULT_NUMBER_CONCURRENT_LOG_READS
+decl_stmt|;
 for|for
 control|(
 name|int
 name|i
 init|=
-literal|0
+operator|(
+name|step
+operator|*
+literal|10
+operator|)
 init|;
 name|i
 operator|<
-name|logfiles
-operator|.
-name|length
+name|endIndex
 condition|;
 name|i
 operator|++
@@ -3404,8 +3467,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Check for possibly empty file. With appends, currently Hadoop reports
-comment|// a zero length even if the file has been sync'd. Revisit if
+comment|// Check for possibly empty file. With appends, currently Hadoop
+comment|// reports a zero length even if the file has been sync'd. Revisit if
 comment|// HADOOP-4751 is committed.
 name|long
 name|length
@@ -3439,6 +3502,11 @@ name|in
 init|=
 literal|null
 decl_stmt|;
+name|int
+name|count
+init|=
+literal|0
+decl_stmt|;
 try|try
 block|{
 name|in
@@ -3463,11 +3531,6 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-name|int
-name|count
-init|=
-literal|0
-decl_stmt|;
 while|while
 condition|(
 name|in
@@ -3585,6 +3648,25 @@ name|IOException
 name|e
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"IOE Pushed "
+operator|+
+name|count
+operator|+
+literal|" entries from "
+operator|+
+name|logfiles
+index|[
+name|i
+index|]
+operator|.
+name|getPath
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|e
 operator|=
 name|RemoteExceptionHandler
@@ -3956,10 +4038,6 @@ name|conf
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Use copy of regionName; regionName object is reused inside
-comment|// in
-comment|// HStoreKey.getRegionName so its content changes as we
-comment|// iterate.
 name|logWriters
 operator|.
 name|put
@@ -4255,6 +4333,7 @@ argument_list|(
 literal|"Hlog writers were interrupted, possible data loss!"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 finally|finally
