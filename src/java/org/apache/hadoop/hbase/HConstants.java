@@ -331,6 +331,14 @@ name|DEFAULT_NUMBER_LOG_WRITER_THREAD
 init|=
 literal|10
 decl_stmt|;
+comment|/** Default number of logs to read concurrently    *  when log splitting. More means faster but bigger mem consumption  */
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_NUMBER_CONCURRENT_LOG_READS
+init|=
+literal|10
+decl_stmt|;
 comment|// Always store the location of the root table's HRegion.
 comment|// This HRegion is never split.
 comment|// region name = table + startkey + regionid. This is the row key.
