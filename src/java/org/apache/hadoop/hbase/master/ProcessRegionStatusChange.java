@@ -234,6 +234,15 @@ argument_list|(
 name|regionInfo
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|metaRegion
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|metaRegionName
@@ -245,6 +254,7 @@ operator|.
 name|getRegionName
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 return|return
 name|this
