@@ -4556,6 +4556,7 @@ name|HMsg
 argument_list|>
 name|returnMsgs
 parameter_list|,
+specifier|final
 name|SortedMap
 argument_list|<
 name|byte
@@ -4585,6 +4586,11 @@ operator|.
 name|getServerAddress
 argument_list|()
 decl_stmt|;
+synchronized|synchronized
+init|(
+name|map
+init|)
+block|{
 name|Iterator
 argument_list|<
 name|Pair
@@ -4604,11 +4610,6 @@ operator|.
 name|iterator
 argument_list|()
 decl_stmt|;
-synchronized|synchronized
-init|(
-name|map
-init|)
-block|{
 while|while
 condition|(
 name|i
