@@ -937,16 +937,29 @@ name|boolean
 name|removeFromQueue
 parameter_list|)
 block|{
-comment|// Wait until it is safe to flush.
-name|boolean
-name|toomany
+comment|// Wait until it is safe to flush
+name|int
+name|count
+init|=
+literal|0
 decl_stmt|;
-do|do
-block|{
-name|toomany
-operator|=
+name|boolean
+name|triggered
+init|=
 literal|false
-expr_stmt|;
+decl_stmt|;
+while|while
+condition|(
+name|count
+operator|++
+operator|<
+operator|(
+name|blockingWaitTime
+operator|/
+literal|500
+operator|)
+condition|)
+block|{
 for|for
 control|(
 name|Store
@@ -960,51 +973,19 @@ name|values
 argument_list|()
 control|)
 block|{
-name|int
-name|files
-init|=
+if|if
+condition|(
 name|hstore
 operator|.
 name|getStorefilesCount
 argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|files
 operator|>
 name|this
 operator|.
 name|blockingStoreFilesNumber
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Too many store files in store "
-operator|+
-name|hstore
-operator|+
-literal|": "
-operator|+
-name|files
-operator|+
-literal|", waiting"
-argument_list|)
-expr_stmt|;
-block|}
-name|toomany
-operator|=
-literal|true
-expr_stmt|;
+comment|// always request a compaction
 name|server
 operator|.
 name|compactSplitThread
@@ -1017,13 +998,43 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// only log once
+if|if
+condition|(
+operator|!
+name|triggered
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Too many store files for region "
+operator|+
+name|region
+operator|+
+literal|": "
+operator|+
+name|hstore
+operator|.
+name|getStorefilesCount
+argument_list|()
+operator|+
+literal|", waiting"
+argument_list|)
+expr_stmt|;
+name|triggered
+operator|=
+literal|true
+expr_stmt|;
+block|}
 try|try
 block|{
 name|Thread
 operator|.
 name|sleep
 argument_list|(
-name|blockingWaitTime
+literal|500
 argument_list|)
 expr_stmt|;
 block|}
@@ -1035,14 +1046,28 @@ parameter_list|)
 block|{
 comment|// ignore
 block|}
+continue|continue;
 block|}
 block|}
-block|}
-do|while
+if|if
 condition|(
-name|toomany
+name|triggered
 condition|)
-do|;
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Compaction completed on region "
+operator|+
+name|region
+operator|+
+literal|", proceeding"
+argument_list|)
+expr_stmt|;
+block|}
+break|break;
+block|}
 synchronized|synchronized
 init|(
 name|regionsInQueue
