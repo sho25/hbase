@@ -131,6 +131,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HServerInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|NotServingRegionException
 import|;
 end_import
@@ -592,6 +606,23 @@ parameter_list|,
 name|long
 name|amount
 parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Method used when a master is taking the place of another failed one.    * @return All regions assigned on this region server    * @throws IOException    */
+specifier|public
+name|HRegionInfo
+index|[]
+name|getRegionsAssignment
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Method used when a master is taking the place of another failed one.    * @return The HSI    * @throws IOException    */
+specifier|public
+name|HServerInfo
+name|getHServerInfo
+parameter_list|()
 throws|throws
 name|IOException
 function_decl|;

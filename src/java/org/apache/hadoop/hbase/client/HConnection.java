@@ -293,6 +293,20 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**     * Establishes a connection to the region server at the specified address.    * @param regionServer - the server to connect to    * @param getMaster - do we check if master is alive    * @return proxy for HRegionServer    * @throws IOException    */
+specifier|public
+name|HRegionInterface
+name|getHRegionConnection
+parameter_list|(
+name|HServerAddress
+name|regionServer
+parameter_list|,
+name|boolean
+name|getMaster
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Find region location hosting passed row    * @param tableName    * @param row Row to find.    * @param reload If true do not use cache, otherwise bypass.    * @return Location of row.    * @throws IOException    */
 name|HRegionLocation
 name|getRegionLocation

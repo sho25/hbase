@@ -2561,6 +2561,11 @@ expr_stmt|;
 block|}
 name|zooKeeperWrapper
 operator|.
+name|clearRSDirectory
+argument_list|()
+expr_stmt|;
+name|zooKeeperWrapper
+operator|.
 name|close
 argument_list|()
 expr_stmt|;
