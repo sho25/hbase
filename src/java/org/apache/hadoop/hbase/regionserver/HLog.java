@@ -996,7 +996,7 @@ name|getInt
 argument_list|(
 literal|"hbase.regionserver.maxlogs"
 argument_list|,
-literal|64
+literal|32
 argument_list|)
 expr_stmt|;
 name|this
