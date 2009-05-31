@@ -139,6 +139,13 @@ name|BLOCK_SIZE_TAX
 init|=
 literal|8
 decl_stmt|;
+specifier|static
+specifier|final
+name|int
+name|BYTE_BUFFER
+init|=
+literal|56
+decl_stmt|;
 comment|/**    * @return Approximate 'exclusive deep size' of implementing object.  Includes    * count of payload and hosting object sizings.   */
 specifier|public
 name|long

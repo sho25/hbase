@@ -1892,6 +1892,17 @@ throw|;
 block|}
 block|}
 specifier|public
+name|long
+name|getTotalBytes
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|totalBytes
+return|;
+block|}
+specifier|public
 name|void
 name|close
 parameter_list|()

@@ -414,6 +414,8 @@ name|writer
 operator|.
 name|getPath
 argument_list|()
+argument_list|,
+name|conf
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -623,6 +625,8 @@ name|writer
 operator|.
 name|getPath
 argument_list|()
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|HFile
@@ -716,6 +720,8 @@ operator|.
 name|fs
 argument_list|,
 name|refPath
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 comment|// Now confirm that I can read from the reference and that it only gets
@@ -1021,6 +1027,8 @@ operator|.
 name|fs
 argument_list|,
 name|topPath
+argument_list|,
+name|conf
 argument_list|)
 operator|.
 name|getReader
@@ -1039,6 +1047,8 @@ operator|.
 name|fs
 argument_list|,
 name|bottomPath
+argument_list|,
+name|conf
 argument_list|)
 operator|.
 name|getReader
@@ -1438,6 +1448,8 @@ operator|.
 name|fs
 argument_list|,
 name|topPath
+argument_list|,
+name|conf
 argument_list|)
 operator|.
 name|getReader
@@ -1453,6 +1465,8 @@ operator|.
 name|fs
 argument_list|,
 name|bottomPath
+argument_list|,
+name|conf
 argument_list|)
 operator|.
 name|getReader
@@ -1808,6 +1822,8 @@ operator|.
 name|fs
 argument_list|,
 name|topPath
+argument_list|,
+name|conf
 argument_list|)
 operator|.
 name|getReader
@@ -1823,6 +1839,8 @@ operator|.
 name|fs
 argument_list|,
 name|bottomPath
+argument_list|,
+name|conf
 argument_list|)
 operator|.
 name|getReader

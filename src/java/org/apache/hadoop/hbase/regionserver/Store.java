@@ -1775,6 +1775,10 @@ argument_list|(
 name|fs
 argument_list|,
 name|p
+argument_list|,
+name|this
+operator|.
+name|conf
 argument_list|)
 expr_stmt|;
 block|}
@@ -2299,6 +2303,10 @@ name|writer
 operator|.
 name|getPath
 argument_list|()
+argument_list|,
+name|this
+operator|.
+name|conf
 argument_list|)
 decl_stmt|;
 name|this
@@ -4336,6 +4344,10 @@ operator|.
 name|fs
 argument_list|,
 name|p
+argument_list|,
+name|this
+operator|.
+name|conf
 argument_list|)
 decl_stmt|;
 name|this
