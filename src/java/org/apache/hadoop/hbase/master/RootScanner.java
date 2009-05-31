@@ -145,9 +145,6 @@ argument_list|,
 name|HRegionInfo
 operator|.
 name|ROOT_REGIONINFO
-operator|.
-name|getRegionName
-argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;

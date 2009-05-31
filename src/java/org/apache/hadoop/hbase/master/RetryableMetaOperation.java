@@ -521,6 +521,15 @@ name|Exception
 name|e
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Exception in RetryableMetaOperation: "
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|RuntimeException

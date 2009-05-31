@@ -93,6 +93,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ipc
+operator|.
+name|HRegionInterface
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|BatchUpdate
@@ -202,24 +218,21 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|Boolean
-name|result
-init|=
-operator|new
-name|RetryableMetaOperation
-argument_list|<
-name|Boolean
-argument_list|>
-argument_list|(
-name|getMetaRegion
+if|if
+condition|(
+operator|!
+name|metaRegionAvailable
 argument_list|()
-argument_list|,
-name|this
-operator|.
-name|master
-argument_list|)
+condition|)
 block|{
-specifier|private
+comment|// We can't proceed unless the meta region we are going to update
+comment|// is online. metaRegionAvailable() has put this operation on the
+comment|// delayedToDoQueue, so return true so the operation is not put
+comment|// back on the toDoQueue
+return|return
+literal|true
+return|;
+block|}
 specifier|final
 name|RegionHistorian
 name|historian
@@ -229,13 +242,22 @@ operator|.
 name|getInstance
 argument_list|()
 decl_stmt|;
-specifier|public
-name|Boolean
-name|call
-parameter_list|()
-throws|throws
-name|IOException
-block|{
+name|HRegionInterface
+name|server
+init|=
+name|master
+operator|.
+name|connection
+operator|.
+name|getHRegionConnection
+argument_list|(
+name|getMetaRegion
+argument_list|()
+operator|.
+name|getServer
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|LOG
 operator|.
 name|info
@@ -256,21 +278,6 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|metaRegionAvailable
-argument_list|()
-condition|)
-block|{
-comment|// We can't proceed unless the meta region we are going to update
-comment|// is online. metaRegionAvailable() has put this operation on the
-comment|// delayedToDoQueue, so return true so the operation is not put
-comment|// back on the toDoQueue
-return|return
-literal|true
-return|;
-block|}
 comment|// Register the newly-available Region's location.
 name|LOG
 operator|.
@@ -373,8 +380,6 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-name|this
-operator|.
 name|historian
 operator|.
 name|isOnline
@@ -384,8 +389,6 @@ block|{
 comment|// This is safest place to do the onlining of the historian in
 comment|// the master.  When we get to here, we know there is a .META.
 comment|// for the historian to go against.
-name|this
-operator|.
 name|historian
 operator|.
 name|online
@@ -399,8 +402,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|this
-operator|.
 name|historian
 operator|.
 name|addRegionOpen
@@ -442,14 +443,6 @@ argument_list|()
 argument_list|)
 argument_list|,
 name|regionInfo
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|,
-name|regionInfo
-operator|.
-name|getStartKey
-argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
@@ -558,20 +551,17 @@ literal|true
 return|;
 block|}
 block|}
-block|}
-operator|.
-name|doWithRetries
-argument_list|()
-decl_stmt|;
+annotation|@
+name|Override
+specifier|protected
+name|int
+name|getPriority
+parameter_list|()
+block|{
 return|return
-name|result
-operator|==
-literal|null
-condition|?
-literal|true
-else|:
-name|result
+literal|0
 return|;
+comment|// highest priority
 block|}
 block|}
 end_class

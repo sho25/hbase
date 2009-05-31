@@ -1704,6 +1704,10 @@ comment|// Only examine the rows where the startKey is zero length
 if|if
 condition|(
 name|info
+operator|!=
+literal|null
+operator|&&
+name|info
 operator|.
 name|getStartKey
 argument_list|()

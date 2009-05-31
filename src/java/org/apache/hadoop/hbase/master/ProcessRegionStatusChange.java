@@ -136,6 +136,9 @@ name|rootAvailable
 argument_list|()
 condition|)
 block|{
+name|requeue
+argument_list|()
+expr_stmt|;
 comment|// But we can't proceed unless the root region is available
 name|available
 operator|=
@@ -209,13 +212,9 @@ operator|.
 name|getRootRegionLocation
 argument_list|()
 argument_list|,
-name|this
+name|HRegionInfo
 operator|.
-name|metaRegionName
-argument_list|,
-name|HConstants
-operator|.
-name|EMPTY_START_ROW
+name|ROOT_REGIONINFO
 argument_list|)
 expr_stmt|;
 block|}

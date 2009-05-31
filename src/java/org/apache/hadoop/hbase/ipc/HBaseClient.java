@@ -380,7 +380,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-literal|"org.apache.hadoop.ipc.HBaseClass"
+literal|"org.apache.hadoop.ipc.HBaseClient"
 argument_list|)
 decl_stmt|;
 specifier|protected
