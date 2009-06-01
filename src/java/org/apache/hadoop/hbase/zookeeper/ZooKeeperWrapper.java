@@ -2412,7 +2412,14 @@ name|zooKeeper
 operator|.
 name|delete
 argument_list|(
+name|joinPath
+argument_list|(
+name|this
+operator|.
+name|rsZNode
+argument_list|,
 name|node
+argument_list|)
 argument_list|,
 operator|-
 literal|1
