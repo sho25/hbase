@@ -299,8 +299,6 @@ argument_list|(
 name|metaRegionName
 argument_list|)
 operator|+
-literal|" with "
-operator|+
 literal|" with startcode "
 operator|+
 name|serverInfo
