@@ -106,29 +106,30 @@ init|=
 literal|"6"
 decl_stmt|;
 comment|// Configuration parameters
-comment|// TODO: URL for hbase master like hdfs URLs with host and port.
-comment|// Like jdbc URLs?  URLs could be used to refer to table cells?
-comment|// jdbc:mysql://[host][,failoverhost...][:port]/[database]
-comment|// jdbc:mysql://[host][,failoverhost...][:port]/[database][?propertyName1][=propertyValue1][&propertyName2][=propertyValue2]...
-comment|// Key into HBaseConfiguration for the hbase.master address.
-comment|// TODO: Support 'local': i.e. default of all running in single
-comment|// process.  Same for regionserver. TODO: Is having HBase homed
-comment|// on port 60k OK?
-comment|/** Parameter name for master address */
+comment|//TODO: Is having HBase homed on port 60k OK?
+comment|/** Cluster is in distributed mode or not */
 specifier|static
 specifier|final
 name|String
-name|MASTER_ADDRESS
+name|CLUSTER_DISTRIBUTED
 init|=
-literal|"hbase.master"
+literal|"hbase.cluster.distributed"
 decl_stmt|;
-comment|/** Parameter name for master host name. */
+comment|/** Cluster is standalone or pseudo-distributed */
 specifier|static
 specifier|final
 name|String
-name|MASTER_HOST_NAME
+name|CLUSTER_IS_LOCAL
 init|=
-literal|"hbase.master.hostname"
+literal|"false"
+decl_stmt|;
+comment|/** Cluster is fully-distributed */
+specifier|static
+specifier|final
+name|String
+name|CLUSTER_IS_DISTRIBUTED
+init|=
+literal|"true"
 decl_stmt|;
 comment|/** default host address */
 specifier|static

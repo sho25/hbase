@@ -1070,7 +1070,7 @@ name|info
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Adds the HSI to the RS list    * @param info The region server informations    */
+comment|/**    * Adds the HSI to the RS list and creates an empty load    * @param info The region server informations    */
 specifier|public
 name|void
 name|recordNewServer
@@ -1079,9 +1079,36 @@ name|HServerInfo
 name|info
 parameter_list|)
 block|{
+name|recordNewServer
+argument_list|(
+name|info
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Adds the HSI to the RS list    * @param info The region server informations    * @param useInfoLoad True if the load from the info should be used    *                    like under a master failover    */
+specifier|public
+name|void
+name|recordNewServer
+parameter_list|(
+name|HServerInfo
+name|info
+parameter_list|,
+name|boolean
+name|useInfoLoad
+parameter_list|)
+block|{
 name|HServerLoad
 name|load
 init|=
+name|useInfoLoad
+condition|?
+name|info
+operator|.
+name|getLoad
+argument_list|()
+else|:
 operator|new
 name|HServerLoad
 argument_list|()

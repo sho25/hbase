@@ -662,14 +662,23 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|error
+name|fatal
 argument_list|(
-literal|"fail to read properties from "
+literal|"Fail to read properties from "
 operator|+
 name|ZOOKEEPER_CONFIG_NAME
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
-return|return;
+name|System
+operator|.
+name|exit
+argument_list|(
+operator|-
+literal|1
+argument_list|)
+expr_stmt|;
 block|}
 name|String
 name|clientPort
@@ -2441,7 +2450,7 @@ literal|"Failed to delete "
 operator|+
 name|rsZNode
 operator|+
-literal|" znode in ZooKeeper: "
+literal|" znodes in ZooKeeper: "
 operator|+
 name|e
 argument_list|)
@@ -2461,7 +2470,7 @@ literal|"Failed to delete "
 operator|+
 name|rsZNode
 operator|+
-literal|" znode in ZooKeeper: "
+literal|" znodes in ZooKeeper: "
 operator|+
 name|e
 argument_list|)
