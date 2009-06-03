@@ -685,6 +685,13 @@ name|descriptor
 argument_list|)
 expr_stmt|;
 block|}
+name|setMemcacheFlushSize
+argument_list|(
+literal|16
+operator|*
+literal|1024
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Private constructor used internally creating table descriptors for     * catalog tables: e.g. .META. and -ROOT-.    */
 specifier|protected
