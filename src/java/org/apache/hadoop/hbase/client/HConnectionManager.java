@@ -1622,9 +1622,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|getMaster
-argument_list|()
-expr_stmt|;
 return|return
 name|reload
 condition|?
@@ -2384,9 +2381,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|getMaster
-argument_list|()
-expr_stmt|;
 return|return
 name|locateRegion
 argument_list|(
@@ -2415,9 +2409,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|getMaster
-argument_list|()
-expr_stmt|;
 return|return
 name|locateRegion
 argument_list|(
@@ -3782,7 +3773,7 @@ name|getHRegionConnection
 argument_list|(
 name|regionServer
 argument_list|,
-literal|true
+literal|false
 argument_list|)
 return|;
 block|}
@@ -3816,7 +3807,7 @@ return|return
 name|zooKeeperWrapper
 return|;
 block|}
-comment|/*      * Repeatedly try to find the root region by asking the master for where it is      * @return HRegionLocation for root region if found      * @throws NoServerForRegionException - if the root region can not be      * located after retrying      * @throws IOException       */
+comment|/*      * Repeatedly try to find the root region in ZK      * @return HRegionLocation for root region if found      * @throws NoServerForRegionException - if the root region can not be      * located after retrying      * @throws IOException       */
 specifier|private
 name|HRegionLocation
 name|locateRootRegion
@@ -3824,9 +3815,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|getMaster
-argument_list|()
-expr_stmt|;
 comment|// We lazily instantiate the ZooKeeper object because we don't want to
 comment|// make the constructor have to throw IOException or handle it itself.
 name|ZooKeeperWrapper
@@ -4159,9 +4147,6 @@ name|IOException
 throws|,
 name|RuntimeException
 block|{
-name|getMaster
-argument_list|()
-expr_stmt|;
 name|List
 argument_list|<
 name|Throwable
@@ -4349,9 +4334,6 @@ name|IOException
 throws|,
 name|RuntimeException
 block|{
-name|getMaster
-argument_list|()
-expr_stmt|;
 try|try
 block|{
 name|callable
@@ -4451,9 +4433,6 @@ name|reloadFlag
 init|=
 name|reload
 decl_stmt|;
-name|getMaster
-argument_list|()
-expr_stmt|;
 name|List
 argument_list|<
 name|Throwable
