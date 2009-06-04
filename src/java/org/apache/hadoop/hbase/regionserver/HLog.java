@@ -3481,20 +3481,6 @@ operator|.
 name|getLen
 argument_list|()
 decl_stmt|;
-name|HLogKey
-name|key
-init|=
-operator|new
-name|HLogKey
-argument_list|()
-decl_stmt|;
-name|KeyValue
-name|val
-init|=
-operator|new
-name|KeyValue
-argument_list|()
-decl_stmt|;
 name|SequenceFile
 operator|.
 name|Reader
@@ -3531,6 +3517,22 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
+comment|// Make the key and value new each time; otherwise same instance
+comment|// is used over and over.
+name|HLogKey
+name|key
+init|=
+operator|new
+name|HLogKey
+argument_list|()
+decl_stmt|;
+name|KeyValue
+name|val
+init|=
+operator|new
+name|KeyValue
+argument_list|()
+decl_stmt|;
 while|while
 condition|(
 name|in
