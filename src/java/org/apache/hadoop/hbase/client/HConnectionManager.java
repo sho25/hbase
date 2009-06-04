@@ -2305,13 +2305,9 @@ argument_list|)
 condition|)
 block|{
 return|return
-operator|new
-name|UnmodifyableHTableDescriptor
-argument_list|(
 name|HTableDescriptor
 operator|.
 name|META_TABLEDESC
-argument_list|)
 return|;
 block|}
 name|HTableDescriptorFinder
