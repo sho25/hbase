@@ -3517,8 +3517,6 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|// Make the key and value new each time; otherwise same instance
-comment|// is used over and over.
 name|HLogKey
 name|key
 init|=
@@ -3622,6 +3620,20 @@ argument_list|)
 expr_stmt|;
 name|count
 operator|++
+expr_stmt|;
+comment|// Make the key and value new each time; otherwise same instance
+comment|// is used over and over.
+name|key
+operator|=
+operator|new
+name|HLogKey
+argument_list|()
+expr_stmt|;
+name|val
+operator|=
+operator|new
+name|KeyValue
+argument_list|()
 expr_stmt|;
 block|}
 name|LOG
