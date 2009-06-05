@@ -2437,17 +2437,6 @@ argument_list|,
 name|now
 argument_list|)
 decl_stmt|;
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"REMOVE "
-operator|+
-name|logKey
-argument_list|)
-expr_stmt|;
 name|doWrite
 argument_list|(
 name|logKey
@@ -3716,17 +3705,6 @@ argument_list|,
 name|key
 argument_list|)
 decl_stmt|;
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"REMOVE !! "
-operator|+
-name|hle
-argument_list|)
-expr_stmt|;
 name|queue
 operator|.
 name|push
