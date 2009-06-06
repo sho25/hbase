@@ -4,7 +4,7 @@ comment|/*  * Copyright 2008 The Apache Software Foundation  *  * Licensed to th
 end_comment
 
 begin_comment
-comment|/**Provides row-level filters applied to HRegion scan results during calls to {@link org.apache.hadoop.hbase.client.Scanner#next()}.<p>Use {@link org.apache.hadoop.hbase.filter.StopRowFilter} to stop the scan once rows exceed the supplied row key. Filters will not stop the scan unless hosted inside of a {@link org.apache.hadoop.hbase.filter.WhileMatchRowFilter}. Supply a set of filters to apply using {@link org.apache.hadoop.hbase.filter.RowFilterSet}.</p> */
+comment|/**Provides row-level filters applied to HRegion scan results during calls to {@link org.apache.hadoop.hbase.client.ResultScanner#next()}.<p>Use {@link org.apache.hadoop.hbase.filter.StopRowFilter} to stop the scan once rows exceed the supplied row key. Filters will not stop the scan unless hosted inside of a {@link org.apache.hadoop.hbase.filter.WhileMatchRowFilter}. Supply a set of filters to apply using {@link org.apache.hadoop.hbase.filter.RowFilterSet}.</p> */
 end_comment
 
 begin_package

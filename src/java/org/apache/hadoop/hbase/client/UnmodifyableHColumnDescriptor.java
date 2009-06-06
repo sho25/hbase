@@ -174,25 +174,6 @@ literal|"HColumnDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setMaxValueLength(int)    */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|setMaxValueLength
-parameter_list|(
-name|int
-name|maxLength
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|UnsupportedOperationException
-argument_list|(
-literal|"HColumnDescriptor is read-only"
-argument_list|)
-throw|;
-block|}
 comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setTimeToLive(int)    */
 annotation|@
 name|Override

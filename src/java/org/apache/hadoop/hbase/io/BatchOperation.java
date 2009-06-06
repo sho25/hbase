@@ -78,7 +78,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Batch update operation.  *   * If value is null, its a DELETE operation.  If its non-null, its a PUT.  * This object is purposely bare-bones because many instances are created  * during bulk uploads.  We have one class for DELETEs and PUTs rather than  * a class per type because it makes the serialization easier.  * @see BatchUpdate   */
+comment|/**  * Batch update operation.  *   * If value is null, its a DELETE operation.  If its non-null, its a PUT.  * This object is purposely bare-bones because many instances are created  * during bulk uploads.  We have one class for DELETEs and PUTs rather than  * a class per type because it makes the serialization easier.  * @see BatchUpdate  * @deprecated As of hbase 0.20.0, replaced by new Get/Put/Delete/Result-based API.  */
 end_comment
 
 begin_class

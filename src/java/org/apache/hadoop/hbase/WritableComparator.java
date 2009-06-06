@@ -39,6 +39,10 @@ name|Writable
 import|;
 end_import
 
+begin_comment
+comment|/**  * Interface that brings writable and comparable together  */
+end_comment
+
 begin_interface
 specifier|public
 interface|interface
@@ -53,9 +57,7 @@ name|Comparator
 argument_list|<
 name|T
 argument_list|>
-block|{
-comment|// No methods, just bring the two interfaces together
-block|}
+block|{}
 end_interface
 
 end_unit

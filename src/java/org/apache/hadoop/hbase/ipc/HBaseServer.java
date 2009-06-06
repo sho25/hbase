@@ -653,14 +653,15 @@ name|int
 name|maxIdleTime
 decl_stmt|;
 comment|// the maximum idle time after
-comment|// which a client may be disconnected
+comment|// which a client may be
+comment|// disconnected
 specifier|protected
 name|int
 name|thresholdIdleConnections
 decl_stmt|;
-comment|// the number of idle connections
-comment|// after which we will start
-comment|// cleaning up idle
+comment|// the number of idle
+comment|// connections after which we
+comment|// will start cleaning up idle
 comment|// connections
 name|int
 name|maxConnectionsToNuke
@@ -1379,12 +1380,6 @@ operator|.
 name|this
 argument_list|)
 expr_stmt|;
-name|long
-name|lastPurgeTime
-init|=
-literal|0
-decl_stmt|;
-comment|// last check for old calls.
 while|while
 condition|(
 name|running

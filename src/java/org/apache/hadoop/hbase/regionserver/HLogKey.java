@@ -247,6 +247,7 @@ return|return
 name|logSeqNum
 return|;
 block|}
+comment|/**    * @return the write time    */
 specifier|public
 name|long
 name|getWriteTime

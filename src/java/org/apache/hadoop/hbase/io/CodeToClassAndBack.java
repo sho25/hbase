@@ -93,6 +93,9 @@ decl_stmt|;
 comment|/**    * Class list for supported classes    */
 specifier|public
 name|Class
+argument_list|<
+name|?
+argument_list|>
 index|[]
 name|classList
 init|=
@@ -130,6 +133,9 @@ block|{
 name|InternalStaticLoader
 parameter_list|(
 name|Class
+argument_list|<
+name|?
+argument_list|>
 index|[]
 name|classList
 parameter_list|,

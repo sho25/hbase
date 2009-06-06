@@ -115,6 +115,11 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|byte
 index|[]
 name|block

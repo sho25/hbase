@@ -307,59 +307,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|Compression
-operator|.
-name|Algorithm
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Hash
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|RawComparator
 import|;
 end_import
 
@@ -391,7 +341,7 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|String
@@ -521,7 +471,7 @@ specifier|final
 name|HBaseConfiguration
 name|conf
 decl_stmt|;
-comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a substantial    * amount of ram depending on the underlying files (10-20MB?).    * @param fs    * @param p    * @param conf    * @throws IOException    */
+comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a     * substantial amount of ram depending on the underlying files (10-20MB?).    * @param fs    * @param p    * @param conf    * @throws IOException    */
 name|StoreFile
 parameter_list|(
 specifier|final
@@ -932,6 +882,7 @@ operator|.
 name|sequenceid
 return|;
 block|}
+comment|/**    *     * @param conf    * @return    */
 specifier|public
 specifier|static
 specifier|synchronized
@@ -985,6 +936,7 @@ return|return
 name|hfileBlockCache
 return|;
 block|}
+comment|/**    * @return the blockcache    */
 specifier|public
 name|BlockCache
 name|getBlockCache
@@ -1233,6 +1185,7 @@ name|HFile
 operator|.
 name|Reader
 block|{
+comment|/**      *       * @param fs      * @param path      * @param cache      * @throws IOException      */
 specifier|public
 name|StoreFileReader
 parameter_list|(
@@ -1300,6 +1253,7 @@ name|HalfStoreFileReader
 extends|extends
 name|HalfHFileReader
 block|{
+comment|/**      *       * @param fs      * @param p      * @param c      * @param r      * @throws IOException      */
 specifier|public
 name|HalfStoreFileReader
 parameter_list|(
@@ -1812,7 +1766,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    *    * @param fs    * @param dir    * @param suffix    * @return Path to a file that doesn't exist at time of this invocation.    * @return    * @throws IOException    */
+comment|/**    *    * @param fs    * @param dir    * @param suffix    * @return Path to a file that doesn't exist at time of this invocation.    * @throws IOException    */
 specifier|static
 name|Path
 name|getRandomFilename
@@ -1906,7 +1860,7 @@ return|return
 name|p
 return|;
 block|}
-comment|/**    * Write file metadata.    * Call before you call close on the passed<code>w</code> since its written    * as metadata to that file.    *    * @param w    * @param maxSequenceId Maximum sequence id.    * @throws IOException    */
+comment|/**    * Write file metadata.    * Call before you call close on the passed<code>w</code> since its written    * as metadata to that file.    *     * @param w hfile writer    * @param maxSequenceId Maximum sequence id.    * @throws IOException    */
 specifier|static
 name|void
 name|appendMetadata

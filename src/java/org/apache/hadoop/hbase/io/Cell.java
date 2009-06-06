@@ -246,7 +246,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Cell - Used to transport a cell value (byte[]) and the timestamp it was  * stored with together as a result for get and getRow methods. This promotes  * the timestamp of a cell to a first-class value, making it easy to take note  * of temporal data. Cell is used all the way from HStore up to HTable.  */
+comment|/**  * Cell - Used to transport a cell value (byte[]) and the timestamp it was  * stored with together as a result for get and getRow methods. This promotes  * the timestamp of a cell to a first-class value, making it easy to take note  * of temporal data. Cell is used all the way from HStore up to HTable.  * @deprecated As of hbase 0.20.0, replaced by new Get/Put/Delete/Result-based API.  */
 end_comment
 
 begin_class

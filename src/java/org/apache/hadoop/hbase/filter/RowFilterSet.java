@@ -160,7 +160,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of RowFilterInterface that represents a set of RowFilters  * which will be evaluated with a specified boolean operator MUST_PASS_ALL   * (!AND) or MUST_PASS_ONE (!OR).  Since you can use RowFilterSets as children   * of RowFilterSet, you can create a hierarchy of filters to be evaluated.  */
+comment|/**  * Implementation of RowFilterInterface that represents a set of RowFilters  * which will be evaluated with a specified boolean operator MUST_PASS_ALL   * (!AND) or MUST_PASS_ONE (!OR).  Since you can use RowFilterSets as children   * of RowFilterSet, you can create a hierarchy of filters to be evaluated.  *  * It is highly likely this construct will no longer work!  *  * @deprecated Use filters that are rooted on @{link Filter} instead  */
 end_comment
 
 begin_class

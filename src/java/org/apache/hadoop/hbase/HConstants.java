@@ -340,6 +340,16 @@ name|DEFAULT_NUMBER_CONCURRENT_LOG_READS
 init|=
 literal|10
 decl_stmt|;
+comment|/** Maximum value length, enforced on KeyValue construction */
+specifier|static
+specifier|final
+name|int
+name|MAXIMUM_VALUE_LENGTH
+init|=
+name|Integer
+operator|.
+name|MAX_VALUE
+decl_stmt|;
 comment|// Always store the location of the root table's HRegion.
 comment|// This HRegion is never split.
 comment|// region name = table + startkey + regionid. This is the row key.
@@ -357,6 +367,9 @@ comment|// followed by the meta regions, followed by user regions. Since the roo
 comment|// and meta regions always need to be on-line, this ensures that they will
 comment|// be the first to be reassigned if the server(s) they are being served by
 comment|// should go down.
+comment|//
+comment|// New stuff.  Making a slow transition.
+comment|//
 comment|/** The root table's name.*/
 specifier|static
 specifier|final
@@ -394,182 +407,111 @@ name|META_ROW_DELIMITER
 init|=
 literal|','
 decl_stmt|;
-comment|// Defines for the column names used in both ROOT and META HBase 'meta' tables.
-comment|/** The ROOT and META column family (string) */
+comment|/** The catalog family as a string*/
 specifier|static
 specifier|final
 name|String
-name|COLUMN_FAMILY_STR
+name|CATALOG_FAMILY_STR
 init|=
-literal|"info:"
+literal|"info"
 decl_stmt|;
-comment|/** The META historian column family (string) */
-specifier|static
-specifier|final
-name|String
-name|COLUMN_FAMILY_HISTORIAN_STR
-init|=
-literal|"historian:"
-decl_stmt|;
-comment|/** The ROOT and META column family */
+comment|/** The catalog family */
 specifier|static
 specifier|final
 name|byte
 index|[]
-name|COLUMN_FAMILY
+name|CATALOG_FAMILY
 init|=
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|COLUMN_FAMILY_STR
+name|CATALOG_FAMILY_STR
 argument_list|)
 decl_stmt|;
-comment|/** The META historian column family */
+comment|/** The catalog historian family */
 specifier|static
 specifier|final
 name|byte
 index|[]
-name|COLUMN_FAMILY_HISTORIAN
+name|CATALOG_HISTORIAN_FAMILY
 init|=
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|COLUMN_FAMILY_HISTORIAN_STR
+literal|"historian"
 argument_list|)
 decl_stmt|;
-comment|/** Array of meta column names */
+comment|/** The regioninfo column qualifier */
 specifier|static
 specifier|final
 name|byte
 index|[]
-index|[]
-name|COLUMN_FAMILY_ARRAY
-init|=
-operator|new
-name|byte
-index|[]
-index|[]
-block|{
-name|COLUMN_FAMILY
-block|}
-decl_stmt|;
-comment|/** ROOT/META column family member - contains HRegionInfo */
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|COL_REGIONINFO
+name|REGIONINFO_QUALIFIER
 init|=
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|COLUMN_FAMILY_STR
-operator|+
 literal|"regioninfo"
 argument_list|)
 decl_stmt|;
-comment|/** Array of column - contains HRegionInfo */
+comment|/** The server column qualifier */
 specifier|static
 specifier|final
 name|byte
 index|[]
-index|[]
-name|COL_REGIONINFO_ARRAY
-init|=
-operator|new
-name|byte
-index|[]
-index|[]
-block|{
-name|COL_REGIONINFO
-block|}
-decl_stmt|;
-comment|/** ROOT/META column family member - contains HServerAddress.toString() */
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|COL_SERVER
+name|SERVER_QUALIFIER
 init|=
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|COLUMN_FAMILY_STR
-operator|+
 literal|"server"
 argument_list|)
 decl_stmt|;
-comment|/** ROOT/META column family member - contains server start code (a long) */
+comment|/** The startcode column qualifier */
 specifier|static
 specifier|final
 name|byte
 index|[]
-name|COL_STARTCODE
+name|STARTCODE_QUALIFIER
 init|=
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|COLUMN_FAMILY_STR
-operator|+
 literal|"serverstartcode"
 argument_list|)
 decl_stmt|;
-comment|/** the lower half of a split region */
+comment|/** The lower-half split region column qualifier */
 specifier|static
 specifier|final
 name|byte
 index|[]
-name|COL_SPLITA
+name|SPLITA_QUALIFIER
 init|=
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|COLUMN_FAMILY_STR
-operator|+
 literal|"splitA"
 argument_list|)
 decl_stmt|;
-comment|/** the upper half of a split region */
+comment|/** The upper-half split region column qualifier */
 specifier|static
 specifier|final
 name|byte
 index|[]
-name|COL_SPLITB
+name|SPLITB_QUALIFIER
 init|=
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|COLUMN_FAMILY_STR
-operator|+
 literal|"splitB"
 argument_list|)
-decl_stmt|;
-comment|/** All the columns in the catalog -ROOT- and .META. tables.    */
-specifier|static
-specifier|final
-name|byte
-index|[]
-index|[]
-name|ALL_META_COLUMNS
-init|=
-block|{
-name|COL_REGIONINFO
-block|,
-name|COL_SERVER
-block|,
-name|COL_STARTCODE
-block|,
-name|COL_SPLITA
-block|,
-name|COL_SPLITB
-block|}
 decl_stmt|;
 comment|// Other constants
 comment|/**    * An empty instance.    */
@@ -640,6 +582,20 @@ name|Long
 operator|.
 name|MAX_VALUE
 decl_stmt|;
+comment|/**    * LATEST_TIMESTAMP in bytes form    */
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|LATEST_TIMESTAMP_BYTES
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|LATEST_TIMESTAMP
+argument_list|)
+decl_stmt|;
 comment|/**    * Define for 'return-all-versions'.    */
 specifier|static
 specifier|final
@@ -651,14 +607,17 @@ operator|.
 name|MAX_VALUE
 decl_stmt|;
 comment|/**    * Unlimited time-to-live.    */
+comment|//  static final int FOREVER = -1;
 specifier|static
 specifier|final
 name|int
 name|FOREVER
 init|=
-operator|-
-literal|1
+name|Integer
+operator|.
+name|MAX_VALUE
 decl_stmt|;
+comment|/**    * Seconds in a week    */
 specifier|public
 specifier|static
 specifier|final
@@ -738,61 +697,21 @@ decl_stmt|;
 comment|/** modifyTable op for replacing the table descriptor */
 specifier|public
 specifier|static
-specifier|final
-name|int
-name|MODIFY_TABLE_SET_HTD
-init|=
-literal|1
-decl_stmt|;
-comment|/** modifyTable op for forcing a split */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|MODIFY_TABLE_SPLIT
-init|=
-literal|2
-decl_stmt|;
-comment|/** modifyTable op for forcing a compaction */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|MODIFY_TABLE_COMPACT
-init|=
-literal|3
-decl_stmt|;
-comment|// Messages client can send master.
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|MODIFY_CLOSE_REGION
-init|=
-name|MODIFY_TABLE_COMPACT
-operator|+
-literal|1
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|MODIFY_TABLE_FLUSH
-init|=
-name|MODIFY_CLOSE_REGION
-operator|+
-literal|1
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|MODIFY_TABLE_MAJOR_COMPACT
-init|=
-name|MODIFY_TABLE_FLUSH
-operator|+
-literal|1
-decl_stmt|;
+enum|enum
+name|Modify
+block|{
+name|CLOSE_REGION
+block|,
+name|TABLE_COMPACT
+block|,
+name|TABLE_FLUSH
+block|,
+name|TABLE_MAJOR_COMPACT
+block|,
+name|TABLE_SET_HTD
+block|,
+name|TABLE_SPLIT
+block|}
 block|}
 end_interface
 

@@ -45,23 +45,9 @@ name|HTableDescriptor
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|tableindexed
-operator|.
-name|IndexSpecification
-import|;
-end_import
+begin_comment
+comment|//import org.apache.hadoop.hbase.client.tableindexed.IndexSpecification;
+end_comment
 
 begin_comment
 comment|/**  * Read-only table descriptor.  */
@@ -84,6 +70,9 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/*    * Create an unmodifyable copy of an HTableDescriptor    * @param desc    */
+comment|//  UnmodifyableHTableDescriptor(final HTableDescriptor desc) {
+comment|//    super(desc.getName(), getUnmodifyableFamilies(desc), desc.getIndexes(), desc.getValues());
+comment|//  }
 name|UnmodifyableHTableDescriptor
 parameter_list|(
 specifier|final
@@ -102,11 +91,6 @@ name|getUnmodifyableFamilies
 argument_list|(
 name|desc
 argument_list|)
-argument_list|,
-name|desc
-operator|.
-name|getIndexes
-argument_list|()
 argument_list|,
 name|desc
 operator|.
@@ -335,25 +319,13 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#addIndex(org.apache.hadoop.hbase.client.tableindexed.IndexSpecification)    */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|addIndex
-parameter_list|(
-name|IndexSpecification
-name|index
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|UnsupportedOperationException
-argument_list|(
-literal|"HTableDescriptor is read-only"
-argument_list|)
-throw|;
-block|}
+comment|//  /**
+comment|//   * @see org.apache.hadoop.hbase.HTableDescriptor#addIndex(org.apache.hadoop.hbase.client.tableindexed.IndexSpecification)
+comment|//   */
+comment|//  @Override
+comment|//  public void addIndex(IndexSpecification index) {
+comment|//    throw new UnsupportedOperationException("HTableDescriptor is read-only");
+comment|//  }
 block|}
 end_class
 

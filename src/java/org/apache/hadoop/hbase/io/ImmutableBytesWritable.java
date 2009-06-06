@@ -342,16 +342,40 @@ operator|.
 name|length
 return|;
 block|}
+comment|/**    * @return the current length of the buffer. same as getSize()    */
+comment|//Should probably deprecate getSize() so that we keep the same calls for all
+comment|//byte []
 specifier|public
 name|int
 name|getLength
 parameter_list|()
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|bytes
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"Uninitialiized. Null constructor "
+operator|+
+literal|"called w/o accompaying readFields invocation"
+argument_list|)
+throw|;
+block|}
 return|return
-name|getSize
-argument_list|()
+name|this
+operator|.
+name|length
 return|;
 block|}
+comment|/**    * @return offset    */
 specifier|public
 name|int
 name|getOffset

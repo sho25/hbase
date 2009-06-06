@@ -98,7 +98,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of RowFilterInterface that limits results to a specific page  * size. It terminates scanning once the number of filter-passed results is>=  * the given page size.  *   *<p>  * Note that this filter cannot guarantee that the number of results returned  * to a client are<= page size. This is because the filter is applied  * separately on different region servers. It does however optimize the scan of  * individual HRegions by making sure that the page size is never exceeded  * locally.  *</p>  */
+comment|/**  * Implementation of RowFilterInterface that limits results to a specific page  * size. It terminates scanning once the number of filter-passed results is>=  * the given page size.  *   *<p>  * Note that this filter cannot guarantee that the number of results returned  * to a client are<= page size. This is because the filter is applied  * separately on different region servers. It does however optimize the scan of  * individual HRegions by making sure that the page size is never exceeded  * locally.  *</p>  *  * @deprecated Use filters that are rooted on @{link Filter} instead  */
 end_comment
 
 begin_class

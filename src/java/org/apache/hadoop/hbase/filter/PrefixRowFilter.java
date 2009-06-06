@@ -114,7 +114,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * RowFilterInterface that filters everything that does not match a prefix  */
+comment|/**  * RowFilterInterface that filters everything that does not match a prefix  *  * @deprecated Use filters that are rooted on @{link Filter} instead  */
 end_comment
 
 begin_class

@@ -116,7 +116,7 @@ name|HColumnDescriptor
 argument_list|(
 name|HConstants
 operator|.
-name|COLUMN_FAMILY_STR
+name|CATALOG_FAMILY
 argument_list|)
 argument_list|)
 expr_stmt|;

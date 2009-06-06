@@ -37,9 +37,25 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|filter
+name|client
 operator|.
-name|RowFilterInterface
+name|Delete
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Scan
 import|;
 end_import
 
@@ -293,10 +309,10 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete all cells that match the passed row and whose timestamp is equal-to    * or older than the passed timestamp.    *     * @param transactionId    * @param regionName region name    * @param row row key    * @param timestamp Delete all entries that have this timestamp or older    * @throws IOException    */
+comment|/**    * Delete all cells that match the passed row and whose timestamp is equal-to    * or older than the passed timestamp.    *     * @param transactionId    * @param regionName region name    * @param delete    * @param timestamp Delete all entries that have this timestamp or older    * @throws IOException    */
 specifier|public
 name|void
-name|deleteAll
+name|delete
 parameter_list|(
 name|long
 name|transactionId
@@ -305,17 +321,13 @@ name|byte
 index|[]
 name|regionName
 parameter_list|,
-name|byte
-index|[]
-name|row
-parameter_list|,
-name|long
-name|timestamp
+name|Delete
+name|delete
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Opens a remote scanner with a RowFilter.    *     * @param transactionId    * @param regionName name of region to scan    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned. Its also possible to    * pass a regex for column family name. A column name is judged to be regex if    * it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row to scan    * @param timestamp only return values whose timestamp is<= this value    * @param filter RowFilter for filtering results at the row-level.    *     * @return scannerId scanner identifier used in other calls    * @throws IOException    */
+comment|/**    * Opens a remote scanner with a RowFilter.    *     * @param transactionId    * @param regionName name of region to scan    * @param scan    * @return scannerId scanner identifier used in other calls    * @throws IOException    */
 specifier|public
 name|long
 name|openScanner
@@ -329,22 +341,8 @@ name|byte
 index|[]
 name|regionName
 parameter_list|,
-specifier|final
-name|byte
-index|[]
-index|[]
-name|columns
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|startRow
-parameter_list|,
-name|long
-name|timestamp
-parameter_list|,
-name|RowFilterInterface
-name|filter
+name|Scan
+name|scan
 parameter_list|)
 throws|throws
 name|IOException

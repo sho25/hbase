@@ -200,7 +200,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Writable object that contains a series of BatchOperations  *   * There is one BatchUpdate object per server, so a series of batch operations  * can result in multiple BatchUpdate objects if the batch contains rows that  * are served by multiple region servers.  */
+comment|/**  * A Writable object that contains a series of BatchOperations  *   * There is one BatchUpdate object per server, so a series of batch operations  * can result in multiple BatchUpdate objects if the batch contains rows that  * are served by multiple region servers.  * @deprecated As of hbase 0.20.0, replaced by new Get/Put/Delete/Result-based API.  */
 end_comment
 
 begin_class

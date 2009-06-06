@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Copyright 2007 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright 2009 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -96,6 +96,22 @@ operator|.
 name|client
 operator|.
 name|HTable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Put
 import|;
 end_import
 
@@ -242,7 +258,7 @@ name|FileOutputFormat
 argument_list|<
 name|ImmutableBytesWritable
 argument_list|,
-name|BatchUpdate
+name|Put
 argument_list|>
 block|{
 comment|/** JobConf parameter that specifies the output table */
@@ -278,7 +294,7 @@ name|RecordWriter
 argument_list|<
 name|ImmutableBytesWritable
 argument_list|,
-name|BatchUpdate
+name|Put
 argument_list|>
 block|{
 specifier|private
@@ -321,7 +337,7 @@ parameter_list|(
 name|ImmutableBytesWritable
 name|key
 parameter_list|,
-name|BatchUpdate
+name|Put
 name|value
 parameter_list|)
 throws|throws
@@ -329,10 +345,10 @@ name|IOException
 block|{
 name|m_table
 operator|.
-name|commit
+name|put
 argument_list|(
 operator|new
-name|BatchUpdate
+name|Put
 argument_list|(
 name|value
 argument_list|)

@@ -18,7 +18,7 @@ package|;
 end_package
 
 begin_comment
-comment|/**  * Implementations can be asked for an estimate of their size in bytes.  * Useful for sizing caches.  Its a given that implementation approximations  * probably do not account for 32 vs 64 bit nor for different VM implemenations.  */
+comment|/**  * Implementations can be asked for an estimate of their size in bytes.  *<p>  * Useful for sizing caches.  Its a given that implementation approximations  * do not account for 32 vs 64 bit nor for different VM implementations.  *<p>  * An Object's size is determined by the non-static data members in it,  * as well as the fixed {@link OBJECT} overhead.  *<p>  * For example:  *<pre>  * public class SampleObject implements HeapSize {  *     *   int [] numbers;  *   int x;  * }  *</pre>  */
 end_comment
 
 begin_interface
@@ -106,13 +106,6 @@ comment|/** Array overhead */
 specifier|static
 specifier|final
 name|int
-name|BYTE_ARRAY
-init|=
-name|REFERENCE
-decl_stmt|;
-specifier|static
-specifier|final
-name|int
 name|ARRAY
 init|=
 literal|3
@@ -131,6 +124,16 @@ name|REFERENCE
 operator|)
 operator|+
 name|ARRAY
+decl_stmt|;
+comment|/** Byte arrays are fixed size below plus its length, 8 byte aligned */
+specifier|static
+specifier|final
+name|int
+name|BYTE_ARRAY
+init|=
+literal|3
+operator|*
+name|REFERENCE
 decl_stmt|;
 specifier|static
 specifier|final

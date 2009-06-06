@@ -275,6 +275,7 @@ name|byte
 index|[]
 argument_list|>
 block|{
+comment|/**      * Constructor      */
 specifier|public
 name|ByteArrayComparator
 parameter_list|()
@@ -499,6 +500,25 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|b
+operator|==
+literal|null
+condition|)
+block|{
+name|WritableUtils
+operator|.
+name|writeVInt
+argument_list|(
+name|out
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|writeByteArray
 argument_list|(
 name|out
@@ -513,7 +533,8 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Write byte-array to out with a vint length prefix.    * @param out    * @param b    * @throws IOException    */
+block|}
+comment|/**    * Write byte-array to out with a vint length prefix.    * @param out    * @param b    * @param offset    * @param length    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -645,7 +666,7 @@ operator|+
 name|srcLength
 return|;
 block|}
-comment|/**    * Put bytes at the specified byte array position.    * @param tgtBytes the byte array    * @param tgtOffset position in the array    * @param srcBytes byte to write out    * @return incremented offset    */
+comment|/**    * Put bytes at the specified byte array position.    * @param tgtBytes the byte array    * @param tgtOffset position in the array    * @param srcBytes byte to write out    * @param srcOffset    * @param srcLength    * @return incremented offset    */
 specifier|public
 specifier|static
 name|int
@@ -786,6 +807,17 @@ index|[]
 name|b
 parameter_list|)
 block|{
+if|if
+condition|(
+name|b
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 return|return
 name|toString
 argument_list|(
@@ -794,6 +826,51 @@ argument_list|,
 literal|0
 argument_list|,
 name|b
+operator|.
+name|length
+argument_list|)
+return|;
+block|}
+specifier|public
+specifier|static
+name|String
+name|toString
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|b1
+parameter_list|,
+name|String
+name|sep
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|b2
+parameter_list|)
+block|{
+return|return
+name|toString
+argument_list|(
+name|b1
+argument_list|,
+literal|0
+argument_list|,
+name|b1
+operator|.
+name|length
+argument_list|)
+operator|+
+name|sep
+operator|+
+name|toString
+argument_list|(
+name|b2
+argument_list|,
+literal|0
+argument_list|,
+name|b2
 operator|.
 name|length
 argument_list|)
@@ -817,6 +894,28 @@ name|int
 name|len
 parameter_list|)
 block|{
+if|if
+condition|(
+name|b
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
+if|if
+condition|(
+name|len
+operator|==
+literal|0
+condition|)
+block|{
+return|return
+literal|""
+return|;
+block|}
 name|String
 name|result
 init|=
@@ -1392,6 +1491,7 @@ name|i
 argument_list|)
 return|;
 block|}
+comment|/**    * @param f    * @return the float represented as byte []    */
 specifier|public
 specifier|static
 name|byte
@@ -1517,6 +1617,7 @@ name|l
 argument_list|)
 return|;
 block|}
+comment|/**    * @param d    * @return the double represented as byte []    */
 specifier|public
 specifier|static
 name|byte
@@ -1911,7 +2012,7 @@ literal|0
 argument_list|)
 return|;
 block|}
-comment|/**    * Converts a byte array to a short value    * @param bytes    * @return the short value    */
+comment|/**    * Converts a byte array to a short value    * @param bytes    * @param offset    * @return the short value    */
 specifier|public
 specifier|static
 name|short
@@ -1936,7 +2037,7 @@ name|SIZEOF_SHORT
 argument_list|)
 return|;
 block|}
-comment|/**    * Converts a byte array to a short value    * @param bytes    * @return the short value    */
+comment|/**    * Converts a byte array to a short value    * @param bytes    * @param offset    * @param lengths    * @return the short value    */
 specifier|public
 specifier|static
 name|short
@@ -3763,6 +3864,8 @@ operator|)
 operator|>>>
 literal|1
 decl_stmt|;
+comment|// we have to compare in this order, because the comparator order
+comment|// has special logic when the 'left side' is a special key.
 name|int
 name|cmp
 init|=
@@ -3770,6 +3873,12 @@ name|comparator
 operator|.
 name|compare
 argument_list|(
+name|key
+argument_list|,
+name|offset
+argument_list|,
+name|length
+argument_list|,
 name|arr
 index|[
 name|mid
@@ -3783,18 +3892,13 @@ name|mid
 index|]
 operator|.
 name|length
-argument_list|,
-name|key
-argument_list|,
-name|offset
-argument_list|,
-name|length
 argument_list|)
 decl_stmt|;
+comment|// key lives above the midpoint
 if|if
 condition|(
 name|cmp
-operator|<
+operator|>
 literal|0
 condition|)
 name|low
@@ -3803,11 +3907,12 @@ name|mid
 operator|+
 literal|1
 expr_stmt|;
+comment|// key lives below the midpoint
 elseif|else
 if|if
 condition|(
 name|cmp
-operator|>
+operator|<
 literal|0
 condition|)
 name|high
@@ -3816,6 +3921,7 @@ name|mid
 operator|-
 literal|1
 expr_stmt|;
+comment|// BAM. how often does this really happen?
 else|else
 return|return
 name|mid

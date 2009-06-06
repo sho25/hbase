@@ -147,20 +147,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|KeyValue
 import|;
 end_import
@@ -292,7 +278,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Holds row name and then a map of columns to cells.  */
+comment|/**  * Holds row name and then a map of columns to cells.  * @deprecated As of hbase 0.20.0, replaced by new Get/Put/Delete/Result-based API.  */
 end_comment
 
 begin_class
@@ -334,6 +320,19 @@ argument_list|,
 name|Cell
 argument_list|>
 name|cells
+decl_stmt|;
+specifier|private
+specifier|final
+name|byte
+index|[]
+name|COL_REGIONINFO
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"info:regioninfo"
+argument_list|)
 decl_stmt|;
 comment|/** default constructor for writable */
 specifier|public
@@ -503,6 +502,7 @@ name|key
 argument_list|)
 return|;
 block|}
+comment|/**    * Check if the key can be found in this RowResult    * @param key    * @return true if key id found, false if not    */
 specifier|public
 name|boolean
 name|containsKey
@@ -822,6 +822,38 @@ operator|.
 name|toBytes
 argument_list|(
 name|key
+argument_list|)
+argument_list|)
+return|;
+block|}
+comment|/**    * Get a cell using seperate family, columnQualifier arguments.    * @param family    * @param columnQualifier    * @return    */
+specifier|public
+name|Cell
+name|get
+parameter_list|(
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|byte
+index|[]
+name|columnQualifier
+parameter_list|)
+block|{
+return|return
+name|get
+argument_list|(
+name|Bytes
+operator|.
+name|add
+argument_list|(
+name|family
+argument_list|,
+name|KeyValue
+operator|.
+name|COLUMN_FAMILY_DELIM_ARRAY
+argument_list|,
+name|columnQualifier
 argument_list|)
 argument_list|)
 return|;
@@ -1210,7 +1242,7 @@ operator|.
 name|getKey
 argument_list|()
 argument_list|,
-name|HConstants
+name|this
 operator|.
 name|COL_REGIONINFO
 argument_list|)

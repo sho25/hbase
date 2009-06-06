@@ -251,6 +251,7 @@ name|bottom
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    *     * @return Range    */
 specifier|public
 name|Range
 name|getFileRegion
@@ -262,6 +263,7 @@ operator|.
 name|region
 return|;
 block|}
+comment|/**    * @return splitKey    */
 specifier|public
 name|byte
 index|[]

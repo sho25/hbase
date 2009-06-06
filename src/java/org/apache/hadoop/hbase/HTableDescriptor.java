@@ -101,6 +101,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|TreeMap
 import|;
 end_import
@@ -119,23 +129,9 @@ name|Path
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|tableindexed
-operator|.
-name|IndexSpecification
-import|;
-end_import
+begin_comment
+comment|//import org.apache.hadoop.hbase.client.tableindexed.IndexSpecification;
+end_comment
 
 begin_import
 import|import
@@ -576,7 +572,7 @@ init|=
 literal|null
 decl_stmt|;
 comment|// Key is hash of the family name.
-specifier|private
+specifier|public
 specifier|final
 name|Map
 argument_list|<
@@ -601,26 +597,11 @@ operator|.
 name|FAMILY_COMPARATOR
 argument_list|)
 decl_stmt|;
+comment|//  private final Map<byte [], HColumnDescriptor> families =
+comment|//    new TreeMap<byte [], HColumnDescriptor>(KeyValue.FAMILY_COMPARATOR);
 comment|// Key is indexId
-specifier|private
-specifier|final
-name|Map
-argument_list|<
-name|String
-argument_list|,
-name|IndexSpecification
-argument_list|>
-name|indexes
-init|=
-operator|new
-name|HashMap
-argument_list|<
-name|String
-argument_list|,
-name|IndexSpecification
-argument_list|>
-argument_list|()
-decl_stmt|;
+comment|//  private final Map<String, IndexSpecification> indexes =
+comment|//    new HashMap<String, IndexSpecification>();
 comment|/**    * Private constructor used internally creating table descriptors for     * catalog tables: e.g. .META. and -ROOT-.    */
 specifier|protected
 name|HTableDescriptor
@@ -694,6 +675,23 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Private constructor used internally creating table descriptors for     * catalog tables: e.g. .META. and -ROOT-.    */
+comment|//  protected HTableDescriptor(final byte [] name, HColumnDescriptor[] families,
+comment|//      Collection<IndexSpecification> indexes,
+comment|//       Map<ImmutableBytesWritable,ImmutableBytesWritable> values) {
+comment|//    this.name = name.clone();
+comment|//    this.nameAsString = Bytes.toString(this.name);
+comment|//    setMetaFlags(name);
+comment|//    for(HColumnDescriptor descriptor : families) {
+comment|//      this.families.put(descriptor.getName(), descriptor);
+comment|//    }
+comment|//    for(IndexSpecification index : indexes) {
+comment|//      this.indexes.put(index.getIndexId(), index);
+comment|//    }
+comment|//    for (Map.Entry<ImmutableBytesWritable, ImmutableBytesWritable> entry:
+comment|//        values.entrySet()) {
+comment|//      this.values.put(entry.getKey(), entry.getValue());
+comment|//    }
+comment|//  }
 specifier|protected
 name|HTableDescriptor
 parameter_list|(
@@ -705,12 +703,6 @@ parameter_list|,
 name|HColumnDescriptor
 index|[]
 name|families
-parameter_list|,
-name|Collection
-argument_list|<
-name|IndexSpecification
-argument_list|>
-name|indexes
 parameter_list|,
 name|Map
 argument_list|<
@@ -768,29 +760,6 @@ name|getName
 argument_list|()
 argument_list|,
 name|descriptor
-argument_list|)
-expr_stmt|;
-block|}
-for|for
-control|(
-name|IndexSpecification
-name|index
-range|:
-name|indexes
-control|)
-block|{
-name|this
-operator|.
-name|indexes
-operator|.
-name|put
-argument_list|(
-name|index
-operator|.
-name|getIndexId
-argument_list|()
-argument_list|,
-name|index
 argument_list|)
 expr_stmt|;
 block|}
@@ -1023,17 +992,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|this
-operator|.
-name|indexes
-operator|.
-name|putAll
-argument_list|(
-name|desc
-operator|.
-name|indexes
-argument_list|)
-expr_stmt|;
+comment|//    this.indexes.putAll(desc.indexes);
 block|}
 comment|/*    * Set meta flags on this table.    * Called by constructors.    * @param name    */
 specifier|private
@@ -1955,75 +1914,17 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
-name|Collection
-argument_list|<
-name|IndexSpecification
-argument_list|>
-name|getIndexes
-parameter_list|()
-block|{
-return|return
-name|indexes
-operator|.
-name|values
-argument_list|()
-return|;
-block|}
-specifier|public
-name|IndexSpecification
-name|getIndex
-parameter_list|(
-name|String
-name|indexId
-parameter_list|)
-block|{
-return|return
-name|indexes
-operator|.
-name|get
-argument_list|(
-name|indexId
-argument_list|)
-return|;
-block|}
-specifier|public
-name|void
-name|addIndex
-parameter_list|(
-name|IndexSpecification
-name|index
-parameter_list|)
-block|{
-name|indexes
-operator|.
-name|put
-argument_list|(
-name|index
-operator|.
-name|getIndexId
-argument_list|()
-argument_list|,
-name|index
-argument_list|)
-expr_stmt|;
-block|}
-specifier|public
-name|void
-name|removeIndex
-parameter_list|(
-name|String
-name|indexId
-parameter_list|)
-block|{
-name|indexes
-operator|.
-name|remove
-argument_list|(
-name|indexId
-argument_list|)
-expr_stmt|;
-block|}
+comment|//  public Collection<IndexSpecification> getIndexes() {
+comment|//    return indexes.values();
+comment|//  }
+comment|//
+comment|//  public IndexSpecification getIndex(String indexId) {
+comment|//    return indexes.get(indexId);
+comment|//  }
+comment|//
+comment|//  public void addIndex(IndexSpecification index) {
+comment|//    indexes.put(index.getIndexId(), index);
+comment|//  }
 comment|/**    * Adds a column family.    * @param family HColumnDescriptor of familyto add.    */
 specifier|public
 name|void
@@ -2348,48 +2249,13 @@ name|values
 argument_list|()
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|indexes
-operator|.
-name|isEmpty
-argument_list|()
-condition|)
-block|{
-comment|// Don't emit if empty.  Has to do w/ transactional hbase.
-name|s
-operator|.
-name|append
-argument_list|(
-literal|", "
-argument_list|)
-expr_stmt|;
-name|s
-operator|.
-name|append
-argument_list|(
-literal|"INDEXES"
-argument_list|)
-expr_stmt|;
-name|s
-operator|.
-name|append
-argument_list|(
-literal|" => "
-argument_list|)
-expr_stmt|;
-name|s
-operator|.
-name|append
-argument_list|(
-name|indexes
-operator|.
-name|values
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
+comment|//    if (!indexes.isEmpty()) {
+comment|//      // Don't emit if empty.  Has to do w/ transactional hbase.
+comment|//      s.append(", ");
+comment|//      s.append("INDEXES");
+comment|//      s.append(" => ");
+comment|//      s.append(indexes.values());
+comment|//    }
 name|s
 operator|.
 name|append
@@ -2736,11 +2602,7 @@ name|c
 argument_list|)
 expr_stmt|;
 block|}
-name|indexes
-operator|.
-name|clear
-argument_list|()
-expr_stmt|;
+comment|//    indexes.clear();
 if|if
 condition|(
 name|version
@@ -2750,49 +2612,12 @@ condition|)
 block|{
 return|return;
 block|}
-name|int
-name|numIndexes
-init|=
-name|in
-operator|.
-name|readInt
-argument_list|()
-decl_stmt|;
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|numIndexes
-condition|;
-name|i
-operator|++
-control|)
-block|{
-name|IndexSpecification
-name|index
-init|=
-operator|new
-name|IndexSpecification
-argument_list|()
-decl_stmt|;
-name|index
-operator|.
-name|readFields
-argument_list|(
-name|in
-argument_list|)
-expr_stmt|;
-name|addIndex
-argument_list|(
-name|index
-argument_list|)
-expr_stmt|;
-block|}
+comment|//    int numIndexes = in.readInt();
+comment|//    for (int i = 0; i< numIndexes; i++) {
+comment|//      IndexSpecification index = new IndexSpecification();
+comment|//      index.readFields(in);
+comment|//      addIndex(index);
+comment|//    }
 block|}
 specifier|public
 name|void
@@ -2934,35 +2759,10 @@ name|out
 argument_list|)
 expr_stmt|;
 block|}
-name|out
-operator|.
-name|writeInt
-argument_list|(
-name|indexes
-operator|.
-name|size
-argument_list|()
-argument_list|)
-expr_stmt|;
-for|for
-control|(
-name|IndexSpecification
-name|index
-range|:
-name|indexes
-operator|.
-name|values
-argument_list|()
-control|)
-block|{
-name|index
-operator|.
-name|write
-argument_list|(
-name|out
-argument_list|)
-expr_stmt|;
-block|}
+comment|//    out.writeInt(indexes.size());
+comment|//    for(IndexSpecification index : indexes.values()) {
+comment|//      index.write(out);
+comment|//    }
 block|}
 comment|// Comparable
 specifier|public
@@ -3201,6 +3001,30 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+comment|/**    * @return Immutable sorted set of the keys of the families.    */
+specifier|public
+name|Set
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|getFamiliesKeys
+parameter_list|()
+block|{
+return|return
+name|Collections
+operator|.
+name|unmodifiableSet
+argument_list|(
+name|this
+operator|.
+name|families
+operator|.
+name|keySet
+argument_list|()
+argument_list|)
+return|;
+block|}
 annotation|@
 name|TOJSON
 argument_list|(
@@ -3325,7 +3149,7 @@ name|HColumnDescriptor
 argument_list|(
 name|HConstants
 operator|.
-name|COLUMN_FAMILY
+name|CATALOG_FAMILY
 argument_list|,
 literal|10
 argument_list|,
@@ -3346,10 +3170,6 @@ argument_list|,
 literal|8
 operator|*
 literal|1024
-argument_list|,
-name|Integer
-operator|.
-name|MAX_VALUE
 argument_list|,
 name|HConstants
 operator|.
@@ -3383,7 +3203,7 @@ name|HColumnDescriptor
 argument_list|(
 name|HConstants
 operator|.
-name|COLUMN_FAMILY
+name|CATALOG_FAMILY
 argument_list|,
 literal|10
 argument_list|,
@@ -3405,10 +3225,6 @@ literal|8
 operator|*
 literal|1024
 argument_list|,
-name|Integer
-operator|.
-name|MAX_VALUE
-argument_list|,
 name|HConstants
 operator|.
 name|FOREVER
@@ -3421,7 +3237,7 @@ name|HColumnDescriptor
 argument_list|(
 name|HConstants
 operator|.
-name|COLUMN_FAMILY_HISTORIAN
+name|CATALOG_HISTORIAN_FAMILY
 argument_list|,
 name|HConstants
 operator|.
@@ -3443,10 +3259,6 @@ argument_list|,
 literal|8
 operator|*
 literal|1024
-argument_list|,
-name|Integer
-operator|.
-name|MAX_VALUE
 argument_list|,
 name|HConstants
 operator|.

@@ -85,6 +85,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Get
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|ImmutableBytesWritable
@@ -371,39 +387,6 @@ name|DEFAULT_VERSIONS
 init|=
 literal|3
 decl_stmt|;
-comment|/**    * Default maximum cell length.    */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_LENGTH
-init|=
-name|Integer
-operator|.
-name|MAX_VALUE
-decl_stmt|;
-comment|/** Default maximum cell length as an Integer. */
-specifier|public
-specifier|static
-specifier|final
-name|Integer
-name|DEFAULT_LENGTH_INTEGER
-init|=
-name|Integer
-operator|.
-name|valueOf
-argument_list|(
-name|DEFAULT_LENGTH
-argument_list|)
-decl_stmt|;
-comment|/*    * Cache here the HCD value.    * Question: its OK to cache since when we're reenable, we create a new HCD?    */
-specifier|private
-specifier|volatile
-name|Integer
-name|maxValueLength
-init|=
-literal|null
-decl_stmt|;
 comment|/*    * Cache here the HCD value.    * Question: its OK to cache since when we're reenable, we create a new HCD?    */
 specifier|private
 specifier|volatile
@@ -562,10 +545,6 @@ name|DEFAULT_IN_MEMORY
 argument_list|,
 name|DEFAULT_BLOCKCACHE
 argument_list|,
-name|Integer
-operator|.
-name|MAX_VALUE
-argument_list|,
 name|DEFAULT_TTL
 argument_list|,
 literal|false
@@ -660,10 +639,6 @@ name|blockCacheEnabled
 parameter_list|,
 specifier|final
 name|int
-name|maxValueLength
-parameter_list|,
-specifier|final
-name|int
 name|timeToLive
 parameter_list|,
 specifier|final
@@ -685,15 +660,22 @@ name|blockCacheEnabled
 argument_list|,
 name|DEFAULT_BLOCKSIZE
 argument_list|,
-name|maxValueLength
-argument_list|,
 name|timeToLive
 argument_list|,
 name|bloomFilter
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and end in a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize    * @param maxValueLength Restrict values to&lt;= this value    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
+comment|/**    * Backwards compatible Constructor.  Maximum value length is no longer    * configurable.    *     * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and end in a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize    * @param maxValueLength Restrict values to&lt;= this value (UNSUPPORTED)    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    * @deprecated As of hbase 0.20.0, max value length no longer supported    */
+comment|//  public HColumnDescriptor(final byte [] familyName, final int maxVersions,
+comment|//      final String compression, final boolean inMemory,
+comment|//      final boolean blockCacheEnabled, final int blocksize,
+comment|//      final int maxValueLength,
+comment|//      final int timeToLive, final boolean bloomFilter) {
+comment|//    this(familyName, maxVersions, compression, inMemory, blockCacheEnabled,
+comment|//        blocksize, timeToLive, bloomFilter);
+comment|//  }
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and end in a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -724,10 +706,6 @@ name|blocksize
 parameter_list|,
 specifier|final
 name|int
-name|maxValueLength
-parameter_list|,
-specifier|final
-name|int
 name|timeToLive
 parameter_list|,
 specifier|final
@@ -735,11 +713,6 @@ name|boolean
 name|bloomFilter
 parameter_list|)
 block|{
-name|isLegalFamilyName
-argument_list|(
-name|familyName
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|name
@@ -747,6 +720,13 @@ operator|=
 name|stripColon
 argument_list|(
 name|familyName
+argument_list|)
+expr_stmt|;
+name|isLegalFamilyName
+argument_list|(
+name|this
+operator|.
+name|name
 argument_list|)
 expr_stmt|;
 if|if
@@ -779,11 +759,6 @@ expr_stmt|;
 name|setBlockCacheEnabled
 argument_list|(
 name|blockCacheEnabled
-argument_list|)
-expr_stmt|;
-name|setMaxValueLength
-argument_list|(
-name|maxValueLength
 argument_list|)
 expr_stmt|;
 name|setTimeToLive
@@ -830,8 +805,28 @@ name|n
 parameter_list|)
 block|{
 name|byte
+name|col
+init|=
+name|n
+index|[
+name|n
+operator|.
+name|length
+operator|-
+literal|1
+index|]
+decl_stmt|;
+if|if
+condition|(
+name|col
+operator|==
+literal|':'
+condition|)
+block|{
+comment|// strip.
+name|byte
 index|[]
-name|result
+name|res
 init|=
 operator|new
 name|byte
@@ -843,7 +838,6 @@ operator|-
 literal|1
 index|]
 decl_stmt|;
-comment|// Have the stored family name be absent the colon delimiter
 name|System
 operator|.
 name|arraycopy
@@ -852,7 +846,7 @@ name|n
 argument_list|,
 literal|0
 argument_list|,
-name|result
+name|res
 argument_list|,
 literal|0
 argument_list|,
@@ -864,7 +858,11 @@ literal|1
 argument_list|)
 expr_stmt|;
 return|return
-name|result
+name|res
+return|;
+block|}
+return|return
+name|n
 return|;
 block|}
 comment|/**    * @param b Family name.    * @return<code>b</code>    * @throws IllegalArgumentException If not null and not a legitimate family    * name: i.e. 'printable' and ends in a ':' (Null passes are allowed because    *<code>b</code> can be null when deserializing).  Cannot start with a '.'    * either.    */
@@ -890,35 +888,6 @@ block|{
 return|return
 name|b
 return|;
-block|}
-if|if
-condition|(
-name|b
-index|[
-name|b
-operator|.
-name|length
-operator|-
-literal|1
-index|]
-operator|!=
-literal|':'
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|"Family names must end in a colon: "
-operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|b
-argument_list|)
-argument_list|)
-throw|;
 block|}
 if|if
 condition|(
@@ -979,6 +948,13 @@ index|[
 name|i
 index|]
 argument_list|)
+operator|||
+name|b
+index|[
+name|i
+index|]
+operator|==
+literal|':'
 condition|)
 block|{
 throw|throw
@@ -992,7 +968,7 @@ index|[
 name|i
 index|]
 operator|+
-literal|">. Family names cannot contain control characters: "
+literal|">. Family names cannot contain control characters or colons: "
 operator|+
 name|Bytes
 operator|.
@@ -1038,13 +1014,20 @@ name|getNameWithColon
 parameter_list|()
 block|{
 return|return
-name|HStoreKey
+name|Bytes
 operator|.
-name|addDelimiter
+name|add
 argument_list|(
 name|this
 operator|.
 name|name
+argument_list|,
+operator|new
+name|byte
+index|[]
+block|{
+literal|':'
+block|}
 argument_list|)
 return|;
 block|}
@@ -1554,89 +1537,6 @@ argument_list|(
 name|inMemory
 argument_list|)
 argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * @return Maximum value length.    */
-annotation|@
-name|TOJSON
-specifier|public
-specifier|synchronized
-name|int
-name|getMaxValueLength
-parameter_list|()
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|maxValueLength
-operator|==
-literal|null
-condition|)
-block|{
-name|String
-name|value
-init|=
-name|getValue
-argument_list|(
-name|LENGTH
-argument_list|)
-decl_stmt|;
-name|this
-operator|.
-name|maxValueLength
-operator|=
-operator|(
-name|value
-operator|!=
-literal|null
-operator|)
-condition|?
-name|Integer
-operator|.
-name|decode
-argument_list|(
-name|value
-argument_list|)
-else|:
-name|DEFAULT_LENGTH_INTEGER
-expr_stmt|;
-block|}
-return|return
-name|this
-operator|.
-name|maxValueLength
-operator|.
-name|intValue
-argument_list|()
-return|;
-block|}
-comment|/**    * @param maxLength Maximum value length.    */
-specifier|public
-name|void
-name|setMaxValueLength
-parameter_list|(
-name|int
-name|maxLength
-parameter_list|)
-block|{
-name|setValue
-argument_list|(
-name|LENGTH
-argument_list|,
-name|Integer
-operator|.
-name|toString
-argument_list|(
-name|maxLength
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|maxValueLength
-operator|=
-literal|null
 expr_stmt|;
 block|}
 comment|/**    * @return Time-to-live of cell contents, in seconds.    */
@@ -2183,32 +2083,10 @@ operator|.
 name|getBytes
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|HStoreKey
-operator|.
-name|getFamilyDelimiterIndex
-argument_list|(
-name|this
-operator|.
-name|name
-argument_list|)
-operator|>
-literal|0
-condition|)
-block|{
-name|this
-operator|.
-name|name
-operator|=
-name|stripColon
-argument_list|(
-name|this
-operator|.
-name|name
-argument_list|)
-expr_stmt|;
-block|}
+comment|//        if(KeyValue.getFamilyDelimiterIndex(this.name, 0, this.name.length)
+comment|//> 0) {
+comment|//          this.name = stripColon(this.name);
+comment|//        }
 block|}
 else|else
 block|{
@@ -2265,14 +2143,6 @@ argument_list|(
 name|in
 operator|.
 name|readBoolean
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|setMaxValueLength
-argument_list|(
-name|in
-operator|.
-name|readInt
 argument_list|()
 argument_list|)
 expr_stmt|;

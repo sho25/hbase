@@ -242,9 +242,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"MiniHBaseCluster: Failed binding Master to port: "
+literal|"Failed binding Master to port: "
 operator|+
 name|port
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 name|port

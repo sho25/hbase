@@ -328,7 +328,7 @@ specifier|final
 name|long
 name|globalMemcacheLimitLowMark
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|float
@@ -336,7 +336,7 @@ name|DEFAULT_UPPER
 init|=
 literal|0.4f
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|float
@@ -344,7 +344,7 @@ name|DEFAULT_LOWER
 init|=
 literal|0.25f
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|String
@@ -352,7 +352,7 @@ name|UPPER_KEY
 init|=
 literal|"hbase.regionserver.globalMemcache.upperLimit"
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|String

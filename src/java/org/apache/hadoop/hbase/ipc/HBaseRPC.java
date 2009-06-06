@@ -1609,7 +1609,7 @@ name|serverVersion
 return|;
 block|}
 block|}
-comment|/**    * @param protocol    * @param clientVersion    * @param addr    * @param conf    * @param maxAttempts    * @return proxy    * @throws IOException    */
+comment|/**    * @param protocol    * @param clientVersion    * @param addr    * @param conf    * @param maxAttempts    * @param timeout    * @return proxy    * @throws IOException    */
 annotation|@
 name|SuppressWarnings
 argument_list|(

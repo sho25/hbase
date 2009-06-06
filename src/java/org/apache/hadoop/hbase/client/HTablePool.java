@@ -160,7 +160,7 @@ specifier|final
 name|int
 name|maxSize
 decl_stmt|;
-comment|/**    * Get a shared table pool.    * @param tableName the table name    * @return the table pool    */
+comment|/**    * Get a shared table pool.    * @param config    * @param tableName the table name    * @return the table pool    */
 specifier|public
 specifier|static
 name|HTablePool

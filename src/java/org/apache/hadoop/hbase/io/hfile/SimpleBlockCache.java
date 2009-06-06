@@ -154,6 +154,7 @@ name|dumps
 init|=
 literal|0
 decl_stmt|;
+comment|/**    * Constructor    */
 specifier|public
 name|SimpleBlockCache
 parameter_list|()
@@ -200,6 +201,7 @@ operator|++
 expr_stmt|;
 block|}
 block|}
+comment|/**    * @return the size    */
 specifier|public
 specifier|synchronized
 name|int

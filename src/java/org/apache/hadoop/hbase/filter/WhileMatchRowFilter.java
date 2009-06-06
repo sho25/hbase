@@ -98,7 +98,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * WhileMatchRowFilter is a wrapper filter that filters everything after the   * first filtered row.  Once the nested filter returns true for either of it's   * filter(..) methods or filterNotNull(SortedMap<Text, byte[]>), this wrapper's   * filterAllRemaining() will return true.  All filtering methods will   * thereafter defer to the result of filterAllRemaining().  */
+comment|/**  * WhileMatchRowFilter is a wrapper filter that filters everything after the   * first filtered row.  Once the nested filter returns true for either of it's   * filter(..) methods or filterNotNull(SortedMap<Text, byte[]>), this wrapper's   * filterAllRemaining() will return true.  All filtering methods will   * thereafter defer to the result of filterAllRemaining().  *  * @deprecated Use filters that are rooted on @{link Filter} instead  */
 end_comment
 
 begin_class

@@ -34,7 +34,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Subclass of StopRowFilter that filters rows> the stop row,  * making it include up to the last row but no further.  */
+comment|/**  * Subclass of StopRowFilter that filters rows> the stop row,  * making it include up to the last row but no further.  *  * @deprecated Use filters that are rooted on @{link Filter} instead  */
 end_comment
 
 begin_class
@@ -82,6 +82,34 @@ index|[]
 name|rowKey
 parameter_list|)
 block|{
+return|return
+name|filterRowKey
+argument_list|(
+name|rowKey
+argument_list|,
+literal|0
+argument_list|,
+name|rowKey
+operator|.
+name|length
+argument_list|)
+return|;
+block|}
+specifier|public
+name|boolean
+name|filterRowKey
+parameter_list|(
+name|byte
+index|[]
+name|rowKey
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|length
+parameter_list|)
+block|{
 if|if
 condition|(
 name|rowKey
@@ -113,7 +141,18 @@ argument_list|(
 name|getStopRowKey
 argument_list|()
 argument_list|,
+literal|0
+argument_list|,
+name|getStopRowKey
+argument_list|()
+operator|.
+name|length
+argument_list|,
 name|rowKey
+argument_list|,
+name|offset
+argument_list|,
+name|length
 argument_list|)
 operator|<
 literal|0

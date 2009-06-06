@@ -114,7 +114,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of RowFilterInterface that filters out rows greater than or   * equal to a specified rowKey.  */
+comment|/**  * Implementation of RowFilterInterface that filters out rows greater than or   * equal to a specified rowKey.  *  * @deprecated Use filters that are rooted on @{link Filter} instead  */
 end_comment
 
 begin_class

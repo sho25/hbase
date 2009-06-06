@@ -596,13 +596,13 @@ specifier|static
 specifier|final
 name|byte
 index|[]
-name|METACOLUMN
+name|METAFAMILY
 init|=
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"METACOLUMN:"
+literal|"METAFAMILY"
 argument_list|)
 decl_stmt|;
 specifier|static
@@ -3044,7 +3044,9 @@ name|KeyValue
 argument_list|(
 name|METAROW
 argument_list|,
-name|METACOLUMN
+name|METAFAMILY
+argument_list|,
+literal|null
 argument_list|,
 name|System
 operator|.
@@ -3068,15 +3070,15 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * @param column    * @return true if the column is a meta column    */
+comment|/**    * @param family    * @return true if the column is a meta column    */
 specifier|public
 specifier|static
 name|boolean
-name|isMetaColumn
+name|isMetaFamily
 parameter_list|(
 name|byte
 index|[]
-name|column
+name|family
 parameter_list|)
 block|{
 return|return
@@ -3084,9 +3086,9 @@ name|Bytes
 operator|.
 name|equals
 argument_list|(
-name|METACOLUMN
+name|METAFAMILY
 argument_list|,
-name|column
+name|family
 argument_list|)
 return|;
 block|}
@@ -3940,6 +3942,8 @@ name|key
 argument_list|)
 argument_list|)
 block|{
+annotation|@
+name|Override
 specifier|public
 name|void
 name|run

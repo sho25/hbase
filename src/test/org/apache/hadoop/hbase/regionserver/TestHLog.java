@@ -1196,11 +1196,11 @@ name|equals
 argument_list|(
 name|HLog
 operator|.
-name|METACOLUMN
+name|METAFAMILY
 argument_list|,
 name|val
 operator|.
-name|getColumn
+name|getFamily
 argument_list|()
 argument_list|)
 argument_list|)
