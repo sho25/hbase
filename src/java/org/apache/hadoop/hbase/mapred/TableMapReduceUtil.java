@@ -444,6 +444,7 @@ block|}
 block|}
 comment|/**    * Ensures that the given number of reduce tasks for the given job     * configuration does not exceed the number of regions for the given table.     *     * @param table  The table to get the region count for.    * @param job  The current job configuration to adjust.    * @throws IOException When retrieving the table details fails.    */
 specifier|public
+specifier|static
 name|void
 name|limitNumReduceTasks
 parameter_list|(
@@ -501,6 +502,7 @@ expr_stmt|;
 block|}
 comment|/**    * Ensures that the given number of map tasks for the given job     * configuration does not exceed the number of regions for the given table.     *     * @param table  The table to get the region count for.    * @param job  The current job configuration to adjust.    * @throws IOException When retrieving the table details fails.    */
 specifier|public
+specifier|static
 name|void
 name|limitNumMapTasks
 parameter_list|(
@@ -558,6 +560,7 @@ expr_stmt|;
 block|}
 comment|/**    * Sets the number of reduce tasks for the given job configuration to the     * number of regions the given table has.     *     * @param table  The table to get the region count for.    * @param job  The current job configuration to adjust.    * @throws IOException When retrieving the table details fails.    */
 specifier|public
+specifier|static
 name|void
 name|setNumReduceTasks
 parameter_list|(
@@ -606,6 +609,7 @@ expr_stmt|;
 block|}
 comment|/**    * Sets the number of map tasks for the given job configuration to the     * number of regions the given table has.     *     * @param table  The table to get the region count for.    * @param job  The current job configuration to adjust.    * @throws IOException When retrieving the table details fails.    */
 specifier|public
+specifier|static
 name|void
 name|setNumMapTasks
 parameter_list|(
