@@ -524,7 +524,7 @@ name|closeOutputStream
 decl_stmt|;
 comment|// Name for this object used when logging or in toString.  Is either
 comment|// the result of a toString on stream or else toString of passed file Path.
-specifier|private
+specifier|protected
 name|String
 name|name
 decl_stmt|;
@@ -738,11 +738,14 @@ name|path
 argument_list|,
 name|DEFAULT_BLOCKSIZE
 argument_list|,
+operator|(
+name|Compression
+operator|.
+name|Algorithm
+operator|)
 literal|null
 argument_list|,
 literal|null
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -795,12 +798,10 @@ name|compress
 argument_list|)
 argument_list|,
 name|comparator
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Constructor that takes a Path.      * @param fs      * @param path      * @param blocksize      * @param compress      * @param comparator      * @param bloomfilter      * @throws IOException      */
+comment|/**      * Constructor that takes a Path.      * @param fs      * @param path      * @param blocksize      * @param compress      * @param comparator      * @throws IOException      */
 specifier|public
 name|Writer
 parameter_list|(
@@ -825,10 +826,6 @@ name|byte
 index|[]
 argument_list|>
 name|comparator
-parameter_list|,
-specifier|final
-name|boolean
-name|bloomfilter
 parameter_list|)
 throws|throws
 name|IOException
@@ -847,8 +844,6 @@ argument_list|,
 name|compress
 argument_list|,
 name|comparator
-argument_list|,
-name|bloomfilter
 argument_list|)
 expr_stmt|;
 name|this
@@ -906,12 +901,6 @@ name|ostream
 argument_list|,
 name|blocksize
 argument_list|,
-name|compress
-operator|==
-literal|null
-condition|?
-name|DEFAULT_COMPRESSION_ALGORITHM
-else|:
 name|Compression
 operator|.
 name|getCompressionAlgorithmByName
@@ -920,12 +909,10 @@ name|compress
 argument_list|)
 argument_list|,
 name|c
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Constructor that takes a stream.      * @param ostream Stream to use.      * @param blocksize      * @param compress      * @param c      * @param bloomfilter      * @throws IOException      */
+comment|/**      * Constructor that takes a stream.      * @param ostream Stream to use.      * @param blocksize      * @param compress      * @param c      * @throws IOException      */
 specifier|public
 name|Writer
 parameter_list|(
@@ -950,10 +937,6 @@ name|byte
 index|[]
 argument_list|>
 name|c
-parameter_list|,
-specifier|final
-name|boolean
-name|bloomfilter
 parameter_list|)
 throws|throws
 name|IOException
@@ -2760,7 +2743,7 @@ block|{
 return|return
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|getFirstKey
 argument_list|()
@@ -2775,7 +2758,7 @@ block|{
 return|return
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|getFirstKey
 argument_list|()
@@ -4939,7 +4922,7 @@ block|{
 return|return
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|block
 operator|.
@@ -5175,6 +5158,18 @@ block|}
 block|}
 block|}
 block|}
+specifier|public
+name|String
+name|getTrailerInfo
+parameter_list|()
+block|{
+return|return
+name|trailer
+operator|.
+name|toString
+argument_list|()
+return|;
+block|}
 block|}
 comment|/*    * The RFile has a fixed trailer which contains offsets to other variable    * parts of the file.  Also includes basic metadata on this file.    */
 specifier|private
@@ -5229,27 +5224,19 @@ name|trailerSize
 parameter_list|()
 block|{
 comment|// Keep this up to date...
-specifier|final
-name|int
-name|intSize
-init|=
-literal|4
-decl_stmt|;
-specifier|final
-name|int
-name|longSize
-init|=
-literal|8
-decl_stmt|;
 return|return
 operator|(
-name|intSize
+name|Bytes
+operator|.
+name|SIZEOF_INT
 operator|*
 literal|5
 operator|)
 operator|+
 operator|(
-name|longSize
+name|Bytes
+operator|.
+name|SIZEOF_LONG
 operator|*
 literal|4
 operator|)

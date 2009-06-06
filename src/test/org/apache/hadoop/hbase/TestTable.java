@@ -611,28 +611,26 @@ block|}
 block|}
 comment|// All threads are now dead.  Count up how many tables were created and
 comment|// how many failed w/ appropriate exception.
-name|assertTrue
+name|assertEquals
 argument_list|(
+literal|1
+argument_list|,
 name|successes
 operator|.
 name|get
 argument_list|()
-operator|==
-literal|1
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
+name|count
+operator|-
+literal|1
+argument_list|,
 name|failures
 operator|.
 name|get
 argument_list|()
-operator|==
-operator|(
-name|count
-operator|-
-literal|1
-operator|)
 argument_list|)
 expr_stmt|;
 block|}

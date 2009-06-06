@@ -2353,6 +2353,7 @@ condition|)
 block|{
 continue|continue;
 block|}
+specifier|final
 name|String
 name|regionName
 init|=

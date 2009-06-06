@@ -621,15 +621,10 @@ condition|?
 operator|(
 literal|" for region "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|r
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
-argument_list|)
 operator|)
 else|:
 literal|""
@@ -675,15 +670,10 @@ condition|?
 operator|(
 literal|" for region "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|r
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
-argument_list|)
 operator|)
 else|:
 literal|""
@@ -815,15 +805,10 @@ operator|)
 operator|+
 literal|"requested for region "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|r
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
-argument_list|)
 operator|+
 literal|"/"
 operator|+

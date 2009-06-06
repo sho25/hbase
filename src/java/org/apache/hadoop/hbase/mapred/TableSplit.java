@@ -407,7 +407,7 @@ literal|":"
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|m_startRow
 argument_list|)
@@ -416,7 +416,7 @@ literal|","
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|m_endRow
 argument_list|)

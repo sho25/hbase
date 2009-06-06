@@ -1503,11 +1503,18 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
+literal|"/"
+operator|+
+name|split
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
 literal|" no longer has references to "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|parent
 argument_list|)

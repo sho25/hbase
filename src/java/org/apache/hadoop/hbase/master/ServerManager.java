@@ -2313,23 +2313,8 @@ block|}
 comment|// Figure out what the RegionServer ought to do, and write back.
 comment|// Should we tell it close regions because its overloaded?  If its
 comment|// currently opening regions, leave it alone till all are open.
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Process all wells: "
-operator|+
-name|serverInfo
-operator|+
-literal|" openingCount: "
-operator|+
-name|openingCount
-operator|+
-literal|", nobalancingCount: "
-operator|+
-name|nobalancingCount
-argument_list|)
-expr_stmt|;
+comment|//      LOG.debug("Process all wells: " + serverInfo + " openingCount: " + openingCount +
+comment|//          ", nobalancingCount: " + nobalancingCount);
 if|if
 condition|(
 operator|(

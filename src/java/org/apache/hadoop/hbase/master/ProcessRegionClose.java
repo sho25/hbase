@@ -136,6 +136,12 @@ operator|+
 name|this
 operator|.
 name|offlineRegion
+operator|+
+literal|", reassign: "
+operator|+
+name|this
+operator|.
+name|reassignRegion
 return|;
 block|}
 annotation|@
@@ -251,6 +257,18 @@ condition|(
 name|reassignRegion
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"region set as unassigned: "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// we are reassigning the region eventually, so set it unassigned
 name|master
 operator|.
@@ -261,6 +279,21 @@ argument_list|(
 name|regionInfo
 argument_list|,
 literal|false
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Region was neither offlined, or asked to be reassigned, what gives: "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

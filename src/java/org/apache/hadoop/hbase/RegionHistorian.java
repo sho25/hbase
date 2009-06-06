@@ -381,7 +381,8 @@ name|RegionHistoryInformation
 argument_list|>
 name|getRegionHistory
 parameter_list|(
-name|String
+name|byte
+index|[]
 name|regionName
 parameter_list|)
 block|{
@@ -437,12 +438,7 @@ init|=
 operator|new
 name|Get
 argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 name|regionName
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|get

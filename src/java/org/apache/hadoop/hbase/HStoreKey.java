@@ -1672,7 +1672,6 @@ name|COLUMN_FAMILY_DELIMITER
 argument_list|)
 return|;
 block|}
-specifier|private
 specifier|static
 name|int
 name|getRequiredDelimiterInReverse
@@ -1750,7 +1749,6 @@ name|index
 return|;
 block|}
 comment|/*    * @param b    * @param delimiter    * @return Index of delimiter having started from end of<code>b</code> moving    * leftward.    */
-specifier|private
 specifier|static
 name|int
 name|getDelimiter

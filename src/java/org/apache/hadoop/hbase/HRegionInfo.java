@@ -445,7 +445,7 @@ name|regionNameStr
 operator|=
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|this
 operator|.
@@ -627,7 +627,7 @@ name|regionNameStr
 operator|=
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|this
 operator|.
@@ -737,7 +737,7 @@ name|regionNameStr
 operator|=
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|this
 operator|.
@@ -1540,7 +1540,7 @@ literal|"', STARTKEY => '"
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|this
 operator|.
@@ -1551,7 +1551,7 @@ literal|"', ENDKEY => '"
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|this
 operator|.
@@ -1832,7 +1832,7 @@ name|regionNameStr
 operator|=
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|this
 operator|.

@@ -230,6 +230,18 @@ name|info
 argument_list|)
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Region still enabled: "
+operator|+
+name|info
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|TableNotDisabledException

@@ -707,8 +707,6 @@ name|codec
 argument_list|)
 argument_list|,
 literal|null
-argument_list|,
-literal|false
 argument_list|)
 decl_stmt|;
 name|LOG
@@ -1154,8 +1152,6 @@ name|compress
 argument_list|)
 argument_list|,
 literal|null
-argument_list|,
-literal|false
 argument_list|)
 decl_stmt|;
 name|someTestingWithMetaBlock
@@ -1315,8 +1311,6 @@ operator|.
 name|NONE
 argument_list|,
 literal|null
-argument_list|,
-literal|false
 argument_list|)
 decl_stmt|;
 name|writer
@@ -1445,6 +1439,11 @@ name|fout
 argument_list|,
 name|minBlockSize
 argument_list|,
+operator|(
+name|Compression
+operator|.
+name|Algorithm
+operator|)
 literal|null
 argument_list|,
 operator|new
@@ -1539,8 +1538,6 @@ argument_list|)
 return|;
 block|}
 block|}
-argument_list|,
-literal|false
 argument_list|)
 decl_stmt|;
 name|writer

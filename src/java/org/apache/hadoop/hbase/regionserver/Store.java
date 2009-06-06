@@ -2481,10 +2481,6 @@ name|comparator
 operator|.
 name|getRawComparator
 argument_list|()
-argument_list|,
-name|this
-operator|.
-name|bloomfilter
 argument_list|)
 return|;
 block|}

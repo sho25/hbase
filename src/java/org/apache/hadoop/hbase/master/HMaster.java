@@ -5168,6 +5168,20 @@ operator|.
 name|get
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Attempting to close region: "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|regionname
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|String
 name|servername
 init|=

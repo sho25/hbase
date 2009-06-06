@@ -549,7 +549,7 @@ literal|" not found on "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|values
 operator|.

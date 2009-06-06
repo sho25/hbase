@@ -2506,7 +2506,7 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * @param b Key portion of a KeyValue.    * @param o Offset to start of key    * @param l Length of key.    * @return Key as a String.    */
+comment|/**    * Use for logging.    * @param b Key portion of a KeyValue.    * @param o Offset to start of key    * @param l Length of key.    * @return Key as a String.    */
 specifier|public
 specifier|static
 name|String
@@ -2543,7 +2543,7 @@ name|row
 init|=
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|b
 argument_list|,
@@ -2814,6 +2814,27 @@ operator|.
 name|offset
 operator|+
 name|ROW_OFFSET
+return|;
+block|}
+specifier|public
+name|String
+name|getKeyString
+parameter_list|()
+block|{
+return|return
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|getBuffer
+argument_list|()
+argument_list|,
+name|getKeyOffset
+argument_list|()
+argument_list|,
+name|getKeyLength
+argument_list|()
+argument_list|)
 return|;
 block|}
 comment|/**    * @return Length of key portion.    */
