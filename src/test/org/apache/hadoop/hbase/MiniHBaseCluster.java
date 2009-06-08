@@ -83,6 +83,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|HConnectionManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|HMaster
@@ -538,6 +554,13 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
+name|HConnectionManager
+operator|.
+name|deleteAllConnections
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Call flushCache on all regions on all participating regionservers.    * @throws IOException    */
 specifier|public

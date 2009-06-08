@@ -3648,6 +3648,11 @@ block|}
 name|join
 argument_list|()
 expr_stmt|;
+name|zooKeeperWrapper
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|shutdownHDFS

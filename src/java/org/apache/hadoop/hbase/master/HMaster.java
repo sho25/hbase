@@ -2320,6 +2320,11 @@ operator|.
 name|stop
 argument_list|()
 expr_stmt|;
+name|zooKeeperWrapper
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 comment|// Join up with all threads
 name|LOG
 operator|.
