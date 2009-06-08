@@ -403,6 +403,11 @@ specifier|private
 name|Path
 name|referencePath
 decl_stmt|;
+comment|// Should the block cache be used or not.
+specifier|private
+name|boolean
+name|blockcache
+decl_stmt|;
 comment|// Keys for metadata stored in backing HFile.
 specifier|private
 specifier|static
@@ -485,7 +490,7 @@ specifier|final
 name|HBaseConfiguration
 name|conf
 decl_stmt|;
-comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a     * substantial amount of ram depending on the underlying files (10-20MB?).    * @param fs    * @param p    * @param conf    * @throws IOException    */
+comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a     * substantial amount of ram depending on the underlying files (10-20MB?).    *     * @param fs  The current file system to use.    * @param p  The path of the file.    * @param blockcache<code>true</code> if the block cache is enabled.    * @param conf  The current configuration.    * @throws IOException When opening the reader fails.    */
 name|StoreFile
 parameter_list|(
 specifier|final
@@ -495,6 +500,10 @@ parameter_list|,
 specifier|final
 name|Path
 name|p
+parameter_list|,
+specifier|final
+name|boolean
+name|blockcache
 parameter_list|,
 specifier|final
 name|HBaseConfiguration
@@ -520,6 +529,12 @@ operator|.
 name|path
 operator|=
 name|p
+expr_stmt|;
+name|this
+operator|.
+name|blockcache
+operator|=
+name|blockcache
 expr_stmt|;
 if|if
 condition|(
@@ -957,10 +972,14 @@ name|getBlockCache
 parameter_list|()
 block|{
 return|return
+name|blockcache
+condition|?
 name|getBlockCache
 argument_list|(
 name|conf
 argument_list|)
+else|:
+literal|null
 return|;
 block|}
 comment|/**    * Opens reader on this store file.  Called by Constructor.    * @return Reader for the store file.    * @throws IOException    * @see #close()    */

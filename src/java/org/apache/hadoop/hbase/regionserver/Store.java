@@ -701,6 +701,11 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|boolean
+name|blockcache
+decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
 name|bloomfilter
 decl_stmt|;
 specifier|private
@@ -802,6 +807,15 @@ operator|=
 name|family
 operator|.
 name|isBloomfilter
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|blockcache
+operator|=
+name|family
+operator|.
+name|isBlockCacheEnabled
 argument_list|()
 expr_stmt|;
 name|this
@@ -1767,6 +1781,8 @@ name|fs
 argument_list|,
 name|p
 argument_list|,
+name|blockcache
+argument_list|,
 name|this
 operator|.
 name|conf
@@ -2337,6 +2353,8 @@ name|writer
 operator|.
 name|getPath
 argument_list|()
+argument_list|,
+name|blockcache
 argument_list|,
 name|this
 operator|.
@@ -3975,6 +3993,8 @@ operator|.
 name|fs
 argument_list|,
 name|p
+argument_list|,
+name|blockcache
 argument_list|,
 name|this
 operator|.

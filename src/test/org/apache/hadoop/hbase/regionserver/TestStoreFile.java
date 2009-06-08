@@ -413,6 +413,8 @@ operator|.
 name|getPath
 argument_list|()
 argument_list|,
+literal|true
+argument_list|,
 name|conf
 argument_list|)
 argument_list|)
@@ -622,6 +624,8 @@ operator|.
 name|getPath
 argument_list|()
 argument_list|,
+literal|true
+argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
@@ -716,6 +720,8 @@ operator|.
 name|fs
 argument_list|,
 name|refPath
+argument_list|,
+literal|true
 argument_list|,
 name|conf
 argument_list|)
@@ -1024,6 +1030,8 @@ name|fs
 argument_list|,
 name|topPath
 argument_list|,
+literal|true
+argument_list|,
 name|conf
 argument_list|)
 operator|.
@@ -1043,6 +1051,8 @@ operator|.
 name|fs
 argument_list|,
 name|bottomPath
+argument_list|,
+literal|true
 argument_list|,
 name|conf
 argument_list|)
@@ -1445,6 +1455,8 @@ name|fs
 argument_list|,
 name|topPath
 argument_list|,
+literal|true
+argument_list|,
 name|conf
 argument_list|)
 operator|.
@@ -1461,6 +1473,8 @@ operator|.
 name|fs
 argument_list|,
 name|bottomPath
+argument_list|,
+literal|true
 argument_list|,
 name|conf
 argument_list|)
@@ -1819,6 +1833,8 @@ name|fs
 argument_list|,
 name|topPath
 argument_list|,
+literal|true
+argument_list|,
 name|conf
 argument_list|)
 operator|.
@@ -1835,6 +1851,8 @@ operator|.
 name|fs
 argument_list|,
 name|bottomPath
+argument_list|,
+literal|true
 argument_list|,
 name|conf
 argument_list|)

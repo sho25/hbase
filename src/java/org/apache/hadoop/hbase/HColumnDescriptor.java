@@ -411,7 +411,7 @@ specifier|final
 name|boolean
 name|DEFAULT_BLOCKCACHE
 init|=
-literal|false
+literal|true
 decl_stmt|;
 comment|/**    * Default size of blocks in files store to the filesytem.  Use smaller for    * faster random-access at expense of larger indices (more memory consumption).    */
 specifier|public
