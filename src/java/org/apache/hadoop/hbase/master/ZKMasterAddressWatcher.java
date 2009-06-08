@@ -137,7 +137,7 @@ specifier|final
 name|HMaster
 name|master
 decl_stmt|;
-comment|/**    * Create a watcher with a ZooKeeperWrapper instance.    * @param zooKeeper ZooKeeperWrapper to use to talk to ZooKeeper.    */
+comment|/**    * Create a watcher with a ZooKeeperWrapper instance.    * @param master The master.    */
 specifier|public
 name|ZKMasterAddressWatcher
 parameter_list|(

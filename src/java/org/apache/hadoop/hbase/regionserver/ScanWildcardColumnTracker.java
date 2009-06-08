@@ -106,7 +106,7 @@ operator|=
 name|maxVersion
 expr_stmt|;
 block|}
-comment|/**    * Can only return INCLUDE or SKIP, since returning "NEXT" or    * "DONE" would imply we have finished with this row, when    * this class can't figure that out.    *    * @param bytes    * @param offset    * @param length    * @return    */
+comment|/**    * Can only return INCLUDE or SKIP, since returning "NEXT" or    * "DONE" would imply we have finished with this row, when    * this class can't figure that out.    *    * @param bytes    * @param offset    * @param length    * @return The match code instance.    */
 annotation|@
 name|Override
 specifier|public
@@ -295,7 +295,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**    * Used by matcher and scan/get to get a hint of the next column    * to seek to after checkColumn() returns SKIP.  Returns the next interesting    * column we want, or NULL there is none (wildcard scanner).    * @return    */
+comment|/**    * Used by matcher and scan/get to get a hint of the next column    * to seek to after checkColumn() returns SKIP.  Returns the next interesting    * column we want, or NULL there is none (wildcard scanner).    *     * @return The column count.    */
 specifier|public
 name|ColumnCount
 name|getColumnHint

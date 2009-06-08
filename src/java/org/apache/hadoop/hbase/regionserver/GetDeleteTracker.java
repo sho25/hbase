@@ -78,7 +78,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is responsible for the tracking and enforcement of Deletes  * during the course of a Get operation.  *<p>  * This class is utilized through three methods:  *<ul><li>{@link add} when encountering a Delete  *<li>{@link isDeleted} when checking if a Put KeyValue has been deleted  *<li>{@link update} when reaching the end of a StoreFile  *<p>  * This class is NOT thread-safe as queries are never multi-threaded   */
+comment|/**  * This class is responsible for the tracking and enforcement of Deletes  * during the course of a Get operation.  *<p>  * This class is utilized through three methods:  *<ul><li>{@link #add} when encountering a Delete  *<li>{@link #isDeleted} when checking if a Put KeyValue has been deleted  *<li>{@link #update} when reaching the end of a StoreFile  *<p>  * This class is NOT thread-safe as queries are never multi-threaded   */
 end_comment
 
 begin_class
@@ -154,7 +154,7 @@ operator|=
 name|comparator
 expr_stmt|;
 block|}
-comment|/**    * Add the specified KeyValue to the list of deletes to check against for    * this row operation.    *<p>    * This is called when a Delete is encountered in a StoreFile.    * @param kv    * @param type    * @param timestamp    */
+comment|/**    * Add the specified KeyValue to the list of deletes to check against for    * this row operation.    *<p>    * This is called when a Delete is encountered in a StoreFile.    * @param buffer    * @param qualifierOffset    * @param qualifierLength    * @param timestamp    * @param type    */
 annotation|@
 name|Override
 specifier|public

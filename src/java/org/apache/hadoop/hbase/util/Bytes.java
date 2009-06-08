@@ -71,18 +71,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|nio
-operator|.
-name|charset
-operator|.
-name|Charset
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|Comparator
@@ -168,34 +156,6 @@ operator|.
 name|io
 operator|.
 name|WritableUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
 import|;
 end_import
 
@@ -1219,7 +1179,7 @@ literal|'9'
 operator|)
 return|;
 block|}
-comment|/**    * Takes a ASCII digit in the range A-F0-9 and returns    * the corresponding integer/ordinal value.    * @param ch    * @return    */
+comment|/**    * Takes a ASCII digit in the range A-F0-9 and returns    * the corresponding integer/ordinal value.    * @param ch  The hex digit.    * @return The converted hex value as a byte.    */
 specifier|public
 specifier|static
 name|byte
@@ -2582,7 +2542,7 @@ name|SIZEOF_SHORT
 argument_list|)
 return|;
 block|}
-comment|/**    * Converts a byte array to a short value    * @param bytes    * @param offset    * @param lengths    * @return the short value    */
+comment|/**    * Converts a byte array to a short value    * @param bytes    * @param offset    * @param length    * @return the short value    */
 specifier|public
 specifier|static
 name|short

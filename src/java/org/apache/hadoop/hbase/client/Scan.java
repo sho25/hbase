@@ -672,7 +672,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Get up to the specified number of versions of each column.    * @param maxVersions maximum versions for each column    * @throws IOException if invalid number of versions    */
+comment|/**    * Get up to the specified number of versions of each column.    * @param maxVersions maximum versions for each column    */
 specifier|public
 name|Scan
 name|setMaxVersions
@@ -710,7 +710,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Set an old-style filter interface to use. Note: not all features of the    * old style filters are supported.    * @deprecated    * @param filter    * @return    */
+comment|/**    * Set an old-style filter interface to use. Note: not all features of the    * old style filters are supported.    *     * @deprecated    * @param filter    * @return The scan instance.     */
 specifier|public
 name|Scan
 name|setOldFilter

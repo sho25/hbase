@@ -84,7 +84,7 @@ name|boolean
 name|filterAllRemaining
 parameter_list|()
 function_decl|;
-comment|/**    * A way to filter based on the column family, column qualifier and/or the    * column value. Return code is described below.  This allows filters to    * filter only certain number of columns, then terminate without matching ever    * column.    *    * If your filter returns<code>ReturnCode.NEXT_ROW</code>, it should return    *<code>ReturnCode.NEXT_ROW</code> until {@link #reset()} is called    * just in case the caller calls for the next row.    *    * @param v the KeyValue in question    * @return code as described below    * @see {@link Filter.ReturnCode}    */
+comment|/**    * A way to filter based on the column family, column qualifier and/or the    * column value. Return code is described below.  This allows filters to    * filter only certain number of columns, then terminate without matching ever    * column.    *    * If your filter returns<code>ReturnCode.NEXT_ROW</code>, it should return    *<code>ReturnCode.NEXT_ROW</code> until {@link #reset()} is called    * just in case the caller calls for the next row.    *    * @param v the KeyValue in question    * @return code as described below    * @see Filter.ReturnCode    */
 specifier|public
 name|ReturnCode
 name|filterKeyValue

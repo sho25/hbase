@@ -85,22 +85,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|Get
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|io
 operator|.
 name|ImmutableBytesWritable
@@ -281,7 +265,7 @@ name|byte
 operator|)
 literal|7
 decl_stmt|;
-comment|/**     * The type of compression.    * @see org.apache.hadoop.io.SequenceFile.Writer    * @deprecated Compression now means which compression library    * rather than 'what' to cmopress.  See {@link Compression.Algorithm}    */
+comment|/**     * The type of compression.    * @see org.apache.hadoop.io.SequenceFile.Writer    * @deprecated Compression now means which compression library    * rather than 'what' to compress.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -612,7 +596,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and end in a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param maxValueLength Restrict values to&lt;= this value    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and end in a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(

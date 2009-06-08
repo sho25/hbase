@@ -416,7 +416,7 @@ return|;
 block|}
 block|}
 decl_stmt|;
-comment|/**    * Get the appropriate row comparator for the specified table.    * Hopefully we can get rid of this, I added this here because it's replacing    * something in HSK.  We should move completely off of that.    * @param tableName    * @return    */
+comment|/**    * Get the appropriate row comparator for the specified table.    *     * Hopefully we can get rid of this, I added this here because it's replacing    * something in HSK.  We should move completely off of that.    *     * @param tableName  The table name.    * @return The comparator.    */
 specifier|public
 specifier|static
 name|RawComparator
@@ -1571,7 +1571,7 @@ operator|=
 literal|0
 expr_stmt|;
 block|}
-comment|/**    * Write KeyValue format into a byte array.    * @param row row key    * @param roffset row offset    * @param rlength row length    * @param family family name    * @param foffset family offset    * @param flength family length    * @param qualifier column qualifier    * @param qoffset qualifier offset    * @param qlength qualifier length    * @param timestamp version timestamp    * @param type key type    * @param value column value    * @param voffset value offset    * @param vlength value length    * @return    */
+comment|/**    * Write KeyValue format into a byte array.    *     * @param row row key    * @param roffset row offset    * @param rlength row length    * @param family family name    * @param foffset family offset    * @param flength family length    * @param qualifier column qualifier    * @param qoffset qualifier offset    * @param qlength qualifier length    * @param timestamp version timestamp    * @param type key type    * @param value column value    * @param voffset value offset    * @param vlength value length    * @return The newly created byte array.     */
 specifier|static
 name|byte
 index|[]
@@ -2034,7 +2034,7 @@ return|return
 name|bytes
 return|;
 block|}
-comment|/**    * Write KeyValue format into a byte array.    *<p>    * Takes column in the form<code>family:qualifier</code>    * @param row - row key (arbitrary byte array)    * @param roffset    * @param rlength    * @param column    * @param coffset    * @param clength    * @param timestamp    * @param type    * @param value    * @param voffset    * @param vlength    * @return    */
+comment|/**    * Write KeyValue format into a byte array.    *<p>    * Takes column in the form<code>family:qualifier</code>    * @param row - row key (arbitrary byte array)    * @param roffset    * @param rlength    * @param column    * @param coffset    * @param clength    * @param timestamp    * @param type    * @param value    * @param voffset    * @param vlength    * @return The newly created byte array.     */
 specifier|static
 name|byte
 index|[]
@@ -2289,7 +2289,7 @@ comment|//
 comment|//  KeyValue cloning
 comment|//
 comment|//---------------------------------------------------------------------------
-comment|/**    * @param timestamp    * @return Clone of bb's key portion with only the row and timestamp filled in.    * @throws IOException    */
+comment|/**    * Clones a row.    *     * @param timestamp  The new time stamp for the row.    * @return Clone of bb's key portion with only the row and timestamp filled in.    */
 specifier|public
 name|KeyValue
 name|cloneRow
@@ -2342,7 +2342,7 @@ literal|0
 argument_list|)
 return|;
 block|}
-comment|/**    * @return Clone of bb's key portion with type set to Type.Maximum. Use this    * doing lookups where you are doing getClosest.  Using Maximum, you'll be    * sure to trip over all of the other key types since Maximum sorts first.    * @throws IOException    */
+comment|/**    * @return Clone of bb's key portion with type set to Type.Maximum. Use this    * doing lookups where you are doing getClosest.  Using Maximum, you'll be    * sure to trip over all of the other key types since Maximum sorts first.    */
 specifier|public
 name|KeyValue
 name|cloneMaximum
@@ -2357,7 +2357,7 @@ name|Maximum
 argument_list|)
 return|;
 block|}
-comment|/*    * Make a clone with the new type.    * Does not copy value.    * @param newtype New type to set on clone of this key.    * @return Clone of this key with type set to<code>newtype</code>    */
+comment|/**    * Make a clone with the new type. Does not copy value.    *     * @param newtype New type to set on clone of this key.    * @return Clone of this key with type set to<code>newtype</code>    */
 specifier|private
 name|KeyValue
 name|createKey
@@ -4740,7 +4740,7 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**    * @param left    * @param loffset    * @param llength    * @param lfamilylength Offset of family delimiter in left column.    * @param right    * @param roffset    * @param rlength    * @param rfamilylength Offset of family delimiter in right column.    * @return    */
+comment|/**    * @param left    * @param loffset    * @param llength    * @param lfamilylength Offset of family delimiter in left column.    * @param right    * @param roffset    * @param rlength    * @param rfamilylength Offset of family delimiter in right column.    * @return The result of the comparison.    */
 specifier|static
 name|int
 name|compareColumns
@@ -4870,7 +4870,7 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**    * Splits a column in family:qualifier form into separate byte arrays.    *<p>    * Catches     * @param c    * @return    */
+comment|/**    * Splits a column in family:qualifier form into separate byte arrays.    *     * @param c  The column.    * @return The parsed column.    */
 specifier|public
 specifier|static
 name|byte
@@ -6319,7 +6319,7 @@ name|KVComparator
 argument_list|()
 return|;
 block|}
-comment|/**      * @return Comparator that ignores timestamps; useful counting versions.      * @throws IOException      */
+comment|/**      * @return Comparator that ignores timestamps; useful counting versions.      */
 specifier|public
 name|KVComparator
 name|getComparatorIgnoringTimestamps

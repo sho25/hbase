@@ -826,7 +826,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Get a cell using seperate family, columnQualifier arguments.    * @param family    * @param columnQualifier    * @return    */
+comment|/**    * Get a cell using seperate family, columnQualifier arguments.    * @param family    * @param columnQualifier    * @return The cell.    */
 specifier|public
 name|Cell
 name|get

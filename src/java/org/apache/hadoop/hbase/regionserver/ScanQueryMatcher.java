@@ -329,7 +329,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Determines if the caller should do one of several things:    * - seek/skip to the next row (MatchCode.SEEK_NEXT_ROW)    * - seek/skip to the next column (MatchCode.SEEK_NEXT_COL)    * - include the current KeyValue (MatchCode.INCLUDE)    * - ignore the current KeyValue (MatchCode.SKIP)    * - got to the next row (MatchCode.DONE)    *     * @param kv KeyValue to check    * @return    * @throws IOException    */
+comment|/**    * Determines if the caller should do one of several things:    * - seek/skip to the next row (MatchCode.SEEK_NEXT_ROW)    * - seek/skip to the next column (MatchCode.SEEK_NEXT_COL)    * - include the current KeyValue (MatchCode.INCLUDE)    * - ignore the current KeyValue (MatchCode.SKIP)    * - got to the next row (MatchCode.DONE)    *     * @param kv KeyValue to check    * @return The match code instance.    */
 specifier|public
 name|MatchCode
 name|match
@@ -885,7 +885,7 @@ operator|.
 name|SEEK_NEXT_ROW
 return|;
 block|}
-comment|/**    * If the row was otherwise going to be included, call this to last-minute    * check.    * @return    */
+comment|/**    * If the row was otherwise going to be included, call this to last-minute    * check.    *     * @return<code>true</code> if the row should be filtered.    */
 specifier|public
 name|boolean
 name|filterEntireRow

@@ -142,7 +142,7 @@ specifier|public
 interface|interface
 name|Iface
 block|{
-comment|/**      * Brings a table on-line (enables it)      * @param tableName name of the table      *       * @param tableName      */
+comment|/**      * Brings a table on-line (enables it)      * @param tableName name of the table      */
 specifier|public
 name|void
 name|enableTable
@@ -156,7 +156,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Disables a table (takes it off-line) If it is being served, the master      * will tell the servers to stop serving it.      * @param tableName name of the table      *       * @param tableName      */
+comment|/**      * Disables a table (takes it off-line) If it is being served, the master      * will tell the servers to stop serving it.      * @param tableName name of the table      */
 specifier|public
 name|void
 name|disableTable
@@ -170,7 +170,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * @param tableName name of table to check      * @return true if table is on-line      *       * @param tableName      */
+comment|/**      * @param tableName name of table to check      * @return true if table is on-line      */
 specifier|public
 name|boolean
 name|isTableEnabled
@@ -224,7 +224,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * List all the column families assoicated with a table.      * @param tableName table name      * @return list of column family descriptors      *       * @param tableName      */
+comment|/**      * List all the column families assoicated with a table.      * @param tableName table name      * @return list of column family descriptors      */
 specifier|public
 name|Map
 argument_list|<
@@ -244,7 +244,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * List the regions associated with a table.      * @param tableName table name      * @return list of region descriptors      *       * @param tableName      */
+comment|/**      * List the regions associated with a table.      * @param tableName table name      * @return list of region descriptors      */
 specifier|public
 name|List
 argument_list|<
@@ -261,7 +261,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Create a table with the specified column families.  The name      * field for each ColumnDescriptor must be set and must end in a      * colon (:).  All other fields are optional and will get default      * values if not explicitly specified.      *       * @param tableName name of table to create      * @param columnFamilies list of column family descriptors      *       * @throws IllegalArgument if an input parameter is invalid      * @throws AlreadyExists if the table name already exists      *       * @param tableName      * @param columnFamilies      */
+comment|/**      * Create a table with the specified column families.  The name      * field for each ColumnDescriptor must be set and must end in a      * colon (:).  All other fields are optional and will get default      * values if not explicitly specified.      *       * @param tableName name of table to create      * @param columnFamilies list of column family descriptors      *       * @throws IllegalArgument if an input parameter is invalid      * @throws AlreadyExists if the table name already exists      */
 specifier|public
 name|void
 name|createTable
@@ -285,7 +285,7 @@ name|AlreadyExists
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Deletes a table      * @param tableName name of table to delete      * @throws IOError if table doesn't exist on server or there was some other      * problem      *       * @param tableName      */
+comment|/**      * Deletes a table      * @param tableName name of table to delete      * @throws IOError if table doesn't exist on server or there was some other      * problem      */
 specifier|public
 name|void
 name|deleteTable
@@ -299,7 +299,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get a single TCell for the specified table, row, and column at the      * latest timestamp. Returns an empty list if no such value exists.      *       * @param tableName name of table      * @param row row key      * @param column column name      * @return value for specified row/column      *       * @param tableName      * @param row      * @param column      */
+comment|/**      * Get a single TCell for the specified table, row, and column at the      * latest timestamp. Returns an empty list if no such value exists.      *       * @param tableName name of table      * @param row row key      * @param column column name      * @return value for specified row/column      */
 specifier|public
 name|List
 argument_list|<
@@ -324,7 +324,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get the specified number of versions for the specified table,      * row, and column.      *       * @param tableName name of table      * @param row row key      * @param column column name      * @param numVersions number of versions to retrieve      * @return list of cells for specified row/column      *       * @param tableName      * @param row      * @param column      * @param numVersions      */
+comment|/**      * Get the specified number of versions for the specified table,      * row, and column.      *       * @param tableName name of table      * @param row row key      * @param column column name      * @param numVersions number of versions to retrieve      * @return list of cells for specified row/column      */
 specifier|public
 name|List
 argument_list|<
@@ -352,7 +352,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get the specified number of versions for the specified table,      * row, and column.  Only versions less than or equal to the specified      * timestamp will be returned.      *       * @param tableName name of table      * @param row row key      * @param column column name      * @param timestamp timestamp      * @param numVersions number of versions to retrieve      * @return list of cells for specified row/column      *       * @param tableName      * @param row      * @param column      * @param timestamp      * @param numVersions      */
+comment|/**      * Get the specified number of versions for the specified table,      * row, and column.  Only versions less than or equal to the specified      * timestamp will be returned.      *       * @param tableName name of table      * @param row row key      * @param column column name      * @param timestamp timestamp      * @param numVersions number of versions to retrieve      * @return list of cells for specified row/column      */
 specifier|public
 name|List
 argument_list|<
@@ -383,7 +383,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get all the data for the specified table and row at the latest      * timestamp. Returns an empty list if the row does not exist.      *       * @param tableName name of table      * @param row row key      * @return TRowResult containing the row and map of columns to TCells      *       * @param tableName      * @param row      */
+comment|/**      * Get all the data for the specified table and row at the latest      * timestamp. Returns an empty list if the row does not exist.      *       * @param tableName name of table      * @param row row key      * @return TRowResult containing the row and map of columns to TCells      */
 specifier|public
 name|List
 argument_list|<
@@ -404,7 +404,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get the specified columns for the specified table and row at the latest      * timestamp. Returns an empty list if the row does not exist.      *       * @param tableName name of table      * @param row row key      * @param columns List of columns to return, null for all columns      * @return TRowResult containing the row and map of columns to TCells      *       * @param tableName      * @param row      * @param columns      */
+comment|/**      * Get the specified columns for the specified table and row at the latest      * timestamp. Returns an empty list if the row does not exist.      *       * @param tableName name of table      * @param row row key      * @param columns List of columns to return, null for all columns      * @return TRowResult containing the row and map of columns to TCells      */
 specifier|public
 name|List
 argument_list|<
@@ -432,7 +432,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get all the data for the specified table and row at the specified      * timestamp. Returns an empty list if the row does not exist.      *       * @param tableName of table      * @param row row key      * @param timestamp timestamp      * @return TRowResult containing the row and map of columns to TCells      *       * @param tableName      * @param row      * @param timestamp      */
+comment|/**      * Get all the data for the specified table and row at the specified      * timestamp. Returns an empty list if the row does not exist.      *       * @param tableName of table      * @param row row key      * @param timestamp timestamp      * @return TRowResult containing the row and map of columns to TCells      */
 specifier|public
 name|List
 argument_list|<
@@ -456,7 +456,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get the specified columns for the specified table and row at the specified      * timestamp. Returns an empty list if the row does not exist.      *       * @param tableName name of table      * @param row row key      * @param columns List of columns to return, null for all columns      * @return TRowResult containing the row and map of columns to TCells      *       * @param tableName      * @param row      * @param columns      * @param timestamp      */
+comment|/**      * Get the specified columns for the specified table and row at the specified      * timestamp. Returns an empty list if the row does not exist.      *       * @param tableName name of table      * @param row row key      * @param columns List of columns to return, null for all columns      * @return TRowResult containing the row and map of columns to TCells      */
 specifier|public
 name|List
 argument_list|<
@@ -487,7 +487,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Apply a series of mutations (updates/deletes) to a row in a      * single transaction.  If an exception is thrown, then the      * transaction is aborted.  Default current timestamp is used, and      * all entries will have an identical timestamp.      *       * @param tableName name of table      * @param row row key      * @param mutations list of mutation commands      *       * @param tableName      * @param row      * @param mutations      */
+comment|/**      * Apply a series of mutations (updates/deletes) to a row in a      * single transaction.  If an exception is thrown, then the      * transaction is aborted.  Default current timestamp is used, and      * all entries will have an identical timestamp.      *       * @param tableName name of table      * @param row row key      * @param mutations list of mutation commands      */
 specifier|public
 name|void
 name|mutateRow
@@ -513,7 +513,7 @@ name|IllegalArgument
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Apply a series of mutations (updates/deletes) to a row in a      * single transaction.  If an exception is thrown, then the      * transaction is aborted.  The specified timestamp is used, and      * all entries will have an identical timestamp.      *       * @param tableName name of table      * @param row row key      * @param mutations list of mutation commands      * @param timestamp timestamp      *       * @param tableName      * @param row      * @param mutations      * @param timestamp      */
+comment|/**      * Apply a series of mutations (updates/deletes) to a row in a      * single transaction.  If an exception is thrown, then the      * transaction is aborted.  The specified timestamp is used, and      * all entries will have an identical timestamp.      *       * @param tableName name of table      * @param row row key      * @param mutations list of mutation commands      * @param timestamp timestamp      */
 specifier|public
 name|void
 name|mutateRowTs
@@ -542,7 +542,7 @@ name|IllegalArgument
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Apply a series of batches (each a series of mutations on a single row)      * in a single transaction.  If an exception is thrown, then the      * transaction is aborted.  Default current timestamp is used, and      * all entries will have an identical timestamp.      *       * @param tableName name of table      * @param rowBatches list of row batches      *       * @param tableName      * @param rowBatches      */
+comment|/**      * Apply a series of batches (each a series of mutations on a single row)      * in a single transaction.  If an exception is thrown, then the      * transaction is aborted.  Default current timestamp is used, and      * all entries will have an identical timestamp.      *       * @param tableName name of table      * @param rowBatches list of row batches      */
 specifier|public
 name|void
 name|mutateRows
@@ -564,7 +564,7 @@ name|IllegalArgument
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Apply a series of batches (each a series of mutations on a single row)      * in a single transaction.  If an exception is thrown, then the      * transaction is aborted.  The specified timestamp is used, and      * all entries will have an identical timestamp.      *       * @param tableName name of table      * @param rowBatches list of row batches      * @param timestamp timestamp      *       * @param tableName      * @param rowBatches      * @param timestamp      */
+comment|/**      * Apply a series of batches (each a series of mutations on a single row)      * in a single transaction.  If an exception is thrown, then the      * transaction is aborted.  The specified timestamp is used, and      * all entries will have an identical timestamp.      *       * @param tableName name of table      * @param rowBatches list of row batches      * @param timestamp timestamp      */
 specifier|public
 name|void
 name|mutateRowsTs
@@ -589,7 +589,7 @@ name|IllegalArgument
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Atomically increment the column value specified.  Returns the next value post increment.      * @param tableName name of table      * @param row row to increment      * @param column name of column      * @param value amount to increment by      *       * @param tableName      * @param row      * @param column      * @param value      */
+comment|/**      * Atomically increment the column value specified.  Returns the next value post increment.      * @param tableName name of table      * @param row row to increment      * @param column name of column      * @param value amount to increment by      */
 specifier|public
 name|long
 name|atomicIncrement
@@ -616,7 +616,7 @@ name|IllegalArgument
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Delete all cells that match the passed row and column.      *       * @param tableName name of table      * @param row Row to update      * @param column name of column whose value is to be deleted      *       * @param tableName      * @param row      * @param column      */
+comment|/**      * Delete all cells that match the passed row and column.      *       * @param tableName name of table      * @param row Row to update      * @param column name of column whose value is to be deleted      */
 specifier|public
 name|void
 name|deleteAll
@@ -638,7 +638,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Delete all cells that match the passed row and column and whose      * timestamp is equal-to or older than the passed timestamp.      *       * @param tableName name of table      * @param row Row to update      * @param column name of column whose value is to be deleted      * @param timestamp timestamp      *       * @param tableName      * @param row      * @param column      * @param timestamp      */
+comment|/**      * Delete all cells that match the passed row and column and whose      * timestamp is equal-to or older than the passed timestamp.      *       * @param tableName name of table      * @param row Row to update      * @param column name of column whose value is to be deleted      * @param timestamp timestamp      */
 specifier|public
 name|void
 name|deleteAllTs
@@ -663,7 +663,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Completely delete the row's cells.      *       * @param tableName name of table      * @param row key of the row to be completely deleted.      *       * @param tableName      * @param row      */
+comment|/**      * Completely delete the row's cells.      *       * @param tableName name of table      * @param row key of the row to be completely deleted.      */
 specifier|public
 name|void
 name|deleteAllRow
@@ -681,7 +681,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Completely delete the row's cells marked with a timestamp      * equal-to or older than the passed timestamp.      *       * @param tableName name of table      * @param row key of the row to be completely deleted.      * @param timestamp timestamp      *       * @param tableName      * @param row      * @param timestamp      */
+comment|/**      * Completely delete the row's cells marked with a timestamp      * equal-to or older than the passed timestamp.      *       * @param tableName name of table      * @param row key of the row to be completely deleted.      * @param timestamp timestamp      */
 specifier|public
 name|void
 name|deleteAllRowTs
@@ -702,7 +702,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get a scanner on the current table starting at the specified row and      * ending at the last row in the table.  Return the specified columns.      *       * @param columns columns to scan. If column name is a column family, all      * columns of the specified column family are returned.  Its also possible      * to pass a regex in the column qualifier.      * @param tableName name of table      * @param startRow starting row in table to scan.  send "" (empty string) to      *                 start at the first row.      *       * @return scanner id to be used with other scanner procedures      *       * @param tableName      * @param startRow      * @param columns      */
+comment|/**      * Get a scanner on the current table starting at the specified row and      * ending at the last row in the table.  Return the specified columns.      *       * @param columns columns to scan. If column name is a column family, all      * columns of the specified column family are returned.  Its also possible      * to pass a regex in the column qualifier.      * @param tableName name of table      * @param startRow starting row in table to scan.  send "" (empty string) to      *                 start at the first row.      *       * @return scanner id to be used with other scanner procedures      */
 specifier|public
 name|int
 name|scannerOpen
@@ -727,7 +727,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get a scanner on the current table starting and stopping at the      * specified rows.  ending at the last row in the table.  Return the      * specified columns.      *       * @param columns columns to scan. If column name is a column family, all      * columns of the specified column family are returned.  Its also possible      * to pass a regex in the column qualifier.      * @param tableName name of table      * @param startRow starting row in table to scan.  send "" (empty string) to      *                 start at the first row.      * @param stopRow row to stop scanning on.  This row is *not* included in the      *                scanner's results      *       * @return scanner id to be used with other scanner procedures      *       * @param tableName      * @param startRow      * @param stopRow      * @param columns      */
+comment|/**      * Get a scanner on the current table starting and stopping at the      * specified rows.  ending at the last row in the table.  Return the      * specified columns.      *       * @param columns columns to scan. If column name is a column family, all      * columns of the specified column family are returned.  Its also possible      * to pass a regex in the column qualifier.      * @param tableName name of table      * @param startRow starting row in table to scan.  send "" (empty string) to      *                 start at the first row.      * @param stopRow row to stop scanning on.  This row is *not* included in the      *                scanner's results      *       * @return scanner id to be used with other scanner procedures      */
 specifier|public
 name|int
 name|scannerOpenWithStop
@@ -756,7 +756,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get a scanner on the current table starting at the specified row and      * ending at the last row in the table.  Return the specified columns.      * Only values with the specified timestamp are returned.      *       * @param columns columns to scan. If column name is a column family, all      * columns of the specified column family are returned.  Its also possible      * to pass a regex in the column qualifier.      * @param tableName name of table      * @param startRow starting row in table to scan.  send "" (empty string) to      *                 start at the first row.      * @param timestamp timestamp      *       * @return scanner id to be used with other scanner procedures      *       * @param tableName      * @param startRow      * @param columns      * @param timestamp      */
+comment|/**      * Get a scanner on the current table starting at the specified row and      * ending at the last row in the table.  Return the specified columns.      * Only values with the specified timestamp are returned.      *       * @param columns columns to scan. If column name is a column family, all      * columns of the specified column family are returned.  Its also possible      * to pass a regex in the column qualifier.      * @param tableName name of table      * @param startRow starting row in table to scan.  send "" (empty string) to      *                 start at the first row.      * @param timestamp timestamp      *       * @return scanner id to be used with other scanner procedures      */
 specifier|public
 name|int
 name|scannerOpenTs
@@ -784,7 +784,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get a scanner on the current table starting and stopping at the      * specified rows.  ending at the last row in the table.  Return the      * specified columns.  Only values with the specified timestamp are      * returned.      *       * @param columns columns to scan. If column name is a column family, all      * columns of the specified column family are returned.  Its also possible      * to pass a regex in the column qualifier.      * @param tableName name of table      * @param startRow starting row in table to scan.  send "" (empty string) to      *                 start at the first row.      * @param stopRow row to stop scanning on.  This row is *not* included      *                in the scanner's results      * @param timestamp timestamp      *       * @return scanner id to be used with other scanner procedures      *       * @param tableName      * @param startRow      * @param stopRow      * @param columns      * @param timestamp      */
+comment|/**      * Get a scanner on the current table starting and stopping at the      * specified rows.  ending at the last row in the table.  Return the      * specified columns.  Only values with the specified timestamp are      * returned.      *       * @param columns columns to scan. If column name is a column family, all      * columns of the specified column family are returned.  Its also possible      * to pass a regex in the column qualifier.      * @param tableName name of table      * @param startRow starting row in table to scan.  send "" (empty string) to      *                 start at the first row.      * @param stopRow row to stop scanning on.  This row is *not* included      *                in the scanner's results      * @param timestamp timestamp      *       * @return scanner id to be used with other scanner procedures      */
 specifier|public
 name|int
 name|scannerOpenWithStopTs
@@ -816,7 +816,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Returns the scanner's current row value and advances to the next      * row in the table.  When there are no more rows in the table, or a key      * greater-than-or-equal-to the scanner's specified stopRow is reached,      * an empty list is returned.      *       * @param id id of a scanner returned by scannerOpen      * @return a TRowResult containing the current row and a map of the columns to TCells.      * @throws IllegalArgument if ScannerID is invalid      * @throws NotFound when the scanner reaches the end      *       * @param id      */
+comment|/**      * Returns the scanner's current row value and advances to the next      * row in the table.  When there are no more rows in the table, or a key      * greater-than-or-equal-to the scanner's specified stopRow is reached,      * an empty list is returned.      *       * @param id id of a scanner returned by scannerOpen      * @return a TRowResult containing the current row and a map of the columns to TCells.      * @throws IllegalArgument if ScannerID is invalid      * @throws NotFound when the scanner reaches the end      */
 specifier|public
 name|List
 argument_list|<
@@ -834,7 +834,7 @@ name|IllegalArgument
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Returns, starting at the scanner's current row value nbRows worth of      * rows and advances to the next row in the table.  When there are no more      * rows in the table, or a key greater-than-or-equal-to the scanner's      * specified stopRow is reached,  an empty list is returned.      *       * @param id id of a scanner returned by scannerOpen      * @param nbRows number of results to regturn      * @return a TRowResult containing the current row and a map of the columns to TCells.      * @throws IllegalArgument if ScannerID is invalid      * @throws NotFound when the scanner reaches the end      *       * @param id      * @param nbRows      */
+comment|/**      * Returns, starting at the scanner's current row value nbRows worth of      * rows and advances to the next row in the table.  When there are no more      * rows in the table, or a key greater-than-or-equal-to the scanner's      * specified stopRow is reached,  an empty list is returned.      *       * @param id id of a scanner returned by scannerOpen      * @param nbRows number of results to regturn      * @return a TRowResult containing the current row and a map of the columns to TCells.      * @throws IllegalArgument if ScannerID is invalid      * @throws NotFound when the scanner reaches the end      */
 specifier|public
 name|List
 argument_list|<
@@ -855,7 +855,7 @@ name|IllegalArgument
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Closes the server-state associated with an open scanner.      *       * @param id id of a scanner returned by scannerOpen      * @throws IllegalArgument if ScannerID is invalid      *       * @param id      */
+comment|/**      * Closes the server-state associated with an open scanner.      *       * @param id id of a scanner returned by scannerOpen      * @throws IllegalArgument if ScannerID is invalid      */
 specifier|public
 name|void
 name|scannerClose

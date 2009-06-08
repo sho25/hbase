@@ -1021,7 +1021,7 @@ operator|=
 literal|0L
 expr_stmt|;
 block|}
-comment|/**    * HRegion constructor.    *    * @param basedir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.      * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param flushListener an object that implements CacheFlushListener or null    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    * @throws IOException     */
+comment|/**    * HRegion constructor.    *    * @param basedir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.      * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param flushListener an object that implements CacheFlushListener or null    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    */
 specifier|public
 name|HRegion
 parameter_list|(
@@ -3838,7 +3838,7 @@ name|CATALOG_FAMILY
 argument_list|)
 return|;
 block|}
-comment|/**    * Return all the data for the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it, at or immediately before     *<i>ts</i>.    *     * @param row row key    * @param family    * @param columnFamily Must include the column family delimiter character.    * @return map of values    * @throws IOException    */
+comment|/**    * Return all the data for the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it, at or immediately before     *<i>ts</i>.    *     * @param row row key    * @param family    * @return map of values    * @throws IOException    */
 specifier|public
 name|Result
 name|getClosestRowBefore
@@ -5272,7 +5272,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Checks if any stamps are> now.  If so, sets them to now.    *<p>    * This acts to be prevent users from inserting future stamps as well as    * to replace LATEST_TIMESTAMP with now.    * @param keys    * @param now    * @return    */
+comment|/**    * Checks if any stamps are> now.  If so, sets them to now.    *<p>    * This acts to be prevent users from inserting future stamps as well as    * to replace LATEST_TIMESTAMP with now.    * @param keys    * @param now    * @return<code>true</code> when updating the time stamp completed.    */
 specifier|private
 name|boolean
 name|updateKeys
@@ -5546,7 +5546,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Add updates first to the hlog (if writeToWal) and then add values to memcache.    * Warning: Assumption is caller has lock on passed in row.    * @param writeToWAL if true, then we should write to the log    * @param updatesByColumn Cell updates by column    * @param now    * @throws IOException    */
+comment|/**     * Add updates first to the hlog (if writeToWal) and then add values to memcache.    * Warning: Assumption is caller has lock on passed in row.    * @param family    * @param edits    * @param writeToWAL if true, then we should write to the log    * @throws IOException    */
 specifier|private
 name|void
 name|put
@@ -6115,7 +6115,7 @@ name|lockid
 argument_list|)
 return|;
 block|}
-comment|/**     * Release the row lock!    * @param row Name of row whose lock we are to release    */
+comment|/**     * Release the row lock!    * @param lockid  The lock ID to release.    */
 name|void
 name|releaseRowLock
 parameter_list|(
@@ -9209,7 +9209,7 @@ name|result
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    *     * @param row    * @param family    * @param qualifier    * @param amount    * @return    * @throws IOException    */
+comment|/**    *     * @param row    * @param family    * @param qualifier    * @param amount    * @return The new value.    * @throws IOException    */
 specifier|public
 name|long
 name|incrementColumnValue

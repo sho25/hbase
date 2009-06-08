@@ -377,7 +377,7 @@ return|return
 name|kvs
 return|;
 block|}
-comment|/**    * Return a sorted list of the KeyValues in this result.    * @return    */
+comment|/**    * Return a sorted list of the KeyValue's in this result.    *     * @return The sorted list of KeyValue's.    */
 specifier|public
 name|List
 argument_list|<

@@ -309,7 +309,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete all cells that match the passed row and whose timestamp is equal-to    * or older than the passed timestamp.    *     * @param transactionId    * @param regionName region name    * @param delete    * @param timestamp Delete all entries that have this timestamp or older    * @throws IOException    */
+comment|/**    * Delete all cells that match the passed row and whose timestamp is equal-to    * or older than the passed timestamp.    *     * @param transactionId    * @param regionName region name    * @param delete    * @throws IOException    */
 specifier|public
 name|void
 name|delete

@@ -106,7 +106,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is the primary class used to process KeyValues during a Get or Scan  * operation.  *<p>  * It encapsulates the handling of the column and version input parameters to   * the query through a {@link ColumnTracker}.  *<p>  * Deletes are handled using the {@link DeleteTracker}.  *<p>  * All other query parameters are accessed from the client-specified Get.  *<p>  * The primary method used is {@link match} with the current KeyValue.  It will  * return a {@link MatchCode}   *   * , deletes,  * versions,   */
+comment|/**  * This is the primary class used to process KeyValues during a Get or Scan  * operation.  *<p>  * It encapsulates the handling of the column and version input parameters to   * the query through a {@link ColumnTracker}.  *<p>  * Deletes are handled using the {@link DeleteTracker}.  *<p>  * All other query parameters are accessed from the client-specified Get.  *<p>  * The primary method used is {@link #match} with the current KeyValue.  It will  * return a {@link QueryMatcher.MatchCode}   *   * , deletes,  * versions,   */
 end_comment
 
 begin_class
@@ -114,7 +114,7 @@ specifier|public
 class|class
 name|QueryMatcher
 block|{
-comment|/**    * {@link match} return codes.  These instruct the scanner moving through    * Memcaches and StoreFiles what to do with the current KeyValue.    *<p>    * Additionally, this contains "early-out" language to tell the scanner to    * move on to the next File (Memcache or Storefile), or to return immediately.    */
+comment|/**    * {@link #match} return codes.  These instruct the scanner moving through    * Memcaches and StoreFiles what to do with the current KeyValue.    *<p>    * Additionally, this contains "early-out" language to tell the scanner to    * move on to the next File (Memcache or Storefile), or to return immediately.    */
 specifier|static
 enum|enum
 name|MatchCode
@@ -913,7 +913,7 @@ operator|.
 name|deletes
 return|;
 block|}
-comment|/**    *     * @return    */
+comment|/**    *     * @return<code>true</code> when done.    */
 specifier|public
 name|boolean
 name|isDone

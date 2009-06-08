@@ -4740,7 +4740,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * Get row from meta table.    * @param row    * @param columns    * @return Result    * @throws IOException    */
+comment|/**    * Get row from meta table.    * @param row    * @param family    * @return Result    * @throws IOException    */
 specifier|protected
 name|Result
 name|getFromMETA

@@ -5904,7 +5904,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**    * @return The size of the store file indexes, in bytes.    * @throws IOException if there was a problem getting file sizes from the    * filesystem    */
+comment|/**    * @return The size of the store file indexes, in bytes.    */
 name|long
 name|getStorefilesIndexSize
 parameter_list|()
@@ -6350,7 +6350,7 @@ name|result
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Increments the value for the given row/family/qualifier    * @param row    * @param family    * @param qualifier    * @param amount    * @return    * @throws IOException    */
+comment|/**    * Increments the value for the given row/family/qualifier    * @param row    * @param family    * @param qualifier    * @param amount    * @return The new value.    * @throws IOException    */
 specifier|public
 name|long
 name|incrementColumnValue

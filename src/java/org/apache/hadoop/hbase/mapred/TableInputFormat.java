@@ -198,7 +198,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * space delimited list of columns    *    * @see org.apache.hadoop.hbase.regionserver.HAbstractScanner for column name    *      wildcards    */
+comment|/**    * space delimited list of columns    */
 specifier|public
 specifier|static
 specifier|final

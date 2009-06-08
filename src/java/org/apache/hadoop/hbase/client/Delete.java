@@ -713,7 +713,7 @@ name|lockId
 argument_list|)
 return|;
 block|}
-comment|/**    * Method for retrieving the delete's lockId    * @return    */
+comment|/**    * Method for retrieving the delete's lock ID.    *     * @return The lock ID.    */
 specifier|public
 name|long
 name|getLockId

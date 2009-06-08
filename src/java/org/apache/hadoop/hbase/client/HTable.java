@@ -1428,7 +1428,7 @@ return|return
 name|regionMap
 return|;
 block|}
-comment|/**    * Return the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it.    *     * @param regionName region name    * @param row row key    * @param family Column family to look for row in.    * @return map of values    * @throws IOException    * @since 0.20.0     */
+comment|/**    * Return the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it.    *     * @param row row key    * @param family Column family to look for row in.    * @return map of values    * @throws IOException    * @since 0.20.0     */
 specifier|public
 name|Result
 name|getRowOrBefore
@@ -1494,7 +1494,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**   * Return the row that matches<i>row</i> exactly,    * or the one that immediately preceeds it.   *    * @param regionName region name   * @param row row key   * @param family Column family to look for row in.   * @return map of values   * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getRowOrBefore(byte[], byte[]}    */
+comment|/**   * Return the row that matches<i>row</i> exactly,    * or the one that immediately preceeds it.   *    * @param row row key   * @param family Column family to look for row in.   * @return map of values   * @throws IOException   * @deprecated As of hbase 0.20.0, replaced by {@link #getRowOrBefore(byte[], byte[])}   */
 specifier|public
 name|RowResult
 name|getClosestRowBefore
@@ -1570,7 +1570,7 @@ return|return
 name|s
 return|;
 block|}
-comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object    *     * @param family    * @return    * @throws IOException    * @since 0.20.0    */
+comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object    *     * @param family  The column family to scan.    * @return The scanner.    * @throws IOException    * @since 0.20.0    */
 specifier|public
 name|ResultScanner
 name|getScanner
@@ -1603,7 +1603,7 @@ name|scan
 argument_list|)
 return|;
 block|}
-comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object    *     * @param family    * @param qualifier    * @return    * @throws IOException    * @since 0.20.0    */
+comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object    *     * @param family  The column family to scan.    * @param qualifier  The column qualifier to scan.    * @return The scanner.    * @throws IOException    * @since 0.20.0    */
 specifier|public
 name|ResultScanner
 name|getScanner
@@ -1878,7 +1878,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Atomically increments a column value. If the column value isn't long-like,    * this could throw an exception.    *     * @param row    * @param family    * @param qualifier    * @param amount    * @return    * @throws IOException    */
+comment|/**    * Atomically increments a column value. If the column value isn't long-like,    * this could throw an exception.    *     * @param row    * @param family    * @param qualifier    * @param amount    * @return The new value.    * @throws IOException    */
 specifier|public
 name|long
 name|incrementColumnValue
@@ -2178,7 +2178,7 @@ name|flushCommits
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Utility method that verifies Put is well formed.    * @param put    * @throws IllegalArgumentException    * @throws IOException    */
+comment|/**    * Utility method that verifies Put is well formed.    *     * @param put    * @throws IllegalArgumentException    */
 specifier|private
 name|void
 name|validatePut
@@ -5051,7 +5051,7 @@ name|booleanValue
 argument_list|()
 return|;
 block|}
-comment|/**    * Commit a BatchUpdate to the table.    * If autoFlush is false, the update is buffered    * @param batchUpdate    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)} or    * {@link #put(Put)    */
+comment|/**    * Commit a BatchUpdate to the table.    * If autoFlush is false, the update is buffered    * @param batchUpdate    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)} or    * {@link #put(Put)}    */
 specifier|public
 specifier|synchronized
 name|void
@@ -5072,7 +5072,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Commit a BatchUpdate to the table using existing row lock.    * If autoFlush is false, the update is buffered    * @param batchUpdate    * @param rl Existing row lock    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)} or    * {@link #put(Put)    */
+comment|/**    * Commit a BatchUpdate to the table using existing row lock.    * If autoFlush is false, the update is buffered    * @param batchUpdate    * @param rl Existing row lock    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)} or    * {@link #put(Put)}    */
 specifier|public
 specifier|synchronized
 name|void
@@ -5153,7 +5153,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Commit a List of BatchUpdate to the table.    * If autoFlush is false, the updates are buffered    * @param batchUpdates    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(List<Delete>)} or    * {@link #put(List<Put>)    */
+comment|/**    * Commit a List of BatchUpdate to the table.    * If autoFlush is false, the updates are buffered    * @param batchUpdates    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)} or    * {@link #put(List)}    */
 specifier|public
 specifier|synchronized
 name|void
