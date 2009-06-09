@@ -5109,22 +5109,6 @@ argument_list|>
 name|returnMsgs
 parameter_list|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Applying operation in tasklists to region"
-argument_list|)
-expr_stmt|;
-block|}
 name|applyActions
 argument_list|(
 name|serverInfo

@@ -3900,20 +3900,6 @@ name|LATEST_TIMESTAMP
 argument_list|)
 decl_stmt|;
 comment|// get the closest key. (HStore.getRowKeyAtOrBefore can return null)
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"getClosestRowBefore looking for: "
-operator|+
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
-name|row
-argument_list|)
-argument_list|)
-expr_stmt|;
 name|key
 operator|=
 name|store

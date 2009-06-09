@@ -9245,24 +9245,6 @@ block|{
 break|break;
 block|}
 block|}
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Result[]next time: "
-operator|+
-operator|(
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-operator|-
-name|start
-operator|)
-operator|+
-literal|" (ms)"
-argument_list|)
-expr_stmt|;
 return|return
 name|results
 operator|.
