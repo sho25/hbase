@@ -301,11 +301,7 @@ name|dt
 operator|=
 operator|new
 name|GetDeleteTracker
-argument_list|(
-name|KeyValue
-operator|.
-name|KEY_COMPARATOR
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|col1
 operator|=

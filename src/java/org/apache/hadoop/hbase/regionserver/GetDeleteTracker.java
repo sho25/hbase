@@ -131,29 +131,11 @@ name|delete
 init|=
 literal|null
 decl_stmt|;
-specifier|private
-name|KeyValue
-operator|.
-name|KeyComparator
-name|comparator
-decl_stmt|;
 comment|/**    * Constructor    * @param comparator    */
 specifier|public
 name|GetDeleteTracker
-parameter_list|(
-name|KeyValue
-operator|.
-name|KeyComparator
-name|comparator
-parameter_list|)
-block|{
-name|this
-operator|.
-name|comparator
-operator|=
-name|comparator
-expr_stmt|;
-block|}
+parameter_list|()
+block|{}
 comment|/**    * Add the specified KeyValue to the list of deletes to check against for    * this row operation.    *<p>    * This is called when a Delete is encountered in a StoreFile.    * @param buffer    * @param qualifierOffset    * @param qualifierLength    * @param timestamp    * @param type    */
 annotation|@
 name|Override
@@ -287,9 +269,9 @@ comment|// Check column
 name|int
 name|ret
 init|=
-name|comparator
+name|Bytes
 operator|.
-name|compareRows
+name|compareTo
 argument_list|(
 name|buffer
 argument_list|,

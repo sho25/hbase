@@ -246,9 +246,7 @@ name|deletes
 operator|=
 operator|new
 name|GetDeleteTracker
-argument_list|(
-name|rowComparator
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|this
 operator|.

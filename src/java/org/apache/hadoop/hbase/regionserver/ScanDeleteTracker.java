@@ -31,6 +31,22 @@ name|KeyValue
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class is responsible for the tracking and enforcement of Deletes  * during the course of a Scan operation.  *  * It only has to enforce Delete and DeleteColumn, since the  * DeleteFamily is handled at a higher level.  *  *<p>  * This class is utilized through three methods:  *<ul><li>{@link #add} when encountering a Delete or DeleteColumn  *<li>{@link #isDeleted} when checking if a Put KeyValue has been deleted  *<li>{@link #update} when reaching the end of a StoreFile or row for scans  *<p>  * This class is NOT thread-safe as queries are never multi-threaded   */
 end_comment
@@ -168,9 +184,9 @@ block|{
 comment|// same column, so ignore less specific delete
 if|if
 condition|(
-name|comparator
+name|Bytes
 operator|.
-name|compareRows
+name|compareTo
 argument_list|(
 name|deleteBuffer
 argument_list|,
@@ -258,9 +274,9 @@ comment|// TODO ryan use a specific comparator
 name|int
 name|ret
 init|=
-name|comparator
+name|Bytes
 operator|.
-name|compareRows
+name|compareTo
 argument_list|(
 name|deleteBuffer
 argument_list|,
