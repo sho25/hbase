@@ -1499,8 +1499,11 @@ index|[]
 block|{
 name|memcache
 operator|.
-name|getScanner
+name|getScanners
 argument_list|()
+index|[
+literal|0
+index|]
 block|}
 argument_list|)
 decl_stmt|;

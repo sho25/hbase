@@ -88,7 +88,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implements a heap merge across any number of KeyValueScanners.  *<p>  * Implements KeyValueScanner itself.  *<p>  * This class is used at the Region level to merge across Stores  * and at the Store level to merge across the Memcache and StoreFiles.  *<p>  * In the Region case, we also need InternalScanner.next(List), so this class  * also implements InternalScanner.  WARNING: As is, if you try to use this  * as an InternalScanner at the Store level, you will get runtime exceptions.   */
+comment|/**  * Implements a heap merge across any number of KeyValueScanners.  *<p>  * Implements KeyValueScanner itself.  *<p>  * This class is used at the Region level to merge across Stores  * and at the Store level to merge across the Memcache and StoreFiles.  *<p>  * In the Region case, we also need InternalScanner.next(List), so this class  * also implements InternalScanner.  WARNING: As is, if you try to use this  * as an InternalScanner at the Store level, you will get runtime exceptions.  */
 end_comment
 
 begin_class

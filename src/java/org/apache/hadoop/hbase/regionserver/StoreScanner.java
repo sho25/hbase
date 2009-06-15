@@ -83,20 +83,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|locks
-operator|.
-name|ReentrantReadWriteLock
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -211,16 +197,6 @@ specifier|private
 name|KeyValueHeap
 name|heap
 decl_stmt|;
-comment|// Used around transition from no storefile to the first.
-specifier|private
-specifier|final
-name|ReentrantReadWriteLock
-name|lock
-init|=
-operator|new
-name|ReentrantReadWriteLock
-argument_list|()
-decl_stmt|;
 comment|// Used to indicate that the scanner has closed (see HBASE-1107)
 specifier|private
 specifier|final
@@ -302,21 +278,9 @@ name|KeyValueScanner
 argument_list|>
 name|scanners
 init|=
-name|getStoreFileScanners
+name|getScanners
 argument_list|()
 decl_stmt|;
-name|scanners
-operator|.
-name|add
-argument_list|(
-name|store
-operator|.
-name|memcache
-operator|.
-name|getScanner
-argument_list|()
-argument_list|)
-expr_stmt|;
 comment|// Seek all scanners to the initial key
 for|for
 control|(
@@ -466,7 +430,73 @@ name|comparator
 argument_list|)
 expr_stmt|;
 block|}
+comment|/*    * @return List of scanners ordered properly.    */
+specifier|private
+name|List
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+name|getScanners
+parameter_list|()
+block|{
+name|List
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+name|scanners
+init|=
+name|getStoreFileScanners
+argument_list|()
+decl_stmt|;
+name|KeyValueScanner
+index|[]
+name|memcachescanners
+init|=
+name|this
+operator|.
+name|store
+operator|.
+name|memcache
+operator|.
+name|getScanners
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+name|memcachescanners
+operator|.
+name|length
+operator|-
+literal|1
+init|;
+name|i
+operator|>=
+literal|0
+condition|;
+name|i
+operator|--
+control|)
+block|{
+name|scanners
+operator|.
+name|add
+argument_list|(
+name|memcachescanners
+index|[
+name|i
+index|]
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|scanners
+return|;
+block|}
 specifier|public
+specifier|synchronized
 name|KeyValue
 name|peek
 parameter_list|()
@@ -495,6 +525,7 @@ argument_list|)
 throw|;
 block|}
 specifier|public
+specifier|synchronized
 name|void
 name|close
 parameter_list|()
@@ -535,6 +566,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|public
+specifier|synchronized
 name|boolean
 name|seek
 parameter_list|(
@@ -555,6 +587,7 @@ return|;
 block|}
 comment|/**    * Get the next row of values from this Store.    * @param result    * @return true if there are more rows, false if scanner is done    */
 specifier|public
+specifier|synchronized
 name|boolean
 name|next
 parameter_list|(
@@ -732,8 +765,6 @@ return|;
 case|case
 name|SEEK_NEXT_ROW
 case|:
-comment|// TODO see comments in SEEK_NEXT_COL
-comment|/*           KeyValue rowToSeek =               new KeyValue(kv.getRow(),                   0,                   KeyValue.Type.Minimum);           heap.seek(rowToSeek);            */
 name|heap
 operator|.
 name|next
@@ -746,7 +777,6 @@ case|:
 comment|// TODO hfile needs 'hinted' seeking to prevent it from
 comment|// reseeking from the start of the block on every dang seek.
 comment|// We need that API and expose it the scanner chain.
-comment|/*           ColumnCount hint = matcher.getSeekColumn();           KeyValue colToSeek;           if (hint == null) {             // seek to the 'last' key on this column, this is defined             // as the key with the same row, fam, qualifier,             // smallest timestamp, largest type.             colToSeek =                 new KeyValue(kv.getRow(),                     kv.getFamily(),                     kv.getColumn(),                     Long.MIN_VALUE,                     KeyValue.Type.Minimum);           } else {             // This is ugmo.  Move into KeyValue convience method.             // First key on a column is:             // same row, cf, qualifier, max_timestamp, max_type, no value.             colToSeek =                 new KeyValue(kv.getRow(),                     0,                     kv.getRow().length,                      kv.getFamily(),                     0,                     kv.getFamily().length,                      hint.getBuffer(),                     hint.getOffset(),                     hint.getLength(),                      Long.MAX_VALUE,                     KeyValue.Type.Maximum,                     null,                     0,                     0);           }           heap.seek(colToSeek);            */
 name|heap
 operator|.
 name|next
@@ -905,6 +935,7 @@ return|;
 block|}
 comment|// Implementation of ChangedReadersObserver
 specifier|public
+specifier|synchronized
 name|void
 name|updateReaders
 parameter_list|()
@@ -920,39 +951,92 @@ operator|.
 name|get
 argument_list|()
 condition|)
-block|{
 return|return;
-block|}
+name|KeyValue
+name|topKey
+init|=
 name|this
 operator|.
-name|lock
-operator|.
-name|writeLock
+name|peek
 argument_list|()
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
-try|try
-block|{
-comment|// Could do this pretty nicely with KeyValueHeap, but the existing
-comment|// implementation of this method only updated if no existing storefiles?
-comment|// Lets discuss.
+decl_stmt|;
+if|if
+condition|(
+name|topKey
+operator|==
+literal|null
+condition|)
 return|return;
-block|}
-finally|finally
+name|List
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+name|scanners
+init|=
+name|getScanners
+argument_list|()
+decl_stmt|;
+comment|// Seek all scanners to the initial key
+for|for
+control|(
+name|KeyValueScanner
+name|scanner
+range|:
+name|scanners
+control|)
 block|{
-name|this
+name|scanner
 operator|.
-name|lock
-operator|.
-name|writeLock
-argument_list|()
-operator|.
-name|unlock
-argument_list|()
+name|seek
+argument_list|(
+name|topKey
+argument_list|)
 expr_stmt|;
 block|}
+comment|// Combine all seeked scanners with a heap
+name|heap
+operator|=
+operator|new
+name|KeyValueHeap
+argument_list|(
+name|scanners
+operator|.
+name|toArray
+argument_list|(
+operator|new
+name|KeyValueScanner
+index|[
+name|scanners
+operator|.
+name|size
+argument_list|()
+index|]
+argument_list|)
+argument_list|,
+name|store
+operator|.
+name|comparator
+argument_list|)
+expr_stmt|;
+comment|// Reset the state of the Query Matcher and set to top row
+name|matcher
+operator|.
+name|reset
+argument_list|()
+expr_stmt|;
+name|matcher
+operator|.
+name|setRow
+argument_list|(
+name|heap
+operator|.
+name|peek
+argument_list|()
+operator|.
+name|getRow
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class
