@@ -393,7 +393,7 @@ name|InputFormat
 argument_list|<
 name|ImmutableBytesWritable
 argument_list|,
-name|Result
+name|RowResult
 argument_list|>
 block|{
 specifier|final
@@ -436,7 +436,7 @@ name|RecordReader
 argument_list|<
 name|ImmutableBytesWritable
 argument_list|,
-name|Result
+name|RowResult
 argument_list|>
 block|{
 specifier|private
@@ -773,13 +773,13 @@ return|;
 block|}
 comment|/**      * @return RowResult      *      * @see org.apache.hadoop.mapred.RecordReader#createValue()      */
 specifier|public
-name|Result
+name|RowResult
 name|createValue
 parameter_list|()
 block|{
 return|return
 operator|new
-name|Result
+name|RowResult
 argument_list|()
 return|;
 block|}
@@ -812,7 +812,7 @@ parameter_list|(
 name|ImmutableBytesWritable
 name|key
 parameter_list|,
-name|Result
+name|RowResult
 name|value
 parameter_list|)
 throws|throws
@@ -912,6 +912,9 @@ operator|.
 name|copyWritable
 argument_list|(
 name|result
+operator|.
+name|getRowResult
+argument_list|()
 argument_list|,
 name|value
 argument_list|)
@@ -931,7 +934,7 @@ name|RecordReader
 argument_list|<
 name|ImmutableBytesWritable
 argument_list|,
-name|Result
+name|RowResult
 argument_list|>
 name|getRecordReader
 parameter_list|(

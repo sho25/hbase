@@ -109,22 +109,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|Put
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|io
 operator|.
 name|BatchUpdate
@@ -258,7 +242,7 @@ name|FileOutputFormat
 argument_list|<
 name|ImmutableBytesWritable
 argument_list|,
-name|Put
+name|BatchUpdate
 argument_list|>
 block|{
 comment|/** JobConf parameter that specifies the output table */
@@ -294,7 +278,7 @@ name|RecordWriter
 argument_list|<
 name|ImmutableBytesWritable
 argument_list|,
-name|Put
+name|BatchUpdate
 argument_list|>
 block|{
 specifier|private
@@ -337,7 +321,7 @@ parameter_list|(
 name|ImmutableBytesWritable
 name|key
 parameter_list|,
-name|Put
+name|BatchUpdate
 name|value
 parameter_list|)
 throws|throws
@@ -345,10 +329,10 @@ name|IOException
 block|{
 name|m_table
 operator|.
-name|put
+name|commit
 argument_list|(
 operator|new
-name|Put
+name|BatchUpdate
 argument_list|(
 name|value
 argument_list|)
