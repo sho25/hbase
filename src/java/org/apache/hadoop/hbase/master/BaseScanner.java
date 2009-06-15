@@ -1339,7 +1339,7 @@ name|split
 init|=
 name|Writables
 operator|.
-name|getHRegionInfo
+name|getHRegionInfoOrNull
 argument_list|(
 name|rowContent
 operator|.
