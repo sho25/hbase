@@ -1092,7 +1092,7 @@ name|getBytes
 argument_list|(
 name|newRegions
 index|[
-literal|0
+literal|1
 index|]
 operator|.
 name|getRegionInfo
