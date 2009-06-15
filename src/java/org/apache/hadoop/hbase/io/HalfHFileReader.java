@@ -229,6 +229,7 @@ name|top
 decl_stmt|;
 comment|// This is the key we split around.  Its the first possible entry on a row:
 comment|// i.e. empty column and a timestamp of LATEST_TIMESTAMP.
+specifier|protected
 specifier|final
 name|byte
 index|[]
@@ -335,10 +336,23 @@ init|=
 name|s
 decl_stmt|;
 specifier|public
+name|boolean
+name|atEnd
+init|=
+literal|false
+decl_stmt|;
+specifier|public
 name|ByteBuffer
 name|getKey
 parameter_list|()
 block|{
+if|if
+condition|(
+name|atEnd
+condition|)
+return|return
+literal|null
+return|;
 return|return
 name|delegate
 operator|.
@@ -351,6 +365,13 @@ name|String
 name|getKeyString
 parameter_list|()
 block|{
+if|if
+condition|(
+name|atEnd
+condition|)
+return|return
+literal|null
+return|;
 return|return
 name|delegate
 operator|.
@@ -363,6 +384,13 @@ name|ByteBuffer
 name|getValue
 parameter_list|()
 block|{
+if|if
+condition|(
+name|atEnd
+condition|)
+return|return
+literal|null
+return|;
 return|return
 name|delegate
 operator|.
@@ -375,6 +403,13 @@ name|String
 name|getValueString
 parameter_list|()
 block|{
+if|if
+condition|(
+name|atEnd
+condition|)
+return|return
+literal|null
+return|;
 return|return
 name|delegate
 operator|.
@@ -387,6 +422,13 @@ name|KeyValue
 name|getKeyValue
 parameter_list|()
 block|{
+if|if
+condition|(
+name|atEnd
+condition|)
+return|return
+literal|null
+return|;
 return|return
 name|delegate
 operator|.
@@ -401,6 +443,13 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|atEnd
+condition|)
+return|return
+literal|false
+return|;
 name|boolean
 name|b
 init|=
@@ -419,6 +468,7 @@ return|return
 name|b
 return|;
 block|}
+comment|// constrain the bottom.
 if|if
 condition|(
 operator|!
@@ -465,6 +515,10 @@ operator|>=
 literal|0
 condition|)
 block|{
+name|atEnd
+operator|=
+literal|true
+expr_stmt|;
 return|return
 literal|false
 return|;

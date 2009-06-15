@@ -419,11 +419,7 @@ decl_stmt|;
 comment|/**    * Get the appropriate row comparator for the specified table.    *     * Hopefully we can get rid of this, I added this here because it's replacing    * something in HSK.  We should move completely off of that.    *     * @param tableName  The table name.    * @return The comparator.    */
 specifier|public
 specifier|static
-name|RawComparator
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+name|KeyComparator
 name|getRowComparator
 parameter_list|(
 name|byte

@@ -95,6 +95,26 @@ name|hfs
 expr_stmt|;
 block|}
 specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"StoreFileScanner["
+operator|+
+name|hfs
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|", cur="
+operator|+
+name|cur
+operator|+
+literal|"]"
+return|;
+block|}
+specifier|public
 name|KeyValue
 name|peek
 parameter_list|()
@@ -122,6 +142,13 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+comment|// only seek if we arent at the end. cur == null implies 'end'.
+if|if
+condition|(
+name|cur
+operator|!=
+literal|null
+condition|)
 name|hfs
 operator|.
 name|next
@@ -134,8 +161,14 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-comment|// Only occurs if the scanner is not seeked, this is never the case
-comment|// as we seek immediately after construction in StoreScanner
+comment|// Turn checked exception into runtime exception.
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+name|e
+argument_list|)
+throw|;
 block|}
 return|return
 name|retKey

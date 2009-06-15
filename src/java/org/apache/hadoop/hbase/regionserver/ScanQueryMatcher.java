@@ -197,12 +197,6 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|row
-operator|=
-name|row
-expr_stmt|;
-name|this
-operator|.
 name|tr
 operator|=
 name|scan

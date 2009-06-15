@@ -567,8 +567,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// this wont get us the next row if the previous round hasn't iterated
-comment|// past all the cols from the previous row. Potential bug!
 name|KeyValue
 name|peeked
 init|=
