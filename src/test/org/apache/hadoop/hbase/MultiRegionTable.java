@@ -254,7 +254,7 @@ specifier|protected
 specifier|final
 name|byte
 index|[]
-name|columnName
+name|columnFamily
 decl_stmt|;
 specifier|protected
 name|HTableDescriptor
@@ -274,7 +274,7 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|columnName
+name|columnFamily
 operator|=
 name|Bytes
 operator|.
@@ -475,7 +475,7 @@ name|region
 argument_list|,
 name|this
 operator|.
-name|columnName
+name|columnFamily
 argument_list|)
 expr_stmt|;
 name|closeRegionAndDeleteLog

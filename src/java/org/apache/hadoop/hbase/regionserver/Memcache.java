@@ -2208,7 +2208,7 @@ return|return
 name|removed
 return|;
 block|}
-comment|/**    * @return scanner on memcache and snapshot in this order (if snapshot is    * empty, returns only memcache scanner).    */
+comment|/**    * @return scanner on memcache and snapshot in this order.    */
 name|KeyValueScanner
 index|[]
 name|getScanners
@@ -2226,22 +2226,6 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-name|boolean
-name|noss
-init|=
-name|this
-operator|.
-name|snapshot
-operator|==
-literal|null
-operator|||
-name|this
-operator|.
-name|snapshot
-operator|.
-name|isEmpty
-argument_list|()
-decl_stmt|;
 name|KeyValueScanner
 index|[]
 name|scanners
@@ -2249,10 +2233,6 @@ init|=
 operator|new
 name|KeyValueScanner
 index|[
-name|noss
-condition|?
-literal|1
-else|:
 literal|2
 index|]
 decl_stmt|;
@@ -2269,11 +2249,6 @@ operator|.
 name|memcache
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|noss
-condition|)
 name|scanners
 index|[
 literal|1

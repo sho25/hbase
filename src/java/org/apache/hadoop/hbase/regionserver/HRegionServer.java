@@ -9117,14 +9117,6 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
-name|long
-name|start
-init|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-decl_stmt|;
 name|String
 name|scannerName
 init|=

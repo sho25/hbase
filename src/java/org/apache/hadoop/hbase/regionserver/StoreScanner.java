@@ -339,16 +339,20 @@ block|}
 comment|// Constructor for testing.
 name|StoreScanner
 parameter_list|(
+specifier|final
 name|Scan
 name|scan
 parameter_list|,
+specifier|final
 name|byte
 index|[]
 name|colFamily
 parameter_list|,
+specifier|final
 name|long
 name|ttl
 parameter_list|,
+specifier|final
 name|KeyValue
 operator|.
 name|KVComparator
@@ -362,6 +366,7 @@ index|[]
 argument_list|>
 name|columns
 parameter_list|,
+specifier|final
 name|KeyValueScanner
 index|[]
 name|scanners
@@ -656,7 +661,7 @@ block|{
 name|QueryMatcher
 operator|.
 name|MatchCode
-name|mc
+name|qcode
 init|=
 name|matcher
 operator|.
@@ -667,7 +672,7 @@ argument_list|)
 decl_stmt|;
 switch|switch
 condition|(
-name|mc
+name|qcode
 condition|)
 block|{
 case|case
@@ -794,6 +799,14 @@ name|next
 argument_list|()
 expr_stmt|;
 break|break;
+default|default:
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"UNEXPECTED"
+argument_list|)
+throw|;
 block|}
 block|}
 if|if
