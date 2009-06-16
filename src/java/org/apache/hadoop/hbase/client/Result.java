@@ -1836,6 +1836,10 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|familyMap
+operator|=
+literal|null
+expr_stmt|;
 name|int
 name|numKeys
 init|=
