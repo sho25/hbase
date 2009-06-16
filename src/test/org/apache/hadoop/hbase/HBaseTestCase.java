@@ -1147,7 +1147,7 @@ return|return
 name|htd
 return|;
 block|}
-comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param r    * @param column    * @throws IOException    * @return count of what we added.    */
+comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param r    * @param columnFamily    * @throws IOException    * @return count of what we added.    */
 specifier|protected
 specifier|static
 name|long
@@ -1160,7 +1160,7 @@ parameter_list|,
 specifier|final
 name|byte
 index|[]
-name|column
+name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
@@ -1226,7 +1226,7 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|column
+name|columnFamily
 argument_list|)
 argument_list|,
 literal|null
@@ -1240,7 +1240,7 @@ literal|1
 argument_list|)
 return|;
 block|}
-comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param updater  An instance of {@link Incommon}.    * @param column    * @throws IOException    * @return count of what we added.    */
+comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param updater  An instance of {@link Incommon}.    * @param columnFamily    * @throws IOException    * @return count of what we added.    */
 specifier|protected
 specifier|static
 name|long
@@ -1252,7 +1252,7 @@ name|updater
 parameter_list|,
 specifier|final
 name|String
-name|column
+name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
@@ -1262,7 +1262,7 @@ name|addContent
 argument_list|(
 name|updater
 argument_list|,
-name|column
+name|columnFamily
 argument_list|,
 name|START_KEY_BYTES
 argument_list|,
@@ -1305,7 +1305,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param updater  An instance of {@link Incommon}.    * @param column    * @param startKeyBytes Where to start the rows inserted    * @param endKey Where to stop inserting rows.    * @return count of what we added.    * @throws IOException    */
+comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param updater  An instance of {@link Incommon}.    * @param columnFamily    * @param startKeyBytes Where to start the rows inserted    * @param endKey Where to stop inserting rows.    * @return count of what we added.    * @throws IOException    */
 specifier|protected
 specifier|static
 name|long
@@ -1317,7 +1317,7 @@ name|updater
 parameter_list|,
 specifier|final
 name|String
-name|column
+name|columnFamily
 parameter_list|,
 specifier|final
 name|byte
@@ -1337,7 +1337,7 @@ name|addContent
 argument_list|(
 name|updater
 argument_list|,
-name|column
+name|columnFamily
 argument_list|,
 literal|null
 argument_list|,
@@ -1598,36 +1598,31 @@ expr_stmt|;
 block|}
 try|try
 block|{
-name|byte
-index|[]
-index|[]
-name|split
-init|=
-name|KeyValue
+name|put
 operator|.
-name|parseColumn
+name|add
 argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|columnFamily
+argument_list|)
+argument_list|,
+operator|(
+name|column
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
 name|column
 argument_list|)
-argument_list|)
-decl_stmt|;
-name|put
-operator|.
-name|add
-argument_list|(
-name|split
-index|[
-literal|0
-index|]
-argument_list|,
-name|split
-index|[
-literal|1
-index|]
+operator|)
 argument_list|,
 name|t
 argument_list|)
