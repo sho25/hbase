@@ -70,6 +70,8 @@ comment|/**  * A utility class used to pass a lucene document from reduce to Out
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|LuceneDocumentWrapper

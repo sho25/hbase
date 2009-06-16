@@ -242,6 +242,8 @@ comment|/**  * Construct a Lucene document per row, which is consumed by IndexOu
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|IndexTableReduce

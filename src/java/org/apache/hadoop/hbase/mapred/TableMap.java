@@ -96,6 +96,8 @@ comment|/**  * Scan an HBase table to sort by a specified sort column.  * If the
 end_comment
 
 begin_interface
+annotation|@
+name|Deprecated
 specifier|public
 interface|interface
 name|TableMap

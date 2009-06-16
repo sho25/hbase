@@ -384,6 +384,8 @@ comment|/**  * A Base for {@link TableInputFormat}s. Receives a {@link HTable}, 
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 specifier|public
 specifier|abstract
 class|class

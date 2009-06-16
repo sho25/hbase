@@ -176,6 +176,8 @@ comment|/**  * Convert HBase tabular data into a format that is consumable by Ma
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|TableInputFormat

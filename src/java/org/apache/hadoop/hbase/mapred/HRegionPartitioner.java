@@ -150,6 +150,8 @@ comment|/**  * This is used to partition the output keys into groups of keys.  *
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|HRegionPartitioner

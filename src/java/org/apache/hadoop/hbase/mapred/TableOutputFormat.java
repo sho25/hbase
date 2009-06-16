@@ -234,6 +234,8 @@ comment|/**  * Convert Map/Reduce output and write it to an HBase table  */
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|TableOutputFormat

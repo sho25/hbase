@@ -150,6 +150,8 @@ comment|/**  * Example table column indexing class.  Runs a mapreduce job to ind
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|BuildTableIndex

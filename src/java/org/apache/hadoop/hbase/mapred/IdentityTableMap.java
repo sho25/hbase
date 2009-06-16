@@ -120,6 +120,8 @@ comment|/**  * Pass the given key and record as-is to reduce  */
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|IdentityTableMap

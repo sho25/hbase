@@ -246,6 +246,8 @@ comment|/**  * A job with a map to count rows.  * Map outputs table rows IF the 
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|RowCounter

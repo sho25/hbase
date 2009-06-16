@@ -36,6 +36,8 @@ comment|/**  * Driver for hbase mapreduce jobs. Select which to run by passing  
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|Driver

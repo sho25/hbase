@@ -97,6 +97,8 @@ end_comment
 
 begin_interface
 annotation|@
+name|Deprecated
+annotation|@
 name|SuppressWarnings
 argument_list|(
 literal|"unchecked"

@@ -380,7 +380,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|DisabledTestTableMapReduce
+name|TestTableMapReduce
 extends|extends
 name|MultiRegionTable
 block|{
@@ -394,7 +394,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|DisabledTestTableMapReduce
+name|TestTableMapReduce
 operator|.
 name|class
 operator|.
@@ -453,7 +453,7 @@ block|}
 decl_stmt|;
 comment|/** constructor */
 specifier|public
-name|DisabledTestTableMapReduce
+name|TestTableMapReduce
 parameter_list|()
 block|{
 name|super
@@ -598,16 +598,23 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Wrong input column. Expected: "
+literal|"Wrong input column. Expected: '"
 operator|+
 name|INPUT_COLUMN
 operator|+
-literal|" but got: "
+literal|"' but got: '"
 operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|keys
 index|[
 literal|0
 index|]
+argument_list|)
+operator|+
+literal|"'"
 argument_list|)
 throw|;
 block|}
@@ -787,7 +794,7 @@ name|JobConf
 argument_list|(
 name|conf
 argument_list|,
-name|DisabledTestTableMapReduce
+name|TestTableMapReduce
 operator|.
 name|class
 argument_list|)

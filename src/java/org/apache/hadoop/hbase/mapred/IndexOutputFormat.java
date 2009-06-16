@@ -240,6 +240,8 @@ comment|/**  * Create a local index, unwrap Lucene documents created by reduce, 
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|IndexOutputFormat

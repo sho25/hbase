@@ -196,6 +196,8 @@ comment|/**  * Extract grouping columns from input record  */
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|GroupingTableMap

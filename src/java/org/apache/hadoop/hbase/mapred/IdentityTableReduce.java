@@ -144,6 +144,8 @@ comment|/**  * Write to table each key, record pair  */
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 specifier|public
 class|class
 name|IdentityTableReduce
