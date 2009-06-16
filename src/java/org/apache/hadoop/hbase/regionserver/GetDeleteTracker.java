@@ -131,7 +131,7 @@ name|delete
 init|=
 literal|null
 decl_stmt|;
-comment|/**    * Constructor    * @param comparator    */
+comment|/**    * Constructor    */
 specifier|public
 name|GetDeleteTracker
 parameter_list|()

@@ -643,7 +643,7 @@ operator|=
 name|htable
 expr_stmt|;
 block|}
-comment|/**      * @param inputColumns the columns to be placed in {@link RowResult}.      */
+comment|/**      * @param inputColumns the columns to be placed in {@link Result}.      */
 specifier|public
 name|void
 name|setInputColumns
@@ -1254,7 +1254,7 @@ return|return
 name|splits
 return|;
 block|}
-comment|/**    * @param inputColumns to be passed in {@link RowResult} to the map task.    */
+comment|/**    * @param inputColumns to be passed in {@link Result} to the map task.    */
 specifier|protected
 name|void
 name|setInputColumns

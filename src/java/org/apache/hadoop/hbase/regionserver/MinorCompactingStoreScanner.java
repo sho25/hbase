@@ -326,7 +326,7 @@ literal|"Can't seek a MinorCompactingStoreScanner"
 argument_list|)
 throw|;
 block|}
-comment|/**    * High performance merge scan.    * @param writer    * @return    * @throws IOException    */
+comment|/**    * High performance merge scan.    * @param writer    * @return True if more.    * @throws IOException    */
 specifier|public
 name|boolean
 name|next
