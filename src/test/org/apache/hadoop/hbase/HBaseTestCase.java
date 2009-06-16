@@ -430,7 +430,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"colfamily1"
+literal|"colfamily1:"
 argument_list|)
 decl_stmt|;
 specifier|protected
@@ -444,7 +444,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"colfamily2"
+literal|"colfamily2:"
 argument_list|)
 decl_stmt|;
 specifier|protected
@@ -458,7 +458,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"colfamily3"
+literal|"colfamily3:"
 argument_list|)
 decl_stmt|;
 specifier|protected
