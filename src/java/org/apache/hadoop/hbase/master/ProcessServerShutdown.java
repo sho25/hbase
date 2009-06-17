@@ -1303,9 +1303,7 @@ name|server
 operator|.
 name|openScanner
 argument_list|(
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
+name|m
 operator|.
 name|getRegionName
 argument_list|()
