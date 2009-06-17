@@ -4670,7 +4670,10 @@ name|put
 argument_list|,
 literal|null
 argument_list|,
-literal|true
+name|put
+operator|.
+name|writeToWAL
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -4722,7 +4725,10 @@ name|put
 argument_list|,
 name|lockid
 argument_list|,
-literal|true
+name|put
+operator|.
+name|writeToWAL
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
