@@ -273,22 +273,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|RowResult
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ipc
 operator|.
 name|HMasterInterface
@@ -356,6 +340,22 @@ operator|.
 name|util
 operator|.
 name|Writables
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZooKeeperWrapper
 import|;
 end_import
 
@@ -517,6 +517,16 @@ operator|.
 name|getMaster
 argument_list|()
 expr_stmt|;
+block|}
+comment|/** @return HConnection used by this object. */
+specifier|public
+name|HConnection
+name|getConnection
+parameter_list|()
+block|{
+return|return
+name|connection
+return|;
 block|}
 comment|/**    * @return proxy connection to master server for this instance    * @throws MasterNotRunningException    */
 specifier|public
