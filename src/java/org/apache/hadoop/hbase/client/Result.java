@@ -1172,6 +1172,15 @@ argument_list|,
 name|qualifier
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|val
+operator|==
+literal|null
+condition|)
+return|return
+literal|null
+return|;
 return|return
 operator|new
 name|Cell

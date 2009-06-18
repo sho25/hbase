@@ -283,6 +283,19 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Method to check if the familyMap is empty    * @return true if empty, false otherwise    */
+specifier|public
+name|boolean
+name|isEmpty
+parameter_list|()
+block|{
+return|return
+name|familyMap
+operator|.
+name|isEmpty
+argument_list|()
+return|;
+block|}
 comment|/**    * Delete all versions of all columns of the specified family.    *<p>    * Overrides previous calls to deleteColumn and deleteColumns for the    * specified family.    * @param family family name    */
 specifier|public
 name|void

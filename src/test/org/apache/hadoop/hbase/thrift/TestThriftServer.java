@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Copyright 2008-2009 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Copyright 2009 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -182,7 +182,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|DisabledTestThriftServer
+name|TestThriftServer
 extends|extends
 name|HBaseClusterTestCase
 block|{
@@ -237,19 +237,6 @@ operator|.
 name|toBytes
 argument_list|(
 literal|"columnB:"
-argument_list|)
-decl_stmt|;
-specifier|private
-specifier|static
-name|byte
-index|[]
-name|badColumnName
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"noColon:"
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -1013,8 +1000,6 @@ argument_list|,
 name|time1
 argument_list|)
 expr_stmt|;
-comment|// Sleep to assure that 'time1' and 'time2' will be different even with a
-comment|// coarse grained system timer.
 name|Thread
 operator|.
 name|sleep
@@ -1058,9 +1043,20 @@ argument_list|,
 name|time2
 argument_list|)
 expr_stmt|;
+comment|// the getVerTs is [inf, ts) so you need to increment one.
+name|time1
+operator|+=
+literal|1
+expr_stmt|;
+name|time2
+operator|+=
+literal|2
+expr_stmt|;
 comment|// Assert that the timestamp-related methods retrieve the correct data
 name|assertEquals
 argument_list|(
+literal|2
+argument_list|,
 name|handler
 operator|.
 name|getVerTs
@@ -1078,12 +1074,12 @@ argument_list|)
 operator|.
 name|size
 argument_list|()
-argument_list|,
-literal|2
 argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|1
+argument_list|,
 name|handler
 operator|.
 name|getVerTs
@@ -1101,8 +1097,6 @@ argument_list|)
 operator|.
 name|size
 argument_list|()
-argument_list|,
-literal|1
 argument_list|)
 expr_stmt|;
 name|TRowResult
@@ -1143,27 +1137,8 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-name|assertTrue
-argument_list|(
-name|Bytes
-operator|.
-name|equals
-argument_list|(
-name|rowResult1
-operator|.
-name|columns
-operator|.
-name|get
-argument_list|(
-name|columnAname
-argument_list|)
-operator|.
-name|value
-argument_list|,
-name|valueAname
-argument_list|)
-argument_list|)
-expr_stmt|;
+comment|// columnA was completely deleted
+comment|//assertTrue(Bytes.equals(rowResult1.columns.get(columnAname).value, valueAname));
 name|assertTrue
 argument_list|(
 name|Bytes
@@ -1206,10 +1181,8 @@ name|valueCname
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Maybe I'd reading this wrong but at line #187 above, the BatchMutations
-comment|// are adding a columnAname at time2 so the below should be true not false
-comment|// -- St.Ack
-name|assertTrue
+comment|// ColumnAname has been deleted, and will never be visible even with a getRowTs()
+name|assertFalse
 argument_list|(
 name|rowResult2
 operator|.
@@ -1348,6 +1321,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Apply some timestamped deletes
+comment|// this actually deletes _everything_.
+comment|// nukes everything in columnB: forever.
 name|handler
 operator|.
 name|deleteAllTs
@@ -1394,13 +1369,41 @@ operator|.
 name|size
 argument_list|()
 decl_stmt|;
-name|assertFalse
+name|assertEquals
 argument_list|(
-name|size
-operator|>
 literal|0
+argument_list|,
+name|size
 argument_list|)
 expr_stmt|;
+name|size
+operator|=
+name|handler
+operator|.
+name|getVerTs
+argument_list|(
+name|tableAname
+argument_list|,
+name|rowAname
+argument_list|,
+name|columnBname
+argument_list|,
+name|time2
+argument_list|,
+name|MAXVERSIONS
+argument_list|)
+operator|.
+name|size
+argument_list|()
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|1
+argument_list|,
+name|size
+argument_list|)
+expr_stmt|;
+comment|// should be available....
 name|assertTrue
 argument_list|(
 name|Bytes
@@ -1429,8 +1432,10 @@ name|valueCname
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertFalse
+name|assertEquals
 argument_list|(
+literal|0
+argument_list|,
 name|handler
 operator|.
 name|getRow
@@ -1442,8 +1447,6 @@ argument_list|)
 operator|.
 name|size
 argument_list|()
-operator|>
-literal|0
 argument_list|)
 expr_stmt|;
 comment|// Teardown
@@ -1545,6 +1548,14 @@ argument_list|,
 name|time2
 argument_list|)
 expr_stmt|;
+name|time1
+operator|+=
+literal|1
+expr_stmt|;
+name|time2
+operator|+=
+literal|1
+expr_stmt|;
 comment|// Test a scanner on all rows and all columns, no timestamp
 name|int
 name|scanner1
@@ -1606,7 +1617,7 @@ operator|.
 name|size
 argument_list|()
 argument_list|,
-literal|2
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -1766,30 +1777,11 @@ operator|.
 name|size
 argument_list|()
 argument_list|,
-literal|2
+literal|1
 argument_list|)
 expr_stmt|;
-name|assertTrue
-argument_list|(
-name|Bytes
-operator|.
-name|equals
-argument_list|(
-name|rowResult2a
-operator|.
-name|columns
-operator|.
-name|get
-argument_list|(
-name|columnAname
-argument_list|)
-operator|.
-name|value
-argument_list|,
-name|valueAname
-argument_list|)
-argument_list|)
-expr_stmt|;
+comment|// column A deleted, does not exist.
+comment|//assertTrue(Bytes.equals(rowResult2a.columns.get(columnAname).value, valueAname));
 name|assertTrue
 argument_list|(
 name|Bytes
