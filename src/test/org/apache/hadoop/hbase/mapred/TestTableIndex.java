@@ -269,22 +269,6 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|RowResult
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
 name|Cell
 import|;
 end_import
@@ -492,7 +476,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|DisabledTestTableIndex
+name|TestTableIndex
 extends|extends
 name|MultiRegionTable
 block|{
@@ -506,7 +490,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|DisabledTestTableIndex
+name|TestTableIndex
 operator|.
 name|class
 argument_list|)
@@ -598,7 +582,7 @@ literal|null
 decl_stmt|;
 comment|/** default constructor */
 specifier|public
-name|DisabledTestTableIndex
+name|TestTableIndex
 parameter_list|()
 block|{
 name|super
@@ -741,7 +725,7 @@ name|JobConf
 argument_list|(
 name|conf
 argument_list|,
-name|DisabledTestTableIndex
+name|TestTableIndex
 operator|.
 name|class
 argument_list|)
@@ -1638,7 +1622,7 @@ argument_list|(
 operator|new
 name|TestSuite
 argument_list|(
-name|DisabledTestTableIndex
+name|TestTableIndex
 operator|.
 name|class
 argument_list|)
