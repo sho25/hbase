@@ -436,7 +436,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add the specified column and value, with the specified timestamp as     * its version to this Put operation.    * @param column Old style column name with family and qualifier put together    * with a colon.    * @param timestamp version timestamp    * @param value column value    */
+comment|/**    * Add the specified column and value, with the specified timestamp as     * its version to this Put operation.    * @param column Old style column name with family and qualifier put together    * with a colon.    * @param ts version timestamp    * @param value column value    */
 specifier|public
 name|void
 name|add
@@ -446,7 +446,7 @@ index|[]
 name|column
 parameter_list|,
 name|long
-name|timestamp
+name|ts
 parameter_list|,
 name|byte
 index|[]
@@ -477,13 +477,13 @@ index|[
 literal|1
 index|]
 argument_list|,
-name|timestamp
+name|ts
 argument_list|,
 name|value
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add the specified column and value, with the specified timestamp as     * its version to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param timestamp version timestamp    * @param value column value    */
+comment|/**    * Add the specified column and value, with the specified timestamp as     * its version to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param ts version timestamp    * @param value column value    */
 specifier|public
 name|void
 name|add
@@ -497,7 +497,7 @@ index|[]
 name|qualifier
 parameter_list|,
 name|long
-name|timestamp
+name|ts
 parameter_list|,
 name|byte
 index|[]
@@ -548,7 +548,7 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-name|timestamp
+name|ts
 argument_list|,
 name|KeyValue
 operator|.
@@ -798,20 +798,20 @@ operator|.
 name|writeToWAL
 return|;
 block|}
-comment|/**    * Set whether this Put should be written to the WAL or not.    * Not writing the WAL means you may lose edits on server crash.    * @param writeToWAL true if edits should be written to WAL, false if not    */
+comment|/**    * Set whether this Put should be written to the WAL or not.    * Not writing the WAL means you may lose edits on server crash.    * @param write true if edits should be written to WAL, false if not    */
 specifier|public
 name|void
 name|writeToWAL
 parameter_list|(
 name|boolean
-name|writeToWAL
+name|write
 parameter_list|)
 block|{
 name|this
 operator|.
 name|writeToWAL
 operator|=
-name|writeToWAL
+name|write
 expr_stmt|;
 block|}
 comment|/**    * @return String     */

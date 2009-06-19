@@ -123,7 +123,7 @@ name|hbase
 operator|.
 name|filter
 operator|.
-name|RowFilterInterface
+name|Filter
 import|;
 end_import
 
@@ -221,7 +221,7 @@ init|=
 literal|1
 decl_stmt|;
 specifier|private
-name|RowFilterInterface
+name|Filter
 name|filter
 init|=
 literal|null
@@ -650,12 +650,12 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Apply the specified server-side filter when performing the Get.    * @param filter filter to run on the server    */
+comment|/**    * Apply the specified server-side filter when performing the Get.    * Only {@link Filter#filterKeyValue(KeyValue)} is called AFTER all tests    * for ttl, column match, deletes and max versions have been run.    * @param filter filter to run on the server    */
 specifier|public
 name|Get
 name|setFilter
 parameter_list|(
-name|RowFilterInterface
+name|Filter
 name|filter
 parameter_list|)
 block|{
@@ -669,7 +669,19 @@ return|return
 name|this
 return|;
 block|}
-comment|/** Accessors */
+comment|/* Accessors */
+comment|/**    * @return Filter    */
+specifier|public
+name|Filter
+name|getFilter
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|filter
+return|;
+block|}
 comment|/**    * Method for retrieving the get's row    * @return row     */
 specifier|public
 name|byte
@@ -1175,7 +1187,7 @@ operator|.
 name|filter
 operator|=
 operator|(
-name|RowFilterInterface
+name|Filter
 operator|)
 name|HbaseObjectWritable
 operator|.
@@ -1426,7 +1438,7 @@ name|this
 operator|.
 name|filter
 argument_list|,
-name|RowFilterInterface
+name|Filter
 operator|.
 name|class
 argument_list|,

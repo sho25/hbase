@@ -2079,8 +2079,6 @@ name|QueryMatcher
 argument_list|(
 name|get
 argument_list|,
-name|row
-argument_list|,
 name|fam
 argument_list|,
 name|columns
@@ -2296,8 +2294,6 @@ name|QueryMatcher
 argument_list|(
 name|get
 argument_list|,
-name|row
-argument_list|,
 name|fam
 argument_list|,
 name|columns
@@ -2496,8 +2492,6 @@ operator|new
 name|QueryMatcher
 argument_list|(
 name|get
-argument_list|,
-name|row
 argument_list|,
 name|fam
 argument_list|,
@@ -2838,8 +2832,6 @@ operator|new
 name|QueryMatcher
 argument_list|(
 name|get
-argument_list|,
-name|row
 argument_list|,
 name|fam
 argument_list|,

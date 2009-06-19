@@ -107,7 +107,6 @@ block|,
 comment|/**      * Done with columns, skip to next row. Note that filterRow() will      * still be called.      */
 name|NEXT_ROW
 block|,   }
-empty_stmt|;
 comment|/**    * Last chance to veto row based on previous {@link #filterKeyValue(KeyValue)}    * calls. The filter needs to retain state then return a particular value for    * this call if they wish to exclude a row if a certain column is missing    * (for example).    * @return true to exclude row, false to include row.    */
 specifier|public
 name|boolean

@@ -515,11 +515,6 @@ name|QueryMatcher
 argument_list|(
 name|get
 argument_list|,
-name|get
-operator|.
-name|getRow
-argument_list|()
-argument_list|,
 name|fam2
 argument_list|,
 name|get
@@ -853,11 +848,6 @@ operator|new
 name|QueryMatcher
 argument_list|(
 name|get
-argument_list|,
-name|get
-operator|.
-name|getRow
-argument_list|()
 argument_list|,
 name|fam2
 argument_list|,

@@ -77,6 +77,10 @@ name|DataInput
 import|;
 end_import
 
+begin_comment
+comment|/**  * Pass results that have same row prefix.  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -88,6 +92,8 @@ specifier|protected
 name|byte
 index|[]
 name|prefix
+init|=
+literal|null
 decl_stmt|;
 specifier|public
 name|RowPrefixFilter
@@ -108,14 +114,20 @@ block|}
 specifier|public
 name|RowPrefixFilter
 parameter_list|()
-block|{   }
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+block|}
 annotation|@
 name|Override
 specifier|public
 name|void
 name|reset
 parameter_list|()
-block|{   }
+block|{
+comment|// Noop
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -136,6 +148,12 @@ block|{
 if|if
 condition|(
 name|buffer
+operator|==
+literal|null
+operator|||
+name|this
+operator|.
+name|prefix
 operator|==
 literal|null
 condition|)
@@ -164,14 +182,20 @@ name|buffer
 argument_list|,
 name|offset
 argument_list|,
+name|this
+operator|.
 name|prefix
 operator|.
 name|length
 argument_list|,
+name|this
+operator|.
 name|prefix
 argument_list|,
 literal|0
 argument_list|,
+name|this
+operator|.
 name|prefix
 operator|.
 name|length
@@ -236,6 +260,8 @@ name|writeByteArray
 argument_list|(
 name|out
 argument_list|,
+name|this
+operator|.
 name|prefix
 argument_list|)
 expr_stmt|;
@@ -252,6 +278,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|this
+operator|.
 name|prefix
 operator|=
 name|Bytes

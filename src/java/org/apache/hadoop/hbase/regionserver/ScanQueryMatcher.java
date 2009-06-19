@@ -134,10 +134,6 @@ name|ScanQueryMatcher
 extends|extends
 name|QueryMatcher
 block|{
-specifier|private
-name|Filter
-name|filter
-decl_stmt|;
 comment|// have to support old style filter for now.
 specifier|private
 name|RowFilterInterface

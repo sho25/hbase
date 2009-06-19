@@ -6285,11 +6285,6 @@ name|QueryMatcher
 argument_list|(
 name|get
 argument_list|,
-name|get
-operator|.
-name|getRow
-argument_list|()
-argument_list|,
 name|this
 operator|.
 name|family
@@ -6504,8 +6499,6 @@ operator|new
 name|QueryMatcher
 argument_list|(
 name|get
-argument_list|,
-name|row
 argument_list|,
 name|family
 argument_list|,
