@@ -141,9 +141,9 @@ operator|+
 operator|(
 literal|2
 operator|*
-name|HeapSize
+name|Bytes
 operator|.
-name|LONG
+name|SIZEOF_LONG
 operator|)
 decl_stmt|;
 comment|/** Writable Consructor -- Do not use. */

@@ -168,14 +168,14 @@ specifier|public
 class|class
 name|Bytes
 block|{
-comment|/**    * Size of long in bytes    */
+comment|/**    * Size of boolean in bytes    */
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SIZEOF_LONG
+name|SIZEOF_BOOLEAN
 init|=
-name|Long
+name|Byte
 operator|.
 name|SIZE
 operator|/
@@ -183,44 +183,23 @@ name|Byte
 operator|.
 name|SIZE
 decl_stmt|;
-comment|/**    * Size of int in bytes    */
+comment|/**    * Size of byte in bytes    */
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SIZEOF_INT
+name|SIZEOF_BYTE
 init|=
-name|Integer
-operator|.
-name|SIZE
-operator|/
-name|Byte
-operator|.
-name|SIZE
+name|SIZEOF_BOOLEAN
 decl_stmt|;
-comment|/**    * Size of short in bytes    */
+comment|/**    * Size of char in bytes    */
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SIZEOF_SHORT
+name|SIZEOF_CHAR
 init|=
-name|Short
-operator|.
-name|SIZE
-operator|/
-name|Byte
-operator|.
-name|SIZE
-decl_stmt|;
-comment|/**    * Size of float in bytes    */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|SIZEOF_FLOAT
-init|=
-name|Float
+name|Character
 operator|.
 name|SIZE
 operator|/
@@ -243,14 +222,65 @@ name|Byte
 operator|.
 name|SIZE
 decl_stmt|;
-comment|/**    * Size of byte in bytes    */
+comment|/**    * Size of float in bytes    */
 specifier|public
 specifier|static
 specifier|final
 name|int
-name|SIZEOF_BYTE
+name|SIZEOF_FLOAT
 init|=
-literal|1
+name|Float
+operator|.
+name|SIZE
+operator|/
+name|Byte
+operator|.
+name|SIZE
+decl_stmt|;
+comment|/**    * Size of int in bytes    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|SIZEOF_INT
+init|=
+name|Integer
+operator|.
+name|SIZE
+operator|/
+name|Byte
+operator|.
+name|SIZE
+decl_stmt|;
+comment|/**    * Size of long in bytes    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|SIZEOF_LONG
+init|=
+name|Long
+operator|.
+name|SIZE
+operator|/
+name|Byte
+operator|.
+name|SIZE
+decl_stmt|;
+comment|/**    * Size of short in bytes    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|SIZEOF_SHORT
+init|=
+name|Short
+operator|.
+name|SIZE
+operator|/
+name|Byte
+operator|.
+name|SIZE
 decl_stmt|;
 comment|/**    * Estimate of size cost to pay beyond payload in jvm for instance of byte [].    * Estimate based on study of jhat and jprofiler numbers.    */
 comment|// JHat says BU is 56 bytes.

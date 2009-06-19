@@ -44,64 +44,6 @@ literal|2
 operator|*
 name|REFERENCE
 decl_stmt|;
-comment|/**    * The following types are always allocated in blocks of 8 bytes (on 64bit)    * For example, if you have two ints in a class, it will use 8 bytes.    * If you have three ints in a class, it will use 16 bytes.    */
-specifier|static
-specifier|final
-name|int
-name|SHORT
-init|=
-literal|4
-decl_stmt|;
-specifier|static
-specifier|final
-name|int
-name|INT
-init|=
-literal|4
-decl_stmt|;
-specifier|static
-specifier|final
-name|int
-name|FLOAT
-init|=
-literal|4
-decl_stmt|;
-specifier|static
-specifier|final
-name|int
-name|BOOLEAN
-init|=
-literal|4
-decl_stmt|;
-specifier|static
-specifier|final
-name|int
-name|CHAR
-init|=
-literal|4
-decl_stmt|;
-specifier|static
-specifier|final
-name|int
-name|BYTE
-init|=
-literal|1
-decl_stmt|;
-comment|/** These types are always 8 bytes */
-specifier|static
-specifier|final
-name|int
-name|DOUBLE
-init|=
-literal|8
-decl_stmt|;
-specifier|static
-specifier|final
-name|int
-name|LONG
-init|=
-literal|8
-decl_stmt|;
 comment|/** Array overhead */
 specifier|static
 specifier|final
@@ -112,6 +54,7 @@ literal|3
 operator|*
 name|REFERENCE
 decl_stmt|;
+comment|/** OverHead for nested arrays */
 specifier|static
 specifier|final
 name|int
@@ -135,19 +78,45 @@ literal|3
 operator|*
 name|REFERENCE
 decl_stmt|;
-specifier|static
-specifier|final
-name|int
-name|BLOCK_SIZE_TAX
-init|=
-literal|8
-decl_stmt|;
+comment|/** Overhead for ByteBuffer */
 specifier|static
 specifier|final
 name|int
 name|BYTE_BUFFER
 init|=
 literal|56
+decl_stmt|;
+comment|/** String overhead */
+specifier|static
+specifier|final
+name|int
+name|STRING_SIZE
+init|=
+literal|64
+decl_stmt|;
+comment|/** Overhead for ArrayList(0) */
+specifier|static
+specifier|final
+name|int
+name|ARRAYLIST_SIZE
+init|=
+literal|64
+decl_stmt|;
+comment|/** Overhead for TreeMap */
+specifier|static
+specifier|final
+name|int
+name|TREEMAP_SIZE
+init|=
+literal|80
+decl_stmt|;
+comment|/** Overhead for entry in map */
+specifier|static
+specifier|final
+name|int
+name|MAP_ENTRY_SIZE
+init|=
+literal|64
 decl_stmt|;
 comment|/**    * @return Approximate 'exclusive deep size' of implementing object.  Includes    * count of payload and hosting object sizings.   */
 specifier|public
