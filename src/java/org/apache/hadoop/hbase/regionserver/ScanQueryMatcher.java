@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|NavigableSet
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -89,9 +99,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|filter
 operator|.
-name|Bytes
+name|Filter
+operator|.
+name|ReturnCode
 import|;
 end_import
 
@@ -105,31 +117,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|filter
-operator|.
-name|Filter
-operator|.
-name|ReturnCode
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
-name|NavigableSet
+name|Bytes
 import|;
 end_import
 
@@ -370,14 +360,6 @@ operator|.
 name|DONE_SCAN
 return|;
 block|}
-name|String
-name|kvStr
-init|=
-name|kv
-operator|.
-name|toString
-argument_list|()
-decl_stmt|;
 name|byte
 index|[]
 name|bytes
@@ -399,14 +381,6 @@ name|int
 name|initialOffset
 init|=
 name|offset
-decl_stmt|;
-name|int
-name|kvLength
-init|=
-name|kv
-operator|.
-name|getLength
-argument_list|()
 decl_stmt|;
 name|int
 name|keyLength
@@ -867,8 +841,7 @@ name|MatchCode
 operator|.
 name|SKIP
 return|;
-comment|// else
-comment|//if (filterResponse == ReturnCode.NEXT_ROW)
+comment|// else if (filterResponse == ReturnCode.NEXT_ROW)
 name|stickyNextRow
 operator|=
 literal|true
@@ -885,16 +858,13 @@ name|boolean
 name|filterEntireRow
 parameter_list|()
 block|{
-if|if
-condition|(
+return|return
 name|filter
 operator|==
 literal|null
-condition|)
-return|return
+condition|?
 literal|false
-return|;
-return|return
+else|:
 name|filter
 operator|.
 name|filterRow
