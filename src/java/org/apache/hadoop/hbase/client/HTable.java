@@ -3045,7 +3045,7 @@ name|ts
 argument_list|)
 return|;
 block|}
-comment|/**     * Get more than one version of all columns for the specified row    * at a specified timestamp    *     * @param row row key    * @param timestamp timestamp    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**     * Get more than one version of all columns for the specified row    * at a specified timestamp    *     * @param row row key    * @param ts timestamp    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
