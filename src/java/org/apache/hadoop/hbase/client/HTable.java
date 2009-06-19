@@ -2133,6 +2133,75 @@ name|booleanValue
 argument_list|()
 return|;
 block|}
+comment|/**    * Test for the existence of columns in the table, as specified in the Get.<p>    *     * This will return true if the Get matches one or more keys, false if not.<p>    *     * This is a server-side call so it prevents any data from being transfered    * to the client.    * @param get    * @return true if the specified Get matches one or more keys, false if not    * @throws IOException    */
+specifier|public
+name|boolean
+name|exists
+parameter_list|(
+specifier|final
+name|Get
+name|get
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|connection
+operator|.
+name|getRegionServerWithRetries
+argument_list|(
+operator|new
+name|ServerCallable
+argument_list|<
+name|Boolean
+argument_list|>
+argument_list|(
+name|connection
+argument_list|,
+name|tableName
+argument_list|,
+name|get
+operator|.
+name|getRow
+argument_list|()
+argument_list|)
+block|{
+specifier|public
+name|Boolean
+name|call
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+return|return
+name|Boolean
+operator|.
+name|valueOf
+argument_list|(
+name|server
+operator|.
+name|exists
+argument_list|(
+name|location
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|,
+name|get
+argument_list|)
+argument_list|)
+return|;
+block|}
+block|}
+argument_list|)
+operator|.
+name|booleanValue
+argument_list|()
+return|;
+block|}
 comment|/**    * Commit to the table the buffer of BatchUpdate.    * Called automatically in the commit methods when autoFlush is true.    * @throws IOException    */
 specifier|public
 name|void
@@ -2918,7 +2987,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get all the data for the specified row at a specified timestamp    *     * @param row row key    * @param ts timestamp    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    */
+comment|/**     * Get all the data for the specified row at a specified timestamp    *     * @param row row key    * @param ts timestamp    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -2976,6 +3045,7 @@ name|ts
 argument_list|)
 return|;
 block|}
+comment|/**     * Get more than one version of all columns for the specified row    * at a specified timestamp    *     * @param row row key    * @param timestamp timestamp    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -3287,6 +3357,7 @@ literal|null
 argument_list|)
 return|;
 block|}
+comment|/**     * Get more than one version of selected columns for the specified row,    * using an existing row lock.    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param numVersions number of versions to return    * @param rowLock previously acquired row lock    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -4092,7 +4163,7 @@ return|return
 name|s
 return|;
 block|}
-comment|/**    * Completely delete the row's cells.    *    * @param row Key of the row you want to completely delete.    * @throws IOException    */
+comment|/**    * Completely delete the row's cells.    *    * @param row Key of the row you want to completely delete.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
 specifier|public
 name|void
 name|deleteAll
@@ -4113,7 +4184,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Completely delete the row's cells.    *    * @param row Key of the row you want to completely delete.    * @throws IOException    */
+comment|/**    * Completely delete the row's cells.    *    * @param row Key of the row you want to completely delete.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
 specifier|public
 name|void
 name|deleteAll
@@ -4392,7 +4463,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|deleteAll
+name|deleteAllByRegex
 argument_list|(
 name|row
 argument_list|,
@@ -4850,7 +4921,7 @@ literal|"TODO: Not yet implemented"
 argument_list|)
 throw|;
 block|}
-comment|/**    * Test for the existence of a row in the table.    *     * @param row The row    * @return true if the row exists, false otherwise    * @throws IOException    */
+comment|/**    * Test for the existence of a row in the table.    *     * @param row The row    * @return true if the row exists, false otherwise    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #exists(Get)}    */
 specifier|public
 name|boolean
 name|exists
@@ -4878,7 +4949,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Test for the existence of a row and column in the table.    *     * @param row The row    * @param column The column    * @return true if the row exists, false otherwise    * @throws IOException    */
+comment|/**    * Test for the existence of a row and column in the table.    *     * @param row The row    * @param column The column    * @return true if the row exists, false otherwise    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #exists(Get)}    */
 specifier|public
 name|boolean
 name|exists
@@ -4911,7 +4982,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Test for the existence of a coordinate in the table.    *     * @param row The row    * @param column The column    * @param timestamp The timestamp    * @return true if the specified coordinate exists    * @throws IOException    */
+comment|/**    * Test for the existence of a coordinate in the table.    *     * @param row The row    * @param column The column    * @param timestamp The timestamp    * @return true if the specified coordinate exists    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #exists(Get)}    */
 specifier|public
 name|boolean
 name|exists
@@ -4945,7 +5016,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Test for the existence of a coordinate in the table.    *     * @param row The row    * @param column The column    * @param timestamp The timestamp    * @param rl Existing row lock    * @return true if the specified coordinate exists    * @throws IOException    */
+comment|/**    * Test for the existence of a coordinate in the table.    *     * @param row The row    * @param column The column    * @param timestamp The timestamp    * @param rl Existing row lock    * @return true if the specified coordinate exists    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #exists(Get)}    */
 specifier|public
 name|boolean
 name|exists
@@ -4998,57 +5069,10 @@ name|timestamp
 argument_list|)
 expr_stmt|;
 return|return
-name|connection
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
-operator|new
-name|ServerCallable
-argument_list|<
-name|Boolean
-argument_list|>
-argument_list|(
-name|connection
-argument_list|,
-name|tableName
-argument_list|,
-name|row
-argument_list|)
-block|{
-specifier|public
-name|Boolean
-name|call
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-return|return
-name|Boolean
-operator|.
-name|valueOf
-argument_list|(
-name|server
-operator|.
 name|exists
 argument_list|(
-name|location
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|,
 name|g
 argument_list|)
-argument_list|)
-return|;
-block|}
-block|}
-argument_list|)
-operator|.
-name|booleanValue
-argument_list|()
 return|;
 block|}
 comment|/**    * Commit a BatchUpdate to the table.    * If autoFlush is false, the update is buffered    * @param batchUpdate    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)} or    * {@link #put(Put)}    */
@@ -5185,7 +5209,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Atomically checks if a row's values match    * the expectedValues. If it does, it uses the    * batchUpdate to update the row.    * @param batchUpdate batchupdate to apply if check is successful    * @param expectedValues values to check    * @param rl rowlock    * @throws IOException    */
+comment|/**    * Atomically checks if a row's values match the expectedValues.     * If it does, it uses the batchUpdate to update the row.<p>    *     * This operation is not currently supported, use {@link #checkAndPut}    * @param batchUpdate batchupdate to apply if check is successful    * @param expectedValues values to check    * @param rl rowlock    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #checkAndPut}    */
 specifier|public
 specifier|synchronized
 name|boolean
@@ -5217,7 +5241,7 @@ throw|throw
 operator|new
 name|UnsupportedOperationException
 argument_list|(
-literal|"TODO: Not yet implemented"
+literal|"Replaced by checkAndPut"
 argument_list|)
 throw|;
 block|}
