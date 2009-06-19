@@ -6774,6 +6774,11 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|,
 name|Bytes
 operator|.
 name|toBytes
