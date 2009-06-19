@@ -336,7 +336,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|DisabledTestMergeTool
+name|TestMergeTool
 extends|extends
 name|HBaseTestCase
 block|{
@@ -349,7 +349,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|DisabledTestMergeTool
+name|TestMergeTool
 operator|.
 name|class
 argument_list|)
@@ -1182,6 +1182,8 @@ argument_list|(
 name|scan
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|List
 argument_list|<
 name|KeyValue
@@ -1222,6 +1224,15 @@ condition|)
 block|{
 break|break;
 block|}
+block|}
+block|}
+finally|finally
+block|{
+name|scanner
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|//!Test
 for|for
