@@ -345,11 +345,9 @@ name|conf
 operator|.
 name|set
 argument_list|(
-name|REGIONSERVER_ADDRESS
+name|REGIONSERVER_PORT
 argument_list|,
-name|DEFAULT_HOST
-operator|+
-literal|":0"
+literal|"0"
 argument_list|)
 expr_stmt|;
 name|this

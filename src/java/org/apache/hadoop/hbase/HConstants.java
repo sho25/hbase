@@ -139,6 +139,14 @@ name|DEFAULT_HOST
 init|=
 literal|"0.0.0.0"
 decl_stmt|;
+comment|/** Parameter name for port master listens on. */
+specifier|static
+specifier|final
+name|String
+name|MASTER_PORT
+init|=
+literal|"hbase.master.port"
+decl_stmt|;
 comment|/** default port that the master listens on */
 specifier|static
 specifier|final
@@ -197,23 +205,21 @@ literal|2
 operator|*
 literal|1000
 decl_stmt|;
-comment|/** Parameter name for hbase.regionserver address. */
+comment|/** Parameter name for port region server listens on. */
 specifier|static
 specifier|final
 name|String
-name|REGIONSERVER_ADDRESS
+name|REGIONSERVER_PORT
 init|=
-literal|"hbase.regionserver"
+literal|"hbase.regionserver.port"
 decl_stmt|;
-comment|/** Default region server address */
+comment|/** Default port region server listens on. */
 specifier|static
 specifier|final
-name|String
-name|DEFAULT_REGIONSERVER_ADDRESS
+name|int
+name|DEFAULT_REGIONSERVER_PORT
 init|=
-name|DEFAULT_HOST
-operator|+
-literal|":60020"
+literal|60020
 decl_stmt|;
 comment|/** default port for region server web api */
 specifier|static

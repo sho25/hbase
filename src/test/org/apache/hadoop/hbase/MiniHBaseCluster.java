@@ -249,7 +249,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.master.port"
+name|MASTER_PORT
 argument_list|,
 name|DEFAULT_MASTER_PORT
 argument_list|)
@@ -272,7 +272,7 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.master.port"
+name|MASTER_PORT
 argument_list|,
 name|port
 argument_list|)

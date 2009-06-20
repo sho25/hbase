@@ -1228,7 +1228,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"hbase.master.port"
+name|MASTER_PORT
 argument_list|,
 name|Integer
 operator|.
@@ -5733,9 +5733,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"Usage: java org.apache.hbase.HMaster "
-operator|+
-literal|"[--bind=hostname:port] start|stop"
+literal|"Usage: java org.apache.hbase.HMaster start|stop"
 argument_list|)
 expr_stmt|;
 name|System
