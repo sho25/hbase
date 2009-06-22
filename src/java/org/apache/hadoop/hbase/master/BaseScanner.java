@@ -1616,7 +1616,7 @@ operator|.
 name|regionManager
 init|)
 block|{
-comment|/*        * We don't assign regions that are offline, in transition or were on        * a dead server. Regions that were on a dead server will get reassigned        * by ProcessServerShutdown        */
+comment|/* We don't assign regions that are offline, in transition or were on        * a dead server (unless they have an empty serverName which would imply        * they haven't been assigned in the first place OR it was closed from        * the shell with 'close_region' which deletes server and startcode        * from .META. so region gets reassigned). Regions that were on a dead        * server will get reassigned by ProcessServerShutdown        */
 if|if
 condition|(
 name|info
@@ -1624,6 +1624,11 @@ operator|.
 name|isOffline
 argument_list|()
 operator|||
+operator|(
+name|serverName
+operator|!=
+literal|null
+operator|&&
 name|this
 operator|.
 name|master
@@ -1637,6 +1642,7 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 argument_list|)
+operator|)
 operator|||
 operator|(
 name|serverName
