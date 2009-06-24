@@ -49,26 +49,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|NavigableSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|TreeSet
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -151,9 +131,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|regionserver
 operator|.
-name|TimeRange
+name|QueryMatcher
+operator|.
+name|MatchCode
 import|;
 end_import
 
@@ -170,24 +152,6 @@ operator|.
 name|util
 operator|.
 name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|QueryMatcher
-operator|.
-name|MatchCode
 import|;
 end_import
 
@@ -538,7 +502,7 @@ name|List
 argument_list|<
 name|KeyValue
 argument_list|>
-name|memCache
+name|memstore
 init|=
 operator|new
 name|ArrayList
@@ -547,7 +511,7 @@ name|KeyValue
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|memCache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -564,7 +528,7 @@ name|data
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memCache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -581,7 +545,7 @@ name|data
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memCache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -598,7 +562,7 @@ name|data
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memCache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -615,7 +579,7 @@ name|data
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memCache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -632,7 +596,7 @@ name|data
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memCache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -667,7 +631,7 @@ control|(
 name|KeyValue
 name|kv
 range|:
-name|memCache
+name|memstore
 control|)
 block|{
 name|actual
@@ -864,7 +828,7 @@ name|List
 argument_list|<
 name|KeyValue
 argument_list|>
-name|memCache
+name|memstore
 init|=
 operator|new
 name|ArrayList
@@ -873,7 +837,7 @@ name|KeyValue
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|memCache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -890,7 +854,7 @@ name|data
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memCache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -907,7 +871,7 @@ name|data
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memCache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -924,7 +888,7 @@ name|data
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memCache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -941,7 +905,7 @@ name|data
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memCache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -958,7 +922,7 @@ name|data
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memCache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -993,7 +957,7 @@ control|(
 name|KeyValue
 name|kv
 range|:
-name|memCache
+name|memstore
 control|)
 block|{
 name|actual

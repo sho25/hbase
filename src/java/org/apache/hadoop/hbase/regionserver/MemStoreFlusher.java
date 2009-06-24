@@ -249,7 +249,7 @@ end_comment
 
 begin_class
 class|class
-name|MemcacheFlusher
+name|MemStoreFlusher
 extends|extends
 name|Thread
 implements|implements
@@ -264,7 +264,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|MemcacheFlusher
+name|MemStoreFlusher
 operator|.
 name|class
 argument_list|)
@@ -321,12 +321,12 @@ decl_stmt|;
 specifier|protected
 specifier|final
 name|long
-name|globalMemcacheLimit
+name|globalMemStoreLimit
 decl_stmt|;
 specifier|protected
 specifier|final
 name|long
-name|globalMemcacheLimitLowMark
+name|globalMemStoreLimitLowMark
 decl_stmt|;
 specifier|private
 specifier|static
@@ -350,7 +350,7 @@ specifier|final
 name|String
 name|UPPER_KEY
 init|=
-literal|"hbase.regionserver.globalMemcache.upperLimit"
+literal|"hbase.regionserver.global.memstore.upperLimit"
 decl_stmt|;
 specifier|private
 specifier|static
@@ -358,7 +358,7 @@ specifier|final
 name|String
 name|LOWER_KEY
 init|=
-literal|"hbase.regionserver.globalMemcache.lowerLimit"
+literal|"hbase.regionserver.global.memstore.lowerLimit"
 decl_stmt|;
 specifier|private
 name|long
@@ -370,7 +370,7 @@ name|blockingWaitTime
 decl_stmt|;
 comment|/**    * @param conf    * @param server    */
 specifier|public
-name|MemcacheFlusher
+name|MemStoreFlusher
 parameter_list|(
 specifier|final
 name|HBaseConfiguration
@@ -423,9 +423,9 @@ argument_list|()
 decl_stmt|;
 name|this
 operator|.
-name|globalMemcacheLimit
+name|globalMemStoreLimit
 operator|=
-name|globalMemcacheLimit
+name|globalMemStoreLimit
 argument_list|(
 name|max
 argument_list|,
@@ -439,7 +439,7 @@ expr_stmt|;
 name|long
 name|lower
 init|=
-name|globalMemcacheLimit
+name|globalMemStoreLimit
 argument_list|(
 name|max
 argument_list|,
@@ -456,20 +456,20 @@ name|lower
 operator|>
 name|this
 operator|.
-name|globalMemcacheLimit
+name|globalMemStoreLimit
 condition|)
 block|{
 name|lower
 operator|=
 name|this
 operator|.
-name|globalMemcacheLimit
+name|globalMemStoreLimit
 expr_stmt|;
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Setting globalMemcacheLimitLowMark == globalMemcacheLimit "
+literal|"Setting globalMemStoreLimitLowMark == globalMemStoreLimit "
 operator|+
 literal|"because supplied "
 operator|+
@@ -483,7 +483,7 @@ expr_stmt|;
 block|}
 name|this
 operator|.
-name|globalMemcacheLimitLowMark
+name|globalMemStoreLimitLowMark
 operator|=
 name|lower
 expr_stmt|;
@@ -545,7 +545,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"globalMemcacheLimit="
+literal|"globalMemStoreLimit="
 operator|+
 name|StringUtils
 operator|.
@@ -553,10 +553,10 @@ name|humanReadableInt
 argument_list|(
 name|this
 operator|.
-name|globalMemcacheLimit
+name|globalMemStoreLimit
 argument_list|)
 operator|+
-literal|", globalMemcacheLimitLowMark="
+literal|", globalMemStoreLimitLowMark="
 operator|+
 name|StringUtils
 operator|.
@@ -564,7 +564,7 @@ name|humanReadableInt
 argument_list|(
 name|this
 operator|.
-name|globalMemcacheLimitLowMark
+name|globalMemStoreLimitLowMark
 argument_list|)
 operator|+
 literal|", maxHeap="
@@ -581,7 +581,7 @@ block|}
 comment|/**    * Calculate size using passed<code>key</code> for configured    * percentage of<code>max</code>.    * @param max    * @param defaultLimit    * @param key    * @param c    * @return Limit.    */
 specifier|static
 name|long
-name|globalMemcacheLimit
+name|globalMemStoreLimit
 parameter_list|(
 specifier|final
 name|long
@@ -613,7 +613,7 @@ name|defaultLimit
 argument_list|)
 decl_stmt|;
 return|return
-name|getMemcacheLimit
+name|getMemStoreLimit
 argument_list|(
 name|max
 argument_list|,
@@ -625,7 +625,7 @@ return|;
 block|}
 specifier|static
 name|long
-name|getMemcacheLimit
+name|getMemStoreLimit
 parameter_list|(
 specifier|final
 name|long
@@ -655,7 +655,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Setting global memcache limit to default of "
+literal|"Setting global memstore limit to default of "
 operator|+
 name|defaultLimit
 operator|+
@@ -1231,21 +1231,21 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Check if the regionserver's memcache memory usage is greater than the     * limit. If so, flush regions with the biggest memcaches until we're down    * to the lower limit. This method blocks callers until we're down to a safe    * amount of memcache consumption.    */
+comment|/**    * Check if the regionserver's memstore memory usage is greater than the     * limit. If so, flush regions with the biggest memstores until we're down    * to the lower limit. This method blocks callers until we're down to a safe    * amount of memstore consumption.    */
 specifier|public
 specifier|synchronized
 name|void
-name|reclaimMemcacheMemory
+name|reclaimMemStoreMemory
 parameter_list|()
 block|{
 if|if
 condition|(
 name|server
 operator|.
-name|getGlobalMemcacheSize
+name|getGlobalMemStoreSize
 argument_list|()
 operator|>=
-name|globalMemcacheLimit
+name|globalMemStoreLimit
 condition|)
 block|{
 name|flushSomeRegions
@@ -1262,7 +1262,7 @@ parameter_list|()
 block|{
 comment|// keep flushing until we hit the low water mark
 name|long
-name|globalMemcacheSize
+name|globalMemStoreSize
 init|=
 operator|-
 literal|1
@@ -1298,21 +1298,21 @@ name|getCopyOfOnlineRegionsSortedBySize
 argument_list|()
 init|;
 operator|(
-name|globalMemcacheSize
+name|globalMemStoreSize
 operator|=
 name|server
 operator|.
-name|getGlobalMemcacheSize
+name|getGlobalMemStoreSize
 argument_list|()
 operator|)
 operator|>=
 name|this
 operator|.
-name|globalMemcacheLimitLowMark
+name|globalMemStoreLimitLowMark
 condition|;
 control|)
 block|{
-comment|// flush the region with the biggest memcache
+comment|// flush the region with the biggest memstore
 if|if
 condition|(
 name|m
@@ -1329,16 +1329,16 @@ name|info
 argument_list|(
 literal|"No online regions to flush though we've been asked flush "
 operator|+
-literal|"some; globalMemcacheSize="
+literal|"some; globalMemStoreSize="
 operator|+
 name|StringUtils
 operator|.
 name|humanReadableInt
 argument_list|(
-name|globalMemcacheSize
+name|globalMemStoreSize
 argument_list|)
 operator|+
-literal|", globalMemcacheLimitLowMark="
+literal|", globalMemStoreLimitLowMark="
 operator|+
 name|StringUtils
 operator|.
@@ -1346,14 +1346,14 @@ name|humanReadableInt
 argument_list|(
 name|this
 operator|.
-name|globalMemcacheLimitLowMark
+name|globalMemStoreLimitLowMark
 argument_list|)
 argument_list|)
 expr_stmt|;
 break|break;
 block|}
 name|HRegion
-name|biggestMemcacheRegion
+name|biggestMemStoreRegion
 init|=
 name|m
 operator|.
@@ -1371,12 +1371,12 @@ name|info
 argument_list|(
 literal|"Forced flushing of "
 operator|+
-name|biggestMemcacheRegion
+name|biggestMemStoreRegion
 operator|.
 name|toString
 argument_list|()
 operator|+
-literal|" because global memcache limit of "
+literal|" because global memstore limit of "
 operator|+
 name|StringUtils
 operator|.
@@ -1384,7 +1384,7 @@ name|humanReadableInt
 argument_list|(
 name|this
 operator|.
-name|globalMemcacheLimit
+name|globalMemStoreLimit
 argument_list|)
 operator|+
 literal|" exceeded; currently "
@@ -1393,7 +1393,7 @@ name|StringUtils
 operator|.
 name|humanReadableInt
 argument_list|(
-name|globalMemcacheSize
+name|globalMemStoreSize
 argument_list|)
 operator|+
 literal|" and flushing till "
@@ -1404,7 +1404,7 @@ name|humanReadableInt
 argument_list|(
 name|this
 operator|.
-name|globalMemcacheLimitLowMark
+name|globalMemStoreLimitLowMark
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1413,7 +1413,7 @@ condition|(
 operator|!
 name|flushRegion
 argument_list|(
-name|biggestMemcacheRegion
+name|biggestMemStoreRegion
 argument_list|,
 literal|true
 argument_list|)
@@ -1432,7 +1432,7 @@ name|regionsToCompact
 operator|.
 name|add
 argument_list|(
-name|biggestMemcacheRegion
+name|biggestMemStoreRegion
 argument_list|)
 expr_stmt|;
 block|}

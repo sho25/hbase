@@ -211,10 +211,10 @@ specifier|private
 name|int
 name|storefiles
 decl_stmt|;
-comment|/** the current size of the memcache for the region, in MB */
+comment|/** the current size of the memstore for the region, in MB */
 specifier|private
 name|int
-name|memcacheSizeMB
+name|memstoreSizeMB
 decl_stmt|;
 comment|/** the current total size of storefile indexes for the region, in MB */
 specifier|private
@@ -230,7 +230,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**      * @param name      * @param stores      * @param storefiles      * @param memcacheSizeMB      * @param storefileIndexSizeMB      */
+comment|/**      * @param name      * @param stores      * @param storefiles      * @param memstoreSizeMB      * @param storefileIndexSizeMB      */
 specifier|public
 name|RegionLoad
 parameter_list|(
@@ -249,7 +249,7 @@ name|storefiles
 parameter_list|,
 specifier|final
 name|int
-name|memcacheSizeMB
+name|memstoreSizeMB
 parameter_list|,
 specifier|final
 name|int
@@ -276,9 +276,9 @@ name|storefiles
 expr_stmt|;
 name|this
 operator|.
-name|memcacheSizeMB
+name|memstoreSizeMB
 operator|=
-name|memcacheSizeMB
+name|memstoreSizeMB
 expr_stmt|;
 name|this
 operator|.
@@ -334,14 +334,14 @@ return|return
 name|storefiles
 return|;
 block|}
-comment|/**      * @return the memcache size, in MB      */
+comment|/**      * @return the memstore size, in MB      */
 specifier|public
 name|int
-name|getMemcacheSizeMB
+name|getMemStoreSizeMB
 parameter_list|()
 block|{
 return|return
-name|memcacheSizeMB
+name|memstoreSizeMB
 return|;
 block|}
 comment|/**      * @return the approximate size of storefile indexes on the heap, in MB      */
@@ -404,20 +404,20 @@ operator|=
 name|storefiles
 expr_stmt|;
 block|}
-comment|/**      * @param memcacheSizeMB the memcache size, in MB      */
+comment|/**      * @param memstoreSizeMB the memstore size, in MB      */
 specifier|public
 name|void
-name|setMemcacheSizeMB
+name|setMemStoreSizeMB
 parameter_list|(
 name|int
-name|memcacheSizeMB
+name|memstoreSizeMB
 parameter_list|)
 block|{
 name|this
 operator|.
-name|memcacheSizeMB
+name|memstoreSizeMB
 operator|=
-name|memcacheSizeMB
+name|memstoreSizeMB
 expr_stmt|;
 block|}
 comment|/**      * @param storefileIndexSizeMB the approximate size of storefile indexes      *  on the heap, in MB      */
@@ -494,7 +494,7 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|memcacheSizeMB
+name|memstoreSizeMB
 operator|=
 name|in
 operator|.
@@ -555,7 +555,7 @@ name|out
 operator|.
 name|writeInt
 argument_list|(
-name|memcacheSizeMB
+name|memstoreSizeMB
 argument_list|)
 expr_stmt|;
 name|out
@@ -625,7 +625,7 @@ name|appendKeyValue
 argument_list|(
 name|sb
 argument_list|,
-literal|"memcacheSize"
+literal|"memstoreSize"
 argument_list|,
 name|Integer
 operator|.
@@ -633,7 +633,7 @@ name|valueOf
 argument_list|(
 name|this
 operator|.
-name|memcacheSizeMB
+name|memstoreSizeMB
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1039,10 +1039,10 @@ return|return
 name|count
 return|;
 block|}
-comment|/**    * @return Size of memcaches in MB    */
+comment|/**    * @return Size of memstores in MB    */
 specifier|public
 name|int
-name|getMemcacheSizeInMB
+name|getMemStoreSizeInMB
 parameter_list|()
 block|{
 name|int
@@ -1061,7 +1061,7 @@ name|count
 operator|+=
 name|info
 operator|.
-name|getMemcacheSizeMB
+name|getMemStoreSizeMB
 argument_list|()
 expr_stmt|;
 return|return
@@ -1189,7 +1189,7 @@ name|load
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param name    * @param stores    * @param storefiles    * @param memcacheSizeMB    * @param storefileIndexSizeMB    * @deprecated Use {@link #addRegionInfo(RegionLoad)}    */
+comment|/**    * @param name    * @param stores    * @param storefiles    * @param memstoreSizeMB    * @param storefileIndexSizeMB    * @deprecated Use {@link #addRegionInfo(RegionLoad)}    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1211,7 +1211,7 @@ name|storefiles
 parameter_list|,
 specifier|final
 name|int
-name|memcacheSizeMB
+name|memstoreSizeMB
 parameter_list|,
 specifier|final
 name|int
@@ -1235,7 +1235,7 @@ name|stores
 argument_list|,
 name|storefiles
 argument_list|,
-name|memcacheSizeMB
+name|memstoreSizeMB
 argument_list|,
 name|storefileIndexSizeMB
 argument_list|)

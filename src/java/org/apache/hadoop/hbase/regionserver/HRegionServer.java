@@ -1489,7 +1489,7 @@ name|CompactSplitThread
 name|compactSplitThread
 decl_stmt|;
 comment|// Cache flushing
-name|MemcacheFlusher
+name|MemStoreFlusher
 name|cacheFlusher
 decl_stmt|;
 comment|/* Check for major compactions.    */
@@ -2032,7 +2032,7 @@ operator|.
 name|cacheFlusher
 operator|=
 operator|new
-name|MemcacheFlusher
+name|MemStoreFlusher
 argument_list|(
 name|conf
 argument_list|,
@@ -4076,7 +4076,7 @@ init|=
 literal|0
 decl_stmt|;
 name|int
-name|memcacheSizeMB
+name|memstoreSizeMB
 init|=
 call|(
 name|int
@@ -4084,7 +4084,7 @@ call|)
 argument_list|(
 name|r
 operator|.
-name|memcacheSize
+name|memstoreSize
 operator|.
 name|get
 argument_list|()
@@ -4165,7 +4165,7 @@ name|stores
 argument_list|,
 name|storefiles
 argument_list|,
-name|memcacheSizeMB
+name|memstoreSizeMB
 argument_list|,
 name|storefileIndexSizeMB
 argument_list|)
@@ -5270,7 +5270,7 @@ init|=
 literal|0
 decl_stmt|;
 name|long
-name|memcacheSize
+name|memstoreSize
 init|=
 literal|0
 decl_stmt|;
@@ -5314,11 +5314,11 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
-name|memcacheSize
+name|memstoreSize
 operator|+=
 name|r
 operator|.
-name|memcacheSize
+name|memstoreSize
 operator|.
 name|get
 argument_list|()
@@ -5412,7 +5412,7 @@ name|this
 operator|.
 name|metrics
 operator|.
-name|memcacheSizeMB
+name|memstoreSizeMB
 operator|.
 name|set
 argument_list|(
@@ -5420,7 +5420,7 @@ call|(
 name|int
 call|)
 argument_list|(
-name|memcacheSize
+name|memstoreSize
 operator|/
 operator|(
 literal|1024
@@ -8543,7 +8543,7 @@ try|try
 block|{
 name|cacheFlusher
 operator|.
-name|reclaimMemcacheMemory
+name|reclaimMemStoreMemory
 argument_list|()
 expr_stmt|;
 name|region
@@ -8618,7 +8618,7 @@ name|this
 operator|.
 name|cacheFlusher
 operator|.
-name|reclaimMemcacheMemory
+name|reclaimMemStoreMemory
 argument_list|()
 expr_stmt|;
 name|Integer
@@ -8808,7 +8808,7 @@ try|try
 block|{
 name|cacheFlusher
 operator|.
-name|reclaimMemcacheMemory
+name|reclaimMemStoreMemory
 argument_list|()
 expr_stmt|;
 return|return
@@ -9513,7 +9513,7 @@ name|this
 operator|.
 name|cacheFlusher
 operator|.
-name|reclaimMemcacheMemory
+name|reclaimMemStoreMemory
 argument_list|()
 expr_stmt|;
 name|this
@@ -10519,7 +10519,7 @@ name|valueOf
 argument_list|(
 name|region
 operator|.
-name|memcacheSize
+name|memstoreSize
 operator|.
 name|get
 argument_list|()
@@ -10981,10 +10981,10 @@ operator|.
 name|outboundMsgs
 return|;
 block|}
-comment|/**    * Return the total size of all memcaches in every region.    * @return memcache size in bytes    */
+comment|/**    * Return the total size of all memstores in every region.    * @return memstore size in bytes    */
 specifier|public
 name|long
-name|getGlobalMemcacheSize
+name|getGlobalMemStoreSize
 parameter_list|()
 block|{
 name|long
@@ -11012,7 +11012,7 @@ name|total
 operator|+=
 name|region
 operator|.
-name|memcacheSize
+name|memstoreSize
 operator|.
 name|get
 argument_list|()

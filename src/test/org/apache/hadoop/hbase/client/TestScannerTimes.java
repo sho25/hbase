@@ -37,21 +37,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HTableDescriptor
+name|HBaseClusterTestCase
 import|;
 end_import
 
@@ -79,7 +65,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseClusterTestCase
+name|HTableDescriptor
 import|;
 end_import
 
@@ -94,54 +80,6 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|BatchUpdate
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|Cell
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|RowResult
 import|;
 end_import
 
@@ -446,7 +384,7 @@ index|[
 literal|3
 index|]
 decl_stmt|;
-comment|// First scan the memcache
+comment|// First scan the memstore
 name|Scan
 name|scan
 init|=

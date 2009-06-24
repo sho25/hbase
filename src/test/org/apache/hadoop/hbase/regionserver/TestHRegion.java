@@ -69,16 +69,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Iterator
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -243,6 +233,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Delete
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Get
 import|;
 end_import
@@ -292,22 +298,6 @@ operator|.
 name|client
 operator|.
 name|Scan
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Delete
 import|;
 end_import
 
@@ -1232,9 +1222,9 @@ name|size
 init|=
 name|store
 operator|.
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|size
 argument_list|()
@@ -1272,9 +1262,9 @@ name|size
 operator|=
 name|store
 operator|.
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|size
 argument_list|()
@@ -2694,7 +2684,7 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-comment|// extract the key values out the memcache:
+comment|// extract the key values out the memstore:
 comment|// This is kinda hacky, but better than nothing...
 name|long
 name|now
@@ -2714,9 +2704,9 @@ argument_list|(
 name|fam1
 argument_list|)
 operator|.
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|firstKey
 argument_list|()
@@ -2757,9 +2747,9 @@ argument_list|(
 name|fam1
 argument_list|)
 operator|.
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|entrySet
 argument_list|()
@@ -3038,7 +3028,7 @@ argument_list|,
 name|fam1
 argument_list|)
 expr_stmt|;
-comment|//Add to memcache
+comment|//Add to memstore
 name|Put
 name|put
 init|=
@@ -3481,7 +3471,7 @@ operator|.
 name|CATALOG_FAMILY
 argument_list|)
 expr_stmt|;
-comment|//Add to memcache
+comment|//Add to memstore
 name|Put
 name|put
 init|=
@@ -3567,7 +3557,7 @@ block|{
 name|kv1
 block|}
 decl_stmt|;
-comment|//Test from memcache
+comment|//Test from memstore
 name|Result
 name|res
 init|=
@@ -5844,7 +5834,7 @@ block|}
 block|}
 specifier|public
 name|void
-name|testScanner_ExplicitColumns_FromMemcache_EnforceVersions
+name|testScanner_ExplicitColumns_FromMemStore_EnforceVersions
 parameter_list|()
 throws|throws
 name|IOException
@@ -6756,7 +6746,7 @@ block|}
 block|}
 specifier|public
 name|void
-name|testScanner_ExplicitColumns_FromMemcacheAndFiles_EnforceVersions
+name|testScanner_ExplicitColumns_FromMemStoreAndFiles_EnforceVersions
 parameter_list|()
 throws|throws
 name|IOException
@@ -7365,7 +7355,7 @@ block|}
 block|}
 specifier|public
 name|void
-name|testScanner_Wildcard_FromMemcache_EnforceVersions
+name|testScanner_Wildcard_FromMemStore_EnforceVersions
 parameter_list|()
 throws|throws
 name|IOException
@@ -8612,7 +8602,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|testScanner_Wildcard_FromMemcacheAndFiles_EnforceVersions
+name|testScanner_Wildcard_FromMemStoreAndFiles_EnforceVersions
 parameter_list|()
 throws|throws
 name|IOException

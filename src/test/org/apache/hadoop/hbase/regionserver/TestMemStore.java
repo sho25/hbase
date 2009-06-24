@@ -216,13 +216,13 @@ import|;
 end_import
 
 begin_comment
-comment|/** memcache test case */
+comment|/** memstore test case */
 end_comment
 
 begin_class
 specifier|public
 class|class
-name|TestMemcache
+name|TestMemStore
 extends|extends
 name|TestCase
 block|{
@@ -242,8 +242,8 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|private
-name|Memcache
-name|memcache
+name|MemStore
+name|memstore
 decl_stmt|;
 specifier|private
 specifier|static
@@ -313,14 +313,14 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|=
 operator|new
-name|Memcache
+name|MemStore
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**     * Test memcache snapshot happening while scanning.    * @throws IOException    */
+comment|/**     * Test memstore snapshot happening while scanning.    * @throws IOException    */
 specifier|public
 name|void
 name|testScanAcrossSnapshot
@@ -335,16 +335,16 @@ name|addRows
 argument_list|(
 name|this
 operator|.
-name|memcache
+name|memstore
 argument_list|)
 decl_stmt|;
 name|KeyValueScanner
 index|[]
-name|memcachescanners
+name|memstorescanners
 init|=
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|getScanners
 argument_list|()
@@ -385,13 +385,13 @@ name|LATEST_TIMESTAMP
 argument_list|,
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|comparator
 argument_list|,
 literal|null
 argument_list|,
-name|memcachescanners
+name|memstorescanners
 argument_list|)
 decl_stmt|;
 name|int
@@ -459,13 +459,13 @@ name|LATEST_TIMESTAMP
 argument_list|,
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|comparator
 argument_list|,
 literal|null
 argument_list|,
-name|memcachescanners
+name|memstorescanners
 argument_list|)
 expr_stmt|;
 name|count
@@ -531,7 +531,7 @@ condition|)
 block|{
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|snapshot
 argument_list|()
@@ -567,7 +567,7 @@ name|count
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Test memcache snapshots    * @throws IOException    */
+comment|/**     * Test memstore snapshots    * @throws IOException    */
 specifier|public
 name|void
 name|testSnapshotting
@@ -601,14 +601,14 @@ name|addRows
 argument_list|(
 name|this
 operator|.
-name|memcache
+name|memstore
 argument_list|)
 expr_stmt|;
 name|runSnapshot
 argument_list|(
 name|this
 operator|.
-name|memcache
+name|memstore
 argument_list|)
 expr_stmt|;
 name|Map
@@ -621,7 +621,7 @@ name|ss
 init|=
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|getSnapshot
 argument_list|()
@@ -647,11 +647,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|Memcache
+name|MemStore
 name|m
 init|=
 operator|new
-name|Memcache
+name|MemStore
 argument_list|(
 name|HConstants
 operator|.
@@ -827,18 +827,18 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-literal|"Expected memcache to hold 3 values, actually has "
+literal|"Expected memstore to hold 3 values, actually has "
 operator|+
 name|m
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|size
 argument_list|()
 argument_list|,
 name|m
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|size
 argument_list|()
@@ -854,11 +854,11 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|Memcache
+name|MemStore
 name|mc
 init|=
 operator|new
-name|Memcache
+name|MemStore
 argument_list|(
 name|HConstants
 operator|.
@@ -999,7 +999,7 @@ name|entry
 range|:
 name|mc
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|entrySet
 argument_list|()
@@ -1139,7 +1139,7 @@ argument_list|(
 literal|"040"
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -1154,7 +1154,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -1169,7 +1169,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -1184,7 +1184,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -1200,7 +1200,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// write a delete in there to see if things still work ok
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -1210,7 +1210,7 @@ name|t35
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -1244,7 +1244,7 @@ argument_list|>
 argument_list|(
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|comparator
 operator|.
@@ -1271,7 +1271,7 @@ name|currentTimeMillis
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|getRowKeyAtOrBefore
 argument_list|(
@@ -1315,7 +1315,7 @@ argument_list|>
 argument_list|(
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|comparator
 operator|.
@@ -1323,7 +1323,7 @@ name|getComparatorIgnoringType
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|getRowKeyAtOrBefore
 argument_list|(
@@ -1371,7 +1371,7 @@ argument_list|>
 argument_list|(
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|comparator
 operator|.
@@ -1379,7 +1379,7 @@ name|getComparatorIgnoringType
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|getRowKeyAtOrBefore
 argument_list|(
@@ -1427,7 +1427,7 @@ argument_list|>
 argument_list|(
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|comparator
 operator|.
@@ -1446,7 +1446,7 @@ argument_list|(
 literal|"038"
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|getRowKeyAtOrBefore
 argument_list|(
@@ -1494,7 +1494,7 @@ argument_list|>
 argument_list|(
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|comparator
 operator|.
@@ -1513,7 +1513,7 @@ argument_list|(
 literal|"050"
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|getRowKeyAtOrBefore
 argument_list|(
@@ -1551,7 +1551,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Test getNextRow from memcache    * @throws InterruptedException     */
+comment|/** Test getNextRow from memstore    * @throws InterruptedException     */
 specifier|public
 name|void
 name|testGetNextRow
@@ -1563,7 +1563,7 @@ name|addRows
 argument_list|(
 name|this
 operator|.
-name|memcache
+name|memstore
 argument_list|)
 expr_stmt|;
 comment|// Add more versions to make it a little more interesting.
@@ -1578,7 +1578,7 @@ name|addRows
 argument_list|(
 name|this
 operator|.
-name|memcache
+name|memstore
 argument_list|)
 expr_stmt|;
 name|KeyValue
@@ -1586,7 +1586,7 @@ name|closestToEmpty
 init|=
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|getNextRow
 argument_list|(
@@ -1645,7 +1645,7 @@ name|nr
 init|=
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|getNextRow
 argument_list|(
@@ -1760,7 +1760,7 @@ name|MAX_VALUE
 argument_list|,
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|comparator
 argument_list|,
@@ -1770,7 +1770,7 @@ operator|new
 name|KeyValueScanner
 index|[]
 block|{
-name|memcache
+name|memstore
 operator|.
 name|getScanners
 argument_list|()
@@ -1976,7 +1976,7 @@ argument_list|(
 literal|"testval"
 argument_list|)
 decl_stmt|;
-comment|//Setting up memcache
+comment|//Setting up memstore
 name|KeyValue
 name|add1
 init|=
@@ -2022,21 +2022,21 @@ argument_list|,
 name|val
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
 name|add1
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
 name|add2
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -2123,7 +2123,7 @@ decl_stmt|;
 name|boolean
 name|res
 init|=
-name|memcache
+name|memstore
 operator|.
 name|get
 argument_list|(
@@ -2213,7 +2213,7 @@ argument_list|(
 literal|"testval"
 argument_list|)
 decl_stmt|;
-comment|//Setting up memcache
+comment|//Setting up memstore
 name|KeyValue
 name|add1
 init|=
@@ -2244,14 +2244,14 @@ argument_list|,
 name|val
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
 name|add1
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -2338,7 +2338,7 @@ decl_stmt|;
 name|boolean
 name|res
 init|=
-name|memcache
+name|memstore
 operator|.
 name|get
 argument_list|(
@@ -2357,7 +2357,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|testGet_MemcacheAndSnapShot
+name|testGet_memstoreAndSnapShot
 parameter_list|()
 throws|throws
 name|IOException
@@ -2521,8 +2521,8 @@ argument_list|,
 literal|1
 argument_list|)
 decl_stmt|;
-comment|//Setting up memcache
-name|memcache
+comment|//Setting up memstore
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -2539,7 +2539,7 @@ name|val
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -2556,7 +2556,7 @@ name|val
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -2574,7 +2574,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|//Creating a snapshot
-name|memcache
+name|memstore
 operator|.
 name|snapshot
 argument_list|()
@@ -2583,7 +2583,7 @@ name|assertEquals
 argument_list|(
 literal|3
 argument_list|,
-name|memcache
+name|memstore
 operator|.
 name|snapshot
 operator|.
@@ -2591,20 +2591,20 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//Adding value to "new" memcache
+comment|//Adding value to "new" memstore
 name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -2621,7 +2621,7 @@ name|val
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -2642,9 +2642,9 @@ name|assertEquals
 argument_list|(
 literal|2
 argument_list|,
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|size
 argument_list|()
@@ -2666,7 +2666,7 @@ decl_stmt|;
 name|boolean
 name|res
 init|=
-name|memcache
+name|memstore
 operator|.
 name|get
 argument_list|(
@@ -2947,8 +2947,8 @@ argument_list|(
 name|kv3
 argument_list|)
 expr_stmt|;
-comment|//Setting up memcache
-name|memcache
+comment|//Setting up memstore
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -2967,7 +2967,7 @@ name|val
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -2986,7 +2986,7 @@ name|val
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -3005,28 +3005,28 @@ name|val
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
 name|kv1
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
 name|kv2
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
 name|kv3
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -3045,7 +3045,7 @@ name|val
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -3064,7 +3064,7 @@ name|val
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -3097,7 +3097,7 @@ name|KeyValue
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|get
 argument_list|(
@@ -3283,21 +3283,21 @@ argument_list|,
 name|val
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
 name|put1
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
 name|put2
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -3308,9 +3308,9 @@ name|assertEquals
 argument_list|(
 literal|3
 argument_list|,
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|size
 argument_list|()
@@ -3339,7 +3339,7 @@ argument_list|,
 name|val
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|delete
 argument_list|(
@@ -3384,9 +3384,9 @@ name|assertEquals
 argument_list|(
 literal|3
 argument_list|,
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|size
 argument_list|()
@@ -3409,9 +3409,9 @@ name|?
 argument_list|>
 name|entry
 range|:
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|entrySet
 argument_list|()
@@ -3559,21 +3559,21 @@ argument_list|,
 name|val
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
 name|put1
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
 name|put2
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -3584,9 +3584,9 @@ name|assertEquals
 argument_list|(
 literal|3
 argument_list|,
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|size
 argument_list|()
@@ -3615,7 +3615,7 @@ argument_list|,
 name|val
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|delete
 argument_list|(
@@ -3653,9 +3653,9 @@ name|assertEquals
 argument_list|(
 literal|2
 argument_list|,
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|size
 argument_list|()
@@ -3678,9 +3678,9 @@ name|?
 argument_list|>
 name|entry
 range|:
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|entrySet
 argument_list|()
@@ -3855,28 +3855,28 @@ argument_list|,
 name|val
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
 name|put1
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
 name|put2
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
 name|put3
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -3906,7 +3906,7 @@ argument_list|,
 name|val
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|delete
 argument_list|(
@@ -3944,9 +3944,9 @@ name|assertEquals
 argument_list|(
 literal|2
 argument_list|,
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|size
 argument_list|()
@@ -3969,9 +3969,9 @@ name|?
 argument_list|>
 name|entry
 range|:
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|entrySet
 argument_list|()
@@ -3997,7 +3997,7 @@ block|}
 block|}
 specifier|public
 name|void
-name|testKeepDeleteInMemcache
+name|testKeepDeleteInmemstore
 parameter_list|()
 block|{
 name|byte
@@ -4052,7 +4052,7 @@ operator|.
 name|nanoTime
 argument_list|()
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -4094,7 +4094,7 @@ argument_list|,
 name|val
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|delete
 argument_list|(
@@ -4105,9 +4105,9 @@ name|assertEquals
 argument_list|(
 literal|1
 argument_list|,
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|size
 argument_list|()
@@ -4117,9 +4117,9 @@ name|assertEquals
 argument_list|(
 name|delete
 argument_list|,
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|firstKey
 argument_list|()
@@ -4133,8 +4133,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// add a put to memcache
-name|memcache
+comment|// add a put to memstore
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -4179,7 +4179,7 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|delete
 argument_list|(
@@ -4190,9 +4190,9 @@ name|assertEquals
 argument_list|(
 literal|1
 argument_list|,
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|size
 argument_list|()
@@ -4202,9 +4202,9 @@ name|assertEquals
 argument_list|(
 name|delete
 argument_list|,
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|firstKey
 argument_list|()
@@ -4218,8 +4218,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// add a put to memcache
-name|memcache
+comment|// add a put to memstore
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -4264,7 +4264,7 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|delete
 argument_list|(
@@ -4275,9 +4275,9 @@ name|assertEquals
 argument_list|(
 literal|1
 argument_list|,
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|size
 argument_list|()
@@ -4287,9 +4287,9 @@ name|assertEquals
 argument_list|(
 name|delete
 argument_list|,
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|firstKey
 argument_list|()
@@ -4303,8 +4303,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// add a put to memcache
-name|memcache
+comment|// add a put to memstore
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -4349,7 +4349,7 @@ argument_list|,
 literal|"dont-care"
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|delete
 argument_list|(
@@ -4360,9 +4360,9 @@ name|assertEquals
 argument_list|(
 literal|1
 argument_list|,
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|size
 argument_list|()
@@ -4372,9 +4372,9 @@ name|assertEquals
 argument_list|(
 name|delete
 argument_list|,
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|firstKey
 argument_list|()
@@ -4427,7 +4427,7 @@ name|int
 name|addRows
 parameter_list|(
 specifier|final
-name|Memcache
+name|MemStore
 name|hmc
 parameter_list|)
 block|{
@@ -4521,7 +4521,7 @@ name|void
 name|runSnapshot
 parameter_list|(
 specifier|final
-name|Memcache
+name|MemStore
 name|hmc
 parameter_list|)
 throws|throws

@@ -309,7 +309,7 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.hregion.memcache.flush.size"
+literal|"hbase.hregion.memstore.flush.size"
 argument_list|,
 literal|1024
 operator|*
@@ -320,7 +320,7 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.hregion.memcache.block.multiplier"
+literal|"hbase.hregion.memstore.block.multiplier"
 argument_list|,
 literal|10
 argument_list|)
@@ -507,7 +507,7 @@ name|tearDown
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Run compaction and flushing memcache    * Assert deletes get cleaned up.    * @throws Exception    */
+comment|/**    * Run compaction and flushing memstore    * Assert deletes get cleaned up.    * @throws Exception    */
 specifier|public
 name|void
 name|testCompaction
@@ -715,7 +715,7 @@ comment|//    cellValues = Cell.createSingleCellArray(r.get(secondRowBytes, COLU
 comment|//    LOG.info("Count of " + Bytes.toString(secondRowBytes) + ": " +
 comment|//      cellValues.length);
 comment|//    assertTrue(cellValues.length == 3);
-comment|// Now add deletes to memcache and then flush it.  That will put us over
+comment|// Now add deletes to memstore and then flush it.  That will put us over
 comment|// the compaction threshold of 3 store files.  Compacting these store files
 comment|// should result in a compacted store file that has no references to the
 comment|// deleted row.

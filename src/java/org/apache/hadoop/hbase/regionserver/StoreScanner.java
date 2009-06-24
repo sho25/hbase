@@ -158,7 +158,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Scanner scans both the memcache and the HStore. Coaleace KeyValue stream  * into List<KeyValue> for a single row.  */
+comment|/**  * Scanner scans both the memstore and the HStore. Coaleace KeyValue stream  * into List<KeyValue> for a single row.  */
 end_comment
 
 begin_class
@@ -209,7 +209,7 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
-comment|/**    * Opens a scanner across memcache, snapshot, and all StoreFiles.    */
+comment|/**    * Opens a scanner across memstore, snapshot, and all StoreFiles.    */
 name|StoreScanner
 parameter_list|(
 name|Store
@@ -455,13 +455,13 @@ argument_list|()
 decl_stmt|;
 name|KeyValueScanner
 index|[]
-name|memcachescanners
+name|memstorescanners
 init|=
 name|this
 operator|.
 name|store
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|getScanners
 argument_list|()
@@ -471,7 +471,7 @@ control|(
 name|int
 name|i
 init|=
-name|memcachescanners
+name|memstorescanners
 operator|.
 name|length
 operator|-
@@ -489,7 +489,7 @@ name|scanners
 operator|.
 name|add
 argument_list|(
-name|memcachescanners
+name|memstorescanners
 index|[
 name|i
 index|]

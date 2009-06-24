@@ -434,16 +434,16 @@ argument_list|,
 name|registry
 argument_list|)
 decl_stmt|;
-comment|/**    * Sum of all the memcache sizes in this regionserver in MB    */
+comment|/**    * Sum of all the memstore sizes in this regionserver in MB    */
 specifier|public
 specifier|final
 name|MetricsIntValue
-name|memcacheSizeMB
+name|memstoreSizeMB
 init|=
 operator|new
 name|MetricsIntValue
 argument_list|(
-literal|"memcacheSizeMB"
+literal|"memstoreSizeMB"
 argument_list|,
 name|registry
 argument_list|)
@@ -574,7 +574,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|memcacheSizeMB
+name|memstoreSizeMB
 operator|.
 name|pushMetric
 argument_list|(
@@ -879,7 +879,7 @@ name|appendKeyValue
 argument_list|(
 name|sb
 argument_list|,
-literal|"memcacheSize"
+literal|"memstoreSize"
 argument_list|,
 name|Integer
 operator|.
@@ -887,7 +887,7 @@ name|valueOf
 argument_list|(
 name|this
 operator|.
-name|memcacheSizeMB
+name|memstoreSizeMB
 operator|.
 name|get
 argument_list|()

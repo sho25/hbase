@@ -130,7 +130,7 @@ specifier|public
 class|class
 name|QueryMatcher
 block|{
-comment|/**    * {@link #match} return codes.  These instruct the scanner moving through    * Memcaches and StoreFiles what to do with the current KeyValue.    *<p>    * Additionally, this contains "early-out" language to tell the scanner to    * move on to the next File (Memcache or Storefile), or to return immediately.    */
+comment|/**    * {@link #match} return codes.  These instruct the scanner moving through    * memstores and StoreFiles what to do with the current KeyValue.    *<p>    * Additionally, this contains "early-out" language to tell the scanner to    * move on to the next File (memstore or Storefile), or to return immediately.    */
 specifier|static
 enum|enum
 name|MatchCode
@@ -141,7 +141,7 @@ block|,
 comment|/**      * Do not include KeyValue in the returned result      */
 name|SKIP
 block|,
-comment|/**      * Do not include, jump to next StoreFile or Memcache (in time order)      */
+comment|/**      * Do not include, jump to next StoreFile or memstore (in time order)      */
 name|NEXT
 block|,
 comment|/**      * Do not include, return current result      */
@@ -167,7 +167,7 @@ specifier|protected
 name|ColumnTracker
 name|columns
 decl_stmt|;
-comment|/** Key to seek to in Memcache and StoreFiles */
+comment|/** Key to seek to in memstore and StoreFiles */
 specifier|protected
 name|KeyValue
 name|startKey
@@ -898,7 +898,7 @@ name|getColumnHint
 argument_list|()
 return|;
 block|}
-comment|/**    * Called after reading each section (memcache, snapshot, storefiles).    *<p>    * This method will update the internal structures to be accurate for    * the next section.     */
+comment|/**    * Called after reading each section (memstore, snapshot, storefiles).    *<p>    * This method will update the internal structures to be accurate for    * the next section.     */
 specifier|public
 name|void
 name|update

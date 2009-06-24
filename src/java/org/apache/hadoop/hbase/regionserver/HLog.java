@@ -3057,7 +3057,7 @@ name|COMPLETE_CACHE_FLUSH
 argument_list|)
 return|;
 block|}
-comment|/**    * Abort a cache flush.    * Call if the flush fails. Note that the only recovery for an aborted flush    * currently is a restart of the regionserver so the snapshot content dropped    * by the failure gets restored to the memcache.    */
+comment|/**    * Abort a cache flush.    * Call if the flush fails. Note that the only recovery for an aborted flush    * currently is a restart of the regionserver so the snapshot content dropped    * by the failure gets restored to the memstore.    */
 name|void
 name|abortCacheFlush
 parameter_list|()

@@ -300,15 +300,15 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setMemcacheFlushSize(int)    */
+comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setMemStoreFlushSize(int)    */
 annotation|@
 name|Override
 specifier|public
 name|void
-name|setMemcacheFlushSize
+name|setMemStoreFlushSize
 parameter_list|(
 name|int
-name|memcacheFlushSize
+name|memstoreFlushSize
 parameter_list|)
 block|{
 throw|throw

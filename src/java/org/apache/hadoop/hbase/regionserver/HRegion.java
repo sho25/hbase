@@ -690,7 +690,7 @@ comment|// private int [] storeSize = null;
 comment|// private byte [] name = null;
 specifier|final
 name|AtomicLong
-name|memcacheSize
+name|memstoreSize
 init|=
 operator|new
 name|AtomicLong
@@ -746,7 +746,7 @@ specifier|static
 class|class
 name|WriteState
 block|{
-comment|// Set while a memcache flush is happening.
+comment|// Set while a memstore flush is happening.
 specifier|volatile
 name|boolean
 name|flushing
@@ -837,7 +837,7 @@ argument_list|()
 decl_stmt|;
 specifier|final
 name|int
-name|memcacheFlushSize
+name|memstoreFlushSize
 decl_stmt|;
 specifier|private
 specifier|volatile
@@ -851,7 +851,7 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|int
-name|blockingMemcacheSize
+name|blockingMemStoreSize
 decl_stmt|;
 specifier|final
 name|long
@@ -946,7 +946,7 @@ literal|null
 expr_stmt|;
 name|this
 operator|.
-name|blockingMemcacheSize
+name|blockingMemStoreSize
 operator|=
 literal|0
 expr_stmt|;
@@ -976,7 +976,7 @@ literal|null
 expr_stmt|;
 name|this
 operator|.
-name|memcacheFlushSize
+name|memstoreFlushSize
 operator|=
 literal|0
 expr_stmt|;
@@ -1181,7 +1181,7 @@ operator|.
 name|getTableDesc
 argument_list|()
 operator|.
-name|getMemcacheFlushSize
+name|getMemStoreFlushSize
 argument_list|()
 decl_stmt|;
 if|if
@@ -1190,7 +1190,7 @@ name|flushSize
 operator|==
 name|HTableDescriptor
 operator|.
-name|DEFAULT_MEMCACHE_FLUSH_SIZE
+name|DEFAULT_MEMSTORE_FLUSH_SIZE
 condition|)
 block|{
 name|flushSize
@@ -1199,33 +1199,33 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.hregion.memcache.flush.size"
+literal|"hbase.hregion.memstore.flush.size"
 argument_list|,
 name|HTableDescriptor
 operator|.
-name|DEFAULT_MEMCACHE_FLUSH_SIZE
+name|DEFAULT_MEMSTORE_FLUSH_SIZE
 argument_list|)
 expr_stmt|;
 block|}
 name|this
 operator|.
-name|memcacheFlushSize
+name|memstoreFlushSize
 operator|=
 name|flushSize
 expr_stmt|;
 name|this
 operator|.
-name|blockingMemcacheSize
+name|blockingMemStoreSize
 operator|=
 name|this
 operator|.
-name|memcacheFlushSize
+name|memstoreFlushSize
 operator|*
 name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.hregion.memcache.block.multiplier"
+literal|"hbase.hregion.memstore.block.multiplier"
 argument_list|,
 literal|1
 argument_list|)
@@ -3301,7 +3301,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"NOT flushing memcache for region "
+literal|"NOT flushing memstore for region "
 operator|+
 name|this
 operator|+
@@ -3383,7 +3383,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Flushing the cache is a little tricky. We have a lot of updates in the    * HMemcache, all of which have also been written to the log. We need to    * write those updates in the HMemcache out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the HMemcache was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the HMemcache from    * the log.)    *     *<p>So, we have a three-step process:    *     *<ul><li>A. Flush the memcache to the on-disk stores, noting the current    * sequence ID for the log.<li>    *     *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memcache-flush.</li>    *     *<li>C. Get rid of the memcache structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *     *<p> This method may block for some time.    *     * @return true if the region needs compacting    *     * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
+comment|/**    * Flushing the cache is a little tricky. We have a lot of updates in the    * memstore, all of which have also been written to the log. We need to    * write those updates in the memstore out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the memstore was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the memstore from    * the log.)    *     *<p>So, we have a three-step process:    *     *<ul><li>A. Flush the memstore to the on-disk stores, noting the current    * sequence ID for the log.<li>    *     *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memstore-flush.</li>    *     *<li>C. Get rid of the memstore structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *     *<p> This method may block for some time.    *     * @return true if the region needs compacting    *     * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
 specifier|private
 name|boolean
 name|internalFlushcache
@@ -3413,7 +3413,7 @@ if|if
 condition|(
 name|this
 operator|.
-name|memcacheSize
+name|memstoreSize
 operator|.
 name|get
 argument_list|()
@@ -3437,11 +3437,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Started memcache flush for region "
+literal|"Started memstore flush for region "
 operator|+
 name|this
 operator|+
-literal|". Current region memcache size "
+literal|". Current region memstore size "
 operator|+
 name|StringUtils
 operator|.
@@ -3449,7 +3449,7 @@ name|humanReadableInt
 argument_list|(
 name|this
 operator|.
-name|memcacheSize
+name|memstoreSize
 operator|.
 name|get
 argument_list|()
@@ -3457,11 +3457,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Stop updates while we snapshot the memcache of all stores. We only have
+comment|// Stop updates while we snapshot the memstore of all stores. We only have
 comment|// to do this for a moment.  Its quick.  The subsequent sequence id that
 comment|// goes into the HLog after we've flushed all these snapshots also goes
 comment|// into the info file that sits beside the flushed files.
-comment|// We also set the memcache size to zero here before we allow updates
+comment|// We also set the memstore size to zero here before we allow updates
 comment|// again so its value will represent the size of the updates received
 comment|// during the flush
 name|long
@@ -3486,14 +3486,14 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
-comment|// Get current size of memcaches.
+comment|// Get current size of memstores.
 specifier|final
 name|long
-name|currentMemcacheSize
+name|currentMemStoreSize
 init|=
 name|this
 operator|.
-name|memcacheSize
+name|memstoreSize
 operator|.
 name|get
 argument_list|()
@@ -3548,7 +3548,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// Any failure from here on out will be catastrophic requiring server
-comment|// restart so hlog content can be replayed and put back into the memcache.
+comment|// restart so hlog content can be replayed and put back into the memstore.
 comment|// Otherwise, the snapshot content while backed up in the hlog, it will not
 comment|// be part of the current running servers state.
 name|boolean
@@ -3558,7 +3558,7 @@ literal|false
 decl_stmt|;
 try|try
 block|{
-comment|// A.  Flush memcache to all the HStores.
+comment|// A.  Flush memstore to all the HStores.
 comment|// Keep running vector of all store files that includes both old and the
 comment|// just-made new flush store file.
 for|for
@@ -3593,15 +3593,15 @@ literal|true
 expr_stmt|;
 block|}
 block|}
-comment|// Set down the memcache size by amount of flush.
+comment|// Set down the memstore size by amount of flush.
 name|this
 operator|.
-name|memcacheSize
+name|memstoreSize
 operator|.
 name|addAndGet
 argument_list|(
 operator|-
-name|currentMemcacheSize
+name|currentMemStoreSize
 argument_list|)
 expr_stmt|;
 block|}
@@ -3612,7 +3612,7 @@ name|t
 parameter_list|)
 block|{
 comment|// An exception here means that the snapshot was not persisted.
-comment|// The hlog needs to be replayed so its content is restored to memcache.
+comment|// The hlog needs to be replayed so its content is restored to memstore.
 comment|// Currently, only a server restart will do this.
 comment|// We used to only catch IOEs but its possible that we'd get other
 comment|// exceptions -- e.g. HBASE-659 was about an NPE -- so now we catch
@@ -3678,7 +3678,7 @@ argument_list|,
 name|completeSequenceId
 argument_list|)
 expr_stmt|;
-comment|// C. Finally notify anyone waiting on memcache to clear:
+comment|// C. Finally notify anyone waiting on memstore to clear:
 comment|// e.g. checkResources().
 synchronized|synchronized
 init|(
@@ -3721,13 +3721,13 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Finished memcache flush of ~"
+literal|"Finished memstore flush of ~"
 operator|+
 name|StringUtils
 operator|.
 name|humanReadableInt
 argument_list|(
-name|currentMemcacheSize
+name|currentMemStoreSize
 argument_list|)
 operator|+
 literal|" for region "
@@ -4605,7 +4605,7 @@ name|size
 operator|=
 name|this
 operator|.
-name|memcacheSize
+name|memstoreSize
 operator|.
 name|addAndGet
 argument_list|(
@@ -5351,14 +5351,14 @@ while|while
 condition|(
 name|this
 operator|.
-name|memcacheSize
+name|memstoreSize
 operator|.
 name|get
 argument_list|()
 operator|>
 name|this
 operator|.
-name|blockingMemcacheSize
+name|blockingMemStoreSize
 condition|)
 block|{
 name|requestFlush
@@ -5394,7 +5394,7 @@ name|getRegionName
 argument_list|()
 argument_list|)
 operator|+
-literal|": Memcache size "
+literal|": memstore size "
 operator|+
 name|StringUtils
 operator|.
@@ -5402,7 +5402,7 @@ name|humanReadableInt
 argument_list|(
 name|this
 operator|.
-name|memcacheSize
+name|memstoreSize
 operator|.
 name|get
 argument_list|()
@@ -5416,7 +5416,7 @@ name|humanReadableInt
 argument_list|(
 name|this
 operator|.
-name|blockingMemcacheSize
+name|blockingMemStoreSize
 argument_list|)
 operator|+
 literal|" size"
@@ -5505,7 +5505,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**     * Add updates first to the hlog and then add values to memcache.    * Warning: Assumption is caller has lock on passed in row.    * @param edits Cell updates by column    * @praram now    * @throws IOException    */
+comment|/**     * Add updates first to the hlog and then add values to memstore.    * Warning: Assumption is caller has lock on passed in row.    * @param edits Cell updates by column    * @praram now    * @throws IOException    */
 specifier|private
 name|void
 name|put
@@ -5537,7 +5537,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Add updates first to the hlog (if writeToWal) and then add values to memcache.    * Warning: Assumption is caller has lock on passed in row.    * @param family    * @param edits    * @param writeToWAL if true, then we should write to the log    * @throws IOException    */
+comment|/**     * Add updates first to the hlog (if writeToWal) and then add values to memstore.    * Warning: Assumption is caller has lock on passed in row.    * @param family    * @param edits    * @param writeToWAL if true, then we should write to the log    * @throws IOException    */
 specifier|private
 name|void
 name|put
@@ -5666,7 +5666,7 @@ name|size
 operator|=
 name|this
 operator|.
-name|memcacheSize
+name|memstoreSize
 operator|.
 name|addAndGet
 argument_list|(
@@ -5795,7 +5795,7 @@ name|size
 operator|>
 name|this
 operator|.
-name|memcacheFlushSize
+name|memstoreFlushSize
 return|;
 block|}
 specifier|protected
@@ -9279,7 +9279,7 @@ name|size
 init|=
 name|this
 operator|.
-name|memcacheSize
+name|memstoreSize
 operator|.
 name|addAndGet
 argument_list|(

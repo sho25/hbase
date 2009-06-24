@@ -508,7 +508,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**   * A Store holds a column family in a Region.  Its a memcache and a set of zero   * or more StoreFiles, which stretch backwards over time.   *   *<p>There's no reason to consider append-logging at this level; all logging    * and locking is handled at the HRegion level.  Store just provides   * services to manage sets of StoreFiles.  One of the most important of those   * services is compaction services where files are aggregated once they pass   * a configurable threshold.   *   *<p>The only thing having to do with logs that Store needs to deal with is   * the reconstructionLog.  This is a segment of an HRegion's log that might   * NOT be present upon startup.  If the param is NULL, there's nothing to do.   * If the param is non-NULL, we need to process the log to reconstruct   * a TreeMap that might not have been written to disk before the process   * died.   *   *<p>It's assumed that after this constructor returns, the reconstructionLog   * file will be deleted (by whoever has instantiated the Store).  *  *<p>Locking and transactions are handled at a higher level.  This API should  * not be called directly but by an HRegion manager.  */
+comment|/**   * A Store holds a column family in a Region.  Its a memstore and a set of zero   * or more StoreFiles, which stretch backwards over time.   *   *<p>There's no reason to consider append-logging at this level; all logging    * and locking is handled at the HRegion level.  Store just provides   * services to manage sets of StoreFiles.  One of the most important of those   * services is compaction services where files are aggregated once they pass   * a configurable threshold.   *   *<p>The only thing having to do with logs that Store needs to deal with is   * the reconstructionLog.  This is a segment of an HRegion's log that might   * NOT be present upon startup.  If the param is NULL, there's nothing to do.   * If the param is non-NULL, we need to process the log to reconstruct   * a TreeMap that might not have been written to disk before the process   * died.   *   *<p>It's assumed that after this constructor returns, the reconstructionLog   * file will be deleted (by whoever has instantiated the Store).  *  *<p>Locking and transactions are handled at a higher level.  This API should  * not be called directly but by an HRegion manager.  */
 end_comment
 
 begin_class
@@ -535,8 +535,8 @@ decl_stmt|;
 comment|/**    * Comparator that looks at columns and compares their family portions.    * Presumes columns have already been checked for presence of delimiter.    * If no delimiter present, presume the buffer holds a store name so no need    * of a delimiter.    */
 specifier|protected
 specifier|final
-name|Memcache
-name|memcache
+name|MemStore
+name|memstore
 decl_stmt|;
 comment|// This stores directory in the filesystem.
 specifier|private
@@ -885,10 +885,10 @@ expr_stmt|;
 block|}
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|=
 operator|new
-name|Memcache
+name|MemStore
 argument_list|(
 name|this
 operator|.
@@ -1370,7 +1370,7 @@ name|Object
 argument_list|>
 name|reconstructedCache
 init|=
-name|Memcache
+name|MemStore
 operator|.
 name|createMap
 argument_list|(
@@ -1915,7 +1915,7 @@ return|return
 name|results
 return|;
 block|}
-comment|/**    * Adds a value to the memcache    *     * @param kv    * @return memcache size delta    */
+comment|/**    * Adds a value to the memstore    *     * @param kv    * @return memstore size delta    */
 specifier|protected
 name|long
 name|add
@@ -1938,7 +1938,7 @@ block|{
 return|return
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -1958,7 +1958,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Adds a value to the memcache    *     * @param kv    * @return memcache size delta    */
+comment|/**    * Adds a value to the memstore    *     * @param kv    * @return memstore size delta    */
 specifier|protected
 name|long
 name|delete
@@ -1981,7 +1981,7 @@ block|{
 return|return
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|delete
 argument_list|(
@@ -2108,14 +2108,14 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Snapshot this stores memcache.  Call before running    * {@link #flushCache(long)} so it has some work to do.    */
+comment|/**    * Snapshot this stores memstore.  Call before running    * {@link #flushCache(long)} so it has some work to do.    */
 name|void
 name|snapshot
 parameter_list|()
 block|{
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|snapshot
 argument_list|()
@@ -2133,7 +2133,7 @@ throws|throws
 name|IOException
 block|{
 comment|// Get the snapshot to flush.  Presumes that a call to
-comment|// this.memcache.snapshot() has happened earlier up in the chain.
+comment|// this.memstore.snapshot() has happened earlier up in the chain.
 name|ConcurrentSkipListMap
 argument_list|<
 name|KeyValue
@@ -2144,13 +2144,13 @@ name|cache
 init|=
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|getSnapshot
 argument_list|()
 decl_stmt|;
 comment|// If an exception happens flushing, we let it out without clearing
-comment|// the memcache snapshot.  The old snapshot will be returned when we say
+comment|// the memstore snapshot.  The old snapshot will be returned when we say
 comment|// 'snapshot', the next time flush comes around.
 name|StoreFile
 name|sf
@@ -2325,7 +2325,7 @@ name|flushed
 operator|+=
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|heapSize
 argument_list|(
@@ -2593,7 +2593,7 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|clearSnapshot
 argument_list|(
@@ -2709,7 +2709,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Compaction
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Compact the StoreFiles.  This method may take some time, so the calling     * thread must be able to block for long periods.    *     *<p>During this time, the Store can work as usual, getting values from    * MapFiles and writing new MapFiles from the Memcache.    *     * Existing MapFiles are not destroyed until the new compacted TreeMap is     * completely written-out to disk.    *    * The compactLock prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *     * We don't want to hold the structureLock for the whole time, as a compact()     * can be lengthy and we want to allow cache-flushes during this period.    *     * @param mc True to force a major compaction regardless of    * thresholds    * @return row to split around if a split is needed, null otherwise    * @throws IOException    */
+comment|/**    * Compact the StoreFiles.  This method may take some time, so the calling     * thread must be able to block for long periods.    *     *<p>During this time, the Store can work as usual, getting values from    * MapFiles and writing new MapFiles from the memstore.    *     * Existing MapFiles are not destroyed until the new compacted TreeMap is     * completely written-out to disk.    *    * The compactLock prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *     * We don't want to hold the structureLock for the whole time, as a compact()     * can be lengthy and we want to allow cache-flushes during this period.    *     * @param mc True to force a major compaction regardless of    * thresholds    * @return row to split around if a split is needed, null otherwise    * @throws IOException    */
 name|StoreSize
 name|compact
 parameter_list|(
@@ -4471,10 +4471,10 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-comment|// First go to the memcache.  Pick up deletes and candidates.
+comment|// First go to the memstore.  Pick up deletes and candidates.
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|getRowKeyAtOrBefore
 argument_list|(
@@ -5894,7 +5894,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// File administration
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Return a scanner for both the memcache and the HStore files    */
+comment|/**    * Return a scanner for both the memstore and the HStore files    */
 specifier|protected
 name|KeyValueScanner
 name|getScanner
@@ -6317,12 +6317,12 @@ argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|// Read from Memcache
+comment|// Read from memstore
 if|if
 condition|(
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|get
 argument_list|(
@@ -6332,7 +6332,7 @@ name|result
 argument_list|)
 condition|)
 block|{
-comment|// Received early-out from memcache
+comment|// Received early-out from memstore
 return|return;
 block|}
 comment|// Check if we even have storefiles
@@ -6558,12 +6558,12 @@ argument_list|,
 literal|1
 argument_list|)
 decl_stmt|;
-comment|// Read from Memcache
+comment|// Read from memstore
 if|if
 condition|(
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|get
 argument_list|(
@@ -6573,7 +6573,7 @@ name|result
 argument_list|)
 condition|)
 block|{
-comment|// Received early-out from memcache
+comment|// Received early-out from memstore
 name|KeyValue
 name|kv
 init|=

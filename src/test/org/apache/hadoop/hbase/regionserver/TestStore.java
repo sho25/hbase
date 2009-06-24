@@ -622,10 +622,10 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Get tests
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Getting data from memcache only    * @throws IOException    */
+comment|/**    * Getting data from memstore only    * @throws IOException    */
 specifier|public
 name|void
-name|testGet_FromMemCacheOnly
+name|testGet_FromMemStoreOnly
 parameter_list|()
 throws|throws
 name|IOException
@@ -638,7 +638,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//Put data in memcache
+comment|//Put data in memstore
 name|this
 operator|.
 name|store
@@ -788,7 +788,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//Put data in memcache
+comment|//Put data in memstore
 name|this
 operator|.
 name|store
@@ -954,10 +954,10 @@ name|assertCheck
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Getting data from memcache and files    * @throws IOException    */
+comment|/**    * Getting data from memstore and files    * @throws IOException    */
 specifier|public
 name|void
-name|testGet_FromMemCacheAndFiles
+name|testGet_FromMemStoreAndFiles
 parameter_list|()
 throws|throws
 name|IOException
@@ -970,7 +970,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//Put data in memcache
+comment|//Put data in memstore
 name|this
 operator|.
 name|store
@@ -1180,9 +1180,9 @@ name|this
 operator|.
 name|store
 operator|.
-name|memcache
+name|memstore
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|size
 argument_list|()
@@ -1247,7 +1247,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// IncrementColumnValue tests
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Testing if the update in place works. When you want to update a value that    * is already in memcache, you don't delete it and put a new one, but just     * update the value in the original KeyValue    * @throws IOException    */
+comment|/**    * Testing if the update in place works. When you want to update a value that    * is already in memstore, you don't delete it and put a new one, but just     * update the value in the original KeyValue    * @throws IOException    */
 specifier|public
 name|void
 name|testIncrementColumnValue_UpdatingInPlace
@@ -1263,7 +1263,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//Put data in memcache
+comment|//Put data in memstore
 name|long
 name|value
 init|=
@@ -1422,7 +1422,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//Put data in memcache
+comment|//Put data in memstore
 name|long
 name|value
 init|=
@@ -1582,7 +1582,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//Put data in memcache
+comment|//Put data in memstore
 name|long
 name|value
 init|=
@@ -1747,7 +1747,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * When we have the key in a file add a new key + value to memcache with the     * updates value.     * @throws IOException    */
+comment|/**    * When we have the key in a file add a new key + value to memstore with the     * updates value.     * @throws IOException    */
 specifier|public
 name|void
 name|testIncrementColumnValue_UpdatingFromSF
@@ -1763,7 +1763,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//Put data in memcache
+comment|//Put data in memstore
 name|long
 name|value
 init|=
@@ -1935,7 +1935,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Same as testIncrementColumnValue_AddingNew() except that the keys are    * checked in file not in memcache    * @throws IOException    */
+comment|/**    * Same as testIncrementColumnValue_AddingNew() except that the keys are    * checked in file not in memstore    * @throws IOException    */
 specifier|public
 name|void
 name|testIncrementColumnValue_AddingNewAfterSFCheck
@@ -1951,7 +1951,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//Put data in memcache
+comment|//Put data in memstore
 name|long
 name|value
 init|=

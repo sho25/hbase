@@ -19,31 +19,21 @@ end_package
 
 begin_import
 import|import
-name|org
+name|java
 operator|.
-name|apache
+name|io
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Scan
+name|IOException
 import|;
 end_import
 
 begin_import
 import|import
-name|org
+name|java
 operator|.
-name|apache
+name|util
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
+name|List
 import|;
 end_import
 
@@ -71,11 +61,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|HFile
+name|KeyValue
 import|;
 end_import
 
@@ -89,34 +75,16 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
-operator|.
-name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|io
 operator|.
-name|IOException
+name|hfile
+operator|.
+name|HFile
 import|;
 end_import
 
 begin_comment
-comment|/**  * A scanner that does a minor compaction at the same time.  Doesn't need to  * implement ChangedReadersObserver, since it doesn't scan memcache, only store files  * and optionally the memcache-snapshot.  */
+comment|/**  * A scanner that does a minor compaction at the same time.  Doesn't need to  * implement ChangedReadersObserver, since it doesn't scan memstore, only store files  * and optionally the memstore-snapshot.  */
 end_comment
 
 begin_class

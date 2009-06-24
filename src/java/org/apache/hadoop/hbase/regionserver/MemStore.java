@@ -258,12 +258,12 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The Memcache holds in-memory modifications to the HRegion.  Modifications  * are {@link KeyValue}s.  When asked to flush, current memcache is moved  * to snapshot and is cleared.  We continue to serve edits out of new memcache  * and backing snapshot until flusher reports in that the flush succeeded. At  * this point we let the snapshot go.  * TODO: Adjust size of the memcache when we remove items because they have  * been deleted.  */
+comment|/**  * The MemStore holds in-memory modifications to the Store.  Modifications  * are {@link KeyValue}s.  When asked to flush, current memstore is moved  * to snapshot and is cleared.  We continue to serve edits out of new memstore  * and backing snapshot until flusher reports in that the flush succeeded. At  * this point we let the snapshot go.  * TODO: Adjust size of the memstore when we remove items because they have  * been deleted.  */
 end_comment
 
 begin_class
 class|class
-name|Memcache
+name|MemStore
 block|{
 specifier|private
 specifier|static
@@ -275,7 +275,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|Memcache
+name|MemStore
 operator|.
 name|class
 argument_list|)
@@ -285,7 +285,7 @@ specifier|final
 name|long
 name|ttl
 decl_stmt|;
-comment|// Memcache.  Use a SkipListMap rather than SkipListSet because of the
+comment|// MemStore.  Use a SkipListMap rather than SkipListSet because of the
 comment|// better semantics.  The Map will overwrite if passed a key it already had
 comment|// whereas the Set will not add new KV if key is same though value might be
 comment|// different.  Value is not important -- just make sure always same
@@ -297,9 +297,9 @@ name|KeyValue
 argument_list|,
 name|Object
 argument_list|>
-name|memcache
+name|memstore
 decl_stmt|;
-comment|// Snapshot of memcache.  Made for flusher.
+comment|// Snapshot of memstore.  Made for flusher.
 specifier|volatile
 name|ConcurrentSkipListMap
 argument_list|<
@@ -360,7 +360,7 @@ argument_list|()
 decl_stmt|;
 comment|/**    * Default constructor. Used for tests.    */
 specifier|public
-name|Memcache
+name|MemStore
 parameter_list|()
 block|{
 name|this
@@ -377,7 +377,7 @@ expr_stmt|;
 block|}
 comment|/**    * Constructor.    * @param ttl The TTL for cache entries, in milliseconds.    * @param c    */
 specifier|public
-name|Memcache
+name|MemStore
 parameter_list|(
 specifier|final
 name|long
@@ -426,7 +426,7 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|=
 name|createMap
 argument_list|(
@@ -490,7 +490,7 @@ name|entry
 range|:
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|entrySet
 argument_list|()
@@ -539,7 +539,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Creates a snapshot of the current Memcache.    * Snapshot must be cleared by call to {@link #clearSnapshot(java.util.Map)}    * To get the snapshot made by this method, use {@link #getSnapshot()}    */
+comment|/**    * Creates a snapshot of the current memstore.    * Snapshot must be cleared by call to {@link #clearSnapshot(java.util.Map)}    * To get the snapshot made by this method, use {@link #getSnapshot()}    */
 name|void
 name|snapshot
 parameter_list|()
@@ -581,7 +581,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// We used to synchronize on the memcache here but we're inside a
+comment|// We used to synchronize on the memstore here but we're inside a
 comment|// write lock so removed it. Comment is left in case removal was a
 comment|// mistake. St.Ack
 if|if
@@ -589,7 +589,7 @@ condition|(
 operator|!
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|isEmpty
 argument_list|()
@@ -601,11 +601,11 @@ name|snapshot
 operator|=
 name|this
 operator|.
-name|memcache
+name|memstore
 expr_stmt|;
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|=
 name|createMap
 argument_list|(
@@ -774,7 +774,7 @@ name|kv
 argument_list|,
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|put
 argument_list|(
@@ -831,7 +831,7 @@ expr_stmt|;
 comment|//Have to find out what we want to do here, to find the fastest way of
 comment|//removing things that are under a delete.
 comment|//Actions that will take place here are:
-comment|//1. Insert a delete and remove all the affected entries already in memcache
+comment|//1. Insert a delete and remove all the affected entries already in memstore
 comment|//2. In the case of a Delete and the matching put is found then don't insert
 comment|//   the delete
 comment|//TODO Would be nice with if we had an iterator for this, so we could remove
@@ -867,7 +867,7 @@ name|tail
 init|=
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|tailMap
 argument_list|(
@@ -1010,7 +1010,7 @@ index|[
 name|deleteOffset
 index|]
 decl_stmt|;
-comment|//Comparing with tail from memcache
+comment|//Comparing with tail from memstore
 for|for
 control|(
 name|Map
@@ -1108,7 +1108,7 @@ name|notpresent
 operator|=
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|remove
 argument_list|(
@@ -1127,7 +1127,7 @@ name|notpresent
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Adding the delete to memcache. Add any value, as long as
+comment|// Adding the delete to memstore. Add any value, as long as
 comment|// same instance each time.
 name|size
 operator|+=
@@ -1137,7 +1137,7 @@ name|delete
 argument_list|,
 name|this
 operator|.
-name|memcache
+name|memstore
 operator|.
 name|put
 argument_list|(
@@ -1167,7 +1167,7 @@ return|return
 name|size
 return|;
 block|}
-comment|/*    * Calculate how the memcache size has changed, approximately.  Be careful.    * If class changes, be sure to change the size calculation.    * Add in tax of Map.Entry.    * @param kv    * @param notpresent True if the kv was NOT present in the set.    * @return Size    */
+comment|/*    * Calculate how the memstore size has changed, approximately.  Be careful.    * If class changes, be sure to change the size calculation.    * Add in tax of Map.Entry.    * @param kv    * @param notpresent True if the kv was NOT present in the set.    * @return Size    */
 name|long
 name|heapSize
 parameter_list|(
@@ -1228,7 +1228,7 @@ name|kv
 argument_list|,
 name|this
 operator|.
-name|memcache
+name|memstore
 argument_list|)
 argument_list|,
 name|getNextRow
@@ -1405,7 +1405,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * @param row Row to look for.    * @param candidateKeys Map of candidate keys (Accumulation over lots of    * lookup over stores and memcaches)    */
+comment|/**    * @param row Row to look for.    * @param candidateKeys Map of candidate keys (Accumulation over lots of    * lookup over stores and memstores)    */
 name|void
 name|getRowKeyAtOrBefore
 parameter_list|(
@@ -1445,7 +1445,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param kv Row to look for.    * @param candidates Map of candidate keys (Accumulation over lots of    * lookup over stores and memcaches).  Pass a Set with a Comparator that    * ignores key Type so we can do Set.remove using a delete, i.e. a KeyValue    * with a different Type to the candidate key.    * @param deletes Pass a Set that has a Comparator that ignores key type.    * @param now    */
+comment|/**    * @param kv Row to look for.    * @param candidates Map of candidate keys (Accumulation over lots of    * lookup over stores and memstores).  Pass a Set with a Comparator that    * ignores key Type so we can do Set.remove using a delete, i.e. a KeyValue    * with a different Type to the candidate key.    * @param deletes Pass a Set that has a Comparator that ignores key type.    * @param now    */
 name|void
 name|getRowKeyAtOrBefore
 parameter_list|(
@@ -1486,7 +1486,7 @@ try|try
 block|{
 name|getRowKeyAtOrBefore
 argument_list|(
-name|memcache
+name|memstore
 argument_list|,
 name|kv
 argument_list|,
@@ -2331,7 +2331,7 @@ return|return
 name|removed
 return|;
 block|}
-comment|/**    * @return scanner on memcache and snapshot in this order.    */
+comment|/**    * @return scanner on memstore and snapshot in this order.    */
 name|KeyValueScanner
 index|[]
 name|getScanners
@@ -2365,11 +2365,11 @@ literal|0
 index|]
 operator|=
 operator|new
-name|MemcacheScanner
+name|MemStoreScanner
 argument_list|(
 name|this
 operator|.
-name|memcache
+name|memstore
 argument_list|)
 expr_stmt|;
 name|scanners
@@ -2378,7 +2378,7 @@ literal|1
 index|]
 operator|=
 operator|new
-name|MemcacheScanner
+name|MemStoreScanner
 argument_list|(
 name|this
 operator|.
@@ -2406,7 +2406,7 @@ block|}
 comment|//
 comment|// HBASE-880/1249/1304
 comment|//
-comment|/**    * Perform a single-row Get on the memcache and snapshot, placing results    * into the specified KV list.    *<p>    * This will return true if it is determined that the query is complete    * and it is not necessary to check any storefiles after this.    *<p>    * Otherwise, it will return false and you should continue on.    * @param matcher Column matcher    * @param result List to add results to    * @return true if done with store (early-out), false if not    * @throws IOException    */
+comment|/**    * Perform a single-row Get on the  and snapshot, placing results    * into the specified KV list.    *<p>    * This will return true if it is determined that the query is complete    * and it is not necessary to check any storefiles after this.    *<p>    * Otherwise, it will return false and you should continue on.    * @param matcher Column matcher    * @param result List to add results to    * @return true if done with store (early-out), false if not    * @throws IOException    */
 specifier|public
 name|boolean
 name|get
@@ -2441,7 +2441,7 @@ name|internalGet
 argument_list|(
 name|this
 operator|.
-name|memcache
+name|memstore
 argument_list|,
 name|matcher
 argument_list|,
@@ -2495,7 +2495,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    *    * @param map memcache or snapshot    * @param matcher query matcher    * @param result list to add results to    * @return true if done with store (early-out), false if not    * @throws IOException    */
+comment|/**    *    * @param map memstore or snapshot    * @param matcher query matcher    * @param result list to add results to    * @return true if done with store (early-out), false if not    * @throws IOException    */
 specifier|private
 name|boolean
 name|internalGet
@@ -2633,10 +2633,10 @@ return|return
 literal|false
 return|;
 block|}
-comment|/*    * MemcacheScanner implements the KeyValueScanner.    * It lets the caller scan the contents of a memcache.    * This behaves as if it were a real scanner but does not maintain position    * in the passed memcache tree.    */
+comment|/*    * MemStoreScanner implements the KeyValueScanner.    * It lets the caller scan the contents of a memstore.    * This behaves as if it were a real scanner but does not maintain position    * in the passed memstore tree.    */
 specifier|protected
 class|class
-name|MemcacheScanner
+name|MemStoreScanner
 implements|implements
 name|KeyValueScanner
 block|{
@@ -2676,7 +2676,7 @@ name|idx
 init|=
 literal|0
 decl_stmt|;
-name|MemcacheScanner
+name|MemStoreScanner
 parameter_list|(
 specifier|final
 name|NavigableMap
@@ -2998,7 +2998,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Code to help figure if our approximation of object heap sizes is close    * enough.  See hbase-900.  Fills memcaches then waits so user can heap    * dump and bring up resultant hprof in something like jprofiler which    * allows you get 'deep size' on objects.    * @param args    */
+comment|/**    * Code to help figure if our approximation of object heap sizes is close    * enough.  See hbase-900.  Fills memstores then waits so user can heap    * dump and bring up resultant hprof in something like jprofiler which    * allows you get 'deep size' on objects.    * @param args    */
 specifier|public
 specifier|static
 name|void
@@ -3055,11 +3055,11 @@ name|getInputArguments
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|Memcache
-name|memcache1
+name|MemStore
+name|memstore1
 init|=
 operator|new
-name|Memcache
+name|MemStore
 argument_list|()
 decl_stmt|;
 comment|// TODO: x32 vs x64
@@ -3103,7 +3103,7 @@ block|{
 comment|// Give each its own ts
 name|size
 operator|+=
-name|memcache1
+name|memstore1
 operator|.
 name|add
 argument_list|(
@@ -3128,7 +3128,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"memcache1 estimated size="
+literal|"memstore1 estimated size="
 operator|+
 name|size
 argument_list|)
@@ -3150,7 +3150,7 @@ control|)
 block|{
 name|size
 operator|+=
-name|memcache1
+name|memstore1
 operator|.
 name|add
 argument_list|(
@@ -3175,17 +3175,17 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"memcache1 estimated size (2nd loading of same data)="
+literal|"memstore1 estimated size (2nd loading of same data)="
 operator|+
 name|size
 argument_list|)
 expr_stmt|;
-comment|// Make a variably sized memcache.
-name|Memcache
-name|memcache2
+comment|// Make a variably sized memstore.
+name|MemStore
+name|memstore2
 init|=
 operator|new
-name|Memcache
+name|MemStore
 argument_list|()
 decl_stmt|;
 for|for
@@ -3205,7 +3205,7 @@ control|)
 block|{
 name|size
 operator|+=
-name|memcache2
+name|memstore2
 operator|.
 name|add
 argument_list|(
@@ -3236,7 +3236,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"memcache2 estimated size="
+literal|"memstore2 estimated size="
 operator|+
 name|size
 argument_list|)

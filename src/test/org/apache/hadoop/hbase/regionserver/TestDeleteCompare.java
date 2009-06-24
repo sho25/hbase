@@ -142,12 +142,12 @@ name|void
 name|testDeleteCompare_DeleteFamily
 parameter_list|()
 block|{
-comment|//Creating memcache
+comment|//Creating memstore
 name|Set
 argument_list|<
 name|KeyValue
 argument_list|>
-name|memcache
+name|memstore
 init|=
 operator|new
 name|TreeSet
@@ -160,7 +160,7 @@ operator|.
 name|COMPARATOR
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -180,7 +180,7 @@ literal|"d-c"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -200,7 +200,7 @@ literal|"d-c"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -220,7 +220,7 @@ literal|"d-c"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -240,7 +240,7 @@ literal|"d-c"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -260,7 +260,7 @@ literal|"d-c"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -280,7 +280,7 @@ literal|"d-c"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -300,7 +300,7 @@ literal|"d-c"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -508,7 +508,7 @@ control|(
 name|KeyValue
 name|mem
 range|:
-name|memcache
+name|memstore
 control|)
 block|{
 name|actual
@@ -597,12 +597,12 @@ name|void
 name|testDeleteCompare_DeleteColumn
 parameter_list|()
 block|{
-comment|//Creating memcache
+comment|//Creating memstore
 name|Set
 argument_list|<
 name|KeyValue
 argument_list|>
-name|memcache
+name|memstore
 init|=
 operator|new
 name|TreeSet
@@ -615,7 +615,7 @@ operator|.
 name|COMPARATOR
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -635,7 +635,7 @@ literal|"d-c"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -655,7 +655,7 @@ literal|"d-c"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -675,7 +675,7 @@ literal|"d-c"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -847,7 +847,7 @@ control|(
 name|KeyValue
 name|mem
 range|:
-name|memcache
+name|memstore
 control|)
 block|{
 name|actual
@@ -936,12 +936,12 @@ name|void
 name|testDeleteCompare_Delete
 parameter_list|()
 block|{
-comment|//Creating memcache
+comment|//Creating memstore
 name|Set
 argument_list|<
 name|KeyValue
 argument_list|>
-name|memcache
+name|memstore
 init|=
 operator|new
 name|TreeSet
@@ -954,7 +954,7 @@ operator|.
 name|COMPARATOR
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -974,7 +974,7 @@ literal|"d-c"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -994,7 +994,7 @@ literal|"d-c"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -1157,7 +1157,7 @@ control|(
 name|KeyValue
 name|mem
 range|:
-name|memcache
+name|memstore
 control|)
 block|{
 name|actual
@@ -1246,12 +1246,12 @@ name|void
 name|testDeleteCompare_Multiple
 parameter_list|()
 block|{
-comment|//Creating memcache
+comment|//Creating memstore
 name|Set
 argument_list|<
 name|KeyValue
 argument_list|>
-name|memcache
+name|memstore
 init|=
 operator|new
 name|TreeSet
@@ -1264,7 +1264,7 @@ operator|.
 name|COMPARATOR
 argument_list|)
 decl_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -1284,7 +1284,7 @@ literal|"d-c"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -1304,7 +1304,7 @@ literal|"d-c"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -1324,7 +1324,7 @@ literal|"d-c"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -1344,7 +1344,7 @@ literal|"d-c"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -1370,7 +1370,7 @@ literal|"dont-care"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|memcache
+name|memstore
 operator|.
 name|add
 argument_list|(
@@ -1560,7 +1560,7 @@ control|(
 name|KeyValue
 name|mem
 range|:
-name|memcache
+name|memstore
 control|)
 block|{
 name|actual

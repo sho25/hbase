@@ -44,7 +44,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Class that provides static method needed when putting deletes into memcache   */
+comment|/**  * Class that provides static method needed when putting deletes into memstore   */
 end_comment
 
 begin_class
@@ -56,16 +56,16 @@ comment|/**    * Return codes from deleteCompare.    */
 enum|enum
 name|DeleteCode
 block|{
-comment|/**      * Do nothing.  Move to next KV in Memcache      */
+comment|/**      * Do nothing.  Move to next KV in memstore      */
 name|SKIP
 block|,
 comment|/**      * Add to the list of deletes.      */
 name|DELETE
 block|,
-comment|/**      * Stop looking at KVs in Memcache.  Finalize.      */
+comment|/**      * Stop looking at KVs in memstore.  Finalize.      */
 name|DONE
 block|}
-comment|/**    * Method used when putting deletes into memcache to remove all the previous    * entries that are affected by this Delete    * @param mem    * @param deleteBuffer    * @param deleteRowOffset    * @param deleteRowLength    * @param deleteQualifierOffset    * @param deleteQualifierLength    * @param deleteTimeOffset    * @param deleteType    * @param comparator    * @return SKIP if current KeyValue should not be deleted, DELETE if    * current KeyValue should be deleted and DONE when the current KeyValue is    * out of the Deletes range    */
+comment|/**    * Method used when putting deletes into memstore to remove all the previous    * entries that are affected by this Delete    * @param mem    * @param deleteBuffer    * @param deleteRowOffset    * @param deleteRowLength    * @param deleteQualifierOffset    * @param deleteQualifierLength    * @param deleteTimeOffset    * @param deleteType    * @param comparator    * @return SKIP if current KeyValue should not be deleted, DELETE if    * current KeyValue should be deleted and DONE when the current KeyValue is    * out of the Deletes range    */
 specifier|public
 specifier|static
 name|DeleteCode

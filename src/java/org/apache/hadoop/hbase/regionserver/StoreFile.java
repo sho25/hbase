@@ -314,7 +314,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Store data file.  Stores usually have one or more of these files.  They  * are produced by flushing the memcache to disk.  To  * create, call {@link #getWriter(FileSystem, Path)} and append data.  Be  * sure to add any metadata before calling close on the Writer  * (Use the appendMetadata convenience methods). On close, a StoreFile is  * sitting in the Filesystem.  To refer to it, create a StoreFile instance  * passing filesystem and path.  To read, call {@link #getReader()}.  *<p>StoreFiles may also reference store files in another Store.  */
+comment|/**  * A Store data file.  Stores usually have one or more of these files.  They  * are produced by flushing the memstore to disk.  To  * create, call {@link #getWriter(FileSystem, Path)} and append data.  Be  * sure to add any metadata before calling close on the Writer  * (Use the appendMetadata convenience methods). On close, a StoreFile is  * sitting in the Filesystem.  To refer to it, create a StoreFile instance  * passing filesystem and path.  To read, call {@link #getReader()}.  *<p>StoreFiles may also reference store files in another Store.  */
 end_comment
 
 begin_class

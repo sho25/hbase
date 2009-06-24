@@ -968,7 +968,7 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-comment|// What we just committed is in the memcache. Verify that we can get
+comment|// What we just committed is in the memstore. Verify that we can get
 comment|// it back both with scanning and get
 name|scan
 argument_list|(
@@ -1072,7 +1072,7 @@ name|put
 argument_list|)
 expr_stmt|;
 comment|// Validate that we can still get the HRegionInfo, even though it is in
-comment|// an older row on disk and there is a newer row in the memcache
+comment|// an older row on disk and there is a newer row in the memstore
 name|scan
 argument_list|(
 literal|true
@@ -2003,7 +2003,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Tests to do a concurrent flush (using a 2nd thread) while scanning.  This tests both    * the StoreScanner update readers and the transition from memcache -> snapshot -> store file.    *    * @throws Exception    */
+comment|/**    * Tests to do a concurrent flush (using a 2nd thread) while scanning.  This tests both    * the StoreScanner update readers and the transition from memstore -> snapshot -> store file.    *    * @throws Exception    */
 specifier|public
 name|void
 name|testScanAndRealConcurrentFlush

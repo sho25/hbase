@@ -399,15 +399,15 @@ specifier|public
 specifier|static
 specifier|final
 name|String
-name|MEMCACHE_FLUSHSIZE
+name|MEMSTORE_FLUSHSIZE
 init|=
-literal|"MEMCACHE_FLUSHSIZE"
+literal|"MEMSTORE_FLUSHSIZE"
 decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
 name|ImmutableBytesWritable
-name|MEMCACHE_FLUSHSIZE_KEY
+name|MEMSTORE_FLUSHSIZE_KEY
 init|=
 operator|new
 name|ImmutableBytesWritable
@@ -416,7 +416,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|MEMCACHE_FLUSHSIZE
+name|MEMSTORE_FLUSHSIZE
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -537,7 +537,7 @@ specifier|public
 specifier|static
 specifier|final
 name|int
-name|DEFAULT_MEMCACHE_FLUSH_SIZE
+name|DEFAULT_MEMSTORE_FLUSH_SIZE
 init|=
 literal|1024
 operator|*
@@ -666,7 +666,7 @@ name|descriptor
 argument_list|)
 expr_stmt|;
 block|}
-name|setMemcacheFlushSize
+name|setMemStoreFlushSize
 argument_list|(
 literal|16
 operator|*
@@ -1849,7 +1849,7 @@ block|}
 comment|/**    * @return memory cache flush size for each hregion    */
 specifier|public
 name|int
-name|getMemcacheFlushSize
+name|getMemStoreFlushSize
 parameter_list|()
 block|{
 name|byte
@@ -1858,7 +1858,7 @@ name|value
 init|=
 name|getValue
 argument_list|(
-name|MEMCACHE_FLUSHSIZE_KEY
+name|MEMSTORE_FLUSHSIZE_KEY
 argument_list|)
 decl_stmt|;
 if|if
@@ -1884,21 +1884,21 @@ name|intValue
 argument_list|()
 return|;
 return|return
-name|DEFAULT_MEMCACHE_FLUSH_SIZE
+name|DEFAULT_MEMSTORE_FLUSH_SIZE
 return|;
 block|}
-comment|/**    * @param memcacheFlushSize memory cache flush size for each hregion    */
+comment|/**    * @param memstoreFlushSize memory cache flush size for each hregion    */
 specifier|public
 name|void
-name|setMemcacheFlushSize
+name|setMemStoreFlushSize
 parameter_list|(
 name|int
-name|memcacheFlushSize
+name|memstoreFlushSize
 parameter_list|)
 block|{
 name|setValue
 argument_list|(
-name|MEMCACHE_FLUSHSIZE_KEY
+name|MEMSTORE_FLUSHSIZE_KEY
 argument_list|,
 name|Bytes
 operator|.
@@ -1908,7 +1908,7 @@ name|Integer
 operator|.
 name|toString
 argument_list|(
-name|memcacheFlushSize
+name|memstoreFlushSize
 argument_list|)
 argument_list|)
 argument_list|)

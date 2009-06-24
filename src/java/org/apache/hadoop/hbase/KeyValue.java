@@ -744,7 +744,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Lowest possible key.    * Makes a Key with highest possible Timestamp, empty row and column.  No    * key can be equal or lower than this one in memcache or in store file.    */
+comment|/**    * Lowest possible key.    * Makes a Key with highest possible Timestamp, empty row and column.  No    * key can be equal or lower than this one in memstore or in store file.    */
 specifier|public
 specifier|static
 specifier|final
@@ -7753,7 +7753,7 @@ parameter_list|)
 block|{
 comment|// The below older timestamps sorting ahead of newer timestamps looks
 comment|// wrong but it is intentional. This way, newer timestamps are first
-comment|// found when we iterate over a memcache and newer versions are the
+comment|// found when we iterate over a memstore and newer versions are the
 comment|// first we trip over when reading from a store file.
 if|if
 condition|(

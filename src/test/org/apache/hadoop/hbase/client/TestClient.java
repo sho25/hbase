@@ -1206,9 +1206,9 @@ literal|0
 argument_list|)
 expr_stmt|;
 comment|////////////////////////////////////////////////////////////////////////////
-comment|// Flush memcache and run same tests from storefiles
+comment|// Flush memstore and run same tests from storefiles
 comment|////////////////////////////////////////////////////////////////////////////
-name|flushMemcache
+name|flushMemStore
 argument_list|(
 name|TABLE
 argument_list|)
@@ -1291,7 +1291,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 comment|////////////////////////////////////////////////////////////////////////////
-comment|// Now, Test reading from memcache and storefiles at once
+comment|// Now, Test reading from memstore and storefiles at once
 comment|////////////////////////////////////////////////////////////////////////////
 comment|// Insert multiple columns to two other families
 name|put
@@ -1483,7 +1483,7 @@ expr_stmt|;
 comment|////////////////////////////////////////////////////////////////////////////
 comment|// Flush the table again
 comment|////////////////////////////////////////////////////////////////////////////
-name|flushMemcache
+name|flushMemStore
 argument_list|(
 name|TABLE
 argument_list|)
@@ -1515,7 +1515,7 @@ argument_list|,
 name|VALUES
 argument_list|)
 expr_stmt|;
-comment|// Insert more data to memcache
+comment|// Insert more data to memstore
 name|put
 operator|=
 operator|new
@@ -1960,7 +1960,7 @@ index|]
 argument_list|)
 expr_stmt|;
 comment|////////////////////////////////////////////////////////////////////////////
-comment|// Delete a memcache column
+comment|// Delete a memstore column
 comment|////////////////////////////////////////////////////////////////////////////
 name|delete
 operator|=
@@ -2305,7 +2305,7 @@ index|]
 argument_list|)
 expr_stmt|;
 comment|////////////////////////////////////////////////////////////////////////////
-comment|// Delete joint storefile/memcache family
+comment|// Delete joint storefile/memstore family
 comment|////////////////////////////////////////////////////////////////////////////
 name|delete
 operator|=
@@ -2376,7 +2376,7 @@ argument_list|(
 name|result
 argument_list|)
 expr_stmt|;
-comment|// Try to get memcache column in deleted family
+comment|// Try to get memstore column in deleted family
 name|get
 operator|=
 operator|new
@@ -2489,7 +2489,7 @@ argument_list|(
 name|result
 argument_list|)
 expr_stmt|;
-comment|// Try to scan memcache column in deleted family
+comment|// Try to scan memstore column in deleted family
 name|scan
 operator|=
 operator|new
@@ -2791,7 +2791,7 @@ expr_stmt|;
 comment|////////////////////////////////////////////////////////////////////////////
 comment|// Flush everything and rerun delete tests
 comment|////////////////////////////////////////////////////////////////////////////
-name|flushMemcache
+name|flushMemStore
 argument_list|(
 name|TABLE
 argument_list|)
@@ -2837,7 +2837,7 @@ argument_list|(
 name|result
 argument_list|)
 expr_stmt|;
-comment|// Try to get memcache column in deleted family
+comment|// Try to get memstore column in deleted family
 name|get
 operator|=
 operator|new
@@ -2950,7 +2950,7 @@ argument_list|(
 name|result
 argument_list|)
 expr_stmt|;
-comment|// Try to scan memcache column in deleted family
+comment|// Try to scan memstore column in deleted family
 name|scan
 operator|=
 operator|new
@@ -3586,7 +3586,7 @@ name|VALUE
 argument_list|)
 expr_stmt|;
 comment|// Flush and try again
-name|flushMemcache
+name|flushMemStore
 argument_list|(
 name|TABLE2
 argument_list|)
@@ -4434,7 +4434,7 @@ literal|1
 argument_list|)
 expr_stmt|;
 comment|// Flush and redo
-name|flushMemcache
+name|flushMemStore
 argument_list|(
 name|TABLE
 argument_list|)
@@ -4864,7 +4864,7 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
-comment|// Add some memcache and retest
+comment|// Add some memstore and retest
 comment|// Insert 4 more versions of same column and a dupe
 name|put
 operator|=
@@ -5723,7 +5723,7 @@ index|]
 argument_list|)
 expr_stmt|;
 comment|// Ensure maxVersions of table is respected
-name|flushMemcache
+name|flushMemStore
 argument_list|(
 name|TABLE
 argument_list|)
@@ -6142,7 +6142,7 @@ argument_list|,
 literal|9
 argument_list|)
 expr_stmt|;
-comment|// Delete a version in the memcache and a version in a storefile
+comment|// Delete a version in the memstore and a version in a storefile
 name|Delete
 name|delete
 init|=
@@ -11260,7 +11260,7 @@ name|numRows
 argument_list|)
 expr_stmt|;
 comment|// flush and try again
-name|flushMemcache
+name|flushMemStore
 argument_list|(
 name|TABLE
 argument_list|)
@@ -11649,7 +11649,7 @@ index|]
 argument_list|)
 expr_stmt|;
 comment|// Try same from storefile
-name|flushMemcache
+name|flushMemStore
 argument_list|(
 name|TABLE
 argument_list|)
@@ -11707,7 +11707,7 @@ literal|5
 index|]
 argument_list|)
 expr_stmt|;
-comment|// Insert two more versions surrounding others, into memcache
+comment|// Insert two more versions surrounding others, into memstore
 name|put
 operator|=
 operator|new
@@ -11900,7 +11900,7 @@ index|]
 argument_list|)
 expr_stmt|;
 comment|// Try same from two storefiles
-name|flushMemcache
+name|flushMemStore
 argument_list|(
 name|TABLE
 argument_list|)
@@ -12379,7 +12379,7 @@ literal|3
 argument_list|)
 expr_stmt|;
 comment|// Try same from storefile
-name|flushMemcache
+name|flushMemStore
 argument_list|(
 name|TABLE
 argument_list|)
@@ -12947,7 +12947,7 @@ literal|5
 argument_list|)
 expr_stmt|;
 comment|// Try same from storefile
-name|flushMemcache
+name|flushMemStore
 argument_list|(
 name|TABLE
 argument_list|)
@@ -13289,7 +13289,7 @@ literal|5
 argument_list|)
 expr_stmt|;
 comment|// Try same from storefile
-name|flushMemcache
+name|flushMemStore
 argument_list|(
 name|TABLE
 argument_list|)
@@ -14660,7 +14660,7 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-comment|// Single column from memcache
+comment|// Single column from memstore
 name|Get
 name|get
 init|=
@@ -14840,7 +14840,7 @@ literal|7
 index|]
 argument_list|)
 expr_stmt|;
-comment|// Two columns, one from memcache one from storefile, same family,
+comment|// Two columns, one from memstore one from storefile, same family,
 comment|// wildcard match
 name|get
 operator|=
@@ -14912,7 +14912,7 @@ literal|4
 index|]
 argument_list|)
 expr_stmt|;
-comment|// Two columns, one from memcache one from storefile, same family,
+comment|// Two columns, one from memstore one from storefile, same family,
 comment|// explicit match
 name|get
 operator|=
@@ -15004,7 +15004,7 @@ literal|4
 index|]
 argument_list|)
 expr_stmt|;
-comment|// Three column, one from memcache two from storefile, different families,
+comment|// Three column, one from memstore two from storefile, different families,
 comment|// wildcard match
 name|get
 operator|=
@@ -15669,7 +15669,7 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-comment|// Single column from memcache
+comment|// Single column from memstore
 name|Scan
 name|scan
 init|=
@@ -15834,7 +15834,7 @@ literal|7
 index|]
 argument_list|)
 expr_stmt|;
-comment|// Two columns, one from memcache one from storefile, same family,
+comment|// Two columns, one from memstore one from storefile, same family,
 comment|// wildcard match
 name|scan
 operator|=
@@ -15901,7 +15901,7 @@ literal|4
 index|]
 argument_list|)
 expr_stmt|;
-comment|// Two columns, one from memcache one from storefile, same family,
+comment|// Two columns, one from memstore one from storefile, same family,
 comment|// explicit match
 name|scan
 operator|=
@@ -15988,7 +15988,7 @@ literal|4
 index|]
 argument_list|)
 expr_stmt|;
-comment|// Three column, one from memcache two from storefile, different families,
+comment|// Three column, one from memstore two from storefile, different families,
 comment|// wildcard match
 name|scan
 operator|=
@@ -19637,7 +19637,7 @@ comment|// Helpers
 comment|//
 specifier|private
 name|void
-name|flushMemcache
+name|flushMemStore
 parameter_list|(
 name|byte
 index|[]
@@ -21033,7 +21033,7 @@ literal|1
 argument_list|)
 expr_stmt|;
 comment|// Flush and redo
-name|flushMemcache
+name|flushMemStore
 argument_list|(
 name|TABLE
 argument_list|)
@@ -21463,7 +21463,7 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
-comment|// Add some memcache and retest
+comment|// Add some memstore and retest
 comment|// Insert 4 more versions of same column and a dupe
 name|put
 operator|=
@@ -22309,7 +22309,7 @@ index|]
 argument_list|)
 expr_stmt|;
 comment|// Ensure maxVersions of table is respected
-name|flushMemcache
+name|flushMemStore
 argument_list|(
 name|TABLE
 argument_list|)
@@ -22728,7 +22728,7 @@ argument_list|,
 literal|9
 argument_list|)
 expr_stmt|;
-comment|// Delete a version in the memcache and a version in a storefile
+comment|// Delete a version in the memstore and a version in a storefile
 name|Delete
 name|delete
 init|=
