@@ -658,6 +658,29 @@ name|regions
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Sets the number of rows to return and cache with each scanner iteration.    * Higher caching values will enable faster mapreduce jobs at the expense of    * requiring more heap to contain the cached rows.    *     * @param job The current job configuration to adjust.    * @param batchSize The number of rows to return in batch with each scanner    * iteration.    */
+specifier|public
+specifier|static
+name|void
+name|setScannerCaching
+parameter_list|(
+name|JobConf
+name|job
+parameter_list|,
+name|int
+name|batchSize
+parameter_list|)
+block|{
+name|job
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.client.scanner.caching"
+argument_list|,
+name|batchSize
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 
