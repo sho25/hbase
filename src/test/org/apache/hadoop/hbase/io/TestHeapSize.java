@@ -15,6 +15,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -159,17 +169,19 @@ decl_stmt|;
 comment|// List of classes implementing HeapSize
 comment|// BatchOperation, BatchUpdate, BlockIndex, Entry, Entry<K,V>, HStoreKey
 comment|// KeyValue, LruBlockCache, LruHashMap<K,V>, Put, HLogKey
-comment|/**    * Testing the classes that implements HeapSize and are a part of 0.20.     * Some are not tested here for example BlockIndex which is tested in     * TestHFile since it is a non public class    */
+comment|/**    * Testing the classes that implements HeapSize and are a part of 0.20.     * Some are not tested here for example BlockIndex which is tested in     * TestHFile since it is a non public class    * @throws IOException     */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 name|void
 name|testSizes
 parameter_list|()
+throws|throws
+name|IOException
 block|{
-name|ClassSize
-name|cs
-init|=
-literal|null
-decl_stmt|;
 name|Class
 name|cl
 init|=
@@ -185,21 +197,6 @@ name|actual
 init|=
 literal|0L
 decl_stmt|;
-try|try
-block|{
-name|cs
-operator|=
-operator|new
-name|ClassSize
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{}
 comment|//KeyValue
 name|cl
 operator|=
@@ -209,7 +206,7 @@ name|class
 expr_stmt|;
 name|expected
 operator|=
-name|cs
+name|ClassSize
 operator|.
 name|estimateBase
 argument_list|(
@@ -239,7 +236,7 @@ operator|!=
 name|actual
 condition|)
 block|{
-name|cs
+name|ClassSize
 operator|.
 name|estimateBase
 argument_list|(
@@ -265,7 +262,7 @@ name|class
 expr_stmt|;
 name|expected
 operator|=
-name|cs
+name|ClassSize
 operator|.
 name|estimateBase
 argument_list|(
@@ -295,11 +292,8 @@ name|c
 operator|.
 name|heapSize
 argument_list|()
-operator|-
-name|HeapSize
-operator|.
-name|REFERENCE
 expr_stmt|;
+comment|// - ClassSize.REFERENCE_SIZE;
 if|if
 condition|(
 name|expected
@@ -307,7 +301,7 @@ operator|!=
 name|actual
 condition|)
 block|{
-name|cs
+name|ClassSize
 operator|.
 name|estimateBase
 argument_list|(
@@ -333,7 +327,7 @@ name|class
 expr_stmt|;
 name|expected
 operator|=
-name|cs
+name|ClassSize
 operator|.
 name|estimateBase
 argument_list|(
@@ -345,9 +339,9 @@ expr_stmt|;
 comment|//The actual TreeMap is not included in the above calculation
 name|expected
 operator|+=
-name|HeapSize
+name|ClassSize
 operator|.
-name|TREEMAP_SIZE
+name|TREEMAP
 expr_stmt|;
 name|Put
 name|put
@@ -377,7 +371,7 @@ operator|!=
 name|actual
 condition|)
 block|{
-name|cs
+name|ClassSize
 operator|.
 name|estimateBase
 argument_list|(

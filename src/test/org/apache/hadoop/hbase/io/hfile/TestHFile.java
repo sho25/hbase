@@ -143,20 +143,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|io
 operator|.
 name|hfile
@@ -1642,16 +1628,18 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Checks if the HeapSize calculator is within reason    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|public
 name|void
 name|testHeapSizeForBlockIndex
 parameter_list|()
+throws|throws
+name|IOException
 block|{
-name|ClassSize
-name|cs
-init|=
-literal|null
-decl_stmt|;
 name|Class
 name|cl
 init|=
@@ -1667,22 +1655,6 @@ name|actual
 init|=
 literal|0L
 decl_stmt|;
-try|try
-block|{
-name|cs
-operator|=
-operator|new
-name|ClassSize
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{}
-comment|//KeyValue
 name|cl
 operator|=
 name|BlockIndex
@@ -1691,7 +1663,7 @@ name|class
 expr_stmt|;
 name|expected
 operator|=
-name|cs
+name|ClassSize
 operator|.
 name|estimateBase
 argument_list|(
@@ -1718,11 +1690,21 @@ operator|.
 name|heapSize
 argument_list|()
 expr_stmt|;
-comment|//Since we have a [[]] in BlockIndex and the checker only sees the [] we
-comment|// miss a MULTI_ARRAY which is 4*Reference = 32 B
-name|actual
+comment|//Since the arrays in BlockIndex(byte [][] blockKeys, long [] blockOffsets,
+comment|//int [] blockDataSizes) are all null they are not going to show up in the
+comment|//HeapSize calculation, so need to remove those array costs from ecpected.
+name|expected
 operator|-=
-literal|32
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+literal|3
+operator|*
+name|ClassSize
+operator|.
+name|ARRAY
+argument_list|)
 expr_stmt|;
 if|if
 condition|(
@@ -1731,7 +1713,7 @@ operator|!=
 name|actual
 condition|)
 block|{
-name|cs
+name|ClassSize
 operator|.
 name|estimateBase
 argument_list|(
