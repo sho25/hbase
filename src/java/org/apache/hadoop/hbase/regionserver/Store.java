@@ -157,18 +157,6 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|ConcurrentSkipListSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
 name|CopyOnWriteArraySet
 import|;
 end_import
@@ -705,11 +693,6 @@ name|blockcache
 decl_stmt|;
 specifier|private
 specifier|final
-name|boolean
-name|bloomfilter
-decl_stmt|;
-specifier|private
-specifier|final
 name|Compression
 operator|.
 name|Algorithm
@@ -799,15 +782,6 @@ operator|.
 name|conf
 operator|=
 name|conf
-expr_stmt|;
-name|this
-operator|.
-name|bloomfilter
-operator|=
-name|family
-operator|.
-name|isBloomfilter
-argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -1387,15 +1361,18 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-name|ConcurrentSkipListSet
+comment|// TODO: Move this memstoring over into MemStore.
+name|ConcurrentSkipListMap
 argument_list|<
 name|KeyValue
+argument_list|,
+name|Object
 argument_list|>
 name|reconstructedCache
 init|=
 name|Memcache
 operator|.
-name|createSet
+name|createMap
 argument_list|(
 name|this
 operator|.
@@ -1549,11 +1526,16 @@ condition|)
 block|{
 continue|continue;
 block|}
+comment|// Add anything as value as long as we use same instance each time.
 name|reconstructedCache
 operator|.
-name|add
+name|put
 argument_list|(
 name|val
+argument_list|,
+name|Boolean
+operator|.
+name|TRUE
 argument_list|)
 expr_stmt|;
 name|editsCount
@@ -2152,9 +2134,11 @@ name|IOException
 block|{
 comment|// Get the snapshot to flush.  Presumes that a call to
 comment|// this.memcache.snapshot() has happened earlier up in the chain.
-name|ConcurrentSkipListSet
+name|ConcurrentSkipListMap
 argument_list|<
 name|KeyValue
+argument_list|,
+name|?
 argument_list|>
 name|cache
 init|=
@@ -2217,9 +2201,11 @@ name|StoreFile
 name|internalFlushCache
 parameter_list|(
 specifier|final
-name|ConcurrentSkipListSet
+name|ConcurrentSkipListMap
 argument_list|<
 name|KeyValue
+argument_list|,
+name|?
 argument_list|>
 name|cache
 parameter_list|,
@@ -2290,12 +2276,30 @@ try|try
 block|{
 for|for
 control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
 name|KeyValue
-name|kv
+argument_list|,
+name|?
+argument_list|>
+name|entry
 range|:
 name|cache
+operator|.
+name|entrySet
+argument_list|()
 control|)
 block|{
+name|KeyValue
+name|kv
+init|=
+name|entry
+operator|.
+name|getKey
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 operator|!
@@ -2530,9 +2534,11 @@ name|StoreFile
 name|sf
 parameter_list|,
 specifier|final
-name|NavigableSet
+name|NavigableMap
 argument_list|<
 name|KeyValue
+argument_list|,
+name|?
 argument_list|>
 name|cache
 parameter_list|)
@@ -4334,9 +4340,11 @@ name|void
 name|expiredOrDeleted
 parameter_list|(
 specifier|final
-name|Set
+name|Map
 argument_list|<
 name|KeyValue
+argument_list|,
+name|Object
 argument_list|>
 name|set
 parameter_list|,
@@ -4354,6 +4362,8 @@ name|remove
 argument_list|(
 name|kv
 argument_list|)
+operator|!=
+literal|null
 decl_stmt|;
 if|if
 condition|(
@@ -5900,8 +5910,6 @@ index|[]
 argument_list|>
 name|targetCols
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|lock
 operator|.
@@ -6442,7 +6450,7 @@ name|sizeAdded
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Increments the value for the given row/family/qualifier    * @param row    * @param family    * @param qualifier    * @param amount    * @return The new value.    * @throws IOException    */
+comment|/**    * Increments the value for the given row/family/qualifier    * @param row    * @param f    * @param qualifier    * @param amount    * @return The new value.    * @throws IOException    */
 specifier|public
 name|ValueAndSize
 name|incrementColumnValue
@@ -6453,7 +6461,7 @@ name|row
 parameter_list|,
 name|byte
 index|[]
-name|family
+name|f
 parameter_list|,
 name|byte
 index|[]
@@ -6537,7 +6545,7 @@ name|QueryMatcher
 argument_list|(
 name|get
 argument_list|,
-name|family
+name|f
 argument_list|,
 name|qualifiers
 argument_list|,
@@ -6658,7 +6666,7 @@ name|addNewKeyValue
 argument_list|(
 name|row
 argument_list|,
-name|family
+name|f
 argument_list|,
 name|qualifier
 argument_list|,
@@ -6765,7 +6773,7 @@ name|addNewKeyValue
 argument_list|(
 name|row
 argument_list|,
-name|family
+name|f
 argument_list|,
 name|qualifier
 argument_list|,
@@ -6785,7 +6793,7 @@ name|row
 parameter_list|,
 name|byte
 index|[]
-name|family
+name|f
 parameter_list|,
 name|byte
 index|[]
@@ -6813,7 +6821,7 @@ name|KeyValue
 argument_list|(
 name|row
 argument_list|,
-name|family
+name|f
 argument_list|,
 name|qualifier
 argument_list|,
