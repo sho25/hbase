@@ -5367,7 +5367,7 @@ literal|" starting at key '"
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|scan
 operator|.
@@ -5585,7 +5585,7 @@ literal|"Advancing internal scanner to startKey at '"
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|localStartKey
 argument_list|)
