@@ -338,7 +338,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically increments a column value. If the column value isn't long-like,    * this could throw an exception.    *     * @param regionName    * @param row    * @param family    * @param qualifier    * @param amount    * @return new incremented column value    * @throws IOException    */
+comment|/**    * Atomically increments a column value. If the column value isn't long-like,    * this could throw an exception.    *     * @param regionName    * @param row    * @param family    * @param qualifier    * @param amount    * @param writeToWAL whether to write the increment to the WAL    * @return new incremented column value    * @throws IOException    */
 specifier|public
 name|long
 name|incrementColumnValue
@@ -361,6 +361,9 @@ name|qualifier
 parameter_list|,
 name|long
 name|amount
+parameter_list|,
+name|boolean
+name|writeToWAL
 parameter_list|)
 throws|throws
 name|IOException

@@ -6366,27 +6366,33 @@ name|result
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
+comment|/*    * Data structure to hold incrementColumnValue result.    */
 specifier|static
 class|class
-name|ValueAndSize
+name|ICVResult
 block|{
-specifier|public
+specifier|final
 name|long
 name|value
 decl_stmt|;
-specifier|public
+specifier|final
 name|long
 name|sizeAdded
 decl_stmt|;
-specifier|public
-name|ValueAndSize
+specifier|final
+name|KeyValue
+name|kv
+decl_stmt|;
+name|ICVResult
 parameter_list|(
 name|long
 name|value
 parameter_list|,
 name|long
 name|sizeAdded
+parameter_list|,
+name|KeyValue
+name|kv
 parameter_list|)
 block|{
 name|this
@@ -6401,11 +6407,17 @@ name|sizeAdded
 operator|=
 name|sizeAdded
 expr_stmt|;
+name|this
+operator|.
+name|kv
+operator|=
+name|kv
+expr_stmt|;
 block|}
 block|}
 comment|/**    * Increments the value for the given row/family/qualifier    * @param row    * @param f    * @param qualifier    * @param amount    * @return The new value.    * @throws IOException    */
 specifier|public
-name|ValueAndSize
+name|ICVResult
 name|incrementColumnValue
 parameter_list|(
 name|byte
@@ -6527,6 +6539,7 @@ argument_list|)
 condition|)
 block|{
 comment|// Received early-out from memstore
+comment|// Make a copy of the KV and increment it
 name|KeyValue
 name|kv
 init|=
@@ -6536,6 +6549,9 @@ name|get
 argument_list|(
 literal|0
 argument_list|)
+operator|.
+name|clone
+argument_list|()
 decl_stmt|;
 name|byte
 index|[]
@@ -6595,11 +6611,13 @@ argument_list|)
 expr_stmt|;
 return|return
 operator|new
-name|ValueAndSize
+name|ICVResult
 argument_list|(
 name|value
 argument_list|,
 literal|0
+argument_list|,
+name|kv
 argument_list|)
 return|;
 block|}
@@ -6615,7 +6633,7 @@ argument_list|()
 condition|)
 block|{
 return|return
-name|addNewKeyValue
+name|createNewKeyValue
 argument_list|(
 name|row
 argument_list|,
@@ -6722,7 +6740,7 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-name|addNewKeyValue
+name|createNewKeyValue
 argument_list|(
 name|row
 argument_list|,
@@ -6737,8 +6755,8 @@ argument_list|)
 return|;
 block|}
 specifier|private
-name|ValueAndSize
-name|addNewKeyValue
+name|ICVResult
+name|createNewKeyValue
 parameter_list|(
 name|byte
 index|[]
@@ -6791,14 +6809,9 @@ name|newValue
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|add
-argument_list|(
-name|newKv
-argument_list|)
-expr_stmt|;
 return|return
 operator|new
-name|ValueAndSize
+name|ICVResult
 argument_list|(
 name|newValue
 argument_list|,
@@ -6806,6 +6819,8 @@ name|newKv
 operator|.
 name|heapSize
 argument_list|()
+argument_list|,
+name|newKv
 argument_list|)
 return|;
 block|}

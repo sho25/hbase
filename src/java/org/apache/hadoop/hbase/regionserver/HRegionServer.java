@@ -11356,6 +11356,9 @@ name|qualifier
 parameter_list|,
 name|long
 name|amount
+parameter_list|,
+name|boolean
+name|writeToWAL
 parameter_list|)
 throws|throws
 name|IOException
@@ -11407,6 +11410,8 @@ argument_list|,
 name|qualifier
 argument_list|,
 name|amount
+argument_list|,
+name|writeToWAL
 argument_list|)
 return|;
 block|}
