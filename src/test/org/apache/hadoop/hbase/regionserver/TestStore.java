@@ -1182,7 +1182,7 @@ name|store
 operator|.
 name|memstore
 operator|.
-name|memstore
+name|kvset
 operator|.
 name|size
 argument_list|()

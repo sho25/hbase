@@ -1362,17 +1362,11 @@ operator|-
 literal|1
 decl_stmt|;
 comment|// TODO: Move this memstoring over into MemStore.
-name|ConcurrentSkipListMap
-argument_list|<
-name|KeyValue
-argument_list|,
-name|Object
-argument_list|>
+name|KeyValueSkipListSet
 name|reconstructedCache
 init|=
-name|MemStore
-operator|.
-name|createMap
+operator|new
+name|KeyValueSkipListSet
 argument_list|(
 name|this
 operator|.
@@ -1529,13 +1523,9 @@ block|}
 comment|// Add anything as value as long as we use same instance each time.
 name|reconstructedCache
 operator|.
-name|put
+name|add
 argument_list|(
 name|val
-argument_list|,
-name|Boolean
-operator|.
-name|TRUE
 argument_list|)
 expr_stmt|;
 name|editsCount
@@ -2134,13 +2124,8 @@ name|IOException
 block|{
 comment|// Get the snapshot to flush.  Presumes that a call to
 comment|// this.memstore.snapshot() has happened earlier up in the chain.
-name|ConcurrentSkipListMap
-argument_list|<
-name|KeyValue
-argument_list|,
-name|?
-argument_list|>
-name|cache
+name|KeyValueSkipListSet
+name|snapshot
 init|=
 name|this
 operator|.
@@ -2157,7 +2142,7 @@ name|sf
 init|=
 name|internalFlushCache
 argument_list|(
-name|cache
+name|snapshot
 argument_list|,
 name|logCacheFlushId
 argument_list|)
@@ -2184,7 +2169,7 @@ name|logCacheFlushId
 argument_list|,
 name|sf
 argument_list|,
-name|cache
+name|snapshot
 argument_list|)
 decl_stmt|;
 return|return
@@ -2201,13 +2186,8 @@ name|StoreFile
 name|internalFlushCache
 parameter_list|(
 specifier|final
-name|ConcurrentSkipListMap
-argument_list|<
-name|KeyValue
-argument_list|,
-name|?
-argument_list|>
-name|cache
+name|KeyValueSkipListSet
+name|set
 parameter_list|,
 specifier|final
 name|long
@@ -2231,7 +2211,7 @@ decl_stmt|;
 comment|// Don't flush if there are no entries.
 if|if
 condition|(
-name|cache
+name|set
 operator|.
 name|size
 argument_list|()
@@ -2276,30 +2256,12 @@ try|try
 block|{
 for|for
 control|(
-name|Map
-operator|.
-name|Entry
-argument_list|<
-name|KeyValue
-argument_list|,
-name|?
-argument_list|>
-name|entry
-range|:
-name|cache
-operator|.
-name|entrySet
-argument_list|()
-control|)
-block|{
 name|KeyValue
 name|kv
-init|=
-name|entry
-operator|.
-name|getKey
-argument_list|()
-decl_stmt|;
+range|:
+name|set
+control|)
+block|{
 if|if
 condition|(
 operator|!
@@ -2520,7 +2482,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/*    * Change storefiles adding into place the Reader produced by this new flush.    * @param logCacheFlushId    * @param sf    * @param cache That was used to make the passed file<code>p</code>.    * @throws IOException    * @return Count of store files.    */
+comment|/*    * Change storefiles adding into place the Reader produced by this new flush.    * @param logCacheFlushId    * @param sf    * @param set That was used to make the passed file<code>p</code>.    * @throws IOException    * @return Count of store files.    */
 specifier|private
 name|int
 name|updateStorefiles
@@ -2534,13 +2496,8 @@ name|StoreFile
 name|sf
 parameter_list|,
 specifier|final
-name|NavigableMap
-argument_list|<
-name|KeyValue
-argument_list|,
-name|?
-argument_list|>
-name|cache
+name|KeyValueSkipListSet
+name|set
 parameter_list|)
 throws|throws
 name|IOException
@@ -2597,7 +2554,7 @@ name|memstore
 operator|.
 name|clearSnapshot
 argument_list|(
-name|cache
+name|set
 argument_list|)
 expr_stmt|;
 return|return
@@ -4340,11 +4297,9 @@ name|void
 name|expiredOrDeleted
 parameter_list|(
 specifier|final
-name|Map
+name|Set
 argument_list|<
 name|KeyValue
-argument_list|,
-name|Object
 argument_list|>
 name|set
 parameter_list|,
@@ -4362,8 +4317,6 @@ name|remove
 argument_list|(
 name|kv
 argument_list|)
-operator|!=
-literal|null
 decl_stmt|;
 if|if
 condition|(
