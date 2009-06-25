@@ -1372,7 +1372,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * @return Current reader.  Must call open first.    */
+comment|/**    * @return Current reader.  Must call open first else returns null.    */
 specifier|public
 name|HFile
 operator|.
@@ -1380,23 +1380,6 @@ name|Reader
 name|getReader
 parameter_list|()
 block|{
-if|if
-condition|(
-name|this
-operator|.
-name|reader
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalAccessError
-argument_list|(
-literal|"Call open first"
-argument_list|)
-throw|;
-block|}
 return|return
 name|this
 operator|.
