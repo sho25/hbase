@@ -459,7 +459,7 @@ block|}
 block|}
 comment|/**    * Add the specified column and value to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param value column value    */
 specifier|public
-name|void
+name|Put
 name|add
 parameter_list|(
 name|byte
@@ -475,6 +475,7 @@ index|[]
 name|value
 parameter_list|)
 block|{
+return|return
 name|add
 argument_list|(
 name|family
@@ -487,11 +488,11 @@ name|timestamp
 argument_list|,
 name|value
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**    * Add the specified column and value, with the specified timestamp as     * its version to this Put operation.    * @param column Old style column name with family and qualifier put together    * with a colon.    * @param ts version timestamp    * @param value column value    */
 specifier|public
-name|void
+name|Put
 name|add
 parameter_list|(
 name|byte
@@ -518,6 +519,7 @@ argument_list|(
 name|column
 argument_list|)
 decl_stmt|;
+return|return
 name|add
 argument_list|(
 name|parts
@@ -534,11 +536,11 @@ name|ts
 argument_list|,
 name|value
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**    * Add the specified column and value, with the specified timestamp as     * its version to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param ts version timestamp    * @param value column value    */
 specifier|public
-name|void
+name|Put
 name|add
 parameter_list|(
 name|byte
@@ -630,10 +632,13 @@ argument_list|,
 name|list
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Add the specified KeyValue to this Put operation.    * @param kv    */
 specifier|public
-name|void
+name|Put
 name|add
 parameter_list|(
 name|KeyValue
@@ -695,6 +700,9 @@ argument_list|,
 name|list
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Method for retrieving the put's familyMap    * @return familyMap    */
 specifier|public
@@ -775,9 +783,21 @@ name|isEmpty
 argument_list|()
 return|;
 block|}
+comment|/**    * @return Timestamp    */
+specifier|public
+name|long
+name|getTimeStamp
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|timestamp
+return|;
+block|}
 comment|/**    * Method for setting the timestamp    * @param timestamp    */
 specifier|public
-name|void
+name|Put
 name|setTimeStamp
 parameter_list|(
 name|long
@@ -790,6 +810,9 @@ name|timestamp
 operator|=
 name|timestamp
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * @return the number of different families included in this put     */
 specifier|public
