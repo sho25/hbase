@@ -5523,7 +5523,7 @@ name|set
 argument_list|(
 name|lruBlockCache
 operator|.
-name|getMemFree
+name|getFreeSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5537,7 +5537,7 @@ name|set
 argument_list|(
 name|lruBlockCache
 operator|.
-name|getMemUsed
+name|getCurrentSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5545,6 +5545,9 @@ name|double
 name|ratio
 init|=
 name|lruBlockCache
+operator|.
+name|getStats
+argument_list|()
 operator|.
 name|getHitRatio
 argument_list|()
@@ -11220,7 +11223,11 @@ name|warn
 argument_list|(
 literal|"Not starting a distinct region server because "
 operator|+
-literal|"hbase.master is set to 'local' mode"
+name|HConstants
+operator|.
+name|CLUSTER_DISTRIBUTED
+operator|+
+literal|" is false"
 argument_list|)
 expr_stmt|;
 block|}

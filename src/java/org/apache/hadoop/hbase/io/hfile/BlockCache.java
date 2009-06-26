@@ -38,7 +38,22 @@ specifier|public
 interface|interface
 name|BlockCache
 block|{
-comment|/**    * Add block to cache.    * @param blockName Zero-based file block number.    * @param buf The block contents wrapped in a ByteBuffer.    */
+comment|/**    * Add block to cache.    * @param blockName Zero-based file block number.    * @param buf The block contents wrapped in a ByteBuffer.    * @param inMemory Whether block should be treated as in-memory    */
+specifier|public
+name|void
+name|cacheBlock
+parameter_list|(
+name|String
+name|blockName
+parameter_list|,
+name|ByteBuffer
+name|buf
+parameter_list|,
+name|boolean
+name|inMemory
+parameter_list|)
+function_decl|;
+comment|/**    * Add block to cache (defaults to not in-memory).    * @param blockName Zero-based file block number.    * @param buf The block contents wrapped in a ByteBuffer.    */
 specifier|public
 name|void
 name|cacheBlock

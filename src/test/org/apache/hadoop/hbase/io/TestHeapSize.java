@@ -277,11 +277,9 @@ init|=
 operator|new
 name|LruBlockCache
 argument_list|(
-literal|1
+literal|102400
 argument_list|,
-literal|1
-argument_list|,
-literal|200
+literal|1024
 argument_list|)
 decl_stmt|;
 comment|//Since minimum size for the for a LruBlockCache is 1
