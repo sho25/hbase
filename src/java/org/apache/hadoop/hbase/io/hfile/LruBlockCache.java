@@ -1630,7 +1630,7 @@ name|getEvictedCount
 argument_list|()
 return|;
 block|}
-comment|/**    * Eviction thread.  Sits in waiting state until an eviction is triggered    * when the cache size grows above the acceptable level.<p>    *     * Thread is triggered into action by {@link LruBlockCache#runEviction()}    */
+comment|/*    * Eviction thread.  Sits in waiting state until an eviction is triggered    * when the cache size grows above the acceptable level.<p>    *     * Thread is triggered into action by {@link LruBlockCache#runEviction()}    */
 specifier|private
 specifier|static
 class|class
@@ -1652,6 +1652,16 @@ name|LruBlockCache
 name|cache
 parameter_list|)
 block|{
+name|super
+argument_list|(
+literal|"LruBlockCache.EvictionThread"
+argument_list|)
+expr_stmt|;
+name|setDaemon
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|cache
@@ -1740,7 +1750,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Statistics thread.  Periodically prints the cache statistics to the log.    */
+comment|/*    * Statistics thread.  Periodically prints the cache statistics to the log.    */
 specifier|private
 specifier|static
 class|class
@@ -1758,6 +1768,16 @@ name|LruBlockCache
 name|lru
 parameter_list|)
 block|{
+name|super
+argument_list|(
+literal|"LruBlockCache.StatisticsThread"
+argument_list|)
+expr_stmt|;
+name|setDaemon
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|lru
