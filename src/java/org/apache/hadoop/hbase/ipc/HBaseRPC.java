@@ -478,17 +478,6 @@ argument_list|,
 name|code
 argument_list|)
 expr_stmt|;
-name|code
-operator|=
-name|addToMap
-argument_list|(
-name|TransactionalRegionInterface
-operator|.
-name|class
-argument_list|,
-name|code
-argument_list|)
-expr_stmt|;
 block|}
 comment|// End of hbase modifications.
 specifier|private
