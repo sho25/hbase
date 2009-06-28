@@ -2267,7 +2267,7 @@ name|now
 argument_list|)
 return|;
 block|}
-comment|/** Append an entry to the log.    *     * @param regionInfo    * @param logEdit    * @param now Time of this edit write.    * @throws IOException    */
+comment|/** Append an entry to the log.    *     * @param regionInfo    * @param logEdit    * @param logKey    * @throws IOException    */
 specifier|public
 name|void
 name|append
