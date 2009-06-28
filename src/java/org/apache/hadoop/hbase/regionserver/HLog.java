@@ -2172,7 +2172,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/** Append an entry to the log.    *     * @param regionInfo    * @param row    * @param logEdit    * @param now Time of this edit write.    * @throws IOException    */
+comment|/** Append an entry to the log.    *     * @param regionInfo    * @param logEdit    * @param now Time of this edit write.    * @throws IOException    */
 specifier|public
 name|void
 name|append
@@ -2233,7 +2233,7 @@ name|logEdit
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Construct a new log key.    *     * @param now    * @param regionName    * @param tableName    * @return    */
+comment|/**    * @param now    * @param regionName    * @param tableName    * @return New log key.    */
 specifier|protected
 name|HLogKey
 name|makeKey
@@ -2267,7 +2267,7 @@ name|now
 argument_list|)
 return|;
 block|}
-comment|/** Append an entry to the log.    *     * @param regionInfo    * @param row    * @param logEdit    * @param now Time of this edit write.    * @throws IOException    */
+comment|/** Append an entry to the log.    *     * @param regionInfo    * @param logEdit    * @param now Time of this edit write.    * @throws IOException    */
 specifier|public
 name|void
 name|append
@@ -2415,7 +2415,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Append a set of edits to the log. Log edits are keyed by regionName,    * rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for a    * given key-range of the HRegion (TODO). Any edits that do not have a    * matching {@link HConstants#COMPLETE_CACHEFLUSH} message can be discarded.    *    *<p>    * Logs cannot be restarted once closed, or once the HLog process dies. Each    * time the HLog starts, it must create a new log. This means that other    * systems should process the log appropriately upon each startup (and prior    * to initializing HLog).    *    * synchronized prevents appends during the completion of a cache flush or for    * the duration of a log roll.    *    * @param regionName    * @param tableName    * @param edits    * @param sync    * @param now    * @throws IOException    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by regionName,    * rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for a    * given key-range of the HRegion (TODO). Any edits that do not have a    * matching COMPLETE_CACHEFLUSH message can be discarded.    *    *<p>    * Logs cannot be restarted once closed, or once the HLog process dies. Each    * time the HLog starts, it must create a new log. This means that other    * systems should process the log appropriately upon each startup (and prior    * to initializing HLog).    *    * synchronized prevents appends during the completion of a cache flush or for    * the duration of a log roll.    *    * @param regionName    * @param tableName    * @param edits    * @param sync    * @param now    * @throws IOException    */
 specifier|public
 name|void
 name|append
