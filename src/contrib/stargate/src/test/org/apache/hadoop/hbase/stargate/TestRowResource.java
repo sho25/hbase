@@ -606,12 +606,24 @@ name|toString
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|Thread
 operator|.
-name|yield
-argument_list|()
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
 expr_stmt|;
-comment|// yield for the minicluster threads
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+comment|// ignore
+block|}
 return|return
 name|response
 return|;
@@ -694,12 +706,24 @@ name|toString
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|Thread
 operator|.
-name|yield
-argument_list|()
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
 expr_stmt|;
-comment|// yield for the minicluster threads
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+comment|// ignore
+block|}
 return|return
 name|response
 return|;
@@ -784,12 +808,24 @@ argument_list|,
 name|MIMETYPE_XML
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|Thread
 operator|.
-name|yield
-argument_list|()
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
 expr_stmt|;
-comment|// yield for the minicluster threads
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+comment|// ignore
+block|}
 return|return
 name|response
 return|;
@@ -874,12 +910,24 @@ argument_list|,
 name|MIMETYPE_PROTOBUF
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|Thread
 operator|.
-name|yield
-argument_list|()
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
 expr_stmt|;
-comment|// yield for the minicluster threads
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+comment|// ignore
+block|}
 return|return
 name|response
 return|;
@@ -1041,12 +1089,24 @@ argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|Thread
 operator|.
-name|yield
-argument_list|()
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
 expr_stmt|;
-comment|// yield for the minicluster threads
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+comment|// ignore
+block|}
 return|return
 name|response
 return|;
@@ -1305,12 +1365,24 @@ name|createProtobufOutput
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|Thread
 operator|.
-name|yield
-argument_list|()
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
 expr_stmt|;
-comment|// yield for the minicluster threads
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+comment|// ignore
+block|}
 return|return
 name|response
 return|;
@@ -1811,12 +1883,24 @@ argument_list|,
 literal|200
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|Thread
 operator|.
-name|yield
-argument_list|()
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
 expr_stmt|;
-comment|// yield for minicluster threads
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+comment|// ignore
+block|}
 name|response
 operator|=
 name|client
@@ -1968,12 +2052,24 @@ argument_list|,
 literal|200
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|Thread
 operator|.
-name|yield
-argument_list|()
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
 expr_stmt|;
-comment|// yield for minicluster threads
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+comment|// ignore
+block|}
 name|response
 operator|=
 name|client
@@ -2202,12 +2298,24 @@ argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|Thread
 operator|.
-name|yield
-argument_list|()
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
 expr_stmt|;
-comment|// yield for the minicluster threads
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+comment|// ignore
+block|}
 comment|// make sure the fake row was not actually created
 name|response
 operator|=
@@ -2476,12 +2584,24 @@ name|createProtobufOutput
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|Thread
 operator|.
-name|yield
-argument_list|()
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
 expr_stmt|;
-comment|// yield for the minicluster threads
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+comment|// ignore
+block|}
 comment|// make sure the fake row was not actually created
 name|response
 operator|=
