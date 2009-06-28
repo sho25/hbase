@@ -70,9 +70,6 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/*    * Create an unmodifyable copy of an HTableDescriptor    * @param desc    */
-comment|//  UnmodifyableHTableDescriptor(final HTableDescriptor desc) {
-comment|//    super(desc.getName(), getUnmodifyableFamilies(desc), desc.getIndexes(), desc.getValues());
-comment|//  }
 name|UnmodifyableHTableDescriptor
 parameter_list|(
 specifier|final

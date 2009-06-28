@@ -129,10 +129,6 @@ name|Path
 import|;
 end_import
 
-begin_comment
-comment|//import org.apache.hadoop.hbase.client.tableindexed.IndexSpecification;
-end_comment
-
 begin_import
 import|import
 name|org
@@ -278,6 +274,7 @@ block|{
 comment|// Changes prior to version 3 were not recorded here.
 comment|// Version 3 adds metadata as a map where keys and values are byte[].
 comment|// Version 4 adds indexes
+comment|// FIXME version 5 should remove indexes
 specifier|public
 specifier|static
 specifier|final
@@ -597,11 +594,6 @@ operator|.
 name|FAMILY_COMPARATOR
 argument_list|)
 decl_stmt|;
-comment|//  private final Map<byte [], HColumnDescriptor> families =
-comment|//    new TreeMap<byte [], HColumnDescriptor>(KeyValue.FAMILY_COMPARATOR);
-comment|// Key is indexId
-comment|//  private final Map<String, IndexSpecification> indexes =
-comment|//    new HashMap<String, IndexSpecification>();
 comment|/**    * Private constructor used internally creating table descriptors for     * catalog tables: e.g. .META. and -ROOT-.    */
 specifier|protected
 name|HTableDescriptor
@@ -675,23 +667,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Private constructor used internally creating table descriptors for     * catalog tables: e.g. .META. and -ROOT-.    */
-comment|//  protected HTableDescriptor(final byte [] name, HColumnDescriptor[] families,
-comment|//      Collection<IndexSpecification> indexes,
-comment|//       Map<ImmutableBytesWritable,ImmutableBytesWritable> values) {
-comment|//    this.name = name.clone();
-comment|//    this.nameAsString = Bytes.toString(this.name);
-comment|//    setMetaFlags(name);
-comment|//    for(HColumnDescriptor descriptor : families) {
-comment|//      this.families.put(descriptor.getName(), descriptor);
-comment|//    }
-comment|//    for(IndexSpecification index : indexes) {
-comment|//      this.indexes.put(index.getIndexId(), index);
-comment|//    }
-comment|//    for (Map.Entry<ImmutableBytesWritable, ImmutableBytesWritable> entry:
-comment|//        values.entrySet()) {
-comment|//      this.values.put(entry.getKey(), entry.getValue());
-comment|//    }
-comment|//  }
 specifier|protected
 name|HTableDescriptor
 parameter_list|(
@@ -992,7 +967,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|//    this.indexes.putAll(desc.indexes);
 block|}
 comment|/*    * Set meta flags on this table.    * Called by constructors.    * @param name    */
 specifier|private
@@ -1914,17 +1888,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|//  public Collection<IndexSpecification> getIndexes() {
-comment|//    return indexes.values();
-comment|//  }
-comment|//
-comment|//  public IndexSpecification getIndex(String indexId) {
-comment|//    return indexes.get(indexId);
-comment|//  }
-comment|//
-comment|//  public void addIndex(IndexSpecification index) {
-comment|//    indexes.put(index.getIndexId(), index);
-comment|//  }
 comment|/**    * Adds a column family.    * @param family HColumnDescriptor of familyto add.    */
 specifier|public
 name|void
@@ -2249,13 +2212,6 @@ name|values
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//    if (!indexes.isEmpty()) {
-comment|//      // Don't emit if empty.  Has to do w/ transactional hbase.
-comment|//      s.append(", ");
-comment|//      s.append("INDEXES");
-comment|//      s.append(" => ");
-comment|//      s.append(indexes.values());
-comment|//    }
 name|s
 operator|.
 name|append
@@ -2602,7 +2558,6 @@ name|c
 argument_list|)
 expr_stmt|;
 block|}
-comment|//    indexes.clear();
 if|if
 condition|(
 name|version
@@ -2612,12 +2567,6 @@ condition|)
 block|{
 return|return;
 block|}
-comment|//    int numIndexes = in.readInt();
-comment|//    for (int i = 0; i< numIndexes; i++) {
-comment|//      IndexSpecification index = new IndexSpecification();
-comment|//      index.readFields(in);
-comment|//      addIndex(index);
-comment|//    }
 block|}
 specifier|public
 name|void
@@ -2759,10 +2708,6 @@ name|out
 argument_list|)
 expr_stmt|;
 block|}
-comment|//    out.writeInt(indexes.size());
-comment|//    for(IndexSpecification index : indexes.values()) {
-comment|//      index.write(out);
-comment|//    }
 block|}
 comment|// Comparable
 specifier|public

@@ -5204,6 +5204,29 @@ block|}
 name|HLog
 name|newlog
 init|=
+name|instantiateHLog
+argument_list|(
+name|logdir
+argument_list|)
+decl_stmt|;
+return|return
+name|newlog
+return|;
+block|}
+comment|// instantiate
+specifier|protected
+name|HLog
+name|instantiateHLog
+parameter_list|(
+name|Path
+name|logdir
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|HLog
+name|newlog
+init|=
 operator|new
 name|HLog
 argument_list|(
@@ -5220,6 +5243,16 @@ return|return
 name|newlog
 return|;
 block|}
+specifier|protected
+name|LogRoller
+name|getLogRoller
+parameter_list|()
+block|{
+return|return
+name|hlogRoller
+return|;
+block|}
+comment|/*    * @param interval Interval since last time metrics were called.    */
 specifier|protected
 name|void
 name|doMetrics
@@ -7718,6 +7751,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+specifier|protected
 name|void
 name|closeRegion
 parameter_list|(

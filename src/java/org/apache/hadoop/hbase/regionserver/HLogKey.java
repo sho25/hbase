@@ -263,6 +263,20 @@ return|return
 name|logSeqNum
 return|;
 block|}
+name|void
+name|setLogSeqNum
+parameter_list|(
+name|long
+name|logSeqNum
+parameter_list|)
+block|{
+name|this
+operator|.
+name|logSeqNum
+operator|=
+name|logSeqNum
+expr_stmt|;
+block|}
 comment|/**    * @return the write time    */
 specifier|public
 name|long

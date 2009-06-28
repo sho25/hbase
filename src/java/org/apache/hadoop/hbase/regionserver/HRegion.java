@@ -31,6 +31,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|UnsupportedEncodingException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -1382,6 +1392,18 @@ name|storeSeqId
 expr_stmt|;
 block|}
 block|}
+comment|// Play log if one.  Delete when done.
+name|doReconstructionLog
+argument_list|(
+name|oldLogFile
+argument_list|,
+name|minSeqId
+argument_list|,
+name|maxSeqId
+argument_list|,
+name|reporter
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|fs
@@ -1722,6 +1744,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Close down this HRegion.  Flush the cache unless abort parameter is true,    * Shut down each HStore, don't service any more calls.    *    * This method could take some time to execute, so don't call it from a     * time-sensitive thread.    *     * @param abort true if server is aborting (only during testing)    * @return Vector of all the storage files that the HRegion's component     * HStores make use of.  It's a list of HStoreFile objects.  Can be null if    * we are not to close at this time or we are already closed.    *     * @throws IOException    */
+specifier|public
 name|List
 argument_list|<
 name|StoreFile
@@ -2272,6 +2295,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|prepareToSplit
+argument_list|()
+expr_stmt|;
 synchronized|synchronized
 init|(
 name|splitLock
@@ -2865,6 +2891,13 @@ return|return
 name|regions
 return|;
 block|}
+block|}
+specifier|protected
+name|void
+name|prepareToSplit
+parameter_list|()
+block|{
+comment|// nothing
 block|}
 comment|/*    * @param dir    * @return compaction directory for the passed in<code>dir</code>    */
 specifier|static
@@ -5797,6 +5830,30 @@ name|this
 operator|.
 name|memstoreFlushSize
 return|;
+block|}
+comment|// Do any reconstruction needed from the log
+specifier|protected
+name|void
+name|doReconstructionLog
+parameter_list|(
+name|Path
+name|oldLogFile
+parameter_list|,
+name|long
+name|minSeqId
+parameter_list|,
+name|long
+name|maxSeqId
+parameter_list|,
+name|Progressable
+name|reporter
+parameter_list|)
+throws|throws
+name|UnsupportedEncodingException
+throws|,
+name|IOException
+block|{
+comment|// Nothing to do (Replaying is done in HStores)
 block|}
 specifier|protected
 name|Store

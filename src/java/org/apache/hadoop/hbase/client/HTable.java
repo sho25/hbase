@@ -5431,7 +5431,7 @@ comment|// Need, at the least, to break up family from qualifier as separate
 comment|// checks, I think it's important server-side filters are optimal in that
 comment|// respect.
 block|}
-specifier|protected
+specifier|public
 name|void
 name|initialize
 parameter_list|()
