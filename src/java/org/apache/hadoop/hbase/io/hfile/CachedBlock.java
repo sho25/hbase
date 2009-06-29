@@ -82,6 +82,7 @@ comment|/**  * Represents an entry in the {@link LruBlockCache}.  *   *<p>Makes 
 end_comment
 
 begin_class
+specifier|public
 class|class
 name|CachedBlock
 implements|implements
@@ -107,7 +108,7 @@ operator|.
 name|OBJECT
 operator|+
 operator|(
-literal|2
+literal|3
 operator|*
 name|ClassSize
 operator|.
