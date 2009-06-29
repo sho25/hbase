@@ -371,7 +371,7 @@ return|return
 name|attrs
 return|;
 block|}
-comment|/**    * @param the table name    */
+comment|/**    * @param name the table name    */
 specifier|public
 name|void
 name|setName

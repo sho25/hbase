@@ -197,7 +197,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct an index spec by specifying everything.    *     * @param indexId    * @param indexedColumns    * @param additionalColumns    * @param keyGenerator    * @param keyComparator    */
+comment|/**    * Construct an index spec by specifying everything.    *     * @param indexId    * @param indexedColumns    * @param additionalColumns    * @param keyGenerator    */
 specifier|public
 name|IndexSpecification
 parameter_list|(

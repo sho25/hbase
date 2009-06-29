@@ -450,7 +450,7 @@ specifier|final
 name|CleanOldTransactionsChore
 name|cleanOldTransactionsThread
 decl_stmt|;
-comment|/**    * @param address    * @param conf    * @throws IOException    */
+comment|/**    * @param conf    * @throws IOException    */
 specifier|public
 name|TransactionalRegionServer
 parameter_list|(

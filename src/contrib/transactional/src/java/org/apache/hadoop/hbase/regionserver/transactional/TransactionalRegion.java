@@ -1532,7 +1532,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Add a write to the transaction. Does not get applied until commit process.    *     * @param transactionId    * @param b    * @throws IOException    */
+comment|/**    * Add a write to the transaction. Does not get applied until commit process.    *     * @param transactionId    * @param put    * @throws IOException    */
 specifier|public
 name|void
 name|put
@@ -1644,7 +1644,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Add a delete to the transaction. Does not get applied until commit process.    * FIXME, not sure about this approach    *     * @param transactionId    * @param row    * @param timestamp    * @throws IOException    */
+comment|/**    * Add a delete to the transaction. Does not get applied until commit process.    * FIXME, not sure about this approach    *     * @param transactionId    * @param delete    * @throws IOException    */
 specifier|public
 name|void
 name|delete

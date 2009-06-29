@@ -285,7 +285,7 @@ return|return
 name|regions
 return|;
 block|}
-comment|/**    * @param the table name    */
+comment|/**    * @param name the table name    */
 specifier|public
 name|void
 name|setName

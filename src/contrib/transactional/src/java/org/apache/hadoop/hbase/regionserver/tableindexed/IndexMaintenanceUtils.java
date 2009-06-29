@@ -418,7 +418,7 @@ return|return
 name|update
 return|;
 block|}
-comment|/**      * Ask if this update does apply to the index.      *       * @param indexSpec      * @param b      * @return true if possibly apply.      */
+comment|/**      * Ask if this update does apply to the index.      *       * @param indexSpec      * @param columnValues      * @return true if possibly apply.      */
 specifier|public
 specifier|static
 name|boolean

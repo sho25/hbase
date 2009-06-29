@@ -101,7 +101,7 @@ name|nodes
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add a node to the cluster    * @param name the service location in 'host:port' format    */
+comment|/**    * Add a node to the cluster    * @param node the service location in 'host:port' format    */
 specifier|public
 name|Cluster
 name|add
@@ -171,7 +171,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Remove a node from the cluster    * @param name the service location in 'host:port' format    */
+comment|/**    * Remove a node from the cluster    * @param node the service location in 'host:port' format    */
 specifier|public
 name|Cluster
 name|remove

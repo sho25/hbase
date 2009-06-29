@@ -189,7 +189,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Put an array of puts into the specified region    * @param regionName    * @param puts    * @return    * @throws IOException    */
+comment|/**    * Put an array of puts into the specified region    * @param regionName    * @param puts    * @return result    * @throws IOException    */
 specifier|public
 name|int
 name|put
