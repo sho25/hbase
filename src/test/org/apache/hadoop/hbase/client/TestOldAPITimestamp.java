@@ -99,7 +99,7 @@ specifier|static
 name|String
 name|COLUMN_NAME
 init|=
-literal|"contents:"
+literal|"colfamily1:"
 decl_stmt|;
 comment|/**    * Basic test of timestamps.    * Do the above tests from client side.    * @throws IOException    */
 specifier|public
