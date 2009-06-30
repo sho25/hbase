@@ -706,9 +706,9 @@ name|class
 expr_stmt|;
 name|actual
 operator|=
-name|LruBlockCache
+name|ClassSize
 operator|.
-name|MAP_FIXED_OVERHEAD
+name|CONCURRENT_HASHMAP
 expr_stmt|;
 name|expected
 operator|=
