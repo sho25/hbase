@@ -85,22 +85,38 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|mapred
+name|io
+operator|.
+name|Writable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|mapreduce
 operator|.
 name|InputSplit
 import|;
 end_import
 
 begin_comment
-comment|/**  * A table split corresponds to a key range [low, high)  */
+comment|/**  * A table split corresponds to a key range (low, high). All references to row  * below refer to the key of the row.  */
 end_comment
 
 begin_class
 specifier|public
 class|class
 name|TableSplit
-implements|implements
+extends|extends
 name|InputSplit
+implements|implements
+name|Writable
 implements|,
 name|Comparable
 argument_list|<
@@ -110,23 +126,23 @@ block|{
 specifier|private
 name|byte
 index|[]
-name|m_tableName
+name|tableName
 decl_stmt|;
 specifier|private
 name|byte
 index|[]
-name|m_startRow
+name|startRow
 decl_stmt|;
 specifier|private
 name|byte
 index|[]
-name|m_endRow
+name|endRow
 decl_stmt|;
 specifier|private
 name|String
-name|m_regionLocation
+name|regionLocation
 decl_stmt|;
-comment|/** default constructor */
+comment|/** Default constructor. */
 specifier|public
 name|TableSplit
 parameter_list|()
@@ -149,7 +165,7 @@ literal|""
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param tableName    * @param startRow    * @param endRow    * @param location    */
+comment|/**    * Creates a new instance while assigning all variables.    *     * @param tableName  The name of the current table.    * @param startRow  The start row of the split.    * @param endRow  The end row of the split.    * @param location  The location of the region.    */
 specifier|public
 name|TableSplit
 parameter_list|(
@@ -172,30 +188,30 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|m_tableName
+name|tableName
 operator|=
 name|tableName
 expr_stmt|;
 name|this
 operator|.
-name|m_startRow
+name|startRow
 operator|=
 name|startRow
 expr_stmt|;
 name|this
 operator|.
-name|m_endRow
+name|endRow
 operator|=
 name|endRow
 expr_stmt|;
 name|this
 operator|.
-name|m_regionLocation
+name|regionLocation
 operator|=
 name|location
 expr_stmt|;
 block|}
-comment|/** @return table name */
+comment|/**    * Returns the table name.    *     * @return The table name.     */
 specifier|public
 name|byte
 index|[]
@@ -203,12 +219,10 @@ name|getTableName
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
-name|m_tableName
+name|tableName
 return|;
 block|}
-comment|/** @return starting row key */
+comment|/**    * Returns the start row.    *      * @return The start row.    */
 specifier|public
 name|byte
 index|[]
@@ -216,12 +230,10 @@ name|getStartRow
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
-name|m_startRow
+name|startRow
 return|;
 block|}
-comment|/** @return end row key */
+comment|/**    * Returns the end row.    *     * @return The end row.     */
 specifier|public
 name|byte
 index|[]
@@ -229,23 +241,22 @@ name|getEndRow
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
-name|m_endRow
+name|endRow
 return|;
 block|}
-comment|/** @return the region's hostname */
+comment|/**     * Returns the region location.    *     * @return The region's location.     */
 specifier|public
 name|String
 name|getRegionLocation
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
-name|m_regionLocation
+name|regionLocation
 return|;
 block|}
+comment|/**    * Returns the region's location as an array.    *     * @return The array containing the region location.    * @see org.apache.hadoop.mapreduce.InputSplit#getLocations()    */
+annotation|@
+name|Override
 specifier|public
 name|String
 index|[]
@@ -257,12 +268,13 @@ operator|new
 name|String
 index|[]
 block|{
-name|this
-operator|.
-name|m_regionLocation
+name|regionLocation
 block|}
 return|;
 block|}
+comment|/**    * Returns the length of the split.    *     * @return The length of the split.    * @see org.apache.hadoop.mapreduce.InputSplit#getLength()    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getLength
@@ -273,6 +285,9 @@ return|return
 literal|0
 return|;
 block|}
+comment|/**    * Reads the values of each field.    *     * @param in  The input to read from.    * @throws IOException When reading the input fails.    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|readFields
@@ -283,9 +298,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|this
-operator|.
-name|m_tableName
+name|tableName
 operator|=
 name|Bytes
 operator|.
@@ -294,9 +307,7 @@ argument_list|(
 name|in
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|m_startRow
+name|startRow
 operator|=
 name|Bytes
 operator|.
@@ -305,9 +316,7 @@ argument_list|(
 name|in
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|m_endRow
+name|endRow
 operator|=
 name|Bytes
 operator|.
@@ -316,9 +325,7 @@ argument_list|(
 name|in
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|m_regionLocation
+name|regionLocation
 operator|=
 name|Bytes
 operator|.
@@ -333,6 +340,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Writes the field values to the output.    *     * @param out  The output to write to.    * @throws IOException When writing the values to the output fails.    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|write
@@ -349,9 +359,7 @@ name|writeByteArray
 argument_list|(
 name|out
 argument_list|,
-name|this
-operator|.
-name|m_tableName
+name|tableName
 argument_list|)
 expr_stmt|;
 name|Bytes
@@ -360,9 +368,7 @@ name|writeByteArray
 argument_list|(
 name|out
 argument_list|,
-name|this
-operator|.
-name|m_startRow
+name|startRow
 argument_list|)
 expr_stmt|;
 name|Bytes
@@ -371,9 +377,7 @@ name|writeByteArray
 argument_list|(
 name|out
 argument_list|,
-name|this
-operator|.
-name|m_endRow
+name|endRow
 argument_list|)
 expr_stmt|;
 name|Bytes
@@ -386,13 +390,12 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|this
-operator|.
-name|m_regionLocation
+name|regionLocation
 argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Returns the details about this instance as a string.    *     * @return The values of this instance as a string.    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
 specifier|public
@@ -401,7 +404,7 @@ name|toString
 parameter_list|()
 block|{
 return|return
-name|m_regionLocation
+name|regionLocation
 operator|+
 literal|":"
 operator|+
@@ -409,7 +412,7 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
-name|m_startRow
+name|startRow
 argument_list|)
 operator|+
 literal|","
@@ -418,16 +421,19 @@ name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
-name|m_endRow
+name|endRow
 argument_list|)
 return|;
 block|}
+comment|/**    * Compares this split against the given one.    *     * @param split  The split to compare to.    * @return The result of the comparison.    * @see java.lang.Comparable#compareTo(java.lang.Object)    */
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compareTo
 parameter_list|(
 name|TableSplit
-name|o
+name|split
 parameter_list|)
 block|{
 return|return
@@ -438,7 +444,7 @@ argument_list|(
 name|getStartRow
 argument_list|()
 argument_list|,
-name|o
+name|split
 operator|.
 name|getStartRow
 argument_list|()

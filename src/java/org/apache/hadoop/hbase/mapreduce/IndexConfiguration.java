@@ -268,7 +268,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Configuration parameters for building a Lucene index  */
+comment|/**  * Configuration parameters for building a Lucene index.  */
 end_comment
 
 begin_class

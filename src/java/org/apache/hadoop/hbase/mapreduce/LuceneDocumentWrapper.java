@@ -76,6 +76,7 @@ name|LuceneDocumentWrapper
 implements|implements
 name|Writable
 block|{
+comment|/** The document to add to the index. */
 specifier|protected
 name|Document
 name|doc
