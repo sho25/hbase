@@ -4915,7 +4915,7 @@ specifier|final
 name|int
 name|index
 init|=
-name|getFamilyDelimiterIndex
+name|getDelimiter
 argument_list|(
 name|c
 argument_list|,
@@ -4924,6 +4924,8 @@ argument_list|,
 name|c
 operator|.
 name|length
+argument_list|,
+name|COLUMN_FAMILY_DELIMITER
 argument_list|)
 decl_stmt|;
 if|if
@@ -4934,15 +4936,24 @@ operator|-
 literal|1
 condition|)
 block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|"Impossible column name: "
-operator|+
+comment|// If no delimiter, return<code>c</code> as family and null qualifier.
+name|result
+index|[
+literal|0
+index|]
+operator|=
 name|c
-argument_list|)
-throw|;
+expr_stmt|;
+name|result
+index|[
+literal|1
+index|]
+operator|=
+literal|null
+expr_stmt|;
+return|return
+name|result
+return|;
 block|}
 name|result
 index|[
