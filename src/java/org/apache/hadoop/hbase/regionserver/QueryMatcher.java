@@ -741,7 +741,7 @@ name|SKIP
 return|;
 comment|// optimization chances here.
 block|}
-comment|/* Check Deletes      * If deleted, move to next KeyValue       */
+comment|/* Check Deletes      * If deleted, move to next KeyValue      */
 if|if
 condition|(
 operator|!

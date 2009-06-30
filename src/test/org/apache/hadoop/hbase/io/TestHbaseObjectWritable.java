@@ -159,7 +159,7 @@ name|hbase
 operator|.
 name|filter
 operator|.
-name|RowPrefixFilter
+name|PrefixFilter
 import|;
 end_import
 
@@ -485,14 +485,14 @@ argument_list|(
 name|conf
 argument_list|,
 operator|new
-name|RowPrefixFilter
+name|PrefixFilter
 argument_list|(
 name|HConstants
 operator|.
 name|EMPTY_BYTE_ARRAY
 argument_list|)
 argument_list|,
-name|RowPrefixFilter
+name|PrefixFilter
 operator|.
 name|class
 argument_list|)
@@ -501,7 +501,7 @@ name|assertTrue
 argument_list|(
 name|obj
 operator|instanceof
-name|RowPrefixFilter
+name|PrefixFilter
 argument_list|)
 expr_stmt|;
 block|}

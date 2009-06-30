@@ -349,7 +349,7 @@ name|hbase
 operator|.
 name|filter
 operator|.
-name|RowWhileMatchFilter
+name|WhileMatchFilter
 import|;
 end_import
 
@@ -2403,7 +2403,7 @@ operator|.
 name|setFilter
 argument_list|(
 operator|new
-name|RowWhileMatchFilter
+name|WhileMatchFilter
 argument_list|(
 operator|new
 name|PageFilter

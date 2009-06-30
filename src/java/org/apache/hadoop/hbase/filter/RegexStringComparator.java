@@ -94,7 +94,11 @@ comment|/** Nullary constructor for Writable */
 specifier|public
 name|RegexStringComparator
 parameter_list|()
-block|{   }
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * Constructor    * @param expr a valid regular expression    */
 specifier|public
 name|RegexStringComparator

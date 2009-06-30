@@ -196,8 +196,6 @@ name|pageSize
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Override
 specifier|public
 name|ReturnCode
 name|filterKeyValue
@@ -224,8 +222,6 @@ operator|.
 name|INCLUDE
 return|;
 block|}
-annotation|@
-name|Override
 specifier|public
 name|boolean
 name|filterRow

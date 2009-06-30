@@ -110,7 +110,7 @@ end_import
 begin_class
 specifier|public
 class|class
-name|TestRowPrefixFilter
+name|TestPrefixFilter
 extends|extends
 name|TestCase
 block|{
@@ -189,7 +189,7 @@ operator|.
 name|mainFilter
 operator|=
 operator|new
-name|RowPrefixFilter
+name|PrefixFilter
 argument_list|(
 name|Bytes
 operator|.
@@ -297,7 +297,7 @@ name|Filter
 name|newFilter
 init|=
 operator|new
-name|RowPrefixFilter
+name|PrefixFilter
 argument_list|()
 decl_stmt|;
 name|newFilter

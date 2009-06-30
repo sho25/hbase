@@ -200,7 +200,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Single row result of a {@link Get} or {@link Scan} query.  */
+comment|/**  * Single row result of a {@link Get} or {@link Scan} query.  * Backed by array of KeyValues.  */
 end_comment
 
 begin_class
@@ -366,7 +366,7 @@ operator|.
 name|row
 return|;
 block|}
-comment|/**    * Directly return the unsorted array of KeyValues in this Result.    * @return unsorted array of KeyValues    */
+comment|/**    * Return the unsorted array of KeyValues backing this Result instance.    * @return unsorted array of KeyValues    */
 specifier|public
 name|KeyValue
 index|[]
@@ -377,7 +377,7 @@ return|return
 name|kvs
 return|;
 block|}
-comment|/**    * Return a sorted list of the KeyValue's in this result.    *     * @return The sorted list of KeyValue's.    */
+comment|/**    * Create a sorted list of the KeyValue's in this result.    *     * @return The sorted list of KeyValue's.    */
 specifier|public
 name|List
 argument_list|<
@@ -1445,25 +1445,18 @@ index|[]
 name|qualifier
 parameter_list|)
 block|{
-if|if
-condition|(
+return|return
 name|qualifier
 operator|!=
 literal|null
-condition|)
-block|{
-return|return
+condition|?
 name|qualifierMap
 operator|.
 name|get
 argument_list|(
 name|qualifier
 argument_list|)
-return|;
-block|}
-else|else
-block|{
-return|return
+else|:
 name|qualifierMap
 operator|.
 name|get
@@ -1475,7 +1468,6 @@ literal|0
 index|]
 argument_list|)
 return|;
-block|}
 block|}
 comment|/**    * Get the latest version of the specified column,    * using<pre>family:qualifier</pre> notation.    * @param column column in family:qualifier notation    * @return value of latest version of column, null if none found    */
 specifier|public
@@ -1683,7 +1675,6 @@ name|isEmpty
 parameter_list|()
 block|{
 return|return
-operator|(
 name|this
 operator|.
 name|kvs
@@ -1697,17 +1688,15 @@ operator|.
 name|length
 operator|==
 literal|0
-operator|)
 return|;
 block|}
-comment|/**    *     * @return the size of the underlying KeyValue []    */
+comment|/**    * @return the size of the underlying KeyValue []    */
 specifier|public
 name|int
 name|size
 parameter_list|()
 block|{
 return|return
-operator|(
 name|this
 operator|.
 name|kvs
@@ -1721,7 +1710,6 @@ operator|.
 name|kvs
 operator|.
 name|length
-operator|)
 return|;
 block|}
 comment|/**    * @return String    */
