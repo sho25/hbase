@@ -74,6 +74,12 @@ name|String
 name|blockName
 parameter_list|)
 function_decl|;
+comment|/**    * Shutdown the cache.    */
+specifier|public
+name|void
+name|shutdown
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

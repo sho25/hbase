@@ -320,6 +320,13 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
+name|void
+name|shutdown
+parameter_list|()
+block|{
+comment|// noop
+block|}
 block|}
 end_class
 

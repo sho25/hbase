@@ -3337,6 +3337,33 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|// Send cache a shutdown.
+name|LruBlockCache
+name|c
+init|=
+operator|(
+name|LruBlockCache
+operator|)
+name|StoreFile
+operator|.
+name|getBlockCache
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|c
+operator|!=
+literal|null
+condition|)
+name|c
+operator|.
+name|shutdown
+argument_list|()
+expr_stmt|;
 comment|// Send interrupts to wake up threads if sleeping so they notice shutdown.
 comment|// TODO: Should we check they are alive?  If OOME could have exited already
 name|cacheFlusher
