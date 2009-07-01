@@ -188,7 +188,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of RowFilterInterface that can filter by rowkey regular  * expression and/or individual column values (equals comparison only). Multiple  * column filters imply an implicit conjunction of filter criteria.  *   * Note that column value filtering in this interface has been replaced by  * {@link ColumnValueFilter}.  * @deprecated This interface doesn't really work well in new KeyValue world.  * Needs to be refactored/removed.  Marking it as deprecated till it gets  * cleaned up.  Its also inefficient as written.  */
+comment|/**  * Implementation of RowFilterInterface that can filter by rowkey regular  * expression and/or individual column values (equals comparison only). Multiple  * column filters imply an implicit conjunction of filter criteria.  *   * Note that column value filtering in this interface has been replaced by  * {@link ColumnValueFilter}.  * @deprecated This interface doesn't work well in new KeyValue world.  * Use filters based on new {@link Filter} instead.  */
 end_comment
 
 begin_class

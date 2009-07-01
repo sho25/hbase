@@ -1084,6 +1084,16 @@ name|code
 operator|++
 argument_list|)
 expr_stmt|;
+name|addToMap
+argument_list|(
+name|ValueFilter
+operator|.
+name|class
+argument_list|,
+name|code
+operator|++
+argument_list|)
+expr_stmt|;
 block|}
 specifier|private
 name|Class

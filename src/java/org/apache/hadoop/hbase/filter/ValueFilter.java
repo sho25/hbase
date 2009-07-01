@@ -144,7 +144,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This filter is used to filter based on the value of a given column. It takes  * an operator (equal, greater, not equal, etc) and either a byte [] value or a  * byte [] comparator. If we have a byte [] value then we just do a  * lexicographic compare. If this is not sufficient (eg you want to deserialize  * a long and then compare it to a fixed long value), then you can pass in your  * own comparator instead.  * */
+comment|/**  * This filter is used to filter based on the value of a given column. It takes  * an operator (equal, greater, not equal, etc) and either a byte [] value or a  * byte [] comparator. If we have a byte [] value then we just do a  * lexicographic compare. For example, if passed value is 'b' and cell has 'a'  * and the compare operator is LESS, then we will filter out this cell (return  * true).  If this is not sufficient (eg you want to deserialize  * a long and then compare it to a fixed long value), then you can pass in your  * own comparator instead.  * */
 end_comment
 
 begin_class
@@ -194,7 +194,12 @@ block|;   }
 specifier|private
 name|byte
 index|[]
-name|columnName
+name|columnFamily
+decl_stmt|;
+specifier|private
+name|byte
+index|[]
+name|columnQualifier
 decl_stmt|;
 specifier|private
 name|CompareOp
@@ -212,20 +217,37 @@ decl_stmt|;
 specifier|private
 name|boolean
 name|filterIfColumnMissing
+decl_stmt|;
+specifier|private
+name|boolean
+name|filterThisRow
+init|=
+literal|false
+decl_stmt|;
+specifier|private
+name|boolean
+name|foundColValue
+init|=
+literal|false
 decl_stmt|;
 name|ValueFilter
 parameter_list|()
 block|{
 comment|// for Writable
 block|}
-comment|/**    * Constructor.    *     * @param columnName name of column    * @param compareOp operator    * @param value value to compare column values against    */
+comment|/**    * Constructor.    *     * @param family name of column family    * @param qualifier name of column qualifier    * @param compareOp operator    * @param value value to compare column values against    */
 specifier|public
 name|ValueFilter
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|columnName
+name|family
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|qualifier
 parameter_list|,
 specifier|final
 name|CompareOp
@@ -239,7 +261,9 @@ parameter_list|)
 block|{
 name|this
 argument_list|(
-name|columnName
+name|family
+argument_list|,
+name|qualifier
 argument_list|,
 name|compareOp
 argument_list|,
@@ -249,14 +273,19 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor.    *     * @param columnName name of column    * @param compareOp operator    * @param value value to compare column values against    * @param filterIfColumnMissing if true then we will filter rows that don't    * have the column.    */
+comment|/**    * Constructor.    *     * @param family name of column family    * @param qualifier name of column qualifier    * @param compareOp operator    * @param value value to compare column values against    * @param filterIfColumnMissing if true then we will filter rows that don't    * have the column.    */
 specifier|public
 name|ValueFilter
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|columnName
+name|family
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|qualifier
 parameter_list|,
 specifier|final
 name|CompareOp
@@ -273,9 +302,15 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|columnName
+name|columnFamily
 operator|=
-name|columnName
+name|family
+expr_stmt|;
+name|this
+operator|.
+name|columnQualifier
+operator|=
+name|qualifier
 expr_stmt|;
 name|this
 operator|.
@@ -296,14 +331,19 @@ operator|=
 name|filterIfColumnMissing
 expr_stmt|;
 block|}
-comment|/**    * Constructor.    *     * @param columnName name of column    * @param compareOp operator    * @param comparator Comparator to use.    */
+comment|/**    * Constructor.    *     * @param family name of column family    * @param qualifier name of column qualifier    * @param compareOp operator    * @param comparator Comparator to use.    */
 specifier|public
 name|ValueFilter
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|columnName
+name|family
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|qualifier
 parameter_list|,
 specifier|final
 name|CompareOp
@@ -316,7 +356,9 @@ parameter_list|)
 block|{
 name|this
 argument_list|(
-name|columnName
+name|family
+argument_list|,
+name|qualifier
 argument_list|,
 name|compareOp
 argument_list|,
@@ -326,14 +368,19 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor.    *     * @param columnName name of column    * @param compareOp operator    * @param comparator Comparator to use.    * @param filterIfColumnMissing if true then we will filter rows that don't    * have the column.    */
+comment|/**    * Constructor.    *     * @param family name of column family    * @param qualifier name of column qualifier    * @param compareOp operator    * @param comparator Comparator to use.    * @param filterIfColumnMissing if true then we will filter rows that don't    * have the column.    */
 specifier|public
 name|ValueFilter
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|columnName
+name|family
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|qualifier
 parameter_list|,
 specifier|final
 name|CompareOp
@@ -349,9 +396,15 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|columnName
+name|columnFamily
 operator|=
-name|columnName
+name|family
+expr_stmt|;
+name|this
+operator|.
+name|columnQualifier
+operator|=
+name|qualifier
 expr_stmt|;
 name|this
 operator|.
@@ -391,18 +444,6 @@ return|return
 literal|false
 return|;
 block|}
-specifier|private
-name|boolean
-name|filterThisRow
-init|=
-literal|false
-decl_stmt|;
-specifier|private
-name|boolean
-name|foundColValue
-init|=
-literal|false
-decl_stmt|;
 specifier|public
 name|ReturnCode
 name|filterKeyValue
@@ -413,21 +454,19 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|Bytes
-operator|.
-name|compareTo
-argument_list|(
+operator|!
 name|keyValue
 operator|.
-name|getColumn
-argument_list|()
+name|matchingColumn
+argument_list|(
+name|this
+operator|.
+name|columnFamily
 argument_list|,
 name|this
 operator|.
-name|columnName
+name|columnQualifier
 argument_list|)
-operator|!=
-literal|0
 condition|)
 block|{
 return|return
@@ -436,34 +475,8 @@ operator|.
 name|INCLUDE
 return|;
 block|}
-name|LOG
+name|this
 operator|.
-name|info
-argument_list|(
-literal|"Found column ["
-operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|columnName
-argument_list|)
-operator|+
-literal|"] in row ["
-operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|keyValue
-operator|.
-name|getRow
-argument_list|()
-argument_list|)
-operator|+
-literal|"]"
-argument_list|)
-expr_stmt|;
 name|foundColValue
 operator|=
 literal|true
@@ -494,13 +507,8 @@ condition|(
 name|filtered
 condition|)
 block|{
-name|LOG
+name|this
 operator|.
-name|info
-argument_list|(
-literal|"filtered it"
-argument_list|)
-expr_stmt|;
 name|filterThisRow
 operator|=
 literal|true
@@ -692,23 +700,6 @@ name|foundColValue
 operator|=
 literal|false
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Deciding "
-operator|+
-operator|(
-name|result
-condition|?
-literal|""
-else|:
-literal|" not "
-operator|)
-operator|+
-literal|"to filter"
-argument_list|)
-expr_stmt|;
 return|return
 name|result
 return|;
@@ -762,7 +753,20 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
-name|columnName
+name|this
+operator|.
+name|columnFamily
+operator|=
+name|Bytes
+operator|.
+name|readByteArray
+argument_list|(
+name|in
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|columnQualifier
 operator|=
 name|Bytes
 operator|.
@@ -858,7 +862,20 @@ name|writeByteArray
 argument_list|(
 name|out
 argument_list|,
-name|columnName
+name|this
+operator|.
+name|columnFamily
+argument_list|)
+expr_stmt|;
+name|Bytes
+operator|.
+name|writeByteArray
+argument_list|(
+name|out
+argument_list|,
+name|this
+operator|.
+name|columnQualifier
 argument_list|)
 expr_stmt|;
 name|out
