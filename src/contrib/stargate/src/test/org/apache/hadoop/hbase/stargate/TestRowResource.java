@@ -2342,6 +2342,8 @@ operator|.
 name|get
 argument_list|(
 name|path
+argument_list|,
+name|MIMETYPE_XML
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2615,6 +2617,8 @@ operator|.
 name|get
 argument_list|(
 name|path
+argument_list|,
+name|MIMETYPE_PROTOBUF
 argument_list|)
 expr_stmt|;
 name|assertEquals
