@@ -387,9 +387,6 @@ name|pageSize
 argument_list|)
 expr_stmt|;
 block|}
-name|count
-operator|++
-expr_stmt|;
 if|if
 condition|(
 name|Filter
@@ -408,6 +405,9 @@ condition|)
 block|{
 break|break;
 block|}
+name|count
+operator|++
+expr_stmt|;
 block|}
 name|assertEquals
 argument_list|(
