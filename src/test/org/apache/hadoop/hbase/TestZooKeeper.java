@@ -287,6 +287,10 @@ operator|new
 name|ZooKeeperWrapper
 argument_list|(
 name|conf
+argument_list|,
+operator|new
+name|EmptyWatcher
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|boolean
@@ -409,6 +413,10 @@ operator|new
 name|ZooKeeperWrapper
 argument_list|(
 name|conf
+argument_list|,
+operator|new
+name|EmptyWatcher
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|assertTrue

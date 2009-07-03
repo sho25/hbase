@@ -973,6 +973,30 @@ name|StringUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|WatchedEvent
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|Watcher
+import|;
+end_import
+
 begin_comment
 comment|/**  * HMaster is the "master server" for a HBase.  * There is only one HMaster for a single HBase deployment.  *   * NOTE: This class extends Thread rather than Chore because the sleep time  * can be interrupted when there is something to do, rather than the Chore  * sleep time which is invariant.  */
 end_comment
@@ -989,6 +1013,8 @@ implements|,
 name|HMasterInterface
 implements|,
 name|HMasterRegionInterface
+implements|,
+name|Watcher
 block|{
 specifier|static
 specifier|final
@@ -1685,6 +1711,8 @@ operator|new
 name|ZooKeeperWrapper
 argument_list|(
 name|conf
+argument_list|,
+name|this
 argument_list|)
 expr_stmt|;
 name|zkMasterAddressWatcher
@@ -6148,6 +6176,19 @@ operator|.
 name|class
 argument_list|)
 expr_stmt|;
+block|}
+comment|/**    * @see org.apache.zookeeper.Watcher#process(org.apache.zookeeper.WatchedEvent)    */
+annotation|@
+name|Override
+specifier|public
+name|void
+name|process
+parameter_list|(
+name|WatchedEvent
+name|event
+parameter_list|)
+block|{
+comment|// TODO: Write me to handle session expired events.
 block|}
 block|}
 end_class

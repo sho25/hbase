@@ -348,11 +348,6 @@ name|zooKeeper
 decl_stmt|;
 specifier|private
 specifier|final
-name|WatcherWrapper
-name|watcher
-decl_stmt|;
-specifier|private
-specifier|final
 name|String
 name|parentZNode
 decl_stmt|;
@@ -381,24 +376,6 @@ specifier|final
 name|String
 name|clusterStateZNode
 decl_stmt|;
-comment|/**    * Create a ZooKeeperWrapper.    * @param conf HBaseConfiguration to read settings from.    * @throws IOException If a connection error occurs.    */
-specifier|public
-name|ZooKeeperWrapper
-parameter_list|(
-name|HBaseConfiguration
-name|conf
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|this
-argument_list|(
-name|conf
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Create a ZooKeeperWrapper.    * @param conf HBaseConfiguration to read settings from.    * @param watcher ZooKeeper watcher to register.    * @throws IOException If a connection error occurs.    */
 specifier|public
 name|ZooKeeperWrapper
@@ -443,16 +420,6 @@ operator|*
 literal|1000
 argument_list|)
 decl_stmt|;
-name|this
-operator|.
-name|watcher
-operator|=
-operator|new
-name|WatcherWrapper
-argument_list|(
-name|watcher
-argument_list|)
-expr_stmt|;
 try|try
 block|{
 name|zooKeeper
@@ -464,8 +431,6 @@ name|quorumServers
 argument_list|,
 name|sessionTimeout
 argument_list|,
-name|this
-operator|.
 name|watcher
 argument_list|)
 expr_stmt|;
