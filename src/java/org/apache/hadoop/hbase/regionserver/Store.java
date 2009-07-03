@@ -463,6 +463,26 @@ name|hfile
 operator|.
 name|HFile
 operator|.
+name|CompactionReader
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|HFile
+operator|.
 name|Reader
 import|;
 end_import
@@ -2976,12 +2996,12 @@ return|return
 literal|null
 return|;
 block|}
-name|Reader
+name|CompactionReader
 name|r
 init|=
 name|file
 operator|.
-name|getReader
+name|getCompactionReader
 argument_list|()
 decl_stmt|;
 if|if
@@ -3009,7 +3029,7 @@ name|len
 init|=
 name|file
 operator|.
-name|getReader
+name|getCompactionReader
 argument_list|()
 operator|.
 name|length
@@ -3787,7 +3807,7 @@ name|i
 control|)
 block|{
 comment|// TODO open a new HFile.Reader w/o block cache.
-name|Reader
+name|CompactionReader
 name|r
 init|=
 name|filesToCompact
@@ -3797,7 +3817,7 @@ argument_list|(
 name|i
 argument_list|)
 operator|.
-name|getReader
+name|getCompactionReader
 argument_list|()
 decl_stmt|;
 if|if
@@ -4280,7 +4300,7 @@ name|r
 init|=
 name|hsf
 operator|.
-name|getReader
+name|getCompactionReader
 argument_list|()
 decl_stmt|;
 if|if

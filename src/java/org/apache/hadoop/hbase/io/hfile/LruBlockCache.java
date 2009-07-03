@@ -1920,16 +1920,8 @@ operator|+
 name|maxSize
 operator|+
 literal|")"
-argument_list|)
-expr_stmt|;
-comment|// Log hit/miss and eviction counts
-name|LruBlockCache
-operator|.
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Cache Stats: Counts: "
+operator|+
+literal|", Counts: "
 operator|+
 literal|"Blocks="
 operator|+
@@ -1980,16 +1972,8 @@ name|stats
 operator|.
 name|getEvictedCount
 argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// Log hit/miss and eviction ratios
-name|LruBlockCache
-operator|.
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Cache Stats: Ratios: "
+operator|+
+literal|", Ratios: "
 operator|+
 literal|"Hit Ratio="
 operator|+

@@ -986,7 +986,7 @@ name|scanner
 init|=
 name|f
 operator|.
-name|getReader
+name|getCompactionReader
 argument_list|()
 operator|.
 name|getScanner

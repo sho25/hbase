@@ -2620,7 +2620,7 @@ literal|""
 else|:
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|b
 argument_list|,
@@ -2640,7 +2640,7 @@ literal|""
 else|:
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|b
 argument_list|,
