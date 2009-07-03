@@ -163,6 +163,14 @@ name|DEFAULT_MASTER_INFOPORT
 init|=
 literal|60010
 decl_stmt|;
+comment|/** Name of ZooKeeper quorum configuration parameter. */
+specifier|static
+specifier|final
+name|String
+name|ZOOKEEPER_QUORUM
+init|=
+literal|"hbase.zookeeper.quorum"
+decl_stmt|;
 comment|/** Name of ZooKeeper config file in conf/ directory. */
 specifier|static
 specifier|final

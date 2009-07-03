@@ -295,9 +295,9 @@ literal|100
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param baseDir    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * @param baseDir    * @return ClientPort server bound to.    * @throws IOException    * @throws InterruptedException    */
 specifier|public
-name|void
+name|int
 name|startup
 parameter_list|(
 name|File
@@ -394,20 +394,6 @@ argument_list|(
 name|server
 argument_list|)
 expr_stmt|;
-name|String
-name|quorumServers
-init|=
-literal|"localhost:"
-operator|+
-name|clientPort
-decl_stmt|;
-name|ZooKeeperWrapper
-operator|.
-name|setQuorumServers
-argument_list|(
-name|quorumServers
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -431,6 +417,9 @@ name|started
 operator|=
 literal|true
 expr_stmt|;
+return|return
+name|clientPort
+return|;
 block|}
 specifier|private
 name|void

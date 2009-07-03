@@ -341,6 +341,9 @@ operator|new
 name|MiniZooKeeperCluster
 argument_list|()
 expr_stmt|;
+name|int
+name|clientPort
+init|=
 name|this
 operator|.
 name|zooKeeperCluster
@@ -348,6 +351,20 @@ operator|.
 name|startup
 argument_list|(
 name|testDir
+argument_list|)
+decl_stmt|;
+name|conf
+operator|.
+name|set
+argument_list|(
+literal|"hbase.zookeeper.property.clientPort"
+argument_list|,
+name|Integer
+operator|.
+name|toString
+argument_list|(
+name|clientPort
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// start the mini cluster
