@@ -452,6 +452,11 @@ specifier|private
 name|boolean
 name|blockcache
 decl_stmt|;
+comment|// Is this from an in-memory store
+specifier|private
+name|boolean
+name|inMemory
+decl_stmt|;
 comment|// Keys for metadata stored in backing HFile.
 specifier|private
 specifier|static
@@ -552,6 +557,10 @@ parameter_list|,
 specifier|final
 name|HBaseConfiguration
 name|conf
+parameter_list|,
+specifier|final
+name|boolean
+name|inMemory
 parameter_list|)
 throws|throws
 name|IOException
@@ -579,6 +588,12 @@ operator|.
 name|blockcache
 operator|=
 name|blockcache
+expr_stmt|;
+name|this
+operator|.
+name|inMemory
+operator|=
+name|inMemory
 expr_stmt|;
 if|if
 condition|(
@@ -1162,6 +1177,10 @@ name|path
 argument_list|,
 name|getBlockCache
 argument_list|()
+argument_list|,
+name|this
+operator|.
+name|inMemory
 argument_list|)
 expr_stmt|;
 block|}

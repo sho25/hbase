@@ -689,6 +689,11 @@ specifier|final
 name|String
 name|storeNameStr
 decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
+name|inMemory
+decl_stmt|;
 comment|/*    * Sorted Map of readers keyed by maximum edit sequence id (Most recent should    * be last in in list).  ConcurrentSkipListMap is lazily consistent so no    * need to lock it down when iterating; iterator view is that of when the    * iterator was taken out.    */
 specifier|private
 specifier|final
@@ -1036,6 +1041,16 @@ literal|"hbase.hstore.compactionThreshold"
 argument_list|,
 literal|3
 argument_list|)
+expr_stmt|;
+comment|// Check if this is in-memory store
+name|this
+operator|.
+name|inMemory
+operator|=
+name|family
+operator|.
+name|isInMemory
+argument_list|()
 expr_stmt|;
 comment|// By default we split region if a file> DEFAULT_MAX_FILE_SIZE.
 name|long
@@ -1846,6 +1861,10 @@ argument_list|,
 name|this
 operator|.
 name|conf
+argument_list|,
+name|this
+operator|.
+name|inMemory
 argument_list|)
 expr_stmt|;
 block|}
@@ -2413,6 +2432,10 @@ argument_list|,
 name|this
 operator|.
 name|conf
+argument_list|,
+name|this
+operator|.
+name|inMemory
 argument_list|)
 decl_stmt|;
 name|Reader
@@ -4151,6 +4174,10 @@ argument_list|,
 name|this
 operator|.
 name|conf
+argument_list|,
+name|this
+operator|.
+name|inMemory
 argument_list|)
 decl_stmt|;
 name|this

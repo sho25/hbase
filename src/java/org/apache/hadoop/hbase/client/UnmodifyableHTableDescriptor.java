@@ -194,25 +194,6 @@ literal|"HTableDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setInMemory(boolean)    */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|setInMemory
-parameter_list|(
-name|boolean
-name|inMemory
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|UnsupportedOperationException
-argument_list|(
-literal|"HTableDescriptor is read-only"
-argument_list|)
-throw|;
-block|}
 comment|/**    * @see org.apache.hadoop.hbase.HTableDescriptor#setReadOnly(boolean)    */
 annotation|@
 name|Override

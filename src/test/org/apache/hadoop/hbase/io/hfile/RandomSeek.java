@@ -429,6 +429,8 @@ argument_list|,
 name|path
 argument_list|,
 name|cache
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|reader

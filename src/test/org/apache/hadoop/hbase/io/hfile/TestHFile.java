@@ -796,6 +796,8 @@ name|getLen
 argument_list|()
 argument_list|,
 literal|null
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 comment|// Load up the index.
@@ -803,13 +805,6 @@ name|reader
 operator|.
 name|loadFileInfo
 argument_list|()
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|reader
-argument_list|)
 expr_stmt|;
 name|HFileScanner
 name|scanner
@@ -1241,6 +1236,8 @@ name|getLen
 argument_list|()
 argument_list|,
 literal|null
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|reader
@@ -1385,6 +1382,8 @@ argument_list|,
 name|mFile
 argument_list|,
 literal|null
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|reader

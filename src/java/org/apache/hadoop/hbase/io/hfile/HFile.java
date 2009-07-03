@@ -2554,6 +2554,13 @@ name|blockLoads
 init|=
 literal|0
 decl_stmt|;
+comment|// Whether file is from in-memory store
+specifier|private
+name|boolean
+name|inMemory
+init|=
+literal|false
+decl_stmt|;
 comment|// Name for this object used when logging or in toString.  Is either
 comment|// the result of a toString on the stream or else is toString of passed
 comment|// file Path plus metadata key/value pairs.
@@ -2580,6 +2587,8 @@ argument_list|,
 literal|null
 argument_list|,
 literal|null
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -2595,6 +2604,9 @@ name|path
 parameter_list|,
 name|BlockCache
 name|cache
+parameter_list|,
+name|boolean
+name|inMemory
 parameter_list|)
 throws|throws
 name|IOException
@@ -2619,6 +2631,8 @@ name|getLen
 argument_list|()
 argument_list|,
 name|cache
+argument_list|,
+name|inMemory
 argument_list|)
 expr_stmt|;
 name|this
@@ -2652,6 +2666,10 @@ parameter_list|,
 specifier|final
 name|BlockCache
 name|cache
+parameter_list|,
+specifier|final
+name|boolean
+name|inMemory
 parameter_list|)
 block|{
 name|this
@@ -2689,6 +2707,12 @@ operator|.
 name|toString
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|inMemory
+operator|=
+name|inMemory
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -2719,6 +2743,12 @@ name|compressAlgo
 operator|.
 name|getName
 argument_list|()
+operator|+
+literal|", inMemory="
+operator|+
+name|this
+operator|.
+name|inMemory
 operator|+
 literal|", firstKey="
 operator|+
@@ -2797,6 +2827,17 @@ return|return
 name|this
 operator|.
 name|fileSize
+return|;
+block|}
+specifier|public
+name|boolean
+name|inMemory
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|inMemory
 return|;
 block|}
 comment|/**      * Read in the index and file info.      * @return A map of fileinfo data.      * See {@link Writer#appendFileInfo(byte[], byte[])}.      * @throws IOException      */
@@ -3801,6 +3842,8 @@ name|buf
 operator|.
 name|duplicate
 argument_list|()
+argument_list|,
+name|inMemory
 argument_list|)
 expr_stmt|;
 block|}
@@ -5243,6 +5286,10 @@ argument_list|,
 name|reader
 operator|.
 name|cache
+argument_list|,
+name|reader
+operator|.
+name|inMemory
 argument_list|)
 expr_stmt|;
 name|super
@@ -6760,6 +6807,8 @@ argument_list|,
 name|path
 argument_list|,
 literal|null
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|Map
