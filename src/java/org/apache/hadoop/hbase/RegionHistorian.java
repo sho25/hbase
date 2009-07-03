@@ -177,9 +177,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|util
 operator|.
-name|Cell
+name|Bytes
 import|;
 end_import
 
@@ -195,7 +195,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Bytes
+name|ClassSize
 import|;
 end_import
 
@@ -1142,6 +1142,25 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|FIXED_OVERHEAD
+init|=
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+name|ClassSize
+operator|.
+name|OBJECT
+operator|+
+name|ClassSize
+operator|.
+name|REFERENCE
+argument_list|)
+decl_stmt|;
 block|}
 end_class
 

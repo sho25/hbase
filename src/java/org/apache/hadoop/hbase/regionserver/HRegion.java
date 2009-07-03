@@ -479,6 +479,22 @@ name|hbase
 operator|.
 name|io
 operator|.
+name|HeapSize
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
 name|Reference
 operator|.
 name|Range
@@ -514,6 +530,22 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ClassSize
 import|;
 end_import
 
@@ -587,6 +619,8 @@ class|class
 name|HRegion
 implements|implements
 name|HConstants
+implements|,
+name|HeapSize
 block|{
 comment|// , Writable{
 specifier|static
@@ -9520,45 +9554,180 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|//  //HBaseAdmin Debugging
-comment|//  /**
-comment|//   * @return number of stores in the region
-comment|//   */
-comment|//  public int getNumStores() {
-comment|//    return this.numStores;
-comment|//  }
-comment|//  /**
-comment|//   * @return the name of the region
-comment|//   */
-comment|//  public byte [] getRegionsName() {
-comment|//    return this.name;
-comment|//  }
-comment|//  /**
-comment|//   * @return the number of files in every store
-comment|//   */
-comment|//  public int [] getStoresSize() {
-comment|//    return this.storeSize;
-comment|//  }
-comment|//
-comment|//  //Writable, used for debugging purposes only
-comment|//  public void readFields(final DataInput in)
-comment|//  throws IOException {
-comment|//    this.name = Bytes.readByteArray(in);
-comment|//    this.numStores = in.readInt();
-comment|//    this.storeSize = new int [numStores];
-comment|//    for(int i=0; i<this.numStores; i++) {
-comment|//      this.storeSize[i] = in.readInt();
-comment|//    }
-comment|//  }
-comment|//
-comment|//  public void write(final DataOutput out)
-comment|//  throws IOException {
-comment|//    Bytes.writeByteArray(out, this.regionInfo.getRegionName());
-comment|//    out.writeInt(this.stores.size());
-comment|//    for(Store store : this.stores.values()) {
-comment|//      out.writeInt(store.getNumberOfstorefiles());
-comment|//    }
-comment|//  }
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|FIXED_OVERHEAD
+init|=
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+operator|(
+literal|3
+operator|*
+name|Bytes
+operator|.
+name|SIZEOF_LONG
+operator|)
+operator|+
+operator|(
+literal|2
+operator|*
+name|Bytes
+operator|.
+name|SIZEOF_INT
+operator|)
+operator|+
+name|Bytes
+operator|.
+name|SIZEOF_BOOLEAN
+operator|+
+operator|(
+literal|21
+operator|*
+name|ClassSize
+operator|.
+name|REFERENCE
+operator|)
+operator|+
+name|ClassSize
+operator|.
+name|OBJECT
+argument_list|)
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|DEEP_OVERHEAD
+init|=
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+name|FIXED_OVERHEAD
+operator|+
+name|ClassSize
+operator|.
+name|OBJECT
+operator|+
+operator|(
+literal|2
+operator|*
+name|ClassSize
+operator|.
+name|ATOMIC_BOOLEAN
+operator|)
+operator|+
+name|ClassSize
+operator|.
+name|ATOMIC_LONG
+operator|+
+name|ClassSize
+operator|.
+name|ATOMIC_INTEGER
+operator|+
+name|ClassSize
+operator|.
+name|CONCURRENT_HASHMAP
+operator|+
+operator|(
+literal|16
+operator|*
+name|ClassSize
+operator|.
+name|CONCURRENT_HASHMAP_ENTRY
+operator|)
+operator|+
+operator|(
+literal|16
+operator|*
+name|ClassSize
+operator|.
+name|CONCURRENT_HASHMAP_SEGMENT
+operator|)
+operator|+
+name|ClassSize
+operator|.
+name|CONCURRENT_SKIPLISTMAP
+operator|+
+name|ClassSize
+operator|.
+name|CONCURRENT_SKIPLISTMAP_ENTRY
+operator|+
+name|RegionHistorian
+operator|.
+name|FIXED_OVERHEAD
+operator|+
+name|HLog
+operator|.
+name|FIXED_OVERHEAD
+operator|+
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+name|ClassSize
+operator|.
+name|OBJECT
+operator|+
+operator|(
+literal|5
+operator|*
+name|Bytes
+operator|.
+name|SIZEOF_BOOLEAN
+operator|)
+argument_list|)
+operator|+
+operator|(
+literal|3
+operator|*
+name|ClassSize
+operator|.
+name|REENTRANT_LOCK
+operator|)
+argument_list|)
+decl_stmt|;
+annotation|@
+name|Override
+specifier|public
+name|long
+name|heapSize
+parameter_list|()
+block|{
+name|long
+name|heapSize
+init|=
+name|DEEP_OVERHEAD
+decl_stmt|;
+for|for
+control|(
+name|Store
+name|store
+range|:
+name|this
+operator|.
+name|stores
+operator|.
+name|values
+argument_list|()
+control|)
+block|{
+name|heapSize
+operator|+=
+name|store
+operator|.
+name|heapSize
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+name|heapSize
+return|;
+block|}
 block|}
 end_class
 
