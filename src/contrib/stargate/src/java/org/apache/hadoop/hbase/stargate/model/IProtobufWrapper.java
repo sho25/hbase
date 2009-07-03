@@ -29,18 +29,24 @@ name|IOException
 import|;
 end_import
 
+begin_comment
+comment|/**  * Common interface for models capable of supporting protobuf marshalling  * and unmarshalling. Hooks up to the ProtobufMessageBodyConsumer and  * ProtobufMessageBodyProducer adapters.   */
+end_comment
+
 begin_interface
 specifier|public
 specifier|abstract
 interface|interface
 name|IProtobufWrapper
 block|{
+comment|/**    * @return the protobuf represention of the model    */
 specifier|public
 name|byte
 index|[]
 name|createProtobufOutput
 parameter_list|()
 function_decl|;
+comment|/**    * Initialize the model from a protobuf representation.    * @param message the raw bytes of the protobuf message    * @return reference to self for convenience    * @throws IOException    */
 specifier|public
 name|IProtobufWrapper
 name|getObjectFromMessage

@@ -165,6 +165,10 @@ name|ByteString
 import|;
 end_import
 
+begin_comment
+comment|/**  * Representation of the status of a storage cluster:  *<p>  *<ul>  *<li>regions: the total number of regions served by the cluster</li>  *<li>requests: the total number of requests per second handled by the  * cluster in the last reporting interval</li>  *<li>averageLoad: the average load of the region servers in the cluster</li>  *<li>liveNodes: detailed status of the live region servers</li>  *<li>deadNodes: the names of region servers declared dead</li>  *</ul>  */
+end_comment
+
 begin_class
 annotation|@
 name|XmlRootElement
@@ -189,11 +193,13 @@ name|serialVersionUID
 init|=
 literal|1L
 decl_stmt|;
+comment|/** 	 * Represents a region server. 	 */
 specifier|public
 specifier|static
 class|class
 name|Node
 block|{
+comment|/** 	   * Represents a region hosted on a region server. 	   */
 specifier|public
 specifier|static
 class|class
@@ -204,10 +210,12 @@ name|byte
 index|[]
 name|name
 decl_stmt|;
+comment|/** 	     * Default constructor 	     */
 specifier|public
 name|Region
 parameter_list|()
 block|{}
+comment|/** 	     * Constructor 	     * @param name the region name 	     */
 specifier|public
 name|Region
 parameter_list|(
@@ -223,6 +231,7 @@ operator|=
 name|name
 expr_stmt|;
 block|}
+comment|/** 	     * @return the region name 	     */
 annotation|@
 name|XmlAttribute
 specifier|public
@@ -235,6 +244,7 @@ return|return
 name|name
 return|;
 block|}
+comment|/** 	     * @param name the region name 	     */
 specifier|public
 name|void
 name|setName
@@ -278,6 +288,7 @@ name|Region
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|/**      * Add a region name to the list      * @param name the region name      */
 specifier|public
 name|void
 name|addRegion
@@ -299,12 +310,13 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * @param index the index      * @return the region name      */
 specifier|public
 name|Region
 name|getRegion
 parameter_list|(
 name|int
-name|i
+name|index
 parameter_list|)
 block|{
 return|return
@@ -312,14 +324,16 @@ name|regions
 operator|.
 name|get
 argument_list|(
-name|i
+name|index
 argument_list|)
 return|;
 block|}
+comment|/**      * Default constructor      */
 specifier|public
 name|Node
 parameter_list|()
 block|{}
+comment|/**      * Constructor      * @param name the region server name      * @param startCode the region server's start code      */
 specifier|public
 name|Node
 parameter_list|(
@@ -343,6 +357,7 @@ operator|=
 name|startCode
 expr_stmt|;
 block|}
+comment|/**      * @return the region server's name      */
 annotation|@
 name|XmlAttribute
 specifier|public
@@ -354,6 +369,7 @@ return|return
 name|name
 return|;
 block|}
+comment|/**      * @return the region server's start code      */
 annotation|@
 name|XmlAttribute
 specifier|public
@@ -365,6 +381,7 @@ return|return
 name|startCode
 return|;
 block|}
+comment|/**      * @return the list of regions served by the region server      */
 annotation|@
 name|XmlElement
 argument_list|(
@@ -384,6 +401,7 @@ return|return
 name|regions
 return|;
 block|}
+comment|/**      * @return the number of requests per second processed by the region server      */
 annotation|@
 name|XmlAttribute
 specifier|public
@@ -395,6 +413,7 @@ return|return
 name|requests
 return|;
 block|}
+comment|/**      * @param name the region server's hostname      */
 specifier|public
 name|void
 name|setName
@@ -410,6 +429,7 @@ operator|=
 name|name
 expr_stmt|;
 block|}
+comment|/**      * @param startCode the region server's start code      */
 specifier|public
 name|void
 name|setStartCode
@@ -425,6 +445,7 @@ operator|=
 name|startCode
 expr_stmt|;
 block|}
+comment|/**      * @param regions a list of regions served by the region server      */
 specifier|public
 name|void
 name|setRegions
@@ -443,6 +464,7 @@ operator|=
 name|regions
 expr_stmt|;
 block|}
+comment|/**      * @param requests the number of requests per second processed by the      * region server      */
 specifier|public
 name|void
 name|setRequests
@@ -499,6 +521,7 @@ specifier|private
 name|double
 name|averageLoad
 decl_stmt|;
+comment|/** 	 * Add a live node to the cluster representation. 	 * @param name the region server name 	 * @param startCode the region server's start code 	 */
 specifier|public
 name|Node
 name|addLiveNode
@@ -532,12 +555,13 @@ return|return
 name|node
 return|;
 block|}
+comment|/** 	 * @param index the index 	 * @return the region server model 	 */
 specifier|public
 name|Node
 name|getLiveNode
 parameter_list|(
 name|int
-name|i
+name|index
 parameter_list|)
 block|{
 return|return
@@ -545,10 +569,11 @@ name|liveNodes
 operator|.
 name|get
 argument_list|(
-name|i
+name|index
 argument_list|)
 return|;
 block|}
+comment|/** 	 * Add a dead node to the cluster representation. 	 * @param node the dead region server's name 	 */
 specifier|public
 name|void
 name|addDeadNode
@@ -565,12 +590,13 @@ name|node
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** 	 * @param index the index 	 * @return the dead region server's name 	 */
 specifier|public
 name|String
 name|getDeadNode
 parameter_list|(
 name|int
-name|i
+name|index
 parameter_list|)
 block|{
 return|return
@@ -578,14 +604,16 @@ name|deadNodes
 operator|.
 name|get
 argument_list|(
-name|i
+name|index
 argument_list|)
 return|;
 block|}
+comment|/** 	 * Default constructor 	 */
 specifier|public
 name|StorageClusterStatusModel
 parameter_list|()
 block|{}
+comment|/** 	 * @return the list of live nodes 	 */
 annotation|@
 name|XmlElement
 argument_list|(
@@ -612,6 +640,7 @@ return|return
 name|liveNodes
 return|;
 block|}
+comment|/** 	 * @return the list of dead nodes 	 */
 annotation|@
 name|XmlElement
 argument_list|(
@@ -638,6 +667,7 @@ return|return
 name|deadNodes
 return|;
 block|}
+comment|/**    * @return the total number of regions served by the cluster    */
 annotation|@
 name|XmlAttribute
 specifier|public
@@ -649,6 +679,7 @@ return|return
 name|regions
 return|;
 block|}
+comment|/**    * @return the total number of requests per second handled by the cluster in    * the last reporting interval    */
 annotation|@
 name|XmlAttribute
 specifier|public
@@ -660,6 +691,7 @@ return|return
 name|requests
 return|;
 block|}
+comment|/**    * @return the average load of the region servers in the cluster    */
 annotation|@
 name|XmlAttribute
 specifier|public
@@ -671,6 +703,7 @@ return|return
 name|averageLoad
 return|;
 block|}
+comment|/**    * @param nodes the list of live node models    */
 specifier|public
 name|void
 name|setLiveNodes
@@ -689,6 +722,7 @@ operator|=
 name|nodes
 expr_stmt|;
 block|}
+comment|/**    * @param nodes the list of dead node names    */
 specifier|public
 name|void
 name|setDeadNodes
@@ -707,6 +741,7 @@ operator|=
 name|nodes
 expr_stmt|;
 block|}
+comment|/**    * @param regions the total number of regions served by the cluster    */
 specifier|public
 name|void
 name|setRegions
@@ -722,6 +757,7 @@ operator|=
 name|regions
 expr_stmt|;
 block|}
+comment|/**    * @param requests the total number of requests per second handled by the    * cluster    */
 specifier|public
 name|void
 name|setRequests
@@ -737,6 +773,7 @@ operator|=
 name|requests
 expr_stmt|;
 block|}
+comment|/**    * @param averageLoad the average load of region servers in the cluster    */
 specifier|public
 name|void
 name|setAverageLoad

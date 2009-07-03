@@ -87,6 +87,10 @@ name|Bytes
 import|;
 end_import
 
+begin_comment
+comment|/**  * Representation of a region of a table and its current location on the  * storage cluster.  */
+end_comment
+
 begin_class
 annotation|@
 name|XmlRootElement

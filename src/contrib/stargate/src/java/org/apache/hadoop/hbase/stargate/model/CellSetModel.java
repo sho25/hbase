@@ -157,6 +157,10 @@ name|ByteString
 import|;
 end_import
 
+begin_comment
+comment|/**  * Representation of a grouping of cells. May contain cells from more than  * one row. Encapsulates RowModel and CellModel models.  */
+end_comment
+
 begin_class
 annotation|@
 name|XmlRootElement
@@ -188,6 +192,7 @@ name|RowModel
 argument_list|>
 name|rows
 decl_stmt|;
+comment|/**      * Constructor    */
 specifier|public
 name|CellSetModel
 parameter_list|()
@@ -204,7 +209,7 @@ argument_list|>
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * @param rows    */
+comment|/**    * @param rows the rows    */
 specifier|public
 name|CellSetModel
 parameter_list|(
@@ -225,7 +230,7 @@ operator|=
 name|rows
 expr_stmt|;
 block|}
-comment|/**    * Add a row to this cell set    *     * @param row    */
+comment|/**    * Add a row to this cell set    * @param row the row    */
 specifier|public
 name|void
 name|addRow

@@ -149,6 +149,10 @@ name|ByteString
 import|;
 end_import
 
+begin_comment
+comment|/**  * Representation of a list of table regions.   */
+end_comment
+
 begin_class
 annotation|@
 name|XmlRootElement
@@ -202,10 +206,12 @@ name|TableRegionModel
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|/**    * Default constructor    */
 specifier|public
 name|TableInfoModel
 parameter_list|()
 block|{}
+comment|/**    * Constructor    * @param name    */
 specifier|public
 name|TableInfoModel
 parameter_list|(
@@ -220,22 +226,24 @@ operator|=
 name|name
 expr_stmt|;
 block|}
+comment|/**    * Add a region model to the list    * @param region the region    */
 specifier|public
 name|void
 name|add
 parameter_list|(
 name|TableRegionModel
-name|object
+name|region
 parameter_list|)
 block|{
 name|regions
 operator|.
 name|add
 argument_list|(
-name|object
+name|region
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param index the index    * @return the region model    */
 specifier|public
 name|TableRegionModel
 name|get

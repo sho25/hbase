@@ -109,6 +109,10 @@ name|TableList
 import|;
 end_import
 
+begin_comment
+comment|/**  * Simple representation of a list of table names.  */
+end_comment
+
 begin_class
 annotation|@
 name|XmlRootElement
@@ -147,26 +151,29 @@ name|TableModel
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|/** 	 * Default constructor 	 */
 specifier|public
 name|TableListModel
 parameter_list|()
 block|{}
+comment|/** 	 * Add the table name model to the list 	 * @param table the table model 	 */
 specifier|public
 name|void
 name|add
 parameter_list|(
 name|TableModel
-name|object
+name|table
 parameter_list|)
 block|{
 name|tables
 operator|.
 name|add
 argument_list|(
-name|object
+name|table
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** 	 * @param index the index 	 * @return the table model 	 */
 specifier|public
 name|TableModel
 name|get

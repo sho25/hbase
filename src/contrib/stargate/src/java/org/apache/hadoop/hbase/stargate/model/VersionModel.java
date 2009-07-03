@@ -133,6 +133,10 @@ name|ServletContainer
 import|;
 end_import
 
+begin_comment
+comment|/**  * A representation of the collection of versions of the Stargate software  * components.  *<ul>  *<li>stargateVersion: Stargate revision</li>  *<li>jvmVersion: the JVM vendor and version information</li>  *<li>osVersion: the OS type, version, and hardware architecture</li>  *<li>serverVersion: the name and version of the servlet container</li>  *<li>jerseyVersion: the version of the embedded Jersey framework</li>  *</ul>  */
+end_comment
+
 begin_class
 annotation|@
 name|XmlRootElement
@@ -177,10 +181,12 @@ specifier|private
 name|String
 name|jerseyVersion
 decl_stmt|;
+comment|/**    * Default constructor. Do not use.    */
 specifier|public
 name|VersionModel
 parameter_list|()
 block|{}
+comment|/**    * Constructor    * @param context the servlet context    */
 specifier|public
 name|VersionModel
 parameter_list|(
@@ -268,6 +274,7 @@ name|getImplementationVersion
 argument_list|()
 expr_stmt|;
 block|}
+comment|/** 	 * @return the Stargate version 	 */
 annotation|@
 name|XmlAttribute
 argument_list|(
@@ -284,6 +291,7 @@ return|return
 name|stargateVersion
 return|;
 block|}
+comment|/** 	 * @return the JVM vendor and version 	 */
 annotation|@
 name|XmlAttribute
 argument_list|(
@@ -300,6 +308,7 @@ return|return
 name|jvmVersion
 return|;
 block|}
+comment|/**    * @return the OS name, version, and hardware architecture    */
 annotation|@
 name|XmlAttribute
 argument_list|(
@@ -316,6 +325,7 @@ return|return
 name|osVersion
 return|;
 block|}
+comment|/**    * @return the servlet container version    */
 annotation|@
 name|XmlAttribute
 argument_list|(
@@ -332,6 +342,7 @@ return|return
 name|serverVersion
 return|;
 block|}
+comment|/**    * @return the version of the embedded Jersey framework    */
 annotation|@
 name|XmlAttribute
 argument_list|(
@@ -348,6 +359,7 @@ return|return
 name|jerseyVersion
 return|;
 block|}
+comment|/**    * @param version the Stargate version string    */
 specifier|public
 name|void
 name|setStargateVersion
@@ -363,6 +375,7 @@ operator|=
 name|version
 expr_stmt|;
 block|}
+comment|/**    * @param version the OS version string    */
 specifier|public
 name|void
 name|setOsVersion
@@ -378,6 +391,7 @@ operator|=
 name|version
 expr_stmt|;
 block|}
+comment|/**    * @param version the JVM version string    */
 specifier|public
 name|void
 name|setJvmVersion
@@ -393,6 +407,7 @@ operator|=
 name|version
 expr_stmt|;
 block|}
+comment|/**    * @param version the servlet container version string    */
 specifier|public
 name|void
 name|setServerVersion
@@ -408,6 +423,7 @@ operator|=
 name|version
 expr_stmt|;
 block|}
+comment|/**    * @param version the Jersey framework version string    */
 specifier|public
 name|void
 name|setJerseyVersion

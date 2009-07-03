@@ -355,6 +355,10 @@ name|JSONJAXBContext
 import|;
 end_import
 
+begin_comment
+comment|/**  * Plumbing for hooking up Jersey's JSON entity body encoding and decoding  * support to JAXB. Modify how the context is created (by using e.g. a   * different configuration builder) to control how JSON is processed and  * created.  */
+end_comment
+
 begin_class
 annotation|@
 name|Provider

@@ -257,6 +257,10 @@ name|TableSchema
 import|;
 end_import
 
+begin_comment
+comment|/**  * A representation of HBase table descriptors.  */
+end_comment
+
 begin_class
 annotation|@
 name|XmlRootElement
@@ -426,10 +430,12 @@ name|ColumnSchemaModel
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|/**    * Default constructor.    */
 specifier|public
 name|TableSchemaModel
 parameter_list|()
 block|{}
+comment|/**    * Add an attribute to the table descriptor    * @param name attribute name    * @param value attribute value    */
 specifier|public
 name|void
 name|addAttribute
@@ -455,6 +461,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Return a table descriptor value as a string. Calls toString() on the    * object stored in the descriptor value map.    * @param name the attribute name    * @return the attribute value    */
 specifier|public
 name|String
 name|getAttribute
@@ -463,7 +470,9 @@ name|String
 name|name
 parameter_list|)
 block|{
-return|return
+name|Object
+name|o
+init|=
 name|attrs
 operator|.
 name|get
@@ -474,27 +483,38 @@ argument_list|(
 name|name
 argument_list|)
 argument_list|)
+decl_stmt|;
+return|return
+name|o
+operator|!=
+literal|null
+condition|?
+name|o
 operator|.
 name|toString
 argument_list|()
+else|:
+literal|null
 return|;
 block|}
+comment|/**    * Add a column family to the table descriptor    * @param object the column family model    */
 specifier|public
 name|void
 name|addColumnFamily
 parameter_list|(
 name|ColumnSchemaModel
-name|object
+name|family
 parameter_list|)
 block|{
 name|columns
 operator|.
 name|add
 argument_list|(
-name|object
+name|family
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Retrieve the column family at the given index from the table descriptor    * @param index the index    * @return the column family model    */
 specifier|public
 name|ColumnSchemaModel
 name|getColumnFamily
@@ -783,6 +803,7 @@ block|}
 comment|// getters and setters for common schema attributes
 comment|// cannot be standard bean type getters and setters, otherwise this would
 comment|// confuse JAXB
+comment|/**    * @return true if IN_MEMORY attribute exists and is true    */
 specifier|public
 name|boolean
 name|__getInMemory
@@ -818,6 +839,7 @@ operator|.
 name|DEFAULT_IN_MEMORY
 return|;
 block|}
+comment|/**    * @return true if IS_META attribute exists and is truel    */
 specifier|public
 name|boolean
 name|__getIsMeta
@@ -851,6 +873,7 @@ else|:
 literal|false
 return|;
 block|}
+comment|/**    * @return true if IS_ROOT attribute exists and is truel    */
 specifier|public
 name|boolean
 name|__getIsRoot
@@ -884,6 +907,7 @@ else|:
 literal|false
 return|;
 block|}
+comment|/**    * @return true if READONLY attribute exists and is truel    */
 specifier|public
 name|boolean
 name|__getReadOnly
@@ -919,6 +943,7 @@ operator|.
 name|DEFAULT_READONLY
 return|;
 block|}
+comment|/**    * @param value desired value of IN_MEMORY attribute    */
 specifier|public
 name|void
 name|__setInMemory
@@ -942,6 +967,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param value desired value of IS_META attribute    */
 specifier|public
 name|void
 name|__setIsMeta
@@ -965,6 +991,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param value desired value of IS_ROOT attribute    */
 specifier|public
 name|void
 name|__setIsRoot
@@ -988,6 +1015,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param value desired value of READONLY attribute    */
 specifier|public
 name|void
 name|__setReadOnly

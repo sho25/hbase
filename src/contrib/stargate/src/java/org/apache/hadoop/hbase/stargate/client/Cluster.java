@@ -49,6 +49,10 @@ name|List
 import|;
 end_import
 
+begin_comment
+comment|/**  * A list of 'host:port' addresses of HTTP servers operating as a single  * entity, for example multiple redundant web service gateways.  */
+end_comment
+
 begin_class
 specifier|public
 class|class

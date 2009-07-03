@@ -143,6 +143,10 @@ name|ByteString
 import|;
 end_import
 
+begin_comment
+comment|/**  * Representation of a cell. A cell is a single value associated a column and  * optional qualifier, and either the timestamp when it was stored or the user-  * provided timestamp if one was explicitly supplied.  */
+end_comment
+
 begin_class
 annotation|@
 name|XmlRootElement
@@ -181,10 +185,6 @@ decl_stmt|;
 specifier|private
 name|long
 name|timestamp
-init|=
-name|HConstants
-operator|.
-name|LATEST_TIMESTAMP
 decl_stmt|;
 specifier|private
 name|byte
@@ -196,11 +196,12 @@ name|byte
 index|[]
 name|value
 decl_stmt|;
+comment|/**    * Default constructor    */
 specifier|public
 name|CellModel
 parameter_list|()
 block|{}
-comment|/**    * @param column    * @param value    */
+comment|/**    * Constructor    * @param column    * @param value    */
 specifier|public
 name|CellModel
 parameter_list|(
@@ -213,23 +214,19 @@ index|[]
 name|value
 parameter_list|)
 block|{
-name|super
-argument_list|()
-expr_stmt|;
 name|this
-operator|.
+argument_list|(
 name|column
-operator|=
-name|column
-expr_stmt|;
-name|this
+argument_list|,
+name|HConstants
 operator|.
+name|LATEST_TIMESTAMP
+argument_list|,
 name|value
-operator|=
-name|value
+argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param column    * @param timestamp    * @param value    */
+comment|/**    * Constructor    * @param column    * @param timestamp    * @param value    */
 specifier|public
 name|CellModel
 parameter_list|(
@@ -245,9 +242,6 @@ index|[]
 name|value
 parameter_list|)
 block|{
-name|super
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|column

@@ -217,6 +217,10 @@ name|IProtobufWrapper
 import|;
 end_import
 
+begin_comment
+comment|/**  * Adapter for hooking up Jersey content processing dispatch to  * IProtobufWrapper interface capable handlers for decoding protobuf input.  */
+end_comment
+
 begin_class
 annotation|@
 name|Provider

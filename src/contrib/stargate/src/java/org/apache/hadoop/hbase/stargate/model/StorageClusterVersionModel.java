@@ -57,6 +57,10 @@ name|XmlValue
 import|;
 end_import
 
+begin_comment
+comment|/**  * Simple representation of the version of the storage cluster (HBase)  */
+end_comment
+
 begin_class
 annotation|@
 name|XmlRootElement
@@ -83,6 +87,7 @@ specifier|private
 name|String
 name|version
 decl_stmt|;
+comment|/** 	 * @return the storage cluster version 	 */
 annotation|@
 name|XmlValue
 specifier|public
@@ -94,6 +99,7 @@ return|return
 name|version
 return|;
 block|}
+comment|/** 	 * @param version the storage cluster version 	 */
 specifier|public
 name|void
 name|setVersion

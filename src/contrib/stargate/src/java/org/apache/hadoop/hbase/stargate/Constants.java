@@ -17,6 +17,10 @@ name|stargate
 package|;
 end_package
 
+begin_comment
+comment|/**  * Common constants for org.apache.hadoop.hbase.stargate  */
+end_comment
+
 begin_interface
 specifier|public
 interface|interface

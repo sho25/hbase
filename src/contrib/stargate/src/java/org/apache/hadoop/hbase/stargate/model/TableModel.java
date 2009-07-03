@@ -57,6 +57,10 @@ name|XmlRootElement
 import|;
 end_import
 
+begin_comment
+comment|/**  * Simple representation of a table name.  */
+end_comment
+
 begin_class
 annotation|@
 name|XmlRootElement
@@ -83,11 +87,12 @@ specifier|private
 name|String
 name|name
 decl_stmt|;
+comment|/** 	 * Default constructor 	 */
 specifier|public
 name|TableModel
 parameter_list|()
 block|{}
-comment|/** 	 * @param name 	 */
+comment|/** 	 * Constructor 	 * @param name 	 */
 specifier|public
 name|TableModel
 parameter_list|(

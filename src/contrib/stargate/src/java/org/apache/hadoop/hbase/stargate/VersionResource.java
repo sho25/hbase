@@ -181,6 +181,10 @@ name|VersionModel
 import|;
 end_import
 
+begin_comment
+comment|/**  * Implements Stargate software version reporting via  *<p>  *<tt>/version/stargate</tt>  *<p>  *<tt>/version</tt> (alias for<tt>/version/stargate</tt>)  */
+end_comment
+
 begin_class
 annotation|@
 name|Path
@@ -239,6 +243,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Build a response for a version request.    * @param context servlet context    * @param uriInfo (JAX-RS context variable) request URL    * @return a response for a version request     */
 annotation|@
 name|GET
 annotation|@
@@ -320,6 +325,7 @@ name|build
 argument_list|()
 return|;
 block|}
+comment|/**    * Dispatch<tt>/version/stargate</tt> to self.    */
 comment|// "/version/stargate" is an alias for "/version"
 annotation|@
 name|Path

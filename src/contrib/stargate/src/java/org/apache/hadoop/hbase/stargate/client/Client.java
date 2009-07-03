@@ -269,6 +269,10 @@ name|LogFactory
 import|;
 end_import
 
+begin_comment
+comment|/**  * A wrapper around HttpClient which provides some useful function and  * semantics for interacting with the Stargate REST gateway.  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -310,6 +314,7 @@ specifier|private
 name|Cluster
 name|cluster
 decl_stmt|;
+comment|/**    * Default Constructor    */
 specifier|public
 name|Client
 parameter_list|()
@@ -320,6 +325,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Constructor    * @param cluster the cluster definition    */
 specifier|public
 name|Client
 parameter_list|(
@@ -380,6 +386,7 @@ name|HTTP_1_1
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Shut down the client. Close any open persistent connections.     */
 specifier|public
 name|void
 name|shutdown
@@ -402,6 +409,7 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Execute a transaction method given only the path. Will select at random    * one of the members of the supplied cluster definition and iterate through    * the list until a transaction can be successfully completed. The    * definition of success here is a complete HTTP transaction, irrespective    * of result code.      * @param cluster the cluster definition    * @param method the transaction method    * @param headers HTTP header values to send    * @param path the path    * @return the HTTP response code    * @throws IOException    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -412,7 +420,7 @@ name|int
 name|executePathOnly
 parameter_list|(
 name|Cluster
-name|c
+name|cluster
 parameter_list|,
 name|HttpMethod
 name|method
@@ -432,7 +440,7 @@ name|lastException
 decl_stmt|;
 if|if
 condition|(
-name|c
+name|cluster
 operator|.
 name|nodes
 operator|.
@@ -461,7 +469,7 @@ operator|.
 name|round
 argument_list|(
 operator|(
-name|c
+name|cluster
 operator|.
 name|nodes
 operator|.
@@ -484,11 +492,11 @@ name|start
 decl_stmt|;
 do|do
 block|{
-name|c
+name|cluster
 operator|.
 name|lastHost
 operator|=
-name|c
+name|cluster
 operator|.
 name|nodes
 operator|.
@@ -517,7 +525,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-name|c
+name|cluster
 operator|.
 name|lastHost
 argument_list|)
@@ -576,7 +584,7 @@ name|start
 operator|&&
 name|i
 operator|<
-name|c
+name|cluster
 operator|.
 name|nodes
 operator|.
@@ -588,6 +596,7 @@ throw|throw
 name|lastException
 throw|;
 block|}
+comment|/**    * Execute a transaction method given a complete URI.    * @param method the transaction method    * @param headers HTTP header values to send    * @param uri the URI    * @return the HTTP response code    * @throws IOException    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -719,12 +728,13 @@ return|return
 name|code
 return|;
 block|}
+comment|/**    * Execute a transaction method. Will call either<tt>executePathOnly</tt>    * or<tt>executeURI</tt> depending on whether a path only is supplied in    * 'path', or if a complete URI is passed instead, respectively.    * @param cluster the cluster definition    * @param method the HTTP method    * @param headers HTTP header values to send    * @param path the path or URI    * @return the HTTP response code    * @throws IOException    */
 specifier|public
 name|int
 name|execute
 parameter_list|(
 name|Cluster
-name|c
+name|cluster
 parameter_list|,
 name|HttpMethod
 name|method
@@ -752,7 +762,7 @@ block|{
 return|return
 name|executePathOnly
 argument_list|(
-name|c
+name|cluster
 argument_list|,
 name|method
 argument_list|,
@@ -773,6 +783,7 @@ name|path
 argument_list|)
 return|;
 block|}
+comment|/**    * @return the cluster definition    */
 specifier|public
 name|Cluster
 name|getCluster
@@ -782,6 +793,7 @@ return|return
 name|cluster
 return|;
 block|}
+comment|/**    * @param cluster the cluster definition    */
 specifier|public
 name|void
 name|setCluster
@@ -797,6 +809,7 @@ operator|=
 name|cluster
 expr_stmt|;
 block|}
+comment|/**    * Send a HEAD request     * @param path the path or URI    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|head
@@ -813,18 +826,25 @@ argument_list|(
 name|cluster
 argument_list|,
 name|path
+argument_list|,
+literal|null
 argument_list|)
 return|;
 block|}
+comment|/**    * Send a HEAD request     * @param cluster the cluster definition    * @param path the path or URI    * @param headers the HTTP headers to include in the request    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|head
 parameter_list|(
 name|Cluster
-name|c
+name|cluster
 parameter_list|,
 name|String
 name|path
+parameter_list|,
+name|Header
+index|[]
+name|headers
 parameter_list|)
 throws|throws
 name|IOException
@@ -841,7 +861,7 @@ name|code
 init|=
 name|execute
 argument_list|(
-name|c
+name|cluster
 argument_list|,
 name|method
 argument_list|,
@@ -850,15 +870,13 @@ argument_list|,
 name|path
 argument_list|)
 decl_stmt|;
-name|Header
-index|[]
 name|headers
-init|=
+operator|=
 name|method
 operator|.
 name|getResponseHeaders
 argument_list|()
-decl_stmt|;
+expr_stmt|;
 name|method
 operator|.
 name|releaseConnection
@@ -876,6 +894,7 @@ literal|null
 argument_list|)
 return|;
 block|}
+comment|/**    * Send a GET request     * @param path the path or URI    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|get
@@ -895,12 +914,13 @@ name|path
 argument_list|)
 return|;
 block|}
+comment|/**    * Send a GET request     * @param cluster the cluster definition    * @param path the path or URI    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|get
 parameter_list|(
 name|Cluster
-name|c
+name|cluster
 parameter_list|,
 name|String
 name|path
@@ -911,7 +931,7 @@ block|{
 return|return
 name|get
 argument_list|(
-name|c
+name|cluster
 argument_list|,
 name|path
 argument_list|,
@@ -919,6 +939,7 @@ name|EMPTY_HEADER_ARRAY
 argument_list|)
 return|;
 block|}
+comment|/**    * Send a GET request     * @param path the path or URI    * @param accept Accept header value    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|get
@@ -943,12 +964,13 @@ name|accept
 argument_list|)
 return|;
 block|}
+comment|/**    * Send a GET request     * @param cluster the cluster definition    * @param path the path or URI    * @param accept Accept header value    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|get
 parameter_list|(
 name|Cluster
-name|c
+name|cluster
 parameter_list|,
 name|String
 name|path
@@ -985,7 +1007,7 @@ expr_stmt|;
 return|return
 name|get
 argument_list|(
-name|c
+name|cluster
 argument_list|,
 name|path
 argument_list|,
@@ -993,6 +1015,7 @@ name|headers
 argument_list|)
 return|;
 block|}
+comment|/**    * Send a GET request    * @param path the path or URI    * @param headers the HTTP headers to include in the request,     *<tt>Accept</tt> must be supplied    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|get
@@ -1018,6 +1041,7 @@ name|headers
 argument_list|)
 return|;
 block|}
+comment|/**    * Send a GET request    * @param cluster the cluster definition    * @param path the path or URI    * @param headers the HTTP headers to include in the request    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|get
@@ -1089,6 +1113,7 @@ name|body
 argument_list|)
 return|;
 block|}
+comment|/**    * Send a PUT request    * @param path the path or URI    * @param contentType the content MIME type    * @param content the content bytes    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|put
@@ -1119,12 +1144,13 @@ name|content
 argument_list|)
 return|;
 block|}
+comment|/**    * Send a PUT request    * @param cluster the cluster definition    * @param path the path or URI    * @param contentType the content MIME type    * @param content the content bytes    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|put
 parameter_list|(
 name|Cluster
-name|c
+name|cluster
 parameter_list|,
 name|String
 name|path
@@ -1165,7 +1191,7 @@ expr_stmt|;
 return|return
 name|put
 argument_list|(
-name|c
+name|cluster
 argument_list|,
 name|path
 argument_list|,
@@ -1175,6 +1201,7 @@ name|content
 argument_list|)
 return|;
 block|}
+comment|/**    * Send a PUT request    * @param path the path or URI    * @param headers the HTTP headers to include,<tt>Content-Type</tt> must be    * supplied    * @param content the content bytes    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|put
@@ -1188,7 +1215,7 @@ name|headers
 parameter_list|,
 name|byte
 index|[]
-name|body
+name|content
 parameter_list|)
 throws|throws
 name|IOException
@@ -1202,16 +1229,17 @@ name|path
 argument_list|,
 name|headers
 argument_list|,
-name|body
+name|content
 argument_list|)
 return|;
 block|}
+comment|/**    * Send a PUT request    * @param cluster the cluster definition    * @param path the path or URI    * @param headers the HTTP headers to include,<tt>Content-Type</tt> must be    * supplied    * @param content the content bytes    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|put
 parameter_list|(
 name|Cluster
-name|c
+name|cluster
 parameter_list|,
 name|String
 name|path
@@ -1222,7 +1250,7 @@ name|headers
 parameter_list|,
 name|byte
 index|[]
-name|body
+name|content
 parameter_list|)
 throws|throws
 name|IOException
@@ -1241,7 +1269,7 @@ argument_list|(
 operator|new
 name|ByteArrayRequestEntity
 argument_list|(
-name|body
+name|content
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1250,7 +1278,7 @@ name|code
 init|=
 name|execute
 argument_list|(
-name|c
+name|cluster
 argument_list|,
 name|method
 argument_list|,
@@ -1266,7 +1294,7 @@ operator|.
 name|getResponseHeaders
 argument_list|()
 expr_stmt|;
-name|body
+name|content
 operator|=
 name|method
 operator|.
@@ -1286,10 +1314,11 @@ name|code
 argument_list|,
 name|headers
 argument_list|,
-name|body
+name|content
 argument_list|)
 return|;
 block|}
+comment|/**    * Send a POST request    * @param path the path or URI    * @param contentType the content MIME type    * @param content the content bytes    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|post
@@ -1320,12 +1349,13 @@ name|content
 argument_list|)
 return|;
 block|}
+comment|/**    * Send a POST request    * @param cluster the cluster definition    * @param path the path or URI    * @param contentType the content MIME type    * @param content the content bytes    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|post
 parameter_list|(
 name|Cluster
-name|c
+name|cluster
 parameter_list|,
 name|String
 name|path
@@ -1366,7 +1396,7 @@ expr_stmt|;
 return|return
 name|post
 argument_list|(
-name|c
+name|cluster
 argument_list|,
 name|path
 argument_list|,
@@ -1376,6 +1406,7 @@ name|content
 argument_list|)
 return|;
 block|}
+comment|/**    * Send a POST request    * @param path the path or URI    * @param headers the HTTP headers to include,<tt>Content-Type</tt> must be    * supplied    * @param content the content bytes    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|post
@@ -1407,12 +1438,13 @@ name|content
 argument_list|)
 return|;
 block|}
+comment|/**    * Send a POST request    * @param cluster the cluster definition    * @param path the path or URI    * @param headers the HTTP headers to include,<tt>Content-Type</tt> must be    * supplied    * @param content the content bytes    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|post
 parameter_list|(
 name|Cluster
-name|c
+name|cluster
 parameter_list|,
 name|String
 name|path
@@ -1451,7 +1483,7 @@ name|code
 init|=
 name|execute
 argument_list|(
-name|c
+name|cluster
 argument_list|,
 name|method
 argument_list|,
@@ -1491,6 +1523,7 @@ name|content
 argument_list|)
 return|;
 block|}
+comment|/**    * Send a DELETE request    * @param path the path or URI    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|delete
@@ -1510,12 +1543,13 @@ name|path
 argument_list|)
 return|;
 block|}
+comment|/**    * Send a DELETE request    * @param cluster the cluster definition    * @param path the path or URI    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|delete
 parameter_list|(
 name|Cluster
-name|c
+name|cluster
 parameter_list|,
 name|String
 name|path
@@ -1535,7 +1569,7 @@ name|code
 init|=
 name|execute
 argument_list|(
-name|c
+name|cluster
 argument_list|,
 name|method
 argument_list|,

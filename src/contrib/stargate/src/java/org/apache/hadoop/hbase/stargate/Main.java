@@ -77,20 +77,6 @@ begin_import
 import|import
 name|org
 operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HBaseConfiguration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
 name|mortbay
 operator|.
 name|jetty
@@ -231,6 +217,10 @@ name|QueuedThreadPool
 import|;
 end_import
 
+begin_comment
+comment|/**  * Main class for launching Stargate as a servlet hosted by an embedded Jetty  * servlet container.  *<p>   * The following options are supported:  *<ul>  *<li>-p: service port</li>  *</ul>  */
+end_comment
+
 begin_class
 specifier|public
 class|class
@@ -318,39 +308,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|HBaseConfiguration
-name|conf
-init|=
-operator|new
-name|HBaseConfiguration
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|cmd
-operator|.
-name|hasOption
-argument_list|(
-literal|"m"
-argument_list|)
-condition|)
-block|{
-name|conf
-operator|.
-name|set
-argument_list|(
-literal|"hbase.master"
-argument_list|,
-name|cmd
-operator|.
-name|getOptionValue
-argument_list|(
-literal|"m"
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-comment|/*      * RuntimeMXBean runtime = ManagementFactory.getRuntimeMXBean(); if (runtime      * != null) { LOG.info("vmName=" + runtime.getVmName() + ", vmVendor=" +      * runtime.getVmVendor() + ", vmVersion=" + runtime.getVmVersion());      * LOG.info("vmInputArguments=" + runtime.getInputArguments()); }      */
 comment|/*      * poached from:      * http://jetty.mortbay.org/xref/org/mortbay/jetty/example/LikeJettyXml.html      */
 name|String
 name|jetty_home

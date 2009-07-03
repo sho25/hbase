@@ -101,6 +101,10 @@ name|XmlRootElement
 import|;
 end_import
 
+begin_comment
+comment|/**  * Representation of a row. A row is a related set of cells, grouped by common  * row key. RowModels do not appear in results by themselves. They are always  * encapsulated within CellSetModels.  */
+end_comment
+
 begin_class
 annotation|@
 name|XmlRootElement
@@ -144,11 +148,12 @@ name|CellModel
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|/**    * Default constructor    */
 specifier|public
 name|RowModel
 parameter_list|()
 block|{ }
-comment|/**    * @param key    */
+comment|/**    * Constructor    * @param key the row key    */
 specifier|public
 name|RowModel
 parameter_list|(
@@ -166,7 +171,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param key    */
+comment|/**    * Constructor    * @param key the row key    */
 specifier|public
 name|RowModel
 parameter_list|(
@@ -176,9 +181,6 @@ index|[]
 name|key
 parameter_list|)
 block|{
-name|super
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|key
@@ -195,7 +197,7 @@ argument_list|>
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * @param key    * @param cells    */
+comment|/**    * Constructor    * @param key the row key    * @param cells the cells    */
 specifier|public
 name|RowModel
 parameter_list|(
@@ -222,7 +224,7 @@ name|cells
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param key    * @param cells    */
+comment|/**    * Constructor    * @param key the row key    * @param cells the cells    */
 specifier|public
 name|RowModel
 parameter_list|(
@@ -239,9 +241,6 @@ argument_list|>
 name|cells
 parameter_list|)
 block|{
-name|super
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|key
@@ -255,7 +254,7 @@ operator|=
 name|cells
 expr_stmt|;
 block|}
-comment|/**    * Adds a cell to the list of cells for this row    *     * @param cell    */
+comment|/**    * Adds a cell to the list of cells for this row    * @param cell the cell    */
 specifier|public
 name|void
 name|addCell
@@ -272,7 +271,7 @@ name|cell
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @return the key    */
+comment|/**    * @return the row key    */
 annotation|@
 name|XmlAttribute
 specifier|public
@@ -285,7 +284,7 @@ return|return
 name|key
 return|;
 block|}
-comment|/**    * @param key the key to set    */
+comment|/**    * @param key the row key    */
 specifier|public
 name|void
 name|setKey

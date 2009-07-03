@@ -81,6 +81,10 @@ name|Bytes
 import|;
 end_import
 
+begin_comment
+comment|/**  * Parses a path based row/column/timestamp specification into its component  * elements.  *<p>  *    */
+end_comment
+
 begin_class
 specifier|public
 class|class

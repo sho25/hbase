@@ -151,6 +151,10 @@ name|ByteString
 import|;
 end_import
 
+begin_comment
+comment|/**  * A representation of Scanner parameters.  */
+end_comment
+
 begin_class
 annotation|@
 name|XmlRootElement
@@ -230,10 +234,12 @@ name|Long
 operator|.
 name|MAX_VALUE
 decl_stmt|;
+comment|/**    * Default constructor    */
 specifier|public
 name|ScannerModel
 parameter_list|()
 block|{}
+comment|/**    * Constructor    * @param startRow the start key of the row-range    * @param endRow the end key of the row-range    * @param columns the columns to scan    * @param batch the number of values to return in batch    * @param endTime the upper bound on timestamps of values of interest    * (values with timestamps later than this are excluded)    */
 specifier|public
 name|ScannerModel
 parameter_list|(
@@ -293,6 +299,7 @@ operator|=
 name|endTime
 expr_stmt|;
 block|}
+comment|/**    * Constructor     * @param startRow the start key of the row-range    * @param endRow the end key of the row-range    * @param columns the columns to scan    * @param batch the number of values to return in batch    * @param startTime the lower bound on timestamps of values of interest    * (values with timestamps earlier than this are excluded)    * @param endTime the upper bound on timestamps of values of interest    * (values with timestamps later than this are excluded)    */
 specifier|public
 name|ScannerModel
 parameter_list|(
@@ -361,6 +368,7 @@ operator|=
 name|endTime
 expr_stmt|;
 block|}
+comment|/**    * Add a column to the column set    * @param column the column name, as&lt;column&gt;(:&lt;qualifier&gt;)?    */
 specifier|public
 name|void
 name|addColumn
@@ -551,7 +559,7 @@ operator|=
 name|batch
 expr_stmt|;
 block|}
-comment|/**    * @param startTime the lower bound on timestamps of items of interest    */
+comment|/**    * @param startTime the lower bound on timestamps of values of interest    */
 specifier|public
 name|void
 name|setStartTime
@@ -567,7 +575,7 @@ operator|=
 name|startTime
 expr_stmt|;
 block|}
-comment|/**    * @param endTime the upper bound on timestamps of items of interest    */
+comment|/**    * @param endTime the upper bound on timestamps of values of interest    */
 specifier|public
 name|void
 name|setEndTime

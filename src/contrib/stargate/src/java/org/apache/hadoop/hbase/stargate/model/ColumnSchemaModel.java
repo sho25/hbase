@@ -145,6 +145,10 @@ name|HConstants
 import|;
 end_import
 
+begin_comment
+comment|/**  * Representation of a column family schema.  */
+end_comment
+
 begin_class
 annotation|@
 name|XmlRootElement
@@ -289,10 +293,12 @@ name|Object
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|/**    * Default constructor    */
 specifier|public
 name|ColumnSchemaModel
 parameter_list|()
 block|{}
+comment|/**    * Add an attribute to the column family schema    * @param name the attribute name    * @param value the attribute value    */
 specifier|public
 name|void
 name|addAttribute
@@ -318,6 +324,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param name the attribute name    * @return the attribute value    */
 specifier|public
 name|String
 name|getAttribute
@@ -326,7 +333,9 @@ name|String
 name|name
 parameter_list|)
 block|{
-return|return
+name|Object
+name|o
+init|=
 name|attrs
 operator|.
 name|get
@@ -337,9 +346,18 @@ argument_list|(
 name|name
 argument_list|)
 argument_list|)
+decl_stmt|;
+return|return
+name|o
+operator|!=
+literal|null
+condition|?
+name|o
 operator|.
 name|toString
 argument_list|()
+else|:
+literal|null
 return|;
 block|}
 comment|/**    * @return the column name    */
@@ -506,6 +524,7 @@ block|}
 comment|// getters and setters for common schema attributes
 comment|// cannot be standard bean type getters and setters, otherwise this would
 comment|// confuse JAXB
+comment|/**    * @return true if the BLOCKCACHE attribute is present and true    */
 specifier|public
 name|boolean
 name|__getBlockcache
@@ -541,6 +560,7 @@ operator|.
 name|DEFAULT_BLOCKCACHE
 return|;
 block|}
+comment|/**    * @return the value of the BLOCKSIZE attribute or its default if it is unset    */
 specifier|public
 name|int
 name|__getBlocksize
@@ -576,6 +596,7 @@ operator|.
 name|DEFAULT_BLOCKSIZE
 return|;
 block|}
+comment|/**    * @return true if the BLOOMFILTER attribute is present and true    */
 specifier|public
 name|boolean
 name|__getBloomfilter
@@ -611,6 +632,7 @@ operator|.
 name|DEFAULT_BLOOMFILTER
 return|;
 block|}
+comment|/**    * @return the value of the COMPRESSION attribute or its default if it is unset    */
 specifier|public
 name|String
 name|__getCompression
@@ -641,6 +663,7 @@ operator|.
 name|DEFAULT_COMPRESSION
 return|;
 block|}
+comment|/**    * @return true if the IN_MEMORY attribute is present and true    */
 specifier|public
 name|boolean
 name|__getInMemory
@@ -676,6 +699,7 @@ operator|.
 name|DEFAULT_IN_MEMORY
 return|;
 block|}
+comment|/**    * @return the value of the TTL attribute or its default if it is unset    */
 specifier|public
 name|int
 name|__getTTL
@@ -711,6 +735,7 @@ operator|.
 name|DEFAULT_TTL
 return|;
 block|}
+comment|/**    * @return the value of the VERSIONS attribute or its default if it is unset    */
 specifier|public
 name|int
 name|__getVersions
@@ -746,6 +771,7 @@ operator|.
 name|DEFAULT_VERSIONS
 return|;
 block|}
+comment|/**    * @param value the desired value of the BLOCKSIZE attribute    */
 specifier|public
 name|void
 name|__setBlocksize
@@ -769,6 +795,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param value the desired value of the BLOCKCACHE attribute    */
 specifier|public
 name|void
 name|__setBlockcache
@@ -815,6 +842,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param value the desired value of the COMPRESSION attribute    */
 specifier|public
 name|void
 name|__setCompression
@@ -833,6 +861,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param value the desired value of the IN_MEMORY attribute    */
 specifier|public
 name|void
 name|__setInMemory
@@ -856,6 +885,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param value the desired value of the TTL attribute    */
 specifier|public
 name|void
 name|__setTTL
@@ -879,6 +909,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param value the desired value of the VERSIONS attribute    */
 specifier|public
 name|void
 name|__setVersions
