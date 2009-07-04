@@ -113,6 +113,22 @@ name|hbase
 operator|.
 name|stargate
 operator|.
+name|ProtobufMessageHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|stargate
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -152,7 +168,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A representation of Scanner parameters.  */
+comment|/**  * A representation of Scanner parameters.  *   *<pre>  *&lt;complexType name="Scanner"&gt;  *&lt;attribute name="startRow" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="endRow" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="columns" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="batch" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="startTime" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="endTime" type="int"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
 
 begin_class
@@ -167,7 +183,7 @@ specifier|public
 class|class
 name|ScannerModel
 implements|implements
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 implements|,
 name|Serializable
 block|{
@@ -745,7 +761,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 name|getObjectFromMessage
 parameter_list|(
 name|byte

@@ -113,6 +113,22 @@ name|hbase
 operator|.
 name|stargate
 operator|.
+name|ProtobufMessageHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|stargate
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -158,7 +174,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Representation of a grouping of cells. May contain cells from more than  * one row. Encapsulates RowModel and CellModel models.  */
+comment|/**  * Representation of a grouping of cells. May contain cells from more than  * one row. Encapsulates RowModel and CellModel models.  *   *<pre>  *&lt;complexType name="CellSet"&gt;  *&lt;sequence&gt;  *&lt;element name="row" type="tns:Row" maxOccurs="unbounded"   *       minOccurs="1"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;/complexType&gt;  *   *&lt;complexType name="Row"&gt;  *&lt;sequence&gt;  *&lt;element name="key" type="base64Binary"&gt;&lt;/element&gt;  *&lt;element name="cell" type="tns:Cell"   *       maxOccurs="unbounded" minOccurs="1"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;/complexType&gt;  *  *&lt;complexType name="Cell"&gt;  *&lt;sequence&gt;  *&lt;element name="value" maxOccurs="1" minOccurs="1"&gt;  *&lt;simpleType&gt;  *&lt;restriction base="base64Binary"/&gt;  *&lt;/simpleType&gt;  *&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="column" type="base64Binary" /&gt;  *&lt;attribute name="timestamp" type="int" /&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
 
 begin_class
@@ -175,7 +191,7 @@ name|CellSetModel
 implements|implements
 name|Serializable
 implements|,
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 block|{
 specifier|private
 specifier|static
@@ -422,7 +438,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 name|getObjectFromMessage
 parameter_list|(
 name|byte

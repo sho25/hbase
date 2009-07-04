@@ -58,7 +58,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Simple representation of the version of the storage cluster (HBase)  */
+comment|/**  * Simple representation of the version of the storage cluster  *   *<pre>  *&lt;complexType name="StorageClusterVersion"&gt;  *&lt;attribute name="version" type="string"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
 
 begin_class

@@ -121,6 +121,22 @@ name|hbase
 operator|.
 name|stargate
 operator|.
+name|ProtobufMessageHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|stargate
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -144,7 +160,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Representation of a cell. A cell is a single value associated a column and  * optional qualifier, and either the timestamp when it was stored or the user-  * provided timestamp if one was explicitly supplied.  */
+comment|/**  * Representation of a cell. A cell is a single value associated a column and  * optional qualifier, and either the timestamp when it was stored or the user-  * provided timestamp if one was explicitly supplied.  *  *<pre>  *&lt;complexType name="Cell"&gt;  *&lt;sequence&gt;  *&lt;element name="value" maxOccurs="1" minOccurs="1"&gt;  *&lt;simpleType&gt;  *&lt;restriction base="base64Binary"/&gt;  *&lt;/simpleType&gt;  *&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="column" type="base64Binary" /&gt;  *&lt;attribute name="timestamp" type="int" /&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
 
 begin_class
@@ -170,7 +186,7 @@ specifier|public
 class|class
 name|CellModel
 implements|implements
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 implements|,
 name|Serializable
 block|{
@@ -435,7 +451,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 name|getObjectFromMessage
 parameter_list|(
 name|byte

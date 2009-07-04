@@ -14,8 +14,6 @@ operator|.
 name|hbase
 operator|.
 name|stargate
-operator|.
-name|model
 package|;
 end_package
 
@@ -37,7 +35,7 @@ begin_interface
 specifier|public
 specifier|abstract
 interface|interface
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 block|{
 comment|/**    * @return the protobuf represention of the model    */
 specifier|public
@@ -48,7 +46,7 @@ parameter_list|()
 function_decl|;
 comment|/**    * Initialize the model from a protobuf representation.    * @param message the raw bytes of the protobuf message    * @return reference to self for convenience    * @throws IOException    */
 specifier|public
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 name|getObjectFromMessage
 parameter_list|(
 name|byte

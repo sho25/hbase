@@ -203,14 +203,12 @@ name|hbase
 operator|.
 name|stargate
 operator|.
-name|model
-operator|.
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 import|;
 end_import
 
 begin_comment
-comment|/**  * An adapter between Jersey and IProtobufWrapper implementors. Hooks up  * protobuf output producing methods to the Jersey content handling framework.  * Jersey will first call getSize() to learn the number of bytes that will be  * sent, then writeTo to perform the actual I/O.  */
+comment|/**  * An adapter between Jersey and ProtobufMessageHandler implementors. Hooks up  * protobuf output producing methods to the Jersey content handling framework.  * Jersey will first call getSize() to learn the number of bytes that will be  * sent, then writeTo to perform the actual I/O.  */
 end_comment
 
 begin_class
@@ -229,7 +227,7 @@ name|ProtobufMessageBodyProducer
 implements|implements
 name|MessageBodyWriter
 argument_list|<
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 argument_list|>
 block|{
 specifier|private
@@ -276,7 +274,7 @@ name|mediaType
 parameter_list|)
 block|{
 return|return
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 operator|.
 name|class
 operator|.
@@ -292,7 +290,7 @@ specifier|public
 name|long
 name|getSize
 parameter_list|(
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 name|m
 parameter_list|,
 name|Class
@@ -371,7 +369,7 @@ specifier|public
 name|void
 name|writeTo
 parameter_list|(
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 name|m
 parameter_list|,
 name|Class

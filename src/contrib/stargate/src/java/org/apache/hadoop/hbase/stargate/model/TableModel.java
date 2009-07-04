@@ -58,7 +58,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Simple representation of a table name.  */
+comment|/**  * Simple representation of a table name.  *   *<pre>  *&lt;complexType name="Table"&gt;  *&lt;sequence&gt;  *&lt;element name="name" type="string"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
 
 begin_class

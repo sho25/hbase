@@ -88,7 +88,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Representation of a region of a table and its current location on the  * storage cluster.  */
+comment|/**  * Representation of a region of a table and its current location on the  * storage cluster.  *   *<pre>  *&lt;complexType name="TableRegion"&gt;  *&lt;attribute name="name" type="string"&gt;&lt;/attribute&gt;  *&lt;attribute name="id" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="startKey" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="endKey" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="location" type="string"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
 
 begin_class

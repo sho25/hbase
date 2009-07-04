@@ -127,6 +127,22 @@ name|hbase
 operator|.
 name|stargate
 operator|.
+name|ProtobufMessageHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|stargate
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -166,7 +182,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Representation of the status of a storage cluster:  *<p>  *<ul>  *<li>regions: the total number of regions served by the cluster</li>  *<li>requests: the total number of requests per second handled by the  * cluster in the last reporting interval</li>  *<li>averageLoad: the average load of the region servers in the cluster</li>  *<li>liveNodes: detailed status of the live region servers</li>  *<li>deadNodes: the names of region servers declared dead</li>  *</ul>  */
+comment|/**  * Representation of the status of a storage cluster:  *<p>  *<ul>  *<li>regions: the total number of regions served by the cluster</li>  *<li>requests: the total number of requests per second handled by the  * cluster in the last reporting interval</li>  *<li>averageLoad: the average load of the region servers in the cluster</li>  *<li>liveNodes: detailed status of the live region servers</li>  *<li>deadNodes: the names of region servers declared dead</li>  *</ul>  *   *<pre>  *&lt;complexType name="StorageClusterStatus"&gt;  *&lt;sequence&gt;  *&lt;element name="liveNode" type="tns:Node"  *       maxOccurs="unbounded" minOccurs="0"&gt;  *&lt;/element&gt;  *&lt;element name="deadNode" type="string" maxOccurs="unbounded"  *       minOccurs="0"&gt;  *&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="regions" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="requests" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="averageLoad" type="float"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *  *&lt;complexType name="Node"&gt;  *&lt;sequence&gt;  *&lt;element name="region" type="tns:Region"   *       maxOccurs="unbounded" minOccurs="0"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="name" type="string"&gt;&lt;/attribute&gt;  *&lt;attribute name="startCode" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="requests" type="int"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *  *&lt;complexType name="Region"&gt;  *&lt;attribute name="name" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
 
 begin_class
@@ -183,7 +199,7 @@ name|StorageClusterStatusModel
 implements|implements
 name|Serializable
 implements|,
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 block|{
 specifier|private
 specifier|static
@@ -1211,7 +1227,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 name|getObjectFromMessage
 parameter_list|(
 name|byte

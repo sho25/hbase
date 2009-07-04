@@ -146,7 +146,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Representation of a column family schema.  */
+comment|/**  * Representation of a column family schema.  *   *<pre>  *&lt;complexType name="ColumnSchema"&gt;  *&lt;attribute name="name" type="string"&gt;&lt;/attribute&gt;  *&lt;anyAttribute&gt;&lt;/anyAttribute&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
 
 begin_class

@@ -211,14 +211,12 @@ name|hbase
 operator|.
 name|stargate
 operator|.
-name|model
-operator|.
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 import|;
 end_import
 
 begin_comment
-comment|/**  * Adapter for hooking up Jersey content processing dispatch to  * IProtobufWrapper interface capable handlers for decoding protobuf input.  */
+comment|/**  * Adapter for hooking up Jersey content processing dispatch to  * ProtobufMessageHandler interface capable handlers for decoding protobuf input.  */
 end_comment
 
 begin_class
@@ -237,7 +235,7 @@ name|ProtobufMessageBodyConsumer
 implements|implements
 name|MessageBodyReader
 argument_list|<
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 argument_list|>
 block|{
 specifier|private
@@ -279,7 +277,7 @@ name|mediaType
 parameter_list|)
 block|{
 return|return
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 operator|.
 name|class
 operator|.
@@ -292,12 +290,12 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 name|readFrom
 parameter_list|(
 name|Class
 argument_list|<
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 argument_list|>
 name|type
 parameter_list|,
@@ -327,7 +325,7 @@ name|IOException
 throws|,
 name|WebApplicationException
 block|{
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 name|obj
 init|=
 literal|null

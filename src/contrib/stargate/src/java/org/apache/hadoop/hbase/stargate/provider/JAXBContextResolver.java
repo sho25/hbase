@@ -508,15 +508,6 @@ argument_list|>
 name|objectType
 parameter_list|)
 block|{
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"Executed getContext"
-argument_list|)
-expr_stmt|;
 return|return
 operator|(
 name|types

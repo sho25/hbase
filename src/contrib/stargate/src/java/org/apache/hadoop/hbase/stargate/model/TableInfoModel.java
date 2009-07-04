@@ -127,6 +127,22 @@ name|hbase
 operator|.
 name|stargate
 operator|.
+name|ProtobufMessageHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|stargate
+operator|.
 name|protobuf
 operator|.
 name|generated
@@ -150,7 +166,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Representation of a list of table regions.   */
+comment|/**  * Representation of a list of table regions.   *   *<pre>  *&lt;complexType name="TableInfo"&gt;  *&lt;sequence&gt;  *&lt;element name="region" type="tns:TableRegion"   *       maxOccurs="unbounded" minOccurs="1"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="name" type="string"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
 
 begin_class
@@ -178,7 +194,7 @@ name|TableInfoModel
 implements|implements
 name|Serializable
 implements|,
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 block|{
 specifier|private
 specifier|static
@@ -504,7 +520,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 name|getObjectFromMessage
 parameter_list|(
 name|byte

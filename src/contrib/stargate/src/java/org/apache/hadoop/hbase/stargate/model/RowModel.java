@@ -101,8 +101,24 @@ name|XmlRootElement
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|stargate
+operator|.
+name|ProtobufMessageHandler
+import|;
+end_import
+
 begin_comment
-comment|/**  * Representation of a row. A row is a related set of cells, grouped by common  * row key. RowModels do not appear in results by themselves. They are always  * encapsulated within CellSetModels.  */
+comment|/**  * Representation of a row. A row is a related set of cells, grouped by common  * row key. RowModels do not appear in results by themselves. They are always  * encapsulated within CellSetModels.  *   *<pre>  *&lt;complexType name="Row"&gt;  *&lt;sequence&gt;  *&lt;element name="key" type="base64Binary"&gt;&lt;/element&gt;  *&lt;element name="cell" type="tns:Cell"   *       maxOccurs="unbounded" minOccurs="1"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
 
 begin_class
@@ -117,7 +133,7 @@ specifier|public
 class|class
 name|RowModel
 implements|implements
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 implements|,
 name|Serializable
 block|{
@@ -341,7 +357,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|IProtobufWrapper
+name|ProtobufMessageHandler
 name|getObjectFromMessage
 parameter_list|(
 name|byte
