@@ -128,14 +128,6 @@ specifier|private
 specifier|static
 specifier|final
 name|boolean
-name|IN_MEMORY
-init|=
-literal|false
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|boolean
 name|IS_META
 init|=
 literal|false
@@ -168,9 +160,7 @@ literal|" IS_META=\"false\""
 operator|+
 literal|" IS_ROOT=\"false\""
 operator|+
-literal|" READONLY=\"false\""
-operator|+
-literal|" IN_MEMORY=\"false\">"
+literal|" READONLY=\"false\">"
 operator|+
 name|TestColumnSchemaModel
 operator|.
@@ -257,13 +247,6 @@ operator|.
 name|setName
 argument_list|(
 name|name
-argument_list|)
-expr_stmt|;
-name|model
-operator|.
-name|__setInMemory
-argument_list|(
-name|IN_MEMORY
 argument_list|)
 expr_stmt|;
 name|model
@@ -458,16 +441,6 @@ name|getName
 argument_list|()
 argument_list|,
 name|tableName
-argument_list|)
-expr_stmt|;
-name|assertEquals
-argument_list|(
-name|model
-operator|.
-name|__getInMemory
-argument_list|()
-argument_list|,
-name|IN_MEMORY
 argument_list|)
 expr_stmt|;
 name|assertEquals
