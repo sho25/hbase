@@ -3929,7 +3929,6 @@ name|getMaxVersions
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// TODO pass in the scanners/store files.
 name|scanner
 operator|=
 operator|new
@@ -3939,7 +3938,7 @@ name|this
 argument_list|,
 name|scan
 argument_list|,
-literal|null
+name|scanners
 argument_list|)
 expr_stmt|;
 comment|// since scanner.next() can return 'false' but still be delivering data,
