@@ -5940,6 +5940,12 @@ name|getMasterElectionZNode
 argument_list|()
 argument_list|)
 operator|)
+operator|&&
+operator|!
+name|shutdownRequested
+operator|.
+name|get
+argument_list|()
 condition|)
 block|{
 name|LOG
