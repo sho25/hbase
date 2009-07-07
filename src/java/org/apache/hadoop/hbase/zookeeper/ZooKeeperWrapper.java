@@ -2919,6 +2919,16 @@ operator|+
 name|child
 return|;
 block|}
+comment|/**    * Get the path of the masterElectionZNode    * @return the path to masterElectionZNode    */
+specifier|public
+name|String
+name|getMasterElectionZNode
+parameter_list|()
+block|{
+return|return
+name|masterElectionZNode
+return|;
+block|}
 block|}
 end_class
 
