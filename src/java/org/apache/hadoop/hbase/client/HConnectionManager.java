@@ -4642,6 +4642,16 @@ name|tries
 init|=
 literal|0
 decl_stmt|;
+if|if
+condition|(
+name|list
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|1
+condition|)
+block|{
 name|Collections
 operator|.
 name|sort
@@ -4649,6 +4659,7 @@ argument_list|(
 name|list
 argument_list|)
 expr_stmt|;
+block|}
 name|List
 argument_list|<
 name|Put
