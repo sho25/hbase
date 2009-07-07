@@ -937,7 +937,6 @@ name|boolean
 name|removeFromQueue
 parameter_list|)
 block|{
-comment|// Wait until it is safe to flush
 name|int
 name|count
 init|=
@@ -945,6 +944,11 @@ literal|0
 decl_stmt|;
 name|boolean
 name|triggered
+init|=
+literal|false
+decl_stmt|;
+name|boolean
+name|finished
 init|=
 literal|false
 decl_stmt|;
@@ -960,6 +964,10 @@ literal|500
 operator|)
 condition|)
 block|{
+name|finished
+operator|=
+literal|true
+expr_stmt|;
 for|for
 control|(
 name|Store
@@ -1020,7 +1028,9 @@ operator|.
 name|getStorefilesCount
 argument_list|()
 operator|+
-literal|", waiting"
+literal|", requesting compaction and "
+operator|+
+literal|"waiting"
 argument_list|)
 expr_stmt|;
 name|triggered
@@ -1028,6 +1038,11 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+comment|// pending compaction, not finished
+name|finished
+operator|=
+literal|false
+expr_stmt|;
 try|try
 block|{
 name|Thread
@@ -1046,27 +1061,60 @@ parameter_list|)
 block|{
 comment|// ignore
 block|}
-continue|continue;
 block|}
 block|}
 if|if
 condition|(
 name|triggered
+operator|&&
+name|finished
 condition|)
 block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Compaction completed on region "
+literal|"Compaction has completed, we waited "
+operator|+
+operator|(
+name|count
+operator|*
+literal|500
+operator|)
+operator|+
+literal|"ms, "
+operator|+
+literal|"finishing flush of region "
+operator|+
+name|region
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
+block|}
+if|if
+condition|(
+name|triggered
+operator|&&
+operator|!
+name|finished
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Tried to hold up flushing for compactions of region "
 operator|+
 name|region
 operator|+
-literal|", proceeding"
+literal|" but have waited longer than "
+operator|+
+name|blockingWaitTime
+operator|+
+literal|"ms, continuing"
 argument_list|)
 expr_stmt|;
-block|}
-break|break;
 block|}
 synchronized|synchronized
 init|(
