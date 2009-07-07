@@ -1348,26 +1348,6 @@ operator|.
 name|reader
 return|;
 block|}
-comment|/**    * Gets a special Reader for use during compactions.  Will not cache blocks.    * @return Current reader.  Must call open first else returns null.    */
-specifier|public
-name|HFile
-operator|.
-name|CompactionReader
-name|getCompactionReader
-parameter_list|()
-block|{
-return|return
-operator|new
-name|HFile
-operator|.
-name|CompactionReader
-argument_list|(
-name|this
-operator|.
-name|reader
-argument_list|)
-return|;
-block|}
 comment|/**    * @throws IOException    */
 specifier|public
 specifier|synchronized

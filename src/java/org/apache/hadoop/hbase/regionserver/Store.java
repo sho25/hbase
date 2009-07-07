@@ -479,26 +479,6 @@ name|hfile
 operator|.
 name|HFile
 operator|.
-name|CompactionReader
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|HFile
-operator|.
 name|Reader
 import|;
 end_import
@@ -3053,12 +3033,12 @@ return|return
 literal|null
 return|;
 block|}
-name|CompactionReader
+name|Reader
 name|r
 init|=
 name|file
 operator|.
-name|getCompactionReader
+name|getReader
 argument_list|()
 decl_stmt|;
 if|if
@@ -3086,7 +3066,7 @@ name|len
 init|=
 name|file
 operator|.
-name|getCompactionReader
+name|getReader
 argument_list|()
 operator|.
 name|length
@@ -3864,7 +3844,7 @@ name|i
 control|)
 block|{
 comment|// TODO open a new HFile.Reader w/o block cache.
-name|CompactionReader
+name|Reader
 name|r
 init|=
 name|filesToCompact
@@ -3874,7 +3854,7 @@ argument_list|(
 name|i
 argument_list|)
 operator|.
-name|getCompactionReader
+name|getReader
 argument_list|()
 decl_stmt|;
 if|if
@@ -3902,6 +3882,7 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
+comment|// Instantiate HFile.Reader.Scanner to not cache blocks
 name|scanners
 index|[
 name|i
@@ -3913,7 +3894,9 @@ argument_list|(
 name|r
 operator|.
 name|getScanner
-argument_list|()
+argument_list|(
+literal|false
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -4361,7 +4344,7 @@ name|r
 init|=
 name|hsf
 operator|.
-name|getCompactionReader
+name|getReader
 argument_list|()
 decl_stmt|;
 if|if

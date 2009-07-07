@@ -986,11 +986,13 @@ name|scanner
 init|=
 name|f
 operator|.
-name|getCompactionReader
+name|getReader
 argument_list|()
 operator|.
 name|getScanner
-argument_list|()
+argument_list|(
+literal|false
+argument_list|)
 decl_stmt|;
 name|scanner
 operator|.
