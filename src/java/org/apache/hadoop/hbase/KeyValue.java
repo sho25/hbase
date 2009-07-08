@@ -2189,8 +2189,7 @@ name|vlength
 argument_list|)
 return|;
 block|}
-comment|// Needed doing 'contains' on List.  Only compares the key portion, not the
-comment|// value.
+comment|/**    * Needed doing 'contains' on List.  Only compares the key portion, not the    * value.    * @param other Object to compare ourselves to.    * @return True if equal to<code>other</code>    */
 specifier|public
 name|boolean
 name|equals
