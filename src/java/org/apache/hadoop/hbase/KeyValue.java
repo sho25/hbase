@@ -163,7 +163,7 @@ name|hadoop
 operator|.
 name|io
 operator|.
-name|WritableComparable
+name|Writable
 import|;
 end_import
 
@@ -176,10 +176,7 @@ specifier|public
 class|class
 name|KeyValue
 implements|implements
-name|WritableComparable
-argument_list|<
-name|KeyValue
-argument_list|>
+name|Writable
 implements|,
 name|HeapSize
 block|{
@@ -2189,7 +2186,8 @@ name|vlength
 argument_list|)
 return|;
 block|}
-comment|/**    * Needed doing 'contains' on List.  Only compares the key portion, not the    * value.    * @param other Object to compare ourselves to.    * @return True if equal to<code>other</code>    */
+comment|// Needed doing 'contains' on List.  Only compares the key portion, not the
+comment|// value.
 specifier|public
 name|boolean
 name|equals
@@ -7840,7 +7838,6 @@ operator|)
 argument_list|)
 return|;
 block|}
-comment|// WritableComparable
 comment|// Writable
 specifier|public
 name|void
@@ -7933,49 +7930,6 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-block|}
-comment|// Comparable
-specifier|public
-name|int
-name|compareTo
-parameter_list|(
-name|KeyValue
-name|that
-parameter_list|)
-block|{
-return|return
-name|KEY_COMPARATOR
-operator|.
-name|compare
-argument_list|(
-name|this
-operator|.
-name|bytes
-argument_list|,
-name|this
-operator|.
-name|offset
-argument_list|,
-name|this
-operator|.
-name|length
-argument_list|,
-name|that
-operator|.
-name|getBuffer
-argument_list|()
-argument_list|,
-name|that
-operator|.
-name|getOffset
-argument_list|()
-argument_list|,
-name|that
-operator|.
-name|getLength
-argument_list|()
-argument_list|)
-return|;
 block|}
 block|}
 end_class
