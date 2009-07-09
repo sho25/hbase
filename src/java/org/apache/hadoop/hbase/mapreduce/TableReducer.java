@@ -25,27 +25,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Put
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|io
 operator|.
-name|ImmutableBytesWritable
+name|Writable
 import|;
 end_import
 
@@ -64,7 +46,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Extends the basic<code>Reducer</code> class to add the required key and  * value output classes.  *   * @param<KEYIN>  The type of the key.  * @param<VALUEIN>  The type of the value.  * @see org.apache.hadoop.mapreduce.Reducer  */
+comment|/**  * Extends the basic<code>Reducer</code> class to add the required key and  * value input/output classes. While the input key and value as well as the   * output key can be anything handed in from the previous map phase the output   * value<u>must</u> be either a {@link org.apache.hadoop.hbase.client.Put Put}   * or a {@link org.apache.hadoop.hbase.client.Delete Delete} instance when  * using the {@link TableOutputFormat} class.  *<p>  * This class is extended by {@link IdentityTableReducer} but can also be   * subclassed to implement similar features or any custom code needed. It has  * the advantage to enforce the output value to a specific basic type.   *   * @param<KEYIN>  The type of the input key.  * @param<VALUEIN>  The type of the input value.  * @param<KEYOUT>  The type of the output key.  * @see org.apache.hadoop.mapreduce.Reducer  */
 end_comment
 
 begin_class
@@ -76,6 +58,8 @@ parameter_list|<
 name|KEYIN
 parameter_list|,
 name|VALUEIN
+parameter_list|,
+name|KEYOUT
 parameter_list|>
 extends|extends
 name|Reducer
@@ -84,11 +68,11 @@ name|KEYIN
 argument_list|,
 name|VALUEIN
 argument_list|,
-name|ImmutableBytesWritable
+name|KEYOUT
 argument_list|,
-name|Put
+name|Writable
 argument_list|>
-block|{  }
+block|{ }
 end_class
 
 end_unit

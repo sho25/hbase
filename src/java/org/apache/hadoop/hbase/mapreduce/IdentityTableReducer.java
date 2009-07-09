@@ -29,16 +29,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Iterator
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -73,11 +63,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|io
 operator|.
-name|client
-operator|.
-name|Put
+name|Writable
 import|;
 end_import
 
@@ -89,16 +77,14 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|mapreduce
 operator|.
-name|io
-operator|.
-name|ImmutableBytesWritable
+name|OutputFormat
 import|;
 end_import
 
 begin_comment
-comment|/**  * Convenience class that simply writes each key, record pair to the configured   * HBase table.  */
+comment|/**  * Convenience class that simply writes all values (which must be   * {@link org.apache.hadoop.hbase.client.Put Put} or   * {@link org.apache.hadoop.hbase.client.Delete Delete} instances)  * passed to it out to the configured HBase table. This works in combination   * with {@link TableOutputFormat} which actually does the writing to HBase.<p>  *    * Keys are passed along but ignored in TableOutputFormat.  However, they can  * be used to control how your values will be divided up amongst the specified  * number of reducers.<p>  *   * You can also use the {@link TableMapReduceUtil} class to set up the two   * classes in one step:  *<blockquote><code>  * TableMapReduceUtil.initTableReducerJob("table", IdentityTableReducer.class, job);  *</code></blockquote>  * This will also set the proper {@link TableOutputFormat} which is given the  *<code>table</code> parameter. The   * {@link org.apache.hadoop.hbase.client.Put Put} or   * {@link org.apache.hadoop.hbase.client.Delete Delete} define the  * row and columns implicitly.  */
 end_comment
 
 begin_class
@@ -108,9 +94,11 @@ name|IdentityTableReducer
 extends|extends
 name|TableReducer
 argument_list|<
-name|ImmutableBytesWritable
+name|Writable
 argument_list|,
-name|Put
+name|Writable
+argument_list|,
+name|Writable
 argument_list|>
 block|{
 annotation|@
@@ -133,17 +121,19 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Writes each given record, consisting of the key and the given values, to    * the HBase table.    *     * @param key  The current row key.    * @param values  The values for the given row.    * @param context  The context of the reduce.     * @throws IOException When writing the record fails.    * @throws InterruptedException When the job gets interrupted.    */
+comment|/**    * Writes each given record, consisting of the row key and the given values,     * to the configured {@link OutputFormat}. It is emitting the row key and each     * {@link org.apache.hadoop.hbase.client.Put Put} or     * {@link org.apache.hadoop.hbase.client.Delete Delete} as separate pairs.     *     * @param key  The current row key.     * @param values  The {@link org.apache.hadoop.hbase.client.Put Put} or     *   {@link org.apache.hadoop.hbase.client.Delete Delete} list for the given     *   row.    * @param context  The context of the reduce.     * @throws IOException When writing the record fails.    * @throws InterruptedException When the job gets interrupted.    */
+annotation|@
+name|Override
 specifier|public
 name|void
 name|reduce
 parameter_list|(
-name|ImmutableBytesWritable
+name|Writable
 name|key
 parameter_list|,
-name|Iterator
+name|Iterable
 argument_list|<
-name|Put
+name|Writable
 argument_list|>
 name|values
 parameter_list|,
@@ -155,13 +145,13 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-while|while
-condition|(
+for|for
+control|(
+name|Writable
+name|putOrDelete
+range|:
 name|values
-operator|.
-name|hasNext
-argument_list|()
-condition|)
+control|)
 block|{
 name|context
 operator|.
@@ -169,10 +159,7 @@ name|write
 argument_list|(
 name|key
 argument_list|,
-name|values
-operator|.
-name|next
-argument_list|()
+name|putOrDelete
 argument_list|)
 expr_stmt|;
 block|}
