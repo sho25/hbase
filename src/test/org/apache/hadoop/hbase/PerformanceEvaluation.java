@@ -2168,6 +2168,15 @@ operator|*
 literal|12
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|table
+operator|.
+name|setScannerCaching
+argument_list|(
+literal|30
+argument_list|)
+expr_stmt|;
 block|}
 name|void
 name|testTakedown
