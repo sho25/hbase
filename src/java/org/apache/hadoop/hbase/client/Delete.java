@@ -351,7 +351,7 @@ return|;
 block|}
 comment|/**    * Delete all versions of all columns of the specified family.    *<p>    * Overrides previous calls to deleteColumn and deleteColumns for the    * specified family.    * @param family family name    */
 specifier|public
-name|void
+name|Delete
 name|deleteFamily
 parameter_list|(
 name|byte
@@ -370,10 +370,13 @@ operator|.
 name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Delete all columns of the specified family with a timestamp less than    * or equal to the specified timestamp.    *<p>    * Overrides previous calls to deleteColumn and deleteColumns for the    * specified family.    * @param family family name    * @param timestamp maximum version timestamp    */
 specifier|public
-name|void
+name|Delete
 name|deleteFamily
 parameter_list|(
 name|byte
@@ -462,10 +465,13 @@ argument_list|,
 name|list
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Delete all versions of the specified column.    * @param family family name    * @param qualifier column qualifier    */
 specifier|public
-name|void
+name|Delete
 name|deleteColumns
 parameter_list|(
 name|byte
@@ -490,10 +496,13 @@ operator|.
 name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Delete all versions of the specified column with a timestamp less than    * or equal to the specified timestamp.    * @param family family name    * @param qualifier column qualifier    * @param timestamp maximum version timestamp    */
 specifier|public
-name|void
+name|Delete
 name|deleteColumns
 parameter_list|(
 name|byte
@@ -572,10 +581,13 @@ argument_list|,
 name|list
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Delete all versions of the specified column, given in     *<code>family:qualifier</code> notation, and with a timestamp less than    * or equal to the specified timestamp.     * @param column colon-delimited family and qualifier    * @param timestamp maximum version timestamp     */
 specifier|public
-name|void
+name|Delete
 name|deleteColumns
 parameter_list|(
 name|byte
@@ -615,10 +627,13 @@ argument_list|,
 name|timestamp
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Delete the latest version of the specified column.    * This is an expensive call in that on the server-side, it first does a    * get to find the latest versions timestamp.  Then it adds a delete using    * the fetched cells timestamp.    * @param family family name    * @param qualifier column qualifier    */
 specifier|public
-name|void
+name|Delete
 name|deleteColumn
 parameter_list|(
 name|byte
@@ -643,10 +658,13 @@ operator|.
 name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Delete the specified version of the specified column.    * @param family family name    * @param qualifier column qualifier    * @param timestamp version timestamp    */
 specifier|public
-name|void
+name|Delete
 name|deleteColumn
 parameter_list|(
 name|byte
@@ -725,10 +743,13 @@ argument_list|,
 name|list
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Delete the latest version of the specified column, given in    *<code>family:qualifier</code> notation.    * @param column colon-delimited family and qualifier     */
 specifier|public
-name|void
+name|Delete
 name|deleteColumn
 parameter_list|(
 name|byte
@@ -767,6 +788,9 @@ operator|.
 name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
+return|return
+name|this
+return|;
 block|}
 comment|/**    * Method for retrieving the delete's familyMap     * @return familyMap    */
 specifier|public
