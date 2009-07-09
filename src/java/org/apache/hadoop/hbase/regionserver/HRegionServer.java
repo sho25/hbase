@@ -6493,6 +6493,12 @@ block|{
 while|while
 condition|(
 operator|!
+name|stopRequested
+operator|.
+name|get
+argument_list|()
+operator|&&
+operator|!
 name|getMaster
 argument_list|()
 condition|)
