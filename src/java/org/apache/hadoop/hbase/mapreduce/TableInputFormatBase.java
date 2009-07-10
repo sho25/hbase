@@ -562,12 +562,9 @@ operator|new
 name|Result
 argument_list|()
 expr_stmt|;
-name|Result
-name|result
-decl_stmt|;
 try|try
 block|{
-name|result
+name|value
 operator|=
 name|this
 operator|.
@@ -608,7 +605,7 @@ name|next
 argument_list|()
 expr_stmt|;
 comment|// skip presumed already mapped row
-name|result
+name|value
 operator|=
 name|scanner
 operator|.
@@ -618,11 +615,11 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|result
+name|value
 operator|!=
 literal|null
 operator|&&
-name|result
+name|value
 operator|.
 name|size
 argument_list|()
@@ -634,7 +631,7 @@ name|key
 operator|.
 name|set
 argument_list|(
-name|result
+name|value
 operator|.
 name|getRow
 argument_list|()
@@ -646,15 +643,6 @@ name|key
 operator|.
 name|get
 argument_list|()
-expr_stmt|;
-name|Writables
-operator|.
-name|copyWritable
-argument_list|(
-name|result
-argument_list|,
-name|value
-argument_list|)
 expr_stmt|;
 return|return
 literal|true
