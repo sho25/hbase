@@ -1742,15 +1742,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"IN HT.get.ServerCallable,"
-argument_list|)
-expr_stmt|;
 name|server
 operator|.
 name|delete
