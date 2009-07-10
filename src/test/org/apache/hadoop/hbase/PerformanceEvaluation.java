@@ -3135,7 +3135,8 @@ name|d
 operator|%
 literal|10
 operator|)
-comment|/*+ '0'*/
+operator|+
+literal|'0'
 argument_list|)
 expr_stmt|;
 name|d
