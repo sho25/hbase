@@ -61,6 +61,18 @@ begin_import
 import|import
 name|java
 operator|.
+name|lang
+operator|.
+name|reflect
+operator|.
+name|Method
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -573,6 +585,20 @@ name|DefaultCodec
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
+name|FSDataOutputStream
+import|;
+end_import
+
 begin_comment
 comment|/**  * HLog stores all the edits to the HStore.  *  * It performs logfile-rolling, so external callers are not aware that the  * underlying file is being rolled.  *  *<p>  * A single HLog is used by several HRegions simultaneously.  *  *<p>  * Each HRegion is identified by a unique long<code>int</code>. HRegions do  * not need to declare themselves before using the HLog; they simply include  * their HRegion-id in the<code>append</code> or  *<code>completeCacheFlush</code> calls.  *  *<p>  * An HLog consists of multiple on-disk files, which have a chronological order.  * As data is flushed to other (better) on-disk structures, the log becomes  * obsolete. We can destroy all the log messages for a given HRegion-id up to  * the most-recent CACHEFLUSH message from that HRegion.  *  *<p>  * It's only practical to delete entire files. Thus, we delete an entire on-disk  * file F when all of the messages in F have a log-sequence-id that's older  * (smaller) than the most-recent CACHEFLUSH message for every HRegion that has  * a message in F.  *  *<p>  * Synchronized methods can never execute in parallel. However, between the  * start of a cache flush and the completion point, appends are allowed but log  * rolling is not. To prevent log rolling taking place during this period, a  * separate reentrant lock is used.  *  */
 end_comment
@@ -684,6 +710,28 @@ specifier|private
 specifier|volatile
 name|long
 name|lastLogFlushTime
+decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
+name|append
+decl_stmt|;
+specifier|private
+specifier|final
+name|Method
+name|syncfs
+decl_stmt|;
+specifier|private
+specifier|final
+specifier|static
+name|Object
+index|[]
+name|NO_ARGS
+init|=
+operator|new
+name|Object
+index|[]
+block|{}
 decl_stmt|;
 comment|/*    * Current log file.    */
 name|SequenceFile
@@ -1087,8 +1135,110 @@ expr_stmt|;
 name|rollWriter
 argument_list|()
 expr_stmt|;
+comment|// Test if syncfs is available.
+name|this
+operator|.
+name|append
+operator|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+literal|"dfs.support.append"
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+name|Method
+name|m
+init|=
+literal|null
+decl_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|append
+condition|)
+block|{
+try|try
+block|{
+name|m
+operator|=
+name|this
+operator|.
+name|writer
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getMethod
+argument_list|(
+literal|"syncFs"
+argument_list|,
+operator|new
+name|Class
+argument_list|<
+name|?
+argument_list|>
+index|[]
+block|{}
+block|)
+empty_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Using syncFs--hadoop-4379"
+argument_list|)
+expr_stmt|;
 block|}
+catch|catch
+parameter_list|(
+name|SecurityException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Failed test for syncfs"
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
+catch|catch
+parameter_list|(
+name|NoSuchMethodException
+name|e
+parameter_list|)
+block|{
+comment|// This can happen
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"syncFs--hadoop-4379 not available"
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+name|this
+operator|.
+name|syncfs
+operator|=
+name|m
+expr_stmt|;
+block|}
+end_class
+
+begin_comment
 comment|/**    * @return Current state of the monotonically increasing file id.    */
+end_comment
+
+begin_function
 specifier|public
 name|long
 name|getFilenum
@@ -1100,7 +1250,13 @@ operator|.
 name|filenum
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Get the compression type for the hlog files    * @param c Configuration to use.    * @return the kind of compression to use    */
+end_comment
+
+begin_function
 specifier|static
 name|CompressionType
 name|getCompressionType
@@ -1117,7 +1273,13 @@ operator|.
 name|NONE
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Called by HRegionServer when it opens a new region to ensure that log    * sequence numbers are always greater than the latest sequence number of the    * region being brought on-line.    *    * @param newvalue We'll set log edit/sequence number to this value if it    * is greater than the current value.    */
+end_comment
+
+begin_function
 name|void
 name|setSequenceNumber
 parameter_list|(
@@ -1181,7 +1343,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return log sequence number    */
+end_comment
+
+begin_function
 specifier|public
 name|long
 name|getSequenceNumber
@@ -1194,7 +1362,13 @@ name|get
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    * Because a log cannot be rolled during a cache flush, and a cache flush    * spans two method calls, a special lock needs to be obtained so that a cache    * flush cannot start when the log is being rolled and the log cannot be    * rolled during a cache flush.    *    *<p>Note that this method cannot be synchronized because it is possible that    * startCacheFlush runs, obtaining the cacheFlushLock, then this method could    * start which would obtain the lock on this but block on obtaining the    * cacheFlushLock and then completeCacheFlush could be called which would wait    * for the lock on this and consequently never release the cacheFlushLock    *    * @return If lots of logs, flush the returned region so next time through    * we can clean logs. Returns null if nothing to flush.    * @throws FailedLogCloseException    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|public
 name|byte
 index|[]
@@ -1486,6 +1660,9 @@ return|return
 name|regionToFlush
 return|;
 block|}
+end_function
+
+begin_function
 specifier|protected
 name|SequenceFile
 operator|.
@@ -1513,6 +1690,9 @@ name|class
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_function
 specifier|protected
 name|SequenceFile
 operator|.
@@ -1599,7 +1779,13 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * Clean up old commit logs.    * @return If lots of logs, flush the returned region so next time through    * we can clean logs. Returns null if nothing to flush.    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|private
 name|byte
 index|[]
@@ -1821,7 +2007,13 @@ return|return
 name|regionToFlush
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * @return Logs older than this id are safe to remove.    */
+end_comment
+
+begin_function
 specifier|private
 name|Long
 name|getOldestOutstandingSeqNum
@@ -1841,6 +2033,9 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_function
 specifier|private
 name|byte
 index|[]
@@ -1908,7 +2103,13 @@ return|return
 name|oldestRegion
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * Cleans up current writer closing and adding to outputfiles.    * Presumes we're operating inside an updateLock scope.    * @return Path to current writer or null if none.    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|private
 name|Path
 name|cleanupCurrentWriter
@@ -2019,6 +2220,9 @@ return|return
 name|oldFile
 return|;
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|deleteLogFile
@@ -2064,7 +2268,13 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * This is a convenience method that computes a new filename with a given    * file-number.    * @param fn    * @return Path    */
+end_comment
+
+begin_function
 specifier|public
 name|Path
 name|computeFilename
@@ -2095,7 +2305,13 @@ name|fn
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Shut down the log and delete the log directory    *    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|closeAndDelete
@@ -2116,7 +2332,13 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Shut down the log.    *    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|close
@@ -2188,7 +2410,13 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/** Append an entry to the log.    *     * @param regionInfo    * @param logEdit    * @param now Time of this edit write.    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|append
@@ -2249,7 +2477,13 @@ name|logEdit
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @param now    * @param regionName    * @param tableName    * @return New log key.    */
+end_comment
+
+begin_function
 specifier|protected
 name|HLogKey
 name|makeKey
@@ -2283,7 +2517,13 @@ name|now
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/** Append an entry to the log.    *     * @param regionInfo    * @param logEdit    * @param logKey    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|append
@@ -2431,7 +2671,13 @@ expr_stmt|;
 block|}
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Append a set of edits to the log. Log edits are keyed by regionName,    * rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for a    * given key-range of the HRegion (TODO). Any edits that do not have a    * matching COMPLETE_CACHEFLUSH message can be discarded.    *    *<p>    * Logs cannot be restarted once closed, or once the HLog process dies. Each    * time the HLog starts, it must create a new log. This means that other    * systems should process the log appropriately upon each startup (and prior    * to initializing HLog).    *    * synchronized prevents appends during the completion of a cache flush or for    * the duration of a log roll.    *    * @param regionName    * @param tableName    * @param edits    * @param sync    * @param now    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|append
@@ -2592,6 +2838,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|public
 name|void
 name|sync
@@ -2606,6 +2855,52 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|append
+operator|&&
+name|syncfs
+operator|!=
+literal|null
+condition|)
+block|{
+try|try
+block|{
+name|this
+operator|.
+name|syncfs
+operator|.
+name|invoke
+argument_list|(
+name|this
+operator|.
+name|writer
+argument_list|,
+name|NO_ARGS
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Reflection"
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
+block|}
+else|else
+block|{
 name|this
 operator|.
 name|writer
@@ -2613,6 +2908,7 @@ operator|.
 name|sync
 argument_list|()
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|unflushedEntries
@@ -2623,6 +2919,9 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 name|void
 name|optionalSync
 parameter_list|()
@@ -2744,6 +3043,9 @@ expr_stmt|;
 block|}
 block|}
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|requestLogRoll
@@ -2767,6 +3069,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|doWrite
@@ -2913,7 +3218,13 @@ name|e
 throw|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/** @return How many items have been added to the log */
+end_comment
+
+begin_function
 name|int
 name|getNumEntries
 parameter_list|()
@@ -2925,7 +3236,13 @@ name|get
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Obtain a log sequence number.    */
+end_comment
+
+begin_function
 specifier|private
 name|long
 name|obtainSeqNum
@@ -2940,7 +3257,13 @@ name|incrementAndGet
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/** @return the number of log files in use */
+end_comment
+
+begin_function
 name|int
 name|getNumLogFiles
 parameter_list|()
@@ -2952,7 +3275,13 @@ name|size
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * Obtain a specified number of sequence numbers    *    * @param num number of sequence numbers to obtain    * @return array of sequence numbers    */
+end_comment
+
+begin_function
 specifier|private
 name|long
 index|[]
@@ -3004,7 +3333,13 @@ return|return
 name|results
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * By acquiring a log sequence ID, we can allow log messages to continue while    * we flush the cache.    *    * Acquire a lock so that we do not roll the log between the start and    * completion of a cache-flush. Otherwise the log-seq-id for the flush will    * not appear in the correct logfile.    *    * @return sequence ID to pass {@link #completeCacheFlush(Text, Text, long)}    * @see #completeCacheFlush(Text, Text, long)    * @see #abortCacheFlush()    */
+end_comment
+
+begin_function
 name|long
 name|startCacheFlush
 parameter_list|()
@@ -3021,7 +3356,13 @@ name|obtainSeqNum
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Complete the cache flush    *    * Protected by cacheFlushLock    *    * @param regionName    * @param tableName    * @param logSeqId    * @throws IOException    */
+end_comment
+
+begin_function
 name|void
 name|completeCacheFlush
 parameter_list|(
@@ -3143,6 +3484,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|private
 name|KeyValue
 name|completeCacheFlushLogEdit
@@ -3167,7 +3511,13 @@ name|COMPLETE_CACHE_FLUSH
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Abort a cache flush.    * Call if the flush fails. Note that the only recovery for an aborted flush    * currently is a restart of the regionserver so the snapshot content dropped    * by the failure gets restored to the memstore.    */
+end_comment
+
+begin_function
 name|void
 name|abortCacheFlush
 parameter_list|()
@@ -3180,7 +3530,13 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @param family    * @return true if the column is a meta column    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|boolean
@@ -3202,7 +3558,13 @@ name|family
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Split up a bunch of regionserver commit log files that are no longer    * being written to, into new files, one per region for region to replay on    * startup. Delete the old log files when finished.    *    * @param rootDir qualified root directory of the HBase instance    * @param srcDir Directory of log files to split: e.g.    *<code>${ROOTDIR}/log_HOST_PORT</code>    * @param fs FileSystem    * @param conf HBaseConfiguration    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|List
@@ -3403,7 +3765,13 @@ return|return
 name|splits
 return|;
 block|}
+end_function
+
+begin_comment
 comment|// Private immutable datastructure to hold Writer and its Path.
+end_comment
+
+begin_class
 specifier|private
 specifier|final
 specifier|static
@@ -3447,7 +3815,13 @@ name|w
 expr_stmt|;
 block|}
 block|}
+end_class
+
+begin_comment
 comment|/*    * @param rootDir    * @param logfiles    * @param fs    * @param conf    * @throws IOException    * @return List of splits made.    */
+end_comment
+
+begin_function
 specifier|private
 specifier|static
 name|List
@@ -3620,6 +3994,20 @@ name|i
 operator|++
 control|)
 block|{
+comment|// Check for possibly empty file. With appends, currently Hadoop
+comment|// reports a zero length even if the file has been sync'd. Revisit if
+comment|// HADOOP-4751 is committed.
+name|long
+name|length
+init|=
+name|logfiles
+index|[
+name|i
+index|]
+operator|.
+name|getLen
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 name|LOG
@@ -3668,20 +4056,33 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Check for possibly empty file. With appends, currently Hadoop
-comment|// reports a zero length even if the file has been sync'd. Revisit if
-comment|// HADOOP-4751 is committed.
-name|long
-name|length
+name|boolean
+name|append
 init|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+literal|"dfs.support.append"
+argument_list|,
+literal|false
+argument_list|)
+decl_stmt|;
+name|recoverLog
+argument_list|(
+name|fs
+argument_list|,
 name|logfiles
 index|[
 name|i
 index|]
 operator|.
-name|getLen
+name|getPath
 argument_list|()
-decl_stmt|;
+argument_list|,
+name|append
+argument_list|)
+expr_stmt|;
 name|SequenceFile
 operator|.
 name|Reader
@@ -3846,7 +4247,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Pushed "
+literal|"Pushed="
 operator|+
 name|count
 operator|+
@@ -3872,7 +4273,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"IOE Pushed "
+literal|"IOE Pushed="
 operator|+
 name|count
 operator|+
@@ -3951,6 +4352,12 @@ name|logfiles
 index|[
 name|i
 index|]
+operator|+
+literal|" count="
+operator|+
+name|count
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 continue|continue;
@@ -4428,19 +4835,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
-name|wap
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|NullPointerException
-argument_list|()
-throw|;
-block|}
 name|wap
 operator|.
 name|w
@@ -4660,7 +5054,13 @@ return|return
 name|splits
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Utility class that lets us keep track of the edit with it's key    * Only used when splitting logs    */
+end_comment
+
+begin_class
 specifier|public
 specifier|static
 class|class
@@ -4739,7 +5139,13 @@ name|edit
 return|;
 block|}
 block|}
+end_class
+
+begin_comment
 comment|/**    * Construct the HLog directory name    *     * @param info HServerInfo for server    * @return the HLog directory name    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|String
@@ -4761,7 +5167,125 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
+comment|/*    * Recover log.    * If append has been set, try and open log in append mode.    * Doing this, we get a hold of the file that crashed writer    * was writing to.  Once we have it, close it.  This will    * allow subsequent reader to see up to last sync.    * @param fs    * @param p    * @param append    */
+end_comment
+
+begin_function
+specifier|private
+specifier|static
+name|void
+name|recoverLog
+parameter_list|(
+specifier|final
+name|FileSystem
+name|fs
+parameter_list|,
+specifier|final
+name|Path
+name|p
+parameter_list|,
+specifier|final
+name|boolean
+name|append
+parameter_list|)
+block|{
+if|if
+condition|(
+operator|!
+name|append
+condition|)
+block|{
+return|return;
+block|}
+comment|// Trying recovery
+name|boolean
+name|recovered
+init|=
+literal|false
+decl_stmt|;
+while|while
+condition|(
+operator|!
+name|recovered
+condition|)
+block|{
+try|try
+block|{
+name|FSDataOutputStream
+name|out
+init|=
+name|fs
+operator|.
+name|append
+argument_list|(
+name|p
+argument_list|)
+decl_stmt|;
+name|out
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|recovered
+operator|=
+literal|true
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Failed open for append, waiting on lease recovery: "
+operator|+
+name|p
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|ex
+parameter_list|)
+block|{
+comment|// ignore it and try again
+block|}
+block|}
+block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Past out lease recovery"
+argument_list|)
+expr_stmt|;
+block|}
+end_function
+
+begin_comment
 comment|/**    * Construct the HLog directory name    *     * @param serverAddress    * @param startCode    * @return the HLog directory name    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|String
@@ -4806,7 +5330,13 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Construct the HLog directory name    *     * @param serverName    * @return the HLog directory name    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|String
@@ -4848,6 +5378,9 @@ name|toString
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 specifier|private
 specifier|static
 name|void
@@ -4866,7 +5399,13 @@ literal|" {--dump<logfile>... | --split<logdir>...}"
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Pass one or more log file names and it will either dump out a text version    * on<code>stdout</code> or split the specified log files.    *    * @param args    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|void
@@ -5184,6 +5723,9 @@ expr_stmt|;
 block|}
 block|}
 block|}
+end_function
+
+begin_decl_stmt
 specifier|public
 specifier|static
 specifier|final
@@ -5223,8 +5765,8 @@ name|SIZEOF_LONG
 operator|)
 argument_list|)
 decl_stmt|;
-block|}
-end_class
+end_decl_stmt
 
+unit|}
 end_unit
 
