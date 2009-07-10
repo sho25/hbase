@@ -1837,6 +1837,10 @@ name|familyMap
 operator|=
 literal|null
 expr_stmt|;
+name|row
+operator|=
+literal|null
+expr_stmt|;
 name|int
 name|numKeys
 init|=
