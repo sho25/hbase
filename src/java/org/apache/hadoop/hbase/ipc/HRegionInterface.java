@@ -266,7 +266,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Put an array of puts into the specified region    *     * @param regionName    * @param puts    * @return The number of processed put's.    * @throws IOException    */
+comment|/**    * Put an array of puts into the specified region    *     * @param regionName    * @param puts    * @return The number of processed put's.  Returns -1 if all Puts    * processed successfully.    * @throws IOException    */
 specifier|public
 name|int
 name|put

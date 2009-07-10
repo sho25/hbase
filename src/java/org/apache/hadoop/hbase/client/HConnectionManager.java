@@ -2984,13 +2984,6 @@ name|serverAddress
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-name|location
-argument_list|)
-expr_stmt|;
 name|cacheLocation
 argument_list|(
 name|tableName
@@ -3541,7 +3534,7 @@ literal|"because of "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|row
 argument_list|)
@@ -3691,6 +3684,8 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
 name|tableLocations
 operator|.
 name|put
@@ -3699,7 +3694,20 @@ name|startKey
 argument_list|,
 name|location
 argument_list|)
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Cached location "
+operator|+
+name|location
+argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|public
 name|HRegionInterface
@@ -4525,12 +4533,14 @@ name|tries
 init|=
 literal|0
 decl_stmt|;
-while|while
-condition|(
+for|for
+control|(
+init|;
 name|tries
 operator|<
 name|numRetries
-condition|)
+condition|;
+control|)
 block|{
 try|try
 block|{
@@ -4659,11 +4669,6 @@ name|retryOnlyOne
 init|=
 literal|false
 decl_stmt|;
-name|int
-name|tries
-init|=
-literal|0
-decl_stmt|;
 if|if
 condition|(
 name|list
@@ -4738,10 +4743,24 @@ name|isLastRow
 init|=
 literal|false
 decl_stmt|;
+name|Put
+index|[]
+name|putarray
+init|=
+operator|new
+name|Put
+index|[
+literal|0
+index|]
+decl_stmt|;
 for|for
 control|(
 name|int
 name|i
+init|=
+literal|0
+init|,
+name|tries
 init|=
 literal|0
 init|;
@@ -4754,6 +4773,8 @@ argument_list|()
 operator|&&
 name|tries
 operator|<
+name|this
+operator|.
 name|numRetries
 condition|;
 name|i
@@ -4777,6 +4798,8 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
+comment|// If the next Put goes to a new region, then we are to clear
+comment|// currentPuts now during this cycle.
 name|isLastRow
 operator|=
 operator|(
@@ -4854,11 +4877,7 @@ name|currentPuts
 operator|.
 name|toArray
 argument_list|(
-operator|new
-name|Put
-index|[
-literal|0
-index|]
+name|putarray
 argument_list|)
 decl_stmt|;
 name|int
@@ -4889,9 +4908,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|int
-name|i
-init|=
+return|return
 name|server
 operator|.
 name|put
@@ -4906,14 +4923,13 @@ argument_list|()
 argument_list|,
 name|puts
 argument_list|)
-decl_stmt|;
-return|return
-name|i
 return|;
 block|}
 block|}
 argument_list|)
 decl_stmt|;
+comment|// index is == -1 if all puts processed successfully, else its index
+comment|// of last Put successfully processed.
 if|if
 condition|(
 name|index
@@ -4935,7 +4951,49 @@ throw|throw
 operator|new
 name|RetriesExhaustedException
 argument_list|(
-literal|"Some server"
+literal|"Some server, retryOnlyOne="
+operator|+
+name|retryOnlyOne
+operator|+
+literal|", index="
+operator|+
+name|index
+operator|+
+literal|", islastrow="
+operator|+
+name|isLastRow
+operator|+
+literal|", tries="
+operator|+
+name|tries
+operator|+
+literal|", numtries="
+operator|+
+name|numRetries
+operator|+
+literal|", i="
+operator|+
+name|i
+operator|+
+literal|", listsize="
+operator|+
+name|list
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|", location="
+operator|+
+name|location
+operator|+
+literal|", region="
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|region
+argument_list|)
 argument_list|,
 name|currentRegion
 argument_list|,
@@ -4979,7 +5037,7 @@ literal|"Reloading region "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|currentRegion
 argument_list|)
@@ -5039,6 +5097,7 @@ name|retryOnlyOne
 operator|=
 literal|true
 expr_stmt|;
+comment|// Reload location.
 name|location
 operator|=
 name|getRegionLocationForRowWithRetries
@@ -5073,9 +5132,14 @@ expr_stmt|;
 block|}
 else|else
 block|{
+comment|// Reset these flags/counters on successful batch Put
 name|retryOnlyOne
 operator|=
 literal|false
+expr_stmt|;
+name|tries
+operator|=
+literal|0
 expr_stmt|;
 block|}
 name|currentRegion

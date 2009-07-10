@@ -3701,7 +3701,7 @@ literal|"region: "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|getRegionName
 argument_list|()
@@ -5455,7 +5455,7 @@ literal|"' on region "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|getRegionName
 argument_list|()
@@ -5997,7 +5997,7 @@ literal|", startKey='"
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|regionInfo
 operator|.
@@ -6009,7 +6009,7 @@ literal|"', getEndKey()='"
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|regionInfo
 operator|.
@@ -6021,7 +6021,7 @@ literal|"', row='"
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|row
 argument_list|)

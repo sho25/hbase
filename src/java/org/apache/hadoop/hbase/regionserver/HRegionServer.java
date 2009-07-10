@@ -8695,6 +8695,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Count of Puts processed.
 name|int
 name|i
 init|=
@@ -8794,6 +8795,17 @@ name|WrongRegionException
 name|ex
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Batch puts: "
+operator|+
+name|i
+argument_list|,
+name|ex
+argument_list|)
+expr_stmt|;
 return|return
 name|i
 return|;
@@ -8824,6 +8836,7 @@ argument_list|)
 argument_list|)
 throw|;
 block|}
+comment|// All have been processed successfully.
 return|return
 operator|-
 literal|1

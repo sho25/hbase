@@ -179,7 +179,7 @@ literal|""
 else|:
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|regionName
 argument_list|)
@@ -204,7 +204,7 @@ literal|""
 else|:
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|row
 argument_list|)
