@@ -130,14 +130,7 @@ name|deleteTracker
 operator|=
 operator|new
 name|ScanDeleteTracker
-argument_list|(
-name|store
-operator|.
-name|comparator
-operator|.
-name|getRawComparator
 argument_list|()
-argument_list|)
 expr_stmt|;
 name|KeyValue
 name|firstKv
@@ -205,12 +198,7 @@ name|deleteTracker
 operator|=
 operator|new
 name|ScanDeleteTracker
-argument_list|(
-name|comparator
-operator|.
-name|getRawComparator
 argument_list|()
-argument_list|)
 expr_stmt|;
 name|KeyValue
 name|firstKv

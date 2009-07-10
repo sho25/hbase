@@ -96,27 +96,13 @@ name|deleteTimestamp
 init|=
 literal|0L
 decl_stmt|;
-specifier|private
-name|KeyValue
-operator|.
-name|KeyComparator
-name|comparator
-decl_stmt|;
-comment|/**    * Constructor for ScanDeleteTracker    * @param comparator    */
+comment|/**    * Constructor for ScanDeleteTracker    */
 specifier|public
 name|ScanDeleteTracker
-parameter_list|(
-name|KeyValue
-operator|.
-name|KeyComparator
-name|comparator
-parameter_list|)
+parameter_list|()
 block|{
-name|this
-operator|.
-name|comparator
-operator|=
-name|comparator
+name|super
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Add the specified KeyValue to the list of deletes to check against for    * this row operation.    *<p>    * This is called when a Delete is encountered in a StoreFile.    * @param buffer KeyValue buffer    * @param qualifierOffset column qualifier offset    * @param qualifierLength column qualifier length    * @param timestamp timestamp    * @param type delete type as byte    */
@@ -270,7 +256,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-comment|// TODO ryan use a specific comparator
 name|int
 name|ret
 init|=
