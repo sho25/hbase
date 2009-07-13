@@ -680,9 +680,7 @@ name|boolean
 name|filterRow
 parameter_list|()
 block|{
-name|boolean
-name|result
-init|=
+return|return
 name|filterThisRow
 operator|||
 operator|(
@@ -691,7 +689,13 @@ operator|&&
 operator|!
 name|foundColValue
 operator|)
-decl_stmt|;
+return|;
+block|}
+specifier|public
+name|void
+name|reset
+parameter_list|()
+block|{
 name|filterThisRow
 operator|=
 literal|false
@@ -700,16 +704,6 @@ name|foundColValue
 operator|=
 literal|false
 expr_stmt|;
-return|return
-name|result
-return|;
-block|}
-specifier|public
-name|void
-name|reset
-parameter_list|()
-block|{
-comment|// Nothing.
 block|}
 specifier|public
 name|void
