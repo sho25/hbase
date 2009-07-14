@@ -1164,6 +1164,8 @@ operator|new
 name|IOException
 argument_list|(
 name|msg
+argument_list|,
+name|e
 argument_list|)
 throw|;
 block|}
