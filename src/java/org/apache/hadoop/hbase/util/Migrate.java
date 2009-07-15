@@ -938,8 +938,12 @@ comment|// Before we start, make sure all is major compacted.
 if|if
 condition|(
 operator|!
-name|allMajorCompacted
-argument_list|()
+name|isMajorCompacted
+argument_list|(
+name|fs
+argument_list|,
+name|conf
+argument_list|)
 condition|)
 block|{
 name|String
@@ -1189,6 +1193,9 @@ block|}
 block|}
 argument_list|)
 decl_stmt|;
+return|return
+literal|true
+return|;
 block|}
 comment|/*    * Enable blockcaching on catalog tables.    * @param mr    * @param oldHri    */
 name|void

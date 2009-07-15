@@ -1131,7 +1131,12 @@ condition|;
 name|i
 operator|++
 control|)
-block|{            }
+block|{
+comment|// TODO: check directories
+block|}
+return|return
+literal|true
+return|;
 block|}
 block|}
 end_class
