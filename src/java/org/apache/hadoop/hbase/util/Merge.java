@@ -1936,7 +1936,7 @@ name|region1
 operator|=
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
 name|remainingArgs
 index|[
@@ -1948,7 +1948,7 @@ name|region2
 operator|=
 name|Bytes
 operator|.
-name|toBytes
+name|toBytesBinary
 argument_list|(
 name|remainingArgs
 index|[
