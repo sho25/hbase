@@ -96,14 +96,14 @@ name|VERSION_FILE_NAME
 init|=
 literal|"hbase.version"
 decl_stmt|;
-comment|/**    * Current version of file system.    * Version 4 supports only one kind of bloom filter.    * Version 5 changes versions in catalog table regions.    * Version 6 enables blockcaching on catalog tables.    */
+comment|/**    * Current version of file system.    * Version 4 supports only one kind of bloom filter.    * Version 5 changes versions in catalog table regions.    * Version 6 enables blockcaching on catalog tables.    * Version 7 introduces hfile -- hbase 0.19 to 0.20..    */
 specifier|public
 specifier|static
 specifier|final
 name|String
 name|FILE_SYSTEM_VERSION
 init|=
-literal|"6"
+literal|"7"
 decl_stmt|;
 comment|// Configuration parameters
 comment|//TODO: Is having HBase homed on port 60k OK?

@@ -93,6 +93,20 @@ name|hadoop
 operator|.
 name|fs
 operator|.
+name|FileStatus
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
 name|FileSystem
 import|;
 end_import
@@ -108,6 +122,20 @@ operator|.
 name|fs
 operator|.
 name|Path
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
+name|PathFilter
 import|;
 end_import
 
@@ -351,7 +379,7 @@ specifier|final
 name|int
 name|PREVIOUS_VERSION
 init|=
-literal|4
+literal|6
 decl_stmt|;
 specifier|private
 specifier|static
@@ -770,7 +798,7 @@ name|HConstants
 operator|.
 name|FILE_SYSTEM_VERSION
 operator|+
-literal|" you must install hbase-0.2.x, run "
+literal|" you must install an earlier hbase, run "
 operator|+
 literal|"the upgrade tool, reinstall this version and run this utility again."
 operator|+
@@ -793,7 +821,7 @@ name|msg
 argument_list|)
 throw|;
 block|}
-name|migrate4To6
+name|migrate6to7
 argument_list|()
 expr_stmt|;
 if|if
@@ -885,12 +913,10 @@ literal|1
 return|;
 block|}
 block|}
-comment|// Move the fileystem version from 4 to 6.
-comment|// In here we rewrite the catalog table regions so they keep 10 versions
-comment|// instead of 1.
+comment|// Move the fileystem version from 6 to 7.
 specifier|private
 name|void
-name|migrate4To6
+name|migrate6to7
 parameter_list|()
 throws|throws
 name|IOException
@@ -908,6 +934,38 @@ condition|)
 block|{
 return|return;
 block|}
+comment|// Before we start, make sure all is major compacted.
+if|if
+condition|(
+operator|!
+name|allMajorCompacted
+argument_list|()
+condition|)
+block|{
+name|String
+name|msg
+init|=
+literal|"All tables must be major compacted before the migration can begin."
+operator|+
+name|MIGRATION_LINK
+decl_stmt|;
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|msg
+argument_list|)
+throw|;
+block|}
 specifier|final
 name|MetaUtils
 name|utils
@@ -922,8 +980,15 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-comment|// These two operations are effectively useless.  -ROOT- is hardcode,
-comment|// at least until hbase 0.20.0 when we store it out in ZK.
+comment|// Preperation
+comment|// TODO: Fail if not all major compacted first
+comment|// TODO: Set the .META. and -ROOT- to flush at 16k?  32k?
+comment|// TODO: Enable block cache on all tables
+comment|// TODO: Rewrite MEMCACHE_FLUSHSIZE as MEMSTORE_FLUSHSIZE – name has changed.
+comment|// TODO: Remove tableindexer 'index' attribute index from TableDescriptor (See HBASE-1586)
+comment|// TODO: TODO: Move of in-memory parameter from table to column family (from HTD to HCD).
+comment|// TODO: Purge isInMemory, etc., methods from HTD as part of migration.
+comment|// TODO: Clean up old region log files (HBASE-698)
 name|updateVersions
 argument_list|(
 name|utils
@@ -1010,6 +1075,21 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"TODO: Note on make sure not using old hbase-default.xml"
+argument_list|)
+expr_stmt|;
+comment|/*        * hbase.master / hbase.master.hostname are obsolete, that's replaced by hbase.cluster.distributed. This config must be set to "true" to have a fully-distributed cluster and the server lines in zoo.cfg must not point to "localhost".  The clients must have a valid zoo.cfg in their classpath since we don't provide the master address.  hbase.master.dns.interface and hbase.master.dns.nameserver should be set to control the master's address (not mandatory).        */
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"TODO: Note on zookeeper config. before starting:"
+argument_list|)
+expr_stmt|;
 block|}
 finally|finally
 block|{
@@ -1019,6 +1099,96 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
+block|}
+comment|/**    * Runs through the hbase rootdir and checks all stores have only    * one file in them -- that is, they've been major compacted.  Looks    * at root and meta tables too.    * @param fs    * @param c    * @return True if this hbase install is major compacted.    * @throws IOException    */
+specifier|public
+specifier|static
+name|boolean
+name|isMajorCompacted
+parameter_list|(
+specifier|final
+name|FileSystem
+name|fs
+parameter_list|,
+specifier|final
+name|HBaseConfiguration
+name|c
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|FileStatus
+index|[]
+name|directories
+init|=
+name|fs
+operator|.
+name|listStatus
+argument_list|(
+operator|new
+name|Path
+argument_list|(
+name|c
+operator|.
+name|get
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_DIR
+argument_list|)
+argument_list|)
+argument_list|,
+operator|new
+name|PathFilter
+argument_list|()
+block|{
+specifier|public
+name|boolean
+name|accept
+parameter_list|(
+name|Path
+name|p
+parameter_list|)
+block|{
+name|boolean
+name|isdir
+init|=
+literal|false
+decl_stmt|;
+try|try
+block|{
+name|isdir
+operator|=
+name|fs
+operator|.
+name|getFileStatus
+argument_list|(
+name|p
+argument_list|)
+operator|.
+name|isDir
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|e
+operator|.
+name|printStackTrace
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+name|isdir
+return|;
+block|}
+block|}
+argument_list|)
+decl_stmt|;
 block|}
 comment|/*    * Enable blockcaching on catalog tables.    * @param mr    * @param oldHri    */
 name|void
