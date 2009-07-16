@@ -7593,7 +7593,15 @@ argument_list|(
 name|regionInfo
 argument_list|)
 expr_stmt|;
-comment|// Startup a compaction early if one is needed.
+comment|// Startup a compaction early if one is needed, if region has references.
+if|if
+condition|(
+name|region
+operator|.
+name|hasReferences
+argument_list|()
+condition|)
+block|{
 name|this
 operator|.
 name|compactSplitThread
@@ -7602,9 +7610,10 @@ name|compactionRequested
 argument_list|(
 name|region
 argument_list|,
-literal|"Region open check"
+literal|"Region has references on open"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
