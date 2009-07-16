@@ -993,19 +993,6 @@ operator|.
 name|blockingStoreFilesNumber
 condition|)
 block|{
-comment|// always request a compaction
-name|server
-operator|.
-name|compactSplitThread
-operator|.
-name|compactionRequested
-argument_list|(
-name|region
-argument_list|,
-name|getName
-argument_list|()
-argument_list|)
-expr_stmt|;
 comment|// only log once
 if|if
 condition|(
@@ -1031,6 +1018,20 @@ operator|+
 literal|", requesting compaction and "
 operator|+
 literal|"waiting"
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|server
+operator|.
+name|compactSplitThread
+operator|.
+name|compactionRequested
+argument_list|(
+name|region
+argument_list|,
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|triggered
