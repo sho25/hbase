@@ -937,6 +937,197 @@ name|boolean
 name|removeFromQueue
 parameter_list|)
 block|{
+name|checkStoreFileCount
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
+synchronized|synchronized
+init|(
+name|regionsInQueue
+init|)
+block|{
+comment|// See comment above for removeFromQueue on why we do not
+comment|// take the region out of the set. If removeFromQueue is true, remove it
+comment|// from the queue too if it is there. This didn't used to be a
+comment|// constraint, but now that HBASE-512 is in play, we need to try and
+comment|// limit double-flushing of regions.
+if|if
+condition|(
+name|regionsInQueue
+operator|.
+name|remove
+argument_list|(
+name|region
+argument_list|)
+operator|&&
+name|removeFromQueue
+condition|)
+block|{
+name|flushQueue
+operator|.
+name|remove
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
+block|}
+name|lock
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+block|}
+try|try
+block|{
+comment|// See comment above for removeFromQueue on why we do not
+comment|// compact if removeFromQueue is true. Note that region.flushCache()
+comment|// only returns true if a flush is done and if a compaction is needed.
+if|if
+condition|(
+name|region
+operator|.
+name|flushcache
+argument_list|()
+operator|&&
+operator|!
+name|removeFromQueue
+condition|)
+block|{
+name|server
+operator|.
+name|compactSplitThread
+operator|.
+name|compactionRequested
+argument_list|(
+name|region
+argument_list|,
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|DroppedSnapshotException
+name|ex
+parameter_list|)
+block|{
+comment|// Cache flush can fail in a few places. If it fails in a critical
+comment|// section, we get a DroppedSnapshotException and a replay of hlog
+comment|// is required. Currently the only way to do this is a restart of
+comment|// the server. Abort because hdfs is probably bad (HBASE-644 is a case
+comment|// where hdfs was bad but passed the hdfs check).
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"Replay of hlog required. Forcing server shutdown"
+argument_list|,
+name|ex
+argument_list|)
+expr_stmt|;
+name|server
+operator|.
+name|abort
+argument_list|()
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ex
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Cache flush failed"
+operator|+
+operator|(
+name|region
+operator|!=
+literal|null
+condition|?
+operator|(
+literal|" for region "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|region
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+operator|)
+else|:
+literal|""
+operator|)
+argument_list|,
+name|RemoteExceptionHandler
+operator|.
+name|checkIOException
+argument_list|(
+name|ex
+argument_list|)
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|server
+operator|.
+name|checkFileSystem
+argument_list|()
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+literal|true
+return|;
+block|}
+comment|/*    * If too many store files already, schedule a compaction and pause a while    * before going on with compaction.    * @param region Region to check.    */
+specifier|private
+name|void
+name|checkStoreFileCount
+parameter_list|(
+specifier|final
+name|HRegion
+name|region
+parameter_list|)
+block|{
+comment|// If catalog region, do not ever hold up writes (isMetaRegion returns
+comment|// true if ROOT or META region).
+if|if
+condition|(
+name|region
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|isMetaRegion
+argument_list|()
+condition|)
+return|return;
 name|int
 name|count
 init|=
@@ -1117,168 +1308,6 @@ literal|"ms, continuing"
 argument_list|)
 expr_stmt|;
 block|}
-synchronized|synchronized
-init|(
-name|regionsInQueue
-init|)
-block|{
-comment|// See comment above for removeFromQueue on why we do not
-comment|// take the region out of the set. If removeFromQueue is true, remove it
-comment|// from the queue too if it is there. This didn't used to be a
-comment|// constraint, but now that HBASE-512 is in play, we need to try and
-comment|// limit double-flushing of regions.
-if|if
-condition|(
-name|regionsInQueue
-operator|.
-name|remove
-argument_list|(
-name|region
-argument_list|)
-operator|&&
-name|removeFromQueue
-condition|)
-block|{
-name|flushQueue
-operator|.
-name|remove
-argument_list|(
-name|region
-argument_list|)
-expr_stmt|;
-block|}
-name|lock
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
-block|}
-try|try
-block|{
-comment|// See comment above for removeFromQueue on why we do not
-comment|// compact if removeFromQueue is true. Note that region.flushCache()
-comment|// only returns true if a flush is done and if a compaction is needed.
-if|if
-condition|(
-name|region
-operator|.
-name|flushcache
-argument_list|()
-operator|&&
-operator|!
-name|removeFromQueue
-condition|)
-block|{
-name|server
-operator|.
-name|compactSplitThread
-operator|.
-name|compactionRequested
-argument_list|(
-name|region
-argument_list|,
-name|getName
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|DroppedSnapshotException
-name|ex
-parameter_list|)
-block|{
-comment|// Cache flush can fail in a few places. If it fails in a critical
-comment|// section, we get a DroppedSnapshotException and a replay of hlog
-comment|// is required. Currently the only way to do this is a restart of
-comment|// the server. Abort because hdfs is probably bad (HBASE-644 is a case
-comment|// where hdfs was bad but passed the hdfs check).
-name|LOG
-operator|.
-name|fatal
-argument_list|(
-literal|"Replay of hlog required. Forcing server shutdown"
-argument_list|,
-name|ex
-argument_list|)
-expr_stmt|;
-name|server
-operator|.
-name|abort
-argument_list|()
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|ex
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Cache flush failed"
-operator|+
-operator|(
-name|region
-operator|!=
-literal|null
-condition|?
-operator|(
-literal|" for region "
-operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|region
-operator|.
-name|getRegionName
-argument_list|()
-argument_list|)
-operator|)
-else|:
-literal|""
-operator|)
-argument_list|,
-name|RemoteExceptionHandler
-operator|.
-name|checkIOException
-argument_list|(
-name|ex
-argument_list|)
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-operator|!
-name|server
-operator|.
-name|checkFileSystem
-argument_list|()
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-block|}
-finally|finally
-block|{
-name|lock
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
-block|}
-return|return
-literal|true
-return|;
 block|}
 comment|/**    * Check if the regionserver's memstore memory usage is greater than the     * limit. If so, flush regions with the biggest memstores until we're down    * to the lower limit. This method blocks callers until we're down to a safe    * amount of memstore consumption.    */
 specifier|public
