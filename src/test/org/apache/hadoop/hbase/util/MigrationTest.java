@@ -379,16 +379,6 @@ name|hbasedir
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|listPaths
-argument_list|(
-name|fs
-argument_list|,
-name|hbasedir
-argument_list|,
-operator|-
-literal|1
-argument_list|)
-expr_stmt|;
 name|Migrate
 name|migrator
 init|=

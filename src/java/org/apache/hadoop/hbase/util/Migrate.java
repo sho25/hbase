@@ -924,6 +924,13 @@ condition|(
 name|pre020
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Checking pre020 filesystem is major compacted"
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -961,7 +968,80 @@ name|msg
 argument_list|)
 throw|;
 block|}
-comment|// TODO: Rewrite regions.
+name|rewrite
+argument_list|(
+name|fs
+argument_list|,
+name|hbaseRootDir
+argument_list|)
+expr_stmt|;
+block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Checking filesystem is major compacted"
+argument_list|)
+expr_stmt|;
+comment|// Below check is good for both making sure that we are major compacted
+comment|// but will also fail if not all dirs were rewritten.
+if|if
+condition|(
+operator|!
+name|FSUtils
+operator|.
+name|isMajorCompacted
+argument_list|(
+name|fs
+argument_list|,
+name|hbaseRootDir
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Checking filesystem is major compacted"
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|FSUtils
+operator|.
+name|isMajorCompacted
+argument_list|(
+name|fs
+argument_list|,
+name|hbaseRootDir
+argument_list|)
+condition|)
+block|{
+name|String
+name|msg
+init|=
+literal|"All tables must be major compacted before migration."
+operator|+
+name|MIGRATION_LINK
+decl_stmt|;
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|msg
+argument_list|)
+throw|;
+block|}
 block|}
 comment|// TOOD: Verify all has been brought over from old to new layout.
 specifier|final
@@ -1096,6 +1176,20 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/*    * Rewrite all under hbase root dir.    * @param fs    * @param hbaseRootDir    */
+specifier|private
+name|void
+name|rewrite
+parameter_list|(
+specifier|final
+name|FileSystem
+name|fs
+parameter_list|,
+specifier|final
+name|Path
+name|hbaseRootDir
+parameter_list|)
+block|{        }
 comment|/*    * Enable blockcaching on catalog tables.    * @param mr    * @param oldHri    */
 name|void
 name|enableBlockCache
