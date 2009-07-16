@@ -211,6 +211,11 @@ specifier|private
 name|int
 name|storefiles
 decl_stmt|;
+comment|/** the current total size of the store files for the region, in MB */
+specifier|private
+name|int
+name|storefileSizeMB
+decl_stmt|;
 comment|/** the current size of the memstore for the region, in MB */
 specifier|private
 name|int
@@ -230,7 +235,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**      * @param name      * @param stores      * @param storefiles      * @param memstoreSizeMB      * @param storefileIndexSizeMB      */
+comment|/**      * @param name      * @param stores      * @param storefiles      * @param storefileSizeMB      * @param memstoreSizeMB      * @param storefileIndexSizeMB      */
 specifier|public
 name|RegionLoad
 parameter_list|(
@@ -246,6 +251,10 @@ parameter_list|,
 specifier|final
 name|int
 name|storefiles
+parameter_list|,
+specifier|final
+name|int
+name|storefileSizeMB
 parameter_list|,
 specifier|final
 name|int
@@ -273,6 +282,12 @@ operator|.
 name|storefiles
 operator|=
 name|storefiles
+expr_stmt|;
+name|this
+operator|.
+name|storefileSizeMB
+operator|=
+name|storefileSizeMB
 expr_stmt|;
 name|this
 operator|.
@@ -332,6 +347,16 @@ parameter_list|()
 block|{
 return|return
 name|storefiles
+return|;
+block|}
+comment|/**      * @return the total size of the storefiles, in MB      */
+specifier|public
+name|int
+name|getStorefileSizeMB
+parameter_list|()
+block|{
+return|return
+name|storefileSizeMB
 return|;
 block|}
 comment|/**      * @return the memstore size, in MB      */
@@ -494,6 +519,15 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
+name|storefileSizeMB
+operator|=
+name|in
+operator|.
+name|readInt
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
 name|memstoreSizeMB
 operator|=
 name|in
@@ -549,6 +583,13 @@ operator|.
 name|writeInt
 argument_list|(
 name|storefiles
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|writeInt
+argument_list|(
+name|storefileSizeMB
 argument_list|)
 expr_stmt|;
 name|out
@@ -625,7 +666,27 @@ name|appendKeyValue
 argument_list|(
 name|sb
 argument_list|,
-literal|"memstoreSize"
+literal|"storefileSizeMB"
+argument_list|,
+name|Integer
+operator|.
+name|valueOf
+argument_list|(
+name|this
+operator|.
+name|storefileSizeMB
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|sb
+operator|=
+name|Strings
+operator|.
+name|appendKeyValue
+argument_list|(
+name|sb
+argument_list|,
+literal|"memstoreSizeMB"
 argument_list|,
 name|Integer
 operator|.
@@ -645,7 +706,7 @@ name|appendKeyValue
 argument_list|(
 name|sb
 argument_list|,
-literal|"storefileIndexSize"
+literal|"storefileIndexSizeMB"
 argument_list|,
 name|Integer
 operator|.
@@ -992,6 +1053,26 @@ return|return
 name|numberOfRequests
 return|;
 block|}
+comment|/**    * @returns the amount of heap in use, in MB    */
+specifier|public
+name|int
+name|getUsedHeapMB
+parameter_list|()
+block|{
+return|return
+name|usedHeapMB
+return|;
+block|}
+comment|/**    * @returns the maximum allowable heap size, in MB    */
+specifier|public
+name|int
+name|getMaxHeapMB
+parameter_list|()
+block|{
+return|return
+name|maxHeapMB
+return|;
+block|}
 comment|/**    * @return region load metrics    */
 specifier|public
 name|Collection
@@ -1033,6 +1114,35 @@ operator|+=
 name|info
 operator|.
 name|getStorefiles
+argument_list|()
+expr_stmt|;
+return|return
+name|count
+return|;
+block|}
+comment|/**    * @return Total size of store files in MB    */
+specifier|public
+name|int
+name|getStorefileSizeInMB
+parameter_list|()
+block|{
+name|int
+name|count
+init|=
+literal|0
+decl_stmt|;
+for|for
+control|(
+name|RegionLoad
+name|info
+range|:
+name|regionLoad
+control|)
+name|count
+operator|+=
+name|info
+operator|.
+name|getStorefileSizeMB
 argument_list|()
 expr_stmt|;
 return|return
@@ -1211,6 +1321,10 @@ name|storefiles
 parameter_list|,
 specifier|final
 name|int
+name|storefileSizeMB
+parameter_list|,
+specifier|final
+name|int
 name|memstoreSizeMB
 parameter_list|,
 specifier|final
@@ -1234,6 +1348,8 @@ argument_list|,
 name|stores
 argument_list|,
 name|storefiles
+argument_list|,
+name|storefileSizeMB
 argument_list|,
 name|memstoreSizeMB
 argument_list|,
