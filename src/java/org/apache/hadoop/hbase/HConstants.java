@@ -103,8 +103,9 @@ specifier|final
 name|String
 name|FILE_SYSTEM_VERSION
 init|=
-literal|"7"
+literal|"6"
 decl_stmt|;
+comment|// public static final String FILE_SYSTEM_VERSION = "7";
 comment|// Configuration parameters
 comment|//TODO: Is having HBase homed on port 60k OK?
 comment|/** Cluster is in distributed mode or not */
