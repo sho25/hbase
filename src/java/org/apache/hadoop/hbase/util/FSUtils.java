@@ -1045,7 +1045,7 @@ block|{
 comment|// Presumes any directory under hbase.rootdir is a table.
 name|FileStatus
 index|[]
-name|directories
+name|tableDirs
 init|=
 name|fs
 operator|.
@@ -1069,7 +1069,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|directories
+name|tableDirs
 operator|.
 name|length
 condition|;
@@ -1084,7 +1084,7 @@ comment|// directories.  Under each of these, should be one file only.
 name|Path
 name|d
 init|=
-name|directories
+name|tableDirs
 index|[
 name|i
 index|]
@@ -1109,7 +1109,7 @@ condition|)
 continue|continue;
 name|FileStatus
 index|[]
-name|tablesubdirectories
+name|regionDirs
 init|=
 name|fs
 operator|.
@@ -1133,7 +1133,7 @@ literal|0
 init|;
 name|j
 operator|<
-name|tablesubdirectories
+name|regionDirs
 operator|.
 name|length
 condition|;
@@ -1144,7 +1144,7 @@ block|{
 name|Path
 name|dd
 init|=
-name|tablesubdirectories
+name|regionDirs
 index|[
 name|j
 index|]
@@ -1167,7 +1167,7 @@ continue|continue;
 comment|// Else its a region name.  Now look in region for families.
 name|FileStatus
 index|[]
-name|familydirectories
+name|familyDirs
 init|=
 name|fs
 operator|.
@@ -1191,7 +1191,7 @@ literal|0
 init|;
 name|k
 operator|<
-name|familydirectories
+name|familyDirs
 operator|.
 name|length
 condition|;
@@ -1202,7 +1202,7 @@ block|{
 name|Path
 name|family
 init|=
-name|familydirectories
+name|familyDirs
 index|[
 name|k
 index|]
@@ -1289,12 +1289,18 @@ argument_list|(
 operator|new
 name|Path
 argument_list|(
+operator|new
+name|Path
+argument_list|(
 name|hbaseRootDir
 argument_list|,
 literal|"-ROOT-"
 argument_list|)
 argument_list|,
 literal|"70236052"
+argument_list|)
+argument_list|,
+literal|"info"
 argument_list|)
 argument_list|,
 literal|"mapfiles"
@@ -1329,7 +1335,7 @@ block|{
 comment|// Presumes any directory under hbase.rootdir is a table.
 name|FileStatus
 index|[]
-name|directories
+name|tableDirs
 init|=
 name|fs
 operator|.
@@ -1353,7 +1359,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|directories
+name|tableDirs
 operator|.
 name|length
 condition|;
@@ -1368,7 +1374,7 @@ comment|// and info directory and in these only one file.
 name|Path
 name|d
 init|=
-name|directories
+name|tableDirs
 index|[
 name|i
 index|]
@@ -1393,7 +1399,7 @@ condition|)
 continue|continue;
 name|FileStatus
 index|[]
-name|tablesubdirectories
+name|regionDirs
 init|=
 name|fs
 operator|.
@@ -1417,7 +1423,7 @@ literal|0
 init|;
 name|j
 operator|<
-name|tablesubdirectories
+name|regionDirs
 operator|.
 name|length
 condition|;
@@ -1428,7 +1434,7 @@ block|{
 name|Path
 name|dd
 init|=
-name|tablesubdirectories
+name|regionDirs
 index|[
 name|j
 index|]
@@ -1451,7 +1457,7 @@ continue|continue;
 comment|// Else its a region name.  Now look in region for families.
 name|FileStatus
 index|[]
-name|familydirectories
+name|familyDirs
 init|=
 name|fs
 operator|.
@@ -1475,7 +1481,7 @@ literal|0
 init|;
 name|k
 operator|<
-name|familydirectories
+name|familyDirs
 operator|.
 name|length
 condition|;
@@ -1486,7 +1492,7 @@ block|{
 name|Path
 name|family
 init|=
-name|familydirectories
+name|familyDirs
 index|[
 name|k
 index|]
@@ -1494,6 +1500,123 @@ operator|.
 name|getPath
 argument_list|()
 decl_stmt|;
+name|FileStatus
+index|[]
+name|infoAndMapfile
+init|=
+name|fs
+operator|.
+name|listStatus
+argument_list|(
+name|family
+argument_list|)
+decl_stmt|;
+comment|// Assert that only info and mapfile in family dir.
+if|if
+condition|(
+name|infoAndMapfile
+operator|.
+name|length
+operator|!=
+literal|0
+operator|&&
+name|infoAndMapfile
+operator|.
+name|length
+operator|!=
+literal|2
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|family
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" has more than just info and mapfile: "
+operator|+
+name|infoAndMapfile
+operator|.
+name|length
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+comment|// Make sure directory named info or mapfile.
+for|for
+control|(
+name|int
+name|ll
+init|=
+literal|0
+init|;
+name|ll
+operator|<
+literal|2
+condition|;
+name|ll
+operator|++
+control|)
+block|{
+if|if
+condition|(
+name|infoAndMapfile
+index|[
+name|ll
+index|]
+operator|.
+name|getPath
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+literal|"info"
+argument_list|)
+operator|||
+name|infoAndMapfile
+index|[
+name|ll
+index|]
+operator|.
+name|getPath
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+literal|"mapfiles"
+argument_list|)
+condition|)
+continue|continue;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Unexpected directory name: "
+operator|+
+name|infoAndMapfile
+index|[
+name|ll
+index|]
+operator|.
+name|getPath
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
 comment|// Now in family, there are 'mapfile' and 'info' subdirs.  Just
 comment|// look in the 'mapfile' subdir.
 name|FileStatus
