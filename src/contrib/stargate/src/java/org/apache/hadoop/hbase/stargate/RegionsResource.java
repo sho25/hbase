@@ -135,9 +135,7 @@ name|rs
 operator|.
 name|core
 operator|.
-name|Response
-operator|.
-name|ResponseBuilder
+name|UriInfo
 import|;
 end_import
 
@@ -151,7 +149,9 @@ name|rs
 operator|.
 name|core
 operator|.
-name|UriInfo
+name|Response
+operator|.
+name|ResponseBuilder
 import|;
 end_import
 
@@ -378,19 +378,19 @@ name|getInstance
 argument_list|()
 operator|.
 name|getTablePool
-argument_list|(
-name|this
-operator|.
-name|table
-argument_list|)
+argument_list|()
 decl_stmt|;
 name|HTable
 name|table
 init|=
 name|pool
 operator|.
-name|get
-argument_list|()
+name|getTable
+argument_list|(
+name|this
+operator|.
+name|table
+argument_list|)
 decl_stmt|;
 try|try
 block|{
@@ -405,7 +405,7 @@ finally|finally
 block|{
 name|pool
 operator|.
-name|put
+name|putTable
 argument_list|(
 name|table
 argument_list|)
