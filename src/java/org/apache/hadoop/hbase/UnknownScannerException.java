@@ -16,7 +16,7 @@ package|;
 end_package
 
 begin_comment
-comment|/**  * Thrown if a region server is passed an unknown scanner id  */
+comment|/**  * Thrown if a region server is passed an unknown scanner id.  * Usually means the client has take too long between checkins and so the  * scanner lease on the serverside has expired OR the serverside is closing  * down and has cancelled all leases.  */
 end_comment
 
 begin_class
