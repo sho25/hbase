@@ -9565,7 +9565,7 @@ operator|.
 name|SIZEOF_BOOLEAN
 operator|+
 operator|(
-literal|21
+literal|20
 operator|*
 name|ClassSize
 operator|.

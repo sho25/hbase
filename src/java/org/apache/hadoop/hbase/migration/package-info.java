@@ -18,8 +18,6 @@ operator|.
 name|hbase
 operator|.
 name|migration
-operator|.
-name|nineteen
 package|;
 end_package
 
