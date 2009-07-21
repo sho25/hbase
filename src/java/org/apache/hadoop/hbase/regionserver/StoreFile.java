@@ -1856,6 +1856,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Writes metadata.    * Call before you call close on the passed<code>w</code> since its written    * as metadata to that file.    * @param maxSequenceId Maximum sequence id.    * @param mc True if this file is product of a major compaction    * @throws IOException    */
+specifier|public
 specifier|static
 name|void
 name|appendMetadata

@@ -690,7 +690,7 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|getServerInfo
+name|getHServerInfo
 argument_list|()
 operator|.
 name|toString
@@ -706,6 +706,18 @@ block|}
 catch|catch
 parameter_list|(
 name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|e
+operator|.
+name|printStackTrace
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
 name|e
 parameter_list|)
 block|{

@@ -1021,14 +1021,11 @@ condition|)
 block|{
 comment|// The startup message was from a known server with the same name.
 comment|// Timeout the old one right away.
-name|HServerAddress
-name|root
-init|=
 name|master
 operator|.
 name|getRootRegionLocation
 argument_list|()
-decl_stmt|;
+expr_stmt|;
 try|try
 block|{
 name|master
@@ -1513,7 +1510,13 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"received server report from unknown server: "
+literal|"Received report from unknown server -- telling it "
+operator|+
+literal|"to "
+operator|+
+name|CALL_SERVER_STARTUP
+operator|+
+literal|": "
 operator|+
 name|info
 operator|.
@@ -1821,6 +1824,7 @@ parameter_list|(
 name|HServerInfo
 name|serverInfo
 parameter_list|,
+specifier|final
 name|HRegionInfo
 index|[]
 name|mostLoadedRegions
@@ -2145,7 +2149,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Received "
+literal|"Processing "
 operator|+
 name|incomingMsgs
 index|[

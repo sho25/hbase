@@ -5588,15 +5588,15 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Server is overloaded. Server load: "
+literal|"Server is overloaded: load="
 operator|+
 name|numSrvRegs
 operator|+
-literal|" avg: "
+literal|", avg="
 operator|+
 name|avgLoad
 operator|+
-literal|", slop: "
+literal|", slop="
 operator|+
 name|this
 operator|.

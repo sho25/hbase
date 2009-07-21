@@ -922,6 +922,8 @@ expr_stmt|;
 name|InternalScanner
 name|rootScanner
 init|=
+name|this
+operator|.
 name|rootRegion
 operator|.
 name|getScanner

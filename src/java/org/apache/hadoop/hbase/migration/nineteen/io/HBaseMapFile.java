@@ -83,9 +83,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|ImmutableBytesWritable
+name|HStoreKey
 import|;
 end_import
 
@@ -99,11 +97,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|migration
+name|io
 operator|.
-name|nineteen
-operator|.
-name|HStoreKey
+name|ImmutableBytesWritable
 import|;
 end_import
 
@@ -255,6 +251,18 @@ argument_list|,
 name|dirName
 argument_list|,
 operator|new
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|migration
+operator|.
+name|nineteen
+operator|.
 name|HStoreKey
 operator|.
 name|HStoreKeyWritableComparator
@@ -281,6 +289,18 @@ argument_list|,
 name|dirName
 argument_list|,
 operator|new
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|migration
+operator|.
+name|nineteen
+operator|.
 name|HStoreKey
 operator|.
 name|HStoreKeyWritableComparator
@@ -298,9 +318,7 @@ comment|// in the datanode. Usually, the first access on a MapFile.Reader will
 comment|// load the index force the issue in HStoreFile MapFiles because an
 comment|// access may not happen for some time; meantime we're using up datanode
 comment|// resources (See HADOOP-2341). midKey() goes to index. Does not seek.
-name|midKey
-argument_list|()
-expr_stmt|;
+comment|// Disable for migration !!! midKey();
 block|}
 block|}
 specifier|public
@@ -346,6 +364,18 @@ argument_list|,
 name|dirName
 argument_list|,
 operator|new
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|migration
+operator|.
+name|nineteen
+operator|.
 name|HStoreKey
 operator|.
 name|HStoreKeyWritableComparator

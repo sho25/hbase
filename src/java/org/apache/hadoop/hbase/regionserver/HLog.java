@@ -5039,6 +5039,17 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Closed "
+operator|+
+name|wap
+operator|.
+name|p
+argument_list|)
+expr_stmt|;
 name|splits
 operator|.
 name|add

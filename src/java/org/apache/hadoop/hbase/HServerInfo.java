@@ -90,8 +90,6 @@ name|int
 name|infoPort
 decl_stmt|;
 specifier|private
-specifier|transient
-specifier|volatile
 name|String
 name|serverName
 init|=

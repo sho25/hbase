@@ -1803,7 +1803,7 @@ name|reinitialize
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Creates all of the state that needs to be reconstructed in case we are    * doing a restart. This is shared between the constructor and restart().    * @throws IOException    */
+comment|/**    * Creates all of the state that needs to be reconstructed in case we are    * doing a restart. This is shared between the constructor and restart().    * Both call it.    * @throws IOException    */
 specifier|private
 name|void
 name|reinitialize
@@ -1811,10 +1811,14 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|this
+operator|.
 name|abortRequested
 operator|=
 literal|false
 expr_stmt|;
+name|this
+operator|.
 name|stopRequested
 operator|.
 name|set
@@ -1822,6 +1826,8 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|shutdownHDFS
 operator|.
 name|set
@@ -1873,7 +1879,7 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
-comment|// Address is givin a default IP for the moment. Will be changed after
+comment|// Address is giving a default IP for the moment. Will be changed after
 comment|// calling the master.
 name|this
 operator|.
@@ -3886,31 +3892,33 @@ expr_stmt|;
 block|}
 comment|// Master may have sent us a new address with the other configs.
 comment|// Update our address in this case. See HBASE-719
-if|if
-condition|(
+name|String
+name|hra
+init|=
 name|conf
 operator|.
 name|get
 argument_list|(
 literal|"hbase.regionserver.address"
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|address
 operator|!=
 literal|null
 condition|)
-name|serverInfo
-operator|.
-name|setServerAddress
-argument_list|(
+block|{
+name|HServerAddress
+name|hsa
+init|=
 operator|new
 name|HServerAddress
 argument_list|(
-name|conf
-operator|.
-name|get
-argument_list|(
-literal|"hbase.regionserver.address"
-argument_list|)
+name|hra
 argument_list|,
+name|this
+operator|.
 name|serverInfo
 operator|.
 name|getServerAddress
@@ -3919,8 +3927,35 @@ operator|.
 name|getPort
 argument_list|()
 argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Master passed us address to use. Was="
+operator|+
+name|this
+operator|.
+name|serverInfo
+operator|.
+name|getServerAddress
+argument_list|()
+operator|+
+literal|", Now="
+operator|+
+name|hra
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|serverInfo
+operator|.
+name|setServerAddress
+argument_list|(
+name|hsa
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Master sent us hbase.rootdir to use. Should be fully qualified
 comment|// path with file system specification included.  Set 'fs.default.name'
 comment|// to match the filesystem on hbase.rootdir else underlying hadoop hdfs
@@ -5192,6 +5227,8 @@ name|HLog
 operator|.
 name|getHLogDirectoryName
 argument_list|(
+name|this
+operator|.
 name|serverInfo
 argument_list|)
 argument_list|)
@@ -5967,6 +6004,8 @@ name|port
 operator|++
 expr_stmt|;
 comment|// update HRS server info
+name|this
+operator|.
 name|serverInfo
 operator|.
 name|setInfoPort
@@ -6055,6 +6094,8 @@ name|info
 argument_list|(
 literal|"HRegionServer started at: "
 operator|+
+name|this
+operator|.
 name|serverInfo
 operator|.
 name|getServerAddress
@@ -6672,6 +6713,8 @@ name|zooKeeperWrapper
 operator|.
 name|writeRSLocation
 argument_list|(
+name|this
+operator|.
 name|serverInfo
 argument_list|)
 expr_stmt|;
@@ -6698,6 +6741,8 @@ name|hbaseMaster
 operator|.
 name|regionServerStartup
 argument_list|(
+name|this
+operator|.
 name|serverInfo
 argument_list|)
 expr_stmt|;
@@ -9364,8 +9409,8 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-comment|// If checkOpen failed, cancel this lease; filesystem is gone or we're
-comment|// closing or something.
+comment|// If checkOpen failed, server not running or filesystem gone,
+comment|// cancel this lease; filesystem is gone or we're closing or something.
 name|this
 operator|.
 name|leases
@@ -9559,18 +9604,10 @@ block|}
 if|if
 condition|(
 name|s
-operator|==
+operator|!=
 literal|null
 condition|)
 block|{
-throw|throw
-operator|new
-name|UnknownScannerException
-argument_list|(
-name|scannerName
-argument_list|)
-throw|;
-block|}
 name|s
 operator|.
 name|close
@@ -9585,6 +9622,7 @@ argument_list|(
 name|scannerName
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -10418,18 +10456,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-comment|/**    * @return Info on this server.    */
-specifier|public
-name|HServerInfo
-name|getServerInfo
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|serverInfo
-return|;
 block|}
 comment|/** @return the info server */
 specifier|public

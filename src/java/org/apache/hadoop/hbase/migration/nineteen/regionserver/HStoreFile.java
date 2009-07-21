@@ -63,6 +63,30 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|regex
+operator|.
+name|Matcher
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|regex
+operator|.
+name|Pattern
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -292,7 +316,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A HStore data file.  HStores usually have one or more of these files.  They  * are produced by flushing the memcache to disk.  *  *<p>Each HStore maintains a bunch of different data files. The filename is a  * mix of the parent dir, the region name, the column name, and a file  * identifier. The name may also be a reference to a store file located  * elsewhere. This class handles all that path-building stuff for you.  *   *<p>An HStoreFile usually tracks 4 things: its parent dir, the region  * identifier, the column family, and the file identifier.  If you know those  * four things, you know how to obtain the right HStoreFile.  HStoreFiles may  * also reference store files in another region serving either from  * the top-half of the remote file or from the bottom-half.  Such references  * are made fast splitting regions.  *   *<p>Plain HStoreFiles are named for a randomly generated id as in:  *<code>1278437856009925445</code>  A file by this name is made in both the  *<code>mapfiles</code> and<code>info</code> subdirectories of a  * HStore columnfamily directoy: E.g. If the column family is 'anchor:', then  * under the region directory there is a subdirectory named 'anchor' within  * which is a 'mapfiles' and 'info' subdirectory.  In each will be found a  * file named something like<code>1278437856009925445</code>, one to hold the  * data in 'mapfiles' and one under 'info' that holds the sequence id for this  * store file.  *   *<p>References to store files located over in some other region look like  * this:  *<code>1278437856009925445.hbaserepository,qAReLZD-OyQORZWq_vqR1k==,959247014679548184</code>:  * i.e. an id followed by the name of the referenced region.  The data  * ('mapfiles') of HStoreFile references are empty. The accompanying  *<code>info</code> file contains the  * midkey, the id of the remote store we're referencing and whether we're  * to serve the top or bottom region of the remote store file.  Note, a region  * is not splitable if it has instances of store file references (References  * are cleaned up by compactions).  *   *<p>When merging or splitting HRegions, we might want to modify one of the   * params for an HStoreFile (effectively moving it elsewhere).  */
+comment|/**  * A HStore data file.  HStores usually have one or more of these files.  They  * are produced by flushing the memcache to disk.  *   *<p>This one has been doctored to be used in migrations.  Private and  * protecteds have been made public, etc.  *  *<p>Each HStore maintains a bunch of different data files. The filename is a  * mix of the parent dir, the region name, the column name, and a file  * identifier. The name may also be a reference to a store file located  * elsewhere. This class handles all that path-building stuff for you.  *   *<p>An HStoreFile usually tracks 4 things: its parent dir, the region  * identifier, the column family, and the file identifier.  If you know those  * four things, you know how to obtain the right HStoreFile.  HStoreFiles may  * also reference store files in another region serving either from  * the top-half of the remote file or from the bottom-half.  Such references  * are made fast splitting regions.  *   *<p>Plain HStoreFiles are named for a randomly generated id as in:  *<code>1278437856009925445</code>  A file by this name is made in both the  *<code>mapfiles</code> and<code>info</code> subdirectories of a  * HStore columnfamily directoy: E.g. If the column family is 'anchor:', then  * under the region directory there is a subdirectory named 'anchor' within  * which is a 'mapfiles' and 'info' subdirectory.  In each will be found a  * file named something like<code>1278437856009925445</code>, one to hold the  * data in 'mapfiles' and one under 'info' that holds the sequence id for this  * store file.  *   *<p>References to store files located over in some other region look like  * this:  *<code>1278437856009925445.hbaserepository,qAReLZD-OyQORZWq_vqR1k==,959247014679548184</code>:  * i.e. an id followed by the name of the referenced region.  The data  * ('mapfiles') of HStoreFile references are empty. The accompanying  *<code>info</code> file contains the  * midkey, the id of the remote store we're referencing and whether we're  * to serve the top or bottom region of the remote store file.  Note, a region  * is not splitable if it has instances of store file references (References  * are cleaned up by compactions).  *   *<p>When merging or splitting HRegions, we might want to modify one of the   * params for an HStoreFile (effectively moving it elsewhere).  */
 end_comment
 
 begin_class
@@ -418,7 +442,8 @@ specifier|private
 name|long
 name|indexLength
 decl_stmt|;
-comment|/**    * Constructor that fully initializes the object    * @param conf Configuration object    * @param basedir qualified path that is parent of region directory    * @param colFamily name of the column family    * @param fileId file identifier    * @param ref Reference to another HStoreFile.    * @param hri The region info for this file (HACK HBASE-868). TODO: Fix.    * @throws IOException    */
+comment|/**    * Constructor that fully initializes the object    * @param conf Configuration object    * @param basedir qualified path that is parent of region directory    * @param colFamily name of the column family    * @param fileId file identifier    * @param ref Reference to another HStoreFile.    * @param encodedName Encoded name.    * @throws IOException    */
+specifier|public
 name|HStoreFile
 parameter_list|(
 name|HBaseConfiguration
@@ -431,8 +456,8 @@ name|Path
 name|basedir
 parameter_list|,
 specifier|final
-name|HRegionInfo
-name|hri
+name|int
+name|encodedName
 parameter_list|,
 name|byte
 index|[]
@@ -456,7 +481,7 @@ name|fs
 argument_list|,
 name|basedir
 argument_list|,
-name|hri
+name|encodedName
 argument_list|,
 name|colFamily
 argument_list|,
@@ -468,7 +493,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor that fully initializes the object    * @param conf Configuration object    * @param basedir qualified path that is parent of region directory    * @param colFamily name of the column family    * @param fileId file identifier    * @param ref Reference to another HStoreFile.    * @param hri The region info for this file (HACK HBASE-868). TODO: Fix.    * @param mc Try if this file was result of a major compression.    * @throws IOException    */
+comment|/**    * Constructor that fully initializes the object    * @param conf Configuration object    * @param basedir qualified path that is parent of region directory    * @param colFamily name of the column family    * @param fileId file identifier    * @param ref Reference to another HStoreFile.    * @param encodedName Encoded name.    * @param mc Try if this file was result of a major compression.    * @throws IOException    */
 name|HStoreFile
 parameter_list|(
 name|HBaseConfiguration
@@ -481,8 +506,8 @@ name|Path
 name|basedir
 parameter_list|,
 specifier|final
-name|HRegionInfo
-name|hri
+name|int
+name|encodedName
 parameter_list|,
 name|byte
 index|[]
@@ -524,10 +549,7 @@ name|this
 operator|.
 name|encodedRegionName
 operator|=
-name|hri
-operator|.
-name|getEncodedName
-argument_list|()
+name|encodedName
 expr_stmt|;
 name|this
 operator|.
@@ -535,11 +557,12 @@ name|colFamily
 operator|=
 name|colFamily
 expr_stmt|;
+comment|// NOT PASSED IN MIGRATIONS
 name|this
 operator|.
 name|hri
 operator|=
-name|hri
+literal|null
 expr_stmt|;
 name|long
 name|id
@@ -643,6 +666,117 @@ parameter_list|()
 block|{
 return|return
 name|reference
+operator|!=
+literal|null
+return|;
+block|}
+specifier|private
+specifier|static
+specifier|final
+name|Pattern
+name|REF_NAME_PARSER
+init|=
+name|Pattern
+operator|.
+name|compile
+argument_list|(
+literal|"^(\\d+)(?:\\.(.+))?$"
+argument_list|)
+decl_stmt|;
+comment|/**    * @param p Path to check.    * @return True if the path has format of a HStoreFile reference.    */
+specifier|public
+specifier|static
+name|boolean
+name|isReference
+parameter_list|(
+specifier|final
+name|Path
+name|p
+parameter_list|)
+block|{
+return|return
+name|isReference
+argument_list|(
+name|p
+argument_list|,
+name|REF_NAME_PARSER
+operator|.
+name|matcher
+argument_list|(
+name|p
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+argument_list|)
+return|;
+block|}
+specifier|private
+specifier|static
+name|boolean
+name|isReference
+parameter_list|(
+specifier|final
+name|Path
+name|p
+parameter_list|,
+specifier|final
+name|Matcher
+name|m
+parameter_list|)
+block|{
+if|if
+condition|(
+name|m
+operator|==
+literal|null
+operator|||
+operator|!
+name|m
+operator|.
+name|matches
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed match of store file name "
+operator|+
+name|p
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Failed match of store file name "
+operator|+
+name|p
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+throw|;
+block|}
+return|return
+name|m
+operator|.
+name|groupCount
+argument_list|()
+operator|>
+literal|1
+operator|&&
+name|m
+operator|.
+name|group
+argument_list|(
+literal|2
+argument_list|)
 operator|!=
 literal|null
 return|;
@@ -1170,6 +1304,7 @@ throw|;
 block|}
 block|}
 comment|/**     * Reads in an info file    *    * @param filesystem file system    * @return The sequence id contained in the info file    * @throws IOException    */
+specifier|public
 name|long
 name|loadInfo
 parameter_list|(
