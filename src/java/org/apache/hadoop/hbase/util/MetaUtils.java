@@ -309,38 +309,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|BatchUpdate
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|Cell
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|regionserver
 operator|.
 name|HLog
@@ -694,7 +662,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"META OPEN "
+literal|"OPENING META "
 operator|+
 name|meta
 operator|.
@@ -789,7 +757,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"META CLOSE "
+literal|"CLOSING META "
 operator|+
 name|r
 operator|.
@@ -1078,7 +1046,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Scans a meta region. For every region found, calls the listener with    * the HRegionInfo of the region.    * TODO: Use Visitor rather than Listener pattern.  Allow multiple Visitors.    * Use this everywhere we scan meta regions: e.g. in metascanners, in close    * handling, etc.  Have it pass in the whole row, not just HRegionInfo.    *     * @param metaRegionInfo HRegionInfo for meta region    * @param listener method to be called for each meta region found    * @throws IOException    */
+comment|/**    * Scans a meta region. For every region found, calls the listener with    * the HRegionInfo of the region.    * TODO: Use Visitor rather than Listener pattern.  Allow multiple Visitors.    * Use this everywhere we scan meta regions: e.g. in metascanners, in close    * handling, etc.  Have it pass in the whole row, not just HRegionInfo.    *<p>Use for reading meta only.  Does not close region when done.    * Use {@link #getMetaRegion(HRegionInfo)} instead if writing.  Adds    * meta region to list that will get a close on {@link #shutdown()}.    *     * @param metaRegionInfo HRegionInfo for meta region    * @param listener method to be called for each meta region found    * @throws IOException    */
 specifier|public
 name|void
 name|scanMetaRegion

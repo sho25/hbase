@@ -758,6 +758,36 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|setVersion
+argument_list|(
+name|fs
+argument_list|,
+name|rootdir
+argument_list|,
+name|HConstants
+operator|.
+name|FILE_SYSTEM_VERSION
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Sets version of file system    *     * @param fs    * @param rootdir    * @param version    * @throws IOException    */
+specifier|public
+specifier|static
+name|void
+name|setVersion
+parameter_list|(
+name|FileSystem
+name|fs
+parameter_list|,
+name|Path
+name|rootdir
+parameter_list|,
+name|String
+name|version
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 name|FSDataOutputStream
 name|s
 init|=
@@ -780,9 +810,7 @@ name|s
 operator|.
 name|writeUTF
 argument_list|(
-name|HConstants
-operator|.
-name|FILE_SYSTEM_VERSION
+name|version
 argument_list|)
 expr_stmt|;
 name|s
@@ -794,12 +822,16 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Created version file to: "
+literal|"Created version file at "
 operator|+
 name|rootdir
 operator|.
 name|toString
 argument_list|()
+operator|+
+literal|" set its version at:"
+operator|+
+name|version
 argument_list|)
 expr_stmt|;
 block|}

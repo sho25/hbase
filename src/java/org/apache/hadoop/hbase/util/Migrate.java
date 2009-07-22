@@ -1238,7 +1238,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|// TOOD: Verify all has been brought over from old to new layout.
 specifier|final
 name|MetaUtils
 name|utils
@@ -1349,16 +1348,21 @@ name|metas
 control|)
 block|{
 specifier|final
-name|HRegionInfo
-name|metahri
+name|HRegion
+name|h
 init|=
+name|utils
+operator|.
+name|getMetaRegion
+argument_list|(
 name|hri
+argument_list|)
 decl_stmt|;
 name|utils
 operator|.
 name|scanMetaRegion
 argument_list|(
-name|hri
+name|h
 argument_list|,
 operator|new
 name|MetaUtils
@@ -1394,12 +1398,7 @@ return|;
 block|}
 name|rewriteHRegionInfo
 argument_list|(
-name|utils
-operator|.
-name|getMetaRegion
-argument_list|(
-name|metahri
-argument_list|)
+name|h
 argument_list|,
 name|info
 argument_list|)
@@ -1791,7 +1790,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Rewrite the passed mapfile    * @param fs    * @param mf    * @throws IOExcepion    */
+comment|/**    * Rewrite the passed 0.19 mapfile as a 0.20 file.    * @param fs    * @param mf    * @throws IOExcepion    */
 specifier|public
 specifier|static
 name|void
