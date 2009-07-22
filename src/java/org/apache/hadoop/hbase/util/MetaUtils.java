@@ -690,6 +690,18 @@ argument_list|(
 name|metaInfo
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"META OPEN "
+operator|+
+name|meta
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|metaRegions
@@ -773,6 +785,18 @@ name|values
 argument_list|()
 control|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"META CLOSE "
+operator|+
+name|r
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|r
 operator|.
 name|close
