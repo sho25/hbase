@@ -1166,6 +1166,29 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param key Key whose key and value we're to remove from HCD parameters.    */
+specifier|public
+name|void
+name|remove
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|key
+parameter_list|)
+block|{
+name|values
+operator|.
+name|remove
+argument_list|(
+operator|new
+name|ImmutableBytesWritable
+argument_list|(
+name|key
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * @param key The key.    * @param value The value.    */
 specifier|public
 name|void

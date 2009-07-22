@@ -1266,6 +1266,7 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
+comment|// Rewrite root.
 name|rewriteHRegionInfo
 argument_list|(
 name|utils
@@ -1277,7 +1278,7 @@ name|getRegionInfo
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Scan the root region
+comment|// Scan the root region to rewrite metas.
 name|utils
 operator|.
 name|scanRootRegion
@@ -1338,7 +1339,7 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-comment|// Scan meta.
+comment|// Scan meta to rewrite table stuff.
 for|for
 control|(
 name|HRegionInfo
@@ -2351,9 +2352,26 @@ operator|.
 name|NONE
 argument_list|)
 expr_stmt|;
+comment|// Remove the old MEMCACHE_FLUSHSIZE if present
+name|hcd
+operator|.
+name|remove
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"MEMCACHE_FLUSHSIZE"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|result
+operator|=
+literal|true
+expr_stmt|;
 block|}
 return|return
-literal|true
+name|result
 return|;
 block|}
 comment|/*    * Update versions kept in historian.    * @param mr    * @param oldHri    */
