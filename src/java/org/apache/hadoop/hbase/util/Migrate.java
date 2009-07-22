@@ -512,14 +512,13 @@ specifier|private
 name|FileSystem
 name|fs
 decl_stmt|;
-comment|// Gets set by migration methods if we are in readOnly mode.
 name|boolean
 name|migrationNeeded
 init|=
 literal|false
 decl_stmt|;
 name|boolean
-name|readOnly
+name|check
 init|=
 literal|false
 decl_stmt|;
@@ -819,18 +818,6 @@ operator|-
 literal|3
 return|;
 block|}
-if|if
-condition|(
-operator|!
-name|notRunning
-argument_list|()
-condition|)
-block|{
-return|return
-operator|-
-literal|4
-return|;
-block|}
 try|try
 block|{
 name|LOG
@@ -840,7 +827,7 @@ argument_list|(
 literal|"Starting upgrade"
 operator|+
 operator|(
-name|readOnly
+name|check
 condition|?
 literal|" check"
 else|:
@@ -981,13 +968,19 @@ name|msg
 argument_list|)
 throw|;
 block|}
+name|this
+operator|.
+name|migrationNeeded
+operator|=
+literal|true
+expr_stmt|;
 name|migrate6to7
 argument_list|()
 expr_stmt|;
 if|if
 condition|(
 operator|!
-name|readOnly
+name|check
 condition|)
 block|{
 comment|// Set file system version
@@ -1055,7 +1048,7 @@ argument_list|(
 literal|"Upgrade"
 operator|+
 operator|(
-name|readOnly
+name|check
 condition|?
 literal|" check"
 else|:
@@ -1085,7 +1078,7 @@ if|if
 condition|(
 name|this
 operator|.
-name|readOnly
+name|check
 operator|&&
 name|this
 operator|.
@@ -1308,7 +1301,7 @@ name|IOException
 block|{
 if|if
 condition|(
-name|readOnly
+name|check
 operator|&&
 operator|!
 name|migrationNeeded
@@ -1385,7 +1378,7 @@ name|IOException
 block|{
 if|if
 condition|(
-name|readOnly
+name|check
 operator|&&
 operator|!
 name|migrationNeeded
@@ -2326,44 +2319,20 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+for|for
+control|(
 name|HColumnDescriptor
 name|hcd
-init|=
+range|:
 name|hri
 operator|.
 name|getTableDesc
 argument_list|()
 operator|.
-name|getFamily
-argument_list|(
-name|HConstants
-operator|.
-name|CATALOG_FAMILY
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|hcd
-operator|==
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"No info family in: "
-operator|+
-name|hri
-operator|.
-name|getRegionNameAsString
+name|getFamilies
 argument_list|()
-argument_list|)
-expr_stmt|;
-return|return
-name|result
-return|;
-block|}
+control|)
+block|{
 comment|// Set block cache on all tables.
 name|hcd
 operator|.
@@ -2383,6 +2352,7 @@ operator|.
 name|NONE
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 literal|true
 return|;
@@ -2660,7 +2630,7 @@ condition|)
 block|{
 name|this
 operator|.
-name|readOnly
+name|check
 operator|=
 literal|true
 expr_stmt|;
