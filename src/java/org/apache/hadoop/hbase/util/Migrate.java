@@ -2319,6 +2319,22 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+comment|// Remove the old MEMCACHE_FLUSHSIZE if present
+name|hri
+operator|.
+name|getTableDesc
+argument_list|()
+operator|.
+name|remove
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"MEMCACHE_FLUSHSIZE"
+argument_list|)
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|HColumnDescriptor
@@ -2350,19 +2366,6 @@ argument_list|(
 name|Algorithm
 operator|.
 name|NONE
-argument_list|)
-expr_stmt|;
-comment|// Remove the old MEMCACHE_FLUSHSIZE if present
-name|hcd
-operator|.
-name|remove
-argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"MEMCACHE_FLUSHSIZE"
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|result

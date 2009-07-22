@@ -1619,6 +1619,29 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param key Key whose key and value we're to remove from HTD parameters.    */
+specifier|public
+name|void
+name|remove
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|key
+parameter_list|)
+block|{
+name|values
+operator|.
+name|remove
+argument_list|(
+operator|new
+name|ImmutableBytesWritable
+argument_list|(
+name|key
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * @return true if all columns in the table should be read only    */
 specifier|public
 name|boolean
