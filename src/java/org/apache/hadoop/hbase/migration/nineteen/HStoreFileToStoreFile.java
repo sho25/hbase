@@ -922,6 +922,10 @@ decl_stmt|;
 if|if
 condition|(
 name|familyStatus
+operator|==
+literal|null
+operator|||
+name|familyStatus
 operator|.
 name|length
 operator|>
@@ -939,9 +943,19 @@ argument_list|()
 operator|+
 literal|" has "
 operator|+
+operator|(
+operator|(
+name|familyStatus
+operator|==
+literal|null
+operator|)
+condition|?
+literal|"null"
+else|:
 name|familyStatus
 operator|.
 name|length
+operator|)
 operator|+
 literal|" files.  Continuing..."
 argument_list|)
