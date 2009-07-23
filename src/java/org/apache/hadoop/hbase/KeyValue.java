@@ -168,7 +168,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An HBase Key/Value.  Instances of this class are immutable.  They are not  * comparable but Comparators are provided  Comparators change with context,  * whether user table or a catalog table comparison context.  Its  * important that you use the appropriate comparator comparing rows in  * particular.  There are Comparators for KeyValue instances and then for  * just the Key portion of a KeyValue used mostly in {@link HFile}.  *   *<p>KeyValue wraps a byte array and has offset and length for passed array  * at where to start interpreting the content as a KeyValue blob.  The KeyValue  * blob format inside the byte array is:  *<code>&lt;keylength>&lt;valuelength>&lt;key>&lt;value></code>  * Key is decomposed as:  *<code>&lt;rowlength>&lt;row>&lt;columnfamilylength>&lt;columnfamily>&lt;columnqualifier>&lt;timestamp>&lt;keytype></code>  * Rowlength maximum is Short.MAX_SIZE, column family length maximum is  * Byte.MAX_SIZE, and column qualifier + key length must be< Integer.MAX_SIZE.  * The column does not contain the family/qualifier delimiter.  *   *<p>TODO: Group Key-only comparators and operations into a Key class, just  * for neatness sake, if can figure what to call it.  */
+comment|/**  * An HBase Key/Value.  *   *<p>If being used client-side, the primary methods to access individual fields  * are {@link #getRow()}, {@link #getFamily()}, {@link #getQualifier()},   * {@link #getTimestamp()}, and {@link #getValue()}.  These methods allocate new  * byte arrays and return copies so they should be avoided server-side.  *   *<p>Instances of this class are immutable.  They are not  * comparable but Comparators are provided.  Comparators change with context,  * whether user table or a catalog table comparison context.  Its  * important that you use the appropriate comparator comparing rows in  * particular.  There are Comparators for KeyValue instances and then for  * just the Key portion of a KeyValue used mostly in {@link HFile}.  *   *<p>KeyValue wraps a byte array and has offset and length for passed array  * at where to start interpreting the content as a KeyValue blob.  The KeyValue  * blob format inside the byte array is:  *<code>&lt;keylength>&lt;valuelength>&lt;key>&lt;value></code>  * Key is decomposed as:  *<code>&lt;rowlength>&lt;row>&lt;columnfamilylength>&lt;columnfamily>&lt;columnqualifier>&lt;timestamp>&lt;keytype></code>  * Rowlength maximum is Short.MAX_SIZE, column family length maximum is  * Byte.MAX_SIZE, and column qualifier + key length must be< Integer.MAX_SIZE.  * The column does not contain the family/qualifier delimiter.  *   *<p>TODO: Group Key-only comparators and operations into a Key class, just  * for neatness sake, if can figure what to call it.  */
 end_comment
 
 begin_class
@@ -3305,7 +3305,7 @@ comment|//
 comment|//  Methods that return copies of fields
 comment|//
 comment|//---------------------------------------------------------------------------
-comment|/**    * @return Copy of the key portion only.  Used compacting and testing.    */
+comment|/**    * Do not use unless you have to.  Used internally for compacting and testing.    *     * Use {@link #getRow()}, {@link #getFamily()}, {@link #getQualifier()}, and     * {@link #getValue()} if accessing a KeyValue client-side.    * @return Copy of the key portion only.    */
 specifier|public
 name|byte
 index|[]
@@ -3398,7 +3398,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Do not use this unless you have to.    * Use {@link #getBuffer()} with appropriate offsets and lengths instead.    * @return Row in a new byte array.    */
+comment|/**    * Primarily for use client-side.  Returns the row of this KeyValue in a new    * byte array.<p>    *     * If server-side, use {@link #getBuffer()} with appropriate offsets and     * lengths instead.    * @return Row in a new byte array.    */
 specifier|public
 name|byte
 index|[]
@@ -3447,7 +3447,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * @return Timestamp    */
+comment|/**    *     * @return Timestamp    */
 specifier|public
 name|long
 name|getTimestamp
@@ -3565,7 +3565,7 @@ operator|.
 name|code
 return|;
 block|}
-comment|/**    * Do not use this unless you have to.    * Use {@link #getBuffer()} with appropriate offsets and lengths instead.    * @return Returns column. Makes a copy.  Inserts delimiter.    */
+comment|/**    * Primarily for use client-side.  Returns the column of this KeyValue in the    * deprecated format:<i>family:qualifier</i>, and in a new byte array.<p>    *     * If server-side, use {@link #getBuffer()} with appropriate offsets and     * lengths instead.    * @return Returns column. Makes a copy.  Inserts delimiter.    */
 specifier|public
 name|byte
 index|[]
@@ -3655,7 +3655,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Do not use this unless you have to.    * Use {@link #getBuffer()} with appropriate offsets and lengths instead.    * @return Returns family. Makes a copy.    */
+comment|/**    * Primarily for use client-side.  Returns the family of this KeyValue in a     * new byte array.<p>    *     * If server-side, use {@link #getBuffer()} with appropriate offsets and     * lengths instead.    * @return Returns family. Makes a copy.    */
 specifier|public
 name|byte
 index|[]
@@ -3707,7 +3707,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Do not use this unless you have to.    * Use {@link #getBuffer()} with appropriate offsets and lengths instead.    * @return Returns qualifier. Makes a copy.    */
+comment|/**    * Primarily for use client-side.  Returns the column qualifier of this     * KeyValue in a new byte array.<p>    *     * If server-side, use {@link #getBuffer()} with appropriate offsets and     * lengths instead.    * Use {@link #getBuffer()} with appropriate offsets and lengths instead.    * @return Returns qualifier. Makes a copy.    */
 specifier|public
 name|byte
 index|[]

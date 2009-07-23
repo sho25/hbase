@@ -200,7 +200,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Single row result of a {@link Get} or {@link Scan} query.  * Backed by array of KeyValues.  */
+comment|/**  * Single row result of a {@link Get} or {@link Scan} query.<p>  *   * Convenience methods are available that return various {@link Map}  * structures and values directly.<p>  *   * To get a complete mapping of all cells in the Result, which can include   * multiple families and multiple versions, use {@link #getMap()}.<p>  *   * To get a mapping of each family to its columns (qualifiers and values),   * including only the latest version of each, use {@link #getNoVersionMap()}.  *   * To get a mapping of qualifiers to latest values for an individual family use   * {@link #getFamilyMap(byte[])}.<p>  *   * To get the latest value for a specific family and qualifier use {@link #getValue(byte[], byte[])}.  *  * A Result is backed by an array of {@link KeyValue} objects, each representing  * an HBase cell defined by the row, family, qualifier, timestamp, and value.<p>  *   * The underlying {@link KeyValue} objects can be accessed through the methods  * {@link #sorted()} and {@link #list()}.  Each KeyValue can then be accessed  * through {@link KeyValue#getRow()}, {@link KeyValue#getFamily()}, {@link KeyValue#getQualifier()},   * {@link KeyValue#getTimestamp()}, and {@link KeyValue#getValue()}.  */
 end_comment
 
 begin_class
