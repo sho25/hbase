@@ -108,7 +108,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Defines the general behavior of a filter.  *<p>  * A filter is a data structure which aims at offering a lossy summary of a set<code>A</code>.  The  * key idea is to map entries of<code>A</code> (also called<i>keys</i>) into several positions   * in a vector through the use of several hash functions.  *<p>  * Typically, a filter will be implemented as a Bloom filter (or a Bloom filter extension).  *<p>  * It must be extended in order to define the real behavior.  *   * @see org.onelab.filter.Filter The general behavior of a filter  *  * @version 1.0 - 2 Feb. 07  *   * @see org.onelab.filter.Key The general behavior of a key  * @see org.onelab.filter.HashFunction A hash function  */
+comment|/**  * Defines the general behavior of a filter.  *<p>  * A filter is a data structure which aims at offering a lossy summary of a set<code>A</code>.  The  * key idea is to map entries of<code>A</code> (also called<i>keys</i>) into several positions   * in a vector through the use of several hash functions.  *<p>  * Typically, a filter will be implemented as a Bloom filter (or a Bloom filter extension).  *<p>  * It must be extended in order to define the real behavior.  *   * @version 1.0 - 2 Feb. 07  */
 end_comment
 
 begin_class

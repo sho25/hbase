@@ -44,7 +44,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implements a hash object that returns a certain number of hashed values.  *<p>  * It is based on the SHA-1 algorithm.   *   * @see org.onelab.filter.Filter The general behavior of a filter  *  * @version 1.0 - 2 Feb. 07  *   * @see org.onelab.filter.Key The general behavior of a key being stored in a filter  * @see org.onelab.filter.Filter The general behavior of a filter  *   * @see<a href="http://www.itl.nist.gov/fipspubs/fip180-1.htm">SHA-1 algorithm</a>  */
+comment|/**  * Implements a hash object that returns a certain number of hashed values.  *<p>  * It is based on the SHA-1 algorithm.   *   * @version 1.0 - 2 Feb. 07  */
 end_comment
 
 begin_class

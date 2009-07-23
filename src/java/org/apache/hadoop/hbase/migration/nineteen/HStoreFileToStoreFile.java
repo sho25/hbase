@@ -882,6 +882,15 @@ literal|" files."
 argument_list|)
 throw|;
 block|}
+if|if
+condition|(
+name|familyStatus
+operator|.
+name|length
+operator|==
+literal|1
+condition|)
+block|{
 comment|// If we got here, then this is good.  Add the mapfile to out
 name|String
 name|str
@@ -923,6 +932,22 @@ literal|"\n"
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Empty store "
+operator|+
+name|family
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 block|}

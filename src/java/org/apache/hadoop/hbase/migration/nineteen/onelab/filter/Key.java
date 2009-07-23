@@ -72,7 +72,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The general behavior of a key that must be stored in a filter.  *   * @see org.onelab.filter.Filter The general behavior of a filter  */
+comment|/**  * The general behavior of a key that must be stored in a filter.  */
 end_comment
 
 begin_class
