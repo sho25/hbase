@@ -802,12 +802,6 @@ name|infoAndMapfile
 operator|.
 name|length
 operator|!=
-literal|0
-operator|&&
-name|infoAndMapfile
-operator|.
-name|length
-operator|!=
 literal|2
 condition|)
 block|{
