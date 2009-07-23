@@ -271,7 +271,7 @@ literal|10
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get a table pool for the given table.     * @param name the table name    * @return the table pool    */
+comment|/**    * Get a table pool for the given table.     * @return the table pool    */
 specifier|protected
 name|HTablePool
 name|getTablePool

@@ -499,7 +499,7 @@ else|:
 literal|null
 return|;
 block|}
-comment|/**    * Add a column family to the table descriptor    * @param object the column family model    */
+comment|/**    * Add a column family to the table descriptor    * @param family the column family model    */
 specifier|public
 name|void
 name|addColumnFamily

@@ -1053,7 +1053,7 @@ return|return
 name|numberOfRequests
 return|;
 block|}
-comment|/**    * @returns the amount of heap in use, in MB    */
+comment|/**    * @return the amount of heap in use, in MB    */
 specifier|public
 name|int
 name|getUsedHeapMB
@@ -1063,7 +1063,7 @@ return|return
 name|usedHeapMB
 return|;
 block|}
-comment|/**    * @returns the maximum allowable heap size, in MB    */
+comment|/**    * @return the maximum allowable heap size, in MB    */
 specifier|public
 name|int
 name|getMaxHeapMB

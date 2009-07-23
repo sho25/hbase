@@ -267,7 +267,7 @@ operator|=
 name|name
 expr_stmt|;
 block|}
-comment|/** 	     * Constructor 	     * @param name the region name 	     * @param stores the number of stores 	     * @param storefiles the number of store files 	     * @param storefileSizeMB total size of store files, in MB 	     * @param memstoreSizeMB total size of memstore, in MB 	     * @param storefileIndexSizeMB, total size of store file indexes, in MB 	     */
+comment|/** 	     * Constructor 	     * @param name the region name 	     * @param stores the number of stores 	     * @param storefiles the number of store files 	     * @param storefileSizeMB total size of store files, in MB 	     * @param memstoreSizeMB total size of memstore, in MB 	     * @param storefileIndexSizeMB total size of store file indexes, in MB 	     */
 specifier|public
 name|Region
 parameter_list|(

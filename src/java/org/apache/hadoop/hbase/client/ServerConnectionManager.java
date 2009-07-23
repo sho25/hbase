@@ -32,7 +32,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used by server processes to expose HServerConnection method  * do can call {@link HConnectionManager#setRootRegionLocation}  */
+comment|/**  * Used by server processes to expose HServerConnection method  * do can call HConnectionManager#setRootRegionLocation  */
 end_comment
 
 begin_class

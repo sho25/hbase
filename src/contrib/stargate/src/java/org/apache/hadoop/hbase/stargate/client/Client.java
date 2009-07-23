@@ -1041,7 +1041,7 @@ name|headers
 argument_list|)
 return|;
 block|}
-comment|/**    * Send a GET request    * @param cluster the cluster definition    * @param path the path or URI    * @param headers the HTTP headers to include in the request    * @return a Response object with response detail    * @throws IOException    */
+comment|/**    * Send a GET request    * @param c the cluster definition    * @param path the path or URI    * @param headers the HTTP headers to include in the request    * @return a Response object with response detail    * @throws IOException    */
 specifier|public
 name|Response
 name|get

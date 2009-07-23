@@ -901,7 +901,7 @@ name|listener
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Scan the passed in metaregion<code>m</code> invoking the passed    *<code>listener</code> per row found.    * @param m    * @param listener    * @throws IOException    */
+comment|/**    * Scan the passed in metaregion<code>m</code> invoking the passed    *<code>listener</code> per row found.    * @param r    * @param listener    * @throws IOException    */
 specifier|public
 name|void
 name|scanMetaRegion
