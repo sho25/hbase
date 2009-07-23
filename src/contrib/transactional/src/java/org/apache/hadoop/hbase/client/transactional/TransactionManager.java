@@ -166,6 +166,14 @@ specifier|public
 class|class
 name|TransactionManager
 block|{
+static|static
+block|{
+name|TransactionalRPC
+operator|.
+name|initialize
+argument_list|()
+expr_stmt|;
+block|}
 specifier|static
 specifier|final
 name|Log
@@ -514,7 +522,6 @@ name|e
 argument_list|)
 expr_stmt|;
 comment|// This happens on a NSRE that is triggered by a split
-comment|// FIXME, but then abort fails
 try|try
 block|{
 name|abort
@@ -758,7 +765,6 @@ name|e
 argument_list|)
 expr_stmt|;
 comment|// This happens on a NSRE that is triggered by a split
-comment|// FIXME, but then abort fails
 try|try
 block|{
 name|abort

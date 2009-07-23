@@ -521,6 +521,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|KeyValueScanner
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|StoreFile
 import|;
 end_import
@@ -1155,7 +1171,16 @@ name|getRegionInfo
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// Order is important here ...
+name|state
+operator|.
+name|setStartSequenceNumber
+argument_list|(
+name|nextSequenceId
+operator|.
+name|get
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|List
 argument_list|<
 name|TransactionState
@@ -1163,7 +1188,7 @@ argument_list|>
 name|commitPendingCopy
 init|=
 operator|new
-name|LinkedList
+name|ArrayList
 argument_list|<
 name|TransactionState
 argument_list|>
@@ -1187,16 +1212,6 @@ name|commitPending
 argument_list|)
 expr_stmt|;
 block|}
-name|state
-operator|.
-name|setStartSequenceNumber
-argument_list|(
-name|nextSequenceId
-operator|.
-name|get
-argument_list|()
-argument_list|)
-expr_stmt|;
 synchronized|synchronized
 init|(
 name|transactionsById
@@ -1517,18 +1532,39 @@ argument_list|(
 name|scan
 argument_list|)
 expr_stmt|;
-return|return
+name|List
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+name|scanners
+init|=
 operator|new
-name|ScannerWrapper
+name|ArrayList
+argument_list|<
+name|KeyValueScanner
+argument_list|>
 argument_list|(
-name|transactionId
-argument_list|,
+literal|1
+argument_list|)
+decl_stmt|;
+name|scanners
+operator|.
+name|add
+argument_list|(
+name|state
+operator|.
+name|getScanner
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return
 name|super
 operator|.
 name|getScanner
 argument_list|(
 name|scan
-argument_list|)
+argument_list|,
+name|scanners
 argument_list|)
 return|;
 block|}
@@ -1644,7 +1680,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Add a delete to the transaction. Does not get applied until commit process.    * FIXME, not sure about this approach    *     * @param transactionId    * @param delete    * @throws IOException    */
+comment|/**    * Add a delete to the transaction. Does not get applied until commit process.    *     * @param transactionId    * @param delete    * @throws IOException    */
 specifier|public
 name|void
 name|delete
@@ -1790,13 +1826,8 @@ if|if
 condition|(
 name|state
 operator|.
-name|getWriteSet
+name|hasWrite
 argument_list|()
-operator|.
-name|size
-argument_list|()
-operator|>
-literal|0
 condition|)
 block|{
 comment|// Order is important
@@ -1999,7 +2030,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Not checking closing...
 name|TransactionState
 name|state
 decl_stmt|;
@@ -2038,7 +2068,7 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// FIXME Write to the transaction log that this transaction was corrupted
+comment|// TODO. Anything to handle here?
 throw|throw
 name|e
 throw|;
@@ -2066,7 +2096,7 @@ argument_list|(
 literal|"Asked to commit a non pending transaction"
 argument_list|)
 expr_stmt|;
-comment|// FIXME Write to the transaction log that this transaction was corrupted
+comment|// TODO. Anything to handle here?
 throw|throw
 operator|new
 name|IOException
@@ -2252,7 +2282,7 @@ name|update
 range|:
 name|state
 operator|.
-name|getWriteSet
+name|getPuts
 argument_list|()
 control|)
 block|{
@@ -2266,7 +2296,29 @@ literal|false
 argument_list|)
 expr_stmt|;
 comment|// Don't need to WAL these
-comment|// FIME, maybe should be walled so we don't need to look so far back.
+block|}
+for|for
+control|(
+name|Delete
+name|delete
+range|:
+name|state
+operator|.
+name|getDeleteSet
+argument_list|()
+control|)
+block|{
+name|this
+operator|.
+name|delete
+argument_list|(
+name|delete
+argument_list|,
+literal|null
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
 block|}
 name|state
 operator|.
@@ -2281,13 +2333,8 @@ if|if
 condition|(
 name|state
 operator|.
-name|getWriteSet
+name|hasWrite
 argument_list|()
-operator|.
-name|size
-argument_list|()
-operator|>
-literal|0
 operator|&&
 operator|!
 name|commitPendingTransactions
@@ -2305,6 +2352,7 @@ argument_list|(
 literal|"Commiting a non-query transaction that is not in commitPendingTransactions"
 argument_list|)
 expr_stmt|;
+comment|// Something has gone really wrong.
 throw|throw
 operator|new
 name|IOException
@@ -2312,7 +2360,6 @@ argument_list|(
 literal|"commit failure"
 argument_list|)
 throw|;
-comment|// FIXME, how to handle?
 block|}
 name|retireTransaction
 argument_list|(
@@ -2347,7 +2394,6 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-comment|// FIXME, better way to handle?
 name|LOG
 operator|.
 name|warn
@@ -2367,9 +2413,10 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|"] transactions  that are pending commit"
+literal|"] transactions  that are pending commit."
 argument_list|)
 expr_stmt|;
+comment|// TODO resolve from the Global Trx Log.
 block|}
 return|return
 name|super
@@ -2395,6 +2442,14 @@ name|boolean
 name|closing
 init|=
 literal|false
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|CLOSE_WAIT_ON_COMMIT_PENDING
+init|=
+literal|1000
 decl_stmt|;
 comment|/**    * Get ready to close.    *     */
 name|void
@@ -2461,6 +2516,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
+literal|"commit pending: "
+operator|+
 name|s
 operator|.
 name|toString
@@ -2474,7 +2531,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|200
+name|CLOSE_WAIT_ON_COMMIT_PENDING
 argument_list|)
 expr_stmt|;
 block|}
@@ -3330,99 +3387,6 @@ literal|"Unexpected status on expired lease"
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-block|}
-comment|/** Wrapper which keeps track of rows returned by scanner. */
-specifier|private
-class|class
-name|ScannerWrapper
-implements|implements
-name|InternalScanner
-block|{
-specifier|private
-name|long
-name|transactionId
-decl_stmt|;
-specifier|private
-name|InternalScanner
-name|scanner
-decl_stmt|;
-comment|/**      * @param transactionId      * @param scanner      * @throws UnknownTransactionException      */
-specifier|public
-name|ScannerWrapper
-parameter_list|(
-specifier|final
-name|long
-name|transactionId
-parameter_list|,
-specifier|final
-name|InternalScanner
-name|scanner
-parameter_list|)
-throws|throws
-name|UnknownTransactionException
-block|{
-name|this
-operator|.
-name|transactionId
-operator|=
-name|transactionId
-expr_stmt|;
-name|this
-operator|.
-name|scanner
-operator|=
-name|scanner
-expr_stmt|;
-block|}
-specifier|public
-name|void
-name|close
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-name|scanner
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-specifier|public
-name|boolean
-name|next
-parameter_list|(
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-name|results
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|boolean
-name|result
-init|=
-name|scanner
-operator|.
-name|next
-argument_list|(
-name|results
-argument_list|)
-decl_stmt|;
-name|TransactionState
-name|state
-init|=
-name|getTransactionState
-argument_list|(
-name|transactionId
-argument_list|)
-decl_stmt|;
-comment|// FIXME need to weave in new stuff from this transaction too.
-return|return
-name|result
-return|;
 block|}
 block|}
 block|}

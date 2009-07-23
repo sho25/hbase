@@ -141,18 +141,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-operator|.
-name|Entry
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -390,22 +378,6 @@ operator|.
 name|tableindexed
 operator|.
 name|IndexedTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|BatchUpdate
 import|;
 end_import
 
@@ -997,30 +969,6 @@ name|newColumnValues
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-specifier|private
-name|void
-name|updateIndexes
-parameter_list|(
-name|Delete
-name|delete
-parameter_list|)
-block|{
-comment|// FIXME
-comment|// Handle delete batch updates. Go back and get the next older values
-comment|//    for (BatchOperation op : batchUpdate) {
-comment|//      if (!op.isPut()) {
-comment|//        Cell current = oldColumnCells.get(op.getColumn());
-comment|//        if (current != null) {
-comment|//          // TODO: Fix this profligacy!!! St.Ack
-comment|//          Cell [] older = Cell.createSingleCellArray(super.get(batchUpdate.getRow(),
-comment|//              op.getColumn(), current.getTimestamp(), 1));
-comment|//          if (older != null&& older.length> 0) {
-comment|//            newColumnValues.put(op.getColumn(), older[0].getValue());
-comment|//          }
-comment|//        }
-comment|//      }
-comment|//    }
 block|}
 comment|/** Return the columns needed for the update. */
 specifier|private

@@ -625,9 +625,9 @@ name|getIndexedScanner
 argument_list|(
 name|INDEX_COL_A
 argument_list|,
-name|HConstants
-operator|.
-name|EMPTY_START_ROW
+literal|null
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|,
