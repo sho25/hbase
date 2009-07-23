@@ -125,6 +125,20 @@ name|HbaseObjectWritable
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|Writable
+import|;
+end_import
+
 begin_comment
 comment|/**  * Implementation of {@link Filter} that represents an ordered List of Filters  * which will be evaluated with a specified boolean operator MUST_PASS_ALL   * (!AND) or MUST_PASS_ONE (!OR).  Since you can use Filter Lists as children  * of Filter Lists, you can create a hierarchy of filters to be evaluated.  *<p>TODO: Fix creation of Configuration on serialization and deserialization.   */
 end_comment
@@ -815,10 +829,9 @@ name|out
 argument_list|,
 name|filter
 argument_list|,
-name|filter
+name|Writable
 operator|.
-name|getClass
-argument_list|()
+name|class
 argument_list|,
 name|conf
 argument_list|)
