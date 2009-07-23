@@ -277,7 +277,7 @@ name|lib
 operator|.
 name|input
 operator|.
-name|FileInputFormat
+name|TextInputFormat
 import|;
 end_import
 
@@ -751,9 +751,9 @@ operator|!=
 literal|2
 condition|)
 block|{
-throw|throw
-operator|new
-name|IOException
+name|LOG
+operator|.
+name|warn
 argument_list|(
 name|family
 operator|.
@@ -765,8 +765,11 @@ operator|+
 name|infoAndMapfile
 operator|.
 name|length
+operator|+
+literal|". Continuing..."
 argument_list|)
-throw|;
+expr_stmt|;
+continue|continue;
 block|}
 comment|// Make sure directory named info or mapfile.
 for|for
@@ -819,9 +822,9 @@ literal|"mapfiles"
 argument_list|)
 condition|)
 continue|continue;
-throw|throw
-operator|new
-name|IOException
+name|LOG
+operator|.
+name|warn
 argument_list|(
 literal|"Unexpected directory name: "
 operator|+
@@ -832,8 +835,11 @@ index|]
 operator|.
 name|getPath
 argument_list|()
+operator|+
+literal|". Continuing..."
 argument_list|)
-throw|;
+expr_stmt|;
+continue|continue;
 block|}
 comment|// Now in family, there are 'mapfile' and 'info' subdirs.  Just
 comment|// look in the 'mapfile' subdir.
@@ -863,9 +869,9 @@ operator|>
 literal|1
 condition|)
 block|{
-throw|throw
-operator|new
-name|IOException
+name|LOG
+operator|.
+name|warn
 argument_list|(
 name|family
 operator|.
@@ -878,9 +884,10 @@ name|familyStatus
 operator|.
 name|length
 operator|+
-literal|" files."
+literal|" files.  Continuing..."
 argument_list|)
-throw|;
+expr_stmt|;
+continue|continue;
 block|}
 if|if
 condition|(
@@ -1107,7 +1114,7 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|FileInputFormat
+name|TextInputFormat
 operator|.
 name|setInputPaths
 argument_list|(
