@@ -561,7 +561,7 @@ name|MIGRATION_LINK
 init|=
 literal|" See http://wiki.apache.org/hadoop/Hbase/HowToMigrate for more information."
 decl_stmt|;
-comment|/**    * @param conf    */
+comment|/**    * Default constructor.    */
 specifier|public
 name|Migrate
 parameter_list|()
@@ -570,6 +570,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * @param conf    */
 specifier|public
 name|Migrate
 parameter_list|(
