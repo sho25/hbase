@@ -3882,6 +3882,34 @@ name|splits
 init|=
 literal|null
 decl_stmt|;
+comment|// Number of threads to use when log splitting to rewrite the logs.
+comment|// More means faster but bigger mem consumption.
+name|int
+name|logWriterThreads
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.regionserver.hlog.splitlog.writer.threads"
+argument_list|,
+literal|3
+argument_list|)
+decl_stmt|;
+comment|// Number of logs to read concurrently when log splitting.
+comment|// More means faster but bigger mem consumption  */
+name|int
+name|concurrentLogReads
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.regionserver.hlog.splitlog.reader.threads"
+argument_list|,
+literal|3
+argument_list|)
+decl_stmt|;
 try|try
 block|{
 name|int
@@ -3903,7 +3931,7 @@ operator|*
 literal|1.0
 operator|)
 operator|/
-name|DEFAULT_NUMBER_CONCURRENT_LOG_READS
+name|concurrentLogReads
 argument_list|)
 argument_list|)
 operator|.
@@ -3971,9 +3999,9 @@ name|length
 else|:
 name|step
 operator|*
-name|DEFAULT_NUMBER_CONCURRENT_LOG_READS
+name|concurrentLogReads
 operator|+
-name|DEFAULT_NUMBER_CONCURRENT_LOG_READS
+name|concurrentLogReads
 decl_stmt|;
 for|for
 control|(
@@ -4429,7 +4457,7 @@ name|Executors
 operator|.
 name|newFixedThreadPool
 argument_list|(
-name|DEFAULT_NUMBER_LOG_WRITER_THREAD
+name|logWriterThreads
 argument_list|)
 decl_stmt|;
 for|for

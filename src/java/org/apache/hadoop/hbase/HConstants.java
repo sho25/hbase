@@ -339,22 +339,6 @@ literal|1024
 operator|*
 literal|5
 decl_stmt|;
-comment|/** Default number of threads to use when log splitting     *  to rewrite the logs. More means faster but bigger mem consumption */
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_NUMBER_LOG_WRITER_THREAD
-init|=
-literal|10
-decl_stmt|;
-comment|/** Default number of logs to read concurrently    *  when log splitting. More means faster but bigger mem consumption  */
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_NUMBER_CONCURRENT_LOG_READS
-init|=
-literal|10
-decl_stmt|;
 comment|/** Maximum value length, enforced on KeyValue construction */
 specifier|static
 specifier|final
