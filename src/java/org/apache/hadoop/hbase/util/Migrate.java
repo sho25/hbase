@@ -570,7 +570,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * @param conf    */
+comment|/**    * @param c    */
 specifier|public
 name|Migrate
 parameter_list|(
