@@ -1636,7 +1636,7 @@ literal|"Failed to create "
 operator|+
 name|znode
 operator|+
-literal|" -- check quorum servers, currenty="
+literal|" -- check quorum servers, currently="
 operator|+
 name|this
 operator|.
@@ -1660,7 +1660,7 @@ literal|"Failed to create "
 operator|+
 name|znode
 operator|+
-literal|" -- check quorum servers, currenty="
+literal|" -- check quorum servers, currently="
 operator|+
 name|this
 operator|.
