@@ -1067,7 +1067,7 @@ do|;
 block|}
 finally|finally
 block|{
-name|r
+name|s
 operator|.
 name|close
 argument_list|()
