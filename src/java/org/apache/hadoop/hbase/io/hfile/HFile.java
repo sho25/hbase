@@ -3968,7 +3968,7 @@ return|return
 name|buf
 return|;
 block|}
-comment|/**      * @return First key in the file.      */
+comment|/**      * @return First key in the file.  May be null if file has no entries.      */
 specifier|public
 name|byte
 index|[]
@@ -3991,6 +3991,17 @@ argument_list|)
 throw|;
 block|}
 return|return
+name|this
+operator|.
+name|blockIndex
+operator|.
+name|isEmpty
+argument_list|()
+condition|?
+literal|null
+else|:
+name|this
+operator|.
 name|blockIndex
 operator|.
 name|blockKeys
@@ -4029,7 +4040,7 @@ operator|.
 name|entryCount
 return|;
 block|}
-comment|/**      * @return Last key in the file.      */
+comment|/**      * @return Last key in the file.  May be null if file has no entries.      */
 specifier|public
 name|byte
 index|[]
@@ -4052,6 +4063,15 @@ argument_list|)
 throw|;
 block|}
 return|return
+name|this
+operator|.
+name|blockIndex
+operator|.
+name|isEmpty
+argument_list|()
+condition|?
+literal|null
+else|:
 name|this
 operator|.
 name|lastkey

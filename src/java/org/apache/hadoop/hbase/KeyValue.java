@@ -2562,6 +2562,15 @@ name|int
 name|l
 parameter_list|)
 block|{
+if|if
+condition|(
+name|b
+operator|==
+literal|null
+condition|)
+return|return
+literal|""
+return|;
 name|int
 name|rowlength
 init|=

@@ -2740,7 +2740,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Compaction
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Compact the StoreFiles.  This method may take some time, so the calling     * thread must be able to block for long periods.    *     *<p>During this time, the Store can work as usual, getting values from    * MapFiles and writing new MapFiles from the memstore.    *     * Existing MapFiles are not destroyed until the new compacted TreeMap is     * completely written-out to disk.    *    * The compactLock prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *     * We don't want to hold the structureLock for the whole time, as a compact()     * can be lengthy and we want to allow cache-flushes during this period.    *     * @param mc True to force a major compaction regardless of    * thresholds    * @return row to split around if a split is needed, null otherwise    * @throws IOException    */
+comment|/**    * Compact the StoreFiles.  This method may take some time, so the calling     * thread must be able to block for long periods.    *     *<p>During this time, the Store can work as usual, getting values from    * StoreFiles and writing new StoreFiles from the memstore.    *     * Existing StoreFiles are not destroyed until the new compacted StoreFile is     * completely written-out to disk.    *    *<p>The compactLock prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *     *<p>We don't want to hold the structureLock for the whole time, as a compact()     * can be lengthy and we want to allow cache-flushes during this period.    *     * @param mc True to force a major compaction regardless of thresholds    * @return row to split around if a split is needed, null otherwise    * @throws IOException    */
 name|StoreSize
 name|compact
 parameter_list|(
@@ -2773,12 +2773,6 @@ init|(
 name|compactLock
 init|)
 block|{
-name|long
-name|maxId
-init|=
-operator|-
-literal|1
-decl_stmt|;
 comment|// filesToCompact are sorted oldest to newest.
 name|List
 argument_list|<
@@ -2786,10 +2780,6 @@ name|StoreFile
 argument_list|>
 name|filesToCompact
 init|=
-literal|null
-decl_stmt|;
-name|filesToCompact
-operator|=
 operator|new
 name|ArrayList
 argument_list|<
@@ -2803,15 +2793,13 @@ operator|.
 name|values
 argument_list|()
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|filesToCompact
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|<=
-literal|0
 condition|)
 block|{
 name|LOG
@@ -2829,10 +2817,10 @@ return|return
 literal|null
 return|;
 block|}
-comment|// The max-sequenceID in any of the to-be-compacted TreeMaps is the
-comment|// last key of storefiles.
+comment|// Max-sequenceID is the last key of the storefiles TreeMap
+name|long
 name|maxId
-operator|=
+init|=
 name|this
 operator|.
 name|storefiles
@@ -2842,7 +2830,7 @@ argument_list|()
 operator|.
 name|longValue
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 comment|// Check to see if we need to do a major compaction on this region.
 comment|// If so, change doMajorCompaction to true to skip the incremental
 comment|// compacting below. Only check if doMajorCompaction is not true.
@@ -3258,27 +3246,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Step through them, writing to the brand-new file
-name|HFile
-operator|.
-name|Writer
-name|writer
-init|=
-name|getWriter
-argument_list|(
-name|this
-operator|.
-name|regionCompactionDir
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
+comment|// Ready to go.  Have list of files to compact.
 name|LOG
 operator|.
 name|debug
@@ -3306,54 +3274,41 @@ name|FSUtils
 operator|.
 name|getPath
 argument_list|(
-name|writer
+name|this
 operator|.
-name|getPath
-argument_list|()
+name|regionCompactionDir
 argument_list|)
+operator|+
+literal|", seqid="
+operator|+
+name|maxId
 argument_list|)
 expr_stmt|;
-block|}
-try|try
-block|{
+name|HFile
+operator|.
+name|Writer
+name|writer
+init|=
 name|compact
 argument_list|(
-name|writer
-argument_list|,
 name|filesToCompact
 argument_list|,
 name|majorcompaction
-argument_list|)
-expr_stmt|;
-block|}
-finally|finally
-block|{
-comment|// Now, write out an HSTORE_LOGINFOFILE for the brand-new TreeMap.
-name|StoreFile
-operator|.
-name|appendMetadata
-argument_list|(
-name|writer
 argument_list|,
 name|maxId
-argument_list|,
-name|majorcompaction
 argument_list|)
-expr_stmt|;
-name|writer
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
+decl_stmt|;
 comment|// Move the compaction into place.
+name|StoreFile
+name|sf
+init|=
 name|completeCompaction
 argument_list|(
 name|filesToCompact
 argument_list|,
 name|writer
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|LOG
@@ -3381,6 +3336,21 @@ operator|+
 name|this
 operator|.
 name|storeNameStr
+operator|+
+literal|"; new storefile is "
+operator|+
+operator|(
+name|sf
+operator|==
+literal|null
+condition|?
+literal|"none"
+else|:
+name|sf
+operator|.
+name|toString
+argument_list|()
+operator|)
 operator|+
 literal|"; store size is "
 operator|+
@@ -3786,29 +3756,32 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Do a minor/major compaction.  Uses the scan infrastructure to make it easy.    *     * @param writer output writer    * @param filesToCompact which files to compact    * @param majorCompaction true to major compact (prune all deletes, max versions, etc)    * @throws IOException    */
+comment|/**    * Do a minor/major compaction.  Uses the scan infrastructure to make it easy.    *     * @param writer output writer    * @param filesToCompact which files to compact    * @param majorCompaction true to major compact (prune all deletes, max versions, etc)    * @param maxId Readers maximum sequence id.    * @return Product of compaction or null if all cells expired or deleted and    * nothing made it through the compaction.    * @throws IOException    */
 specifier|private
-name|void
-name|compact
-parameter_list|(
 name|HFile
 operator|.
 name|Writer
-name|writer
-parameter_list|,
+name|compact
+parameter_list|(
+specifier|final
 name|List
 argument_list|<
 name|StoreFile
 argument_list|>
 name|filesToCompact
 parameter_list|,
+specifier|final
 name|boolean
 name|majorCompaction
+parameter_list|,
+specifier|final
+name|long
+name|maxId
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// for each file, obtain a scanner:
+comment|// For each file, obtain a scanner:
 name|KeyValueScanner
 index|[]
 name|scanners
@@ -3822,7 +3795,6 @@ name|size
 argument_list|()
 index|]
 decl_stmt|;
-comment|// init:
 for|for
 control|(
 name|int
@@ -3841,7 +3813,6 @@ operator|++
 name|i
 control|)
 block|{
-comment|// TODO open a new HFile.Reader w/o block cache.
 name|Reader
 name|r
 init|=
@@ -3898,6 +3869,17 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Make the instantiation lazy in case compaction produces no product; i.e.
+comment|// where all source cells are expired or deleted.
+name|HFile
+operator|.
+name|Writer
+name|writer
+init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
 if|if
 condition|(
 name|majorCompaction
@@ -3945,7 +3927,7 @@ name|ArrayList
 argument_list|<
 name|KeyValue
 argument_list|>
-name|row
+name|kvs
 init|=
 operator|new
 name|ArrayList
@@ -3970,7 +3952,7 @@ name|scanner
 operator|.
 name|next
 argument_list|(
-name|row
+name|kvs
 argument_list|)
 expr_stmt|;
 comment|// output to writer:
@@ -3979,9 +3961,24 @@ control|(
 name|KeyValue
 name|kv
 range|:
-name|row
+name|kvs
 control|)
 block|{
+if|if
+condition|(
+name|writer
+operator|==
+literal|null
+condition|)
+name|writer
+operator|=
+name|getWriter
+argument_list|(
+name|this
+operator|.
+name|regionCompactionDir
+argument_list|)
+expr_stmt|;
 name|writer
 operator|.
 name|append
@@ -3990,7 +3987,7 @@ name|kv
 argument_list|)
 expr_stmt|;
 block|}
-name|row
+name|kvs
 operator|.
 name|clear
 argument_list|()
@@ -4031,6 +4028,15 @@ argument_list|,
 name|scanners
 argument_list|)
 expr_stmt|;
+name|writer
+operator|=
+name|getWriter
+argument_list|(
+name|this
+operator|.
+name|regionCompactionDir
+argument_list|)
+expr_stmt|;
 while|while
 condition|(
 name|scanner
@@ -4040,7 +4046,9 @@ argument_list|(
 name|writer
 argument_list|)
 condition|)
-block|{ }
+block|{
+comment|// Nothing to do
+block|}
 block|}
 finally|finally
 block|{
@@ -4058,9 +4066,40 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/*    * It's assumed that the compactLock  will be acquired prior to calling this     * method!  Otherwise, it is not thread-safe!    *    * It works by processing a compaction that's been written to disk.    *     *<p>It is usually invoked at the end of a compaction, but might also be    * invoked at HStore startup, if the prior execution died midway through.    *     *<p>Moving the compacted TreeMap into place means:    *<pre>    * 1) Moving the new compacted MapFile into place    * 2) Unload all replaced MapFiles, close and collect list to delete.    * 3) Loading the new TreeMap.    * 4) Compute new store size    *</pre>    *     * @param compactedFiles list of files that were compacted    * @param compactedFile HStoreFile that is the result of the compaction    * @throws IOException    */
+finally|finally
+block|{
+if|if
+condition|(
+name|writer
+operator|!=
+literal|null
+condition|)
+block|{
+name|StoreFile
+operator|.
+name|appendMetadata
+argument_list|(
+name|writer
+argument_list|,
+name|maxId
+argument_list|,
+name|majorCompaction
+argument_list|)
+expr_stmt|;
+name|writer
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+return|return
+name|writer
+return|;
+block|}
+comment|/*    * It's assumed that the compactLock  will be acquired prior to calling this     * method!  Otherwise, it is not thread-safe!    *    *<p>It works by processing a compaction that's been written to disk.    *     *<p>It is usually invoked at the end of a compaction, but might also be    * invoked at HStore startup, if the prior execution died midway through.    *     *<p>Moving the compacted TreeMap into place means:    *<pre>    * 1) Moving the new compacted StoreFile into place    * 2) Unload all replaced StoreFile, close and collect list to delete.    * 3) Loading the new TreeMap.    * 4) Compute new store size    *</pre>    *     * @param compactedFiles list of files that were compacted    * @param compactedFile StoreFile that is the result of the compaction    * @return StoreFile created. May be null.    * @throws IOException    */
 specifier|private
-name|void
+name|StoreFile
 name|completeCompaction
 parameter_list|(
 specifier|final
@@ -4079,7 +4118,20 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// 1. Moving the new files into place.
+comment|// 1. Moving the new files into place -- if there is a new file (may not
+comment|// be if all cells were expired or deleted).
+name|StoreFile
+name|result
+init|=
+literal|null
+decl_stmt|;
+if|if
+condition|(
+name|compactedFile
+operator|!=
+literal|null
+condition|)
+block|{
 name|Path
 name|p
 init|=
@@ -4135,11 +4187,12 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+literal|null
+return|;
 block|}
-name|StoreFile
-name|finalCompactedFile
-init|=
+name|result
+operator|=
 operator|new
 name|StoreFile
 argument_list|(
@@ -4159,7 +4212,8 @@ name|this
 operator|.
 name|inMemory
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|lock
@@ -4174,6 +4228,7 @@ try|try
 block|{
 try|try
 block|{
+comment|// 2. Unloading
 comment|// 3. Loading the new TreeMap.
 comment|// Change this.storefiles so it reflects new state but do not
 comment|// delete old store files until we have sent out notification of
@@ -4226,7 +4281,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Add new compacted Reader and store file.
+comment|// If a StoreFile result, move it into place.  May be null.
+if|if
+condition|(
+name|result
+operator|!=
+literal|null
+condition|)
+block|{
 name|Long
 name|orderVal
 init|=
@@ -4234,7 +4296,7 @@ name|Long
 operator|.
 name|valueOf
 argument_list|(
-name|finalCompactedFile
+name|result
 operator|.
 name|getMaxSequenceId
 argument_list|()
@@ -4248,10 +4310,11 @@ name|put
 argument_list|(
 name|orderVal
 argument_list|,
-name|finalCompactedFile
+name|result
 argument_list|)
 expr_stmt|;
-comment|// Tell observers that list of Readers has changed.
+block|}
+comment|// Tell observers that list of StoreFiles has changed.
 name|notifyChangedReadersObservers
 argument_list|()
 expr_stmt|;
@@ -4290,7 +4353,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed replacing compacted files for "
+literal|"Failed replacing compacted files in "
 operator|+
 name|this
 operator|.
@@ -4298,12 +4361,20 @@ name|storeNameStr
 operator|+
 literal|". Compacted file is "
 operator|+
-name|finalCompactedFile
+operator|(
+name|result
+operator|==
+literal|null
+condition|?
+literal|"none"
+else|:
+name|result
 operator|.
 name|toString
 argument_list|()
+operator|)
 operator|+
-literal|".  Files replaced are "
+literal|".  Files replaced "
 operator|+
 name|compactedFiles
 operator|.
@@ -4388,6 +4459,9 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
+return|return
+name|result
+return|;
 block|}
 comment|// ////////////////////////////////////////////////////////////////////////////
 comment|// Accessors.

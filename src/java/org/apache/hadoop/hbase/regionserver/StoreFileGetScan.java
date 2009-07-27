@@ -252,6 +252,16 @@ operator|.
 name|getFirstKey
 argument_list|()
 decl_stmt|;
+comment|// Key may be null if storefile is empty.
+if|if
+condition|(
+name|firstKey
+operator|==
+literal|null
+condition|)
+return|return
+literal|false
+return|;
 name|short
 name|rowLen
 init|=
