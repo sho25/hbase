@@ -1985,8 +1985,6 @@ literal|"NONE"
 argument_list|,
 literal|false
 argument_list|,
-literal|2147483647
-argument_list|,
 literal|"NONE"
 argument_list|,
 literal|0
