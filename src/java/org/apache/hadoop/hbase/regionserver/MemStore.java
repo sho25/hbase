@@ -302,7 +302,7 @@ specifier|final
 name|long
 name|ttl
 decl_stmt|;
-comment|// MemStore.  Use a SkipListMap rather than SkipListSet because of the
+comment|// MemStore.  Use a KeyValueSkipListSet rather than SkipListSet because of the
 comment|// better semantics.  The Map will overwrite if passed a key it already had
 comment|// whereas the Set will not add new KV if key is same though value might be
 comment|// different.  Value is not important -- just make sure always same
@@ -2328,7 +2328,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    *    * @param set memstore or snapshot    * @param matcher query matcher    * @param result list to add results to    * @return true if done with store (early-out), false if not    * @throws IOException    */
-specifier|private
 name|boolean
 name|internalGet
 parameter_list|(
