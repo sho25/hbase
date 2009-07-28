@@ -63,6 +63,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -351,7 +361,16 @@ name|this
 operator|.
 name|row
 operator|=
+name|Arrays
+operator|.
+name|copyOf
+argument_list|(
 name|row
+argument_list|,
+name|row
+operator|.
+name|length
+argument_list|)
 expr_stmt|;
 if|if
 condition|(
@@ -627,7 +646,10 @@ name|familyMap
 operator|.
 name|put
 argument_list|(
-name|family
+name|kv
+operator|.
+name|getFamily
+argument_list|()
 argument_list|,
 name|list
 argument_list|)
@@ -636,7 +658,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Add the specified KeyValue to this Put operation.    * @param kv    */
+comment|/**    * Add the specified KeyValue to this Put operation.  Operation assumes that     * the passed KeyValue is immutable and its backing array will not be modified    * for the duration of this Put.    * @param kv    */
 specifier|public
 name|Put
 name|add
