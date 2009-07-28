@@ -125,6 +125,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|DoNotRetryIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -210,6 +224,20 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|NotServingRegionException
 import|;
 end_import
 
@@ -422,7 +450,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to communicate with a single HBase table  * TODO: checkAndSave in oldAPI  * TODO: Converting filters  * TODO: Regex deletes.  */
+comment|/**  * Used to communicate with a single HBase table  * TODO: checkAndSave in oldAPI  * TODO: Regex deletes.  */
 end_comment
 
 begin_class
@@ -5241,6 +5269,7 @@ name|getClass
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// HEADSUP: The scan internal start row can change as we move through table.
 specifier|private
 name|Scan
 name|scan
@@ -5251,6 +5280,8 @@ name|closed
 init|=
 literal|false
 decl_stmt|;
+comment|// Current region scanner is against.  Gets cleared if current region goes
+comment|// wonky: e.g. if it splits on us.
 specifier|private
 name|HRegionInfo
 name|currentRegion
@@ -5281,7 +5312,7 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|int
-name|scannerCaching
+name|caching
 init|=
 name|HTable
 operator|.
@@ -5292,6 +5323,13 @@ decl_stmt|;
 specifier|private
 name|long
 name|lastNext
+decl_stmt|;
+comment|// Keep lastResult returned successfully in case we have to reset scanner.
+specifier|private
+name|Result
+name|lastResult
+init|=
+literal|null
 decl_stmt|;
 specifier|protected
 name|ClientScanner
@@ -5372,7 +5410,7 @@ name|nextScanner
 argument_list|(
 name|this
 operator|.
-name|scannerCaching
+name|caching
 argument_list|)
 expr_stmt|;
 block|}
@@ -5394,7 +5432,7 @@ return|return
 name|lastNext
 return|;
 block|}
-comment|/*      * Gets a scanner for the next region.      * Returns false if there are no more scanners.      */
+comment|/*      * Gets a scanner for the next region.  If this.currentRegion != null, then      * we will move to the endrow of this.currentRegion.  Else we will get      * scanner at the scan.getStartRow().      * @param nbRows      */
 specifier|private
 name|boolean
 name|nextScanner
@@ -5437,10 +5475,19 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+comment|// Where to start the next scanner
+name|byte
+index|[]
+name|localStartKey
+init|=
+literal|null
+decl_stmt|;
 comment|// if we're at the end of the table, then close and return false
 comment|// to stop iterating
 if|if
 condition|(
+name|this
+operator|.
 name|currentRegion
 operator|!=
 literal|null
@@ -5458,8 +5505,10 @@ name|CLIENT_LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Advancing forward from region "
+literal|"Finished with region "
 operator|+
+name|this
+operator|.
 name|currentRegion
 argument_list|)
 expr_stmt|;
@@ -5468,6 +5517,8 @@ name|byte
 index|[]
 name|endKey
 init|=
+name|this
+operator|.
 name|currentRegion
 operator|.
 name|getEndKey
@@ -5503,32 +5554,23 @@ return|return
 literal|false
 return|;
 block|}
+name|localStartKey
+operator|=
+name|endKey
+expr_stmt|;
 block|}
-name|HRegionInfo
-name|oldRegion
-init|=
+else|else
+block|{
+name|localStartKey
+operator|=
 name|this
 operator|.
-name|currentRegion
-decl_stmt|;
-name|byte
-index|[]
-name|localStartKey
-init|=
-name|oldRegion
-operator|==
-literal|null
-condition|?
 name|scan
 operator|.
 name|getStartRow
 argument_list|()
-else|:
-name|oldRegion
-operator|.
-name|getEndKey
-argument_list|()
-decl_stmt|;
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|CLIENT_LOG
@@ -5565,7 +5607,7 @@ argument_list|,
 name|nbRows
 argument_list|)
 expr_stmt|;
-comment|// open a scanner on the region server starting at the
+comment|// Open a scanner on the region server starting at the
 comment|// beginning of the region
 name|getConnection
 argument_list|()
@@ -5575,6 +5617,8 @@ argument_list|(
 name|callable
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|currentRegion
 operator|=
 name|callable
@@ -5612,6 +5656,13 @@ name|int
 name|nbRows
 parameter_list|)
 block|{
+name|scan
+operator|.
+name|setStartRow
+argument_list|(
+name|localStartKey
+argument_list|)
+expr_stmt|;
 name|ScannerCallable
 name|s
 init|=
@@ -5623,8 +5674,6 @@ argument_list|()
 argument_list|,
 name|getTableName
 argument_list|()
-argument_list|,
-name|localStartKey
 argument_list|,
 name|scan
 argument_list|)
@@ -5850,7 +5899,7 @@ name|countdown
 init|=
 name|this
 operator|.
-name|scannerCaching
+name|caching
 decl_stmt|;
 comment|// We need to reset it if it's a new callable that was created
 comment|// with a countdown in nextScanner
@@ -5860,9 +5909,16 @@ name|setCaching
 argument_list|(
 name|this
 operator|.
-name|scannerCaching
+name|caching
 argument_list|)
 expr_stmt|;
+comment|// This flag is set when we want to skip the result returned.  We do
+comment|// this when we reset scanner because it split under us.
+name|boolean
+name|skipFirst
+init|=
+literal|false
+decl_stmt|;
 do|do
 block|{
 try|try
@@ -5877,6 +5933,90 @@ argument_list|(
 name|callable
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|skipFirst
+condition|)
+block|{
+name|skipFirst
+operator|=
+literal|false
+expr_stmt|;
+comment|// Reget.
+name|values
+operator|=
+name|getConnection
+argument_list|()
+operator|.
+name|getRegionServerWithRetries
+argument_list|(
+name|callable
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|DoNotRetryIOException
+name|e
+parameter_list|)
+block|{
+name|Throwable
+name|cause
+init|=
+name|e
+operator|.
+name|getCause
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|cause
+operator|==
+literal|null
+operator|||
+operator|!
+operator|(
+name|cause
+operator|instanceof
+name|NotServingRegionException
+operator|)
+condition|)
+block|{
+throw|throw
+name|e
+throw|;
+block|}
+comment|// Else, its signal from depths of ScannerCallable that we got an
+comment|// NSRE on a next and that we need to reset the scanner.
+name|this
+operator|.
+name|scan
+operator|.
+name|setStartRow
+argument_list|(
+name|this
+operator|.
+name|lastResult
+operator|.
+name|getRow
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Clear region as flag to nextScanner to use this.scan.startRow.
+name|this
+operator|.
+name|currentRegion
+operator|=
+literal|null
+expr_stmt|;
+comment|// Skip first row returned.  We already let it out on previous
+comment|// invocation.
+name|skipFirst
+operator|=
+literal|true
+expr_stmt|;
+continue|continue;
 block|}
 catch|catch
 parameter_list|(
@@ -5959,6 +6099,12 @@ argument_list|)
 expr_stmt|;
 name|countdown
 operator|--
+expr_stmt|;
+name|this
+operator|.
+name|lastResult
+operator|=
+name|rs
 expr_stmt|;
 block|}
 block|}

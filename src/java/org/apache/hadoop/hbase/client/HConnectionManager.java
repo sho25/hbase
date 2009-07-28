@@ -530,21 +530,6 @@ name|HConnectionManager
 implements|implements
 name|HConstants
 block|{
-specifier|private
-specifier|static
-specifier|final
-name|Log
-name|LOG
-init|=
-name|LogFactory
-operator|.
-name|getLog
-argument_list|(
-name|HConnectionManager
-operator|.
-name|class
-argument_list|)
-decl_stmt|;
 comment|/*    * Not instantiable.    */
 specifier|protected
 name|HConnectionManager
@@ -626,13 +611,6 @@ argument_list|(
 name|conf
 argument_list|,
 name|connection
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Created new HBASE_INSTANCES"
 argument_list|)
 expr_stmt|;
 block|}
@@ -742,7 +720,6 @@ name|HConstants
 implements|,
 name|Watcher
 block|{
-specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -2009,11 +1986,6 @@ name|HConstants
 operator|.
 name|META_TABLE_NAME
 operator|)
-argument_list|,
-name|scan
-operator|.
-name|getStartRow
-argument_list|()
 argument_list|,
 name|scan
 argument_list|)

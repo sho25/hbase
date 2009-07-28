@@ -2822,7 +2822,7 @@ name|KeyValue
 operator|.
 name|keyToString
 argument_list|(
-name|getFirstKey
+name|getLastKey
 argument_list|()
 argument_list|)
 return|;

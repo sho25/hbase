@@ -206,11 +206,6 @@ argument_list|,
 name|META_TABLE_NAME
 argument_list|,
 name|scan
-operator|.
-name|getStartRow
-argument_list|()
-argument_list|,
-name|scan
 argument_list|)
 expr_stmt|;
 comment|// Open scanner

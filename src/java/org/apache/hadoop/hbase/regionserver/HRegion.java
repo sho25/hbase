@@ -666,7 +666,6 @@ literal|false
 argument_list|)
 decl_stmt|;
 comment|/* Closing can take some time; use the closing flag if there is stuff we don't     * want to do while in closing state; e.g. like offer this region up to the     * master as a region to close if the carrying regionserver is overloaded.    * Once set, it is never cleared.    */
-specifier|private
 specifier|final
 name|AtomicBoolean
 name|closing
@@ -6506,7 +6505,6 @@ operator|.
 name|basedir
 return|;
 block|}
-comment|//TODO
 comment|/**    * RegionScanner is an iterator through a bunch of rows in an HRegion.    *<p>    * It is used to combine scanners from multiple Stores (aka column families).    */
 class|class
 name|RegionScanner
@@ -6693,7 +6691,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Get the next row of results from this region.      * @param results list to append results to      * @return true if there are more rows, false if scanner is done      */
+comment|/**      * Get the next row of results from this region.      * @param results list to append results to      * @return true if there are more rows, false if scanner is done      * @throws NotServerRegionException If this region is closing or closed      */
 specifier|public
 name|boolean
 name|next
@@ -6707,6 +6705,47 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|closing
+operator|.
+name|get
+argument_list|()
+operator|||
+name|closed
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+name|close
+argument_list|()
+expr_stmt|;
+throw|throw
+operator|new
+name|NotServingRegionException
+argument_list|(
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" is closing="
+operator|+
+name|closing
+operator|.
+name|get
+argument_list|()
+operator|+
+literal|" or closed="
+operator|+
+name|closed
+operator|.
+name|get
+argument_list|()
+argument_list|)
+throw|;
+block|}
 comment|// This method should probably be reorganized a bit... has gotten messy
 name|KeyValue
 name|kv

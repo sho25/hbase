@@ -118,11 +118,6 @@ name|byte
 index|[]
 name|tableName
 parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|startRow
-parameter_list|,
 name|Scan
 name|scan
 parameter_list|)
@@ -132,8 +127,6 @@ argument_list|(
 name|connection
 argument_list|,
 name|tableName
-argument_list|,
-name|startRow
 argument_list|,
 name|scan
 argument_list|)
