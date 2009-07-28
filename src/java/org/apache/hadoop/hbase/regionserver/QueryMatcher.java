@@ -939,21 +939,6 @@ operator|.
 name|reset
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|filter
-operator|!=
-literal|null
-condition|)
-name|this
-operator|.
-name|filter
-operator|.
-name|reset
-argument_list|()
-expr_stmt|;
 block|}
 comment|/**    * Set current row    * @param row    */
 specifier|public
