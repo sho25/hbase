@@ -823,6 +823,21 @@ continue|continue;
 case|case
 name|DONE
 case|:
+if|if
+condition|(
+name|matcher
+operator|.
+name|filterEntireRow
+argument_list|()
+condition|)
+block|{
+comment|// nuke all results, and then return.
+name|results
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
 comment|// copy jazz
 name|outResult
 operator|.
@@ -837,6 +852,21 @@ return|;
 case|case
 name|DONE_SCAN
 case|:
+if|if
+condition|(
+name|matcher
+operator|.
+name|filterEntireRow
+argument_list|()
+condition|)
+block|{
+comment|// nuke all results, and then return.
+name|results
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
 name|close
 argument_list|()
 expr_stmt|;
@@ -892,6 +922,21 @@ literal|"UNEXPECTED"
 argument_list|)
 throw|;
 block|}
+block|}
+if|if
+condition|(
+name|matcher
+operator|.
+name|filterEntireRow
+argument_list|()
+condition|)
+block|{
+comment|// nuke all results, and then return.
+name|results
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 block|}
 if|if
 condition|(
