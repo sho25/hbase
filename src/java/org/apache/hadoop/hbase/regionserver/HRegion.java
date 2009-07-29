@@ -978,6 +978,10 @@ specifier|private
 name|long
 name|minSequenceId
 decl_stmt|;
+specifier|private
+name|boolean
+name|splitRequest
+decl_stmt|;
 comment|/**    * Name of the region info file that resides just under the region directory.    */
 specifier|public
 specifier|final
@@ -6020,8 +6024,6 @@ argument_list|(
 name|baseDir
 argument_list|,
 name|this
-operator|.
-name|regionInfo
 argument_list|,
 name|c
 argument_list|,
@@ -10371,6 +10373,32 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+block|}
+comment|/**    * For internal use in forcing splits ahead of file size limit.    * @param b    * @return previous value    */
+specifier|public
+name|boolean
+name|shouldSplit
+parameter_list|(
+name|boolean
+name|b
+parameter_list|)
+block|{
+name|boolean
+name|old
+init|=
+name|this
+operator|.
+name|splitRequest
+decl_stmt|;
+name|this
+operator|.
+name|splitRequest
+operator|=
+name|b
+expr_stmt|;
+return|return
+name|old
+return|;
 block|}
 comment|/**    * Facility for dumping and compacting catalog tables.    * Only does catalog tables since these are only tables we for sure know    * schema on.  For usage run:    *<pre>    *   ./bin/hbase org.apache.hadoop.hbase.regionserver.HRegion    *</pre>    * @param args    * @throws IOException     */
 specifier|public

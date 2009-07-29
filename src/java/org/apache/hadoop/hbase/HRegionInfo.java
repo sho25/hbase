@@ -317,12 +317,6 @@ init|=
 name|NO_HASH
 decl_stmt|;
 specifier|private
-name|boolean
-name|splitRequest
-init|=
-literal|false
-decl_stmt|;
-specifier|private
 name|void
 name|setHashCode
 parameter_list|()
@@ -1967,32 +1961,6 @@ name|o
 operator|.
 name|endKey
 argument_list|)
-return|;
-block|}
-comment|/**    * For internal use in forcing splits ahead of file size limit.    * @param b    * @return previous value    */
-specifier|public
-name|boolean
-name|shouldSplit
-parameter_list|(
-name|boolean
-name|b
-parameter_list|)
-block|{
-name|boolean
-name|old
-init|=
-name|this
-operator|.
-name|splitRequest
-decl_stmt|;
-name|this
-operator|.
-name|splitRequest
-operator|=
-name|b
-expr_stmt|;
-return|return
-name|old
 return|;
 block|}
 comment|/**    * @return Comparator to use comparing {@link KeyValue}s.    */

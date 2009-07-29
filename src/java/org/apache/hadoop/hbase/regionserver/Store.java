@@ -598,8 +598,8 @@ name|homedir
 decl_stmt|;
 specifier|private
 specifier|final
-name|HRegionInfo
-name|regioninfo
+name|HRegion
+name|region
 decl_stmt|;
 specifier|private
 specifier|final
@@ -775,8 +775,8 @@ parameter_list|(
 name|Path
 name|basedir
 parameter_list|,
-name|HRegionInfo
-name|info
+name|HRegion
+name|region
 parameter_list|,
 name|HColumnDescriptor
 name|family
@@ -797,6 +797,13 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|HRegionInfo
+name|info
+init|=
+name|region
+operator|.
+name|regionInfo
+decl_stmt|;
 name|this
 operator|.
 name|homedir
@@ -818,9 +825,9 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|regioninfo
+name|region
 operator|=
-name|info
+name|region
 expr_stmt|;
 name|this
 operator|.
@@ -1567,7 +1574,9 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|,
-name|regioninfo
+name|region
+operator|.
+name|regionInfo
 operator|.
 name|getRegionName
 argument_list|()
@@ -2492,7 +2501,9 @@ literal|" to "
 operator|+
 name|this
 operator|.
-name|regioninfo
+name|region
+operator|.
+name|regionInfo
 operator|.
 name|getRegionNameAsString
 argument_list|()
@@ -2763,7 +2774,7 @@ name|forceSplit
 init|=
 name|this
 operator|.
-name|regioninfo
+name|region
 operator|.
 name|shouldSplit
 argument_list|(
@@ -3977,6 +3988,7 @@ name|writer
 operator|==
 literal|null
 condition|)
+block|{
 name|writer
 operator|=
 name|getWriter
@@ -3986,6 +3998,7 @@ operator|.
 name|regionCompactionDir
 argument_list|)
 expr_stmt|;
+block|}
 name|writer
 operator|.
 name|append
@@ -4009,11 +4022,13 @@ name|scanner
 operator|!=
 literal|null
 condition|)
+block|{
 name|scanner
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 else|else
@@ -6446,6 +6461,16 @@ name|row
 return|;
 block|}
 block|}
+name|HRegion
+name|getHRegion
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|region
+return|;
+block|}
 name|HRegionInfo
 name|getHRegionInfo
 parameter_list|()
@@ -6453,7 +6478,9 @@ block|{
 return|return
 name|this
 operator|.
-name|regioninfo
+name|region
+operator|.
+name|regionInfo
 return|;
 block|}
 comment|/**    * Convenience method that implements the old MapFile.getClosest on top of    * HFile Scanners.  getClosest used seek to the asked-for key or just after    * (HFile seeks to the key or just before).    * @param s Scanner to use    * @param kv Key to find.    * @return True if we were able to seek the scanner to<code>b</code> or to    * the key just after.    * @throws IOException     */

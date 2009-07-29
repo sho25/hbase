@@ -7277,8 +7277,6 @@ argument_list|()
 expr_stmt|;
 name|region
 operator|.
-name|regionInfo
-operator|.
 name|shouldSplit
 argument_list|(
 literal|true
