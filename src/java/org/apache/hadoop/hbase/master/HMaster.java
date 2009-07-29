@@ -5654,6 +5654,46 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Need to make up a HServerInfo 'servername' for that is how
+comment|// items are keyed in regionmanager Maps.
+name|HServerAddress
+name|addr
+init|=
+operator|new
+name|HServerAddress
+argument_list|(
+name|servername
+argument_list|)
+decl_stmt|;
+name|long
+name|startCode
+init|=
+name|Bytes
+operator|.
+name|toLong
+argument_list|(
+name|rr
+operator|.
+name|getValue
+argument_list|(
+name|CATALOG_FAMILY
+argument_list|,
+name|STARTCODE_QUALIFIER
+argument_list|)
+argument_list|)
+decl_stmt|;
+name|String
+name|name
+init|=
+name|HServerInfo
+operator|.
+name|getServerName
+argument_list|(
+name|addr
+argument_list|,
+name|startCode
+argument_list|)
+decl_stmt|;
 name|LOG
 operator|.
 name|info
@@ -5665,9 +5705,9 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" as closed on "
+literal|" as closing on "
 operator|+
-name|servername
+name|name
 operator|+
 literal|"; cleaning SERVER + STARTCODE; "
 operator|+
@@ -5680,7 +5720,7 @@ name|regionManager
 operator|.
 name|setClosing
 argument_list|(
-name|servername
+name|name
 argument_list|,
 name|hri
 argument_list|,

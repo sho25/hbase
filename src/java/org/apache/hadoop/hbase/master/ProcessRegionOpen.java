@@ -95,39 +95,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Get
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Put
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Result
 import|;
 end_import
 
@@ -144,22 +112,6 @@ operator|.
 name|ipc
 operator|.
 name|HRegionInterface
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|BatchUpdate
 import|;
 end_import
 
@@ -327,41 +279,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Register the newly-available Region's location.
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"updating row "
-operator|+
-name|regionInfo
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|" in region "
-operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|metaRegionName
-argument_list|)
-operator|+
-literal|" with startcode "
-operator|+
-name|serverInfo
-operator|.
-name|getStartCode
-argument_list|()
-operator|+
-literal|" and server "
-operator|+
-name|serverInfo
-operator|.
-name|getServerAddress
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|Put
 name|p
 init|=
@@ -422,6 +339,41 @@ argument_list|(
 name|metaRegionName
 argument_list|,
 name|p
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Updated row "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" in region "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|metaRegionName
+argument_list|)
+operator|+
+literal|" with startcode="
+operator|+
+name|serverInfo
+operator|.
+name|getStartCode
+argument_list|()
+operator|+
+literal|", server="
+operator|+
+name|serverInfo
+operator|.
+name|getServerAddress
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
