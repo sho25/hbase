@@ -1621,6 +1621,13 @@ name|progress
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Instantiate a new KeyValue to perform Writable on
+name|val
+operator|=
+operator|new
+name|KeyValue
+argument_list|()
+expr_stmt|;
 block|}
 if|if
 condition|(
