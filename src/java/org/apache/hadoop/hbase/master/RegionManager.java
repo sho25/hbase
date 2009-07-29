@@ -1286,19 +1286,19 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"multi assing for "
+literal|"Assigning for "
 operator|+
 name|info
 operator|+
-literal|": nregions to assign: "
+literal|": total nregions to assign="
 operator|+
 name|nRegionsToAssign
 operator|+
-literal|" and nregions: "
+literal|", nregions to reach balance="
 operator|+
 name|nregions
 operator|+
-literal|" metaAssign: "
+literal|", isMetaAssign="
 operator|+
 name|isMetaAssign
 argument_list|)

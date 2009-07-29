@@ -1435,6 +1435,12 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+name|long
+name|firstSeqIdInLog
+init|=
+operator|-
+literal|1
+decl_stmt|;
 comment|// TODO: Move this memstoring over into MemStore.
 name|KeyValueSkipListSet
 name|reconstructedCache
@@ -1521,6 +1527,22 @@ name|val
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|firstSeqIdInLog
+operator|==
+operator|-
+literal|1
+condition|)
+block|{
+name|firstSeqIdInLog
+operator|=
+name|key
+operator|.
+name|getLogSeqNum
+argument_list|()
+expr_stmt|;
+block|}
 name|maxSeqIdInLog
 operator|=
 name|Math
@@ -1658,9 +1680,17 @@ literal|", skipped "
 operator|+
 name|skippedEdits
 operator|+
-literal|" because sequence id<= "
+literal|"; store maxSeqID="
 operator|+
 name|maxSeqID
+operator|+
+literal|", firstSeqIdInLog="
+operator|+
+name|firstSeqIdInLog
+operator|+
+literal|", maxSeqIdInLog="
+operator|+
+name|maxSeqIdInLog
 argument_list|)
 expr_stmt|;
 block|}
