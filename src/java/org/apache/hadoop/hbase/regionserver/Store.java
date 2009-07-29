@@ -768,7 +768,7 @@ operator|.
 name|KVComparator
 name|comparatorIgnoringType
 decl_stmt|;
-comment|/**    * Constructor    * @param basedir qualified path under which the region directory lives;    * generally the table subdirectory    * @param info HRegionInfo for this region    * @param family HColumnDescriptor for this column    * @param fs file system object    * @param reconstructionLog existing log file to apply if any    * @param conf configuration object    * @param reporter Call on a period so hosting server can report we're    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    * @throws IOException    */
+comment|/**    * Constructor    * @param basedir qualified path under which the region directory lives;    * generally the table subdirectory    * @param region    * @param family HColumnDescriptor for this column    * @param fs file system object    * @param reconstructionLog existing log file to apply if any    * @param conf configuration object    * @param reporter Call on a period so hosting server can report we're    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    * @throws IOException    */
 specifier|protected
 name|Store
 parameter_list|(
