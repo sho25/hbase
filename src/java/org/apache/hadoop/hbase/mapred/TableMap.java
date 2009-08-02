@@ -106,6 +106,8 @@ name|K
 extends|extends
 name|WritableComparable
 parameter_list|<
+name|?
+super|super
 name|K
 parameter_list|>
 parameter_list|,
