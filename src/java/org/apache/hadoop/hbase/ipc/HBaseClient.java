@@ -1080,6 +1080,8 @@ specifier|synchronized
 name|void
 name|setupIOstreams
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(
@@ -1285,6 +1287,9 @@ expr_stmt|;
 name|close
 argument_list|()
 expr_stmt|;
+throw|throw
+name|e
+throw|;
 block|}
 block|}
 comment|/* Handle connection failures      *      * If the current number of retries is equal to the max number of retries,      * stop retrying and throw the exception; Otherwise backoff 1 second and      * try connecting again.      *      * This Method is only called from inside setupIOstreams(), which is      * synchronized. Hence the sleep is synchronized; the locks will be retained.      *      * @param curRetries current number of retries      * @param maxRetries max number of retries allowed      * @param ioe failure reason      * @throws IOException if max number of retries is reached      */
