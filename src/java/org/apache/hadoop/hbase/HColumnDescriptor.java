@@ -254,6 +254,7 @@ comment|// Version 3 was when column names become byte arrays and when we picked
 comment|// Time-to-live feature.  Version 4 was when we moved to byte arrays, HBASE-82.
 comment|// Version 5 was when bloom filter descriptors were removed.
 comment|// Version 6 adds metadata as a map where keys and values are byte[].
+comment|// Version 7 -- add new compression and hfile blocksize to HColumnDescriptor (HBASE-1217)
 specifier|private
 specifier|static
 specifier|final

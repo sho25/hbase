@@ -274,14 +274,14 @@ block|{
 comment|// Changes prior to version 3 were not recorded here.
 comment|// Version 3 adds metadata as a map where keys and values are byte[].
 comment|// Version 4 adds indexes
-comment|// FIXME version 5 should remove indexes
+comment|// Version 5 removed transactional pollution -- e.g. indexes
 specifier|public
 specifier|static
 specifier|final
 name|byte
 name|TABLE_DESCRIPTOR_VERSION
 init|=
-literal|4
+literal|5
 decl_stmt|;
 specifier|private
 name|byte
