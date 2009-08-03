@@ -5527,8 +5527,10 @@ name|avg
 operator|<=
 literal|2.0
 condition|)
+block|{
 return|return;
-comment|// check if server is overloaded
+block|}
+comment|// check if current server is overloaded
 name|int
 name|numRegionsToClose
 init|=
@@ -5546,6 +5548,9 @@ name|numRegionsToClose
 operator|<=
 literal|0
 condition|)
+block|{
+name|numRegionsToClose
+operator|=
 name|balanceToLowloaded
 argument_list|(
 name|info
@@ -5558,12 +5563,14 @@ argument_list|,
 name|avg
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|maxRegToClose
 operator|>
 literal|0
 condition|)
+block|{
 name|numRegionsToClose
 operator|=
 name|Math
@@ -5575,6 +5582,7 @@ argument_list|,
 name|maxRegToClose
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|numRegionsToClose
@@ -5884,6 +5892,10 @@ operator|+
 literal|", regions can be moved: "
 operator|+
 name|numMoveToLowLoaded
+operator|+
+literal|". Regions to close: "
+operator|+
+name|numRegionsToClose
 argument_list|)
 expr_stmt|;
 block|}
