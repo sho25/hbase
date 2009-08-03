@@ -4016,7 +4016,7 @@ init|=
 operator|(
 name|step
 operator|*
-literal|10
+name|concurrentLogReads
 operator|)
 init|;
 name|i
