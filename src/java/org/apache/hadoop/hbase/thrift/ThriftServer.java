@@ -2245,8 +2245,12 @@ argument_list|)
 decl_stmt|;
 name|get
 operator|.
-name|setTimeStamp
+name|setTimeRange
 argument_list|(
+name|Long
+operator|.
+name|MIN_VALUE
+argument_list|,
 name|timestamp
 argument_list|)
 expr_stmt|;
@@ -2373,8 +2377,12 @@ block|}
 block|}
 name|get
 operator|.
-name|setTimeStamp
+name|setTimeRange
 argument_list|(
+name|Long
+operator|.
+name|MIN_VALUE
+argument_list|,
 name|timestamp
 argument_list|)
 expr_stmt|;
