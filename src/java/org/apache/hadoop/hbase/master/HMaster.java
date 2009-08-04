@@ -5654,6 +5654,25 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Take region out of the intransistions in case it got stuck there doing
+comment|// an open or whatever.
+name|this
+operator|.
+name|regionManager
+operator|.
+name|clearFromInTransition
+argument_list|(
+name|regionname
+argument_list|)
+expr_stmt|;
+comment|// If servername is still null, then none, exit.
+if|if
+condition|(
+name|servername
+operator|==
+literal|null
+condition|)
+break|break;
 comment|// Need to make up a HServerInfo 'servername' for that is how
 comment|// items are keyed in regionmanager Maps.
 name|HServerAddress
