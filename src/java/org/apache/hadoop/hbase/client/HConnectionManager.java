@@ -2840,6 +2840,10 @@ name|toString
 argument_list|(
 name|parentTable
 argument_list|)
+operator|+
+literal|", "
+operator|+
+name|regionInfoRow
 argument_list|)
 throw|;
 block|}
