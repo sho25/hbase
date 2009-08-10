@@ -357,6 +357,10 @@ init|=
 operator|new
 name|HTable
 argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
@@ -665,6 +669,10 @@ init|=
 operator|new
 name|HTable
 argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
@@ -716,6 +724,10 @@ init|=
 operator|new
 name|HTable
 argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
@@ -874,6 +886,10 @@ init|=
 operator|new
 name|HTable
 argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;

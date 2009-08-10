@@ -975,6 +975,10 @@ operator|=
 operator|new
 name|HTable
 argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;
@@ -1096,6 +1100,10 @@ operator|=
 operator|new
 name|HTable
 argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;
@@ -1224,6 +1232,10 @@ operator|=
 operator|new
 name|HTable
 argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;
@@ -1354,6 +1366,10 @@ operator|=
 operator|new
 name|HTable
 argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;
