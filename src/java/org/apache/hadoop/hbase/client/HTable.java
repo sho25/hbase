@@ -450,7 +450,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to communicate with a single HBase table  * TODO: checkAndSave in oldAPI  * TODO: Regex deletes.  */
+comment|/**  * Used to communicate with a single HBase table  */
 end_comment
 
 begin_class
