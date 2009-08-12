@@ -973,7 +973,7 @@ block|}
 comment|/**    * @return true if edits should be applied to WAL, false if not    */
 specifier|public
 name|boolean
-name|writeToWAL
+name|getWriteToWAL
 parameter_list|()
 block|{
 return|return
@@ -985,7 +985,7 @@ block|}
 comment|/**    * Set whether this Put should be written to the WAL or not.    * Not writing the WAL means you may lose edits on server crash.    * @param write true if edits should be written to WAL, false if not    */
 specifier|public
 name|void
-name|writeToWAL
+name|setWriteToWAL
 parameter_list|(
 name|boolean
 name|write
