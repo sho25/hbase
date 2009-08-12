@@ -4847,7 +4847,7 @@ literal|null
 argument_list|,
 name|put
 operator|.
-name|writeToWAL
+name|getWriteToWAL
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4902,7 +4902,7 @@ name|lockid
 argument_list|,
 name|put
 operator|.
-name|writeToWAL
+name|getWriteToWAL
 argument_list|()
 argument_list|)
 expr_stmt|;
