@@ -5313,12 +5313,6 @@ specifier|private
 specifier|final
 name|int
 name|caching
-init|=
-name|HTable
-operator|.
-name|this
-operator|.
-name|scannerCaching
 decl_stmt|;
 specifier|private
 name|long
@@ -5392,6 +5386,44 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 expr_stmt|;
+comment|// Use the caching from the Scan.  If not set, use the default cache setting for this table.
+if|if
+condition|(
+name|this
+operator|.
+name|scan
+operator|.
+name|getCaching
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|this
+operator|.
+name|caching
+operator|=
+name|this
+operator|.
+name|scan
+operator|.
+name|getCaching
+argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
+name|this
+operator|.
+name|caching
+operator|=
+name|HTable
+operator|.
+name|this
+operator|.
+name|scannerCaching
+expr_stmt|;
+block|}
 comment|// Removed filter validation.  We have a new format now, only one of all
 comment|// the current filters has a validate() method.  We can add it back,
 comment|// need to decide on what we're going to do re: filter redesign.
