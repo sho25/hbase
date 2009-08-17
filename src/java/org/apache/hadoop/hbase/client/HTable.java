@@ -2440,7 +2440,7 @@ return|return
 name|writeBufferSize
 return|;
 block|}
-comment|/**    * Set the size of the buffer in bytes    * @param writeBufferSize    */
+comment|/**    * Set the size of the buffer in bytes.    * If the new size is lower than the current size of data in the    * write buffer, the buffer is flushed.    * @param writeBufferSize    * @throws IOException    */
 specifier|public
 name|void
 name|setWriteBufferSize
@@ -2448,6 +2448,8 @@ parameter_list|(
 name|long
 name|writeBufferSize
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|this
 operator|.
@@ -2455,6 +2457,17 @@ name|writeBufferSize
 operator|=
 name|writeBufferSize
 expr_stmt|;
+if|if
+condition|(
+name|currentWriteBufferSize
+operator|>
+name|writeBufferSize
+condition|)
+block|{
+name|flushCommits
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Get the write buffer     * @return the current write buffer    */
 specifier|public
