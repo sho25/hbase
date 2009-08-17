@@ -4047,6 +4047,19 @@ return|return
 literal|null
 return|;
 block|}
+comment|// This will get all results for this store.  TODO: Do we need to do this?
+name|Get
+name|get
+init|=
+operator|new
+name|Get
+argument_list|(
+name|key
+operator|.
+name|getRow
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|List
 argument_list|<
 name|KeyValue
@@ -4059,51 +4072,6 @@ argument_list|<
 name|KeyValue
 argument_list|>
 argument_list|()
-decl_stmt|;
-comment|// This will get all results for this store.  TODO: Do I have to make a
-comment|// new key?
-if|if
-condition|(
-operator|!
-name|this
-operator|.
-name|comparator
-operator|.
-name|matchingRows
-argument_list|(
-name|kv
-argument_list|,
-name|key
-argument_list|)
-condition|)
-block|{
-name|kv
-operator|=
-operator|new
-name|KeyValue
-argument_list|(
-name|key
-operator|.
-name|getRow
-argument_list|()
-argument_list|,
-name|HConstants
-operator|.
-name|LATEST_TIMESTAMP
-argument_list|)
-expr_stmt|;
-block|}
-name|Get
-name|get
-init|=
-operator|new
-name|Get
-argument_list|(
-name|key
-operator|.
-name|getRow
-argument_list|()
-argument_list|)
 decl_stmt|;
 name|store
 operator|.
@@ -4136,7 +4104,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|//TODO
 comment|/**    * Return an iterator that scans over the HRegion, returning the indicated     * columns and rows specified by the {@link Scan}.    *<p>    * This Iterator must be closed by the caller.    *    * @param scan configured {@link Scan}    * @return InternalScanner    * @throws IOException    */
 specifier|public
 name|InternalScanner
@@ -4672,6 +4639,27 @@ operator|.
 name|BYTES_COMPARATOR
 argument_list|)
 decl_stmt|;
+name|byte
+index|[]
+name|q
+init|=
+name|kv
+operator|.
+name|getQualifier
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|q
+operator|!=
+literal|null
+operator|&&
+name|q
+operator|.
+name|length
+operator|>
+literal|0
+condition|)
 name|qualifiers
 operator|.
 name|add
@@ -10286,6 +10274,7 @@ operator|new
 name|Scan
 argument_list|()
 decl_stmt|;
+comment|// scan.addFamily(HConstants.CATALOG_FAMILY);
 name|InternalScanner
 name|scanner
 init|=
@@ -10363,6 +10352,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+comment|// System.out.println(region.getClosestRowBefore(Bytes.toBytes("GeneratedCSVContent2,E3652782193BC8D66A0BA1629D0FAAAB,9993372036854775807")));
 block|}
 block|}
 finally|finally

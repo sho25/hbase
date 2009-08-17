@@ -1513,6 +1513,8 @@ name|COLUMN_FAMILY
 argument_list|)
 argument_list|,
 operator|(
+literal|""
+operator|+
 literal|"bbb"
 operator|)
 operator|.
