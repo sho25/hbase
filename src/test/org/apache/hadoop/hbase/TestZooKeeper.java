@@ -586,7 +586,6 @@ name|EMPTY_BYTE_ARRAY
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    *    */
 specifier|public
 name|void
 name|testRegionServerSessionExpired
@@ -594,6 +593,17 @@ parameter_list|()
 block|{
 try|try
 block|{
+name|this
+operator|.
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+literal|"hbase.regionserver.restart.on.zk.expire"
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 operator|new
 name|HTable
 argument_list|(
