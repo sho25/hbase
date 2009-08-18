@@ -691,6 +691,12 @@ name|boolean
 name|tcpNoDelay
 decl_stmt|;
 comment|// if T then disable Nagle's Algorithm
+specifier|protected
+specifier|final
+name|boolean
+name|tcpKeepAlive
+decl_stmt|;
+comment|// if T then use keepalives
 specifier|volatile
 specifier|protected
 name|boolean
@@ -1841,6 +1847,16 @@ operator|.
 name|setTcpNoDelay
 argument_list|(
 name|tcpNoDelay
+argument_list|)
+expr_stmt|;
+name|channel
+operator|.
+name|socket
+argument_list|()
+operator|.
+name|setKeepAlive
+argument_list|(
+name|tcpKeepAlive
 argument_list|)
 expr_stmt|;
 name|SelectionKey
@@ -4756,6 +4772,19 @@ argument_list|(
 literal|"ipc.server.tcpnodelay"
 argument_list|,
 literal|false
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|tcpKeepAlive
+operator|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+literal|"ipc.server.tcpkeepalive"
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Create the responder here

@@ -451,6 +451,11 @@ name|tcpNoDelay
 decl_stmt|;
 comment|// if T then disable Nagle's Algorithm
 specifier|protected
+name|boolean
+name|tcpKeepAlive
+decl_stmt|;
+comment|// if T then use keepalives
+specifier|protected
 name|int
 name|pingInterval
 decl_stmt|;
@@ -1153,6 +1158,15 @@ operator|.
 name|setTcpNoDelay
 argument_list|(
 name|tcpNoDelay
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|socket
+operator|.
+name|setKeepAlive
+argument_list|(
+name|tcpKeepAlive
 argument_list|)
 expr_stmt|;
 comment|// connection time out is 20s
@@ -2503,6 +2517,19 @@ argument_list|(
 literal|"ipc.client.tcpnodelay"
 argument_list|,
 literal|false
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|tcpKeepAlive
+operator|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+literal|"ipc.client.tcpkeepalive"
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|this
