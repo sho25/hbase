@@ -207,7 +207,7 @@ name|Result
 argument_list|>
 block|{
 comment|/** Counter enumeration to count the actual rows. */
-specifier|private
+specifier|public
 specifier|static
 enum|enum
 name|Counters
