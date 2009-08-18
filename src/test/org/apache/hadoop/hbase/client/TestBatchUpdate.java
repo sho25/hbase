@@ -611,6 +611,8 @@ specifier|public
 name|void
 name|testRowsBatchUpdateBufferedManyManyFlushes
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|table
 operator|.

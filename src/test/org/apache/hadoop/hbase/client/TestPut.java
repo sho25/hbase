@@ -208,11 +208,6 @@ index|[]
 name|value
 decl_stmt|;
 specifier|private
-name|byte
-index|[]
-name|smallValue
-decl_stmt|;
-specifier|private
 name|HTableDescriptor
 name|desc
 init|=
@@ -241,15 +236,6 @@ operator|.
 name|toBytes
 argument_list|(
 literal|"abcd"
-argument_list|)
-expr_stmt|;
-name|smallValue
-operator|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"a"
 argument_list|)
 expr_stmt|;
 block|}
@@ -957,6 +943,8 @@ specifier|public
 name|void
 name|testRowsPutBufferedManyManyFlushes
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|table
 operator|.
