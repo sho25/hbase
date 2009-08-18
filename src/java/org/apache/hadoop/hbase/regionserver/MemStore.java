@@ -384,7 +384,7 @@ name|COMPARATOR
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor.    * @param ttl The TTL for cache entries, in milliseconds.    * @param c    */
+comment|/**    * Constructor.    * @param c Comparator    */
 specifier|public
 name|MemStore
 parameter_list|(
