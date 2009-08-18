@@ -277,7 +277,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|HTableInterface
 import|;
 end_import
 
@@ -969,7 +969,7 @@ name|INTERNAL_SERVER_ERROR
 argument_list|)
 throw|;
 block|}
-name|HTable
+name|HTableInterface
 name|table
 init|=
 literal|null
@@ -1233,7 +1233,7 @@ name|INTERNAL_SERVER_ERROR
 argument_list|)
 throw|;
 block|}
-name|HTable
+name|HTableInterface
 name|table
 init|=
 literal|null
@@ -1974,7 +1974,7 @@ name|INTERNAL_SERVER_ERROR
 argument_list|)
 throw|;
 block|}
-name|HTable
+name|HTableInterface
 name|table
 init|=
 literal|null

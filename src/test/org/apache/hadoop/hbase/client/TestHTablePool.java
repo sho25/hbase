@@ -99,7 +99,7 @@ init|=
 literal|"testTable"
 decl_stmt|;
 comment|// Request a table from an empty pool
-name|HTable
+name|HTableInterface
 name|table
 init|=
 name|pool
@@ -123,7 +123,7 @@ name|table
 argument_list|)
 expr_stmt|;
 comment|// Request a table of the same name
-name|HTable
+name|HTableInterface
 name|sameTable
 init|=
 name|pool
@@ -174,7 +174,7 @@ literal|"testTable"
 argument_list|)
 decl_stmt|;
 comment|// Request a table from an empty pool
-name|HTable
+name|HTableInterface
 name|table
 init|=
 name|pool
@@ -198,7 +198,7 @@ name|table
 argument_list|)
 expr_stmt|;
 comment|// Request a table of the same name
-name|HTable
+name|HTableInterface
 name|sameTable
 init|=
 name|pool
@@ -241,7 +241,7 @@ init|=
 literal|"testTable"
 decl_stmt|;
 comment|// Request tables from an empty pool
-name|HTable
+name|HTableInterface
 name|table1
 init|=
 name|pool
@@ -251,7 +251,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|HTable
+name|HTableInterface
 name|table2
 init|=
 name|pool
@@ -261,7 +261,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|HTable
+name|HTableInterface
 name|table3
 init|=
 name|pool
@@ -295,7 +295,7 @@ name|table3
 argument_list|)
 expr_stmt|;
 comment|// Request tables of the same name
-name|HTable
+name|HTableInterface
 name|sameTable1
 init|=
 name|pool
@@ -305,7 +305,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|HTable
+name|HTableInterface
 name|sameTable2
 init|=
 name|pool
@@ -315,7 +315,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|HTable
+name|HTableInterface
 name|sameTable3
 init|=
 name|pool
@@ -379,7 +379,7 @@ init|=
 literal|"testTable2"
 decl_stmt|;
 comment|// Request a table from an empty pool
-name|HTable
+name|HTableInterface
 name|table1
 init|=
 name|pool
@@ -389,7 +389,7 @@ argument_list|(
 name|tableName1
 argument_list|)
 decl_stmt|;
-name|HTable
+name|HTableInterface
 name|table2
 init|=
 name|pool
@@ -420,7 +420,7 @@ name|table2
 argument_list|)
 expr_stmt|;
 comment|// Request tables of the same names
-name|HTable
+name|HTableInterface
 name|sameTable1
 init|=
 name|pool
@@ -430,7 +430,7 @@ argument_list|(
 name|tableName1
 argument_list|)
 decl_stmt|;
-name|HTable
+name|HTableInterface
 name|sameTable2
 init|=
 name|pool

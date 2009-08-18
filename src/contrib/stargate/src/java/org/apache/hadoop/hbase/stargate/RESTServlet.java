@@ -113,6 +113,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|HTableInterface
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|HTablePool
 import|;
 end_import
@@ -271,7 +287,7 @@ literal|10
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get a table pool for the given table.     * @return the table pool    */
+comment|/**    * Get a table pool for the given table.    * @return the table pool    */
 specifier|protected
 name|HTablePool
 name|getTablePool
@@ -291,7 +307,7 @@ return|return
 name|conf
 return|;
 block|}
-comment|/**    * @param tableName the table name    * @return the maximum cache age suitable for use with this table, in    *  seconds     * @throws IOException    */
+comment|/**    * @param tableName the table name    * @return the maximum cache age suitable for use with this table, in    *  seconds    * @throws IOException    */
 specifier|public
 name|int
 name|getMaxAge
@@ -326,7 +342,7 @@ name|intValue
 argument_list|()
 return|;
 block|}
-name|HTable
+name|HTableInterface
 name|table
 init|=
 name|pool

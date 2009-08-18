@@ -119,7 +119,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|HTableInterface
 import|;
 end_import
 
@@ -267,7 +267,7 @@ operator|.
 name|getTablePool
 argument_list|()
 decl_stmt|;
-name|HTable
+name|HTableInterface
 name|table
 init|=
 name|pool

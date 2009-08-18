@@ -21,16 +21,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|Collections
@@ -98,7 +88,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A simple pool of HTable instances.<p>  *   * Each HTablePool acts as a pool for all tables.  To use, instantiate an  * HTablePool and use {@link #getTable(String)} to get an HTable from the pool.  * Once you are done with it, return it to the pool with {@link #putTable(HTable)}.<p>  *   * A pool can be created with a<i>maxSize</i> which defines the most HTable  * references that will ever be retained for each table.  Otherwise the default  * is {@link Integer#MAX_VALUE}.<p>  */
+comment|/**  * A simple pool of HTable instances.<p>  *  * Each HTablePool acts as a pool for all tables.  To use, instantiate an  * HTablePool and use {@link #getTable(String)} to get an HTable from the pool.  * Once you are done with it, return it to the pool with {@link #putTable(HTable)}.<p>  *  * A pool can be created with a<i>maxSize</i> which defines the most HTable  * references that will ever be retained for each table.  Otherwise the default  * is {@link Integer#MAX_VALUE}.<p>  */
 end_comment
 
 begin_class
@@ -114,7 +104,7 @@ name|String
 argument_list|,
 name|LinkedList
 argument_list|<
-name|HTable
+name|HTableInterface
 argument_list|>
 argument_list|>
 name|tables
@@ -130,7 +120,7 @@ name|String
 argument_list|,
 name|LinkedList
 argument_list|<
-name|HTable
+name|HTableInterface
 argument_list|>
 argument_list|>
 argument_list|()
@@ -145,6 +135,14 @@ specifier|private
 specifier|final
 name|int
 name|maxSize
+decl_stmt|;
+specifier|private
+name|HTableInterfaceFactory
+name|tableFactory
+init|=
+operator|new
+name|HTableFactory
+argument_list|()
 decl_stmt|;
 comment|/**    * Default Constructor.  Default HBaseConfiguration and no limit on pool size.    */
 specifier|public
@@ -187,9 +185,41 @@ operator|=
 name|maxSize
 expr_stmt|;
 block|}
-comment|/**    * Get a reference to the specified table from the pool.<p>    *     * Create a new one if one is not available.    * @param tableName    * @return a reference to the specified table    * @throws RuntimeException if there is a problem instantiating the HTable    */
 specifier|public
-name|HTable
+name|HTablePool
+parameter_list|(
+name|HBaseConfiguration
+name|config
+parameter_list|,
+name|int
+name|maxSize
+parameter_list|,
+name|HTableInterfaceFactory
+name|tableFactory
+parameter_list|)
+block|{
+name|this
+operator|.
+name|config
+operator|=
+name|config
+expr_stmt|;
+name|this
+operator|.
+name|maxSize
+operator|=
+name|maxSize
+expr_stmt|;
+name|this
+operator|.
+name|tableFactory
+operator|=
+name|tableFactory
+expr_stmt|;
+block|}
+comment|/**    * Get a reference to the specified table from the pool.<p>    *    * Create a new one if one is not available.    * @param tableName    * @return a reference to the specified table    * @throws RuntimeException if there is a problem instantiating the HTable    */
+specifier|public
+name|HTableInterface
 name|getTable
 parameter_list|(
 name|String
@@ -198,7 +228,7 @@ parameter_list|)
 block|{
 name|LinkedList
 argument_list|<
-name|HTable
+name|HTableInterface
 argument_list|>
 name|queue
 init|=
@@ -221,7 +251,7 @@ operator|=
 operator|new
 name|LinkedList
 argument_list|<
-name|HTable
+name|HTableInterface
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -235,13 +265,13 @@ name|queue
 argument_list|)
 expr_stmt|;
 return|return
-name|newHTable
+name|createHTable
 argument_list|(
 name|tableName
 argument_list|)
 return|;
 block|}
-name|HTable
+name|HTableInterface
 name|table
 decl_stmt|;
 synchronized|synchronized
@@ -265,7 +295,7 @@ literal|null
 condition|)
 block|{
 return|return
-name|newHTable
+name|createHTable
 argument_list|(
 name|tableName
 argument_list|)
@@ -275,9 +305,9 @@ return|return
 name|table
 return|;
 block|}
-comment|/**    * Get a reference to the specified table from the pool.<p>    *     * Create a new one if one is not available.    * @param tableName    * @return a reference to the specified table    * @throws RuntimeException if there is a problem instantiating the HTable    */
+comment|/**    * Get a reference to the specified table from the pool.<p>    *    * Create a new one if one is not available.    * @param tableName    * @return a reference to the specified table    * @throws RuntimeException if there is a problem instantiating the HTable    */
 specifier|public
-name|HTable
+name|HTableInterface
 name|getTable
 parameter_list|(
 name|byte
@@ -297,18 +327,18 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Puts the specified HTable back into the pool.<p>    *     * If the pool already contains<i>maxSize</i> references to the table,    * then nothing happens.    * @param table    */
+comment|/**    * Puts the specified HTable back into the pool.<p>    *    * If the pool already contains<i>maxSize</i> references to the table,    * then nothing happens.    * @param table    */
 specifier|public
 name|void
 name|putTable
 parameter_list|(
-name|HTable
+name|HTableInterface
 name|table
 parameter_list|)
 block|{
 name|LinkedList
 argument_list|<
-name|HTable
+name|HTableInterface
 argument_list|>
 name|queue
 init|=
@@ -352,18 +382,19 @@ expr_stmt|;
 block|}
 block|}
 specifier|private
-name|HTable
-name|newHTable
+name|HTableInterface
+name|createHTable
 parameter_list|(
 name|String
 name|tableName
 parameter_list|)
 block|{
-try|try
-block|{
 return|return
-operator|new
-name|HTable
+name|this
+operator|.
+name|tableFactory
+operator|.
+name|createHTableInterface
 argument_list|(
 name|config
 argument_list|,
@@ -375,21 +406,6 @@ name|tableName
 argument_list|)
 argument_list|)
 return|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|ioe
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-name|ioe
-argument_list|)
-throw|;
-block|}
 block|}
 block|}
 end_class

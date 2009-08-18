@@ -457,6 +457,8 @@ begin_class
 specifier|public
 class|class
 name|HTable
+implements|implements
+name|HTableInterface
 block|{
 specifier|private
 specifier|final
@@ -550,7 +552,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table    *     * @param conf configuration object    * @param tableName name of the table    * @throws IOException    */
+comment|/**    * Creates an object to access a HBase table    *    * @param conf configuration object    * @param tableName name of the table    * @throws IOException    */
 specifier|public
 name|HTable
 parameter_list|(
@@ -577,7 +579,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table.    *     * @param conf configuration object    * @param tableName name of the table    * @throws IOException    */
+comment|/**    * Creates an object to access a HBase table.    *    * @param conf configuration object    * @param tableName name of the table    * @throws IOException    */
 specifier|public
 name|HTable
 parameter_list|(
@@ -928,7 +930,7 @@ operator|=
 name|scannerCaching
 expr_stmt|;
 block|}
-comment|/**    * @return table metadata     * @throws IOException    */
+comment|/**    * @return table metadata    * @throws IOException    */
 specifier|public
 name|HTableDescriptor
 name|getTableDescriptor
@@ -953,7 +955,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets the starting row key for every region in the currently open table    *     * @return Array of region starting row keys    * @throws IOException    */
+comment|/**    * Gets the starting row key for every region in the currently open table    *    * @return Array of region starting row keys    * @throws IOException    */
 specifier|public
 name|byte
 index|[]
@@ -971,7 +973,7 @@ name|getFirst
 argument_list|()
 return|;
 block|}
-comment|/**    * Gets the ending row key for every region in the currently open table    *     * @return Array of region ending row keys    * @throws IOException    */
+comment|/**    * Gets the ending row key for every region in the currently open table    *    * @return Array of region ending row keys    * @throws IOException    */
 specifier|public
 name|byte
 index|[]
@@ -989,7 +991,7 @@ name|getSecond
 argument_list|()
 return|;
 block|}
-comment|/**    * Gets the starting and ending row keys for every region in the currently    * open table    *     * @return Pair of arrays of region starting and ending row keys    * @throws IOException    */
+comment|/**    * Gets the starting and ending row keys for every region in the currently    * open table    *    * @return Pair of arrays of region starting and ending row keys    * @throws IOException    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -1193,7 +1195,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Get all the regions and their address for this table    *     * @return A map of HRegionInfo with it's server address    * @throws IOException    */
+comment|/**    * Get all the regions and their address for this table    *    * @return A map of HRegionInfo with it's server address    * @throws IOException    */
 specifier|public
 name|Map
 argument_list|<
@@ -1395,7 +1397,7 @@ return|return
 name|regionMap
 return|;
 block|}
-comment|/**    * Return the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it.    *     * @param row row key    * @param family Column family to look for row in.    * @return map of values    * @throws IOException    * @since 0.20.0     */
+comment|/**    * Return the row that matches<i>row</i> exactly,    * or the one that immediately preceeds it.    *    * @param row row key    * @param family Column family to look for row in.    * @return map of values    * @throws IOException    * @since 0.20.0     */
 specifier|public
 name|Result
 name|getRowOrBefore
@@ -1461,7 +1463,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**   * Return the row that matches<i>row</i> exactly,    * or the one that immediately preceeds it.   *    * @param row row key   * @param family Column family to look for row in.   * @return map of values   * @throws IOException   * @deprecated As of hbase 0.20.0, replaced by {@link #getRowOrBefore(byte[], byte[])}   */
+comment|/**   * Return the row that matches<i>row</i> exactly,   * or the one that immediately preceeds it.   *   * @param row row key   * @param family Column family to look for row in.   * @return map of values   * @throws IOException   * @deprecated As of hbase 0.20.0, replaced by {@link #getRowOrBefore(byte[], byte[])}   */
 specifier|public
 name|RowResult
 name|getClosestRowBefore
@@ -1507,7 +1509,7 @@ name|getRowResult
 argument_list|()
 return|;
 block|}
-comment|/**     * Get a scanner on the current table as specified by the {@link Scan} object    *    * @param scan a configured {@link Scan} object    * @return scanner    * @throws IOException    * @since 0.20.0    */
+comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object    *    * @param scan a configured {@link Scan} object    * @return scanner    * @throws IOException    * @since 0.20.0    */
 specifier|public
 name|ResultScanner
 name|getScanner
@@ -1537,7 +1539,7 @@ return|return
 name|s
 return|;
 block|}
-comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object    *     * @param family  The column family to scan.    * @return The scanner.    * @throws IOException    * @since 0.20.0    */
+comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object    *    * @param family  The column family to scan.    * @return The scanner.    * @throws IOException    * @since 0.20.0    */
 specifier|public
 name|ResultScanner
 name|getScanner
@@ -1570,7 +1572,7 @@ name|scan
 argument_list|)
 return|;
 block|}
-comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object    *     * @param family  The column family to scan.    * @param qualifier  The column qualifier to scan.    * @return The scanner.    * @throws IOException    * @since 0.20.0    */
+comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object    *    * @param family  The column family to scan.    * @param qualifier  The column qualifier to scan.    * @return The scanner.    * @throws IOException    * @since 0.20.0    */
 specifier|public
 name|ResultScanner
 name|getScanner
@@ -1670,7 +1672,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    *     * @param delete     * @throws IOException    * @since 0.20.0    */
+comment|/**    *    * @param delete    * @throws IOException    * @since 0.20.0    */
 specifier|public
 name|void
 name|delete
@@ -1836,7 +1838,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception.<p>    *     * @param row    * @param family    * @param qualifier    * @param amount    * @return The new value.    * @throws IOException    */
+comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception.<p>    *    * @param row    * @param family    * @param qualifier    * @param amount    * @return The new value.    * @throws IOException    */
 specifier|public
 name|long
 name|incrementColumnValue
@@ -1878,7 +1880,7 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception.<p>    *     * Setting writeToWAL to false means that in a fail scenario, you will lose     * any increments that have not been flushed.    * @param row    * @param family    * @param qualifier    * @param amount    * @param writeToWAL true if increment should be applied to WAL, false if not    * @return The new value.    * @throws IOException    */
+comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception.<p>    *    * Setting writeToWAL to false means that in a fail scenario, you will lose    * any increments that have not been flushed.    * @param row    * @param family    * @param qualifier    * @param amount    * @param writeToWAL true if increment should be applied to WAL, false if not    * @return The new value.    * @throws IOException    */
 specifier|public
 name|long
 name|incrementColumnValue
@@ -2023,7 +2025,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Atomically checks if a row/family/qualifier value match the expectedValue.    * If it does, it adds the put.    *     * @param row    * @param family    * @param qualifier    * @param value the expected value    * @param put    * @throws IOException    * @return true if the new put was execute, false otherwise    */
+comment|/**    * Atomically checks if a row/family/qualifier value match the expectedValue.    * If it does, it adds the put.    *    * @param row    * @param family    * @param qualifier    * @param value the expected value    * @param put    * @throws IOException    * @return true if the new put was execute, false otherwise    */
 specifier|public
 specifier|synchronized
 name|boolean
@@ -2121,7 +2123,7 @@ name|booleanValue
 argument_list|()
 return|;
 block|}
-comment|/**    * Test for the existence of columns in the table, as specified in the Get.<p>    *     * This will return true if the Get matches one or more keys, false if not.<p>    *     * This is a server-side call so it prevents any data from being transfered    * to the client.    * @param get    * @return true if the specified Get matches one or more keys, false if not    * @throws IOException    */
+comment|/**    * Test for the existence of columns in the table, as specified in the Get.<p>    *    * This will return true if the Get matches one or more keys, false if not.<p>    *    * This is a server-side call so it prevents any data from being transfered    * to the client.    * @param get    * @return true if the specified Get matches one or more keys, false if not    * @throws IOException    */
 specifier|public
 name|boolean
 name|exists
@@ -2223,7 +2225,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Release held resources    *     * @throws IOException   */
+comment|/**    * Release held resources    *    * @throws IOException   */
 specifier|public
 name|void
 name|close
@@ -2235,7 +2237,7 @@ name|flushCommits
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Utility method that verifies Put is well formed.    *     * @param put    * @throws IllegalArgumentException    */
+comment|/**    * Utility method that verifies Put is well formed.    *    * @param put    * @throws IllegalArgumentException    */
 specifier|private
 name|void
 name|validatePut
@@ -2469,7 +2471,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Get the write buffer     * @return the current write buffer    */
+comment|/**    * Get the write buffer    * @return the current write buffer    */
 specifier|public
 name|ArrayList
 argument_list|<
@@ -2483,7 +2485,7 @@ name|writeBuffer
 return|;
 block|}
 comment|// Old API. Pre-hbase-880, hbase-1304.
-comment|/**    * Get a single value for the specified row and column    *     * @param row row key    * @param column column name    * @return value for specified row/column    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get a single value for the specified row and column    *    * @param row row key    * @param column column name    * @return value for specified row/column    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|Cell
 name|get
@@ -2518,7 +2520,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a single value for the specified row and column    *    * @param row row key    * @param column column name    * @param numVersions - number of versions to retrieve    * @return value for specified row/column    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get a single value for the specified row and column    *    * @param row row key    * @param column column name    * @param numVersions - number of versions to retrieve    * @return value for specified row/column    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|Cell
 index|[]
@@ -2559,7 +2561,7 @@ name|numVersions
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a single value for the specified row and column    *    * @param row row key    * @param column column name    * @return value for specified row/column    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get a single value for the specified row and column    *    * @param row row key    * @param column column name    * @return value for specified row/column    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|Cell
 name|get
@@ -2641,7 +2643,7 @@ name|getCellValue
 argument_list|()
 return|;
 block|}
-comment|/**     * Get the specified number of versions of the specified row and column    * @param row row key    * @param column column name    * @param numVersions number of versions to retrieve    * @return Array of Cells.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get the specified number of versions of the specified row and column    * @param row row key    * @param column column name    * @param numVersions number of versions to retrieve    * @return Array of Cells.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|Cell
 index|[]
@@ -2679,7 +2681,7 @@ name|numVersions
 argument_list|)
 return|;
 block|}
-comment|/**     * Get the specified number of versions of the specified row and column with    * the specified timestamp.    *    * @param row         - row key    * @param column      - column name    * @param timestamp   - timestamp    * @param numVersions - number of versions to retrieve    * @return            - array of values that match the above criteria    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get the specified number of versions of the specified row and column with    * the specified timestamp.    *    * @param row         - row key    * @param column      - column name    * @param timestamp   - timestamp    * @param numVersions - number of versions to retrieve    * @return            - array of values that match the above criteria    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|Cell
 index|[]
@@ -2727,7 +2729,7 @@ name|numVersions
 argument_list|)
 return|;
 block|}
-comment|/**     * Get the specified number of versions of the specified row and column with    * the specified timestamp.    *    * @param row         - row key    * @param column      - column name    * @param timestamp   - timestamp    * @param numVersions - number of versions to retrieve    * @return            - array of values that match the above criteria    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get the specified number of versions of the specified row and column with    * the specified timestamp.    *    * @param row         - row key    * @param column      - column name    * @param timestamp   - timestamp    * @param numVersions - number of versions to retrieve    * @return            - array of values that match the above criteria    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|Cell
 index|[]
@@ -2868,7 +2870,7 @@ name|getCellValues
 argument_list|()
 return|;
 block|}
-comment|/**     * Get all the data for the specified row at the latest timestamp    *     * @param row row key    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get all the data for the specified row at the latest timestamp    *    * @param row row key    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -2892,7 +2894,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**     * Get all the data for the specified row at the latest timestamp    *     * @param row row key    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get all the data for the specified row at the latest timestamp    *    * @param row row key    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -2916,7 +2918,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 return|;
 block|}
-comment|/**     * Get more than one version of all columns for the specified row    *     * @param row row key    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get more than one version of all columns for the specified row    *    * @param row row key    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -2954,7 +2956,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get more than one version of all columns for the specified row    *     * @param row row key    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get more than one version of all columns for the specified row    *    * @param row row key    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -2988,7 +2990,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get all the data for the specified row at a specified timestamp    *     * @param row row key    * @param ts timestamp    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get all the data for the specified row at a specified timestamp    *    * @param row row key    * @param ts timestamp    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -3018,7 +3020,7 @@ name|ts
 argument_list|)
 return|;
 block|}
-comment|/**     * Get all the data for the specified row at a specified timestamp    *     * @param row row key    * @param ts timestamp    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get all the data for the specified row at a specified timestamp    *    * @param row row key    * @param ts timestamp    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -3046,7 +3048,7 @@ name|ts
 argument_list|)
 return|;
 block|}
-comment|/**     * Get more than one version of all columns for the specified row    * at a specified timestamp    *     * @param row row key    * @param ts timestamp    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get more than one version of all columns for the specified row    * at a specified timestamp    *    * @param row row key    * @param ts timestamp    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -3086,7 +3088,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get more than one version of all columns for the specified row    * at a specified timestamp    *     * @param row row key    * @param timestamp timestamp    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get more than one version of all columns for the specified row    * at a specified timestamp    *    * @param row row key    * @param timestamp timestamp    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -3122,7 +3124,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at the latest timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get selected columns for the specified row at the latest timestamp    *    * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -3158,7 +3160,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at the latest timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get selected columns for the specified row at the latest timestamp    *    * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -3190,7 +3192,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 return|;
 block|}
-comment|/**     * Get more than one version of selected columns for the specified row    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get more than one version of selected columns for the specified row    *    * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -3238,7 +3240,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get more than one version of selected columns for the specified row    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get more than one version of selected columns for the specified row    *    * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param numVersions number of versions to return    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -3278,7 +3280,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at a specified timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get selected columns for the specified row at a specified timestamp    *    * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -3320,7 +3322,7 @@ name|ts
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at a specified timestamp    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get selected columns for the specified row at a specified timestamp    *    * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -3358,7 +3360,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get more than one version of selected columns for the specified row,    * using an existing row lock.    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param numVersions number of versions to return    * @param rowLock previously acquired row lock    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get more than one version of selected columns for the specified row,    * using an existing row lock.    *    * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param numVersions number of versions to return    * @param rowLock previously acquired row lock    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -3412,7 +3414,7 @@ name|rowLock
 argument_list|)
 return|;
 block|}
-comment|/**     * Get selected columns for the specified row at a specified timestamp    * using existing row lock.    *     * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @param numVersions     * @param rl row lock    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
+comment|/**    * Get selected columns for the specified row at a specified timestamp    * using existing row lock.    *    * @param row row key    * @param columns Array of column names and families you want to retrieve.    * @param ts timestamp    * @param numVersions    * @param rl row lock    * @return RowResult is<code>null</code> if row does not exist.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #get(Get)}    */
 specifier|public
 name|RowResult
 name|getRow
@@ -3598,7 +3600,7 @@ name|getRowResult
 argument_list|()
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at first row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
+comment|/**    * Get a scanner on the current table starting at first row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
 specifier|public
 name|Scanner
 name|getScanner
@@ -3627,7 +3629,7 @@ name|EMPTY_START_ROW
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
+comment|/**    * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
 specifier|public
 name|Scanner
 name|getScanner
@@ -3663,7 +3665,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at first row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
+comment|/**    * Get a scanner on the current table starting at first row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
 specifier|public
 name|Scanner
 name|getScanner
@@ -3694,7 +3696,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
+comment|/**    * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
 specifier|public
 name|Scanner
 name|getScanner
@@ -3728,7 +3730,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param timestamp only return results whose timestamp<= this value    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
+comment|/**    * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param timestamp only return results whose timestamp<= this value    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
 specifier|public
 name|Scanner
 name|getScanner
@@ -3763,7 +3765,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param filter a row filter using row-key regexp and/or column data filter.    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
+comment|/**    * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param filter a row filter using row-key regexp and/or column data filter.    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
 specifier|public
 name|Scanner
 name|getScanner
@@ -3800,7 +3802,7 @@ name|filter
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at the specified row and    * ending just before<code>stopRow<code>.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param stopRow Row to stop scanning on. Once we hit this row we stop    * returning values; i.e. we return the row before this one but not the    *<code>stopRow</code> itself.    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
+comment|/**    * Get a scanner on the current table starting at the specified row and    * ending just before<code>stopRow<code>.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param stopRow Row to stop scanning on. Once we hit this row we stop    * returning values; i.e. we return the row before this one but not the    *<code>stopRow</code> itself.    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
 specifier|public
 name|Scanner
 name|getScanner
@@ -3839,7 +3841,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at the specified row and    * ending just before<code>stopRow<code>.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param stopRow Row to stop scanning on. Once we hit this row we stop    * returning values; i.e. we return the row before this one but not the    *<code>stopRow</code> itself.    * @param timestamp only return results whose timestamp<= this value    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
+comment|/**    * Get a scanner on the current table starting at the specified row and    * ending just before<code>stopRow<code>.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param stopRow Row to stop scanning on. Once we hit this row we stop    * returning values; i.e. we return the row before this one but not the    *<code>stopRow</code> itself.    * @param timestamp only return results whose timestamp<= this value    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
 specifier|public
 name|Scanner
 name|getScanner
@@ -3892,7 +3894,7 @@ name|timestamp
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at the specified row and    * ending just before<code>stopRow<code>.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param stopRow Row to stop scanning on. Once we hit this row we stop    * returning values; i.e. we return the row before this one but not the    *<code>stopRow</code> itself.    * @param timestamp only return results whose timestamp<= this value    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
+comment|/**    * Get a scanner on the current table starting at the specified row and    * ending just before<code>stopRow<code>.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param stopRow Row to stop scanning on. Once we hit this row we stop    * returning values; i.e. we return the row before this one but not the    *<code>stopRow</code> itself.    * @param timestamp only return results whose timestamp<= this value    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
 specifier|public
 name|Scanner
 name|getScanner
@@ -3941,7 +3943,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param timestamp only return results whose timestamp<= this value    * @param filter a row filter using row-key regexp and/or column data filter.    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
+comment|/**    * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param timestamp only return results whose timestamp<= this value    * @param filter a row filter using row-key regexp and/or column data filter.    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
 specifier|public
 name|Scanner
 name|getScanner
@@ -3985,7 +3987,7 @@ name|filter
 argument_list|)
 return|;
 block|}
-comment|/**     * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param timestamp only return results whose timestamp<= this value    * @param filter a row filter using row-key regexp and/or column data filter.    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
+comment|/**    * Get a scanner on the current table starting at the specified row.    * Return the specified columns.    *    * @param columns columns to scan. If column name is a column family, all    * columns of the specified column family are returned.  Its also possible    * to pass a regex in the column qualifier. A column qualifier is judged to    * be a regex if it contains at least one of the following characters:    *<code>\+|^&*$[]]}{)(</code>.    * @param startRow starting row in table to scan    * @param timestamp only return results whose timestamp<= this value    * @param filter a row filter using row-key regexp and/or column data filter.    * @return scanner    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #getScanner(Scan)}    */
 specifier|public
 name|Scanner
 name|getScanner
@@ -4288,7 +4290,7 @@ name|ts
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Delete all cells that match the passed row and column.    * @param row Row to update    * @param column name of column whose value is to be deleted    * @throws IOException     * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
+comment|/**    * Delete all cells that match the passed row and column.    * @param row Row to update    * @param column name of column whose value is to be deleted    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
 specifier|public
 name|void
 name|deleteAll
@@ -4316,7 +4318,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp.    * @param row Row to update    * @param column name of column whose value is to be deleted    * @param ts Delete all cells of the same timestamp or older.    * @throws IOException     * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
+comment|/**    * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp.    * @param row Row to update    * @param column name of column whose value is to be deleted    * @param ts Delete all cells of the same timestamp or older.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
 specifier|public
 name|void
 name|deleteAll
@@ -4362,7 +4364,7 @@ name|ts
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp.    * @param row Row to update    * @param column name of column whose value is to be deleted    * @param ts Delete all cells of the same timestamp or older.    * @throws IOException     * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
+comment|/**    * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp.    * @param row Row to update    * @param column name of column whose value is to be deleted    * @param ts Delete all cells of the same timestamp or older.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
 specifier|public
 name|void
 name|deleteAll
@@ -4396,7 +4398,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp, using an    * existing row lock.    * @param row Row to update    * @param column name of column whose value is to be deleted    * @param ts Delete all cells of the same timestamp or older.    * @param rl Existing row lock    * @throws IOException     * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
+comment|/**    * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp, using an    * existing row lock.    * @param row Row to update    * @param column name of column whose value is to be deleted    * @param ts Delete all cells of the same timestamp or older.    * @param rl Existing row lock    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
 specifier|public
 name|void
 name|deleteAll
@@ -4458,7 +4460,7 @@ name|d
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Delete all cells that match the passed row and column.    * @param row Row to update    * @param colRegex column regex expression    * @throws IOException     * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
+comment|/**    * Delete all cells that match the passed row and column.    * @param row Row to update    * @param colRegex column regex expression    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
 specifier|public
 name|void
 name|deleteAllByRegex
@@ -4486,7 +4488,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp.    * @param row Row to update    * @param colRegex Column Regex expression    * @param ts Delete all cells of the same timestamp or older.    * @throws IOException     * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
+comment|/**    * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp.    * @param row Row to update    * @param colRegex Column Regex expression    * @param ts Delete all cells of the same timestamp or older.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
 specifier|public
 name|void
 name|deleteAllByRegex
@@ -4521,7 +4523,7 @@ name|ts
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp.    * @param row Row to update    * @param colRegex Column Regex expression    * @param ts Delete all cells of the same timestamp or older.    * @throws IOException     * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
+comment|/**    * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp.    * @param row Row to update    * @param colRegex Column Regex expression    * @param ts Delete all cells of the same timestamp or older.    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
 specifier|public
 name|void
 name|deleteAllByRegex
@@ -4554,7 +4556,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp, using an    * existing row lock.    * @param row Row to update    * @param colRegex Column regex expression    * @param ts Delete all cells of the same timestamp or older.    * @param rl Existing row lock    * @throws IOException     * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
+comment|/**    * Delete all cells that match the passed row and column and whose    * timestamp is equal-to or older than the passed timestamp, using an    * existing row lock.    * @param row Row to update    * @param colRegex Column regex expression    * @param ts Delete all cells of the same timestamp or older.    * @param rl Existing row lock    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
 specifier|public
 name|void
 name|deleteAllByRegex
@@ -4778,7 +4780,7 @@ name|d
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete all cells for a row with matching column family regex     * at all timestamps.    *    * @param row The row to operate on    * @param familyRegex Column family regex    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
+comment|/**    * Delete all cells for a row with matching column family regex    * at all timestamps.    *    * @param row The row to operate on    * @param familyRegex Column family regex    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
 specifier|public
 name|void
 name|deleteFamilyByRegex
@@ -4806,7 +4808,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete all cells for a row with matching column family regex     * at all timestamps.    *    * @param row The row to operate on    * @param familyRegex Column family regex    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
+comment|/**    * Delete all cells for a row with matching column family regex    * at all timestamps.    *    * @param row The row to operate on    * @param familyRegex Column family regex    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
 specifier|public
 name|void
 name|deleteFamilyByRegex
@@ -4903,7 +4905,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete all cells for a row with matching column family regex with    * timestamps less than or equal to<i>timestamp</i>, using existing    * row lock.    *     * @param row The row to operate on    * @param familyRegex Column Family Regex    * @param timestamp Timestamp to match    * @param r1 Existing row lock    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
+comment|/**    * Delete all cells for a row with matching column family regex with    * timestamps less than or equal to<i>timestamp</i>, using existing    * row lock.    *    * @param row The row to operate on    * @param familyRegex Column Family Regex    * @param timestamp Timestamp to match    * @param r1 Existing row lock    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #delete(Delete)}    */
 specifier|public
 name|void
 name|deleteFamilyByRegex
@@ -4936,7 +4938,7 @@ literal|"TODO: Not yet implemented"
 argument_list|)
 throw|;
 block|}
-comment|/**    * Test for the existence of a row in the table.    *     * @param row The row    * @return true if the row exists, false otherwise    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #exists(Get)}    */
+comment|/**    * Test for the existence of a row in the table.    *    * @param row The row    * @return true if the row exists, false otherwise    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #exists(Get)}    */
 specifier|public
 name|boolean
 name|exists
@@ -4964,7 +4966,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Test for the existence of a row and column in the table.    *     * @param row The row    * @param column The column    * @return true if the row exists, false otherwise    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #exists(Get)}    */
+comment|/**    * Test for the existence of a row and column in the table.    *    * @param row The row    * @param column The column    * @return true if the row exists, false otherwise    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #exists(Get)}    */
 specifier|public
 name|boolean
 name|exists
@@ -4997,7 +4999,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Test for the existence of a coordinate in the table.    *     * @param row The row    * @param column The column    * @param timestamp The timestamp    * @return true if the specified coordinate exists    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #exists(Get)}    */
+comment|/**    * Test for the existence of a coordinate in the table.    *    * @param row The row    * @param column The column    * @param timestamp The timestamp    * @return true if the specified coordinate exists    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #exists(Get)}    */
 specifier|public
 name|boolean
 name|exists
@@ -5031,7 +5033,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Test for the existence of a coordinate in the table.    *     * @param row The row    * @param column The column    * @param timestamp The timestamp    * @param rl Existing row lock    * @return true if the specified coordinate exists    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #exists(Get)}    */
+comment|/**    * Test for the existence of a coordinate in the table.    *    * @param row The row    * @param column The column    * @param timestamp The timestamp    * @param rl Existing row lock    * @return true if the specified coordinate exists    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #exists(Get)}    */
 specifier|public
 name|boolean
 name|exists
@@ -5224,7 +5226,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Atomically checks if a row's values match the expectedValues.     * If it does, it uses the batchUpdate to update the row.<p>    *     * This operation is not currently supported, use {@link #checkAndPut}    * @param batchUpdate batchupdate to apply if check is successful    * @param expectedValues values to check    * @param rl rowlock    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #checkAndPut}    */
+comment|/**    * Atomically checks if a row's values match the expectedValues.    * If it does, it uses the batchUpdate to update the row.<p>    *    * This operation is not currently supported, use {@link #checkAndPut}    * @param batchUpdate batchupdate to apply if check is successful    * @param expectedValues values to check    * @param rl rowlock    * @throws IOException    * @deprecated As of hbase 0.20.0, replaced by {@link #checkAndPut}    */
 specifier|public
 specifier|synchronized
 name|boolean
