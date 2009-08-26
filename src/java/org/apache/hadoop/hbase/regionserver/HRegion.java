@@ -5426,7 +5426,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Checks if any stamps are> now.  If so, sets them to now.    *<p>    * This acts to be prevent users from inserting future stamps as well as    * to replace LATEST_TIMESTAMP with now.    * @param keys    * @param now    * @return<code>true</code> when updating the time stamp completed.    */
+comment|/**    * Checks if any stamps is Long.MAX_VALUE.  If so, sets them to now.    *<p>    * This acts to replace LATEST_TIMESTAMP with now.    * @param keys    * @param now    * @return<code>true</code> when updating the time stamp completed.    */
 specifier|private
 name|boolean
 name|updateKeys
@@ -5466,6 +5466,18 @@ range|:
 name|keys
 control|)
 block|{
+if|if
+condition|(
+name|key
+operator|.
+name|getTimestamp
+argument_list|()
+operator|==
+name|HConstants
+operator|.
+name|LATEST_TIMESTAMP
+condition|)
+block|{
 name|key
 operator|.
 name|updateLatestStamp
@@ -5473,6 +5485,7 @@ argument_list|(
 name|now
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 literal|true
