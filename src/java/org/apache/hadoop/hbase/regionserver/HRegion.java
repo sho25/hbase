@@ -4339,11 +4339,17 @@ name|getFamiliesKeys
 argument_list|()
 control|)
 block|{
+comment|// Don't eat the timestamp
 name|delete
 operator|.
 name|deleteFamily
 argument_list|(
 name|family
+argument_list|,
+name|delete
+operator|.
+name|getTimeStamp
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
