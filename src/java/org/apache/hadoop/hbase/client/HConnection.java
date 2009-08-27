@@ -349,7 +349,7 @@ name|RuntimeException
 function_decl|;
 comment|/**    * Process a batch of rows. Currently it only works for updates until     * HBASE-880 is available. Does the retries.    * @param list A batch of rows to process    * @param tableName The name of the table    * @throws IOException    */
 specifier|public
-name|void
+name|int
 name|processBatchOfRows
 parameter_list|(
 name|ArrayList
