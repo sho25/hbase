@@ -4012,13 +4012,19 @@ block|{
 name|Decompressor
 name|decompressor
 init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|decompressor
+operator|=
 name|this
 operator|.
 name|compressAlgo
 operator|.
 name|getDecompressor
 argument_list|()
-decl_stmt|;
+expr_stmt|;
 comment|// My guess is that the bounded range fis is needed to stop the
 comment|// decompressor reading into next block -- IIRC, it just grabs a
 comment|// bunch of data w/o regard to whether decompressor is coming to end of a
@@ -4083,6 +4089,16 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
+finally|finally
+block|{
+if|if
+condition|(
+literal|null
+operator|!=
+name|decompressor
+condition|)
+block|{
 name|this
 operator|.
 name|compressAlgo
@@ -4092,6 +4108,8 @@ argument_list|(
 name|decompressor
 argument_list|)
 expr_stmt|;
+block|}
+block|}
 return|return
 name|buf
 return|;
