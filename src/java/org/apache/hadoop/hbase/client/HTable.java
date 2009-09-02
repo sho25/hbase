@@ -1478,6 +1478,22 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Do parse in case we are passed a family with a ':' on it.
+specifier|final
+name|byte
+index|[]
+name|f
+init|=
+name|KeyValue
+operator|.
+name|parseColumn
+argument_list|(
+name|family
+argument_list|)
+index|[
+literal|0
+index|]
+decl_stmt|;
 name|Result
 name|r
 init|=
@@ -1485,7 +1501,7 @@ name|getRowOrBefore
 argument_list|(
 name|row
 argument_list|,
-name|family
+name|f
 argument_list|)
 decl_stmt|;
 return|return

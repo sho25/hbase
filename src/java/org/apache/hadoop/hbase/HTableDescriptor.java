@@ -581,9 +581,9 @@ argument_list|,
 name|HColumnDescriptor
 argument_list|>
 argument_list|(
-name|KeyValue
+name|Bytes
 operator|.
-name|FAMILY_COMPARATOR
+name|BYTES_RAWCOMPARATOR
 argument_list|)
 decl_stmt|;
 comment|/**    * Private constructor used internally creating table descriptors for     * catalog tables: e.g. .META. and -ROOT-.    */

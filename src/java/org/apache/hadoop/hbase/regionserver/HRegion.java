@@ -757,9 +757,9 @@ argument_list|,
 name|Store
 argument_list|>
 argument_list|(
-name|KeyValue
+name|Bytes
 operator|.
-name|FAMILY_COMPARATOR
+name|BYTES_RAWCOMPARATOR
 argument_list|)
 decl_stmt|;
 comment|//These variable are just used for getting data out of the region, to test on
