@@ -95,6 +95,12 @@ name|prefix
 init|=
 literal|null
 decl_stmt|;
+specifier|protected
+name|boolean
+name|passedPrefix
+init|=
+literal|false
+decl_stmt|;
 specifier|public
 name|PrefixFilter
 parameter_list|(
@@ -169,7 +175,10 @@ literal|true
 return|;
 comment|// if they are equal, return false => pass row
 comment|// else return true, filter row
-return|return
+comment|// if we are passed the prefix, set flag
+name|int
+name|cmp
+init|=
 name|Bytes
 operator|.
 name|compareTo
@@ -196,6 +205,21 @@ name|prefix
 operator|.
 name|length
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|cmp
+operator|>
+literal|0
+condition|)
+block|{
+name|passedPrefix
+operator|=
+literal|true
+expr_stmt|;
+block|}
+return|return
+name|cmp
 operator|!=
 literal|0
 return|;
@@ -206,7 +230,7 @@ name|filterAllRemaining
 parameter_list|()
 block|{
 return|return
-literal|false
+name|passedPrefix
 return|;
 block|}
 specifier|public

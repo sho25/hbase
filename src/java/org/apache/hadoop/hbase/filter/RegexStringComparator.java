@@ -76,7 +76,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This comparator is for use with ColumnValueFilter, for filtering based on  * the value of a given column. Use it to test if a given regular expression  * matches a cell value in the column.  *<p>  * Only EQUAL or NOT_EQUAL tests are valid with this comparator.   *<p>  * For example:  *<p>  *<pre>  * ColumnValueFilter cvf =  *   new ColumnValueFilter("col",  *     ColumnValueFilter.CompareOp.EQUAL,  *     new RegexStringComparator(  *       // v4 IP address  *       "(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3,3}" +  *         "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\\/[0-9]+)?" +  *         "|" +  *       // v6 IP address  *       "((([\\dA-Fa-f]{1,4}:){7}[\\dA-Fa-f]{1,4})(:([\\d]{1,3}.)" +  *         "{3}[\\d]{1,3})?)(\\/[0-9]+)?"));  *</pre>  */
+comment|/**  * This comparator is for use with {@link CompareFilter} implementations, such   * as {@link RowFilter}, {@link QualifierFilter}, and {@link ValueFilter}, for   * filtering based on the value of a given column. Use it to test if a given   * regular expression matches a cell value in the column.  *<p>  * Only EQUAL or NOT_EQUAL {@link CompareOp} comparisons are valid with this   * comparator.   *<p>  * For example:  *<p>  *<pre>  * ValueFilter vf = new ValueFilter(CompareOp.EQUAL,  *     new RegexStringComparator(  *       // v4 IP address  *       "(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3,3}" +  *         "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(\\/[0-9]+)?" +  *         "|" +  *       // v6 IP address  *       "((([\\dA-Fa-f]{1,4}:){7}[\\dA-Fa-f]{1,4})(:([\\d]{1,3}.)" +  *         "{3}[\\d]{1,3})?)(\\/[0-9]+)?"));  *</pre>  */
 end_comment
 
 begin_class

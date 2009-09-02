@@ -48,39 +48,39 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This filter is used to filter based on column value. It takes an   * operator (equal, greater, not equal, etc) and a byte [] comparator for the   * cell value.  *<p>  * This filter can be wrapped with {@link WhileMatchFilter} and {@link SkipFilter}  * to add more control.  *<p>  * Multiple filters can be combined using {@link FilterList}.  *<p>  * To test the value of a single qualifier when scanning multiple qualifiers,  * use {@link SingleColumnValueFilter}.  */
+comment|/**  * This filter is used to filter based on the column qualifier. It takes an   * operator (equal, greater, not equal, etc) and a byte [] comparator for the   * column qualifier portion of a key.  *<p>  * This filter can be wrapped with {@link WhileMatchFilter} and {@link SkipFilter}  * to add more control.  *<p>  * Multiple filters can be combined using {@link FilterList}.  *<p>  * If an already known column qualifier is looked for, use {@link Get#addColumn}  * directly rather than a filter.  */
 end_comment
 
 begin_class
 specifier|public
 class|class
-name|ValueFilter
+name|QualifierFilter
 extends|extends
 name|CompareFilter
 block|{
 comment|/**    * Writable constructor, do not use.    */
 specifier|public
-name|ValueFilter
+name|QualifierFilter
 parameter_list|()
 block|{   }
-comment|/**    * Constructor.    * @param valueCompareOp the compare op for column qualifier matching    * @param valueComparator the comparator for column qualifier matching    */
+comment|/**    * Constructor.    * @param qualifierCompareOp the compare op for column qualifier matching    * @param qualifierComparator the comparator for column qualifier matching    */
 specifier|public
-name|ValueFilter
+name|QualifierFilter
 parameter_list|(
 specifier|final
 name|CompareOp
-name|valueCompareOp
+name|qualifierCompareOp
 parameter_list|,
 specifier|final
 name|WritableByteArrayComparable
-name|valueComparator
+name|qualifierComparator
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|valueCompareOp
+name|qualifierCompareOp
 argument_list|,
-name|valueComparator
+name|qualifierComparator
 argument_list|)
 expr_stmt|;
 block|}
@@ -93,6 +93,21 @@ parameter_list|(
 name|KeyValue
 name|v
 parameter_list|)
+block|{
+name|int
+name|qualifierLength
+init|=
+name|v
+operator|.
+name|getQualifierLength
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|qualifierLength
+operator|>
+literal|0
+condition|)
 block|{
 if|if
 condition|(
@@ -113,13 +128,10 @@ argument_list|()
 argument_list|,
 name|v
 operator|.
-name|getValueOffset
+name|getQualifierOffset
 argument_list|()
 argument_list|,
-name|v
-operator|.
-name|getValueLength
-argument_list|()
+name|qualifierLength
 argument_list|)
 condition|)
 block|{
@@ -128,6 +140,7 @@ name|ReturnCode
 operator|.
 name|SKIP
 return|;
+block|}
 block|}
 return|return
 name|ReturnCode
