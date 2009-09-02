@@ -23,6 +23,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -62,6 +90,21 @@ name|ScanWildcardColumnTracker
 implements|implements
 name|ColumnTracker
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|ScanWildcardColumnTracker
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|private
 name|byte
 index|[]
@@ -257,15 +300,63 @@ return|;
 block|}
 comment|// new col< oldcol
 comment|// if (cmp< 0) {
-throw|throw
-operator|new
-name|RuntimeException
+comment|// WARNING: This means that very likely an edit for some other family
+comment|// was incorrectly stored into the store for this one. Continue, but
+comment|// complain.
+name|LOG
+operator|.
+name|error
 argument_list|(
 literal|"ScanWildcardColumnTracker.checkColumn ran "
 operator|+
-literal|"into a column actually smaller than the previous column!"
+literal|"into a column actually smaller than the previous column: "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|bytes
+argument_list|,
+name|offset
+argument_list|,
+name|length
 argument_list|)
-throw|;
+argument_list|)
+expr_stmt|;
+comment|// switched columns
+name|columnBuffer
+operator|=
+name|bytes
+expr_stmt|;
+name|columnOffset
+operator|=
+name|offset
+expr_stmt|;
+name|columnLength
+operator|=
+name|length
+expr_stmt|;
+name|currentCount
+operator|=
+literal|0
+expr_stmt|;
+if|if
+condition|(
+operator|++
+name|currentCount
+operator|>
+name|maxVersions
+condition|)
+return|return
+name|MatchCode
+operator|.
+name|SKIP
+return|;
+return|return
+name|MatchCode
+operator|.
+name|INCLUDE
+return|;
 block|}
 annotation|@
 name|Override
