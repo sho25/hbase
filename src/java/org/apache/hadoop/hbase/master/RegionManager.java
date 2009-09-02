@@ -2047,6 +2047,11 @@ name|regionsToAssign
 return|;
 comment|// dont assign anything to this server.
 block|}
+synchronized|synchronized
+init|(
+name|regionsInTransition
+init|)
+block|{
 for|for
 control|(
 name|RegionState
@@ -2105,6 +2110,7 @@ argument_list|(
 name|s
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 return|return
@@ -3654,6 +3660,11 @@ block|}
 block|}
 comment|// This might be expensive, but we need to make sure we dont
 comment|// get double assignment to the same regionserver.
+synchronized|synchronized
+init|(
+name|regionsInTransition
+init|)
+block|{
 for|for
 control|(
 name|RegionState
@@ -3706,6 +3717,7 @@ comment|// Has an outstanding meta region to be assigned.
 return|return
 literal|true
 return|;
+block|}
 block|}
 block|}
 return|return
