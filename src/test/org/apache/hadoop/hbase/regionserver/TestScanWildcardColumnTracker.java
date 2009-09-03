@@ -522,7 +522,7 @@ block|}
 block|}
 specifier|public
 name|void
-name|testCheckColumn_WrongOrder
+name|DisabledTestCheckColumn_WrongOrder
 parameter_list|()
 block|{
 comment|//Create a WildcardColumnTracker
