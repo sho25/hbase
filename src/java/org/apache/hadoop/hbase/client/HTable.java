@@ -450,7 +450,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to communicate with a single HBase table.  *<p>  * This class is not MT safe for writes.  */
+comment|/**  * Used to communicate with a single HBase table.  *<p>  * This class is not thread safe for writes.  * Gets, puts, and deletes take out a row lock for the duration  * of their operation.  Scans (currently) do not respect  * row locking.  */
 end_comment
 
 begin_class
