@@ -1768,6 +1768,15 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|result
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
 for|for
 control|(
 name|KeyValue
@@ -1798,6 +1807,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|ThriftUtilities
@@ -2001,6 +2011,15 @@ name|Cell
 argument_list|>
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|result
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
 name|KeyValue
 index|[]
 name|kvs
@@ -2044,6 +2063,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 return|return
