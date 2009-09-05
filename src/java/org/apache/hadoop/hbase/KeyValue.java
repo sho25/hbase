@@ -3055,7 +3055,7 @@ return|return
 name|key
 return|;
 block|}
-comment|/**    * Do not use unless you have to.  Use {@link #getBuffer()} with appropriate    * offset and lengths instead.    * @return Value in a new byte array.    */
+comment|/**    * Returns value in a new byte array.    * Primarily for use client-side. If server-side, use    * {@link #getBuffer()} with appropriate offsets and lengths instead to    * save on allocations.    * @return Value in a new byte array.    */
 specifier|public
 name|byte
 index|[]
