@@ -688,7 +688,7 @@ name|name
 decl_stmt|;
 comment|// Total uncompressed bytes, maybe calculate a compression ratio later.
 specifier|private
-name|int
+name|long
 name|totalBytes
 init|=
 literal|0
@@ -1205,7 +1205,7 @@ operator|==
 literal|null
 condition|)
 return|return;
-name|long
+name|int
 name|size
 init|=
 name|releaseCompressingStream
@@ -1228,14 +1228,6 @@ argument_list|(
 name|firstKey
 argument_list|)
 expr_stmt|;
-name|int
-name|written
-init|=
-name|longToInt
-argument_list|(
-name|size
-argument_list|)
-decl_stmt|;
 name|blockOffsets
 operator|.
 name|add
@@ -1256,7 +1248,7 @@ name|Integer
 operator|.
 name|valueOf
 argument_list|(
-name|written
+name|size
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1264,7 +1256,7 @@ name|this
 operator|.
 name|totalBytes
 operator|+=
-name|written
+name|size
 expr_stmt|;
 block|}
 comment|/*      * Ready a new block for writing.      * @throws IOException      */
@@ -1276,6 +1268,8 @@ throws|throws
 name|IOException
 block|{
 comment|// This is where the next block begins.
+name|this
+operator|.
 name|blockBegin
 operator|=
 name|outputStream
@@ -1299,6 +1293,8 @@ argument_list|(
 name|DATABLOCKMAGIC
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|firstKey
 operator|=
 literal|null
@@ -1945,7 +1941,7 @@ name|offset
 argument_list|,
 name|length
 argument_list|)
-operator|>
+operator|>=
 literal|0
 condition|)
 block|{
@@ -2504,7 +2500,7 @@ call|)
 argument_list|(
 name|this
 operator|.
-name|keylength
+name|valuelength
 operator|/
 name|this
 operator|.
@@ -3467,9 +3463,19 @@ comment|// there are no meta blocks
 block|}
 if|if
 condition|(
+operator|(
 name|metaIndex
 operator|==
 literal|null
+operator|)
+operator|||
+operator|(
+name|metaIndex
+operator|.
+name|count
+operator|==
+literal|0
+operator|)
 condition|)
 block|{
 throw|throw
@@ -3591,6 +3597,15 @@ name|block
 index|]
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|buf
+operator|==
+literal|null
+condition|)
+return|return
+literal|null
+return|;
 name|byte
 index|[]
 name|magic
@@ -3639,31 +3654,6 @@ name|block
 argument_list|)
 throw|;
 block|}
-comment|// Toss the header. May have to remove later due to performance.
-name|buf
-operator|.
-name|compact
-argument_list|()
-expr_stmt|;
-name|buf
-operator|.
-name|limit
-argument_list|(
-name|buf
-operator|.
-name|limit
-argument_list|()
-operator|-
-name|METABLOCKMAGIC
-operator|.
-name|length
-argument_list|)
-expr_stmt|;
-name|buf
-operator|.
-name|rewind
-argument_list|()
-expr_stmt|;
 return|return
 name|buf
 return|;
@@ -3699,11 +3689,11 @@ block|}
 if|if
 condition|(
 name|block
-argument_list|<
+operator|<
 literal|0
 operator|||
 name|block
-argument_list|>
+operator|>=
 name|blockIndex
 operator|.
 name|count
@@ -3884,6 +3874,23 @@ name|block
 index|]
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|buf
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Decompress block failure "
+operator|+
+name|block
+argument_list|)
+throw|;
+block|}
 name|byte
 index|[]
 name|magic
@@ -3932,31 +3939,6 @@ name|block
 argument_list|)
 throw|;
 block|}
-comment|// Toss the header. May have to remove later due to performance.
-name|buf
-operator|.
-name|compact
-argument_list|()
-expr_stmt|;
-name|buf
-operator|.
-name|limit
-argument_list|(
-name|buf
-operator|.
-name|limit
-argument_list|()
-operator|-
-name|DATABLOCKMAGIC
-operator|.
-name|length
-argument_list|)
-expr_stmt|;
-name|buf
-operator|.
-name|rewind
-argument_list|()
-expr_stmt|;
 comment|// Cache the block
 if|if
 condition|(
@@ -5338,6 +5320,15 @@ operator|.
 name|rewind
 argument_list|()
 expr_stmt|;
+name|block
+operator|.
+name|position
+argument_list|(
+name|DATABLOCKMAGIC
+operator|.
+name|length
+argument_list|)
+expr_stmt|;
 name|currKeyLen
 operator|=
 name|block
@@ -5352,6 +5343,9 @@ operator|.
 name|getInt
 argument_list|()
 expr_stmt|;
+return|return
+literal|true
+return|;
 block|}
 name|currBlock
 operator|=
@@ -5460,6 +5454,15 @@ name|block
 operator|.
 name|rewind
 argument_list|()
+expr_stmt|;
+name|block
+operator|.
+name|position
+argument_list|(
+name|DATABLOCKMAGIC
+operator|.
+name|length
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -5807,7 +5810,7 @@ name|version
 return|;
 block|}
 block|}
-comment|/*    * The block index for a RFile.    * Used reading.    */
+comment|/*    * The block index for a HFile.    * Used reading.    */
 specifier|static
 class|class
 name|BlockIndex
