@@ -297,6 +297,11 @@ operator|new
 name|MetricsRegistry
 argument_list|()
 decl_stmt|;
+specifier|private
+specifier|final
+name|RegionServerStatistics
+name|statistics
+decl_stmt|;
 specifier|public
 specifier|final
 name|MetricsTimeVaryingRate
@@ -510,6 +515,19 @@ argument_list|,
 name|name
 argument_list|)
 expr_stmt|;
+comment|// export for JMX
+name|statistics
+operator|=
+operator|new
+name|RegionServerStatistics
+argument_list|(
+name|this
+operator|.
+name|registry
+argument_list|,
+name|name
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -523,7 +541,17 @@ name|void
 name|shutdown
 parameter_list|()
 block|{
-comment|// nought to do.
+if|if
+condition|(
+name|statistics
+operator|!=
+literal|null
+condition|)
+name|statistics
+operator|.
+name|shutdown
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Since this object is a registered updater, this method will be called    * periodically, e.g. every 5 seconds.    * @param unused     */
 specifier|public

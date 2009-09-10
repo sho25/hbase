@@ -191,6 +191,11 @@ operator|new
 name|MetricsRegistry
 argument_list|()
 decl_stmt|;
+specifier|private
+specifier|final
+name|MasterStatistics
+name|masterStatistics
+decl_stmt|;
 comment|/*    * Count of requests to the cluster since last call to metrics update    */
 specifier|private
 specifier|final
@@ -266,6 +271,17 @@ argument_list|,
 name|name
 argument_list|)
 expr_stmt|;
+comment|// expose the MBean for metrics
+name|masterStatistics
+operator|=
+operator|new
+name|MasterStatistics
+argument_list|(
+name|this
+operator|.
+name|registry
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -279,7 +295,17 @@ name|void
 name|shutdown
 parameter_list|()
 block|{
-comment|// nought to do.
+if|if
+condition|(
+name|masterStatistics
+operator|!=
+literal|null
+condition|)
+name|masterStatistics
+operator|.
+name|shutdown
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Since this object is a registered updater, this method will be called    * periodically, e.g. every 5 seconds.    * @param unused     */
 specifier|public
