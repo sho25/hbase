@@ -201,6 +201,10 @@ decl_stmt|;
 specifier|private
 name|long
 name|timestamp
+init|=
+name|HConstants
+operator|.
+name|LATEST_TIMESTAMP
 decl_stmt|;
 specifier|private
 name|byte
