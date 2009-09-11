@@ -216,9 +216,13 @@ literal|" endTime=\"1245393318192\""
 operator|+
 literal|" endRow=\"enp5eng=\""
 operator|+
-literal|" column=\"Y29sdW1uMQ== Y29sdW1uMjpmb28=\""
+literal|" batch=\"100\">"
 operator|+
-literal|" batch=\"100\"/>"
+literal|"<column>Y29sdW1uMQ==</column>"
+operator|+
+literal|"<column>Y29sdW1uMjpmb28=</column>"
+operator|+
+literal|"</Scanner>"
 decl_stmt|;
 specifier|private
 specifier|static

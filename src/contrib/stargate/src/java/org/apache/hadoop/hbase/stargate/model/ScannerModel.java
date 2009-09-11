@@ -83,6 +83,20 @@ name|bind
 operator|.
 name|annotation
 operator|.
+name|XmlElement
+import|;
+end_import
+
+begin_import
+import|import
+name|javax
+operator|.
+name|xml
+operator|.
+name|bind
+operator|.
+name|annotation
+operator|.
 name|XmlRootElement
 import|;
 end_import
@@ -168,7 +182,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A representation of Scanner parameters.  *   *<pre>  *&lt;complexType name="Scanner"&gt;  *&lt;attribute name="startRow" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="endRow" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="columns" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="batch" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="startTime" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="endTime" type="int"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *</pre>  */
+comment|/**  * A representation of Scanner parameters.  *   *<pre>  *&lt;complexType name="Scanner"&gt;  *&lt;sequence>  *&lt;element name="column" type="base64Binary" minOccurs="0" maxOccurs="unbounded"/&gt;  *&lt;/sequence&gt;  *&lt;attribute name="startRow" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="endRow" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="batch" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="startTime" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="endTime" type="int"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
 
 begin_class
@@ -468,9 +482,9 @@ return|return
 name|endRow
 return|;
 block|}
-comment|/**    * @return list of columns of interest, or empty for all    */
+comment|/**    * @return list of columns of interest in column:qualifier format, or empty for all    */
 annotation|@
-name|XmlAttribute
+name|XmlElement
 argument_list|(
 name|name
 operator|=
@@ -557,6 +571,26 @@ operator|.
 name|endRow
 operator|=
 name|endRow
+expr_stmt|;
+block|}
+comment|/**    * @param columns list of columns of interest in column:qualifier format, or empty for all    */
+specifier|public
+name|void
+name|setColumns
+parameter_list|(
+name|List
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|columns
+parameter_list|)
+block|{
+name|this
+operator|.
+name|columns
+operator|=
+name|columns
 expr_stmt|;
 block|}
 comment|/**    * @param batch the number of cells to return in batch    */
