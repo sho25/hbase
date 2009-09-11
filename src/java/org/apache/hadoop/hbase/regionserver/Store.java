@@ -1156,6 +1156,9 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Do reconstruction log.
+name|long
+name|newId
+init|=
 name|runReconstructionLog
 argument_list|(
 name|reconstructionLog
@@ -1166,7 +1169,23 @@ name|maxSeqId
 argument_list|,
 name|reporter
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|newId
+operator|!=
+operator|-
+literal|1
+condition|)
+block|{
+name|this
+operator|.
+name|maxSeqId
+operator|=
+name|newId
 expr_stmt|;
+comment|// start with the log id we just recovered.
+block|}
 block|}
 name|HColumnDescriptor
 name|getFamily
@@ -1238,9 +1257,9 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/*    * Run reconstruction log    * @param reconstructionLog    * @param msid    * @param reporter    * @throws IOException    */
+comment|/*    * Run reconstruction log    * @param reconstructionLog    * @param msid    * @param reporter    * @return the new max sequence id as per the log    * @throws IOException    */
 specifier|private
-name|void
+name|long
 name|runReconstructionLog
 parameter_list|(
 specifier|final
@@ -1260,6 +1279,7 @@ name|IOException
 block|{
 try|try
 block|{
+return|return
 name|doReconstructionLog
 argument_list|(
 name|reconstructionLog
@@ -1268,7 +1288,7 @@ name|msid
 argument_list|,
 name|reporter
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 catch|catch
 parameter_list|(
@@ -1340,10 +1360,14 @@ throw|throw
 name|e
 throw|;
 block|}
+return|return
+operator|-
+literal|1
+return|;
 block|}
-comment|/*    * Read the reconstructionLog to see whether we need to build a brand-new     * file out of non-flushed log entries.      *    * We can ignore any log message that has a sequence ID that's equal to or     * lower than maxSeqID.  (Because we know such log messages are already     * reflected in the MapFiles.)    */
+comment|/*    * Read the reconstructionLog to see whether we need to build a brand-new     * file out of non-flushed log entries.      *    * We can ignore any log message that has a sequence ID that's equal to or     * lower than maxSeqID.  (Because we know such log messages are already     * reflected in the MapFiles.)    *    * @return the new max sequence id as per the log, or -1 if no log recovered    */
 specifier|private
-name|void
+name|long
 name|doReconstructionLog
 parameter_list|(
 specifier|final
@@ -1381,7 +1405,10 @@ argument_list|)
 condition|)
 block|{
 comment|// Nothing to do.
-return|return;
+return|return
+operator|-
+literal|1
+return|;
 block|}
 comment|// Check its not empty.
 name|FileStatus
@@ -1421,7 +1448,10 @@ operator|+
 literal|" is zero-length"
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+operator|-
+literal|1
+return|;
 block|}
 comment|// TODO: This could grow large and blow heap out.  Need to get it into
 comment|// general memory usage accounting.
@@ -1726,16 +1756,64 @@ literal|"flushing reconstructionCache"
 argument_list|)
 expr_stmt|;
 block|}
+name|long
+name|newFileSeqNo
+init|=
+name|maxSeqIdInLog
+operator|+
+literal|1
+decl_stmt|;
+name|StoreFile
+name|sf
+init|=
 name|internalFlushCache
 argument_list|(
 name|reconstructedCache
 argument_list|,
-name|maxSeqIdInLog
-operator|+
-literal|1
+name|newFileSeqNo
+argument_list|)
+decl_stmt|;
+comment|// add it to the list of store files with maxSeqIdInLog+1
+if|if
+condition|(
+name|sf
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Flush failed with a null store file"
+argument_list|)
+throw|;
+block|}
+comment|// Add new file to store files.  Clear snapshot too while we have the
+comment|// Store write lock.
+name|this
+operator|.
+name|storefiles
+operator|.
+name|put
+argument_list|(
+name|newFileSeqNo
+argument_list|,
+name|sf
 argument_list|)
 expr_stmt|;
+name|notifyChangedReadersObservers
+argument_list|()
+expr_stmt|;
+return|return
+name|newFileSeqNo
+return|;
 block|}
+return|return
+operator|-
+literal|1
+return|;
+comment|// the reconstructed cache was 0 sized
 block|}
 comment|/*    * Creates a series of StoreFile loaded from the given directory.    * @throws IOException    */
 specifier|private
