@@ -215,6 +215,10 @@ specifier|private
 name|KeyValueHeap
 name|heap
 decl_stmt|;
+specifier|private
+name|boolean
+name|cacheBlocks
+decl_stmt|;
 comment|// Used to indicate that the scanner has closed (see HBASE-1107)
 specifier|private
 specifier|final
@@ -250,6 +254,15 @@ operator|.
 name|store
 operator|=
 name|store
+expr_stmt|;
+name|this
+operator|.
+name|cacheBlocks
+operator|=
+name|scan
+operator|.
+name|getCacheBlocks
+argument_list|()
 expr_stmt|;
 name|matcher
 operator|=
@@ -374,6 +387,12 @@ name|store
 operator|=
 name|store
 expr_stmt|;
+name|this
+operator|.
+name|cacheBlocks
+operator|=
+literal|false
+expr_stmt|;
 name|matcher
 operator|=
 operator|new
@@ -488,6 +507,15 @@ operator|.
 name|store
 operator|=
 literal|null
+expr_stmt|;
+name|this
+operator|.
+name|cacheBlocks
+operator|=
+name|scan
+operator|.
+name|getCacheBlocks
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -1016,7 +1044,9 @@ argument_list|(
 name|r
 operator|.
 name|getScanner
-argument_list|()
+argument_list|(
+name|cacheBlocks
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

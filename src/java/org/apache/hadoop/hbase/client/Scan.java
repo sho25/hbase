@@ -222,7 +222,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to perform Scan operations.  *<p>  * All operations are identical to {@link Get} with the exception of  * instantiation.  Rather than specifying a single row, an optional startRow  * and stopRow may be defined.  If rows are not specified, the Scanner will  * iterate over all rows.  *<p>  * To scan everything for each row, instantiate a Scan object.  *<p>  * To modify scanner caching for just this scan, use {@link #setCaching(int) setCaching}.  *<p>  * To further define the scope of what to get when scanning, perform additional   * methods as outlined below.  *<p>  * To get all columns from specific families, execute {@link #addFamily(byte[]) addFamily}  * for each family to retrieve.  *<p>  * To get specific columns, execute {@link #addColumn(byte[], byte[]) addColumn}  * for each column to retrieve.  *<p>  * To only retrieve columns within a specific range of version timestamps,  * execute {@link #setTimeRange(long, long) setTimeRange}.  *<p>  * To only retrieve columns with a specific timestamp, execute  * {@link #setTimeStamp(long) setTimestamp}.  *<p>  * To limit the number of versions of each column to be returned, execute  * {@link #setMaxVersions(int) setMaxVersions}.  *<p>  * To add a filter, execute {@link #setFilter(org.apache.hadoop.hbase.filter.Filter) setFilter}.  */
+comment|/**  * Used to perform Scan operations.  *<p>  * All operations are identical to {@link Get} with the exception of  * instantiation.  Rather than specifying a single row, an optional startRow  * and stopRow may be defined.  If rows are not specified, the Scanner will  * iterate over all rows.  *<p>  * To scan everything for each row, instantiate a Scan object.  *<p>  * To modify scanner caching for just this scan, use {@link #setCaching(int) setCaching}.  *<p>  * To further define the scope of what to get when scanning, perform additional   * methods as outlined below.  *<p>  * To get all columns from specific families, execute {@link #addFamily(byte[]) addFamily}  * for each family to retrieve.  *<p>  * To get specific columns, execute {@link #addColumn(byte[], byte[]) addColumn}  * for each column to retrieve.  *<p>  * To only retrieve columns within a specific range of version timestamps,  * execute {@link #setTimeRange(long, long) setTimeRange}.  *<p>  * To only retrieve columns with a specific timestamp, execute  * {@link #setTimeStamp(long) setTimestamp}.  *<p>  * To limit the number of versions of each column to be returned, execute  * {@link #setMaxVersions(int) setMaxVersions}.  *<p>  * To add a filter, execute {@link #setFilter(org.apache.hadoop.hbase.filter.Filter) setFilter}.  *<p>  * Expert: To explicitly disable server-side block caching for this scan,   * execute {@link #setCacheBlocks(boolean)}.  */
 end_comment
 
 begin_class
@@ -262,6 +262,12 @@ name|caching
 init|=
 operator|-
 literal|1
+decl_stmt|;
+specifier|private
+name|boolean
+name|cacheBlocks
+init|=
+literal|true
 decl_stmt|;
 specifier|private
 name|Filter
@@ -1386,6 +1392,32 @@ operator|!=
 literal|null
 return|;
 block|}
+comment|/**    * Set whether blocks should be cached for this Scan.    *<p>    * This is true by default.  When true, default settings of the table and    * family are used (this will never override caching blocks if the block    * cache is disabled for that family or entirely).    *     * @param cacheBlocks if false, default settings are overridden and blocks    * will not be cached    */
+specifier|public
+name|void
+name|setCacheBlocks
+parameter_list|(
+name|boolean
+name|cacheBlocks
+parameter_list|)
+block|{
+name|this
+operator|.
+name|cacheBlocks
+operator|=
+name|cacheBlocks
+expr_stmt|;
+block|}
+comment|/**    * Get whether blocks should be cached for this Scan.    * @return true if default caching should be used, false if blocks should not    * be cached    */
+specifier|public
+name|boolean
+name|getCacheBlocks
+parameter_list|()
+block|{
+return|return
+name|cacheBlocks
+return|;
+block|}
 comment|/**    * @return String    */
 annotation|@
 name|Override
@@ -1850,6 +1882,15 @@ operator|.
 name|readInt
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|cacheBlocks
+operator|=
+name|in
+operator|.
+name|readBoolean
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|in
@@ -2124,6 +2165,15 @@ argument_list|(
 name|this
 operator|.
 name|caching
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|writeBoolean
+argument_list|(
+name|this
+operator|.
+name|cacheBlocks
 argument_list|)
 expr_stmt|;
 if|if
