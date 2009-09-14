@@ -467,6 +467,11 @@ argument_list|()
 expr_stmt|;
 block|}
 return|return
+name|isEmpty
+argument_list|()
+condition|?
+literal|null
+else|:
 name|Arrays
 operator|.
 name|asList
