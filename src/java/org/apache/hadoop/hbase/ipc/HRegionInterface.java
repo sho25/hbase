@@ -301,6 +301,24 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Put an array of deletes into the specified region    *     * @param regionName    * @param deletes    * @return The number of processed deletes.  Returns -1 if all Deletes    * processed successfully.    * @throws IOException    */
+specifier|public
+name|int
+name|delete
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|regionName
+parameter_list|,
+specifier|final
+name|Delete
+index|[]
+name|deletes
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Atomically checks if a row/family/qualifier value match the expectedValue.    * If it does, it adds the put.    *     * @param regionName    * @param row    * @param family    * @param qualifier    * @param value the expected value    * @param put    * @throws IOException    * @return true if the new put was execute, false otherwise    */
 specifier|public
 name|boolean

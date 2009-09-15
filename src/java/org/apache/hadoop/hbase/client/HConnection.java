@@ -347,7 +347,7 @@ name|IOException
 throws|,
 name|RuntimeException
 function_decl|;
-comment|/**    * Process a batch of rows. Currently it only works for updates until     * HBASE-880 is available. Does the retries.    * @param list A batch of rows to process    * @param tableName The name of the table    * @throws IOException    */
+comment|/**    * Process a batch of Puts. Does the retries.    * @param list A batch of Puts to process.    * @param tableName The name of the table    * @return Count of committed Puts.  On fault,< list.size().    * @throws IOException    */
 specifier|public
 name|int
 name|processBatchOfRows
@@ -355,6 +355,24 @@ parameter_list|(
 name|ArrayList
 argument_list|<
 name|Put
+argument_list|>
+name|list
+parameter_list|,
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Process a batch of Deletes. Does the retries.    * @param list A batch of Deletes to process.    * @return Count of committed Deletes. On fault,< list.size().    * @param tableName The name of the table    * @throws IOException    */
+specifier|public
+name|int
+name|processBatchOfDeletes
+parameter_list|(
+name|ArrayList
+argument_list|<
+name|Delete
 argument_list|>
 name|list
 parameter_list|,

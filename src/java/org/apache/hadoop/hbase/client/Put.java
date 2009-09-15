@@ -200,9 +200,11 @@ name|HeapSize
 implements|,
 name|Writable
 implements|,
+name|Row
+implements|,
 name|Comparable
 argument_list|<
-name|Put
+name|Row
 argument_list|>
 block|{
 specifier|private
@@ -1192,7 +1194,7 @@ specifier|public
 name|int
 name|compareTo
 parameter_list|(
-name|Put
+name|Row
 name|p
 parameter_list|)
 block|{
