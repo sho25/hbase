@@ -669,6 +669,8 @@ block|{
 name|updateIndexes
 argument_list|(
 name|put
+argument_list|,
+name|lockId
 argument_list|)
 expr_stmt|;
 comment|// Do this first because will want to see the old row
@@ -690,6 +692,9 @@ name|updateIndexes
 parameter_list|(
 name|Put
 name|put
+parameter_list|,
+name|Integer
+name|lockId
 parameter_list|)
 throws|throws
 name|IOException
@@ -813,7 +818,7 @@ name|get
 argument_list|(
 name|oldGet
 argument_list|,
-literal|null
+name|lockId
 argument_list|)
 decl_stmt|;
 comment|// Add the old values to the new if they are not there
