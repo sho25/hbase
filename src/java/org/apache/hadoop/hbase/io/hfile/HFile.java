@@ -6946,7 +6946,7 @@ literal|"verbose"
 argument_list|,
 literal|false
 argument_list|,
-literal|"verbose output"
+literal|"Verbose output; emits file and meta data delimiters"
 argument_list|)
 expr_stmt|;
 name|options
@@ -6959,7 +6959,7 @@ literal|"printkv"
 argument_list|,
 literal|false
 argument_list|,
-literal|"print key/value pairs"
+literal|"Print key/value pairs"
 argument_list|)
 expr_stmt|;
 name|options
@@ -6972,7 +6972,7 @@ literal|"printmeta"
 argument_list|,
 literal|false
 argument_list|,
-literal|"print meta data of file"
+literal|"Print meta data of file"
 argument_list|)
 expr_stmt|;
 name|options
@@ -6985,7 +6985,7 @@ literal|"checkrow"
 argument_list|,
 literal|false
 argument_list|,
-literal|"enable row order check"
+literal|"Enable row order check; looks for out-of-order keys"
 argument_list|)
 expr_stmt|;
 name|options
@@ -6998,7 +6998,7 @@ literal|"checkfamily"
 argument_list|,
 literal|false
 argument_list|,
-literal|"enable family check"
+literal|"Enable family check"
 argument_list|)
 expr_stmt|;
 name|options
@@ -7011,7 +7011,7 @@ literal|"file"
 argument_list|,
 literal|true
 argument_list|,
-literal|"file to scan"
+literal|"File to scan. Pass full-path; e.g. hdfs://a:9000/hbase/.META./12/34"
 argument_list|)
 expr_stmt|;
 name|options
@@ -7024,7 +7024,7 @@ literal|"region"
 argument_list|,
 literal|true
 argument_list|,
-literal|"region to scan"
+literal|"Region to scan. Pass region name; e.g. '.META.,,1'"
 argument_list|)
 expr_stmt|;
 if|if
@@ -7140,6 +7140,30 @@ operator|new
 name|HBaseConfiguration
 argument_list|()
 decl_stmt|;
+name|conf
+operator|.
+name|set
+argument_list|(
+literal|"fs.default.name"
+argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
+name|HBASE_DIR
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|FileSystem
 name|fs
 init|=
@@ -7316,6 +7340,10 @@ argument_list|,
 name|regionDir
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|verbose
+condition|)
 name|System
 operator|.
 name|out
@@ -7348,6 +7376,10 @@ range|:
 name|regionFiles
 control|)
 block|{
+if|if
+condition|(
+name|verbose
+condition|)
 name|System
 operator|.
 name|out
@@ -7375,15 +7407,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// iterate over all files found
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"\nStart scan of files...\n"
-argument_list|)
-expr_stmt|;
 for|for
 control|(
 name|Path
@@ -7929,15 +7952,6 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"\nDone."
-argument_list|)
-expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
