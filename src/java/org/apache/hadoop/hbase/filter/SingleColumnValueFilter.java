@@ -150,7 +150,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This filter is used to filter cells based on value. It takes a {@link #Filter.CompareOp}   * operator (equal, greater, not equal, etc), and either a byte [] value or   * a {@link #WritableByteArrayComparable}.  *<p>  * If we have a byte [] value then we just do a lexicographic compare. For   * example, if passed value is 'b' and cell has 'a' and the compare operator   * is LESS, then we will filter out this cell (return true).  If this is not   * sufficient (eg you want to deserialize a long and then compare it to a fixed   * long value), then you can pass in your own comparator instead.  *<p>  * You must also specify a family and qualifier.  Only the value of this column   * will be tested.  All other   *<p>  * To prevent the entire row from being emitted if this filter determines the  * column does not pass (it should be filtered), wrap this filter with a  * {@link SkipFilter}.  *<p>  * To filter based on the value of all scanned columns, use {@link ValueFilter}.  */
+comment|/**  * This filter is used to filter cells based on value. It takes a {@link #Filter.CompareOp}   * operator (equal, greater, not equal, etc), and either a byte [] value or   * a {@link #WritableByteArrayComparable}.  *<p>  * If we have a byte [] value then we just do a lexicographic compare. For   * example, if passed value is 'b' and cell has 'a' and the compare operator   * is LESS, then we will filter out this cell (return true).  If this is not   * sufficient (eg you want to deserialize a long and then compare it to a fixed   * long value), then you can pass in your own comparator instead.  *<p>  * You must also specify a family and qualifier.  Only the value of this column   * will be tested.  *<p>  * To prevent the entire row from being emitted if the column is not found  * on a row, use {@link #setFilterIfMissing}.  *<p>  * Otherwise, if the column is found, the entire row will be emitted only if  * the value passes.  If the value fails, the row will be filtered out.  *<p>  * To filter based on the value of all scanned columns, use {@link ValueFilter}.  */
 end_comment
 
 begin_class
@@ -191,6 +191,24 @@ decl_stmt|;
 specifier|private
 name|WritableByteArrayComparable
 name|comparator
+decl_stmt|;
+specifier|private
+name|boolean
+name|foundColumn
+init|=
+literal|false
+decl_stmt|;
+specifier|private
+name|boolean
+name|matchedColumn
+init|=
+literal|false
+decl_stmt|;
+specifier|private
+name|boolean
+name|filterIfMissing
+init|=
+literal|false
 decl_stmt|;
 comment|/**    * Writable constructor, do not use.    */
 specifier|public
@@ -314,6 +332,31 @@ parameter_list|)
 block|{
 if|if
 condition|(
+name|matchedColumn
+condition|)
+block|{
+comment|// We already found and matched the single column, all keys now pass
+return|return
+name|ReturnCode
+operator|.
+name|INCLUDE
+return|;
+block|}
+elseif|else
+if|if
+condition|(
+name|foundColumn
+condition|)
+block|{
+comment|// We found but did not match the single column, skip to next row
+return|return
+name|ReturnCode
+operator|.
+name|NEXT_ROW
+return|;
+block|}
+if|if
+condition|(
 operator|!
 name|keyValue
 operator|.
@@ -335,6 +378,10 @@ operator|.
 name|INCLUDE
 return|;
 block|}
+name|foundColumn
+operator|=
+literal|true
+expr_stmt|;
 if|if
 condition|(
 name|filterColumnValue
@@ -362,6 +409,10 @@ operator|.
 name|NEXT_ROW
 return|;
 block|}
+name|matchedColumn
+operator|=
+literal|true
+expr_stmt|;
 return|return
 name|ReturnCode
 operator|.
@@ -489,15 +540,57 @@ name|boolean
 name|filterRow
 parameter_list|()
 block|{
+comment|// If column was found, return false if it was matched, true if it was not
+comment|// If column not found, return true if we filter if missing, false if not
 return|return
-literal|false
+name|foundColumn
+condition|?
+operator|!
+name|matchedColumn
+else|:
+name|filterIfMissing
 return|;
 block|}
 specifier|public
 name|void
 name|reset
 parameter_list|()
-block|{   }
+block|{
+name|foundColumn
+operator|=
+literal|false
+expr_stmt|;
+name|matchedColumn
+operator|=
+literal|false
+expr_stmt|;
+block|}
+comment|/**    * Get whether entire row should be filtered if column is not found.    * @return filterIfMissing true if row should be skipped if column not found,    * false if row should be let through anyways    */
+specifier|public
+name|boolean
+name|getFilterIfMissing
+parameter_list|()
+block|{
+return|return
+name|filterIfMissing
+return|;
+block|}
+comment|/**    * Set whether entire row should be filtered if column is not found.    *<p>    * If true, the entire row will be skipped if the column is not found.    *<p>    * If false, the row will pass if the column is not found.  This is default.    */
+specifier|public
+name|void
+name|setFilterIfMissing
+parameter_list|(
+name|boolean
+name|filterIfMissing
+parameter_list|)
+block|{
+name|this
+operator|.
+name|filterIfMissing
+operator|=
+name|filterIfMissing
+expr_stmt|;
+block|}
 specifier|public
 name|void
 name|readFields
@@ -593,6 +686,27 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+name|foundColumn
+operator|=
+name|in
+operator|.
+name|readBoolean
+argument_list|()
+expr_stmt|;
+name|matchedColumn
+operator|=
+name|in
+operator|.
+name|readBoolean
+argument_list|()
+expr_stmt|;
+name|filterIfMissing
+operator|=
+name|in
+operator|.
+name|readBoolean
+argument_list|()
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -650,6 +764,27 @@ operator|.
 name|class
 argument_list|,
 literal|null
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|writeBoolean
+argument_list|(
+name|foundColumn
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|writeBoolean
+argument_list|(
+name|matchedColumn
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|writeBoolean
+argument_list|(
+name|filterIfMissing
 argument_list|)
 expr_stmt|;
 block|}
