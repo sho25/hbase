@@ -688,7 +688,7 @@ name|name
 decl_stmt|;
 comment|// Total uncompressed bytes, maybe calculate a compression ratio later.
 specifier|private
-name|int
+name|long
 name|totalBytes
 init|=
 literal|0
@@ -1205,7 +1205,7 @@ operator|==
 literal|null
 condition|)
 return|return;
-name|long
+name|int
 name|size
 init|=
 name|releaseCompressingStream
@@ -1228,14 +1228,6 @@ argument_list|(
 name|firstKey
 argument_list|)
 expr_stmt|;
-name|int
-name|written
-init|=
-name|longToInt
-argument_list|(
-name|size
-argument_list|)
-decl_stmt|;
 name|blockOffsets
 operator|.
 name|add
@@ -1256,7 +1248,7 @@ name|Integer
 operator|.
 name|valueOf
 argument_list|(
-name|written
+name|size
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1264,7 +1256,7 @@ name|this
 operator|.
 name|totalBytes
 operator|+=
-name|written
+name|size
 expr_stmt|;
 block|}
 comment|/*      * Ready a new block for writing.      * @throws IOException      */
@@ -2504,7 +2496,7 @@ call|)
 argument_list|(
 name|this
 operator|.
-name|keylength
+name|valuelength
 operator|/
 name|this
 operator|.
@@ -3699,11 +3691,11 @@ block|}
 if|if
 condition|(
 name|block
-argument_list|<
+operator|<
 literal|0
 operator|||
 name|block
-argument_list|>
+operator|>=
 name|blockIndex
 operator|.
 name|count
@@ -5352,6 +5344,9 @@ operator|.
 name|getInt
 argument_list|()
 expr_stmt|;
+return|return
+literal|true
+return|;
 block|}
 name|currBlock
 operator|=
