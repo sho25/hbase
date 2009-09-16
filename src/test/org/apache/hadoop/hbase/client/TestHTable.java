@@ -144,7 +144,7 @@ specifier|private
 specifier|static
 specifier|final
 name|HColumnDescriptor
-name|column
+name|family1
 init|=
 operator|new
 name|HColumnDescriptor
@@ -251,7 +251,7 @@ decl_stmt|;
 try|try
 block|{
 name|HColumnDescriptor
-name|column2
+name|family2
 init|=
 operator|new
 name|HColumnDescriptor
@@ -260,7 +260,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"info2:"
+literal|"info2"
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -286,14 +286,14 @@ name|testTableADesc
 operator|.
 name|addFamily
 argument_list|(
-name|column
+name|family1
 argument_list|)
 expr_stmt|;
 name|testTableADesc
 operator|.
 name|addFamily
 argument_list|(
-name|column2
+name|family2
 argument_list|)
 expr_stmt|;
 name|admin
@@ -623,7 +623,7 @@ name|tableAdesc
 operator|.
 name|addFamily
 argument_list|(
-name|column
+name|family1
 argument_list|)
 expr_stmt|;
 name|HTableDescriptor
@@ -639,7 +639,7 @@ name|tableBdesc
 operator|.
 name|addFamily
 argument_list|(
-name|column
+name|family1
 argument_list|)
 expr_stmt|;
 comment|// create a couple of tables
@@ -1170,7 +1170,7 @@ throws|throws
 name|IOException
 block|{
 name|HColumnDescriptor
-name|column2
+name|family2
 init|=
 operator|new
 name|HColumnDescriptor
@@ -1179,7 +1179,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"info2:"
+literal|"info2"
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1205,14 +1205,14 @@ name|testTableADesc
 operator|.
 name|addFamily
 argument_list|(
-name|column
+name|family1
 argument_list|)
 expr_stmt|;
 name|testTableADesc
 operator|.
 name|addFamily
 argument_list|(
-name|column2
+name|family2
 argument_list|)
 expr_stmt|;
 name|admin
@@ -1576,7 +1576,7 @@ name|testTableADesc
 operator|.
 name|addFamily
 argument_list|(
-name|column
+name|family1
 argument_list|)
 expr_stmt|;
 name|admin

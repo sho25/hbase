@@ -57,22 +57,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|Put
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HBaseConfiguration
 import|;
 end_import
@@ -87,12 +71,14 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerAddress
+name|client
+operator|.
+name|Put
 import|;
 end_import
 
 begin_comment
-comment|/**  * A region server that will OOME.  * Everytime {@link #batchUpdate(Text, long, BatchUpdate)} is called, we add  * keep around a reference to the batch.  Use this class to test OOME extremes.  * Needs to be started manually as in  *<code>${HBASE_HOME}/bin/hbase ./bin/hbase org.apache.hadoop.hbase.OOMERegionServer start</code>.  */
+comment|/**  * A region server that will OOME.  * Everytime {@link #put(regionName, Put)} is called, we add  * keep around a reference to the batch.  Use this class to test OOME extremes.  * Needs to be started manually as in  *<code>${HBASE_HOME}/bin/hbase ./bin/hbase org.apache.hadoop.hbase.OOMERegionServer start</code>.  */
 end_comment
 
 begin_class

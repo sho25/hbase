@@ -104,10 +104,6 @@ name|byte
 index|[]
 operator|.
 name|class
-block|,
-name|Cell
-operator|.
-name|class
 block|}
 decl_stmt|;
 comment|/**    * The static loader that is used instead of the static constructor in    * HbaseMapWritable.    */

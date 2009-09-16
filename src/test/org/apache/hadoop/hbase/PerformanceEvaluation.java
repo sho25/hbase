@@ -2073,11 +2073,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/*    * Run all clients in this vm each to its own thread.    * @param cmd Command to run.    * @throws IOException    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unused"
-argument_list|)
 specifier|private
 name|void
 name|doMultipleClients

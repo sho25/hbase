@@ -57,9 +57,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|regionserver
 operator|.
-name|Bytes
+name|QueryMatcher
+operator|.
+name|MatchCode
 import|;
 end_import
 
@@ -73,11 +75,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|util
 operator|.
-name|QueryMatcher
-operator|.
-name|MatchCode
+name|Bytes
 import|;
 end_import
 

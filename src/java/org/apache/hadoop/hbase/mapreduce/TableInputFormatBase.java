@@ -133,7 +133,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Scan
+name|ResultScanner
 import|;
 end_import
 
@@ -149,7 +149,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ResultScanner
+name|Scan
 import|;
 end_import
 
@@ -166,22 +166,6 @@ operator|.
 name|io
 operator|.
 name|ImmutableBytesWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Writables
 import|;
 end_import
 

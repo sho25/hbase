@@ -103,22 +103,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|HRegion
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -690,6 +674,11 @@ comment|//  }
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Helpers
 comment|//////////////////////////////////////////////////////////////////////////////
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|private
 name|byte
 index|[]

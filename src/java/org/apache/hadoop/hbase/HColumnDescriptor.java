@@ -137,60 +137,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|rest
-operator|.
-name|exception
-operator|.
-name|HBaseRestException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|rest
-operator|.
-name|serializer
-operator|.
-name|IRestSerializer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|rest
-operator|.
-name|serializer
-operator|.
-name|ISerializable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -242,8 +188,6 @@ specifier|public
 class|class
 name|HColumnDescriptor
 implements|implements
-name|ISerializable
-implements|,
 name|WritableComparable
 argument_list|<
 name|HColumnDescriptor
@@ -474,7 +418,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**    * Construct a column descriptor specifying only the family name     * The other attributes are defaulted.    *     * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and end in a<code>:<code>    */
+comment|/**    * Construct a column descriptor specifying only the family name     * The other attributes are defaulted.    *     * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -494,7 +438,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct a column descriptor specifying only the family name     * The other attributes are defaulted.    *     * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and end in a<code>:<code>    */
+comment|/**    * Construct a column descriptor specifying only the family name     * The other attributes are defaulted.    *     * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -597,7 +541,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and end in a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -651,16 +595,7 @@ name|bloomFilter
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Backwards compatible Constructor.  Maximum value length is no longer    * configurable.    *     * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and end in a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize    * @param maxValueLength Restrict values to&lt;= this value (UNSUPPORTED)    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    * @deprecated As of hbase 0.20.0, max value length no longer supported    */
-comment|//  public HColumnDescriptor(final byte [] familyName, final int maxVersions,
-comment|//      final String compression, final boolean inMemory,
-comment|//      final boolean blockCacheEnabled, final int blocksize,
-comment|//      final int maxValueLength,
-comment|//      final int timeToLive, final boolean bloomFilter) {
-comment|//    this(familyName, maxVersions, compression, inMemory, blockCacheEnabled,
-comment|//        blocksize, timeToLive, bloomFilter);
-comment|//  }
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and end in a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> and does not    * end in a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -698,21 +633,16 @@ name|boolean
 name|bloomFilter
 parameter_list|)
 block|{
-name|this
-operator|.
-name|name
-operator|=
-name|stripColon
+name|isLegalFamilyName
 argument_list|(
 name|familyName
 argument_list|)
 expr_stmt|;
-name|isLegalFamilyName
-argument_list|(
 name|this
 operator|.
 name|name
-argument_list|)
+operator|=
+name|familyName
 expr_stmt|;
 if|if
 condition|(
@@ -777,79 +707,6 @@ name|blocksize
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
-specifier|static
-name|byte
-index|[]
-name|stripColon
-parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|n
-parameter_list|)
-block|{
-name|byte
-name|col
-init|=
-name|n
-index|[
-name|n
-operator|.
-name|length
-operator|-
-literal|1
-index|]
-decl_stmt|;
-if|if
-condition|(
-name|col
-operator|==
-literal|':'
-condition|)
-block|{
-comment|// strip.
-name|byte
-index|[]
-name|res
-init|=
-operator|new
-name|byte
-index|[
-name|n
-operator|.
-name|length
-operator|-
-literal|1
-index|]
-decl_stmt|;
-name|System
-operator|.
-name|arraycopy
-argument_list|(
-name|n
-argument_list|,
-literal|0
-argument_list|,
-name|res
-argument_list|,
-literal|0
-argument_list|,
-name|n
-operator|.
-name|length
-operator|-
-literal|1
-argument_list|)
-expr_stmt|;
-return|return
-name|res
-return|;
-block|}
-return|return
-name|n
-return|;
-block|}
 comment|/**    * @param b Family name.    * @return<code>b</code>    * @throws IllegalArgumentException If not null and not a legitimate family    * name: i.e. 'printable' and ends in a ':' (Null passes are allowed because    *<code>b</code> can be null when deserializing).  Cannot start with a '.'    * either.    */
 specifier|public
 specifier|static
@@ -910,13 +767,9 @@ literal|0
 init|;
 name|i
 operator|<
-operator|(
 name|b
 operator|.
 name|length
-operator|-
-literal|1
-operator|)
 condition|;
 name|i
 operator|++
@@ -970,17 +823,6 @@ name|b
 return|;
 block|}
 comment|/**    * @return Name of this column family    */
-specifier|public
-name|byte
-index|[]
-name|getName
-parameter_list|()
-block|{
-return|return
-name|name
-return|;
-block|}
-comment|/**    * @return Name of this column family with colon as required by client API    */
 annotation|@
 name|TOJSON
 argument_list|(
@@ -995,25 +837,11 @@ argument_list|)
 specifier|public
 name|byte
 index|[]
-name|getNameWithColon
+name|getName
 parameter_list|()
 block|{
 return|return
-name|Bytes
-operator|.
-name|add
-argument_list|(
-name|this
-operator|.
 name|name
-argument_list|,
-operator|new
-name|byte
-index|[]
-block|{
-literal|':'
-block|}
-argument_list|)
 return|;
 block|}
 comment|/**    * @return Name of this column family    */
@@ -2496,25 +2324,6 @@ block|}
 return|return
 name|result
 return|;
-block|}
-comment|/* (non-Javadoc)    * @see org.apache.hadoop.hbase.rest.xml.IOutputXML#toXML()    */
-specifier|public
-name|void
-name|restSerialize
-parameter_list|(
-name|IRestSerializer
-name|serializer
-parameter_list|)
-throws|throws
-name|HBaseRestException
-block|{
-name|serializer
-operator|.
-name|serializeColumnDescriptor
-argument_list|(
-name|this
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 end_class

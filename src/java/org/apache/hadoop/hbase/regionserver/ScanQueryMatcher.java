@@ -69,22 +69,6 @@ name|hbase
 operator|.
 name|filter
 operator|.
-name|RowFilterInterface
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|filter
-operator|.
 name|Filter
 operator|.
 name|ReturnCode
@@ -118,11 +102,6 @@ name|ScanQueryMatcher
 extends|extends
 name|QueryMatcher
 block|{
-comment|// have to support old style filter for now.
-specifier|private
-name|RowFilterInterface
-name|oldFilter
-decl_stmt|;
 comment|// Optimization so we can skip lots of compares when we decide to skip
 comment|// to the next row.
 specifier|private
@@ -236,15 +215,6 @@ operator|.
 name|getFilter
 argument_list|()
 expr_stmt|;
-name|this
-operator|.
-name|oldFilter
-operator|=
-name|scan
-operator|.
-name|getOldFilter
-argument_list|()
-expr_stmt|;
 comment|// Single branch to deal with two types of reads (columns vs all in family)
 if|if
 condition|(
@@ -311,26 +281,6 @@ name|filterAllRemaining
 argument_list|()
 condition|)
 block|{
-return|return
-name|MatchCode
-operator|.
-name|DONE_SCAN
-return|;
-block|}
-elseif|else
-if|if
-condition|(
-name|oldFilter
-operator|!=
-literal|null
-operator|&&
-name|oldFilter
-operator|.
-name|filterAllRemaining
-argument_list|()
-condition|)
-block|{
-comment|// the old filter runs only if the other filter didnt work.
 return|return
 name|MatchCode
 operator|.

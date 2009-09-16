@@ -1411,7 +1411,7 @@ index|[]
 index|[]
 name|FAMILIES
 init|=
-name|makeN
+name|makeNAscii
 argument_list|(
 name|FAMILY
 argument_list|,
@@ -8858,7 +8858,7 @@ index|[]
 index|[]
 name|FAMILIES
 init|=
-name|makeN
+name|makeNAscii
 argument_list|(
 name|FAMILY
 argument_list|,

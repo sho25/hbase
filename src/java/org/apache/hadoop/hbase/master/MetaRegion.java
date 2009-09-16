@@ -19,16 +19,6 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -37,7 +27,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|HRegionInfo
 import|;
 end_import
 
@@ -52,20 +42,6 @@ operator|.
 name|hbase
 operator|.
 name|HServerAddress
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HRegionInfo
 import|;
 end_import
 

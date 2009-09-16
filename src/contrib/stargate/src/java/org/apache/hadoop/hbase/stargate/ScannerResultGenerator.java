@@ -363,11 +363,10 @@ decl_stmt|;
 if|if
 condition|(
 name|split
-index|[
-literal|1
-index|]
-operator|!=
-literal|null
+operator|.
+name|length
+operator|==
+literal|2
 condition|)
 block|{
 name|scan

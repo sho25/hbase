@@ -260,13 +260,13 @@ specifier|protected
 name|HTableDescriptor
 name|desc
 decl_stmt|;
-comment|/**    * @param columnName the column to populate.    */
+comment|/**    * @param familyName the family to populate.    */
 specifier|public
 name|MultiRegionTable
 parameter_list|(
 specifier|final
 name|String
-name|columnName
+name|familyName
 parameter_list|)
 block|{
 name|super
@@ -280,7 +280,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|columnName
+name|familyName
 argument_list|)
 expr_stmt|;
 comment|// These are needed for the new and improved Map/Reduce framework

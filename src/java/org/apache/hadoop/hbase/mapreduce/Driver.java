@@ -25,24 +25,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|migration
-operator|.
-name|nineteen
-operator|.
-name|HStoreFileToStoreFile
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|util
 operator|.
 name|ProgramDriver
@@ -91,21 +73,6 @@ operator|.
 name|class
 argument_list|,
 literal|"Count rows in HBase table"
-argument_list|)
-expr_stmt|;
-name|pgd
-operator|.
-name|addClass
-argument_list|(
-name|HStoreFileToStoreFile
-operator|.
-name|JOBNAME
-argument_list|,
-name|HStoreFileToStoreFile
-operator|.
-name|class
-argument_list|,
-literal|"Bulk convert 0.19 HStoreFiles to 0.20 StoreFiles"
 argument_list|)
 expr_stmt|;
 name|pgd

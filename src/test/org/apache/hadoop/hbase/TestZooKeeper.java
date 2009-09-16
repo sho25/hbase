@@ -500,17 +500,11 @@ decl_stmt|;
 name|int
 name|sessionTimeout
 init|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-literal|"zookeeper.session.timeout"
-argument_list|,
-literal|2
+literal|5
 operator|*
 literal|1000
-argument_list|)
 decl_stmt|;
+comment|// 5 seconds
 name|HConnection
 name|connection
 init|=
@@ -654,17 +648,11 @@ decl_stmt|;
 name|int
 name|sessionTimeout
 init|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-literal|"zookeeper.session.timeout"
-argument_list|,
-literal|2
+literal|5
 operator|*
 literal|1000
-argument_list|)
 decl_stmt|;
+comment|// 5 seconds
 name|HRegionServer
 name|rs
 init|=
@@ -767,7 +755,7 @@ init|=
 operator|new
 name|HColumnDescriptor
 argument_list|(
-literal|"fam:"
+literal|"fam"
 argument_list|)
 decl_stmt|;
 name|desc

@@ -63,10 +63,6 @@ name|List
 import|;
 end_import
 
-begin_comment
-comment|//import java.util.Random;
-end_comment
-
 begin_import
 import|import
 name|java
@@ -76,10 +72,6 @@ operator|.
 name|Set
 import|;
 end_import
-
-begin_comment
-comment|//import java.util.SortedSet;
-end_comment
 
 begin_import
 import|import

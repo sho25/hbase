@@ -91,7 +91,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|HRegionInfo
 import|;
 end_import
 
@@ -105,7 +105,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|HServerAddress
 import|;
 end_import
 
@@ -134,20 +134,6 @@ operator|.
 name|hbase
 operator|.
 name|RemoteExceptionHandler
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HServerAddress
 import|;
 end_import
 
@@ -243,39 +229,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Writables
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|RowResult
 import|;
 end_import
 

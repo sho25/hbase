@@ -125,13 +125,13 @@ specifier|static
 specifier|final
 name|byte
 index|[]
-name|COLUMN_NAME
+name|FAMILY_NAME
 init|=
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"col1:"
+literal|"col1"
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -156,7 +156,7 @@ argument_list|(
 operator|new
 name|HColumnDescriptor
 argument_list|(
-name|COLUMN_NAME
+name|FAMILY_NAME
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -337,7 +337,7 @@ argument_list|,
 operator|new
 name|HColumnDescriptor
 argument_list|(
-literal|"col2:"
+literal|"col2"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -366,7 +366,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"col2:"
+literal|"col2"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -402,7 +402,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"col2:"
+literal|"col2"
 argument_list|)
 argument_list|)
 expr_stmt|;

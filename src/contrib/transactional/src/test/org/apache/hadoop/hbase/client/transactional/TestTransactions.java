@@ -438,7 +438,7 @@ argument_list|(
 operator|new
 name|HColumnDescriptor
 argument_list|(
-name|FAMILY_COLON
+name|FAMILY
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -660,7 +660,9 @@ argument_list|)
 operator|.
 name|addColumn
 argument_list|(
-name|COL_A
+name|FAMILY
+argument_list|,
+name|QUAL_A
 argument_list|)
 argument_list|)
 operator|.
@@ -719,7 +721,9 @@ argument_list|)
 operator|.
 name|addColumn
 argument_list|(
-name|COL_A
+name|FAMILY
+argument_list|,
+name|QUAL_A
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -777,7 +781,9 @@ argument_list|)
 operator|.
 name|addColumn
 argument_list|(
-name|COL_A
+name|FAMILY
+argument_list|,
+name|QUAL_A
 argument_list|)
 argument_list|)
 operator|.
@@ -1097,7 +1103,9 @@ argument_list|)
 operator|.
 name|addColumn
 argument_list|(
-name|COL_A
+name|FAMILY
+argument_list|,
+name|QUAL_A
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1123,7 +1131,9 @@ name|row1_A
 operator|.
 name|getValue
 argument_list|(
-name|COL_A
+name|FAMILY
+argument_list|,
+name|QUAL_A
 argument_list|)
 argument_list|)
 argument_list|)
@@ -1150,7 +1160,9 @@ name|row1_A
 operator|.
 name|getValue
 argument_list|(
-name|COL_A
+name|FAMILY
+argument_list|,
+name|QUAL_A
 argument_list|)
 argument_list|)
 argument_list|)
@@ -1192,7 +1204,9 @@ argument_list|)
 operator|.
 name|addColumn
 argument_list|(
-name|COL_A
+name|FAMILY
+argument_list|,
+name|QUAL_A
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1207,7 +1221,9 @@ name|row1_A
 operator|.
 name|getValue
 argument_list|(
-name|COL_A
+name|FAMILY
+argument_list|,
+name|QUAL_A
 argument_list|)
 argument_list|)
 decl_stmt|;

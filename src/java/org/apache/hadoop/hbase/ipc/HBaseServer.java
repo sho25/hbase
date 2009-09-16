@@ -4234,7 +4234,7 @@ argument_list|()
 decl_stmt|;
 name|UserGroupInformation
 operator|.
-name|setCurrentUGI
+name|setCurrentUser
 argument_list|(
 name|call
 operator|.
@@ -4306,7 +4306,7 @@ expr_stmt|;
 block|}
 name|UserGroupInformation
 operator|.
-name|setCurrentUGI
+name|setCurrentUser
 argument_list|(
 name|previous
 argument_list|)
