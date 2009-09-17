@@ -13,7 +13,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|mapred
+name|mapreduce
 package|;
 end_package
 
