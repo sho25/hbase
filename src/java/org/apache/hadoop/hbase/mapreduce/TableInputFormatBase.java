@@ -707,6 +707,8 @@ init|=
 operator|new
 name|Scan
 argument_list|(
+name|this
+operator|.
 name|scan
 argument_list|)
 decl_stmt|;
@@ -812,23 +814,6 @@ operator|new
 name|IOException
 argument_list|(
 literal|"No table was provided."
-argument_list|)
-throw|;
-block|}
-if|if
-condition|(
-operator|!
-name|scan
-operator|.
-name|hasFamilies
-argument_list|()
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Expecting at least one column."
 argument_list|)
 throw|;
 block|}
@@ -1028,10 +1013,14 @@ parameter_list|()
 block|{
 if|if
 condition|(
+name|this
+operator|.
 name|scan
 operator|==
 literal|null
 condition|)
+name|this
+operator|.
 name|scan
 operator|=
 operator|new

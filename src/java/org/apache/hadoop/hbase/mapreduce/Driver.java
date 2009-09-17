@@ -77,6 +77,36 @@ argument_list|)
 expr_stmt|;
 name|pgd
 operator|.
+name|addClass
+argument_list|(
+name|Export
+operator|.
+name|NAME
+argument_list|,
+name|Export
+operator|.
+name|class
+argument_list|,
+literal|"Write table data to HDFS."
+argument_list|)
+expr_stmt|;
+name|pgd
+operator|.
+name|addClass
+argument_list|(
+name|Import
+operator|.
+name|NAME
+argument_list|,
+name|Import
+operator|.
+name|class
+argument_list|,
+literal|"Import data written by Export."
+argument_list|)
+expr_stmt|;
+name|pgd
+operator|.
 name|driver
 argument_list|(
 name|args
