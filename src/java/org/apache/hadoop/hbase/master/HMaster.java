@@ -471,20 +471,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|RegionHistorian
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|RemoteExceptionHandler
 import|;
 end_import
@@ -2455,14 +2441,6 @@ name|letRegionServersShutdown
 argument_list|()
 expr_stmt|;
 comment|/*      * Clean up and close up shop      */
-name|RegionHistorian
-operator|.
-name|getInstance
-argument_list|()
-operator|.
-name|offline
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|this
