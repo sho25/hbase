@@ -1721,17 +1721,6 @@ name|se
 parameter_list|)
 block|{
 comment|// namenode has not been started
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Server at "
-operator|+
-name|addr
-operator|+
-literal|" not available yet, Zzzzz..."
-argument_list|)
-expr_stmt|;
 name|ioe
 operator|=
 name|se
@@ -1767,31 +1756,16 @@ throw|throw
 operator|new
 name|RetriesExhaustedException
 argument_list|(
+literal|"Failed setting up proxy to "
+operator|+
 name|addr
 operator|.
 name|toString
 argument_list|()
-argument_list|,
-literal|"unknown"
-operator|.
-name|getBytes
-argument_list|()
-argument_list|,
-literal|"unknown"
-operator|.
-name|getBytes
-argument_list|()
-argument_list|,
+operator|+
+literal|" after attempts="
+operator|+
 name|reconnectAttempts
-operator|-
-literal|1
-argument_list|,
-operator|new
-name|ArrayList
-argument_list|<
-name|Throwable
-argument_list|>
-argument_list|()
 argument_list|)
 throw|;
 block|}

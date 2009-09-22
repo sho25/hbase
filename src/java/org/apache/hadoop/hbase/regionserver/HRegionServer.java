@@ -3182,64 +3182,30 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|tries
-operator|<
-name|this
-operator|.
-name|numRetries
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Processing message (Retry: "
-operator|+
-name|tries
-operator|+
-literal|")"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
 name|tries
 operator|++
 expr_stmt|;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Exceeded max retries: "
-operator|+
+if|if
+condition|(
+name|tries
+operator|>
+literal|0
+operator|&&
+operator|(
+name|tries
+operator|%
 name|this
 operator|.
 name|numRetries
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|checkFileSystem
-argument_list|()
+operator|)
+operator|==
+literal|0
 condition|)
 block|{
-comment|// Filesystem is OK.  Something is up w/ ZK or master.  Sleep
-comment|// a little while if only to stop our logging many times a
-comment|// millisecond.
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-literal|1000
-argument_list|)
+comment|// Check filesystem every so often.
+name|checkFileSystem
+argument_list|()
 expr_stmt|;
-block|}
 block|}
 if|if
 condition|(
@@ -3255,9 +3221,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Stop was requested, clearing the toDo "
-operator|+
-literal|"despite of the exception"
+literal|"Stop requested, clearing toDo despite exception"
 argument_list|)
 expr_stmt|;
 name|toDo
@@ -3267,6 +3231,26 @@ argument_list|()
 expr_stmt|;
 continue|continue;
 block|}
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Attempt="
+operator|+
+name|tries
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+comment|// No point retrying immediately; this is probably connection to
+comment|// master issue.  Doing below will cause us to sleep.
+name|lastMsg
+operator|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 comment|// Do some housekeeping before going to sleep

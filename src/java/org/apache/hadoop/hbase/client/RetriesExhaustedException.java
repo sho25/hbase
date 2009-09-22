@@ -72,6 +72,20 @@ name|serialVersionUID
 init|=
 literal|1876775844L
 decl_stmt|;
+specifier|public
+name|RetriesExhaustedException
+parameter_list|(
+specifier|final
+name|String
+name|msg
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**     * Create a new RetriesExhaustedException from the list of prior failures.    * @param serverName name of HRegionServer    * @param regionName name of region    * @param row The row we were pursuing when we ran out of retries    * @param numTries The number of tries we made    * @param exceptions List of exceptions that failed before giving up    */
 specifier|public
 name|RetriesExhaustedException

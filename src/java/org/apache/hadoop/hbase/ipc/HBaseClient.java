@@ -445,6 +445,12 @@ name|int
 name|maxRetries
 decl_stmt|;
 comment|//the max. no. of retries for socket connections
+specifier|final
+specifier|protected
+name|long
+name|failureSleep
+decl_stmt|;
+comment|// Time to sleep before retry on failure.
 specifier|protected
 name|boolean
 name|tcpNoDelay
@@ -1203,13 +1209,12 @@ name|SocketTimeoutException
 name|toe
 parameter_list|)
 block|{
-comment|/* The max number of retries is 45,              * which amounts to 20s*45 = 15 minutes retries.              */
 name|handleConnectionFailure
 argument_list|(
 name|timeoutFailures
 operator|++
 argument_list|,
-literal|45
+name|maxRetries
 argument_list|,
 name|toe
 argument_list|)
@@ -1306,7 +1311,7 @@ name|e
 throw|;
 block|}
 block|}
-comment|/* Handle connection failures      *      * If the current number of retries is equal to the max number of retries,      * stop retrying and throw the exception; Otherwise backoff 1 second and      * try connecting again.      *      * This Method is only called from inside setupIOstreams(), which is      * synchronized. Hence the sleep is synchronized; the locks will be retained.      *      * @param curRetries current number of retries      * @param maxRetries max number of retries allowed      * @param ioe failure reason      * @throws IOException if max number of retries is reached      */
+comment|/* Handle connection failures      *      * If the current number of retries is equal to the max number of retries,      * stop retrying and throw the exception; Otherwise backoff N seconds and      * try connecting again.      *      * This Method is only called from inside setupIOstreams(), which is      * synchronized. Hence the sleep is synchronized; the locks will be retained.      *      * @param curRetries current number of retries      * @param maxRetries max number of retries allowed      * @param ioe failure reason      * @throws IOException if max number of retries is reached      */
 specifier|private
 name|void
 name|handleConnectionFailure
@@ -1373,7 +1378,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|1000
+name|failureSleep
 argument_list|)
 expr_stmt|;
 block|}
@@ -1394,7 +1399,11 @@ operator|.
 name|getAddress
 argument_list|()
 operator|+
-literal|". Already tried "
+literal|" after sleeping "
+operator|+
+name|failureSleep
+operator|+
+literal|"ms. Already tried "
 operator|+
 name|curRetries
 operator|+
@@ -2487,7 +2496,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"ipc.client.connection.maxidletime"
+literal|"hbase.ipc.client.connection.maxidletime"
 argument_list|,
 literal|10000
 argument_list|)
@@ -2501,9 +2510,22 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"ipc.client.connect.max.retries"
+literal|"hbase.ipc.client.connect.max.retries"
 argument_list|,
-literal|10
+literal|0
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|failureSleep
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.client.pause"
+argument_list|,
+literal|2000
 argument_list|)
 expr_stmt|;
 name|this
@@ -2514,7 +2536,7 @@ name|conf
 operator|.
 name|getBoolean
 argument_list|(
-literal|"ipc.client.tcpnodelay"
+literal|"hbase.ipc.client.tcpnodelay"
 argument_list|,
 literal|false
 argument_list|)
@@ -2527,7 +2549,7 @@ name|conf
 operator|.
 name|getBoolean
 argument_list|(
-literal|"ipc.client.tcpkeepalive"
+literal|"hbase.ipc.client.tcpkeepalive"
 argument_list|,
 literal|true
 argument_list|)

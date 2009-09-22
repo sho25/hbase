@@ -1548,6 +1548,25 @@ literal|1
 condition|)
 block|{
 comment|// This was our last chance - don't bother sleeping
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"getMaster attempt "
+operator|+
+name|tries
+operator|+
+literal|" of "
+operator|+
+name|this
+operator|.
+name|numRetries
+operator|+
+literal|" failed; no more retrying."
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 break|break;
 block|}
 name|LOG
@@ -4250,7 +4269,9 @@ literal|"Timed out trying to locate root region"
 argument_list|)
 throw|;
 block|}
-comment|// get a connection to the region server
+try|try
+block|{
+comment|// Get a connection to the region server
 name|HRegionInterface
 name|server
 init|=
@@ -4259,8 +4280,6 @@ argument_list|(
 name|rootRegionAddress
 argument_list|)
 decl_stmt|;
-try|try
-block|{
 comment|// if this works, then we're good, and we have an acceptable address,
 comment|// so we can stop doing retries and return the result.
 name|server
