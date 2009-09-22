@@ -1698,6 +1698,10 @@ name|row
 operator|=
 literal|null
 expr_stmt|;
+name|kvs
+operator|=
+literal|null
+expr_stmt|;
 name|int
 name|totalBuffer
 init|=
