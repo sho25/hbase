@@ -2855,10 +2855,7 @@ name|headMap
 argument_list|(
 name|newRegion
 operator|.
-name|getTableDesc
-argument_list|()
-operator|.
-name|getName
+name|getRegionName
 argument_list|()
 argument_list|)
 operator|.
