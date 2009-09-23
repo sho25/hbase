@@ -6206,6 +6206,18 @@ argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|this
+operator|.
+name|lock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
+block|{
 comment|// Read from memstore
 if|if
 condition|(
@@ -6328,6 +6340,20 @@ argument_list|(
 name|result
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|this
+operator|.
+name|lock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Increments the value for the given row/family/qualifier    * @param row    * @param f    * @param qualifier    * @param newValue the new value to set into memstore    * @return memstore size delta    * @throws IOException    */
 specifier|public
