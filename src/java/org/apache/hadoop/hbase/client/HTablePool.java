@@ -381,7 +381,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|private
+specifier|protected
 name|HTableInterface
 name|createHTable
 parameter_list|(
