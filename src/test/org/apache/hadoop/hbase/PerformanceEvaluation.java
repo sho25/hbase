@@ -746,6 +746,7 @@ name|ONE_GB
 operator|/
 name|ROW_LENGTH
 decl_stmt|;
+specifier|public
 specifier|static
 specifier|final
 name|byte
@@ -759,6 +760,7 @@ argument_list|(
 literal|"info"
 argument_list|)
 decl_stmt|;
+specifier|public
 specifier|static
 specifier|final
 name|byte
@@ -3964,6 +3966,7 @@ name|b
 return|;
 block|}
 comment|/*    * This method takes some time and is done inline uploading data.  For    * example, doing the mapfile test, generation of the key and value    * consumes about 30% of CPU time.    * @return Generated random value to insert into a table cell.    */
+specifier|public
 specifier|static
 name|byte
 index|[]

@@ -1647,7 +1647,8 @@ name|c
 argument_list|)
 return|;
 block|}
-comment|/**    * @param fs    * @param p    * @return random filename inside passed<code>dir</code>    */
+comment|/**    * @param fs    * @param dir Directory to create file in.    * @return random filename inside passed<code>dir</code>    */
+specifier|public
 specifier|static
 name|Path
 name|getUniqueFile
@@ -1658,7 +1659,7 @@ name|fs
 parameter_list|,
 specifier|final
 name|Path
-name|p
+name|dir
 parameter_list|)
 throws|throws
 name|IOException
@@ -1670,7 +1671,7 @@ name|fs
 operator|.
 name|getFileStatus
 argument_list|(
-name|p
+name|dir
 argument_list|)
 operator|.
 name|isDir
@@ -1681,7 +1682,14 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Expecting a directory"
+literal|"Expecting "
+operator|+
+name|dir
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" to be a directory"
 argument_list|)
 throw|;
 block|}
@@ -1690,7 +1698,7 @@ name|fs
 operator|.
 name|getFileStatus
 argument_list|(
-name|p
+name|dir
 argument_list|)
 operator|.
 name|isDir
@@ -1700,10 +1708,10 @@ name|getRandomFilename
 argument_list|(
 name|fs
 argument_list|,
-name|p
+name|dir
 argument_list|)
 else|:
-name|p
+name|dir
 return|;
 block|}
 comment|/**    *    * @param fs    * @param dir    * @return Path to a file that doesn't exist at time of this invocation.    * @throws IOException    */
