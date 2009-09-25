@@ -1624,7 +1624,7 @@ name|get
 argument_list|(
 name|get
 argument_list|,
-literal|null
+name|lockid
 argument_list|)
 decl_stmt|;
 name|SortedMap
@@ -1697,7 +1697,7 @@ name|get
 argument_list|(
 name|get
 argument_list|,
-literal|null
+name|lockid
 argument_list|)
 expr_stmt|;
 name|SortedMap
