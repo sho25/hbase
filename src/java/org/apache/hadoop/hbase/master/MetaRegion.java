@@ -214,6 +214,20 @@ name|getStartKey
 argument_list|()
 return|;
 block|}
+comment|/** @return the endKey */
+specifier|public
+name|byte
+index|[]
+name|getEndKey
+parameter_list|()
+block|{
+return|return
+name|regionInfo
+operator|.
+name|getEndKey
+argument_list|()
+return|;
+block|}
 specifier|public
 name|HRegionInfo
 name|getRegionInfo
