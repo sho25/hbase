@@ -1505,9 +1505,12 @@ block|{
 name|HLogKey
 name|key
 init|=
-operator|new
-name|HLogKey
-argument_list|()
+name|HLog
+operator|.
+name|newKey
+argument_list|(
+name|conf
+argument_list|)
 decl_stmt|;
 name|KeyValue
 name|val
@@ -1602,7 +1605,6 @@ comment|// Check this edit is for me. Also, guard against writing the special
 comment|// METACOLUMN info such as HBASE::CACHEFLUSH entries
 if|if
 condition|(
-comment|/* commented out for now - stack via jgray key.isTransactionEntry() || */
 name|val
 operator|.
 name|matchingFamily

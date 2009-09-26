@@ -425,6 +425,24 @@ name|client
 operator|.
 name|transactional
 operator|.
+name|HBaseBackedTransactionLogger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|transactional
+operator|.
 name|UnknownTransactionException
 import|;
 end_import
@@ -831,6 +849,27 @@ argument_list|,
 name|reporter
 argument_list|)
 expr_stmt|;
+comment|// We can ignore doing anything with the Trx Log table, it is not-transactional.
+if|if
+condition|(
+name|super
+operator|.
+name|getTableDesc
+argument_list|()
+operator|.
+name|getNameAsString
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|HBaseBackedTransactionLogger
+operator|.
+name|TABLE_NAME
+argument_list|)
+condition|)
+block|{
+return|return;
+block|}
 name|THLogRecoveryManager
 name|recoveryManager
 init|=
@@ -887,7 +926,7 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|" COMMITED transactions"
+literal|" COMMITED transactions to recover."
 argument_list|)
 expr_stmt|;
 for|for
@@ -973,12 +1012,32 @@ expr_stmt|;
 comment|// These are walled so they live forever
 block|}
 block|}
-comment|// LOG.debug("Flushing cache"); // We must trigger a cache flush,
-comment|// otherwise
-comment|// we will would ignore the log on subsequent failure
-comment|// if (!super.flushcache()) {
-comment|// LOG.warn("Did not flush cache");
-comment|// }
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Flushing cache"
+argument_list|)
+expr_stmt|;
+comment|// We must trigger a cache flush,
+comment|//otherwise we will would ignore the log on subsequent failure
+if|if
+condition|(
+operator|!
+name|super
+operator|.
+name|flushcache
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Did not flush cache"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * We need to make sure that we don't complete a cache flush between running    * transactions. If we did, then we would not find all log messages needed to    * restore the transaction, as some of them would be before the last    * "complete" flush id.    */
@@ -1885,6 +1944,23 @@ operator|.
 name|COMMITED
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|hlog
+operator|.
+name|writeCommitToLog
+argument_list|(
+name|super
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|,
+name|state
+operator|.
+name|getTransactionId
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|retireTransaction
 argument_list|(
 name|state
@@ -2258,23 +2334,7 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|hlog
-operator|.
-name|writeCommitToLog
-argument_list|(
-name|super
-operator|.
-name|getRegionInfo
-argument_list|()
-argument_list|,
-name|state
-operator|.
-name|getTransactionId
-argument_list|()
-argument_list|)
-expr_stmt|;
+comment|// FIXME potential mix up here if some deletes should come before the puts.
 for|for
 control|(
 name|Put
@@ -2292,10 +2352,9 @@ name|put
 argument_list|(
 name|update
 argument_list|,
-literal|false
+literal|true
 argument_list|)
 expr_stmt|;
-comment|// Don't need to WAL these
 block|}
 for|for
 control|(
@@ -2316,10 +2375,29 @@ name|delete
 argument_list|,
 literal|null
 argument_list|,
-literal|false
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Now the transaction lives in the WAL, we can writa a commit to the log
+comment|// so we don't have to recover it.
+name|this
+operator|.
+name|hlog
+operator|.
+name|writeCommitToLog
+argument_list|(
+name|super
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|,
+name|state
+operator|.
+name|getTransactionId
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|state
 operator|.
 name|setStatus

@@ -46,7 +46,7 @@ name|long
 name|createNewTransactionLog
 parameter_list|()
 function_decl|;
-comment|/**    * @param transactionId    * @return transaction status    */
+comment|/** Get the status of a transaction.    * @param transactionId    * @return transaction status    */
 name|TransactionStatus
 name|getStatusForTransaction
 parameter_list|(
@@ -54,7 +54,7 @@ name|long
 name|transactionId
 parameter_list|)
 function_decl|;
-comment|/**    * @param transactionId    * @param status    */
+comment|/** Set the status for a transaction.    * @param transactionId    * @param status    */
 name|void
 name|setStatusForTransaction
 parameter_list|(
@@ -63,6 +63,14 @@ name|transactionId
 parameter_list|,
 name|TransactionStatus
 name|status
+parameter_list|)
+function_decl|;
+comment|/** This transaction's state is no longer needed.    *     * @param transactionId    */
+name|void
+name|forgetTransaction
+parameter_list|(
+name|long
+name|transactionId
 parameter_list|)
 function_decl|;
 block|}
