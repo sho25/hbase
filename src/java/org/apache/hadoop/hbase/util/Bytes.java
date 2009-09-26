@@ -1956,7 +1956,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Presumes float encoded as IEEE 754 floating-point "single format"    * @param bytes    * @param offset    * @return Float made from passed byte array.    */
-specifier|private
+specifier|public
 specifier|static
 name|float
 name|toFloat
