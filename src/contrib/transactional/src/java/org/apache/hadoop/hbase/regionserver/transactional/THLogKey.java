@@ -77,15 +77,6 @@ specifier|public
 enum|enum
 name|TrxOp
 block|{
-comment|/** Start a transaction. */
-name|START
-argument_list|(
-operator|(
-name|byte
-operator|)
-literal|1
-argument_list|)
-block|,
 comment|/** A standard operation that is transactional. KV holds the op. */
 name|OP
 argument_list|(

@@ -1359,20 +1359,6 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|hlog
-operator|.
-name|writeStartToLog
-argument_list|(
-name|super
-operator|.
-name|getRegionInfo
-argument_list|()
-argument_list|,
-name|transactionId
-argument_list|)
-expr_stmt|;
 name|maybeTriggerOldTransactionFlush
 argument_list|()
 expr_stmt|;
@@ -2249,6 +2235,14 @@ operator|.
 name|ABORTED
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|state
+operator|.
+name|hasWrite
+argument_list|()
+condition|)
+block|{
 name|this
 operator|.
 name|hlog
@@ -2266,6 +2260,7 @@ name|getTransactionId
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Following removes needed if we have voted
 if|if
 condition|(
@@ -2379,8 +2374,16 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Now the transaction lives in the WAL, we can writa a commit to the log
+comment|// Now the transaction lives in the WAL, we can write a commit to the log
 comment|// so we don't have to recover it.
+if|if
+condition|(
+name|state
+operator|.
+name|hasWrite
+argument_list|()
+condition|)
+block|{
 name|this
 operator|.
 name|hlog
@@ -2398,6 +2401,7 @@ name|getTransactionId
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|state
 operator|.
 name|setStatus

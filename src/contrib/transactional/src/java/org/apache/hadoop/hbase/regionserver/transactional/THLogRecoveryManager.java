@@ -751,48 +751,15 @@ argument_list|()
 condition|)
 block|{
 case|case
-name|START
+name|OP
 case|:
 if|if
 condition|(
 name|updates
-operator|!=
+operator|==
 literal|null
-operator|||
-name|abortedTransactions
-operator|.
-name|contains
-argument_list|(
-name|transactionId
-argument_list|)
-operator|||
-name|commitedTransactions
-operator|.
-name|contains
-argument_list|(
-name|transactionId
-argument_list|)
 condition|)
 block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Processing start for transaction: "
-operator|+
-name|transactionId
-operator|+
-literal|", but have already seen start message"
-argument_list|)
-expr_stmt|;
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Corrupted transaction log"
-argument_list|)
-throw|;
-block|}
 name|updates
 operator|=
 operator|new
@@ -814,35 +781,6 @@ expr_stmt|;
 name|startCount
 operator|++
 expr_stmt|;
-break|break;
-case|case
-name|OP
-case|:
-if|if
-condition|(
-name|updates
-operator|==
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Processing edit for transaction: "
-operator|+
-name|transactionId
-operator|+
-literal|", but have not seen start message"
-argument_list|)
-expr_stmt|;
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Corrupted transaction log"
-argument_list|)
-throw|;
 block|}
 name|updates
 operator|.
