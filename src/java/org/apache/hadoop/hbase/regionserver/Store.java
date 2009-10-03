@@ -719,6 +719,14 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+comment|// The most-recent log-seq-id before we recovered from the LOG.
+specifier|private
+name|long
+name|maxSeqIdBeforeLogRecovery
+init|=
+operator|-
+literal|1
+decl_stmt|;
 specifier|private
 specifier|final
 name|Path
@@ -1155,6 +1163,14 @@ name|loadStoreFiles
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|maxSeqIdBeforeLogRecovery
+operator|=
+name|this
+operator|.
+name|maxSeqId
+expr_stmt|;
 comment|// Do reconstruction log.
 name|long
 name|newId
@@ -1205,6 +1221,14 @@ return|return
 name|this
 operator|.
 name|maxSeqId
+return|;
+block|}
+name|long
+name|getMaxSeqIdBeforeLogRecovery
+parameter_list|()
+block|{
+return|return
+name|maxSeqIdBeforeLogRecovery
 return|;
 block|}
 comment|/**    * @param tabledir    * @param encodedName Encoded region name.    * @param family    * @return Path to family/Store home directory.    */
@@ -1365,7 +1389,7 @@ operator|-
 literal|1
 return|;
 block|}
-comment|/*    * Read the reconstructionLog to see whether we need to build a brand-new     * file out of non-flushed log entries.      *    * We can ignore any log message that has a sequence ID that's equal to or     * lower than maxSeqID.  (Because we know such log messages are already     * reflected in the MapFiles.)    *    * @return the new max sequence id as per the log, or -1 if no log recovered    */
+comment|/*    * Read the reconstructionLog and put into memstore.     *    * We can ignore any log message that has a sequence ID that's equal to or     * lower than maxSeqID.  (Because we know such log messages are already     * reflected in the MapFiles.)    *    * @return the new max sequence id as per the log, or -1 if no log recovered    */
 specifier|private
 name|long
 name|doReconstructionLog
@@ -1466,18 +1490,6 @@ name|firstSeqIdInLog
 init|=
 operator|-
 literal|1
-decl_stmt|;
-comment|// TODO: Move this memstoring over into MemStore.
-name|KeyValueSkipListSet
-name|reconstructedCache
-init|=
-operator|new
-name|KeyValueSkipListSet
-argument_list|(
-name|this
-operator|.
-name|comparator
-argument_list|)
 decl_stmt|;
 name|SequenceFile
 operator|.
@@ -1646,14 +1658,36 @@ condition|)
 block|{
 continue|continue;
 block|}
-comment|// Add anything as value as long as we use same instance each time.
-name|reconstructedCache
+if|if
+condition|(
+name|val
+operator|.
+name|isDelete
+argument_list|()
+condition|)
+block|{
+name|this
+operator|.
+name|memstore
+operator|.
+name|delete
+argument_list|(
+name|val
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|this
+operator|.
+name|memstore
 operator|.
 name|add
 argument_list|(
 name|val
 argument_list|)
 expr_stmt|;
+block|}
 name|editsCount
 operator|++
 expr_stmt|;
@@ -1733,89 +1767,45 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|reconstructedCache
-operator|.
-name|size
-argument_list|()
-operator|>
-literal|0
-condition|)
-block|{
-comment|// We create a "virtual flush" at maxSeqIdInLog+1.
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"flushing reconstructionCache"
-argument_list|)
-expr_stmt|;
-block|}
-name|long
-name|newFileSeqNo
-init|=
 name|maxSeqIdInLog
-operator|+
-literal|1
-decl_stmt|;
-name|StoreFile
-name|sf
-init|=
-name|internalFlushCache
-argument_list|(
-name|reconstructedCache
-argument_list|,
-name|newFileSeqNo
-argument_list|)
-decl_stmt|;
-comment|// add it to the list of store files with maxSeqIdInLog+1
-if|if
-condition|(
-name|sf
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Flush failed with a null store file"
-argument_list|)
-throw|;
-block|}
-comment|// Add new file to store files.  Clear snapshot too while we have the
-comment|// Store write lock.
-name|this
-operator|.
-name|storefiles
-operator|.
-name|put
-argument_list|(
-name|newFileSeqNo
-argument_list|,
-name|sf
-argument_list|)
-expr_stmt|;
-name|notifyChangedReadersObservers
-argument_list|()
-expr_stmt|;
-return|return
-name|newFileSeqNo
-return|;
-block|}
-return|return
+operator|>
 operator|-
 literal|1
+condition|)
+block|{
+comment|// We read some edits, so we should flush the memstore
+name|this
+operator|.
+name|snapshot
+argument_list|()
+expr_stmt|;
+name|boolean
+name|needCompaction
+init|=
+name|this
+operator|.
+name|flushCache
+argument_list|(
+name|maxSeqIdInLog
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|needCompaction
+condition|)
+block|{
+name|this
+operator|.
+name|compact
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+return|return
+name|maxSeqIdInLog
 return|;
-comment|// the reconstructed cache was 0 sized
 block|}
 comment|/*    * Creates a series of StoreFile loaded from the given directory.    * @throws IOException    */
 specifier|private
