@@ -6681,7 +6681,7 @@ name|REFERENCE
 operator|)
 operator|+
 operator|(
-literal|5
+literal|6
 operator|*
 name|Bytes
 operator|.
