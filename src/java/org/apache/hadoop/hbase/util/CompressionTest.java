@@ -115,7 +115,7 @@ parameter_list|()
 block|{
 name|System
 operator|.
-name|out
+name|err
 operator|.
 name|println
 argument_list|(
@@ -126,7 +126,7 @@ name|System
 operator|.
 name|exit
 argument_list|(
-literal|0
+literal|1
 argument_list|)
 expr_stmt|;
 block|}
