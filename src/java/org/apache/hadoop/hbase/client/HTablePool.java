@@ -88,7 +88,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A simple pool of HTable instances.<p>  *  * Each HTablePool acts as a pool for all tables.  To use, instantiate an  * HTablePool and use {@link #getTable(String)} to get an HTable from the pool.  * Once you are done with it, return it to the pool with {@link #putTable(HTable)}.<p>  *  * A pool can be created with a<i>maxSize</i> which defines the most HTable  * references that will ever be retained for each table.  Otherwise the default  * is {@link Integer#MAX_VALUE}.<p>  */
+comment|/**  * A simple pool of HTable instances.<p>  *  * Each HTablePool acts as a pool for all tables.  To use, instantiate an  * HTablePool and use {@link #getTable(String)} to get an HTable from the pool.  * Once you are done with it, return it to the pool with {@link #putTable(HTableInterface)}.<p>  *  * A pool can be created with a<i>maxSize</i> which defines the most HTable  * references that will ever be retained for each table.  Otherwise the default  * is {@link Integer#MAX_VALUE}.<p>  */
 end_comment
 
 begin_class

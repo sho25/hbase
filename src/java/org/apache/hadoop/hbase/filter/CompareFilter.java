@@ -163,7 +163,7 @@ specifier|public
 name|CompareFilter
 parameter_list|()
 block|{   }
-comment|/**    * Constructor.    * @param rowCompareOp the compare op for row matching    * @param rowComparator the comparator for row matching    */
+comment|/**    * Constructor.    * @param compareOp the compare op for row matching    * @param comparator the comparator for row matching    */
 specifier|public
 name|CompareFilter
 parameter_list|(

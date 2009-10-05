@@ -312,7 +312,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Instantiate a Result from the specified raw binary format.    * @param bytes raw binary format of Result    * @param numKeys number of KeyValues in Result    */
+comment|/**    * Instantiate a Result from the specified raw binary format.    * @param bytes raw binary format of Result    */
 specifier|public
 name|Result
 parameter_list|(

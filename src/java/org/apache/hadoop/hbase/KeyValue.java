@@ -3906,7 +3906,7 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**    * @param column Column minus its delimiter    * @return True if column matches.    * @see #matchingColumn(byte[])    */
+comment|/**    * @param column Column minus its delimiter    * @return True if column matches.    */
 specifier|public
 name|boolean
 name|matchingColumnNoDelimiter
@@ -6109,7 +6109,7 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * @param b    * @return A KeyValue made of a byte buffer that holds the key-only part.    * Needed to convert hfile index members to KeyValues.    */
+comment|/**    * @param bb    * @return A KeyValue made of a byte buffer that holds the key-only part.    * Needed to convert hfile index members to KeyValues.    */
 specifier|public
 specifier|static
 name|KeyValue
