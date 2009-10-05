@@ -2271,6 +2271,8 @@ name|MSG_REPORT_SPLIT
 case|:
 name|processSplitRegion
 argument_list|(
+name|serverInfo
+argument_list|,
 name|region
 argument_list|,
 name|incomingMsgs
@@ -2426,12 +2428,19 @@ specifier|private
 name|void
 name|processSplitRegion
 parameter_list|(
+specifier|final
+name|HServerInfo
+name|si
+parameter_list|,
+specifier|final
 name|HRegionInfo
 name|region
 parameter_list|,
+specifier|final
 name|HMsg
 name|splitA
 parameter_list|,
+specifier|final
 name|HMsg
 name|splitB
 parameter_list|)
@@ -2446,6 +2455,8 @@ block|{
 comment|// Cancel any actions pending for the affected region.
 comment|// This prevents the master from sending a SPLIT message if the table
 comment|// has already split by the region server.
+name|this
+operator|.
 name|master
 operator|.
 name|regionManager
@@ -2458,14 +2469,40 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assignSplitDaughter
-argument_list|(
+comment|// Region A is now opened immediately on the splitting server.  The message
+comment|// that its been successfully opened is probably just behind this split
+comment|// message.  Set up the master state so that its properly primed for the
+comment|// coming open message.
+name|HRegionInfo
+name|a
+init|=
 name|splitA
 operator|.
 name|getRegionInfo
 argument_list|()
+decl_stmt|;
+name|assignSplitDaughter
+argument_list|(
+name|a
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|master
+operator|.
+name|regionManager
+operator|.
+name|doRegionAssignment
+argument_list|(
+name|a
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|,
+name|si
+argument_list|)
+expr_stmt|;
+comment|// Region B will be assigned old-school style by the master.
 name|assignSplitDaughter
 argument_list|(
 name|splitB
@@ -2483,6 +2520,8 @@ argument_list|()
 condition|)
 block|{
 comment|// A meta region has split.
+name|this
+operator|.
 name|master
 operator|.
 name|regionManager
@@ -2495,6 +2534,8 @@ name|getStartKey
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|master
 operator|.
 name|regionManager

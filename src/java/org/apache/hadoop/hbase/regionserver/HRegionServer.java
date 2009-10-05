@@ -2610,6 +2610,8 @@ literal|" milliseconds - retrying"
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Send messages to the master IF this.msgInterval has elapsed OR if
+comment|// we have something to tell (and we didn't just fail sending master).
 if|if
 condition|(
 operator|(
@@ -2619,6 +2621,22 @@ name|lastMsg
 operator|)
 operator|>=
 name|msgInterval
+operator|||
+operator|(
+name|outboundArray
+operator|.
+name|length
+operator|==
+literal|0
+operator|&&
+operator|!
+name|this
+operator|.
+name|outboundMsgs
+operator|.
+name|isEmpty
+argument_list|()
+operator|)
 condition|)
 block|{
 try|try
@@ -7115,7 +7133,6 @@ comment|////////////////////////////////////////////////////////////////////////
 comment|// HMaster-given operations
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/*    * Data structure to hold a HMsg and retries count.    */
-specifier|private
 specifier|static
 specifier|final
 class|class
