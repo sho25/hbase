@@ -1146,6 +1146,16 @@ argument_list|)
 expr_stmt|;
 name|addToMap
 argument_list|(
+name|FirstKeyOnlyFilter
+operator|.
+name|class
+argument_list|,
+name|code
+operator|++
+argument_list|)
+expr_stmt|;
+name|addToMap
+argument_list|(
 name|Delete
 index|[]
 operator|.
