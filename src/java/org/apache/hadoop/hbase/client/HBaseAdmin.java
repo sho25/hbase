@@ -1364,6 +1364,11 @@ argument_list|)
 throw|;
 block|}
 comment|// Wait until all regions are enabled
+name|boolean
+name|enabled
+init|=
+literal|false
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -1371,24 +1376,36 @@ name|tries
 init|=
 literal|0
 init|;
-operator|(
 name|tries
 operator|<
+name|this
+operator|.
 name|numRetries
-operator|)
-operator|&&
-operator|(
-operator|!
-name|isTableEnabled
-argument_list|(
-name|tableName
-argument_list|)
-operator|)
 condition|;
 name|tries
 operator|++
 control|)
 block|{
+name|enabled
+operator|=
+name|isTableEnabled
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|enabled
+condition|)
+break|break;
+name|long
+name|sleep
+init|=
+name|getPauseTime
+argument_list|(
+name|tries
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|LOG
@@ -1401,7 +1418,13 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Sleep. Waiting for all regions to be enabled from "
+literal|"Sleeping= "
+operator|+
+name|sleep
+operator|+
+literal|"ms, waiting for all regions to be "
+operator|+
+literal|"enabled in "
 operator|+
 name|Bytes
 operator|.
@@ -1418,10 +1441,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-name|getPauseTime
-argument_list|(
-name|tries
-argument_list|)
+name|sleep
 argument_list|)
 expr_stmt|;
 block|}
@@ -1460,16 +1480,13 @@ block|}
 if|if
 condition|(
 operator|!
-name|isTableEnabled
-argument_list|(
-name|tableName
-argument_list|)
+name|enabled
 condition|)
 throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"unable to enable table "
+literal|"Unable to enable table "
 operator|+
 name|Bytes
 operator|.
@@ -1575,6 +1592,11 @@ argument_list|)
 throw|;
 block|}
 comment|// Wait until all regions are disabled
+name|boolean
+name|disabled
+init|=
+literal|false
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -1582,24 +1604,28 @@ name|tries
 init|=
 literal|0
 init|;
-operator|(
 name|tries
 operator|<
+name|this
+operator|.
 name|numRetries
-operator|)
-operator|&&
-operator|(
-operator|!
-name|isTableDisabled
-argument_list|(
-name|tableName
-argument_list|)
-operator|)
 condition|;
 name|tries
 operator|++
 control|)
 block|{
+name|disabled
+operator|=
+name|isTableDisabled
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|disabled
+condition|)
+break|break;
 if|if
 condition|(
 name|LOG
@@ -1671,10 +1697,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|isTableDisabled
-argument_list|(
-name|tableName
-argument_list|)
+name|disabled
 condition|)
 block|{
 throw|throw

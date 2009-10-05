@@ -425,6 +425,8 @@ throws|throws
 name|IOException
 block|{
 return|return
+name|this
+operator|.
 name|server
 operator|.
 name|openScanner
@@ -439,6 +441,8 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|,
+name|this
+operator|.
 name|scan
 argument_list|)
 return|;
@@ -458,6 +462,8 @@ name|void
 name|setClose
 parameter_list|()
 block|{
+name|this
+operator|.
 name|closed
 operator|=
 literal|true

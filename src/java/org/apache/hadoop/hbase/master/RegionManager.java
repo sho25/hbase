@@ -407,6 +407,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|HLog
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|HRegion
 import|;
 end_import
@@ -2422,6 +2438,7 @@ literal|" region(s) that are in transition states"
 argument_list|)
 expr_stmt|;
 block|}
+comment|/*    * PathFilter that accepts hbase tables only.    */
 specifier|static
 class|class
 name|TableDirFilter
@@ -2437,7 +2454,8 @@ name|path
 parameter_list|)
 block|{
 comment|// skip the region servers' log dirs&& version file
-comment|// HBASE-1112 want to sperate the log dirs from table's data dirs by a special character.
+comment|// HBASE-1112 want to separate the log dirs from table's data dirs by a
+comment|// special character.
 name|String
 name|pathname
 init|=
@@ -2450,9 +2468,11 @@ return|return
 operator|!
 name|pathname
 operator|.
-name|startsWith
+name|equals
 argument_list|(
-literal|"log_"
+name|HLog
+operator|.
+name|HREGION_LOGDIR_NAME
 argument_list|)
 operator|&&
 operator|!
@@ -2465,6 +2485,7 @@ argument_list|)
 return|;
 block|}
 block|}
+comment|/*    * PathFilter that accepts all but compaction.dir names.    */
 specifier|static
 class|class
 name|RegionDirFilter

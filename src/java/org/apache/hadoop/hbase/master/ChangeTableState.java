@@ -33,16 +33,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|HashSet
 import|;
 end_import
@@ -54,6 +44,16 @@ operator|.
 name|util
 operator|.
 name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|TreeMap
 import|;
 end_import
 
@@ -164,7 +164,7 @@ import|;
 end_import
 
 begin_comment
-comment|/** Instantiated to enable or disable a table */
+comment|/**  * Instantiated to enable or disable a table  */
 end_comment
 
 begin_class
@@ -192,6 +192,7 @@ specifier|private
 name|boolean
 name|online
 decl_stmt|;
+comment|// Do in order.
 specifier|protected
 specifier|final
 name|Map
@@ -206,7 +207,7 @@ argument_list|>
 name|servedRegions
 init|=
 operator|new
-name|HashMap
+name|TreeMap
 argument_list|<
 name|String
 argument_list|,
@@ -280,6 +281,8 @@ name|HRegionInfo
 argument_list|>
 name|regions
 init|=
+name|this
+operator|.
 name|servedRegions
 operator|.
 name|get
@@ -311,6 +314,8 @@ argument_list|(
 name|info
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|servedRegions
 operator|.
 name|put
@@ -350,7 +355,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"processing unserved regions"
+literal|"Processing unserved regions"
 argument_list|)
 expr_stmt|;
 block|}
@@ -359,6 +364,8 @@ control|(
 name|HRegionInfo
 name|i
 range|:
+name|this
+operator|.
 name|unservedRegions
 control|)
 block|{
@@ -394,7 +401,7 @@ operator|.
 name|toString
 argument_list|()
 operator|+
-literal|" because it is offline because it has been split"
+literal|" because it is offline and split"
 argument_list|)
 expr_stmt|;
 block|}
@@ -475,7 +482,13 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Updated columns in row: "
+literal|"Removed server and startcode from row and set online="
+operator|+
+name|this
+operator|.
+name|online
+operator|+
+literal|": "
 operator|+
 name|i
 operator|.
@@ -493,6 +506,8 @@ init|)
 block|{
 if|if
 condition|(
+name|this
+operator|.
 name|online
 condition|)
 block|{
@@ -500,6 +515,8 @@ comment|// Bring offline regions on-line
 if|if
 condition|(
 operator|!
+name|this
+operator|.
 name|master
 operator|.
 name|regionManager
@@ -513,6 +530,8 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+name|this
+operator|.
 name|master
 operator|.
 name|regionManager
@@ -529,6 +548,8 @@ block|}
 else|else
 block|{
 comment|// Prevent region from getting assigned.
+name|this
+operator|.
 name|master
 operator|.
 name|regionManager
@@ -554,12 +575,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"processing regions currently being served"
+literal|"Processing regions currently being served"
 argument_list|)
 expr_stmt|;
 block|}
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|master
 operator|.
 name|regionManager
@@ -580,6 +603,8 @@ argument_list|>
 argument_list|>
 name|e
 range|:
+name|this
+operator|.
 name|servedRegions
 operator|.
 name|entrySet
@@ -596,6 +621,8 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
+name|this
+operator|.
 name|online
 condition|)
 block|{
@@ -633,18 +660,20 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"adding region "
+literal|"Adding region "
 operator|+
 name|i
 operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" to kill list"
+literal|" to setClosing list"
 argument_list|)
 expr_stmt|;
 block|}
 comment|// this marks the regions to be closed
+name|this
+operator|.
 name|master
 operator|.
 name|regionManager
@@ -661,6 +690,8 @@ expr_stmt|;
 block|}
 block|}
 block|}
+name|this
+operator|.
 name|servedRegions
 operator|.
 name|clear

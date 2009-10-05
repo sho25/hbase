@@ -2367,13 +2367,11 @@ comment|// Should we tell it close regions because its overloaded?  If its
 comment|// currently opening regions, leave it alone till all are open.
 if|if
 condition|(
-operator|(
 name|openingCount
 operator|<
 name|this
 operator|.
 name|nobalancingCount
-operator|)
 condition|)
 block|{
 name|this

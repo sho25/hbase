@@ -312,6 +312,8 @@ literal|0
 init|;
 name|tries
 operator|<
+name|this
+operator|.
 name|master
 operator|.
 name|numRetries
@@ -322,6 +324,8 @@ control|)
 block|{
 if|if
 condition|(
+name|this
+operator|.
 name|master
 operator|.
 name|closed
@@ -340,6 +344,8 @@ name|this
 operator|.
 name|server
 operator|=
+name|this
+operator|.
 name|master
 operator|.
 name|connection
@@ -538,6 +544,8 @@ name|e
 argument_list|)
 throw|;
 block|}
+name|this
+operator|.
 name|sleeper
 operator|.
 name|sleep
