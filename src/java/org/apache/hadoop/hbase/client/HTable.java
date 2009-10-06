@@ -2587,6 +2587,8 @@ argument_list|(
 name|this
 operator|.
 name|caching
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -2608,13 +2610,95 @@ return|return
 name|lastNext
 return|;
 block|}
-comment|/*      * Gets a scanner for the next region.  If this.currentRegion != null, then      * we will move to the endrow of this.currentRegion.  Else we will get      * scanner at the scan.getStartRow().      * @param nbRows      */
+comment|/**      * @param endKey      * @return Returns true if the passed region endkey.      */
+specifier|private
+name|boolean
+name|checkScanStopRow
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|endKey
+parameter_list|)
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|scan
+operator|.
+name|getStopRow
+argument_list|()
+operator|.
+name|length
+operator|>
+literal|0
+condition|)
+block|{
+comment|// there is a stop row, check to see if we are past it.
+name|byte
+index|[]
+name|stopRow
+init|=
+name|scan
+operator|.
+name|getStopRow
+argument_list|()
+decl_stmt|;
+name|int
+name|cmp
+init|=
+name|Bytes
+operator|.
+name|compareTo
+argument_list|(
+name|stopRow
+argument_list|,
+literal|0
+argument_list|,
+name|stopRow
+operator|.
+name|length
+argument_list|,
+name|endKey
+argument_list|,
+literal|0
+argument_list|,
+name|endKey
+operator|.
+name|length
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|cmp
+operator|<=
+literal|0
+condition|)
+block|{
+comment|// stopRow<= endKey (endKey is equals to or larger than stopRow)
+comment|// This is a stop.
+return|return
+literal|true
+return|;
+block|}
+block|}
+return|return
+literal|false
+return|;
+comment|//unlikely.
+block|}
+comment|/*      * Gets a scanner for the next region.  If this.currentRegion != null, then      * we will move to the endrow of this.currentRegion.  Else we will get      * scanner at the scan.getStartRow().  We will go no further, just tidy      * up outstanding scanners, if<code>currentRegion != null</code> and      *<code>done</code> is true.      * @param nbRows      * @param done Server-side says we're done scanning.      */
 specifier|private
 name|boolean
 name|nextScanner
 parameter_list|(
 name|int
 name|nbRows
+parameter_list|,
+specifier|final
+name|boolean
+name|done
 parameter_list|)
 throws|throws
 name|IOException
@@ -2658,8 +2742,7 @@ name|localStartKey
 init|=
 literal|null
 decl_stmt|;
-comment|// if we're at the end of the table, then close and return false
-comment|// to stop iterating
+comment|// if we're at end of table, close and return false to stop iterating
 if|if
 condition|(
 name|this
@@ -2669,26 +2752,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-if|if
-condition|(
-name|CLIENT_LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|CLIENT_LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Finished with region "
-operator|+
-name|this
-operator|.
-name|currentRegion
-argument_list|)
-expr_stmt|;
-block|}
 name|byte
 index|[]
 name|endKey
@@ -2717,15 +2780,37 @@ operator|.
 name|EMPTY_BYTE_ARRAY
 argument_list|)
 operator|||
-name|filterSaysStop
+name|checkScanStopRow
 argument_list|(
 name|endKey
 argument_list|)
+operator|||
+name|done
 condition|)
 block|{
 name|close
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|CLIENT_LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|CLIENT_LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Finished with scanning at "
+operator|+
+name|this
+operator|.
+name|currentRegion
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|false
 return|;
@@ -2734,6 +2819,26 @@ name|localStartKey
 operator|=
 name|endKey
 expr_stmt|;
+if|if
+condition|(
+name|CLIENT_LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|CLIENT_LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Finished with region "
+operator|+
+name|this
+operator|.
+name|currentRegion
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 else|else
 block|{
@@ -3063,6 +3168,9 @@ do|do
 block|{
 try|try
 block|{
+comment|// Server returns a null values if scanning is to stop.  Else,
+comment|// returns an empty array if scanning is to go on and we've just
+comment|// exhausted current region.
 name|values
 operator|=
 name|getConnection
@@ -3248,6 +3356,7 @@ name|rs
 expr_stmt|;
 block|}
 block|}
+comment|// Values == null means server-side filter has determined we must STOP
 block|}
 do|while
 condition|(
@@ -3258,6 +3367,10 @@ operator|&&
 name|nextScanner
 argument_list|(
 name|countdown
+argument_list|,
+name|values
+operator|==
+literal|null
 argument_list|)
 condition|)
 do|;

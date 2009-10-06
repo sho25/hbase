@@ -406,7 +406,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the next set of values    * @param scannerId clientId passed to openScanner    * @return map of values    * @throws IOException    */
+comment|/**    * Get the next set of values    * @param scannerId clientId passed to openScanner    * @return map of values; returns null if no results.    * @throws IOException    */
 specifier|public
 name|Result
 name|next
@@ -417,7 +417,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the next set of values    * @param scannerId clientId passed to openScanner    * @param numberOfRows the number of rows to fetch    * @return map of values    * @throws IOException    */
+comment|/**    * Get the next set of values    * @param scannerId clientId passed to openScanner    * @param numberOfRows the number of rows to fetch    * @return Array of Results (map of values); array is empty if done with this    * region and null if we are NOT to go to the next region (happens when a    * filter rules that the scan is done).    * @throws IOException    */
 specifier|public
 name|Result
 index|[]

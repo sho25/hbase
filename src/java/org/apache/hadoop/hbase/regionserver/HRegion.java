@@ -6704,9 +6704,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**      * Get the next row of results from this region.      * @param results list to append results to      * @return true if there are more rows, false if scanner is done      * @throws NotServerRegionException If this region is closing or closed      */
-annotation|@
-name|Override
 specifier|public
 name|boolean
 name|next
@@ -6805,13 +6802,7 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|filter
-operator|!=
-literal|null
-operator|&&
-name|filter
-operator|.
-name|filterAllRemaining
+name|isFilterDone
 argument_list|()
 condition|)
 block|{
@@ -6823,6 +6814,27 @@ return|return
 name|returnResult
 return|;
 block|}
+comment|/*      * @return True if a filter rules the scanner is over, done.      */
+name|boolean
+name|isFilterDone
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|filter
+operator|!=
+literal|null
+operator|&&
+name|this
+operator|.
+name|filter
+operator|.
+name|filterAllRemaining
+argument_list|()
+return|;
+block|}
+comment|/*      * @return true if there are more rows, false if scanner is done      * @throws IOException      */
 specifier|private
 name|boolean
 name|nextInternal

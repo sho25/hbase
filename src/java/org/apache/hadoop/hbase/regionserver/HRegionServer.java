@@ -9626,7 +9626,32 @@ block|{
 break|break;
 block|}
 block|}
+comment|// Below is an ugly hack where we cast the InternalScanner to be a
+comment|// HRegion.RegionScanner.  The alternative is to change InternalScanner
+comment|// interface but its used everywhere whereas we just need a bit of info
+comment|// from HRegion.RegionScanner, IF its filter if any is done with the scan
+comment|// and wants to tell the client to stop the scan.  This is done by passing
+comment|// a null result.
 return|return
+operator|(
+operator|(
+name|HRegion
+operator|.
+name|RegionScanner
+operator|)
+name|s
+operator|)
+operator|.
+name|isFilterDone
+argument_list|()
+operator|&&
+name|results
+operator|.
+name|isEmpty
+argument_list|()
+condition|?
+literal|null
+else|:
 name|results
 operator|.
 name|toArray
