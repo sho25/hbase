@@ -3110,6 +3110,7 @@ condition|)
 block|{
 if|if
 condition|(
+operator|!
 name|this
 operator|.
 name|fs

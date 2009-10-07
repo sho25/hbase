@@ -115,25 +115,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|util
+name|fs
 operator|.
-name|ReflectionUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|HMaster
+name|FileSystem
 import|;
 end_import
 
@@ -150,6 +134,22 @@ operator|.
 name|client
 operator|.
 name|HBaseAdmin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|HMaster
 import|;
 end_import
 
@@ -193,11 +193,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
 name|util
 operator|.
-name|Threads
+name|ReflectionUtils
 import|;
 end_import
 
@@ -878,11 +876,13 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * Shut down the mini HBase cluster    */
+comment|/**    * Shut down the mini HBase cluster    * @throws IOException     */
 specifier|public
 name|void
 name|shutdown
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|LOG
 operator|.
@@ -891,13 +891,7 @@ argument_list|(
 literal|"Shutting down HBase Cluster"
 argument_list|)
 expr_stmt|;
-comment|// Be careful how the hdfs shutdown thread runs in context where more than
-comment|// one regionserver in the mix.
-name|Thread
-name|shutdownThread
-init|=
-literal|null
-decl_stmt|;
+comment|// Be careful about how we shutdown hdfs.
 synchronized|synchronized
 init|(
 name|this
@@ -915,35 +909,16 @@ operator|.
 name|regionThreads
 control|)
 block|{
-name|Thread
-name|tt
-init|=
 name|t
 operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|setHDFSShutdownThreadOnExit
+name|setShutdownHDFS
 argument_list|(
-literal|null
+literal|false
 argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|shutdownThread
-operator|==
-literal|null
-operator|&&
-name|tt
-operator|!=
-literal|null
-condition|)
-block|{
-name|shutdownThread
-operator|=
-name|tt
 expr_stmt|;
-block|}
 block|}
 block|}
 if|if
@@ -1051,12 +1026,10 @@ comment|// continue
 block|}
 block|}
 block|}
-name|Threads
+name|FileSystem
 operator|.
-name|shutdown
-argument_list|(
-name|shutdownThread
-argument_list|)
+name|closeAll
+argument_list|()
 expr_stmt|;
 name|LOG
 operator|.

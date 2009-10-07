@@ -493,9 +493,9 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|setHDFSShutdownThreadOnExit
+name|setShutdownHDFS
 argument_list|(
-literal|null
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -546,11 +546,13 @@ name|join
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Shut down the mini HBase cluster    */
+comment|/**    * Shut down the mini HBase cluster    * @throws IOException     */
 specifier|public
 name|void
 name|shutdown
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(

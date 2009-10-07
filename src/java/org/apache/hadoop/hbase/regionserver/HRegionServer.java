@@ -1537,7 +1537,7 @@ specifier|private
 name|Thread
 name|regionServerThread
 decl_stmt|;
-comment|// Run HDFS shutdown thread on exit if this is set. We clear this out when
+comment|// Run HDFS shutdown on exit if this is set. We clear this out when
 comment|// doing a restart() to prevent closing of HDFS.
 specifier|private
 specifier|final
@@ -3711,33 +3711,6 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|shutdownHDFS
-operator|.
-name|get
-argument_list|()
-condition|)
-block|{
-name|runThread
-argument_list|(
-name|this
-operator|.
-name|hdfsShutdownThread
-argument_list|,
-name|this
-operator|.
-name|conf
-operator|.
-name|getLong
-argument_list|(
-literal|"hbase.dfs.shutdown.wait"
-argument_list|,
-literal|30000
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
 name|LOG
 operator|.
 name|info
@@ -3870,71 +3843,6 @@ block|}
 block|}
 return|return
 literal|null
-return|;
-block|}
-comment|/**    * Run and wait on passed thread in HRS context.    * @param t    * @param dfsShutdownWait    */
-specifier|public
-name|void
-name|runThread
-parameter_list|(
-specifier|final
-name|Thread
-name|t
-parameter_list|,
-specifier|final
-name|long
-name|dfsShutdownWait
-parameter_list|)
-block|{
-if|if
-condition|(
-name|t
-operator|==
-literal|null
-condition|)
-block|{
-return|return;
-block|}
-name|t
-operator|.
-name|start
-argument_list|()
-expr_stmt|;
-name|Threads
-operator|.
-name|shutdown
-argument_list|(
-name|t
-argument_list|,
-name|dfsShutdownWait
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Set the hdfs shutdown thread to run on exit.  Pass null to disable    * running of the shutdown test.  Needed by tests.    * @param t Thread to run.  Pass null to disable tests.    * @return Previous occupant of the shutdown thread position.    */
-specifier|public
-name|Thread
-name|setHDFSShutdownThreadOnExit
-parameter_list|(
-specifier|final
-name|Thread
-name|t
-parameter_list|)
-block|{
-name|Thread
-name|old
-init|=
-name|this
-operator|.
-name|hdfsShutdownThread
-decl_stmt|;
-name|this
-operator|.
-name|hdfsShutdownThread
-operator|=
-name|t
-expr_stmt|;
-return|return
-name|old
 return|;
 block|}
 comment|/*    * Run init. Sets up hlog and starts up all server threads.    * @param c Extra configuration.    */
@@ -4128,7 +4036,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 comment|// Register shutdown hook for HRegionServer, runs an orderly shutdown
-comment|// when a kill signal is recieved
+comment|// when a kill signal is recieved.  Shuts down hdfs too if its supposed.
 name|Runtime
 operator|.
 name|getRuntime
@@ -4145,6 +4053,10 @@ name|Thread
 operator|.
 name|currentThread
 argument_list|()
+argument_list|,
+name|this
+operator|.
+name|shutdownHDFS
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -4246,6 +4158,39 @@ literal|"Region server startup failed"
 argument_list|)
 throw|;
 block|}
+block|}
+specifier|public
+name|void
+name|setShutdownHDFS
+parameter_list|(
+specifier|final
+name|boolean
+name|b
+parameter_list|)
+block|{
+name|this
+operator|.
+name|shutdownHDFS
+operator|.
+name|set
+argument_list|(
+name|b
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|boolean
+name|getShutdownHDFS
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|shutdownHDFS
+operator|.
+name|get
+argument_list|()
+return|;
 block|}
 comment|/*    * @param r Region to get RegionLoad for.    * @return RegionLoad instance.    * @throws IOException    */
 specifier|private
@@ -5004,15 +4949,26 @@ specifier|final
 name|Thread
 name|mainThread
 decl_stmt|;
-comment|/**      * @param instance      * @param mainThread      */
+specifier|private
+specifier|final
+name|AtomicBoolean
+name|shutdownHDFS
+decl_stmt|;
+comment|/**      * @param instance      * @param mainThread      * @param shutdownHDFS      */
 specifier|public
 name|ShutdownThread
 parameter_list|(
+specifier|final
 name|HRegionServer
 name|instance
 parameter_list|,
+specifier|final
 name|Thread
 name|mainThread
+parameter_list|,
+specifier|final
+name|AtomicBoolean
+name|shutdownHDFS
 parameter_list|)
 block|{
 name|this
@@ -5026,6 +4982,12 @@ operator|.
 name|mainThread
 operator|=
 name|mainThread
+expr_stmt|;
+name|this
+operator|.
+name|shutdownHDFS
+operator|=
+name|shutdownHDFS
 expr_stmt|;
 block|}
 annotation|@
@@ -5062,6 +5024,15 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|shutdownHDFS
+operator|.
+name|get
+argument_list|()
+condition|)
 name|FileSystem
 operator|.
 name|closeAll
@@ -5089,11 +5060,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// We need to call HDFS shutdown when we are done shutting down
-specifier|private
-name|Thread
-name|hdfsShutdownThread
-decl_stmt|;
 comment|/*    * Inner class that runs on a long period checking if regions need major    * compaction.    */
 specifier|private
 specifier|static
