@@ -91,18 +91,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|lang
-operator|.
-name|reflect
-operator|.
-name|Field
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|net
 operator|.
 name|BindException
@@ -4104,7 +4092,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Master sent us hbase.rootdir to use. Should be fully qualified
-comment|// path with file system specification included.  Set 'fs.default.name'
+comment|// path with file system specification included.  Set 'fs.defaultFS'
 comment|// to match the filesystem on hbase.rootdir else underlying hadoop hdfs
 comment|// accessors will be going against wrong filesystem (unless all is set
 comment|// to defaults).
@@ -4114,7 +4102,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"fs.default.name"
+literal|"fs.defaultFS"
 argument_list|,
 name|this
 operator|.
@@ -4162,10 +4150,14 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|hdfsShutdownThread
-operator|=
-name|suppressHdfsShutdownHook
-argument_list|()
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+literal|"fs.automatic.close"
+argument_list|,
+literal|false
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -5047,10 +5039,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting shutdown thread."
+literal|"Starting shutdown thread"
 argument_list|)
 expr_stmt|;
 comment|// tell the region server to stop
+name|this
+operator|.
 name|instance
 operator|.
 name|stop
@@ -5061,9 +5055,31 @@ name|Threads
 operator|.
 name|shutdown
 argument_list|(
+name|this
+operator|.
 name|mainThread
 argument_list|)
 expr_stmt|;
+try|try
+block|{
+name|FileSystem
+operator|.
+name|closeAll
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|e
+operator|.
+name|printStackTrace
+argument_list|()
+expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
@@ -5227,122 +5243,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-block|}
-comment|/**    * So, HDFS caches FileSystems so when you call FileSystem.get it's fast. In    * order to make sure things are cleaned up, it also creates a shutdown hook    * so that all filesystems can be closed when the process is terminated. This    * conveniently runs concurrently with our own shutdown handler, and    * therefore causes all the filesystems to be closed before the server can do    * all its necessary cleanup.    *    * The crazy dirty reflection in this method sneaks into the FileSystem cache    * and grabs the shutdown hook, removes it from the list of active shutdown    * hooks, and hangs onto it until later. Then, after we're properly done with    * our graceful shutdown, we can execute the hdfs hook manually to make sure    * loose ends are tied up.    *    * This seems quite fragile and susceptible to breaking if Hadoop changes    * anything about the way this cleanup is managed. Keep an eye on things.    */
-specifier|private
-name|Thread
-name|suppressHdfsShutdownHook
-parameter_list|()
-block|{
-try|try
-block|{
-name|Field
-name|field
-init|=
-name|FileSystem
-operator|.
-name|class
-operator|.
-name|getDeclaredField
-argument_list|(
-literal|"clientFinalizer"
-argument_list|)
-decl_stmt|;
-name|field
-operator|.
-name|setAccessible
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-name|Thread
-name|hdfsClientFinalizer
-init|=
-operator|(
-name|Thread
-operator|)
-name|field
-operator|.
-name|get
-argument_list|(
-literal|null
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|hdfsClientFinalizer
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"client finalizer is null, can't suppress!"
-argument_list|)
-throw|;
-block|}
-name|Runtime
-operator|.
-name|getRuntime
-argument_list|()
-operator|.
-name|removeShutdownHook
-argument_list|(
-name|hdfsClientFinalizer
-argument_list|)
-expr_stmt|;
-return|return
-name|hdfsClientFinalizer
-return|;
-block|}
-catch|catch
-parameter_list|(
-name|NoSuchFieldException
-name|nsfe
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|fatal
-argument_list|(
-literal|"Couldn't find field 'clientFinalizer' in FileSystem!"
-argument_list|,
-name|nsfe
-argument_list|)
-expr_stmt|;
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"Failed to suppress HDFS shutdown hook"
-argument_list|)
-throw|;
-block|}
-catch|catch
-parameter_list|(
-name|IllegalAccessException
-name|iae
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|fatal
-argument_list|(
-literal|"Couldn't access field 'clientFinalizer' in FileSystem!"
-argument_list|,
-name|iae
-argument_list|)
-expr_stmt|;
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"Failed to suppress HDFS shutdown hook"
-argument_list|)
-throw|;
 block|}
 block|}
 comment|/**    * Report the status of the server. A server is online once all the startup     * is completed (setting up filesystem, starting service threads, etc.). This    * method is designed mostly to be useful in tests.    * @return true if online, false if not.    */

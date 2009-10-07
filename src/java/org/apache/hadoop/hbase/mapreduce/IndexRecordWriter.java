@@ -469,8 +469,6 @@ name|void
 name|run
 parameter_list|()
 block|{
-try|try
-block|{
 name|context
 operator|.
 name|setStatus
@@ -478,15 +476,6 @@ argument_list|(
 literal|"Closing"
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-return|return;
-block|}
 while|while
 condition|(
 operator|!

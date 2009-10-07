@@ -1410,14 +1410,14 @@ literal|1000
 argument_list|)
 expr_stmt|;
 comment|// The filesystem hbase wants to use is probably not what is set into
-comment|// fs.default.name; its value is probably the default.
+comment|// fs.defaultFS; its value is probably the default.
 name|this
 operator|.
 name|conf
 operator|.
 name|set
 argument_list|(
-literal|"fs.default.name"
+literal|"fs.defaultFS"
 argument_list|,
 name|this
 operator|.
@@ -3095,6 +3095,40 @@ operator|.
 name|HREGION_LOGDIR_NAME
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|logsDirPath
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|fs
+operator|.
+name|mkdirs
+argument_list|(
+name|logsDirPath
+argument_list|)
+condition|)
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Failed create of "
+operator|+
+name|logsDirPath
+argument_list|)
+throw|;
+block|}
 name|FileStatus
 index|[]
 name|logFolders
@@ -3620,7 +3654,7 @@ name|addConfig
 argument_list|(
 name|mw
 argument_list|,
-literal|"fs.default.name"
+literal|"fs.defaultFS"
 argument_list|)
 return|;
 block|}
