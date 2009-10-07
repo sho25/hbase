@@ -440,7 +440,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|TestTableIndex
+name|DisabledBecauseVariableSubstTooLargeExceptionTestTableIndex
 extends|extends
 name|MultiRegionTable
 block|{
@@ -454,7 +454,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestTableIndex
+name|DisabledBecauseVariableSubstTooLargeExceptionTestTableIndex
 operator|.
 name|class
 argument_list|)
@@ -514,7 +514,7 @@ literal|"testindex"
 decl_stmt|;
 comment|/** default constructor */
 specifier|public
-name|TestTableIndex
+name|DisabledBecauseVariableSubstTooLargeExceptionTestTableIndex
 parameter_list|()
 block|{
 name|super
@@ -1579,7 +1579,7 @@ argument_list|(
 operator|new
 name|TestSuite
 argument_list|(
-name|TestTableIndex
+name|DisabledBecauseVariableSubstTooLargeExceptionTestTableIndex
 operator|.
 name|class
 argument_list|)

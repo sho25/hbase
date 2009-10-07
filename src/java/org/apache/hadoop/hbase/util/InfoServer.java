@@ -309,6 +309,15 @@ expr_stmt|;
 break|break;
 block|}
 block|}
+if|if
+condition|(
+name|oldLogsContext
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
 name|defaultContexts
 operator|.
 name|put
@@ -320,6 +329,7 @@ operator|.
 name|FALSE
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Now do my logs.
 comment|// set up the context for "/logs/" if "hadoop.log.dir" property is defined.
 name|String

@@ -891,7 +891,7 @@ argument_list|(
 literal|"Shutting down HBase Cluster"
 argument_list|)
 expr_stmt|;
-comment|// Be careful about how we shutdown hdfs.
+comment|// Be careful about how we shutdown hdfs.  Its done elsewhere.
 synchronized|synchronized
 init|(
 name|this
@@ -1026,11 +1026,6 @@ comment|// continue
 block|}
 block|}
 block|}
-name|FileSystem
-operator|.
-name|closeAll
-argument_list|()
-expr_stmt|;
 name|LOG
 operator|.
 name|info
