@@ -1183,8 +1183,7 @@ name|put
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Now tell the master about the new regions.  Note that we'll online
-comment|// the A region ourselves on this server.  Master only has to online B.
+comment|// Now tell the master about the new regions
 name|server
 operator|.
 name|reportSplit
@@ -1256,78 +1255,7 @@ name|startTime
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Server region A.  Let master assign region B.
-name|HRegionInfo
-name|hri
-init|=
-name|newRegions
-index|[
-literal|0
-index|]
-operator|.
-name|getRegionInfo
-argument_list|()
-decl_stmt|;
-name|HMsg
-name|msg
-init|=
-operator|new
-name|HMsg
-argument_list|(
-name|HMsg
-operator|.
-name|Type
-operator|.
-name|MSG_REGION_OPEN
-argument_list|,
-name|hri
-argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"Local immediate open"
-argument_list|)
-argument_list|)
-decl_stmt|;
-try|try
-block|{
-name|this
-operator|.
-name|server
-operator|.
-name|toDo
-operator|.
-name|put
-argument_list|(
-operator|new
-name|HRegionServer
-operator|.
-name|ToDoEntry
-argument_list|(
-name|msg
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Failed queue of open of "
-operator|+
-name|hri
-argument_list|,
-name|e
-argument_list|)
-throw|;
-block|}
+comment|// Do not serve the new regions. Let the Master assign them.
 block|}
 comment|/**    * Sets the number of compactions allowed per cycle.    * @param limit the number of compactions allowed, or -1 to unlimit    */
 name|void
