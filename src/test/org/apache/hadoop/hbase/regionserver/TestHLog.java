@@ -989,6 +989,11 @@ name|currentTimeMillis
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|log
+operator|.
+name|sync
+argument_list|()
+expr_stmt|;
 name|long
 name|logSeqId
 init|=
