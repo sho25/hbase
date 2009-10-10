@@ -1761,6 +1761,10 @@ name|SequenceFile
 operator|.
 name|Reader
 block|{
+specifier|private
+name|long
+name|length
+decl_stmt|;
 name|WALReader
 parameter_list|(
 specifier|final
@@ -1825,6 +1829,8 @@ name|bufferSize
 argument_list|,
 name|length
 argument_list|)
+argument_list|,
+name|length
 argument_list|)
 return|;
 block|}
@@ -1841,11 +1847,19 @@ name|firstGetPosInvocation
 init|=
 literal|true
 decl_stmt|;
+specifier|private
+name|long
+name|length
+decl_stmt|;
 name|WALReaderFSDataInputStream
 parameter_list|(
 specifier|final
 name|FSDataInputStream
 name|is
+parameter_list|,
+specifier|final
+name|long
+name|l
 parameter_list|)
 throws|throws
 name|IOException
@@ -1854,6 +1868,12 @@ name|super
 argument_list|(
 name|is
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|length
+operator|=
+name|l
 expr_stmt|;
 block|}
 annotation|@
@@ -1882,13 +1902,36 @@ comment|// Tell a lie.  We're doing this just so that this line up in
 comment|// SequenceFile.Reader constructor comes out with the correct length
 comment|// on the file:
 comment|//         this.end = in.getPos() + length;
-return|return
+comment|//
+name|long
+name|available
+init|=
 name|this
 operator|.
 name|in
 operator|.
 name|available
 argument_list|()
+decl_stmt|;
+comment|// Length gets added up in the SF.Reader constructor so subtract the
+comment|// difference.  If available< this.length, then return this.length.
+comment|// I ain't sure what else to do.
+return|return
+name|available
+operator|>=
+name|this
+operator|.
+name|length
+condition|?
+name|available
+operator|-
+name|this
+operator|.
+name|length
+else|:
+name|this
+operator|.
+name|length
 return|;
 block|}
 return|return
@@ -4604,12 +4647,30 @@ literal|0
 decl_stmt|;
 try|try
 block|{
+name|long
+name|len
+init|=
+name|fs
+operator|.
+name|getFileStatus
+argument_list|(
+name|logfiles
+index|[
+name|i
+index|]
+operator|.
+name|getPath
+argument_list|()
+argument_list|)
+operator|.
+name|getLen
+argument_list|()
+decl_stmt|;
 name|in
 operator|=
-operator|new
-name|SequenceFile
+name|HLog
 operator|.
-name|Reader
+name|getReader
 argument_list|(
 name|fs
 argument_list|,
