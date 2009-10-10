@@ -1540,10 +1540,9 @@ operator|.
 name|Reader
 name|logReader
 init|=
-operator|new
-name|SequenceFile
+name|HLog
 operator|.
-name|Reader
+name|getReader
 argument_list|(
 name|this
 operator|.
