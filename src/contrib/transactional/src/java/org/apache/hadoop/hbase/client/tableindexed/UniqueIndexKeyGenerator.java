@@ -76,13 +76,13 @@ import|;
 end_import
 
 begin_comment
-comment|/**Creates indexed keys for a single column. Index key consists of the column  * value followed by the row key of the indexed table to disambiguate.  *   * If the column values are guaranteed to be unique, consider  * {@link UniqueIndexKeyGenerator}.  *   */
+comment|/**  * Creates index row keys which exactly match the indexed column. This allows a  * direct get() lookup on the index table, but at the cost that the column  * values must be unique.  *   * If you are indexing a column which can have duplicated values, consider  * {@link SimpleIndexKeyGenerator}.  */
 end_comment
 
 begin_class
 specifier|public
 class|class
-name|SimpleIndexKeyGenerator
+name|UniqueIndexKeyGenerator
 implements|implements
 name|IndexKeyGenerator
 block|{
@@ -91,8 +91,9 @@ name|byte
 index|[]
 name|column
 decl_stmt|;
+comment|/**    * @param column the column to index    */
 specifier|public
-name|SimpleIndexKeyGenerator
+name|UniqueIndexKeyGenerator
 parameter_list|(
 name|byte
 index|[]
@@ -107,7 +108,7 @@ name|column
 expr_stmt|;
 block|}
 specifier|public
-name|SimpleIndexKeyGenerator
+name|UniqueIndexKeyGenerator
 parameter_list|()
 block|{
 comment|// For Writable
@@ -134,19 +135,15 @@ name|columns
 parameter_list|)
 block|{
 return|return
-name|Bytes
-operator|.
-name|add
-argument_list|(
 name|columns
 operator|.
 name|get
 argument_list|(
 name|column
 argument_list|)
-argument_list|,
-name|rowKey
-argument_list|)
+operator|.
+name|clone
+argument_list|()
 return|;
 block|}
 comment|/** {@inheritDoc} */
