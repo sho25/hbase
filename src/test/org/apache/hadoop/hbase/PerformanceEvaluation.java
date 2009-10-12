@@ -4944,6 +4944,8 @@ operator|.
 name|println
 argument_list|(
 literal|"  [--miniCluster] [--nomapred] [--rows=ROWS] [--table=NAME] [--compress=TYPE] \\"
+argument_list|)
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -4952,14 +4954,14 @@ name|println
 argument_list|(
 literal|"<command><nclients>"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
 operator|.
 name|println
 argument_list|()
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -4968,7 +4970,7 @@ name|println
 argument_list|(
 literal|"Options:"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -4979,7 +4981,7 @@ literal|" master          Specify host and port of HBase "
 operator|+
 literal|"cluster master. If not present,"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -4988,7 +4990,7 @@ name|println
 argument_list|(
 literal|"                 address is read from configuration"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -4997,7 +4999,7 @@ name|println
 argument_list|(
 literal|" miniCluster     Run the test on an HBaseMiniCluster"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -5008,7 +5010,7 @@ literal|" nomapred        Run multiple clients using threads "
 operator|+
 literal|"(rather than use mapreduce)"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -5017,7 +5019,7 @@ name|println
 argument_list|(
 literal|" rows            Rows each client runs. Default: One million"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -5026,7 +5028,7 @@ name|println
 argument_list|(
 literal|" table           Alternate table name. Default: 'TestTable'"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -5035,14 +5037,14 @@ name|println
 argument_list|(
 literal|" compress        Compression type to use. Default: 'NONE'"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
 operator|.
 name|println
 argument_list|()
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -5051,7 +5053,7 @@ name|println
 argument_list|(
 literal|"Command:"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -5060,7 +5062,7 @@ name|println
 argument_list|(
 literal|" randomRead      Run random read test"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -5071,7 +5073,7 @@ literal|" randomReadMem   Run random read test where table "
 operator|+
 literal|"is in memory"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -5080,7 +5082,7 @@ name|println
 argument_list|(
 literal|" randomSeekScan  Run random seek and scan 100 test"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -5089,7 +5091,7 @@ name|println
 argument_list|(
 literal|" randomWrite     Run random write test"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -5098,7 +5100,7 @@ name|println
 argument_list|(
 literal|" sequentialRead  Run sequential read test"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -5107,7 +5109,7 @@ name|println
 argument_list|(
 literal|" sequentialWrite Run sequential write test"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -5116,14 +5118,14 @@ name|println
 argument_list|(
 literal|" scan            Run scan test"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
 operator|.
 name|println
 argument_list|()
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -5132,7 +5134,7 @@ name|println
 argument_list|(
 literal|"Args:"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -5143,7 +5145,7 @@ literal|" nclients        Integer. Required. Total number of "
 operator|+
 literal|"clients (and HRegionServers)"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -5152,7 +5154,7 @@ name|println
 argument_list|(
 literal|"                 running: 1<= value<= 500"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -5161,7 +5163,7 @@ name|println
 argument_list|(
 literal|"Examples:"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -5170,7 +5172,7 @@ name|println
 argument_list|(
 literal|" To run a single evaluation client:"
 argument_list|)
-argument_list|;
+expr_stmt|;
 name|System
 operator|.
 name|err
@@ -5181,7 +5183,7 @@ literal|" $ bin/hbase "
 operator|+
 literal|"org.apache.hadoop.hbase.PerformanceEvaluation sequentialWrite 1"
 argument_list|)
-argument_list|;
+expr_stmt|;
 block|}
 specifier|private
 name|void
