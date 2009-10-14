@@ -8941,6 +8941,14 @@ operator|+
 name|results
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|results
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+break|break;
 name|assertTrue
 argument_list|(
 literal|"Scanned too many rows! Only expected "

@@ -6906,22 +6906,7 @@ name|filterCurrentRow
 condition|)
 block|{
 comment|// Filter all columns until row changes
-name|this
-operator|.
-name|storeHeap
-operator|.
-name|next
-argument_list|(
-name|this
-operator|.
-name|results
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|results
-operator|.
-name|clear
+name|readAndDumpCurrentResult
 argument_list|()
 expr_stmt|;
 continue|continue;
@@ -7016,6 +7001,9 @@ name|length
 argument_list|)
 condition|)
 block|{
+name|readAndDumpCurrentResult
+argument_list|()
+expr_stmt|;
 name|resetFilters
 argument_list|()
 expr_stmt|;
@@ -7027,6 +7015,7 @@ name|currentRow
 operator|=
 name|row
 expr_stmt|;
+continue|continue;
 block|}
 name|this
 operator|.
@@ -7038,6 +7027,32 @@ name|results
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+specifier|private
+name|void
+name|readAndDumpCurrentResult
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|this
+operator|.
+name|storeHeap
+operator|.
+name|next
+argument_list|(
+name|this
+operator|.
+name|results
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|results
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 block|}
 comment|/*      * Do we have results to return or should we continue.  Call when we get to      * the end of a row.  Does house cleaning -- clearing results and resetting      * filters -- if we are to continue.      * @return True if we should return else false if need to keep going.      */
 specifier|private
@@ -7069,6 +7084,8 @@ argument_list|()
 condition|)
 block|{
 comment|// Make sure results is empty, reset filters
+name|this
+operator|.
 name|results
 operator|.
 name|clear

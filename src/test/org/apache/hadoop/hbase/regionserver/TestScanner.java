@@ -1220,13 +1220,6 @@ argument_list|(
 name|newFilter
 argument_list|)
 expr_stmt|;
-name|scan
-operator|.
-name|setStartRow
-argument_list|(
-name|prefix
-argument_list|)
-expr_stmt|;
 name|rowPrefixFilter
 argument_list|(
 name|scan
