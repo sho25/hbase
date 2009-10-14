@@ -140,7 +140,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of {@link Filter} that represents an ordered List of Filters  * which will be evaluated with a specified boolean operator MUST_PASS_ALL   * (!AND) or MUST_PASS_ONE (!OR).  Since you can use Filter Lists as children  * of Filter Lists, you can create a hierarchy of filters to be evaluated.  *<p>TODO: Fix creation of Configuration on serialization and deserialization.   */
+comment|/**  * Implementation of {@link Filter} that represents an ordered List of Filters  * which will be evaluated with a specified boolean operator {@link Operator#MUST_PASS_ALL}   * (<code>!AND</code>) or {@link Operator#MUST_PASS_ONE} (<code>!OR</code>).  * Since you can use Filter Lists as children of Filter Lists, you can create a  * hierarchy of filters to be evaluated.  * Defaults to {@link Operator#MUST_PASS_ALL}.  *<p>TODO: Fix creation of Configuration on serialization and deserialization.   */
 end_comment
 
 begin_class
@@ -210,6 +210,22 @@ operator|.
 name|filters
 operator|=
 name|rowFilters
+expr_stmt|;
+block|}
+comment|/**    * Constructor that takes an operator.    *     * @param operator Operator to process filter set with.    */
+specifier|public
+name|FilterList
+parameter_list|(
+specifier|final
+name|Operator
+name|operator
+parameter_list|)
+block|{
+name|this
+operator|.
+name|operator
+operator|=
+name|operator
 expr_stmt|;
 block|}
 comment|/**    * Constructor that takes a set of {@link Filter}s and an operator.    *     * @param operator Operator to process filter set with.    * @param rowFilters Set of row filters.    */
@@ -328,6 +344,8 @@ control|)
 block|{
 if|if
 condition|(
+name|this
+operator|.
 name|operator
 operator|==
 name|Operator
@@ -362,6 +380,8 @@ block|}
 elseif|else
 if|if
 condition|(
+name|this
+operator|.
 name|operator
 operator|==
 name|Operator
@@ -397,6 +417,8 @@ block|}
 block|}
 block|}
 return|return
+name|this
+operator|.
 name|operator
 operator|==
 name|Operator

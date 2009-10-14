@@ -318,6 +318,8 @@ name|int
 name|length
 parameter_list|)
 block|{
+comment|// We don't filter on the row key... we filter later on column value so
+comment|// always return false.
 return|return
 literal|false
 return|;
@@ -330,8 +332,11 @@ name|KeyValue
 name|keyValue
 parameter_list|)
 block|{
+comment|// System.out.println("REMOVE KEY=" + keyValue.toString() + ", value=" + Bytes.toString(keyValue.getValue()));
 if|if
 condition|(
+name|this
+operator|.
 name|matchedColumn
 condition|)
 block|{
@@ -345,6 +350,8 @@ block|}
 elseif|else
 if|if
 condition|(
+name|this
+operator|.
 name|foundColumn
 condition|)
 block|{
@@ -409,6 +416,8 @@ operator|.
 name|NEXT_ROW
 return|;
 block|}
+name|this
+operator|.
 name|matchedColumn
 operator|=
 literal|true
@@ -437,9 +446,13 @@ name|int
 name|length
 parameter_list|)
 block|{
+comment|// TODO: Can this filter take a rawcomparator so don't have to make this
+comment|// byte array copy?
 name|int
 name|compareResult
 init|=
+name|this
+operator|.
 name|comparator
 operator|.
 name|compareTo
@@ -458,8 +471,32 @@ name|length
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"compareResult="
+operator|+
+name|compareResult
+operator|+
+literal|" "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|data
+argument_list|,
+name|offset
+argument_list|,
+name|length
+argument_list|)
+argument_list|)
+expr_stmt|;
 switch|switch
 condition|(
+name|this
+operator|.
 name|compareOp
 condition|)
 block|{
@@ -543,11 +580,17 @@ block|{
 comment|// If column was found, return false if it was matched, true if it was not
 comment|// If column not found, return true if we filter if missing, false if not
 return|return
+name|this
+operator|.
 name|foundColumn
 condition|?
 operator|!
+name|this
+operator|.
 name|matchedColumn
 else|:
+name|this
+operator|.
 name|filterIfMissing
 return|;
 block|}
@@ -565,7 +608,7 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
-comment|/**    * Get whether entire row should be filtered if column is not found.    * @return filterIfMissing true if row should be skipped if column not found,    * false if row should be let through anyways    */
+comment|/**    * Get whether entire row should be filtered if column is not found.    * @return true if row should be skipped if column not found, false if row    * should be let through anyways    */
 specifier|public
 name|boolean
 name|getFilterIfMissing
@@ -660,6 +703,8 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+name|this
+operator|.
 name|compareOp
 operator|=
 name|CompareOp
@@ -672,6 +717,8 @@ name|readUTF
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|comparator
 operator|=
 operator|(
@@ -686,6 +733,8 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|foundColumn
 operator|=
 name|in
@@ -693,6 +742,8 @@ operator|.
 name|readBoolean
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
 name|matchedColumn
 operator|=
 name|in
@@ -700,6 +751,8 @@ operator|.
 name|readBoolean
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
 name|filterIfMissing
 operator|=
 name|in
