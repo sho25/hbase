@@ -138,7 +138,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class creates a single process HBase cluster. One thread is created for  * each server.  */
+comment|/**  * This class creates a single process HBase cluster. One thread is run for  * each server started.  Pass how many instances of a RegionServer you want  * running in your cluster-in-a-single-jvm.  Its modeled on MiniDFSCluster.  * Uses {@link LocalHBaseCluster}.  Will run on top of whatever the currently  * configured FileSystem.  */
 end_comment
 
 begin_class

@@ -178,7 +178,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Abstract base class for HBase cluster junit tests.  Spins up an hbase  * cluster in setup and tears it down again in tearDown.  */
+comment|/**  * Abstract base class for HBase cluster junit tests.  Spins up an hbase  * cluster in setup and tears it down again in tearDown.  * @deprecated Use junit4 and {@link HBaseTestingUtility}  */
 end_comment
 
 begin_class

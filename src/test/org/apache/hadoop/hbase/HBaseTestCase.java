@@ -326,7 +326,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Abstract base class for test cases. Performs all static initialization  */
+comment|/**  * Abstract HBase test class.  Initializes a few things that can come in handly  * like an HBaseConfiguration and filesystem.  * @deprecated Write junit4 unit tests using {@link HBaseTestingUtility}  */
 end_comment
 
 begin_class
