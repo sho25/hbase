@@ -109,7 +109,13 @@ name|void
 name|reset
 parameter_list|()
 block|{
-comment|// no state.
+name|this
+operator|.
+name|filter
+operator|.
+name|reset
+argument_list|()
+expr_stmt|;
 block|}
 specifier|private
 name|void
