@@ -205,6 +205,17 @@ implements|implements
 name|Writable
 block|{
 specifier|private
+specifier|static
+specifier|final
+name|byte
+name|RESULT_VERSION
+init|=
+operator|(
+name|byte
+operator|)
+literal|1
+decl_stmt|;
+specifier|private
 name|KeyValue
 index|[]
 name|kvs
@@ -2002,6 +2013,17 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Write version when writing array form.
+comment|// This assumes that results are sent to the client as Result[], so we
+comment|// have an opportunity to handle version differences without affecting
+comment|// efficiency.
+name|out
+operator|.
+name|writeByte
+argument_list|(
+name|RESULT_VERSION
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|results
@@ -2193,6 +2215,33 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Read version for array form.
+comment|// This assumes that results are sent to the client as Result[], so we
+comment|// have an opportunity to handle version differences without affecting
+comment|// efficiency.
+name|int
+name|version
+init|=
+name|in
+operator|.
+name|readByte
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|version
+operator|>
+name|RESULT_VERSION
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"version not supported"
+argument_list|)
+throw|;
+block|}
 name|int
 name|numResults
 init|=
