@@ -114,7 +114,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *   */
+comment|/**  * Test versions.  * Does shutdown in middle of test to prove versions work across restart.  */
 end_comment
 
 begin_class

@@ -62,7 +62,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tests HTablePool  */
+comment|/**  * Tests HTablePool.  */
 end_comment
 
 begin_class
