@@ -192,7 +192,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to perform Scan operations.  *<p>  * All operations are identical to {@link Get} with the exception of  * instantiation.  Rather than specifying a single row, an optional startRow  * and stopRow may be defined.  If rows are not specified, the Scanner will  * iterate over all rows.  *<p>  * To scan everything for each row, instantiate a Scan object.  *<p>  * To modify scanner caching for just this scan, use {@link #setCaching(int) setCaching}.  *<p>  * To further define the scope of what to get when scanning, perform additional   * methods as outlined below.  *<p>  * To get all columns from specific families, execute {@link #addFamily(byte[]) addFamily}  * for each family to retrieve.  *<p>  * To get specific columns, execute {@link #addColumn(byte[], byte[]) addColumn}  * for each column to retrieve.  *<p>  * To only retrieve columns within a specific range of version timestamps,  * execute {@link #setTimeRange(long, long) setTimeRange}.  *<p>  * To only retrieve columns with a specific timestamp, execute  * {@link #setTimeStamp(long) setTimestamp}.  *<p>  * To limit the number of versions of each column to be returned, execute  * {@link #setMaxVersions(int) setMaxVersions}.  *<p>  * To add a filter, execute {@link #setFilter(org.apache.hadoop.hbase.filter.Filter) setFilter}.  *<p>  * Expert: To explicitly disable server-side block caching for this scan,   * execute {@link #setCacheBlocks(boolean)}.  */
+comment|/**  * Used to perform Scan operations.  *<p>  * All operations are identical to {@link Get} with the exception of  * instantiation.  Rather than specifying a single row, an optional startRow  * and stopRow may be defined.  If rows are not specified, the Scanner will  * iterate over all rows.  *<p>  * To scan everything for each row, instantiate a Scan object.  *<p>  * To modify scanner caching for just this scan, use {@link #setCaching(int) setCaching}.  *<p>  * To further define the scope of what to get when scanning, perform additional   * methods as outlined below.  *<p>  * To get all columns from specific families, execute {@link #addFamily(byte[]) addFamily}  * for each family to retrieve.  *<p>  * To get specific columns, execute {@link #addColumn(byte[], byte[]) addColumn}  * for each column to retrieve.  *<p>  * To only retrieve columns within a specific range of version timestamps,  * execute {@link #setTimeRange(long, long) setTimeRange}.  *<p>  * To only retrieve columns with a specific timestamp, execute  * {@link #setTimeStamp(long) setTimestamp}.  *<p>  * To limit the number of versions of each column to be returned, execute  * {@link #setMaxVersions(int) setMaxVersions}.  *<p>  * To limit the maximum number of values returned for each call to next(),  * execute {@link #setBatch(int) setBatch}.  *<p>  * To add a filter, execute {@link #setFilter(org.apache.hadoop.hbase.filter.Filter) setFilter}.  *<p>  * Expert: To explicitly disable server-side block caching for this scan,   * execute {@link #setCacheBlocks(boolean)}.  */
 end_comment
 
 begin_class
@@ -235,6 +235,13 @@ specifier|private
 name|int
 name|maxVersions
 init|=
+literal|1
+decl_stmt|;
+specifier|private
+name|int
+name|batch
+init|=
+operator|-
 literal|1
 decl_stmt|;
 specifier|private
@@ -395,6 +402,13 @@ operator|=
 name|scan
 operator|.
 name|getMaxVersions
+argument_list|()
+expr_stmt|;
+name|batch
+operator|=
+name|scan
+operator|.
+name|getBatch
 argument_list|()
 expr_stmt|;
 name|caching
@@ -770,6 +784,22 @@ return|return
 name|this
 return|;
 block|}
+comment|/**    * Set the maximum number of values to return for each call to next()    * @param batch the maximum number of values    */
+specifier|public
+name|void
+name|setBatch
+parameter_list|(
+name|int
+name|batch
+parameter_list|)
+block|{
+name|this
+operator|.
+name|batch
+operator|=
+name|batch
+expr_stmt|;
+block|}
 comment|/**    * Set the number of rows for caching that will be passed to scanners.    * If not set, the default setting from {@link HTable#getScannerCaching()} will apply.    * Higher caching values will enable faster scanners but will use more memory.    * @param caching the number of rows for caching    */
 specifier|public
 name|void
@@ -974,6 +1004,18 @@ operator|.
 name|maxVersions
 return|;
 block|}
+comment|/**    * @return maximum number of values to return for a single call to next()    */
+specifier|public
+name|int
+name|getBatch
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|batch
+return|;
+block|}
 comment|/**    * @return caching the number of rows fetched when calling next on a scanner    */
 specifier|public
 name|int
@@ -1119,6 +1161,24 @@ operator|+
 name|this
 operator|.
 name|maxVersions
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|", batch="
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|""
+operator|+
+name|this
+operator|.
+name|batch
 argument_list|)
 expr_stmt|;
 name|sb
@@ -1547,6 +1607,15 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
+name|batch
+operator|=
+name|in
+operator|.
+name|readInt
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
 name|caching
 operator|=
 name|in
@@ -1795,6 +1864,15 @@ argument_list|(
 name|this
 operator|.
 name|maxVersions
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|writeInt
+argument_list|(
+name|this
+operator|.
+name|batch
 argument_list|)
 expr_stmt|;
 name|out

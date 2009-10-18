@@ -351,7 +351,7 @@ return|return
 name|kvReturn
 return|;
 block|}
-comment|/**    * Gets the next row of keys from the top-most scanner.    *<p>    * This method takes care of updating the heap.    *<p>    * This can ONLY be called when you are using Scanners that implement    * InternalScanner as well as KeyValueScanner (a {@link StoreScanner}).    * @return true if there are more keys, false if all scanners are done     */
+comment|/**    * Gets the next row of keys from the top-most scanner.    *<p>    * This method takes care of updating the heap.    *<p>    * This can ONLY be called when you are using Scanners that implement    * InternalScanner as well as KeyValueScanner (a {@link StoreScanner}).    * @param result    * @param limit    * @return true if there are more keys, false if all scanners are done     */
 specifier|public
 name|boolean
 name|next
@@ -361,6 +361,9 @@ argument_list|<
 name|KeyValue
 argument_list|>
 name|result
+parameter_list|,
+name|int
+name|limit
 parameter_list|)
 throws|throws
 name|IOException
@@ -380,6 +383,8 @@ operator|.
 name|next
 argument_list|(
 name|result
+argument_list|,
+name|limit
 argument_list|)
 expr_stmt|;
 name|KeyValue
@@ -440,6 +445,30 @@ name|current
 operator|!=
 literal|null
 operator|)
+return|;
+block|}
+comment|/**    * Gets the next row of keys from the top-most scanner.    *<p>    * This method takes care of updating the heap.    *<p>    * This can ONLY be called when you are using Scanners that implement    * InternalScanner as well as KeyValueScanner (a {@link StoreScanner}).    * @param result    * @return true if there are more keys, false if all scanners are done     */
+specifier|public
+name|boolean
+name|next
+parameter_list|(
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+name|result
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|next
+argument_list|(
+name|result
+argument_list|,
+operator|-
+literal|1
+argument_list|)
 return|;
 block|}
 specifier|private

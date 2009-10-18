@@ -86,6 +86,23 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Grab the next row's worth of values with a limit on the number of values    * to return.     * @param results    * @param limit    * @return true if more rows exist after this one, false if scanner is done    * @throws IOException    */
+specifier|public
+name|boolean
+name|next
+parameter_list|(
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+name|result
+parameter_list|,
+name|int
+name|limit
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Closes the scanner and releases any resources it has allocated    * @throws IOException    */
 specifier|public
 name|void
