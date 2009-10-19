@@ -658,6 +658,17 @@ operator|.
 name|INCLUDE
 return|;
 block|}
+if|if
+condition|(
+name|column
+operator|!=
+literal|null
+operator|&&
+name|newColumn
+operator|!=
+literal|null
+condition|)
+block|{
 comment|// There are new and old, figure which to check first
 name|int
 name|ret
@@ -845,10 +856,19 @@ operator|.
 name|INCLUDE
 return|;
 block|}
+block|}
+if|if
+condition|(
+name|newColumn
+operator|!=
+literal|null
+condition|)
+block|{
 comment|// Cannot be equal, so ret>= 1
 comment|// New is smaller than old, compare against new
+name|int
 name|ret
-operator|=
+init|=
 name|Bytes
 operator|.
 name|compareTo
@@ -874,7 +894,7 @@ name|offset
 argument_list|,
 name|length
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 comment|// Same column
 if|if
 condition|(
@@ -986,6 +1006,30 @@ operator|.
 name|INCLUDE
 return|;
 block|}
+comment|// No match happened, add to new and include
+name|newColumns
+operator|.
+name|add
+argument_list|(
+operator|new
+name|ColumnCount
+argument_list|(
+name|bytes
+argument_list|,
+name|offset
+argument_list|,
+name|length
+argument_list|,
+literal|1
+argument_list|)
+argument_list|)
+expr_stmt|;
+return|return
+name|MatchCode
+operator|.
+name|INCLUDE
+return|;
+block|}
 comment|/**    * Called at the end of every StoreFile or memstore.    */
 specifier|public
 name|void
@@ -1023,7 +1067,7 @@ operator|>
 literal|0
 condition|)
 block|{
-name|finalize
+name|finish
 argument_list|(
 name|newColumns
 argument_list|)
@@ -1196,7 +1240,7 @@ argument_list|,
 name|newIndex
 argument_list|)
 expr_stmt|;
-name|finalize
+name|finish
 argument_list|(
 name|mergeColumns
 argument_list|)
@@ -1243,7 +1287,7 @@ argument_list|,
 name|index
 argument_list|)
 expr_stmt|;
-name|finalize
+name|finish
 argument_list|(
 name|mergeColumns
 argument_list|)
@@ -1314,7 +1358,7 @@ block|}
 block|}
 specifier|private
 name|void
-name|finalize
+name|finish
 parameter_list|(
 name|List
 argument_list|<

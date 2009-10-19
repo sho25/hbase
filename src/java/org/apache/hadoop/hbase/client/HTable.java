@@ -1538,6 +1538,7 @@ expr_stmt|;
 return|return
 literal|null
 return|;
+comment|// FindBugs NP_BOOLEAN_RETURN_NULL
 block|}
 block|}
 argument_list|)
@@ -2308,6 +2309,7 @@ expr_stmt|;
 return|return
 literal|null
 return|;
+comment|// FindBugs NP_BOOLEAN_RETURN_NULL
 block|}
 block|}
 argument_list|)

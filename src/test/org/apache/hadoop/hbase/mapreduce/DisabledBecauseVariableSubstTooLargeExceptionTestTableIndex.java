@@ -512,6 +512,15 @@ name|INDEX_DIR
 init|=
 literal|"testindex"
 decl_stmt|;
+specifier|static
+specifier|final
+name|Random
+name|rand
+init|=
+operator|new
+name|Random
+argument_list|()
+decl_stmt|;
 comment|/** default constructor */
 specifier|public
 name|DisabledBecauseVariableSubstTooLargeExceptionTestTableIndex
@@ -591,6 +600,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|super
+operator|.
+name|tearDown
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Test HBase map/reduce    *     * @throws IOException    * @throws ClassNotFoundException     * @throws InterruptedException     */
 specifier|public
@@ -1146,9 +1160,7 @@ name|Integer
 operator|.
 name|toString
 argument_list|(
-operator|new
-name|Random
-argument_list|()
+name|rand
 operator|.
 name|nextInt
 argument_list|()

@@ -22770,14 +22770,12 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-operator|new
 name|Integer
+operator|.
+name|toString
 argument_list|(
 name|i
 argument_list|)
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|ret

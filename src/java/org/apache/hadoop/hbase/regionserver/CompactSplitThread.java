@@ -153,20 +153,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HMsg
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -214,22 +200,6 @@ operator|.
 name|client
 operator|.
 name|Put
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
 import|;
 end_import
 
@@ -625,24 +595,12 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Compaction/Split failed"
-operator|+
-operator|(
-name|r
-operator|!=
-literal|null
-condition|?
-operator|(
-literal|" for region "
+literal|"Compaction/Split failed for region "
 operator|+
 name|r
 operator|.
 name|getRegionNameAsString
 argument_list|()
-operator|)
-else|:
-literal|""
-operator|)
 argument_list|,
 name|RemoteExceptionHandler
 operator|.

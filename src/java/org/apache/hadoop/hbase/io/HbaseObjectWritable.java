@@ -367,22 +367,6 @@ name|hbase
 operator|.
 name|filter
 operator|.
-name|PrefixFilter
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|filter
-operator|.
 name|*
 import|;
 end_import
@@ -1359,6 +1343,11 @@ argument_list|>
 name|declaredClass
 decl_stmt|;
 comment|/** default constructor for writable */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|public
 name|NullInstance
 parameter_list|()

@@ -95,12 +95,9 @@ block|{
 name|int
 name|initialSize
 init|=
-operator|(
+call|(
 name|int
-operator|)
-name|Math
-operator|.
-name|ceil
+call|)
 argument_list|(
 name|maxSize
 operator|/

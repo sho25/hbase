@@ -380,12 +380,14 @@ block|{
 name|int
 name|result
 init|=
+name|Bytes
+operator|.
+name|hashCode
+argument_list|(
 name|this
 operator|.
 name|regionName
-operator|.
-name|hashCode
-argument_list|()
+argument_list|)
 decl_stmt|;
 name|result
 operator|^=

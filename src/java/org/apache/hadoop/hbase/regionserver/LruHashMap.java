@@ -588,6 +588,7 @@ operator|-
 name|memFree
 operator|)
 return|;
+comment|// FindBugs IS2_INCONSISTENT_SYNC
 block|}
 comment|/**    * Get the number of hits to the map.  This is the number of times    * a call to get() returns a matched key.    *    * @return number of hits    */
 specifier|public
@@ -608,6 +609,7 @@ block|{
 return|return
 name|missCount
 return|;
+comment|// FindBugs IS2_INCONSISTENT_SYNC
 block|}
 comment|/**    * Get the hit ratio.  This is the number of hits divided by the    * total number of requests.    *    * @return hit ratio (double between 0 and 1)    */
 specifier|public
@@ -650,12 +652,6 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|long
-name|minMemory
-init|=
-name|getMinimumUsage
-argument_list|()
-decl_stmt|;
 if|if
 condition|(
 name|requestedAmount
@@ -2047,9 +2043,6 @@ block|{
 name|Entry
 name|cur
 decl_stmt|;
-name|Entry
-name|prev
-decl_stmt|;
 name|long
 name|freedMemory
 init|=
@@ -2632,6 +2625,7 @@ name|table
 init|=
 name|entries
 decl_stmt|;
+comment|// FindBugs IS2_INCONSISTENT_SYNC
 for|for
 control|(
 name|int

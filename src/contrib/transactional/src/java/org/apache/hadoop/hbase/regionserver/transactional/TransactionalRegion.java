@@ -782,6 +782,13 @@ argument_list|,
 name|flushListener
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|log
+operator|instanceof
+name|THLog
+condition|)
+block|{
 name|this
 operator|.
 name|hlog
@@ -791,6 +798,17 @@ name|THLog
 operator|)
 name|log
 expr_stmt|;
+block|}
+else|else
+block|{
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"log is not THLog"
+argument_list|)
+throw|;
+block|}
 name|oldTransactionFlushTrigger
 operator|=
 name|conf

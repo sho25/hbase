@@ -1403,6 +1403,7 @@ operator|.
 name|select
 argument_list|()
 expr_stmt|;
+comment|// FindBugs IS2_INCONSISTENT_SYNC
 name|Iterator
 argument_list|<
 name|SelectionKey
@@ -4042,6 +4043,7 @@ name|Exception
 name|e
 parameter_list|)
 block|{}
+comment|// FindBugs DE_MIGHT_IGNORE
 if|if
 condition|(
 name|channel

@@ -407,6 +407,7 @@ argument_list|)
 block|{
 comment|// Use base type to avoid compile-time dependencies.
 specifier|private
+specifier|transient
 name|CompressionCodec
 name|lzoCodec
 decl_stmt|;
@@ -442,6 +443,9 @@ expr_stmt|;
 try|try
 block|{
 name|Class
+argument_list|<
+name|?
+argument_list|>
 name|externalCodec
 init|=
 name|ClassLoader
@@ -496,6 +500,7 @@ literal|"gz"
 argument_list|)
 block|{
 specifier|private
+specifier|transient
 name|GzipCodec
 name|codec
 decl_stmt|;

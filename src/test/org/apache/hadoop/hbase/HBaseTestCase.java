@@ -2724,7 +2724,12 @@ name|timestamp
 operator|+
 literal|"\" was expected to be \""
 operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
 name|value
+argument_list|)
 operator|+
 literal|" but was null"
 argument_list|)

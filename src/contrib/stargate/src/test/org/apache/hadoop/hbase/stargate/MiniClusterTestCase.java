@@ -1144,6 +1144,7 @@ name|stopDFS
 argument_list|()
 expr_stmt|;
 block|}
+specifier|static
 class|class
 name|MiniClusterShutdownThread
 extends|extends

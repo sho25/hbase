@@ -705,6 +705,7 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+comment|// FindBugs SC_START_IN_CTOR
 block|}
 else|else
 block|{
@@ -1089,8 +1090,6 @@ name|blockSize
 argument_list|,
 name|singleSize
 argument_list|()
-argument_list|,
-literal|"single"
 argument_list|)
 decl_stmt|;
 name|BlockBucket
@@ -1105,8 +1104,6 @@ name|blockSize
 argument_list|,
 name|multiSize
 argument_list|()
-argument_list|,
-literal|"multi"
 argument_list|)
 decl_stmt|;
 name|BlockBucket
@@ -1121,8 +1118,6 @@ name|blockSize
 argument_list|,
 name|memorySize
 argument_list|()
-argument_list|,
-literal|"memory"
 argument_list|)
 decl_stmt|;
 comment|// Scan entire map putting into appropriate buckets
@@ -1274,20 +1269,12 @@ argument_list|(
 name|overflow
 argument_list|,
 operator|(
-name|long
-operator|)
-name|Math
-operator|.
-name|ceil
-argument_list|(
-operator|(
 name|bytesToFree
 operator|-
 name|bytesFreed
 operator|)
 operator|/
 name|remainingBuckets
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|bytesFreed
@@ -1473,9 +1460,6 @@ specifier|private
 name|long
 name|bucketSize
 decl_stmt|;
-name|String
-name|name
-decl_stmt|;
 specifier|public
 name|BlockBucket
 parameter_list|(
@@ -1487,9 +1471,6 @@ name|blockSize
 parameter_list|,
 name|long
 name|bucketSize
-parameter_list|,
-name|String
-name|name
 parameter_list|)
 block|{
 name|this
@@ -1511,12 +1492,6 @@ expr_stmt|;
 name|totalSize
 operator|=
 literal|0
-expr_stmt|;
-name|this
-operator|.
-name|name
-operator|=
-name|name
 expr_stmt|;
 block|}
 specifier|public
@@ -1871,6 +1846,7 @@ operator|.
 name|notify
 argument_list|()
 expr_stmt|;
+comment|// FindBugs NN_NAKED_NOTIFY
 block|}
 block|}
 block|}
@@ -2450,6 +2426,7 @@ name|int
 name|concurrency
 parameter_list|)
 block|{
+comment|// FindBugs ICAST_INTEGER_MULTIPLY_CAST_TO_LONG
 return|return
 name|CACHE_FIXED_OVERHEAD
 operator|+
@@ -2459,7 +2436,7 @@ name|CONCURRENT_HASHMAP
 operator|+
 operator|(
 operator|(
-name|int
+name|long
 operator|)
 name|Math
 operator|.

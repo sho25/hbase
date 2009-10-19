@@ -828,9 +828,6 @@ name|MAX_PAGES
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|RegexStringComparator
-name|rsc
-decl_stmt|;
 name|Filter
 name|filterMPONE
 init|=

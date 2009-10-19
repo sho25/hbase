@@ -3168,6 +3168,7 @@ name|Exception
 name|e
 parameter_list|)
 block|{
+comment|// FindBugs REC_CATCH_EXCEPTION
 if|if
 condition|(
 name|e
@@ -6232,24 +6233,12 @@ decl_stmt|;
 if|if
 condition|(
 name|msg
-operator|==
+operator|!=
 literal|null
 condition|)
 block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Message is empty: "
-operator|+
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 if|if
 condition|(
-name|e
-operator|.
 name|msg
 operator|.
 name|isType
@@ -6264,12 +6253,23 @@ condition|)
 block|{
 name|addProcessingMessage
 argument_list|(
-name|e
-operator|.
 name|msg
 operator|.
 name|getRegionInfo
 argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Message is empty: "
+operator|+
+name|e
 argument_list|)
 expr_stmt|;
 block|}
@@ -6306,10 +6306,11 @@ init|(
 name|this
 init|)
 block|{
+comment|// Wakes run() if it is sleeping
 name|notifyAll
 argument_list|()
 expr_stmt|;
-comment|// Wakes run() if it is sleeping
+comment|// FindBugs NN_NAKED_NOTIFY
 block|}
 block|}
 comment|/**    * Cause the server to exit without closing the regions it is serving, the    * log it is using and without notifying the master.    * Used unit testing and on catastrophic events such as HDFS is yanked out    * from under hbase or we OOME.    */
@@ -9234,11 +9235,6 @@ argument_list|(
 name|scannerId
 argument_list|)
 decl_stmt|;
-synchronized|synchronized
-init|(
-name|scanners
-init|)
-block|{
 name|scanners
 operator|.
 name|put
@@ -9248,7 +9244,6 @@ argument_list|,
 name|s
 argument_list|)
 expr_stmt|;
-block|}
 name|this
 operator|.
 name|leases
@@ -9544,13 +9539,23 @@ operator|instanceof
 name|NotServingRegionException
 condition|)
 block|{
+name|String
+name|scannerName
+init|=
+name|String
+operator|.
+name|valueOf
+argument_list|(
+name|scannerId
+argument_list|)
+decl_stmt|;
 name|this
 operator|.
 name|scanners
 operator|.
 name|remove
 argument_list|(
-name|scannerId
+name|scannerName
 argument_list|)
 expr_stmt|;
 block|}
@@ -9599,23 +9604,13 @@ decl_stmt|;
 name|InternalScanner
 name|s
 init|=
-literal|null
-decl_stmt|;
-synchronized|synchronized
-init|(
-name|scanners
-init|)
-block|{
-name|s
-operator|=
 name|scanners
 operator|.
 name|remove
 argument_list|(
 name|scannerName
 argument_list|)
-expr_stmt|;
-block|}
+decl_stmt|;
 if|if
 condition|(
 name|s
@@ -9703,15 +9698,6 @@ expr_stmt|;
 name|InternalScanner
 name|s
 init|=
-literal|null
-decl_stmt|;
-synchronized|synchronized
-init|(
-name|scanners
-init|)
-block|{
-name|s
-operator|=
 name|scanners
 operator|.
 name|remove
@@ -9720,8 +9706,7 @@ name|this
 operator|.
 name|scannerName
 argument_list|)
-expr_stmt|;
-block|}
+decl_stmt|;
 if|if
 condition|(
 name|s
@@ -9835,13 +9820,17 @@ parameter_list|(
 name|WrongRegionException
 name|ex
 parameter_list|)
-block|{     }
+block|{
+comment|// ignore
+block|}
 catch|catch
 parameter_list|(
 name|NotServingRegionException
 name|ex
 parameter_list|)
-block|{     }
+block|{
+comment|// ignore
+block|}
 catch|catch
 parameter_list|(
 name|Throwable
@@ -10224,11 +10213,6 @@ argument_list|(
 name|lockId
 argument_list|)
 decl_stmt|;
-synchronized|synchronized
-init|(
-name|rowlocks
-init|)
-block|{
 name|rowlocks
 operator|.
 name|put
@@ -10238,7 +10222,6 @@ argument_list|,
 name|r
 argument_list|)
 expr_stmt|;
-block|}
 name|this
 operator|.
 name|leases
@@ -10295,23 +10278,13 @@ decl_stmt|;
 name|Integer
 name|rl
 init|=
-literal|null
-decl_stmt|;
-synchronized|synchronized
-init|(
-name|rowlocks
-init|)
-block|{
-name|rl
-operator|=
 name|rowlocks
 operator|.
 name|get
 argument_list|(
 name|lockName
 argument_list|)
-expr_stmt|;
-block|}
+decl_stmt|;
 if|if
 condition|(
 name|rl
@@ -10451,23 +10424,13 @@ decl_stmt|;
 name|Integer
 name|r
 init|=
-literal|null
-decl_stmt|;
-synchronized|synchronized
-init|(
-name|rowlocks
-init|)
-block|{
-name|r
-operator|=
 name|rowlocks
 operator|.
 name|remove
 argument_list|(
 name|lockName
 argument_list|)
-expr_stmt|;
-block|}
+decl_stmt|;
 if|if
 condition|(
 name|r
@@ -10607,15 +10570,6 @@ expr_stmt|;
 name|Integer
 name|r
 init|=
-literal|null
-decl_stmt|;
-synchronized|synchronized
-init|(
-name|rowlocks
-init|)
-block|{
-name|r
-operator|=
 name|rowlocks
 operator|.
 name|remove
@@ -10624,8 +10578,7 @@ name|this
 operator|.
 name|lockName
 argument_list|)
-expr_stmt|;
-block|}
+decl_stmt|;
 if|if
 condition|(
 name|r

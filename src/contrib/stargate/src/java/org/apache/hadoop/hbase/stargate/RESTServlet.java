@@ -183,11 +183,13 @@ name|RESTServlet
 name|instance
 decl_stmt|;
 specifier|private
+specifier|transient
 specifier|final
 name|HBaseConfiguration
 name|conf
 decl_stmt|;
 specifier|private
+specifier|transient
 specifier|final
 name|HTablePool
 name|pool

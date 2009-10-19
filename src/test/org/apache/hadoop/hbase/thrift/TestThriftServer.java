@@ -1534,10 +1534,6 @@ name|time1
 operator|+=
 literal|1
 expr_stmt|;
-name|time2
-operator|+=
-literal|1
-expr_stmt|;
 comment|// Test a scanner on all rows and all columns, no timestamp
 name|int
 name|scanner1

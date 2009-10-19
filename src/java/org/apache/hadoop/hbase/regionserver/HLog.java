@@ -1787,10 +1787,6 @@ name|SequenceFile
 operator|.
 name|Reader
 block|{
-specifier|private
-name|long
-name|length
-decl_stmt|;
 name|WALReader
 parameter_list|(
 specifier|final
@@ -4267,6 +4263,11 @@ block|}
 end_class
 
 begin_function
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 specifier|static
 name|Class
 argument_list|<
@@ -6482,9 +6483,15 @@ name|Path
 name|arg2
 parameter_list|,
 name|Class
+argument_list|<
+name|?
+argument_list|>
 name|arg3
 parameter_list|,
 name|Class
+argument_list|<
+name|?
+argument_list|>
 name|arg4
 parameter_list|,
 name|int

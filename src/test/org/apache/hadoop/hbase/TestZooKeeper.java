@@ -566,7 +566,7 @@ name|sleep
 argument_list|(
 name|sessionTimeout
 operator|*
-literal|3
+literal|3L
 argument_list|)
 expr_stmt|;
 name|System
@@ -714,7 +714,7 @@ name|sleep
 argument_list|(
 name|sessionTimeout
 operator|*
-literal|3
+literal|3L
 argument_list|)
 expr_stmt|;
 operator|new

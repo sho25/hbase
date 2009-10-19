@@ -283,6 +283,11 @@ index|]
 argument_list|)
 expr_stmt|;
 block|}
+name|istream
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 return|return
 name|l
 return|;

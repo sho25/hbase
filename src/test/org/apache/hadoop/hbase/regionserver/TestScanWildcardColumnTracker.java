@@ -89,6 +89,7 @@ extends|extends
 name|HBaseTestCase
 block|{
 specifier|final
+specifier|static
 name|int
 name|VERSIONS
 init|=
@@ -591,9 +592,6 @@ range|:
 name|qualifiers
 control|)
 block|{
-name|MatchCode
-name|mc
-init|=
 name|tracker
 operator|.
 name|checkColumn
@@ -606,7 +604,7 @@ name|qualifier
 operator|.
 name|length
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 block|}
 block|}
 catch|catch

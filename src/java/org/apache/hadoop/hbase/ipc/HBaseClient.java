@@ -1810,6 +1810,7 @@ operator|.
 name|out
 init|)
 block|{
+comment|// FindBugs IS2_INCONSISTENT_SYNC
 if|if
 condition|(
 name|LOG
@@ -2434,6 +2435,7 @@ name|ParallelCall
 name|call
 parameter_list|)
 block|{
+comment|// FindBugs IS2_INCONSISTENT_SYNC
 name|values
 index|[
 name|call

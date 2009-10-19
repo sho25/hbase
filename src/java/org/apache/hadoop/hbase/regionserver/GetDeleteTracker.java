@@ -1499,6 +1499,7 @@ throw|;
 block|}
 comment|/**    * Internal class used to store the necessary information for a Delete.    *<p>    * Rather than reparsing the KeyValue, or copying fields, this class points    * to the underlying KeyValue buffer with pointers to the qualifier and fields    * for type and timestamp.  No parsing work is done in DeleteTracker now.    *<p>    * Fields are public because they are accessed often, directly, and only    * within this class.    */
 specifier|protected
+specifier|static
 class|class
 name|Delete
 block|{

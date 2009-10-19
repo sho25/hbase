@@ -1138,7 +1138,9 @@ operator|.
 name|HREGION_LOGDIR_NAME
 argument_list|)
 condition|)
+block|{
 continue|continue;
+block|}
 name|FileStatus
 index|[]
 name|regionDirs
@@ -1188,6 +1190,9 @@ if|if
 condition|(
 name|dd
 operator|.
+name|getName
+argument_list|()
+operator|.
 name|equals
 argument_list|(
 name|HConstants
@@ -1195,7 +1200,9 @@ operator|.
 name|HREGION_COMPACTIONDIR_NAME
 argument_list|)
 condition|)
+block|{
 continue|continue;
+block|}
 comment|// Else its a region name.  Now look in region for families.
 name|FileStatus
 index|[]
@@ -1428,7 +1435,9 @@ operator|.
 name|HREGION_LOGDIR_NAME
 argument_list|)
 condition|)
+block|{
 continue|continue;
+block|}
 name|FileStatus
 index|[]
 name|regionDirs
@@ -1478,6 +1487,9 @@ if|if
 condition|(
 name|dd
 operator|.
+name|getName
+argument_list|()
+operator|.
 name|equals
 argument_list|(
 name|HConstants
@@ -1485,7 +1497,9 @@ operator|.
 name|HREGION_COMPACTIONDIR_NAME
 argument_list|)
 condition|)
+block|{
 continue|continue;
+block|}
 comment|// Else its a region name.  Now look in region for families.
 name|FileStatus
 index|[]

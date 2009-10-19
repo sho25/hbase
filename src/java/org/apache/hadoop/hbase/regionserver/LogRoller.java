@@ -331,7 +331,7 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
-comment|// Don't interrupt us. We're working
+comment|// FindBugs UL_UNRELEASED_LOCK_EXCEPTION_PATH
 try|try
 block|{
 name|this

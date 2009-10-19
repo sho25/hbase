@@ -258,7 +258,7 @@ condition|(
 name|slept
 operator|>
 operator|(
-literal|10
+literal|10L
 operator|*
 name|this
 operator|.

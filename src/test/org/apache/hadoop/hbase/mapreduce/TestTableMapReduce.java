@@ -1329,10 +1329,15 @@ name|debug
 argument_list|(
 literal|"second key is not the reverse of first. row="
 operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
 name|r
 operator|.
 name|getRow
 argument_list|()
+argument_list|)
 operator|+
 literal|", first value="
 operator|+

@@ -1680,6 +1680,7 @@ block|}
 block|}
 comment|/*    * Immutable data structure to hold member found in set and the set it was    * found in.  Include set because it is carrying context.    */
 specifier|private
+specifier|static
 class|class
 name|Member
 block|{
@@ -2458,6 +2459,8 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
+try|try
+block|{
 name|this
 operator|.
 name|result
@@ -2471,8 +2474,6 @@ name|idx
 operator|=
 literal|0
 expr_stmt|;
-try|try
-block|{
 comment|// Look at each set, kvset and snapshot.
 comment|// Both look for matching entries for this.current row returning what
 comment|// they
@@ -3056,17 +3057,6 @@ name|int
 name|count
 init|=
 literal|10000
-decl_stmt|;
-name|byte
-index|[]
-name|column
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"col:umn"
-argument_list|)
 decl_stmt|;
 name|byte
 index|[]

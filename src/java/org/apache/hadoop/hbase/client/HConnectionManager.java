@@ -946,6 +946,7 @@ block|}
 block|}
 comment|/**      * Get this watcher's ZKW, instanciate it if necessary.      * @return ZKW      */
 specifier|public
+specifier|synchronized
 name|ZooKeeperWrapper
 name|getZooKeeperWrapper
 parameter_list|()
@@ -1529,6 +1530,13 @@ name|master
 operator|=
 name|tryMaster
 expr_stmt|;
+name|this
+operator|.
+name|masterLock
+operator|.
+name|notifyAll
+argument_list|()
+expr_stmt|;
 break|break;
 block|}
 block|}
@@ -1597,9 +1605,11 @@ block|}
 comment|// Cannot connect to master or it is not running. Sleep& retry
 try|try
 block|{
-name|Thread
+name|this
 operator|.
-name|sleep
+name|masterLock
+operator|.
+name|wait
 argument_list|(
 name|getPauseTime
 argument_list|(
@@ -5803,11 +5813,6 @@ condition|(
 name|stopProxy
 condition|)
 block|{
-synchronized|synchronized
-init|(
-name|servers
-init|)
-block|{
 for|for
 control|(
 name|HRegionInterface
@@ -5826,7 +5831,6 @@ argument_list|(
 name|i
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 block|}
