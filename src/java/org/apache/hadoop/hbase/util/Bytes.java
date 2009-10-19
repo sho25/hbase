@@ -53,16 +53,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|Serializable
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|UnsupportedEncodingException
 import|;
 end_import
@@ -314,17 +304,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|>
-implements|,
-name|Serializable
 block|{
-specifier|private
-specifier|static
-specifier|final
-name|long
-name|serialVersionUID
-init|=
-literal|1L
-decl_stmt|;
 comment|/**      * Constructor      */
 specifier|public
 name|ByteArrayComparator
