@@ -6326,6 +6326,7 @@ block|}
 block|}
 block|}
 comment|/** @return the HLog */
+specifier|public
 name|HLog
 name|getLog
 parameter_list|()
