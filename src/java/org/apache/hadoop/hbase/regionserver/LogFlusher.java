@@ -87,6 +87,24 @@ name|Chore
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|HLog
+import|;
+end_import
+
 begin_comment
 comment|/**  * LogFlusher is a Chore that wakes every threadWakeInterval and calls  * the HLog to do an optional sync if there are unflushed entries, and the  * optionalFlushInterval has passed since the last flush.  */
 end_comment
@@ -129,6 +147,7 @@ argument_list|(
 literal|null
 argument_list|)
 decl_stmt|;
+specifier|public
 name|LogFlusher
 parameter_list|(
 specifier|final

@@ -163,6 +163,8 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|wal
+operator|.
 name|HLog
 import|;
 end_import
@@ -179,6 +181,8 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|wal
+operator|.
 name|HLogKey
 import|;
 end_import
@@ -194,6 +198,8 @@ operator|.
 name|hbase
 operator|.
 name|regionserver
+operator|.
+name|wal
 operator|.
 name|LogRollListener
 import|;

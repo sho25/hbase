@@ -409,6 +409,8 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|wal
+operator|.
 name|HLog
 import|;
 end_import

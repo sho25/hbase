@@ -61,6 +61,8 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|wal
+operator|.
 name|HLogKey
 import|;
 end_import

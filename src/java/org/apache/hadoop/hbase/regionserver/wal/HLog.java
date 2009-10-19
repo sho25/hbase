@@ -14,6 +14,8 @@ operator|.
 name|hbase
 operator|.
 name|regionserver
+operator|.
+name|wal
 package|;
 end_package
 
@@ -509,6 +511,76 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|LogRollListener
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|FailedLogCloseException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|HLogKey
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HRegion
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -654,7 +726,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HLog stores all the edits to the HStore.  Its the hbase write-ahead-log  * implementation.  *  * It performs logfile-rolling, so external callers are not aware that the  * underlying file is being rolled.  *  *<p>  * There is one HLog per RegionServer.  All edits for all Regions carried by  * a particular RegionServer are entered first in the HLog.  *  *<p>  * Each HRegion is identified by a unique long<code>int</code>. HRegions do  * not need to declare themselves before using the HLog; they simply include  * their HRegion-id in the<code>append</code> or  *<code>completeCacheFlush</code> calls.  *  *<p>  * An HLog consists of multiple on-disk files, which have a chronological order.  * As data is flushed to other (better) on-disk structures, the log becomes  * obsolete. We can destroy all the log messages for a given HRegion-id up to  * the most-recent CACHEFLUSH message from that HRegion.  *  *<p>  * It's only practical to delete entire files. Thus, we delete an entire on-disk  * file F when all of the messages in F have a log-sequence-id that's older  * (smaller) than the most-recent CACHEFLUSH message for every HRegion that has  * a message in F.  *  *<p>  * Synchronized methods can never execute in parallel. However, between the  * start of a cache flush and the completion point, appends are allowed but log  * rolling is not. To prevent log rolling taking place during this period, a  * separate reentrant lock is used.  *   *<p>To read an HLog, call {@link #getReader(Path)}.  *  */
+comment|/**  * HLog stores all the edits to the HStore.  Its the hbase write-ahead-log  * implementation.  *  * It performs logfile-rolling, so external callers are not aware that the  * underlying file is being rolled.  *  *<p>  * There is one HLog per RegionServer.  All edits for all Regions carried by  * a particular RegionServer are entered first in the HLog.  *  *<p>  * Each HRegion is identified by a unique long<code>int</code>. HRegions do  * not need to declare themselves before using the HLog; they simply include  * their HRegion-id in the<code>append</code> or  *<code>completeCacheFlush</code> calls.  *  *<p>  * An HLog consists of multiple on-disk files, which have a chronological order.  * As data is flushed to other (better) on-disk structures, the log becomes  * obsolete. We can destroy all the log messages for a given HRegion-id up to  * the most-recent CACHEFLUSH message from that HRegion.  *  *<p>  * It's only practical to delete entire files. Thus, we delete an entire on-disk  * file F when all of the messages in F have a log-sequence-id that's older  * (smaller) than the most-recent CACHEFLUSH message for every HRegion that has  * a message in F.  *  *<p>  * Synchronized methods can never execute in parallel. However, between the  * start of a cache flush and the completion point, appends are allowed but log  * rolling is not. To prevent log rolling taking place during this period, a  * separate reentrant lock is used.  *   *<p>To read an HLog, call {@link #getReader(org.apache.hadoop.fs.FileSystem,  * org.apache.hadoop.fs.Path, org.apache.hadoop.conf.Configuration)}.  *  */
 end_comment
 
 begin_class
@@ -688,6 +760,7 @@ name|HLOG_DATFILE
 init|=
 literal|"hlog.dat."
 decl_stmt|;
+specifier|public
 specifier|static
 specifier|final
 name|byte
@@ -1361,6 +1434,7 @@ comment|/**    * Called by HRegionServer when it opens a new region to ensure th
 end_comment
 
 begin_function
+specifier|public
 name|void
 name|setSequenceNumber
 parameter_list|(
@@ -1446,7 +1520,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    * Because a log cannot be rolled during a cache flush, and a cache flush    * spans two method calls, a special lock needs to be obtained so that a cache    * flush cannot start when the log is being rolled and the log cannot be    * rolled during a cache flush.    *    *<p>Note that this method cannot be synchronized because it is possible that    * startCacheFlush runs, obtaining the cacheFlushLock, then this method could    * start which would obtain the lock on this but block on obtaining the    * cacheFlushLock and then completeCacheFlush could be called which would wait    * for the lock on this and consequently never release the cacheFlushLock    *    * @return If lots of logs, flush the returned region so next time through    * we can clean logs. Returns null if nothing to flush.    * @throws FailedLogCloseException    * @throws IOException    */
+comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    * Because a log cannot be rolled during a cache flush, and a cache flush    * spans two method calls, a special lock needs to be obtained so that a cache    * flush cannot start when the log is being rolled and the log cannot be    * rolled during a cache flush.    *    *<p>Note that this method cannot be synchronized because it is possible that    * startCacheFlush runs, obtaining the cacheFlushLock, then this method could    * start which would obtain the lock on this but block on obtaining the    * cacheFlushLock and then completeCacheFlush could be called which would wait    * for the lock on this and consequently never release the cacheFlushLock    *    * @return If lots of logs, flush the returned region so next time through    * we can clean logs. Returns null if nothing to flush.    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    * @throws IOException    */
 end_comment
 
 begin_function
@@ -1968,7 +2042,7 @@ block|}
 end_class
 
 begin_comment
-comment|/**    * Get a Reader for WAL.    * Reader is a subclass of SequenceFile.Reader.  The subclass has amendments    * to make it so we see edits up to the last sync (HDFS-265).  Of note, we    * can only see up to the sync that happened before this file was opened.    * Will require us doing up our own WAL Reader if we want to keep up with    * a syncing Writer.    * @param path    * @return A WAL Reader.  Close when done with it.    * @throws IOException    */
+comment|/**    * Get a Reader for WAL.    * Reader is a subclass of SequenceFile.Reader.  The subclass has amendments    * to make it so we see edits up to the last sync (HDFS-265).  Of note, we    * can only see up to the sync that happened before this file was opened.    * Will require us doing up our own WAL Reader if we want to keep up with    * a syncing Writer.    * @param p    * @return A WAL Reader.  Close when done with it.    * @throws IOException    */
 end_comment
 
 begin_function
@@ -3367,6 +3441,7 @@ block|}
 end_function
 
 begin_function
+specifier|public
 name|void
 name|optionalSync
 parameter_list|()
@@ -3781,10 +3856,11 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * By acquiring a log sequence ID, we can allow log messages to continue while    * we flush the cache.    *    * Acquire a lock so that we do not roll the log between the start and    * completion of a cache-flush. Otherwise the log-seq-id for the flush will    * not appear in the correct logfile.    *    * @return sequence ID to pass {@link #completeCacheFlush(Text, Text, long)}    * @see #completeCacheFlush(Text, Text, long)    * @see #abortCacheFlush()    */
+comment|/**    * By acquiring a log sequence ID, we can allow log messages to continue while    * we flush the cache.    *    * Acquire a lock so that we do not roll the log between the start and    * completion of a cache-flush. Otherwise the log-seq-id for the flush will    * not appear in the correct logfile.    *    * @return sequence ID to pass {@link #completeCacheFlush(byte[], byte[], long)}    * @see #completeCacheFlush(byte[], byte[], long)    * @see #abortCacheFlush()    */
 end_comment
 
 begin_function
+specifier|public
 name|long
 name|startCacheFlush
 parameter_list|()
@@ -3808,6 +3884,7 @@ comment|/**    * Complete the cache flush    *    * Protected by cacheFlushLock 
 end_comment
 
 begin_function
+specifier|public
 name|void
 name|completeCacheFlush
 parameter_list|(
@@ -3963,6 +4040,7 @@ comment|/**    * Abort a cache flush.    * Call if the flush fails. Note that th
 end_comment
 
 begin_function
+specifier|public
 name|void
 name|abortCacheFlush
 parameter_list|()
@@ -4305,6 +4383,7 @@ block|}
 end_function
 
 begin_function
+specifier|public
 specifier|static
 name|HLogKey
 name|newKey

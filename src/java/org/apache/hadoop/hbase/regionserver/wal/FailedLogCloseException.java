@@ -14,6 +14,8 @@ operator|.
 name|hbase
 operator|.
 name|regionserver
+operator|.
+name|wal
 package|;
 end_package
 
@@ -32,6 +34,7 @@ comment|/**  * Thrown when we fail close of the write-ahead-log file.  * Package
 end_comment
 
 begin_class
+specifier|public
 class|class
 name|FailedLogCloseException
 extends|extends
