@@ -1960,11 +1960,14 @@ block|{
 comment|// make sure root isnt assigned here first.
 comment|// if so return 'empty list'
 comment|// by definition there is no way this could be a ROOT region (since it's
-comment|// unassigned) so just make sure it isn't hosting META regions.
+comment|// unassigned) so just make sure it isn't hosting META regions (unless
+comment|// it's the only server left).
 if|if
 condition|(
 operator|!
 name|isMetaServer
+operator|||
+name|isSingleServer
 condition|)
 block|{
 name|regionsToAssign
