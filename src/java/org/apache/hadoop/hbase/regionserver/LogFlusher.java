@@ -47,6 +47,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -206,11 +216,33 @@ operator|!=
 literal|null
 condition|)
 block|{
+try|try
+block|{
 name|hlog
 operator|.
-name|optionalSync
-argument_list|()
+name|sync
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
+comment|// force a flush
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"LogFlusher got exception while syncing: "
+operator|+
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 block|}

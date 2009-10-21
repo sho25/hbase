@@ -285,6 +285,17 @@ operator|*
 literal|1024
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.regionserver.flushlogentries"
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
 name|cluster
 operator|=
 operator|new
@@ -819,18 +830,6 @@ name|in
 operator|.
 name|close
 argument_list|()
-expr_stmt|;
-comment|// To be sure, set our flush to be at 100 edits.
-name|this
-operator|.
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.regionserver.flushlogentries"
-argument_list|,
-literal|100
-argument_list|)
 expr_stmt|;
 name|Path
 name|subdir

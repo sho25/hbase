@@ -559,9 +559,9 @@ specifier|final
 name|int
 name|MAX_ROW_LENGTH
 init|=
-literal|1024
-operator|*
-literal|64
+name|Short
+operator|.
+name|MAX_VALUE
 decl_stmt|;
 comment|/** When we encode strings, we always specify UTF8 encoding */
 specifier|static
