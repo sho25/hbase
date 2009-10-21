@@ -620,9 +620,9 @@ specifier|static
 name|int
 name|MAXIMUM_KEY_LENGTH
 init|=
-literal|64
-operator|*
-literal|1024
+name|Integer
+operator|.
+name|MAX_VALUE
 decl_stmt|;
 comment|/**    * Default blocksize for hfile.    */
 specifier|public
