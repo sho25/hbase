@@ -2560,8 +2560,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// B. Write out the log sequence number that corresponds to this output
-comment|// MapFile.  The MapFile is current up to and including logCacheFlushId.
+block|}
+finally|finally
+block|{
+comment|// Write out the log sequence number that corresponds to this output
+comment|// hfile.  The hfile is current up to and including logCacheFlushId.
 name|StoreFile
 operator|.
 name|appendMetadata
@@ -2571,9 +2574,6 @@ argument_list|,
 name|logCacheFlushId
 argument_list|)
 expr_stmt|;
-block|}
-finally|finally
-block|{
 name|writer
 operator|.
 name|close
