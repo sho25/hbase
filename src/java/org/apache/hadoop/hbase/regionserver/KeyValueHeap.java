@@ -117,7 +117,7 @@ specifier|private
 name|KVScannerComparator
 name|comparator
 decl_stmt|;
-comment|/**    * Constructor    * @param scanners    * @param comparator    */
+comment|/**    * Constructor.  This KeyValueHeap will handle closing of passed in     * KeyValueScanners.    * @param scanners    * @param comparator    */
 specifier|public
 name|KeyValueHeap
 parameter_list|(
@@ -184,6 +184,14 @@ name|add
 argument_list|(
 name|scanner
 argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|scanner
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 block|}
