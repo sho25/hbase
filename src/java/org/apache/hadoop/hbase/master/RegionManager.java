@@ -407,9 +407,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|wal
-operator|.
-name|HLog
+name|HRegion
 import|;
 end_import
 
@@ -425,7 +423,9 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
+name|wal
+operator|.
+name|HLog
 import|;
 end_import
 
@@ -514,6 +514,7 @@ comment|/**  * Class to manage assigning regions to servers, state of root and m
 end_comment
 
 begin_class
+specifier|public
 class|class
 name|RegionManager
 implements|implements
@@ -1022,7 +1023,8 @@ condition|(
 operator|!
 name|master
 operator|.
-name|shutdownRequested
+name|getShutdownRequested
+argument_list|()
 operator|.
 name|get
 argument_list|()
@@ -1102,9 +1104,9 @@ decl_stmt|;
 name|boolean
 name|isSingleServer
 init|=
-name|master
+name|this
 operator|.
-name|serverManager
+name|master
 operator|.
 name|numServers
 argument_list|()
@@ -1483,9 +1485,9 @@ operator|/
 operator|(
 literal|1.0
 operator|*
-name|master
+name|this
 operator|.
-name|serverManager
+name|master
 operator|.
 name|numServers
 argument_list|()
@@ -1764,33 +1766,17 @@ argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|// Get all the servers who are more lightly loaded than this one.
-synchronized|synchronized
-init|(
+name|this
+operator|.
 name|master
 operator|.
-name|serverManager
-operator|.
-name|loadToServers
-init|)
-block|{
-name|lightServers
-operator|.
-name|putAll
-argument_list|(
-name|master
-operator|.
-name|serverManager
-operator|.
-name|loadToServers
-operator|.
-name|headMap
+name|getLightServers
 argument_list|(
 name|thisServersLoad
-argument_list|)
+argument_list|,
+name|lightServers
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Examine the list of servers that are more lightly loaded than this one.
 comment|// Pretend that we will assign regions to these more lightly loaded servers
 comment|// until they reach load equal with ours. Then, see how many regions are left
@@ -2131,9 +2117,8 @@ synchronized|synchronized
 init|(
 name|master
 operator|.
-name|serverManager
-operator|.
-name|loadToServers
+name|getLoadToServers
+argument_list|()
 init|)
 block|{
 name|heavyServers
@@ -2142,9 +2127,8 @@ name|putAll
 argument_list|(
 name|master
 operator|.
-name|serverManager
-operator|.
-name|loadToServers
+name|getLoadToServers
+argument_list|()
 operator|.
 name|tailMap
 argument_list|(
@@ -2536,15 +2520,21 @@ name|FileStatus
 index|[]
 name|tableDirs
 init|=
+name|this
+operator|.
 name|master
 operator|.
-name|fs
+name|getFileSystem
+argument_list|()
 operator|.
 name|listStatus
 argument_list|(
+name|this
+operator|.
 name|master
 operator|.
-name|rootdir
+name|getRootDir
+argument_list|()
 argument_list|,
 operator|new
 name|TableDirFilter
@@ -2580,9 +2570,12 @@ condition|)
 block|{
 name|regionDirs
 operator|=
+name|this
+operator|.
 name|master
 operator|.
-name|fs
+name|getFileSystem
+argument_list|()
 operator|.
 name|listStatus
 argument_list|(
@@ -3220,6 +3213,9 @@ name|this
 operator|.
 name|master
 operator|.
+name|getRegionManager
+argument_list|()
+operator|.
 name|getRootRegionLocation
 argument_list|()
 argument_list|,
@@ -3271,9 +3267,12 @@ name|createHRegion
 argument_list|(
 name|newRegion
 argument_list|,
+name|this
+operator|.
 name|master
 operator|.
-name|rootdir
+name|getRootDir
+argument_list|()
 argument_list|,
 name|master
 operator|.
@@ -3483,9 +3482,13 @@ name|HServerAddress
 name|server
 parameter_list|)
 block|{
-if|if
-condition|(
+return|return
+name|this
+operator|.
 name|master
+operator|.
+name|getRegionManager
+argument_list|()
 operator|.
 name|getRootRegionLocation
 argument_list|()
@@ -3498,15 +3501,12 @@ name|equals
 argument_list|(
 name|master
 operator|.
+name|getRegionManager
+argument_list|()
+operator|.
 name|getRootRegionLocation
 argument_list|()
 argument_list|)
-condition|)
-return|return
-literal|true
-return|;
-return|return
-literal|false
 return|;
 block|}
 comment|/**    * Returns the list of byte[] start-keys for any .META. regions hosted    * on the indicated server.    *    * @param server server address    * @return list of meta region start-keys.    */
@@ -3702,6 +3702,9 @@ if|if
 condition|(
 name|master
 operator|.
+name|getRegionManager
+argument_list|()
+operator|.
 name|getRootRegionLocation
 argument_list|()
 operator|!=
@@ -3712,6 +3715,9 @@ operator|.
 name|equals
 argument_list|(
 name|master
+operator|.
+name|getRegionManager
+argument_list|()
 operator|.
 name|getRootRegionLocation
 argument_list|()
@@ -4507,7 +4513,8 @@ condition|)
 block|{
 name|master
 operator|.
-name|connection
+name|getServerConnection
+argument_list|()
 operator|.
 name|unsetRootRegionLocation
 argument_list|()
@@ -4568,9 +4575,7 @@ condition|(
 operator|!
 name|master
 operator|.
-name|closed
-operator|.
-name|get
+name|isClosed
 argument_list|()
 operator|&&
 name|rootRegionLocation
@@ -4595,7 +4600,8 @@ name|this
 operator|.
 name|master
 operator|.
-name|threadWakeFrequency
+name|getThreadWakeFrequency
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -5472,8 +5478,6 @@ name|avg
 init|=
 name|master
 operator|.
-name|serverManager
-operator|.
 name|getAverageLoad
 argument_list|()
 decl_stmt|;
@@ -5693,8 +5697,6 @@ argument_list|>
 name|loadToServers
 init|=
 name|master
-operator|.
-name|serverManager
 operator|.
 name|getLoadToServers
 argument_list|()

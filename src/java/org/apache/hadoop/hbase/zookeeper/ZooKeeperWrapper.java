@@ -2066,6 +2066,7 @@ specifier|public
 name|boolean
 name|writeMasterAddress
 parameter_list|(
+specifier|final
 name|HServerAddress
 name|address
 parameter_list|)

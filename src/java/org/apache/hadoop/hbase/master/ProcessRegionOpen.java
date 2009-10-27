@@ -224,7 +224,8 @@ name|server
 init|=
 name|master
 operator|.
-name|connection
+name|getServerConnection
+argument_list|()
 operator|.
 name|getHRegionConnection
 argument_list|(
@@ -357,7 +358,8 @@ synchronized|synchronized
 init|(
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 init|)
 block|{
 if|if
@@ -389,7 +391,8 @@ condition|(
 operator|!
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|isInitialMetaScanComplete
 argument_list|()
@@ -421,7 +424,8 @@ expr_stmt|;
 block|}
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|addMetaRegionToScan
 argument_list|(
@@ -455,7 +459,8 @@ expr_stmt|;
 block|}
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|putMetaRegionOnline
 argument_list|(
@@ -466,7 +471,8 @@ comment|// Interrupting the Meta Scanner sleep so that it can
 comment|// process regions right away
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|metaScannerThread
 operator|.
@@ -478,7 +484,8 @@ block|}
 comment|// If updated successfully, remove from pending list.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|removeRegion
 argument_list|(

@@ -330,7 +330,8 @@ if|if
 condition|(
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|metaScannerThread
 operator|.
@@ -352,7 +353,8 @@ name|metaRegions
 operator|=
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|getMetaRegionsForTable
 argument_list|(
@@ -866,7 +868,8 @@ synchronized|synchronized
 init|(
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|metaScannerThread
 operator|.
@@ -927,7 +930,8 @@ name|s
 init|=
 name|master
 operator|.
-name|serverManager
+name|getServerManager
+argument_list|()
 operator|.
 name|getServerInfo
 argument_list|(

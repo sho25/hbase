@@ -392,7 +392,8 @@ block|}
 comment|// kick off a meta scan right away
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|metaScannerThread
 operator|.

@@ -33,7 +33,47 @@ name|java
 operator|.
 name|util
 operator|.
+name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Collections
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|HashSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
 import|;
 end_import
 
@@ -54,36 +94,6 @@ operator|.
 name|util
 operator|.
 name|TreeMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Set
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|HashSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|ArrayList
 import|;
 end_import
 
@@ -124,16 +134,6 @@ operator|.
 name|atomic
 operator|.
 name|AtomicInteger
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Collections
 import|;
 end_import
 
@@ -189,7 +189,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerInfo
+name|HBaseConfiguration
 import|;
 end_import
 
@@ -203,21 +203,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerLoad
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HServerAddress
+name|HConstants
 import|;
 end_import
 
@@ -259,20 +245,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionLocation
 import|;
 end_import
@@ -287,7 +259,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Leases
+name|HServerAddress
 import|;
 end_import
 
@@ -301,9 +273,35 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HMsg
+name|HServerInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|Type
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HServerLoad
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Leases
 import|;
 end_import
 
@@ -377,22 +375,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperWrapper
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|zookeeper
 operator|.
 name|WatchedEvent
@@ -432,11 +414,13 @@ comment|/**  * The ServerManager class manages info about region servers - HServ
 end_comment
 
 begin_class
+specifier|public
 class|class
 name|ServerManager
 implements|implements
 name|HConstants
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -455,61 +439,6 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 specifier|private
-specifier|static
-specifier|final
-name|HMsg
-name|REGIONSERVER_QUIESCE
-init|=
-operator|new
-name|HMsg
-argument_list|(
-name|Type
-operator|.
-name|MSG_REGIONSERVER_QUIESCE
-argument_list|)
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|HMsg
-name|REGIONSERVER_STOP
-init|=
-operator|new
-name|HMsg
-argument_list|(
-name|Type
-operator|.
-name|MSG_REGIONSERVER_STOP
-argument_list|)
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|HMsg
-name|CALL_SERVER_STARTUP
-init|=
-operator|new
-name|HMsg
-argument_list|(
-name|Type
-operator|.
-name|MSG_CALL_SERVER_STARTUP
-argument_list|)
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|HMsg
-index|[]
-name|EMPTY_HMSG_ARRAY
-init|=
-operator|new
-name|HMsg
-index|[
-literal|0
-index|]
-decl_stmt|;
-specifier|private
 specifier|final
 name|AtomicInteger
 name|quiescedServers
@@ -520,12 +449,8 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
+comment|// The map of known server names to server info
 specifier|private
-specifier|final
-name|ZooKeeperWrapper
-name|zooKeeperWrapper
-decl_stmt|;
-comment|/** The map of known server names to server info */
 specifier|final
 name|Map
 argument_list|<
@@ -544,6 +469,7 @@ name|HServerInfo
 argument_list|>
 argument_list|()
 decl_stmt|;
+specifier|private
 specifier|final
 name|Map
 argument_list|<
@@ -562,8 +488,8 @@ name|HServerInfo
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/**    * Set of known dead servers.  On znode expiration, servers are added here.    * This is needed in case of a network partitioning where the server's lease    * expires, but the server is still running. After the network is healed,    * and it's server logs are recovered, it will be told to call server startup    * because by then, its regions have probably been reassigned.    */
-specifier|protected
+comment|/*    * Set of known dead servers.  On znode expiration, servers are added here.    * This is needed in case of a network partitioning where the server's lease    * expires, but the server is still running. After the network is healed,    * and it's server logs are recovered, it will be told to call server startup    * because by then, its regions have probably been reassigned.    */
+specifier|private
 specifier|final
 name|Set
 argument_list|<
@@ -583,7 +509,8 @@ argument_list|>
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/** SortedMap server load -> Set of server names */
+comment|// SortedMap server load -> Set of server names
+specifier|private
 specifier|final
 name|SortedMap
 argument_list|<
@@ -613,7 +540,8 @@ argument_list|>
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/** Map of server names -> server load */
+comment|// Map of server names -> server load
+specifier|private
 specifier|final
 name|Map
 argument_list|<
@@ -632,7 +560,7 @@ name|HServerLoad
 argument_list|>
 argument_list|()
 decl_stmt|;
-specifier|protected
+specifier|private
 name|HMaster
 name|master
 decl_stmt|;
@@ -642,6 +570,12 @@ specifier|final
 name|int
 name|nobalancingCount
 decl_stmt|;
+specifier|private
+specifier|final
+name|ServerMonitor
+name|serverMonitorThread
+decl_stmt|;
+comment|/*    * Dumps into log current stats on dead servers and number of servers    * TODO: Make this a metric; dump metrics into log.    */
 class|class
 name|ServerMonitor
 extends|extends
@@ -795,10 +729,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|ServerMonitor
-name|serverMonitorThread
-decl_stmt|;
-comment|/**    * @param master    */
+comment|/**    * Constructor.    * @param master    */
 specifier|public
 name|ServerManager
 parameter_list|(
@@ -812,21 +743,19 @@ name|master
 operator|=
 name|master
 expr_stmt|;
-name|zooKeeperWrapper
-operator|=
-name|master
-operator|.
-name|getZooKeeperWrapper
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|nobalancingCount
-operator|=
+name|HBaseConfiguration
+name|c
+init|=
 name|master
 operator|.
 name|getConfiguration
 argument_list|()
+decl_stmt|;
+name|this
+operator|.
+name|nobalancingCount
+operator|=
+name|c
 operator|.
 name|getInt
 argument_list|(
@@ -835,20 +764,39 @@ argument_list|,
 literal|4
 argument_list|)
 expr_stmt|;
+name|int
+name|metaRescanInterval
+init|=
+name|c
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.master.meta.thread.rescanfrequency"
+argument_list|,
+literal|60
+operator|*
+literal|1000
+argument_list|)
+decl_stmt|;
+name|this
+operator|.
 name|serverMonitorThread
 operator|=
 operator|new
 name|ServerMonitor
 argument_list|(
-name|master
-operator|.
 name|metaRescanInterval
 argument_list|,
+name|this
+operator|.
 name|master
 operator|.
-name|shutdownRequested
+name|getShutdownRequested
+argument_list|()
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|serverMonitorThread
 operator|.
 name|start
@@ -856,7 +804,6 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Let the server manager know a new regionserver has come online    * @param serverInfo    * @throws Leases.LeaseStillHeldException    */
-specifier|public
 name|void
 name|regionServerStartup
 parameter_list|(
@@ -890,6 +837,8 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|this
+operator|.
 name|serversToServerInfo
 operator|.
 name|containsKey
@@ -897,6 +846,8 @@ argument_list|(
 name|serverName
 argument_list|)
 operator|||
+name|this
+operator|.
 name|deadServers
 operator|.
 name|contains
@@ -920,6 +871,8 @@ name|debug
 argument_list|(
 literal|"serversToServerInfo.containsKey: "
 operator|+
+name|this
+operator|.
 name|serversToServerInfo
 operator|.
 name|containsKey
@@ -934,6 +887,8 @@ name|debug
 argument_list|(
 literal|"deadServers.contains: "
 operator|+
+name|this
+operator|.
 name|deadServers
 operator|.
 name|contains
@@ -942,6 +897,7 @@ name|serverName
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// TODO: Check zk instead.
 throw|throw
 operator|new
 name|Leases
@@ -965,6 +921,8 @@ comment|// Go on to process the regionserver registration.
 name|HServerLoad
 name|load
 init|=
+name|this
+operator|.
 name|serversToLoad
 operator|.
 name|remove
@@ -983,6 +941,8 @@ comment|// The startup message was from a known server.
 comment|// Remove stale information about the server's load.
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|loadToServers
 init|)
 block|{
@@ -1022,6 +982,8 @@ argument_list|()
 operator|>
 literal|0
 condition|)
+name|this
+operator|.
 name|loadToServers
 operator|.
 name|put
@@ -1032,6 +994,8 @@ name|servers
 argument_list|)
 expr_stmt|;
 else|else
+name|this
+operator|.
 name|loadToServers
 operator|.
 name|remove
@@ -1045,6 +1009,8 @@ block|}
 name|HServerInfo
 name|storedInfo
 init|=
+name|this
+operator|.
 name|serversToServerInfo
 operator|.
 name|remove
@@ -1059,55 +1025,43 @@ operator|!=
 literal|null
 operator|&&
 operator|!
+name|this
+operator|.
 name|master
 operator|.
-name|closed
-operator|.
-name|get
+name|isClosed
 argument_list|()
 condition|)
 block|{
 comment|// The startup message was from a known server with the same name.
 comment|// Timeout the old one right away.
+name|this
+operator|.
 name|master
+operator|.
+name|getRegionManager
+argument_list|()
 operator|.
 name|getRootRegionLocation
 argument_list|()
 expr_stmt|;
-try|try
-block|{
+name|this
+operator|.
 name|master
 operator|.
-name|toDoQueue
-operator|.
-name|put
+name|queue
 argument_list|(
 operator|new
 name|ProcessServerShutdown
 argument_list|(
+name|this
+operator|.
 name|master
 argument_list|,
 name|storedInfo
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Insertion into toDoQueue was interrupted"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 name|recordNewServer
 argument_list|(
@@ -1133,7 +1087,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Adds the HSI to the RS list    * @param info The region server informations    * @param useInfoLoad True if the load from the info should be used    *                    like under a master failover    */
-specifier|public
 name|void
 name|recordNewServer
 parameter_list|(
@@ -1191,7 +1144,12 @@ name|getServerAddress
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|zooKeeperWrapper
+name|this
+operator|.
+name|master
+operator|.
+name|getZooKeeperWrapper
+argument_list|()
 operator|.
 name|updateRSLocationGetWatch
 argument_list|(
@@ -1200,6 +1158,8 @@ argument_list|,
 name|watcher
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|serversToServerInfo
 operator|.
 name|put
@@ -1209,6 +1169,8 @@ argument_list|,
 name|info
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|serverAddressToServerInfo
 operator|.
 name|put
@@ -1221,6 +1183,8 @@ argument_list|,
 name|info
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|serversToLoad
 operator|.
 name|put
@@ -1232,6 +1196,8 @@ argument_list|)
 expr_stmt|;
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|loadToServers
 init|)
 block|{
@@ -1241,6 +1207,8 @@ name|String
 argument_list|>
 name|servers
 init|=
+name|this
+operator|.
 name|loadToServers
 operator|.
 name|get
@@ -1272,6 +1240,8 @@ argument_list|(
 name|serverName
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|loadToServers
 operator|.
 name|put
@@ -1284,7 +1254,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Called to process the messages sent from the region server to the master    * along with the heart beat.    *     * @param serverInfo    * @param msgs    * @param mostLoadedRegions Array of regions the region server is submitting    * as candidates to be rebalanced, should it be overloaded    * @return messages from master to region server indicating what region    * server should do.    *     * @throws IOException    */
-specifier|public
 name|HMsg
 index|[]
 name|regionServerReport
@@ -1373,6 +1342,8 @@ name|msgs
 argument_list|)
 expr_stmt|;
 return|return
+name|HMsg
+operator|.
 name|EMPTY_HMSG_ARRAY
 return|;
 block|}
@@ -1408,6 +1379,8 @@ operator|+
 literal|" quiesced"
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|quiescedServers
 operator|.
 name|incrementAndGet
@@ -1417,9 +1390,12 @@ block|}
 block|}
 if|if
 condition|(
+name|this
+operator|.
 name|master
 operator|.
-name|shutdownRequested
+name|getShutdownRequested
+argument_list|()
 operator|.
 name|get
 argument_list|()
@@ -1447,6 +1423,8 @@ argument_list|(
 literal|"All user tables quiesced. Proceeding with shutdown"
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|master
 operator|.
 name|startShutdown
@@ -1456,11 +1434,11 @@ block|}
 if|if
 condition|(
 operator|!
+name|this
+operator|.
 name|master
 operator|.
-name|closed
-operator|.
-name|get
+name|isClosed
 argument_list|()
 condition|)
 block|{
@@ -1490,6 +1468,8 @@ block|{
 comment|// Server is already quiesced, but we aren't ready to shut down
 comment|// return empty response
 return|return
+name|HMsg
+operator|.
 name|EMPTY_HMSG_ARRAY
 return|;
 block|}
@@ -1499,6 +1479,8 @@ operator|new
 name|HMsg
 index|[]
 block|{
+name|HMsg
+operator|.
 name|REGIONSERVER_QUIESCE
 block|}
 return|;
@@ -1506,11 +1488,11 @@ block|}
 block|}
 if|if
 condition|(
+name|this
+operator|.
 name|master
 operator|.
-name|closed
-operator|.
-name|get
+name|isClosed
 argument_list|()
 condition|)
 block|{
@@ -1522,6 +1504,8 @@ operator|new
 name|HMsg
 index|[]
 block|{
+name|HMsg
+operator|.
 name|REGIONSERVER_STOP
 block|}
 return|;
@@ -1529,6 +1513,8 @@ block|}
 name|HServerInfo
 name|storedInfo
 init|=
+name|this
+operator|.
 name|serversToServerInfo
 operator|.
 name|get
@@ -1562,6 +1548,8 @@ literal|"Received report from unknown server -- telling it "
 operator|+
 literal|"to "
 operator|+
+name|HMsg
+operator|.
 name|CALL_SERVER_STARTUP
 operator|+
 literal|": "
@@ -1580,6 +1568,8 @@ operator|new
 name|HMsg
 index|[]
 block|{
+name|HMsg
+operator|.
 name|CALL_SERVER_STARTUP
 block|}
 return|;
@@ -1629,6 +1619,8 @@ expr_stmt|;
 block|}
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|serversToServerInfo
 init|)
 block|{
@@ -1645,6 +1637,8 @@ name|getServerAddress
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|serversToServerInfo
 operator|.
 name|notifyAll
@@ -1656,6 +1650,8 @@ operator|new
 name|HMsg
 index|[]
 block|{
+name|HMsg
+operator|.
 name|REGIONSERVER_STOP
 block|}
 return|;
@@ -1674,7 +1670,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/** Region server is exiting */
+comment|/* Region server is exiting    * @param serverInfo    * @param msgs    */
 specifier|private
 name|void
 name|processRegionServerExit
@@ -1689,6 +1685,8 @@ parameter_list|)
 block|{
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|serversToServerInfo
 init|)
 block|{
@@ -1733,11 +1731,11 @@ comment|// (if we are not shutting down).
 if|if
 condition|(
 operator|!
+name|this
+operator|.
 name|master
 operator|.
-name|closed
-operator|.
-name|get
+name|isClosed
 argument_list|()
 condition|)
 block|{
@@ -1800,17 +1798,23 @@ condition|)
 block|{
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 init|)
 block|{
 if|if
 condition|(
 operator|!
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|isOfflined
 argument_list|(
@@ -1821,9 +1825,12 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|setUnassigned
 argument_list|(
@@ -1835,9 +1842,12 @@ expr_stmt|;
 block|}
 else|else
 block|{
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|removeRegion
 argument_list|(
@@ -1855,6 +1865,8 @@ comment|// going to do any more work.
 block|}
 finally|finally
 block|{
+name|this
+operator|.
 name|serversToServerInfo
 operator|.
 name|notifyAll
@@ -1863,7 +1875,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    *  RegionServer is checking in, no exceptional circumstances    * @param serverInfo    * @param mostLoadedRegions    * @param msgs    * @return    * @throws IOException    */
+comment|/*    *  RegionServer is checking in, no exceptional circumstances    * @param serverInfo    * @param mostLoadedRegions    * @param msgs    * @return    * @throws IOException    */
 specifier|private
 name|HMsg
 index|[]
@@ -1885,6 +1897,8 @@ throws|throws
 name|IOException
 block|{
 comment|// Refresh the info object and the load information
+name|this
+operator|.
 name|serverAddressToServerInfo
 operator|.
 name|put
@@ -1897,6 +1911,8 @@ argument_list|,
 name|serverInfo
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|serversToServerInfo
 operator|.
 name|put
@@ -1912,6 +1928,8 @@ expr_stmt|;
 name|HServerLoad
 name|load
 init|=
+name|this
+operator|.
 name|serversToLoad
 operator|.
 name|get
@@ -1958,65 +1976,16 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-comment|// We have previous information about the load on this server
-comment|// and the load on this server has changed
-synchronized|synchronized
-init|(
-name|loadToServers
-init|)
-block|{
-name|Set
-argument_list|<
-name|String
-argument_list|>
-name|servers
-init|=
-name|loadToServers
-operator|.
-name|get
-argument_list|(
-name|load
-argument_list|)
-decl_stmt|;
-comment|// Note that servers should never be null because loadToServers
-comment|// and serversToLoad are manipulated in pairs
-name|servers
-operator|.
-name|remove
+name|updateLoadToServers
 argument_list|(
 name|serverInfo
 operator|.
 name|getServerName
 argument_list|()
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|servers
-operator|.
-name|size
-argument_list|()
-operator|>
-literal|0
-condition|)
-name|loadToServers
-operator|.
-name|put
-argument_list|(
-name|load
 argument_list|,
-name|servers
-argument_list|)
-expr_stmt|;
-else|else
-name|loadToServers
-operator|.
-name|remove
-argument_list|(
 name|load
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|// Set the current load information
@@ -2027,6 +1996,8 @@ operator|.
 name|getLoad
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
 name|serversToLoad
 operator|.
 name|put
@@ -2050,6 +2021,8 @@ name|String
 argument_list|>
 name|servers
 init|=
+name|this
+operator|.
 name|loadToServers
 operator|.
 name|get
@@ -2084,6 +2057,8 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|loadToServers
 operator|.
 name|put
@@ -2307,9 +2282,12 @@ block|}
 block|}
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 init|)
 block|{
 comment|// Tell the region server to close regions that we have marked for closing.
@@ -2318,9 +2296,12 @@ control|(
 name|HRegionInfo
 name|i
 range|:
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|getMarkedToClose
 argument_list|(
@@ -2349,9 +2330,12 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Transition the region from toClose to closing state
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|setPendingClose
 argument_list|(
@@ -2378,7 +2362,8 @@ name|this
 operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|assignRegions
 argument_list|(
@@ -2395,7 +2380,8 @@ name|this
 operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|applyActions
 argument_list|(
@@ -2440,15 +2426,19 @@ synchronized|synchronized
 init|(
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 init|)
 block|{
 comment|// Cancel any actions pending for the affected region.
 comment|// This prevents the master from sending a SPLIT message if the table
 comment|// has already split by the region server.
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|endActions
 argument_list|(
@@ -2483,9 +2473,12 @@ argument_list|()
 condition|)
 block|{
 comment|// A meta region has split.
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|offlineMetaRegion
 argument_list|(
@@ -2495,9 +2488,12 @@ name|getStartKey
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|incrementNumMetaRegions
 argument_list|()
@@ -2522,7 +2518,8 @@ name|this
 operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|getFirstMetaRegionForRegion
 argument_list|(
@@ -2555,9 +2552,12 @@ block|{
 name|HRegionInterface
 name|server
 init|=
+name|this
+operator|.
 name|master
 operator|.
-name|connection
+name|getServerConnection
+argument_list|()
 operator|.
 name|getHRegionConnection
 argument_list|(
@@ -2621,7 +2621,8 @@ name|this
 operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|setUnassigned
 argument_list|(
@@ -2658,15 +2659,19 @@ synchronized|synchronized
 init|(
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 init|)
 block|{
 if|if
 condition|(
 operator|!
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|isUnassigned
 argument_list|(
@@ -2674,9 +2679,12 @@ name|region
 argument_list|)
 operator|&&
 operator|!
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|isPendingOpen
 argument_list|(
@@ -2699,7 +2707,12 @@ comment|// Root region
 name|HServerAddress
 name|rootServer
 init|=
+name|this
+operator|.
 name|master
+operator|.
+name|getRegionManager
+argument_list|()
 operator|.
 name|getRootRegionLocation
 argument_list|()
@@ -2744,9 +2757,12 @@ comment|// going to treat it as a duplicate assignment, although we can't
 comment|// tell for certain that's the case.
 if|if
 condition|(
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|isPendingOpen
 argument_list|(
@@ -2846,9 +2862,12 @@ condition|)
 block|{
 comment|// it was assigned, and it's not a duplicate assignment, so take it out
 comment|// of the unassigned list.
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|removeRegion
 argument_list|(
@@ -2866,17 +2885,23 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|inSafeMode
 argument_list|()
 condition|)
 block|{
+name|this
+operator|.
 name|master
 operator|.
-name|connection
+name|getServerConnection
+argument_list|()
 operator|.
 name|setRootRegionLocation
 argument_list|(
@@ -2890,9 +2915,12 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|setRootRegionLocation
 argument_list|(
@@ -2904,9 +2932,12 @@ else|else
 block|{
 comment|// Note that the table has been assigned and is waiting for the
 comment|// meta table to be updated.
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|setOpen
 argument_list|(
@@ -2938,13 +2969,11 @@ name|i
 operator|++
 control|)
 block|{
-try|try
-block|{
+name|this
+operator|.
 name|master
 operator|.
-name|toDoQueue
-operator|.
-name|put
+name|queue
 argument_list|(
 operator|new
 name|ProcessRegionOpen
@@ -2957,28 +2986,6 @@ name|region
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|succeeded
-operator|=
-literal|true
-expr_stmt|;
-break|break;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Putting into toDoQueue was interrupted."
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 if|if
 condition|(
@@ -3011,9 +3018,12 @@ parameter_list|)
 block|{
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 init|)
 block|{
 if|if
@@ -3025,9 +3035,12 @@ argument_list|()
 condition|)
 block|{
 comment|// Root region
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|unsetRootRegion
 argument_list|()
@@ -3048,6 +3061,8 @@ argument_list|(
 literal|"root region is marked offline"
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|master
 operator|.
 name|shutdown
@@ -3066,9 +3081,12 @@ argument_list|()
 condition|)
 block|{
 comment|// Region is part of the meta table. Remove it from onlineMetaRegions
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|offlineMetaRegion
 argument_list|(
@@ -3082,9 +3100,12 @@ block|}
 name|boolean
 name|offlineRegion
 init|=
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|isOfflined
 argument_list|(
@@ -3111,9 +3132,12 @@ comment|//       mark the region unassignedRegions as that changes the ordering 
 comment|//       the messages we've received. In this case, a close could be
 comment|//       processed before an open resulting in the master not agreeing on
 comment|//       the region's state.
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|setClosed
 argument_list|(
@@ -3123,13 +3147,11 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
-try|try
-block|{
+name|this
+operator|.
 name|master
 operator|.
-name|toDoQueue
-operator|.
-name|put
+name|queue
 argument_list|(
 operator|new
 name|ProcessRegionClose
@@ -3144,23 +3166,6 @@ name|reassignRegion
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"Putting into toDoQueue was interrupted."
-argument_list|,
-name|e
-argument_list|)
-throw|;
-block|}
 block|}
 block|}
 comment|/** Update a server load information because it's shutting down*/
@@ -3182,6 +3187,8 @@ name|infoUpdated
 init|=
 literal|false
 decl_stmt|;
+name|this
+operator|.
 name|serverAddressToServerInfo
 operator|.
 name|remove
@@ -3192,6 +3199,8 @@ expr_stmt|;
 name|HServerInfo
 name|info
 init|=
+name|this
+operator|.
 name|serversToServerInfo
 operator|.
 name|remove
@@ -3217,9 +3226,12 @@ operator|+
 name|serverName
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|offlineMetaServer
 argument_list|(
@@ -3234,25 +3246,49 @@ operator|=
 literal|true
 expr_stmt|;
 comment|// update load information
-name|HServerLoad
-name|load
-init|=
+name|updateLoadToServers
+argument_list|(
+name|serverName
+argument_list|,
+name|this
+operator|.
 name|serversToLoad
 operator|.
 name|remove
 argument_list|(
 name|serverName
 argument_list|)
-decl_stmt|;
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|infoUpdated
+return|;
+block|}
+specifier|private
+name|void
+name|updateLoadToServers
+parameter_list|(
+specifier|final
+name|String
+name|serverName
+parameter_list|,
+specifier|final
+name|HServerLoad
+name|load
+parameter_list|)
+block|{
 if|if
 condition|(
 name|load
-operator|!=
+operator|==
 literal|null
 condition|)
-block|{
+return|return;
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|loadToServers
 init|)
 block|{
@@ -3262,6 +3298,8 @@ name|String
 argument_list|>
 name|servers
 init|=
+name|this
+operator|.
 name|loadToServers
 operator|.
 name|get
@@ -3292,6 +3330,8 @@ argument_list|()
 operator|>
 literal|0
 condition|)
+name|this
+operator|.
 name|loadToServers
 operator|.
 name|put
@@ -3302,6 +3342,8 @@ name|servers
 argument_list|)
 expr_stmt|;
 else|else
+name|this
+operator|.
 name|loadToServers
 operator|.
 name|remove
@@ -3311,11 +3353,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-block|}
-return|return
-name|infoUpdated
-return|;
 block|}
 comment|/**     * Compute the average load across all region servers.     * Currently, this uses a very naive computation - just uses the number of     * regions being served, ignoring stats about number of requests.    * @return the average load    */
 specifier|public
@@ -3393,6 +3430,8 @@ name|numServers
 parameter_list|()
 block|{
 return|return
+name|this
+operator|.
 name|serversToServerInfo
 operator|.
 name|size
@@ -3409,6 +3448,8 @@ name|name
 parameter_list|)
 block|{
 return|return
+name|this
+operator|.
 name|serversToServerInfo
 operator|.
 name|get
@@ -3430,6 +3471,8 @@ parameter_list|()
 block|{
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|serversToServerInfo
 init|)
 block|{
@@ -3438,6 +3481,8 @@ name|Collections
 operator|.
 name|unmodifiableMap
 argument_list|(
+name|this
+operator|.
 name|serversToServerInfo
 argument_list|)
 return|;
@@ -3456,6 +3501,8 @@ block|{
 comment|// we use this one because all the puts to this map are parallel/synced with the other map.
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|serversToServerInfo
 init|)
 block|{
@@ -3464,6 +3511,8 @@ name|Collections
 operator|.
 name|unmodifiableMap
 argument_list|(
+name|this
+operator|.
 name|serverAddressToServerInfo
 argument_list|)
 return|;
@@ -3482,6 +3531,8 @@ parameter_list|()
 block|{
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|serversToLoad
 init|)
 block|{
@@ -3496,6 +3547,7 @@ return|;
 block|}
 block|}
 comment|/**    * @return Read-only map of load to servers.    */
+specifier|public
 name|SortedMap
 argument_list|<
 name|HServerLoad
@@ -3510,6 +3562,8 @@ parameter_list|()
 block|{
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|loadToServers
 init|)
 block|{
@@ -3518,6 +3572,8 @@ name|Collections
 operator|.
 name|unmodifiableSortedMap
 argument_list|(
+name|this
+operator|.
 name|loadToServers
 argument_list|)
 return|;
@@ -3531,9 +3587,13 @@ parameter_list|()
 block|{
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|serversToServerInfo
 init|)
 block|{
+name|this
+operator|.
 name|serversToServerInfo
 operator|.
 name|notifyAll
@@ -3551,7 +3611,8 @@ condition|(
 operator|!
 name|master
 operator|.
-name|fsOk
+name|checkFileSystem
+argument_list|()
 condition|)
 block|{
 comment|// Forget waiting for the region servers if the file system has gone
@@ -3579,6 +3640,8 @@ name|info
 argument_list|(
 literal|"Waiting on following regionserver(s) to go down "
 operator|+
+name|this
+operator|.
 name|serversToServerInfo
 operator|.
 name|values
@@ -3587,13 +3650,13 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
+name|this
+operator|.
 name|serversToServerInfo
 operator|.
 name|wait
 argument_list|(
-name|master
-operator|.
-name|threadWakeFrequency
+literal|1
 argument_list|)
 expr_stmt|;
 block|}
@@ -3797,13 +3860,9 @@ argument_list|(
 name|server
 argument_list|)
 expr_stmt|;
-try|try
-block|{
 name|master
 operator|.
-name|toDoQueue
-operator|.
-name|put
+name|queue
 argument_list|(
 operator|new
 name|ProcessServerShutdown
@@ -3814,23 +3873,6 @@ name|info
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"insert into toDoQueue was interrupted"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 synchronized|synchronized
 init|(
@@ -3847,7 +3889,6 @@ block|}
 block|}
 block|}
 comment|/**    * @param serverName    */
-specifier|public
 name|void
 name|removeDeadServer
 parameter_list|(
@@ -3855,6 +3896,8 @@ name|String
 name|serverName
 parameter_list|)
 block|{
+name|this
+operator|.
 name|deadServers
 operator|.
 name|remove
@@ -3864,7 +3907,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @param serverName    * @return true if server is dead    */
-specifier|public
 name|boolean
 name|isDead
 parameter_list|(
@@ -3873,6 +3915,8 @@ name|serverName
 parameter_list|)
 block|{
 return|return
+name|this
+operator|.
 name|deadServers
 operator|.
 name|contains
@@ -3880,6 +3924,62 @@ argument_list|(
 name|serverName
 argument_list|)
 return|;
+block|}
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|getDeadServers
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|deadServers
+return|;
+block|}
+comment|/**    * Add to the passed<code>m</code> servers that are loaded less than    *<code>l</code>.    * @param l    * @param m    */
+name|void
+name|getLightServers
+parameter_list|(
+specifier|final
+name|HServerLoad
+name|l
+parameter_list|,
+name|SortedMap
+argument_list|<
+name|HServerLoad
+argument_list|,
+name|Set
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+name|m
+parameter_list|)
+block|{
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|loadToServers
+init|)
+block|{
+name|m
+operator|.
+name|putAll
+argument_list|(
+name|this
+operator|.
+name|loadToServers
+operator|.
+name|headMap
+argument_list|(
+name|l
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 end_class

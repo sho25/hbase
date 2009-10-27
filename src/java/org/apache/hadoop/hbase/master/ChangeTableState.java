@@ -501,7 +501,8 @@ synchronized|synchronized
 init|(
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 init|)
 block|{
 if|if
@@ -519,7 +520,8 @@ name|this
 operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|regionIsOpening
 argument_list|(
@@ -534,7 +536,8 @@ name|this
 operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|setUnassigned
 argument_list|(
@@ -552,7 +555,8 @@ name|this
 operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|removeRegion
 argument_list|(
@@ -585,7 +589,8 @@ name|this
 operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 init|)
 block|{
 for|for
@@ -676,7 +681,8 @@ name|this
 operator|.
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|setClosing
 argument_list|(

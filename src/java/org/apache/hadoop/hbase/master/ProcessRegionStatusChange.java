@@ -139,7 +139,8 @@ condition|(
 operator|!
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|isInitialRootScanComplete
 argument_list|()
@@ -195,6 +196,9 @@ name|MetaRegion
 argument_list|(
 name|master
 operator|.
+name|getRegionManager
+argument_list|()
+operator|.
 name|getRootRegionLocation
 argument_list|()
 argument_list|,
@@ -212,7 +216,8 @@ name|metaRegion
 operator|=
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|getFirstMetaRegionForRegion
 argument_list|(

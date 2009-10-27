@@ -337,6 +337,9 @@ name|masterRootAddress
 init|=
 name|master
 operator|.
+name|getRegionManager
+argument_list|()
+operator|.
 name|getRootRegionLocation
 argument_list|()
 decl_stmt|;
@@ -382,6 +385,9 @@ expr_stmt|;
 name|masterRootAddress
 operator|=
 name|master
+operator|.
+name|getRegionManager
+argument_list|()
 operator|.
 name|getRootRegionLocation
 argument_list|()

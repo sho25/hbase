@@ -223,7 +223,8 @@ argument_list|)
 expr_stmt|;
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|removeRegion
 argument_list|(
@@ -272,7 +273,8 @@ expr_stmt|;
 comment|// we are reassigning the region eventually, so set it unassigned
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|setUnassigned
 argument_list|(

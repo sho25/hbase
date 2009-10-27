@@ -385,7 +385,8 @@ argument_list|)
 decl_stmt|;
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|offlineMetaRegion
 argument_list|(
@@ -394,7 +395,8 @@ argument_list|)
 expr_stmt|;
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|putMetaRegionOnline
 argument_list|(
@@ -403,7 +405,8 @@ argument_list|)
 expr_stmt|;
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|putMetaRegionOnline
 argument_list|(
@@ -412,7 +415,8 @@ argument_list|)
 expr_stmt|;
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|putMetaRegionOnline
 argument_list|(
@@ -431,7 +435,8 @@ argument_list|()
 argument_list|,
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|getFirstMetaRegionForRegion
 argument_list|(
@@ -451,7 +456,8 @@ argument_list|()
 argument_list|,
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|getFirstMetaRegionForRegion
 argument_list|(

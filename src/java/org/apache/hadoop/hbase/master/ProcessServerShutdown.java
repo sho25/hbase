@@ -286,21 +286,11 @@ name|boolean
 name|regionOffline
 decl_stmt|;
 specifier|final
-name|byte
-index|[]
-name|row
-decl_stmt|;
-specifier|final
 name|HRegionInfo
 name|info
 decl_stmt|;
 name|ToDoEntry
 parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|row
-parameter_list|,
 specifier|final
 name|HRegionInfo
 name|info
@@ -311,12 +301,6 @@ operator|.
 name|regionOffline
 operator|=
 literal|false
-expr_stmt|;
-name|this
-operator|.
-name|row
-operator|=
-name|row
 expr_stmt|;
 name|this
 operator|.
@@ -383,7 +367,8 @@ name|Path
 argument_list|(
 name|master
 operator|.
-name|rootdir
+name|getRootDir
+argument_list|()
 argument_list|,
 name|HLog
 operator|.
@@ -407,7 +392,8 @@ name|isRootServer
 operator|=
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|isRootServer
 argument_list|(
@@ -421,7 +407,8 @@ condition|)
 block|{
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|unsetRootRegion
 argument_list|()
@@ -436,7 +423,8 @@ name|metaStarts
 init|=
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|listMetaRegionsForServer
 argument_list|(
@@ -466,7 +454,8 @@ name|r
 init|=
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|offlineMetaRegion
 argument_list|(
@@ -778,7 +767,8 @@ synchronized|synchronized
 init|(
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 init|)
 block|{
 if|if
@@ -819,7 +809,8 @@ expr_stmt|;
 block|}
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|offlineMetaRegion
 argument_list|(
@@ -836,8 +827,6 @@ init|=
 operator|new
 name|ToDoEntry
 argument_list|(
-name|row
-argument_list|,
 name|info
 argument_list|)
 decl_stmt|;
@@ -852,7 +841,8 @@ if|if
 condition|(
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|isOfflined
 argument_list|(
@@ -870,7 +860,8 @@ condition|)
 block|{
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|removeRegion
 argument_list|(
@@ -1054,7 +1045,8 @@ control|)
 block|{
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|setUnassigned
 argument_list|(
@@ -1113,6 +1105,9 @@ argument_list|(
 literal|"process server shutdown scanning root region on "
 operator|+
 name|master
+operator|.
+name|getRegionManager
+argument_list|()
 operator|.
 name|getRootRegionLocation
 argument_list|()
@@ -1315,7 +1310,8 @@ literal|", numberOfMetaRegions: "
 operator|+
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|numMetaRegions
 argument_list|()
@@ -1324,7 +1320,8 @@ literal|", onlineMetaRegions.size(): "
 operator|+
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|numOnlineMetaRegions
 argument_list|()
@@ -1339,9 +1336,12 @@ block|{
 comment|// Process the old log file
 if|if
 condition|(
+name|this
+operator|.
 name|master
 operator|.
-name|fs
+name|getFileSystem
+argument_list|()
 operator|.
 name|exists
 argument_list|(
@@ -1354,7 +1354,8 @@ condition|(
 operator|!
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|splitLogLock
 operator|.
@@ -1374,14 +1375,20 @@ name|splitLog
 argument_list|(
 name|master
 operator|.
-name|rootdir
+name|getRootDir
+argument_list|()
 argument_list|,
 name|oldLogDir
 argument_list|,
+name|this
+operator|.
 name|master
 operator|.
-name|fs
+name|getFileSystem
+argument_list|()
 argument_list|,
+name|this
+operator|.
 name|master
 operator|.
 name|getConfiguration
@@ -1393,7 +1400,8 @@ finally|finally
 block|{
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|splitLogLock
 operator|.
@@ -1430,7 +1438,8 @@ argument_list|)
 expr_stmt|;
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|reassignRootRegion
 argument_list|()
@@ -1463,7 +1472,8 @@ argument_list|)
 expr_stmt|;
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|setUnassigned
 argument_list|(
@@ -1515,6 +1525,9 @@ name|MetaRegion
 argument_list|(
 name|master
 operator|.
+name|getRegionManager
+argument_list|()
+operator|.
 name|getRootRegionLocation
 argument_list|()
 argument_list|,
@@ -1558,6 +1571,9 @@ argument_list|(
 literal|"process server shutdown scanning root region on "
 operator|+
 name|master
+operator|.
+name|getRegionManager
+argument_list|()
 operator|.
 name|getRootRegionLocation
 argument_list|()
@@ -1604,7 +1620,8 @@ name|regions
 init|=
 name|master
 operator|.
-name|regionManager
+name|getRegionManager
+argument_list|()
 operator|.
 name|getListOfOnlineMetaRegions
 argument_list|()
@@ -1681,7 +1698,8 @@ name|this
 operator|.
 name|master
 operator|.
-name|serverManager
+name|getServerManager
+argument_list|()
 operator|.
 name|removeDeadServer
 argument_list|(

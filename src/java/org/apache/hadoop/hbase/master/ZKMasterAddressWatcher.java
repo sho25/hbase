@@ -19,6 +19,20 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicBoolean
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -42,6 +56,20 @@ operator|.
 name|logging
 operator|.
 name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HServerAddress
 import|;
 end_import
 
@@ -102,11 +130,10 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * ZooKeeper watcher for the master address. Used by the HMaster to wait for  * the event when master address ZNode gets deleted. When multiple masters are  * brought up, they race to become master by writing to write their address to  * ZooKeeper. Whoever wins becomes the master, and the rest wait for that  * ephemeral node in ZooKeeper to get deleted (meaning the master went down), at  * which point they try to write to it again.  */
+comment|/**  * ZooKeeper watcher for the master address.  Also watches the cluster state  * flag so will shutdown this master if cluster has been shutdown.  *<p>Used by the Master.  Waits on the master address ZNode delete event.  When  * multiple masters are brought up, they race to become master by writing their  * address to ZooKeeper. Whoever wins becomes the master, and the rest wait for  * that ephemeral node in ZooKeeper to evaporate (meaning the master went down),  * at which point they try to write their own address to become the new master.  */
 end_comment
 
 begin_class
-specifier|public
 class|class
 name|ZKMasterAddressWatcher
 implements|implements
@@ -130,35 +157,36 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|ZooKeeperWrapper
-name|zooKeeper
+name|zookeeper
 decl_stmt|;
 specifier|private
 specifier|final
-name|HMaster
-name|master
+name|AtomicBoolean
+name|requestShutdown
 decl_stmt|;
-comment|/**    * Create a watcher with a ZooKeeperWrapper instance.    * @param master The master.    */
-specifier|public
+comment|/**    * Create this watcher using passed ZooKeeperWrapper instance.    * @param zk ZooKeeper    * @param requestShutdown Flag to set to request shutdown.    */
 name|ZKMasterAddressWatcher
 parameter_list|(
-name|HMaster
-name|master
+specifier|final
+name|ZooKeeperWrapper
+name|zk
+parameter_list|,
+specifier|final
+name|AtomicBoolean
+name|flag
 parameter_list|)
 block|{
 name|this
 operator|.
-name|master
+name|requestShutdown
 operator|=
-name|master
+name|flag
 expr_stmt|;
 name|this
 operator|.
-name|zooKeeper
+name|zookeeper
 operator|=
-name|master
-operator|.
-name|getZooKeeperWrapper
-argument_list|()
+name|zk
 expr_stmt|;
 block|}
 comment|/**    * @see org.apache.zookeeper.Watcher#process(org.apache.zookeeper.WatchedEvent)    */
@@ -222,7 +250,7 @@ name|equals
 argument_list|(
 name|this
 operator|.
-name|zooKeeper
+name|zookeeper
 operator|.
 name|clusterStateZNode
 argument_list|)
@@ -232,14 +260,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"The cluster was shutdown while waiting, shutting down"
+literal|"Cluster shutdown while waiting, shutting down"
 operator|+
 literal|" this master."
 argument_list|)
 expr_stmt|;
-name|master
+name|this
 operator|.
-name|shutdownRequested
+name|requestShutdown
 operator|.
 name|set
 argument_list|(
@@ -282,7 +310,7 @@ name|equals
 argument_list|(
 name|this
 operator|.
-name|zooKeeper
+name|zookeeper
 operator|.
 name|clusterStateZNode
 argument_list|)
@@ -292,12 +320,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Resetting the watch on the cluster state node."
+literal|"Resetting watch on cluster state node."
 argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|zooKeeper
+name|zookeeper
 operator|.
 name|setClusterStateWatch
 argument_list|(
@@ -315,7 +343,7 @@ parameter_list|()
 block|{
 while|while
 condition|(
-name|zooKeeper
+name|zookeeper
 operator|.
 name|readMasterAddress
 argument_list|(
@@ -333,12 +361,12 @@ name|debug
 argument_list|(
 literal|"Waiting for master address ZNode to be deleted "
 operator|+
-literal|"and watching the cluster state node"
+literal|"(Also watching cluster state node)"
 argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|zooKeeper
+name|zookeeper
 operator|.
 name|setClusterStateWatch
 argument_list|(
@@ -355,6 +383,69 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{       }
+block|}
+block|}
+comment|/**    * Write address to zookeeper.  Parks here until we successfully write our    * address (or until cluster shutdown).    * @param address Address whose format is HServerAddress.toString    */
+name|void
+name|writeAddressToZooKeeper
+parameter_list|(
+specifier|final
+name|HServerAddress
+name|address
+parameter_list|)
+block|{
+while|while
+condition|(
+literal|true
+condition|)
+block|{
+name|waitForMasterAddressAvailability
+argument_list|()
+expr_stmt|;
+comment|// Check if we need to shutdown instead of taking control
+if|if
+condition|(
+name|this
+operator|.
+name|requestShutdown
+operator|.
+name|get
+argument_list|()
+condition|)
+return|return;
+if|if
+condition|(
+name|this
+operator|.
+name|zookeeper
+operator|.
+name|writeMasterAddress
+argument_list|(
+name|address
+argument_list|)
+condition|)
+block|{
+name|this
+operator|.
+name|zookeeper
+operator|.
+name|setClusterState
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+comment|// Watch our own node
+name|this
+operator|.
+name|zookeeper
+operator|.
+name|readMasterAddress
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 block|}
 block|}
 block|}

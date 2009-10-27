@@ -192,7 +192,8 @@ name|this
 operator|.
 name|master
 operator|.
-name|rootdir
+name|getRootDir
+argument_list|()
 argument_list|,
 name|i
 operator|.
@@ -207,7 +208,8 @@ name|this
 operator|.
 name|master
 operator|.
-name|fs
+name|getFileSystem
+argument_list|()
 operator|.
 name|delete
 argument_list|(

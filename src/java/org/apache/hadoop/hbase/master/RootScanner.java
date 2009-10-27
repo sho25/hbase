@@ -81,11 +81,8 @@ literal|true
 argument_list|,
 name|master
 operator|.
-name|metaRescanInterval
-argument_list|,
-name|master
-operator|.
-name|shutdownRequested
+name|getShutdownRequested
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -97,6 +94,9 @@ parameter_list|()
 block|{
 name|master
 operator|.
+name|getRegionManager
+argument_list|()
+operator|.
 name|waitForRootRegionLocation
 argument_list|()
 expr_stmt|;
@@ -104,9 +104,7 @@ if|if
 condition|(
 name|master
 operator|.
-name|closed
-operator|.
-name|get
+name|isClosed
 argument_list|()
 condition|)
 block|{
@@ -126,6 +124,9 @@ if|if
 condition|(
 name|master
 operator|.
+name|getRegionManager
+argument_list|()
+operator|.
 name|getRootRegionLocation
 argument_list|()
 operator|!=
@@ -138,6 +139,9 @@ operator|new
 name|MetaRegion
 argument_list|(
 name|master
+operator|.
+name|getRegionManager
+argument_list|()
 operator|.
 name|getRootRegionLocation
 argument_list|()
