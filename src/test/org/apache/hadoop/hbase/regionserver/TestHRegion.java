@@ -13151,17 +13151,6 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.master.lease.period"
-argument_list|,
-literal|10
-operator|*
-literal|1000
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
 literal|"hbase.master.lease.thread.wakefrequency"
 argument_list|,
 literal|5

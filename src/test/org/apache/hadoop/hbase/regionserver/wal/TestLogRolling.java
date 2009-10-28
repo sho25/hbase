@@ -439,18 +439,6 @@ argument_list|,
 literal|8192
 argument_list|)
 expr_stmt|;
-comment|// Make lease timeout longer, lease checks less frequent
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.master.lease.period"
-argument_list|,
-literal|10
-operator|*
-literal|1000
-argument_list|)
-expr_stmt|;
 comment|// Increase the amount of time between client retries
 name|conf
 operator|.

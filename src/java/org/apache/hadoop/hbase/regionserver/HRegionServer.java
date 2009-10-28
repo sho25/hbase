@@ -1404,11 +1404,6 @@ specifier|final
 name|int
 name|msgInterval
 decl_stmt|;
-specifier|private
-specifier|final
-name|int
-name|serverLeaseTimeout
-decl_stmt|;
 specifier|protected
 specifier|final
 name|int
@@ -1720,21 +1715,6 @@ argument_list|(
 literal|"hbase.regionserver.msginterval"
 argument_list|,
 literal|3
-operator|*
-literal|1000
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|serverLeaseTimeout
-operator|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.master.lease.period"
-argument_list|,
-literal|120
 operator|*
 literal|1000
 argument_list|)
@@ -2564,38 +2544,6 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|lastMsg
-operator|!=
-literal|0
-operator|&&
-operator|(
-name|now
-operator|-
-name|lastMsg
-operator|)
-operator|>=
-name|serverLeaseTimeout
-condition|)
-block|{
-comment|// It has been way too long since we last reported to the master.
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"unable to report to master for "
-operator|+
-operator|(
-name|now
-operator|-
-name|lastMsg
-operator|)
-operator|+
-literal|" milliseconds - retrying"
-argument_list|)
-expr_stmt|;
-block|}
 comment|// Send messages to the master IF this.msgInterval has elapsed OR if
 comment|// we have something to tell (and we didn't just fail sending master).
 if|if
@@ -6688,46 +6636,6 @@ name|serverInfo
 argument_list|)
 expr_stmt|;
 break|break;
-block|}
-catch|catch
-parameter_list|(
-name|Leases
-operator|.
-name|LeaseStillHeldException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Lease "
-operator|+
-name|e
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|" already held on master. Check "
-operator|+
-literal|"DNS configuration so that all region servers are"
-operator|+
-literal|"reporting their true IPs and not 127.0.0.1. Otherwise, this"
-operator|+
-literal|"problem should resolve itself after the lease period of "
-operator|+
-name|this
-operator|.
-name|conf
-operator|.
-name|get
-argument_list|(
-literal|"hbase.master.lease.period"
-argument_list|)
-operator|+
-literal|" seconds expires over on the master"
-argument_list|)
-expr_stmt|;
 block|}
 catch|catch
 parameter_list|(

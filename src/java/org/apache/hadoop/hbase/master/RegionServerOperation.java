@@ -131,7 +131,7 @@ name|master
 decl_stmt|;
 specifier|final
 name|int
-name|leaseTimeout
+name|delay
 decl_stmt|;
 specifier|protected
 name|RegionServerOperation
@@ -148,7 +148,7 @@ name|master
 expr_stmt|;
 name|this
 operator|.
-name|leaseTimeout
+name|delay
 operator|=
 name|this
 operator|.
@@ -159,9 +159,9 @@ argument_list|()
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.master.lease.period"
+literal|"hbase.server.thread.wakefrequency"
 argument_list|,
-literal|120
+literal|10
 operator|*
 literal|1000
 argument_list|)
@@ -273,9 +273,7 @@ argument_list|()
 operator|+
 name|this
 operator|.
-name|leaseTimeout
-operator|/
-literal|2
+name|delay
 return|;
 block|}
 specifier|protected
