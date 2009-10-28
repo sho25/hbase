@@ -2883,19 +2883,6 @@ operator|.
 name|getServerAddress
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|master
-operator|.
-name|getRegionManager
-argument_list|()
-operator|.
-name|inSafeMode
-argument_list|()
-condition|)
-block|{
 name|this
 operator|.
 name|master
@@ -2914,7 +2901,6 @@ name|rootServer
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
 name|this
 operator|.
 name|master

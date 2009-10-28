@@ -4234,19 +4234,6 @@ condition|)
 block|{
 comment|// Don't read root region until we're out of safe mode so we know
 comment|// that the meta regions have been assigned.
-name|boolean
-name|outOfSafeMode
-init|=
-name|zk
-operator|.
-name|checkOutOfSafeMode
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|outOfSafeMode
-condition|)
-block|{
 name|rootRegionAddress
 operator|=
 name|zk
@@ -4254,7 +4241,6 @@ operator|.
 name|readRootRegionLocation
 argument_list|()
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|rootRegionAddress
