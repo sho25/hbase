@@ -3272,13 +3272,16 @@ name|getName
 argument_list|()
 operator|+
 literal|"interrupted while waiting for sync requests"
-argument_list|,
-name|e
 argument_list|)
 expr_stmt|;
 block|}
 finally|finally
 block|{
+name|syncDone
+operator|.
+name|signalAll
+argument_list|()
+expr_stmt|;
 name|lock
 operator|.
 name|unlock
@@ -3368,8 +3371,6 @@ specifier|public
 name|void
 name|sync
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 name|sync
 argument_list|(
@@ -3377,7 +3378,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * This method calls the LogSyncer in order to group commit the sync    * with other threads.    * @param force For catalog regions, force the sync to happen    * @throws IOException    */
+comment|/**    * This method calls the LogSyncer in order to group commit the sync    * with other threads.    * @param force For catalog regions, force the sync to happen    */
 specifier|public
 name|void
 name|sync
@@ -3385,10 +3386,9 @@ parameter_list|(
 name|boolean
 name|force
 parameter_list|)
-throws|throws
-name|IOException
 block|{
-comment|// Set force sync if force is true and forceSync is false
+comment|// Set to force only if it was false and force == true
+comment|// It is reset to false after sync
 name|forceSync
 operator|.
 name|compareAndSet
@@ -3399,6 +3399,7 @@ operator|.
 name|get
 argument_list|()
 operator|&&
+operator|!
 name|force
 argument_list|,
 literal|true
