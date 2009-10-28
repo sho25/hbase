@@ -2933,28 +2933,7 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Queue up an update to note the region location.  Do inside
-comment|// a retry loop in case interrupted.
-name|boolean
-name|succeeded
-init|=
-literal|false
-decl_stmt|;
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-literal|10
-condition|;
-name|i
-operator|++
-control|)
-block|{
+comment|// Queue up an update to note the region location.
 name|this
 operator|.
 name|master
@@ -2972,23 +2951,6 @@ name|region
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-if|if
-condition|(
-operator|!
-name|succeeded
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"FAILED ADDING OPEN TO TODO QUEUE: "
-operator|+
-name|serverInfo
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 block|}
