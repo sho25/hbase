@@ -1485,17 +1485,24 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// Look for reference files.  Call listStatus with an anonymous
-comment|// instance of PathFilter.
-name|LOG
+if|if
+condition|(
+operator|!
+name|this
 operator|.
-name|debug
+name|master
+operator|.
+name|getFileSystem
+argument_list|()
+operator|.
+name|exists
 argument_list|(
-literal|"Looking for reference files in: "
-operator|+
 name|p
 argument_list|)
-expr_stmt|;
+condition|)
+continue|continue;
+comment|// Look for reference files.  Call listStatus with an anonymous
+comment|// instance of PathFilter.
 name|FileStatus
 index|[]
 name|ps
@@ -1523,15 +1530,6 @@ name|Path
 name|path
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"isReference: "
-operator|+
-name|path
-argument_list|)
-expr_stmt|;
 return|return
 name|StoreFile
 operator|.
