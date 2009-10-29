@@ -155,7 +155,6 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-specifier|final
 name|ZooKeeperWrapper
 name|zookeeper
 decl_stmt|;
@@ -164,7 +163,7 @@ specifier|final
 name|AtomicBoolean
 name|requestShutdown
 decl_stmt|;
-comment|/**    * Create this watcher using passed ZooKeeperWrapper instance.    * @param zk ZooKeeper    * @param requestShutdown Flag to set to request shutdown.    */
+comment|/**    * Create this watcher using passed ZooKeeperWrapper instance.    * @param zk ZooKeeper    * @param flag Flag to set to request shutdown.    */
 name|ZKMasterAddressWatcher
 parameter_list|(
 specifier|final
@@ -386,18 +385,18 @@ block|{       }
 block|}
 block|}
 comment|/**    * Write address to zookeeper.  Parks here until we successfully write our    * address (or until cluster shutdown).    * @param address Address whose format is HServerAddress.toString    */
-name|void
+name|boolean
 name|writeAddressToZooKeeper
 parameter_list|(
 specifier|final
 name|HServerAddress
 name|address
+parameter_list|,
+name|boolean
+name|retry
 parameter_list|)
 block|{
-while|while
-condition|(
-literal|true
-condition|)
+do|do
 block|{
 name|waitForMasterAddressAvailability
 argument_list|()
@@ -412,7 +411,18 @@ operator|.
 name|get
 argument_list|()
 condition|)
-return|return;
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Won't start Master because cluster is shuting down"
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
 if|if
 condition|(
 name|this
@@ -444,9 +454,35 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+literal|true
+return|;
 block|}
 block|}
+do|while
+condition|(
+name|retry
+condition|)
+do|;
+return|return
+literal|false
+return|;
+block|}
+comment|/**    * Reset the ZK in case a new connection is required    * @param zookeeper new instance    */
+specifier|public
+name|void
+name|setZookeeper
+parameter_list|(
+name|ZooKeeperWrapper
+name|zookeeper
+parameter_list|)
+block|{
+name|this
+operator|.
+name|zookeeper
+operator|=
+name|zookeeper
+expr_stmt|;
 block|}
 block|}
 end_class

@@ -1119,7 +1119,6 @@ name|metrics
 decl_stmt|;
 comment|// Our zk client.
 specifier|private
-specifier|final
 name|ZooKeeperWrapper
 name|zooKeeperWrapper
 decl_stmt|;
@@ -1444,6 +1443,8 @@ argument_list|(
 name|this
 operator|.
 name|address
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|serverManager
@@ -6248,9 +6249,81 @@ condition|)
 block|{
 name|LOG
 operator|.
+name|info
+argument_list|(
+literal|"Master lost its znode, trying to get a new one"
+argument_list|)
+expr_stmt|;
+comment|// Can we still be the master? If not, goodbye
+name|zooKeeperWrapper
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+try|try
+block|{
+name|zooKeeperWrapper
+operator|=
+operator|new
+name|ZooKeeperWrapper
+argument_list|(
+name|conf
+argument_list|,
+name|this
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|zkMasterAddressWatcher
+operator|.
+name|setZookeeper
+argument_list|(
+name|zooKeeperWrapper
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|zkMasterAddressWatcher
+operator|.
+name|writeAddressToZooKeeper
+argument_list|(
+name|this
+operator|.
+name|address
+argument_list|,
+literal|false
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|Exception
+argument_list|(
+literal|"Another Master is currently active"
+argument_list|)
+throw|;
+block|}
+comment|// Verify the cluster to see if anything happened while we were away
+name|joinCluster
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
 name|error
 argument_list|(
-literal|"Master lost its znode, killing itself now"
+literal|"Killing master because of"
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 name|System
@@ -6260,6 +6333,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 specifier|private
