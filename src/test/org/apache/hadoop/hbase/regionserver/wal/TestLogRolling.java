@@ -659,6 +659,8 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|this
+operator|.
 name|tableName
 operator|=
 name|getName
