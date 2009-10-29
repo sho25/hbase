@@ -690,13 +690,6 @@ name|server
 operator|.
 name|isStopRequested
 argument_list|()
-operator|&&
-name|this
-operator|.
-name|server
-operator|.
-name|isInSafeMode
-argument_list|()
 condition|)
 block|{
 try|try

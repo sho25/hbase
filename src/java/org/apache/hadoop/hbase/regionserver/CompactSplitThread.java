@@ -234,7 +234,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**   * Compact region on request and then run split if appropriate  *  * NOTE: This class extends Thread rather than Chore because the sleep time  * can be interrupted when there is something to do, rather than the Chore  * sleep time which is invariant.  */
+comment|/**   * Compact region on request and then run split if appropriate  */
 end_comment
 
 begin_class
@@ -388,13 +388,6 @@ operator|.
 name|server
 operator|.
 name|isStopRequested
-argument_list|()
-operator|&&
-name|this
-operator|.
-name|server
-operator|.
-name|isInSafeMode
 argument_list|()
 condition|)
 block|{

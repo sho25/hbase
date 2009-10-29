@@ -1273,17 +1273,6 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
-specifier|protected
-specifier|final
-name|AtomicBoolean
-name|safeMode
-init|=
-operator|new
-name|AtomicBoolean
-argument_list|(
-literal|true
-argument_list|)
-decl_stmt|;
 comment|// Go down hard.  Used if file system becomes unavailable and also in
 comment|// debugging and unit tests.
 specifier|protected
@@ -4563,7 +4552,7 @@ operator|.
 name|fsOk
 return|;
 block|}
-comment|/**    * Thread for toggling safemode after some configurable interval.    */
+comment|/**    * Thread that gradually ups compaction limit.    */
 specifier|private
 class|class
 name|CompactionLimitThread
@@ -4581,47 +4570,8 @@ name|void
 name|run
 parameter_list|()
 block|{
-comment|// First wait until we exit safe mode
-synchronized|synchronized
-init|(
-name|safeMode
-init|)
-block|{
-while|while
-condition|(
-name|safeMode
-operator|.
-name|get
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Waiting to exit safe mode"
-argument_list|)
-expr_stmt|;
-try|try
-block|{
-name|safeMode
-operator|.
-name|wait
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-comment|// ignore
-block|}
-block|}
-block|}
-comment|// now that safemode is off, slowly increase the per-cycle compaction
-comment|// limit, finally setting it to unlimited (-1)
+comment|// Slowly increase per-cycle compaction limit, finally setting it to
+comment|// unlimited (-1)
 name|int
 name|compactionCheckInterval
 init|=
@@ -5904,45 +5854,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|// Set up the safe mode handler if safe mode has been configured.
-if|if
-condition|(
-operator|!
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-literal|"hbase.regionserver.safemode"
-argument_list|,
-literal|true
-argument_list|)
-condition|)
-block|{
-name|safeMode
-operator|.
-name|set
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
-name|compactSplitThread
-operator|.
-name|setLimit
-argument_list|(
-operator|-
-literal|1
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"skipping safe mode"
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
 name|this
 operator|.
 name|compactionLimitThread
@@ -5961,12 +5872,11 @@ name|compactionLimitThread
 argument_list|,
 name|n
 operator|+
-literal|".safeMode"
+literal|".compactionLimitThread"
 argument_list|,
 name|handler
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Start Server.  This service is like leases in that it internally runs
 comment|// a thread.
 name|this
@@ -10552,19 +10462,6 @@ parameter_list|()
 block|{
 return|return
 name|stopRequested
-operator|.
-name|get
-argument_list|()
-return|;
-block|}
-comment|/**    * @return true if the region server is in safe mode    */
-specifier|public
-name|boolean
-name|isInSafeMode
-parameter_list|()
-block|{
-return|return
-name|safeMode
 operator|.
 name|get
 argument_list|()
