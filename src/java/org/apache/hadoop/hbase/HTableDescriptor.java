@@ -193,14 +193,6 @@ name|WritableComparable
 import|;
 end_import
 
-begin_import
-import|import
-name|agilejson
-operator|.
-name|TOJSON
-import|;
-end_import
-
 begin_comment
 comment|/**  * HTableDescriptor contains the name of an HTable, and its  * column families.  */
 end_comment
@@ -1624,8 +1616,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/** @return name of table */
-annotation|@
-name|TOJSON
 specifier|public
 name|byte
 index|[]
@@ -2868,13 +2858,6 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-annotation|@
-name|TOJSON
-argument_list|(
-name|fieldName
-operator|=
-literal|"columns"
-argument_list|)
 specifier|public
 name|HColumnDescriptor
 index|[]
