@@ -197,20 +197,6 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|atomic
-operator|.
-name|AtomicBoolean
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
 name|locks
 operator|.
 name|Lock
@@ -804,15 +790,10 @@ name|replicationLevel
 decl_stmt|;
 comment|// used to indirectly tell syncFs to force the sync
 specifier|private
-specifier|final
-name|AtomicBoolean
+name|boolean
 name|forceSync
 init|=
-operator|new
-name|AtomicBoolean
-argument_list|(
 literal|false
-argument_list|)
 decl_stmt|;
 comment|/*    * Current log file.    */
 name|SequenceFile
@@ -3303,7 +3284,10 @@ comment|/**      * This method first signals the thread that there's a sync need
 specifier|public
 name|void
 name|addToSyncQueue
-parameter_list|()
+parameter_list|(
+name|boolean
+name|force
+parameter_list|)
 block|{
 comment|// Don't bother if somehow our append was already synced
 if|if
@@ -3325,6 +3309,16 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+if|if
+condition|(
+name|force
+condition|)
+block|{
+name|forceSync
+operator|=
+literal|true
+expr_stmt|;
+block|}
 comment|// Wake the thread
 name|queueEmpty
 operator|.
@@ -3387,28 +3381,12 @@ name|boolean
 name|force
 parameter_list|)
 block|{
-comment|// Set to force only if it was false and force == true
-comment|// It is reset to false after sync
-name|forceSync
-operator|.
-name|compareAndSet
-argument_list|(
-operator|!
-name|forceSync
-operator|.
-name|get
-argument_list|()
-operator|&&
-operator|!
-name|force
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
 name|logSyncerThread
 operator|.
 name|addToSyncQueue
-argument_list|()
+argument_list|(
+name|force
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Multiple threads will call sync() at the same time, only the winner    * will actually flush if there is any race or build up.    *    * @throws IOException    */
@@ -3438,9 +3416,6 @@ condition|(
 name|this
 operator|.
 name|forceSync
-operator|.
-name|get
-argument_list|()
 operator|||
 name|this
 operator|.
@@ -3483,13 +3458,8 @@ block|}
 name|this
 operator|.
 name|forceSync
-operator|.
-name|compareAndSet
-argument_list|(
-literal|true
-argument_list|,
+operator|=
 literal|false
-argument_list|)
 expr_stmt|;
 name|this
 operator|.
