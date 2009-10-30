@@ -3410,7 +3410,9 @@ name|this
 operator|.
 name|closed
 condition|)
+block|{
 return|return;
+block|}
 if|if
 condition|(
 name|this
@@ -3423,7 +3425,7 @@ name|unflushedEntries
 operator|.
 name|get
 argument_list|()
-operator|>
+operator|>=
 name|this
 operator|.
 name|flushlogentries
