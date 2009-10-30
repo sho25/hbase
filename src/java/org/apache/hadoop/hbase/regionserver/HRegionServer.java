@@ -2542,11 +2542,17 @@ operator|>=
 name|msgInterval
 operator|||
 operator|(
+operator|(
+name|outboundArray
+operator|==
+literal|null
+operator|||
 name|outboundArray
 operator|.
 name|length
 operator|==
 literal|0
+operator|)
 operator|&&
 operator|!
 name|this
