@@ -7125,12 +7125,18 @@ argument_list|(
 name|regionInfo
 argument_list|)
 expr_stmt|;
-comment|// Startup a compaction early if one is needed, if region has references.
+comment|// Startup a compaction early if one is needed, if region has references
+comment|// or if a store has too many store files
 if|if
 condition|(
 name|region
 operator|.
 name|hasReferences
+argument_list|()
+operator|||
+name|region
+operator|.
+name|hasTooManyStoreFiles
 argument_list|()
 condition|)
 block|{
@@ -7142,7 +7148,14 @@ name|compactionRequested
 argument_list|(
 name|region
 argument_list|,
+name|region
+operator|.
+name|hasReferences
+argument_list|()
+condition|?
 literal|"Region has references on open"
+else|:
+literal|"Region has too many store files"
 argument_list|)
 expr_stmt|;
 block|}

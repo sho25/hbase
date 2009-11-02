@@ -6737,6 +6737,25 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * See if there's too much store files in this store    * @return true if number of store files is greater than    *  the number defined in compactionThreshold    */
+specifier|public
+name|boolean
+name|hasTooManyStoreFiles
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|storefiles
+operator|.
+name|size
+argument_list|()
+operator|>
+name|this
+operator|.
+name|compactionThreshold
+return|;
+block|}
 specifier|public
 specifier|static
 specifier|final
