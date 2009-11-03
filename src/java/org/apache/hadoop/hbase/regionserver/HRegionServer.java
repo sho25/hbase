@@ -9372,20 +9372,6 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|WrongRegionException
-name|ex
-parameter_list|)
-block|{     }
-catch|catch
-parameter_list|(
-name|NotServingRegionException
-name|ex
-parameter_list|)
-block|{
-comment|// ignore
-block|}
-catch|catch
-parameter_list|(
 name|Throwable
 name|t
 parameter_list|)
