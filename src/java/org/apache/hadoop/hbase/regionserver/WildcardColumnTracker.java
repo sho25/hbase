@@ -217,6 +217,13 @@ name|int
 name|length
 parameter_list|)
 block|{
+name|boolean
+name|recursive
+init|=
+literal|false
+decl_stmt|;
+do|do
+block|{
 comment|// Nothing to match against, add to new and include
 if|if
 condition|(
@@ -411,16 +418,12 @@ argument_list|(
 name|newIndex
 argument_list|)
 expr_stmt|;
-return|return
-name|checkColumn
-argument_list|(
-name|bytes
-argument_list|,
-name|offset
-argument_list|,
-name|length
-argument_list|)
-return|;
+comment|//return checkColumn(bytes, offset, length);
+name|recursive
+operator|=
+literal|true
+expr_stmt|;
+continue|continue;
 block|}
 comment|// ret>= 1
 comment|// Specified column is smaller than current column
@@ -610,16 +613,12 @@ argument_list|(
 name|index
 argument_list|)
 expr_stmt|;
-return|return
-name|checkColumn
-argument_list|(
-name|bytes
-argument_list|,
-name|offset
-argument_list|,
-name|length
-argument_list|)
-return|;
+comment|//return checkColumn(bytes, offset, length);
+name|recursive
+operator|=
+literal|true
+expr_stmt|;
+continue|continue;
 block|}
 comment|// ret>= 1
 comment|// Specified column is smaller than current column
@@ -819,16 +818,12 @@ name|index
 argument_list|)
 expr_stmt|;
 block|}
-return|return
-name|checkColumn
-argument_list|(
-name|bytes
-argument_list|,
-name|offset
-argument_list|,
-name|length
-argument_list|)
-return|;
+comment|//return checkColumn(bytes, offset, length);
+name|recursive
+operator|=
+literal|true
+expr_stmt|;
+continue|continue;
 block|}
 comment|// ret>= 1
 comment|// Specified column is smaller than current column
@@ -969,16 +964,12 @@ name|newIndex
 argument_list|)
 expr_stmt|;
 block|}
-return|return
-name|checkColumn
-argument_list|(
-name|bytes
-argument_list|,
-name|offset
-argument_list|,
-name|length
-argument_list|)
-return|;
+comment|//return checkColumn(bytes, offset, length);
+name|recursive
+operator|=
+literal|true
+expr_stmt|;
+continue|continue;
 block|}
 comment|// ret>= 1
 comment|// Specified column is smaller than current column
@@ -1006,6 +997,12 @@ operator|.
 name|INCLUDE
 return|;
 block|}
+block|}
+do|while
+condition|(
+name|recursive
+condition|)
+do|;
 comment|// No match happened, add to new and include
 name|newColumns
 operator|.
