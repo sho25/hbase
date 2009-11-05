@@ -475,15 +475,11 @@ name|timestamp
 argument_list|)
 condition|)
 block|{
-comment|// done, the rest wil also be expired as well.
-name|stickyNextRow
-operator|=
-literal|true
-expr_stmt|;
+comment|// done, the rest of this column will also be expired as well.
 return|return
 name|MatchCode
 operator|.
-name|SEEK_NEXT_ROW
+name|SEEK_NEXT_COL
 return|;
 block|}
 name|byte

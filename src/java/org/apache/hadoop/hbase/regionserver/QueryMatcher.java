@@ -655,13 +655,13 @@ name|timestamp
 argument_list|)
 condition|)
 block|{
-comment|// reached the expired part, for scans, this indicates we're done.
+comment|/* KeyValue is expired, skip but don't early out since a non-expired        * kv could come next.        */
 return|return
 name|MatchCode
 operator|.
-name|NEXT
+name|SKIP
 return|;
-comment|// done_row
+comment|// go to next kv
 block|}
 name|offset
 operator|+=
