@@ -3948,6 +3948,18 @@ return|return
 name|result
 return|;
 block|}
+comment|/**      * Allows flushing the region cache.      */
+specifier|public
+name|void
+name|clearRegionCache
+parameter_list|()
+block|{
+name|cachedRegionLocations
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
 comment|/*      * Put a newly discovered HRegionLocation into the cache.      */
 specifier|private
 name|void

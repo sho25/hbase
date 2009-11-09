@@ -248,6 +248,12 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Allows flushing the region cache.    */
+specifier|public
+name|void
+name|clearRegionCache
+parameter_list|()
+function_decl|;
 comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the reigon in     * question    * @throws IOException    */
 specifier|public
 name|HRegionLocation
