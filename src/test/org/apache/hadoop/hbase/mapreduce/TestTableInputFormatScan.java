@@ -1168,7 +1168,7 @@ literal|"opp"
 argument_list|,
 literal|null
 argument_list|,
-literal|null
+literal|"zzz"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1192,7 +1192,7 @@ literal|"yyx"
 argument_list|,
 literal|null
 argument_list|,
-literal|null
+literal|"zzz"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1216,7 +1216,7 @@ literal|"yyy"
 argument_list|,
 literal|null
 argument_list|,
-literal|null
+literal|"zzz"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1240,7 +1240,7 @@ literal|"yzy"
 argument_list|,
 literal|null
 argument_list|,
-literal|null
+literal|"zzz"
 argument_list|)
 expr_stmt|;
 block|}
