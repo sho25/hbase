@@ -387,24 +387,6 @@ name|MiniMRCluster
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|sun
-operator|.
-name|corba
-operator|.
-name|se
-operator|.
-name|pept
-operator|.
-name|transport
-operator|.
-name|Connection
-import|;
-end_import
-
 begin_comment
 comment|/**  * Facility for testing HBase. Added as tool to abet junit4 testing.  Replaces  * old HBaseTestCase and HBaseCluserTestCase functionality.  * Create an instance and keep it around doing HBase testing.  This class is  * meant to be your one-stop shop for anything you mind need testing.  Manages  * one cluster at a time only.  Depends on log4j on classpath and hbase-site.xml  * for logging and test-run configuration.  It does not set logging levels nor  * make changes to configuration parameters.  */
 end_comment

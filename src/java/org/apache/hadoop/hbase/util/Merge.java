@@ -1866,6 +1866,8 @@ name|String
 index|[]
 name|args
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|GenericOptionsParser
 name|parser

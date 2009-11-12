@@ -641,8 +641,6 @@ name|tableName
 argument_list|,
 name|edit
 argument_list|,
-literal|false
-argument_list|,
 name|System
 operator|.
 name|currentTimeMillis
@@ -927,8 +925,6 @@ name|bytes
 argument_list|,
 name|kvs
 argument_list|,
-literal|false
-argument_list|,
 name|System
 operator|.
 name|currentTimeMillis
@@ -1072,8 +1068,6 @@ argument_list|,
 name|bytes
 argument_list|,
 name|kvs
-argument_list|,
-literal|false
 argument_list|,
 name|System
 operator|.
@@ -1248,8 +1242,6 @@ argument_list|,
 name|bytes
 argument_list|,
 name|kvs
-argument_list|,
-literal|false
 argument_list|,
 name|System
 operator|.
@@ -1734,8 +1726,6 @@ argument_list|,
 name|tableName
 argument_list|,
 name|cols
-argument_list|,
-literal|false
 argument_list|,
 name|System
 operator|.

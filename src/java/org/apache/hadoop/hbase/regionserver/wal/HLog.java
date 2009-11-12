@@ -2878,26 +2878,11 @@ name|seqNum
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|boolean
-name|sync
-init|=
-name|regionInfo
-operator|.
-name|isMetaRegion
-argument_list|()
-operator|||
-name|regionInfo
-operator|.
-name|isRootRegion
-argument_list|()
-decl_stmt|;
 name|doWrite
 argument_list|(
 name|logKey
 argument_list|,
 name|logEdit
-argument_list|,
-name|sync
 argument_list|,
 name|logKey
 operator|.
@@ -2949,7 +2934,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Append a set of edits to the log. Log edits are keyed by regionName,    * rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for a    * given key-range of the HRegion (TODO). Any edits that do not have a    * matching COMPLETE_CACHEFLUSH message can be discarded.    *    *<p>    * Logs cannot be restarted once closed, or once the HLog process dies. Each    * time the HLog starts, it must create a new log. This means that other    * systems should process the log appropriately upon each startup (and prior    * to initializing HLog).    *    * synchronized prevents appends during the completion of a cache flush or for    * the duration of a log roll.    *    * @param regionName    * @param tableName    * @param edits    * @param sync    * @param now    * @throws IOException    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by regionName,    * rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for a    * given key-range of the HRegion (TODO). Any edits that do not have a    * matching COMPLETE_CACHEFLUSH message can be discarded.    *    *<p>    * Logs cannot be restarted once closed, or once the HLog process dies. Each    * time the HLog starts, it must create a new log. This means that other    * systems should process the log appropriately upon each startup (and prior    * to initializing HLog).    *    * synchronized prevents appends during the completion of a cache flush or for    * the duration of a log roll.    *    * @param regionName    * @param tableName    * @param edits    * @param now    * @throws IOException    */
 specifier|public
 name|void
 name|append
@@ -2967,9 +2952,6 @@ argument_list|<
 name|KeyValue
 argument_list|>
 name|edits
-parameter_list|,
-name|boolean
-name|sync
 parameter_list|,
 specifier|final
 name|long
@@ -3071,8 +3053,6 @@ argument_list|(
 name|logKey
 argument_list|,
 name|kv
-argument_list|,
-name|sync
 argument_list|,
 name|now
 argument_list|)
@@ -3389,8 +3369,7 @@ name|force
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Multiple threads will call sync() at the same time, only the winner    * will actually flush if there is any race or build up.    *    * @throws IOException    */
-specifier|protected
+specifier|public
 name|void
 name|hflush
 parameter_list|()
@@ -3433,6 +3412,13 @@ condition|)
 block|{
 try|try
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"hflush remove"
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|writer
@@ -3498,6 +3484,18 @@ block|}
 block|}
 block|}
 block|}
+specifier|public
+name|void
+name|hsync
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+comment|// Not yet implemented up in hdfs so just call hflush.
+name|hflush
+argument_list|()
+expr_stmt|;
+block|}
 specifier|private
 name|void
 name|requestLogRoll
@@ -3530,9 +3528,6 @@ name|logKey
 parameter_list|,
 name|KeyValue
 name|logEdit
-parameter_list|,
-name|boolean
-name|sync
 parameter_list|,
 specifier|final
 name|long
@@ -3567,6 +3562,42 @@ operator|+
 name|logEdit
 operator|.
 name|heapSize
+argument_list|()
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|numEntries
+operator|.
+name|get
+argument_list|()
+operator|%
+name|this
+operator|.
+name|flushlogentries
+operator|==
+literal|0
+condition|)
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"edit="
+operator|+
+name|this
+operator|.
+name|numEntries
+operator|.
+name|get
+argument_list|()
+operator|+
+literal|", write="
+operator|+
+name|logKey
+operator|.
+name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
