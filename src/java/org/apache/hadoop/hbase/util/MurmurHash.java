@@ -239,9 +239,9 @@ name|h
 operator|^=
 name|data
 index|[
-name|length
-operator|-
-literal|3
+name|len_m
+operator|+
+literal|2
 index|]
 operator|<<
 literal|16
@@ -258,9 +258,9 @@ name|h
 operator|^=
 name|data
 index|[
-name|length
-operator|-
-literal|2
+name|len_m
+operator|+
+literal|1
 index|]
 operator|<<
 literal|8
@@ -277,9 +277,7 @@ name|h
 operator|^=
 name|data
 index|[
-name|length
-operator|-
-literal|1
+name|len_m
 index|]
 expr_stmt|;
 block|}
