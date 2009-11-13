@@ -150,7 +150,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This filter is used to filter cells based on value. It takes a {@link CompareFilter.CompareOp}   * operator (equal, greater, not equal, etc), and either a byte [] value or   * a WritableByteArrayComparable.  *<p>  * If we have a byte [] value then we just do a lexicographic compare. For   * example, if passed value is 'b' and cell has 'a' and the compare operator   * is LESS, then we will filter out this cell (return true).  If this is not   * sufficient (eg you want to deserialize a long and then compare it to a fixed   * long value), then you can pass in your own comparator instead.  *<p>  * You must also specify a family and qualifier.  Only the value of this column   * will be tested.  *<p>  * To prevent the entire row from being emitted if the column is not found  * on a row, use {@link #setFilterIfMissing}.  *<p>  * Otherwise, if the column is found, the entire row will be emitted only if  * the value passes.  If the value fails, the row will be filtered out.  *<p>  * To filter based on the value of all scanned columns, use {@link ValueFilter}.  */
+comment|/**  * This filter is used to filter cells based on value. It takes a {@link CompareFilter.CompareOp}   * operator (equal, greater, not equal, etc), and either a byte [] value or   * a WritableByteArrayComparable.  *<p>  * If we have a byte [] value then we just do a lexicographic compare. For   * example, if passed value is 'b' and cell has 'a' and the compare operator   * is LESS, then we will filter out this cell (return true).  If this is not   * sufficient (eg you want to deserialize a long and then compare it to a fixed   * long value), then you can pass in your own comparator instead.  *<p>  * You must also specify a family and qualifier.  Only the value of this column   * will be tested.  *<p>  * To prevent the entire row from being emitted if the column is not found  * on a row, use {@link #setFilterIfMissing}.  * Otherwise, if the column is found, the entire row will be emitted only if  * the value passes.  If the value fails, the row will be filtered out.  *<p>  * In order to test values of previous versions (timestamps), set  * {@link #setLatestVersionOnly} to false. The default is true, meaning that  * only the latest version's value is tested and all previous versions are ignored.  *<p>  * To filter based on the value of all scanned columns, use {@link ValueFilter}.  */
 end_comment
 
 begin_class
@@ -209,6 +209,12 @@ name|boolean
 name|filterIfMissing
 init|=
 literal|false
+decl_stmt|;
+specifier|private
+name|boolean
+name|latestVersionOnly
+init|=
+literal|true
 decl_stmt|;
 comment|/**    * Writable constructor, do not use.    */
 specifier|public
@@ -352,6 +358,10 @@ if|if
 condition|(
 name|this
 operator|.
+name|latestVersionOnly
+operator|&&
+name|this
+operator|.
 name|foundColumn
 condition|)
 block|{
@@ -411,9 +421,17 @@ argument_list|)
 condition|)
 block|{
 return|return
+name|this
+operator|.
+name|latestVersionOnly
+condition|?
 name|ReturnCode
 operator|.
 name|NEXT_ROW
+else|:
+name|ReturnCode
+operator|.
+name|INCLUDE
 return|;
 block|}
 name|this
@@ -634,6 +652,32 @@ operator|=
 name|filterIfMissing
 expr_stmt|;
 block|}
+comment|/**    * Get whether only the latest version of the column value should be compared.    * If true, the row will be returned if only the latest version of the column    * value matches. If false, the row will be returned if any version of the    * column value matches. The default is true.    */
+specifier|public
+name|boolean
+name|getLatestVersionOnly
+parameter_list|()
+block|{
+return|return
+name|latestVersionOnly
+return|;
+block|}
+comment|/**    * Set whether only the latest version of the column value should be compared.    * If true, the row will be returned if only the latest version of the column    * value matches. If false, the row will be returned if any version of the    * column value matches. The default is true.    */
+specifier|public
+name|void
+name|setLatestVersionOnly
+parameter_list|(
+name|boolean
+name|latestVersionOnly
+parameter_list|)
+block|{
+name|this
+operator|.
+name|latestVersionOnly
+operator|=
+name|latestVersionOnly
+expr_stmt|;
+block|}
 specifier|public
 name|void
 name|readFields
@@ -760,6 +804,15 @@ operator|.
 name|readBoolean
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|latestVersionOnly
+operator|=
+name|in
+operator|.
+name|readBoolean
+argument_list|()
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -838,6 +891,13 @@ operator|.
 name|writeBoolean
 argument_list|(
 name|filterIfMissing
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|writeBoolean
+argument_list|(
+name|latestVersionOnly
 argument_list|)
 expr_stmt|;
 block|}
