@@ -1700,6 +1700,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|boolean
+name|dupKey
+init|=
 name|checkKey
 argument_list|(
 name|key
@@ -1708,7 +1711,7 @@ name|koffset
 argument_list|,
 name|klength
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|checkValue
 argument_list|(
 name|value
@@ -1718,9 +1721,16 @@ argument_list|,
 name|vlength
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|dupKey
+condition|)
+block|{
 name|checkBlockBoundary
 argument_list|()
 expr_stmt|;
+block|}
 comment|// Write length of key and value and then actual key and value bytes.
 name|this
 operator|.
@@ -1841,9 +1851,9 @@ name|entryCount
 operator|++
 expr_stmt|;
 block|}
-comment|/*      * @param key Key to check.      * @throws IOException      */
+comment|/*      * @param key Key to check.      * @return the flag of duplicate Key or not      * @throws IOException      */
 specifier|private
-name|void
+name|boolean
 name|checkKey
 parameter_list|(
 specifier|final
@@ -1862,6 +1872,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|boolean
+name|dupKey
+init|=
+literal|false
+decl_stmt|;
 if|if
 condition|(
 name|key
@@ -1911,8 +1926,9 @@ operator|!=
 literal|null
 condition|)
 block|{
-if|if
-condition|(
+name|int
+name|keyComp
+init|=
 name|this
 operator|.
 name|comparator
@@ -1937,6 +1953,10 @@ name|offset
 argument_list|,
 name|length
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|keyComp
 operator|>
 literal|0
 condition|)
@@ -1981,7 +2001,23 @@ argument_list|)
 argument_list|)
 throw|;
 block|}
+elseif|else
+if|if
+condition|(
+name|keyComp
+operator|==
+literal|0
+condition|)
+block|{
+name|dupKey
+operator|=
+literal|true
+expr_stmt|;
 block|}
+block|}
+return|return
+name|dupKey
+return|;
 block|}
 specifier|private
 name|void
