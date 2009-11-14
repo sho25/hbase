@@ -3412,13 +3412,6 @@ condition|)
 block|{
 try|try
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"hflush remove"
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|writer
