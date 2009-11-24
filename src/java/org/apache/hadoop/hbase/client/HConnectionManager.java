@@ -5022,7 +5022,7 @@ name|int
 name|process
 parameter_list|(
 specifier|final
-name|ArrayList
+name|List
 argument_list|<
 name|?
 extends|extends
@@ -5658,7 +5658,7 @@ name|int
 name|processBatchOfDeletes
 parameter_list|(
 specifier|final
-name|ArrayList
+name|List
 argument_list|<
 name|Delete
 argument_list|>

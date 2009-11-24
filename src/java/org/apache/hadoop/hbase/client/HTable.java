@@ -1551,7 +1551,7 @@ name|void
 name|delete
 parameter_list|(
 specifier|final
-name|ArrayList
+name|List
 argument_list|<
 name|Delete
 argument_list|>
