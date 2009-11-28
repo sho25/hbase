@@ -54,6 +54,18 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -2719,6 +2731,26 @@ operator|*
 literal|1024
 argument_list|)
 expr_stmt|;
+name|TABLE
+operator|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"testMaxKeyValueSize2"
+argument_list|)
+expr_stmt|;
+name|ht
+operator|=
+name|TEST_UTIL
+operator|.
+name|createTable
+argument_list|(
+name|TABLE
+argument_list|,
+name|FAMILY
+argument_list|)
+expr_stmt|;
 name|put
 operator|=
 operator|new
@@ -2735,7 +2767,7 @@ name|FAMILY
 argument_list|,
 name|QUALIFIER
 argument_list|,
-name|VALUE
+name|value
 argument_list|)
 expr_stmt|;
 name|ht
@@ -2745,13 +2777,11 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-throw|throw
-operator|new
-name|IOException
+name|fail
 argument_list|(
 literal|"Inserting a too large KeyValue worked, should throw exception"
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -6064,13 +6094,11 @@ argument_list|,
 name|FAMILY
 argument_list|)
 expr_stmt|;
-throw|throw
-operator|new
-name|IOException
+name|fail
 argument_list|(
 literal|"Creating a table with null name passed, should have failed"
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -6094,13 +6122,11 @@ operator|)
 literal|null
 argument_list|)
 expr_stmt|;
-throw|throw
-operator|new
-name|IOException
+name|fail
 argument_list|(
 literal|"Creating a table with a null family passed, should fail"
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -6154,13 +6180,11 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
-throw|throw
-operator|new
-name|IOException
+name|fail
 argument_list|(
 literal|"Inserting a null row worked, should throw exception"
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
