@@ -5106,6 +5106,26 @@ name|logfile
 argument_list|)
 condition|)
 block|{
+name|FileStatus
+name|stat
+init|=
+name|fs
+operator|.
+name|getFileStatus
+argument_list|(
+name|logfile
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|stat
+operator|.
+name|getLen
+argument_list|()
+operator|<=
+literal|0
+condition|)
+block|{
 name|LOG
 operator|.
 name|warn
@@ -5114,7 +5134,34 @@ literal|"Old hlog file "
 operator|+
 name|logfile
 operator|+
-literal|" already exists. Copying existing file to new file"
+literal|" is zero "
+operator|+
+literal|"length. Deleting existing file"
+argument_list|)
+expr_stmt|;
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|logfile
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Old hlog file "
+operator|+
+name|logfile
+operator|+
+literal|" already "
+operator|+
+literal|"exists. Copying existing file to new file"
 argument_list|)
 expr_stmt|;
 name|oldlogfile
@@ -5153,6 +5200,7 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|SequenceFile
 operator|.
