@@ -83,7 +83,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Method for getting data from a row.    *    * @param get the Get to fetch    * @return the result    * @throws IOException    */
+comment|/**    * Method for getting data from a row.    * If the row cannot be found an empty Result is returned.    * This can be checked by calling {@link Result#isEmpty()}    *    * @param get the Get to fetch    * @return the result    * @throws IOException    */
 name|Result
 name|get
 parameter_list|(
@@ -203,7 +203,20 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception.    *    * @param row    * @param family    * @param qualifier    * @param amount    * @return the new value    * @throws IOException    */
+comment|/**    * Bulk commit a List of Deletes to the table.    * @param deletes List of deletes. List is modified by this method.    * On exception holds deletes that were NOT applied.    * @throws IOException    */
+name|void
+name|delete
+parameter_list|(
+name|List
+argument_list|<
+name|Delete
+argument_list|>
+name|deletes
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception. If the column    * value does not yet exist it is initialized to<code>amount</code> and    * written to the specified column.    *    * @param row    * @param family    * @param qualifier    * @param amount    * @return the new value    * @throws IOException    */
 name|long
 name|incrementColumnValue
 parameter_list|(
@@ -221,6 +234,31 @@ name|qualifier
 parameter_list|,
 name|long
 name|amount
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception. If the column    * value does not yet exist it is initialized to<code>amount</code> and    * written to the specified column.    *    *<p>Setting writeToWAL to false means that in a fail scenario, you will lose    * any increments that have not been flushed.    * @param row    * @param family    * @param qualifier    * @param amount    * @param writeToWAL true if increment should be applied to WAL, false if not    * @return The new value.    * @throws IOException    */
+name|long
+name|incrementColumnValue
+parameter_list|(
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|byte
+index|[]
+name|qualifier
+parameter_list|,
+name|long
+name|amount
+parameter_list|,
+name|boolean
+name|writeToWAL
 parameter_list|)
 throws|throws
 name|IOException
