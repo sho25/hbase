@@ -5755,8 +5755,8 @@ condition|)
 block|{
 return|return;
 block|}
-comment|// This iterator is 'safe'.  We are guaranteed a view on state of the
-comment|// queue at time iterator was taken out.  Apparently goes from oldest.
+comment|// This iterator isn't safe if elements are gone and HRS.Worker could
+comment|// remove them (it already checks for null there). Goes from oldest.
 for|for
 control|(
 name|ToDoEntry
@@ -5767,6 +5767,22 @@ operator|.
 name|toDo
 control|)
 block|{
+if|if
+condition|(
+name|e
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"toDo gave a null entry during iteration"
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
 name|HMsg
 name|msg
 init|=
