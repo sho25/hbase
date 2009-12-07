@@ -942,6 +942,19 @@ operator|.
 name|getState
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|state
+operator|.
+name|equals
+argument_list|(
+name|KeeperState
+operator|.
+name|SyncConnected
+argument_list|)
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -965,6 +978,7 @@ name|getPath
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|state
@@ -3411,8 +3425,13 @@ name|getPauseTime
 argument_list|(
 name|tries
 argument_list|)
-argument_list|,
+operator|+
+literal|" because: "
+operator|+
 name|e
+operator|.
+name|getMessage
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -4054,9 +4073,22 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Cached location "
+literal|"Cached location for "
 operator|+
 name|location
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" is "
+operator|+
+name|location
+operator|.
+name|getServerAddress
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
