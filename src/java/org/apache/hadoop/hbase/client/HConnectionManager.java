@@ -75,6 +75,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|LinkedHashMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -96,16 +106,6 @@ operator|.
 name|util
 operator|.
 name|TreeSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|WeakHashMap
 import|;
 end_import
 
@@ -600,9 +600,18 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|// A Map of master HBaseConfiguration -> connection information for that
-comment|// instance. Note that although the Map is synchronized, the objects it
-comment|// contains are mutable and hence require synchronized access to them
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|MAX_CACHED_HBASE_INSTANCES
+init|=
+literal|31
+decl_stmt|;
+comment|// A LRU Map of master HBaseConfiguration -> connection information for that
+comment|// instance. The objects it contains are mutable and hence require
+comment|// synchronized access to them.  We set instances to 31.  The zk default max
+comment|// connections is 30 so should run into zk issues before hit this value of 31.
 specifier|private
 specifier|static
 specifier|final
@@ -615,13 +624,54 @@ argument_list|>
 name|HBASE_INSTANCES
 init|=
 operator|new
-name|WeakHashMap
+name|LinkedHashMap
 argument_list|<
 name|HBaseConfiguration
 argument_list|,
 name|TableServers
 argument_list|>
+argument_list|(
+call|(
+name|int
+call|)
+argument_list|(
+name|MAX_CACHED_HBASE_INSTANCES
+operator|/
+literal|0.75F
+argument_list|)
+operator|+
+literal|1
+argument_list|,
+literal|0.75F
+argument_list|,
+literal|true
+argument_list|)
+block|{
+annotation|@
+name|Override
+specifier|protected
+name|boolean
+name|removeEldestEntry
+parameter_list|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|HBaseConfiguration
+argument_list|,
+name|TableServers
+argument_list|>
+name|eldest
+parameter_list|)
+block|{
+return|return
+name|size
 argument_list|()
+operator|>
+name|MAX_CACHED_HBASE_INSTANCES
+return|;
+block|}
+block|}
 decl_stmt|;
 specifier|private
 specifier|static
