@@ -199,7 +199,7 @@ name|cluster
 operator|=
 name|TEST_UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 expr_stmt|;
 block|}
