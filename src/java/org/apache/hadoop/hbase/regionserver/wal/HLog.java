@@ -1227,7 +1227,7 @@ name|LogSyncer
 argument_list|(
 name|this
 operator|.
-name|flushlogentries
+name|optionalFlushInterval
 argument_list|)
 expr_stmt|;
 name|Threads
@@ -3135,12 +3135,12 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
-name|int
+name|long
 name|optionalFlushInterval
 decl_stmt|;
 name|LogSyncer
 parameter_list|(
-name|int
+name|long
 name|optionalFlushInterval
 parameter_list|)
 block|{
@@ -3171,6 +3171,9 @@ condition|)
 block|{
 comment|// Wait until something has to be synced or do it if we waited enough
 comment|// time (useful if something appends but does not sync).
+if|if
+condition|(
+operator|!
 name|queueEmpty
 operator|.
 name|await
@@ -3183,7 +3186,13 @@ name|TimeUnit
 operator|.
 name|MILLISECONDS
 argument_list|)
+condition|)
+block|{
+name|forceSync
+operator|=
+literal|true
 expr_stmt|;
+block|}
 comment|// We got the signal, let's syncFS. We currently own the lock so new
 comment|// writes are waiting to acquire it in addToSyncQueue while the ones
 comment|// we sync are waiting on await()
