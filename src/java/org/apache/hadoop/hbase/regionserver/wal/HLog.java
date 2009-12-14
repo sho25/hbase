@@ -1042,7 +1042,7 @@ name|getInt
 argument_list|(
 literal|"hbase.regionserver.flushlogentries"
 argument_list|,
-literal|100
+literal|1
 argument_list|)
 expr_stmt|;
 name|this
@@ -1122,7 +1122,7 @@ name|getLong
 argument_list|(
 literal|"hbase.regionserver.optionallogflushinterval"
 argument_list|,
-literal|10
+literal|1
 operator|*
 literal|1000
 argument_list|)
