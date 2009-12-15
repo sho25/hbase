@@ -3163,29 +3163,37 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
+comment|// awaiting with a timeout doesn't always
+comment|// throw exceptions on interrupt
 while|while
 condition|(
 operator|!
-name|closed
+name|this
+operator|.
+name|isInterrupted
+argument_list|()
 condition|)
 block|{
-comment|// Wait until something has to be synced or do it if we waited enough
-comment|// time (useful if something appends but does not sync).
+comment|// Wait until something has to be hflushed or do it if we waited
+comment|// enough time (useful if something appends but does not hflush).
+comment|// 0 or less means that it timed out and maybe waited a bit more.
 if|if
 condition|(
 operator|!
+operator|(
 name|queueEmpty
 operator|.
-name|await
+name|awaitNanos
 argument_list|(
 name|this
 operator|.
 name|optionalFlushInterval
-argument_list|,
-name|TimeUnit
-operator|.
-name|MILLISECONDS
+operator|*
+literal|1000000
 argument_list|)
+operator|<=
+literal|0
+operator|)
 condition|)
 block|{
 name|forceSync
@@ -3193,13 +3201,13 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
-comment|// We got the signal, let's syncFS. We currently own the lock so new
+comment|// We got the signal, let's hflush. We currently own the lock so new
 comment|// writes are waiting to acquire it in addToSyncQueue while the ones
-comment|// we sync are waiting on await()
+comment|// we hflush are waiting on await()
 name|hflush
 argument_list|()
 expr_stmt|;
-comment|// Release all the clients waiting on the sync. Notice that we still
+comment|// Release all the clients waiting on the hflush. Notice that we still
 comment|// own the lock until we get back to await at which point all the
 comment|// other threads waiting will first acquire and release locks
 name|syncDone
@@ -3278,7 +3286,7 @@ name|boolean
 name|force
 parameter_list|)
 block|{
-comment|// Don't bother if somehow our append was already synced
+comment|// Don't bother if somehow our append was already hflushed
 if|if
 condition|(
 name|unflushedEntries
@@ -3314,7 +3322,7 @@ operator|.
 name|signal
 argument_list|()
 expr_stmt|;
-comment|// Wait for it to syncFs
+comment|// Wait for it to hflush
 name|syncDone
 operator|.
 name|await
