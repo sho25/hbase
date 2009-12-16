@@ -3577,6 +3577,12 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+operator|&&
+operator|(
 name|this
 operator|.
 name|numEntries
@@ -3589,10 +3595,12 @@ operator|.
 name|flushlogentries
 operator|==
 literal|0
+operator|)
 condition|)
+block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"edit="
 operator|+
@@ -3611,6 +3619,7 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|writer
