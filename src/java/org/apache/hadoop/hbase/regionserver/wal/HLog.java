@@ -2626,7 +2626,13 @@ comment|// Make sure we synced everything
 name|logSyncerThread
 operator|.
 name|join
-argument_list|()
+argument_list|(
+name|this
+operator|.
+name|optionalFlushInterval
+operator|*
+literal|2
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
