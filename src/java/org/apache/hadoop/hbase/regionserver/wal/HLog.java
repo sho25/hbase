@@ -2205,7 +2205,7 @@ literal|" from region "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|oldestRegion
 argument_list|)
@@ -2301,7 +2301,7 @@ literal|"; forcing flush of region with oldest edits: "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|regionToFlush
 argument_list|)
@@ -4710,7 +4710,7 @@ literal|"Adding queue for "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|regionName
 argument_list|)
@@ -4973,7 +4973,7 @@ name|Thread
 argument_list|(
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|key
 argument_list|)
@@ -5303,7 +5303,7 @@ literal|" and region "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|key
 argument_list|)
@@ -5446,7 +5446,7 @@ literal|" total edits to "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|key
 argument_list|)
@@ -5490,7 +5490,7 @@ literal|"Got while writing region "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|key
 argument_list|)
