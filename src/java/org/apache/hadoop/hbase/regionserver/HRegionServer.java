@@ -1699,7 +1699,7 @@ name|getInt
 argument_list|(
 literal|"hbase.regionserver.msginterval"
 argument_list|,
-literal|3
+literal|1
 operator|*
 literal|1000
 argument_list|)

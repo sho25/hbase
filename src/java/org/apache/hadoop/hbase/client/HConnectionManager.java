@@ -1354,7 +1354,7 @@ name|getLong
 argument_list|(
 literal|"hbase.client.pause"
 argument_list|,
-literal|2
+literal|1
 operator|*
 literal|1000
 argument_list|)
