@@ -33,16 +33,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|FileNotFoundException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|IOException
 import|;
 end_import
@@ -984,12 +974,48 @@ name|DistributedFileSystem
 operator|)
 name|fs
 decl_stmt|;
+comment|// Are there any data nodes up yet?
+comment|// Currently the safe mode check falls through if the namenode is up but no
+comment|// datanodes have reported in yet.
+while|while
+condition|(
+name|dfs
+operator|.
+name|getDataNodeStats
+argument_list|()
+operator|.
+name|length
+operator|==
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Waiting for dfs to come up..."
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+name|wait
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+comment|//continue
+block|}
+block|}
 comment|// Make sure dfs is not in safe mode
-name|String
-name|message
-init|=
-literal|"Waiting for dfs to exit safe mode..."
-decl_stmt|;
 while|while
 condition|(
 name|dfs
@@ -1008,7 +1034,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-name|message
+literal|"Waiting for dfs to exit safe mode..."
 argument_list|)
 expr_stmt|;
 try|try
