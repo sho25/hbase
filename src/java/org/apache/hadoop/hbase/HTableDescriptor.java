@@ -1856,7 +1856,7 @@ specifier|public
 name|void
 name|setMemStoreFlushSize
 parameter_list|(
-name|int
+name|long
 name|memstoreFlushSize
 parameter_list|)
 block|{
@@ -1868,7 +1868,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|Integer
+name|Long
 operator|.
 name|toString
 argument_list|(
