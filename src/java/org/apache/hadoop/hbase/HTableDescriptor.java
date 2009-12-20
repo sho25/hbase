@@ -1832,7 +1832,7 @@ operator|!=
 literal|null
 condition|)
 return|return
-name|Integer
+name|Long
 operator|.
 name|valueOf
 argument_list|(
@@ -1844,7 +1844,7 @@ name|value
 argument_list|)
 argument_list|)
 operator|.
-name|intValue
+name|longValue
 argument_list|()
 return|;
 return|return
