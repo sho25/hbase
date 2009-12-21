@@ -3859,6 +3859,25 @@ name|NotAllMetaRegionsOnlineException
 argument_list|()
 throw|;
 block|}
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|serverManager
+operator|.
+name|canAssignUserRegions
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"not enough servers to create table yet"
+argument_list|)
+throw|;
+block|}
 name|createTable
 argument_list|(
 name|newRegion
@@ -6348,7 +6367,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"Usage: Master start|stop"
+literal|"Usage: Master [opts] start|stop"
 argument_list|)
 expr_stmt|;
 name|System
@@ -6367,6 +6386,24 @@ operator|.
 name|println
 argument_list|(
 literal|" stop   Start cluster shutdown; Master signals RegionServer shutdown"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" where [opts] are:"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   --minServers=<servers>    Minimum RegionServers needed to host user tables."
 argument_list|)
 expr_stmt|;
 name|System
@@ -6424,6 +6461,37 @@ range|:
 name|args
 control|)
 block|{
+if|if
+condition|(
+name|cmd
+operator|.
+name|startsWith
+argument_list|(
+literal|"--minServers="
+argument_list|)
+condition|)
+block|{
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.regions.server.count.min"
+argument_list|,
+name|Integer
+operator|.
+name|valueOf
+argument_list|(
+name|cmd
+operator|.
+name|substring
+argument_list|(
+literal|13
+argument_list|)
+argument_list|)
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
 if|if
 condition|(
 name|cmd

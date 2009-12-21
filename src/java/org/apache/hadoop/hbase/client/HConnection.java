@@ -219,6 +219,18 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * @param tableName    * @return true if all regions of the table are available, false otherwise    * @throws IOException    */
+specifier|public
+name|boolean
+name|isTableAvailable
+parameter_list|(
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * List all the userspace tables.  In other words, scan the META table.    *    * If we wanted this to be really fast, we could implement a special    * catalog table that just contains table names and their descriptors.    * Right now, it only exists as part of the META table's region info.    *    * @return - returns an array of HTableDescriptors     * @throws IOException    */
 specifier|public
 name|HTableDescriptor

@@ -493,22 +493,6 @@ name|Writables
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperWrapper
-import|;
-end_import
-
 begin_comment
 comment|/**  * Class to manage assigning regions to servers, state of root and meta, etc.  */
 end_comment
@@ -2027,6 +2011,40 @@ condition|)
 block|{
 comment|// Can't assign user regions until all meta regions have been assigned
 comment|// and are on-line
+continue|continue;
+block|}
+if|if
+condition|(
+operator|!
+name|i
+operator|.
+name|isMetaRegion
+argument_list|()
+operator|&&
+operator|!
+name|master
+operator|.
+name|getServerManager
+argument_list|()
+operator|.
+name|canAssignUserRegions
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"user region "
+operator|+
+name|i
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" is in transition but not enough servers yet"
+argument_list|)
+expr_stmt|;
 continue|continue;
 block|}
 if|if

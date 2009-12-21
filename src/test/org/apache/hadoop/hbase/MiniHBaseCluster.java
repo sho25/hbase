@@ -169,7 +169,7 @@ specifier|private
 name|HBaseConfiguration
 name|conf
 decl_stmt|;
-specifier|private
+specifier|public
 name|LocalHBaseCluster
 name|hbaseCluster
 decl_stmt|;
