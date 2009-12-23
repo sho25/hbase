@@ -481,7 +481,35 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|// If updated successfully, remove from pending list.
+comment|// If updated successfully, remove from pending list if the state
+comment|// is consistent. For example, a disable could be called before the
+comment|// synchronization.
+if|if
+condition|(
+name|master
+operator|.
+name|getRegionManager
+argument_list|()
+operator|.
+name|isOfflined
+argument_list|(
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"We opened a region while it was asked to be closed."
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|master
 operator|.
 name|getRegionManager
@@ -492,6 +520,7 @@ argument_list|(
 name|regionInfo
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 literal|true
 return|;

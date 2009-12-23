@@ -4081,7 +4081,7 @@ name|s
 operator|.
 name|isPendingOpen
 argument_list|()
-operator|&&
+operator|||
 operator|!
 name|s
 operator|.
@@ -4274,7 +4274,6 @@ specifier|public
 name|void
 name|setClosing
 parameter_list|(
-specifier|final
 name|String
 name|serverName
 parameter_list|,
@@ -4323,6 +4322,24 @@ name|RegionState
 argument_list|(
 name|regionInfo
 argument_list|)
+expr_stmt|;
+block|}
+comment|// If region was asked to open before getting here, we could be taking
+comment|// the wrong server name
+if|if
+condition|(
+name|s
+operator|.
+name|isPendingOpen
+argument_list|()
+condition|)
+block|{
+name|serverName
+operator|=
+name|s
+operator|.
+name|getServerName
+argument_list|()
 expr_stmt|;
 block|}
 name|s
@@ -6637,6 +6654,9 @@ name|pendingClose
 operator|&&
 operator|!
 name|pendingOpen
+operator|&&
+operator|!
+name|closing
 condition|)
 block|{
 throw|throw
@@ -6645,7 +6665,7 @@ name|IllegalStateException
 argument_list|(
 literal|"Cannot set a region to be closed if it was not already marked as"
 operator|+
-literal|" pending close or pending open. State: "
+literal|" pending close, pending open or closing. State: "
 operator|+
 name|toString
 argument_list|()
