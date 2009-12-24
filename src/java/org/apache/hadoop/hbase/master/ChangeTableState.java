@@ -407,6 +407,45 @@ expr_stmt|;
 block|}
 continue|continue;
 block|}
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|online
+operator|&&
+name|this
+operator|.
+name|master
+operator|.
+name|getRegionManager
+argument_list|()
+operator|.
+name|isPendingOpen
+argument_list|(
+name|i
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Skipping region "
+operator|+
+name|i
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" because it is pending open, will tell it to close later"
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
 comment|// Update meta table
 name|Put
 name|put

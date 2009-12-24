@@ -161,6 +161,8 @@ decl_stmt|;
 if|if
 condition|(
 name|offlineRegion
+operator|||
+name|reassignRegion
 condition|)
 block|{
 name|result
@@ -186,18 +188,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"region closed: "
-operator|+
-name|regionInfo
-operator|.
-name|getRegionNameAsString
-argument_list|()
-argument_list|)
-expr_stmt|;
 comment|// We can't proceed unless the meta region we are going to update
 comment|// is online. metaRegionAvailable() will put this operation on the
 comment|// delayedToDoQueue, so return true so the operation is not put
@@ -206,6 +196,11 @@ if|if
 condition|(
 name|metaRegionAvailable
 argument_list|()
+condition|)
+block|{
+if|if
+condition|(
+name|offlineRegion
 condition|)
 block|{
 comment|// offline the region in meta and then remove it from the
@@ -231,6 +226,59 @@ argument_list|(
 name|regionInfo
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"region closed: "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// we are reassigning the region eventually, so set it unassigned
+comment|// and remove the server info
+name|HRegion
+operator|.
+name|cleanRegionInMETA
+argument_list|(
+name|server
+argument_list|,
+name|metaRegionName
+argument_list|,
+name|regionInfo
+argument_list|)
+expr_stmt|;
+name|master
+operator|.
+name|getRegionManager
+argument_list|()
+operator|.
+name|setUnassigned
+argument_list|(
+name|regionInfo
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"region set as unassigned: "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 return|return
 literal|true
@@ -250,38 +298,6 @@ condition|?
 literal|true
 else|:
 name|result
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|reassignRegion
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"region set as unassigned: "
-operator|+
-name|regionInfo
-operator|.
-name|getRegionNameAsString
-argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// we are reassigning the region eventually, so set it unassigned
-name|master
-operator|.
-name|getRegionManager
-argument_list|()
-operator|.
-name|setUnassigned
-argument_list|(
-name|regionInfo
-argument_list|,
-literal|false
-argument_list|)
 expr_stmt|;
 block|}
 else|else
