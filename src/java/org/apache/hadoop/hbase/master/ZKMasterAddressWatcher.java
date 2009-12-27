@@ -444,6 +444,15 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|zookeeper
+operator|.
+name|setClusterStateWatch
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
 comment|// Watch our own node
 name|this
 operator|.
