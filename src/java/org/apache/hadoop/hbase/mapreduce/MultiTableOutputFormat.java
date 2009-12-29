@@ -268,7 +268,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *<p>  * Hadoop output format that writes to one or more HBase tables. The key is  * taken to be the table name while the output value<em>must</em> be either a  * {@link Put} or a {@link Delete} instance. All tables must already exist, and  * all Puts and Deletes must reference only valid column families.  *</p>  *   *<p>  * Write-ahead logging (HLog) for Puts can be disabled by setting  * {@link #WAL_PROPERTY} to {@link #WAL_OFF}. Default value is {@link #WAL_ON}.  * Note that disabling write-ahead logging is only appropriate for jobs where  * loss of data due to region server failure can be tolerated (for example,  * because it is easy to rerun a bulk import).  *</p>  *   *<p>  * See also the {@link IndexBuilder} example.  *</p>  */
+comment|/**  *<p>  * Hadoop output format that writes to one or more HBase tables. The key is  * taken to be the table name while the output value<em>must</em> be either a  * {@link Put} or a {@link Delete} instance. All tables must already exist, and  * all Puts and Deletes must reference only valid column families.  *</p>  *   *<p>  * Write-ahead logging (HLog) for Puts can be disabled by setting  * {@link #WAL_PROPERTY} to {@link #WAL_OFF}. Default value is {@link #WAL_ON}.  * Note that disabling write-ahead logging is only appropriate for jobs where  * loss of data due to region server failure can be tolerated (for example,  * because it is easy to rerun a bulk import).  *</p>  */
 end_comment
 
 begin_class

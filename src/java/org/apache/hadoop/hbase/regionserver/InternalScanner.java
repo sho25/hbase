@@ -86,7 +86,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Grab the next row's worth of values with a limit on the number of values    * to return.     * @param results    * @param limit    * @return true if more rows exist after this one, false if scanner is done    * @throws IOException    */
+comment|/**    * Grab the next row's worth of values with a limit on the number of values    * to return.     * @param result    * @param limit    * @return true if more rows exist after this one, false if scanner is done    * @throws IOException    */
 specifier|public
 name|boolean
 name|next
