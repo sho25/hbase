@@ -977,6 +977,8 @@ decl_stmt|;
 comment|// Are there any data nodes up yet?
 comment|// Currently the safe mode check falls through if the namenode is up but no
 comment|// datanodes have reported in yet.
+try|try
+block|{
 while|while
 condition|(
 name|dfs
@@ -1014,6 +1016,16 @@ parameter_list|)
 block|{
 comment|//continue
 block|}
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+comment|// getDataNodeStats can fail if superuser privilege is required to run
+comment|// the datanode report, just ignore it
 block|}
 comment|// Make sure dfs is not in safe mode
 while|while
