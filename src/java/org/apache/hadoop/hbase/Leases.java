@@ -602,11 +602,22 @@ argument_list|(
 name|leaseName
 argument_list|)
 decl_stmt|;
+comment|// We need to check to see if the remove is successful as the poll in the run()
+comment|// method could have completed between the get and the remove which will result
+comment|// in a corrupt leaseQueue.
 if|if
 condition|(
 name|lease
 operator|==
 literal|null
+operator|||
+operator|!
+name|leaseQueue
+operator|.
+name|remove
+argument_list|(
+name|lease
+argument_list|)
 condition|)
 block|{
 throw|throw
@@ -617,17 +628,10 @@ literal|"lease '"
 operator|+
 name|leaseName
 operator|+
-literal|"' does not exist"
+literal|"' does not exist or has already expired"
 argument_list|)
 throw|;
 block|}
-name|leaseQueue
-operator|.
-name|remove
-argument_list|(
-name|lease
-argument_list|)
-expr_stmt|;
 name|lease
 operator|.
 name|setExpirationTime
