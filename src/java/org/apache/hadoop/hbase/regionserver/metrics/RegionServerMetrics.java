@@ -395,6 +395,8 @@ operator|new
 name|MetricsRate
 argument_list|(
 literal|"requests"
+argument_list|,
+name|registry
 argument_list|)
 decl_stmt|;
 comment|/**    * Count of stores open on the regionserver.    */
