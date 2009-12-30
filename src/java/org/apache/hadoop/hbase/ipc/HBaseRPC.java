@@ -2547,6 +2547,26 @@ name|param
 decl_stmt|;
 if|if
 condition|(
+name|call
+operator|.
+name|getMethodName
+argument_list|()
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Could not find requested method, the usual "
+operator|+
+literal|"cause is a version mismatch between client and server."
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
 name|verbose
 condition|)
 name|log
