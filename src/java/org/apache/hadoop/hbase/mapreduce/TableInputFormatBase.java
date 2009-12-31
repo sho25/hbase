@@ -1044,6 +1044,7 @@ name|byte
 index|[]
 name|splitStop
 init|=
+operator|(
 name|stopRow
 operator|.
 name|length
@@ -1065,6 +1066,19 @@ argument_list|,
 name|stopRow
 argument_list|)
 operator|<=
+literal|0
+operator|)
+operator|&&
+name|keys
+operator|.
+name|getSecond
+argument_list|()
+index|[
+name|i
+index|]
+operator|.
+name|length
+operator|>
 literal|0
 condition|?
 name|keys
