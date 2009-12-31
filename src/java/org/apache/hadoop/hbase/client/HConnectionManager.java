@@ -171,6 +171,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|DoNotRetryIOException
@@ -631,7 +645,7 @@ specifier|static
 specifier|final
 name|Map
 argument_list|<
-name|HBaseConfiguration
+name|Integer
 argument_list|,
 name|TableServers
 argument_list|>
@@ -640,7 +654,7 @@ init|=
 operator|new
 name|LinkedHashMap
 argument_list|<
-name|HBaseConfiguration
+name|Integer
 argument_list|,
 name|TableServers
 argument_list|>
@@ -671,7 +685,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|HBaseConfiguration
+name|Integer
 argument_list|,
 name|TableServers
 argument_list|>
@@ -713,12 +727,22 @@ specifier|static
 name|HConnection
 name|getConnection
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|)
 block|{
 name|TableServers
 name|connection
+decl_stmt|;
+name|Integer
+name|key
+init|=
+name|HBaseConfiguration
+operator|.
+name|hashCode
+argument_list|(
+name|conf
+argument_list|)
 decl_stmt|;
 synchronized|synchronized
 init|(
@@ -731,7 +755,7 @@ name|HBASE_INSTANCES
 operator|.
 name|get
 argument_list|(
-name|conf
+name|key
 argument_list|)
 expr_stmt|;
 if|if
@@ -753,7 +777,7 @@ name|HBASE_INSTANCES
 operator|.
 name|put
 argument_list|(
-name|conf
+name|key
 argument_list|,
 name|connection
 argument_list|)
@@ -770,7 +794,7 @@ specifier|static
 name|void
 name|deleteConnectionInfo
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|,
 name|boolean
@@ -883,7 +907,7 @@ specifier|synchronized
 name|ClientZKWatcher
 name|getClientZooKeeperWatcher
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|)
 throws|throws
@@ -971,14 +995,14 @@ name|ZooKeeperWrapper
 name|zooKeeperWrapper
 decl_stmt|;
 specifier|private
-name|HBaseConfiguration
+name|Configuration
 name|conf
 decl_stmt|;
 comment|/**      * Takes a configuration to pass it to ZKW but won't instanciate it      * @param conf      * @throws IOException      */
 specifier|public
 name|ClientZKWatcher
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|)
 block|{
@@ -1221,7 +1245,7 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|volatile
-name|HBaseConfiguration
+name|Configuration
 name|conf
 decl_stmt|;
 comment|// Known region HServerAddress.toString() -> HRegionInterface
@@ -1290,7 +1314,7 @@ argument_list|)
 specifier|public
 name|TableServers
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|)
 block|{

@@ -91,9 +91,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|HBaseConfiguration
+name|Configuration
 import|;
 end_import
 
@@ -483,7 +483,7 @@ specifier|public
 name|TransactionalRegionServer
 parameter_list|(
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|)
 throws|throws

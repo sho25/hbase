@@ -235,6 +235,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|fs
 operator|.
 name|FSDataInputStream
@@ -321,25 +335,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|HbaseMapWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|HeapSize
+name|HBaseConfiguration
 import|;
 end_import
 
@@ -381,7 +377,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseConfiguration
+name|io
+operator|.
+name|HbaseMapWritable
 import|;
 end_import
 
@@ -395,9 +393,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|io
 operator|.
-name|ClassSize
+name|HeapSize
 import|;
 end_import
 
@@ -414,6 +412,22 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ClassSize
 import|;
 end_import
 
@@ -7295,11 +7309,12 @@ literal|"a"
 argument_list|)
 decl_stmt|;
 comment|// get configuration, file system and get list of files
-name|HBaseConfiguration
+name|Configuration
 name|conf
 init|=
-operator|new
 name|HBaseConfiguration
+operator|.
+name|create
 argument_list|()
 decl_stmt|;
 name|conf

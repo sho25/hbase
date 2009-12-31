@@ -1292,7 +1292,7 @@ name|serverInfo
 decl_stmt|;
 specifier|protected
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|conf
 decl_stmt|;
 specifier|private
@@ -1554,7 +1554,7 @@ comment|/**    * Starts a HRegionServer at the default location    * @param conf
 specifier|public
 name|HRegionServer
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|)
 throws|throws
@@ -10257,7 +10257,7 @@ return|;
 block|}
 comment|/**    *     * @return the configuration    */
 specifier|public
-name|HBaseConfiguration
+name|Configuration
 name|getConfiguration
 parameter_list|()
 block|{
@@ -11160,8 +11160,9 @@ block|}
 name|Configuration
 name|conf
 init|=
-operator|new
 name|HBaseConfiguration
+operator|.
+name|create
 argument_list|()
 decl_stmt|;
 comment|// Process command-line args. TODO: Better cmd-line processing
@@ -11588,8 +11589,9 @@ block|{
 name|Configuration
 name|conf
 init|=
-operator|new
 name|HBaseConfiguration
+operator|.
+name|create
 argument_list|()
 decl_stmt|;
 annotation|@

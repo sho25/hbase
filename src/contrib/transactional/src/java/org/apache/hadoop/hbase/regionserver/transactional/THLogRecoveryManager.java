@@ -199,9 +199,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|HBaseConfiguration
+name|Configuration
 import|;
 end_import
 
@@ -352,7 +352,7 @@ name|regionInfo
 decl_stmt|;
 specifier|private
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|conf
 decl_stmt|;
 comment|/**    * @param region    */
@@ -404,7 +404,7 @@ name|HRegionInfo
 name|regionInfo
 parameter_list|,
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|)
 block|{

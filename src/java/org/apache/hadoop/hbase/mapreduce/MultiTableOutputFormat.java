@@ -346,18 +346,18 @@ name|HTable
 argument_list|>
 name|tables
 decl_stmt|;
-name|HBaseConfiguration
-name|config
+name|Configuration
+name|conf
 decl_stmt|;
 name|boolean
 name|useWriteAheadLogging
 decl_stmt|;
-comment|/**      * @param config      *          HBaseConfiguration to used      * @param useWriteAheadLogging      *          whether to use write ahead logging. This can be turned off (      *<tt>false</tt>) to improve performance when bulk loading data.      */
+comment|/**      * @param conf      *          HBaseConfiguration to used      * @param useWriteAheadLogging      *          whether to use write ahead logging. This can be turned off (      *<tt>false</tt>) to improve performance when bulk loading data.      */
 specifier|public
 name|MultiTableRecordWriter
 parameter_list|(
-name|HBaseConfiguration
-name|config
+name|Configuration
+name|conf
 parameter_list|,
 name|boolean
 name|useWriteAheadLogging
@@ -393,9 +393,9 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|config
+name|conf
 operator|=
-name|config
+name|conf
 expr_stmt|;
 name|this
 operator|.
@@ -450,7 +450,7 @@ init|=
 operator|new
 name|HTable
 argument_list|(
-name|config
+name|conf
 argument_list|,
 name|tableName
 operator|.
@@ -668,7 +668,7 @@ throws|,
 name|InterruptedException
 block|{
 name|Configuration
-name|configuration
+name|conf
 init|=
 name|context
 operator|.
@@ -679,13 +679,14 @@ return|return
 operator|new
 name|MultiTableRecordWriter
 argument_list|(
-operator|new
 name|HBaseConfiguration
+operator|.
+name|create
 argument_list|(
-name|configuration
+name|conf
 argument_list|)
 argument_list|,
-name|configuration
+name|conf
 operator|.
 name|getBoolean
 argument_list|(

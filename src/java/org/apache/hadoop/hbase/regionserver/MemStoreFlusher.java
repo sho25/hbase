@@ -165,9 +165,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|DroppedSnapshotException
+name|Configuration
 import|;
 end_import
 
@@ -181,7 +181,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseConfiguration
+name|DroppedSnapshotException
 import|;
 end_import
 
@@ -373,7 +373,7 @@ specifier|public
 name|MemStoreFlusher
 parameter_list|(
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|,
 specifier|final
@@ -596,7 +596,7 @@ name|String
 name|key
 parameter_list|,
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|c
 parameter_list|)
 block|{

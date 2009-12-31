@@ -43,6 +43,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|HBaseConfiguration
@@ -85,11 +99,12 @@ name|args
 index|[]
 parameter_list|)
 block|{
-name|HBaseConfiguration
+name|Configuration
 name|conf
 init|=
-operator|new
 name|HBaseConfiguration
+operator|.
+name|create
 argument_list|()
 decl_stmt|;
 comment|// Note that we do not simply grab the property ZOOKEEPER_QUORUM from

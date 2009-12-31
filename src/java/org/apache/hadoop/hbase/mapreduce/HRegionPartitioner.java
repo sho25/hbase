@@ -397,6 +397,13 @@ name|configuration
 expr_stmt|;
 try|try
 block|{
+name|HBaseConfiguration
+operator|.
+name|addHbaseResources
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|table
@@ -404,11 +411,9 @@ operator|=
 operator|new
 name|HTable
 argument_list|(
-operator|new
-name|HBaseConfiguration
-argument_list|(
+name|this
+operator|.
 name|conf
-argument_list|)
 argument_list|,
 name|configuration
 operator|.

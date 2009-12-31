@@ -231,6 +231,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|fs
 operator|.
 name|FileStatus
@@ -262,20 +276,6 @@ operator|.
 name|fs
 operator|.
 name|PathFilter
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HBaseConfiguration
 import|;
 end_import
 
@@ -835,7 +835,7 @@ name|HMaster
 name|master
 parameter_list|)
 block|{
-name|HBaseConfiguration
+name|Configuration
 name|conf
 init|=
 name|master
@@ -5430,7 +5430,7 @@ decl_stmt|;
 comment|// hbase.regions.close.max
 name|LoadBalancer
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|)
 block|{

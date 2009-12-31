@@ -155,6 +155,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|fs
 operator|.
 name|FileSystem
@@ -172,20 +186,6 @@ operator|.
 name|fs
 operator|.
 name|Path
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HBaseConfiguration
 import|;
 end_import
 
@@ -536,7 +536,7 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|conf
 decl_stmt|;
 comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a     * substantial amount of ram depending on the underlying files (10-20MB?).    *     * @param fs  The current file system to use.    * @param p  The path of the file.    * @param blockcache<code>true</code> if the block cache is enabled.    * @param conf  The current configuration.    * @throws IOException When opening the reader fails.    */
@@ -555,7 +555,7 @@ name|boolean
 name|blockcache
 parameter_list|,
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|,
 specifier|final
@@ -977,7 +977,7 @@ specifier|synchronized
 name|BlockCache
 name|getBlockCache
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|)
 block|{

@@ -241,6 +241,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|fs
 operator|.
 name|FileStatus
@@ -1089,7 +1103,7 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|conf
 decl_stmt|;
 specifier|private
@@ -1209,7 +1223,7 @@ comment|/**     * Constructor    * @param conf configuration    * @throws IOExce
 specifier|public
 name|HMaster
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|)
 throws|throws
@@ -1514,7 +1528,7 @@ name|Path
 name|rd
 parameter_list|,
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|c
 parameter_list|,
 specifier|final
@@ -1622,7 +1636,7 @@ name|Path
 name|rd
 parameter_list|,
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|c
 parameter_list|)
 throws|throws
@@ -1822,7 +1836,7 @@ name|String
 name|getMyAddress
 parameter_list|(
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|c
 parameter_list|)
 throws|throws
@@ -2018,7 +2032,7 @@ return|;
 block|}
 comment|/**    * @return Return configuration being used by this server.    */
 specifier|public
-name|HBaseConfiguration
+name|Configuration
 name|getConfiguration
 parameter_list|()
 block|{
@@ -6445,11 +6459,12 @@ name|printUsageAndExit
 argument_list|()
 expr_stmt|;
 block|}
-name|HBaseConfiguration
+name|Configuration
 name|conf
 init|=
-operator|new
 name|HBaseConfiguration
+operator|.
+name|create
 argument_list|()
 decl_stmt|;
 comment|// Process command-line args.

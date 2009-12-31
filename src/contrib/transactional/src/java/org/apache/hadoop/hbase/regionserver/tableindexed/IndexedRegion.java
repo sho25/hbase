@@ -175,6 +175,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|fs
 operator|.
 name|FileSystem
@@ -192,34 +206,6 @@ operator|.
 name|fs
 operator|.
 name|Path
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HBaseConfiguration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
 import|;
 end_import
 
@@ -409,9 +395,9 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|wal
+name|transactional
 operator|.
-name|HLog
+name|TransactionalRegion
 import|;
 end_import
 
@@ -427,9 +413,9 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|transactional
+name|wal
 operator|.
-name|TransactionalRegion
+name|HLog
 import|;
 end_import
 
@@ -472,7 +458,7 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|conf
 decl_stmt|;
 specifier|private
@@ -514,7 +500,7 @@ name|FileSystem
 name|fs
 parameter_list|,
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|,
 specifier|final

@@ -123,9 +123,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|HBaseConfiguration
+name|Configuration
 import|;
 end_import
 
@@ -292,7 +292,7 @@ name|server
 decl_stmt|;
 specifier|private
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|conf
 decl_stmt|;
 specifier|private

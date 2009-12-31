@@ -165,9 +165,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|HBaseConfiguration
+name|Configuration
 import|;
 end_import
 
@@ -287,9 +287,7 @@ name|apache
 operator|.
 name|zookeeper
 operator|.
-name|ZooDefs
-operator|.
-name|Ids
+name|ZooKeeper
 import|;
 end_import
 
@@ -301,7 +299,9 @@ name|apache
 operator|.
 name|zookeeper
 operator|.
-name|ZooKeeper
+name|ZooDefs
+operator|.
+name|Ids
 import|;
 end_import
 
@@ -404,11 +404,11 @@ specifier|final
 name|String
 name|clusterStateZNode
 decl_stmt|;
-comment|/**    * Create a ZooKeeperWrapper.    * @param conf HBaseConfiguration to read settings from.    * @param watcher ZooKeeper watcher to register.    * @throws IOException If a connection error occurs.    */
+comment|/**    * Create a ZooKeeperWrapper.    * @param conf Configuration to read settings from.    * @param watcher ZooKeeper watcher to register.    * @throws IOException If a connection error occurs.    */
 specifier|public
 name|ZooKeeperWrapper
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|,
 name|Watcher

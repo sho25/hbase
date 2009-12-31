@@ -65,6 +65,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|HBaseConfiguration
@@ -185,7 +199,7 @@ decl_stmt|;
 specifier|private
 specifier|transient
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|conf
 decl_stmt|;
 specifier|private
@@ -256,8 +270,9 @@ name|this
 operator|.
 name|conf
 operator|=
-operator|new
 name|HBaseConfiguration
+operator|.
+name|create
 argument_list|()
 expr_stmt|;
 name|this
@@ -285,7 +300,7 @@ return|;
 block|}
 comment|/**    * @return the servlet's global HBase configuration    */
 specifier|protected
-name|HBaseConfiguration
+name|Configuration
 name|getConfiguration
 parameter_list|()
 block|{

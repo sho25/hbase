@@ -35,9 +35,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|HBaseConfiguration
+name|Configuration
 import|;
 end_import
 
@@ -58,7 +58,7 @@ specifier|public
 name|HTableInterface
 name|createHTableInterface
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|config
 parameter_list|,
 name|byte

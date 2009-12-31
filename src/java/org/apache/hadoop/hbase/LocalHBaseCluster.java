@@ -260,7 +260,7 @@ literal|":"
 decl_stmt|;
 specifier|private
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|conf
 decl_stmt|;
 specifier|private
@@ -278,7 +278,7 @@ specifier|public
 name|LocalHBaseCluster
 parameter_list|(
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|)
 throws|throws
@@ -302,7 +302,7 @@ specifier|public
 name|LocalHBaseCluster
 parameter_list|(
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|,
 specifier|final
@@ -408,7 +408,7 @@ name|regionServerClass
 operator|.
 name|getConstructor
 argument_list|(
-name|HBaseConfiguration
+name|Configuration
 operator|.
 name|class
 argument_list|)
@@ -1158,11 +1158,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HBaseConfiguration
+name|Configuration
 name|conf
 init|=
-operator|new
 name|HBaseConfiguration
+operator|.
+name|create
 argument_list|()
 decl_stmt|;
 name|LocalHBaseCluster

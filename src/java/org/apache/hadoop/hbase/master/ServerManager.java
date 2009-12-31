@@ -173,9 +173,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|Chore
+name|Configuration
 import|;
 end_import
 
@@ -189,7 +189,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseConfiguration
+name|Chore
 import|;
 end_import
 
@@ -604,6 +604,8 @@ name|stop
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|chore
@@ -747,7 +749,7 @@ name|master
 operator|=
 name|master
 expr_stmt|;
-name|HBaseConfiguration
+name|Configuration
 name|c
 init|=
 name|master

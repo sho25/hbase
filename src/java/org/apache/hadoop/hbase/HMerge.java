@@ -101,6 +101,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|fs
 operator|.
 name|FileSystem
@@ -229,7 +243,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Scan
+name|ResultScanner
 import|;
 end_import
 
@@ -245,25 +259,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ResultScanner
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|wal
-operator|.
-name|HLog
+name|Scan
 import|;
 end_import
 
@@ -296,6 +292,24 @@ operator|.
 name|regionserver
 operator|.
 name|InternalScanner
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|HLog
 import|;
 end_import
 
@@ -379,7 +393,7 @@ specifier|static
 name|void
 name|merge
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|,
 name|FileSystem
@@ -496,7 +510,7 @@ name|Merger
 block|{
 specifier|protected
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|conf
 decl_stmt|;
 specifier|protected
@@ -522,7 +536,7 @@ decl_stmt|;
 specifier|protected
 name|Merger
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|,
 name|FileSystem
@@ -1044,7 +1058,7 @@ name|latestRegion
 decl_stmt|;
 name|OnlineMerger
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|,
 name|FileSystem
@@ -1703,7 +1717,7 @@ name|root
 decl_stmt|;
 name|OfflineMerger
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|,
 name|FileSystem

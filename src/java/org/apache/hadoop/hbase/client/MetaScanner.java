@@ -31,9 +31,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|HBaseConfiguration
+name|Configuration
 import|;
 end_import
 
@@ -97,7 +97,7 @@ specifier|static
 name|void
 name|metaScan
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|configuration
 parameter_list|,
 name|MetaScannerVisitor
@@ -122,7 +122,7 @@ specifier|static
 name|void
 name|metaScan
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|configuration
 parameter_list|,
 name|MetaScannerVisitor
