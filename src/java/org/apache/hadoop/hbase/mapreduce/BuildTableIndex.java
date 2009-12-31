@@ -292,7 +292,7 @@ name|tableName
 init|=
 literal|null
 decl_stmt|;
-name|StringBuffer
+name|StringBuilder
 name|columnNames
 init|=
 literal|null
@@ -430,7 +430,7 @@ block|{
 name|columnNames
 operator|=
 operator|new
-name|StringBuffer
+name|StringBuilder
 argument_list|(
 name|args
 index|[
