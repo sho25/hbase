@@ -768,7 +768,7 @@ argument_list|>
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/*    * Map of region to last sequence/edit id.     */
+comment|/*    * Map of regions to first sequence/edit id in their memstore.    */
 specifier|private
 specifier|final
 name|ConcurrentSkipListMap
@@ -1357,9 +1357,10 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    * Because a log cannot be rolled during a cache flush, and a cache flush    * spans two method calls, a special lock needs to be obtained so that a cache    * flush cannot start when the log is being rolled and the log cannot be    * rolled during a cache flush.    *    *<p>Note that this method cannot be synchronized because it is possible that    * startCacheFlush runs, obtaining the cacheFlushLock, then this method could    * start which would obtain the lock on this but block on obtaining the    * cacheFlushLock and then completeCacheFlush could be called which would wait    * for the lock on this and consequently never release the cacheFlushLock    *    * @return If lots of logs, flush the returned region so next time through    * we can clean logs. Returns null if nothing to flush.    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    * @throws IOException    */
+comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    * Because a log cannot be rolled during a cache flush, and a cache flush    * spans two method calls, a special lock needs to be obtained so that a cache    * flush cannot start when the log is being rolled and the log cannot be    * rolled during a cache flush.    *    *<p>Note that this method cannot be synchronized because it is possible that    * startCacheFlush runs, obtaining the cacheFlushLock, then this method could    * start which would obtain the lock on this but block on obtaining the    * cacheFlushLock and then completeCacheFlush could be called which would wait    * for the lock on this and consequently never release the cacheFlushLock    *    * @return If lots of logs, flush the returned regions so next time through    * we can clean logs. Returns null if nothing to flush.    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    * @throws IOException    */
 specifier|public
 name|byte
+index|[]
 index|[]
 name|rollWriter
 parameter_list|()
@@ -1393,7 +1394,8 @@ return|;
 block|}
 name|byte
 index|[]
-name|regionToFlush
+index|[]
+name|regionsToFlush
 init|=
 literal|null
 decl_stmt|;
@@ -1412,7 +1414,7 @@ name|closed
 condition|)
 block|{
 return|return
-name|regionToFlush
+name|regionsToFlush
 return|;
 block|}
 synchronized|synchronized
@@ -1611,7 +1613,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|regionToFlush
+name|regionsToFlush
 operator|=
 name|cleanOldLogs
 argument_list|()
@@ -1649,7 +1651,7 @@ argument_list|()
 expr_stmt|;
 block|}
 return|return
-name|regionToFlush
+name|regionsToFlush
 return|;
 block|}
 comment|/**    * Get a reader for the WAL.    * @param fs    * @param path    * @param conf    * @return A WAL reader.  Close when done with it.    * @throws IOException    */
@@ -1868,17 +1870,12 @@ comment|/*    * Clean up old commit logs.    * @return If lots of logs, flush th
 specifier|private
 name|byte
 index|[]
+index|[]
 name|cleanOldLogs
 parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|byte
-index|[]
-name|regionToFlush
-init|=
-literal|null
-decl_stmt|;
 name|Long
 name|oldestOutstandingSeqNum
 init|=
@@ -1925,12 +1922,21 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Now remove old log files (if any)
-name|byte
-index|[]
-name|oldestRegion
+name|int
+name|logsToRemove
 init|=
-literal|null
+name|sequenceNumbers
+operator|.
+name|size
+argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|logsToRemove
+operator|>
+literal|0
+condition|)
+block|{
 if|if
 condition|(
 name|LOG
@@ -1939,24 +1945,23 @@ name|isDebugEnabled
 argument_list|()
 condition|)
 block|{
-comment|// Find region associated with oldest key -- helps debugging.
+comment|// Find associated region; helps debugging.
+name|byte
+index|[]
 name|oldestRegion
-operator|=
+init|=
 name|getOldestRegion
 argument_list|(
 name|oldestOutstandingSeqNum
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|LOG
 operator|.
 name|debug
 argument_list|(
 literal|"Found "
 operator|+
-name|sequenceNumbers
-operator|.
-name|size
-argument_list|()
+name|logsToRemove
 operator|+
 literal|" hlogs to remove "
 operator|+
@@ -1979,23 +1984,13 @@ literal|" from region "
 operator|+
 name|Bytes
 operator|.
-name|toStringBinary
+name|toString
 argument_list|(
 name|oldestRegion
 argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|sequenceNumbers
-operator|.
-name|size
-argument_list|()
-operator|>
-literal|0
-condition|)
-block|{
 for|for
 control|(
 name|Long
@@ -2020,8 +2015,16 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// If too many log files, figure which regions we need to flush.
+name|byte
+index|[]
+index|[]
+name|regions
+init|=
+literal|null
+decl_stmt|;
 name|int
-name|countOfLogs
+name|logCount
 init|=
 name|this
 operator|.
@@ -2030,40 +2033,108 @@ operator|.
 name|size
 argument_list|()
 operator|-
-name|sequenceNumbers
-operator|.
-name|size
-argument_list|()
+name|logsToRemove
 decl_stmt|;
 if|if
 condition|(
-name|countOfLogs
+name|logCount
 operator|>
 name|this
 operator|.
 name|maxLogs
-condition|)
-block|{
-name|regionToFlush
-operator|=
-name|oldestRegion
+operator|&&
+name|this
+operator|.
+name|outputfiles
 operator|!=
 literal|null
-condition|?
-name|oldestRegion
-else|:
-name|getOldestRegion
+operator|&&
+name|this
+operator|.
+name|outputfiles
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
+name|regions
+operator|=
+name|findMemstoresWithEditsOlderThan
 argument_list|(
-name|oldestOutstandingSeqNum
+name|this
+operator|.
+name|outputfiles
+operator|.
+name|firstKey
+argument_list|()
+argument_list|,
+name|this
+operator|.
+name|lastSeqWritten
 argument_list|)
 expr_stmt|;
+name|StringBuilder
+name|sb
+init|=
+operator|new
+name|StringBuilder
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|regions
+operator|.
+name|length
+condition|;
+name|i
+operator|++
+control|)
+block|{
+if|if
+condition|(
+name|i
+operator|>
+literal|0
+condition|)
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|", "
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|regions
+index|[
+name|i
+index|]
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
 argument_list|(
 literal|"Too many hlogs: logs="
 operator|+
-name|countOfLogs
+name|logCount
 operator|+
 literal|", maxlogs="
 operator|+
@@ -2071,19 +2142,138 @@ name|this
 operator|.
 name|maxLogs
 operator|+
-literal|"; forcing flush of region with oldest edits: "
+literal|"; forcing flush of "
 operator|+
-name|Bytes
+name|regions
 operator|.
-name|toStringBinary
-argument_list|(
-name|regionToFlush
-argument_list|)
+name|length
+operator|+
+literal|" regions(s): "
+operator|+
+name|sb
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
 return|return
-name|regionToFlush
+name|regions
+return|;
+block|}
+comment|/**    * Return regions (memstores) that have edits that are less than the passed    *<code>oldestWALseqid</code>.    * @param oldestWALseqid    * @param regionsToSeqids    * @return All regions whose seqid is< than<code>oldestWALseqid</code> (Not    * necessarily in order).  Null if no regions found.    */
+specifier|static
+name|byte
+index|[]
+index|[]
+name|findMemstoresWithEditsOlderThan
+parameter_list|(
+specifier|final
+name|long
+name|oldestWALseqid
+parameter_list|,
+specifier|final
+name|Map
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|Long
+argument_list|>
+name|regionsToSeqids
+parameter_list|)
+block|{
+comment|//  This method is static so it can be unit tested the easier.
+name|List
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|regions
+init|=
+literal|null
+decl_stmt|;
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|Long
+argument_list|>
+name|e
+range|:
+name|regionsToSeqids
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+name|e
+operator|.
+name|getValue
+argument_list|()
+operator|.
+name|longValue
+argument_list|()
+operator|<
+name|oldestWALseqid
+condition|)
+block|{
+if|if
+condition|(
+name|regions
+operator|==
+literal|null
+condition|)
+name|regions
+operator|=
+operator|new
+name|ArrayList
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+argument_list|()
+expr_stmt|;
+name|regions
+operator|.
+name|add
+argument_list|(
+name|e
+operator|.
+name|getKey
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+return|return
+name|regions
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
+name|regions
+operator|.
+name|toArray
+argument_list|(
+operator|new
+name|byte
+index|[]
+index|[]
+block|{
+name|HConstants
+operator|.
+name|EMPTY_BYTE_ARRAY
+block|}
+argument_list|)
 return|;
 block|}
 comment|/*    * @return Logs older than this id are safe to remove.    */
@@ -2639,7 +2829,8 @@ name|seqNum
 argument_list|)
 expr_stmt|;
 comment|// The 'lastSeqWritten' map holds the sequence number of the oldest
-comment|// write for each region. When the cache is flushed, the entry for the
+comment|// write for each region (i.e. the first edit added to the particular
+comment|// memstore). When the cache is flushed, the entry for the
 comment|// region being flushed is removed if the sequence number of the flush
 comment|// is greater than or equal to the value in lastSeqWritten.
 name|this
@@ -2775,7 +2966,8 @@ name|updateLock
 init|)
 block|{
 comment|// The 'lastSeqWritten' map holds the sequence number of the oldest
-comment|// write for each region. When the cache is flushed, the entry for the
+comment|// write for each region (i.e. the first edit added to the particular
+comment|// memstore). . When the cache is flushed, the entry for the
 comment|// region being flushed is removed if the sequence number of the flush
 comment|// is greater than or equal to the value in lastSeqWritten.
 name|this
