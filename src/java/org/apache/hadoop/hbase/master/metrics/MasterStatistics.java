@@ -37,11 +37,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|metrics
 operator|.
-name|util
-operator|.
-name|MBeanUtil
+name|MetricsMBeanBase
 import|;
 end_import
 
@@ -57,7 +57,7 @@ name|metrics
 operator|.
 name|util
 operator|.
-name|MetricsDynamicMBeanBase
+name|MBeanUtil
 import|;
 end_import
 
@@ -86,7 +86,7 @@ specifier|public
 class|class
 name|MasterStatistics
 extends|extends
-name|MetricsDynamicMBeanBase
+name|MetricsMBeanBase
 block|{
 specifier|private
 specifier|final
