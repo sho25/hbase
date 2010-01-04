@@ -131,7 +131,7 @@ literal|" HBaseConfiguration#create() to construct a plain Configuration"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Instantinating HBaseConfiguration() is deprecated. Please use     * HBaseConfiguration#create(conf) to construct a plain Configuration    */
+comment|/**    * Instantiating HBaseConfiguration() is deprecated. Please use     * HBaseConfiguration#create(conf) to construct a plain Configuration    */
 annotation|@
 name|Deprecated
 specifier|public
