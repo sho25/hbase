@@ -711,6 +711,24 @@ name|TABLE_SET_HTD
 block|,
 name|TABLE_SPLIT
 block|}
+comment|/**      * Parameter name for maximum number of bytes returned when calling a      * scanner's next method.      */
+specifier|public
+specifier|static
+name|String
+name|HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE_KEY
+init|=
+literal|"hbase.client.scanner.max.result.size"
+decl_stmt|;
+comment|/**    * Maximum number of bytes returned when calling a scanner's next method.    * Note that when a single row is larger than this limit the row is still    * returned completely.    *     * The default value is unlimited.    */
+specifier|public
+specifier|static
+name|long
+name|DEFAULT_HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE
+init|=
+name|Long
+operator|.
+name|MAX_VALUE
+decl_stmt|;
 block|}
 end_interface
 
