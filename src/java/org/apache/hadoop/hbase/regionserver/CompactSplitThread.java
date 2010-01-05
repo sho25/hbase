@@ -1148,6 +1148,19 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Returns the current size of the queue containing regions that are     * processed.     *    * @return The current size of the regions queue.    */
+specifier|public
+name|int
+name|getCompactionQueueSize
+parameter_list|()
+block|{
+return|return
+name|compactionQueue
+operator|.
+name|size
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 
