@@ -1406,8 +1406,9 @@ block|{
 name|Long
 name|l
 init|=
-operator|new
 name|Long
+operator|.
+name|valueOf
 argument_list|(
 name|i
 argument_list|)

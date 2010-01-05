@@ -17636,8 +17636,9 @@ case|case
 name|SUCCESS
 case|:
 return|return
-operator|new
 name|Boolean
+operator|.
+name|valueOf
 argument_list|(
 name|isSuccess
 argument_list|()

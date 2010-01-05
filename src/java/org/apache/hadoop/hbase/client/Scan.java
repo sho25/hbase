@@ -2240,10 +2240,14 @@ name|String
 name|getInputColumns
 parameter_list|()
 block|{
-name|String
+name|StringBuilder
 name|cols
 init|=
+operator|new
+name|StringBuilder
+argument_list|(
 literal|""
+argument_list|)
 decl_stmt|;
 for|for
 control|(
@@ -2287,8 +2291,11 @@ operator|>
 literal|0
 condition|)
 name|cols
-operator|+=
+operator|.
+name|append
+argument_list|(
 literal|" "
+argument_list|)
 expr_stmt|;
 name|NavigableSet
 argument_list|<
@@ -2317,10 +2324,14 @@ operator|>
 literal|0
 condition|)
 block|{
-name|String
+name|StringBuilder
 name|cs
 init|=
+operator|new
+name|StringBuilder
+argument_list|(
 literal|""
+argument_list|)
 decl_stmt|;
 for|for
 control|(
@@ -2341,12 +2352,17 @@ operator|>
 literal|0
 condition|)
 name|cs
-operator|+=
+operator|.
+name|append
+argument_list|(
 literal|" "
+argument_list|)
 expr_stmt|;
 comment|// encode values to make parsing easier later
 name|cs
-operator|+=
+operator|.
+name|append
+argument_list|(
 name|Bytes
 operator|.
 name|toStringBinary
@@ -2362,18 +2378,24 @@ name|toStringBinary
 argument_list|(
 name|qual
 argument_list|)
+argument_list|)
 expr_stmt|;
 block|}
 name|cols
-operator|+=
+operator|.
+name|append
+argument_list|(
 name|cs
+argument_list|)
 expr_stmt|;
 block|}
 else|else
 block|{
 comment|// only add the family but with old style delimiter
 name|cols
-operator|+=
+operator|.
+name|append
+argument_list|(
 name|Bytes
 operator|.
 name|toStringBinary
@@ -2382,11 +2404,15 @@ name|fam
 argument_list|)
 operator|+
 literal|":"
+argument_list|)
 expr_stmt|;
 block|}
 block|}
 return|return
 name|cols
+operator|.
+name|toString
+argument_list|()
 return|;
 block|}
 block|}
