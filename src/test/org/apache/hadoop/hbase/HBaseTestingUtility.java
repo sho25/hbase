@@ -455,11 +455,12 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|conf
 init|=
-operator|new
 name|HBaseConfiguration
+operator|.
+name|create
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -507,9 +508,9 @@ name|TEST_DIRECTORY_KEY
 init|=
 literal|"test.build.data"
 decl_stmt|;
-comment|/**    * @return Instance of HBaseConfiguration.    */
+comment|/**    * @return Instance of Configuration.    */
 specifier|public
-name|HBaseConfiguration
+name|Configuration
 name|getConfiguration
 parameter_list|()
 block|{
@@ -1760,7 +1761,7 @@ literal|"yyy"
 argument_list|)
 block|}
 decl_stmt|;
-name|HBaseConfiguration
+name|Configuration
 name|c
 init|=
 name|getConfiguration

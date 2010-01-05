@@ -51,6 +51,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|client
@@ -189,7 +203,7 @@ literal|"family"
 argument_list|)
 decl_stmt|;
 specifier|private
-name|HBaseConfiguration
+name|Configuration
 name|conf
 decl_stmt|;
 comment|/**    * @throws java.lang.Exception    */
