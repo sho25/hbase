@@ -6630,7 +6630,7 @@ name|clazz
 operator|.
 name|getConstructor
 argument_list|(
-name|HBaseConfiguration
+name|Configuration
 operator|.
 name|class
 argument_list|)
