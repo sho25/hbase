@@ -367,6 +367,15 @@ operator|.
 name|length
 operator|==
 literal|2
+operator|&&
+name|split
+index|[
+literal|1
+index|]
+operator|.
+name|length
+operator|!=
+literal|0
 condition|)
 block|{
 name|scan
