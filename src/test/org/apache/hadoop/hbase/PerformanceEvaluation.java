@@ -4895,7 +4895,7 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-literal|" [--master=HOST:PORT] \\"
+literal|" [--miniCluster] \\"
 argument_list|)
 expr_stmt|;
 name|System
@@ -4904,7 +4904,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"  [--miniCluster] [--nomapred] [--rows=ROWS] [--table=NAME] [--compress=TYPE] \\"
+literal|"  [--nomapred] [--rows=ROWS] [--table=NAME] [--compress=TYPE] \\"
 argument_list|)
 expr_stmt|;
 name|System
@@ -4930,17 +4930,6 @@ operator|.
 name|println
 argument_list|(
 literal|"Options:"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|" master          Specify host and port of HBase "
-operator|+
-literal|"cluster master. If not present,"
 argument_list|)
 expr_stmt|;
 name|System
