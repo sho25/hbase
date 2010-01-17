@@ -782,13 +782,18 @@ operator|.
 name|metricsRecord
 argument_list|)
 expr_stmt|;
-comment|// mix in HFile metrics
-name|this
-operator|.
-name|fsReadLatency
-operator|.
-name|inc
-argument_list|(
+comment|// Mix in HFile and HLog metrics
+comment|// Be careful. Here is code for MTVR from up in hadoop:
+comment|// public synchronized void inc(final int numOps, final long time) {
+comment|//   currentData.numOperations += numOps;
+comment|//   currentData.time += time;
+comment|//   long timePerOps = time/numOps;
+comment|//    minMax.update(timePerOps);
+comment|// }
+comment|// Means you can't pass a numOps of zero or get a ArithmeticException / by zero.
+name|int
+name|ops
+init|=
 operator|(
 name|int
 operator|)
@@ -796,6 +801,20 @@ name|HFile
 operator|.
 name|getReadOps
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|ops
+operator|!=
+literal|0
+condition|)
+name|this
+operator|.
+name|fsReadLatency
+operator|.
+name|inc
+argument_list|(
+name|ops
 argument_list|,
 name|HFile
 operator|.
@@ -803,12 +822,8 @@ name|getReadTime
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|fsWriteLatency
-operator|.
-name|inc
-argument_list|(
+name|ops
+operator|=
 operator|(
 name|int
 operator|)
@@ -816,6 +831,20 @@ name|HFile
 operator|.
 name|getWriteOps
 argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|ops
+operator|!=
+literal|0
+condition|)
+name|this
+operator|.
+name|fsWriteLatency
+operator|.
+name|inc
+argument_list|(
+name|ops
 argument_list|,
 name|HFile
 operator|.
@@ -824,12 +853,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// mix in HLog metrics
-name|this
-operator|.
-name|fsWriteLatency
-operator|.
-name|inc
-argument_list|(
+name|ops
+operator|=
 operator|(
 name|int
 operator|)
@@ -837,6 +862,20 @@ name|HLog
 operator|.
 name|getWriteOps
 argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|ops
+operator|!=
+literal|0
+condition|)
+name|this
+operator|.
+name|fsWriteLatency
+operator|.
+name|inc
+argument_list|(
+name|ops
 argument_list|,
 name|HLog
 operator|.
@@ -844,12 +883,8 @@ name|getWriteTime
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|fsSyncLatency
-operator|.
-name|inc
-argument_list|(
+name|ops
+operator|=
 operator|(
 name|int
 operator|)
@@ -857,6 +892,20 @@ name|HLog
 operator|.
 name|getSyncOps
 argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|ops
+operator|!=
+literal|0
+condition|)
+name|this
+operator|.
+name|fsSyncLatency
+operator|.
+name|inc
+argument_list|(
+name|ops
 argument_list|,
 name|HLog
 operator|.
