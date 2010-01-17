@@ -1811,8 +1811,9 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-operator|new
 name|Integer
+operator|.
+name|valueOf
 argument_list|(
 name|Math
 operator|.
@@ -1838,8 +1839,9 @@ name|put
 argument_list|(
 literal|"-TOTAL-"
 argument_list|,
-operator|new
 name|Integer
+operator|.
+name|valueOf
 argument_list|(
 name|Math
 operator|.
