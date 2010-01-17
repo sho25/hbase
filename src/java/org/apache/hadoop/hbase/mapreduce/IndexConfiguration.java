@@ -717,7 +717,7 @@ name|store
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated     * @see Use #isAnalyze(String) for replacement.    * @param columnName    * @return    */
+comment|/**    * @deprecated     * See {@link #isAnalyze(String)} for replacement.    * @param columnName    * @return true, if column needs to be tokenized    */
 specifier|public
 name|boolean
 name|isTokenize
@@ -740,7 +740,7 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * @deprecated    * @see Use #setAnalyze(String, boolean) for replacement.    * @param columnName    * @param tokenize    */
+comment|/**    * @deprecated    * See {@link #setAnalyze(String, boolean)} for replacement.    * @param columnName    * @param tokenize    */
 specifier|public
 name|void
 name|setTokenize
