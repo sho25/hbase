@@ -143,6 +143,9 @@ name|c
 parameter_list|)
 block|{
 comment|//TODO:replace with private constructor
+name|this
+argument_list|()
+expr_stmt|;
 for|for
 control|(
 name|Entry
@@ -170,15 +173,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"instantinating HBaseConfiguration() is deprecated. Please use "
-operator|+
-literal|"HBaseConfiguration#create(conf) to construct a plain Configuration"
-argument_list|)
-expr_stmt|;
 block|}
 specifier|public
 specifier|static
