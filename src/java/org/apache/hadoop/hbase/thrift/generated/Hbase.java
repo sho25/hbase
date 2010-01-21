@@ -214,7 +214,7 @@ specifier|public
 interface|interface
 name|Iface
 block|{
-comment|/**      * Brings a table on-line (enables it)      * @param tableName name of the table      *       * @param tableName      */
+comment|/**      * Brings a table on-line (enables it)      *       * @param tableName name of the table      */
 specifier|public
 name|void
 name|enableTable
@@ -228,7 +228,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Disables a table (takes it off-line) If it is being served, the master      * will tell the servers to stop serving it.      * @param tableName name of the table      *       * @param tableName      */
+comment|/**      * Disables a table (takes it off-line) If it is being served, the master      * will tell the servers to stop serving it.      *       * @param tableName name of the table      */
 specifier|public
 name|void
 name|disableTable
@@ -242,7 +242,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * @param tableName name of table to check      * @return true if table is on-line      *       * @param tableName      */
+comment|/**      * @return true if table is on-line      *       * @param tableName name of the table to check      */
 specifier|public
 name|boolean
 name|isTableEnabled
@@ -282,7 +282,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * List all the userspace tables.      * @return - returns a list of names      */
+comment|/**      * List all the userspace tables.      * @return returns a list of names      */
 specifier|public
 name|List
 argument_list|<
@@ -296,7 +296,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * List all the column families assoicated with a table.      * @param tableName table name      * @return list of column family descriptors      *       * @param tableName      */
+comment|/**      * List all the column families assoicated with a table.      * @return list of column family descriptors      *       * @param tableName table name      */
 specifier|public
 name|Map
 argument_list|<
@@ -316,7 +316,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * List the regions associated with a table.      * @param tableName table name      * @return list of region descriptors      *       * @param tableName      */
+comment|/**      * List the regions associated with a table.      * @return list of region descriptors      *       * @param tableName table name      */
 specifier|public
 name|List
 argument_list|<
@@ -333,7 +333,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Create a table with the specified column families.  The name      * field for each ColumnDescriptor must be set and must end in a      * colon (:).  All other fields are optional and will get default      * values if not explicitly specified.      *       * @param tableName name of table to create      * @param columnFamilies list of column family descriptors      *       * @throws IllegalArgument if an input parameter is invalid      * @throws AlreadyExists if the table name already exists      *       * @param tableName      * @param columnFamilies      */
+comment|/**      * Create a table with the specified column families.  The name      * field for each ColumnDescriptor must be set and must end in a      * colon (:). All other fields are optional and will get default      * values if not explicitly specified.      *       * @throws IllegalArgument if an input parameter is invalid      * @throws AlreadyExists if the table name already exists      *       * @param tableName name of table to create      *       * @param columnFamilies list of column family descriptors      */
 specifier|public
 name|void
 name|createTable
@@ -357,7 +357,7 @@ name|AlreadyExists
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Deletes a table      * @param tableName name of table to delete      * @throws IOError if table doesn't exist on server or there was some other      * problem      *       * @param tableName      */
+comment|/**      * Deletes a table      *       * @throws IOError if table doesn't exist on server or there was some other      * problem      *       * @param tableName name of table to delete      */
 specifier|public
 name|void
 name|deleteTable
@@ -371,7 +371,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get a single TCell for the specified table, row, and column at the      * latest timestamp. Returns an empty list if no such value exists.      *       * @param tableName name of table      * @param row row key      * @param column column name      * @return value for specified row/column      *       * @param tableName      * @param row      * @param column      */
+comment|/**      * Get a single TCell for the specified table, row, and column at the      * latest timestamp. Returns an empty list if no such value exists.      *       * @return value for specified row/column      *       * @param tableName name of table      *       * @param row row key      *       * @param column column name      */
 specifier|public
 name|List
 argument_list|<
@@ -396,7 +396,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get the specified number of versions for the specified table,      * row, and column.      *       * @param tableName name of table      * @param row row key      * @param column column name      * @param numVersions number of versions to retrieve      * @return list of cells for specified row/column      *       * @param tableName      * @param row      * @param column      * @param numVersions      */
+comment|/**      * Get the specified number of versions for the specified table,      * row, and column.      *       * @return list of cells for specified row/column      *       * @param tableName name of table      *       * @param row row key      *       * @param column column name      *       * @param numVersions number of versions to retrieve      */
 specifier|public
 name|List
 argument_list|<
@@ -424,7 +424,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get the specified number of versions for the specified table,      * row, and column.  Only versions less than or equal to the specified      * timestamp will be returned.      *       * @param tableName name of table      * @param row row key      * @param column column name      * @param timestamp timestamp      * @param numVersions number of versions to retrieve      * @return list of cells for specified row/column      *       * @param tableName      * @param row      * @param column      * @param timestamp      * @param numVersions      */
+comment|/**      * Get the specified number of versions for the specified table,      * row, and column.  Only versions less than or equal to the specified      * timestamp will be returned.      *       * @return list of cells for specified row/column      *       * @param tableName name of table      *       * @param row row key      *       * @param column column name      *       * @param timestamp timestamp      *       * @param numVersions number of versions to retrieve      */
 specifier|public
 name|List
 argument_list|<
@@ -455,7 +455,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get all the data for the specified table and row at the latest      * timestamp. Returns an empty list if the row does not exist.      *       * @param tableName name of table      * @param row row key      * @return TRowResult containing the row and map of columns to TCells      *       * @param tableName      * @param row      */
+comment|/**      * Get all the data for the specified table and row at the latest      * timestamp. Returns an empty list if the row does not exist.      *       * @return TRowResult containing the row and map of columns to TCells      *       * @param tableName name of table      *       * @param row row key      */
 specifier|public
 name|List
 argument_list|<
@@ -476,7 +476,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get the specified columns for the specified table and row at the latest      * timestamp. Returns an empty list if the row does not exist.      *       * @param tableName name of table      * @param row row key      * @param columns List of columns to return, null for all columns      * @return TRowResult containing the row and map of columns to TCells      *       * @param tableName      * @param row      * @param columns      */
+comment|/**      * Get the specified columns for the specified table and row at the latest      * timestamp. Returns an empty list if the row does not exist.      *       * @return TRowResult containing the row and map of columns to TCells      *       * @param tableName name of table      *       * @param row row key      *       * @param columns List of columns to return, null for all columns      */
 specifier|public
 name|List
 argument_list|<
@@ -504,7 +504,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get all the data for the specified table and row at the specified      * timestamp. Returns an empty list if the row does not exist.      *       * @param tableName of table      * @param row row key      * @param timestamp timestamp      * @return TRowResult containing the row and map of columns to TCells      *       * @param tableName      * @param row      * @param timestamp      */
+comment|/**      * Get all the data for the specified table and row at the specified      * timestamp. Returns an empty list if the row does not exist.      *       * @return TRowResult containing the row and map of columns to TCells      *       * @param tableName name of the table      *       * @param row row key      *       * @param timestamp timestamp      */
 specifier|public
 name|List
 argument_list|<
@@ -528,7 +528,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get the specified columns for the specified table and row at the specified      * timestamp. Returns an empty list if the row does not exist.      *       * @param tableName name of table      * @param row row key      * @param columns List of columns to return, null for all columns      * @return TRowResult containing the row and map of columns to TCells      *       * @param tableName      * @param row      * @param columns      * @param timestamp      */
+comment|/**      * Get the specified columns for the specified table and row at the specified      * timestamp. Returns an empty list if the row does not exist.      *       * @return TRowResult containing the row and map of columns to TCells      *       * @param tableName name of table      *       * @param row row key      *       * @param columns List of columns to return, null for all columns      *       * @param timestamp      */
 specifier|public
 name|List
 argument_list|<
@@ -559,7 +559,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Apply a series of mutations (updates/deletes) to a row in a      * single transaction.  If an exception is thrown, then the      * transaction is aborted.  Default current timestamp is used, and      * all entries will have an identical timestamp.      *       * @param tableName name of table      * @param row row key      * @param mutations list of mutation commands      *       * @param tableName      * @param row      * @param mutations      */
+comment|/**      * Apply a series of mutations (updates/deletes) to a row in a      * single transaction.  If an exception is thrown, then the      * transaction is aborted.  Default current timestamp is used, and      * all entries will have an identical timestamp.      *       * @param tableName name of table      *       * @param row row key      *       * @param mutations list of mutation commands      */
 specifier|public
 name|void
 name|mutateRow
@@ -585,7 +585,7 @@ name|IllegalArgument
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Apply a series of mutations (updates/deletes) to a row in a      * single transaction.  If an exception is thrown, then the      * transaction is aborted.  The specified timestamp is used, and      * all entries will have an identical timestamp.      *       * @param tableName name of table      * @param row row key      * @param mutations list of mutation commands      * @param timestamp timestamp      *       * @param tableName      * @param row      * @param mutations      * @param timestamp      */
+comment|/**      * Apply a series of mutations (updates/deletes) to a row in a      * single transaction.  If an exception is thrown, then the      * transaction is aborted.  The specified timestamp is used, and      * all entries will have an identical timestamp.      *       * @param tableName name of table      *       * @param row row key      *       * @param mutations list of mutation commands      *       * @param timestamp timestamp      */
 specifier|public
 name|void
 name|mutateRowTs
@@ -614,7 +614,7 @@ name|IllegalArgument
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Apply a series of batches (each a series of mutations on a single row)      * in a single transaction.  If an exception is thrown, then the      * transaction is aborted.  Default current timestamp is used, and      * all entries will have an identical timestamp.      *       * @param tableName name of table      * @param rowBatches list of row batches      *       * @param tableName      * @param rowBatches      */
+comment|/**      * Apply a series of batches (each a series of mutations on a single row)      * in a single transaction.  If an exception is thrown, then the      * transaction is aborted.  Default current timestamp is used, and      * all entries will have an identical timestamp.      *       * @param tableName name of table      *       * @param rowBatches list of row batches      */
 specifier|public
 name|void
 name|mutateRows
@@ -636,7 +636,7 @@ name|IllegalArgument
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Apply a series of batches (each a series of mutations on a single row)      * in a single transaction.  If an exception is thrown, then the      * transaction is aborted.  The specified timestamp is used, and      * all entries will have an identical timestamp.      *       * @param tableName name of table      * @param rowBatches list of row batches      * @param timestamp timestamp      *       * @param tableName      * @param rowBatches      * @param timestamp      */
+comment|/**      * Apply a series of batches (each a series of mutations on a single row)      * in a single transaction.  If an exception is thrown, then the      * transaction is aborted.  The specified timestamp is used, and      * all entries will have an identical timestamp.      *       * @param tableName name of table      *       * @param rowBatches list of row batches      *       * @param timestamp timestamp      */
 specifier|public
 name|void
 name|mutateRowsTs
@@ -661,7 +661,7 @@ name|IllegalArgument
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Atomically increment the column value specified.  Returns the next value post increment.      * @param tableName name of table      * @param row row to increment      * @param column name of column      * @param value amount to increment by      *       * @param tableName      * @param row      * @param column      * @param value      */
+comment|/**      * Atomically increment the column value specified.  Returns the next value post increment.      *       * @param tableName name of table      *       * @param row row to increment      *       * @param column name of column      *       * @param value amount to increment by      */
 specifier|public
 name|long
 name|atomicIncrement
@@ -688,7 +688,7 @@ name|IllegalArgument
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Delete all cells that match the passed row and column.      *       * @param tableName name of table      * @param row Row to update      * @param column name of column whose value is to be deleted      *       * @param tableName      * @param row      * @param column      */
+comment|/**      * Delete all cells that match the passed row and column.      *       * @param tableName name of table      *       * @param row Row to update      *       * @param column name of column whose value is to be deleted      */
 specifier|public
 name|void
 name|deleteAll
@@ -710,7 +710,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Delete all cells that match the passed row and column and whose      * timestamp is equal-to or older than the passed timestamp.      *       * @param tableName name of table      * @param row Row to update      * @param column name of column whose value is to be deleted      * @param timestamp timestamp      *       * @param tableName      * @param row      * @param column      * @param timestamp      */
+comment|/**      * Delete all cells that match the passed row and column and whose      * timestamp is equal-to or older than the passed timestamp.      *       * @param tableName name of table      *       * @param row Row to update      *       * @param column name of column whose value is to be deleted      *       * @param timestamp timestamp      */
 specifier|public
 name|void
 name|deleteAllTs
@@ -735,7 +735,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Completely delete the row's cells.      *       * @param tableName name of table      * @param row key of the row to be completely deleted.      *       * @param tableName      * @param row      */
+comment|/**      * Completely delete the row's cells.      *       * @param tableName name of table      *       * @param row key of the row to be completely deleted.      */
 specifier|public
 name|void
 name|deleteAllRow
@@ -753,7 +753,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Completely delete the row's cells marked with a timestamp      * equal-to or older than the passed timestamp.      *       * @param tableName name of table      * @param row key of the row to be completely deleted.      * @param timestamp timestamp      *       * @param tableName      * @param row      * @param timestamp      */
+comment|/**      * Completely delete the row's cells marked with a timestamp      * equal-to or older than the passed timestamp.      *       * @param tableName name of table      *       * @param row key of the row to be completely deleted.      *       * @param timestamp timestamp      */
 specifier|public
 name|void
 name|deleteAllRowTs
@@ -774,7 +774,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get a scanner on the current table starting at the specified row and      * ending at the last row in the table.  Return the specified columns.      *       * @param columns columns to scan. If column name is a column family, all      * columns of the specified column family are returned.  Its also possible      * to pass a regex in the column qualifier.      * @param tableName name of table      * @param startRow starting row in table to scan.  send "" (empty string) to      *                 start at the first row.      *       * @return scanner id to be used with other scanner procedures      *       * @param tableName      * @param startRow      * @param columns      */
+comment|/**      * Get a scanner on the current table starting at the specified row and      * ending at the last row in the table.  Return the specified columns.      *       * @return scanner id to be used with other scanner procedures      *       * @param tableName name of table      *       * @param startRow Starting row in table to scan.      * Send "" (empty string) to start at the first row.      *       * @param columns columns to scan. If column name is a column family, all      * columns of the specified column family are returned. It's also possible      * to pass a regex in the column qualifier.      */
 specifier|public
 name|int
 name|scannerOpen
@@ -799,7 +799,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get a scanner on the current table starting and stopping at the      * specified rows.  ending at the last row in the table.  Return the      * specified columns.      *       * @param columns columns to scan. If column name is a column family, all      * columns of the specified column family are returned.  Its also possible      * to pass a regex in the column qualifier.      * @param tableName name of table      * @param startRow starting row in table to scan.  send "" (empty string) to      *                 start at the first row.      * @param stopRow row to stop scanning on.  This row is *not* included in the      *                scanner's results      *       * @return scanner id to be used with other scanner procedures      *       * @param tableName      * @param startRow      * @param stopRow      * @param columns      */
+comment|/**      * Get a scanner on the current table starting and stopping at the      * specified rows.  ending at the last row in the table.  Return the      * specified columns.      *       * @return scanner id to be used with other scanner procedures      *       * @param tableName name of table      *       * @param startRow Starting row in table to scan.      * Send "" (empty string) to start at the first row.      *       * @param stopRow row to stop scanning on. This row is *not* included in the      * scanner's results      *       * @param columns columns to scan. If column name is a column family, all      * columns of the specified column family are returned. It's also possible      * to pass a regex in the column qualifier.      */
 specifier|public
 name|int
 name|scannerOpenWithStop
@@ -828,7 +828,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Open a scanner for a given prefix.  That is all rows will have the specified      * prefix. No other rows will be returned.      *       * @param tableName name of table      * @param startAndPrefix the prefix (and thus start row) of the keys you want      * @param columns the columns you want returned      * @return scanner id to use with other scanner calls      *       * @param tableName      * @param startAndPrefix      * @param columns      */
+comment|/**      * Open a scanner for a given prefix.  That is all rows will have the specified      * prefix. No other rows will be returned.      *       * @return scanner id to use with other scanner calls      *       * @param tableName name of table      *       * @param startAndPrefix the prefix (and thus start row) of the keys you want      *       * @param columns the columns you want returned      */
 specifier|public
 name|int
 name|scannerOpenWithPrefix
@@ -853,7 +853,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get a scanner on the current table starting at the specified row and      * ending at the last row in the table.  Return the specified columns.      * Only values with the specified timestamp are returned.      *       * @param columns columns to scan. If column name is a column family, all      * columns of the specified column family are returned.  Its also possible      * to pass a regex in the column qualifier.      * @param tableName name of table      * @param startRow starting row in table to scan.  send "" (empty string) to      *                 start at the first row.      * @param timestamp timestamp      *       * @return scanner id to be used with other scanner procedures      *       * @param tableName      * @param startRow      * @param columns      * @param timestamp      */
+comment|/**      * Get a scanner on the current table starting at the specified row and      * ending at the last row in the table.  Return the specified columns.      * Only values with the specified timestamp are returned.      *       * @return scanner id to be used with other scanner procedures      *       * @param tableName name of table      *       * @param startRow Starting row in table to scan.      * Send "" (empty string) to start at the first row.      *       * @param columns columns to scan. If column name is a column family, all      * columns of the specified column family are returned. It's also possible      * to pass a regex in the column qualifier.      *       * @param timestamp timestamp      */
 specifier|public
 name|int
 name|scannerOpenTs
@@ -881,7 +881,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Get a scanner on the current table starting and stopping at the      * specified rows.  ending at the last row in the table.  Return the      * specified columns.  Only values with the specified timestamp are      * returned.      *       * @param columns columns to scan. If column name is a column family, all      * columns of the specified column family are returned.  Its also possible      * to pass a regex in the column qualifier.      * @param tableName name of table      * @param startRow starting row in table to scan.  send "" (empty string) to      *                 start at the first row.      * @param stopRow row to stop scanning on.  This row is *not* included      *                in the scanner's results      * @param timestamp timestamp      *       * @return scanner id to be used with other scanner procedures      *       * @param tableName      * @param startRow      * @param stopRow      * @param columns      * @param timestamp      */
+comment|/**      * Get a scanner on the current table starting and stopping at the      * specified rows.  ending at the last row in the table.  Return the      * specified columns.  Only values with the specified timestamp are      * returned.      *       * @return scanner id to be used with other scanner procedures      *       * @param tableName name of table      *       * @param startRow Starting row in table to scan.      * Send "" (empty string) to start at the first row.      *       * @param stopRow row to stop scanning on. This row is *not* included in the      * scanner's results      *       * @param columns columns to scan. If column name is a column family, all      * columns of the specified column family are returned. It's also possible      * to pass a regex in the column qualifier.      *       * @param timestamp timestamp      */
 specifier|public
 name|int
 name|scannerOpenWithStopTs
@@ -913,7 +913,7 @@ name|IOError
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Returns the scanner's current row value and advances to the next      * row in the table.  When there are no more rows in the table, or a key      * greater-than-or-equal-to the scanner's specified stopRow is reached,      * an empty list is returned.      *       * @param id id of a scanner returned by scannerOpen      * @return a TRowResult containing the current row and a map of the columns to TCells.      * @throws IllegalArgument if ScannerID is invalid      * @throws NotFound when the scanner reaches the end      *       * @param id      */
+comment|/**      * Returns the scanner's current row value and advances to the next      * row in the table.  When there are no more rows in the table, or a key      * greater-than-or-equal-to the scanner's specified stopRow is reached,      * an empty list is returned.      *       * @return a TRowResult containing the current row and a map of the columns to TCells.      * @throws IllegalArgument if ScannerID is invalid      * @throws NotFound when the scanner reaches the end      *       * @param id id of a scanner returned by scannerOpen      */
 specifier|public
 name|List
 argument_list|<
@@ -931,7 +931,7 @@ name|IllegalArgument
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Returns, starting at the scanner's current row value nbRows worth of      * rows and advances to the next row in the table.  When there are no more      * rows in the table, or a key greater-than-or-equal-to the scanner's      * specified stopRow is reached,  an empty list is returned.      *       * @param id id of a scanner returned by scannerOpen      * @param nbRows number of results to regturn      * @return a TRowResult containing the current row and a map of the columns to TCells.      * @throws IllegalArgument if ScannerID is invalid      * @throws NotFound when the scanner reaches the end      *       * @param id      * @param nbRows      */
+comment|/**      * Returns, starting at the scanner's current row value nbRows worth of      * rows and advances to the next row in the table.  When there are no more      * rows in the table, or a key greater-than-or-equal-to the scanner's      * specified stopRow is reached,  an empty list is returned.      *       * @return a TRowResult containing the current row and a map of the columns to TCells.      * @throws IllegalArgument if ScannerID is invalid      * @throws NotFound when the scanner reaches the end      *       * @param id id of a scanner returned by scannerOpen      *       * @param nbRows number of results to return      */
 specifier|public
 name|List
 argument_list|<
@@ -952,7 +952,7 @@ name|IllegalArgument
 throws|,
 name|TException
 function_decl|;
-comment|/**      * Closes the server-state associated with an open scanner.      *       * @param id id of a scanner returned by scannerOpen      * @throws IllegalArgument if ScannerID is invalid      *       * @param id      */
+comment|/**      * Closes the server-state associated with an open scanner.      *       * @throws IllegalArgument if ScannerID is invalid      *       * @param id id of a scanner returned by scannerOpen      */
 specifier|public
 name|void
 name|scannerClose
@@ -15510,6 +15510,7 @@ operator|)
 literal|1
 argument_list|)
 decl_stmt|;
+comment|/**      * name of the table      */
 specifier|public
 name|byte
 index|[]
@@ -15522,6 +15523,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of the table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -15890,6 +15892,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of the table      */
 specifier|public
 name|byte
 index|[]
@@ -15902,6 +15905,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of the table      */
 specifier|public
 name|enableTable_args
 name|setTableName
@@ -18005,6 +18009,7 @@ operator|)
 literal|1
 argument_list|)
 decl_stmt|;
+comment|/**      * name of the table      */
 specifier|public
 name|byte
 index|[]
@@ -18017,6 +18022,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of the table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -18385,6 +18391,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of the table      */
 specifier|public
 name|byte
 index|[]
@@ -18397,6 +18404,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of the table      */
 specifier|public
 name|disableTable_args
 name|setTableName
@@ -20500,6 +20508,7 @@ operator|)
 literal|1
 argument_list|)
 decl_stmt|;
+comment|/**      * name of the table to check      */
 specifier|public
 name|byte
 index|[]
@@ -20512,6 +20521,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of the table to check        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -20880,6 +20890,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of the table to check      */
 specifier|public
 name|byte
 index|[]
@@ -20892,6 +20903,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of the table to check      */
 specifier|public
 name|isTableEnabled_args
 name|setTableName
@@ -31182,6 +31194,7 @@ operator|)
 literal|1
 argument_list|)
 decl_stmt|;
+comment|/**      * table name      */
 specifier|public
 name|byte
 index|[]
@@ -31194,6 +31207,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * table name        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -31562,6 +31576,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * table name      */
 specifier|public
 name|byte
 index|[]
@@ -31574,6 +31589,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * table name      */
 specifier|public
 name|getColumnDescriptors_args
 name|setTableName
@@ -34320,6 +34336,7 @@ operator|)
 literal|1
 argument_list|)
 decl_stmt|;
+comment|/**      * table name      */
 specifier|public
 name|byte
 index|[]
@@ -34332,6 +34349,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * table name        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -34700,6 +34718,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * table name      */
 specifier|public
 name|byte
 index|[]
@@ -34712,6 +34731,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * table name      */
 specifier|public
 name|getTableRegions_args
 name|setTableName
@@ -37551,11 +37571,13 @@ operator|)
 literal|2
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table to create      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * list of column family descriptors      */
 specifier|public
 name|List
 argument_list|<
@@ -37570,6 +37592,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table to create        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -37580,6 +37603,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * list of column family descriptors        */
 name|COLUMN_FAMILIES
 argument_list|(
 operator|(
@@ -38047,6 +38071,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table to create      */
 specifier|public
 name|byte
 index|[]
@@ -38059,6 +38084,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table to create      */
 specifier|public
 name|createTable_args
 name|setTableName
@@ -38220,6 +38246,7 @@ name|elem
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * list of column family descriptors      */
 specifier|public
 name|List
 argument_list|<
@@ -38234,6 +38261,7 @@ operator|.
 name|columnFamilies
 return|;
 block|}
+comment|/**      * list of column family descriptors      */
 specifier|public
 name|createTable_args
 name|setColumnFamilies
@@ -41686,6 +41714,7 @@ operator|)
 literal|1
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table to delete      */
 specifier|public
 name|byte
 index|[]
@@ -41698,6 +41727,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table to delete        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -42066,6 +42096,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table to delete      */
 specifier|public
 name|byte
 index|[]
@@ -42078,6 +42109,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table to delete      */
 specifier|public
 name|deleteTable_args
 name|setTableName
@@ -44223,16 +44255,19 @@ operator|)
 literal|3
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * row key      */
 specifier|public
 name|byte
 index|[]
 name|row
 decl_stmt|;
+comment|/**      * column name      */
 specifier|public
 name|byte
 index|[]
@@ -44245,6 +44280,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -44255,6 +44291,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * row key        */
 name|ROW
 argument_list|(
 operator|(
@@ -44265,6 +44302,7 @@ argument_list|,
 literal|"row"
 argument_list|)
 block|,
+comment|/**        * column name        */
 name|COLUMN
 argument_list|(
 operator|(
@@ -44737,6 +44775,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -44749,6 +44788,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|get_args
 name|setTableName
@@ -44816,6 +44856,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * row key      */
 specifier|public
 name|byte
 index|[]
@@ -44828,6 +44869,7 @@ operator|.
 name|row
 return|;
 block|}
+comment|/**      * row key      */
 specifier|public
 name|get_args
 name|setRow
@@ -44895,6 +44937,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * column name      */
 specifier|public
 name|byte
 index|[]
@@ -44907,6 +44950,7 @@ operator|.
 name|column
 return|;
 block|}
+comment|/**      * column name      */
 specifier|public
 name|get_args
 name|setColumn
@@ -48398,21 +48442,25 @@ operator|)
 literal|4
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * row key      */
 specifier|public
 name|byte
 index|[]
 name|row
 decl_stmt|;
+comment|/**      * column name      */
 specifier|public
 name|byte
 index|[]
 name|column
 decl_stmt|;
+comment|/**      * number of versions to retrieve      */
 specifier|public
 name|int
 name|numVersions
@@ -48424,6 +48472,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -48434,6 +48483,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * row key        */
 name|ROW
 argument_list|(
 operator|(
@@ -48444,6 +48494,7 @@ argument_list|,
 literal|"row"
 argument_list|)
 block|,
+comment|/**        * column name        */
 name|COLUMN
 argument_list|(
 operator|(
@@ -48454,6 +48505,7 @@ argument_list|,
 literal|"column"
 argument_list|)
 block|,
+comment|/**        * number of versions to retrieve        */
 name|NUM_VERSIONS
 argument_list|(
 operator|(
@@ -49005,6 +49057,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -49017,6 +49070,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|getVer_args
 name|setTableName
@@ -49084,6 +49138,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * row key      */
 specifier|public
 name|byte
 index|[]
@@ -49096,6 +49151,7 @@ operator|.
 name|row
 return|;
 block|}
+comment|/**      * row key      */
 specifier|public
 name|getVer_args
 name|setRow
@@ -49163,6 +49219,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * column name      */
 specifier|public
 name|byte
 index|[]
@@ -49175,6 +49232,7 @@ operator|.
 name|column
 return|;
 block|}
+comment|/**      * column name      */
 specifier|public
 name|getVer_args
 name|setColumn
@@ -49242,6 +49300,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * number of versions to retrieve      */
 specifier|public
 name|int
 name|getNumVersions
@@ -49253,6 +49312,7 @@ operator|.
 name|numVersions
 return|;
 block|}
+comment|/**      * number of versions to retrieve      */
 specifier|public
 name|getVer_args
 name|setNumVersions
@@ -53025,25 +53085,30 @@ operator|)
 literal|5
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * row key      */
 specifier|public
 name|byte
 index|[]
 name|row
 decl_stmt|;
+comment|/**      * column name      */
 specifier|public
 name|byte
 index|[]
 name|column
 decl_stmt|;
+comment|/**      * timestamp      */
 specifier|public
 name|long
 name|timestamp
 decl_stmt|;
+comment|/**      * number of versions to retrieve      */
 specifier|public
 name|int
 name|numVersions
@@ -53055,6 +53120,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -53065,6 +53131,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * row key        */
 name|ROW
 argument_list|(
 operator|(
@@ -53075,6 +53142,7 @@ argument_list|,
 literal|"row"
 argument_list|)
 block|,
+comment|/**        * column name        */
 name|COLUMN
 argument_list|(
 operator|(
@@ -53085,6 +53153,7 @@ argument_list|,
 literal|"column"
 argument_list|)
 block|,
+comment|/**        * timestamp        */
 name|TIMESTAMP
 argument_list|(
 operator|(
@@ -53095,6 +53164,7 @@ argument_list|,
 literal|"timestamp"
 argument_list|)
 block|,
+comment|/**        * number of versions to retrieve        */
 name|NUM_VERSIONS
 argument_list|(
 operator|(
@@ -53701,6 +53771,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -53713,6 +53784,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|getVerTs_args
 name|setTableName
@@ -53780,6 +53852,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * row key      */
 specifier|public
 name|byte
 index|[]
@@ -53792,6 +53865,7 @@ operator|.
 name|row
 return|;
 block|}
+comment|/**      * row key      */
 specifier|public
 name|getVerTs_args
 name|setRow
@@ -53859,6 +53933,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * column name      */
 specifier|public
 name|byte
 index|[]
@@ -53871,6 +53946,7 @@ operator|.
 name|column
 return|;
 block|}
+comment|/**      * column name      */
 specifier|public
 name|getVerTs_args
 name|setColumn
@@ -53938,6 +54014,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * timestamp      */
 specifier|public
 name|long
 name|getTimestamp
@@ -53949,6 +54026,7 @@ operator|.
 name|timestamp
 return|;
 block|}
+comment|/**      * timestamp      */
 specifier|public
 name|getVerTs_args
 name|setTimestamp
@@ -54018,6 +54096,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * number of versions to retrieve      */
 specifier|public
 name|int
 name|getNumVersions
@@ -54029,6 +54108,7 @@ operator|.
 name|numVersions
 return|;
 block|}
+comment|/**      * number of versions to retrieve      */
 specifier|public
 name|getVerTs_args
 name|setNumVersions
@@ -57996,11 +58076,13 @@ operator|)
 literal|2
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * row key      */
 specifier|public
 name|byte
 index|[]
@@ -58013,6 +58095,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -58023,6 +58106,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * row key        */
 name|ROW
 argument_list|(
 operator|(
@@ -58443,6 +58527,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -58455,6 +58540,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|getRow_args
 name|setTableName
@@ -58522,6 +58608,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * row key      */
 specifier|public
 name|byte
 index|[]
@@ -58534,6 +58621,7 @@ operator|.
 name|row
 return|;
 block|}
+comment|/**      * row key      */
 specifier|public
 name|getRow_args
 name|setRow
@@ -61533,16 +61621,19 @@ operator|)
 literal|3
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * row key      */
 specifier|public
 name|byte
 index|[]
 name|row
 decl_stmt|;
+comment|/**      * List of columns to return, null for all columns      */
 specifier|public
 name|List
 argument_list|<
@@ -61558,6 +61649,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -61568,6 +61660,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * row key        */
 name|ROW
 argument_list|(
 operator|(
@@ -61578,6 +61671,7 @@ argument_list|,
 literal|"row"
 argument_list|)
 block|,
+comment|/**        * List of columns to return, null for all columns        */
 name|COLUMNS
 argument_list|(
 operator|(
@@ -62093,6 +62187,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -62105,6 +62200,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|getRowWithColumns_args
 name|setTableName
@@ -62172,6 +62268,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * row key      */
 specifier|public
 name|byte
 index|[]
@@ -62184,6 +62281,7 @@ operator|.
 name|row
 return|;
 block|}
+comment|/**      * row key      */
 specifier|public
 name|getRowWithColumns_args
 name|setRow
@@ -62348,6 +62446,7 @@ name|elem
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * List of columns to return, null for all columns      */
 specifier|public
 name|List
 argument_list|<
@@ -62363,6 +62462,7 @@ operator|.
 name|columns
 return|;
 block|}
+comment|/**      * List of columns to return, null for all columns      */
 specifier|public
 name|getRowWithColumns_args
 name|setColumns
@@ -65764,16 +65864,19 @@ operator|)
 literal|3
 argument_list|)
 decl_stmt|;
+comment|/**      * name of the table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * row key      */
 specifier|public
 name|byte
 index|[]
 name|row
 decl_stmt|;
+comment|/**      * timestamp      */
 specifier|public
 name|long
 name|timestamp
@@ -65785,6 +65888,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of the table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -65795,6 +65899,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * row key        */
 name|ROW
 argument_list|(
 operator|(
@@ -65805,6 +65910,7 @@ argument_list|,
 literal|"row"
 argument_list|)
 block|,
+comment|/**        * timestamp        */
 name|TIMESTAMP
 argument_list|(
 operator|(
@@ -66304,6 +66410,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of the table      */
 specifier|public
 name|byte
 index|[]
@@ -66316,6 +66423,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of the table      */
 specifier|public
 name|getRowTs_args
 name|setTableName
@@ -66383,6 +66491,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * row key      */
 specifier|public
 name|byte
 index|[]
@@ -66395,6 +66504,7 @@ operator|.
 name|row
 return|;
 block|}
+comment|/**      * row key      */
 specifier|public
 name|getRowTs_args
 name|setRow
@@ -66462,6 +66572,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * timestamp      */
 specifier|public
 name|long
 name|getTimestamp
@@ -66473,6 +66584,7 @@ operator|.
 name|timestamp
 return|;
 block|}
+comment|/**      * timestamp      */
 specifier|public
 name|getRowTs_args
 name|setTimestamp
@@ -69753,16 +69865,19 @@ operator|)
 literal|4
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * row key      */
 specifier|public
 name|byte
 index|[]
 name|row
 decl_stmt|;
+comment|/**      * List of columns to return, null for all columns      */
 specifier|public
 name|List
 argument_list|<
@@ -69782,6 +69897,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -69792,6 +69908,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * row key        */
 name|ROW
 argument_list|(
 operator|(
@@ -69802,6 +69919,7 @@ argument_list|,
 literal|"row"
 argument_list|)
 block|,
+comment|/**        * List of columns to return, null for all columns        */
 name|COLUMNS
 argument_list|(
 operator|(
@@ -70406,6 +70524,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -70418,6 +70537,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|getRowWithColumnsTs_args
 name|setTableName
@@ -70485,6 +70605,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * row key      */
 specifier|public
 name|byte
 index|[]
@@ -70497,6 +70618,7 @@ operator|.
 name|row
 return|;
 block|}
+comment|/**      * row key      */
 specifier|public
 name|getRowWithColumnsTs_args
 name|setRow
@@ -70661,6 +70783,7 @@ name|elem
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * List of columns to return, null for all columns      */
 specifier|public
 name|List
 argument_list|<
@@ -70676,6 +70799,7 @@ operator|.
 name|columns
 return|;
 block|}
+comment|/**      * List of columns to return, null for all columns      */
 specifier|public
 name|getRowWithColumnsTs_args
 name|setColumns
@@ -74415,16 +74539,19 @@ operator|)
 literal|3
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * row key      */
 specifier|public
 name|byte
 index|[]
 name|row
 decl_stmt|;
+comment|/**      * list of mutation commands      */
 specifier|public
 name|List
 argument_list|<
@@ -74439,6 +74566,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -74449,6 +74577,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * row key        */
 name|ROW
 argument_list|(
 operator|(
@@ -74459,6 +74588,7 @@ argument_list|,
 literal|"row"
 argument_list|)
 block|,
+comment|/**        * list of mutation commands        */
 name|MUTATIONS
 argument_list|(
 operator|(
@@ -74978,6 +75108,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -74990,6 +75121,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|mutateRow_args
 name|setTableName
@@ -75057,6 +75189,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * row key      */
 specifier|public
 name|byte
 index|[]
@@ -75069,6 +75202,7 @@ operator|.
 name|row
 return|;
 block|}
+comment|/**      * row key      */
 specifier|public
 name|mutateRow_args
 name|setRow
@@ -75230,6 +75364,7 @@ name|elem
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * list of mutation commands      */
 specifier|public
 name|List
 argument_list|<
@@ -75244,6 +75379,7 @@ operator|.
 name|mutations
 return|;
 block|}
+comment|/**      * list of mutation commands      */
 specifier|public
 name|mutateRow_args
 name|setMutations
@@ -78591,16 +78727,19 @@ operator|)
 literal|4
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * row key      */
 specifier|public
 name|byte
 index|[]
 name|row
 decl_stmt|;
+comment|/**      * list of mutation commands      */
 specifier|public
 name|List
 argument_list|<
@@ -78608,6 +78747,7 @@ name|Mutation
 argument_list|>
 name|mutations
 decl_stmt|;
+comment|/**      * timestamp      */
 specifier|public
 name|long
 name|timestamp
@@ -78619,6 +78759,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -78629,6 +78770,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * row key        */
 name|ROW
 argument_list|(
 operator|(
@@ -78639,6 +78781,7 @@ argument_list|,
 literal|"row"
 argument_list|)
 block|,
+comment|/**        * list of mutation commands        */
 name|MUTATIONS
 argument_list|(
 operator|(
@@ -78649,6 +78792,7 @@ argument_list|,
 literal|"mutations"
 argument_list|)
 block|,
+comment|/**        * timestamp        */
 name|TIMESTAMP
 argument_list|(
 operator|(
@@ -79247,6 +79391,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -79259,6 +79404,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|mutateRowTs_args
 name|setTableName
@@ -79326,6 +79472,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * row key      */
 specifier|public
 name|byte
 index|[]
@@ -79338,6 +79485,7 @@ operator|.
 name|row
 return|;
 block|}
+comment|/**      * row key      */
 specifier|public
 name|mutateRowTs_args
 name|setRow
@@ -79499,6 +79647,7 @@ name|elem
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * list of mutation commands      */
 specifier|public
 name|List
 argument_list|<
@@ -79513,6 +79662,7 @@ operator|.
 name|mutations
 return|;
 block|}
+comment|/**      * list of mutation commands      */
 specifier|public
 name|mutateRowTs_args
 name|setMutations
@@ -79582,6 +79732,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * timestamp      */
 specifier|public
 name|long
 name|getTimestamp
@@ -79593,6 +79744,7 @@ operator|.
 name|timestamp
 return|;
 block|}
+comment|/**      * timestamp      */
 specifier|public
 name|mutateRowTs_args
 name|setTimestamp
@@ -83156,11 +83308,13 @@ operator|)
 literal|2
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * list of row batches      */
 specifier|public
 name|List
 argument_list|<
@@ -83175,6 +83329,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -83185,6 +83340,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * list of row batches        */
 name|ROW_BATCHES
 argument_list|(
 operator|(
@@ -83652,6 +83808,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -83664,6 +83821,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|mutateRows_args
 name|setTableName
@@ -83825,6 +83983,7 @@ name|elem
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * list of row batches      */
 specifier|public
 name|List
 argument_list|<
@@ -83839,6 +83998,7 @@ operator|.
 name|rowBatches
 return|;
 block|}
+comment|/**      * list of row batches      */
 specifier|public
 name|mutateRows_args
 name|setRowBatches
@@ -86860,11 +87020,13 @@ operator|)
 literal|3
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * list of row batches      */
 specifier|public
 name|List
 argument_list|<
@@ -86872,6 +87034,7 @@ name|BatchMutation
 argument_list|>
 name|rowBatches
 decl_stmt|;
+comment|/**      * timestamp      */
 specifier|public
 name|long
 name|timestamp
@@ -86883,6 +87046,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -86893,6 +87057,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * list of row batches        */
 name|ROW_BATCHES
 argument_list|(
 operator|(
@@ -86903,6 +87068,7 @@ argument_list|,
 literal|"rowBatches"
 argument_list|)
 block|,
+comment|/**        * timestamp        */
 name|TIMESTAMP
 argument_list|(
 operator|(
@@ -87449,6 +87615,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -87461,6 +87628,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|mutateRowsTs_args
 name|setTableName
@@ -87622,6 +87790,7 @@ name|elem
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * list of row batches      */
 specifier|public
 name|List
 argument_list|<
@@ -87636,6 +87805,7 @@ operator|.
 name|rowBatches
 return|;
 block|}
+comment|/**      * list of row batches      */
 specifier|public
 name|mutateRowsTs_args
 name|setRowBatches
@@ -87705,6 +87875,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * timestamp      */
 specifier|public
 name|long
 name|getTimestamp
@@ -87716,6 +87887,7 @@ operator|.
 name|timestamp
 return|;
 block|}
+comment|/**      * timestamp      */
 specifier|public
 name|mutateRowsTs_args
 name|setTimestamp
@@ -91016,21 +91188,25 @@ operator|)
 literal|4
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * row to increment      */
 specifier|public
 name|byte
 index|[]
 name|row
 decl_stmt|;
+comment|/**      * name of column      */
 specifier|public
 name|byte
 index|[]
 name|column
 decl_stmt|;
+comment|/**      * amount to increment by      */
 specifier|public
 name|long
 name|value
@@ -91042,6 +91218,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -91052,6 +91229,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * row to increment        */
 name|ROW
 argument_list|(
 operator|(
@@ -91062,6 +91240,7 @@ argument_list|,
 literal|"row"
 argument_list|)
 block|,
+comment|/**        * name of column        */
 name|COLUMN
 argument_list|(
 operator|(
@@ -91072,6 +91251,7 @@ argument_list|,
 literal|"column"
 argument_list|)
 block|,
+comment|/**        * amount to increment by        */
 name|VALUE
 argument_list|(
 operator|(
@@ -91623,6 +91803,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -91635,6 +91816,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|atomicIncrement_args
 name|setTableName
@@ -91702,6 +91884,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * row to increment      */
 specifier|public
 name|byte
 index|[]
@@ -91714,6 +91897,7 @@ operator|.
 name|row
 return|;
 block|}
+comment|/**      * row to increment      */
 specifier|public
 name|atomicIncrement_args
 name|setRow
@@ -91781,6 +91965,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * name of column      */
 specifier|public
 name|byte
 index|[]
@@ -91793,6 +91978,7 @@ operator|.
 name|column
 return|;
 block|}
+comment|/**      * name of column      */
 specifier|public
 name|atomicIncrement_args
 name|setColumn
@@ -91860,6 +92046,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * amount to increment by      */
 specifier|public
 name|long
 name|getValue
@@ -91871,6 +92058,7 @@ operator|.
 name|value
 return|;
 block|}
+comment|/**      * amount to increment by      */
 specifier|public
 name|atomicIncrement_args
 name|setValue
@@ -95821,16 +96009,19 @@ operator|)
 literal|3
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * Row to update      */
 specifier|public
 name|byte
 index|[]
 name|row
 decl_stmt|;
+comment|/**      * name of column whose value is to be deleted      */
 specifier|public
 name|byte
 index|[]
@@ -95843,6 +96034,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -95853,6 +96045,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * Row to update        */
 name|ROW
 argument_list|(
 operator|(
@@ -95863,6 +96056,7 @@ argument_list|,
 literal|"row"
 argument_list|)
 block|,
+comment|/**        * name of column whose value is to be deleted        */
 name|COLUMN
 argument_list|(
 operator|(
@@ -96335,6 +96529,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -96347,6 +96542,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|deleteAll_args
 name|setTableName
@@ -96414,6 +96610,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * Row to update      */
 specifier|public
 name|byte
 index|[]
@@ -96426,6 +96623,7 @@ operator|.
 name|row
 return|;
 block|}
+comment|/**      * Row to update      */
 specifier|public
 name|deleteAll_args
 name|setRow
@@ -96493,6 +96691,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * name of column whose value is to be deleted      */
 specifier|public
 name|byte
 index|[]
@@ -96505,6 +96704,7 @@ operator|.
 name|column
 return|;
 block|}
+comment|/**      * name of column whose value is to be deleted      */
 specifier|public
 name|deleteAll_args
 name|setColumn
@@ -99281,21 +99481,25 @@ operator|)
 literal|4
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * Row to update      */
 specifier|public
 name|byte
 index|[]
 name|row
 decl_stmt|;
+comment|/**      * name of column whose value is to be deleted      */
 specifier|public
 name|byte
 index|[]
 name|column
 decl_stmt|;
+comment|/**      * timestamp      */
 specifier|public
 name|long
 name|timestamp
@@ -99307,6 +99511,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -99317,6 +99522,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * Row to update        */
 name|ROW
 argument_list|(
 operator|(
@@ -99327,6 +99533,7 @@ argument_list|,
 literal|"row"
 argument_list|)
 block|,
+comment|/**        * name of column whose value is to be deleted        */
 name|COLUMN
 argument_list|(
 operator|(
@@ -99337,6 +99544,7 @@ argument_list|,
 literal|"column"
 argument_list|)
 block|,
+comment|/**        * timestamp        */
 name|TIMESTAMP
 argument_list|(
 operator|(
@@ -99888,6 +100096,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -99900,6 +100109,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|deleteAllTs_args
 name|setTableName
@@ -99967,6 +100177,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * Row to update      */
 specifier|public
 name|byte
 index|[]
@@ -99979,6 +100190,7 @@ operator|.
 name|row
 return|;
 block|}
+comment|/**      * Row to update      */
 specifier|public
 name|deleteAllTs_args
 name|setRow
@@ -100046,6 +100258,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * name of column whose value is to be deleted      */
 specifier|public
 name|byte
 index|[]
@@ -100058,6 +100271,7 @@ operator|.
 name|column
 return|;
 block|}
+comment|/**      * name of column whose value is to be deleted      */
 specifier|public
 name|deleteAllTs_args
 name|setColumn
@@ -100125,6 +100339,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * timestamp      */
 specifier|public
 name|long
 name|getTimestamp
@@ -100136,6 +100351,7 @@ operator|.
 name|timestamp
 return|;
 block|}
+comment|/**      * timestamp      */
 specifier|public
 name|deleteAllTs_args
 name|setTimestamp
@@ -103130,11 +103346,13 @@ operator|)
 literal|2
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * key of the row to be completely deleted.      */
 specifier|public
 name|byte
 index|[]
@@ -103147,6 +103365,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -103157,6 +103376,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * key of the row to be completely deleted.        */
 name|ROW
 argument_list|(
 operator|(
@@ -103577,6 +103797,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -103589,6 +103810,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|deleteAllRow_args
 name|setTableName
@@ -103656,6 +103878,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * key of the row to be completely deleted.      */
 specifier|public
 name|byte
 index|[]
@@ -103668,6 +103891,7 @@ operator|.
 name|row
 return|;
 block|}
+comment|/**      * key of the row to be completely deleted.      */
 specifier|public
 name|deleteAllRow_args
 name|setRow
@@ -106118,16 +106342,19 @@ operator|)
 literal|3
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * key of the row to be completely deleted.      */
 specifier|public
 name|byte
 index|[]
 name|row
 decl_stmt|;
+comment|/**      * timestamp      */
 specifier|public
 name|long
 name|timestamp
@@ -106139,6 +106366,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -106149,6 +106377,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * key of the row to be completely deleted.        */
 name|ROW
 argument_list|(
 operator|(
@@ -106159,6 +106388,7 @@ argument_list|,
 literal|"row"
 argument_list|)
 block|,
+comment|/**        * timestamp        */
 name|TIMESTAMP
 argument_list|(
 operator|(
@@ -106658,6 +106888,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -106670,6 +106901,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|deleteAllRowTs_args
 name|setTableName
@@ -106737,6 +106969,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * key of the row to be completely deleted.      */
 specifier|public
 name|byte
 index|[]
@@ -106749,6 +106982,7 @@ operator|.
 name|row
 return|;
 block|}
+comment|/**      * key of the row to be completely deleted.      */
 specifier|public
 name|deleteAllRowTs_args
 name|setRow
@@ -106816,6 +107050,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * timestamp      */
 specifier|public
 name|long
 name|getTimestamp
@@ -106827,6 +107062,7 @@ operator|.
 name|timestamp
 return|;
 block|}
+comment|/**      * timestamp      */
 specifier|public
 name|deleteAllRowTs_args
 name|setTimestamp
@@ -109537,16 +109773,19 @@ operator|)
 literal|3
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * Starting row in table to scan.      * Send "" (empty string) to start at the first row.      */
 specifier|public
 name|byte
 index|[]
 name|startRow
 decl_stmt|;
+comment|/**      * columns to scan. If column name is a column family, all      * columns of the specified column family are returned. It's also possible      * to pass a regex in the column qualifier.      */
 specifier|public
 name|List
 argument_list|<
@@ -109562,6 +109801,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -109572,6 +109812,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * Starting row in table to scan.        * Send "" (empty string) to start at the first row.        */
 name|START_ROW
 argument_list|(
 operator|(
@@ -109582,6 +109823,7 @@ argument_list|,
 literal|"startRow"
 argument_list|)
 block|,
+comment|/**        * columns to scan. If column name is a column family, all        * columns of the specified column family are returned. It's also possible        * to pass a regex in the column qualifier.        */
 name|COLUMNS
 argument_list|(
 operator|(
@@ -110097,6 +110339,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -110109,6 +110352,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|scannerOpen_args
 name|setTableName
@@ -110176,6 +110420,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * Starting row in table to scan.      * Send "" (empty string) to start at the first row.      */
 specifier|public
 name|byte
 index|[]
@@ -110188,6 +110433,7 @@ operator|.
 name|startRow
 return|;
 block|}
+comment|/**      * Starting row in table to scan.      * Send "" (empty string) to start at the first row.      */
 specifier|public
 name|scannerOpen_args
 name|setStartRow
@@ -110352,6 +110598,7 @@ name|elem
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * columns to scan. If column name is a column family, all      * columns of the specified column family are returned. It's also possible      * to pass a regex in the column qualifier.      */
 specifier|public
 name|List
 argument_list|<
@@ -110367,6 +110614,7 @@ operator|.
 name|columns
 return|;
 block|}
+comment|/**      * columns to scan. If column name is a column family, all      * columns of the specified column family are returned. It's also possible      * to pass a regex in the column qualifier.      */
 specifier|public
 name|scannerOpen_args
 name|setColumns
@@ -113702,21 +113950,25 @@ operator|)
 literal|4
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * Starting row in table to scan.      * Send "" (empty string) to start at the first row.      */
 specifier|public
 name|byte
 index|[]
 name|startRow
 decl_stmt|;
+comment|/**      * row to stop scanning on. This row is *not* included in the      * scanner's results      */
 specifier|public
 name|byte
 index|[]
 name|stopRow
 decl_stmt|;
+comment|/**      * columns to scan. If column name is a column family, all      * columns of the specified column family are returned. It's also possible      * to pass a regex in the column qualifier.      */
 specifier|public
 name|List
 argument_list|<
@@ -113732,6 +113984,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -113742,6 +113995,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * Starting row in table to scan.        * Send "" (empty string) to start at the first row.        */
 name|START_ROW
 argument_list|(
 operator|(
@@ -113752,6 +114006,7 @@ argument_list|,
 literal|"startRow"
 argument_list|)
 block|,
+comment|/**        * row to stop scanning on. This row is *not* included in the        * scanner's results        */
 name|STOP_ROW
 argument_list|(
 operator|(
@@ -113762,6 +114017,7 @@ argument_list|,
 literal|"stopRow"
 argument_list|)
 block|,
+comment|/**        * columns to scan. If column name is a column family, all        * columns of the specified column family are returned. It's also possible        * to pass a regex in the column qualifier.        */
 name|COLUMNS
 argument_list|(
 operator|(
@@ -114329,6 +114585,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -114341,6 +114598,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|scannerOpenWithStop_args
 name|setTableName
@@ -114408,6 +114666,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * Starting row in table to scan.      * Send "" (empty string) to start at the first row.      */
 specifier|public
 name|byte
 index|[]
@@ -114420,6 +114679,7 @@ operator|.
 name|startRow
 return|;
 block|}
+comment|/**      * Starting row in table to scan.      * Send "" (empty string) to start at the first row.      */
 specifier|public
 name|scannerOpenWithStop_args
 name|setStartRow
@@ -114487,6 +114747,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * row to stop scanning on. This row is *not* included in the      * scanner's results      */
 specifier|public
 name|byte
 index|[]
@@ -114499,6 +114760,7 @@ operator|.
 name|stopRow
 return|;
 block|}
+comment|/**      * row to stop scanning on. This row is *not* included in the      * scanner's results      */
 specifier|public
 name|scannerOpenWithStop_args
 name|setStopRow
@@ -114663,6 +114925,7 @@ name|elem
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * columns to scan. If column name is a column family, all      * columns of the specified column family are returned. It's also possible      * to pass a regex in the column qualifier.      */
 specifier|public
 name|List
 argument_list|<
@@ -114678,6 +114941,7 @@ operator|.
 name|columns
 return|;
 block|}
+comment|/**      * columns to scan. If column name is a column family, all      * columns of the specified column family are returned. It's also possible      * to pass a regex in the column qualifier.      */
 specifier|public
 name|scannerOpenWithStop_args
 name|setColumns
@@ -118297,16 +118561,19 @@ operator|)
 literal|3
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * the prefix (and thus start row) of the keys you want      */
 specifier|public
 name|byte
 index|[]
 name|startAndPrefix
 decl_stmt|;
+comment|/**      * the columns you want returned      */
 specifier|public
 name|List
 argument_list|<
@@ -118322,6 +118589,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -118332,6 +118600,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * the prefix (and thus start row) of the keys you want        */
 name|START_AND_PREFIX
 argument_list|(
 operator|(
@@ -118342,6 +118611,7 @@ argument_list|,
 literal|"startAndPrefix"
 argument_list|)
 block|,
+comment|/**        * the columns you want returned        */
 name|COLUMNS
 argument_list|(
 operator|(
@@ -118857,6 +119127,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -118869,6 +119140,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|scannerOpenWithPrefix_args
 name|setTableName
@@ -118936,6 +119208,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * the prefix (and thus start row) of the keys you want      */
 specifier|public
 name|byte
 index|[]
@@ -118948,6 +119221,7 @@ operator|.
 name|startAndPrefix
 return|;
 block|}
+comment|/**      * the prefix (and thus start row) of the keys you want      */
 specifier|public
 name|scannerOpenWithPrefix_args
 name|setStartAndPrefix
@@ -119112,6 +119386,7 @@ name|elem
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * the columns you want returned      */
 specifier|public
 name|List
 argument_list|<
@@ -119127,6 +119402,7 @@ operator|.
 name|columns
 return|;
 block|}
+comment|/**      * the columns you want returned      */
 specifier|public
 name|scannerOpenWithPrefix_args
 name|setColumns
@@ -122462,16 +122738,19 @@ operator|)
 literal|4
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * Starting row in table to scan.      * Send "" (empty string) to start at the first row.      */
 specifier|public
 name|byte
 index|[]
 name|startRow
 decl_stmt|;
+comment|/**      * columns to scan. If column name is a column family, all      * columns of the specified column family are returned. It's also possible      * to pass a regex in the column qualifier.      */
 specifier|public
 name|List
 argument_list|<
@@ -122480,6 +122759,7 @@ index|[]
 argument_list|>
 name|columns
 decl_stmt|;
+comment|/**      * timestamp      */
 specifier|public
 name|long
 name|timestamp
@@ -122491,6 +122771,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -122501,6 +122782,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * Starting row in table to scan.        * Send "" (empty string) to start at the first row.        */
 name|START_ROW
 argument_list|(
 operator|(
@@ -122511,6 +122793,7 @@ argument_list|,
 literal|"startRow"
 argument_list|)
 block|,
+comment|/**        * columns to scan. If column name is a column family, all        * columns of the specified column family are returned. It's also possible        * to pass a regex in the column qualifier.        */
 name|COLUMNS
 argument_list|(
 operator|(
@@ -122521,6 +122804,7 @@ argument_list|,
 literal|"columns"
 argument_list|)
 block|,
+comment|/**        * timestamp        */
 name|TIMESTAMP
 argument_list|(
 operator|(
@@ -123115,6 +123399,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -123127,6 +123412,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|scannerOpenTs_args
 name|setTableName
@@ -123194,6 +123480,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * Starting row in table to scan.      * Send "" (empty string) to start at the first row.      */
 specifier|public
 name|byte
 index|[]
@@ -123206,6 +123493,7 @@ operator|.
 name|startRow
 return|;
 block|}
+comment|/**      * Starting row in table to scan.      * Send "" (empty string) to start at the first row.      */
 specifier|public
 name|scannerOpenTs_args
 name|setStartRow
@@ -123370,6 +123658,7 @@ name|elem
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * columns to scan. If column name is a column family, all      * columns of the specified column family are returned. It's also possible      * to pass a regex in the column qualifier.      */
 specifier|public
 name|List
 argument_list|<
@@ -123385,6 +123674,7 @@ operator|.
 name|columns
 return|;
 block|}
+comment|/**      * columns to scan. If column name is a column family, all      * columns of the specified column family are returned. It's also possible      * to pass a regex in the column qualifier.      */
 specifier|public
 name|scannerOpenTs_args
 name|setColumns
@@ -123455,6 +123745,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * timestamp      */
 specifier|public
 name|long
 name|getTimestamp
@@ -123466,6 +123757,7 @@ operator|.
 name|timestamp
 return|;
 block|}
+comment|/**      * timestamp      */
 specifier|public
 name|scannerOpenTs_args
 name|setTimestamp
@@ -127079,21 +127371,25 @@ operator|)
 literal|5
 argument_list|)
 decl_stmt|;
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
 name|tableName
 decl_stmt|;
+comment|/**      * Starting row in table to scan.      * Send "" (empty string) to start at the first row.      */
 specifier|public
 name|byte
 index|[]
 name|startRow
 decl_stmt|;
+comment|/**      * row to stop scanning on. This row is *not* included in the      * scanner's results      */
 specifier|public
 name|byte
 index|[]
 name|stopRow
 decl_stmt|;
+comment|/**      * columns to scan. If column name is a column family, all      * columns of the specified column family are returned. It's also possible      * to pass a regex in the column qualifier.      */
 specifier|public
 name|List
 argument_list|<
@@ -127102,6 +127398,7 @@ index|[]
 argument_list|>
 name|columns
 decl_stmt|;
+comment|/**      * timestamp      */
 specifier|public
 name|long
 name|timestamp
@@ -127113,6 +127410,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * name of table        */
 name|TABLE_NAME
 argument_list|(
 operator|(
@@ -127123,6 +127421,7 @@ argument_list|,
 literal|"tableName"
 argument_list|)
 block|,
+comment|/**        * Starting row in table to scan.        * Send "" (empty string) to start at the first row.        */
 name|START_ROW
 argument_list|(
 operator|(
@@ -127133,6 +127432,7 @@ argument_list|,
 literal|"startRow"
 argument_list|)
 block|,
+comment|/**        * row to stop scanning on. This row is *not* included in the        * scanner's results        */
 name|STOP_ROW
 argument_list|(
 operator|(
@@ -127143,6 +127443,7 @@ argument_list|,
 literal|"stopRow"
 argument_list|)
 block|,
+comment|/**        * columns to scan. If column name is a column family, all        * columns of the specified column family are returned. It's also possible        * to pass a regex in the column qualifier.        */
 name|COLUMNS
 argument_list|(
 operator|(
@@ -127153,6 +127454,7 @@ argument_list|,
 literal|"columns"
 argument_list|)
 block|,
+comment|/**        * timestamp        */
 name|TIMESTAMP
 argument_list|(
 operator|(
@@ -127799,6 +128101,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|byte
 index|[]
@@ -127811,6 +128114,7 @@ operator|.
 name|tableName
 return|;
 block|}
+comment|/**      * name of table      */
 specifier|public
 name|scannerOpenWithStopTs_args
 name|setTableName
@@ -127878,6 +128182,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * Starting row in table to scan.      * Send "" (empty string) to start at the first row.      */
 specifier|public
 name|byte
 index|[]
@@ -127890,6 +128195,7 @@ operator|.
 name|startRow
 return|;
 block|}
+comment|/**      * Starting row in table to scan.      * Send "" (empty string) to start at the first row.      */
 specifier|public
 name|scannerOpenWithStopTs_args
 name|setStartRow
@@ -127957,6 +128263,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * row to stop scanning on. This row is *not* included in the      * scanner's results      */
 specifier|public
 name|byte
 index|[]
@@ -127969,6 +128276,7 @@ operator|.
 name|stopRow
 return|;
 block|}
+comment|/**      * row to stop scanning on. This row is *not* included in the      * scanner's results      */
 specifier|public
 name|scannerOpenWithStopTs_args
 name|setStopRow
@@ -128133,6 +128441,7 @@ name|elem
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * columns to scan. If column name is a column family, all      * columns of the specified column family are returned. It's also possible      * to pass a regex in the column qualifier.      */
 specifier|public
 name|List
 argument_list|<
@@ -128148,6 +128457,7 @@ operator|.
 name|columns
 return|;
 block|}
+comment|/**      * columns to scan. If column name is a column family, all      * columns of the specified column family are returned. It's also possible      * to pass a regex in the column qualifier.      */
 specifier|public
 name|scannerOpenWithStopTs_args
 name|setColumns
@@ -128218,6 +128528,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
+comment|/**      * timestamp      */
 specifier|public
 name|long
 name|getTimestamp
@@ -128229,6 +128540,7 @@ operator|.
 name|timestamp
 return|;
 block|}
+comment|/**      * timestamp      */
 specifier|public
 name|scannerOpenWithStopTs_args
 name|setTimestamp
@@ -132063,6 +132375,7 @@ operator|)
 literal|1
 argument_list|)
 decl_stmt|;
+comment|/**      * id of a scanner returned by scannerOpen      */
 specifier|public
 name|int
 name|id
@@ -132074,6 +132387,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * id of a scanner returned by scannerOpen        */
 name|ID
 argument_list|(
 operator|(
@@ -132469,6 +132783,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * id of a scanner returned by scannerOpen      */
 specifier|public
 name|int
 name|getId
@@ -132480,6 +132795,7 @@ operator|.
 name|id
 return|;
 block|}
+comment|/**      * id of a scanner returned by scannerOpen      */
 specifier|public
 name|scannerGet_args
 name|setId
@@ -135530,10 +135846,12 @@ operator|)
 literal|2
 argument_list|)
 decl_stmt|;
+comment|/**      * id of a scanner returned by scannerOpen      */
 specifier|public
 name|int
 name|id
 decl_stmt|;
+comment|/**      * number of results to return      */
 specifier|public
 name|int
 name|nbRows
@@ -135545,6 +135863,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * id of a scanner returned by scannerOpen        */
 name|ID
 argument_list|(
 operator|(
@@ -135555,6 +135874,7 @@ argument_list|,
 literal|"id"
 argument_list|)
 block|,
+comment|/**        * number of results to return        */
 name|NB_ROWS
 argument_list|(
 operator|(
@@ -136005,6 +136325,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * id of a scanner returned by scannerOpen      */
 specifier|public
 name|int
 name|getId
@@ -136016,6 +136337,7 @@ operator|.
 name|id
 return|;
 block|}
+comment|/**      * id of a scanner returned by scannerOpen      */
 specifier|public
 name|scannerGetList_args
 name|setId
@@ -136085,6 +136407,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**      * number of results to return      */
 specifier|public
 name|int
 name|getNbRows
@@ -136096,6 +136419,7 @@ operator|.
 name|nbRows
 return|;
 block|}
+comment|/**      * number of results to return      */
 specifier|public
 name|scannerGetList_args
 name|setNbRows
@@ -139383,6 +139707,7 @@ operator|)
 literal|1
 argument_list|)
 decl_stmt|;
+comment|/**      * id of a scanner returned by scannerOpen      */
 specifier|public
 name|int
 name|id
@@ -139394,6 +139719,7 @@ name|_Fields
 implements|implements
 name|TFieldIdEnum
 block|{
+comment|/**        * id of a scanner returned by scannerOpen        */
 name|ID
 argument_list|(
 operator|(
@@ -139789,6 +140115,7 @@ name|this
 argument_list|)
 return|;
 block|}
+comment|/**      * id of a scanner returned by scannerOpen      */
 specifier|public
 name|int
 name|getId
@@ -139800,6 +140127,7 @@ operator|.
 name|id
 return|;
 block|}
+comment|/**      * id of a scanner returned by scannerOpen      */
 specifier|public
 name|scannerClose_args
 name|setId
