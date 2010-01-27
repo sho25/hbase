@@ -359,6 +359,28 @@ name|rowLock
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Create a Put operation for the specified row, using a given timestamp.    *     * @param row row key    * @param ts timestamp    */
+specifier|public
+name|Put
+parameter_list|(
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|long
+name|ts
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|row
+argument_list|,
+name|ts
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Create a Put operation for the specified row, using a given timestamp, and an existing row lock.    * @param row row key    * @param ts timestamp    * @param rowLock previously acquired row lock, or null    */
 specifier|public
 name|Put
