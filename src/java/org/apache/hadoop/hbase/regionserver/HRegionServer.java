@@ -5948,6 +5948,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**     * Wait on all threads to finish.    * Presumption is that all closes and stops have already been called.    */
+specifier|protected
 name|void
 name|join
 parameter_list|()
@@ -11635,6 +11636,16 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+comment|/**    * Interval at which threads should run    * @return the interval    */
+specifier|public
+name|int
+name|getThreadWakeFrequency
+parameter_list|()
+block|{
+return|return
+name|threadWakeFrequency
+return|;
 block|}
 comment|/**    * @param args    */
 specifier|public

@@ -637,7 +637,7 @@ name|log
 operator|.
 name|append
 argument_list|(
-name|regionName
+name|info
 argument_list|,
 name|tableName
 argument_list|,
@@ -707,7 +707,7 @@ name|log
 operator|.
 name|append
 argument_list|(
-name|regionName
+name|info
 argument_list|,
 name|tableName
 argument_list|,

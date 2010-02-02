@@ -4718,9 +4718,6 @@ operator|.
 name|append
 argument_list|(
 name|regionInfo
-operator|.
-name|getRegionName
-argument_list|()
 argument_list|,
 name|regionInfo
 operator|.
@@ -5741,9 +5738,6 @@ operator|.
 name|append
 argument_list|(
 name|regionInfo
-operator|.
-name|getRegionName
-argument_list|()
 argument_list|,
 name|regionInfo
 operator|.
@@ -9814,9 +9808,6 @@ operator|.
 name|append
 argument_list|(
 name|regionInfo
-operator|.
-name|getRegionName
-argument_list|()
 argument_list|,
 name|regionInfo
 operator|.

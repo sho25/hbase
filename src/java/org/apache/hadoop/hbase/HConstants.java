@@ -214,6 +214,21 @@ literal|2
 operator|*
 literal|1000
 decl_stmt|;
+comment|/** Parameter name for the root dir in ZK for this cluster */
+specifier|static
+specifier|final
+name|String
+name|ZOOKEEPER_ZNODE_PARENT
+init|=
+literal|"zookeeper.znode.parent"
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|DEFAULT_ZOOKEEPER_ZNODE_PARENT
+init|=
+literal|"/hbase"
+decl_stmt|;
 comment|/** Parameter name for port region server listens on. */
 specifier|static
 specifier|final

@@ -474,7 +474,7 @@ name|this
 operator|.
 name|writer_out
 operator|.
-name|sync
+name|hflush
 argument_list|()
 expr_stmt|;
 block|}
