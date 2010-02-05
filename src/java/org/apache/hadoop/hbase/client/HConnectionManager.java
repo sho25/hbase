@@ -2929,6 +2929,8 @@ argument_list|(
 name|conf
 argument_list|,
 name|finder
+argument_list|,
+name|tableName
 argument_list|)
 expr_stmt|;
 name|HTableDescriptor
