@@ -1086,6 +1086,7 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
+comment|// Get a scanner that does not use pread.
 name|s
 operator|.
 name|add
@@ -1094,7 +1095,11 @@ name|r
 operator|.
 name|getScanner
 argument_list|(
+name|this
+operator|.
 name|cacheBlocks
+argument_list|,
+literal|false
 argument_list|)
 argument_list|)
 expr_stmt|;

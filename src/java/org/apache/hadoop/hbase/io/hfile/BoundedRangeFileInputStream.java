@@ -91,7 +91,12 @@ index|[
 literal|1
 index|]
 decl_stmt|;
-comment|/**    * Constructor    *    * @param in    *          The FSDataInputStream we connect to.    * @param offset    *          Beginning offset of the region.    * @param length    *          Length of the region.    *    *          The actual length of the region may be smaller if (off_begin +    *          length) goes beyond the end of FS input stream.    */
+specifier|private
+specifier|final
+name|boolean
+name|pread
+decl_stmt|;
+comment|/**    * Constructor    *    * @param in    *          The FSDataInputStream we connect to.    * @param offset    *          Beginning offset of the region.    * @param length    *          Length of the region.    * @param pread If true, use Filesystem positional read rather than seek+read.    *    *          The actual length of the region may be smaller if (off_begin +    *          length) goes beyond the end of FS input stream.    */
 specifier|public
 name|BoundedRangeFileInputStream
 parameter_list|(
@@ -103,6 +108,10 @@ name|offset
 parameter_list|,
 name|long
 name|length
+parameter_list|,
+specifier|final
+name|boolean
+name|pread
 parameter_list|)
 block|{
 if|if
@@ -156,6 +165,12 @@ name|mark
 operator|=
 operator|-
 literal|1
+expr_stmt|;
+name|this
+operator|.
+name|pread
+operator|=
+name|pread
 expr_stmt|;
 block|}
 annotation|@
@@ -359,6 +374,31 @@ name|ret
 init|=
 literal|0
 decl_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|pread
+condition|)
+block|{
+name|ret
+operator|=
+name|in
+operator|.
+name|read
+argument_list|(
+name|pos
+argument_list|,
+name|b
+argument_list|,
+name|off
+argument_list|,
+name|n
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 synchronized|synchronized
 init|(
 name|in
@@ -385,7 +425,7 @@ name|n
 argument_list|)
 expr_stmt|;
 block|}
-comment|// / ret = in.read(pos, b, off, n);
+block|}
 if|if
 condition|(
 name|ret

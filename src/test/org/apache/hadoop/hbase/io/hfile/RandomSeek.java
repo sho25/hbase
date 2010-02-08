@@ -488,13 +488,18 @@ argument_list|(
 literal|"/Users/ryan/xaa.50k"
 argument_list|)
 decl_stmt|;
+comment|// Get a scanner that doesn't cache and that uses pread.
 name|HFileScanner
 name|scanner
 init|=
 name|reader
 operator|.
 name|getScanner
-argument_list|()
+argument_list|(
+literal|false
+argument_list|,
+literal|true
+argument_list|)
 decl_stmt|;
 name|int
 name|count

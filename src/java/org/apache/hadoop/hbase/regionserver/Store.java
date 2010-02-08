@@ -4034,7 +4034,7 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
-comment|// Instantiate HFile.Reader.Scanner to not cache blocks
+comment|// Instantiate HFile.Reader.Scanner to not cache blocks and not use pread
 name|scanners
 index|[
 name|i
@@ -4047,6 +4047,8 @@ name|r
 operator|.
 name|getScanner
 argument_list|(
+literal|false
+argument_list|,
 literal|false
 argument_list|)
 argument_list|)
@@ -5064,13 +5066,18 @@ name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Get a scanner that caches blocks and that uses pread.
 name|HFileScanner
 name|scanner
 init|=
 name|r
 operator|.
 name|getScanner
-argument_list|()
+argument_list|(
+literal|true
+argument_list|,
+literal|true
+argument_list|)
 decl_stmt|;
 comment|// Seek scanner.  If can't seek it, return.
 if|if
@@ -6370,6 +6377,7 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
+comment|// Get a scanner that caches the block and uses pread
 name|storefileScanners
 operator|.
 name|add
@@ -6377,7 +6385,11 @@ argument_list|(
 name|r
 operator|.
 name|getScanner
-argument_list|()
+argument_list|(
+literal|true
+argument_list|,
+literal|true
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

@@ -881,13 +881,18 @@ operator|.
 name|loadFileInfo
 argument_list|()
 expr_stmt|;
+comment|// Get a scanner that caches and that does not use pread.
 name|HFileScanner
 name|scanner
 init|=
 name|reader
 operator|.
 name|getScanner
-argument_list|()
+argument_list|(
+literal|true
+argument_list|,
+literal|false
+argument_list|)
 decl_stmt|;
 comment|// Align scanner at start of the file.
 name|scanner
@@ -1326,7 +1331,11 @@ argument_list|(
 name|reader
 operator|.
 name|getScanner
-argument_list|()
+argument_list|(
+literal|false
+argument_list|,
+literal|false
+argument_list|)
 operator|.
 name|seekTo
 argument_list|()

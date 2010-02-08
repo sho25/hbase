@@ -3527,29 +3527,17 @@ return|return
 name|fft
 return|;
 block|}
-comment|/**      * Create a Scanner on this file.  No seeks or reads are done on creation.      * Call {@link HFileScanner#seekTo(byte[])} to position an start the read.      * There is nothing to clean up in a Scanner. Letting go of your references      * to the scanner is sufficient.      * @return Scanner on this file.      */
-specifier|public
-name|HFileScanner
-name|getScanner
-parameter_list|()
-block|{
-return|return
-operator|new
-name|Scanner
-argument_list|(
-name|this
-argument_list|,
-literal|true
-argument_list|)
-return|;
-block|}
-comment|/**      * Create a Scanner on this file.  No seeks or reads are done on creation.      * Call {@link HFileScanner#seekTo(byte[])} to position an start the read.      * There is nothing to clean up in a Scanner. Letting go of your references      * to the scanner is sufficient.      * @return Scanner on this file.      */
+comment|/**      * Create a Scanner on this file.  No seeks or reads are done on creation.      * Call {@link HFileScanner#seekTo(byte[])} to position an start the read.      * There is nothing to clean up in a Scanner. Letting go of your references      * to the scanner is sufficient.      * @param pread Use positional read rather than seek+read if true (pread is      * better for random reads, seek+read is better scanning).      * @param cacheBlocks True if we should cache blocks read in by this scanner.      * @return Scanner on this file.      */
 specifier|public
 name|HFileScanner
 name|getScanner
 parameter_list|(
 name|boolean
 name|cacheBlocks
+parameter_list|,
+specifier|final
+name|boolean
+name|pread
 parameter_list|)
 block|{
 return|return
@@ -3559,6 +3547,8 @@ argument_list|(
 name|this
 argument_list|,
 name|cacheBlocks
+argument_list|,
+name|pread
 argument_list|)
 return|;
 block|}
@@ -3756,6 +3746,8 @@ name|blockDataSizes
 index|[
 name|block
 index|]
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|byte
@@ -3835,7 +3827,7 @@ return|return
 name|buf
 return|;
 block|}
-comment|/**      * Read in a file block.      * @param block Index of block to read.      * @return Block wrapped in a ByteBuffer.      * @throws IOException      */
+comment|/**      * Read in a file block.      * @param block Index of block to read.      * @param pread Use positional read instead of seek+read (positional is      * better doing random reads whereas seek+read is better scanning).      * @return Block wrapped in a ByteBuffer.      * @throws IOException      */
 name|ByteBuffer
 name|readBlock
 parameter_list|(
@@ -3844,6 +3836,10 @@ name|block
 parameter_list|,
 name|boolean
 name|cacheBlock
+parameter_list|,
+specifier|final
+name|boolean
+name|pread
 parameter_list|)
 throws|throws
 name|IOException
@@ -4057,6 +4053,8 @@ name|blockDataSizes
 index|[
 name|block
 index|]
+argument_list|,
+name|pread
 argument_list|)
 decl_stmt|;
 name|byte
@@ -4176,7 +4174,7 @@ name|buf
 return|;
 block|}
 block|}
-comment|/*      * Decompress<code>compressedSize</code> bytes off the backing      * FSDataInputStream.      * @param offset      * @param compressedSize      * @param decompressedSize      * @return      * @throws IOException      */
+comment|/*      * Decompress<code>compressedSize</code> bytes off the backing      * FSDataInputStream.      * @param offset      * @param compressedSize      * @param decompressedSize      *       * @return      * @throws IOException      */
 specifier|private
 name|ByteBuffer
 name|decompress
@@ -4192,6 +4190,10 @@ parameter_list|,
 specifier|final
 name|int
 name|decompressedSize
+parameter_list|,
+specifier|final
+name|boolean
+name|pread
 parameter_list|)
 throws|throws
 name|IOException
@@ -4240,6 +4242,8 @@ argument_list|,
 name|offset
 argument_list|,
 name|compressedSize
+argument_list|,
+name|pread
 argument_list|)
 argument_list|,
 name|decompressor
@@ -4567,10 +4571,14 @@ name|int
 name|currBlock
 decl_stmt|;
 specifier|private
+specifier|final
 name|boolean
 name|cacheBlocks
-init|=
-literal|false
+decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
+name|pread
 decl_stmt|;
 specifier|private
 name|int
@@ -4598,6 +4606,10 @@ name|r
 parameter_list|,
 name|boolean
 name|cacheBlocks
+parameter_list|,
+specifier|final
+name|boolean
+name|pread
 parameter_list|)
 block|{
 name|this
@@ -4611,6 +4623,12 @@ operator|.
 name|cacheBlocks
 operator|=
 name|cacheBlocks
+expr_stmt|;
+name|this
+operator|.
+name|pread
+operator|=
+name|pread
 expr_stmt|;
 block|}
 specifier|public
@@ -4866,9 +4884,17 @@ name|reader
 operator|.
 name|readBlock
 argument_list|(
+name|this
+operator|.
 name|currBlock
 argument_list|,
+name|this
+operator|.
 name|cacheBlocks
+argument_list|,
+name|this
+operator|.
+name|pread
 argument_list|)
 expr_stmt|;
 name|currKeyLen
@@ -5539,9 +5565,17 @@ name|reader
 operator|.
 name|readBlock
 argument_list|(
+name|this
+operator|.
 name|currBlock
 argument_list|,
+name|this
+operator|.
 name|cacheBlocks
+argument_list|,
+name|this
+operator|.
+name|pread
 argument_list|)
 expr_stmt|;
 name|currKeyLen
@@ -5590,7 +5624,13 @@ name|readBlock
 argument_list|(
 name|bloc
 argument_list|,
+name|this
+operator|.
 name|cacheBlocks
+argument_list|,
+name|this
+operator|.
+name|pread
 argument_list|)
 expr_stmt|;
 name|currBlock
@@ -5618,7 +5658,13 @@ name|readBlock
 argument_list|(
 name|bloc
 argument_list|,
+name|this
+operator|.
 name|cacheBlocks
+argument_list|,
+name|this
+operator|.
+name|pread
 argument_list|)
 expr_stmt|;
 name|currBlock
@@ -7673,7 +7719,11 @@ init|=
 name|reader
 operator|.
 name|getScanner
-argument_list|()
+argument_list|(
+literal|false
+argument_list|,
+literal|false
+argument_list|)
 decl_stmt|;
 name|scanner
 operator|.

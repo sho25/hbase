@@ -1245,6 +1245,8 @@ operator|.
 name|getScanner
 argument_list|(
 literal|false
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|scanner
@@ -1429,7 +1431,11 @@ name|getReader
 argument_list|()
 operator|.
 name|getScanner
-argument_list|()
+argument_list|(
+literal|false
+argument_list|,
+literal|false
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
