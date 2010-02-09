@@ -744,6 +744,22 @@ name|Long
 operator|.
 name|MAX_VALUE
 decl_stmt|;
+comment|/**    * HRegion server lease period in milliseconds. Clients must report in within this period    * else they are considered dead. Unit measured in ms (milliseconds).    */
+specifier|public
+specifier|static
+name|String
+name|HBASE_REGIONSERVER_LEASE_PERIOD_KEY
+init|=
+literal|"hbase.regionserver.lease.period"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_REGIONSERVER_LEASE_PERIOD_KEY}.     */
+specifier|public
+specifier|static
+name|long
+name|DEFAULT_HBASE_REGIONSERVER_LEASE_PERIOD
+init|=
+literal|60000
+decl_stmt|;
 block|}
 end_interface
 

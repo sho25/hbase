@@ -13162,7 +13162,9 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.regionserver.lease.period"
+name|HConstants
+operator|.
+name|HBASE_REGIONSERVER_LEASE_PERIOD_KEY
 argument_list|,
 literal|10
 operator|*

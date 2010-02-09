@@ -1425,9 +1425,9 @@ name|conf
 operator|.
 name|getLong
 argument_list|(
-literal|"hbase.regionserver.lease.period"
+name|HBASE_REGIONSERVER_LEASE_PERIOD_KEY
 argument_list|,
-literal|60000
+name|DEFAULT_HBASE_REGIONSERVER_LEASE_PERIOD
 argument_list|)
 expr_stmt|;
 name|this
