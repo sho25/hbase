@@ -1168,6 +1168,16 @@ argument_list|)
 expr_stmt|;
 name|addToMap
 argument_list|(
+name|SingleColumnValueExcludeFilter
+operator|.
+name|class
+argument_list|,
+name|code
+operator|++
+argument_list|)
+expr_stmt|;
+name|addToMap
+argument_list|(
 name|BinaryComparator
 operator|.
 name|class

@@ -190,12 +190,12 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|private
+specifier|protected
 name|byte
 index|[]
 name|columnFamily
 decl_stmt|;
-specifier|private
+specifier|protected
 name|byte
 index|[]
 name|columnQualifier
