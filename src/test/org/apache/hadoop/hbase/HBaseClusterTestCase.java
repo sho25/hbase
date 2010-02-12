@@ -297,7 +297,7 @@ operator|=
 name|val
 expr_stmt|;
 block|}
-comment|/**    * Run after dfs is ready but before hbase cluster is started up.    */
+comment|/**    * Subclass hook.    *     * Run after dfs is ready but before hbase cluster is started up.    */
 specifier|protected
 name|void
 name|preHBaseClusterSetup
