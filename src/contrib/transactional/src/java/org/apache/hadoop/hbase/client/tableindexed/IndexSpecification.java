@@ -276,11 +276,6 @@ name|keyGenerator
 expr_stmt|;
 name|this
 operator|.
-name|makeAllColumns
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
 name|additionalColumns
 operator|=
 operator|(
@@ -299,6 +294,11 @@ literal|0
 index|]
 else|:
 name|additionalColumns
+expr_stmt|;
+name|this
+operator|.
+name|makeAllColumns
+argument_list|()
 expr_stmt|;
 block|}
 specifier|public
