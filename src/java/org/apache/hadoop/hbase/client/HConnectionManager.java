@@ -389,36 +389,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|NotServingRegionException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|WrongRegionException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|MetaScanner
@@ -5318,7 +5288,22 @@ throw|throw
 operator|new
 name|RetriesExhaustedException
 argument_list|(
-literal|"Some server"
+literal|" -- nothing found, no 'location' returned,"
+operator|+
+literal|" tableName="
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|tableName
+argument_list|)
+operator|+
+literal|", reload="
+operator|+
+name|reload
+operator|+
+literal|" --"
 argument_list|,
 name|HConstants
 operator|.
