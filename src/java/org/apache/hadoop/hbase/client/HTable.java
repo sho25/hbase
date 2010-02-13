@@ -734,6 +734,19 @@ init|=
 name|getCurrentNrHRS
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|nrHRS
+operator|==
+literal|0
+condition|)
+block|{
+comment|// No servers running -- set default of 10 threads.
+name|nrHRS
+operator|=
+literal|10
+expr_stmt|;
+block|}
 name|int
 name|nrThreads
 init|=
