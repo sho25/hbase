@@ -140,7 +140,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|HQuorumPeerTest
+name|TestHQuorumPeer
 extends|extends
 name|HBaseTestCase
 block|{
@@ -286,7 +286,7 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
-literal|2000
+literal|3000
 argument_list|,
 name|Integer
 operator|.
@@ -440,7 +440,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|2000
+literal|3000
 argument_list|,
 name|Integer
 operator|.
