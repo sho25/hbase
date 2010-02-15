@@ -246,14 +246,6 @@ name|TransactionalTable
 extends|extends
 name|HTable
 block|{
-static|static
-block|{
-name|TransactionalRPC
-operator|.
-name|initialize
-argument_list|()
-expr_stmt|;
-block|}
 comment|/**    * @param conf    * @param tableName    * @throws IOException    */
 specifier|public
 name|TransactionalTable

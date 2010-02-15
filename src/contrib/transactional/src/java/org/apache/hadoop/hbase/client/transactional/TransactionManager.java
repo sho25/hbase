@@ -166,14 +166,6 @@ specifier|public
 class|class
 name|TransactionManager
 block|{
-static|static
-block|{
-name|TransactionalRPC
-operator|.
-name|initialize
-argument_list|()
-expr_stmt|;
-block|}
 specifier|static
 specifier|final
 name|Log

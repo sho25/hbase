@@ -227,11 +227,6 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|initMethods
-argument_list|()
-expr_stmt|;
 name|rpcStatistics
 operator|=
 operator|new
@@ -281,30 +276,6 @@ name|registry
 argument_list|)
 decl_stmt|;
 comment|//public Map<String, MetricsTimeVaryingRate> metricsList = Collections.synchronizedMap(new HashMap<String, MetricsTimeVaryingRate>());
-comment|/**    * Register metrics for all know RPC methods ahead of time.  This helps with    * JMX usage, where trying to retrieve the RPC-method metrics before they're    * incremented could otherwise cause spurious AttributeNotFoundExceptions.    */
-specifier|private
-name|void
-name|initMethods
-parameter_list|()
-block|{
-for|for
-control|(
-name|String
-name|name
-range|:
-name|HBaseRPC
-operator|.
-name|getMappedMethodNames
-argument_list|()
-control|)
-block|{
-name|create
-argument_list|(
-name|name
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 specifier|private
 name|MetricsTimeVaryingRate
 name|get
