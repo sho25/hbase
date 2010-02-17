@@ -1020,6 +1020,10 @@ operator|.
 name|FOREVER
 argument_list|,
 literal|false
+argument_list|,
+name|HConstants
+operator|.
+name|REPLICATION_SCOPE_LOCAL
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1051,6 +1055,10 @@ operator|.
 name|FOREVER
 argument_list|,
 literal|false
+argument_list|,
+name|HConstants
+operator|.
+name|REPLICATION_SCOPE_LOCAL
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1082,6 +1090,10 @@ operator|.
 name|FOREVER
 argument_list|,
 literal|false
+argument_list|,
+name|HConstants
+operator|.
+name|REPLICATION_SCOPE_LOCAL
 argument_list|)
 argument_list|)
 expr_stmt|;

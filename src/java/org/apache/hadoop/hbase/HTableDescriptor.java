@@ -117,20 +117,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicBoolean
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -3104,6 +3090,10 @@ operator|.
 name|FOREVER
 argument_list|,
 literal|false
+argument_list|,
+name|HConstants
+operator|.
+name|REPLICATION_SCOPE_LOCAL
 argument_list|)
 block|}
 argument_list|)
@@ -3158,6 +3148,10 @@ operator|.
 name|FOREVER
 argument_list|,
 literal|false
+argument_list|,
+name|HConstants
+operator|.
+name|REPLICATION_SCOPE_LOCAL
 argument_list|)
 block|,
 operator|new
@@ -3193,6 +3187,10 @@ operator|.
 name|WEEK_IN_SECONDS
 argument_list|,
 literal|false
+argument_list|,
+name|HConstants
+operator|.
+name|REPLICATION_SCOPE_LOCAL
 argument_list|)
 block|}
 argument_list|)

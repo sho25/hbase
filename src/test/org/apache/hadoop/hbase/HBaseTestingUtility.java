@@ -1325,6 +1325,10 @@ operator|.
 name|DEFAULT_TTL
 argument_list|,
 literal|false
+argument_list|,
+name|HColumnDescriptor
+operator|.
+name|DEFAULT_REPLICATION_SCOPE
 argument_list|)
 decl_stmt|;
 name|desc
@@ -1438,6 +1442,10 @@ operator|.
 name|DEFAULT_TTL
 argument_list|,
 literal|false
+argument_list|,
+name|HColumnDescriptor
+operator|.
+name|DEFAULT_REPLICATION_SCOPE
 argument_list|)
 decl_stmt|;
 name|desc

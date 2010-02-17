@@ -323,6 +323,10 @@ operator|.
 name|FOREVER
 argument_list|,
 literal|false
+argument_list|,
+name|HColumnDescriptor
+operator|.
+name|DEFAULT_REPLICATION_SCOPE
 argument_list|)
 argument_list|)
 expr_stmt|;

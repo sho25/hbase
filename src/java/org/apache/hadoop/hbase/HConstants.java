@@ -726,6 +726,33 @@ name|TABLE_SET_HTD
 block|,
 name|TABLE_SPLIT
 block|}
+comment|/**    * Scope tag for locally scoped data.    * This data will not be replicated.    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|REPLICATION_SCOPE_LOCAL
+init|=
+literal|0
+decl_stmt|;
+comment|/**    * Scope tag for globally scoped data.    * This data will be replicated to all peers.    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|REPLICATION_SCOPE_GLOBAL
+init|=
+literal|1
+decl_stmt|;
+comment|/**    * Default cluster ID, cannot be used to identify a cluster so a key with    * this value means it wasn't meant for replication.    */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+name|DEFAULT_CLUSTER_ID
+init|=
+literal|0
+decl_stmt|;
 comment|/**      * Parameter name for maximum number of bytes returned when calling a      * scanner's next method.      */
 specifier|public
 specifier|static

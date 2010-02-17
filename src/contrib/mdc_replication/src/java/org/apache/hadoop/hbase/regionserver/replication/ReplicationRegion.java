@@ -542,6 +542,13 @@ name|HLog
 operator|.
 name|METAFAMILY
 argument_list|)
+operator|&&
+name|key
+operator|.
+name|getScope
+argument_list|()
+operator|==
+name|REPLICATION_SCOPE_GLOBAL
 condition|)
 block|{
 name|this

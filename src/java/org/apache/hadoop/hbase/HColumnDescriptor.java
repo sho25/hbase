@@ -283,6 +283,14 @@ name|MAPFILE_INDEX_INTERVAL
 init|=
 literal|"MAPFILE_INDEX_INTERVAL"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REPLICATION_SCOPE
+init|=
+literal|"REPLICATION_SCOPE"
+decl_stmt|;
 comment|/**    * Default compression type.    */
 specifier|public
 specifier|static
@@ -364,6 +372,17 @@ init|=
 name|HConstants
 operator|.
 name|FOREVER
+decl_stmt|;
+comment|/**    * Default scope.    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_REPLICATION_SCOPE
+init|=
+name|HConstants
+operator|.
+name|REPLICATION_SCOPE_LOCAL
 decl_stmt|;
 comment|// Column family name
 specifier|private
@@ -584,10 +603,12 @@ argument_list|,
 name|timeToLive
 argument_list|,
 name|bloomFilter
+argument_list|,
+name|DEFAULT_REPLICATION_SCOPE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    * @param scope The scope tag for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -623,6 +644,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|bloomFilter
+parameter_list|,
+specifier|final
+name|int
+name|scope
 parameter_list|)
 block|{
 name|isLegalFamilyName
@@ -696,6 +721,11 @@ expr_stmt|;
 name|setBlocksize
 argument_list|(
 name|blocksize
+argument_list|)
+expr_stmt|;
+name|setScope
+argument_list|(
+name|scope
 argument_list|)
 expr_stmt|;
 block|}
@@ -1538,6 +1568,65 @@ operator|.
 name|toString
 argument_list|(
 name|interval
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**     * @return the scope tag     */
+specifier|public
+name|int
+name|getScope
+parameter_list|()
+block|{
+name|String
+name|value
+init|=
+name|getValue
+argument_list|(
+name|REPLICATION_SCOPE
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|value
+operator|!=
+literal|null
+condition|)
+block|{
+return|return
+name|Integer
+operator|.
+name|valueOf
+argument_list|(
+name|value
+argument_list|)
+operator|.
+name|intValue
+argument_list|()
+return|;
+block|}
+return|return
+name|DEFAULT_REPLICATION_SCOPE
+return|;
+block|}
+comment|/**   * @param scope the scope tag   */
+specifier|public
+name|void
+name|setScope
+parameter_list|(
+name|int
+name|scope
+parameter_list|)
+block|{
+name|setValue
+argument_list|(
+name|REPLICATION_SCOPE
+argument_list|,
+name|Integer
+operator|.
+name|toString
+argument_list|(
+name|scope
 argument_list|)
 argument_list|)
 expr_stmt|;
