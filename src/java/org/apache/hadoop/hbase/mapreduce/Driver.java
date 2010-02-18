@@ -107,6 +107,21 @@ argument_list|)
 expr_stmt|;
 name|pgd
 operator|.
+name|addClass
+argument_list|(
+name|CopyTable
+operator|.
+name|NAME
+argument_list|,
+name|CopyTable
+operator|.
+name|class
+argument_list|,
+literal|"Export a table from local cluster to peer cluster"
+argument_list|)
+expr_stmt|;
+name|pgd
+operator|.
 name|driver
 argument_list|(
 name|args
