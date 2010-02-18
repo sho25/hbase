@@ -197,6 +197,10 @@ name|Path
 name|dir
 decl_stmt|;
 specifier|private
+name|Path
+name|oldLogdir
+decl_stmt|;
+specifier|private
 name|MiniDFSCluster
 name|cluster
 decl_stmt|;
@@ -422,6 +426,21 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|oldLogdir
+operator|=
+operator|new
+name|Path
+argument_list|(
+literal|"/hbase"
+argument_list|,
+name|getName
+argument_list|()
+operator|+
+literal|"_old"
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|fs
@@ -508,6 +527,8 @@ argument_list|(
 name|fs
 argument_list|,
 name|dir
+argument_list|,
+name|oldLogdir
 argument_list|,
 name|this
 operator|.
@@ -683,6 +704,8 @@ name|fs
 argument_list|,
 name|dir
 argument_list|,
+name|oldLogdir
+argument_list|,
 name|this
 operator|.
 name|conf
@@ -854,6 +877,8 @@ argument_list|(
 name|fs
 argument_list|,
 name|dir
+argument_list|,
+name|oldLogdir
 argument_list|,
 name|this
 operator|.
@@ -1041,6 +1066,8 @@ name|fs
 argument_list|,
 name|dir
 argument_list|,
+name|oldLogdir
+argument_list|,
 name|this
 operator|.
 name|conf
@@ -1226,6 +1253,8 @@ argument_list|(
 name|fs
 argument_list|,
 name|dir
+argument_list|,
+name|oldLogdir
 argument_list|,
 name|this
 operator|.

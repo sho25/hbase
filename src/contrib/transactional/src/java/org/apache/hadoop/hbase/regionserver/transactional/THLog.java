@@ -224,6 +224,9 @@ parameter_list|,
 name|Path
 name|dir
 parameter_list|,
+name|Path
+name|oldLogDir
+parameter_list|,
 name|Configuration
 name|conf
 parameter_list|,
@@ -238,6 +241,8 @@ argument_list|(
 name|fs
 argument_list|,
 name|dir
+argument_list|,
+name|oldLogDir
 argument_list|,
 name|conf
 argument_list|,

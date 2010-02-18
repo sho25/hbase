@@ -235,6 +235,22 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FSUtils
+import|;
+end_import
+
 begin_comment
 comment|/**   * Instantiated when a server's lease has expired, meaning it has crashed.  * The region server's log file needs to be split up for each region it was  * serving, and the regions need to get reassigned.  */
 end_comment
@@ -263,7 +279,7 @@ name|metaRegions
 decl_stmt|;
 specifier|private
 name|Path
-name|oldLogDir
+name|rsLogDir
 decl_stmt|;
 specifier|private
 name|boolean
@@ -360,7 +376,7 @@ literal|false
 expr_stmt|;
 name|this
 operator|.
-name|oldLogDir
+name|rsLogDir
 operator|=
 operator|new
 name|Path
@@ -1410,7 +1426,7 @@ argument_list|()
 operator|.
 name|exists
 argument_list|(
-name|oldLogDir
+name|rsLogDir
 argument_list|)
 condition|)
 block|{
@@ -1443,7 +1459,14 @@ operator|.
 name|getRootDir
 argument_list|()
 argument_list|,
-name|oldLogDir
+name|rsLogDir
+argument_list|,
+name|this
+operator|.
+name|master
+operator|.
+name|getOldLogDir
+argument_list|()
 argument_list|,
 name|this
 operator|.

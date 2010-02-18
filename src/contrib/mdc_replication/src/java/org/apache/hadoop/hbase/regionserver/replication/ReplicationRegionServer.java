@@ -427,6 +427,9 @@ name|instantiateHLog
 parameter_list|(
 name|Path
 name|logdir
+parameter_list|,
+name|Path
+name|oldLogDir
 parameter_list|)
 throws|throws
 name|IOException
@@ -443,6 +446,8 @@ name|getFileSystem
 argument_list|()
 argument_list|,
 name|logdir
+argument_list|,
+name|oldLogDir
 argument_list|,
 name|conf
 argument_list|,

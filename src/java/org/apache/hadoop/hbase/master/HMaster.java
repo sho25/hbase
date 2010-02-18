@@ -1186,6 +1186,12 @@ name|fsOk
 init|=
 literal|true
 decl_stmt|;
+comment|// The Path to the old logs dir
+specifier|private
+specifier|final
+name|Path
+name|oldLogDir
+decl_stmt|;
 comment|// Queues for RegionServerOperation events.  Includes server open, shutdown,
 comment|// and region open and close.
 specifier|private
@@ -1338,6 +1344,48 @@ operator|.
 name|fs
 argument_list|)
 expr_stmt|;
+comment|// Make sure the region servers can archive their old logs
+name|this
+operator|.
+name|oldLogDir
+operator|=
+operator|new
+name|Path
+argument_list|(
+name|this
+operator|.
+name|rootdir
+argument_list|,
+name|HREGION_OLDLOGDIR_NAME
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|this
+operator|.
+name|oldLogDir
+argument_list|)
+condition|)
+block|{
+name|this
+operator|.
+name|fs
+operator|.
+name|mkdirs
+argument_list|(
+name|this
+operator|.
+name|oldLogDir
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Get my address and create an rpc server instance.  The rpc-server port
 comment|// can be ephemeral...ensure we have the correct info
 name|HServerAddress
@@ -2228,6 +2276,18 @@ name|serverManager
 operator|.
 name|getAverageLoad
 argument_list|()
+return|;
+block|}
+comment|/**    * Get the directory where old logs go    * @return the dir    */
+specifier|public
+name|Path
+name|getOldLogDir
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|oldLogDir
 return|;
 block|}
 comment|/**    * Add to the passed<code>m</code> servers that are loaded less than    *<code>l</code>.    * @param l    * @param m    */
@@ -3295,6 +3355,8 @@ operator|.
 name|rootdir
 argument_list|,
 name|logDir
+argument_list|,
+name|oldLogDir
 argument_list|,
 name|this
 operator|.

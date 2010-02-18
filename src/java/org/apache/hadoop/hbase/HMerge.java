@@ -624,6 +624,17 @@ operator|+
 name|HREGION_LOGDIR_NAME
 argument_list|)
 decl_stmt|;
+name|Path
+name|oldLogDir
+init|=
+operator|new
+name|Path
+argument_list|(
+name|tabledir
+argument_list|,
+name|HREGION_OLDLOGDIR_NAME
+argument_list|)
+decl_stmt|;
 name|this
 operator|.
 name|hlog
@@ -634,6 +645,8 @@ argument_list|(
 name|fs
 argument_list|,
 name|logdir
+argument_list|,
+name|oldLogDir
 argument_list|,
 name|conf
 argument_list|,

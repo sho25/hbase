@@ -4976,6 +4976,17 @@ throws|,
 name|IOException
 block|{
 name|Path
+name|oldLogDir
+init|=
+operator|new
+name|Path
+argument_list|(
+name|rootDir
+argument_list|,
+name|HREGION_OLDLOGDIR_NAME
+argument_list|)
+decl_stmt|;
+name|Path
 name|logdir
 init|=
 operator|new
@@ -5056,6 +5067,8 @@ init|=
 name|instantiateHLog
 argument_list|(
 name|logdir
+argument_list|,
+name|oldLogDir
 argument_list|)
 decl_stmt|;
 return|return
@@ -5069,6 +5082,9 @@ name|instantiateHLog
 parameter_list|(
 name|Path
 name|logdir
+parameter_list|,
+name|Path
+name|oldLogDir
 parameter_list|)
 throws|throws
 name|IOException
@@ -5082,6 +5098,8 @@ argument_list|(
 name|fs
 argument_list|,
 name|logdir
+argument_list|,
+name|oldLogDir
 argument_list|,
 name|conf
 argument_list|,

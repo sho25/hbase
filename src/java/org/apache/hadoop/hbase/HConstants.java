@@ -314,6 +314,14 @@ name|HREGION_LOGDIR_NAME
 init|=
 literal|".logs"
 decl_stmt|;
+comment|/** Like the previous, but for old logs that are about to be deleted */
+specifier|static
+specifier|final
+name|String
+name|HREGION_OLDLOGDIR_NAME
+init|=
+literal|".oldlogs"
+decl_stmt|;
 comment|/** Name of old log file for reconstruction */
 specifier|static
 specifier|final
