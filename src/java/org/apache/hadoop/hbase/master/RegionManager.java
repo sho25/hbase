@@ -5447,7 +5447,7 @@ argument_list|,
 operator|(
 name|float
 operator|)
-literal|0.1
+literal|0.3
 argument_list|)
 expr_stmt|;
 if|if
