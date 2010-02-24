@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  * Copyright 2009 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -365,6 +365,24 @@ name|hbase
 operator|.
 name|stargate
 operator|.
+name|auth
+operator|.
+name|User
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|stargate
+operator|.
 name|model
 operator|.
 name|ColumnSchemaModel
@@ -533,8 +551,6 @@ name|MIMETYPE_XML
 block|,
 name|MIMETYPE_JSON
 block|,
-name|MIMETYPE_JAVASCRIPT
-block|,
 name|MIMETYPE_PROTOBUF
 block|}
 argument_list|)
@@ -588,10 +604,7 @@ name|model
 operator|.
 name|setName
 argument_list|(
-name|htd
-operator|.
-name|getNameAsString
-argument_list|()
+name|tableName
 argument_list|)
 expr_stmt|;
 for|for
@@ -1274,36 +1287,13 @@ parameter_list|)
 block|{
 try|try
 block|{
-name|RESTServlet
-name|server
-init|=
-name|RESTServlet
-operator|.
-name|getInstance
-argument_list|()
-decl_stmt|;
-name|server
+name|servlet
 operator|.
 name|invalidateMaxAge
 argument_list|(
-name|model
-operator|.
-name|getName
-argument_list|()
+name|tableName
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
-name|admin
-init|=
-operator|new
-name|HBaseAdmin
-argument_list|(
-name|server
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|tableName
@@ -1312,9 +1302,18 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|model
+name|actualTableName
+argument_list|)
+decl_stmt|;
+name|HBaseAdmin
+name|admin
+init|=
+operator|new
+name|HBaseAdmin
+argument_list|(
+name|servlet
 operator|.
-name|getName
+name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1391,8 +1390,6 @@ name|MIMETYPE_XML
 block|,
 name|MIMETYPE_JSON
 block|,
-name|MIMETYPE_JAVASCRIPT
-block|,
 name|MIMETYPE_PROTOBUF
 block|}
 argument_list|)
@@ -1430,6 +1427,37 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|// use the name given in the path, but warn if the name on the path and
+comment|// the name in the schema are different
+if|if
+condition|(
+name|model
+operator|.
+name|getName
+argument_list|()
+operator|!=
+name|tableName
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"table name mismatch: path='"
+operator|+
+name|tableName
+operator|+
+literal|"', schema='"
+operator|+
+name|model
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|"'"
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 name|update
 argument_list|(
@@ -1450,8 +1478,6 @@ block|{
 name|MIMETYPE_XML
 block|,
 name|MIMETYPE_JSON
-block|,
-name|MIMETYPE_JAVASCRIPT
 block|,
 name|MIMETYPE_PROTOBUF
 block|}
@@ -1487,6 +1513,37 @@ name|uriInfo
 operator|.
 name|getAbsolutePath
 argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+comment|// use the name given in the path, but warn if the name on the path and
+comment|// the name in the schema are different
+if|if
+condition|(
+name|model
+operator|.
+name|getName
+argument_list|()
+operator|!=
+name|tableName
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"table name mismatch: path='"
+operator|+
+name|tableName
+operator|+
+literal|"', schema='"
+operator|+
+name|model
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|"'"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1542,10 +1599,7 @@ init|=
 operator|new
 name|HBaseAdmin
 argument_list|(
-name|RESTServlet
-operator|.
-name|getInstance
-argument_list|()
+name|servlet
 operator|.
 name|getConfiguration
 argument_list|()
@@ -1555,14 +1609,14 @@ name|admin
 operator|.
 name|disableTable
 argument_list|(
-name|table
+name|actualTableName
 argument_list|)
 expr_stmt|;
 name|admin
 operator|.
 name|deleteTable
 argument_list|(
-name|table
+name|actualTableName
 argument_list|)
 expr_stmt|;
 return|return

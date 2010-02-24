@@ -139,6 +139,8 @@ begin_class
 specifier|public
 class|class
 name|Main
+implements|implements
+name|Constants
 block|{
 specifier|public
 specifier|static
@@ -171,6 +173,19 @@ argument_list|,
 literal|true
 argument_list|,
 literal|"service port"
+argument_list|)
+expr_stmt|;
+name|options
+operator|.
+name|addOption
+argument_list|(
+literal|"m"
+argument_list|,
+literal|"multiuser"
+argument_list|,
+literal|false
+argument_list|,
+literal|"enable multiuser mode"
 argument_list|)
 expr_stmt|;
 name|CommandLineParser
@@ -222,6 +237,27 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|// configure the Stargate singleton
+name|RESTServlet
+name|servlet
+init|=
+name|RESTServlet
+operator|.
+name|getInstance
+argument_list|()
+decl_stmt|;
+name|servlet
+operator|.
+name|setMultiUser
+argument_list|(
+name|cmd
+operator|.
+name|hasOption
+argument_list|(
+literal|"m"
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// set up the Jersey servlet container for Jetty
 name|ServletHolder
 name|sh

@@ -1261,9 +1261,7 @@ index|[
 literal|0
 index|]
 operator|+
-literal|">. "
-operator|+
-literal|"User-space table names can only start with 'word "
+literal|"> at 0. User-space table names can only start with 'word "
 operator|+
 literal|"characters': i.e. [a-zA-Z_0-9]: "
 operator|+
@@ -1340,11 +1338,13 @@ index|[
 name|i
 index|]
 operator|+
-literal|">. "
+literal|"> at "
 operator|+
-literal|"User-space table names can only contain 'word characters':"
+name|i
 operator|+
-literal|"i.e. [a-zA-Z_0-9-.]: "
+literal|". User-space table names can only contain "
+operator|+
+literal|"'word characters': i.e. [a-zA-Z_0-9-.]: "
 operator|+
 name|Bytes
 operator|.
@@ -1768,6 +1768,23 @@ name|HConstants
 operator|.
 name|DEFAULT_MAX_FILE_SIZE
 return|;
+block|}
+comment|/** @param name name of table */
+specifier|public
+name|void
+name|setName
+parameter_list|(
+name|byte
+index|[]
+name|name
+parameter_list|)
+block|{
+name|this
+operator|.
+name|name
+operator|=
+name|name
+expr_stmt|;
 block|}
 comment|/**    * @param maxFileSize The maximum file size that a store file can grow to    * before a split is triggered.    */
 specifier|public

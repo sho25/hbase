@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  * Copyright 2009 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -36,18 +36,6 @@ operator|.
 name|rs
 operator|.
 name|GET
-import|;
-end_import
-
-begin_import
-import|import
-name|javax
-operator|.
-name|ws
-operator|.
-name|rs
-operator|.
-name|Path
 import|;
 end_import
 
@@ -252,13 +240,6 @@ import|;
 end_import
 
 begin_class
-annotation|@
-name|Path
-argument_list|(
-name|Constants
-operator|.
-name|PATH_STATUS_CLUSTER
-argument_list|)
 specifier|public
 class|class
 name|StorageClusterStatusResource
@@ -284,9 +265,15 @@ specifier|private
 name|CacheControl
 name|cacheControl
 decl_stmt|;
+specifier|private
+name|RESTServlet
+name|servlet
+decl_stmt|;
 specifier|public
 name|StorageClusterStatusResource
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|cacheControl
 operator|=
@@ -308,6 +295,13 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
+name|servlet
+operator|=
+name|RESTServlet
+operator|.
+name|getInstance
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|GET
@@ -320,8 +314,6 @@ block|,
 name|MIMETYPE_XML
 block|,
 name|MIMETYPE_JSON
-block|,
-name|MIMETYPE_JAVASCRIPT
 block|,
 name|MIMETYPE_PROTOBUF
 block|}
@@ -359,21 +351,13 @@ expr_stmt|;
 block|}
 try|try
 block|{
-name|RESTServlet
-name|server
-init|=
-name|RESTServlet
-operator|.
-name|getInstance
-argument_list|()
-decl_stmt|;
 name|HBaseAdmin
 name|admin
 init|=
 operator|new
 name|HBaseAdmin
 argument_list|(
-name|server
+name|servlet
 operator|.
 name|getConfiguration
 argument_list|()
