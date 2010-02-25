@@ -62,7 +62,7 @@ specifier|public
 class|class
 name|Test00MiniCluster
 extends|extends
-name|MiniClusterTestCase
+name|MiniClusterTestBase
 block|{
 specifier|public
 name|void

@@ -320,7 +320,7 @@ specifier|public
 class|class
 name|TestRowResource
 extends|extends
-name|MiniClusterTestCase
+name|MiniClusterTestBase
 block|{
 specifier|private
 specifier|static

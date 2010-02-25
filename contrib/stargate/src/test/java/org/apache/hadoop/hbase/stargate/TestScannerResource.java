@@ -366,7 +366,7 @@ specifier|public
 class|class
 name|TestScannerResource
 extends|extends
-name|MiniClusterTestCase
+name|MiniClusterTestBase
 block|{
 specifier|private
 specifier|static

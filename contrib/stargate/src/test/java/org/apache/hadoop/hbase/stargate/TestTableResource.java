@@ -292,7 +292,7 @@ specifier|public
 class|class
 name|TestTableResource
 extends|extends
-name|MiniClusterTestCase
+name|MiniClusterTestBase
 block|{
 specifier|private
 specifier|static

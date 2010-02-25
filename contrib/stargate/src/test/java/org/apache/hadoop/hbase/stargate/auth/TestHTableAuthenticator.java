@@ -107,7 +107,7 @@ name|hbase
 operator|.
 name|stargate
 operator|.
-name|MiniClusterTestCase
+name|MiniClusterTestBase
 import|;
 end_import
 
@@ -132,7 +132,7 @@ specifier|public
 class|class
 name|TestHTableAuthenticator
 extends|extends
-name|MiniClusterTestCase
+name|MiniClusterTestBase
 block|{
 specifier|static
 specifier|final

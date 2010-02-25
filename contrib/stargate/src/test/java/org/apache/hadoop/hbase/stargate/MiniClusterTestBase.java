@@ -334,7 +334,7 @@ end_import
 begin_class
 specifier|public
 class|class
-name|MiniClusterTestCase
+name|MiniClusterTestBase
 extends|extends
 name|TestCase
 block|{
@@ -348,7 +348,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|MiniClusterTestCase
+name|MiniClusterTestBase
 operator|.
 name|class
 argument_list|)

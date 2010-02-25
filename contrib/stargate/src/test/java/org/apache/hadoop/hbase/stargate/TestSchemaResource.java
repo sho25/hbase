@@ -216,7 +216,7 @@ specifier|public
 class|class
 name|TestSchemaResource
 extends|extends
-name|MiniClusterTestCase
+name|MiniClusterTestBase
 block|{
 specifier|private
 name|Client

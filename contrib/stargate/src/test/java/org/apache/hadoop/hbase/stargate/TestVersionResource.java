@@ -218,7 +218,7 @@ specifier|public
 class|class
 name|TestVersionResource
 extends|extends
-name|MiniClusterTestCase
+name|MiniClusterTestBase
 block|{
 specifier|private
 specifier|static
