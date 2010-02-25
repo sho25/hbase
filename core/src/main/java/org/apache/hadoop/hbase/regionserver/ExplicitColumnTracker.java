@@ -194,6 +194,13 @@ name|int
 name|length
 parameter_list|)
 block|{
+name|boolean
+name|recursive
+init|=
+literal|false
+decl_stmt|;
+do|do
+block|{
 comment|// No more columns left, we are done with this query
 if|if
 condition|(
@@ -388,17 +395,18 @@ operator|.
 name|index
 argument_list|)
 expr_stmt|;
-return|return
-name|checkColumn
-argument_list|(
-name|bytes
-argument_list|,
-name|offset
-argument_list|,
-name|length
-argument_list|)
-return|;
+name|recursive
+operator|=
+literal|true
+expr_stmt|;
+continue|continue;
 block|}
+block|}
+do|while
+condition|(
+name|recursive
+condition|)
+do|;
 comment|// Specified column is smaller than current column
 comment|// Skip
 return|return
