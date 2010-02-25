@@ -33,6 +33,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|HBaseConfiguration
@@ -162,7 +176,7 @@ argument_list|(
 literal|"disabled"
 argument_list|)
 decl_stmt|;
-name|HBaseConfiguration
+name|Configuration
 name|conf
 decl_stmt|;
 name|String
@@ -178,8 +192,9 @@ parameter_list|()
 block|{
 name|this
 argument_list|(
-operator|new
 name|HBaseConfiguration
+operator|.
+name|create
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -188,7 +203,7 @@ comment|/**    * Constructor    * @param conf    */
 specifier|public
 name|HTableAuthenticator
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|)
 block|{
@@ -216,7 +231,7 @@ comment|/**    * Constructor    * @param conf    * @param tableName    */
 specifier|public
 name|HTableAuthenticator
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|,
 name|String
@@ -240,7 +255,7 @@ comment|/**    * Constructor    * @param conf    * @param table    */
 specifier|public
 name|HTableAuthenticator
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|,
 name|HTable
