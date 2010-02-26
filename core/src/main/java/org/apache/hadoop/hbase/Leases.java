@@ -313,33 +313,6 @@ condition|)
 block|{
 continue|continue;
 block|}
-synchronized|synchronized
-init|(
-name|leaseQueue
-init|)
-block|{
-if|if
-condition|(
-name|lease
-operator|.
-name|getExpirationTime
-argument_list|()
-operator|<=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-condition|)
-block|{
-name|leaseQueue
-operator|.
-name|add
-argument_list|(
-name|lease
-argument_list|)
-expr_stmt|;
-continue|continue;
-block|}
 comment|// A lease expired.  Run the expired code before removing from queue
 comment|// since its presence in queue is used to see if lease exists still.
 if|if
@@ -376,6 +349,11 @@ name|leaseExpired
 argument_list|()
 expr_stmt|;
 block|}
+synchronized|synchronized
+init|(
+name|leaseQueue
+init|)
+block|{
 name|leases
 operator|.
 name|remove
