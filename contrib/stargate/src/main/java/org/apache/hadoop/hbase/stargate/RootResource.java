@@ -566,6 +566,16 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|servlet
+operator|.
+name|getMetrics
+argument_list|()
+operator|.
+name|incrementRequests
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|servlet
@@ -681,6 +691,8 @@ specifier|public
 name|VersionResource
 name|getVersionResource
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 return|return
 operator|new

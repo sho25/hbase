@@ -193,7 +193,7 @@ name|exists
 argument_list|(
 name|ZooKeeperAuthenticator
 operator|.
-name|USERS_ROOT_ZNODE
+name|USERS_ZNODE_ROOT
 operator|+
 literal|"/"
 operator|+
@@ -211,7 +211,7 @@ name|create
 argument_list|(
 name|ZooKeeperAuthenticator
 operator|.
-name|USERS_ROOT_ZNODE
+name|USERS_ZNODE_ROOT
 operator|+
 literal|"/"
 operator|+
@@ -273,7 +273,7 @@ name|exists
 argument_list|(
 name|ZooKeeperAuthenticator
 operator|.
-name|USERS_ROOT_ZNODE
+name|USERS_ZNODE_ROOT
 operator|+
 literal|"/"
 operator|+
@@ -291,7 +291,7 @@ name|create
 argument_list|(
 name|ZooKeeperAuthenticator
 operator|.
-name|USERS_ROOT_ZNODE
+name|USERS_ZNODE_ROOT
 operator|+
 literal|"/"
 operator|+
@@ -353,7 +353,7 @@ name|exists
 argument_list|(
 name|ZooKeeperAuthenticator
 operator|.
-name|USERS_ROOT_ZNODE
+name|USERS_ZNODE_ROOT
 operator|+
 literal|"/"
 operator|+
@@ -371,7 +371,7 @@ name|create
 argument_list|(
 name|ZooKeeperAuthenticator
 operator|.
-name|USERS_ROOT_ZNODE
+name|USERS_ZNODE_ROOT
 operator|+
 literal|"/"
 operator|+

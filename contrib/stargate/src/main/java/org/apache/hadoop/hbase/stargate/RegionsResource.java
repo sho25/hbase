@@ -527,6 +527,16 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|servlet
+operator|.
+name|getMetrics
+argument_list|()
+operator|.
+name|incrementRequests
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|TableInfoModel

@@ -174,6 +174,8 @@ specifier|public
 name|ScannerResource
 name|getScannerResource
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 return|return
 operator|new

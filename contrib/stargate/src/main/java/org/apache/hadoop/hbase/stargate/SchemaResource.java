@@ -524,6 +524,13 @@ name|tableName
 operator|=
 name|table
 expr_stmt|;
+name|servlet
+operator|=
+name|RESTServlet
+operator|.
+name|getInstance
+argument_list|()
+expr_stmt|;
 name|cacheControl
 operator|=
 operator|new
@@ -543,13 +550,6 @@ name|setNoTransform
 argument_list|(
 literal|false
 argument_list|)
-expr_stmt|;
-name|servlet
-operator|=
-name|RESTServlet
-operator|.
-name|getInstance
-argument_list|()
 expr_stmt|;
 block|}
 specifier|private
@@ -645,6 +645,16 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|servlet
+operator|.
+name|getMetrics
+argument_list|()
+operator|.
+name|incrementRequests
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|HTableDescriptor
@@ -1487,6 +1497,16 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|servlet
+operator|.
+name|getMetrics
+argument_list|()
+operator|.
+name|incrementRequests
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 comment|// use the name given in the path, but warn if the name on the path and
 comment|// the name in the schema are different
 if|if
@@ -1576,6 +1596,16 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|servlet
+operator|.
+name|getMetrics
+argument_list|()
+operator|.
+name|incrementRequests
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 comment|// use the name given in the path, but warn if the name on the path and
 comment|// the name in the schema are different
 if|if
@@ -1651,6 +1681,16 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|servlet
+operator|.
+name|getMetrics
+argument_list|()
+operator|.
+name|incrementRequests
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|HBaseAdmin
