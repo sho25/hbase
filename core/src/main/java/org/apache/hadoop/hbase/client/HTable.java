@@ -791,6 +791,15 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
+name|Configuration
+name|getConfiguration
+parameter_list|()
+block|{
+return|return
+name|configuration
+return|;
+block|}
 comment|/**    * TODO Might want to change this to public, would be nice if the number    * of threads would automatically change when servers were added and removed    * @return the number of region servers that are currently running    * @throws IOException    */
 specifier|private
 name|int

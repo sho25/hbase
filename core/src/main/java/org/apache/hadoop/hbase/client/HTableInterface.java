@@ -45,6 +45,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
@@ -64,6 +78,11 @@ comment|/**    * Gets the name of this table.    *    * @return the table name. 
 name|byte
 index|[]
 name|getTableName
+parameter_list|()
+function_decl|;
+comment|/**    * Gets the configuration of this instance.    *    * @return The configuration.    */
+name|Configuration
+name|getConfiguration
 parameter_list|()
 function_decl|;
 comment|/**    * Gets the table descriptor for this table.    *    * @return table metadata    * @throws IOException    */
