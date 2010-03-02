@@ -992,6 +992,9 @@ argument_list|(
 name|put
 argument_list|)
 expr_stmt|;
+comment|// If we crash here, then the daughters will not be added and we'll have
+comment|// and offlined parent but no daughters to take up the slack.  hbase-2244
+comment|// adds fixup to the metascanners.
 comment|// Add new regions to META
 for|for
 control|(
@@ -1054,6 +1057,9 @@ name|put
 argument_list|)
 expr_stmt|;
 block|}
+comment|// If we crash here, the master will not know of the new daughters and they
+comment|// will not be assigned.  The metascanner when it runs will notice and take
+comment|// care of assigning the new daughters.
 comment|// Now tell the master about the new regions
 name|server
 operator|.
@@ -1126,7 +1132,6 @@ name|startTime
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Do not serve the new regions. Let the Master assign them.
 block|}
 comment|/**    * Only interrupt once it's done with a run through the work loop.    */
 name|void

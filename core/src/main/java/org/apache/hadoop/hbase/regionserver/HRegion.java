@@ -1208,7 +1208,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Opening region "
+literal|"Creating region "
 operator|+
 name|this
 operator|+
@@ -1322,26 +1322,12 @@ argument_list|,
 name|HREGION_OLDLOGFILE_NAME
 argument_list|)
 decl_stmt|;
-comment|// Move prefab HStore files into place (if any).  This picks up split files
-comment|// and any merges from splits and merges dirs.
-if|if
-condition|(
-name|initialFiles
-operator|!=
-literal|null
-operator|&&
-name|fs
-operator|.
-name|exists
+name|moveInitialFilesIntoPlace
 argument_list|(
-name|initialFiles
-argument_list|)
-condition|)
-block|{
-name|fs
+name|this
 operator|.
-name|rename
-argument_list|(
+name|fs
+argument_list|,
 name|initialFiles
 argument_list|,
 name|this
@@ -1349,7 +1335,6 @@ operator|.
 name|regiondir
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Write HRI to a file in case we need to recover .META.
 name|checkRegioninfoOnFilesystem
 argument_list|()
@@ -1514,7 +1499,9 @@ name|maxSeqId
 operator|+
 literal|1
 expr_stmt|;
-comment|// Get rid of any splits or merges that were lost in-progress
+comment|// Get rid of any splits or merges that were lost in-progress.  Clean out
+comment|// these directories here on open.  We may be opening a region that was
+comment|// being split but we crashed in the middle of it all.
 name|FSUtils
 operator|.
 name|deleteDirectory
@@ -1615,6 +1602,52 @@ operator|.
 name|minSequenceId
 argument_list|)
 expr_stmt|;
+block|}
+comment|/*    * Move any passed HStore files into place (if any).  Used to pick up split    * files and any merges from splits and merges dirs.    * @param initialFiles    * @throws IOException    */
+specifier|private
+specifier|static
+name|void
+name|moveInitialFilesIntoPlace
+parameter_list|(
+specifier|final
+name|FileSystem
+name|fs
+parameter_list|,
+specifier|final
+name|Path
+name|initialFiles
+parameter_list|,
+specifier|final
+name|Path
+name|regiondir
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|initialFiles
+operator|!=
+literal|null
+operator|&&
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|initialFiles
+argument_list|)
+condition|)
+block|{
+name|fs
+operator|.
+name|rename
+argument_list|(
+name|initialFiles
+argument_list|,
+name|regiondir
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * @return True if this region has references.    */
 name|boolean
@@ -2366,7 +2399,7 @@ return|return
 name|size
 return|;
 block|}
-comment|/*    * Split the HRegion to create two brand-new ones.  This also closes    * current HRegion.  Split should be fast since we don't rewrite store files    * but instead create new 'reference' store files that read off the top and    * bottom ranges of parent store files.    * @param splitRow row on which to split region    * @return two brand-new (and open) HRegions or null if a split is not needed    * @throws IOException    */
+comment|/*    * Split the HRegion to create two brand-new ones.  This also closes    * current HRegion.  Split should be fast since we don't rewrite store files    * but instead create new 'reference' store files that read off the top and    * bottom ranges of parent store files.    * @param splitRow row on which to split region    * @return two brand-new HRegions or null if a split is not needed    * @throws IOException    */
 name|HRegion
 index|[]
 name|splitRegion
@@ -2618,42 +2651,13 @@ decl_stmt|;
 name|Path
 name|dirA
 init|=
-operator|new
-name|Path
+name|getSplitDirForDaughter
 argument_list|(
 name|splits
 argument_list|,
-name|Integer
-operator|.
-name|toString
-argument_list|(
 name|regionAInfo
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|fs
-operator|.
-name|exists
-argument_list|(
-name|dirA
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Cannot split; target file collision at "
-operator|+
-name|dirA
-argument_list|)
-throw|;
-block|}
 name|HRegionInfo
 name|regionBInfo
 init|=
@@ -2679,44 +2683,13 @@ decl_stmt|;
 name|Path
 name|dirB
 init|=
-operator|new
-name|Path
+name|getSplitDirForDaughter
 argument_list|(
 name|splits
 argument_list|,
-name|Integer
-operator|.
-name|toString
-argument_list|(
 name|regionBInfo
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|fs
-operator|.
-name|exists
-argument_list|(
-name|dirB
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Cannot split; target file collision at "
-operator|+
-name|dirB
-argument_list|)
-throw|;
-block|}
 comment|// Now close the HRegion.  Close returns all store files or null if not
 comment|// supposed to close (? What to do in this case? Implement abort of close?)
 comment|// Close also does wait on outstanding rows and calls a flush just-in-case.
@@ -2827,14 +2800,14 @@ name|top
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Done!
-comment|// Opening the region copies the splits files from the splits directory
-comment|// under each region.
+comment|// Create a region instance and then move the splits into place under
+comment|// regionA and regionB.
 name|HRegion
 name|regionA
 init|=
-operator|new
 name|HRegion
+operator|.
+name|newHRegion
 argument_list|(
 name|basedir
 argument_list|,
@@ -2849,25 +2822,26 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|regionA
-operator|.
-name|initialize
+name|moveInitialFilesIntoPlace
 argument_list|(
+name|this
+operator|.
+name|fs
+argument_list|,
 name|dirA
 argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
 name|regionA
 operator|.
-name|close
+name|getRegionDir
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|HRegion
 name|regionB
 init|=
-operator|new
 name|HRegion
+operator|.
+name|newHRegion
 argument_list|(
 name|basedir
 argument_list|,
@@ -2882,61 +2856,20 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|regionB
-operator|.
-name|initialize
+name|moveInitialFilesIntoPlace
 argument_list|(
+name|this
+operator|.
+name|fs
+argument_list|,
 name|dirB
 argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
 name|regionB
 operator|.
-name|close
+name|getRegionDir
 argument_list|()
-expr_stmt|;
-comment|// Cleanup
-name|boolean
-name|deleted
-init|=
-name|fs
-operator|.
-name|delete
-argument_list|(
-name|splits
-argument_list|,
-literal|true
-argument_list|)
-decl_stmt|;
-comment|// Get rid of splits directory
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Cleaned up "
-operator|+
-name|FSUtils
-operator|.
-name|getPath
-argument_list|(
-name|splits
-argument_list|)
-operator|+
-literal|" "
-operator|+
-name|deleted
 argument_list|)
 expr_stmt|;
-block|}
 name|HRegion
 name|regions
 index|[]
@@ -2954,6 +2887,68 @@ return|return
 name|regions
 return|;
 block|}
+block|}
+comment|/*    * Get the daughter directories in the splits dir.  The splits dir is under    * the parent regions' directory.    * @param splits    * @param hri    * @return Path to split dir.    * @throws IOException    */
+specifier|private
+name|Path
+name|getSplitDirForDaughter
+parameter_list|(
+specifier|final
+name|Path
+name|splits
+parameter_list|,
+specifier|final
+name|HRegionInfo
+name|hri
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|Path
+name|d
+init|=
+operator|new
+name|Path
+argument_list|(
+name|splits
+argument_list|,
+name|Integer
+operator|.
+name|toString
+argument_list|(
+name|hri
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|d
+argument_list|)
+condition|)
+block|{
+comment|// This should never happen; the splits dir will be newly made when we
+comment|// come in here.  Even if we crashed midway through a split, the reopen
+comment|// of the parent region clears out the dir in its initialize method.
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Cannot split; target file collision at "
+operator|+
+name|d
+argument_list|)
+throw|;
+block|}
+return|return
+name|d
+return|;
 block|}
 specifier|protected
 name|void
