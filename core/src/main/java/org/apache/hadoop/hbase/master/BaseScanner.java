@@ -1554,9 +1554,8 @@ name|parent
 argument_list|)
 condition|)
 block|{
-comment|// If we got here, we added a daughter region to metatable. Update
-comment|// parent row that daughter has been verified present so we don't check
-comment|// for it by doing a get each time through here.
+comment|// If we got here, then the parent row does not yet have the
+comment|// "daughter row verified present" marker present. Add it.
 name|addDaughterRowChecked
 argument_list|(
 name|metaRegionName
@@ -1578,7 +1577,7 @@ return|return
 name|references
 return|;
 block|}
-comment|/*    * Check the daughter of parent is present in meta table.  If not there,    * add it.    * @param rowContent    * @param daughter    * @param srvr    * @param metaRegionName    * @param daughterHRI    * @throws IOException    * @return True, if the daughter row is present in meta.  If false, this    * method just added it to meta.    */
+comment|/*    * Check the daughter of parent is present in meta table.  If not there,    * add it.    * @param rowContent    * @param daughter    * @param srvr    * @param metaRegionName    * @param daughterHRI    * @throws IOException    * @return True, if parent row has marker for "daughter row verified present"    * else, false (and will do fixup adding daughter if daughter not present).    */
 specifier|private
 name|boolean
 name|verifyDaughterRowPresent
