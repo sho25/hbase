@@ -2805,9 +2805,8 @@ comment|// regionA and regionB.
 name|HRegion
 name|regionA
 init|=
+operator|new
 name|HRegion
-operator|.
-name|newHRegion
 argument_list|(
 name|basedir
 argument_list|,
@@ -2839,9 +2838,8 @@ expr_stmt|;
 name|HRegion
 name|regionB
 init|=
+operator|new
 name|HRegion
-operator|.
-name|newHRegion
 argument_list|(
 name|basedir
 argument_list|,
