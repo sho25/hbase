@@ -666,6 +666,8 @@ argument_list|(
 name|actualTableName
 argument_list|,
 name|rowspec
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 if|if
@@ -955,6 +957,8 @@ argument_list|(
 name|actualTableName
 argument_list|,
 name|rowspec
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 if|if

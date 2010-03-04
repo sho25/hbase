@@ -105,6 +105,15 @@ name|n
 expr_stmt|;
 block|}
 specifier|public
+name|int
+name|getLimit
+parameter_list|()
+block|{
+return|return
+name|limit
+return|;
+block|}
+specifier|public
 name|boolean
 name|filterAllRemaining
 parameter_list|()

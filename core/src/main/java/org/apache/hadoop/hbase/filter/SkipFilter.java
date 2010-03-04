@@ -105,6 +105,15 @@ name|filter
 expr_stmt|;
 block|}
 specifier|public
+name|Filter
+name|getFilter
+parameter_list|()
+block|{
+return|return
+name|filter
+return|;
+block|}
+specifier|public
 name|void
 name|reset
 parameter_list|()

@@ -33,36 +33,6 @@ name|Bytes
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|DataInput
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|DataOutput
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
 begin_comment
 comment|/**  * A comparator which compares against a specified byte array, but only compares  * up to the length of this byte array. For the rest it is similar to  * {@link BinaryComparator}.  */
 end_comment
@@ -71,20 +41,15 @@ begin_class
 specifier|public
 class|class
 name|BinaryPrefixComparator
-implements|implements
+extends|extends
 name|WritableByteArrayComparable
 block|{
-specifier|private
-name|byte
-index|[]
-name|value
-decl_stmt|;
-comment|/**    *  Writable constructor, do not use.    */
+comment|/** Nullary constructor for Writable, do not use */
 specifier|public
 name|BinaryPrefixComparator
 parameter_list|()
-block|{   }
-comment|/**    * Constructor.    * @param value the value to compare against    */
+block|{ }
+comment|/**    * Constructor    * @param value    */
 specifier|public
 name|BinaryPrefixComparator
 parameter_list|(
@@ -93,53 +58,8 @@ index|[]
 name|value
 parameter_list|)
 block|{
-name|this
-operator|.
-name|value
-operator|=
-name|value
-expr_stmt|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|readFields
-parameter_list|(
-name|DataInput
-name|in
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|value
-operator|=
-name|Bytes
-operator|.
-name|readByteArray
+name|super
 argument_list|(
-name|in
-argument_list|)
-expr_stmt|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|write
-parameter_list|(
-name|DataOutput
-name|out
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|Bytes
-operator|.
-name|writeByteArray
-argument_list|(
-name|out
-argument_list|,
 name|value
 argument_list|)
 expr_stmt|;

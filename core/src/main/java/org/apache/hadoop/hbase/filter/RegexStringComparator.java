@@ -83,22 +83,18 @@ begin_class
 specifier|public
 class|class
 name|RegexStringComparator
-implements|implements
+extends|extends
 name|WritableByteArrayComparable
 block|{
 specifier|private
 name|Pattern
 name|pattern
 decl_stmt|;
-comment|/** Nullary constructor for Writable */
+comment|/** Nullary constructor for Writable, do not use */
 specifier|public
 name|RegexStringComparator
 parameter_list|()
-block|{
-name|super
-argument_list|()
-expr_stmt|;
-block|}
+block|{ }
 comment|/**    * Constructor    * @param expr a valid regular expression    */
 specifier|public
 name|RegexStringComparator
@@ -107,6 +103,16 @@ name|String
 name|expr
 parameter_list|)
 block|{
+name|super
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|expr
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|pattern
@@ -119,6 +125,8 @@ name|expr
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|int
 name|compareTo
@@ -151,6 +159,8 @@ else|:
 literal|1
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|readFields
@@ -161,6 +171,25 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|String
+name|expr
+init|=
+name|in
+operator|.
+name|readUTF
+argument_list|()
+decl_stmt|;
+name|this
+operator|.
+name|value
+operator|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|expr
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|pattern
@@ -169,13 +198,12 @@ name|Pattern
 operator|.
 name|compile
 argument_list|(
-name|in
-operator|.
-name|readUTF
-argument_list|()
+name|expr
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|write

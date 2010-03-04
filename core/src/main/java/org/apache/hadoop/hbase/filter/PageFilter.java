@@ -112,6 +112,15 @@ name|pageSize
 expr_stmt|;
 block|}
 specifier|public
+name|long
+name|getPageSize
+parameter_list|()
+block|{
+return|return
+name|pageSize
+return|;
+block|}
+specifier|public
 name|void
 name|reset
 parameter_list|()

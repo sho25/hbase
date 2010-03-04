@@ -126,6 +126,16 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|public
+name|byte
+index|[]
+name|getPrefix
+parameter_list|()
+block|{
+return|return
+name|prefix
+return|;
+block|}
+specifier|public
 name|void
 name|reset
 parameter_list|()

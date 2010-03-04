@@ -161,6 +161,26 @@ operator|=
 name|comparator
 expr_stmt|;
 block|}
+comment|/**    * @return operator    */
+specifier|public
+name|CompareOp
+name|getOperator
+parameter_list|()
+block|{
+return|return
+name|compareOp
+return|;
+block|}
+comment|/**    * @return the comparator    */
+specifier|public
+name|WritableByteArrayComparable
+name|getComparator
+parameter_list|()
+block|{
+return|return
+name|comparator
+return|;
+block|}
 specifier|public
 name|void
 name|reset
