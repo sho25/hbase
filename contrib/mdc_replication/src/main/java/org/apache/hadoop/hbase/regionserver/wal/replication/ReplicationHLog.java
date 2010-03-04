@@ -323,9 +323,6 @@ name|logKey
 parameter_list|,
 name|KeyValue
 name|logEdit
-parameter_list|,
-name|long
-name|now
 parameter_list|)
 throws|throws
 name|IOException
@@ -360,8 +357,6 @@ argument_list|,
 name|logKey
 argument_list|,
 name|logEdit
-argument_list|,
-name|now
 argument_list|)
 expr_stmt|;
 if|if
