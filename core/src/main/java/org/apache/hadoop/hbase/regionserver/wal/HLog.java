@@ -3029,11 +3029,6 @@ argument_list|,
 name|logKey
 argument_list|,
 name|logEdit
-argument_list|,
-name|logKey
-operator|.
-name|getWriteTime
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
@@ -3210,8 +3205,6 @@ argument_list|,
 name|logKey
 argument_list|,
 name|kv
-argument_list|,
-name|now
 argument_list|)
 expr_stmt|;
 name|this
@@ -3703,10 +3696,6 @@ name|logKey
 parameter_list|,
 name|KeyValue
 name|logEdit
-parameter_list|,
-specifier|final
-name|long
-name|now
 parameter_list|)
 throws|throws
 name|IOException
@@ -3740,6 +3729,14 @@ name|heapSize
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|long
+name|now
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 name|this
 operator|.
 name|writer
