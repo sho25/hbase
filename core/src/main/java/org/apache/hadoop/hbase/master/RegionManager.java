@@ -1654,6 +1654,13 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|regionsInTransition
+init|)
+block|{
 name|this
 operator|.
 name|regionsInTransition
@@ -1665,6 +1672,7 @@ argument_list|,
 name|rs
 argument_list|)
 expr_stmt|;
+block|}
 name|returnMsgs
 operator|.
 name|add
@@ -1872,10 +1880,21 @@ argument_list|(
 name|addr
 argument_list|)
 decl_stmt|;
-comment|// Handle if root is unassigned... only assign root if root is offline.
 name|RegionState
 name|rootState
 init|=
+literal|null
+decl_stmt|;
+comment|// Handle if root is unassigned... only assign root if root is offline.
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|regionsInTransition
+init|)
+block|{
+name|rootState
+operator|=
 name|regionsInTransition
 operator|.
 name|get
@@ -1887,7 +1906,8 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|rootState
@@ -1967,6 +1987,8 @@ comment|// dont assign anything to this server.
 block|}
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|regionsInTransition
 init|)
 block|{
@@ -3688,6 +3710,13 @@ name|String
 name|server
 parameter_list|)
 block|{
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|regionsInTransition
+init|)
+block|{
 for|for
 control|(
 name|RegionState
@@ -3739,6 +3768,7 @@ literal|true
 return|;
 block|}
 block|}
+block|}
 return|return
 literal|false
 return|;
@@ -3752,6 +3782,13 @@ specifier|final
 name|String
 name|server
 parameter_list|)
+block|{
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|regionsInTransition
+init|)
 block|{
 for|for
 control|(
@@ -3805,6 +3842,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 return|;
+block|}
 block|}
 block|}
 return|return
@@ -3943,6 +3981,13 @@ name|HRegionInfo
 name|info
 parameter_list|)
 block|{
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|regionsInTransition
+init|)
+block|{
 name|this
 operator|.
 name|regionsInTransition
@@ -3956,6 +4001,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 comment|/**    * @param regionName    * @return true if the named region is in a transition state    */
 specifier|public
 name|boolean
@@ -3964,6 +4010,13 @@ parameter_list|(
 name|String
 name|regionName
 parameter_list|)
+block|{
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|regionsInTransition
+init|)
 block|{
 return|return
 name|regionsInTransition
@@ -3974,6 +4027,7 @@ name|regionName
 argument_list|)
 return|;
 block|}
+block|}
 comment|/**    * @param regionName    * @return true if the region is unassigned, pendingOpen or open    */
 specifier|public
 name|boolean
@@ -3982,6 +4036,13 @@ parameter_list|(
 name|String
 name|regionName
 parameter_list|)
+block|{
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|regionsInTransition
+init|)
 block|{
 name|RegionState
 name|state
@@ -4007,6 +4068,7 @@ name|isOpening
 argument_list|()
 return|;
 block|}
+block|}
 return|return
 literal|false
 return|;
@@ -4023,6 +4085,11 @@ name|boolean
 name|force
 parameter_list|)
 block|{
+name|RegionState
+name|s
+init|=
+literal|null
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|this
@@ -4030,9 +4097,8 @@ operator|.
 name|regionsInTransition
 init|)
 block|{
-name|RegionState
 name|s
-init|=
+operator|=
 name|regionsInTransition
 operator|.
 name|get
@@ -4042,7 +4108,7 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 name|s
@@ -4071,6 +4137,7 @@ name|s
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 if|if
 condition|(
 name|force
@@ -4095,7 +4162,6 @@ operator|.
 name|setUnassigned
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|/**     * Check if a region is on the unassigned list    * @param info HRegionInfo to check for    * @return true if on the unassigned list, false if it isn't. Note that this    * means a region could not be on the unassigned list AND not be assigned, if    * it happens to be between states.    */
