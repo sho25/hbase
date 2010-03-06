@@ -2419,7 +2419,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests the the {@link WhileMatchFilter} works in combination with a    * {@link Filter} that uses the    * {@link PageFilter#filterRow()} method.    *    * See HBASE-2258.    *    * @throws Exception    */
+comment|/**    * Tests the the {@link WhileMatchFilter} works in combination with a    * {@link Filter} that uses the    * {@link Filter#filterRow()} method.    *    * See HBASE-2258.    *    * @throws Exception    */
 specifier|public
 name|void
 name|testWhileMatchFilterWithFilterRow
@@ -2541,7 +2541,7 @@ name|scannerCounter
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests the the {@link WhileMatchFilter} works in combination with a    * {@link Filter} that uses the    * {@link PageFilter#filterRowKey(byte[], int, int)} method.    *    * See HBASE-2258.    *    * @throws Exception    */
+comment|/**    * Tests the the {@link WhileMatchFilter} works in combination with a    * {@link Filter} that uses the    * {@link Filter#filterRowKey(byte[], int, int)} method.    *    * See HBASE-2258.    *    * @throws Exception    */
 specifier|public
 name|void
 name|testWhileMatchFilterWithFilterRowKey
@@ -2676,7 +2676,7 @@ break|break;
 block|}
 block|}
 block|}
-comment|/**    * Tests the the {@link WhileMatchFilter} works in combination with a    * {@link Filter} that uses the    * {@link PageFilter#filterKeyValue(org.apache.hadoop.hbase.KeyValue)} method.    *    * See HBASE-2258.    *    * @throws Exception    */
+comment|/**    * Tests the the {@link WhileMatchFilter} works in combination with a    * {@link Filter} that uses the    * {@link Filter#filterKeyValue(org.apache.hadoop.hbase.KeyValue)} method.    *    * See HBASE-2258.    *    * @throws Exception    */
 specifier|public
 name|void
 name|testWhileMatchFilterWithFilterKeyValue
