@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Copyright 2007 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,48 +16,6 @@ operator|.
 name|client
 package|;
 end_package
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ExecutorService
-import|;
-end_import
 
 begin_import
 import|import
@@ -163,6 +121,48 @@ name|ZooKeeperWrapper
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ExecutorService
+import|;
+end_import
+
 begin_comment
 comment|/**  * Cluster connection.  * {@link HConnectionManager} manages instances of this class.  */
 end_comment
@@ -172,7 +172,7 @@ specifier|public
 interface|interface
 name|HConnection
 block|{
-comment|/**    * Retrieve ZooKeeperWrapper used by the connection.    * @return ZooKeeperWrapper handle being used by the connection.    * @throws IOException    */
+comment|/**    * Retrieve ZooKeeperWrapper used by the connection.    * @return ZooKeeperWrapper handle being used by the connection.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|ZooKeeperWrapper
 name|getZooKeeperWrapper
@@ -180,7 +180,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @return proxy connection to master server for this instance    * @throws MasterNotRunningException    */
+comment|/**    * @return proxy connection to master server for this instance    * @throws MasterNotRunningException if the master is not running    */
 specifier|public
 name|HMasterInterface
 name|getMaster
@@ -194,7 +194,7 @@ name|boolean
 name|isMasterRunning
 parameter_list|()
 function_decl|;
-comment|/**    * Checks if<code>tableName</code> exists.    * @param tableName Table to check.    * @return True if table exists already.    * @throws MasterNotRunningException    */
+comment|/**    * Checks if<code>tableName</code> exists.    * @param tableName Table to check.    * @return True if table exists already.    * @throws MasterNotRunningException if the master is not running    */
 specifier|public
 name|boolean
 name|tableExists
@@ -207,7 +207,7 @@ parameter_list|)
 throws|throws
 name|MasterNotRunningException
 function_decl|;
-comment|/**    * A table that isTableEnabled == false and isTableDisabled == false    * is possible. This happens when a table has a lot of regions    * that must be processed.    * @param tableName    * @return true if the table is enabled, false otherwise    * @throws IOException    */
+comment|/**    * A table that isTableEnabled == false and isTableDisabled == false    * is possible. This happens when a table has a lot of regions    * that must be processed.    * @param tableName table name    * @return true if the table is enabled, false otherwise    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|boolean
 name|isTableEnabled
@@ -219,7 +219,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param tableName    * @return true if the table is disabled, false otherwise    * @throws IOException    */
+comment|/**    * @param tableName table name    * @return true if the table is disabled, false otherwise    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|boolean
 name|isTableDisabled
@@ -231,7 +231,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param tableName    * @return true if all regions of the table are available, false otherwise    * @throws IOException    */
+comment|/**    * @param tableName table name    * @return true if all regions of the table are available, false otherwise    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|boolean
 name|isTableAvailable
@@ -243,7 +243,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the userspace tables.  In other words, scan the META table.    *    * If we wanted this to be really fast, we could implement a special    * catalog table that just contains table names and their descriptors.    * Right now, it only exists as part of the META table's region info.    *    * @return - returns an array of HTableDescriptors     * @throws IOException    */
+comment|/**    * List all the userspace tables.  In other words, scan the META table.    *    * If we wanted this to be really fast, we could implement a special    * catalog table that just contains table names and their descriptors.    * Right now, it only exists as part of the META table's region info.    *    * @return - returns an array of HTableDescriptors     * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTableDescriptor
 index|[]
@@ -252,7 +252,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param tableName    * @return table metadata     * @throws IOException    */
+comment|/**    * @param tableName table name    * @return table metadata     * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTableDescriptor
 name|getHTableDescriptor
@@ -264,7 +264,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the reigon in     * question    * @throws IOException    */
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the reigon in     * question    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HRegionLocation
 name|locateRegion
@@ -288,7 +288,7 @@ name|void
 name|clearRegionCache
 parameter_list|()
 function_decl|;
-comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the reigon in     * question    * @throws IOException    */
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the reigon in     * question    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HRegionLocation
 name|relocateRegion
@@ -306,7 +306,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**     * Establishes a connection to the region server at the specified address.    * @param regionServer - the server to connect to    * @return proxy for HRegionServer    * @throws IOException    */
+comment|/**     * Establishes a connection to the region server at the specified address.    * @param regionServer - the server to connect to    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HRegionInterface
 name|getHRegionConnection
@@ -317,7 +317,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**     * Establishes a connection to the region server at the specified address.    * @param regionServer - the server to connect to    * @param getMaster - do we check if master is alive    * @return proxy for HRegionServer    * @throws IOException    */
+comment|/**     * Establishes a connection to the region server at the specified address.    * @param regionServer - the server to connect to    * @param getMaster - do we check if master is alive    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HRegionInterface
 name|getHRegionConnection
@@ -331,7 +331,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Find region location hosting passed row    * @param tableName    * @param row Row to find.    * @param reload If true do not use cache, otherwise bypass.    * @return Location of row.    * @throws IOException    */
+comment|/**    * Find region location hosting passed row    * @param tableName table name    * @param row Row to find.    * @param reload If true do not use cache, otherwise bypass.    * @return Location of row.    * @throws IOException if a remote or network exception occurs    */
 name|HRegionLocation
 name|getRegionLocation
 parameter_list|(
@@ -349,7 +349,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and     * this method will manage the process of doing retries with timed waits     * and refinds of missing regions.    *    * @param<T> the type of the return value    * @param callable    * @return an object of type T    * @throws IOException    * @throws RuntimeException    */
+comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and     * this method will manage the process of doing retries with timed waits     * and refinds of missing regions.    *    * @param<T> the type of the return value    * @param callable callable to run    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
 specifier|public
 parameter_list|<
 name|T
@@ -368,7 +368,7 @@ name|IOException
 throws|,
 name|RuntimeException
 function_decl|;
-comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and    * this method will pass it to the defined region server.    * @param<T> the type of the return value    * @param callable    * @return an object of type T    * @throws IOException    * @throws RuntimeException    */
+comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and    * this method will pass it to the defined region server.    * @param<T> the type of the return value    * @param callable callable to run    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
 specifier|public
 parameter_list|<
 name|T
@@ -387,7 +387,7 @@ name|IOException
 throws|,
 name|RuntimeException
 function_decl|;
-comment|/**    * Process a batch of Puts. Does the retries.    * @param list A batch of Puts to process.    * @param tableName The name of the table    * @return Count of committed Puts.  On fault,< list.size().    * @throws IOException    */
+comment|/**    * Process a batch of Puts. Does the retries.    * @param list A batch of Puts to process.    * @param tableName The name of the table    * @return Count of committed Puts.  On fault,< list.size().    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|int
 name|processBatchOfRows
@@ -405,7 +405,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Process a batch of Deletes. Does the retries.    * @param list A batch of Deletes to process.    * @return Count of committed Deletes. On fault,< list.size().    * @param tableName The name of the table    * @throws IOException    */
+comment|/**    * Process a batch of Deletes. Does the retries.    * @param list A batch of Deletes to process.    * @return Count of committed Deletes. On fault,< list.size().    * @param tableName The name of the table    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|int
 name|processBatchOfDeletes

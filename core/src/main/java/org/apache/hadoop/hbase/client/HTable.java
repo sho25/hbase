@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Copyright 2009 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,160 +16,6 @@ operator|.
 name|client
 package|;
 end_package
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Iterator
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|LinkedList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|TreeMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ExecutorService
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|LinkedBlockingQueue
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ThreadFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ThreadPoolExecutor
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|TimeUnit
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicInteger
-import|;
-end_import
 
 begin_import
 import|import
@@ -419,6 +265,160 @@ name|Writables
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Iterator
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|LinkedList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|TreeMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ExecutorService
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|LinkedBlockingQueue
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ThreadFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ThreadPoolExecutor
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|TimeUnit
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicInteger
+import|;
+end_import
+
 begin_comment
 comment|/**  * Used to communicate with a single HBase table.  *<p>  * This class is not thread safe for writes.  * Gets, puts, and deletes take out a row lock for the duration  * of their operation.  Scans (currently) do not respect  * row locking.  */
 end_comment
@@ -490,7 +490,7 @@ specifier|private
 name|long
 name|maxScannerResultSize
 decl_stmt|;
-comment|/**    * Creates an object to access a HBase table    *    * @param tableName name of the table    * @throws IOException    */
+comment|/**    * Creates an object to access a HBase table    *    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTable
 parameter_list|(
@@ -517,7 +517,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table    *    * @param tableName name of the table    * @throws IOException    */
+comment|/**    * Creates an object to access a HBase table    *    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTable
 parameter_list|(
@@ -540,7 +540,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table    *    * @param conf configuration object    * @param tableName name of the table    * @throws IOException    */
+comment|/**    * Creates an object to access a HBase table    *    * @param conf configuration object    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTable
 parameter_list|(
@@ -567,7 +567,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table.    *    * @param conf configuration object    * @param tableName name of the table    * @throws IOException    */
+comment|/**    * Creates an object to access a HBase table.    *    * @param conf configuration object    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTable
 parameter_list|(
@@ -800,7 +800,7 @@ return|return
 name|configuration
 return|;
 block|}
-comment|/**    * TODO Might want to change this to public, would be nice if the number    * of threads would automatically change when servers were added and removed    * @return the number of region servers that are currently running    * @throws IOException    */
+comment|/**    * TODO Might want to change this to public, would be nice if the number    * of threads would automatically change when servers were added and removed    * @return the number of region servers that are currently running    * @throws IOException if a remote or network exception occurs    */
 specifier|private
 name|int
 name|getCurrentNrHRS
@@ -834,7 +834,7 @@ specifier|private
 name|ExecutorService
 name|pool
 decl_stmt|;
-comment|/**    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException    */
+comment|/**    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 specifier|static
 name|boolean
@@ -858,7 +858,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException    */
+comment|/**    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 specifier|static
 name|boolean
@@ -883,7 +883,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * @param conf HBaseConfiguration object    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException    */
+comment|/**    * @param conf HBaseConfiguration object    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 specifier|static
 name|boolean
@@ -912,7 +912,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @param conf HBaseConfiguration object    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException    */
+comment|/**    * @param conf HBaseConfiguration object    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 specifier|static
 name|boolean
@@ -942,7 +942,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Find region location hosting passed row using cached info    * @param row Row to find.    * @return Location of row.    * @throws IOException    */
+comment|/**    * Find region location hosting passed row using cached info    * @param row Row to find.    * @return Location of row.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HRegionLocation
 name|getRegionLocation
@@ -972,7 +972,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Find region location hosting passed row using cached info    * @param row Row to find.    * @return Location of row.    * @throws IOException    */
+comment|/**    * Find region location hosting passed row using cached info    * @param row Row to find.    * @return Location of row.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HRegionLocation
 name|getRegionLocation
@@ -1074,7 +1074,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets the starting row key for every region in the currently open table    *    * @return Array of region starting row keys    * @throws IOException    */
+comment|/**    * Gets the starting row key for every region in the currently open table    *    * @return Array of region starting row keys    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|byte
 index|[]
@@ -1092,7 +1092,7 @@ name|getFirst
 argument_list|()
 return|;
 block|}
-comment|/**    * Gets the ending row key for every region in the currently open table    *    * @return Array of region ending row keys    * @throws IOException    */
+comment|/**    * Gets the ending row key for every region in the currently open table    *    * @return Array of region ending row keys    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|byte
 index|[]
@@ -1110,7 +1110,7 @@ name|getSecond
 argument_list|()
 return|;
 block|}
-comment|/**    * Gets the starting and ending row keys for every region in the currently    * open table    *    * @return Pair of arrays of region starting and ending row keys    * @throws IOException    */
+comment|/**    * Gets the starting and ending row keys for every region in the currently    * open table    *    * @return Pair of arrays of region starting and ending row keys    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -1314,7 +1314,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Get all the regions and their address for this table    *    * @return A map of HRegionInfo with it's server address    * @throws IOException    */
+comment|/**    * Get all the regions and their address for this table    *    * @return A map of HRegionInfo with it's server address    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|Map
 argument_list|<
@@ -1745,7 +1745,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    *    * @param delete    * @throws IOException    * @since 0.20.0    */
+comment|/**    * Execute a delete    *    * @param delete the delete    * @throws IOException    * @since 0.20.0    */
 specifier|public
 name|void
 name|delete
@@ -1861,7 +1861,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Commit a Put to the table.    *<p>    * If autoFlush is false, the update is buffered.    * @param put    * @throws IOException    * @since 0.20.0    */
+comment|/**    * Commit a Put to the table.    *<p>    * If autoFlush is false, the update is buffered.    * @param put data to put    * @throws IOException    * @since 0.20.0    */
 specifier|public
 specifier|synchronized
 name|void
@@ -1885,7 +1885,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Commit a List of Puts to the table.    *<p>    * If autoFlush is false, the update is buffered.    * @param puts    * @throws IOException    * @since 0.20.0    */
+comment|/**    * Commit a List of Puts to the table.    *<p>    * If autoFlush is false, the update is buffered.    * @param puts list of puts    * @throws IOException if a remote or network exception occurs    * @since 0.20.0    */
 specifier|public
 specifier|synchronized
 name|void
@@ -1907,7 +1907,6 @@ name|puts
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Internal helper method.     * Need to synchronize this instance to prevent race conditions on the internal     * data structures.    *<p>    * If autoFlush is false, the update is buffered.    * @param puts    * @throws IOException    */
 specifier|private
 name|void
 name|doPut
@@ -1964,7 +1963,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception.<p>    *    * @param row    * @param family    * @param qualifier    * @param amount    * @return The new value.    * @throws IOException    */
+comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception.<p>    *    * @param row row    * @param family column family    * @param qualifier column qualifier    * @param amount long amount to increment by    * @return The new value after incrementing    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|long
 name|incrementColumnValue
@@ -2006,7 +2005,14 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception.<p>    *    * Setting writeToWAL to false means that in a fail scenario, you will lose    * any increments that have not been flushed.    * @param row    * @param family    * @param qualifier    * @param amount    * @param writeToWAL true if increment should be applied to WAL, false if not    * @return The new value.    * @throws IOException    */
+comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception.<p>    *    * Setting writeToWAL to false means that in a fail scenario, you will lose    * any increments that have not been flushed.    * @param row row    * @param family column family    * @param qualifier column qualifier    * @param amount long amount to increment by    * @param writeToWAL true if increment should be applied to WAL, false if not    * @return The new value.    * @throws IOException if a remote or network exception occurs    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+block|{
+literal|"ThrowableInstanceNeverThrown"
+block|}
+argument_list|)
 specifier|public
 name|long
 name|incrementColumnValue
@@ -2082,9 +2088,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|IOException
-name|io
-init|=
+throw|throw
 operator|new
 name|IOException
 argument_list|(
@@ -2092,9 +2096,6 @@ literal|"Invalid arguments to incrementColumnValue"
 argument_list|,
 name|npe
 argument_list|)
-decl_stmt|;
-throw|throw
-name|io
 throw|;
 block|}
 return|return
@@ -2151,7 +2152,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Atomically checks if a row/family/qualifier value match the expectedValue.    * If it does, it adds the put.    *    * @param row    * @param family    * @param qualifier    * @param value the expected value    * @param put    * @throws IOException    * @return true if the new put was execute, false otherwise    */
+comment|/**    * Atomically checks if a row/family/qualifier value match the expectedValue.    * If it does, it adds the put.  If value == null, checks for non-existance    * of the value.    *    * @param row to check    * @param family column family    * @param qualifier column qualifier    * @param value the expected value    * @param put put to execute if value matches.    * @throws IOException    * @return true if the new put was execute, false otherwise    */
 specifier|public
 specifier|synchronized
 name|boolean
@@ -2244,12 +2245,9 @@ return|;
 block|}
 block|}
 argument_list|)
-operator|.
-name|booleanValue
-argument_list|()
 return|;
 block|}
-comment|/**    * Test for the existence of columns in the table, as specified in the Get.<p>    *    * This will return true if the Get matches one or more keys, false if not.<p>    *    * This is a server-side call so it prevents any data from being transfered    * to the client.    * @param get    * @return true if the specified Get matches one or more keys, false if not    * @throws IOException    */
+comment|/**    * Test for the existence of columns in the table, as specified in the Get.<p>    *    * This will return true if the Get matches one or more keys, false if not.<p>    *    * This is a server-side call so it prevents any data from being transfered    * to the client.    * @param get param to check for    * @return true if the specified Get matches one or more keys, false if not    * @throws IOException    */
 specifier|public
 name|boolean
 name|exists
@@ -2290,10 +2288,6 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|Boolean
-operator|.
-name|valueOf
-argument_list|(
 name|server
 operator|.
 name|exists
@@ -2308,17 +2302,13 @@ argument_list|()
 argument_list|,
 name|get
 argument_list|)
-argument_list|)
 return|;
 block|}
 block|}
 argument_list|)
-operator|.
-name|booleanValue
-argument_list|()
 return|;
 block|}
-comment|/**    * Commit to the table the buffer of BatchUpdate.    * Called automatically in the commit methods when autoFlush is true.    * @throws IOException    */
+comment|/**    * Commit to the table the buffer of Puts.    * Called automatically in the commit methods when autoFlush is true.    * @throws IOException e    */
 specifier|public
 name|void
 name|flushCommits
@@ -2342,37 +2332,22 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-comment|// the write buffer was adjsuted by processBatchOfPuts
+comment|// the write buffer was adjusted by processBatchOfPuts
 name|currentWriteBufferSize
 operator|=
 literal|0
 expr_stmt|;
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|Put
+name|aWriteBuffer
+range|:
 name|writeBuffer
-operator|.
-name|size
-argument_list|()
-condition|;
-name|i
-operator|++
 control|)
 block|{
 name|currentWriteBufferSize
 operator|+=
-name|writeBuffer
-operator|.
-name|get
-argument_list|(
-name|i
-argument_list|)
+name|aWriteBuffer
 operator|.
 name|heapSize
 argument_list|()
@@ -2392,7 +2367,7 @@ name|flushCommits
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Utility method that verifies Put is well formed.    *    * @param put    * @throws IllegalArgumentException    */
+comment|// validate for well-formedness
 specifier|private
 name|void
 name|validatePut
@@ -2530,9 +2505,7 @@ argument_list|,
 name|row
 argument_list|)
 decl_stmt|;
-name|RowLock
-name|rowLock
-init|=
+return|return
 operator|new
 name|RowLock
 argument_list|(
@@ -2540,9 +2513,6 @@ name|row
 argument_list|,
 name|lockId
 argument_list|)
-decl_stmt|;
-return|return
-name|rowLock
 return|;
 block|}
 block|}
@@ -2625,7 +2595,7 @@ return|return
 name|autoFlush
 return|;
 block|}
-comment|/**    * Set if this instanciation of HTable will autoFlush    * @param autoFlush    */
+comment|/**    * Turning off autoflush will cause operations to be batched for greater    * efficiency in the RPC.  Also see @{link #flushCommits}    *    * @param autoFlush flag    * @see #flushCommits    */
 specifier|public
 name|void
 name|setAutoFlush
@@ -2651,7 +2621,7 @@ return|return
 name|writeBufferSize
 return|;
 block|}
-comment|/**    * Set the size of the buffer in bytes.    * If the new size is lower than the current size of data in the    * write buffer, the buffer is flushed.    * @param writeBufferSize    * @throws IOException    */
+comment|/**    * Set the size of the buffer in bytes.    * If the new size is lower than the current size of data in the    * write buffer, the buffer is flushed.    * @param writeBufferSize new write buffer size    * @throws IOException e    */
 specifier|public
 name|void
 name|setWriteBufferSize
@@ -2912,7 +2882,7 @@ return|return
 name|lastNext
 return|;
 block|}
-comment|/**      * @param endKey      * @return Returns true if the passed region endkey.      */
+comment|// returns true if the passed region endKey
 specifier|private
 name|boolean
 name|checkScanStopRow
@@ -3041,8 +3011,6 @@ comment|// Where to start the next scanner
 name|byte
 index|[]
 name|localStartKey
-init|=
-literal|null
 decl_stmt|;
 comment|// if we're at end of table, close and return false to stop iterating
 if|if

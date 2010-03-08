@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -18,30 +18,6 @@ operator|.
 name|metrics
 package|;
 end_package
-
-begin_import
-import|import
-name|java
-operator|.
-name|lang
-operator|.
-name|management
-operator|.
-name|ManagementFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|lang
-operator|.
-name|management
-operator|.
-name|MemoryUsage
-import|;
-end_import
 
 begin_import
 import|import
@@ -239,22 +215,6 @@ name|metrics
 operator|.
 name|util
 operator|.
-name|MetricsTimeVaryingRate
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|metrics
-operator|.
-name|util
-operator|.
 name|MetricsLongValue
 import|;
 end_import
@@ -275,6 +235,46 @@ name|MetricsRegistry
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|metrics
+operator|.
+name|util
+operator|.
+name|MetricsTimeVaryingRate
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|lang
+operator|.
+name|management
+operator|.
+name|ManagementFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|lang
+operator|.
+name|management
+operator|.
+name|MemoryUsage
+import|;
+end_import
+
 begin_comment
 comment|/**   * This class is for maintaining the various regionserver statistics  * and publishing them through the metrics interfaces.  *<p>  * This class has a number of metrics variables that are publicly accessible;  * these variables (objects) have methods to update their values.  */
 end_comment
@@ -286,6 +286,13 @@ name|RegionServerMetrics
 implements|implements
 name|Updater
 block|{
+annotation|@
+name|SuppressWarnings
+argument_list|(
+block|{
+literal|"FieldCanBeLocal"
+block|}
+argument_list|)
 specifier|private
 specifier|final
 name|Log
@@ -647,7 +654,7 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Since this object is a registered updater, this method will be called    * periodically, e.g. every 5 seconds.    * @param unused     */
+comment|/**    * Since this object is a registered updater, this method will be called    * periodically, e.g. every 5 seconds.    * @param unused unused argument    */
 specifier|public
 name|void
 name|doUpdates

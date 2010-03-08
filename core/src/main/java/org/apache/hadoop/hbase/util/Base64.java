@@ -1,10 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Encodes and decodes to and from Base64 notation.  *   *<p>  * Homepage:<a href="http://iharder.net/base64">http://iharder.net/base64</a>.  *</p>  *  *<p>  * Change Log:  *</p>  *<ul>  *<li>v2.2.1 - Fixed bug using URL_SAFE and ORDERED encodings. Fixed bug  *     when using very small files (~< 40 bytes).</li>  *<li>v2.2 - Added some helper methods for encoding/decoding directly from  *     one file to the next. Also added a main() method to support command  *     line encoding/decoding from one file to the next. Also added these  *     Base64 dialects:  *<ol>  *<li>The default is RFC3548 format.</li>  *<li>Using Base64.URLSAFE generates URL and file name friendly format as  *         described in Section 4 of RFC3548.  *         http://www.faqs.org/rfcs/rfc3548.html</li>  *<li>Using Base64.ORDERED generates URL and file name friendly format  *         that preserves lexical ordering as described in  *         http://www.faqs.org/qa/rfcc-1940.html</li>  *</ol>  *<p>  *     Special thanks to Jim Kellerman at<a href="http://www.powerset.com/">  *     http://www.powerset.com/</a> for contributing the new Base64 dialects.  *</li>  *   *<li>v2.1 - Cleaned up javadoc comments and unused variables and methods.  *     Added some convenience methods for reading and writing to and from files.  *</li>  *<li>v2.0.2 - Now specifies UTF-8 encoding in places where the code fails on  *     systems with other encodings (like EBCDIC).</li>  *<li>v2.0.1 - Fixed an error when decoding a single byte, that is, when the  *     encoded data was a single byte.</li>  *<li>v2.0 - I got rid of methods that used booleans to set options. Now  *     everything is more consolidated and cleaner. The code now detects when  *     data that's being decoded is gzip-compressed and will decompress it  *     automatically. Generally things are cleaner. You'll probably have to  *     change some method calls that you were making to support the new options  *     format (<tt>int</tt>s that you "OR" together).</li>  *<li>v1.5.1 - Fixed bug when decompressing and decoding to a byte[] using  *<tt>decode( String s, boolean gzipCompressed )</tt>. Added the ability to  *     "suspend" encoding in the Output Stream so you can turn on and off the  *     encoding if you need to embed base64 data in an otherwise "normal" stream  *     (like an XML file).</li>    *<li>v1.5 - Output stream pases on flush() command but doesn't do anything  *     itself. This helps when using GZIP streams. Added the ability to  *     GZip-compress objects before encoding them.</li>  *<li>v1.4 - Added helper methods to read/write files.</li>  *<li>v1.3.6 - Fixed OutputStream.flush() so that 'position' is reset.</li>  *<li>v1.3.5 - Added flag to turn on and off line breaks. Fixed bug in input  *     stream where last buffer being read, if not completely full, was not  *     returned.</li>  *<li>v1.3.4 - Fixed when "improperly padded stream" error was thrown at the  *     wrong time.</li>  *<li>v1.3.3 - Fixed I/O streams which were totally messed up.</li>  *</ul>  *  *<p>  * I am placing this code in the Public Domain. Do with it as you will. This  * software comes with no guarantees or warranties but with plenty of  * well-wishing instead!  *<p>  * Please visit<a href="http://iharder.net/base64">http://iharder.net/base64</a>  * periodically to check for updates or to contribute improvements.  *<p>  * author: Robert Harder, rob@iharder.net  *<br>  * version: 2.2.1  */
-end_comment
-
-begin_comment
-comment|/**  * Copyright 2007 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -20,6 +16,34 @@ operator|.
 name|util
 package|;
 end_package
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
 
 begin_import
 import|import
@@ -117,7 +141,7 @@ name|java
 operator|.
 name|io
 operator|.
-name|InputStream
+name|IOException
 import|;
 end_import
 
@@ -127,7 +151,7 @@ name|java
 operator|.
 name|io
 operator|.
-name|IOException
+name|InputStream
 import|;
 end_import
 
@@ -185,16 +209,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|lang
-operator|.
-name|ClassNotFoundException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|zip
@@ -215,36 +229,8 @@ name|GZIPOutputStream
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
-import|;
-end_import
-
 begin_comment
-comment|/**  * Encodes and decodes to and from Base64 notation.  */
+comment|/**  * Encodes and decodes to and from Base64 notation.  *  *<p>  * Homepage:<a href="http://iharder.net/base64">http://iharder.net/base64</a>.  *</p>  *  *<p>  * Change Log:  *</p>  *<ul>  *<li>v2.2.1 - Fixed bug using URL_SAFE and ORDERED encodings. Fixed bug  *     when using very small files (~< 40 bytes).</li>  *<li>v2.2 - Added some helper methods for encoding/decoding directly from  *     one file to the next. Also added a main() method to support command  *     line encoding/decoding from one file to the next. Also added these  *     Base64 dialects:  *<ol>  *<li>The default is RFC3548 format.</li>  *<li>Using Base64.URLSAFE generates URL and file name friendly format as  *         described in Section 4 of RFC3548.  *         http://www.faqs.org/rfcs/rfc3548.html</li>  *<li>Using Base64.ORDERED generates URL and file name friendly format  *         that preserves lexical ordering as described in  *         http://www.faqs.org/qa/rfcc-1940.html</li>  *</ol>  *<p>  *     Special thanks to Jim Kellerman at<a href="http://www.powerset.com/">  *     http://www.powerset.com/</a> for contributing the new Base64 dialects.  *</li>  *  *<li>v2.1 - Cleaned up javadoc comments and unused variables and methods.  *     Added some convenience methods for reading and writing to and from files.  *</li>  *<li>v2.0.2 - Now specifies UTF-8 encoding in places where the code fails on  *     systems with other encodings (like EBCDIC).</li>  *<li>v2.0.1 - Fixed an error when decoding a single byte, that is, when the  *     encoded data was a single byte.</li>  *<li>v2.0 - I got rid of methods that used booleans to set options. Now  *     everything is more consolidated and cleaner. The code now detects when  *     data that's being decoded is gzip-compressed and will decompress it  *     automatically. Generally things are cleaner. You'll probably have to  *     change some method calls that you were making to support the new options  *     format (<tt>int</tt>s that you "OR" together).</li>  *<li>v1.5.1 - Fixed bug when decompressing and decoding to a byte[] using  *<tt>decode( String s, boolean gzipCompressed )</tt>. Added the ability to  *     "suspend" encoding in the Output Stream so you can turn on and off the  *     encoding if you need to embed base64 data in an otherwise "normal" stream  *     (like an XML file).</li>  *<li>v1.5 - Output stream pases on flush() command but doesn't do anything  *     itself. This helps when using GZIP streams. Added the ability to  *     GZip-compress objects before encoding them.</li>  *<li>v1.4 - Added helper methods to read/write files.</li>  *<li>v1.3.6 - Fixed OutputStream.flush() so that 'position' is reset.</li>  *<li>v1.3.5 - Added flag to turn on and off line breaks. Fixed bug in input  *     stream where last buffer being read, if not completely full, was not  *     returned.</li>  *<li>v1.3.4 - Fixed when "improperly padded stream" error was thrown at the  *     wrong time.</li>  *<li>v1.3.3 - Fixed I/O streams which were totally messed up.</li>  *</ul>  *  *<p>  * I am placing this code in the Public Domain. Do with it as you will. This  * software comes with no guarantees or warranties but with plenty of  * well-wishing instead!  *<p>  * Please visit<a href="http://iharder.net/base64">http://iharder.net/base64</a>  * periodically to check for updates or to contribute improvements.  *<p>  * author: Robert Harder, rob@iharder.net  *<br>  * version: 2.2.1  */
 end_comment
 
 begin_class
@@ -2441,9 +2427,8 @@ comment|// Decimal 123 - 126
 block|}
 decl_stmt|;
 comment|/* ******** D E T E R M I N E   W H I C H   A L H A B E T ******** */
-comment|/**    * Returns one of the _SOMETHING_ALPHABET byte arrays depending on the options    * specified. It's possible, though silly, to specify ORDERED and URLSAFE in    * which case one of them will be picked, though there is no guarantee as to    * which one will be picked.    */
+comment|/**    * Returns one of the _SOMETHING_ALPHABET byte arrays depending on the options    * specified. It's possible, though silly, to specify ORDERED and URLSAFE in    * which case one of them will be picked, though there is no guarantee as to    * which one will be picked.    *    * @param options URL_SAFE or ORDERED    * @return alphabet array to use    */
 specifier|protected
-specifier|final
 specifier|static
 name|byte
 index|[]
@@ -2492,9 +2477,8 @@ return|;
 block|}
 block|}
 comment|// end getAlphabet
-comment|/**    * Returns one of the _SOMETHING_DECODABET byte arrays depending on the    * options specified. It's possible, though silly, to specify ORDERED and    * URL_SAFE in which case one of them will be picked, though there is no    * guarantee as to which one will be picked.    */
+comment|/**    * Returns one of the _SOMETHING_DECODABET byte arrays depending on the    * options specified. It's possible, though silly, to specify ORDERED and    * URL_SAFE in which case one of them will be picked, though there is no    * guarantee as to which one will be picked.    * @param options URL_SAFE or ORDERED    * @return alphabet array to use    */
 specifier|protected
-specifier|final
 specifier|static
 name|byte
 index|[]
@@ -2550,7 +2534,6 @@ parameter_list|()
 block|{}
 comment|/**    * Main program. Used for testing.    *     * Encodes or decodes two files from the command line    *     * @param args command arguments    */
 specifier|public
-specifier|final
 specifier|static
 name|void
 name|main
@@ -2655,7 +2638,6 @@ block|}
 comment|// end main
 comment|/**    * Prints command line usage.    *     * @param msg A message to include with usage info.    */
 specifier|private
-specifier|final
 specifier|static
 name|void
 name|usage
@@ -2685,7 +2667,7 @@ expr_stmt|;
 block|}
 comment|// end usage
 comment|/* ******** E N C O D I N G   M E T H O D S ******** */
-comment|/**    * Encodes up to the first three bytes of array<var>threeBytes</var> and    * returns a four-byte array in Base64 notation. The actual number of    * significant bytes in your array is given by<var>numSigBytes</var>. The    * array<var>threeBytes</var> needs only be as big as<var>numSigBytes</var>.    * Code can reuse a byte array by passing a four-byte array as<var>b4</var>.    *     * @param b4 A reusable byte array to reduce array instantiation    * @param threeBytes the array to convert    * @param numSigBytes the number of significant bytes in your array    * @return four byte array in Base64 notation.    * @since 1.5.1    */
+comment|/**    * Encodes up to the first three bytes of array<var>threeBytes</var> and    * returns a four-byte array in Base64 notation. The actual number of    * significant bytes in your array is given by<var>numSigBytes</var>. The    * array<var>threeBytes</var> needs only be as big as<var>numSigBytes</var>.    * Code can reuse a byte array by passing a four-byte array as<var>b4</var>.    *     * @param b4 A reusable byte array to reduce array instantiation    * @param threeBytes the array to convert    * @param numSigBytes the number of significant bytes in your array    * @param options options for get alphabet    * @return four byte array in Base64 notation.    * @since 1.5.1    */
 specifier|protected
 specifier|static
 name|byte
@@ -2727,7 +2709,7 @@ name|b4
 return|;
 block|}
 comment|// end encode3to4
-comment|/**    * Encodes up to three bytes of the array<var>source</var> and writes the    * resulting four Base64 bytes to<var>destination</var>. The source and    * destination arrays can be manipulated anywhere along their length by    * specifying<var>srcOffset</var> and<var>destOffset</var>. This method    * does not check to make sure your arrays are large enough to accomodate    *<var>srcOffset</var> + 3 for the<var>source</var> array or    *<var>destOffset</var> + 4 for the<var>destination</var> array. The    * actual number of significant bytes in your array is given by    *<var>numSigBytes</var>.    *<p>    * This is the lowest level of the encoding methods with all possible    * parameters.    *     * @param source the array to convert    * @param srcOffset the index where conversion begins    * @param numSigBytes the number of significant bytes in your array    * @param destination the array to hold the conversion    * @param destOffset the index where output will be put    * @return the<var>destination</var> array    * @since 1.3    */
+comment|/**    * Encodes up to three bytes of the array<var>source</var> and writes the    * resulting four Base64 bytes to<var>destination</var>. The source and    * destination arrays can be manipulated anywhere along their length by    * specifying<var>srcOffset</var> and<var>destOffset</var>. This method    * does not check to make sure your arrays are large enough to accomodate    *<var>srcOffset</var> + 3 for the<var>source</var> array or    *<var>destOffset</var> + 4 for the<var>destination</var> array. The    * actual number of significant bytes in your array is given by    *<var>numSigBytes</var>.    *<p>    * This is the lowest level of the encoding methods with all possible    * parameters.    *     * @param source the array to convert    * @param srcOffset the index where conversion begins    * @param numSigBytes the number of significant bytes in your array    * @param destination the array to hold the conversion    * @param destOffset the index where output will be put    * @param options options for get alphabet    * @return the<var>destination</var> array    * @since 1.3    */
 specifier|protected
 specifier|static
 name|byte
@@ -3071,6 +3053,13 @@ return|;
 block|}
 comment|// end encodeObject
 comment|/**    * Serializes an object and returns the Base64-encoded version of that    * serialized object. If the object cannot be serialized or there is another    * error, the method will return<tt>null</tt>.    *<p>    * Valid options:    *<ul>    *<li>GZIP: gzip-compresses object before encoding it.</li>    *<li>DONT_BREAK_LINES: don't break lines at 76 characters.<i>Note:    *     Technically, this makes your encoding non-compliant.</i></li>    *</ul>    *<p>    * Example:<code>encodeObject( myObj, Base64.GZIP )</code> or    *<p>    * Example:    *<code>encodeObject( myObj, Base64.GZIP | Base64.DONT_BREAK_LINES )</code>    *     * @param serializableObject The object to encode    * @param options Specified options    * @see Base64#GZIP    * @see Base64#DONT_BREAK_LINES    * @return The Base64-encoded object    * @since 2.0    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+block|{
+literal|"ConstantConditions"
+block|}
+argument_list|)
 specifier|public
 specifier|static
 name|String
@@ -3797,7 +3786,14 @@ block|}
 block|}
 comment|// end encodeBytes
 comment|/* ******** D E C O D I N G   M E T H O D S ******** */
-comment|/**    * Decodes four bytes from array<var>source</var> and writes the resulting    * bytes (up to three of them) to<var>destination</var>. The source and    * destination arrays can be manipulated anywhere along their length by    * specifying<var>srcOffset</var> and<var>destOffset</var>. This method    * does not check to make sure your arrays are large enough to accomodate    *<var>srcOffset</var> + 4 for the<var>source</var> array or    *<var>destOffset</var> + 3 for the<var>destination</var> array. This    * method returns the actual number of bytes that were converted from the    * Base64 encoding.    *<p>    * This is the lowest level of the decoding methods with all possible    * parameters.    *</p>    *     * @param source the array to convert    * @param srcOffset the index where conversion begins    * @param destination the array to hold the conversion    * @param destOffset the index where output will be put    * @param options    * @see Base64#URL_SAFE    * @see Base64#ORDERED    * @return the number of decoded bytes converted    * @since 1.3    */
+comment|/**    * Decodes four bytes from array<var>source</var> and writes the resulting    * bytes (up to three of them) to<var>destination</var>. The source and    * destination arrays can be manipulated anywhere along their length by    * specifying<var>srcOffset</var> and<var>destOffset</var>. This method    * does not check to make sure your arrays are large enough to accomodate    *<var>srcOffset</var> + 4 for the<var>source</var> array or    *<var>destOffset</var> + 3 for the<var>destination</var> array. This    * method returns the actual number of bytes that were converted from the    * Base64 encoding.    *<p>    * This is the lowest level of the decoding methods with all possible    * parameters.    *</p>    *     * @param source the array to convert    * @param srcOffset the index where conversion begins    * @param destination the array to hold the conversion    * @param destOffset the index where output will be put    * @param options options for getDecoabet    * @see Base64#URL_SAFE    * @see Base64#ORDERED    * @return the number of decoded bytes converted    * @since 1.3    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+block|{
+literal|"ConstantConditions"
+block|}
+argument_list|)
 specifier|protected
 specifier|static
 name|int
@@ -4247,7 +4243,7 @@ comment|// end catch
 block|}
 block|}
 comment|// end decodeToBytes
-comment|/**    * Very low-level access to decoding ASCII characters in the form of a byte    * array. Does not support automatically gunzipping or any other "fancy"    * features.    *     * @param source The Base64 encoded data    * @param off The offset of where to begin decoding    * @param len The length of characters to decode    * @param options     * @see Base64#URL_SAFE    * @see Base64#ORDERED    * @return decoded data    * @since 1.3    */
+comment|/**    * Very low-level access to decoding ASCII characters in the form of a byte    * array. Does not support automatically gunzipping or any other "fancy"    * features.    *     * @param source The Base64 encoded data    * @param off The offset of where to begin decoding    * @param len The length of characters to decode    * @param options options for getDecodabet    * @see Base64#URL_SAFE    * @see Base64#ORDERED    * @return decoded data    * @since 1.3    */
 specifier|public
 specifier|static
 name|byte
@@ -4319,18 +4315,12 @@ literal|0
 decl_stmt|;
 name|int
 name|i
-init|=
-literal|0
 decl_stmt|;
 name|byte
 name|sbiCrop
-init|=
-literal|0
 decl_stmt|;
 name|byte
 name|sbiDecode
-init|=
-literal|0
 decl_stmt|;
 for|for
 control|(
@@ -4510,7 +4500,7 @@ name|NO_OPTIONS
 argument_list|)
 return|;
 block|}
-comment|/**    * Decodes data from Base64 notation, automatically detecting gzip-compressed    * data and decompressing it.    *     * @param s the string to decode    * @param options    * @see Base64#URL_SAFE    * @see Base64#ORDERED    * @return the decoded data    * @since 1.4    */
+comment|/**    * Decodes data from Base64 notation, automatically detecting gzip-compressed    * data and decompressing it.    *     * @param s the string to decode    * @param options options for decode    * @see Base64#URL_SAFE    * @see Base64#ORDERED    * @return the decoded data    * @since 1.4    */
 specifier|public
 specifier|static
 name|byte
@@ -4527,8 +4517,6 @@ block|{
 name|byte
 index|[]
 name|bytes
-init|=
-literal|null
 decl_stmt|;
 try|try
 block|{
@@ -4662,8 +4650,6 @@ for|for
 control|(
 name|int
 name|length
-init|=
-literal|0
 init|;
 operator|(
 name|length
@@ -5174,8 +5160,6 @@ decl_stmt|;
 name|byte
 index|[]
 name|buffer
-init|=
-literal|null
 decl_stmt|;
 comment|// Check the size of file
 if|if
@@ -5252,8 +5236,6 @@ for|for
 control|(
 name|int
 name|numBytes
-init|=
-literal|0
 init|;
 operator|(
 name|numBytes
@@ -5451,8 +5433,6 @@ for|for
 control|(
 name|int
 name|numBytes
-init|=
-literal|0
 init|;
 operator|(
 name|numBytes
@@ -6105,8 +6085,6 @@ index|]
 decl_stmt|;
 name|int
 name|i
-init|=
-literal|0
 decl_stmt|;
 for|for
 control|(
@@ -6125,8 +6103,6 @@ block|{
 comment|// Read four "meaningful" bytes:
 name|int
 name|b
-init|=
-literal|0
 decl_stmt|;
 do|do
 block|{
@@ -6856,7 +6832,7 @@ block|}
 comment|// end for: each byte written
 block|}
 comment|// end write
-comment|/**      * Method added by PHIL. [Thanks, PHIL. -Rob] This pads the buffer without      * closing the stream.      *       * @throws IOException      */
+comment|/**      * Method added by PHIL. [Thanks, PHIL. -Rob] This pads the buffer without      * closing the stream.      *       * @throws IOException e      */
 specifier|public
 name|void
 name|flushBase64
@@ -6943,7 +6919,7 @@ literal|null
 expr_stmt|;
 block|}
 comment|// end close
-comment|/**      * Suspends encoding of the stream. May be helpful if you need to embed a      * piece of base640-encoded data in a stream.      *      * @throws IOException      * @since 1.5.1      */
+comment|/**      * Suspends encoding of the stream. May be helpful if you need to embed a      * piece of base640-encoded data in a stream.      *      * @throws IOException e      * @since 1.5.1      */
 specifier|public
 name|void
 name|suspendEncoding

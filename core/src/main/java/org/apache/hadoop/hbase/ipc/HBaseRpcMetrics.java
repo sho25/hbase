@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -113,7 +113,7 @@ name|metrics
 operator|.
 name|util
 operator|.
-name|MetricsTimeVaryingRate
+name|MetricsRegistry
 import|;
 end_import
 
@@ -129,7 +129,7 @@ name|metrics
 operator|.
 name|util
 operator|.
-name|MetricsRegistry
+name|MetricsTimeVaryingRate
 import|;
 end_import
 
@@ -244,6 +244,7 @@ expr_stmt|;
 block|}
 comment|/**    * The metrics variables are public:    *  - they can be set directly by calling their set/inc methods    *  -they can also be read directly - e.g. JMX does this.    */
 specifier|public
+specifier|final
 name|MetricsRegistry
 name|registry
 init|=
@@ -304,9 +305,7 @@ name|String
 name|key
 parameter_list|)
 block|{
-name|MetricsTimeVaryingRate
-name|newMetric
-init|=
+return|return
 operator|new
 name|MetricsTimeVaryingRate
 argument_list|(
@@ -316,9 +315,6 @@ name|this
 operator|.
 name|registry
 argument_list|)
-decl_stmt|;
-return|return
-name|newMetric
 return|;
 block|}
 specifier|public
@@ -364,7 +360,7 @@ name|amt
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Push the metrics to the monitoring subsystem on doUpdate() call.    * @param context    */
+comment|/**    * Push the metrics to the monitoring subsystem on doUpdate() call.    * @param context ctx    */
 specifier|public
 name|void
 name|doUpdates
@@ -392,7 +388,7 @@ init|(
 name|registry
 init|)
 block|{
-comment|// Iterate through the registry to propogate the different rpc metrics.
+comment|// Iterate through the registry to propagate the different rpc metrics.
 for|for
 control|(
 name|String

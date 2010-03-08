@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  * Copyright 2009 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,6 +16,96 @@ operator|.
 name|client
 package|;
 end_package
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|HeapSize
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ClassSize
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|Writable
+import|;
+end_import
 
 begin_import
 import|import
@@ -94,96 +184,6 @@ operator|.
 name|util
 operator|.
 name|TreeMap
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Writable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|HeapSize
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|ClassSize
 import|;
 end_import
 
@@ -556,7 +556,7 @@ operator|.
 name|writeToWAL
 expr_stmt|;
 block|}
-comment|/**    * Add the specified column and value to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param value column value    */
+comment|/**    * Add the specified column and value to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param value column value    * @return this    */
 specifier|public
 name|Put
 name|add
@@ -589,7 +589,7 @@ name|value
 argument_list|)
 return|;
 block|}
-comment|/**    * Add the specified column and value, with the specified timestamp as     * its version to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param ts version timestamp    * @param value column value    */
+comment|/**    * Add the specified column and value, with the specified timestamp as     * its version to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param ts version timestamp    * @param value column value    * @return this    */
 specifier|public
 name|Put
 name|add
@@ -658,7 +658,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Add the specified KeyValue to this Put operation.  Operation assumes that     * the passed KeyValue is immutable and its backing array will not be modified    * for the duration of this Put.    * @param kv    */
+comment|/**    * Add the specified KeyValue to this Put operation.  Operation assumes that     * the passed KeyValue is immutable and its backing array will not be modified    * for the duration of this Put.    * @param kv individual KeyValue    * @return this    * @throws java.io.IOException e    */
 specifier|public
 name|Put
 name|add
@@ -789,7 +789,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Create a KeyValue with this objects row key and the Put identifier.    *     * @param family    * @param qualifier    * @param ts    * @param value    * @return a KeyValue with this objects row key and the Put identifier.    */
+comment|/*    * Create a KeyValue with this objects row key and the Put identifier.    *     * @return a KeyValue with this objects row key and the Put identifier.    */
 specifier|private
 name|KeyValue
 name|createPutKeyValue
@@ -834,7 +834,7 @@ name|value
 argument_list|)
 return|;
 block|}
-comment|/**    * A convenience method to determine if this object's familyMap contains     * a value assigned to the given family& qualifier.    * Both given arguments must match the KeyValue object to return true.    *     * @param family    * @param qualifier    * @return returns true if the given family and qualifier already has an    * existing KeyValue object in the family map.    */
+comment|/**    * A convenience method to determine if this object's familyMap contains     * a value assigned to the given family& qualifier.    * Both given arguments must match the KeyValue object to return true.    *     * @param family column family    * @param qualifier column qualifier    * @return returns true if the given family and qualifier already has an    * existing KeyValue object in the family map.    */
 specifier|public
 name|boolean
 name|has
@@ -871,7 +871,7 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * A convenience method to determine if this object's familyMap contains     * a value assigned to the given family, qualifier and timestamp.    * All 3 given arguments must match the KeyValue object to return true.    *     * @param family    * @param qualifier    * @param ts    * @return returns true if the given family, qualifier and timestamp already has an    * existing KeyValue object in the family map.    */
+comment|/**    * A convenience method to determine if this object's familyMap contains     * a value assigned to the given family, qualifier and timestamp.    * All 3 given arguments must match the KeyValue object to return true.    *     * @param family column family    * @param qualifier column qualifier    * @param ts timestamp    * @return returns true if the given family, qualifier and timestamp already has an    * existing KeyValue object in the family map.    */
 specifier|public
 name|boolean
 name|has
@@ -909,7 +909,7 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * A convenience method to determine if this object's familyMap contains     * a value assigned to the given family, qualifier and timestamp.    * All 3 given arguments must match the KeyValue object to return true.    *     * @param family    * @param qualifier    * @param value    * @return returns true if the given family, qualifier and value already has an    * existing KeyValue object in the family map.    */
+comment|/**    * A convenience method to determine if this object's familyMap contains     * a value assigned to the given family, qualifier and timestamp.    * All 3 given arguments must match the KeyValue object to return true.    *     * @param family column family    * @param qualifier column qualifier    * @param value value to check    * @return returns true if the given family, qualifier and value already has an    * existing KeyValue object in the family map.    */
 specifier|public
 name|boolean
 name|has
@@ -946,7 +946,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * A convenience method to determine if this object's familyMap contains     * the given value assigned to the given family, qualifier and timestamp.    * All 4 given arguments must match the KeyValue object to return true.    *     * @param family    * @param qualifier    * @param ts    * @param value    * @return returns true if the given family, qualifier timestamp and value     * already has an existing KeyValue object in the family map.    */
+comment|/**    * A convenience method to determine if this object's familyMap contains     * the given value assigned to the given family, qualifier and timestamp.    * All 4 given arguments must match the KeyValue object to return true.    *     * @param family column family    * @param qualifier column qualifier    * @param ts timestamp    * @param value value to check    * @return returns true if the given family, qualifier timestamp and value     * already has an existing KeyValue object in the family map.    */
 specifier|public
 name|boolean
 name|has
@@ -984,7 +984,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Private method to determine if this object's familyMap contains     * the given value assigned to the given family, qualifier and timestamp    * respecting the 2 boolean arguments    *     * @param family    * @param qualifier    * @param ts    * @param value    * @param ignoreTS    * @param ignoreValue    * @return returns true if the given family, qualifier timestamp and value     * already has an existing KeyValue object in the family map.    */
+comment|/*    * Private method to determine if this object's familyMap contains     * the given value assigned to the given family, qualifier and timestamp    * respecting the 2 boolean arguments    *     * @param family    * @param qualifier    * @param ts    * @param value    * @param ignoreTS    * @param ignoreValue    * @return returns true if the given family, qualifier timestamp and value     * already has an existing KeyValue object in the family map.    */
 specifier|private
 name|boolean
 name|has
@@ -1036,6 +1036,11 @@ return|return
 literal|false
 return|;
 block|}
+comment|// Boolean analysis of ignoreTS/ignoreValue.
+comment|// T T => 2
+comment|// T F => 3 (first is always true)
+comment|// F T => 2
+comment|// F F => 1
 if|if
 condition|(
 operator|!
@@ -1124,12 +1129,9 @@ return|;
 block|}
 block|}
 block|}
-elseif|else
-if|if
-condition|(
-name|ignoreTS
-condition|)
+else|else
 block|{
+comment|// ignoreTS is always true
 for|for
 control|(
 name|KeyValue
@@ -1183,54 +1185,11 @@ return|;
 block|}
 block|}
 block|}
-else|else
-block|{
-for|for
-control|(
-name|KeyValue
-name|kv
-range|:
-name|list
-control|)
-block|{
-if|if
-condition|(
-name|Arrays
-operator|.
-name|equals
-argument_list|(
-name|kv
-operator|.
-name|getFamily
-argument_list|()
-argument_list|,
-name|family
-argument_list|)
-operator|&&
-name|Arrays
-operator|.
-name|equals
-argument_list|(
-name|kv
-operator|.
-name|getQualifier
-argument_list|()
-argument_list|,
-name|qualifier
-argument_list|)
-condition|)
-block|{
-return|return
-literal|true
-return|;
-block|}
-block|}
-block|}
 return|return
 literal|false
 return|;
 block|}
-comment|/**    * Returns a list of all KeyValue objects with matching column family and qualifier.    *     * @param family    * @param qualifier    * @return a list of KeyValue objects with the matching family and qualifier,     * returns an empty list if one doesnt exist for the given family.    */
+comment|/**    * Returns a list of all KeyValue objects with matching column family and qualifier.    *     * @param family column family    * @param qualifier column qualifier    * @return a list of KeyValue objects with the matching family and qualifier,     * returns an empty list if one doesnt exist for the given family.    */
 specifier|public
 name|List
 argument_list|<
@@ -1299,7 +1258,7 @@ return|return
 name|filteredList
 return|;
 block|}
-comment|/**    * Creates an empty list if one doesnt exist for the given column family    * or else it returns the associated list of KeyValue objects.    *     * @param family    * @return a list of KeyValue objects, returns an empty list if one doesnt exist.    */
+comment|/**    * Creates an empty list if one doesnt exist for the given column family    * or else it returns the associated list of KeyValue objects.    *     * @param family column family    * @return a list of KeyValue objects, returns an empty list if one doesnt exist.    */
 specifier|private
 name|List
 argument_list|<
@@ -2326,7 +2285,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Add the specified column and value, with the specified timestamp as    * its version to this Put operation.    * @param column Old style column name with family and qualifier put together    * with a colon.    * @param ts version timestamp    * @param value column value    * @deprecated use {@link #add(byte[], byte[], long, byte[])} instead    */
+comment|/**    * Add the specified column and value, with the specified timestamp as    * its version to this Put operation.    * @param column Old style column name with family and qualifier put together    * with a colon.    * @param ts version timestamp    * @param value column value    * @deprecated use {@link #add(byte[], byte[], long, byte[])} instead    * @return true    */
 specifier|public
 name|Put
 name|add

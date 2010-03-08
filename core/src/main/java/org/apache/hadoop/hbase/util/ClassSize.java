@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Copyright 2009 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,6 +16,34 @@ operator|.
 name|util
 package|;
 end_package
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
 
 begin_import
 import|import
@@ -48,34 +76,6 @@ operator|.
 name|util
 operator|.
 name|Properties
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
 import|;
 end_import
 
@@ -356,6 +356,7 @@ name|SIZEOF_INT
 operator|)
 argument_list|)
 expr_stmt|;
+comment|//noinspection PointlessArithmeticExpression
 name|BYTE_BUFFER
 operator|=
 name|align
@@ -648,7 +649,7 @@ name|ARRAY
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * The estimate of the size of a class instance depends on whether the JVM     * uses 32 or 64 bit addresses, that is it depends on the size of an object     * reference. It is a linear function of the size of a reference, e.g.    * 24 + 5*r where r is the size of a reference (usually 4 or 8 bytes).    *    * This method returns the coefficients of the linear function, e.g. {24, 5}    * in the above example.    *    * @param cl A class whose instance size is to be estimated    * @return an array of 3 integers. The first integer is the size of the     * primitives, the second the number of arrays and the third the number of    * references.    */
+comment|/**    * The estimate of the size of a class instance depends on whether the JVM     * uses 32 or 64 bit addresses, that is it depends on the size of an object     * reference. It is a linear function of the size of a reference, e.g.    * 24 + 5*r where r is the size of a reference (usually 4 or 8 bytes).    *    * This method returns the coefficients of the linear function, e.g. {24, 5}    * in the above example.    *    * @param cl A class whose instance size is to be estimated    * @param debug debug flag    * @return an array of 3 integers. The first integer is the size of the    * primitives, the second the number of arrays and the third the number of    * references.    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -716,19 +717,10 @@ condition|)
 block|{
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|Field
+name|aField
+range|:
 name|field
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 if|if
@@ -738,10 +730,7 @@ name|Modifier
 operator|.
 name|isStatic
 argument_list|(
-name|field
-index|[
-name|i
-index|]
+name|aField
 operator|.
 name|getModifiers
 argument_list|()
@@ -751,10 +740,7 @@ block|{
 name|Class
 name|fieldClass
 init|=
-name|field
-index|[
-name|i
-index|]
+name|aField
 operator|.
 name|getType
 argument_list|()
@@ -1001,20 +987,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-name|field
-index|[
-name|i
-index|]
+name|aField
 operator|.
 name|getName
 argument_list|()
 operator|+
 literal|"\n\t"
 operator|+
-name|field
-index|[
-name|i
-index|]
+name|aField
 operator|.
 name|getType
 argument_list|()
@@ -1039,7 +1019,7 @@ name|references
 block|}
 return|;
 block|}
-comment|/**    * Estimate the static space taken up by a class instance given the     * coefficients returned by getSizeCoefficients.    *    * @param coeff the coefficients    *    * @return the size estimate, in bytes    */
+comment|/**    * Estimate the static space taken up by a class instance given the     * coefficients returned by getSizeCoefficients.    *    * @param coeff the coefficients    *    * @param debug debug flag    * @return the size estimate, in bytes    */
 specifier|private
 specifier|static
 name|long
@@ -1144,7 +1124,7 @@ return|return
 name|size
 return|;
 block|}
-comment|/**    * Estimate the static space taken up by the fields of a class. This includes     * the space taken up by by references (the pointer) but not by the referenced     * object. So the estimated size of an array field does not depend on the size     * of the array. Similarly the size of an object (reference) field does not     * depend on the object.    *    * @return the size estimate in bytes.    */
+comment|/**    * Estimate the static space taken up by the fields of a class. This includes     * the space taken up by by references (the pointer) but not by the referenced     * object. So the estimated size of an array field does not depend on the size     * of the array. Similarly the size of an object (reference) field does not     * depend on the object.    *    * @param cl class    * @param debug debug flag    * @return the size estimate in bytes.    */
 annotation|@
 name|SuppressWarnings
 argument_list|(

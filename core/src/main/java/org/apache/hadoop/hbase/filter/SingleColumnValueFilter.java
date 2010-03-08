@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Copyright 2009 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,46 +16,6 @@ operator|.
 name|filter
 package|;
 end_package
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|DataInput
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|DataOutput
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Arrays
-import|;
-end_import
 
 begin_import
 import|import
@@ -162,6 +122,46 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|DataInput
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|DataOutput
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Arrays
 import|;
 end_import
 
@@ -703,7 +703,7 @@ return|return
 name|filterIfMissing
 return|;
 block|}
-comment|/**    * Set whether entire row should be filtered if column is not found.    *<p>    * If true, the entire row will be skipped if the column is not found.    *<p>    * If false, the row will pass if the column is not found.  This is default.    */
+comment|/**    * Set whether entire row should be filtered if column is not found.    *<p>    * If true, the entire row will be skipped if the column is not found.    *<p>    * If false, the row will pass if the column is not found.  This is default.    * @param filterIfMissing flag    */
 specifier|public
 name|void
 name|setFilterIfMissing
@@ -719,7 +719,7 @@ operator|=
 name|filterIfMissing
 expr_stmt|;
 block|}
-comment|/**    * Get whether only the latest version of the column value should be compared.    * If true, the row will be returned if only the latest version of the column    * value matches. If false, the row will be returned if any version of the    * column value matches. The default is true.    */
+comment|/**    * Get whether only the latest version of the column value should be compared.    * If true, the row will be returned if only the latest version of the column    * value matches. If false, the row will be returned if any version of the    * column value matches. The default is true.    * @return return value    */
 specifier|public
 name|boolean
 name|getLatestVersionOnly
@@ -729,7 +729,7 @@ return|return
 name|latestVersionOnly
 return|;
 block|}
-comment|/**    * Set whether only the latest version of the column value should be compared.    * If true, the row will be returned if only the latest version of the column    * value matches. If false, the row will be returned if any version of the    * column value matches. The default is true.    */
+comment|/**    * Set whether only the latest version of the column value should be compared.    * If true, the row will be returned if only the latest version of the column    * value matches. If false, the row will be returned if any version of the    * column value matches. The default is true.    * @param latestVersionOnly flag    */
 specifier|public
 name|void
 name|setLatestVersionOnly

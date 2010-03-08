@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Copyright 2007 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,66 +16,6 @@ operator|.
 name|util
 package|;
 end_package
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|DataInputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|net
-operator|.
-name|URI
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|net
-operator|.
-name|URISyntaxException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|HashMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-import|;
-end_import
 
 begin_import
 import|import
@@ -307,6 +247,66 @@ name|FSConstants
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|DataInputStream
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
+name|URI
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
+name|URISyntaxException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|HashMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
 begin_comment
 comment|/**  * Utility methods for interacting with the underlying file system.  */
 end_comment
@@ -340,7 +340,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Delete if exists.    * @param fs    * @param dir    * @return True if deleted<code>dir</code>    * @throws IOException    */
+comment|/**    * Delete if exists.    * @param fs filesystem object    * @param dir directory to delete    * @return True if deleted<code>dir</code>    * @throws IOException e    */
 specifier|public
 specifier|static
 name|boolean
@@ -364,7 +364,7 @@ name|exists
 argument_list|(
 name|dir
 argument_list|)
-condition|?
+operator|&&
 name|fs
 operator|.
 name|delete
@@ -373,11 +373,9 @@ name|dir
 argument_list|,
 literal|true
 argument_list|)
-else|:
-literal|false
 return|;
 block|}
-comment|/**    * Check if directory exists.  If it does not, create it.    * @param fs     * @param dir    * @return Path    * @throws IOException    */
+comment|/**    * Check if directory exists.  If it does not, create it.    * @param fs filesystem object    * @param dir path to check    * @return Path    * @throws IOException e    */
 specifier|public
 name|Path
 name|checkdir
@@ -416,7 +414,7 @@ return|return
 name|dir
 return|;
 block|}
-comment|/**    * Create file.    * @param fs    * @param p    * @return Path    * @throws IOException    */
+comment|/**    * Create file.    * @param fs filesystem object    * @param p path to create    * @return Path    * @throws IOException e    */
 specifier|public
 specifier|static
 name|Path
@@ -481,7 +479,7 @@ return|return
 name|p
 return|;
 block|}
-comment|/**    * Checks to see if the specified file system is available    *     * @param fs    * @throws IOException    */
+comment|/**    * Checks to see if the specified file system is available    *     * @param fs filesystem    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -598,7 +596,7 @@ throw|throw
 name|io
 throw|;
 block|}
-comment|/**    * Verifies current version of file system    *     * @param fs    * @param rootdir    * @return null if no version file exists, version string otherwise.    * @throws IOException    */
+comment|/**    * Verifies current version of file system    *     * @param fs filesystem object    * @param rootdir root hbase directory    * @return null if no version file exists, version string otherwise.    * @throws IOException e    */
 specifier|public
 specifier|static
 name|String
@@ -676,7 +674,7 @@ return|return
 name|version
 return|;
 block|}
-comment|/**    * Verifies current version of file system    *     * @param fs file system    * @param rootdir root directory of HBase installation    * @param message if true, issues a message on System.out     *     * @throws IOException    */
+comment|/**    * Verifies current version of file system    *     * @param fs file system    * @param rootdir root directory of HBase installation    * @param message if true, issues a message on System.out     *     * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -785,7 +783,7 @@ name|msg
 argument_list|)
 throw|;
 block|}
-comment|/**    * Sets version of file system    *     * @param fs    * @param rootdir    * @throws IOException    */
+comment|/**    * Sets version of file system    *     * @param fs filesystem object    * @param rootdir hbase root    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -812,7 +810,7 @@ name|FILE_SYSTEM_VERSION
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets version of file system    *     * @param fs    * @param rootdir    * @param version    * @throws IOException    */
+comment|/**    * Sets version of file system    *     * @param fs filesystem object    * @param rootdir hbase root directory    * @param version version to set    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -965,7 +963,7 @@ name|io
 throw|;
 block|}
 block|}
-comment|/**    * If DFS, check safe mode and if so, wait until we clear it.    * @param conf    * @param wait Sleep between retries    * @throws IOException    */
+comment|/**    * If DFS, check safe mode and if so, wait until we clear it.    * @param conf configuration    * @param wait Sleep between retries    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -1125,7 +1123,7 @@ name|getPath
 argument_list|()
 return|;
 block|}
-comment|/**    * @param c    * @return Path to hbase root directory: i.e.<code>hbase.rootdir</code> from    * configuration as a Path.    * @throws IOException     */
+comment|/**    * @param c configuration    * @return Path to hbase root directory: i.e.<code>hbase.rootdir</code> from    * configuration as a Path.    * @throws IOException e    */
 specifier|public
 specifier|static
 name|Path
@@ -1153,7 +1151,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Checks if root region exists    *     * @param fs file system    * @param rootdir root directory of HBase installation    * @return true if exists    * @throws IOException    */
+comment|/**    * Checks if root region exists    *     * @param fs file system    * @param rootdir root directory of HBase installation    * @return true if exists    * @throws IOException e    */
 specifier|public
 specifier|static
 name|boolean
@@ -1191,7 +1189,7 @@ name|rootRegionDir
 argument_list|)
 return|;
 block|}
-comment|/**    * Runs through the hbase rootdir and checks all stores have only    * one file in them -- that is, they've been major compacted.  Looks    * at root and meta tables too.    * @param fs    * @param hbaseRootDir    * @return True if this hbase install is major compacted.    * @throws IOException    */
+comment|/**    * Runs through the hbase rootdir and checks all stores have only    * one file in them -- that is, they've been major compacted.  Looks    * at root and meta tables too.    * @param fs filesystem    * @param hbaseRootDir hbase root directory    * @return True if this hbase install is major compacted.    * @throws IOException e    */
 specifier|public
 specifier|static
 name|boolean
@@ -1228,19 +1226,10 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|FileStatus
+name|tableDir
+range|:
 name|tableDirs
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 comment|// Skip the .log directory.  All others should be tables.  Inside a table,
@@ -1250,10 +1239,7 @@ comment|// directories.  Under each of these, should be one file only.
 name|Path
 name|d
 init|=
-name|tableDirs
-index|[
-name|i
-index|]
+name|tableDir
 operator|.
 name|getPath
 argument_list|()
@@ -1294,28 +1280,16 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|int
-name|j
-init|=
-literal|0
-init|;
-name|j
-operator|<
+name|FileStatus
+name|regionDir
+range|:
 name|regionDirs
-operator|.
-name|length
-condition|;
-name|j
-operator|++
 control|)
 block|{
 name|Path
 name|dd
 init|=
-name|regionDirs
-index|[
-name|j
-index|]
+name|regionDir
 operator|.
 name|getPath
 argument_list|()
@@ -1357,28 +1331,16 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|int
-name|k
-init|=
-literal|0
-init|;
-name|k
-operator|<
+name|FileStatus
+name|familyDir
+range|:
 name|familyDirs
-operator|.
-name|length
-condition|;
-name|k
-operator|++
 control|)
 block|{
 name|Path
 name|family
 init|=
-name|familyDirs
-index|[
-name|k
-index|]
+name|familyDir
 operator|.
 name|getPath
 argument_list|()
@@ -1477,9 +1439,6 @@ name|get
 argument_list|(
 literal|"-TOTAL-"
 argument_list|)
-operator|.
-name|intValue
-argument_list|()
 else|:
 operator|-
 literal|1
@@ -1608,19 +1567,10 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|FileStatus
+name|tableDir
+range|:
 name|tableDirs
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 comment|// Skip the .log directory.  All others should be tables.  Inside a table,
@@ -1630,10 +1580,7 @@ comment|// directories.  Under each of these, should be one file only.
 name|Path
 name|d
 init|=
-name|tableDirs
-index|[
-name|i
-index|]
+name|tableDir
 operator|.
 name|getPath
 argument_list|()
@@ -1680,28 +1627,16 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|int
-name|j
-init|=
-literal|0
-init|;
-name|j
-operator|<
+name|FileStatus
+name|regionDir
+range|:
 name|regionDirs
-operator|.
-name|length
-condition|;
-name|j
-operator|++
 control|)
 block|{
 name|Path
 name|dd
 init|=
-name|regionDirs
-index|[
-name|j
-index|]
+name|regionDir
 operator|.
 name|getPath
 argument_list|()
@@ -1739,19 +1674,10 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|int
-name|k
-init|=
-literal|0
-init|;
-name|k
-operator|<
+name|FileStatus
+name|familyDir
+range|:
 name|familyDirs
-operator|.
-name|length
-condition|;
-name|k
-operator|++
 control|)
 block|{
 name|cfCount
@@ -1763,10 +1689,7 @@ expr_stmt|;
 name|Path
 name|family
 init|=
-name|familyDirs
-index|[
-name|k
-index|]
+name|familyDir
 operator|.
 name|getPath
 argument_list|()
@@ -1811,10 +1734,6 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|Integer
-operator|.
-name|valueOf
-argument_list|(
 name|Math
 operator|.
 name|round
@@ -1829,7 +1748,6 @@ operator|*
 literal|100
 argument_list|)
 argument_list|)
-argument_list|)
 expr_stmt|;
 block|}
 comment|// set overall percentage for all tables
@@ -1839,10 +1757,6 @@ name|put
 argument_list|(
 literal|"-TOTAL-"
 argument_list|,
-name|Integer
-operator|.
-name|valueOf
-argument_list|(
 name|Math
 operator|.
 name|round
@@ -1857,13 +1771,12 @@ operator|*
 literal|100
 argument_list|)
 argument_list|)
-argument_list|)
 expr_stmt|;
 return|return
 name|frags
 return|;
 block|}
-comment|/**    * Expects to find -ROOT- directory.    * @param fs    * @param hbaseRootDir    * @return True if this a pre020 layout.    * @throws IOException    */
+comment|/**    * Expects to find -ROOT- directory.    * @param fs filesystem    * @param hbaseRootDir hbase root directory    * @return True if this a pre020 layout.    * @throws IOException e    */
 specifier|public
 specifier|static
 name|boolean
@@ -1918,7 +1831,7 @@ name|mapfiles
 argument_list|)
 return|;
 block|}
-comment|/**    * Runs through the hbase rootdir and checks all stores have only    * one file in them -- that is, they've been major compacted.  Looks    * at root and meta tables too.  This version differs from    * {@link #isMajorCompacted(FileSystem, Path)} in that it expects a    * pre-0.20.0 hbase layout on the filesystem.  Used migrating.    * @param fs    * @param hbaseRootDir    * @return True if this hbase install is major compacted.    * @throws IOException    */
+comment|/**    * Runs through the hbase rootdir and checks all stores have only    * one file in them -- that is, they've been major compacted.  Looks    * at root and meta tables too.  This version differs from    * {@link #isMajorCompacted(FileSystem, Path)} in that it expects a    * pre-0.20.0 hbase layout on the filesystem.  Used migrating.    * @param fs filesystem    * @param hbaseRootDir hbase root directory    * @return True if this hbase install is major compacted.    * @throws IOException e    */
 specifier|public
 specifier|static
 name|boolean
@@ -1955,19 +1868,10 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|FileStatus
+name|tableDir
+range|:
 name|tableDirs
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 comment|// Inside a table, there are compaction.dir directories to skip.
@@ -1977,10 +1881,7 @@ comment|// and info directory and in these only one file.
 name|Path
 name|d
 init|=
-name|tableDirs
-index|[
-name|i
-index|]
+name|tableDir
 operator|.
 name|getPath
 argument_list|()
@@ -2021,28 +1922,16 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|int
-name|j
-init|=
-literal|0
-init|;
-name|j
-operator|<
+name|FileStatus
+name|regionDir
+range|:
 name|regionDirs
-operator|.
-name|length
-condition|;
-name|j
-operator|++
 control|)
 block|{
 name|Path
 name|dd
 init|=
-name|regionDirs
-index|[
-name|j
-index|]
+name|regionDir
 operator|.
 name|getPath
 argument_list|()
@@ -2084,28 +1973,16 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|int
-name|k
-init|=
-literal|0
-init|;
-name|k
-operator|<
+name|FileStatus
+name|familyDir
+range|:
 name|familyDirs
-operator|.
-name|length
-condition|;
-name|k
-operator|++
 control|)
 block|{
 name|Path
 name|family
 init|=
-name|familyDirs
-index|[
-name|k
-index|]
+name|familyDir
 operator|.
 name|getPath
 argument_list|()

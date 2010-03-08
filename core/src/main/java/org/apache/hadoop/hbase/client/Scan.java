@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  * Copyright 2009 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,76 +16,6 @@ operator|.
 name|client
 package|;
 end_package
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|DataInput
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|DataOutput
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|NavigableSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|TreeMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|TreeSet
-import|;
-end_import
 
 begin_import
 import|import
@@ -202,6 +132,76 @@ operator|.
 name|io
 operator|.
 name|WritableFactories
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|DataInput
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|DataOutput
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|NavigableSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|TreeMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|TreeSet
 import|;
 end_import
 
@@ -575,7 +575,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Get all columns from the specified family.    *<p>    * Overrides previous calls to addColumn for this family.    * @param family family name    */
+comment|/**    * Get all columns from the specified family.    *<p>    * Overrides previous calls to addColumn for this family.    * @param family family name    * @return this    */
 specifier|public
 name|Scan
 name|addFamily
@@ -605,7 +605,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Get the column from the specified family with the specified qualifier.    *<p>    * Overrides previous calls to addFamily for this family.    * @param family family name    * @param qualifier column qualifier    */
+comment|/**    * Get the column from the specified family with the specified qualifier.    *<p>    * Overrides previous calls to addFamily for this family.    * @param family family name    * @param qualifier column qualifier    * @return this    */
 specifier|public
 name|Scan
 name|addColumn
@@ -675,7 +675,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Get versions of columns only within the specified timestamp range,    * [minStamp, maxStamp).  Note, default maximum versions to return is 1.  If    * your time range spans more than one version and you want all versions    * returned, up the number of versions beyond the defaut.    * @param minStamp minimum timestamp value, inclusive    * @param maxStamp maximum timestamp value, exclusive    * @throws IOException if invalid time range    * @see #setMaxVersions()    * @see #setMaxVersions(int)    */
+comment|/**    * Get versions of columns only within the specified timestamp range,    * [minStamp, maxStamp).  Note, default maximum versions to return is 1.  If    * your time range spans more than one version and you want all versions    * returned, up the number of versions beyond the defaut.    * @param minStamp minimum timestamp value, inclusive    * @param maxStamp maximum timestamp value, exclusive    * @throws IOException if invalid time range    * @see #setMaxVersions()    * @see #setMaxVersions(int)    * @return this    */
 specifier|public
 name|Scan
 name|setTimeRange
@@ -703,7 +703,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Get versions of columns with the specified timestamp. Note, default maximum    * versions to return is 1.  If your time range spans more than one version    * and you want all versions returned, up the number of versions beyond the    * defaut.    * @param timestamp version timestamp    * @see #setMaxVersions()    * @see #setMaxVersions(int)    */
+comment|/**    * Get versions of columns with the specified timestamp. Note, default maximum    * versions to return is 1.  If your time range spans more than one version    * and you want all versions returned, up the number of versions beyond the    * defaut.    * @param timestamp version timestamp    * @see #setMaxVersions()    * @see #setMaxVersions(int)    * @return this    */
 specifier|public
 name|Scan
 name|setTimeStamp
@@ -739,7 +739,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Set the start row.    * @param startRow    */
+comment|/**    * Set the start row of the scan.    * @param startRow row to start scan on, inclusive    * @return this    */
 specifier|public
 name|Scan
 name|setStartRow
@@ -759,7 +759,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Set the stop row.    * @param stopRow    */
+comment|/**    * Set the stop row.    * @param stopRow row to end at (exclusive)    * @return this    */
 specifier|public
 name|Scan
 name|setStopRow
@@ -779,7 +779,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Get all available versions.    */
+comment|/**    * Get all available versions.    * @return this    */
 specifier|public
 name|Scan
 name|setMaxVersions
@@ -797,7 +797,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Get up to the specified number of versions of each column.    * @param maxVersions maximum versions for each column    */
+comment|/**    * Get up to the specified number of versions of each column.    * @param maxVersions maximum versions for each column    * @return this    */
 specifier|public
 name|Scan
 name|setMaxVersions
@@ -848,7 +848,7 @@ operator|=
 name|caching
 expr_stmt|;
 block|}
-comment|/**    * Apply the specified server-side filter when performing the Scan.    * @param filter filter to run on the server    */
+comment|/**    * Apply the specified server-side filter when performing the Scan.    * @param filter filter to run on the server    * @return this    */
 specifier|public
 name|Scan
 name|setFilter
@@ -867,7 +867,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Setting the familyMap    * @param familyMap    */
+comment|/**    * Setting the familyMap    * @param familyMap map of family to qualifier    * @return this    */
 specifier|public
 name|Scan
 name|setFamilyMap
@@ -1188,8 +1188,6 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|""
-operator|+
 name|this
 operator|.
 name|maxVersions
@@ -1206,8 +1204,6 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|""
-operator|+
 name|this
 operator|.
 name|batch
@@ -1224,8 +1220,6 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|""
-operator|+
 name|this
 operator|.
 name|caching
@@ -1242,8 +1236,6 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|""
-operator|+
 name|this
 operator|.
 name|cacheBlocks
@@ -1261,23 +1253,37 @@ operator|.
 name|append
 argument_list|(
 literal|"["
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 name|this
 operator|.
 name|tr
 operator|.
 name|getMin
 argument_list|()
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 literal|","
-operator|+
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
 name|this
 operator|.
 name|tr
 operator|.
 name|getMax
 argument_list|()
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 literal|")"
 argument_list|)
 expr_stmt|;
@@ -2092,7 +2098,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Parses a combined family and qualifier and adds either both or just the    * family in case there is not qualifier. This assumes the older colon    * divided notation, e.g. "data:contents" or "meta:".    *<p>    * Note: It will through an error when the colon is missing.    *    * @param familyAndQualifier    * @return A reference to this instance.    * @throws IllegalArgumentException When the colon is missing.    * @deprecated use {@link #addColumn(byte[], byte[])} instead    */
+comment|/**    * Parses a combined family and qualifier and adds either both or just the    * family in case there is not qualifier. This assumes the older colon    * divided notation, e.g. "data:contents" or "meta:".    *<p>    * Note: It will through an error when the colon is missing.    *    * @param familyAndQualifier family and qualifier    * @return A reference to this instance.    * @throws IllegalArgumentException When the colon is missing.    * @deprecated use {@link #addColumn(byte[], byte[])} instead    */
 specifier|public
 name|Scan
 name|addColumn
@@ -2168,7 +2174,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Adds an array of columns specified using old format, family:qualifier.    *<p>    * Overrides previous calls to addFamily for any families in the input.    *    * @param columns array of columns, formatted as<pre>family:qualifier</pre>    * @deprecated issue multiple {@link #addColumn(byte[], byte[])} instead    */
+comment|/**    * Adds an array of columns specified using old format, family:qualifier.    *<p>    * Overrides previous calls to addFamily for any families in the input.    *    * @param columns array of columns, formatted as<pre>family:qualifier</pre>    * @deprecated issue multiple {@link #addColumn(byte[], byte[])} instead    * @return this    */
 specifier|public
 name|Scan
 name|addColumns
@@ -2181,27 +2187,16 @@ parameter_list|)
 block|{
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|byte
+index|[]
+name|column
+range|:
 name|columns
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 name|addColumn
 argument_list|(
-name|columns
-index|[
-name|i
-index|]
+name|column
 argument_list|)
 expr_stmt|;
 block|}
@@ -2387,9 +2382,15 @@ name|toStringBinary
 argument_list|(
 name|fam
 argument_list|)
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 literal|":"
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 name|Bytes
 operator|.
 name|toStringBinary
@@ -2420,7 +2421,10 @@ name|toStringBinary
 argument_list|(
 name|fam
 argument_list|)
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 literal|":"
 argument_list|)
 expr_stmt|;

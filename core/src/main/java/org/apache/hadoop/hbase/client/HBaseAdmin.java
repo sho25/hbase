@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Copyright 2007 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,36 +16,6 @@ operator|.
 name|client
 package|;
 end_package
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|NavigableMap
-import|;
-end_import
 
 begin_import
 import|import
@@ -381,6 +351,36 @@ name|RemoteException
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|NavigableMap
+import|;
+end_import
+
 begin_comment
 comment|/**  * Provides administrative functions for HBase  */
 end_comment
@@ -433,7 +433,7 @@ specifier|volatile
 name|HMasterInterface
 name|master
 decl_stmt|;
-comment|/**    * Constructor    *     * @param conf Configuration object    * @throws MasterNotRunningException    */
+comment|/**    * Constructor    *     * @param conf Configuration object    * @throws MasterNotRunningException if the master is not running    */
 specifier|public
 name|HBaseAdmin
 parameter_list|(
@@ -508,7 +508,7 @@ return|return
 name|connection
 return|;
 block|}
-comment|/**    * @return proxy connection to master server for this instance    * @throws MasterNotRunningException    */
+comment|/**    * @return proxy connection to master server for this instance    * @throws MasterNotRunningException if the master is not running    */
 specifier|public
 name|HMasterInterface
 name|getMaster
@@ -540,7 +540,7 @@ name|isMasterRunning
 argument_list|()
 return|;
 block|}
-comment|/**    * @param tableName Table to check.    * @return True if table exists already.    * @throws MasterNotRunningException    */
+comment|/**    * @param tableName Table to check.    * @return True if table exists already.    * @throws MasterNotRunningException if the master is not running    */
 specifier|public
 name|boolean
 name|tableExists
@@ -564,7 +564,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tableName Table to check.    * @return True if table exists already.    * @throws MasterNotRunningException    */
+comment|/**    * @param tableName Table to check.    * @return True if table exists already.    * @throws MasterNotRunningException if the master is not running    */
 specifier|public
 name|boolean
 name|tableExists
@@ -603,7 +603,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * List all the userspace tables.  In other words, scan the META table.    *    * If we wanted this to be really fast, we could implement a special    * catalog table that just contains table names and their descriptors.    * Right now, it only exists as part of the META table's region info.    *    * @return - returns an array of HTableDescriptors     * @throws IOException    */
+comment|/**    * List all the userspace tables.  In other words, scan the META table.    *    * If we wanted this to be really fast, we could implement a special    * catalog table that just contains table names and their descriptors.    * Right now, it only exists as part of the META table's region info.    *    * @return - returns an array of HTableDescriptors     * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTableDescriptor
 index|[]
@@ -621,7 +621,7 @@ name|listTables
 argument_list|()
 return|;
 block|}
-comment|/**    * Method for getting the tableDescriptor    * @param tableName as a byte []    * @return the tableDescriptor    * @throws IOException    */
+comment|/**    * Method for getting the tableDescriptor    * @param tableName as a byte []    * @return the tableDescriptor    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTableDescriptor
 name|getTableDescriptor
@@ -691,7 +691,7 @@ name|triesCount
 index|]
 return|;
 block|}
-comment|/**    * Creates a new table.    * Synchronous operation.    *     * @param desc table descriptor for table    *     * @throws IllegalArgumentException if the table name is reserved    * @throws MasterNotRunningException if master is not running    * @throws TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence    * and attempt-at-creation).    * @throws IOException    */
+comment|/**    * Creates a new table.    * Synchronous operation.    *     * @param desc table descriptor for table    *     * @throws IllegalArgumentException if the table name is reserved    * @throws MasterNotRunningException if master is not running    * @throws TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence    * and attempt-at-creation).    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|createTable
@@ -795,7 +795,7 @@ comment|// continue
 block|}
 block|}
 block|}
-comment|/**    * Creates a new table but does not block and wait for it to come online.    * Asynchronous operation.    *     * @param desc table descriptor for table    *     * @throws IllegalArgumentException Bad table name.    * @throws MasterNotRunningException if master is not running    * @throws TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence    * and attempt-at-creation).    * @throws IOException    */
+comment|/**    * Creates a new table but does not block and wait for it to come online.    * Asynchronous operation.    *     * @param desc table descriptor for table    *     * @throws IllegalArgumentException Bad table name.    * @throws MasterNotRunningException if master is not running    * @throws TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence    * and attempt-at-creation).    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|createTableAsync
@@ -861,7 +861,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Deletes a table.    * Synchronous operation.    *     * @param tableName name of table to delete    * @throws IOException    */
+comment|/**    * Deletes a table.    * Synchronous operation.    *     * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|deleteTable
@@ -884,7 +884,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Deletes a table.    * Synchronous operation.    *     * @param tableName name of table to delete    * @throws IOException    */
+comment|/**    * Deletes a table.    * Synchronous operation.    *     * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|deleteTable
@@ -1086,29 +1086,12 @@ literal|false
 decl_stmt|;
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|values
-operator|.
-name|length
-condition|;
-name|i
-operator|++
-control|)
-block|{
 name|Result
 name|r
-init|=
+range|:
 name|values
-index|[
-name|i
-index|]
-decl_stmt|;
+control|)
+block|{
 name|NavigableMap
 argument_list|<
 name|byte
@@ -1349,7 +1332,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Brings a table on-line (enables it).    * Synchronous operation.    *     * @param tableName name of the table    * @throws IOException    */
+comment|/**    * Brings a table on-line (enables it).    * Synchronous operation.    *     * @param tableName name of the table    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|enableTable
@@ -1372,7 +1355,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Brings a table on-line (enables it).    * Synchronous operation.    *     * @param tableName name of the table    * @throws IOException    */
+comment|/**    * Brings a table on-line (enables it).    * Synchronous operation.    *     * @param tableName name of the table    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|enableTable
@@ -1577,7 +1560,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Disables a table (takes it off-line) If it is being served, the master    * will tell the servers to stop serving it.    * Synchronous operation.    *     * @param tableName name of table    * @throws IOException    */
+comment|/**    * Disables a table (takes it off-line) If it is being served, the master    * will tell the servers to stop serving it.    * Synchronous operation.    *     * @param tableName name of table    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|disableTable
@@ -1600,7 +1583,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Disables a table (takes it off-line) If it is being served, the master    * will tell the servers to stop serving it.    * Synchronous operation.    *     * @param tableName name of table    * @throws IOException    */
+comment|/**    * Disables a table (takes it off-line) If it is being served, the master    * will tell the servers to stop serving it.    * Synchronous operation.    *     * @param tableName name of table    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|disableTable
@@ -1800,7 +1783,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException    */
+comment|/**    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|boolean
 name|isTableEnabled
@@ -1823,7 +1806,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException    */
+comment|/**    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|boolean
 name|isTableEnabled
@@ -1844,7 +1827,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tableName name of table to check    * @return true if table is off-line    * @throws IOException    */
+comment|/**    * @param tableName name of table to check    * @return true if table is off-line    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|boolean
 name|isTableDisabled
@@ -1865,7 +1848,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tableName name of table to check    * @return true if all regions of the table are available    * @throws IOException    */
+comment|/**    * @param tableName name of table to check    * @return true if all regions of the table are available    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|boolean
 name|isTableAvailable
@@ -1886,7 +1869,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tableName name of table to check    * @return true if all regions of the table are available    * @throws IOException    */
+comment|/**    * @param tableName name of table to check    * @return true if all regions of the table are available    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|boolean
 name|isTableAvailable
@@ -1911,7 +1894,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Add a column to an existing table.    * Asynchronous operation.    *     * @param tableName name of the table to add column to    * @param column column descriptor of column to be added    * @throws IOException    */
+comment|/**    * Add a column to an existing table.    * Asynchronous operation.    *     * @param tableName name of the table to add column to    * @param column column descriptor of column to be added    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|addColumn
@@ -1939,7 +1922,7 @@ name|column
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add a column to an existing table.    * Asynchronous operation.    *     * @param tableName name of the table to add column to    * @param column column descriptor of column to be added    * @throws IOException    */
+comment|/**    * Add a column to an existing table.    * Asynchronous operation.    *     * @param tableName name of the table to add column to    * @param column column descriptor of column to be added    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|addColumn
@@ -2009,7 +1992,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Delete a column from a table.    * Asynchronous operation.    *     * @param tableName name of table    * @param columnName name of column to be deleted    * @throws IOException    */
+comment|/**    * Delete a column from a table.    * Asynchronous operation.    *     * @param tableName name of table    * @param columnName name of column to be deleted    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|deleteColumn
@@ -2043,7 +2026,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete a column from a table.    * Asynchronous operation.    *     * @param tableName name of table    * @param columnName name of column to be deleted    * @throws IOException    */
+comment|/**    * Delete a column from a table.    * Asynchronous operation.    *     * @param tableName name of table    * @param columnName name of column to be deleted    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|deleteColumn
@@ -2115,7 +2098,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Modify an existing column family on a table.    * Asynchronous operation.    *     * @param tableName name of table    * @param columnName name of column to be modified    * @param descriptor new column descriptor to use    * @throws IOException    */
+comment|/**    * Modify an existing column family on a table.    * Asynchronous operation.    *     * @param tableName name of table    * @param columnName name of column to be modified    * @param descriptor new column descriptor to use    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|modifyColumn
@@ -2154,7 +2137,7 @@ name|descriptor
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Modify an existing column family on a table.    * Asynchronous operation.    *     * @param tableName name of table    * @param columnName name of column to be modified    * @param descriptor new column descriptor to use    * @throws IOException    */
+comment|/**    * Modify an existing column family on a table.    * Asynchronous operation.    *     * @param tableName name of table    * @param columnName name of column to be modified    * @param descriptor new column descriptor to use    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|modifyColumn
@@ -2231,7 +2214,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Close a region. For expert-admins.    * Asynchronous operation.    *     * @param regionname    * @param args Optional server name.  Otherwise, we'll send close to the    * server registered in .META.    * @throws IOException    */
+comment|/**    * Close a region. For expert-admins.    * Asynchronous operation.    *     * @param regionname region name to close    * @param args Optional server name.  Otherwise, we'll send close to the    * server registered in .META.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|closeRegion
@@ -2261,7 +2244,7 @@ name|args
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Close a region.  For expert-admins.    * Asynchronous operation.    *     * @param regionname    * @param args Optional server name.  Otherwise, we'll send close to the    * server registered in .META.    * @throws IOException    */
+comment|/**    * Close a region.  For expert-admins.    * Asynchronous operation.    *     * @param regionname region name to close    * @param args Optional server name.  Otherwise, we'll send close to the    * server registered in .META.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|closeRegion
@@ -2326,34 +2309,21 @@ operator|!=
 literal|null
 condition|)
 block|{
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|len
-condition|;
-name|i
-operator|++
-control|)
-block|{
-name|newargs
-index|[
-name|i
-operator|+
-name|xtraArgsCount
-index|]
-operator|=
+name|System
+operator|.
+name|arraycopy
+argument_list|(
 name|args
-index|[
-name|i
-index|]
+argument_list|,
+literal|0
+argument_list|,
+name|newargs
+argument_list|,
+name|xtraArgsCount
+argument_list|,
+name|len
+argument_list|)
 expr_stmt|;
-block|}
 block|}
 name|modifyTable
 argument_list|(
@@ -2371,7 +2341,7 @@ name|newargs
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Flush a table or an individual region.    * Asynchronous operation.    *     * @param tableNameOrRegionName    * @throws IOException    */
+comment|/**    * Flush a table or an individual region.    * Asynchronous operation.    *     * @param tableNameOrRegionName table or region to flush    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|flush
@@ -2394,7 +2364,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Flush a table or an individual region.    * Asynchronous operation.    *     * @param tableNameOrRegionName    * @throws IOException    */
+comment|/**    * Flush a table or an individual region.    * Asynchronous operation.    *     * @param tableNameOrRegionName table or region to flush    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|flush
@@ -2419,7 +2389,7 @@ name|TABLE_FLUSH
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Compact a table or an individual region.    * Asynchronous operation.    *     * @param tableNameOrRegionName    * @throws IOException    */
+comment|/**    * Compact a table or an individual region.    * Asynchronous operation.    *     * @param tableNameOrRegionName table or region to compact    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|compact
@@ -2442,7 +2412,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Compact a table or an individual region.    * Asynchronous operation.    *     * @param tableNameOrRegionName    * @throws IOException    */
+comment|/**    * Compact a table or an individual region.    * Asynchronous operation.    *     * @param tableNameOrRegionName table or region to compact    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|compact
@@ -2467,7 +2437,7 @@ name|TABLE_COMPACT
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Major compact a table or an individual region.    * Asynchronous operation.    *     * @param tableNameOrRegionName    * @throws IOException    */
+comment|/**    * Major compact a table or an individual region.    * Asynchronous operation.    *     * @param tableNameOrRegionName table or region to major compact    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|majorCompact
@@ -2490,7 +2460,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Major compact a table or an individual region.    * Asynchronous operation.    *     * @param tableNameOrRegionName    * @throws IOException    */
+comment|/**    * Major compact a table or an individual region.    * Asynchronous operation.    *     * @param tableNameOrRegionName table or region to major compact    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|majorCompact
@@ -2515,7 +2485,7 @@ name|TABLE_MAJOR_COMPACT
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Split a table or an individual region.    * Asynchronous operation.    *     * @param tableNameOrRegionName    * @throws IOException    */
+comment|/**    * Split a table or an individual region.    * Asynchronous operation.    *     * @param tableNameOrRegionName table or region to split    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|split
@@ -2538,7 +2508,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Split a table or an individual region.    * Asynchronous operation.    *     * @param tableNameOrRegionName    * @throws IOException    */
+comment|/**    * Split a table or an individual region.    * Asynchronous operation.    *     * @param tableNameOrRegionName table to region to split    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|split
@@ -2656,7 +2626,7 @@ name|args
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Modify an existing table, more IRB friendly version.    * Asynchronous operation.    *     * @param tableName name of table.    * @param htd modified description of the table    * @throws IOException    */
+comment|/**    * Modify an existing table, more IRB friendly version.    * Asynchronous operation.    *     * @param tableName name of table.    * @param htd modified description of the table    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|modifyTable
@@ -2686,7 +2656,7 @@ name|htd
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Modify an existing table.    * Asynchronous operation.    *     * @param tableName name of table.  May be null if we are operating on a    * region.    * @param op table modification operation    * @param args operation specific arguments    * @throws IOException    */
+comment|/**    * Modify an existing table.    * Asynchronous operation.    *     * @param tableName name of table.  May be null if we are operating on a    * region.    * @param op table modification operation    * @param args operation specific arguments    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|modifyTable
@@ -3141,17 +3111,12 @@ operator|new
 name|BooleanWritable
 argument_list|(
 operator|(
-operator|(
 name|Boolean
 operator|)
 name|args
 index|[
 name|i
 index|]
-operator|)
-operator|.
-name|booleanValue
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -3215,7 +3180,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**     * Shuts down the HBase instance     * @throws IOException    */
+comment|/**     * Shuts down the HBase instance     * @throws IOException if a remote or network exception occurs    */
 specifier|public
 specifier|synchronized
 name|void
@@ -3276,7 +3241,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @return cluster status    * @throws IOException    */
+comment|/**    * @return cluster status    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|ClusterStatus
 name|getClusterStatus
@@ -3346,7 +3311,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Check to see if HBase is running. Throw an exception if not.    *    * @param conf    * @throws MasterNotRunningException    */
+comment|/**    * Check to see if HBase is running. Throw an exception if not.    *    * @param conf system configuration    * @throws MasterNotRunningException if a remote or network exception occurs    */
 specifier|public
 specifier|static
 name|void

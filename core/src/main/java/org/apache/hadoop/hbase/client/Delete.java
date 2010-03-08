@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  * Copyright 2009 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,6 +16,64 @@ operator|.
 name|client
 package|;
 end_package
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|Writable
+import|;
+end_import
 
 begin_import
 import|import
@@ -87,66 +145,8 @@ name|TreeMap
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Writable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
-import|;
-end_import
-
 begin_comment
-comment|/**  * Used to perform Delete operations on a single row.  *<p>  * To delete an entire row, instantiate a Delete object with the row   * to delete.  To further define the scope of what to delete, perform  * additional methods as outlined below.  *<p>  * To delete specific families, execute {@link #deleteFamily(byte []) deleteFamily}  * for each family to delete.  *<p>  * To delete multiple versions of specific columns, execute  * {@link #deleteColumns(byte [],byte []) deleteColumns}  * for each column to delete.    *<p>  * To delete specific versions of specific columns, execute  * {@link #deleteColumn(byte [],byte [],long) deleteColumn}  * for each column version to delete.  *<p>  * Specifying timestamps, deleteFamily and deleteColumns will delete all  * versions with a timestamp less than or equal to that passed.  If no  * timestamp is specified, an entry is added with a timestamp of 'now'  * where 'now' is the servers's System.currentTimeMillis().  * Specifying a timestamp to the deleteColumn method will  * delete versions only with a timestamp equal to that specified.  * If no timestamp is passed to deleteColumn, internally, it figures the  * most recent cell's timestamp and adds a delete at that timestamp; i.e.  * it deletes the most recently added cell.  *<p>The timestamp passed to the constructor is used ONLY for delete of  * rows.  For anything less -- a deleteColumn, deleteColumns or  * deleteFamily -- then you need to use the method overrides that take a  * timestamp.  The constructor timestamp is not referenced.  */
+comment|/**  * Used to perform Delete operations on a single row.  *<p>  * To delete an entire row, instantiate a Delete object with the row   * to delete.  To further define the scope of what to delete, perform  * additional methods as outlined below.  *<p>  * To delete specific families, execute {@link #deleteFamily(byte[]) deleteFamily}  * for each family to delete.  *<p>  * To delete multiple versions of specific columns, execute  * {@link #deleteColumns(byte[], byte[]) deleteColumns}  * for each column to delete.    *<p>  * To delete specific versions of specific columns, execute  * {@link #deleteColumn(byte[], byte[], long) deleteColumn}  * for each column version to delete.  *<p>  * Specifying timestamps, deleteFamily and deleteColumns will delete all  * versions with a timestamp less than or equal to that passed.  If no  * timestamp is specified, an entry is added with a timestamp of 'now'  * where 'now' is the servers's System.currentTimeMillis().  * Specifying a timestamp to the deleteColumn method will  * delete versions only with a timestamp equal to that specified.  * If no timestamp is passed to deleteColumn, internally, it figures the  * most recent cell's timestamp and adds a delete at that timestamp; i.e.  * it deletes the most recently added cell.  *<p>The timestamp passed to the constructor is used ONLY for delete of  * rows.  For anything less -- a deleteColumn, deleteColumns or  * deleteFamily -- then you need to use the method overrides that take a  * timestamp.  The constructor timestamp is not referenced.  */
 end_comment
 
 begin_class
@@ -393,7 +393,7 @@ name|isEmpty
 argument_list|()
 return|;
 block|}
-comment|/**    * Delete all versions of all columns of the specified family.    *<p>    * Overrides previous calls to deleteColumn and deleteColumns for the    * specified family.    * @param family family name    */
+comment|/**    * Delete all versions of all columns of the specified family.    *<p>    * Overrides previous calls to deleteColumn and deleteColumns for the    * specified family.    * @param family family name    * @return this for invocation chaining    */
 specifier|public
 name|Delete
 name|deleteFamily
@@ -418,7 +418,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Delete all columns of the specified family with a timestamp less than    * or equal to the specified timestamp.    *<p>    * Overrides previous calls to deleteColumn and deleteColumns for the    * specified family.    * @param family family name    * @param timestamp maximum version timestamp    */
+comment|/**    * Delete all columns of the specified family with a timestamp less than    * or equal to the specified timestamp.    *<p>    * Overrides previous calls to deleteColumn and deleteColumns for the    * specified family.    * @param family family name    * @param timestamp maximum version timestamp    * @return this for invocation chaining    */
 specifier|public
 name|Delete
 name|deleteFamily
@@ -513,7 +513,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Delete all versions of the specified column.    * @param family family name    * @param qualifier column qualifier    */
+comment|/**    * Delete all versions of the specified column.    * @param family family name    * @param qualifier column qualifier    * @return this for invocation chaining    */
 specifier|public
 name|Delete
 name|deleteColumns
@@ -544,7 +544,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Delete all versions of the specified column with a timestamp less than    * or equal to the specified timestamp.    * @param family family name    * @param qualifier column qualifier    * @param timestamp maximum version timestamp    */
+comment|/**    * Delete all versions of the specified column with a timestamp less than    * or equal to the specified timestamp.    * @param family family name    * @param qualifier column qualifier    * @param timestamp maximum version timestamp    * @return this for invocation chaining    */
 specifier|public
 name|Delete
 name|deleteColumns
@@ -629,7 +629,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Delete the latest version of the specified column.    * This is an expensive call in that on the server-side, it first does a    * get to find the latest versions timestamp.  Then it adds a delete using    * the fetched cells timestamp.    * @param family family name    * @param qualifier column qualifier    */
+comment|/**    * Delete the latest version of the specified column.    * This is an expensive call in that on the server-side, it first does a    * get to find the latest versions timestamp.  Then it adds a delete using    * the fetched cells timestamp.    * @param family family name    * @param qualifier column qualifier    * @return this for invocation chaining    */
 specifier|public
 name|Delete
 name|deleteColumn
@@ -660,7 +660,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Delete the specified version of the specified column.    * @param family family name    * @param qualifier column qualifier    * @param timestamp version timestamp    */
+comment|/**    * Delete the specified version of the specified column.    * @param family family name    * @param qualifier column qualifier    * @param timestamp version timestamp    * @return this for invocation chaining    */
 specifier|public
 name|Delete
 name|deleteColumn
@@ -1337,7 +1337,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Delete all versions of the specified column, given in    *<code>family:qualifier</code> notation, and with a timestamp less than    * or equal to the specified timestamp.    * @param column colon-delimited family and qualifier    * @param timestamp maximum version timestamp    * @deprecated use {@link #deleteColumn(byte[], byte[], long)} instead    */
+comment|/**    * Delete all versions of the specified column, given in    *<code>family:qualifier</code> notation, and with a timestamp less than    * or equal to the specified timestamp.    * @param column colon-delimited family and qualifier    * @param timestamp maximum version timestamp    * @deprecated use {@link #deleteColumn(byte[], byte[], long)} instead    * @return this for invocation chaining    */
 specifier|public
 name|Delete
 name|deleteColumns
@@ -1383,7 +1383,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Delete the latest version of the specified column, given in    *<code>family:qualifier</code> notation.    * @param column colon-delimited family and qualifier    * @deprecated use {@link #deleteColumn(byte[], byte[])} instead    */
+comment|/**    * Delete the latest version of the specified column, given in    *<code>family:qualifier</code> notation.    * @param column colon-delimited family and qualifier    * @deprecated use {@link #deleteColumn(byte[], byte[])} instead    * @return this for invocation chaining    */
 specifier|public
 name|Delete
 name|deleteColumn

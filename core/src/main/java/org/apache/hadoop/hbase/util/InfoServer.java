@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,36 +16,6 @@ operator|.
 name|util
 package|;
 end_package
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|net
-operator|.
-name|URL
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-import|;
-end_import
 
 begin_import
 import|import
@@ -103,6 +73,36 @@ name|DefaultServlet
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
+name|URL
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
 begin_comment
 comment|/**  * Create a Jetty embedded server to answer http requests. The primary goal  * is to serve up status information for the server.  * There are three contexts:  *   "/stacks/" -> points to stack trace  *   "/static/" -> points to common static files (src/webapps/static)  *   "/" -> the jsp server code from (src/webapps/<name>)  */
 end_comment
@@ -114,7 +114,7 @@ name|InfoServer
 extends|extends
 name|HttpServer
 block|{
-comment|/**    * Create a status server on the given port.    * The jsp scripts are taken from src/webapps/<code>name<code>.    * @param name The name of the server    * @param bindAddress    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and     * increment by 1 until it finds a free port.    * @throws IOException    */
+comment|/**    * Create a status server on the given port.    * The jsp scripts are taken from src/webapps/<code>name<code>.    * @param name The name of the server    * @param bindAddress address to bind to    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and     * increment by 1 until it finds a free port.    * @throws IOException e    */
 specifier|public
 name|InfoServer
 parameter_list|(
@@ -417,7 +417,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * Get the path for this web app    * @param webappName web app    * @return path    * @throws IOException    */
+comment|/**    * Get the path for this web app    * @param webappName web app    * @return path    * @throws IOException e    */
 specifier|public
 specifier|static
 name|String
@@ -432,8 +432,6 @@ name|IOException
 block|{
 name|String
 name|webappDir
-init|=
-literal|null
 decl_stmt|;
 name|webappDir
 operator|=

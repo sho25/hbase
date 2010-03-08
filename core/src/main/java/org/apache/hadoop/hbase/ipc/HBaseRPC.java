@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,196 +16,6 @@ operator|.
 name|ipc
 package|;
 end_package
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|DataInput
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|DataOutput
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|lang
-operator|.
-name|reflect
-operator|.
-name|Array
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|lang
-operator|.
-name|reflect
-operator|.
-name|InvocationHandler
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|lang
-operator|.
-name|reflect
-operator|.
-name|InvocationTargetException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|lang
-operator|.
-name|reflect
-operator|.
-name|Method
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|lang
-operator|.
-name|reflect
-operator|.
-name|Proxy
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|net
-operator|.
-name|ConnectException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|net
-operator|.
-name|InetSocketAddress
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|net
-operator|.
-name|SocketTimeoutException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Collection
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Comparator
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|HashMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|javax
-operator|.
-name|net
-operator|.
-name|SocketFactory
-import|;
-end_import
 
 begin_import
 import|import
@@ -351,6 +161,156 @@ name|UserGroupInformation
 import|;
 end_import
 
+begin_import
+import|import
+name|javax
+operator|.
+name|net
+operator|.
+name|SocketFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|DataInput
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|DataOutput
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|lang
+operator|.
+name|reflect
+operator|.
+name|Array
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|lang
+operator|.
+name|reflect
+operator|.
+name|InvocationHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|lang
+operator|.
+name|reflect
+operator|.
+name|InvocationTargetException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|lang
+operator|.
+name|reflect
+operator|.
+name|Method
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|lang
+operator|.
+name|reflect
+operator|.
+name|Proxy
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
+name|ConnectException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
+name|InetSocketAddress
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
+name|SocketTimeoutException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|HashMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
 begin_comment
 comment|/** A simple RPC mechanism.  *  * This is a local hbase copy of the hadoop RPC so we can do things like  * address HADOOP-414 for hbase-only and try other hbase-specific  * optimizations like using our own version of ObjectWritable.  Class has been  * renamed to avoid confusing it w/ hadoop versions.  *<p>  *   *  * A<i>protocol</i> is a Java interface.  All parameters and return types must  * be one of:  *  *<ul><li>a primitive type,<code>boolean</code>,<code>byte</code>,  *<code>char</code>,<code>short</code>,<code>int</code>,<code>long</code>,  *<code>float</code>,<code>double</code>, or<code>void</code>; or</li>  *  *<li>a {@link String}; or</li>  *  *<li>a {@link Writable}; or</li>  *  *<li>an array of the above types</li></ul>  *  * All methods in the protocol should throw only IOException.  No field data of  * the protocol instance is transmitted.  */
 end_comment
@@ -427,7 +387,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**      * @param method      * @param parameters      */
+comment|/**      * @param method method to call      * @param parameters parameters of call      */
 specifier|public
 name|Invocation
 parameter_list|(
@@ -799,7 +759,7 @@ specifier|protected
 name|ClientCache
 parameter_list|()
 block|{}
-comment|/**      * Construct& cache an IPC client with the user-provided SocketFactory       * if no cached client exists.      *       * @param conf Configuration      * @return an IPC client      */
+comment|/**      * Construct& cache an IPC client with the user-provided SocketFactory       * if no cached client exists.      *       * @param conf Configuration      * @param factory socket factory      * @return an IPC client      */
 specifier|protected
 specifier|synchronized
 name|HBaseClient
@@ -893,7 +853,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**      * Stop a RPC client connection       * A RPC client is closed only when its reference count becomes zero.      */
+comment|/**      * Stop a RPC client connection       * A RPC client is closed only when its reference count becomes zero.      * @param client client to stop      */
 specifier|protected
 name|void
 name|stopClient
@@ -983,7 +943,7 @@ name|isClosed
 init|=
 literal|false
 decl_stmt|;
-comment|/**      * @param address      * @param ticket      * @param conf      * @param factory      */
+comment|/**      * @param address address for invoker      * @param ticket ticket      * @param conf configuration      * @param factory socket factory      */
 specifier|public
 name|Invoker
 parameter_list|(
@@ -1265,7 +1225,7 @@ name|serverVersion
 return|;
 block|}
 block|}
-comment|/**    * @param protocol    * @param clientVersion    * @param addr    * @param conf    * @param maxAttempts    * @param timeout    * @return proxy    * @throws IOException    */
+comment|/**    * @param protocol protocol interface    * @param clientVersion which client version we expect    * @param addr address of remote service    * @param conf configuration    * @param maxAttempts max attempts    * @param timeout timeout in milliseconds    * @return proxy    * @throws IOException e    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -1449,7 +1409,7 @@ comment|// IGNORE
 block|}
 block|}
 block|}
-comment|/**    * Construct a client-side proxy object that implements the named protocol,    * talking to a server at the named address.    *    * @param protocol    * @param clientVersion    * @param addr    * @param conf    * @param factory    * @return proxy    * @throws IOException    */
+comment|/**    * Construct a client-side proxy object that implements the named protocol,    * talking to a server at the named address.    *    * @param protocol interface    * @param clientVersion version we are expecting    * @param addr remote address    * @param conf configuration    * @param factory socket factory    * @return proxy    * @throws IOException e    */
 specifier|public
 specifier|static
 name|VersionedProtocol
@@ -1493,7 +1453,7 @@ name|factory
 argument_list|)
 return|;
 block|}
-comment|/**    * Construct a client-side proxy object that implements the named protocol,    * talking to a server at the named address.    *    * @param protocol    * @param clientVersion    * @param addr    * @param ticket    * @param conf    * @param factory    * @return proxy    * @throws IOException    */
+comment|/**    * Construct a client-side proxy object that implements the named protocol,    * talking to a server at the named address.    *    * @param protocol interface    * @param clientVersion version we are expecting    * @param addr remote address    * @param ticket ticket    * @param conf configuration    * @param factory socket factory    * @return proxy    * @throws IOException e    */
 specifier|public
 specifier|static
 name|VersionedProtocol
@@ -1599,7 +1559,7 @@ name|serverVersion
 argument_list|)
 throw|;
 block|}
-comment|/**    * Construct a client-side proxy object with the default SocketFactory    *     * @param protocol    * @param clientVersion    * @param addr    * @param conf    * @return a proxy instance    * @throws IOException    */
+comment|/**    * Construct a client-side proxy object with the default SocketFactory    *     * @param protocol interface    * @param clientVersion version we are expecting    * @param addr remote address    * @param conf configuration    * @return a proxy instance    * @throws IOException e    */
 specifier|public
 specifier|static
 name|VersionedProtocol
@@ -1677,7 +1637,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Expert: Make multiple, parallel calls to a set of servers.    *    * @param method    * @param params    * @param addrs    * @param conf    * @return values    * @throws IOException    */
+comment|/**    * Expert: Make multiple, parallel calls to a set of servers.    *    * @param method method to invoke    * @param params array of parameters    * @param addrs array of addresses    * @param conf configuration    * @return values    * @throws IOException e    */
 specifier|public
 specifier|static
 name|Object
@@ -1867,7 +1827,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Construct a server for a protocol implementation instance listening on a    * port and address.    *    * @param instance    * @param bindAddress    * @param port    * @param conf    * @return Server    * @throws IOException    */
+comment|/**    * Construct a server for a protocol implementation instance listening on a    * port and address.    *    * @param instance instance    * @param bindAddress bind address    * @param port port to bind to    * @param conf configuration    * @return Server    * @throws IOException e    */
 specifier|public
 specifier|static
 name|Server
@@ -1908,7 +1868,7 @@ name|conf
 argument_list|)
 return|;
 block|}
-comment|/**    * Construct a server for a protocol implementation instance listening on a    * port and address.    *    * @param instance    * @param bindAddress    * @param port    * @param numHandlers    * @param verbose    * @param conf    * @return Server    * @throws IOException    */
+comment|/**    * Construct a server for a protocol implementation instance listening on a    * port and address.    *    * @param instance instance    * @param bindAddress bind address    * @param port port to bind to    * @param numHandlers number of handlers to start    * @param verbose verbose flag    * @param conf configuration    * @return Server    * @throws IOException e    */
 specifier|public
 specifier|static
 name|Server
@@ -1981,7 +1941,7 @@ specifier|private
 name|boolean
 name|verbose
 decl_stmt|;
-comment|/**      * Construct an RPC server.      * @param instance the instance whose methods will be called      * @param conf the configuration to use      * @param bindAddress the address to bind on to listen for connection      * @param port the port to listen for connections on      * @throws IOException      */
+comment|/**      * Construct an RPC server.      * @param instance the instance whose methods will be called      * @param conf the configuration to use      * @param bindAddress the address to bind on to listen for connection      * @param port the port to listen for connections on      * @throws IOException e      */
 specifier|public
 name|Server
 parameter_list|(
@@ -2067,7 +2027,7 @@ literal|1
 index|]
 return|;
 block|}
-comment|/** Construct an RPC server.      * @param instance the instance whose methods will be called      * @param conf the configuration to use      * @param bindAddress the address to bind on to listen for connection      * @param port the port to listen for connections on      * @param numHandlers the number of method handler threads to run      * @param verbose whether each call should be logged      * @throws IOException      */
+comment|/** Construct an RPC server.      * @param instance the instance whose methods will be called      * @param conf the configuration to use      * @param bindAddress the address to bind on to listen for connection      * @param port the port to listen for connections on      * @param numHandlers the number of method handler threads to run      * @param verbose whether each call should be logged      * @throws IOException e      */
 specifier|public
 name|Server
 parameter_list|(

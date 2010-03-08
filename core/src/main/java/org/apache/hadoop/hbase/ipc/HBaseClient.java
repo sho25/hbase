@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -19,191 +19,15 @@ end_package
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|net
+name|apache
 operator|.
-name|Socket
-import|;
-end_import
-
-begin_import
-import|import
-name|java
+name|commons
 operator|.
-name|net
+name|logging
 operator|.
-name|InetSocketAddress
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|net
-operator|.
-name|SocketTimeoutException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|net
-operator|.
-name|UnknownHostException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|net
-operator|.
-name|ConnectException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|DataInputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|DataOutputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|BufferedInputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|BufferedOutputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|FilterInputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|InputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Hashtable
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Iterator
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-operator|.
-name|Entry
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicBoolean
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicLong
-import|;
-end_import
-
-begin_import
-import|import
-name|javax
-operator|.
-name|net
-operator|.
-name|SocketFactory
+name|Log
 import|;
 end_import
 
@@ -217,7 +41,7 @@ name|commons
 operator|.
 name|logging
 operator|.
-name|*
+name|LogFactory
 import|;
 end_import
 
@@ -232,6 +56,20 @@ operator|.
 name|conf
 operator|.
 name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|DataOutputBuffer
 import|;
 end_import
 
@@ -299,20 +137,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|io
-operator|.
-name|DataOutputBuffer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|ipc
 operator|.
 name|RemoteException
@@ -361,6 +185,196 @@ name|ReflectionUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|javax
+operator|.
+name|net
+operator|.
+name|SocketFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|BufferedInputStream
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|BufferedOutputStream
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|DataInputStream
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|DataOutputStream
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|FilterInputStream
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|InputStream
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
+name|ConnectException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
+name|InetSocketAddress
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
+name|Socket
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
+name|SocketTimeoutException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
+name|UnknownHostException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Hashtable
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Iterator
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+operator|.
+name|Entry
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicBoolean
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicLong
+import|;
+end_import
+
 begin_comment
 comment|/** A client for an IPC service.  IPC calls take a single {@link Writable} as a  * parameter, and return a {@link Writable} as their value.  A service runs on  * a port and is defined by a parameter class and a value class.  *   *<p>This is the org.apache.hadoop.ipc.Client renamed as HBaseClient and  * moved into this package so can access package-private methods.  *   * @see HBaseServer  */
 end_comment
@@ -370,7 +384,7 @@ specifier|public
 class|class
 name|HBaseClient
 block|{
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -384,6 +398,7 @@ literal|"org.apache.hadoop.ipc.HBaseClient"
 argument_list|)
 decl_stmt|;
 specifier|protected
+specifier|final
 name|Hashtable
 argument_list|<
 name|ConnectionId
@@ -402,6 +417,7 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 specifier|protected
+specifier|final
 name|Class
 argument_list|<
 name|?
@@ -417,6 +433,7 @@ name|counter
 decl_stmt|;
 comment|// counter for call ids
 specifier|protected
+specifier|final
 name|AtomicBoolean
 name|running
 init|=
@@ -437,8 +454,8 @@ specifier|protected
 name|int
 name|maxIdleTime
 decl_stmt|;
-comment|//connections will be culled if it was idle for
-comment|//maxIdleTime msecs
+comment|// connections will be culled if it was idle for
+comment|// maxIdleTime microsecs
 specifier|final
 specifier|protected
 name|int
@@ -452,21 +469,25 @@ name|failureSleep
 decl_stmt|;
 comment|// Time to sleep before retry on failure.
 specifier|protected
+specifier|final
 name|boolean
 name|tcpNoDelay
 decl_stmt|;
 comment|// if T then disable Nagle's Algorithm
 specifier|protected
+specifier|final
 name|boolean
 name|tcpKeepAlive
 decl_stmt|;
 comment|// if T then use keepalives
 specifier|protected
+specifier|final
 name|int
 name|pingInterval
 decl_stmt|;
 comment|// how often sends ping to the server in msecs
 specifier|protected
+specifier|final
 name|SocketFactory
 name|socketFactory
 decl_stmt|;
@@ -502,7 +523,13 @@ operator|-
 literal|1
 decl_stmt|;
 comment|/**    * set the ping interval value in configuration    *     * @param conf Configuration    * @param pingInterval the ping interval    */
-specifier|final
+annotation|@
+name|SuppressWarnings
+argument_list|(
+block|{
+literal|"UnusedDeclaration"
+block|}
+argument_list|)
 specifier|public
 specifier|static
 name|void
@@ -526,7 +553,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Get the ping interval from configuration;    * If not set in the configuration, return the default value.    *     * @param conf Configuration    * @return the ping interval    */
-specifier|final
 specifier|static
 name|int
 name|getPingInterval
@@ -583,10 +609,12 @@ specifier|private
 class|class
 name|Call
 block|{
+specifier|final
 name|int
 name|id
 decl_stmt|;
 comment|// call id
+specifier|final
 name|Writable
 name|param
 decl_stmt|;
@@ -719,6 +747,7 @@ name|out
 decl_stmt|;
 comment|// currently active calls
 specifier|private
+specifier|final
 name|Hashtable
 argument_list|<
 name|Integer
@@ -737,6 +766,7 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 specifier|private
+specifier|final
 name|AtomicLong
 name|lastActivity
 init|=
@@ -746,6 +776,7 @@ argument_list|()
 decl_stmt|;
 comment|// last I/O activity time
 specifier|protected
+specifier|final
 name|AtomicBoolean
 name|shouldCloseConnection
 init|=
@@ -1085,7 +1116,7 @@ condition|)
 do|;
 block|}
 block|}
-comment|/** Connect to the server and set up the I/O streams. It then sends      * a header to the server and starts      * the connection thread that waits for responses.      */
+comment|/** Connect to the server and set up the I/O streams. It then sends      * a header to the server and starts      * the connection thread that waits for responses.      * @throws java.io.IOException e      */
 specifier|protected
 specifier|synchronized
 name|void
@@ -1497,6 +1528,13 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/* wait till someone signals us to start reading RPC response or      * it is idle too long, it is marked as to be closed,       * or the client is marked as not running.      *       * Return true if it is time to read a response; false otherwise.      */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+block|{
+literal|"ThrowableInstanceNeverThrown"
+block|}
+argument_list|)
 specifier|private
 specifier|synchronized
 name|boolean
@@ -1557,7 +1595,7 @@ block|}
 catch|catch
 parameter_list|(
 name|InterruptedException
-name|e
+name|ignored
 parameter_list|)
 block|{}
 block|}
@@ -1691,8 +1729,11 @@ argument_list|(
 name|curTime
 argument_list|)
 expr_stmt|;
+comment|//noinspection SynchronizeOnNonFinalField
 synchronized|synchronized
 init|(
+name|this
+operator|.
 name|out
 init|)
 block|{
@@ -1777,8 +1818,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Initiates a call by sending the parameter to the remote server.      * Note: this is not called from the Connection thread, but by other      * threads.      * @param call      */
-specifier|public
+comment|/* Initiates a call by sending the parameter to the remote server.      * Note: this is not called from the Connection thread, but by other      * threads.      */
+specifier|protected
 name|void
 name|sendParam
 parameter_list|(
@@ -1803,6 +1844,7 @@ literal|null
 decl_stmt|;
 try|try
 block|{
+comment|//noinspection SynchronizeOnNonFinalField
 synchronized|synchronized
 init|(
 name|this
@@ -2000,6 +2042,7 @@ condition|(
 name|isError
 condition|)
 block|{
+comment|//noinspection ThrowableInstanceNeverThrown
 name|call
 operator|.
 name|setException
@@ -2327,10 +2370,12 @@ extends|extends
 name|Call
 block|{
 specifier|private
+specifier|final
 name|ParallelResults
 name|results
 decl_stmt|;
 specifier|protected
+specifier|final
 name|int
 name|index
 decl_stmt|;
@@ -2389,6 +2434,7 @@ class|class
 name|ParallelResults
 block|{
 specifier|protected
+specifier|final
 name|Writable
 index|[]
 name|values
@@ -2425,8 +2471,7 @@ operator|=
 name|size
 expr_stmt|;
 block|}
-comment|/**      * Collect a result.      * @param call      */
-specifier|public
+comment|/*      * Collect a result.      */
 specifier|synchronized
 name|void
 name|callComplete
@@ -2465,7 +2510,7 @@ expr_stmt|;
 comment|// then notify waiting caller
 block|}
 block|}
-comment|/**    * Construct an IPC client whose values are of the given {@link Writable}    * class.    * @param valueClass    * @param conf    * @param factory    */
+comment|/**    * Construct an IPC client whose values are of the given {@link Writable}    * class.    * @param valueClass value class    * @param conf configuration    * @param factory socket factory    */
 specifier|public
 name|HBaseClient
 parameter_list|(
@@ -2600,7 +2645,7 @@ operator|=
 name|factory
 expr_stmt|;
 block|}
-comment|/**    * Construct an IPC client with the default SocketFactory    * @param valueClass    * @param conf    */
+comment|/**    * Construct an IPC client with the default SocketFactory    * @param valueClass value class    * @param conf configuration    */
 specifier|public
 name|HBaseClient
 parameter_list|(
@@ -2724,12 +2769,12 @@ block|}
 catch|catch
 parameter_list|(
 name|InterruptedException
-name|e
+name|ignored
 parameter_list|)
 block|{       }
 block|}
 block|}
-comment|/** Make a call, passing<code>param</code>, to the IPC server running at    *<code>address</code>, returning the value.  Throws exceptions if there are    * network problems or if the remote code threw an exception.     * @param param     * @param address     * @return Writable     * @throws IOException    */
+comment|/** Make a call, passing<code>param</code>, to the IPC server running at    *<code>address</code>, returning the value.  Throws exceptions if there are    * network problems or if the remote code threw an exception.     * @param param writable parameter    * @param address network address    * @return Writable    * @throws IOException e    */
 specifier|public
 name|Writable
 name|call
@@ -2799,6 +2844,7 @@ name|call
 argument_list|)
 expr_stmt|;
 comment|// send the parameter
+comment|//noinspection SynchronizationOnLocalVariableOrMethodParameter
 synchronized|synchronized
 init|(
 name|call
@@ -2879,6 +2925,13 @@ return|;
 block|}
 block|}
 comment|/**    * Take an IOException and the address we were trying to connect to    * and return an IOException with the input exception as the cause.    * The new exception provides the stack trace of the place where     * the exception is thrown and some extra diagnostics information.    * If the exception is ConnectException or SocketTimeoutException,     * return a new one of the same type; Otherwise return an IOException.    *     * @param addr target address    * @param exception the relevant exception    * @return an exception to throw    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+block|{
+literal|"ThrowableInstanceNeverThrown"
+block|}
+argument_list|)
 specifier|private
 name|IOException
 name|wrapException
@@ -2975,7 +3028,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/** Makes a set of calls in parallel.  Each parameter is sent to the    * corresponding address.  When all values are available, or have timed out    * or errored, the collected results are returned in an array.  The array    * contains nulls for calls that timed out or errored.      * @param params     * @param addresses     * @return  Writable[]    * @throws IOException    */
+comment|/** Makes a set of calls in parallel.  Each parameter is sent to the    * corresponding address.  When all values are available, or have timed out    * or errored, the collected results are returned in an array.  The array    * contains nulls for calls that timed out or errored.      * @param params writable parameters    * @param addresses socket addresses    * @return  Writable[]    * @throws IOException e    */
 specifier|public
 name|Writable
 index|[]
@@ -3018,6 +3071,8 @@ operator|.
 name|length
 argument_list|)
 decl_stmt|;
+comment|// TODO this synchronization block doesnt make any sense, we should possibly fix it
+comment|//noinspection SynchronizationOnLocalVariableOrMethodParameter
 synchronized|synchronized
 init|(
 name|results
@@ -3141,7 +3196,7 @@ block|}
 catch|catch
 parameter_list|(
 name|InterruptedException
-name|e
+name|ignored
 parameter_list|)
 block|{}
 block|}
@@ -3152,7 +3207,7 @@ name|values
 return|;
 block|}
 block|}
-comment|/** Get a connection from the pool, or create a new one and add it to the    * pool.  Connections to a given host/port are reused. */
+comment|/* Get a connection from the pool, or create a new one and add it to the    * pool.  Connections to a given host/port are reused. */
 specifier|private
 name|Connection
 name|getConnection
@@ -3275,9 +3330,11 @@ specifier|static
 class|class
 name|ConnectionId
 block|{
+specifier|final
 name|InetSocketAddress
 name|address
 decl_stmt|;
+specifier|final
 name|UserGroupInformation
 name|ticket
 decl_stmt|;

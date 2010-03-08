@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Copyright 2008 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,66 +16,6 @@ operator|.
 name|util
 package|;
 end_package
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Collections
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|TreeMap
-import|;
-end_import
 
 begin_import
 import|import
@@ -186,34 +126,6 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
 import|;
 end_import
 
@@ -379,6 +291,94 @@ name|HLog
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Collections
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|TreeMap
+import|;
+end_import
+
 begin_comment
 comment|/**  * Contains utility methods for manipulating HBase meta tables.  * Be sure to call {@link #shutdown()} when done with this class so it closes  * resources opened during meta processing (ROOT, META, etc.).  Be careful  * how you use this class.  If used during migrations, be careful when using  * this class to check whether migration is needed.  */
 end_comment
@@ -453,7 +453,7 @@ name|BYTES_COMPARATOR
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|/** Default constructor     * @throws IOException */
+comment|/** Default constructor     * @throws IOException e    */
 specifier|public
 name|MetaUtils
 parameter_list|()
@@ -469,7 +469,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** @param conf Configuration     * @throws IOException */
+comment|/**    * @param conf Configuration    * @throws IOException e    */
 specifier|public
 name|MetaUtils
 parameter_list|(
@@ -504,7 +504,7 @@ name|initialize
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Verifies that DFS is available and that HBase is off-line.    * @throws IOException    */
+comment|/**    * Verifies that DFS is available and that HBase is off-line.    * @throws IOException e    */
 specifier|private
 name|void
 name|initialize
@@ -540,7 +540,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** @return the HLog     * @throws IOException */
+comment|/**    * @return the HLog    * @throws IOException e    */
 specifier|public
 specifier|synchronized
 name|HLog
@@ -630,7 +630,7 @@ operator|.
 name|log
 return|;
 block|}
-comment|/**    * @return HRegion for root region    * @throws IOException    */
+comment|/**    * @return HRegion for root region    * @throws IOException e    */
 specifier|public
 name|HRegion
 name|getRootRegion
@@ -657,7 +657,7 @@ operator|.
 name|rootRegion
 return|;
 block|}
-comment|/**    * Open or return cached opened meta region    *     * @param metaInfo HRegionInfo for meta region    * @return meta HRegion    * @throws IOException    */
+comment|/**    * Open or return cached opened meta region    *     * @param metaInfo HRegionInfo for meta region    * @return meta HRegion    * @throws IOException e    */
 specifier|public
 name|HRegion
 name|getMetaRegion
@@ -891,7 +891,7 @@ specifier|public
 interface|interface
 name|ScannerListener
 block|{
-comment|/**      * Callback so client of scanner can process row contents      *       * @param info HRegionInfo for row      * @return false to terminate the scan      * @throws IOException      */
+comment|/**      * Callback so client of scanner can process row contents      *       * @param info HRegionInfo for row      * @return false to terminate the scan      * @throws IOException e      */
 specifier|public
 name|boolean
 name|processRow
@@ -903,7 +903,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-comment|/**    * Scans the root region. For every meta region found, calls the listener with    * the HRegionInfo of the meta region.    *     * @param listener method to be called for each meta region found    * @throws IOException    */
+comment|/**    * Scans the root region. For every meta region found, calls the listener with    * the HRegionInfo of the meta region.    *     * @param listener method to be called for each meta region found    * @throws IOException e    */
 specifier|public
 name|void
 name|scanRootRegion
@@ -938,7 +938,7 @@ name|listener
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Scan the passed in metaregion<code>m</code> invoking the passed    *<code>listener</code> per row found.    * @param r    * @param listener    * @throws IOException    */
+comment|/**    * Scan the passed in metaregion<code>m</code> invoking the passed    *<code>listener</code> per row found.    * @param r region    * @param listener scanner listener    * @throws IOException e    */
 specifier|public
 name|void
 name|scanMetaRegion
@@ -1111,7 +1111,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Scans a meta region. For every region found, calls the listener with    * the HRegionInfo of the region.    * TODO: Use Visitor rather than Listener pattern.  Allow multiple Visitors.    * Use this everywhere we scan meta regions: e.g. in metascanners, in close    * handling, etc.  Have it pass in the whole row, not just HRegionInfo.    *<p>Use for reading meta only.  Does not close region when done.    * Use {@link #getMetaRegion(HRegionInfo)} instead if writing.  Adds    * meta region to list that will get a close on {@link #shutdown()}.    *     * @param metaRegionInfo HRegionInfo for meta region    * @param listener method to be called for each meta region found    * @throws IOException    */
+comment|/**    * Scans a meta region. For every region found, calls the listener with    * the HRegionInfo of the region.    * TODO: Use Visitor rather than Listener pattern.  Allow multiple Visitors.    * Use this everywhere we scan meta regions: e.g. in metascanners, in close    * handling, etc.  Have it pass in the whole row, not just HRegionInfo.    *<p>Use for reading meta only.  Does not close region when done.    * Use {@link #getMetaRegion(HRegionInfo)} instead if writing.  Adds    * meta region to list that will get a close on {@link #shutdown()}.    *     * @param metaRegionInfo HRegionInfo for meta region    * @param listener method to be called for each meta region found    * @throws IOException e    */
 specifier|public
 name|void
 name|scanMetaRegion
@@ -1242,7 +1242,7 @@ return|return
 name|meta
 return|;
 block|}
-comment|/**    * Set a single region on/offline.    * This is a tool to repair tables that have offlined tables in their midst.    * Can happen on occasion.  Use at your own risk.  Call from a bit of java    * or jython script.  This method is 'expensive' in that it creates a    * {@link HTable} instance per invocation to go against<code>.META.</code>    * @param c A configuration that has its<code>hbase.master</code>    * properly set.    * @param row Row in the catalog .META. table whose HRegionInfo's offline    * status we want to change.    * @param onlineOffline Pass<code>true</code> to OFFLINE the region.    * @throws IOException    */
+comment|/**    * Set a single region on/offline.    * This is a tool to repair tables that have offlined tables in their midst.    * Can happen on occasion.  Use at your own risk.  Call from a bit of java    * or jython script.  This method is 'expensive' in that it creates a    * {@link HTable} instance per invocation to go against<code>.META.</code>    * @param c A configuration that has its<code>hbase.master</code>    * properly set.    * @param row Row in the catalog .META. table whose HRegionInfo's offline    * status we want to change.    * @param onlineOffline Pass<code>true</code> to OFFLINE the region.    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -1472,7 +1472,7 @@ name|delete
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Offline version of the online TableOperation,    * org.apache.hadoop.hbase.master.AddColumn.    * @param tableName    * @param hcd Add this column to<code>tableName</code>    * @throws IOException     */
+comment|/**    * Offline version of the online TableOperation,    * org.apache.hadoop.hbase.master.AddColumn.    * @param tableName table name    * @param hcd Add this column to<code>tableName</code>    * @throws IOException e    */
 specifier|public
 name|void
 name|addColumn
@@ -1634,7 +1634,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Offline version of the online TableOperation,    * org.apache.hadoop.hbase.master.DeleteColumn.    * @param tableName    * @param columnFamily Name of column name to remove.    * @throws IOException    */
+comment|/**    * Offline version of the online TableOperation,    * org.apache.hadoop.hbase.master.DeleteColumn.    * @param tableName table name    * @param columnFamily Name of column name to remove.    * @throws IOException e    */
 specifier|public
 name|void
 name|deleteColumn
@@ -1825,7 +1825,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Update COL_REGIONINFO in meta region r with HRegionInfo hri    *     * @param r    * @param hri    * @throws IOException    */
+comment|/**    * Update COL_REGIONINFO in meta region r with HRegionInfo hri    *     * @param r region    * @param hri region info    * @throws IOException e    */
 specifier|public
 name|void
 name|updateMETARegionInfo
@@ -2170,7 +2170,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @return List of {@link HRegionInfo} rows found in the ROOT or META    * catalog table.    * @param tableName Name of table to go looking for.    * @throws IOException    * @see #getMetaRegion(HRegionInfo)    */
+comment|/**    * @return List of {@link HRegionInfo} rows found in the ROOT or META    * catalog table.    * @param tableName Name of table to go looking for.    * @throws IOException e    * @see #getMetaRegion(HRegionInfo)    */
 specifier|public
 name|List
 argument_list|<

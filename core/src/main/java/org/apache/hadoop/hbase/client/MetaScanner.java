@@ -15,16 +15,6 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -81,6 +71,16 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Scanner class that contains the<code>.META.</code> table scanning logic   * and uses a Retryable scanner. Provided visitors will be called  * for each row.  */
 end_comment
@@ -91,7 +91,7 @@ name|MetaScanner
 implements|implements
 name|HConstants
 block|{
-comment|/**    * Scans the meta table and calls a visitor on each RowResult and uses a empty    * start row value as table name.    *     * @param configuration    * @param visitor A custom visitor    * @throws IOException    */
+comment|/**    * Scans the meta table and calls a visitor on each RowResult and uses a empty    * start row value as table name.    *     * @param configuration conf    * @param visitor A custom visitor    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -116,7 +116,7 @@ name|EMPTY_START_ROW
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Scans the meta table and calls a visitor on each RowResult. Uses a table    * name to locate meta regions.    *     * @param configuration    * @param visitor    * @param tableName    * @throws IOException    */
+comment|/**    * Scans the meta table and calls a visitor on each RowResult. Uses a table    * name to locate meta regions.    *     * @param configuration config    * @param visitor visitor object    * @param tableName table name    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -177,8 +177,6 @@ decl_stmt|;
 comment|// Scan over each meta region
 name|ScannerCallable
 name|callable
-init|=
-literal|null
 decl_stmt|;
 name|int
 name|rows
@@ -276,26 +274,15 @@ operator|==
 literal|0
 condition|)
 block|{
-break|break
-name|done
-break|;
+break|break;
 comment|//exit completely
 block|}
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|Result
+name|rr
+range|:
 name|rrs
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 if|if
@@ -305,10 +292,7 @@ name|visitor
 operator|.
 name|processRow
 argument_list|(
-name|rrs
-index|[
-name|i
-index|]
+name|rr
 argument_list|)
 condition|)
 break|break
@@ -371,7 +355,7 @@ comment|/**    * Visitor class called to process each row of the .META. table   
 interface|interface
 name|MetaScannerVisitor
 block|{
-comment|/**      * Visitor method that accepts a RowResult and the meta region location.      * Implementations can return false to stop the region's loop if it becomes      * unnecessary for some reason.      *       * @param rowResult      * @return A boolean to know if it should continue to loop in the region      * @throws IOException      */
+comment|/**      * Visitor method that accepts a RowResult and the meta region location.      * Implementations can return false to stop the region's loop if it becomes      * unnecessary for some reason.      *       * @param rowResult result      * @return A boolean to know if it should continue to loop in the region      * @throws IOException e      */
 specifier|public
 name|boolean
 name|processRow

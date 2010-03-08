@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Copyright 2009 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,26 +16,6 @@ operator|.
 name|client
 package|;
 end_package
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
 
 begin_import
 import|import
@@ -65,6 +45,26 @@ name|HTableDescriptor
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
 begin_comment
 comment|/**  * Used to communicate with a single HBase table.  *  * @since 0.21.0  */
 end_comment
@@ -85,14 +85,14 @@ name|Configuration
 name|getConfiguration
 parameter_list|()
 function_decl|;
-comment|/**    * Gets the table descriptor for this table.    *    * @return table metadata    * @throws IOException    */
+comment|/**    * Gets the table descriptor for this table.    *    * @return table metadata    * @throws IOException e    */
 name|HTableDescriptor
 name|getTableDescriptor
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Test for the existence of columns in the table, as specified in the Get.    *<p>    *    * This will return true if the Get matches one or more keys, false if not.    *<p>    *    * This is a server-side call so it prevents any data from being transfered to    * the client.    *    * @param get the Get    * @return true if the specified Get matches one or more keys, false if not    * @throws IOException    */
+comment|/**    * Test for the existence of columns in the table, as specified in the Get.    *<p>    *    * This will return true if the Get matches one or more keys, false if not.    *<p>    *    * This is a server-side call so it prevents any data from being transfered to    * the client.    *    * @param get the Get    * @return true if the specified Get matches one or more keys, false if not    * @throws IOException e    */
 name|boolean
 name|exists
 parameter_list|(
@@ -102,7 +102,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Method for getting data from a row.    * If the row cannot be found an empty Result is returned.    * This can be checked by calling {@link Result#isEmpty()}    *    * @param get the Get to fetch    * @return the result    * @throws IOException    */
+comment|/**    * Method for getting data from a row.    * If the row cannot be found an empty Result is returned.    * This can be checked by calling {@link Result#isEmpty()}    *    * @param get the Get to fetch    * @return the result    * @throws IOException e    */
 name|Result
 name|get
 parameter_list|(
@@ -112,7 +112,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Return the row that matches<i>row</i> and<i>family</i> exactly, or the    * one that immediately precedes it.    *    * @param row row key    * @param family Column family to look for row in    * @return map of values    * @throws IOException    */
+comment|/**    * Return the row that matches<i>row</i> and<i>family</i> exactly, or the    * one that immediately precedes it.    *    * @param row row key    * @param family Column family to look for row in    * @return map of values    * @throws IOException e    */
 name|Result
 name|getRowOrBefore
 parameter_list|(
@@ -127,7 +127,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object.    *    * @param scan a configured {@link Scan} object    * @return scanner    * @throws IOException    */
+comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object.    *    * @param scan a configured {@link Scan} object    * @return the scanner    * @throws IOException e    */
 name|ResultScanner
 name|getScanner
 parameter_list|(
@@ -137,7 +137,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object.    *    * @param family the column family to scan    * @return the scanner    * @throws IOException    */
+comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object.    *    * @param family the column family to scan    * @return the scanner    * @throws IOException e    */
 name|ResultScanner
 name|getScanner
 parameter_list|(
@@ -148,7 +148,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object.    *    * @param family the column family to scan    * @param qualifier the column qualifier to scan    * @return The scanner    * @throws IOException    */
+comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object.    *    * @param family the column family to scan    * @param qualifier the column qualifier to scan    * @return The scanner    * @throws IOException e    */
 name|ResultScanner
 name|getScanner
 parameter_list|(
@@ -163,7 +163,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Commit a Put to the table.    *<p>    * If autoFlush is false, the update is buffered.    *    * @param put    * @throws IOException    */
+comment|/**    * Commit a Put to the table.    *<p>    * If autoFlush is false, the update is buffered.    *    * @param put data    * @throws IOException e    */
 name|void
 name|put
 parameter_list|(
@@ -173,7 +173,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Commit a List of Puts to the table.    *<p>    * If autoFlush is false, the update is buffered.    *    * @param puts    * @throws IOException    */
+comment|/**    * Commit a List of Puts to the table.    *<p>    * If autoFlush is false, the update is buffered.    *    * @param puts list of puts    * @throws IOException e    */
 name|void
 name|put
 parameter_list|(
@@ -186,7 +186,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the put.    *    * @param row    * @param family    * @param qualifier    * @param value the expected value    * @param put    * @throws IOException    * @return true if the new put was executed, false otherwise    */
+comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the put.  If the passed value is null, the check    * is for the lack of column (ie: non-existance)    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param value the expected value    * @param put data to put if check succeeds    * @throws IOException e    * @return true if the new put was executed, false otherwise    */
 name|boolean
 name|checkAndPut
 parameter_list|(
@@ -212,7 +212,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Deletes as specified by the delete.    *    * @param delete    * @throws IOException    */
+comment|/**    * Deletes as specified by the delete.    *    * @param delete a delete    * @throws IOException e    */
 name|void
 name|delete
 parameter_list|(
@@ -222,7 +222,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Bulk commit a List of Deletes to the table.    * @param deletes List of deletes. List is modified by this method.    * On exception holds deletes that were NOT applied.    * @throws IOException    */
+comment|/**    * Bulk commit a List of Deletes to the table.    * @param deletes List of deletes. List is modified by this method.    * On exception holds deletes that were NOT applied.    * @throws IOException e    */
 name|void
 name|delete
 parameter_list|(
@@ -235,7 +235,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception. If the column    * value does not yet exist it is initialized to<code>amount</code> and    * written to the specified column.    *    * @param row    * @param family    * @param qualifier    * @param amount    * @return the new value    * @throws IOException    */
+comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception. If the column    * value does not yet exist it is initialized to<code>amount</code> and    * written to the specified column.    *    * @param row row to increment    * @param family column family    * @param qualifier column qualifier    * @param amount long amount to increment    * @return the new value    * @throws IOException e    */
 name|long
 name|incrementColumnValue
 parameter_list|(
@@ -257,7 +257,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception. If the column    * value does not yet exist it is initialized to<code>amount</code> and    * written to the specified column.    *    *<p>Setting writeToWAL to false means that in a fail scenario, you will lose    * any increments that have not been flushed.    * @param row    * @param family    * @param qualifier    * @param amount    * @param writeToWAL true if increment should be applied to WAL, false if not    * @return The new value.    * @throws IOException    */
+comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception. If the column    * value does not yet exist it is initialized to<code>amount</code> and    * written to the specified column.    *    *<p>Setting writeToWAL to false means that in a fail scenario, you will lose    * any increments that have not been flushed.    * @param row row to increment    * @param family column family    * @param qualifier column qualifier    * @param amount long amount to increment    * @param writeToWAL true if increment should be applied to WAL, false if not    * @return The new value.    * @throws IOException e    */
 name|long
 name|incrementColumnValue
 parameter_list|(
@@ -287,21 +287,21 @@ name|boolean
 name|isAutoFlush
 parameter_list|()
 function_decl|;
-comment|/**    * Flushes buffer data. Called automatically when autoFlush is true.    *    * @throws IOException    */
+comment|/**    * Flushes buffer data. Called automatically when autoFlush is true.    *    * @throws IOException e    */
 name|void
 name|flushCommits
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Releases held resources.    *    * @throws IOException    */
+comment|/**    * Releases held resources.    *    * @throws IOException e    */
 name|void
 name|close
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Obtains a row lock.    *    * @param row the row to lock    * @return rowLock RowLock containing row and lock id    * @throws IOException    */
+comment|/**    * Obtains a row lock.    *    * @param row the row to lock    * @return rowLock RowLock containing row and lock id    * @throws IOException e    */
 name|RowLock
 name|lockRow
 parameter_list|(
@@ -312,7 +312,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Releases the row lock.    *    * @param rl the row lock to release    * @throws IOException    */
+comment|/**    * Releases the row lock.    *    * @param rl the row lock to release    * @throws IOException e    */
 name|void
 name|unlockRow
 parameter_list|(

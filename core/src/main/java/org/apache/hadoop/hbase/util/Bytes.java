@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Copyright 2009 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,76 +16,6 @@ operator|.
 name|util
 package|;
 end_package
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|DataInput
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|DataOutput
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|UnsupportedEncodingException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|nio
-operator|.
-name|ByteBuffer
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Comparator
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|math
-operator|.
-name|BigInteger
-import|;
-end_import
 
 begin_import
 import|import
@@ -156,6 +86,76 @@ operator|.
 name|io
 operator|.
 name|WritableUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|DataInput
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|DataOutput
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|UnsupportedEncodingException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|math
+operator|.
+name|BigInteger
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|nio
+operator|.
+name|ByteBuffer
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Comparator
 import|;
 end_import
 
@@ -407,7 +407,7 @@ operator|new
 name|ByteArrayComparator
 argument_list|()
 decl_stmt|;
-comment|/**    * Read byte-array written with a WritableableUtils.vint prefix.    * @param in Input to read from.    * @return byte array read off<code>in</code>    * @throws IOException     */
+comment|/**    * Read byte-array written with a WritableableUtils.vint prefix.    * @param in Input to read from.    * @return byte array read off<code>in</code>    * @throws IOException e    */
 specifier|public
 specifier|static
 name|byte
@@ -512,7 +512,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Write byte-array with a WritableableUtils.vint prefix.    * @param out    * @param b    * @throws IOException    */
+comment|/**    * Write byte-array with a WritableableUtils.vint prefix.    * @param out output stream to be written to    * @param b array to write    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -564,7 +564,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Write byte-array to out with a vint length prefix.    * @param out    * @param b    * @param offset    * @param length    * @throws IOException    */
+comment|/**    * Write byte-array to out with a vint length prefix.    * @param out output stream    * @param b array    * @param offset offset into array    * @param length length past offset    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -611,7 +611,7 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Write byte-array from src to tgt with a vint length prefix.    * @param tgt    * @param tgtOffset    * @param src    * @param srcOffset    * @param srcLength    * @return New offset in src array.    */
+comment|/**    * Write byte-array from src to tgt with a vint length prefix.    * @param tgt target array    * @param tgtOffset offset into target array    * @param src source array    * @param srcOffset source offset    * @param srcLength source length    * @return New offset in src array.    */
 specifier|public
 specifier|static
 name|int
@@ -696,7 +696,7 @@ operator|+
 name|srcLength
 return|;
 block|}
-comment|/**    * Put bytes at the specified byte array position.    * @param tgtBytes the byte array    * @param tgtOffset position in the array    * @param srcBytes byte to write out    * @param srcOffset    * @param srcLength    * @return incremented offset    */
+comment|/**    * Put bytes at the specified byte array position.    * @param tgtBytes the byte array    * @param tgtOffset position in the array    * @param srcBytes array to write out    * @param srcOffset source offset    * @param srcLength source length    * @return incremented offset    */
 specifier|public
 specifier|static
 name|int
@@ -906,7 +906,7 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * @param b Presumed UTF-8 encoded byte array.    * @param off    * @param len    * @return String made from<code>b</code>    */
+comment|/**    * This method will convert utf8 encoded bytes into a string. If    * an UnsupportedEncodingException occurs, this method will eat it    * and return null instead.    *    * @param b Presumed UTF-8 encoded byte array.    * @param off offset into array    * @param len length of utf-8 sequence    * @return String made from<code>b</code> or null    */
 specifier|public
 specifier|static
 name|String
@@ -986,6 +986,7 @@ return|return
 name|result
 return|;
 block|}
+comment|/**    * Write a printable representation of a byte array.    *    * @param b byte array    * @return string    * @see #toStringBinary(byte[], int, int)    */
 specifier|public
 specifier|static
 name|String
@@ -1010,6 +1011,7 @@ name|length
 argument_list|)
 return|;
 block|}
+comment|/**    * Write a printable representation of a byte array. Non-printable    * characters are hex escaped in the format \\x%02X, eg:    * \x00 \x05 etc    *    * @param b array to write out    * @param off offset to start at    * @param len length to write    * @return string output    */
 specifier|public
 specifier|static
 name|String
@@ -1518,7 +1520,7 @@ return|return
 name|b2
 return|;
 block|}
-comment|/**    * Converts a string to a UTF-8 byte array.    * @param s    * @return the byte array    */
+comment|/**    * Converts a string to a UTF-8 byte array.    * @param s string    * @return the byte array    */
 specifier|public
 specifier|static
 name|byte
@@ -1580,7 +1582,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Convert a boolean to a byte array.    * @param b    * @return<code>b</code> encoded in a byte array.    */
+comment|/**    * Convert a boolean to a byte array. True becomes -1    * and false becomes 0.    *    * @param b value    * @return<code>b</code> encoded in a byte array.    */
 specifier|public
 specifier|static
 name|byte
@@ -1624,7 +1626,7 @@ return|return
 name|bb
 return|;
 block|}
-comment|/**    * @param b    * @return True or false.    */
+comment|/**    * Reverses {@link #toBytes(boolean)}    * @param b array    * @return True or false.    */
 specifier|public
 specifier|static
 name|boolean
@@ -1669,7 +1671,7 @@ operator|)
 literal|0
 return|;
 block|}
-comment|/**    * Convert a long value to a byte array    * @param val    * @return the byte array    */
+comment|/**    * Convert a long value to a byte array using big-endian.    *    * @param val value to convert    * @return the byte array    */
 specifier|public
 specifier|static
 name|byte
@@ -1738,7 +1740,7 @@ return|return
 name|b
 return|;
 block|}
-comment|/**    * Converts a byte array to a long value    * @param bytes    * @return the long value    */
+comment|/**    * Converts a byte array to a long value. Reverses    * {@link #toBytes(long)}    * @param bytes array    * @return the long value    */
 specifier|public
 specifier|static
 name|long
@@ -1758,7 +1760,7 @@ literal|0
 argument_list|)
 return|;
 block|}
-comment|/**    * Converts a byte array to a long value    * @param bytes    * @param offset    * @return the long value    */
+comment|/**    * Converts a byte array to a long value. Assumes there will be    * {@link #SIZEOF_LONG} bytes available.    *    * @param bytes bytes    * @param offset offset    * @return the long value    */
 specifier|public
 specifier|static
 name|long
@@ -1783,7 +1785,7 @@ name|SIZEOF_LONG
 argument_list|)
 return|;
 block|}
-comment|/**    * Converts a byte array to a long value    * @param bytes    * @param offset    * @param length    * @return the long value    */
+comment|/**    * Converts a byte array to a long value.    *    * @param bytes array of bytes    * @param offset offset into array    * @param length length of data (must be {@link #SIZEOF_LONG})    * @return the long value    */
 specifier|public
 specifier|static
 name|long
@@ -1962,7 +1964,7 @@ operator|+
 name|SIZEOF_LONG
 return|;
 block|}
-comment|/**    * Presumes float encoded as IEEE 754 floating-point "single format"    * @param bytes    * @return Float made from passed byte array.    */
+comment|/**    * Presumes float encoded as IEEE 754 floating-point "single format"    * @param bytes byte array    * @return Float made from passed byte array.    */
 specifier|public
 specifier|static
 name|float
@@ -1982,7 +1984,7 @@ literal|0
 argument_list|)
 return|;
 block|}
-comment|/**    * Presumes float encoded as IEEE 754 floating-point "single format"    * @param bytes    * @param offset    * @return Float made from passed byte array.    */
+comment|/**    * Presumes float encoded as IEEE 754 floating-point "single format"    * @param bytes array to convert    * @param offset offset into array    * @return Float made from passed byte array.    */
 specifier|public
 specifier|static
 name|float
@@ -2015,7 +2017,7 @@ name|i
 argument_list|)
 return|;
 block|}
-comment|/**    * @param bytes    * @param offset    * @param f    * @return New offset in<code>bytes</bytes>    */
+comment|/**    * @param bytes byte array    * @param offset offset to write to    * @param f float value    * @return New offset in<code>bytes</bytes>    */
 specifier|public
 specifier|static
 name|int
@@ -2053,7 +2055,7 @@ name|i
 argument_list|)
 return|;
 block|}
-comment|/**    * @param f    * @return the float represented as byte []    */
+comment|/**    * @param f float value    * @return the float represented as byte []    */
 specifier|public
 specifier|static
 name|byte
@@ -2085,7 +2087,7 @@ name|i
 argument_list|)
 return|;
 block|}
-comment|/**    * @param bytes    * @return Return double made from passed bytes.    */
+comment|/**    * @param bytes byte array    * @return Return double made from passed bytes.    */
 specifier|public
 specifier|static
 name|double
@@ -2106,7 +2108,7 @@ literal|0
 argument_list|)
 return|;
 block|}
-comment|/**    * @param bytes    * @param offset    * @return Return double made from passed bytes.    */
+comment|/**    * @param bytes byte array    * @param offset offset where double is    * @return Return double made from passed bytes.    */
 specifier|public
 specifier|static
 name|double
@@ -2141,7 +2143,7 @@ name|l
 argument_list|)
 return|;
 block|}
-comment|/**    * @param bytes    * @param offset    * @param d    * @return New offset into array<code>bytes</code>    */
+comment|/**    * @param bytes byte array    * @param offset offset to write to    * @param d value    * @return New offset into array<code>bytes</code>    */
 specifier|public
 specifier|static
 name|int
@@ -2179,7 +2181,7 @@ name|l
 argument_list|)
 return|;
 block|}
-comment|/**    * @param d    * @return the double represented as byte []    */
+comment|/**    * Serialize a double as the IEEE 754 double format output. The resultant    * array will be 8 bytes long.    *    * @param d value    * @return the double represented as byte []    */
 specifier|public
 specifier|static
 name|byte
@@ -2211,7 +2213,7 @@ name|l
 argument_list|)
 return|;
 block|}
-comment|/**    * Convert an int value to a byte array    * @param val    * @return the byte array    */
+comment|/**    * Convert an int value to a byte array    * @param val value    * @return the byte array    */
 specifier|public
 specifier|static
 name|byte
@@ -2280,7 +2282,7 @@ return|return
 name|b
 return|;
 block|}
-comment|/**    * Converts a byte array to an int value    * @param bytes    * @return the int value    */
+comment|/**    * Converts a byte array to an int value    * @param bytes byte array    * @return the int value    */
 specifier|public
 specifier|static
 name|int
@@ -2300,7 +2302,7 @@ literal|0
 argument_list|)
 return|;
 block|}
-comment|/**    * Converts a byte array to an int value    * @param bytes    * @param offset    * @return the int value    */
+comment|/**    * Converts a byte array to an int value    * @param bytes byte array    * @param offset offset into array    * @return the int value    */
 specifier|public
 specifier|static
 name|int
@@ -2325,7 +2327,7 @@ name|SIZEOF_INT
 argument_list|)
 return|;
 block|}
-comment|/**    * Converts a byte array to an int value    * @param bytes    * @param offset    * @param length    * @return the int value    */
+comment|/**    * Converts a byte array to an int value    * @param bytes byte array    * @param offset offset into array    * @param length length of int (has to be {@link #SIZEOF_INT})    * @return the int value    */
 specifier|public
 specifier|static
 name|int
@@ -2501,7 +2503,7 @@ operator|+
 name|SIZEOF_INT
 return|;
 block|}
-comment|/**    * Convert a short value to a byte array    * @param val    * @return the byte array    */
+comment|/**    * Convert a short value to a byte array of {@link #SIZEOF_SHORT} bytes long.    * @param val value    * @return the byte array    */
 specifier|public
 specifier|static
 name|byte
@@ -2554,7 +2556,7 @@ return|return
 name|b
 return|;
 block|}
-comment|/**    * Converts a byte array to a short value    * @param bytes    * @return the short value    */
+comment|/**    * Converts a byte array to a short value    * @param bytes byte array    * @return the short value    */
 specifier|public
 specifier|static
 name|short
@@ -2574,7 +2576,7 @@ literal|0
 argument_list|)
 return|;
 block|}
-comment|/**    * Converts a byte array to a short value    * @param bytes    * @param offset    * @return the short value    */
+comment|/**    * Converts a byte array to a short value    * @param bytes byte array    * @param offset offset into array    * @return the short value    */
 specifier|public
 specifier|static
 name|short
@@ -2599,7 +2601,7 @@ name|SIZEOF_SHORT
 argument_list|)
 return|;
 block|}
-comment|/**    * Converts a byte array to a short value    * @param bytes    * @param offset    * @param length    * @return the short value    */
+comment|/**    * Converts a byte array to a short value    * @param bytes byte array    * @param offset offset into array    * @param length length, has to be {@link #SIZEOF_SHORT}    * @return the short value    */
 specifier|public
 specifier|static
 name|short
@@ -2958,7 +2960,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * @param buffer    * @return vint bytes as an integer.    */
+comment|/**    * @param buffer buffer to convert    * @return vint bytes as an integer.    */
 specifier|public
 specifier|static
 name|long
@@ -3063,17 +3065,15 @@ name|firstByte
 argument_list|)
 condition|?
 operator|(
+operator|~
 name|i
-operator|^
-operator|-
-literal|1L
 operator|)
 else|:
 name|i
 operator|)
 return|;
 block|}
-comment|/**    * Reads a zero-compressed encoded long from input stream and returns it.    * @param buffer Binary array    * @param offset Offset into array at which vint begins.    * @throws java.io.IOException     * @return deserialized long from stream.    */
+comment|/**    * Reads a zero-compressed encoded long from input stream and returns it.    * @param buffer Binary array    * @param offset Offset into array at which vint begins.    * @throws java.io.IOException e    * @return deserialized long from stream.    */
 specifier|public
 specifier|static
 name|long
@@ -3181,17 +3181,15 @@ name|firstByte
 argument_list|)
 condition|?
 operator|(
+operator|~
 name|i
-operator|^
-operator|-
-literal|1L
 operator|)
 else|:
 name|i
 operator|)
 return|;
 block|}
-comment|/**    * @param left    * @param right    * @return 0 if equal,< 0 if left is less than right, etc.    */
+comment|/**    * @param left left operand    * @param right right operand    * @return 0 if equal,< 0 if left is less than right, etc.    */
 specifier|public
 specifier|static
 name|int
@@ -3229,7 +3227,7 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * @param b1    * @param b2    * @param s1 Where to start comparing in the left buffer    * @param s2 Where to start comparing in the right buffer    * @param l1 How much to compare from the left buffer    * @param l2 How much to compare from the right buffer    * @return 0 if equal,< 0 if left is less than right, etc.    */
+comment|/**    * Lexographically compare two arrays.    *    * @param b1 left operand    * @param b2 right operand    * @param s1 Where to start comparing in the left buffer    * @param s2 Where to start comparing in the right buffer    * @param l1 How much to compare from the left buffer    * @param l2 How much to compare from the right buffer    * @return 0 if equal,< 0 if left is less than right, etc.    */
 specifier|public
 specifier|static
 name|int
@@ -3341,7 +3339,7 @@ operator|-
 name|l2
 return|;
 block|}
-comment|/**    * @param left    * @param right    * @return True if equal    */
+comment|/**    * @param left left operand    * @param right right operand    * @return True if equal    */
 specifier|public
 specifier|static
 name|boolean
@@ -3359,6 +3357,7 @@ name|right
 parameter_list|)
 block|{
 comment|// Could use Arrays.equals?
+comment|//noinspection SimplifiableConditionalExpression
 return|return
 name|left
 operator|==
@@ -3402,7 +3401,7 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**    * @param b    * @return Runs {@link WritableComparator#hashBytes(byte[], int)} on the    * passed in array.  This method is what {@link org.apache.hadoop.io.Text} and    * {@link ImmutableBytesWritable} use calculating hash code.    */
+comment|/**    * @param b bytes to hash    * @return Runs {@link WritableComparator#hashBytes(byte[], int)} on the    * passed in array.  This method is what {@link org.apache.hadoop.io.Text} and    * {@link ImmutableBytesWritable} use calculating hash code.    */
 specifier|public
 specifier|static
 name|int
@@ -3425,7 +3424,7 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * @param b    * @param length    * @return Runs {@link WritableComparator#hashBytes(byte[], int)} on the    * passed in array.  This method is what {@link org.apache.hadoop.io.Text} and    * {@link ImmutableBytesWritable} use calculating hash code.    */
+comment|/**    * @param b value    * @param length length of the value    * @return Runs {@link WritableComparator#hashBytes(byte[], int)} on the    * passed in array.  This method is what {@link org.apache.hadoop.io.Text} and    * {@link ImmutableBytesWritable} use calculating hash code.    */
 specifier|public
 specifier|static
 name|int
@@ -3452,7 +3451,7 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * @param b    * @return A hash of<code>b</code> as an Integer that can be used as key in    * Maps.    */
+comment|/**    * @param b bytes to hash    * @return A hash of<code>b</code> as an Integer that can be used as key in    * Maps.    */
 specifier|public
 specifier|static
 name|Integer
@@ -3465,18 +3464,13 @@ name|b
 parameter_list|)
 block|{
 return|return
-name|Integer
-operator|.
-name|valueOf
-argument_list|(
 name|hashCode
 argument_list|(
 name|b
 argument_list|)
-argument_list|)
 return|;
 block|}
-comment|/**    * @param b    * @param length    * @return A hash of<code>b</code> as an Integer that can be used as key in    * Maps.    */
+comment|/**    * @param b bytes to hash    * @param length length to hash    * @return A hash of<code>b</code> as an Integer that can be used as key in    * Maps.    */
 specifier|public
 specifier|static
 name|Integer
@@ -3493,20 +3487,15 @@ name|length
 parameter_list|)
 block|{
 return|return
-name|Integer
-operator|.
-name|valueOf
-argument_list|(
 name|hashCode
 argument_list|(
 name|b
 argument_list|,
 name|length
 argument_list|)
-argument_list|)
 return|;
 block|}
-comment|/**    * @param a    * @param b    * @return New array that has a in lower half and b in upper half.    */
+comment|/**    * @param a lower half    * @param b upper half    * @return New array that has a in lower half and b in upper half.    */
 specifier|public
 specifier|static
 name|byte
@@ -3537,7 +3526,7 @@ name|EMPTY_BYTE_ARRAY
 argument_list|)
 return|;
 block|}
-comment|/**    * @param a    * @param b    * @param c    * @return New array made from a, b and c    */
+comment|/**    * @param a first third    * @param b second third    * @param c third third    * @return New array made from a, b and c    */
 specifier|public
 specifier|static
 name|byte
@@ -3643,7 +3632,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * @param a    * @param length    * @return First<code>length</code> bytes from<code>a</code>    */
+comment|/**    * @param a array    * @param length amount of bytes to grab    * @return First<code>length</code> bytes from<code>a</code>    */
 specifier|public
 specifier|static
 name|byte
@@ -3700,7 +3689,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * @param a    * @param length    * @return Last<code>length</code> bytes from<code>a</code>    */
+comment|/**    * @param a array    * @param length amount of bytes to snarf    * @return Last<code>length</code> bytes from<code>a</code>    */
 specifier|public
 specifier|static
 name|byte
@@ -3761,7 +3750,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * @param a    * @param length    * @return Value in<code>a</code> plus<code>length</code> prepended 0 bytes    */
+comment|/**    * @param a array    * @param length new array size    * @return Value in<code>a</code> plus<code>length</code> prepended 0 bytes    */
 specifier|public
 specifier|static
 name|byte
@@ -3818,7 +3807,7 @@ name|a
 argument_list|)
 return|;
 block|}
-comment|/**    * @param a    * @param length    * @return Value in<code>a</code> plus<code>length</code> appended 0 bytes    */
+comment|/**    * @param a array    * @param length new array size    * @return Value in<code>a</code> plus<code>length</code> appended 0 bytes    */
 specifier|public
 specifier|static
 name|byte
@@ -3901,14 +3890,10 @@ block|{
 name|byte
 index|[]
 name|aPadded
-init|=
-literal|null
 decl_stmt|;
 name|byte
 index|[]
 name|bPadded
-init|=
-literal|null
 decl_stmt|;
 if|if
 condition|(
@@ -4093,8 +4078,6 @@ literal|null
 return|;
 name|BigInteger
 name|intervalBI
-init|=
-literal|null
 decl_stmt|;
 try|try
 block|{
@@ -4240,7 +4223,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * @param t    * @return Array of byte arrays made from passed array of Text    */
+comment|/**    * @param t operands    * @return Array of byte arrays made from passed array of Text    */
 specifier|public
 specifier|static
 name|byte
@@ -4305,7 +4288,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * @param column    * @return A byte array of a byte array where first and only entry is    *<code>column</code>    */
+comment|/**    * @param column operand    * @return A byte array of a byte array where first and only entry is    *<code>column</code>    */
 specifier|public
 specifier|static
 name|byte
@@ -4328,7 +4311,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @param column    * @return A byte array of a byte array where first and only entry is    *<code>column</code>    */
+comment|/**    * @param column operand    * @return A byte array of a byte array where first and only entry is    *<code>column</code>    */
 specifier|public
 specifier|static
 name|byte
@@ -4545,10 +4528,11 @@ operator|<
 literal|0
 condition|)
 block|{
+name|newvalue
+operator|=
+operator|new
 name|byte
 index|[]
-name|negativeValue
-init|=
 block|{
 operator|-
 literal|1
@@ -4574,10 +4558,6 @@ block|,
 operator|-
 literal|1
 block|}
-decl_stmt|;
-name|newvalue
-operator|=
-name|negativeValue
 expr_stmt|;
 block|}
 else|else

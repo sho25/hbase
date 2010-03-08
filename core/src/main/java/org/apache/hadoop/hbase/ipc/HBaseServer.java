@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,6 +16,132 @@ operator|.
 name|ipc
 package|;
 end_package
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|ObjectWritable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|Writable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|WritableUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|security
+operator|.
+name|UserGroupInformation
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|ReflectionUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
+import|;
+end_import
 
 begin_import
 import|import
@@ -179,6 +305,18 @@ name|nio
 operator|.
 name|channels
 operator|.
+name|ReadableByteChannel
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|nio
+operator|.
+name|channels
+operator|.
 name|SelectionKey
 import|;
 end_import
@@ -216,18 +354,6 @@ operator|.
 name|channels
 operator|.
 name|SocketChannel
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|nio
-operator|.
-name|channels
-operator|.
-name|ReadableByteChannel
 import|;
 end_import
 
@@ -324,132 +450,6 @@ operator|.
 name|concurrent
 operator|.
 name|LinkedBlockingQueue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|Log
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|logging
-operator|.
-name|LogFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|conf
-operator|.
-name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|ObjectWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Writable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|WritableUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|security
-operator|.
-name|UserGroupInformation
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|util
-operator|.
-name|ReflectionUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|util
-operator|.
-name|StringUtils
 import|;
 end_import
 
@@ -677,6 +677,13 @@ specifier|protected
 name|Configuration
 name|conf
 decl_stmt|;
+annotation|@
+name|SuppressWarnings
+argument_list|(
+block|{
+literal|"FieldCanBeLocal"
+block|}
+argument_list|)
 specifier|private
 name|int
 name|maxQueueSize
@@ -714,6 +721,7 @@ name|callQueue
 decl_stmt|;
 comment|// queued calls
 specifier|protected
+specifier|final
 name|List
 argument_list|<
 name|Connection
@@ -1140,7 +1148,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** cleanup connections from connectionList. Choose a random range      * to scan and also have a limit on the number of the connections      * that will be cleanedup per run. The criteria for cleanup is the time      * for which the connection was idle. If 'force' is true then all       * connections will be looked at for the cleanup.      */
+comment|/** cleanup connections from connectionList. Choose a random range      * to scan and also have a limit on the number of the connections      * that will be cleanedup per run. The criteria for cleanup is the time      * for which the connection was idle. If 'force' is true then all       * connections will be looked at for the cleanup.      * @param force all connections will be looked at for cleanup      */
 specifier|private
 name|void
 name|cleanupConnections
@@ -1331,6 +1339,7 @@ expr_stmt|;
 name|end
 operator|--
 expr_stmt|;
+comment|//noinspection UnusedAssignment
 name|c
 operator|=
 literal|null
@@ -1478,7 +1487,7 @@ block|}
 catch|catch
 parameter_list|(
 name|IOException
-name|e
+name|ignored
 parameter_list|)
 block|{             }
 name|key
@@ -1570,7 +1579,7 @@ block|}
 catch|catch
 parameter_list|(
 name|Exception
-name|ie
+name|ignored
 parameter_list|)
 block|{}
 block|}
@@ -1657,7 +1666,7 @@ block|}
 catch|catch
 parameter_list|(
 name|IOException
-name|e
+name|ignored
 parameter_list|)
 block|{ }
 name|selector
@@ -1751,10 +1760,6 @@ argument_list|(
 name|c
 argument_list|)
 expr_stmt|;
-name|c
-operator|=
-literal|null
-expr_stmt|;
 block|}
 block|}
 block|}
@@ -1788,8 +1793,6 @@ name|OutOfMemoryError
 block|{
 name|Connection
 name|c
-init|=
-literal|null
 decl_stmt|;
 name|ServerSocketChannel
 name|server
@@ -2077,10 +2080,7 @@ argument_list|(
 name|c
 argument_list|)
 expr_stmt|;
-name|c
-operator|=
-literal|null
-expr_stmt|;
+comment|// c = null;
 block|}
 else|else
 block|{
@@ -2555,7 +2555,7 @@ block|}
 catch|catch
 parameter_list|(
 name|Exception
-name|ie
+name|ignored
 parameter_list|)
 block|{}
 block|}
@@ -2715,20 +2715,12 @@ name|long
 name|now
 parameter_list|)
 block|{
-name|LinkedList
-argument_list|<
-name|Call
-argument_list|>
-name|responseQueue
-init|=
+synchronized|synchronized
+init|(
 name|call
 operator|.
 name|connection
 operator|.
-name|responseQueue
-decl_stmt|;
-synchronized|synchronized
-init|(
 name|responseQueue
 init|)
 block|{
@@ -2738,6 +2730,10 @@ name|Call
 argument_list|>
 name|iter
 init|=
+name|call
+operator|.
+name|connection
+operator|.
 name|responseQueue
 operator|.
 name|listIterator
@@ -2787,10 +2783,18 @@ block|}
 comment|// Processes one response. Returns true if there are no more pending
 comment|// data for this channel.
 comment|//
+annotation|@
+name|SuppressWarnings
+argument_list|(
+block|{
+literal|"ConstantConditions"
+block|}
+argument_list|)
 specifier|private
 name|boolean
 name|processResponse
 parameter_list|(
+specifier|final
 name|LinkedList
 argument_list|<
 name|Call
@@ -2816,8 +2820,6 @@ decl_stmt|;
 comment|// there is more data for this channel.
 name|int
 name|numElements
-init|=
-literal|0
 decl_stmt|;
 name|Call
 name|call
@@ -2826,6 +2828,7 @@ literal|null
 decl_stmt|;
 try|try
 block|{
+comment|//noinspection SynchronizationOnLocalVariableOrMethodParameter
 synchronized|synchronized
 init|(
 name|responseQueue
@@ -2949,6 +2952,7 @@ operator|.
 name|decRpcCount
 argument_list|()
 expr_stmt|;
+comment|//noinspection RedundantIfStatement
 if|if
 condition|(
 name|numElements
@@ -3310,6 +3314,7 @@ name|ByteBuffer
 name|dataLengthBuffer
 decl_stmt|;
 specifier|protected
+specifier|final
 name|LinkedList
 argument_list|<
 name|Call
@@ -3578,8 +3583,7 @@ name|long
 name|currentTime
 parameter_list|)
 block|{
-if|if
-condition|(
+return|return
 name|isIdle
 argument_list|()
 operator|&&
@@ -3588,12 +3592,6 @@ operator|-
 name|lastContact
 operator|>
 name|maxIdleTime
-condition|)
-return|return
-literal|true
-return|;
-return|return
-literal|false
 return|;
 block|}
 specifier|public
@@ -3613,9 +3611,6 @@ block|{
 comment|/* Read at most one RPC. If the header is not read completely yet          * then iterate until we read first RPC or until there is no data left.          */
 name|int
 name|count
-init|=
-operator|-
-literal|1
 decl_stmt|;
 if|if
 condition|(
@@ -4040,7 +4035,7 @@ block|}
 catch|catch
 parameter_list|(
 name|Exception
-name|e
+name|ignored
 parameter_list|)
 block|{}
 comment|// FindBugs DE_MIGHT_IGNORE
@@ -4063,7 +4058,7 @@ block|}
 catch|catch
 parameter_list|(
 name|Exception
-name|e
+name|ignored
 parameter_list|)
 block|{}
 block|}
@@ -4078,7 +4073,7 @@ block|}
 catch|catch
 parameter_list|(
 name|Exception
-name|e
+name|ignored
 parameter_list|)
 block|{}
 block|}
@@ -4597,7 +4592,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** Constructs a server listening on the named port and address.  Parameters passed must    * be of the named class.  The<code>handlerCount</handlerCount> determines    * the number of handler threads that will be used to process calls.    *     */
+comment|/* Constructs a server listening on the named port and address.  Parameters passed must    * be of the named class.  The<code>handlerCount</handlerCount> determines    * the number of handler threads that will be used to process calls.    *     */
 specifier|protected
 name|HBaseServer
 parameter_list|(
@@ -4829,7 +4824,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** Sets the socket buffer size used for responding to RPCs.    * @param size    */
+comment|/** Sets the socket buffer size used for responding to RPCs.    * @param size send size    */
 specifier|public
 name|void
 name|setSocketSendBufSize
@@ -5005,7 +5000,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/** Wait for the server to be stopped.    * Does not wait for all subthreads to finish.    *  See {@link #stop()}.    * @throws InterruptedException    */
+comment|/** Wait for the server to be stopped.    * Does not wait for all subthreads to finish.    *  See {@link #stop()}.    * @throws InterruptedException e    */
 specifier|public
 specifier|synchronized
 name|void
@@ -5038,7 +5033,7 @@ name|getAddress
 argument_list|()
 return|;
 block|}
-comment|/** Called for each call.     * @param param     * @param receiveTime     * @return Writable     * @throws IOException    */
+comment|/** Called for each call.     * @param param writable parameter    * @param receiveTime time    * @return Writable     * @throws IOException e    */
 specifier|public
 specifier|abstract
 name|Writable
@@ -5103,7 +5098,7 @@ operator|*
 literal|1024
 decl_stmt|;
 comment|//should not be more than 64KB.
-comment|/**    * This is a wrapper around {@link WritableByteChannel#write(ByteBuffer)}.    * If the amount of data is large, it writes to channel in smaller chunks.     * This is to avoid jdk from creating many direct buffers as the size of     * buffer increases. This also minimizes extra copies in NIO layer    * as a result of multiple write operations required to write a large     * buffer.      *    * @see WritableByteChannel#write(ByteBuffer)    */
+comment|/**    * This is a wrapper around {@link WritableByteChannel#write(ByteBuffer)}.    * If the amount of data is large, it writes to channel in smaller chunks.     * This is to avoid jdk from creating many direct buffers as the size of     * buffer increases. This also minimizes extra copies in NIO layer    * as a result of multiple write operations required to write a large     * buffer.      *    * @param channel writable byte channel to write to    * @param buffer buffer to write    * @return number of bytes written    * @throws java.io.IOException e    * @see WritableByteChannel#write(ByteBuffer)    */
 specifier|protected
 specifier|static
 name|int
@@ -5145,7 +5140,7 @@ name|buffer
 argument_list|)
 return|;
 block|}
-comment|/**    * This is a wrapper around {@link ReadableByteChannel#read(ByteBuffer)}.    * If the amount of data is large, it writes to channel in smaller chunks.     * This is to avoid jdk from creating many direct buffers as the size of     * ByteBuffer increases. There should not be any performance degredation.    *     * @see ReadableByteChannel#read(ByteBuffer)    */
+comment|/**    * This is a wrapper around {@link ReadableByteChannel#read(ByteBuffer)}.    * If the amount of data is large, it writes to channel in smaller chunks.     * This is to avoid jdk from creating many direct buffers as the size of     * ByteBuffer increases. There should not be any performance degredation.    *     * @param channel writable byte channel to write on    * @param buffer buffer to write    * @return number of bytes written    * @throws java.io.IOException e    * @see ReadableByteChannel#read(ByteBuffer)    */
 specifier|protected
 specifier|static
 name|int
@@ -5187,7 +5182,7 @@ name|buffer
 argument_list|)
 return|;
 block|}
-comment|/**    * Helper for {@link #channelRead(ReadableByteChannel, ByteBuffer)}    * and {@link #channelWrite(WritableByteChannel, ByteBuffer)}. Only    * one of readCh or writeCh should be non-null.    *     * @see #channelRead(ReadableByteChannel, ByteBuffer)    * @see #channelWrite(WritableByteChannel, ByteBuffer)    */
+comment|/**    * Helper for {@link #channelRead(ReadableByteChannel, ByteBuffer)}    * and {@link #channelWrite(WritableByteChannel, ByteBuffer)}. Only    * one of readCh or writeCh should be non-null.    *     * @param readCh read channel    * @param writeCh write channel    * @param buf buffer to read or write into/out of    * @return bytes written    * @throws java.io.IOException e    * @see #channelRead(ReadableByteChannel, ByteBuffer)    * @see #channelWrite(WritableByteChannel, ByteBuffer)    */
 specifier|private
 specifier|static
 name|int
