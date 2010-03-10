@@ -10115,7 +10115,7 @@ operator|.
 name|SIZEOF_BOOLEAN
 operator|+
 operator|(
-literal|19
+literal|20
 operator|*
 name|ClassSize
 operator|.
@@ -10125,6 +10125,10 @@ operator|+
 name|ClassSize
 operator|.
 name|OBJECT
+operator|+
+name|Bytes
+operator|.
+name|SIZEOF_INT
 argument_list|)
 decl_stmt|;
 specifier|public
@@ -10159,25 +10163,15 @@ name|ClassSize
 operator|.
 name|ATOMIC_INTEGER
 operator|+
+comment|// Using TreeMap for TreeSet
 name|ClassSize
 operator|.
-name|CONCURRENT_HASHMAP
+name|TREEMAP
 operator|+
-operator|(
-literal|16
-operator|*
+comment|// Using TreeMap for HashMap
 name|ClassSize
 operator|.
-name|CONCURRENT_HASHMAP_ENTRY
-operator|)
-operator|+
-operator|(
-literal|16
-operator|*
-name|ClassSize
-operator|.
-name|CONCURRENT_HASHMAP_SEGMENT
-operator|)
+name|TREEMAP
 operator|+
 name|ClassSize
 operator|.
