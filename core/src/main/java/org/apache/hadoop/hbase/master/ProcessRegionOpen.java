@@ -187,12 +187,10 @@ block|{
 return|return
 literal|"PendingOpenOperation from "
 operator|+
-name|HServerInfo
+name|serverInfo
 operator|.
 name|getServerName
-argument_list|(
-name|serverInfo
-argument_list|)
+argument_list|()
 return|;
 block|}
 annotation|@

@@ -6007,12 +6007,10 @@ block|{
 return|return
 name|getHLogDirectoryName
 argument_list|(
-name|HServerInfo
+name|info
 operator|.
 name|getServerName
-argument_list|(
-name|info
-argument_list|)
+argument_list|()
 argument_list|)
 return|;
 block|}

@@ -330,12 +330,10 @@ name|this
 operator|.
 name|deadServer
 operator|=
-name|HServerInfo
+name|serverInfo
 operator|.
 name|getServerName
-argument_list|(
-name|serverInfo
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|this
 operator|.

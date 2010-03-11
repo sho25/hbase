@@ -410,6 +410,42 @@ operator|==
 literal|null
 condition|)
 block|{
+comment|// if we have the hostname of the RS, use it
+if|if
+condition|(
+name|this
+operator|.
+name|name
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|serverName
+operator|=
+name|getServerName
+argument_list|(
+name|this
+operator|.
+name|name
+argument_list|,
+name|this
+operator|.
+name|serverAddress
+operator|.
+name|getPort
+argument_list|()
+argument_list|,
+name|this
+operator|.
+name|startCode
+argument_list|)
+expr_stmt|;
+block|}
+comment|// go to DNS name resolution only if we dont have the name of the RS
+else|else
+block|{
 name|this
 operator|.
 name|serverName
@@ -425,6 +461,7 @@ operator|.
 name|startCode
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|this
@@ -704,7 +741,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @param info    * @return the server name in the form hostname_startcode_port    */
-specifier|public
+specifier|private
 specifier|static
 name|String
 name|getServerName
