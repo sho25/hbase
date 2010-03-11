@@ -759,6 +759,7 @@ literal|"data"
 argument_list|)
 decl_stmt|;
 specifier|protected
+specifier|static
 name|HTableDescriptor
 name|TABLE_DESCRIPTOR
 decl_stmt|;
@@ -2815,10 +2816,41 @@ name|subdir
 return|;
 block|}
 comment|/*    * A test.    * Subclass to particularize what happens per row.    */
+specifier|static
 specifier|abstract
 class|class
 name|Test
 block|{
+comment|// Below is make it so when Tests are all running in the one
+comment|// jvm, that they each have a differently seeded Random.
+specifier|private
+specifier|static
+specifier|final
+name|Random
+name|randomSeed
+init|=
+operator|new
+name|Random
+argument_list|(
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+argument_list|)
+decl_stmt|;
+specifier|private
+specifier|static
+name|long
+name|nextRandomSeed
+parameter_list|()
+block|{
+return|return
+name|randomSeed
+operator|.
+name|nextLong
+argument_list|()
+return|;
+block|}
 specifier|protected
 specifier|final
 name|Random
@@ -2827,9 +2859,7 @@ init|=
 operator|new
 name|Random
 argument_list|(
-name|System
-operator|.
-name|currentTimeMillis
+name|nextRandomSeed
 argument_list|()
 argument_list|)
 decl_stmt|;
