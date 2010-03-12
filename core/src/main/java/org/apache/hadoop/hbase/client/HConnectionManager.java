@@ -3132,14 +3132,6 @@ name|META_TABLE_NAME
 argument_list|)
 condition|)
 block|{
-synchronized|synchronized
-init|(
-name|metaRegionLock
-init|)
-block|{
-comment|// This block guards against two threads trying to load the meta
-comment|// region at the same time. The first will load the meta region and
-comment|// the second will use the value that the first one found.
 return|return
 name|locateRegionInMeta
 argument_list|(
@@ -3150,17 +3142,14 @@ argument_list|,
 name|row
 argument_list|,
 name|useCache
+argument_list|,
+name|metaRegionLock
 argument_list|)
 return|;
 block|}
-block|}
 else|else
 block|{
-synchronized|synchronized
-init|(
-name|userRegionLock
-init|)
-block|{
+comment|// Region not in the cache - have to go to the meta RS
 return|return
 name|locateRegionInMeta
 argument_list|(
@@ -3171,9 +3160,10 @@ argument_list|,
 name|row
 argument_list|,
 name|useCache
+argument_list|,
+name|userRegionLock
 argument_list|)
 return|;
-block|}
 block|}
 block|}
 comment|/*       * Search one of the meta tables (-ROOT- or .META.) for the HRegionLocation       * info that contains the table and row we're seeking.       */
@@ -3205,6 +3195,9 @@ name|row
 parameter_list|,
 name|boolean
 name|useCache
+parameter_list|,
+name|Object
+name|regionLockObject
 parameter_list|)
 throws|throws
 name|IOException
@@ -3212,8 +3205,8 @@ block|{
 name|HRegionLocation
 name|location
 decl_stmt|;
-comment|// If supposed to be using the cache, then check it for a possible hit.
-comment|// Otherwise, delete any existing cached location so it won't interfere.
+comment|// If we are supposed to be using the cache, look in the cache to see if
+comment|// we already have the region.
 if|if
 condition|(
 name|useCache
@@ -3239,16 +3232,6 @@ return|return
 name|location
 return|;
 block|}
-block|}
-else|else
-block|{
-name|deleteCachedLocation
-argument_list|(
-name|tableName
-argument_list|,
-name|row
-argument_list|)
-expr_stmt|;
 block|}
 comment|// build the key of the meta region we should be looking for.
 comment|// the extra 9's on the end are necessary to allow "exact" matches
@@ -3335,10 +3318,62 @@ name|getServerAddress
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// Query the root or meta region for the location of the meta region
 name|Result
 name|regionInfoRow
 init|=
+literal|null
+decl_stmt|;
+comment|// This block guards against two threads trying to load the meta
+comment|// region at the same time. The first will load the meta region and
+comment|// the second will use the value that the first one found.
+synchronized|synchronized
+init|(
+name|regionLockObject
+init|)
+block|{
+comment|// Check the cache again for a hit in case some other thread made the
+comment|// same query while we were waiting on the lock. If not supposed to
+comment|// be using the cache, delete any existing cached location so it won't
+comment|// interfere.
+if|if
+condition|(
+name|useCache
+condition|)
+block|{
+name|location
+operator|=
+name|getCachedLocation
+argument_list|(
+name|tableName
+argument_list|,
+name|row
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|location
+operator|!=
+literal|null
+condition|)
+block|{
+return|return
+name|location
+return|;
+block|}
+block|}
+else|else
+block|{
+name|deleteCachedLocation
+argument_list|(
+name|tableName
+argument_list|,
+name|row
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Query the root or meta region for the location of the meta region
+name|regionInfoRow
+operator|=
 name|server
 operator|.
 name|getClosestRowBefore
@@ -3357,7 +3392,8 @@ name|HConstants
 operator|.
 name|CATALOG_FAMILY
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|regionInfoRow
