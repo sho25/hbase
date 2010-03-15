@@ -380,6 +380,16 @@ operator|.
 name|length
 argument_list|()
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|ZK_CLIENT_PORT_KEY
+init|=
+name|ZK_CFG_PROPERTY
+operator|+
+literal|"clientPort"
+decl_stmt|;
 comment|/**    * Parse ZooKeeper configuration from HBase XML config and run a QuorumPeer.    * @param args String[] of command line arguments. Not used.    */
 specifier|public
 specifier|static
@@ -1109,6 +1119,29 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+comment|// If clientPort is not set, assign the default
+if|if
+condition|(
+name|zkProperties
+operator|.
+name|getProperty
+argument_list|(
+name|ZK_CLIENT_PORT_KEY
+argument_list|)
+operator|==
+literal|null
+condition|)
+block|{
+name|zkProperties
+operator|.
+name|put
+argument_list|(
+name|ZK_CLIENT_PORT_KEY
+argument_list|,
+name|DEFAULT_ZOOKEPER_CLIENT_PORT
+argument_list|)
+expr_stmt|;
 block|}
 comment|// Create the server.X properties.
 name|int

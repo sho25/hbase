@@ -214,6 +214,14 @@ literal|2
 operator|*
 literal|1000
 decl_stmt|;
+comment|/** default client port that the zookeeper listens on */
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_ZOOKEPER_CLIENT_PORT
+init|=
+literal|2181
+decl_stmt|;
 comment|/** Parameter name for the root dir in ZK for this cluster */
 specifier|static
 specifier|final
