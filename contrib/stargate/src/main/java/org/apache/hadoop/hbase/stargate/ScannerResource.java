@@ -241,8 +241,6 @@ name|hbase
 operator|.
 name|stargate
 operator|.
-name|auth
-operator|.
 name|User
 import|;
 end_import
@@ -392,6 +390,7 @@ specifier|static
 name|void
 name|delete
 parameter_list|(
+specifier|final
 name|String
 name|id
 parameter_list|)
@@ -431,12 +430,15 @@ block|}
 name|Response
 name|update
 parameter_list|(
+specifier|final
 name|ScannerModel
 name|model
 parameter_list|,
+specifier|final
 name|boolean
 name|replace
 parameter_list|,
+specifier|final
 name|UriInfo
 name|uriInfo
 parameter_list|)
@@ -537,6 +539,8 @@ init|=
 operator|new
 name|ScannerInstanceResource
 argument_list|(
+name|user
+argument_list|,
 name|actualTableName
 argument_list|,
 name|id
@@ -673,9 +677,11 @@ specifier|public
 name|Response
 name|put
 parameter_list|(
+specifier|final
 name|ScannerModel
 name|model
 parameter_list|,
+specifier|final
 annotation|@
 name|Context
 name|UriInfo
@@ -731,9 +737,11 @@ specifier|public
 name|Response
 name|post
 parameter_list|(
+specifier|final
 name|ScannerModel
 name|model
 parameter_list|,
+specifier|final
 annotation|@
 name|Context
 name|UriInfo
@@ -781,6 +789,7 @@ specifier|public
 name|ScannerInstanceResource
 name|getScannerInstanceResource
 parameter_list|(
+specifier|final
 annotation|@
 name|PathParam
 argument_list|(

@@ -226,6 +226,7 @@ specifier|private
 name|int
 name|parseRowKeys
 parameter_list|(
+specifier|final
 name|String
 name|path
 parameter_list|,
@@ -542,6 +543,7 @@ specifier|private
 name|int
 name|parseColumns
 parameter_list|(
+specifier|final
 name|String
 name|path
 parameter_list|,
@@ -768,6 +770,7 @@ specifier|private
 name|int
 name|parseTimestamp
 parameter_list|(
+specifier|final
 name|String
 name|path
 parameter_list|,
@@ -1205,6 +1208,7 @@ specifier|public
 name|void
 name|setMaxVersions
 parameter_list|(
+specifier|final
 name|int
 name|maxVersions
 parameter_list|)
@@ -1274,6 +1278,7 @@ specifier|public
 name|void
 name|addColumn
 parameter_list|(
+specifier|final
 name|byte
 index|[]
 name|column
@@ -1354,6 +1359,7 @@ specifier|public
 name|void
 name|setStartTime
 parameter_list|(
+specifier|final
 name|long
 name|startTime
 parameter_list|)

@@ -62,6 +62,14 @@ specifier|public
 specifier|static
 specifier|final
 name|String
+name|USERS_TABLE
+init|=
+literal|"users"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
 name|INSTANCE_ZNODE_ROOT
 init|=
 literal|"/stargate/instance"

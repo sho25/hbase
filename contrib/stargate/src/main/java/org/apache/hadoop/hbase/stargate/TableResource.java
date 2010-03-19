@@ -101,8 +101,6 @@ name|hbase
 operator|.
 name|stargate
 operator|.
-name|auth
-operator|.
 name|User
 import|;
 end_import
@@ -218,6 +216,7 @@ specifier|public
 name|RowResource
 name|getRowResource
 parameter_list|(
+specifier|final
 annotation|@
 name|PathParam
 argument_list|(
@@ -226,6 +225,7 @@ argument_list|)
 name|String
 name|rowspec
 parameter_list|,
+specifier|final
 annotation|@
 name|QueryParam
 argument_list|(

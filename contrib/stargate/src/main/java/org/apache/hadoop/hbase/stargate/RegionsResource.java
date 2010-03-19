@@ -269,8 +269,6 @@ name|hbase
 operator|.
 name|stargate
 operator|.
-name|auth
-operator|.
 name|User
 import|;
 end_import
@@ -500,6 +498,7 @@ specifier|public
 name|Response
 name|get
 parameter_list|(
+specifier|final
 annotation|@
 name|Context
 name|UriInfo

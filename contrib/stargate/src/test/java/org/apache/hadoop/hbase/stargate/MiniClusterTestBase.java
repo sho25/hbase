@@ -338,7 +338,7 @@ name|MiniClusterTestBase
 extends|extends
 name|TestCase
 block|{
-specifier|private
+specifier|protected
 specifier|static
 specifier|final
 name|Log

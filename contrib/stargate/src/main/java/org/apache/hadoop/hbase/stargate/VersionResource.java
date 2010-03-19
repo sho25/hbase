@@ -279,11 +279,13 @@ specifier|public
 name|Response
 name|get
 parameter_list|(
+specifier|final
 annotation|@
 name|Context
 name|ServletContext
 name|context
 parameter_list|,
+specifier|final
 annotation|@
 name|Context
 name|UriInfo
