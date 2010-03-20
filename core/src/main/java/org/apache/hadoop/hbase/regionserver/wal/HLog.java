@@ -303,6 +303,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hdfs
+operator|.
+name|DistributedFileSystem
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|io
 operator|.
 name|Writable
@@ -2855,12 +2869,16 @@ parameter_list|(
 name|HRegionInfo
 name|regionInfo
 parameter_list|,
-name|KeyValue
+name|WALEdit
 name|logEdit
 parameter_list|,
 specifier|final
 name|long
 name|now
+parameter_list|,
+specifier|final
+name|boolean
+name|isMetaRegion
 parameter_list|)
 throws|throws
 name|IOException
@@ -2905,6 +2923,8 @@ name|now
 argument_list|)
 argument_list|,
 name|logEdit
+argument_list|,
+name|isMetaRegion
 argument_list|)
 expr_stmt|;
 block|}
@@ -2953,8 +2973,12 @@ parameter_list|,
 name|HLogKey
 name|logKey
 parameter_list|,
-name|KeyValue
+name|WALEdit
 name|logEdit
+parameter_list|,
+specifier|final
+name|boolean
+name|isMetaRegion
 parameter_list|)
 throws|throws
 name|IOException
@@ -3046,6 +3070,14 @@ name|incrementAndGet
 argument_list|()
 expr_stmt|;
 block|}
+comment|// sync txn to file system
+name|this
+operator|.
+name|sync
+argument_list|(
+name|isMetaRegion
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -3087,10 +3119,7 @@ name|byte
 index|[]
 name|tableName
 parameter_list|,
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
+name|WALEdit
 name|edits
 parameter_list|,
 specifier|final
@@ -3126,15 +3155,9 @@ throw|;
 block|}
 name|long
 name|seqNum
-index|[]
 init|=
 name|obtainSeqNum
-argument_list|(
-name|edits
-operator|.
-name|size
 argument_list|()
-argument_list|)
 decl_stmt|;
 synchronized|synchronized
 init|(
@@ -3156,15 +3179,7 @@ name|putIfAbsent
 argument_list|(
 name|regionName
 argument_list|,
-name|Long
-operator|.
-name|valueOf
-argument_list|(
 name|seqNum
-index|[
-literal|0
-index|]
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|int
@@ -3172,14 +3187,6 @@ name|counter
 init|=
 literal|0
 decl_stmt|;
-for|for
-control|(
-name|KeyValue
-name|kv
-range|:
-name|edits
-control|)
-block|{
 name|HLogKey
 name|logKey
 init|=
@@ -3190,10 +3197,6 @@ argument_list|,
 name|tableName
 argument_list|,
 name|seqNum
-index|[
-name|counter
-operator|++
-index|]
 argument_list|,
 name|now
 argument_list|)
@@ -3204,7 +3207,7 @@ name|info
 argument_list|,
 name|logKey
 argument_list|,
-name|kv
+name|edits
 argument_list|)
 expr_stmt|;
 name|this
@@ -3214,7 +3217,6 @@ operator|.
 name|incrementAndGet
 argument_list|()
 expr_stmt|;
-block|}
 comment|// Only count 1 row as an unflushed entry.
 name|this
 operator|.
@@ -3224,6 +3226,17 @@ name|incrementAndGet
 argument_list|()
 expr_stmt|;
 block|}
+comment|// sync txn to file system
+name|this
+operator|.
+name|sync
+argument_list|(
+name|info
+operator|.
+name|isMetaRegion
+argument_list|()
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -3694,7 +3707,7 @@ parameter_list|,
 name|HLogKey
 name|logKey
 parameter_list|,
-name|KeyValue
+name|WALEdit
 name|logEdit
 parameter_list|)
 throws|throws
@@ -3920,7 +3933,7 @@ return|return
 name|results
 return|;
 block|}
-comment|/**    * By acquiring a log sequence ID, we can allow log messages to continue while    * we flush the cache.    *    * Acquire a lock so that we do not roll the log between the start and    * completion of a cache-flush. Otherwise the log-seq-id for the flush will    * not appear in the correct logfile.    *    * @return sequence ID to pass {@link #completeCacheFlush(byte[], byte[], long)}    * @see #completeCacheFlush(byte[], byte[], long)    * @see #abortCacheFlush()    */
+comment|/**    * By acquiring a log sequence ID, we can allow log messages to continue while    * we flush the cache.    *    * Acquire a lock so that we do not roll the log between the start and    * completion of a cache-flush. Otherwise the log-seq-id for the flush will    * not appear in the correct logfile.    *    * @return sequence ID to pass {@link #completeCacheFlush(byte[], byte[], long, boolean)}    * (byte[], byte[], long)}    * @see #completeCacheFlush(byte[], byte[], long, boolean)    * @see #abortCacheFlush()    */
 specifier|public
 name|long
 name|startCacheFlush
@@ -3956,6 +3969,10 @@ parameter_list|,
 specifier|final
 name|long
 name|logSeqId
+parameter_list|,
+specifier|final
+name|boolean
+name|isMetaRegion
 parameter_list|)
 throws|throws
 name|IOException
@@ -3984,6 +4001,12 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
+name|WALEdit
+name|edits
+init|=
+name|completeCacheFlushLogEdit
+argument_list|()
+decl_stmt|;
 name|this
 operator|.
 name|writer
@@ -4009,8 +4032,7 @@ name|currentTimeMillis
 argument_list|()
 argument_list|)
 argument_list|,
-name|completeCacheFlushLogEdit
-argument_list|()
+name|edits
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -4070,6 +4092,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// sync txn to file system
+name|this
+operator|.
+name|sync
+argument_list|(
+name|isMetaRegion
+argument_list|)
+expr_stmt|;
 block|}
 finally|finally
 block|{
@@ -4083,11 +4113,13 @@ expr_stmt|;
 block|}
 block|}
 specifier|private
-name|KeyValue
+name|WALEdit
 name|completeCacheFlushLogEdit
 parameter_list|()
 block|{
-return|return
+name|KeyValue
+name|kv
+init|=
 operator|new
 name|KeyValue
 argument_list|(
@@ -4104,6 +4136,23 @@ argument_list|()
 argument_list|,
 name|COMPLETE_CACHE_FLUSH
 argument_list|)
+decl_stmt|;
+name|WALEdit
+name|e
+init|=
+operator|new
+name|WALEdit
+argument_list|()
+decl_stmt|;
+name|e
+operator|.
+name|add
+argument_list|(
+name|kv
+argument_list|)
+expr_stmt|;
+return|return
+name|e
 return|;
 block|}
 comment|/**    * Abort a cache flush.    * Call if the flush fails. Note that the only recovery for an aborted flush    * currently is a restart of the regionserver so the snapshot content dropped    * by the failure gets restored to the memstore.    */
@@ -5841,7 +5890,7 @@ implements|implements
 name|Writable
 block|{
 specifier|private
-name|KeyValue
+name|WALEdit
 name|edit
 decl_stmt|;
 specifier|private
@@ -5855,7 +5904,7 @@ block|{
 name|edit
 operator|=
 operator|new
-name|KeyValue
+name|WALEdit
 argument_list|()
 expr_stmt|;
 name|key
@@ -5872,7 +5921,7 @@ parameter_list|(
 name|HLogKey
 name|key
 parameter_list|,
-name|KeyValue
+name|WALEdit
 name|edit
 parameter_list|)
 block|{
@@ -5894,7 +5943,7 @@ expr_stmt|;
 block|}
 comment|/**      * Gets the edit      * @return edit      */
 specifier|public
-name|KeyValue
+name|WALEdit
 name|getEdit
 parameter_list|()
 block|{

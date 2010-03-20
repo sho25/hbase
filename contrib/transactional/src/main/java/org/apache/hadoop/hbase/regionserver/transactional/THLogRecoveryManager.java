@@ -229,7 +229,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|HLog
 import|;
 end_import
 
@@ -247,7 +251,7 @@ name|regionserver
 operator|.
 name|wal
 operator|.
-name|HLog
+name|WALEdit
 import|;
 end_import
 
@@ -284,6 +288,24 @@ operator|.
 name|transactional
 operator|.
 name|TransactionLogger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|WALEdit
 import|;
 end_import
 
@@ -435,7 +457,7 @@ name|Long
 argument_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|WALEdit
 argument_list|>
 argument_list|>
 name|getCommitsFromLog
@@ -523,7 +545,7 @@ name|Long
 argument_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|WALEdit
 argument_list|>
 argument_list|>
 name|pendingTransactionsById
@@ -535,7 +557,7 @@ name|Long
 argument_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|WALEdit
 argument_list|>
 argument_list|>
 argument_list|()
@@ -657,7 +679,7 @@ operator|.
 name|getKey
 argument_list|()
 decl_stmt|;
-name|KeyValue
+name|WALEdit
 name|val
 init|=
 name|entry
@@ -746,7 +768,7 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|KeyValue
+name|WALEdit
 argument_list|>
 name|updates
 init|=
@@ -780,7 +802,7 @@ operator|=
 operator|new
 name|ArrayList
 argument_list|<
-name|KeyValue
+name|WALEdit
 argument_list|>
 argument_list|()
 expr_stmt|;
@@ -807,7 +829,7 @@ expr_stmt|;
 name|val
 operator|=
 operator|new
-name|KeyValue
+name|WALEdit
 argument_list|()
 expr_stmt|;
 name|writeCount
@@ -1081,7 +1103,7 @@ name|Long
 argument_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|WALEdit
 argument_list|>
 argument_list|>
 name|resolvePendingTransaction
@@ -1092,7 +1114,7 @@ name|Long
 argument_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|WALEdit
 argument_list|>
 argument_list|>
 name|pendingTransactionsById
@@ -1104,7 +1126,7 @@ name|Long
 argument_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|WALEdit
 argument_list|>
 argument_list|>
 name|commitedTransactionsById
@@ -1116,7 +1138,7 @@ name|Long
 argument_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|WALEdit
 argument_list|>
 argument_list|>
 argument_list|()
@@ -1143,7 +1165,7 @@ name|Long
 argument_list|,
 name|List
 argument_list|<
-name|KeyValue
+name|WALEdit
 argument_list|>
 argument_list|>
 name|entry

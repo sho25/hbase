@@ -355,6 +355,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|WALEdit
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -1455,7 +1473,7 @@ operator|-
 literal|1
 return|;
 block|}
-comment|/*    * Read the reconstructionLog and put into memstore.     *    * We can ignore any log message that has a sequence ID that's equal to or     * lower than maxSeqID.  (Because we know such log messages are already     * reflected in the MapFiles.)    *    * @return the new max sequence id as per the log, or -1 if no log recovered    */
+comment|/*    * Read the reconstructionLog and put into memstore.     *    * We can ignore any log message that has a sequence ID that's equal to or     * lower than maxSeqID.  (Because we know such log messages are already     * reflected in the HFiles.)    *    * @return the new max sequence id as per the log, or -1 if no log recovered    */
 specifier|private
 name|long
 name|doReconstructionLog
@@ -1607,6 +1625,14 @@ operator|.
 name|Entry
 name|entry
 decl_stmt|;
+comment|// TBD: Need to add an exception handler around logReader.next.
+comment|//
+comment|// A transaction now appears as a single edit. If logReader.next()
+comment|// returns an exception, then it must be a incomplete/partial
+comment|// transaction at the end of the file. Rather than bubble up
+comment|// the exception, we should catch it and simply ignore the
+comment|// partial transaction during this recovery phase.
+comment|//
 while|while
 condition|(
 operator|(
@@ -1629,7 +1655,7 @@ operator|.
 name|getKey
 argument_list|()
 decl_stmt|;
-name|KeyValue
+name|WALEdit
 name|val
 init|=
 name|entry
@@ -1682,11 +1708,22 @@ operator|++
 expr_stmt|;
 continue|continue;
 block|}
+for|for
+control|(
+name|KeyValue
+name|kv
+range|:
+name|val
+operator|.
+name|getKeyValues
+argument_list|()
+control|)
+block|{
 comment|// Check this edit is for me. Also, guard against writing the special
 comment|// METACOLUMN info such as HBASE::CACHEFLUSH entries
 if|if
 condition|(
-name|val
+name|kv
 operator|.
 name|matchingFamily
 argument_list|(
@@ -1714,7 +1751,7 @@ argument_list|()
 argument_list|)
 operator|||
 operator|!
-name|val
+name|kv
 operator|.
 name|matchingFamily
 argument_list|(
@@ -1729,7 +1766,7 @@ continue|continue;
 block|}
 if|if
 condition|(
-name|val
+name|kv
 operator|.
 name|isDelete
 argument_list|()
@@ -1741,7 +1778,7 @@ name|memstore
 operator|.
 name|delete
 argument_list|(
-name|val
+name|kv
 argument_list|)
 expr_stmt|;
 block|}
@@ -1753,13 +1790,14 @@ name|memstore
 operator|.
 name|add
 argument_list|(
-name|val
+name|kv
 argument_list|)
 expr_stmt|;
 block|}
 name|editsCount
 operator|++
 expr_stmt|;
+block|}
 comment|// Every 2k edits, tell the reporter we're making progress.
 comment|// Have seen 60k edits taking 3minutes to complete.
 if|if
@@ -1783,13 +1821,6 @@ name|progress
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Instantiate a new KeyValue to perform Writable on
-name|val
-operator|=
-operator|new
-name|KeyValue
-argument_list|()
-expr_stmt|;
 block|}
 if|if
 condition|(
@@ -3939,7 +3970,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Do a minor/major compaction.  Uses the scan infrastructure to make it easy.    *     * @param writer output writer    * @param filesToCompact which files to compact    * @param majorCompaction true to major compact (prune all deletes, max versions, etc)    * @param maxId Readers maximum sequence id.    * @return Product of compaction or null if all cells expired or deleted and    * nothing made it through the compaction.    * @throws IOException    */
+comment|/**    * Do a minor/major compaction.  Uses the scan infrastructure to make it easy.    *     * @param filesToCompact which files to compact    * @param majorCompaction true to major compact (prune all deletes, max versions, etc)    * @param maxId Readers maximum sequence id.    * @return Product of compaction or null if all cells expired or deleted and    * nothing made it through the compaction.    * @throws IOException    */
 specifier|private
 name|HFile
 operator|.

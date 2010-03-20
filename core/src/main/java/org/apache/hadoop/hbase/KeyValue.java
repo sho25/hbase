@@ -7464,11 +7464,16 @@ operator|)
 argument_list|)
 return|;
 block|}
-comment|// Writable
+comment|// this overload assumes that the length bytes have already been read,
+comment|// and it expects the length of the KeyValue to be explicitly passed
+comment|// to it.
 specifier|public
 name|void
 name|readFields
 parameter_list|(
+name|int
+name|length
+parameter_list|,
 specifier|final
 name|DataInput
 name|in
@@ -7480,10 +7485,7 @@ name|this
 operator|.
 name|length
 operator|=
-name|in
-operator|.
-name|readInt
-argument_list|()
+name|length
 expr_stmt|;
 name|this
 operator|.
@@ -7516,6 +7518,34 @@ argument_list|,
 name|this
 operator|.
 name|length
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Writable
+specifier|public
+name|void
+name|readFields
+parameter_list|(
+specifier|final
+name|DataInput
+name|in
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|int
+name|length
+init|=
+name|in
+operator|.
+name|readInt
+argument_list|()
+decl_stmt|;
+name|readFields
+argument_list|(
+name|length
+argument_list|,
+name|in
 argument_list|)
 expr_stmt|;
 block|}

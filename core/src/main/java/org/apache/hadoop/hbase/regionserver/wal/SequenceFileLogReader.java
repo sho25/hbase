@@ -91,7 +91,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|HLog
 import|;
 end_import
 
@@ -109,7 +113,7 @@ name|regionserver
 operator|.
 name|wal
 operator|.
-name|HLog
+name|WALEdit
 import|;
 end_import
 
@@ -435,11 +439,11 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|KeyValue
+name|WALEdit
 name|val
 init|=
 operator|new
-name|KeyValue
+name|WALEdit
 argument_list|()
 decl_stmt|;
 if|if

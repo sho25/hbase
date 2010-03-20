@@ -229,7 +229,7 @@ argument_list|(
 name|conf
 argument_list|)
 argument_list|,
-name|KeyValue
+name|WALEdit
 operator|.
 name|class
 argument_list|,
