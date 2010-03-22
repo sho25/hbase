@@ -1518,30 +1518,25 @@ operator|-
 literal|1
 return|;
 block|}
-comment|// Check its not empty.
 name|FileStatus
-index|[]
-name|stats
+name|stat
 init|=
 name|this
 operator|.
 name|fs
 operator|.
-name|listStatus
+name|getFileStatus
 argument_list|(
 name|reconstructionLog
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|stats
-operator|==
-literal|null
-operator|||
-name|stats
+name|stat
 operator|.
-name|length
-operator|==
+name|getLen
+argument_list|()
+operator|<=
 literal|0
 condition|)
 block|{
@@ -1553,7 +1548,16 @@ literal|"Passed reconstruction log "
 operator|+
 name|reconstructionLog
 operator|+
-literal|" is zero-length"
+literal|" is zero-length. Deleting existing file"
+argument_list|)
+expr_stmt|;
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|reconstructionLog
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 return|return
