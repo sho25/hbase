@@ -4672,6 +4672,10 @@ name|WriterAndPath
 argument_list|>
 name|logWriters
 init|=
+name|Collections
+operator|.
+name|synchronizedMap
+argument_list|(
 operator|new
 name|TreeMap
 argument_list|<
@@ -4684,6 +4688,7 @@ argument_list|(
 name|Bytes
 operator|.
 name|BYTES_COMPARATOR
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|List
