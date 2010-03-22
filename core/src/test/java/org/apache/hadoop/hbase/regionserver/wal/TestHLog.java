@@ -770,7 +770,7 @@ block|}
 comment|/**    * Test new HDFS-265 sync.    * @throws Exception    */
 specifier|public
 name|void
-name|testSync
+name|Broken_testSync
 parameter_list|()
 throws|throws
 name|Exception

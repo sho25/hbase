@@ -270,7 +270,7 @@ name|setUpBeforeClass
 parameter_list|()
 throws|throws
 name|Exception
-block|{ }
+block|{   }
 comment|/**    * @throws java.lang.Exception    */
 annotation|@
 name|AfterClass
@@ -760,6 +760,12 @@ operator|.
 name|sync
 argument_list|()
 expr_stmt|;
+comment|// TODO dont close the file here.
+name|log
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|List
 argument_list|<
 name|Path
@@ -798,14 +804,14 @@ name|conf
 argument_list|)
 decl_stmt|;
 comment|// Split should generate only 1 file since there's only 1 region
-name|assertTrue
+name|assertEquals
 argument_list|(
+literal|1
+argument_list|,
 name|splits
 operator|.
 name|size
 argument_list|()
-operator|==
-literal|1
 argument_list|)
 expr_stmt|;
 comment|// Make sure the file exists
@@ -880,12 +886,12 @@ expr_stmt|;
 comment|// Make sure we only see the good edits
 name|assertEquals
 argument_list|(
+name|TOTAL_EDITS
+argument_list|,
 name|result
 operator|.
 name|size
 argument_list|()
-argument_list|,
-name|TOTAL_EDITS
 argument_list|)
 expr_stmt|;
 block|}
