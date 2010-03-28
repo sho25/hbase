@@ -7764,15 +7764,7 @@ name|println
 argument_list|(
 literal|"K: "
 operator|+
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
 name|kv
-operator|.
-name|getKey
-argument_list|()
-argument_list|)
 operator|+
 literal|" V: "
 operator|+
