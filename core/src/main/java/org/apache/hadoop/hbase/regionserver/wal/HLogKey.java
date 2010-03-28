@@ -118,8 +118,6 @@ name|WritableComparable
 argument_list|<
 name|HLogKey
 argument_list|>
-implements|,
-name|HeapSize
 block|{
 specifier|private
 name|byte
@@ -764,27 +762,6 @@ parameter_list|)
 block|{
 comment|// Means it's an old key, just continue
 block|}
-block|}
-specifier|public
-name|long
-name|heapSize
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|regionName
-operator|.
-name|length
-operator|+
-name|this
-operator|.
-name|tablename
-operator|.
-name|length
-operator|+
-name|HEAP_TAX
-return|;
 block|}
 block|}
 end_class

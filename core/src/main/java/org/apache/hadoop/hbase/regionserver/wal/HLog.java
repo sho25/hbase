@@ -800,6 +800,12 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+name|long
+name|getLength
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 block|}
 comment|// used to indirectly tell syncFs to force the sync
 specifier|private
@@ -895,18 +901,6 @@ name|numEntries
 init|=
 operator|new
 name|AtomicInteger
-argument_list|(
-literal|0
-argument_list|)
-decl_stmt|;
-comment|// Size of edits written so far. Used figuring when to rotate logs.
-specifier|private
-specifier|final
-name|AtomicLong
-name|editsSize
-init|=
-operator|new
-name|AtomicLong
 argument_list|(
 literal|0
 argument_list|)
@@ -1596,15 +1590,6 @@ operator|.
 name|get
 argument_list|()
 operator|+
-literal|", calcsize="
-operator|+
-name|this
-operator|.
-name|editsSize
-operator|.
-name|get
-argument_list|()
-operator|+
 literal|", filesize="
 operator|+
 name|this
@@ -1723,15 +1708,6 @@ block|}
 name|this
 operator|.
 name|numEntries
-operator|.
-name|set
-argument_list|(
-literal|0
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|editsSize
 operator|.
 name|set
 argument_list|(
@@ -3082,9 +3058,9 @@ if|if
 condition|(
 name|this
 operator|.
-name|editsSize
+name|writer
 operator|.
-name|get
+name|getLength
 argument_list|()
 operator|>
 name|this
@@ -3241,9 +3217,9 @@ if|if
 condition|(
 name|this
 operator|.
-name|editsSize
+name|writer
 operator|.
-name|get
+name|getLength
 argument_list|()
 operator|>
 name|this
@@ -3725,23 +3701,6 @@ return|return;
 block|}
 try|try
 block|{
-name|this
-operator|.
-name|editsSize
-operator|.
-name|addAndGet
-argument_list|(
-name|logKey
-operator|.
-name|heapSize
-argument_list|()
-operator|+
-name|logEdit
-operator|.
-name|heapSize
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|long
 name|now
 init|=

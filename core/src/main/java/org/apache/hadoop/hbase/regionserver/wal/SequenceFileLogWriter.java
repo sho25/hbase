@@ -473,6 +473,24 @@ name|syncFs
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getLength
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+return|return
+name|this
+operator|.
+name|writer
+operator|.
+name|getLength
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 
