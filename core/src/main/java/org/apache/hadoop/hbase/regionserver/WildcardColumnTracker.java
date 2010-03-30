@@ -217,11 +217,6 @@ name|int
 name|length
 parameter_list|)
 block|{
-name|boolean
-name|recursive
-init|=
-literal|false
-decl_stmt|;
 do|do
 block|{
 comment|// Nothing to match against, add to new and include
@@ -407,6 +402,7 @@ operator|.
 name|INCLUDE
 return|;
 block|}
+comment|// recursive case
 name|this
 operator|.
 name|newColumn
@@ -417,11 +413,6 @@ name|get
 argument_list|(
 name|newIndex
 argument_list|)
-expr_stmt|;
-comment|//return checkColumn(bytes, offset, length);
-name|recursive
-operator|=
-literal|true
 expr_stmt|;
 continue|continue;
 block|}
@@ -602,6 +593,7 @@ operator|.
 name|INCLUDE
 return|;
 block|}
+comment|// recursive case
 name|this
 operator|.
 name|column
@@ -612,11 +604,6 @@ name|get
 argument_list|(
 name|index
 argument_list|)
-expr_stmt|;
-comment|//return checkColumn(bytes, offset, length);
-name|recursive
-operator|=
-literal|true
 expr_stmt|;
 continue|continue;
 block|}
@@ -818,11 +805,7 @@ name|index
 argument_list|)
 expr_stmt|;
 block|}
-comment|//return checkColumn(bytes, offset, length);
-name|recursive
-operator|=
-literal|true
-expr_stmt|;
+comment|// Recursive case
 continue|continue;
 block|}
 comment|// ret>= 1
@@ -964,11 +947,7 @@ name|newIndex
 argument_list|)
 expr_stmt|;
 block|}
-comment|//return checkColumn(bytes, offset, length);
-name|recursive
-operator|=
-literal|true
-expr_stmt|;
+comment|// Recursive case
 continue|continue;
 block|}
 comment|// ret>= 1
@@ -1000,32 +979,9 @@ block|}
 block|}
 do|while
 condition|(
-name|recursive
+literal|true
 condition|)
 do|;
-comment|// No match happened, add to new and include
-name|newColumns
-operator|.
-name|add
-argument_list|(
-operator|new
-name|ColumnCount
-argument_list|(
-name|bytes
-argument_list|,
-name|offset
-argument_list|,
-name|length
-argument_list|,
-literal|1
-argument_list|)
-argument_list|)
-expr_stmt|;
-return|return
-name|MatchCode
-operator|.
-name|INCLUDE
-return|;
 block|}
 comment|/**    * Called at the end of every StoreFile or memstore.    */
 specifier|public

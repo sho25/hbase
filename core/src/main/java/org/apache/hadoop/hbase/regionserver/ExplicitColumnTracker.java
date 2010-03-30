@@ -194,11 +194,6 @@ name|int
 name|length
 parameter_list|)
 block|{
-name|boolean
-name|recursive
-init|=
-literal|false
-decl_stmt|;
 do|do
 block|{
 comment|// No more columns left, we are done with this query
@@ -347,6 +342,20 @@ operator|.
 name|INCLUDE
 return|;
 block|}
+if|if
+condition|(
+name|ret
+operator|>
+literal|0
+condition|)
+block|{
+comment|// Specified column is smaller than the current, skip to next column.
+return|return
+name|MatchCode
+operator|.
+name|SKIP
+return|;
+block|}
 comment|// Specified column is bigger than current column
 comment|// Move down current column and check again
 if|if
@@ -380,6 +389,7 @@ name|NEXT
 return|;
 comment|// done_row
 block|}
+comment|// This is the recursive case.
 name|this
 operator|.
 name|column
@@ -395,26 +405,13 @@ operator|.
 name|index
 argument_list|)
 expr_stmt|;
-name|recursive
-operator|=
-literal|true
-expr_stmt|;
-continue|continue;
 block|}
 block|}
 do|while
 condition|(
-name|recursive
+literal|true
 condition|)
 do|;
-comment|// Specified column is smaller than current column
-comment|// Skip
-return|return
-name|MatchCode
-operator|.
-name|SKIP
-return|;
-comment|// skip to next column, with hint?
 block|}
 comment|/**    * Called at the end of every StoreFile or memstore.    */
 specifier|public
