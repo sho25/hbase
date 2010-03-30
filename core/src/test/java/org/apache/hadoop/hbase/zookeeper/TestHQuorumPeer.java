@@ -873,7 +873,10 @@ literal|2181
 argument_list|,
 name|config
 operator|.
-name|getClientPort
+name|getClientPortAddress
+argument_list|()
+operator|.
+name|getPort
 argument_list|()
 argument_list|)
 expr_stmt|;
