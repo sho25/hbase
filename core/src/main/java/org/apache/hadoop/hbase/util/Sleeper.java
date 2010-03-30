@@ -96,6 +96,14 @@ specifier|final
 name|AtomicBoolean
 name|stop
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|TIME_FOR_WARNING
+init|=
+literal|30000
+decl_stmt|;
 comment|/**    * @param sleep sleep time in milliseconds    * @param stop flag for when we stop    */
 specifier|public
 name|Sleeper
@@ -258,13 +266,7 @@ if|if
 condition|(
 name|slept
 operator|>
-operator|(
-literal|10L
-operator|*
-name|this
-operator|.
-name|period
-operator|)
+name|TIME_FOR_WARNING
 condition|)
 block|{
 name|LOG
@@ -275,11 +277,11 @@ literal|"We slept "
 operator|+
 name|slept
 operator|+
-literal|"ms, ten times longer than scheduled: "
+literal|"ms, this is likely due to a long "
 operator|+
-name|this
-operator|.
-name|period
+literal|"garbage collecting pause and it's usually bad, "
+operator|+
+literal|"see http://wiki.apache.org/hadoop/Hbase/Troubleshooting#A9"
 argument_list|)
 expr_stmt|;
 block|}
