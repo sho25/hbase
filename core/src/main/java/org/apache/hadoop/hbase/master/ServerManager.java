@@ -1615,17 +1615,9 @@ operator|==
 literal|null
 condition|)
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|warn
 argument_list|(
 literal|"Received report from unknown server -- telling it "
 operator|+
@@ -1643,7 +1635,6 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 comment|// The HBaseMaster may have been restarted.
 comment|// Tell the RegionServer to start over and call regionServerStartup()
 return|return
