@@ -1810,7 +1810,6 @@ expr_stmt|;
 block|}
 comment|/**    * Bulk commit a List of Deletes to the table.    * @param deletes List of deletes.  List is modified by this method.  On    * exception holds deletes that were NOT applied.    * @throws IOException    * @since 0.20.1    */
 specifier|public
-specifier|synchronized
 name|void
 name|delete
 parameter_list|(
@@ -1863,7 +1862,6 @@ block|}
 block|}
 comment|/**    * Commit a Put to the table.    *<p>    * If autoFlush is false, the update is buffered.    * @param put data to put    * @throws IOException    * @since 0.20.0    */
 specifier|public
-specifier|synchronized
 name|void
 name|put
 parameter_list|(
@@ -1887,7 +1885,6 @@ expr_stmt|;
 block|}
 comment|/**    * Commit a List of Puts to the table.    *<p>    * If autoFlush is false, the update is buffered.    * @param puts list of puts    * @throws IOException if a remote or network exception occurs    * @since 0.20.0    */
 specifier|public
-specifier|synchronized
 name|void
 name|put
 parameter_list|(
@@ -2154,7 +2151,6 @@ return|;
 block|}
 comment|/**    * Atomically checks if a row/family/qualifier value match the expectedValue.    * If it does, it adds the put.  If value == null, checks for non-existance    * of the value.    *    * @param row to check    * @param family column family    * @param qualifier column qualifier    * @param value the expected value    * @param put put to execute if value matches.    * @throws IOException    * @return true if the new put was execute, false otherwise    */
 specifier|public
-specifier|synchronized
 name|boolean
 name|checkAndPut
 parameter_list|(
