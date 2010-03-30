@@ -137,6 +137,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|util
 operator|.
 name|StringUtils
@@ -179,7 +195,7 @@ name|INPUT_TABLE
 init|=
 literal|"hbase.mapreduce.inputtable"
 decl_stmt|;
-comment|/** Base-64 encoded scanner. All other SCAN_ confs are ignored if this is specified. */
+comment|/** Base-64 encoded scanner. All other SCAN_ confs are ignored if this is specified.    * See {@link TableMapReduceUtil#convertScanToString(Scan)} for more details.    */
 specifier|public
 specifier|static
 specifier|final
@@ -187,6 +203,15 @@ name|String
 name|SCAN
 init|=
 literal|"hbase.mapreduce.scan"
+decl_stmt|;
+comment|/** Column Family to Scan */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|SCAN_COLUMN_FAMILY
+init|=
+literal|"hbase.mapreduce.scan.column.family"
 decl_stmt|;
 comment|/** Space delimited list of columns to scan. */
 specifier|public
@@ -417,6 +442,36 @@ operator|.
 name|get
 argument_list|(
 name|SCAN_COLUMNS
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|conf
+operator|.
+name|get
+argument_list|(
+name|SCAN_COLUMN_FAMILY
+argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
+name|scan
+operator|.
+name|addFamily
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|conf
+operator|.
+name|get
+argument_list|(
+name|SCAN_COLUMN_FAMILY
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
