@@ -4148,7 +4148,7 @@ name|s
 operator|.
 name|isPendingOpen
 argument_list|()
-operator|||
+operator|&&
 operator|!
 name|s
 operator|.
