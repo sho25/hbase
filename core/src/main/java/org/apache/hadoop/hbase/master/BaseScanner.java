@@ -2398,19 +2398,6 @@ argument_list|(
 name|r
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"GET got values when meta found none: serverAddress="
-operator|+
-name|sa
-operator|+
-literal|", startCode="
-operator|+
-name|sc
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 block|}
