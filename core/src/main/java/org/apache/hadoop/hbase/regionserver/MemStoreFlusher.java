@@ -910,11 +910,89 @@ name|boolean
 name|removeFromQueue
 parameter_list|)
 block|{
+comment|// if removeFromQueue, then we come from flushSomeRegions and we need
+comment|// to block if there's too many store files. Else, we don't want to hang
+comment|// the main flushing thread so we'll just the region at the end of the
+comment|// queue if there's too many files.
+if|if
+condition|(
+name|removeFromQueue
+condition|)
+block|{
 name|checkStoreFileCount
 argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|isTooManyStoreFiles
+argument_list|(
+name|region
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Region "
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" has too many "
+operator|+
+literal|"store files, putting it back at the end of the flush queue."
+argument_list|)
+expr_stmt|;
+name|server
+operator|.
+name|compactSplitThread
+operator|.
+name|compactionRequested
+argument_list|(
+name|region
+argument_list|,
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// If there's only this item in the queue or they are all in this
+comment|// situation, we will loop at lot. Sleep a bit.
+try|try
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{ }
+comment|// just continue
+name|flushQueue
+operator|.
+name|add
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
+comment|// Tell a lie, it's not flushed but it's ok
+return|return
+literal|true
+return|;
+block|}
 synchronized|synchronized
 init|(
 name|regionsInQueue
@@ -1281,6 +1359,48 @@ literal|"ms, continuing"
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+specifier|private
+name|boolean
+name|isTooManyStoreFiles
+parameter_list|(
+name|HRegion
+name|region
+parameter_list|)
+block|{
+for|for
+control|(
+name|Store
+name|hstore
+range|:
+name|region
+operator|.
+name|stores
+operator|.
+name|values
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+name|hstore
+operator|.
+name|getStorefilesCount
+argument_list|()
+operator|>
+name|this
+operator|.
+name|blockingStoreFilesNumber
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+block|}
+return|return
+literal|false
+return|;
 block|}
 comment|/**    * Check if the regionserver's memstore memory usage is greater than the     * limit. If so, flush regions with the biggest memstores until we're down    * to the lower limit. This method blocks callers until we're down to a safe    * amount of memstore consumption.    */
 specifier|public
