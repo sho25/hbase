@@ -328,6 +328,13 @@ argument_list|(
 name|trrRowFilter
 argument_list|)
 expr_stmt|;
+name|scan
+operator|.
+name|setCacheBlocks
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|scanner
