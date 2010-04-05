@@ -100,9 +100,9 @@ specifier|private
 specifier|static
 specifier|final
 name|long
-name|TIME_FOR_WARNING
+name|MINIMAL_DELTA_FOR_LOGGING
 init|=
-literal|30000
+literal|10000
 decl_stmt|;
 comment|/**    * @param sleep sleep time in milliseconds    * @param stop flag for when we stop    */
 specifier|public
@@ -265,8 +265,12 @@ decl_stmt|;
 if|if
 condition|(
 name|slept
+operator|-
+name|this
+operator|.
+name|period
 operator|>
-name|TIME_FOR_WARNING
+name|MINIMAL_DELTA_FOR_LOGGING
 condition|)
 block|{
 name|LOG
@@ -276,6 +280,12 @@ argument_list|(
 literal|"We slept "
 operator|+
 name|slept
+operator|+
+literal|"ms instead of "
+operator|+
+name|this
+operator|.
+name|period
 operator|+
 literal|"ms, this is likely due to a long "
 operator|+
