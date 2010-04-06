@@ -317,9 +317,9 @@ decl_stmt|;
 name|double
 name|rate
 init|=
-literal|10.0
+literal|20.0
 decl_stmt|;
-comment|// default, 10 ops added per second
+comment|// default, 20 ops added per second
 name|int
 name|size
 init|=

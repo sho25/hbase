@@ -105,6 +105,19 @@ name|nodes
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @return true if no locations have been added, false otherwise    */
+specifier|public
+name|boolean
+name|isEmpty
+parameter_list|()
+block|{
+return|return
+name|nodes
+operator|.
+name|isEmpty
+argument_list|()
+return|;
+block|}
 comment|/**    * Add a node to the cluster    * @param node the service location in 'host:port' format    */
 specifier|public
 name|Cluster

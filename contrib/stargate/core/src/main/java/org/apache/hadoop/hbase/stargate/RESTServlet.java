@@ -1328,6 +1328,24 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|multiuser
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"multiuser mode enabled"
+argument_list|)
+expr_stmt|;
+name|getAuthenticator
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override
@@ -1911,6 +1929,15 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"using authenticator "
+operator|+
+name|authenticator
+argument_list|)
+expr_stmt|;
 block|}
 return|return
 name|authenticator
@@ -1946,6 +1973,11 @@ name|want
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+if|if
+condition|(
+name|multiuser
+condition|)
 block|{
 name|UserData
 name|ud
@@ -2030,6 +2062,7 @@ argument_list|(
 name|want
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 literal|true
 return|;
