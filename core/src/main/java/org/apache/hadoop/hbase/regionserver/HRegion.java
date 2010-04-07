@@ -6492,11 +6492,9 @@ throw|throw
 operator|new
 name|NotServingRegionException
 argument_list|(
-literal|"Region "
-operator|+
 name|this
 operator|+
-literal|" closed"
+literal|" is closed"
 argument_list|)
 throw|;
 block|}

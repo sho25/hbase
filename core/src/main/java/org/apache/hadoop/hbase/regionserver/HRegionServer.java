@@ -7055,7 +7055,15 @@ name|InterruptedException
 name|ex
 parameter_list|)
 block|{
-comment|// continue
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Processing Worker queue"
+argument_list|,
+name|ex
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -8639,11 +8647,16 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Batch puts: "
+literal|"Batch puts interrupted at index="
 operator|+
 name|i
-argument_list|,
+operator|+
+literal|" because:"
+operator|+
 name|ex
+operator|.
+name|getMessage
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
