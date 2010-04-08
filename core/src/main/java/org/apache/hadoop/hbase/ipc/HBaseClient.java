@@ -2023,7 +2023,7 @@ name|call
 init|=
 name|calls
 operator|.
-name|remove
+name|get
 argument_list|(
 name|id
 argument_list|)
@@ -2094,6 +2094,13 @@ operator|.
 name|setValue
 argument_list|(
 name|value
+argument_list|)
+expr_stmt|;
+name|calls
+operator|.
+name|remove
+argument_list|(
+name|id
 argument_list|)
 expr_stmt|;
 block|}
@@ -2844,6 +2851,11 @@ name|call
 argument_list|)
 expr_stmt|;
 comment|// send the parameter
+name|boolean
+name|interrupted
+init|=
+literal|false
+decl_stmt|;
 comment|//noinspection SynchronizationOnLocalVariableOrMethodParameter
 synchronized|synchronized
 init|(
@@ -2872,7 +2884,28 @@ parameter_list|(
 name|InterruptedException
 name|ignored
 parameter_list|)
-block|{}
+block|{
+comment|// save the fact that we were interrupted
+name|interrupted
+operator|=
+literal|true
+expr_stmt|;
+block|}
+block|}
+if|if
+condition|(
+name|interrupted
+condition|)
+block|{
+comment|// set the interrupt flag now that we are done waiting
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
 block|}
 if|if
 condition|(
