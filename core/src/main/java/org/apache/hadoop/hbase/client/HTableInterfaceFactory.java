@@ -52,6 +52,15 @@ index|[]
 name|tableName
 parameter_list|)
 function_decl|;
+comment|/**    * Release the HTable resource represented by the table.    * @param table    */
+name|void
+name|releaseHTableInterface
+parameter_list|(
+specifier|final
+name|HTableInterface
+name|table
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 
