@@ -928,12 +928,24 @@ block|}
 elseif|else
 if|if
 condition|(
+operator|(
+operator|!
+name|region
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|isMetaRegion
+argument_list|()
+operator|)
+operator|&&
 name|isTooManyStoreFiles
 argument_list|(
 name|region
 argument_list|)
 condition|)
 block|{
+comment|// Note: We don't impose blockingStoreFiles constraint on meta regions
 name|LOG
 operator|.
 name|warn

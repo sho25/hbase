@@ -5663,6 +5663,18 @@ name|void
 name|checkResources
 parameter_list|()
 block|{
+comment|// If catalog region, do not impose resource constraints or block updates.
+if|if
+condition|(
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|isMetaRegion
+argument_list|()
+condition|)
+return|return;
 name|boolean
 name|blocked
 init|=
