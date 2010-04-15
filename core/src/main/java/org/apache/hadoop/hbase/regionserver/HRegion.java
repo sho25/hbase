@@ -2037,20 +2037,16 @@ return|return
 literal|null
 return|;
 block|}
-name|this
-operator|.
-name|closing
-operator|.
-name|set
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 synchronized|synchronized
 init|(
 name|splitLock
 init|)
 block|{
+name|boolean
+name|wasFlushing
+init|=
+literal|false
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|writestate
@@ -2064,6 +2060,12 @@ name|writesEnabled
 operator|=
 literal|false
 expr_stmt|;
+name|wasFlushing
+operator|=
+name|writestate
+operator|.
+name|flushing
+expr_stmt|;
 name|LOG
 operator|.
 name|debug
@@ -2072,7 +2074,7 @@ literal|"Closing "
 operator|+
 name|this
 operator|+
-literal|": compactions& flushes disabled "
+literal|": disabling compactions& flushes"
 argument_list|)
 expr_stmt|;
 while|while
@@ -2145,6 +2147,37 @@ comment|// continue
 block|}
 block|}
 block|}
+comment|// If we were not just flushing, is it worth doing a preflush...one
+comment|// that will clear out of the bulk of the memstore before we put up
+comment|// the close flag?
+if|if
+condition|(
+operator|!
+name|abort
+operator|&&
+operator|!
+name|wasFlushing
+operator|&&
+name|worthPreFlushing
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Running close preflush of "
+operator|+
+name|this
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|internalFlushcache
+argument_list|()
+expr_stmt|;
+block|}
 name|newScannerLock
 operator|.
 name|writeLock
@@ -2152,6 +2185,15 @@ argument_list|()
 operator|.
 name|lock
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|closing
+operator|.
+name|set
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 try|try
 block|{
@@ -2281,6 +2323,36 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+block|}
+comment|/**     * @return True if its worth doing a flush before we put up the close flag.     */
+specifier|private
+name|boolean
+name|worthPreFlushing
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|memstoreSize
+operator|.
+name|get
+argument_list|()
+operator|>
+name|this
+operator|.
+name|conf
+operator|.
+name|getLong
+argument_list|(
+literal|"hbase.hregion.preclose.flush.size"
+argument_list|,
+literal|1024
+operator|*
+literal|1024
+operator|*
+literal|5
+argument_list|)
+return|;
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// HRegion accessors
