@@ -674,15 +674,23 @@ name|void
 name|close
 parameter_list|()
 block|{
+name|boolean
+name|state
+init|=
 name|this
 operator|.
 name|closing
 operator|.
-name|set
+name|getAndSet
 argument_list|(
 literal|true
 argument_list|)
-expr_stmt|;
+decl_stmt|;
+if|if
+condition|(
+name|state
+condition|)
+return|return;
 comment|// under test, we dont have a this.store
 if|if
 condition|(
