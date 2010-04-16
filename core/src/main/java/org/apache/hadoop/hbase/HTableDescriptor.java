@@ -3094,7 +3094,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-literal|false
+literal|true
 argument_list|,
 literal|true
 argument_list|,
@@ -3152,7 +3152,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-literal|false
+literal|true
 argument_list|,
 literal|true
 argument_list|,
