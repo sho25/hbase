@@ -235,7 +235,7 @@ name|original
 expr_stmt|;
 block|}
 comment|/**    * Checks soft references and cleans any that have been placed on    * ReferenceQueue.  Call if get/put etc. are not called regularly.    * Internally these call checkReferences on each access.    * @return How many references cleared.    */
-specifier|public
+specifier|private
 name|int
 name|checkReferences
 parameter_list|()
@@ -297,6 +297,7 @@ name|i
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|V
 name|put
 parameter_list|(
@@ -363,6 +364,7 @@ argument_list|(
 literal|"unchecked"
 argument_list|)
 specifier|public
+specifier|synchronized
 name|void
 name|putAll
 parameter_list|(
@@ -386,6 +388,7 @@ literal|"SuspiciousMethodCalls"
 block|}
 argument_list|)
 specifier|public
+specifier|synchronized
 name|V
 name|get
 parameter_list|(
@@ -455,6 +458,7 @@ argument_list|()
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|V
 name|remove
 parameter_list|(
@@ -496,6 +500,7 @@ argument_list|()
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|boolean
 name|containsKey
 parameter_list|(
@@ -518,6 +523,7 @@ argument_list|)
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|boolean
 name|containsValue
 parameter_list|(
@@ -535,6 +541,7 @@ argument_list|)
 throw|;
 block|}
 specifier|public
+specifier|synchronized
 name|K
 name|firstKey
 parameter_list|()
@@ -550,6 +557,7 @@ argument_list|()
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|K
 name|lastKey
 parameter_list|()
@@ -565,6 +573,7 @@ argument_list|()
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|SoftValueSortedMap
 argument_list|<
 name|K
@@ -601,6 +610,7 @@ argument_list|)
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|SoftValueSortedMap
 argument_list|<
 name|K
@@ -637,6 +647,7 @@ argument_list|)
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|SoftValueSortedMap
 argument_list|<
 name|K
@@ -678,6 +689,7 @@ argument_list|)
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|boolean
 name|isEmpty
 parameter_list|()
@@ -695,6 +707,7 @@ argument_list|()
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|int
 name|size
 parameter_list|()
@@ -712,6 +725,7 @@ argument_list|()
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|void
 name|clear
 parameter_list|()
@@ -728,6 +742,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|public
+specifier|synchronized
 name|Set
 argument_list|<
 name|K
@@ -753,6 +768,7 @@ argument_list|(
 literal|"unchecked"
 argument_list|)
 specifier|public
+specifier|synchronized
 name|Comparator
 name|comparator
 parameter_list|()
@@ -767,6 +783,7 @@ argument_list|()
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|Set
 argument_list|<
 name|Map
@@ -872,6 +889,7 @@ name|real_entries
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|Collection
 argument_list|<
 name|V
