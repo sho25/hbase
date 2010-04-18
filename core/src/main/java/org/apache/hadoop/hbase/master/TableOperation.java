@@ -216,7 +216,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Abstract base class for operations that need to examine all HRegionInfo   * objects in a table. (For a table, operate on each of its rows  * in .META.).  */
+comment|/**  * Abstract base class for operations that need to examine all HRegionInfo  * objects in a table. (For a table, operate on each of its rows  * in .META.).  */
 end_comment
 
 begin_class
@@ -591,6 +591,7 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
+specifier|final
 name|String
 name|serverAddress
 init|=
@@ -605,23 +606,6 @@ argument_list|(
 name|CATALOG_FAMILY
 argument_list|,
 name|SERVER_QUALIFIER
-argument_list|)
-argument_list|)
-decl_stmt|;
-name|long
-name|startCode
-init|=
-name|Bytes
-operator|.
-name|toLong
-argument_list|(
-name|values
-operator|.
-name|getValue
-argument_list|(
-name|CATALOG_FAMILY
-argument_list|,
-name|STARTCODE_QUALIFIER
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -644,6 +628,23 @@ operator|>
 literal|0
 condition|)
 block|{
+name|long
+name|startCode
+init|=
+name|Bytes
+operator|.
+name|toLong
+argument_list|(
+name|values
+operator|.
+name|getValue
+argument_list|(
+name|CATALOG_FAMILY
+argument_list|,
+name|STARTCODE_QUALIFIER
+argument_list|)
+argument_list|)
+decl_stmt|;
 name|serverName
 operator|=
 name|HServerInfo

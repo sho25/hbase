@@ -53,6 +53,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|io
@@ -168,6 +196,21 @@ specifier|public
 class|class
 name|Bytes
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|Bytes
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 comment|/**    * Size of boolean in bytes    */
 specifier|public
 specifier|static
@@ -861,6 +904,7 @@ name|length
 argument_list|)
 return|;
 block|}
+comment|/**    * Joins two byte arrays together using a separator.    * @param b1 The first byte array.    * @param sep The separator to use.    * @param b2 The second byte array.    */
 specifier|public
 specifier|static
 name|String
@@ -946,15 +990,9 @@ return|return
 literal|""
 return|;
 block|}
-name|String
-name|result
-init|=
-literal|null
-decl_stmt|;
 try|try
 block|{
-name|result
-operator|=
+return|return
 operator|new
 name|String
 argument_list|(
@@ -968,7 +1006,7 @@ name|HConstants
 operator|.
 name|UTF8_ENCODING
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 catch|catch
 parameter_list|(
@@ -976,15 +1014,19 @@ name|UnsupportedEncodingException
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"UTF-8 not supported?"
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
-block|}
 return|return
-name|result
+literal|null
 return|;
+block|}
 block|}
 comment|/**    * Write a printable representation of a byte array.    *    * @param b byte array    * @return string    * @see #toStringBinary(byte[], int, int)    */
 specifier|public
@@ -1194,10 +1236,14 @@ name|UnsupportedEncodingException
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"ISO-8859-1 not supported?"
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 block|}
 return|return
@@ -1531,31 +1577,9 @@ name|String
 name|s
 parameter_list|)
 block|{
-if|if
-condition|(
-name|s
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|"string cannot be null"
-argument_list|)
-throw|;
-block|}
-name|byte
-index|[]
-name|result
-init|=
-literal|null
-decl_stmt|;
 try|try
 block|{
-name|result
-operator|=
+return|return
 name|s
 operator|.
 name|getBytes
@@ -1564,7 +1588,7 @@ name|HConstants
 operator|.
 name|UTF8_ENCODING
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 catch|catch
 parameter_list|(
@@ -1572,15 +1596,19 @@ name|UnsupportedEncodingException
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"UTF-8 not supported?"
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
-block|}
 return|return
-name|result
+literal|null
 return|;
+block|}
 block|}
 comment|/**    * Convert a boolean to a byte array. True becomes -1    * and false becomes 0.    *    * @param b value    * @return<code>b</code> encoded in a byte array.    */
 specifier|public
@@ -1594,21 +1622,11 @@ name|boolean
 name|b
 parameter_list|)
 block|{
-name|byte
-index|[]
-name|bb
-init|=
+return|return
 operator|new
 name|byte
-index|[
-literal|1
-index|]
-decl_stmt|;
-name|bb
-index|[
-literal|0
-index|]
-operator|=
+index|[]
+block|{
 name|b
 condition|?
 operator|(
@@ -1621,9 +1639,7 @@ operator|(
 name|byte
 operator|)
 literal|0
-expr_stmt|;
-return|return
-name|bb
+block|}
 return|;
 block|}
 comment|/**    * Reverses {@link #toBytes(boolean)}    * @param b array    * @return True or false.    */
@@ -1641,13 +1657,9 @@ block|{
 if|if
 condition|(
 name|b
-operator|==
-literal|null
-operator|||
-name|b
 operator|.
 name|length
-operator|>
+operator|!=
 literal|1
 condition|)
 block|{
@@ -1655,7 +1667,11 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"Array is wrong size"
+literal|"Array has wrong size: "
+operator|+
+name|b
+operator|.
+name|length
 argument_list|)
 throw|;
 block|}
@@ -1712,12 +1728,10 @@ index|[
 name|i
 index|]
 operator|=
-call|(
+operator|(
 name|byte
-call|)
-argument_list|(
+operator|)
 name|val
-argument_list|)
 expr_stmt|;
 name|val
 operator|>>>=
@@ -1729,12 +1743,10 @@ index|[
 literal|0
 index|]
 operator|=
-call|(
+operator|(
 name|byte
-call|)
-argument_list|(
+operator|)
 name|val
-argument_list|)
 expr_stmt|;
 return|return
 name|b
@@ -1757,6 +1769,8 @@ argument_list|(
 name|bytes
 argument_list|,
 literal|0
+argument_list|,
+name|SIZEOF_LONG
 argument_list|)
 return|;
 block|}
@@ -1785,7 +1799,7 @@ name|SIZEOF_LONG
 argument_list|)
 return|;
 block|}
-comment|/**    * Converts a byte array to a long value.    *    * @param bytes array of bytes    * @param offset offset into array    * @param length length of data (must be {@link #SIZEOF_LONG})    * @return the long value    */
+comment|/**    * Converts a byte array to a long value.    *    * @param bytes array of bytes    * @param offset offset into array    * @param length length of data (must be {@link #SIZEOF_LONG})    * @return the long value    * @throws IllegalArgumentException if length is not {@link #SIZEOF_LONG} or    * if there's not enough room in the array at the offset indicated.    */
 specifier|public
 specifier|static
 name|long
@@ -1805,15 +1819,10 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|bytes
-operator|==
-literal|null
-operator|||
 name|length
 operator|!=
 name|SIZEOF_LONG
 operator|||
-operator|(
 name|offset
 operator|+
 name|length
@@ -1821,13 +1830,20 @@ operator|>
 name|bytes
 operator|.
 name|length
-operator|)
 condition|)
 block|{
-return|return
-operator|-
-literal|1L
-return|;
+throw|throw
+name|explainWrongLengthOrOffset
+argument_list|(
+name|bytes
+argument_list|,
+name|offset
+argument_list|,
+name|length
+argument_list|,
+name|SIZEOF_LONG
+argument_list|)
+throw|;
 block|}
 name|long
 name|l
@@ -1843,11 +1859,9 @@ name|offset
 init|;
 name|i
 operator|<
-operator|(
 name|offset
 operator|+
 name|length
-operator|)
 condition|;
 name|i
 operator|++
@@ -1859,9 +1873,6 @@ literal|8
 expr_stmt|;
 name|l
 operator|^=
-operator|(
-name|long
-operator|)
 name|bytes
 index|[
 name|i
@@ -1874,7 +1885,80 @@ return|return
 name|l
 return|;
 block|}
-comment|/**    * Put a long value out to the specified byte array position.    * @param bytes the byte array    * @param offset position in the array    * @param val long to write out    * @return incremented offset    */
+specifier|private
+specifier|static
+name|IllegalArgumentException
+name|explainWrongLengthOrOffset
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|bytes
+parameter_list|,
+specifier|final
+name|int
+name|offset
+parameter_list|,
+specifier|final
+name|int
+name|length
+parameter_list|,
+specifier|final
+name|int
+name|expectedLength
+parameter_list|)
+block|{
+name|String
+name|reason
+decl_stmt|;
+if|if
+condition|(
+name|length
+operator|!=
+name|expectedLength
+condition|)
+block|{
+name|reason
+operator|=
+literal|"Wrong length: "
+operator|+
+name|length
+operator|+
+literal|", expected "
+operator|+
+name|expectedLength
+expr_stmt|;
+block|}
+else|else
+block|{
+name|reason
+operator|=
+literal|"offset ("
+operator|+
+name|offset
+operator|+
+literal|") + length ("
+operator|+
+name|length
+operator|+
+literal|") exceed the"
+operator|+
+literal|" capacity of the array: "
+operator|+
+name|bytes
+operator|.
+name|length
+expr_stmt|;
+block|}
+return|return
+operator|new
+name|IllegalArgumentException
+argument_list|(
+name|reason
+argument_list|)
+return|;
+block|}
+comment|/**    * Put a long value out to the specified byte array position.    * @param bytes the byte array    * @param offset position in the array    * @param val long to write out    * @return incremented offset    * @throws IllegalArgumentException if the byte array given doesn't have    * enough room at the offset specified.    */
 specifier|public
 specifier|static
 name|int
@@ -1894,23 +1978,33 @@ block|{
 if|if
 condition|(
 name|bytes
-operator|==
-literal|null
-operator|||
-operator|(
-name|bytes
 operator|.
 name|length
 operator|-
 name|offset
 operator|<
 name|SIZEOF_LONG
-operator|)
 condition|)
 block|{
-return|return
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Not enough room to put a long at"
+operator|+
+literal|" offset "
+operator|+
 name|offset
-return|;
+operator|+
+literal|" in a "
+operator|+
+name|bytes
+operator|.
+name|length
+operator|+
+literal|" byte array"
+argument_list|)
+throw|;
 block|}
 for|for
 control|(
@@ -1934,12 +2028,10 @@ index|[
 name|i
 index|]
 operator|=
-call|(
+operator|(
 name|byte
-call|)
-argument_list|(
+operator|)
 name|val
-argument_list|)
 expr_stmt|;
 name|val
 operator|>>>=
@@ -1951,12 +2043,10 @@ index|[
 name|offset
 index|]
 operator|=
-call|(
+operator|(
 name|byte
-call|)
-argument_list|(
+operator|)
 name|val
-argument_list|)
 expr_stmt|;
 return|return
 name|offset
@@ -1998,26 +2088,23 @@ name|int
 name|offset
 parameter_list|)
 block|{
-name|int
-name|i
-init|=
-name|toInt
-argument_list|(
-name|bytes
-argument_list|,
-name|offset
-argument_list|)
-decl_stmt|;
 return|return
 name|Float
 operator|.
 name|intBitsToFloat
 argument_list|(
-name|i
+name|toInt
+argument_list|(
+name|bytes
+argument_list|,
+name|offset
+argument_list|,
+name|SIZEOF_INT
+argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @param bytes byte array    * @param offset offset to write to    * @param f float value    * @return New offset in<code>bytes</bytes>    */
+comment|/**    * @param bytes byte array    * @param offset offset to write to    * @param f float value    * @return New offset in<code>bytes</code>    */
 specifier|public
 specifier|static
 name|int
@@ -2034,16 +2121,6 @@ name|float
 name|f
 parameter_list|)
 block|{
-name|int
-name|i
-init|=
-name|Float
-operator|.
-name|floatToRawIntBits
-argument_list|(
-name|f
-argument_list|)
-decl_stmt|;
 return|return
 name|putInt
 argument_list|(
@@ -2051,7 +2128,12 @@ name|bytes
 argument_list|,
 name|offset
 argument_list|,
-name|i
+name|Float
+operator|.
+name|floatToRawIntBits
+argument_list|(
+name|f
+argument_list|)
 argument_list|)
 return|;
 block|}
@@ -2068,22 +2150,17 @@ name|f
 parameter_list|)
 block|{
 comment|// Encode it as int
-name|int
-name|i
-init|=
+return|return
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
 name|Float
 operator|.
 name|floatToRawIntBits
 argument_list|(
 name|f
 argument_list|)
-decl_stmt|;
-return|return
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|i
 argument_list|)
 return|;
 block|}
@@ -2124,22 +2201,19 @@ name|int
 name|offset
 parameter_list|)
 block|{
-name|long
-name|l
-init|=
-name|toLong
-argument_list|(
-name|bytes
-argument_list|,
-name|offset
-argument_list|)
-decl_stmt|;
 return|return
 name|Double
 operator|.
 name|longBitsToDouble
 argument_list|(
-name|l
+name|toLong
+argument_list|(
+name|bytes
+argument_list|,
+name|offset
+argument_list|,
+name|SIZEOF_LONG
+argument_list|)
 argument_list|)
 return|;
 block|}
@@ -2160,16 +2234,6 @@ name|double
 name|d
 parameter_list|)
 block|{
-name|long
-name|l
-init|=
-name|Double
-operator|.
-name|doubleToLongBits
-argument_list|(
-name|d
-argument_list|)
-decl_stmt|;
 return|return
 name|putLong
 argument_list|(
@@ -2177,7 +2241,12 @@ name|bytes
 argument_list|,
 name|offset
 argument_list|,
-name|l
+name|Double
+operator|.
+name|doubleToLongBits
+argument_list|(
+name|d
+argument_list|)
 argument_list|)
 return|;
 block|}
@@ -2194,22 +2263,17 @@ name|d
 parameter_list|)
 block|{
 comment|// Encode it as a long
-name|long
-name|l
-init|=
+return|return
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
 name|Double
 operator|.
 name|doubleToRawLongBits
 argument_list|(
 name|d
 argument_list|)
-decl_stmt|;
-return|return
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|l
 argument_list|)
 return|;
 block|}
@@ -2254,12 +2318,10 @@ index|[
 name|i
 index|]
 operator|=
-call|(
+operator|(
 name|byte
-call|)
-argument_list|(
+operator|)
 name|val
-argument_list|)
 expr_stmt|;
 name|val
 operator|>>>=
@@ -2271,12 +2333,10 @@ index|[
 literal|0
 index|]
 operator|=
-call|(
+operator|(
 name|byte
-call|)
-argument_list|(
+operator|)
 name|val
-argument_list|)
 expr_stmt|;
 return|return
 name|b
@@ -2299,6 +2359,8 @@ argument_list|(
 name|bytes
 argument_list|,
 literal|0
+argument_list|,
+name|SIZEOF_INT
 argument_list|)
 return|;
 block|}
@@ -2327,7 +2389,7 @@ name|SIZEOF_INT
 argument_list|)
 return|;
 block|}
-comment|/**    * Converts a byte array to an int value    * @param bytes byte array    * @param offset offset into array    * @param length length of int (has to be {@link #SIZEOF_INT})    * @return the int value    */
+comment|/**    * Converts a byte array to an int value    * @param bytes byte array    * @param offset offset into array    * @param length length of int (has to be {@link #SIZEOF_INT})    * @return the int value    * @throws IllegalArgumentException if length is not {@link #SIZEOF_INT} or    * if there's not enough room in the array at the offset indicated.    */
 specifier|public
 specifier|static
 name|int
@@ -2347,15 +2409,10 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|bytes
-operator|==
-literal|null
-operator|||
 name|length
 operator|!=
 name|SIZEOF_INT
 operator|||
-operator|(
 name|offset
 operator|+
 name|length
@@ -2363,13 +2420,20 @@ operator|>
 name|bytes
 operator|.
 name|length
-operator|)
 condition|)
 block|{
-return|return
-operator|-
-literal|1
-return|;
+throw|throw
+name|explainWrongLengthOrOffset
+argument_list|(
+name|bytes
+argument_list|,
+name|offset
+argument_list|,
+name|length
+argument_list|,
+name|SIZEOF_INT
+argument_list|)
+throw|;
 block|}
 name|int
 name|n
@@ -2413,7 +2477,7 @@ return|return
 name|n
 return|;
 block|}
-comment|/**    * Put an int value out to the specified byte array position.    * @param bytes the byte array    * @param offset position in the array    * @param val int to write out    * @return incremented offset    */
+comment|/**    * Put an int value out to the specified byte array position.    * @param bytes the byte array    * @param offset position in the array    * @param val int to write out    * @return incremented offset    * @throws IllegalArgumentException if the byte array given doesn't have    * enough room at the offset specified.    */
 specifier|public
 specifier|static
 name|int
@@ -2433,23 +2497,33 @@ block|{
 if|if
 condition|(
 name|bytes
-operator|==
-literal|null
-operator|||
-operator|(
-name|bytes
 operator|.
 name|length
 operator|-
 name|offset
 operator|<
 name|SIZEOF_INT
-operator|)
 condition|)
 block|{
-return|return
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Not enough room to put an int at"
+operator|+
+literal|" offset "
+operator|+
 name|offset
-return|;
+operator|+
+literal|" in a "
+operator|+
+name|bytes
+operator|.
+name|length
+operator|+
+literal|" byte array"
+argument_list|)
+throw|;
 block|}
 for|for
 control|(
@@ -2473,12 +2547,10 @@ index|[
 name|i
 index|]
 operator|=
-call|(
+operator|(
 name|byte
-call|)
-argument_list|(
+operator|)
 name|val
-argument_list|)
 expr_stmt|;
 name|val
 operator|>>>=
@@ -2490,12 +2562,10 @@ index|[
 name|offset
 index|]
 operator|=
-call|(
+operator|(
 name|byte
-call|)
-argument_list|(
+operator|)
 name|val
-argument_list|)
 expr_stmt|;
 return|return
 name|offset
@@ -2529,12 +2599,10 @@ index|[
 literal|1
 index|]
 operator|=
-call|(
+operator|(
 name|byte
-call|)
-argument_list|(
+operator|)
 name|val
-argument_list|)
 expr_stmt|;
 name|val
 operator|>>=
@@ -2545,12 +2613,10 @@ index|[
 literal|0
 index|]
 operator|=
-call|(
+operator|(
 name|byte
-call|)
-argument_list|(
+operator|)
 name|val
-argument_list|)
 expr_stmt|;
 return|return
 name|b
@@ -2573,6 +2639,8 @@ argument_list|(
 name|bytes
 argument_list|,
 literal|0
+argument_list|,
+name|SIZEOF_SHORT
 argument_list|)
 return|;
 block|}
@@ -2601,7 +2669,7 @@ name|SIZEOF_SHORT
 argument_list|)
 return|;
 block|}
-comment|/**    * Converts a byte array to a short value    * @param bytes byte array    * @param offset offset into array    * @param length length, has to be {@link #SIZEOF_SHORT}    * @return the short value    */
+comment|/**    * Converts a byte array to a short value    * @param bytes byte array    * @param offset offset into array    * @param length length, has to be {@link #SIZEOF_SHORT}    * @return the short value    * @throws IllegalArgumentException if length is not {@link #SIZEOF_SHORT}    * or if there's not enough room in the array at the offset indicated.    */
 specifier|public
 specifier|static
 name|short
@@ -2621,15 +2689,10 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|bytes
-operator|==
-literal|null
-operator|||
 name|length
 operator|!=
 name|SIZEOF_SHORT
 operator|||
-operator|(
 name|offset
 operator|+
 name|length
@@ -2637,13 +2700,20 @@ operator|>
 name|bytes
 operator|.
 name|length
-operator|)
 condition|)
 block|{
-return|return
-operator|-
-literal|1
-return|;
+throw|throw
+name|explainWrongLengthOrOffset
+argument_list|(
+name|bytes
+argument_list|,
+name|offset
+argument_list|,
+name|length
+argument_list|,
+name|SIZEOF_SHORT
+argument_list|)
+throw|;
 block|}
 name|short
 name|n
@@ -2678,7 +2748,7 @@ return|return
 name|n
 return|;
 block|}
-comment|/**    * Put a short value out to the specified byte array position.    * @param bytes the byte array    * @param offset position in the array    * @param val short to write out    * @return incremented offset    */
+comment|/**    * Put a short value out to the specified byte array position.    * @param bytes the byte array    * @param offset position in the array    * @param val short to write out    * @return incremented offset    * @throws IllegalArgumentException if the byte array given doesn't have    * enough room at the offset specified.    */
 specifier|public
 specifier|static
 name|int
@@ -2698,23 +2768,33 @@ block|{
 if|if
 condition|(
 name|bytes
-operator|==
-literal|null
-operator|||
-operator|(
-name|bytes
 operator|.
 name|length
 operator|-
 name|offset
 operator|<
 name|SIZEOF_SHORT
-operator|)
 condition|)
 block|{
-return|return
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Not enough room to put a short at"
+operator|+
+literal|" offset "
+operator|+
 name|offset
-return|;
+operator|+
+literal|" in a "
+operator|+
+name|bytes
+operator|.
+name|length
+operator|+
+literal|" byte array"
+argument_list|)
+throw|;
 block|}
 name|bytes
 index|[
@@ -2723,12 +2803,10 @@ operator|+
 literal|1
 index|]
 operator|=
-call|(
+operator|(
 name|byte
-call|)
-argument_list|(
+operator|)
 name|val
-argument_list|)
 expr_stmt|;
 name|val
 operator|>>=
@@ -2739,12 +2817,10 @@ index|[
 name|offset
 index|]
 operator|=
-call|(
+operator|(
 name|byte
-call|)
-argument_list|(
+operator|)
 name|val
-argument_list|)
 expr_stmt|;
 return|return
 name|offset
@@ -2812,11 +2888,9 @@ name|offset
 index|]
 operator|=
 operator|(
-operator|(
 name|byte
 operator|)
 name|i
-operator|)
 expr_stmt|;
 return|return
 name|result
@@ -3064,10 +3138,8 @@ argument_list|(
 name|firstByte
 argument_list|)
 condition|?
-operator|(
 operator|~
 name|i
-operator|)
 else|:
 name|i
 operator|)
@@ -3180,10 +3252,8 @@ argument_list|(
 name|firstByte
 argument_list|)
 condition|?
-operator|(
 operator|~
 name|i
-operator|)
 else|:
 name|i
 operator|)
@@ -3358,7 +3428,8 @@ parameter_list|)
 block|{
 comment|// Could use Arrays.equals?
 comment|//noinspection SimplifiableConditionalExpression
-return|return
+if|if
+condition|(
 name|left
 operator|==
 literal|null
@@ -3366,9 +3437,13 @@ operator|&&
 name|right
 operator|==
 literal|null
-condition|?
+condition|)
+block|{
+return|return
 literal|true
-else|:
+return|;
+block|}
+return|return
 operator|(
 name|left
 operator|==
@@ -3387,7 +3462,6 @@ name|right
 operator|.
 name|length
 operator|)
-operator|)
 condition|?
 literal|false
 else|:
@@ -3399,6 +3473,7 @@ name|right
 argument_list|)
 operator|==
 literal|0
+operator|)
 return|;
 block|}
 comment|/**    * @param b bytes to hash    * @return Runs {@link WritableComparator#hashBytes(byte[], int)} on the    * passed in array.  This method is what {@link org.apache.hadoop.io.Text} and    * {@link ImmutableBytesWritable} use calculating hash code.    */
@@ -3657,9 +3732,11 @@ name|length
 operator|<
 name|length
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 name|byte
 index|[]
 name|result
@@ -3714,9 +3791,11 @@ name|length
 operator|<
 name|length
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 name|byte
 index|[]
 name|result
@@ -3791,6 +3870,7 @@ condition|;
 name|i
 operator|++
 control|)
+block|{
 name|padding
 index|[
 name|i
@@ -3798,6 +3878,7 @@ index|]
 operator|=
 literal|0
 expr_stmt|;
+block|}
 return|return
 name|add
 argument_list|(
@@ -3848,6 +3929,7 @@ condition|;
 name|i
 operator|++
 control|)
+block|{
 name|padding
 index|[
 name|i
@@ -3855,6 +3937,7 @@ index|]
 operator|=
 literal|0
 expr_stmt|;
+block|}
 return|return
 name|add
 argument_list|(
@@ -3995,6 +4078,7 @@ name|num
 operator|<=
 literal|0
 condition|)
+block|{
 throw|throw
 operator|new
 name|IllegalArgumentException
@@ -4002,6 +4086,7 @@ argument_list|(
 literal|"num cannot be< 0"
 argument_list|)
 throw|;
+block|}
 name|byte
 index|[]
 name|prependHeader
@@ -4073,9 +4158,11 @@ argument_list|)
 operator|<=
 literal|0
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 name|BigInteger
 name|intervalBI
 decl_stmt|;
@@ -4097,6 +4184,15 @@ name|Exception
 name|e
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Exception caught during division"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 return|return
 literal|null
 return|;
@@ -4481,7 +4577,7 @@ literal|1
 operator|)
 return|;
 block|}
-comment|/**    * Bytewise binary increment/deincrement of long contained in byte array    * on given amount.    *     * @param value - array of bytes containing long (length<= SIZEOF_LONG)    * @param amount value will be incremented on (deincremented if negative)    * @return array of bytes containing incremented long (length == SIZEOF_LONG)    * @throws IOException - if value.length> SIZEOF_LONG    */
+comment|/**    * Bytewise binary increment/deincrement of long contained in byte array    * on given amount.    *    * @param value - array of bytes containing long (length<= SIZEOF_LONG)    * @param amount value will be incremented on (deincremented if negative)    * @return array of bytes containing incremented long (length == SIZEOF_LONG)    * @throws IOException - if value.length> SIZEOF_LONG    */
 specifier|public
 specifier|static
 name|byte
