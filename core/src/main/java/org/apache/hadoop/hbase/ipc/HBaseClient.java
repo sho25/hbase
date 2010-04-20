@@ -1360,6 +1360,14 @@ throws|throws
 name|IOException
 block|{
 comment|// close the current connection
+if|if
+condition|(
+name|socket
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// could be null if the socket creation failed
 try|try
 block|{
 name|socket
@@ -1383,6 +1391,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|// set socket to null so that the next call to setupIOstreams
 comment|// can start the process of connect all over again.
