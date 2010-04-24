@@ -7359,7 +7359,24 @@ operator|&&
 name|filter
 operator|!=
 literal|null
-operator|&&
+condition|)
+block|{
+comment|// final chance to modify row contents
+name|returnResult
+operator|=
+name|filter
+operator|.
+name|filterRow
+argument_list|(
+name|results
+argument_list|)
+expr_stmt|;
+comment|// final chance to drop the row... This may be superfluous with the addition of the above?
+comment|// still needed for backwards compatibility however
+if|if
+condition|(
+name|returnResult
+operator|||
 name|filter
 operator|.
 name|filterRow
@@ -7371,6 +7388,7 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 name|outResults
 operator|.
