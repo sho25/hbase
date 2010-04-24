@@ -2569,10 +2569,10 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Notify the thread to die at the end of its next run    */
+comment|/**    * Interrupt thread regardless of what it's doing    */
 specifier|public
 name|void
-name|interruptIfAlive
+name|interruptAndStop
 parameter_list|()
 block|{
 synchronized|synchronized

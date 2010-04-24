@@ -2715,7 +2715,7 @@ expr_stmt|;
 block|}
 name|rootScannerThread
 operator|.
-name|interruptIfAlive
+name|interruptAndStop
 argument_list|()
 expr_stmt|;
 if|if
@@ -2736,7 +2736,7 @@ expr_stmt|;
 block|}
 name|metaScannerThread
 operator|.
-name|interruptIfAlive
+name|interruptAndStop
 argument_list|()
 expr_stmt|;
 if|if

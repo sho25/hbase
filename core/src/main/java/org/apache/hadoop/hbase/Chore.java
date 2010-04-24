@@ -278,6 +278,20 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * If the thread is currently sleeping, trigger the core to happen immediately.    * If it's in the middle of its operation, will begin another operation    * immediately after finishing this one.    */
+specifier|public
+name|void
+name|triggerNow
+parameter_list|()
+block|{
+name|this
+operator|.
+name|sleeper
+operator|.
+name|skipSleepCycle
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * Override to run a task before we start looping.    * @return true if initial chore was successful    */
 specifier|protected
 name|boolean

@@ -397,7 +397,7 @@ argument_list|()
 operator|.
 name|metaScannerThread
 operator|.
-name|interrupt
+name|triggerNow
 argument_list|()
 expr_stmt|;
 block|}
