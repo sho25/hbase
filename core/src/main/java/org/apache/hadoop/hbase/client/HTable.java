@@ -490,7 +490,7 @@ specifier|private
 name|long
 name|maxScannerResultSize
 decl_stmt|;
-comment|/**    * Creates an object to access a HBase table    *    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Creates an object to access a HBase table.    *    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTable
 parameter_list|(
@@ -517,7 +517,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table    *    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Creates an object to access a HBase table.    *    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTable
 parameter_list|(
@@ -540,7 +540,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table    *    * @param conf configuration object    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Creates an object to access a HBase table.    *    * @param conf Configuration object to use.    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTable
 parameter_list|(
@@ -567,7 +567,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table.    *    * @param conf configuration object    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Creates an object to access a HBase table.    *    * @param conf Configuration object to use.    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTable
 parameter_list|(
@@ -834,7 +834,7 @@ specifier|private
 name|ExecutorService
 name|pool
 decl_stmt|;
-comment|/**    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Tells whether or not a table is enabled or not.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 specifier|static
 name|boolean
@@ -858,7 +858,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Tells whether or not a table is enabled or not.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 specifier|static
 name|boolean
@@ -883,7 +883,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * @param conf HBaseConfiguration object    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Tells whether or not a table is enabled or not.    * @param conf The Configuration object to use.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 specifier|static
 name|boolean
@@ -912,7 +912,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @param conf HBaseConfiguration object    * @param tableName name of table to check    * @return true if table is on-line    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Tells whether or not a table is enabled or not.    * @param conf The Configuration object to use.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 specifier|static
 name|boolean
@@ -942,7 +942,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Find region location hosting passed row using cached info    * @param row Row to find.    * @return Location of row.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Find region location hosting passed row using cached info    * @param row Row to find.    * @return The location of the given row.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HRegionLocation
 name|getRegionLocation
@@ -972,7 +972,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Find region location hosting passed row using cached info    * @param row Row to find.    * @return Location of row.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Finds the region on which the given row is being served.    * @param row Row to find.    * @return Location of the row.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HRegionLocation
 name|getRegionLocation
@@ -998,7 +998,6 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/** @return the table name */
 specifier|public
 name|byte
 index|[]
@@ -1011,7 +1010,8 @@ operator|.
 name|tableName
 return|;
 block|}
-comment|/**    * Used by unit tests and tools to do low-level manipulations.  Not for    * general use.    * @return An HConnection instance.    */
+comment|/**    *<em>INTERNAL</em> Used by unit tests and tools to do low-level    * manipulations.    * @return An HConnection instance.    */
+comment|// TODO(tsuna): Remove this.  Unit tests shouldn't require public helpers.
 specifier|public
 name|HConnection
 name|getConnection
@@ -1023,7 +1023,7 @@ operator|.
 name|connection
 return|;
 block|}
-comment|/**    * Get the number of rows for caching that will be passed to scanners    * @return the number of rows for caching    */
+comment|/**    * Gets the number of rows that a scanner will fetch at once.    *<p>    * The default value comes from {@code hbase.client.scanner.caching}.    */
 specifier|public
 name|int
 name|getScannerCaching
@@ -1033,7 +1033,7 @@ return|return
 name|scannerCaching
 return|;
 block|}
-comment|/**    * Set the number of rows for caching that will be passed to scanners    * @param scannerCaching the number of rows for caching    */
+comment|/**    * Sets the number of rows that a scanner will fetch at once.    *<p>    * This will override the value specified by    * {@code hbase.client.scanner.caching}.    * Increasing this value will reduce the amount of work needed each time    * {@code next()} is called on a scanner, at the expense of memory use    * (since more rows will need to be maintained in memory by the scanners).    * @param scannerCaching the number of rows a scanner will fetch at once.    */
 specifier|public
 name|void
 name|setScannerCaching
@@ -1049,7 +1049,6 @@ operator|=
 name|scannerCaching
 expr_stmt|;
 block|}
-comment|/**    * @return table metadata    * @throws IOException    */
 specifier|public
 name|HTableDescriptor
 name|getTableDescriptor
@@ -1074,7 +1073,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets the starting row key for every region in the currently open table    *    * @return Array of region starting row keys    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Gets the starting row key for every region in the currently open table.    *<p>    * This is mainly useful for the MapReduce integration.    * @return Array of region starting row keys    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|byte
 index|[]
@@ -1092,7 +1091,7 @@ name|getFirst
 argument_list|()
 return|;
 block|}
-comment|/**    * Gets the ending row key for every region in the currently open table    *    * @return Array of region ending row keys    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Gets the ending row key for every region in the currently open table.    *<p>    * This is mainly useful for the MapReduce integration.    * @return Array of region ending row keys    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|byte
 index|[]
@@ -1110,7 +1109,7 @@ name|getSecond
 argument_list|()
 return|;
 block|}
-comment|/**    * Gets the starting and ending row keys for every region in the currently    * open table    *    * @return Pair of arrays of region starting and ending row keys    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Gets the starting and ending row keys for every region in the currently    * open table.    *<p>    * This is mainly useful for the MapReduce integration.    * @return Pair of arrays of region starting and ending row keys    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -1314,7 +1313,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Get all the regions and their address for this table    *    * @return A map of HRegionInfo with it's server address    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Gets all the regions and their address for this table.    *<p>    * This is mainly useful for the MapReduce integration.    * @return A map of HRegionInfo with it's server address    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|Map
 argument_list|<
@@ -1516,7 +1515,6 @@ return|return
 name|regionMap
 return|;
 block|}
-comment|/**    * Return the row that matches<i>row</i> exactly,    * or the one that immediately preceeds it.    *    * @param row row key    * @param family Column family to look for row in.    * @return map of values    * @throws IOException    * @since 0.20.0     */
 specifier|public
 name|Result
 name|getRowOrBefore
@@ -1582,7 +1580,6 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object    *    * @param scan a configured {@link Scan} object    * @return scanner    * @throws IOException    * @since 0.20.0    */
 specifier|public
 name|ResultScanner
 name|getScanner
@@ -1612,7 +1609,6 @@ return|return
 name|s
 return|;
 block|}
-comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object    *    * @param family  The column family to scan.    * @return The scanner.    * @throws IOException    * @since 0.20.0    */
 specifier|public
 name|ResultScanner
 name|getScanner
@@ -1645,7 +1641,6 @@ name|scan
 argument_list|)
 return|;
 block|}
-comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object    *    * @param family  The column family to scan.    * @param qualifier  The column qualifier to scan.    * @return The scanner.    * @throws IOException    * @since 0.20.0    */
 specifier|public
 name|ResultScanner
 name|getScanner
@@ -1684,7 +1679,6 @@ name|scan
 argument_list|)
 return|;
 block|}
-comment|/**    * Method for getting data from a row    * @param get the Get to fetch    * @return the result    * @throws IOException    * @since 0.20.0    */
 specifier|public
 name|Result
 name|get
@@ -1745,7 +1739,6 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Execute a delete    *    * @param delete the delete    * @throws IOException    * @since 0.20.0    */
 specifier|public
 name|void
 name|delete
@@ -1808,7 +1801,6 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Bulk commit a List of Deletes to the table.    * @param deletes List of deletes.  List is modified by this method.  On    * exception holds deletes that were NOT applied.    * @throws IOException    * @since 0.20.1    */
 specifier|public
 name|void
 name|delete
@@ -1860,7 +1852,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Commit a Put to the table.    *<p>    * If autoFlush is false, the update is buffered.    * @param put data to put    * @throws IOException    * @since 0.20.0    */
 specifier|public
 name|void
 name|put
@@ -1883,7 +1874,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Commit a List of Puts to the table.    *<p>    * If autoFlush is false, the update is buffered.    * @param puts list of puts    * @throws IOException if a remote or network exception occurs    * @since 0.20.0    */
 specifier|public
 name|void
 name|put
@@ -1960,7 +1950,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception.<p>    *    * @param row row    * @param family column family    * @param qualifier column qualifier    * @param amount long amount to increment by    * @return The new value after incrementing    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|long
 name|incrementColumnValue
@@ -2002,7 +1991,6 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception.<p>    *    * Setting writeToWAL to false means that in a fail scenario, you will lose    * any increments that have not been flushed.    * @param row row    * @param family column family    * @param qualifier column qualifier    * @param amount long amount to increment by    * @param writeToWAL true if increment should be applied to WAL, false if not    * @return The new value.    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -2149,7 +2137,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Atomically checks if a row/family/qualifier value match the expectedValue.    * If it does, it adds the put.  If value == null, checks for non-existance    * of the value.    *    * @param row to check    * @param family column family    * @param qualifier column qualifier    * @param value the expected value    * @param put put to execute if value matches.    * @throws IOException    * @return true if the new put was execute, false otherwise    */
+comment|/**    * Atomically checks if a row/family/qualifier value match the expectedValue.    * If it does, it adds the put.  If value == null, checks for non-existence    * of the value.    *    * @param row to check    * @param family column family    * @param qualifier column qualifier    * @param value the expected value    * @param put put to execute if value matches.    * @throws IOException    * @return true if the new put was execute, false otherwise    */
 specifier|public
 name|boolean
 name|checkAndPut
@@ -2304,7 +2292,6 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Commit to the table the buffer of Puts.    * Called automatically in the commit methods when autoFlush is true.    * @throws IOException e    */
 specifier|public
 name|void
 name|flushCommits
@@ -2351,7 +2338,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Release held resources    *    * @throws IOException   */
 specifier|public
 name|void
 name|close
@@ -2445,7 +2431,6 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Obtain a row lock    * @param row The row to lock    * @return rowLock RowLock containing row and lock id    * @throws IOException    */
 specifier|public
 name|RowLock
 name|lockRow
@@ -2515,7 +2500,6 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Release a row lock    * @param rl The row lock to release    * @throws IOException    */
 specifier|public
 name|void
 name|unlockRow
@@ -2581,7 +2565,6 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get the value of autoFlush. If true, updates will not be buffered    * @return value of autoFlush    */
 specifier|public
 name|boolean
 name|isAutoFlush
@@ -2591,7 +2574,7 @@ return|return
 name|autoFlush
 return|;
 block|}
-comment|/**    * Turning off autoflush will cause operations to be batched for greater    * efficiency in the RPC.  Also see @{link #flushCommits}    *    * @param autoFlush flag    * @see #flushCommits    */
+comment|/**    * Turns 'auto-flush' on or off.    *<p>    * When enabled (default), {@link Put} operations don't get buffered/delayed    * and are immediately executed.  This is slower but safer.    *<p>    * Turning this off means that multiple {@link Put}s will be accepted before    * any RPC is actually sent to do the write operations.  If the application    * dies before pending writes get flushed to HBase, data will be lost.    * Other side effects may include the fact that the application thinks a    * {@link Put} was executed successfully whereas it was in fact only    * buffered and the operation may fail when attempting to flush all pending    * writes.  In that case though, the code will retry the failed {@link Put}    * upon its next attempt to flush the buffer.    *    * @param autoFlush Whether or not to enable 'auto-flush'.    * @see #flushCommits    */
 specifier|public
 name|void
 name|setAutoFlush
@@ -2607,7 +2590,7 @@ operator|=
 name|autoFlush
 expr_stmt|;
 block|}
-comment|/**    * Get the maximum size in bytes of the write buffer for this HTable    * @return the size of the write buffer in bytes    */
+comment|/**    * Returns the maximum size in bytes of the write buffer for this HTable.    *<p>    * The default value comes from the configuration parameter    * {@code hbase.client.write.buffer}.    * @return The size of the write buffer in bytes.    */
 specifier|public
 name|long
 name|getWriteBufferSize
@@ -2617,7 +2600,7 @@ return|return
 name|writeBufferSize
 return|;
 block|}
-comment|/**    * Set the size of the buffer in bytes.    * If the new size is lower than the current size of data in the    * write buffer, the buffer is flushed.    * @param writeBufferSize new write buffer size    * @throws IOException e    */
+comment|/**    * Sets the size of the buffer in bytes.    *<p>    * If the new size is less than the current amount of data in the    * write buffer, the buffer gets flushed.    * @param writeBufferSize The new write buffer size, in bytes.    * @throws IOException if a remote or network exception occurs.    */
 specifier|public
 name|void
 name|setWriteBufferSize
@@ -2646,7 +2629,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Get the write buffer    * @return the current write buffer    */
+comment|/**    * Returns the write buffer.    * @return The current write buffer.    */
 specifier|public
 name|ArrayList
 argument_list|<

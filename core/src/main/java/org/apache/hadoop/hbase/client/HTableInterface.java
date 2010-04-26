@@ -80,12 +80,12 @@ index|[]
 name|getTableName
 parameter_list|()
 function_decl|;
-comment|/**    * Gets the configuration of this instance.    *    * @return The configuration.    */
+comment|/**    * Returns the {@link Configuration} object used by this instance.    *<p>    * The reference returned is not a copy, so any change made to it will    * affect this instance.    */
 name|Configuration
 name|getConfiguration
 parameter_list|()
 function_decl|;
-comment|/**    * Gets the table descriptor for this table.    *    * @return table metadata    * @throws IOException e    */
+comment|/**    * Gets the {@link HTableDescriptor table descriptor} for this table.    * @throws IOException if a remote or network exception occurs.    */
 name|HTableDescriptor
 name|getTableDescriptor
 parameter_list|()
@@ -102,7 +102,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Method for getting data from a row.    * If the row cannot be found an empty Result is returned.    * This can be checked by calling {@link Result#isEmpty()}    *    * @param get the Get to fetch    * @return the result    * @throws IOException e    */
+comment|/**    * Extracts certain cells from a given row.    * @param get The object that specifies what data to fetch and from which row.    * @return The data coming from the specified row, if it exists.  If the row    * specified doesn't exist, the {@link Result} instance returned won't    * contain any {@link KeyValue}, as indicated by {@link Result#isEmpty()}.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
 name|Result
 name|get
 parameter_list|(
@@ -112,7 +112,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Return the row that matches<i>row</i> and<i>family</i> exactly, or the    * one that immediately precedes it.    *    * @param row row key    * @param family Column family to look for row in    * @return map of values    * @throws IOException e    */
+comment|/**    * Return the row that matches<i>row</i> exactly,    * or the one that immediately precedes it.    *    * @param row A row key.    * @param family Column family to include in the {@link Result}.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
 name|Result
 name|getRowOrBefore
 parameter_list|(
@@ -127,7 +127,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object.    *    * @param scan a configured {@link Scan} object    * @return the scanner    * @throws IOException e    */
+comment|/**    * Returns a scanner on the current table as specified by the {@link Scan}    * object.    *    * @param scan A configured {@link Scan} object.    * @return A scanner.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
 name|ResultScanner
 name|getScanner
 parameter_list|(
@@ -137,7 +137,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object.    *    * @param family the column family to scan    * @return the scanner    * @throws IOException e    */
+comment|/**    * Gets a scanner on the current table for the given family.    *    * @param family The column family to scan.    * @return A scanner.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
 name|ResultScanner
 name|getScanner
 parameter_list|(
@@ -148,7 +148,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get a scanner on the current table as specified by the {@link Scan} object.    *    * @param family the column family to scan    * @param qualifier the column qualifier to scan    * @return The scanner    * @throws IOException e    */
+comment|/**    * Gets a scanner on the current table for the given family and qualifier.    *    * @param family The column family to scan.    * @param qualifier The column qualifier to scan.    * @return A scanner.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
 name|ResultScanner
 name|getScanner
 parameter_list|(
@@ -163,7 +163,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Commit a Put to the table.    *<p>    * If autoFlush is false, the update is buffered.    *    * @param put data    * @throws IOException e    */
+comment|/**    * Puts some data in the table.    *<p>    * If {@link #isAutoFlush isAutoFlush} is false, the update is buffered    * until the internal buffer is full.    * @param put The data to put.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
 name|void
 name|put
 parameter_list|(
@@ -173,7 +173,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Commit a List of Puts to the table.    *<p>    * If autoFlush is false, the update is buffered.    *    * @param puts list of puts    * @throws IOException e    */
+comment|/**    * Puts some data in the table, in batch.    *<p>    * If {@link #isAutoFlush isAutoFlush} is false, the update is buffered    * until the internal buffer is full.    * @param puts The list of mutations to apply.  The list gets modified by this    * method (in particular it gets re-ordered, so the order in which the elements    * are inserted in the list gives no guarantee as to the order in which the    * {@link Put}s are executed).    * @throws IOException if a remote or network exception occurs. In that case    * the {@code puts} argument will contain the {@link Put} instances that    * have not be successfully applied.    * @since 0.20.0    */
 name|void
 name|put
 parameter_list|(
@@ -212,7 +212,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Deletes as specified by the delete.    *    * @param delete a delete    * @throws IOException e    */
+comment|/**    * Deletes the specified cells/row.    *    * @param delete The object that specifies what to delete.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
 name|void
 name|delete
 parameter_list|(
@@ -222,7 +222,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Bulk commit a List of Deletes to the table.    * @param deletes List of deletes. List is modified by this method.    * On exception holds deletes that were NOT applied.    * @throws IOException e    */
+comment|/**    * Deletes the specified cells/rows in bulk.    * @param deletes List of things to delete.  List gets modified by this    * method (in particular it gets re-ordered, so the order in which the elements    * are inserted in the list gives no guarantee as to the order in which the    * {@link Delete}s are executed).    * @throws IOException if a remote or network exception occurs. In that case    * the {@code deletes} argument will contain the {@link Delete} instances    * that have not be successfully applied.    * @since 0.20.1    */
 name|void
 name|delete
 parameter_list|(
@@ -235,7 +235,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception. If the column    * value does not yet exist it is initialized to<code>amount</code> and    * written to the specified column.    *    * @param row row to increment    * @param family column family    * @param qualifier column qualifier    * @param amount long amount to increment    * @return the new value    * @throws IOException e    */
+comment|/**    * Atomically increments a column value.    *<p>    * Equivalent to {@code {@link #incrementColumnValue(byte[], byte[], byte[],    * long, boolean) incrementColumnValue}(row, family, qualifier, amount,    *<b>true</b>)}    * @param row The row that contains the cell to increment.    * @param family The column family of the cell to increment.    * @param qualifier The column qualifier of the cell to increment.    * @param amount The amount to increment the cell with (or decrement, if the    * amount is negative).    * @return The new value, post increment.    * @throws IOException if a remote or network exception occurs.    */
 name|long
 name|incrementColumnValue
 parameter_list|(
@@ -257,7 +257,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception. If the column    * value does not yet exist it is initialized to<code>amount</code> and    * written to the specified column.    *    *<p>Setting writeToWAL to false means that in a fail scenario, you will lose    * any increments that have not been flushed.    * @param row row to increment    * @param family column family    * @param qualifier column qualifier    * @param amount long amount to increment    * @param writeToWAL true if increment should be applied to WAL, false if not    * @return The new value.    * @throws IOException e    */
+comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception. If the column    * value does not yet exist it is initialized to<code>amount</code> and    * written to the specified column.    *    *<p>Setting writeToWAL to false means that in a fail scenario, you will lose    * any increments that have not been flushed.    * @param row The row that contains the cell to increment.    * @param family The column family of the cell to increment.    * @param qualifier The column qualifier of the cell to increment.    * @param amount The amount to increment the cell with (or decrement, if the    * amount is negative).    * @param writeToWAL if {@code true}, the operation will be applied to the    * Write Ahead Log (WAL).  This makes the operation slower but safer, as if    * the call returns successfully, it is guaranteed that the increment will    * be safely persisted.  When set to {@code false}, the call may return    * successfully before the increment is safely persisted, so it's possible    * that the increment be lost in the event of a failure happening before the    * operation gets persisted.    * @return The new value, post increment.    * @throws IOException if a remote or network exception occurs.    */
 name|long
 name|incrementColumnValue
 parameter_list|(
@@ -282,26 +282,26 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the value of autoFlush. If true, updates will not be buffered.    *    * @return true if autoFlush is enabled for this table    */
+comment|/**    * Tells whether or not 'auto-flush' is turned on.    *    * @return {@code true} if 'auto-flush' is enabled (default), meaning    * {@link Put} operations don't get buffered/delayed and are immediately    * executed.    */
 name|boolean
 name|isAutoFlush
 parameter_list|()
 function_decl|;
-comment|/**    * Flushes buffer data. Called automatically when autoFlush is true.    *    * @throws IOException e    */
+comment|/**    * Executes all the buffered {@link Put} operations.    *<p>    * This method gets called once automatically for every {@link Put} or batch    * of {@link Put}s (when {@link #put(List<Put>)} is used) when    * {@link #isAutoFlush} is {@code true}.    * @throws IOException if a remote or network exception occurs.    */
 name|void
 name|flushCommits
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Releases held resources.    *    * @throws IOException e    */
+comment|/**    * Releases any resources help or pending changes in internal buffers.    *    * @throws IOException if a remote or network exception occurs.    */
 name|void
 name|close
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Obtains a row lock.    *    * @param row the row to lock    * @return rowLock RowLock containing row and lock id    * @throws IOException e    */
+comment|/**    * Obtains a lock on a row.    *    * @param row The row to lock.    * @return A {@link RowLock} containing the row and lock id.    * @throws IOException if a remote or network exception occurs.    * @see RowLock    * @see #unlockRow    */
 name|RowLock
 name|lockRow
 parameter_list|(
@@ -312,7 +312,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Releases the row lock.    *    * @param rl the row lock to release    * @throws IOException e    */
+comment|/**    * Releases a row lock.    *    * @param rl The row lock to release.    * @throws IOException if a remote or network exception occurs.    * @see RowLock    * @see #unlockRow    */
 name|void
 name|unlockRow
 parameter_list|(
