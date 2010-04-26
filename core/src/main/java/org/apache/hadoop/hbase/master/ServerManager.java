@@ -1378,6 +1378,20 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Received report from region server "
+operator|+
+name|info
+operator|.
+name|getServerName
+argument_list|()
+operator|+
+literal|" previously marked dead. Rejecting report."
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|Leases
@@ -2886,17 +2900,9 @@ condition|(
 name|duplicateAssignment
 condition|)
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|warn
 argument_list|(
 literal|"region server "
 operator|+
@@ -2921,7 +2927,6 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
 comment|// This Region should not have been opened.
 comment|// Ask the server to shut it down, but don't report it as closed.
 comment|// Otherwise the HMaster will think the Region was closed on purpose,

@@ -49,9 +49,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|HBaseConfiguration
+name|Configuration
 import|;
 end_import
 
@@ -214,7 +214,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|HBaseConfiguration
+name|Configuration
 name|c
 init|=
 name|TEST_UTIL
