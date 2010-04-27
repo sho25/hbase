@@ -1790,6 +1790,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 while|while
 condition|(
 name|waitForWork
@@ -1799,6 +1801,34 @@ block|{
 comment|//wait here for work - read or close connection
 name|receiveResponse
 argument_list|()
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unexpected exception receiving call responses"
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+name|markClosed
+argument_list|(
+operator|new
+name|IOException
+argument_list|(
+literal|"Unexpected exception receiving call responses"
+argument_list|,
+name|t
+argument_list|)
+argument_list|)
 expr_stmt|;
 block|}
 name|close
