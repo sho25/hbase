@@ -27,15 +27,18 @@ class|class
 name|ColumnCount
 block|{
 specifier|private
+specifier|final
 name|byte
 index|[]
 name|bytes
 decl_stmt|;
 specifier|private
+specifier|final
 name|int
 name|offset
 decl_stmt|;
 specifier|private
+specifier|final
 name|int
 name|length
 decl_stmt|;
@@ -187,6 +190,22 @@ return|return
 operator|++
 name|count
 return|;
+block|}
+comment|/**    * Set the current count to a new count    * @param count new count to set    */
+specifier|public
+name|void
+name|setCount
+parameter_list|(
+name|int
+name|count
+parameter_list|)
+block|{
+name|this
+operator|.
+name|count
+operator|=
+name|count
+expr_stmt|;
 block|}
 comment|/**    * Check to see if needed to fetch more versions    * @param max    * @return true if more versions are needed, false otherwise    */
 specifier|public

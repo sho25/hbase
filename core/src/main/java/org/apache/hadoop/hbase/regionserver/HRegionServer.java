@@ -9160,12 +9160,27 @@ name|ArrayList
 argument_list|<
 name|Result
 argument_list|>
-argument_list|()
+argument_list|(
+name|nbRows
+argument_list|)
 decl_stmt|;
 name|long
 name|currentScanResultSize
 init|=
 literal|0
+decl_stmt|;
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+name|values
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|KeyValue
+argument_list|>
+argument_list|()
 decl_stmt|;
 for|for
 control|(
@@ -9192,19 +9207,6 @@ name|incrementAndGet
 argument_list|()
 expr_stmt|;
 comment|// Collect values to be returned here
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-name|values
-init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|KeyValue
-argument_list|>
-argument_list|()
-decl_stmt|;
 name|boolean
 name|moreRows
 init|=
@@ -9260,6 +9262,11 @@ condition|)
 block|{
 break|break;
 block|}
+name|values
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 block|}
 comment|// Below is an ugly hack where we cast the InternalScanner to be a
 comment|// HRegion.RegionScanner.  The alternative is to change InternalScanner
