@@ -1196,7 +1196,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/*    * @param r    * @return Empty String or server address found in<code>r</code>    */
-specifier|private
+specifier|static
 name|String
 name|getServerAddress
 parameter_list|(
@@ -1240,7 +1240,7 @@ argument_list|)
 return|;
 block|}
 comment|/*    * @param r    * @return Return 0L or server startcode found in<code>r</code>    */
-specifier|private
+specifier|static
 name|long
 name|getStartCode
 parameter_list|(
