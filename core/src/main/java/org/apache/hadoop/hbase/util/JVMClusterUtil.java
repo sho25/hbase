@@ -73,9 +73,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|HBaseConfiguration
+name|Configuration
 import|;
 end_import
 
@@ -233,7 +233,7 @@ name|RegionServerThread
 name|createRegionServerThread
 parameter_list|(
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|c
 parameter_list|,
 specifier|final
@@ -263,7 +263,7 @@ name|hrsc
 operator|.
 name|getConstructor
 argument_list|(
-name|HBaseConfiguration
+name|Configuration
 operator|.
 name|class
 argument_list|)
@@ -406,53 +406,6 @@ argument_list|(
 literal|"Shutting down HBase Cluster"
 argument_list|)
 expr_stmt|;
-comment|// Be careful how the hdfs shutdown thread runs in context where more than
-comment|// one regionserver in the mix.
-name|Thread
-name|hdfsClientFinalizer
-init|=
-literal|null
-decl_stmt|;
-for|for
-control|(
-name|JVMClusterUtil
-operator|.
-name|RegionServerThread
-name|t
-range|:
-name|regionservers
-control|)
-block|{
-name|Thread
-name|tt
-init|=
-name|t
-operator|.
-name|getRegionServer
-argument_list|()
-operator|.
-name|setHDFSShutdownThreadOnExit
-argument_list|(
-literal|null
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|hdfsClientFinalizer
-operator|==
-literal|null
-operator|&&
-name|tt
-operator|!=
-literal|null
-condition|)
-block|{
-name|hdfsClientFinalizer
-operator|=
-name|tt
-expr_stmt|;
-block|}
-block|}
 if|if
 condition|(
 name|master
@@ -539,20 +492,6 @@ block|{
 comment|// continue
 block|}
 block|}
-block|}
-if|if
-condition|(
-name|hdfsClientFinalizer
-operator|!=
-literal|null
-condition|)
-block|{
-comment|// Don't run the shutdown thread.  Plays havoc if we try to start a
-comment|// minihbasecluster immediately after this one has gone down (In
-comment|// Filesystem, the shutdown thread is kept in a static and is created
-comment|// on classloading.  Can only run it once).
-comment|// hdfsClientFinalizer.start();
-comment|// Threads.shutdown(hdfsClientFinalizer);
 block|}
 name|LOG
 operator|.
