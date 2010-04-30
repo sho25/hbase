@@ -809,7 +809,7 @@ name|cmd
 operator|.
 name|startsWith
 argument_list|(
-name|rsClassArgKey
+name|newNameArgKey
 argument_list|)
 condition|)
 block|{
