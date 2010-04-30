@@ -746,7 +746,7 @@ name|this
 operator|.
 name|cluster
 operator|.
-name|getRegionThreads
+name|getRegionServerThreads
 argument_list|()
 operator|!=
 literal|null
@@ -761,7 +761,7 @@ name|this
 operator|.
 name|cluster
 operator|.
-name|getRegionThreads
+name|getRegionServerThreads
 argument_list|()
 control|)
 block|{

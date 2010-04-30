@@ -257,6 +257,22 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|JVMClusterUtil
+import|;
+end_import
+
 begin_comment
 comment|/**  * Tests region server failover when a region server exits both cleanly and  * when it aborts.  */
 end_comment
@@ -630,7 +646,7 @@ parameter_list|)
 block|{
 name|List
 argument_list|<
-name|LocalHBaseCluster
+name|JVMClusterUtil
 operator|.
 name|RegionServerThread
 argument_list|>
@@ -638,7 +654,7 @@ name|regionThreads
 init|=
 name|cluster
 operator|.
-name|getRegionThreads
+name|getRegionServerThreads
 argument_list|()
 decl_stmt|;
 name|int

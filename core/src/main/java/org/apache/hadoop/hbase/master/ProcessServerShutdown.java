@@ -534,6 +534,18 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * @return Name of server we are processing.    */
+specifier|public
+name|HServerAddress
+name|getDeadServerAddress
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|deadServerAddress
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public

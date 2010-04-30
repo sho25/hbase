@@ -192,7 +192,7 @@ name|port
 operator|=
 name|cluster
 operator|.
-name|getRegionThreads
+name|getRegionServerThreads
 argument_list|()
 operator|.
 name|get

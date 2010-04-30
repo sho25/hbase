@@ -305,6 +305,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|HMaster
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HRegionServer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -356,38 +388,6 @@ operator|.
 name|zookeeper
 operator|.
 name|ZooKeeperWrapper
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|HMaster
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|HRegionServer
 import|;
 end_import
 
@@ -482,6 +482,7 @@ name|mrCluster
 init|=
 literal|null
 decl_stmt|;
+comment|// If non-null, then already a cluster running.
 specifier|private
 name|File
 name|clusterTestBuildDir
@@ -563,6 +564,93 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+comment|/**    * Home our cluster in a dir under build/test.  Give it a random name    * so can have many concurrent clusters running if we need to.  Need to    * amend the test.build.data System property.  Its what minidfscluster bases    * it data dir on.  Moding a System property is not the way to do concurrent    * instances -- another instance could grab the temporary    * value unintentionally -- but not anything can do about it at moment; its    * how the minidfscluster works.    * @return The calculated cluster test build directory.    */
+name|File
+name|setupClusterTestBuildDir
+parameter_list|()
+block|{
+name|String
+name|oldTestBuildDir
+init|=
+name|System
+operator|.
+name|getProperty
+argument_list|(
+name|TEST_DIRECTORY_KEY
+argument_list|,
+literal|"build/test/data"
+argument_list|)
+decl_stmt|;
+name|String
+name|randomStr
+init|=
+name|UUID
+operator|.
+name|randomUUID
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+decl_stmt|;
+name|String
+name|dirStr
+init|=
+name|oldTestBuildDir
+operator|+
+literal|"."
+operator|+
+name|randomStr
+decl_stmt|;
+name|File
+name|dir
+init|=
+operator|new
+name|File
+argument_list|(
+name|dirStr
+argument_list|)
+operator|.
+name|getAbsoluteFile
+argument_list|()
+decl_stmt|;
+comment|// Have it cleaned up on exit
+name|dir
+operator|.
+name|deleteOnExit
+argument_list|()
+expr_stmt|;
+return|return
+name|dir
+return|;
+block|}
+comment|/**    * @throws IOException If cluster already running.    */
+name|void
+name|isRunningCluster
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|clusterTestBuildDir
+operator|==
+literal|null
+condition|)
+return|return;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Cluster already running at "
+operator|+
+name|this
+operator|.
+name|clusterTestBuildDir
+argument_list|)
+throw|;
+block|}
 comment|/**    * @param subdirName    * @return Path to a subdirectory named<code>subdirName</code> under    * {@link #getTestDir()}.    */
 specifier|public
 name|Path
@@ -598,6 +686,7 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Call this if you only want a zk cluster.    * @see #startMiniZKCluster() if you want zk + dfs + hbase mini cluster.    * @throws Exception    * @see #shutdownMiniZKCluster()     */
 specifier|public
 name|void
 name|startMiniZKCluster
@@ -605,8 +694,35 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-comment|// Note that this is done before we create the MiniHBaseCluster because we
-comment|// need to edit the config to add the ZooKeeper servers.
+name|isRunningCluster
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|clusterTestBuildDir
+operator|=
+name|setupClusterTestBuildDir
+argument_list|()
+expr_stmt|;
+name|startMiniZKCluster
+argument_list|(
+name|this
+operator|.
+name|clusterTestBuildDir
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|startMiniZKCluster
+parameter_list|(
+specifier|final
+name|File
+name|dir
+parameter_list|)
+throws|throws
+name|Exception
+block|{
 name|this
 operator|.
 name|zkCluster
@@ -624,9 +740,7 @@ name|zkCluster
 operator|.
 name|startup
 argument_list|(
-name|this
-operator|.
-name|clusterTestBuildDir
+name|dir
 argument_list|)
 decl_stmt|;
 name|this
@@ -644,6 +758,30 @@ argument_list|(
 name|clientPort
 argument_list|)
 argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * @throws IOException    * @see #startMiniZKCluster()    */
+specifier|public
+name|void
+name|shutdownMiniZKCluster
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|zkCluster
+operator|!=
+literal|null
+condition|)
+name|this
+operator|.
+name|zkCluster
+operator|.
+name|shutdown
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Start up a minicluster of hbase, optinally dfs, and zookeeper.    * Modifies Configuration.  Homes the cluster data directory under a random    * subdirectory in a directory under System property test.build.data.    * @param servers Number of servers to start up.  We'll start this many    * datanodes and regionservers.  If servers is> 1, then make sure    * hbase.regionserver.info.port is -1 (i.e. no ui per regionserver) otherwise    * bind errors.    * @throws Exception    * @see {@link #shutdownMiniCluster()}    */
@@ -666,36 +804,11 @@ literal|"Starting up minicluster"
 argument_list|)
 expr_stmt|;
 comment|// If we already put up a cluster, fail.
-if|if
-condition|(
-name|this
-operator|.
-name|clusterTestBuildDir
-operator|!=
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Cluster already running at "
-operator|+
-name|this
-operator|.
-name|clusterTestBuildDir
-argument_list|)
-throw|;
-block|}
-comment|// Now, home our cluster in a dir under build/test.  Give it a random name
-comment|// so can have many concurrent clusters running if we need to.  Need to
-comment|// amend the test.build.data System property.  Its what minidfscluster bases
-comment|// it data dir on.  Moding a System property is not the way to do concurrent
-comment|// instances -- another instance could grab the temporary
-comment|// value unintentionally -- but not anything can do about it at moment; its
-comment|// how the minidfscluster works.
+name|isRunningCluster
+argument_list|()
+expr_stmt|;
 name|String
-name|oldTestBuildDir
+name|oldBuildTestDir
 init|=
 name|System
 operator|.
@@ -706,45 +819,11 @@ argument_list|,
 literal|"build/test/data"
 argument_list|)
 decl_stmt|;
-name|String
-name|randomStr
-init|=
-name|UUID
-operator|.
-name|randomUUID
-argument_list|()
-operator|.
-name|toString
-argument_list|()
-decl_stmt|;
-name|String
-name|clusterTestBuildDirStr
-init|=
-name|oldTestBuildDir
-operator|+
-literal|"."
-operator|+
-name|randomStr
-decl_stmt|;
 name|this
 operator|.
 name|clusterTestBuildDir
 operator|=
-operator|new
-name|File
-argument_list|(
-name|clusterTestBuildDirStr
-argument_list|)
-operator|.
-name|getAbsoluteFile
-argument_list|()
-expr_stmt|;
-comment|// Have it cleaned up on exit
-name|this
-operator|.
-name|clusterTestBuildDir
-operator|.
-name|deleteOnExit
+name|setupClusterTestBuildDir
 argument_list|()
 expr_stmt|;
 comment|// Set our random dir while minidfscluster is being constructed.
@@ -754,7 +833,12 @@ name|setProperty
 argument_list|(
 name|TEST_DIRECTORY_KEY
 argument_list|,
-name|clusterTestBuildDirStr
+name|this
+operator|.
+name|clusterTestBuildDir
+operator|.
+name|getPath
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Bring up mini dfs cluster. This spews a bunch of warnings about missing
@@ -799,7 +883,7 @@ name|setProperty
 argument_list|(
 name|TEST_DIRECTORY_KEY
 argument_list|,
-name|oldTestBuildDir
+name|oldBuildTestDir
 argument_list|)
 expr_stmt|;
 comment|// Mangle conf so fs parameter points to minidfs we just started up
@@ -848,7 +932,11 @@ literal|null
 condition|)
 block|{
 name|startMiniZKCluster
-argument_list|()
+argument_list|(
+name|this
+operator|.
+name|clusterTestBuildDir
+argument_list|)
 expr_stmt|;
 block|}
 comment|// Now do the mini hbase cluster.  Set the hbase.rootdir in config.
@@ -957,7 +1045,19 @@ literal|"Minicluster is up"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @throws IOException    * @see {@link #startMiniCluster(boolean, int)}    */
+comment|/**    * @return Current mini hbase cluster. Only has something in it after a call    * to {@link #startMiniCluster()}.    * @see #startMiniCluster()    */
+specifier|public
+name|MiniHBaseCluster
+name|getMiniHBaseCluster
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|hbaseCluster
+return|;
+block|}
+comment|/**    * @throws IOException    * @see {@link #startMiniCluster(int)}    */
 specifier|public
 name|void
 name|shutdownMiniCluster
@@ -997,19 +1097,7 @@ name|join
 argument_list|()
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|this
-operator|.
-name|zkCluster
-operator|!=
-literal|null
-condition|)
-name|this
-operator|.
-name|zkCluster
-operator|.
-name|shutdown
+name|shutdownMiniZKCluster
 argument_list|()
 expr_stmt|;
 if|if
@@ -1692,14 +1780,47 @@ return|return
 name|rowCount
 return|;
 block|}
-comment|/**    * Creates many regions names "aaa" to "zzz".    *     * @param table  The table to use for the data.    * @param columnFamily  The family to insert the data into.    * @throws IOException When creating the regions fails.    */
+comment|/**    * Creates many regions names "aaa" to "zzz".    *     * @param table  The table to use for the data.    * @param columnFamily  The family to insert the data into.    * @return count of regions created.    * @throws IOException When creating the regions fails.    */
 specifier|public
-name|void
+name|int
 name|createMultiRegions
 parameter_list|(
 name|HTable
 name|table
 parameter_list|,
+name|byte
+index|[]
+name|columnFamily
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|createMultiRegions
+argument_list|(
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|table
+argument_list|,
+name|columnFamily
+argument_list|)
+return|;
+block|}
+comment|/**    * Creates many regions names "aaa" to "zzz".    * @param c Configuration to use.    * @param table  The table to use for the data.    * @param columnFamily  The family to insert the data into.    * @return count of regions created.    * @throws IOException When creating the regions fails.    */
+specifier|public
+name|int
+name|createMultiRegions
+parameter_list|(
+specifier|final
+name|Configuration
+name|c
+parameter_list|,
+specifier|final
+name|HTable
+name|table
+parameter_list|,
+specifier|final
 name|byte
 index|[]
 name|columnFamily
@@ -1886,12 +2007,6 @@ literal|"yyy"
 argument_list|)
 block|}
 decl_stmt|;
-name|Configuration
-name|c
-init|=
-name|getConfiguration
-argument_list|()
-decl_stmt|;
 name|HTable
 name|meta
 init|=
@@ -1956,6 +2071,11 @@ name|getMetaTableRows
 argument_list|()
 decl_stmt|;
 comment|// add custom ones
+name|int
+name|count
+init|=
+literal|0
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -2059,6 +2179,9 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|count
+operator|++
+expr_stmt|;
 block|}
 comment|// see comment above, remove "old" (or previous) single region
 for|for
@@ -2110,6 +2233,9 @@ operator|.
 name|clearRegionCache
 argument_list|()
 expr_stmt|;
+return|return
+name|count
+return|;
 block|}
 comment|/**    * Returns all rows from the .META. table.    *    * @throws IOException When reading the rows fails.    */
 specifier|public

@@ -129,7 +129,7 @@ specifier|final
 name|HMaster
 name|master
 decl_stmt|;
-specifier|final
+specifier|private
 name|int
 name|delay
 decl_stmt|;
@@ -168,13 +168,35 @@ argument_list|)
 expr_stmt|;
 comment|// Set the future time at which we expect to be released from the
 comment|// DelayQueue we're inserted in on lease expiration.
+name|resetExpiration
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * Call before putting this back on the delay queue.    * @return When we will expire next.    */
+name|long
+name|resetExpiration
+parameter_list|()
+block|{
+comment|// Set the future time at which we expect to be released from the
+comment|// DelayQueue we're inserted in on lease expiration.
 name|this
 operator|.
 name|expire
 operator|=
-name|whenToExpire
+name|System
+operator|.
+name|currentTimeMillis
 argument_list|()
+operator|+
+name|this
+operator|.
+name|delay
 expr_stmt|;
+return|return
+name|this
+operator|.
+name|expire
+return|;
 block|}
 specifier|public
 name|long
@@ -203,6 +225,21 @@ operator|.
 name|MILLISECONDS
 argument_list|)
 return|;
+block|}
+name|void
+name|setDelay
+parameter_list|(
+specifier|final
+name|int
+name|d
+parameter_list|)
+block|{
+name|this
+operator|.
+name|delay
+operator|=
+name|d
+expr_stmt|;
 block|}
 specifier|public
 name|int
@@ -245,16 +282,12 @@ parameter_list|()
 block|{
 name|this
 operator|.
-name|expire
-operator|=
-name|whenToExpire
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
 name|master
 operator|.
-name|requeue
+name|getRegionServerOperationQueue
+argument_list|()
+operator|.
+name|putOnDelayQueue
 argument_list|(
 name|this
 argument_list|)

@@ -153,6 +153,22 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|JVMClusterUtil
+import|;
+end_import
+
 begin_comment
 comment|/**  * Test whether region rebalancing works. (HBASE-71)  */
 end_comment
@@ -929,14 +945,14 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|LocalHBaseCluster
+name|JVMClusterUtil
 operator|.
 name|RegionServerThread
 name|rst
 range|:
 name|cluster
 operator|.
-name|getRegionThreads
+name|getRegionServerThreads
 argument_list|()
 control|)
 block|{

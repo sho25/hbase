@@ -3430,6 +3430,23 @@ return|return;
 block|}
 if|if
 condition|(
+name|syncerShuttingDown
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|getName
+argument_list|()
+operator|+
+literal|" was shut down while waiting for sync"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+if|if
+condition|(
 name|force
 condition|)
 block|{

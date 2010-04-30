@@ -153,6 +153,21 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+operator|!
+name|metaRegionAvailable
+argument_list|()
+condition|)
+block|{
+comment|// We can't proceed unless the meta region we are going to update
+comment|// is online. metaRegionAvailable() has put this operation on the
+comment|// delayedToDoQueue, so return true so the operation is not put
+comment|// back on the toDoQueue
+return|return
+literal|true
+return|;
+block|}
 name|Boolean
 name|result
 init|=
