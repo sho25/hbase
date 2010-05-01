@@ -65,6 +65,16 @@ name|Before
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Test
+import|;
+end_import
+
 begin_comment
 comment|/**  * Test the queue used to manage RegionServerOperations.  * Currently RegionServerOperationQueue is untestable because each  * RegionServerOperation has a {@link HMaster} reference.  TOOD: Fix.  */
 end_comment
@@ -135,6 +145,15 @@ name|After
 specifier|public
 name|void
 name|tearDown
+parameter_list|()
+throws|throws
+name|Exception
+block|{   }
+annotation|@
+name|Test
+specifier|public
+name|void
+name|testNothing
 parameter_list|()
 throws|throws
 name|Exception

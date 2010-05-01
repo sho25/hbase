@@ -533,7 +533,7 @@ specifier|final
 name|int
 name|SERVER_DURATION
 init|=
-literal|10
+literal|3
 operator|*
 literal|1000
 decl_stmt|;
@@ -764,7 +764,7 @@ name|isWantedCloseOperation
 argument_list|(
 name|op
 argument_list|)
-operator|==
+operator|!=
 literal|null
 condition|)
 return|return;
@@ -1043,6 +1043,16 @@ expr_stmt|;
 comment|// We should not have retried the close more times than it took for the
 comment|// server shutdown message to exit the delay queue and get processed
 comment|// (Multiple by two to add in some slop in case of GC or something).
+name|assertTrue
+argument_list|(
+name|listener
+operator|.
+name|getCloseCount
+argument_list|()
+operator|>
+literal|1
+argument_list|)
+expr_stmt|;
 name|assertTrue
 argument_list|(
 name|listener
