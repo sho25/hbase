@@ -754,9 +754,19 @@ comment|// Output on stdout so user sees it in terminal.
 name|String
 name|msg
 init|=
-literal|"File system needs to be upgraded. Run "
+literal|"File system needs to be upgraded."
 operator|+
-literal|"the '${HBASE_HOME}/bin/hbase migrate' script."
+literal|"  You have version "
+operator|+
+name|version
+operator|+
+literal|" and I want version "
+operator|+
+name|HConstants
+operator|.
+name|FILE_SYSTEM_VERSION
+operator|+
+literal|".  Run the '${HBASE_HOME}/bin/hbase migrate' script."
 decl_stmt|;
 if|if
 condition|(
