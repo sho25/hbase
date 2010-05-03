@@ -27,6 +27,34 @@ name|IOException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HMsg
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HServerInfo
+import|;
+end_import
+
 begin_comment
 comment|/**  * Listener for regionserver events in master.  * @see HMaster#registerRegionServerOperationListener(RegionServerOperationListener)  * @see HMaster#unregisterRegionServerOperationListener(RegionServerOperationListener)  */
 end_comment
@@ -36,6 +64,20 @@ specifier|public
 interface|interface
 name|RegionServerOperationListener
 block|{
+comment|/**    * Called for each message passed the master.  Most of the messages that come    * in here will go on to become {@link #process(RegionServerOperation)}s but    * others like {@linke HMsg.Type#MSG_REPORT_PROCESS_OPEN} go no further;    * only in here can you see them come in.    * @param serverInfo Server we got the message from.    * @param incomingMsg The message received.    * @return True to continue processing, false to skip.    */
+specifier|public
+name|boolean
+name|process
+parameter_list|(
+specifier|final
+name|HServerInfo
+name|serverInfo
+parameter_list|,
+specifier|final
+name|HMsg
+name|incomingMsg
+parameter_list|)
+function_decl|;
 comment|/**    * Called before processing<code>op</code>    * @param op    * @return True if we are to proceed w/ processing.    * @exception IOException    */
 specifier|public
 name|boolean
