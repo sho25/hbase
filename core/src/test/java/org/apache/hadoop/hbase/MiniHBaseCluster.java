@@ -546,7 +546,7 @@ block|{
 specifier|public
 name|MiniHBaseClusterRegionServer
 parameter_list|(
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|)
 throws|throws
