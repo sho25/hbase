@@ -427,12 +427,16 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Try to get an operation off of the queue and process it.    * @return {@link ProcessingResultCode#PROCESSED},    * {@link ProcessingResultCode#REQUEUED},    * {@link ProcessingResultCode#REQUEUED_BUT_PROBLEM}    */
+comment|/**    * Try to get an operation off of the queue and process it.    * @param skipDelayedToDos If true, do not do delayed todos first but instead    * move straight to the current todos list.  This is set when we want to be    * sure that recently queued events are processed first such as the onlining    * of root region (Root region needs to be online before we can do meta    * onlining; meta onlining needs to be done before we can do... and so on).     * @return {@link ProcessingResultCode#PROCESSED},    * {@link ProcessingResultCode#REQUEUED},    * {@link ProcessingResultCode#REQUEUED_BUT_PROBLEM}    */
 specifier|public
 specifier|synchronized
 name|ProcessingResultCode
 name|process
-parameter_list|()
+parameter_list|(
+specifier|final
+name|boolean
+name|skipDelayedToDos
+parameter_list|)
 block|{
 name|RegionServerOperation
 name|op

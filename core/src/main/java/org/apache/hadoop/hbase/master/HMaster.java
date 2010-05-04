@@ -2412,8 +2412,9 @@ expr_stmt|;
 break|break;
 block|}
 block|}
-if|if
-condition|(
+name|boolean
+name|doDelayQueue
+init|=
 name|this
 operator|.
 name|regionManager
@@ -2422,8 +2423,7 @@ name|getRootRegionLocation
 argument_list|()
 operator|!=
 literal|null
-condition|)
-block|{
+decl_stmt|;
 switch|switch
 condition|(
 name|this
@@ -2431,7 +2431,9 @@ operator|.
 name|regionServerOperationQueue
 operator|.
 name|process
-argument_list|()
+argument_list|(
+name|doDelayQueue
+argument_list|)
 condition|)
 block|{
 case|case
@@ -2455,7 +2457,6 @@ break|;
 default|default:
 comment|// PROCESSED, NOOP, REQUEUED:
 break|break;
-block|}
 block|}
 block|}
 block|}
