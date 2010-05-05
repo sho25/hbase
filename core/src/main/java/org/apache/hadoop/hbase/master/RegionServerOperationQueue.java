@@ -475,9 +475,13 @@ name|poll
 argument_list|()
 expr_stmt|;
 block|}
-else|else
+if|if
+condition|(
+name|op
+operator|==
+literal|null
+condition|)
 block|{
-comment|// if there aren't any todo items in the queue, sleep for a bit.
 try|try
 block|{
 name|op
