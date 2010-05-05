@@ -2412,8 +2412,9 @@ expr_stmt|;
 break|break;
 block|}
 block|}
-name|boolean
-name|doDelayQueue
+specifier|final
+name|HServerAddress
+name|root
 init|=
 name|this
 operator|.
@@ -2421,8 +2422,6 @@ name|regionManager
 operator|.
 name|getRootRegionLocation
 argument_list|()
-operator|!=
-literal|null
 decl_stmt|;
 switch|switch
 condition|(
@@ -2432,13 +2431,14 @@ name|regionServerOperationQueue
 operator|.
 name|process
 argument_list|(
-name|doDelayQueue
+name|root
 argument_list|)
 condition|)
 block|{
 case|case
 name|FAILED
 case|:
+comment|// If FAILED op processing, bad. Exit.
 break|break
 name|FINISHED
 break|;
@@ -2451,11 +2451,12 @@ operator|!
 name|checkFileSystem
 argument_list|()
 condition|)
+comment|// If bad filesystem, exit.
 break|break
 name|FINISHED
 break|;
 default|default:
-comment|// PROCESSED, NOOP, REQUEUED:
+comment|// Continue run loop if conditions are PROCESSED, NOOP, REQUEUED
 break|break;
 block|}
 block|}

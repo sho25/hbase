@@ -191,6 +191,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HServerAddress
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|RemoteExceptionHandler
 import|;
 end_import
@@ -427,33 +441,43 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Try to get an operation off of the queue and process it.    * @param skipDelayedToDos If true, do not do delayed todos first but instead    * move straight to the current todos list.  This is set when we want to be    * sure that recently queued events are processed first such as the onlining    * of root region (Root region needs to be online before we can do meta    * onlining; meta onlining needs to be done before we can do... and so on).     * @return {@link ProcessingResultCode#PROCESSED},    * {@link ProcessingResultCode#REQUEUED},    * {@link ProcessingResultCode#REQUEUED_BUT_PROBLEM}    */
+comment|/**    * Try to get an operation off of the queue and process it.    * @param rootRegionLocation Location of the root region.    * @return {@link ProcessingResultCode#PROCESSED},    * {@link ProcessingResultCode#REQUEUED},    * {@link ProcessingResultCode#REQUEUED_BUT_PROBLEM}    */
 specifier|public
 specifier|synchronized
 name|ProcessingResultCode
 name|process
 parameter_list|(
 specifier|final
-name|boolean
-name|skipDelayedToDos
+name|HServerAddress
+name|rootRegionLocation
 parameter_list|)
 block|{
 name|RegionServerOperation
 name|op
 init|=
+literal|null
+decl_stmt|;
+comment|// Only process the delayed queue if root region is online.  If offline,
+comment|// the operation to put it online is probably in the toDoQueue.  Process
+comment|// it first.
+if|if
+condition|(
+name|rootRegionLocation
+operator|!=
+literal|null
+condition|)
+block|{
+name|op
+operator|=
 name|delayedToDoQueue
 operator|.
 name|poll
 argument_list|()
-decl_stmt|;
-comment|// if there aren't any todo items in the queue, sleep for a bit.
-if|if
-condition|(
-name|op
-operator|==
-literal|null
-condition|)
+expr_stmt|;
+block|}
+else|else
 block|{
+comment|// if there aren't any todo items in the queue, sleep for a bit.
 try|try
 block|{
 name|op
