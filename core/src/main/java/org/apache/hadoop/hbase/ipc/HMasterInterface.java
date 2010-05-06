@@ -115,13 +115,18 @@ name|isMasterRunning
 parameter_list|()
 function_decl|;
 comment|// Admin tools would use these cmds
-comment|/**    * Creates a new table    * @param desc table descriptor    * @throws IOException e    */
+comment|/**    * Creates a new table.  If splitKeys are specified, then the table will be    * created with an initial set of multiple regions.  If splitKeys is null,    * the table will be created with a single region.    * @param desc table descriptor    * @param splitKeys    * @throws IOException    */
 specifier|public
 name|void
 name|createTable
 parameter_list|(
 name|HTableDescriptor
 name|desc
+parameter_list|,
+name|byte
+index|[]
+index|[]
+name|splitKeys
 parameter_list|)
 throws|throws
 name|IOException

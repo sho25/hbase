@@ -4060,15 +4060,15 @@ name|aPadded
 argument_list|,
 name|bPadded
 argument_list|)
-operator|>
-literal|1
+operator|>=
+literal|0
 condition|)
 block|{
 throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"b> a"
+literal|"b<= a"
 argument_list|)
 throw|;
 block|}
@@ -4155,7 +4155,7 @@ name|compareTo
 argument_list|(
 name|splitsBI
 argument_list|)
-operator|<=
+operator|<
 literal|0
 condition|)
 block|{
