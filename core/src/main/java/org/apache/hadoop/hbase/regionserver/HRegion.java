@@ -237,6 +237,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|UnknownScannerException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Delete
@@ -7075,6 +7089,13 @@ specifier|private
 name|int
 name|batch
 decl_stmt|;
+comment|// Doesn't need to be volatile, always accessed under a sync'ed method
+specifier|private
+name|boolean
+name|filterClosed
+init|=
+literal|false
+decl_stmt|;
 name|RegionScanner
 parameter_list|(
 name|Scan
@@ -7282,6 +7303,7 @@ expr_stmt|;
 block|}
 block|}
 specifier|public
+specifier|synchronized
 name|boolean
 name|next
 parameter_list|(
@@ -7297,6 +7319,25 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|filterClosed
+condition|)
+block|{
+throw|throw
+operator|new
+name|UnknownScannerException
+argument_list|(
+literal|"Scanner was closed (timed out?) "
+operator|+
+literal|"after we renewed it. Could be caused by a very slow scanner "
+operator|+
+literal|"or a lengthy garbage collection"
+argument_list|)
+throw|;
+block|}
 if|if
 condition|(
 name|closing
@@ -7397,6 +7438,7 @@ name|returnResult
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|boolean
 name|next
 parameter_list|(
@@ -7420,6 +7462,7 @@ argument_list|)
 return|;
 block|}
 comment|/*      * @return True if a filter rules the scanner is over, done.      */
+specifier|synchronized
 name|boolean
 name|isFilterDone
 parameter_list|()
@@ -7731,6 +7774,7 @@ literal|true
 return|;
 block|}
 specifier|public
+specifier|synchronized
 name|void
 name|close
 parameter_list|()
@@ -7740,33 +7784,16 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-block|}
-comment|/**      *      * @param scanner to be closed      */
-specifier|public
-name|void
-name|close
-parameter_list|(
-name|KeyValueScanner
-name|scanner
-parameter_list|)
-block|{
-try|try
-block|{
-name|scanner
+name|this
 operator|.
-name|close
-argument_list|()
+name|filterClosed
+operator|=
+literal|true
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|NullPointerException
-name|npe
-parameter_list|)
-block|{}
 block|}
 comment|/**      * @return the current storeHeap      */
 specifier|public
+specifier|synchronized
 name|KeyValueHeap
 name|getStoreHeap
 parameter_list|()
