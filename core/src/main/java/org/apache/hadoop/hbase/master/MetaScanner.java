@@ -98,7 +98,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * MetaScanner<code>META</code> table.  *   * When a<code>META</code> server comes on line, a MetaRegion object is  * queued up by regionServerReport() and this thread wakes up.  *  * It's important to do this work in a separate thread, or else the blocking   * action would prevent other work from getting done.  */
+comment|/**  * MetaScanner<code>META</code> table.  *  * When a<code>META</code> server comes on line, a MetaRegion object is  * queued up by regionServerReport() and this thread wakes up.  *  * It's important to do this work in a separate thread, or else the blocking  * action would prevent other work from getting done.  */
 end_comment
 
 begin_class
@@ -138,7 +138,7 @@ name|MetaRegion
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/**    * Constructor    *     * @param master    */
+comment|/**    * Constructor    *    * @param master    */
 specifier|public
 name|MetaScanner
 parameter_list|(
@@ -532,7 +532,7 @@ name|metaRegionsScanned
 argument_list|()
 expr_stmt|;
 block|}
-comment|/*    * Called by the meta scanner when it has completed scanning all meta     * regions. This wakes up any threads that were waiting for this to happen.    * @param totalRows Total rows scanned.    * @param regionCount Count of regions in  .META. table.    * @return False if number of meta regions matches count of online regions.    */
+comment|/*    * Called by the meta scanner when it has completed scanning all meta    * regions. This wakes up any threads that were waiting for this to happen.    * @param totalRows Total rows scanned.    * @param regionCount Count of regions in  .META. table.    * @return False if number of meta regions matches count of online regions.    */
 specifier|private
 specifier|synchronized
 name|boolean

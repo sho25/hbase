@@ -76,7 +76,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HMsg is for communicating instructions between the HMaster and the   * HRegionServers.  *   * Most of the time the messages are simple but some messages are accompanied  * by the region affected.  HMsg may also carry optional message.  */
+comment|/**  * HMsg is for communicating instructions between the HMaster and the  * HRegionServers.  *  * Most of the time the messages are simple but some messages are accompanied  * by the region affected.  HMsg may also carry optional message.  */
 end_comment
 
 begin_class
@@ -185,10 +185,10 @@ block|,
 comment|/** region server is processing open request */
 name|MSG_REPORT_PROCESS_OPEN
 block|,
-comment|/**      * Region server split the region associated with this message.      *       * Note that this message is immediately followed by two MSG_REPORT_OPEN      * messages, one for each of the new regions resulting from the split      * @deprecated See MSG_REPORT_SPLIT_INCLUDES_DAUGHTERS      */
+comment|/**      * Region server split the region associated with this message.      *      * Note that this message is immediately followed by two MSG_REPORT_OPEN      * messages, one for each of the new regions resulting from the split      * @deprecated See MSG_REPORT_SPLIT_INCLUDES_DAUGHTERS      */
 name|MSG_REPORT_SPLIT
 block|,
-comment|/**      * Region server is shutting down      *       * Note that this message is followed by MSG_REPORT_CLOSE messages for each      * region the region server was serving, unless it was told to quiesce.      */
+comment|/**      * Region server is shutting down      *      * Note that this message is followed by MSG_REPORT_CLOSE messages for each      * region the region server was serving, unless it was told to quiesce.      */
 name|MSG_REPORT_EXITING
 block|,
 comment|/** Region server has closed all user regions but is still serving meta      * regions      */
@@ -200,7 +200,7 @@ block|,
 comment|/**      * Run Major Compaction      */
 name|MSG_REGION_MAJOR_COMPACT
 block|,
-comment|/**      * Region server split the region associated with this message.      *       * Its like MSG_REPORT_SPLIT only it carries the daughters in the message      * rather than send them individually in MSG_REPORT_OPEN messages.      */
+comment|/**      * Region server split the region associated with this message.      *      * Its like MSG_REPORT_SPLIT only it carries the daughters in the message      * rather than send them individually in MSG_REPORT_OPEN messages.      */
 name|MSG_REPORT_SPLIT_INCLUDES_DAUGHTERS
 block|,
 comment|/**      * When RegionServer receives this message, it goes into a sleep that only      * an exit will cure.  This message is sent by unit tests simulating      * pathological states.      */
@@ -298,7 +298,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct a message with the specified message and HRegionInfo    *     * @param type Message type    * @param hri Region to which message<code>type</code> applies.  Cannot be    * null.  If no info associated, used other Constructor.    * @param msg Optional message (Stringified exception, etc.)    */
+comment|/**    * Construct a message with the specified message and HRegionInfo    *    * @param type Message type    * @param hri Region to which message<code>type</code> applies.  Cannot be    * null.  If no info associated, used other Constructor.    * @param msg Optional message (Stringified exception, etc.)    */
 specifier|public
 name|HMsg
 parameter_list|(
@@ -332,7 +332,7 @@ name|msg
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct a message with the specified message and HRegionInfo    *     * @param type Message type    * @param hri Region to which message<code>type</code> applies.  Cannot be    * null.  If no info associated, used other Constructor.    * @param daughterA    * @param daughterB    * @param msg Optional message (Stringified exception, etc.)    */
+comment|/**    * Construct a message with the specified message and HRegionInfo    *    * @param type Message type    * @param hri Region to which message<code>type</code> applies.  Cannot be    * null.  If no info associated, used other Constructor.    * @param daughterA    * @param daughterB    * @param msg Optional message (Stringified exception, etc.)    */
 specifier|public
 name|HMsg
 parameter_list|(

@@ -265,7 +265,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Contructor where another SortedMap can be used    *     * @param map the SortedMap to be used     */
+comment|/**    * Contructor where another SortedMap can be used    *    * @param map the SortedMap to be used    */
 specifier|public
 name|HbaseMapWritable
 parameter_list|(

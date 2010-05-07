@@ -46,7 +46,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Interface for row and column filters directly applied within the regionserver.  * A filter can expect the following call sequence:  *<ul>  *<li>{@link #reset()}</li>  *<li>{@link #filterAllRemaining()} -> true indicates scan is over, false, keep going on.</li>  *<li>{@link #filterRowKey(byte[],int,int)} -> true to drop this row,   * if false, we will also call</li>  *<li>{@link #filterKeyValue(KeyValue)} -> true to drop this key/value</li>  *<li>{@link #filterRow()} -> last chance to drop entire row based on the sequence of  * filterValue() calls. Eg: filter a row if it doesn't contain a specified column.  *</li>  *</ul>  *  * Filter instances are created one per region/scan.  This interface replaces  * the old RowFilterInterface.  */
+comment|/**  * Interface for row and column filters directly applied within the regionserver.  * A filter can expect the following call sequence:  *<ul>  *<li>{@link #reset()}</li>  *<li>{@link #filterAllRemaining()} -> true indicates scan is over, false, keep going on.</li>  *<li>{@link #filterRowKey(byte[],int,int)} -> true to drop this row,  * if false, we will also call</li>  *<li>{@link #filterKeyValue(KeyValue)} -> true to drop this key/value</li>  *<li>{@link #filterRow()} -> last chance to drop entire row based on the sequence of  * filterValue() calls. Eg: filter a row if it doesn't contain a specified column.  *</li>  *</ul>  *  * Filter instances are created one per region/scan.  This interface replaces  * the old RowFilterInterface.  */
 end_comment
 
 begin_interface

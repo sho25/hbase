@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one or more  * contributor license agreements. See the NOTICE file distributed with this  * work for additional information regarding copyright ownership. The ASF  * licenses this file to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance with the License.  * You may obtain a copy of the License at  *   * http://www.apache.org/licenses/LICENSE-2.0  *   * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the  * License for the specific language governing permissions and limitations under  * the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one or more  * contributor license agreements. See the NOTICE file distributed with this  * work for additional information regarding copyright ownership. The ASF  * licenses this file to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance with the License.  * You may obtain a copy of the License at  *  * http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the  * License for the specific language governing permissions and limitations under  * the License.  */
 end_comment
 
 begin_package
@@ -74,7 +74,7 @@ specifier|static
 interface|interface
 name|DiscreteRNG
 block|{
-comment|/**      * Get the next random number      *       * @return the next random number.      */
+comment|/**      * Get the next random number      *      * @return the next random number.      */
 specifier|public
 name|int
 name|nextInt
@@ -105,7 +105,7 @@ specifier|final
 name|int
 name|max
 decl_stmt|;
-comment|/**      * Generate random integers from min (inclusive) to max (exclusive)      * following even distribution.      *       * @param random      *          The basic random number generator.      * @param min      *          Minimum integer      * @param max      *          maximum integer (exclusive).      *       */
+comment|/**      * Generate random integers from min (inclusive) to max (exclusive)      * following even distribution.      *      * @param random      *          The basic random number generator.      * @param min      *          Minimum integer      * @param max      *          maximum integer (exclusive).      *      */
 specifier|public
 name|Flat
 parameter_list|(
@@ -175,7 +175,7 @@ name|min
 return|;
 block|}
 block|}
-comment|/**    * Zipf distribution. The ratio of the probabilities of integer i and j is    * defined as follows:    *     * P(i)/P(j)=((j-min+1)/(i-min+1))^sigma.    */
+comment|/**    * Zipf distribution. The ratio of the probabilities of integer i and j is    * defined as follows:    *    * P(i)/P(j)=((j-min+1)/(i-min+1))^sigma.    */
 specifier|public
 specifier|static
 specifier|final
@@ -213,7 +213,7 @@ name|Double
 argument_list|>
 name|v
 decl_stmt|;
-comment|/**      * Constructor      *       * @param r      *          The random number generator.      * @param min      *          minimum integer (inclusvie)      * @param max      *          maximum integer (exclusive)      * @param sigma      *          parameter sigma. (sigma> 1.0)      */
+comment|/**      * Constructor      *      * @param r      *          The random number generator.      * @param min      *          minimum integer (inclusvie)      * @param max      *          maximum integer (exclusive)      * @param sigma      *          parameter sigma. (sigma> 1.0)      */
 specifier|public
 name|Zipf
 parameter_list|(
@@ -244,7 +244,7 @@ name|DEFAULT_EPSILON
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Constructor.      *       * @param r      *          The random number generator.      * @param min      *          minimum integer (inclusvie)      * @param max      *          maximum integer (exclusive)      * @param sigma      *          parameter sigma. (sigma> 1.0)      * @param epsilon      *          Allowable error percentage (0< epsilon< 1.0).      */
+comment|/**      * Constructor.      *      * @param r      *          The random number generator.      * @param min      *          minimum integer (inclusvie)      * @param max      *          maximum integer (exclusive)      * @param sigma      *          parameter sigma. (sigma> 1.0)      * @param epsilon      *          Allowable error percentage (0< epsilon< 1.0).      */
 specifier|public
 name|Zipf
 parameter_list|(
@@ -609,7 +609,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Binomial distribution.    *     * P(k)=select(n, k)*p^k*(1-p)^(n-k) (k = 0, 1, ..., n)    *     * P(k)=select(max-min-1, k-min)*p^(k-min)*(1-p)^(k-min)*(1-p)^(max-k-1)    */
+comment|/**    * Binomial distribution.    *    * P(k)=select(n, k)*p^k*(1-p)^(n-k) (k = 0, 1, ..., n)    *    * P(k)=select(max-min-1, k-min)*p^(k-min)*(1-p)^(k-min)*(1-p)^(max-k-1)    */
 specifier|public
 specifier|static
 specifier|final
@@ -719,7 +719,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**      * Generate random integers from min (inclusive) to max (exclusive)      * following Binomial distribution.      *       * @param random      *          The basic random number generator.      * @param min      *          Minimum integer      * @param max      *          maximum integer (exclusive).      * @param p      *          parameter.      *       */
+comment|/**      * Generate random integers from min (inclusive) to max (exclusive)      * following Binomial distribution.      *      * @param random      *          The basic random number generator.      * @param min      *          Minimum integer      * @param max      *          maximum integer (exclusive).      * @param p      *          parameter.      *      */
 specifier|public
 name|Binomial
 parameter_list|(

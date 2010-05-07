@@ -37,7 +37,7 @@ specifier|private
 name|HServerAddress
 name|serverAddress
 decl_stmt|;
-comment|/**    * Constructor    *     * @param regionInfo the HRegionInfo for the region    * @param serverAddress the HServerAddress for the region server    */
+comment|/**    * Constructor    *    * @param regionInfo the HRegionInfo for the region    * @param serverAddress the HServerAddress for the region server    */
 specifier|public
 name|HRegionLocation
 parameter_list|(

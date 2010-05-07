@@ -230,7 +230,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Convert Map/Reduce output and write it to an HBase table. The KEY is ignored  * while the output value<u>must</u> be either a {@link Put} or a   * {@link Delete} instance.   *   * @param<KEY>  The type of the key. Ignored in this class.  */
+comment|/**  * Convert Map/Reduce output and write it to an HBase table. The KEY is ignored  * while the output value<u>must</u> be either a {@link Put} or a  * {@link Delete} instance.  *  * @param<KEY>  The type of the key. Ignored in this class.  */
 end_comment
 
 begin_class
@@ -298,7 +298,7 @@ name|REGION_SERVER_IMPL
 init|=
 literal|"hbase.mapred.output.rs.impl"
 decl_stmt|;
-comment|/**    * Writes the reducer output to an HBase table.    *     * @param<KEY>  The type of the key.    */
+comment|/**    * Writes the reducer output to an HBase table.    *    * @param<KEY>  The type of the key.    */
 specifier|protected
 specifier|static
 class|class
@@ -319,7 +319,7 @@ specifier|private
 name|HTable
 name|table
 decl_stmt|;
-comment|/**      * Instantiate a TableRecordWriter with the HBase HClient for writing.      *       * @param table  The table to write to.      */
+comment|/**      * Instantiate a TableRecordWriter with the HBase HClient for writing.      *      * @param table  The table to write to.      */
 specifier|public
 name|TableRecordWriter
 parameter_list|(
@@ -334,7 +334,7 @@ operator|=
 name|table
 expr_stmt|;
 block|}
-comment|/**      * Closes the writer, in this case flush table commits.      *       * @param context  The context.      * @throws IOException When closing the writer fails.      * @see org.apache.hadoop.mapreduce.RecordWriter#close(org.apache.hadoop.mapreduce.TaskAttemptContext)      */
+comment|/**      * Closes the writer, in this case flush table commits.      *      * @param context  The context.      * @throws IOException When closing the writer fails.      * @see org.apache.hadoop.mapreduce.RecordWriter#close(org.apache.hadoop.mapreduce.TaskAttemptContext)      */
 annotation|@
 name|Override
 specifier|public
@@ -353,7 +353,7 @@ name|flushCommits
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**      * Writes a key/value pair into the table.      *       * @param key  The key.      * @param value  The value.      * @throws IOException When writing fails.      * @see org.apache.hadoop.mapreduce.RecordWriter#write(java.lang.Object, java.lang.Object)      */
+comment|/**      * Writes a key/value pair into the table.      *      * @param key  The key.      * @param value  The value.      * @throws IOException When writing fails.      * @see org.apache.hadoop.mapreduce.RecordWriter#write(java.lang.Object, java.lang.Object)      */
 annotation|@
 name|Override
 specifier|public
@@ -424,7 +424,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Creates a new record writer.    *     * @param context  The current task context.    * @return The newly created writer instance.    * @throws IOException When creating the writer fails.    * @throws InterruptedException When the jobs is cancelled.    * @see org.apache.hadoop.mapreduce.lib.output.FileOutputFormat#getRecordWriter(org.apache.hadoop.mapreduce.TaskAttemptContext)    */
+comment|/**    * Creates a new record writer.    *    * @param context  The current task context.    * @return The newly created writer instance.    * @throws IOException When creating the writer fails.    * @throws InterruptedException When the jobs is cancelled.    * @see org.apache.hadoop.mapreduce.lib.output.FileOutputFormat#getRecordWriter(org.apache.hadoop.mapreduce.TaskAttemptContext)    */
 annotation|@
 name|Override
 specifier|public
@@ -635,7 +635,7 @@ name|table
 argument_list|)
 return|;
 block|}
-comment|/**    * Checks if the output target exists.    *     * @param context  The current context.    * @throws IOException When the check fails.     * @throws InterruptedException When the job is aborted.    * @see org.apache.hadoop.mapreduce.OutputFormat#checkOutputSpecs(org.apache.hadoop.mapreduce.JobContext)    */
+comment|/**    * Checks if the output target exists.    *    * @param context  The current context.    * @throws IOException When the check fails.    * @throws InterruptedException When the job is aborted.    * @see org.apache.hadoop.mapreduce.OutputFormat#checkOutputSpecs(org.apache.hadoop.mapreduce.JobContext)    */
 annotation|@
 name|Override
 specifier|public
@@ -652,7 +652,7 @@ name|InterruptedException
 block|{
 comment|// TODO Check if the table exists?
 block|}
-comment|/**    * Returns the output committer.    *      * @param context  The current context.    * @return The committer.    * @throws IOException When creating the committer fails.    * @throws InterruptedException When the job is aborted.    * @see org.apache.hadoop.mapreduce.OutputFormat#getOutputCommitter(org.apache.hadoop.mapreduce.TaskAttemptContext)    */
+comment|/**    * Returns the output committer.    *    * @param context  The current context.    * @return The committer.    * @throws IOException When creating the committer fails.    * @throws InterruptedException When the job is aborted.    * @see org.apache.hadoop.mapreduce.OutputFormat#getOutputCommitter(org.apache.hadoop.mapreduce.TaskAttemptContext)    */
 annotation|@
 name|Override
 specifier|public

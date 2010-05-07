@@ -122,7 +122,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is the primary class used to process KeyValues during a Get or Scan  * operation.  *<p>  * It encapsulates the handling of the column and version input parameters to   * the query through a {@link ColumnTracker}.  *<p>  * Deletes are handled using the {@link DeleteTracker}.  *<p>  * All other query parameters are accessed from the client-specified Get.  *<p>  * The primary method used is {@link #match} with the current KeyValue.  It will  * return a {@link QueryMatcher.MatchCode}   *   * , deletes,  * versions,   */
+comment|/**  * This is the primary class used to process KeyValues during a Get or Scan  * operation.  *<p>  * It encapsulates the handling of the column and version input parameters to  * the query through a {@link ColumnTracker}.  *<p>  * Deletes are handled using the {@link DeleteTracker}.  *<p>  * All other query parameters are accessed from the client-specified Get.  *<p>  * The primary method used is {@link #match} with the current KeyValue.  It will  * return a {@link QueryMatcher.MatchCode}  *  * , deletes,  * versions,  */
 end_comment
 
 begin_class
@@ -773,7 +773,7 @@ operator|.
 name|SKIP
 return|;
 block|}
-comment|/* Check Column and Versions      * Returns a MatchCode directly, identical language      * If matched column without enough versions, include      * If enough versions of this column or does not match, skip      * If have moved past       * If enough versions of everything,       * TODO: No mapping from Filter.ReturnCode to MatchCode.      */
+comment|/* Check Column and Versions      * Returns a MatchCode directly, identical language      * If matched column without enough versions, include      * If enough versions of this column or does not match, skip      * If have moved past      * If enough versions of everything,      * TODO: No mapping from Filter.ReturnCode to MatchCode.      */
 name|MatchCode
 name|mc
 init|=
@@ -898,7 +898,7 @@ name|getColumnHint
 argument_list|()
 return|;
 block|}
-comment|/**    * Called after reading each section (memstore, snapshot, storefiles).    *<p>    * This method will update the internal structures to be accurate for    * the next section.     */
+comment|/**    * Called after reading each section (memstore, snapshot, storefiles).    *<p>    * This method will update the internal structures to be accurate for    * the next section.    */
 specifier|public
 name|void
 name|update
@@ -957,7 +957,7 @@ operator|=
 name|row
 expr_stmt|;
 block|}
-comment|/**    *     * @return the start key    */
+comment|/**    *    * @return the start key    */
 specifier|public
 name|KeyValue
 name|getStartKey
@@ -1029,7 +1029,7 @@ operator|.
 name|deletes
 return|;
 block|}
-comment|/**    *     * @return<code>true</code> when done.    */
+comment|/**    *    * @return<code>true</code> when done.    */
 specifier|public
 name|boolean
 name|isDone

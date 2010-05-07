@@ -479,7 +479,7 @@ return|return
 name|p
 return|;
 block|}
-comment|/**    * Checks to see if the specified file system is available    *     * @param fs filesystem    * @throws IOException e    */
+comment|/**    * Checks to see if the specified file system is available    *    * @param fs filesystem    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -596,7 +596,7 @@ throw|throw
 name|io
 throw|;
 block|}
-comment|/**    * Verifies current version of file system    *     * @param fs filesystem object    * @param rootdir root hbase directory    * @return null if no version file exists, version string otherwise.    * @throws IOException e    */
+comment|/**    * Verifies current version of file system    *    * @param fs filesystem object    * @param rootdir root hbase directory    * @return null if no version file exists, version string otherwise.    * @throws IOException e    */
 specifier|public
 specifier|static
 name|String
@@ -674,7 +674,7 @@ return|return
 name|version
 return|;
 block|}
-comment|/**    * Verifies current version of file system    *     * @param fs file system    * @param rootdir root directory of HBase installation    * @param message if true, issues a message on System.out     *     * @throws IOException e    */
+comment|/**    * Verifies current version of file system    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @param message if true, issues a message on System.out    *    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -793,7 +793,7 @@ name|msg
 argument_list|)
 throw|;
 block|}
-comment|/**    * Sets version of file system    *     * @param fs filesystem object    * @param rootdir hbase root    * @throws IOException e    */
+comment|/**    * Sets version of file system    *    * @param fs filesystem object    * @param rootdir hbase root    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -820,7 +820,7 @@ name|FILE_SYSTEM_VERSION
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets version of file system    *     * @param fs filesystem object    * @param rootdir hbase root directory    * @param version version to set    * @throws IOException e    */
+comment|/**    * Sets version of file system    *    * @param fs filesystem object    * @param rootdir hbase root directory    * @param version version to set    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -885,7 +885,7 @@ name|version
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Verifies root directory path is a valid URI with a scheme    *     * @param root root directory path    * @return Passed<code>root</code> argument.    * @throws IOException if not a valid URI with a scheme    */
+comment|/**    * Verifies root directory path is a valid URI with a scheme    *    * @param root root directory path    * @return Passed<code>root</code> argument.    * @throws IOException if not a valid URI with a scheme    */
 specifier|public
 specifier|static
 name|Path
@@ -1113,7 +1113,7 @@ comment|//continue
 block|}
 block|}
 block|}
-comment|/**    * Return the 'path' component of a Path.  In Hadoop, Path is an URI.  This    * method returns the 'path' component of a Path's URI: e.g. If a Path is    *<code>hdfs://example.org:9000/hbase_trunk/TestTable/compaction.dir</code>,    * this method returns<code>/hbase_trunk/TestTable/compaction.dir</code>.    * This method is useful if you want to print out a Path without qualifying    * Filesystem instance.    * @param p Filesystem Path whose 'path' component we are to return.    * @return Path portion of the Filesystem     */
+comment|/**    * Return the 'path' component of a Path.  In Hadoop, Path is an URI.  This    * method returns the 'path' component of a Path's URI: e.g. If a Path is    *<code>hdfs://example.org:9000/hbase_trunk/TestTable/compaction.dir</code>,    * this method returns<code>/hbase_trunk/TestTable/compaction.dir</code>.    * This method is useful if you want to print out a Path without qualifying    * Filesystem instance.    * @param p Filesystem Path whose 'path' component we are to return.    * @return Path portion of the Filesystem    */
 specifier|public
 specifier|static
 name|String
@@ -1161,7 +1161,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Checks if root region exists    *     * @param fs file system    * @param rootdir root directory of HBase installation    * @return true if exists    * @throws IOException e    */
+comment|/**    * Checks if root region exists    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @return true if exists    * @throws IOException e    */
 specifier|public
 specifier|static
 name|boolean
@@ -1405,7 +1405,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Returns the total overall fragmentation percentage. Includes .META. and     * -ROOT- as well.    *      * @param master  The master defining the HBase root and file system.    * @return A map for each table and its percentage.    * @throws IOException When scanning the directory fails.    */
+comment|/**    * Returns the total overall fragmentation percentage. Includes .META. and    * -ROOT- as well.    *    * @param master  The master defining the HBase root and file system.    * @return A map for each table and its percentage.    * @throws IOException When scanning the directory fails.    */
 specifier|public
 specifier|static
 name|int
@@ -1454,7 +1454,7 @@ operator|-
 literal|1
 return|;
 block|}
-comment|/**    * Runs through the HBase rootdir and checks how many stores for each table    * have more than one file in them. Checks -ROOT- and .META. too. The total     * percentage across all tables is stored under the special key "-TOTAL-".     *     * @param master  The master defining the HBase root and file system.    * @return A map for each table and its percentage.    * @throws IOException When scanning the directory fails.    */
+comment|/**    * Runs through the HBase rootdir and checks how many stores for each table    * have more than one file in them. Checks -ROOT- and .META. too. The total    * percentage across all tables is stored under the special key "-TOTAL-".    *    * @param master  The master defining the HBase root and file system.    * @return A map for each table and its percentage.    * @throws IOException When scanning the directory fails.    */
 specifier|public
 specifier|static
 name|Map
@@ -1503,7 +1503,7 @@ name|path
 argument_list|)
 return|;
 block|}
-comment|/**    * Runs through the HBase rootdir and checks how many stores for each table    * have more than one file in them. Checks -ROOT- and .META. too. The total     * percentage across all tables is stored under the special key "-TOTAL-".     *     * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @return A map for each table and its percentage.    * @throws IOException When scanning the directory fails.    */
+comment|/**    * Runs through the HBase rootdir and checks how many stores for each table    * have more than one file in them. Checks -ROOT- and .META. too. The total    * percentage across all tables is stored under the special key "-TOTAL-".    *    * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @return A map for each table and its percentage.    * @throws IOException When scanning the directory fails.    */
 specifier|public
 specifier|static
 name|Map

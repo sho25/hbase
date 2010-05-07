@@ -598,7 +598,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**   * A Store holds a column family in a Region.  Its a memstore and a set of zero   * or more StoreFiles, which stretch backwards over time.   *   *<p>There's no reason to consider append-logging at this level; all logging    * and locking is handled at the HRegion level.  Store just provides   * services to manage sets of StoreFiles.  One of the most important of those   * services is compaction services where files are aggregated once they pass   * a configurable threshold.   *   *<p>The only thing having to do with logs that Store needs to deal with is   * the reconstructionLog.  This is a segment of an HRegion's log that might   * NOT be present upon startup.  If the param is NULL, there's nothing to do.   * If the param is non-NULL, we need to process the log to reconstruct   * a TreeMap that might not have been written to disk before the process   * died.   *   *<p>It's assumed that after this constructor returns, the reconstructionLog   * file will be deleted (by whoever has instantiated the Store).  *  *<p>Locking and transactions are handled at a higher level.  This API should  * not be called directly but by an HRegion manager.  */
+comment|/**   * A Store holds a column family in a Region.  Its a memstore and a set of zero   * or more StoreFiles, which stretch backwards over time.   *   *<p>There's no reason to consider append-logging at this level; all logging   * and locking is handled at the HRegion level.  Store just provides   * services to manage sets of StoreFiles.  One of the most important of those   * services is compaction services where files are aggregated once they pass   * a configurable threshold.   *   *<p>The only thing having to do with logs that Store needs to deal with is   * the reconstructionLog.  This is a segment of an HRegion's log that might   * NOT be present upon startup.  If the param is NULL, there's nothing to do.   * If the param is non-NULL, we need to process the log to reconstruct   * a TreeMap that might not have been written to disk before the process   * died.   *   *<p>It's assumed that after this constructor returns, the reconstructionLog   * file will be deleted (by whoever has instantiated the Store).  *  *<p>Locking and transactions are handled at a higher level.  This API should  * not be called directly but by an HRegion manager.  */
 end_comment
 
 begin_class
@@ -1473,7 +1473,7 @@ operator|-
 literal|1
 return|;
 block|}
-comment|/*    * Read the reconstructionLog and put into memstore.     *    * We can ignore any log message that has a sequence ID that's equal to or     * lower than maxSeqID.  (Because we know such log messages are already     * reflected in the HFiles.)    *    * @return the new max sequence id as per the log, or -1 if no log recovered    */
+comment|/*    * Read the reconstructionLog and put into memstore.    *    * We can ignore any log message that has a sequence ID that's equal to or    * lower than maxSeqID.  (Because we know such log messages are already    * reflected in the HFiles.)    *    * @return the new max sequence id as per the log, or -1 if no log recovered    */
 specifier|private
 name|long
 name|doReconstructionLog
@@ -2192,7 +2192,7 @@ return|return
 name|results
 return|;
 block|}
-comment|/**    * Adds a value to the memstore    *     * @param kv    * @return memstore size delta    */
+comment|/**    * Adds a value to the memstore    *    * @param kv    * @return memstore size delta    */
 specifier|protected
 name|long
 name|add
@@ -2235,7 +2235,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Adds a value to the memstore    *     * @param kv    * @return memstore size delta    */
+comment|/**    * Adds a value to the memstore    *    * @param kv    * @return memstore size delta    */
 specifier|protected
 name|long
 name|delete
@@ -2294,7 +2294,7 @@ operator|.
 name|storefiles
 return|;
 block|}
-comment|/**    * Close all the readers    *     * We don't need to worry about subsequent requests because the HRegion holds    * a write lock that will prevent any more reads or writes.    *     * @throws IOException    */
+comment|/**    * Close all the readers    *    * We don't need to worry about subsequent requests because the HRegion holds    * a write lock that will prevent any more reads or writes.    *    * @throws IOException    */
 name|List
 argument_list|<
 name|StoreFile
@@ -2958,7 +2958,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Compaction
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Compact the StoreFiles.  This method may take some time, so the calling     * thread must be able to block for long periods.    *     *<p>During this time, the Store can work as usual, getting values from    * StoreFiles and writing new StoreFiles from the memstore.    *     * Existing StoreFiles are not destroyed until the new compacted StoreFile is     * completely written-out to disk.    *    *<p>The compactLock prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *     *<p>We don't want to hold the structureLock for the whole time, as a compact()     * can be lengthy and we want to allow cache-flushes during this period.    *     * @param mc True to force a major compaction regardless of thresholds    * @return row to split around if a split is needed, null otherwise    * @throws IOException    */
+comment|/**    * Compact the StoreFiles.  This method may take some time, so the calling    * thread must be able to block for long periods.    *    *<p>During this time, the Store can work as usual, getting values from    * StoreFiles and writing new StoreFiles from the memstore.    *    * Existing StoreFiles are not destroyed until the new compacted StoreFile is    * completely written-out to disk.    *    *<p>The compactLock prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *    *<p>We don't want to hold the structureLock for the whole time, as a compact()    * can be lengthy and we want to allow cache-flushes during this period.    *    * @param mc True to force a major compaction regardless of thresholds    * @return row to split around if a split is needed, null otherwise    * @throws IOException    */
 name|StoreSize
 name|compact
 parameter_list|(
@@ -3641,7 +3641,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/*    * Gets lowest timestamp from files in a dir    *     * @param fs    * @param dir    * @throws IOException    */
+comment|/*    * Gets lowest timestamp from files in a dir    *    * @param fs    * @param dir    * @throws IOException    */
 specifier|private
 specifier|static
 name|long
@@ -3974,7 +3974,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Do a minor/major compaction.  Uses the scan infrastructure to make it easy.    *     * @param filesToCompact which files to compact    * @param majorCompaction true to major compact (prune all deletes, max versions, etc)    * @param maxId Readers maximum sequence id.    * @return Product of compaction or null if all cells expired or deleted and    * nothing made it through the compaction.    * @throws IOException    */
+comment|/**    * Do a minor/major compaction.  Uses the scan infrastructure to make it easy.    *    * @param filesToCompact which files to compact    * @param majorCompaction true to major compact (prune all deletes, max versions, etc)    * @param maxId Readers maximum sequence id.    * @return Product of compaction or null if all cells expired or deleted and    * nothing made it through the compaction.    * @throws IOException    */
 specifier|private
 name|HFile
 operator|.
@@ -4321,7 +4321,7 @@ return|return
 name|writer
 return|;
 block|}
-comment|/*    * It's assumed that the compactLock  will be acquired prior to calling this     * method!  Otherwise, it is not thread-safe!    *    *<p>It works by processing a compaction that's been written to disk.    *     *<p>It is usually invoked at the end of a compaction, but might also be    * invoked at HStore startup, if the prior execution died midway through.    *     *<p>Moving the compacted TreeMap into place means:    *<pre>    * 1) Moving the new compacted StoreFile into place    * 2) Unload all replaced StoreFile, close and collect list to delete.    * 3) Loading the new TreeMap.    * 4) Compute new store size    *</pre>    *     * @param compactedFiles list of files that were compacted    * @param compactedFile StoreFile that is the result of the compaction    * @return StoreFile created. May be null.    * @throws IOException    */
+comment|/*    * It's assumed that the compactLock  will be acquired prior to calling this    * method!  Otherwise, it is not thread-safe!    *    *<p>It works by processing a compaction that's been written to disk.    *    *<p>It is usually invoked at the end of a compaction, but might also be    * invoked at HStore startup, if the prior execution died midway through.    *    *<p>Moving the compacted TreeMap into place means:    *<pre>    * 1) Moving the new compacted StoreFile into place    * 2) Unload all replaced StoreFile, close and collect list to delete.    * 3) Loading the new TreeMap.    * 4) Compute new store size    *</pre>    *    * @param compactedFiles list of files that were compacted    * @param compactedFile StoreFile that is the result of the compaction    * @return StoreFile created. May be null.    * @throws IOException    */
 specifier|private
 name|StoreFile
 name|completeCompaction
@@ -4823,7 +4823,7 @@ operator|<
 name|oldestTimestamp
 return|;
 block|}
-comment|/**    * Find the key that matches<i>row</i> exactly, or the one that immediately    * preceeds it. WARNING: Only use this method on a table where writes occur     * with strictly increasing timestamps. This method assumes this pattern of     * writes in order to make it reasonably performant.  Also our search is    * dependent on the axiom that deletes are for cells that are in the container    * that follows whether a memstore snapshot or a storefile, not for the    * current container: i.e. we'll see deletes before we come across cells we    * are to delete. Presumption is that the memstore#kvset is processed before    * memstore#snapshot and so on.    * @param kv First possible item on targeted row; i.e. empty columns, latest    * timestamp and maximum type.    * @return Found keyvalue or null if none found.    * @throws IOException    */
+comment|/**    * Find the key that matches<i>row</i> exactly, or the one that immediately    * preceeds it. WARNING: Only use this method on a table where writes occur    * with strictly increasing timestamps. This method assumes this pattern of    * writes in order to make it reasonably performant.  Also our search is    * dependent on the axiom that deletes are for cells that are in the container    * that follows whether a memstore snapshot or a storefile, not for the    * current container: i.e. we'll see deletes before we come across cells we    * are to delete. Presumption is that the memstore#kvset is processed before    * memstore#snapshot and so on.    * @param kv First possible item on targeted row; i.e. empty columns, latest    * timestamp and maximum type.    * @return Found keyvalue or null if none found.    * @throws IOException    */
 name|KeyValue
 name|getRowKeyAtOrBefore
 parameter_list|(
@@ -6151,7 +6151,7 @@ operator|.
 name|regionInfo
 return|;
 block|}
-comment|/**    * Convenience method that implements the old MapFile.getClosest on top of    * HFile Scanners.  getClosest used seek to the asked-for key or just after    * (HFile seeks to the key or just before).    * @param s Scanner to use    * @param kv Key to find.    * @return True if we were able to seek the scanner to<code>b</code> or to    * the key just after.    * @throws IOException     */
+comment|/**    * Convenience method that implements the old MapFile.getClosest on top of    * HFile Scanners.  getClosest used seek to the asked-for key or just after    * (HFile seeks to the key or just before).    * @param s Scanner to use    * @param kv Key to find.    * @return True if we were able to seek the scanner to<code>b</code> or to    * the key just after.    * @throws IOException    */
 specifier|static
 name|boolean
 name|getClosest
@@ -6242,7 +6242,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Retrieve results from this store given the specified Get parameters.    * @param get Get operation    * @param columns List of columns to match, can be empty (not null)    * @param result List to add results to     * @throws IOException    */
+comment|/**    * Retrieve results from this store given the specified Get parameters.    * @param get Get operation    * @param columns List of columns to match, can be empty (not null)    * @param result List to add results to    * @throws IOException    */
 specifier|public
 name|void
 name|get

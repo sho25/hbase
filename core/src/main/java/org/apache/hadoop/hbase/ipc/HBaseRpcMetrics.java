@@ -134,7 +134,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *   * This class is for maintaining  the various RPC statistics  * and publishing them through the metrics interfaces.  * This also registers the JMX MBean for RPC.  *<p>  * This class has a number of metrics variables that are publicly accessible;  * these variables (objects) have methods to update their values;  * for example:  *<p> {@link #rpcQueueTime}.inc(time)  *  */
+comment|/**  *  * This class is for maintaining  the various RPC statistics  * and publishing them through the metrics interfaces.  * This also registers the JMX MBean for RPC.  *<p>  * This class has a number of metrics variables that are publicly accessible;  * these variables (objects) have methods to update their values;  * for example:  *<p> {@link #rpcQueueTime}.inc(time)  *  */
 end_comment
 
 begin_class

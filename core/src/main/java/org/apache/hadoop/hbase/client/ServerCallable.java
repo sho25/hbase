@@ -147,7 +147,7 @@ operator|=
 name|row
 expr_stmt|;
 block|}
-comment|/**    *     * @param reload set this to true if connection should re-find the region    * @throws IOException e    */
+comment|/**    *    * @param reload set this to true if connection should re-find the region    * @throws IOException e    */
 specifier|public
 name|void
 name|instantiateServer

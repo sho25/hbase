@@ -117,7 +117,7 @@ specifier|private
 name|KVScannerComparator
 name|comparator
 decl_stmt|;
-comment|/**    * Constructor.  This KeyValueHeap will handle closing of passed in     * KeyValueScanners.    * @param scanners    * @param comparator    */
+comment|/**    * Constructor.  This KeyValueHeap will handle closing of passed in    * KeyValueScanners.    * @param scanners    * @param comparator    */
 specifier|public
 name|KeyValueHeap
 parameter_list|(
@@ -359,7 +359,7 @@ return|return
 name|kvReturn
 return|;
 block|}
-comment|/**    * Gets the next row of keys from the top-most scanner.    *<p>    * This method takes care of updating the heap.    *<p>    * This can ONLY be called when you are using Scanners that implement    * InternalScanner as well as KeyValueScanner (a {@link StoreScanner}).    * @param result    * @param limit    * @return true if there are more keys, false if all scanners are done     */
+comment|/**    * Gets the next row of keys from the top-most scanner.    *<p>    * This method takes care of updating the heap.    *<p>    * This can ONLY be called when you are using Scanners that implement    * InternalScanner as well as KeyValueScanner (a {@link StoreScanner}).    * @param result    * @param limit    * @return true if there are more keys, false if all scanners are done    */
 specifier|public
 name|boolean
 name|next
@@ -455,7 +455,7 @@ literal|null
 operator|)
 return|;
 block|}
-comment|/**    * Gets the next row of keys from the top-most scanner.    *<p>    * This method takes care of updating the heap.    *<p>    * This can ONLY be called when you are using Scanners that implement    * InternalScanner as well as KeyValueScanner (a {@link StoreScanner}).    * @param result    * @return true if there are more keys, false if all scanners are done     */
+comment|/**    * Gets the next row of keys from the top-most scanner.    *<p>    * This method takes care of updating the heap.    *<p>    * This can ONLY be called when you are using Scanners that implement    * InternalScanner as well as KeyValueScanner (a {@link StoreScanner}).    * @param result    * @return true if there are more keys, false if all scanners are done    */
 specifier|public
 name|boolean
 name|next
@@ -620,7 +620,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Seeks all scanners at or below the specified seek key.  If we earlied-out     * of a row, we may end up skipping values that were never reached yet.    * Rather than iterating down, we want to give the opportunity to re-seek.    *<p>    * As individual scanners may run past their ends, those scanners are    * automatically closed and removed from the heap.    * @param seekKey KeyValue to seek at or after    * @return true if KeyValues exist at or after specified key, false if not    */
+comment|/**    * Seeks all scanners at or below the specified seek key.  If we earlied-out    * of a row, we may end up skipping values that were never reached yet.    * Rather than iterating down, we want to give the opportunity to re-seek.    *<p>    * As individual scanners may run past their ends, those scanners are    * automatically closed and removed from the heap.    * @param seekKey KeyValue to seek at or after    * @return true if KeyValues exist at or after specified key, false if not    */
 specifier|public
 name|boolean
 name|seek

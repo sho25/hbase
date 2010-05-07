@@ -121,7 +121,7 @@ argument_list|,
 name|CLASS_TO_CODE
 argument_list|)
 decl_stmt|;
-comment|/**    * Class that loads the static maps with their values.     */
+comment|/**    * Class that loads the static maps with their values.    */
 specifier|public
 class|class
 name|InternalStaticLoader

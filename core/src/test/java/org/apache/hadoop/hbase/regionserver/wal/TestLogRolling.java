@@ -651,7 +651,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Tests that logs are deleted    *     * @throws Exception    */
+comment|/**    * Tests that logs are deleted    *    * @throws Exception    */
 specifier|public
 name|void
 name|testLogRolling

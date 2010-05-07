@@ -69,7 +69,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Constructor for binary compare of the value of a single column. If the    * column is found and the condition passes, all columns of the row will be    * emitted; except for the tested column value. If the column is not found or    * the condition fails, the row will not be emitted.    *     * @param family name of column family    * @param qualifier name of column qualifier    * @param compareOp operator    * @param value value to compare column values against    */
+comment|/**    * Constructor for binary compare of the value of a single column. If the    * column is found and the condition passes, all columns of the row will be    * emitted; except for the tested column value. If the column is not found or    * the condition fails, the row will not be emitted.    *    * @param family name of column family    * @param qualifier name of column qualifier    * @param compareOp operator    * @param value value to compare column values against    */
 specifier|public
 name|SingleColumnValueExcludeFilter
 parameter_list|(
@@ -101,7 +101,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor for binary compare of the value of a single column. If the    * column is found and the condition passes, all columns of the row will be    * emitted; except for the tested column value. If the condition fails, the    * row will not be emitted.    *<p>    * Use the filterIfColumnMissing flag to set whether the rest of the columns    * in a row will be emitted if the specified column to check is not found in    * the row.    *     * @param family name of column family    * @param qualifier name of column qualifier    * @param compareOp operator    * @param comparator Comparator to use.    */
+comment|/**    * Constructor for binary compare of the value of a single column. If the    * column is found and the condition passes, all columns of the row will be    * emitted; except for the tested column value. If the condition fails, the    * row will not be emitted.    *<p>    * Use the filterIfColumnMissing flag to set whether the rest of the columns    * in a row will be emitted if the specified column to check is not found in    * the row.    *    * @param family name of column family    * @param qualifier name of column qualifier    * @param compareOp operator    * @param comparator Comparator to use.    */
 specifier|public
 name|SingleColumnValueExcludeFilter
 parameter_list|(

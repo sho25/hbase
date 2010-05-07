@@ -48,7 +48,7 @@ name|serialVersionUID
 init|=
 literal|1759152841462990925L
 decl_stmt|;
-comment|/**    *     */
+comment|/**    *    */
 specifier|public
 name|FailedLogCloseException
 parameter_list|()

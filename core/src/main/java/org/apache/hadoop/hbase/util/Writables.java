@@ -118,7 +118,7 @@ specifier|public
 class|class
 name|Writables
 block|{
-comment|/**    * @param w writable    * @return The bytes of<code>w</code> gotten by running its     * {@link Writable#write(java.io.DataOutput)} method.    * @throws IOException e    * @see #getWritable(byte[], Writable)    */
+comment|/**    * @param w writable    * @return The bytes of<code>w</code> gotten by running its    * {@link Writable#write(java.io.DataOutput)} method.    * @throws IOException e    * @see #getWritable(byte[], Writable)    */
 specifier|public
 specifier|static
 name|byte

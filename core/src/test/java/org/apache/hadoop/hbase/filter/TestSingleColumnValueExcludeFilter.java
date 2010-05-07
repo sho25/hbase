@@ -76,7 +76,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tests for {@link SingleColumnValueExcludeFilter}. Because this filter   * extends {@link SingleColumnValueFilter}, only the added functionality is  * tested. That is, method filterKeyValue(KeyValue).  *   * @author ferdy  *  */
+comment|/**  * Tests for {@link SingleColumnValueExcludeFilter}. Because this filter  * extends {@link SingleColumnValueFilter}, only the added functionality is  * tested. That is, method filterKeyValue(KeyValue).  *  * @author ferdy  *  */
 end_comment
 
 begin_class

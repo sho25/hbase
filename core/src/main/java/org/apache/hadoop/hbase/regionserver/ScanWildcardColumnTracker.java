@@ -386,7 +386,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**    * Used by matcher and scan/get to get a hint of the next column    * to seek to after checkColumn() returns SKIP.  Returns the next interesting    * column we want, or NULL there is none (wildcard scanner).    *     * @return The column count.    */
+comment|/**    * Used by matcher and scan/get to get a hint of the next column    * to seek to after checkColumn() returns SKIP.  Returns the next interesting    * column we want, or NULL there is none (wildcard scanner).    *    * @return The column count.    */
 specifier|public
 name|ColumnCount
 name|getColumnHint
@@ -396,7 +396,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * We can never know a-priori if we are done, so always return false.     * @return false    */
+comment|/**    * We can never know a-priori if we are done, so always return false.    * @return false    */
 annotation|@
 name|Override
 specifier|public

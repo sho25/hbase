@@ -841,7 +841,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/*    * Data structure to hold a Writer and amount of data written on it.     */
+comment|/*    * Data structure to hold a Writer and amount of data written on it.    */
 specifier|static
 class|class
 name|WriterLength

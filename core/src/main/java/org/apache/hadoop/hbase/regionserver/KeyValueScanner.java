@@ -46,7 +46,7 @@ name|KeyValue
 name|peek
 parameter_list|()
 function_decl|;
-comment|/**    * Return the next KeyValue in this scanner, iterating the scanner     * @return the next KeyValue    */
+comment|/**    * Return the next KeyValue in this scanner, iterating the scanner    * @return the next KeyValue    */
 specifier|public
 name|KeyValue
 name|next

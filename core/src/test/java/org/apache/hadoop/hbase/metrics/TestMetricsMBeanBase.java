@@ -335,7 +335,7 @@ specifier|public
 name|void
 name|tearDown
 parameter_list|()
-block|{        }
+block|{    }
 specifier|public
 name|void
 name|testGetAttribute

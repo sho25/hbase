@@ -346,7 +346,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Testing the sizing that HeapSize offers and compares to the size given by  * ClassSize.   */
+comment|/**  * Testing the sizing that HeapSize offers and compares to the size given by  * ClassSize.  */
 end_comment
 
 begin_class
@@ -1083,7 +1083,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Testing the classes that implements HeapSize and are a part of 0.20.     * Some are not tested here for example BlockIndex which is tested in     * TestHFile since it is a non public class    * @throws IOException     */
+comment|/**    * Testing the classes that implements HeapSize and are a part of 0.20.    * Some are not tested here for example BlockIndex which is tested in    * TestHFile since it is a non public class    * @throws IOException    */
 annotation|@
 name|SuppressWarnings
 argument_list|(

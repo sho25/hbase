@@ -64,7 +64,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**   * An immutable class which contains a static method for handling  * org.apache.hadoop.ipc.RemoteException exceptions.  */
+comment|/**  * An immutable class which contains a static method for handling  * org.apache.hadoop.ipc.RemoteException exceptions.  */
 end_comment
 
 begin_class
@@ -171,7 +171,7 @@ name|t
 argument_list|)
 return|;
 block|}
-comment|/**    * Converts org.apache.hadoop.ipc.RemoteException into original exception,    * if possible. If the original exception is an Error or a RuntimeException,    * throws the original exception.    *     * @param re original exception    * @return decoded RemoteException if it is an instance of or a subclass of    *         IOException, or the original RemoteException if it cannot be decoded.    *     * @throws IOException indicating a server error ocurred if the decoded     *         exception is not an IOException. The decoded exception is set as    *         the cause.    */
+comment|/**    * Converts org.apache.hadoop.ipc.RemoteException into original exception,    * if possible. If the original exception is an Error or a RuntimeException,    * throws the original exception.    *    * @param re original exception    * @return decoded RemoteException if it is an instance of or a subclass of    *         IOException, or the original RemoteException if it cannot be decoded.    *    * @throws IOException indicating a server error ocurred if the decoded    *         exception is not an IOException. The decoded exception is set as    *         the cause.    */
 specifier|public
 specifier|static
 name|IOException

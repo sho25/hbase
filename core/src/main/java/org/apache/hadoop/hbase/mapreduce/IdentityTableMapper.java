@@ -105,7 +105,7 @@ argument_list|,
 name|Result
 argument_list|>
 block|{
-comment|/**    * Use this before submitting a TableMap job. It will appropriately set up     * the job.    *     * @param table  The table name.    * @param scan  The scan with the columns to scan.    * @param mapper  The mapper class.    * @param job  The job configuration.    * @throws IOException When setting up the job fails.    */
+comment|/**    * Use this before submitting a TableMap job. It will appropriately set up    * the job.    *    * @param table  The table name.    * @param scan  The scan with the columns to scan.    * @param mapper  The mapper class.    * @param job  The job configuration.    * @throws IOException When setting up the job fails.    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -158,7 +158,7 @@ name|job
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Pass the key, value to reduce.    *     * @param key  The current key.     * @param value  The current value.    * @param context  The current context.     * @throws IOException When writing the record fails.    * @throws InterruptedException When the job is aborted.    */
+comment|/**    * Pass the key, value to reduce.    *    * @param key  The current key.    * @param value  The current value.    * @param context  The current context.    * @throws IOException When writing the record fails.    * @throws InterruptedException When the job is aborted.    */
 specifier|public
 name|void
 name|map

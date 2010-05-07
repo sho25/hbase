@@ -281,7 +281,7 @@ return|return
 name|newFilter
 return|;
 block|}
-comment|/**      * The more specific functionality tests are contained within the TestFilters class.  This class is mainly for testing      * serialization      *       * @param filter      * @throws Exception      */
+comment|/**      * The more specific functionality tests are contained within the TestFilters class.  This class is mainly for testing      * serialization      *      * @param filter      * @throws Exception      */
 specifier|private
 name|void
 name|basicFilterTests

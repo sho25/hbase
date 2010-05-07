@@ -243,7 +243,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List all the userspace tables.  In other words, scan the META table.    *    * If we wanted this to be really fast, we could implement a special    * catalog table that just contains table names and their descriptors.    * Right now, it only exists as part of the META table's region info.    *    * @return - returns an array of HTableDescriptors     * @throws IOException if a remote or network exception occurs    */
+comment|/**    * List all the userspace tables.  In other words, scan the META table.    *    * If we wanted this to be really fast, we could implement a special    * catalog table that just contains table names and their descriptors.    * Right now, it only exists as part of the META table's region info.    *    * @return - returns an array of HTableDescriptors    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTableDescriptor
 index|[]
@@ -252,7 +252,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param tableName table name    * @return table metadata     * @throws IOException if a remote or network exception occurs    */
+comment|/**    * @param tableName table name    * @return table metadata    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTableDescriptor
 name|getHTableDescriptor
@@ -264,7 +264,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the reigon in     * question    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the reigon in    * question    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HRegionLocation
 name|locateRegion
@@ -288,7 +288,7 @@ name|void
 name|clearRegionCache
 parameter_list|()
 function_decl|;
-comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the reigon in     * question    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the reigon in    * question    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HRegionLocation
 name|relocateRegion
@@ -306,7 +306,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**     * Establishes a connection to the region server at the specified address.    * @param regionServer - the server to connect to    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Establishes a connection to the region server at the specified address.    * @param regionServer - the server to connect to    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HRegionInterface
 name|getHRegionConnection
@@ -317,7 +317,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**     * Establishes a connection to the region server at the specified address.    * @param regionServer - the server to connect to    * @param getMaster - do we check if master is alive    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Establishes a connection to the region server at the specified address.    * @param regionServer - the server to connect to    * @param getMaster - do we check if master is alive    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HRegionInterface
 name|getHRegionConnection
@@ -349,7 +349,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and     * this method will manage the process of doing retries with timed waits     * and refinds of missing regions.    *    * @param<T> the type of the return value    * @param callable callable to run    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
+comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and    * this method will manage the process of doing retries with timed waits    * and refinds of missing regions.    *    * @param<T> the type of the return value    * @param callable callable to run    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
 specifier|public
 parameter_list|<
 name|T

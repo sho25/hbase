@@ -37,7 +37,7 @@ name|UnmodifyableHRegionInfo
 extends|extends
 name|HRegionInfo
 block|{
-comment|/*    * Creates an unmodifyable copy of an HRegionInfo    *     * @param info    */
+comment|/*    * Creates an unmodifyable copy of an HRegionInfo    *    * @param info    */
 name|UnmodifyableHRegionInfo
 parameter_list|(
 name|HRegionInfo

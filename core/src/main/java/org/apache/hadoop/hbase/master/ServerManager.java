@@ -444,7 +444,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The ServerManager class manages info about region servers - HServerInfo,   * load numbers, dying servers, etc.  */
+comment|/**  * The ServerManager class manages info about region servers - HServerInfo,  * load numbers, dying servers, etc.  */
 end_comment
 
 begin_class
@@ -1360,7 +1360,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Called to process the messages sent from the region server to the master    * along with the heart beat.    *     * @param serverInfo    * @param msgs    * @param mostLoadedRegions Array of regions the region server is submitting    * as candidates to be rebalanced, should it be overloaded    * @return messages from master to region server indicating what region    * server should do.    *     * @throws IOException    */
+comment|/**    * Called to process the messages sent from the region server to the master    * along with the heart beat.    *    * @param serverInfo    * @param msgs    * @param mostLoadedRegions Array of regions the region server is submitting    * as candidates to be rebalanced, should it be overloaded    * @return messages from master to region server indicating what region    * server should do.    *    * @throws IOException    */
 name|HMsg
 index|[]
 name|regionServerReport
@@ -1782,7 +1782,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/*    * Region server is exiting with a clean shutdown.    *     * In this case, the server sends MSG_REPORT_EXITING in msgs[0] followed by    * a MSG_REPORT_CLOSE for each region it was serving.     * @param serverInfo    * @param msgs    */
+comment|/*    * Region server is exiting with a clean shutdown.    *    * In this case, the server sends MSG_REPORT_EXITING in msgs[0] followed by    * a MSG_REPORT_CLOSE for each region it was serving.    * @param serverInfo    * @param msgs    */
 specifier|private
 name|void
 name|processRegionServerExit
@@ -3646,7 +3646,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**     * Compute the average load across all region servers.     * Currently, this uses a very naive computation - just uses the number of     * regions being served, ignoring stats about number of requests.    * @return the average load    */
+comment|/**    * Compute the average load across all region servers.    * Currently, this uses a very naive computation - just uses the number of    * regions being served, ignoring stats about number of requests.    * @return the average load    */
 specifier|public
 name|double
 name|getAverageLoad

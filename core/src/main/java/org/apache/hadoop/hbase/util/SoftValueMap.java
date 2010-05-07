@@ -90,7 +90,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Map that uses Soft Reference values internally. Use as a simple cache.  *   * @param<K> key class  * @param<V> value class  */
+comment|/**  * A Map that uses Soft Reference values internally. Use as a simple cache.  *  * @param<K> key class  * @param<V> value class  */
 end_comment
 
 begin_class

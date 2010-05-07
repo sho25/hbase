@@ -367,7 +367,7 @@ name|this
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Used for major compactions.<p>    *     * Opens a scanner across specified StoreFiles.    */
+comment|/**    * Used for major compactions.<p>    *    * Opens a scanner across specified StoreFiles.    */
 name|StoreScanner
 parameter_list|(
 name|Store

@@ -264,7 +264,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**   * Instantiated when a server's lease has expired, meaning it has crashed.  * The region server's log file needs to be split up for each region it was  * serving, and the regions need to get reassigned.  */
+comment|/**  * Instantiated when a server's lease has expired, meaning it has crashed.  * The region server's log file needs to be split up for each region it was  * serving, and the regions need to get reassigned.  */
 end_comment
 
 begin_class

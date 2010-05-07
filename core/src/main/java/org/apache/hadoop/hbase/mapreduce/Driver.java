@@ -40,7 +40,7 @@ specifier|public
 class|class
 name|Driver
 block|{
-comment|/**    * @param args    * @throws Throwable     */
+comment|/**    * @param args    * @throws Throwable    */
 specifier|public
 specifier|static
 name|void

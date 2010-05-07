@@ -306,7 +306,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test class fosr the Store   */
+comment|/**  * Test class fosr the Store  */
 end_comment
 
 begin_class

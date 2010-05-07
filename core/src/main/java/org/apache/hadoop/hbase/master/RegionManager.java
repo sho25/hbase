@@ -590,7 +590,7 @@ argument_list|(
 literal|".META.,"
 argument_list|)
 decl_stmt|;
-comment|/**    * Map of region name to RegionState for regions that are in transition such as    *     * unassigned -> pendingOpen -> open    * closing -> pendingClose -> closed; if (closed&& !offline) -> unassigned    *     * At the end of a transition, removeRegion is used to remove the region from    * the map (since it is no longer in transition)    *     * Note: Needs to be SortedMap so we can specify a comparator    *     * @see RegionState inner-class below    */
+comment|/**    * Map of region name to RegionState for regions that are in transition such as    *    * unassigned -> pendingOpen -> open    * closing -> pendingClose -> closed; if (closed&& !offline) -> unassigned    *    * At the end of a transition, removeRegion is used to remove the region from    * the map (since it is no longer in transition)    *    * Note: Needs to be SortedMap so we can specify a comparator    *    * @see RegionState inner-class below    */
 specifier|final
 name|SortedMap
 argument_list|<
@@ -1015,7 +1015,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/*    * Assigns regions to region servers attempting to balance the load across    * all region servers. Note that no synchronization is necessary as the caller     * (ServerManager.processMsgs) already owns the monitor for the RegionManager.    *     * @param info    * @param mostLoadedRegions    * @param returnMsgs    */
+comment|/*    * Assigns regions to region servers attempting to balance the load across    * all region servers. Note that no synchronization is necessary as the caller    * (ServerManager.processMsgs) already owns the monitor for the RegionManager.    *    * @param info    * @param mostLoadedRegions    * @param returnMsgs    */
 name|void
 name|assignRegions
 parameter_list|(
@@ -1132,7 +1132,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/*    * Make region assignments taking into account multiple servers' loads.    *    * Note that no synchronization is needed while we iterate over    * regionsInTransition because this method is only called by assignRegions    * whose caller owns the monitor for RegionManager    *     * TODO: This code is unintelligible.  REWRITE. Add TESTS! St.Ack 09/30/2009    * @param thisServersLoad    * @param regionsToAssign    * @param info    * @param returnMsgs    */
+comment|/*    * Make region assignments taking into account multiple servers' loads.    *    * Note that no synchronization is needed while we iterate over    * regionsInTransition because this method is only called by assignRegions    * whose caller owns the monitor for RegionManager    *    * TODO: This code is unintelligible.  REWRITE. Add TESTS! St.Ack 09/30/2009    * @param thisServersLoad    * @param regionsToAssign    * @param info    * @param returnMsgs    */
 specifier|private
 name|void
 name|assignRegionsToMultipleServers
@@ -1528,7 +1528,7 @@ break|break;
 block|}
 block|}
 block|}
-comment|/*    * Assign all to the only server. An unlikely case but still possible.    *     * Note that no synchronization is needed on regionsInTransition while    * iterating on it because the only caller is assignRegions whose caller owns     * the monitor for RegionManager    *     * @param regionsToAssign    * @param serverName    * @param returnMsgs    */
+comment|/*    * Assign all to the only server. An unlikely case but still possible.    *    * Note that no synchronization is needed on regionsInTransition while    * iterating on it because the only caller is assignRegions whose caller owns    * the monitor for RegionManager    *    * @param regionsToAssign    * @param serverName    * @param returnMsgs    */
 specifier|private
 name|void
 name|assignRegionsToOneServer
@@ -1818,7 +1818,7 @@ return|return
 name|nRegions
 return|;
 block|}
-comment|/*    * Get the set of regions that should be assignable in this pass.    *     * Note that no synchronization on regionsInTransition is needed because the    * only caller (assignRegions, whose caller is ServerManager.processMsgs) owns    * the monitor for RegionManager    */
+comment|/*    * Get the set of regions that should be assignable in this pass.    *    * Note that no synchronization on regionsInTransition is needed because the    * only caller (assignRegions, whose caller is ServerManager.processMsgs) owns    * the monitor for RegionManager    */
 specifier|private
 name|Set
 argument_list|<
@@ -2066,7 +2066,7 @@ return|return
 name|regionsToAssign
 return|;
 block|}
-comment|/*    * Figure out the load that is next highest amongst all regionservers. Also,    * return how many servers exist at that load.     */
+comment|/*    * Figure out the load that is next highest amongst all regionservers. Also,    * return how many servers exist at that load.    */
 specifier|private
 name|int
 name|computeNextHeaviestLoad
@@ -2225,7 +2225,7 @@ return|return
 name|nservers
 return|;
 block|}
-comment|/*    * The server checking in right now is overloaded. We will tell it to close    * some or all of its most loaded regions, allowing it to reduce its load.    * The closed regions will then get picked up by other underloaded machines.    *    * Note that no synchronization is needed because the only caller     * (assignRegions) whose caller owns the monitor for RegionManager    */
+comment|/*    * The server checking in right now is overloaded. We will tell it to close    * some or all of its most loaded regions, allowing it to reduce its load.    * The closed regions will then get picked up by other underloaded machines.    *    * Note that no synchronization is needed because the only caller    * (assignRegions) whose caller owns the monitor for RegionManager    */
 name|void
 name|unassignSomeRegions
 parameter_list|(
@@ -2491,7 +2491,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * @return the rough number of the regions on fs    * Note: this method simply counts the regions on fs by accumulating all the dirs     * in each table dir (${HBASE_ROOT}/$TABLE) and skipping logfiles, compaction dirs.    * @throws IOException     */
+comment|/**    * @return the rough number of the regions on fs    * Note: this method simply counts the regions on fs by accumulating all the dirs    * in each table dir (${HBASE_ROOT}/$TABLE) and skipping logfiles, compaction dirs.    * @throws IOException    */
 specifier|public
 name|int
 name|countRegionsOnFS
@@ -2948,7 +2948,7 @@ operator|)
 return|;
 block|}
 block|}
-comment|/**    * Search our map of online meta regions to find the first meta region that     * should contain a pointer to<i>newRegion</i>.    * @param newRegion    * @return MetaRegion where the newRegion should live    */
+comment|/**    * Search our map of online meta regions to find the first meta region that    * should contain a pointer to<i>newRegion</i>.    * @param newRegion    * @return MetaRegion where the newRegion should live    */
 specifier|public
 name|MetaRegion
 name|getFirstMetaRegionForRegion
@@ -3442,7 +3442,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Set a MetaRegion as online.     * @param metaRegion     */
+comment|/**    * Set a MetaRegion as online.    * @param metaRegion    */
 specifier|public
 name|void
 name|putMetaRegionOnline
@@ -3464,7 +3464,7 @@ name|metaRegion
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Get a list of online MetaRegions     * @return list of MetaRegion objects    */
+comment|/**    * Get a list of online MetaRegions    * @return list of MetaRegion objects    */
 specifier|public
 name|List
 argument_list|<
@@ -3503,7 +3503,7 @@ return|return
 name|regions
 return|;
 block|}
-comment|/**     * Count of online meta regions     * @return count of online meta regions    */
+comment|/**    * Count of online meta regions    * @return count of online meta regions    */
 specifier|public
 name|int
 name|numOnlineMetaRegions
@@ -3516,7 +3516,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**     * Check if a meta region is online by its name     * @param startKey name of the meta region to check    * @return true if the region is online, false otherwise    */
+comment|/**    * Check if a meta region is online by its name    * @param startKey name of the meta region to check    * @return true if the region is online, false otherwise    */
 specifier|public
 name|boolean
 name|isMetaRegionOnline
@@ -3535,7 +3535,7 @@ name|startKey
 argument_list|)
 return|;
 block|}
-comment|/**     * Set an online MetaRegion offline - remove it from the map.     * @param startKey region name    * @return the MetaRegion that was taken offline.    */
+comment|/**    * Set an online MetaRegion offline - remove it from the map.    * @param startKey region name    * @return the MetaRegion that was taken offline.    */
 specifier|public
 name|MetaRegion
 name|offlineMetaRegion
@@ -4050,7 +4050,7 @@ return|return
 name|hasMeta
 return|;
 block|}
-comment|/**    * Remove a region from the region state map.    *     * @param info    */
+comment|/**    * Remove a region from the region state map.    *    * @param info    */
 specifier|public
 name|void
 name|removeRegion
@@ -4151,7 +4151,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**     * Set a region to unassigned     * @param info Region to set unassigned    * @param force if true mark region unassigned whatever its current state    */
+comment|/**    * Set a region to unassigned    * @param info Region to set unassigned    * @param force if true mark region unassigned whatever its current state    */
 specifier|public
 name|void
 name|setUnassigned
@@ -4248,7 +4248,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**     * Check if a region is on the unassigned list    * @param info HRegionInfo to check for    * @return true if on the unassigned list, false if it isn't. Note that this    * means a region could not be on the unassigned list AND not be assigned, if    * it happens to be between states.    */
+comment|/**    * Check if a region is on the unassigned list    * @param info HRegionInfo to check for    * @return true if on the unassigned list, false if it isn't. Note that this    * means a region could not be on the unassigned list AND not be assigned, if    * it happens to be between states.    */
 specifier|public
 name|boolean
 name|isUnassigned
@@ -4294,7 +4294,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Check if a region has been assigned and we're waiting for a response from    * the region server.    *     * @param regionName name of the region    * @return true if open, false otherwise    */
+comment|/**    * Check if a region has been assigned and we're waiting for a response from    * the region server.    *    * @param regionName name of the region    * @return true if open, false otherwise    */
 specifier|public
 name|boolean
 name|isPendingOpen
@@ -4419,7 +4419,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**     * Mark a region as closing     * @param serverName    * @param regionInfo    * @param setOffline    */
+comment|/**    * Mark a region as closing    * @param serverName    * @param regionInfo    * @param setOffline    */
 specifier|public
 name|void
 name|setClosing
@@ -4523,7 +4523,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**     * Remove the map of region names to region infos waiting to be offlined for a     * given server    *      * @param serverName    * @return set of infos to close    */
+comment|/**    * Remove the map of region names to region infos waiting to be offlined for a    * given server    *    * @param serverName    * @return set of infos to close    */
 specifier|public
 name|Set
 argument_list|<
@@ -4613,7 +4613,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Called when we have told a region server to close the region    *     * @param regionName    */
+comment|/**    * Called when we have told a region server to close the region    *    * @param regionName    */
 specifier|public
 name|void
 name|setPendingClose
@@ -4708,7 +4708,7 @@ name|m
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Check if the initial root scan has been completed.    * @return true if scan completed, false otherwise    */
+comment|/**    * Check if the initial root scan has been completed.    * @return true if scan completed, false otherwise    */
 specifier|public
 name|boolean
 name|isInitialRootScanComplete
@@ -4721,7 +4721,7 @@ name|isInitialScanComplete
 argument_list|()
 return|;
 block|}
-comment|/**     * Check if the initial meta scan has been completed.    * @return true if meta completed, false otherwise    */
+comment|/**    * Check if the initial meta scan has been completed.    * @return true if meta completed, false otherwise    */
 specifier|public
 name|boolean
 name|isInitialMetaScanComplete
@@ -4734,7 +4734,7 @@ name|isInitialScanComplete
 argument_list|()
 return|;
 block|}
-comment|/**     * Get the root region location.    * @return HServerAddress describing root region server.    */
+comment|/**    * Get the root region location.    * @return HServerAddress describing root region server.    */
 specifier|public
 name|HServerAddress
 name|getRootRegionLocation
@@ -5568,7 +5568,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Class to balance region servers load.    * It keeps Region Servers load in slop range by unassigning Regions    * from most loaded servers.    *     * Equilibrium is reached when load of all serves are in slop range    * [avgLoadMinusSlop, avgLoadPlusSlop], where     *  avgLoadPlusSlop = Math.ceil(avgLoad * (1 + this.slop)), and    *  avgLoadMinusSlop = Math.floor(avgLoad * (1 - this.slop)) - 1.    */
+comment|/**    * Class to balance region servers load.    * It keeps Region Servers load in slop range by unassigning Regions    * from most loaded servers.    *    * Equilibrium is reached when load of all serves are in slop range    * [avgLoadMinusSlop, avgLoadPlusSlop], where    *  avgLoadPlusSlop = Math.ceil(avgLoad * (1 + this.slop)), and    *  avgLoadMinusSlop = Math.floor(avgLoad * (1 - this.slop)) - 1.    */
 specifier|private
 class|class
 name|LoadBalancer
@@ -5638,7 +5638,7 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Balance server load by unassigning some regions.      *       * @param info - server info      * @param mostLoadedRegions - array of most loaded regions      * @param returnMsgs - array of return massages      */
+comment|/**      * Balance server load by unassigning some regions.      *      * @param info - server info      * @param mostLoadedRegions - array of most loaded regions      * @param returnMsgs - array of return massages      */
 name|void
 name|loadBalancing
 parameter_list|(
@@ -5767,7 +5767,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/*       * Check if server load is not overloaded (with load> avgLoadPlusSlop).      * @return number of regions to unassign.      */
+comment|/*      * Check if server load is not overloaded (with load> avgLoadPlusSlop).      * @return number of regions to unassign.      */
 specifier|private
 name|int
 name|balanceFromOverloaded
@@ -5861,7 +5861,7 @@ return|return
 literal|0
 return|;
 block|}
-comment|/*       * Check if server is most loaded and can be unloaded to       * low loaded servers (with load< avgLoadMinusSlop).      * @return number of regions to unassign.      */
+comment|/*      * Check if server is most loaded and can be unloaded to      * low loaded servers (with load< avgLoadMinusSlop).      * @return number of regions to unassign.      */
 specifier|private
 name|int
 name|balanceToLowloaded
@@ -6423,7 +6423,7 @@ operator|.
 name|UNASSIGNED
 return|;
 block|}
-comment|/*      * Note: callers of this method (reassignRootRegion,       * regionsAwaitingAssignment, setUnassigned) ensure that this method is not      * called unless it is safe to do so.      */
+comment|/*      * Note: callers of this method (reassignRootRegion,      * regionsAwaitingAssignment, setUnassigned) ensure that this method is not      * called unless it is safe to do so.      */
 specifier|synchronized
 name|void
 name|setUnassigned

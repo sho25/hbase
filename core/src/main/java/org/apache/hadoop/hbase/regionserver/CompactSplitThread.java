@@ -234,7 +234,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**   * Compact region on request and then run split if appropriate  */
+comment|/**  * Compact region on request and then run split if appropriate  */
 end_comment
 
 begin_class
@@ -1153,7 +1153,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Returns the current size of the queue containing regions that are     * processed.     *    * @return The current size of the regions queue.    */
+comment|/**    * Returns the current size of the queue containing regions that are    * processed.    *    * @return The current size of the regions queue.    */
 specifier|public
 name|int
 name|getCompactionQueueSize

@@ -455,7 +455,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Test memstore snapshot happening while scanning.    * @throws IOException    */
+comment|/**    * Test memstore snapshot happening while scanning.    * @throws IOException    */
 specifier|public
 name|void
 name|testScanAcrossSnapshot
@@ -973,7 +973,7 @@ name|count
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Test memstore snapshots    * @throws IOException    */
+comment|/**    * Test memstore snapshots    * @throws IOException    */
 specifier|public
 name|void
 name|testSnapshotting
@@ -1459,7 +1459,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Get tests
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/** Test getNextRow from memstore    * @throws InterruptedException     */
+comment|/** Test getNextRow from memstore    * @throws InterruptedException    */
 specifier|public
 name|void
 name|testGetNextRow
@@ -4290,7 +4290,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Adds {@link #ROW_COUNT} rows and {@link #COLUMNS_COUNT}    * @param hmc Instance to add rows to.    * @return How many rows we added.    * @throws IOException     */
+comment|/**    * Adds {@link #ROW_COUNT} rows and {@link #COLUMNS_COUNT}    * @param hmc Instance to add rows to.    * @return How many rows we added.    * @throws IOException    */
 specifier|private
 name|int
 name|addRows
@@ -4311,7 +4311,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 return|;
 block|}
-comment|/**    * Adds {@link #ROW_COUNT} rows and {@link #COLUMNS_COUNT}    * @param hmc Instance to add rows to.    * @return How many rows we added.    * @throws IOException     */
+comment|/**    * Adds {@link #ROW_COUNT} rows and {@link #COLUMNS_COUNT}    * @param hmc Instance to add rows to.    * @return How many rows we added.    * @throws IOException    */
 specifier|private
 name|int
 name|addRows

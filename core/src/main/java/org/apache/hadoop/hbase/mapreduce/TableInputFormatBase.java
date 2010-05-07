@@ -272,7 +272,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A base for {@link TableInputFormat}s. Receives a {@link HTable}, an   * {@link Scan} instance that defines the input columns etc. Subclasses may use   * other TableRecordReader implementations.  *<p>  * An example of a subclass:  *<pre>  *   class ExampleTIF extends TableInputFormatBase implements JobConfigurable {  *  *     public void configure(JobConf job) {  *       HTable exampleTable = new HTable(new HBaseConfiguration(job),  *         Bytes.toBytes("exampleTable"));  *       // mandatory  *       setHTable(exampleTable);  *       Text[] inputColumns = new byte [][] { Bytes.toBytes("columnA"),  *         Bytes.toBytes("columnB") };  *       // mandatory  *       setInputColumns(inputColumns);  *       RowFilterInterface exampleFilter = new RegExpRowFilter("keyPrefix.*");  *       // optional  *       setRowFilter(exampleFilter);  *     }  *  *     public void validateInput(JobConf job) throws IOException {  *     }  *  }  *</pre>  */
+comment|/**  * A base for {@link TableInputFormat}s. Receives a {@link HTable}, an  * {@link Scan} instance that defines the input columns etc. Subclasses may use  * other TableRecordReader implementations.  *<p>  * An example of a subclass:  *<pre>  *   class ExampleTIF extends TableInputFormatBase implements JobConfigurable {  *  *     public void configure(JobConf job) {  *       HTable exampleTable = new HTable(new HBaseConfiguration(job),  *         Bytes.toBytes("exampleTable"));  *       // mandatory  *       setHTable(exampleTable);  *       Text[] inputColumns = new byte [][] { Bytes.toBytes("columnA"),  *         Bytes.toBytes("columnB") };  *       // mandatory  *       setInputColumns(inputColumns);  *       RowFilterInterface exampleFilter = new RegExpRowFilter("keyPrefix.*");  *       // optional  *       setRowFilter(exampleFilter);  *     }  *  *     public void validateInput(JobConf job) throws IOException {  *     }  *  }  *</pre>  */
 end_comment
 
 begin_class
@@ -322,7 +322,7 @@ name|tableRecordReader
 init|=
 literal|null
 decl_stmt|;
-comment|/**    * Builds a TableRecordReader. If no TableRecordReader was provided, uses    * the default.    *     * @param split  The split to work with.    * @param context  The current context.    * @return The newly created record reader.    * @throws IOException When creating the reader fails.    * @see org.apache.hadoop.mapreduce.InputFormat#createRecordReader(    *   org.apache.hadoop.mapreduce.InputSplit,     *   org.apache.hadoop.mapreduce.TaskAttemptContext)    */
+comment|/**    * Builds a TableRecordReader. If no TableRecordReader was provided, uses    * the default.    *    * @param split  The split to work with.    * @param context  The current context.    * @return The newly created record reader.    * @throws IOException When creating the reader fails.    * @see org.apache.hadoop.mapreduce.InputFormat#createRecordReader(    *   org.apache.hadoop.mapreduce.InputSplit,    *   org.apache.hadoop.mapreduce.TaskAttemptContext)    */
 annotation|@
 name|Override
 specifier|public
@@ -872,7 +872,7 @@ operator|=
 name|table
 expr_stmt|;
 block|}
-comment|/**    * Gets the scan defining the actual details like columns etc.    *      * @return The internal scan instance.    */
+comment|/**    * Gets the scan defining the actual details like columns etc.    *    * @return The internal scan instance.    */
 specifier|public
 name|Scan
 name|getScan
@@ -898,7 +898,7 @@ return|return
 name|scan
 return|;
 block|}
-comment|/**    * Sets the scan defining the actual details like columns etc.    *      * @param scan  The scan to set.    */
+comment|/**    * Sets the scan defining the actual details like columns etc.    *    * @param scan  The scan to set.    */
 specifier|public
 name|void
 name|setScan
@@ -914,7 +914,7 @@ operator|=
 name|scan
 expr_stmt|;
 block|}
-comment|/**    * Allows subclasses to set the {@link TableRecordReader}.    *    * @param tableRecordReader A different {@link TableRecordReader}     *   implementation.    */
+comment|/**    * Allows subclasses to set the {@link TableRecordReader}.    *    * @param tableRecordReader A different {@link TableRecordReader}    *   implementation.    */
 specifier|protected
 name|void
 name|setTableRecordReader

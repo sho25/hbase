@@ -120,7 +120,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Leases  *  * There are several server classes in HBase that need to track external  * clients that occasionally send heartbeats.  *   *<p>These external clients hold resources in the server class.  * Those resources need to be released if the external client fails to send a  * heartbeat after some interval of time passes.  *  *<p>The Leases class is a general reusable class for this kind of pattern.  * An instance of the Leases class will create a thread to do its dirty work.    * You should close() the instance if you want to clean up the thread properly.  *   *<p>  * NOTE: This class extends Thread rather than Chore because the sleep time  * can be interrupted when there is something to do, rather than the Chore  * sleep time which is invariant.  */
+comment|/**  * Leases  *  * There are several server classes in HBase that need to track external  * clients that occasionally send heartbeats.  *  *<p>These external clients hold resources in the server class.  * Those resources need to be released if the external client fails to send a  * heartbeat after some interval of time passes.  *  *<p>The Leases class is a general reusable class for this kind of pattern.  * An instance of the Leases class will create a thread to do its dirty work.  * You should close() the instance if you want to clean up the thread properly.  *  *<p>  * NOTE: This class extends Thread rather than Chore because the sleep time  * can be interrupted when there is something to do, rather than the Chore  * sleep time which is invariant.  */
 end_comment
 
 begin_class
@@ -199,7 +199,7 @@ name|stopRequested
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * Creates a lease monitor    *     * @param leasePeriod - length of time (milliseconds) that the lease is valid    * @param leaseCheckFrequency - how often the lease should be checked    * (milliseconds)    */
+comment|/**    * Creates a lease monitor    *    * @param leasePeriod - length of time (milliseconds) that the lease is valid    * @param leaseCheckFrequency - how often the lease should be checked    * (milliseconds)    */
 specifier|public
 name|Leases
 parameter_list|(
@@ -383,7 +383,7 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
-comment|/**    * Shut down this Leases instance.  All pending leases will be destroyed,     * without any cancellation calls.    */
+comment|/**    * Shut down this Leases instance.  All pending leases will be destroyed,    * without any cancellation calls.    */
 specifier|public
 name|void
 name|close
@@ -447,7 +447,7 @@ literal|" closed leases"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Obtain a lease    *     * @param leaseName name of the lease    * @param listener listener that will process lease expirations    * @throws LeaseStillHeldException     */
+comment|/**    * Obtain a lease    *    * @param leaseName name of the lease    * @param listener listener that will process lease expirations    * @throws LeaseStillHeldException    */
 specifier|public
 name|void
 name|createLease
@@ -575,7 +575,7 @@ name|leaseName
 return|;
 block|}
 block|}
-comment|/**    * Renew a lease    *     * @param leaseName name of lease    * @throws LeaseException     */
+comment|/**    * Renew a lease    *    * @param leaseName name of lease    * @throws LeaseException    */
 specifier|public
 name|void
 name|renewLease
@@ -653,7 +653,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Client explicitly cancels a lease.    *     * @param leaseName name of lease    * @throws LeaseException     */
+comment|/**    * Client explicitly cancels a lease.    *    * @param leaseName name of lease    * @throws LeaseException    */
 specifier|public
 name|void
 name|cancelLease

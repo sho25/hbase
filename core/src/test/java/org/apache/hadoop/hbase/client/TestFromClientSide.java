@@ -758,7 +758,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test from client side of an involved filter against a multi family that    * involves deletes.    *     * @throws Exception    */
+comment|/**    * Test from client side of an involved filter against a multi family that    * involves deletes.    *    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
@@ -14094,7 +14094,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Baseline "scalability" test.    *     * Tests one hundred families, one million columns, one million versions    */
+comment|/**    * Baseline "scalability" test.    *    * Tests one hundred families, one million columns, one million versions    */
 annotation|@
 name|Ignore
 annotation|@
@@ -14144,11 +14144,11 @@ name|testMultipleRowMultipleFamily
 parameter_list|()
 throws|throws
 name|Exception
-block|{        }
+block|{    }
 comment|//
 comment|// JIRA Testers
 comment|//
-comment|/**    * HBASE-867    *    If millions of columns in a column family, hbase scanner won't come up    *        *    Test will create numRows rows, each with numColsPerRow columns     *    (1 version each), and attempt to scan them all.    *        *    To test at scale, up numColsPerRow to the millions    *    (have not gotten that to work running as junit though)    */
+comment|/**    * HBASE-867    *    If millions of columns in a column family, hbase scanner won't come up    *    *    Test will create numRows rows, each with numColsPerRow columns    *    (1 version each), and attempt to scan them all.    *    *    To test at scale, up numColsPerRow to the millions    *    (have not gotten that to work running as junit though)    */
 annotation|@
 name|Test
 specifier|public
@@ -14721,7 +14721,7 @@ name|numRows
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * HBASE-861    *    get with timestamp will return a value if there is a version with an     *    earlier timestamp    */
+comment|/**    * HBASE-861    *    get with timestamp will return a value if there is a version with an    *    earlier timestamp    */
 annotation|@
 name|Test
 specifier|public
@@ -15302,7 +15302,7 @@ index|]
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * HBASE-33    *    Add a HTable get/obtainScanner method that retrieves all versions of a     *    particular column and row between two timestamps    */
+comment|/**    * HBASE-33    *    Add a HTable get/obtainScanner method that retrieves all versions of a    *    particular column and row between two timestamps    */
 annotation|@
 name|Test
 specifier|public
@@ -15916,7 +15916,7 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * HBASE-1182    *    Scan for columns> some timestamp     */
+comment|/**    * HBASE-1182    *    Scan for columns> some timestamp    */
 annotation|@
 name|Test
 specifier|public
@@ -19891,7 +19891,7 @@ name|result
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Verify a single column using gets.    * Expects family and qualifier arrays to be valid for at least     * the range:  idx-2< idx< idx+2    */
+comment|/**    * Verify a single column using gets.    * Expects family and qualifier arrays to be valid for at least    * the range:  idx-2< idx< idx+2    */
 specifier|private
 name|void
 name|getVerifySingleColumn
@@ -20359,7 +20359,7 @@ index|]
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Verify a single column using scanners.    * Expects family and qualifier arrays to be valid for at least     * the range:  idx-2 to idx+2    * Expects row array to be valid for at least idx to idx+2     */
+comment|/**    * Verify a single column using scanners.    * Expects family and qualifier arrays to be valid for at least    * the range:  idx-2 to idx+2    * Expects row array to be valid for at least idx to idx+2    */
 specifier|private
 name|void
 name|scanVerifySingleColumn

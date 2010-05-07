@@ -95,7 +95,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Constructor that takes a maximum page size.    *     * @param pageSize Maximum result size.    */
+comment|/**    * Constructor that takes a maximum page size.    *    * @param pageSize Maximum result size.    */
 specifier|public
 name|PageFilter
 parameter_list|(

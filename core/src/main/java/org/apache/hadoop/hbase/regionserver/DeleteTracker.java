@@ -18,7 +18,7 @@ package|;
 end_package
 
 begin_comment
-comment|/**  * This interface is used for the tracking and enforcement of Deletes  * during the course of a Get or Scan operation.  *<p>  * This class is utilized through three methods:  *<ul><li>{@link #add} when encountering a Delete  *<li>{@link #isDeleted} when checking if a Put KeyValue has been deleted  *<li>{@link #update} when reaching the end of a StoreFile   */
+comment|/**  * This interface is used for the tracking and enforcement of Deletes  * during the course of a Get or Scan operation.  *<p>  * This class is utilized through three methods:  *<ul><li>{@link #add} when encountering a Delete  *<li>{@link #isDeleted} when checking if a Put KeyValue has been deleted  *<li>{@link #update} when reaching the end of a StoreFile  */
 end_comment
 
 begin_interface

@@ -534,7 +534,7 @@ block|}
 comment|//
 comment|// Getters
 comment|//
-comment|/**    * Returns detailed region server information: A list of    * {@link HServerInfo}, containing server load and resource usage    * statistics as {@link HServerLoad}, containing per-region     * statistics as {@link HServerLoad.RegionLoad}.    * @return region server information    */
+comment|/**    * Returns detailed region server information: A list of    * {@link HServerInfo}, containing server load and resource usage    * statistics as {@link HServerLoad}, containing per-region    * statistics as {@link HServerLoad.RegionLoad}.    * @return region server information    */
 specifier|public
 name|Collection
 argument_list|<

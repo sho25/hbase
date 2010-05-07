@@ -142,7 +142,7 @@ name|getPort
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Construct a HServerAddress from a string of the form hostname:port    *     * @param hostAndPort format 'hostname:port'    */
+comment|/**    * Construct a HServerAddress from a string of the form hostname:port    *    * @param hostAndPort format 'hostname:port'    */
 specifier|public
 name|HServerAddress
 parameter_list|(
@@ -262,7 +262,7 @@ operator|+
 name|port
 expr_stmt|;
 block|}
-comment|/**    * Construct a HServerAddress from another HServerAddress    *     * @param other the HServerAddress to copy from    */
+comment|/**    * Construct a HServerAddress from another HServerAddress    *    * @param other the HServerAddress to copy from    */
 specifier|public
 name|HServerAddress
 parameter_list|(

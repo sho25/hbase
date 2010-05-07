@@ -80,7 +80,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HServerInfo contains metainfo about an HRegionServer, Currently it only  * contains the server start code.  *   * In the future it will contain information about the source machine and  * load statistics.  */
+comment|/**  * HServerInfo contains metainfo about an HRegionServer, Currently it only  * contains the server start code.  *  * In the future it will contain information about the source machine and  * load statistics.  */
 end_comment
 
 begin_class

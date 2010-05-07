@@ -100,7 +100,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**   * A byte sequence that is usable as a key or value.  Based on  * {@link org.apache.hadoop.io.BytesWritable} only this class is NOT resizable  * and DOES NOT distinguish between the size of the seqeunce and the current  * capacity as {@link org.apache.hadoop.io.BytesWritable} does. Hence its  * comparatively 'immutable'. When creating a new instance of this class,  * the underlying byte [] is not copied, just referenced.  The backing  * buffer is accessed when we go to serialize.  */
+comment|/**  * A byte sequence that is usable as a key or value.  Based on  * {@link org.apache.hadoop.io.BytesWritable} only this class is NOT resizable  * and DOES NOT distinguish between the size of the seqeunce and the current  * capacity as {@link org.apache.hadoop.io.BytesWritable} does. Hence its  * comparatively 'immutable'. When creating a new instance of this class,  * the underlying byte [] is not copied, just referenced.  The backing  * buffer is accessed when we go to serialize.  */
 end_comment
 
 begin_class

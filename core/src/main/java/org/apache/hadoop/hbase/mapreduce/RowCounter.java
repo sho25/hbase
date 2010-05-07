@@ -196,7 +196,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A job with a just a map phase to count rows. Map outputs table rows IF the   * input row has columns that have content.  */
+comment|/**  * A job with a just a map phase to count rows. Map outputs table rows IF the  * input row has columns that have content.  */
 end_comment
 
 begin_class
@@ -232,7 +232,7 @@ name|Counters
 block|{
 name|ROWS
 block|}
-comment|/**      * Maps the data.      *       * @param row  The current table row key.      * @param values  The columns.      * @param context  The current context.      * @throws IOException When something is broken with the data.      * @see org.apache.hadoop.mapreduce.Mapper#map(KEYIN, VALUEIN,       *   org.apache.hadoop.mapreduce.Mapper.Context)      */
+comment|/**      * Maps the data.      *      * @param row  The current table row key.      * @param values  The columns.      * @param context  The current context.      * @throws IOException When something is broken with the data.      * @see org.apache.hadoop.mapreduce.Mapper#map(KEYIN, VALUEIN,      *   org.apache.hadoop.mapreduce.Mapper.Context)      */
 annotation|@
 name|Override
 specifier|public
@@ -293,7 +293,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Sets up the actual job.    *     * @param conf  The current configuration.    * @param args  The command line parameters.    * @return The newly created job.    * @throws IOException When setting up the job fails.    */
+comment|/**    * Sets up the actual job.    *    * @param conf  The current configuration.    * @param args  The command line parameters.    * @return The newly created job.    * @throws IOException When setting up the job fails.    */
 specifier|public
 specifier|static
 name|Job
@@ -550,7 +550,7 @@ return|return
 name|job
 return|;
 block|}
-comment|/**    * Main entry point.    *     * @param args  The command line parameters.    * @throws Exception When running the job fails.    */
+comment|/**    * Main entry point.    *    * @param args  The command line parameters.    * @throws Exception When running the job fails.    */
 specifier|public
 specifier|static
 name|void

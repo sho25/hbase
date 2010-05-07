@@ -314,7 +314,7 @@ name|HBASE_DIR
 init|=
 literal|"hbase.rootdir"
 decl_stmt|;
-comment|/** Used to construct the name of the log directory for a region server     * Use '.' as a special character to seperate the log files from table data */
+comment|/** Used to construct the name of the log directory for a region server    * Use '.' as a special character to seperate the log files from table data */
 specifier|static
 specifier|final
 name|String
@@ -575,7 +575,7 @@ name|EMPTY_END_ROW
 init|=
 name|EMPTY_START_ROW
 decl_stmt|;
-comment|/**      * Used by scanners and others when they're trying to detect the end of a      * table      */
+comment|/**     * Used by scanners and others when they're trying to detect the end of a     * table     */
 specifier|static
 specifier|final
 name|byte
@@ -777,7 +777,7 @@ name|HBASE_CLIENT_SCANNER_MAX_RESULT_SIZE_KEY
 init|=
 literal|"hbase.client.scanner.max.result.size"
 decl_stmt|;
-comment|/**    * Maximum number of bytes returned when calling a scanner's next method.    * Note that when a single row is larger than this limit the row is still    * returned completely.    *     * The default value is unlimited.    */
+comment|/**    * Maximum number of bytes returned when calling a scanner's next method.    * Note that when a single row is larger than this limit the row is still    * returned completely.    *    * The default value is unlimited.    */
 specifier|public
 specifier|static
 name|long
@@ -795,7 +795,7 @@ name|HBASE_REGIONSERVER_LEASE_PERIOD_KEY
 init|=
 literal|"hbase.regionserver.lease.period"
 decl_stmt|;
-comment|/**    * Default value of {@link #HBASE_REGIONSERVER_LEASE_PERIOD_KEY}.     */
+comment|/**    * Default value of {@link #HBASE_REGIONSERVER_LEASE_PERIOD_KEY}.    */
 specifier|public
 specifier|static
 name|long

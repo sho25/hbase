@@ -459,7 +459,7 @@ argument_list|,
 name|Put
 argument_list|>
 block|{
-comment|/**      * Pass the key, and reversed value to reduce      *       * @param key       * @param value       * @param context      * @throws IOException       */
+comment|/**      * Pass the key, and reversed value to reduce      *      * @param key      * @param value      * @param context      * @throws IOException      */
 specifier|public
 name|void
 name|map
@@ -628,7 +628,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test a map/reduce against a multi-region table    * @throws IOException    * @throws ClassNotFoundException     * @throws InterruptedException     */
+comment|/**    * Test a map/reduce against a multi-region table    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    */
 specifier|public
 name|void
 name|testMultiRegionTable
@@ -1012,7 +1012,7 @@ name|verified
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Looks at every value of the mapreduce output and verifies that indeed    * the values have been reversed.    *     * @param table Table to scan.    * @throws IOException    * @throws NullPointerException if we failed to find a cell value    */
+comment|/**    * Looks at every value of the mapreduce output and verifies that indeed    * the values have been reversed.    *    * @param table Table to scan.    * @throws IOException    * @throws NullPointerException if we failed to find a cell value    */
 specifier|private
 name|void
 name|verifyAttempt

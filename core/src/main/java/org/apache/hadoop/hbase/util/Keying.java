@@ -81,7 +81,7 @@ argument_list|(
 literal|"^([^:/?#]+://(?:[^/?#@]+@)?)([^:/?#]+)(.*)$"
 argument_list|)
 decl_stmt|;
-comment|/**    * Makes a key out of passed URI for use as row name or column qualifier.    *     * This method runs transforms on the passed URI so it sits better    * as a key (or portion-of-a-key) in hbase.  The<code>host</code> portion of    * the URI authority is reversed so subdomains sort under their parent    * domain.  The returned String is an opaque URI of an artificial    *<code>r:</code> scheme to prevent the result being considered an URI of    * the original scheme.  Here is an example of the transform: The url    *<code>http://lucene.apache.org/index.html?query=something#middle<code> is    * returned as    *<code>r:http://org.apache.lucene/index.html?query=something#middle</code>    * The transforms are reversible.  No transform is done if passed URI is    * not hierarchical.    *     *<p>If authority<code>userinfo</code> is present, will mess up the sort    * (until we do more work).</p>    *     * @param u URL to transform.    * @return An opaque URI of artificial 'r' scheme with host portion of URI    * authority reversed (if present).    * @see #keyToUri(String)    * @see<a href="http://www.ietf.org/rfc/rfc2396.txt">RFC2396</a>    */
+comment|/**    * Makes a key out of passed URI for use as row name or column qualifier.    *    * This method runs transforms on the passed URI so it sits better    * as a key (or portion-of-a-key) in hbase.  The<code>host</code> portion of    * the URI authority is reversed so subdomains sort under their parent    * domain.  The returned String is an opaque URI of an artificial    *<code>r:</code> scheme to prevent the result being considered an URI of    * the original scheme.  Here is an example of the transform: The url    *<code>http://lucene.apache.org/index.html?query=something#middle<code> is    * returned as    *<code>r:http://org.apache.lucene/index.html?query=something#middle</code>    * The transforms are reversible.  No transform is done if passed URI is    * not hierarchical.    *    *<p>If authority<code>userinfo</code> is present, will mess up the sort    * (until we do more work).</p>    *    * @param u URL to transform.    * @return An opaque URI of artificial 'r' scheme with host portion of URI    * authority reversed (if present).    * @see #keyToUri(String)    * @see<a href="http://www.ietf.org/rfc/rfc2396.txt">RFC2396</a>    */
 specifier|public
 specifier|static
 name|String
@@ -166,7 +166,7 @@ literal|3
 argument_list|)
 return|;
 block|}
-comment|/**    * Reverse the {@link #createKey(String)} transform.    *     * @param s<code>URI</code> made by {@link #createKey(String)}.    * @return 'Restored' URI made by reversing the {@link #createKey(String)}    * transform.    */
+comment|/**    * Reverse the {@link #createKey(String)} transform.    *    * @param s<code>URI</code> made by {@link #createKey(String)}.    * @return 'Restored' URI made by reversing the {@link #createKey(String)}    * transform.    */
 specifier|public
 specifier|static
 name|String

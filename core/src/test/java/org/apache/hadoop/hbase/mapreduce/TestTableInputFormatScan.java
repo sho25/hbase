@@ -356,7 +356,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tests various scan start and stop row scenarios. This is set in a scan and  * tested in a MapReduce job to see if that is handed over and done properly  * too.   */
+comment|/**  * Tests various scan start and stop row scenarios. This is set in a scan and  * tested in a MapReduce job to see if that is handed over and done properly  * too.  */
 end_comment
 
 begin_class
@@ -588,7 +588,7 @@ argument_list|,
 name|ImmutableBytesWritable
 argument_list|>
 block|{
-comment|/**      * Pass the key and value to reduce.      *       * @param key  The key, here "aaa", "aab" etc.       * @param value  The value is the same as the key.      * @param context  The task context.      * @throws IOException When reading the rows fails.      */
+comment|/**      * Pass the key and value to reduce.      *      * @param key  The key, here "aaa", "aab" etc.      * @param value  The value is the same as the key.      * @param context  The task context.      * @throws IOException When reading the rows fails.      */
 annotation|@
 name|Override
 specifier|public
@@ -966,7 +966,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Tests a MR scan using specific start and stop rows.    *     * @throws IOException    * @throws ClassNotFoundException     * @throws InterruptedException     */
+comment|/**    * Tests a MR scan using specific start and stop rows.    *    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    */
 annotation|@
 name|Test
 specifier|public
@@ -990,7 +990,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests a MR scan using specific start and stop rows.    *     * @throws IOException    * @throws ClassNotFoundException     * @throws InterruptedException     */
+comment|/**    * Tests a MR scan using specific start and stop rows.    *    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    */
 annotation|@
 name|Test
 specifier|public
@@ -1014,7 +1014,7 @@ literal|"apo"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests a MR scan using specific start and stop rows.    *     * @throws IOException    * @throws ClassNotFoundException     * @throws InterruptedException     */
+comment|/**    * Tests a MR scan using specific start and stop rows.    *    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    */
 annotation|@
 name|Test
 specifier|public
@@ -1038,7 +1038,7 @@ literal|"baz"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests a MR scan using specific start and stop rows.    *     * @throws IOException    * @throws ClassNotFoundException     * @throws InterruptedException     */
+comment|/**    * Tests a MR scan using specific start and stop rows.    *    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    */
 annotation|@
 name|Test
 specifier|public
@@ -1062,7 +1062,7 @@ literal|"bba"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests a MR scan using specific start and stop rows.    *     * @throws IOException    * @throws ClassNotFoundException     * @throws InterruptedException     */
+comment|/**    * Tests a MR scan using specific start and stop rows.    *    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    */
 annotation|@
 name|Test
 specifier|public
@@ -1086,7 +1086,7 @@ literal|"opo"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests a MR scan using specific start and stop rows.    *     * @throws IOException    * @throws ClassNotFoundException     * @throws InterruptedException     */
+comment|/**    * Tests a MR scan using specific start and stop rows.    *    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    */
 annotation|@
 name|Test
 specifier|public
@@ -1110,7 +1110,7 @@ literal|"opo"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests a MR scan using specific start and stop rows.    *     * @throws IOException    * @throws ClassNotFoundException     * @throws InterruptedException     */
+comment|/**    * Tests a MR scan using specific start and stop rows.    *    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    */
 annotation|@
 name|Test
 specifier|public
@@ -1134,7 +1134,7 @@ literal|"qpo"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests a MR scan using specific start and stop rows.    *     * @throws IOException    * @throws ClassNotFoundException     * @throws InterruptedException     */
+comment|/**    * Tests a MR scan using specific start and stop rows.    *    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    */
 annotation|@
 name|Test
 specifier|public
@@ -1158,7 +1158,7 @@ literal|"zzz"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests a MR scan using specific start and stop rows.    *     * @throws IOException    * @throws ClassNotFoundException     * @throws InterruptedException     */
+comment|/**    * Tests a MR scan using specific start and stop rows.    *    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    */
 annotation|@
 name|Test
 specifier|public
@@ -1182,7 +1182,7 @@ literal|"zzz"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests a MR scan using specific start and stop rows.    *     * @throws IOException    * @throws ClassNotFoundException     * @throws InterruptedException     */
+comment|/**    * Tests a MR scan using specific start and stop rows.    *    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    */
 annotation|@
 name|Test
 specifier|public
@@ -1206,7 +1206,7 @@ literal|"zzz"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests a MR scan using specific start and stop rows.    *     * @throws IOException    * @throws ClassNotFoundException     * @throws InterruptedException     */
+comment|/**    * Tests a MR scan using specific start and stop rows.    *    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    */
 annotation|@
 name|Test
 specifier|public
@@ -1230,7 +1230,7 @@ literal|"zzz"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests a MR scan using specific start and stop rows.    *     * @throws IOException    * @throws ClassNotFoundException     * @throws InterruptedException     */
+comment|/**    * Tests a MR scan using specific start and stop rows.    *    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    */
 annotation|@
 name|SuppressWarnings
 argument_list|(

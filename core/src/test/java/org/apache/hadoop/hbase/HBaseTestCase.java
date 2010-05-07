@@ -1814,13 +1814,13 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-comment|/**    * Interface used by tests so can do common operations against an HTable    * or an HRegion.    *     * TOOD: Come up w/ a better name for this interface.    */
+comment|/**    * Interface used by tests so can do common operations against an HTable    * or an HRegion.    *    * TOOD: Come up w/ a better name for this interface.    */
 specifier|public
 specifier|static
 interface|interface
 name|Incommon
 block|{
-comment|/**      *       * @param delete      * @param lockid      * @param writeToWAL      * @throws IOException      */
+comment|/**      *      * @param delete      * @param lockid      * @param writeToWAL      * @throws IOException      */
 specifier|public
 name|void
 name|delete
@@ -2798,7 +2798,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Initializes parameters used in the test environment:    *     * Sets the configuration parameter TEST_DIRECTORY_KEY if not already set.    * Sets the boolean debugging if "DEBUGGING" is set in the environment.    * If debugging is enabled, reconfigures logging so that the root log level is    * set to WARN and the logging level for the package is set to DEBUG.    */
+comment|/**    * Initializes parameters used in the test environment:    *    * Sets the configuration parameter TEST_DIRECTORY_KEY if not already set.    * Sets the boolean debugging if "DEBUGGING" is set in the environment.    * If debugging is enabled, reconfigures logging so that the root log level is    * set to WARN and the logging level for the package is set to DEBUG.    */
 specifier|public
 specifier|static
 name|void
@@ -2835,7 +2835,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Common method to close down a MiniDFSCluster and the associated file system    *     * @param cluster    */
+comment|/**    * Common method to close down a MiniDFSCluster and the associated file system    *    * @param cluster    */
 specifier|public
 specifier|static
 name|void

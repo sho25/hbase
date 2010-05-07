@@ -235,7 +235,7 @@ specifier|public
 name|LocalHBaseCluster
 name|hbaseCluster
 decl_stmt|;
-comment|/**    * Start a MiniHBaseCluster.     * @param conf Configuration to be used for cluster    * @param numRegionServers initial number of region servers to start.    * @throws IOException    */
+comment|/**    * Start a MiniHBaseCluster.    * @param conf Configuration to be used for cluster    * @param numRegionServers initial number of region servers to start.    * @throws IOException    */
 specifier|public
 name|MiniHBaseCluster
 parameter_list|(
@@ -907,7 +907,7 @@ name|join
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Shut down the mini HBase cluster    * @throws IOException     */
+comment|/**    * Shut down the mini HBase cluster    * @throws IOException    */
 specifier|public
 name|void
 name|shutdown

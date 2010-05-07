@@ -48,7 +48,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Class that provides static method needed when putting deletes into memstore   */
+comment|/**  * Class that provides static method needed when putting deletes into memstore  */
 end_comment
 
 begin_class

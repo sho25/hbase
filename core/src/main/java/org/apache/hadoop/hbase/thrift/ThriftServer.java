@@ -1050,7 +1050,7 @@ return|;
 block|}
 block|}
 decl_stmt|;
-comment|/**      * Returns a list of all the column families for a given htable.      *       * @param table      * @return      * @throws IOException      */
+comment|/**      * Returns a list of all the column families for a given htable.      *      * @param table      * @return      * @throws IOException      */
 name|byte
 index|[]
 index|[]
@@ -1132,7 +1132,7 @@ return|return
 name|columns
 return|;
 block|}
-comment|/**      * Creates and returns an HTable instance from a given table name.      *       * @param tableName      *          name of table      * @return HTable object      * @throws IOException      * @throws IOError      */
+comment|/**      * Creates and returns an HTable instance from a given table name.      *      * @param tableName      *          name of table      * @return HTable object      * @throws IOException      * @throws IOError      */
 specifier|protected
 name|HTable
 name|getTable
@@ -1205,7 +1205,7 @@ name|table
 argument_list|)
 return|;
 block|}
-comment|/**      * Assigns a unique ID to the scanner and adds the mapping to an internal      * hash-map.      *       * @param scanner      * @return integer scanner id      */
+comment|/**      * Assigns a unique ID to the scanner and adds the mapping to an internal      * hash-map.      *      * @param scanner      * @return integer scanner id      */
 specifier|protected
 specifier|synchronized
 name|int
@@ -1234,7 +1234,7 @@ return|return
 name|id
 return|;
 block|}
-comment|/**      * Returns the scanner associated with the specified ID.      *       * @param id      * @return a Scanner, or null if ID was invalid.      */
+comment|/**      * Returns the scanner associated with the specified ID.      *      * @param id      * @return a Scanner, or null if ID was invalid.      */
 specifier|protected
 specifier|synchronized
 name|ResultScanner
@@ -1253,7 +1253,7 @@ name|id
 argument_list|)
 return|;
 block|}
-comment|/**      * Removes the scanner associated with the specified ID from the internal      * id->scanner hash-map.      *       * @param id      * @return a Scanner, or null if ID was invalid.      */
+comment|/**      * Removes the scanner associated with the specified ID from the internal      * id->scanner hash-map.      *      * @param id      * @return a Scanner, or null if ID was invalid.      */
 specifier|protected
 specifier|synchronized
 name|ResultScanner
@@ -1272,7 +1272,7 @@ name|id
 argument_list|)
 return|;
 block|}
-comment|/**      * Constructs an HBaseHandler object.      *       * @throws MasterNotRunningException      */
+comment|/**      * Constructs an HBaseHandler object.      *      * @throws MasterNotRunningException      */
 name|HBaseHandler
 parameter_list|()
 throws|throws
@@ -5787,7 +5787,7 @@ name|serve
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * @param args    * @throws Exception     */
+comment|/**    * @param args    * @throws Exception    */
 specifier|public
 specifier|static
 name|void

@@ -346,7 +346,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**   * A non-instantiable class that has a static method capable of compacting  * a table by merging adjacent regions.  */
+comment|/**  * A non-instantiable class that has a static method capable of compacting  * a table by merging adjacent regions.  */
 end_comment
 
 begin_class
@@ -387,7 +387,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Scans the table and merges two adjacent regions if they are small. This    * only happens when a lot of rows are deleted.    *     * When merging the META region, the HBase instance must be offline.    * When merging a normal table, the HBase instance must be online, but the    * table must be disabled.     *     * @param conf        - configuration object for HBase    * @param fs          - FileSystem where regions reside    * @param tableName   - Table to be compacted    * @throws IOException    */
+comment|/**    * Scans the table and merges two adjacent regions if they are small. This    * only happens when a lot of rows are deleted.    *    * When merging the META region, the HBase instance must be offline.    * When merging a normal table, the HBase instance must be online, but the    * table must be disabled.    *    * @param conf        - configuration object for HBase    * @param fs          - FileSystem where regions reside    * @param tableName   - Table to be compacted    * @throws IOException    */
 specifier|public
 specifier|static
 name|void

@@ -790,7 +790,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Script used evaluating HBase performance and scalability.  Runs a HBase  * client that steps through one of a set of hardcoded tests or 'experiments'  * (e.g. a random reads test, a random writes test, etc.). Pass on the  * command-line which test to run and how many clients are participating in  * this experiment. Run<code>java PerformanceEvaluation --help</code> to  * obtain usage.  *   *<p>This class sets up and runs the evaluation programs described in  * Section 7,<i>Performance Evaluation</i>, of the<a  * href="http://labs.google.com/papers/bigtable.html">Bigtable</a>  * paper, pages 8-10.  *   *<p>If number of clients> 1, we start up a MapReduce job. Each map task  * runs an individual client. Each client does about 1GB of data.  */
+comment|/**  * Script used evaluating HBase performance and scalability.  Runs a HBase  * client that steps through one of a set of hardcoded tests or 'experiments'  * (e.g. a random reads test, a random writes test, etc.). Pass on the  * command-line which test to run and how many clients are participating in  * this experiment. Run<code>java PerformanceEvaluation --help</code> to  * obtain usage.  *  *<p>This class sets up and runs the evaluation programs described in  * Section 7,<i>Performance Evaluation</i>, of the<a  * href="http://labs.google.com/papers/bigtable.html">Bigtable</a>  * paper, pages 8-10.  *  *<p>If number of clients> 1, we start up a MapReduce job. Each map task  * runs an individual client. Each client does about 1GB of data.  */
 end_comment
 
 begin_class
@@ -1220,7 +1220,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-comment|/**    *  This class works as the InputSplit of Performance Evaluation    *  MapReduce InputFormat, and the Record Value of RecordReader.     *  Each map task will only read one record from a PeInputSplit,     *  the record value is the PeInputSplit itself.    */
+comment|/**    *  This class works as the InputSplit of Performance Evaluation    *  MapReduce InputFormat, and the Record Value of RecordReader.    *  Each map task will only read one record from a PeInputSplit,    *  the record value is the PeInputSplit itself.    */
 specifier|public
 specifier|static
 class|class
@@ -1578,7 +1578,7 @@ name|writeToWAL
 return|;
 block|}
 block|}
-comment|/**    *  InputFormat of Performance Evaluation MapReduce job.    *  It extends from FileInputFormat, want to use it's methods such as setInputPaths().     */
+comment|/**    *  InputFormat of Performance Evaluation MapReduce job.    *  It extends from FileInputFormat, want to use it's methods such as setInputPaths().    */
 specifier|public
 specifier|static
 class|class

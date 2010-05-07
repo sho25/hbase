@@ -202,7 +202,7 @@ specifier|public
 class|class
 name|ThriftUtilities
 block|{
-comment|/**    * This utility method creates a new Hbase HColumnDescriptor object based on a    * Thrift ColumnDescriptor "struct".    *     * @param in    *          Thrift ColumnDescriptor object    * @return HColumnDescriptor    * @throws IllegalArgument    */
+comment|/**    * This utility method creates a new Hbase HColumnDescriptor object based on a    * Thrift ColumnDescriptor "struct".    *    * @param in    *          Thrift ColumnDescriptor object    * @return HColumnDescriptor    * @throws IllegalArgument    */
 specifier|static
 specifier|public
 name|HColumnDescriptor
@@ -332,7 +332,7 @@ return|return
 name|col
 return|;
 block|}
-comment|/**    * This utility method creates a new Thrift ColumnDescriptor "struct" based on    * an Hbase HColumnDescriptor object.    *     * @param in    *          Hbase HColumnDescriptor object    * @return Thrift ColumnDescriptor    */
+comment|/**    * This utility method creates a new Thrift ColumnDescriptor "struct" based on    * an Hbase HColumnDescriptor object.    *    * @param in    *          Hbase HColumnDescriptor object    * @return Thrift ColumnDescriptor    */
 specifier|static
 specifier|public
 name|ColumnDescriptor
@@ -424,7 +424,7 @@ return|return
 name|col
 return|;
 block|}
-comment|/**    * This utility method creates a list of Thrift TCell "struct" based on    * an Hbase Cell object. The empty list is returned if the input is null.    *     * @param in    *          Hbase Cell object    * @return Thrift TCell array    */
+comment|/**    * This utility method creates a list of Thrift TCell "struct" based on    * an Hbase Cell object. The empty list is returned if the input is null.    *    * @param in    *          Hbase Cell object    * @return Thrift TCell array    */
 specifier|static
 specifier|public
 name|List
@@ -587,7 +587,7 @@ return|return
 name|list
 return|;
 block|}
-comment|/**    * This utility method creates a list of Thrift TRowResult "struct" based on    * an Hbase RowResult object. The empty list is returned if the input is    * null.    *     * @param in    *          Hbase RowResult object    * @return Thrift TRowResult array    */
+comment|/**    * This utility method creates a list of Thrift TRowResult "struct" based on    * an Hbase RowResult object. The empty list is returned if the input is    * null.    *    * @param in    *          Hbase RowResult object    * @return Thrift TRowResult array    */
 specifier|static
 specifier|public
 name|List

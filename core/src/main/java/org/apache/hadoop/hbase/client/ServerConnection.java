@@ -51,7 +51,7 @@ name|HRegionLocation
 name|rootRegion
 parameter_list|)
 function_decl|;
-comment|/**    * Unset the root region location in the connection. Called by     * ServerManager.processRegionClose.    */
+comment|/**    * Unset the root region location in the connection. Called by    * ServerManager.processRegionClose.    */
 specifier|public
 name|void
 name|unsetRootRegionLocation

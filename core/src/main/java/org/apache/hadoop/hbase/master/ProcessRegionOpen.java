@@ -118,7 +118,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**   * ProcessRegionOpen is instantiated when a region server reports that it is  * serving a region. This applies to all meta and user regions except the   * root region which is handled specially.  */
+comment|/**  * ProcessRegionOpen is instantiated when a region server reports that it is  * serving a region. This applies to all meta and user regions except the  * root region which is handled specially.  */
 end_comment
 
 begin_class

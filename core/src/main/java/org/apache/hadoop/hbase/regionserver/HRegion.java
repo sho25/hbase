@@ -714,7 +714,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HRegion stores data for a certain region of a table.  It stores all columns  * for each row. A given table consists of one or more HRegions.  *  *<p>We maintain multiple HStores for a single HRegion.  *   *<p>An Store is a set of rows with some column data; together,  * they make up all the data for the rows.    *  *<p>Each HRegion has a 'startKey' and 'endKey'.  *<p>The first is inclusive, the second is exclusive (except for  * the final region)  The endKey of region 0 is the same as  * startKey for region 1 (if it exists).  The startKey for the  * first region is null. The endKey for the final region is null.  *  *<p>Locking at the HRegion level serves only one purpose: preventing the  * region from being closed (and consequently split) while other operations  * are ongoing. Each row level operation obtains both a row lock and a region  * read lock for the duration of the operation. While a scanner is being  * constructed, getScanner holds a read lock. If the scanner is successfully  * constructed, it holds a read lock until it is closed. A close takes out a  * write lock and consequently will block for ongoing operations and will block  * new operations from starting while the close is in progress.  *   *<p>An HRegion is defined by its table and its key extent.  *   *<p>It consists of at least one Store.  The number of Stores should be  * configurable, so that data which is accessed together is stored in the same  * Store.  Right now, we approximate that by building a single Store for   * each column family.  (This config info will be communicated via the   * tabledesc.)  *   *<p>The HTableDescriptor contains metainfo about the HRegion's table.  * regionName is a unique identifier for this HRegion. (startKey, endKey]  * defines the keyspace for this HRegion.  */
+comment|/**  * HRegion stores data for a certain region of a table.  It stores all columns  * for each row. A given table consists of one or more HRegions.  *  *<p>We maintain multiple HStores for a single HRegion.  *  *<p>An Store is a set of rows with some column data; together,  * they make up all the data for the rows.  *  *<p>Each HRegion has a 'startKey' and 'endKey'.  *<p>The first is inclusive, the second is exclusive (except for  * the final region)  The endKey of region 0 is the same as  * startKey for region 1 (if it exists).  The startKey for the  * first region is null. The endKey for the final region is null.  *  *<p>Locking at the HRegion level serves only one purpose: preventing the  * region from being closed (and consequently split) while other operations  * are ongoing. Each row level operation obtains both a row lock and a region  * read lock for the duration of the operation. While a scanner is being  * constructed, getScanner holds a read lock. If the scanner is successfully  * constructed, it holds a read lock until it is closed. A close takes out a  * write lock and consequently will block for ongoing operations and will block  * new operations from starting while the close is in progress.  *  *<p>An HRegion is defined by its table and its key extent.  *  *<p>It consists of at least one Store.  The number of Stores should be  * configurable, so that data which is accessed together is stored in the same  * Store.  Right now, we approximate that by building a single Store for  * each column family.  (This config info will be communicated via the  * tabledesc.)  *  *<p>The HTableDescriptor contains metainfo about the HRegion's table.  * regionName is a unique identifier for this HRegion. (startKey, endKey]  * defines the keyspace for this HRegion.  */
 end_comment
 
 begin_class
@@ -765,7 +765,7 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
-comment|/* Closing can take some time; use the closing flag if there is stuff we don't     * want to do while in closing state; e.g. like offer this region up to the     * master as a region to close if the carrying regionserver is overloaded.    * Once set, it is never cleared.    */
+comment|/* Closing can take some time; use the closing flag if there is stuff we don't    * want to do while in closing state; e.g. like offer this region up to the    * master as a region to close if the carrying regionserver is overloaded.    * Once set, it is never cleared.    */
 specifier|final
 name|AtomicBoolean
 name|closing
@@ -1177,7 +1177,7 @@ operator|=
 literal|0L
 expr_stmt|;
 block|}
-comment|/**    * HRegion constructor.    *    * @param basedir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.      * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param flushListener an object that implements CacheFlushListener or null    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    */
+comment|/**    * HRegion constructor.    *    * @param basedir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param flushListener an object that implements CacheFlushListener or null    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    */
 specifier|public
 name|HRegion
 parameter_list|(
@@ -1388,7 +1388,7 @@ literal|2
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Initialize this region and get it ready to roll.    * Called after construction.    *     * @param initialFiles    * @param reporter    * @throws IOException    */
+comment|/**    * Initialize this region and get it ready to roll.    * Called after construction.    *    * @param initialFiles    * @param reporter    * @throws IOException    */
 specifier|public
 name|void
 name|initialize
@@ -1983,7 +1983,7 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**    * Close down this HRegion.  Flush the cache, shut down each HStore, don't     * service any more calls.    *    *<p>This method could take some time to execute, so don't call it from a     * time-sensitive thread.    *     * @return Vector of all the storage files that the HRegion's component     * HStores make use of.  It's a list of all HStoreFile objects. Returns empty    * vector if already closed and null if judged that it should not close.    *     * @throws IOException    */
+comment|/**    * Close down this HRegion.  Flush the cache, shut down each HStore, don't    * service any more calls.    *    *<p>This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of all HStoreFile objects. Returns empty    * vector if already closed and null if judged that it should not close.    *    * @throws IOException    */
 specifier|public
 name|List
 argument_list|<
@@ -2001,7 +2001,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Close down this HRegion.  Flush the cache unless abort parameter is true,    * Shut down each HStore, don't service any more calls.    *    * This method could take some time to execute, so don't call it from a     * time-sensitive thread.    *     * @param abort true if server is aborting (only during testing)    * @return Vector of all the storage files that the HRegion's component     * HStores make use of.  It's a list of HStoreFile objects.  Can be null if    * we are not to close at this time or we are already closed.    *     * @throws IOException    */
+comment|/**    * Close down this HRegion.  Flush the cache unless abort parameter is true,    * Shut down each HStore, don't service any more calls.    *    * This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @param abort true if server is aborting (only during testing)    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of HStoreFile objects.  Can be null if    * we are not to close at this time or we are already closed.    *    * @throws IOException    */
 specifier|public
 name|List
 argument_list|<
@@ -3198,7 +3198,7 @@ operator|.
 name|forceMajorCompaction
 return|;
 block|}
-comment|/**    * Called by compaction thread and after region is opened to compact the    * HStores if necessary.    *    *<p>This operation could block for a long time, so don't call it from a     * time-sensitive thread.    *    * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    *     * @return mid key if split is needed    * @throws IOException    */
+comment|/**    * Called by compaction thread and after region is opened to compact the    * HStores if necessary.    *    *<p>This operation could block for a long time, so don't call it from a    * time-sensitive thread.    *    * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    *    * @return mid key if split is needed    * @throws IOException    */
 specifier|public
 name|byte
 index|[]
@@ -3227,7 +3227,7 @@ name|majorCompaction
 argument_list|)
 return|;
 block|}
-comment|/*    * Called by compaction thread and after region is opened to compact the    * HStores if necessary.    *    *<p>This operation could block for a long time, so don't call it from a     * time-sensitive thread.    *    * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    *     * @param majorCompaction True to force a major compaction regardless of thresholds    * @return split row if split is needed    * @throws IOException    */
+comment|/*    * Called by compaction thread and after region is opened to compact the    * HStores if necessary.    *    *<p>This operation could block for a long time, so don't call it from a    * time-sensitive thread.    *    * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    *    * @param majorCompaction True to force a major compaction regardless of thresholds    * @return split row if split is needed    * @throws IOException    */
 name|byte
 index|[]
 name|compactStores
@@ -3513,7 +3513,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Flush the cache.    *     * When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a     * time-sensitive thread.    *     * @return true if cache was flushed    *     * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
+comment|/**    * Flush the cache.    *    * When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    *    * @return true if cache was flushed    *    * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
 specifier|public
 name|boolean
 name|flushcache
@@ -3657,7 +3657,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Flushing the cache is a little tricky. We have a lot of updates in the    * memstore, all of which have also been written to the log. We need to    * write those updates in the memstore out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the memstore was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the memstore from    * the log.)    *     *<p>So, we have a three-step process:    *     *<ul><li>A. Flush the memstore to the on-disk stores, noting the current    * sequence ID for the log.<li>    *     *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memstore-flush.</li>    *     *<li>C. Get rid of the memstore structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *     *<p> This method may block for some time.    *     * @return true if the region needs compacting    *     * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
+comment|/**    * Flushing the cache is a little tricky. We have a lot of updates in the    * memstore, all of which have also been written to the log. We need to    * write those updates in the memstore out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the memstore was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the memstore from    * the log.)    *    *<p>So, we have a three-step process:    *    *<ul><li>A. Flush the memstore to the on-disk stores, noting the current    * sequence ID for the log.<li>    *    *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memstore-flush.</li>    *    *<li>C. Get rid of the memstore structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *    *<p> This method may block for some time.    *    * @return true if the region needs compacting    *    * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
 specifier|private
 name|boolean
 name|internalFlushcache
@@ -4027,7 +4027,7 @@ return|return
 name|compactionRequested
 return|;
 block|}
-comment|/**    * Get the sequence number to be associated with this cache flush. Used by    * TransactionalRegion to not complete pending transactions.    *     *     * @param currentSequenceId    * @return sequence id to complete the cache flush with    */
+comment|/**    * Get the sequence number to be associated with this cache flush. Used by    * TransactionalRegion to not complete pending transactions.    *    *    * @param currentSequenceId    * @return sequence id to complete the cache flush with    */
 specifier|protected
 name|long
 name|getCompleteCacheFlushSequenceId
@@ -4043,7 +4043,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// get() methods for client use.
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Return all the data for the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it, at or immediately before     *<i>ts</i>.    *     * @param row row key    * @return map of values    * @throws IOException    */
+comment|/**    * Return all the data for the row that matches<i>row</i> exactly,    * or the one that immediately preceeds it, at or immediately before    *<i>ts</i>.    *    * @param row row key    * @return map of values    * @throws IOException    */
 name|Result
 name|getClosestRowBefore
 parameter_list|(
@@ -4066,7 +4066,7 @@ name|CATALOG_FAMILY
 argument_list|)
 return|;
 block|}
-comment|/**    * Return all the data for the row that matches<i>row</i> exactly,     * or the one that immediately preceeds it, at or immediately before     *<i>ts</i>.    *     * @param row row key    * @param family    * @return map of values    * @throws IOException    */
+comment|/**    * Return all the data for the row that matches<i>row</i> exactly,    * or the one that immediately preceeds it, at or immediately before    *<i>ts</i>.    *    * @param row row key    * @param family    * @return map of values    * @throws IOException    */
 specifier|public
 name|Result
 name|getClosestRowBefore
@@ -4205,7 +4205,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Return an iterator that scans over the HRegion, returning the indicated     * columns and rows specified by the {@link Scan}.    *<p>    * This Iterator must be closed by the caller.    *    * @param scan configured {@link Scan}    * @return InternalScanner    * @throws IOException    */
+comment|/**    * Return an iterator that scans over the HRegion, returning the indicated    * columns and rows specified by the {@link Scan}.    *<p>    * This Iterator must be closed by the caller.    *    * @param scan configured {@link Scan}    * @return InternalScanner    * @throws IOException    */
 specifier|public
 name|InternalScanner
 name|getScanner
@@ -5353,7 +5353,7 @@ comment|//TODO, Think that gets/puts and deletes should be refactored a bit so t
 comment|//the getting of the lock happens before, so that you would just pass it into
 comment|//the methods. So in the case of checkAndPut you could just do lockRow,
 comment|//get, put, unlockRow or something
-comment|/**    *     * @param row    * @param family    * @param qualifier    * @param expectedValue    * @param put    * @param lockId    * @param writeToWAL    * @throws IOException    * @return true if the new put was execute, false otherwise    */
+comment|/**    *    * @param row    * @param family    * @param qualifier    * @param expectedValue    * @param put    * @param lockId    * @param writeToWAL    * @throws IOException    * @return true if the new put was execute, false otherwise    */
 specifier|public
 name|boolean
 name|checkAndPut
@@ -5729,7 +5729,7 @@ comment|//        }
 comment|//      }
 comment|//    }
 comment|//  }
-comment|/*    * Check if resources to support an update.    *     * Here we synchronize on HRegion, a broad scoped lock.  Its appropriate    * given we're figuring in here whether this region is able to take on    * writes.  This is only method with a synchronize (at time of writing),    * this and the synchronize on 'this' inside in internalFlushCache to send    * the notify.    */
+comment|/*    * Check if resources to support an update.    *    * Here we synchronize on HRegion, a broad scoped lock.  Its appropriate    * given we're figuring in here whether this region is able to take on    * writes.  This is only method with a synchronize (at time of writing),    * this and the synchronize on 'this' inside in internalFlushCache to send    * the notify.    */
 specifier|private
 name|void
 name|checkResources
@@ -5910,7 +5910,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**     * Add updates first to the hlog and then add values to memstore.    * Warning: Assumption is caller has lock on passed in row.    * @param edits Cell updates by column    * @praram now    * @throws IOException    */
+comment|/**    * Add updates first to the hlog and then add values to memstore.    * Warning: Assumption is caller has lock on passed in row.    * @param edits Cell updates by column    * @praram now    * @throws IOException    */
 specifier|private
 name|void
 name|put
@@ -5974,7 +5974,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * Add updates first to the hlog (if writeToWal) and then add values to memstore.    * Warning: Assumption is caller has lock on passed in row.    * @param familyMap map of family to edits for the given family.    * @param writeToWAL if true, then we should write to the log    * @throws IOException    */
+comment|/**    * Add updates first to the hlog (if writeToWal) and then add values to memstore.    * Warning: Assumption is caller has lock on passed in row.    * @param familyMap map of family to edits for the given family.    * @param writeToWAL if true, then we should write to the log    * @throws IOException    */
 specifier|private
 name|void
 name|put
@@ -6534,7 +6534,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Obtain a lock on the given row.  Blocks until success.    *    * I know it's strange to have two mappings:    *<pre>    *   ROWS  ==> LOCKS    *</pre>    * as well as    *<pre>    *   LOCKS ==> ROWS    *</pre>    *    * But it acts as a guard on the client; a miswritten client just can't    * submit the name of a row and start writing to it; it must know the correct    * lockid, which matches the lock list in memory.    *     *<p>It would be more memory-efficient to assume a correctly-written client,     * which maybe we'll do in the future.    *     * @param row Name of row to lock.    * @throws IOException    * @return The id of the held lock.    */
+comment|/**    * Obtain a lock on the given row.  Blocks until success.    *    * I know it's strange to have two mappings:    *<pre>    *   ROWS  ==> LOCKS    *</pre>    * as well as    *<pre>    *   LOCKS ==> ROWS    *</pre>    *    * But it acts as a guard on the client; a miswritten client just can't    * submit the name of a row and start writing to it; it must know the correct    * lockid, which matches the lock list in memory.    *    *<p>It would be more memory-efficient to assume a correctly-written client,    * which maybe we'll do in the future.    *    * @param row Name of row to lock.    * @throws IOException    * @return The id of the held lock.    */
 specifier|public
 name|Integer
 name|obtainRowLock
@@ -6741,7 +6741,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**     * Release the row lock!    * @param lockid  The lock ID to release.    */
+comment|/**    * Release the row lock!    * @param lockid  The lock ID to release.    */
 name|void
 name|releaseRowLock
 parameter_list|(
@@ -7741,7 +7741,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**      *       * @param scanner to be closed      */
+comment|/**      *      * @param scanner to be closed      */
 specifier|public
 name|void
 name|close
@@ -7779,7 +7779,7 @@ return|;
 block|}
 block|}
 comment|// Utility methods
-comment|/**    * Convenience method creating new HRegions. Used by createTable and by the    * bootstrap code in the HMaster constructor.    * Note, this method creates an {@link HLog} for the created region. It    * needs to be closed explicitly.  Use {@link HRegion#getLog()} to get    * access.    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @return new HRegion    *     * @throws IOException    */
+comment|/**    * Convenience method creating new HRegions. Used by createTable and by the    * bootstrap code in the HMaster constructor.    * Note, this method creates an {@link HLog} for the created region. It    * needs to be closed explicitly.  Use {@link HRegion#getLog()} to get    * access.    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @return new HRegion    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -7906,7 +7906,7 @@ return|return
 name|region
 return|;
 block|}
-comment|/**    * Convenience method to open a HRegion outside of an HRegionServer context.    * @param info Info for region to be opened.    * @param rootDir Root directory for HBase instance    * @param log HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf    * @return new HRegion    *     * @throws IOException    */
+comment|/**    * Convenience method to open a HRegion outside of an HRegionServer context.    * @param info Info for region to be opened.    * @param rootDir Root directory for HBase instance    * @param log HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf    * @return new HRegion    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -8032,7 +8032,7 @@ return|return
 name|r
 return|;
 block|}
-comment|/**    * Inserts a new region's meta information into the passed    *<code>meta</code> region. Used by the HMaster bootstrap code adding    * new table to ROOT table.    *     * @param meta META HRegion to be updated    * @param r HRegion to add to<code>meta</code>    *    * @throws IOException    */
+comment|/**    * Inserts a new region's meta information into the passed    *<code>meta</code> region. Used by the HMaster bootstrap code adding    * new table to ROOT table.    *    * @param meta META HRegion to be updated    * @param r HRegion to add to<code>meta</code>    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -8329,7 +8329,7 @@ name|del
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Deletes all the files for a HRegion    *     * @param fs the file system object    * @param rootdir qualified path of HBase root directory    * @param info HRegionInfo for region to be deleted    * @throws IOException    */
+comment|/**    * Deletes all the files for a HRegion    *    * @param fs the file system object    * @param rootdir qualified path of HBase root directory    * @param info HRegionInfo for region to be deleted    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -8421,7 +8421,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Computes the Path of the HRegion    *     * @param tabledir qualified path for table    * @param name ENCODED region name    * @return Path of HRegion directory    */
+comment|/**    * Computes the Path of the HRegion    *    * @param tabledir qualified path for table    * @param name ENCODED region name    * @return Path of HRegion directory    */
 specifier|public
 specifier|static
 name|Path
@@ -8451,7 +8451,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Computes the Path of the HRegion    *     * @param rootdir qualified path of HBase root directory    * @param info HRegionInfo for the region    * @return qualified path of region directory    */
+comment|/**    * Computes the Path of the HRegion    *    * @param rootdir qualified path of HBase root directory    * @param info HRegionInfo for the region    * @return qualified path of region directory    */
 specifier|public
 specifier|static
 name|Path
@@ -8497,7 +8497,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Determines if the specified row is within the row range specified by the    * specified HRegionInfo    *      * @param info HRegionInfo that specifies the row range    * @param row row to be checked    * @return true if the row is within the range specified by the HRegionInfo    */
+comment|/**    * Determines if the specified row is within the row range specified by the    * specified HRegionInfo    *    * @param info HRegionInfo that specifies the row range    * @param row row to be checked    * @return true if the row is within the range specified by the HRegionInfo    */
 specifier|public
 specifier|static
 name|boolean
@@ -8572,7 +8572,7 @@ operator|)
 operator|)
 return|;
 block|}
-comment|/**    * Make the directories for a specific column family    *     * @param fs the file system    * @param tabledir base directory where region will live (usually the table dir)    * @param hri    * @param colFamily the column family    * @throws IOException    */
+comment|/**    * Make the directories for a specific column family    *    * @param fs the file system    * @param tabledir base directory where region will live (usually the table dir)    * @param hri    * @param colFamily the column family    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -8634,7 +8634,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Merge two HRegions.  The regions must be adjacent and must not overlap.    *     * @param srcA    * @param srcB    * @return new merged HRegion    * @throws IOException    */
+comment|/**    * Merge two HRegions.  The regions must be adjacent and must not overlap.    *    * @param srcA    * @param srcB    * @return new merged HRegion    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -8774,7 +8774,7 @@ name|b
 argument_list|)
 return|;
 block|}
-comment|/**    * Merge two regions whether they are adjacent or not.    *     * @param a region a    * @param b region b    * @return new merged region    * @throws IOException    */
+comment|/**    * Merge two regions whether they are adjacent or not.    *    * @param a region a    * @param b region b    * @return new merged region    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -9613,7 +9613,7 @@ return|return
 name|dstRegion
 return|;
 block|}
-comment|/*    * Fills a map with a vector of store files keyed by column family.     * @param byFamily Map to fill.    * @param storeFiles Store files to process.    * @param family    * @return Returns<code>byFamily</code>    */
+comment|/*    * Fills a map with a vector of store files keyed by column family.    * @param byFamily Map to fill.    * @param storeFiles Store files to process.    * @param family    * @return Returns<code>byFamily</code>    */
 specifier|private
 specifier|static
 name|Map
@@ -9715,7 +9715,7 @@ return|return
 name|byFamily
 return|;
 block|}
-comment|/**    * @return True if needs a mojor compaction.    * @throws IOException     */
+comment|/**    * @return True if needs a mojor compaction.    * @throws IOException    */
 name|boolean
 name|isMajorCompaction
 parameter_list|()
@@ -9752,7 +9752,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/*    * List the files under the specified directory    *     * @param fs    * @param dir    * @throws IOException    */
+comment|/*    * List the files under the specified directory    *    * @param fs    * @param dir    * @throws IOException    */
 specifier|private
 specifier|static
 name|void
@@ -10109,7 +10109,7 @@ name|result
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    *     * @param row    * @param family    * @param qualifier    * @param amount    * @return The new value.    * @throws IOException    */
+comment|/**    *    * @param row    * @param family    * @param qualifier    * @param amount    * @return The new value.    * @throws IOException    */
 specifier|public
 name|long
 name|incrementColumnValue
@@ -11040,7 +11040,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Facility for dumping and compacting catalog tables.    * Only does catalog tables since these are only tables we for sure know    * schema on.  For usage run:    *<pre>    *   ./bin/hbase org.apache.hadoop.hbase.regionserver.HRegion    *</pre>    * @param args    * @throws IOException     */
+comment|/**    * Facility for dumping and compacting catalog tables.    * Only does catalog tables since these are only tables we for sure know    * schema on.  For usage run:    *<pre>    *   ./bin/hbase org.apache.hadoop.hbase.regionserver.HRegion    *</pre>    * @param args    * @throws IOException    */
 specifier|public
 specifier|static
 name|void

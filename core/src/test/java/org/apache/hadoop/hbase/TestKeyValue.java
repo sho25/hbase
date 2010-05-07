@@ -1371,7 +1371,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests cases where rows keys have characters below the ','.    * See HBASE-832    * @throws IOException     */
+comment|/**    * Tests cases where rows keys have characters below the ','.    * See HBASE-832    * @throws IOException    */
 specifier|public
 name|void
 name|testKeyValueBorderCases

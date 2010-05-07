@@ -60,7 +60,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Sleeper for current thread.  * Sleeps for passed period.  Also checks passed boolean and if interrupted,  * will return if the flag is set (rather than go back to sleep until its   * sleep time is up).  */
+comment|/**  * Sleeper for current thread.  * Sleeps for passed period.  Also checks passed boolean and if interrupted,  * will return if the flag is set (rather than go back to sleep until its  * sleep time is up).  */
 end_comment
 
 begin_class

@@ -508,7 +508,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * File format for hbase.  * A file of sorted key/value pairs. Both keys and values are byte arrays.  *<p>  * The memory footprint of a HFile includes the following (below is taken from  *<a  * href=https://issues.apache.org/jira/browse/HADOOP-3315>Hadoop-3315 tfile</a>  * but applies also to HFile):  *<ul>  *<li>Some constant overhead of reading or writing a compressed block.  *<ul>  *<li>Each compressed block requires one compression/decompression codec for  * I/O.  *<li>Temporary space to buffer the key.  *<li>Temporary space to buffer the value.  *</ul>  *<li>HFile index, which is proportional to the total number of Data Blocks.  * The total amount of memory needed to hold the index can be estimated as  * (56+AvgKeySize)*NumBlocks.  *</ul>  * Suggestions on performance optimization.  *<ul>  *<li>Minimum block size. We recommend a setting of minimum block size between  * 8KB to 1MB for general usage. Larger block size is preferred if files are  * primarily for sequential access. However, it would lead to inefficient random  * access (because there are more data to decompress). Smaller blocks are good  * for random access, but require more memory to hold the block index, and may  * be slower to create (because we must flush the compressor stream at the  * conclusion of each data block, which leads to an FS I/O flush). Further, due  * to the internal caching in Compression codec, the smallest possible block  * size would be around 20KB-30KB.  *<li>The current implementation does not offer true multi-threading for  * reading. The implementation uses FSDataInputStream seek()+read(), which is  * shown to be much faster than positioned-read call in single thread mode.  * However, it also means that if multiple threads attempt to access the same  * HFile (using multiple scanners) simultaneously, the actual I/O is carried out  * sequentially even if they access different DFS blocks (Reexamine! pread seems  * to be 10% faster than seek+read in my testing -- stack).  *<li>Compression codec. Use "none" if the data is not very compressable (by  * compressable, I mean a compression ratio at least 2:1). Generally, use "lzo"  * as the starting point for experimenting. "gz" overs slightly better  * compression ratio over "lzo" but requires 4x CPU to compress and 2x CPU to  * decompress, comparing to "lzo".  *</ul>  *   * For more on the background behind HFile, see<a  * href=https://issues.apache.org/jira/browse/HBASE-3315>HBASE-61</a>.  *<p>  * File is made of data blocks followed by meta data blocks (if any), a fileinfo  * block, data block index, meta data block index, and a fixed size trailer  * which records the offsets at which file changes content type.  *<pre>&lt;data blocks>&lt;meta blocks>&lt;fileinfo>&lt;data index>&lt;meta index>&lt;trailer></pre>  * Each block has a bit of magic at its start.  Block are comprised of  * key/values.  In data blocks, they are both byte arrays.  Metadata blocks are  * a String key and a byte array value.  An empty file looks like this:  *<pre>&lt;fileinfo>&lt;trailer></pre>.  That is, there are not data nor meta  * blocks present.  *<p>  * TODO: Do scanners need to be able to take a start and end row?  * TODO: Should BlockIndex know the name of its file?  Should it have a Path  * that points at its file say for the case where an index lives apart from  * an HFile instance?  */
+comment|/**  * File format for hbase.  * A file of sorted key/value pairs. Both keys and values are byte arrays.  *<p>  * The memory footprint of a HFile includes the following (below is taken from  *<a  * href=https://issues.apache.org/jira/browse/HADOOP-3315>Hadoop-3315 tfile</a>  * but applies also to HFile):  *<ul>  *<li>Some constant overhead of reading or writing a compressed block.  *<ul>  *<li>Each compressed block requires one compression/decompression codec for  * I/O.  *<li>Temporary space to buffer the key.  *<li>Temporary space to buffer the value.  *</ul>  *<li>HFile index, which is proportional to the total number of Data Blocks.  * The total amount of memory needed to hold the index can be estimated as  * (56+AvgKeySize)*NumBlocks.  *</ul>  * Suggestions on performance optimization.  *<ul>  *<li>Minimum block size. We recommend a setting of minimum block size between  * 8KB to 1MB for general usage. Larger block size is preferred if files are  * primarily for sequential access. However, it would lead to inefficient random  * access (because there are more data to decompress). Smaller blocks are good  * for random access, but require more memory to hold the block index, and may  * be slower to create (because we must flush the compressor stream at the  * conclusion of each data block, which leads to an FS I/O flush). Further, due  * to the internal caching in Compression codec, the smallest possible block  * size would be around 20KB-30KB.  *<li>The current implementation does not offer true multi-threading for  * reading. The implementation uses FSDataInputStream seek()+read(), which is  * shown to be much faster than positioned-read call in single thread mode.  * However, it also means that if multiple threads attempt to access the same  * HFile (using multiple scanners) simultaneously, the actual I/O is carried out  * sequentially even if they access different DFS blocks (Reexamine! pread seems  * to be 10% faster than seek+read in my testing -- stack).  *<li>Compression codec. Use "none" if the data is not very compressable (by  * compressable, I mean a compression ratio at least 2:1). Generally, use "lzo"  * as the starting point for experimenting. "gz" overs slightly better  * compression ratio over "lzo" but requires 4x CPU to compress and 2x CPU to  * decompress, comparing to "lzo".  *</ul>  *  * For more on the background behind HFile, see<a  * href=https://issues.apache.org/jira/browse/HBASE-3315>HBASE-61</a>.  *<p>  * File is made of data blocks followed by meta data blocks (if any), a fileinfo  * block, data block index, meta data block index, and a fixed size trailer  * which records the offsets at which file changes content type.  *<pre>&lt;data blocks>&lt;meta blocks>&lt;fileinfo>&lt;data index>&lt;meta index>&lt;trailer></pre>  * Each block has a bit of magic at its start.  Block are comprised of  * key/values.  In data blocks, they are both byte arrays.  Metadata blocks are  * a String key and a byte array value.  An empty file looks like this:  *<pre>&lt;fileinfo>&lt;trailer></pre>.  That is, there are not data nor meta  * blocks present.  *<p>  * TODO: Do scanners need to be able to take a start and end row?  * TODO: Should BlockIndex know the name of its file?  Should it have a Path  * that points at its file say for the case where an index lives apart from  * an HFile instance?  */
 end_comment
 
 begin_class
@@ -530,7 +530,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/* These values are more or less arbitrary, and they are used as a     * form of check to make sure the file isn't completely corrupt.    */
+comment|/* These values are more or less arbitrary, and they are used as a    * form of check to make sure the file isn't completely corrupt.    */
 specifier|final
 specifier|static
 name|byte
@@ -1026,7 +1026,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Constructor that takes a Path.      * @param fs      * @param path      * @param blocksize      * @param compress      * @param comparator      * @throws IOException       * @throws IOException      */
+comment|/**      * Constructor that takes a Path.      * @param fs      * @param path      * @param blocksize      * @param compress      * @param comparator      * @throws IOException      * @throws IOException      */
 specifier|public
 name|Writer
 parameter_list|(
@@ -1488,7 +1488,7 @@ name|os
 argument_list|)
 return|;
 block|}
-comment|/*      * Let go of block compressor and compressing stream gotten in call      * {@link #getCompressingStream}.      * @param dos      * @return How much was written on this stream since it was taken out.      * @see #getCompressingStream()       * @throws IOException      */
+comment|/*      * Let go of block compressor and compressing stream gotten in call      * {@link #getCompressingStream}.      * @param dos      * @return How much was written on this stream since it was taken out.      * @see #getCompressingStream()      * @throws IOException      */
 specifier|private
 name|int
 name|releaseCompressingStream
@@ -1562,7 +1562,7 @@ name|bytes
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Add to the file info.  Added key value can be gotten out of the return      * from {@link Reader#loadFileInfo()}.      * @param k Key      * @param v Value      * @throws IOException       */
+comment|/**      * Add to the file info.  Added key value can be gotten out of the return      * from {@link Reader#loadFileInfo()}.      * @param k Key      * @param v Value      * @throws IOException      */
 specifier|public
 name|void
 name|appendFileInfo
@@ -2888,7 +2888,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**       * Opens a HFile.  You must load the file info before you can       * use it by calling {@link #loadFileInfo()}.      *      * @param fs filesystem to load from      * @param path path within said filesystem      * @param cache block cache. Pass null if none.      * @throws IOException      */
+comment|/**      * Opens a HFile.  You must load the file info before you can      * use it by calling {@link #loadFileInfo()}.      *      * @param fs filesystem to load from      * @param path path within said filesystem      * @param cache block cache. Pass null if none.      * @throws IOException      */
 specifier|public
 name|Reader
 parameter_list|(
@@ -2947,7 +2947,7 @@ name|toString
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**       * Opens a HFile.  You must load the index before you can       * use it by calling {@link #loadFileInfo()}.      *      * @param fsdis input stream.  Caller is responsible for closing the passed      * stream.      * @param size Length of the stream.      * @param cache block cache. Pass null if none.      * @throws IOException      */
+comment|/**      * Opens a HFile.  You must load the index before you can      * use it by calling {@link #loadFileInfo()}.      *      * @param fsdis input stream.  Caller is responsible for closing the passed      * stream.      * @param size Length of the stream.      * @param cache block cache. Pass null if none.      * @throws IOException      */
 specifier|public
 name|Reader
 parameter_list|(
@@ -4174,7 +4174,7 @@ name|buf
 return|;
 block|}
 block|}
-comment|/*      * Decompress<code>compressedSize</code> bytes off the backing      * FSDataInputStream.      * @param offset      * @param compressedSize      * @param decompressedSize      *       * @return      * @throws IOException      */
+comment|/*      * Decompress<code>compressedSize</code> bytes off the backing      * FSDataInputStream.      * @param offset      * @param compressedSize      * @param decompressedSize      *      * @return      * @throws IOException      */
 specifier|private
 name|ByteBuffer
 name|decompress
@@ -5023,7 +5023,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**        * Within a loaded block, seek looking for the first key        * that is smaller than (or equal to?) the key we are interested in.        *         * A note on the seekBefore - if you have seekBefore = true, AND the        * first key in the block = key, then you'll get thrown exceptions.        * @param key to find        * @param seekBefore find the key before the exact match.        * @return        */
+comment|/**        * Within a loaded block, seek looking for the first key        * that is smaller than (or equal to?) the key we are interested in.        *        * A note on the seekBefore - if you have seekBefore = true, AND the        * first key in the block = key, then you'll get thrown exceptions.        * @param key to find        * @param seekBefore find the key before the exact match.        * @return        */
 specifier|private
 name|int
 name|blockSeek
@@ -6130,7 +6130,7 @@ operator|<=
 literal|0
 return|;
 block|}
-comment|/**      * Adds a new entry in the block index.      *       * @param key Last key in the block      * @param offset file offset where the block is stored      * @param dataSize the uncompressed data size      */
+comment|/**      * Adds a new entry in the block index.      *      * @param key Last key in the block      * @param offset file offset where the block is stored      * @param dataSize the uncompressed data size      */
 name|void
 name|add
 parameter_list|(
@@ -6987,7 +6987,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Get names of supported compression algorithms. The names are acceptable by    * HFile.Writer.    *     * @return Array of strings, each represents a supported compression    *         algorithm. Currently, the following compression algorithms are    *         supported.    *<ul>    *<li>"none" - No compression.    *<li>"gz" - GZIP compression.    *</ul>    */
+comment|/**    * Get names of supported compression algorithms. The names are acceptable by    * HFile.Writer.    *    * @return Array of strings, each represents a supported compression    *         algorithm. Currently, the following compression algorithms are    *         supported.    *<ul>    *<li>"none" - No compression.    *<li>"gz" - GZIP compression.    *</ul>    */
 specifier|public
 specifier|static
 name|String
@@ -7026,7 +7026,7 @@ literal|0x00000000ffffffffL
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns all files belonging to the given region directory. Could return an    * empty list.    *     * @param fs  The file system reference.    * @param regionDir  The region directory to scan.    * @return The list of files found.    * @throws IOException When scanning the files fails.    */
+comment|/**    * Returns all files belonging to the given region directory. Could return an    * empty list.    *    * @param fs  The file system reference.    * @param regionDir  The region directory to scan.    * @return The list of files found.    * @throws IOException When scanning the files fails.    */
 specifier|static
 name|List
 argument_list|<

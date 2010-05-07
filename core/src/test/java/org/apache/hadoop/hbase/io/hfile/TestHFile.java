@@ -292,7 +292,7 @@ name|localFormatter
 init|=
 literal|"%010d"
 decl_stmt|;
-comment|/**    * Test empty HFile.    * Test all features work reasonably when hfile is empty of entries.    * @throws IOException     */
+comment|/**    * Test empty HFile.    * Test all features work reasonably when hfile is empty of entries.    * @throws IOException    */
 specifier|public
 name|void
 name|testEmptyHFile

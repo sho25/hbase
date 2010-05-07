@@ -672,7 +672,7 @@ name|subdirName
 argument_list|)
 return|;
 block|}
-comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * @throws Exception     */
+comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * @throws Exception    */
 specifier|public
 name|void
 name|startMiniCluster
@@ -686,7 +686,7 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Call this if you only want a zk cluster.    * @see #startMiniZKCluster() if you want zk + dfs + hbase mini cluster.    * @throws Exception    * @see #shutdownMiniZKCluster()     */
+comment|/**    * Call this if you only want a zk cluster.    * @see #startMiniZKCluster() if you want zk + dfs + hbase mini cluster.    * @throws Exception    * @see #shutdownMiniZKCluster()    */
 specifier|public
 name|void
 name|startMiniZKCluster
@@ -1780,7 +1780,7 @@ return|return
 name|rowCount
 return|;
 block|}
-comment|/**    * Creates many regions names "aaa" to "zzz".    *     * @param table  The table to use for the data.    * @param columnFamily  The family to insert the data into.    * @return count of regions created.    * @throws IOException When creating the regions fails.    */
+comment|/**    * Creates many regions names "aaa" to "zzz".    *    * @param table  The table to use for the data.    * @param columnFamily  The family to insert the data into.    * @return count of regions created.    * @throws IOException When creating the regions fails.    */
 specifier|public
 name|int
 name|createMultiRegions
@@ -2442,7 +2442,7 @@ name|deletes
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Starts a<code>MiniMRCluster</code> with a default number of     *<code>TaskTracker</code>'s.    *    * @throws IOException When starting the cluster fails.    */
+comment|/**    * Starts a<code>MiniMRCluster</code> with a default number of    *<code>TaskTracker</code>'s.    *    * @throws IOException When starting the cluster fails.    */
 specifier|public
 name|void
 name|startMiniMapReduceCluster
@@ -2541,7 +2541,7 @@ literal|"Mini mapreduce cluster started"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Stops the previously started<code>MiniMRCluster</code>.     */
+comment|/**    * Stops the previously started<code>MiniMRCluster</code>.    */
 specifier|public
 name|void
 name|shutdownMiniMapReduceCluster
@@ -2816,7 +2816,7 @@ name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get the HBase cluster.    *     * @return hbase cluster    */
+comment|/**    * Get the HBase cluster.    *    * @return hbase cluster    */
 specifier|public
 name|MiniHBaseCluster
 name|getHBaseCluster
@@ -2855,7 +2855,7 @@ return|return
 name|hbaseAdmin
 return|;
 block|}
-comment|/**    * Closes the named region.     *    * @param regionName  The region to close.    * @throws IOException    */
+comment|/**    * Closes the named region.    *    * @param regionName  The region to close.    * @throws IOException    */
 specifier|public
 name|void
 name|closeRegion
@@ -2877,7 +2877,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Closes the named region.     *    * @param regionName  The region to close.    * @throws IOException    */
+comment|/**    * Closes the named region.    *    * @param regionName  The region to close.    * @throws IOException    */
 specifier|public
 name|void
 name|closeRegion
@@ -2909,7 +2909,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Closes the region containing the given row.     *    * @param row  The row to find the containing region.    * @param table  The table to find the region.    * @throws IOException    */
+comment|/**    * Closes the region containing the given row.    *    * @param row  The row to find the containing region.    * @param table  The table to find the region.    * @throws IOException    */
 specifier|public
 name|void
 name|closeRegionByRow
@@ -2936,7 +2936,7 @@ name|table
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Closes the region containing the given row.     *    * @param row  The row to find the containing region.    * @param table  The table to find the region.    * @throws IOException    */
+comment|/**    * Closes the region containing the given row.    *    * @param row  The row to find the containing region.    * @param table  The table to find the region.    * @throws IOException    */
 specifier|public
 name|void
 name|closeRegionByRow

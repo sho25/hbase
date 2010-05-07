@@ -86,7 +86,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Scanner class that contains the<code>.META.</code> table scanning logic   * and uses a Retryable scanner. Provided visitors will be called  * for each row.  */
+comment|/**  * Scanner class that contains the<code>.META.</code> table scanning logic  * and uses a Retryable scanner. Provided visitors will be called  * for each row.  */
 end_comment
 
 begin_class
@@ -95,7 +95,7 @@ name|MetaScanner
 implements|implements
 name|HConstants
 block|{
-comment|/**    * Scans the meta table and calls a visitor on each RowResult and uses a empty    * start row value as table name.    *     * @param configuration conf    * @param visitor A custom visitor    * @throws IOException e    */
+comment|/**    * Scans the meta table and calls a visitor on each RowResult and uses a empty    * start row value as table name.    *    * @param configuration conf    * @param visitor A custom visitor    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -120,7 +120,7 @@ name|EMPTY_START_ROW
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Scans the meta table and calls a visitor on each RowResult. Uses a table    * name to locate meta regions.    *     * @param configuration config    * @param visitor visitor object    * @param tableName table name    * @throws IOException e    */
+comment|/**    * Scans the meta table and calls a visitor on each RowResult. Uses a table    * name to locate meta regions.    *    * @param configuration config    * @param visitor visitor object    * @param tableName table name    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -359,7 +359,7 @@ comment|/**    * Visitor class called to process each row of the .META. table   
 interface|interface
 name|MetaScannerVisitor
 block|{
-comment|/**      * Visitor method that accepts a RowResult and the meta region location.      * Implementations can return false to stop the region's loop if it becomes      * unnecessary for some reason.      *       * @param rowResult result      * @return A boolean to know if it should continue to loop in the region      * @throws IOException e      */
+comment|/**      * Visitor method that accepts a RowResult and the meta region location.      * Implementations can return false to stop the region's loop if it becomes      * unnecessary for some reason.      *      * @param rowResult result      * @return A boolean to know if it should continue to loop in the region      * @throws IOException e      */
 specifier|public
 name|boolean
 name|processRow

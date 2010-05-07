@@ -792,7 +792,7 @@ return|return
 name|s
 return|;
 block|}
-comment|/**     * Write a delete    * @param delete    * @return approximate size of the passed key and value.    */
+comment|/**    * Write a delete    * @param delete    * @return approximate size of the passed key and value.    */
 name|long
 name|delete
 parameter_list|(

@@ -592,7 +592,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HLog stores all the edits to the HStore.  Its the hbase write-ahead-log  * implementation.  *  * It performs logfile-rolling, so external callers are not aware that the  * underlying file is being rolled.  *  *<p>  * There is one HLog per RegionServer.  All edits for all Regions carried by  * a particular RegionServer are entered first in the HLog.  *  *<p>  * Each HRegion is identified by a unique long<code>int</code>. HRegions do  * not need to declare themselves before using the HLog; they simply include  * their HRegion-id in the<code>append</code> or  *<code>completeCacheFlush</code> calls.  *  *<p>  * An HLog consists of multiple on-disk files, which have a chronological order.  * As data is flushed to other (better) on-disk structures, the log becomes  * obsolete. We can destroy all the log messages for a given HRegion-id up to  * the most-recent CACHEFLUSH message from that HRegion.  *  *<p>  * It's only practical to delete entire files. Thus, we delete an entire on-disk  * file F when all of the messages in F have a log-sequence-id that's older  * (smaller) than the most-recent CACHEFLUSH message for every HRegion that has  * a message in F.  *  *<p>  * Synchronized methods can never execute in parallel. However, between the  * start of a cache flush and the completion point, appends are allowed but log  * rolling is not. To prevent log rolling taking place during this period, a  * separate reentrant lock is used.  *   *<p>To read an HLog, call {@link #getReader(org.apache.hadoop.fs.FileSystem,  * org.apache.hadoop.fs.Path, org.apache.hadoop.conf.Configuration)}.  *  */
+comment|/**  * HLog stores all the edits to the HStore.  Its the hbase write-ahead-log  * implementation.  *  * It performs logfile-rolling, so external callers are not aware that the  * underlying file is being rolled.  *  *<p>  * There is one HLog per RegionServer.  All edits for all Regions carried by  * a particular RegionServer are entered first in the HLog.  *  *<p>  * Each HRegion is identified by a unique long<code>int</code>. HRegions do  * not need to declare themselves before using the HLog; they simply include  * their HRegion-id in the<code>append</code> or  *<code>completeCacheFlush</code> calls.  *  *<p>  * An HLog consists of multiple on-disk files, which have a chronological order.  * As data is flushed to other (better) on-disk structures, the log becomes  * obsolete. We can destroy all the log messages for a given HRegion-id up to  * the most-recent CACHEFLUSH message from that HRegion.  *  *<p>  * It's only practical to delete entire files. Thus, we delete an entire on-disk  * file F when all of the messages in F have a log-sequence-id that's older  * (smaller) than the most-recent CACHEFLUSH message for every HRegion that has  * a message in F.  *  *<p>  * Synchronized methods can never execute in parallel. However, between the  * start of a cache flush and the completion point, appends are allowed but log  * rolling is not. To prevent log rolling taking place during this period, a  * separate reentrant lock is used.  *  *<p>To read an HLog, call {@link #getReader(org.apache.hadoop.fs.FileSystem,  * org.apache.hadoop.fs.Path, org.apache.hadoop.conf.Configuration)}.  *  */
 end_comment
 
 begin_class
@@ -818,7 +818,7 @@ comment|/*    * Current log file.    */
 name|Writer
 name|writer
 decl_stmt|;
-comment|/*    * Map of all log files but the current one.     */
+comment|/*    * Map of all log files but the current one.    */
 specifier|final
 name|SortedMap
 argument_list|<
@@ -2837,7 +2837,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/** Append an entry to the log.    *     * @param regionInfo    * @param logEdit    * @param now Time of this edit write.    * @throws IOException    */
+comment|/** Append an entry to the log.    *    * @param regionInfo    * @param logEdit    * @param now Time of this edit write.    * @throws IOException    */
 specifier|public
 name|void
 name|append
@@ -2938,7 +2938,7 @@ name|now
 argument_list|)
 return|;
 block|}
-comment|/** Append an entry to the log.    *     * @param regionInfo    * @param logEdit    * @param logKey    * @throws IOException    */
+comment|/** Append an entry to the log.    *    * @param regionInfo    * @param logEdit    * @param logKey    * @throws IOException    */
 specifier|public
 name|void
 name|append
@@ -6034,7 +6034,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Construct the HLog directory name    *     * @param info HServerInfo for server    * @return the HLog directory name    */
+comment|/**    * Construct the HLog directory name    *    * @param info HServerInfo for server    * @return the HLog directory name    */
 specifier|public
 specifier|static
 name|String
@@ -6054,7 +6054,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Construct the HLog directory name    *     * @param serverAddress    * @param startCode    * @return the HLog directory name    */
+comment|/**    * Construct the HLog directory name    *    * @param serverAddress    * @param startCode    * @return the HLog directory name    */
 specifier|public
 specifier|static
 name|String
@@ -6099,7 +6099,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Construct the HLog directory name    *     * @param serverName    * @return the HLog directory name    */
+comment|/**    * Construct the HLog directory name    *    * @param serverName    * @return the HLog directory name    */
 specifier|public
 specifier|static
 name|String

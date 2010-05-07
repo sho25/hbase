@@ -144,7 +144,7 @@ name|HLog
 operator|.
 name|Reader
 block|{
-comment|/**    * Hack just to set the correct file length up in SequenceFile.Reader.    * See HADOOP-6307.  The below is all about setting the right length on the    * file we are reading.  fs.getFileStatus(file).getLen() is passed down to    * a private SequenceFile.Reader constructor.  This won't work.  Need to do    * the available on the stream.  The below is ugly.  It makes getPos, the    * first time its called, return length of the file -- i.e. tell a lie -- just    * so this line up in SF.Reader's constructor ends up with right answer:    *     *         this.end = in.getPos() + length;    *    */
+comment|/**    * Hack just to set the correct file length up in SequenceFile.Reader.    * See HADOOP-6307.  The below is all about setting the right length on the    * file we are reading.  fs.getFileStatus(file).getLen() is passed down to    * a private SequenceFile.Reader constructor.  This won't work.  Need to do    * the available on the stream.  The below is ugly.  It makes getPos, the    * first time its called, return length of the file -- i.e. tell a lie -- just    * so this line up in SF.Reader's constructor ends up with right answer:    *    *         this.end = in.getPos() + length;    *    */
 specifier|private
 specifier|static
 class|class

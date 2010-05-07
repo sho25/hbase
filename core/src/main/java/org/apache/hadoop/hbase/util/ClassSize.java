@@ -80,7 +80,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Class for determining the "size" of a class, an attempt to calculate the  * actual bytes that an object of this class will occupy in memory  *   * The core of this class is taken from the Derby project  */
+comment|/**  * Class for determining the "size" of a class, an attempt to calculate the  * actual bytes that an object of this class will occupy in memory  *  * The core of this class is taken from the Derby project  */
 end_comment
 
 begin_class
@@ -649,7 +649,7 @@ name|ARRAY
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * The estimate of the size of a class instance depends on whether the JVM     * uses 32 or 64 bit addresses, that is it depends on the size of an object     * reference. It is a linear function of the size of a reference, e.g.    * 24 + 5*r where r is the size of a reference (usually 4 or 8 bytes).    *    * This method returns the coefficients of the linear function, e.g. {24, 5}    * in the above example.    *    * @param cl A class whose instance size is to be estimated    * @param debug debug flag    * @return an array of 3 integers. The first integer is the size of the    * primitives, the second the number of arrays and the third the number of    * references.    */
+comment|/**    * The estimate of the size of a class instance depends on whether the JVM    * uses 32 or 64 bit addresses, that is it depends on the size of an object    * reference. It is a linear function of the size of a reference, e.g.    * 24 + 5*r where r is the size of a reference (usually 4 or 8 bytes).    *    * This method returns the coefficients of the linear function, e.g. {24, 5}    * in the above example.    *    * @param cl A class whose instance size is to be estimated    * @param debug debug flag    * @return an array of 3 integers. The first integer is the size of the    * primitives, the second the number of arrays and the third the number of    * references.    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -1019,7 +1019,7 @@ name|references
 block|}
 return|;
 block|}
-comment|/**    * Estimate the static space taken up by a class instance given the     * coefficients returned by getSizeCoefficients.    *    * @param coeff the coefficients    *    * @param debug debug flag    * @return the size estimate, in bytes    */
+comment|/**    * Estimate the static space taken up by a class instance given the    * coefficients returned by getSizeCoefficients.    *    * @param coeff the coefficients    *    * @param debug debug flag    * @return the size estimate, in bytes    */
 specifier|private
 specifier|static
 name|long
@@ -1124,7 +1124,7 @@ return|return
 name|size
 return|;
 block|}
-comment|/**    * Estimate the static space taken up by the fields of a class. This includes     * the space taken up by by references (the pointer) but not by the referenced     * object. So the estimated size of an array field does not depend on the size     * of the array. Similarly the size of an object (reference) field does not     * depend on the object.    *    * @param cl class    * @param debug debug flag    * @return the size estimate in bytes.    */
+comment|/**    * Estimate the static space taken up by the fields of a class. This includes    * the space taken up by by references (the pointer) but not by the referenced    * object. So the estimated size of an array field does not depend on the size    * of the array. Similarly the size of an object (reference) field does not    * depend on the object.    *    * @param cl class    * @param debug debug flag    * @return the size estimate in bytes.    */
 annotation|@
 name|SuppressWarnings
 argument_list|(

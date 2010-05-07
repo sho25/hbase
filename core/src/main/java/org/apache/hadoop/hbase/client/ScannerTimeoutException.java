@@ -32,7 +32,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Thrown when a scanner has timed out.   */
+comment|/**  * Thrown when a scanner has timed out.  */
 end_comment
 
 begin_class

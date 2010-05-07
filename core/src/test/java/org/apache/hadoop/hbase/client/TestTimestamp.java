@@ -188,7 +188,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*     * Create a table named TABLE_NAME.    * @return An instance of an HTable connected to the created table.    * @throws IOException    */
+comment|/*    * Create a table named TABLE_NAME.    * @return An instance of an HTable connected to the created table.    * @throws IOException    */
 specifier|private
 name|HTable
 name|createTable

@@ -64,7 +64,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Extends the base<code>Mapper</code> class to add the required input key   * and value classes.  *   * @param<KEYOUT>  The type of the key.  * @param<VALUEOUT>  The type of the value.  * @see org.apache.hadoop.mapreduce.Mapper  */
+comment|/**  * Extends the base<code>Mapper</code> class to add the required input key  * and value classes.  *  * @param<KEYOUT>  The type of the key.  * @param<VALUEOUT>  The type of the value.  * @see org.apache.hadoop.mapreduce.Mapper  */
 end_comment
 
 begin_class

@@ -158,7 +158,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Unit testing for ThriftServer.HBaseHandler, a part of the   * org.apache.hadoop.hbase.thrift package.    */
+comment|/**  * Unit testing for ThriftServer.HBaseHandler, a part of the  * org.apache.hadoop.hbase.thrift package.  */
 end_comment
 
 begin_class
@@ -299,7 +299,7 @@ argument_list|(
 literal|"valueD"
 argument_list|)
 decl_stmt|;
-comment|/**    * Runs all of the tests under a single JUnit test method.  We     * consolidate all testing to one method because HBaseClusterTestCase    * is prone to OutOfMemoryExceptions when there are three or more     * JUnit test methods.    *     * @throws Exception    */
+comment|/**    * Runs all of the tests under a single JUnit test method.  We    * consolidate all testing to one method because HBaseClusterTestCase    * is prone to OutOfMemoryExceptions when there are three or more    * JUnit test methods.    *    * @throws Exception    */
 specifier|public
 name|void
 name|testAll
@@ -321,7 +321,7 @@ name|doTestTableScanners
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Tests for creating, enabling, disabling, and deleting tables.  Also     * tests that creating a table with an invalid column name yields an     * IllegalArgument exception.    *     * @throws Exception    */
+comment|/**    * Tests for creating, enabling, disabling, and deleting tables.  Also    * tests that creating a table with an invalid column name yields an    * IllegalArgument exception.    *    * @throws Exception    */
 specifier|public
 name|void
 name|doTestTableCreateDrop
@@ -515,7 +515,7 @@ name|tableAname
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests adding a series of Mutations and BatchMutations, including a     * delete mutation.  Also tests data retrieval, and getting back multiple     * versions.      *     * @throws Exception    */
+comment|/**    * Tests adding a series of Mutations and BatchMutations, including a    * delete mutation.  Also tests data retrieval, and getting back multiple    * versions.    *    * @throws Exception    */
 specifier|public
 name|void
 name|doTestTableMutations
@@ -929,7 +929,7 @@ name|tableAname
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Similar to testTableMutations(), except Mutations are applied with     * specific timestamps and data retrieval uses these timestamps to     * extract specific versions of data.      *     * @throws Exception    */
+comment|/**    * Similar to testTableMutations(), except Mutations are applied with    * specific timestamps and data retrieval uses these timestamps to    * extract specific versions of data.    *    * @throws Exception    */
 specifier|public
 name|void
 name|doTestTableTimestampsAndColumns
@@ -1447,7 +1447,7 @@ name|tableAname
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests the four different scanner-opening methods (with and without     * a stoprow, with and without a timestamp).      *     * @throws Exception    */
+comment|/**    * Tests the four different scanner-opening methods (with and without    * a stoprow, with and without a timestamp).    *    * @throws Exception    */
 specifier|public
 name|void
 name|doTestTableScanners
@@ -1905,7 +1905,7 @@ name|tableAname
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    *     * @return a List of ColumnDescriptors for use in creating a table.  Has one     * default ColumnDescriptor and one ColumnDescriptor with fewer versions    */
+comment|/**    *    * @return a List of ColumnDescriptors for use in creating a table.  Has one    * default ColumnDescriptor and one ColumnDescriptor with fewer versions    */
 specifier|private
 name|List
 argument_list|<
@@ -1986,7 +1986,7 @@ return|return
 name|cDescriptors
 return|;
 block|}
-comment|/**    *     * @param includeA whether or not to include columnA    * @param includeB whether or not to include columnB    * @return a List of column names for use in retrieving a scanner    */
+comment|/**    *    * @param includeA whether or not to include columnA    * @param includeB whether or not to include columnB    * @return a List of column names for use in retrieving a scanner    */
 specifier|private
 name|List
 argument_list|<
@@ -2043,7 +2043,7 @@ return|return
 name|columnList
 return|;
 block|}
-comment|/**    *     * @return a List of Mutations for a row, with columnA having valueA     * and columnB having valueB    */
+comment|/**    *    * @return a List of Mutations for a row, with columnA having valueA    * and columnB having valueB    */
 specifier|private
 name|List
 argument_list|<
@@ -2099,7 +2099,7 @@ return|return
 name|mutations
 return|;
 block|}
-comment|/**    *     * @return a List of BatchMutations with the following effects:    * (rowA, columnA): delete    * (rowA, columnB): place valueC    * (rowB, columnA): place valueC    * (rowB, columnB): place valueD      */
+comment|/**    *    * @return a List of BatchMutations with the following effects:    * (rowA, columnA): delete    * (rowA, columnB): place valueC    * (rowB, columnA): place valueC    * (rowB, columnB): place valueD    */
 specifier|private
 name|List
 argument_list|<
@@ -2261,7 +2261,7 @@ return|return
 name|batchMutations
 return|;
 block|}
-comment|/**    * Asserts that the passed scanner is exhausted, and then closes     * the scanner.    *     * @param scannerId the scanner to close    * @param handler the HBaseHandler interfacing to HBase    * @throws Exception    */
+comment|/**    * Asserts that the passed scanner is exhausted, and then closes    * the scanner.    *    * @param scannerId the scanner to close    * @param handler the HBaseHandler interfacing to HBase    * @throws Exception    */
 specifier|private
 name|void
 name|closeScanner

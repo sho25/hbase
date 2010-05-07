@@ -26,7 +26,7 @@ specifier|public
 interface|interface
 name|FlushRequester
 block|{
-comment|/**    * Tell the listener the cache needs to be flushed.    *     * @param region the HRegion requesting the cache flush    */
+comment|/**    * Tell the listener the cache needs to be flushed.    *    * @param region the HRegion requesting the cache flush    */
 name|void
 name|request
 parameter_list|(

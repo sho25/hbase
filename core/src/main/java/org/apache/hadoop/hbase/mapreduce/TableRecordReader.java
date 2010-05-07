@@ -134,7 +134,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Iterate over an HBase table data, return (ImmutableBytesWritable, Result)   * pairs.  */
+comment|/**  * Iterate over an HBase table data, return (ImmutableBytesWritable, Result)  * pairs.  */
 end_comment
 
 begin_class
@@ -179,7 +179,7 @@ name|firstRow
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Build the scanner. Not done in constructor to allow for extension.    *    * @throws IOException When restarting the scan fails.     */
+comment|/**    * Build the scanner. Not done in constructor to allow for extension.    *    * @throws IOException When restarting the scan fails.    */
 specifier|public
 name|void
 name|init
@@ -195,7 +195,7 @@ name|init
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Sets the HBase table.    *     * @param htable  The {@link HTable} to scan.    */
+comment|/**    * Sets the HBase table.    *    * @param htable  The {@link HTable} to scan.    */
 specifier|public
 name|void
 name|setHTable
@@ -214,7 +214,7 @@ name|htable
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the scan defining the actual details like columns etc.    *      * @param scan  The scan to set.    */
+comment|/**    * Sets the scan defining the actual details like columns etc.    *    * @param scan  The scan to set.    */
 specifier|public
 name|void
 name|setScan
@@ -233,7 +233,7 @@ name|scan
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Closes the split.    *     * @see org.apache.hadoop.mapreduce.RecordReader#close()    */
+comment|/**    * Closes the split.    *    * @see org.apache.hadoop.mapreduce.RecordReader#close()    */
 annotation|@
 name|Override
 specifier|public
@@ -249,7 +249,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Returns the current key.    *      * @return The current key.    * @throws IOException    * @throws InterruptedException When the job is aborted.    * @see org.apache.hadoop.mapreduce.RecordReader#getCurrentKey()    */
+comment|/**    * Returns the current key.    *    * @return The current key.    * @throws IOException    * @throws InterruptedException When the job is aborted.    * @see org.apache.hadoop.mapreduce.RecordReader#getCurrentKey()    */
 annotation|@
 name|Override
 specifier|public
@@ -270,7 +270,7 @@ name|getCurrentKey
 argument_list|()
 return|;
 block|}
-comment|/**    * Returns the current value.    *     * @return The current value.    * @throws IOException When the value is faulty.    * @throws InterruptedException When the job is aborted.    * @see org.apache.hadoop.mapreduce.RecordReader#getCurrentValue()    */
+comment|/**    * Returns the current value.    *    * @return The current value.    * @throws IOException When the value is faulty.    * @throws InterruptedException When the job is aborted.    * @see org.apache.hadoop.mapreduce.RecordReader#getCurrentValue()    */
 annotation|@
 name|Override
 specifier|public
@@ -291,7 +291,7 @@ name|getCurrentValue
 argument_list|()
 return|;
 block|}
-comment|/**    * Initializes the reader.    *     * @param inputsplit  The split to work with.    * @param context  The current task context.    * @throws IOException When setting up the reader fails.    * @throws InterruptedException When the job is aborted.    * @see org.apache.hadoop.mapreduce.RecordReader#initialize(    *   org.apache.hadoop.mapreduce.InputSplit,     *   org.apache.hadoop.mapreduce.TaskAttemptContext)    */
+comment|/**    * Initializes the reader.    *    * @param inputsplit  The split to work with.    * @param context  The current task context.    * @throws IOException When setting up the reader fails.    * @throws InterruptedException When the job is aborted.    * @see org.apache.hadoop.mapreduce.RecordReader#initialize(    *   org.apache.hadoop.mapreduce.InputSplit,    *   org.apache.hadoop.mapreduce.TaskAttemptContext)    */
 annotation|@
 name|Override
 specifier|public
@@ -309,7 +309,7 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{   }
-comment|/**    * Positions the record reader to the next record.    *      * @return<code>true</code> if there was another record.    * @throws IOException When reading the record failed.    * @throws InterruptedException When the job was aborted.    * @see org.apache.hadoop.mapreduce.RecordReader#nextKeyValue()    */
+comment|/**    * Positions the record reader to the next record.    *    * @return<code>true</code> if there was another record.    * @throws IOException When reading the record failed.    * @throws InterruptedException When the job was aborted.    * @see org.apache.hadoop.mapreduce.RecordReader#nextKeyValue()    */
 annotation|@
 name|Override
 specifier|public
@@ -330,7 +330,7 @@ name|nextKeyValue
 argument_list|()
 return|;
 block|}
-comment|/**    * The current progress of the record reader through its data.    *     * @return A number between 0.0 and 1.0, the fraction of the data read.    * @see org.apache.hadoop.mapreduce.RecordReader#getProgress()    */
+comment|/**    * The current progress of the record reader through its data.    *    * @return A number between 0.0 and 1.0, the fraction of the data read.    * @see org.apache.hadoop.mapreduce.RecordReader#getProgress()    */
 annotation|@
 name|Override
 specifier|public

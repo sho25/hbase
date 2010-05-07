@@ -82,7 +82,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tests the concurrent LruBlockCache.<p>  *   * Tests will ensure it grows and shrinks in size properly,  * evictions run when they're supposed to and do what they should,   * and that cached blocks are accessible when expected to be.  */
+comment|/**  * Tests the concurrent LruBlockCache.<p>  *  * Tests will ensure it grows and shrinks in size properly,  * evictions run when they're supposed to and do what they should,  * and that cached blocks are accessible when expected to be.  */
 end_comment
 
 begin_class

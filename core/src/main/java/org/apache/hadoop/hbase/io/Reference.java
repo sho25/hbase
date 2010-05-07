@@ -164,7 +164,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A reference to the top or bottom half of a store file.  The file referenced  * lives under a different region.  References are made at region split time.  *   *<p>References work with a special half store file type.  References know how  * to write out the reference format in the file system and are whats juggled  * when references are mixed in with direct store files.  The half store file  * type is used reading the referred to file.  *  *<p>References to store files located over in some other region look like  * this in the file system  *<code>1278437856009925445.3323223323</code>:  * i.e. an id followed by hash of the referenced region.  * Note, a region is itself not splitable if it has instances of store file  * references.  References are cleaned up by compactions.  */
+comment|/**  * A reference to the top or bottom half of a store file.  The file referenced  * lives under a different region.  References are made at region split time.  *  *<p>References work with a special half store file type.  References know how  * to write out the reference format in the file system and are whats juggled  * when references are mixed in with direct store files.  The half store file  * type is used reading the referred to file.  *  *<p>References to store files located over in some other region look like  * this in the file system  *<code>1278437856009925445.3323223323</code>:  * i.e. an id followed by hash of the referenced region.  * Note, a region is itself not splitable if it has instances of store file  * references.  References are cleaned up by compactions.  */
 end_comment
 
 begin_class
@@ -183,7 +183,7 @@ specifier|private
 name|Range
 name|region
 decl_stmt|;
-comment|/**     * For split HStoreFiles, it specifies if the file covers the lower half or    * the upper half of the key range    */
+comment|/**    * For split HStoreFiles, it specifies if the file covers the lower half or    * the upper half of the key range    */
 specifier|public
 specifier|static
 enum|enum
@@ -251,7 +251,7 @@ name|bottom
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    *     * @return Range    */
+comment|/**    *    * @return Range    */
 specifier|public
 name|Range
 name|getFileRegion

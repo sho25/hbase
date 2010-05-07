@@ -629,7 +629,7 @@ name|setUp
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Test basic stop row filter works.    * @throws Exception     */
+comment|/**    * Test basic stop row filter works.    * @throws Exception    */
 specifier|public
 name|void
 name|testStopRow

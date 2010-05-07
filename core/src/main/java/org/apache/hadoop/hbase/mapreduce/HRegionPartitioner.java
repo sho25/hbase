@@ -160,7 +160,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is used to partition the output keys into groups of keys.  * Keys are grouped according to the regions that currently exist  * so that each reducer fills a single region so load is distributed.  *   * @param<KEY>  The type of the key.  * @param<VALUE>  The type of the value.  */
+comment|/**  * This is used to partition the output keys into groups of keys.  * Keys are grouped according to the regions that currently exist  * so that each reducer fills a single region so load is distributed.  *  * @param<KEY>  The type of the key.  * @param<VALUE>  The type of the value.  */
 end_comment
 
 begin_class
@@ -212,7 +212,7 @@ index|[]
 index|[]
 name|startKeys
 decl_stmt|;
-comment|/**    * Gets the partition number for a given key (hence record) given the total     * number of partitions i.e. number of reduce-tasks for the job.    *       *<p>Typically a hash function on a all or a subset of the key.</p>    *    * @param key  The key to be partitioned.    * @param value  The entry value.    * @param numPartitions  The total number of partitions.    * @return The partition number for the<code>key</code>.    * @see org.apache.hadoop.mapreduce.Partitioner#getPartition(    *   java.lang.Object, java.lang.Object, int)    */
+comment|/**    * Gets the partition number for a given key (hence record) given the total    * number of partitions i.e. number of reduce-tasks for the job.    *    *<p>Typically a hash function on a all or a subset of the key.</p>    *    * @param key  The key to be partitioned.    * @param value  The entry value.    * @param numPartitions  The total number of partitions.    * @return The partition number for the<code>key</code>.    * @see org.apache.hadoop.mapreduce.Partitioner#getPartition(    *   java.lang.Object, java.lang.Object, int)    */
 annotation|@
 name|Override
 specifier|public
@@ -366,7 +366,7 @@ return|return
 literal|0
 return|;
 block|}
-comment|/**    * Returns the current configuration.    *      * @return The current configuration.    * @see org.apache.hadoop.conf.Configurable#getConf()    */
+comment|/**    * Returns the current configuration.    *    * @return The current configuration.    * @see org.apache.hadoop.conf.Configurable#getConf()    */
 annotation|@
 name|Override
 specifier|public
@@ -378,7 +378,7 @@ return|return
 name|conf
 return|;
 block|}
-comment|/**    * Sets the configuration. This is used to determine the start keys for the    * given table.    *     * @param configuration  The configuration to set.    * @see org.apache.hadoop.conf.Configurable#setConf(    *   org.apache.hadoop.conf.Configuration)    */
+comment|/**    * Sets the configuration. This is used to determine the start keys for the    * given table.    *    * @param configuration  The configuration to set.    * @see org.apache.hadoop.conf.Configurable#setConf(    *   org.apache.hadoop.conf.Configuration)    */
 annotation|@
 name|Override
 specifier|public

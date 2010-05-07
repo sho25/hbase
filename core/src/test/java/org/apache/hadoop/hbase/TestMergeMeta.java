@@ -36,7 +36,7 @@ name|TestMergeMeta
 extends|extends
 name|AbstractMergeTestBase
 block|{
-comment|/** constructor     * @throws Exception    */
+comment|/** constructor    * @throws Exception    */
 specifier|public
 name|TestMergeMeta
 parameter_list|()

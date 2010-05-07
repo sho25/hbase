@@ -414,7 +414,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Basic stand-alone testing of HRegion.  *   * A lot of the meta information for an HRegion now lives inside other  * HRegions or in the HBaseMaster, so only basic testing is possible.  */
+comment|/**  * Basic stand-alone testing of HRegion.  *  * A lot of the meta information for an HRegion now lives inside other  * HRegions or in the HBaseMaster, so only basic testing is possible.  */
 end_comment
 
 begin_class

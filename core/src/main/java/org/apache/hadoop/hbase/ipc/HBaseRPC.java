@@ -312,7 +312,7 @@ import|;
 end_import
 
 begin_comment
-comment|/** A simple RPC mechanism.  *  * This is a local hbase copy of the hadoop RPC so we can do things like  * address HADOOP-414 for hbase-only and try other hbase-specific  * optimizations like using our own version of ObjectWritable.  Class has been  * renamed to avoid confusing it w/ hadoop versions.  *<p>  *   *  * A<i>protocol</i> is a Java interface.  All parameters and return types must  * be one of:  *  *<ul><li>a primitive type,<code>boolean</code>,<code>byte</code>,  *<code>char</code>,<code>short</code>,<code>int</code>,<code>long</code>,  *<code>float</code>,<code>double</code>, or<code>void</code>; or</li>  *  *<li>a {@link String}; or</li>  *  *<li>a {@link Writable}; or</li>  *  *<li>an array of the above types</li></ul>  *  * All methods in the protocol should throw only IOException.  No field data of  * the protocol instance is transmitted.  */
+comment|/** A simple RPC mechanism.  *  * This is a local hbase copy of the hadoop RPC so we can do things like  * address HADOOP-414 for hbase-only and try other hbase-specific  * optimizations like using our own version of ObjectWritable.  Class has been  * renamed to avoid confusing it w/ hadoop versions.  *<p>  *  *  * A<i>protocol</i> is a Java interface.  All parameters and return types must  * be one of:  *  *<ul><li>a primitive type,<code>boolean</code>,<code>byte</code>,  *<code>char</code>,<code>short</code>,<code>int</code>,<code>long</code>,  *<code>float</code>,<code>double</code>, or<code>void</code>; or</li>  *  *<li>a {@link String}; or</li>  *  *<li>a {@link Writable}; or</li>  *  *<li>an array of the above types</li></ul>  *  * All methods in the protocol should throw only IOException.  No field data of  * the protocol instance is transmitted.  */
 end_comment
 
 begin_class
@@ -759,7 +759,7 @@ specifier|protected
 name|ClientCache
 parameter_list|()
 block|{}
-comment|/**      * Construct& cache an IPC client with the user-provided SocketFactory       * if no cached client exists.      *       * @param conf Configuration      * @param factory socket factory      * @return an IPC client      */
+comment|/**      * Construct& cache an IPC client with the user-provided SocketFactory      * if no cached client exists.      *      * @param conf Configuration      * @param factory socket factory      * @return an IPC client      */
 specifier|protected
 specifier|synchronized
 name|HBaseClient
@@ -831,7 +831,7 @@ return|return
 name|client
 return|;
 block|}
-comment|/**      * Construct& cache an IPC client with the default SocketFactory       * if no cached client exists.      *       * @param conf Configuration      * @return an IPC client      */
+comment|/**      * Construct& cache an IPC client with the default SocketFactory      * if no cached client exists.      *      * @param conf Configuration      * @return an IPC client      */
 specifier|protected
 specifier|synchronized
 name|HBaseClient
@@ -853,7 +853,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**      * Stop a RPC client connection       * A RPC client is closed only when its reference count becomes zero.      * @param client client to stop      */
+comment|/**      * Stop a RPC client connection      * A RPC client is closed only when its reference count becomes zero.      * @param client client to stop      */
 specifier|protected
 name|void
 name|stopClient
@@ -1194,7 +1194,7 @@ operator|=
 name|serverVersion
 expr_stmt|;
 block|}
-comment|/**      * Get the interface name      * @return the java class name       *          (eg. org.apache.hadoop.mapred.InterTrackerProtocol)      */
+comment|/**      * Get the interface name      * @return the java class name      *          (eg. org.apache.hadoop.mapred.InterTrackerProtocol)      */
 specifier|public
 name|String
 name|getInterfaceName
@@ -1559,7 +1559,7 @@ name|serverVersion
 argument_list|)
 throw|;
 block|}
-comment|/**    * Construct a client-side proxy object with the default SocketFactory    *     * @param protocol interface    * @param clientVersion version we are expecting    * @param addr remote address    * @param conf configuration    * @return a proxy instance    * @throws IOException e    */
+comment|/**    * Construct a client-side proxy object with the default SocketFactory    *    * @param protocol interface    * @param clientVersion version we are expecting    * @param addr remote address    * @param conf configuration    * @return a proxy instance    * @throws IOException e    */
 specifier|public
 specifier|static
 name|VersionedProtocol

@@ -284,7 +284,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * {@link TestGet} is a medley of tests of get all done up as a single test.  * This class   */
+comment|/**  * {@link TestGet} is a medley of tests of get all done up as a single test.  * This class  */
 end_comment
 
 begin_class

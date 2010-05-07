@@ -221,7 +221,7 @@ argument_list|,
 name|Result
 argument_list|>
 block|{
-comment|/**      * @param row  The current table row key.      * @param value  The columns.      * @param context  The current context.      * @throws IOException When something is broken with the data.      * @see org.apache.hadoop.mapreduce.Mapper#map(KEYIN, VALUEIN,       *   org.apache.hadoop.mapreduce.Mapper.Context)      */
+comment|/**      * @param row  The current table row key.      * @param value  The columns.      * @param context  The current context.      * @throws IOException When something is broken with the data.      * @see org.apache.hadoop.mapreduce.Mapper#map(KEYIN, VALUEIN,      *   org.apache.hadoop.mapreduce.Mapper.Context)      */
 annotation|@
 name|Override
 specifier|public
@@ -266,7 +266,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Sets up the actual job.    *     * @param conf  The current configuration.    * @param args  The command line parameters.    * @return The newly created job.    * @throws IOException When setting up the job fails.    */
+comment|/**    * Sets up the actual job.    *    * @param conf  The current configuration.    * @param args  The command line parameters.    * @return The newly created job.    * @throws IOException When setting up the job fails.    */
 specifier|public
 specifier|static
 name|Job
@@ -560,7 +560,7 @@ literal|"[<starttime> [<endtime>]]]"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Main entry point.    *     * @param args  The command line parameters.    * @throws Exception When running the job fails.    */
+comment|/**    * Main entry point.    *    * @param args  The command line parameters.    * @throws Exception When running the job fails.    */
 specifier|public
 specifier|static
 name|void

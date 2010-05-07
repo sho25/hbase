@@ -454,7 +454,7 @@ import|;
 end_import
 
 begin_comment
-comment|/** An abstract IPC service.  IPC calls take a single {@link Writable} as a  * parameter, and return a {@link Writable} as their value.  A service runs on  * a port and is defined by a parameter class and a value class.  *   *   *<p>Copied local so can fix HBASE-900.  *   * @see HBaseClient  */
+comment|/** An abstract IPC service.  IPC calls take a single {@link Writable} as a  * parameter, and return a {@link Writable} as their value.  A service runs on  * a port and is defined by a parameter class and a value class.  *  *  *<p>Copied local so can fix HBASE-900.  *  * @see HBaseClient  */
 end_comment
 
 begin_class
@@ -559,7 +559,7 @@ name|Call
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/** Returns the remote side ip address when invoked inside an RPC     *  Returns null incase of an error.    *  @return InetAddress    */
+comment|/** Returns the remote side ip address when invoked inside an RPC    *  Returns null incase of an error.    *  @return InetAddress    */
 specifier|public
 specifier|static
 name|InetAddress
@@ -773,7 +773,7 @@ name|errorHandler
 init|=
 literal|null
 decl_stmt|;
-comment|/**    * A convenience method to bind to a given address and report     * better exceptions if the address is not a valid host.    * @param socket the socket to bind    * @param address the address to bind to    * @param backlog the number of connections allowed in the queue    * @throws BindException if the address can't be bound    * @throws UnknownHostException if the address isn't a valid host name    * @throws IOException other random errors from bind    */
+comment|/**    * A convenience method to bind to a given address and report    * better exceptions if the address is not a valid host.    * @param socket the socket to bind    * @param address the address to bind to    * @param backlog the number of connections allowed in the queue    * @throws BindException if the address can't be bound    * @throws UnknownHostException if the address isn't a valid host name    * @throws IOException other random errors from bind    */
 specifier|public
 specifier|static
 name|void
@@ -1148,7 +1148,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** cleanup connections from connectionList. Choose a random range      * to scan and also have a limit on the number of the connections      * that will be cleanedup per run. The criteria for cleanup is the time      * for which the connection was idle. If 'force' is true then all       * connections will be looked at for the cleanup.      * @param force all connections will be looked at for cleanup      */
+comment|/** cleanup connections from connectionList. Choose a random range      * to scan and also have a limit on the number of the connections      * that will be cleanedup per run. The criteria for cleanup is the time      * for which the connection was idle. If 'force' is true then all      * connections will be looked at for the cleanup.      * @param force all connections will be looked at for cleanup      */
 specifier|private
 name|void
 name|cleanupConnections
@@ -4592,7 +4592,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* Constructs a server listening on the named port and address.  Parameters passed must    * be of the named class.  The<code>handlerCount</handlerCount> determines    * the number of handler threads that will be used to process calls.    *     */
+comment|/* Constructs a server listening on the named port and address.  Parameters passed must    * be of the named class.  The<code>handlerCount</handlerCount> determines    * the number of handler threads that will be used to process calls.    *    */
 specifier|protected
 name|HBaseServer
 parameter_list|(
@@ -5033,7 +5033,7 @@ name|getAddress
 argument_list|()
 return|;
 block|}
-comment|/** Called for each call.     * @param param writable parameter    * @param receiveTime time    * @return Writable     * @throws IOException e    */
+comment|/** Called for each call.    * @param param writable parameter    * @param receiveTime time    * @return Writable    * @throws IOException e    */
 specifier|public
 specifier|abstract
 name|Writable
@@ -5087,7 +5087,7 @@ operator|=
 name|handler
 expr_stmt|;
 block|}
-comment|/**    * When the read or write buffer size is larger than this limit, i/o will be     * done in chunks of this size. Most RPC requests and responses would be    * be smaller.    */
+comment|/**    * When the read or write buffer size is larger than this limit, i/o will be    * done in chunks of this size. Most RPC requests and responses would be    * be smaller.    */
 specifier|private
 specifier|static
 name|int
@@ -5098,7 +5098,7 @@ operator|*
 literal|1024
 decl_stmt|;
 comment|//should not be more than 64KB.
-comment|/**    * This is a wrapper around {@link WritableByteChannel#write(ByteBuffer)}.    * If the amount of data is large, it writes to channel in smaller chunks.     * This is to avoid jdk from creating many direct buffers as the size of     * buffer increases. This also minimizes extra copies in NIO layer    * as a result of multiple write operations required to write a large     * buffer.      *    * @param channel writable byte channel to write to    * @param buffer buffer to write    * @return number of bytes written    * @throws java.io.IOException e    * @see WritableByteChannel#write(ByteBuffer)    */
+comment|/**    * This is a wrapper around {@link WritableByteChannel#write(ByteBuffer)}.    * If the amount of data is large, it writes to channel in smaller chunks.    * This is to avoid jdk from creating many direct buffers as the size of    * buffer increases. This also minimizes extra copies in NIO layer    * as a result of multiple write operations required to write a large    * buffer.    *    * @param channel writable byte channel to write to    * @param buffer buffer to write    * @return number of bytes written    * @throws java.io.IOException e    * @see WritableByteChannel#write(ByteBuffer)    */
 specifier|protected
 specifier|static
 name|int
@@ -5140,7 +5140,7 @@ name|buffer
 argument_list|)
 return|;
 block|}
-comment|/**    * This is a wrapper around {@link ReadableByteChannel#read(ByteBuffer)}.    * If the amount of data is large, it writes to channel in smaller chunks.     * This is to avoid jdk from creating many direct buffers as the size of     * ByteBuffer increases. There should not be any performance degredation.    *     * @param channel writable byte channel to write on    * @param buffer buffer to write    * @return number of bytes written    * @throws java.io.IOException e    * @see ReadableByteChannel#read(ByteBuffer)    */
+comment|/**    * This is a wrapper around {@link ReadableByteChannel#read(ByteBuffer)}.    * If the amount of data is large, it writes to channel in smaller chunks.    * This is to avoid jdk from creating many direct buffers as the size of    * ByteBuffer increases. There should not be any performance degredation.    *    * @param channel writable byte channel to write on    * @param buffer buffer to write    * @return number of bytes written    * @throws java.io.IOException e    * @see ReadableByteChannel#read(ByteBuffer)    */
 specifier|protected
 specifier|static
 name|int
@@ -5182,7 +5182,7 @@ name|buffer
 argument_list|)
 return|;
 block|}
-comment|/**    * Helper for {@link #channelRead(ReadableByteChannel, ByteBuffer)}    * and {@link #channelWrite(WritableByteChannel, ByteBuffer)}. Only    * one of readCh or writeCh should be non-null.    *     * @param readCh read channel    * @param writeCh write channel    * @param buf buffer to read or write into/out of    * @return bytes written    * @throws java.io.IOException e    * @see #channelRead(ReadableByteChannel, ByteBuffer)    * @see #channelWrite(WritableByteChannel, ByteBuffer)    */
+comment|/**    * Helper for {@link #channelRead(ReadableByteChannel, ByteBuffer)}    * and {@link #channelWrite(WritableByteChannel, ByteBuffer)}. Only    * one of readCh or writeCh should be non-null.    *    * @param readCh read channel    * @param writeCh write channel    * @param buf buffer to read or write into/out of    * @return bytes written    * @throws java.io.IOException e    * @see #channelRead(ReadableByteChannel, ByteBuffer)    * @see #channelWrite(WritableByteChannel, ByteBuffer)    */
 specifier|private
 specifier|static
 name|int

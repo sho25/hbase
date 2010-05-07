@@ -432,7 +432,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Closes all the HTable instances , belonging to the given table, in the table pool.    *<p>    * Note: this is a 'shutdown' of the given table pool and different from     * {@link #putTable(HTableInterface)}, that is used to return the table     * instance to the pool for future re-use.    *      * @param tableName     */
+comment|/**    * Closes all the HTable instances , belonging to the given table, in the table pool.    *<p>    * Note: this is a 'shutdown' of the given table pool and different from    * {@link #putTable(HTableInterface)}, that is used to return the table    * instance to the pool for future re-use.    *    * @param tableName    */
 specifier|public
 name|void
 name|closeTablePool
@@ -494,7 +494,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * See {@link #closeTablePool(String)}.    *     * @param tableName    */
+comment|/**    * See {@link #closeTablePool(String)}.    *    * @param tableName    */
 specifier|public
 name|void
 name|closeTablePool

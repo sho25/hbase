@@ -145,7 +145,7 @@ name|getStartKey
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Performs a GET operation across multiple StoreFiles.    *<p>    * This style of StoreFile scanning goes through each    * StoreFile in its entirety, most recent first, before    * proceeding to the next StoreFile.    *<p>    * This strategy allows for optimal, stateless (no persisted Scanners)    * early-out scenarios.        * @param result List to add results to    * @throws IOException    */
+comment|/**    * Performs a GET operation across multiple StoreFiles.    *<p>    * This style of StoreFile scanning goes through each    * StoreFile in its entirety, most recent first, before    * proceeding to the next StoreFile.    *<p>    * This strategy allows for optimal, stateless (no persisted Scanners)    * early-out scenarios.    * @param result List to add results to    * @throws IOException    */
 specifier|public
 name|void
 name|get
@@ -195,7 +195,7 @@ return|return;
 block|}
 block|}
 block|}
-comment|/**    * Performs a GET operation on a single StoreFile.    * @param scanner    * @param result    * @return true if done with this store, false if must continue to next    * @throws IOException     */
+comment|/**    * Performs a GET operation on a single StoreFile.    * @param scanner    * @param result    * @return true if done with this store, false if must continue to next    * @throws IOException    */
 specifier|public
 name|boolean
 name|getStoreFile

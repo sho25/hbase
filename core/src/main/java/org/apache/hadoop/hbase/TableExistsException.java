@@ -57,7 +57,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Constructor    *     * @param s message    */
+comment|/**    * Constructor    *    * @param s message    */
 specifier|public
 name|TableExistsException
 parameter_list|(

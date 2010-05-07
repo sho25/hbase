@@ -635,7 +635,7 @@ return|return
 name|row
 return|;
 block|}
-comment|/*    * Stop the region server serving the meta region and wait for the meta region    * to get reassigned. This is always the most problematic case.    *     * @param abort set to true if region server should be aborted, if false it    * is just shut down.    */
+comment|/*    * Stop the region server serving the meta region and wait for the meta region    * to get reassigned. This is always the most problematic case.    *    * @param abort set to true if region server should be aborted, if false it    * is just shut down.    */
 specifier|private
 name|void
 name|stopOrAbortMetaRegionServer

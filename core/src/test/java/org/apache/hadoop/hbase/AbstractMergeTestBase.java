@@ -210,7 +210,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** constructor     * @param startMiniHBase    */
+comment|/** constructor    * @param startMiniHBase    */
 specifier|public
 name|AbstractMergeTestBase
 parameter_list|(

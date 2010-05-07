@@ -64,7 +64,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This comparator is for use with ColumnValueFilter, for filtering based on  * the value of a given column. Use it to test if a given substring appears  * in a cell value in the column. The comparison is case insensitive.  *<p>  * Only EQUAL or NOT_EQUAL tests are valid with this comparator.   *<p>  * For example:  *<p>  *<pre>  * ColumnValueFilter cvf =  *   new ColumnValueFilter("col", ColumnValueFilter.CompareOp.EQUAL,  *     new SubstringComparator("substr"));  *</pre>  */
+comment|/**  * This comparator is for use with ColumnValueFilter, for filtering based on  * the value of a given column. Use it to test if a given substring appears  * in a cell value in the column. The comparison is case insensitive.  *<p>  * Only EQUAL or NOT_EQUAL tests are valid with this comparator.  *<p>  * For example:  *<p>  *<pre>  * ColumnValueFilter cvf =  *   new ColumnValueFilter("col", ColumnValueFilter.CompareOp.EQUAL,  *     new SubstringComparator("substr"));  *</pre>  */
 end_comment
 
 begin_class

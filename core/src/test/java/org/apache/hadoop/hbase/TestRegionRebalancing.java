@@ -447,7 +447,7 @@ name|closeRootAndMeta
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * For HBASE-71. Try a few different configurations of starting and stopping    * region servers to see if the assignment or regions is pretty balanced.    * @throws IOException     */
+comment|/**    * For HBASE-71. Try a few different configurations of starting and stopping    * region servers to see if the assignment or regions is pretty balanced.    * @throws IOException    */
 specifier|public
 name|void
 name|testRebalancing
@@ -983,7 +983,7 @@ return|return
 name|list
 return|;
 block|}
-comment|/**    * Wait until all the regions are assigned.     */
+comment|/**    * Wait until all the regions are assigned.    */
 specifier|private
 name|void
 name|waitForAllRegionsAssigned
@@ -1028,7 +1028,7 @@ parameter_list|)
 block|{}
 block|}
 block|}
-comment|/**    * create a region with the specified start and end key and exactly one row    * inside.     */
+comment|/**    * create a region with the specified start and end key and exactly one row    * inside.    */
 specifier|private
 name|HRegion
 name|createAregion

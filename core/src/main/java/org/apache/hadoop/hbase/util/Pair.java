@@ -28,7 +28,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A generic class for pairs.  * @param<T1>   * @param<T2>   */
+comment|/**  * A generic class for pairs.  * @param<T1>  * @param<T2>  */
 end_comment
 
 begin_class

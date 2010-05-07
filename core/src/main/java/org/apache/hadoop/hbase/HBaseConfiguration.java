@@ -105,7 +105,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Instantinating HBaseConfiguration() is deprecated. Please use     * HBaseConfiguration#create() to construct a plain Configuration    */
+comment|/**    * Instantinating HBaseConfiguration() is deprecated. Please use    * HBaseConfiguration#create() to construct a plain Configuration    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -131,7 +131,7 @@ literal|" HBaseConfiguration#create() to construct a plain Configuration"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Instantiating HBaseConfiguration() is deprecated. Please use     * HBaseConfiguration#create(conf) to construct a plain Configuration    */
+comment|/**    * Instantiating HBaseConfiguration() is deprecated. Please use    * HBaseConfiguration#create(conf) to construct a plain Configuration    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -222,7 +222,7 @@ name|conf
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates a clone of passed configuration.    * @param that Configuration to clone.    * @return a Configuration created with the hbase-*.xml files plus     * the given configuration.    */
+comment|/**    * Creates a clone of passed configuration.    * @param that Configuration to clone.    * @return a Configuration created with the hbase-*.xml files plus    * the given configuration.    */
 specifier|public
 specifier|static
 name|Configuration
@@ -272,7 +272,7 @@ return|return
 name|conf
 return|;
 block|}
-comment|/**    * Returns the hash code value for this HBaseConfiguration. The hash code of a    * HBaseConfiguration is defined by the xor of the hash codes of its entries.    *     * @see Configuration#iterator() How the entries are obtained.    */
+comment|/**    * Returns the hash code value for this HBaseConfiguration. The hash code of a    * HBaseConfiguration is defined by the xor of the hash codes of its entries.    *    * @see Configuration#iterator() How the entries are obtained.    */
 annotation|@
 name|Override
 annotation|@
@@ -289,7 +289,7 @@ name|this
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns the hash code value for this HBaseConfiguration. The hash code of a    * Configuration is defined by the xor of the hash codes of its entries.    *     * @see Configuration#iterator() How the entries are obtained.    */
+comment|/**    * Returns the hash code value for this HBaseConfiguration. The hash code of a    * Configuration is defined by the xor of the hash codes of its entries.    *    * @see Configuration#iterator() How the entries are obtained.    */
 specifier|public
 specifier|static
 name|int

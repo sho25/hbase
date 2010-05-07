@@ -560,7 +560,7 @@ name|rowdeletes
 argument_list|)
 return|;
 block|}
-comment|/**     * Check if the specified KeyValue buffer has been deleted by a previously    * seen delete.    * @param kv    * @param ds    * @return True is the specified KeyValue is deleted, false if not    */
+comment|/**    * Check if the specified KeyValue buffer has been deleted by a previously    * seen delete.    * @param kv    * @param ds    * @return True is the specified KeyValue is deleted, false if not    */
 specifier|public
 name|boolean
 name|isDeleted

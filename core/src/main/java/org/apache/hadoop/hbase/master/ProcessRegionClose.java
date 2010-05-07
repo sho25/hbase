@@ -58,7 +58,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * ProcessRegionClose is the way we do post-processing on a closed region. We  * only spawn one of these asynchronous tasks when the region needs to be   * either offlined or deleted. We used to create one of these tasks whenever  * a region was closed, but since closing a region that isn't being offlined  * or deleted doesn't actually require post processing, it's no longer   * necessary.  */
+comment|/**  * ProcessRegionClose is the way we do post-processing on a closed region. We  * only spawn one of these asynchronous tasks when the region needs to be  * either offlined or deleted. We used to create one of these tasks whenever  * a region was closed, but since closing a region that isn't being offlined  * or deleted doesn't actually require post processing, it's no longer  * necessary.  */
 end_comment
 
 begin_class

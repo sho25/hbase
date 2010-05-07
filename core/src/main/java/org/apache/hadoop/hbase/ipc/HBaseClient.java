@@ -376,7 +376,7 @@ import|;
 end_import
 
 begin_comment
-comment|/** A client for an IPC service.  IPC calls take a single {@link Writable} as a  * parameter, and return a {@link Writable} as their value.  A service runs on  * a port and is defined by a parameter class and a value class.  *   *<p>This is the org.apache.hadoop.ipc.Client renamed as HBaseClient and  * moved into this package so can access package-private methods.  *   * @see HBaseServer  */
+comment|/** A client for an IPC service.  IPC calls take a single {@link Writable} as a  * parameter, and return a {@link Writable} as their value.  A service runs on  * a port and is defined by a parameter class and a value class.  *  *<p>This is the org.apache.hadoop.ipc.Client renamed as HBaseClient and  * moved into this package so can access package-private methods.  *  * @see HBaseServer  */
 end_comment
 
 begin_class
@@ -522,7 +522,7 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-comment|/**    * set the ping interval value in configuration    *     * @param conf Configuration    * @param pingInterval the ping interval    */
+comment|/**    * set the ping interval value in configuration    *    * @param conf Configuration    * @param pingInterval the ping interval    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -552,7 +552,7 @@ name|pingInterval
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get the ping interval from configuration;    * If not set in the configuration, return the default value.    *     * @param conf Configuration    * @return the ping interval    */
+comment|/**    * Get the ping interval from configuration;    * If not set in the configuration, return the default value.    *    * @param conf Configuration    * @return the ping interval    */
 specifier|static
 name|int
 name|getPingInterval
@@ -592,7 +592,7 @@ name|refCount
 operator|--
 expr_stmt|;
 block|}
-comment|/**    * Return if this client has no reference    *     * @return true if this client has no reference; false otherwise    */
+comment|/**    * Return if this client has no reference    *    * @return true if this client has no reference; false otherwise    */
 specifier|synchronized
 name|boolean
 name|isZeroReference
@@ -678,7 +678,7 @@ argument_list|()
 expr_stmt|;
 comment|// notify caller
 block|}
-comment|/** Set the exception when there is an error.      * Notify the caller the call is done.      *       * @param error exception thrown by the call; either local or remote      */
+comment|/** Set the exception when there is an error.      * Notify the caller the call is done.      *      * @param error exception thrown by the call; either local or remote      */
 specifier|public
 specifier|synchronized
 name|void
@@ -698,7 +698,7 @@ name|callComplete
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** Set the return value when there is no error.       * Notify the caller the call is done.      *       * @param value return value of the call.      */
+comment|/** Set the return value when there is no error.      * Notify the caller the call is done.      *      * @param value return value of the call.      */
 specifier|public
 specifier|synchronized
 name|void
@@ -1059,7 +1059,7 @@ literal|true
 condition|)
 do|;
 block|}
-comment|/** Read bytes into a buffer starting from offset<code>off</code>        * Send a ping if timeout on read. Retries if no failure is detected        * until a byte is read.        *         * @return the total number of bytes read; -1 if the connection is closed.        */
+comment|/** Read bytes into a buffer starting from offset<code>off</code>        * Send a ping if timeout on read. Retries if no failure is detected        * until a byte is read.        *        * @return the total number of bytes read; -1 if the connection is closed.        */
 annotation|@
 name|Override
 specifier|public
@@ -1536,7 +1536,7 @@ name|bufLen
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* wait till someone signals us to start reading RPC response or      * it is idle too long, it is marked as to be closed,       * or the client is marked as not running.      *       * Return true if it is time to read a response; false otherwise.      */
+comment|/* wait till someone signals us to start reading RPC response or      * it is idle too long, it is marked as to be closed,      * or the client is marked as not running.      *      * Return true if it is time to read a response; false otherwise.      */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -1702,7 +1702,7 @@ name|getAddress
 argument_list|()
 return|;
 block|}
-comment|/* Send a ping to the server if the time elapsed       * since last I/O activity is equal to or greater than the ping interval      */
+comment|/* Send a ping to the server if the time elapsed      * since last I/O activity is equal to or greater than the ping interval      */
 specifier|protected
 specifier|synchronized
 name|void
@@ -2820,7 +2820,7 @@ parameter_list|)
 block|{       }
 block|}
 block|}
-comment|/** Make a call, passing<code>param</code>, to the IPC server running at    *<code>address</code>, returning the value.  Throws exceptions if there are    * network problems or if the remote code threw an exception.     * @param param writable parameter    * @param address network address    * @return Writable    * @throws IOException e    */
+comment|/** Make a call, passing<code>param</code>, to the IPC server running at    *<code>address</code>, returning the value.  Throws exceptions if there are    * network problems or if the remote code threw an exception.    * @param param writable parameter    * @param address network address    * @return Writable    * @throws IOException e    */
 specifier|public
 name|Writable
 name|call
@@ -2996,7 +2996,7 @@ name|value
 return|;
 block|}
 block|}
-comment|/**    * Take an IOException and the address we were trying to connect to    * and return an IOException with the input exception as the cause.    * The new exception provides the stack trace of the place where     * the exception is thrown and some extra diagnostics information.    * If the exception is ConnectException or SocketTimeoutException,     * return a new one of the same type; Otherwise return an IOException.    *     * @param addr target address    * @param exception the relevant exception    * @return an exception to throw    */
+comment|/**    * Take an IOException and the address we were trying to connect to    * and return an IOException with the input exception as the cause.    * The new exception provides the stack trace of the place where    * the exception is thrown and some extra diagnostics information.    * If the exception is ConnectException or SocketTimeoutException,    * return a new one of the same type; Otherwise return an IOException.    *    * @param addr target address    * @param exception the relevant exception    * @return an exception to throw    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -3100,7 +3100,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/** Makes a set of calls in parallel.  Each parameter is sent to the    * corresponding address.  When all values are available, or have timed out    * or errored, the collected results are returned in an array.  The array    * contains nulls for calls that timed out or errored.      * @param params writable parameters    * @param addresses socket addresses    * @return  Writable[]    * @throws IOException e    */
+comment|/** Makes a set of calls in parallel.  Each parameter is sent to the    * corresponding address.  When all values are available, or have timed out    * or errored, the collected results are returned in an array.  The array    * contains nulls for calls that timed out or errored.    * @param params writable parameters    * @param addresses socket addresses    * @return  Writable[]    * @throws IOException e    */
 specifier|public
 name|Writable
 index|[]
@@ -3317,7 +3317,7 @@ block|}
 name|Connection
 name|connection
 decl_stmt|;
-comment|/* we could avoid this allocation for each RPC by having a        * connectionsId object and with set() method. We need to manage the      * refs for keys in HashMap properly. For now its ok.      */
+comment|/* we could avoid this allocation for each RPC by having a      * connectionsId object and with set() method. We need to manage the      * refs for keys in HashMap properly. For now its ok.      */
 name|ConnectionId
 name|remoteId
 init|=

@@ -968,7 +968,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * Assert that the scan returns only values< timestamp.     * @param r    * @param ts    * @return Count of items scanned.    * @throws IOException    */
+comment|/*    * Assert that the scan returns only values< timestamp.    * @param r    * @param ts    * @return Count of items scanned.    * @throws IOException    */
 specifier|public
 specifier|static
 name|int

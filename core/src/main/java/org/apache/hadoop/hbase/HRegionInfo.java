@@ -467,7 +467,7 @@ name|HTableDescriptor
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Construct HRegionInfo with explicit parameters    *     * @param tableDesc the table descriptor    * @param startKey first key in region    * @param endKey end of key range    * @throws IllegalArgumentException    */
+comment|/**    * Construct HRegionInfo with explicit parameters    *    * @param tableDesc the table descriptor    * @param startKey first key in region    * @param endKey end of key range    * @throws IllegalArgumentException    */
 specifier|public
 name|HRegionInfo
 parameter_list|(
@@ -500,7 +500,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct HRegionInfo with explicit parameters    *     * @param tableDesc the table descriptor    * @param startKey first key in region    * @param endKey end of key range    * @param split true if this region has split and we have daughter regions    * regions that may or may not hold references to this region.    * @throws IllegalArgumentException    */
+comment|/**    * Construct HRegionInfo with explicit parameters    *    * @param tableDesc the table descriptor    * @param startKey first key in region    * @param endKey end of key range    * @param split true if this region has split and we have daughter regions    * regions that may or may not hold references to this region.    * @throws IllegalArgumentException    */
 specifier|public
 name|HRegionInfo
 parameter_list|(
@@ -541,7 +541,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct HRegionInfo with explicit parameters    *     * @param tableDesc the table descriptor    * @param startKey first key in region    * @param endKey end of key range    * @param split true if this region has split and we have daughter regions    * regions that may or may not hold references to this region.    * @param regionid Region id to use.    * @throws IllegalArgumentException    */
+comment|/**    * Construct HRegionInfo with explicit parameters    *    * @param tableDesc the table descriptor    * @param startKey first key in region    * @param endKey end of key range    * @param split true if this region has split and we have daughter regions    * regions that may or may not hold references to this region.    * @param regionid Region id to use.    * @throws IllegalArgumentException    */
 specifier|public
 name|HRegionInfo
 parameter_list|(
@@ -678,7 +678,7 @@ name|setHashCode
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Costruct a copy of another HRegionInfo    *     * @param other    */
+comment|/**    * Costruct a copy of another HRegionInfo    *    * @param other    */
 specifier|public
 name|HRegionInfo
 parameter_list|(

@@ -2975,7 +2975,7 @@ name|Put
 argument_list|,
 literal|"dont-care"
 argument_list|)
-block|,      }
+block|,     }
 decl_stmt|;
 name|KeyValueScanner
 index|[]
@@ -3716,7 +3716,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test expiration of KeyValues in combination with a configured TTL for     * a column family (as should be triggered in a major compaction).    */
+comment|/**    * Test expiration of KeyValues in combination with a configured TTL for    * a column family (as should be triggered in a major compaction).    */
 specifier|public
 name|void
 name|testWildCardTtlScan

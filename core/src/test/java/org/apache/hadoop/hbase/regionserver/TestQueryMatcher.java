@@ -1062,7 +1062,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Verify that {@link QueryMatcher} only skips expired KeyValue     * instances and does not exit early from the row (skipping     * later non-expired KeyValues).  This version mimics a Get with    * explicitly specified column qualifiers.    *     * @throws IOException    */
+comment|/**    * Verify that {@link QueryMatcher} only skips expired KeyValue    * instances and does not exit early from the row (skipping    * later non-expired KeyValues).  This version mimics a Get with    * explicitly specified column qualifiers.    *    * @throws IOException    */
 specifier|public
 name|void
 name|testMatch_ExpiredExplicit
@@ -1361,7 +1361,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Verify that {@link QueryMatcher} only skips expired KeyValue     * instances and does not exit early from the row (skipping     * later non-expired KeyValues).  This version mimics a Get with    * wildcard-inferred column qualifiers.    *     * @throws IOException    */
+comment|/**    * Verify that {@link QueryMatcher} only skips expired KeyValue    * instances and does not exit early from the row (skipping    * later non-expired KeyValues).  This version mimics a Get with    * wildcard-inferred column qualifiers.    *    * @throws IOException    */
 specifier|public
 name|void
 name|testMatch_ExpiredWildcard

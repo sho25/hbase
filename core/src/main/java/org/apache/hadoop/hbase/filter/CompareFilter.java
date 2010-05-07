@@ -88,7 +88,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is a generic filter to be used to filter by comparison.  It takes an   * operator (equal, greater, not equal, etc) and a byte [] comparator.  *<p>  * To filter by row key, use {@link RowFilter}.  *<p>  * To filter by column qualifier, use {@link QualifierFilter}.  *<p>  * To filter by value, use {@link SingleColumnValueFilter}.  *<p>  * These filters can be wrapped with {@link SkipFilter} and {@link WhileMatchFilter}  * to add more control.  *<p>  * Multiple filters can be combined using {@link FilterList}.  */
+comment|/**  * This is a generic filter to be used to filter by comparison.  It takes an  * operator (equal, greater, not equal, etc) and a byte [] comparator.  *<p>  * To filter by row key, use {@link RowFilter}.  *<p>  * To filter by column qualifier, use {@link QualifierFilter}.  *<p>  * To filter by value, use {@link SingleColumnValueFilter}.  *<p>  * These filters can be wrapped with {@link SkipFilter} and {@link WhileMatchFilter}  * to add more control.  *<p>  * Multiple filters can be combined using {@link FilterList}.  */
 end_comment
 
 begin_class

@@ -154,7 +154,7 @@ name|minStamp
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Represents interval [minStamp, maxStamp)     * @param minStamp the minimum timestamp, inclusive    * @param maxStamp the maximum timestamp, exclusive    * @throws IOException    */
+comment|/**    * Represents interval [minStamp, maxStamp)    * @param minStamp the minimum timestamp, inclusive    * @param maxStamp the maximum timestamp, exclusive    * @throws IOException    */
 specifier|public
 name|TimeRange
 parameter_list|(
@@ -195,7 +195,7 @@ operator|=
 name|maxStamp
 expr_stmt|;
 block|}
-comment|/**    * Represents interval [minStamp, maxStamp)     * @param minStamp the minimum timestamp, inclusive    * @param maxStamp the maximum timestamp, exclusive    * @throws IOException    */
+comment|/**    * Represents interval [minStamp, maxStamp)    * @param minStamp the minimum timestamp, inclusive    * @param maxStamp the maximum timestamp, exclusive    * @throws IOException    */
 specifier|public
 name|TimeRange
 parameter_list|(
@@ -248,7 +248,7 @@ return|return
 name|maxStamp
 return|;
 block|}
-comment|/**    * Check if the specified timestamp is within this TimeRange.    *<p>    * Returns true if within interval [minStamp, maxStamp), false     * if not.    * @param bytes timestamp to check    * @param offset offset into the bytes    * @return true if within TimeRange, false if not    */
+comment|/**    * Check if the specified timestamp is within this TimeRange.    *<p>    * Returns true if within interval [minStamp, maxStamp), false    * if not.    * @param bytes timestamp to check    * @param offset offset into the bytes    * @return true if within TimeRange, false if not    */
 specifier|public
 name|boolean
 name|withinTimeRange
@@ -282,7 +282,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Check if the specified timestamp is within this TimeRange.    *<p>    * Returns true if within interval [minStamp, maxStamp), false     * if not.    * @param timestamp timestamp to check    * @return true if within TimeRange, false if not    */
+comment|/**    * Check if the specified timestamp is within this TimeRange.    *<p>    * Returns true if within interval [minStamp, maxStamp), false    * if not.    * @param timestamp timestamp to check    * @return true if within TimeRange, false if not    */
 specifier|public
 name|boolean
 name|withinTimeRange
@@ -311,7 +311,7 @@ name|maxStamp
 operator|)
 return|;
 block|}
-comment|/**    * Check if the specified timestamp is within this TimeRange.    *<p>    * Returns true if within interval [minStamp, maxStamp), false     * if not.    * @param timestamp timestamp to check    * @return true if within TimeRange, false if not    */
+comment|/**    * Check if the specified timestamp is within this TimeRange.    *<p>    * Returns true if within interval [minStamp, maxStamp), false    * if not.    * @param timestamp timestamp to check    * @return true if within TimeRange, false if not    */
 specifier|public
 name|boolean
 name|withinOrAfterTimeRange

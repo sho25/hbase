@@ -160,7 +160,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**   * Instantiated to delete a table. Table must be offline.  */
+comment|/**  * Instantiated to delete a table. Table must be offline.  */
 end_comment
 
 begin_class

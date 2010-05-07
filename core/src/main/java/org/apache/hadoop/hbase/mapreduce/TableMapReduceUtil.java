@@ -229,7 +229,7 @@ specifier|public
 class|class
 name|TableMapReduceUtil
 block|{
-comment|/**    * Use this before submitting a TableMap job. It will appropriately set up     * the job.    *     * @param table  The table name to read from.    * @param scan  The scan instance with the columns, time range etc.    * @param mapper  The mapper class to use.    * @param outputKeyClass  The class of the output key.    * @param outputValueClass  The class of the output value.    * @param job  The current job to adjust.    * @throws IOException When setting up the details fails.    */
+comment|/**    * Use this before submitting a TableMap job. It will appropriately set up    * the job.    *    * @param table  The table name to read from.    * @param scan  The scan instance with the columns, time range etc.    * @param mapper  The mapper class to use.    * @param outputKeyClass  The class of the output key.    * @param outputValueClass  The class of the output value.    * @param job  The current job to adjust.    * @throws IOException When setting up the details fails.    */
 specifier|public
 specifier|static
 name|void
@@ -345,7 +345,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Writes the given scan into a Base64 encoded string.    *     * @param scan  The scan to write out.    * @return The scan saved in a Base64 encoded string.    * @throws IOException When writing the scan fails.    */
+comment|/**    * Writes the given scan into a Base64 encoded string.    *    * @param scan  The scan to write out.    * @return The scan saved in a Base64 encoded string.    * @throws IOException When writing the scan fails.    */
 specifier|static
 name|String
 name|convertScanToString
@@ -391,7 +391,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Converts the given Base64 string back into a Scan instance.    *     * @param base64  The scan details.    * @return The newly created Scan instance.    * @throws IOException When reading the scan instance fails.    */
+comment|/**    * Converts the given Base64 string back into a Scan instance.    *    * @param base64  The scan details.    * @return The newly created Scan instance.    * @throws IOException When reading the scan instance fails.    */
 specifier|static
 name|Scan
 name|convertStringToScan
@@ -443,7 +443,7 @@ return|return
 name|scan
 return|;
 block|}
-comment|/**    * Use this before submitting a TableReduce job. It will    * appropriately set up the JobConf.    *     * @param table  The output table.    * @param reducer  The reducer class to use.    * @param job  The current job to adjust.    * @throws IOException When determining the region count fails.     */
+comment|/**    * Use this before submitting a TableReduce job. It will    * appropriately set up the JobConf.    *    * @param table  The output table.    * @param reducer  The reducer class to use.    * @param job  The current job to adjust.    * @throws IOException When determining the region count fails.    */
 specifier|public
 specifier|static
 name|void
@@ -522,7 +522,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Use this before submitting a TableReduce job. It will    * appropriately set up the JobConf.    *     * @param table  The output table.    * @param reducer  The reducer class to use.    * @param job  The current job to adjust.    * @param partitioner  Partitioner to use. Pass<code>null</code> to use     * default partitioner.    * @param quorumAddress Distant cluster to write to    * @param serverClass redefined hbase.regionserver.class    * @param serverImpl redefined hbase.regionserver.impl    * @throws IOException When determining the region count fails.     */
+comment|/**    * Use this before submitting a TableReduce job. It will    * appropriately set up the JobConf.    *    * @param table  The output table.    * @param reducer  The reducer class to use.    * @param job  The current job to adjust.    * @param partitioner  Partitioner to use. Pass<code>null</code> to use    * default partitioner.    * @param quorumAddress Distant cluster to write to    * @param serverClass redefined hbase.regionserver.class    * @param serverImpl redefined hbase.regionserver.impl    * @throws IOException When determining the region count fails.    */
 specifier|public
 specifier|static
 name|void
@@ -793,7 +793,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Ensures that the given number of reduce tasks for the given job     * configuration does not exceed the number of regions for the given table.     *     * @param table  The table to get the region count for.    * @param job  The current job to adjust.    * @throws IOException When retrieving the table details fails.    */
+comment|/**    * Ensures that the given number of reduce tasks for the given job    * configuration does not exceed the number of regions for the given table.    *    * @param table  The table to get the region count for.    * @param job  The current job to adjust.    * @throws IOException When retrieving the table details fails.    */
 specifier|public
 specifier|static
 name|void
@@ -850,7 +850,7 @@ name|regions
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the number of reduce tasks for the given job configuration to the     * number of regions the given table has.     *     * @param table  The table to get the region count for.    * @param job  The current job to adjust.    * @throws IOException When retrieving the table details fails.    */
+comment|/**    * Sets the number of reduce tasks for the given job configuration to the    * number of regions the given table has.    *    * @param table  The table to get the region count for.    * @param job  The current job to adjust.    * @throws IOException When retrieving the table details fails.    */
 specifier|public
 specifier|static
 name|void
@@ -898,7 +898,7 @@ name|regions
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the number of rows to return and cache with each scanner iteration.    * Higher caching values will enable faster mapreduce jobs at the expense of    * requiring more heap to contain the cached rows.    *     * @param job The current job to adjust.    * @param batchSize The number of rows to return in batch with each scanner    * iteration.    */
+comment|/**    * Sets the number of rows to return and cache with each scanner iteration.    * Higher caching values will enable faster mapreduce jobs at the expense of    * requiring more heap to contain the cached rows.    *    * @param job The current job to adjust.    * @param batchSize The number of rows to return in batch with each scanner    * iteration.    */
 specifier|public
 specifier|static
 name|void

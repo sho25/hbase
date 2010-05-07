@@ -78,7 +78,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Represents an entry in the {@link LruBlockCache}.  *   *<p>Makes the block memory-aware with {@link HeapSize} and Comparable  * to sort by access time for the LRU.  It also takes care of priority by  * either instantiating as in-memory or handling the transition from single  * to multiple access.  */
+comment|/**  * Represents an entry in the {@link LruBlockCache}.  *  *<p>Makes the block memory-aware with {@link HeapSize} and Comparable  * to sort by access time for the LRU.  It also takes care of priority by  * either instantiating as in-memory or handling the transition from single  * to multiple access.  */
 end_comment
 
 begin_class

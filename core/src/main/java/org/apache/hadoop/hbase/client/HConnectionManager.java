@@ -596,7 +596,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A non-instantiable class that manages connections to multiple tables in  * multiple HBase instances.  *   * Used by {@link HTable} and {@link HBaseAdmin}  */
+comment|/**  * A non-instantiable class that manages connections to multiple tables in  * multiple HBase instances.  *  * Used by {@link HTable} and {@link HBaseAdmin}  */
 end_comment
 
 begin_class
@@ -1355,7 +1355,7 @@ argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/**       * constructor      * @param conf Configuration object      */
+comment|/**      * constructor      * @param conf Configuration object      */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -3768,7 +3768,7 @@ comment|// continue
 block|}
 block|}
 block|}
-comment|/*      * Search the cache for a location that fits our table and row key.      * Return null if no suitable region is located. TODO: synchronization note      *       *<p>TODO: This method during writing consumes 15% of CPU doing lookup      * into the Soft Reference SortedMap.  Improve.      *       * @param tableName      * @param row      * @return Null or region location found in cache.      */
+comment|/*      * Search the cache for a location that fits our table and row key.      * Return null if no suitable region is located. TODO: synchronization note      *      *<p>TODO: This method during writing consumes 15% of CPU doing lookup      * into the Soft Reference SortedMap.  Improve.      *      * @param tableName      * @param row      * @return Null or region location found in cache.      */
 specifier|private
 name|HRegionLocation
 name|getCachedLocation
@@ -4570,7 +4570,7 @@ name|getZooKeeperWrapper
 argument_list|()
 return|;
 block|}
-comment|/*      * Repeatedly try to find the root region in ZK      * @return HRegionLocation for root region if found      * @throws NoServerForRegionException - if the root region can not be      * located after retrying      * @throws IOException       */
+comment|/*      * Repeatedly try to find the root region in ZK      * @return HRegionLocation for root region if found      * @throws NoServerForRegionException - if the root region can not be      * located after retrying      * @throws IOException      */
 specifier|private
 name|HRegionLocation
 name|locateRootRegion

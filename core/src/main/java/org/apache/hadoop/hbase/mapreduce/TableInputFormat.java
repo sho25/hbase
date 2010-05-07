@@ -283,7 +283,7 @@ name|conf
 init|=
 literal|null
 decl_stmt|;
-comment|/**    * Returns the current configuration.    *      * @return The current configuration.    * @see org.apache.hadoop.conf.Configurable#getConf()    */
+comment|/**    * Returns the current configuration.    *    * @return The current configuration.    * @see org.apache.hadoop.conf.Configurable#getConf()    */
 annotation|@
 name|Override
 specifier|public
@@ -295,7 +295,7 @@ return|return
 name|conf
 return|;
 block|}
-comment|/**    * Sets the configuration. This is used to set the details for the table to    * be scanned.    *     * @param configuration  The configuration to set.    * @see org.apache.hadoop.conf.Configurable#setConf(    *   org.apache.hadoop.conf.Configuration)    */
+comment|/**    * Sets the configuration. This is used to set the details for the table to    * be scanned.    *    * @param configuration  The configuration to set.    * @see org.apache.hadoop.conf.Configurable#setConf(    *   org.apache.hadoop.conf.Configuration)    */
 annotation|@
 name|Override
 specifier|public

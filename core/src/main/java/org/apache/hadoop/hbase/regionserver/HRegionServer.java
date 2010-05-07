@@ -2436,7 +2436,7 @@ return|return
 name|zooKeeperWrapper
 return|;
 block|}
-comment|/**    * The HRegionServer sticks in this loop until closed. It repeatedly checks    * in with the HMaster, sending heartbeats& reports, and receiving HRegion     * load/unload instructions.    */
+comment|/**    * The HRegionServer sticks in this loop until closed. It repeatedly checks    * in with the HMaster, sending heartbeats& reports, and receiving HRegion    * load/unload instructions.    */
 specifier|public
 name|void
 name|run
@@ -4626,7 +4626,7 @@ return|return
 name|stop
 return|;
 block|}
-comment|/**    * Checks to see if the file system is still accessible.    * If not, sets abortRequested and stopRequested    *     * @return false if file system is not available    */
+comment|/**    * Checks to see if the file system is still accessible.    * If not, sets abortRequested and stopRequested    *    * @return false if file system is not available    */
 specifier|protected
 name|boolean
 name|checkFileSystem
@@ -4969,7 +4969,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Report the status of the server. A server is online once all the startup     * is completed (setting up filesystem, starting service threads, etc.). This    * method is designed mostly to be useful in tests.    * @return true if online, false if not.    */
+comment|/**    * Report the status of the server. A server is online once all the startup    * is completed (setting up filesystem, starting service threads, etc.). This    * method is designed mostly to be useful in tests.    * @return true if online, false if not.    */
 specifier|public
 name|boolean
 name|isOnline
@@ -6078,7 +6078,7 @@ name|stop
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**     * Wait on all threads to finish.    * Presumption is that all closes and stops have already been called.    */
+comment|/**    * Wait on all threads to finish.    * Presumption is that all closes and stops have already been called.    */
 specifier|protected
 name|void
 name|join
@@ -6604,7 +6604,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add to the outbound message buffer    *     * When a region splits, we need to tell the master that there are two new     * regions that need to be assigned.    *     * We do not need to inform the master about the old region, because we've    * updated the meta or root regions, and the master will pick that up on its    * next rescan of the root or meta tables.    */
+comment|/**    * Add to the outbound message buffer    *    * When a region splits, we need to tell the master that there are two new    * regions that need to be assigned.    *    * We do not need to inform the master about the old region, because we've    * updated the meta or root regions, and the master will pick that up on its    * next rescan of the root or meta tables.    */
 name|void
 name|reportSplit
 parameter_list|(
@@ -8738,7 +8738,7 @@ operator|-
 literal|1
 return|;
 block|}
-comment|/**    *     * @param regionName    * @param row    * @param family    * @param qualifier    * @param value the expected value    * @param put    * @throws IOException    * @return true if the new put was execute, false otherwise    */
+comment|/**    *    * @param regionName    * @param row    * @param family    * @param qualifier    * @param value the expected value    * @param put    * @throws IOException    * @return true if the new put was execute, false otherwise    */
 specifier|public
 name|boolean
 name|checkAndPut
@@ -9485,7 +9485,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**     * Instantiated as a scanner lease.    * If the lease times out, the scanner is closed    */
+comment|/**    * Instantiated as a scanner lease.    * If the lease times out, the scanner is closed    */
 specifier|private
 class|class
 name|ScannerListener
@@ -10468,7 +10468,7 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**    *     * @return the configuration    */
+comment|/**    *    * @return the configuration    */
 specifier|public
 name|Configuration
 name|getConfiguration
@@ -10591,7 +10591,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * This method removes HRegion corresponding to hri from the Map of onlineRegions.      *     * @param hri the HRegionInfo corresponding to the HRegion to-be-removed.    * @return the removed HRegion, or null if the HRegion was not in onlineRegions.    */
+comment|/**    * This method removes HRegion corresponding to hri from the Map of onlineRegions.    *    * @param hri the HRegionInfo corresponding to the HRegion to-be-removed.    * @return the removed HRegion, or null if the HRegion was not in onlineRegions.    */
 name|HRegion
 name|removeFromOnlineRegions
 parameter_list|(
@@ -10807,7 +10807,7 @@ operator|.
 name|cacheFlusher
 return|;
 block|}
-comment|/**     * Protected utility method for safely obtaining an HRegion handle.    * @param regionName Name of online {@link HRegion} to return    * @return {@link HRegion} for<code>regionName</code>    * @throws NotServingRegionException    */
+comment|/**    * Protected utility method for safely obtaining an HRegion handle.    * @param regionName Name of online {@link HRegion} to return    * @return {@link HRegion} for<code>regionName</code>    * @throws NotServingRegionException    */
 specifier|protected
 name|HRegion
 name|getRegion
@@ -10983,7 +10983,7 @@ index|]
 argument_list|)
 return|;
 block|}
-comment|/**      * Called to verify that this server is up and running.    *     * @throws IOException    */
+comment|/**    * Called to verify that this server is up and running.    *    * @throws IOException    */
 specifier|protected
 name|void
 name|checkOpen

@@ -32,7 +32,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Abstract class that performs common operations for   * @see ProcessRegionClose and @see ProcessRegionOpen  */
+comment|/**  * Abstract class that performs common operations for  * @see ProcessRegionClose and @see ProcessRegionOpen  */
 end_comment
 
 begin_class

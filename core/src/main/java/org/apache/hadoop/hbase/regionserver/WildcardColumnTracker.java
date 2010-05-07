@@ -72,7 +72,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is used for the tracking and enforcement of columns and numbers   * of versions during the course of a Get or Scan operation, when all available  * column qualifiers have been asked for in the query.  *<p>  * This class is utilized by {@link QueryMatcher} through two methods:  *<ul><li>{@link #checkColumn} is called when a Put satisfies all other  * conditions of the query.  This method returns a {@link MatchCode} to define  * what action should be taken.  *<li>{@link #update} is called at the end of every StoreFile or memstore.  *<p>  * This class is NOT thread-safe as queries are never multi-threaded   */
+comment|/**  * This class is used for the tracking and enforcement of columns and numbers  * of versions during the course of a Get or Scan operation, when all available  * column qualifiers have been asked for in the query.  *<p>  * This class is utilized by {@link QueryMatcher} through two methods:  *<ul><li>{@link #checkColumn} is called when a Put satisfies all other  * conditions of the query.  This method returns a {@link MatchCode} to define  * what action should be taken.  *<li>{@link #update} is called at the end of every StoreFile or memstore.  *<p>  * This class is NOT thread-safe as queries are never multi-threaded  */
 end_comment
 
 begin_class

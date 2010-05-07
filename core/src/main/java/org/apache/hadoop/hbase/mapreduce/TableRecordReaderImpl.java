@@ -150,7 +150,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Iterate over an HBase table data, return (ImmutableBytesWritable, Result)   * pairs.  */
+comment|/**  * Iterate over an HBase table data, return (ImmutableBytesWritable, Result)  * pairs.  */
 end_comment
 
 begin_class
@@ -251,7 +251,7 @@ name|newScan
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Build the scanner. Not done in constructor to allow for extension.    *    * @throws IOException When restarting the scan fails.     */
+comment|/**    * Build the scanner. Not done in constructor to allow for extension.    *    * @throws IOException When restarting the scan fails.    */
 specifier|public
 name|void
 name|init
@@ -268,7 +268,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the HBase table.    *     * @param htable  The {@link HTable} to scan.    */
+comment|/**    * Sets the HBase table.    *    * @param htable  The {@link HTable} to scan.    */
 specifier|public
 name|void
 name|setHTable
@@ -284,7 +284,7 @@ operator|=
 name|htable
 expr_stmt|;
 block|}
-comment|/**    * Sets the scan defining the actual details like columns etc.    *      * @param scan  The scan to set.    */
+comment|/**    * Sets the scan defining the actual details like columns etc.    *    * @param scan  The scan to set.    */
 specifier|public
 name|void
 name|setScan
@@ -300,7 +300,7 @@ operator|=
 name|scan
 expr_stmt|;
 block|}
-comment|/**    * Closes the split.    *     *     */
+comment|/**    * Closes the split.    *    *    */
 specifier|public
 name|void
 name|close
@@ -314,7 +314,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Returns the current key.    *      * @return The current key.    * @throws IOException    * @throws InterruptedException When the job is aborted.    */
+comment|/**    * Returns the current key.    *    * @return The current key.    * @throws IOException    * @throws InterruptedException When the job is aborted.    */
 specifier|public
 name|ImmutableBytesWritable
 name|getCurrentKey
@@ -328,7 +328,7 @@ return|return
 name|key
 return|;
 block|}
-comment|/**    * Returns the current value.    *     * @return The current value.    * @throws IOException When the value is faulty.    * @throws InterruptedException When the job is aborted.    */
+comment|/**    * Returns the current value.    *    * @return The current value.    * @throws IOException When the value is faulty.    * @throws InterruptedException When the job is aborted.    */
 specifier|public
 name|Result
 name|getCurrentValue
@@ -342,7 +342,7 @@ return|return
 name|value
 return|;
 block|}
-comment|/**    * Positions the record reader to the next record.    *      * @return<code>true</code> if there was another record.    * @throws IOException When reading the record failed.    * @throws InterruptedException When the job was aborted.    */
+comment|/**    * Positions the record reader to the next record.    *    * @return<code>true</code> if there was another record.    * @throws IOException When reading the record failed.    * @throws InterruptedException When the job was aborted.    */
 specifier|public
 name|boolean
 name|nextKeyValue
@@ -466,7 +466,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * The current progress of the record reader through its data.    *     * @return A number between 0.0 and 1.0, the fraction of the data read.    */
+comment|/**    * The current progress of the record reader through its data.    *    * @return A number between 0.0 and 1.0, the fraction of the data read.    */
 specifier|public
 name|float
 name|getProgress

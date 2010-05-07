@@ -110,7 +110,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A SortedMap implementation that uses Soft Reference values  * internally to make it play well with the GC when in a low-memory  * situation. Use as a cache where you also need SortedMap functionality.  *   * @param<K> key class  * @param<V> value class  */
+comment|/**  * A SortedMap implementation that uses Soft Reference values  * internally to make it play well with the GC when in a low-memory  * situation. Use as a cache where you also need SortedMap functionality.  *  * @param<K> key class  * @param<V> value class  */
 end_comment
 
 begin_class

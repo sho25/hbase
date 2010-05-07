@@ -1799,7 +1799,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * @param args    * @throws Exception     * @throws IOException     */
+comment|/**    * @param args    * @throws Exception    * @throws IOException    */
 specifier|public
 specifier|static
 name|void

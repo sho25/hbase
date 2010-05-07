@@ -154,7 +154,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The LruHashMap is a memory-aware HashMap with a configurable maximum  * memory footprint.  *<p>  * It maintains an ordered list of all entries in the map ordered by   * access time.  When space needs to be freed becase the maximum has been   * reached, or the application has asked to free memory, entries will be  * evicted according to an LRU (least-recently-used) algorithm.  That is,  * those entries which have not been accessed the longest will be evicted  * first.  *<p>  * Both the Key and Value Objects used for this class must extend  *<code>HeapSize</code> in order to track heap usage.  *<p>  * This class contains internal synchronization and is thread-safe.  */
+comment|/**  * The LruHashMap is a memory-aware HashMap with a configurable maximum  * memory footprint.  *<p>  * It maintains an ordered list of all entries in the map ordered by  * access time.  When space needs to be freed becase the maximum has been  * reached, or the application has asked to free memory, entries will be  * evicted according to an LRU (least-recently-used) algorithm.  That is,  * those entries which have not been accessed the longest will be evicted  * first.  *<p>  * Both the Key and Value Objects used for this class must extend  *<code>HeapSize</code> in order to track heap usage.  *<p>  * This class contains internal synchronization and is thread-safe.  */
 end_comment
 
 begin_class
@@ -539,7 +539,7 @@ name|maxMemUsage
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructs a new, empty map with the default initial capacity,     * load factor and maximum memory usage.    */
+comment|/**    * Constructs a new, empty map with the default initial capacity,    * load factor and maximum memory usage.    */
 specifier|public
 name|LruHashMap
 parameter_list|()
@@ -818,7 +818,7 @@ name|next
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Insert a key-value mapping into the map.    *    * Entry will be inserted as the most recently used.    *    * Both the key and value are required to be Objects and must    * implement the HeapSize interface.    *    * @param key the key    * @param value the value    * @return the value that was previously mapped to this key, null if none    * @throws UnsupportedOperationException if either objects do not     * implement HeapSize    * @throws NullPointerException if the key or value is null    */
+comment|/**    * Insert a key-value mapping into the map.    *    * Entry will be inserted as the most recently used.    *    * Both the key and value are required to be Objects and must    * implement the HeapSize interface.    *    * @param key the key    * @param value the value    * @return the value that was previously mapped to this key, null if none    * @throws UnsupportedOperationException if either objects do not    * implement HeapSize    * @throws NullPointerException if the key or value is null    */
 specifier|public
 specifier|synchronized
 name|V
@@ -1131,7 +1131,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Checks whether this is a mapping which contains the specified value.    *     * Does not affect the LRU.  This is an inefficient operation.    *    * @param value the value to check    * @return true if the map contains an entry for this value, false    * if not    * @throws NullPointerException if the value is null    */
+comment|/**    * Checks whether this is a mapping which contains the specified value.    *    * Does not affect the LRU.  This is an inefficient operation.    *    * @param value the value to check    * @return true if the map contains an entry for this value, false    * if not    * @throws NullPointerException if the value is null    */
 specifier|public
 specifier|synchronized
 name|boolean
@@ -2687,7 +2687,7 @@ return|return
 name|headPtr
 return|;
 block|}
-comment|/**    * Get the tail of the linked list (most recently used).    *     * @return tail of linked list    */
+comment|/**    * Get the tail of the linked list (most recently used).    *    * @return tail of linked list    */
 specifier|public
 name|Entry
 name|getTailPtr
@@ -3172,7 +3172,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**       * Returns the hash code of the entry by xor'ing the hash values      * of the key and value of this entry.      *      * @return hash value of this entry      */
+comment|/**      * Returns the hash code of the entry by xor'ing the hash values      * of the key and value of this entry.      *      * @return hash value of this entry      */
 specifier|public
 name|int
 name|hashCode

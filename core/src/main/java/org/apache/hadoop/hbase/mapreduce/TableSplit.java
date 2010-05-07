@@ -165,7 +165,7 @@ literal|""
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a new instance while assigning all variables.    *     * @param tableName  The name of the current table.    * @param startRow  The start row of the split.    * @param endRow  The end row of the split.    * @param location  The location of the region.    */
+comment|/**    * Creates a new instance while assigning all variables.    *    * @param tableName  The name of the current table.    * @param startRow  The start row of the split.    * @param endRow  The end row of the split.    * @param location  The location of the region.    */
 specifier|public
 name|TableSplit
 parameter_list|(
@@ -211,7 +211,7 @@ operator|=
 name|location
 expr_stmt|;
 block|}
-comment|/**    * Returns the table name.    *     * @return The table name.     */
+comment|/**    * Returns the table name.    *    * @return The table name.    */
 specifier|public
 name|byte
 index|[]
@@ -222,7 +222,7 @@ return|return
 name|tableName
 return|;
 block|}
-comment|/**    * Returns the start row.    *      * @return The start row.    */
+comment|/**    * Returns the start row.    *    * @return The start row.    */
 specifier|public
 name|byte
 index|[]
@@ -233,7 +233,7 @@ return|return
 name|startRow
 return|;
 block|}
-comment|/**    * Returns the end row.    *     * @return The end row.     */
+comment|/**    * Returns the end row.    *    * @return The end row.    */
 specifier|public
 name|byte
 index|[]
@@ -244,7 +244,7 @@ return|return
 name|endRow
 return|;
 block|}
-comment|/**     * Returns the region location.    *     * @return The region's location.     */
+comment|/**    * Returns the region location.    *    * @return The region's location.    */
 specifier|public
 name|String
 name|getRegionLocation
@@ -254,7 +254,7 @@ return|return
 name|regionLocation
 return|;
 block|}
-comment|/**    * Returns the region's location as an array.    *     * @return The array containing the region location.    * @see org.apache.hadoop.mapreduce.InputSplit#getLocations()    */
+comment|/**    * Returns the region's location as an array.    *    * @return The array containing the region location.    * @see org.apache.hadoop.mapreduce.InputSplit#getLocations()    */
 annotation|@
 name|Override
 specifier|public
@@ -272,7 +272,7 @@ name|regionLocation
 block|}
 return|;
 block|}
-comment|/**    * Returns the length of the split.    *     * @return The length of the split.    * @see org.apache.hadoop.mapreduce.InputSplit#getLength()    */
+comment|/**    * Returns the length of the split.    *    * @return The length of the split.    * @see org.apache.hadoop.mapreduce.InputSplit#getLength()    */
 annotation|@
 name|Override
 specifier|public
@@ -285,7 +285,7 @@ return|return
 literal|0
 return|;
 block|}
-comment|/**    * Reads the values of each field.    *     * @param in  The input to read from.    * @throws IOException When reading the input fails.    */
+comment|/**    * Reads the values of each field.    *    * @param in  The input to read from.    * @throws IOException When reading the input fails.    */
 annotation|@
 name|Override
 specifier|public
@@ -340,7 +340,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Writes the field values to the output.    *     * @param out  The output to write to.    * @throws IOException When writing the values to the output fails.    */
+comment|/**    * Writes the field values to the output.    *    * @param out  The output to write to.    * @throws IOException When writing the values to the output fails.    */
 annotation|@
 name|Override
 specifier|public
@@ -395,7 +395,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Returns the details about this instance as a string.    *     * @return The values of this instance as a string.    * @see java.lang.Object#toString()    */
+comment|/**    * Returns the details about this instance as a string.    *    * @return The values of this instance as a string.    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
 specifier|public
@@ -425,7 +425,7 @@ name|endRow
 argument_list|)
 return|;
 block|}
-comment|/**    * Compares this split against the given one.    *     * @param split  The split to compare to.    * @return The result of the comparison.    * @see java.lang.Comparable#compareTo(java.lang.Object)    */
+comment|/**    * Compares this split against the given one.    *    * @param split  The split to compare to.    * @return The result of the comparison.    * @see java.lang.Comparable#compareTo(java.lang.Object)    */
 annotation|@
 name|Override
 specifier|public

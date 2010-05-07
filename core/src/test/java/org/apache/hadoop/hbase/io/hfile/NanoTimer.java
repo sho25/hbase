@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one or more  * contributor license agreements. See the NOTICE file distributed with this  * work for additional information regarding copyright ownership. The ASF  * licenses this file to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance with the License.  * You may obtain a copy of the License at  *   * http://www.apache.org/licenses/LICENSE-2.0  *   * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the  * License for the specific language governing permissions and limitations under  * the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one or more  * contributor license agreements. See the NOTICE file distributed with this  * work for additional information regarding copyright ownership. The ASF  * licenses this file to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance with the License.  * You may obtain a copy of the License at  *  * http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the  * License for the specific language governing permissions and limitations under  * the License.  */
 end_comment
 
 begin_package
@@ -47,7 +47,7 @@ name|cumulate
 init|=
 literal|0
 decl_stmt|;
-comment|/**    * Constructor    *     * @param start    *          Start the timer upon construction.    */
+comment|/**    * Constructor    *    * @param start    *          Start the timer upon construction.    */
 specifier|public
 name|NanoTimer
 parameter_list|(
@@ -65,7 +65,7 @@ name|start
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Start the timer.    *     * Note: No effect if timer is already started.    */
+comment|/**    * Start the timer.    *    * Note: No effect if timer is already started.    */
 specifier|public
 name|void
 name|start
@@ -96,7 +96,7 @@ literal|true
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Stop the timer.    *     * Note: No effect if timer is already stopped.    */
+comment|/**    * Stop the timer.    *    * Note: No effect if timer is already stopped.    */
 specifier|public
 name|void
 name|stop
@@ -130,7 +130,7 @@ name|last
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Read the timer.    *     * @return the elapsed time in nano-seconds. Note: If the timer is never    *         started before, -1 is returned.    */
+comment|/**    * Read the timer.    *    * @return the elapsed time in nano-seconds. Note: If the timer is never    *         started before, -1 is returned.    */
 specifier|public
 name|long
 name|read
@@ -178,7 +178,7 @@ operator|=
 literal|0
 expr_stmt|;
 block|}
-comment|/**    * Checking whether the timer is started    *     * @return true if timer is started.    */
+comment|/**    * Checking whether the timer is started    *    * @return true if timer is started.    */
 specifier|public
 name|boolean
 name|isStarted
@@ -190,7 +190,7 @@ operator|.
 name|started
 return|;
 block|}
-comment|/**    * Format the elapsed time to a human understandable string.    *     * Note: If timer is never started, "ERR" will be returned.    */
+comment|/**    * Format the elapsed time to a human understandable string.    *    * Note: If timer is never started, "ERR" will be returned.    */
 specifier|public
 name|String
 name|toString
@@ -218,7 +218,7 @@ name|cumulate
 argument_list|)
 return|;
 block|}
-comment|/**    * A utility method to format a time duration in nano seconds into a human    * understandable stirng.    *     * @param t    *          Time duration in nano seconds.    * @return String representation.    */
+comment|/**    * A utility method to format a time duration in nano seconds into a human    * understandable stirng.    *    * @param t    *          Time duration in nano seconds.    * @return String representation.    */
 specifier|public
 specifier|static
 name|String
@@ -449,7 +449,7 @@ argument_list|,
 name|ss
 argument_list|)
 return|;
-comment|/**      * StringBuilder sb = new StringBuilder(); String sep = "";      *       * if (dd> 0) { String unit = (dd> 1) ? "days" : "day";      * sb.append(String.format("%s%d%s", sep, dd, unit)); sep = " "; }      *       * if (hh> 0) { String unit = (hh> 1) ? "hrs" : "hr";      * sb.append(String.format("%s%d%s", sep, hh, unit)); sep = " "; }      *       * if (mm> 0) { String unit = (mm> 1) ? "mins" : "min";      * sb.append(String.format("%s%d%s", sep, mm, unit)); sep = " "; }      *       * if (ss> 0) { String unit = (ss> 1) ? "secs" : "sec";      * sb.append(String.format("%s%.3f%s", sep, ss, unit)); sep = " "; }      *       * return sb.toString();      */
+comment|/**      * StringBuilder sb = new StringBuilder(); String sep = "";      *      * if (dd> 0) { String unit = (dd> 1) ? "days" : "day";      * sb.append(String.format("%s%d%s", sep, dd, unit)); sep = " "; }      *      * if (hh> 0) { String unit = (hh> 1) ? "hrs" : "hr";      * sb.append(String.format("%s%d%s", sep, hh, unit)); sep = " "; }      *      * if (mm> 0) { String unit = (mm> 1) ? "mins" : "min";      * sb.append(String.format("%s%d%s", sep, mm, unit)); sep = " "; }      *      * if (ss> 0) { String unit = (ss> 1) ? "secs" : "sec";      * sb.append(String.format("%s%.3f%s", sep, ss, unit)); sep = " "; }      *      * return sb.toString();      */
 block|}
 specifier|private
 name|boolean
@@ -465,7 +465,7 @@ operator|-
 literal|1
 return|;
 block|}
-comment|/**    * Simple tester.    *     * @param args    */
+comment|/**    * Simple tester.    *    * @param args    */
 specifier|public
 specifier|static
 name|void

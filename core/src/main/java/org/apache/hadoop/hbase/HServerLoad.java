@@ -187,7 +187,7 @@ name|RegionLoad
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/**     * Encapsulates per-region loading metrics.    */
+comment|/**    * Encapsulates per-region loading metrics.    */
 specifier|public
 specifier|static
 class|class
@@ -808,7 +808,7 @@ name|regionLoad
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Originally, this method factored in the effect of requests going to the    * server as well. However, this does not interact very well with the current    * region rebalancing code, which only factors number of regions. For the     * interim, until we can figure out how to make rebalancing use all the info    * available, we're just going to make load purely the number of regions.    *    * @return load factor for this server    */
+comment|/**    * Originally, this method factored in the effect of requests going to the    * server as well. However, this does not interact very well with the current    * region rebalancing code, which only factors number of regions. For the    * interim, until we can figure out how to make rebalancing use all the info    * available, we're just going to make load purely the number of regions.    *    * @return load factor for this server    */
 specifier|public
 name|int
 name|getLoad

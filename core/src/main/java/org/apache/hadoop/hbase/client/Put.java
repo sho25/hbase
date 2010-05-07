@@ -188,7 +188,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**   * Used to perform Put operations for a single row.  *<p>  * To perform a Put, instantiate a Put object with the row to insert to and  * for each column to be inserted, execute {@link #add(byte[], byte[], byte[]) add} or  * {@link #add(byte[], byte[], long, byte[]) add} if setting the timestamp.  */
+comment|/**  * Used to perform Put operations for a single row.  *<p>  * To perform a Put, instantiate a Put object with the row to insert to and  * for each column to be inserted, execute {@link #add(byte[], byte[], byte[]) add} or  * {@link #add(byte[], byte[], long, byte[]) add} if setting the timestamp.  */
 end_comment
 
 begin_class
@@ -359,7 +359,7 @@ name|rowLock
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a Put operation for the specified row, using a given timestamp.    *     * @param row row key    * @param ts timestamp    */
+comment|/**    * Create a Put operation for the specified row, using a given timestamp.    *    * @param row row key    * @param ts timestamp    */
 specifier|public
 name|Put
 parameter_list|(
@@ -589,7 +589,7 @@ name|value
 argument_list|)
 return|;
 block|}
-comment|/**    * Add the specified column and value, with the specified timestamp as     * its version to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param ts version timestamp    * @param value column value    * @return this    */
+comment|/**    * Add the specified column and value, with the specified timestamp as    * its version to this Put operation.    * @param family family name    * @param qualifier column qualifier    * @param ts version timestamp    * @param value column value    * @return this    */
 specifier|public
 name|Put
 name|add
@@ -658,7 +658,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Add the specified KeyValue to this Put operation.  Operation assumes that     * the passed KeyValue is immutable and its backing array will not be modified    * for the duration of this Put.    * @param kv individual KeyValue    * @return this    * @throws java.io.IOException e    */
+comment|/**    * Add the specified KeyValue to this Put operation.  Operation assumes that    * the passed KeyValue is immutable and its backing array will not be modified    * for the duration of this Put.    * @param kv individual KeyValue    * @return this    * @throws java.io.IOException e    */
 specifier|public
 name|Put
 name|add
@@ -789,7 +789,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/*    * Create a KeyValue with this objects row key and the Put identifier.    *     * @return a KeyValue with this objects row key and the Put identifier.    */
+comment|/*    * Create a KeyValue with this objects row key and the Put identifier.    *    * @return a KeyValue with this objects row key and the Put identifier.    */
 specifier|private
 name|KeyValue
 name|createPutKeyValue
@@ -834,7 +834,7 @@ name|value
 argument_list|)
 return|;
 block|}
-comment|/**    * A convenience method to determine if this object's familyMap contains     * a value assigned to the given family& qualifier.    * Both given arguments must match the KeyValue object to return true.    *     * @param family column family    * @param qualifier column qualifier    * @return returns true if the given family and qualifier already has an    * existing KeyValue object in the family map.    */
+comment|/**    * A convenience method to determine if this object's familyMap contains    * a value assigned to the given family& qualifier.    * Both given arguments must match the KeyValue object to return true.    *    * @param family column family    * @param qualifier column qualifier    * @return returns true if the given family and qualifier already has an    * existing KeyValue object in the family map.    */
 specifier|public
 name|boolean
 name|has
@@ -871,7 +871,7 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * A convenience method to determine if this object's familyMap contains     * a value assigned to the given family, qualifier and timestamp.    * All 3 given arguments must match the KeyValue object to return true.    *     * @param family column family    * @param qualifier column qualifier    * @param ts timestamp    * @return returns true if the given family, qualifier and timestamp already has an    * existing KeyValue object in the family map.    */
+comment|/**    * A convenience method to determine if this object's familyMap contains    * a value assigned to the given family, qualifier and timestamp.    * All 3 given arguments must match the KeyValue object to return true.    *    * @param family column family    * @param qualifier column qualifier    * @param ts timestamp    * @return returns true if the given family, qualifier and timestamp already has an    * existing KeyValue object in the family map.    */
 specifier|public
 name|boolean
 name|has
@@ -909,7 +909,7 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * A convenience method to determine if this object's familyMap contains     * a value assigned to the given family, qualifier and timestamp.    * All 3 given arguments must match the KeyValue object to return true.    *     * @param family column family    * @param qualifier column qualifier    * @param value value to check    * @return returns true if the given family, qualifier and value already has an    * existing KeyValue object in the family map.    */
+comment|/**    * A convenience method to determine if this object's familyMap contains    * a value assigned to the given family, qualifier and timestamp.    * All 3 given arguments must match the KeyValue object to return true.    *    * @param family column family    * @param qualifier column qualifier    * @param value value to check    * @return returns true if the given family, qualifier and value already has an    * existing KeyValue object in the family map.    */
 specifier|public
 name|boolean
 name|has
@@ -946,7 +946,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * A convenience method to determine if this object's familyMap contains     * the given value assigned to the given family, qualifier and timestamp.    * All 4 given arguments must match the KeyValue object to return true.    *     * @param family column family    * @param qualifier column qualifier    * @param ts timestamp    * @param value value to check    * @return returns true if the given family, qualifier timestamp and value     * already has an existing KeyValue object in the family map.    */
+comment|/**    * A convenience method to determine if this object's familyMap contains    * the given value assigned to the given family, qualifier and timestamp.    * All 4 given arguments must match the KeyValue object to return true.    *    * @param family column family    * @param qualifier column qualifier    * @param ts timestamp    * @param value value to check    * @return returns true if the given family, qualifier timestamp and value    * already has an existing KeyValue object in the family map.    */
 specifier|public
 name|boolean
 name|has
@@ -984,7 +984,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/*    * Private method to determine if this object's familyMap contains     * the given value assigned to the given family, qualifier and timestamp    * respecting the 2 boolean arguments    *     * @param family    * @param qualifier    * @param ts    * @param value    * @param ignoreTS    * @param ignoreValue    * @return returns true if the given family, qualifier timestamp and value     * already has an existing KeyValue object in the family map.    */
+comment|/*    * Private method to determine if this object's familyMap contains    * the given value assigned to the given family, qualifier and timestamp    * respecting the 2 boolean arguments    *    * @param family    * @param qualifier    * @param ts    * @param value    * @param ignoreTS    * @param ignoreValue    * @return returns true if the given family, qualifier timestamp and value    * already has an existing KeyValue object in the family map.    */
 specifier|private
 name|boolean
 name|has
@@ -1189,7 +1189,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Returns a list of all KeyValue objects with matching column family and qualifier.    *     * @param family column family    * @param qualifier column qualifier    * @return a list of KeyValue objects with the matching family and qualifier,     * returns an empty list if one doesnt exist for the given family.    */
+comment|/**    * Returns a list of all KeyValue objects with matching column family and qualifier.    *    * @param family column family    * @param qualifier column qualifier    * @return a list of KeyValue objects with the matching family and qualifier,    * returns an empty list if one doesnt exist for the given family.    */
 specifier|public
 name|List
 argument_list|<
@@ -1258,7 +1258,7 @@ return|return
 name|filteredList
 return|;
 block|}
-comment|/**    * Creates an empty list if one doesnt exist for the given column family    * or else it returns the associated list of KeyValue objects.    *     * @param family column family    * @return a list of KeyValue objects, returns an empty list if one doesnt exist.    */
+comment|/**    * Creates an empty list if one doesnt exist for the given column family    * or else it returns the associated list of KeyValue objects.    *    * @param family column family    * @return a list of KeyValue objects, returns an empty list if one doesnt exist.    */
 specifier|private
 name|List
 argument_list|<
@@ -1328,7 +1328,7 @@ operator|.
 name|familyMap
 return|;
 block|}
-comment|/**    * Method for retrieving the put's row    * @return row     */
+comment|/**    * Method for retrieving the put's row    * @return row    */
 specifier|public
 name|byte
 index|[]
@@ -1398,7 +1398,7 @@ operator|.
 name|timestamp
 return|;
 block|}
-comment|/**    * @return the number of different families included in this put     */
+comment|/**    * @return the number of different families included in this put    */
 specifier|public
 name|int
 name|numFamilies
@@ -1478,7 +1478,7 @@ operator|=
 name|write
 expr_stmt|;
 block|}
-comment|/**    * @return String     */
+comment|/**    * @return String    */
 annotation|@
 name|Override
 specifier|public

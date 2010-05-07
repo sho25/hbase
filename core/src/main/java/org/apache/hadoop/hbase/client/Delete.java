@@ -146,7 +146,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to perform Delete operations on a single row.  *<p>  * To delete an entire row, instantiate a Delete object with the row   * to delete.  To further define the scope of what to delete, perform  * additional methods as outlined below.  *<p>  * To delete specific families, execute {@link #deleteFamily(byte[]) deleteFamily}  * for each family to delete.  *<p>  * To delete multiple versions of specific columns, execute  * {@link #deleteColumns(byte[], byte[]) deleteColumns}  * for each column to delete.    *<p>  * To delete specific versions of specific columns, execute  * {@link #deleteColumn(byte[], byte[], long) deleteColumn}  * for each column version to delete.  *<p>  * Specifying timestamps, deleteFamily and deleteColumns will delete all  * versions with a timestamp less than or equal to that passed.  If no  * timestamp is specified, an entry is added with a timestamp of 'now'  * where 'now' is the servers's System.currentTimeMillis().  * Specifying a timestamp to the deleteColumn method will  * delete versions only with a timestamp equal to that specified.  * If no timestamp is passed to deleteColumn, internally, it figures the  * most recent cell's timestamp and adds a delete at that timestamp; i.e.  * it deletes the most recently added cell.  *<p>The timestamp passed to the constructor is used ONLY for delete of  * rows.  For anything less -- a deleteColumn, deleteColumns or  * deleteFamily -- then you need to use the method overrides that take a  * timestamp.  The constructor timestamp is not referenced.  */
+comment|/**  * Used to perform Delete operations on a single row.  *<p>  * To delete an entire row, instantiate a Delete object with the row  * to delete.  To further define the scope of what to delete, perform  * additional methods as outlined below.  *<p>  * To delete specific families, execute {@link #deleteFamily(byte[]) deleteFamily}  * for each family to delete.  *<p>  * To delete multiple versions of specific columns, execute  * {@link #deleteColumns(byte[], byte[]) deleteColumns}  * for each column to delete.  *<p>  * To delete specific versions of specific columns, execute  * {@link #deleteColumn(byte[], byte[], long) deleteColumn}  * for each column version to delete.  *<p>  * Specifying timestamps, deleteFamily and deleteColumns will delete all  * versions with a timestamp less than or equal to that passed.  If no  * timestamp is specified, an entry is added with a timestamp of 'now'  * where 'now' is the servers's System.currentTimeMillis().  * Specifying a timestamp to the deleteColumn method will  * delete versions only with a timestamp equal to that specified.  * If no timestamp is passed to deleteColumn, internally, it figures the  * most recent cell's timestamp and adds a delete at that timestamp; i.e.  * it deletes the most recently added cell.  *<p>The timestamp passed to the constructor is used ONLY for delete of  * rows.  For anything less -- a deleteColumn, deleteColumns or  * deleteFamily -- then you need to use the method overrides that take a  * timestamp.  The constructor timestamp is not referenced.  */
 end_comment
 
 begin_class
@@ -260,7 +260,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a Delete operation for the specified row and timestamp, using    * an optional row lock.<p>    *     * If no further operations are done, this will delete all columns in all    * families of the specified row with a timestamp less than or equal to the     * specified timestamp.<p>    *     * This timestamp is ONLY used for a delete row operation.  If specifying     * families or columns, you must specify each timestamp individually.    * @param row row key    * @param timestamp maximum version timestamp (only for delete row)    * @param rowLock previously acquired row lock, or null    */
+comment|/**    * Create a Delete operation for the specified row and timestamp, using    * an optional row lock.<p>    *    * If no further operations are done, this will delete all columns in all    * families of the specified row with a timestamp less than or equal to the    * specified timestamp.<p>    *    * This timestamp is ONLY used for a delete row operation.  If specifying    * families or columns, you must specify each timestamp individually.    * @param row row key    * @param timestamp maximum version timestamp (only for delete row)    * @param rowLock previously acquired row lock, or null    */
 specifier|public
 name|Delete
 parameter_list|(
@@ -745,7 +745,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Method for retrieving the delete's familyMap     * @return familyMap    */
+comment|/**    * Method for retrieving the delete's familyMap    * @return familyMap    */
 specifier|public
 name|Map
 argument_list|<
@@ -799,7 +799,7 @@ name|lockId
 argument_list|)
 return|;
 block|}
-comment|/**    * Method for retrieving the delete's lock ID.    *     * @return The lock ID.    */
+comment|/**    * Method for retrieving the delete's lock ID.    *    * @return The lock ID.    */
 specifier|public
 name|long
 name|getLockId

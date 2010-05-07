@@ -56,7 +56,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A memory-bound queue that will grow until an element brings  * total size>= maxSize.  From then on, only entries that are sorted larger  * than the smallest current entry will be inserted/replaced.  *   *<p>Use this when you want to find the largest elements (according to their  * ordering, not their heap size) that consume as close to the specified  * maxSize as possible.  Default behavior is to grow just above rather than  * just below specified max.  *   *<p>Object used in this queue must implement {@link HeapSize} as well as  * {@link Comparable}.  */
+comment|/**  * A memory-bound queue that will grow until an element brings  * total size>= maxSize.  From then on, only entries that are sorted larger  * than the smallest current entry will be inserted/replaced.  *  *<p>Use this when you want to find the largest elements (according to their  * ordering, not their heap size) that consume as close to the specified  * maxSize as possible.  Default behavior is to grow just above rather than  * just below specified max.  *  *<p>Object used in this queue must implement {@link HeapSize} as well as  * {@link Comparable}.  */
 end_comment
 
 begin_class
@@ -135,7 +135,7 @@ operator|=
 name|maxSize
 expr_stmt|;
 block|}
-comment|/**    * Attempt to add the specified cached block to this queue.    *     *<p>If the queue is smaller than the max size, or if the specified element    * is ordered before the smallest element in the queue, the element will be    * added to the queue.  Otherwise, there is no side effect of this call.    * @param cb block to try to add to the queue    */
+comment|/**    * Attempt to add the specified cached block to this queue.    *    *<p>If the queue is smaller than the max size, or if the specified element    * is ordered before the smallest element in the queue, the element will be    * added to the queue.  Otherwise, there is no side effect of this call.    * @param cb block to try to add to the queue    */
 specifier|public
 name|void
 name|add

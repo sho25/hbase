@@ -1228,7 +1228,7 @@ specifier|final
 name|RegionServerOperationQueue
 name|regionServerOperationQueue
 decl_stmt|;
-comment|/**     * Constructor    * @param conf configuration    * @throws IOException    */
+comment|/**    * Constructor    * @param conf configuration    * @throws IOException    */
 specifier|public
 name|HMaster
 parameter_list|(
@@ -2097,7 +2097,7 @@ operator|.
 name|infoServer
 return|;
 block|}
-comment|/**    * @return HBase root dir.    * @throws IOException     */
+comment|/**    * @return HBase root dir.    * @throws IOException    */
 specifier|public
 name|Path
 name|getRootDir
@@ -3565,7 +3565,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Override if you'd add messages to return to regionserver<code>hsi</code>    * @param messages Messages to add to    * @return Messages to return to     */
+comment|/**    * Override if you'd add messages to return to regionserver<code>hsi</code>    * @param messages Messages to add to    * @return Messages to return to    */
 specifier|protected
 name|HMsg
 index|[]
@@ -6054,7 +6054,7 @@ name|regioninfo
 argument_list|)
 return|;
 block|}
-comment|/*    * When we find rows in a meta region that has an empty HRegionInfo, we    * clean them up here.    *     * @param s connection to server serving meta region    * @param metaRegionName name of the meta region we scanned    * @param emptyRows the row keys that had empty HRegionInfos    */
+comment|/*    * When we find rows in a meta region that has an empty HRegionInfo, we    * clean them up here.    *    * @param s connection to server serving meta region    * @param metaRegionName name of the meta region we scanned    * @param emptyRows the row keys that had empty HRegionInfos    */
 specifier|protected
 name|void
 name|deleteEmptyMetaRows

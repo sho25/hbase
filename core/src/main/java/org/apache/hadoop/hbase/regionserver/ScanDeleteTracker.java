@@ -48,7 +48,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is responsible for the tracking and enforcement of Deletes  * during the course of a Scan operation.  *  * It only has to enforce Delete and DeleteColumn, since the  * DeleteFamily is handled at a higher level.  *  *<p>  * This class is utilized through three methods:  *<ul><li>{@link #add} when encountering a Delete or DeleteColumn  *<li>{@link #isDeleted} when checking if a Put KeyValue has been deleted  *<li>{@link #update} when reaching the end of a StoreFile or row for scans  *<p>  * This class is NOT thread-safe as queries are never multi-threaded   */
+comment|/**  * This class is responsible for the tracking and enforcement of Deletes  * during the course of a Scan operation.  *  * It only has to enforce Delete and DeleteColumn, since the  * DeleteFamily is handled at a higher level.  *  *<p>  * This class is utilized through three methods:  *<ul><li>{@link #add} when encountering a Delete or DeleteColumn  *<li>{@link #isDeleted} when checking if a Put KeyValue has been deleted  *<li>{@link #update} when reaching the end of a StoreFile or row for scans  *<p>  * This class is NOT thread-safe as queries are never multi-threaded  */
 end_comment
 
 begin_class
@@ -217,7 +217,7 @@ expr_stmt|;
 block|}
 comment|// missing else is never called.
 block|}
-comment|/**     * Check if the specified KeyValue buffer has been deleted by a previously    * seen delete.    *    * @param buffer KeyValue buffer    * @param qualifierOffset column qualifier offset    * @param qualifierLength column qualifier length    * @param timestamp timestamp    * @return true is the specified KeyValue is deleted, false if not    */
+comment|/**    * Check if the specified KeyValue buffer has been deleted by a previously    * seen delete.    *    * @param buffer KeyValue buffer    * @param qualifierOffset column qualifier offset    * @param qualifierLength column qualifier length    * @param timestamp timestamp    * @return true is the specified KeyValue is deleted, false if not    */
 annotation|@
 name|Override
 specifier|public

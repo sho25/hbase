@@ -172,7 +172,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An HColumnDescriptor contains information about a column family such as the  * number of versions, compression settings, etc.  *   * It is used as input when creating a table or adding a column. Once set, the  * parameters that specify a column cannot be changed without deleting the  * column and recreating it. If there is data stored in the column, it will be  * deleted when the column is deleted.  */
+comment|/**  * An HColumnDescriptor contains information about a column family such as the  * number of versions, compression settings, etc.  *  * It is used as input when creating a table or adding a column. Once set, the  * parameters that specify a column cannot be changed without deleting the  * column and recreating it. If there is data stored in the column, it will be  * deleted when the column is deleted.  */
 end_comment
 
 begin_class
@@ -202,7 +202,7 @@ name|byte
 operator|)
 literal|7
 decl_stmt|;
-comment|/**     * The type of compression.    * @see org.apache.hadoop.io.SequenceFile.Writer    * @deprecated Compression now means which compression library    * rather than 'what' to compress.    */
+comment|/**    * The type of compression.    * @see org.apache.hadoop.io.SequenceFile.Writer    * @deprecated Compression now means which compression library    * rather than 'what' to compress.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -429,7 +429,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**    * Construct a column descriptor specifying only the family name     * The other attributes are defaulted.    *     * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    */
+comment|/**    * Construct a column descriptor specifying only the family name    * The other attributes are defaulted.    *    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -449,7 +449,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct a column descriptor specifying only the family name     * The other attributes are defaulted.    *     * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    */
+comment|/**    * Construct a column descriptor specifying only the family name    * The other attributes are defaulted.    *    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -491,7 +491,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor.    * Makes a deep copy of the supplied descriptor.     * Can make a modifiable descriptor from an UnmodifyableHColumnDescriptor.    * @param desc The descriptor.    */
+comment|/**    * Constructor.    * Makes a deep copy of the supplied descriptor.    * Can make a modifiable descriptor from an UnmodifyableHColumnDescriptor.    * @param desc The descriptor.    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -552,7 +552,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -608,7 +608,7 @@ name|DEFAULT_REPLICATION_SCOPE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    * @param scope The scope tag for this column    *     * @throws IllegalArgumentException if passed a family name that is made of     * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Enable the specified bloom filter for this column    * @param scope The scope tag for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(

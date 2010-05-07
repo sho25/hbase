@@ -184,7 +184,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Extends the Hadoop MetricsDynamicMBeanBase class to provide JMX support for  * custom HBase MetricsBase implementations.  MetricsDynamicMBeanBase ignores   * registered MetricsBase instance that are not instances of one of the   * org.apache.hadoop.metrics.util implementations.  *  */
+comment|/**  * Extends the Hadoop MetricsDynamicMBeanBase class to provide JMX support for  * custom HBase MetricsBase implementations.  MetricsDynamicMBeanBase ignores  * registered MetricsBase instance that are not instances of one of the  * org.apache.hadoop.metrics.util implementations.  *  */
 end_comment
 
 begin_class
@@ -221,7 +221,7 @@ specifier|protected
 name|int
 name|registryLength
 decl_stmt|;
-comment|/** HBase MetricsBase implementations that MetricsDynamicMBeanBase does     * not understand     */
+comment|/** HBase MetricsBase implementations that MetricsDynamicMBeanBase does    * not understand    */
 specifier|protected
 name|Map
 argument_list|<
@@ -627,7 +627,7 @@ literal|"Attribute name is NULL"
 argument_list|)
 throw|;
 block|}
-comment|/*      * Ugly.  Since MetricsDynamicMBeanBase implementation is private,      * we need to first check the parent class for the attribute.        * In case that the MetricsRegistry contents have changed, this will      * allow the parent to update it's internal structures (which we rely on      * to update our own.      */
+comment|/*      * Ugly.  Since MetricsDynamicMBeanBase implementation is private,      * we need to first check the parent class for the attribute.      * In case that the MetricsRegistry contents have changed, this will      * allow the parent to update it's internal structures (which we rely on      * to update our own.      */
 try|try
 block|{
 return|return

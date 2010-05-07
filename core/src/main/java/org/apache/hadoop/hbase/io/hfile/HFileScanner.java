@@ -54,7 +54,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A scanner allows you to position yourself within a HFile and  * scan through it.  It allows you to reposition yourself as well.  *   *<p>A scanner doesn't always have a key/value that it is pointing to  * when it is first created and before  * {@link #seekTo()}/{@link #seekTo(byte[])} are called.  * In this case, {@link #getKey()}/{@link #getValue()} returns null.  At most  * other times, a key and value will be available.  The general pattern is that  * you position the Scanner using the seekTo variants and then getKey and  * getValue.  */
+comment|/**  * A scanner allows you to position yourself within a HFile and  * scan through it.  It allows you to reposition yourself as well.  *  *<p>A scanner doesn't always have a key/value that it is pointing to  * when it is first created and before  * {@link #seekTo()}/{@link #seekTo(byte[])} are called.  * In this case, {@link #getKey()}/{@link #getValue()} returns null.  At most  * other times, a key and value will be available.  The general pattern is that  * you position the Scanner using the seekTo variants and then getKey and  * getValue.  */
 end_comment
 
 begin_interface
@@ -62,7 +62,7 @@ specifier|public
 interface|interface
 name|HFileScanner
 block|{
-comment|/**    * SeekTo or just before the passed<code>key</code>.  Examine the return    * code to figure whether we found the key or not.    * Consider the key stream of all the keys in the file,     *<code>k[0] .. k[n]</code>, where there are n keys in the file.    * @param key Key to find.    * @return -1, if key< k[0], no position;    * 0, such that k[i] = key and scanner is left in position i; and    * 1, such that k[i]< key, and scanner is left in position i.    * Furthermore, there may be a k[i+1], such that k[i]< key< k[i+1]    * but there may not be a k[i+1], and next() will return false (EOF).    * @throws IOException    */
+comment|/**    * SeekTo or just before the passed<code>key</code>.  Examine the return    * code to figure whether we found the key or not.    * Consider the key stream of all the keys in the file,    *<code>k[0] .. k[n]</code>, where there are n keys in the file.    * @param key Key to find.    * @return -1, if key< k[0], no position;    * 0, such that k[i] = key and scanner is left in position i; and    * 1, such that k[i]< key, and scanner is left in position i.    * Furthermore, there may be a k[i+1], such that k[i]< key< k[i+1]    * but there may not be a k[i+1], and next() will return false (EOF).    * @throws IOException    */
 specifier|public
 name|int
 name|seekTo
@@ -91,7 +91,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Consider the key stream of all the keys in the file,     *<code>k[0] .. k[n]</code>, where there are n keys in the file.    * @param key Key to find    * @return false if key<= k[0] or true with scanner in position 'i' such    * that: k[i]< key.  Furthermore: there may be a k[i+1], such that    * k[i]< key<= k[i+1] but there may also NOT be a k[i+1], and next() will    * return false (EOF).    * @throws IOException    */
+comment|/**    * Consider the key stream of all the keys in the file,    *<code>k[0] .. k[n]</code>, where there are n keys in the file.    * @param key Key to find    * @return false if key<= k[0] or true with scanner in position 'i' such    * that: k[i]< key.  Furthermore: there may be a k[i+1], such that    * k[i]< key<= k[i+1] but there may also NOT be a k[i+1], and next() will    * return false (EOF).    * @throws IOException    */
 specifier|public
 name|boolean
 name|seekBefore
@@ -142,7 +142,7 @@ name|ByteBuffer
 name|getKey
 parameter_list|()
 function_decl|;
-comment|/**    * Gets a buffer view to the current value.  You must call    * {@link #seekTo(byte[])} before this method.    *     * @return byte buffer for the value. The limit is set to the value size, and    * the position is 0, the start of the buffer view.    */
+comment|/**    * Gets a buffer view to the current value.  You must call    * {@link #seekTo(byte[])} before this method.    *    * @return byte buffer for the value. The limit is set to the value size, and    * the position is 0, the start of the buffer view.    */
 specifier|public
 name|ByteBuffer
 name|getValue

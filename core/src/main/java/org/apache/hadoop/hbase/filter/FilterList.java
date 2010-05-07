@@ -140,7 +140,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of {@link Filter} that represents an ordered List of Filters  * which will be evaluated with a specified boolean operator {@link Operator#MUST_PASS_ALL}   * (<code>!AND</code>) or {@link Operator#MUST_PASS_ONE} (<code>!OR</code>).  * Since you can use Filter Lists as children of Filter Lists, you can create a  * hierarchy of filters to be evaluated.  * Defaults to {@link Operator#MUST_PASS_ALL}.  *<p>TODO: Fix creation of Configuration on serialization and deserialization.   */
+comment|/**  * Implementation of {@link Filter} that represents an ordered List of Filters  * which will be evaluated with a specified boolean operator {@link Operator#MUST_PASS_ALL}  * (<code>!AND</code>) or {@link Operator#MUST_PASS_ONE} (<code>!OR</code>).  * Since you can use Filter Lists as children of Filter Lists, you can create a  * hierarchy of filters to be evaluated.  * Defaults to {@link Operator#MUST_PASS_ALL}.  *<p>TODO: Fix creation of Configuration on serialization and deserialization.  */
 end_comment
 
 begin_class
@@ -204,7 +204,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Constructor that takes a set of {@link Filter}s. The default operator    * MUST_PASS_ALL is assumed.    *     * @param rowFilters list of filters    */
+comment|/**    * Constructor that takes a set of {@link Filter}s. The default operator    * MUST_PASS_ALL is assumed.    *    * @param rowFilters list of filters    */
 specifier|public
 name|FilterList
 parameter_list|(
@@ -223,7 +223,7 @@ operator|=
 name|rowFilters
 expr_stmt|;
 block|}
-comment|/**    * Constructor that takes an operator.    *     * @param operator Operator to process filter set with.    */
+comment|/**    * Constructor that takes an operator.    *    * @param operator Operator to process filter set with.    */
 specifier|public
 name|FilterList
 parameter_list|(
@@ -239,7 +239,7 @@ operator|=
 name|operator
 expr_stmt|;
 block|}
-comment|/**    * Constructor that takes a set of {@link Filter}s and an operator.    *     * @param operator Operator to process filter set with.    * @param rowFilters Set of row filters.    */
+comment|/**    * Constructor that takes a set of {@link Filter}s and an operator.    *    * @param operator Operator to process filter set with.    * @param rowFilters Set of row filters.    */
 specifier|public
 name|FilterList
 parameter_list|(
@@ -268,7 +268,7 @@ operator|=
 name|operator
 expr_stmt|;
 block|}
-comment|/**    * Get the operator.    *     * @return operator    */
+comment|/**    * Get the operator.    *    * @return operator    */
 specifier|public
 name|Operator
 name|getOperator
@@ -278,7 +278,7 @@ return|return
 name|operator
 return|;
 block|}
-comment|/**    * Get the filters.    *     * @return filters    */
+comment|/**    * Get the filters.    *    * @return filters    */
 specifier|public
 name|List
 argument_list|<
@@ -291,7 +291,7 @@ return|return
 name|filters
 return|;
 block|}
-comment|/**    * Add a filter.    *     * @param filter another filter    */
+comment|/**    * Add a filter.    *    * @param filter another filter    */
 specifier|public
 name|void
 name|addFilter

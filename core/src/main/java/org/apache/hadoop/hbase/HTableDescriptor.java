@@ -561,7 +561,7 @@ operator|.
 name|BYTES_RAWCOMPARATOR
 argument_list|)
 decl_stmt|;
-comment|/**    * Private constructor used internally creating table descriptors for     * catalog tables: e.g. .META. and -ROOT-.    */
+comment|/**    * Private constructor used internally creating table descriptors for    * catalog tables: e.g. .META. and -ROOT-.    */
 specifier|protected
 name|HTableDescriptor
 parameter_list|(
@@ -626,7 +626,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Private constructor used internally creating table descriptors for     * catalog tables: e.g. .META. and -ROOT-.    */
+comment|/**    * Private constructor used internally creating table descriptors for    * catalog tables: e.g. .META. and -ROOT-.    */
 specifier|protected
 name|HTableDescriptor
 parameter_list|(
@@ -814,7 +814,7 @@ name|name
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor.    *<p>    * Makes a deep copy of the supplied descriptor.     * Can make a modifiable descriptor from an UnmodifyableHTableDescriptor.    * @param desc The descriptor.    */
+comment|/**    * Constructor.    *<p>    * Makes a deep copy of the supplied descriptor.    * Can make a modifiable descriptor from an UnmodifyableHTableDescriptor.    * @param desc The descriptor.    */
 specifier|public
 name|HTableDescriptor
 parameter_list|(

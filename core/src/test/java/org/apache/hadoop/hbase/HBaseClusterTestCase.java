@@ -257,7 +257,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**  in-process to    * start with. Optionally, startDfs indicates if a MiniDFSCluster should be    * started. If startDfs is false, the assumption is that an external DFS is    * configured in hbase-site.xml and is already started, or you have started a    * MiniDFSCluster on your own and edited the configuration in memory. (You     * can modify the config used by overriding the preHBaseClusterSetup method.)    * @param regionServers number of region servers to start.    * @param startDfs set to true if MiniDFS should be started    */
+comment|/**  in-process to    * start with. Optionally, startDfs indicates if a MiniDFSCluster should be    * started. If startDfs is false, the assumption is that an external DFS is    * configured in hbase-site.xml and is already started, or you have started a    * MiniDFSCluster on your own and edited the configuration in memory. (You    * can modify the config used by overriding the preHBaseClusterSetup method.)    * @param regionServers number of region servers to start.    * @param startDfs set to true if MiniDFS should be started    */
 specifier|public
 name|HBaseClusterTestCase
 parameter_list|(
@@ -297,7 +297,7 @@ operator|=
 name|val
 expr_stmt|;
 block|}
-comment|/**    * Subclass hook.    *     * Run after dfs is ready but before hbase cluster is started up.    */
+comment|/**    * Subclass hook.    *    * Run after dfs is ready but before hbase cluster is started up.    */
 specifier|protected
 name|void
 name|preHBaseClusterSetup

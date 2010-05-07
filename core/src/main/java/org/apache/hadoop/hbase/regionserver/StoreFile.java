@@ -539,7 +539,7 @@ specifier|final
 name|Configuration
 name|conf
 decl_stmt|;
-comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a     * substantial amount of ram depending on the underlying files (10-20MB?).    *     * @param fs  The current file system to use.    * @param p  The path of the file.    * @param blockcache<code>true</code> if the block cache is enabled.    * @param conf  The current configuration.    * @throws IOException When opening the reader fails.    */
+comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a    * substantial amount of ram depending on the underlying files (10-20MB?).    *    * @param fs  The current file system to use.    * @param p  The path of the file.    * @param blockcache<code>true</code> if the block cache is enabled.    * @param conf  The current configuration.    * @throws IOException When opening the reader fails.    */
 name|StoreFile
 parameter_list|(
 specifier|final
@@ -970,7 +970,7 @@ operator|.
 name|sequenceid
 return|;
 block|}
-comment|/**    * Returns the block cache or<code>null</code> in case none should be used.    *     * @param conf  The current configuration.    * @return The block cache or<code>null</code>.    */
+comment|/**    * Returns the block cache or<code>null</code> in case none should be used.    *    * @param conf  The current configuration.    * @return The block cache or<code>null</code>.    */
 specifier|public
 specifier|static
 specifier|synchronized
@@ -1417,7 +1417,7 @@ literal|""
 operator|)
 return|;
 block|}
-comment|/**    * Delete this file    * @throws IOException     */
+comment|/**    * Delete this file    * @throws IOException    */
 specifier|public
 name|void
 name|delete
@@ -1835,7 +1835,7 @@ return|return
 name|p
 return|;
 block|}
-comment|/**    * Write file metadata.    * Call before you call close on the passed<code>w</code> since its written    * as metadata to that file.    *     * @param w hfile writer    * @param maxSequenceId Maximum sequence id.    * @throws IOException    */
+comment|/**    * Write file metadata.    * Call before you call close on the passed<code>w</code> since its written    * as metadata to that file.    *    * @param w hfile writer    * @param maxSequenceId Maximum sequence id.    * @throws IOException    */
 specifier|static
 name|void
 name|appendMetadata

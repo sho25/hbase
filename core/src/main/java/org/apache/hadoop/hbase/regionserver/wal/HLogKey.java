@@ -106,7 +106,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A Key for an entry in the change log.  *   * The log intermingles edits to many tables and rows, so each log entry   * identifies the appropriate table and row.  Within a table and row, they're   * also sorted.  *   *<p>Some Transactional edits (START, COMMIT, ABORT) will not have an  * associated row.  */
+comment|/**  * A Key for an entry in the change log.  *  * The log intermingles edits to many tables and rows, so each log entry  * identifies the appropriate table and row.  Within a table and row, they're  * also sorted.  *  *<p>Some Transactional edits (START, COMMIT, ABORT) will not have an  * associated row.  */
 end_comment
 
 begin_class

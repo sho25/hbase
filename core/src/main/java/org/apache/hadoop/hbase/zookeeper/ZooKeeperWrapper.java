@@ -1099,7 +1099,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * Gets the statistics from the given server. Uses a 1 minute timeout.    *     * @param server  The server to get the statistics from.    * @return The array of response strings.    * @throws IOException When the socket communication fails.    */
+comment|/**    * Gets the statistics from the given server. Uses a 1 minute timeout.    *    * @param server  The server to get the statistics from.    * @return The array of response strings.    * @throws IOException When the socket communication fails.    */
 specifier|public
 name|String
 index|[]
@@ -1122,7 +1122,7 @@ literal|1000
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets the statistics from the given server.    *     * @param server  The server to get the statistics from.    * @param timeout  The socket timeout to use.    * @return The array of response strings.    * @throws IOException When the socket communication fails.    */
+comment|/**    * Gets the statistics from the given server.    *    * @param server  The server to get the statistics from.    * @param timeout  The socket timeout to use.    * @return The array of response strings.    * @throws IOException When the socket communication fails.    */
 specifier|public
 name|String
 index|[]

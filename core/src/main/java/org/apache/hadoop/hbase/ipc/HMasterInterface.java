@@ -98,7 +98,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Clients interact with the HMasterInterface to gain access to meta-level  * HBase functionality, like finding an HRegionServer and creating/destroying  * tables.  *   *<p>NOTE: if you change the interface, you must change the RPC version  * number in HBaseRPCProtocolVersion  *   */
+comment|/**  * Clients interact with the HMasterInterface to gain access to meta-level  * HBase functionality, like finding an HRegionServer and creating/destroying  * tables.  *  *<p>NOTE: if you change the interface, you must change the RPC version  * number in HBaseRPCProtocolVersion  *  */
 end_comment
 
 begin_interface
@@ -212,7 +212,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Take table offline    *     * @param tableName table to take offline    * @throws IOException e    */
+comment|/**    * Take table offline    *    * @param tableName table to take offline    * @throws IOException e    */
 specifier|public
 name|void
 name|disableTable
@@ -225,7 +225,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify a table's metadata    *     * @param tableName table to modify    * @param op the operation to do    * @param args arguments for operation    * @throws IOException e    */
+comment|/**    * Modify a table's metadata    *    * @param tableName table to modify    * @param op the operation to do    * @param args arguments for operation    * @throws IOException e    */
 specifier|public
 name|void
 name|modifyTable
