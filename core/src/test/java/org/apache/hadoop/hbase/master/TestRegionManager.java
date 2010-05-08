@@ -392,7 +392,7 @@ operator|.
 name|getRegionManager
 argument_list|()
 operator|.
-name|offlineMetaRegion
+name|offlineMetaRegionWithStartKey
 argument_list|(
 name|startKey0
 argument_list|)

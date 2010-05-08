@@ -70,7 +70,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HServerAddress is a "label" for a HBase server that combines the host  * name and port number.  */
+comment|/**  * HServerAddress is a "label" for a HBase server made of host and port number.  */
 end_comment
 
 begin_class
@@ -90,7 +90,6 @@ decl_stmt|;
 name|String
 name|stringValue
 decl_stmt|;
-comment|/** Empty constructor, used for Writable */
 specifier|public
 name|HServerAddress
 parameter_list|()
@@ -142,7 +141,7 @@ name|getPort
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Construct a HServerAddress from a string of the form hostname:port    *    * @param hostAndPort format 'hostname:port'    */
+comment|/**    * @param hostAndPort Hostname and port formatted as<code>&lt;hostname> ':'&lt;port></code>    */
 specifier|public
 name|HServerAddress
 parameter_list|(
@@ -228,7 +227,7 @@ operator|=
 name|hostAndPort
 expr_stmt|;
 block|}
-comment|/**    * Construct a HServerAddress from hostname, port number    * @param bindAddress host name    * @param port port number    */
+comment|/**    * @param bindAddress Hostname    * @param port Port number    */
 specifier|public
 name|HServerAddress
 parameter_list|(
@@ -262,7 +261,7 @@ operator|+
 name|port
 expr_stmt|;
 block|}
-comment|/**    * Construct a HServerAddress from another HServerAddress    *    * @param other the HServerAddress to copy from    */
+comment|/**    * Copy-constructor    *    * @param other HServerAddress to copy from    */
 specifier|public
 name|HServerAddress
 parameter_list|(
@@ -286,6 +285,8 @@ operator|.
 name|getPort
 argument_list|()
 decl_stmt|;
+name|this
+operator|.
 name|address
 operator|=
 operator|new
@@ -305,13 +306,15 @@ operator|+
 name|port
 expr_stmt|;
 block|}
-comment|/** @return bind address */
+comment|/** @return Bind address */
 specifier|public
 name|String
 name|getBindAddress
 parameter_list|()
 block|{
 return|return
+name|this
+operator|.
 name|address
 operator|.
 name|getAddress
@@ -321,43 +324,49 @@ name|getHostAddress
 argument_list|()
 return|;
 block|}
-comment|/** @return port number */
+comment|/** @return Port number */
 specifier|public
 name|int
 name|getPort
 parameter_list|()
 block|{
 return|return
+name|this
+operator|.
 name|address
 operator|.
 name|getPort
 argument_list|()
 return|;
 block|}
-comment|/** @return host name */
+comment|/** @return Hostname */
 specifier|public
 name|String
 name|getHostname
 parameter_list|()
 block|{
 return|return
+name|this
+operator|.
 name|address
 operator|.
 name|getHostName
 argument_list|()
 return|;
 block|}
-comment|/** @return the InetSocketAddress */
+comment|/** @return The InetSocketAddress */
 specifier|public
 name|InetSocketAddress
 name|getInetSocketAddress
 parameter_list|()
 block|{
 return|return
+name|this
+operator|.
 name|address
 return|;
 block|}
-comment|/**    * @see java.lang.Object#toString()    */
+comment|/**    * @return String formatted as<code>&lt;bind address> ':'&lt;port></code>    */
 annotation|@
 name|Override
 specifier|public
@@ -367,17 +376,20 @@ parameter_list|()
 block|{
 return|return
 operator|(
+name|this
+operator|.
 name|stringValue
 operator|==
 literal|null
 condition|?
 literal|""
 else|:
+name|this
+operator|.
 name|stringValue
 operator|)
 return|;
 block|}
-comment|/**    * @see java.lang.Object#equals(java.lang.Object)    */
 annotation|@
 name|Override
 specifier|public
@@ -439,7 +451,6 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**    * @see java.lang.Object#hashCode()    */
 annotation|@
 name|Override
 specifier|public

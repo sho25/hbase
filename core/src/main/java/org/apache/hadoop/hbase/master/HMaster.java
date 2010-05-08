@@ -1082,7 +1082,6 @@ comment|// We start out with closed flag on.  Its set to off after construction.
 comment|// Use AtomicBoolean rather than plain boolean because we want other threads
 comment|// able to set shutdown flag.  Using AtomicBoolean can pass a reference
 comment|// rather than have them have to know about the hosting Master class.
-specifier|private
 specifier|final
 name|AtomicBoolean
 name|closed
@@ -2702,7 +2701,7 @@ literal|"Inspection found server "
 operator|+
 name|info
 operator|.
-name|getName
+name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;

@@ -1324,6 +1324,13 @@ specifier|volatile
 name|boolean
 name|abortRequested
 decl_stmt|;
+specifier|private
+specifier|volatile
+name|boolean
+name|killed
+init|=
+literal|false
+decl_stmt|;
 comment|// If false, the file system has become unavailable
 specifier|protected
 specifier|volatile
@@ -3412,6 +3419,14 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
+name|killed
+condition|)
+block|{
+comment|// Just skip out w/o closing regions.
+block|}
+elseif|else
+if|if
+condition|(
 name|abortRequested
 condition|)
 block|{
@@ -3696,6 +3711,12 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|!
+name|killed
+condition|)
+block|{
 name|join
 argument_list|()
 expr_stmt|;
@@ -3706,6 +3727,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
@@ -6075,6 +6097,22 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 name|stop
+argument_list|()
+expr_stmt|;
+block|}
+comment|/*    * Simulate a kill -9 of this server.    * Exits w/o closing regions or cleaninup logs but it does close socket in    * case want to bring up server on old hostname+port immediately.    */
+specifier|protected
+name|void
+name|kill
+parameter_list|()
+block|{
+name|this
+operator|.
+name|killed
+operator|=
+literal|true
+expr_stmt|;
+name|abort
 argument_list|()
 expr_stmt|;
 block|}

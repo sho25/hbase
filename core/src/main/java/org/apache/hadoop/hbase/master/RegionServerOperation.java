@@ -129,6 +129,7 @@ specifier|final
 name|HMaster
 name|master
 decl_stmt|;
+comment|/* How long we stay on queue.    */
 specifier|private
 name|int
 name|delay

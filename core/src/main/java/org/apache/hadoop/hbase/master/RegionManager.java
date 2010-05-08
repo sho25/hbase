@@ -3535,10 +3535,10 @@ name|startKey
 argument_list|)
 return|;
 block|}
-comment|/**    * Set an online MetaRegion offline - remove it from the map.    * @param startKey region name    * @return the MetaRegion that was taken offline.    */
+comment|/**    * Set an online MetaRegion offline - remove it from the map.    * @param startKey Startkey to use finding region to remove.    * @return the MetaRegion that was taken offline.    */
 specifier|public
 name|MetaRegion
-name|offlineMetaRegion
+name|offlineMetaRegionWithStartKey
 parameter_list|(
 name|byte
 index|[]
@@ -3549,7 +3549,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"META region removed from onlineMetaRegions"
+literal|"META region whose startkey is "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|startKey
+argument_list|)
+operator|+
+literal|" removed from onlineMetaRegions"
 argument_list|)
 expr_stmt|;
 return|return
@@ -4021,7 +4030,7 @@ operator|+
 name|region
 argument_list|)
 expr_stmt|;
-name|offlineMetaRegion
+name|offlineMetaRegionWithStartKey
 argument_list|(
 name|region
 operator|.
@@ -5700,6 +5709,8 @@ name|numRegionsToClose
 init|=
 name|balanceFromOverloaded
 argument_list|(
+name|info
+argument_list|,
 name|servLoad
 argument_list|,
 name|avg
@@ -5772,9 +5783,15 @@ specifier|private
 name|int
 name|balanceFromOverloaded
 parameter_list|(
+specifier|final
+name|HServerInfo
+name|info
+parameter_list|,
+specifier|final
 name|HServerLoad
 name|srvLoad
 parameter_list|,
+specifier|final
 name|double
 name|avgLoad
 parameter_list|)
@@ -5827,7 +5844,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Server is overloaded: load="
+literal|"Server "
+operator|+
+name|info
+operator|.
+name|getServerName
+argument_list|()
+operator|+
+literal|" is overloaded: load="
 operator|+
 name|numSrvRegs
 operator|+
