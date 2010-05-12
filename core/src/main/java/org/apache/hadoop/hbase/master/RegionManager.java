@@ -3790,7 +3790,7 @@ block|}
 comment|/**    * Is this server assigned to transition the ROOT table. HBASE-1928    *    * @param server Server    * @return true if server is transitioning the ROOT table    */
 specifier|public
 name|boolean
-name|isRootServerCandidate
+name|isRootInTransitionOnThisServer
 parameter_list|(
 specifier|final
 name|String

@@ -273,6 +273,8 @@ name|ProcessServerShutdown
 extends|extends
 name|RegionServerOperation
 block|{
+comment|// Server name made of the concatenation of hostname, port and startcode
+comment|// formatted as<code>&lt;hostname> ','&lt;port> ','&lt;startcode></code>
 specifier|private
 specifier|final
 name|String
@@ -440,7 +442,7 @@ operator|.
 name|getRegionManager
 argument_list|()
 operator|.
-name|isRootServerCandidate
+name|isRootInTransitionOnThisServer
 argument_list|(
 name|deadServer
 argument_list|)
@@ -814,7 +816,7 @@ decl_stmt|;
 comment|// Check server name.  If null, skip (We used to consider it was on
 comment|// shutdown server but that would mean that we'd reassign regions that
 comment|// were already out being assigned, ones that were product of a split
-comment|// that happened while the shutdown was being processed.
+comment|// that happened while the shutdown was being processed).
 name|String
 name|serverAddress
 init|=
@@ -915,7 +917,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|//        HRegionInfo info = master.getHRegionInfo(row, values.rowResult());
 name|HRegionInfo
 name|info
 init|=
@@ -1283,7 +1284,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"process server shutdown scanning root region on "
+literal|"Process server shutdown scanning root region on "
 operator|+
 name|master
 operator|.
@@ -1473,7 +1474,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"process shutdown of server "
+literal|"Process shutdown of server "
 operator|+
 name|this
 operator|.
@@ -1750,7 +1751,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"process server shutdown scanning root region on "
+literal|"Process server shutdown scanning root region on "
 operator|+
 name|master
 operator|.
@@ -1878,7 +1879,6 @@ block|}
 name|closeRegionsInTransition
 argument_list|()
 expr_stmt|;
-comment|// Remove this server from dead servers list.  Finished splitting logs.
 name|this
 operator|.
 name|master

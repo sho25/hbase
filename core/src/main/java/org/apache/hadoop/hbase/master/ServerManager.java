@@ -195,6 +195,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Leases
+operator|.
+name|LeaseStillHeldException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Get
@@ -947,6 +963,10 @@ block|{
 comment|// Test for case where we get a region startup message from a regionserver
 comment|// that has been quickly restarted but whose znode expiration handler has
 comment|// not yet run, or from a server whose fail we are currently processing.
+comment|// Test its host+port combo is present in serverAddresstoServerInfo.  If it
+comment|// is, reject the server and trigger its expiration. The next time it comes
+comment|// in, it should have been removed from serverAddressToServerInfo and queued
+comment|// for processing by ProcessServerShutdown.
 name|HServerInfo
 name|info
 init|=
@@ -1042,68 +1062,16 @@ name|hostAndPort
 argument_list|)
 throw|;
 block|}
-if|if
-condition|(
-name|isDead
+name|checkIsDead
 argument_list|(
-name|hostAndPort
-argument_list|,
-literal|true
-argument_list|)
-condition|)
-block|{
-name|LOG
+name|info
 operator|.
-name|debug
-argument_list|(
-literal|"Server start rejected; currently processing "
-operator|+
-name|hostAndPort
-operator|+
-literal|" failure"
+name|getServerName
+argument_list|()
+argument_list|,
+literal|"STARTUP"
 argument_list|)
 expr_stmt|;
-throw|throw
-operator|new
-name|Leases
-operator|.
-name|LeaseStillHeldException
-argument_list|(
-name|hostAndPort
-argument_list|)
-throw|;
-block|}
-if|if
-condition|(
-name|isDead
-argument_list|(
-name|hostAndPort
-argument_list|,
-literal|true
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Server start rejected; currently processing "
-operator|+
-name|hostAndPort
-operator|+
-literal|" failure"
-argument_list|)
-expr_stmt|;
-throw|throw
-operator|new
-name|Leases
-operator|.
-name|LeaseStillHeldException
-argument_list|(
-name|hostAndPort
-argument_list|)
-throw|;
-block|}
 name|LOG
 operator|.
 name|info
@@ -1121,6 +1089,56 @@ argument_list|(
 name|info
 argument_list|)
 expr_stmt|;
+block|}
+comment|/*    * If this server is on the dead list, reject it with a LeaseStillHeldException    * @param serverName Server name formatted as host_port_startcode.    * @param what START or REPORT    * @throws LeaseStillHeldException    */
+specifier|private
+name|void
+name|checkIsDead
+parameter_list|(
+specifier|final
+name|String
+name|serverName
+parameter_list|,
+specifier|final
+name|String
+name|what
+parameter_list|)
+throws|throws
+name|LeaseStillHeldException
+block|{
+if|if
+condition|(
+operator|!
+name|isDead
+argument_list|(
+name|serverName
+argument_list|)
+condition|)
+return|return;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Server "
+operator|+
+name|what
+operator|+
+literal|" rejected; currently processing "
+operator|+
+name|serverName
+operator|+
+literal|" as dead server"
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|Leases
+operator|.
+name|LeaseStillHeldException
+argument_list|(
+name|serverName
+argument_list|)
+throw|;
 block|}
 comment|/**    * Adds the HSI to the RS list and creates an empty load    * @param info The region server informations    */
 specifier|public
@@ -1334,44 +1352,16 @@ argument_list|(
 name|serverInfo
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|isDead
+name|checkIsDead
 argument_list|(
 name|info
 operator|.
 name|getServerName
 argument_list|()
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Received report from region server "
-operator|+
-name|info
-operator|.
-name|getServerName
-argument_list|()
-operator|+
-literal|" previously marked dead. Rejecting report."
+argument_list|,
+literal|"REPORT"
 argument_list|)
 expr_stmt|;
-throw|throw
-operator|new
-name|Leases
-operator|.
-name|LeaseStillHeldException
-argument_list|(
-name|info
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
-throw|;
-block|}
 if|if
 condition|(
 name|msgs
@@ -3384,7 +3374,7 @@ operator|.
 name|getRegionManager
 argument_list|()
 operator|.
-name|isRootServerCandidate
+name|isRootInTransitionOnThisServer
 argument_list|(
 name|serverName
 argument_list|)
