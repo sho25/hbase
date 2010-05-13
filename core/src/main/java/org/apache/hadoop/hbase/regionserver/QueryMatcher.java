@@ -131,6 +131,7 @@ class|class
 name|QueryMatcher
 block|{
 comment|/**    * {@link #match} return codes.  These instruct the scanner moving through    * memstores and StoreFiles what to do with the current KeyValue.    *<p>    * Additionally, this contains "early-out" language to tell the scanner to    * move on to the next File (memstore or Storefile), or to return immediately.    */
+specifier|public
 specifier|static
 enum|enum
 name|MatchCode
