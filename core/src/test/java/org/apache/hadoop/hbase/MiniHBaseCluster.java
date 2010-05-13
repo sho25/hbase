@@ -113,9 +113,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|fs
+name|conf
 operator|.
-name|FileSystem
+name|Configuration
 import|;
 end_import
 
@@ -127,9 +127,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|fs
 operator|.
-name|Configuration
+name|FileSystem
 import|;
 end_import
 
@@ -207,9 +207,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|util
 operator|.
-name|HRegion
+name|JVMClusterUtil
 import|;
 end_import
 
@@ -225,7 +225,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|JVMClusterUtil
+name|Threads
 import|;
 end_import
 
@@ -654,6 +654,12 @@ name|index
 init|=
 literal|0
 decl_stmt|;
+specifier|private
+name|Thread
+name|shutdownThread
+init|=
+literal|null
+decl_stmt|;
 specifier|public
 name|MiniHBaseClusterRegionServer
 parameter_list|(
@@ -778,36 +784,65 @@ argument_list|(
 name|c
 argument_list|)
 expr_stmt|;
-comment|// Change shutdown hook to only shutdown the FileSystem added above by
-comment|// {@link #getFileSystem(HBaseConfiguration)
-if|if
-condition|(
-name|getFileSystem
-argument_list|()
-operator|instanceof
-name|DistributedFileSystem
-condition|)
-block|{
-name|Thread
-name|t
-init|=
+comment|// Run this thread to shutdown our filesystem on way out.
+name|this
+operator|.
+name|shutdownThread
+operator|=
 operator|new
 name|SingleFileSystemShutdownThread
 argument_list|(
 name|getFileSystem
 argument_list|()
 argument_list|)
-decl_stmt|;
-name|Runtime
+expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|run
+parameter_list|()
+block|{
+try|try
+block|{
+name|super
 operator|.
-name|getRuntime
+name|run
 argument_list|()
+expr_stmt|;
+block|}
+finally|finally
+block|{
+comment|// Run this on the way out.
+if|if
+condition|(
+name|this
 operator|.
-name|addShutdownHook
+name|shutdownThread
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|shutdownThread
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
+name|Threads
+operator|.
+name|shutdown
 argument_list|(
-name|t
+name|this
+operator|.
+name|shutdownThread
+argument_list|,
+literal|30000
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 specifier|public
