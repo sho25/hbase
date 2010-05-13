@@ -150,6 +150,8 @@ name|sel
 parameter_list|)
 block|{
 return|return
+name|data
+operator|.
 name|remove
 argument_list|(
 name|sel
