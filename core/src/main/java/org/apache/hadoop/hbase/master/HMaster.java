@@ -1260,6 +1260,24 @@ operator|.
 name|conf
 argument_list|)
 expr_stmt|;
+comment|// Cover both bases, the old way of setting default fs and the new.
+comment|// We're supposed to run on 0.20 and 0.21 anyways.
+name|this
+operator|.
+name|conf
+operator|.
+name|set
+argument_list|(
+literal|"fs.default.name"
+argument_list|,
+name|this
+operator|.
+name|rootdir
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|conf
