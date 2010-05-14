@@ -1236,6 +1236,7 @@ name|Runnable
 implements|,
 name|Watcher
 block|{
+specifier|public
 specifier|static
 specifier|final
 name|Log

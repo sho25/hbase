@@ -1686,6 +1686,23 @@ block|}
 end_function
 
 begin_comment
+comment|// usage: see TestLogRolling.java
+end_comment
+
+begin_function
+name|OutputStream
+name|getOutputStream
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|hdfs_out
+return|;
+block|}
+end_function
+
+begin_comment
 comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    * Because a log cannot be rolled during a cache flush, and a cache flush    * spans two method calls, a special lock needs to be obtained so that a cache    * flush cannot start when the log is being rolled and the log cannot be    * rolled during a cache flush.    *    *<p>Note that this method cannot be synchronized because it is possible that    * startCacheFlush runs, obtaining the cacheFlushLock, then this method could    * start which would obtain the lock on this but block on obtaining the    * cacheFlushLock and then completeCacheFlush could be called which would wait    * for the lock on this and consequently never release the cacheFlushLock    *    * @return If lots of logs, flush the returned regions so next time through    * we can clean logs. Returns null if nothing to flush.    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    * @throws IOException    */
 end_comment
 
