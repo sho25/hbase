@@ -1235,7 +1235,7 @@ operator|=
 literal|0L
 expr_stmt|;
 block|}
-comment|/**    * HRegion constructor.  his constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link org.apache.hadoop.hbase.regionserver.HRegion#newHRegion( org.apache.hadoop.fs.Path, HLog, org.apache.hadoop.fs.FileSystem, org.apache.hadoop.hbase.HBaseConfiguration, org.apache.hadoop.hbase.HRegionInfo, FlushRequester)} method.    *    *    * @param basedir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param flushListener an object that implements CacheFlushListener or null    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    *    * @see org.apache.hadoop.hbase.regionserver.HRegion#newHRegion(org.apache.hadoop.fs.Path, HLog, org.apache.hadoop.fs.FileSystem, org.apache.hadoop.hbase.HBaseConfiguration, org.apache.hadoop.hbase.HRegionInfo, FlushRequester)     */
+comment|/**    * HRegion constructor.  his constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#newHRegion(Path, HLog, FileSystem, Configuration, org.apache.hadoop.hbase.HRegionInfo, FlushRequester)} method.    *    *    * @param basedir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param flushListener an object that implements CacheFlushListener or null    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    *    * @see HRegion#newHRegion(Path, HLog, FileSystem, Configuration, org.apache.hadoop.hbase.HRegionInfo, FlushRequester)     */
 specifier|public
 name|HRegion
 parameter_list|(
@@ -4645,11 +4645,6 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
-name|Integer
-name|lid
-init|=
-literal|null
-decl_stmt|;
 try|try
 block|{
 name|byte
@@ -7403,6 +7398,8 @@ name|getStopRow
 argument_list|()
 expr_stmt|;
 block|}
+comment|// If we are doing a get, we want to be [startRow,endRow] normally
+comment|// it is [startRow,endRow) and if startRow=endRow we get nothing.
 name|this
 operator|.
 name|isScan
@@ -7882,7 +7879,9 @@ operator|.
 name|length
 argument_list|)
 operator|<=
-literal|0
+name|this
+operator|.
+name|isScan
 condition|)
 block|{
 return|return

@@ -14326,7 +14326,7 @@ decl_stmt|;
 name|int
 name|testCount
 init|=
-literal|200
+literal|100
 decl_stmt|;
 name|int
 name|numRows
