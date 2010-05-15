@@ -7280,7 +7280,7 @@ name|RegionScanner
 implements|implements
 name|InternalScanner
 block|{
-specifier|private
+comment|// Package local for testability
 name|KeyValueHeap
 name|storeHeap
 init|=
@@ -8087,11 +8087,23 @@ name|void
 name|close
 parameter_list|()
 block|{
+if|if
+condition|(
+name|storeHeap
+operator|!=
+literal|null
+condition|)
+block|{
 name|storeHeap
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|storeHeap
+operator|=
+literal|null
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|filterClosed
