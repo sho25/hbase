@@ -1882,6 +1882,13 @@ name|w
 argument_list|)
 expr_stmt|;
 comment|// Assert that we can read back
+name|ReadWriteConsistencyControl
+operator|.
+name|resetThreadReadPoint
+argument_list|(
+name|rwcc
+argument_list|)
+expr_stmt|;
 name|KeyValueScanner
 name|s
 init|=
@@ -1937,7 +1944,7 @@ block|}
 block|}
 specifier|public
 name|void
-name|no_testReadOwnWritesUnderConcurrency
+name|testReadOwnWritesUnderConcurrency
 parameter_list|()
 throws|throws
 name|Throwable
