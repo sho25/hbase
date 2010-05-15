@@ -7519,8 +7519,9 @@ block|{
 name|HRegion
 name|r
 init|=
-operator|new
 name|HRegion
+operator|.
+name|newHRegion
 argument_list|(
 name|HTableDescriptor
 operator|.

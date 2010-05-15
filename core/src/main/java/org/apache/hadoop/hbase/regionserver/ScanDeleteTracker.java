@@ -241,7 +241,7 @@ block|{
 if|if
 condition|(
 name|timestamp
-operator|<
+operator|<=
 name|familyStamp
 condition|)
 block|{
