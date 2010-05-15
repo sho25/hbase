@@ -161,20 +161,6 @@ name|NavigableSet
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicBoolean
-import|;
-end_import
-
 begin_comment
 comment|/**  * Scanner scans both the memstore and the HStore. Coaleace KeyValue stream  * into List<KeyValue> for a single row.  */
 end_comment
@@ -221,17 +207,17 @@ name|cacheBlocks
 decl_stmt|;
 comment|// Used to indicate that the scanner has closed (see HBASE-1107)
 specifier|private
-specifier|final
-name|AtomicBoolean
+name|boolean
 name|closing
 init|=
-operator|new
-name|AtomicBoolean
-argument_list|(
 literal|false
-argument_list|)
 decl_stmt|;
-comment|/**    * Opens a scanner across memstore, snapshot, and all StoreFiles.    */
+specifier|private
+specifier|final
+name|boolean
+name|isGet
+decl_stmt|;
+comment|/**    * Opens a scanner across memstore, snapshot, and all StoreFiles.    *    * @param store who we scan    * @param scan the spec    * @param columns which columns we are scanning    */
 name|StoreScanner
 parameter_list|(
 name|Store
@@ -303,6 +289,15 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|isGet
+operator|=
+name|scan
+operator|.
+name|isGetScan
+argument_list|()
+expr_stmt|;
 name|List
 argument_list|<
 name|KeyValueScanner
@@ -313,6 +308,7 @@ name|getScanners
 argument_list|()
 decl_stmt|;
 comment|// Seek all scanners to the initial key
+comment|// TODO if scan.isGetScan, use bloomfilters to skip seeking
 for|for
 control|(
 name|KeyValueScanner
@@ -367,7 +363,7 @@ name|this
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Used for major compactions.<p>    *    * Opens a scanner across specified StoreFiles.    */
+comment|/**    * Used for major compactions.<p>    *    * Opens a scanner across specified StoreFiles.    * @param store who we scan    * @param scan the spec    * @param scanners ancilliary scanners    */
 name|StoreScanner
 parameter_list|(
 name|Store
@@ -390,6 +386,12 @@ expr_stmt|;
 name|this
 operator|.
 name|cacheBlocks
+operator|=
+literal|false
+expr_stmt|;
+name|this
+operator|.
+name|isGet
 operator|=
 literal|false
 expr_stmt|;
@@ -507,6 +509,12 @@ operator|.
 name|store
 operator|=
 literal|null
+expr_stmt|;
+name|this
+operator|.
+name|isGet
+operator|=
+literal|false
 expr_stmt|;
 name|this
 operator|.
@@ -674,23 +682,19 @@ name|void
 name|close
 parameter_list|()
 block|{
-name|boolean
-name|state
-init|=
+if|if
+condition|(
 name|this
 operator|.
 name|closing
-operator|.
-name|getAndSet
-argument_list|(
-literal|true
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|state
 condition|)
 return|return;
+name|this
+operator|.
+name|closing
+operator|=
+literal|true
+expr_stmt|;
 comment|// under test, we dont have a this.store
 if|if
 condition|(
@@ -737,7 +741,7 @@ name|key
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the next row of values from this Store.    * @param result    * @param limit    * @return true if there are more rows, false if scanner is done    */
+comment|/**    * Get the next row of values from this Store.    * @param outResult    * @param limit    * @return true if there are more rows, false if scanner is done    */
 specifier|public
 specifier|synchronized
 name|boolean
@@ -755,6 +759,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|//DebugPrint.println("SS.next");
 name|KeyValue
 name|peeked
 init|=
@@ -835,6 +840,7 @@ argument_list|(
 name|kv
 argument_list|)
 decl_stmt|;
+comment|//DebugPrint.println("SS peek kv = " + kv + " with qcode = " + qcode);
 switch|switch
 condition|(
 name|qcode
@@ -1094,7 +1100,7 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
-comment|// Get a scanner that does not use pread.
+comment|// If isGet, use pread, else false, dont use pread
 name|s
 operator|.
 name|add
@@ -1107,7 +1113,7 @@ name|this
 operator|.
 name|cacheBlocks
 argument_list|,
-literal|false
+name|isGet
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1170,9 +1176,6 @@ condition|(
 name|this
 operator|.
 name|closing
-operator|.
-name|get
-argument_list|()
 condition|)
 return|return;
 name|KeyValue
@@ -1199,7 +1202,22 @@ init|=
 name|getScanners
 argument_list|()
 decl_stmt|;
-comment|// Seek all scanners to the initial key
+comment|// close the previous scanners:
+name|this
+operator|.
+name|heap
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+comment|// bubble thru and close all scanners.
+name|this
+operator|.
+name|heap
+operator|=
+literal|null
+expr_stmt|;
+comment|// the re-seeks could be slow (access HDFS) free up memory ASAP
 for|for
 control|(
 name|KeyValueScanner

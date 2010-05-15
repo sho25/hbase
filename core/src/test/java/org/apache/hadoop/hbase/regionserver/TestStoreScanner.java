@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  * Copyright 2009 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,56 +16,6 @@ operator|.
 name|regionserver
 package|;
 end_package
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|NavigableSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|TreeSet
-import|;
-end_import
 
 begin_import
 import|import
@@ -137,6 +87,56 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|NavigableSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|TreeSet
+import|;
+end_import
+
 begin_class
 specifier|public
 class|class
@@ -164,7 +164,7 @@ argument_list|(
 name|CF_STR
 argument_list|)
 decl_stmt|;
-comment|/**    * Test utility for building a NavigableSet for scanners.    * @param strCols    * @return    */
+comment|/*    * Test utility for building a NavigableSet for scanners.    * @param strCols    * @return    */
 name|NavigableSet
 argument_list|<
 name|byte
@@ -907,7 +907,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test test shows exactly how the matcher's return codes confuses the StoreScanner    * and prevent it from doing the right thing.  Seeking once, then nexting twice    * should return R1, then R2, but in this case it doesnt.    * @throws IOException    */
+comment|/*    * Test test shows exactly how the matcher's return codes confuses the StoreScanner    * and prevent it from doing the right thing.  Seeking once, then nexting twice    * should return R1, then R2, but in this case it doesnt.    * @throws IOException    */
 specifier|public
 name|void
 name|testWontNextToNext
@@ -1306,7 +1306,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test the case where there is a delete row 'in front of' the next row, the scanner    * will move to the next row.    */
+comment|/*    * Test the case where there is a delete row 'in front of' the next row, the scanner    * will move to the next row.    */
 specifier|public
 name|void
 name|testDeletedRowThenGoodRow
@@ -3716,7 +3716,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test expiration of KeyValues in combination with a configured TTL for    * a column family (as should be triggered in a major compaction).    */
+comment|/*    * Test expiration of KeyValues in combination with a configured TTL for     * a column family (as should be triggered in a major compaction).    */
 specifier|public
 name|void
 name|testWildCardTtlScan

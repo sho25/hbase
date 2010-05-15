@@ -1617,10 +1617,8 @@ operator|.
 name|update
 argument_list|()
 expr_stmt|;
-name|assertEquals
+name|assertFalse
 argument_list|(
-literal|false
-argument_list|,
 name|dt
 operator|.
 name|isDeleted
@@ -1635,10 +1633,8 @@ name|ts3
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertFalse
 argument_list|(
-literal|false
-argument_list|,
 name|dt
 operator|.
 name|isDeleted

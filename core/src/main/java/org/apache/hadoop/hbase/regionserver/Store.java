@@ -2810,10 +2810,6 @@ argument_list|,
 name|sf
 argument_list|)
 expr_stmt|;
-comment|// Tell listeners of the change in readers.
-name|notifyChangedReadersObservers
-argument_list|()
-expr_stmt|;
 name|this
 operator|.
 name|memstore
@@ -2822,6 +2818,10 @@ name|clearSnapshot
 argument_list|(
 name|set
 argument_list|)
+expr_stmt|;
+comment|// Tell listeners of the change in readers.
+name|notifyChangedReadersObservers
+argument_list|()
 expr_stmt|;
 return|return
 name|this
@@ -2903,18 +2903,6 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|this
-operator|.
-name|changedReaderObservers
-operator|.
-name|size
-argument_list|()
-operator|>
-literal|0
-condition|)
-block|{
-if|if
-condition|(
 operator|!
 name|this
 operator|.
@@ -2935,7 +2923,6 @@ operator|+
 name|o
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
@@ -4521,6 +4508,17 @@ name|result
 argument_list|)
 expr_stmt|;
 block|}
+comment|// WARN ugly hack here, but necessary sadly.
+name|ReadWriteConsistencyControl
+operator|.
+name|resetThreadReadPoint
+argument_list|(
+name|region
+operator|.
+name|getRWCC
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Tell observers that list of StoreFiles has changed.
 name|notifyChangedReadersObservers
 argument_list|()
@@ -6446,7 +6444,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Increments the value for the given row/family/qualifier    * @param row    * @param f    * @param qualifier    * @param newValue the new value to set into memstore    * @return memstore size delta    * @throws IOException    */
+comment|/**    * Increments the value for the given row/family/qualifier.    *    * This function will always be seen as atomic by other readers    * because it only puts a single KV to memstore. Thus no    * read/write control necessary.    *     * @param row    * @param f    * @param qualifier    * @param newValue the new value to set into memstore    * @return memstore size delta    * @throws IOException    */
 specifier|public
 name|long
 name|updateColumnValue

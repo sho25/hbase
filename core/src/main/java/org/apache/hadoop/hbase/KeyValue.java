@@ -597,6 +597,40 @@ name|length
 init|=
 literal|0
 decl_stmt|;
+comment|/** Here be dragons **/
+comment|// used to achieve atomic operations in the memstore.
+specifier|public
+name|long
+name|getMemstoreTS
+parameter_list|()
+block|{
+return|return
+name|memstoreTS
+return|;
+block|}
+specifier|public
+name|void
+name|setMemstoreTS
+parameter_list|(
+name|long
+name|memstoreTS
+parameter_list|)
+block|{
+name|this
+operator|.
+name|memstoreTS
+operator|=
+name|memstoreTS
+expr_stmt|;
+block|}
+comment|// default value is 0, aka DNC
+specifier|private
+name|long
+name|memstoreTS
+init|=
+literal|0
+decl_stmt|;
+comment|/** Dragon time over, return to normal business */
 comment|/** Writable Constructor -- DO NOT USE */
 specifier|public
 name|KeyValue
@@ -5969,7 +6003,39 @@ name|c
 return|;
 block|}
 block|}
-comment|/**    * @param row - row key (arbitrary byte array)    * @return First possible KeyValue on passed<code>row</code>    */
+comment|/**    * Creates a KeyValue that is last on the specified row id. That is,    * every other possible KeyValue for the given row would compareTo()    * less than the result of this call.    * @param row row key    * @return Last possible KeyValue on passed<code>row</code>    */
+specifier|public
+specifier|static
+name|KeyValue
+name|createLastOnRow
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|row
+parameter_list|)
+block|{
+return|return
+operator|new
+name|KeyValue
+argument_list|(
+name|row
+argument_list|,
+literal|null
+argument_list|,
+literal|null
+argument_list|,
+name|HConstants
+operator|.
+name|LATEST_TIMESTAMP
+argument_list|,
+name|Type
+operator|.
+name|Minimum
+argument_list|)
+return|;
+block|}
+comment|/**    * Create a KeyValue that is smaller than all other possible KeyValues    * for the given row. That is any (valid) KeyValue on 'row' would sort    * _after_ the result.    *     * @param row - row key (arbitrary byte array)    * @return First possible KeyValue on passed<code>row</code>    */
 specifier|public
 specifier|static
 name|KeyValue
@@ -5992,7 +6058,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 return|;
 block|}
-comment|/**    * @param row - row key (arbitrary byte array)    * @param ts - timestamp    * @return First possible key on passed<code>row</code> and timestamp.    */
+comment|/**    * Creates a KeyValue that is smaller than all other KeyValues that    * are older than the passed timestamp.    * @param row - row key (arbitrary byte array)    * @param ts - timestamp    * @return First possible key on passed<code>row</code> and timestamp.    */
 specifier|public
 specifier|static
 name|KeyValue
@@ -6026,7 +6092,7 @@ name|Maximum
 argument_list|)
 return|;
 block|}
-comment|/**    * @param row - row key (arbitrary byte array)    * @param ts - timestamp    * @return First possible key on passed<code>row</code>, column and timestamp    */
+comment|/**    * @param row - row key (arbitrary byte array)    * @param c column - {@link #parseColumn(byte[])} is called to split    * the column.    * @param ts - timestamp    * @return First possible key on passed<code>row</code>, column and timestamp    * @deprecated    */
 specifier|public
 specifier|static
 name|KeyValue
@@ -6081,7 +6147,7 @@ name|Maximum
 argument_list|)
 return|;
 block|}
-comment|/**    * @param row - row key (arbitrary byte array)    * @param f - family name    * @param q - column qualifier    * @return First possible key on passed<code>row</code>, and column.    */
+comment|/**    * Create a KeyValue for the specified row, family and qualifier that would be    * smaller than all other possible KeyValues that have the same row,family,qualifier.    * Used for seeking.    * @param row - row key (arbitrary byte array)    * @param family - family name    * @param qualifier - column qualifier    * @return First possible key on passed<code>row</code>, and column.    */
 specifier|public
 specifier|static
 name|KeyValue
@@ -6095,12 +6161,12 @@ parameter_list|,
 specifier|final
 name|byte
 index|[]
-name|f
+name|family
 parameter_list|,
 specifier|final
 name|byte
 index|[]
-name|q
+name|qualifier
 parameter_list|)
 block|{
 return|return
@@ -6109,9 +6175,9 @@ name|KeyValue
 argument_list|(
 name|row
 argument_list|,
-name|f
+name|family
 argument_list|,
-name|q
+name|qualifier
 argument_list|,
 name|HConstants
 operator|.
@@ -7012,8 +7078,6 @@ return|return
 name|compare
 return|;
 block|}
-comment|// if row matches, and no column in the 'left' AND put type is 'minimum',
-comment|// then return that left is larger than right.
 comment|// Compare column family.  Start compare past row and family length.
 name|int
 name|lcolumnoffset
@@ -7067,6 +7131,8 @@ operator|-
 name|roffset
 operator|)
 decl_stmt|;
+comment|// if row matches, and no column in the 'left' AND put type is 'minimum',
+comment|// then return that left is larger than right.
 comment|// This supports 'last key on a row' - the magic is if there is no column in the
 comment|// left operand, and the left operand has a type of '0' - magical value,
 comment|// then we say the left is bigger.  This will let us seek to the last key in
@@ -7080,6 +7146,20 @@ name|loffset
 operator|+
 operator|(
 name|llength
+operator|-
+literal|1
+operator|)
+index|]
+decl_stmt|;
+name|byte
+name|rtype
+init|=
+name|right
+index|[
+name|roffset
+operator|+
+operator|(
+name|rlength
 operator|-
 literal|1
 operator|)
@@ -7106,6 +7186,28 @@ literal|1
 return|;
 comment|// left is bigger.
 block|}
+if|if
+condition|(
+name|rcolumnlength
+operator|==
+literal|0
+operator|&&
+name|rtype
+operator|==
+name|Type
+operator|.
+name|Minimum
+operator|.
+name|getCode
+argument_list|()
+condition|)
+block|{
+return|return
+operator|-
+literal|1
+return|;
+block|}
+comment|// TODO the family and qualifier should be compared separately
 name|compare
 operator|=
 name|Bytes
@@ -7212,21 +7314,6 @@ condition|)
 block|{
 comment|// Compare types. Let the delete types sort ahead of puts; i.e. types
 comment|// of higher numbers sort before those of lesser numbers
-comment|// ltype is defined above
-name|byte
-name|rtype
-init|=
-name|right
-index|[
-name|roffset
-operator|+
-operator|(
-name|rlength
-operator|-
-literal|1
-operator|)
-index|]
-decl_stmt|;
 return|return
 operator|(
 literal|0xff
@@ -7461,6 +7548,10 @@ name|Bytes
 operator|.
 name|SIZEOF_INT
 operator|)
+operator|+
+name|Bytes
+operator|.
+name|SIZEOF_LONG
 argument_list|)
 return|;
 block|}

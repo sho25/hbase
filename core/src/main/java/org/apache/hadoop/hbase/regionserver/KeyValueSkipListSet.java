@@ -712,6 +712,7 @@ name|Object
 name|o
 parameter_list|)
 block|{
+comment|//noinspection SuspiciousMethodCalls
 return|return
 name|this
 operator|.

@@ -571,7 +571,27 @@ name|java
 operator|.
 name|util
 operator|.
+name|AbstractList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Collection
 import|;
 end_import
 
@@ -611,27 +631,17 @@ name|java
 operator|.
 name|util
 operator|.
-name|NavigableSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Random
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Set
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|NavigableSet
 import|;
 end_import
 
@@ -652,6 +662,48 @@ operator|.
 name|util
 operator|.
 name|TreeSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|HashMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|HashSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Random
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|Callable
 import|;
 end_import
 
@@ -956,7 +1008,7 @@ name|readOnly
 init|=
 literal|false
 decl_stmt|;
-comment|/**      * Set flags that make this region read-only.      */
+comment|/**      * Set flags that make this region read-only.      *      * @param onOff flip value for region r/o setting      */
 specifier|synchronized
 name|void
 name|setReadOnly
@@ -1002,7 +1054,7 @@ return|;
 block|}
 block|}
 specifier|private
-specifier|volatile
+specifier|final
 name|WriteState
 name|writestate
 init|=
@@ -1077,6 +1129,15 @@ decl_stmt|;
 specifier|private
 name|boolean
 name|splitRequest
+decl_stmt|;
+specifier|private
+specifier|final
+name|ReadWriteConsistencyControl
+name|rwcc
+init|=
+operator|new
+name|ReadWriteConsistencyControl
+argument_list|()
 decl_stmt|;
 comment|/**    * Name of the region info file that resides just under the region directory.    */
 specifier|public
@@ -1385,7 +1446,7 @@ literal|2
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Initialize this region and get it ready to roll.    * Called after construction.    *    * @param initialFiles    * @param reporter    * @throws IOException    */
+comment|/**    * Initialize this region and get it ready to roll.    * Called after construction.    *     * @param initialFiles path    * @param reporter progressable    * @throws IOException e    */
 specifier|public
 name|void
 name|initialize
@@ -1980,7 +2041,16 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**    * Close down this HRegion.  Flush the cache, shut down each HStore, don't    * service any more calls.    *    *<p>This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of all HStoreFile objects. Returns empty    * vector if already closed and null if judged that it should not close.    *    * @throws IOException    */
+specifier|public
+name|ReadWriteConsistencyControl
+name|getRWCC
+parameter_list|()
+block|{
+return|return
+name|rwcc
+return|;
+block|}
+comment|/**    * Close down this HRegion.  Flush the cache, shut down each HStore, don't    * service any more calls.    *    *<p>This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of all HStoreFile objects. Returns empty    * vector if already closed and null if judged that it should not close.    *     * @throws IOException e    */
 specifier|public
 name|List
 argument_list|<
@@ -1998,7 +2068,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Close down this HRegion.  Flush the cache unless abort parameter is true,    * Shut down each HStore, don't service any more calls.    *    * This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @param abort true if server is aborting (only during testing)    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of HStoreFile objects.  Can be null if    * we are not to close at this time or we are already closed.    *    * @throws IOException    */
+comment|/**    * Close down this HRegion.  Flush the cache unless abort parameter is true,    * Shut down each HStore, don't service any more calls.    *    * This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @param abort true if server is aborting (only during testing)    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of HStoreFile objects.  Can be null if    * we are not to close at this time or we are already closed.    *     * @throws IOException e    */
 specifier|public
 name|List
 argument_list|<
@@ -2496,6 +2566,13 @@ name|fs
 return|;
 block|}
 comment|/** @return the last time the region was flushed */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+block|{
+literal|"UnusedDeclaration"
+block|}
+argument_list|)
 specifier|public
 name|long
 name|getLastFlushTime
@@ -3031,10 +3108,7 @@ name|getRegionDir
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HRegion
-name|regions
-index|[]
-init|=
+return|return
 operator|new
 name|HRegion
 index|[]
@@ -3043,9 +3117,6 @@ name|regionA
 block|,
 name|regionB
 block|}
-decl_stmt|;
-return|return
-name|regions
 return|;
 block|}
 block|}
@@ -3197,7 +3268,7 @@ operator|.
 name|forceMajorCompaction
 return|;
 block|}
-comment|/**    * Called by compaction thread and after region is opened to compact the    * HStores if necessary.    *    *<p>This operation could block for a long time, so don't call it from a    * time-sensitive thread.    *    * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    *    * @return mid key if split is needed    * @throws IOException    */
+comment|/**    * Called by compaction thread and after region is opened to compact the    * HStores if necessary.    *    *<p>This operation could block for a long time, so don't call it from a    * time-sensitive thread.    *    * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    *    * @return mid key if split is needed    * @throws IOException e    */
 specifier|public
 name|byte
 index|[]
@@ -3226,7 +3297,7 @@ name|majorCompaction
 argument_list|)
 return|;
 block|}
-comment|/*    * Called by compaction thread and after region is opened to compact the    * HStores if necessary.    *    *<p>This operation could block for a long time, so don't call it from a    * time-sensitive thread.    *    * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    *    * @param majorCompaction True to force a major compaction regardless of thresholds    * @return split row if split is needed    * @throws IOException    */
+comment|/*    * Called by compaction thread and after region is opened to compact the    * HStores if necessary.    *    *<p>This operation could block for a long time, so don't call it from a    * time-sensitive thread.    *    * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    *    * @param majorCompaction True to force a major compaction regardless of thresholds    * @return split row if split is needed    * @throws IOException e    */
 name|byte
 index|[]
 name|compactStores
@@ -3512,7 +3583,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Flush the cache.    *    * When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    *    * @return true if cache was flushed    *    * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
+comment|/**    * Flush the cache.    *    * When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    *    * @return true if cache was flushed    *     * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
 specifier|public
 name|boolean
 name|flushcache
@@ -3656,7 +3727,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Flushing the cache is a little tricky. We have a lot of updates in the    * memstore, all of which have also been written to the log. We need to    * write those updates in the memstore out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the memstore was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the memstore from    * the log.)    *    *<p>So, we have a three-step process:    *    *<ul><li>A. Flush the memstore to the on-disk stores, noting the current    * sequence ID for the log.<li>    *    *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memstore-flush.</li>    *    *<li>C. Get rid of the memstore structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *    *<p> This method may block for some time.    *    * @return true if the region needs compacting    *    * @throws IOException    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
+comment|/**    * Flushing the cache is a little tricky. We have a lot of updates in the    * memstore, all of which have also been written to the log. We need to    * write those updates in the memstore out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the memstore was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the memstore from    * the log.)    *    *<p>So, we have a three-step process:    *    *<ul><li>A. Flush the memstore to the on-disk stores, noting the current    * sequence ID for the log.<li>    *    *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memstore-flush.</li>    *    *<li>C. Get rid of the memstore structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *    *<p> This method may block for some time.    *    * @return true if the region needs compacting    *     * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
 specifier|protected
 name|boolean
 name|internalFlushcache
@@ -3749,6 +3820,9 @@ init|=
 operator|-
 literal|1L
 decl_stmt|;
+comment|// we have to take a write lock during snapshot, or else a write could
+comment|// end up in both snapshot and memstore (makes it difficult to do atomic
+comment|// rows then)
 name|this
 operator|.
 name|updatesLock
@@ -3759,7 +3833,6 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
-comment|// Get current size of memstores.
 specifier|final
 name|long
 name|currentMemStoreSize
@@ -3782,7 +3855,12 @@ name|ArrayList
 argument_list|<
 name|StoreFlusher
 argument_list|>
+argument_list|(
+name|stores
+operator|.
+name|size
 argument_list|()
+argument_list|)
 decl_stmt|;
 try|try
 block|{
@@ -3826,6 +3904,18 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|// This thread is going to cause a whole bunch of scanners to reseek.
+comment|// They are depending
+comment|// on a thread-local to know where to read from.
+comment|// The reason why we set it up high is so that each HRegionScanner only
+comment|// has a single read point for all its sub-StoreScanners.
+name|ReadWriteConsistencyControl
+operator|.
+name|resetThreadReadPoint
+argument_list|(
+name|rwcc
+argument_list|)
+expr_stmt|;
 comment|// prepare flush (take a snapshot)
 for|for
 control|(
@@ -3855,6 +3945,13 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Finished snapshotting, commencing flushing stores"
+argument_list|)
+expr_stmt|;
 comment|// Any failure from here on out will be catastrophic requiring server
 comment|// restart so hlog content can be replayed and put back into the memstore.
 comment|// Otherwise, the snapshot content while backed up in the hlog, it will not
@@ -3883,10 +3980,71 @@ name|flushCache
 argument_list|()
 expr_stmt|;
 block|}
+name|Callable
+argument_list|<
+name|Void
+argument_list|>
+name|atomicWork
+init|=
 name|internalPreFlushcacheCommit
 argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Caches flushed, doing commit now (which includes update scanners)"
+argument_list|)
 expr_stmt|;
-comment|/*        * Switch between memstore and the new store file(s).        */
+comment|/**        * Switch between memstore(snapshot) and the new store file        */
+if|if
+condition|(
+name|atomicWork
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"internalPreFlushcacheCommit gives us work to do, acquiring newScannerLock"
+argument_list|)
+expr_stmt|;
+name|newScannerLock
+operator|.
+name|writeLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+block|}
+try|try
+block|{
+comment|// update this again to make sure we are 'fresh'
+name|ReadWriteConsistencyControl
+operator|.
+name|resetThreadReadPoint
+argument_list|(
+name|rwcc
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|atomicWork
+operator|!=
+literal|null
+condition|)
+block|{
+name|atomicWork
+operator|.
+name|call
+argument_list|()
+expr_stmt|;
+block|}
+comment|// Switch snapshot (in memstore) -> new hfile (thus causing
+comment|// all the store scanners to reset/reseek).
 for|for
 control|(
 name|StoreFlusher
@@ -3911,6 +4069,26 @@ block|{
 name|compactionRequested
 operator|=
 literal|true
+expr_stmt|;
+block|}
+block|}
+block|}
+finally|finally
+block|{
+if|if
+condition|(
+name|atomicWork
+operator|!=
+literal|null
+condition|)
+block|{
+name|newScannerLock
+operator|.
+name|writeLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -4079,14 +4257,21 @@ return|return
 name|compactionRequested
 return|;
 block|}
-comment|/**    * A hook for sub-classes wishing to perform operations prior to the    * cache flush commit stage.    *    * @throws IOException allow children to throw exception    */
+comment|/**     * A hook for sub classed wishing to perform operations prior to the cache     * flush commit stage.     *     * If a subclass wishes that an atomic update of their work and the     * flush commit stage happens, they should return a callable. The new scanner     * lock will be acquired and released.      * @throws java.io.IOException allow children to throw exception     */
 specifier|protected
-name|void
+name|Callable
+argument_list|<
+name|Void
+argument_list|>
 name|internalPreFlushcacheCommit
 parameter_list|()
 throws|throws
 name|IOException
-block|{   }
+block|{
+return|return
+literal|null
+return|;
+block|}
 comment|/**    * Get the sequence number to be associated with this cache flush. Used by    * TransactionalRegion to not complete pending transactions.    *    *    * @param currentSequenceId    * @return sequence id to complete the cache flush with    */
 specifier|protected
 name|long
@@ -4126,7 +4311,7 @@ name|CATALOG_FAMILY
 argument_list|)
 return|;
 block|}
-comment|/**    * Return all the data for the row that matches<i>row</i> exactly,    * or the one that immediately preceeds it, at or immediately before    *<i>ts</i>.    *    * @param row row key    * @param family    * @return map of values    * @throws IOException    */
+comment|/**    * Return all the data for the row that matches<i>row</i> exactly,    * or the one that immediately preceeds it, at or immediately before    *<i>ts</i>.    *    * @param row row key    * @param family column family to find on    * @return map of values    * @throws IOException read exceptions    */
 specifier|public
 name|Result
 name|getClosestRowBefore
@@ -4208,7 +4393,6 @@ return|return
 literal|null
 return|;
 block|}
-comment|// This will get all results for this store.  TODO: Do we need to do this?
 name|Get
 name|get
 init|=
@@ -4221,35 +4405,19 @@ name|getRow
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-name|results
-init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|KeyValue
-argument_list|>
-argument_list|()
-decl_stmt|;
-name|store
+name|get
 operator|.
+name|addFamily
+argument_list|(
+name|family
+argument_list|)
+expr_stmt|;
+return|return
 name|get
 argument_list|(
 name|get
 argument_list|,
 literal|null
-argument_list|,
-name|results
-argument_list|)
-expr_stmt|;
-return|return
-operator|new
-name|Result
-argument_list|(
-name|results
 argument_list|)
 return|;
 block|}
@@ -4265,7 +4433,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Return an iterator that scans over the HRegion, returning the indicated    * columns and rows specified by the {@link Scan}.    *<p>    * This Iterator must be closed by the caller.    *    * @param scan configured {@link Scan}    * @return InternalScanner    * @throws IOException    */
+comment|/**    * Return an iterator that scans over the HRegion, returning the indicated    * columns and rows specified by the {@link Scan}.    *<p>    * This Iterator must be closed by the caller.    *    * @param scan configured {@link Scan}    * @return InternalScanner    * @throws IOException read exceptions    */
 specifier|public
 name|InternalScanner
 name|getScanner
@@ -4441,7 +4609,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// set() methods for client use.
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * @param delete    * @param lockid    * @param writeToWAL    * @throws IOException    */
+comment|/**    * @param delete delete object    * @param lockid existing lock id, or null for grab a lock    * @param writeToWAL append to the write ahead lock or not    * @throws IOException read exceptions    */
 specifier|public
 name|void
 name|delete
@@ -4464,6 +4632,11 @@ expr_stmt|;
 name|checkResources
 argument_list|()
 expr_stmt|;
+name|Integer
+name|lid
+init|=
+literal|null
+decl_stmt|;
 name|splitsAndClosesLock
 operator|.
 name|readLock
@@ -4498,7 +4671,7 @@ argument_list|,
 name|row
 argument_list|)
 expr_stmt|;
-comment|//Check to see if this is a deleteRow insert
+comment|// Check to see if this is a deleteRow insert
 if|if
 condition|(
 name|delete
@@ -4661,8 +4834,6 @@ name|flush
 init|=
 literal|false
 decl_stmt|;
-name|this
-operator|.
 name|updatesLock
 operator|.
 name|readLock
@@ -4671,6 +4842,13 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
+name|ReadWriteConsistencyControl
+operator|.
+name|WriteEntry
+name|w
+init|=
+literal|null
+decl_stmt|;
 try|try
 block|{
 for|for
@@ -4813,11 +4991,7 @@ name|put
 argument_list|(
 name|qual
 argument_list|,
-operator|new
-name|Integer
-argument_list|(
 literal|1
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -4829,13 +5003,9 @@ name|put
 argument_list|(
 name|qual
 argument_list|,
-operator|new
-name|Integer
-argument_list|(
 name|count
 operator|+
 literal|1
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -4848,23 +5018,8 @@ argument_list|(
 name|qual
 argument_list|)
 expr_stmt|;
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-name|result
-init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|KeyValue
-argument_list|>
-argument_list|(
-literal|1
-argument_list|)
-decl_stmt|;
 name|Get
-name|g
+name|get
 init|=
 operator|new
 name|Get
@@ -4875,50 +5030,33 @@ name|getRow
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|g
+name|get
 operator|.
 name|setMaxVersions
 argument_list|(
 name|count
 argument_list|)
 expr_stmt|;
-name|NavigableSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
-name|qualifiers
-init|=
-operator|new
-name|TreeSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
-argument_list|(
-name|Bytes
+name|get
 operator|.
-name|BYTES_COMPARATOR
-argument_list|)
-decl_stmt|;
-name|qualifiers
-operator|.
-name|add
+name|addColumn
 argument_list|(
+name|family
+argument_list|,
 name|qual
 argument_list|)
 expr_stmt|;
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+name|result
+init|=
 name|get
 argument_list|(
-name|store
-argument_list|,
-name|g
-argument_list|,
-name|qualifiers
-argument_list|,
-name|result
+name|get
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|result
@@ -5120,14 +5258,19 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// Now make changes to the memstore.
 name|long
 name|size
 init|=
 literal|0
 decl_stmt|;
-comment|//
-comment|// Now make changes to the memstore.
-comment|//
+name|w
+operator|=
+name|rwcc
+operator|.
+name|beginMemstoreInsert
+argument_list|()
+expr_stmt|;
 for|for
 control|(
 name|Map
@@ -5186,6 +5329,16 @@ range|:
 name|kvs
 control|)
 block|{
+name|kv
+operator|.
+name|setMemstoreTS
+argument_list|(
+name|w
+operator|.
+name|getWriteNumber
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|size
 operator|=
 name|this
@@ -5214,6 +5367,19 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+if|if
+condition|(
+name|w
+operator|!=
+literal|null
+condition|)
+name|rwcc
+operator|.
+name|completeMemstoreInsert
+argument_list|(
+name|w
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|updatesLock
@@ -5560,58 +5726,13 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
-comment|//Getting data
-for|for
-control|(
-name|Map
-operator|.
-name|Entry
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|NavigableSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
-argument_list|>
-name|entry
-range|:
-name|get
-operator|.
-name|getFamilyMap
-argument_list|()
-operator|.
-name|entrySet
-argument_list|()
-control|)
-block|{
-name|get
-argument_list|(
-name|this
-operator|.
-name|stores
-operator|.
-name|get
-argument_list|(
-name|entry
-operator|.
-name|getKey
-argument_list|()
-argument_list|)
-argument_list|,
-name|get
-argument_list|,
-name|entry
-operator|.
-name|getValue
-argument_list|()
-argument_list|,
 name|result
+operator|=
+name|get
+argument_list|(
+name|get
 argument_list|)
 expr_stmt|;
-block|}
 name|boolean
 name|matches
 init|=
@@ -5995,7 +6116,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Add updates first to the hlog and then add values to memstore.    * Warning: Assumption is caller has lock on passed in row.    * @param edits Cell updates by column    * @praram now    * @throws IOException    */
+comment|/**    * Add updates first to the hlog and then add values to memstore.    * Warning: Assumption is caller has lock on passed in row.    * @param family    * @param edits Cell updates by column    * @praram now    * @throws IOException    */
 specifier|private
 name|void
 name|put
@@ -6117,6 +6238,13 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
+name|ReadWriteConsistencyControl
+operator|.
+name|WriteEntry
+name|w
+init|=
+literal|null
+decl_stmt|;
 try|try
 block|{
 name|WALEdit
@@ -6258,6 +6386,13 @@ name|size
 init|=
 literal|0
 decl_stmt|;
+name|w
+operator|=
+name|rwcc
+operator|.
+name|beginMemstoreInsert
+argument_list|()
+expr_stmt|;
 comment|// now make changes to the memstore
 for|for
 control|(
@@ -6317,6 +6452,16 @@ range|:
 name|edits
 control|)
 block|{
+name|kv
+operator|.
+name|setMemstoreTS
+argument_list|(
+name|w
+operator|.
+name|getWriteNumber
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|size
 operator|=
 name|this
@@ -6345,6 +6490,19 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+if|if
+condition|(
+name|w
+operator|!=
+literal|null
+condition|)
+name|rwcc
+operator|.
+name|completeMemstoreInsert
+argument_list|(
+name|w
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|updatesLock
@@ -7158,6 +7316,10 @@ argument_list|()
 decl_stmt|;
 specifier|private
 name|int
+name|isScan
+decl_stmt|;
+specifier|private
+name|int
 name|batch
 decl_stmt|;
 comment|// Doesn't need to be volatile, always accessed under a sync'ed method
@@ -7179,6 +7341,14 @@ argument_list|>
 name|additionalScanners
 parameter_list|)
 block|{
+name|ReadWriteConsistencyControl
+operator|.
+name|resetThreadReadPoint
+argument_list|(
+name|rwcc
+argument_list|)
+expr_stmt|;
+comment|//DebugPrint.println("HRegionScanner.<init>, threadpoint = " + ReadWriteConsistencyControl.getThreadReadPoint());
 name|this
 operator|.
 name|filter
@@ -7233,6 +7403,20 @@ name|getStopRow
 argument_list|()
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|isScan
+operator|=
+name|scan
+operator|.
+name|isGetScan
+argument_list|()
+condition|?
+operator|-
+literal|1
+else|:
+literal|0
+expr_stmt|;
 name|List
 argument_list|<
 name|KeyValueScanner
@@ -7372,6 +7556,14 @@ name|reset
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Start the next row read and reset the thread point
+name|ReadWriteConsistencyControl
+operator|.
+name|resetThreadReadPoint
+argument_list|(
+name|rwcc
+argument_list|)
+expr_stmt|;
 block|}
 specifier|public
 specifier|synchronized
@@ -7450,6 +7642,14 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
+comment|// This could be a new thread from the last time we called next().
+name|ReadWriteConsistencyControl
+operator|.
+name|resetThreadReadPoint
+argument_list|(
+name|rwcc
+argument_list|)
+expr_stmt|;
 name|results
 operator|.
 name|clear
@@ -10130,7 +10330,7 @@ block|}
 comment|//
 comment|// HBASE-880
 comment|//
-comment|/**    * @param get    * @param lockid    * @return result    * @throws IOException    */
+comment|/**    * @param get get object    * @param lockid existing lock id, or null for no previous lock    * @return result    * @throws IOException read exceptions    */
 specifier|public
 name|Result
 name|get
@@ -10201,101 +10401,17 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Lock row
-name|Integer
-name|lid
-init|=
-name|getLock
-argument_list|(
-name|lockid
-argument_list|,
-name|get
-operator|.
-name|getRow
-argument_list|()
-argument_list|)
-decl_stmt|;
 name|List
 argument_list|<
 name|KeyValue
 argument_list|>
 name|result
 init|=
-operator|new
-name|ArrayList
-argument_list|<
-name|KeyValue
-argument_list|>
-argument_list|()
+name|get
+argument_list|(
+name|get
+argument_list|)
 decl_stmt|;
-try|try
-block|{
-for|for
-control|(
-name|Map
-operator|.
-name|Entry
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|NavigableSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
-argument_list|>
-name|entry
-range|:
-name|get
-operator|.
-name|getFamilyMap
-argument_list|()
-operator|.
-name|entrySet
-argument_list|()
-control|)
-block|{
-name|get
-argument_list|(
-name|this
-operator|.
-name|stores
-operator|.
-name|get
-argument_list|(
-name|entry
-operator|.
-name|getKey
-argument_list|()
-argument_list|)
-argument_list|,
-name|get
-argument_list|,
-name|entry
-operator|.
-name|getValue
-argument_list|()
-argument_list|,
-name|result
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-finally|finally
-block|{
-if|if
-condition|(
-name|lockid
-operator|==
-literal|null
-condition|)
-name|releaseRowLock
-argument_list|(
-name|lid
-argument_list|)
-expr_stmt|;
-block|}
 return|return
 operator|new
 name|Result
@@ -10304,48 +10420,84 @@ name|result
 argument_list|)
 return|;
 block|}
+comment|/*    * Do a get based on the get parameter.    */
 specifier|private
-name|void
-name|get
-parameter_list|(
-specifier|final
-name|Store
-name|store
-parameter_list|,
-specifier|final
-name|Get
-name|get
-parameter_list|,
-specifier|final
-name|NavigableSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
-name|qualifiers
-parameter_list|,
 name|List
 argument_list|<
 name|KeyValue
 argument_list|>
-name|result
+name|get
+parameter_list|(
+specifier|final
+name|Get
+name|get
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|store
-operator|.
-name|get
+name|Scan
+name|scan
+init|=
+operator|new
+name|Scan
 argument_list|(
 name|get
-argument_list|,
-name|qualifiers
-argument_list|,
-name|result
+argument_list|)
+decl_stmt|;
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+name|results
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|KeyValue
+argument_list|>
+argument_list|()
+decl_stmt|;
+name|InternalScanner
+name|scanner
+init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|scanner
+operator|=
+name|getScanner
+argument_list|(
+name|scan
+argument_list|)
+expr_stmt|;
+name|scanner
+operator|.
+name|next
+argument_list|(
+name|results
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    *    * @param row    * @param family    * @param qualifier    * @param amount    * @return The new value.    * @throws IOException    */
+finally|finally
+block|{
+if|if
+condition|(
+name|scanner
+operator|!=
+literal|null
+condition|)
+name|scanner
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+name|results
+return|;
+block|}
+comment|/**    *    * @param row    * @param family    * @param qualifier    * @param amount    * @param writeToWAL    * @return The new value.    * @throws IOException    */
 specifier|public
 name|long
 name|incrementColumnValue
@@ -10407,6 +10559,7 @@ argument_list|(
 name|family
 argument_list|)
 decl_stmt|;
+comment|// TODO call the proper GET API
 comment|// Get the old value:
 name|Get
 name|get
@@ -10743,7 +10896,7 @@ operator|.
 name|SIZEOF_BOOLEAN
 operator|+
 operator|(
-literal|20
+literal|21
 operator|*
 name|ClassSize
 operator|.

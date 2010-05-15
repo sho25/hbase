@@ -1405,6 +1405,7 @@ return|return
 literal|true
 return|;
 block|}
+comment|// TODO move this method OUT of FSUtils. No dependencies to HMaster
 comment|/**    * Returns the total overall fragmentation percentage. Includes .META. and    * -ROOT- as well.    *    * @param master  The master defining the HBase root and file system.    * @return A map for each table and its percentage.    * @throws IOException When scanning the directory fails.    */
 specifier|public
 specifier|static
