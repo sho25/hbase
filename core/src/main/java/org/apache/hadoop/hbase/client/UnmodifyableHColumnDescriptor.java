@@ -218,25 +218,6 @@ literal|"HColumnDescriptor is read-only"
 argument_list|)
 throw|;
 block|}
-comment|/**    * @see org.apache.hadoop.hbase.HColumnDescriptor#setMapFileIndexInterval(int)    */
-annotation|@
-name|Override
-specifier|public
-name|void
-name|setMapFileIndexInterval
-parameter_list|(
-name|int
-name|interval
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|UnsupportedOperationException
-argument_list|(
-literal|"HTableDescriptor is read-only"
-argument_list|)
-throw|;
-block|}
 block|}
 end_class
 
