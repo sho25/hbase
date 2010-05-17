@@ -5457,6 +5457,36 @@ return|return
 literal|null
 return|;
 block|}
+if|if
+condition|(
+name|this
+operator|.
+name|region
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|isMetaRegion
+argument_list|()
+condition|)
+block|{
+if|if
+condition|(
+name|force
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Cannot split meta regions in HBase 0.20"
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+literal|null
+return|;
+block|}
 comment|// Not splitable if we find a reference store file present in the store.
 name|boolean
 name|splitable
