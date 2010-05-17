@@ -374,7 +374,7 @@ parameter_list|<
 name|T
 parameter_list|>
 name|T
-name|getRegionServerForWithoutRetries
+name|getRegionServerWithoutRetries
 parameter_list|(
 name|ServerCallable
 argument_list|<

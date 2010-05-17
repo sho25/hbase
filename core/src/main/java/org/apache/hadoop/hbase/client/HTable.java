@@ -2323,14 +2323,14 @@ expr_stmt|;
 for|for
 control|(
 name|Put
-name|aWriteBuffer
+name|aPut
 range|:
 name|writeBuffer
 control|)
 block|{
 name|currentWriteBufferSize
 operator|+=
-name|aWriteBuffer
+name|aPut
 operator|.
 name|heapSize
 argument_list|()

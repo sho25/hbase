@@ -1588,7 +1588,7 @@ name|regionServerThread
 decl_stmt|;
 comment|// Run HDFS shutdown on exit if this is set. We clear this out when
 comment|// doing a restart() to prevent closing of HDFS.
-specifier|private
+specifier|public
 specifier|final
 name|AtomicBoolean
 name|shutdownHDFS
