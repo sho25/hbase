@@ -3233,7 +3233,9 @@ operator|+
 literal|" has a null Reader"
 argument_list|)
 expr_stmt|;
-continue|continue;
+return|return
+literal|null
+return|;
 block|}
 name|long
 name|len
@@ -3271,6 +3273,23 @@ comment|// Here we select files for incremental compaction.
 comment|// The rule is: if the largest(oldest) one is more than twice the
 comment|// size of the second, skip the largest, and continue to next...,
 comment|// until we meet the compactionThreshold limit.
+comment|// A problem with the above heuristic is that we could go through all of
+comment|// filesToCompact and the above condition could hold for all files and
+comment|// we'd end up with nothing to compact.  To protect against this, we'll
+comment|// compact the tail -- up to the last 4 files -- of filesToCompact
+comment|// regardless.
+name|int
+name|tail
+init|=
+name|Math
+operator|.
+name|min
+argument_list|(
+name|countOfFiles
+argument_list|,
+literal|4
+argument_list|)
+decl_stmt|;
 for|for
 control|(
 name|point
@@ -3279,9 +3298,11 @@ literal|0
 init|;
 name|point
 operator|<
+operator|(
 name|countOfFiles
 operator|-
-literal|1
+name|tail
+operator|)
 condition|;
 name|point
 operator|++
@@ -3289,6 +3310,7 @@ control|)
 block|{
 if|if
 condition|(
+operator|(
 operator|(
 name|fileSizes
 index|[
@@ -3312,6 +3334,7 @@ name|point
 operator|)
 operator|<=
 name|maxFilesToCompact
+operator|)
 condition|)
 block|{
 break|break;
