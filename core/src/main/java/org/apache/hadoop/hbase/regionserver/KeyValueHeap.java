@@ -121,8 +121,10 @@ comment|/**    * Constructor.  This KeyValueHeap will handle closing of passed i
 specifier|public
 name|KeyValueHeap
 parameter_list|(
+name|List
+argument_list|<
 name|KeyValueScanner
-index|[]
+argument_list|>
 name|scanners
 parameter_list|,
 name|KVComparator
@@ -151,7 +153,8 @@ argument_list|>
 argument_list|(
 name|scanners
 operator|.
-name|length
+name|size
+argument_list|()
 argument_list|,
 name|this
 operator|.

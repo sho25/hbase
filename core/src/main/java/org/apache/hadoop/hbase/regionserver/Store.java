@@ -3993,95 +3993,23 @@ throws|throws
 name|IOException
 block|{
 comment|// For each file, obtain a scanner:
+name|List
+argument_list|<
 name|KeyValueScanner
-index|[]
+argument_list|>
 name|scanners
 init|=
-operator|new
-name|KeyValueScanner
-index|[
-name|filesToCompact
-operator|.
-name|size
-argument_list|()
-index|]
-decl_stmt|;
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|filesToCompact
-operator|.
-name|size
-argument_list|()
-condition|;
-operator|++
-name|i
-control|)
-block|{
-name|Reader
-name|r
-init|=
-name|filesToCompact
-operator|.
-name|get
-argument_list|(
-name|i
-argument_list|)
-operator|.
-name|getReader
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|r
-operator|==
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"StoreFile "
-operator|+
-name|filesToCompact
-operator|.
-name|get
-argument_list|(
-name|i
-argument_list|)
-operator|+
-literal|" has a null Reader"
-argument_list|)
-expr_stmt|;
-continue|continue;
-block|}
-comment|// Instantiate HFile.Reader.Scanner to not cache blocks and not use pread
-name|scanners
-index|[
-name|i
-index|]
-operator|=
-operator|new
 name|StoreFileScanner
-argument_list|(
-name|r
 operator|.
-name|getScanner
+name|getScannersForStoreFiles
 argument_list|(
+name|filesToCompact
+argument_list|,
 literal|false
 argument_list|,
 literal|false
 argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
+decl_stmt|;
 comment|// Make the instantiation lazy in case compaction produces no product; i.e.
 comment|// where all source cells are expired or deleted.
 name|HFile
@@ -4149,25 +4077,16 @@ name|KeyValue
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|boolean
-name|more
-init|=
-literal|true
-decl_stmt|;
 while|while
 condition|(
-name|more
-condition|)
-block|{
-name|more
-operator|=
 name|scanner
 operator|.
 name|next
 argument_list|(
 name|kvs
 argument_list|)
-expr_stmt|;
+condition|)
+block|{
 comment|// output to writer:
 for|for
 control|(
@@ -4532,6 +4451,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// WARN ugly hack here, but necessary sadly.
+comment|// TODO why is this necessary? need a comment here if it's unintuitive!
 name|ReadWriteConsistencyControl
 operator|.
 name|resetThreadReadPoint
@@ -6103,7 +6023,7 @@ return|return
 name|size
 return|;
 block|}
-comment|/*    * Datastructure that holds size and row to split a file around.    * TODO: Take a KeyValue rather than row.    */
+comment|/**    * Datastructure that holds size and row to split a file around.    * TODO: Take a KeyValue rather than row.    */
 specifier|static
 class|class
 name|StoreSize

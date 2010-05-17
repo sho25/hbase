@@ -7527,15 +7527,6 @@ operator|new
 name|KeyValueHeap
 argument_list|(
 name|scanners
-operator|.
-name|toArray
-argument_list|(
-operator|new
-name|KeyValueScanner
-index|[
-literal|0
-index|]
-argument_list|)
 argument_list|,
 name|comparator
 argument_list|)

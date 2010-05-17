@@ -111,8 +111,10 @@ parameter_list|(
 name|Store
 name|store
 parameter_list|,
+name|List
+argument_list|<
 name|KeyValueScanner
-index|[]
+argument_list|>
 name|scanners
 parameter_list|)
 block|{
@@ -173,8 +175,10 @@ operator|.
 name|KVComparator
 name|comparator
 parameter_list|,
+name|List
+argument_list|<
 name|KeyValueScanner
-index|[]
+argument_list|>
 name|scanners
 parameter_list|)
 block|{
