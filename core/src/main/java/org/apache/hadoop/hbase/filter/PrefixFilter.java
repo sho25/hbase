@@ -77,6 +77,16 @@ name|DataInput
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
 begin_comment
 comment|/**  * Pass results that have same row prefix.  */
 end_comment
@@ -85,8 +95,8 @@ begin_class
 specifier|public
 class|class
 name|PrefixFilter
-implements|implements
-name|Filter
+extends|extends
+name|FilterBase
 block|{
 specifier|protected
 name|byte
@@ -134,13 +144,6 @@ block|{
 return|return
 name|prefix
 return|;
-block|}
-specifier|public
-name|void
-name|reset
-parameter_list|()
-block|{
-comment|// Noop
 block|}
 specifier|public
 name|boolean
@@ -241,29 +244,6 @@ parameter_list|()
 block|{
 return|return
 name|passedPrefix
-return|;
-block|}
-specifier|public
-name|ReturnCode
-name|filterKeyValue
-parameter_list|(
-name|KeyValue
-name|v
-parameter_list|)
-block|{
-return|return
-name|ReturnCode
-operator|.
-name|INCLUDE
-return|;
-block|}
-specifier|public
-name|boolean
-name|filterRow
-parameter_list|()
-block|{
-return|return
-literal|false
 return|;
 block|}
 specifier|public

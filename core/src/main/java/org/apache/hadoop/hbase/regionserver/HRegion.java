@@ -347,6 +347,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|filter
+operator|.
+name|IncompatibleFilterException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|HeapSize
@@ -1426,7 +1442,7 @@ literal|2
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Initialize this region and get it ready to roll.    * Called after construction.    *     * @param initialFiles path    * @param reporter progressable    * @throws IOException e    */
+comment|/**    * Initialize this region and get it ready to roll.    * Called after construction.    *    * @param initialFiles path    * @param reporter progressable    * @throws IOException e    */
 specifier|public
 name|void
 name|initialize
@@ -2030,7 +2046,7 @@ return|return
 name|rwcc
 return|;
 block|}
-comment|/**    * Close down this HRegion.  Flush the cache, shut down each HStore, don't    * service any more calls.    *    *<p>This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of all HStoreFile objects. Returns empty    * vector if already closed and null if judged that it should not close.    *     * @throws IOException e    */
+comment|/**    * Close down this HRegion.  Flush the cache, shut down each HStore, don't    * service any more calls.    *    *<p>This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of all HStoreFile objects. Returns empty    * vector if already closed and null if judged that it should not close.    *    * @throws IOException e    */
 specifier|public
 name|List
 argument_list|<
@@ -2048,7 +2064,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Close down this HRegion.  Flush the cache unless abort parameter is true,    * Shut down each HStore, don't service any more calls.    *    * This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @param abort true if server is aborting (only during testing)    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of HStoreFile objects.  Can be null if    * we are not to close at this time or we are already closed.    *     * @throws IOException e    */
+comment|/**    * Close down this HRegion.  Flush the cache unless abort parameter is true,    * Shut down each HStore, don't service any more calls.    *    * This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @param abort true if server is aborting (only during testing)    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of HStoreFile objects.  Can be null if    * we are not to close at this time or we are already closed.    *    * @throws IOException e    */
 specifier|public
 name|List
 argument_list|<
@@ -3563,7 +3579,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Flush the cache.    *    * When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    *    * @return true if cache was flushed    *     * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
+comment|/**    * Flush the cache.    *    * When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    *    * @return true if cache was flushed    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
 specifier|public
 name|boolean
 name|flushcache
@@ -3707,7 +3723,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Flushing the cache is a little tricky. We have a lot of updates in the    * memstore, all of which have also been written to the log. We need to    * write those updates in the memstore out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the memstore was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the memstore from    * the log.)    *    *<p>So, we have a three-step process:    *    *<ul><li>A. Flush the memstore to the on-disk stores, noting the current    * sequence ID for the log.<li>    *    *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memstore-flush.</li>    *    *<li>C. Get rid of the memstore structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *    *<p> This method may block for some time.    *    * @return true if the region needs compacting    *     * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
+comment|/**    * Flushing the cache is a little tricky. We have a lot of updates in the    * memstore, all of which have also been written to the log. We need to    * write those updates in the memstore out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the memstore was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the memstore from    * the log.)    *    *<p>So, we have a three-step process:    *    *<ul><li>A. Flush the memstore to the on-disk stores, noting the current    * sequence ID for the log.<li>    *    *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memstore-flush.</li>    *    *<li>C. Get rid of the memstore structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *    *<p> This method may block for some time.    *    * @return true if the region needs compacting    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
 specifier|protected
 name|boolean
 name|internalFlushcache
@@ -7669,27 +7685,6 @@ argument_list|(
 name|limit
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-operator|!
-name|returnResult
-operator|&&
-name|filter
-operator|!=
-literal|null
-operator|&&
-name|filter
-operator|.
-name|filterRow
-argument_list|()
-condition|)
-block|{
-name|results
-operator|.
-name|clear
-argument_list|()
-expr_stmt|;
-block|}
 name|outResults
 operator|.
 name|addAll
@@ -7789,6 +7784,44 @@ name|currentRow
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+name|filter
+operator|!=
+literal|null
+operator|&&
+name|filter
+operator|.
+name|hasFilterRow
+argument_list|()
+condition|)
+block|{
+name|filter
+operator|.
+name|filterRow
+argument_list|(
+name|results
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|filter
+operator|!=
+literal|null
+operator|&&
+name|filter
+operator|.
+name|filterRow
+argument_list|()
+condition|)
+block|{
+name|results
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
 return|return
 literal|false
 return|;
@@ -7841,9 +7874,30 @@ operator|==
 name|limit
 condition|)
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|filter
+operator|!=
+literal|null
+operator|&&
+name|filter
+operator|.
+name|hasFilterRow
+argument_list|()
+condition|)
+throw|throw
+operator|new
+name|IncompatibleFilterException
+argument_list|(
+literal|"Filter with filterRow(List<KeyValue>) incompatible with scan with limit!"
+argument_list|)
+throw|;
 return|return
 literal|true
 return|;
+comment|// we are expecting more yes, but also limited to how many we can return.
 block|}
 block|}
 do|while
@@ -7870,12 +7924,30 @@ argument_list|(
 name|nextRow
 argument_list|)
 decl_stmt|;
+comment|// now that we have an entire row, lets process with a filters:
+comment|// first filter with the filterRow(List)
 if|if
 condition|(
-operator|!
-name|stopRow
+name|filter
+operator|!=
+literal|null
 operator|&&
-operator|(
+name|filter
+operator|.
+name|hasFilterRow
+argument_list|()
+condition|)
+block|{
+name|filter
+operator|.
+name|filterRow
+argument_list|(
+name|results
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
 name|results
 operator|.
 name|isEmpty
@@ -7883,7 +7955,6 @@ argument_list|()
 operator|||
 name|filterRow
 argument_list|()
-operator|)
 condition|)
 block|{
 comment|// this seems like a redundant step - we already consumed the row
@@ -7896,6 +7967,13 @@ argument_list|(
 name|currentRow
 argument_list|)
 expr_stmt|;
+comment|// This row was totally filtered out, if this is NOT the last row,
+comment|// we should continue on.
+if|if
+condition|(
+operator|!
+name|stopRow
+condition|)
 continue|continue;
 block|}
 return|return

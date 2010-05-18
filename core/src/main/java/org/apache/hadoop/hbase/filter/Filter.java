@@ -45,8 +45,18 @@ name|Writable
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
 begin_comment
-comment|/**  * Interface for row and column filters directly applied within the regionserver.  * A filter can expect the following call sequence:  *<ul>  *<li>{@link #reset()}</li>  *<li>{@link #filterAllRemaining()} -> true indicates scan is over, false, keep going on.</li>  *<li>{@link #filterRowKey(byte[],int,int)} -> true to drop this row,  * if false, we will also call</li>  *<li>{@link #filterKeyValue(KeyValue)} -> true to drop this key/value</li>  *<li>{@link #filterRow()} -> last chance to drop entire row based on the sequence of  * filterValue() calls. Eg: filter a row if it doesn't contain a specified column.  *</li>  *</ul>  *  * Filter instances are created one per region/scan.  This interface replaces  * the old RowFilterInterface.  */
+comment|/**  * Interface for row and column filters directly applied within the regionserver.  * A filter can expect the following call sequence:  *<ul>  *<li>{@link #reset()}</li>  *<li>{@link #filterAllRemaining()} -> true indicates scan is over, false, keep going on.</li>  *<li>{@link #filterRowKey(byte[],int,int)} -> true to drop this row,  * if false, we will also call</li>  *<li>{@link #filterKeyValue(KeyValue)} -> true to drop this key/value</li>  *<li>{@link #filterRow(List)} -> allows directmodification of the final list to be submitted  *<li>{@link #filterRow()} -> last chance to drop entire row based on the sequence of  * filterValue() calls. Eg: filter a row if it doesn't contain a specified column.  *</li>  *</ul>  *  * Filter instances are created one per region/scan.  This interface replaces  * the old RowFilterInterface.  *  * When implementing your own filters, consider inheriting {@link FilterBase} to help  * you reduce boilerplate.  *   * @see FilterBase  */
 end_comment
 
 begin_interface
@@ -107,6 +117,24 @@ block|,
 comment|/**      * Done with columns, skip to next row. Note that filterRow() will      * still be called.      */
 name|NEXT_ROW
 block|,   }
+comment|/**    * Chance to alter the list of keyvalues to be submitted.    * Modifications to the list will carry on    * @param kvs the list of keyvalues to be filtered    */
+specifier|public
+name|void
+name|filterRow
+parameter_list|(
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+name|kvs
+parameter_list|)
+function_decl|;
+comment|/**    * Return whether or not this filter actively uses filterRow(List)    * Primarily used to check for conflicts with scans(such as scans    * that do not read a full row at a time)    * @return    */
+specifier|public
+name|boolean
+name|hasFilterRow
+parameter_list|()
+function_decl|;
 comment|/**    * Last chance to veto row based on previous {@link #filterKeyValue(KeyValue)}    * calls. The filter needs to retain state then return a particular value for    * this call if they wish to exclude a row if a certain column is missing    * (for example).    * @return true to exclude row, false to include row.    */
 specifier|public
 name|boolean

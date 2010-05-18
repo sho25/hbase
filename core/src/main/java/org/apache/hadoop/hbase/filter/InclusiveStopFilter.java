@@ -77,6 +77,16 @@ name|IOException
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
 begin_comment
 comment|/**  * A Filter that stops after the given row.  There is no "RowStopFilter" because  * the Scan spec allows you to specify a stop row.  *  * Use this filter to include the stop row, eg: [A,Z].  */
 end_comment
@@ -85,8 +95,8 @@ begin_class
 specifier|public
 class|class
 name|InclusiveStopFilter
-implements|implements
-name|Filter
+extends|extends
+name|FilterBase
 block|{
 specifier|private
 name|byte
@@ -134,13 +144,6 @@ name|this
 operator|.
 name|stopRowKey
 return|;
-block|}
-specifier|public
-name|void
-name|reset
-parameter_list|()
-block|{
-comment|// noop, no state
 block|}
 specifier|public
 name|boolean
@@ -229,30 +232,6 @@ parameter_list|()
 block|{
 return|return
 name|done
-return|;
-block|}
-specifier|public
-name|ReturnCode
-name|filterKeyValue
-parameter_list|(
-name|KeyValue
-name|v
-parameter_list|)
-block|{
-comment|// include everything.
-return|return
-name|ReturnCode
-operator|.
-name|INCLUDE
-return|;
-block|}
-specifier|public
-name|boolean
-name|filterRow
-parameter_list|()
-block|{
-return|return
-literal|false
 return|;
 block|}
 specifier|public

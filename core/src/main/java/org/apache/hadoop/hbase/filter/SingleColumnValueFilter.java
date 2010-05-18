@@ -165,6 +165,16 @@ name|Arrays
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
 begin_comment
 comment|/**  * This filter is used to filter cells based on value. It takes a {@link CompareFilter.CompareOp}  * operator (equal, greater, not equal, etc), and either a byte [] value or  * a WritableByteArrayComparable.  *<p>  * If we have a byte [] value then we just do a lexicographic compare. For  * example, if passed value is 'b' and cell has 'a' and the compare operator  * is LESS, then we will filter out this cell (return true).  If this is not  * sufficient (eg you want to deserialize a long and then compare it to a fixed  * long value), then you can pass in your own comparator instead.  *<p>  * You must also specify a family and qualifier.  Only the value of this column  * will be tested. When using this filter on a {@link Scan} with specified  * inputs, the column to be tested should also be added as input (otherwise  * the filter will regard the column as missing).  *<p>  * To prevent the entire row from being emitted if the column is not found  * on a row, use {@link #setFilterIfMissing}.  * Otherwise, if the column is found, the entire row will be emitted only if  * the value passes.  If the value fails, the row will be filtered out.  *<p>  * In order to test values of previous versions (timestamps), set  * {@link #setLatestVersionOnly} to false. The default is true, meaning that  * only the latest version's value is tested and all previous versions are ignored.  *<p>  * To filter based on the value of all scanned columns, use {@link ValueFilter}.  */
 end_comment
@@ -173,8 +183,8 @@ begin_class
 specifier|public
 class|class
 name|SingleColumnValueFilter
-implements|implements
-name|Filter
+extends|extends
+name|FilterBase
 block|{
 specifier|static
 specifier|final
@@ -365,27 +375,6 @@ parameter_list|()
 block|{
 return|return
 name|columnQualifier
-return|;
-block|}
-specifier|public
-name|boolean
-name|filterRowKey
-parameter_list|(
-name|byte
-index|[]
-name|rowKey
-parameter_list|,
-name|int
-name|offset
-parameter_list|,
-name|int
-name|length
-parameter_list|)
-block|{
-comment|// We don't filter on the row key... we filter later on column value so
-comment|// always return false.
-return|return
-literal|false
 return|;
 block|}
 specifier|public
@@ -616,15 +605,6 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
-block|}
-specifier|public
-name|boolean
-name|filterAllRemaining
-parameter_list|()
-block|{
-return|return
-literal|false
-return|;
 block|}
 specifier|public
 name|boolean
