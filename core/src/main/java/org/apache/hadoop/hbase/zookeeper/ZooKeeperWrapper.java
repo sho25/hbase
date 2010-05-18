@@ -3001,7 +3001,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Closed connection with ZooKeeper"
+literal|"Closed connection with ZooKeeper; "
+operator|+
+name|this
+operator|.
+name|rootRegionZNode
 argument_list|)
 expr_stmt|;
 block|}

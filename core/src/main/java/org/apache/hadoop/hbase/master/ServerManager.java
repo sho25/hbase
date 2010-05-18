@@ -3854,7 +3854,7 @@ name|serversToServerInfo
 operator|.
 name|wait
 argument_list|(
-literal|1
+literal|500
 argument_list|)
 expr_stmt|;
 block|}
