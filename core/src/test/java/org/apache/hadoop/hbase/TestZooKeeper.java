@@ -206,6 +206,12 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+comment|// Test we can first start the ZK cluster by itself
+name|TEST_UTIL
+operator|.
+name|startMiniZKCluster
+argument_list|()
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|getConfiguration
