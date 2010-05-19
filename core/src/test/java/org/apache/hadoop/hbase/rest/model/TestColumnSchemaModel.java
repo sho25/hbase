@@ -107,10 +107,10 @@ decl_stmt|;
 specifier|protected
 specifier|static
 specifier|final
-name|boolean
+name|String
 name|BLOOMFILTER
 init|=
-literal|false
+literal|"none"
 decl_stmt|;
 specifier|protected
 specifier|static
@@ -154,7 +154,7 @@ literal|"<ColumnSchema name=\"testcolumn\""
 operator|+
 literal|" BLOCKSIZE=\"16384\""
 operator|+
-literal|" BLOOMFILTER=\"false\""
+literal|" BLOOMFILTER=\"none\""
 operator|+
 literal|" BLOCKCACHE=\"true\""
 operator|+

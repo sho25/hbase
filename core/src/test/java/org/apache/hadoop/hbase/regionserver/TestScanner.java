@@ -519,7 +519,14 @@ name|HConstants
 operator|.
 name|FOREVER
 argument_list|,
-literal|false
+name|StoreFile
+operator|.
+name|BloomType
+operator|.
+name|NONE
+operator|.
+name|toString
+argument_list|()
 argument_list|,
 name|HConstants
 operator|.

@@ -5572,7 +5572,7 @@ name|rfamilylength
 argument_list|)
 return|;
 block|}
-comment|/**      * Compares the row and column of two keyvalues      * @param left      * @param right      * @return True if same row and column.      */
+comment|/**      * Compares the row and column of two keyvalues for equality      * @param left      * @param right      * @return True if same row and column.      */
 specifier|public
 name|boolean
 name|matchingRowColumn
@@ -5602,9 +5602,18 @@ operator|.
 name|getRowLength
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-operator|!
+comment|// TsOffset = end of column data. just comparing Row+CF length of each
+return|return
+name|left
+operator|.
+name|getTimestampOffset
+argument_list|()
+operator|==
+name|right
+operator|.
+name|getTimestampOffset
+argument_list|()
+operator|&&
 name|matchingRows
 argument_list|(
 name|left
@@ -5615,13 +5624,7 @@ name|right
 argument_list|,
 name|rrowlength
 argument_list|)
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-return|return
+operator|&&
 name|compareColumns
 argument_list|(
 name|left
@@ -5662,7 +5665,7 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**      * @param left      * @param right      * @return True if rows match.      */
+comment|/**      * Compares the row of two keyvalues for equality      * @param left      * @param right      * @return True if rows match.      */
 specifier|public
 name|boolean
 name|matchingRows
@@ -5727,9 +5730,11 @@ name|short
 name|rrowlength
 parameter_list|)
 block|{
-name|int
-name|compare
-init|=
+return|return
+name|lrowlength
+operator|==
+name|rrowlength
+operator|&&
 name|compareRows
 argument_list|(
 name|left
@@ -5740,20 +5745,8 @@ name|right
 argument_list|,
 name|rrowlength
 argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|compare
-operator|!=
+operator|==
 literal|0
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-return|return
-literal|true
 return|;
 block|}
 specifier|public

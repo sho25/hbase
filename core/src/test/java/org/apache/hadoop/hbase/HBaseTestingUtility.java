@@ -1420,7 +1420,9 @@ name|HColumnDescriptor
 operator|.
 name|DEFAULT_TTL
 argument_list|,
-literal|false
+name|HColumnDescriptor
+operator|.
+name|DEFAULT_BLOOMFILTER
 argument_list|,
 name|HColumnDescriptor
 operator|.
@@ -1537,7 +1539,9 @@ name|HColumnDescriptor
 operator|.
 name|DEFAULT_TTL
 argument_list|,
-literal|false
+name|HColumnDescriptor
+operator|.
+name|DEFAULT_BLOOMFILTER
 argument_list|,
 name|HColumnDescriptor
 operator|.

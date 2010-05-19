@@ -1019,7 +1019,9 @@ name|HConstants
 operator|.
 name|FOREVER
 argument_list|,
-literal|false
+name|HColumnDescriptor
+operator|.
+name|DEFAULT_BLOOMFILTER
 argument_list|,
 name|HConstants
 operator|.
@@ -1054,7 +1056,9 @@ name|HConstants
 operator|.
 name|FOREVER
 argument_list|,
-literal|false
+name|HColumnDescriptor
+operator|.
+name|DEFAULT_BLOOMFILTER
 argument_list|,
 name|HConstants
 operator|.
@@ -1089,7 +1093,9 @@ name|HConstants
 operator|.
 name|FOREVER
 argument_list|,
-literal|false
+name|HColumnDescriptor
+operator|.
+name|DEFAULT_BLOOMFILTER
 argument_list|,
 name|HConstants
 operator|.

@@ -250,6 +250,8 @@ name|hash
 argument_list|(
 name|bytes
 argument_list|,
+literal|0
+argument_list|,
 name|bytes
 operator|.
 name|length
@@ -258,7 +260,36 @@ name|initval
 argument_list|)
 return|;
 block|}
-comment|/**    * Calculate a hash using bytes from 0 to<code>length</code>, and    * the provided seed value    * @param bytes input bytes    * @param length length of the valid bytes to consider    * @param initval seed value    * @return hash value    */
+comment|/**    * Calculate a hash using bytes from 0 to<code>length</code>, and    * the provided seed value    * @param bytes input bytes    * @param length length of the valid bytes after offset to consider    * @param initval seed value    * @return hash value    */
+specifier|public
+name|int
+name|hash
+parameter_list|(
+name|byte
+index|[]
+name|bytes
+parameter_list|,
+name|int
+name|length
+parameter_list|,
+name|int
+name|initval
+parameter_list|)
+block|{
+return|return
+name|hash
+argument_list|(
+name|bytes
+argument_list|,
+literal|0
+argument_list|,
+name|length
+argument_list|,
+name|initval
+argument_list|)
+return|;
+block|}
+comment|/**    * Calculate a hash using bytes from 0 to<code>length</code>, and    * the provided seed value    * @param bytes input bytes    * @param offset the offset into the array to start consideration    * @param length length of the valid bytes after offset to consider    * @param initval seed value    * @return hash value    */
 specifier|public
 specifier|abstract
 name|int
@@ -267,6 +298,9 @@ parameter_list|(
 name|byte
 index|[]
 name|bytes
+parameter_list|,
+name|int
+name|offset
 parameter_list|,
 name|int
 name|length

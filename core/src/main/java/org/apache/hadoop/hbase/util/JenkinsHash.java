@@ -134,6 +134,9 @@ index|[]
 name|key
 parameter_list|,
 name|int
+name|off
+parameter_list|,
+name|int
 name|nbytes
 parameter_list|,
 name|int
@@ -172,7 +175,7 @@ expr_stmt|;
 name|int
 name|offset
 init|=
-literal|0
+name|off
 decl_stmt|;
 for|for
 control|(

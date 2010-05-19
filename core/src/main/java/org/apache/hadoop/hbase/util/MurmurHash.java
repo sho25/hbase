@@ -58,6 +58,9 @@ index|[]
 name|data
 parameter_list|,
 name|int
+name|offset
+parameter_list|,
+name|int
 name|length
 parameter_list|,
 name|int
@@ -106,9 +109,13 @@ block|{
 name|int
 name|i_4
 init|=
+operator|(
 name|i
 operator|<<
 literal|2
+operator|)
+operator|+
+name|offset
 decl_stmt|;
 name|int
 name|k
@@ -222,6 +229,13 @@ name|length
 operator|-
 name|len_m
 decl_stmt|;
+name|int
+name|i_m
+init|=
+name|len_m
+operator|+
+name|offset
+decl_stmt|;
 if|if
 condition|(
 name|left
@@ -240,7 +254,7 @@ name|h
 operator|^=
 name|data
 index|[
-name|len_m
+name|i_m
 operator|+
 literal|2
 index|]
@@ -259,7 +273,7 @@ name|h
 operator|^=
 name|data
 index|[
-name|len_m
+name|i_m
 operator|+
 literal|1
 index|]
@@ -278,7 +292,7 @@ name|h
 operator|^=
 name|data
 index|[
-name|len_m
+name|i_m
 index|]
 expr_stmt|;
 block|}

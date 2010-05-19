@@ -123,6 +123,8 @@ name|KeyValueHeap
 parameter_list|(
 name|List
 argument_list|<
+name|?
+extends|extends
 name|KeyValueScanner
 argument_list|>
 name|scanners

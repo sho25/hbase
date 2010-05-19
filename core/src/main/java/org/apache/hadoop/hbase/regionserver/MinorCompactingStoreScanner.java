@@ -113,6 +113,8 @@ name|store
 parameter_list|,
 name|List
 argument_list|<
+name|?
+extends|extends
 name|KeyValueScanner
 argument_list|>
 name|scanners
@@ -177,6 +179,8 @@ name|comparator
 parameter_list|,
 name|List
 argument_list|<
+name|?
+extends|extends
 name|KeyValueScanner
 argument_list|>
 name|scanners

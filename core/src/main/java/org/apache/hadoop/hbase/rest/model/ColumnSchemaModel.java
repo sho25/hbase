@@ -573,9 +573,9 @@ operator|.
 name|DEFAULT_BLOCKSIZE
 return|;
 block|}
-comment|/**    * @return true if the BLOOMFILTER attribute is present and true    */
+comment|/**    * @return the value of the BLOOMFILTER attribute or its default if unset    */
 specifier|public
-name|boolean
+name|String
 name|__getBloomfilter
 parameter_list|()
 block|{
@@ -594,22 +594,17 @@ name|o
 operator|!=
 literal|null
 condition|?
-name|Boolean
-operator|.
-name|valueOf
-argument_list|(
 name|o
 operator|.
 name|toString
 argument_list|()
-argument_list|)
 else|:
 name|HColumnDescriptor
 operator|.
 name|DEFAULT_BLOOMFILTER
 return|;
 block|}
-comment|/**    * @return the value of the COMPRESSION attribute or its default if it is unset    */
+comment|/**    * @return the value of the COMPRESSION attribute or its default if unset    */
 specifier|public
 name|String
 name|__getCompression
@@ -800,7 +795,7 @@ specifier|public
 name|void
 name|__setBloomfilter
 parameter_list|(
-name|boolean
+name|String
 name|value
 parameter_list|)
 block|{
@@ -810,12 +805,7 @@ name|put
 argument_list|(
 name|BLOOMFILTER
 argument_list|,
-name|Boolean
-operator|.
-name|toString
-argument_list|(
 name|value
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
