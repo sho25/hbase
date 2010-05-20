@@ -808,7 +808,7 @@ name|get
 argument_list|(
 name|TEST_DIRECTORY_KEY
 argument_list|,
-literal|"test/build/data"
+literal|"target/test/data"
 argument_list|)
 argument_list|,
 name|testName

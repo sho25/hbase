@@ -545,6 +545,7 @@ return|;
 block|}
 comment|/**    * @return Where to write test data on local filesystem; usually build/test/data    */
 specifier|public
+specifier|static
 name|Path
 name|getTestDir
 parameter_list|()
@@ -559,7 +560,7 @@ name|getProperty
 argument_list|(
 name|TEST_DIRECTORY_KEY
 argument_list|,
-literal|"build/test/data"
+literal|"target/test/data"
 argument_list|)
 argument_list|)
 return|;

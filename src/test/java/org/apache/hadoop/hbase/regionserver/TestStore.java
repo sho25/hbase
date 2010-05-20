@@ -121,6 +121,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseTestingUtility
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -486,7 +500,12 @@ specifier|final
 name|String
 name|DIR
 init|=
-literal|"test/build/data/TestStore/"
+name|HBaseTestingUtility
+operator|.
+name|getTestDir
+argument_list|()
+operator|+
+literal|"/TestStore/"
 decl_stmt|;
 comment|/**    * Setup    * @throws IOException    */
 annotation|@
