@@ -3640,6 +3640,8 @@ name|testDelete_mixed
 parameter_list|()
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 name|byte
 index|[]
@@ -3970,6 +3972,14 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Sleep to ensure timestamp of next Put is bigger than previous delete
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|10
+argument_list|)
+expr_stmt|;
 comment|// Assert that after a delete, I can put.
 name|put
 operator|=
@@ -4068,8 +4078,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-try|try
-block|{
+comment|// Sleep to ensure timestamp of next Put is bigger than previous delete
 name|Thread
 operator|.
 name|sleep
@@ -4077,19 +4086,6 @@ argument_list|(
 literal|10
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-name|e
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
-block|}
 name|region
 operator|.
 name|put
