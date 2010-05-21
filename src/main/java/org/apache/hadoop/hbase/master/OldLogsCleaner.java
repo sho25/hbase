@@ -131,6 +131,24 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|HLog
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -219,19 +237,6 @@ specifier|private
 specifier|final
 name|Configuration
 name|conf
-decl_stmt|;
-comment|// We expect a file looking like hlog.dat.ts
-specifier|private
-specifier|final
-name|Pattern
-name|pattern
-init|=
-name|Pattern
-operator|.
-name|compile
-argument_list|(
-literal|"\\d*\\.hlog\\.dat\\.\\d*"
-argument_list|)
 decl_stmt|;
 comment|/**    *    * @param p the period of time to sleep between each run    * @param s the stopper boolean    * @param conf configuration to use    * @param fs handle to the FS    * @param oldLogDir the path to the archived logs    */
 specifier|public
@@ -423,18 +428,15 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|pattern
+name|HLog
 operator|.
-name|matcher
+name|validateHLogFilename
 argument_list|(
 name|filePath
 operator|.
 name|getName
 argument_list|()
 argument_list|)
-operator|.
-name|matches
-argument_list|()
 condition|)
 block|{
 if|if

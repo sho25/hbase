@@ -4926,6 +4926,16 @@ argument_list|,
 name|conf
 argument_list|,
 name|hlogRoller
+argument_list|,
+literal|null
+argument_list|,
+name|serverInfo
+operator|.
+name|getServerAddress
+argument_list|()
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 decl_stmt|;
 return|return
