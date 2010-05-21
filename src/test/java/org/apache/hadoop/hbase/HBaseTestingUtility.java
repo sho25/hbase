@@ -767,7 +767,7 @@ operator|=
 operator|new
 name|MiniDFSCluster
 argument_list|(
-literal|12345
+literal|0
 argument_list|,
 name|this
 operator|.
