@@ -113,7 +113,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseConfiguration
+name|HBaseTestCase
 import|;
 end_import
 
@@ -127,7 +127,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseTestCase
+name|HBaseTestingUtility
 import|;
 end_import
 
@@ -2238,14 +2238,15 @@ specifier|static
 name|String
 name|ROOT_DIR
 init|=
-name|System
+name|HBaseTestingUtility
 operator|.
-name|getProperty
+name|getTestDir
 argument_list|(
-literal|"test.build.data"
-argument_list|,
-literal|"/tmp/TestStoreFile"
+literal|"TestStoreFile"
 argument_list|)
+operator|.
+name|toString
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
