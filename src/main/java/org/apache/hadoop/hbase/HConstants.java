@@ -69,8 +69,6 @@ argument_list|(
 literal|0L
 argument_list|)
 decl_stmt|;
-comment|//TODO: NINES is only used in HBaseAdmin and HConnectionManager. Move to client
-comment|//      package and change visibility to default
 specifier|static
 specifier|final
 name|String
@@ -78,8 +76,6 @@ name|NINES
 init|=
 literal|"99999999999999"
 decl_stmt|;
-comment|//TODO: ZEROS is only used in HConnectionManager and MetaScanner. Move to
-comment|//      client package and change visibility to default
 specifier|static
 specifier|final
 name|String
