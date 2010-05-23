@@ -991,11 +991,13 @@ name|count
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * A simple test which verifies the 3 possible states when scanning across snapshot.    */
+comment|/**    * A simple test which verifies the 3 possible states when scanning across snapshot.    * @throws IOException     */
 specifier|public
 name|void
 name|testScanAcrossSnapshot2
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 comment|// we are going to the scanning across snapshot with two kvs
 comment|// kv1 should always be returned before kv2
@@ -1196,6 +1198,8 @@ parameter_list|,
 name|KeyValue
 name|kv2
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|ReadWriteConsistencyControl
 operator|.
@@ -1292,6 +1296,8 @@ name|KeyValue
 index|[]
 name|expected
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|scanner
 operator|.
@@ -1349,6 +1355,8 @@ specifier|public
 name|void
 name|testMemstoreConcurrentControl
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 specifier|final
 name|byte
@@ -1646,10 +1654,6 @@ name|ReadOwnWritesTester
 extends|extends
 name|Thread
 block|{
-specifier|final
-name|int
-name|id
-decl_stmt|;
 specifier|static
 specifier|final
 name|int
@@ -1721,12 +1725,6 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|id
-operator|=
-name|id
-expr_stmt|;
-name|this
-operator|.
 name|rwcc
 operator|=
 name|rwcc
@@ -1785,6 +1783,8 @@ specifier|private
 name|void
 name|internalRun
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 for|for
 control|(
@@ -5919,6 +5919,8 @@ parameter_list|,
 name|int
 name|iteration
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|long
 name|nanos
@@ -6031,6 +6033,8 @@ name|String
 index|[]
 name|args
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|ReadWriteConsistencyControl
 name|rwcc

@@ -207,6 +207,8 @@ parameter_list|,
 name|boolean
 name|usePread
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|List
 argument_list|<
@@ -239,31 +241,9 @@ name|r
 init|=
 name|file
 operator|.
-name|getReader
+name|createReader
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|r
-operator|==
-literal|null
-condition|)
-block|{
-comment|// TODO why can this happen? this seems like something worth
-comment|// throwing an exception over!
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"StoreFile "
-operator|+
-name|file
-operator|+
-literal|" has a null Reader"
-argument_list|)
-expr_stmt|;
-continue|continue;
-block|}
 name|scanners
 operator|.
 name|add
@@ -331,6 +311,8 @@ specifier|public
 name|KeyValue
 name|next
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|KeyValue
 name|retKey
@@ -365,11 +347,14 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-comment|// Turn checked exception into runtime exception.
 throw|throw
 operator|new
-name|RuntimeException
+name|IOException
 argument_list|(
+literal|"Could not iterate "
+operator|+
+name|this
+argument_list|,
 name|e
 argument_list|)
 throw|;
@@ -385,6 +370,8 @@ parameter_list|(
 name|KeyValue
 name|key
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 try|try
 block|{
@@ -428,12 +415,17 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
-name|close
-argument_list|()
-expr_stmt|;
-return|return
-literal|false
-return|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Could not seek "
+operator|+
+name|this
+argument_list|,
+name|ioe
+argument_list|)
+throw|;
 block|}
 block|}
 specifier|public

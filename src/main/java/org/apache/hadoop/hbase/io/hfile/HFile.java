@@ -5844,6 +5844,24 @@ expr_stmt|;
 block|}
 block|}
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"HFileScanner for reader "
+operator|+
+name|String
+operator|.
+name|valueOf
+argument_list|(
+name|reader
+argument_list|)
+return|;
+block|}
 block|}
 specifier|public
 name|String

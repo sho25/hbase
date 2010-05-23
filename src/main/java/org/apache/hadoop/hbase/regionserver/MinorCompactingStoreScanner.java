@@ -119,6 +119,8 @@ name|KeyValueScanner
 argument_list|>
 name|scanners
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|comparator
 operator|=
@@ -185,6 +187,8 @@ name|KeyValueScanner
 argument_list|>
 name|scanners
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|this
 operator|.
@@ -247,6 +251,8 @@ specifier|public
 name|KeyValue
 name|next
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 return|return
 name|heap

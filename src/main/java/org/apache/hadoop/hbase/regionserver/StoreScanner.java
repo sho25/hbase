@@ -181,7 +181,7 @@ specifier|final
 name|boolean
 name|isGet
 decl_stmt|;
-comment|/**    * Opens a scanner across memstore, snapshot, and all StoreFiles.    *    * @param store who we scan    * @param scan the spec    * @param columns which columns we are scanning    */
+comment|/**    * Opens a scanner across memstore, snapshot, and all StoreFiles.    *    * @param store who we scan    * @param scan the spec    * @param columns which columns we are scanning    * @throws IOException     */
 name|StoreScanner
 parameter_list|(
 name|Store
@@ -198,6 +198,8 @@ index|[]
 argument_list|>
 name|columns
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|this
 operator|.
@@ -336,6 +338,8 @@ name|KeyValueScanner
 argument_list|>
 name|scanners
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|this
 operator|.
@@ -465,6 +469,8 @@ name|KeyValueScanner
 argument_list|>
 name|scanners
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|this
 operator|.
@@ -552,6 +558,8 @@ name|KeyValueScanner
 argument_list|>
 name|getScanners
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 comment|// First the store file scanners
 name|Map
@@ -657,6 +665,8 @@ index|[]
 argument_list|>
 name|columns
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 comment|// First the store file scanners
 name|Map
@@ -859,6 +869,8 @@ parameter_list|(
 name|KeyValue
 name|key
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|this

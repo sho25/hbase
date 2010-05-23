@@ -241,6 +241,8 @@ specifier|public
 name|KeyValue
 name|next
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(
@@ -625,7 +627,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Seeks all scanners at or below the specified seek key.  If we earlied-out    * of a row, we may end up skipping values that were never reached yet.    * Rather than iterating down, we want to give the opportunity to re-seek.    *<p>    * As individual scanners may run past their ends, those scanners are    * automatically closed and removed from the heap.    * @param seekKey KeyValue to seek at or after    * @return true if KeyValues exist at or after specified key, false if not    */
+comment|/**    * Seeks all scanners at or below the specified seek key.  If we earlied-out    * of a row, we may end up skipping values that were never reached yet.    * Rather than iterating down, we want to give the opportunity to re-seek.    *<p>    * As individual scanners may run past their ends, those scanners are    * automatically closed and removed from the heap.    * @param seekKey KeyValue to seek at or after    * @return true if KeyValues exist at or after specified key, false if not    * @throws IOException     */
 specifier|public
 name|boolean
 name|seek
@@ -633,6 +635,8 @@ parameter_list|(
 name|KeyValue
 name|seekKey
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(

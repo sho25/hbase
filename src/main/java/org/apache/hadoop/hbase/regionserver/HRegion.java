@@ -7449,6 +7449,8 @@ block|}
 name|void
 name|initHeap
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|List
 argument_list|<

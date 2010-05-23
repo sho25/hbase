@@ -5905,7 +5905,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// File administration
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Return a scanner for both the memstore and the HStore files    */
+comment|/**    * Return a scanner for both the memstore and the HStore files    * @throws IOException     */
 specifier|protected
 name|KeyValueScanner
 name|getScanner
@@ -5921,6 +5921,8 @@ index|[]
 argument_list|>
 name|targetCols
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|lock
 operator|.

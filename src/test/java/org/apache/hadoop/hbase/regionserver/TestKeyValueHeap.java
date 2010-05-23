@@ -21,6 +21,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -302,6 +312,8 @@ specifier|public
 name|void
 name|testSorted
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 comment|//Cases that need to be checked are:
 comment|//1. The "smallest" KeyValue is in the same scanners as current
@@ -921,6 +933,8 @@ specifier|public
 name|void
 name|testSeek
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 comment|//Cases:
 comment|//1. Seek KeyValue that is not in scanner
@@ -1343,6 +1357,8 @@ specifier|public
 name|void
 name|testScannerLeak
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 comment|// Test for unclosed scanners (HBASE-1927)
 name|List

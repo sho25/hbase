@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -51,6 +61,8 @@ specifier|public
 name|KeyValue
 name|next
 parameter_list|()
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Seek the scanner at or after the specified KeyValue.    * @param key seek value    * @return true if scanner has values left, false if end of scanner    */
 specifier|public
@@ -60,6 +72,8 @@ parameter_list|(
 name|KeyValue
 name|key
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Close the KeyValue scanner.    */
 specifier|public
