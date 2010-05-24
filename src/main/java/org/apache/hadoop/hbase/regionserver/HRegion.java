@@ -4487,7 +4487,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|NotServingRegionException
 argument_list|(
 literal|"Region "
 operator|+
