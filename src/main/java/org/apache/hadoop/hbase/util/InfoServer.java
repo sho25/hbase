@@ -104,7 +104,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Create a Jetty embedded server to answer http requests. The primary goal  * is to serve up status information for the server.  * There are three contexts:  *   "/stacks/" -> points to stack trace  *   "/static/" -> points to common static files (src/webapps/static)  *   "/" -> the jsp server code from (src/webapps/<name>)  */
+comment|/**  * Create a Jetty embedded server to answer http requests. The primary goal  * is to serve up status information for the server.  * There are three contexts:  *   "/stacks/" -> points to stack trace  *   "/static/" -> points to common static files (src/hbase-webapps/static)  *   "/" -> the jsp server code from (src/hbase-webapps/<name>)  */
 end_comment
 
 begin_class
@@ -114,7 +114,7 @@ name|InfoServer
 extends|extends
 name|HttpServer
 block|{
-comment|/**    * Create a status server on the given port.    * The jsp scripts are taken from src/webapps/<code>name<code>.    * @param name The name of the server    * @param bindAddress address to bind to    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and    * increment by 1 until it finds a free port.    * @throws IOException e    */
+comment|/**    * Create a status server on the given port.    * The jsp scripts are taken from src/hbase-webapps/<code>name<code>.    * @param name The name of the server    * @param bindAddress address to bind to    * @param port The port to use on the server    * @param findPort whether the server should start at the given port and    * increment by 1 until it finds a free port.    * @throws IOException e    */
 specifier|public
 name|InfoServer
 parameter_list|(
@@ -405,7 +405,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"webapps not found in CLASSPATH: "
+literal|"hbase-webapps not found in CLASSPATH: "
 operator|+
 name|path
 argument_list|)
@@ -437,7 +437,7 @@ name|webappDir
 operator|=
 name|getWebAppsPath
 argument_list|(
-literal|"webapps/"
+literal|"hbase-webapps/"
 operator|+
 name|webappName
 argument_list|)
