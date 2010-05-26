@@ -47,7 +47,7 @@ specifier|public
 name|ValueFilter
 parameter_list|()
 block|{   }
-comment|/**    * Constructor.    * @param valueCompareOp the compare op for column qualifier matching    * @param valueComparator the comparator for column qualifier matching    */
+comment|/**    * Constructor.    * @param valueCompareOp the compare op for value matching    * @param valueComparator the comparator for value matching    */
 specifier|public
 name|ValueFilter
 parameter_list|(
