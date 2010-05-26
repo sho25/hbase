@@ -1596,7 +1596,7 @@ literal|"to "
 operator|+
 name|HMsg
 operator|.
-name|CALL_SERVER_STARTUP
+name|REGIONSERVER_STOP
 operator|+
 literal|": "
 operator|+
@@ -1607,7 +1607,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// The HBaseMaster may have been restarted.
-comment|// Tell the RegionServer to start over and call regionServerStartup()
+comment|// Tell the RegionServer to abort!
 return|return
 operator|new
 name|HMsg
@@ -1615,7 +1615,7 @@ index|[]
 block|{
 name|HMsg
 operator|.
-name|CALL_SERVER_STARTUP
+name|REGIONSERVER_STOP
 block|}
 return|;
 block|}

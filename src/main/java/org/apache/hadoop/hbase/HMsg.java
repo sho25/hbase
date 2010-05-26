@@ -118,20 +118,6 @@ specifier|public
 specifier|static
 specifier|final
 name|HMsg
-name|CALL_SERVER_STARTUP
-init|=
-operator|new
-name|HMsg
-argument_list|(
-name|Type
-operator|.
-name|MSG_CALL_SERVER_STARTUP
-argument_list|)
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|HMsg
 index|[]
 name|EMPTY_HMSG_ARRAY
 init|=
@@ -162,9 +148,6 @@ name|MSG_REGION_SPLIT
 block|,
 comment|/** Compact the specified region */
 name|MSG_REGION_COMPACT
-block|,
-comment|/** Region server is unknown to master. Restart */
-name|MSG_CALL_SERVER_STARTUP
 block|,
 comment|/** Master tells region server to stop */
 name|MSG_REGIONSERVER_STOP
