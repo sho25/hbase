@@ -693,6 +693,22 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
+name|void
+name|setHServerInfo
+parameter_list|(
+specifier|final
+name|HServerInfo
+name|hsi
+parameter_list|)
+block|{
+name|this
+operator|.
+name|serverInfo
+operator|=
+name|hsi
+expr_stmt|;
+block|}
 comment|/*      * @param c      * @param currentfs We return this if we did not make a new one.      * @param uniqueName Same name used to help identify the created fs.      * @return A new fs instance if we are up on DistributeFileSystem.      * @throws IOException      */
 specifier|private
 specifier|static

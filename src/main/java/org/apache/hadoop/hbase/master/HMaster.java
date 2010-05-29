@@ -3393,24 +3393,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Set the address for now even tho it will not be persisted on HRS side
-comment|// If the address given is not the default one, use IP given by the user.
-if|if
-condition|(
-name|serverInfo
-operator|.
-name|getServerAddress
-argument_list|()
-operator|.
-name|getBindAddress
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|DEFAULT_HOST
-argument_list|)
-condition|)
-block|{
+comment|// Set the ip into the passed in serverInfo.  Its ip is more than likely
+comment|// not the ip that the master sees here.  See at end of this method where
+comment|// we pass it back to the regionserver by setting "hbase.regionserver.address"
 name|String
 name|rsAddress
 init|=
@@ -3438,7 +3423,6 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Register with server manager
 name|this
 operator|.
@@ -3450,9 +3434,31 @@ name|serverInfo
 argument_list|)
 expr_stmt|;
 comment|// Send back some config info
-return|return
+name|MapWritable
+name|mw
+init|=
 name|createConfigurationSubset
 argument_list|()
+decl_stmt|;
+name|mw
+operator|.
+name|put
+argument_list|(
+operator|new
+name|Text
+argument_list|(
+literal|"hbase.regionserver.address"
+argument_list|)
+argument_list|,
+operator|new
+name|Text
+argument_list|(
+name|rsAddress
+argument_list|)
+argument_list|)
+expr_stmt|;
+return|return
+name|mw
 return|;
 block|}
 comment|/**    * @return Subset of configuration to pass initializing regionservers: e.g.    * the filesystem to use and root directory to use.    */
@@ -3475,40 +3481,6 @@ operator|.
 name|HBASE_DIR
 argument_list|)
 decl_stmt|;
-comment|// Get the real address of the HRS.
-name|String
-name|rsAddress
-init|=
-name|HBaseServer
-operator|.
-name|getRemoteAddress
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|rsAddress
-operator|!=
-literal|null
-condition|)
-block|{
-name|mw
-operator|.
-name|put
-argument_list|(
-operator|new
-name|Text
-argument_list|(
-literal|"hbase.regionserver.address"
-argument_list|)
-argument_list|,
-operator|new
-name|Text
-argument_list|(
-name|rsAddress
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
 return|return
 name|addConfig
 argument_list|(
@@ -5635,7 +5607,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 name|String
-name|servername
+name|hostnameAndPort
 init|=
 literal|null
 decl_stmt|;
@@ -5648,7 +5620,7 @@ operator|==
 literal|2
 condition|)
 block|{
-name|servername
+name|hostnameAndPort
 operator|=
 name|Bytes
 operator|.
@@ -5697,13 +5669,13 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|servername
+name|hostnameAndPort
 operator|==
 literal|null
 condition|)
 block|{
 comment|// Get server from the .META. if it wasn't passed as argument
-name|servername
+name|hostnameAndPort
 operator|=
 name|Bytes
 operator|.
@@ -5731,25 +5703,14 @@ argument_list|(
 name|regionname
 argument_list|)
 expr_stmt|;
-comment|// If servername is still null, then none, exit.
+comment|// If hostnameAndPort is still null, then none, exit.
 if|if
 condition|(
-name|servername
+name|hostnameAndPort
 operator|==
 literal|null
 condition|)
 break|break;
-comment|// Need to make up a HServerInfo 'servername' for that is how
-comment|// items are keyed in regionmanager Maps.
-name|HServerAddress
-name|addr
-init|=
-operator|new
-name|HServerAddress
-argument_list|(
-name|servername
-argument_list|)
-decl_stmt|;
 name|long
 name|startCode
 init|=
@@ -5774,7 +5735,7 @@ name|HServerInfo
 operator|.
 name|getServerName
 argument_list|(
-name|addr
+name|hostnameAndPort
 argument_list|,
 name|startCode
 argument_list|)

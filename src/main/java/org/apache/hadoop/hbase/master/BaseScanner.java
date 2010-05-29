@@ -2258,7 +2258,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/*    * Check the passed region is assigned.  If not, add to unassigned.    * @param regionServer    * @param meta    * @param info    * @param serverAddress    * @param startCode    * @throws IOException    */
+comment|/*    * Check the passed region is assigned.  If not, add to unassigned.    * @param regionServer    * @param meta    * @param info    * @param hostnameAndPort hostname ':' port as it comes out of .META.    * @param startCode    * @throws IOException    */
 specifier|protected
 name|void
 name|checkAssigned
@@ -2277,7 +2277,7 @@ name|info
 parameter_list|,
 specifier|final
 name|String
-name|serverAddress
+name|hostnameAndPort
 parameter_list|,
 specifier|final
 name|long
@@ -2294,7 +2294,7 @@ decl_stmt|;
 name|String
 name|sa
 init|=
-name|serverAddress
+name|hostnameAndPort
 decl_stmt|;
 name|long
 name|sc
@@ -2315,11 +2315,9 @@ operator|<=
 literal|0
 condition|)
 block|{
-comment|// Scans are sloppy.  They don't respect row locks and they get and
-comment|// cache a row internally so may have data that is a little stale.  Make
-comment|// sure that for sure this serverAddress is null.  We are trying to
-comment|// avoid double-assignments.  See hbase-1784.  Will have to wait till
-comment|// 0.21 hbase where we use zk to mediate state transitions to do better.
+comment|// Scans are sloppy.  They cache a row internally so may have data that
+comment|// is a little stale.  Make sure that for sure this serverAddress is null.
+comment|// We are trying to avoid double-assignments.  See hbase-1784.
 name|Get
 name|g
 init|=
@@ -2376,21 +2374,6 @@ argument_list|(
 name|r
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|sa
-operator|!=
-literal|null
-operator|&&
-name|sa
-operator|.
-name|length
-argument_list|()
-operator|>
-literal|0
-condition|)
-block|{
-comment|// Reget startcode in case its changed in the meantime too.
 name|sc
 operator|=
 name|getStartCode
@@ -2398,7 +2381,6 @@ argument_list|(
 name|r
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 if|if

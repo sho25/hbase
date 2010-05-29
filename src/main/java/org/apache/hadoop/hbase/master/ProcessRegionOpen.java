@@ -248,10 +248,7 @@ literal|" open on "
 operator|+
 name|serverInfo
 operator|.
-name|getServerAddress
-argument_list|()
-operator|.
-name|toString
+name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -282,10 +279,7 @@ name|toBytes
 argument_list|(
 name|serverInfo
 operator|.
-name|getServerAddress
-argument_list|()
-operator|.
-name|toString
+name|getHostnamePort
 argument_list|()
 argument_list|)
 argument_list|)
@@ -349,7 +343,7 @@ literal|", server="
 operator|+
 name|serverInfo
 operator|.
-name|getServerAddress
+name|getHostnamePort
 argument_list|()
 argument_list|)
 expr_stmt|;
