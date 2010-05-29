@@ -79,6 +79,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Random
+import|;
+end_import
+
+begin_import
+import|import
 name|junit
 operator|.
 name|framework
@@ -1016,6 +1026,34 @@ operator|.
 name|allocBloom
 argument_list|()
 expr_stmt|;
+name|long
+name|seed
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
+name|Random
+name|r
+init|=
+operator|new
+name|Random
+argument_list|(
+name|seed
+argument_list|)
+decl_stmt|;
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"seed = "
+operator|+
+name|seed
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|int
@@ -1036,12 +1074,10 @@ block|{
 comment|// add
 if|if
 condition|(
-name|Math
+name|r
 operator|.
-name|random
+name|nextBoolean
 argument_list|()
-operator|>
-literal|0.5
 condition|)
 block|{
 name|bf1
@@ -1063,6 +1099,19 @@ argument_list|(
 name|i
 argument_list|)
 expr_stmt|;
+comment|// we assume only 2 blooms in this test, so exit before a 3rd is made
+if|if
+condition|(
+name|bf1
+operator|.
+name|getKeyCount
+argument_list|()
+operator|==
+literal|2000
+condition|)
+block|{
+break|break;
+block|}
 block|}
 block|}
 name|assertTrue
@@ -1073,13 +1122,20 @@ name|bf1
 operator|.
 name|bloomCount
 argument_list|()
-operator|&&
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"keys added = "
+operator|+
 name|bf1
 operator|.
-name|bloomCount
+name|getKeyCount
 argument_list|()
-operator|<=
-literal|3
 argument_list|)
 expr_stmt|;
 comment|// test serialization/deserialization
@@ -1227,8 +1283,11 @@ assert|;
 block|}
 block|}
 block|}
-comment|// note that actualErr = err * bloomCount
-comment|// error rate should be roughly: (keyInterval*2)*(err*2), allow some tolerance
+comment|// Dynamic Blooms are a little sneaky.  The error rate currently isn't
+comment|// 'err', it's err * bloomCount.  bloomCount == 2000/1000 == 2 in this case
+comment|// So, the actual error rate should be roughly:
+comment|//    (keyInterval*2) * err * bloomCount
+comment|// allow some tolerance
 name|System
 operator|.
 name|out
