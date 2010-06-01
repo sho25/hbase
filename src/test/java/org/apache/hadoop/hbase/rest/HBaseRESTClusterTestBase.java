@@ -150,14 +150,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|// use a nonstandard port
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_TEST_PORT
-init|=
-literal|38080
-decl_stmt|;
 specifier|protected
 name|int
 name|testServletPort
@@ -270,23 +262,12 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// set up Jetty and run the embedded server
-name|testServletPort
-operator|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.rest.port"
-argument_list|,
-name|DEFAULT_TEST_PORT
-argument_list|)
-expr_stmt|;
 name|server
 operator|=
 operator|new
 name|Server
 argument_list|(
-name|testServletPort
+literal|0
 argument_list|)
 expr_stmt|;
 name|server
@@ -332,6 +313,20 @@ comment|// start the server
 name|server
 operator|.
 name|start
+argument_list|()
+expr_stmt|;
+comment|// get the port
+name|testServletPort
+operator|=
+name|server
+operator|.
+name|getConnectors
+argument_list|()
+index|[
+literal|0
+index|]
+operator|.
+name|getLocalPort
 argument_list|()
 expr_stmt|;
 name|LOG
