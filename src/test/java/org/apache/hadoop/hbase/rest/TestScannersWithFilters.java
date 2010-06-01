@@ -97,18 +97,6 @@ name|xml
 operator|.
 name|bind
 operator|.
-name|JAXBException
-import|;
-end_import
-
-begin_import
-import|import
-name|javax
-operator|.
-name|xml
-operator|.
-name|bind
-operator|.
 name|Marshaller
 import|;
 end_import
@@ -682,7 +670,6 @@ name|TestScannersWithFilters
 extends|extends
 name|HBaseRESTClusterTestBase
 block|{
-specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -697,23 +684,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|private
-name|Client
-name|client
-decl_stmt|;
-specifier|private
-name|JAXBContext
-name|context
-decl_stmt|;
-specifier|private
-name|Marshaller
-name|marshaller
-decl_stmt|;
-specifier|private
-name|Unmarshaller
-name|unmarshaller
-decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|byte
@@ -751,7 +721,6 @@ literal|"testRowOne-3"
 argument_list|)
 block|}
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|byte
@@ -789,7 +758,6 @@ literal|"testRowTwo-3"
 argument_list|)
 block|}
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|byte
@@ -813,7 +781,6 @@ literal|"testFamilyTwo"
 argument_list|)
 block|}
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|byte
@@ -851,7 +818,6 @@ literal|"testQualifierOne-3"
 argument_list|)
 block|}
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|byte
@@ -889,7 +855,6 @@ literal|"testQualifierTwo-3"
 argument_list|)
 block|}
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|byte
@@ -913,7 +878,18 @@ literal|"testValueTwo"
 argument_list|)
 block|}
 decl_stmt|;
-specifier|private
+name|Client
+name|client
+decl_stmt|;
+name|JAXBContext
+name|context
+decl_stmt|;
+name|Marshaller
+name|marshaller
+decl_stmt|;
+name|Unmarshaller
+name|unmarshaller
+decl_stmt|;
 name|long
 name|numRows
 init|=
@@ -925,7 +901,6 @@ name|ROWS_TWO
 operator|.
 name|length
 decl_stmt|;
-specifier|private
 name|long
 name|colsPerRow
 init|=
@@ -937,13 +912,18 @@ name|QUALIFIERS_ONE
 operator|.
 name|length
 decl_stmt|;
-specifier|public
-name|TestScannersWithFilters
+annotation|@
+name|Override
+specifier|protected
+name|void
+name|setUp
 parameter_list|()
 throws|throws
-name|JAXBException
+name|Exception
 block|{
 name|super
+operator|.
+name|setUp
 argument_list|()
 expr_stmt|;
 name|context
@@ -981,21 +961,6 @@ operator|=
 name|context
 operator|.
 name|createUnmarshaller
-argument_list|()
-expr_stmt|;
-block|}
-annotation|@
-name|Override
-specifier|protected
-name|void
-name|setUp
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-name|super
-operator|.
-name|setUp
 argument_list|()
 expr_stmt|;
 name|client
@@ -1557,7 +1522,6 @@ name|tearDown
 argument_list|()
 expr_stmt|;
 block|}
-specifier|private
 name|void
 name|verifyScan
 parameter_list|(
@@ -1804,7 +1768,6 @@ literal|200
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
 name|void
 name|verifyScanFull
 parameter_list|(
@@ -2230,7 +2193,6 @@ name|idx
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
 name|void
 name|verifyScanNoEarlyOut
 parameter_list|(
@@ -2543,9 +2505,8 @@ name|j
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|void
-name|testNoFilter
+name|doTestNoFilter
 parameter_list|()
 throws|throws
 name|Exception
@@ -2611,9 +2572,8 @@ literal|2
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|void
-name|testPrefixFilter
+name|doTestPrefixFilter
 parameter_list|()
 throws|throws
 name|Exception
@@ -2668,9 +2628,8 @@ name|expectedKeys
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|void
-name|testPageFilter
+name|doTestPageFilter
 parameter_list|()
 throws|throws
 name|Exception
@@ -3797,9 +3756,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|void
-name|testInclusiveStopFilter
+name|doTestInclusiveStopFilter
 parameter_list|()
 throws|throws
 name|Exception
@@ -4000,9 +3958,8 @@ name|expectedKeys
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|void
-name|testQualifierFilter
+name|doTestQualifierFilter
 parameter_list|()
 throws|throws
 name|Exception
@@ -4390,7 +4347,8 @@ argument_list|)
 expr_stmt|;
 comment|// Match keys not equal to
 comment|// Look across rows and fully validate the keys and ordering
-comment|// Expect varied numbers of keys, 4 per row in group one, 6 per row in group two
+comment|// Expect varied numbers of keys, 4 per row in group one, 6 per row in
+comment|// group two
 name|f
 operator|=
 operator|new
@@ -5791,9 +5749,8 @@ name|kvs
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|void
-name|testRowFilter
+name|doTestRowFilter
 parameter_list|()
 throws|throws
 name|Exception
@@ -7304,9 +7261,8 @@ name|kvs
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|void
-name|testValueFilter
+name|doTestValueFilter
 parameter_list|()
 throws|throws
 name|Exception
@@ -8318,9 +8274,8 @@ name|kvs
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|void
-name|testSkipFilter
+name|doTestSkipFilter
 parameter_list|()
 throws|throws
 name|Exception
@@ -8816,9 +8771,8 @@ name|kvs
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|void
-name|testFilterList
+name|doTestFilterList
 parameter_list|()
 throws|throws
 name|Exception
@@ -8970,8 +8924,8 @@ argument_list|,
 name|kvs
 argument_list|)
 expr_stmt|;
-comment|// Test getting everything with a MUST_PASS_ONE filter including row, qf, val
-comment|// regular expression and substring filters
+comment|// Test getting everything with a MUST_PASS_ONE filter including row, qf,
+comment|// val, regular expression and substring filters
 name|filters
 operator|.
 name|clear
@@ -9073,9 +9027,8 @@ name|colsPerRow
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|void
-name|testFirstKeyOnlyFilter
+name|doTestFirstKeyOnlyFilter
 parameter_list|()
 throws|throws
 name|Exception
@@ -9253,6 +9206,44 @@ name|s
 argument_list|,
 name|kvs
 argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|void
+name|testScannersWithFilters
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+name|doTestNoFilter
+argument_list|()
+expr_stmt|;
+name|doTestPrefixFilter
+argument_list|()
+expr_stmt|;
+name|doTestPageFilter
+argument_list|()
+expr_stmt|;
+name|doTestInclusiveStopFilter
+argument_list|()
+expr_stmt|;
+name|doTestQualifierFilter
+argument_list|()
+expr_stmt|;
+name|doTestRowFilter
+argument_list|()
+expr_stmt|;
+name|doTestValueFilter
+argument_list|()
+expr_stmt|;
+name|doTestSkipFilter
+argument_list|()
+expr_stmt|;
+name|doTestFilterList
+argument_list|()
+expr_stmt|;
+name|doTestFirstKeyOnlyFilter
+argument_list|()
 expr_stmt|;
 block|}
 block|}
