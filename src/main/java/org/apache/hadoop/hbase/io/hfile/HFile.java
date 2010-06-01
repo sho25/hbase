@@ -7685,7 +7685,7 @@ index|]
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|int
+name|String
 name|enc
 init|=
 name|HRegionInfo
@@ -7703,12 +7703,7 @@ name|Path
 argument_list|(
 name|tableDir
 argument_list|,
-name|Integer
-operator|.
-name|toString
-argument_list|(
 name|enc
-argument_list|)
 argument_list|)
 decl_stmt|;
 if|if

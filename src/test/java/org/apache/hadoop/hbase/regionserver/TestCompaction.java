@@ -508,10 +508,6 @@ name|this
 operator|.
 name|compactionDir
 argument_list|,
-name|Integer
-operator|.
-name|toString
-argument_list|(
 name|this
 operator|.
 name|r
@@ -521,7 +517,6 @@ argument_list|()
 operator|.
 name|getEncodedName
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

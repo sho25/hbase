@@ -3539,6 +3539,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|NINES
+argument_list|,
+literal|false
 argument_list|)
 argument_list|)
 return|;

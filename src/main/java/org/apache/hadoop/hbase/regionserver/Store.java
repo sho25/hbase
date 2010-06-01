@@ -1057,15 +1057,10 @@ argument_list|(
 name|basedir
 argument_list|)
 argument_list|,
-name|Integer
-operator|.
-name|toString
-argument_list|(
 name|info
 operator|.
 name|getEncodedName
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|this
@@ -1318,7 +1313,7 @@ name|Path
 name|tabledir
 parameter_list|,
 specifier|final
-name|int
+name|String
 name|encodedName
 parameter_list|,
 specifier|final
@@ -1336,12 +1331,7 @@ argument_list|,
 operator|new
 name|Path
 argument_list|(
-name|Integer
-operator|.
-name|toString
-argument_list|(
 name|encodedName
-argument_list|)
 argument_list|,
 operator|new
 name|Path
@@ -6501,7 +6491,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Increments the value for the given row/family/qualifier.    *    * This function will always be seen as atomic by other readers    * because it only puts a single KV to memstore. Thus no    * read/write control necessary.    *     * @param row    * @param f    * @param qualifier    * @param newValue the new value to set into memstore    * @return memstore size delta    * @throws IOException    */
+comment|/**    * Increments the value for the given row/family/qualifier.    *    * This function will always be seen as atomic by other readers    * because it only puts a single KV to memstore. Thus no    * read/write control necessary.    *    * @param row    * @param f    * @param qualifier    * @param newValue the new value to set into memstore    * @return memstore size delta    * @throws IOException    */
 specifier|public
 name|long
 name|updateColumnValue

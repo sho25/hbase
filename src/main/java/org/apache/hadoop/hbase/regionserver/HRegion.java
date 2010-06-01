@@ -1144,21 +1144,6 @@ name|REGIONINFO_FILE
 init|=
 literal|".regioninfo"
 decl_stmt|;
-comment|/**    * REGIONINFO_FILE as byte array.    */
-specifier|public
-specifier|final
-specifier|static
-name|byte
-index|[]
-name|REGIONINFO_FILE_BYTES
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|REGIONINFO_FILE
-argument_list|)
-decl_stmt|;
 comment|/**    * Should only be used for testing purposes    */
 specifier|public
 name|HRegion
@@ -1317,17 +1302,12 @@ expr_stmt|;
 name|String
 name|encodedNameStr
 init|=
-name|Integer
-operator|.
-name|toString
-argument_list|(
 name|this
 operator|.
 name|regionInfo
 operator|.
 name|getEncodedName
 argument_list|()
-argument_list|)
 decl_stmt|;
 name|this
 operator|.
@@ -1357,15 +1337,6 @@ argument_list|(
 literal|"Creating region "
 operator|+
 name|this
-operator|+
-literal|", encoded="
-operator|+
-name|this
-operator|.
-name|regionInfo
-operator|.
-name|getEncodedName
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1731,15 +1702,6 @@ argument_list|(
 literal|"region "
 operator|+
 name|this
-operator|+
-literal|"/"
-operator|+
-name|this
-operator|.
-name|regionInfo
-operator|.
-name|getEncodedName
-argument_list|()
 operator|+
 literal|" available; sequence id is "
 operator|+
@@ -3140,15 +3102,10 @@ name|Path
 argument_list|(
 name|splits
 argument_list|,
-name|Integer
-operator|.
-name|toString
-argument_list|(
 name|hri
 operator|.
 name|getEncodedName
 argument_list|()
-argument_list|)
 argument_list|)
 decl_stmt|;
 if|if
@@ -8967,7 +8924,7 @@ name|Path
 name|tabledir
 parameter_list|,
 specifier|final
-name|int
+name|String
 name|name
 parameter_list|)
 block|{
@@ -8977,12 +8934,7 @@ name|Path
 argument_list|(
 name|tabledir
 argument_list|,
-name|Integer
-operator|.
-name|toString
-argument_list|(
 name|name
-argument_list|)
 argument_list|)
 return|;
 block|}
@@ -9020,15 +8972,10 @@ name|getName
 argument_list|()
 argument_list|)
 argument_list|,
-name|Integer
-operator|.
-name|toString
-argument_list|(
 name|info
 operator|.
 name|getEncodedName
 argument_list|()
-argument_list|)
 argument_list|)
 return|;
 block|}
@@ -9734,7 +9681,7 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|int
+name|String
 name|encodedName
 init|=
 name|newRegionInfo

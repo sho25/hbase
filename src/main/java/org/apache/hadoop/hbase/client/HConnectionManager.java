@@ -2477,6 +2477,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|ZEROES
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|byte
@@ -3251,6 +3253,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|NINES
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 for|for

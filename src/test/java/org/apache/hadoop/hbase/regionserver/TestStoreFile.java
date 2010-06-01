@@ -947,7 +947,7 @@ name|this
 operator|.
 name|testDir
 argument_list|,
-literal|1
+literal|"1"
 argument_list|,
 name|Bytes
 operator|.
@@ -1024,7 +1024,7 @@ name|this
 operator|.
 name|testDir
 argument_list|,
-literal|2
+literal|"2"
 argument_list|,
 name|Bytes
 operator|.

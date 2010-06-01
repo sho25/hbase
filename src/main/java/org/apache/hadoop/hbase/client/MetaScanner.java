@@ -176,6 +176,8 @@ argument_list|,
 literal|null
 argument_list|,
 name|ZEROES
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 comment|// Scan over each meta region
