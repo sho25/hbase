@@ -218,7 +218,7 @@ operator|=
 name|length
 expr_stmt|;
 block|}
-comment|/**    * Get the data from the BytesWritable.    * @return The data is only valid between 0 and getSize() - 1.    */
+comment|/**    * Get the data from the BytesWritable.    * @return The data is only valid between offset and offset+length.    */
 specifier|public
 name|byte
 index|[]
@@ -311,7 +311,7 @@ operator|=
 name|length
 expr_stmt|;
 block|}
-comment|/**    * @return the current size of the buffer.    */
+comment|/**    * @return the number of valid bytes in the buffer    */
 specifier|public
 name|int
 name|getSize
@@ -342,7 +342,7 @@ operator|.
 name|length
 return|;
 block|}
-comment|/**    * @return the current length of the buffer. same as getSize()    */
+comment|/**    * @return the number of valid bytes in the buffer    */
 comment|//Should probably deprecate getSize() so that we keep the same calls for all
 comment|//byte []
 specifier|public
@@ -487,35 +487,84 @@ name|int
 name|hashCode
 parameter_list|()
 block|{
-return|return
-name|WritableComparator
-operator|.
-name|hashBytes
-argument_list|(
-name|bytes
-argument_list|,
-name|this
-operator|.
+name|int
+name|hash
+init|=
+literal|1
+decl_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+name|offset
+init|;
+name|i
+operator|<
+name|offset
+operator|+
 name|length
-argument_list|)
+condition|;
+name|i
+operator|++
+control|)
+name|hash
+operator|=
+operator|(
+literal|31
+operator|*
+name|hash
+operator|)
+operator|+
+operator|(
+name|int
+operator|)
+name|bytes
+index|[
+name|i
+index|]
+expr_stmt|;
+return|return
+name|hash
 return|;
 block|}
-comment|/**    * Define the sort order of the BytesWritable.    * @param right_obj The other bytes writable    * @return Positive if left is bigger than right, 0 if they are equal, and    *         negative if left is smaller than right.    */
+comment|/**    * Define the sort order of the BytesWritable.    * @param that The other bytes writable    * @return Positive if left is bigger than right, 0 if they are equal, and    *         negative if left is smaller than right.    */
 specifier|public
 name|int
 name|compareTo
 parameter_list|(
 name|ImmutableBytesWritable
-name|right_obj
+name|that
 parameter_list|)
 block|{
 return|return
-name|compareTo
-argument_list|(
-name|right_obj
+name|WritableComparator
 operator|.
-name|get
-argument_list|()
+name|compareBytes
+argument_list|(
+name|this
+operator|.
+name|bytes
+argument_list|,
+name|this
+operator|.
+name|offset
+argument_list|,
+name|this
+operator|.
+name|length
+argument_list|,
+name|that
+operator|.
+name|bytes
+argument_list|,
+name|that
+operator|.
+name|offset
+argument_list|,
+name|that
+operator|.
+name|length
 argument_list|)
 return|;
 block|}
@@ -539,7 +588,9 @@ name|this
 operator|.
 name|bytes
 argument_list|,
-literal|0
+name|this
+operator|.
+name|offset
 argument_list|,
 name|this
 operator|.
@@ -638,14 +689,12 @@ control|(
 name|int
 name|idx
 init|=
-literal|0
+name|offset
 init|;
 name|idx
 operator|<
-name|this
-operator|.
-name|bytes
-operator|.
+name|offset
+operator|+
 name|length
 condition|;
 name|idx
@@ -657,7 +706,7 @@ if|if
 condition|(
 name|idx
 operator|!=
-literal|0
+name|offset
 condition|)
 block|{
 name|sb
