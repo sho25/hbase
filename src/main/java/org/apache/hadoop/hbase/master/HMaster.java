@@ -4371,7 +4371,6 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// TODO: Redo so this method does not duplicate code with subsequent methods.
-specifier|private
 name|List
 argument_list|<
 name|Pair
@@ -4603,6 +4602,12 @@ condition|(
 name|value
 operator|!=
 literal|null
+operator|&&
+name|value
+operator|.
+name|length
+operator|>
+literal|0
 condition|)
 block|{
 name|HServerAddress
@@ -4660,7 +4665,6 @@ return|return
 name|result
 return|;
 block|}
-specifier|private
 name|Pair
 argument_list|<
 name|HRegionInfo
@@ -4907,6 +4911,12 @@ condition|(
 name|value
 operator|!=
 literal|null
+operator|&&
+name|value
+operator|.
+name|length
+operator|>
+literal|0
 condition|)
 block|{
 name|HServerAddress
@@ -4961,7 +4971,6 @@ return|return
 literal|null
 return|;
 block|}
-specifier|private
 name|Pair
 argument_list|<
 name|HRegionInfo
@@ -5123,6 +5132,12 @@ condition|(
 name|value
 operator|!=
 literal|null
+operator|&&
+name|value
+operator|.
+name|length
+operator|>
+literal|0
 condition|)
 block|{
 name|HServerAddress
