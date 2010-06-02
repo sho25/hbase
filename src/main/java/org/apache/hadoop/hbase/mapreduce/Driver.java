@@ -109,6 +109,36 @@ name|pgd
 operator|.
 name|addClass
 argument_list|(
+name|ImportTsv
+operator|.
+name|NAME
+argument_list|,
+name|ImportTsv
+operator|.
+name|class
+argument_list|,
+literal|"Import data in TSV format."
+argument_list|)
+expr_stmt|;
+name|pgd
+operator|.
+name|addClass
+argument_list|(
+name|LoadIncrementalHFiles
+operator|.
+name|NAME
+argument_list|,
+name|LoadIncrementalHFiles
+operator|.
+name|class
+argument_list|,
+literal|"Complete a bulk data load."
+argument_list|)
+expr_stmt|;
+name|pgd
+operator|.
+name|addClass
+argument_list|(
 name|CopyTable
 operator|.
 name|NAME

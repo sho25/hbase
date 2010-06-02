@@ -111,16 +111,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|NavigableSet
 import|;
 end_import
@@ -562,24 +552,9 @@ throws|throws
 name|IOException
 block|{
 comment|// First the store file scanners
-name|Map
-argument_list|<
-name|Long
-argument_list|,
-name|StoreFile
-argument_list|>
-name|map
-init|=
-name|this
-operator|.
-name|store
-operator|.
-name|getStorefiles
-argument_list|()
-operator|.
-name|descendingMap
-argument_list|()
-decl_stmt|;
+comment|// TODO this used to get the store files in descending order,
+comment|// but now we get them in ascending order, which I think is
+comment|// actually more correct, since memstore get put at the end.
 name|List
 argument_list|<
 name|StoreFileScanner
@@ -590,9 +565,9 @@ name|StoreFileScanner
 operator|.
 name|getScannersForStoreFiles
 argument_list|(
-name|map
+name|store
 operator|.
-name|values
+name|getStorefiles
 argument_list|()
 argument_list|,
 name|cacheBlocks
@@ -669,24 +644,6 @@ throws|throws
 name|IOException
 block|{
 comment|// First the store file scanners
-name|Map
-argument_list|<
-name|Long
-argument_list|,
-name|StoreFile
-argument_list|>
-name|map
-init|=
-name|this
-operator|.
-name|store
-operator|.
-name|getStorefiles
-argument_list|()
-operator|.
-name|descendingMap
-argument_list|()
-decl_stmt|;
 name|List
 argument_list|<
 name|StoreFileScanner
@@ -697,9 +654,9 @@ name|StoreFileScanner
 operator|.
 name|getScannersForStoreFiles
 argument_list|(
-name|map
+name|store
 operator|.
-name|values
+name|getStorefiles
 argument_list|()
 argument_list|,
 name|cacheBlocks

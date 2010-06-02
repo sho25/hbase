@@ -538,6 +538,25 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Bulk load an HFile into an open region    */
+specifier|public
+name|void
+name|bulkLoadHFile
+parameter_list|(
+name|String
+name|hfilePath
+parameter_list|,
+name|byte
+index|[]
+name|regionName
+parameter_list|,
+name|byte
+index|[]
+name|familyName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

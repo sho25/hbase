@@ -1736,19 +1736,13 @@ name|checkPrefix
 operator|&&
 name|Bytes
 operator|.
-name|toString
-argument_list|(
-name|k
-argument_list|)
-operator|.
-name|toLowerCase
-argument_list|()
-operator|.
 name|startsWith
 argument_list|(
+name|k
+argument_list|,
 name|FileInfo
 operator|.
-name|RESERVED_PREFIX
+name|RESERVED_PREFIX_BYTES
 argument_list|)
 condition|)
 block|{
@@ -4433,7 +4427,7 @@ return|return
 name|buf
 return|;
 block|}
-comment|/**      * @return First key in the file.  May be null if file has no entries.      */
+comment|/**      * @return First key in the file.  May be null if file has no entries.      * Note that this is not the first rowkey, but rather the byte form of      * the first KeyValue.      */
 specifier|public
 name|byte
 index|[]
@@ -4475,6 +4469,41 @@ literal|0
 index|]
 return|;
 block|}
+comment|/**      * @return the first row key, or null if the file is empty.      * TODO move this to StoreFile after Ryan's patch goes in      * to eliminate KeyValue here      */
+specifier|public
+name|byte
+index|[]
+name|getFirstRowKey
+parameter_list|()
+block|{
+name|byte
+index|[]
+name|firstKey
+init|=
+name|getFirstKey
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|firstKey
+operator|==
+literal|null
+condition|)
+return|return
+literal|null
+return|;
+return|return
+name|KeyValue
+operator|.
+name|createKeyValueFromKey
+argument_list|(
+name|firstKey
+argument_list|)
+operator|.
+name|getRow
+argument_list|()
+return|;
+block|}
 comment|/**      * @return number of KV entries in this HFile      */
 specifier|public
 name|int
@@ -4506,7 +4535,7 @@ operator|.
 name|entryCount
 return|;
 block|}
-comment|/**      * @return Last key in the file.  May be null if file has no entries.      */
+comment|/**      * @return Last key in the file.  May be null if file has no entries.      * Note that this is not the last rowkey, but rather the byte form of      * the last KeyValue.      */
 specifier|public
 name|byte
 index|[]
@@ -4541,6 +4570,41 @@ else|:
 name|this
 operator|.
 name|lastkey
+return|;
+block|}
+comment|/**      * @return the last row key, or null if the file is empty.      * TODO move this to StoreFile after Ryan's patch goes in      * to eliminate KeyValue here      */
+specifier|public
+name|byte
+index|[]
+name|getLastRowKey
+parameter_list|()
+block|{
+name|byte
+index|[]
+name|lastKey
+init|=
+name|getLastKey
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|lastKey
+operator|==
+literal|null
+condition|)
+return|return
+literal|null
+return|;
+return|return
+name|KeyValue
+operator|.
+name|createKeyValueFromKey
+argument_list|(
+name|lastKey
+argument_list|)
+operator|.
+name|getRow
+argument_list|()
 return|;
 block|}
 comment|/**      * @return number of K entries in this HFile's filter.  Returns KV count if no filter.      */
@@ -7098,6 +7162,19 @@ specifier|static
 specifier|final
 name|byte
 index|[]
+name|RESERVED_PREFIX_BYTES
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|RESERVED_PREFIX
+argument_list|)
+decl_stmt|;
+specifier|static
+specifier|final
+name|byte
+index|[]
 name|LASTKEY
 init|=
 name|Bytes
@@ -7162,6 +7239,30 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
+block|}
+comment|/**    * Return true if the given file info key is reserved for internal    * use by HFile.    */
+specifier|public
+specifier|static
+name|boolean
+name|isReservedFileInfoKey
+parameter_list|(
+name|byte
+index|[]
+name|key
+parameter_list|)
+block|{
+return|return
+name|Bytes
+operator|.
+name|startsWith
+argument_list|(
+name|key
+argument_list|,
+name|FileInfo
+operator|.
+name|RESERVED_PREFIX_BYTES
+argument_list|)
+return|;
 block|}
 comment|/**    * Get names of supported compression algorithms. The names are acceptable by    * HFile.Writer.    *    * @return Array of strings, each represents a supported compression    *         algorithm. Currently, the following compression algorithms are    *         supported.    *<ul>    *<li>"none" - No compression.    *<li>"gz" - GZIP compression.    *</ul>    */
 specifier|public

@@ -367,6 +367,20 @@ name|ZooKeeper
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|Function
+import|;
+end_import
+
 begin_comment
 comment|/**  * Utility for {@link TableMapper} and {@link TableReducer}  */
 end_comment
@@ -1114,6 +1128,11 @@ name|ZooKeeper
 operator|.
 name|class
 argument_list|,
+name|Function
+operator|.
+name|class
+argument_list|,
+comment|// Guava collections
 name|job
 operator|.
 name|getMapOutputKeyClass

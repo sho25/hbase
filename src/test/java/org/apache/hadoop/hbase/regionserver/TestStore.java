@@ -851,11 +851,10 @@ operator|.
 name|getStorefiles
 argument_list|()
 operator|.
-name|firstEntry
-argument_list|()
-operator|.
-name|getValue
-argument_list|()
+name|get
+argument_list|(
+literal|0
+argument_list|)
 decl_stmt|;
 name|Path
 name|storedir

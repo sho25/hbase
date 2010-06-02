@@ -1224,9 +1224,6 @@ argument_list|)
 operator|.
 name|getStorefiles
 argument_list|()
-operator|.
-name|values
-argument_list|()
 control|)
 block|{
 name|HFileScanner
@@ -1411,9 +1408,6 @@ name|COLUMN_FAMILY_TEXT
 argument_list|)
 operator|.
 name|getStorefiles
-argument_list|()
-operator|.
-name|values
 argument_list|()
 control|)
 block|{
