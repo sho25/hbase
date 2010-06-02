@@ -235,6 +235,32 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the delete.  If the passed value is null, the     * check is for the lack of column (ie: non-existance)    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param value the expected value    * @param delete data to delete if check succeeds    * @throws IOException e    * @return true if the new delete was executed, false otherwise    */
+name|boolean
+name|checkAndDelete
+parameter_list|(
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|byte
+index|[]
+name|qualifier
+parameter_list|,
+name|byte
+index|[]
+name|value
+parameter_list|,
+name|Delete
+name|delete
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Atomically increments a column value.    *<p>    * Equivalent to {@code {@link #incrementColumnValue(byte[], byte[], byte[],    * long, boolean) incrementColumnValue}(row, family, qualifier, amount,    *<b>true</b>)}    * @param row The row that contains the cell to increment.    * @param family The column family of the cell to increment.    * @param qualifier The column qualifier of the cell to increment.    * @param amount The amount to increment the cell with (or decrement, if the    * amount is negative).    * @return The new value, post increment.    * @throws IOException if a remote or network exception occurs.    */
 name|long
 name|incrementColumnValue
