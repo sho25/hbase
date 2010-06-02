@@ -812,14 +812,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|String
-name|HLOG_DATFILE
-init|=
-literal|"hlog.dat."
-decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
