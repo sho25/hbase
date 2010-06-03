@@ -200,6 +200,8 @@ operator|new
 name|TsvParser
 argument_list|(
 literal|"col_a,col_b:qual,HBASE_ROW_KEY,col_d"
+argument_list|,
+literal|"\t"
 argument_list|)
 decl_stmt|;
 name|assertBytesEquals
