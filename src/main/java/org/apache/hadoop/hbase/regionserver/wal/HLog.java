@@ -6890,6 +6890,8 @@ argument_list|(
 name|region
 argument_list|)
 decl_stmt|;
+comment|// We put edits onto the Stack ordered oldest sequence id to newest.
+comment|// Pop them off starting with the oldest.
 for|for
 control|(
 name|ListIterator
@@ -6901,11 +6903,16 @@ init|=
 name|entries
 operator|.
 name|listIterator
+argument_list|(
+name|entries
+operator|.
+name|size
 argument_list|()
+argument_list|)
 init|;
 name|iterator
 operator|.
-name|hasNext
+name|hasPrevious
 argument_list|()
 condition|;
 control|)
@@ -6915,7 +6922,7 @@ name|logEntry
 init|=
 name|iterator
 operator|.
-name|next
+name|previous
 argument_list|()
 decl_stmt|;
 if|if
