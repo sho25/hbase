@@ -417,6 +417,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Threads
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -3575,6 +3591,13 @@ operator|.
 name|put
 argument_list|(
 name|put
+argument_list|)
+expr_stmt|;
+name|Threads
+operator|.
+name|sleep
+argument_list|(
+literal|2
 argument_list|)
 expr_stmt|;
 name|put
