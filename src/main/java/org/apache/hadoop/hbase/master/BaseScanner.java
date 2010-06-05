@@ -2573,6 +2573,13 @@ operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Interrupted"
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 block|}

@@ -5771,6 +5771,15 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|metrics
+operator|!=
+literal|null
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -5785,6 +5794,7 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|stop
 argument_list|()
 expr_stmt|;

@@ -194,12 +194,26 @@ name|void
 name|waitForServerOnline
 parameter_list|()
 block|{
+comment|// The server is marked online after the init method completes inside of
+comment|// the HRS#run method.  HRS#init can fail for whatever region.  In those
+comment|// cases, we'll jump out of the run without setting online flag.  Check
+comment|// stopRequested so we don't wait here a flag that will never be flipped.
 while|while
 condition|(
 operator|!
+name|this
+operator|.
 name|regionServer
 operator|.
 name|isOnline
+argument_list|()
+operator|&&
+operator|!
+name|this
+operator|.
+name|regionServer
+operator|.
+name|isStopRequested
 argument_list|()
 condition|)
 block|{
