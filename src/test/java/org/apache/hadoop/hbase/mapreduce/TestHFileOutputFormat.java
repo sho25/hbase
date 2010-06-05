@@ -1043,10 +1043,12 @@ name|b
 argument_list|,
 name|b
 argument_list|,
-name|System
+name|kv
 operator|.
-name|currentTimeMillis
+name|getTimestamp
 argument_list|()
+operator|-
+literal|1
 argument_list|,
 name|b
 argument_list|)
