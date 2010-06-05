@@ -8013,6 +8013,11 @@ argument_list|(
 name|results
 argument_list|,
 name|limit
+operator|-
+name|results
+operator|.
+name|size
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
