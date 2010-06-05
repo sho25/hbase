@@ -2877,6 +2877,7 @@ operator|==
 literal|0
 return|;
 block|}
+comment|/**    * @param now Time to set into<code>this</code> IFF timestamp ==    * {@link HConstants#LATEST_TIMESTAMP} (else, its a noop).    * @return True is we modified this.    */
 specifier|public
 name|boolean
 name|updateLatestStamp

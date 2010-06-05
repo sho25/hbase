@@ -5959,18 +5959,6 @@ range|:
 name|keys
 control|)
 block|{
-if|if
-condition|(
-name|key
-operator|.
-name|getTimestamp
-argument_list|()
-operator|==
-name|HConstants
-operator|.
-name|LATEST_TIMESTAMP
-condition|)
-block|{
 name|key
 operator|.
 name|updateLatestStamp
@@ -5978,7 +5966,6 @@ argument_list|(
 name|now
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 return|return
 literal|true
