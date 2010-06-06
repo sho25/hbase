@@ -121,15 +121,15 @@ name|void
 name|preHBaseClusterSetup
 parameter_list|()
 block|{
-comment|// Bring up info servers on 'odd' port numbers in case the test is not
-comment|// sourcing the src/test/hbase-default.xml.
+comment|// The info servers do not run in tests by default.
+comment|// Set them to ephemeral ports so they will start
 name|conf
 operator|.
 name|setInt
 argument_list|(
 literal|"hbase.master.info.port"
 argument_list|,
-literal|60011
+literal|0
 argument_list|)
 expr_stmt|;
 name|conf
@@ -138,7 +138,7 @@ name|setInt
 argument_list|(
 literal|"hbase.regionserver.info.port"
 argument_list|,
-literal|60031
+literal|0
 argument_list|)
 expr_stmt|;
 block|}
