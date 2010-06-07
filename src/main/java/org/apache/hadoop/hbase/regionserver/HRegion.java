@@ -531,6 +531,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|FSUtils
 import|;
 end_import
@@ -1734,7 +1750,7 @@ name|this
 operator|.
 name|lastFlushTime
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -2795,7 +2811,7 @@ comment|// it'll insert into wrong location over in .META. table: HBASE-710.
 name|long
 name|rid
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -3420,7 +3436,7 @@ expr_stmt|;
 name|long
 name|startTime
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -3498,7 +3514,7 @@ name|StringUtils
 operator|.
 name|formatTimeDiff
 argument_list|(
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -3712,7 +3728,7 @@ specifier|final
 name|long
 name|startTime
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -4186,7 +4202,7 @@ block|{
 name|long
 name|now
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -4798,7 +4814,7 @@ block|{
 name|long
 name|now
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -5530,20 +5546,6 @@ argument_list|,
 name|row
 argument_list|)
 decl_stmt|;
-name|byte
-index|[]
-name|now
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-argument_list|)
-decl_stmt|;
 try|try
 block|{
 comment|// All edits for the given row (across all column families) must happen atomically.
@@ -5716,20 +5718,6 @@ argument_list|,
 name|qualifier
 argument_list|)
 expr_stmt|;
-name|byte
-index|[]
-name|now
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-argument_list|)
-decl_stmt|;
 comment|// Lock row
 name|Integer
 name|lid
@@ -6264,7 +6252,7 @@ block|{
 name|long
 name|now
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -8780,7 +8768,7 @@ name|CATALOG_FAMILY
 argument_list|,
 name|REGIONINFO_QUALIFIER
 argument_list|,
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -10929,7 +10917,7 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -10951,7 +10939,7 @@ block|{
 name|long
 name|now
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
@@ -11877,7 +11865,7 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
