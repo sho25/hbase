@@ -8567,12 +8567,6 @@ argument_list|(
 name|scan
 argument_list|)
 expr_stmt|;
-name|is
-operator|.
-name|initHeap
-argument_list|()
-expr_stmt|;
-comment|// i dont like this test
 name|assertEquals
 argument_list|(
 literal|1
@@ -8610,11 +8604,6 @@ name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-expr_stmt|;
-name|is
-operator|.
-name|initHeap
-argument_list|()
 expr_stmt|;
 name|assertEquals
 argument_list|(

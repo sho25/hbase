@@ -3893,18 +3893,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// This thread is going to cause a whole bunch of scanners to reseek.
-comment|// They are depending
-comment|// on a thread-local to know where to read from.
-comment|// The reason why we set it up high is so that each HRegionScanner only
-comment|// has a single read point for all its sub-StoreScanners.
-name|ReadWriteConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|rwcc
-argument_list|)
-expr_stmt|;
 comment|// prepare flush (take a snapshot)
 for|for
 control|(
@@ -4011,14 +3999,6 @@ expr_stmt|;
 block|}
 try|try
 block|{
-comment|// update this again to make sure we are 'fresh'
-name|ReadWriteConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|rwcc
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|atomicWork
@@ -5591,7 +5571,7 @@ comment|//TODO, Think that gets/puts and deletes should be refactored a bit so t
 comment|//the getting of the lock happens before, so that you would just pass it into
 comment|//the methods. So in the case of checkAndMutate you could just do lockRow,
 comment|//get, put, unlockRow or something
-comment|/**    *    * @param row    * @param family    * @param qualifier    * @param expectedValue    * @param put    * @param lockId    * @param writeToWAL    * @throws IOException    * @return true if the new put was execute, false otherwise    */
+comment|/**    *    * @param row    * @param family    * @param qualifier    * @param expectedValue    * @param lockId    * @param writeToWAL    * @throws IOException    * @return true if the new put was execute, false otherwise    */
 specifier|public
 name|boolean
 name|checkAndMutate
@@ -7436,13 +7416,12 @@ argument_list|()
 decl_stmt|;
 specifier|private
 name|int
-name|isScan
+name|batch
 decl_stmt|;
 specifier|private
 name|int
-name|batch
+name|isScan
 decl_stmt|;
-comment|// Doesn't need to be volatile, always accessed under a sync'ed method
 specifier|private
 name|boolean
 name|filterClosed
@@ -7450,19 +7429,8 @@ init|=
 literal|false
 decl_stmt|;
 specifier|private
-name|Scan
-name|theScan
-init|=
-literal|null
-decl_stmt|;
-specifier|private
-name|List
-argument_list|<
-name|KeyValueScanner
-argument_list|>
-name|extraScanners
-init|=
-literal|null
+name|long
+name|readPt
 decl_stmt|;
 name|RegionScanner
 parameter_list|(
@@ -7475,6 +7443,8 @@ name|KeyValueScanner
 argument_list|>
 name|additionalScanners
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 comment|//DebugPrint.println("HRegionScanner.<init>");
 name|this
@@ -7549,37 +7519,15 @@ literal|0
 expr_stmt|;
 name|this
 operator|.
-name|theScan
+name|readPt
 operator|=
-name|scan
-expr_stmt|;
-name|this
+name|ReadWriteConsistencyControl
 operator|.
-name|extraScanners
-operator|=
-name|additionalScanners
-expr_stmt|;
-block|}
-name|RegionScanner
-parameter_list|(
-name|Scan
-name|scan
-parameter_list|)
-block|{
-name|this
+name|resetThreadReadPoint
 argument_list|(
-name|scan
-argument_list|,
-literal|null
+name|rwcc
 argument_list|)
 expr_stmt|;
-block|}
-name|void
-name|initHeap
-parameter_list|()
-throws|throws
-name|IOException
-block|{
 name|List
 argument_list|<
 name|KeyValueScanner
@@ -7595,7 +7543,7 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|extraScanners
+name|additionalScanners
 operator|!=
 literal|null
 condition|)
@@ -7604,7 +7552,7 @@ name|scanners
 operator|.
 name|addAll
 argument_list|(
-name|extraScanners
+name|additionalScanners
 argument_list|)
 expr_stmt|;
 block|}
@@ -7625,7 +7573,7 @@ argument_list|>
 argument_list|>
 name|entry
 range|:
-name|theScan
+name|scan
 operator|.
 name|getFamilyMap
 argument_list|()
@@ -7655,7 +7603,7 @@ name|store
 operator|.
 name|getScanner
 argument_list|(
-name|theScan
+name|scan
 argument_list|,
 name|entry
 operator|.
@@ -7678,7 +7626,24 @@ name|comparator
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
+name|RegionScanner
+parameter_list|(
+name|Scan
+name|scan
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|this
+argument_list|(
+name|scan
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**      * Reset both the filter and the old filter.      */
+specifier|protected
 name|void
 name|resetFilters
 parameter_list|()
@@ -7696,14 +7661,6 @@ name|reset
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Start the next row read and reset the thread point
-name|ReadWriteConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|rwcc
-argument_list|)
-expr_stmt|;
 block|}
 specifier|public
 specifier|synchronized
@@ -7785,23 +7742,13 @@ block|}
 comment|// This could be a new thread from the last time we called next().
 name|ReadWriteConsistencyControl
 operator|.
-name|resetThreadReadPoint
+name|setThreadReadPoint
 argument_list|(
-name|rwcc
+name|this
+operator|.
+name|readPt
 argument_list|)
 expr_stmt|;
-comment|// lazy init the store heap.
-if|if
-condition|(
-name|storeHeap
-operator|==
-literal|null
-condition|)
-block|{
-name|initHeap
-argument_list|()
-expr_stmt|;
-block|}
 name|results
 operator|.
 name|clear

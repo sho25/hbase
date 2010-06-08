@@ -4939,18 +4939,6 @@ argument_list|(
 name|newStoreFiles
 argument_list|)
 expr_stmt|;
-comment|// WARN ugly hack here, but necessary sadly.
-comment|// TODO why is this necessary? need a comment here if it's unintuitive!
-name|ReadWriteConsistencyControl
-operator|.
-name|resetThreadReadPoint
-argument_list|(
-name|region
-operator|.
-name|getRWCC
-argument_list|()
-argument_list|)
-expr_stmt|;
 comment|// Tell observers that list of StoreFiles has changed.
 name|notifyChangedReadersObservers
 argument_list|()
