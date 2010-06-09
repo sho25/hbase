@@ -339,6 +339,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|PleaseHoldException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|RemoteExceptionHandler
 import|;
 end_import
@@ -368,6 +382,20 @@ operator|.
 name|hbase
 operator|.
 name|UnknownScannerException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|YouAreDeadException
 import|;
 end_import
 
@@ -2988,6 +3016,8 @@ name|e
 parameter_list|)
 block|{
 comment|// FindBugs REC_CATCH_EXCEPTION
+comment|// Two special exceptions could be printed out here,
+comment|// PleaseHoldException and YouAreDeadException
 if|if
 condition|(
 name|e
@@ -3007,6 +3037,18 @@ operator|)
 name|e
 argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|e
+operator|instanceof
+name|YouAreDeadException
+condition|)
+block|{
+comment|// This will be caught and handled as a fatal error below
+throw|throw
+name|e
+throw|;
 block|}
 name|tries
 operator|++

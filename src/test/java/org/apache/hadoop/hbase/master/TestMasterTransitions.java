@@ -688,39 +688,13 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
 name|TEST_UTIL
 operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getLiveRegionServerThreads
-argument_list|()
-operator|.
-name|size
-argument_list|()
-operator|<
-literal|2
-condition|)
-block|{
-comment|// Need at least two servers.
-name|LOG
-operator|.
-name|info
+name|ensureSomeRegionServersAvailable
 argument_list|(
-literal|"Started new server="
-operator|+
-name|TEST_UTIL
-operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|startRegionServer
-argument_list|()
+literal|2
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|/**    * Listener for regionserver events testing hbase-2428 (Infinite loop of    * region closes if META region is offline).  In particular, listen    * for the close of the 'metaServer' and when it comes in, requeue it with a    * delay as though there were an issue processing the shutdown.  As part of    * the requeuing,  send over a close of a region on 'otherServer' so it comes    * into a master that has its meta region marked as offline.    */
 specifier|static

@@ -3593,7 +3593,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Override if you'd add messages to return to regionserver<code>hsi</code>    * @param messages Messages to add to    * @return Messages to return to    */
+comment|/**    * Override if you'd add messages to return to regionserver<code>hsi</code>    * or to send an exception.    * @param msgs Messages to add to    * @return Messages to return to    * @throws IOException exceptions that were injected for the region servers    */
 specifier|protected
 name|HMsg
 index|[]
@@ -3608,6 +3608,8 @@ name|HMsg
 index|[]
 name|msgs
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|msgs

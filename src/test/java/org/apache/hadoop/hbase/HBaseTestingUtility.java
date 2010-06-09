@@ -3584,6 +3584,52 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Make sure that at least the specified number of region servers    * are running    * @param num minimum number of region servers that should be running    * @throws IOException    */
+specifier|public
+name|void
+name|ensureSomeRegionServersAvailable
+parameter_list|(
+specifier|final
+name|int
+name|num
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|getHBaseCluster
+argument_list|()
+operator|.
+name|getLiveRegionServerThreads
+argument_list|()
+operator|.
+name|size
+argument_list|()
+operator|<
+name|num
+condition|)
+block|{
+comment|// Need at least "num" servers.
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Started new server="
+operator|+
+name|this
+operator|.
+name|getHBaseCluster
+argument_list|()
+operator|.
+name|startRegionServer
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 block|}
 end_class
 

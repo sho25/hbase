@@ -181,7 +181,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Leases
+name|PleaseHoldException
 import|;
 end_import
 
@@ -195,9 +195,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Leases
-operator|.
-name|LeaseStillHeldException
+name|YouAreDeadException
 import|;
 end_import
 
@@ -986,10 +984,9 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
+name|String
+name|message
+init|=
 literal|"Server start rejected; we already have "
 operator|+
 name|hostAndPort
@@ -1001,6 +998,12 @@ operator|+
 literal|", newServer="
 operator|+
 name|info
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|message
 argument_list|)
 expr_stmt|;
 if|if
@@ -1031,11 +1034,9 @@ expr_stmt|;
 block|}
 throw|throw
 operator|new
-name|Leases
-operator|.
-name|LeaseStillHeldException
+name|PleaseHoldException
 argument_list|(
-name|hostAndPort
+name|message
 argument_list|)
 throw|;
 block|}
@@ -1146,7 +1147,7 @@ name|String
 name|what
 parameter_list|)
 throws|throws
-name|LeaseStillHeldException
+name|YouAreDeadException
 block|{
 if|if
 condition|(
@@ -1157,10 +1158,9 @@ name|serverName
 argument_list|)
 condition|)
 return|return;
-name|LOG
-operator|.
-name|debug
-argument_list|(
+name|String
+name|message
+init|=
 literal|"Server "
 operator|+
 name|what
@@ -1170,15 +1170,19 @@ operator|+
 name|serverName
 operator|+
 literal|" as dead server"
+decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|message
 argument_list|)
 expr_stmt|;
 throw|throw
 operator|new
-name|Leases
-operator|.
-name|LeaseStillHeldException
+name|YouAreDeadException
 argument_list|(
-name|serverName
+name|message
 argument_list|)
 throw|;
 block|}
