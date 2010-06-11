@@ -197,8 +197,6 @@ begin_class
 specifier|public
 class|class
 name|LocalHBaseCluster
-implements|implements
-name|HConstants
 block|{
 specifier|static
 specifier|final
@@ -431,6 +429,8 @@ name|conf
 operator|.
 name|set
 argument_list|(
+name|HConstants
+operator|.
 name|REGIONSERVER_PORT
 argument_list|,
 literal|"0"
@@ -902,6 +902,7 @@ name|Configuration
 name|c
 parameter_list|)
 block|{
+specifier|final
 name|String
 name|mode
 init|=
@@ -909,6 +910,8 @@ name|c
 operator|.
 name|get
 argument_list|(
+name|HConstants
+operator|.
 name|CLUSTER_DISTRIBUTED
 argument_list|)
 decl_stmt|;
@@ -921,6 +924,8 @@ name|mode
 operator|.
 name|equals
 argument_list|(
+name|HConstants
+operator|.
 name|CLUSTER_IS_LOCAL
 argument_list|)
 return|;

@@ -105,8 +105,6 @@ class|class
 name|TestWildcardColumnTracker
 extends|extends
 name|HBaseTestCase
-implements|implements
-name|HConstants
 block|{
 specifier|private
 name|boolean

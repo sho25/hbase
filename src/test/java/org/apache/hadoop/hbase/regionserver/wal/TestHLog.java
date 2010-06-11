@@ -259,9 +259,8 @@ class|class
 name|TestHLog
 extends|extends
 name|HBaseTestCase
-implements|implements
-name|HConstants
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log

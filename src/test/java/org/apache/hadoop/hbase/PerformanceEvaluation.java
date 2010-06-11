@@ -813,8 +813,6 @@ begin_class
 specifier|public
 class|class
 name|PerformanceEvaluation
-implements|implements
-name|HConstants
 block|{
 specifier|protected
 specifier|static

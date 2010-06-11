@@ -299,8 +299,6 @@ begin_class
 specifier|public
 class|class
 name|MiniHBaseCluster
-implements|implements
-name|HConstants
 block|{
 specifier|static
 specifier|final
@@ -368,6 +366,8 @@ name|conf
 operator|.
 name|set
 argument_list|(
+name|HConstants
+operator|.
 name|MASTER_PORT
 argument_list|,
 literal|"0"
@@ -723,7 +723,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Subclass so can get at protected methods (none at moment).  Also, creates    * a FileSystem instance per instantiation.  Adds a shutdown own FileSystem    * on the way out. Shuts down own Filesystem only, not All filesystems as     * the FileSystem system exit hook does.    */
+comment|/**    * Subclass so can get at protected methods (none at moment).  Also, creates    * a FileSystem instance per instantiation.  Adds a shutdown own FileSystem    * on the way out. Shuts down own Filesystem only, not All filesystems as    * the FileSystem system exit hook does.    */
 specifier|public
 specifier|static
 class|class

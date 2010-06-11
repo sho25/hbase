@@ -826,8 +826,6 @@ specifier|public
 class|class
 name|HRegion
 implements|implements
-name|HConstants
-implements|,
 name|HeapSize
 block|{
 comment|// , Writable{
@@ -1352,6 +1350,8 @@ name|conf
 operator|.
 name|getLong
 argument_list|(
+name|HConstants
+operator|.
 name|THREAD_WAKE_FREQUENCY
 argument_list|,
 literal|10
@@ -1496,6 +1496,8 @@ name|Path
 argument_list|(
 name|regiondir
 argument_list|,
+name|HConstants
+operator|.
 name|HREGION_OLDLOGFILE_NAME
 argument_list|)
 decl_stmt|;
@@ -3194,6 +3196,8 @@ name|Path
 argument_list|(
 name|dir
 argument_list|,
+name|HConstants
+operator|.
 name|HREGION_COMPACTIONDIR_NAME
 argument_list|)
 return|;
@@ -5887,17 +5891,19 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Checks if any stamps is Long.MAX_VALUE.  If so, sets them to now.    *<p>    * This acts to replace LATEST_TIMESTAMP with now.    * @param keys    * @param now    * @return<code>true</code> when updating the time stamp completed.    */
+comment|/**    * Checks if any stamps is Long.MAX_VALUE.  If so, sets them to now.    *<p>    * This acts to replace {@link HConstants#LATEST_TIMESTAMP} with {@code now}.    * @param keys    * @param now    * @return<code>true</code> when updating the time stamp completed.    */
 specifier|private
 name|boolean
 name|updateKeys
 parameter_list|(
+specifier|final
 name|List
 argument_list|<
 name|KeyValue
 argument_list|>
 name|keys
 parameter_list|,
+specifier|final
 name|byte
 index|[]
 name|now
@@ -8257,7 +8263,7 @@ expr_stmt|;
 block|}
 block|}
 comment|// Utility methods
-comment|/**    * A utility method to create new instances of HRegion based on the    * {@link org.apache.hadoop.hbase.HConstants#REGION_IMPL} configuration    * property.    * @param basedir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param flushListener an object that implements CacheFlushListener or null    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    * @return the new instance    */
+comment|/**    * A utility method to create new instances of HRegion based on the    * {@link HConstants#REGION_IMPL} configuration property.    * @param basedir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param flushListener an object that implements CacheFlushListener or null    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    * @return the new instance    */
 specifier|public
 specifier|static
 name|HRegion
@@ -8482,6 +8488,8 @@ name|Path
 argument_list|(
 name|regionDir
 argument_list|,
+name|HConstants
+operator|.
 name|HREGION_LOGDIR_NAME
 argument_list|)
 argument_list|,
@@ -8490,6 +8498,8 @@ name|Path
 argument_list|(
 name|regionDir
 argument_list|,
+name|HConstants
+operator|.
 name|HREGION_OLDLOGDIR_NAME
 argument_list|)
 argument_list|,
@@ -8689,6 +8699,7 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
+specifier|final
 name|List
 argument_list|<
 name|KeyValue
@@ -8700,7 +8711,9 @@ name|ArrayList
 argument_list|<
 name|KeyValue
 argument_list|>
-argument_list|()
+argument_list|(
+literal|1
+argument_list|)
 decl_stmt|;
 name|edits
 operator|.
@@ -8711,8 +8724,12 @@ name|KeyValue
 argument_list|(
 name|row
 argument_list|,
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|,
+name|HConstants
+operator|.
 name|REGIONINFO_QUALIFIER
 argument_list|,
 name|EnvironmentEdgeManager
@@ -8851,8 +8868,12 @@ name|put
 operator|.
 name|add
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|,
+name|HConstants
+operator|.
 name|REGIONINFO_QUALIFIER
 argument_list|,
 name|Writables
@@ -8920,8 +8941,12 @@ name|del
 operator|.
 name|deleteColumns
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|,
+name|HConstants
+operator|.
 name|SERVER_QUALIFIER
 argument_list|)
 expr_stmt|;
@@ -8929,8 +8954,12 @@ name|del
 operator|.
 name|deleteColumns
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|,
+name|HConstants
+operator|.
 name|STARTCODE_QUALIFIER
 argument_list|)
 expr_stmt|;
@@ -9560,6 +9589,7 @@ name|byte
 index|[]
 name|startKey
 init|=
+operator|(
 name|a
 operator|.
 name|comparator
@@ -9580,10 +9610,14 @@ argument_list|()
 operator|.
 name|length
 argument_list|,
+name|HConstants
+operator|.
 name|EMPTY_BYTE_ARRAY
 argument_list|,
 literal|0
 argument_list|,
+name|HConstants
+operator|.
 name|EMPTY_BYTE_ARRAY
 operator|.
 name|length
@@ -9609,17 +9643,25 @@ argument_list|()
 operator|.
 name|length
 argument_list|,
+name|HConstants
+operator|.
 name|EMPTY_BYTE_ARRAY
 argument_list|,
 literal|0
 argument_list|,
+name|HConstants
+operator|.
 name|EMPTY_BYTE_ARRAY
 operator|.
 name|length
 argument_list|)
+operator|)
 condition|?
+name|HConstants
+operator|.
 name|EMPTY_BYTE_ARRAY
 else|:
+operator|(
 name|a
 operator|.
 name|comparator
@@ -9666,12 +9708,14 @@ name|b
 operator|.
 name|getStartKey
 argument_list|()
+operator|)
 decl_stmt|;
 specifier|final
 name|byte
 index|[]
 name|endKey
 init|=
+operator|(
 name|a
 operator|.
 name|comparator
@@ -9692,10 +9736,14 @@ argument_list|()
 operator|.
 name|length
 argument_list|,
+name|HConstants
+operator|.
 name|EMPTY_BYTE_ARRAY
 argument_list|,
 literal|0
 argument_list|,
+name|HConstants
+operator|.
 name|EMPTY_BYTE_ARRAY
 operator|.
 name|length
@@ -9721,17 +9769,25 @@ argument_list|()
 operator|.
 name|length
 argument_list|,
+name|HConstants
+operator|.
 name|EMPTY_BYTE_ARRAY
 argument_list|,
 literal|0
 argument_list|,
+name|HConstants
+operator|.
 name|EMPTY_BYTE_ARRAY
 operator|.
 name|length
 argument_list|)
+operator|)
 condition|?
+name|HConstants
+operator|.
 name|EMPTY_BYTE_ARRAY
 else|:
+operator|(
 name|a
 operator|.
 name|comparator
@@ -9778,6 +9834,7 @@ name|a
 operator|.
 name|getEndKey
 argument_list|()
+operator|)
 decl_stmt|;
 name|HRegionInfo
 name|newRegionInfo
@@ -11762,6 +11819,7 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+specifier|final
 name|Path
 name|tableDir
 init|=
@@ -11774,6 +11832,7 @@ literal|0
 index|]
 argument_list|)
 decl_stmt|;
+specifier|final
 name|Configuration
 name|c
 init|=
@@ -11782,6 +11841,7 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
+specifier|final
 name|FileSystem
 name|fs
 init|=
@@ -11792,6 +11852,7 @@ argument_list|(
 name|c
 argument_list|)
 decl_stmt|;
+specifier|final
 name|Path
 name|logdir
 init|=
@@ -11818,6 +11879,7 @@ name|currentTimeMillis
 argument_list|()
 argument_list|)
 decl_stmt|;
+specifier|final
 name|Path
 name|oldLogDir
 init|=
@@ -11831,9 +11893,12 @@ argument_list|(
 literal|"hbase.tmp.dir"
 argument_list|)
 argument_list|,
+name|HConstants
+operator|.
 name|HREGION_OLDLOGDIR_NAME
 argument_list|)
 decl_stmt|;
+specifier|final
 name|HLog
 name|log
 init|=

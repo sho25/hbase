@@ -305,8 +305,6 @@ begin_class
 specifier|public
 class|class
 name|HQuorumPeer
-implements|implements
-name|HConstants
 block|{
 specifier|private
 specifier|static
@@ -981,6 +979,7 @@ operator|.
 name|getClassLoader
 argument_list|()
 decl_stmt|;
+specifier|final
 name|InputStream
 name|inputStream
 init|=
@@ -988,6 +987,8 @@ name|cl
 operator|.
 name|getResourceAsStream
 argument_list|(
+name|HConstants
+operator|.
 name|ZOOKEEPER_CONFIG_NAME
 argument_list|)
 decl_stmt|;
@@ -1021,6 +1022,8 @@ name|warn
 argument_list|(
 literal|"Cannot read "
 operator|+
+name|HConstants
+operator|.
 name|ZOOKEEPER_CONFIG_NAME
 operator|+
 literal|", loading from XML files"
@@ -1139,6 +1142,8 @@ name|put
 argument_list|(
 name|ZK_CLIENT_PORT_KEY
 argument_list|,
+name|HConstants
+operator|.
 name|DEFAULT_ZOOKEPER_CLIENT_PORT
 argument_list|)
 expr_stmt|;
@@ -1168,6 +1173,7 @@ argument_list|,
 literal|3888
 argument_list|)
 decl_stmt|;
+specifier|final
 name|String
 index|[]
 name|serverHosts
@@ -1176,6 +1182,8 @@ name|conf
 operator|.
 name|getStrings
 argument_list|(
+name|HConstants
+operator|.
 name|ZOOKEEPER_QUORUM
 argument_list|,
 literal|"localhost"
@@ -1278,11 +1286,14 @@ name|IOException
 name|e
 parameter_list|)
 block|{
+specifier|final
 name|String
 name|msg
 init|=
 literal|"fail to read properties from "
 operator|+
+name|HConstants
+operator|.
 name|ZOOKEEPER_CONFIG_NAME
 decl_stmt|;
 name|LOG
@@ -1533,11 +1544,15 @@ name|conf
 operator|.
 name|get
 argument_list|(
+name|HConstants
+operator|.
 name|CLUSTER_DISTRIBUTED
 argument_list|)
 operator|.
 name|equals
 argument_list|(
+name|HConstants
+operator|.
 name|CLUSTER_IS_DISTRIBUTED
 argument_list|)
 operator|&&

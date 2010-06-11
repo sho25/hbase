@@ -678,8 +678,6 @@ specifier|public
 class|class
 name|Store
 implements|implements
-name|HConstants
-implements|,
 name|HeapSize
 block|{
 specifier|static
@@ -1164,7 +1162,7 @@ operator|.
 name|isInMemory
 argument_list|()
 expr_stmt|;
-comment|// By default we split region if a file> DEFAULT_MAX_FILE_SIZE.
+comment|// By default we split region if a file> HConstants.DEFAULT_MAX_FILE_SIZE.
 name|long
 name|maxFileSize
 init|=
@@ -5104,7 +5102,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/*    * @param wantedVersions How many versions were asked for.    * @return wantedVersions or this families' VERSIONS.    */
+comment|/*    * @param wantedVersions How many versions were asked for.    * @return wantedVersions or this families' {@link HConstants#VERSIONS}.    */
 name|int
 name|versionsToReturn
 parameter_list|(
@@ -6236,7 +6234,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// File administration
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Return a scanner for both the memstore and the HStore files    * @throws IOException     */
+comment|/**    * Return a scanner for both the memstore and the HStore files    * @throws IOException    */
 specifier|protected
 name|KeyValueScanner
 name|getScanner
@@ -6585,7 +6583,7 @@ literal|0
 condition|)
 block|{
 comment|// Less than what was asked for but maybe< because we're asking for
-comment|// r/c/LATEST_TIMESTAMP -- what was returned was r/c-1/SOME_TS...
+comment|// r/c/HConstants.LATEST_TIMESTAMP -- what was returned was r/c-1/SOME_TS...
 comment|// A next will get us a r/c/SOME_TS.
 if|if
 condition|(

@@ -293,9 +293,8 @@ class|class
 name|TestGetClosestAtOrBefore
 extends|extends
 name|HBaseTestCase
-implements|implements
-name|HConstants
 block|{
+specifier|private
 specifier|static
 specifier|final
 name|Log
@@ -696,8 +695,12 @@ name|put
 operator|.
 name|add
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|,
+name|HConstants
+operator|.
 name|REGIONINFO_QUALIFIER
 argument_list|,
 name|Writables

@@ -567,8 +567,6 @@ begin_class
 specifier|public
 class|class
 name|StoreFile
-implements|implements
-name|HConstants
 block|{
 specifier|static
 specifier|final
@@ -1782,7 +1780,7 @@ operator|.
 name|reader
 return|;
 block|}
-comment|/**    * @return Current reader.  Must call createReader first else returns null.    * @throws IOException     * @see {@link #createReader()}    */
+comment|/**    * @return Current reader.  Must call createReader first else returns null.    * @throws IOException    * @see {@link #createReader()}    */
 specifier|public
 name|StoreFile
 operator|.
@@ -2712,7 +2710,7 @@ return|return
 name|fi
 return|;
 block|}
-comment|/**      * Load the bloom filter for this HFile into memory.        * Assumes the HFile has already been loaded      */
+comment|/**      * Load the bloom filter for this HFile into memory.      * Assumes the HFile has already been loaded      */
 specifier|public
 name|void
 name|loadBloomfilter
@@ -3440,7 +3438,7 @@ condition|(
 name|newKey
 condition|)
 block|{
-comment|/*            * http://2.bp.blogspot.com/_Cib_A77V54U/StZMrzaKufI/AAAAAAAAADo/ZhK7bGoJdMQ/s400/KeyValue.png            * Key = RowLen + Row + FamilyLen + Column [Family + Qualifier] + TimeStamp            *            * 2 Types of Filtering:            *  1. Row = Row             *  2. RowCol = Row + Qualifier            */
+comment|/*            * http://2.bp.blogspot.com/_Cib_A77V54U/StZMrzaKufI/AAAAAAAAADo/ZhK7bGoJdMQ/s400/KeyValue.png            * Key = RowLen + Row + FamilyLen + Column [Family + Qualifier] + TimeStamp            *            * 2 Types of Filtering:            *  1. Row = Row            *  2. RowCol = Row + Qualifier            */
 switch|switch
 condition|(
 name|bloomType

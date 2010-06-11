@@ -341,8 +341,6 @@ begin_class
 specifier|public
 class|class
 name|ZooKeeperWrapper
-implements|implements
-name|HConstants
 block|{
 specifier|protected
 specifier|static
@@ -445,6 +443,8 @@ name|IOException
 argument_list|(
 literal|"Could not read quorum servers from "
 operator|+
+name|HConstants
+operator|.
 name|ZOOKEEPER_CONFIG_NAME
 argument_list|)
 throw|;
@@ -507,8 +507,12 @@ name|conf
 operator|.
 name|get
 argument_list|(
+name|HConstants
+operator|.
 name|ZOOKEEPER_ZNODE_PARENT
 argument_list|,
+name|HConstants
+operator|.
 name|DEFAULT_ZOOKEEPER_ZNODE_PARENT
 argument_list|)
 expr_stmt|;
@@ -772,6 +776,8 @@ name|error
 argument_list|(
 literal|"no valid quorum servers found in "
 operator|+
+name|HConstants
+operator|.
 name|ZOOKEEPER_CONFIG_NAME
 argument_list|)
 expr_stmt|;
@@ -790,6 +796,8 @@ name|error
 argument_list|(
 literal|"no clientPort found in "
 operator|+
+name|HConstants
+operator|.
 name|ZOOKEEPER_CONFIG_NAME
 argument_list|)
 expr_stmt|;
@@ -3767,10 +3775,13 @@ name|conf
 parameter_list|)
 block|{
 return|return
+operator|(
 name|conf
 operator|.
 name|get
 argument_list|(
+name|HConstants
+operator|.
 name|ZOOKEEPER_QUORUM
 argument_list|)
 operator|+
@@ -3780,8 +3791,11 @@ name|conf
 operator|.
 name|get
 argument_list|(
+name|HConstants
+operator|.
 name|ZOOKEEPER_ZNODE_PARENT
 argument_list|)
+operator|)
 return|;
 block|}
 comment|/**    * Get the path of this region server's znode    * @return path to znode    */

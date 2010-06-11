@@ -92,8 +92,6 @@ end_comment
 begin_class
 class|class
 name|MetaScanner
-implements|implements
-name|HConstants
 block|{
 comment|/**    * Scans the meta table and calls a visitor on each RowResult and uses a empty    * start row value as table name.    *    * @param configuration conf    * @param visitor A custom visitor    * @throws IOException e    */
 specifier|public
@@ -116,6 +114,8 @@ name|configuration
 argument_list|,
 name|visitor
 argument_list|,
+name|HConstants
+operator|.
 name|EMPTY_START_ROW
 argument_list|)
 expr_stmt|;
@@ -175,6 +175,8 @@ name|tableName
 argument_list|,
 literal|null
 argument_list|,
+name|HConstants
+operator|.
 name|ZEROES
 argument_list|,
 literal|false
@@ -198,6 +200,7 @@ argument_list|)
 decl_stmt|;
 do|do
 block|{
+specifier|final
 name|Scan
 name|scan
 init|=
@@ -209,6 +212,8 @@ argument_list|)
 operator|.
 name|addFamily
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|)
 decl_stmt|;
@@ -219,6 +224,8 @@ name|ScannerCallable
 argument_list|(
 name|connection
 argument_list|,
+name|HConstants
+operator|.
 name|META_TABLE_NAME
 argument_list|,
 name|scan
@@ -350,6 +357,8 @@ name|compareTo
 argument_list|(
 name|startRow
 argument_list|,
+name|HConstants
+operator|.
 name|LAST_ROW
 argument_list|)
 operator|!=

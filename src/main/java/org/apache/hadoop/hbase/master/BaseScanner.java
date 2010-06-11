@@ -463,8 +463,6 @@ class|class
 name|BaseScanner
 extends|extends
 name|Chore
-implements|implements
-name|HConstants
 block|{
 specifier|static
 specifier|final
@@ -501,6 +499,8 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
+name|HConstants
+operator|.
 name|SPLITA_QUALIFIER
 argument_list|)
 operator|+
@@ -522,6 +522,8 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
+name|HConstants
+operator|.
 name|SPLITB_QUALIFIER
 argument_list|)
 operator|+
@@ -1205,6 +1207,7 @@ name|Result
 name|r
 parameter_list|)
 block|{
+specifier|final
 name|byte
 index|[]
 name|val
@@ -1213,8 +1216,12 @@ name|r
 operator|.
 name|getValue
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|,
+name|HConstants
+operator|.
 name|SERVER_QUALIFIER
 argument_list|)
 decl_stmt|;
@@ -1249,6 +1256,7 @@ name|Result
 name|r
 parameter_list|)
 block|{
+specifier|final
 name|byte
 index|[]
 name|val
@@ -1257,8 +1265,12 @@ name|r
 operator|.
 name|getValue
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|,
+name|HConstants
+operator|.
 name|STARTCODE_QUALIFIER
 argument_list|)
 decl_stmt|;
@@ -1375,6 +1387,8 @@ name|parent
 argument_list|,
 name|rowContent
 argument_list|,
+name|HConstants
+operator|.
 name|SPLITA_QUALIFIER
 argument_list|)
 decl_stmt|;
@@ -1391,6 +1405,8 @@ name|parent
 argument_list|,
 name|rowContent
 argument_list|,
+name|HConstants
+operator|.
 name|SPLITB_QUALIFIER
 argument_list|)
 decl_stmt|;
@@ -1795,6 +1811,8 @@ name|p
 operator|.
 name|add
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|,
 name|getNameOfVerifiedDaughterColumn
@@ -1832,6 +1850,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+specifier|final
 name|byte
 index|[]
 name|b
@@ -1840,6 +1859,8 @@ name|rowContent
 operator|.
 name|getValue
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|,
 name|getNameOfVerifiedDaughterColumn
@@ -1910,10 +1931,13 @@ name|daughter
 parameter_list|)
 block|{
 return|return
+operator|(
 name|Bytes
 operator|.
 name|equals
 argument_list|(
+name|HConstants
+operator|.
 name|SPLITA_QUALIFIER
 argument_list|,
 name|daughter
@@ -1922,6 +1946,7 @@ condition|?
 name|SPLITA_CHECKED
 else|:
 name|SPLITB_CHECKED
+operator|)
 return|;
 block|}
 comment|/*    * Get daughter HRegionInfo out of parent info:splitA/info:splitB columns.    * @param rowContent    * @param which Whether "info:splitA" or "info:splitB" column    * @return Deserialized content of the info:splitA or info:splitB as a    * HRegionInfo    * @throws IOException    */
@@ -1950,6 +1975,8 @@ name|rowContent
 operator|.
 name|getValue
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|,
 name|which

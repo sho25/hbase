@@ -125,8 +125,6 @@ class|class
 name|TestExplicitColumnTracker
 extends|extends
 name|HBaseTestCase
-implements|implements
-name|HConstants
 block|{
 specifier|private
 name|boolean

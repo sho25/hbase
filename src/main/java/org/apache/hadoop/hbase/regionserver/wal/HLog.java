@@ -710,8 +710,6 @@ specifier|public
 class|class
 name|HLog
 implements|implements
-name|HConstants
-implements|,
 name|Syncable
 block|{
 specifier|static
@@ -1155,6 +1153,8 @@ literal|"HBASE::CACHEFLUSH"
 operator|.
 name|getBytes
 argument_list|(
+name|HConstants
+operator|.
 name|UTF8_ENCODING
 argument_list|)
 expr_stmt|;
@@ -7150,6 +7150,8 @@ name|conf
 operator|.
 name|get
 argument_list|(
+name|HConstants
+operator|.
 name|HBASE_DIR
 argument_list|)
 argument_list|,
@@ -7326,6 +7328,8 @@ name|Path
 argument_list|(
 name|regionDir
 argument_list|,
+name|HConstants
+operator|.
 name|HREGION_OLDLOGFILE_NAME
 argument_list|)
 return|;
@@ -7514,6 +7518,7 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
+specifier|final
 name|Path
 name|baseDir
 init|=
@@ -7524,10 +7529,13 @@ name|conf
 operator|.
 name|get
 argument_list|(
+name|HConstants
+operator|.
 name|HBASE_DIR
 argument_list|)
 argument_list|)
 decl_stmt|;
+specifier|final
 name|Path
 name|oldLogDir
 init|=
@@ -7536,6 +7544,8 @@ name|Path
 argument_list|(
 name|baseDir
 argument_list|,
+name|HConstants
+operator|.
 name|HREGION_OLDLOGDIR_NAME
 argument_list|)
 decl_stmt|;

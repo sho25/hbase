@@ -119,8 +119,6 @@ class|class
 name|TestGetDeleteTracker
 extends|extends
 name|HBaseTestCase
-implements|implements
-name|HConstants
 block|{
 specifier|private
 specifier|static

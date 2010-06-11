@@ -483,8 +483,6 @@ begin_class
 specifier|public
 class|class
 name|RegionManager
-implements|implements
-name|HConstants
 block|{
 specifier|protected
 specifier|static
@@ -870,8 +868,12 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
+name|HConstants
+operator|.
 name|ZOOKEEPER_RETRIES
 argument_list|,
+name|HConstants
+operator|.
 name|DEFAULT_ZOOKEEPER_RETRIES
 argument_list|)
 expr_stmt|;
@@ -881,8 +883,12 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
+name|HConstants
+operator|.
 name|ZOOKEEPER_PAUSE
 argument_list|,
+name|HConstants
+operator|.
 name|DEFAULT_ZOOKEEPER_PAUSE
 argument_list|)
 expr_stmt|;
@@ -2426,6 +2432,7 @@ specifier|public
 name|boolean
 name|accept
 parameter_list|(
+specifier|final
 name|Path
 name|path
 parameter_list|)
@@ -2433,6 +2440,7 @@ block|{
 comment|// skip the region servers' log dirs&& version file
 comment|// HBASE-1112 want to separate the log dirs from table's data dirs by a
 comment|// special character.
+specifier|final
 name|String
 name|pathname
 init|=
@@ -2442,12 +2450,13 @@ name|getName
 argument_list|()
 decl_stmt|;
 return|return
+operator|(
 operator|!
 name|pathname
 operator|.
 name|equals
 argument_list|(
-name|HLog
+name|HConstants
 operator|.
 name|HREGION_LOGDIR_NAME
 argument_list|)
@@ -2457,8 +2466,11 @@ name|pathname
 operator|.
 name|equals
 argument_list|(
+name|HConstants
+operator|.
 name|VERSION_FILE_NAME
 argument_list|)
+operator|)
 return|;
 block|}
 block|}
@@ -2486,6 +2498,8 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
+name|HConstants
+operator|.
 name|HREGION_COMPACTIONDIR_NAME
 argument_list|)
 return|;
@@ -3354,8 +3368,12 @@ name|put
 operator|.
 name|add
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|,
+name|HConstants
+operator|.
 name|REGIONINFO_QUALIFIER
 argument_list|,
 name|Writables
@@ -4820,6 +4838,8 @@ if|if
 condition|(
 name|attempt
 operator|>=
+name|HConstants
+operator|.
 name|RETRY_BACKOFF
 operator|.
 name|length
@@ -4827,6 +4847,8 @@ condition|)
 block|{
 name|attempt
 operator|=
+name|HConstants
+operator|.
 name|RETRY_BACKOFF
 operator|.
 name|length
@@ -4839,6 +4861,8 @@ name|this
 operator|.
 name|zooKeeperPause
 operator|*
+name|HConstants
+operator|.
 name|RETRY_BACKOFF
 index|[
 name|attempt

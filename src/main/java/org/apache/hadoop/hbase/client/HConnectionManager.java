@@ -603,8 +603,6 @@ begin_class
 specifier|public
 class|class
 name|HConnectionManager
-implements|implements
-name|HConstants
 block|{
 specifier|private
 specifier|static
@@ -1195,8 +1193,6 @@ class|class
 name|TableServers
 implements|implements
 name|ServerConnection
-implements|,
-name|HConstants
 block|{
 specifier|static
 specifier|final
@@ -1381,8 +1377,12 @@ name|conf
 operator|.
 name|get
 argument_list|(
+name|HConstants
+operator|.
 name|REGION_SERVER_CLASS
 argument_list|,
+name|HConstants
+operator|.
 name|DEFAULT_REGION_SERVER_CLASS
 argument_list|)
 decl_stmt|;
@@ -1479,8 +1479,12 @@ name|conf
 operator|.
 name|getLong
 argument_list|(
+name|HConstants
+operator|.
 name|HBASE_REGIONSERVER_LEASE_PERIOD_KEY
 argument_list|,
+name|HConstants
+operator|.
 name|DEFAULT_HBASE_REGIONSERVER_LEASE_PERIOD
 argument_list|)
 expr_stmt|;
@@ -2108,8 +2112,12 @@ name|result
 operator|.
 name|getValue
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|,
+name|HConstants
+operator|.
 name|REGIONINFO_QUALIFIER
 argument_list|)
 decl_stmt|;
@@ -2303,8 +2311,12 @@ name|row
 operator|.
 name|getValue
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|,
+name|HConstants
+operator|.
 name|REGIONINFO_QUALIFIER
 argument_list|)
 decl_stmt|;
@@ -2349,8 +2361,12 @@ name|row
 operator|.
 name|getValue
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|,
+name|HConstants
+operator|.
 name|SERVER_QUALIFIER
 argument_list|)
 expr_stmt|;
@@ -2501,8 +2517,12 @@ name|scan
 operator|.
 name|addColumn
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|,
+name|HConstants
+operator|.
 name|REGIONINFO_QUALIFIER
 argument_list|)
 expr_stmt|;
@@ -2819,8 +2839,12 @@ name|rowResult
 operator|.
 name|getValue
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|,
+name|HConstants
+operator|.
 name|REGIONINFO_QUALIFIER
 argument_list|)
 argument_list|)
@@ -3084,6 +3108,8 @@ name|equals
 argument_list|(
 name|tableName
 argument_list|,
+name|HConstants
+operator|.
 name|ROOT_TABLE_NAME
 argument_list|)
 condition|)
@@ -3130,6 +3156,8 @@ name|equals
 argument_list|(
 name|tableName
 argument_list|,
+name|HConstants
+operator|.
 name|META_TABLE_NAME
 argument_list|)
 condition|)
@@ -3137,6 +3165,8 @@ block|{
 return|return
 name|locateRegionInMeta
 argument_list|(
+name|HConstants
+operator|.
 name|ROOT_TABLE_NAME
 argument_list|,
 name|tableName
@@ -3155,6 +3185,8 @@ comment|// Region not in the cache - have to go to the meta RS
 return|return
 name|locateRegionInMeta
 argument_list|(
+name|HConstants
+operator|.
 name|META_TABLE_NAME
 argument_list|,
 name|tableName
@@ -3426,8 +3458,12 @@ name|regionInfoRow
 operator|.
 name|getValue
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|,
+name|HConstants
+operator|.
 name|REGIONINFO_QUALIFIER
 argument_list|)
 decl_stmt|;
@@ -3545,8 +3581,12 @@ name|regionInfoRow
 operator|.
 name|getValue
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|,
+name|HConstants
+operator|.
 name|SERVER_QUALIFIER
 argument_list|)
 expr_stmt|;
@@ -3952,9 +3992,9 @@ argument_list|()
 decl_stmt|;
 comment|// make sure that the end key is greater than the row we're looking
 comment|// for, otherwise the row actually belongs in the next region, not
-comment|// this one. the exception case is when the endkey is EMPTY_START_ROW,
-comment|// signifying that the region we're checking is actually the last
-comment|// region in the table.
+comment|// this one. the exception case is when the endkey is
+comment|// HConstants.EMPTY_START_ROW, signifying that the region we're
+comment|// checking is actually the last region in the table.
 if|if
 condition|(
 name|Bytes

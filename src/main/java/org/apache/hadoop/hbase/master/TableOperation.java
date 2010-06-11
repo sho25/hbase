@@ -223,8 +223,6 @@ begin_class
 specifier|abstract
 class|class
 name|TableOperation
-implements|implements
-name|HConstants
 block|{
 specifier|private
 specifier|final
@@ -419,6 +417,7 @@ operator|+
 literal|",,"
 argument_list|)
 decl_stmt|;
+specifier|final
 name|Scan
 name|scan
 init|=
@@ -430,6 +429,8 @@ argument_list|)
 operator|.
 name|addFamily
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|)
 decl_stmt|;
@@ -564,6 +565,8 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
+name|HConstants
+operator|.
 name|CATALOG_FAMILY
 argument_list|)
 operator|+
@@ -573,6 +576,8 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
+name|HConstants
+operator|.
 name|REGIONINFO_QUALIFIER
 argument_list|)
 operator|+

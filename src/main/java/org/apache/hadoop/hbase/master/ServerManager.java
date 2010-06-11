@@ -465,8 +465,6 @@ begin_class
 specifier|public
 class|class
 name|ServerManager
-implements|implements
-name|HConstants
 block|{
 specifier|private
 specifier|static

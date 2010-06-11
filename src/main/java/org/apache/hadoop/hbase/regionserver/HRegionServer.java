@@ -1254,8 +1254,6 @@ specifier|public
 class|class
 name|HRegionServer
 implements|implements
-name|HConstants
-implements|,
 name|HRegionInterface
 implements|,
 name|HBaseRPCErrorHandler
@@ -1665,12 +1663,16 @@ name|conf
 operator|.
 name|get
 argument_list|(
+name|HConstants
+operator|.
 name|REGIONSERVER_PORT
 argument_list|,
 name|Integer
 operator|.
 name|toString
 argument_list|(
+name|HConstants
+operator|.
 name|DEFAULT_REGIONSERVER_PORT
 argument_list|)
 argument_list|)
@@ -1753,6 +1755,8 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
+name|HConstants
+operator|.
 name|THREAD_WAKE_FREQUENCY
 argument_list|,
 literal|10
@@ -1836,8 +1840,12 @@ name|conf
 operator|.
 name|getLong
 argument_list|(
+name|HConstants
+operator|.
 name|HBASE_REGIONSERVER_LEASE_PERIOD_KEY
 argument_list|,
+name|HConstants
+operator|.
 name|DEFAULT_HBASE_REGIONSERVER_LEASE_PERIOD
 argument_list|)
 expr_stmt|;
@@ -2025,6 +2033,8 @@ argument_list|(
 operator|new
 name|byte
 index|[
+name|HConstants
+operator|.
 name|DEFAULT_SIZE_RESERVATION_BLOCK
 index|]
 argument_list|)
@@ -2113,6 +2123,8 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
+name|HConstants
+operator|.
 name|THREAD_WAKE_FREQUENCY
 operator|+
 literal|".multiplier"
@@ -2154,8 +2166,12 @@ name|conf
 operator|.
 name|getLong
 argument_list|(
+name|HConstants
+operator|.
 name|HBASE_REGIONSERVER_LEASE_PERIOD_KEY
 argument_list|,
+name|HConstants
+operator|.
 name|DEFAULT_HBASE_REGIONSERVER_LEASE_PERIOD
 argument_list|)
 argument_list|,
@@ -4712,6 +4728,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+specifier|final
 name|Path
 name|oldLogDir
 init|=
@@ -4720,6 +4737,8 @@ name|Path
 argument_list|(
 name|rootDir
 argument_list|,
+name|HConstants
+operator|.
 name|HREGION_OLDLOGDIR_NAME
 argument_list|)
 decl_stmt|;

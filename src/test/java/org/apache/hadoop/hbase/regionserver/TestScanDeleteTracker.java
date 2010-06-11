@@ -81,8 +81,6 @@ class|class
 name|TestScanDeleteTracker
 extends|extends
 name|HBaseTestCase
-implements|implements
-name|HConstants
 block|{
 specifier|private
 name|ScanDeleteTracker

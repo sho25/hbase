@@ -89,8 +89,6 @@ begin_class
 specifier|public
 class|class
 name|ZKServerTool
-implements|implements
-name|HConstants
 block|{
 comment|/**    * Run the tool.    * @param args Command line arguments. First arg is path to zookeepers file.    */
 specifier|public
@@ -111,8 +109,9 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
-comment|// Note that we do not simply grab the property ZOOKEEPER_QUORUM from
-comment|// the HBaseConfiguration because the user may be using a zoo.cfg file.
+comment|// Note that we do not simply grab the property
+comment|// HConstants.ZOOKEEPER_QUORUM from the HBaseConfiguration because the
+comment|// user may be using a zoo.cfg file.
 name|Properties
 name|zkProps
 init|=
