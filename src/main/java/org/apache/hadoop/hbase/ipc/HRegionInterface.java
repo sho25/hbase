@@ -197,6 +197,16 @@ name|IOException
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
 begin_comment
 comment|/**  * Clients interact with HRegionServers using a handle to the HRegionInterface.  *  *<p>NOTE: if you change the interface, you must change the RPC version  * number in HBaseRPCProtocolVersion  */
 end_comment
@@ -298,7 +308,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Put an array of puts into the specified region    *    * @param regionName region name    * @param puts array of puts to execute    * @return The number of processed put's.  Returns -1 if all Puts    * processed successfully.    * @throws IOException e    */
+comment|/**    * Put an array of puts into the specified region    *    * @param regionName region name    * @param puts List of puts to execute    * @return The number of processed put's.  Returns -1 if all Puts    * processed successfully.    * @throws IOException e    */
 specifier|public
 name|int
 name|put
@@ -309,8 +319,10 @@ index|[]
 name|regionName
 parameter_list|,
 specifier|final
+name|List
+argument_list|<
 name|Put
-index|[]
+argument_list|>
 name|puts
 parameter_list|)
 throws|throws
@@ -333,7 +345,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Put an array of deletes into the specified region    *    * @param regionName region name    * @param deletes delete array to execute    * @return The number of processed deletes.  Returns -1 if all Deletes    * processed successfully.    * @throws IOException e    */
+comment|/**    * Put an array of deletes into the specified region    *    * @param regionName region name    * @param deletes delete List to execute    * @return The number of processed deletes.  Returns -1 if all Deletes    * processed successfully.    * @throws IOException e    */
 specifier|public
 name|int
 name|delete
@@ -344,8 +356,10 @@ index|[]
 name|regionName
 parameter_list|,
 specifier|final
+name|List
+argument_list|<
 name|Delete
-index|[]
+argument_list|>
 name|deletes
 parameter_list|)
 throws|throws
