@@ -2808,7 +2808,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/*    * Region server is reporting that a region is now opened    * @param serverInfo    * @param region    * @param returnMsgs    */
-specifier|private
+specifier|public
 name|void
 name|processRegionOpen
 parameter_list|(
@@ -3129,7 +3129,7 @@ block|}
 block|}
 block|}
 comment|/*    * @param region    * @throws Exception    */
-specifier|private
+specifier|public
 name|void
 name|processRegionClose
 parameter_list|(

@@ -327,9 +327,7 @@ operator|.
 name|zookeeper
 operator|.
 name|setClusterStateWatch
-argument_list|(
-name|this
-argument_list|)
+argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -368,9 +366,7 @@ operator|.
 name|zookeeper
 operator|.
 name|setClusterStateWatch
-argument_list|(
-name|this
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|wait
 argument_list|()
@@ -449,9 +445,7 @@ operator|.
 name|zookeeper
 operator|.
 name|setClusterStateWatch
-argument_list|(
-name|this
-argument_list|)
+argument_list|()
 expr_stmt|;
 comment|// Watch our own node
 name|this

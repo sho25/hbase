@@ -62,6 +62,7 @@ comment|/**  * ProcessRegionClose is the way we do post-processing on a closed r
 end_comment
 
 begin_class
+specifier|public
 class|class
 name|ProcessRegionClose
 extends|extends

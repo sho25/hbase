@@ -259,6 +259,15 @@ operator|.
 name|metaRegion
 return|;
 block|}
+specifier|public
+name|HRegionInfo
+name|getRegionInfo
+parameter_list|()
+block|{
+return|return
+name|regionInfo
+return|;
+block|}
 block|}
 end_class
 
