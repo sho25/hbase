@@ -57,6 +57,19 @@ specifier|final
 class|class
 name|HConstants
 block|{
+comment|/**    * Status codes used for return values of bulk operations.    */
+specifier|public
+enum|enum
+name|OperationStatusCode
+block|{
+name|NOT_RUN
+block|,
+name|SUCCESS
+block|,
+name|BAD_FAMILY
+block|,
+name|FAILURE
+block|;   }
 comment|/** long constant for zero */
 specifier|public
 specifier|static

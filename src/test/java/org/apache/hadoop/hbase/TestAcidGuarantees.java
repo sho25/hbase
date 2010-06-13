@@ -129,7 +129,7 @@ name|hbase
 operator|.
 name|MultithreadedTestUtil
 operator|.
-name|TestThread
+name|RepeatingTestThread
 import|;
 end_import
 
@@ -400,7 +400,7 @@ specifier|static
 class|class
 name|AtomicityWriter
 extends|extends
-name|TestThread
+name|RepeatingTestThread
 block|{
 name|Random
 name|rand
@@ -579,7 +579,7 @@ specifier|static
 class|class
 name|AtomicityReader
 extends|extends
-name|TestThread
+name|RepeatingTestThread
 block|{
 name|byte
 name|targetRow

@@ -3685,6 +3685,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|edits
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+return|return;
 name|byte
 index|[]
 name|regionName
