@@ -1064,24 +1064,22 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|RuntimeException
-name|rte
+name|Exception
+name|e
 parameter_list|)
 block|{
-comment|// We get RTE instead of IOE since java Iterable<?> doesn't throw
-comment|// IOE
 name|LOG
 operator|.
 name|info
 argument_list|(
 literal|"Got expected error"
 argument_list|,
-name|rte
+name|e
 argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|rte
+name|e
 operator|.
 name|getMessage
 argument_list|()
