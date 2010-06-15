@@ -1787,10 +1787,9 @@ operator|.
 name|getRegionInfo
 argument_list|()
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
+name|String
+name|msg
+init|=
 literal|"ABORTING "
 operator|+
 name|this
@@ -1814,14 +1813,15 @@ argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
-argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|this
 operator|.
 name|victim
 operator|.
 name|abort
-argument_list|()
+argument_list|(
+name|msg
+argument_list|)
 expr_stmt|;
 name|this
 operator|.

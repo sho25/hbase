@@ -2317,7 +2317,9 @@ block|}
 else|else
 block|{
 name|abort
-argument_list|()
+argument_list|(
+literal|"ZooKeeper session expired"
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -2395,15 +2397,10 @@ name|void
 name|restart
 parameter_list|()
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Restarting Region Server"
-argument_list|)
-expr_stmt|;
 name|abort
-argument_list|()
+argument_list|(
+literal|"Restarting region server"
+argument_list|)
 expr_stmt|;
 name|Threads
 operator|.
@@ -3233,17 +3230,12 @@ name|t
 argument_list|)
 condition|)
 block|{
-name|LOG
-operator|.
-name|fatal
+name|abort
 argument_list|(
-literal|"Unhandled exception. Aborting..."
+literal|"Unhandled exception"
 argument_list|,
 name|t
 argument_list|)
-expr_stmt|;
-name|abort
-argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -4505,17 +4497,12 @@ argument_list|)
 operator|)
 condition|)
 block|{
-name|LOG
-operator|.
-name|fatal
+name|abort
 argument_list|(
-literal|"OutOfMemoryError, aborting."
+literal|"OutOfMemoryError, aborting"
 argument_list|,
 name|e
 argument_list|)
-expr_stmt|;
-name|abort
-argument_list|()
 expr_stmt|;
 name|stop
 operator|=
@@ -4563,17 +4550,12 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|fatal
+name|abort
 argument_list|(
-literal|"Shutting down HRegionServer: file system not available"
+literal|"File System not available"
 argument_list|,
 name|e
 argument_list|)
-expr_stmt|;
-name|abort
-argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -5333,13 +5315,8 @@ name|e
 parameter_list|)
 block|{
 name|abort
-argument_list|()
-expr_stmt|;
-name|LOG
-operator|.
-name|fatal
 argument_list|(
-literal|"Set stop flag in "
+literal|"Uncaught exception in service thread "
 operator|+
 name|t
 operator|.
@@ -5842,12 +5819,57 @@ expr_stmt|;
 comment|// FindBugs NN_NAKED_NOTIFY
 block|}
 block|}
-comment|/**    * Cause the server to exit without closing the regions it is serving, the    * log it is using and without notifying the master.    * Used unit testing and on catastrophic events such as HDFS is yanked out    * from under hbase or we OOME.    */
+comment|/**    * Cause the server to exit without closing the regions it is serving, the    * log it is using and without notifying the master.    * Used unit testing and on catastrophic events such as HDFS is yanked out    * from under hbase or we OOME.    * @param reason the reason we are aborting    * @param cause the exception that caused the abort, or null    */
 specifier|public
 name|void
 name|abort
-parameter_list|()
+parameter_list|(
+name|String
+name|reason
+parameter_list|,
+name|Throwable
+name|cause
+parameter_list|)
 block|{
+if|if
+condition|(
+name|cause
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"Aborting region server "
+operator|+
+name|this
+operator|+
+literal|": "
+operator|+
+name|reason
+argument_list|,
+name|cause
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"Aborting region server "
+operator|+
+name|this
+operator|+
+literal|": "
+operator|+
+name|reason
+argument_list|)
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|abortRequested
@@ -5889,6 +5911,23 @@ name|stop
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * @see HRegionServer#abort(String, Throwable)    */
+specifier|public
+name|void
+name|abort
+parameter_list|(
+name|String
+name|reason
+parameter_list|)
+block|{
+name|abort
+argument_list|(
+name|reason
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
 comment|/*    * Simulate a kill -9 of this server.    * Exits w/o closing regions or cleaninup logs but it does close socket in    * case want to bring up server on old hostname+port immediately.    */
 specifier|protected
 name|void
@@ -5902,7 +5941,9 @@ operator|=
 literal|true
 expr_stmt|;
 name|abort
-argument_list|()
+argument_list|(
+literal|"Simulated kill"
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Wait on all threads to finish.    * Presumption is that all closes and stops have already been called.    */

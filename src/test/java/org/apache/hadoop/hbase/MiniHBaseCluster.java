@@ -1193,7 +1193,15 @@ expr_stmt|;
 name|server
 operator|.
 name|abort
-argument_list|()
+argument_list|(
+literal|"Aborting for tests"
+argument_list|,
+operator|new
+name|Exception
+argument_list|(
+literal|"Trace info"
+argument_list|)
+argument_list|)
 expr_stmt|;
 return|return
 name|server

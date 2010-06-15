@@ -434,7 +434,11 @@ expr_stmt|;
 name|server
 operator|.
 name|abort
-argument_list|()
+argument_list|(
+literal|"Failed log close in log roller"
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -464,7 +468,11 @@ expr_stmt|;
 name|server
 operator|.
 name|abort
-argument_list|()
+argument_list|(
+literal|"Failed connect in log roller"
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -496,7 +504,11 @@ comment|// Abort if we get here.  We probably won't recover an IOE. HBASE-1132
 name|server
 operator|.
 name|abort
-argument_list|()
+argument_list|(
+literal|"IOE in log roller"
+argument_list|,
+name|ex
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -518,6 +530,15 @@ name|server
 operator|.
 name|checkFileSystem
 argument_list|()
+expr_stmt|;
+name|server
+operator|.
+name|abort
+argument_list|(
+literal|"Log rolling failed"
+argument_list|,
+name|ex
+argument_list|)
 expr_stmt|;
 block|}
 finally|finally
