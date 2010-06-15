@@ -348,6 +348,7 @@ name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
 specifier|private
+specifier|static
 name|Configuration
 name|conf
 decl_stmt|;
@@ -384,8 +385,15 @@ name|TEST_UTIL
 operator|.
 name|startMiniCluster
 argument_list|(
-literal|1
+literal|2
 argument_list|)
+expr_stmt|;
+name|conf
+operator|=
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * @throws java.lang.Exception    */
@@ -415,24 +423,14 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|conf
-operator|=
 name|TEST_UTIL
 operator|.
-name|getConfiguration
-argument_list|()
+name|ensureSomeRegionServersAvailable
+argument_list|(
+literal|2
+argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @throws java.lang.Exception    */
-annotation|@
-name|After
-specifier|public
-name|void
-name|tearDown
-parameter_list|()
-throws|throws
-name|Exception
-block|{}
 comment|/**    * See HBASE-1232 and http://wiki.apache.org/hadoop/ZooKeeper/FAQ#4.    * @throws IOException    * @throws InterruptedException    */
 annotation|@
 name|Test
@@ -616,26 +614,6 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|getMiniHBaseCluster
-argument_list|()
-operator|.
-name|getRegionServer
-argument_list|(
-literal|0
-argument_list|)
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setBoolean
-argument_list|(
-literal|"hbase.regionserver.restart.on.zk.expire"
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
-name|TEST_UTIL
-operator|.
 name|expireRegionServerSession
 argument_list|(
 literal|0
@@ -658,7 +636,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting testRegionServerSessionExpired"
+literal|"Starting testMasterSessionExpired"
 argument_list|)
 expr_stmt|;
 operator|new
