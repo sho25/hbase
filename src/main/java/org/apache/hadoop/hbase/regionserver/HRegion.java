@@ -5206,8 +5206,6 @@ name|addFamilyMapToWALEdit
 argument_list|(
 name|familyMap
 argument_list|,
-name|byteNow
-argument_list|,
 name|walEdit
 argument_list|)
 expr_stmt|;
@@ -5979,7 +5977,47 @@ operator|>
 literal|0
 assert|;
 comment|// ------------------------------------
-comment|// STEP 2. Write to WAL
+comment|// STEP 2. Update any LATEST_TIMESTAMP timestamps
+comment|// ----------------------------------
+for|for
+control|(
+name|int
+name|i
+init|=
+name|firstIndex
+init|;
+name|i
+operator|<
+name|lastIndexExclusive
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|updateKVTimestamps
+argument_list|(
+name|batchOp
+operator|.
+name|operations
+index|[
+name|i
+index|]
+operator|.
+name|getFirst
+argument_list|()
+operator|.
+name|getFamilyMap
+argument_list|()
+operator|.
+name|values
+argument_list|()
+argument_list|,
+name|byteNow
+argument_list|)
+expr_stmt|;
+block|}
+comment|// ------------------------------------
+comment|// STEP 3. Write to WAL
 comment|// ----------------------------------
 name|WALEdit
 name|walEdit
@@ -6047,8 +6085,6 @@ operator|.
 name|getFamilyMap
 argument_list|()
 argument_list|,
-name|byteNow
-argument_list|,
 name|walEdit
 argument_list|)
 expr_stmt|;
@@ -6076,7 +6112,7 @@ name|now
 argument_list|)
 expr_stmt|;
 comment|// ------------------------------------
-comment|// STEP 3. Write back to memstore
+comment|// STEP 4. Write back to memstore
 comment|// ----------------------------------
 name|long
 name|addedSize
@@ -6550,17 +6586,20 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Checks if any stamps is Long.MAX_VALUE.  If so, sets them to now.    *<p>    * This acts to replace {@link HConstants#LATEST_TIMESTAMP} with {@code now}.    * @param keys    * @param now    * @return<code>true</code> when updating the time stamp completed.    */
+comment|/**    * Replaces any KV timestamps set to {@link HConstants#LATEST_TIMESTAMP}    * with the provided current timestamp.    */
 specifier|private
-name|boolean
-name|updateKeys
+name|void
+name|updateKVTimestamps
 parameter_list|(
 specifier|final
+name|Iterable
+argument_list|<
 name|List
 argument_list|<
 name|KeyValue
 argument_list|>
-name|keys
+argument_list|>
+name|keyLists
 parameter_list|,
 specifier|final
 name|byte
@@ -6568,22 +6607,24 @@ index|[]
 name|now
 parameter_list|)
 block|{
+for|for
+control|(
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+name|keys
+range|:
+name|keyLists
+control|)
+block|{
 if|if
 condition|(
 name|keys
 operator|==
 literal|null
-operator|||
-name|keys
-operator|.
-name|isEmpty
-argument_list|()
 condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
+continue|continue;
 for|for
 control|(
 name|KeyValue
@@ -6600,9 +6641,7 @@ name|now
 argument_list|)
 expr_stmt|;
 block|}
-return|return
-literal|true
-return|;
+block|}
 block|}
 comment|//  /*
 comment|//   * Utility method to verify values length.
@@ -6938,6 +6977,16 @@ name|keySet
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|updateKVTimestamps
+argument_list|(
+name|familyMap
+operator|.
+name|values
+argument_list|()
+argument_list|,
+name|byteNow
+argument_list|)
+expr_stmt|;
 comment|// write/sync to WAL should happen before we touch memstore.
 comment|//
 comment|// If order is reversed, i.e. we write to memstore first, and
@@ -6958,8 +7007,6 @@ decl_stmt|;
 name|addFamilyMapToWALEdit
 argument_list|(
 name|familyMap
-argument_list|,
-name|byteNow
 argument_list|,
 name|walEdit
 argument_list|)
@@ -7195,7 +7242,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Append the given map of family->edits to a WALEdit data structure.    * Also updates the timestamps of the edits where they have not    * been specified by the user. This does not write to the HLog itself.    * @param familyMap map of family->edits    * @param byteNow timestamp to use when unspecified    * @param walEdit the destination entry to append into    */
+comment|/**    * Append the given map of family->edits to a WALEdit data structure.    * This does not write to the HLog itself.    * @param familyMap map of family->edits    * @param walEdit the destination entry to append into    */
 specifier|private
 name|void
 name|addFamilyMapToWALEdit
@@ -7211,10 +7258,6 @@ name|KeyValue
 argument_list|>
 argument_list|>
 name|familyMap
-parameter_list|,
-name|byte
-index|[]
-name|byteNow
 parameter_list|,
 name|WALEdit
 name|walEdit
@@ -7234,19 +7277,6 @@ name|values
 argument_list|()
 control|)
 block|{
-comment|// update timestamp on keys if required.
-if|if
-condition|(
-name|updateKeys
-argument_list|(
-name|edits
-argument_list|,
-name|byteNow
-argument_list|)
-condition|)
-block|{
-comment|// bunch up all edits across all column families into a
-comment|// single WALEdit.
 for|for
 control|(
 name|KeyValue
@@ -7262,7 +7292,6 @@ argument_list|(
 name|kv
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 block|}
