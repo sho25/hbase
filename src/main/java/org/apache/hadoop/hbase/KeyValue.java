@@ -67,6 +67,20 @@ end_import
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|primitives
+operator|.
+name|Longs
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -2067,7 +2081,9 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-return|return
+name|KeyValue
+name|ret
+init|=
 operator|new
 name|KeyValue
 argument_list|(
@@ -2079,6 +2095,19 @@ name|b
 operator|.
 name|length
 argument_list|)
+decl_stmt|;
+comment|// Important to clone the memstoreTS as well - otherwise memstore's
+comment|// update-in-place methods (eg increment) will end up creating
+comment|// new entries
+name|ret
+operator|.
+name|setMemstoreTS
+argument_list|(
+name|memstoreTS
+argument_list|)
+expr_stmt|;
+return|return
+name|ret
 return|;
 block|}
 comment|//---------------------------------------------------------------------------
@@ -5075,7 +5104,9 @@ name|KeyValue
 name|right
 parameter_list|)
 block|{
-return|return
+name|int
+name|ret
+init|=
 name|getRawComparator
 argument_list|()
 operator|.
@@ -5113,6 +5144,33 @@ argument_list|,
 name|right
 operator|.
 name|getKeyLength
+argument_list|()
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|ret
+operator|!=
+literal|0
+condition|)
+return|return
+name|ret
+return|;
+comment|// Negate this comparison so later edits show up first
+return|return
+operator|-
+name|Longs
+operator|.
+name|compare
+argument_list|(
+name|left
+operator|.
+name|getMemstoreTS
+argument_list|()
+argument_list|,
+name|right
+operator|.
+name|getMemstoreTS
 argument_list|()
 argument_list|)
 return|;
