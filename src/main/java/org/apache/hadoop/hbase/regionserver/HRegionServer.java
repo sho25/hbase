@@ -7184,6 +7184,8 @@ init|=
 operator|new
 name|RSZookeeperUpdater
 argument_list|(
+name|conf
+argument_list|,
 name|serverInfo
 operator|.
 name|getServerName
@@ -7574,6 +7576,8 @@ operator|=
 operator|new
 name|RSZookeeperUpdater
 argument_list|(
+name|conf
+argument_list|,
 name|serverInfo
 operator|.
 name|getServerName

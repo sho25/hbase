@@ -1645,7 +1645,11 @@ comment|// the root region.
 name|ZKUnassignedWatcher
 operator|.
 name|start
-argument_list|()
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
 expr_stmt|;
 comment|// init the various event handlers
 name|HBaseEventHandler

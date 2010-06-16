@@ -560,6 +560,11 @@ name|ZooKeeperWrapper
 operator|.
 name|getInstance
 argument_list|(
+name|master
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
 name|HMaster
 operator|.
 name|class

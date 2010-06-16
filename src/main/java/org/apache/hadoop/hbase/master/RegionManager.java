@@ -916,6 +916,8 @@ name|ZooKeeperWrapper
 operator|.
 name|getInstance
 argument_list|(
+name|conf
+argument_list|,
 name|HMaster
 operator|.
 name|class
