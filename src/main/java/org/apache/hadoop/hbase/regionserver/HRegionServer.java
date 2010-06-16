@@ -1279,6 +1279,8 @@ implements|,
 name|Runnable
 implements|,
 name|Watcher
+implements|,
+name|Stoppable
 block|{
 specifier|public
 specifier|static
@@ -3995,17 +3997,7 @@ literal|"hbase.rootdir"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|conf
-operator|.
-name|setBoolean
-argument_list|(
-literal|"fs.automatic.close"
-argument_list|,
-literal|false
-argument_list|)
-expr_stmt|;
+comment|// Get fs instance used by this RS
 name|this
 operator|.
 name|fs
@@ -11760,7 +11752,7 @@ block|}
 comment|//
 comment|// Main program and support routines
 comment|//
-comment|/**    * @param hrs    * @return Thread the RegionServer is running in correctly named.    */
+comment|/**    * @param hrs    * @return Thread the RegionServer is running in correctly named.    * @throws IOException    */
 specifier|public
 specifier|static
 name|Thread
@@ -11770,6 +11762,8 @@ specifier|final
 name|HRegionServer
 name|hrs
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|startRegionServer
@@ -11791,7 +11785,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param hrs    * @param name    * @return Thread the RegionServer is running in correctly named.    */
+comment|/**    * @param hrs    * @param name    * @return Thread the RegionServer is running in correctly named.    * @throws IOException    */
 specifier|public
 specifier|static
 name|Thread
@@ -11805,6 +11799,8 @@ specifier|final
 name|String
 name|name
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|Thread
 name|t
@@ -11826,6 +11822,32 @@ name|t
 operator|.
 name|start
 argument_list|()
+expr_stmt|;
+comment|// Install shutdown hook that will catch signals and run an orderly shutdown
+comment|// of the hrs.
+name|ShutdownHook
+operator|.
+name|install
+argument_list|(
+name|hrs
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|FileSystem
+operator|.
+name|get
+argument_list|(
+name|hrs
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+argument_list|,
+name|hrs
+argument_list|,
+name|t
+argument_list|)
 expr_stmt|;
 return|return
 name|t
