@@ -116,7 +116,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Scanner scans both the memstore and the HStore. Coaleace KeyValue stream  * into List<KeyValue> for a single row.  */
+comment|/**  * Scanner scans both the memstore and the HStore. Coalesce KeyValue stream  * into List<KeyValue> for a single row.  */
 end_comment
 
 begin_class
@@ -868,6 +868,20 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|heap
+operator|=
+literal|null
+expr_stmt|;
+comment|// CLOSED!
+name|this
+operator|.
+name|lastTop
+operator|=
+literal|null
+expr_stmt|;
+comment|// If both are null, we are closed.
 block|}
 specifier|public
 specifier|synchronized
@@ -1229,6 +1243,20 @@ condition|(
 name|this
 operator|.
 name|closing
+condition|)
+return|return;
+comment|// All public synchronized API calls will call 'checkReseek' which will cause
+comment|// the scanner stack to reseek if this.heap==null&& this.lastTop != null.
+comment|// But if two calls to updateReaders() happen without a 'next' or 'peek' then we
+comment|// will end up calling this.peek() which would cause a reseek in the middle of a updateReaders
+comment|// which is NOT what we want, not to mention could cause an NPE. So we early out here.
+if|if
+condition|(
+name|this
+operator|.
+name|heap
+operator|==
+literal|null
 condition|)
 return|return;
 comment|// this could be null.
