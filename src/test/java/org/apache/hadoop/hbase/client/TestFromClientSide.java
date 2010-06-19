@@ -29381,6 +29381,13 @@ throws|throws
 name|Exception
 block|{
 comment|// 1. test serialization.
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting testRegionCacheDeSerialization"
+argument_list|)
+expr_stmt|;
 specifier|final
 name|byte
 index|[]
@@ -29671,6 +29678,13 @@ operator|.
 name|delete
 argument_list|()
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Finishing testRegionCacheDeSerialization"
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * HBASE-2468 use case 3:    */
 annotation|@
@@ -29682,6 +29696,13 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting testRegionCachePreWarm"
+argument_list|)
+expr_stmt|;
 specifier|final
 name|byte
 index|[]
@@ -29935,6 +29956,13 @@ literal|10
 argument_list|)
 decl_stmt|;
 comment|// the total number of cached regions == region('aaa") + prefeched regions.
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Testing how many regions cached"
+argument_list|)
+expr_stmt|;
 name|assertEquals
 argument_list|(
 literal|"Number of cached region is incorrect "
@@ -29994,6 +30022,13 @@ name|conf
 argument_list|,
 name|TABLENAME
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Finishing testRegionCachePreWarm"
 argument_list|)
 expr_stmt|;
 block|}
