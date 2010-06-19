@@ -4249,7 +4249,7 @@ argument_list|()
 decl_stmt|;
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Finished memstore flush of ~"
 operator|+

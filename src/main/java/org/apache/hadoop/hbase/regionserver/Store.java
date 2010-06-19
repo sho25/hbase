@@ -3040,13 +3040,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isInfoEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Added "
 operator|+
@@ -3855,7 +3855,7 @@ block|}
 comment|// Ready to go.  Have list of files to compact.
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Started compaction of "
 operator|+
@@ -3864,7 +3864,23 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|" file(s)"
+literal|" file(s) in "
+operator|+
+name|this
+operator|.
+name|storeNameStr
+operator|+
+literal|" of "
+operator|+
+name|this
+operator|.
+name|region
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getRegionNameAsString
+argument_list|()
 operator|+
 operator|(
 name|references
@@ -3919,13 +3935,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isInfoEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Completed"
 operator|+
@@ -3939,9 +3955,28 @@ operator|)
 operator|+
 literal|"compaction of "
 operator|+
+name|filesToCompact
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" file(s) in "
+operator|+
 name|this
 operator|.
 name|storeNameStr
+operator|+
+literal|" of "
+operator|+
+name|this
+operator|.
+name|region
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getRegionNameAsString
+argument_list|()
 operator|+
 literal|"; new storefile is "
 operator|+
