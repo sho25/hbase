@@ -185,16 +185,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|ListIterator
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Map
 import|;
 end_import
@@ -874,6 +864,15 @@ operator|new
 name|Object
 index|[]
 block|{}
+decl_stmt|;
+comment|/** Name of file that holds recovered edits written by the wal log splitting    * code, one per region    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|RECOVERED_EDITS
+init|=
+literal|"recovered.edits"
 decl_stmt|;
 comment|// used to indirectly tell syncFs to force the sync
 specifier|private
@@ -7336,9 +7335,7 @@ name|Path
 argument_list|(
 name|regionDir
 argument_list|,
-name|HConstants
-operator|.
-name|HREGION_OLDLOGFILE_NAME
+name|RECOVERED_EDITS
 argument_list|)
 return|;
 block|}

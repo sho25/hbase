@@ -940,11 +940,7 @@ decl_stmt|;
 name|r
 operator|.
 name|initialize
-argument_list|(
-literal|null
-argument_list|,
-literal|null
-argument_list|)
+argument_list|()
 expr_stmt|;
 return|return
 name|r

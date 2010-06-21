@@ -371,15 +371,6 @@ name|HREGION_OLDLOGDIR_NAME
 init|=
 literal|".oldlogs"
 decl_stmt|;
-comment|/** Name of old log file for reconstruction */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|HREGION_OLDLOGFILE_NAME
-init|=
-literal|"oldlogfile.log"
-decl_stmt|;
 comment|/** Used to construct the name of the compaction directory during compaction */
 specifier|public
 specifier|static

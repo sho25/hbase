@@ -1278,7 +1278,7 @@ operator|.
 name|sequenceid
 return|;
 block|}
-comment|/**    * Return the highest sequence ID found across all storefiles in    * the given list. Store files that were created by a mapreduce    * bulk load are ignored, as they do not correspond to any edit    * log items.    * @return 0 if no non-bulk-load files are provided    */
+comment|/**    * Return the highest sequence ID found across all storefiles in    * the given list. Store files that were created by a mapreduce    * bulk load are ignored, as they do not correspond to any edit    * log items.    * @return 0 if no non-bulk-load files are provided or, this is Store that    * does not yet have any store files.    */
 specifier|public
 specifier|static
 name|long
