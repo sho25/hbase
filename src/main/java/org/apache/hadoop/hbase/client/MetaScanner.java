@@ -116,10 +116,11 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Scanner class that contains the<code>.META.</code> table scanning logic  * and uses a Retryable scanner. Provided visitors will be called  * for each row.  */
+comment|/**  * Scanner class that contains the<code>.META.</code> table scanning logic  * and uses a Retryable scanner. Provided visitors will be called  * for each row.  *   * Although public visibility, this is not a public-facing API and may evolve in  * minor releases.  */
 end_comment
 
 begin_class
+specifier|public
 class|class
 name|MetaScanner
 block|{
@@ -645,6 +646,7 @@ condition|)
 do|;
 block|}
 comment|/**    * Visitor class called to process each row of the .META. table    */
+specifier|public
 interface|interface
 name|MetaScannerVisitor
 block|{
