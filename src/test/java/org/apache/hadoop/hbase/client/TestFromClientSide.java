@@ -29781,6 +29781,39 @@ argument_list|,
 name|FAMILY
 argument_list|)
 expr_stmt|;
+comment|// This count effectively waits until the regions have been
+comment|// fully assigned
+name|TEST_UTIL
+operator|.
+name|countRows
+argument_list|(
+name|table
+argument_list|)
+expr_stmt|;
+name|table
+operator|.
+name|getConnection
+argument_list|()
+operator|.
+name|clearRegionCache
+argument_list|()
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|"Clearing cache should have 0 cached "
+argument_list|,
+literal|0
+argument_list|,
+name|HConnectionManager
+operator|.
+name|getCachedRegionCount
+argument_list|(
+name|conf
+argument_list|,
+name|TABLENAME
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// A Get is suppose to do a region lookup request
 name|Get
 name|g
