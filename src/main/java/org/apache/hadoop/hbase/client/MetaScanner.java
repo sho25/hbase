@@ -282,6 +282,8 @@ init|=
 operator|new
 name|HTable
 argument_list|(
+name|configuration
+argument_list|,
 name|HConstants
 operator|.
 name|META_TABLE_NAME
