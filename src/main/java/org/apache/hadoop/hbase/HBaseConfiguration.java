@@ -125,7 +125,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"instantinating HBaseConfiguration() is deprecated. Please use"
+literal|"instantiating HBaseConfiguration() is deprecated. Please use"
 operator|+
 literal|" HBaseConfiguration#create() to construct a plain Configuration"
 argument_list|)
