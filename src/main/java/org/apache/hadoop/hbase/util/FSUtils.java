@@ -2428,6 +2428,13 @@ name|conf
 argument_list|)
 condition|)
 block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Running on HDFS without append enabled may result in data loss"
+argument_list|)
+expr_stmt|;
 return|return;
 block|}
 comment|// lease recovery not needed for local file system case.
