@@ -621,6 +621,18 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
+literal|"Scanner for "
+operator|+
+operator|(
+name|rootRegion
+condition|?
+literal|"-ROOT-"
+else|:
+literal|".META."
+operator|)
+operator|+
+literal|" table"
+argument_list|,
 name|master
 operator|.
 name|getConfiguration

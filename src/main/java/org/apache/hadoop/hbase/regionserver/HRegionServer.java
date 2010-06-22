@@ -4593,6 +4593,8 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
+literal|"MajorCompactionChecker"
+argument_list|,
 name|sleepTime
 argument_list|,
 name|stopper

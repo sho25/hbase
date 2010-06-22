@@ -262,6 +262,8 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
+literal|"OldLogsCleaner"
+argument_list|,
 name|p
 argument_list|,
 name|s

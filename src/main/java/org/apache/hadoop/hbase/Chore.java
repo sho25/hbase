@@ -114,6 +114,9 @@ comment|/**    * @param p Period at which we should run.  Will be adjusted appro
 specifier|public
 name|Chore
 parameter_list|(
+name|String
+name|name
+parameter_list|,
 specifier|final
 name|int
 name|p
@@ -124,7 +127,9 @@ name|s
 parameter_list|)
 block|{
 name|super
-argument_list|()
+argument_list|(
+name|name
+argument_list|)
 expr_stmt|;
 name|this
 operator|.

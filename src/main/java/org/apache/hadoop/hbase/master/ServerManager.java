@@ -630,6 +630,8 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
+literal|"ServerMonitor"
+argument_list|,
 name|period
 argument_list|,
 name|stop
