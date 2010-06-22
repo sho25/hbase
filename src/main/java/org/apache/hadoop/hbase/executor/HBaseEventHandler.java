@@ -177,29 +177,6 @@ argument_list|>
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// static instances needed by the handlers
-specifier|protected
-specifier|static
-name|ServerManager
-name|serverManager
-decl_stmt|;
-comment|/**    * Note that this has to be called first BEFORE the subclass constructors.    *     * TODO: take out after refactor    */
-specifier|public
-specifier|static
-name|void
-name|init
-parameter_list|(
-name|ServerManager
-name|serverManager
-parameter_list|)
-block|{
-name|HBaseEventHandler
-operator|.
-name|serverManager
-operator|=
-name|serverManager
-expr_stmt|;
-block|}
 comment|/**    * This interface provides hooks to listen to various events received by the     * queue. A class implementing this can listen to the updates by calling     * registerListener and stop receiving updates by calling unregisterListener    */
 specifier|public
 interface|interface
@@ -313,7 +290,7 @@ name|executorServiceType
 operator|=
 name|HBaseExecutorServiceType
 operator|.
-name|MASTER_CLOSEREGION
+name|MASTER_OPENREGION
 expr_stmt|;
 break|break;
 case|case
@@ -564,9 +541,30 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// call the main process function
+try|try
+block|{
 name|process
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Caught throwable while processing event "
+operator|+
+name|eventType
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+block|}
 comment|// fire all afterProcess listeners
 for|for
 control|(

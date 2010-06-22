@@ -1711,14 +1711,13 @@ argument_list|(
 name|this
 operator|.
 name|conf
-argument_list|)
-expr_stmt|;
-comment|// init the various event handlers
-name|HBaseEventHandler
-operator|.
-name|init
-argument_list|(
+argument_list|,
 name|serverManager
+argument_list|,
+name|address
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// start the "close region" executor service
@@ -1728,7 +1727,10 @@ name|RS2ZK_REGION_CLOSED
 operator|.
 name|startMasterExecutorService
 argument_list|(
-name|MASTER
+name|address
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// start the "open region" executor service
@@ -1738,7 +1740,10 @@ name|RS2ZK_REGION_OPENED
 operator|.
 name|startMasterExecutorService
 argument_list|(
-name|MASTER
+name|address
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// start the region manager
