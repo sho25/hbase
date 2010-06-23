@@ -1353,6 +1353,10 @@ specifier|final
 name|RegionServerOperationQueue
 name|regionServerOperationQueue
 decl_stmt|;
+comment|// True if this is the master that started the cluster.
+name|boolean
+name|isClusterStartup
+decl_stmt|;
 comment|/**    * Constructor    * @param conf configuration    * @throws IOException    */
 specifier|public
 name|HMaster
@@ -1368,6 +1372,40 @@ operator|.
 name|conf
 operator|=
 name|conf
+expr_stmt|;
+comment|// Figure out if this is a fresh cluster start. This is done by checking the
+comment|// number of RS ephemeral nodes. RS ephemeral nodes are created only after
+comment|// the primary master has written the address to ZK. So this has to be done
+comment|// before we race to write our address to zookeeper.
+name|zooKeeperWrapper
+operator|=
+name|ZooKeeperWrapper
+operator|.
+name|createInstance
+argument_list|(
+name|conf
+argument_list|,
+name|HMaster
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|isClusterStartup
+operator|=
+operator|(
+name|zooKeeperWrapper
+operator|.
+name|scanRSDirectory
+argument_list|()
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|0
+operator|)
 expr_stmt|;
 comment|// Set filesystem to be that of this.rootdir else we get complaints about
 comment|// mismatched filesystems if hbase.rootdir is hdfs and fs.defaultFS is
@@ -1619,22 +1657,6 @@ comment|// We'll succeed if we are only  master or if we win the race when many
 comment|// masters.  Otherwise we park here inside in writeAddressToZooKeeper.
 comment|// TODO: Bring up the UI to redirect to active Master.
 name|zooKeeperWrapper
-operator|=
-name|ZooKeeperWrapper
-operator|.
-name|createInstance
-argument_list|(
-name|conf
-argument_list|,
-name|HMaster
-operator|.
-name|class
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|zooKeeperWrapper
 operator|.
 name|registerListener
 argument_list|(
@@ -1701,7 +1723,7 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
-comment|// Start the unassigned watcher - which will create the unassgined region
+comment|// Start the unassigned watcher - which will create the unassigned region
 comment|// in ZK. This is needed before RegionManager() constructor tries to assign
 comment|// the root region.
 name|ZKUnassignedWatcher
@@ -1712,12 +1734,7 @@ name|this
 operator|.
 name|conf
 argument_list|,
-name|serverManager
-argument_list|,
-name|address
-operator|.
-name|toString
-argument_list|()
+name|this
 argument_list|)
 expr_stmt|;
 comment|// start the "close region" executor service
@@ -1794,6 +1811,35 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+comment|/**    * Returns true if this master process was responsible for starting the     * cluster.    */
+specifier|public
+name|boolean
+name|isClusterStartup
+parameter_list|()
+block|{
+return|return
+name|isClusterStartup
+return|;
+block|}
+specifier|public
+name|void
+name|resetClusterStartup
+parameter_list|()
+block|{
+name|isClusterStartup
+operator|=
+literal|false
+expr_stmt|;
+block|}
+specifier|public
+name|HServerAddress
+name|getHServerAddress
+parameter_list|()
+block|{
+return|return
+name|address
+return|;
 block|}
 comment|/*    * Get the rootdir.  Make sure its wholesome and exists before returning.    * @param rd    * @param conf    * @param fs    * @return hbase.rootdir (after checks for existence and bootstrapping if    * needed populating the directory with necessary bootup files).    * @throws IOException    */
 specifier|private
@@ -6362,6 +6408,11 @@ literal|"Another Master is currently active"
 argument_list|)
 throw|;
 block|}
+comment|// we are a failed over master, reset the fact that we started the
+comment|// cluster
+name|resetClusterStartup
+argument_list|()
+expr_stmt|;
 comment|// Verify the cluster to see if anything happened while we were away
 name|joinCluster
 argument_list|()
