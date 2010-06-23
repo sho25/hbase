@@ -83,6 +83,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|conf
@@ -413,18 +441,6 @@ name|Test
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|mortbay
-operator|.
-name|log
-operator|.
-name|Log
-import|;
-end_import
-
 begin_comment
 comment|/**  * Test replay of edits out of a WAL split.  */
 end_comment
@@ -434,6 +450,21 @@ specifier|public
 class|class
 name|TestWALReplay
 block|{
+specifier|public
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|TestWALReplay
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|private
 specifier|final
 specifier|static
@@ -503,7 +534,7 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-comment|// The below config not supported until
+comment|// The below config supported by 0.20-append and CDH3b2
 name|conf
 operator|.
 name|setInt
@@ -558,7 +589,7 @@ literal|"/hbase"
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|Log
+name|LOG
 operator|.
 name|info
 argument_list|(
@@ -2586,7 +2617,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Log
+name|LOG
 operator|.
 name|info
 argument_list|(
@@ -2645,8 +2676,6 @@ argument_list|)
 decl_stmt|;
 comment|// Set down maximum recovery so we dfsclient doesn't linger retrying something
 comment|// long gone.
-try|try
-block|{
 name|HBaseTestingUtility
 operator|.
 name|setMaxRecoveryErrorCount
@@ -2659,23 +2688,6 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-comment|// These exceptions should never happen... make RuntimeException of them
-comment|// if they do.
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-name|e
-argument_list|)
-throw|;
-block|}
 return|return
 name|wal
 return|;

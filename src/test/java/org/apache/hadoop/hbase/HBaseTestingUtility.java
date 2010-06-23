@@ -584,6 +584,7 @@ name|HBaseTestingUtility
 block|{
 specifier|private
 specifier|final
+specifier|static
 name|Log
 name|LOG
 init|=
@@ -591,8 +592,9 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|getClass
-argument_list|()
+name|HBaseTestingUtility
+operator|.
+name|class
 argument_list|)
 decl_stmt|;
 specifier|private
@@ -3903,7 +3905,7 @@ literal|50000
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Set maxRecoveryErrorCount in DFSClient.  Currently its hard-coded to 5 and    * makes tests linger.  Here is the exception you'll see:    *<pre>    * 2010-06-15 11:52:28,511 WARN  [DataStreamer for file /hbase/.logs/hlog.1276627923013 block blk_928005470262850423_1021] hdfs.DFSClient$DFSOutputStream(2657): Error Recovery for block blk_928005470262850423_1021 failed  because recovery from primary datanode 127.0.0.1:53683 failed 4 times.  Pipeline was 127.0.0.1:53687, 127.0.0.1:53683. Will retry...    *</pre>    * @param stream A DFSClient.DFSOutputStream.    * @param max    * @throws NoSuchFieldException     * @throws SecurityException     * @throws IllegalAccessException     * @throws IllegalArgumentException     */
+comment|/**    * Set maxRecoveryErrorCount in DFSClient.  In 0.20 pre-append its hard-coded to 5 and    * makes tests linger.  Here is the exception you'll see:    *<pre>    * 2010-06-15 11:52:28,511 WARN  [DataStreamer for file /hbase/.logs/hlog.1276627923013 block blk_928005470262850423_1021] hdfs.DFSClient$DFSOutputStream(2657): Error Recovery for block blk_928005470262850423_1021 failed  because recovery from primary datanode 127.0.0.1:53683 failed 4 times.  Pipeline was 127.0.0.1:53687, 127.0.0.1:53683. Will retry...    *</pre>    * @param stream A DFSClient.DFSOutputStream.    * @param max    * @throws NoSuchFieldException     * @throws SecurityException     * @throws IllegalAccessException     * @throws IllegalArgumentException     */
 specifier|public
 specifier|static
 name|void
@@ -3917,14 +3919,8 @@ specifier|final
 name|int
 name|max
 parameter_list|)
-throws|throws
-name|SecurityException
-throws|,
-name|NoSuchFieldException
-throws|,
-name|IllegalArgumentException
-throws|,
-name|IllegalAccessException
+block|{
+try|try
 block|{
 name|Class
 argument_list|<
@@ -4011,6 +4007,23 @@ expr_stmt|;
 break|break;
 block|}
 block|}
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Could not set max recovery field"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 block|}
