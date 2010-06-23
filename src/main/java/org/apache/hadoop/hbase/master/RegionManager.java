@@ -1389,17 +1389,29 @@ operator|.
 name|size
 argument_list|()
 decl_stmt|;
-comment|// Now many regions to assign this server.
 name|int
-name|nregions
+name|otherServersRegionsCount
 init|=
-name|regionsPerServer
+name|regionsToGiveOtherServers
 argument_list|(
 name|nRegionsToAssign
 argument_list|,
 name|thisServersLoad
 argument_list|)
 decl_stmt|;
+name|nRegionsToAssign
+operator|-=
+name|otherServersRegionsCount
+expr_stmt|;
+if|if
+condition|(
+name|nRegionsToAssign
+operator|>
+literal|0
+operator|||
+name|isMetaAssign
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -1412,60 +1424,17 @@ literal|": total nregions to assign="
 operator|+
 name|nRegionsToAssign
 operator|+
-literal|", nregions to reach balance="
+literal|", regions to give other servers than this="
 operator|+
-name|nregions
+name|otherServersRegionsCount
 operator|+
 literal|", isMetaAssign="
 operator|+
 name|isMetaAssign
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|nRegionsToAssign
-operator|<=
-name|nregions
-condition|)
-block|{
-comment|// I do not know whats supposed to happen in this case.  Assign one.
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Assigning one region only (playing it safe..)"
-argument_list|)
-expr_stmt|;
-name|assignRegions
-argument_list|(
-name|regionsToAssign
-argument_list|,
-literal|1
-argument_list|,
-name|info
-argument_list|,
-name|returnMsgs
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-name|nRegionsToAssign
-operator|-=
-name|nregions
-expr_stmt|;
-if|if
-condition|(
-name|nRegionsToAssign
-operator|>
-literal|0
-operator|||
-name|isMetaAssign
-condition|)
-block|{
-comment|// We still have more regions to assign. See how many we can assign
-comment|// before this server becomes more heavily loaded than the next
-comment|// most heavily loaded server.
+comment|// See how many we can assign before this server becomes more heavily
+comment|// loaded than the next most heavily loaded server.
 name|HServerLoad
 name|heavierLoad
 init|=
@@ -1483,10 +1452,11 @@ argument_list|,
 name|heavierLoad
 argument_list|)
 decl_stmt|;
+name|int
 name|nregions
-operator|=
+init|=
 literal|0
-expr_stmt|;
+decl_stmt|;
 comment|// Advance past any less-loaded servers
 for|for
 control|(
@@ -1530,23 +1500,6 @@ control|)
 block|{
 comment|// continue;
 block|}
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Doing for "
-operator|+
-name|info
-operator|+
-literal|" nregions: "
-operator|+
-name|nregions
-operator|+
-literal|" and nRegionsToAssign: "
-operator|+
-name|nRegionsToAssign
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|nregions
@@ -1610,9 +1563,10 @@ operator|/
 operator|(
 literal|1.0
 operator|*
-name|this
-operator|.
 name|master
+operator|.
+name|getServerManager
+argument_list|()
 operator|.
 name|numServers
 argument_list|()
@@ -1629,6 +1583,21 @@ operator|=
 name|nRegionsToAssign
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Assigning "
+operator|+
+name|info
+operator|+
+literal|" "
+operator|+
+name|nregions
+operator|+
+literal|" regions"
+argument_list|)
+expr_stmt|;
 name|assignRegions
 argument_list|(
 name|regionsToAssign
@@ -1640,7 +1609,6 @@ argument_list|,
 name|returnMsgs
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|/*    * Assign<code>nregions</code> regions.    * @param regionsToAssign    * @param nregions    * @param info    * @param returnMsgs    */
@@ -1940,10 +1908,10 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * @param nRegionsToAssign    * @param thisServersLoad    * @return How many regions we can assign to more lightly loaded servers    */
+comment|/*    * @param nRegionsToAssign    * @param thisServersLoad    * @return How many regions should go to servers other than this one; i.e.    * more lightly loaded servers    */
 specifier|private
 name|int
-name|regionsPerServer
+name|regionsToGiveOtherServers
 parameter_list|(
 specifier|final
 name|int
@@ -2523,17 +2491,16 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Choosing to reassign "
+literal|"Unassigning "
 operator|+
 name|numRegionsToClose
 operator|+
-literal|" regions. mostLoadedRegions has "
+literal|" regions from "
 operator|+
-name|mostLoadedRegions
+name|info
 operator|.
-name|length
-operator|+
-literal|" regions in it."
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|int
@@ -2678,11 +2645,18 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Skipped "
+literal|"Skipped assigning "
 operator|+
 name|skipped
 operator|+
-literal|" region(s) that are in transition states"
+literal|" region(s) to "
+operator|+
+name|info
+operator|.
+name|getServerName
+argument_list|()
+operator|+
+literal|"because already in transition"
 argument_list|)
 expr_stmt|;
 block|}
@@ -6057,6 +6031,9 @@ init|=
 name|balanceFromOverloaded
 argument_list|(
 name|info
+operator|.
+name|getServerName
+argument_list|()
 argument_list|,
 name|servLoad
 argument_list|,
@@ -6131,14 +6108,12 @@ name|int
 name|balanceFromOverloaded
 parameter_list|(
 specifier|final
-name|HServerInfo
-name|info
+name|String
+name|serverName
 parameter_list|,
-specifier|final
 name|HServerLoad
 name|srvLoad
 parameter_list|,
-specifier|final
 name|double
 name|avgLoad
 parameter_list|)
@@ -6193,12 +6168,13 @@ name|debug
 argument_list|(
 literal|"Server "
 operator|+
-name|info
-operator|.
-name|getServerName
-argument_list|()
+name|serverName
 operator|+
-literal|" is overloaded: load="
+literal|" is carrying more than its fair "
+operator|+
+literal|"share of regions: "
+operator|+
+literal|"load="
 operator|+
 name|numSrvRegs
 operator|+
@@ -6408,27 +6384,31 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
+literal|"Server(s) are carrying only "
+operator|+
+name|lowestLoad
+operator|+
+literal|" regions. "
+operator|+
 literal|"Server "
 operator|+
 name|srvName
 operator|+
-literal|" will be unloaded for "
-operator|+
-literal|"balance. Server load: "
+literal|" is most loaded ("
 operator|+
 name|numSrvRegs
 operator|+
-literal|" avg: "
+literal|"). Shedding "
 operator|+
-name|avgLoad
+name|numRegionsToClose
 operator|+
-literal|", regions can be moved: "
+literal|" regions to pass to "
+operator|+
+literal|" least loaded (numMoveToLowLoaded="
 operator|+
 name|numMoveToLowLoaded
 operator|+
-literal|". Regions to close: "
-operator|+
-name|numRegionsToClose
+literal|")"
 argument_list|)
 expr_stmt|;
 block|}
