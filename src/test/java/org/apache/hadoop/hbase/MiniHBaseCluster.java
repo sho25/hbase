@@ -1542,11 +1542,33 @@ return|return
 name|ret
 return|;
 block|}
-comment|/**    * @return Index into List of {@link MiniHBaseCluster#getRegionServerThreads()}    * of HRS carrying .META.  Returns -1 if none found.    */
+comment|/**    * @return Index into List of {@link MiniHBaseCluster#getRegionServerThreads()}    * of HRS carrying regionName. Returns -1 if none found.    */
 specifier|public
 name|int
 name|getServerWithMeta
 parameter_list|()
+block|{
+return|return
+name|getServerWith
+argument_list|(
+name|HRegionInfo
+operator|.
+name|FIRST_META_REGIONINFO
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+return|;
+block|}
+comment|/**    * Get the location of the specified region    * @param regionName Name of the region in bytes    * @return Index into List of {@link MiniHBaseCluster#getRegionServerThreads()}    * of HRS carrying .META.. Returns -1 if none found.    */
+specifier|public
+name|int
+name|getServerWith
+parameter_list|(
+name|byte
+index|[]
+name|regionName
+parameter_list|)
 block|{
 name|int
 name|index
@@ -1585,12 +1607,7 @@ name|hrs
 operator|.
 name|getOnlineRegion
 argument_list|(
-name|HRegionInfo
-operator|.
-name|FIRST_META_REGIONINFO
-operator|.
-name|getRegionName
-argument_list|()
+name|regionName
 argument_list|)
 decl_stmt|;
 if|if

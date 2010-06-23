@@ -3655,6 +3655,13 @@ name|DoNotRetryIOException
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|e
+operator|instanceof
+name|UnknownScannerException
+condition|)
+block|{
 name|long
 name|timeout
 init|=
@@ -3662,12 +3669,11 @@ name|lastNext
 operator|+
 name|scannerTimeout
 decl_stmt|;
+comment|// If we are over the timeout, throw this exception to the client
+comment|// Else, it's because the region moved and we used the old id
+comment|// against the new region server; reset the scanner.
 if|if
 condition|(
-name|e
-operator|instanceof
-name|UnknownScannerException
-operator|&&
 name|timeout
 operator|<
 name|System
@@ -3712,6 +3718,9 @@ throw|throw
 name|ex
 throw|;
 block|}
+block|}
+else|else
+block|{
 name|Throwable
 name|cause
 init|=
@@ -3737,6 +3746,7 @@ block|{
 throw|throw
 name|e
 throw|;
+block|}
 block|}
 comment|// Else, its signal from depths of ScannerCallable that we got an
 comment|// NSRE on a next and that we need to reset the scanner.
