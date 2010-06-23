@@ -911,7 +911,7 @@ name|HRegion
 argument_list|(
 name|closedRegion
 operator|.
-name|getBaseDir
+name|getTableDir
 argument_list|()
 argument_list|,
 name|closedRegion

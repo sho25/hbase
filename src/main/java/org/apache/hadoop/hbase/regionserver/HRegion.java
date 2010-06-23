@@ -1063,10 +1063,10 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-comment|// This is the table subdirectory.
+comment|/**    * The directory for the table this region is part of.    * This directory contains the directory for this region.    */
 specifier|final
 name|Path
-name|basedir
+name|tableDir
 decl_stmt|;
 specifier|final
 name|HLog
@@ -1087,11 +1087,6 @@ decl_stmt|;
 specifier|final
 name|Path
 name|regiondir
-decl_stmt|;
-specifier|private
-specifier|final
-name|Path
-name|regionCompactionDir
 decl_stmt|;
 name|KeyValue
 operator|.
@@ -1289,7 +1284,7 @@ parameter_list|()
 block|{
 name|this
 operator|.
-name|basedir
+name|tableDir
 operator|=
 literal|null
 expr_stmt|;
@@ -1331,12 +1326,6 @@ literal|null
 expr_stmt|;
 name|this
 operator|.
-name|regionCompactionDir
-operator|=
-literal|null
-expr_stmt|;
-name|this
-operator|.
 name|regiondir
 operator|=
 literal|null
@@ -1354,12 +1343,12 @@ operator|=
 literal|0L
 expr_stmt|;
 block|}
-comment|/**    * HRegion constructor.  his constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#newHRegion(Path, HLog, FileSystem, Configuration, org.apache.hadoop.hbase.HRegionInfo, FlushRequester)} method.    *    *    * @param basedir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param flushListener an object that implements CacheFlushListener or null    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    *    * @see HRegion#newHRegion(Path, HLog, FileSystem, Configuration, org.apache.hadoop.hbase.HRegionInfo, FlushRequester)     */
+comment|/**    * HRegion constructor.  his constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#newHRegion(Path, HLog, FileSystem, Configuration, org.apache.hadoop.hbase.HRegionInfo, FlushRequester)} method.    *    *    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param flushListener an object that implements CacheFlushListener or null    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    *    * @see HRegion#newHRegion(Path, HLog, FileSystem, Configuration, org.apache.hadoop.hbase.HRegionInfo, FlushRequester)     */
 specifier|public
 name|HRegion
 parameter_list|(
 name|Path
-name|basedir
+name|tableDir
 parameter_list|,
 name|HLog
 name|log
@@ -1379,9 +1368,9 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|basedir
+name|tableDir
 operator|=
-name|basedir
+name|tableDir
 expr_stmt|;
 name|this
 operator|.
@@ -1456,7 +1445,7 @@ operator|=
 operator|new
 name|Path
 argument_list|(
-name|basedir
+name|tableDir
 argument_list|,
 name|encodedNameStr
 argument_list|)
@@ -1480,21 +1469,6 @@ name|this
 argument_list|)
 expr_stmt|;
 block|}
-name|this
-operator|.
-name|regionCompactionDir
-operator|=
-operator|new
-name|Path
-argument_list|(
-name|getCompactionDir
-argument_list|(
-name|basedir
-argument_list|)
-argument_list|,
-name|encodedNameStr
-argument_list|)
-expr_stmt|;
 name|long
 name|flushSize
 init|=
@@ -1584,6 +1558,10 @@ comment|// Write HRI to a file in case we need to recover .META.
 name|checkRegioninfoOnFilesystem
 argument_list|()
 expr_stmt|;
+comment|// Remove temporary data left over from old regions
+name|cleanupTmpDir
+argument_list|()
+expr_stmt|;
 comment|// Load in all the HStores.  Get min and max seqids across all families.
 name|long
 name|maxSeqId
@@ -1621,7 +1599,7 @@ name|instantiateHStore
 argument_list|(
 name|this
 operator|.
-name|basedir
+name|tableDir
 argument_list|,
 name|c
 argument_list|)
@@ -3054,7 +3032,7 @@ name|HRegion
 operator|.
 name|newHRegion
 argument_list|(
-name|basedir
+name|tableDir
 argument_list|,
 name|log
 argument_list|,
@@ -3088,7 +3066,7 @@ name|HRegion
 operator|.
 name|newHRegion
 argument_list|(
-name|basedir
+name|tableDir
 argument_list|,
 name|log
 argument_list|,
@@ -3191,44 +3169,18 @@ parameter_list|()
 block|{
 comment|// nothing
 block|}
-comment|/*    * @param dir    * @return compaction directory for the passed in<code>dir</code>    */
-specifier|static
-name|Path
-name|getCompactionDir
-parameter_list|(
-specifier|final
-name|Path
-name|dir
-parameter_list|)
-block|{
-return|return
-operator|new
-name|Path
-argument_list|(
-name|dir
-argument_list|,
-name|HConstants
-operator|.
-name|HREGION_COMPACTIONDIR_NAME
-argument_list|)
-return|;
-block|}
-comment|/*    * Do preparation for pending compaction.    * Clean out any vestiges of previous failed compactions.    * @throws IOException    */
+comment|/*    * Do preparation for pending compaction.    * @throws IOException    */
 specifier|private
 name|void
 name|doRegionCompactionPrep
 parameter_list|()
 throws|throws
 name|IOException
-block|{
-name|doRegionCompactionCleanup
-argument_list|()
-expr_stmt|;
-block|}
-comment|/*    * Removes the compaction directory for this Store.    * @throws IOException    */
+block|{   }
+comment|/*    * Removes the temporary directory for this Store.    */
 specifier|private
 name|void
-name|doRegionCompactionCleanup
+name|cleanupTmpDir
 parameter_list|()
 throws|throws
 name|IOException
@@ -3241,11 +3193,26 @@ name|this
 operator|.
 name|fs
 argument_list|,
-name|this
-operator|.
-name|regionCompactionDir
+name|getTmpDir
+argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+comment|/**    * Get the temporary diretory for this region. This directory    * will have its contents removed when the region is reopened.    */
+name|Path
+name|getTmpDir
+parameter_list|()
+block|{
+return|return
+operator|new
+name|Path
+argument_list|(
+name|getRegionDir
+argument_list|()
+argument_list|,
+literal|".tmp"
+argument_list|)
+return|;
 block|}
 name|void
 name|setForceMajorCompaction
@@ -3519,9 +3486,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-name|doRegionCompactionCleanup
-argument_list|()
-expr_stmt|;
 name|String
 name|timeTaken
 init|=
@@ -8230,7 +8194,7 @@ name|Store
 name|instantiateHStore
 parameter_list|(
 name|Path
-name|baseDir
+name|tableDir
 parameter_list|,
 name|HColumnDescriptor
 name|c
@@ -8242,7 +8206,7 @@ return|return
 operator|new
 name|Store
 argument_list|(
-name|baseDir
+name|tableDir
 argument_list|,
 name|this
 argument_list|,
@@ -8983,13 +8947,13 @@ block|}
 comment|/** @return Path of region base directory */
 specifier|public
 name|Path
-name|getBaseDir
+name|getTableDir
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|basedir
+name|tableDir
 return|;
 block|}
 comment|/**    * RegionScanner is an iterator through a bunch of rows in an HRegion.    *<p>    * It is used to combine scanners from multiple Stores (aka column families).    */
@@ -9871,14 +9835,14 @@ expr_stmt|;
 block|}
 block|}
 comment|// Utility methods
-comment|/**    * A utility method to create new instances of HRegion based on the    * {@link HConstants#REGION_IMPL} configuration property.    * @param basedir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param flushListener an object that implements CacheFlushListener or null    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    * @return the new instance    */
+comment|/**    * A utility method to create new instances of HRegion based on the    * {@link HConstants#REGION_IMPL} configuration property.    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param flushListener an object that implements CacheFlushListener or null    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    * @return the new instance    */
 specifier|public
 specifier|static
 name|HRegion
 name|newHRegion
 parameter_list|(
 name|Path
-name|basedir
+name|tableDir
 parameter_list|,
 name|HLog
 name|log
@@ -9974,7 +9938,7 @@ name|c
 operator|.
 name|newInstance
 argument_list|(
-name|basedir
+name|tableDir
 argument_list|,
 name|log
 argument_list|,
@@ -11175,11 +11139,11 @@ name|getLog
 argument_list|()
 decl_stmt|;
 name|Path
-name|basedir
+name|tableDir
 init|=
 name|a
 operator|.
-name|getBaseDir
+name|getTableDir
 argument_list|()
 decl_stmt|;
 comment|// Presume both are of same region type -- i.e. both user or catalog
@@ -11478,7 +11442,7 @@ name|getRegionDir
 argument_list|(
 name|a
 operator|.
-name|getBaseDir
+name|getTableDir
 argument_list|()
 argument_list|,
 name|encodedName
@@ -11640,7 +11604,7 @@ name|makeColumnFamilyDirs
 argument_list|(
 name|fs
 argument_list|,
-name|basedir
+name|tableDir
 argument_list|,
 name|newRegionInfo
 argument_list|,
@@ -11746,7 +11710,7 @@ name|Store
 operator|.
 name|getStoreHomedir
 argument_list|(
-name|basedir
+name|tableDir
 argument_list|,
 name|newRegionInfo
 operator|.
@@ -11790,7 +11754,7 @@ name|HRegion
 operator|.
 name|newHRegion
 argument_list|(
-name|basedir
+name|tableDir
 argument_list|,
 name|log
 argument_list|,
@@ -12719,7 +12683,7 @@ operator|.
 name|SIZEOF_BOOLEAN
 operator|+
 operator|(
-literal|21
+literal|20
 operator|*
 name|ClassSize
 operator|.
