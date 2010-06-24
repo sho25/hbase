@@ -376,7 +376,7 @@ block|}
 catch|catch
 parameter_list|(
 name|InterruptedException
-name|e
+name|ie
 parameter_list|)
 block|{
 comment|// We were interrupted... finish the loop -- i.e. cleanup --and then
@@ -395,6 +395,7 @@ condition|)
 name|Thread
 operator|.
 name|currentThread
+argument_list|()
 operator|.
 name|interrupt
 argument_list|()
