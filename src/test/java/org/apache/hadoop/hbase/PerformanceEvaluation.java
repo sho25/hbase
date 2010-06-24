@@ -982,7 +982,7 @@ specifier|private
 name|boolean
 name|flushCommits
 init|=
-literal|false
+literal|true
 decl_stmt|;
 specifier|private
 name|boolean
@@ -6666,7 +6666,7 @@ condition|)
 block|{
 name|this
 operator|.
-name|flushCommits
+name|writeToWAL
 operator|=
 name|Boolean
 operator|.
