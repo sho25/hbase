@@ -455,16 +455,12 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Try to get an operation off of the queue and process it.    * @param rootRegionLocation Location of the root region.    * @return {@link ProcessingResultCode#PROCESSED},    * {@link ProcessingResultCode#REQUEUED},    * {@link ProcessingResultCode#REQUEUED_BUT_PROBLEM}    */
+comment|/**    * Try to get an operation off of the queue and process it.    * @return {@link ProcessingResultCode#PROCESSED},    * {@link ProcessingResultCode#REQUEUED},    * {@link ProcessingResultCode#REQUEUED_BUT_PROBLEM}    */
 specifier|public
 specifier|synchronized
 name|ProcessingResultCode
 name|process
-parameter_list|(
-specifier|final
-name|HServerAddress
-name|rootRegionLocation
-parameter_list|)
+parameter_list|()
 block|{
 name|RegionServerOperation
 name|op
@@ -476,9 +472,10 @@ comment|// the operation to put it online is probably in the toDoQueue.  Process
 comment|// it first.
 if|if
 condition|(
-name|rootRegionLocation
-operator|!=
-literal|null
+name|toDoQueue
+operator|.
+name|isEmpty
+argument_list|()
 condition|)
 block|{
 name|op
