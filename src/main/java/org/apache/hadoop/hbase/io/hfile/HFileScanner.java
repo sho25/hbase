@@ -130,25 +130,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Optimization for single key lookups.  If the file has a filter,     * perform a lookup on the key.    * @param row the row to scan    * @param family the column family to scan    * @param columns the array of column qualifiers to scan    * @return False if the key definitely does not exist in this ScanFile    * @throws IOException    */
-specifier|public
-name|boolean
-name|shouldSeek
-parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|row
-parameter_list|,
-specifier|final
-name|SortedSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
-name|columns
-parameter_list|)
-function_decl|;
 comment|/**    * Positions this scanner at the start of the file.    * @return False if empty file; i.e. a call to next would return false and    * the current key and value are undefined.    * @throws IOException    */
 specifier|public
 name|boolean

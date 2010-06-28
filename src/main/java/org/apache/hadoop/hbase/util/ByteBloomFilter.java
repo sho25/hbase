@@ -1,10 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Copyright (c) 2005, European Commission project OneLab under contract 034819 (http://www.one-lab.org)  * All rights reserved.  * Redistribution and use in source and binary forms, with or   * without modification, are permitted provided that the following   * conditions are met:  *  - Redistributions of source code must retain the above copyright   *    notice, this list of conditions and the following disclaimer.  *  - Redistributions in binary form must reproduce the above copyright   *    notice, this list of conditions and the following disclaimer in   *    the documentation and/or other materials provided with the distribution.  *  - Neither the name of the University Catholique de Louvain - UCL  *    nor the names of its contributors may be used to endorse or   *    promote products derived from this software without specific prior   *    written permission.  *      * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS   * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT   * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS   * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE   * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,   * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,   * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;   * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER   * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT   * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN   * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE   * POSSIBILITY OF SUCH DAMAGE.  */
-end_comment
-
-begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -23,11 +19,15 @@ end_package
 
 begin_import
 import|import
-name|java
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
 operator|.
 name|io
 operator|.
-name|DataOutput
+name|Writable
 import|;
 end_import
 
@@ -47,7 +47,7 @@ name|java
 operator|.
 name|io
 operator|.
-name|IOException
+name|DataOutput
 import|;
 end_import
 
@@ -55,9 +55,9 @@ begin_import
 import|import
 name|java
 operator|.
-name|lang
+name|io
 operator|.
-name|Math
+name|IOException
 import|;
 end_import
 
@@ -71,52 +71,8 @@ name|ByteBuffer
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HBaseConfiguration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Writable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|util
-operator|.
-name|bloom
-operator|.
-name|Filter
-import|;
-end_import
-
 begin_comment
-comment|/**  * Implements a<i>Bloom filter</i>, as defined by Bloom in 1970.  *<p>  * The Bloom filter is a data structure that was introduced in 1970 and that has been adopted by   * the networking research community in the past decade thanks to the bandwidth efficiencies that it  * offers for the transmission of set membership information between networked hosts.  A sender encodes   * the information into a bit vector, the Bloom filter, that is more compact than a conventional   * representation. Computation and space costs for construction are linear in the number of elements.    * The receiver uses the filter to test whether various elements are members of the set. Though the   * filter will occasionally return a false positive, it will never return a false negative. When creating   * the filter, the sender can choose its desired point in a trade-off between the false positive rate and the size.   *   *<p>  * Originally created by  *<a href="http://www.one-lab.org">European Commission One-Lab Project 034819</a>.  *   * @see BloomFilter The general behavior of a filter  *   * @see<a href="http://portal.acm.org/citation.cfm?id=362692&dl=ACM&coll=portal">Space/Time Trade-Offs in Hash Coding with Allowable Errors</a>  */
+comment|/**  * Implements a<i>Bloom filter</i>, as defined by Bloom in 1970.  *<p>  * The Bloom filter is a data structure that was introduced in 1970 and that has been adopted by  * the networking research community in the past decade thanks to the bandwidth efficiencies that it  * offers for the transmission of set membership information between networked hosts.  A sender encodes  * the information into a bit vector, the Bloom filter, that is more compact than a conventional  * representation. Computation and space costs for construction are linear in the number of elements.  * The receiver uses the filter to test whether various elements are members of the set. Though the  * filter will occasionally return a false positive, it will never return a false negative. When creating  * the filter, the sender can choose its desired point in a trade-off between the false positive rate and the size.  *  *<p>  * Originally inspired by  *<a href="http://www.one-lab.org">European Commission One-Lab Project 034819</a>.  *  * @see BloomFilter The general behavior of a filter  *  * @see<a href="http://portal.acm.org/citation.cfm?id=362692&dl=ACM&coll=portal">Space/Time Trade-Offs in Hash Coding with Allowable Errors</a>  */
 end_comment
 
 begin_class
@@ -315,7 +271,7 @@ name|sanityCheck
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Determines& initializes bloom filter meta data from user config.  Call    * {@link #allocBloom()} to allocate bloom filter data.    * @param maxKeys Maximum expected number of keys that will be stored in this bloom    * @param errorRate Desired false positive error rate.  Lower rate = more storage required    * @param hashType Type of hash function to use    * @param foldFactor When finished adding entries, you may be able to 'fold'     * this bloom to save space.  Tradeoff potentially excess bytes in bloom for     * ability to fold if keyCount is exponentially greater than maxKeys.    * @throws IllegalArgumentException    */
+comment|/**    * Determines& initializes bloom filter meta data from user config.  Call    * {@link #allocBloom()} to allocate bloom filter data.    * @param maxKeys Maximum expected number of keys that will be stored in this bloom    * @param errorRate Desired false positive error rate.  Lower rate = more storage required    * @param hashType Type of hash function to use    * @param foldFactor When finished adding entries, you may be able to 'fold'    * this bloom to save space.  Tradeoff potentially excess bytes in bloom for    * ability to fold if keyCount is exponentially greater than maxKeys.    * @throws IllegalArgumentException    */
 specifier|public
 name|ByteBloomFilter
 parameter_list|(
@@ -334,7 +290,7 @@ parameter_list|)
 throws|throws
 name|IllegalArgumentException
 block|{
-comment|/*       * Bloom filters are very sensitive to the number of elements inserted       * into them. For HBase, the number of entries depends on the size of the       * data stored in the column. Currently the default region size is 256MB,       * so entry count ~= 256MB / (average value size for column).  Despite       * this rule of thumb, there is no efficient way to calculate the entry       * count after compactions.  Therefore, it is often easier to use a       * dynamic bloom filter that will add extra space instead of allowing the      * error rate to grow.      *       * ( http://www.eecs.harvard.edu/~michaelm/NEWWORK/postscripts/BloomFilterSurvey.pdf )      *      * m denotes the number of bits in the Bloom filter (bitSize)      * n denotes the number of elements inserted into the Bloom filter (maxKeys)      * k represents the number of hash functions used (nbHash)      * e represents the desired false positive rate for the bloom (err)      *       * If we fix the error rate (e) and know the number of entries, then      * the optimal bloom size m = -(n * ln(err) / (ln(2)^2)      *                         ~= n * ln(err) / ln(0.6185)      *      * The probability of false positives is minimized when k = m/n ln(2).      */
+comment|/*      * Bloom filters are very sensitive to the number of elements inserted      * into them. For HBase, the number of entries depends on the size of the      * data stored in the column. Currently the default region size is 256MB,      * so entry count ~= 256MB / (average value size for column).  Despite      * this rule of thumb, there is no efficient way to calculate the entry      * count after compactions.  Therefore, it is often easier to use a      * dynamic bloom filter that will add extra space instead of allowing the      * error rate to grow.      *      * ( http://www.eecs.harvard.edu/~michaelm/NEWWORK/postscripts/BloomFilterSurvey.pdf )      *      * m denotes the number of bits in the Bloom filter (bitSize)      * n denotes the number of elements inserted into the Bloom filter (maxKeys)      * k represents the number of hash functions used (nbHash)      * e represents the desired false positive rate for the bloom (err)      *      * If we fix the error rate (e) and know the number of entries, then      * the optimal bloom size m = -(n * ln(err) / (ln(2)^2)      *                         ~= n * ln(err) / ln(0.6185)      *      * The probability of false positives is minimized when k = m/n ln(2).      */
 name|int
 name|bitSize
 init|=
@@ -984,7 +940,7 @@ return|;
 block|}
 comment|//---------------------------------------------------------------------------
 comment|/** Private helpers */
-comment|/**     * Set the bit at the specified index to 1.    *    * @param pos index of bit    */
+comment|/**    * Set the bit at the specified index to 1.    *    * @param pos index of bit    */
 name|void
 name|set
 parameter_list|(
@@ -1127,7 +1083,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|finalize
+name|compactBloom
 parameter_list|()
 block|{
 comment|// see if the actual size is exponentially smaller than expected.

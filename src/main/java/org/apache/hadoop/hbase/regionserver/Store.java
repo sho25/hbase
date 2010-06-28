@@ -415,26 +415,6 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|HFile
-operator|.
-name|Reader
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
 name|HFileScanner
 import|;
 end_import
@@ -514,7 +494,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**   * A Store holds a column family in a Region.  Its a memstore and a set of zero   * or more StoreFiles, which stretch backwards over time.   *   *<p>There's no reason to consider append-logging at this level; all logging   * and locking is handled at the HRegion level.  Store just provides   * services to manage sets of StoreFiles.  One of the most important of those   * services is compaction services where files are aggregated once they pass   * a configurable threshold.  *  *<p>Locking and transactions are handled at a higher level.  This API should  * not be called directly but by an HRegion manager.  */
+comment|/**  * A Store holds a column family in a Region.  Its a memstore and a set of zero  * or more StoreFiles, which stretch backwards over time.  *  *<p>There's no reason to consider append-logging at this level; all logging  * and locking is handled at the HRegion level.  Store just provides  * services to manage sets of StoreFiles.  One of the most important of those  * services is compaction services where files are aggregated once they pass  * a configurable threshold.  *  *<p>The only thing having to do with logs that Store needs to deal with is  * the reconstructionLog.  This is a segment of an HRegion's log that might  * NOT be present upon startup.  If the param is NULL, there's nothing to do.  * If the param is non-NULL, we need to process the log to reconstruct  * a TreeMap that might not have been written to disk before the process  * died.  *  *<p>It's assumed that after this constructor returns, the reconstructionLog  * file will be deleted (by whoever has instantiated the Store).  *  *<p>Locking and transactions are handled at a higher level.  This API should  * not be called directly but by an HRegion manager.  */
 end_comment
 
 begin_class
@@ -1578,11 +1558,33 @@ argument_list|()
 decl_stmt|;
 name|byte
 index|[]
-name|lastKey
+name|lk
 init|=
 name|reader
 operator|.
-name|getLastRowKey
+name|getLastKey
+argument_list|()
+decl_stmt|;
+name|byte
+index|[]
+name|lastKey
+init|=
+operator|(
+name|lk
+operator|==
+literal|null
+operator|)
+condition|?
+literal|null
+else|:
+name|KeyValue
+operator|.
+name|createKeyValueFromKey
+argument_list|(
+name|lk
+argument_list|)
+operator|.
+name|getRow
 argument_list|()
 decl_stmt|;
 name|LOG
@@ -2292,6 +2294,8 @@ operator|.
 name|inMemory
 argument_list|)
 decl_stmt|;
+name|StoreFile
+operator|.
 name|Reader
 name|r
 init|=
@@ -2828,6 +2832,8 @@ return|return
 literal|null
 return|;
 block|}
+name|StoreFile
+operator|.
 name|Reader
 name|r
 init|=
@@ -3128,7 +3134,7 @@ operator|+
 name|maxId
 argument_list|)
 expr_stmt|;
-name|HFile
+name|StoreFile
 operator|.
 name|Writer
 name|writer
@@ -3600,7 +3606,7 @@ return|;
 block|}
 comment|/**    * Do a minor/major compaction.  Uses the scan infrastructure to make it easy.    *    * @param filesToCompact which files to compact    * @param majorCompaction true to major compact (prune all deletes, max versions, etc)    * @param maxId Readers maximum sequence id.    * @return Product of compaction or null if all cells expired or deleted and    * nothing made it through the compaction.    * @throws IOException    */
 specifier|private
-name|HFile
+name|StoreFile
 operator|.
 name|Writer
 name|compact
@@ -3930,7 +3936,7 @@ argument_list|>
 name|compactedFiles
 parameter_list|,
 specifier|final
-name|HFile
+name|StoreFile
 operator|.
 name|Writer
 name|compactedFile
@@ -4224,6 +4230,8 @@ operator|.
 name|storefiles
 control|)
 block|{
+name|StoreFile
+operator|.
 name|Reader
 name|r
 init|=
@@ -4537,6 +4545,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|StoreFile
+operator|.
 name|Reader
 name|r
 init|=
@@ -5143,6 +5153,8 @@ literal|null
 return|;
 block|}
 block|}
+name|StoreFile
+operator|.
 name|Reader
 name|r
 init|=
@@ -5197,7 +5209,7 @@ name|sf
 expr_stmt|;
 block|}
 block|}
-name|HFile
+name|StoreFile
 operator|.
 name|Reader
 name|r
@@ -5529,6 +5541,8 @@ range|:
 name|storefiles
 control|)
 block|{
+name|StoreFile
+operator|.
 name|Reader
 name|r
 init|=
@@ -5587,6 +5601,8 @@ range|:
 name|storefiles
 control|)
 block|{
+name|StoreFile
+operator|.
 name|Reader
 name|r
 init|=
@@ -5939,7 +5955,7 @@ name|storefiles
 argument_list|)
 control|)
 block|{
-name|HFile
+name|StoreFile
 operator|.
 name|Reader
 name|r

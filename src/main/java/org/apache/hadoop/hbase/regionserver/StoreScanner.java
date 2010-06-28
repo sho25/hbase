@@ -708,9 +708,6 @@ operator|&&
 operator|!
 name|sfs
 operator|.
-name|getHFileScanner
-argument_list|()
-operator|.
 name|shouldSeek
 argument_list|(
 name|scan

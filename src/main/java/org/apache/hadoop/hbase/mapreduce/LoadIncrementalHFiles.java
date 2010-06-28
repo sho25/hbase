@@ -1512,7 +1512,7 @@ name|halfReader
 init|=
 literal|null
 decl_stmt|;
-name|HFile
+name|StoreFile
 operator|.
 name|Writer
 name|halfWriter

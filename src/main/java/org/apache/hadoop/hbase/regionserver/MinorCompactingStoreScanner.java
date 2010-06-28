@@ -285,7 +285,7 @@ specifier|public
 name|boolean
 name|next
 parameter_list|(
-name|HFile
+name|StoreFile
 operator|.
 name|Writer
 name|writer

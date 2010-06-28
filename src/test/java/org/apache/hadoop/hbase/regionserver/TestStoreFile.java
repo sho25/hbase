@@ -486,7 +486,7 @@ throws|throws
 name|Exception
 block|{
 comment|// Make up a directory hierarchy that has a regiondir and familyname.
-name|HFile
+name|StoreFile
 operator|.
 name|Writer
 name|writer
@@ -559,7 +559,7 @@ name|void
 name|writeStoreFile
 parameter_list|(
 specifier|final
-name|HFile
+name|StoreFile
 operator|.
 name|Writer
 name|writer
@@ -596,7 +596,7 @@ name|void
 name|writeStoreFile
 parameter_list|(
 specifier|final
-name|HFile
+name|StoreFile
 operator|.
 name|Writer
 name|writer
@@ -741,7 +741,7 @@ literal|"1234567890"
 argument_list|)
 decl_stmt|;
 comment|// Make a store file and write data to it.
-name|HFile
+name|StoreFile
 operator|.
 name|Writer
 name|writer
@@ -794,7 +794,7 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|HFile
+name|StoreFile
 operator|.
 name|Reader
 name|reader
@@ -1196,7 +1196,7 @@ name|bottom
 argument_list|)
 decl_stmt|;
 comment|// Make readers on top and bottom.
-name|HFile
+name|StoreFile
 operator|.
 name|Reader
 name|top
@@ -1226,7 +1226,7 @@ operator|.
 name|createReader
 argument_list|()
 decl_stmt|;
-name|HFile
+name|StoreFile
 operator|.
 name|Reader
 name|bottom
@@ -1824,10 +1824,6 @@ condition|(
 name|first
 condition|)
 block|{
-name|first
-operator|=
-literal|false
-expr_stmt|;
 name|first
 operator|=
 literal|false
@@ -2502,12 +2498,7 @@ name|format
 argument_list|(
 name|localFormatter
 argument_list|,
-name|Integer
-operator|.
-name|valueOf
-argument_list|(
 name|i
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|KeyValue
@@ -2581,12 +2572,12 @@ operator|.
 name|loadBloomfilter
 argument_list|()
 expr_stmt|;
-name|HFileScanner
+name|StoreFileScanner
 name|scanner
 init|=
 name|reader
 operator|.
-name|getScanner
+name|getStoreFileScanner
 argument_list|(
 literal|false
 argument_list|,
@@ -2628,12 +2619,7 @@ name|format
 argument_list|(
 name|localFormatter
 argument_list|,
-name|Integer
-operator|.
-name|valueOf
-argument_list|(
 name|i
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|TreeSet
@@ -2997,12 +2983,7 @@ name|format
 argument_list|(
 name|localFormatter
 argument_list|,
-name|Integer
-operator|.
-name|valueOf
-argument_list|(
 name|i
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|String
@@ -3014,12 +2995,7 @@ name|format
 argument_list|(
 name|localFormatter
 argument_list|,
-name|Integer
-operator|.
-name|valueOf
-argument_list|(
 name|j
-argument_list|)
 argument_list|)
 decl_stmt|;
 for|for
@@ -3123,12 +3099,12 @@ operator|.
 name|loadBloomfilter
 argument_list|()
 expr_stmt|;
-name|HFileScanner
+name|StoreFileScanner
 name|scanner
 init|=
 name|reader
 operator|.
-name|getScanner
+name|getStoreFileScanner
 argument_list|(
 literal|false
 argument_list|,
@@ -3144,8 +3120,7 @@ index|]
 argument_list|,
 name|reader
 operator|.
-name|getBloomFilter
-argument_list|()
+name|bloomFilter
 operator|.
 name|getKeyCount
 argument_list|()
@@ -3207,12 +3182,7 @@ name|format
 argument_list|(
 name|localFormatter
 argument_list|,
-name|Integer
-operator|.
-name|valueOf
-argument_list|(
 name|i
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|String
@@ -3224,12 +3194,7 @@ name|format
 argument_list|(
 name|localFormatter
 argument_list|,
-name|Integer
-operator|.
-name|valueOf
-argument_list|(
 name|j
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|TreeSet

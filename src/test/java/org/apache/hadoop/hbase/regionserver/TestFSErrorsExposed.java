@@ -538,7 +538,7 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|HFile
+name|StoreFile
 operator|.
 name|Reader
 name|reader
@@ -703,7 +703,7 @@ name|getTestFileSystem
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|HFile
+name|StoreFile
 operator|.
 name|Writer
 name|writer
