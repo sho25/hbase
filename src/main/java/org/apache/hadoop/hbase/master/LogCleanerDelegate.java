@@ -60,7 +60,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Interface for the log cleaning function inside the master. Only 1 is called  * so if the desired effect is the mix of many cleaners, do call them yourself  * in order to control the flow.  * HBase ships with OldLogsCleaner as the default implementation  */
+comment|/**  * Interface for the log cleaning function inside the master. Only 1 is called  * so if the desired effect is the mix of many cleaners, do call them yourself  * in order to control the flow.  * HBase ships with OldLogsCleaner as the default implementation.  * This interface extends Configurable, so setConf needs to be called once  * before using the cleaner.  */
 end_comment
 
 begin_interface

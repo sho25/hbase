@@ -871,6 +871,14 @@ name|DEFAULT_HBASE_REGIONSERVER_LEASE_PERIOD
 init|=
 literal|60000
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REPLICATION_ENABLE_KEY
+init|=
+literal|"hbase.replication"
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()

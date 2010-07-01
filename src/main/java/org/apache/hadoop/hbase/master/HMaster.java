@@ -5507,6 +5507,31 @@ name|rowKey
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"About to "
+operator|+
+name|op
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" on "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|tableName
+argument_list|)
+operator|+
+literal|" and pair is "
+operator|+
+name|pair
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|pair

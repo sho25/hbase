@@ -1970,6 +1970,13 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|t
+operator|.
+name|setAutoFlush
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 name|byte
 index|[]
 name|k
@@ -2084,6 +2091,11 @@ expr_stmt|;
 block|}
 block|}
 block|}
+name|t
+operator|.
+name|flushCommits
+argument_list|()
+expr_stmt|;
 return|return
 name|rowCount
 return|;

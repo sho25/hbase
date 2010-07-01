@@ -2154,6 +2154,21 @@ parameter_list|)
 block|{
 try|try
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"<"
+operator|+
+name|instanceName
+operator|+
+literal|">"
+operator|+
+literal|"Trying to read "
+operator|+
+name|znode
+argument_list|)
+expr_stmt|;
 return|return
 name|readAddressOrThrow
 argument_list|(
@@ -2682,6 +2697,10 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|znodes
+operator|!=
+literal|null
+operator|&&
 name|znodes
 operator|.
 name|size
@@ -4428,6 +4447,10 @@ operator|+
 literal|"Created "
 operator|+
 name|path
+operator|+
+literal|" with data "
+operator|+
+name|strData
 argument_list|)
 expr_stmt|;
 block|}
@@ -4460,6 +4483,10 @@ operator|+
 literal|"Updated "
 operator|+
 name|path
+operator|+
+literal|" with data "
+operator|+
+name|strData
 argument_list|)
 expr_stmt|;
 block|}

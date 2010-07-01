@@ -189,6 +189,24 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|wal
+operator|.
+name|HLog
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -604,6 +622,20 @@ parameter_list|,
 name|byte
 index|[]
 name|familyName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Replicates the given entries. The guarantee is that the given entries    * will be durable on the slave cluster if this method returns without    * any exception.    * hbase.replication has to be set to true for this to work.    *    * @param entries entries to replicate    * @throws IOException    */
+specifier|public
+name|void
+name|replicateLogEntries
+parameter_list|(
+name|HLog
+operator|.
+name|Entry
+index|[]
+name|entries
 parameter_list|)
 throws|throws
 name|IOException
