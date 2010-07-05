@@ -392,6 +392,7 @@ return|;
 block|}
 block|}
 specifier|private
+name|void
 name|checkBindAddressCanBeResolved
 parameter_list|()
 block|{
