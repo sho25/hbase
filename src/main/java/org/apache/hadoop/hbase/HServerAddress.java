@@ -21,11 +21,25 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|io
 operator|.
-name|*
+name|WritableComparable
 import|;
 end_import
 
@@ -69,6 +83,16 @@ name|InetSocketAddress
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
+name|InetAddress
+import|;
+end_import
+
 begin_comment
 comment|/**  * HServerAddress is a "label" for a HBase server made of host and port number.  */
 end_comment
@@ -107,7 +131,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**    * Construct a HServerAddress from an InetSocketAddress    * @param address InetSocketAddress of server    */
+comment|/**    * Construct an instance from an {@link InetSocketAddress}.    * @param address InetSocketAddress of server    */
 specifier|public
 name|HServerAddress
 parameter_list|(
@@ -138,6 +162,9 @@ operator|+
 name|address
 operator|.
 name|getPort
+argument_list|()
+expr_stmt|;
+name|checkBindAddressCanBeResolved
 argument_list|()
 expr_stmt|;
 block|}
@@ -193,7 +220,7 @@ name|port
 init|=
 name|Integer
 operator|.
-name|valueOf
+name|parseInt
 argument_list|(
 name|hostAndPort
 operator|.
@@ -204,9 +231,6 @@ operator|+
 literal|1
 argument_list|)
 argument_list|)
-operator|.
-name|intValue
-argument_list|()
 decl_stmt|;
 name|this
 operator|.
@@ -225,6 +249,9 @@ operator|.
 name|stringValue
 operator|=
 name|hostAndPort
+expr_stmt|;
+name|checkBindAddressCanBeResolved
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * @param bindAddress Hostname    * @param port Port number    */
@@ -260,8 +287,11 @@ literal|":"
 operator|+
 name|port
 expr_stmt|;
+name|checkBindAddressCanBeResolved
+argument_list|()
+expr_stmt|;
 block|}
-comment|/**    * Copy-constructor    *    * @param other HServerAddress to copy from    */
+comment|/**    * Copy-constructor.    * @param other HServerAddress to copy from    */
 specifier|public
 name|HServerAddress
 parameter_list|(
@@ -299,11 +329,12 @@ argument_list|)
 expr_stmt|;
 name|stringValue
 operator|=
-name|bindAddress
-operator|+
-literal|":"
-operator|+
-name|port
+name|other
+operator|.
+name|stringValue
+expr_stmt|;
+name|checkBindAddressCanBeResolved
+argument_list|()
 expr_stmt|;
 block|}
 comment|/** @return Bind address */
@@ -312,17 +343,78 @@ name|String
 name|getBindAddress
 parameter_list|()
 block|{
-return|return
-name|this
-operator|.
+specifier|final
+name|InetAddress
+name|addr
+init|=
 name|address
 operator|.
 name|getAddress
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|addr
+operator|!=
+literal|null
+condition|)
+block|{
+return|return
+name|addr
 operator|.
 name|getHostAddress
 argument_list|()
 return|;
+block|}
+else|else
+block|{
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|HServerAddress
+operator|.
+name|class
+argument_list|)
+operator|.
+name|error
+argument_list|(
+literal|"Could not resolve the"
+operator|+
+literal|" DNS name of "
+operator|+
+name|stringValue
+argument_list|)
+expr_stmt|;
+return|return
+literal|null
+return|;
+block|}
+block|}
+specifier|private
+name|checkBindAddressCanBeResolved
+parameter_list|()
+block|{
+if|if
+condition|(
+name|getBindAddress
+argument_list|()
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Could not resolve the"
+operator|+
+literal|" DNS name of "
+operator|+
+name|stringValue
+argument_list|)
+throw|;
+block|}
 block|}
 comment|/** @return Port number */
 specifier|public
@@ -331,8 +423,6 @@ name|getPort
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
 name|address
 operator|.
 name|getPort
@@ -346,8 +436,6 @@ name|getHostname
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
 name|address
 operator|.
 name|getHostName
@@ -361,8 +449,6 @@ name|getInetSocketAddress
 parameter_list|()
 block|{
 return|return
-name|this
-operator|.
 name|address
 return|;
 block|}
@@ -375,19 +461,13 @@ name|toString
 parameter_list|()
 block|{
 return|return
-operator|(
-name|this
-operator|.
 name|stringValue
 operator|==
 literal|null
 condition|?
 literal|""
 else|:
-name|this
-operator|.
 name|stringValue
-operator|)
 return|;
 block|}
 annotation|@
@@ -438,8 +518,6 @@ literal|false
 return|;
 block|}
 return|return
-name|this
-operator|.
 name|compareTo
 argument_list|(
 operator|(
@@ -461,8 +539,6 @@ block|{
 name|int
 name|result
 init|=
-name|this
-operator|.
 name|address
 operator|.
 name|hashCode
@@ -470,8 +546,6 @@ argument_list|()
 decl_stmt|;
 name|result
 operator|^=
-name|this
-operator|.
 name|stringValue
 operator|.
 name|hashCode
@@ -553,6 +627,9 @@ literal|":"
 operator|+
 name|port
 expr_stmt|;
+name|checkBindAddressCanBeResolved
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 specifier|public
@@ -630,8 +707,6 @@ comment|// server with only difference being that one address has hostname
 comment|// resolved whereas other only has IP.
 if|if
 condition|(
-name|this
-operator|.
 name|address
 operator|.
 name|equals
@@ -645,8 +720,6 @@ return|return
 literal|0
 return|;
 return|return
-name|this
-operator|.
 name|toString
 argument_list|()
 operator|.
