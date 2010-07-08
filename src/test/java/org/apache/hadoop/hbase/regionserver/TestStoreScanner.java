@@ -4183,6 +4183,11 @@ operator|.
 name|updateReaders
 argument_list|()
 expr_stmt|;
+name|scan
+operator|.
+name|peek
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * TODO this fails, since we don't handle deletions, etc, in peek    */
 specifier|public
