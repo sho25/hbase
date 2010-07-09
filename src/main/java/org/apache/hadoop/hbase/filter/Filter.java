@@ -114,6 +114,9 @@ block|,
 comment|/**      * Skip this KeyValue      */
 name|SKIP
 block|,
+comment|/**      * Skip this column. Go to the next column in this row.      */
+name|NEXT_COL
+block|,
 comment|/**      * Done with columns, skip to next row. Note that filterRow() will      * still be called.      */
 name|NEXT_ROW
 block|,   }

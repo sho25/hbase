@@ -693,6 +693,20 @@ name|MatchCode
 operator|.
 name|SKIP
 return|;
+elseif|else
+if|if
+condition|(
+name|filterResponse
+operator|==
+name|ReturnCode
+operator|.
+name|NEXT_COL
+condition|)
+return|return
+name|MatchCode
+operator|.
+name|SEEK_NEXT_COL
+return|;
 comment|// else if (filterResponse == ReturnCode.NEXT_ROW)
 name|stickyNextRow
 operator|=
