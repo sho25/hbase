@@ -1836,7 +1836,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|b
+name|timerangeBytes
 operator|!=
 literal|null
 condition|)
