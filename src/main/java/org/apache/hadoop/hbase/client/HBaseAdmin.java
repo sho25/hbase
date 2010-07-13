@@ -392,7 +392,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Provides administrative functions for HBase  */
+comment|/**  * Provides an interface to manage HBase database table metadata + general   * administrative functions.  Use HBaseAdmin to create, drop, list, enable and   * disable tables. Use it also to add and drop table column families.   *   * See {@link HTable} to add, update, and delete data from an individual table.  */
 end_comment
 
 begin_class

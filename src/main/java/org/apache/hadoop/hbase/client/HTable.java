@@ -440,7 +440,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to communicate with a single HBase table.  *<p>  * This class is not thread safe for writes.  * Gets, puts, and deletes take out a row lock for the duration  * of their operation.  Scans (currently) do not respect  * row locking.  */
+comment|/**  * Used to communicate with a single HBase table.  *   * This class is not thread safe for writes.  * Gets, puts, and deletes take out a row lock for the duration  * of their operation.  Scans (currently) do not respect  * row locking.  *   * See {@link HBaseAdmin} to create, drop, list, enable and disable tables.  */
 end_comment
 
 begin_class
@@ -821,31 +821,26 @@ name|configuration
 return|;
 block|}
 comment|/**    * TODO Might want to change this to public, would be nice if the number    * of threads would automatically change when servers were added and removed    * @return the number of region servers that are currently running    * @throws IOException if a remote or network exception occurs    */
-specifier|private
 name|int
 name|getCurrentNrHRS
 parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HBaseAdmin
-name|admin
-init|=
-operator|new
-name|HBaseAdmin
+return|return
+name|HConnectionManager
+operator|.
+name|getClientZooKeeperWatcher
 argument_list|(
 name|this
 operator|.
 name|configuration
 argument_list|)
-decl_stmt|;
-return|return
-name|admin
 operator|.
-name|getClusterStatus
+name|getZooKeeperWrapper
 argument_list|()
 operator|.
-name|getServers
+name|getRSDirectoryCount
 argument_list|()
 return|;
 block|}
