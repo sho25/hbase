@@ -2046,7 +2046,7 @@ name|snapshot
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Write out current snapshot.  Presumes {@link #snapshot()} has been called    * previously.    * @param logCacheFlushId flush sequence number    * @return true if a compaction is needed    * @throws IOException    */
+comment|/**    * Write out current snapshot.  Presumes {@link #snapshot()} has been called    * previously.    * @param logCacheFlushId flush sequence number    * @param snapshot    * @return true if a compaction is needed    * @throws IOException    */
 specifier|private
 name|StoreFile
 name|flushCache
@@ -2060,6 +2060,9 @@ argument_list|<
 name|KeyValue
 argument_list|>
 name|snapshot
+parameter_list|,
+name|TimeRangeTracker
+name|snapshotTimeRangeTracker
 parameter_list|)
 throws|throws
 name|IOException
@@ -2073,6 +2076,8 @@ argument_list|(
 name|snapshot
 argument_list|,
 name|logCacheFlushId
+argument_list|,
+name|snapshotTimeRangeTracker
 argument_list|)
 return|;
 block|}
@@ -2091,6 +2096,9 @@ parameter_list|,
 specifier|final
 name|long
 name|logCacheFlushId
+parameter_list|,
+name|TimeRangeTracker
+name|snapshotTimeRangeTracker
 parameter_list|)
 throws|throws
 name|IOException
@@ -2149,6 +2157,13 @@ name|set
 operator|.
 name|size
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|writer
+operator|.
+name|setTimeRangeTracker
+argument_list|(
+name|snapshotTimeRangeTracker
 argument_list|)
 expr_stmt|;
 name|int
@@ -6385,6 +6400,10 @@ name|StoreFile
 name|storeFile
 decl_stmt|;
 specifier|private
+name|TimeRangeTracker
+name|snapshotTimeRangeTracker
+decl_stmt|;
+specifier|private
 name|StoreFlusherImpl
 parameter_list|(
 name|long
@@ -6419,6 +6438,15 @@ operator|.
 name|getSnapshot
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|snapshotTimeRangeTracker
+operator|=
+name|memstore
+operator|.
+name|getSnapshotTimeRangeTracker
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -6440,6 +6468,8 @@ argument_list|(
 name|cacheFlushId
 argument_list|,
 name|snapshot
+argument_list|,
+name|snapshotTimeRangeTracker
 argument_list|)
 expr_stmt|;
 block|}

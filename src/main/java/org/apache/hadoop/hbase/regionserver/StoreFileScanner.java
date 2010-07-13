@@ -69,6 +69,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Scan
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|hfile
@@ -511,15 +527,13 @@ return|return
 literal|true
 return|;
 block|}
-comment|// Bloom filter hook.
+comment|// StoreFile filter hook.
 specifier|public
 name|boolean
 name|shouldSeek
 parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|row
+name|Scan
+name|scan
 parameter_list|,
 specifier|final
 name|SortedSet
@@ -535,7 +549,7 @@ name|reader
 operator|.
 name|shouldSeek
 argument_list|(
-name|row
+name|scan
 argument_list|,
 name|columns
 argument_list|)

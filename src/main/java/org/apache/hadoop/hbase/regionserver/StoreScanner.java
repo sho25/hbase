@@ -692,7 +692,7 @@ operator|+
 literal|1
 argument_list|)
 decl_stmt|;
-comment|// exclude scan files that have failed file filters
+comment|// include only those scan files which pass all filters
 for|for
 control|(
 name|StoreFileScanner
@@ -703,25 +703,16 @@ control|)
 block|{
 if|if
 condition|(
-name|isGet
-operator|&&
-operator|!
 name|sfs
 operator|.
 name|shouldSeek
 argument_list|(
 name|scan
-operator|.
-name|getStartRow
-argument_list|()
 argument_list|,
 name|columns
 argument_list|)
 condition|)
 block|{
-continue|continue;
-comment|// exclude this hfs
-block|}
 name|scanners
 operator|.
 name|add
@@ -730,7 +721,22 @@ name|sfs
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 comment|// Then the memstore scanners
+if|if
+condition|(
+name|this
+operator|.
+name|store
+operator|.
+name|memstore
+operator|.
+name|shouldSeek
+argument_list|(
+name|scan
+argument_list|)
+condition|)
+block|{
 name|scanners
 operator|.
 name|addAll
@@ -745,6 +751,7 @@ name|getScanners
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|scanners
 return|;

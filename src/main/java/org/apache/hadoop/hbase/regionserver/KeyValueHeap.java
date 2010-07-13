@@ -106,6 +106,8 @@ argument_list|<
 name|KeyValueScanner
 argument_list|>
 name|heap
+init|=
+literal|null
 decl_stmt|;
 specifier|private
 name|KeyValueScanner
@@ -143,6 +145,15 @@ argument_list|(
 name|comparator
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|scanners
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
 name|this
 operator|.
 name|heap
@@ -209,6 +220,7 @@ operator|.
 name|poll
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 specifier|public
 name|KeyValue
@@ -383,6 +395,19 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|current
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 name|InternalScanner
 name|currentAsInternal
 init|=
@@ -601,6 +626,15 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|this
+operator|.
+name|heap
+operator|!=
+literal|null
+condition|)
+block|{
 name|KeyValueScanner
 name|scanner
 decl_stmt|;
@@ -627,7 +661,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Seeks all scanners at or below the specified seek key.  If we earlied-out    * of a row, we may end up skipping values that were never reached yet.    * Rather than iterating down, we want to give the opportunity to re-seek.    *<p>    * As individual scanners may run past their ends, those scanners are    * automatically closed and removed from the heap.    * @param seekKey KeyValue to seek at or after    * @return true if KeyValues exist at or after specified key, false if not    * @throws IOException     */
+block|}
+comment|/**    * Seeks all scanners at or below the specified seek key.  If we earlied-out    * of a row, we may end up skipping values that were never reached yet.    * Rather than iterating down, we want to give the opportunity to re-seek.    *<p>    * As individual scanners may run past their ends, those scanners are    * automatically closed and removed from the heap.    * @param seekKey KeyValue to seek at or after    * @return true if KeyValues exist at or after specified key, false if not    * @throws IOException    */
 specifier|public
 name|boolean
 name|seek
