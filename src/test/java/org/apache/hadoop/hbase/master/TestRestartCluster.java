@@ -453,7 +453,7 @@ expr_stmt|;
 block|}
 name|zkWrapper
 operator|.
-name|createUnassignedRegion
+name|createOrUpdateUnassignedRegion
 argument_list|(
 name|HRegionInfo
 operator|.
@@ -467,7 +467,7 @@ argument_list|)
 expr_stmt|;
 name|zkWrapper
 operator|.
-name|createUnassignedRegion
+name|createOrUpdateUnassignedRegion
 argument_list|(
 name|HRegionInfo
 operator|.

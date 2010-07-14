@@ -5268,7 +5268,7 @@ throw|;
 block|}
 block|}
 comment|/**    * Given a region name and some data, this method creates a new the region     * znode data under the UNASSGINED znode with the data passed in. This method     * will not update data for existing znodes.    *     * @param regionName - encoded name of the region    * @param data - new serialized data to update the region znode    */
-specifier|public
+specifier|private
 name|void
 name|createUnassignedRegion
 parameter_list|(
