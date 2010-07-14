@@ -4420,7 +4420,7 @@ expr_stmt|;
 block|}
 name|zkWrapper
 operator|.
-name|createUnassignedRegion
+name|createOrUpdateUnassignedRegion
 argument_list|(
 name|info
 operator|.
@@ -4434,7 +4434,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Created UNASSIGNED zNode "
+literal|"Created/updated UNASSIGNED zNode "
 operator|+
 name|info
 operator|.
