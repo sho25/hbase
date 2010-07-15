@@ -105,6 +105,7 @@ name|Long
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|/**    * Get this thread's read point. Used primarily by the memstore scanner to    * know which values to skip (ie: have not been completed/committed to     * memstore).    */
 specifier|public
 specifier|static
 name|long
@@ -118,6 +119,7 @@ name|get
 argument_list|()
 return|;
 block|}
+comment|/**     * Set the thread read point to the given value. The thread RWCC    * is used by the Memstore scanner so it knows which values to skip.     * Give it a value of 0 if you want everything.    */
 specifier|public
 specifier|static
 name|void
@@ -135,6 +137,7 @@ name|readPoint
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Set the thread RWCC read point to whatever the current read point is in    * this particular instance of RWCC.  Returns the new thread read point value.    */
 specifier|public
 specifier|static
 name|long
@@ -158,6 +161,21 @@ return|return
 name|getThreadReadPoint
 argument_list|()
 return|;
+block|}
+comment|/**    * Set the thread RWCC read point to 0 (include everything).    */
+specifier|public
+specifier|static
+name|void
+name|resetThreadReadPoint
+parameter_list|()
+block|{
+name|perThreadReadPoint
+operator|.
+name|set
+argument_list|(
+literal|0L
+argument_list|)
+expr_stmt|;
 block|}
 specifier|public
 name|WriteEntry
