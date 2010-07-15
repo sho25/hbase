@@ -2427,7 +2427,7 @@ operator|.
 name|OBJECT
 operator|+
 operator|(
-literal|7
+literal|9
 operator|*
 name|ClassSize
 operator|.
