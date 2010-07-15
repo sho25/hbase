@@ -418,6 +418,9 @@ name|this
 operator|.
 name|current
 decl_stmt|;
+name|boolean
+name|mayContainsMoreRows
+init|=
 name|currentAsInternal
 operator|.
 name|next
@@ -426,7 +429,7 @@ name|result
 argument_list|,
 name|limit
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|KeyValue
 name|pee
 init|=
@@ -437,11 +440,15 @@ operator|.
 name|peek
 argument_list|()
 decl_stmt|;
+comment|/*      * By definition, any InternalScanner must return false only when it has no      * further rows to be fetched. So, we can close a scanner if it returns      * false. All existing implementations seem to be fine with this. It is much      * more efficient to close scanners which are not needed than keep them in      * the heap. This is also required for certain optimizations.      */
 if|if
 condition|(
 name|pee
 operator|==
 literal|null
+operator|||
+operator|!
+name|mayContainsMoreRows
 condition|)
 block|{
 name|this
