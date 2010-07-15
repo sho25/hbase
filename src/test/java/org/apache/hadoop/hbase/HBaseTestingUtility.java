@@ -1509,6 +1509,28 @@ name|flushcache
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Flushes all caches in the mini hbase cluster    * @throws IOException    */
+specifier|public
+name|void
+name|flush
+parameter_list|(
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|this
+operator|.
+name|hbaseCluster
+operator|.
+name|flushcache
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Create a table.    * @param tableName    * @param family    * @return An HTable instance for the created table.    * @throws IOException    */
 specifier|public
 name|HTable

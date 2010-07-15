@@ -452,7 +452,9 @@ name|putTimestamps
 argument_list|)
 expr_stmt|;
 name|flush
-argument_list|()
+argument_list|(
+name|TABLE
+argument_list|)
 expr_stmt|;
 name|ResultScanner
 name|scanner
@@ -596,9 +598,9 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"testReseeksWithOne"
+literal|"testReseeksWithMultiple"
 operator|+
-literal|"ColumnMiltipleTimestamps"
+literal|"ColumnOneTimestamps"
 argument_list|)
 decl_stmt|;
 name|byte
@@ -749,7 +751,9 @@ name|putTimestamps
 argument_list|)
 expr_stmt|;
 name|flush
-argument_list|()
+argument_list|(
+name|TABLE
+argument_list|)
 expr_stmt|;
 name|ResultScanner
 name|scanner
@@ -861,7 +865,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"testReseeksWithOne"
+literal|"testReseeksWithMultiple"
 operator|+
 literal|"ColumnMiltipleTimestamps"
 argument_list|)
@@ -1018,7 +1022,9 @@ name|putTimestamps
 argument_list|)
 expr_stmt|;
 name|flush
-argument_list|()
+argument_list|(
+name|TABLE
+argument_list|)
 expr_stmt|;
 name|ResultScanner
 name|scanner
@@ -1226,9 +1232,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"testReseeksWithOne"
-operator|+
-literal|"ColumnMiltipleTimestamps"
+literal|"testReseeksWithMultipleFiles"
 argument_list|)
 decl_stmt|;
 name|byte
@@ -1461,7 +1465,9 @@ name|putTimestamps1
 argument_list|)
 expr_stmt|;
 name|flush
-argument_list|()
+argument_list|(
+name|TABLE
+argument_list|)
 expr_stmt|;
 name|put
 argument_list|(
@@ -1477,7 +1483,9 @@ name|putTimestamps2
 argument_list|)
 expr_stmt|;
 name|flush
-argument_list|()
+argument_list|(
+name|TABLE
+argument_list|)
 expr_stmt|;
 name|put
 argument_list|(
@@ -1785,7 +1793,9 @@ name|flushTables
 condition|)
 block|{
 name|flush
-argument_list|()
+argument_list|(
+name|TABLE
+argument_list|)
 expr_stmt|;
 block|}
 comment|// delete version 4.
@@ -1968,7 +1978,9 @@ literal|5
 argument_list|)
 expr_stmt|;
 name|flush
-argument_list|()
+argument_list|(
+name|TABLE
+argument_list|)
 expr_stmt|;
 comment|// delete all versions before 4.
 name|deleteAllVersionsBefore
@@ -2098,7 +2110,9 @@ literal|5
 argument_list|)
 expr_stmt|;
 name|flush
-argument_list|()
+argument_list|(
+name|TABLE
+argument_list|)
 expr_stmt|;
 comment|// delete all versions before 4.
 name|deleteColumn
@@ -2226,7 +2240,9 @@ literal|5
 argument_list|)
 expr_stmt|;
 name|flush
-argument_list|()
+argument_list|(
+name|TABLE
+argument_list|)
 expr_stmt|;
 comment|// delete all versions before 4.
 name|deleteFamily
@@ -2278,14 +2294,20 @@ comment|// Flush tables. Since flushing is asynchronous, sleep for a bit.
 specifier|private
 name|void
 name|flush
-parameter_list|()
+parameter_list|(
+name|byte
+index|[]
+name|tableName
+parameter_list|)
 throws|throws
 name|IOException
 block|{
 name|TEST_UTIL
 operator|.
 name|flush
-argument_list|()
+argument_list|(
+name|tableName
+argument_list|)
 expr_stmt|;
 try|try
 block|{
