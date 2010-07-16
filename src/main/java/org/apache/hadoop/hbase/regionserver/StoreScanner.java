@@ -1028,7 +1028,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|QueryMatcher
+name|ScanQueryMatcher
 operator|.
 name|MatchCode
 name|qcode

@@ -57,24 +57,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|QueryMatcher
-operator|.
-name|MatchCode
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -82,7 +64,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is used for the tracking and enforcement of columns and numbers  * of versions during the course of a Get or Scan operation, when explicit  * column qualifiers have been asked for in the query.  *  * With a little magic (see {@link ScanQueryMatcher}), we can use this matcher  * for both scans and gets.  The main difference is 'next' and 'done' collapse  * for the scan case (since we see all columns in order), and we only reset  * between rows.  *  *<p>  * This class is utilized by {@link QueryMatcher} through two methods:  *<ul><li>{@link #checkColumn} is called when a Put satisfies all other  * conditions of the query.  This method returns a {@link MatchCode} to define  * what action should be taken.  *<li>{@link #update} is called at the end of every StoreFile or memstore.  *<p>  * This class is NOT thread-safe as queries are never multi-threaded  */
+comment|/**  * This class is used for the tracking and enforcement of columns and numbers  * of versions during the course of a Get or Scan operation, when explicit  * column qualifiers have been asked for in the query.  *  * With a little magic (see {@link ScanQueryMatcher}), we can use this matcher  * for both scans and gets.  The main difference is 'next' and 'done' collapse  * for the scan case (since we see all columns in order), and we only reset  * between rows.  *  *<p>  * This class is utilized by {@link ScanQueryMatcher} through two methods:  *<ul><li>{@link #checkColumn} is called when a Put satisfies all other  * conditions of the query.  This method returns a {@link org.apache.hadoop.hbase.regionserver.ScanQueryMatcher.MatchCode} to define  * what action should be taken.  *<li>{@link #update} is called at the end of every StoreFile or memstore.  *<p>  * This class is NOT thread-safe as queries are never multi-threaded  */
 end_comment
 
 begin_class
@@ -231,8 +213,10 @@ operator|.
 name|column
 return|;
 block|}
-comment|/**    * Checks against the parameters of the query and the columns which have    * already been processed by this query.    * @param bytes KeyValue buffer    * @param offset offset to the start of the qualifier    * @param length length of the qualifier    * @return MatchCode telling QueryMatcher what action to take    */
+comment|/**    * Checks against the parameters of the query and the columns which have    * already been processed by this query.    * @param bytes KeyValue buffer    * @param offset offset to the start of the qualifier    * @param length length of the qualifier    * @return MatchCode telling ScanQueryMatcher what action to take    */
 specifier|public
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 name|checkColumn
 parameter_list|(
@@ -263,6 +247,8 @@ literal|0
 condition|)
 block|{
 return|return
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|DONE
@@ -280,6 +266,8 @@ literal|null
 condition|)
 block|{
 return|return
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|NEXT
@@ -390,6 +378,8 @@ expr_stmt|;
 block|}
 block|}
 return|return
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|INCLUDE
@@ -404,6 +394,8 @@ condition|)
 block|{
 comment|// Specified column is smaller than the current, skip to next column.
 return|return
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|SKIP
@@ -436,6 +428,8 @@ condition|)
 block|{
 comment|// No more to match, do not include, done with storefile
 return|return
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|NEXT

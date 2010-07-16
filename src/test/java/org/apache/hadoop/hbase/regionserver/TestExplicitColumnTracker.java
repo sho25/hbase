@@ -81,23 +81,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|regionserver
 operator|.
-name|QueryMatcher
+name|ScanQueryMatcher
 operator|.
 name|MatchCode
 import|;
@@ -239,6 +225,8 @@ decl_stmt|;
 comment|//Initialize result
 name|List
 argument_list|<
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 argument_list|>
 name|result
@@ -246,6 +234,8 @@ init|=
 operator|new
 name|ArrayList
 argument_list|<
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 argument_list|>
 argument_list|()
@@ -424,6 +414,8 @@ init|=
 operator|new
 name|ArrayList
 argument_list|<
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 argument_list|>
 argument_list|()
@@ -432,6 +424,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|SKIP
@@ -441,6 +435,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|INCLUDE
@@ -450,6 +446,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|SKIP
@@ -459,6 +457,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|INCLUDE
@@ -468,6 +468,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|DONE
@@ -598,6 +600,8 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 argument_list|>
 name|expected
@@ -605,6 +609,8 @@ init|=
 operator|new
 name|ArrayList
 argument_list|<
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 argument_list|>
 argument_list|()
@@ -613,6 +619,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|SKIP
@@ -622,6 +630,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|SKIP
@@ -631,6 +641,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|SKIP
@@ -640,6 +652,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|INCLUDE
@@ -649,6 +663,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|INCLUDE
@@ -658,6 +674,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|SKIP
@@ -667,6 +685,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|SKIP
@@ -676,6 +696,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|SKIP
@@ -685,6 +707,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|SKIP
@@ -694,6 +718,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|INCLUDE
@@ -703,6 +729,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|INCLUDE
@@ -712,6 +740,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|DONE
@@ -721,6 +751,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|DONE
@@ -730,6 +762,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|DONE
@@ -739,6 +773,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|DONE
@@ -1121,6 +1157,8 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 argument_list|>
 name|expected
@@ -1128,18 +1166,26 @@ init|=
 name|Arrays
 operator|.
 expr|<
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|>
 name|asList
 argument_list|(
 operator|new
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 index|[]
 block|{
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|SKIP
 block|,
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|SKIP

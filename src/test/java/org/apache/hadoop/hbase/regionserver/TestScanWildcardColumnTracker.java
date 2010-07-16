@@ -63,7 +63,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|QueryMatcher
+name|ScanQueryMatcher
 operator|.
 name|MatchCode
 import|;
@@ -104,7 +104,6 @@ name|void
 name|testCheckColumn_Ok
 parameter_list|()
 block|{
-comment|//Create a WildcardColumnTracker
 name|ScanWildcardColumnTracker
 name|tracker
 init|=
@@ -196,6 +195,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|INCLUDE
@@ -205,6 +206,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|INCLUDE
@@ -214,6 +217,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|INCLUDE
@@ -223,6 +228,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|INCLUDE
@@ -230,6 +237,8 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 argument_list|>
 name|actual
@@ -250,6 +259,8 @@ range|:
 name|qualifiers
 control|)
 block|{
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 name|mc
 init|=
@@ -317,7 +328,6 @@ name|void
 name|testCheckColumn_EnforceVersions
 parameter_list|()
 block|{
-comment|//Create a WildcardColumnTracker
 name|ScanWildcardColumnTracker
 name|tracker
 init|=
@@ -394,6 +404,8 @@ expr_stmt|;
 comment|//Setting up expected result
 name|List
 argument_list|<
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 argument_list|>
 name|expected
@@ -409,6 +421,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|INCLUDE
@@ -418,6 +432,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|INCLUDE
@@ -427,6 +443,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|SKIP
@@ -436,6 +454,8 @@ name|expected
 operator|.
 name|add
 argument_list|(
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 operator|.
 name|INCLUDE
@@ -450,6 +470,8 @@ init|=
 operator|new
 name|ArrayList
 argument_list|<
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 argument_list|>
 argument_list|()
@@ -530,7 +552,6 @@ name|void
 name|DisabledTestCheckColumn_WrongOrder
 parameter_list|()
 block|{
-comment|//Create a WildcardColumnTracker
 name|ScanWildcardColumnTracker
 name|tracker
 init|=

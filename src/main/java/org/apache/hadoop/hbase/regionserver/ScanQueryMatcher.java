@@ -74,8 +74,40 @@ operator|.
 name|filter
 operator|.
 name|Filter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|filter
+operator|.
+name|Filter
 operator|.
 name|ReturnCode
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|TimeRange
 import|;
 end_import
 
@@ -113,8 +145,6 @@ begin_class
 specifier|public
 class|class
 name|ScanQueryMatcher
-extends|extends
-name|QueryMatcher
 block|{
 comment|// Optimization so we can skip lots of compares when we decide to skip
 comment|// to the next row.
@@ -127,7 +157,47 @@ name|byte
 index|[]
 name|stopRow
 decl_stmt|;
-comment|/**    * Constructs a QueryMatcher for a Scan.    * @param scan    * @param family    * @param columns    * @param ttl    * @param rowComparator    */
+specifier|protected
+name|TimeRange
+name|tr
+decl_stmt|;
+specifier|protected
+name|Filter
+name|filter
+decl_stmt|;
+comment|/** Keeps track of deletes */
+specifier|protected
+name|DeleteTracker
+name|deletes
+decl_stmt|;
+comment|/** Keeps track of columns and versions */
+specifier|protected
+name|ColumnTracker
+name|columns
+decl_stmt|;
+comment|/** Key to seek to in memstore and StoreFiles */
+specifier|protected
+name|KeyValue
+name|startKey
+decl_stmt|;
+comment|/** Oldest allowed version stamp for TTL enforcement */
+specifier|protected
+name|long
+name|oldestStamp
+decl_stmt|;
+comment|/** Row comparator for the region this query is for */
+name|KeyValue
+operator|.
+name|KeyComparator
+name|rowComparator
+decl_stmt|;
+comment|/** Row the query is on */
+specifier|protected
+name|byte
+index|[]
+name|row
+decl_stmt|;
+comment|/**    * Constructs a ScanQueryMatcher for a Scan.    * @param scan    * @param family    * @param columns    * @param ttl    * @param rowComparator    */
 specifier|public
 name|ScanQueryMatcher
 parameter_list|(
@@ -917,8 +987,6 @@ return|;
 block|}
 block|}
 comment|/**    * Set current row    * @param row    */
-annotation|@
-name|Override
 specifier|public
 name|void
 name|setRow
@@ -938,14 +1006,21 @@ name|reset
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Override
 specifier|public
 name|void
 name|reset
 parameter_list|()
 block|{
-name|super
+name|this
+operator|.
+name|deletes
+operator|.
+name|reset
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|columns
 operator|.
 name|reset
 argument_list|()
@@ -955,6 +1030,86 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
+comment|// should be in KeyValue.
+specifier|protected
+name|boolean
+name|isDelete
+parameter_list|(
+name|byte
+name|type
+parameter_list|)
+block|{
+return|return
+operator|(
+name|type
+operator|!=
+name|KeyValue
+operator|.
+name|Type
+operator|.
+name|Put
+operator|.
+name|getCode
+argument_list|()
+operator|)
+return|;
+block|}
+specifier|protected
+name|boolean
+name|isExpired
+parameter_list|(
+name|long
+name|timestamp
+parameter_list|)
+block|{
+return|return
+operator|(
+name|timestamp
+operator|<
+name|oldestStamp
+operator|)
+return|;
+block|}
+comment|/**    *    * @return the start key    */
+specifier|public
+name|KeyValue
+name|getStartKey
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|startKey
+return|;
+block|}
+comment|/**    * {@link #match} return codes.  These instruct the scanner moving through    * memstores and StoreFiles what to do with the current KeyValue.    *<p>    * Additionally, this contains "early-out" language to tell the scanner to    * move on to the next File (memstore or Storefile), or to return immediately.    */
+specifier|public
+specifier|static
+enum|enum
+name|MatchCode
+block|{
+comment|/**      * Include KeyValue in the returned result      */
+name|INCLUDE
+block|,
+comment|/**      * Do not include KeyValue in the returned result      */
+name|SKIP
+block|,
+comment|/**      * Do not include, jump to next StoreFile or memstore (in time order)      */
+name|NEXT
+block|,
+comment|/**      * Do not include, return current result      */
+name|DONE
+block|,
+comment|/**      * These codes are used by the ScanQueryMatcher      */
+comment|/**      * Done with the row, seek there.      */
+name|SEEK_NEXT_ROW
+block|,
+comment|/**      * Done with column, seek to next.      */
+name|SEEK_NEXT_COL
+block|,
+comment|/**      * Done with scan, thanks to the row filter.      */
+name|DONE_SCAN
+block|,   }
 block|}
 end_class
 

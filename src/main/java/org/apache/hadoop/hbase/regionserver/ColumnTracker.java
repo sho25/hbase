@@ -17,26 +17,8 @@ name|regionserver
 package|;
 end_package
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|QueryMatcher
-operator|.
-name|MatchCode
-import|;
-end_import
-
 begin_comment
-comment|/**  * Implementing classes of this interface will be used for the tracking  * and enforcement of columns and numbers of versions during the course of a  * Get or Scan operation.  *<p>  * Currently there are two different types of Store/Family-level queries.  *<ul><li>{@link ExplicitColumnTracker} is used when the query specifies  * one or more column qualifiers to return in the family.  *<li>{@link WildcardColumnTracker} is used when the query asks for all  * qualifiers within the family.  *<p>  * This class is utilized by {@link QueryMatcher} through two methods:  *<ul><li>{@link #checkColumn} is called when a Put satisfies all other  * conditions of the query.  This method returns a {@link MatchCode} to define  * what action should be taken.  *<li>{@link #update} is called at the end of every StoreFile or memstore.  *<p>  * This class is NOT thread-safe as queries are never multi-threaded  */
+comment|/**  * Implementing classes of this interface will be used for the tracking  * and enforcement of columns and numbers of versions during the course of a  * Get or Scan operation.  *<p>  * Currently there are two different types of Store/Family-level queries.  *<ul><li>{@link ExplicitColumnTracker} is used when the query specifies  * one or more column qualifiers to return in the family.  *<p>  * This class is utilized by {@link ScanQueryMatcher} through two methods:  *<ul><li>{@link #checkColumn} is called when a Put satisfies all other  * conditions of the query.  This method returns a {@link org.apache.hadoop.hbase.regionserver.ScanQueryMatcher.MatchCode} to define  * what action should be taken.  *<li>{@link #update} is called at the end of every StoreFile or memstore.  *<p>  * This class is NOT thread-safe as queries are never multi-threaded  */
 end_comment
 
 begin_interface
@@ -46,6 +28,8 @@ name|ColumnTracker
 block|{
 comment|/**    * Keeps track of the number of versions for the columns asked for    * @param bytes    * @param offset    * @param length    * @return The match code instance.    */
 specifier|public
+name|ScanQueryMatcher
+operator|.
 name|MatchCode
 name|checkColumn
 parameter_list|(
