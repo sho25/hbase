@@ -13386,9 +13386,10 @@ argument_list|(
 name|fam1
 argument_list|)
 decl_stmt|;
+comment|// we will have the original Put, and also the ICV'ed Put as well.
 name|assertEquals
 argument_list|(
-literal|1
+literal|2
 argument_list|,
 name|store
 operator|.
