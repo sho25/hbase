@@ -1975,6 +1975,8 @@ name|testIncrementColumnValue_ICVDuringFlush
 parameter_list|()
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 name|init
 argument_list|(
@@ -2059,6 +2061,14 @@ argument_list|(
 name|oldValue
 argument_list|)
 argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// sleep 2 ms to space out the increments.
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|2
 argument_list|)
 expr_stmt|;
 comment|// update during the snapshot.
