@@ -1026,6 +1026,14 @@ operator|.
 name|KEY_COMPARATOR
 argument_list|)
 decl_stmt|;
+name|long
+name|now
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 try|try
 block|{
 comment|// subtract 2 since iterateOnSplits doesn't include boundary keys
@@ -1060,6 +1068,8 @@ argument_list|,
 name|family
 argument_list|,
 name|qualifier
+argument_list|,
+name|now
 argument_list|,
 name|key
 argument_list|)
