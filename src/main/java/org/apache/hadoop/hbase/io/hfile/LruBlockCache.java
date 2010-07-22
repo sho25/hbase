@@ -2008,14 +2008,21 @@ argument_list|()
 operator|+
 literal|", "
 operator|+
-literal|"misses="
+literal|"hitRatio="
 operator|+
+name|StringUtils
+operator|.
+name|formatPercent
+argument_list|(
 name|stats
 operator|.
-name|getMissCount
+name|getHitRatio
 argument_list|()
+argument_list|,
+literal|2
+argument_list|)
 operator|+
-literal|", "
+literal|"%, "
 operator|+
 literal|"evictions="
 operator|+
@@ -2034,38 +2041,6 @@ name|getEvictedCount
 argument_list|()
 operator|+
 literal|", "
-operator|+
-literal|"hitRatio="
-operator|+
-name|StringUtils
-operator|.
-name|formatPercent
-argument_list|(
-name|stats
-operator|.
-name|getHitRatio
-argument_list|()
-argument_list|,
-literal|2
-argument_list|)
-operator|+
-literal|"%, "
-operator|+
-literal|"missRatio="
-operator|+
-name|StringUtils
-operator|.
-name|formatPercent
-argument_list|(
-name|stats
-operator|.
-name|getMissRatio
-argument_list|()
-argument_list|,
-literal|2
-argument_list|)
-operator|+
-literal|"%, "
 operator|+
 literal|"evictedPerRun="
 operator|+
