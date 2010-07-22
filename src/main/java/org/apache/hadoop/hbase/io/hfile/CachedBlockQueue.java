@@ -235,10 +235,12 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Get a sorted List of all elements in this queue, in descending order.    * @return list of cached elements in descending order    */
+comment|/**    * @return a sorted List of all elements in this queue, in descending order    */
 specifier|public
+name|LinkedList
+argument_list|<
 name|CachedBlock
-index|[]
+argument_list|>
 name|get
 parameter_list|()
 block|{
@@ -277,18 +279,6 @@ expr_stmt|;
 block|}
 return|return
 name|blocks
-operator|.
-name|toArray
-argument_list|(
-operator|new
-name|CachedBlock
-index|[
-name|blocks
-operator|.
-name|size
-argument_list|()
-index|]
-argument_list|)
 return|;
 block|}
 comment|/**    * Total size of all elements in this queue.    * @return size of all elements currently in queue, in bytes    */
