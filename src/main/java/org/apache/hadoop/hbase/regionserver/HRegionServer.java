@@ -4054,6 +4054,41 @@ name|hsa
 argument_list|)
 expr_stmt|;
 block|}
+comment|// hack! Maps DFSClient => RegionServer for logs.  HDFS made this
+comment|// config param for task trackers, but we can piggyback off of it.
+if|if
+condition|(
+name|this
+operator|.
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"mapred.task.id"
+argument_list|)
+operator|==
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|conf
+operator|.
+name|set
+argument_list|(
+literal|"mapred.task.id"
+argument_list|,
+literal|"hb_rs_"
+operator|+
+name|this
+operator|.
+name|serverInfo
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Master sent us hbase.rootdir to use. Should be fully qualified
 comment|// path with file system specification included.  Set 'fs.defaultFS'
 comment|// to match the filesystem on hbase.rootdir else underlying hadoop hdfs
