@@ -523,6 +523,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|ManualEnvironmentEdge
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Pair
 import|;
 end_import
@@ -13386,10 +13402,10 @@ argument_list|(
 name|fam1
 argument_list|)
 decl_stmt|;
-comment|// we will have the original Put, and also the ICV'ed Put as well.
+comment|// ICV removes any extra values floating around in there.
 name|assertEquals
 argument_list|(
-literal|2
+literal|1
 argument_list|,
 name|store
 operator|.
@@ -13434,6 +13450,20 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|ManualEnvironmentEdge
+name|mee
+init|=
+operator|new
+name|ManualEnvironmentEdge
+argument_list|()
+decl_stmt|;
+name|EnvironmentEdgeManagerTestHelper
+operator|.
+name|injectEdge
+argument_list|(
+name|mee
+argument_list|)
+expr_stmt|;
 name|initHRegion
 argument_list|(
 name|tableName
