@@ -1898,7 +1898,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Change sequence number from "
+literal|"Changed sequenceid from "
 operator|+
 name|logSeqNum
 operator|+
@@ -2225,7 +2225,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Last sequence written is empty. Deleting all old hlogs"
+literal|"Last sequenceid written is empty. Deleting all old hlogs"
 argument_list|)
 expr_stmt|;
 comment|// If so, then no new writes have come in since all regions were
@@ -2638,7 +2638,7 @@ argument_list|()
 operator|+
 literal|"; "
 operator|+
-literal|"oldest outstanding seqnum is "
+literal|"oldest outstanding sequenceid is "
 operator|+
 name|oldestOutstandingSeqNum
 operator|+
@@ -3198,7 +3198,7 @@ argument_list|(
 name|p
 argument_list|)
 operator|+
-literal|" whose highest sequence/edit id is "
+literal|" whose highest sequenceid is "
 operator|+
 name|seqno
 operator|+

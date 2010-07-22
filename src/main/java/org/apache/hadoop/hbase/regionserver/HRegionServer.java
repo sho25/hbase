@@ -7566,22 +7566,12 @@ block|}
 block|}
 argument_list|)
 decl_stmt|;
-comment|// If a wal and its seqid is< that of new region, use new regions seqid.
+comment|// If seqid> current wal seqid, the wal seqid is updated.
 if|if
 condition|(
 name|wal
 operator|!=
 literal|null
-condition|)
-block|{
-if|if
-condition|(
-name|seqid
-operator|>
-name|wal
-operator|.
-name|getSequenceNumber
-argument_list|()
 condition|)
 name|wal
 operator|.
@@ -7590,7 +7580,6 @@ argument_list|(
 name|seqid
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 name|r
 return|;

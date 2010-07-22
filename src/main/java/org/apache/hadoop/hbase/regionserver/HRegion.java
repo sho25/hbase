@@ -3767,7 +3767,7 @@ operator|)
 condition|?
 literal|""
 else|:
-literal|"; wal is null, using passed myseqid="
+literal|"; wal is null, using passed sequenceid="
 operator|+
 name|myseqid
 operator|)
@@ -4214,7 +4214,7 @@ operator|-
 name|startTime
 operator|)
 operator|+
-literal|"ms, sequence id="
+literal|"ms, sequenceid="
 operator|+
 name|sequenceId
 operator|+
@@ -7609,7 +7609,7 @@ literal|"Replaying edits from "
 operator|+
 name|edits
 operator|+
-literal|"; minSeqId="
+literal|"; minSequenceid="
 operator|+
 name|minSeqId
 argument_list|)
@@ -7975,11 +7975,11 @@ literal|", skipped "
 operator|+
 name|skippedEdits
 operator|+
-literal|", firstSeqIdInLog="
+literal|", firstSequenceidInLog="
 operator|+
 name|firstSeqIdInLog
 operator|+
-literal|", maxSeqIdInLog="
+literal|", maxSequenceidInLog="
 operator|+
 name|currentEditSeqId
 argument_list|)
@@ -10098,13 +10098,13 @@ operator|.
 name|initialize
 argument_list|()
 decl_stmt|;
+comment|// If seqid> current wal seqid, the wal seqid is updated.
 if|if
 condition|(
 name|log
 operator|!=
 literal|null
 condition|)
-block|{
 name|log
 operator|.
 name|setSequenceNumber
@@ -10112,7 +10112,6 @@ argument_list|(
 name|seqid
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 name|r
 return|;
