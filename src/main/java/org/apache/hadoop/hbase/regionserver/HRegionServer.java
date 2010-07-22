@@ -4918,6 +4918,8 @@ name|this
 operator|.
 name|fs
 argument_list|,
+name|logdir
+argument_list|,
 name|oldLogDir
 argument_list|,
 name|stopRequested

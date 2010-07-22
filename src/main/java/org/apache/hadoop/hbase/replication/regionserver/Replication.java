@@ -350,6 +350,9 @@ name|FileSystem
 name|fs
 parameter_list|,
 name|Path
+name|logDir
+parameter_list|,
+name|Path
 name|oldLogDir
 parameter_list|,
 name|AtomicBoolean
@@ -452,6 +455,8 @@ argument_list|,
 name|this
 operator|.
 name|replicating
+argument_list|,
+name|logDir
 argument_list|,
 name|oldLogDir
 argument_list|)

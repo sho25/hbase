@@ -782,6 +782,8 @@ name|fs
 argument_list|,
 name|REPLICATING
 argument_list|,
+name|logDir
+argument_list|,
 name|oldLogDir
 argument_list|)
 expr_stmt|;

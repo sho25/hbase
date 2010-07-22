@@ -173,18 +173,6 @@ name|String
 name|getPeerClusterZnode
 parameter_list|()
 function_decl|;
-comment|/**    * Notify this source that a log was archived    * @param oldPath old path of the log    * @param newPath new path of the log (archive)    */
-specifier|public
-name|void
-name|logArchived
-parameter_list|(
-name|Path
-name|oldPath
-parameter_list|,
-name|Path
-name|newPath
-parameter_list|)
-function_decl|;
 block|}
 end_interface
 

@@ -4154,7 +4154,7 @@ name|getChildren
 argument_list|(
 name|znode
 argument_list|,
-name|this
+name|watcher
 argument_list|)
 expr_stmt|;
 for|for
@@ -4171,7 +4171,7 @@ name|znode
 argument_list|,
 name|node
 argument_list|,
-name|this
+name|watcher
 argument_list|)
 expr_stmt|;
 block|}

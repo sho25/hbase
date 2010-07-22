@@ -624,21 +624,6 @@ name|logRollCounter
 operator|++
 expr_stmt|;
 block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|logArchived
-parameter_list|(
-name|Path
-name|oldPath
-parameter_list|,
-name|Path
-name|newPath
-parameter_list|)
-block|{
-comment|// This one is a bit tricky to test since it involves seq numbers
-block|}
 block|}
 block|}
 end_class

@@ -51,18 +51,6 @@ name|Path
 name|newFile
 parameter_list|)
 function_decl|;
-comment|/**    * Notify that the following log moved    * @param oldPath the old path    * @param newPath the new path    */
-specifier|public
-name|void
-name|logArchived
-parameter_list|(
-name|Path
-name|oldPath
-parameter_list|,
-name|Path
-name|newPath
-parameter_list|)
-function_decl|;
 block|}
 end_interface
 

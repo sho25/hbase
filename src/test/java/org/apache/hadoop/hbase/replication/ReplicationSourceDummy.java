@@ -234,19 +234,6 @@ return|return
 name|peerClusterId
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|logArchived
-parameter_list|(
-name|Path
-name|oldPath
-parameter_list|,
-name|Path
-name|newPath
-parameter_list|)
-block|{   }
 block|}
 end_class
 

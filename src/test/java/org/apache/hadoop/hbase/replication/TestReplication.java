@@ -603,9 +603,9 @@ name|conf1
 operator|.
 name|setInt
 argument_list|(
-literal|"replication.source.nb.capacity"
+literal|"replication.source.size.capacity"
 argument_list|,
-literal|5
+literal|1024
 argument_list|)
 expr_stmt|;
 name|conf1
@@ -641,7 +641,16 @@ name|setLong
 argument_list|(
 literal|"hbase.client.retries.number"
 argument_list|,
-literal|4
+literal|5
+argument_list|)
+expr_stmt|;
+name|conf1
+operator|.
+name|setLong
+argument_list|(
+literal|"hbase.regions.percheckin"
+argument_list|,
+literal|1
 argument_list|)
 expr_stmt|;
 name|conf1
@@ -804,6 +813,15 @@ argument_list|(
 literal|"dfs.support.append"
 argument_list|,
 literal|true
+argument_list|)
+expr_stmt|;
+name|conf2
+operator|.
+name|setLong
+argument_list|(
+literal|"hbase.regions.percheckin"
+argument_list|,
+literal|1
 argument_list|)
 expr_stmt|;
 name|utility2
@@ -1025,8 +1043,6 @@ operator|.
 name|setWriteBufferSize
 argument_list|(
 literal|1024
-operator|*
-literal|5
 argument_list|)
 expr_stmt|;
 name|htable2
@@ -1153,8 +1169,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Add a row, check it's replicated, delete it, check's gone    * @throws Exception    */
-annotation|@
-name|Test
+comment|//@Test
 specifier|public
 name|void
 name|testSimplePutDelete
@@ -1412,8 +1427,7 @@ block|}
 block|}
 block|}
 comment|/**    * Try a small batch upload using the write buffer, check it's replicated    * @throws Exception    */
-annotation|@
-name|Test
+comment|//@Test
 specifier|public
 name|void
 name|testSmallBatch
@@ -1633,8 +1647,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test stopping replication, trying to insert, make sure nothing's    * replicated, enable it, try replicating and it should work    * @throws Exception    */
-annotation|@
-name|Test
+comment|//@Test
 specifier|public
 name|void
 name|testStartStop
@@ -1973,8 +1986,7 @@ block|}
 block|}
 block|}
 comment|/**    * Do a more intense version testSmallBatch, one  that will trigger    * hlog rolling and other non-trivial code paths    * @throws Exception    */
-annotation|@
-name|Test
+comment|//@Test
 specifier|public
 name|void
 name|loadTesting

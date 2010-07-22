@@ -326,13 +326,19 @@ name|String
 argument_list|>
 name|otherRegionServers
 decl_stmt|;
+comment|// Path to the hlogs directories
+specifier|private
+specifier|final
+name|Path
+name|logDir
+decl_stmt|;
 comment|// Path to the hlog archive
 specifier|private
 specifier|final
 name|Path
 name|oldLogDir
 decl_stmt|;
-comment|/**    * Creates a replication manager and sets the watch on all the other    * registered region servers    * @param zkHelper the zk helper for replication    * @param conf the configuration to use    * @param stopper the stopper object for this region server    * @param fs the file system to use    * @param replicating the status of the replication on this cluster    * @param oldLogDir the directory where old logs are archived    */
+comment|/**    * Creates a replication manager and sets the watch on all the other    * registered region servers    * @param zkHelper the zk helper for replication    * @param conf the configuration to use    * @param stopper the stopper object for this region server    * @param fs the file system to use    * @param replicating the status of the replication on this cluster    * @param logDir the directory that contains all hlog directories of live RSs    * @param oldLogDir the directory where old logs are archived    */
 specifier|public
 name|ReplicationSourceManager
 parameter_list|(
@@ -355,6 +361,10 @@ parameter_list|,
 specifier|final
 name|AtomicBoolean
 name|replicating
+parameter_list|,
+specifier|final
+name|Path
+name|logDir
 parameter_list|,
 specifier|final
 name|Path
@@ -423,6 +433,12 @@ operator|.
 name|fs
 operator|=
 name|fs
+expr_stmt|;
+name|this
+operator|.
+name|logDir
+operator|=
+name|logDir
 expr_stmt|;
 name|this
 operator|.
@@ -987,40 +1003,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|logArchived
-parameter_list|(
-name|Path
-name|oldPath
-parameter_list|,
-name|Path
-name|newPath
-parameter_list|)
-block|{
-for|for
-control|(
-name|ReplicationSourceInterface
-name|source
-range|:
-name|this
-operator|.
-name|sources
-control|)
-block|{
-name|source
-operator|.
-name|logArchived
-argument_list|(
-name|oldPath
-argument_list|,
-name|newPath
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 comment|/**    * Get the ZK help of this manager    * @return the helper    */
 specifier|public
 name|ReplicationZookeeperWrapper
@@ -1568,6 +1550,42 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+comment|/**    * Get the directory where hlogs are archived    * @return the directory where hlogs are archived    */
+specifier|public
+name|Path
+name|getOldLogDir
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|oldLogDir
+return|;
+block|}
+comment|/**    * Get the directory where hlogs are stored by their RSs    * @return the directory where hlogs are stored by their RSs    */
+specifier|public
+name|Path
+name|getLogDir
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|logDir
+return|;
+block|}
+comment|/**    * Get the handle on the local file system    * @returnthe handle on the local file system    */
+specifier|public
+name|FileSystem
+name|getFs
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|fs
+return|;
 block|}
 block|}
 end_class
