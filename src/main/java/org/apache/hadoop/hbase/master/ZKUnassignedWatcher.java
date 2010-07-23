@@ -789,6 +789,19 @@ literal|0
 index|]
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Got event type [ "
+operator|+
+name|rsEvent
+operator|+
+literal|" ] for region "
+operator|+
+name|region
+argument_list|)
+expr_stmt|;
 comment|// if the node was CLOSED then handle it
 if|if
 condition|(

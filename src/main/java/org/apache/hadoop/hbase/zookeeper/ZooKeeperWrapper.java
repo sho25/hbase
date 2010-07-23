@@ -5524,15 +5524,6 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-comment|// Check existing state for logging purposes.
 name|Stat
 name|stat
 init|=
@@ -5574,6 +5565,7 @@ name|znode
 argument_list|)
 expr_stmt|;
 block|}
+comment|// If there is no data in the ZNode, then update it
 if|if
 condition|(
 name|oldData
@@ -5593,19 +5585,12 @@ literal|" - node exists with no data"
 argument_list|)
 expr_stmt|;
 block|}
+comment|// If there is data in the ZNode, do not update if it is already correct
 else|else
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"While updating UNASSIGNED region "
-operator|+
-name|regionName
-operator|+
-literal|" exists, state = "
-operator|+
-operator|(
+name|HBaseEventType
+name|curState
+init|=
 name|HBaseEventType
 operator|.
 name|fromByte
@@ -5615,11 +5600,66 @@ index|[
 literal|0
 index|]
 argument_list|)
-operator|)
+decl_stmt|;
+name|HBaseEventType
+name|newState
+init|=
+name|HBaseEventType
+operator|.
+name|fromByte
+argument_list|(
+name|data
+index|[
+literal|0
+index|]
+argument_list|)
+decl_stmt|;
+comment|// If the znode has the right state already, do not update it. Updating
+comment|// the znode again and again will bump up the zk version. This may cause
+comment|// the region server to fail. The RS expects that the znode is never
+comment|// updated by anyone else while it is opening/closing a region.
+if|if
+condition|(
+name|curState
+operator|==
+name|newState
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"No need to update UNASSIGNED region "
+operator|+
+name|regionName
+operator|+
+literal|" as it already exists in state = "
+operator|+
+name|curState
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+comment|// If the ZNode is in another state, then update it
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"UNASSIGNED region "
+operator|+
+name|regionName
+operator|+
+literal|" is currently in state = "
+operator|+
+name|curState
+operator|+
+literal|", updating it to "
+operator|+
+name|newState
 argument_list|)
 expr_stmt|;
 block|}
-block|}
+comment|// Update the ZNode
 synchronized|synchronized
 init|(
 name|unassignedZNodesWatched
