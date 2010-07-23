@@ -445,6 +445,26 @@ name|java
 operator|.
 name|util
 operator|.
+name|NavigableMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|TreeMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|atomic
@@ -748,7 +768,7 @@ expr_stmt|;
 comment|// Array to hold list of split parents found.  Scan adds to list.  After
 comment|// scan we go check if parents can be removed and that their daughters
 comment|// are in place.
-name|Map
+name|NavigableMap
 argument_list|<
 name|HRegionInfo
 argument_list|,
@@ -757,7 +777,7 @@ argument_list|>
 name|splitParents
 init|=
 operator|new
-name|HashMap
+name|TreeMap
 argument_list|<
 name|HRegionInfo
 argument_list|,
@@ -1442,14 +1462,7 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" (encoded="
-operator|+
-name|parent
-operator|.
-name|getEncodedName
-argument_list|()
-operator|+
-literal|") because daughter splits no longer hold references"
+literal|" because daughter splits no longer hold references"
 argument_list|)
 expr_stmt|;
 name|HRegion
