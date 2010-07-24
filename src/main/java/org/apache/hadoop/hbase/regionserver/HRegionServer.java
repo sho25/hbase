@@ -4420,6 +4420,30 @@ name|String
 name|msg
 parameter_list|)
 block|{
+comment|// Don't log as error if NSRE; NSRE is 'normal' operation.
+if|if
+condition|(
+name|t
+operator|instanceof
+name|NotServingRegionException
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"NotServingRegionException; "
+operator|+
+name|t
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return
+name|t
+return|;
+block|}
 if|if
 condition|(
 name|msg
