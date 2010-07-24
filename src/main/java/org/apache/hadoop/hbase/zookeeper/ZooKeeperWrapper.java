@@ -396,7 +396,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Wraps a ZooKeeper instance and adds HBase specific functionality.  *  * This class provides methods to:  * - read/write/delete the root region location in ZooKeeper.  * - set/check out of safe mode flag.  *   * ------------------------------------------  * The following STATIC ZNodes are created:  * ------------------------------------------  * - parentZNode     : All the HBase directories are hosted under this parent   *                     node, default = "/hbase"  * - rsZNode         : This is the directory where the RS's create ephemeral   *                     nodes. The master watches these nodes, and their expiry   *                     indicates RS death. The default location is "/hbase/rs"  *   * ------------------------------------------  * The following DYNAMIC ZNodes are created:  * ------------------------------------------  * - rootRegionZNode     : Specifies the RS hosting root.  * - masterElectionZNode : ZNode used for election of the primary master when   *                         there are secondaries. All the masters race to write   *                         their addresses into this location, the one that   *                         succeeds is the primary. Others block.  * - clusterStateZNode   : Determines if the cluster is running. Its default   *                         location is "/hbase/shutdown". It always has a value   *                         of "up". If present with the valus, cluster is up   *                         and running. If deleted, the cluster is shutting   *                         down.  * - rgnsInTransitZNode  : All the nodes under this node are names of regions   *                         in transition. The first byte of the data for each   *                         of these nodes is the event type. This is used to   *                         deserialize the rest of the data.  */
+comment|/**  * Wraps a ZooKeeper instance and adds HBase specific functionality.  *  * This class provides methods to:  * - read/write/delete the root region location in ZooKeeper.  * - set/check out of safe mode flag.  *  * ------------------------------------------  * The following STATIC ZNodes are created:  * ------------------------------------------  * - parentZNode     : All the HBase directories are hosted under this parent  *                     node, default = "/hbase"  * - rsZNode         : This is the directory where the RS's create ephemeral  *                     nodes. The master watches these nodes, and their expiry  *                     indicates RS death. The default location is "/hbase/rs"  *  * ------------------------------------------  * The following DYNAMIC ZNodes are created:  * ------------------------------------------  * - rootRegionZNode     : Specifies the RS hosting root.  * - masterElectionZNode : ZNode used for election of the primary master when  *                         there are secondaries. All the masters race to write  *                         their addresses into this location, the one that  *                         succeeds is the primary. Others block.  * - clusterStateZNode   : Determines if the cluster is running. Its default  *                         location is "/hbase/shutdown". It always has a value  *                         of "up". If present with the valus, cluster is up  *                         and running. If deleted, the cluster is shutting  *                         down.  * - rgnsInTransitZNode  : All the nodes under this node are names of regions  *                         in transition. The first byte of the data for each  *                         of these nodes is the event type. This is used to  *                         deserialize the rest of the data.  */
 end_comment
 
 begin_class
@@ -492,13 +492,13 @@ specifier|final
 name|String
 name|rootRegionZNode
 decl_stmt|;
-comment|/*     * This is the directory where the RS's create ephemeral nodes. The master     * watches these nodes, and their expiry indicates RS death.     */
+comment|/*    * This is the directory where the RS's create ephemeral nodes. The master    * watches these nodes, and their expiry indicates RS death.    */
 specifier|private
 specifier|final
 name|String
 name|rsZNode
 decl_stmt|;
-comment|/*    * ZNode used for election of the primary master when there are secondaries.     */
+comment|/*    * ZNode used for election of the primary master when there are secondaries.    */
 specifier|private
 specifier|final
 name|String
@@ -538,17 +538,12 @@ name|Watcher
 argument_list|>
 name|listeners
 init|=
-name|Collections
-operator|.
-name|synchronizedList
-argument_list|(
 operator|new
 name|ArrayList
 argument_list|<
 name|Watcher
 argument_list|>
 argument_list|()
-argument_list|)
 decl_stmt|;
 comment|// return the singleton given the name of the instance
 specifier|public
@@ -5267,7 +5262,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Given a region name and some data, this method creates a new the region     * znode data under the UNASSGINED znode with the data passed in. This method     * will not update data for existing znodes.    *     * @param regionName - encoded name of the region    * @param data - new serialized data to update the region znode    */
+comment|/**    * Given a region name and some data, this method creates a new the region    * znode data under the UNASSGINED znode with the data passed in. This method    * will not update data for existing znodes.    *    * @param regionName - encoded name of the region    * @param data - new serialized data to update the region znode    */
 specifier|private
 name|void
 name|createUnassignedRegion
@@ -5475,7 +5470,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Given a region name and some data, this method updates the region znode     * data under the UNASSGINED znode with the latest data. This method will     * update the znode data only if it already exists.    *     * @param regionName - encoded name of the region    * @param data - new serialized data to update the region znode    */
+comment|/**    * Given a region name and some data, this method updates the region znode    * data under the UNASSGINED znode with the latest data. This method will    * update the znode data only if it already exists.    *    * @param regionName - encoded name of the region    * @param data - new serialized data to update the region znode    */
 specifier|public
 name|void
 name|updateUnassignedRegion
@@ -5719,7 +5714,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * This method will create a new region in transition entry in ZK with the     * speficied data if none exists. If one already exists, it will update the     * data with whatever is passed in.    *     * @param regionName - encoded name of the region    * @param data - serialized data for the region znode    */
+comment|/**    * This method will create a new region in transition entry in ZK with the    * speficied data if none exists. If one already exists, it will update the    * data with whatever is passed in.    *    * @param regionName - encoded name of the region    * @param data - serialized data for the region znode    */
 specifier|public
 name|void
 name|createOrUpdateUnassignedRegion
@@ -5988,7 +5983,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Atomically adds a watch and reads data from the unwatched znodes in the     * UNASSGINED region. This works because the master is the only person     * deleting nodes.    * @param znode    * @return    */
+comment|/**    * Atomically adds a watch and reads data from the unwatched znodes in the    * UNASSGINED region. This works because the master is the only person    * deleting nodes.    * @param znode    * @return    */
 specifier|public
 name|List
 argument_list|<
