@@ -1083,10 +1083,12 @@ specifier|public
 name|void
 name|process
 parameter_list|(
+specifier|final
 name|WatchedEvent
 name|event
 parameter_list|)
 block|{
+specifier|final
 name|KeeperState
 name|state
 init|=
@@ -1110,37 +1112,13 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|warn
 argument_list|(
-literal|"Got ZooKeeper event, state: "
+literal|"No longer connected to ZooKeeper, current state: "
 operator|+
 name|state
-operator|+
-literal|", type: "
-operator|+
-name|event
-operator|.
-name|getType
-argument_list|()
-operator|+
-literal|", path: "
-operator|+
-name|event
-operator|.
-name|getPath
-argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-if|if
-condition|(
-name|state
-operator|==
-name|KeeperState
-operator|.
-name|Expired
-condition|)
-block|{
 name|resetZooKeeper
 argument_list|()
 expr_stmt|;
