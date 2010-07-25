@@ -984,6 +984,29 @@ return|return
 literal|false
 return|;
 block|}
+comment|// only call setRow if the row changes; avoids confusing the query matcher
+comment|// if scanning intra-row
+if|if
+condition|(
+operator|(
+name|matcher
+operator|.
+name|row
+operator|==
+literal|null
+operator|)
+operator|||
+operator|!
+name|peeked
+operator|.
+name|matchingRow
+argument_list|(
+name|matcher
+operator|.
+name|row
+argument_list|)
+condition|)
+block|{
 name|matcher
 operator|.
 name|setRow
@@ -994,6 +1017,7 @@ name|getRow
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|KeyValue
 name|kv
 decl_stmt|;
