@@ -314,6 +314,8 @@ name|int
 name|statThreadPeriod
 init|=
 literal|60
+operator|*
+literal|5
 decl_stmt|;
 comment|/** Concurrent map (the cache) */
 specifier|private
