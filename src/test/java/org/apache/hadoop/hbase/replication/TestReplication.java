@@ -1169,7 +1169,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Add a row, check it's replicated, delete it, check's gone    * @throws Exception    */
-comment|//@Test
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSimplePutDelete
@@ -1427,7 +1428,8 @@ block|}
 block|}
 block|}
 comment|/**    * Try a small batch upload using the write buffer, check it's replicated    * @throws Exception    */
-comment|//@Test
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testSmallBatch
@@ -1647,7 +1649,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Test stopping replication, trying to insert, make sure nothing's    * replicated, enable it, try replicating and it should work    * @throws Exception    */
-comment|//@Test
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testStartStop
@@ -1986,7 +1989,8 @@ block|}
 block|}
 block|}
 comment|/**    * Do a more intense version testSmallBatch, one  that will trigger    * hlog rolling and other non-trivial code paths    * @throws Exception    */
-comment|//@Test
+annotation|@
+name|Test
 specifier|public
 name|void
 name|loadTesting

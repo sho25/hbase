@@ -984,6 +984,7 @@ name|latestPath
 operator|=
 name|newLog
 expr_stmt|;
+comment|// This only update the sources we own, not the recovered ones
 for|for
 control|(
 name|ReplicationSourceInterface
