@@ -3853,6 +3853,10 @@ case|:
 if|if
 condition|(
 name|columns
+operator|!=
+literal|null
+operator|&&
+name|columns
 operator|.
 name|size
 argument_list|()
