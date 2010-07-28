@@ -113,9 +113,37 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
+name|FileSystem
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
-name|HBaseClusterTestCase
+name|HBaseTestingUtility
 import|;
 end_import
 
@@ -158,6 +186,20 @@ operator|.
 name|hbase
 operator|.
 name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|MiniHBaseCluster
 import|;
 end_import
 
@@ -385,6 +427,38 @@ name|Level
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|BeforeClass
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Test
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
 begin_comment
 comment|/**  * Test log deletion as logs are rolled.  */
 end_comment
@@ -393,8 +467,6 @@ begin_class
 specifier|public
 class|class
 name|TestLogRolling
-extends|extends
-name|HBaseClusterTestCase
 block|{
 specifier|private
 specifier|static
@@ -427,6 +499,31 @@ specifier|private
 name|byte
 index|[]
 name|value
+decl_stmt|;
+specifier|private
+specifier|final
+specifier|static
+name|HBaseTestingUtility
+name|TEST_UTIL
+init|=
+operator|new
+name|HBaseTestingUtility
+argument_list|()
+decl_stmt|;
+specifier|private
+specifier|static
+name|Configuration
+name|conf
+decl_stmt|;
+specifier|private
+specifier|static
+name|FileSystem
+name|fs
+decl_stmt|;
+specifier|private
+specifier|static
+name|MiniHBaseCluster
+name|cluster
 decl_stmt|;
 comment|// verbose logging on classes that are touched in these tests
 block|{
@@ -675,17 +772,21 @@ block|}
 comment|// Need to override this setup so we can edit the config before it gets sent
 comment|// to the HDFS& HBase cluster startup.
 annotation|@
-name|Override
-specifier|protected
+name|BeforeClass
+specifier|public
+specifier|static
 name|void
-name|setUp
+name|setUpBeforeClass
 parameter_list|()
 throws|throws
 name|Exception
 block|{
 comment|/**** configuration for testLogRolling ****/
 comment|// Force a region split after every 768KB
-name|conf
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
 operator|.
 name|setLong
 argument_list|(
@@ -697,7 +798,10 @@ literal|1024L
 argument_list|)
 expr_stmt|;
 comment|// We roll the log after every 32 writes
-name|conf
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
 operator|.
 name|setInt
 argument_list|(
@@ -707,7 +811,10 @@ literal|32
 argument_list|)
 expr_stmt|;
 comment|// For less frequently updated regions flush after every 2 flushes
-name|conf
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
 operator|.
 name|setInt
 argument_list|(
@@ -717,7 +824,10 @@ literal|2
 argument_list|)
 expr_stmt|;
 comment|// We flush the cache after every 8192 bytes
-name|conf
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
 operator|.
 name|setInt
 argument_list|(
@@ -727,7 +837,10 @@ literal|8192
 argument_list|)
 expr_stmt|;
 comment|// Increase the amount of time between client retries
-name|conf
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
 operator|.
 name|setLong
 argument_list|(
@@ -740,7 +853,10 @@ argument_list|)
 expr_stmt|;
 comment|// Reduce thread wake frequency so that other threads can get
 comment|// a chance to run.
-name|conf
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
 operator|.
 name|setInt
 argument_list|(
@@ -755,7 +871,10 @@ argument_list|)
 expr_stmt|;
 comment|/**** configuration for testLogRollOnDatanodeDeath ****/
 comment|// make sure log.hflush() calls syncFs() to open a pipeline
-name|conf
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
 operator|.
 name|setBoolean
 argument_list|(
@@ -766,7 +885,10 @@ argument_list|)
 expr_stmt|;
 comment|// lower the namenode& datanode heartbeat so the namenode
 comment|// quickly detects datanode failures
-name|conf
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
 operator|.
 name|setInt
 argument_list|(
@@ -775,7 +897,10 @@ argument_list|,
 literal|5000
 argument_list|)
 expr_stmt|;
-name|conf
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
 operator|.
 name|setInt
 argument_list|(
@@ -786,7 +911,10 @@ argument_list|)
 expr_stmt|;
 comment|// the namenode might still try to choose the recently-dead datanode
 comment|// for a pipeline, so try to a new pipeline multiple times
-name|conf
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
 operator|.
 name|setInt
 argument_list|(
@@ -795,9 +923,35 @@ argument_list|,
 literal|30
 argument_list|)
 expr_stmt|;
-name|super
+name|TEST_UTIL
 operator|.
-name|setUp
+name|startMiniCluster
+argument_list|(
+literal|3
+argument_list|)
+expr_stmt|;
+name|conf
+operator|=
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+expr_stmt|;
+name|cluster
+operator|=
+name|TEST_UTIL
+operator|.
+name|getHBaseCluster
+argument_list|()
+expr_stmt|;
+name|fs
+operator|=
+name|TEST_UTIL
+operator|.
+name|getDFSCluster
+argument_list|()
+operator|.
+name|getFileSystem
 argument_list|()
 expr_stmt|;
 block|}
@@ -986,6 +1140,8 @@ block|}
 block|}
 block|}
 comment|/**    * Tests that logs are deleted    *    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testLogRolling
@@ -1114,6 +1270,17 @@ name|e
 throw|;
 block|}
 block|}
+specifier|private
+specifier|static
+name|String
+name|getName
+parameter_list|()
+block|{
+comment|// TODO Auto-generated method stub
+return|return
+literal|"TestLogRolling"
+return|;
+block|}
 name|void
 name|writeData
 parameter_list|(
@@ -1189,7 +1356,9 @@ block|{
 comment|// continue
 block|}
 block|}
-comment|/**    * Tests that logs are rolled upon detecting datanode death    * Requires an HDFS jar with HDFS-826& syncFs() support (HDFS-200)    *     * @throws Exception    */
+comment|/**    * Tests that logs are rolled upon detecting datanode death    * Requires an HDFS jar with HDFS-826& syncFs() support (HDFS-200)    *    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testLogRollOnDatanodeDeath
@@ -1264,7 +1433,10 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// add up the datanode count, to ensure proper replication when we kill 1
-name|dfsCluster
+name|TEST_UTIL
+operator|.
+name|getDFSCluster
+argument_list|()
 operator|.
 name|startDataNodes
 argument_list|(
@@ -1279,14 +1451,20 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-name|dfsCluster
+name|TEST_UTIL
+operator|.
+name|getDFSCluster
+argument_list|()
 operator|.
 name|waitActive
 argument_list|()
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|dfsCluster
+name|TEST_UTIL
+operator|.
+name|getDFSCluster
+argument_list|()
 operator|.
 name|getDataNodes
 argument_list|()
@@ -1520,7 +1698,10 @@ expr_stmt|;
 name|DataNodeProperties
 name|dnprop
 init|=
-name|dfsCluster
+name|TEST_UTIL
+operator|.
+name|getDFSCluster
+argument_list|()
 operator|.
 name|stopDataNode
 argument_list|(

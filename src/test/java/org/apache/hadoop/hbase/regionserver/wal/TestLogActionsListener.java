@@ -335,7 +335,7 @@ operator|=
 operator|new
 name|Path
 argument_list|(
-name|TEST_UTIL
+name|HBaseTestingUtility
 operator|.
 name|getTestDir
 argument_list|()
@@ -350,7 +350,7 @@ operator|=
 operator|new
 name|Path
 argument_list|(
-name|TEST_UTIL
+name|HBaseTestingUtility
 operator|.
 name|getTestDir
 argument_list|()
