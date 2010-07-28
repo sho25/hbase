@@ -494,17 +494,6 @@ expr_stmt|;
 comment|// setup filesystem properties
 name|this
 operator|.
-name|fs
-operator|=
-name|FileSystem
-operator|.
-name|get
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
 name|rootDir
 operator|=
 operator|new
@@ -518,6 +507,17 @@ name|HConstants
 operator|.
 name|HBASE_DIR
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|fs
+operator|=
+name|rootDir
+operator|.
+name|getFileSystem
+argument_list|(
+name|conf
 argument_list|)
 expr_stmt|;
 comment|// fetch information from master
