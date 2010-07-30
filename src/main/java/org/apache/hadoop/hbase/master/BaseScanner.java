@@ -943,6 +943,8 @@ argument_list|,
 name|serverAddress
 argument_list|,
 name|startCode
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 if|if
@@ -2293,7 +2295,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/*    * Check the passed region is assigned.  If not, add to unassigned.    * @param regionServer    * @param meta    * @param info    * @param hostnameAndPort hostname ':' port as it comes out of .META.    * @param startCode    * @throws IOException    */
+comment|/*    * Check the passed region is assigned.  If not, add to unassigned.    * @param regionServer    * @param meta    * @param info    * @param hostnameAndPort hostname ':' port as it comes out of .META.    * @param startCode    * @param checkTwice should we check twice before adding a region    * to unassigned pool.                  * @throws IOException    */
 specifier|protected
 name|void
 name|checkAssigned
@@ -2317,10 +2319,18 @@ parameter_list|,
 specifier|final
 name|long
 name|startCode
+parameter_list|,
+name|boolean
+name|checkTwice
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|boolean
+name|tryAgain
+init|=
+literal|false
+decl_stmt|;
 name|String
 name|serverName
 init|=
@@ -2534,7 +2544,18 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// The current assignment is invalid
+if|if
+condition|(
+name|checkTwice
+condition|)
+block|{
+name|tryAgain
+operator|=
+literal|true
+expr_stmt|;
+block|}
+else|else
+block|{
 if|if
 condition|(
 name|LOG
@@ -2584,6 +2605,65 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+block|}
+if|if
+condition|(
+name|tryAgain
+condition|)
+block|{
+comment|// The current assignment is invalid. But we need to try again.
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Current assignment of "
+operator|+
+name|info
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" is not valid; "
+operator|+
+literal|" serverAddress="
+operator|+
+name|sa
+operator|+
+literal|", startCode="
+operator|+
+name|sc
+operator|+
+literal|" unknown; checking once more!"
+argument_list|)
+expr_stmt|;
+block|}
+comment|// passing null for hostNameAndPort will force the function
+comment|// to reget the assignment from META and protect against
+comment|// double assignment race conditions (HBASE-2755).
+name|checkAssigned
+argument_list|(
+name|regionServer
+argument_list|,
+name|meta
+argument_list|,
+name|info
+argument_list|,
+literal|null
+argument_list|,
+literal|0
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 comment|/**    * Interrupt thread regardless of what it's doing    */
