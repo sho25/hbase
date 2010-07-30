@@ -117,22 +117,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|TimeToLiveLogCleaner
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|replication
 operator|.
 name|ReplicationZookeeperWrapper
@@ -262,10 +246,6 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|TimeToLiveLogCleaner
-name|ttlCleaner
-decl_stmt|;
-specifier|private
 name|Configuration
 name|conf
 decl_stmt|;
@@ -302,31 +282,6 @@ name|Path
 name|filePath
 parameter_list|)
 block|{
-comment|// Don't bother going further if the hlog isn't even expired
-if|if
-condition|(
-operator|!
-name|ttlCleaner
-operator|.
-name|isLogDeletable
-argument_list|(
-name|filePath
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Won't delete log since not past due "
-operator|+
-name|filePath
-argument_list|)
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
 name|String
 name|log
 init|=
@@ -355,7 +310,7 @@ return|;
 block|}
 comment|// Let's see it's still there
 comment|// This solution makes every miss very expensive to process since we
-comment|// almost completly refresh the cache each time
+comment|// almost completely refresh the cache each time
 return|return
 operator|!
 name|refreshHLogsAndSearch
@@ -554,23 +509,6 @@ operator|.
 name|conf
 operator|=
 name|conf
-expr_stmt|;
-name|this
-operator|.
-name|ttlCleaner
-operator|=
-operator|new
-name|TimeToLiveLogCleaner
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|ttlCleaner
-operator|.
-name|setConf
-argument_list|(
-name|conf
-argument_list|)
 expr_stmt|;
 try|try
 block|{

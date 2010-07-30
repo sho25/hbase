@@ -608,8 +608,8 @@ name|minimumServerCount
 decl_stmt|;
 specifier|private
 specifier|final
-name|OldLogsCleaner
-name|oldLogCleaner
+name|LogsCleaner
+name|logCleaner
 decl_stmt|;
 comment|/*    * Dumps into log current stats on dead servers and number of servers    * TODO: Make this a metric; dump metrics into log.    */
 class|class
@@ -880,10 +880,10 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|oldLogCleaner
+name|logCleaner
 operator|=
 operator|new
-name|OldLogsCleaner
+name|LogsCleaner
 argument_list|(
 name|c
 operator|.
@@ -920,7 +920,7 @@ name|Threads
 operator|.
 name|setDaemonThreadRunning
 argument_list|(
-name|oldLogCleaner
+name|logCleaner
 argument_list|,
 name|n
 operator|+

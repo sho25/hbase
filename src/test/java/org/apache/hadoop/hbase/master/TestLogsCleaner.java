@@ -89,16 +89,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Test
 import|;
 end_import
@@ -128,6 +118,54 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|HRegionServer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|ReplicationZookeeperWrapper
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZooKeeperWrapper
 import|;
 end_import
 
@@ -200,7 +238,7 @@ end_import
 begin_class
 specifier|public
 class|class
-name|TestOldLogsCleaner
+name|TestLogsCleaner
 block|{
 specifier|private
 specifier|final
@@ -212,6 +250,10 @@ operator|new
 name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
+specifier|private
+name|ReplicationZookeeperWrapper
+name|zkHelper
+decl_stmt|;
 comment|/**    * @throws java.lang.Exception    */
 annotation|@
 name|BeforeClass
@@ -222,7 +264,13 @@ name|setUpBeforeClass
 parameter_list|()
 throws|throws
 name|Exception
-block|{   }
+block|{
+name|TEST_UTIL
+operator|.
+name|startMiniZKCluster
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * @throws java.lang.Exception    */
 annotation|@
 name|AfterClass
@@ -233,7 +281,13 @@ name|tearDownAfterClass
 parameter_list|()
 throws|throws
 name|Exception
-block|{   }
+block|{
+name|TEST_UTIL
+operator|.
+name|shutdownMiniZKCluster
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * @throws java.lang.Exception    */
 annotation|@
 name|Before
@@ -243,7 +297,46 @@ name|setUp
 parameter_list|()
 throws|throws
 name|Exception
-block|{   }
+block|{
+name|Configuration
+name|conf
+init|=
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+decl_stmt|;
+name|zkHelper
+operator|=
+operator|new
+name|ReplicationZookeeperWrapper
+argument_list|(
+name|ZooKeeperWrapper
+operator|.
+name|createInstance
+argument_list|(
+name|conf
+argument_list|,
+name|HRegionServer
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+argument_list|,
+name|conf
+argument_list|,
+operator|new
+name|AtomicBoolean
+argument_list|(
+literal|true
+argument_list|)
+argument_list|,
+literal|"test-cluster"
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * @throws java.lang.Exception    */
 annotation|@
 name|After
@@ -318,11 +411,11 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
-name|OldLogsCleaner
+name|LogsCleaner
 name|cleaner
 init|=
 operator|new
-name|OldLogsCleaner
+name|LogsCleaner
 argument_list|(
 literal|1000
 argument_list|,
@@ -360,6 +453,7 @@ argument_list|(
 name|oldLogDir
 argument_list|)
 expr_stmt|;
+comment|// Case 1: 2 invalid files, which would be deleted directly
 name|fs
 operator|.
 name|createNewFile
@@ -390,6 +484,8 @@ literal|"a"
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// Case 2: 1 "recent" file, not even deletable for the first log cleaner
+comment|// (TimeToLiveLogCleaner), so we are not going down the chain
 name|fs
 operator|.
 name|createNewFile
@@ -433,10 +529,11 @@ name|i
 operator|++
 control|)
 block|{
-name|fs
-operator|.
-name|createNewFile
-argument_list|(
+comment|// Case 3: old files which would be deletable for the first log cleaner
+comment|// (TimeToLiveLogCleaner), and also for the second (ReplicationLogCleaner)
+name|Path
+name|fileName
+init|=
 operator|new
 name|Path
 argument_list|(
@@ -454,8 +551,55 @@ operator|-
 name|i
 operator|)
 argument_list|)
+decl_stmt|;
+name|fs
+operator|.
+name|createNewFile
+argument_list|(
+name|fileName
 argument_list|)
 expr_stmt|;
+comment|// Case 4: put 3 old log files in ZK indicating that they are scheduled
+comment|// for replication so these files would pass the first log cleaner
+comment|// (TimeToLiveLogCleaner) but would be rejected by the second
+comment|// (ReplicationLogCleaner)
+if|if
+condition|(
+name|i
+operator|%
+operator|(
+literal|30
+operator|/
+literal|3
+operator|)
+operator|==
+literal|0
+condition|)
+block|{
+name|zkHelper
+operator|.
+name|addLogToList
+argument_list|(
+name|fileName
+operator|.
+name|getName
+argument_list|()
+argument_list|,
+name|fakeMachineName
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"Replication log file: "
+operator|+
+name|fileName
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 for|for
 control|(
@@ -486,6 +630,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Case 2: 1 newer file, not even deletable for the first log cleaner
+comment|// (TimeToLiveLogCleaner), so we are not going down the chain
 name|fs
 operator|.
 name|createNewFile
@@ -541,16 +687,18 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-comment|// We will delete all remaining log files and those that are invalid
+comment|// We will delete all remaining log files which are not scheduled for
+comment|// replication and those that are invalid
 name|cleaner
 operator|.
 name|chore
 argument_list|()
 expr_stmt|;
-comment|// We end up with the current log file and a newer one
+comment|// We end up with the current log file, a newer one and the 3 old log
+comment|// files which are scheduled for replication
 name|assertEquals
 argument_list|(
-literal|2
+literal|5
 argument_list|,
 name|fs
 operator|.
@@ -562,6 +710,37 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
+for|for
+control|(
+name|FileStatus
+name|file
+range|:
+name|fs
+operator|.
+name|listStatus
+argument_list|(
+name|oldLogDir
+argument_list|)
+control|)
+block|{
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"Keeped log files: "
+operator|+
+name|file
+operator|.
+name|getPath
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 end_class
