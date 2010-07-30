@@ -279,16 +279,6 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
-comment|// Add jvmmetrics.
-name|JvmMetrics
-operator|.
-name|init
-argument_list|(
-literal|"RegionServer"
-argument_list|,
-name|name
-argument_list|)
-expr_stmt|;
 comment|// export for JMX
 operator|new
 name|ReplicationStatistics
@@ -372,6 +362,13 @@ name|metricsRecord
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|metricsRecord
+operator|.
+name|update
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 end_class
