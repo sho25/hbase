@@ -2823,6 +2823,24 @@ operator|)
 literal|0.01
 argument_list|)
 decl_stmt|;
+comment|// Since in row+col blooms we have 2 calls to shouldSeek() instead of 1
+comment|// and the false positives are adding up, we should keep the error rate
+comment|// twice as low in order to maintain the number of false positives as
+comment|// desired by the user
+if|if
+condition|(
+name|bloomType
+operator|==
+name|BloomType
+operator|.
+name|ROWCOL
+condition|)
+block|{
+name|err
+operator|/=
+literal|2
+expr_stmt|;
+block|}
 name|int
 name|maxFold
 init|=
@@ -3913,6 +3931,47 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|bloomFilterType
+operator|==
+name|BloomType
+operator|.
+name|ROWCOL
+condition|)
+block|{
+comment|// Since a Row Delete is essentially a DeleteFamily applied to all
+comment|// columns, a file might be skipped if using row+col Bloom filter.
+comment|// In order to ensure this file is included an additional check is
+comment|// required looking only for a row bloom.
+return|return
+name|this
+operator|.
+name|bloomFilter
+operator|.
+name|contains
+argument_list|(
+name|key
+argument_list|,
+name|bloom
+argument_list|)
+operator|||
+name|this
+operator|.
+name|bloomFilter
+operator|.
+name|contains
+argument_list|(
+name|row
+argument_list|,
+name|bloom
+argument_list|)
+return|;
+block|}
+else|else
+block|{
 return|return
 name|this
 operator|.
@@ -3925,6 +3984,7 @@ argument_list|,
 name|bloom
 argument_list|)
 return|;
+block|}
 block|}
 block|}
 catch|catch
