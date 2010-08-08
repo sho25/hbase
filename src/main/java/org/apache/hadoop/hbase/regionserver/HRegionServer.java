@@ -12545,6 +12545,18 @@ name|regionServerClass
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
+name|int
+name|getNumberOfOnlineRegions
+parameter_list|()
+block|{
+return|return
+name|onlineRegions
+operator|.
+name|size
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 
