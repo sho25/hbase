@@ -719,7 +719,7 @@ literal|" "
 operator|+
 name|uri
 operator|+
-literal|": "
+literal|" "
 operator|+
 name|code
 operator|+

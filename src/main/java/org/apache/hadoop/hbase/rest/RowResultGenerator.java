@@ -53,6 +53,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -155,6 +183,22 @@ name|Filter
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|NoSuchColumnFamilyException
+import|;
+end_import
+
 begin_class
 specifier|public
 class|class
@@ -162,6 +206,21 @@ name|RowResultGenerator
 extends|extends
 name|ResultGenerator
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|RowResultGenerator
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|private
 name|Iterator
 argument_list|<
@@ -412,6 +471,31 @@ name|iterator
 argument_list|()
 expr_stmt|;
 block|}
+block|}
+catch|catch
+parameter_list|(
+name|NoSuchColumnFamilyException
+name|e
+parameter_list|)
+block|{
+comment|// Warn here because Stargate will return 404 in the case if multiple
+comment|// column families were specified but one did not exist -- currently
+comment|// HBase will fail the whole Get.
+comment|// Specifying multiple columns in a URI should be uncommon usage but
+comment|// help to avoid confusion by leaving a record of what happened here in
+comment|// the log.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|StringUtils
+operator|.
+name|stringifyException
+argument_list|(
+name|e
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
 finally|finally
 block|{
