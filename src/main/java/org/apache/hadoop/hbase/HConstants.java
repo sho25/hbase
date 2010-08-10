@@ -185,6 +185,24 @@ name|DEFAULT_MASTER_INFOPORT
 init|=
 literal|60010
 decl_stmt|;
+comment|/** Parameter name for the master type being backup (waits for primary to go inactive). */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MASTER_TYPE_BACKUP
+init|=
+literal|"hbase.master.backup"
+decl_stmt|;
+comment|/** by default every master is a possible primary master unless the conf explicitly overrides it */
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_MASTER_TYPE_BACKUP
+init|=
+literal|false
+decl_stmt|;
 comment|/** Name of ZooKeeper quorum configuration parameter. */
 specifier|public
 specifier|static

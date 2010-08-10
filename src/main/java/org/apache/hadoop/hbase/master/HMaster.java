@@ -1761,6 +1761,79 @@ argument_list|(
 name|zkMasterAddressWatcher
 argument_list|)
 expr_stmt|;
+comment|// if we're a backup master, stall until a primary to writes his address
+if|if
+condition|(
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|HConstants
+operator|.
+name|MASTER_TYPE_BACKUP
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_MASTER_TYPE_BACKUP
+argument_list|)
+condition|)
+block|{
+comment|// this will only be a minute or so while the cluster starts up,
+comment|// so don't worry about setting watches on the parent znode
+while|while
+condition|(
+operator|!
+name|zooKeeperWrapper
+operator|.
+name|masterAddressExists
+argument_list|()
+condition|)
+block|{
+try|try
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Waiting for master address ZNode to be written "
+operator|+
+literal|"(Also watching cluster state node)"
+argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"zookeeper.session.timeout"
+argument_list|,
+literal|60
+operator|*
+literal|1000
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+comment|// interrupted = user wants to kill us.  Don't continue
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Interrupted waiting for master address"
+argument_list|)
+throw|;
+block|}
+block|}
+block|}
 name|this
 operator|.
 name|zkMasterAddressWatcher
@@ -6834,6 +6907,17 @@ argument_list|,
 literal|"Override HBase Configuration Settings"
 argument_list|)
 expr_stmt|;
+name|opt
+operator|.
+name|addOption
+argument_list|(
+literal|"backup"
+argument_list|,
+literal|false
+argument_list|,
+literal|"Do not try to become HMaster until the primary fails"
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|CommandLine
@@ -6987,6 +7071,29 @@ argument_list|)
 throw|;
 block|}
 block|}
+block|}
+comment|// check if we are the backup master - override the conf if so
+if|if
+condition|(
+name|cmd
+operator|.
+name|hasOption
+argument_list|(
+literal|"backup"
+argument_list|)
+condition|)
+block|{
+name|conf
+operator|.
+name|setBoolean
+argument_list|(
+name|HConstants
+operator|.
+name|MASTER_TYPE_BACKUP
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 block|}
 if|if
 condition|(

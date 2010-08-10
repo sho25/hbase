@@ -2136,6 +2136,19 @@ return|return
 literal|true
 return|;
 block|}
+comment|/**    * @return true if zookeeper has a master address.    */
+specifier|public
+name|boolean
+name|masterAddressExists
+parameter_list|()
+block|{
+return|return
+name|checkExistenceOf
+argument_list|(
+name|masterElectionZNode
+argument_list|)
+return|;
+block|}
 specifier|private
 name|HServerAddress
 name|readAddress
