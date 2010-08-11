@@ -443,6 +443,21 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|table
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"No table was provided."
+argument_list|)
+throw|;
+block|}
 name|Pair
 argument_list|<
 name|byte
@@ -488,21 +503,6 @@ operator|new
 name|IOException
 argument_list|(
 literal|"Expecting at least one region."
-argument_list|)
-throw|;
-block|}
-if|if
-condition|(
-name|table
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"No table was provided."
 argument_list|)
 throw|;
 block|}
