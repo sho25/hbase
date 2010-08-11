@@ -115,6 +115,18 @@ name|lang
 operator|.
 name|reflect
 operator|.
+name|InvocationTargetException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|lang
+operator|.
+name|reflect
+operator|.
 name|Method
 import|;
 end_import
@@ -4393,7 +4405,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * This method gets the datanode replication count for the current HLog.    *    * If the pipeline isn't started yet or is empty, you will get the default    * replication factor.  Therefore, if this function returns 0, it means you    * are not properly running with the HDFS-826 patch.    *    * @throws Exception    */
+comment|/**    * This method gets the datanode replication count for the current HLog.    *    * If the pipeline isn't started yet or is empty, you will get the default    * replication factor.  Therefore, if this function returns 0, it means you    * are not properly running with the HDFS-826 patch.    * @throws InvocationTargetException    * @throws IllegalAccessException    * @throws IllegalArgumentException    *    * @throws Exception    */
 end_comment
 
 begin_function
@@ -4401,7 +4413,11 @@ name|int
 name|getLogReplication
 parameter_list|()
 throws|throws
-name|Exception
+name|IllegalArgumentException
+throws|,
+name|IllegalAccessException
+throws|,
+name|InvocationTargetException
 block|{
 if|if
 condition|(
