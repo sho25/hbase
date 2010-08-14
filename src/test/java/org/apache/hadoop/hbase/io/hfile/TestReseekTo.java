@@ -416,7 +416,7 @@ operator|)
 operator|/
 literal|1000
 operator|+
-literal|" µs"
+literal|" micro s"
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -513,7 +513,7 @@ operator|)
 operator|/
 literal|1000
 operator|+
-literal|" µs"
+literal|" micro s"
 argument_list|)
 expr_stmt|;
 name|assertEquals
