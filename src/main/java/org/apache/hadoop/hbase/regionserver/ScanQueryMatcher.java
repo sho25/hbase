@@ -483,7 +483,7 @@ comment|// should be rare/never happens.
 return|return
 name|MatchCode
 operator|.
-name|SKIP
+name|SEEK_NEXT_ROW
 return|;
 block|}
 comment|// optimize case.
@@ -575,9 +575,14 @@ condition|)
 block|{
 comment|// done, the rest of this column will also be expired as well.
 return|return
-name|MatchCode
-operator|.
-name|SEEK_NEXT_COL
+name|getNextRowOrNextColumn
+argument_list|(
+name|bytes
+argument_list|,
+name|offset
+argument_list|,
+name|qualLength
+argument_list|)
 return|;
 block|}
 name|byte
@@ -781,6 +786,22 @@ return|return
 name|MatchCode
 operator|.
 name|SEEK_NEXT_ROW
+return|;
+block|}
+elseif|else
+if|if
+condition|(
+name|filterResponse
+operator|==
+name|ReturnCode
+operator|.
+name|SEEK_NEXT_USING_HINT
+condition|)
+block|{
+return|return
+name|MatchCode
+operator|.
+name|SEEK_NEXT_USING_HINT
 return|;
 block|}
 block|}
@@ -1082,6 +1103,37 @@ operator|.
 name|startKey
 return|;
 block|}
+specifier|public
+name|KeyValue
+name|getNextKeyHint
+parameter_list|(
+name|KeyValue
+name|kv
+parameter_list|)
+block|{
+if|if
+condition|(
+name|filter
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
+else|else
+block|{
+return|return
+name|filter
+operator|.
+name|getNextKeyHint
+argument_list|(
+name|kv
+argument_list|)
+return|;
+block|}
+block|}
 comment|/**    * {@link #match} return codes.  These instruct the scanner moving through    * memstores and StoreFiles what to do with the current KeyValue.    *<p>    * Additionally, this contains "early-out" language to tell the scanner to    * move on to the next File (memstore or Storefile), or to return immediately.    */
 specifier|public
 specifier|static
@@ -1109,6 +1161,9 @@ name|SEEK_NEXT_COL
 block|,
 comment|/**      * Done with scan, thanks to the row filter.      */
 name|DONE_SCAN
+block|,
+comment|/*      * Seek to next key which is given as hint.      */
+name|SEEK_NEXT_USING_HINT
 block|,   }
 block|}
 end_class

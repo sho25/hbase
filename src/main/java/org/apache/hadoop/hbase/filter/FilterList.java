@@ -929,6 +929,20 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
+specifier|public
+name|KeyValue
+name|getNextKeyHint
+parameter_list|(
+name|KeyValue
+name|currentKV
+parameter_list|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 block|}
 end_class
 

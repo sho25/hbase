@@ -75,6 +75,17 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Reseek the scanner at or after the specified KeyValue.    * This method is guaranteed to seek to or before the required key only if the    * key comes after the current position of the scanner. Should not be used    * to seek to a key which may come before the current position.    * @param key seek value (should be non-null)    * @return true if scanner has values left, false if end of scanner    */
+specifier|public
+name|boolean
+name|reseek
+parameter_list|(
+name|KeyValue
+name|key
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Close the KeyValue scanner.    */
 specifier|public
 name|void

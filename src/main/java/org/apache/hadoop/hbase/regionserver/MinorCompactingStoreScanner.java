@@ -47,24 +47,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|HFile
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io
@@ -279,6 +261,21 @@ argument_list|(
 literal|"Can't seek a MinorCompactingStoreScanner"
 argument_list|)
 throw|;
+block|}
+specifier|public
+name|boolean
+name|reseek
+parameter_list|(
+name|KeyValue
+name|key
+parameter_list|)
+block|{
+return|return
+name|seek
+argument_list|(
+name|key
+argument_list|)
+return|;
 block|}
 comment|/**    * High performance merge scan.    * @param writer    * @return True if more.    * @throws IOException    */
 specifier|public

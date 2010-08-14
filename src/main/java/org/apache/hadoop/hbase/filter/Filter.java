@@ -119,7 +119,10 @@ name|NEXT_COL
 block|,
 comment|/**      * Done with columns, skip to next row. Note that filterRow() will      * still be called.      */
 name|NEXT_ROW
-block|,   }
+block|,
+comment|/**      * Seek to next key which is given as hint by the filter.      */
+name|SEEK_NEXT_USING_HINT
+block|, }
 comment|/**    * Chance to alter the list of keyvalues to be submitted.    * Modifications to the list will carry on    * @param kvs the list of keyvalues to be filtered    */
 specifier|public
 name|void
@@ -143,6 +146,15 @@ specifier|public
 name|boolean
 name|filterRow
 parameter_list|()
+function_decl|;
+comment|/**    * If the filter returns the match code SEEK_NEXT_USING_HINT, then    * it should also tell which is the next key it must seek to.    * After receiving the match code SEEK_NEXT_USING_HINT, the QueryMatcher would    * call this function to find out which key it must next seek to.    * @return KeyValue which must be next seeked. return null if the filter is    * not sure which key to seek to next.    */
+specifier|public
+name|KeyValue
+name|getNextKeyHint
+parameter_list|(
+name|KeyValue
+name|currentKV
+parameter_list|)
 function_decl|;
 block|}
 end_interface

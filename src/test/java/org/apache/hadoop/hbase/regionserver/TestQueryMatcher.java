@@ -1200,7 +1200,7 @@ name|ScanQueryMatcher
 operator|.
 name|MatchCode
 operator|.
-name|SEEK_NEXT_COL
+name|SEEK_NEXT_ROW
 block|,
 name|ScanQueryMatcher
 operator|.

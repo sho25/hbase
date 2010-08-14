@@ -150,6 +150,19 @@ return|return
 literal|false
 return|;
 block|}
+comment|/**    * Filters that are not sure which key must be next seeked to, can inherit    * this implementation that, by default, returns a null KeyValue.    *    * @inheritDoc    */
+specifier|public
+name|KeyValue
+name|getNextKeyHint
+parameter_list|(
+name|KeyValue
+name|currentKV
+parameter_list|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 block|}
 end_class
 
