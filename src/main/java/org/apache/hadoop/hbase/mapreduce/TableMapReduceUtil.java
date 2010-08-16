@@ -691,7 +691,7 @@ name|reducer
 argument_list|,
 name|job
 argument_list|,
-literal|null
+name|partitioner
 argument_list|,
 literal|null
 argument_list|,
