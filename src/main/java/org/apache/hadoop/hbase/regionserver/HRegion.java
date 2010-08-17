@@ -2015,7 +2015,6 @@ return|;
 block|}
 comment|/**    * Close down this HRegion.  Flush the cache unless abort parameter is true,    * Shut down each HStore, don't service any more calls.    *    * This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @param abort true if server is aborting (only during testing)    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of HStoreFile objects.  Can be null if    * we are not to close at this time or we are already closed.    *    * @throws IOException e    */
 specifier|public
-specifier|synchronized
 name|List
 argument_list|<
 name|StoreFile
@@ -2213,6 +2212,19 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|isClosed
+argument_list|()
+condition|)
+block|{
+comment|// SplitTransaction handles the null
+return|return
+literal|null
+return|;
+block|}
 name|LOG
 operator|.
 name|debug
