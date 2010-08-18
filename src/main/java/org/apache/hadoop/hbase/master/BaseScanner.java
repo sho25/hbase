@@ -2308,7 +2308,6 @@ specifier|final
 name|MetaRegion
 name|meta
 parameter_list|,
-specifier|final
 name|HRegionInfo
 name|info
 parameter_list|,
@@ -2426,6 +2425,20 @@ argument_list|(
 name|r
 argument_list|)
 expr_stmt|;
+name|info
+operator|=
+name|master
+operator|.
+name|getHRegionInfo
+argument_list|(
+name|r
+operator|.
+name|getRow
+argument_list|()
+argument_list|,
+name|r
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 if|if
@@ -2472,6 +2485,10 @@ block|{
 comment|/* We don't assign regions that are offline, in transition or were on        * a dead server. Regions that were on a dead server will get reassigned        * by ProcessServerShutdown        */
 if|if
 condition|(
+name|info
+operator|==
+literal|null
+operator|||
 name|info
 operator|.
 name|isOffline
