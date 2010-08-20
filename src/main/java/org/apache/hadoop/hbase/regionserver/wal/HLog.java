@@ -2023,21 +2023,14 @@ return|return
 name|regionsToFlush
 return|;
 block|}
-synchronized|synchronized
-init|(
-name|updateLock
-init|)
-block|{
-comment|// Clean up current writer.
-name|Path
-name|oldFile
+comment|// Do all the preparation outside of the updateLock to block
+comment|// as less as possible the incoming writes
+name|long
+name|currentFilenum
 init|=
-name|cleanupCurrentWriter
-argument_list|(
 name|this
 operator|.
 name|filenum
-argument_list|)
 decl_stmt|;
 name|this
 operator|.
@@ -2054,10 +2047,11 @@ init|=
 name|computeFilename
 argument_list|()
 decl_stmt|;
-name|this
+name|HLog
 operator|.
-name|writer
-operator|=
+name|Writer
+name|nextWriter
+init|=
 name|createWriter
 argument_list|(
 name|fs
@@ -2071,11 +2065,10 @@ argument_list|(
 name|conf
 argument_list|)
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|initialReplication
-operator|=
+decl_stmt|;
+name|int
+name|nextInitialReplication
+init|=
 name|fs
 operator|.
 name|getFileStatus
@@ -2085,42 +2078,67 @@ argument_list|)
 operator|.
 name|getReplication
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 comment|// Can we get at the dfsclient outputstream?  If an instance of
 comment|// SFLW, it'll have done the necessary reflection to get at the
 comment|// protected field name.
-name|this
-operator|.
-name|hdfs_out
-operator|=
+name|OutputStream
+name|nextHdfsOut
+init|=
 literal|null
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
-name|this
-operator|.
-name|writer
+name|nextWriter
 operator|instanceof
 name|SequenceFileLogWriter
 condition|)
 block|{
-name|this
-operator|.
-name|hdfs_out
+name|nextHdfsOut
 operator|=
 operator|(
 operator|(
 name|SequenceFileLogWriter
 operator|)
-name|this
-operator|.
-name|writer
+name|nextWriter
 operator|)
 operator|.
 name|getDFSCOutputStream
 argument_list|()
 expr_stmt|;
 block|}
+synchronized|synchronized
+init|(
+name|updateLock
+init|)
+block|{
+comment|// Clean up current writer.
+name|Path
+name|oldFile
+init|=
+name|cleanupCurrentWriter
+argument_list|(
+name|currentFilenum
+argument_list|)
+decl_stmt|;
+name|this
+operator|.
+name|writer
+operator|=
+name|nextWriter
+expr_stmt|;
+name|this
+operator|.
+name|initialReplication
+operator|=
+name|nextInitialReplication
+expr_stmt|;
+name|this
+operator|.
+name|hdfs_out
+operator|=
+name|nextHdfsOut
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -2177,6 +2195,16 @@ name|newPath
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|numEntries
+operator|.
+name|set
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Tell our listeners that a new log was created
 if|if
 condition|(
@@ -2293,16 +2321,6 @@ name|cleanOldLogs
 argument_list|()
 expr_stmt|;
 block|}
-block|}
-name|this
-operator|.
-name|numEntries
-operator|.
-name|set
-argument_list|(
-literal|0
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 finally|finally
@@ -3136,7 +3154,9 @@ block|{
 name|oldFile
 operator|=
 name|computeFilename
-argument_list|()
+argument_list|(
+name|currentfilenum
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -3239,7 +3259,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * This is a convenience method that computes a new filename with a given    * file-number.    * @return Path    */
+comment|/**    * This is a convenience method that computes a new filename with a given    * using the current HLog file-number    * @return Path    */
 end_comment
 
 begin_function
@@ -3247,6 +3267,30 @@ specifier|protected
 name|Path
 name|computeFilename
 parameter_list|()
+block|{
+return|return
+name|computeFilename
+argument_list|(
+name|this
+operator|.
+name|filenum
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * This is a convenience method that computes a new filename with a given    * file-number.    * @param file-number to use    * @return Path    */
+end_comment
+
+begin_function
+specifier|protected
+name|Path
+name|computeFilename
+parameter_list|(
+name|long
+name|filenum
+parameter_list|)
 block|{
 if|if
 condition|(
