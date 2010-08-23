@@ -676,7 +676,7 @@ name|this
 operator|.
 name|parent
 operator|.
-name|splitsAndClosesLock
+name|lock
 operator|.
 name|writeLock
 argument_list|()
@@ -1123,7 +1123,7 @@ name|this
 operator|.
 name|parent
 operator|.
-name|splitsAndClosesLock
+name|lock
 operator|.
 name|writeLock
 argument_list|()
@@ -1332,7 +1332,7 @@ name|this
 operator|.
 name|parent
 operator|.
-name|splitsAndClosesLock
+name|lock
 operator|.
 name|writeLock
 argument_list|()
@@ -1455,7 +1455,7 @@ name|this
 operator|.
 name|parent
 operator|.
-name|splitsAndClosesLock
+name|lock
 operator|.
 name|writeLock
 argument_list|()

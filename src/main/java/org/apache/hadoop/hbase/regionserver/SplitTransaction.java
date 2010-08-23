@@ -179,22 +179,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
-operator|.
-name|KVComparator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|HTable
@@ -458,7 +442,7 @@ name|this
 operator|.
 name|parent
 operator|.
-name|splitsAndClosesLock
+name|lock
 operator|.
 name|writeLock
 argument_list|()
@@ -633,7 +617,7 @@ name|this
 operator|.
 name|parent
 operator|.
-name|splitsAndClosesLock
+name|lock
 operator|.
 name|writeLock
 argument_list|()
@@ -769,7 +753,7 @@ name|this
 operator|.
 name|parent
 operator|.
-name|splitsAndClosesLock
+name|lock
 operator|.
 name|writeLock
 argument_list|()
@@ -1074,7 +1058,7 @@ name|this
 operator|.
 name|parent
 operator|.
-name|splitsAndClosesLock
+name|lock
 operator|.
 name|writeLock
 argument_list|()
@@ -1907,7 +1891,7 @@ name|this
 operator|.
 name|parent
 operator|.
-name|splitsAndClosesLock
+name|lock
 operator|.
 name|writeLock
 argument_list|()
@@ -2085,7 +2069,7 @@ name|this
 operator|.
 name|parent
 operator|.
-name|splitsAndClosesLock
+name|lock
 operator|.
 name|writeLock
 argument_list|()
@@ -2098,7 +2082,7 @@ name|this
 operator|.
 name|parent
 operator|.
-name|splitsAndClosesLock
+name|lock
 operator|.
 name|writeLock
 argument_list|()
