@@ -2263,6 +2263,8 @@ operator|+
 literal|"/"
 operator|+
 name|CFA
+operator|+
+literal|":"
 decl_stmt|;
 specifier|final
 name|String
