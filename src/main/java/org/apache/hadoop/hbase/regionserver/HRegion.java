@@ -5689,11 +5689,17 @@ argument_list|()
 operator|==
 literal|0
 operator|&&
+operator|(
+name|expectedValue
+operator|==
+literal|null
+operator|||
 name|expectedValue
 operator|.
 name|length
 operator|==
 literal|0
+operator|)
 condition|)
 block|{
 name|matches
