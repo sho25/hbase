@@ -17,13 +17,33 @@ name|client
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|WritableComparable
+import|;
+end_import
+
 begin_comment
 comment|/**  * Has a row.  */
 end_comment
 
 begin_interface
+specifier|public
 interface|interface
 name|Row
+extends|extends
+name|WritableComparable
+argument_list|<
+name|Row
+argument_list|>
 block|{
 comment|/**    * @return The row.    */
 specifier|public
