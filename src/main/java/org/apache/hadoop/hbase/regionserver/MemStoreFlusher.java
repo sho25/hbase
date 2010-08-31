@@ -715,7 +715,7 @@ name|this
 operator|.
 name|server
 operator|.
-name|isStopRequested
+name|isStopped
 argument_list|()
 condition|)
 block|{
@@ -855,7 +855,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|request
+name|requestFlush
 parameter_list|(
 name|HRegion
 name|r
@@ -1057,7 +1057,7 @@ name|server
 operator|.
 name|compactSplitThread
 operator|.
-name|compactionRequested
+name|requestCompaction
 argument_list|(
 name|region
 argument_list|,
@@ -1172,7 +1172,7 @@ name|server
 operator|.
 name|compactSplitThread
 operator|.
-name|compactionRequested
+name|requestCompaction
 argument_list|(
 name|region
 argument_list|,
@@ -1533,7 +1533,7 @@ name|server
 operator|.
 name|compactSplitThread
 operator|.
-name|compactionRequested
+name|requestCompaction
 argument_list|(
 name|region
 argument_list|,

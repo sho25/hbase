@@ -291,6 +291,18 @@ name|UserGroupInformation
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|KeeperException
+import|;
+end_import
+
 begin_comment
 comment|/**  * This class creates a single process HBase cluster.  * each server.  The master uses the 'default' FileSystem.  The RegionServers,  * if we are running on DistributedFilesystem, create a FileSystem instance  * each and will close down their instance on the way out.  */
 end_comment
@@ -440,6 +452,10 @@ name|conf
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|KeeperException
+throws|,
+name|InterruptedException
 block|{
 name|super
 argument_list|(
@@ -752,6 +768,8 @@ name|conf
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 name|super
 argument_list|(
@@ -869,7 +887,7 @@ annotation|@
 name|Override
 specifier|protected
 name|void
-name|init
+name|handleReportForDutyResponse
 parameter_list|(
 name|MapWritable
 name|c
@@ -879,7 +897,7 @@ name|IOException
 block|{
 name|super
 operator|.
-name|init
+name|handleReportForDutyResponse
 argument_list|(
 name|c
 argument_list|)
@@ -1278,7 +1296,11 @@ name|getRegionServer
 argument_list|()
 operator|.
 name|stop
-argument_list|()
+argument_list|(
+literal|"Stopping rs "
+operator|+
+name|serverNumber
+argument_list|)
 expr_stmt|;
 return|return
 name|server
@@ -1385,7 +1407,7 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|getOnlineRegions
+name|getOnlineRegionsLocalContext
 argument_list|()
 control|)
 block|{
@@ -1434,7 +1456,7 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|getOnlineRegions
+name|getOnlineRegionsLocalContext
 argument_list|()
 control|)
 block|{
@@ -1574,7 +1596,7 @@ name|region
 range|:
 name|hrs
 operator|.
-name|getOnlineRegions
+name|getOnlineRegionsLocalContext
 argument_list|()
 control|)
 block|{

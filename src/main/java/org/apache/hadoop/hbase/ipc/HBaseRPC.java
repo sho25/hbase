@@ -1336,7 +1336,11 @@ throw|throw
 operator|new
 name|RetriesExhaustedException
 argument_list|(
-literal|"Failed setting up proxy to "
+literal|"Failed setting up proxy "
+operator|+
+name|protocol
+operator|+
+literal|" to "
 operator|+
 name|addr
 operator|.
@@ -1346,6 +1350,8 @@ operator|+
 literal|" after attempts="
 operator|+
 name|reconnectAttempts
+argument_list|,
+name|se
 argument_list|)
 throw|;
 block|}

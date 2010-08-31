@@ -353,6 +353,35 @@ name|THREAD_WAKE_FREQUENCY
 init|=
 literal|"hbase.server.thread.wakefrequency"
 decl_stmt|;
+comment|/** Default value for thread wake frequency */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_THREAD_WAKE_FREQUENCY
+init|=
+literal|10
+operator|*
+literal|1000
+decl_stmt|;
+comment|/** Number of retries for the client */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|NUM_CLIENT_RETRIES
+init|=
+literal|"hbase.client.retries.number"
+decl_stmt|;
+comment|/** Default number of retries for the client */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_NUM_CLIENT_RETRIES
+init|=
+literal|2
+decl_stmt|;
 comment|/** Parameter name for how often a region should should perform a major compaction */
 specifier|public
 specifier|static
@@ -516,21 +545,6 @@ operator|.
 name|toBytes
 argument_list|(
 name|CATALOG_FAMILY_STR
-argument_list|)
-decl_stmt|;
-comment|/** The catalog historian family */
-specifier|public
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|CATALOG_HISTORIAN_FAMILY
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"historian"
 argument_list|)
 decl_stmt|;
 comment|/** The regioninfo column qualifier */

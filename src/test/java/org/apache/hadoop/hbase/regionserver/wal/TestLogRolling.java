@@ -998,6 +998,32 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|server
+operator|=
+name|cluster
+operator|.
+name|getRegionServerThreads
+argument_list|()
+operator|.
+name|get
+argument_list|(
+literal|0
+argument_list|)
+operator|.
+name|getRegionServer
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|log
+operator|=
+name|server
+operator|.
+name|getWAL
+argument_list|()
+expr_stmt|;
 comment|// Create the test table and open it
 name|HTableDescriptor
 name|desc
@@ -1062,7 +1088,7 @@ name|log
 operator|=
 name|server
 operator|.
-name|getLog
+name|getWAL
 argument_list|()
 expr_stmt|;
 for|for
@@ -1206,7 +1232,7 @@ argument_list|>
 argument_list|(
 name|server
 operator|.
-name|getOnlineRegions
+name|getOnlineRegionsLocalContext
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1352,11 +1378,6 @@ comment|// continue
 block|}
 block|}
 comment|/**    * Give me the HDFS pipeline for this log file    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"null"
-argument_list|)
 name|DatanodeInfo
 index|[]
 name|getPipeline
@@ -1488,6 +1509,18 @@ operator|>
 literal|1
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Replication="
+operator|+
+name|fs
+operator|.
+name|getDefaultReplication
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// When the META table can be opened, the region servers are running
 operator|new
 name|HTable
@@ -1501,6 +1534,26 @@ name|HConstants
 operator|.
 name|META_TABLE_NAME
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|server
+operator|=
+name|cluster
+operator|.
+name|getRegionServer
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|log
+operator|=
+name|server
+operator|.
+name|getWAL
+argument_list|()
 expr_stmt|;
 comment|// Create the test table and open it
 name|String
@@ -1597,7 +1650,7 @@ name|log
 operator|=
 name|server
 operator|.
-name|getLog
+name|getWAL
 argument_list|()
 expr_stmt|;
 name|assertTrue

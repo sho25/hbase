@@ -119,6 +119,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Stoppable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Threads
@@ -374,7 +388,9 @@ operator|.
 name|stop
 operator|.
 name|stop
-argument_list|()
+argument_list|(
+literal|"Shutdown hook"
+argument_list|)
 expr_stmt|;
 name|Threads
 operator|.
@@ -764,11 +780,26 @@ block|{
 annotation|@
 name|Override
 specifier|public
-name|void
-name|stop
+name|boolean
+name|isStopped
 parameter_list|()
 block|{
-comment|// Nothing to do.
+comment|// TODO Auto-generated method stub
+return|return
+literal|false
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|stop
+parameter_list|(
+name|String
+name|why
+parameter_list|)
+block|{
+comment|// TODO Auto-generated method stub
 block|}
 block|}
 comment|/**    * Main to test basic functionality.  Run with clean hadoop 0.20 and hadoop    * 0.21 and cloudera patched hadoop to make sure our shutdown hook handling    * works for all compbinations.    * Pass '-Dhbase.shutdown.hook=false' to test turning off the running of    * shutdown hooks.    * @param args    * @throws IOException    */

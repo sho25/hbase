@@ -17,22 +17,8 @@ name|regionserver
 package|;
 end_package
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HRegionInfo
-import|;
-end_import
-
 begin_comment
-comment|/**  * Add and remove online regions.  */
+comment|/**  * Interface to Map of online regions.  In the  Map, the key is the region's  * encoded name and the value is an {@link HRegion} instance.  */
 end_comment
 
 begin_interface
@@ -40,6 +26,7 @@ interface|interface
 name|OnlineRegions
 block|{
 comment|/**    * Add to online regions.    * @param r    */
+specifier|public
 name|void
 name|addToOnlineRegions
 parameter_list|(
@@ -48,12 +35,22 @@ name|HRegion
 name|r
 parameter_list|)
 function_decl|;
-comment|/**    * This method removes HRegion corresponding to hri from the Map of onlineRegions.    *    * @param hri the HRegionInfo corresponding to the HRegion to-be-removed.    * @return the removed HRegion, or null if the HRegion was not in onlineRegions.    */
-name|HRegion
+comment|/**    * This method removes HRegion corresponding to hri from the Map of onlineRegions.    *    * @param encodedRegionName    * @return True if we removed a region from online list.    */
+specifier|public
+name|boolean
 name|removeFromOnlineRegions
 parameter_list|(
-name|HRegionInfo
-name|hri
+name|String
+name|encodedRegionName
+parameter_list|)
+function_decl|;
+comment|/**    * Return {@link HRegion} instance.    * Only works if caller is in same context, in same JVM. HRegion is not    * serializable.    * @param encodedRegionName    * @return HRegion for the passed encoded<code>encodedRegionName</code> or    * null if named region is not member of the online regions.    */
+specifier|public
+name|HRegion
+name|getFromOnlineRegions
+parameter_list|(
+name|String
+name|encodedRegionName
 parameter_list|)
 function_decl|;
 block|}

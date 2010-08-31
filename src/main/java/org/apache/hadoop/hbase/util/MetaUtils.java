@@ -619,8 +619,6 @@ argument_list|,
 name|this
 operator|.
 name|conf
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -1177,10 +1175,6 @@ name|HRegionInfo
 operator|.
 name|ROOT_REGIONINFO
 argument_list|,
-name|this
-operator|.
-name|rootdir
-argument_list|,
 name|getLog
 argument_list|()
 argument_list|,
@@ -1220,10 +1214,6 @@ operator|.
 name|openHRegion
 argument_list|(
 name|metaInfo
-argument_list|,
-name|this
-operator|.
-name|rootdir
 argument_list|,
 name|getLog
 argument_list|()

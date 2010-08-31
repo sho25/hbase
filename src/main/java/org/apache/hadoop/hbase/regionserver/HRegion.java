@@ -1159,7 +1159,7 @@ name|lastFlushTime
 decl_stmt|;
 specifier|final
 name|FlushRequester
-name|flushListener
+name|flushRequester
 decl_stmt|;
 specifier|private
 specifier|final
@@ -1236,7 +1236,7 @@ literal|null
 expr_stmt|;
 name|this
 operator|.
-name|flushListener
+name|flushRequester
 operator|=
 literal|null
 expr_stmt|;
@@ -1277,7 +1277,7 @@ operator|=
 literal|0L
 expr_stmt|;
 block|}
-comment|/**    * HRegion constructor.  his constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#newHRegion(Path, HLog, FileSystem, Configuration, org.apache.hadoop.hbase.HRegionInfo, FlushRequester)} method.    *    *    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param flushListener an object that implements CacheFlushListener or null    * making progress to master -- otherwise master might think region deploy    * failed.  Can be null.    *    * @see HRegion#newHRegion(Path, HLog, FileSystem, Configuration, org.apache.hadoop.hbase.HRegionInfo, FlushRequester)     */
+comment|/**    * HRegion constructor.  his constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#newHRegion(Path, HLog, FileSystem, Configuration, org.apache.hadoop.hbase.HRegionInfo, FlushRequester)} method.    *    *    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param flushRequester an object that implements {@link FlushRequester} or null    *    * @see HRegion#newHRegion(Path, HLog, FileSystem, Configuration, org.apache.hadoop.hbase.HRegionInfo, FlushRequester)    */
 specifier|public
 name|HRegion
 parameter_list|(
@@ -1297,7 +1297,7 @@ name|HRegionInfo
 name|regionInfo
 parameter_list|,
 name|FlushRequester
-name|flushListener
+name|flushRequester
 parameter_list|)
 block|{
 name|this
@@ -1341,9 +1341,9 @@ name|regionInfo
 expr_stmt|;
 name|this
 operator|.
-name|flushListener
+name|flushRequester
 operator|=
-name|flushListener
+name|flushRequester
 expr_stmt|;
 name|this
 operator|.
@@ -1743,6 +1743,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * @return True if this region has references.    */
+specifier|public
 name|boolean
 name|hasReferences
 parameter_list|()
@@ -3518,7 +3519,11 @@ name|wal
 operator|.
 name|completeCacheFlush
 argument_list|(
-name|getRegionName
+name|this
+operator|.
+name|regionInfo
+operator|.
+name|getEncodedNameAsBytes
 argument_list|()
 argument_list|,
 name|regionInfo
@@ -5886,27 +5891,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|//  /*
-comment|//   * Utility method to verify values length.
-comment|//   * @param batchUpdate The update to verify
-comment|//   * @throws IOException Thrown if a value is too long
-comment|//   */
-comment|//  private void validateValuesLength(Put put)
-comment|//  throws IOException {
-comment|//    Map<byte[], List<KeyValue>> families = put.getFamilyMap();
-comment|//    for(Map.Entry<byte[], List<KeyValue>> entry : families.entrySet()) {
-comment|//      HColumnDescriptor hcd =
-comment|//        this.regionInfo.getTableDesc().getFamily(entry.getKey());
-comment|//      int maxLen = hcd.getMaxValueLength();
-comment|//      for(KeyValue kv : entry.getValue()) {
-comment|//        if(kv.getValueLength()> maxLen) {
-comment|//          throw new ValueOverMaxLengthException("Value in column "
-comment|//            + Bytes.toString(kv.getColumn()) + " is too long. "
-comment|//            + kv.getValueLength() + "> " + maxLen);
-comment|//        }
-comment|//      }
-comment|//    }
-comment|//  }
 comment|/*    * Check if resources to support an update.    *    * Here we synchronize on HRegion, a broad scoped lock.  Its appropriate    * given we're figuring in here whether this region is able to take on    * writes.  This is only method with a synchronize (at time of writing),    * this and the synchronize on 'this' inside in internalFlushCache to send    * the notify.    */
 specifier|private
 name|void
@@ -6547,7 +6531,7 @@ if|if
 condition|(
 name|this
 operator|.
-name|flushListener
+name|flushRequester
 operator|==
 literal|null
 condition|)
@@ -6581,9 +6565,9 @@ block|}
 comment|// Make request outside of synchronize block; HBASE-818.
 name|this
 operator|.
-name|flushListener
+name|flushRequester
 operator|.
-name|request
+name|requestFlush
 argument_list|(
 name|this
 argument_list|)
@@ -7116,14 +7100,14 @@ name|equals
 argument_list|(
 name|key
 operator|.
-name|getRegionName
+name|getEncodedRegionName
 argument_list|()
 argument_list|,
 name|this
 operator|.
 name|regionInfo
 operator|.
-name|getRegionName
+name|getEncodedNameAsBytes
 argument_list|()
 argument_list|)
 condition|)
@@ -9149,8 +9133,6 @@ name|HREGION_OLDLOGDIR_NAME
 argument_list|)
 argument_list|,
 name|conf
-argument_list|,
-literal|null
 argument_list|)
 argument_list|,
 name|fs
@@ -9171,7 +9153,7 @@ return|return
 name|region
 return|;
 block|}
-comment|/**    * Convenience method to open a HRegion outside of an HRegionServer context.    * @param info Info for region to be opened.    * @param rootDir Root directory for HBase instance    * @param log HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf    * @return new HRegion    *    * @throws IOException    */
+comment|/**    * Open a Region.    * @param info Info for region to be opened.    * @param rootDir Root directory for HBase instance    * @param wal HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf    * @return new HRegion    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -9182,16 +9164,56 @@ name|HRegionInfo
 name|info
 parameter_list|,
 specifier|final
-name|Path
-name|rootDir
-parameter_list|,
-specifier|final
 name|HLog
-name|log
+name|wal
 parameter_list|,
 specifier|final
 name|Configuration
 name|conf
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|openHRegion
+argument_list|(
+name|info
+argument_list|,
+name|wal
+argument_list|,
+name|conf
+argument_list|,
+literal|null
+argument_list|,
+literal|null
+argument_list|)
+return|;
+block|}
+comment|/**    * Open a Region.    * @param info Info for region to be opened.    * @param wal HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf    * @param flusher An interface we can request flushes against.    * @param reporter An interface we can report progress against.    * @return new HRegion    *    * @throws IOException    */
+specifier|public
+specifier|static
+name|HRegion
+name|openHRegion
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|info
+parameter_list|,
+specifier|final
+name|HLog
+name|wal
+parameter_list|,
+specifier|final
+name|Configuration
+name|conf
+parameter_list|,
+specifier|final
+name|FlushRequester
+name|flusher
+parameter_list|,
+specifier|final
+name|Progressable
+name|reporter
 parameter_list|)
 throws|throws
 name|IOException
@@ -9229,18 +9251,19 @@ literal|"Passed region info is null"
 argument_list|)
 throw|;
 block|}
-name|HRegion
-name|r
+name|Path
+name|dir
 init|=
-name|HRegion
-operator|.
-name|newHRegion
-argument_list|(
 name|HTableDescriptor
 operator|.
 name|getTableDir
 argument_list|(
-name|rootDir
+name|FSUtils
+operator|.
+name|getRootDir
+argument_list|(
+name|conf
+argument_list|)
 argument_list|,
 name|info
 operator|.
@@ -9250,8 +9273,17 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
+decl_stmt|;
+name|HRegion
+name|r
+init|=
+name|HRegion
+operator|.
+name|newHRegion
+argument_list|(
+name|dir
 argument_list|,
-name|log
+name|wal
 argument_list|,
 name|FileSystem
 operator|.
@@ -9264,24 +9296,48 @@ name|conf
 argument_list|,
 name|info
 argument_list|,
-literal|null
+name|flusher
 argument_list|)
 decl_stmt|;
+return|return
+name|r
+operator|.
+name|openHRegion
+argument_list|(
+name|reporter
+argument_list|)
+return|;
+block|}
+comment|/**    * Open HRegion.    * Calls initialize and sets sequenceid.    * @param reporter    * @return Returns<code>this</code>    * @throws IOException    */
+name|HRegion
+name|openHRegion
+parameter_list|(
+specifier|final
+name|Progressable
+name|reporter
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 name|long
 name|seqid
 init|=
-name|r
-operator|.
 name|initialize
-argument_list|()
+argument_list|(
+name|reporter
+argument_list|)
 decl_stmt|;
-comment|// If seqid> current wal seqid, the wal seqid is updated.
 if|if
 condition|(
+name|this
+operator|.
 name|log
 operator|!=
 literal|null
 condition|)
+block|{
+name|this
+operator|.
 name|log
 operator|.
 name|setSequenceNumber
@@ -9289,8 +9345,9 @@ argument_list|(
 name|seqid
 argument_list|)
 expr_stmt|;
+block|}
 return|return
-name|r
+name|this
 return|;
 block|}
 comment|/**    * Inserts a new region's meta information into the passed    *<code>meta</code> region. Used by the HMaster bootstrap code adding    * new table to ROOT table.    *    * @param meta META HRegion to be updated    * @param r HRegion to add to<code>meta</code>    *    * @throws IOException    */
@@ -12573,8 +12630,6 @@ argument_list|,
 name|oldLogDir
 argument_list|,
 name|c
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 try|try

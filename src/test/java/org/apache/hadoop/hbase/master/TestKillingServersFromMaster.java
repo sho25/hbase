@@ -30,18 +30,6 @@ import|;
 end_import
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -117,22 +105,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MiniHBaseCluster
-operator|.
-name|MiniHBaseClusterRegionServer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|YouAreDeadException
 import|;
 end_import
@@ -147,9 +119,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|MiniHBaseCluster
 operator|.
-name|HRegionServer
+name|MiniHBaseClusterRegionServer
 import|;
 end_import
 

@@ -1506,10 +1506,13 @@ block|{
 name|Path
 name|path
 init|=
+name|getRootDir
+argument_list|(
 name|master
 operator|.
-name|getRootDir
+name|getConfiguration
 argument_list|()
+argument_list|)
 decl_stmt|;
 comment|// since HMaster.getFileSystem() is package private
 name|FileSystem

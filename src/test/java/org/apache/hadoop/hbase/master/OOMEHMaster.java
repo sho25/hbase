@@ -103,6 +103,18 @@ name|HServerInfo
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|KeeperException
+import|;
+end_import
+
 begin_comment
 comment|/**  * An HMaster that runs out of memory.  * Everytime a region server reports in, add to the retained heap of memory.  * Needs to be started manually as in  *<code>${HBASE_HOME}/bin/hbase ./bin/hbase org.apache.hadoop.hbase.OOMEHMaster start/code>.  */
 end_comment
@@ -138,6 +150,10 @@ name|conf
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|KeeperException
+throws|,
+name|InterruptedException
 block|{
 name|super
 argument_list|(
@@ -195,7 +211,7 @@ name|mostLoadedRegions
 argument_list|)
 return|;
 block|}
-comment|/**    * @param args    */
+comment|/**    * @param args    * @throws IOException     */
 specifier|public
 specifier|static
 name|void
@@ -205,6 +221,8 @@ name|String
 index|[]
 name|args
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|doMain
 argument_list|(

@@ -221,6 +221,20 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Stoppable
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -307,11 +321,11 @@ specifier|final
 name|HTablePool
 name|pool
 decl_stmt|;
-comment|// boolean coming from HRS to know when the process stops
+comment|// Chain to pull on when we want all to stop.
 specifier|private
 specifier|final
-name|AtomicBoolean
-name|stop
+name|Stoppable
+name|stopper
 decl_stmt|;
 specifier|private
 specifier|final
@@ -325,7 +339,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|AtomicBoolean
+name|Stoppable
 name|stopper
 parameter_list|)
 throws|throws
@@ -360,7 +374,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|stop
+name|stopper
 operator|=
 name|stopper
 expr_stmt|;
@@ -828,11 +842,16 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|stop
+name|stopper
 operator|.
-name|set
+name|stop
 argument_list|(
-literal|true
+literal|"Unable to accept edit because "
+operator|+
+name|ex
+operator|.
+name|getMessage
+argument_list|()
 argument_list|)
 expr_stmt|;
 throw|throw
@@ -870,11 +889,16 @@ else|else
 block|{
 name|this
 operator|.
-name|stop
+name|stopper
 operator|.
-name|set
+name|stop
 argument_list|(
-literal|true
+literal|"Replication stopped us because "
+operator|+
+name|re
+operator|.
+name|getMessage
+argument_list|()
 argument_list|)
 expr_stmt|;
 throw|throw

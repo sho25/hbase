@@ -707,7 +707,7 @@ name|regions
 init|=
 name|s
 operator|.
-name|getOnlineRegions
+name|getOnlineRegionsLocalContext
 argument_list|()
 decl_stmt|;
 for|for

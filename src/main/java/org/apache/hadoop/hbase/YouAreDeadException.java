@@ -30,6 +30,11 @@ comment|/**  * This exception is thrown by the master when a region server repor
 end_comment
 
 begin_class
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"serial"
+argument_list|)
 specifier|public
 class|class
 name|YouAreDeadException

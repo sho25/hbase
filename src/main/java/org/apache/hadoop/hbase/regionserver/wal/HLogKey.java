@@ -117,10 +117,11 @@ argument_list|<
 name|HLogKey
 argument_list|>
 block|{
+comment|//  The encoded region name.
 specifier|private
 name|byte
 index|[]
-name|regionName
+name|encodedRegionName
 decl_stmt|;
 specifier|private
 name|byte
@@ -159,14 +160,14 @@ name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create the log key!    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *    * @param regionName  - name of region    * @param tablename   - name of table    * @param logSeqNum   - log sequence number    * @param now Time at which this edit was written.    */
+comment|/**    * Create the log key!    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *    * @param encodedRegionName Encoded name of the region as returned by    * {@link HRegionInfo#getEncodedNameAsBytes()}.    * @param tablename   - name of table    * @param logSeqNum   - log sequence number    * @param now Time at which this edit was written.    */
 specifier|public
 name|HLogKey
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|regionName
+name|encodedRegionName
 parameter_list|,
 specifier|final
 name|byte
@@ -183,9 +184,9 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|regionName
+name|encodedRegionName
 operator|=
-name|regionName
+name|encodedRegionName
 expr_stmt|;
 name|this
 operator|.
@@ -214,18 +215,15 @@ operator|.
 name|DEFAULT_CLUSTER_ID
 expr_stmt|;
 block|}
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|// A bunch of accessors
-comment|//////////////////////////////////////////////////////////////////////////////
-comment|/** @return region name */
+comment|/** @return encoded region name */
 specifier|public
 name|byte
 index|[]
-name|getRegionName
+name|getEncodedRegionName
 parameter_list|()
 block|{
 return|return
-name|regionName
+name|encodedRegionName
 return|;
 block|}
 comment|/** @return table name */
@@ -322,7 +320,7 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|regionName
+name|encodedRegionName
 argument_list|)
 operator|+
 literal|"/"
@@ -398,7 +396,7 @@ name|hashCode
 argument_list|(
 name|this
 operator|.
-name|regionName
+name|encodedRegionName
 argument_list|)
 decl_stmt|;
 name|result
@@ -440,11 +438,11 @@ name|compareTo
 argument_list|(
 name|this
 operator|.
-name|regionName
+name|encodedRegionName
 argument_list|,
 name|o
 operator|.
-name|regionName
+name|encodedRegionName
 argument_list|)
 decl_stmt|;
 if|if
@@ -552,7 +550,7 @@ name|out
 argument_list|,
 name|this
 operator|.
-name|regionName
+name|encodedRegionName
 argument_list|)
 expr_stmt|;
 name|Bytes
@@ -606,7 +604,7 @@ name|IOException
 block|{
 name|this
 operator|.
-name|regionName
+name|encodedRegionName
 operator|=
 name|Bytes
 operator|.

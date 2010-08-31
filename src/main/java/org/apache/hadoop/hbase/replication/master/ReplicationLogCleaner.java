@@ -119,25 +119,13 @@ name|hbase
 operator|.
 name|replication
 operator|.
-name|ReplicationZookeeperWrapper
+name|ReplicationZookeeper
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZooKeeperWrapper
-import|;
-end_import
+begin_comment
+comment|// REENALBE import org.apache.hadoop.hbase.zookeeper.ZooKeeperWrapper;
+end_comment
 
 begin_import
 import|import
@@ -250,7 +238,7 @@ name|Configuration
 name|conf
 decl_stmt|;
 specifier|private
-name|ReplicationZookeeperWrapper
+name|ReplicationZookeeper
 name|zkHelper
 decl_stmt|;
 specifier|private
@@ -343,144 +331,31 @@ name|searchedLog
 operator|!=
 literal|null
 decl_stmt|;
-name|List
-argument_list|<
-name|String
-argument_list|>
-name|rss
-init|=
-name|zkHelper
-operator|.
-name|getListOfReplicators
-argument_list|(
-name|this
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|rss
-operator|==
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Didn't find any region server that replicates, deleting: "
-operator|+
-name|searchedLog
-argument_list|)
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
-for|for
-control|(
-name|String
-name|rs
-range|:
-name|rss
-control|)
-block|{
-name|List
-argument_list|<
-name|String
-argument_list|>
-name|listOfPeers
-init|=
-name|zkHelper
-operator|.
-name|getListPeersForRS
-argument_list|(
-name|rs
-argument_list|,
-name|this
-argument_list|)
-decl_stmt|;
-comment|// if rs just died, this will be null
-if|if
-condition|(
-name|listOfPeers
-operator|==
-literal|null
-condition|)
-block|{
-continue|continue;
-block|}
-for|for
-control|(
-name|String
-name|id
-range|:
-name|listOfPeers
-control|)
-block|{
-name|List
-argument_list|<
-name|String
-argument_list|>
-name|peersHlogs
-init|=
-name|zkHelper
-operator|.
-name|getListHLogsForPeerForRS
-argument_list|(
-name|rs
-argument_list|,
-name|id
-argument_list|,
-name|this
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|peersHlogs
-operator|!=
-literal|null
-condition|)
-block|{
-name|this
-operator|.
-name|hlogs
-operator|.
-name|addAll
-argument_list|(
-name|peersHlogs
-argument_list|)
-expr_stmt|;
-block|}
-comment|// early exit if we found the log
-if|if
-condition|(
-name|lookForLog
-operator|&&
-name|this
-operator|.
-name|hlogs
-operator|.
-name|contains
-argument_list|(
-name|searchedLog
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Found log in ZK, keeping: "
-operator|+
-name|searchedLog
-argument_list|)
-expr_stmt|;
-return|return
-literal|true
-return|;
-block|}
-block|}
-block|}
+comment|// REENALBE
+comment|//    List<String> rss = zkHelper.getListOfReplicators(this);
+comment|//    if (rss == null) {
+comment|//      LOG.debug("Didn't find any region server that replicates, deleting: " +
+comment|//          searchedLog);
+comment|//      return false;
+comment|//    }
+comment|//    for (String rs: rss) {
+comment|//      List<String> listOfPeers = zkHelper.getListPeersForRS(rs, this);
+comment|//      // if rs just died, this will be null
+comment|//      if (listOfPeers == null) {
+comment|//        continue;
+comment|//      }
+comment|//      for (String id : listOfPeers) {
+comment|//        List<String> peersHlogs = zkHelper.getListHLogsForPeerForRS(rs, id, this);
+comment|//        if (peersHlogs != null) {
+comment|//          this.hlogs.addAll(peersHlogs);
+comment|//        }
+comment|//        // early exit if we found the log
+comment|//        if(lookForLog&& this.hlogs.contains(searchedLog)) {
+comment|//          LOG.debug("Found log in ZK, keeping: " + searchedLog);
+comment|//          return true;
+comment|//        }
+comment|//      }
+comment|//    }
 name|LOG
 operator|.
 name|debug
@@ -510,59 +385,15 @@ name|conf
 operator|=
 name|conf
 expr_stmt|;
-try|try
-block|{
-name|this
-operator|.
-name|zkHelper
-operator|=
-operator|new
-name|ReplicationZookeeperWrapper
-argument_list|(
-name|ZooKeeperWrapper
-operator|.
-name|createInstance
-argument_list|(
-name|this
-operator|.
-name|conf
-argument_list|,
-name|HMaster
-operator|.
-name|class
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-argument_list|,
-name|this
-operator|.
-name|conf
-argument_list|,
-operator|new
-name|AtomicBoolean
-argument_list|(
-literal|true
-argument_list|)
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-name|e
-argument_list|)
-expr_stmt|;
-block|}
+comment|//    try {
+comment|// REENABLE
+comment|//      this.zkHelper = new ReplicationZookeeperWrapper(
+comment|//          ZooKeeperWrapper.createInstance(this.conf,
+comment|//              HMaster.class.getName()),
+comment|//          this.conf, new AtomicBoolean(true), null);
+comment|//    } catch (IOException e) {
+comment|//      LOG.error(e);
+comment|//    }
 name|refreshHLogsAndSearch
 argument_list|(
 literal|null

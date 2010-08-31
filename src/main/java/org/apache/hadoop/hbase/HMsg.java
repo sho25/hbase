@@ -76,7 +76,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HMsg is for communicating instructions between the HMaster and the  * HRegionServers.  *  * Most of the time the messages are simple but some messages are accompanied  * by the region affected.  HMsg may also carry optional message.  */
+comment|/**  * HMsg is used to send messages between master and regionservers.  Messages are  * sent as payload on the regionserver-to-master heartbeats.  Region assignment  * does not use this mechanism.  It goes via zookeeper.  *  *<p>Most of the time the messages are simple but some messages are accompanied  * by the region affected.  HMsg may also carry an optional message.  *   *<p>TODO: Clean out all messages that go from master to regionserver; by  * design, these are to go via zk from here on out.  */
 end_comment
 
 begin_class
@@ -90,29 +90,21 @@ specifier|public
 specifier|static
 specifier|final
 name|HMsg
-name|REGIONSERVER_QUIESCE
+index|[]
+name|STOP_REGIONSERVER_ARRAY
 init|=
+operator|new
+name|HMsg
+index|[]
+block|{
 operator|new
 name|HMsg
 argument_list|(
 name|Type
 operator|.
-name|MSG_REGIONSERVER_QUIESCE
+name|STOP_REGIONSERVER
 argument_list|)
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|HMsg
-name|REGIONSERVER_STOP
-init|=
-operator|new
-name|HMsg
-argument_list|(
-name|Type
-operator|.
-name|MSG_REGIONSERVER_STOP
-argument_list|)
+block|}
 decl_stmt|;
 specifier|public
 specifier|static
@@ -127,67 +119,19 @@ index|[
 literal|0
 index|]
 decl_stmt|;
-comment|/**    * Message types sent between master and regionservers    */
 specifier|public
 specifier|static
 enum|enum
 name|Type
 block|{
-comment|/** null message */
-name|MSG_NONE
+comment|/** Master tells region server to stop.      */
+name|STOP_REGIONSERVER
 block|,
-comment|// Message types sent from master to region server
-comment|/** Start serving the specified region */
-name|MSG_REGION_OPEN
-block|,
-comment|/** Stop serving the specified region */
-name|MSG_REGION_CLOSE
-block|,
-comment|/** Split the specified region */
-name|MSG_REGION_SPLIT
-block|,
-comment|/** Compact the specified region */
-name|MSG_REGION_COMPACT
-block|,
-comment|/** Master tells region server to stop */
-name|MSG_REGIONSERVER_STOP
-block|,
-comment|/** Stop serving the specified region and don't report back that it's      * closed      */
-name|MSG_REGION_CLOSE_WITHOUT_REPORT
-block|,
-comment|/** Stop serving user regions */
-name|MSG_REGIONSERVER_QUIESCE
-block|,
-comment|// Message types sent from the region server to the master
-comment|/** region server is now serving the specified region */
-name|MSG_REPORT_OPEN
-block|,
-comment|/** region server is no longer serving the specified region */
-name|MSG_REPORT_CLOSE
-block|,
-comment|/** region server is processing open request */
-name|MSG_REPORT_PROCESS_OPEN
-block|,
-comment|/**      * Region server split the region associated with this message.      *      * Note that this message is immediately followed by two MSG_REPORT_OPEN      * messages, one for each of the new regions resulting from the split      * @deprecated See MSG_REPORT_SPLIT_INCLUDES_DAUGHTERS      */
-name|MSG_REPORT_SPLIT
-block|,
-comment|/**      * Region server is shutting down      *      * Note that this message is followed by MSG_REPORT_CLOSE messages for each      * region the region server was serving, unless it was told to quiesce.      */
-name|MSG_REPORT_EXITING
-block|,
-comment|/** Region server has closed all user regions but is still serving meta      * regions      */
-name|MSG_REPORT_QUIESCED
-block|,
-comment|/**      * Flush      */
-name|MSG_REGION_FLUSH
-block|,
-comment|/**      * Run Major Compaction      */
-name|MSG_REGION_MAJOR_COMPACT
-block|,
-comment|/**      * Region server split the region associated with this message.      *      * Its like MSG_REPORT_SPLIT only it carries the daughters in the message      * rather than send them individually in MSG_REPORT_OPEN messages.      */
-name|MSG_REPORT_SPLIT_INCLUDES_DAUGHTERS
+comment|/**      * Region server split the region associated with this message.      */
+name|REGION_SPLIT
 block|,
 comment|/**      * When RegionServer receives this message, it goes into a sleep that only      * an exit will cure.  This message is sent by unit tests simulating      * pathological states.      */
-name|TESTING_MSG_BLOCK_RS
+name|TESTING_BLOCK_REGIONSERVER
 block|,   }
 specifier|private
 name|Type
@@ -227,9 +171,7 @@ parameter_list|()
 block|{
 name|this
 argument_list|(
-name|Type
-operator|.
-name|MSG_NONE
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -343,21 +285,6 @@ index|[]
 name|msg
 parameter_list|)
 block|{
-if|if
-condition|(
-name|type
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|NullPointerException
-argument_list|(
-literal|"Message type cannot be null"
-argument_list|)
-throw|;
-block|}
 name|this
 operator|.
 name|type
@@ -823,7 +750,7 @@ name|equals
 argument_list|(
 name|Type
 operator|.
-name|MSG_REPORT_SPLIT_INCLUDES_DAUGHTERS
+name|REGION_SPLIT
 argument_list|)
 condition|)
 block|{
@@ -924,7 +851,7 @@ name|equals
 argument_list|(
 name|Type
 operator|.
-name|MSG_REPORT_SPLIT_INCLUDES_DAUGHTERS
+name|REGION_SPLIT
 argument_list|)
 condition|)
 block|{

@@ -209,6 +209,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ZooKeeperConnectionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|MetaScanner
@@ -342,18 +356,6 @@ operator|.
 name|util
 operator|.
 name|TreeMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|Executors
 import|;
 end_import
 
@@ -518,11 +520,6 @@ specifier|private
 name|int
 name|maxKeyValueSize
 decl_stmt|;
-specifier|private
-name|ExecutorService
-name|pool
-decl_stmt|;
-comment|// For Multi
 specifier|private
 name|long
 name|maxScannerResultSize
@@ -766,6 +763,25 @@ literal|1
 argument_list|)
 expr_stmt|;
 name|int
+name|nrHRS
+init|=
+name|getCurrentNrHRS
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|nrHRS
+operator|==
+literal|0
+condition|)
+block|{
+comment|// No servers running -- set default of 10 threads.
+name|nrHRS
+operator|=
+literal|10
+expr_stmt|;
+block|}
+name|int
 name|nrThreads
 init|=
 name|conf
@@ -774,23 +790,9 @@ name|getInt
 argument_list|(
 literal|"hbase.htable.threads.max"
 argument_list|,
-name|getCurrentNrHRS
-argument_list|()
+name|nrHRS
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|nrThreads
-operator|==
-literal|0
-condition|)
-block|{
-name|nrThreads
-operator|=
-literal|1
-expr_stmt|;
-comment|// is there a better default?
-block|}
 comment|// Unfortunately Executors.newCachedThreadPool does not allow us to
 comment|// set the maximum size of the pool, so we have to do it ourselves.
 name|this
@@ -839,23 +841,32 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-return|return
-name|HConnectionManager
-operator|.
-name|getClientZooKeeperWatcher
+name|HBaseAdmin
+name|admin
+init|=
+operator|new
+name|HBaseAdmin
 argument_list|(
 name|this
 operator|.
 name|configuration
 argument_list|)
+decl_stmt|;
+return|return
+name|admin
 operator|.
-name|getZooKeeperWrapper
+name|getClusterStatus
 argument_list|()
 operator|.
-name|getRSDirectoryCount
+name|getServers
 argument_list|()
 return|;
 block|}
+comment|// For multiput
+specifier|private
+name|ExecutorService
+name|pool
+decl_stmt|;
 comment|/**    * Tells whether or not a table is enabled or not.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 specifier|static
@@ -1965,89 +1976,6 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Method that does a batch call on Deletes, Gets and Puts.    *    * @param actions list of Get, Put, Delete objects    * @param results Empty Result[], same size as actions. Provides access to partial    * results, in case an exception is thrown. A null in the result array means that    * the call for that action failed, even after retries    * @throws IOException    */
-specifier|public
-specifier|synchronized
-name|void
-name|batch
-parameter_list|(
-specifier|final
-name|List
-argument_list|<
-name|Row
-argument_list|>
-name|actions
-parameter_list|,
-specifier|final
-name|Result
-index|[]
-name|results
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|connection
-operator|.
-name|processBatch
-argument_list|(
-name|actions
-argument_list|,
-name|tableName
-argument_list|,
-name|pool
-argument_list|,
-name|results
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Method that does a batch call on Deletes, Gets and Puts.    *     * @param actions list of Get, Put, Delete objects    * @return the results from the actions. A null in the return array means that    * the call for that action failed, even after retries    * @throws IOException    */
-specifier|public
-specifier|synchronized
-name|Result
-index|[]
-name|batch
-parameter_list|(
-specifier|final
-name|List
-argument_list|<
-name|Row
-argument_list|>
-name|actions
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|Result
-index|[]
-name|results
-init|=
-operator|new
-name|Result
-index|[
-name|actions
-operator|.
-name|size
-argument_list|()
-index|]
-decl_stmt|;
-name|connection
-operator|.
-name|processBatch
-argument_list|(
-name|actions
-argument_list|,
-name|tableName
-argument_list|,
-name|pool
-argument_list|,
-name|results
-argument_list|)
-expr_stmt|;
-return|return
-name|results
-return|;
-block|}
-comment|/**    * Deletes the specified cells/row.    *     * @param delete The object that specifies what to delete.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
 specifier|public
 name|void
 name|delete
@@ -2110,7 +2038,6 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Deletes the specified cells/rows in bulk.    * @param deletes List of things to delete. As a side effect, it will be modified:    * successful {@link Delete}s are removed. The ordering of the list will not change.     * @throws IOException if a remote or network exception occurs. In that case    * the {@code deletes} argument will contain the {@link Delete} instances    * that have not be successfully applied.    * @since 0.20.1    */
 specifier|public
 name|void
 name|delete
@@ -2125,76 +2052,41 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Result
-index|[]
-name|results
+name|int
+name|last
 init|=
-operator|new
-name|Result
-index|[
-name|deletes
-operator|.
-name|size
-argument_list|()
-index|]
+literal|0
 decl_stmt|;
+try|try
+block|{
+name|last
+operator|=
 name|connection
 operator|.
-name|processBatch
+name|processBatchOfDeletes
 argument_list|(
-operator|(
-name|List
-operator|)
 name|deletes
 argument_list|,
+name|this
+operator|.
 name|tableName
-argument_list|,
-name|pool
-argument_list|,
-name|results
-argument_list|)
-expr_stmt|;
-comment|// mutate list so that it is empty for complete success, or contains only failed records
-comment|// results are returned in the same order as the requests in list
-comment|// walk the list backwards, so we can remove from list without impacting the indexes of earlier members
-for|for
-control|(
-name|int
-name|i
-init|=
-name|results
-operator|.
-name|length
-operator|-
-literal|1
-init|;
-name|i
-operator|>=
-literal|0
-condition|;
-name|i
-operator|--
-control|)
-block|{
-comment|// if result is not null, it succeeded
-if|if
-condition|(
-name|results
-index|[
-name|i
-index|]
-operator|!=
-literal|null
-condition|)
-block|{
-name|deletes
-operator|.
-name|remove
-argument_list|(
-name|i
 argument_list|)
 expr_stmt|;
 block|}
+finally|finally
+block|{
+name|deletes
+operator|.
+name|subList
+argument_list|(
+literal|0
+argument_list|,
+name|last
+argument_list|)
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 specifier|public
@@ -2336,13 +2228,6 @@ literal|true
 argument_list|)
 return|;
 block|}
-annotation|@
-name|SuppressWarnings
-argument_list|(
-block|{
-literal|"ThrowableInstanceNeverThrown"
-block|}
-argument_list|)
 specifier|public
 name|long
 name|incrementColumnValue
@@ -2731,7 +2616,6 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Executes all the buffered {@link Put} operations.    *<p>    * This method gets called once automatically for every {@link Put} or batch    * of {@link Put}s (when {@link #batch(List)} is used) when    * {@link #isAutoFlush()} is {@code true}.    * @throws IOException if a remote or network exception occurs.    */
 specifier|public
 name|void
 name|flushCommits
@@ -4394,6 +4278,7 @@ operator|.
 name|isDaemon
 argument_list|()
 condition|)
+block|{
 name|t
 operator|.
 name|setDaemon
@@ -4401,6 +4286,7 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|t
@@ -4412,6 +4298,7 @@ name|Thread
 operator|.
 name|NORM_PRIORITY
 condition|)
+block|{
 name|t
 operator|.
 name|setPriority
@@ -4421,12 +4308,13 @@ operator|.
 name|NORM_PRIORITY
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|t
 return|;
 block|}
 block|}
-comment|/**    * Enable or disable region cache prefetch for the table. It will be    * applied for the given table's all HTable instances who share the same    * connection. By default, the cache prefetch is enabled.    * @param tableName name of table to configure.    * @param enable Set to true to enable region cache prefetch. Or set to    * false to disable it.    */
+comment|/**    * Enable or disable region cache prefetch for the table. It will be    * applied for the given table's all HTable instances who share the same    * connection. By default, the cache prefetch is enabled.    * @param tableName name of table to configure.    * @param enable Set to true to enable region cache prefetch. Or set to    * false to disable it.    * @throws ZooKeeperConnectionException    */
 specifier|public
 specifier|static
 name|void
@@ -4440,6 +4328,8 @@ parameter_list|,
 name|boolean
 name|enable
 parameter_list|)
+throws|throws
+name|ZooKeeperConnectionException
 block|{
 name|HConnectionManager
 operator|.
@@ -4459,7 +4349,7 @@ name|enable
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Enable or disable region cache prefetch for the table. It will be    * applied for the given table's all HTable instances who share the same    * connection. By default, the cache prefetch is enabled.    * @param conf The Configuration object to use.    * @param tableName name of table to configure.    * @param enable Set to true to enable region cache prefetch. Or set to    * false to disable it.    */
+comment|/**    * Enable or disable region cache prefetch for the table. It will be    * applied for the given table's all HTable instances who share the same    * connection. By default, the cache prefetch is enabled.    * @param conf The Configuration object to use.    * @param tableName name of table to configure.    * @param enable Set to true to enable region cache prefetch. Or set to    * false to disable it.    * @throws ZooKeeperConnectionException    */
 specifier|public
 specifier|static
 name|void
@@ -4477,6 +4367,8 @@ parameter_list|,
 name|boolean
 name|enable
 parameter_list|)
+throws|throws
+name|ZooKeeperConnectionException
 block|{
 name|HConnectionManager
 operator|.
@@ -4493,7 +4385,7 @@ name|enable
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Check whether region cache prefetch is enabled or not for the table.    * @param conf The Configuration object to use.    * @param tableName name of table to check    * @return true if table's region cache prefecth is enabled. Otherwise    * it is disabled.    */
+comment|/**    * Check whether region cache prefetch is enabled or not for the table.    * @param conf The Configuration object to use.    * @param tableName name of table to check    * @return true if table's region cache prefecth is enabled. Otherwise    * it is disabled.    * @throws ZooKeeperConnectionException    */
 specifier|public
 specifier|static
 name|boolean
@@ -4508,6 +4400,8 @@ name|byte
 index|[]
 name|tableName
 parameter_list|)
+throws|throws
+name|ZooKeeperConnectionException
 block|{
 return|return
 name|HConnectionManager
@@ -4523,7 +4417,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Check whether region cache prefetch is enabled or not for the table.    * @param tableName name of table to check    * @return true if table's region cache prefecth is enabled. Otherwise    * it is disabled.    */
+comment|/**    * Check whether region cache prefetch is enabled or not for the table.    * @param tableName name of table to check    * @return true if table's region cache prefecth is enabled. Otherwise    * it is disabled.    * @throws ZooKeeperConnectionException    */
 specifier|public
 specifier|static
 name|boolean
@@ -4534,6 +4428,8 @@ name|byte
 index|[]
 name|tableName
 parameter_list|)
+throws|throws
+name|ZooKeeperConnectionException
 block|{
 return|return
 name|HConnectionManager

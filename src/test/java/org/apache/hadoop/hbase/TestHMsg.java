@@ -158,7 +158,7 @@ name|HMsg
 operator|.
 name|Type
 operator|.
-name|MSG_REGION_OPEN
+name|STOP_REGIONSERVER
 argument_list|,
 operator|new
 name|HRegionInfo
@@ -255,7 +255,7 @@ name|HMsg
 operator|.
 name|Type
 operator|.
-name|MSG_REGION_OPEN
+name|STOP_REGIONSERVER
 argument_list|,
 operator|new
 name|HRegionInfo
@@ -311,7 +311,7 @@ name|HMsg
 operator|.
 name|Type
 operator|.
-name|MSG_REGION_OPEN
+name|STOP_REGIONSERVER
 argument_list|,
 operator|new
 name|HRegionInfo
@@ -421,7 +421,7 @@ name|HMsg
 operator|.
 name|Type
 operator|.
-name|MSG_REGION_CLOSE
+name|STOP_REGIONSERVER
 argument_list|,
 name|parent
 argument_list|)
@@ -519,7 +519,7 @@ name|HMsg
 operator|.
 name|Type
 operator|.
-name|MSG_REPORT_SPLIT_INCLUDES_DAUGHTERS
+name|REGION_SPLIT
 argument_list|,
 name|parent
 argument_list|,
@@ -531,7 +531,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"split"
+literal|"REGION_SPLIT"
 argument_list|)
 argument_list|)
 decl_stmt|;

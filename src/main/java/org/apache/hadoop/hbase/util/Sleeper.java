@@ -47,15 +47,15 @@ end_import
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|util
+name|apache
 operator|.
-name|concurrent
+name|hadoop
 operator|.
-name|atomic
+name|hbase
 operator|.
-name|AtomicBoolean
+name|Stoppable
 import|;
 end_import
 
@@ -93,8 +93,8 @@ name|period
 decl_stmt|;
 specifier|private
 specifier|final
-name|AtomicBoolean
-name|stop
+name|Stoppable
+name|stopper
 decl_stmt|;
 specifier|private
 specifier|static
@@ -119,7 +119,7 @@ name|triggerWake
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * @param sleep sleep time in milliseconds    * @param stop flag for when we stop    */
+comment|/**    * @param sleep sleep time in milliseconds    * @param stopper When {@link Stoppable#isStopped()} is true, this thread will    * cleanup and exit cleanly.    */
 specifier|public
 name|Sleeper
 parameter_list|(
@@ -128,8 +128,8 @@ name|int
 name|sleep
 parameter_list|,
 specifier|final
-name|AtomicBoolean
-name|stop
+name|Stoppable
+name|stopper
 parameter_list|)
 block|{
 name|this
@@ -140,9 +140,9 @@ name|sleep
 expr_stmt|;
 name|this
 operator|.
-name|stop
+name|stopper
 operator|=
-name|stop
+name|stopper
 expr_stmt|;
 block|}
 comment|/**    * Sleep for period.    */
@@ -196,9 +196,9 @@ if|if
 condition|(
 name|this
 operator|.
-name|stop
+name|stopper
 operator|.
-name|get
+name|isStopped
 argument_list|()
 condition|)
 block|{
@@ -356,9 +356,9 @@ if|if
 condition|(
 name|this
 operator|.
-name|stop
+name|stopper
 operator|.
-name|get
+name|isStopped
 argument_list|()
 condition|)
 block|{

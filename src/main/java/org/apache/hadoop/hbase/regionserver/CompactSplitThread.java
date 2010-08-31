@@ -162,10 +162,13 @@ comment|/**  * Compact region on request and then run split if appropriate  */
 end_comment
 
 begin_class
+specifier|public
 class|class
 name|CompactSplitThread
 extends|extends
 name|Thread
+implements|implements
+name|CompactionRequestor
 block|{
 specifier|static
 specifier|final
@@ -263,7 +266,8 @@ name|conf
 operator|=
 name|server
 operator|.
-name|conf
+name|getConfiguration
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -310,7 +314,7 @@ name|this
 operator|.
 name|server
 operator|.
-name|isStopRequested
+name|isStopped
 argument_list|()
 condition|)
 block|{
@@ -347,7 +351,7 @@ name|this
 operator|.
 name|server
 operator|.
-name|isStopRequested
+name|isStopped
 argument_list|()
 condition|)
 block|{
@@ -395,7 +399,7 @@ name|this
 operator|.
 name|server
 operator|.
-name|isStopRequested
+name|isStopped
 argument_list|()
 condition|)
 block|{
@@ -529,11 +533,10 @@ literal|" exiting"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param r HRegion store belongs to    * @param why Why compaction requested -- used in debug messages    */
 specifier|public
 specifier|synchronized
 name|void
-name|compactionRequested
+name|requestCompaction
 parameter_list|(
 specifier|final
 name|HRegion
@@ -544,7 +547,7 @@ name|String
 name|why
 parameter_list|)
 block|{
-name|compactionRequested
+name|requestCompaction
 argument_list|(
 name|r
 argument_list|,
@@ -558,7 +561,7 @@ comment|/**    * @param r HRegion store belongs to    * @param force Whether nex
 specifier|public
 specifier|synchronized
 name|void
-name|compactionRequested
+name|requestCompaction
 parameter_list|(
 specifier|final
 name|HRegion
@@ -579,9 +582,7 @@ name|this
 operator|.
 name|server
 operator|.
-name|stopRequested
-operator|.
-name|get
+name|isStopped
 argument_list|()
 condition|)
 block|{
@@ -732,6 +733,10 @@ argument_list|(
 name|this
 operator|.
 name|server
+argument_list|,
+name|this
+operator|.
+name|server
 argument_list|)
 expr_stmt|;
 block|}
@@ -854,6 +859,9 @@ name|parent
 operator|.
 name|getRegionInfo
 argument_list|()
+operator|.
+name|getRegionNameAsString
+argument_list|()
 operator|+
 literal|", new regions: "
 operator|+
@@ -861,12 +869,18 @@ name|st
 operator|.
 name|getFirstDaughter
 argument_list|()
+operator|.
+name|getRegionNameAsString
+argument_list|()
 operator|+
 literal|", "
 operator|+
 name|st
 operator|.
 name|getSecondDaughter
+argument_list|()
+operator|.
+name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|". Split took "

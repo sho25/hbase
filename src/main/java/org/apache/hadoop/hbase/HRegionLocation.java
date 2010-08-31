@@ -29,6 +29,7 @@ argument_list|<
 name|HRegionLocation
 argument_list|>
 block|{
+comment|// TODO: Is this class necessary?  Why not just have a Pair?
 specifier|private
 name|HRegionInfo
 name|regionInfo

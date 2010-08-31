@@ -142,7 +142,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * @deprecated Use MultiAction instead  * Data type class for putting multiple regions worth of puts in one RPC.  */
+comment|/**  * Data type class for putting multiple regions worth of puts in one RPC.  */
 end_comment
 
 begin_class

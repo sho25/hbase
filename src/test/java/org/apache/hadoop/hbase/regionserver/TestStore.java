@@ -916,8 +916,6 @@ argument_list|,
 name|oldLogDir
 argument_list|,
 name|conf
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|HRegion

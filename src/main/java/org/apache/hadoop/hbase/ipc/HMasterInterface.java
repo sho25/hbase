@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -55,7 +65,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HConstants
+name|HTableDescriptor
 import|;
 end_import
 
@@ -69,31 +79,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Writable
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
+name|UnknownRegionException
 import|;
 end_import
 
@@ -160,7 +146,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modifies an existing column on the specified table    * @param tableName table name    * @param columnName name of the column to edit    * @param descriptor new column descriptor    * @throws IOException e    */
+comment|/**    * Modifies an existing column on the specified table    * @param tableName table name    * @param descriptor new column descriptor    * @throws IOException e    */
 specifier|public
 name|void
 name|modifyColumn
@@ -169,11 +155,6 @@ specifier|final
 name|byte
 index|[]
 name|tableName
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|columnName
 parameter_list|,
 name|HColumnDescriptor
 name|descriptor
@@ -225,7 +206,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify a table's metadata    *    * @param tableName table to modify    * @param op the operation to do    * @param args arguments for operation    * @throws IOException e    */
+comment|/**    * Modify a table's metadata    *    * @param tableName table to modify    * @param htd new descriptor for table    * @throws IOException e    */
 specifier|public
 name|void
 name|modifyTable
@@ -234,14 +215,8 @@ name|byte
 index|[]
 name|tableName
 parameter_list|,
-name|HConstants
-operator|.
-name|Modify
-name|op
-parameter_list|,
-name|Writable
-index|[]
-name|args
+name|HTableDescriptor
+name|htd
 parameter_list|)
 throws|throws
 name|IOException
@@ -254,11 +229,47 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Stop HBase Master only.    * Does not shutdown the cluster.    * @throws IOException e    */
+specifier|public
+name|void
+name|stopMaster
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Return cluster status.    * @return status object    */
 specifier|public
 name|ClusterStatus
 name|getClusterStatus
 parameter_list|()
+function_decl|;
+comment|/**    * Move the region<code>r</code> to<code>dest</code>.    * @param encodedRegionName The encoded region name.    * @param destServerName The servername of the destination regionserver    * @throws UnknownRegionException Thrown if we can't find a region named    *<code>encodedRegionName</code>    */
+specifier|public
+name|void
+name|move
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|encodedRegionName
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|destServerName
+parameter_list|)
+throws|throws
+name|UnknownRegionException
+function_decl|;
+comment|/**    * @param b If true, enable balancer. If false, disable balancer.    * @return Previous balancer value    */
+specifier|public
+name|boolean
+name|balance
+parameter_list|(
+specifier|final
+name|boolean
+name|b
+parameter_list|)
 function_decl|;
 block|}
 end_interface

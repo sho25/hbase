@@ -571,6 +571,38 @@ operator|==
 literal|null
 argument_list|)
 expr_stmt|;
+comment|// Split 0 times should throw IAE
+try|try
+block|{
+name|parts
+operator|=
+name|Bytes
+operator|.
+name|split
+argument_list|(
+name|low
+argument_list|,
+name|high
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"Should not be able to split 0 times"
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IllegalArgumentException
+name|iae
+parameter_list|)
+block|{
+comment|// Correct
+block|}
 block|}
 specifier|public
 name|void

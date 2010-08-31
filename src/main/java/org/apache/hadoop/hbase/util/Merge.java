@@ -1672,10 +1672,6 @@ name|openHRegion
 argument_list|(
 name|info1
 argument_list|,
-name|this
-operator|.
-name|rootdir
-argument_list|,
 name|log
 argument_list|,
 name|getConf
@@ -1692,10 +1688,6 @@ operator|.
 name|openHRegion
 argument_list|(
 name|info2
-argument_list|,
-name|this
-operator|.
-name|rootdir
 argument_list|,
 name|log
 argument_list|,

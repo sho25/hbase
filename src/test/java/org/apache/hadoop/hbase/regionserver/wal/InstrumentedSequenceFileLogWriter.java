@@ -93,7 +93,7 @@ operator|.
 name|getKey
 argument_list|()
 operator|.
-name|getRegionName
+name|getEncodedRegionName
 argument_list|()
 argument_list|,
 literal|"break"

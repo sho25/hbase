@@ -17,20 +17,6 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicBoolean
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -74,7 +60,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Chore is a task performed on a period in hbase.  The chore is run in its own  * thread. This base abstract class provides while loop and sleeping facility.  * If an unhandled exception, the threads exit is logged.  * Implementers just need to add checking if there is work to be done and if  * so, do it.  Its the base of most of the chore threads in hbase.  *  * Don't subclass Chore if the task relies on being woken up for something to  * do, such as an entry being added to a queue, etc.  */
+comment|/**  * Chore is a task performed on a period in hbase.  The chore is run in its own  * thread. This base abstract class provides while loop and sleeping facility.  * If an unhandled exception, the threads exit is logged.  * Implementers just need to add checking if there is work to be done and if  * so, do it.  Its the base of most of the chore threads in hbase.  *  *<p>Don't subclass Chore if the task relies on being woken up for something to  * do, such as an entry being added to a queue, etc.  */
 end_comment
 
 begin_class
@@ -106,11 +92,11 @@ name|Sleeper
 name|sleeper
 decl_stmt|;
 specifier|protected
-specifier|volatile
-name|AtomicBoolean
-name|stop
+specifier|final
+name|Stoppable
+name|stopper
 decl_stmt|;
-comment|/**    * @param p Period at which we should run.  Will be adjusted appropriately    * should we find work and it takes time to complete.    * @param s When this flag is set to true, this thread will cleanup and exit    * cleanly.    */
+comment|/**    * @param p Period at which we should run.  Will be adjusted appropriately    * should we find work and it takes time to complete.    * @param stopper When {@link Stoppable#isStopped()} is true, this thread will    * cleanup and exit cleanly.    */
 specifier|public
 name|Chore
 parameter_list|(
@@ -122,8 +108,8 @@ name|int
 name|p
 parameter_list|,
 specifier|final
-name|AtomicBoolean
-name|s
+name|Stoppable
+name|stopper
 parameter_list|)
 block|{
 name|super
@@ -140,14 +126,14 @@ name|Sleeper
 argument_list|(
 name|p
 argument_list|,
-name|s
+name|stopper
 argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|stop
+name|stopper
 operator|=
-name|s
+name|stopper
 expr_stmt|;
 block|}
 comment|/**    * @see java.lang.Thread#run()    */
@@ -170,9 +156,9 @@ condition|(
 operator|!
 name|this
 operator|.
-name|stop
+name|stopper
 operator|.
-name|get
+name|isStopped
 argument_list|()
 condition|)
 block|{
@@ -224,9 +210,9 @@ if|if
 condition|(
 name|this
 operator|.
-name|stop
+name|stopper
 operator|.
-name|get
+name|isStopped
 argument_list|()
 condition|)
 block|{
@@ -254,18 +240,12 @@ name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"Caught error. Starting shutdown."
+name|getName
+argument_list|()
+operator|+
+literal|"error"
 argument_list|,
 name|t
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|stop
-operator|.
-name|set
-argument_list|(
-literal|true
 argument_list|)
 expr_stmt|;
 block|}

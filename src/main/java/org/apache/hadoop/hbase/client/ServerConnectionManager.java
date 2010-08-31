@@ -31,6 +31,20 @@ name|Configuration
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ZooKeeperConnectionException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Used by server processes to expose HServerConnection method  * so can call HConnectionManager#setRootRegionLocation  */
 end_comment
@@ -47,7 +61,7 @@ specifier|private
 name|ServerConnectionManager
 parameter_list|()
 block|{}
-comment|/**    * Get the connection object for the instance specified by the configuration    * If no current connection exists, create a new connection for that instance    * @param conf configuration    * @return HConnection object for the instance specified by the configuration    */
+comment|/**    * Get the connection object for the instance specified by the configuration    * If no current connection exists, create a new connection for that instance    * @param conf configuration    * @return HConnection object for the instance specified by the configuration    * @throws ZooKeeperConnectionException    */
 specifier|public
 specifier|static
 name|ServerConnection
@@ -56,6 +70,8 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|)
+throws|throws
+name|ZooKeeperConnectionException
 block|{
 return|return
 operator|(

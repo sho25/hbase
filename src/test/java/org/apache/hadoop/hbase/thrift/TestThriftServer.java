@@ -338,7 +338,11 @@ operator|new
 name|ThriftServer
 operator|.
 name|HBaseHandler
-argument_list|()
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
 decl_stmt|;
 comment|// Create/enable/disable/delete tables, ensure methods act correctly
 name|assertEquals
@@ -533,7 +537,11 @@ operator|new
 name|ThriftServer
 operator|.
 name|HBaseHandler
-argument_list|()
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
 decl_stmt|;
 name|handler
 operator|.
@@ -947,7 +955,11 @@ operator|new
 name|ThriftServer
 operator|.
 name|HBaseHandler
-argument_list|()
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
 decl_stmt|;
 name|handler
 operator|.
@@ -1465,7 +1477,11 @@ operator|new
 name|ThriftServer
 operator|.
 name|HBaseHandler
-argument_list|()
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
 decl_stmt|;
 name|handler
 operator|.

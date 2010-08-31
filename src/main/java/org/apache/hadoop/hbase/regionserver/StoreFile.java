@@ -1338,24 +1338,6 @@ name|long
 name|getMaxSequenceId
 parameter_list|()
 block|{
-if|if
-condition|(
-name|this
-operator|.
-name|sequenceid
-operator|==
-operator|-
-literal|1
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalAccessError
-argument_list|(
-literal|"Has not been initialized"
-argument_list|)
-throw|;
-block|}
 return|return
 name|this
 operator|.
@@ -1801,6 +1783,21 @@ name|mc
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+else|else
+block|{
+comment|// Presume it is not major compacted if it doesn't explicity say so
+comment|// HFileOutputFormat explicitly sets the major compacted key.
+name|this
+operator|.
+name|majorCompaction
+operator|=
+operator|new
+name|AtomicBoolean
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 block|}
 if|if
 condition|(

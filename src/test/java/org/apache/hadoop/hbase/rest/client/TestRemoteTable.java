@@ -615,6 +615,8 @@ init|=
 operator|new
 name|HTable
 argument_list|(
+name|conf
+argument_list|,
 name|TABLE
 argument_list|)
 decl_stmt|;

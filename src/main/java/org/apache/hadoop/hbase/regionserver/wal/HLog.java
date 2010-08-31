@@ -321,6 +321,18 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|ThreadFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|ThreadPoolExecutor
 import|;
 end_import
@@ -737,6 +749,20 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -747,7 +773,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|NamingThreadFactory
+name|ThreadFactoryBuilder
 import|;
 end_import
 
@@ -840,10 +866,20 @@ specifier|final
 name|Configuration
 name|conf
 decl_stmt|;
+comment|// Listeners that are called on WAL events.
 specifier|private
-specifier|final
-name|LogRollListener
-name|listener
+name|List
+argument_list|<
+name|WALObserver
+argument_list|>
+name|listeners
+init|=
+operator|new
+name|CopyOnWriteArrayList
+argument_list|<
+name|WALObserver
+argument_list|>
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
@@ -880,26 +916,6 @@ specifier|private
 specifier|final
 name|Path
 name|oldLogDir
-decl_stmt|;
-specifier|private
-specifier|final
-name|List
-argument_list|<
-name|LogActionsListener
-argument_list|>
-name|actionListeners
-init|=
-name|Collections
-operator|.
-name|synchronizedList
-argument_list|(
-operator|new
-name|ArrayList
-argument_list|<
-name|LogActionsListener
-argument_list|>
-argument_list|()
-argument_list|)
 decl_stmt|;
 specifier|private
 specifier|static
@@ -1085,7 +1101,7 @@ argument_list|>
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/*    * Map of regions to first sequence/edit id in their memstore.    */
+comment|/*    * Map of regions to most recent sequence/edit id in their memstore.    * Key is encoded region name.    */
 specifier|private
 specifier|final
 name|ConcurrentSkipListMap
@@ -1195,21 +1211,6 @@ specifier|private
 specifier|final
 name|LogSyncer
 name|logSyncerThread
-decl_stmt|;
-specifier|private
-specifier|final
-name|List
-argument_list|<
-name|LogEntryVisitor
-argument_list|>
-name|logEntryVisitors
-init|=
-operator|new
-name|CopyOnWriteArrayList
-argument_list|<
-name|LogEntryVisitor
-argument_list|>
-argument_list|()
 decl_stmt|;
 comment|/**    * Pattern used to validate a HLog file name    */
 specifier|private
@@ -1361,7 +1362,7 @@ return|return
 name|ret
 return|;
 block|}
-comment|/**    * HLog creating with a null actions listener.    *    * @param fs filesystem handle    * @param dir path to where hlogs are stored    * @param oldLogDir path to where hlogs are archived    * @param conf configuration to use    * @param listener listerner used to request log rolls    * @throws IOException    */
+comment|/**    * Constructor.    *    * @param fs filesystem handle    * @param dir path to where hlogs are stored    * @param oldLogDir path to where hlogs are archived    * @param conf configuration to use    * @throws IOException    */
 specifier|public
 name|HLog
 parameter_list|(
@@ -1380,10 +1381,6 @@ parameter_list|,
 specifier|final
 name|Configuration
 name|conf
-parameter_list|,
-specifier|final
-name|LogRollListener
-name|listener
 parameter_list|)
 throws|throws
 name|IOException
@@ -1398,15 +1395,13 @@ name|oldLogDir
 argument_list|,
 name|conf
 argument_list|,
-name|listener
-argument_list|,
 literal|null
 argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * HLog object is started up.    *    * @param fs filesystem handle    * @param dir path to where hlogs are stored    * @param oldLogDir path to where hlogs are archived    * @param conf configuration to use    * @param listener listerner used to request log rolls    * @param actionListener optional listener for hlog actions like archiving    * @param prefix should always be hostname and port in distributed env and    *        it will be URL encoded before being used.    *        If prefix is null, "hlog" will be used    * @throws IOException    */
+comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * HLog object is started up.    *    * @param fs filesystem handle    * @param dir path to where hlogs are stored    * @param oldLogDir path to where hlogs are archived    * @param conf configuration to use    * @param listeners Listeners on WAL events. Listeners passed here will    * be registered before we do anything else; e.g. the    * Constructor {@link #rollWriter().    * @param prefix should always be hostname and port in distributed env and    *        it will be URL encoded before being used.    *        If prefix is null, "hlog" will be used    * @throws IOException    */
 specifier|public
 name|HLog
 parameter_list|(
@@ -1427,12 +1422,11 @@ name|Configuration
 name|conf
 parameter_list|,
 specifier|final
-name|LogRollListener
-name|listener
-parameter_list|,
-specifier|final
-name|LogActionsListener
-name|actionListener
+name|List
+argument_list|<
+name|WALObserver
+argument_list|>
+name|listeners
 parameter_list|,
 specifier|final
 name|String
@@ -1462,12 +1456,28 @@ name|conf
 operator|=
 name|conf
 expr_stmt|;
-name|this
-operator|.
-name|listener
-operator|=
-name|listener
+if|if
+condition|(
+name|listeners
+operator|!=
+literal|null
+condition|)
+block|{
+for|for
+control|(
+name|WALObserver
+name|i
+range|:
+name|listeners
+control|)
+block|{
+name|registerWALActionsListener
+argument_list|(
+name|i
+argument_list|)
 expr_stmt|;
+block|}
+block|}
 name|this
 operator|.
 name|flushlogentries
@@ -1628,15 +1638,25 @@ name|info
 argument_list|(
 literal|"HLog configuration: blocksize="
 operator|+
+name|StringUtils
+operator|.
+name|byteDesc
+argument_list|(
 name|this
 operator|.
 name|blocksize
+argument_list|)
 operator|+
 literal|", rollsize="
 operator|+
+name|StringUtils
+operator|.
+name|byteDesc
+argument_list|(
 name|this
 operator|.
 name|logrollsize
+argument_list|)
 operator|+
 literal|", enabled="
 operator|+
@@ -1659,19 +1679,6 @@ operator|+
 literal|"ms"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|actionListener
-operator|!=
-literal|null
-condition|)
-block|{
-name|addLogActionsListerner
-argument_list|(
-name|actionListener
-argument_list|)
-expr_stmt|;
-block|}
 comment|// If prefix is null||empty then just name it hlog
 name|this
 operator|.
@@ -1708,6 +1715,11 @@ name|getNumCurrentReplicas
 operator|=
 literal|null
 expr_stmt|;
+name|Exception
+name|exception
+init|=
+literal|null
+decl_stmt|;
 if|if
 condition|(
 name|this
@@ -1760,6 +1772,10 @@ name|e
 parameter_list|)
 block|{
 comment|// Thrown if getNumCurrentReplicas() function isn't available
+name|exception
+operator|=
+name|e
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -1768,6 +1784,10 @@ name|e
 parameter_list|)
 block|{
 comment|// Thrown if we can't get access to getNumCurrentReplicas()
+name|exception
+operator|=
+name|e
+expr_stmt|;
 name|this
 operator|.
 name|getNumCurrentReplicas
@@ -1800,7 +1820,18 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"getNumCurrentReplicas--HDFS-826 not available"
+literal|"getNumCurrentReplicas--HDFS-826 not available; hdfs_out="
+operator|+
+name|this
+operator|.
+name|hdfs_out
+operator|+
+literal|", exception="
+operator|+
+name|exception
+operator|.
+name|getMessage
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1833,6 +1864,51 @@ argument_list|)
 expr_stmt|;
 block|}
 end_class
+
+begin_function
+specifier|public
+name|void
+name|registerWALActionsListener
+parameter_list|(
+specifier|final
+name|WALObserver
+name|listener
+parameter_list|)
+block|{
+name|this
+operator|.
+name|listeners
+operator|.
+name|add
+argument_list|(
+name|listener
+argument_list|)
+expr_stmt|;
+block|}
+end_function
+
+begin_function
+specifier|public
+name|boolean
+name|unregisterWALActionsListener
+parameter_list|(
+specifier|final
+name|WALObserver
+name|listener
+parameter_list|)
+block|{
+return|return
+name|this
+operator|.
+name|listeners
+operator|.
+name|remove
+argument_list|(
+name|listener
+argument_list|)
+return|;
+block|}
+end_function
 
 begin_comment
 comment|/**    * @return Current state of the monotonically increasing file id.    */
@@ -1960,7 +2036,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    * Because a log cannot be rolled during a cache flush, and a cache flush    * spans two method calls, a special lock needs to be obtained so that a cache    * flush cannot start when the log is being rolled and the log cannot be    * rolled during a cache flush.    *    *<p>Note that this method cannot be synchronized because it is possible that    * startCacheFlush runs, obtaining the cacheFlushLock, then this method could    * start which would obtain the lock on this but block on obtaining the    * cacheFlushLock and then completeCacheFlush could be called which would wait    * for the lock on this and consequently never release the cacheFlushLock    *    * @return If lots of logs, flush the returned regions so next time through    * we can clean logs. Returns null if nothing to flush.    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    * @throws IOException    */
+comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    * Because a log cannot be rolled during a cache flush, and a cache flush    * spans two method calls, a special lock needs to be obtained so that a cache    * flush cannot start when the log is being rolled and the log cannot be    * rolled during a cache flush.    *    *<p>Note that this method cannot be synchronized because it is possible that    * startCacheFlush runs, obtaining the cacheFlushLock, then this method could    * start which would obtain the lock on this but block on obtaining the    * cacheFlushLock and then completeCacheFlush could be called which would wait    * for the lock on this and consequently never release the cacheFlushLock    *    * @return If lots of logs, flush the returned regions so next time through    * we can clean logs. Returns null if nothing to flush.  Names are actual    * region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    * @throws IOException    */
 end_comment
 
 begin_function
@@ -2211,7 +2287,7 @@ condition|(
 operator|!
 name|this
 operator|.
-name|actionListeners
+name|listeners
 operator|.
 name|isEmpty
 argument_list|()
@@ -2219,15 +2295,15 @@ condition|)
 block|{
 for|for
 control|(
-name|LogActionsListener
-name|list
+name|WALObserver
+name|i
 range|:
 name|this
 operator|.
-name|actionListeners
+name|listeners
 control|)
 block|{
-name|list
+name|i
 operator|.
 name|logRolled
 argument_list|(
@@ -2255,10 +2331,8 @@ name|this
 operator|.
 name|lastSeqWritten
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|<=
-literal|0
 condition|)
 block|{
 name|LOG
@@ -2555,7 +2629,7 @@ block|}
 end_function
 
 begin_comment
-comment|/*    * Clean up old commit logs.    * @return If lots of logs, flush the returned region so next time through    * we can clean logs. Returns null if nothing to flush.    * @throws IOException    */
+comment|/*    * Clean up old commit logs.    * @return If lots of logs, flush the returned region so next time through    * we can clean logs. Returns null if nothing to flush.  Returns array of    * encoded region names to flush.    * @throws IOException    */
 end_comment
 
 begin_function
@@ -2708,6 +2782,7 @@ expr_stmt|;
 block|}
 block|}
 comment|// If too many log files, figure which regions we need to flush.
+comment|// Array is an array of encoded region names.
 name|byte
 index|[]
 index|[]
@@ -2751,6 +2826,7 @@ operator|>
 literal|0
 condition|)
 block|{
+comment|// This is an array of encoded region names.
 name|regions
 operator|=
 name|findMemstoresWithEditsOlderThan
@@ -3001,6 +3077,10 @@ argument_list|)
 return|;
 block|}
 end_function
+
+begin_comment
+comment|/**    * @param oldestOutstandingSeqNum    * @return (Encoded) name of oldest outstanding region.    */
+end_comment
 
 begin_function
 specifier|private
@@ -3557,7 +3637,7 @@ name|regionName
 init|=
 name|regionInfo
 operator|.
-name|getRegionName
+name|getEncodedNameAsBytes
 argument_list|()
 decl_stmt|;
 name|byte
@@ -3672,15 +3752,6 @@ literal|"Cannot append; log is closed"
 argument_list|)
 throw|;
 block|}
-name|byte
-index|[]
-name|regionName
-init|=
-name|regionInfo
-operator|.
-name|getRegionName
-argument_list|()
-decl_stmt|;
 synchronized|synchronized
 init|(
 name|updateLock
@@ -3710,7 +3781,10 @@ name|lastSeqWritten
 operator|.
 name|putIfAbsent
 argument_list|(
-name|regionName
+name|regionInfo
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
 argument_list|,
 name|Long
 operator|.
@@ -3759,7 +3833,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Append a set of edits to the log. Log edits are keyed by regionName,    * rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for a    * given key-range of the HRegion (TODO). Any edits that do not have a    * matching COMPLETE_CACHEFLUSH message can be discarded.    *    *<p>    * Logs cannot be restarted once closed, or once the HLog process dies. Each    * time the HLog starts, it must create a new log. This means that other    * systems should process the log appropriately upon each startup (and prior    * to initializing HLog).    *    * synchronized prevents appends during the completion of a cache flush or for    * the duration of a log roll.    *    * @param info    * @param tableName    * @param edits    * @param now    * @throws IOException    */
+comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for a    * given key-range of the HRegion (TODO). Any edits that do not have a    * matching COMPLETE_CACHEFLUSH message can be discarded.    *    *<p>    * Logs cannot be restarted once closed, or once the HLog process dies. Each    * time the HLog starts, it must create a new log. This means that other    * systems should process the log appropriately upon each startup (and prior    * to initializing HLog).    *    * synchronized prevents appends during the completion of a cache flush or for    * the duration of a log roll.    *    * @param info    * @param tableName    * @param edits    * @param now    * @throws IOException    */
 end_comment
 
 begin_function
@@ -3792,15 +3866,6 @@ name|isEmpty
 argument_list|()
 condition|)
 return|return;
-name|byte
-index|[]
-name|regionName
-init|=
-name|info
-operator|.
-name|getRegionName
-argument_list|()
-decl_stmt|;
 if|if
 condition|(
 name|this
@@ -3834,13 +3899,24 @@ comment|// write for each region (i.e. the first edit added to the particular
 comment|// memstore). . When the cache is flushed, the entry for the
 comment|// region being flushed is removed if the sequence number of the flush
 comment|// is greater than or equal to the value in lastSeqWritten.
+comment|// Use encoded name.  Its shorter, guaranteed unique and a subset of
+comment|// actual  name.
+name|byte
+index|[]
+name|hriKey
+init|=
+name|info
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
+decl_stmt|;
 name|this
 operator|.
 name|lastSeqWritten
 operator|.
 name|putIfAbsent
 argument_list|(
-name|regionName
+name|hriKey
 argument_list|,
 name|seqNum
 argument_list|)
@@ -3850,7 +3926,7 @@ name|logKey
 init|=
 name|makeKey
 argument_list|(
-name|regionName
+name|hriKey
 argument_list|,
 name|tableName
 argument_list|,
@@ -4066,7 +4142,7 @@ argument_list|(
 name|getName
 argument_list|()
 operator|+
-literal|"interrupted while waiting for sync requests"
+literal|" interrupted while waiting for sync requests"
 argument_list|)
 expr_stmt|;
 block|}
@@ -4558,20 +4634,31 @@ parameter_list|()
 block|{
 if|if
 condition|(
+operator|!
 name|this
 operator|.
-name|listener
-operator|!=
-literal|null
+name|listeners
+operator|.
+name|isEmpty
+argument_list|()
 condition|)
 block|{
+for|for
+control|(
+name|WALObserver
+name|i
+range|:
 name|this
 operator|.
-name|listener
+name|listeners
+control|)
+block|{
+name|i
 operator|.
 name|logRollRequested
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 end_function
@@ -4608,7 +4695,7 @@ condition|(
 operator|!
 name|this
 operator|.
-name|logEntryVisitors
+name|listeners
 operator|.
 name|isEmpty
 argument_list|()
@@ -4616,15 +4703,15 @@ condition|)
 block|{
 for|for
 control|(
-name|LogEntryVisitor
-name|visitor
+name|WALObserver
+name|i
 range|:
 name|this
 operator|.
-name|logEntryVisitors
+name|listeners
 control|)
 block|{
-name|visitor
+name|i
 operator|.
 name|visitLogEntryBeforeWrite
 argument_list|(
@@ -4823,7 +4910,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Complete the cache flush    *    * Protected by cacheFlushLock    *    * @param regionName    * @param tableName    * @param logSeqId    * @throws IOException    */
+comment|/**    * Complete the cache flush    *    * Protected by cacheFlushLock    *    * @param encodedRegionName    * @param tableName    * @param logSeqId    * @throws IOException    */
 end_comment
 
 begin_function
@@ -4834,7 +4921,7 @@ parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|regionName
+name|encodedRegionName
 parameter_list|,
 specifier|final
 name|byte
@@ -4887,7 +4974,7 @@ name|key
 init|=
 name|makeKey
 argument_list|(
-name|regionName
+name|encodedRegionName
 argument_list|,
 name|tableName
 argument_list|,
@@ -4942,7 +5029,7 @@ name|lastSeqWritten
 operator|.
 name|get
 argument_list|(
-name|regionName
+name|encodedRegionName
 argument_list|)
 decl_stmt|;
 if|if
@@ -4965,7 +5052,7 @@ name|lastSeqWritten
 operator|.
 name|remove
 argument_list|(
-name|regionName
+name|encodedRegionName
 argument_list|)
 expr_stmt|;
 block|}
@@ -6432,19 +6519,27 @@ name|Future
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|NamingThreadFactory
-name|f
+name|ThreadFactoryBuilder
+name|builder
 init|=
 operator|new
-name|NamingThreadFactory
+name|ThreadFactoryBuilder
+argument_list|()
+decl_stmt|;
+name|builder
+operator|.
+name|setNameFormat
 argument_list|(
 literal|"SplitWriter-%1$d"
-argument_list|,
-name|Executors
-operator|.
-name|defaultThreadFactory
-argument_list|()
 argument_list|)
+expr_stmt|;
+name|ThreadFactory
+name|factory
+init|=
+name|builder
+operator|.
+name|build
+argument_list|()
 decl_stmt|;
 name|ThreadPoolExecutor
 name|threadPool
@@ -6458,7 +6553,7 @@ name|newFixedThreadPool
 argument_list|(
 name|logWriterThreads
 argument_list|,
-name|f
+name|factory
 argument_list|)
 decl_stmt|;
 for|for
@@ -6872,7 +6967,7 @@ operator|.
 name|getKey
 argument_list|()
 operator|.
-name|getRegionName
+name|getEncodedRegionName
 argument_list|()
 decl_stmt|;
 name|LinkedList
@@ -7563,16 +7658,16 @@ name|getRegionDir
 argument_list|(
 name|tableDir
 argument_list|,
-name|HRegionInfo
+name|Bytes
 operator|.
-name|encodeRegionName
+name|toString
 argument_list|(
 name|logEntry
 operator|.
 name|getKey
 argument_list|()
 operator|.
-name|getRegionName
+name|getEncodedRegionName
 argument_list|()
 argument_list|)
 argument_list|)
@@ -7925,106 +8020,6 @@ argument_list|(
 name|regiondir
 argument_list|,
 name|RECOVERED_EDITS_DIR
-argument_list|)
-return|;
-block|}
-end_function
-
-begin_comment
-comment|/**    *    * @param visitor    */
-end_comment
-
-begin_function
-specifier|public
-name|void
-name|addLogEntryVisitor
-parameter_list|(
-name|LogEntryVisitor
-name|visitor
-parameter_list|)
-block|{
-name|this
-operator|.
-name|logEntryVisitors
-operator|.
-name|add
-argument_list|(
-name|visitor
-argument_list|)
-expr_stmt|;
-block|}
-end_function
-
-begin_comment
-comment|/**    *     * @param visitor    */
-end_comment
-
-begin_function
-specifier|public
-name|void
-name|removeLogEntryVisitor
-parameter_list|(
-name|LogEntryVisitor
-name|visitor
-parameter_list|)
-block|{
-name|this
-operator|.
-name|logEntryVisitors
-operator|.
-name|remove
-argument_list|(
-name|visitor
-argument_list|)
-expr_stmt|;
-block|}
-end_function
-
-begin_function
-specifier|public
-name|void
-name|addLogActionsListerner
-parameter_list|(
-name|LogActionsListener
-name|list
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Adding a listener"
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|actionListeners
-operator|.
-name|add
-argument_list|(
-name|list
-argument_list|)
-expr_stmt|;
-block|}
-end_function
-
-begin_function
-specifier|public
-name|boolean
-name|removeLogActionsListener
-parameter_list|(
-name|LogActionsListener
-name|list
-parameter_list|)
-block|{
-return|return
-name|this
-operator|.
-name|actionListeners
-operator|.
-name|remove
-argument_list|(
-name|list
 argument_list|)
 return|;
 block|}

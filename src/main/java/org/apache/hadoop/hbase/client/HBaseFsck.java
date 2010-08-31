@@ -63,6 +63,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|NavigableSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|TreeMap
 import|;
 end_import
@@ -311,6 +321,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ZooKeeperConnectionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|MetaScanner
@@ -468,7 +492,7 @@ init|=
 name|DEFAULT_TIME_LAG
 decl_stmt|;
 comment|// tables whose modtime is older
-comment|/**    * Constructor    *    * @param conf Configuration object    * @throws MasterNotRunningException if the master is not running    */
+comment|/**    * Constructor    *    * @param conf Configuration object    * @throws MasterNotRunningException if the master is not running    * @throws ZooKeeperConnectionException if unable to connect to zookeeper    */
 specifier|public
 name|HBaseFsck
 parameter_list|(
@@ -477,6 +501,8 @@ name|conf
 parameter_list|)
 throws|throws
 name|MasterNotRunningException
+throws|,
+name|ZooKeeperConnectionException
 throws|,
 name|IOException
 block|{
@@ -1418,13 +1444,15 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// list all online regions from this region server
+name|NavigableSet
+argument_list|<
 name|HRegionInfo
-index|[]
+argument_list|>
 name|regions
 init|=
 name|server
 operator|.
-name|getRegionsAssignment
+name|getOnlineRegions
 argument_list|()
 decl_stmt|;
 if|if
@@ -1449,7 +1477,8 @@ literal|" number of regions:"
 operator|+
 name|regions
 operator|.
-name|length
+name|size
+argument_list|()
 argument_list|)
 expr_stmt|;
 for|for

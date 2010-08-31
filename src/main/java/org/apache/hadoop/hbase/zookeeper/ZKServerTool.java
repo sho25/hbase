@@ -19,6 +19,28 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Properties
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+operator|.
+name|Entry
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -45,44 +67,8 @@ name|HBaseConfiguration
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-operator|.
-name|Entry
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Properties
-import|;
-end_import
-
 begin_comment
-comment|/**  * Tool for reading ZooKeeper servers from HBase XML configuation and producing  * a line-by-line list for use by bash scripts.  */
+comment|/**  * Tool for reading ZooKeeper servers from HBase XML configuration and producing  * a line-by-line list for use by bash scripts.  */
 end_comment
 
 begin_class
@@ -115,7 +101,7 @@ comment|// user may be using a zoo.cfg file.
 name|Properties
 name|zkProps
 init|=
-name|HQuorumPeer
+name|ZKConfig
 operator|.
 name|makeZKProps
 argument_list|(

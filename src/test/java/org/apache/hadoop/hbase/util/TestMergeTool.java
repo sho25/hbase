@@ -1129,10 +1129,6 @@ name|openHRegion
 argument_list|(
 name|mergedInfo
 argument_list|,
-name|this
-operator|.
-name|testDir
-argument_list|,
 name|log
 argument_list|,
 name|this
@@ -1598,8 +1594,6 @@ argument_list|,
 name|this
 operator|.
 name|conf
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 try|try
