@@ -472,8 +472,9 @@ name|m
 init|=
 literal|null
 decl_stmt|;
-if|if
-condition|(
+name|boolean
+name|append
+init|=
 name|conf
 operator|.
 name|getBoolean
@@ -482,6 +483,10 @@ literal|"dfs.support.append"
 argument_list|,
 literal|false
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|append
 condition|)
 block|{
 try|try
@@ -555,7 +560,11 @@ operator|)
 condition|?
 literal|"Using syncFs -- HDFS-200"
 else|:
-literal|"syncFs -- HDFS-200 -- not available"
+operator|(
+literal|"syncFs -- HDFS-200 -- not available, dfs.support.append="
+operator|+
+name|append
+operator|)
 argument_list|)
 expr_stmt|;
 block|}
