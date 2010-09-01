@@ -2201,9 +2201,15 @@ expr_stmt|;
 name|int
 name|nbBlocks
 init|=
-literal|0
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.regionserver.nbreservationblocks"
+argument_list|,
+literal|4
+argument_list|)
 decl_stmt|;
-comment|// TODO: FIX WAS OOME'ing in TESTS ->  conf.getInt("hbase.regionserver.nbreservationblocks", 4);
 for|for
 control|(
 name|int

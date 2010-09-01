@@ -122,7 +122,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tests master cleanup of rows in meta table where there is no HRegionInfo  */
+comment|/**  * Tests master cleanup of rows in meta table where there is no HRegionInfo  * TODO: Does this test make sense any more?  */
 end_comment
 
 begin_class
@@ -272,9 +272,9 @@ name|conf
 operator|.
 name|getLong
 argument_list|(
-literal|"hbase.master.meta.thread.rescanfrequency"
+literal|"hbase.master.monitor.interval"
 argument_list|,
-literal|10000
+literal|1000
 argument_list|)
 decl_stmt|;
 name|int

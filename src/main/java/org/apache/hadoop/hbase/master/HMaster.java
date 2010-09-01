@@ -2520,9 +2520,9 @@ argument_list|()
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.balancer.period"
+literal|"hbase.master.balancer.period"
 argument_list|,
-literal|600000
+literal|3000000
 argument_list|)
 decl_stmt|;
 comment|// Start up the load balancer chore

@@ -526,17 +526,6 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
-name|c
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.master.meta.thread.rescanfrequency"
-argument_list|,
-literal|5
-operator|*
-literal|1000
-argument_list|)
-expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|startMiniCluster

@@ -657,13 +657,13 @@ name|getConfiguration
 argument_list|()
 decl_stmt|;
 name|int
-name|metaRescanInterval
+name|monitorInterval
 init|=
 name|c
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.master.meta.thread.rescanfrequency"
+literal|"hbase.master.monitor.interval"
 argument_list|,
 literal|60
 operator|*
@@ -703,7 +703,7 @@ operator|=
 operator|new
 name|ServerMonitor
 argument_list|(
-name|metaRescanInterval
+name|monitorInterval
 argument_list|,
 name|master
 argument_list|)
@@ -743,7 +743,7 @@ name|c
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.master.meta.thread.rescanfrequency"
+literal|"hbase.master.cleaner.interval"
 argument_list|,
 literal|60
 operator|*

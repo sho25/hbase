@@ -2610,17 +2610,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.server.thread.wakefrequency"
-argument_list|,
 literal|1000
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
