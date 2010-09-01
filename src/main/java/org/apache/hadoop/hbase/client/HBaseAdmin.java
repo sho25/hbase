@@ -736,7 +736,7 @@ name|isMasterRunning
 argument_list|()
 return|;
 block|}
-comment|/**    * @param tableName Table to check.    * @return True if table exists already.    * @throws MasterNotRunningException if the master is not running    * @throws ZooKeeperConnectionException if unable to connect to zookeeper    */
+comment|/**    * @param tableName Table to check.    * @return True if table exists already.    * @throws IOException     */
 specifier|public
 name|boolean
 name|tableExists
@@ -746,23 +746,21 @@ name|String
 name|tableName
 parameter_list|)
 throws|throws
-name|MasterNotRunningException
-throws|,
-name|ZooKeeperConnectionException
+name|IOException
 block|{
 return|return
+name|MetaReader
+operator|.
 name|tableExists
 argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
+name|getCatalogTracker
+argument_list|()
+argument_list|,
 name|tableName
-argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tableName Table to check.    * @return True if table exists already.    * @throws MasterNotRunningException if the master is not running    * @throws ZooKeeperConnectionException if unable to connect to zookeeper    */
+comment|/**    * @param tableName Table to check.    * @return True if table exists already.    * @throws IOException     */
 specifier|public
 name|boolean
 name|tableExists
@@ -773,21 +771,17 @@ index|[]
 name|tableName
 parameter_list|)
 throws|throws
-name|MasterNotRunningException
-throws|,
-name|ZooKeeperConnectionException
+name|IOException
 block|{
-name|connection
-operator|.
-name|isMasterRunning
-argument_list|()
-expr_stmt|;
 return|return
-name|connection
-operator|.
 name|tableExists
 argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 return|;
 block|}
@@ -3397,7 +3391,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * @param tableNameOrRegionName Name of a table or name of a region.    * @return True if<code>tableNameOrRegionName</code> is *possibly* a region    * name else false if a verified tablename (we call {@link #tableExists(byte[])};    * else we throw an exception.    * @throws ZooKeeperConnectionException     * @throws MasterNotRunningException     */
+comment|/**    * @param tableNameOrRegionName Name of a table or name of a region.    * @return True if<code>tableNameOrRegionName</code> is *possibly* a region    * name else false if a verified tablename (we call {@link #tableExists(byte[])};    * else we throw an exception.    * @throws IOException     */
 specifier|private
 name|boolean
 name|isRegionName
@@ -3408,9 +3402,7 @@ index|[]
 name|tableNameOrRegionName
 parameter_list|)
 throws|throws
-name|MasterNotRunningException
-throws|,
-name|ZooKeeperConnectionException
+name|IOException
 block|{
 if|if
 condition|(

@@ -238,21 +238,6 @@ name|MasterNotRunningException
 throws|,
 name|ZooKeeperConnectionException
 function_decl|;
-comment|/**    * Checks if<code>tableName</code> exists.    * @param tableName Table to check.    * @return True if table exists already.    * @throws MasterNotRunningException if the master is not running    * @throws ZooKeeperConnectionException if unable to connect to zookeeper    */
-specifier|public
-name|boolean
-name|tableExists
-parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|tableName
-parameter_list|)
-throws|throws
-name|MasterNotRunningException
-throws|,
-name|ZooKeeperConnectionException
-function_decl|;
 comment|/**    * A table that isTableEnabled == false and isTableDisabled == false    * is possible. This happens when a table has a lot of regions    * that must be processed.    * @param tableName table name    * @return true if the table is enabled, false otherwise    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|boolean
