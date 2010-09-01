@@ -930,6 +930,22 @@ name|run
 argument_list|()
 expr_stmt|;
 block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Exception in run"
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+block|}
 finally|finally
 block|{
 comment|// Run this on the way out.

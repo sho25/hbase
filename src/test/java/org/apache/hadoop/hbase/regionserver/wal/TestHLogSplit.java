@@ -3339,9 +3339,9 @@ name|getRegionDir
 argument_list|(
 name|tdir
 argument_list|,
-name|HRegionInfo
+name|Bytes
 operator|.
-name|encodeRegionName
+name|toString
 argument_list|(
 name|region
 operator|.
