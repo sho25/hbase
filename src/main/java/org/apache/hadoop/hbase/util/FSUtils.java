@@ -2399,11 +2399,60 @@ end_return
 
 begin_comment
 unit|}
-comment|/*    * Recover file lease. Used when a file might be suspect to be had been left open by another process.<code>p</code>    * @param fs    * @param p    * @param append True if append supported    * @throws IOException    */
+comment|/**    * @param conf    * @return True if this filesystem whose scheme is 'hdfs'.    * @throws IOException    */
 end_comment
 
 begin_function
 unit|public
+specifier|static
+name|boolean
+name|isHDFS
+parameter_list|(
+specifier|final
+name|Configuration
+name|conf
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|FileSystem
+name|fs
+init|=
+name|FileSystem
+operator|.
+name|get
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
+name|String
+name|scheme
+init|=
+name|fs
+operator|.
+name|getUri
+argument_list|()
+operator|.
+name|getScheme
+argument_list|()
+decl_stmt|;
+return|return
+name|scheme
+operator|.
+name|equalsIgnoreCase
+argument_list|(
+literal|"hdfs"
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/*    * Recover file lease. Used when a file might be suspect to be had been left open by another process.<code>p</code>    * @param fs    * @param p    * @param append True if append supported    * @throws IOException    */
+end_comment
+
+begin_function
+specifier|public
 specifier|static
 name|void
 name|recoverFileLease
