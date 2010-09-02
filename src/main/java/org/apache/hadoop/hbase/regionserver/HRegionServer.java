@@ -9653,6 +9653,18 @@ name|NotServingRegionException
 throws|,
 name|IOException
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Flushing "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|HRegion
 name|region
 init|=

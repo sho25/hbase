@@ -288,7 +288,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tracks the availability of the catalog tables<code>-ROOT-</code> and  *<code>.META.</code>.  *<p>  * This class is "read-only" in that the locations of the catalog tables cannot  * be explicitly set.  Instead, ZooKeeper is used to learn of the availability  * and location of ROOT.  ROOT is used to learn of the location of META.  If not  * available in ROOT, ZooKeeper is used to monitor for a new location of META.  */
+comment|/**  * Tracks the availability of the catalog tables<code>-ROOT-</code> and  *<code>.META.</code>.  *<p>  * This class is "read-only" in that the locations of the catalog tables cannot  * be explicitly set.  Instead, ZooKeeper is used to learn of the availability  * and location of ROOT.  ROOT is used to learn of the location of META.  If not  * available in ROOT, ZooKeeper is used to monitor for a new location of META.  *<p>Call {@link #start()} to start up operation.  */
 end_comment
 
 begin_class
@@ -380,6 +380,37 @@ name|getRegionName
 argument_list|()
 decl_stmt|;
 comment|/**    * Constructs the catalog tracker.  Find current state of catalog tables and    * begin active tracking by executing {@link #start()}.    * @param zk    * @param connection server connection    * @param abortable if fatal exception    * @throws IOException     */
+specifier|public
+name|CatalogTracker
+parameter_list|(
+specifier|final
+name|ZooKeeperWatcher
+name|zk
+parameter_list|,
+specifier|final
+name|ServerConnection
+name|connection
+parameter_list|,
+specifier|final
+name|Abortable
+name|abortable
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|this
+argument_list|(
+name|zk
+argument_list|,
+name|connection
+argument_list|,
+name|abortable
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Constructs the catalog tracker.  Find current state of catalog tables and    * begin active tracking by executing {@link #start()}.    * @param zk    * @param connection server connection    * @param abortable if fatal exception    * @param defaultTimeout Timeout to use.    * @throws IOException     */
 specifier|public
 name|CatalogTracker
 parameter_list|(
@@ -926,7 +957,7 @@ literal|"Timed out ("
 operator|+
 name|timeout
 operator|+
-literal|"ms"
+literal|"ms)"
 argument_list|)
 throw|;
 block|}

@@ -2697,7 +2697,7 @@ name|hri
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Flush a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to flush    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Flush a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to flush    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
 specifier|public
 name|void
 name|flush
@@ -2708,6 +2708,8 @@ name|tableNameOrRegionName
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 name|flush
 argument_list|(
@@ -2720,7 +2722,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Flush a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to flush    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Flush a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to flush    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
 specifier|public
 name|void
 name|flush
@@ -2732,6 +2734,8 @@ name|tableNameOrRegionName
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 name|boolean
 name|isRegionName
@@ -2870,7 +2874,7 @@ name|hri
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to compact    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
 specifier|public
 name|void
 name|compact
@@ -2881,6 +2885,8 @@ name|tableNameOrRegionName
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 name|compact
 argument_list|(
@@ -2893,7 +2899,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to compact    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
 specifier|public
 name|void
 name|compact
@@ -2905,6 +2911,8 @@ name|tableNameOrRegionName
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 name|compact
 argument_list|(
@@ -2914,7 +2922,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Major compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to major compact    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Major compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to major compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
 specifier|public
 name|void
 name|majorCompact
@@ -2925,6 +2933,8 @@ name|tableNameOrRegionName
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 name|majorCompact
 argument_list|(
@@ -2937,7 +2947,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Major compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to major compact    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Major compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to major compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
 specifier|public
 name|void
 name|majorCompact
@@ -2949,6 +2959,8 @@ name|tableNameOrRegionName
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 name|compact
 argument_list|(
@@ -2958,7 +2970,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to compact    * @param major True if we are to do a major compaction.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to compact    * @param major True if we are to do a major compaction.    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
 specifier|private
 name|void
 name|compact
@@ -2974,6 +2986,8 @@ name|major
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 if|if
 condition|(
@@ -3174,7 +3188,7 @@ name|b
 argument_list|)
 return|;
 block|}
-comment|/**    * Split a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to split    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Split a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to split    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
 specifier|public
 name|void
 name|split
@@ -3185,6 +3199,8 @@ name|tableNameOrRegionName
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 name|split
 argument_list|(
@@ -3197,7 +3213,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Split a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table to region to split    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Split a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table to region to split    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
 specifier|public
 name|void
 name|split
@@ -3209,6 +3225,8 @@ name|tableNameOrRegionName
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 if|if
 condition|(

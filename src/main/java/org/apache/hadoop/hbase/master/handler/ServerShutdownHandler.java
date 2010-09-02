@@ -640,7 +640,7 @@ name|hris
 init|=
 name|MetaReader
 operator|.
-name|getServerRegions
+name|getServerUserRegions
 argument_list|(
 name|this
 operator|.
