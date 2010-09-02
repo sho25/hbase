@@ -1393,7 +1393,7 @@ name|tableName
 argument_list|,
 name|HConstants
 operator|.
-name|ROOT_TABLE_NAME
+name|META_TABLE_NAME
 argument_list|)
 condition|)
 block|{
