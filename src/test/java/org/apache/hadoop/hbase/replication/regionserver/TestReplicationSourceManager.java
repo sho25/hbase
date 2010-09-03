@@ -855,6 +855,8 @@ argument_list|()
 expr_stmt|;
 block|}
 annotation|@
+name|Ignore
+annotation|@
 name|Test
 specifier|public
 name|void

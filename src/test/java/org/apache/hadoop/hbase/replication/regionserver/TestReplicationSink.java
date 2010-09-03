@@ -317,6 +317,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -701,6 +711,8 @@ expr_stmt|;
 block|}
 comment|/**    * Insert a whole batch of entries    * @throws Exception    */
 annotation|@
+name|Ignore
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -797,6 +809,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Insert a mix of puts and deletes    * @throws Exception    */
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -964,6 +978,8 @@ expr_stmt|;
 block|}
 comment|/**    * Insert to 2 different tables    * @throws Exception    */
 annotation|@
+name|Ignore
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -1080,6 +1096,8 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Insert then do different types of deletes    * @throws Exception    */
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -1248,6 +1266,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Puts are buffered, but this tests when a delete (not-buffered) is applied    * before the actual Put that creates it.    * @throws Exception    */
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public

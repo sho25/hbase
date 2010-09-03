@@ -373,6 +373,8 @@ expr_stmt|;
 block|}
 comment|/**    * Sanity check that we can move logs around while we are reading    * from them. Should this test fail, ReplicationSource would have a hard    * time reading logs that are being archived.    * @throws Exception    */
 annotation|@
+name|Ignore
+annotation|@
 name|Test
 specifier|public
 name|void
