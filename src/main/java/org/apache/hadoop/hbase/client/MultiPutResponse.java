@@ -98,7 +98,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Response class for MultiPut.  */
+comment|/**  * @deprecated Replaced by MultiResponse  * Response class for MultiPut.  */
 end_comment
 
 begin_class
