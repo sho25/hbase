@@ -321,20 +321,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseConfiguration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HConstants
 import|;
 end_import
@@ -714,7 +700,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A non-instantiable class that manages connections to multiple tables in  * multiple HBase instances.  *  * Used by {@link HTable} and {@link HBaseAdmin}  */
+comment|/**  * A non-instantiable class that manages connections to tables.  * Used by {@link HTable} and {@link HBaseAdmin}  */
 end_comment
 
 begin_class
@@ -762,16 +748,6 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * Not instantiable.    */
-specifier|protected
-name|HConnectionManager
-parameter_list|()
-block|{
-name|super
-argument_list|()
-expr_stmt|;
-block|}
-specifier|private
 specifier|static
 specifier|final
 name|int
@@ -779,16 +755,15 @@ name|MAX_CACHED_HBASE_INSTANCES
 init|=
 literal|31
 decl_stmt|;
-comment|// A LRU Map of master HBaseConfiguration -> connection information for that
-comment|// instance. The objects it contains are mutable and hence require
-comment|// synchronized access to them.  We set instances to 31.  The zk default max
-comment|// connections is 30 so should run into zk issues before hit this value of 31.
+comment|// A LRU Map of Configuration hashcode -> TableServers. We set instances to 31.
+comment|// The zk default max connections to the ensemble from the one client is 30 so
+comment|// should run into zk issues before hit this value of 31.
 specifier|private
 specifier|static
 specifier|final
 name|Map
 argument_list|<
-name|Integer
+name|Configuration
 argument_list|,
 name|TableServers
 argument_list|>
@@ -797,7 +772,7 @@ init|=
 operator|new
 name|LinkedHashMap
 argument_list|<
-name|Integer
+name|Configuration
 argument_list|,
 name|TableServers
 argument_list|>
@@ -828,7 +803,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|Integer
+name|Configuration
 argument_list|,
 name|TableServers
 argument_list|>
@@ -844,7 +819,16 @@ return|;
 block|}
 block|}
 decl_stmt|;
-comment|/**    * Get the connection object for the instance specified by the configuration    * If no current connection exists, create a new connection for that instance    * @param conf configuration    * @return HConnection object for the instance specified by the configuration    * @throws ZooKeeperConnectionException    */
+comment|/*    * Non-instantiable.    */
+specifier|protected
+name|HConnectionManager
+parameter_list|()
+block|{
+name|super
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * Get the connection that goes with the passed<code>conf</code> configuration.    * If no current connection exists, method creates a new connection for the    * passed<code>conf</code> instance.    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
 specifier|public
 specifier|static
 name|HConnection
@@ -859,16 +843,6 @@ block|{
 name|TableServers
 name|connection
 decl_stmt|;
-name|Integer
-name|key
-init|=
-name|HBaseConfiguration
-operator|.
-name|hashCode
-argument_list|(
-name|conf
-argument_list|)
-decl_stmt|;
 synchronized|synchronized
 init|(
 name|HBASE_INSTANCES
@@ -880,7 +854,7 @@ name|HBASE_INSTANCES
 operator|.
 name|get
 argument_list|(
-name|key
+name|conf
 argument_list|)
 expr_stmt|;
 if|if
@@ -902,7 +876,7 @@ name|HBASE_INSTANCES
 operator|.
 name|put
 argument_list|(
-name|key
+name|conf
 argument_list|,
 name|connection
 argument_list|)
@@ -917,7 +891,7 @@ comment|/**    * Delete connection information for the instance specified by con
 specifier|public
 specifier|static
 name|void
-name|deleteConnectionInfo
+name|deleteConnection
 parameter_list|(
 name|Configuration
 name|conf
@@ -931,16 +905,6 @@ init|(
 name|HBASE_INSTANCES
 init|)
 block|{
-name|Integer
-name|key
-init|=
-name|HBaseConfiguration
-operator|.
-name|hashCode
-argument_list|(
-name|conf
-argument_list|)
-decl_stmt|;
 name|TableServers
 name|t
 init|=
@@ -948,7 +912,7 @@ name|HBASE_INSTANCES
 operator|.
 name|remove
 argument_list|(
-name|key
+name|conf
 argument_list|)
 decl_stmt|;
 if|if
@@ -1088,7 +1052,7 @@ name|row
 argument_list|)
 return|;
 block|}
-comment|/* Encapsulates finding the servers for an HBase instance */
+comment|/* Encapsulates connection to zookeeper and regionservers.*/
 specifier|static
 class|class
 name|TableServers
@@ -1208,7 +1172,7 @@ name|Object
 argument_list|()
 decl_stmt|;
 specifier|private
-specifier|volatile
+specifier|final
 name|Configuration
 name|conf
 decl_stmt|;

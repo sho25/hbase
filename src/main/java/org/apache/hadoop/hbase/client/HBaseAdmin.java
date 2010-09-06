@@ -1683,7 +1683,7 @@ block|}
 comment|// Delete cached information to prevent clients from using old locations
 name|HConnectionManager
 operator|.
-name|deleteConnectionInfo
+name|deleteConnection
 argument_list|(
 name|conf
 argument_list|,

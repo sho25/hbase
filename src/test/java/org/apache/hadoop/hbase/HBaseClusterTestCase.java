@@ -652,7 +652,7 @@ try|try
 block|{
 name|HConnectionManager
 operator|.
-name|deleteConnectionInfo
+name|deleteConnection
 argument_list|(
 name|conf
 argument_list|,

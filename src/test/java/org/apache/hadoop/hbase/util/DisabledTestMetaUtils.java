@@ -290,7 +290,7 @@ expr_stmt|;
 comment|// Delete again so we go get it all fresh.
 name|HConnectionManager
 operator|.
-name|deleteConnectionInfo
+name|deleteConnection
 argument_list|(
 name|conf
 argument_list|,

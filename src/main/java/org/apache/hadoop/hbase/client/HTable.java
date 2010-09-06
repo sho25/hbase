@@ -466,7 +466,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to communicate with a single HBase table.  *   * This class is not thread safe for writes.  * Gets, puts, and deletes take out a row lock for the duration  * of their operation.  Scans (currently) do not respect  * row locking.  *   * See {@link HBaseAdmin} to create, drop, list, enable and disable tables.  */
+comment|/**  * Used to communicate with a single HBase table.  *   * This class is not thread safe for updates; the underlying write buffer can  * be corrupted if multiple threads contend over a single HTable instance.  *   *<p>Instances of HTable passed the same {@link Configuration} instance will  * share connections to master and the zookeeper ensemble as well as caches of  * region locations.  This happens because they will all share the same  * {@link HConnection} instance (internally we keep a Map of {@link HConnection}  * instances keyed by {@link Configuration}).  * {@link HConnection} will read most of the  * configuration it needs from the passed {@link Configuration} on initial  * construction.  Thereafter, for settings such as  *<code>hbase.client.pause</code>,<code>hbase.client.retries.number</code>,  * and<code>hbase.client.rpc.maxattempts</code> updating their values in the  * passed {@link Configuration} subsequent to {@link HConnection} construction  * will go unnoticed.  To run with changed values, make a new  * {@link HTable} passing a new {@link Configuration} instance that has the  * new configuration.  *   * @see HBaseAdmin for create, drop, list, enable and disable of tables.  */
 end_comment
 
 begin_class
@@ -541,7 +541,7 @@ specifier|private
 name|long
 name|maxScannerResultSize
 decl_stmt|;
-comment|/**    * Creates an object to access a HBase table.    *    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Creates an object to access a HBase table.    * Internally it creates a new instance of {@link Configuration} and a new    * client to zookeeper as well as other resources.  It also comes up with     * a fresh view of the cluster and must do discovery from scratch of region    * locations; i.e. it will not make use of already-cached region locations if    * available. Use only when being quick and dirty.    * @throws IOException if a remote or network exception occurs    * @see #HTable(Configuration, String)    */
 specifier|public
 name|HTable
 parameter_list|(
@@ -568,7 +568,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table.    *    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Creates an object to access a HBase table.    * Internally it creates a new instance of {@link Configuration} and a new    * client to zookeeper as well as other resources.  It also comes up with     * a fresh view of the cluster and must do discovery from scratch of region    * locations; i.e. it will not make use of already-cached region locations if    * available. Use only when being quick and dirty.    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    * @see #HTable(Configuration, String)    */
 specifier|public
 name|HTable
 parameter_list|(
@@ -591,7 +591,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table.    *    * @param conf Configuration object to use.    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Creates an object to access a HBase table.    * Shares zookeeper connection and other resources with other HTable instances    * created with the same<code>conf</code> instance.  Uses already-populated    * region cache if one is available, populated by any other HTable instances    * sharing this<code>conf</code> instance.  Recommended.    * @param conf Configuration object to use.    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTable
 parameter_list|(
@@ -618,7 +618,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table.    *    * @param conf Configuration object to use.    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Creates an object to access a HBase table.    * Shares zookeeper connection and other resources with other HTable instances    * created with the same<code>conf</code> instance.  Uses already-populated    * region cache if one is available, populated by any other HTable instances    * sharing this<code>conf</code> instance.  Recommended.    * @param conf Configuration object to use.    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTable
 parameter_list|(
@@ -2789,6 +2789,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * Close down this HTable instance.    * Calls {@link #flushCommits()}.    */
 specifier|public
 name|void
 name|close
