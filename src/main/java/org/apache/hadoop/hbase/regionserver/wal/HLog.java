@@ -8591,7 +8591,11 @@ block|{
 name|t
 operator|.
 name|printStackTrace
-argument_list|()
+argument_list|(
+name|System
+operator|.
+name|err
+argument_list|)
 expr_stmt|;
 name|System
 operator|.
