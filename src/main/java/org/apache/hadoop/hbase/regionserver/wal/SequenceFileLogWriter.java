@@ -635,13 +635,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|this
-operator|.
-name|writer
-operator|.
-name|sync
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|this
