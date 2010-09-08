@@ -1170,7 +1170,7 @@ specifier|final
 name|long
 name|threadWakeFrequency
 decl_stmt|;
-comment|// Used to guard splits and closes
+comment|// Used to guard closes
 specifier|final
 name|ReentrantReadWriteLock
 name|lock

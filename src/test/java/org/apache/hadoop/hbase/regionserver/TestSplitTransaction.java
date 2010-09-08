@@ -703,22 +703,6 @@ name|prepare
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Assert the write lock is held on successful prepare as the javadoc asserts.
-name|assertTrue
-argument_list|(
-name|this
-operator|.
-name|parent
-operator|.
-name|lock
-operator|.
-name|writeLock
-argument_list|()
-operator|.
-name|isHeldByCurrentThread
-argument_list|()
-argument_list|)
-expr_stmt|;
 return|return
 name|st
 return|;

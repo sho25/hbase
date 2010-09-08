@@ -294,7 +294,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Executes region split as a "transaction".  Call {@link #prepare()} to setup  * the transaction, {@link #execute(OnlineRegions)} to run the transaction and  * {@link #rollback(OnlineRegions)} to cleanup if execute fails.  *  *<p>Here is an example of how you would use this class:  *<pre>  *  SplitTransaction st = new SplitTransaction(this.conf, parent, midKey)  *  if (!st.prepare()) return;  *  try {  *    st.execute(myOnlineRegions);  *  } catch (IOException ioe) {  *    try {  *      st.rollback(myOnlineRegions);  *      return;  *    } catch (RuntimeException e) {  *      myAbortable.abort("Failed split, abort");  *    }  *  }  *</Pre>  */
+comment|/**  * Executes region split as a "transaction".  Call {@link #prepare()} to setup  * the transaction, {@link #execute(OnlineRegions)} to run the transaction and  * {@link #rollback(OnlineRegions)} to cleanup if execute fails.  *  *<p>Here is an example of how you would use this class:  *<pre>  *  SplitTransaction st = new SplitTransaction(this.conf, parent, midKey)  *  if (!st.prepare()) return;  *  try {  *    st.execute(myOnlineRegions);  *  } catch (IOException ioe) {  *    try {  *      st.rollback(myOnlineRegions);  *      return;  *    } catch (RuntimeException e) {  *      myAbortable.abort("Failed split, abort");  *    }  *  }  *</Pre>  *<p>This class is not thread safe.  Caller needs ensure split is run by  * one thread only.  */
 end_comment
 
 begin_class
@@ -421,30 +421,11 @@ name|parent
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Does checks on split inputs.    * @return<code>true</code> if the region is splittable else    *<code>false</code> if it is not (e.g. its already closed, etc.). If we    * return<code>true</code>, we'll have taken out the parent's    *<code>splitsAndClosesLock</code> and only way to unlock is successful    * {@link #execute(OnlineRegions)} or {@link #rollback(OnlineRegions)}    */
+comment|/**    * Does checks on split inputs.    * @return<code>true</code> if the region is splittable else    *<code>false</code> if it is not (e.g. its already closed, etc.).    */
 specifier|public
 name|boolean
 name|prepare
 parameter_list|()
-block|{
-name|boolean
-name|prepared
-init|=
-literal|false
-decl_stmt|;
-name|this
-operator|.
-name|parent
-operator|.
-name|lock
-operator|.
-name|writeLock
-argument_list|()
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
-try|try
 block|{
 if|if
 condition|(
@@ -463,7 +444,7 @@ name|isClosing
 argument_list|()
 condition|)
 return|return
-name|prepared
+literal|false
 return|;
 name|HRegionInfo
 name|hri
@@ -538,7 +519,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
-name|prepared
+literal|false
 return|;
 block|}
 name|long
@@ -595,33 +576,8 @@ argument_list|,
 name|rid
 argument_list|)
 expr_stmt|;
-name|prepared
-operator|=
-literal|true
-expr_stmt|;
-block|}
-finally|finally
-block|{
-if|if
-condition|(
-operator|!
-name|prepared
-condition|)
-name|this
-operator|.
-name|parent
-operator|.
-name|lock
-operator|.
-name|writeLock
-argument_list|()
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
-block|}
 return|return
-name|prepared
+literal|true
 return|;
 block|}
 comment|/**    * Calculate daughter regionid to use.    * @param hri Parent {@link HRegionInfo}    * @return Daughter region id (timestamp) to use.    */
@@ -714,8 +670,7 @@ operator|.
 name|parent
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
+assert|assert
 operator|!
 name|this
 operator|.
@@ -728,14 +683,9 @@ argument_list|()
 operator|.
 name|isHeldByCurrentThread
 argument_list|()
-condition|)
-block|{
-throw|throw
-operator|new
-name|SplitAndCloseWriteLockNotHeld
-argument_list|()
-throw|;
-block|}
+operator|:
+literal|"Unsafe to hold write lock while performing RPCs"
+assert|;
 comment|// If true, no cluster to write meta edits into.
 name|boolean
 name|testing
@@ -1021,19 +971,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Unlock if successful split.
-name|this
-operator|.
-name|parent
-operator|.
-name|lock
-operator|.
-name|writeLock
-argument_list|()
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
 comment|// Leaving here, the splitdir with its dross will be in place but since the
 comment|// split was successful, just leave it; it'll be cleaned when parent is
 comment|// deleted and cleaned up.
@@ -1888,28 +1825,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-operator|!
-name|this
-operator|.
-name|parent
-operator|.
-name|lock
-operator|.
-name|writeLock
-argument_list|()
-operator|.
-name|isHeldByCurrentThread
-argument_list|()
-condition|)
-block|{
-throw|throw
-operator|new
-name|SplitAndCloseWriteLockNotHeld
-argument_list|()
-throw|;
-block|}
 name|FileSystem
 name|fs
 init|=
@@ -2067,47 +1982,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-if|if
-condition|(
-name|this
-operator|.
-name|parent
-operator|.
-name|lock
-operator|.
-name|writeLock
-argument_list|()
-operator|.
-name|isHeldByCurrentThread
-argument_list|()
-condition|)
-block|{
-name|this
-operator|.
-name|parent
-operator|.
-name|lock
-operator|.
-name|writeLock
-argument_list|()
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
 block|}
-block|}
-comment|/**    * Thrown if lock not held.    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"serial"
-argument_list|)
-specifier|public
-class|class
-name|SplitAndCloseWriteLockNotHeld
-extends|extends
-name|IOException
-block|{}
 name|HRegionInfo
 name|getFirstDaughter
 parameter_list|()
