@@ -517,6 +517,13 @@ operator|.
 name|oldLogDir
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|files
+operator|==
+literal|null
+condition|)
+return|return;
 name|int
 name|nbDeletedLog
 init|=
