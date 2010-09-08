@@ -26,7 +26,7 @@ specifier|public
 interface|interface
 name|ColumnTracker
 block|{
-comment|/**    * Keeps track of the number of versions for the columns asked for    * @param bytes    * @param offset    * @param length    * @return The match code instance.    */
+comment|/**    * Keeps track of the number of versions for the columns asked for    * @param bytes    * @param offset    * @param length    * @param timestamp    * @return The match code instance.    */
 specifier|public
 name|ScanQueryMatcher
 operator|.
@@ -42,6 +42,9 @@ name|offset
 parameter_list|,
 name|int
 name|length
+parameter_list|,
+name|long
+name|timestamp
 parameter_list|)
 function_decl|;
 comment|/**    * Updates internal variables in between files    */

@@ -2465,6 +2465,20 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+comment|/**      * MemStoreScanner returns max value as sequence id because it will      * always have the latest data among all files.      */
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getSequenceID
+parameter_list|()
+block|{
+return|return
+name|Long
+operator|.
+name|MAX_VALUE
+return|;
+block|}
 block|}
 specifier|public
 specifier|final

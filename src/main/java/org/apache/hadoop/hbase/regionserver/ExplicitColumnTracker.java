@@ -57,6 +57,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -102,6 +116,11 @@ decl_stmt|;
 specifier|private
 name|ColumnCount
 name|column
+decl_stmt|;
+comment|/** Keeps track of the latest timestamp included for current column.    * Used to eliminate duplicates. */
+specifier|private
+name|long
+name|latestTSOfCurrentColumn
 decl_stmt|;
 comment|/**    * Default constructor.    * @param columns columns specified user in query    * @param maxVersions maximum versions to return per column    */
 specifier|public
@@ -213,7 +232,7 @@ operator|.
 name|column
 return|;
 block|}
-comment|/**    * Checks against the parameters of the query and the columns which have    * already been processed by this query.    * @param bytes KeyValue buffer    * @param offset offset to the start of the qualifier    * @param length length of the qualifier    * @return MatchCode telling ScanQueryMatcher what action to take    */
+comment|/**    * Checks against the parameters of the query and the columns which have    * already been processed by this query.    * @param bytes KeyValue buffer    * @param offset offset to the start of the qualifier    * @param length length of the qualifier    * @param timestamp timestamp of the key being checked    * @return MatchCode telling ScanQueryMatcher what action to take    */
 specifier|public
 name|ScanQueryMatcher
 operator|.
@@ -229,6 +248,9 @@ name|offset
 parameter_list|,
 name|int
 name|length
+parameter_list|,
+name|long
+name|timestamp
 parameter_list|)
 block|{
 do|do
@@ -251,7 +273,7 @@ name|ScanQueryMatcher
 operator|.
 name|MatchCode
 operator|.
-name|DONE
+name|SEEK_NEXT_ROW
 return|;
 comment|// done_row
 block|}
@@ -270,7 +292,7 @@ name|ScanQueryMatcher
 operator|.
 name|MatchCode
 operator|.
-name|NEXT
+name|SEEK_NEXT_ROW
 return|;
 comment|// done_row
 block|}
@@ -304,7 +326,8 @@ argument_list|,
 name|length
 argument_list|)
 decl_stmt|;
-comment|// Matches, decrement versions left and include
+comment|// Column Matches. If it is not a duplicate key, decrement versions left
+comment|// and include.
 if|if
 condition|(
 name|ret
@@ -312,6 +335,24 @@ operator|==
 literal|0
 condition|)
 block|{
+comment|//If column matches, check if it is a duplicate timestamp
+if|if
+condition|(
+name|sameAsPreviousTS
+argument_list|(
+name|timestamp
+argument_list|)
+condition|)
+block|{
+comment|//If duplicate, skip this Key
+return|return
+name|ScanQueryMatcher
+operator|.
+name|MatchCode
+operator|.
+name|SKIP
+return|;
+block|}
 if|if
 condition|(
 name|this
@@ -335,6 +376,9 @@ name|this
 operator|.
 name|index
 argument_list|)
+expr_stmt|;
+name|resetTS
+argument_list|()
 expr_stmt|;
 if|if
 condition|(
@@ -377,6 +421,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+else|else
+block|{
+name|setTS
+argument_list|(
+name|timestamp
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 name|ScanQueryMatcher
 operator|.
@@ -385,6 +437,9 @@ operator|.
 name|INCLUDE
 return|;
 block|}
+name|resetTS
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|ret
@@ -398,7 +453,7 @@ name|ScanQueryMatcher
 operator|.
 name|MatchCode
 operator|.
-name|SKIP
+name|SEEK_NEXT_COL
 return|;
 block|}
 comment|// Specified column is bigger than current column
@@ -417,7 +472,7 @@ operator|++
 name|this
 operator|.
 name|index
-operator|==
+operator|>=
 name|this
 operator|.
 name|columns
@@ -432,7 +487,7 @@ name|ScanQueryMatcher
 operator|.
 name|MatchCode
 operator|.
-name|NEXT
+name|SEEK_NEXT_ROW
 return|;
 comment|// done_row
 block|}
@@ -547,6 +602,48 @@ operator|.
 name|index
 argument_list|)
 expr_stmt|;
+name|resetTS
+argument_list|()
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|resetTS
+parameter_list|()
+block|{
+name|latestTSOfCurrentColumn
+operator|=
+name|HConstants
+operator|.
+name|LATEST_TIMESTAMP
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|setTS
+parameter_list|(
+name|long
+name|timestamp
+parameter_list|)
+block|{
+name|latestTSOfCurrentColumn
+operator|=
+name|timestamp
+expr_stmt|;
+block|}
+specifier|private
+name|boolean
+name|sameAsPreviousTS
+parameter_list|(
+name|long
+name|timestamp
+parameter_list|)
+block|{
+return|return
+name|timestamp
+operator|==
+name|latestTSOfCurrentColumn
+return|;
 block|}
 specifier|private
 name|void

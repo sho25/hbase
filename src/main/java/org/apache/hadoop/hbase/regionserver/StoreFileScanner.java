@@ -680,6 +680,20 @@ name|columns
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getSequenceID
+parameter_list|()
+block|{
+return|return
+name|reader
+operator|.
+name|getSequenceID
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 

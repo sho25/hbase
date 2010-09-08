@@ -403,6 +403,17 @@ parameter_list|()
 block|{
 comment|// noop.
 block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getSequenceID
+parameter_list|()
+block|{
+return|return
+literal|0
+return|;
+block|}
 block|}
 end_class
 

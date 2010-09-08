@@ -86,6 +86,12 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Get the sequence id associated with this KeyValueScanner. This is required    * for comparing multiple files to find out which one has the latest data.    * The default implementation for this would be to return 0. A file having    * lower sequence id will be considered to be the older one.    */
+specifier|public
+name|long
+name|getSequenceID
+parameter_list|()
+function_decl|;
 comment|/**    * Close the KeyValue scanner.    */
 specifier|public
 name|void

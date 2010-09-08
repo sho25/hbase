@@ -275,6 +275,8 @@ argument_list|,
 name|qualifier
 operator|.
 name|length
+argument_list|,
+literal|1
 argument_list|)
 decl_stmt|;
 name|actual
@@ -447,7 +449,7 @@ name|ScanQueryMatcher
 operator|.
 name|MatchCode
 operator|.
-name|SKIP
+name|SEEK_NEXT_COL
 argument_list|)
 expr_stmt|;
 name|expected
@@ -476,6 +478,11 @@ name|MatchCode
 argument_list|>
 argument_list|()
 decl_stmt|;
+name|long
+name|timestamp
+init|=
+literal|0
+decl_stmt|;
 for|for
 control|(
 name|byte
@@ -499,6 +506,9 @@ argument_list|,
 name|qualifier
 operator|.
 name|length
+argument_list|,
+operator|++
+name|timestamp
 argument_list|)
 decl_stmt|;
 name|actual
@@ -628,6 +638,8 @@ argument_list|,
 name|qualifier
 operator|.
 name|length
+argument_list|,
+literal|1
 argument_list|)
 expr_stmt|;
 block|}
