@@ -360,6 +360,24 @@ operator|.
 name|size
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|numServers
+operator|==
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"numServers=0 so nothing to balance"
+argument_list|)
+expr_stmt|;
+return|return
+literal|null
+return|;
+block|}
 name|int
 name|numRegions
 init|=
