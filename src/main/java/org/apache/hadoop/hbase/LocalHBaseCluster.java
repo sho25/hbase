@@ -528,6 +528,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Create each regionserver with its own Configuration instance so each has
+comment|// its HConnection instance rather than share (see HBASE_INSTANCES down in
+comment|// the guts of HConnectionManager.
 name|JVMClusterUtil
 operator|.
 name|RegionServerThread
@@ -537,9 +540,13 @@ name|JVMClusterUtil
 operator|.
 name|createRegionServerThread
 argument_list|(
+operator|new
+name|Configuration
+argument_list|(
 name|this
 operator|.
 name|conf
+argument_list|)
 argument_list|,
 name|this
 operator|.

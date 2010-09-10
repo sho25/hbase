@@ -808,13 +808,13 @@ argument_list|)
 expr_stmt|;
 name|HConnectionManager
 operator|.
-name|TableServers
+name|HConnectionImplementation
 name|conn
 init|=
 operator|(
 name|HConnectionManager
 operator|.
-name|TableServers
+name|HConnectionImplementation
 operator|)
 name|table
 operator|.

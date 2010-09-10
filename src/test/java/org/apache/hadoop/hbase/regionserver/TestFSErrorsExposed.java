@@ -151,6 +151,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|fs
 operator|.
 name|FSDataInputStream
@@ -997,16 +1011,22 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
+comment|// Make a new Configuration so it makes a new connection that has the
+comment|// above configuration on it; else we use the old one w/ 10 as default.
 name|HTable
 name|table
 init|=
 operator|new
 name|HTable
 argument_list|(
+operator|new
+name|Configuration
+argument_list|(
 name|util
 operator|.
 name|getConfiguration
 argument_list|()
+argument_list|)
 argument_list|,
 name|tableName
 argument_list|)

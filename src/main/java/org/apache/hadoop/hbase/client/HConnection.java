@@ -319,6 +319,17 @@ name|void
 name|clearRegionCache
 parameter_list|()
 function_decl|;
+comment|/**    * Allows flushing the region cache of all locations that pertain to    *<code>tableName</code>    * @param tableName Name of the table whose regions we are to remove from    * cache.    */
+specifier|public
+name|void
+name|clearRegionCache
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+function_decl|;
 comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in    * question    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HRegionLocation

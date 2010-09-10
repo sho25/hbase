@@ -1022,12 +1022,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"testWeirdCacheBehaviour"
-argument_list|)
+name|TABLE
 argument_list|)
 decl_stmt|;
 name|System

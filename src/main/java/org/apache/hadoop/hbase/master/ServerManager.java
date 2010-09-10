@@ -307,7 +307,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ServerConnection
+name|HConnection
 import|;
 end_import
 
@@ -323,7 +323,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ServerConnectionManager
+name|HConnectionManager
 import|;
 end_import
 
@@ -2219,10 +2219,10 @@ parameter_list|)
 block|{
 try|try
 block|{
-name|ServerConnection
+name|HConnection
 name|connection
 init|=
-name|ServerConnectionManager
+name|HConnectionManager
 operator|.
 name|getConnection
 argument_list|(

@@ -175,7 +175,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|RetriesExhaustedException
+name|HConnection
 import|;
 end_import
 
@@ -191,7 +191,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ServerConnection
+name|RetriesExhaustedException
 import|;
 end_import
 
@@ -313,7 +313,7 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
-name|ServerConnection
+name|HConnection
 name|connection
 decl_stmt|;
 specifier|private
@@ -388,7 +388,7 @@ name|ZooKeeperWatcher
 name|zk
 parameter_list|,
 specifier|final
-name|ServerConnection
+name|HConnection
 name|connection
 parameter_list|,
 specifier|final
@@ -419,7 +419,7 @@ name|ZooKeeperWatcher
 name|zk
 parameter_list|,
 specifier|final
-name|ServerConnection
+name|HConnection
 name|connection
 parameter_list|,
 specifier|final

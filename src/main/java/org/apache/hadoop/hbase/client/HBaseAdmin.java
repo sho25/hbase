@@ -599,7 +599,7 @@ operator|.
 name|getZooKeeperWatcher
 argument_list|()
 argument_list|,
-name|ServerConnectionManager
+name|HConnectionManager
 operator|.
 name|getConnection
 argument_list|(
@@ -1681,13 +1681,13 @@ comment|// continue
 block|}
 block|}
 comment|// Delete cached information to prevent clients from using old locations
-name|HConnectionManager
+name|this
 operator|.
-name|deleteConnection
+name|connection
+operator|.
+name|clearRegionCache
 argument_list|(
-name|conf
-argument_list|,
-literal|false
+name|tableName
 argument_list|)
 expr_stmt|;
 name|LOG
