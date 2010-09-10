@@ -3803,7 +3803,7 @@ name|equals
 argument_list|(
 name|hri
 operator|.
-name|getRegionName
+name|getEncodedNameAsBytes
 argument_list|()
 argument_list|,
 name|entry
@@ -3932,7 +3932,7 @@ name|equals
 argument_list|(
 name|hri
 operator|.
-name|getRegionName
+name|getEncodedNameAsBytes
 argument_list|()
 argument_list|,
 name|entry
