@@ -524,6 +524,21 @@ return|return
 name|thisMasterStartedCluster
 return|;
 block|}
+comment|/**    * @return True if cluster has an active master.    */
+specifier|public
+name|boolean
+name|isActiveMaster
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|clusterHasActiveMaster
+operator|.
+name|get
+argument_list|()
+return|;
+block|}
 specifier|public
 name|void
 name|stop
