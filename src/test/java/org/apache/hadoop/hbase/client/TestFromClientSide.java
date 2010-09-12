@@ -31143,9 +31143,7 @@ argument_list|(
 name|g2
 argument_list|)
 expr_stmt|;
-comment|// Get the configured number of cache read-ahead regions.  For various
-comment|// reasons, the meta may not yet have all regions in place (e.g. hbase-2757).
-comment|// That the prefetch gets at least half shows prefetch is bascially working.
+comment|// Get the configured number of cache read-ahead regions.
 name|int
 name|prefetchRegionNumber
 init|=
@@ -31157,8 +31155,6 @@ literal|"hbase.client.prefetch.limit"
 argument_list|,
 literal|10
 argument_list|)
-operator|/
-literal|2
 decl_stmt|;
 comment|// the total number of cached regions == region('aaa") + prefeched regions.
 name|LOG
@@ -31168,10 +31164,12 @@ argument_list|(
 literal|"Testing how many regions cached"
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
+literal|"Number of cached region is incorrect "
+argument_list|,
 name|prefetchRegionNumber
-operator|<
+argument_list|,
 name|HConnectionManager
 operator|.
 name|getCachedRegionCount
@@ -31211,10 +31209,12 @@ argument_list|(
 name|g3
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
+literal|"Number of cached region is incorrect "
+argument_list|,
 name|prefetchRegionNumber
-operator|<
+argument_list|,
 name|HConnectionManager
 operator|.
 name|getCachedRegionCount
