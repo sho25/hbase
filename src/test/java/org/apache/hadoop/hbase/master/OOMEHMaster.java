@@ -211,7 +211,6 @@ name|mostLoadedRegions
 argument_list|)
 return|;
 block|}
-comment|/**    * @param args    * @throws IOException     */
 specifier|public
 specifier|static
 name|void
@@ -224,13 +223,17 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|doMain
+operator|new
+name|HMasterCommandLine
 argument_list|(
-name|args
-argument_list|,
 name|OOMEHMaster
 operator|.
 name|class
+argument_list|)
+operator|.
+name|doMain
+argument_list|(
+name|args
 argument_list|)
 expr_stmt|;
 block|}
