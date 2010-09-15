@@ -267,7 +267,7 @@ return|return
 name|size
 return|;
 block|}
-comment|/**    * Add the pair to the container, grouped by the regionName    *     * @param regionName    * @param r    *          First item in the pair is the original index of the Action    *          (request). Second item is the Result. Result will be empty for    *          successful Put and Delete actions.    */
+comment|/**    * Add the pair to the container, grouped by the regionName    *    * @param regionName    * @param r    *          First item in the pair is the original index of the Action    *          (request). Second item is the Result. Result will be empty for    *          successful Put and Delete actions.    */
 specifier|public
 name|void
 name|add
@@ -465,6 +465,25 @@ range|:
 name|lst
 control|)
 block|{
+if|if
+condition|(
+name|r
+operator|==
+literal|null
+condition|)
+block|{
+name|out
+operator|.
+name|writeInt
+argument_list|(
+operator|-
+literal|1
+argument_list|)
+expr_stmt|;
+comment|// Cant have index -1; on other side we recognize -1 as 'null'
+block|}
+else|else
+block|{
 name|out
 operator|.
 name|writeInt
@@ -475,6 +494,7 @@ name|getFirst
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Can this can npe!?!
 name|HbaseObjectWritable
 operator|.
 name|writeObject
@@ -493,6 +513,7 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -603,6 +624,24 @@ operator|.
 name|readInt
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|idx
+operator|==
+operator|-
+literal|1
+condition|)
+block|{
+name|lst
+operator|.
+name|add
+argument_list|(
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|Result
 name|r
 init|=
@@ -636,6 +675,7 @@ name|r
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|results
 operator|.
