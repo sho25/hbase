@@ -278,6 +278,7 @@ name|BLOCKCACHE
 init|=
 literal|"BLOCKCACHE"
 decl_stmt|;
+comment|/**    * Size of storefile/hfile 'blocks'.  Default is {@link #DEFAULT_BLOCKSIZE}.    * Use smaller block sizes for faster random-access at expense of larger    * indices (more memory consumption).    */
 specifier|public
 specifier|static
 specifier|final
@@ -377,7 +378,7 @@ name|DEFAULT_BLOCKCACHE
 init|=
 literal|true
 decl_stmt|;
-comment|/**    * Default size of blocks in files store to the filesytem.  Use smaller for    * faster random-access at expense of larger indices (more memory consumption).    */
+comment|/**    * Default size of blocks in files stored to the filesytem (hfiles).    */
 specifier|public
 specifier|static
 specifier|final
@@ -658,7 +659,7 @@ name|DEFAULT_REPLICATION_SCOPE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    * @param scope The scope tag for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
+comment|/**    * Constructor    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:<code>    * @param maxVersions Maximum number of versions to keep    * @param compression Compression type    * @param inMemory If true, column data should be kept in an HRegionServer's    * cache    * @param blockCacheEnabled If true, MapFile blocks should be cached    * @param blocksize Block size to use when writing out storefiles.  Use    * smaller blocksizes for faster random-access at expense of larger indices    * (more memory consumption).  Default is usually 64k.    * @param timeToLive Time-to-live of cell contents, in seconds    * (use HConstants.FOREVER for unlimited TTL)    * @param bloomFilter Bloom filter type for this column    * @param scope The scope tag for this column    *    * @throws IllegalArgumentException if passed a family name that is made of    * other than 'word' characters: i.e.<code>[a-zA-Z_0-9]</code> or contains    * a<code>:</code>    * @throws IllegalArgumentException if the number of versions is&lt;= 0    */
 specifier|public
 name|HColumnDescriptor
 parameter_list|(
@@ -1246,7 +1247,7 @@ operator|=
 name|maxVersions
 expr_stmt|;
 block|}
-comment|/**    * @return Blocksize.    */
+comment|/**    * @return The storefile/hfile blocksize for this column family.    */
 specifier|public
 specifier|synchronized
 name|int
@@ -1304,7 +1305,7 @@ name|intValue
 argument_list|()
 return|;
 block|}
-comment|/**    * @param s    */
+comment|/**    * @param s Blocksize to use when writing out storefiles/hfiles on this    * column family.    */
 specifier|public
 name|void
 name|setBlocksize
