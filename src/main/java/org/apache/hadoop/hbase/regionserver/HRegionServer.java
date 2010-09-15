@@ -2043,6 +2043,8 @@ name|stopped
 operator|=
 literal|false
 expr_stmt|;
+comment|//HRegionInterface,
+comment|//HBaseRPCErrorHandler, Runnable, Watcher, Stoppable, OnlineRegions
 comment|// Server to handle client requests
 name|this
 operator|.
@@ -2054,16 +2056,36 @@ name|getServer
 argument_list|(
 name|this
 argument_list|,
+operator|new
+name|Class
+argument_list|<
+name|?
+argument_list|>
+index|[]
+block|{
+name|HRegionInterface
+operator|.
+name|class
+operator|,
+name|HBaseRPCErrorHandler
+operator|.
+name|class
+operator|,
+name|OnlineRegions
+operator|.
+name|class
+block|}
+operator|,
 name|address
 operator|.
 name|getBindAddress
 argument_list|()
-argument_list|,
+operator|,
 name|address
 operator|.
 name|getPort
 argument_list|()
-argument_list|,
+operator|,
 name|conf
 operator|.
 name|getInt
@@ -2072,21 +2094,21 @@ literal|"hbase.regionserver.handler.count"
 argument_list|,
 literal|10
 argument_list|)
-argument_list|,
+operator|,
 literal|false
-argument_list|,
+operator|,
 name|conf
-argument_list|)
-expr_stmt|;
+block|)
+function|;
 name|this
 operator|.
 name|server
 operator|.
 name|setErrorHandler
-argument_list|(
+parameter_list|(
 name|this
-argument_list|)
-expr_stmt|;
+parameter_list|)
+constructor_decl|;
 comment|// Address is giving a default IP for the moment. Will be changed after
 comment|// calling the master.
 name|this
@@ -2161,11 +2183,11 @@ argument_list|)
 throw|;
 block|}
 name|initializeZooKeeper
-argument_list|()
-expr_stmt|;
+parameter_list|()
+constructor_decl|;
 name|initializeThreads
-argument_list|()
-expr_stmt|;
+parameter_list|()
+constructor_decl|;
 name|int
 name|nbBlocks
 init|=
@@ -2208,6 +2230,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_class
+
+begin_function
 specifier|private
 name|void
 name|initializeZooKeeper
@@ -2319,7 +2344,13 @@ name|blockUntilAvailable
 argument_list|()
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return True if cluster shutdown in progress    */
+end_comment
+
+begin_function
 specifier|private
 name|boolean
 name|isClusterUp
@@ -2334,6 +2365,9 @@ name|isClusterUp
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|initializeThreads
@@ -2432,7 +2466,13 @@ name|threadWakeFrequency
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * The HRegionServer sticks in this loop until closed. It repeatedly checks in    * with the HMaster, sending heartbeats& reports, and receiving HRegion    * load/unload instructions.    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|run
@@ -3043,7 +3083,13 @@ literal|" exiting"
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Wait on regions close.    */
+end_comment
+
+begin_function
 specifier|private
 name|void
 name|waitOnAllRegionsToClose
@@ -3129,6 +3175,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 name|List
 argument_list|<
 name|HMsg
@@ -3297,6 +3346,9 @@ return|return
 name|outboundMessages
 return|;
 block|}
+end_function
+
+begin_function
 specifier|private
 name|HServerLoad
 name|buildServerLoad
@@ -3381,6 +3433,9 @@ return|return
 name|hsl
 return|;
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|closeWAL
@@ -3444,6 +3499,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|closeAllScanners
@@ -3505,7 +3563,13 @@ expr_stmt|;
 block|}
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/*    * Add to the passed<code>msgs</code> messages to pass to the master.    *    * @param msgs Current outboundMsgs array; we'll add messages to this List.    */
+end_comment
+
+begin_function
 specifier|private
 name|void
 name|addOutboundMsgs
@@ -3582,7 +3646,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/*    * Remove from this.outboundMsgs those messsages we sent the master.    *    * @param msgs Messages we sent the master.    */
+end_comment
+
+begin_function
 specifier|private
 name|void
 name|updateOutboundMsgs
@@ -3647,7 +3717,13 @@ block|}
 block|}
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/*    * Run init. Sets up hlog and starts up all server threads.    *    * @param c Extra configuration.    */
+end_comment
+
+begin_function
 specifier|protected
 name|void
 name|handleReportForDutyResponse
@@ -3997,7 +4073,13 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/*    * @param r Region to get RegionLoad for.    *    * @return RegionLoad instance.    *    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|private
 name|HServerLoad
 operator|.
@@ -4147,7 +4229,13 @@ name|storefileIndexSizeMB
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @param encodedRegionName    * @return An instance of RegionLoad.    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|public
 name|HServerLoad
 operator|.
@@ -4173,7 +4261,13 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * Cleanup after Throwable caught invoking method. Converts<code>t</code> to    * IOE if it isn't already.    *    * @param t Throwable    *    * @return Throwable converted to an IOE; methods can only let out IOEs.    */
+end_comment
+
+begin_function
 specifier|private
 name|Throwable
 name|cleanup
@@ -4192,7 +4286,13 @@ literal|null
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * Cleanup after Throwable caught invoking method. Converts<code>t</code> to    * IOE if it isn't already.    *    * @param t Throwable    *    * @param msg Message to log in error. Can be null.    *    * @return Throwable converted to an IOE; methods can only let out IOEs.    */
+end_comment
+
+begin_function
 specifier|private
 name|Throwable
 name|cleanup
@@ -4286,7 +4386,13 @@ return|return
 name|t
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * @param t    *    * @return Make<code>t</code> an IOE if it isn't already.    */
+end_comment
+
+begin_function
 specifier|private
 name|IOException
 name|convertThrowableToIOE
@@ -4305,7 +4411,13 @@ literal|null
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * @param t    *    * @param msg Message to put in new IOE if passed<code>t</code> is not an IOE    *    * @return Make<code>t</code> an IOE if it isn't already.    */
+end_comment
+
+begin_function
 specifier|private
 name|IOException
 name|convertThrowableToIOE
@@ -4357,7 +4469,13 @@ argument_list|)
 operator|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * Check if an OOME and if so, call abort.    *    * @param e    *    * @return True if we OOME'd and are aborting.    */
+end_comment
+
+begin_function
 specifier|public
 name|boolean
 name|checkOOME
@@ -4430,7 +4548,13 @@ return|return
 name|stop
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Checks to see if the file system is still accessible. If not, sets    * abortRequested and stopRequested    *    * @return false if file system is not available    */
+end_comment
+
+begin_function
 specifier|protected
 name|boolean
 name|checkFileSystem
@@ -4488,7 +4612,13 @@ operator|.
 name|fsOk
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * Inner class that runs on a long period checking if regions need major    * compaction.    */
+end_comment
+
+begin_class
 specifier|private
 specifier|static
 class|class
@@ -4619,7 +4749,13 @@ block|}
 block|}
 block|}
 block|}
+end_class
+
+begin_comment
 comment|/**    * Report the status of the server. A server is online once all the startup is    * completed (setting up filesystem, starting service threads, etc.). This    * method is designed mostly to be useful in tests.    *    * @return true if online, false if not.    */
+end_comment
+
+begin_function
 specifier|public
 name|boolean
 name|isOnline
@@ -4629,7 +4765,13 @@ return|return
 name|isOnline
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Setup WAL log and replication if enabled.    * Replication setup is done in here because it wants to be hooked up to WAL.    * @return A WAL instance.    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|private
 name|HLog
 name|setupWALAndReplication
@@ -4784,7 +4926,13 @@ name|oldLogDir
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Called by {@link #setupWALAndReplication()} creating WAL instance.    * @param logdir    * @param oldLogDir    * @return WAL instance.    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|protected
 name|HLog
 name|instantiateHLog
@@ -4829,7 +4977,13 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Called by {@link #instantiateHLog(Path, Path)} setting up WAL instance.    * Add any {@link WALObserver}s you want inserted before WAL startup.    * @return List of WALActionsListener that will be passed in to    * {@link HLog} on construction.    */
+end_comment
+
+begin_function
 specifier|protected
 name|List
 argument_list|<
@@ -4906,6 +5060,9 @@ return|return
 name|listeners
 return|;
 block|}
+end_function
+
+begin_function
 specifier|protected
 name|LogRoller
 name|getLogRoller
@@ -4915,7 +5072,13 @@ return|return
 name|hlogRoller
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * @param interval Interval since last time metrics were called.    */
+end_comment
+
+begin_function
 specifier|protected
 name|void
 name|doMetrics
@@ -4944,6 +5107,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|protected
 name|void
 name|metrics
@@ -5287,7 +5453,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return Region server metrics instance.    */
+end_comment
+
+begin_function
 specifier|public
 name|RegionServerMetrics
 name|getMetrics
@@ -5299,7 +5471,13 @@ operator|.
 name|metrics
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * Start maintanence Threads, Server, Worker and lease checker threads.    * Install an UncaughtExceptionHandler that calls abort of RegionServer if we    * get an unhandled exception. We cannot set the handler on all threads.    * Server's internal Listener thread is off limits. For Server, if an OOME, it    * waits a while then retries. Meantime, a flush or a compaction that tries to    * run should trigger same critical condition and the shutdown will run. On    * its way out, this server will shut down Server. Leases are sort of    * inbetween. It has an internal thread that while it inherits from Chore, it    * keeps its own internal stop mechanism so needs to be stopped by this    * hosting server. Worker logs the exception and exits.    */
+end_comment
+
+begin_function
 specifier|private
 name|void
 name|startServiceThreads
@@ -5767,7 +5945,13 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * Verify that server is healthy    */
+end_comment
+
+begin_function
 specifier|private
 name|boolean
 name|isHealthy
@@ -5831,7 +6015,13 @@ return|return
 literal|true
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/** @return the HLog */
+end_comment
+
+begin_function
 specifier|public
 name|HLog
 name|getWAL
@@ -5843,6 +6033,9 @@ operator|.
 name|hlog
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -5856,6 +6049,9 @@ operator|.
 name|catalogTracker
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -5894,6 +6090,9 @@ expr_stmt|;
 comment|// FindBugs NN_NAKED_NOTIFY
 block|}
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -6054,7 +6253,13 @@ expr_stmt|;
 block|}
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Cause the server to exit without closing the regions it is serving, the log    * it is using and without notifying the master. Used unit testing and on    * catastrophic events such as HDFS is yanked out from under hbase or we OOME.    *    * @param reason    *          the reason we are aborting    * @param cause    *          the exception that caused the abort, or null    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|abort
@@ -6145,7 +6350,13 @@ name|reason
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @see HRegionServer#abort(String, Throwable)    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|abort
@@ -6162,7 +6373,13 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * Simulate a kill -9 of this server. Exits w/o closing regions or cleaninup    * logs but it does close socket in case want to bring up server on old    * hostname+port immediately.    */
+end_comment
+
+begin_function
 specifier|protected
 name|void
 name|kill
@@ -6180,7 +6397,13 @@ literal|"Simulated kill"
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Wait on all threads to finish. Presumption is that all closes and stops    * have already been called.    */
+end_comment
+
+begin_function
 specifier|protected
 name|void
 name|join
@@ -6247,7 +6470,13 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Get the current master from ZooKeeper and open the RPC connection to it.    *    * Method will block until a master is available. You can break from this    * block by requesting the server stop.    *    * @return    */
+end_comment
+
+begin_function
 specifier|private
 name|boolean
 name|getMaster
@@ -6391,7 +6620,13 @@ return|return
 literal|true
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return True if successfully invoked {@link #reportForDuty()}    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|private
 name|boolean
 name|tryReportForDuty
@@ -6437,7 +6672,13 @@ return|return
 literal|false
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * Let the master know we're here Run initialization using parameters passed    * us by the master.    */
+end_comment
+
+begin_function
 specifier|private
 name|MapWritable
 name|reportForDuty
@@ -6594,7 +6835,13 @@ return|return
 name|result
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Add to the outbound message buffer    *    * When a region splits, we need to tell the master that there are two new    * regions that need to be assigned.    *    * We do not need to inform the master about the old region, because we've    * updated the meta or root regions, and the master will pick that up on its    * next rescan of the root or meta tables.    */
+end_comment
+
+begin_function
 name|void
 name|reportSplit
 parameter_list|(
@@ -6651,7 +6898,13 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Closes all regions.  Called on our way out.    * Assumes that its not possible for new regions to be added to onlineRegions    * while this method runs.    */
+end_comment
+
+begin_function
 specifier|protected
 name|void
 name|closeAllRegions
@@ -6814,7 +7067,13 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Schedule closes on all user regions.    * @param abort Whether we're running an abort.    */
+end_comment
+
+begin_function
 name|void
 name|closeUserRegions
 parameter_list|(
@@ -6913,6 +7172,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -6942,6 +7204,9 @@ name|getRegionInfo
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|Result
 name|getClosestRowBefore
@@ -7017,7 +7282,13 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/** {@inheritDoc} */
+end_comment
+
+begin_function
 specifier|public
 name|Result
 name|get
@@ -7084,6 +7355,9 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|public
 name|boolean
 name|exists
@@ -7163,6 +7437,9 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|public
 name|void
 name|put
@@ -7280,6 +7557,9 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|public
 name|int
 name|put
@@ -7481,6 +7761,9 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|private
 name|boolean
 name|checkAndMutate
@@ -7598,7 +7881,13 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    *    * @param regionName    * @param row    * @param family    * @param qualifier    * @param value    *          the expected value    * @param put    * @throws IOException    * @return true if the new put was execute, false otherwise    */
+end_comment
+
+begin_function
 specifier|public
 name|boolean
 name|checkAndPut
@@ -7660,7 +7949,13 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    *    * @param regionName    * @param row    * @param family    * @param qualifier    * @param value    *          the expected value    * @param delete    * @throws IOException    * @return true if the new put was execute, false otherwise    */
+end_comment
+
+begin_function
 specifier|public
 name|boolean
 name|checkAndDelete
@@ -7722,9 +8017,21 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|//
+end_comment
+
+begin_comment
 comment|// remote scanner interface
+end_comment
+
+begin_comment
 comment|//
+end_comment
+
+begin_function
 specifier|public
 name|long
 name|openScanner
@@ -7843,6 +8150,9 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|protected
 name|long
 name|addScanner
@@ -7904,6 +8214,9 @@ return|return
 name|scannerId
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|Result
 name|next
@@ -7950,6 +8263,9 @@ literal|0
 index|]
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|Result
 index|[]
@@ -8243,6 +8559,9 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|public
 name|void
 name|close
@@ -8324,7 +8643,13 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Instantiated as a scanner lease. If the lease times out, the scanner is    * closed    */
+end_comment
+
+begin_class
 specifier|private
 class|class
 name|ScannerListener
@@ -8414,9 +8739,21 @@ block|}
 block|}
 block|}
 block|}
+end_class
+
+begin_comment
 comment|//
+end_comment
+
+begin_comment
 comment|// Methods that do the actual work for the remote API
+end_comment
+
+begin_comment
 comment|//
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|delete
@@ -8518,6 +8855,9 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|public
 name|int
 name|delete
@@ -8702,6 +9042,9 @@ operator|-
 literal|1
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|long
 name|lockRow
@@ -8860,6 +9203,9 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|protected
 name|long
 name|addRowLock
@@ -8926,7 +9272,13 @@ return|return
 name|lockId
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Method to get the Integer lock identifier used internally from the long    * lock identifier used by the client.    *    * @param lockId    *          long row lock identifier from client    * @return intId Integer row lock used internally in HRegion    * @throws IOException    *           Thrown if this is not a valid client lock id.    */
+end_comment
+
+begin_function
 name|Integer
 name|getLockFromId
 parameter_list|(
@@ -8996,6 +9348,9 @@ return|return
 name|rl
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|void
 name|unlockRow
@@ -9174,6 +9529,9 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -9212,6 +9570,9 @@ name|familyName
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_decl_stmt
 name|Map
 argument_list|<
 name|String
@@ -9229,7 +9590,13 @@ name|Integer
 argument_list|>
 argument_list|()
 decl_stmt|;
+end_decl_stmt
+
+begin_comment
 comment|/**    * Instantiated as a row lock lease. If the lease times out, the row lock is    * released    */
+end_comment
+
+begin_class
 specifier|private
 class|class
 name|RowLockListener
@@ -9317,7 +9684,13 @@ expr_stmt|;
 block|}
 block|}
 block|}
+end_class
+
+begin_comment
 comment|// Region open/close direct RPCs
+end_comment
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -9414,6 +9787,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -9487,7 +9863,13 @@ literal|true
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @param region Region to close    * @param abort True if we are aborting    * @param zk True if we are to update zk about the region close; if the close    * was orchestrated by master, then update zk.  If the close is being run by    * the regionserver because its going down, don't update zk.    * @return    */
+end_comment
+
+begin_function
 specifier|protected
 name|boolean
 name|closeRegion
@@ -9592,7 +9974,13 @@ return|return
 literal|true
 return|;
 block|}
+end_function
+
+begin_comment
 comment|// Manual remote region administration RPCs
+end_comment
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -9636,6 +10024,9 @@ name|flushcache
 argument_list|()
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -9686,6 +10077,9 @@ literal|"User-triggered split"
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -9748,7 +10142,13 @@ literal|"compaction"
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/** @return the info server */
+end_comment
+
+begin_function
 specifier|public
 name|InfoServer
 name|getInfoServer
@@ -9758,7 +10158,13 @@ return|return
 name|infoServer
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return true if a stop has been requested.    */
+end_comment
+
+begin_function
 specifier|public
 name|boolean
 name|isStopped
@@ -9770,7 +10176,13 @@ operator|.
 name|stopped
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    *    * @return the configuration    */
+end_comment
+
+begin_function
 specifier|public
 name|Configuration
 name|getConfiguration
@@ -9780,7 +10192,13 @@ return|return
 name|conf
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/** @return the write lock for the server */
+end_comment
+
+begin_function
 name|ReentrantReadWriteLock
 operator|.
 name|WriteLock
@@ -9794,6 +10212,9 @@ name|writeLock
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -9863,6 +10284,9 @@ return|return
 name|sortedset
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|int
 name|getNumberOfOnlineRegions
@@ -9875,7 +10299,13 @@ name|size
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * For tests and web ui.    * This method will only work if HRegionServer is in the same JVM as client;    * HRegion cannot be serialized to cross an rpc.    * @see #getOnlineRegions()    */
+end_comment
+
+begin_function
 specifier|public
 name|Collection
 argument_list|<
@@ -9898,6 +10328,9 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -9946,6 +10379,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -10003,7 +10439,13 @@ operator|!=
 literal|null
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return A new Map of online regions sorted by region size with the first    *         entry being the biggest.    */
+end_comment
+
+begin_function
 specifier|public
 name|SortedMap
 argument_list|<
@@ -10110,6 +10552,9 @@ return|return
 name|sortedRegions
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -10130,7 +10575,13 @@ name|encodedRegionName
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @param regionName    * @return HRegion for the passed binary<code>regionName</code> or null if    *         named region is not member of the online regions.    */
+end_comment
+
+begin_function
 specifier|public
 name|HRegion
 name|getOnlineRegion
@@ -10153,7 +10604,13 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/** @return the request count */
+end_comment
+
+begin_function
 specifier|public
 name|AtomicInteger
 name|getRequestCount
@@ -10165,7 +10622,13 @@ operator|.
 name|requestCount
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/** @return reference to FlushRequester */
+end_comment
+
+begin_function
 specifier|public
 name|FlushRequester
 name|getFlushRequester
@@ -10177,7 +10640,13 @@ operator|.
 name|cacheFlusher
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Protected utility method for safely obtaining an HRegion handle.    *    * @param regionName    *          Name of online {@link HRegion} to return    * @return {@link HRegion} for<code>regionName</code>    * @throws NotServingRegionException    */
+end_comment
+
+begin_function
 specifier|protected
 name|HRegion
 name|getRegion
@@ -10254,7 +10723,13 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Get the top N most loaded regions this server is serving so we can tell the    * master which regions it can reallocate if we're overloaded. TODO: actually    * calculate which regions are most loaded. (Right now, we're just grabbing    * the first N regions being served regardless of load.)    */
+end_comment
+
+begin_function
 specifier|protected
 name|HRegionInfo
 index|[]
@@ -10348,7 +10823,13 @@ index|]
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Called to verify that this server is up and running.    *    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|protected
 name|void
 name|checkOpen
@@ -10400,7 +10881,13 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return Returns list of non-closed regions hosted on this server. If no    *         regions to check, returns an empty list.    */
+end_comment
+
+begin_function
 specifier|protected
 name|Set
 argument_list|<
@@ -10506,6 +10993,9 @@ return|return
 name|regionsToCheck
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|long
 name|getProtocolVersion
@@ -10552,7 +11042,13 @@ name|protocol
 argument_list|)
 throw|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return Queue to which you can add outbound messages.    */
+end_comment
+
+begin_function
 specifier|protected
 name|LinkedBlockingQueue
 argument_list|<
@@ -10567,7 +11063,13 @@ operator|.
 name|outboundMsgs
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Return the total size of all memstores in every region.    *    * @return memstore size in bytes    */
+end_comment
+
+begin_function
 specifier|public
 name|long
 name|getGlobalMemStoreSize
@@ -10609,7 +11111,13 @@ return|return
 name|total
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return Return the leases.    */
+end_comment
+
+begin_function
 specifier|protected
 name|Leases
 name|getLeases
@@ -10619,7 +11127,13 @@ return|return
 name|leases
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return Return the rootDir.    */
+end_comment
+
+begin_function
 specifier|protected
 name|Path
 name|getRootDir
@@ -10629,7 +11143,13 @@ return|return
 name|rootDir
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return Return the fs.    */
+end_comment
+
+begin_function
 specifier|protected
 name|FileSystem
 name|getFileSystem
@@ -10639,7 +11159,13 @@ return|return
 name|fs
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return Info on port this server has bound to, etc.    */
+end_comment
+
+begin_function
 specifier|public
 name|HServerInfo
 name|getServerInfo
@@ -10651,7 +11177,13 @@ operator|.
 name|serverInfo
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/** {@inheritDoc} */
+end_comment
+
+begin_function
 specifier|public
 name|long
 name|incrementColumnValue
@@ -10752,7 +11284,13 @@ name|e
 throw|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/** {@inheritDoc} */
+end_comment
+
+begin_function
 specifier|public
 name|HRegionInfo
 index|[]
@@ -10822,7 +11360,13 @@ return|return
 name|regions
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/** {@inheritDoc} */
+end_comment
+
+begin_function
 specifier|public
 name|HServerInfo
 name|getHServerInfo
@@ -10834,6 +11378,9 @@ return|return
 name|serverInfo
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11135,7 +11682,13 @@ return|return
 name|response
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @deprecated Use HRegionServer.multi( MultiAction action) instead    */
+end_comment
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11222,6 +11775,9 @@ return|return
 name|resp
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|String
 name|toString
@@ -11236,7 +11792,13 @@ name|toString
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Interval at which threads should run    *    * @return the interval    */
+end_comment
+
+begin_function
 specifier|public
 name|int
 name|getThreadWakeFrequency
@@ -11246,6 +11808,9 @@ return|return
 name|threadWakeFrequency
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11257,6 +11822,9 @@ return|return
 name|zooKeeper
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11271,6 +11839,9 @@ name|getServerName
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11284,10 +11855,25 @@ operator|.
 name|compactSplitThread
 return|;
 block|}
+end_function
+
+begin_comment
 comment|//
+end_comment
+
+begin_comment
 comment|// Main program and support routines
+end_comment
+
+begin_comment
 comment|//
+end_comment
+
+begin_comment
 comment|/**    * @param hrs    * @return Thread the RegionServer is running in correctly named.    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|Thread
@@ -11320,7 +11906,13 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @param hrs    * @param name    * @return Thread the RegionServer is running in correctly named.    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|Thread
@@ -11388,7 +11980,13 @@ return|return
 name|t
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Utility for constructing an instance of the passed HRegionServer class.    *    * @param regionServerClass    * @param conf2    * @return HRegionServer instance.    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|HRegionServer
@@ -11459,6 +12057,9 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11494,7 +12095,13 @@ name|entries
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @see org.apache.hadoop.hbase.regionserver.HRegionServerCommandLine    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|void
@@ -11561,8 +12168,8 @@ name|args
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-end_class
+end_function
 
+unit|}
 end_unit
 

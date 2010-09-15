@@ -1247,23 +1247,39 @@ name|getServer
 argument_list|(
 name|this
 argument_list|,
+operator|new
+name|Class
+argument_list|<
+name|?
+argument_list|>
+index|[]
+block|{
+name|HMasterInterface
+operator|.
+name|class
+operator|,
+name|HMasterRegionInterface
+operator|.
+name|class
+block|}
+operator|,
 name|a
 operator|.
 name|getBindAddress
 argument_list|()
-argument_list|,
+operator|,
 name|a
 operator|.
 name|getPort
 argument_list|()
-argument_list|,
+operator|,
 name|numHandlers
-argument_list|,
+operator|,
 literal|false
-argument_list|,
+operator|,
 name|conf
-argument_list|)
-expr_stmt|;
+block|)
+empty_stmt|;
 name|this
 operator|.
 name|address
@@ -1388,10 +1404,10 @@ operator|.
 name|zooKeeper
 operator|.
 name|registerListener
-argument_list|(
+parameter_list|(
 name|activeMasterManager
-argument_list|)
-expr_stmt|;
+parameter_list|)
+constructor_decl|;
 comment|// If we're a backup master, stall until a primary to writes his address
 if|if
 condition|(
@@ -1555,8 +1571,8 @@ operator|.
 name|catalogTracker
 operator|.
 name|start
-argument_list|()
-expr_stmt|;
+parameter_list|()
+constructor_decl|;
 name|this
 operator|.
 name|assignmentManager
@@ -1580,10 +1596,10 @@ expr_stmt|;
 name|zooKeeper
 operator|.
 name|registerListener
-argument_list|(
+parameter_list|(
 name|assignmentManager
-argument_list|)
-expr_stmt|;
+parameter_list|)
+constructor_decl|;
 name|this
 operator|.
 name|regionServerTracker
@@ -1603,8 +1619,8 @@ expr_stmt|;
 name|regionServerTracker
 operator|.
 name|start
-argument_list|()
-expr_stmt|;
+parameter_list|()
+constructor_decl|;
 comment|// Set the cluster as up.
 name|this
 operator|.
@@ -1624,15 +1640,15 @@ operator|.
 name|clusterStatusTracker
 operator|.
 name|setClusterUp
-argument_list|()
-expr_stmt|;
+parameter_list|()
+constructor_decl|;
 name|this
 operator|.
 name|clusterStatusTracker
 operator|.
 name|start
-argument_list|()
-expr_stmt|;
+parameter_list|()
+constructor_decl|;
 name|LOG
 operator|.
 name|info
@@ -1668,7 +1684,13 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+end_class
+
+begin_comment
 comment|/**    * Main processing loop for the HMaster.    * 1. Handle both fresh cluster start as well as failed over initialization of    *    the HMaster.    * 2. Start the necessary services    * 3. Reassign the root region    * 4. The master is no longer closed - set "closed" to false    */
+end_comment
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -1903,7 +1925,13 @@ literal|"HMaster main thread exiting"
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * Initializations we need to do if we are cluster starter.    * @param starter    * @param mfs    * @throws IOException     */
+end_comment
+
+begin_function
 specifier|private
 specifier|static
 name|void
@@ -2004,7 +2032,13 @@ name|assignAllUserRegions
 argument_list|()
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * @return This masters' address.    * @throws UnknownHostException    */
+end_comment
+
+begin_function
 specifier|private
 specifier|static
 name|String
@@ -2070,7 +2104,13 @@ return|return
 name|s
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/** @return HServerAddress of the master server */
+end_comment
+
+begin_function
 specifier|public
 name|HServerAddress
 name|getMasterAddress
@@ -2082,6 +2122,9 @@ operator|.
 name|address
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|long
 name|getProtocolVersion
@@ -2099,7 +2142,13 @@ operator|.
 name|versionID
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/** @return InfoServer object. Maybe null.*/
+end_comment
+
+begin_function
 specifier|public
 name|InfoServer
 name|getInfoServer
@@ -2111,6 +2160,9 @@ operator|.
 name|infoServer
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -2124,6 +2176,9 @@ operator|.
 name|conf
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -2137,6 +2192,9 @@ operator|.
 name|serverManager
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -2150,6 +2208,9 @@ operator|.
 name|executorService
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -2163,7 +2224,13 @@ operator|.
 name|fileSystemManager
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Get the ZK wrapper object - needed by master_jsp.java    * @return the zookeeper wrapper    */
+end_comment
+
+begin_function
 specifier|public
 name|ZooKeeperWatcher
 name|getZooKeeperWatcher
@@ -2175,7 +2242,13 @@ operator|.
 name|zooKeeper
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/*    * Start up all services. If any of these threads gets an unhandled exception    * then they just die with a logged message.  This should be fine because    * in general, we do not expect the master to get such unhandled exceptions    *  as OOMEs; it should be lightly loaded. See what HRegionServer does if    *  need to install an unexpected exception handler.    */
+end_comment
+
+begin_function
 specifier|private
 name|void
 name|startServiceThreads
@@ -2425,6 +2498,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|private
 specifier|static
 name|Chore
@@ -2502,6 +2578,9 @@ return|return
 name|chore
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|MapWritable
 name|regionServerStartup
@@ -2584,7 +2663,13 @@ return|return
 name|mw
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return Subset of configuration to pass initializing regionservers: e.g.    * the filesystem to use and root directory to use.    */
+end_comment
+
+begin_function
 specifier|protected
 name|MapWritable
 name|createConfigurationSubset
@@ -2613,6 +2698,9 @@ literal|"fs.default.name"
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_function
 specifier|private
 name|MapWritable
 name|addConfig
@@ -2654,6 +2742,9 @@ return|return
 name|mw
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -2695,7 +2786,13 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Override if you'd add messages to return to regionserver<code>hsi</code>    * or to send an exception.    * @param msgs Messages to add to    * @return Messages to return to    * @throws IOException exceptions that were injected for the region servers    */
+end_comment
+
+begin_function
 specifier|protected
 name|HMsg
 index|[]
@@ -2717,6 +2814,9 @@ return|return
 name|msgs
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|boolean
 name|isMasterRunning
@@ -2728,7 +2828,13 @@ name|isStopped
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Run the balancer.    * @return True if balancer ran, false otherwise.    */
+end_comment
+
+begin_function
 specifier|public
 name|boolean
 name|balance
@@ -2941,6 +3047,9 @@ return|return
 literal|true
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -2978,6 +3087,9 @@ return|return
 name|oldValue
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -3077,6 +3189,9 @@ name|rp
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|void
 name|createTable
@@ -3102,6 +3217,9 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|void
 name|createTable
@@ -3319,6 +3437,9 @@ name|sync
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 specifier|private
 specifier|synchronized
 name|void
@@ -3493,6 +3614,9 @@ block|}
 block|}
 block|}
 block|}
+end_function
+
+begin_function
 specifier|private
 specifier|static
 name|boolean
@@ -3528,6 +3652,9 @@ name|META_TABLE_NAME
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|void
 name|deleteTable
@@ -3554,6 +3681,9 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|void
 name|addColumn
@@ -3584,6 +3714,9 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|void
 name|modifyColumn
@@ -3614,6 +3747,9 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|void
 name|deleteColumn
@@ -3647,6 +3783,9 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|void
 name|enableTable
@@ -3675,6 +3814,9 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|void
 name|disableTable
@@ -3703,7 +3845,13 @@ name|process
 argument_list|()
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Return the region and current deployment for the region containing    * the given row. If the region cannot be found, returns null. If it    * is found, but not currently deployed, the second element of the pair    * may be null.    */
+end_comment
+
+begin_function
 name|Pair
 argument_list|<
 name|HRegionInfo
@@ -3875,6 +4023,9 @@ name|get
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -3912,6 +4063,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -4000,7 +4154,13 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return cluster status    */
+end_comment
+
+begin_function
 specifier|public
 name|ClusterStatus
 name|getClusterStatus
@@ -4060,6 +4220,9 @@ return|return
 name|status
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -4105,6 +4268,9 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -4116,6 +4282,9 @@ return|return
 name|zooKeeper
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -4130,6 +4299,9 @@ name|toString
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -4141,6 +4313,9 @@ return|return
 name|catalogTracker
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -4154,6 +4329,9 @@ operator|.
 name|assignmentManager
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -4195,6 +4373,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -4216,6 +4397,9 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -4241,6 +4425,9 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -4254,6 +4441,9 @@ operator|.
 name|stopped
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|void
 name|assignRegion
@@ -4270,7 +4460,13 @@ name|hri
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Utility for constructing an instance of the passed HMaster class.    * @param masterClass    * @param conf    * @return HMaster instance.    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|HMaster
@@ -4414,7 +4610,13 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * @see org.apache.hadoop.hbase.master.HMasterCommandLine    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|void
@@ -4441,8 +4643,8 @@ name|args
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-end_class
+end_function
 
+unit|}
 end_unit
 

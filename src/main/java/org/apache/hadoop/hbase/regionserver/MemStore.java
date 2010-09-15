@@ -1551,6 +1551,16 @@ condition|(
 operator|!
 name|firstKv
 operator|.
+name|matchingColumn
+argument_list|(
+name|family
+argument_list|,
+name|qualifier
+argument_list|)
+operator|||
+operator|!
+name|firstKv
+operator|.
 name|matchingRow
 argument_list|(
 name|kv
@@ -1683,6 +1693,16 @@ block|}
 comment|// if this isnt the row we are interested in, then bail:
 if|if
 condition|(
+operator|!
+name|firstKv
+operator|.
+name|matchingColumn
+argument_list|(
+name|family
+argument_list|,
+name|qualifier
+argument_list|)
+operator|||
 operator|!
 name|firstKv
 operator|.
