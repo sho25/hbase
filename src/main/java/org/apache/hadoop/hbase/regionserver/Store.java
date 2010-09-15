@@ -613,12 +613,21 @@ specifier|final
 name|boolean
 name|blockcache
 decl_stmt|;
+comment|/** Compression algorithm for flush files and minor compaction */
 specifier|private
 specifier|final
 name|Compression
 operator|.
 name|Algorithm
 name|compression
+decl_stmt|;
+comment|/** Compression algorithm for major compaction */
+specifier|private
+specifier|final
+name|Compression
+operator|.
+name|Algorithm
+name|compactionCompression
 decl_stmt|;
 comment|// Comparing KeyValues
 specifier|final
@@ -769,6 +778,34 @@ name|family
 operator|.
 name|getCompression
 argument_list|()
+expr_stmt|;
+comment|// avoid overriding compression setting for major compactions if the user
+comment|// has not specified it separately
+name|this
+operator|.
+name|compactionCompression
+operator|=
+operator|(
+name|family
+operator|.
+name|getCompactionCompression
+argument_list|()
+operator|!=
+name|Compression
+operator|.
+name|Algorithm
+operator|.
+name|NONE
+operator|)
+condition|?
+name|family
+operator|.
+name|getCompactionCompression
+argument_list|()
+else|:
+name|this
+operator|.
+name|compression
 expr_stmt|;
 name|this
 operator|.
@@ -2341,7 +2378,7 @@ return|return
 name|sf
 return|;
 block|}
-comment|/*    * @return Writer for a new StoreFile in the tmp dir.    */
+comment|/*    * @param maxKeyCount    * @return Writer for a new StoreFile in the tmp dir.    */
 specifier|private
 name|StoreFile
 operator|.
@@ -2350,6 +2387,35 @@ name|createWriterInTmp
 parameter_list|(
 name|int
 name|maxKeyCount
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|createWriterInTmp
+argument_list|(
+name|maxKeyCount
+argument_list|,
+name|this
+operator|.
+name|compression
+argument_list|)
+return|;
+block|}
+comment|/*    * @param maxKeyCount    * @param compression Compression algorithm to use    * @return Writer for a new StoreFile in the tmp dir.    */
+specifier|private
+name|StoreFile
+operator|.
+name|Writer
+name|createWriterInTmp
+parameter_list|(
+name|int
+name|maxKeyCount
+parameter_list|,
+name|Compression
+operator|.
+name|Algorithm
+name|compression
 parameter_list|)
 throws|throws
 name|IOException
@@ -2372,8 +2438,6 @@ name|this
 operator|.
 name|blocksize
 argument_list|,
-name|this
-operator|.
 name|compression
 argument_list|,
 name|this
@@ -3765,6 +3829,10 @@ operator|=
 name|createWriterInTmp
 argument_list|(
 name|maxKeyCount
+argument_list|,
+name|this
+operator|.
+name|compactionCompression
 argument_list|)
 expr_stmt|;
 block|}
