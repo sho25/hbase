@@ -2306,12 +2306,22 @@ argument_list|()
 operator|+
 literal|", src="
 operator|+
+operator|(
+name|this
+operator|.
+name|source
+operator|==
+literal|null
+condition|?
+literal|""
+else|:
 name|this
 operator|.
 name|source
 operator|.
 name|getServerName
 argument_list|()
+operator|)
 operator|+
 literal|", dest="
 operator|+
