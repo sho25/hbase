@@ -372,7 +372,7 @@ end_import
 begin_class
 specifier|public
 class|class
-name|TestReplicationSink
+name|DISABLEDTestReplicationSink
 block|{
 specifier|private
 specifier|static
@@ -384,7 +384,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestReplicationSink
+name|DISABLEDTestReplicationSink
 operator|.
 name|class
 argument_list|)
