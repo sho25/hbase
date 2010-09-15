@@ -29,6 +29,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|net
+operator|.
+name|ConnectException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -580,7 +590,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Updates the location of the specified META region in ROOT to be the    * specified server hostname and startcode.    *<p>    * Uses passed catalog tracker to get a connection to the server hosting    * ROOT and makes edits to that region.    *    * @param catalogTracker catalog tracker    * @param regionInfo region to update location of    * @param serverInfo server the region is located on    * @throws IOException    */
+comment|/**    * Updates the location of the specified META region in ROOT to be the    * specified server hostname and startcode.    *<p>    * Uses passed catalog tracker to get a connection to the server hosting    * ROOT and makes edits to that region.    *    * @param catalogTracker catalog tracker    * @param regionInfo region to update location of    * @param serverInfo server the region is located on    * @throws IOException    * @throws ConnectException Usually because the regionserver carrying .META.    * is down.    * @throws NullPointerException Because no -ROOT- server connection    */
 specifier|public
 specifier|static
 name|void
@@ -597,6 +607,8 @@ name|serverInfo
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|ConnectException
 block|{
 name|HRegionInterface
 name|server
@@ -606,6 +618,19 @@ operator|.
 name|waitForRootServerConnectionDefault
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|server
+operator|==
+literal|null
+condition|)
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|(
+literal|"No server for -ROOT-"
+argument_list|)
+throw|;
 name|updateLocation
 argument_list|(
 name|server
@@ -655,8 +680,8 @@ name|serverInfo
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Updates the location of the specified region to be the specified server.    *<p>    * Connects to the specified server which should be hosting the specified    * catalog region name to perform the edit.    *    * @param server connection to server hosting catalog region    * @param catalogRegionName name of catalog region being updated    * @param regionInfo region to update location of    * @param serverInfo server the region is located on    * @throws IOException    */
-specifier|public
+comment|/**    * Updates the location of the specified region to be the specified server.    *<p>    * Connects to the specified server which should be hosting the specified    * catalog region name to perform the edit.    *    * @param server connection to server hosting catalog region    * @param catalogRegionName name of catalog region being updated    * @param regionInfo region to update location of    * @param serverInfo server the region is located on    * @throws IOException In particular could throw {@link java.net.ConnectException}    * if the server is down on other end.    */
+specifier|private
 specifier|static
 name|void
 name|updateLocation

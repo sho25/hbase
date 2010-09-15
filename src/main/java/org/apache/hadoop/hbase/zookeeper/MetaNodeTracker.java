@@ -65,6 +65,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Abortable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -86,7 +100,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tracks the unassigned zookeeper node used by the META table.  *<p>  * A callback is made into a {@link CatalogTracker} when META completes a new  * assignment.  *<p>  * If META is already assigned when instantiating this class, you will not  * receive any notification for that assignment.  You will receive a  * notification after META has been successfully assigned to a new location.  */
+comment|/**  * Tracks the unassigned zookeeper node used by the META table.  *  * A callback is made into the passed {@link CatalogTracker} when  *<code>.META.</code> completes a new assignment.  *<p>  * If META is already assigned when instantiating this class, you will not  * receive any notification for that assignment.  You will receive a  * notification after META has been successfully assigned to a new location.  */
 end_comment
 
 begin_class
@@ -94,7 +108,7 @@ specifier|public
 class|class
 name|MetaNodeTracker
 extends|extends
-name|ZooKeeperListener
+name|ZooKeeperNodeTracker
 block|{
 specifier|private
 specifier|static
@@ -111,11 +125,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|private
-specifier|final
-name|String
-name|node
-decl_stmt|;
 comment|/** Catalog tracker to notify when META has a new assignment completed. */
 specifier|private
 specifier|final
@@ -126,26 +135,23 @@ comment|/**    * Creates a meta node tracker.    * @param watcher    * @param ab
 specifier|public
 name|MetaNodeTracker
 parameter_list|(
+specifier|final
 name|ZooKeeperWatcher
 name|watcher
 parameter_list|,
+specifier|final
 name|CatalogTracker
 name|catalogTracker
+parameter_list|,
+specifier|final
+name|Abortable
+name|abortable
 parameter_list|)
 block|{
 name|super
 argument_list|(
 name|watcher
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|catalogTracker
-operator|=
-name|catalogTracker
-expr_stmt|;
-name|node
-operator|=
+argument_list|,
 name|ZKUtil
 operator|.
 name|joinZNode
@@ -161,6 +167,15 @@ operator|.
 name|getEncodedName
 argument_list|()
 argument_list|)
+argument_list|,
+name|abortable
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|catalogTracker
+operator|=
+name|catalogTracker
 expr_stmt|;
 block|}
 annotation|@
@@ -175,6 +190,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
+operator|!
 name|path
 operator|.
 name|equals
@@ -182,18 +198,18 @@ argument_list|(
 name|node
 argument_list|)
 condition|)
-block|{
+return|return;
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Detected completed assignment of META, notifying catalog "
-operator|+
-literal|"tracker"
+literal|"Detected completed assignment of META, notifying catalog tracker"
 argument_list|)
 expr_stmt|;
 try|try
 block|{
+name|this
+operator|.
 name|catalogTracker
 operator|.
 name|waitForMetaServerConnectionDefault
@@ -217,7 +233,6 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 block|}

@@ -1099,7 +1099,25 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"All split keys must be unique, found duplicate"
+literal|"All split keys must be unique, "
+operator|+
+literal|"found duplicate: "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|splitKey
+argument_list|)
+operator|+
+literal|", "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|lastKey
+argument_list|)
 argument_list|)
 throw|;
 block|}

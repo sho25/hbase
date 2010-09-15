@@ -31,6 +31,18 @@ begin_import
 import|import
 name|java
 operator|.
+name|lang
+operator|.
+name|reflect
+operator|.
+name|UndeclaredThrowableException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|net
 operator|.
 name|ConnectException
@@ -223,6 +235,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Pair
 import|;
 end_import
@@ -288,7 +316,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tracks the availability of the catalog tables<code>-ROOT-</code> and  *<code>.META.</code>.  *<p>  * This class is "read-only" in that the locations of the catalog tables cannot  * be explicitly set.  Instead, ZooKeeper is used to learn of the availability  * and location of ROOT.  ROOT is used to learn of the location of META.  If not  * available in ROOT, ZooKeeper is used to monitor for a new location of META.  *<p>Call {@link #start()} to start up operation.  */
+comment|/**  * Tracks the availability of the catalog tables<code>-ROOT-</code> and  *<code>.META.</code>.  *   * This class is "read-only" in that the locations of the catalog tables cannot  * be explicitly set.  Instead, ZooKeeper is used to learn of the availability  * and location of<code>-ROOT-</code>.<code>-ROOT-</code> is used to learn of  * the location of<code>.META.</code>  If not available in<code>-ROOT-</code>,  * ZooKeeper is used to monitor for a new location of<code>.META.</code>.  *  *<p>Call {@link #start()} to start up operation.  */
 end_comment
 
 begin_class
@@ -379,7 +407,7 @@ operator|.
 name|getRegionName
 argument_list|()
 decl_stmt|;
-comment|/**    * Constructs the catalog tracker.  Find current state of catalog tables and    * begin active tracking by executing {@link #start()}.    * @param zk    * @param connection server connection    * @param abortable if fatal exception    * @throws IOException     */
+comment|/**    * Constructs the catalog tracker.  Find current state of catalog tables and    * begin active tracking by executing {@link #start()} post construction.    * Does not timeout.    * @param zk    * @param connection server connection    * @param abortable if fatal exception    * @throws IOException     */
 specifier|public
 name|CatalogTracker
 parameter_list|(
@@ -410,7 +438,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructs the catalog tracker.  Find current state of catalog tables and    * begin active tracking by executing {@link #start()}.    * @param zk    * @param connection server connection    * @param abortable if fatal exception    * @param defaultTimeout Timeout to use.    * @throws IOException     */
+comment|/**    * Constructs the catalog tracker.  Find current state of catalog tables and    * begin active tracking by executing {@link #start()} post construction.    * @param zk    * @param connection server connection    * @param abortable if fatal exception    * @param defaultTimeout Timeout to use.  Pass zero for no timeout    * ({@link Object#wait(long)} when passed a<code>0</code> waits for ever).    * @throws IOException     */
 specifier|public
 name|CatalogTracker
 parameter_list|(
@@ -467,6 +495,8 @@ argument_list|(
 name|zookeeper
 argument_list|,
 name|this
+argument_list|,
+name|abortable
 argument_list|)
 expr_stmt|;
 name|this
@@ -476,7 +506,7 @@ operator|=
 name|defaultTimeout
 expr_stmt|;
 block|}
-comment|/**    * Starts the catalog tracker.    *<p>    * Determines current availability of catalog tables and ensures all further    * transitions of either region is tracked.    * @throws IOException    * @throws InterruptedException     */
+comment|/**    * Starts the catalog tracker.    * Determines current availability of catalog tables and ensures all further    * transitions of either region are tracked.    * @throws IOException    * @throws InterruptedException     */
 specifier|public
 name|void
 name|start
@@ -486,29 +516,22 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-comment|// Register listeners with zk
-name|zookeeper
+name|this
 operator|.
-name|registerListener
-argument_list|(
-name|rootRegionTracker
-argument_list|)
-expr_stmt|;
-name|zookeeper
-operator|.
-name|registerListener
-argument_list|(
-name|metaNodeTracker
-argument_list|)
-expr_stmt|;
-comment|// Start root tracking
 name|rootRegionTracker
 operator|.
 name|start
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|metaNodeTracker
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
 comment|// Determine meta assignment; may not work because root and meta not yet
-comment|// deployed.
+comment|// deployed.  Calling the below will set {@link #metaLocation}.
 name|getMetaServerConnection
 argument_list|(
 literal|true
@@ -552,14 +575,15 @@ parameter_list|()
 throws|throws
 name|InterruptedException
 block|{
+name|this
+operator|.
 name|rootRegionTracker
 operator|.
-name|getRootRegionLocation
+name|blockUntilAvailable
 argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Gets the current location for<code>-ROOT-</code> if available and waits    * for up to the specified timeout if not immediately available.  Returns null    * if the timeout elapses before root is available.    * @param timeout maximum time to wait for root availability, in milliseconds    * @return location of root    * @throws InterruptedException if interrupted while waiting    * @throws NotAllMetaRegionsOnlineException if root not available before    *                                          timeout    */
-specifier|public
 name|HServerAddress
 name|waitForRoot
 parameter_list|(
@@ -1040,6 +1064,8 @@ argument_list|(
 literal|"Current cached META location is not valid, resetting"
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|metaAvailable
 operator|.
 name|set
@@ -1047,6 +1073,8 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|metaLocation
 operator|=
 literal|null
@@ -1166,6 +1194,11 @@ index|[]
 name|regionName
 parameter_list|)
 block|{
+name|Throwable
+name|t
+init|=
+literal|null
+decl_stmt|;
 try|try
 block|{
 return|return
@@ -1185,10 +1218,66 @@ name|NotServingRegionException
 name|e
 parameter_list|)
 block|{
+name|t
+operator|=
+name|e
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|UndeclaredThrowableException
+name|e
+parameter_list|)
+block|{
+comment|// We can get a ConnectException wrapped by a UTE if client fails connect
+comment|// If not a ConnectException, rethrow.
+if|if
+condition|(
+operator|!
+operator|(
+name|e
+operator|.
+name|getCause
+argument_list|()
+operator|instanceof
+name|ConnectException
+operator|)
+condition|)
+throw|throw
+name|e
+throw|;
+name|t
+operator|=
+name|e
+operator|.
+name|getCause
+argument_list|()
+expr_stmt|;
+block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Failed verification of "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|regionName
+argument_list|)
+operator|+
+literal|": "
+operator|+
+name|t
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
 return|return
 literal|false
 return|;
-block|}
 block|}
 comment|/**    * Check if<code>hsi</code> was carrying<code>-ROOT-</code> or    *<code>.META.</code> and if so, clear out old locations.    * @param hsi Server that has crashed/shutdown.    * @throws InterruptedException    * @throws KeeperException    * @return Pair of booleans; if this server was carrying root, then first    * boolean is set, if server was carrying meta, then second boolean set.    */
 specifier|public
@@ -1358,6 +1447,16 @@ expr_stmt|;
 block|}
 return|return
 name|result
+return|;
+block|}
+name|MetaNodeTracker
+name|getMetaNodeTracker
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|metaNodeTracker
 return|;
 block|}
 block|}

@@ -69,18 +69,6 @@ name|java
 operator|.
 name|lang
 operator|.
-name|management
-operator|.
-name|RuntimeMXBean
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|lang
-operator|.
 name|reflect
 operator|.
 name|Constructor
@@ -544,20 +532,6 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|LocalHBaseCluster
 import|;
 end_import
 
@@ -2305,8 +2279,9 @@ name|getInt
 argument_list|(
 literal|"hbase.regionserver.catalog.timeout"
 argument_list|,
-operator|-
-literal|1
+name|Integer
+operator|.
+name|MAX_VALUE
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -6019,7 +5994,6 @@ name|isMetaRegion
 argument_list|()
 condition|)
 block|{
-comment|// TODO: doh, this has weird naming between RootEditor/MetaEditor
 name|MetaEditor
 operator|.
 name|updateMetaLocation
@@ -6939,6 +6913,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|HRegionInfo
 name|getRegionInfo

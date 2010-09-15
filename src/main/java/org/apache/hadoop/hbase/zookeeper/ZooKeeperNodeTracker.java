@@ -326,6 +326,17 @@ return|return
 name|data
 return|;
 block|}
+specifier|public
+name|String
+name|getNode
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|node
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public

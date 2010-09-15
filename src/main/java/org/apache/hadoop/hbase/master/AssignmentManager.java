@@ -693,7 +693,7 @@ name|RegionState
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/** Plans for region movement. */
+comment|/** Plans for region movement. Key is the encoded version of a region name*/
 comment|// TODO: When do plans get cleaned out?  Ever?
 comment|// Its cleaned on server shutdown processing -- St.Ack
 specifier|private
@@ -1238,20 +1238,33 @@ operator|.
 name|getServerName
 argument_list|()
 argument_list|)
+operator|&&
+operator|!
+name|this
+operator|.
+name|master
+operator|.
+name|getServerName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|data
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
 condition|)
 block|{
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Attempted to handle region transition for server "
+literal|"Attempted to handle region transition for server but "
+operator|+
+literal|"server is not online: "
 operator|+
 name|data
-operator|.
-name|getServerName
-argument_list|()
-operator|+
-literal|" but server is not online"
 argument_list|)
 expr_stmt|;
 return|return;
@@ -1320,6 +1333,19 @@ name|getEventType
 argument_list|()
 condition|)
 block|{
+case|case
+name|M2ZK_REGION_OFFLINE
+case|:
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"What to do with this event? "
+operator|+
+name|data
+argument_list|)
+expr_stmt|;
+break|break;
 case|case
 name|RS2ZK_REGION_CLOSING
 case|:
@@ -2408,6 +2434,18 @@ name|put
 argument_list|(
 name|encodedName
 argument_list|,
+name|plan
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Using preexisting plan="
+operator|+
 name|plan
 argument_list|)
 expr_stmt|;
@@ -3886,7 +3924,7 @@ name|hsi
 argument_list|)
 condition|)
 block|{
-comment|// Use iterator's remove else we'll get CME.fail a
+comment|// Use iterator's remove else we'll get CME
 name|i
 operator|.
 name|remove
@@ -3895,6 +3933,95 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|// Remove assignment info related to the downed server.  Remove the downed
+comment|// server from list of servers else it looks like a server w/ no load.
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|regions
+init|)
+block|{
+name|Set
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|hris
+init|=
+operator|new
+name|HashSet
+argument_list|<
+name|HRegionInfo
+argument_list|>
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|HServerInfo
+argument_list|>
+name|e
+range|:
+name|this
+operator|.
+name|regions
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+comment|// Add to a Set -- don't call setOffline in here else we get a CME.
+if|if
+condition|(
+name|e
+operator|.
+name|getValue
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|hsi
+argument_list|)
+condition|)
+name|hris
+operator|.
+name|add
+argument_list|(
+name|e
+operator|.
+name|getKey
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+for|for
+control|(
+name|HRegionInfo
+name|hri
+range|:
+name|hris
+control|)
+name|setOffline
+argument_list|(
+name|hri
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|servers
+operator|.
+name|remove
+argument_list|(
+name|hsi
+argument_list|)
+expr_stmt|;
+block|}
+comment|// If anything in transition related to the server, clean it up.
 synchronized|synchronized
 init|(
 name|regionsInTransition

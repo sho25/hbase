@@ -644,8 +644,6 @@ name|getPath
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// While we are still using both ZKWs, need to call parent process()
-comment|//    super.process(event);
 switch|switch
 condition|(
 name|event

@@ -1054,6 +1054,25 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
+name|NullPointerException
+name|npe
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Need to fix these: "
+operator|+
+name|npe
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
 name|IOException
 name|e
 parameter_list|)

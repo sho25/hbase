@@ -2704,27 +2704,9 @@ name|columnFamily
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates many regions names "aaa" to "zzz".    * @param c Configuration to use.    * @param table  The table to use for the data.    * @param columnFamily  The family to insert the data into.    * @return count of regions created.    * @throws IOException When creating the regions fails.    */
 specifier|public
-name|int
-name|createMultiRegions
-parameter_list|(
+specifier|static
 specifier|final
-name|Configuration
-name|c
-parameter_list|,
-specifier|final
-name|HTable
-name|table
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|columnFamily
-parameter_list|)
-throws|throws
-name|IOException
-block|{
 name|byte
 index|[]
 index|[]
@@ -2904,6 +2886,27 @@ literal|"yyy"
 argument_list|)
 block|}
 decl_stmt|;
+comment|/**    * Creates many regions names "aaa" to "zzz".    * @param c Configuration to use.    * @param table  The table to use for the data.    * @param columnFamily  The family to insert the data into.    * @return count of regions created.    * @throws IOException When creating the regions fails.    */
+specifier|public
+name|int
+name|createMultiRegions
+parameter_list|(
+specifier|final
+name|Configuration
+name|c
+parameter_list|,
+specifier|final
+name|HTable
+name|table
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|columnFamily
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 return|return
 name|createMultiRegions
 argument_list|(
@@ -4329,9 +4332,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Make sure that at least the specified number of region servers    * are running    * @param num minimum number of region servers that should be running    * @throws IOException    */
+comment|/**    * Make sure that at least the specified number of region servers    * are running    * @param num minimum number of region servers that should be running    * @return True if we started some servers    * @throws IOException    */
 specifier|public
-name|void
+name|boolean
 name|ensureSomeRegionServersAvailable
 parameter_list|(
 specifier|final
@@ -4373,7 +4376,13 @@ name|startRegionServer
 argument_list|()
 argument_list|)
 expr_stmt|;
+return|return
+literal|true
+return|;
 block|}
+return|return
+literal|false
+return|;
 block|}
 comment|/**    * This method clones the passed<code>c</code> configuration setting a new    * user into the clone.  Use it getting new instances of FileSystem.  Only    * works for DistributedFileSystem.    * @param c Initial configuration    * @param differentiatingSuffix Suffix to differentiate this user from others.    * @return A new configuration instance with a different user set into it.    * @throws IOException    */
 specifier|public
