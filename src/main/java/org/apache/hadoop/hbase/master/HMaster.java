@@ -1030,7 +1030,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HMaster is the "master server" for HBase. An HBase cluster has one active  * master.  If many masters are started, all compete.  Whichever wins goes on to  * run the cluster.  All others park themselves in their constructor until  * master or cluster shutdown or until the active master loses its lease in  * zookeeper.  Thereafter, all running master jostle to take over master role.  *   *<p>The Master can be asked shutdown the cluster. See {@link #shutdown()}.  In  * this case it will tell all regionservers to go down and then wait on them  * all reporting in that they are down.  This master will then shut itself down.  *   *<p>You can also shutdown just this master.  Call {@link #stopMaster()}.  *   * @see HMasterInterface  * @see HMasterRegionInterface  * @see Watcher  */
+comment|/**  * HMaster is the "master server" for HBase. An HBase cluster has one active  * master.  If many masters are started, all compete.  Whichever wins goes on to  * run the cluster.  All others park themselves in their constructor until  * master or cluster shutdown or until the active master loses its lease in  * zookeeper.  Thereafter, all running master jostle to take over master role.  *  *<p>The Master can be asked shutdown the cluster. See {@link #shutdown()}.  In  * this case it will tell all regionservers to go down and then wait on them  * all reporting in that they are down.  This master will then shut itself down.  *  *<p>You can also shutdown just this master.  Call {@link #stopMaster()}.  *  * @see HMasterInterface  * @see HMasterRegionInterface  * @see Watcher  */
 end_comment
 
 begin_class
@@ -1189,7 +1189,7 @@ name|balance
 init|=
 literal|true
 decl_stmt|;
-comment|/**    * Initializes the HMaster. The steps are as follows:    *    *<ol>    *<li>Initialize HMaster RPC and address    *<li>Connect to ZooKeeper and figure out if this is a fresh cluster start or    *     a failed over master    *<li>Block until becoming active master    *<li>Initialize master components - server manager, region manager,    *     region server queue, file system manager, etc    *</ol>    * @throws InterruptedException     */
+comment|/**    * Initializes the HMaster. The steps are as follows:    *    *<ol>    *<li>Initialize HMaster RPC and address    *<li>Connect to ZooKeeper and figure out if this is a fresh cluster start or    *     a failed over master    *<li>Block until becoming active master    *<li>Initialize master components - server manager, region manager,    *     region server queue, file system manager, etc    *</ol>    * @throws InterruptedException    */
 specifier|public
 name|HMaster
 parameter_list|(
@@ -1275,11 +1275,17 @@ argument_list|()
 operator|,
 name|numHandlers
 operator|,
+literal|0
+operator|,
+comment|// we dont use high priority handlers in master
 literal|false
 operator|,
 name|conf
+operator|,
+literal|0
 block|)
 empty_stmt|;
+comment|// this is a DNC w/o high priority handlers
 name|this
 operator|.
 name|address
@@ -1928,7 +1934,7 @@ block|}
 end_function
 
 begin_comment
-comment|/*    * Initializations we need to do if we are cluster starter.    * @param starter    * @param mfs    * @throws IOException     */
+comment|/*    * Initializations we need to do if we are cluster starter.    * @param starter    * @param mfs    * @throws IOException    */
 end_comment
 
 begin_function

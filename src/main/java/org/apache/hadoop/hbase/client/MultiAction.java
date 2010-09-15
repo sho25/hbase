@@ -143,6 +143,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|TreeMap
 import|;
 end_import
@@ -194,7 +204,7 @@ specifier|public
 name|MultiAction
 parameter_list|()
 block|{   }
-comment|/**    * Get the total number of Actions    *     * @return total number of Actions for all groups in this container.    */
+comment|/**    * Get the total number of Actions    *    * @return total number of Actions for all groups in this container.    */
 specifier|public
 name|int
 name|size
@@ -228,7 +238,7 @@ return|return
 name|size
 return|;
 block|}
-comment|/**    * Add an Action to this container based on it's regionName. If the regionName    * is wrong, the initial execution will fail, but will be automatically    * retried after looking up the correct region.    *     * @param regionName    * @param a    */
+comment|/**    * Add an Action to this container based on it's regionName. If the regionName    * is wrong, the initial execution will fail, but will be automatically    * retried after looking up the correct region.    *    * @param regionName    * @param a    */
 specifier|public
 name|void
 name|add
@@ -287,6 +297,22 @@ argument_list|(
 name|a
 argument_list|)
 expr_stmt|;
+block|}
+specifier|public
+name|Set
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|getRegions
+parameter_list|()
+block|{
+return|return
+name|actions
+operator|.
+name|keySet
+argument_list|()
+return|;
 block|}
 comment|/**    * @return All actions from all regions in this container    */
 specifier|public

@@ -19,6 +19,20 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|base
+operator|.
+name|Function
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -102,6 +116,22 @@ operator|.
 name|io
 operator|.
 name|HbaseObjectWritable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -346,7 +376,7 @@ expr_stmt|;
 block|}
 comment|// no public ctor
 comment|/** A method invocation, including the method name and its parameters.*/
-specifier|private
+specifier|public
 specifier|static
 class|class
 name|Invocation
@@ -1863,12 +1893,18 @@ specifier|final
 name|int
 name|numHandlers
 parameter_list|,
+name|int
+name|metaHandlerCount
+parameter_list|,
 specifier|final
 name|boolean
 name|verbose
 parameter_list|,
 name|Configuration
 name|conf
+parameter_list|,
+name|int
+name|highPriorityLevel
 parameter_list|)
 throws|throws
 name|IOException
@@ -1889,7 +1925,11 @@ name|port
 argument_list|,
 name|numHandlers
 argument_list|,
+name|metaHandlerCount
+argument_list|,
 name|verbose
+argument_list|,
+name|highPriorityLevel
 argument_list|)
 return|;
 block|}
@@ -2002,8 +2042,14 @@ parameter_list|,
 name|int
 name|numHandlers
 parameter_list|,
+name|int
+name|metaHandlerCount
+parameter_list|,
 name|boolean
 name|verbose
+parameter_list|,
+name|int
+name|highPriorityLevel
 parameter_list|)
 throws|throws
 name|IOException
@@ -2020,6 +2066,8 @@ name|class
 argument_list|,
 name|numHandlers
 argument_list|,
+name|metaHandlerCount
+argument_list|,
 name|conf
 argument_list|,
 name|classNameBase
@@ -2032,6 +2080,8 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
+argument_list|,
+name|highPriorityLevel
 argument_list|)
 expr_stmt|;
 name|this
