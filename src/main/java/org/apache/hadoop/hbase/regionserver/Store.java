@@ -6003,7 +6003,7 @@ operator|.
 name|OBJECT
 operator|+
 operator|(
-literal|14
+literal|15
 operator|*
 name|ClassSize
 operator|.

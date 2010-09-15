@@ -374,11 +374,6 @@ comment|// List of classes implementing HeapSize
 comment|// BatchOperation, BatchUpdate, BlockIndex, Entry, Entry<K,V>, HStoreKey
 comment|// KeyValue, LruBlockCache, LruHashMap<K,V>, Put, HLogKey
 comment|/**    * Test our hard-coded sizing of native java objects    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|public
 name|void
 name|testNativeSizes
@@ -386,6 +381,11 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"rawtypes"
+argument_list|)
 name|Class
 name|cl
 init|=
@@ -1084,11 +1084,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Testing the classes that implements HeapSize and are a part of 0.20.    * Some are not tested here for example BlockIndex which is tested in    * TestHFile since it is a non public class    * @throws IOException    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|public
 name|void
 name|testSizes
@@ -1096,6 +1091,11 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"rawtypes"
+argument_list|)
 name|Class
 name|cl
 init|=
