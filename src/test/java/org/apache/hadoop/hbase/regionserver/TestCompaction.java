@@ -390,7 +390,7 @@ name|setInt
 argument_list|(
 literal|"hbase.hregion.memstore.block.multiplier"
 argument_list|,
-literal|10
+literal|100
 argument_list|)
 expr_stmt|;
 name|this
