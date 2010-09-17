@@ -339,7 +339,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"No master available. Notifying waiting threads"
+literal|"No master available. notifying waiting threads"
 argument_list|)
 expr_stmt|;
 name|clusterHasActiveMaster
@@ -375,13 +375,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Block until becoming the active master.    *    * Method blocks until there is not another active master and our attempt    * to become the new active master is successful.    *    * This also makes sure that we are watching the master znode so will be    * notified if another master dies.    * @return True if no issue becoming active master else false if another    * master was running or if some other problem (zookeeper, stop flag has been    * set on this Master)    */
+comment|/**    * Block until becoming the active master.    *    * Method blocks until there is not another active master and our attempt    * to become the new active master is successful.    *    * This also makes sure that we are watching the master znode so will be    * notified if another master dies.    * @return False if we did not start up this cluster, another    * master did, or if a problem (zookeeper, stop flag has been set on this    * Master)    */
 name|boolean
 name|blockUntilBecomingActiveMaster
 parameter_list|()
 block|{
 name|boolean
-name|cleanSetOfActiveMaster
+name|thisMasterStartedCluster
 init|=
 literal|true
 decl_stmt|;
@@ -394,25 +394,17 @@ name|ZKUtil
 operator|.
 name|setAddressAndWatch
 argument_list|(
-name|this
-operator|.
 name|watcher
 argument_list|,
-name|this
-operator|.
 name|watcher
 operator|.
 name|masterAddressZNode
 argument_list|,
-name|this
-operator|.
 name|address
 argument_list|)
 condition|)
 block|{
 comment|// We are the master, return
-name|this
-operator|.
 name|clusterHasActiveMaster
 operator|.
 name|set
@@ -421,99 +413,8 @@ literal|true
 argument_list|)
 expr_stmt|;
 return|return
-name|cleanSetOfActiveMaster
+name|thisMasterStartedCluster
 return|;
-block|}
-comment|// There is another active master running elsewhere or this is a restart
-comment|// and the master ephemeral node has not expired yet.
-name|this
-operator|.
-name|clusterHasActiveMaster
-operator|.
-name|set
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-name|cleanSetOfActiveMaster
-operator|=
-literal|false
-expr_stmt|;
-name|HServerAddress
-name|currentMaster
-init|=
-name|ZKUtil
-operator|.
-name|getDataAsAddress
-argument_list|(
-name|this
-operator|.
-name|watcher
-argument_list|,
-name|this
-operator|.
-name|watcher
-operator|.
-name|masterAddressZNode
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|currentMaster
-operator|!=
-literal|null
-operator|&&
-name|currentMaster
-operator|.
-name|equals
-argument_list|(
-name|this
-operator|.
-name|address
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Current master has this master's address, "
-operator|+
-name|currentMaster
-operator|+
-literal|"; master was restarted?  Waiting on znode to expire..."
-argument_list|)
-expr_stmt|;
-comment|// Hurry along the expiration of the znode.
-name|ZKUtil
-operator|.
-name|deleteNode
-argument_list|(
-name|this
-operator|.
-name|watcher
-argument_list|,
-name|this
-operator|.
-name|watcher
-operator|.
-name|masterAddressZNode
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Another master is the active master, "
-operator|+
-name|currentMaster
-operator|+
-literal|"; waiting to become the next active master"
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 catch|catch
@@ -535,25 +436,41 @@ return|return
 literal|false
 return|;
 block|}
+comment|// There is another active master, this is not a cluster startup
+comment|// and we must wait until the active master dies
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Another master is already the active master, waiting to become "
+operator|+
+literal|"the next active master"
+argument_list|)
+expr_stmt|;
+name|clusterHasActiveMaster
+operator|.
+name|set
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|thisMasterStartedCluster
+operator|=
+literal|false
+expr_stmt|;
 synchronized|synchronized
 init|(
-name|this
-operator|.
 name|clusterHasActiveMaster
 init|)
 block|{
 while|while
 condition|(
-name|this
-operator|.
 name|clusterHasActiveMaster
 operator|.
 name|get
 argument_list|()
 operator|&&
 operator|!
-name|this
-operator|.
 name|master
 operator|.
 name|isStopped
@@ -562,8 +479,6 @@ condition|)
 block|{
 try|try
 block|{
-name|this
-operator|.
 name|clusterHasActiveMaster
 operator|.
 name|wait
@@ -590,8 +505,6 @@ block|}
 block|}
 if|if
 condition|(
-name|this
-operator|.
 name|master
 operator|.
 name|isStopped
@@ -599,7 +512,7 @@ argument_list|()
 condition|)
 block|{
 return|return
-name|cleanSetOfActiveMaster
+name|thisMasterStartedCluster
 return|;
 block|}
 comment|// Try to become active master again now that there is no active master
@@ -608,7 +521,7 @@ argument_list|()
 expr_stmt|;
 block|}
 return|return
-name|cleanSetOfActiveMaster
+name|thisMasterStartedCluster
 return|;
 block|}
 comment|/**    * @return True if cluster has an active master.    */

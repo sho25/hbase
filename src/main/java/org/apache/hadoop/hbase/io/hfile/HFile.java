@@ -25,16 +25,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|BufferedInputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|Closeable
 import|;
 end_import
@@ -4342,8 +4332,6 @@ comment|// My guess is that the bounded range fis is needed to stop the
 comment|// decompressor reading into next block -- IIRC, it just grabs a
 comment|// bunch of data w/o regard to whether decompressor is coming to end of a
 comment|// decompression.
-comment|// We use a buffer of DEFAULT_BLOCKSIZE size.  This might be extreme.
-comment|// Could maybe do with less. Study and figure it: TODO
 name|InputStream
 name|is
 init|=
@@ -4352,9 +4340,6 @@ operator|.
 name|compressAlgo
 operator|.
 name|createDecompressionStream
-argument_list|(
-operator|new
-name|BufferedInputStream
 argument_list|(
 operator|new
 name|BoundedRangeFileInputStream
@@ -4368,16 +4353,6 @@ argument_list|,
 name|compressedSize
 argument_list|,
 name|pread
-argument_list|)
-argument_list|,
-name|Math
-operator|.
-name|min
-argument_list|(
-name|DEFAULT_BLOCKSIZE
-argument_list|,
-name|compressedSize
-argument_list|)
 argument_list|)
 argument_list|,
 name|decompressor
