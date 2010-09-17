@@ -670,6 +670,7 @@ operator|*
 literal|1000
 argument_list|)
 decl_stmt|;
+comment|// TODO: Fix.
 name|this
 operator|.
 name|minimumServerCount
@@ -1113,6 +1114,8 @@ argument_list|)
 expr_stmt|;
 comment|// TODO: Why did we update the RS location ourself?  Shouldn't RS do this?
 comment|// masterStatus.getZooKeeper().updateRSLocationGetWatch(info, watcher);
+name|this
+operator|.
 name|onlineServers
 operator|.
 name|put
@@ -2330,9 +2333,16 @@ name|numServers
 argument_list|()
 operator|<
 name|minimumServerCount
+operator|&&
+operator|!
+name|this
+operator|.
+name|master
+operator|.
+name|isStopped
+argument_list|()
 condition|)
 block|{
-comment|//        !masterStatus.getShutdownRequested().get()) {
 name|LOG
 operator|.
 name|info

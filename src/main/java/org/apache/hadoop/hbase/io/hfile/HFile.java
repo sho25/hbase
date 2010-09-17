@@ -4374,7 +4374,7 @@ name|Math
 operator|.
 name|min
 argument_list|(
-name|DEFAUT_BLOCKSIZE
+name|DEFAULT_BLOCKSIZE
 argument_list|,
 name|compressedSize
 argument_list|)
