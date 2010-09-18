@@ -443,22 +443,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|RootLocationEditor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|HConnection
@@ -509,9 +493,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|MetaScanner
-operator|.
-name|MetaScannerVisitor
+name|Result
 import|;
 end_import
 
@@ -527,7 +509,9 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Result
+name|MetaScanner
+operator|.
+name|MetaScannerVisitor
 import|;
 end_import
 
