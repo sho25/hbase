@@ -682,11 +682,18 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
-name|watcher
+name|LOG
 operator|.
 name|error
 argument_list|(
+name|this
+operator|.
+name|watcher
+operator|.
+name|prefix
+argument_list|(
 literal|"Error deleting our own master address node"
+argument_list|)
 argument_list|,
 name|e
 argument_list|)

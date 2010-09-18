@@ -178,7 +178,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Acts as the single ZooKeeper Watcher.  One instance of this is instantiated  * for each Master, RegionServer, and client process.  *  *<p>This is the only class that implements {@link Watcher}.  Other internal  * classes which need to be notified of ZooKeeper events must register with  * the local instance of this watcher via {@link #registerListener}.  *  *<p>This class also holds and manages the connection to ZooKeeper.  Code to deal  * with connection related events and exceptions are handled here.  */
+comment|/**  * Acts as the single ZooKeeper Watcher.  One instance of this is instantiated  * for each Master, RegionServer, and client process.  *  *<p>This is the only class that implements {@link Watcher}.  Other internal  * classes which need to be notified of ZooKeeper events must register with  * the local instance of this watcher via {@link #registerListener}.  *  *<p>This class also holds and manages the connection to ZooKeeper.  Code to  * deal with connection related events and exceptions are handled here.  */
 end_comment
 
 begin_class
@@ -203,10 +203,11 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|// name of this watcher (for logging only)
+comment|// Identifiier for this watcher (for logging only).  Its made of the prefix
+comment|// passed on construction and the zookeeper sessionid.
 specifier|private
 name|String
-name|name
+name|identifier
 decl_stmt|;
 comment|// zookeeper quorum
 specifier|private
@@ -290,7 +291,7 @@ specifier|public
 name|String
 name|tableZNode
 decl_stmt|;
-comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param name name of this watcher, for logging/debug purposes only    * @throws IOException    */
+comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param descriptor Descriptive string that is added to zookeeper sessionid    * and used as identifier for this instance.    * @throws IOException    */
 specifier|public
 name|ZooKeeperWatcher
 parameter_list|(
@@ -298,7 +299,7 @@ name|Configuration
 name|conf
 parameter_list|,
 name|String
-name|name
+name|descriptor
 parameter_list|,
 name|Abortable
 name|abortable
@@ -306,12 +307,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|this
-operator|.
-name|name
-operator|=
-name|name
-expr_stmt|;
 name|this
 operator|.
 name|quorum
@@ -336,18 +331,23 @@ argument_list|,
 name|quorum
 argument_list|,
 name|this
+argument_list|,
+name|descriptor
 argument_list|)
+expr_stmt|;
+comment|// Identifier will get the sessionid appended later below down when we
+comment|// handle the syncconnect event.
+name|this
+operator|.
+name|identifier
+operator|=
+name|descriptor
 expr_stmt|;
 name|this
 operator|.
 name|abortable
 operator|=
 name|abortable
-expr_stmt|;
-name|info
-argument_list|(
-literal|"Connected to ZooKeeper"
-argument_list|)
 expr_stmt|;
 name|setNodeNames
 argument_list|(
@@ -401,21 +401,16 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
+name|LOG
+operator|.
 name|error
+argument_list|(
+name|prefix
 argument_list|(
 literal|"Unexpected KeeperException creating base node"
+argument_list|)
 argument_list|,
 name|e
-argument_list|)
-expr_stmt|;
-name|error
-argument_list|(
-literal|"Message: "
-operator|+
-name|e
-operator|.
-name|getMessage
-argument_list|()
 argument_list|)
 expr_stmt|;
 throw|throw
@@ -426,6 +421,40 @@ name|e
 argument_list|)
 throw|;
 block|}
+block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|identifier
+return|;
+block|}
+comment|/**    * Adds this instance's identifier as a prefix to the passed<code>str</code>    * @param str String to amend.    * @return A new string with this instance's identifier as prefix: e.g.    * if passed 'hello world', the returned string could be    */
+specifier|public
+name|String
+name|prefix
+parameter_list|(
+specifier|final
+name|String
+name|str
+parameter_list|)
+block|{
+return|return
+name|this
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" "
+operator|+
+name|str
+return|;
 block|}
 comment|/**    * Set the local variable node names using the specified configuration.    */
 specifier|private
@@ -612,11 +641,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"<"
-operator|+
-name|name
-operator|+
-literal|"> Received ZooKeeper Event, "
+name|prefix
+argument_list|(
+literal|"Received ZooKeeper Event, "
 operator|+
 literal|"type="
 operator|+
@@ -642,6 +669,7 @@ name|event
 operator|.
 name|getPath
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 switch|switch
@@ -785,28 +813,76 @@ name|getState
 argument_list|()
 condition|)
 block|{
-comment|// SyncConnected is normal, ignore
 case|case
 name|SyncConnected
 case|:
+comment|// Update our identifier.  Otherwise ignore.
+name|this
+operator|.
+name|identifier
+operator|=
+name|this
+operator|.
+name|identifier
+operator|+
+literal|"-0x"
+operator|+
+name|Long
+operator|.
+name|toHexString
+argument_list|(
+name|this
+operator|.
+name|zooKeeper
+operator|.
+name|getSessionId
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|this
+operator|.
+name|identifier
+operator|+
+literal|" connected"
+argument_list|)
+expr_stmt|;
 break|break;
 comment|// Abort the server if Disconnected or Expired
 comment|// TODO: Åny reason to handle these two differently?
 case|case
 name|Disconnected
 case|:
+name|LOG
+operator|.
 name|info
 argument_list|(
+name|prefix
+argument_list|(
 literal|"Received Disconnected from ZooKeeper, ignoring"
+argument_list|)
 argument_list|)
 expr_stmt|;
 break|break;
 case|case
 name|Expired
 case|:
-name|error
+name|String
+name|msg
+init|=
+name|prefix
 argument_list|(
 literal|"Received Expired from ZooKeeper, aborting server"
+argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|msg
 argument_list|)
 expr_stmt|;
 if|if
@@ -815,17 +891,15 @@ name|abortable
 operator|!=
 literal|null
 condition|)
-block|{
 name|abortable
 operator|.
 name|abort
 argument_list|(
-literal|"Received Expired from ZooKeeper, aborting server"
+name|msg
 argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-block|}
 break|break;
 block|}
 block|}
@@ -853,9 +927,14 @@ parameter_list|)
 throws|throws
 name|KeeperException
 block|{
+name|LOG
+operator|.
 name|error
 argument_list|(
+name|prefix
+argument_list|(
 literal|"Received unexpected KeeperException, re-throwing exception"
+argument_list|)
 argument_list|,
 name|ke
 argument_list|)
@@ -873,203 +952,28 @@ name|InterruptedException
 name|ie
 parameter_list|)
 block|{
+name|LOG
+operator|.
 name|debug
 argument_list|(
+name|prefix
+argument_list|(
 literal|"Received InterruptedException, doing nothing here"
+argument_list|)
 argument_list|,
 name|ie
 argument_list|)
 expr_stmt|;
-comment|// no-op
-block|}
-comment|// Logging methods
-comment|/**    * Exposed info logging method so our zookeeper output is named.    * @param string log line    */
-specifier|public
-name|void
-name|info
-parameter_list|(
-name|String
-name|string
-parameter_list|)
-block|{
-name|LOG
+comment|// At least preserver interrupt.
+name|Thread
 operator|.
-name|info
-argument_list|(
-literal|"<"
-operator|+
-name|name
-operator|+
-literal|"> "
-operator|+
-name|string
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Exposed debug logging method so our zookeeper output is named.    * @param string log line    */
-specifier|public
-name|void
-name|debug
-parameter_list|(
-name|String
-name|string
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"<"
-operator|+
-name|name
-operator|+
-literal|"> "
-operator|+
-name|string
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Exposed debug logging method so our zookeeper output is named.    * @param string log line    */
-specifier|public
-name|void
-name|debug
-parameter_list|(
-name|String
-name|string
-parameter_list|,
-name|Throwable
-name|t
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"<"
-operator|+
-name|name
-operator|+
-literal|"> "
-operator|+
-name|string
-argument_list|,
-name|t
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Exposed warn logging method so our zookeeper output is named.    * @param string log line    */
-specifier|public
-name|void
-name|warn
-parameter_list|(
-name|String
-name|string
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"<"
-operator|+
-name|name
-operator|+
-literal|"> "
-operator|+
-name|string
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Exposed warn logging method so our zookeeper output is named.    * @param string log line    * @param t exception    */
-specifier|public
-name|void
-name|warn
-parameter_list|(
-name|String
-name|string
-parameter_list|,
-name|Throwable
-name|t
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"<"
-operator|+
-name|name
-operator|+
-literal|"> "
-operator|+
-name|string
-argument_list|,
-name|t
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Exposed error logging method so our zookeeper output is named.    * @param string log line    */
-specifier|public
-name|void
-name|error
-parameter_list|(
-name|String
-name|string
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"<"
-operator|+
-name|name
-operator|+
-literal|"> "
-operator|+
-name|string
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Exposed error logging method so our zookeeper output is named.    * @param string log line    * @param t exception    */
-specifier|public
-name|void
-name|error
-parameter_list|(
-name|String
-name|string
-parameter_list|,
-name|Throwable
-name|t
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"<"
-operator|+
-name|name
-operator|+
-literal|"> "
-operator|+
-name|string
-argument_list|,
-name|t
-argument_list|)
-expr_stmt|;
-block|}
-specifier|public
-name|boolean
-name|isDebugEnabled
-parameter_list|()
-block|{
-return|return
-name|LOG
-operator|.
-name|isDebugEnabled
+name|currentThread
 argument_list|()
-return|;
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+comment|// no-op
 block|}
 comment|/**    * Close the connection to ZooKeeper.    * @throws InterruptedException    */
 specifier|public

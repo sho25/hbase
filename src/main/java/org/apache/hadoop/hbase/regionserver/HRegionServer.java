@@ -6360,23 +6360,6 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"HRegionServer started at: "
-operator|+
-name|this
-operator|.
-name|serverInfo
-operator|.
-name|getServerAddress
-argument_list|()
-operator|.
-name|toString
-argument_list|()
-argument_list|)
-expr_stmt|;
 block|}
 end_function
 

@@ -399,6 +399,40 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+return|return
+name|connect
+argument_list|(
+name|conf
+argument_list|,
+name|quorum
+argument_list|,
+name|watcher
+argument_list|,
+literal|""
+argument_list|)
+return|;
+block|}
+specifier|public
+specifier|static
+name|ZooKeeper
+name|connect
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
+name|String
+name|quorum
+parameter_list|,
+name|Watcher
+name|watcher
+parameter_list|,
+specifier|final
+name|String
+name|descriptor
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 if|if
 condition|(
 name|quorum
@@ -430,9 +464,11 @@ argument_list|)
 decl_stmt|;
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
-literal|"Opening connection to ZooKeeper with quorum ("
+name|descriptor
+operator|+
+literal|" opening connection to ZooKeeper with quorum ("
 operator|+
 name|quorum
 operator|+
@@ -706,13 +742,18 @@ argument_list|,
 name|zkw
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
 name|zkw
 operator|.
-name|debug
+name|prefix
 argument_list|(
 literal|"Set watcher on existing znode "
 operator|+
 name|znode
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -731,13 +772,18 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to set watcher on znode "
 operator|+
 name|znode
+argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -759,13 +805,18 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to set watcher on znode "
 operator|+
 name|znode
+argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -834,15 +885,20 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to set watcher on znode ("
 operator|+
 name|znode
 operator|+
 literal|")"
+argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -865,15 +921,20 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to set watcher on znode ("
 operator|+
 name|znode
 operator|+
 literal|")"
+argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -944,9 +1005,13 @@ name|NoNodeException
 name|ke
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|debug
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to list children of znode "
 operator|+
@@ -955,6 +1020,7 @@ operator|+
 literal|" "
 operator|+
 literal|"because node does not exist (not an error)"
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -967,15 +1033,20 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to list children of znode "
 operator|+
 name|znode
 operator|+
 literal|" "
+argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -997,15 +1068,20 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to list children of znode "
 operator|+
 name|znode
 operator|+
 literal|" "
+argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -1441,9 +1517,13 @@ name|NoNodeException
 name|ke
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|debug
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to list children of znode "
 operator|+
@@ -1452,6 +1532,7 @@ operator|+
 literal|" "
 operator|+
 literal|"because node does not exist (not an error)"
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -1464,13 +1545,18 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to list children of znode "
 operator|+
 name|znode
+argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -1492,13 +1578,18 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to list children of znode "
 operator|+
 name|znode
+argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -1566,13 +1657,18 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to get children of node "
 operator|+
 name|znode
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|zkw
@@ -1640,9 +1736,13 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|zkw
+name|LOG
 operator|.
 name|debug
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Retrieved "
 operator|+
@@ -1653,6 +1753,7 @@ operator|+
 literal|" bytes of data from znode "
 operator|+
 name|znode
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -1667,9 +1768,13 @@ name|NoNodeException
 name|e
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|debug
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to get data of znode "
 operator|+
@@ -1678,6 +1783,7 @@ operator|+
 literal|" "
 operator|+
 literal|"because node does not exist (not an error)"
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -1690,13 +1796,18 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to get data of znode "
 operator|+
 name|znode
+argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -1718,13 +1829,18 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to get data of znode "
 operator|+
 name|znode
+argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -1777,9 +1893,13 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-name|zkw
+name|LOG
 operator|.
 name|debug
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Retrieved "
 operator|+
@@ -1792,6 +1912,7 @@ operator|+
 name|znode
 operator|+
 literal|" and set a watcher"
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -1806,9 +1927,13 @@ name|NoNodeException
 name|e
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|debug
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to get data of znode "
 operator|+
@@ -1817,6 +1942,7 @@ operator|+
 literal|" "
 operator|+
 literal|"because node does not exist (not an error)"
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -1829,13 +1955,18 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to get data of znode "
 operator|+
 name|znode
+argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -1857,13 +1988,18 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to get data of znode "
 operator|+
 name|znode
+argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -1919,9 +2055,13 @@ argument_list|,
 name|stat
 argument_list|)
 decl_stmt|;
-name|zkw
+name|LOG
 operator|.
 name|debug
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Retrieved "
 operator|+
@@ -1932,6 +2072,7 @@ operator|+
 literal|" bytes of data from znode "
 operator|+
 name|znode
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -1946,9 +2087,13 @@ name|NoNodeException
 name|e
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|debug
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to get data of znode "
 operator|+
@@ -1957,6 +2102,7 @@ operator|+
 literal|" "
 operator|+
 literal|"because node does not exist (not necessarily an error)"
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -1969,13 +2115,18 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to get data of znode "
 operator|+
 name|znode
+argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -1997,13 +2148,18 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Unable to get data of znode "
 operator|+
 name|znode
+argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -2067,9 +2223,13 @@ argument_list|(
 name|data
 argument_list|)
 decl_stmt|;
-name|zkw
+name|LOG
 operator|.
 name|debug
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Read server address from znode "
 operator|+
@@ -2078,6 +2238,7 @@ operator|+
 literal|": "
 operator|+
 name|addrString
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -2376,6 +2537,14 @@ literal|"Interrupted"
 argument_list|,
 name|e
 argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
 expr_stmt|;
 block|}
 return|return

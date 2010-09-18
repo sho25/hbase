@@ -23,6 +23,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -142,6 +170,21 @@ specifier|public
 class|class
 name|ZKAssign
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|ZKAssign
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 comment|/**    * Gets the full path node name for the unassigned node for the specified    * region.    * @param zkw zk reference    * @param regionName region name    * @return full path node name    */
 specifier|private
 specifier|static
@@ -259,9 +302,13 @@ name|KeeperException
 operator|.
 name|NodeExistsException
 block|{
-name|zkw
+name|LOG
 operator|.
 name|debug
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Creating an unassigned node for "
 operator|+
@@ -271,6 +318,7 @@ name|getEncodedName
 argument_list|()
 operator|+
 literal|" in an OFFLINE state"
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|RegionTransitionData
@@ -358,9 +406,13 @@ name|KeeperException
 operator|.
 name|NoNodeException
 block|{
-name|zkw
+name|LOG
 operator|.
 name|debug
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Forcing an existing unassigned node for "
 operator|+
@@ -370,6 +422,7 @@ name|getEncodedName
 argument_list|()
 operator|+
 literal|" to an OFFLINE state"
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|RegionTransitionData
@@ -455,9 +508,13 @@ parameter_list|)
 throws|throws
 name|KeeperException
 block|{
-name|zkw
+name|LOG
 operator|.
 name|debug
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Creating or updating an unassigned node for "
 operator|+
@@ -467,6 +524,7 @@ name|getEncodedName
 argument_list|()
 operator|+
 literal|" with an OFFLINE state"
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|RegionTransitionData
@@ -696,17 +754,24 @@ name|KeeperException
 operator|.
 name|NoNodeException
 block|{
-name|zkw
+name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Deleting an existing unassigned node for "
+name|zkw
+operator|.
+name|prefix
+argument_list|(
+literal|"Deleting an existing unassigned "
+operator|+
+literal|"node for "
 operator|+
 name|regionName
 operator|+
 literal|" that is in expected state "
 operator|+
 name|expectedState
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|String
@@ -783,11 +848,17 @@ name|expectedState
 argument_list|)
 condition|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Attempting to delete an unassigned node in "
+name|zkw
+operator|.
+name|prefix
+argument_list|(
+literal|"Attempting to delete an unassigned "
+operator|+
+literal|"node in "
 operator|+
 name|expectedState
 operator|+
@@ -799,6 +870,7 @@ name|getEventType
 argument_list|()
 operator|+
 literal|" state"
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -842,17 +914,24 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Attempting to delete an unassigned node in "
+name|zkw
+operator|.
+name|prefix
+argument_list|(
+literal|"Attempting to delete an "
+operator|+
+literal|"unassigned node in "
 operator|+
 name|expectedState
 operator|+
 literal|" state but "
 operator|+
 literal|"after verifying it was in OPENED state, we got a version mismatch"
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -876,11 +955,16 @@ parameter_list|)
 throws|throws
 name|KeeperException
 block|{
-name|zkw
+name|LOG
 operator|.
 name|debug
 argument_list|(
+name|zkw
+operator|.
+name|prefix
+argument_list|(
 literal|"Deleting any existing unassigned nodes"
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|ZKUtil
@@ -918,9 +1002,13 @@ name|KeeperException
 operator|.
 name|NodeExistsException
 block|{
-name|zkw
+name|LOG
 operator|.
 name|debug
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Creating an unassigned node for "
 operator|+
@@ -930,6 +1018,7 @@ name|getEncodedName
 argument_list|()
 operator|+
 literal|" in a CLOSING state"
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|RegionTransitionData
@@ -1235,15 +1324,19 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|zkw
+name|LOG
 operator|.
 name|isDebugEnabled
 argument_list|()
 condition|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|debug
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Attempting to transition node "
 operator|+
@@ -1267,6 +1360,7 @@ name|endState
 operator|.
 name|toString
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1329,11 +1423,17 @@ operator|!=
 name|expectedVersion
 condition|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Attempt to transition the unassigned node for "
+name|zkw
+operator|.
+name|prefix
+argument_list|(
+literal|"Attempt to transition the "
+operator|+
+literal|"unassigned node for "
 operator|+
 name|encoded
 operator|+
@@ -1358,6 +1458,7 @@ literal|" not the expected version "
 operator|+
 name|expectedVersion
 argument_list|)
+argument_list|)
 expr_stmt|;
 return|return
 operator|-
@@ -1379,11 +1480,17 @@ name|beginState
 argument_list|)
 condition|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Attempt to transition the unassigned node for "
+name|zkw
+operator|.
+name|prefix
+argument_list|(
+literal|"Attempt to transition the "
+operator|+
+literal|"unassigned node for "
 operator|+
 name|encoded
 operator|+
@@ -1403,6 +1510,7 @@ name|existingData
 operator|.
 name|getEventType
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -1452,11 +1560,17 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Attempt to transition the unassigned node for "
+name|zkw
+operator|.
+name|prefix
+argument_list|(
+literal|"Attempt to transition the "
+operator|+
+literal|"unassigned node for "
 operator|+
 name|encoded
 operator|+
@@ -1474,6 +1588,7 @@ literal|"the node existed and was in the expected state but then when "
 operator|+
 literal|"setting data we got a version mismatch"
 argument_list|)
+argument_list|)
 expr_stmt|;
 return|return
 operator|-
@@ -1482,15 +1597,19 @@ return|;
 block|}
 if|if
 condition|(
-name|zkw
+name|LOG
 operator|.
 name|isDebugEnabled
 argument_list|()
 condition|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|debug
+argument_list|(
+name|zkw
+operator|.
+name|prefix
 argument_list|(
 literal|"Successfully transitioned node "
 operator|+
@@ -1503,6 +1622,7 @@ operator|+
 literal|" to "
 operator|+
 name|endState
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1523,11 +1643,17 @@ name|NoNodeException
 name|nne
 parameter_list|)
 block|{
-name|zkw
+name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Attempt to transition the unassigned node for "
+name|zkw
+operator|.
+name|prefix
+argument_list|(
+literal|"Attempt to transition the "
+operator|+
+literal|"unassigned node for "
 operator|+
 name|encoded
 operator|+
@@ -1544,6 +1670,7 @@ operator|+
 literal|"the node existed and was in the expected state but then when "
 operator|+
 literal|"setting data it no longer existed"
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
