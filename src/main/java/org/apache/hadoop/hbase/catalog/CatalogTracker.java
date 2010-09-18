@@ -530,13 +530,6 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
-comment|// Determine meta assignment; may not work because root and meta not yet
-comment|// deployed.  Calling the below will set {@link #metaLocation}.
-name|getMetaServerConnection
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * Gets the current location for<code>-ROOT-</code> or null if location is    * not currently available.    * @return location of root, null if not available    * @throws InterruptedException     */
 specifier|public
@@ -704,6 +697,8 @@ block|{
 name|HServerAddress
 name|address
 init|=
+name|this
+operator|.
 name|rootRegionTracker
 operator|.
 name|getRootRegionLocation

@@ -918,8 +918,12 @@ name|ZKUtil
 operator|.
 name|listChildrenAndWatchForNewChildren
 argument_list|(
+name|this
+operator|.
 name|watcher
 argument_list|,
+name|this
+operator|.
 name|watcher
 operator|.
 name|assignmentZNode
@@ -2389,7 +2393,7 @@ literal|" so generating a random one from "
 operator|+
 name|serverManager
 operator|.
-name|numServers
+name|countOfRegionServers
 argument_list|()
 operator|+
 literal|" ( "

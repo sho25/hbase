@@ -484,7 +484,7 @@ name|HREGION_OLDLOGDIR_NAME
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    *<ol>    *<li>Check if the root region exists and is readable, if not create it</li>    *<li>Create a log archive directory for RS to put archived logs</li>    *</ol>    */
+comment|/**    * Create initial layout in filesystem.    *<ol>    *<li>Check if the root region exists and is readable, if not create it.    * Create hbase.version and the -ROOT- directory if not one.    *</li>    *<li>Create a log archive directory for RS to put archived logs</li>    *</ol>    */
 specifier|public
 name|void
 name|initialize

@@ -443,6 +443,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|catalog
+operator|.
+name|RootLocationEditor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|HConnection
@@ -1147,18 +1163,21 @@ specifier|private
 name|ClusterStatusTracker
 name|clusterStatusTracker
 decl_stmt|;
-comment|// True if this is the master that started the cluster.
+comment|// True if this a cluster startup where there are no already running servers
+comment|// as opposed to a master joining an already running cluster
 name|boolean
-name|clusterStarter
+name|freshClusterStartup
 decl_stmt|;
-comment|// This flag is for stopping this Master instance.
+comment|// This flag is for stopping this Master instance.  Its set when we are
+comment|// stopping or aborting
 specifier|private
+specifier|volatile
 name|boolean
 name|stopped
 init|=
 literal|false
 decl_stmt|;
-comment|// Set on abort -- usually failure of our zk session
+comment|// Set on abort -- usually failure of our zk session.
 specifier|private
 specifier|volatile
 name|boolean
@@ -1210,7 +1229,7 @@ name|conf
 operator|=
 name|conf
 expr_stmt|;
-comment|/*      * 1. Determine address and initialize RPC server (but do not start).      * The RPC server ports can be ephemeral.      */
+comment|/*      * 1. Determine address and initialize RPC server (but do not start).      * The RPC server ports can be ephemeral. Create a ZKW instance.      */
 name|HServerAddress
 name|a
 init|=
@@ -1353,7 +1372,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*      * 2. Determine if this is a fresh cluster startup or failed over master.      * This is done by checking for the existence of any ephemeral      * RegionServer nodes in ZooKeeper.  These nodes are created by RSs on      * their initialization but only after they find the primary master.  As      * long as this check is done before we write our address into ZK, this      * will work.  Note that multiple masters could find this to be true on      * startup (none have become active master yet), which is why there is an      * additional check if this master does not become primary on its first attempt.      */
 name|this
 operator|.
 name|zooKeeper
@@ -1373,24 +1391,7 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|clusterStarter
-operator|=
-literal|0
-operator|==
-name|ZKUtil
-operator|.
-name|getNumberOfChildren
-argument_list|(
-name|zooKeeper
-argument_list|,
-name|zooKeeper
-operator|.
-name|rsZNode
-argument_list|)
-expr_stmt|;
-comment|/*      * 3. Block on becoming the active master.      * We race with other masters to write our address into ZooKeeper.  If we      * succeed, we are the primary/active master and finish initialization.      *      * If we do not succeed, there is another active master and we should      * now wait until it dies to try and become the next active master.  If we      * do not succeed on our first attempt, this is no longer a cluster startup.      */
+comment|/*      * 2. Block on becoming the active master.      * We race with other masters to write our address into ZooKeeper.  If we      * succeed, we are the primary/active master and finish initialization.      *      * If we do not succeed, there is another active master and we should      * now wait until it dies to try and become the next active master.  If we      * do not succeed on our first attempt, this is no longer a cluster startup.      */
 name|this
 operator|.
 name|activeMasterManager
@@ -1414,91 +1415,42 @@ parameter_list|(
 name|activeMasterManager
 parameter_list|)
 constructor_decl|;
-comment|// If we're a backup master, stall until a primary to writes his address
-if|if
-condition|(
+name|stallIfBackupMaster
+parameter_list|(
+name|this
+operator|.
 name|conf
-operator|.
-name|getBoolean
-argument_list|(
-name|HConstants
-operator|.
-name|MASTER_TYPE_BACKUP
-argument_list|,
-name|HConstants
-operator|.
-name|DEFAULT_MASTER_TYPE_BACKUP
-argument_list|)
-condition|)
-block|{
-comment|// This will only be a minute or so while the cluster starts up,
-comment|// so don't worry about setting watches on the parent znode
-while|while
-condition|(
-operator|!
+parameter_list|,
 name|this
 operator|.
 name|activeMasterManager
-operator|.
-name|isActiveMaster
-argument_list|()
-condition|)
-block|{
-try|try
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Waiting for master address ZNode to be written "
-operator|+
-literal|"(Also watching cluster state node)"
-argument_list|)
-expr_stmt|;
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-name|conf
-operator|.
-name|getInt
-argument_list|(
-literal|"zookeeper.session.timeout"
-argument_list|,
-literal|60
-operator|*
-literal|1000
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
 parameter_list|)
-block|{
-comment|// interrupted = user wants to kill us.  Don't continue
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Interrupted waiting for master address"
-argument_list|)
-throw|;
-block|}
-block|}
-block|}
-comment|// Wait here until we are the active master
-name|clusterStarter
-operator|=
+constructor_decl|;
 name|activeMasterManager
 operator|.
 name|blockUntilBecomingActiveMaster
-argument_list|()
+parameter_list|()
+constructor_decl|;
+comment|/*      * 3. Determine if this is a fresh cluster startup or failed over master.      * This is done by checking for the existence of any ephemeral      * RegionServer nodes in ZooKeeper.  These nodes are created by RSs on      * their initialization but initialization will not happen unless clusterup      * flag is set -- see ClusterStatusTracker below.      */
+name|this
+operator|.
+name|freshClusterStartup
+operator|=
+literal|0
+operator|==
+name|ZKUtil
+operator|.
+name|getNumberOfChildren
+argument_list|(
+name|zooKeeper
+argument_list|,
+name|zooKeeper
+operator|.
+name|rsZNode
+argument_list|)
 expr_stmt|;
-comment|/**      * 4. We are active master now... go initialize components we need to run.      */
-comment|// TODO: Do this using Dependency Injection, using PicoContainer or Spring.
+comment|/*      * 4. We are active master now... go initialize components we need to run.      * Note, there may be dross in zk from previous runs; it'll get addressed      * when we enter {@link #run()} below.      */
+comment|// TODO: Do this using Dependency Injection, using PicoContainer, Guice or Spring.
 name|this
 operator|.
 name|fileSystemManager
@@ -1622,12 +1574,15 @@ operator|.
 name|serverManager
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|regionServerTracker
 operator|.
 name|start
 parameter_list|()
 constructor_decl|;
-comment|// Set the cluster as up.
+comment|// Set the cluster as up.  If new RSs, they'll be waiting on this before
+comment|// going ahead with their startup.
 name|this
 operator|.
 name|clusterStatusTracker
@@ -1665,11 +1620,11 @@ name|this
 operator|.
 name|address
 operator|+
-literal|"; clusterStarter="
+literal|"; freshClusterStart="
 operator|+
 name|this
 operator|.
-name|clusterStarter
+name|freshClusterStartup
 operator|+
 literal|", sessionid=0x"
 operator|+
@@ -1693,6 +1648,85 @@ block|}
 end_class
 
 begin_comment
+comment|/*    * Stall startup if we are designated a backup master.    * @param c    * @param amm    * @throws InterruptedException    */
+end_comment
+
+begin_function
+specifier|private
+specifier|static
+name|void
+name|stallIfBackupMaster
+parameter_list|(
+specifier|final
+name|Configuration
+name|c
+parameter_list|,
+specifier|final
+name|ActiveMasterManager
+name|amm
+parameter_list|)
+throws|throws
+name|InterruptedException
+block|{
+comment|// If we're a backup master, stall until a primary to writes his address
+if|if
+condition|(
+operator|!
+name|c
+operator|.
+name|getBoolean
+argument_list|(
+name|HConstants
+operator|.
+name|MASTER_TYPE_BACKUP
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_MASTER_TYPE_BACKUP
+argument_list|)
+condition|)
+return|return;
+comment|// This will only be a minute or so while the cluster starts up,
+comment|// so don't worry about setting watches on the parent znode
+while|while
+condition|(
+operator|!
+name|amm
+operator|.
+name|isActiveMaster
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Waiting for master address ZNode to be written "
+operator|+
+literal|"(Also watching cluster state node)"
+argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+name|c
+operator|.
+name|getInt
+argument_list|(
+literal|"zookeeper.session.timeout"
+argument_list|,
+literal|60
+operator|*
+literal|1000
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+end_function
+
+begin_comment
 comment|/**    * Main processing loop for the HMaster.    * 1. Handle both fresh cluster start as well as failed over initialization of    *    the HMaster.    * 2. Start the necessary services    * 3. Reassign the root region    * 4. The master is no longer closed - set "closed" to false    */
 end_comment
 
@@ -1710,20 +1744,28 @@ comment|// start up all service threads.
 name|startServiceThreads
 argument_list|()
 expr_stmt|;
-comment|// wait for minimum number of region servers to be up
+comment|// Wait for minimum number of region servers to report in
 name|this
 operator|.
 name|serverManager
 operator|.
-name|waitForMinServers
+name|waitForRegionServers
 argument_list|()
 expr_stmt|;
-comment|// start assignment of user regions, startup or failure
+comment|// Start assignment of user regions, startup or failure
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|stopped
+condition|)
+block|{
 if|if
 condition|(
 name|this
 operator|.
-name|clusterStarter
+name|freshClusterStartup
 condition|)
 block|{
 name|clusterStarterInitializations
@@ -1758,6 +1800,7 @@ name|processFailover
 argument_list|()
 expr_stmt|;
 block|}
+block|}
 comment|// Check if we should stop every second.
 name|Sleeper
 name|sleeper
@@ -1776,19 +1819,12 @@ operator|!
 name|this
 operator|.
 name|stopped
-operator|&&
-operator|!
-name|this
-operator|.
-name|abort
 condition|)
-block|{
 name|sleeper
 operator|.
 name|sleep
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 catch|catch
 parameter_list|(
@@ -1934,7 +1970,7 @@ block|}
 end_function
 
 begin_comment
-comment|/*    * Initializations we need to do if we are cluster starter.    * @param starter    * @param mfs    * @throws IOException    */
+comment|/*    * Initializations we need to do if we are cluster starter.    * @param mfs    * @param sm    * @param ct    * @param am    * @throws IOException    */
 end_comment
 
 begin_function
@@ -1966,19 +2002,12 @@ name|InterruptedException
 throws|,
 name|KeeperException
 block|{
-comment|// This master is starting the cluster (its not a preexisting cluster
-comment|// that this master is joining).
-comment|// Initialize the filesystem, which does the following:
-comment|//   - Creates the root hbase directory in the FS if DNE
-comment|//   - If fresh start, create first ROOT and META regions (bootstrap)
-comment|//   - Checks the FS to make sure the root directory is readable
-comment|//   - Creates the archive directory for logs
+comment|// Check filesystem has required basics
 name|mfs
 operator|.
 name|initialize
 argument_list|()
 expr_stmt|;
-comment|// Do any log splitting necessary
 comment|// TODO: Should do this in background rather than block master startup
 comment|// TODO: Do we want to do this before/while/after RSs check in?
 comment|//       It seems that this method looks at active RSs but happens
@@ -4272,6 +4301,11 @@ operator|.
 name|abort
 operator|=
 literal|true
+expr_stmt|;
+name|stop
+argument_list|(
+literal|"Aborting"
+argument_list|)
 expr_stmt|;
 block|}
 end_function
