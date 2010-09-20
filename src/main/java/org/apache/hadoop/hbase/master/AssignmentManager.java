@@ -2852,7 +2852,7 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|" across "
+literal|" regions across "
 operator|+
 name|servers
 operator|.

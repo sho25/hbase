@@ -786,6 +786,8 @@ operator|.
 name|OFFLINED_PARENT
 argument_list|)
 expr_stmt|;
+comment|// TODO: If the below were multithreaded would we complete steps in less
+comment|// elapsed time?  St.Ack 20100920
 name|splitStoreFiles
 argument_list|(
 name|this

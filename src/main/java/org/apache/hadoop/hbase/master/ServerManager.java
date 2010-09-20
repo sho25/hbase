@@ -101,16 +101,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|text
-operator|.
-name|DecimalFormat
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -148,6 +138,20 @@ operator|.
 name|conf
 operator|.
 name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
 import|;
 end_import
 
@@ -531,18 +535,6 @@ operator|new
 name|DeadServer
 argument_list|()
 decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|DecimalFormat
-name|DF
-init|=
-operator|new
-name|DecimalFormat
-argument_list|(
-literal|"#.##"
-argument_list|)
-decl_stmt|;
 comment|/**    * Dumps into log current stats on dead servers and number of servers    * TODO: Make this a metric; dump metrics into log.    */
 class|class
 name|ServerMonitor
@@ -615,9 +607,9 @@ name|numServers
 operator|+
 literal|", averageload="
 operator|+
-name|DF
+name|StringUtils
 operator|.
-name|format
+name|limitDecimalTo2
 argument_list|(
 name|averageLoad
 argument_list|)
