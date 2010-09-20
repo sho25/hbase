@@ -6803,6 +6803,8 @@ argument_list|,
 name|seqid
 argument_list|)
 expr_stmt|;
+block|}
+comment|// Now delete the content of recovered edits.  We're done w/ them.
 for|for
 control|(
 name|Path
@@ -6847,7 +6849,6 @@ operator|+
 name|file
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 return|return
