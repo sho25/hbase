@@ -769,15 +769,6 @@ operator|.
 name|getName
 argument_list|()
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Found log folder : "
-operator|+
-name|serverName
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|onlineServers
@@ -794,7 +785,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Log folder doesn't belong "
+literal|"Log folder "
+operator|+
+name|status
+operator|.
+name|getPath
+argument_list|()
+operator|+
+literal|" doesn't belong "
 operator|+
 literal|"to a known region server, splitting"
 argument_list|)
@@ -811,7 +809,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Log folder belongs to an existing region server"
+literal|"Log folder "
+operator|+
+name|status
+operator|.
+name|getPath
+argument_list|()
+operator|+
+literal|" belongs to an existing region server"
 argument_list|)
 expr_stmt|;
 block|}

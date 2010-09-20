@@ -101,6 +101,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|text
+operator|.
+name|DecimalFormat
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -521,6 +531,18 @@ operator|new
 name|DeadServer
 argument_list|()
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|DecimalFormat
+name|DF
+init|=
+operator|new
+name|DecimalFormat
+argument_list|(
+literal|"#.##"
+argument_list|)
+decl_stmt|;
 comment|/**    * Dumps into log current stats on dead servers and number of servers    * TODO: Make this a metric; dump metrics into log.    */
 class|class
 name|ServerMonitor
@@ -587,31 +609,31 @@ name|LOG
 operator|.
 name|info
 argument_list|(
+literal|"regionservers="
+operator|+
 name|numServers
 operator|+
-literal|" region servers, "
+literal|", averageload="
 operator|+
-name|numDeadServers
-operator|+
-literal|" dead, average load "
-operator|+
-name|averageLoad
-operator|+
-operator|(
-operator|(
-name|deadServersList
-operator|!=
-literal|null
-operator|&&
-name|deadServersList
+name|DF
 operator|.
-name|length
-argument_list|()
+name|format
+argument_list|(
+name|averageLoad
+argument_list|)
+operator|+
+operator|(
+operator|(
+name|numDeadServers
 operator|>
 literal|0
 operator|)
 condition|?
+operator|(
+literal|"deadservers="
+operator|+
 name|deadServersList
+operator|)
 else|:
 literal|""
 operator|)
@@ -1823,7 +1845,7 @@ name|onlineServers
 operator|.
 name|wait
 argument_list|(
-literal|500
+literal|1000
 argument_list|)
 expr_stmt|;
 block|}
@@ -2182,9 +2204,14 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
-literal|"new connection"
+literal|"New connection to "
+operator|+
+name|info
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|hri
@@ -2271,6 +2298,11 @@ argument_list|)
 decl_stmt|;
 comment|// So, number of regionservers> 0 and its been n since last check in, break,
 comment|// else just stall here
+name|int
+name|count
+init|=
+literal|0
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -2296,12 +2328,11 @@ argument_list|(
 name|interval
 argument_list|)
 expr_stmt|;
-name|int
 name|count
-init|=
+operator|=
 name|countOfRegionServers
 argument_list|()
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 name|count
@@ -2345,6 +2376,24 @@ operator|=
 name|count
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Exiting wait on regionserver(s) to checkin; count="
+operator|+
+name|count
+operator|+
+literal|", stopped="
+operator|+
+name|this
+operator|.
+name|master
+operator|.
+name|isStopped
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 specifier|public
 name|List

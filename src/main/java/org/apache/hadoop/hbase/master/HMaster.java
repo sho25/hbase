@@ -1366,11 +1366,6 @@ argument_list|(
 name|conf
 argument_list|,
 name|MASTER
-operator|+
-literal|"-"
-operator|+
-name|getMasterAddress
-argument_list|()
 argument_list|,
 name|this
 argument_list|)

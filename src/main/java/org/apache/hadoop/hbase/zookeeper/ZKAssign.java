@@ -310,14 +310,14 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Creating an unassigned node for "
+literal|"Creating unassigned node for "
 operator|+
 name|region
 operator|.
 name|getEncodedName
 argument_list|()
 operator|+
-literal|" in an OFFLINE state"
+literal|" in OFFLINE state"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -414,14 +414,14 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Forcing an existing unassigned node for "
+literal|"Forcing existing unassigned node for "
 operator|+
 name|region
 operator|.
 name|getEncodedName
 argument_list|()
 operator|+
-literal|" to an OFFLINE state"
+literal|" to OFFLINE state"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -516,14 +516,14 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Creating or updating an unassigned node for "
+literal|"Creating (or updating) unassigned node for "
 operator|+
 name|region
 operator|.
 name|getEncodedName
 argument_list|()
 operator|+
-literal|" with an OFFLINE state"
+literal|" with OFFLINE state"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -762,7 +762,7 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Deleting an existing unassigned "
+literal|"Deleting existing unassigned "
 operator|+
 literal|"node for "
 operator|+
@@ -856,7 +856,7 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Attempting to delete an unassigned "
+literal|"Attempting to delete unassigned "
 operator|+
 literal|"node in "
 operator|+
@@ -922,7 +922,7 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Attempting to delete an "
+literal|"Attempting to delete "
 operator|+
 literal|"unassigned node in "
 operator|+
@@ -1010,7 +1010,7 @@ name|zkw
 operator|.
 name|prefix
 argument_list|(
-literal|"Creating an unassigned node for "
+literal|"Creating unassigned node for "
 operator|+
 name|region
 operator|.

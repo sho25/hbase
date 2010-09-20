@@ -2685,11 +2685,14 @@ name|conf
 argument_list|,
 name|REGIONSERVER
 operator|+
-literal|"-"
+literal|":"
 operator|+
 name|serverInfo
 operator|.
-name|getServerName
+name|getServerAddress
+argument_list|()
+operator|.
+name|getPort
 argument_list|()
 argument_list|,
 name|this

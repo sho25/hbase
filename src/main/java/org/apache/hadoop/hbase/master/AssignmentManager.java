@@ -1340,15 +1340,7 @@ block|{
 case|case
 name|M2ZK_REGION_OFFLINE
 case|:
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"What to do with this event? "
-operator|+
-name|data
-argument_list|)
-expr_stmt|;
+comment|// Nothing to do.
 break|break;
 case|case
 name|RS2ZK_REGION_CLOSING
@@ -2389,14 +2381,14 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" so generating a random one from "
+literal|" so generating a random one; "
 operator|+
 name|serverManager
 operator|.
 name|countOfRegionServers
 argument_list|()
 operator|+
-literal|" ( "
+literal|" (online="
 operator|+
 name|serverManager
 operator|.
