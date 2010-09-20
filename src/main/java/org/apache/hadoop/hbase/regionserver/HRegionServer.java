@@ -325,6 +325,20 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|lang
+operator|.
+name|StringUtils
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -2684,8 +2698,6 @@ argument_list|(
 name|conf
 argument_list|,
 name|REGIONSERVER
-operator|+
-literal|":"
 operator|+
 name|serverInfo
 operator|.
@@ -12056,32 +12068,33 @@ argument_list|()
 operator|==
 literal|1
 condition|)
-block|{
 throw|throw
 name|ioe
 throw|;
-block|}
-else|else
-block|{
 name|LOG
 operator|.
-name|error
+name|debug
 argument_list|(
-literal|"Exception found while attempting "
+literal|"Exception processing "
 operator|+
+name|StringUtils
+operator|.
+name|abbreviate
+argument_list|(
 name|action
 operator|.
 name|toString
 argument_list|()
-operator|+
-literal|" "
-operator|+
-name|StringUtils
-operator|.
-name|stringifyException
-argument_list|(
-name|ioe
+argument_list|,
+literal|64
 argument_list|)
+operator|+
+literal|"; "
+operator|+
+name|ioe
+operator|.
+name|getMessage
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|response
@@ -12097,18 +12110,21 @@ comment|// stop processing on this region, continue to the next.
 block|}
 block|}
 block|}
+end_function
+
+begin_return
 return|return
 name|response
 return|;
-block|}
-end_function
+end_return
 
 begin_comment
+unit|}
 comment|/**    * @deprecated Use HRegionServer.multi( MultiAction action) instead    */
 end_comment
 
 begin_function
-annotation|@
+unit|@
 name|Override
 specifier|public
 name|MultiPutResponse

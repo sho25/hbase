@@ -1385,25 +1385,6 @@ argument_list|,
 name|encodedNameStr
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-comment|// Write out region name as string and its encoded name.
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Creating region "
-operator|+
-name|this
-argument_list|)
-expr_stmt|;
-block|}
 name|long
 name|flushSize
 init|=
@@ -1461,6 +1442,25 @@ argument_list|,
 literal|2
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+comment|// Write out region name as string and its encoded name.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Instantiated "
+operator|+
+name|this
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Initialize this region.    * @return What the next sequence (edit) id should be.    * @throws IOException e    */
 specifier|public
@@ -3200,7 +3200,7 @@ literal|"Started memstore flush for region "
 operator|+
 name|this
 operator|+
-literal|". Current region memstore size "
+literal|"; current region memstore size "
 operator|+
 name|StringUtils
 operator|.
