@@ -1015,7 +1015,7 @@ name|r
 argument_list|)
 return|;
 block|}
-comment|/**    * @param data A .META. table row.    * @return A pair of the regioninfo and the server address from<code>data</code>.    * @throws IOException    */
+comment|/**    * @param data A .META. table row.    * @return A pair of the regioninfo and the server address from<code>data</code>    * (or null for server address if no address set in .META.).    * @throws IOException    */
 specifier|public
 specifier|static
 name|Pair
@@ -2019,6 +2019,13 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|pair
+operator|.
+name|getSecond
+argument_list|()
+operator|==
+literal|null
+operator|||
 operator|!
 name|pair
 operator|.
@@ -2033,7 +2040,9 @@ name|getServerAddress
 argument_list|()
 argument_list|)
 condition|)
+block|{
 continue|continue;
+block|}
 name|hris
 operator|.
 name|put
