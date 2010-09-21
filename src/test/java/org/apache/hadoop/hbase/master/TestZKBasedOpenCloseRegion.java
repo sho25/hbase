@@ -756,7 +756,7 @@ name|closeEventProcessed
 argument_list|,
 name|EventType
 operator|.
-name|RS2ZK_REGION_CLOSED
+name|RS_ZK_REGION_CLOSED
 argument_list|)
 decl_stmt|;
 name|cluster
@@ -770,7 +770,7 @@ name|registerListener
 argument_list|(
 name|EventType
 operator|.
-name|RS2ZK_REGION_CLOSED
+name|RS_ZK_REGION_CLOSED
 argument_list|,
 name|closeListener
 argument_list|)
@@ -790,7 +790,7 @@ name|reopenEventProcessed
 argument_list|,
 name|EventType
 operator|.
-name|RS2ZK_REGION_OPENED
+name|RS_ZK_REGION_OPENED
 argument_list|)
 decl_stmt|;
 name|cluster
@@ -804,7 +804,7 @@ name|registerListener
 argument_list|(
 name|EventType
 operator|.
-name|RS2ZK_REGION_OPENED
+name|RS_ZK_REGION_OPENED
 argument_list|,
 name|openListener
 argument_list|)
@@ -1077,7 +1077,7 @@ name|eventType
 operator|==
 name|EventType
 operator|.
-name|RS2ZK_REGION_OPENED
+name|RS_ZK_REGION_OPENED
 condition|)
 block|{
 name|TotesHRegionInfo
@@ -1106,7 +1106,7 @@ name|eventType
 operator|==
 name|EventType
 operator|.
-name|RS2ZK_REGION_CLOSED
+name|RS_ZK_REGION_CLOSED
 condition|)
 block|{
 name|TotesHRegionInfo
@@ -1281,7 +1281,7 @@ name|registerListener
 argument_list|(
 name|EventType
 operator|.
-name|RS2ZK_REGION_CLOSED
+name|RS_ZK_REGION_CLOSED
 argument_list|,
 name|listener
 argument_list|)
@@ -1404,7 +1404,7 @@ argument_list|()
 operator|==
 name|EventType
 operator|.
-name|RS2ZK_REGION_CLOSED
+name|RS_ZK_REGION_CLOSED
 condition|)
 block|{
 name|LOG
@@ -1484,7 +1484,7 @@ argument_list|()
 operator|==
 name|EventType
 operator|.
-name|M2RS_CLOSE_REGION
+name|M_RS_CLOSE_REGION
 condition|)
 block|{
 name|LOG

@@ -159,20 +159,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|locks
-operator|.
-name|ReentrantLock
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -1046,7 +1032,7 @@ argument_list|()
 condition|)
 block|{
 case|case
-name|RS2ZK_REGION_CLOSING
+name|RS_ZK_REGION_CLOSING
 case|:
 comment|// Just insert region into RIT.
 comment|// If this never updates the timeout will trigger new assignment
@@ -1076,7 +1062,7 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|RS2ZK_REGION_CLOSED
+name|RS_ZK_REGION_CLOSED
 case|:
 comment|// Region is closed, insert into RIT and handle it
 name|regionsInTransition
@@ -1120,7 +1106,7 @@ argument_list|()
 expr_stmt|;
 break|break;
 case|case
-name|RS2ZK_REGION_OPENING
+name|RS_ZK_REGION_OPENING
 case|:
 comment|// Just insert region into RIT
 comment|// If this never updates the timeout will trigger new assignment
@@ -1150,7 +1136,7 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|RS2ZK_REGION_OPENED
+name|RS_ZK_REGION_OPENED
 case|:
 comment|// Region is opened, insert into RIT and handle it
 name|regionsInTransition
@@ -1329,12 +1315,12 @@ argument_list|()
 condition|)
 block|{
 case|case
-name|M2ZK_REGION_OFFLINE
+name|M_ZK_REGION_OFFLINE
 case|:
 comment|// Nothing to do.
 break|break;
 case|case
-name|RS2ZK_REGION_CLOSING
+name|RS_ZK_REGION_CLOSING
 case|:
 comment|// Should see CLOSING after we have asked it to CLOSE or additional
 comment|// times after already being in state of CLOSING
@@ -1406,7 +1392,7 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|RS2ZK_REGION_CLOSED
+name|RS_ZK_REGION_CLOSED
 case|:
 comment|// Should see CLOSED after CLOSING but possible after PENDING_CLOSE
 if|if
@@ -1501,7 +1487,7 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|RS2ZK_REGION_OPENING
+name|RS_ZK_REGION_OPENING
 case|:
 comment|// Should see OPENING after we have asked it to OPEN or additional
 comment|// times after already being in state of OPENING
@@ -1573,7 +1559,7 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|RS2ZK_REGION_OPENED
+name|RS_ZK_REGION_OPENED
 case|:
 comment|// Should see OPENED after OPENING but possible after PENDING_OPEN
 if|if

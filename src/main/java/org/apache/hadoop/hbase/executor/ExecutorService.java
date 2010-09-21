@@ -383,7 +383,7 @@ condition|)
 block|{
 comment|// Master executor services
 case|case
-name|RS2ZK_REGION_CLOSED
+name|RS_ZK_REGION_CLOSED
 case|:
 return|return
 name|ExecutorType
@@ -391,7 +391,7 @@ operator|.
 name|MASTER_CLOSE_REGION
 return|;
 case|case
-name|RS2ZK_REGION_OPENED
+name|RS_ZK_REGION_OPENED
 case|:
 return|return
 name|ExecutorType
@@ -407,16 +407,16 @@ operator|.
 name|MASTER_SERVER_OPERATIONS
 return|;
 case|case
-name|C2M_DELETE_TABLE
+name|C_M_DELETE_TABLE
 case|:
 case|case
-name|C2M_DISABLE_TABLE
+name|C_M_DISABLE_TABLE
 case|:
 case|case
-name|C2M_ENABLE_TABLE
+name|C_M_ENABLE_TABLE
 case|:
 case|case
-name|C2M_MODIFY_TABLE
+name|C_M_MODIFY_TABLE
 case|:
 return|return
 name|ExecutorType
@@ -425,7 +425,7 @@ name|MASTER_TABLE_OPERATIONS
 return|;
 comment|// RegionServer executor services
 case|case
-name|M2RS_OPEN_REGION
+name|M_RS_OPEN_REGION
 case|:
 return|return
 name|ExecutorType
@@ -433,7 +433,7 @@ operator|.
 name|RS_OPEN_REGION
 return|;
 case|case
-name|M2RS_OPEN_ROOT
+name|M_RS_OPEN_ROOT
 case|:
 return|return
 name|ExecutorType
@@ -441,7 +441,7 @@ operator|.
 name|RS_OPEN_ROOT
 return|;
 case|case
-name|M2RS_OPEN_META
+name|M_RS_OPEN_META
 case|:
 return|return
 name|ExecutorType
@@ -449,7 +449,7 @@ operator|.
 name|RS_OPEN_META
 return|;
 case|case
-name|M2RS_CLOSE_REGION
+name|M_RS_CLOSE_REGION
 case|:
 return|return
 name|ExecutorType
@@ -457,7 +457,7 @@ operator|.
 name|RS_CLOSE_REGION
 return|;
 case|case
-name|M2RS_CLOSE_ROOT
+name|M_RS_CLOSE_ROOT
 case|:
 return|return
 name|ExecutorType
@@ -465,7 +465,7 @@ operator|.
 name|RS_CLOSE_ROOT
 return|;
 case|case
-name|M2RS_CLOSE_META
+name|M_RS_CLOSE_META
 case|:
 return|return
 name|ExecutorType

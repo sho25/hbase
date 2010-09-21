@@ -143,7 +143,7 @@ name|zk
 argument_list|,
 name|EventType
 operator|.
-name|M2RS_CLOSE_ROOT
+name|M_RS_CLOSE_ROOT
 argument_list|)
 expr_stmt|;
 block|}

@@ -264,7 +264,7 @@ name|regionInfo
 argument_list|,
 name|EventType
 operator|.
-name|M2RS_OPEN_REGION
+name|M_RS_OPEN_REGION
 argument_list|)
 expr_stmt|;
 block|}

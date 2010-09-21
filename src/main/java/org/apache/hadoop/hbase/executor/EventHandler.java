@@ -178,105 +178,105 @@ name|EventType
 block|{
 comment|// Messages originating from RS (NOTE: there is NO direct communication from
 comment|// RS to Master). These are a result of RS updates into ZK.
-name|RS2ZK_REGION_CLOSING
+name|RS_ZK_REGION_CLOSING
 argument_list|(
 literal|1
 argument_list|)
 block|,
 comment|// RS is in process of closing a region
-name|RS2ZK_REGION_CLOSED
+name|RS_ZK_REGION_CLOSED
 argument_list|(
 literal|2
 argument_list|)
 block|,
 comment|// RS has finished closing a region
-name|RS2ZK_REGION_OPENING
+name|RS_ZK_REGION_OPENING
 argument_list|(
 literal|3
 argument_list|)
 block|,
 comment|// RS is in process of opening a region
-name|RS2ZK_REGION_OPENED
+name|RS_ZK_REGION_OPENED
 argument_list|(
 literal|4
 argument_list|)
 block|,
 comment|// RS has finished opening a region
 comment|// Messages originating from Master to RS
-name|M2RS_OPEN_REGION
+name|M_RS_OPEN_REGION
 argument_list|(
 literal|20
 argument_list|)
 block|,
 comment|// Master asking RS to open a region
-name|M2RS_OPEN_ROOT
+name|M_RS_OPEN_ROOT
 argument_list|(
 literal|21
 argument_list|)
 block|,
 comment|// Master asking RS to open root
-name|M2RS_OPEN_META
+name|M_RS_OPEN_META
 argument_list|(
 literal|22
 argument_list|)
 block|,
 comment|// Master asking RS to open meta
-name|M2RS_CLOSE_REGION
+name|M_RS_CLOSE_REGION
 argument_list|(
 literal|23
 argument_list|)
 block|,
 comment|// Master asking RS to close a region
-name|M2RS_CLOSE_ROOT
+name|M_RS_CLOSE_ROOT
 argument_list|(
 literal|24
 argument_list|)
 block|,
 comment|// Master asking RS to close root
-name|M2RS_CLOSE_META
+name|M_RS_CLOSE_META
 argument_list|(
 literal|25
 argument_list|)
 block|,
 comment|// Master asking RS to close meta
 comment|// Messages originating from Client to Master
-name|C2M_DELETE_TABLE
+name|C_M_DELETE_TABLE
 argument_list|(
 literal|40
 argument_list|)
 block|,
 comment|// Client asking Master to delete a table
-name|C2M_DISABLE_TABLE
+name|C_M_DISABLE_TABLE
 argument_list|(
 literal|41
 argument_list|)
 block|,
 comment|// Client asking Master to disable a table
-name|C2M_ENABLE_TABLE
+name|C_M_ENABLE_TABLE
 argument_list|(
 literal|42
 argument_list|)
 block|,
 comment|// Client asking Master to enable a table
-name|C2M_MODIFY_TABLE
+name|C_M_MODIFY_TABLE
 argument_list|(
 literal|43
 argument_list|)
 block|,
 comment|// Client asking Master to modify a table
-name|C2M_ADD_FAMILY
+name|C_M_ADD_FAMILY
 argument_list|(
 literal|44
 argument_list|)
 block|,
 comment|// Client asking Master to add family to table
-name|C2M_DELETE_FAMILY
+name|C_M_DELETE_FAMILY
 argument_list|(
 literal|45
 argument_list|)
 block|,
 comment|// Client asking Master to delete family of table
-name|C2M_MODIFY_FAMILY
+name|C_M_MODIFY_FAMILY
 argument_list|(
 literal|46
 argument_list|)
@@ -284,7 +284,7 @@ block|,
 comment|// Client asking Master to modify family of table
 comment|// Updates from master to ZK. This is done by the master and there is
 comment|// nothing to process by either Master or RS
-name|M2ZK_REGION_OFFLINE
+name|M_ZK_REGION_OFFLINE
 argument_list|(
 literal|50
 argument_list|)

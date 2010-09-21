@@ -269,7 +269,7 @@ name|server
 argument_list|,
 name|EventType
 operator|.
-name|RS2ZK_REGION_CLOSED
+name|RS_ZK_REGION_CLOSED
 argument_list|)
 expr_stmt|;
 name|this

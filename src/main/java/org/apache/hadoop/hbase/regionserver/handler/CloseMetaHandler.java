@@ -144,7 +144,7 @@ name|zk
 argument_list|,
 name|EventType
 operator|.
-name|M2RS_CLOSE_META
+name|M_RS_CLOSE_META
 argument_list|)
 expr_stmt|;
 block|}

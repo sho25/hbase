@@ -152,7 +152,7 @@ name|super
 argument_list|(
 name|EventType
 operator|.
-name|C2M_MODIFY_TABLE
+name|C_M_MODIFY_TABLE
 argument_list|,
 name|tableName
 argument_list|,

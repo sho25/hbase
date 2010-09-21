@@ -197,7 +197,7 @@ name|super
 argument_list|(
 name|EventType
 operator|.
-name|C2M_MODIFY_FAMILY
+name|C_M_MODIFY_FAMILY
 argument_list|,
 name|tableName
 argument_list|,

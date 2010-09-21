@@ -254,7 +254,7 @@ name|server
 argument_list|,
 name|EventType
 operator|.
-name|C2M_DISABLE_TABLE
+name|C_M_DISABLE_TABLE
 argument_list|)
 expr_stmt|;
 name|this

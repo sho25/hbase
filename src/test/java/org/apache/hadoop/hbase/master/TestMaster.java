@@ -638,7 +638,7 @@ name|registerListener
 argument_list|(
 name|EventType
 operator|.
-name|RS2ZK_REGION_OPENED
+name|RS_ZK_REGION_OPENED
 argument_list|,
 name|list
 argument_list|)
@@ -873,7 +873,7 @@ argument_list|()
 operator|!=
 name|EventType
 operator|.
-name|RS2ZK_REGION_OPENED
+name|RS_ZK_REGION_OPENED
 condition|)
 block|{
 return|return;

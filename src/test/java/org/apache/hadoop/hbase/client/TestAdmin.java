@@ -1432,7 +1432,7 @@ name|registerListener
 argument_list|(
 name|EventType
 operator|.
-name|C2M_MODIFY_TABLE
+name|C_M_MODIFY_TABLE
 argument_list|,
 operator|new
 name|DoneListener
@@ -1496,7 +1496,7 @@ name|unregisterListener
 argument_list|(
 name|EventType
 operator|.
-name|C2M_MODIFY_TABLE
+name|C_M_MODIFY_TABLE
 argument_list|)
 expr_stmt|;
 block|}

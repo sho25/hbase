@@ -7637,7 +7637,6 @@ comment|/*    * Path to a file under RECOVERED_EDITS_DIR directory of the region
 end_comment
 
 begin_function
-specifier|private
 specifier|static
 name|Path
 name|getRegionSplitEditsPath

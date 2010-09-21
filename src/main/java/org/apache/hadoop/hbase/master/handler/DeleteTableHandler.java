@@ -170,7 +170,7 @@ name|super
 argument_list|(
 name|EventType
 operator|.
-name|C2M_DELETE_TABLE
+name|C_M_DELETE_TABLE
 argument_list|,
 name|tableName
 argument_list|,

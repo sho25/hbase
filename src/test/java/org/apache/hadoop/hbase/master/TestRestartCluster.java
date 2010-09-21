@@ -490,7 +490,7 @@ literal|"Created UNASSIGNED zNode for ROOT and META regions in state "
 operator|+
 name|EventType
 operator|.
-name|M2ZK_REGION_OFFLINE
+name|M_ZK_REGION_OFFLINE
 argument_list|)
 expr_stmt|;
 comment|// start the HB cluster

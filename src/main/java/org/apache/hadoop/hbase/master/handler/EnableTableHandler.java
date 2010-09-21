@@ -259,7 +259,7 @@ name|server
 argument_list|,
 name|EventType
 operator|.
-name|C2M_ENABLE_TABLE
+name|C_M_ENABLE_TABLE
 argument_list|)
 expr_stmt|;
 name|this

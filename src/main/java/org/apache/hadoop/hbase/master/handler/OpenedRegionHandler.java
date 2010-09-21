@@ -291,7 +291,7 @@ name|server
 argument_list|,
 name|EventType
 operator|.
-name|RS2ZK_REGION_OPENED
+name|RS_ZK_REGION_OPENED
 argument_list|)
 expr_stmt|;
 name|this

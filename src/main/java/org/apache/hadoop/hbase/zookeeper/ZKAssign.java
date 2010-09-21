@@ -273,7 +273,7 @@ name|serverName
 argument_list|,
 name|EventType
 operator|.
-name|M2ZK_REGION_OFFLINE
+name|M_ZK_REGION_OFFLINE
 argument_list|)
 expr_stmt|;
 block|}
@@ -433,7 +433,7 @@ name|RegionTransitionData
 argument_list|(
 name|EventType
 operator|.
-name|M2ZK_REGION_OFFLINE
+name|M_ZK_REGION_OFFLINE
 argument_list|,
 name|region
 operator|.
@@ -535,7 +535,7 @@ name|RegionTransitionData
 argument_list|(
 name|EventType
 operator|.
-name|M2ZK_REGION_OFFLINE
+name|M_ZK_REGION_OFFLINE
 argument_list|,
 name|region
 operator|.
@@ -664,7 +664,7 @@ name|regionName
 argument_list|,
 name|EventType
 operator|.
-name|RS2ZK_REGION_OPENED
+name|RS_ZK_REGION_OPENED
 argument_list|)
 return|;
 block|}
@@ -696,7 +696,7 @@ name|regionName
 argument_list|,
 name|EventType
 operator|.
-name|RS2ZK_REGION_CLOSED
+name|RS_ZK_REGION_CLOSED
 argument_list|)
 return|;
 block|}
@@ -728,7 +728,7 @@ name|regionName
 argument_list|,
 name|EventType
 operator|.
-name|RS2ZK_REGION_CLOSING
+name|RS_ZK_REGION_CLOSING
 argument_list|)
 return|;
 block|}
@@ -1029,7 +1029,7 @@ name|RegionTransitionData
 argument_list|(
 name|EventType
 operator|.
-name|RS2ZK_REGION_CLOSING
+name|RS_ZK_REGION_CLOSING
 argument_list|,
 name|region
 operator|.
@@ -1119,11 +1119,11 @@ name|serverName
 argument_list|,
 name|EventType
 operator|.
-name|RS2ZK_REGION_CLOSING
+name|RS_ZK_REGION_CLOSING
 argument_list|,
 name|EventType
 operator|.
-name|RS2ZK_REGION_CLOSED
+name|RS_ZK_REGION_CLOSED
 argument_list|,
 name|expectedVersion
 argument_list|)
@@ -1158,7 +1158,7 @@ name|serverName
 argument_list|,
 name|EventType
 operator|.
-name|M2ZK_REGION_OFFLINE
+name|M_ZK_REGION_OFFLINE
 argument_list|)
 return|;
 block|}
@@ -1196,7 +1196,7 @@ name|beginState
 argument_list|,
 name|EventType
 operator|.
-name|RS2ZK_REGION_OPENING
+name|RS_ZK_REGION_OPENING
 argument_list|,
 operator|-
 literal|1
@@ -1235,11 +1235,11 @@ name|serverName
 argument_list|,
 name|EventType
 operator|.
-name|RS2ZK_REGION_OPENING
+name|RS_ZK_REGION_OPENING
 argument_list|,
 name|EventType
 operator|.
-name|RS2ZK_REGION_OPENING
+name|RS_ZK_REGION_OPENING
 argument_list|,
 name|expectedVersion
 argument_list|)
@@ -1277,11 +1277,11 @@ name|serverName
 argument_list|,
 name|EventType
 operator|.
-name|RS2ZK_REGION_OPENING
+name|RS_ZK_REGION_OPENING
 argument_list|,
 name|EventType
 operator|.
-name|RS2ZK_REGION_OPENED
+name|RS_ZK_REGION_OPENED
 argument_list|,
 name|expectedVersion
 argument_list|)
