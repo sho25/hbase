@@ -909,7 +909,7 @@ literal|"Fixup; missing daughter "
 operator|+
 name|hri
 operator|.
-name|getEncodedNameAsBytes
+name|getEncodedName
 argument_list|()
 argument_list|)
 expr_stmt|;

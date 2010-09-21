@@ -570,23 +570,20 @@ argument_list|(
 name|catalogRegionName
 argument_list|)
 operator|+
-literal|" with "
-operator|+
-literal|"server="
+operator|(
+name|serverInfo
+operator|==
+literal|null
+condition|?
+literal|", serverInfo=null"
+else|:
+literal|", serverInfo="
 operator|+
 name|serverInfo
 operator|.
-name|getHostnamePort
+name|getServerName
 argument_list|()
-operator|+
-literal|", "
-operator|+
-literal|"startcode="
-operator|+
-name|serverInfo
-operator|.
-name|getStartCode
-argument_list|()
+operator|)
 argument_list|)
 expr_stmt|;
 block|}
