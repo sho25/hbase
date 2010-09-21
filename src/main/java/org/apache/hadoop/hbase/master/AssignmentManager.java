@@ -784,15 +784,6 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
-name|ReentrantLock
-name|assignLock
-init|=
-operator|new
-name|ReentrantLock
-argument_list|()
-decl_stmt|;
-specifier|private
-specifier|final
 name|ExecutorService
 name|executorService
 decl_stmt|;
@@ -2127,18 +2118,6 @@ decl_stmt|;
 name|RegionState
 name|state
 decl_stmt|;
-comment|// This assignLock is used bridging the two synchronization blocks.  Once
-comment|// we've made it into the 'state' synchronization block, then we can let
-comment|// go of this lock.  There must be a better construct that this -- St.Ack 20100811
-name|this
-operator|.
-name|assignLock
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
-try|try
-block|{
 synchronized|synchronized
 init|(
 name|regionsInTransition
@@ -2185,42 +2164,18 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// This here gap between synchronizations looks like a hole but it should
+comment|// be ok because the assign below would protect against being called with
+comment|// a state instance that is not in the right 'state' -- St.Ack 20100920.
 synchronized|synchronized
 init|(
 name|state
 init|)
 block|{
-name|this
-operator|.
-name|assignLock
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
 name|assign
 argument_list|(
 name|state
 argument_list|)
-expr_stmt|;
-block|}
-block|}
-finally|finally
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|assignLock
-operator|.
-name|isHeldByCurrentThread
-argument_list|()
-condition|)
-name|this
-operator|.
-name|assignLock
-operator|.
-name|unlock
-argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -2826,9 +2781,7 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
-block|{
 return|return;
-block|}
 comment|// Get all available servers
 name|List
 argument_list|<
@@ -2852,14 +2805,14 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|" regions across "
+literal|" region(s) across "
 operator|+
 name|servers
 operator|.
 name|size
 argument_list|()
 operator|+
-literal|" servers"
+literal|" server(s)"
 argument_list|)
 expr_stmt|;
 comment|// Generate a cluster startup region placement plan
@@ -2883,7 +2836,7 @@ argument_list|,
 name|servers
 argument_list|)
 decl_stmt|;
-comment|// For each server, create OFFLINE nodes and send OPEN RPCs
+comment|// Now start a thread per server to run assignment.
 for|for
 control|(
 name|Map
@@ -2905,101 +2858,32 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|HServerInfo
-name|server
+name|Thread
+name|t
 init|=
+operator|new
+name|BulkAssignServer
+argument_list|(
 name|entry
 operator|.
 name|getKey
 argument_list|()
-decl_stmt|;
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-name|regions
-init|=
+argument_list|,
 name|entry
 operator|.
 name|getValue
 argument_list|()
-decl_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Assigning "
-operator|+
-name|regions
-operator|.
-name|size
-argument_list|()
-operator|+
-literal|" regions to "
-operator|+
-name|server
-argument_list|)
-expr_stmt|;
-for|for
-control|(
-name|HRegionInfo
-name|region
-range|:
-name|regions
-control|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Assigning "
-operator|+
-name|region
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|" to "
-operator|+
-name|server
-argument_list|)
-expr_stmt|;
-name|String
-name|regionName
-init|=
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
-decl_stmt|;
-name|RegionPlan
-name|plan
-init|=
-operator|new
-name|RegionPlan
-argument_list|(
-name|region
 argument_list|,
-literal|null
-argument_list|,
-name|server
+name|this
+operator|.
+name|master
 argument_list|)
 decl_stmt|;
-name|regionPlans
+name|t
 operator|.
-name|put
-argument_list|(
-name|regionName
-argument_list|,
-name|plan
-argument_list|)
+name|start
+argument_list|()
 expr_stmt|;
-name|assign
-argument_list|(
-name|region
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|// Wait for no regions to be in transition
 try|try
@@ -3038,6 +2922,165 @@ argument_list|(
 literal|"All user regions have been assigned"
 argument_list|)
 expr_stmt|;
+block|}
+comment|/**    * Class to run bulk assign to a single server.    */
+class|class
+name|BulkAssignServer
+extends|extends
+name|Thread
+block|{
+specifier|private
+specifier|final
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regions
+decl_stmt|;
+specifier|private
+specifier|final
+name|HServerInfo
+name|server
+decl_stmt|;
+specifier|private
+specifier|final
+name|Stoppable
+name|stopper
+decl_stmt|;
+name|BulkAssignServer
+parameter_list|(
+specifier|final
+name|HServerInfo
+name|server
+parameter_list|,
+specifier|final
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regions
+parameter_list|,
+specifier|final
+name|Stoppable
+name|stopper
+parameter_list|)
+block|{
+name|super
+argument_list|(
+literal|"serverassign-"
+operator|+
+name|server
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|setDaemon
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|server
+operator|=
+name|server
+expr_stmt|;
+name|this
+operator|.
+name|regions
+operator|=
+name|regions
+expr_stmt|;
+name|this
+operator|.
+name|stopper
+operator|=
+name|stopper
+expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|run
+parameter_list|()
+block|{
+comment|// Insert a plan for each region with 'server' as the target regionserver.
+comment|// Below, we run through regions one at a time.  The call to assign will
+comment|// move the region into the regionsInTransition which starts up a timer.
+comment|// if the region is not out of the regionsInTransition by a certain time,
+comment|// it will be reassigned.  We don't want that to happen.  So, do it this
+comment|// way a region at a time for now.  Presumably the regionserver will put
+comment|// up a back pressure if opening a region takes time which is good since
+comment|// this will block our adding new regions to regionsInTransition.  Later
+comment|// make it so we can send over a lump of regions in one rpc with the
+comment|// regionserver on remote side tickling zk on a period to prevent our
+comment|// regionsInTransition timing out.  Currently its not possible given the
+comment|// Executor architecture on the regionserver side.  St.Ack 20100920.
+for|for
+control|(
+name|HRegionInfo
+name|region
+range|:
+name|regions
+control|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Assigning "
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|this
+operator|.
+name|server
+argument_list|)
+expr_stmt|;
+name|regionPlans
+operator|.
+name|put
+argument_list|(
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|,
+operator|new
+name|RegionPlan
+argument_list|(
+name|region
+argument_list|,
+literal|null
+argument_list|,
+name|server
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|assign
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|stopper
+operator|.
+name|isStopped
+argument_list|()
+condition|)
+break|break;
+block|}
+block|}
 block|}
 specifier|private
 name|void
