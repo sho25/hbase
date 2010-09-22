@@ -2080,18 +2080,6 @@ name|HRegionInfo
 name|region
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Starting assignment for region "
-operator|+
-name|region
-operator|.
-name|getRegionNameAsString
-argument_list|()
-argument_list|)
-expr_stmt|;
 comment|// Grab the state of this region and synchronize on it
 name|String
 name|encodedName
@@ -2390,6 +2378,31 @@ block|}
 block|}
 try|try
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Assigning region "
+operator|+
+name|state
+operator|.
+name|getRegion
+argument_list|()
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|plan
+operator|.
+name|getDestination
+argument_list|()
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// Send OPEN RPC. This can fail if the server on other end is is not up.
 name|serverManager
 operator|.
@@ -3012,24 +3025,6 @@ range|:
 name|regions
 control|)
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Assigning "
-operator|+
-name|region
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|" to "
-operator|+
-name|this
-operator|.
-name|server
-argument_list|)
-expr_stmt|;
 name|regionPlans
 operator|.
 name|put

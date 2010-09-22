@@ -2889,12 +2889,30 @@ name|debug
 argument_list|(
 literal|"Not running balancer because regions in transition: "
 operator|+
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|lang
+operator|.
+name|StringUtils
+operator|.
+name|abbreviate
+argument_list|(
 name|this
 operator|.
 name|assignmentManager
 operator|.
 name|getRegionsInTransition
 argument_list|()
+operator|.
+name|toString
+argument_list|()
+argument_list|,
+literal|64
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -3040,7 +3058,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"balance="
+literal|"balance "
 operator|+
 name|plan
 argument_list|)
