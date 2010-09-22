@@ -698,6 +698,17 @@ name|Long
 operator|.
 name|MAX_VALUE
 decl_stmt|;
+comment|/**    * Timestamp to use when we want to refer to the oldest cell.    */
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|OLDEST_TIMESTAMP
+init|=
+name|Long
+operator|.
+name|MIN_VALUE
+decl_stmt|;
 comment|/**    * LATEST_TIMESTAMP in bytes form    */
 specifier|public
 specifier|static

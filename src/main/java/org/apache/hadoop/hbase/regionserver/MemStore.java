@@ -1751,7 +1751,7 @@ name|heapSizeChange
 argument_list|(
 name|kv
 argument_list|,
-literal|false
+literal|true
 argument_list|)
 expr_stmt|;
 name|it

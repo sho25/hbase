@@ -276,7 +276,8 @@ argument_list|,
 name|columns
 argument_list|)
 decl_stmt|;
-comment|// Seek all scanners to the initial key
+comment|// Seek all scanners to the start of the Row (or if the exact maching row key does not
+comment|// exist, then to the start of the next matching Row).
 for|for
 control|(
 name|KeyValueScanner
@@ -1145,6 +1146,8 @@ return|;
 case|case
 name|SEEK_NEXT_ROW
 case|:
+comment|// This is just a relatively simple end of scan fix, to short-cut end us if there is a
+comment|// endKey in the scan.
 if|if
 condition|(
 operator|!
@@ -1167,22 +1170,29 @@ return|return
 literal|false
 return|;
 block|}
-name|heap
+name|reseek
+argument_list|(
+name|matcher
 operator|.
-name|next
-argument_list|()
+name|getKeyForNextRow
+argument_list|(
+name|kv
+argument_list|)
+argument_list|)
 expr_stmt|;
 break|break;
 case|case
 name|SEEK_NEXT_COL
 case|:
-comment|// TODO hfile needs 'hinted' seeking to prevent it from
-comment|// reseeking from the start of the block on every dang seek.
-comment|// We need that API and expose it the scanner chain.
-name|heap
+name|reseek
+argument_list|(
+name|matcher
 operator|.
-name|next
-argument_list|()
+name|getKeyForNextColumn
+argument_list|(
+name|kv
+argument_list|)
+argument_list|)
 expr_stmt|;
 break|break;
 case|case
