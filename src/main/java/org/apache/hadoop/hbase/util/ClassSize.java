@@ -112,162 +112,142 @@ decl_stmt|;
 comment|/** Array overhead */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|ARRAY
-init|=
-literal|0
 decl_stmt|;
 comment|/** Overhead for ArrayList(0) */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|ARRAYLIST
-init|=
-literal|0
 decl_stmt|;
 comment|/** Overhead for ByteBuffer */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|BYTE_BUFFER
-init|=
-literal|0
 decl_stmt|;
 comment|/** Overhead for an Integer */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|INTEGER
-init|=
-literal|0
 decl_stmt|;
 comment|/** Overhead for entry in map */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|MAP_ENTRY
-init|=
-literal|0
 decl_stmt|;
 comment|/** Object overhead is minimum 2 * reference size (8 bytes on 64-bit) */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|OBJECT
-init|=
-literal|0
 decl_stmt|;
 comment|/** Reference size is 8 bytes on 64-bit, 4 bytes on 32-bit */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|REFERENCE
-init|=
-literal|0
 decl_stmt|;
 comment|/** String overhead */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|STRING
-init|=
-literal|0
 decl_stmt|;
 comment|/** Overhead for TreeMap */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|TREEMAP
-init|=
-literal|0
 decl_stmt|;
 comment|/** Overhead for ConcurrentHashMap */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|CONCURRENT_HASHMAP
-init|=
-literal|0
 decl_stmt|;
 comment|/** Overhead for ConcurrentHashMap.Entry */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|CONCURRENT_HASHMAP_ENTRY
-init|=
-literal|0
 decl_stmt|;
 comment|/** Overhead for ConcurrentHashMap.Segment */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|CONCURRENT_HASHMAP_SEGMENT
-init|=
-literal|0
 decl_stmt|;
 comment|/** Overhead for ConcurrentSkipListMap */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|CONCURRENT_SKIPLISTMAP
-init|=
-literal|0
 decl_stmt|;
 comment|/** Overhead for ConcurrentSkipListMap Entry */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|CONCURRENT_SKIPLISTMAP_ENTRY
-init|=
-literal|0
 decl_stmt|;
 comment|/** Overhead for ReentrantReadWriteLock */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|REENTRANT_LOCK
-init|=
-literal|0
 decl_stmt|;
 comment|/** Overhead for AtomicLong */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|ATOMIC_LONG
-init|=
-literal|0
 decl_stmt|;
 comment|/** Overhead for AtomicInteger */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|ATOMIC_INTEGER
-init|=
-literal|0
 decl_stmt|;
 comment|/** Overhead for AtomicBoolean */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|ATOMIC_BOOLEAN
-init|=
-literal|0
 decl_stmt|;
 comment|/** Overhead for CopyOnWriteArraySet */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|COPYONWRITE_ARRAYSET
-init|=
-literal|0
 decl_stmt|;
 comment|/** Overhead for CopyOnWriteArrayList */
 specifier|public
 specifier|static
+specifier|final
 name|int
 name|COPYONWRITE_ARRAYLIST
-init|=
-literal|0
 decl_stmt|;
 specifier|private
 specifier|static
@@ -300,10 +280,6 @@ literal|"sun.arch.data.model"
 argument_list|)
 decl_stmt|;
 comment|//Default value is set to 8, covering the case when arcModel is unknown
-name|REFERENCE
-operator|=
-literal|8
-expr_stmt|;
 if|if
 condition|(
 name|arcModel
@@ -317,6 +293,13 @@ block|{
 name|REFERENCE
 operator|=
 literal|4
+expr_stmt|;
+block|}
+else|else
+block|{
+name|REFERENCE
+operator|=
+literal|8
 expr_stmt|;
 block|}
 name|OBJECT
