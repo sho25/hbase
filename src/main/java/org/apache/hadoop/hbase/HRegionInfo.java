@@ -2160,6 +2160,43 @@ operator|=
 name|offLine
 expr_stmt|;
 block|}
+comment|/**    * @return True if this is a split parent region.    */
+specifier|public
+name|boolean
+name|isSplitParent
+parameter_list|()
+block|{
+if|if
+condition|(
+operator|!
+name|isSplit
+argument_list|()
+condition|)
+return|return
+literal|false
+return|;
+if|if
+condition|(
+operator|!
+name|isOffline
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Region is split but NOT offline: "
+operator|+
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+literal|true
+return|;
+block|}
 comment|/**    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override

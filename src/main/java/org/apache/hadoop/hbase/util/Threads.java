@@ -105,6 +105,29 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+comment|/**    * Utility method that sets name, daemon status and starts passed thread.    * @param t thread to run    * @return Returns the passed Thread<code>t</code>.    */
+specifier|public
+specifier|static
+name|Thread
+name|setDaemonThreadRunning
+parameter_list|(
+specifier|final
+name|Thread
+name|t
+parameter_list|)
+block|{
+return|return
+name|setDaemonThreadRunning
+argument_list|(
+name|t
+argument_list|,
+name|t
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+return|;
+block|}
 comment|/**    * Utility method that sets name, daemon status and starts passed thread.    * @param t thread to frob    * @param name new name    * @return Returns the passed Thread<code>t</code>.    */
 specifier|public
 specifier|static

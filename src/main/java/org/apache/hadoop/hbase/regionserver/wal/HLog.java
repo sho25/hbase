@@ -6951,7 +6951,7 @@ literal|"Could not open "
 operator|+
 name|path
 operator|+
-literal|" for reading. File is empty"
+literal|" for reading. File is empty: "
 operator|+
 name|e
 argument_list|)

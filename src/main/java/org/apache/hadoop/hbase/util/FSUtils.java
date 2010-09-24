@@ -2507,7 +2507,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Recovering file"
+literal|"Recovering file "
 operator|+
 name|p
 argument_list|)
