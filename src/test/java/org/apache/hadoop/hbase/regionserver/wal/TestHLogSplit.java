@@ -896,8 +896,9 @@ literal|"/"
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|assertEquals
-argument_list|(
+name|String
+name|parentOfParent
+init|=
 name|p
 operator|.
 name|getParent
@@ -905,6 +906,13 @@ argument_list|()
 operator|.
 name|getParent
 argument_list|()
+operator|.
+name|getName
+argument_list|()
+decl_stmt|;
+name|assertEquals
+argument_list|(
+name|parentOfParent
 argument_list|,
 name|HRegionInfo
 operator|.
