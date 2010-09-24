@@ -898,7 +898,7 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" reference "
+literal|" "
 operator|+
 name|Bytes
 operator|.
@@ -907,14 +907,12 @@ argument_list|(
 name|qualifier
 argument_list|)
 operator|+
-literal|" from "
+literal|" from parent "
 operator|+
 name|parent
 operator|.
 name|getRegionNameAsString
 argument_list|()
-operator|+
-literal|" .META."
 argument_list|)
 expr_stmt|;
 block|}
