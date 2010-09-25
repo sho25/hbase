@@ -3182,10 +3182,10 @@ name|destServerName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param b If true, enable balancer. If false, disable balancer.    * @return Previous balancer value    * @throws ZooKeeperConnectionException     * @throws MasterNotRunningException     */
+comment|/**    * Turn the load balancer on or off.    * @param b If true, enable balancer. If false, disable balancer.    * @return Previous balancer value    */
 specifier|public
 name|boolean
-name|balance
+name|balanceSwitch
 parameter_list|(
 specifier|final
 name|boolean
@@ -3200,10 +3200,28 @@ return|return
 name|getMaster
 argument_list|()
 operator|.
-name|balance
+name|balanceSwitch
 argument_list|(
 name|b
 argument_list|)
+return|;
+block|}
+comment|/**    * Invoke the balancer.  Will run the balancer and if regions to move, it will    * go ahead and do the reassignments.  Can NOT run for various reasons.  Check    * logs.    * @return True if balancer ran, false otherwise.    */
+specifier|public
+name|boolean
+name|balancer
+parameter_list|()
+throws|throws
+name|MasterNotRunningException
+throws|,
+name|ZooKeeperConnectionException
+block|{
+return|return
+name|getMaster
+argument_list|()
+operator|.
+name|balance
+argument_list|()
 return|;
 block|}
 comment|/**    * Split a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to split    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */

@@ -512,6 +512,11 @@ name|services
 decl_stmt|;
 specifier|private
 specifier|final
+name|boolean
+name|freshClusterStartup
+decl_stmt|;
+specifier|private
+specifier|final
 name|ServerMonitor
 name|serverMonitorThread
 decl_stmt|;
@@ -633,7 +638,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Constructor.    * @param master    * @param services    */
+comment|/**    * Constructor.    * @param master    * @param services    * @param freshClusterStartup True if we are original master on a fresh    * cluster startup else if false, we are joining an already running cluster.    */
 specifier|public
 name|ServerManager
 parameter_list|(
@@ -644,6 +649,10 @@ parameter_list|,
 specifier|final
 name|MasterServices
 name|services
+parameter_list|,
+specifier|final
+name|boolean
+name|freshClusterStartup
 parameter_list|)
 block|{
 name|this
@@ -657,6 +666,12 @@ operator|.
 name|services
 operator|=
 name|services
+expr_stmt|;
+name|this
+operator|.
+name|freshClusterStartup
+operator|=
+name|freshClusterStartup
 expr_stmt|;
 name|Configuration
 name|c
@@ -1215,13 +1230,73 @@ operator|==
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|freshClusterStartup
+condition|)
+block|{
+comment|// If we are joining an existing cluster, then soon as we come up we'll
+comment|// be getting reports from already running regionservers.
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Registering new server: "
+operator|+
+name|info
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// recordNewServer is what happens at the end of reportServerStartup.
+comment|// The only thing we are skipping is passing back to the regionserver
+comment|// the HServerInfo to use.  Here we presume a master has already done
+comment|// that so we'll press on with whatever it gave us for HSI.
+name|recordNewServer
+argument_list|(
+name|info
+argument_list|)
+expr_stmt|;
+comment|// If msgs, put off their processing but this is not enough because
+comment|// its possible that the next time the server reports in, we'll still
+comment|// not be up and serving.  For example, if a split, we'll need the
+comment|// regions and servers setup in the master before the below
+comment|// handleSplitReport will work.  TODO: FIx!!
+if|if
+condition|(
+name|msgs
+operator|.
+name|length
+operator|>
+literal|0
+condition|)
+throw|throw
+operator|new
+name|PleaseHoldException
+argument_list|(
+literal|"FIX! Putting off "
+operator|+
+literal|"message processing because not yet rwady but possible we won't be "
+operator|+
+literal|"ready next on next report"
+argument_list|)
+throw|;
+block|}
+else|else
+block|{
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Received report from unknown server -- telling it "
+literal|"Received report from unknown server, a server calling "
 operator|+
-literal|"to "
+literal|" regionServerReport w/o having first called regionServerStartup; "
+operator|+
+literal|"telling it "
 operator|+
 name|HMsg
 operator|.
@@ -1242,6 +1317,7 @@ name|HMsg
 operator|.
 name|STOP_REGIONSERVER_ARRAY
 return|;
+block|}
 block|}
 comment|// Check startcodes
 if|if

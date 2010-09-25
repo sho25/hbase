@@ -4224,6 +4224,15 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+name|checkRegion
+argument_list|(
+name|hsi
+argument_list|,
+name|b
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|regions
@@ -4289,7 +4298,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/*    * Caller must hold locks on regions Map.    * @param hsi    * @param hri    * @param expected    */
+comment|/*    * Caller must hold locks on this.regions Map.    * @param hsi    * @param hri    * @param expected True if we expect<code>hri</code> to be in this.regions.    */
 specifier|private
 name|void
 name|checkRegion

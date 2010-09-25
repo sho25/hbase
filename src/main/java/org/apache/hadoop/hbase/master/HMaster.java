@@ -1185,10 +1185,11 @@ specifier|private
 name|Thread
 name|balancerChore
 decl_stmt|;
+comment|// If 'true', the balancer is 'on'.  If 'false', the balancer will not run.
 specifier|private
 specifier|volatile
 name|boolean
-name|balance
+name|balanceSwitch
 init|=
 literal|true
 decl_stmt|;
@@ -1476,6 +1477,10 @@ argument_list|(
 name|this
 argument_list|,
 name|this
+argument_list|,
+name|this
+operator|.
+name|freshClusterStartup
 argument_list|)
 expr_stmt|;
 name|this
@@ -1738,14 +1743,6 @@ expr_stmt|;
 comment|// Start assignment of user regions, startup or failure
 if|if
 condition|(
-operator|!
-name|this
-operator|.
-name|stopped
-condition|)
-block|{
-if|if
-condition|(
 name|this
 operator|.
 name|freshClusterStartup
@@ -1782,7 +1779,6 @@ operator|.
 name|processFailover
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 comment|// Start balancer and meta catalog janitor after meta and regions have
 comment|// been assigned.
@@ -2285,7 +2281,7 @@ name|getInt
 argument_list|(
 literal|"hbase.master.executor.openregion.threads"
 argument_list|,
-literal|5
+literal|10
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2305,7 +2301,7 @@ name|getInt
 argument_list|(
 literal|"hbase.master.executor.closeregion.threads"
 argument_list|,
-literal|5
+literal|10
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2601,7 +2597,7 @@ operator|.
 name|getServerName
 argument_list|()
 operator|+
-literal|"-balancerChore"
+literal|"-BalancerChore"
 decl_stmt|;
 name|int
 name|period
@@ -2615,7 +2611,7 @@ name|getInt
 argument_list|(
 literal|"hbase.balancer.period"
 argument_list|,
-literal|3000000
+literal|300000
 argument_list|)
 decl_stmt|;
 comment|// Start up the load balancer chore
@@ -2908,11 +2904,9 @@ return|;
 block|}
 end_function
 
-begin_comment
-comment|/**    * Run the balancer.    * @return True if balancer ran, false otherwise.    */
-end_comment
-
 begin_function
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|balance
@@ -2924,7 +2918,7 @@ condition|(
 operator|!
 name|this
 operator|.
-name|balance
+name|balanceSwitch
 condition|)
 return|return
 literal|false
@@ -3150,7 +3144,7 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
-name|balance
+name|balanceSwitch
 parameter_list|(
 specifier|final
 name|boolean
@@ -3162,11 +3156,11 @@ name|oldValue
 init|=
 name|this
 operator|.
-name|balance
+name|balanceSwitch
 decl_stmt|;
 name|this
 operator|.
-name|balance
+name|balanceSwitch
 operator|=
 name|b
 expr_stmt|;
