@@ -2252,6 +2252,9 @@ operator|+
 name|dstPath
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
 name|fs
 operator|.
 name|rename
@@ -2263,7 +2266,25 @@ argument_list|()
 argument_list|,
 name|dstPath
 argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unable to rename "
+operator|+
+name|writer
+operator|.
+name|getPath
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|dstPath
+argument_list|)
 expr_stmt|;
+block|}
 name|StoreFile
 name|sf
 init|=

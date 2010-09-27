@@ -1731,6 +1731,9 @@ name|initialFiles
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+operator|!
 name|fs
 operator|.
 name|rename
@@ -1739,7 +1742,22 @@ name|initialFiles
 argument_list|,
 name|regiondir
 argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unable to rename "
+operator|+
+name|initialFiles
+operator|+
+literal|" to "
+operator|+
+name|regiondir
+argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * @return True if this region has references.    */

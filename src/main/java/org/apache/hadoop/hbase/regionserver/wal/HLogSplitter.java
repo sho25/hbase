@@ -839,6 +839,9 @@ name|newPath
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
 name|fs
 operator|.
 name|rename
@@ -850,7 +853,25 @@ argument_list|()
 argument_list|,
 name|newPath
 argument_list|)
-expr_stmt|;
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Unable to rename "
+operator|+
+name|file
+operator|.
+name|getPath
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|newPath
+argument_list|)
+throw|;
+block|}
 block|}
 name|LOG
 operator|.
@@ -872,6 +893,9 @@ name|oldLogDir
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
 name|fs
 operator|.
 name|delete
@@ -880,7 +904,18 @@ name|srcDir
 argument_list|,
 literal|true
 argument_list|)
-expr_stmt|;
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Unable to delete "
+operator|+
+name|srcDir
+argument_list|)
+throw|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -1844,13 +1879,27 @@ literal|".corrupt"
 argument_list|)
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+operator|!
 name|fs
 operator|.
 name|mkdirs
 argument_list|(
 name|corruptDir
 argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Unable to mkdir "
+operator|+
+name|corruptDir
+argument_list|)
 expr_stmt|;
+block|}
 name|fs
 operator|.
 name|mkdirs
@@ -1880,6 +1929,35 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|rename
+argument_list|(
+name|corrupted
+argument_list|,
+name|p
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Unable to move corrupted log "
+operator|+
+name|corrupted
+operator|+
+literal|" to "
+operator|+
+name|p
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|LOG
 operator|.
 name|info
@@ -1893,15 +1971,7 @@ operator|+
 name|p
 argument_list|)
 expr_stmt|;
-name|fs
-operator|.
-name|rename
-argument_list|(
-name|corrupted
-argument_list|,
-name|p
-argument_list|)
-expr_stmt|;
+block|}
 block|}
 for|for
 control|(
@@ -1923,6 +1993,9 @@ argument_list|,
 name|p
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+operator|!
 name|fs
 operator|.
 name|rename
@@ -1931,7 +2004,24 @@ name|p
 argument_list|,
 name|newPath
 argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Unable to move  "
+operator|+
+name|p
+operator|+
+literal|" to "
+operator|+
+name|newPath
+argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
 name|LOG
 operator|.
 name|info
@@ -1945,6 +2035,7 @@ operator|+
 name|newPath
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * Path to a file under RECOVERED_EDITS_DIR directory of the region found in    *<code>logEntry</code> named for the sequenceid in the passed    *<code>logEntry</code>: e.g. /hbase/some_table/2323432434/recovered.edits/2332.    * This method also ensures existence of RECOVERED_EDITS_DIR under the region    * creating it if necessary.    * @param fs    * @param logEntry    * @param rootDir HBase root dir.    * @return Path to file into which to dump split log edits.    * @throws IOException    */

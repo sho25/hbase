@@ -1440,13 +1440,27 @@ name|dir
 argument_list|)
 throw|;
 block|}
+if|if
+condition|(
+operator|!
 name|fs
 operator|.
 name|mkdirs
 argument_list|(
 name|dir
 argument_list|)
-expr_stmt|;
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Unable to mkdir "
+operator|+
+name|dir
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|oldLogDir
@@ -1464,6 +1478,9 @@ name|oldLogDir
 argument_list|)
 condition|)
 block|{
+if|if
+condition|(
+operator|!
 name|fs
 operator|.
 name|mkdirs
@@ -1472,7 +1489,20 @@ name|this
 operator|.
 name|oldLogDir
 argument_list|)
-expr_stmt|;
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Unable to mkdir "
+operator|+
+name|this
+operator|.
+name|oldLogDir
+argument_list|)
+throw|;
+block|}
 block|}
 name|this
 operator|.
@@ -3231,6 +3261,9 @@ name|newPath
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
 name|this
 operator|.
 name|fs
@@ -3241,7 +3274,22 @@ name|p
 argument_list|,
 name|newPath
 argument_list|)
-expr_stmt|;
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Unable to rename "
+operator|+
+name|p
+operator|+
+literal|" to "
+operator|+
+name|newPath
+argument_list|)
+throw|;
+block|}
 block|}
 end_function
 
@@ -3346,15 +3394,9 @@ range|:
 name|files
 control|)
 block|{
-name|fs
-operator|.
-name|rename
-argument_list|(
-name|file
-operator|.
-name|getPath
-argument_list|()
-argument_list|,
+name|Path
+name|p
+init|=
 name|getHLogArchivePath
 argument_list|(
 name|this
@@ -3366,8 +3408,40 @@ operator|.
 name|getPath
 argument_list|()
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|rename
+argument_list|(
+name|file
+operator|.
+name|getPath
+argument_list|()
+argument_list|,
+name|p
 argument_list|)
-expr_stmt|;
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Unable to rename "
+operator|+
+name|file
+operator|.
+name|getPath
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|p
+argument_list|)
+throw|;
+block|}
 block|}
 name|LOG
 operator|.
@@ -3391,6 +3465,9 @@ name|oldLogDir
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
 name|fs
 operator|.
 name|delete
@@ -3399,7 +3476,18 @@ name|dir
 argument_list|,
 literal|true
 argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Unable to delete "
+operator|+
+name|dir
+argument_list|)
 expr_stmt|;
+block|}
 block|}
 end_function
 
