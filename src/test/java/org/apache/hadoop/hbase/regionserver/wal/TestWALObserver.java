@@ -616,6 +616,16 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+name|hlog
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|hlog
+operator|.
+name|closeAndDelete
+argument_list|()
+expr_stmt|;
 name|assertEquals
 argument_list|(
 literal|11
@@ -634,6 +644,15 @@ operator|.
 name|logRollCounter
 argument_list|)
 expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|2
+argument_list|,
+name|observer
+operator|.
+name|closedCount
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Just counts when methods are called    */
 specifier|static
@@ -645,6 +664,12 @@ block|{
 specifier|public
 name|int
 name|logRollCounter
+init|=
+literal|0
+decl_stmt|;
+specifier|public
+name|int
+name|closedCount
 init|=
 literal|0
 decl_stmt|;
@@ -688,6 +713,17 @@ name|logEdit
 parameter_list|)
 block|{
 comment|// Not interested
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|logCloseRequested
+parameter_list|()
+block|{
+name|closedCount
+operator|++
+expr_stmt|;
 block|}
 block|}
 block|}

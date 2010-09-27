@@ -401,6 +401,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+operator|.
+name|OperationStatusCode
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -458,22 +474,6 @@ operator|.
 name|hbase
 operator|.
 name|UnknownScannerException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
-operator|.
-name|OperationStatusCode
 import|;
 end_import
 
@@ -9319,6 +9319,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Open HRegion.    * Calls initialize and sets sequenceid.    * @param reporter    * @return Returns<code>this</code>    * @throws IOException    */
+specifier|protected
 name|HRegion
 name|openHRegion
 parameter_list|(
@@ -12223,6 +12224,14 @@ expr_stmt|;
 return|return
 name|old
 return|;
+block|}
+comment|/**    * Give the region a chance to prepare before it is split.    */
+specifier|protected
+name|void
+name|prepareToSplit
+parameter_list|()
+block|{
+comment|// nothing
 block|}
 comment|/**    * Checks every store to see if one has too many    * store files    * @return true if any store has too many store files    */
 specifier|public

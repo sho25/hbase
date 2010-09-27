@@ -71,6 +71,12 @@ name|void
 name|logRollRequested
 parameter_list|()
 function_decl|;
+comment|/**    * The WAL is about to close.    */
+specifier|public
+name|void
+name|logCloseRequested
+parameter_list|()
+function_decl|;
 comment|/**   * Called before each write.   * @param info   * @param logKey   * @param logEdit   */
 specifier|public
 name|void

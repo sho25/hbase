@@ -1218,9 +1218,21 @@ init|=
 operator|new
 name|Path
 argument_list|(
+name|this
+operator|.
 name|dir
 argument_list|,
 literal|"splits"
+argument_list|)
+decl_stmt|;
+name|HLogSplitter
+name|logSplitter
+init|=
+name|HLogSplitter
+operator|.
+name|createLogSplitter
+argument_list|(
+name|conf
 argument_list|)
 decl_stmt|;
 name|List
@@ -1229,7 +1241,7 @@ name|Path
 argument_list|>
 name|splits
 init|=
-name|HLog
+name|logSplitter
 operator|.
 name|splitLog
 argument_list|(
@@ -1237,8 +1249,12 @@ name|splitsdir
 argument_list|,
 name|logdir
 argument_list|,
+name|this
+operator|.
 name|oldLogDir
 argument_list|,
+name|this
+operator|.
 name|fs
 argument_list|,
 name|conf
@@ -2860,10 +2876,14 @@ name|SequenceFile
 operator|.
 name|Reader
 argument_list|(
+name|this
+operator|.
 name|fs
 argument_list|,
 name|walPath
 argument_list|,
+name|this
+operator|.
 name|conf
 argument_list|)
 decl_stmt|;
@@ -4393,6 +4413,15 @@ name|logRollRequested
 parameter_list|()
 block|{
 comment|// TODO Auto-generated method stub
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|logCloseRequested
+parameter_list|()
+block|{
+comment|// not interested
 block|}
 block|}
 block|}

@@ -456,6 +456,11 @@ operator|.
 name|getRegionInfo
 argument_list|()
 decl_stmt|;
+name|parent
+operator|.
+name|prepareToSplit
+argument_list|()
+expr_stmt|;
 comment|// Check splitrow.
 name|byte
 index|[]

@@ -1120,7 +1120,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test case of HRegion that is only made out of bulk loaded files.  Assert    * that we don't 'crash'.    * @throws IOException    * @throws IllegalAccessException     * @throws NoSuchFieldException     * @throws IllegalArgumentException     * @throws SecurityException     */
+comment|/**    * Test case of HRegion that is only made out of bulk loaded files.  Assert    * that we don't 'crash'.    * @throws IOException    * @throws IllegalAccessException    * @throws NoSuchFieldException    * @throws IllegalArgumentException    * @throws SecurityException    */
 annotation|@
 name|Test
 specifier|public
@@ -1398,7 +1398,7 @@ name|closeAndDelete
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Test writing edits into an HRegion, closing it, splitting logs, opening    * Region again.  Verify seqids.    * @throws IOException    * @throws IllegalAccessException     * @throws NoSuchFieldException     * @throws IllegalArgumentException     * @throws SecurityException     */
+comment|/**    * Test writing edits into an HRegion, closing it, splitting logs, opening    * Region again.  Verify seqids.    * @throws IOException    * @throws IllegalAccessException    * @throws NoSuchFieldException    * @throws IllegalArgumentException    * @throws SecurityException    */
 annotation|@
 name|Test
 specifier|public
@@ -2898,13 +2898,23 @@ argument_list|(
 name|c
 argument_list|)
 decl_stmt|;
+name|HLogSplitter
+name|logSplitter
+init|=
+name|HLogSplitter
+operator|.
+name|createLogSplitter
+argument_list|(
+name|c
+argument_list|)
+decl_stmt|;
 name|List
 argument_list|<
 name|Path
 argument_list|>
 name|splits
 init|=
-name|HLog
+name|logSplitter
 operator|.
 name|splitLog
 argument_list|(

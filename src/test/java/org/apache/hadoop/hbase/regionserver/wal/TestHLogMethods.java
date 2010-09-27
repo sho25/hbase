@@ -197,7 +197,7 @@ decl_stmt|;
 name|String
 name|first
 init|=
-name|HLog
+name|HLogSplitter
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -220,7 +220,7 @@ name|fs
 argument_list|,
 name|recoverededits
 argument_list|,
-name|HLog
+name|HLogSplitter
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -234,7 +234,7 @@ name|fs
 argument_list|,
 name|recoverededits
 argument_list|,
-name|HLog
+name|HLogSplitter
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -248,7 +248,7 @@ name|fs
 argument_list|,
 name|recoverededits
 argument_list|,
-name|HLog
+name|HLogSplitter
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -262,7 +262,7 @@ name|fs
 argument_list|,
 name|recoverededits
 argument_list|,
-name|HLog
+name|HLogSplitter
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -276,7 +276,7 @@ name|fs
 argument_list|,
 name|recoverededits
 argument_list|,
-name|HLog
+name|HLogSplitter
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -287,7 +287,7 @@ expr_stmt|;
 name|String
 name|last
 init|=
-name|HLog
+name|HLogSplitter
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -389,7 +389,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|HLog
+name|HLogSplitter
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -407,7 +407,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|HLog
+name|HLogSplitter
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -425,7 +425,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|HLog
+name|HLogSplitter
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -443,7 +443,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|HLog
+name|HLogSplitter
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(

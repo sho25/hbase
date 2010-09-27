@@ -842,6 +842,15 @@ parameter_list|)
 block|{
 comment|// Not interested.
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|logCloseRequested
+parameter_list|()
+block|{
+comment|// not interested
+block|}
 block|}
 end_class
 
