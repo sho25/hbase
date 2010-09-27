@@ -823,6 +823,22 @@ operator|.
 name|ts
 return|;
 block|}
+comment|/**    * Set the timestamp of the delete.    *     * @param timestamp    */
+specifier|public
+name|void
+name|setTimestamp
+parameter_list|(
+name|long
+name|timestamp
+parameter_list|)
+block|{
+name|this
+operator|.
+name|ts
+operator|=
+name|timestamp
+expr_stmt|;
+block|}
 comment|/**    * @return string    */
 annotation|@
 name|Override
