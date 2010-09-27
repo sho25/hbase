@@ -10251,7 +10251,12 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Received close for region we are not serving"
+literal|"Received close for region we are not serving; "
+operator|+
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
 throw|throw

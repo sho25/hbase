@@ -1351,6 +1351,13 @@ argument_list|(
 literal|"Received "
 operator|+
 name|msg
+operator|+
+literal|" from "
+operator|+
+name|serverInfo
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 switch|switch
@@ -2212,7 +2219,9 @@ operator|.
 name|getServerName
 argument_list|()
 operator|+
-literal|" failed because no RPC connection found to this server"
+literal|" failed because no RPC connection found "
+operator|+
+literal|"to this server"
 argument_list|)
 expr_stmt|;
 return|return;

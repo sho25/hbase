@@ -2945,7 +2945,19 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Not running balancer because regions in transition: "
+literal|"Not running balancer because "
+operator|+
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|getRegionsInTransition
+argument_list|()
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" region(s) in transition: "
 operator|+
 name|org
 operator|.
@@ -2969,7 +2981,7 @@ operator|.
 name|toString
 argument_list|()
 argument_list|,
-literal|64
+literal|256
 argument_list|)
 argument_list|)
 expr_stmt|;
