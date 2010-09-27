@@ -8027,7 +8027,12 @@ argument_list|(
 name|ClassSize
 operator|.
 name|ARRAY
+argument_list|)
 operator|+
+name|ClassSize
+operator|.
+name|align
+argument_list|(
 name|length
 argument_list|)
 operator|+
@@ -8046,7 +8051,12 @@ argument_list|(
 name|ClassSize
 operator|.
 name|ARRAY
+argument_list|)
 operator|+
+name|ClassSize
+operator|.
+name|align
+argument_list|(
 operator|(
 name|rowCache
 operator|==

@@ -310,9 +310,12 @@ name|REFERENCE
 expr_stmt|;
 name|ARRAY
 operator|=
+name|align
+argument_list|(
 literal|3
 operator|*
 name|REFERENCE
+argument_list|)
 expr_stmt|;
 name|ARRAYLIST
 operator|=
