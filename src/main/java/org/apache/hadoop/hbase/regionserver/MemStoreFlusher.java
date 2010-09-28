@@ -1063,6 +1063,12 @@ name|region
 argument_list|,
 name|getName
 argument_list|()
+argument_list|,
+name|CompactSplitThread
+operator|.
+name|Priority
+operator|.
+name|HIGH_BLOCKING
 argument_list|)
 expr_stmt|;
 comment|// Put back on the queue.  Have it come back out of the queue

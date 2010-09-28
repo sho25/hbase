@@ -25,7 +25,7 @@ name|java
 operator|.
 name|io
 operator|.
-name|EOFException
+name|FilterInputStream
 import|;
 end_import
 
@@ -316,6 +316,21 @@ operator|=
 name|l
 expr_stmt|;
 block|}
+comment|// This section can be confusing.  It is specific to how HDFS works.
+comment|// Let me try to break it down.  This is the problem:
+comment|//
+comment|//  1. HDFS DataNodes update the NameNode about a filename's length
+comment|//     on block boundaries or when a file is closed. Therefore,
+comment|//     if an RS dies, then the NN's fs.getLength() can be out of date
+comment|//  2. this.in.available() would work, but it returns int&
+comment|//     therefore breaks for files> 2GB (happens on big clusters)
+comment|//  3. DFSInputStream.getFileLength() gets the actual length from the DNs
+comment|//  4. DFSInputStream is wrapped 2 levels deep : this.in.in
+comment|//
+comment|// So, here we adjust getPos() using getFileLength() so the
+comment|// SequenceFile.Reader constructor (aka: first invocation) comes out
+comment|// with the correct end of the file:
+comment|//         this.end = in.getPos() + length;
 annotation|@
 name|Override
 specifier|public
@@ -338,38 +353,128 @@ name|firstGetPosInvocation
 operator|=
 literal|false
 expr_stmt|;
-comment|// Tell a lie.  We're doing this just so that this line up in
-comment|// SequenceFile.Reader constructor comes out with the correct length
-comment|// on the file:
-comment|//         this.end = in.getPos() + length;
 name|long
-name|available
+name|adjust
 init|=
+literal|0
+decl_stmt|;
+try|try
+block|{
+name|Field
+name|fIn
+init|=
+name|FilterInputStream
+operator|.
+name|class
+operator|.
+name|getDeclaredField
+argument_list|(
+literal|"in"
+argument_list|)
+decl_stmt|;
+name|fIn
+operator|.
+name|setAccessible
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|Object
+name|realIn
+init|=
+name|fIn
+operator|.
+name|get
+argument_list|(
 name|this
 operator|.
 name|in
-operator|.
-name|available
-argument_list|()
+argument_list|)
 decl_stmt|;
-comment|// Length gets added up in the SF.Reader constructor so subtract the
-comment|// difference.  If available< this.length, then return this.length.
-return|return
-name|available
+name|long
+name|realLength
+init|=
+operator|(
+operator|(
+name|Long
+operator|)
+name|realIn
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getMethod
+argument_list|(
+literal|"getFileLength"
+argument_list|,
+operator|new
+name|Class
+argument_list|<
+name|?
+argument_list|>
+index|[]
+block|{}
+block|)
+operator|.
+name|invoke
+argument_list|(
+name|realIn
+argument_list|,
+operator|new
+name|Object
+index|[]
+block|{}
+argument_list|)
+block|)
+operator|.
+name|longValue
+argument_list|()
+expr_stmt|;
+assert|assert
+operator|(
+name|realLength
 operator|>=
 name|this
 operator|.
 name|length
-condition|?
-name|available
+operator|)
+assert|;
+name|adjust
+operator|=
+name|realLength
 operator|-
 name|this
 operator|.
 name|length
-else|:
-name|this
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|SequenceFileLogReader
 operator|.
-name|length
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Error while trying to get accurate file length.  "
+operator|+
+literal|"Truncation / data loss may occur if RegionServers die."
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|adjust
+operator|+
+name|super
+operator|.
+name|getPos
+argument_list|()
 return|;
 block|}
 return|return
@@ -380,27 +485,47 @@ argument_list|()
 return|;
 block|}
 block|}
-block|}
-name|Configuration
+end_class
+
+begin_expr_stmt
+unit|}    Configuration
 name|conf
-decl_stmt|;
+expr_stmt|;
+end_expr_stmt
+
+begin_decl_stmt
 name|WALReader
 name|reader
 decl_stmt|;
+end_decl_stmt
+
+begin_comment
 comment|// Needed logging exceptions
+end_comment
+
+begin_decl_stmt
 name|Path
 name|path
 decl_stmt|;
+end_decl_stmt
+
+begin_decl_stmt
 name|int
 name|edit
 init|=
 literal|0
 decl_stmt|;
+end_decl_stmt
+
+begin_decl_stmt
 name|long
 name|entryStart
 init|=
 literal|0
 decl_stmt|;
+end_decl_stmt
+
+begin_decl_stmt
 specifier|private
 name|Class
 argument_list|<
@@ -410,12 +535,24 @@ name|HLogKey
 argument_list|>
 name|keyClass
 decl_stmt|;
+end_decl_stmt
+
+begin_comment
 comment|/**    * Default constructor.    */
+end_comment
+
+begin_constructor
 specifier|public
 name|SequenceFileLogReader
 parameter_list|()
 block|{   }
+end_constructor
+
+begin_comment
 comment|/**    * This constructor allows a specific HLogKey implementation to override that    * which would otherwise be chosen via configuration property.    *     * @param keyClass    */
+end_comment
+
+begin_constructor
 specifier|public
 name|SequenceFileLogReader
 parameter_list|(
@@ -435,6 +572,9 @@ operator|=
 name|keyClass
 expr_stmt|;
 block|}
+end_constructor
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -478,6 +618,9 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -509,6 +652,9 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -527,6 +673,9 @@ literal|null
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -700,6 +849,9 @@ else|:
 literal|null
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -736,6 +888,9 @@ argument_list|)
 throw|;
 block|}
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -752,6 +907,9 @@ name|getPosition
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 specifier|private
 name|IOException
 name|addFileInfoToException
@@ -936,8 +1094,8 @@ return|return
 name|ioe
 return|;
 block|}
-block|}
-end_class
+end_function
 
+unit|}
 end_unit
 
