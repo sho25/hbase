@@ -75,6 +75,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|lang
+operator|.
+name|reflect
+operator|.
+name|Method
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -391,13 +403,9 @@ operator|.
 name|in
 argument_list|)
 decl_stmt|;
-name|long
-name|realLength
+name|Method
+name|getFileLength
 init|=
-operator|(
-operator|(
-name|Long
-operator|)
 name|realIn
 operator|.
 name|getClass
@@ -415,6 +423,22 @@ argument_list|>
 index|[]
 block|{}
 block|)
+empty_stmt|;
+name|getFileLength
+operator|.
+name|setAccessible
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|long
+name|realLength
+init|=
+operator|(
+operator|(
+name|Long
+operator|)
+name|getFileLength
 operator|.
 name|invoke
 argument_list|(
@@ -425,11 +449,11 @@ name|Object
 index|[]
 block|{}
 argument_list|)
-block|)
+operator|)
 operator|.
 name|longValue
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 assert|assert
 operator|(
 name|realLength
@@ -485,13 +509,14 @@ argument_list|()
 return|;
 block|}
 block|}
+block|}
 end_class
 
-begin_expr_stmt
-unit|}    Configuration
+begin_decl_stmt
+name|Configuration
 name|conf
-expr_stmt|;
-end_expr_stmt
+decl_stmt|;
+end_decl_stmt
 
 begin_decl_stmt
 name|WALReader
