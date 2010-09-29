@@ -325,20 +325,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|base
-operator|.
-name|Function
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -446,22 +432,6 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
-operator|.
-name|OperationStatusCode
 import|;
 end_import
 
@@ -658,6 +628,22 @@ operator|.
 name|hbase
 operator|.
 name|YouAreDeadException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
+name|OperationStatusCode
 import|;
 end_import
 
@@ -1455,23 +1441,23 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|zookeeper
 operator|.
-name|util
-operator|.
-name|StringUtils
+name|KeeperException
 import|;
 end_import
 
 begin_import
 import|import
-name|org
+name|com
 operator|.
-name|apache
+name|google
 operator|.
-name|zookeeper
+name|common
 operator|.
-name|KeeperException
+name|base
+operator|.
+name|Function
 import|;
 end_import
 
@@ -2454,8 +2440,6 @@ name|stopped
 operator|=
 literal|false
 expr_stmt|;
-comment|//HRegionInterface,
-comment|//HBaseRPCErrorHandler, Runnable, Watcher, Stoppable, OnlineRegions
 comment|// Server to handle client requests
 name|this
 operator|.
@@ -2665,6 +2649,10 @@ block|}
 block|}
 end_class
 
+begin_comment
+comment|/**    * Bring up connection to zk ensemble and then wait until a master for this    * cluster and then after that, wait until cluster 'up' flag has been set.    * This is the order in which master does things.    * Finally put up a catalog tracker.    * @throws IOException    * @throws InterruptedException    */
+end_comment
+
 begin_function
 specifier|private
 name|void
@@ -2675,7 +2663,7 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-comment|// open connection to zookeeper and set primary watcher
+comment|// Open connection to zookeeper and set primary watcher
 name|zooKeeper
 operator|=
 operator|new
@@ -2696,6 +2684,37 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
+comment|// Create the master address manager, register with zk, and start it.  Then
+comment|// block until a master is available.  No point in starting up if no master
+comment|// running.
+name|this
+operator|.
+name|masterAddressManager
+operator|=
+operator|new
+name|MasterAddressTracker
+argument_list|(
+name|zooKeeper
+argument_list|,
+name|this
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|masterAddressManager
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|masterAddressManager
+operator|.
+name|blockUntilAvailable
+argument_list|()
+expr_stmt|;
+comment|// Wait on cluster being up.  Master will set this flag up in zookeeper
+comment|// when ready.
 name|this
 operator|.
 name|clusterStatusTracker
@@ -2722,22 +2741,6 @@ operator|.
 name|clusterStatusTracker
 operator|.
 name|blockUntilAvailable
-argument_list|()
-expr_stmt|;
-comment|// create the master address manager, register with zk, and start it
-name|masterAddressManager
-operator|=
-operator|new
-name|MasterAddressTracker
-argument_list|(
-name|zooKeeper
-argument_list|,
-name|this
-argument_list|)
-expr_stmt|;
-name|masterAddressManager
-operator|.
-name|start
 argument_list|()
 expr_stmt|;
 comment|// Create the catalog tracker and start it;

@@ -253,6 +253,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|ServerManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Pair
@@ -286,6 +302,10 @@ operator|.
 name|KeeperException
 import|;
 end_import
+
+begin_comment
+comment|/**  * Process server shutdown.  * Server-to-handle must be already in the deadservers lists.  See  * {@link ServerManager#expireServer(HServerInfo)}.  */
+end_comment
 
 begin_class
 specifier|public
@@ -382,19 +402,34 @@ name|deadServers
 operator|=
 name|deadServers
 expr_stmt|;
-comment|// Add to dead servers.
+if|if
+condition|(
 name|this
 operator|.
 name|deadServers
 operator|.
-name|add
+name|contains
 argument_list|(
 name|hsi
 operator|.
 name|getServerName
 argument_list|()
 argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|hsi
+operator|.
+name|getServerName
+argument_list|()
+operator|+
+literal|" is NOT in deadservers; it should be!"
+argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override

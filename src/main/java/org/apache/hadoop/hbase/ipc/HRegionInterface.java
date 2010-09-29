@@ -31,6 +31,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|net
+operator|.
+name|ConnectException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|List
@@ -279,6 +289,20 @@ name|HLog
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|ipc
+operator|.
+name|RemoteException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Clients interact with HRegionServers using a handle to the HRegionInterface.  *  *<p>NOTE: if you change the interface, you must change the RPC version  * number in HBaseRPCProtocolVersion  */
 end_comment
@@ -294,7 +318,7 @@ name|Stoppable
 extends|,
 name|Abortable
 block|{
-comment|/**    * Get metainfo about an HRegion    *    * @param regionName name of the region    * @return HRegionInfo object for region    * @throws NotServingRegionException e    */
+comment|/**    * Get metainfo about an HRegion    *    * @param regionName name of the region    * @return HRegionInfo object for region    * @throws NotServingRegionException    * @throws ConnectException    * @throws IOException This can manifest as an Hadoop ipc {@link RemoteException}    */
 specifier|public
 name|HRegionInfo
 name|getRegionInfo
@@ -306,6 +330,10 @@ name|regionName
 parameter_list|)
 throws|throws
 name|NotServingRegionException
+throws|,
+name|ConnectException
+throws|,
+name|IOException
 function_decl|;
 comment|/**    * Return all the data for the row that matches<i>row</i> exactly,    * or the one that immediately preceeds it.    *    * @param regionName region name    * @param row row key    * @param family Column family to look for row in.    * @return map of values    * @throws IOException e    */
 specifier|public

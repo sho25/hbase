@@ -226,6 +226,11 @@ name|leaseCheckFrequency
 operator|=
 name|leaseCheckFrequency
 expr_stmt|;
+name|setDaemon
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * @see java.lang.Thread#run()    */
 annotation|@

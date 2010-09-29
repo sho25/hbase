@@ -501,11 +501,14 @@ operator|.
 name|HREGION_OLDLOGDIR_NAME
 argument_list|)
 expr_stmt|;
+name|createInitialFileSystemLayout
+argument_list|()
+expr_stmt|;
 block|}
-comment|/**    * Create initial layout in filesystem.    *<ol>    *<li>Check if the root region exists and is readable, if not create it.    * Create hbase.version and the -ROOT- directory if not one.    *</li>    *<li>Create a log archive directory for RS to put archived logs</li>    *</ol>    */
-specifier|public
+comment|/**    * Create initial layout in filesystem.    *<ol>    *<li>Check if the root region exists and is readable, if not create it.    * Create hbase.version and the -ROOT- directory if not one.    *</li>    *<li>Create a log archive directory for RS to put archived logs</li>    *</ol>    * Idempotent.    */
+specifier|private
 name|void
-name|initialize
+name|createInitialFileSystemLayout
 parameter_list|()
 throws|throws
 name|IOException

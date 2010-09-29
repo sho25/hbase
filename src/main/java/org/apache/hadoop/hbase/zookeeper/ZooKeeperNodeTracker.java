@@ -55,16 +55,6 @@ name|ZooKeeperNodeTracker
 extends|extends
 name|ZooKeeperListener
 block|{
-comment|/**    * Pass this if you do not want a timeout.    */
-specifier|public
-specifier|final
-specifier|static
-name|long
-name|NO_TIMEOUT
-init|=
-operator|-
-literal|1
-decl_stmt|;
 comment|/** Path of node being tracked */
 specifier|protected
 specifier|final
@@ -217,11 +207,11 @@ block|{
 return|return
 name|blockUntilAvailable
 argument_list|(
-name|NO_TIMEOUT
+literal|0
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets the data of the node, blocking until the node is available or the    * specified timeout has elapsed.    *    * @param timeout maximum time to wait for the node data to be available,    *                in milliseconds.  Pass {@link #NO_TIMEOUT} for no timeout.    * @return data of the node    * @throws InterruptedException if the waiting thread is interrupted    */
+comment|/**    * Gets the data of the node, blocking until the node is available or the    * specified timeout has elapsed.    *    * @param timeout maximum time to wait for the node data to be available,    * n milliseconds.  Pass 0 for no timeout.    * @return data of the node    * @throws InterruptedException if the waiting thread is interrupted    */
 specifier|public
 specifier|synchronized
 name|byte
@@ -237,10 +227,6 @@ block|{
 if|if
 condition|(
 name|timeout
-operator|!=
-name|NO_TIMEOUT
-operator|&&
-name|timeout
 operator|<
 literal|0
 condition|)
@@ -249,6 +235,13 @@ operator|new
 name|IllegalArgumentException
 argument_list|()
 throw|;
+name|boolean
+name|notimeout
+init|=
+name|timeout
+operator|==
+literal|0
+decl_stmt|;
 name|long
 name|startTime
 init|=
@@ -265,9 +258,7 @@ decl_stmt|;
 while|while
 condition|(
 operator|(
-name|remaining
-operator|==
-name|NO_TIMEOUT
+name|notimeout
 operator|||
 name|remaining
 operator|>
@@ -283,14 +274,14 @@ condition|)
 block|{
 if|if
 condition|(
-name|remaining
-operator|==
-name|NO_TIMEOUT
+name|notimeout
 condition|)
+block|{
 name|wait
 argument_list|()
 expr_stmt|;
-else|else
+continue|continue;
+block|}
 name|wait
 argument_list|(
 name|remaining

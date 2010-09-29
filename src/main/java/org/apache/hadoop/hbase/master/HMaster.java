@@ -1147,11 +1147,6 @@ specifier|private
 name|ClusterStatusTracker
 name|clusterStatusTracker
 decl_stmt|;
-comment|// True if this a cluster startup where there are no already running servers
-comment|// as opposed to a master joining an already running cluster
-name|boolean
-name|freshClusterStartup
-decl_stmt|;
 comment|// This flag is for stopping this Master instance.  Its set when we are
 comment|// stopping or aborting
 specifier|private
@@ -1197,7 +1192,7 @@ specifier|private
 name|Thread
 name|catalogJanitorChore
 decl_stmt|;
-comment|/**    * Initializes the HMaster. The steps are as follows:    *    *<ol>    *<li>Initialize HMaster RPC and address    *<li>Connect to ZooKeeper and figure out if this is a fresh cluster start or    *     a failed over master    *<li>Block until becoming active master    *<li>Initialize master components - server manager, region manager,    *     region server queue, file system manager, etc    *</ol>    * @throws InterruptedException    */
+comment|/**    * Initializes the HMaster. The steps are as follows:    *    *<ol>    *<li>Initialize HMaster RPC and address    *<li>Connect to ZooKeeper.  Get count of regionservers still up.    *<li>Block until becoming active master    *<li>Initialize master components - server manager, region manager,    *     region server queue, file system manager, etc    *</ol>    * @throws InterruptedException    */
 specifier|public
 name|HMaster
 parameter_list|(
@@ -1375,7 +1370,22 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
-comment|/*      * 2. Block on becoming the active master.      * We race with other masters to write our address into ZooKeeper.  If we      * succeed, we are the primary/active master and finish initialization.      *      * If we do not succeed, there is another active master and we should      * now wait until it dies to try and become the next active master.  If we      * do not succeed on our first attempt, this is no longer a cluster startup.      */
+comment|/*      * 2. Count of regoinservers that are up.      */
+name|int
+name|count
+init|=
+name|ZKUtil
+operator|.
+name|getNumberOfChildren
+argument_list|(
+name|zooKeeper
+argument_list|,
+name|zooKeeper
+operator|.
+name|rsZNode
+argument_list|)
+decl_stmt|;
+comment|/*      * 3. Block on becoming the active master.      * We race with other masters to write our address into ZooKeeper.  If we      * succeed, we are the primary/active master and finish initialization.      *      * If we do not succeed, there is another active master and we should      * now wait until it dies to try and become the next active master.  If we      * do not succeed on our first attempt, this is no longer a cluster startup.      */
 name|this
 operator|.
 name|activeMasterManager
@@ -1415,24 +1425,6 @@ operator|.
 name|blockUntilBecomingActiveMaster
 parameter_list|()
 constructor_decl|;
-comment|/*      * 3. Determine if this is a fresh cluster startup or failed over master.      * This is done by checking for the existence of any ephemeral      * RegionServer nodes in ZooKeeper.  These nodes are created by RSs on      * their initialization but initialization will not happen unless clusterup      * flag is set -- see ClusterStatusTracker below.      */
-name|this
-operator|.
-name|freshClusterStartup
-operator|=
-literal|0
-operator|==
-name|ZKUtil
-operator|.
-name|getNumberOfChildren
-argument_list|(
-name|zooKeeper
-argument_list|,
-name|zooKeeper
-operator|.
-name|rsZNode
-argument_list|)
-expr_stmt|;
 comment|/*      * 4. We are active master now... go initialize components we need to run.      * Note, there may be dross in zk from previous runs; it'll get addressed      * when we enter {@link #run()} below.      */
 comment|// TODO: Do this using Dependency Injection, using PicoContainer, Guice or Spring.
 name|this
@@ -1477,10 +1469,6 @@ argument_list|(
 name|this
 argument_list|,
 name|this
-argument_list|,
-name|this
-operator|.
-name|freshClusterStartup
 argument_list|)
 expr_stmt|;
 name|this
@@ -1584,13 +1572,28 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
+name|boolean
+name|wasUp
+init|=
+name|this
+operator|.
+name|clusterStatusTracker
+operator|.
+name|isClusterUp
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|wasUp
+condition|)
 name|this
 operator|.
 name|clusterStatusTracker
 operator|.
 name|setClusterUp
-parameter_list|()
-constructor_decl|;
+argument_list|()
+expr_stmt|;
 name|this
 operator|.
 name|clusterStatusTracker
@@ -1608,12 +1611,6 @@ name|this
 operator|.
 name|address
 operator|+
-literal|"; freshClusterStart="
-operator|+
-name|this
-operator|.
-name|freshClusterStartup
-operator|+
 literal|", sessionid=0x"
 operator|+
 name|Long
@@ -1630,13 +1627,21 @@ operator|.
 name|getSessionId
 argument_list|()
 argument_list|)
+operator|+
+literal|", ephemeral nodes still up in zk="
+operator|+
+name|count
+operator|+
+literal|", cluster-up flag was="
+operator|+
+name|wasUp
 argument_list|)
 expr_stmt|;
 block|}
 end_class
 
 begin_comment
-comment|/*    * Stall startup if we are designated a backup master.    * @param c    * @param amm    * @throws InterruptedException    */
+comment|/*    * Stall startup if we are designated a backup master; i.e. we want someone    * else to become the master before proceeding.    * @param c    * @param amm    * @throws InterruptedException    */
 end_comment
 
 begin_function
@@ -1715,7 +1720,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Main processing loop for the HMaster.    * 1. Handle both fresh cluster start as well as failed over initialization of    *    the HMaster.    * 2. Start the necessary services    * 3. Reassign the root region    * 4. The master is no longer closed - set "closed" to false    */
+comment|/**    * Main processing loop for the HMaster.    *<ol>    *<li>Handle both fresh cluster start as well as failed over initialization of    *    the HMaster</li>    *<li>Start the necessary services</li>    *<li>Reassign the root region</li>    *<li>The master is no longer closed - set "closed" to false</li>    *</ol>    */
 end_comment
 
 begin_function
@@ -1732,46 +1737,68 @@ comment|// start up all service threads.
 name|startServiceThreads
 argument_list|()
 expr_stmt|;
-comment|// Wait for minimum number of region servers to report in
+comment|// Wait for region servers to report in.  Returns count of regions.
+name|int
+name|regionCount
+init|=
 name|this
 operator|.
 name|serverManager
 operator|.
 name|waitForRegionServers
 argument_list|()
-expr_stmt|;
-comment|// Start assignment of user regions, startup or failure
-if|if
-condition|(
-name|this
-operator|.
-name|freshClusterStartup
-condition|)
-block|{
-name|clusterStarterInitializations
-argument_list|(
+decl_stmt|;
+comment|// TODO: Should do this in background rather than block master startup
+comment|// TODO: Do we want to do this before/while/after RSs check in?
+comment|// It seems that this method looks at active RSs but happens concurrently
+comment|// with when we expect them to be checking in
 name|this
 operator|.
 name|fileSystemManager
-argument_list|,
+operator|.
+name|splitLogAfterStartup
+argument_list|(
 name|this
 operator|.
 name|serverManager
-argument_list|,
-name|this
 operator|.
-name|catalogTracker
-argument_list|,
+name|getOnlineServers
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Make sure root and meta assigned before proceeding.
+name|assignRootAndMeta
+argument_list|()
+expr_stmt|;
+comment|// Is this fresh start with no regions assigned or are we a master joining
+comment|// an already-running cluster?  If regionsCount == 0, then for sure a
+comment|// fresh start.  TOOD: Be fancier.  If regionsCount == 2, perhaps the
+comment|// 2 are .META. and -ROOT- and we should fall into the fresh startup
+comment|// branch below.  For now, do processFailover.
+if|if
+condition|(
+name|regionCount
+operator|==
+literal|0
+condition|)
+block|{
 name|this
 operator|.
 name|assignmentManager
-argument_list|)
+operator|.
+name|cleanoutUnassigned
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|assignAllUserRegions
+argument_list|()
 expr_stmt|;
 block|}
 else|else
 block|{
-comment|// Process existing unassigned nodes in ZK, read all regions from META,
-comment|// rebuild in-memory state.
 name|this
 operator|.
 name|assignmentManager
@@ -1943,89 +1970,142 @@ block|}
 end_function
 
 begin_comment
-comment|/*    * Initializations we need to do if we are cluster starter.    * @param mfs    * @param sm    * @param ct    * @param am    * @throws IOException    */
+comment|/**    * Check<code>-ROOT-</code> and<code>.META.</code> are assigned.  If not,    * assign them.    * @throws InterruptedException    * @throws IOException    * @throws KeeperException    * @return Count of regions we assigned.    */
 end_comment
 
 begin_function
-specifier|private
-specifier|static
-name|void
-name|clusterStarterInitializations
-parameter_list|(
-specifier|final
-name|MasterFileSystem
-name|mfs
-parameter_list|,
-specifier|final
-name|ServerManager
-name|sm
-parameter_list|,
-specifier|final
-name|CatalogTracker
-name|ct
-parameter_list|,
-specifier|final
-name|AssignmentManager
-name|am
-parameter_list|)
+name|int
+name|assignRootAndMeta
+parameter_list|()
 throws|throws
-name|IOException
-throws|,
 name|InterruptedException
+throws|,
+name|IOException
 throws|,
 name|KeeperException
 block|{
-comment|// Check filesystem has required basics
-name|mfs
+name|int
+name|assigned
+init|=
+literal|0
+decl_stmt|;
+name|long
+name|timeout
+init|=
+name|this
 operator|.
-name|initialize
-argument_list|()
-expr_stmt|;
-comment|// TODO: Should do this in background rather than block master startup
-comment|// TODO: Do we want to do this before/while/after RSs check in?
-comment|//       It seems that this method looks at active RSs but happens
-comment|//       concurrently with when we expect them to be checking in
-name|mfs
+name|conf
 operator|.
-name|splitLogAfterStartup
+name|getLong
 argument_list|(
-name|sm
-operator|.
-name|getOnlineServers
-argument_list|()
+literal|"hbase.catalog.verification.timeout"
+argument_list|,
+literal|1000
 argument_list|)
-expr_stmt|;
-comment|// Clean out current state of unassigned
-name|am
+decl_stmt|;
+comment|// Work on ROOT region.  Is it in zk in transition?
+name|boolean
+name|rit
+init|=
+name|this
 operator|.
-name|cleanoutUnassigned
-argument_list|()
-expr_stmt|;
-comment|// assign the root region
-name|am
+name|assignmentManager
+operator|.
+name|processRegionInTransitionAndBlockUntilAssigned
+argument_list|(
+name|HRegionInfo
+operator|.
+name|ROOT_REGIONINFO
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|catalogTracker
+operator|.
+name|verifyRootRegionLocation
+argument_list|(
+name|timeout
+argument_list|)
+condition|)
+block|{
+name|this
+operator|.
+name|assignmentManager
 operator|.
 name|assignRoot
 argument_list|()
 expr_stmt|;
-name|ct
+name|this
+operator|.
+name|catalogTracker
 operator|.
 name|waitForRoot
 argument_list|()
 expr_stmt|;
-comment|// assign the meta region
-name|am
+name|assigned
+operator|++
+expr_stmt|;
+block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"-ROOT- assigned="
+operator|+
+name|assigned
+operator|+
+literal|", rit="
+operator|+
+name|rit
+argument_list|)
+expr_stmt|;
+comment|// Work on meta region
+name|rit
+operator|=
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|processRegionInTransitionAndBlockUntilAssigned
+argument_list|(
+name|HRegionInfo
+operator|.
+name|FIRST_META_REGIONINFO
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|catalogTracker
+operator|.
+name|verifyMetaRegionLocation
+argument_list|(
+name|timeout
+argument_list|)
+condition|)
+block|{
+name|this
+operator|.
+name|assignmentManager
 operator|.
 name|assignMeta
 argument_list|()
 expr_stmt|;
-name|ct
+name|this
+operator|.
+name|catalogTracker
 operator|.
 name|waitForMeta
 argument_list|()
 expr_stmt|;
-comment|// above check waits for general meta availability but this does not
+comment|// Above check waits for general meta availability but this does not
 comment|// guarantee that the transition has completed
-name|am
+name|this
+operator|.
+name|assignmentManager
 operator|.
 name|waitForAssignment
 argument_list|(
@@ -2034,11 +2114,26 @@ operator|.
 name|FIRST_META_REGIONINFO
 argument_list|)
 expr_stmt|;
-name|am
-operator|.
-name|assignAllUserRegions
-argument_list|()
+name|assigned
+operator|++
 expr_stmt|;
+block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|".META. assigned="
+operator|+
+name|assigned
+operator|+
+literal|", rit="
+operator|+
+name|rit
+argument_list|)
+expr_stmt|;
+return|return
+name|assigned
+return|;
 block|}
 end_function
 

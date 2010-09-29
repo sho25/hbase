@@ -512,11 +512,6 @@ name|services
 decl_stmt|;
 specifier|private
 specifier|final
-name|boolean
-name|freshClusterStartup
-decl_stmt|;
-specifier|private
-specifier|final
 name|ServerMonitor
 name|serverMonitorThread
 decl_stmt|;
@@ -649,10 +644,6 @@ parameter_list|,
 specifier|final
 name|MasterServices
 name|services
-parameter_list|,
-specifier|final
-name|boolean
-name|freshClusterStartup
 parameter_list|)
 block|{
 name|this
@@ -666,12 +657,6 @@ operator|.
 name|services
 operator|=
 name|services
-expr_stmt|;
-name|this
-operator|.
-name|freshClusterStartup
-operator|=
-name|freshClusterStartup
 expr_stmt|;
 name|Configuration
 name|c
@@ -921,21 +906,13 @@ argument_list|,
 literal|"STARTUP"
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Received start message from: "
-operator|+
-name|info
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|recordNewServer
 argument_list|(
 name|info
+argument_list|,
+literal|false
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -1061,26 +1038,7 @@ name|message
 argument_list|)
 throw|;
 block|}
-comment|/**    * Adds the HSI to the RS list and creates an empty load    * @param info The region server informations    */
-specifier|public
-name|void
-name|recordNewServer
-parameter_list|(
-name|HServerInfo
-name|info
-parameter_list|)
-block|{
-name|recordNewServer
-argument_list|(
-name|info
-argument_list|,
-literal|false
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Adds the HSI to the RS list    * @param info The region server informations    * @param useInfoLoad True if the load from the info should be used    *                    like under a master failover    */
+comment|/**    * Adds the HSI to the RS list    * @param info The region server informations    * @param useInfoLoad True if the load from the info should be used; e.g.    * under a master failover    * @param hri Region interface.  Can be null.    */
 name|void
 name|recordNewServer
 parameter_list|(
@@ -1116,6 +1074,26 @@ operator|.
 name|getServerName
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Registering server="
+operator|+
+name|serverName
+operator|+
+literal|", regionCount="
+operator|+
+name|load
+operator|.
+name|getLoad
+argument_list|()
+operator|+
+literal|", userLoad="
+operator|+
+name|useInfoLoad
+argument_list|)
+expr_stmt|;
 name|info
 operator|.
 name|setLoad
@@ -1125,6 +1103,9 @@ argument_list|)
 expr_stmt|;
 comment|// TODO: Why did we update the RS location ourself?  Shouldn't RS do this?
 comment|// masterStatus.getZooKeeper().updateRSLocationGetWatch(info, watcher);
+comment|// -- If I understand the question, the RS does not update the location
+comment|// because could be disagreement over locations because of DNS issues; only
+comment|// master does DNS now -- St.Ack 20100929.
 name|this
 operator|.
 name|onlineServers
@@ -1232,26 +1213,34 @@ condition|)
 block|{
 if|if
 condition|(
-operator|!
 name|this
 operator|.
-name|freshClusterStartup
+name|deadservers
+operator|.
+name|contains
+argument_list|(
+name|storedInfo
+argument_list|)
 condition|)
 block|{
-comment|// If we are joining an existing cluster, then soon as we come up we'll
-comment|// be getting reports from already running regionservers.
 name|LOG
 operator|.
-name|info
+name|warn
 argument_list|(
-literal|"Registering new server: "
+literal|"Report from deadserver "
 operator|+
-name|info
-operator|.
-name|getServerName
-argument_list|()
+name|storedInfo
 argument_list|)
 expr_stmt|;
+return|return
+name|HMsg
+operator|.
+name|STOP_REGIONSERVER_ARRAY
+return|;
+block|}
+else|else
+block|{
+comment|// Just let the server in.  Presume master joining a running cluster.
 comment|// recordNewServer is what happens at the end of reportServerStartup.
 comment|// The only thing we are skipping is passing back to the regionserver
 comment|// the HServerInfo to use.  Here we presume a master has already done
@@ -1259,6 +1248,10 @@ comment|// that so we'll press on with whatever it gave us for HSI.
 name|recordNewServer
 argument_list|(
 name|info
+argument_list|,
+literal|true
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// If msgs, put off their processing but this is not enough because
@@ -1285,38 +1278,6 @@ operator|+
 literal|"ready next on next report"
 argument_list|)
 throw|;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Received report from unknown server, a server calling "
-operator|+
-literal|" regionServerReport w/o having first called regionServerStartup; "
-operator|+
-literal|"telling it "
-operator|+
-name|HMsg
-operator|.
-name|Type
-operator|.
-name|STOP_REGIONSERVER
-operator|+
-literal|": "
-operator|+
-name|info
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
-expr_stmt|;
-return|return
-name|HMsg
-operator|.
-name|STOP_REGIONSERVER_ARRAY
-return|;
 block|}
 block|}
 comment|// Check startcodes
@@ -2020,7 +1981,18 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-comment|// Remove the server from the known servers lists and update load info
+comment|// Remove the server from the known servers lists and update load info BUT
+comment|// add to deadservers first; do this so it'll show in dead servers list if
+comment|// not in online servers list.
+name|this
+operator|.
+name|deadservers
+operator|.
+name|add
+argument_list|(
+name|serverName
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|onlineServers
@@ -2109,6 +2081,8 @@ name|this
 operator|.
 name|services
 argument_list|,
+name|this
+operator|.
 name|deadservers
 argument_list|,
 name|info
@@ -2348,9 +2322,9 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Waits for the regionservers to report in.    * @throws InterruptedException     */
+comment|/**    * Waits for the regionservers to report in.    * @return Count of regions out on cluster    * @throws InterruptedException     */
 specifier|public
-name|void
+name|int
 name|waitForRegionServers
 parameter_list|()
 throws|throws
@@ -2453,6 +2427,61 @@ operator|=
 name|count
 expr_stmt|;
 block|}
+comment|// Count how many regions deployed out on cluster.  If fresh start, it'll
+comment|// be none but if not a fresh start, we'll have registered servers when
+comment|// they came in on the {@link #regionServerReport(HServerInfo)} as opposed to
+comment|// {@link #regionServerStartup(HServerInfo)} and it'll be carrying an
+comment|// actual server load.
+name|int
+name|regionCount
+init|=
+literal|0
+decl_stmt|;
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|String
+argument_list|,
+name|HServerInfo
+argument_list|>
+name|e
+range|:
+name|this
+operator|.
+name|onlineServers
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+name|HServerLoad
+name|load
+init|=
+name|e
+operator|.
+name|getValue
+argument_list|()
+operator|.
+name|getLoad
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|load
+operator|!=
+literal|null
+condition|)
+name|regionCount
+operator|+=
+name|load
+operator|.
+name|getLoad
+argument_list|()
+expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
@@ -2469,8 +2498,15 @@ name|master
 operator|.
 name|isStopped
 argument_list|()
+operator|+
+literal|", count of regions out on cluster="
+operator|+
+name|regionCount
 argument_list|)
 expr_stmt|;
+return|return
+name|regionCount
+return|;
 block|}
 specifier|public
 name|List
