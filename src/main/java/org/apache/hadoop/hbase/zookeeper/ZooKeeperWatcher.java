@@ -318,23 +318,6 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|zooKeeper
-operator|=
-name|ZKUtil
-operator|.
-name|connect
-argument_list|(
-name|conf
-argument_list|,
-name|quorum
-argument_list|,
-name|this
-argument_list|,
-name|descriptor
-argument_list|)
-expr_stmt|;
 comment|// Identifier will get the sessionid appended later below down when we
 comment|// handle the syncconnect event.
 name|this
@@ -352,6 +335,23 @@ expr_stmt|;
 name|setNodeNames
 argument_list|(
 name|conf
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|zooKeeper
+operator|=
+name|ZKUtil
+operator|.
+name|connect
+argument_list|(
+name|conf
+argument_list|,
+name|quorum
+argument_list|,
+name|this
+argument_list|,
+name|descriptor
 argument_list|)
 expr_stmt|;
 try|try
