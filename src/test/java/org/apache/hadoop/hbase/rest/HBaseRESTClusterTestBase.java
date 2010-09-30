@@ -53,6 +53,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|HBaseClusterTestCase
@@ -216,6 +230,16 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+comment|// Inject the conf from the test cluster by being first to make singleton
+name|RESTServlet
+operator|.
+name|getInstance
+argument_list|(
+name|super
+operator|.
+name|conf
+argument_list|)
+expr_stmt|;
 comment|// set up the Jersey servlet container for Jetty
 name|ServletHolder
 name|sh
