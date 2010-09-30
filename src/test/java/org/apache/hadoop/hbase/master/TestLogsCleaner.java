@@ -286,8 +286,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{   }
-annotation|@
-name|Test
+comment|/* REENALBE -- DISABLED UNTIL REPLICATION BROUGHT UP TO NEW MASTER @Test*/
 specifier|public
 name|void
 name|testLogCleaning
