@@ -446,7 +446,7 @@ end_import
 begin_class
 specifier|public
 class|class
-name|TestReplicationSourceManager
+name|DISABLEDTestReplicationSourceManager
 block|{
 specifier|private
 specifier|static
@@ -458,7 +458,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|TestReplicationSourceManager
+name|DISABLEDTestReplicationSourceManager
 operator|.
 name|class
 argument_list|)
