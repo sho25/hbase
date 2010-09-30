@@ -466,6 +466,13 @@ try|try
 block|{
 comment|// TODO: If we need to keep updating CLOSING stamp to prevent against
 comment|//       a timeout if this is long-running, need to spin up a thread?
+name|region
+operator|.
+name|close
+argument_list|(
+name|abort
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|rsServices
@@ -476,13 +483,6 @@ name|regionInfo
 operator|.
 name|getEncodedName
 argument_list|()
-argument_list|)
-expr_stmt|;
-name|region
-operator|.
-name|close
-argument_list|(
-name|abort
 argument_list|)
 expr_stmt|;
 block|}
