@@ -362,6 +362,9 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|HTable
+name|table
+init|=
 name|TEST_UTIL
 operator|.
 name|createTable
@@ -369,15 +372,6 @@ argument_list|(
 name|TABLE_NAME
 argument_list|,
 name|FAMILY
-argument_list|)
-expr_stmt|;
-name|HTable
-name|table
-init|=
-operator|new
-name|HTable
-argument_list|(
-name|TABLE_NAME
 argument_list|)
 decl_stmt|;
 name|TEST_UTIL
