@@ -357,7 +357,7 @@ comment|// Create the master node with a dummy address
 name|String
 name|host
 init|=
-literal|"hostname"
+literal|"localhost"
 decl_stmt|;
 name|int
 name|port
