@@ -2102,7 +2102,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// RPC methods to region servers
-comment|/**    * Sends an OPEN RPC to the specified server to open the specified region.    *<p>    * Open should not fail but can if server just crashed.    *<p>    * @param server server to open a region    * @param regionName region to open    */
+comment|/**    * Sends an OPEN RPC to the specified server to open the specified region.    *<p>    * Open should not fail but can if server just crashed.    *<p>    * @param server server to open a region    * @param region region to open    */
 specifier|public
 name|void
 name|sendRegionOpen
@@ -2150,6 +2150,60 @@ operator|.
 name|openRegion
 argument_list|(
 name|region
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Sends an OPEN RPC to the specified server to open the specified region.    *<p>    * Open should not fail but can if server just crashed.    *<p>    * @param server server to open a region    * @param regions regions to open    */
+specifier|public
+name|void
+name|sendRegionOpen
+parameter_list|(
+name|HServerInfo
+name|server
+parameter_list|,
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regions
+parameter_list|)
+block|{
+name|HRegionInterface
+name|hri
+init|=
+name|getServerConnection
+argument_list|(
+name|server
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|hri
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Attempting to send OPEN RPC to server "
+operator|+
+name|server
+operator|.
+name|getServerName
+argument_list|()
+operator|+
+literal|" failed because no RPC connection found to this server"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+name|hri
+operator|.
+name|openRegions
+argument_list|(
+name|regions
 argument_list|)
 expr_stmt|;
 block|}

@@ -397,7 +397,16 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Handling OPENED event; deleting unassigned node"
+literal|"Handling OPENED event for "
+operator|+
+name|this
+operator|.
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|"; deleting unassigned node"
 argument_list|)
 expr_stmt|;
 comment|// TODO: should we check if this table was disabled and get it closed?
@@ -436,6 +445,8 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
 name|assignmentManager
 operator|.
 name|regionOnline

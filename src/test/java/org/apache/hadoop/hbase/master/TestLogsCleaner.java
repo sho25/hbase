@@ -199,6 +199,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -286,7 +296,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{   }
-comment|/* REENALBE -- DISABLED UNTIL REPLICATION BROUGHT UP TO NEW MASTER @Test*/
+annotation|@
+name|Ignore
+annotation|@
+name|Test
+comment|/* REENABLE -- DISABLED UNTIL REPLICATION BROUGHT UP TO NEW MASTER */
 specifier|public
 name|void
 name|testLogCleaning

@@ -727,6 +727,19 @@ name|HRegionInfo
 name|region
 parameter_list|)
 function_decl|;
+comment|/**    * Opens the specified regions.    * @param regions regions to open    */
+specifier|public
+name|void
+name|openRegions
+parameter_list|(
+specifier|final
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regions
+parameter_list|)
+function_decl|;
 comment|/**    * Closes the specified region.    * @param region region to close    * @return true if closing region, false if not    */
 specifier|public
 name|boolean
