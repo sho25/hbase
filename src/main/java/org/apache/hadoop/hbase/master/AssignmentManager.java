@@ -177,6 +177,30 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|ConcurrentNavigableMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ConcurrentSkipListMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|Executors
 import|;
 end_import
@@ -720,11 +744,11 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 comment|/** Plans for region movement. Key is the encoded version of a region name*/
-comment|// TODO: When do plans get cleaned out?  Ever?
-comment|// Its cleaned on server shutdown processing -- St.Ack
+comment|// TODO: When do plans get cleaned out?  Ever? In server open and in server
+comment|// shutdown processing -- St.Ack
 specifier|private
 specifier|final
-name|Map
+name|ConcurrentNavigableMap
 argument_list|<
 name|String
 argument_list|,
@@ -733,7 +757,7 @@ argument_list|>
 name|regionPlans
 init|=
 operator|new
-name|TreeMap
+name|ConcurrentSkipListMap
 argument_list|<
 name|String
 argument_list|,
@@ -2237,6 +2261,126 @@ name|regionInfo
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Remove plan if one.
+name|this
+operator|.
+name|regionPlans
+operator|.
+name|remove
+argument_list|(
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Update timers for all regions in transition going against this server.
+name|updateTimers
+argument_list|(
+name|serverInfo
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Touch timers for all regions in transition that have the passed    *<code>hsi</code> in common.    * Call this method whenever a server checks in.  Doing so helps the case where    * a new regionserver has joined the cluster and its been given 1k regions to    * open.  If this method is tickled every time the region reports in a    * successful open then the 1k-th region won't be timed out just because its    * sitting behind the open of 999 other regions.  This method is NOT used    * as part of bulk assign -- there we have a different mechanism for extending    * the regions in transition timer (we turn it off temporarily -- because    * there is no regionplan involved when bulk assigning.    * @param hsi    */
+specifier|private
+name|void
+name|updateTimers
+parameter_list|(
+specifier|final
+name|HServerInfo
+name|hsi
+parameter_list|)
+block|{
+comment|// This loop could be expensive
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|String
+argument_list|,
+name|RegionPlan
+argument_list|>
+name|e
+range|:
+name|this
+operator|.
+name|regionPlans
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+name|e
+operator|.
+name|getValue
+argument_list|()
+operator|.
+name|getDestination
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|hsi
+argument_list|)
+condition|)
+block|{
+name|RegionState
+name|rs
+init|=
+literal|null
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|regionsInTransition
+init|)
+block|{
+name|rs
+operator|=
+name|this
+operator|.
+name|regionsInTransition
+operator|.
+name|get
+argument_list|(
+name|e
+operator|.
+name|getKey
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|rs
+operator|!=
+literal|null
+condition|)
+block|{
+synchronized|synchronized
+init|(
+name|rs
+init|)
+block|{
+name|rs
+operator|.
+name|update
+argument_list|(
+name|rs
+operator|.
+name|getState
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+block|}
 block|}
 comment|/**    * Marks the region as offline.  Removes it from regions in transition and    * removes in-memory assignment information.    *<p>    * Used when a region has been closed and should remain closed.    * @param regionInfo    * @param serverInfo    */
 specifier|public
@@ -2281,6 +2425,21 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+name|setOffline
+argument_list|(
+name|regionInfo
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Sets the region as offline by removing in-memory assignment information but    * retaining transition information.    *<p>    * Used when a region has been closed but should be reassigned.    * @param regionInfo    */
+specifier|public
+name|void
+name|setOffline
+parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|)
+block|{
 synchronized|synchronized
 init|(
 name|this
@@ -2342,52 +2501,6 @@ name|regionInfo
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-block|}
-comment|/**    * Sets the region as offline by removing in-memory assignment information but    * retaining transition information.    *<p>    * Used when a region has been closed but should be reassigned.    * @param regionInfo    */
-specifier|public
-name|void
-name|setOffline
-parameter_list|(
-name|HRegionInfo
-name|regionInfo
-parameter_list|)
-block|{
-synchronized|synchronized
-init|(
-name|regions
-init|)
-block|{
-name|HServerInfo
-name|serverInfo
-init|=
-name|regions
-operator|.
-name|remove
-argument_list|(
-name|regionInfo
-argument_list|)
-decl_stmt|;
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-name|serverRegions
-init|=
-name|servers
-operator|.
-name|get
-argument_list|(
-name|serverInfo
-argument_list|)
-decl_stmt|;
-name|serverRegions
-operator|.
-name|remove
-argument_list|(
-name|regionInfo
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 comment|// Assignment methods
@@ -2597,6 +2710,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param region    * @return    */
 specifier|private
 name|RegionState
 name|addToRegionsInTransition
@@ -2679,6 +2793,29 @@ argument_list|(
 name|encodedName
 argument_list|,
 name|state
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Forcing OFFLINE; was="
+operator|+
+name|state
+argument_list|)
+expr_stmt|;
+name|state
+operator|.
+name|update
+argument_list|(
+name|RegionState
+operator|.
+name|State
+operator|.
+name|OFFLINE
 argument_list|)
 expr_stmt|;
 block|}
@@ -2801,11 +2938,6 @@ argument_list|)
 expr_stmt|;
 comment|// Clean out plan we failed execute and one that doesn't look like it'll
 comment|// succeed anyways; we need a new plan!
-synchronized|synchronized
-init|(
-name|regionPlans
-init|)
-block|{
 name|this
 operator|.
 name|regionPlans
@@ -2821,7 +2953,6 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|/**    * Set region as OFFLINED up in zookeeper     * @param state    * @return True if we succeeded, false otherwise (State was incorrect or failed    * updating zk).    */
@@ -2875,8 +3006,6 @@ return|return
 literal|false
 return|;
 block|}
-else|else
-block|{
 name|state
 operator|.
 name|update
@@ -2888,7 +3017,6 @@ operator|.
 name|OFFLINE
 argument_list|)
 expr_stmt|;
-block|}
 try|try
 block|{
 if|if
@@ -2954,6 +3082,7 @@ return|return
 literal|true
 return|;
 block|}
+comment|/**    * @param state    * @return Plan for passed<code>state</code> (If none currently, it creates one)    */
 name|RegionPlan
 name|getRegionPlan
 parameter_list|(
@@ -2975,25 +3104,49 @@ name|getEncodedName
 argument_list|()
 decl_stmt|;
 name|RegionPlan
-name|plan
+name|newPlan
+init|=
+operator|new
+name|RegionPlan
+argument_list|(
+name|state
+operator|.
+name|getRegion
+argument_list|()
+argument_list|,
+literal|null
+argument_list|,
+name|LoadBalancer
+operator|.
+name|randomAssignment
+argument_list|(
+name|serverManager
+operator|.
+name|getOnlineServersList
+argument_list|()
+argument_list|)
+argument_list|)
 decl_stmt|;
-synchronized|synchronized
-init|(
-name|regionPlans
-init|)
-block|{
-name|plan
-operator|=
+name|RegionPlan
+name|existingPlan
+init|=
 name|regionPlans
 operator|.
-name|get
+name|putIfAbsent
 argument_list|(
 name|encodedName
+argument_list|,
+name|newPlan
 argument_list|)
-expr_stmt|;
+decl_stmt|;
+name|RegionPlan
+name|plan
+init|=
+literal|null
+decl_stmt|;
 if|if
 condition|(
-name|plan
+name|existingPlan
 operator|==
 literal|null
 condition|)
@@ -3012,7 +3165,11 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" so generating a random one; "
+literal|" so generated a random one; "
+operator|+
+name|newPlan
+operator|+
+literal|"; "
 operator|+
 name|serverManager
 operator|.
@@ -3034,35 +3191,7 @@ argument_list|)
 expr_stmt|;
 name|plan
 operator|=
-operator|new
-name|RegionPlan
-argument_list|(
-name|state
-operator|.
-name|getRegion
-argument_list|()
-argument_list|,
-literal|null
-argument_list|,
-name|LoadBalancer
-operator|.
-name|randomAssignment
-argument_list|(
-name|serverManager
-operator|.
-name|getOnlineServersList
-argument_list|()
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|regionPlans
-operator|.
-name|put
-argument_list|(
-name|encodedName
-argument_list|,
-name|plan
-argument_list|)
+name|newPlan
 expr_stmt|;
 block|}
 else|else
@@ -3073,10 +3202,13 @@ name|debug
 argument_list|(
 literal|"Using preexisting plan="
 operator|+
-name|plan
+name|existingPlan
 argument_list|)
 expr_stmt|;
-block|}
+name|plan
+operator|=
+name|existingPlan
+expr_stmt|;
 block|}
 return|return
 name|plan
@@ -4598,7 +4730,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Region has been PENDING_OPEN or OPENING for too "
+literal|"Region has been PENDING_OPEN  or OPENING for too "
 operator|+
 literal|"long, reassigning region="
 operator|+
@@ -4606,6 +4738,34 @@ name|regionInfo
 operator|.
 name|getRegionNameAsString
 argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// TODO: Possible RACE in here if RS is right now sending us an
+comment|// OPENED to handle.  Otherwise, after our call to assign, which
+comment|// forces zk state to OFFLINE, any actions by RS should cause
+comment|// it abort its open w/ accompanying LOG.warns coming out of the
+comment|// handleRegion method below.
+name|AssignmentManager
+operator|.
+name|this
+operator|.
+name|setOffline
+argument_list|(
+name|regionState
+operator|.
+name|getRegion
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|regionState
+operator|.
+name|update
+argument_list|(
+name|RegionState
+operator|.
+name|State
+operator|.
+name|OFFLINE
 argument_list|)
 expr_stmt|;
 name|assign
@@ -4678,13 +4838,6 @@ name|hsi
 parameter_list|)
 block|{
 comment|// Clean out any exisiting assignment plans for this server
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|regionPlans
-init|)
-block|{
 for|for
 control|(
 name|Iterator
@@ -4754,7 +4907,6 @@ operator|.
 name|remove
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|// Remove assignment info related to the downed server.  Remove the downed
@@ -5271,13 +5423,6 @@ name|RegionPlan
 name|plan
 parameter_list|)
 block|{
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|regionPlans
-init|)
-block|{
 name|this
 operator|.
 name|regionPlans
@@ -5292,7 +5437,6 @@ argument_list|,
 name|plan
 argument_list|)
 expr_stmt|;
-block|}
 name|unassign
 argument_list|(
 name|plan
