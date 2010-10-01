@@ -3555,6 +3555,46 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|/**    * Stop the designated regionserver.    * @throws IOException if a remote or network exception occurs    */
+specifier|public
+specifier|synchronized
+name|void
+name|stopRegionServer
+parameter_list|(
+specifier|final
+name|HServerAddress
+name|hsa
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|HRegionInterface
+name|rs
+init|=
+name|this
+operator|.
+name|connection
+operator|.
+name|getHRegionConnection
+argument_list|(
+name|hsa
+argument_list|)
+decl_stmt|;
+name|rs
+operator|.
+name|stop
+argument_list|(
+literal|"Called by admin client "
+operator|+
+name|this
+operator|.
+name|connection
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * @return cluster status    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|ClusterStatus
