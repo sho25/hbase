@@ -1714,7 +1714,21 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-comment|// continue
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Thread was interrupted while trying to connect to master."
+argument_list|)
+throw|;
 block|}
 block|}
 name|this
@@ -3637,7 +3651,21 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-comment|// continue
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Giving up trying to location region in meta: thread is interrupted."
+argument_list|)
+throw|;
 block|}
 block|}
 block|}
@@ -4388,7 +4416,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**      * Get the ZooKeeper instance for this TableServers instance.      *      * If ZK has not been initialized yet, this will connect to ZK.      * @returns zookeeper reference      * @throws ZooKeeperConncetionException if there's a problem connecting to zk      */
+comment|/**      * Get the ZooKeeper instance for this TableServers instance.      *      * If ZK has not been initialized yet, this will connect to ZK.      * @returns zookeeper reference      * @throws ZooKeeperConnectionException if there's a problem connecting to zk      */
 specifier|public
 specifier|synchronized
 name|ZooKeeperWatcher
@@ -4578,7 +4606,21 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-comment|// continue
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Giving up trying to get region server: thread is interrupted."
+argument_list|)
+throw|;
 block|}
 block|}
 return|return
