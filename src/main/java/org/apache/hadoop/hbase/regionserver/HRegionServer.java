@@ -1774,14 +1774,6 @@ specifier|final
 name|long
 name|rpcTimeout
 decl_stmt|;
-comment|// Address passed in to constructor. This is not always the address we run
-comment|// with. For example, if passed port is 0, then we are to pick a port. The
-comment|// actual address we run with is in the #serverInfo data member.
-specifier|private
-specifier|final
-name|HServerAddress
-name|address
-decl_stmt|;
 comment|// The main region server thread.
 annotation|@
 name|SuppressWarnings
@@ -1791,11 +1783,6 @@ argument_list|)
 specifier|private
 name|Thread
 name|regionServerThread
-decl_stmt|;
-specifier|private
-specifier|final
-name|String
-name|machineName
 decl_stmt|;
 comment|// Instance of the hbase executor service.
 specifier|private
@@ -1819,72 +1806,6 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|this
-operator|.
-name|machineName
-operator|=
-name|DNS
-operator|.
-name|getDefaultHost
-argument_list|(
-name|conf
-operator|.
-name|get
-argument_list|(
-literal|"hbase.regionserver.dns.interface"
-argument_list|,
-literal|"default"
-argument_list|)
-argument_list|,
-name|conf
-operator|.
-name|get
-argument_list|(
-literal|"hbase.regionserver.dns.nameserver"
-argument_list|,
-literal|"default"
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|String
-name|addressStr
-init|=
-name|machineName
-operator|+
-literal|":"
-operator|+
-name|conf
-operator|.
-name|get
-argument_list|(
-name|HConstants
-operator|.
-name|REGIONSERVER_PORT
-argument_list|,
-name|Integer
-operator|.
-name|toString
-argument_list|(
-name|HConstants
-operator|.
-name|DEFAULT_REGIONSERVER_PORT
-argument_list|)
-argument_list|)
-decl_stmt|;
-comment|// This is not necessarily the address we will run with. The address we
-comment|// use will be in #serverInfo data member. For example, we may have been
-comment|// passed a port of 0 which means we should pick some ephemeral port to bind
-comment|// to.
-name|this
-operator|.
-name|address
-operator|=
-operator|new
-name|HServerAddress
-argument_list|(
-name|addressStr
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|fsOk
@@ -2441,6 +2362,66 @@ operator|=
 literal|false
 expr_stmt|;
 comment|// Server to handle client requests
+name|String
+name|machineName
+init|=
+name|DNS
+operator|.
+name|getDefaultHost
+argument_list|(
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"hbase.regionserver.dns.interface"
+argument_list|,
+literal|"default"
+argument_list|)
+argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"hbase.regionserver.dns.nameserver"
+argument_list|,
+literal|"default"
+argument_list|)
+argument_list|)
+decl_stmt|;
+name|String
+name|addressStr
+init|=
+name|machineName
+operator|+
+literal|":"
+operator|+
+name|conf
+operator|.
+name|get
+argument_list|(
+name|HConstants
+operator|.
+name|REGIONSERVER_PORT
+argument_list|,
+name|Integer
+operator|.
+name|toString
+argument_list|(
+name|HConstants
+operator|.
+name|DEFAULT_REGIONSERVER_PORT
+argument_list|)
+argument_list|)
+decl_stmt|;
+name|HServerAddress
+name|address
+init|=
+operator|new
+name|HServerAddress
+argument_list|(
+name|addressStr
+argument_list|)
+decl_stmt|;
 name|this
 operator|.
 name|server
@@ -2526,8 +2507,7 @@ name|QosFunction
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Address is giving a default IP for the moment. Will be changed after
-comment|// calling the master.
+comment|// HServerInfo can be amended by master.  See below in reportForDuty.
 name|this
 operator|.
 name|serverInfo
@@ -7183,7 +7163,12 @@ name|serverInfo
 argument_list|)
 argument_list|)
 argument_list|,
-name|address
+name|this
+operator|.
+name|serverInfo
+operator|.
+name|getServerAddress
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
