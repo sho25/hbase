@@ -85,6 +85,9 @@ operator|+
 name|this
 operator|.
 name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
 return|;
 block|}
 comment|/**    * @see java.lang.Object#equals(java.lang.Object)    */

@@ -1280,7 +1280,7 @@ argument_list|(
 name|regionName
 argument_list|)
 operator|+
-literal|", assigning anew: "
+literal|"; "
 operator|+
 name|t
 argument_list|)

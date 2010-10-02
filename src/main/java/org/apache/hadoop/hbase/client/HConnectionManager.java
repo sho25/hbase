@@ -3012,7 +3012,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Encounted problems when prefetch META table: "
+literal|"Encountered problems when prefetch META table: "
 argument_list|,
 name|e
 argument_list|)
@@ -3142,19 +3142,23 @@ literal|" tries."
 argument_list|)
 throw|;
 block|}
-try|try
-block|{
-comment|// locate the root or meta region
 name|HRegionLocation
 name|metaLocation
 init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+comment|// locate the root or meta region
+name|metaLocation
+operator|=
 name|locateRegion
 argument_list|(
 name|parentTable
 argument_list|,
 name|metaKey
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|HRegionInterface
 name|server
 init|=
@@ -3575,7 +3579,30 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"locateRegionInMeta attempt "
+literal|"locateRegionInMeta parentTable="
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|parentTable
+argument_list|)
+operator|+
+literal|", metaLocation="
+operator|+
+operator|(
+operator|(
+name|metaLocation
+operator|==
+literal|null
+operator|)
+condition|?
+literal|"null"
+else|:
+name|metaLocation
+operator|)
+operator|+
+literal|", attempt="
 operator|+
 name|tries
 operator|+
@@ -3663,7 +3690,9 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Giving up trying to location region in meta: thread is interrupted."
+literal|"Giving up trying to location region in "
+operator|+
+literal|"meta: thread is interrupted."
 argument_list|)
 throw|;
 block|}

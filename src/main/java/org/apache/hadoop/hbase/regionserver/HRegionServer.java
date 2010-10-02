@@ -3232,7 +3232,12 @@ condition|)
 block|{
 name|abort
 argument_list|(
-literal|"Unhandled exception"
+literal|"Unhandled exception: "
+operator|+
+name|t
+operator|.
+name|getMessage
+argument_list|()
 argument_list|,
 name|t
 argument_list|)
@@ -6682,7 +6687,7 @@ name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"Aborting region server "
+literal|"ABORTING region server "
 operator|+
 name|this
 operator|+
@@ -6700,7 +6705,7 @@ name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"Aborting region server "
+literal|"ABORTING region server "
 operator|+
 name|this
 operator|+
