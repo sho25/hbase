@@ -2690,6 +2690,15 @@ operator|.
 name|rpcTimeout
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Lookedup root region location "
+operator|+
+name|hsa
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|hsa
