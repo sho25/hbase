@@ -496,9 +496,14 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"IOException closing region for "
+literal|"Closing region "
 operator|+
 name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 if|if
