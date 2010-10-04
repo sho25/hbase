@@ -725,11 +725,12 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|HBaseConfiguration
+name|Configuration
 name|conf
 init|=
-operator|new
 name|HBaseConfiguration
+operator|.
+name|create
 argument_list|()
 decl_stmt|;
 name|String
