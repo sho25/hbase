@@ -341,6 +341,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
+operator|!
 name|path
 operator|.
 name|equals
@@ -348,7 +349,7 @@ argument_list|(
 name|node
 argument_list|)
 condition|)
-block|{
+return|return;
 try|try
 block|{
 name|byte
@@ -405,7 +406,6 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 annotation|@

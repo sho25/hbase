@@ -724,6 +724,15 @@ argument_list|(
 name|family
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Creating table "
+operator|+
+name|tableName
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|createTable
@@ -780,6 +789,15 @@ name|toBytes
 argument_list|(
 literal|"testdata"
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Putting table "
+operator|+
+name|tableName
 argument_list|)
 expr_stmt|;
 name|table
