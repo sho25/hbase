@@ -291,7 +291,7 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
-comment|// Sleep 10 millisecond so 2 things are not put in the queue within the
+comment|// Sleep 1 millisecond so 2 things are not put in the queue within the
 comment|// same millisecond. The queue breaks ties arbitrarily between two
 comment|// requests inserted at the same time. We want the ordering to
 comment|// be consistent for our unit test.

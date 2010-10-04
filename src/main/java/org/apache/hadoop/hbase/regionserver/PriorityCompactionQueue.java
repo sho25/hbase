@@ -593,13 +593,13 @@ specifier|protected
 name|CompactionRequest
 name|removeFromRegionsInQueue
 parameter_list|(
-name|HRegion
-name|r
+name|CompactionRequest
+name|remove
 parameter_list|)
 block|{
 if|if
 condition|(
-name|r
+name|remove
 operator|==
 literal|null
 condition|)
@@ -614,13 +614,53 @@ block|{
 name|CompactionRequest
 name|cr
 init|=
+literal|null
+decl_stmt|;
+name|cr
+operator|=
 name|regionsInQueue
 operator|.
 name|remove
 argument_list|(
-name|r
+name|remove
+operator|.
+name|getHRegion
+argument_list|()
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+if|if
+condition|(
+name|cr
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|cr
+operator|.
+name|equals
+argument_list|(
+name|remove
+argument_list|)
+condition|)
+block|{
+comment|//Because we don't synchronize across both this.regionsInQueue and this.queue
+comment|//a rare race condition exists where a higher priority compaction request replaces
+comment|//the lower priority request in this.regionsInQueue but the lower priority request
+comment|//is taken off this.queue before the higher can be added to this.queue.
+comment|//So if we didn't remove what we were expecting we put it back on.
+name|regionsInQueue
+operator|.
+name|put
+argument_list|(
+name|cr
+operator|.
+name|getHRegion
+argument_list|()
+argument_list|,
+name|cr
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|cr
@@ -634,7 +674,10 @@ name|warn
 argument_list|(
 literal|"Removed a region it couldn't find in regionsInQueue: "
 operator|+
-name|r
+name|remove
+operator|.
+name|getHRegion
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -683,11 +726,6 @@ argument_list|(
 name|request
 argument_list|)
 decl_stmt|;
-name|queue
-operator|.
-name|peek
-argument_list|()
-expr_stmt|;
 return|return
 name|result
 return|;
@@ -948,9 +986,6 @@ block|{
 name|removeFromRegionsInQueue
 argument_list|(
 name|cr
-operator|.
-name|getHRegion
-argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
@@ -1001,9 +1036,6 @@ block|{
 name|removeFromRegionsInQueue
 argument_list|(
 name|cr
-operator|.
-name|getHRegion
-argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
@@ -1031,7 +1063,7 @@ if|if
 condition|(
 name|r
 operator|instanceof
-name|HRegion
+name|CompactionRequest
 condition|)
 block|{
 name|CompactionRequest
@@ -1040,7 +1072,7 @@ init|=
 name|removeFromRegionsInQueue
 argument_list|(
 operator|(
-name|HRegion
+name|CompactionRequest
 operator|)
 name|r
 argument_list|)
@@ -1091,9 +1123,6 @@ block|{
 name|removeFromRegionsInQueue
 argument_list|(
 name|cr
-operator|.
-name|getHRegion
-argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
@@ -1132,9 +1161,6 @@ block|{
 name|removeFromRegionsInQueue
 argument_list|(
 name|cr
-operator|.
-name|getHRegion
-argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
