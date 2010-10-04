@@ -347,14 +347,6 @@ condition|(
 name|r
 operator|!=
 literal|null
-operator|&&
-operator|!
-name|this
-operator|.
-name|server
-operator|.
-name|isStopped
-argument_list|()
 condition|)
 block|{
 name|lock
@@ -363,6 +355,17 @@ name|lock
 argument_list|()
 expr_stmt|;
 try|try
+block|{
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|server
+operator|.
+name|isStopped
+argument_list|()
+condition|)
 block|{
 comment|// Don't interrupt us while we are working
 name|byte
@@ -399,6 +402,7 @@ argument_list|,
 name|midKey
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 finally|finally
@@ -952,11 +956,22 @@ name|tryLock
 argument_list|()
 condition|)
 block|{
+try|try
+block|{
 name|this
 operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * Returns the current size of the queue containing regions that are    * processed.    *    * @return The current size of the regions queue.    */
