@@ -709,6 +709,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|eclipse
+operator|.
+name|jdt
+operator|.
+name|core
+operator|.
+name|dom
+operator|.
+name|ThisExpression
+import|;
+end_import
+
+begin_import
+import|import
 name|com
 operator|.
 name|google
@@ -3211,7 +3227,21 @@ operator|.
 name|clearRegionCache
 argument_list|()
 expr_stmt|;
-comment|// assign all the new regions
+comment|// assign all the new regions IF table is enabled.
+if|if
+condition|(
+name|getHBaseAdmin
+argument_list|()
+operator|.
+name|isTableEnabled
+argument_list|(
+name|table
+operator|.
+name|getTableName
+argument_list|()
+argument_list|)
+condition|)
+block|{
 for|for
 control|(
 name|HRegionInfo
@@ -3230,6 +3260,7 @@ argument_list|(
 name|hri
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|count
