@@ -4240,6 +4240,97 @@ argument_list|)
 return|;
 block|}
 block|}
+comment|/**    * Wait on regions to clean regions-in-transition.    * @param hri Region to wait on.    * @throws IOException    */
+specifier|public
+name|void
+name|waitOnRegionToClearRegionsInTransition
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|hri
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|isRegionInTransition
+argument_list|(
+name|hri
+argument_list|)
+operator|==
+literal|null
+condition|)
+return|return;
+name|RegionState
+name|rs
+init|=
+literal|null
+decl_stmt|;
+comment|// There is already a timeout monitor on regions in transition so I
+comment|// should not have to have one here too?
+while|while
+condition|(
+operator|!
+name|this
+operator|.
+name|master
+operator|.
+name|isStopped
+argument_list|()
+operator|&&
+operator|(
+name|rs
+operator|=
+name|isRegionInTransition
+argument_list|(
+name|hri
+argument_list|)
+operator|)
+operator|!=
+literal|null
+condition|)
+block|{
+name|Threads
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Waiting on "
+operator|+
+name|rs
+operator|+
+literal|" to clear regions-in-transition"
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|this
+operator|.
+name|master
+operator|.
+name|isStopped
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Giving up wait on regions in "
+operator|+
+literal|"transition because stoppable.isStopped is set"
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 comment|/**    * Checks if the table of the specified region has been disabled by the user.    * @param regionName    * @return    */
 specifier|public
 name|boolean

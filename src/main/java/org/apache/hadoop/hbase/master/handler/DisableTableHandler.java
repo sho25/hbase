@@ -411,6 +411,25 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Wait on table's regions to clear region in transition.
+for|for
+control|(
+name|HRegionInfo
+name|region
+range|:
+name|regions
+control|)
+block|{
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|waitOnRegionToClearRegionsInTransition
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 end_class
