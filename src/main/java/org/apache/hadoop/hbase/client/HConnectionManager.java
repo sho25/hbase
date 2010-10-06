@@ -2694,7 +2694,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Lookedup root region location "
+literal|"Lookedup root region location with hcm="
+operator|+
+name|this
+operator|+
+literal|"; "
 operator|+
 name|hsa
 argument_list|)

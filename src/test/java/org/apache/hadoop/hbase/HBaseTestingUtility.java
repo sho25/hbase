@@ -3982,7 +3982,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"ZK Closed; sleeping="
+literal|"ZK Closed Session 0x"
+operator|+
+name|Long
+operator|.
+name|toHexString
+argument_list|(
+name|sessionID
+argument_list|)
+operator|+
+literal|"; sleeping="
 operator|+
 name|sleep
 argument_list|)
