@@ -344,6 +344,15 @@ operator|.
 name|getName
 argument_list|()
 decl_stmt|;
+comment|/** Parameter name for what master implementation to use. */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MASTER_IMPL
+init|=
+literal|"hbase.master.impl"
+decl_stmt|;
 comment|/** Parameter name for how often threads should wake up */
 specifier|public
 specifier|static

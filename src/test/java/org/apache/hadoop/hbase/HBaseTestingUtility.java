@@ -709,22 +709,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|eclipse
-operator|.
-name|jdt
-operator|.
-name|core
-operator|.
-name|dom
-operator|.
-name|ThisExpression
-import|;
-end_import
-
-begin_import
-import|import
 name|com
 operator|.
 name|google
@@ -1275,17 +1259,44 @@ return|return
 name|startMiniCluster
 argument_list|(
 literal|1
+argument_list|,
+literal|1
 argument_list|)
 return|;
 block|}
-comment|/**    * Start up a minicluster of hbase, optionally dfs, and zookeeper.    * Modifies Configuration.  Homes the cluster data directory under a random    * subdirectory in a directory under System property test.build.data.    * Directory is cleaned up on exit.    * @param servers Number of servers to start up.  We'll start this many    * datanodes and regionservers.  If servers is> 1, then make sure    * hbase.regionserver.info.port is -1 (i.e. no ui per regionserver) otherwise    * bind errors.    * @throws Exception    * @see {@link #shutdownMiniCluster()}    * @return Mini hbase cluster instance created.    */
+comment|/**    * Start up a minicluster of hbase, optionally dfs, and zookeeper.    * Modifies Configuration.  Homes the cluster data directory under a random    * subdirectory in a directory under System property test.build.data.    * Directory is cleaned up on exit.    * @param numSlaves Number of slaves to start up.  We'll start this many    * datanodes and regionservers.  If numSlaves is> 1, then make sure    * hbase.regionserver.info.port is -1 (i.e. no ui per regionserver) otherwise    * bind errors.    * @throws Exception    * @see {@link #shutdownMiniCluster()}    * @return Mini hbase cluster instance created.    */
 specifier|public
 name|MiniHBaseCluster
 name|startMiniCluster
 parameter_list|(
 specifier|final
 name|int
-name|servers
+name|numSlaves
+parameter_list|)
+throws|throws
+name|Exception
+block|{
+return|return
+name|startMiniCluster
+argument_list|(
+literal|1
+argument_list|,
+name|numSlaves
+argument_list|)
+return|;
+block|}
+comment|/**    * Start up a minicluster of hbase, optionally dfs, and zookeeper.    * Modifies Configuration.  Homes the cluster data directory under a random    * subdirectory in a directory under System property test.build.data.    * Directory is cleaned up on exit.    * @param numMasters Number of masters to start up.  We'll start this many    * hbase masters.  If numMasters> 1, you can find the active/primary master    * with {@link MiniHBaseCluster#getMaster()}.    * @param numSlaves Number of slaves to start up.  We'll start this many    * datanodes and regionservers.  If numSlaves is> 1, then make sure    * hbase.regionserver.info.port is -1 (i.e. no ui per regionserver) otherwise    * bind errors.    * @throws Exception    * @see {@link #shutdownMiniCluster()}    * @return Mini hbase cluster instance created.    */
+specifier|public
+name|MiniHBaseCluster
+name|startMiniCluster
+parameter_list|(
+specifier|final
+name|int
+name|numMasters
+parameter_list|,
+specifier|final
+name|int
+name|numSlaves
 parameter_list|)
 throws|throws
 name|Exception
@@ -1294,7 +1305,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting up minicluster"
+literal|"Starting up minicluster with "
+operator|+
+name|numMasters
+operator|+
+literal|" master(s) and "
+operator|+
+name|numSlaves
+operator|+
+literal|" regionserver(s) and datanode(s)"
 argument_list|)
 expr_stmt|;
 comment|// If we already put up a cluster, fail.
@@ -1369,7 +1388,7 @@ comment|// Bring up mini dfs cluster. This spews a bunch of warnings about missi
 comment|// scheme. Complaints are 'Scheme is undefined for build/test/data/dfs/name1'.
 name|startMiniDFSCluster
 argument_list|(
-name|servers
+name|numSlaves
 argument_list|,
 name|this
 operator|.
@@ -1504,7 +1523,9 @@ name|this
 operator|.
 name|conf
 argument_list|,
-name|servers
+name|numMasters
+argument_list|,
+name|numSlaves
 argument_list|)
 expr_stmt|;
 comment|// Don't leave here till we've done a successful scan of the .META.
@@ -4024,7 +4045,7 @@ return|return
 name|hbaseCluster
 return|;
 block|}
-comment|/**    * Returns a HBaseAdmin instance.    *    * @return The HBaseAdmin instance.    * @throws IOException     */
+comment|/**    * Returns a HBaseAdmin instance.    *    * @return The HBaseAdmin instance.    * @throws IOException    */
 specifier|public
 name|HBaseAdmin
 name|getHBaseAdmin
@@ -4254,7 +4275,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @param dir Directory to delete    * @return True if we deleted it.    * @throws IOException     */
+comment|/**    * @param dir Directory to delete    * @return True if we deleted it.    * @throws IOException    */
 specifier|public
 name|boolean
 name|deleteDir

@@ -765,6 +765,8 @@ name|conf
 argument_list|,
 literal|1
 argument_list|,
+literal|1
+argument_list|,
 name|LocalHMaster
 operator|.
 name|class
@@ -781,7 +783,9 @@ operator|)
 name|cluster
 operator|.
 name|getMaster
-argument_list|()
+argument_list|(
+literal|0
+argument_list|)
 operator|)
 operator|.
 name|setZKCluster
