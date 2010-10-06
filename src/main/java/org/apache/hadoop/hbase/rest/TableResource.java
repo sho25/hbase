@@ -35,6 +35,18 @@ name|ws
 operator|.
 name|rs
 operator|.
+name|Encoded
+import|;
+end_import
+
+begin_import
+import|import
+name|javax
+operator|.
+name|ws
+operator|.
+name|rs
+operator|.
 name|Path
 import|;
 end_import
@@ -182,12 +194,16 @@ specifier|public
 name|RowResource
 name|getRowResource
 parameter_list|(
+comment|// We need the @Encoded decorator so Jersey won't urldecode before
+comment|// the RowSpec constructor has a chance to parse
 specifier|final
 annotation|@
 name|PathParam
 argument_list|(
 literal|"rowspec"
 argument_list|)
+annotation|@
+name|Encoded
 name|String
 name|rowspec
 parameter_list|,

@@ -427,12 +427,7 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Execute a transaction method given only the path. Will select at random    * one of the members of the supplied cluster definition and iterate through    * the list until a transaction can be successfully completed. The    * definition of success here is a complete HTTP transaction, irrespective    * of result code.      * @param cluster the cluster definition    * @param method the transaction method    * @param headers HTTP header values to send    * @param path the path    * @return the HTTP response code    * @throws IOException    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
+comment|/**    * Execute a transaction method given only the path. Will select at random    * one of the members of the supplied cluster definition and iterate through    * the list until a transaction can be successfully completed. The    * definition of success here is a complete HTTP transaction, irrespective    * of result code.      * @param cluster the cluster definition    * @param method the transaction method    * @param headers HTTP header values to send    * @param path the properly urlencoded path    * @return the HTTP response code    * @throws IOException    */
 specifier|public
 name|int
 name|executePathOnly
@@ -565,6 +560,8 @@ name|sb
 operator|.
 name|toString
 argument_list|()
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 return|return
@@ -614,12 +611,7 @@ throw|throw
 name|lastException
 throw|;
 block|}
-comment|/**    * Execute a transaction method given a complete URI.    * @param method the transaction method    * @param headers HTTP header values to send    * @param uri the URI    * @return the HTTP response code    * @throws IOException    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
+comment|/**    * Execute a transaction method given a complete URI.    * @param method the transaction method    * @param headers HTTP header values to send    * @param uri a properly urlencoded URI    * @return the HTTP response code    * @throws IOException    */
 specifier|public
 name|int
 name|executeURI
@@ -645,6 +637,8 @@ operator|new
 name|URI
 argument_list|(
 name|uri
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -746,7 +740,7 @@ return|return
 name|code
 return|;
 block|}
-comment|/**    * Execute a transaction method. Will call either<tt>executePathOnly</tt>    * or<tt>executeURI</tt> depending on whether a path only is supplied in    * 'path', or if a complete URI is passed instead, respectively.    * @param cluster the cluster definition    * @param method the HTTP method    * @param headers HTTP header values to send    * @param path the path or URI    * @return the HTTP response code    * @throws IOException    */
+comment|/**    * Execute a transaction method. Will call either<tt>executePathOnly</tt>    * or<tt>executeURI</tt> depending on whether a path only is supplied in    * 'path', or if a complete URI is passed instead, respectively.    * @param cluster the cluster definition    * @param method the HTTP method    * @param headers HTTP header values to send    * @param path the properly urlencoded path or URI    * @return the HTTP response code    * @throws IOException    */
 specifier|public
 name|int
 name|execute
