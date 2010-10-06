@@ -367,6 +367,33 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|isTableDisabled
+argument_list|(
+name|this
+operator|.
+name|tableNameStr
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Table "
+operator|+
+name|tableNameStr
+operator|+
+literal|" is already disabled; skipping disable"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 comment|// Set the table as disabled so it doesn't get re-onlined
 name|assignmentManager
 operator|.

@@ -373,6 +373,34 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|isTableDisabled
+argument_list|(
+name|this
+operator|.
+name|tableNameStr
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Table "
+operator|+
+name|tableNameStr
+operator|+
+literal|" is not disabled; skipping enable"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 comment|// Get the regions of this table
 name|List
 argument_list|<
