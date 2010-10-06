@@ -3031,6 +3031,7 @@ expr_stmt|;
 block|}
 block|}
 specifier|public
+specifier|static
 name|void
 name|assertByteEquals
 parameter_list|(
