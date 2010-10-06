@@ -727,21 +727,6 @@ operator|.
 name|COMPARATOR
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|pos
-operator|==
-name|kvs
-operator|.
-name|length
-condition|)
-block|{
-return|return
-operator|-
-literal|1
-return|;
-comment|// null/empty result.
-block|}
 comment|// never will exact match
 if|if
 condition|(
@@ -762,6 +747,21 @@ operator|-
 literal|1
 expr_stmt|;
 comment|// pos is now insertion point
+block|}
+if|if
+condition|(
+name|pos
+operator|==
+name|kvs
+operator|.
+name|length
+condition|)
+block|{
+return|return
+operator|-
+literal|1
+return|;
+comment|// doesn't exist
 block|}
 return|return
 name|pos
