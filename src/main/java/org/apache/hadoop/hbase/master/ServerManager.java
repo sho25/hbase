@@ -811,10 +811,46 @@ argument_list|(
 name|serverInfo
 argument_list|)
 decl_stmt|;
+name|checkIsDead
+argument_list|(
+name|info
+operator|.
+name|getServerName
+argument_list|()
+argument_list|,
+literal|"STARTUP"
+argument_list|)
+expr_stmt|;
+name|checkAlreadySameHostPort
+argument_list|(
+name|info
+argument_list|)
+expr_stmt|;
+name|recordNewServer
+argument_list|(
+name|info
+argument_list|,
+literal|false
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Test to see if we have a server of same host and port already.    * @param serverInfo    * @throws PleaseHoldException    */
+name|void
+name|checkAlreadySameHostPort
+parameter_list|(
+specifier|final
+name|HServerInfo
+name|serverInfo
+parameter_list|)
+throws|throws
+name|PleaseHoldException
+block|{
 name|String
 name|hostAndPort
 init|=
-name|info
+name|serverInfo
 operator|.
 name|getServerAddress
 argument_list|()
@@ -827,7 +863,7 @@ name|existingServer
 init|=
 name|haveServerWithSameHostAndPortAlready
 argument_list|(
-name|info
+name|serverInfo
 operator|.
 name|getHostnamePort
 argument_list|()
@@ -853,7 +889,7 @@ name|existingServer
 operator|+
 literal|", newServer="
 operator|+
-name|info
+name|serverInfo
 decl_stmt|;
 name|LOG
 operator|.
@@ -869,7 +905,7 @@ operator|.
 name|getStartCode
 argument_list|()
 operator|<
-name|info
+name|serverInfo
 operator|.
 name|getStartCode
 argument_list|()
@@ -879,7 +915,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Triggering server recovery; existingServer looks stale"
+literal|"Triggering server recovery; existingServer "
+operator|+
+name|existingServer
+operator|.
+name|getServerName
+argument_list|()
+operator|+
+literal|" looks stale"
 argument_list|)
 expr_stmt|;
 name|expireServer
@@ -896,25 +939,6 @@ name|message
 argument_list|)
 throw|;
 block|}
-name|checkIsDead
-argument_list|(
-name|info
-operator|.
-name|getServerName
-argument_list|()
-argument_list|,
-literal|"STARTUP"
-argument_list|)
-expr_stmt|;
-name|recordNewServer
-argument_list|(
-name|info
-argument_list|,
-literal|false
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
 block|}
 specifier|private
 name|HServerInfo
@@ -1211,39 +1235,17 @@ operator|==
 literal|null
 condition|)
 block|{
-if|if
-condition|(
-name|this
-operator|.
-name|deadservers
-operator|.
-name|contains
+comment|// Maybe we already have this host+port combo and its just different
+comment|// start code?
+name|checkAlreadySameHostPort
 argument_list|(
-name|storedInfo
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Report from deadserver "
-operator|+
-name|storedInfo
+name|info
 argument_list|)
 expr_stmt|;
-return|return
-name|HMsg
-operator|.
-name|STOP_REGIONSERVER_ARRAY
-return|;
-block|}
-else|else
-block|{
-comment|// Just let the server in.  Presume master joining a running cluster.
+comment|// Just let the server in. Presume master joining a running cluster.
 comment|// recordNewServer is what happens at the end of reportServerStartup.
 comment|// The only thing we are skipping is passing back to the regionserver
-comment|// the HServerInfo to use.  Here we presume a master has already done
+comment|// the HServerInfo to use. Here we presume a master has already done
 comment|// that so we'll press on with whatever it gave us for HSI.
 name|recordNewServer
 argument_list|(
@@ -1256,9 +1258,9 @@ argument_list|)
 expr_stmt|;
 comment|// If msgs, put off their processing but this is not enough because
 comment|// its possible that the next time the server reports in, we'll still
-comment|// not be up and serving.  For example, if a split, we'll need the
+comment|// not be up and serving. For example, if a split, we'll need the
 comment|// regions and servers setup in the master before the below
-comment|// handleSplitReport will work.  TODO: FIx!!
+comment|// handleSplitReport will work. TODO: FIx!!
 if|if
 condition|(
 name|msgs
@@ -1278,7 +1280,6 @@ operator|+
 literal|"ready next on next report"
 argument_list|)
 throw|;
-block|}
 block|}
 comment|// Check startcodes
 if|if

@@ -97,6 +97,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|HBaseTestingUtility
@@ -676,16 +690,23 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
+comment|// Need to use a new 'Configuration' so we make a new HConnection.
+comment|// Otherwise we're reusing an HConnection that has gone stale because
+comment|// the shutdown of the cluster also called shut of the connection.
 name|allRegions
 operator|=
 name|MetaScanner
 operator|.
 name|listAllRegions
 argument_list|(
+operator|new
+name|Configuration
+argument_list|(
 name|UTIL
 operator|.
 name|getConfiguration
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|assertEquals

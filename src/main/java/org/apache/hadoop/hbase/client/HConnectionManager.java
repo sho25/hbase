@@ -1144,6 +1144,11 @@ specifier|final
 name|RootRegionTracker
 name|rootRegionTracker
 decl_stmt|;
+specifier|private
+specifier|final
+name|String
+name|identifier
+decl_stmt|;
 comment|/**      * Map of table to table {@link HRegionLocation}s.  The table key is made      * by doing a {@link Bytes#mapKey(byte[])} of the table's name.      */
 specifier|private
 specifier|final
@@ -1353,6 +1358,17 @@ operator|=
 name|getZooKeeperWatcher
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|identifier
+operator|=
+name|this
+operator|.
+name|zooKeeper
+operator|.
+name|toString
+argument_list|()
+expr_stmt|;
 name|masterAddressTracker
 operator|=
 operator|new
@@ -1418,14 +1434,10 @@ name|String
 name|toString
 parameter_list|()
 block|{
-comment|// Return our zk identifier ... it 'hconnection + zk sessionid'.
 return|return
 name|this
 operator|.
-name|zooKeeper
-operator|.
-name|toString
-argument_list|()
+name|identifier
 return|;
 block|}
 specifier|private
@@ -2649,7 +2661,10 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"closed"
+name|toString
+argument_list|()
+operator|+
+literal|" closed"
 argument_list|)
 throw|;
 if|if

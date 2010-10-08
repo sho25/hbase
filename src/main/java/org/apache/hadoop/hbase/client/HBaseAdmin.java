@@ -3649,6 +3649,18 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+comment|/**    * @return Configuration used by the instance.    */
+specifier|public
+name|Configuration
+name|getConfiguration
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|conf
+return|;
+block|}
 comment|/**    * Check to see if HBase is running. Throw an exception if not.    *    * @param conf system configuration    * @throws MasterNotRunningException if the master is not running    * @throws ZooKeeperConnectionException if unable to connect to zookeeper    */
 specifier|public
 specifier|static
