@@ -667,7 +667,7 @@ literal|" unreferenced parent region(s)"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get HRegionInfo from passed Map of row values.    * @param result Map to do lookup in.    * @return Null if not found (and logs fact that expected COL_REGIONINFO    * was missing) else deserialized {@link HRegionInfo}    * @throws IOException    * @throws NullPointerException if null cell    */
+comment|/**    * Get HRegionInfo from passed Map of row values.    * @param result Map to do lookup in.    * @return Null if not found (and logs fact that expected COL_REGIONINFO    * was missing) else deserialized {@link HRegionInfo}    * @throws IOException    */
 specifier|static
 name|HRegionInfo
 name|getHRegionInfo

@@ -250,6 +250,8 @@ name|NB_ROWS
 init|=
 literal|10
 decl_stmt|;
+comment|// Be careful w/ what you set this timer too... it can get in the way of
+comment|// the mini cluster coming up -- the verification in particular.
 specifier|private
 specifier|final
 specifier|static
