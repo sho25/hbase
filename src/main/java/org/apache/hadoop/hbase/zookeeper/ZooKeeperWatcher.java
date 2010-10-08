@@ -875,22 +875,27 @@ name|msg
 init|=
 name|prefix
 argument_list|(
-literal|"Received Expired from ZooKeeper, aborting server"
+name|this
+operator|.
+name|identifier
+operator|+
+literal|" received expired from "
+operator|+
+literal|"ZooKeeper, aborting"
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|error
-argument_list|(
-name|msg
-argument_list|)
-expr_stmt|;
+comment|// TODO: One thought is to add call to ZooKeeperListener so say,
+comment|// ZooKeperNodeTracker can zero out its data values.
 if|if
 condition|(
+name|this
+operator|.
 name|abortable
 operator|!=
 literal|null
 condition|)
+name|this
+operator|.
 name|abortable
 operator|.
 name|abort

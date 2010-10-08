@@ -2641,6 +2641,19 @@ name|IOException
 block|{
 if|if
 condition|(
+name|this
+operator|.
+name|closed
+condition|)
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"closed"
+argument_list|)
+throw|;
+if|if
+condition|(
 name|tableName
 operator|==
 literal|null
@@ -2694,11 +2707,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Lookedup root region location with hcm="
+literal|"Lookedup root region location, connection="
 operator|+
 name|this
 operator|+
-literal|"; "
+literal|"; hsa="
 operator|+
 name|hsa
 argument_list|)
@@ -5031,6 +5044,12 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|closed
+operator|=
+literal|true
+expr_stmt|;
 block|}
 specifier|private
 name|Callable
@@ -6368,6 +6387,12 @@ name|fatal
 argument_list|(
 name|msg
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|closed
+operator|=
+literal|true
 expr_stmt|;
 block|}
 block|}
