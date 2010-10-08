@@ -1180,6 +1180,25 @@ throw|throw
 name|e
 throw|;
 block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+name|shutdown
+argument_list|()
+expr_stmt|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Shutting down"
+argument_list|,
+name|t
+argument_list|)
+throw|;
+block|}
 block|}
 comment|/**    * Starts a region server thread running    *    * @throws IOException    * @return New RegionServerThread    */
 specifier|public

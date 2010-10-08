@@ -805,6 +805,8 @@ argument_list|(
 name|TABLE
 argument_list|,
 name|FAMILIES
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|assertSame

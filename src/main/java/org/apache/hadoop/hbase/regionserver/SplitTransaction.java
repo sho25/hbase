@@ -696,6 +696,12 @@ name|boolean
 name|testing
 init|=
 name|server
+operator|==
+literal|null
+condition|?
+literal|true
+else|:
+name|server
 operator|.
 name|getConfiguration
 argument_list|()

@@ -25,27 +25,19 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertFalse
 import|;
 end_import
 
 begin_import
-import|import
-name|java
+import|import static
+name|org
 operator|.
-name|util
+name|junit
 operator|.
-name|HashSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
+name|Assert
 operator|.
-name|util
-operator|.
-name|Set
+name|assertTrue
 import|;
 end_import
 
@@ -71,19 +63,6 @@ name|void
 name|testIsDead
 parameter_list|()
 block|{
-name|Set
-argument_list|<
-name|String
-argument_list|>
-name|deadServers
-init|=
-operator|new
-name|HashSet
-argument_list|<
-name|String
-argument_list|>
-argument_list|()
-decl_stmt|;
 name|DeadServer
 name|ds
 init|=
@@ -95,7 +74,7 @@ specifier|final
 name|String
 name|hostname123
 init|=
-literal|"one,123,3"
+literal|"127.0.0.1,123,3"
 decl_stmt|;
 name|assertFalse
 argument_list|(
@@ -121,7 +100,7 @@ literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|deadServers
+name|ds
 operator|.
 name|add
 argument_list|(
@@ -146,7 +125,7 @@ name|ds
 operator|.
 name|isDeadServer
 argument_list|(
-literal|"one:1"
+literal|"127.0.0.1:1"
 argument_list|,
 literal|true
 argument_list|)
@@ -158,7 +137,7 @@ name|ds
 operator|.
 name|isDeadServer
 argument_list|(
-literal|"one:1234"
+literal|"127.0.0.1:1234"
 argument_list|,
 literal|true
 argument_list|)
@@ -170,7 +149,7 @@ name|ds
 operator|.
 name|isDeadServer
 argument_list|(
-literal|"one:123"
+literal|"127.0.0.1:123"
 argument_list|,
 literal|true
 argument_list|)

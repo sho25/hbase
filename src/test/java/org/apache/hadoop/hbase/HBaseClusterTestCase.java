@@ -81,6 +81,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|fs
 operator|.
 name|FileSystem
@@ -383,6 +397,17 @@ name|clientPort
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Configuration
+name|c
+init|=
+operator|new
+name|Configuration
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
+decl_stmt|;
 comment|// start the mini cluster
 name|this
 operator|.
@@ -391,7 +416,7 @@ operator|=
 operator|new
 name|MiniHBaseCluster
 argument_list|(
-name|conf
+name|c
 argument_list|,
 name|regionServers
 argument_list|)
@@ -405,7 +430,7 @@ comment|// opening the META table ensures that cluster is running
 operator|new
 name|HTable
 argument_list|(
-name|conf
+name|c
 argument_list|,
 name|HConstants
 operator|.

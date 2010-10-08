@@ -2596,12 +2596,7 @@ block|}
 name|String
 name|host
 init|=
-name|RandomStringUtils
-operator|.
-name|random
-argument_list|(
-literal|16
-argument_list|)
+literal|"127.0.0.1"
 decl_stmt|;
 name|int
 name|port
