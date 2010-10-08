@@ -617,13 +617,6 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|HBaseConfiguration
-name|c
-init|=
-operator|new
-name|HBaseConfiguration
-argument_list|()
-decl_stmt|;
 name|int
 name|errCode
 init|=
@@ -631,7 +624,10 @@ name|ToolRunner
 operator|.
 name|run
 argument_list|(
-name|c
+name|HBaseConfiguration
+operator|.
+name|create
+argument_list|()
 argument_list|,
 operator|new
 name|RowCounter

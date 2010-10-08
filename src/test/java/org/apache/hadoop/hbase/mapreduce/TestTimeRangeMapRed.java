@@ -925,8 +925,9 @@ operator|=
 operator|new
 name|HTable
 argument_list|(
-operator|new
 name|HBaseConfiguration
+operator|.
+name|create
 argument_list|(
 name|conf
 argument_list|)

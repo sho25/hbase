@@ -53,6 +53,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|fs
 operator|.
 name|Path
@@ -921,7 +935,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|HBaseConfiguration
+name|Configuration
 name|hc
 init|=
 name|initSplit
@@ -8634,7 +8648,7 @@ block|,
 name|fam3
 block|}
 decl_stmt|;
-name|HBaseConfiguration
+name|Configuration
 name|hc
 init|=
 name|initSplit
@@ -9004,7 +9018,7 @@ block|,
 name|fam3
 block|}
 decl_stmt|;
-name|HBaseConfiguration
+name|Configuration
 name|hc
 init|=
 name|initSplit
@@ -15305,7 +15319,7 @@ block|,
 name|fam3
 block|}
 decl_stmt|;
-name|HBaseConfiguration
+name|Configuration
 name|hc
 init|=
 name|initSplit
@@ -15877,7 +15891,7 @@ argument_list|(
 literal|"qualifier"
 argument_list|)
 decl_stmt|;
-name|HBaseConfiguration
+name|Configuration
 name|hc
 init|=
 name|initSplit
@@ -17844,8 +17858,9 @@ name|tableName
 argument_list|,
 name|method
 argument_list|,
-operator|new
 name|HBaseConfiguration
+operator|.
+name|create
 argument_list|()
 argument_list|,
 name|family
@@ -19216,15 +19231,16 @@ expr_stmt|;
 block|}
 block|}
 specifier|private
-name|HBaseConfiguration
+name|Configuration
 name|initSplit
 parameter_list|()
 block|{
-name|HBaseConfiguration
+name|Configuration
 name|conf
 init|=
-operator|new
 name|HBaseConfiguration
+operator|.
+name|create
 argument_list|()
 decl_stmt|;
 comment|// Always compact if there is more than one store file.
@@ -19316,8 +19332,9 @@ name|tableName
 argument_list|,
 name|callingMethod
 argument_list|,
-operator|new
 name|HBaseConfiguration
+operator|.
+name|create
 argument_list|()
 argument_list|,
 name|families
@@ -19335,7 +19352,7 @@ parameter_list|,
 name|String
 name|callingMethod
 parameter_list|,
-name|HBaseConfiguration
+name|Configuration
 name|conf
 parameter_list|,
 name|byte

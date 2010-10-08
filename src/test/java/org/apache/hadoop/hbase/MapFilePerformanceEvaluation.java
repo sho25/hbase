@@ -208,7 +208,7 @@ name|MapFilePerformanceEvaluation
 block|{
 specifier|protected
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|conf
 decl_stmt|;
 specifier|private
@@ -249,7 +249,7 @@ specifier|public
 name|MapFilePerformanceEvaluation
 parameter_list|(
 specifier|final
-name|HBaseConfiguration
+name|Configuration
 name|c
 parameter_list|)
 block|{
@@ -1674,8 +1674,9 @@ block|{
 operator|new
 name|MapFilePerformanceEvaluation
 argument_list|(
-operator|new
 name|HBaseConfiguration
+operator|.
+name|create
 argument_list|()
 argument_list|)
 operator|.

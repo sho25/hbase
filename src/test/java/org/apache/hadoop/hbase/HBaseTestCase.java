@@ -131,6 +131,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|fs
 operator|.
 name|FileSystem
@@ -508,7 +522,7 @@ expr_stmt|;
 block|}
 specifier|public
 specifier|volatile
-name|HBaseConfiguration
+name|Configuration
 name|conf
 decl_stmt|;
 comment|/** constructor */
@@ -547,8 +561,9 @@ parameter_list|()
 block|{
 name|conf
 operator|=
-operator|new
 name|HBaseConfiguration
+operator|.
+name|create
 argument_list|()
 expr_stmt|;
 try|try
