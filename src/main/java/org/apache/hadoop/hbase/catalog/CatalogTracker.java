@@ -1283,9 +1283,6 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-comment|// Am expecting only two possible exceptions here; unable
-comment|// to connect to the regionserver or NotServingRegionException wrapped
-comment|// in the hadoop rpc RemoteException.
 return|return
 name|metaServer
 operator|.
@@ -1332,6 +1329,43 @@ block|{
 name|t
 operator|=
 name|ioe
+expr_stmt|;
+block|}
+else|else
+block|{
+throw|throw
+name|e
+throw|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|Throwable
+name|cause
+init|=
+name|e
+operator|.
+name|getCause
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|cause
+operator|!=
+literal|null
+operator|&&
+name|cause
+operator|instanceof
+name|EOFException
+condition|)
+block|{
+name|t
+operator|=
+name|cause
 expr_stmt|;
 block|}
 else|else
