@@ -2597,6 +2597,8 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
+try|try
+block|{
 name|initializeZooKeeper
 argument_list|()
 expr_stmt|;
@@ -2642,6 +2644,23 @@ operator|.
 name|DEFAULT_SIZE_RESERVATION_BLOCK
 index|]
 argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+comment|// Call stop if error or process will stick around for ever since server
+comment|// puts up non-daemon threads.
+name|this
+operator|.
+name|server
+operator|.
+name|stop
+argument_list|()
 expr_stmt|;
 block|}
 block|}
