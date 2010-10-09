@@ -1040,29 +1040,19 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"merging regions "
+literal|"Merging regions "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|currentRegion
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
-argument_list|)
 operator|+
 literal|" and "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|nextRegion
 operator|.
-name|getRegionName
+name|getRegionNameAsString
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|HRegion

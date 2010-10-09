@@ -419,6 +419,30 @@ operator|.
 name|getRegionName
 argument_list|()
 decl_stmt|;
+comment|/**    * Constructs a catalog tracker.  Find current state of catalog tables and    * begin active tracking by executing {@link #start()} post construction.    * Does not timeout.    * @param connection Server connection; if problem, this connections    * {@link HConnection#abort(String, Throwable)} will be called.    * @throws IOException     */
+specifier|public
+name|CatalogTracker
+parameter_list|(
+specifier|final
+name|HConnection
+name|connection
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|this
+argument_list|(
+name|connection
+operator|.
+name|getZooKeeperWatcher
+argument_list|()
+argument_list|,
+name|connection
+argument_list|,
+name|connection
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Constructs the catalog tracker.  Find current state of catalog tables and    * begin active tracking by executing {@link #start()} post construction.    * Does not timeout.    * @param zk    * @param connection server connection    * @param abortable if fatal exception    * @throws IOException     */
 specifier|public
 name|CatalogTracker
@@ -896,7 +920,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Gets the current location for<code>.META.</code> if available and waits    * for up to the specified timeout if not immediately available.  Throws an    * exception if timed out waiting.  This method differs from {@link #waitForMeta()}    * in that it will go ahead and verify the location gotten from ZooKeeper by    * trying trying to use returned connection.    * @param timeout maximum time to wait for meta availability, in milliseconds    * @return location of meta    * @throws InterruptedException if interrupted while waiting    * @throws IOException unexpected exception connecting to meta server    * @throws NotAllMetaRegionsOnlineException if meta not available before    *                                          timeout    */
+comment|/**    * Gets the current location for<code>.META.</code> if available and waits    * for up to the specified timeout if not immediately available.  Throws an    * exception if timed out waiting.  This method differs from {@link #waitForMeta()}    * in that it will go ahead and verify the location gotten from ZooKeeper by    * trying to use returned connection.    * @param timeout maximum time to wait for meta availability, in milliseconds    * @return location of meta    * @throws InterruptedException if interrupted while waiting    * @throws IOException unexpected exception connecting to meta server    * @throws NotAllMetaRegionsOnlineException if meta not available before    *                                          timeout    */
 specifier|public
 name|HServerAddress
 name|waitForMeta

@@ -79,6 +79,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Abortable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -209,6 +223,8 @@ begin_interface
 specifier|public
 interface|interface
 name|HConnection
+extends|extends
+name|Abortable
 block|{
 comment|/**    * Retrieve ZooKeeperWatcher used by the connection.    * @return ZooKeeperWatcher handle being used by the connection.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
