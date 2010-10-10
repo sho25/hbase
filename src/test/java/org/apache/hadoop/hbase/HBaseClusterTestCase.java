@@ -361,6 +361,18 @@ name|toString
 argument_list|()
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|testDir
+operator|.
+name|exists
+argument_list|()
+condition|)
+name|testDir
+operator|.
+name|delete
+argument_list|()
+expr_stmt|;
 comment|// Note that this is done before we create the MiniHBaseCluster because we
 comment|// need to edit the config to add the ZooKeeper servers.
 name|this
