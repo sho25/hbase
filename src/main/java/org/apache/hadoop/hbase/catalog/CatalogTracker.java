@@ -572,6 +572,15 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Starting catalog tracker "
+operator|+
+name|this
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Stop working.    * Interrupts any ongoing waits.    */
 specifier|public
@@ -586,13 +595,6 @@ argument_list|(
 literal|"Stopping catalog tracker "
 operator|+
 name|this
-operator|.
-name|connection
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|"; will interrupt blocked waits on root and meta"
 argument_list|)
 expr_stmt|;
 name|this
