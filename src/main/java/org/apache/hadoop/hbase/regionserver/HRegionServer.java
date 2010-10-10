@@ -3487,6 +3487,15 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Interrupt catalog tracker here in case any regions being opened out in
+comment|// handlers are stuck waiting on meta or root.
+name|this
+operator|.
+name|catalogTracker
+operator|.
+name|stop
+argument_list|()
+expr_stmt|;
 name|waitOnAllRegionsToClose
 argument_list|()
 expr_stmt|;
@@ -6642,12 +6651,6 @@ literal|"Region has too many store files"
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Add to online regions
-name|addToOnlineRegions
-argument_list|(
-name|r
-argument_list|)
-expr_stmt|;
 comment|// Update ZK, ROOT or META
 if|if
 condition|(
@@ -6746,6 +6749,12 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// Add to online regions if all above was successful.
+name|addToOnlineRegions
+argument_list|(
+name|r
+argument_list|)
+expr_stmt|;
 block|}
 end_function
 

@@ -93,6 +93,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|fs
 operator|.
 name|FileUtil
@@ -645,7 +659,11 @@ argument_list|(
 operator|new
 name|HTable
 argument_list|(
+operator|new
+name|Configuration
+argument_list|(
 name|conf
+argument_list|)
 argument_list|,
 name|MULTI_REGION_TABLE_NAME
 argument_list|)
@@ -704,7 +722,10 @@ operator|=
 operator|new
 name|Job
 argument_list|(
-name|conf
+name|table
+operator|.
+name|getConfiguration
+argument_list|()
 argument_list|,
 literal|"process column contents"
 argument_list|)
@@ -893,7 +914,11 @@ init|=
 operator|new
 name|HTable
 argument_list|(
+operator|new
+name|Configuration
+argument_list|(
 name|conf
+argument_list|)
 argument_list|,
 name|tableName
 argument_list|)

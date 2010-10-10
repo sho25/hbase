@@ -1586,6 +1586,13 @@ operator|.
 name|stop
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|catalogTracker
+operator|.
+name|stop
+argument_list|()
+expr_stmt|;
 name|HConnectionManager
 operator|.
 name|deleteConnection

@@ -325,16 +325,22 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+specifier|final
+name|String
+name|name
+init|=
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+decl_stmt|;
 name|LOG
 operator|.
 name|debug
 argument_list|(
 literal|"Processing open of "
 operator|+
-name|regionInfo
-operator|.
-name|getRegionNameAsString
-argument_list|()
+name|name
 argument_list|)
 expr_stmt|;
 specifier|final
@@ -376,10 +382,7 @@ name|warn
 argument_list|(
 literal|"Attempting open of "
 operator|+
-name|regionInfo
-operator|.
-name|getRegionNameAsString
-argument_list|()
+name|name
 operator|+
 literal|" but it's already online on this server"
 argument_list|)
@@ -516,7 +519,9 @@ name|server
 operator|.
 name|abort
 argument_list|(
-literal|"ZK exception refreshing OPENING node"
+literal|"ZK exception refreshing OPENING node; "
+operator|+
+name|name
 argument_list|,
 name|e
 argument_list|)
@@ -577,13 +582,15 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Error forcing node back to OFFLINE from OPENING"
+literal|"Error forcing node back to OFFLINE from OPENING; "
+operator|+
+name|name
 argument_list|)
 expr_stmt|;
-return|return;
 block|}
 return|return;
 block|}
+comment|// Region is now open. Close it if error.
 comment|// Re-transition node to OPENING again to verify no one has stomped on us
 name|openingVersion
 operator|=
@@ -627,17 +634,21 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Completed the OPEN of a region but when transitioning from "
+literal|"Completed the OPEN of region "
+operator|+
+name|name
+operator|+
+literal|" but when transitioning from "
 operator|+
 literal|" OPENING to OPENING got a version mismatch, someone else clashed "
 operator|+
-literal|"so now unassigning"
+literal|"-- closing region"
 argument_list|)
 expr_stmt|;
+name|cleanupFailedOpen
+argument_list|(
 name|region
-operator|.
-name|close
-argument_list|()
+argument_list|)
 expr_stmt|;
 return|return;
 block|}
@@ -652,9 +663,18 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed transitioning node from OPENING to OPENED"
+literal|"Failed transitioning node "
+operator|+
+name|name
+operator|+
+literal|" from OPENING to OPENED -- closing region"
 argument_list|,
 name|e
+argument_list|)
+expr_stmt|;
+name|cleanupFailedOpen
+argument_list|(
+name|region
 argument_list|)
 expr_stmt|;
 return|return;
@@ -669,9 +689,18 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to close region after failing to transition"
+literal|"Failed to close region "
+operator|+
+name|name
+operator|+
+literal|" after failing to transition -- closing region"
 argument_list|,
 name|e
+argument_list|)
+expr_stmt|;
+name|cleanupFailedOpen
+argument_list|(
+name|region
 argument_list|)
 expr_stmt|;
 return|return;
@@ -704,16 +733,27 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-comment|// TODO: rollback the open?
 name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Error updating region location in catalog table"
+literal|"Error updating "
+operator|+
+name|name
+operator|+
+literal|" location in catalog table -- "
+operator|+
+literal|"closing region"
 argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+name|cleanupFailedOpen
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
+return|return;
 block|}
 catch|catch
 parameter_list|(
@@ -726,11 +766,23 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"ZK Error updating region location in catalog table"
+literal|"ZK Error updating "
+operator|+
+name|name
+operator|+
+literal|" location in catalog "
+operator|+
+literal|"table -- closing region"
 argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+name|cleanupFailedOpen
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
+return|return;
 block|}
 comment|// Finally, Transition ZK node to OPENED
 try|try
@@ -764,17 +816,21 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Completed the OPEN of a region but when transitioning from "
+literal|"Completed the OPEN of region "
+operator|+
+name|name
+operator|+
+literal|" but when transitioning from "
 operator|+
 literal|" OPENING to OPENED got a version mismatch, someone else clashed "
 operator|+
-literal|"so now unassigning"
+literal|"so now unassigning -- closing region"
 argument_list|)
 expr_stmt|;
+name|cleanupFailedOpen
+argument_list|(
 name|region
-operator|.
-name|close
-argument_list|()
+argument_list|)
 expr_stmt|;
 return|return;
 block|}
@@ -789,9 +845,18 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed transitioning node from OPENING to OPENED"
+literal|"Failed transitioning node "
+operator|+
+name|name
+operator|+
+literal|" from OPENING to OPENED -- closing region"
 argument_list|,
 name|e
+argument_list|)
+expr_stmt|;
+name|cleanupFailedOpen
+argument_list|(
+name|region
 argument_list|)
 expr_stmt|;
 return|return;
@@ -806,9 +871,18 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to close region after failing to transition"
+literal|"Failed to close "
+operator|+
+name|name
+operator|+
+literal|" after failing to transition -- closing region"
 argument_list|,
 name|e
+argument_list|)
+expr_stmt|;
+name|cleanupFailedOpen
+argument_list|(
+name|region
 argument_list|)
 expr_stmt|;
 return|return;
@@ -820,9 +894,41 @@ name|debug
 argument_list|(
 literal|"Opened "
 operator|+
+name|name
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|cleanupFailedOpen
+parameter_list|(
+specifier|final
+name|HRegion
+name|region
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|region
+operator|!=
+literal|null
+condition|)
 name|region
 operator|.
-name|getRegionNameAsString
+name|close
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|rsServices
+operator|.
+name|removeFromOnlineRegions
+argument_list|(
+name|regionInfo
+operator|.
+name|getEncodedName
 argument_list|()
 argument_list|)
 expr_stmt|;

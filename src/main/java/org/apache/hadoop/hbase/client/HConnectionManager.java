@@ -870,6 +870,27 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * Delete connection information for the instance    * @param connection configuration    */
+specifier|public
+specifier|static
+name|void
+name|deleteConnection
+parameter_list|(
+name|HConnection
+name|connection
+parameter_list|)
+block|{
+name|deleteConnection
+argument_list|(
+name|connection
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Delete information for all connections.    * @param stopProxy stop the proxy as well    * @throws IOException    */
 specifier|public
 specifier|static
@@ -1410,6 +1431,17 @@ name|masterChecked
 operator|=
 literal|false
 expr_stmt|;
+block|}
+specifier|public
+name|Configuration
+name|getConfiguration
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|conf
+return|;
 block|}
 annotation|@
 name|Override

@@ -73,6 +73,12 @@ specifier|final
 name|Abortable
 name|abortable
 decl_stmt|;
+specifier|private
+name|boolean
+name|stopped
+init|=
+literal|false
+decl_stmt|;
 comment|/**    * Constructs a new ZK node tracker.    *    *<p>After construction, use {@link #start} to kick off tracking.    *    * @param watcher    * @param node    * @param abortable    */
 specifier|public
 name|ZooKeeperNodeTracker
@@ -194,6 +200,22 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+specifier|public
+specifier|synchronized
+name|void
+name|stop
+parameter_list|()
+block|{
+name|this
+operator|.
+name|stopped
+operator|=
+literal|true
+expr_stmt|;
+name|notifyAll
+argument_list|()
+expr_stmt|;
+block|}
 comment|/**    * Gets the data of the node, blocking until the node is available.    *    * @return data of the node    * @throws InterruptedException if the waiting thread is interrupted    */
 specifier|public
 specifier|synchronized
@@ -257,6 +279,11 @@ name|timeout
 decl_stmt|;
 while|while
 condition|(
+operator|!
+name|this
+operator|.
+name|stopped
+operator|&&
 operator|(
 name|notimeout
 operator|||

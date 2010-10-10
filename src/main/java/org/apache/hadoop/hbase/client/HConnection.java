@@ -77,6 +77,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|Abortable
@@ -226,6 +240,12 @@ name|HConnection
 extends|extends
 name|Abortable
 block|{
+comment|/**    * @return Configuration instance being used by this HConnection instance.    */
+specifier|public
+name|Configuration
+name|getConfiguration
+parameter_list|()
+function_decl|;
 comment|/**    * Retrieve ZooKeeperWatcher used by the connection.    * @return ZooKeeperWatcher handle being used by the connection.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|ZooKeeperWatcher

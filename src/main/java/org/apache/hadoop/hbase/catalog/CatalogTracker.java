@@ -328,7 +328,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tracks the availability of the catalog tables<code>-ROOT-</code> and  *<code>.META.</code>.  *   * This class is "read-only" in that the locations of the catalog tables cannot  * be explicitly set.  Instead, ZooKeeper is used to learn of the availability  * and location of<code>-ROOT-</code>.<code>-ROOT-</code> is used to learn of  * the location of<code>.META.</code>  If not available in<code>-ROOT-</code>,  * ZooKeeper is used to monitor for a new location of<code>.META.</code>.  *  *<p>Call {@link #start()} to start up operation.  */
+comment|/**  * Tracks the availability of the catalog tables<code>-ROOT-</code> and  *<code>.META.</code>.  *   * This class is "read-only" in that the locations of the catalog tables cannot  * be explicitly set.  Instead, ZooKeeper is used to learn of the availability  * and location of<code>-ROOT-</code>.<code>-ROOT-</code> is used to learn of  * the location of<code>.META.</code>  If not available in<code>-ROOT-</code>,  * ZooKeeper is used to monitor for a new location of<code>.META.</code>.  *  *<p>Call {@link #start()} to start up operation.  Call {@link #stop()}} to  * interrupt waits and close up shop.  */
 end_comment
 
 begin_class
@@ -390,6 +390,12 @@ specifier|private
 specifier|final
 name|int
 name|defaultTimeout
+decl_stmt|;
+specifier|private
+name|boolean
+name|stopped
+init|=
+literal|false
 decl_stmt|;
 specifier|public
 specifier|static
@@ -566,6 +572,65 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+block|}
+comment|/**    * Stop working.    * Interrupts any ongoing waits.    */
+specifier|public
+name|void
+name|stop
+parameter_list|()
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Stopping catalog tracker "
+operator|+
+name|this
+operator|.
+name|connection
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|"; will interrupt blocked waits on root and meta"
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|stopped
+operator|=
+literal|true
+expr_stmt|;
+name|this
+operator|.
+name|rootRegionTracker
+operator|.
+name|stop
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|metaNodeTracker
+operator|.
+name|stop
+argument_list|()
+expr_stmt|;
+comment|// Call this and it will interrupt any ongoing waits on meta.
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|metaAvailable
+init|)
+block|{
+name|this
+operator|.
+name|metaAvailable
+operator|.
+name|notifyAll
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Gets the current location for<code>-ROOT-</code> or null if location is    * not currently available.    * @return location of root, null if not available    * @throws InterruptedException     */
 specifier|public
@@ -906,6 +971,9 @@ block|{
 while|while
 condition|(
 operator|!
+name|stopped
+operator|&&
+operator|!
 name|metaAvailable
 operator|.
 name|get
@@ -966,6 +1034,9 @@ return|;
 block|}
 while|while
 condition|(
+operator|!
+name|stopped
+operator|&&
 operator|!
 name|metaAvailable
 operator|.
@@ -1692,6 +1763,17 @@ return|return
 name|this
 operator|.
 name|metaNodeTracker
+return|;
+block|}
+specifier|public
+name|HConnection
+name|getConnection
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|connection
 return|;
 block|}
 block|}
