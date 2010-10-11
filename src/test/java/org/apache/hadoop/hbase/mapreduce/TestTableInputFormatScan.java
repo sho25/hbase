@@ -1231,11 +1231,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Tests a MR scan using specific start and stop rows.    *    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
 specifier|private
 name|void
 name|testScan
@@ -1301,10 +1296,14 @@ expr_stmt|;
 name|Configuration
 name|c
 init|=
+operator|new
+name|Configuration
+argument_list|(
 name|TEST_UTIL
 operator|.
 name|getConfiguration
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|Scan
 name|scan
