@@ -1027,6 +1027,14 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{}
+name|cluster
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|balance
+argument_list|()
+expr_stmt|;
 continue|continue;
 block|}
 comment|// if we get here, all servers were balanced, so we should just return.
