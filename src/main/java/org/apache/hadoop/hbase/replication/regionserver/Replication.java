@@ -299,10 +299,6 @@ name|ReplicationSourceManager
 name|replicationManager
 decl_stmt|;
 specifier|private
-name|boolean
-name|replicationMaster
-decl_stmt|;
-specifier|private
 specifier|final
 name|AtomicBoolean
 name|replicating
@@ -407,21 +403,8 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|replicationMaster
-operator|=
-name|zkHelper
-operator|.
-name|isReplicationMaster
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
 name|replicationManager
 operator|=
-name|this
-operator|.
-name|replicationMaster
-condition|?
 operator|new
 name|ReplicationSourceManager
 argument_list|(
@@ -443,8 +426,6 @@ name|logDir
 argument_list|,
 name|oldLogDir
 argument_list|)
-else|:
-literal|null
 expr_stmt|;
 block|}
 else|else
@@ -500,13 +481,6 @@ operator|.
 name|replication
 condition|)
 block|{
-if|if
-condition|(
-name|this
-operator|.
-name|replicationMaster
-condition|)
-block|{
 name|this
 operator|.
 name|replicationManager
@@ -514,7 +488,6 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
-block|}
 name|this
 operator|.
 name|zkHelper
@@ -543,11 +516,6 @@ condition|(
 name|this
 operator|.
 name|replication
-operator|&&
-operator|!
-name|this
-operator|.
-name|replicationMaster
 condition|)
 block|{
 name|this
@@ -576,13 +544,6 @@ operator|.
 name|replication
 condition|)
 block|{
-if|if
-condition|(
-name|this
-operator|.
-name|replicationMaster
-condition|)
-block|{
 name|this
 operator|.
 name|replicationManager
@@ -590,9 +551,6 @@ operator|.
 name|init
 argument_list|()
 expr_stmt|;
-block|}
-else|else
-block|{
 name|this
 operator|.
 name|replicationSink
@@ -609,7 +567,6 @@ operator|.
 name|server
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|/**    * Get the replication sources manager    * @return the manager if replication is enabled, else returns false    */

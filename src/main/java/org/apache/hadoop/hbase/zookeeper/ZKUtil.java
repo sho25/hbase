@@ -3164,6 +3164,10 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|children
+operator|!=
+literal|null
+operator|||
 operator|!
 name|children
 operator|.

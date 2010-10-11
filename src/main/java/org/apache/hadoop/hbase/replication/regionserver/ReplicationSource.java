@@ -469,6 +469,18 @@ name|Threads
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|KeeperException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Class that handles the source of a replication stream.  * Currently does not handle more than 1 slave  * For each slave cluster it selects a random number of peers  * using a replication ratio. For example, if replication ration = 0.1  * and slave cluster has 100 region servers, 10 will be selected.  *<p/>  * A stream is considered down when we cannot contact a region server on the  * peer cluster for more than 55 seconds by default.  *<p/>  *  */
 end_comment
@@ -1049,6 +1061,8 @@ specifier|private
 name|void
 name|chooseSinks
 parameter_list|()
+throws|throws
+name|KeeperException
 block|{
 name|this
 operator|.
@@ -1262,8 +1276,57 @@ operator|.
 name|queueRecovered
 condition|)
 block|{
-comment|//      this.position = this.zkHelper.getHLogRepPosition(
-comment|//          this.peerClusterZnode, this.queue.peek().getName());
+try|try
+block|{
+name|this
+operator|.
+name|position
+operator|=
+name|this
+operator|.
+name|zkHelper
+operator|.
+name|getHLogRepPosition
+argument_list|(
+name|this
+operator|.
+name|peerClusterZnode
+argument_list|,
+name|this
+operator|.
+name|queue
+operator|.
+name|peek
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Couldn't get the position of this recovered queue "
+operator|+
+name|peerClusterZnode
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|abort
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 name|int
 name|sleepMultiplier
@@ -1957,6 +2020,22 @@ operator|.
 name|error
 argument_list|(
 literal|"Interrupted while trying to connect to sinks"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Error talking to zookeeper, retrying"
 argument_list|,
 name|e
 argument_list|)
@@ -2807,6 +2886,22 @@ literal|"Interrupted while trying to contact the peer cluster"
 argument_list|)
 expr_stmt|;
 block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Error talking to zookeeper, retrying"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -2944,7 +3039,7 @@ name|n
 operator|+
 literal|".replicationSource,"
 operator|+
-name|clusterId
+name|peerClusterZnode
 argument_list|,
 name|handler
 argument_list|)
