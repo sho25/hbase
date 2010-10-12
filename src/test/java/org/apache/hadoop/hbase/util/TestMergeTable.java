@@ -741,6 +741,20 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
+literal|"originalTableRegions="
+operator|+
+name|originalTableRegions
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|", postMergeTableRegions="
+operator|+
+name|postMergeTableRegions
+operator|.
+name|size
+argument_list|()
+argument_list|,
 name|postMergeTableRegions
 operator|.
 name|size
