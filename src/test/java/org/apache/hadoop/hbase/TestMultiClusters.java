@@ -115,6 +115,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -211,6 +221,11 @@ literal|"value"
 argument_list|)
 decl_stmt|;
 comment|/**    * Basic sanity test that spins up 2 HDFS and HBase clusters that share the    * same ZK ensemble. We then create the same table in both and make sure that    * what we insert in one place doesn't end up in the other.    * @throws Exception    */
+comment|// Ignore this test.  HTU needs work so can have two clusters running in
+comment|// the one test.  Each HTU minicluster needs to run as a different user so
+comment|// the shutdown will run cleanly.  St.Ack 20101012
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 argument_list|(
