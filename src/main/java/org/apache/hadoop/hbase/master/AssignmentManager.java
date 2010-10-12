@@ -3433,6 +3433,26 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+comment|// For now call abort if unexpected exception -- seeing it up in hudson.
+comment|// St.Ack 20101012
+name|this
+operator|.
+name|master
+operator|.
+name|abort
+argument_list|(
+literal|"Unexpected exception"
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Waits until the specified region has completed assignment.    *<p>    * If the region is already assigned, returns immediately.  Otherwise, method    * blocks until the region is assigned.    * @param regionInfo region to wait on assignment for    * @throws InterruptedException    */
 specifier|public
