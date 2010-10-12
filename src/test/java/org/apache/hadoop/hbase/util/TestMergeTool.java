@@ -417,6 +417,18 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+comment|// Set the timeout down else this test will take a while to complete.
+name|this
+operator|.
+name|conf
+operator|.
+name|setLong
+argument_list|(
+literal|"hbase.zookeeper.recoverable.waittime"
+argument_list|,
+literal|1000
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|conf

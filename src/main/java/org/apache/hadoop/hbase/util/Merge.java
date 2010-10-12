@@ -181,6 +181,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ZooKeeperConnectionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|Delete
@@ -529,6 +543,14 @@ return|return
 operator|-
 literal|1
 return|;
+block|}
+catch|catch
+parameter_list|(
+name|ZooKeeperConnectionException
+name|zkce
+parameter_list|)
+block|{
+comment|// If no zk, presume no master.
 block|}
 catch|catch
 parameter_list|(

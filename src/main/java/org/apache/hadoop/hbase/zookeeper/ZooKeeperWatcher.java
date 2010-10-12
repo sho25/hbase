@@ -135,6 +135,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ZooKeeperConnectionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|zookeeper
 operator|.
 name|KeeperException
@@ -291,7 +305,7 @@ specifier|public
 name|String
 name|tableZNode
 decl_stmt|;
-comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param descriptor Descriptive string that is added to zookeeper sessionid    * and used as identifier for this instance.    * @throws IOException    */
+comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param descriptor Descriptive string that is added to zookeeper sessionid    * and used as identifier for this instance.    * @throws IOException    * @throws ZooKeeperConnectionException    */
 specifier|public
 name|ZooKeeperWatcher
 parameter_list|(
@@ -306,6 +320,8 @@ name|abortable
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|ZooKeeperConnectionException
 block|{
 name|this
 operator|.
@@ -471,6 +487,7 @@ name|finished
 argument_list|)
 condition|)
 do|;
+comment|// Convert connectionloss exception to ZKCE.
 if|if
 condition|(
 name|ke
@@ -478,7 +495,11 @@ operator|!=
 literal|null
 condition|)
 throw|throw
+operator|new
+name|ZooKeeperConnectionException
+argument_list|(
 name|ke
+argument_list|)
 throw|;
 name|ZKUtil
 operator|.
