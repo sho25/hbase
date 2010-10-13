@@ -271,7 +271,7 @@ name|setInt
 argument_list|(
 literal|"hbase.zookeeper.property.clientPort"
 argument_list|,
-literal|21810
+literal|21818
 argument_list|)
 expr_stmt|;
 name|this
