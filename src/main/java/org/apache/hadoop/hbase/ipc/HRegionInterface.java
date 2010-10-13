@@ -740,7 +740,7 @@ argument_list|>
 name|regions
 parameter_list|)
 function_decl|;
-comment|/**    * Closes the specified region.    * @param region region to close    * @return true if closing region, false if not    */
+comment|/**    * Closes the specified region.    * @param region region to close    * @return true if closing region, false if not    * @throws IOException    */
 specifier|public
 name|boolean
 name|closeRegion
@@ -750,7 +750,7 @@ name|HRegionInfo
 name|region
 parameter_list|)
 throws|throws
-name|NotServingRegionException
+name|IOException
 function_decl|;
 comment|// Region administrative methods
 comment|/**    * Flushes the MemStore of the specified region.    *<p>    * This method is synchronous.    * @param regionInfo region to flush    * @throws NotServingRegionException    * @throws IOException    */

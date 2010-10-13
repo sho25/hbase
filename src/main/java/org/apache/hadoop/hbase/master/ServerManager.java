@@ -149,20 +149,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|util
-operator|.
-name|StringUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|Chore
@@ -236,20 +222,6 @@ operator|.
 name|hbase
 operator|.
 name|HServerLoad
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|NotServingRegionException
 import|;
 end_import
 
@@ -424,6 +396,34 @@ operator|.
 name|util
 operator|.
 name|Threads
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|ipc
+operator|.
+name|RemoteException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
 import|;
 end_import
 
@@ -2208,7 +2208,7 @@ name|regions
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sends an CLOSE RPC to the specified server to close the specified region.    *<p>    * A region server could reject the close request because it either does not    * have the specified region or the region is being split.    * @param server server to open a region    * @param regionName region to open    * @return true if server acknowledged close, false if not    * @throws NotServingRegionException    */
+comment|/**    * Sends an CLOSE RPC to the specified server to close the specified region.    *<p>    * A region server could reject the close request because it either does not    * have the specified region or the region is being split.    * @param server server to open a region    * @param regionName region to open    * @return true if server acknowledged close, false if not    * @throws IOException    */
 specifier|public
 name|void
 name|sendRegionClose
@@ -2220,7 +2220,7 @@ name|HRegionInfo
 name|region
 parameter_list|)
 throws|throws
-name|NotServingRegionException
+name|IOException
 block|{
 name|HRegionInterface
 name|hri

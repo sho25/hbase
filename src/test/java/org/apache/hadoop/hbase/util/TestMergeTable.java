@@ -458,6 +458,19 @@ operator|*
 literal|1024L
 argument_list|)
 expr_stmt|;
+comment|// Make it so we don't compact and then split.
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.hstore.compactionThreshold"
+argument_list|,
+literal|30
+argument_list|)
+expr_stmt|;
 comment|// Startup hdfs.  Its in here we'll be putting our manually made regions.
 name|UTIL
 operator|.
