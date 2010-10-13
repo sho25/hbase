@@ -408,6 +408,11 @@ block|}
 comment|/**    * Test merge.    * Hand-makes regions of a mergeable size and adds the hand-made regions to    * hand-made meta.  The hand-made regions are created offline.  We then start    * up mini cluster, disables the hand-made table and starts in on merging.    * @throws Exception     */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testMergeTable
@@ -458,7 +463,7 @@ operator|*
 literal|1024L
 argument_list|)
 expr_stmt|;
-comment|// Make it so we don't compact and then split.
+comment|// Make it so we don't split.
 name|UTIL
 operator|.
 name|getConfiguration
@@ -466,9 +471,9 @@ argument_list|()
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.hstore.compactionThreshold"
+literal|"hbase.regionserver.regionSplitLimit"
 argument_list|,
-literal|30
+literal|0
 argument_list|)
 expr_stmt|;
 comment|// Startup hdfs.  Its in here we'll be putting our manually made regions.
@@ -488,6 +493,52 @@ operator|.
 name|createRootDir
 argument_list|()
 decl_stmt|;
+name|FileSystem
+name|fs
+init|=
+name|FileSystem
+operator|.
+name|get
+argument_list|(
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|rootdir
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|rootdir
+argument_list|,
+literal|true
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Cleaned up existing "
+operator|+
+name|rootdir
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 comment|// Now create three data regions: The first is too large to merge since it
 comment|// will be> 64 MB in size. The second two will be smaller and will be
 comment|// selected for merging.
