@@ -3187,6 +3187,14 @@ argument_list|,
 name|metaKey
 argument_list|)
 expr_stmt|;
+comment|// If null still, go around again.
+if|if
+condition|(
+name|metaLocation
+operator|==
+literal|null
+condition|)
+continue|continue;
 name|HRegionInterface
 name|server
 init|=

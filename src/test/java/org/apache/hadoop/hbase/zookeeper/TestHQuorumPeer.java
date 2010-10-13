@@ -249,6 +249,13 @@ name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
 specifier|private
+specifier|static
+name|int
+name|PORT_NO
+init|=
+literal|21818
+decl_stmt|;
+specifier|private
 name|Path
 name|dataDir
 decl_stmt|;
@@ -271,7 +278,7 @@ name|setInt
 argument_list|(
 literal|"hbase.zookeeper.property.clientPort"
 argument_list|,
-literal|21818
+name|PORT_NO
 argument_list|)
 expr_stmt|;
 name|this
@@ -437,7 +444,7 @@ name|Integer
 operator|.
 name|valueOf
 argument_list|(
-literal|21810
+name|PORT_NO
 argument_list|)
 argument_list|,
 name|Integer
@@ -530,7 +537,7 @@ name|Integer
 operator|.
 name|valueOf
 argument_list|(
-literal|21810
+name|PORT_NO
 argument_list|)
 argument_list|,
 name|Integer
