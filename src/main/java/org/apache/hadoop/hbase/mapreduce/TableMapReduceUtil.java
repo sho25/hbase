@@ -871,13 +871,6 @@ operator|.
 name|class
 condition|)
 block|{
-name|HBaseConfiguration
-operator|.
-name|addHbaseResources
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 name|job
 operator|.
 name|setPartitionerClass
