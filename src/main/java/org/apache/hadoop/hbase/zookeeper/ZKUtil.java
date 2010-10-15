@@ -350,7 +350,7 @@ name|ZNODE_PATH_SEPARATOR
 init|=
 literal|'/'
 decl_stmt|;
-comment|/**    * Creates a new connection to ZooKeeper, pulling settings and quorum config    * from the specified configuration object using methods from {@link ZKConfig}.    *    * Sets the connection status monitoring watcher to the specified watcher.    *    * @param conf configuration to pull quorum and other settings from    * @param watcher watcher to monitor connection changes    * @return connection to zookeeper    * @throws IOException if unable to connect to zk or config problem    */
+comment|/**    * Creates a new connection to ZooKeeper, pulling settings and ensemble config    * from the specified configuration object using methods from {@link ZKConfig}.    *    * Sets the connection status monitoring watcher to the specified watcher.    *    * @param conf configuration to pull ensemble and other settings from    * @param watcher watcher to monitor connection changes    * @return connection to zookeeper    * @throws IOException if unable to connect to zk or config problem    */
 specifier|public
 specifier|static
 name|ZooKeeper
@@ -376,7 +376,7 @@ name|conf
 argument_list|)
 decl_stmt|;
 name|String
-name|quorum
+name|ensemble
 init|=
 name|ZKConfig
 operator|.
@@ -390,7 +390,7 @@ name|connect
 argument_list|(
 name|conf
 argument_list|,
-name|quorum
+name|ensemble
 argument_list|,
 name|watcher
 argument_list|)
@@ -405,7 +405,7 @@ name|Configuration
 name|conf
 parameter_list|,
 name|String
-name|quorum
+name|ensemble
 parameter_list|,
 name|Watcher
 name|watcher
@@ -418,7 +418,7 @@ name|connect
 argument_list|(
 name|conf
 argument_list|,
-name|quorum
+name|ensemble
 argument_list|,
 name|watcher
 argument_list|,
@@ -435,7 +435,7 @@ name|Configuration
 name|conf
 parameter_list|,
 name|String
-name|quorum
+name|ensemble
 parameter_list|,
 name|Watcher
 name|watcher
@@ -449,7 +449,7 @@ name|IOException
 block|{
 if|if
 condition|(
-name|quorum
+name|ensemble
 operator|==
 literal|null
 condition|)
@@ -458,7 +458,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Unable to determine ZooKeeper quorum"
+literal|"Unable to determine ZooKeeper ensemble"
 argument_list|)
 throw|;
 block|}
@@ -482,9 +482,9 @@ name|info
 argument_list|(
 name|descriptor
 operator|+
-literal|" opening connection to ZooKeeper with quorum ("
+literal|" opening connection to ZooKeeper with ensemble ("
 operator|+
-name|quorum
+name|ensemble
 operator|+
 literal|")"
 argument_list|)
@@ -493,7 +493,7 @@ return|return
 operator|new
 name|ZooKeeper
 argument_list|(
-name|quorum
+name|ensemble
 argument_list|,
 name|timeout
 argument_list|,
@@ -638,7 +638,7 @@ name|name
 parameter_list|)
 block|{
 name|String
-name|quorum
+name|ensemble
 init|=
 name|conf
 operator|.
@@ -662,7 +662,7 @@ init|=
 operator|new
 name|StringBuilder
 argument_list|(
-name|quorum
+name|ensemble
 argument_list|)
 decl_stmt|;
 name|builder

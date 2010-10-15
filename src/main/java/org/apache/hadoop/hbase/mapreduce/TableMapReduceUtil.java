@@ -93,16 +93,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Enumeration
 import|;
 end_import
@@ -114,16 +104,6 @@ operator|.
 name|util
 operator|.
 name|HashSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
 import|;
 end_import
 
@@ -173,6 +153,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|fs
 operator|.
 name|FileSystem
@@ -190,20 +184,6 @@ operator|.
 name|fs
 operator|.
 name|Path
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HBaseConfiguration
 import|;
 end_import
 
@@ -341,20 +321,6 @@ name|StringUtils
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|conf
-operator|.
-name|Configuration
-import|;
-end_import
-
 begin_comment
 comment|/**  * Utility for {@link TableMapper} and {@link TableReducer}  */
 end_comment
@@ -382,7 +348,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Use this before submitting a TableMap job. It will appropriately set up    * the job.    *    * @param table  The table name to read from.    * @param scan  The scan instance with the columns, time range etc.    * @param mapper  The mapper class to use.    * @param outputKeyClass  The class of the output key.    * @param outputValueClass  The class of the output value.    * @param job  The current job to adjust.    * @throws IOException When setting up the details fails.    */
+comment|/**    * Use this before submitting a TableMap job. It will appropriately set up    * the job.    *    * @param table  The table name to read from.    * @param scan  The scan instance with the columns, time range etc.    * @param mapper  The mapper class to use.    * @param outputKeyClass  The class of the output key.    * @param outputValueClass  The class of the output value.    * @param job  The current job to adjust.  Make sure the passed job is    * carrying all necessary HBase configuration.    * @throws IOException When setting up the details fails.    */
 specifier|public
 specifier|static
 name|void
@@ -680,7 +646,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Use this before submitting a TableReduce job. It will    * appropriately set up the JobConf.    *    * @param table  The output table.    * @param reducer  The reducer class to use.    * @param job  The current job to adjust.    * @param partitioner  Partitioner to use. Pass<code>null</code> to use    * default partitioner.    * @param quorumAddress Distant cluster to write to    * @param serverClass redefined hbase.regionserver.class    * @param serverImpl redefined hbase.regionserver.impl    * @throws IOException When determining the region count fails.    */
+comment|/**    * Use this before submitting a TableReduce job. It will    * appropriately set up the JobConf.    *    * @param table  The output table.    * @param reducer  The reducer class to use.    * @param job  The current job to adjust.  Make sure the passed job is    * carrying all necessary HBase configuration.    * @param partitioner  Partitioner to use. Pass<code>null</code> to use    * default partitioner.    * @param quorumAddress Distant cluster to write to; default is null for    * output to the cluster that is designated in<code>hbase-site.xml</code>.    * Set this String to the zookeeper ensemble of an alternate remote cluster    * when you would have the reduce write a cluster that is other than the    * default; e.g. copying tables between clusters, the source would be    * designated by<code>hbase-site.xml</code> and this param would have the    * ensemble address of the remote cluster.  The format to pass is particular.    * Pass<code>&lt;hbase.zookeeper.quorum> ':'&lt;ZOOKEEPER_ZNODE_PARENT></code>.    * @param serverClass redefined hbase.regionserver.class    * @param serverImpl redefined hbase.regionserver.impl    * @throws IOException When determining the region count fails.    */
 specifier|public
 specifier|static
 name|void
@@ -756,6 +722,7 @@ argument_list|,
 name|table
 argument_list|)
 expr_stmt|;
+comment|// If passed a quorum/ensemble address, pass it on to TableOutputFormat.
 if|if
 condition|(
 name|quorumAddress
@@ -791,11 +758,12 @@ expr_stmt|;
 block|}
 else|else
 block|{
+comment|// Not in expected format.
 throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Please specify the peer cluster as "
+literal|"Please specify the peer cluster using the format of "
 operator|+
 name|HConstants
 operator|.
