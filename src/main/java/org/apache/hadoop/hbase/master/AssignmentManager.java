@@ -2925,6 +2925,14 @@ argument_list|(
 name|state
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|plan
+operator|==
+literal|null
+condition|)
+return|return;
+comment|// Should get reassigned later when RIT times out.
 try|try
 block|{
 name|LOG
@@ -3026,6 +3034,23 @@ argument_list|()
 operator|.
 name|getEncodedName
 argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Put in place a new plan and reassign.  Calling getRegionPlan will add
+comment|// a plan if none exists (We removed it in line above).
+if|if
+condition|(
+name|getRegionPlan
+argument_list|(
+name|state
+argument_list|)
+operator|==
+literal|null
+condition|)
+return|return;
+name|assign
+argument_list|(
+name|state
 argument_list|)
 expr_stmt|;
 block|}
@@ -3157,13 +3182,35 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * @param state    * @return Plan for passed<code>state</code> (If none currently, it creates one)    */
+comment|/**    * @param state    * @return Plan for passed<code>state</code> (If none currently, it creates one or    * if no servers to assign, it returns null).    */
 name|RegionPlan
 name|getRegionPlan
 parameter_list|(
 specifier|final
 name|RegionState
 name|state
+parameter_list|)
+block|{
+return|return
+name|getRegionPlan
+argument_list|(
+name|state
+argument_list|,
+literal|null
+argument_list|)
+return|;
+block|}
+comment|/**    * @param state    * @param serverToExclude Server to exclude (we know its bad). Pass null if    * all servers are thought to be assignable.    * @return Plan for passed<code>state</code> (If none currently, it creates one or    * if no servers to assign, it returns null).    */
+name|RegionPlan
+name|getRegionPlan
+parameter_list|(
+specifier|final
+name|RegionState
+name|state
+parameter_list|,
+specifier|final
+name|HServerInfo
+name|serverToExclude
 parameter_list|)
 block|{
 comment|// Pickup existing plan or make a new one
@@ -3178,6 +3225,46 @@ operator|.
 name|getEncodedName
 argument_list|()
 decl_stmt|;
+name|List
+argument_list|<
+name|HServerInfo
+argument_list|>
+name|servers
+init|=
+name|this
+operator|.
+name|serverManager
+operator|.
+name|getOnlineServersList
+argument_list|()
+decl_stmt|;
+comment|// The remove below hinges on the fact that the call to
+comment|// serverManager.getOnlineServersList() returns a copy
+if|if
+condition|(
+name|serverToExclude
+operator|!=
+literal|null
+condition|)
+name|servers
+operator|.
+name|remove
+argument_list|(
+name|serverToExclude
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|servers
+operator|.
+name|size
+argument_list|()
+operator|<
+literal|0
+condition|)
+return|return
+literal|null
+return|;
 name|RegionPlan
 name|newPlan
 init|=
@@ -3195,16 +3282,15 @@ name|LoadBalancer
 operator|.
 name|randomAssignment
 argument_list|(
-name|serverManager
-operator|.
-name|getOnlineServersList
-argument_list|()
+name|servers
 argument_list|)
 argument_list|)
 decl_stmt|;
 name|RegionPlan
 name|existingPlan
 init|=
+name|this
+operator|.
 name|regionPlans
 operator|.
 name|putIfAbsent
@@ -3260,6 +3346,10 @@ argument_list|()
 operator|.
 name|size
 argument_list|()
+operator|+
+literal|", exclude="
+operator|+
+name|serverToExclude
 operator|+
 literal|") available servers"
 argument_list|)

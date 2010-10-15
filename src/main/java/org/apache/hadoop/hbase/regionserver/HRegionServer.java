@@ -10242,6 +10242,17 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|this
+operator|.
+name|stopped
+condition|)
+throw|throw
+operator|new
+name|RegionServerStoppedException
+argument_list|()
+throw|;
+if|if
+condition|(
 name|region
 operator|.
 name|isRootRegion
