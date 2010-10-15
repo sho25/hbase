@@ -10227,6 +10227,8 @@ parameter_list|(
 name|HRegionInfo
 name|region
 parameter_list|)
+throws|throws
+name|RegionServerStoppedException
 block|{
 name|LOG
 operator|.
@@ -10340,6 +10342,8 @@ name|HRegionInfo
 argument_list|>
 name|regions
 parameter_list|)
+throws|throws
+name|RegionServerStoppedException
 block|{
 name|LOG
 operator|.

@@ -43,7 +43,7 @@ literal|"serial"
 argument_list|)
 specifier|public
 class|class
-name|RegionServerClosedException
+name|RegionServerStoppedException
 extends|extends
 name|DoNotRetryIOException
 block|{ }

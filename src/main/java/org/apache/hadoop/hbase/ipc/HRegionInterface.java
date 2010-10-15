@@ -717,7 +717,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|// Master methods
-comment|/**    * Opens the specified region.    * @param region region to open    */
+comment|/**    * Opens the specified region.    * @param region region to open    * @param RegionServerStoppedException    * @param IOException    */
 specifier|public
 name|void
 name|openRegion
@@ -726,8 +726,10 @@ specifier|final
 name|HRegionInfo
 name|region
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
-comment|/**    * Opens the specified regions.    * @param regions regions to open    */
+comment|/**    * Opens the specified regions.    * @param regions regions to open    * @param RegionServerStoppedException    * @param IOException    */
 specifier|public
 name|void
 name|openRegions
@@ -739,6 +741,8 @@ name|HRegionInfo
 argument_list|>
 name|regions
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Closes the specified region.    * @param region region to close    * @return true if closing region, false if not    * @throws IOException    */
 specifier|public

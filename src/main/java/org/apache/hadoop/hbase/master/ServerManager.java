@@ -2114,6 +2114,8 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|HRegionInterface
 name|hri
@@ -2168,6 +2170,8 @@ name|HRegionInfo
 argument_list|>
 name|regions
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|HRegionInterface
 name|hri
