@@ -755,6 +755,13 @@ name|zkCluster
 init|=
 literal|null
 decl_stmt|;
+comment|/**    * Set if we were passed a zkCluster.  If so, we won't shutdown zk as    * part of general shutdown.    */
+specifier|private
+name|boolean
+name|passedZkCluster
+init|=
+literal|false
+decl_stmt|;
 specifier|private
 name|MiniDFSCluster
 name|dfsCluster
@@ -1193,6 +1200,12 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
+name|this
+operator|.
+name|passedZkCluster
+operator|=
+literal|false
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -1693,6 +1706,13 @@ name|join
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|passedZkCluster
+condition|)
 name|shutdownMiniZKCluster
 argument_list|()
 expr_stmt|;
@@ -4306,6 +4326,12 @@ name|MiniZooKeeperCluster
 name|zkCluster
 parameter_list|)
 block|{
+name|this
+operator|.
+name|passedZkCluster
+operator|=
+literal|true
+expr_stmt|;
 name|this
 operator|.
 name|zkCluster

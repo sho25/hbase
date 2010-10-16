@@ -407,16 +407,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Test
 import|;
 end_import
@@ -1163,7 +1153,16 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-comment|/* REENABLE     utility2.shutdownMiniCluster();     utility1.shutdownMiniCluster();     */
+name|utility2
+operator|.
+name|shutdownMiniCluster
+argument_list|()
+expr_stmt|;
+name|utility1
+operator|.
+name|shutdownMiniCluster
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Add a row, check it's replicated, delete it, check's gone    * @throws Exception    */
 annotation|@
