@@ -73,6 +73,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|text
+operator|.
+name|ParseException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|AbstractList
@@ -7331,17 +7341,16 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
+comment|// If the IOE resulted from bad file format,
+comment|// then this problem is idempotent and retrying won't help
 if|if
 condition|(
 name|ioe
 operator|.
-name|getMessage
+name|getCause
 argument_list|()
-operator|.
-name|startsWith
-argument_list|(
-literal|"File is corrupt"
-argument_list|)
+operator|instanceof
+name|ParseException
 condition|)
 block|{
 name|Path
@@ -7376,6 +7385,8 @@ expr_stmt|;
 block|}
 else|else
 block|{
+comment|// other IO errors may be transient (bad network connection,
+comment|// checksum exception on one datanode, etc).  throw& retry
 throw|throw
 name|ioe
 throw|;

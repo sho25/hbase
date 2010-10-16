@@ -61,6 +61,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|text
+operator|.
+name|ParseException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -1270,6 +1280,39 @@ name|IOException
 name|e
 parameter_list|)
 block|{
+comment|// If the IOE resulted from bad file format,
+comment|// then this problem is idempotent and retrying won't help
+if|if
+condition|(
+name|e
+operator|.
+name|getCause
+argument_list|()
+operator|instanceof
+name|ParseException
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"ParseException from hlog "
+operator|+
+name|logPath
+operator|+
+literal|".  continuing"
+argument_list|)
+expr_stmt|;
+name|processedLogs
+operator|.
+name|add
+argument_list|(
+name|logPath
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 if|if
 condition|(
 name|skipErrors
@@ -1277,7 +1320,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|info
 argument_list|(
 literal|"Got while parsing hlog "
 operator|+
@@ -1301,6 +1344,7 @@ block|{
 throw|throw
 name|e
 throw|;
+block|}
 block|}
 block|}
 block|}
