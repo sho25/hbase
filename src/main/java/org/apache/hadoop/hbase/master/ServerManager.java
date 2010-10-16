@@ -2567,6 +2567,7 @@ return|return
 name|regionCount
 return|;
 block|}
+comment|/**    * @return A copy of the internal list of online servers.    */
 specifier|public
 name|List
 argument_list|<

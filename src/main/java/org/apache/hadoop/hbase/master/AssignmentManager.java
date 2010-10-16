@@ -3043,6 +3043,11 @@ condition|(
 name|getRegionPlan
 argument_list|(
 name|state
+argument_list|,
+name|plan
+operator|.
+name|getDestination
+argument_list|()
 argument_list|)
 operator|==
 literal|null
