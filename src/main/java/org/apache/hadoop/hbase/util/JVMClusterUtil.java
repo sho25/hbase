@@ -468,7 +468,7 @@ name|this
 operator|.
 name|master
 operator|.
-name|isAlive
+name|isMasterRunning
 argument_list|()
 operator|&&
 operator|!

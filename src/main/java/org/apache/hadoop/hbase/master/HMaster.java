@@ -1130,7 +1130,7 @@ init|=
 literal|false
 decl_stmt|;
 comment|// flag set after we become the active master (used for testing)
-specifier|protected
+specifier|private
 specifier|volatile
 name|boolean
 name|isActiveMaster
@@ -1138,7 +1138,7 @@ init|=
 literal|false
 decl_stmt|;
 comment|// flag set after we complete initialization once active (used for testing)
-specifier|protected
+specifier|private
 specifier|volatile
 name|boolean
 name|isInitialized
@@ -1513,41 +1513,10 @@ name|loop
 argument_list|()
 expr_stmt|;
 comment|// Once we break out of here, we are being shutdown
-comment|// Stop balancer and meta catalog janitor
-if|if
-condition|(
-name|this
-operator|.
-name|balancerChore
-operator|!=
-literal|null
-condition|)
-block|{
-name|this
-operator|.
-name|balancerChore
-operator|.
-name|interrupt
+comment|// Stop chores
+name|stopChores
 argument_list|()
 expr_stmt|;
-block|}
-if|if
-condition|(
-name|this
-operator|.
-name|catalogJanitorChore
-operator|!=
-literal|null
-condition|)
-block|{
-name|this
-operator|.
-name|catalogJanitorChore
-operator|.
-name|interrupt
-argument_list|()
-expr_stmt|;
-block|}
 comment|// Wait for all the remaining region servers to report in IFF we were
 comment|// running a cluster shutdown AND we were NOT aborting.
 if|if
@@ -1589,6 +1558,20 @@ expr_stmt|;
 name|this
 operator|.
 name|catalogTracker
+operator|.
+name|stop
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|serverManager
+operator|.
+name|stop
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|assignmentManager
 operator|.
 name|stop
 argument_list|()
@@ -2010,6 +1993,13 @@ name|this
 argument_list|,
 name|this
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Master has completed initialization"
 argument_list|)
 expr_stmt|;
 name|isInitialized
@@ -2777,6 +2767,49 @@ argument_list|(
 name|chore
 argument_list|)
 return|;
+block|}
+end_function
+
+begin_function
+specifier|private
+name|void
+name|stopChores
+parameter_list|()
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|balancerChore
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|balancerChore
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|this
+operator|.
+name|catalogJanitorChore
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|catalogJanitorChore
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 end_function
 

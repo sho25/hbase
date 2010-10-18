@@ -386,76 +386,9 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-comment|// Disabling so should not be reassigned, just delete the CLOSED node
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Table being disabled so deleting ZK node and removing from "
-operator|+
-literal|"regions in transition, skipping assignment"
-argument_list|)
-expr_stmt|;
-try|try
-block|{
-name|ZKAssign
-operator|.
-name|deleteClosedNode
-argument_list|(
-name|server
-operator|.
-name|getZooKeeper
-argument_list|()
-argument_list|,
-name|regionInfo
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-operator|.
-name|NoNodeException
-name|nne
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Tried to delete closed node for "
-operator|+
-name|data
-operator|+
-literal|" but it does "
-operator|+
-literal|"not exist"
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-name|e
-parameter_list|)
-block|{
-name|server
-operator|.
-name|abort
-argument_list|(
-literal|"Error deleting CLOSED node in ZK"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 name|assignmentManager
 operator|.
-name|regionOffline
+name|offlineDisabledRegion
 argument_list|(
 name|regionInfo
 argument_list|)

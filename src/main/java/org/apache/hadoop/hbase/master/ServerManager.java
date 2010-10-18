@@ -2640,6 +2640,27 @@ operator|.
 name|clusterShutdown
 return|;
 block|}
+comment|/**    * Stop the ServerManager.    *<p>    * Currently just interrupts the ServerMonitor and LogCleaner chores.    */
+specifier|public
+name|void
+name|stop
+parameter_list|()
+block|{
+name|this
+operator|.
+name|serverMonitorThread
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|logCleaner
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 end_class
 

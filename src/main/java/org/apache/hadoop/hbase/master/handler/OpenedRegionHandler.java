@@ -408,7 +408,6 @@ operator|+
 literal|"; deleting unassigned node"
 argument_list|)
 expr_stmt|;
-comment|// TODO: should we check if this table was disabled and get it closed?
 comment|// Remove region from in-memory transition and unassigned node from ZK
 try|try
 block|{
@@ -438,7 +437,14 @@ name|server
 operator|.
 name|abort
 argument_list|(
-literal|"Error deleting OPENED node in ZK"
+literal|"Error deleting OPENED node in ZK for transition ZK node ("
+operator|+
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|")"
 argument_list|,
 name|e
 argument_list|)
@@ -455,6 +461,48 @@ argument_list|,
 name|serverInfo
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|assignmentManager
+operator|.
+name|isTableDisabled
+argument_list|(
+name|regionInfo
+operator|.
+name|getTableDesc
+argument_list|()
+operator|.
+name|getNameAsString
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Opened region "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" but "
+operator|+
+literal|"this table is disabled, triggering close of region"
+argument_list|)
+expr_stmt|;
+name|assignmentManager
+operator|.
+name|unassign
+argument_list|(
+name|regionInfo
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|LOG
 operator|.
 name|debug
@@ -467,6 +515,7 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 end_class
