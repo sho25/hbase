@@ -1016,11 +1016,6 @@ argument_list|(
 name|name
 argument_list|,
 name|hcd
-operator|.
-name|getName
-argument_list|()
-argument_list|,
-name|hcd
 argument_list|)
 expr_stmt|;
 block|}
@@ -1121,13 +1116,6 @@ parameter_list|)
 block|{
 try|try
 block|{
-name|servlet
-operator|.
-name|invalidateMaxAge
-argument_list|(
-name|tableName
-argument_list|)
-expr_stmt|;
 name|byte
 index|[]
 name|name
