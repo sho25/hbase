@@ -191,6 +191,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|catalog
+operator|.
+name|CatalogTracker
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ipc
 operator|.
 name|HMasterInterface
@@ -230,7 +246,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Cluster connection.  * {@link HConnectionManager} manages instances of this class.  */
+comment|/**  * Cluster connection.  Hosts a connection to the ZooKeeper ensemble and  * thereafter into the HBase cluster.  Knows how to locate regions out on the cluster,  * keeps a cache of locations and then knows how to recalibrate after they move.  * {@link HConnectionManager} manages instances of this class.  *  *<p>HConnections are used by {@link HTable} mostly but also by  * {@link HBaseAdmin}, {@link CatalogTracker},  * and {@link ZooKeeperWatcher}.  HConnection instances can be shared.  Sharing  * is usually what you want because rather than each HConnection instance  * having to do its own discovery of regions out on the cluster, instead, all  * clients get to share the one cache of locations.  Sharing makes cleanup of  * HConnections awkward.  See {@link HConnectionManager} for cleanup  * discussion.  *  * @see HConnectionManager  */
 end_comment
 
 begin_interface
@@ -246,7 +262,7 @@ name|Configuration
 name|getConfiguration
 parameter_list|()
 function_decl|;
-comment|/**    * Retrieve ZooKeeperWatcher used by the connection.    * @return ZooKeeperWatcher handle being used by the connection.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Retrieve ZooKeeperWatcher used by this connection.    * @return ZooKeeperWatcher handle being used by the connection.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|ZooKeeperWatcher
 name|getZooKeeperWatcher

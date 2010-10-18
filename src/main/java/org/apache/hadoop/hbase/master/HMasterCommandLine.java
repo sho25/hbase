@@ -960,6 +960,7 @@ literal|0
 return|;
 block|}
 comment|/*    * Version of master that will shutdown the passed zk cluster on its way out.    */
+specifier|public
 specifier|static
 class|class
 name|LocalHMaster

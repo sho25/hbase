@@ -153,22 +153,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|HConnectionManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Threads
@@ -1044,7 +1028,7 @@ case|:
 comment|// Update our identifier.  Otherwise ignore.
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 name|this
 operator|.

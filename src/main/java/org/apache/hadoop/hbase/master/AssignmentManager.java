@@ -5564,13 +5564,6 @@ init|(
 name|regionsInTransition
 init|)
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Checking for timed out RIT"
-argument_list|)
-expr_stmt|;
 comment|// Iterate all regions in transition checking for time outs
 name|long
 name|now

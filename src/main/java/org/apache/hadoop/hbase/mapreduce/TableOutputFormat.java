@@ -125,6 +125,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|HConnectionManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|HTable
 import|;
 end_import
@@ -364,6 +380,18 @@ name|table
 operator|.
 name|flushCommits
 argument_list|()
+expr_stmt|;
+comment|// The following call will shutdown all connections to the cluster from
+comment|// this JVM.  It will close out our zk session otherwise zk wil log
+comment|// expired sessions rather than closed ones.  If any other HTable instance
+comment|// running in this JVM, this next call will cause it damage.  Presumption
+comment|// is that the above this.table is only instance.
+name|HConnectionManager
+operator|.
+name|deleteAllConnections
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**      * Writes a key/value pair into the table.      *      * @param key  The key.      * @param value  The value.      * @throws IOException When writing fails.      * @see org.apache.hadoop.mapreduce.RecordWriter#write(java.lang.Object, java.lang.Object)      */

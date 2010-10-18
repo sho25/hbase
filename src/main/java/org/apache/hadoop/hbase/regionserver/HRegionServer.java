@@ -6651,6 +6651,12 @@ literal|"Region has too many store files"
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Add to online regions if all above was successful.
+name|addToOnlineRegions
+argument_list|(
+name|r
+argument_list|)
+expr_stmt|;
 comment|// Update ZK, ROOT or META
 if|if
 condition|(
@@ -6749,12 +6755,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Add to online regions if all above was successful.
-name|addToOnlineRegions
-argument_list|(
-name|r
-argument_list|)
-expr_stmt|;
 block|}
 end_function
 

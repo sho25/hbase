@@ -638,7 +638,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A non-instantiable class that manages connections to tables.  * Used by {@link HTable} and {@link HBaseAdmin}  */
+comment|/**  * A non-instantiable class that manages {@link HConnection}s.  * This class has a static Map of {@link HConnection} instances keyed by  * {@link Configuration}; all invocations of {@link #getConnection(Configuration)}  * that pass the same {@link Configuration} instance will be returned the same  * {@link  HConnection} instance (Adding properties to a Configuration  * instance does not change its object identity).  Sharing {@link HConnection}  * instances is usually what you want; all clients of the {@link HConnection}  * instances share the HConnections' cache of Region locations rather than each  * having to discover for itself the location of meta, root, etc.  It makes  * sense for the likes of the pool of HTables class {@link HTablePool}, for  * instance (If concerned that a single {@link HConnection} is insufficient  * for sharing amongst clients in say an heavily-multithreaded environment,  * in practise its not proven to be an issue.  Besides, {@link HConnection} is  * implemented atop Hadoop RPC and as of this writing, Hadoop RPC does a  * connection per cluster-member, exclusively).  *  *<p>But sharing connections  * makes clean up of {@link HConnection} instances a little awkward.  Currently,  * clients cleanup by calling  * {@link #deleteConnection(Configuration, boolean)}.  This will shutdown the  * zookeeper connection the HConnection was using and clean up all  * HConnection resources as well as stopping proxies to servers out on the  * cluster. Not running the cleanup will not end the world; it'll  * just stall the closeup some and spew some zookeeper connection failed  * messages into the log.  Running the cleanup on a {@link HConnection} that is  * subsequently used by another will cause breakage so be careful running  * cleanup.  *<p>To create a {@link HConnection} that is not shared by others, you can  * create a new {@link Configuration} instance, pass this new instance to  * {@link #getConnection(Configuration)}, and then when done, close it up by  * doing something like the following:  *<pre>  * {@code  * Configuration newConfig = new Configuration(originalConf);  * HConnection connection = HConnectionManager.getConnection(newConfig);  * // Use the connection to your hearts' delight and then when done...  * HConnectionManager.deleteConnection(newConfig, true);  * }  *</pre>  *<p>Cleanup used to be done inside in a shutdown hook.  On startup we'd  * register a shutdown hook that called {@link #deleteAllConnections(boolean)}  * on its way out but the order in which shutdown hooks run is not defined so  * were problematic for clients of HConnection that wanted to register their  * own shutdown hooks so we removed ours though this shifts the onus for  * cleanup to the client.  */
 end_comment
 
 begin_class
@@ -651,41 +651,6 @@ specifier|public
 class|class
 name|HConnectionManager
 block|{
-comment|// Register a shutdown hook, one that cleans up RPC and closes zk sessions.
-static|static
-block|{
-name|Runtime
-operator|.
-name|getRuntime
-argument_list|()
-operator|.
-name|addShutdownHook
-argument_list|(
-operator|new
-name|Thread
-argument_list|(
-literal|"HCM.shutdownHook"
-argument_list|)
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|run
-parameter_list|()
-block|{
-name|HConnectionManager
-operator|.
-name|deleteAllConnections
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-argument_list|)
-expr_stmt|;
-block|}
 specifier|static
 specifier|final
 name|int
@@ -766,7 +731,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Get the connection that goes with the passed<code>conf</code> configuration.    * If no current connection exists, method creates a new connection for the    * passed<code>conf</code> instance.    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
+comment|/**    * Get the connection that goes with the passed<code>conf</code>    * configuration instance.    * If no current connection exists, method creates a new connection for the    * passed<code>conf</code> instance.    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
 specifier|public
 specifier|static
 name|HConnection
@@ -825,7 +790,7 @@ return|return
 name|connection
 return|;
 block|}
-comment|/**    * Delete connection information for the instance specified by configuration    * @param conf configuration    * @param stopProxy stop the proxy as well    */
+comment|/**    * Delete connection information for the instance specified by configuration.    * This will close connection to the zookeeper ensemble and let go of all    * resources.    * @param conf configuration whose identity is used to find {@link HConnection}    * instance.    * @param stopProxy Shuts down all the proxy's put up to cluster members    * including to cluster HMaster.  Calls {@link HBaseRPC#stopProxy(org.apache.hadoop.ipc.VersionedProtocol)}.    */
 specifier|public
 specifier|static
 name|void
@@ -869,27 +834,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-comment|/**    * Delete connection information for the instance    * @param connection configuration    */
-specifier|public
-specifier|static
-name|void
-name|deleteConnection
-parameter_list|(
-name|HConnection
-name|connection
-parameter_list|)
-block|{
-name|deleteConnection
-argument_list|(
-name|connection
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
-literal|false
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * Delete information for all connections.    * @param stopProxy stop the proxy as well    * @throws IOException    */
 specifier|public

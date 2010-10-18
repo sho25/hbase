@@ -45,8 +45,22 @@ name|Path
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Stoppable
+import|;
+end_import
+
 begin_comment
-comment|/**  * Interface for the log cleaning function inside the master. By default, three  * cleaners<code>TimeToLiveLogCleaner</code>,<code>ReplicationLogCleaner</code>,  *<code>SnapshotLogCleaner</code> are called in order. So if other effects are  * needed, implement your own LogCleanerDelegate and add it to the configuration  * "hbase.master.logcleaner.plugins", which is a comma-separated list of fully  * qualified class names. LogsCleaner will add it to the chain.  *  * HBase ships with LogsCleaner as the default implementation.  *  * This interface extends Configurable, so setConf needs to be called once  * before using the cleaner.  * Since LogCleanerDelegates are created in LogsCleaner by reflection. Classes  * that implements this interface should provide a default constructor.  */
+comment|/**  * Interface for the log cleaning function inside the master. By default, three  * cleaners<code>TimeToLiveLogCleaner</code>,<code>ReplicationLogCleaner</code>,  *<code>SnapshotLogCleaner</code> are called in order. So if other effects are  * needed, implement your own LogCleanerDelegate and add it to the configuration  * "hbase.master.logcleaner.plugins", which is a comma-separated list of fully  * qualified class names. LogsCleaner will add it to the chain.  *  *<p>HBase ships with LogsCleaner as the default implementation.  *  *<p>This interface extends Configurable, so setConf needs to be called once  * before using the cleaner.  * Since LogCleanerDelegates are created in LogsCleaner by reflection. Classes  * that implements this interface should provide a default constructor.  */
 end_comment
 
 begin_interface
@@ -55,6 +69,8 @@ interface|interface
 name|LogCleanerDelegate
 extends|extends
 name|Configurable
+extends|,
+name|Stoppable
 block|{
 comment|/**    * Should the master delete the log or keep it?    * @param filePath full path to log.    * @return true if the log is deletable, false if not    */
 specifier|public

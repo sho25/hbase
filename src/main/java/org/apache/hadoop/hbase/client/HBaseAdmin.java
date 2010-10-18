@@ -658,6 +658,11 @@ name|ct
 operator|.
 name|getConnection
 argument_list|()
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
