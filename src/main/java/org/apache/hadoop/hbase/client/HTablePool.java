@@ -217,6 +217,14 @@ name|this
 operator|.
 name|config
 operator|=
+name|config
+operator|==
+literal|null
+condition|?
+operator|new
+name|Configuration
+argument_list|()
+else|:
 operator|new
 name|Configuration
 argument_list|(
