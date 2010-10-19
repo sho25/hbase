@@ -129,7 +129,7 @@ specifier|static
 name|String
 name|NAME
 init|=
-literal|"Copy Table"
+literal|"copytable"
 decl_stmt|;
 specifier|static
 name|String
