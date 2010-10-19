@@ -454,7 +454,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to communicate with a single HBase table.  *   * This class is not thread safe for updates; the underlying write buffer can  * be corrupted if multiple threads contend over a single HTable instance.  *  *<p>Instances of HTable passed the same {@link Configuration} instance will  * share connections to servers out on the cluster and to the zookeeper ensemble  * as well as caches of  region locations.  This is usually a *good* thing.  * This happens because they will all share the same underlying  * {@link HConnection} instance.  See {@link HConnectionManager} for more on  * how this mechanism works.  *  *<p>{@link HConnection} will read most of the  * configuration it needs from the passed {@link Configuration} on initial  * construction.  Thereafter, for settings such as  *<code>hbase.client.pause</code>,<code>hbase.client.retries.number</code>,  * and<code>hbase.client.rpc.maxattempts</code> updating their values in the  * passed {@link Configuration} subsequent to {@link HConnection} construction  * will go unnoticed.  To run with changed values, make a new  * {@link HTable} passing a new {@link Configuration} instance that has the  * new configuration.  *  * @see HBaseAdmin for create, drop, list, enable and disable of tables.  * @see HConnection  * @see HConnectionManager  */
+comment|/**  * Used to communicate with a single HBase table.  *  * This class is not thread safe for updates; the underlying write buffer can  * be corrupted if multiple threads contend over a single HTable instance.  *  *<p>Instances of HTable passed the same {@link Configuration} instance will  * share connections to servers out on the cluster and to the zookeeper ensemble  * as well as caches of  region locations.  This is usually a *good* thing.  * This happens because they will all share the same underlying  * {@link HConnection} instance.  See {@link HConnectionManager} for more on  * how this mechanism works.  *  *<p>{@link HConnection} will read most of the  * configuration it needs from the passed {@link Configuration} on initial  * construction.  Thereafter, for settings such as  *<code>hbase.client.pause</code>,<code>hbase.client.retries.number</code>,  * and<code>hbase.client.rpc.maxattempts</code> updating their values in the  * passed {@link Configuration} subsequent to {@link HConnection} construction  * will go unnoticed.  To run with changed values, make a new  * {@link HTable} passing a new {@link Configuration} instance that has the  * new configuration.  *  * @see HBaseAdmin for create, drop, list, enable and disable of tables.  * @see HConnection  * @see HConnectionManager  */
 end_comment
 
 begin_class
@@ -544,7 +544,7 @@ specifier|private
 name|long
 name|maxScannerResultSize
 decl_stmt|;
-comment|/**    * Creates an object to access a HBase table.    * Internally it creates a new instance of {@link Configuration} and a new    * client to zookeeper as well as other resources.  It also comes up with     * a fresh view of the cluster and must do discovery from scratch of region    * locations; i.e. it will not make use of already-cached region locations if    * available. Use only when being quick and dirty.    * @throws IOException if a remote or network exception occurs    * @see #HTable(Configuration, String)    */
+comment|/**    * Creates an object to access a HBase table.    * Internally it creates a new instance of {@link Configuration} and a new    * client to zookeeper as well as other resources.  It also comes up with    * a fresh view of the cluster and must do discovery from scratch of region    * locations; i.e. it will not make use of already-cached region locations if    * available. Use only when being quick and dirty.    * @throws IOException if a remote or network exception occurs    * @see #HTable(Configuration, String)    */
 specifier|public
 name|HTable
 parameter_list|(
@@ -571,7 +571,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates an object to access a HBase table.    * Internally it creates a new instance of {@link Configuration} and a new    * client to zookeeper as well as other resources.  It also comes up with     * a fresh view of the cluster and must do discovery from scratch of region    * locations; i.e. it will not make use of already-cached region locations if    * available. Use only when being quick and dirty.    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    * @see #HTable(Configuration, String)    */
+comment|/**    * Creates an object to access a HBase table.    * Internally it creates a new instance of {@link Configuration} and a new    * client to zookeeper as well as other resources.  It also comes up with    * a fresh view of the cluster and must do discovery from scratch of region    * locations; i.e. it will not make use of already-cached region locations if    * available. Use only when being quick and dirty.    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    * @see #HTable(Configuration, String)    */
 specifier|public
 name|HTable
 parameter_list|(
@@ -2054,7 +2054,7 @@ name|gets
 argument_list|)
 return|;
 block|}
-comment|/**    * Method that does a batch call on Deletes, Gets and Puts.    *    * @param actions list of Get, Put, Delete objects    * @param results Empty Result[], same size as actions. Provides access to partial    * results, in case an exception is thrown. A null in the result array means that    * the call for that action failed, even after retries    * @throws IOException    */
+comment|/**    * Method that does a batch call on Deletes, Gets and Puts.  The ordering of    * execution of the actions is not defined. Meaning if you do a Put and a    * Get in the same {@link #batch} call, you will not necessarily be    * guaranteed that the Get returns what the Put had put.    *    * @param actions list of Get, Put, Delete objects    * @param results Empty Result[], same size as actions. Provides access to partial    * results, in case an exception is thrown. A null in the result array means that    * the call for that action failed, even after retries    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -2091,7 +2091,7 @@ name|results
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Method that does a batch call on Deletes, Gets and Puts.    *     * @param actions list of Get, Put, Delete objects    * @return the results from the actions. A null in the return array means that    * the call for that action failed, even after retries    * @throws IOException    */
+comment|/**    * Method that does a batch call on Deletes, Gets and Puts.    *    * @param actions list of Get, Put, Delete objects    * @return the results from the actions. A null in the return array means that    * the call for that action failed, even after retries    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -2140,7 +2140,7 @@ return|return
 name|results
 return|;
 block|}
-comment|/**    * Deletes the specified cells/row.    *     * @param delete The object that specifies what to delete.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
+comment|/**    * Deletes the specified cells/row.    *    * @param delete The object that specifies what to delete.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
 annotation|@
 name|Override
 specifier|public
@@ -2205,7 +2205,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Deletes the specified cells/rows in bulk.    * @param deletes List of things to delete. As a side effect, it will be modified:    * successful {@link Delete}s are removed. The ordering of the list will not change.     * @throws IOException if a remote or network exception occurs. In that case    * the {@code deletes} argument will contain the {@link Delete} instances    * that have not be successfully applied.    * @since 0.20.1    */
+comment|/**    * Deletes the specified cells/rows in bulk.    * @param deletes List of things to delete. As a side effect, it will be modified:    * successful {@link Delete}s are removed. The ordering of the list will not change.    * @throws IOException if a remote or network exception occurs. In that case    * the {@code deletes} argument will contain the {@link Delete} instances    * that have not be successfully applied.    * @since 0.20.1    */
 annotation|@
 name|Override
 specifier|public

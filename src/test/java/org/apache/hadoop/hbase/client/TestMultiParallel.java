@@ -970,7 +970,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Only run one Multi test with a forced RegionServer abort. Otherwise, the    * unit tests will take an unnecessarily long time to run.    *     * @throws Exception    */
+comment|/**    * Only run one Multi test with a forced RegionServer abort. Otherwise, the    * unit tests will take an unnecessarily long time to run.    *    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
@@ -2237,61 +2237,10 @@ argument_list|(
 name|get
 argument_list|)
 expr_stmt|;
-comment|// 5 get of the put in #2 (entire family)
-name|get
-operator|=
-operator|new
-name|Get
-argument_list|(
-name|KEYS
-index|[
-literal|10
-index|]
-argument_list|)
-expr_stmt|;
-name|get
-operator|.
-name|addFamily
-argument_list|(
-name|BYTES_FAMILY
-argument_list|)
-expr_stmt|;
-name|actions
-operator|.
-name|add
-argument_list|(
-name|get
-argument_list|)
-expr_stmt|;
-comment|// 6 get of the delete from #3
-name|get
-operator|=
-operator|new
-name|Get
-argument_list|(
-name|KEYS
-index|[
-literal|20
-index|]
-argument_list|)
-expr_stmt|;
-name|get
-operator|.
-name|addColumn
-argument_list|(
-name|BYTES_FAMILY
-argument_list|,
-name|QUALIFIER
-argument_list|)
-expr_stmt|;
-name|actions
-operator|.
-name|add
-argument_list|(
-name|get
-argument_list|)
-expr_stmt|;
-comment|// 7 put of new column
+comment|// There used to be a 'get' of a previous put here, but removed
+comment|// since this API really cannot guarantee order in terms of mixed
+comment|// get/puts.
+comment|// 5 put of new column
 name|put
 operator|=
 operator|new
@@ -2371,41 +2320,11 @@ literal|4
 index|]
 argument_list|)
 expr_stmt|;
-name|validateResult
-argument_list|(
-name|results
-index|[
-literal|5
-index|]
-argument_list|)
-expr_stmt|;
-name|validateResult
-argument_list|(
-name|results
-index|[
-literal|5
-index|]
-argument_list|,
-name|qual2
-argument_list|,
-name|val2
-argument_list|)
-expr_stmt|;
-comment|// testing second column in #5
 name|validateEmpty
 argument_list|(
 name|results
 index|[
-literal|6
-index|]
-argument_list|)
-expr_stmt|;
-comment|// deleted
-name|validateEmpty
-argument_list|(
-name|results
-index|[
-literal|7
+literal|5
 index|]
 argument_list|)
 expr_stmt|;

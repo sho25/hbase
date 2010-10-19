@@ -5654,7 +5654,7 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// failed
+comment|// if the first/only record is 'null' the entire region failed.
 name|LOG
 operator|.
 name|debug
