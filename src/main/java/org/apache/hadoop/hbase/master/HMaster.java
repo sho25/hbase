@@ -1402,6 +1402,15 @@ condition|)
 block|{
 return|return;
 block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"HMaster started in backup mode.  "
+operator|+
+literal|"Stalling until master znode is written."
+argument_list|)
+expr_stmt|;
 comment|// This will only be a minute or so while the cluster starts up,
 comment|// so don't worry about setting watches on the parent znode
 while|while
