@@ -30460,6 +30460,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * For HBASE-2156    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
 name|testScanVariableReuse
@@ -30532,11 +30534,21 @@ name|get
 argument_list|(
 name|FAMILY
 argument_list|)
-operator|.
-name|size
-argument_list|()
 operator|==
-literal|0
+literal|null
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|scan
+operator|.
+name|getFamilyMap
+argument_list|()
+operator|.
+name|containsKey
+argument_list|(
+name|FAMILY
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
