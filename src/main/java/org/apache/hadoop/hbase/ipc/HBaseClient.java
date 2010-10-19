@@ -67,6 +67,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|io
 operator|.
 name|DataOutputBuffer
@@ -1925,6 +1941,14 @@ name|d
 operator|.
 name|writeInt
 argument_list|(
+literal|0xdeadbeef
+argument_list|)
+expr_stmt|;
+comment|// placeholder for data length
+name|d
+operator|.
+name|writeInt
+argument_list|(
 name|call
 operator|.
 name|id
@@ -1956,14 +1980,20 @@ operator|.
 name|getLength
 argument_list|()
 decl_stmt|;
-name|out
+comment|// fill in the placeholder
+name|Bytes
 operator|.
-name|writeInt
+name|putInt
 argument_list|(
+name|data
+argument_list|,
+literal|0
+argument_list|,
 name|dataLength
+operator|-
+literal|4
 argument_list|)
 expr_stmt|;
-comment|//first put the data length
 name|out
 operator|.
 name|write
@@ -1975,7 +2005,6 @@ argument_list|,
 name|dataLength
 argument_list|)
 expr_stmt|;
-comment|//write the data
 name|out
 operator|.
 name|flush
