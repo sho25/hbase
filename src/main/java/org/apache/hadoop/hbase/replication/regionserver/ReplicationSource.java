@@ -674,6 +674,16 @@ specifier|private
 name|ReplicationSourceMetrics
 name|metrics
 decl_stmt|;
+comment|// If source is enabled, replication happens. If disabled, nothing will be
+comment|// replicated but HLogs will still be queued
+specifier|private
+name|AtomicBoolean
+name|sourceEnabled
+init|=
+operator|new
+name|AtomicBoolean
+argument_list|()
+decl_stmt|;
 comment|/**    * Instantiation method used by region servers    *    * @param conf configuration to use    * @param fs file system to use    * @param manager replication manager to ping to    * @param stopper     the atomic boolean to use to stop the regionserver    * @param replicating the atomic boolean that starts/stops replication    * @param peerClusterZnode the name of our znode    * @throws IOException    */
 specifier|public
 name|void
@@ -1081,7 +1091,7 @@ name|this
 operator|.
 name|zkHelper
 operator|.
-name|getPeersAddresses
+name|getSlavesAddresses
 argument_list|(
 name|peerClusterId
 argument_list|)
@@ -1310,9 +1320,9 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
-name|LOG
+name|this
 operator|.
-name|error
+name|terminate
 argument_list|(
 literal|"Couldn't get the position of this recovered queue "
 operator|+
@@ -1320,11 +1330,6 @@ name|peerClusterZnode
 argument_list|,
 name|e
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|abort
-argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -1347,6 +1352,42 @@ operator|.
 name|running
 condition|)
 block|{
+comment|// Sleep until replication is enabled again
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|replicating
+operator|.
+name|get
+argument_list|()
+operator|||
+operator|!
+name|this
+operator|.
+name|sourceEnabled
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+if|if
+condition|(
+name|sleepForRetries
+argument_list|(
+literal|"Replication is disabled"
+argument_list|,
+name|sleepMultiplier
+argument_list|)
+condition|)
+block|{
+name|sleepMultiplier
+operator|++
+expr_stmt|;
+block|}
+continue|continue;
+block|}
 comment|// Get a new path
 if|if
 condition|(
@@ -2151,7 +2192,7 @@ try|try
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Opening log for replication "
 operator|+
@@ -2309,6 +2350,21 @@ block|}
 comment|// TODO What happens if the log was missing from every single location?
 comment|// Although we need to check a couple of times as the log could have
 comment|// been moved by the master between the checks
+comment|// It can also happen if a recovered queue wasn't properly cleaned,
+comment|// such that the znode pointing to a log exists but the log was
+comment|// deleted a long time ago.
+comment|// For the moment, we'll throw the IO and processEndOfFile
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"File from recovered queue is "
+operator|+
+literal|"nowhere to be found"
+argument_list|,
+name|fnfe
+argument_list|)
+throw|;
 block|}
 else|else
 block|{
@@ -2997,8 +3053,10 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|abort
-argument_list|()
+name|terminate
+argument_list|(
+literal|"Finished recovering the queue"
+argument_list|)
 expr_stmt|;
 return|return
 literal|true
@@ -3048,22 +3106,16 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|fatal
+name|terminate
 argument_list|(
-literal|"Set stop flag in "
-operator|+
-name|t
-operator|.
-name|getName
-argument_list|()
+literal|"Uncaught exception during runtime"
 argument_list|,
+operator|new
+name|Exception
+argument_list|(
 name|e
 argument_list|)
-expr_stmt|;
-name|abort
-argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -3084,40 +3136,81 @@ name|handler
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Hastily stop the replication, then wait for shutdown    */
-specifier|private
+specifier|public
 name|void
-name|abort
-parameter_list|()
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"abort"
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|running
-operator|=
-literal|false
-expr_stmt|;
 name|terminate
-argument_list|()
+parameter_list|(
+name|String
+name|reason
+parameter_list|)
+block|{
+name|terminate
+argument_list|(
+name|reason
+argument_list|,
+literal|null
+argument_list|)
 expr_stmt|;
 block|}
 specifier|public
 name|void
 name|terminate
-parameter_list|()
+parameter_list|(
+name|String
+name|reason
+parameter_list|,
+name|Exception
+name|cause
+parameter_list|)
+block|{
+if|if
+condition|(
+name|cause
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Closing source "
+operator|+
+name|this
+operator|.
+name|peerClusterZnode
+operator|+
+literal|" because an error occurred: "
+operator|+
+name|reason
+argument_list|,
+name|cause
+argument_list|)
+expr_stmt|;
+block|}
+else|else
 block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"terminate"
+literal|"Closing source "
+operator|+
+name|this
+operator|.
+name|peerClusterZnode
+operator|+
+literal|" because: "
+operator|+
+name|reason
 argument_list|)
+expr_stmt|;
+block|}
+name|this
+operator|.
+name|running
+operator|=
+literal|false
 expr_stmt|;
 name|Threads
 operator|.
@@ -3298,7 +3391,6 @@ return|return
 name|down
 return|;
 block|}
-comment|/**    * Get the id that the source is replicating to    *    * @return peer cluster id    */
 specifier|public
 name|String
 name|getPeerClusterZnode
@@ -3310,7 +3402,17 @@ operator|.
 name|peerClusterZnode
 return|;
 block|}
-comment|/**    * Get the path of the current HLog    * @return current hlog's path    */
+specifier|public
+name|String
+name|getPeerClusterId
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|peerClusterId
+return|;
+block|}
 specifier|public
 name|Path
 name|getCurrentPath
@@ -3321,6 +3423,24 @@ name|this
 operator|.
 name|currentPath
 return|;
+block|}
+specifier|public
+name|void
+name|setSourceEnabled
+parameter_list|(
+name|boolean
+name|status
+parameter_list|)
+block|{
+name|this
+operator|.
+name|sourceEnabled
+operator|.
+name|set
+argument_list|(
+name|status
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Comparator used to compare logs together based on their start time    */
 specifier|public

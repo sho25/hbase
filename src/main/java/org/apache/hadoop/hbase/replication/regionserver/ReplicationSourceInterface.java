@@ -161,17 +161,47 @@ name|void
 name|startup
 parameter_list|()
 function_decl|;
-comment|/**    * End the replication    */
+comment|/**    * End the replication    * @param reason why it's terminating    */
 specifier|public
 name|void
 name|terminate
-parameter_list|()
+parameter_list|(
+name|String
+name|reason
+parameter_list|)
+function_decl|;
+comment|/**    * End the replication    * @param reason why it's terminating    * @param cause the error that's causing it    */
+specifier|public
+name|void
+name|terminate
+parameter_list|(
+name|String
+name|reason
+parameter_list|,
+name|Exception
+name|cause
+parameter_list|)
 function_decl|;
 comment|/**    * Get the id that the source is replicating to    *    * @return peer cluster id    */
 specifier|public
 name|String
 name|getPeerClusterZnode
 parameter_list|()
+function_decl|;
+comment|/**    * Get the id that the source is replicating to.    *    * @return peer cluster id    */
+specifier|public
+name|String
+name|getPeerClusterId
+parameter_list|()
+function_decl|;
+comment|/**    * Set if this source is enabled or disabled    * @param status the new status    */
+specifier|public
+name|void
+name|setSourceEnabled
+parameter_list|(
+name|boolean
+name|status
+parameter_list|)
 function_decl|;
 block|}
 end_interface

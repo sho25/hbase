@@ -235,7 +235,23 @@ name|Override
 specifier|public
 name|void
 name|terminate
-parameter_list|()
+parameter_list|(
+name|String
+name|reason
+parameter_list|)
+block|{    }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|terminate
+parameter_list|(
+name|String
+name|reason
+parameter_list|,
+name|Exception
+name|e
+parameter_list|)
 block|{    }
 annotation|@
 name|Override
@@ -248,6 +264,27 @@ return|return
 name|peerClusterId
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|getPeerClusterId
+parameter_list|()
+block|{
+return|return
+name|peerClusterId
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|setSourceEnabled
+parameter_list|(
+name|boolean
+name|status
+parameter_list|)
+block|{    }
 block|}
 end_class
 
