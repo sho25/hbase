@@ -3243,6 +3243,8 @@ name|plan
 operator|.
 name|getDestination
 argument_list|()
+operator|+
+literal|", trying to assign elsewhere instead"
 argument_list|,
 name|t
 argument_list|)
@@ -3843,51 +3845,7 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-if|if
-condition|(
-name|e
-operator|instanceof
-name|RemoteException
-condition|)
-block|{
-name|e
-operator|=
-operator|(
-operator|(
-name|RemoteException
-operator|)
-name|e
-operator|)
-operator|.
-name|unwrapRemoteException
-argument_list|()
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|e
-operator|instanceof
-name|NotServingRegionException
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Attempted to close region "
-operator|+
-name|region
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|" but got an NSRE"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-comment|// For now call abort if unexpected exception -- seeing it up in hudson.
+comment|// For now call abort if unexpected exception -- radical, but will get fellas attention.
 comment|// St.Ack 20101012
 name|this
 operator|.
@@ -3907,7 +3865,7 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
-comment|// For now call abort if unexpected exception -- seeing it up in hudson.
+comment|// For now call abort if unexpected exception -- radical, but will get fellas attention.
 comment|// St.Ack 20101012
 name|this
 operator|.

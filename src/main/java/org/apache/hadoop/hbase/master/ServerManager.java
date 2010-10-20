@@ -291,6 +291,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ZooKeeperConnectionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|HConnection
@@ -396,20 +410,6 @@ operator|.
 name|util
 operator|.
 name|Threads
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|ipc
-operator|.
-name|RemoteException
 import|;
 end_import
 
@@ -2267,6 +2267,7 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param info    * @return    * @throws IOException    * @throws RetriesExhaustedException wrapping a ConnectException if failed    * putting up proxy.    */
 specifier|private
 name|HRegionInterface
 name|getServerConnection
@@ -2274,8 +2275,8 @@ parameter_list|(
 name|HServerInfo
 name|info
 parameter_list|)
-block|{
-try|try
+throws|throws
+name|IOException
 block|{
 name|HConnection
 name|connection
@@ -2338,6 +2339,8 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|serverConnections
 operator|.
 name|put
@@ -2354,32 +2357,6 @@ block|}
 return|return
 name|hri
 return|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Error connecting to region server"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"Fatal error connection to RS"
-argument_list|,
-name|e
-argument_list|)
-throw|;
-block|}
 block|}
 comment|/**    * Waits for the regionservers to report in.    * @return Count of regions out on cluster    * @throws InterruptedException     */
 specifier|public
