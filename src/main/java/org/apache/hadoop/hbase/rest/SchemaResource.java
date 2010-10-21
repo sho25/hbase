@@ -1025,10 +1025,7 @@ name|admin
 operator|.
 name|addColumn
 argument_list|(
-name|model
-operator|.
-name|getName
-argument_list|()
+name|name
 argument_list|,
 name|hcd
 argument_list|)
