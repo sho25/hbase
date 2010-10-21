@@ -1018,7 +1018,8 @@ name|getEncodedName
 argument_list|()
 expr_stmt|;
 block|}
-specifier|private
+comment|/**    * Make a region name of passed parameters.    * @param tableName    * @param startKey Can be null    * @param id Region id (Usually timestamp from when region was created).    * @param newFormat should we create the region name in the new format    *                  (such that it contains its encoded name?).    * @return Region name made of passed tableName, startKey and id    */
+specifier|public
 specifier|static
 name|byte
 index|[]
@@ -1060,7 +1061,7 @@ name|newFormat
 argument_list|)
 return|;
 block|}
-comment|/**    * Make a region name of passed parameters.    * @param tableName    * @param startKey Can be null    * @param id Region id.    * @param newFormat should we create the region name in the new format    *                  (such that it contains its encoded name?).    * @return Region name made of passed tableName, startKey and id    */
+comment|/**    * Make a region name of passed parameters.    * @param tableName    * @param startKey Can be null    * @param id Region id (Usually timestamp from when region was created).    * @param newFormat should we create the region name in the new format    *                  (such that it contains its encoded name?).    * @return Region name made of passed tableName, startKey and id    */
 specifier|public
 specifier|static
 name|byte
@@ -1103,7 +1104,7 @@ name|newFormat
 argument_list|)
 return|;
 block|}
-comment|/**    * Make a region name of passed parameters.    * @param tableName    * @param startKey Can be null    * @param id Region id    * @param newFormat should we create the region name in the new format    *                  (such that it contains its encoded name?).    * @return Region name made of passed tableName, startKey and id    */
+comment|/**    * Make a region name of passed parameters.    * @param tableName    * @param startKey Can be null    * @param id Region id (Usually timestamp from when region was created).    * @param newFormat should we create the region name in the new format    *                  (such that it contains its encoded name?).    * @return Region name made of passed tableName, startKey and id    */
 specifier|public
 specifier|static
 name|byte

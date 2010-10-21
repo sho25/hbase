@@ -1168,7 +1168,7 @@ if|if
 condition|(
 name|hriRegionName
 operator|.
-name|startsWith
+name|equals
 argument_list|(
 name|regionName
 argument_list|)
