@@ -775,6 +775,22 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|tabOffsets
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|BadTsvLineException
+argument_list|(
+literal|"No delimiter"
+argument_list|)
+throw|;
+block|}
 name|tabOffsets
 operator|.
 name|add
@@ -798,7 +814,27 @@ throw|throw
 operator|new
 name|BadTsvLineException
 argument_list|(
-literal|"Bad line:\n"
+literal|"Excessive columns"
+argument_list|)
+throw|;
+block|}
+elseif|else
+if|if
+condition|(
+name|tabOffsets
+operator|.
+name|size
+argument_list|()
+operator|<=
+name|getRowKeyColumnIndex
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|BadTsvLineException
+argument_list|(
+literal|"No row key"
 argument_list|)
 throw|;
 block|}
@@ -1826,6 +1862,30 @@ operator|+
 name|TsvParser
 operator|.
 name|ROWKEY_COLUMN_SPEC
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|exit
+argument_list|(
+operator|-
+literal|1
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Make sure one or more columns are specified
+if|if
+condition|(
+name|columns
+operator|.
+name|length
+operator|<
+literal|2
+condition|)
+block|{
+name|usage
+argument_list|(
+literal|"One or more columns in addition to the row key are required"
 argument_list|)
 expr_stmt|;
 name|System
