@@ -2434,7 +2434,7 @@ name|getInt
 argument_list|(
 literal|"hbase.master.executor.openregion.threads"
 argument_list|,
-literal|5
+literal|10
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2454,7 +2454,7 @@ name|getInt
 argument_list|(
 literal|"hbase.master.executor.closeregion.threads"
 argument_list|,
-literal|5
+literal|10
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2474,7 +2474,7 @@ name|getInt
 argument_list|(
 literal|"hbase.master.executor.serverops.threads"
 argument_list|,
-literal|3
+literal|5
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2494,7 +2494,7 @@ name|getInt
 argument_list|(
 literal|"hbase.master.executor.tableops.threads"
 argument_list|,
-literal|3
+literal|5
 argument_list|)
 argument_list|)
 expr_stmt|;

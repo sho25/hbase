@@ -57,7 +57,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|ConcurrentHashMap
+name|BlockingQueue
 import|;
 end_import
 
@@ -69,7 +69,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|Executors
+name|ConcurrentHashMap
 import|;
 end_import
 
@@ -94,6 +94,18 @@ operator|.
 name|concurrent
 operator|.
 name|ThreadPoolExecutor
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|TimeUnit
 import|;
 end_import
 
@@ -192,7 +204,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is a generic executor service. This component abstracts a  * threadpool, a queue to which {@link EventHandler.EventType}s can be submitted,  * and a<code>Runnable</code> that handles the object that is added to the queue.  *  *<p>In order to create a new service, create an instance of this class and  * then do:<code>instance.startExecutorService("myService");</code>.  When done  * call {@link #shutdown()}.  *  *<p>In order to use the service created above, call  * {@link #submit(EventHandler)}. Register pre- and post- processing listeners  * by registering your implementation of {@link EventHandler.EventHandlerListener}  * with {@link #registerListener(EventType, EventHandlerListener)}.  Be sure  * to deregister your listener when done via {@link #unregisterListener(EventType)}.  */
+comment|/**  * This is a generic executor service. This component abstracts a  * threadpool, a queue to which {@link EventHandler.EventType}s can be submitted,  * and a<code>Runnable</code> that handles the object that is added to the queue.  *  *<p>In order to create a new service, create an instance of this class and   * then do:<code>instance.startExecutorService("myService");</code>.  When done  * call {@link #shutdown()}.  *  *<p>In order to use the service created above, call  * {@link #submit(EventHandler)}. Register pre- and post- processing listeners  * by registering your implementation of {@link EventHandler.EventHandlerListener}  * with {@link #registerListener(EventType, EventHandlerListener)}.  Be sure  * to deregister your listener when done via {@link #unregisterListener(EventType)}.  */
 end_comment
 
 begin_class
@@ -578,6 +590,24 @@ argument_list|(
 literal|"Starting executor service name="
 operator|+
 name|name
+operator|+
+literal|", corePoolSize="
+operator|+
+name|hbes
+operator|.
+name|threadPoolExecutor
+operator|.
+name|getCorePoolSize
+argument_list|()
+operator|+
+literal|", maxPoolSize="
+operator|+
+name|hbes
+operator|.
+name|threadPoolExecutor
+operator|.
+name|getMaximumPoolSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -633,7 +663,7 @@ operator|.
 name|getValue
 argument_list|()
 operator|.
-name|poolExecutor
+name|threadPoolExecutor
 operator|.
 name|shutdownNow
 argument_list|()
@@ -878,31 +908,33 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Executor instance.    */
+specifier|private
 specifier|static
 class|class
 name|Executor
 block|{
+comment|// default number of threads in the pool
+specifier|private
+name|int
+name|corePoolSize
+init|=
+literal|1
+decl_stmt|;
 comment|// how long to retain excess threads
-specifier|final
+specifier|private
 name|long
 name|keepAliveTimeInMillis
 init|=
 literal|1000
 decl_stmt|;
 comment|// the thread pool executor that services the requests
+specifier|private
 specifier|final
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ExecutorService
-name|poolExecutor
+name|ThreadPoolExecutor
+name|threadPoolExecutor
 decl_stmt|;
 comment|// work queue to use - unbounded queue
-specifier|final
-name|PriorityBlockingQueue
+name|BlockingQueue
 argument_list|<
 name|Runnable
 argument_list|>
@@ -977,6 +1009,26 @@ operator|=
 name|eventHandlerListeners
 expr_stmt|;
 comment|// create the thread pool executor
+name|this
+operator|.
+name|threadPoolExecutor
+operator|=
+operator|new
+name|ThreadPoolExecutor
+argument_list|(
+name|corePoolSize
+argument_list|,
+name|maxThreads
+argument_list|,
+name|keepAliveTimeInMillis
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|,
+name|workQueue
+argument_list|)
+expr_stmt|;
 comment|// name the threads for this threadpool
 name|ThreadFactoryBuilder
 name|tfb
@@ -1005,14 +1057,10 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|poolExecutor
-operator|=
-name|Executors
+name|threadPoolExecutor
 operator|.
-name|newFixedThreadPool
+name|setThreadFactory
 argument_list|(
-name|maxThreads
-argument_list|,
 name|tfb
 operator|.
 name|build
@@ -1063,7 +1111,7 @@ expr_stmt|;
 block|}
 name|this
 operator|.
-name|poolExecutor
+name|threadPoolExecutor
 operator|.
 name|execute
 argument_list|(
