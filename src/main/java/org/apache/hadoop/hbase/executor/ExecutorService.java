@@ -587,9 +587,27 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Starting executor service: "
+literal|"Starting executor service name="
 operator|+
 name|name
+operator|+
+literal|", corePoolSize="
+operator|+
+name|hbes
+operator|.
+name|threadPoolExecutor
+operator|.
+name|getCorePoolSize
+argument_list|()
+operator|+
+literal|", maxPoolSize="
+operator|+
+name|hbes
+operator|.
+name|threadPoolExecutor
+operator|.
+name|getMaximumPoolSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

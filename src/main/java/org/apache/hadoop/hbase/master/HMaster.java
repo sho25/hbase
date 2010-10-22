@@ -1500,6 +1500,8 @@ operator|.
 name|activeMasterManager
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
 name|activeMasterManager
 operator|.
 name|blockUntilBecomingActiveMaster
@@ -1514,15 +1516,30 @@ operator|.
 name|stopped
 condition|)
 block|{
-comment|// We are active master.  Finish init and loop until we are closed.
 name|finishInitialization
 argument_list|()
 expr_stmt|;
 name|loop
 argument_list|()
 expr_stmt|;
-comment|// Once we break out of here, we are being shutdown
-comment|// Stop chores
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+name|abort
+argument_list|(
+literal|"Unhandled exception. Starting shutdown."
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+block|}
+finally|finally
+block|{
 name|stopChores
 argument_list|()
 expr_stmt|;
@@ -1554,9 +1571,15 @@ block|}
 name|stopServiceThreads
 argument_list|()
 expr_stmt|;
-block|}
-comment|// Handle either a backup or active master being stopped
 comment|// Stop services started for both backup and active masters
+if|if
+condition|(
+name|this
+operator|.
+name|activeMasterManager
+operator|!=
+literal|null
+condition|)
 name|this
 operator|.
 name|activeMasterManager
@@ -1603,6 +1626,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
@@ -1610,21 +1634,6 @@ argument_list|(
 literal|"HMaster main thread exiting"
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Throwable
-name|t
-parameter_list|)
-block|{
-name|abort
-argument_list|(
-literal|"Unhandled exception. Starting shutdown."
-argument_list|,
-name|t
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 end_function
 
@@ -2646,6 +2655,14 @@ literal|"Stopping service threads"
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|this
+operator|.
+name|rpcServer
+operator|!=
+literal|null
+condition|)
 name|this
 operator|.
 name|rpcServer
@@ -2693,6 +2710,14 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|this
+operator|.
+name|executorService
+operator|!=
+literal|null
+condition|)
 name|this
 operator|.
 name|executorService

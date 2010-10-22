@@ -875,6 +875,10 @@ name|verifyRegionLocation
 argument_list|(
 name|current
 argument_list|,
+name|this
+operator|.
+name|metaLocation
+argument_list|,
 name|META_REGION
 argument_list|)
 condition|)
@@ -938,6 +942,10 @@ condition|(
 name|verifyRegionLocation
 argument_list|(
 name|newConnection
+argument_list|,
+name|this
+operator|.
+name|metaLocation
 argument_list|,
 name|META_REGION
 argument_list|)
@@ -1348,6 +1356,10 @@ parameter_list|(
 name|HRegionInterface
 name|metaServer
 parameter_list|,
+specifier|final
+name|HServerAddress
+name|address
+parameter_list|,
 name|byte
 index|[]
 name|regionName
@@ -1485,6 +1497,10 @@ argument_list|(
 name|regionName
 argument_list|)
 operator|+
+literal|" at address="
+operator|+
+name|address
+operator|+
 literal|"; "
 operator|+
 name|t
@@ -1554,6 +1570,13 @@ else|:
 name|verifyRegionLocation
 argument_list|(
 name|connection
+argument_list|,
+name|this
+operator|.
+name|rootRegionTracker
+operator|.
+name|getRootRegionLocation
+argument_list|()
 argument_list|,
 name|HRegionInfo
 operator|.
@@ -1678,18 +1701,7 @@ operator|.
 name|getServerName
 argument_list|()
 operator|+
-literal|" carrying -ROOT-; deleting "
-operator|+
-literal|"-ROOT- location from meta"
-argument_list|)
-expr_stmt|;
-name|RootLocationEditor
-operator|.
-name|deleteRootLocation
-argument_list|(
-name|this
-operator|.
-name|zookeeper
+literal|" carrying -ROOT-; unsetting"
 argument_list|)
 expr_stmt|;
 block|}

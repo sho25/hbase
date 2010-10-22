@@ -343,6 +343,27 @@ operator|+
 name|name
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|server
+operator|.
+name|isStopped
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Server stopping, skipping open of "
+operator|+
+name|name
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 specifier|final
 name|String
 name|encodedName
