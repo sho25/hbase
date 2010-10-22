@@ -6077,7 +6077,7 @@ name|getInt
 argument_list|(
 literal|"hbase.regionserver.executor.openregion.threads"
 argument_list|,
-literal|5
+literal|3
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -6137,7 +6137,7 @@ name|getInt
 argument_list|(
 literal|"hbase.regionserver.executor.closeregion.threads"
 argument_list|,
-literal|5
+literal|3
 argument_list|)
 argument_list|)
 expr_stmt|;
