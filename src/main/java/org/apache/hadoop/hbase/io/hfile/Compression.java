@@ -394,7 +394,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Compression algorithms.    */
+comment|/**    * Compression algorithms. The ordinal of these cannot change or else you    * risk breaking all existing HFiles out there.  Even the ones that are    * not compressed! (They use the NONE algorithm)    */
 specifier|public
 specifier|static
 enum|enum

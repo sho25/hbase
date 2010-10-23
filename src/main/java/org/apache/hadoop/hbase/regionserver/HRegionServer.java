@@ -1277,6 +1277,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|CompressionTest
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|FSUtils
 import|;
 end_import
@@ -1835,6 +1851,60 @@ name|isOnline
 operator|=
 literal|false
 expr_stmt|;
+comment|// check to see if the codec list is available:
+name|String
+index|[]
+name|codecs
+init|=
+name|conf
+operator|.
+name|getStrings
+argument_list|(
+literal|"hbase.regionserver.codecs"
+argument_list|,
+literal|null
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|codecs
+operator|!=
+literal|null
+condition|)
+block|{
+for|for
+control|(
+name|String
+name|codec
+range|:
+name|codecs
+control|)
+block|{
+if|if
+condition|(
+operator|!
+name|CompressionTest
+operator|.
+name|testCompression
+argument_list|(
+name|codec
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Compression codec "
+operator|+
+name|codec
+operator|+
+literal|" not supported, aborting RS construction"
+argument_list|)
+throw|;
+block|}
+block|}
+block|}
 comment|// Config'ed params
 name|this
 operator|.
@@ -12846,7 +12916,7 @@ name|RuntimeException
 argument_list|(
 literal|"Failed construction of "
 operator|+
-literal|"Master: "
+literal|"Regionserver: "
 operator|+
 name|regionServerClass
 operator|.
