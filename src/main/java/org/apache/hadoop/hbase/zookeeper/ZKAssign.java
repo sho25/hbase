@@ -706,6 +706,13 @@ argument_list|)
 decl_stmt|;
 name|zkw
 operator|.
+name|sync
+argument_list|(
+name|node
+argument_list|)
+expr_stmt|;
+name|zkw
+operator|.
 name|getNodes
 argument_list|()
 operator|.
@@ -954,6 +961,13 @@ argument_list|,
 name|regionName
 argument_list|)
 decl_stmt|;
+name|zkw
+operator|.
+name|sync
+argument_list|(
+name|node
+argument_list|)
+expr_stmt|;
 name|Stat
 name|stat
 init|=
@@ -1544,6 +1558,13 @@ argument_list|,
 name|encoded
 argument_list|)
 decl_stmt|;
+name|zkw
+operator|.
+name|sync
+argument_list|(
+name|node
+argument_list|)
+expr_stmt|;
 comment|// Read existing data of the node
 name|Stat
 name|stat

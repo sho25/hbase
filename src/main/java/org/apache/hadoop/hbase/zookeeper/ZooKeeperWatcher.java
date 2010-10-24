@@ -1197,6 +1197,29 @@ expr_stmt|;
 break|break;
 block|}
 block|}
+comment|/**    * Forces a synchronization of this ZooKeeper client connection.    *<p>    * Executing this method before running other methods will ensure that the    * subsequent operations are up-to-date and consistent as of the time that    * the sync is complete.    *<p>    * This is used for compareAndSwap type operations where we need to read the    * data of an existing node and delete or transition that node, utilizing the    * previously read version and data.  We want to ensure that the version read    * is up-to-date from when we begin the operation.    */
+specifier|public
+name|void
+name|sync
+parameter_list|(
+name|String
+name|path
+parameter_list|)
+block|{
+name|this
+operator|.
+name|zooKeeper
+operator|.
+name|sync
+argument_list|(
+name|path
+argument_list|,
+literal|null
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Get the set of already watched unassigned nodes.    * @return    */
 specifier|public
 name|Set
