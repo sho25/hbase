@@ -6759,18 +6759,6 @@ argument_list|)
 condition|)
 block|{
 comment|// Use iterator's remove else we'll get CME
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"REMOVING PLAN "
-operator|+
-name|e
-operator|.
-name|getValue
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|i
 operator|.
 name|remove
