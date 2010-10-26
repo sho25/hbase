@@ -19,6 +19,26 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -56,26 +76,6 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
 import|;
 end_import
 
@@ -297,7 +297,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the delete.  If the passed value is null, the     * check is for the lack of column (ie: non-existance)    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param value the expected value    * @param delete data to delete if check succeeds    * @throws IOException e    * @return true if the new delete was executed, false otherwise    */
+comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the delete.  If the passed value is null, the    * check is for the lack of column (ie: non-existance)    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param value the expected value    * @param delete data to delete if check succeeds    * @throws IOException e    * @return true if the new delete was executed, false otherwise    */
 name|boolean
 name|checkAndDelete
 parameter_list|(
@@ -319,6 +319,18 @@ name|value
 parameter_list|,
 name|Delete
 name|delete
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Increments one or more columns within a single row.    *<p>    * This operation does not appear atomic to readers.  Increments are done    * under a single row lock, so write operations to a row are synchronized, but    * readers do not take row locks so get and scan operations can see this    * operation partially completed.    *    * @param increment object that specifies the columns and amounts to be used    *                  for the increment operations    * @throws IOException e    * @return values of columns after the increment    */
+specifier|public
+name|Result
+name|increment
+parameter_list|(
+specifier|final
+name|Increment
+name|increment
 parameter_list|)
 throws|throws
 name|IOException

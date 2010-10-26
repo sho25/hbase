@@ -271,6 +271,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Increment
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Put
 import|;
 end_import
@@ -3433,6 +3449,24 @@ operator|new
 name|IOException
 argument_list|(
 literal|"checkAndDelete not supported"
+argument_list|)
+throw|;
+block|}
+specifier|public
+name|Result
+name|increment
+parameter_list|(
+name|Increment
+name|increment
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Increment not supported"
 argument_list|)
 throw|;
 block|}

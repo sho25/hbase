@@ -57,6 +57,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Collections
 import|;
 end_import
@@ -1430,10 +1440,6 @@ argument_list|,
 name|qualifier
 argument_list|)
 decl_stmt|;
-comment|// create a new KeyValue with 'now' and a 0 memstoreTS == immediately visible
-name|KeyValue
-name|newKv
-decl_stmt|;
 comment|// Is there a KeyValue in 'snapshot' with the same TS? If so, upgrade the timestamp a bit.
 name|SortedSet
 argument_list|<
@@ -1616,10 +1622,19 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|// add the new value now. this might have the same TS as an existing KV, thus confusing
-comment|// readers slightly for a MOMENT until we erase the old one (and thus old value).
-name|newKv
-operator|=
+comment|// create or update (upsert) a new KeyValue with
+comment|// 'now' and a 0 memstoreTS == immediately visible
+return|return
+name|upsert
+argument_list|(
+name|Arrays
+operator|.
+name|asList
+argument_list|(
+operator|new
+name|KeyValue
+index|[]
+block|{
 operator|new
 name|KeyValue
 argument_list|(
@@ -1638,32 +1653,139 @@ argument_list|(
 name|newValue
 argument_list|)
 argument_list|)
+block|}
+argument_list|)
+argument_list|)
+return|;
+block|}
+finally|finally
+block|{
+name|this
+operator|.
+name|lock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
 expr_stmt|;
+block|}
+block|}
+comment|/**    * Update or insert the specified KeyValues.    *<p>    * For each KeyValue, insert into MemStore.  This will atomically upsert the    * value for that row/family/qualifier.  If a KeyValue did already exist,    * it will then be removed.    *<p>    * Currently the memstoreTS is kept at 0 so as each insert happens, it will    * be immediately visible.  May want to change this so it is atomic across    * all KeyValues.    *<p>    * This is called under row lock, so Get operations will still see updates    * atomically.  Scans will only see each KeyValue update as atomic.    *    * @param kvs    * @return change in memstore size    */
+specifier|public
+name|long
+name|upsert
+parameter_list|(
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+name|kvs
+parameter_list|)
+block|{
+name|this
+operator|.
+name|lock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
+block|{
+name|long
+name|size
+init|=
+literal|0
+decl_stmt|;
+for|for
+control|(
+name|KeyValue
+name|kv
+range|:
+name|kvs
+control|)
+block|{
+name|kv
+operator|.
+name|setMemstoreTS
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+name|size
+operator|+=
+name|upsert
+argument_list|(
+name|kv
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|size
+return|;
+block|}
+finally|finally
+block|{
+name|this
+operator|.
+name|lock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+comment|/**    * Inserts the specified KeyValue into MemStore and deletes any existing    * versions of the same row/family/qualifier as the specified KeyValue.    *<p>    * First, the specified KeyValue is inserted into the Memstore.    *<p>    * If there are any existing KeyValues in this MemStore with the same row,    * family, and qualifier, they are removed.    * @param kv    * @return change in size of MemStore    */
+specifier|private
+name|long
+name|upsert
+parameter_list|(
+name|KeyValue
+name|kv
+parameter_list|)
+block|{
+comment|// Add the KeyValue to the MemStore
 name|long
 name|addedSize
 init|=
 name|add
 argument_list|(
-name|newKv
+name|kv
 argument_list|)
 decl_stmt|;
-comment|// remove extra versions.
+comment|// Iterate the KeyValues after the one just inserted, cleaning up any
+comment|// other KeyValues with the same row/family/qualifier
+name|SortedSet
+argument_list|<
+name|KeyValue
+argument_list|>
 name|ss
-operator|=
+init|=
 name|kvset
 operator|.
 name|tailSet
 argument_list|(
-name|firstKv
+name|kv
 argument_list|)
-expr_stmt|;
+decl_stmt|;
+name|Iterator
+argument_list|<
+name|KeyValue
+argument_list|>
 name|it
-operator|=
+init|=
 name|ss
 operator|.
 name|iterator
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 while|while
 condition|(
 name|it
@@ -1673,7 +1795,7 @@ argument_list|()
 condition|)
 block|{
 name|KeyValue
-name|kv
+name|cur
 init|=
 name|it
 operator|.
@@ -1684,45 +1806,34 @@ if|if
 condition|(
 name|kv
 operator|==
-name|newKv
+name|cur
 condition|)
 block|{
-comment|// ignore the one i just put in (heh)
+comment|// ignore the one just put in
 continue|continue;
 block|}
-comment|// if this isnt the row we are interested in, then bail:
+comment|// if this isn't the row we are interested in, then bail
 if|if
 condition|(
 operator|!
-name|firstKv
-operator|.
-name|matchingColumn
-argument_list|(
-name|family
-argument_list|,
-name|qualifier
-argument_list|)
-operator|||
-operator|!
-name|firstKv
+name|kv
 operator|.
 name|matchingRow
 argument_list|(
-name|kv
+name|cur
 argument_list|)
 condition|)
 block|{
 break|break;
-comment|// rows dont match, bail.
 block|}
-comment|// if the qualifier matches and it's a put, just RM it out of the kvset.
+comment|// if the qualifier matches and it's a put, remove it
 if|if
 condition|(
-name|firstKv
+name|kv
 operator|.
 name|matchingQualifier
 argument_list|(
-name|kv
+name|cur
 argument_list|)
 condition|)
 block|{
@@ -1742,6 +1853,13 @@ name|Put
 operator|.
 name|getCode
 argument_list|()
+operator|&&
+name|kv
+operator|.
+name|getMemstoreTS
+argument_list|()
+operator|==
+literal|0
 condition|)
 block|{
 comment|// false means there was a change, so give us the size.
@@ -1761,24 +1879,15 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+else|else
+block|{
+comment|// past the column, done
+break|break;
+block|}
 block|}
 return|return
 name|addedSize
 return|;
-block|}
-finally|finally
-block|{
-name|this
-operator|.
-name|lock
-operator|.
-name|readLock
-argument_list|()
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 comment|/*    * Immutable data structure to hold member found in set and the set it was    * found in.  Include set because it is carrying context.    */
 specifier|private
