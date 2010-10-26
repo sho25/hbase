@@ -327,6 +327,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|NotServingRegionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Server
 import|;
 end_import
@@ -818,7 +832,6 @@ name|TimeoutMonitor
 name|timeoutMonitor
 decl_stmt|;
 comment|/** Regions currently in transition. */
-specifier|private
 specifier|final
 name|ConcurrentSkipListMap
 argument_list|<
@@ -840,7 +853,6 @@ decl_stmt|;
 comment|/** Plans for region movement. Key is the encoded version of a region name*/
 comment|// TODO: When do plans get cleaned out?  Ever? In server open and in server
 comment|// shutdown processing -- St.Ack
-specifier|protected
 specifier|final
 name|ConcurrentNavigableMap
 argument_list|<
@@ -1648,6 +1660,9 @@ operator|+
 literal|"server is not online: "
 operator|+
 name|data
+operator|.
+name|getRegionName
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return;
@@ -2731,7 +2746,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|debug
 argument_list|(
 literal|"Tried to delete closed node for "
 operator|+
@@ -2739,10 +2754,9 @@ name|regionInfo
 operator|+
 literal|" but it "
 operator|+
-literal|"does not exist"
+literal|"does not exist so just offlining"
 argument_list|)
 expr_stmt|;
-return|return;
 block|}
 catch|catch
 parameter_list|(
@@ -4379,6 +4393,9 @@ block|}
 comment|// Send CLOSE RPC
 try|try
 block|{
+if|if
+condition|(
+operator|!
 name|serverManager
 operator|.
 name|sendRegionClose
@@ -4395,7 +4412,56 @@ operator|.
 name|getRegion
 argument_list|()
 argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|NotServingRegionException
+argument_list|(
+literal|"Server failed to close region"
+argument_list|)
+throw|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|NotServingRegionException
+name|nsre
+parameter_list|)
+block|{
+comment|// Did not CLOSE, so set region offline and assign it
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Attempted to send CLOSE for region "
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" but failed, setting region as "
+operator|+
+literal|"OFFLINE and reassigning"
+argument_list|)
 expr_stmt|;
+synchronized|synchronized
+init|(
+name|regionsInTransition
+init|)
+block|{
+name|forceRegionStateToOffline
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
+name|assign
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -4405,6 +4471,8 @@ parameter_list|)
 block|{
 comment|// For now call abort if unexpected exception -- radical, but will get fellas attention.
 comment|// St.Ack 20101012
+comment|// I don't think IOE can happen anymore, only NSRE IOE is used here
+comment|// should be able to remove this at least.  jgray 20101024
 name|this
 operator|.
 name|master
@@ -4431,7 +4499,7 @@ name|master
 operator|.
 name|abort
 argument_list|(
-literal|"Unexpected exception"
+literal|"Remote unexpected exception"
 argument_list|,
 name|t
 argument_list|)
@@ -6170,14 +6238,11 @@ break|break;
 case|case
 name|PENDING_OPEN
 case|:
-case|case
-name|OPENING
-case|:
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Region has been PENDING_OPEN  or OPENING for too "
+literal|"Region has been PENDING_OPEN for too "
 operator|+
 literal|"long, reassigning region="
 operator|+
@@ -6187,24 +6252,153 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// There could be two cases.  No ZK node or ZK in CLOSING.
+comment|// Should have a ZK node in OFFLINE state or no node at all
 try|try
 block|{
 if|if
 condition|(
 name|ZKUtil
 operator|.
-name|checkExists
+name|watchAndCheckExists
 argument_list|(
 name|watcher
 argument_list|,
-name|watcher
+name|ZKAssign
 operator|.
-name|assignmentZNode
+name|getNodeName
+argument_list|(
+name|watcher
+argument_list|,
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
-operator|!=
-operator|-
-literal|1
+argument_list|)
+operator|&&
+operator|!
+name|ZKAssign
+operator|.
+name|verifyRegionState
+argument_list|(
+name|watcher
+argument_list|,
+name|regionInfo
+argument_list|,
+name|EventType
+operator|.
+name|M_ZK_REGION_OFFLINE
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Region exists and not in expected OFFLINE "
+operator|+
+literal|"state so skipping timeout, region="
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|ke
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Unexpected ZK exception timing out "
+operator|+
+literal|"PENDING_CLOSE region"
+argument_list|,
+name|ke
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
+name|AssignmentManager
+operator|.
+name|this
+operator|.
+name|setOffline
+argument_list|(
+name|regionState
+operator|.
+name|getRegion
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|regionState
+operator|.
+name|update
+argument_list|(
+name|RegionState
+operator|.
+name|State
+operator|.
+name|OFFLINE
+argument_list|)
+expr_stmt|;
+name|assign
+argument_list|(
+name|regionState
+operator|.
+name|getRegion
+argument_list|()
+argument_list|)
+expr_stmt|;
+break|break;
+case|case
+name|OPENING
+case|:
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Region has been OPENING for too "
+operator|+
+literal|"long, reassigning region="
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Should have a ZK node in OPENING state
+try|try
+block|{
+if|if
+condition|(
+name|ZKUtil
+operator|.
+name|watchAndCheckExists
+argument_list|(
+name|watcher
+argument_list|,
+name|ZKAssign
+operator|.
+name|getNodeName
+argument_list|(
+name|watcher
+argument_list|,
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+argument_list|)
 operator|&&
 name|ZKAssign
 operator|.
@@ -6321,6 +6515,91 @@ break|break;
 case|case
 name|PENDING_CLOSE
 case|:
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Region has been PENDING_CLOSE for too "
+operator|+
+literal|"long, running forced unassign again on region="
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+comment|// If the server got the RPC, it will transition the node
+comment|// to CLOSING, so only do something here if no node exists
+if|if
+condition|(
+operator|!
+name|ZKUtil
+operator|.
+name|watchAndCheckExists
+argument_list|(
+name|watcher
+argument_list|,
+name|ZKAssign
+operator|.
+name|getNodeName
+argument_list|(
+name|watcher
+argument_list|,
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+argument_list|)
+condition|)
+block|{
+name|unassign
+argument_list|(
+name|regionInfo
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|NoNodeException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Node no longer existed so not forcing another "
+operator|+
+literal|"unassignment"
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unexpected ZK exception timing out a region "
+operator|+
+literal|"close"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+break|break;
 case|case
 name|CLOSING
 case|:
@@ -6328,7 +6607,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Region has been PENDING_CLOSE or CLOSING for too "
+literal|"Region has been CLOSING for too "
 operator|+
 literal|"long, running forced unassign again on region="
 operator|+
@@ -6480,6 +6759,18 @@ argument_list|)
 condition|)
 block|{
 comment|// Use iterator's remove else we'll get CME
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"REMOVING PLAN "
+operator|+
+name|e
+operator|.
+name|getValue
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|i
 operator|.
 name|remove

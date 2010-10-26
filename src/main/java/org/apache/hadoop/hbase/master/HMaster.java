@@ -2116,6 +2116,13 @@ operator|+
 literal|", rit="
 operator|+
 name|rit
+operator|+
+literal|", location="
+operator|+
+name|catalogTracker
+operator|.
+name|getRootLocation
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Work on meta region
@@ -2187,6 +2194,13 @@ operator|+
 literal|", rit="
 operator|+
 name|rit
+operator|+
+literal|", location="
+operator|+
+name|catalogTracker
+operator|.
+name|getMetaLocation
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
@@ -2475,6 +2489,26 @@ argument_list|(
 literal|"hbase.master.executor.serverops.threads"
 argument_list|,
 literal|3
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|executorService
+operator|.
+name|startExecutorService
+argument_list|(
+name|ExecutorType
+operator|.
+name|MASTER_META_SERVER_OPERATIONS
+argument_list|,
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.master.executor.serverops.threads"
+argument_list|,
+literal|2
 argument_list|)
 argument_list|)
 expr_stmt|;

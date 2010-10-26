@@ -295,8 +295,14 @@ name|M_SERVER_SHUTDOWN
 argument_list|(
 literal|70
 argument_list|)
-block|;
+block|,
 comment|// Master is processing shutdown of a RS
+name|M_META_SERVER_SHUTDOWN
+argument_list|(
+literal|72
+argument_list|)
+block|;
+comment|// Master is processing shutdown of RS hosting a meta region (-ROOT- or .META.).
 comment|/**      * Constructor      */
 name|EventType
 parameter_list|(

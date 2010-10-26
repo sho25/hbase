@@ -188,6 +188,13 @@ name|String
 name|path
 parameter_list|)
 block|{
+name|super
+operator|.
+name|nodeDeleted
+argument_list|(
+name|path
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 operator|!

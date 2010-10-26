@@ -111,20 +111,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicInteger
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -307,6 +293,11 @@ argument_list|(
 literal|5
 argument_list|)
 block|,
+name|MASTER_META_SERVER_OPERATIONS
+argument_list|(
+literal|6
+argument_list|)
+block|,
 comment|// RegionServer executor services
 name|RS_OPEN_REGION
 argument_list|(
@@ -405,6 +396,14 @@ return|return
 name|ExecutorType
 operator|.
 name|MASTER_SERVER_OPERATIONS
+return|;
+case|case
+name|M_META_SERVER_SHUTDOWN
+case|:
+return|return
+name|ExecutorType
+operator|.
+name|MASTER_META_SERVER_OPERATIONS
 return|;
 case|case
 name|C_M_DELETE_TABLE

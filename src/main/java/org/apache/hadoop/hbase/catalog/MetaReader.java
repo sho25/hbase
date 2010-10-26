@@ -1017,18 +1017,39 @@ name|RemoteException
 name|re
 parameter_list|)
 block|{
-if|if
-condition|(
+name|IOException
+name|ioe
+init|=
 name|re
 operator|.
 name|unwrapRemoteException
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|ioe
 operator|instanceof
 name|NotServingRegionException
 condition|)
 block|{
 comment|// Treat this NSRE as unavailable table.  Catch and fall through to
 comment|// return null below
+block|}
+elseif|else
+if|if
+condition|(
+name|ioe
+operator|.
+name|getMessage
+argument_list|()
+operator|.
+name|contains
+argument_list|(
+literal|"Server not running"
+argument_list|)
+condition|)
+block|{
+comment|// Treat as unavailable table.
 block|}
 else|else
 block|{
