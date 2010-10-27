@@ -93,7 +93,7 @@ literal|1
 decl_stmt|;
 comment|/** Bytes (B) in the array */
 specifier|protected
-name|int
+name|long
 name|byteSize
 decl_stmt|;
 comment|/** Number of hash functions */
@@ -291,11 +291,11 @@ throws|throws
 name|IllegalArgumentException
 block|{
 comment|/*      * Bloom filters are very sensitive to the number of elements inserted      * into them. For HBase, the number of entries depends on the size of the      * data stored in the column. Currently the default region size is 256MB,      * so entry count ~= 256MB / (average value size for column).  Despite      * this rule of thumb, there is no efficient way to calculate the entry      * count after compactions.  Therefore, it is often easier to use a      * dynamic bloom filter that will add extra space instead of allowing the      * error rate to grow.      *      * ( http://www.eecs.harvard.edu/~michaelm/NEWWORK/postscripts/BloomFilterSurvey.pdf )      *      * m denotes the number of bits in the Bloom filter (bitSize)      * n denotes the number of elements inserted into the Bloom filter (maxKeys)      * k represents the number of hash functions used (nbHash)      * e represents the desired false positive rate for the bloom (err)      *      * If we fix the error rate (e) and know the number of entries, then      * the optimal bloom size m = -(n * ln(err) / (ln(2)^2)      *                         ~= n * ln(err) / ln(0.6185)      *      * The probability of false positives is minimized when k = m/n ln(2).      */
-name|int
+name|long
 name|bitSize
 init|=
 operator|(
-name|int
+name|long
 operator|)
 name|Math
 operator|.
@@ -345,7 +345,7 @@ operator|)
 argument_list|)
 decl_stmt|;
 comment|// increase byteSize so folding is possible
-name|int
+name|long
 name|byteSize
 init|=
 operator|(
@@ -467,6 +467,9 @@ name|ByteBuffer
 operator|.
 name|allocate
 argument_list|(
+operator|(
+name|int
+operator|)
 name|this
 operator|.
 name|byteSize
@@ -489,18 +492,30 @@ name|IllegalArgumentException
 block|{
 if|if
 condition|(
+literal|0
+operator|>=
 name|this
 operator|.
 name|byteSize
-operator|<=
-literal|0
+operator|||
+name|this
+operator|.
+name|byteSize
+operator|>
+name|Integer
+operator|.
+name|MAX_VALUE
 condition|)
 block|{
 throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"maxValue must be> 0"
+literal|"Invalid byteSize: "
+operator|+
+name|this
+operator|.
+name|byteSize
 argument_list|)
 throw|;
 block|}
@@ -680,7 +695,7 @@ name|i
 operator|++
 control|)
 block|{
-name|int
+name|long
 name|hashLoc
 init|=
 name|Math
@@ -894,7 +909,7 @@ name|i
 operator|++
 control|)
 block|{
-name|int
+name|long
 name|hashLoc
 init|=
 name|Math
@@ -944,23 +959,33 @@ comment|/**    * Set the bit at the specified index to 1.    *    * @param pos i
 name|void
 name|set
 parameter_list|(
-name|int
+name|long
 name|pos
 parameter_list|)
 block|{
 name|int
 name|bytePos
 init|=
+call|(
+name|int
+call|)
+argument_list|(
 name|pos
 operator|/
 literal|8
+argument_list|)
 decl_stmt|;
 name|int
 name|bitPos
 init|=
+call|(
+name|int
+call|)
+argument_list|(
 name|pos
 operator|%
 literal|8
+argument_list|)
 decl_stmt|;
 name|byte
 name|curByte
@@ -994,7 +1019,7 @@ specifier|static
 name|boolean
 name|get
 parameter_list|(
-name|int
+name|long
 name|pos
 parameter_list|,
 name|ByteBuffer
@@ -1004,16 +1029,26 @@ block|{
 name|int
 name|bytePos
 init|=
+call|(
+name|int
+call|)
+argument_list|(
 name|pos
 operator|/
 literal|8
+argument_list|)
 decl_stmt|;
 name|int
 name|bitPos
 init|=
+call|(
+name|int
+call|)
+argument_list|(
 name|pos
 operator|%
 literal|8
+argument_list|)
 decl_stmt|;
 name|byte
 name|curByte
@@ -1074,6 +1109,9 @@ name|getByteSize
 parameter_list|()
 block|{
 return|return
+operator|(
+name|int
+operator|)
 name|this
 operator|.
 name|byteSize
@@ -1111,6 +1149,9 @@ decl_stmt|;
 name|int
 name|newByteSize
 init|=
+operator|(
+name|int
+operator|)
 name|this
 operator|.
 name|byteSize
@@ -1416,6 +1457,9 @@ name|out
 operator|.
 name|writeInt
 argument_list|(
+operator|(
+name|int
+operator|)
 name|byteSize
 argument_list|)
 expr_stmt|;
