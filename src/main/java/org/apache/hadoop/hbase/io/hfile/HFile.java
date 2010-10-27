@@ -970,7 +970,7 @@ argument_list|<
 name|byte
 index|[]
 argument_list|>
-name|rawComparator
+name|comparator
 decl_stmt|;
 comment|// A stream made per block written.
 specifier|private
@@ -1350,7 +1350,7 @@ name|blocksize
 expr_stmt|;
 name|this
 operator|.
-name|rawComparator
+name|comparator
 operator|=
 name|c
 operator|==
@@ -1698,9 +1698,9 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|this
+name|Bytes
 operator|.
-name|rawComparator
+name|BYTES_RAWCOMPARATOR
 operator|.
 name|compare
 argument_list|(
@@ -2249,7 +2249,7 @@ name|keyComp
 init|=
 name|this
 operator|.
-name|rawComparator
+name|comparator
 operator|.
 name|compare
 argument_list|(
@@ -2864,7 +2864,7 @@ name|toBytes
 argument_list|(
 name|this
 operator|.
-name|rawComparator
+name|comparator
 operator|.
 name|getClass
 argument_list|()
