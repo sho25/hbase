@@ -273,6 +273,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZKUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|io
 operator|.
 name|Writable
@@ -715,7 +731,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Use this before submitting a TableReduce job. It will    * appropriately set up the JobConf.    *    * @param table  The output table.    * @param reducer  The reducer class to use.    * @param job  The current job to adjust.  Make sure the passed job is    * carrying all necessary HBase configuration.    * @param partitioner  Partitioner to use. Pass<code>null</code> to use    * default partitioner.    * @param quorumAddress Distant cluster to write to; default is null for    * output to the cluster that is designated in<code>hbase-site.xml</code>.    * Set this String to the zookeeper ensemble of an alternate remote cluster    * when you would have the reduce write a cluster that is other than the    * default; e.g. copying tables between clusters, the source would be    * designated by<code>hbase-site.xml</code> and this param would have the    * ensemble address of the remote cluster.  The format to pass is particular.    * Pass<code>&lt;hbase.zookeeper.quorum> ':'&lt;ZOOKEEPER_ZNODE_PARENT></code>.    * @param serverClass redefined hbase.regionserver.class    * @param serverImpl redefined hbase.regionserver.impl    * @throws IOException When determining the region count fails.    */
+comment|/**    * Use this before submitting a TableReduce job. It will    * appropriately set up the JobConf.    *    * @param table  The output table.    * @param reducer  The reducer class to use.    * @param job  The current job to adjust.  Make sure the passed job is    * carrying all necessary HBase configuration.    * @param partitioner  Partitioner to use. Pass<code>null</code> to use    * default partitioner.    * @param quorumAddress Distant cluster to write to; default is null for    * output to the cluster that is designated in<code>hbase-site.xml</code>.    * Set this String to the zookeeper ensemble of an alternate remote cluster    * when you would have the reduce write a cluster that is other than the    * default; e.g. copying tables between clusters, the source would be    * designated by<code>hbase-site.xml</code> and this param would have the    * ensemble address of the remote cluster.  The format to pass is particular.    * Pass<code>&lt;hbase.zookeeper.quorum>:&lt;hbase.zookeeper.client.port>:&lt;zookeeper.znode.parent>    *</code> such as<code>server,server2,server3:2181:/hbase</code>.    * @param serverClass redefined hbase.regionserver.class    * @param serverImpl redefined hbase.regionserver.impl    * @throws IOException When determining the region count fails.    */
 specifier|public
 specifier|static
 name|void
@@ -770,7 +786,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Use this before submitting a TableReduce job. It will    * appropriately set up the JobConf.    *    * @param table  The output table.    * @param reducer  The reducer class to use.    * @param job  The current job to adjust.  Make sure the passed job is    * carrying all necessary HBase configuration.    * @param partitioner  Partitioner to use. Pass<code>null</code> to use    * default partitioner.    * @param quorumAddress Distant cluster to write to; default is null for    * output to the cluster that is designated in<code>hbase-site.xml</code>.    * Set this String to the zookeeper ensemble of an alternate remote cluster    * when you would have the reduce write a cluster that is other than the    * default; e.g. copying tables between clusters, the source would be    * designated by<code>hbase-site.xml</code> and this param would have the    * ensemble address of the remote cluster.  The format to pass is particular.    * Pass<code>&lt;hbase.zookeeper.quorum> ':'&lt;ZOOKEEPER_ZNODE_PARENT></code>.    * @param serverClass redefined hbase.regionserver.class    * @param serverImpl redefined hbase.regionserver.impl    * @param addDependencyJars upload HBase jars and jars for any of the configured    *           job classes via the distributed cache (tmpjars).    * @throws IOException When determining the region count fails.    */
+comment|/**    * Use this before submitting a TableReduce job. It will    * appropriately set up the JobConf.    *    * @param table  The output table.    * @param reducer  The reducer class to use.    * @param job  The current job to adjust.  Make sure the passed job is    * carrying all necessary HBase configuration.    * @param partitioner  Partitioner to use. Pass<code>null</code> to use    * default partitioner.    * @param quorumAddress Distant cluster to write to; default is null for    * output to the cluster that is designated in<code>hbase-site.xml</code>.    * Set this String to the zookeeper ensemble of an alternate remote cluster    * when you would have the reduce write a cluster that is other than the    * default; e.g. copying tables between clusters, the source would be    * designated by<code>hbase-site.xml</code> and this param would have the    * ensemble address of the remote cluster.  The format to pass is particular.    * Pass<code>&lt;hbase.zookeeper.quorum>:&lt;hbase.zookeeper.client.port>:&lt;zookeeper.znode.parent>    *</code> such as<code>server,server2,server3:2181:/hbase</code>.    * @param serverClass redefined hbase.regionserver.class    * @param serverImpl redefined hbase.regionserver.impl    * @param addDependencyJars upload HBase jars and jars for any of the configured    *           job classes via the distributed cache (tmpjars).    * @throws IOException When determining the region count fails.    */
 specifier|public
 specifier|static
 name|void
@@ -857,20 +873,14 @@ operator|!=
 literal|null
 condition|)
 block|{
-if|if
-condition|(
-name|quorumAddress
+comment|// Calling this will validate the format
+name|ZKUtil
 operator|.
-name|split
+name|transformClusterKey
 argument_list|(
-literal|":"
+name|quorumAddress
 argument_list|)
-operator|.
-name|length
-operator|==
-literal|2
-condition|)
-block|{
+expr_stmt|;
 name|conf
 operator|.
 name|set
@@ -882,28 +892,6 @@ argument_list|,
 name|quorumAddress
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-comment|// Not in expected format.
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Please specify the peer cluster using the format of "
-operator|+
-name|HConstants
-operator|.
-name|ZOOKEEPER_QUORUM
-operator|+
-literal|":"
-operator|+
-name|HConstants
-operator|.
-name|ZOOKEEPER_ZNODE_PARENT
-argument_list|)
-throw|;
-block|}
 block|}
 if|if
 condition|(

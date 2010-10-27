@@ -505,7 +505,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"              hbase.zookeeer.quorum:zookeeper.znode.parent"
+literal|"              hbase.zookeeer.quorum:hbase.zookeeper.client.port:zookeeper.znode.parent"
 argument_list|)
 expr_stmt|;
 name|System
@@ -579,7 +579,7 @@ literal|"org.apache.hadoop.hbase.mapreduce.CopyTable --rs.class=org.apache.hadoo
 operator|+
 literal|"--rs.impl=org.apache.hadoop.hbase.regionserver.replication.ReplicationRegionServer --starttime=1265875194289 --endtime=1265878794289 "
 operator|+
-literal|"--peer.adr=server1,server2,server3:/hbase TestTable "
+literal|"--peer.adr=server1,server2,server3:2181:/hbase TestTable "
 argument_list|)
 expr_stmt|;
 block|}
