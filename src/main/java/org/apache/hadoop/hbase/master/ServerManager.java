@@ -590,7 +590,6 @@ specifier|final
 name|MasterMetrics
 name|metrics
 decl_stmt|;
-specifier|private
 specifier|final
 name|DeadServer
 name|deadservers

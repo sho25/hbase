@@ -503,6 +503,13 @@ name|regionInfo
 operator|.
 name|getRegionNameAsString
 argument_list|()
+operator|+
+literal|" on "
+operator|+
+name|serverInfo
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

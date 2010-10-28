@@ -123,34 +123,6 @@ name|AssignmentManager
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZKAssign
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|KeeperException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Handles CLOSED region event on Master.  *<p>  * If table is being disabled, deletes ZK unassigned node and removes from  * regions in transition.  *<p>  * Otherwise, assigns the region to another server.  */
 end_comment
@@ -369,7 +341,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Handling CLOSED event"
+literal|"Handling CLOSED event for "
+operator|+
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Check if this table is being disabled or not

@@ -1093,8 +1093,6 @@ comment|// method is being played by a single thread on startup.
 comment|// TODO: Check list of user regions and their assignments against regionservers.
 comment|// TODO: Regions that have a null location and are not in regionsInTransitions
 comment|// need to be handled.
-comment|// TODO: Regions that are on servers that are not in our online list need
-comment|// reassigning.
 comment|// Scan META to build list of existing regions, servers, and assignment
 comment|// Returns servers who have not checked in (assumed dead) and their regions
 name|Map
@@ -2029,6 +2027,22 @@ expr_stmt|;
 return|return;
 block|}
 comment|// Handle OPENED by removing from transition and deleted zk node
+name|regionState
+operator|.
+name|update
+argument_list|(
+name|RegionState
+operator|.
+name|State
+operator|.
+name|OPEN
+argument_list|,
+name|data
+operator|.
+name|getStamp
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|executorService
@@ -3638,6 +3652,18 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Transition RegionState to PENDING_OPEN
+name|state
+operator|.
+name|update
+argument_list|(
+name|RegionState
+operator|.
+name|State
+operator|.
+name|PENDING_OPEN
+argument_list|)
+expr_stmt|;
 comment|// Send OPEN RPC. This can fail if the server on other end is is not up.
 name|serverManager
 operator|.
@@ -3652,18 +3678,6 @@ name|state
 operator|.
 name|getRegion
 argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// Transition RegionState to PENDING_OPEN
-name|state
-operator|.
-name|update
-argument_list|(
-name|RegionState
-operator|.
-name|State
-operator|.
-name|PENDING_OPEN
 argument_list|)
 expr_stmt|;
 block|}
@@ -3701,6 +3715,19 @@ argument_list|)
 expr_stmt|;
 comment|// Clean out plan we failed execute and one that doesn't look like it'll
 comment|// succeed anyways; we need a new plan!
+comment|// Transition back to OFFLINE
+name|state
+operator|.
+name|update
+argument_list|(
+name|RegionState
+operator|.
+name|State
+operator|.
+name|OFFLINE
+argument_list|)
+expr_stmt|;
+comment|// Remove the plan
 name|this
 operator|.
 name|regionPlans
@@ -4434,16 +4461,25 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Attempted to send CLOSE for region "
+literal|"Attempted to send CLOSE to "
+operator|+
+name|regions
+operator|.
+name|get
+argument_list|(
+name|region
+argument_list|)
+operator|+
+literal|" for region "
 operator|+
 name|region
 operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" but failed, setting region as "
+literal|" but failed, "
 operator|+
-literal|"OFFLINE and reassigning"
+literal|"setting region as OFFLINE and reassigning"
 argument_list|)
 expr_stmt|;
 synchronized|synchronized
@@ -4473,6 +4509,7 @@ comment|// For now call abort if unexpected exception -- radical, but will get f
 comment|// St.Ack 20101012
 comment|// I don't think IOE can happen anymore, only NSRE IOE is used here
 comment|// should be able to remove this at least.  jgray 20101024
+comment|// I lied, we actually get RemoteException wrapping our NSRE, need to unwrap
 name|this
 operator|.
 name|master

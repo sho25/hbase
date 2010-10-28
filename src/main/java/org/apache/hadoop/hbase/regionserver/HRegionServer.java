@@ -2741,6 +2741,15 @@ parameter_list|)
 block|{
 comment|// Call stop if error or process will stick around for ever since server
 comment|// puts up non-daemon threads.
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Stopping HRS because failed initialize"
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|server
@@ -4622,6 +4631,15 @@ operator|.
 name|serverInfo
 operator|.
 name|getServerName
+argument_list|()
+operator|+
+literal|", RPC listening on "
+operator|+
+name|this
+operator|.
+name|server
+operator|.
+name|getListenerAddress
 argument_list|()
 operator|+
 literal|", sessionid=0x"

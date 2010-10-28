@@ -1430,6 +1430,25 @@ operator|=
 name|cause
 expr_stmt|;
 block|}
+elseif|else
+if|if
+condition|(
+name|cause
+operator|.
+name|getMessage
+argument_list|()
+operator|.
+name|contains
+argument_list|(
+literal|"Connection reset"
+argument_list|)
+condition|)
+block|{
+name|t
+operator|=
+name|cause
+expr_stmt|;
+block|}
 else|else
 block|{
 throw|throw
