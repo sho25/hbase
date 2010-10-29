@@ -769,6 +769,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|metrics
+operator|.
+name|MasterMetrics
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|HRegion
@@ -1084,6 +1102,12 @@ specifier|final
 name|HServerAddress
 name|address
 decl_stmt|;
+comment|// Metrics for the HMaster
+specifier|private
+specifier|final
+name|MasterMetrics
+name|metrics
+decl_stmt|;
 comment|// file system manager for the master FS operations
 specifier|private
 name|MasterFileSystem
@@ -1356,6 +1380,17 @@ name|getPort
 argument_list|()
 argument_list|,
 name|this
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|metrics
+operator|=
+operator|new
+name|MasterMetrics
+argument_list|(
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1726,6 +1761,8 @@ operator|new
 name|MasterFileSystem
 argument_list|(
 name|this
+argument_list|,
+name|metrics
 argument_list|)
 expr_stmt|;
 name|this
@@ -1760,6 +1797,8 @@ argument_list|(
 name|this
 argument_list|,
 name|this
+argument_list|,
+name|metrics
 argument_list|)
 expr_stmt|;
 name|this

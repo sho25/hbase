@@ -659,6 +659,8 @@ operator|new
 name|MasterFileSystem
 argument_list|(
 name|server
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}

@@ -534,6 +534,12 @@ specifier|private
 name|int
 name|maxFilesToCompact
 decl_stmt|;
+specifier|private
+name|long
+name|lastCompactSize
+init|=
+literal|0
+decl_stmt|;
 comment|/* how many bytes to write between status checks */
 specifier|static
 name|int
@@ -2736,6 +2742,12 @@ init|(
 name|compactLock
 init|)
 block|{
+name|this
+operator|.
+name|lastCompactSize
+operator|=
+literal|0
+expr_stmt|;
 comment|// filesToCompact are sorted oldest to newest.
 name|List
 argument_list|<
@@ -3175,6 +3187,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|this
+operator|.
+name|lastCompactSize
+operator|=
+name|totalSize
+operator|-
+name|skipped
+expr_stmt|;
 comment|// Ready to go.  Have list of files to compact.
 name|LOG
 operator|.
@@ -5723,6 +5743,18 @@ return|return
 literal|null
 return|;
 block|}
+comment|/** @return aggregate size of all HStores used in the last compaction */
+specifier|public
+name|long
+name|getLastCompactSize
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|lastCompactSize
+return|;
+block|}
 comment|/** @return aggregate size of HStore */
 specifier|public
 name|long
@@ -6335,7 +6367,7 @@ name|REFERENCE
 operator|)
 operator|+
 operator|(
-literal|4
+literal|5
 operator|*
 name|Bytes
 operator|.

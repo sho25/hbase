@@ -502,6 +502,18 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
+name|long
+name|splitTime
+init|=
+literal|0
+decl_stmt|;
+specifier|private
+name|long
+name|splitSize
+init|=
+literal|0
+decl_stmt|;
 comment|/**    * Name of file that holds recovered edits written by the wal log splitting    * code, one per region    */
 specifier|public
 specifier|static
@@ -662,7 +674,7 @@ throws|throws
 name|IOException
 block|{
 name|long
-name|millis
+name|startTime
 init|=
 name|System
 operator|.
@@ -934,27 +946,24 @@ throw|throw
 name|io
 throw|;
 block|}
-name|long
-name|endMillis
-init|=
+name|splitTime
+operator|=
 name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
-decl_stmt|;
+operator|-
+name|startTime
+expr_stmt|;
 name|LOG
 operator|.
 name|info
 argument_list|(
 literal|"hlog file splitting completed in "
 operator|+
-operator|(
-name|endMillis
-operator|-
-name|millis
-operator|)
+name|splitTime
 operator|+
-literal|" millis for "
+literal|" ms for "
 operator|+
 name|srcDir
 operator|.
@@ -964,6 +973,30 @@ argument_list|)
 expr_stmt|;
 return|return
 name|splits
+return|;
+block|}
+comment|/**    * @return time that this split took    */
+specifier|public
+name|long
+name|getTime
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|splitTime
+return|;
+block|}
+comment|/**    * @return aggregate size of hlogs that were split    */
+specifier|public
+name|long
+name|getSize
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|splitSize
 return|;
 block|}
 comment|/**    * Sorts the HLog edits in the given list of logfiles (that are a mix of edits    * on multiple regions) by region and then splits them per region directories,    * in batches of (hbase.hlog.split.batch.size)    *     * A batch consists of a set of log files that will be sorted in a single map    * of edits indexed by region the resulting map will be concurrently written    * by multiple threads to their corresponding regions    *     * Each batch consists of more more log files that are - recovered (files is    * opened for append then closed to ensure no process is writing into it) -    * parsed (each edit in the log is appended to a list of edits indexed by    * region see {@link #parseHLog} for more details) - marked as either    * processed or corrupt depending on parsing outcome - the resulting edits    * indexed by region are concurrently written to their corresponding region    * region directories - original files are then archived to a different    * directory    *     *     *     * @param rootDir    *          hbase directory    * @param srcDir    *          logs directory    * @param oldLogDir    *          directory where processed logs are archived to    * @param logfiles    *          the list of log files to split    * @param fs    * @param conf    * @return    * @throws IOException    */
@@ -1091,6 +1124,10 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
+name|splitSize
+operator|=
+literal|0
+expr_stmt|;
 try|try
 block|{
 name|int
@@ -1191,6 +1228,10 @@ operator|.
 name|getLen
 argument_list|()
 decl_stmt|;
+name|splitSize
+operator|+=
+name|logLength
+expr_stmt|;
 name|LOG
 operator|.
 name|debug

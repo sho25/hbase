@@ -696,7 +696,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Constructor.    * @param master    * @param services    * @param freshClusterStartup True if we are original master on a fresh    * cluster startup else if false, we are joining an already running cluster.    */
+comment|/**    * Constructor.    * @param master    * @param services    * @param metrics     * @param freshClusterStartup True if we are original master on a fresh    * cluster startup else if false, we are joining an already running cluster.    */
 specifier|public
 name|ServerManager
 parameter_list|(
@@ -707,6 +707,9 @@ parameter_list|,
 specifier|final
 name|MasterServices
 name|services
+parameter_list|,
+name|MasterMetrics
+name|metrics
 parameter_list|)
 block|{
 name|this
@@ -720,6 +723,12 @@ operator|.
 name|services
 operator|=
 name|services
+expr_stmt|;
+name|this
+operator|.
+name|metrics
+operator|=
+name|metrics
 expr_stmt|;
 name|Configuration
 name|c
@@ -743,19 +752,6 @@ operator|*
 literal|1000
 argument_list|)
 decl_stmt|;
-name|this
-operator|.
-name|metrics
-operator|=
-operator|new
-name|MasterMetrics
-argument_list|(
-name|master
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|serverMonitorThread
