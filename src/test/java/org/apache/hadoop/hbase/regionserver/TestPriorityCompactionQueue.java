@@ -369,7 +369,7 @@ name|r1
 argument_list|,
 name|CompactSplitThread
 operator|.
-name|PRIORITY_BLOCKING
+name|PRIORITY_USER
 argument_list|)
 expr_stmt|;
 name|addRegion
@@ -380,7 +380,7 @@ name|r2
 argument_list|,
 name|CompactSplitThread
 operator|.
-name|PRIORITY_BLOCKING
+name|PRIORITY_USER
 argument_list|)
 expr_stmt|;
 name|addRegion
@@ -391,7 +391,7 @@ name|r3
 argument_list|,
 name|CompactSplitThread
 operator|.
-name|PRIORITY_BLOCKING
+name|PRIORITY_USER
 argument_list|)
 expr_stmt|;
 name|addRegion
@@ -402,7 +402,7 @@ name|r4
 argument_list|,
 name|CompactSplitThread
 operator|.
-name|PRIORITY_BLOCKING
+name|PRIORITY_USER
 argument_list|)
 expr_stmt|;
 name|addRegion
@@ -413,7 +413,7 @@ name|r5
 argument_list|,
 name|CompactSplitThread
 operator|.
-name|PRIORITY_BLOCKING
+name|PRIORITY_USER
 argument_list|)
 expr_stmt|;
 name|getAndCheckRegion
@@ -461,7 +461,7 @@ name|r1
 argument_list|,
 name|CompactSplitThread
 operator|.
-name|PRIORITY_BLOCKING
+name|PRIORITY_USER
 argument_list|)
 expr_stmt|;
 name|addRegion
@@ -483,7 +483,7 @@ name|r3
 argument_list|,
 name|CompactSplitThread
 operator|.
-name|PRIORITY_BLOCKING
+name|PRIORITY_USER
 argument_list|)
 expr_stmt|;
 name|addRegion
@@ -505,7 +505,7 @@ name|r5
 argument_list|,
 name|CompactSplitThread
 operator|.
-name|PRIORITY_BLOCKING
+name|PRIORITY_USER
 argument_list|)
 expr_stmt|;
 name|getAndCheckRegion
@@ -597,7 +597,7 @@ name|r5
 argument_list|,
 name|CompactSplitThread
 operator|.
-name|PRIORITY_BLOCKING
+name|PRIORITY_USER
 argument_list|)
 expr_stmt|;
 name|getAndCheckRegion
@@ -656,7 +656,7 @@ name|r2
 argument_list|,
 name|CompactSplitThread
 operator|.
-name|PRIORITY_BLOCKING
+name|PRIORITY_USER
 argument_list|)
 expr_stmt|;
 name|addRegion
@@ -696,7 +696,7 @@ name|r5
 argument_list|,
 name|CompactSplitThread
 operator|.
-name|PRIORITY_BLOCKING
+name|PRIORITY_USER
 argument_list|)
 expr_stmt|;
 name|getAndCheckRegion
@@ -807,7 +807,7 @@ name|r3
 argument_list|,
 name|CompactSplitThread
 operator|.
-name|PRIORITY_BLOCKING
+name|PRIORITY_USER
 argument_list|)
 expr_stmt|;
 name|getAndCheckRegion
@@ -1051,7 +1051,7 @@ name|r3
 argument_list|,
 name|CompactSplitThread
 operator|.
-name|PRIORITY_BLOCKING
+name|PRIORITY_USER
 argument_list|)
 expr_stmt|;
 name|addRegion
