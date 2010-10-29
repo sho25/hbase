@@ -1859,7 +1859,7 @@ argument_list|)
 expr_stmt|;
 name|zooKeeper
 operator|.
-name|registerListener
+name|registerListenerFirst
 argument_list|(
 name|assignmentManager
 argument_list|)

@@ -43,6 +43,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Set
 import|;
 end_import
@@ -55,7 +65,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|CopyOnWriteArraySet
+name|CopyOnWriteArrayList
 import|;
 end_import
 
@@ -259,14 +269,14 @@ decl_stmt|;
 comment|// listeners to be notified
 specifier|private
 specifier|final
-name|Set
+name|List
 argument_list|<
 name|ZooKeeperListener
 argument_list|>
 name|listeners
 init|=
 operator|new
-name|CopyOnWriteArraySet
+name|CopyOnWriteArrayList
 argument_list|<
 name|ZooKeeperListener
 argument_list|>
@@ -813,6 +823,25 @@ name|listeners
 operator|.
 name|add
 argument_list|(
+name|listener
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Register the specified listener to receive ZooKeeper events and add it as    * the first in the list of current listeners.    * @param listener    */
+specifier|public
+name|void
+name|registerListenerFirst
+parameter_list|(
+name|ZooKeeperListener
+name|listener
+parameter_list|)
+block|{
+name|listeners
+operator|.
+name|add
+argument_list|(
+literal|0
+argument_list|,
 name|listener
 argument_list|)
 expr_stmt|;
