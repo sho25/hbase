@@ -25,6 +25,24 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|mapreduce
+operator|.
+name|replication
+operator|.
+name|VerifyReplication
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|util
 operator|.
 name|ProgramDriver
@@ -148,6 +166,27 @@ operator|.
 name|class
 argument_list|,
 literal|"Export a table from local cluster to peer cluster"
+argument_list|)
+expr_stmt|;
+name|pgd
+operator|.
+name|addClass
+argument_list|(
+name|VerifyReplication
+operator|.
+name|NAME
+argument_list|,
+name|VerifyReplication
+operator|.
+name|class
+argument_list|,
+literal|"Compare"
+operator|+
+literal|" the data from tables in two different clusters. WARNING: It"
+operator|+
+literal|" doesn't work for incrementColumnValues'd cells since the"
+operator|+
+literal|" timestamp is changed after being appended to the log."
 argument_list|)
 expr_stmt|;
 name|pgd

@@ -1199,7 +1199,7 @@ literal|true
 return|;
 block|}
 comment|/**    * Helper method to connect to a peer    * @param peerId peer's identifier    * @return object representing the peer    * @throws IOException    * @throws KeeperException    */
-specifier|private
+specifier|public
 name|ReplicationPeer
 name|getPeer
 parameter_list|(
