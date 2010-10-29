@@ -553,6 +553,11 @@ name|long
 name|desiredMaxFileSize
 decl_stmt|;
 specifier|private
+specifier|final
+name|int
+name|blockingStoreFileCount
+decl_stmt|;
+specifier|private
 specifier|volatile
 name|long
 name|storeSize
@@ -985,6 +990,20 @@ operator|.
 name|desiredMaxFileSize
 operator|=
 name|maxFileSize
+expr_stmt|;
+name|this
+operator|.
+name|blockingStoreFileCount
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.hstore.blockingStoreFiles"
+argument_list|,
+operator|-
+literal|1
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -5966,6 +5985,24 @@ expr_stmt|;
 block|}
 return|return
 name|size
+return|;
+block|}
+comment|/**    * @return The priority that this store should have in the compaction queue    */
+name|int
+name|getCompactPriority
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|blockingStoreFileCount
+operator|-
+name|this
+operator|.
+name|storefiles
+operator|.
+name|size
+argument_list|()
 return|;
 block|}
 comment|/**    * Datastructure that holds size and row to split a file around.    * TODO: Take a KeyValue rather than row.    */

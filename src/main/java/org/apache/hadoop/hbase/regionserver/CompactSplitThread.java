@@ -183,63 +183,15 @@ operator|new
 name|PriorityCompactionQueue
 argument_list|()
 decl_stmt|;
-comment|/** The priorities for a compaction request. */
+comment|/* The default priority for user-specified compaction requests.    * The user gets top priority unless we have blocking compactions. (Pri<= 0)    */
 specifier|public
-enum|enum
-name|Priority
-implements|implements
-name|Comparable
-argument_list|<
-name|Priority
-argument_list|>
-block|{
-comment|//NOTE: All priorities should be numbered consecutively starting with 1.
-comment|//The highest priority should be 1 followed by all lower priorities.
-comment|//Priorities can be changed at anytime without requiring any changes to the
-comment|//queue.
-comment|/** HIGH_BLOCKING should only be used when an operation is blocked until a      * compact / split is done (e.g. a MemStore can't flush because it has      * "too many store files" and is blocking until a compact / split is done)      */
-name|HIGH_BLOCKING
-argument_list|(
+specifier|static
+specifier|final
+name|int
+name|PRIORITY_USER
+init|=
 literal|1
-argument_list|)
-block|,
-comment|/** A normal compaction / split request */
-name|NORMAL
-argument_list|(
-literal|2
-argument_list|)
-block|,
-comment|/** A low compaction / split request -- not currently used */
-name|LOW
-argument_list|(
-literal|3
-argument_list|)
-block|;
-name|int
-name|value
 decl_stmt|;
-name|Priority
-parameter_list|(
-name|int
-name|value
-parameter_list|)
-block|{
-name|this
-operator|.
-name|value
-operator|=
-name|value
-expr_stmt|;
-block|}
-name|int
-name|getInt
-parameter_list|()
-block|{
-return|return
-name|value
-return|;
-block|}
-block|}
 comment|/**    * Splitting should not take place if the total number of regions exceed this.    * This is not a hard limit to the number of regions but it is a guideline to    * stop splitting after number of online regions is greater than this.    */
 specifier|private
 name|int
@@ -570,9 +522,10 @@ literal|false
 argument_list|,
 name|why
 argument_list|,
-name|Priority
+name|r
 operator|.
-name|NORMAL
+name|getCompactPriority
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -589,7 +542,7 @@ specifier|final
 name|String
 name|why
 parameter_list|,
-name|Priority
+name|int
 name|p
 parameter_list|)
 block|{
@@ -602,38 +555,6 @@ argument_list|,
 name|why
 argument_list|,
 name|p
-argument_list|)
-expr_stmt|;
-block|}
-specifier|public
-specifier|synchronized
-name|void
-name|requestCompaction
-parameter_list|(
-specifier|final
-name|HRegion
-name|r
-parameter_list|,
-specifier|final
-name|boolean
-name|force
-parameter_list|,
-specifier|final
-name|String
-name|why
-parameter_list|)
-block|{
-name|requestCompaction
-argument_list|(
-name|r
-argument_list|,
-name|force
-argument_list|,
-name|why
-argument_list|,
-name|Priority
-operator|.
-name|NORMAL
 argument_list|)
 expr_stmt|;
 block|}
@@ -655,7 +576,7 @@ specifier|final
 name|String
 name|why
 parameter_list|,
-name|Priority
+name|int
 name|priority
 parameter_list|)
 block|{
@@ -671,6 +592,12 @@ condition|)
 block|{
 return|return;
 block|}
+comment|// tell the region to major-compact (and don't downgrade it)
+if|if
+condition|(
+name|force
+condition|)
+block|{
 name|r
 operator|.
 name|setForceMajorCompaction
@@ -678,6 +605,7 @@ argument_list|(
 name|force
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|compactionQueue

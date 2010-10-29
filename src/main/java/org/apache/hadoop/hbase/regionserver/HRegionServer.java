@@ -10768,6 +10768,10 @@ argument_list|(
 name|region
 argument_list|,
 literal|"User-triggered split"
+argument_list|,
+name|CompactSplitThread
+operator|.
+name|PRIORITY_USER
 argument_list|)
 expr_stmt|;
 block|}
@@ -10833,6 +10837,10 @@ literal|""
 operator|)
 operator|+
 literal|"compaction"
+argument_list|,
+name|CompactSplitThread
+operator|.
+name|PRIORITY_USER
 argument_list|)
 expr_stmt|;
 block|}

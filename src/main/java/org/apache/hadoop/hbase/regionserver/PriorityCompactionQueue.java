@@ -121,24 +121,6 @@ name|LogFactory
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|CompactSplitThread
-operator|.
-name|Priority
-import|;
-end_import
-
 begin_comment
 comment|/**  * This class delegates to the BlockingQueue but wraps all HRegions in  * compaction requests that hold the priority and the date requested.  *  * Implementation Note: With an elevation time of -1 there is the potential for  * starvation of the lower priority compaction requests as long as there is a  * constant stream of high priority requests.  */
 end_comment
@@ -184,7 +166,7 @@ name|r
 decl_stmt|;
 specifier|private
 specifier|final
-name|Priority
+name|int
 name|p
 decl_stmt|;
 specifier|private
@@ -198,7 +180,7 @@ parameter_list|(
 name|HRegion
 name|r
 parameter_list|,
-name|Priority
+name|int
 name|p
 parameter_list|)
 block|{
@@ -218,7 +200,7 @@ parameter_list|(
 name|HRegion
 name|r
 parameter_list|,
-name|Priority
+name|int
 name|p
 parameter_list|,
 name|Date
@@ -239,21 +221,6 @@ argument_list|(
 literal|"HRegion cannot be null"
 argument_list|)
 throw|;
-block|}
-if|if
-condition|(
-name|p
-operator|==
-literal|null
-condition|)
-block|{
-name|p
-operator|=
-name|Priority
-operator|.
-name|NORMAL
-expr_stmt|;
-comment|//the default priority
 block|}
 if|if
 condition|(
@@ -321,13 +288,10 @@ decl_stmt|;
 name|compareVal
 operator|=
 name|p
-operator|.
-name|compareTo
-argument_list|(
+operator|-
 name|request
 operator|.
 name|p
-argument_list|)
 expr_stmt|;
 comment|//compare priority
 if|if
@@ -379,7 +343,7 @@ name|r
 return|;
 block|}
 comment|/** Gets the priority for the request */
-name|Priority
+name|int
 name|getPriority
 parameter_list|()
 block|{
@@ -467,7 +431,7 @@ parameter_list|(
 name|HRegion
 name|r
 parameter_list|,
-name|Priority
+name|int
 name|p
 parameter_list|)
 block|{
@@ -511,16 +475,11 @@ name|newRequest
 operator|.
 name|getPriority
 argument_list|()
-operator|.
-name|compareTo
-argument_list|(
+operator|<
 name|queuedRequest
 operator|.
 name|getPriority
 argument_list|()
-argument_list|)
-operator|<
-literal|0
 condition|)
 block|{
 name|LOG
@@ -693,7 +652,7 @@ parameter_list|(
 name|HRegion
 name|e
 parameter_list|,
-name|Priority
+name|int
 name|p
 parameter_list|)
 block|{
@@ -752,7 +711,10 @@ name|add
 argument_list|(
 name|e
 argument_list|,
-literal|null
+name|e
+operator|.
+name|getCompactPriority
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -763,7 +725,7 @@ parameter_list|(
 name|HRegion
 name|e
 parameter_list|,
-name|Priority
+name|int
 name|p
 parameter_list|)
 block|{
@@ -811,7 +773,10 @@ name|offer
 argument_list|(
 name|e
 argument_list|,
-literal|null
+name|e
+operator|.
+name|getCompactPriority
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -822,7 +787,7 @@ parameter_list|(
 name|HRegion
 name|e
 parameter_list|,
-name|Priority
+name|int
 name|p
 parameter_list|)
 throws|throws
@@ -872,7 +837,10 @@ name|put
 argument_list|(
 name|e
 argument_list|,
-literal|null
+name|e
+operator|.
+name|getCompactPriority
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -883,7 +851,7 @@ parameter_list|(
 name|HRegion
 name|e
 parameter_list|,
-name|Priority
+name|int
 name|p
 parameter_list|,
 name|long
@@ -951,7 +919,10 @@ name|offer
 argument_list|(
 name|e
 argument_list|,
-literal|null
+name|e
+operator|.
+name|getCompactPriority
+argument_list|()
 argument_list|,
 name|timeout
 argument_list|,
