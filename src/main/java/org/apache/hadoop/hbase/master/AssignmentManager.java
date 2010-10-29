@@ -1574,6 +1574,52 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|HServerInfo
+name|hsi
+init|=
+name|serverManager
+operator|.
+name|getServerInfo
+argument_list|(
+name|data
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+decl_stmt|;
+comment|// hsi could be null if this server is no longer online.  If
+comment|// that the case, just let this RIT timeout; it'll be assigned
+comment|// to new server then.
+if|if
+condition|(
+name|hsi
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Region in transition "
+operator|+
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" references a server no longer up "
+operator|+
+name|data
+operator|.
+name|getServerName
+argument_list|()
+operator|+
+literal|"; letting RIT timeout so will be assigned elsewhere"
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
 operator|new
 name|OpenedRegionHandler
 argument_list|(
@@ -1585,15 +1631,7 @@ name|data
 argument_list|,
 name|regionInfo
 argument_list|,
-name|serverManager
-operator|.
-name|getServerInfo
-argument_list|(
-name|data
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
+name|hsi
 argument_list|)
 operator|.
 name|process
