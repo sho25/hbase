@@ -629,6 +629,15 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
+name|cacheBlocks
+operator|=
+name|get
+operator|.
+name|getCacheBlocks
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
 name|maxVersions
 operator|=
 name|get
