@@ -727,6 +727,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|ipc
+operator|.
+name|RemoteException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|zookeeper
 operator|.
 name|AsyncCallback
@@ -4458,9 +4472,10 @@ block|}
 comment|// Send CLOSE RPC
 try|try
 block|{
+comment|// TODO: We should consider making this look more like it does for the
+comment|//       region open where we catch all throwables and never abort
 if|if
 condition|(
-operator|!
 name|serverManager
 operator|.
 name|sendRegionClose
@@ -4479,13 +4494,28 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-throw|throw
-operator|new
-name|NotServingRegionException
+name|LOG
+operator|.
+name|debug
 argument_list|(
-literal|"Server failed to close region"
+literal|"Sent CLOSE to "
+operator|+
+name|regions
+operator|.
+name|get
+argument_list|(
+name|region
 argument_list|)
-throw|;
+operator|+
+literal|" for region "
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return;
 block|}
 block|}
 catch|catch
@@ -4494,6 +4524,64 @@ name|NotServingRegionException
 name|nsre
 parameter_list|)
 block|{
+comment|// Failed to close, so pass through and reassign
+block|}
+catch|catch
+parameter_list|(
+name|RemoteException
+name|re
+parameter_list|)
+block|{
+if|if
+condition|(
+name|re
+operator|.
+name|unwrapRemoteException
+argument_list|()
+operator|instanceof
+name|NotServingRegionException
+condition|)
+block|{
+comment|// Failed to close, so pass through and reassign
+block|}
+else|else
+block|{
+name|this
+operator|.
+name|master
+operator|.
+name|abort
+argument_list|(
+literal|"Remote unexpected exception"
+argument_list|,
+name|re
+operator|.
+name|unwrapRemoteException
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+comment|// For now call abort if unexpected exception -- radical, but will get fellas attention.
+comment|// St.Ack 20101012
+name|this
+operator|.
+name|master
+operator|.
+name|abort
+argument_list|(
+literal|"Remote unexpected exception"
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Did not CLOSE, so set region offline and assign it
 name|LOG
 operator|.
@@ -4533,50 +4621,6 @@ expr_stmt|;
 name|assign
 argument_list|(
 name|region
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-comment|// For now call abort if unexpected exception -- radical, but will get fellas attention.
-comment|// St.Ack 20101012
-comment|// I don't think IOE can happen anymore, only NSRE IOE is used here
-comment|// should be able to remove this at least.  jgray 20101024
-comment|// I lied, we actually get RemoteException wrapping our NSRE, need to unwrap
-name|this
-operator|.
-name|master
-operator|.
-name|abort
-argument_list|(
-literal|"Remote unexpected exception"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Throwable
-name|t
-parameter_list|)
-block|{
-comment|// For now call abort if unexpected exception -- radical, but will get fellas attention.
-comment|// St.Ack 20101012
-name|this
-operator|.
-name|master
-operator|.
-name|abort
-argument_list|(
-literal|"Remote unexpected exception"
-argument_list|,
-name|t
 argument_list|)
 expr_stmt|;
 block|}
