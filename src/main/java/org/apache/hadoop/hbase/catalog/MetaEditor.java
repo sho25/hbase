@@ -623,7 +623,7 @@ literal|null
 condition|)
 throw|throw
 operator|new
-name|NullPointerException
+name|IOException
 argument_list|(
 literal|"No server for -ROOT-"
 argument_list|)
