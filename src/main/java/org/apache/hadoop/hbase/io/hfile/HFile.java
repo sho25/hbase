@@ -4023,6 +4023,8 @@ operator|+
 literal|"meta"
 operator|+
 name|block
+argument_list|,
+name|cacheBlock
 argument_list|)
 decl_stmt|;
 if|if
@@ -4271,6 +4273,8 @@ argument_list|(
 name|name
 operator|+
 name|block
+argument_list|,
+name|cacheBlock
 argument_list|)
 decl_stmt|;
 if|if

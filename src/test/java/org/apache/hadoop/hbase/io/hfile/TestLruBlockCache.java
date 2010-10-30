@@ -299,6 +299,8 @@ argument_list|(
 name|block
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 operator|==
 literal|null
@@ -365,6 +367,8 @@ argument_list|(
 name|block
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|assertTrue
@@ -461,6 +465,8 @@ argument_list|(
 name|block
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|assertTrue
@@ -671,6 +677,8 @@ literal|0
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 operator|==
 literal|null
@@ -688,6 +696,8 @@ literal|1
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 operator|==
 literal|null
@@ -722,6 +732,8 @@ name|i
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|,
 name|blocks
@@ -841,6 +853,8 @@ argument_list|(
 name|block
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|,
 name|block
@@ -959,6 +973,8 @@ literal|0
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 operator|==
 literal|null
@@ -976,6 +992,8 @@ literal|0
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 operator|==
 literal|null
@@ -1009,6 +1027,8 @@ name|i
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|,
 name|singleBlocks
@@ -1031,6 +1051,8 @@ name|i
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|,
 name|multiBlocks
@@ -1248,6 +1270,8 @@ name|i
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Add memory blocks as such
@@ -1361,6 +1385,8 @@ literal|0
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1375,6 +1401,8 @@ literal|1
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Insert another single block
@@ -1433,6 +1461,8 @@ literal|0
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1494,6 +1524,8 @@ literal|0
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1568,6 +1600,8 @@ literal|2
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1585,6 +1619,8 @@ literal|3
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1602,6 +1638,8 @@ literal|4
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1616,6 +1654,8 @@ literal|0
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Cache another single big block
@@ -1674,6 +1714,8 @@ literal|1
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1691,6 +1733,8 @@ literal|1
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1708,6 +1752,8 @@ literal|2
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1769,6 +1815,8 @@ literal|1
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1786,6 +1834,8 @@ literal|2
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1803,6 +1853,8 @@ literal|3
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1935,6 +1987,8 @@ argument_list|(
 name|block
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -2011,6 +2065,8 @@ literal|0
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2028,6 +2084,8 @@ literal|1
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2045,6 +2103,8 @@ literal|0
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2062,6 +2122,8 @@ literal|1
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2316,6 +2378,8 @@ name|i
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// Add memory blocks as such
@@ -2419,6 +2483,8 @@ name|i
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2436,6 +2502,8 @@ name|i
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2453,6 +2521,8 @@ name|i
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2492,6 +2562,8 @@ name|i
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2514,6 +2586,8 @@ name|i
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2536,6 +2610,8 @@ name|i
 index|]
 operator|.
 name|blockName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;

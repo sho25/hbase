@@ -229,6 +229,9 @@ name|getBlock
 parameter_list|(
 name|String
 name|blockName
+parameter_list|,
+name|boolean
+name|caching
 parameter_list|)
 block|{
 name|processQueue

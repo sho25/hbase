@@ -65,13 +65,16 @@ name|ByteBuffer
 name|buf
 parameter_list|)
 function_decl|;
-comment|/**    * Fetch block from cache.    * @param blockName Block number to fetch.    * @return Block or null if block is not in the cache.    */
+comment|/**    * Fetch block from cache.    * @param blockName Block number to fetch.    * @param caching Whether this request has caching enabled (used for stats)    * @return Block or null if block is not in the cache.    */
 specifier|public
 name|ByteBuffer
 name|getBlock
 parameter_list|(
 name|String
 name|blockName
+parameter_list|,
+name|boolean
+name|caching
 parameter_list|)
 function_decl|;
 comment|/**    * Shutdown the cache.    */
