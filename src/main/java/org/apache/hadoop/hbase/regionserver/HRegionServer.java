@@ -1878,6 +1878,10 @@ name|getStrings
 argument_list|(
 literal|"hbase.regionserver.codecs"
 argument_list|,
+operator|(
+name|String
+index|[]
+operator|)
 literal|null
 argument_list|)
 decl_stmt|;
@@ -12205,6 +12209,11 @@ block|}
 end_function
 
 begin_function
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unchecked"
+argument_list|)
 annotation|@
 name|Override
 specifier|public
