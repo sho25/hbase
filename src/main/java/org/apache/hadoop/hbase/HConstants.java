@@ -923,6 +923,22 @@ name|DEFAULT_HBASE_REGIONSERVER_LEASE_PERIOD
 init|=
 literal|60000
 decl_stmt|;
+comment|/**    * timeout for each RPC    */
+specifier|public
+specifier|static
+name|String
+name|HBASE_RPC_TIMEOUT_KEY
+init|=
+literal|"hbase.rpc.timeout"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_RPC_TIMEOUT_KEY}    */
+specifier|public
+specifier|static
+name|int
+name|DEFAULT_HBASE_RPC_TIMEOUT
+init|=
+literal|60000
+decl_stmt|;
 specifier|public
 specifier|static
 specifier|final

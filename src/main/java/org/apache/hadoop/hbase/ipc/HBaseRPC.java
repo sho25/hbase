@@ -973,6 +973,11 @@ name|isClosed
 init|=
 literal|false
 decl_stmt|;
+specifier|final
+specifier|private
+name|int
+name|rpcTimeout
+decl_stmt|;
 comment|/**      * @param address address for invoker      * @param ticket ticket      * @param conf configuration      * @param factory socket factory      */
 specifier|public
 name|Invoker
@@ -988,6 +993,9 @@ name|conf
 parameter_list|,
 name|SocketFactory
 name|factory
+parameter_list|,
+name|int
+name|rpcTimeout
 parameter_list|)
 block|{
 name|this
@@ -1014,6 +1022,12 @@ name|conf
 argument_list|,
 name|factory
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|rpcTimeout
+operator|=
+name|rpcTimeout
 expr_stmt|;
 block|}
 specifier|public
@@ -1081,6 +1095,8 @@ argument_list|,
 name|address
 argument_list|,
 name|ticket
+argument_list|,
+name|rpcTimeout
 argument_list|)
 decl_stmt|;
 if|if
@@ -1255,7 +1271,7 @@ name|serverVersion
 return|;
 block|}
 block|}
-comment|/**    * @param protocol protocol interface    * @param clientVersion which client version we expect    * @param addr address of remote service    * @param conf configuration    * @param maxAttempts max attempts    * @param timeout timeout in milliseconds    * @return proxy    * @throws IOException e    */
+comment|/**    * @param protocol protocol interface    * @param clientVersion which client version we expect    * @param addr address of remote service    * @param conf configuration    * @param maxAttempts max attempts    * @param rpcTimeout timeout for each RPC    * @param timeout timeout in milliseconds    * @return proxy    * @throws IOException e    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -1280,6 +1296,9 @@ name|conf
 parameter_list|,
 name|int
 name|maxAttempts
+parameter_list|,
+name|int
+name|rpcTimeout
 parameter_list|,
 name|long
 name|timeout
@@ -1321,6 +1340,8 @@ argument_list|,
 name|addr
 argument_list|,
 name|conf
+argument_list|,
+name|rpcTimeout
 argument_list|)
 return|;
 block|}
@@ -1445,7 +1466,7 @@ comment|// IGNORE
 block|}
 block|}
 block|}
-comment|/**    * Construct a client-side proxy object that implements the named protocol,    * talking to a server at the named address.    *    * @param protocol interface    * @param clientVersion version we are expecting    * @param addr remote address    * @param conf configuration    * @param factory socket factory    * @return proxy    * @throws IOException e    */
+comment|/**    * Construct a client-side proxy object that implements the named protocol,    * talking to a server at the named address.    *    * @param protocol interface    * @param clientVersion version we are expecting    * @param addr remote address    * @param conf configuration    * @param factory socket factory    * @param rpcTimeout timeout for each RPC    * @return proxy    * @throws IOException e    */
 specifier|public
 specifier|static
 name|VersionedProtocol
@@ -1468,6 +1489,9 @@ name|conf
 parameter_list|,
 name|SocketFactory
 name|factory
+parameter_list|,
+name|int
+name|rpcTimeout
 parameter_list|)
 throws|throws
 name|IOException
@@ -1486,10 +1510,12 @@ argument_list|,
 name|conf
 argument_list|,
 name|factory
+argument_list|,
+name|rpcTimeout
 argument_list|)
 return|;
 block|}
-comment|/**    * Construct a client-side proxy object that implements the named protocol,    * talking to a server at the named address.    *    * @param protocol interface    * @param clientVersion version we are expecting    * @param addr remote address    * @param ticket ticket    * @param conf configuration    * @param factory socket factory    * @return proxy    * @throws IOException e    */
+comment|/**    * Construct a client-side proxy object that implements the named protocol,    * talking to a server at the named address.    *    * @param protocol interface    * @param clientVersion version we are expecting    * @param addr remote address    * @param ticket ticket    * @param conf configuration    * @param factory socket factory    * @param rpcTimeout timeout for each RPC    * @return proxy    * @throws IOException e    */
 specifier|public
 specifier|static
 name|VersionedProtocol
@@ -1515,6 +1541,9 @@ name|conf
 parameter_list|,
 name|SocketFactory
 name|factory
+parameter_list|,
+name|int
+name|rpcTimeout
 parameter_list|)
 throws|throws
 name|IOException
@@ -1551,6 +1580,8 @@ argument_list|,
 name|conf
 argument_list|,
 name|factory
+argument_list|,
+name|rpcTimeout
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1595,7 +1626,7 @@ name|serverVersion
 argument_list|)
 throw|;
 block|}
-comment|/**    * Construct a client-side proxy object with the default SocketFactory    *    * @param protocol interface    * @param clientVersion version we are expecting    * @param addr remote address    * @param conf configuration    * @return a proxy instance    * @throws IOException e    */
+comment|/**    * Construct a client-side proxy object with the default SocketFactory    *    * @param protocol interface    * @param clientVersion version we are expecting    * @param addr remote address    * @param conf configuration    * @param rpcTimeout timeout for each RPC    * @return a proxy instance    * @throws IOException e    */
 specifier|public
 specifier|static
 name|VersionedProtocol
@@ -1615,6 +1646,9 @@ name|addr
 parameter_list|,
 name|Configuration
 name|conf
+parameter_list|,
+name|int
+name|rpcTimeout
 parameter_list|)
 throws|throws
 name|IOException
@@ -1636,6 +1670,8 @@ name|getDefaultSocketFactory
 argument_list|(
 name|conf
 argument_list|)
+argument_list|,
+name|rpcTimeout
 argument_list|)
 return|;
 block|}

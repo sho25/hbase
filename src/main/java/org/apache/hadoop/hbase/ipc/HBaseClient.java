@@ -497,7 +497,6 @@ name|tcpKeepAlive
 decl_stmt|;
 comment|// if T then use keepalives
 specifier|protected
-specifier|final
 name|int
 name|pingInterval
 decl_stmt|;
@@ -823,6 +822,8 @@ argument_list|(
 name|address
 argument_list|,
 literal|null
+argument_list|,
+literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1025,6 +1026,12 @@ name|running
 operator|.
 name|get
 argument_list|()
+operator|||
+name|remoteId
+operator|.
+name|rpcTimeout
+operator|>
+literal|0
 condition|)
 block|{
 throw|throw
@@ -1239,6 +1246,23 @@ argument_list|,
 literal|20000
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|remoteId
+operator|.
+name|rpcTimeout
+operator|>
+literal|0
+condition|)
+block|{
+name|pingInterval
+operator|=
+name|remoteId
+operator|.
+name|rpcTimeout
+expr_stmt|;
+comment|// overwrite pingInterval
+block|}
 name|this
 operator|.
 name|socket
@@ -2878,6 +2902,8 @@ argument_list|,
 name|address
 argument_list|,
 literal|null
+argument_list|,
+literal|0
 argument_list|)
 return|;
 block|}
@@ -2893,6 +2919,9 @@ name|addr
 parameter_list|,
 name|UserGroupInformation
 name|ticket
+parameter_list|,
+name|int
+name|rpcTimeout
 parameter_list|)
 throws|throws
 name|IOException
@@ -2914,6 +2943,8 @@ argument_list|(
 name|addr
 argument_list|,
 name|ticket
+argument_list|,
+name|rpcTimeout
 argument_list|,
 name|call
 argument_list|)
@@ -3233,6 +3264,8 @@ index|]
 argument_list|,
 literal|null
 argument_list|,
+literal|0
+argument_list|,
 name|call
 argument_list|)
 decl_stmt|;
@@ -3326,6 +3359,9 @@ parameter_list|,
 name|UserGroupInformation
 name|ticket
 parameter_list|,
+name|int
+name|rpcTimeout
+parameter_list|,
 name|Call
 name|call
 parameter_list|)
@@ -3363,6 +3399,8 @@ argument_list|(
 name|addr
 argument_list|,
 name|ticket
+argument_list|,
+name|rpcTimeout
 argument_list|)
 decl_stmt|;
 do|do
@@ -3446,6 +3484,11 @@ specifier|final
 name|UserGroupInformation
 name|ticket
 decl_stmt|;
+specifier|final
+specifier|private
+name|int
+name|rpcTimeout
+decl_stmt|;
 name|ConnectionId
 parameter_list|(
 name|InetSocketAddress
@@ -3453,6 +3496,9 @@ name|address
 parameter_list|,
 name|UserGroupInformation
 name|ticket
+parameter_list|,
+name|int
+name|rpcTimeout
 parameter_list|)
 block|{
 name|this
@@ -3466,6 +3512,12 @@ operator|.
 name|ticket
 operator|=
 name|ticket
+expr_stmt|;
+name|this
+operator|.
+name|rpcTimeout
+operator|=
+name|rpcTimeout
 expr_stmt|;
 block|}
 name|InetSocketAddress
@@ -3524,6 +3576,12 @@ operator|==
 name|id
 operator|.
 name|ticket
+operator|&&
+name|rpcTimeout
+operator|==
+name|id
+operator|.
+name|rpcTimeout
 return|;
 comment|//Note : ticket is a ref comparision.
 block|}
@@ -3550,6 +3608,8 @@ name|identityHashCode
 argument_list|(
 name|ticket
 argument_list|)
+operator|^
+name|rpcTimeout
 return|;
 block|}
 block|}

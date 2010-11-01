@@ -1803,7 +1803,7 @@ name|sleeper
 decl_stmt|;
 specifier|private
 specifier|final
-name|long
+name|int
 name|rpcTimeout
 decl_stmt|;
 comment|// The main region server thread.
@@ -2019,15 +2019,15 @@ name|rpcTimeout
 operator|=
 name|conf
 operator|.
-name|getLong
+name|getInt
 argument_list|(
 name|HConstants
 operator|.
-name|HBASE_REGIONSERVER_LEASE_PERIOD_KEY
+name|HBASE_RPC_TIMEOUT_KEY
 argument_list|,
 name|HConstants
 operator|.
-name|DEFAULT_HBASE_REGIONSERVER_LEASE_PERIOD
+name|DEFAULT_HBASE_RPC_TIMEOUT
 argument_list|)
 expr_stmt|;
 name|this
@@ -7213,6 +7213,10 @@ name|conf
 argument_list|,
 operator|-
 literal|1
+argument_list|,
+name|this
+operator|.
+name|rpcTimeout
 argument_list|,
 name|this
 operator|.
