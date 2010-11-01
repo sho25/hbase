@@ -6412,7 +6412,7 @@ name|SIZEOF_LONG
 operator|)
 operator|+
 operator|(
-literal|3
+literal|4
 operator|*
 name|Bytes
 operator|.
