@@ -907,7 +907,7 @@ argument_list|(
 name|qualifier
 argument_list|)
 operator|+
-literal|" from parent "
+literal|" reference in parent "
 operator|+
 name|parent
 operator|.

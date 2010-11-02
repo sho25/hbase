@@ -2436,20 +2436,6 @@ name|notifyAll
 argument_list|()
 expr_stmt|;
 block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Asked online a region that was not in "
-operator|+
-literal|"regionsInTransition: "
-operator|+
-name|rs
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 synchronized|synchronized
 init|(
@@ -2732,13 +2718,34 @@ argument_list|(
 name|serverInfo
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+operator|!
 name|serverRegions
 operator|.
 name|remove
 argument_list|(
 name|regionInfo
 argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Asked offline a region that was not on expected server: "
+operator|+
+name|regionInfo
+operator|+
+literal|", "
+operator|+
+name|serverInfo
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
 expr_stmt|;
+block|}
 block|}
 else|else
 block|{
@@ -4847,7 +4854,7 @@ name|IOException
 block|{
 comment|// First experiment at synchronous assignment
 comment|// Simpler because just wait for no regions in transition
-comment|// Scan META for all user regions
+comment|// Scan META for all user regions; do not include offlined regions in list.
 name|List
 argument_list|<
 name|HRegionInfo
@@ -4862,6 +4869,8 @@ name|master
 operator|.
 name|getConfiguration
 argument_list|()
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 if|if

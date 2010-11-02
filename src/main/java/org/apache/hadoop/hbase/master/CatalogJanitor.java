@@ -570,6 +570,16 @@ decl_stmt|;
 if|if
 condition|(
 name|info
+operator|==
+literal|null
+condition|)
+return|return
+literal|true
+return|;
+comment|// Keep scanning
+if|if
+condition|(
+name|info
 operator|.
 name|isSplitParent
 argument_list|()
@@ -820,7 +830,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Deleting region "
 operator|+
