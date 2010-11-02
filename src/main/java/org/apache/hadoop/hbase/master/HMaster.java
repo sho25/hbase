@@ -3944,6 +3944,8 @@ name|region
 operator|.
 name|getRegionInfo
 argument_list|()
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -4906,6 +4908,8 @@ operator|.
 name|assign
 argument_list|(
 name|hri
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}

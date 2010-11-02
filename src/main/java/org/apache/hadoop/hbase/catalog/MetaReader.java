@@ -2395,11 +2395,11 @@ name|Pair
 argument_list|<
 name|HRegionInfo
 argument_list|,
-name|HServerAddress
+name|HServerInfo
 argument_list|>
 name|pair
 init|=
-name|metaRowToRegionPair
+name|metaRowToRegionPairWithInfo
 argument_list|(
 name|result
 argument_list|)
@@ -2422,9 +2422,6 @@ operator|.
 name|equals
 argument_list|(
 name|hsi
-operator|.
-name|getServerAddress
-argument_list|()
 argument_list|)
 condition|)
 block|{

@@ -1563,64 +1563,22 @@ name|serverName
 argument_list|)
 expr_stmt|;
 comment|/*      * ZK = CLOSING      */
-comment|// Region of enabled table being closed but not complete
-comment|// Region is already assigned, don't say anything to RS but set ZK closing
-name|region
-operator|=
-name|enabledAndAssignedRegions
-operator|.
-name|remove
-argument_list|(
-literal|0
-argument_list|)
-expr_stmt|;
-name|regionsThatShouldBeOnline
-operator|.
-name|add
-argument_list|(
-name|region
-argument_list|)
-expr_stmt|;
-name|ZKAssign
-operator|.
-name|createNodeClosing
-argument_list|(
-name|zkw
-argument_list|,
-name|region
-argument_list|,
-name|serverName
-argument_list|)
-expr_stmt|;
-comment|// Region of disabled table being closed but not complete
-comment|// Region is already assigned, don't say anything to RS but set ZK closing
-name|region
-operator|=
-name|disabledAndAssignedRegions
-operator|.
-name|remove
-argument_list|(
-literal|0
-argument_list|)
-expr_stmt|;
-name|regionsThatShouldBeOffline
-operator|.
-name|add
-argument_list|(
-name|region
-argument_list|)
-expr_stmt|;
-name|ZKAssign
-operator|.
-name|createNodeClosing
-argument_list|(
-name|zkw
-argument_list|,
-name|region
-argument_list|,
-name|serverName
-argument_list|)
-expr_stmt|;
+comment|//    Disabled test of CLOSING.  This case is invalid after HBASE-3181.
+comment|//    How can an RS stop a CLOSING w/o deleting the node?  If it did ever fail
+comment|//    and left the node in CLOSING, the RS would have aborted and we'd process
+comment|//    these regions in server shutdown
+comment|//
+comment|//    // Region of enabled table being closed but not complete
+comment|//    // Region is already assigned, don't say anything to RS but set ZK closing
+comment|//    region = enabledAndAssignedRegions.remove(0);
+comment|//    regionsThatShouldBeOnline.add(region);
+comment|//    ZKAssign.createNodeClosing(zkw, region, serverName);
+comment|//
+comment|//    // Region of disabled table being closed but not complete
+comment|//    // Region is already assigned, don't say anything to RS but set ZK closing
+comment|//    region = disabledAndAssignedRegions.remove(0);
+comment|//    regionsThatShouldBeOffline.add(region);
+comment|//    ZKAssign.createNodeClosing(zkw, region, serverName);
 comment|/*      * ZK = CLOSED      */
 comment|// Region of enabled table closed but not ack
 name|region
@@ -3691,6 +3649,9 @@ literal|"Master is ready"
 argument_list|)
 expr_stmt|;
 comment|// Let's add some weird states to master in-memory state
+comment|// After HBASE-3181, we need to have some ZK state if we're PENDING_OPEN
+comment|// b/c it is impossible for us to get into this state w/o a zk node
+comment|// this is not true of PENDING_CLOSE
 comment|// PENDING_OPEN and enabled
 name|region
 operator|=
@@ -3731,7 +3692,23 @@ operator|.
 name|State
 operator|.
 name|PENDING_OPEN
+argument_list|,
+literal|0
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|ZKAssign
+operator|.
+name|createNodeOffline
+argument_list|(
+name|zkw
+argument_list|,
+name|region
+argument_list|,
+name|master
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// PENDING_OPEN and disabled
@@ -3774,7 +3751,23 @@ operator|.
 name|State
 operator|.
 name|PENDING_OPEN
+argument_list|,
+literal|0
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|ZKAssign
+operator|.
+name|createNodeOffline
+argument_list|(
+name|zkw
+argument_list|,
+name|region
+argument_list|,
+name|master
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// PENDING_CLOSE and enabled
@@ -3817,6 +3810,8 @@ operator|.
 name|State
 operator|.
 name|PENDING_CLOSE
+argument_list|,
+literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -3860,6 +3855,8 @@ operator|.
 name|State
 operator|.
 name|PENDING_CLOSE
+argument_list|,
+literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;

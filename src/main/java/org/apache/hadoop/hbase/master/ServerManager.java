@@ -2434,9 +2434,23 @@ name|server
 operator|==
 literal|null
 condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Unable to send region close because server is null; region="
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
 return|return
 literal|false
 return|;
+block|}
 name|HRegionInterface
 name|hri
 init|=
@@ -2463,9 +2477,14 @@ operator|.
 name|getServerName
 argument_list|()
 operator|+
-literal|" failed because no RPC connection found "
+literal|" for region "
 operator|+
-literal|"to this server"
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" failed because no RPC connection found to this server"
 argument_list|)
 expr_stmt|;
 return|return

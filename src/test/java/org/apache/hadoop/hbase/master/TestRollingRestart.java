@@ -121,6 +121,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HBaseConfiguration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HBaseTestingUtility
 import|;
 end_import
@@ -257,6 +271,18 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|KeeperException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|junit
 operator|.
 name|Test
@@ -313,7 +339,7 @@ specifier|final
 name|int
 name|NUM_REGIONS_TO_CREATE
 init|=
-literal|27
+literal|20
 decl_stmt|;
 name|int
 name|expectedNumRS
@@ -321,12 +347,45 @@ init|=
 literal|3
 decl_stmt|;
 comment|// Start the cluster
+name|log
+argument_list|(
+literal|"Starting cluster"
+argument_list|)
+expr_stmt|;
+name|Configuration
+name|conf
+init|=
+name|HBaseConfiguration
+operator|.
+name|create
+argument_list|()
+decl_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.master.assignment.timeoutmonitor.period"
+argument_list|,
+literal|2000
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.master.assignment.timeoutmonitor.timeout"
+argument_list|,
+literal|5000
+argument_list|)
+expr_stmt|;
 name|HBaseTestingUtility
 name|TEST_UTIL
 init|=
 operator|new
 name|HBaseTestingUtility
-argument_list|()
+argument_list|(
+name|conf
+argument_list|)
 decl_stmt|;
 name|TEST_UTIL
 operator|.
@@ -345,19 +404,16 @@ operator|.
 name|getHBaseCluster
 argument_list|()
 decl_stmt|;
+name|log
+argument_list|(
+literal|"Waiting for active/ready master"
+argument_list|)
+expr_stmt|;
 name|cluster
 operator|.
 name|waitForActiveAndReadyMaster
 argument_list|()
 expr_stmt|;
-name|Configuration
-name|conf
-init|=
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-decl_stmt|;
 name|ZooKeeperWatcher
 name|zkw
 init|=
@@ -370,6 +426,14 @@ literal|"testRollingRestart"
 argument_list|,
 literal|null
 argument_list|)
+decl_stmt|;
+name|HMaster
+name|master
+init|=
+name|cluster
+operator|.
+name|getMaster
+argument_list|()
 decl_stmt|;
 comment|// Create a table with regions
 name|byte
@@ -394,6 +458,15 @@ argument_list|(
 literal|"family"
 argument_list|)
 decl_stmt|;
+name|log
+argument_list|(
+literal|"Creating table with "
+operator|+
+name|NUM_REGIONS_TO_CREATE
+operator|+
+literal|" regions"
+argument_list|)
+expr_stmt|;
 name|HTable
 name|ht
 init|=
@@ -427,25 +500,21 @@ operator|+=
 literal|2
 expr_stmt|;
 comment|// catalogs
-name|LOG
-operator|.
-name|debug
+name|log
 argument_list|(
-literal|"\n\nWaiting for no more RIT\n"
+literal|"Waiting for no more RIT\n"
 argument_list|)
 expr_stmt|;
-name|ZKAssign
-operator|.
 name|blockUntilNoRIT
 argument_list|(
 name|zkw
+argument_list|,
+name|master
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|debug
+name|log
 argument_list|(
-literal|"\n\nDisabling table\n"
+literal|"Disabling table\n"
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL
@@ -458,60 +527,16 @@ argument_list|(
 name|table
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|debug
+name|log
 argument_list|(
-literal|"\n\nWaiting for no more RIT\n"
+literal|"Waiting for no more RIT\n"
 argument_list|)
 expr_stmt|;
-name|ZKAssign
-operator|.
 name|blockUntilNoRIT
 argument_list|(
 name|zkw
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"\n\nEnabling table\n"
-argument_list|)
-expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|getHBaseAdmin
-argument_list|()
-operator|.
-name|enableTable
-argument_list|(
-name|table
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"\n\nWaiting for no more RIT\n"
-argument_list|)
-expr_stmt|;
-name|ZKAssign
-operator|.
-name|blockUntilNoRIT
-argument_list|(
-name|zkw
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"\n\nVerifying there are "
-operator|+
-name|numRegions
-operator|+
-literal|" assigned on cluster\n"
+argument_list|,
+name|master
 argument_list|)
 expr_stmt|;
 name|NavigableSet
@@ -525,6 +550,89 @@ argument_list|(
 name|cluster
 argument_list|)
 decl_stmt|;
+name|log
+argument_list|(
+literal|"Verifying only catalog regions are assigned\n"
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|regions
+operator|.
+name|size
+argument_list|()
+operator|!=
+literal|2
+condition|)
+block|{
+for|for
+control|(
+name|String
+name|oregion
+range|:
+name|regions
+control|)
+name|log
+argument_list|(
+literal|"Region still online: "
+operator|+
+name|oregion
+argument_list|)
+expr_stmt|;
+block|}
+name|assertEquals
+argument_list|(
+literal|2
+argument_list|,
+name|regions
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|log
+argument_list|(
+literal|"Enabling table\n"
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|getHBaseAdmin
+argument_list|()
+operator|.
+name|enableTable
+argument_list|(
+name|table
+argument_list|)
+expr_stmt|;
+name|log
+argument_list|(
+literal|"Waiting for no more RIT\n"
+argument_list|)
+expr_stmt|;
+name|blockUntilNoRIT
+argument_list|(
+name|zkw
+argument_list|,
+name|master
+argument_list|)
+expr_stmt|;
+name|log
+argument_list|(
+literal|"Verifying there are "
+operator|+
+name|numRegions
+operator|+
+literal|" assigned on cluster\n"
+argument_list|)
+expr_stmt|;
+name|regions
+operator|=
+name|getAllOnlineRegions
+argument_list|(
+name|cluster
+argument_list|)
+expr_stmt|;
 name|assertRegionsAssigned
 argument_list|(
 name|cluster
@@ -577,11 +685,11 @@ argument_list|(
 literal|"Waiting for no more RIT"
 argument_list|)
 expr_stmt|;
-name|ZKAssign
-operator|.
 name|blockUntilNoRIT
 argument_list|(
 name|zkw
+argument_list|,
+name|master
 argument_list|)
 expr_stmt|;
 name|log
@@ -702,11 +810,9 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Bring down the backup master
-name|LOG
-operator|.
-name|debug
+name|log
 argument_list|(
-literal|"\n\nStopping backup master\n\n"
+literal|"Stopping backup master\n\n"
 argument_list|)
 expr_stmt|;
 name|backupMaster
@@ -729,11 +835,9 @@ name|backupMaster
 argument_list|)
 expr_stmt|;
 comment|// Bring down the primary master
-name|LOG
-operator|.
-name|debug
+name|log
 argument_list|(
-literal|"\n\nStopping primary master\n\n"
+literal|"Stopping primary master\n\n"
 argument_list|)
 expr_stmt|;
 name|activeMaster
@@ -756,11 +860,9 @@ name|activeMaster
 argument_list|)
 expr_stmt|;
 comment|// Start primary master
-name|LOG
-operator|.
-name|debug
+name|log
 argument_list|(
-literal|"\n\nRestarting primary master\n\n"
+literal|"Restarting primary master\n\n"
 argument_list|)
 expr_stmt|;
 name|activeMaster
@@ -775,12 +877,17 @@ operator|.
 name|waitForActiveAndReadyMaster
 argument_list|()
 expr_stmt|;
-comment|// Start backup master
-name|LOG
+name|master
+operator|=
+name|activeMaster
 operator|.
-name|debug
+name|getMaster
+argument_list|()
+expr_stmt|;
+comment|// Start backup master
+name|log
 argument_list|(
-literal|"\n\nRestarting backup master\n\n"
+literal|"Restarting backup master\n\n"
 argument_list|)
 expr_stmt|;
 name|backupMaster
@@ -901,11 +1008,11 @@ argument_list|(
 literal|"RS shutdown done, waiting for no more RIT"
 argument_list|)
 expr_stmt|;
-name|ZKAssign
-operator|.
 name|blockUntilNoRIT
 argument_list|(
 name|zkw
+argument_list|,
+name|master
 argument_list|)
 expr_stmt|;
 name|log
@@ -980,11 +1087,11 @@ argument_list|(
 literal|"Waiting for no more RIT"
 argument_list|)
 expr_stmt|;
-name|ZKAssign
-operator|.
 name|blockUntilNoRIT
 argument_list|(
 name|zkw
+argument_list|,
+name|master
 argument_list|)
 expr_stmt|;
 name|log
@@ -1177,11 +1284,11 @@ argument_list|(
 literal|"Waiting for no more RIT"
 argument_list|)
 expr_stmt|;
-name|ZKAssign
-operator|.
 name|blockUntilNoRIT
 argument_list|(
 name|zkw
+argument_list|,
+name|master
 argument_list|)
 expr_stmt|;
 name|log
@@ -1276,11 +1383,11 @@ argument_list|(
 literal|"RS shutdown done, waiting for no more RIT"
 argument_list|)
 expr_stmt|;
-name|ZKAssign
-operator|.
 name|blockUntilNoRIT
 argument_list|(
 name|zkw
+argument_list|,
+name|master
 argument_list|)
 expr_stmt|;
 name|log
@@ -1349,11 +1456,11 @@ argument_list|(
 literal|"Waiting for no more RIT"
 argument_list|)
 expr_stmt|;
-name|ZKAssign
-operator|.
 name|blockUntilNoRIT
 argument_list|(
 name|zkw
+argument_list|,
+name|master
 argument_list|)
 expr_stmt|;
 name|log
@@ -1432,11 +1539,11 @@ argument_list|(
 literal|"RS shutdown done, waiting for no more RIT"
 argument_list|)
 expr_stmt|;
-name|ZKAssign
-operator|.
 name|blockUntilNoRIT
 argument_list|(
 name|zkw
+argument_list|,
+name|master
 argument_list|)
 expr_stmt|;
 name|log
@@ -1515,11 +1622,11 @@ argument_list|(
 literal|"RS shutdown done, waiting for no more RIT"
 argument_list|)
 expr_stmt|;
-name|ZKAssign
-operator|.
 name|blockUntilNoRIT
 argument_list|(
 name|zkw
+argument_list|,
+name|master
 argument_list|)
 expr_stmt|;
 name|log
@@ -1598,11 +1705,11 @@ argument_list|(
 literal|"RS shutdown done, waiting for no more RIT"
 argument_list|)
 expr_stmt|;
-name|ZKAssign
-operator|.
 name|blockUntilNoRIT
 argument_list|(
 name|zkw
+argument_list|,
+name|master
 argument_list|)
 expr_stmt|;
 name|log
@@ -1684,6 +1791,38 @@ name|TEST_UTIL
 operator|.
 name|shutdownMiniCluster
 argument_list|()
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|blockUntilNoRIT
+parameter_list|(
+name|ZooKeeperWatcher
+name|zkw
+parameter_list|,
+name|HMaster
+name|master
+parameter_list|)
+throws|throws
+name|KeeperException
+throws|,
+name|InterruptedException
+block|{
+name|ZKAssign
+operator|.
+name|blockUntilNoRIT
+argument_list|(
+name|zkw
+argument_list|)
+expr_stmt|;
+name|master
+operator|.
+name|assignmentManager
+operator|.
+name|waitUntilNoRegionsInTransition
+argument_list|(
+literal|60000
+argument_list|)
 expr_stmt|;
 block|}
 specifier|private
@@ -1803,7 +1942,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"\n\n"
+literal|"\n\nTRR: "
 operator|+
 name|msg
 operator|+
@@ -1943,13 +2082,11 @@ name|expectedRegions
 operator|.
 name|size
 argument_list|()
-operator|!=
+operator|>
 name|numFound
 condition|)
 block|{
-name|LOG
-operator|.
-name|debug
+name|log
 argument_list|(
 literal|"Expected to find "
 operator|+
@@ -1995,9 +2132,7 @@ name|region
 argument_list|)
 condition|)
 block|{
-name|LOG
-operator|.
-name|debug
+name|log
 argument_list|(
 literal|"Missing region: "
 operator|+
@@ -2005,6 +2140,87 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+name|assertEquals
+argument_list|(
+name|expectedRegions
+operator|.
+name|size
+argument_list|()
+argument_list|,
+name|numFound
+argument_list|)
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|expectedRegions
+operator|.
+name|size
+argument_list|()
+operator|<
+name|numFound
+condition|)
+block|{
+name|int
+name|doubled
+init|=
+name|numFound
+operator|-
+name|expectedRegions
+operator|.
+name|size
+argument_list|()
+decl_stmt|;
+name|log
+argument_list|(
+literal|"Expected to find "
+operator|+
+name|expectedRegions
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" but found"
+operator|+
+literal|" "
+operator|+
+name|numFound
+operator|+
+literal|" ("
+operator|+
+name|doubled
+operator|+
+literal|" double assignments?)"
+argument_list|)
+expr_stmt|;
+name|NavigableSet
+argument_list|<
+name|String
+argument_list|>
+name|doubleRegions
+init|=
+name|getDoubleAssignedRegions
+argument_list|(
+name|cluster
+argument_list|)
+decl_stmt|;
+for|for
+control|(
+name|String
+name|region
+range|:
+name|doubleRegions
+control|)
+block|{
+name|log
+argument_list|(
+literal|"Region is double assigned: "
+operator|+
+name|region
+argument_list|)
+expr_stmt|;
 block|}
 name|assertEquals
 argument_list|(
@@ -2093,6 +2309,99 @@ block|}
 block|}
 return|return
 name|online
+return|;
+block|}
+specifier|private
+name|NavigableSet
+argument_list|<
+name|String
+argument_list|>
+name|getDoubleAssignedRegions
+parameter_list|(
+name|MiniHBaseCluster
+name|cluster
+parameter_list|)
+block|{
+name|NavigableSet
+argument_list|<
+name|String
+argument_list|>
+name|online
+init|=
+operator|new
+name|TreeSet
+argument_list|<
+name|String
+argument_list|>
+argument_list|()
+decl_stmt|;
+name|NavigableSet
+argument_list|<
+name|String
+argument_list|>
+name|doubled
+init|=
+operator|new
+name|TreeSet
+argument_list|<
+name|String
+argument_list|>
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|RegionServerThread
+name|rst
+range|:
+name|cluster
+operator|.
+name|getLiveRegionServerThreads
+argument_list|()
+control|)
+block|{
+for|for
+control|(
+name|HRegionInfo
+name|region
+range|:
+name|rst
+operator|.
+name|getRegionServer
+argument_list|()
+operator|.
+name|getOnlineRegions
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+operator|!
+name|online
+operator|.
+name|add
+argument_list|(
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|doubled
+operator|.
+name|add
+argument_list|(
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+return|return
+name|doubled
 return|;
 block|}
 block|}

@@ -443,6 +443,8 @@ operator|.
 name|assign
 argument_list|(
 name|region
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}

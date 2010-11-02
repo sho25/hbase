@@ -35,6 +35,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Map
 import|;
 end_import
@@ -563,6 +573,12 @@ comment|// Clean out anything in regions in transition.  Being conservative and
 comment|// doing after log splitting.  Could do some states before -- OPENING?
 comment|// OFFLINE? -- and then others after like CLOSING that depend on log
 comment|// splitting.
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regionsInTransition
+init|=
 name|this
 operator|.
 name|services
@@ -576,7 +592,7 @@ name|this
 operator|.
 name|hsi
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 comment|// Assign root and meta if we were carrying them.
 if|if
 condition|(
@@ -643,6 +659,29 @@ name|assignMeta
 argument_list|()
 expr_stmt|;
 comment|// Wait on meta to come online; we need it to progress.
+comment|// TODO: Best way to hold strictly here?  We should build this retry logic
+comment|//       into the MetaReader operations themselves.
+name|NavigableMap
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|Result
+argument_list|>
+name|hris
+init|=
+literal|null
+decl_stmt|;
+while|while
+condition|(
+operator|!
+name|this
+operator|.
+name|server
+operator|.
+name|isStopped
+argument_list|()
+condition|)
+block|{
 try|try
 block|{
 name|this
@@ -655,6 +694,25 @@ operator|.
 name|waitForMeta
 argument_list|()
 expr_stmt|;
+name|hris
+operator|=
+name|MetaReader
+operator|.
+name|getServerUserRegions
+argument_list|(
+name|this
+operator|.
+name|server
+operator|.
+name|getCatalogTracker
+argument_list|()
+argument_list|,
+name|this
+operator|.
+name|hsi
+argument_list|)
+expr_stmt|;
+break|break;
 block|}
 catch|catch
 parameter_list|(
@@ -680,30 +738,40 @@ name|e
 argument_list|)
 throw|;
 block|}
-name|NavigableMap
-argument_list|<
-name|HRegionInfo
-argument_list|,
-name|Result
-argument_list|>
-name|hris
-init|=
-name|MetaReader
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+name|LOG
 operator|.
-name|getServerUserRegions
+name|info
 argument_list|(
-name|this
-operator|.
-name|server
-operator|.
-name|getCatalogTracker
-argument_list|()
-argument_list|,
-name|this
-operator|.
-name|hsi
+literal|"Received exception accessing META during server shutdown of "
+operator|+
+name|serverName
+operator|+
+literal|", retrying META read"
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+block|}
+comment|// Remove regions that were in transition
+for|for
+control|(
+name|HRegionInfo
+name|rit
+range|:
+name|regionsInTransition
+control|)
+name|hris
+operator|.
+name|remove
+argument_list|(
+name|rit
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -719,11 +787,17 @@ literal|" region(s) that "
 operator|+
 name|serverName
 operator|+
-literal|" was carrying"
+literal|" was carrying (skipping "
+operator|+
+name|regionsInTransition
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" regions(s) that are in transition)"
 argument_list|)
 expr_stmt|;
-comment|// We should encounter -ROOT- and .META. first in the Set given how its
-comment|// a sorted set.
+comment|// Iterate regions that were on this server and assign them
 for|for
 control|(
 name|Map
@@ -742,6 +816,8 @@ name|entrySet
 argument_list|()
 control|)
 block|{
+if|if
+condition|(
 name|processDeadRegion
 argument_list|(
 name|e
@@ -768,7 +844,8 @@ operator|.
 name|getCatalogTracker
 argument_list|()
 argument_list|)
-expr_stmt|;
+condition|)
+block|{
 name|this
 operator|.
 name|services
@@ -782,8 +859,11 @@ name|e
 operator|.
 name|getKey
 argument_list|()
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|this
 operator|.
@@ -804,9 +884,10 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Process a dead region from a dead RS.  Checks if the region is disabled    * or if the region has a partially completed split.    *<p>    * Returns true if specified region should be assigned, false if not.    * @param hri    * @param result    * @param assignmentManager    * @param catalogTracker    * @return    * @throws IOException    */
 specifier|public
 specifier|static
-name|void
+name|boolean
 name|processDeadRegion
 parameter_list|(
 name|HRegionInfo
@@ -845,7 +926,9 @@ if|if
 condition|(
 name|disabled
 condition|)
-return|return;
+return|return
+literal|false
+return|;
 if|if
 condition|(
 name|hri
@@ -868,8 +951,13 @@ argument_list|,
 name|catalogTracker
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+literal|false
+return|;
 block|}
+return|return
+literal|true
+return|;
 block|}
 comment|/**    * Check that daughter regions are up in .META. and if not, add them.    * @param hris All regions for this server in meta.    * @param result The contents of the parent row in .META.    * @throws IOException    */
 specifier|static
@@ -1043,6 +1131,8 @@ operator|.
 name|assign
 argument_list|(
 name|hri
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
