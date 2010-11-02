@@ -648,6 +648,13 @@ name|cleaned
 operator|++
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|cleaned
+operator|!=
+literal|0
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -666,6 +673,35 @@ operator|+
 literal|" unreferenced parent region(s)"
 argument_list|)
 expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Scanned "
+operator|+
+name|count
+operator|.
+name|get
+argument_list|()
+operator|+
+literal|" catalog row(s) and gc'd "
+operator|+
+name|cleaned
+operator|+
+literal|" unreferenced parent region(s)"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Get HRegionInfo from passed Map of row values.    * @param result Map to do lookup in.    * @return Null if not found (and logs fact that expected COL_REGIONINFO    * was missing) else deserialized {@link HRegionInfo}    * @throws IOException    */
 specifier|static

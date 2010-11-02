@@ -476,17 +476,9 @@ name|min
 condition|)
 block|{
 comment|// Skipped because no server outside (min,max) range
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Skipping load balancing.  servers="
 operator|+
@@ -531,7 +523,6 @@ name|getNumberOfRegions
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 literal|null
 return|;
@@ -1593,6 +1584,11 @@ name|assignments
 return|;
 block|}
 comment|/**    * Find the block locations for all of the files for the specified region.    *    * Returns an ordered list of hosts that are hosting the blocks for this    * region.  The weight of each host is the sum of the block lengths of all    * files on that host, so the first host in the list is the server which    * holds the most bytes of the given region's HFiles.    *    * TODO: Make this work.  Need to figure out how to match hadoop's hostnames    *       given for block locations with our HServerAddress.    * TODO: Use the right directory for the region    * TODO: Use getFileBlockLocations on the files not the directory    *    * @param fs the filesystem    * @param region region    * @return ordered list of hosts holding blocks of the specified region    * @throws IOException if any filesystem errors    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 specifier|private
 name|List
 argument_list|<
