@@ -438,15 +438,15 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-name|String
-name|tableName
+name|TableResource
+name|tableResource
 decl_stmt|;
-comment|/**    * Constructor    * @param table    * @throws IOException    */
+comment|/**    * Constructor    * @param tableResource    * @throws IOException    */
 specifier|public
 name|SchemaResource
 parameter_list|(
-name|String
-name|table
+name|TableResource
+name|tableResource
 parameter_list|)
 throws|throws
 name|IOException
@@ -456,9 +456,9 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|tableName
+name|tableResource
 operator|=
-name|table
+name|tableResource
 expr_stmt|;
 block|}
 specifier|private
@@ -485,7 +485,10 @@ name|pool
 operator|.
 name|getTable
 argument_list|(
-name|tableName
+name|tableResource
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 decl_stmt|;
 try|try
@@ -1059,7 +1062,10 @@ name|admin
 operator|.
 name|enableTable
 argument_list|(
-name|tableName
+name|tableResource
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1121,7 +1127,10 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|tableName
+name|tableResource
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|HBaseAdmin
@@ -1422,7 +1431,10 @@ name|admin
 operator|.
 name|disableTable
 argument_list|(
-name|tableName
+name|tableResource
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|success
@@ -1455,7 +1467,10 @@ name|admin
 operator|.
 name|deleteTable
 argument_list|(
-name|tableName
+name|tableResource
+operator|.
+name|getName
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return

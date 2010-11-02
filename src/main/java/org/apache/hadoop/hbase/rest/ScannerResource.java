@@ -317,15 +317,15 @@ argument_list|>
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|String
-name|tableName
+name|TableResource
+name|tableResource
 decl_stmt|;
-comment|/**    * Constructor    * @param table    * @throws IOException    */
+comment|/**    * Constructor    * @param tableResource    * @throws IOException    */
 specifier|public
 name|ScannerResource
 parameter_list|(
-name|String
-name|table
+name|TableResource
+name|tableResource
 parameter_list|)
 throws|throws
 name|IOException
@@ -335,9 +335,9 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|tableName
+name|tableResource
 operator|=
-name|table
+name|tableResource
 expr_stmt|;
 block|}
 specifier|static
@@ -459,6 +459,14 @@ name|buildFilterFromModel
 argument_list|(
 name|model
 argument_list|)
+decl_stmt|;
+name|String
+name|tableName
+init|=
+name|tableResource
+operator|.
+name|getName
+argument_list|()
 decl_stmt|;
 name|ScannerResultGenerator
 name|gen
