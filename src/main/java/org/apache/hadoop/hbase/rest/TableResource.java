@@ -213,6 +213,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|HBaseAdmin
@@ -721,6 +735,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+try|try
+block|{
 name|HBaseAdmin
 name|admin
 init|=
@@ -1043,6 +1059,15 @@ block|}
 block|}
 block|}
 block|}
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|TableNotFoundException
+name|e
+parameter_list|)
+block|{
+comment|// ignore
 block|}
 block|}
 comment|/**    * Constructor    * @param table    * @throws IOException    */
