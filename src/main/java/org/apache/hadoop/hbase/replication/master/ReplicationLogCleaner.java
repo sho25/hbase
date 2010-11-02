@@ -85,6 +85,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|client
 operator|.
 name|HConnectionManager
@@ -260,6 +274,21 @@ name|Path
 name|filePath
 parameter_list|)
 block|{
+comment|// all members of this class are null if replication is disabled, and we
+comment|// return true since false would render the LogsCleaner useless
+if|if
+condition|(
+name|this
+operator|.
+name|conf
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
 name|String
 name|log
 init|=
@@ -476,6 +505,24 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
+comment|// If replication is disabled, keep all members null
+if|if
+condition|(
+operator|!
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|HConstants
+operator|.
+name|REPLICATION_ENABLE_KEY
+argument_list|,
+literal|false
+argument_list|)
+condition|)
+block|{
+return|return;
+block|}
 comment|// Make my own Configuration.  Then I'll have my own connection to zk that
 comment|// I can close myself when comes time.
 name|this
