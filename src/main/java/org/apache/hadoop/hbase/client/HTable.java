@@ -877,7 +877,8 @@ return|return
 name|configuration
 return|;
 block|}
-comment|/**    * TODO Might want to change this to public, would be nice if the number    * of threads would automatically change when servers were added and removed    * @return the number of region servers that are currently running    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * @return the number of region servers that are currently running    * @throws IOException if a remote or network exception occurs    */
+specifier|public
 name|int
 name|getCurrentNrHRS
 parameter_list|()
@@ -886,6 +887,8 @@ name|IOException
 block|{
 try|try
 block|{
+comment|// We go to zk rather than to master to get count of regions to avoid
+comment|// HTable having a Master dependency.  See HBase-2828
 return|return
 name|ZKUtil
 operator|.
