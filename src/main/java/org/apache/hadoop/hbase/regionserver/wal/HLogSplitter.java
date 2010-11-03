@@ -2154,6 +2154,37 @@ argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|regiondir
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"This region's directory doesn't exist: "
+operator|+
+name|regiondir
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|". It is very likely that it was"
+operator|+
+literal|" already split so it's safe to discard those edits."
+argument_list|)
+expr_stmt|;
+return|return
+literal|null
+return|;
+block|}
 name|Path
 name|dir
 init|=
@@ -2665,6 +2696,16 @@ argument_list|,
 name|rootDir
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|regionedits
+operator|==
+literal|null
+condition|)
+block|{
+comment|// we already print a message if it's null in getRegionSplitEditsPath
+break|break;
+block|}
 if|if
 condition|(
 name|fs
