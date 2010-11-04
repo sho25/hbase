@@ -302,18 +302,11 @@ name|byte
 index|[]
 name|startRow
 decl_stmt|;
-comment|// row could be non-null but empty -- the HConstants.EMPTY_START_ROW
 if|if
 condition|(
 name|row
 operator|!=
 literal|null
-operator|&&
-name|row
-operator|.
-name|length
-operator|>
-literal|0
 condition|)
 block|{
 comment|// Scan starting at a particular row in a particular table
@@ -493,28 +486,6 @@ block|}
 elseif|else
 if|if
 condition|(
-name|row
-operator|==
-literal|null
-operator|||
-operator|(
-name|row
-operator|!=
-literal|null
-operator|&&
-name|Bytes
-operator|.
-name|equals
-argument_list|(
-name|HConstants
-operator|.
-name|EMPTY_START_ROW
-argument_list|,
-name|row
-argument_list|)
-operator|)
-operator|||
-operator|(
 name|tableName
 operator|==
 literal|null
@@ -524,7 +495,6 @@ operator|.
 name|length
 operator|==
 literal|0
-operator|)
 condition|)
 block|{
 comment|// Full META scan
