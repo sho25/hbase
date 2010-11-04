@@ -1036,7 +1036,7 @@ block|}
 block|}
 block|}
 comment|// Connection management
-comment|/**    * Called when there is a connection-related event via the Watcher callback.    *    * If Disconnected or Expired, this should shutdown the cluster.    *    * @param event    */
+comment|/**    * Called when there is a connection-related event via the Watcher callback.    *    * If Disconnected or Expired, this should shutdown the cluster. But, since    * we send a KeeperException.SessionExpiredException along with the abort    * call, it's possible for the Abortable to catch it and try to create a new    * session with ZooKeeper. This is what the client does in HCM.    *    * @param event    */
 specifier|private
 name|void
 name|connectionEvent
@@ -1220,7 +1220,11 @@ name|abort
 argument_list|(
 name|msg
 argument_list|,
-literal|null
+operator|new
+name|KeeperException
+operator|.
+name|SessionExpiredException
+argument_list|()
 argument_list|)
 expr_stmt|;
 break|break;
