@@ -182,7 +182,7 @@ end_import
 begin_class
 specifier|public
 class|class
-name|TestTransform
+name|BROKE_TestTransform
 extends|extends
 name|HBaseRESTClusterTestBase
 block|{
