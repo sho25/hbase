@@ -4052,13 +4052,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isInfoEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Removed "
 operator|+
@@ -5026,7 +5026,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Closed zookeeper sessionid=0x"
 operator|+
