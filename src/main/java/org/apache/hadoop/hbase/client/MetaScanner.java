@@ -619,6 +619,14 @@ operator|.
 name|CATALOG_FAMILY
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -648,6 +656,7 @@ operator|+
 literal|" rows"
 argument_list|)
 expr_stmt|;
+block|}
 name|callable
 operator|=
 operator|new
