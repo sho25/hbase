@@ -63,6 +63,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|net
+operator|.
+name|ConnectException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -4645,13 +4655,37 @@ block|{
 comment|// Failed to close, so pass through and reassign
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Server "
 operator|+
 name|server
 operator|+
 literal|" returned NotServingRegionException"
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|ConnectException
+name|e
+parameter_list|)
+block|{
+comment|// Failed to connect, so pass through and reassign
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Server "
+operator|+
+name|server
+operator|+
+literal|" returned ConnectException "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
