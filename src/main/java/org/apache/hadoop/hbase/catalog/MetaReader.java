@@ -2453,6 +2453,13 @@ decl_stmt|;
 if|if
 condition|(
 name|pair
+operator|==
+literal|null
+condition|)
+continue|continue;
+if|if
+condition|(
+name|pair
 operator|.
 name|getSecond
 argument_list|()
