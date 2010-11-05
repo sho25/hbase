@@ -4496,7 +4496,7 @@ argument_list|(
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|tableName
+name|tableName2
 argument_list|)
 argument_list|,
 name|HConstants
