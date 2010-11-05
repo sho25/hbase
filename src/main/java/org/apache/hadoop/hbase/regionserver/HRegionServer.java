@@ -2365,13 +2365,18 @@ parameter_list|)
 block|{
 if|if
 condition|(
+operator|!
+operator|(
 name|from
 operator|instanceof
 name|HBaseRPC
 operator|.
 name|Invocation
+operator|)
 condition|)
-block|{
+return|return
+name|NORMAL_QOS
+return|;
 name|HBaseRPC
 operator|.
 name|Invocation
@@ -2436,7 +2441,7 @@ name|ClassCastException
 name|ignored
 parameter_list|)
 block|{
-comment|//LOG.debug("Low priority: " + from);
+comment|// LOG.debug("Low priority: " + from);
 return|return
 name|NORMAL_QOS
 return|;
@@ -2499,7 +2504,7 @@ name|isMetaRegion
 argument_list|()
 condition|)
 block|{
-comment|//LOG.debug("High priority scanner request: " + scannerId);
+comment|// LOG.debug("High priority scanner request: " + scannerId);
 return|return
 name|HIGH_QOS
 return|;
@@ -2545,10 +2550,25 @@ literal|"getClosestRowBefore"
 argument_list|)
 condition|)
 block|{
-comment|//LOG.debug("High priority method: " + methodName);
+comment|// LOG.debug("High priority method: " + methodName);
 return|return
 name|HIGH_QOS
 return|;
+block|}
+elseif|else
+if|if
+condition|(
+name|inv
+operator|.
+name|getParameterClasses
+argument_list|()
+operator|.
+name|length
+operator|==
+literal|0
+condition|)
+block|{
+comment|// Just let it through.  This is getOnlineRegions, etc.
 block|}
 elseif|else
 if|if
@@ -2586,8 +2606,9 @@ index|]
 argument_list|)
 condition|)
 block|{
-comment|//LOG.debug("High priority with method: " + methodName + " and region: "
-comment|//    + Bytes.toString((byte[]) inv.getParameters()[0]));
+comment|// LOG.debug("High priority with method: " + methodName +
+comment|// " and region: "
+comment|// + Bytes.toString((byte[]) inv.getParameters()[0]));
 return|return
 name|HIGH_QOS
 return|;
@@ -2635,9 +2656,12 @@ operator|.
 name|getRegions
 argument_list|()
 decl_stmt|;
-comment|// ok this sucks, but if any single of the actions touches a meta, the whole
-comment|// thing gets pingged high priority.  This is a dangerous hack because people
-comment|// can get their multi action tagged high QOS by tossing a Get(.META.) AND this
+comment|// ok this sucks, but if any single of the actions touches a meta, the
+comment|// whole
+comment|// thing gets pingged high priority. This is a dangerous hack because
+comment|// people
+comment|// can get their multi action tagged high QOS by tossing a Get(.META.)
+comment|// AND this
 comment|// regionserver hosts META/-ROOT-
 for|for
 control|(
@@ -2656,7 +2680,8 @@ name|region
 argument_list|)
 condition|)
 block|{
-comment|//LOG.debug("High priority multi with region: " + Bytes.toString(region));
+comment|// LOG.debug("High priority multi with region: " +
+comment|// Bytes.toString(region));
 return|return
 name|HIGH_QOS
 return|;
@@ -2664,8 +2689,7 @@ comment|// short circuit for the win.
 block|}
 block|}
 block|}
-block|}
-comment|//LOG.debug("Low priority: " + from.toString());
+comment|// LOG.debug("Low priority: " + from.toString());
 return|return
 name|NORMAL_QOS
 return|;
@@ -10531,6 +10555,34 @@ parameter_list|)
 throws|throws
 name|NotServingRegionException
 block|{
+return|return
+name|closeRegion
+argument_list|(
+name|region
+argument_list|,
+literal|true
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_function
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|closeRegion
+parameter_list|(
+name|HRegionInfo
+name|region
+parameter_list|,
+specifier|final
+name|boolean
+name|zk
+parameter_list|)
+throws|throws
+name|NotServingRegionException
+block|{
 name|LOG
 operator|.
 name|info
@@ -10543,8 +10595,6 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// TODO: Need to check if this is being served here but currently undergoing
-comment|// a split (so master needs to retry close after split is complete)
 if|if
 condition|(
 operator|!
@@ -10593,7 +10643,7 @@ name|region
 argument_list|,
 literal|false
 argument_list|,
-literal|true
+name|zk
 argument_list|)
 return|;
 block|}
@@ -10948,21 +10998,21 @@ begin_function
 annotation|@
 name|Override
 specifier|public
-name|NavigableSet
+name|List
 argument_list|<
 name|HRegionInfo
 argument_list|>
 name|getOnlineRegions
 parameter_list|()
 block|{
-name|NavigableSet
+name|List
 argument_list|<
 name|HRegionInfo
 argument_list|>
-name|sortedset
+name|list
 init|=
 operator|new
-name|TreeSet
+name|ArrayList
 argument_list|<
 name|HRegionInfo
 argument_list|>
@@ -10995,7 +11045,7 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|sortedset
+name|list
 operator|.
 name|add
 argument_list|(
@@ -11011,7 +11061,7 @@ expr_stmt|;
 block|}
 block|}
 return|return
-name|sortedset
+name|list
 return|;
 block|}
 end_function

@@ -49,9 +49,8 @@ specifier|final
 name|long
 name|versionID
 init|=
-literal|25L
+literal|26L
 decl_stmt|;
-comment|// Setting it to 25 temporarily to see if hudson passes.  #1608 hudson failed because of version mismatch 25 vs 26.
 block|}
 end_interface
 

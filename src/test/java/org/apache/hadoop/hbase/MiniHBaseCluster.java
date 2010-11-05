@@ -419,6 +419,17 @@ name|numRegionServers
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
+name|Configuration
+name|getConfiguration
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|conf
+return|;
+block|}
 comment|/**    * Override Master so can add inject behaviors testing.    */
 specifier|public
 specifier|static

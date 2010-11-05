@@ -691,7 +691,7 @@ name|IOException
 function_decl|;
 comment|/**    * @return All regions online on this region server    * @throws IOException e    */
 specifier|public
-name|NavigableSet
+name|List
 argument_list|<
 name|HRegionInfo
 argument_list|>
@@ -783,6 +783,22 @@ parameter_list|(
 specifier|final
 name|HRegionInfo
 name|region
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Closes the specified region and will use or not use ZK during the close    * according to the specified flag.    * @param region region to close    * @param zk true if transitions should be done in ZK, false if not    * @return true if closing region, false if not    * @throws IOException    */
+specifier|public
+name|boolean
+name|closeRegion
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|region
+parameter_list|,
+specifier|final
+name|boolean
+name|zk
 parameter_list|)
 throws|throws
 name|IOException
