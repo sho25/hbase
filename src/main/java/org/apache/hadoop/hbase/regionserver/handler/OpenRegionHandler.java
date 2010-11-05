@@ -351,13 +351,20 @@ name|server
 operator|.
 name|isStopped
 argument_list|()
+operator|||
+name|this
+operator|.
+name|rsServices
+operator|.
+name|isStopping
+argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Server stopping, skipping open of "
+literal|"Server stopping or stopped, skipping open of "
 operator|+
 name|name
 argument_list|)

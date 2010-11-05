@@ -675,6 +675,27 @@ operator|.
 name|parent
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|server
+operator|.
+name|isStopped
+argument_list|()
+operator|||
+name|services
+operator|.
+name|isStopping
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Server is stopped or stopping"
+argument_list|)
+throw|;
+block|}
 assert|assert
 operator|!
 name|this

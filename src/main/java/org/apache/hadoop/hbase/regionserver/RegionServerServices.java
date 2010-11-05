@@ -98,6 +98,13 @@ name|RegionServerServices
 extends|extends
 name|OnlineRegions
 block|{
+comment|/**    * @return True if this regionserver is stopping.    */
+specifier|public
+name|boolean
+name|isStopping
+parameter_list|()
+function_decl|;
+comment|/** @return the HLog */
 specifier|public
 name|HLog
 name|getWAL

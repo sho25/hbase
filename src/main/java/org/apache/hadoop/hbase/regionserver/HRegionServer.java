@@ -191,16 +191,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|NavigableSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Random
 import|;
 end_import
@@ -232,16 +222,6 @@ operator|.
 name|util
 operator|.
 name|TreeMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|TreeSet
 import|;
 end_import
 
@@ -445,6 +425,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+operator|.
+name|OperationStatusCode
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HMsg
 import|;
 end_import
@@ -628,22 +624,6 @@ operator|.
 name|hbase
 operator|.
 name|YouAreDeadException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
-operator|.
-name|OperationStatusCode
 import|;
 end_import
 
@@ -1534,6 +1514,14 @@ specifier|protected
 specifier|volatile
 name|boolean
 name|stopped
+init|=
+literal|false
+decl_stmt|;
+comment|// A state before we go into stopped state.  At this stage we're closing user
+comment|// space regions.
+specifier|private
+name|boolean
+name|stopping
 init|=
 literal|false
 decl_stmt|;
@@ -2926,7 +2914,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * @return True if cluster shutdown in progress    */
+comment|/**    * @return False if cluster shutdown in progress    */
 end_comment
 
 begin_function
@@ -3087,11 +3075,6 @@ operator|.
 name|currentThread
 argument_list|()
 expr_stmt|;
-name|boolean
-name|calledCloseUserRegions
-init|=
-literal|false
-decl_stmt|;
 try|try
 block|{
 while|while
@@ -3172,7 +3155,9 @@ elseif|else
 if|if
 condition|(
 operator|!
-name|calledCloseUserRegions
+name|this
+operator|.
+name|stopping
 condition|)
 block|{
 name|closeUserRegions
@@ -3182,7 +3167,9 @@ operator|.
 name|abortRequested
 argument_list|)
 expr_stmt|;
-name|calledCloseUserRegions
+name|this
+operator|.
+name|stopping
 operator|=
 literal|true
 expr_stmt|;
@@ -6684,11 +6671,9 @@ return|;
 block|}
 end_function
 
-begin_comment
-comment|/** @return the HLog */
-end_comment
-
 begin_function
+annotation|@
+name|Override
 specifier|public
 name|HLog
 name|getWAL
@@ -10954,6 +10939,22 @@ return|return
 name|this
 operator|.
 name|stopped
+return|;
+block|}
+end_function
+
+begin_function
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|isStopping
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|stopping
 return|;
 block|}
 end_function
