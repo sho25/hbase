@@ -2597,8 +2597,8 @@ init|=
 name|getOldestOutstandingSeqNum
 argument_list|()
 decl_stmt|;
-comment|// Get the set of all log files whose final ID is older than or
-comment|// equal to the oldest pending region operation
+comment|// Get the set of all log files whose last sequence number is smaller than
+comment|// the oldest edit's sequence number.
 name|TreeSet
 argument_list|<
 name|Long
@@ -2626,8 +2626,6 @@ name|oldestOutstandingSeqNum
 operator|.
 name|longValue
 argument_list|()
-operator|+
-literal|1L
 argument_list|)
 operator|)
 argument_list|)
@@ -2678,7 +2676,7 @@ literal|"Found "
 operator|+
 name|logsToRemove
 operator|+
-literal|" hlogs to remove "
+literal|" hlogs to remove"
 operator|+
 literal|" out of total "
 operator|+
@@ -2689,9 +2687,9 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|"; "
+literal|";"
 operator|+
-literal|"oldest outstanding sequenceid is "
+literal|" oldest outstanding sequenceid is "
 operator|+
 name|oldestOutstandingSeqNum
 operator|+
@@ -3203,8 +3201,6 @@ name|logSeqNum
 operator|.
 name|get
 argument_list|()
-operator|-
-literal|1
 argument_list|)
 argument_list|,
 name|oldFile
