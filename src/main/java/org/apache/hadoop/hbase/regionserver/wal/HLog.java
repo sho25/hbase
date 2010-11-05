@@ -3850,17 +3850,32 @@ name|incrementAndGet
 argument_list|()
 expr_stmt|;
 block|}
-comment|// sync txn to file system
-name|this
-operator|.
-name|sync
-argument_list|(
+comment|// Sync if catalog region, and if not then check if that table supports
+comment|// deferred log flushing
+if|if
+condition|(
 name|regionInfo
 operator|.
 name|isMetaRegion
 argument_list|()
-argument_list|)
+operator|||
+operator|!
+name|regionInfo
+operator|.
+name|getTableDesc
+argument_list|()
+operator|.
+name|isDeferredLogFlush
+argument_list|()
+condition|)
+block|{
+comment|// sync txn to file system
+name|this
+operator|.
+name|sync
+argument_list|()
 expr_stmt|;
+block|}
 block|}
 end_function
 
@@ -3992,17 +4007,32 @@ name|incrementAndGet
 argument_list|()
 expr_stmt|;
 block|}
-comment|// sync txn to file system
-name|this
-operator|.
-name|sync
-argument_list|(
+comment|// Sync if catalog region, and if not then check if that table supports
+comment|// deferred log flushing
+if|if
+condition|(
 name|info
 operator|.
 name|isMetaRegion
 argument_list|()
-argument_list|)
+operator|||
+operator|!
+name|info
+operator|.
+name|getTableDesc
+argument_list|()
+operator|.
+name|isDeferredLogFlush
+argument_list|()
+condition|)
+block|{
+comment|// sync txn to file system
+name|this
+operator|.
+name|sync
+argument_list|()
 expr_stmt|;
+block|}
 block|}
 end_function
 

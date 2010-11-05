@@ -529,7 +529,7 @@ specifier|final
 name|boolean
 name|DEFAULT_DEFERRED_LOG_FLUSH
 init|=
-literal|true
+literal|false
 decl_stmt|;
 specifier|private
 specifier|volatile
