@@ -304,12 +304,7 @@ name|REST_TEST_UTIL
 init|=
 operator|new
 name|HBaseRESTTestingUtility
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConfiguration
 argument_list|()
-argument_list|)
 decl_stmt|;
 specifier|private
 specifier|static
@@ -341,7 +336,12 @@ expr_stmt|;
 name|REST_TEST_UTIL
 operator|.
 name|startServletContainer
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getConfiguration
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|client
 operator|=

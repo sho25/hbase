@@ -256,12 +256,7 @@ name|REST_TEST_UTIL
 init|=
 operator|new
 name|HBaseRESTTestingUtility
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConfiguration
 argument_list|()
-argument_list|)
 decl_stmt|;
 specifier|private
 specifier|static
@@ -294,7 +289,7 @@ operator|.
 name|getRegions
 argument_list|()
 operator|>=
-literal|2
+literal|1
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -307,8 +302,16 @@ operator|>=
 literal|0
 argument_list|)
 expr_stmt|;
-comment|// TODO: testing average load is flaky but not a stargate issue, revisit
-comment|// assertTrue(model.getAverageLoad()>= 1.0);
+name|assertTrue
+argument_list|(
+name|model
+operator|.
+name|getAverageLoad
+argument_list|()
+operator|>=
+literal|0.0
+argument_list|)
+expr_stmt|;
 name|assertNotNull
 argument_list|(
 name|model
@@ -384,17 +387,6 @@ name|getRequests
 argument_list|()
 operator|>=
 literal|0
-argument_list|)
-expr_stmt|;
-name|assertFalse
-argument_list|(
-name|node
-operator|.
-name|getRegions
-argument_list|()
-operator|.
-name|isEmpty
-argument_list|()
 argument_list|)
 expr_stmt|;
 for|for
@@ -480,14 +472,18 @@ name|TEST_UTIL
 operator|.
 name|startMiniCluster
 argument_list|(
-literal|2
+literal|3
 argument_list|)
 expr_stmt|;
-comment|// some tests depend on having only 2 RS
 name|REST_TEST_UTIL
 operator|.
 name|startServletContainer
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getConfiguration
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|client
 operator|=
