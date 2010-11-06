@@ -319,6 +319,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HServerAddress
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HServerInfo
 import|;
 end_import
@@ -424,22 +438,6 @@ operator|.
 name|catalog
 operator|.
 name|RootLocationEditor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|MetaScanner
 import|;
 end_import
 
@@ -4886,25 +4884,47 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// First experiment at synchronous assignment
-comment|// Simpler because just wait for no regions in transition
-comment|// Scan META for all user regions; do not include offlined regions in list.
+name|Map
+argument_list|<
+name|HServerInfo
+argument_list|,
 name|List
 argument_list|<
 name|HRegionInfo
 argument_list|>
+argument_list|>
+name|bulkPlan
+init|=
+literal|null
+decl_stmt|;
+comment|// Get all available servers
+name|List
+argument_list|<
+name|HServerInfo
+argument_list|>
+name|servers
+init|=
+name|serverManager
+operator|.
+name|getOnlineServersList
+argument_list|()
+decl_stmt|;
+comment|// Scan META for all user regions, skipping any disabled tables
+name|Map
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|HServerAddress
+argument_list|>
 name|allRegions
 init|=
-name|MetaScanner
+name|MetaReader
 operator|.
-name|listAllRegions
+name|fullScan
 argument_list|(
-name|master
-operator|.
-name|getConfiguration
-argument_list|()
+name|catalogTracker
 argument_list|,
-literal|false
+name|disabledTables
 argument_list|)
 decl_stmt|;
 if|if
@@ -4919,18 +4939,65 @@ name|isEmpty
 argument_list|()
 condition|)
 return|return;
-comment|// Get all available servers
-name|List
-argument_list|<
-name|HServerInfo
-argument_list|>
-name|servers
+comment|// Determine what type of assignment to do on startup
+name|boolean
+name|retainAssignment
 init|=
-name|serverManager
+name|master
 operator|.
-name|getOnlineServersList
+name|getConfiguration
 argument_list|()
+operator|.
+name|getBoolean
+argument_list|(
+literal|"hbase.master.startup.retainassign"
+argument_list|,
+literal|true
+argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|retainAssignment
+condition|)
+block|{
+comment|// Reuse existing assignment info
+name|bulkPlan
+operator|=
+name|LoadBalancer
+operator|.
+name|retainAssignment
+argument_list|(
+name|allRegions
+argument_list|,
+name|servers
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// Generate a round-robin bulk assignment plan
+name|bulkPlan
+operator|=
+name|LoadBalancer
+operator|.
+name|roundRobinAssignment
+argument_list|(
+operator|new
+name|ArrayList
+argument_list|<
+name|HRegionInfo
+argument_list|>
+argument_list|(
+name|allRegions
+operator|.
+name|keySet
+argument_list|()
+argument_list|)
+argument_list|,
+name|servers
+argument_list|)
+expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
@@ -4952,27 +5019,6 @@ operator|+
 literal|" server(s)"
 argument_list|)
 expr_stmt|;
-comment|// Generate a cluster startup region placement plan
-name|Map
-argument_list|<
-name|HServerInfo
-argument_list|,
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|>
-name|bulkPlan
-init|=
-name|LoadBalancer
-operator|.
-name|bulkAssignment
-argument_list|(
-name|allRegions
-argument_list|,
-name|servers
-argument_list|)
-decl_stmt|;
 comment|// Make a fixed thread count pool to run bulk assignments.  Thought is that
 comment|// if a 1k cluster, running 1k bulk concurrent assignment threads will kill
 comment|// master, HDFS or ZK?
