@@ -3637,6 +3637,7 @@ return|return
 name|result
 return|;
 block|}
+comment|// TODO: Use better method for determining stamp of last major (HBASE-2990)
 name|long
 name|lowTimestamp
 init|=
@@ -3684,13 +3685,6 @@ operator|)
 condition|)
 block|{
 comment|// Major compaction time has elapsed.
-name|long
-name|elapsedTime
-init|=
-name|now
-operator|-
-name|lowTimestamp
-decl_stmt|;
 if|if
 condition|(
 name|filesToCompact
@@ -3699,13 +3693,36 @@ name|size
 argument_list|()
 operator|==
 literal|1
-operator|&&
+condition|)
+block|{
+comment|// Single file
+name|StoreFile
+name|sf
+init|=
 name|filesToCompact
 operator|.
 name|get
 argument_list|(
 literal|0
 argument_list|)
+decl_stmt|;
+name|long
+name|oldest
+init|=
+name|now
+operator|-
+name|sf
+operator|.
+name|getReader
+argument_list|()
+operator|.
+name|timeRangeTracker
+operator|.
+name|minimumTimestamp
+decl_stmt|;
+if|if
+condition|(
+name|sf
 operator|.
 name|isMajorCompaction
 argument_list|()
@@ -3719,7 +3736,7 @@ name|HConstants
 operator|.
 name|FOREVER
 operator|||
-name|elapsedTime
+name|oldest
 operator|<
 name|this
 operator|.
@@ -3745,9 +3762,9 @@ name|this
 operator|.
 name|storeNameStr
 operator|+
-literal|" because one (major) compacted file only and elapsedTime "
+literal|" because one (major) compacted file only and oldestTime "
 operator|+
-name|elapsedTime
+name|oldest
 operator|+
 literal|"ms is< ttl="
 operator|+
@@ -3756,6 +3773,7 @@ operator|.
 name|ttl
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 else|else
