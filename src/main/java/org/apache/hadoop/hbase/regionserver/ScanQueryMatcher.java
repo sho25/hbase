@@ -170,6 +170,10 @@ specifier|protected
 name|DeleteTracker
 name|deletes
 decl_stmt|;
+specifier|protected
+name|boolean
+name|retainDeletesInOutput
+decl_stmt|;
 comment|/** Keeps track of columns and versions */
 specifier|protected
 name|ColumnTracker
@@ -225,6 +229,9 @@ name|rowComparator
 parameter_list|,
 name|int
 name|maxVersions
+parameter_list|,
+name|boolean
+name|retainDeletesInOutput
 parameter_list|)
 block|{
 name|this
@@ -293,6 +300,12 @@ operator|.
 name|getFilter
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|retainDeletesInOutput
+operator|=
+name|retainDeletesInOutput
+expr_stmt|;
 comment|// Single branch to deal with two types of reads (columns vs all in family)
 if|if
 condition|(
@@ -337,6 +350,55 @@ name|maxVersions
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+specifier|public
+name|ScanQueryMatcher
+parameter_list|(
+name|Scan
+name|scan
+parameter_list|,
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|NavigableSet
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|columns
+parameter_list|,
+name|long
+name|ttl
+parameter_list|,
+name|KeyValue
+operator|.
+name|KeyComparator
+name|rowComparator
+parameter_list|,
+name|int
+name|maxVersions
+parameter_list|)
+block|{
+comment|/* By default we will not include deletes */
+comment|/* deletes are included explicitly (for minor compaction) */
+name|this
+argument_list|(
+name|scan
+argument_list|,
+name|family
+argument_list|,
+name|columns
+argument_list|,
+name|ttl
+argument_list|,
+name|rowComparator
+argument_list|,
+name|maxVersions
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Determines if the caller should do one of several things:    * - seek/skip to the next row (MatchCode.SEEK_NEXT_ROW)    * - seek/skip to the next column (MatchCode.SEEK_NEXT_COL)    * - include the current KeyValue (MatchCode.INCLUDE)    * - ignore the current KeyValue (MatchCode.SKIP)    * - got to the next row (MatchCode.DONE)    *    * @param kv KeyValue to check    * @return The match code instance.    */
 specifier|public
@@ -630,11 +692,25 @@ argument_list|)
 expr_stmt|;
 comment|// Can't early out now, because DelFam come before any other keys
 block|}
+if|if
+condition|(
+name|retainDeletesInOutput
+condition|)
+block|{
+return|return
+name|MatchCode
+operator|.
+name|INCLUDE
+return|;
+block|}
+else|else
+block|{
 return|return
 name|MatchCode
 operator|.
 name|SKIP
 return|;
+block|}
 block|}
 if|if
 condition|(

@@ -261,6 +261,8 @@ operator|.
 name|getMaxVersions
 argument_list|()
 argument_list|)
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|this
@@ -346,6 +348,9 @@ extends|extends
 name|KeyValueScanner
 argument_list|>
 name|scanners
+parameter_list|,
+name|boolean
+name|retainDeletesInOutput
 parameter_list|)
 throws|throws
 name|IOException
@@ -405,6 +410,8 @@ operator|.
 name|getMaxVersions
 argument_list|()
 argument_list|)
+argument_list|,
+name|retainDeletesInOutput
 argument_list|)
 expr_stmt|;
 comment|// Seek all scanners to the initial key
@@ -526,6 +533,8 @@ name|scan
 operator|.
 name|getMaxVersions
 argument_list|()
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 comment|// Seek all scanners to the initial key
