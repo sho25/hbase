@@ -2776,7 +2776,7 @@ block|{
 comment|// This is an array of encoded region names.
 name|regions
 operator|=
-name|findMemstoresWithEditsOlderThan
+name|findMemstoresWithEditsEqualOrOlderThan
 argument_list|(
 name|this
 operator|.
@@ -2879,7 +2879,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Return regions (memstores) that have edits that are less than the passed    *<code>oldestWALseqid</code>.    * @param oldestWALseqid    * @param regionsToSeqids    * @return All regions whose seqid is< than<code>oldestWALseqid</code> (Not    * necessarily in order).  Null if no regions found.    */
+comment|/**    * Return regions (memstores) that have edits that are equal or less than    * the passed<code>oldestWALseqid</code>.    * @param oldestWALseqid    * @param regionsToSeqids    * @return All regions whose seqid is< than<code>oldestWALseqid</code> (Not    * necessarily in order).  Null if no regions found.    */
 end_comment
 
 begin_function
@@ -2887,7 +2887,7 @@ specifier|static
 name|byte
 index|[]
 index|[]
-name|findMemstoresWithEditsOlderThan
+name|findMemstoresWithEditsEqualOrOlderThan
 parameter_list|(
 specifier|final
 name|long
@@ -2942,7 +2942,7 @@ argument_list|()
 operator|.
 name|longValue
 argument_list|()
-operator|<
+operator|<=
 name|oldestWALseqid
 condition|)
 block|{
