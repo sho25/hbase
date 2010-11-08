@@ -408,6 +408,34 @@ name|e
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|lastRow
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"We are restarting the first next() invocation,"
+operator|+
+literal|" if your mapper's restarted a few other times like this"
+operator|+
+literal|" then you should consider killing this job and investigate"
+operator|+
+literal|" why it's taking so long."
+argument_list|)
+expr_stmt|;
+name|lastRow
+operator|=
+name|scan
+operator|.
+name|getStartRow
+argument_list|()
+expr_stmt|;
+block|}
 name|restart
 argument_list|(
 name|lastRow
