@@ -181,22 +181,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZKTableDisable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|zookeeper
 operator|.
 name|KeeperException
@@ -270,6 +254,8 @@ name|regions
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|KeeperException
 block|{
 name|AssignmentManager
 name|am
@@ -455,7 +441,10 @@ comment|// If entry for this table in zk, and up in AssignmentManager, remove it
 comment|// Call to undisableTable does this. TODO: Make a more formal purge table.
 name|am
 operator|.
-name|undisableTable
+name|getZKTable
+argument_list|()
+operator|.
+name|setEnabledTable
 argument_list|(
 name|Bytes
 operator|.

@@ -465,6 +465,9 @@ name|HConstants
 operator|.
 name|EMPTY_BYTE_ARRAY
 decl_stmt|;
+comment|// This flag is in the parent of a split while the parent is still referenced
+comment|// by daughter regions.  We USED to set this flag when we disabled a table
+comment|// but now table state is kept up in zookeeper as of 0.90.0 HBase.
 specifier|private
 name|boolean
 name|offLine
@@ -2145,7 +2148,7 @@ operator|.
 name|offLine
 return|;
 block|}
-comment|/**    * @param offLine set online - offline status    */
+comment|/**    * The parent of a region split is offline while split daughters hold    * references to the parent. Offlined regions are closed.    * @param offLine Set online/offline status.    */
 specifier|public
 name|void
 name|setOffline

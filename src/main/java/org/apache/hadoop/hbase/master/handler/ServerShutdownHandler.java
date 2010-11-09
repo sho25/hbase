@@ -911,7 +911,10 @@ name|disabled
 init|=
 name|assignmentManager
 operator|.
-name|isTableDisabled
+name|getZKTable
+argument_list|()
+operator|.
+name|isDisabledTable
 argument_list|(
 name|hri
 operator|.

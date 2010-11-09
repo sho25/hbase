@@ -434,9 +434,14 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|this
+operator|.
 name|assignmentManager
 operator|.
-name|isTableDisabled
+name|getZKTable
+argument_list|()
+operator|.
+name|isDisabledTable
 argument_list|(
 name|regionInfo
 operator|.

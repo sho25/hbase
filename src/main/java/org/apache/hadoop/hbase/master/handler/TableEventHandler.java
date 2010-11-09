@@ -159,6 +159,18 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|KeeperException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Base class for performing operations against tables.  * Checks on whether the process can go forward are done in constructor rather  * than later on in {@link #process()}.  The idea is to fail fast rather than  * later down in an async invocation of {@link #process()} (which currently has  * no means of reporting back issues once started).  */
 end_comment
@@ -196,6 +208,11 @@ specifier|final
 name|byte
 index|[]
 name|tableName
+decl_stmt|;
+specifier|protected
+specifier|final
+name|String
+name|tableNameStr
 decl_stmt|;
 specifier|public
 name|TableEventHandler
@@ -241,6 +258,19 @@ name|masterServices
 operator|.
 name|checkTableModifiable
 argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|tableNameStr
+operator|=
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|this
+operator|.
 name|tableName
 argument_list|)
 expr_stmt|;
@@ -308,7 +338,30 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Error trying to delete the table "
+literal|"Error manipulating table "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Error manipulating table "
 operator|+
 name|Bytes
 operator|.
@@ -335,6 +388,8 @@ name|regions
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|KeeperException
 function_decl|;
 block|}
 end_class

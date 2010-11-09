@@ -322,13 +322,23 @@ expr_stmt|;
 comment|// Check if this table is being disabled or not
 if|if
 condition|(
+name|this
+operator|.
 name|assignmentManager
 operator|.
-name|isTableOfRegionDisabled
+name|getZKTable
+argument_list|()
+operator|.
+name|isDisabledTable
 argument_list|(
+name|this
+operator|.
 name|regionInfo
 operator|.
-name|getRegionName
+name|getTableDesc
+argument_list|()
+operator|.
+name|getNameAsString
 argument_list|()
 argument_list|)
 condition|)

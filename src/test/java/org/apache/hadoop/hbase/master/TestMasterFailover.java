@@ -411,7 +411,7 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
-name|ZKTableDisable
+name|ZKTable
 import|;
 end_import
 
@@ -1518,12 +1518,19 @@ literal|"Beginning to mock scenarios"
 argument_list|)
 expr_stmt|;
 comment|// Disable the disabledTable in ZK
-name|ZKTableDisable
-operator|.
-name|disableTable
+name|ZKTable
+name|zktable
+init|=
+operator|new
+name|ZKTable
 argument_list|(
 name|zkw
-argument_list|,
+argument_list|)
+decl_stmt|;
+name|zktable
+operator|.
+name|setDisabledTable
+argument_list|(
 name|Bytes
 operator|.
 name|toString
@@ -2884,12 +2891,19 @@ literal|"Beginning to mock scenarios"
 argument_list|)
 expr_stmt|;
 comment|// Disable the disabledTable in ZK
-name|ZKTableDisable
-operator|.
-name|disableTable
+name|ZKTable
+name|zktable
+init|=
+operator|new
+name|ZKTable
 argument_list|(
 name|zkw
-argument_list|,
+argument_list|)
+decl_stmt|;
+name|zktable
+operator|.
+name|setDisabledTable
+argument_list|(
 name|Bytes
 operator|.
 name|toString
