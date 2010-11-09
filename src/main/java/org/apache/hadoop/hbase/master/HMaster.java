@@ -1319,6 +1319,13 @@ operator|.
 name|address
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|rpcServer
+operator|.
+name|startThreads
+parameter_list|()
+constructor_decl|;
 comment|// Hack! Maps DFSClient => Master for logs.  HDFS made this
 comment|// config param for task trackers, but we can piggyback off of it.
 if|if
@@ -2666,13 +2673,12 @@ name|start
 argument_list|()
 expr_stmt|;
 block|}
-comment|// Start the server last so everything else is running before we start
-comment|// receiving requests.
+comment|// Start allowing requests to happen.
 name|this
 operator|.
 name|rpcServer
 operator|.
-name|start
+name|openServer
 argument_list|()
 expr_stmt|;
 if|if

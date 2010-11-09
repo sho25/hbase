@@ -566,6 +566,13 @@ name|HBaseServer
 argument_list|>
 argument_list|()
 decl_stmt|;
+specifier|private
+specifier|volatile
+name|boolean
+name|started
+init|=
+literal|false
+decl_stmt|;
 comment|/** Returns the server instance called under or null.  May be called under    * {@link #call(Writable, long)} implementations, and under {@link Writable}    * methods of paramters and return values.  Permits applications to access    * the server context.    * @return HBaseServer    */
 specifier|public
 specifier|static
@@ -4680,6 +4687,18 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
+if|if
+condition|(
+operator|!
+name|started
+condition|)
+throw|throw
+operator|new
+name|ServerNotRunningException
+argument_list|(
+literal|"Server is not running yet"
+argument_list|)
+throw|;
 name|value
 operator|=
 name|call
@@ -5369,9 +5388,33 @@ expr_stmt|;
 block|}
 comment|/** Starts the service.  Must be called before any calls will be handled. */
 specifier|public
-specifier|synchronized
 name|void
 name|start
+parameter_list|()
+block|{
+name|startThreads
+argument_list|()
+expr_stmt|;
+name|openServer
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * Open a previously started server.    */
+specifier|public
+name|void
+name|openServer
+parameter_list|()
+block|{
+name|started
+operator|=
+literal|true
+expr_stmt|;
+block|}
+comment|/**    * Starts the service threads but does not allow requests to be responded yet.    * Client will get {@link ServerNotRunningException} instead.    */
+specifier|public
+specifier|synchronized
+name|void
+name|startThreads
 parameter_list|()
 block|{
 name|responder
