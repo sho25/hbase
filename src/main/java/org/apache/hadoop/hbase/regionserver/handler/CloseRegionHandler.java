@@ -473,6 +473,30 @@ argument_list|(
 name|abort
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Unrecoverable exception while closing region "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|", still finishing close"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|rsServices
@@ -485,37 +509,6 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Closing region "
-operator|+
-name|regionInfo
-operator|.
-name|getRegionNameAsString
-argument_list|()
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|zk
-condition|)
-name|deleteClosingState
-argument_list|()
-expr_stmt|;
-block|}
 if|if
 condition|(
 name|this
@@ -529,7 +522,7 @@ argument_list|,
 name|region
 argument_list|)
 expr_stmt|;
-comment|// Done!  Successful region open
+comment|// Done!  Region is closed on this RS
 name|LOG
 operator|.
 name|debug
@@ -652,47 +645,6 @@ name|e
 argument_list|)
 expr_stmt|;
 return|return;
-block|}
-block|}
-comment|/**    * @return True if succeeded, false otherwise.    */
-specifier|private
-name|void
-name|deleteClosingState
-parameter_list|()
-block|{
-try|try
-block|{
-name|ZKAssign
-operator|.
-name|deleteClosingNode
-argument_list|(
-name|server
-operator|.
-name|getZooKeeper
-argument_list|()
-argument_list|,
-name|this
-operator|.
-name|regionInfo
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-name|e1
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Error deleting CLOSING node"
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 comment|/**    * Create ZK node in CLOSING state.    * @return The expectedVersion.  If -1, we failed setting CLOSING.    */
