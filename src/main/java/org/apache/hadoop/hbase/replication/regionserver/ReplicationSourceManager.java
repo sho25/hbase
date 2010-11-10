@@ -2116,7 +2116,7 @@ operator|.
 name|logDir
 return|;
 block|}
-comment|/**    * Get the handle on the local file system    * @returnthe handle on the local file system    */
+comment|/**    * Get the handle on the local file system    * @return Handle on the local file system    */
 specifier|public
 name|FileSystem
 name|getFs

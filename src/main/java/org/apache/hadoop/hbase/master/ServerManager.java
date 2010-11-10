@@ -521,7 +521,7 @@ specifier|final
 name|long
 name|maxSkew
 decl_stmt|;
-comment|/**    * Constructor.    * @param master    * @param services    * @param metrics    * @param freshClusterStartup True if we are original master on a fresh    * cluster startup else if false, we are joining an already running cluster.    */
+comment|/**    * Constructor.    * @param master    * @param services    * @param metrics    */
 specifier|public
 name|ServerManager
 parameter_list|(
@@ -2273,7 +2273,7 @@ name|regions
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sends an CLOSE RPC to the specified server to close the specified region.    *<p>    * A region server could reject the close request because it either does not    * have the specified region or the region is being split.    * @param server server to open a region    * @param regionName region to open    * @return true if server acknowledged close, false if not    * @throws IOException    */
+comment|/**    * Sends an CLOSE RPC to the specified server to close the specified region.    *<p>    * A region server could reject the close request because it either does not    * have the specified region or the region is being split.    * @param server server to open a region    * @param region region to open    * @return true if server acknowledged close, false if not    * @throws IOException    */
 specifier|public
 name|boolean
 name|sendRegionClose

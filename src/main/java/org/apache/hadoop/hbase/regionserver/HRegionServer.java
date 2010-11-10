@@ -10778,7 +10778,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * @param region Region to close    * @param abort True if we are aborting    * @param zk True if we are to update zk about the region close; if the close    * was orchestrated by master, then update zk.  If the close is being run by    * the regionserver because its going down, don't update zk.    * @return    */
+comment|/**    * @param region Region to close    * @param abort True if we are aborting    * @param zk True if we are to update zk about the region close; if the close    * was orchestrated by master, then update zk.  If the close is being run by    * the regionserver because its going down, don't update zk.    * @return True if closed a region.    */
 end_comment
 
 begin_function

@@ -143,7 +143,7 @@ name|position
 argument_list|()
 return|;
 block|}
-comment|/**    * This flips the underlying BB so be sure to use it _last_!    * @return    */
+comment|/**    * This flips the underlying BB so be sure to use it _last_!    * @return ByteBuffer    */
 specifier|public
 name|ByteBuffer
 name|getByteBuffer

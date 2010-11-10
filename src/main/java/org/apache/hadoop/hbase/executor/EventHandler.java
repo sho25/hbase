@@ -84,7 +84,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Abstract base class for all HBase event handlers. Subclasses should  * implement the {@link #process()} method.  Subclasses should also do all  * necessary checks up in their constructor if possible -- check table exists,  * is disabled, etc. -- so they fail fast rather than later when process is  * running.  Do it this way because process be invoked directly but event  * handlers are also  * run in an executor context -- i.e. asynchronously -- and in this case,  * exceptions thrown at process time will not be seen by the invoker, not till  * we implement a call-back mechanism so the client can pick them up later.  *<p>  * Event handlers have an {@link EventType}.  * {@link EventType} is a list of ALL handler event types.  We need to keep  * a full list in one place -- and as enums is a good shorthand for an  * implemenations -- because event handlers can be passed to executors when  * they are to be run asynchronously. The  * hbase executor, see {@link ExecutorService}, has a switch for passing  * event type to executor.  *<p>  * Event listeners can be installed and will be called pre- and post- process if  * this EventHandler is run in a Thread (its a Runnable so if its {@link #run()}  * method gets called).  Implement  * {@link EventHandlerListener}s, and registering using  * {@link #setListener(EventHandlerListener)}.  * @see {@link ExecutorService}  */
+comment|/**  * Abstract base class for all HBase event handlers. Subclasses should  * implement the {@link #process()} method.  Subclasses should also do all  * necessary checks up in their constructor if possible -- check table exists,  * is disabled, etc. -- so they fail fast rather than later when process is  * running.  Do it this way because process be invoked directly but event  * handlers are also  * run in an executor context -- i.e. asynchronously -- and in this case,  * exceptions thrown at process time will not be seen by the invoker, not till  * we implement a call-back mechanism so the client can pick them up later.  *<p>  * Event handlers have an {@link EventType}.  * {@link EventType} is a list of ALL handler event types.  We need to keep  * a full list in one place -- and as enums is a good shorthand for an  * implemenations -- because event handlers can be passed to executors when  * they are to be run asynchronously. The  * hbase executor, see {@link ExecutorService}, has a switch for passing  * event type to executor.  *<p>  * Event listeners can be installed and will be called pre- and post- process if  * this EventHandler is run in a Thread (its a Runnable so if its {@link #run()}  * method gets called).  Implement  * {@link EventHandlerListener}s, and registering using  * {@link #setListener(EventHandlerListener)}.  * @see ExecutorService  */
 end_comment
 
 begin_class
@@ -152,7 +152,7 @@ specifier|public
 interface|interface
 name|EventHandlerListener
 block|{
-comment|/**      * Called before any event is processed      * @param The event handler whose process method is about to be called.      */
+comment|/**      * Called before any event is processed      * @param event The event handler whose process method is about to be called.      */
 specifier|public
 name|void
 name|beforeProcess
@@ -161,7 +161,7 @@ name|EventHandler
 name|event
 parameter_list|)
 function_decl|;
-comment|/**      * Called after any event is processed      * @param The event handler whose process method is about to be called.      */
+comment|/**      * Called after any event is processed      * @param event The event handler whose process method is about to be called.      */
 specifier|public
 name|void
 name|afterProcess
@@ -411,7 +411,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Return the event type    * @return    */
+comment|/**    * Return the event type    * @return The event type.    */
 specifier|public
 name|EventType
 name|getEventType

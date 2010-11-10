@@ -291,7 +291,7 @@ name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Scans the meta table and calls a visitor on each RowResult. Uses a table    * name and a row name to locate meta regions. And it only scans at most    *<code>rowLimit</code> of rows.    *    * @param configuration HBase configuration.    * @param visitor Visitor object.    * @param userTableName User table name in meta table to start scan at.  Pass    * null if not interested in a particular table.    * @param row Name of the row at the user table. The scan will start from    * the region row where the row resides.    * @param rowLimit Max of processed rows. If it is less than 0, it    * will be set to default value<code>Integer.MAX_VALUE</code>.    * @param metaTableName Meta table to scan, root or meta.    * @throws IOException e    */
+comment|/**    * Scans the meta table and calls a visitor on each RowResult. Uses a table    * name and a row name to locate meta regions. And it only scans at most    *<code>rowLimit</code> of rows.    *    * @param configuration HBase configuration.    * @param visitor Visitor object.    * @param tableName User table name in meta table to start scan at.  Pass    * null if not interested in a particular table.    * @param row Name of the row at the user table. The scan will start from    * the region row where the row resides.    * @param rowLimit Max of processed rows. If it is less than 0, it    * will be set to default value<code>Integer.MAX_VALUE</code>.    * @param metaTableName Meta table to scan, root or meta.    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void

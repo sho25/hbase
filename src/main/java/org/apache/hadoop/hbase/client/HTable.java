@@ -2323,7 +2323,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Deletes the specified cells/rows in bulk.    * @param deletes List of things to delete. As a side effect, it will be modified:    * successful {@link Delete}s are removed. The ordering of the list will not change.    * @throws IOException if a remote or network exception occurs. In that case    * the {@code deletes} argument will contain the {@link Delete} instances    * that have not be successfully applied.    * @since 0.20.1    * @see batch(java.util.List, Object[])    */
+comment|/**    * Deletes the specified cells/rows in bulk.    * @param deletes List of things to delete. As a side effect, it will be modified:    * successful {@link Delete}s are removed. The ordering of the list will not change.    * @throws IOException if a remote or network exception occurs. In that case    * the {@code deletes} argument will contain the {@link Delete} instances    * that have not be successfully applied.    * @since 0.20.1    * @see #batch(java.util.List, Object[])    */
 annotation|@
 name|Override
 specifier|public

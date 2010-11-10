@@ -305,7 +305,7 @@ name|OUTPUT_TABLE
 init|=
 literal|"hbase.mapred.outputtable"
 decl_stmt|;
-comment|/**    * Optional job parameter to specify a peer cluster.    * Used specifying remote cluster when copying between hbase clusters (the    * source is picked up from<code>hbase-site.xml</code>).    * @see {@link TableMapReduceUtil#initTableReducerJob(String, Class, org.apache.hadoop.mapreduce.Job, Class, String, String, String)}    */
+comment|/**    * Optional job parameter to specify a peer cluster.    * Used specifying remote cluster when copying between hbase clusters (the    * source is picked up from<code>hbase-site.xml</code>).    * @see TableMapReduceUtil#initTableReducerJob(String, Class, org.apache.hadoop.mapreduce.Job, Class, String, String, String)    */
 specifier|public
 specifier|static
 specifier|final

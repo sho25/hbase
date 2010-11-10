@@ -748,7 +748,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|// Master methods
-comment|/**    * Opens the specified region.    * @param region region to open    * @param RegionServerStoppedException    * @param IOException    */
+comment|/**    * Opens the specified region.    * @param region region to open    * @throws IOException    */
 specifier|public
 name|void
 name|openRegion
@@ -760,7 +760,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Opens the specified regions.    * @param regions regions to open    * @param RegionServerStoppedException    * @param IOException    */
+comment|/**    * Opens the specified regions.    * @param regions regions to open    * @throws IOException    */
 specifier|public
 name|void
 name|openRegions

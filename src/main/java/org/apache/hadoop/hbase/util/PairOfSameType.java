@@ -42,7 +42,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A generic, immutable class for pairs of objects both of type<code>T</code>.  * @param<T>  * @See {@link Pair} if Types differ.  */
+comment|/**  * A generic, immutable class for pairs of objects both of type<code>T</code>.  * @param<T>  * @see Pair if Types differ.  */
 end_comment
 
 begin_class

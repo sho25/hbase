@@ -42,7 +42,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Abstract base class to help you implement new Filters.  Common "ignore" or NOOP type  * methods can go here, helping to reduce boiler plate in an ever-expanding filter  * library.  *  * If you could instantiate FilterBase, it would end up being a "null" filter -  * that is one that never filters anything.  *  * @inheritDoc  */
+comment|/**  * Abstract base class to help you implement new Filters.  Common "ignore" or NOOP type  * methods can go here, helping to reduce boiler plate in an ever-expanding filter  * library.  *  * If you could instantiate FilterBase, it would end up being a "null" filter -  * that is one that never filters anything.  */
 end_comment
 
 begin_class
@@ -138,7 +138,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * Filters that never filter by rows based on previously gathered state from    * @{link #filterKeyValue(KeyValue)} can inherit this implementation that    * never filters a row.    *    * @inheritDoc    */
+comment|/**    * Filters that never filter by rows based on previously gathered state from    * {@link #filterKeyValue(KeyValue)} can inherit this implementation that    * never filters a row.    *    * @inheritDoc    */
 annotation|@
 name|Override
 specifier|public

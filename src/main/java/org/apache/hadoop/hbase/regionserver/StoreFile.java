@@ -1944,7 +1944,7 @@ operator|.
 name|reader
 return|;
 block|}
-comment|/**    * @return Current reader.  Must call createReader first else returns null.    * @throws IOException    * @see {@link #createReader()}    */
+comment|/**    * @return Current reader.  Must call createReader first else returns null.    * @throws IOException    * @see #createReader()    */
 specifier|public
 name|Reader
 name|getReader

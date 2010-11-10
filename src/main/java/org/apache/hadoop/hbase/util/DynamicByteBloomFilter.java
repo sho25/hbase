@@ -234,7 +234,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Normal write constructor.  Note that this doesn't allocate bloom data by    * default.  Instead, call allocBloom() before adding entries.    * @param hashType type of the hashing function (see {@link org.apache.hadoop.util.hash.Hash}).    * @param keyInterval Maximum number of keys to record per Bloom filter row.    * @throws IllegalArgumentException The input parameters were invalid    */
+comment|/**    * Normal write constructor.  Note that this doesn't allocate bloom data by    * default.  Instead, call allocBloom() before adding entries.    * @param errorRate    * @param hashType type of the hashing function (see<code>org.apache.hadoop.util.hash.Hash</code>).    * @param keyInterval Maximum number of keys to record per Bloom filter row.    * @throws IllegalArgumentException The input parameters were invalid    */
 specifier|public
 name|DynamicByteBloomFilter
 parameter_list|(

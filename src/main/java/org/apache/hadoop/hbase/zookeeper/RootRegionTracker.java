@@ -94,7 +94,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tracks the root region server location node in zookeeper.  * Root region location is set by {@link RootLocationEditor} usually called  * out of {@link RegionServerServices#postOpenDeployTasks(org.apache.hadoop.hbase.regionserver.HRegion, org.apache.hadoop.hbase.catalog.CatalogTracker)}.  * This class has a watcher on the root location and notices changes.  */
+comment|/**  * Tracks the root region server location node in zookeeper.  * Root region location is set by {@link RootLocationEditor} usually called  * out of<code>RegionServerServices</code>.  * This class has a watcher on the root location and notices changes.  */
 end_comment
 
 begin_class
@@ -160,7 +160,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets the root region location, if available, and waits for up to the    * specified timeout if not immediately available.    * @param timeout maximum time to wait, in millis, use {@link ZooKeeperNodeTracker#NO_TIMEOUT} for    * forever    * @return server address for server hosting root region, null if timed out    * @throws InterruptedException if interrupted while waiting    */
+comment|/**    * Gets the root region location, if available, and waits for up to the    * specified timeout if not immediately available.    * @param timeout maximum time to wait, in millis    * @return server address for server hosting root region, null if timed out    * @throws InterruptedException if interrupted while waiting    */
 specifier|public
 name|HServerAddress
 name|waitRootRegionLocation

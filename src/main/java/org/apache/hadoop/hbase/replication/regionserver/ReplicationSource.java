@@ -2479,7 +2479,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Do the sleeping logic    * @param msg Why we sleep    * @param sleepMultiplier by how many times the default sleeping time is augmented    * @return    */
+comment|/**    * Do the sleeping logic    * @param msg Why we sleep    * @param sleepMultiplier by how many times the default sleeping time is augmented    * @return True if<code>sleepMultiplier</code> is&lt;<code>maxRetriesMultiplier</code>    */
 specifier|protected
 name|boolean
 name|sleepForRetries

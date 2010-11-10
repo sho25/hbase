@@ -40,7 +40,7 @@ comment|/** From server to client */
 name|OUT
 block|}
 empty_stmt|;
-comment|/**    * Transform data from one representation to another according to    * transfer direction.    * @param in input data    * @param direction IN or OUT    * @return the transformed data    */
+comment|/**    * Transform data from one representation to another according to    * transfer direction.    * @param data input data    * @param direction IN or OUT    * @return the transformed data    */
 name|byte
 index|[]
 name|transform

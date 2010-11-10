@@ -637,7 +637,7 @@ name|index
 argument_list|)
 return|;
 block|}
-comment|/**    * Start the cluster.  Waits until there is a primary master and returns its    * address.    * @param m    * @param regionServers    * @return Address to use contacting primary master.    */
+comment|/**    * Start the cluster.  Waits until there is a primary master and returns its    * address.    * @param masters    * @param regionservers    * @return Address to use contacting primary master.    */
 specifier|public
 specifier|static
 name|String
@@ -785,7 +785,7 @@ comment|// Keep waiting
 block|}
 block|}
 block|}
-comment|/**    * @param master    * @param regionservers    */
+comment|/**    * @param masters    * @param regionservers    */
 specifier|public
 specifier|static
 name|void

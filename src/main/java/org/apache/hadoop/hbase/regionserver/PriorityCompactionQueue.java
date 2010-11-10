@@ -547,7 +547,7 @@ return|return
 name|newRequest
 return|;
 block|}
-comment|/** Removes the request from the regions in queue    * @param p If null it will use the default priority    */
+comment|/** Removes the request from the regions in queue    * @param remove    */
 specifier|protected
 name|CompactionRequest
 name|removeFromRegionsInQueue

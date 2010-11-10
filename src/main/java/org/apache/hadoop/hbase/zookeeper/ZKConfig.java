@@ -1229,7 +1229,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * Return the ZK Quorum servers string given the specified configuration.    * @param properties    * @return Quorum servers    */
+comment|/**    * Return the ZK Quorum servers string given the specified configuration.    * @param conf    * @return Quorum servers    */
 specifier|public
 specifier|static
 name|String

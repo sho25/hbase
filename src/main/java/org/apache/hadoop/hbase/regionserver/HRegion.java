@@ -3451,7 +3451,7 @@ literal|1
 argument_list|)
 return|;
 block|}
-comment|/**    * @param wal Null if we're NOT to go via hlog/wal.    * @param myseqid The seqid to use if<code>wal</code> is null writing out    * flush file.    * @return true if the region needs compacting    * @throws IOException    * @see {@link #internalFlushcache()}    */
+comment|/**    * @param wal Null if we're NOT to go via hlog/wal.    * @param myseqid The seqid to use if<code>wal</code> is null writing out    * flush file.    * @return true if the region needs compacting    * @throws IOException    * @see #internalFlushcache()    */
 specifier|protected
 name|boolean
 name|internalFlushcache
@@ -9565,7 +9565,7 @@ return|return
 name|region
 return|;
 block|}
-comment|/**    * Open a Region.    * @param info Info for region to be opened.    * @param rootDir Root directory for HBase instance    * @param wal HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf    * @return new HRegion    *    * @throws IOException    */
+comment|/**    * Open a Region.    * @param info Info for region to be opened.    * @param wal HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf    * @return new HRegion    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion

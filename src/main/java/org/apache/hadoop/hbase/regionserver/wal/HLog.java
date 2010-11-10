@@ -1223,7 +1223,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * HLog object is started up.    *    * @param fs filesystem handle    * @param dir path to where hlogs are stored    * @param oldLogDir path to where hlogs are archived    * @param conf configuration to use    * @param listeners Listeners on WAL events. Listeners passed here will    * be registered before we do anything else; e.g. the    * Constructor {@link #rollWriter().    * @param prefix should always be hostname and port in distributed env and    *        it will be URL encoded before being used.    *        If prefix is null, "hlog" will be used    * @throws IOException    */
+comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * HLog object is started up.    *    * @param fs filesystem handle    * @param dir path to where hlogs are stored    * @param oldLogDir path to where hlogs are archived    * @param conf configuration to use    * @param listeners Listeners on WAL events. Listeners passed here will    * be registered before we do anything else; e.g. the    * Constructor {@link #rollWriter()}.    * @param prefix should always be hostname and port in distributed env and    *        it will be URL encoded before being used.    *        If prefix is null, "hlog" will be used    * @throws IOException    */
 specifier|public
 name|HLog
 parameter_list|(
@@ -1275,7 +1275,7 @@ name|prefix
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * HLog object is started up.    *    * @param fs filesystem handle    * @param dir path to where hlogs are stored    * @param oldLogDir path to where hlogs are archived    * @param conf configuration to use    * @param listeners Listeners on WAL events. Listeners passed here will    * be registered before we do anything else; e.g. the    * Constructor {@link #rollWriter().    * @param failIfLogDirExists If true IOException will be thrown if dir already exists.    * @param prefix should always be hostname and port in distributed env and    *        it will be URL encoded before being used.    *        If prefix is null, "hlog" will be used    * @throws IOException    */
+comment|/**    * Create an edit log at the given<code>dir</code> location.    *    * You should never have to load an existing log. If there is a log at    * startup, it should have already been processed and deleted by the time the    * HLog object is started up.    *    * @param fs filesystem handle    * @param dir path to where hlogs are stored    * @param oldLogDir path to where hlogs are archived    * @param conf configuration to use    * @param listeners Listeners on WAL events. Listeners passed here will    * be registered before we do anything else; e.g. the    * Constructor {@link #rollWriter()}.    * @param failIfLogDirExists If true IOException will be thrown if dir already exists.    * @param prefix should always be hostname and port in distributed env and    *        it will be URL encoded before being used.    *        If prefix is null, "hlog" will be used    * @throws IOException    */
 specifier|public
 name|HLog
 parameter_list|(
@@ -2326,7 +2326,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * This method allows subclasses to inject different writers without having to    * extend other methods like rollWriter().    *     * @param fs    * @param path    * @param conf    * @return    * @throws IOException    */
+comment|/**    * This method allows subclasses to inject different writers without having to    * extend other methods like rollWriter().    *     * @param fs    * @param path    * @param conf    * @return Writer instance    * @throws IOException    */
 end_comment
 
 begin_function
@@ -3323,7 +3323,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * This is a convenience method that computes a new filename with a given    * file-number.    * @param file-number to use    * @return Path    */
+comment|/**    * This is a convenience method that computes a new filename with a given    * file-number.    * @param filenum to use    * @return Path    */
 end_comment
 
 begin_function

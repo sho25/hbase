@@ -902,7 +902,7 @@ specifier|final
 name|ExecutorService
 name|executorService
 decl_stmt|;
-comment|/**    * Constructs a new assignment manager.    *    *<p>This manager must be started with {@link #start()}.    *    * @param status master status    * @param serverManager    * @param catalogTracker    * @param service    * @throws KeeperException     */
+comment|/**    * Constructs a new assignment manager.    *    * @param master    * @param serverManager    * @param catalogTracker    * @param service    * @throws KeeperException     */
 specifier|public
 name|AssignmentManager
 parameter_list|(
@@ -2578,7 +2578,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Marks the region as offline.  Removes it from regions in transition and    * removes in-memory assignment information.    *<p>    * Used when a region has been closed and should remain closed.    * @param regionInfo    * @param serverInfo    */
+comment|/**    * Marks the region as offline.  Removes it from regions in transition and    * removes in-memory assignment information.    *<p>    * Used when a region has been closed and should remain closed.    * @param regionInfo    */
 specifier|public
 name|void
 name|regionOffline
@@ -2807,7 +2807,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Assignment methods
-comment|/**    * Assigns the specified region.    *<p>    * If a RegionPlan is available with a valid destination then it will be used    * to determine what server region is assigned to.  If no RegionPlan is    * available, region will be assigned to a random available server.    *<p>    * Updates the RegionState and sends the OPEN RPC.    *<p>    * This will only succeed if the region is in transition and in a CLOSED or    * OFFLINE state or not in transition (in-memory not zk), and of course, the    * chosen server is up and running (It may have just crashed!).  If the    * in-memory checks pass, the zk node is forced to OFFLINE before assigning.    *    * @param regionName server to be assigned    * @param setOfflineInZK whether ZK node should be created/transitioned to an    *                       OFFLINE state before assigning the region    */
+comment|/**    * Assigns the specified region.    *<p>    * If a RegionPlan is available with a valid destination then it will be used    * to determine what server region is assigned to.  If no RegionPlan is    * available, region will be assigned to a random available server.    *<p>    * Updates the RegionState and sends the OPEN RPC.    *<p>    * This will only succeed if the region is in transition and in a CLOSED or    * OFFLINE state or not in transition (in-memory not zk), and of course, the    * chosen server is up and running (It may have just crashed!).  If the    * in-memory checks pass, the zk node is forced to OFFLINE before assigning.    *    * @param region server to be assigned    * @param setOfflineInZK whether ZK node should be created/transitioned to an    *                       OFFLINE state before assigning the region    */
 specifier|public
 name|void
 name|assign
@@ -4335,7 +4335,7 @@ name|existingPlan
 return|;
 block|}
 block|}
-comment|/**    * Unassigns the specified region.    *<p>    * Updates the RegionState and sends the CLOSE RPC.    *<p>    * If a RegionPlan is already set, it will remain.  If this is being used    * to disable a table, be sure to use {@link #setDisabledTable(String)} to ensure    * regions are not onlined after being closed.    *    * @param regionName server to be unassigned    */
+comment|/**    * Unassigns the specified region.    *<p>    * Updates the RegionState and sends the CLOSE RPC.    *<p>    * If a RegionPlan is already set, it will remain.    *    * @param region server to be unassigned    */
 specifier|public
 name|void
 name|unassign
@@ -4352,7 +4352,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Unassigns the specified region.    *<p>    * Updates the RegionState and sends the CLOSE RPC.    *<p>    * If a RegionPlan is already set, it will remain.  If this is being used    * to disable a table, be sure to use {@link #setDisabledTable(String)} to ensure    * regions are not onlined after being closed.    *    * @param regionName server to be unassigned    * @param force if region should be closed even if already closing    */
+comment|/**    * Unassigns the specified region.    *<p>    * Updates the RegionState and sends the CLOSE RPC.    *<p>    * If a RegionPlan is already set, it will remain.    *    * @param region server to be unassigned    * @param force if region should be closed even if already closing    */
 specifier|public
 name|void
 name|unassign

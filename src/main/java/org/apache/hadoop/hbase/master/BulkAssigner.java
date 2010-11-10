@@ -85,7 +85,7 @@ specifier|final
 name|Server
 name|server
 decl_stmt|;
-comment|/**    * @param server An instance of Server    * @param regionsInTransition A reference to {@link AssignmentManager#regionsInTransition}    */
+comment|/**    * @param server An instance of Server    */
 specifier|public
 name|BulkAssigner
 parameter_list|(

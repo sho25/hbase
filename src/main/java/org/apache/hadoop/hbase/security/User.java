@@ -200,7 +200,7 @@ specifier|protected
 name|UserGroupInformation
 name|ugi
 decl_stmt|;
-comment|/**    * Returns the full user name.  For Kerberos principals this will include    * the host and realm portions of the principal name.    * @return    */
+comment|/**    * Returns the full user name.  For Kerberos principals this will include    * the host and realm portions of the principal name.    * @return User full name.    */
 specifier|public
 name|String
 name|getName

@@ -1770,7 +1770,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Enable a table.  May timeout.  Use {@link #enableTableAsync(byte[])}    * and {@link #isTableEnabled(byte[])} instead.    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs    * @see isTableEnabled(byte[])    * @see disableTable(byte[])    * @see enableTableAsync(byte[])    */
+comment|/**    * Enable a table.  May timeout.  Use {@link #enableTableAsync(byte[])}    * and {@link #isTableEnabled(byte[])} instead.    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs    * @see #isTableEnabled(byte[])    * @see #disableTable(byte[])    * @see #enableTableAsync(byte[])    */
 specifier|public
 name|void
 name|enableTable
@@ -2034,7 +2034,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Starts the disable of a table.  If it is being served, the master    * will tell the servers to stop serving it.  This method returns immediately.    * The disable of a table can take some time if the table is large (all    * regions are closed as part of table disable operation).    * Call {@link #isTableDisabled(byte[])} to check for when disable completes.    * If table is taking too long to online, check server logs.    * @param tableName name of table    * @throws IOException if a remote or network exception occurs    * @see isTableDisabled(byte[])    * @see isTableEnabled(byte[])    * @since 0.90.0    */
+comment|/**    * Starts the disable of a table.  If it is being served, the master    * will tell the servers to stop serving it.  This method returns immediately.    * The disable of a table can take some time if the table is large (all    * regions are closed as part of table disable operation).    * Call {@link #isTableDisabled(byte[])} to check for when disable completes.    * If table is taking too long to online, check server logs.    * @param tableName name of table    * @throws IOException if a remote or network exception occurs    * @see #isTableDisabled(byte[])    * @see #isTableEnabled(byte[])    * @since 0.90.0    */
 specifier|public
 name|void
 name|disableTableAsync

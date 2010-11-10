@@ -160,7 +160,7 @@ name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create the log key!    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *    * @param encodedRegionName Encoded name of the region as returned by    * {@link HRegionInfo#getEncodedNameAsBytes()}.    * @param tablename   - name of table    * @param logSeqNum   - log sequence number    * @param now Time at which this edit was written.    */
+comment|/**    * Create the log key!    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tablename   - name of table    * @param logSeqNum   - log sequence number    * @param now Time at which this edit was written.    */
 specifier|public
 name|HLogKey
 parameter_list|(
@@ -273,7 +273,7 @@ operator|.
 name|writeTime
 return|;
 block|}
-comment|/**    * Get the id of the original cluster    * @return    */
+comment|/**    * Get the id of the original cluster    * @return Cluster id.    */
 specifier|public
 name|byte
 name|getClusterId

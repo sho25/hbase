@@ -148,7 +148,7 @@ specifier|public
 name|RegionTransitionData
 parameter_list|()
 block|{}
-comment|/**    * Construct data for a new region transition event with the specified event    * type and region name.    *    *<p>Used when the server name is not known (the master is setting it).  This    * happens during cluster startup or during failure scenarios.  When    * processing a failed regionserver, the master assigns the regions from that    * server to other servers though the region was never 'closed'.  During    * master failover, the new master may have regions stuck in transition    * without a destination so may have to set regions offline and generate a new    * assignment.    *    *<p>Since only the master uses this constructor, the type should always be    * {@link EventType#M2ZK_REGION_OFFLINE}.    *    * @param eventType type of event    * @param regionName name of region as per {@link HRegionInfo#getRegionName()}    */
+comment|/**    * Construct data for a new region transition event with the specified event    * type and region name.    *    *<p>Used when the server name is not known (the master is setting it).  This    * happens during cluster startup or during failure scenarios.  When    * processing a failed regionserver, the master assigns the regions from that    * server to other servers though the region was never 'closed'.  During    * master failover, the new master may have regions stuck in transition    * without a destination so may have to set regions offline and generate a new    * assignment.    *    *<p>Since only the master uses this constructor, the type should always be    * {@link EventType#M_ZK_REGION_OFFLINE}.    *    * @param eventType type of event    * @param regionName name of region as per<code>HRegionInfo#getRegionName()</code>    */
 specifier|public
 name|RegionTransitionData
 parameter_list|(
@@ -170,7 +170,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct data for a new region transition event with the specified event    * type, region name, and server name.    *    *<p>Used when the server name is known (a regionserver is setting it).    *    *<p>Valid types for this constructor are {@link EventType#RS2ZK_REGION_CLOSING},    * {@link EventType#RS2ZK_REGION_CLOSED}, {@link EventType#RS2ZK_REGION_OPENING},    * and {@link EventType#RS2ZK_REGION_OPENED}.    *    * @param eventType type of event    * @param regionName name of region as per {@link HRegionInfo#getRegionName()}    * @param serverName name of server setting data    */
+comment|/**    * Construct data for a new region transition event with the specified event    * type, region name, and server name.    *    *<p>Used when the server name is known (a regionserver is setting it).    *    *<p>Valid types for this constructor are {@link EventType#RS_ZK_REGION_CLOSING},    * {@link EventType#RS_ZK_REGION_CLOSED}, {@link EventType#RS_ZK_REGION_OPENING},    * and {@link EventType#RS_ZK_REGION_OPENED}.    *    * @param eventType type of event    * @param regionName name of region as per<code>HRegionInfo#getRegionName()</code>    * @param serverName name of server setting data    */
 specifier|public
 name|RegionTransitionData
 parameter_list|(
@@ -213,7 +213,7 @@ operator|=
 name|serverName
 expr_stmt|;
 block|}
-comment|/**    * Gets the type of region transition event.    *    *<p>One of:    *<ul>    *<li>{@link EventType#M2ZK_REGION_OFFLINE}    *<li>{@link EventType#RS2ZK_REGION_CLOSING}    *<li>{@link EventType#RS2ZK_REGION_CLOSED}    *<li>{@link EventType#RS2ZK_REGION_OPENING}    *<li>{@link EventType#RS2ZK_REGION_OPENED}    *</ul>    * @return type of region transition event    */
+comment|/**    * Gets the type of region transition event.    *    *<p>One of:    *<ul>    *<li>{@link EventType#M_ZK_REGION_OFFLINE}    *<li>{@link EventType#RS_ZK_REGION_CLOSING}    *<li>{@link EventType#RS_ZK_REGION_CLOSED}    *<li>{@link EventType#RS_ZK_REGION_OPENING}    *<li>{@link EventType#RS_ZK_REGION_OPENED}    *</ul>    * @return type of region transition event    */
 specifier|public
 name|EventType
 name|getEventType
@@ -223,7 +223,7 @@ return|return
 name|eventType
 return|;
 block|}
-comment|/**    * Gets the name of the region being transitioned.    *    *<p>Region name is required so this never returns null.    * @return region name, the result of a call to {@link HRegionInfo#getRegionName()}    */
+comment|/**    * Gets the name of the region being transitioned.    *    *<p>Region name is required so this never returns null.    * @return region name, the result of a call to<code>HRegionInfo#getRegionName()</code>    */
 specifier|public
 name|byte
 index|[]

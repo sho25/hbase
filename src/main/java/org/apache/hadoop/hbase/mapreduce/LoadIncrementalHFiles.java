@@ -468,7 +468,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tool to load the output of HFileOutputFormat into an existing table.  * @see usage()  */
+comment|/**  * Tool to load the output of HFileOutputFormat into an existing table.  * @see #usage()  */
 end_comment
 
 begin_class

@@ -2098,7 +2098,7 @@ name|snapshot
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Write out current snapshot.  Presumes {@link #snapshot()} has been called    * previously.    * @param logCacheFlushId flush sequence number    * @param snapshot    * @return true if a compaction is needed    * @throws IOException    */
+comment|/**    * Write out current snapshot.  Presumes {@link #snapshot()} has been called    * previously.    * @param logCacheFlushId flush sequence number    * @param snapshot    * @param snapshotTimeRangeTracker    * @return true if a compaction is needed    * @throws IOException    */
 specifier|private
 name|StoreFile
 name|flushCache

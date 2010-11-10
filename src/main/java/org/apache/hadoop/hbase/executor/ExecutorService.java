@@ -190,7 +190,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is a generic executor service. This component abstracts a  * threadpool, a queue to which {@link EventHandler.EventType}s can be submitted,  * and a<code>Runnable</code> that handles the object that is added to the queue.  *  *<p>In order to create a new service, create an instance of this class and  * then do:<code>instance.startExecutorService("myService");</code>.  When done  * call {@link #shutdown()}.  *  *<p>In order to use the service created above, call  * {@link #submit(EventHandler)}. Register pre- and post- processing listeners  * by registering your implementation of {@link EventHandler.EventHandlerListener}  * with {@link #registerListener(EventType, EventHandlerListener)}.  Be sure  * to deregister your listener when done via {@link #unregisterListener(EventType)}.  */
+comment|/**  * This is a generic executor service. This component abstracts a  * threadpool, a queue to which {@link EventHandler.EventType}s can be submitted,  * and a<code>Runnable</code> that handles the object that is added to the queue.  *  *<p>In order to create a new service, create an instance of this class and  * then do:<code>instance.startExecutorService("myService");</code>.  When done  * call {@link #shutdown()}.  *  *<p>In order to use the service created above, call  * {@link #submit(EventHandler)}. Register pre- and post- processing listeners  * by registering your implementation of {@link EventHandler.EventHandlerListener}  * with {@link #registerListener(EventHandler.EventType, EventHandler.EventHandlerListener)}.  Be sure  * to deregister your listener when done via {@link #unregisterListener(EventHandler.EventType)}.  */
 end_comment
 
 begin_class
@@ -483,7 +483,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Default constructor.    * @param Name of the hosting server.    */
+comment|/**    * Default constructor.    * @param servername Name of the hosting server.    */
 specifier|public
 name|ExecutorService
 parameter_list|(
@@ -855,7 +855,7 @@ name|eh
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Subscribe to updates before and after processing instances of    * {@link EventHandler.EventType}.  Currently only one listener per    * event type.    * @param type Type of event we're registering listener for    * @param listener The listener to run.    * @return The<code>listener</code> that was passed    */
+comment|/**    * Subscribe to updates before and after processing instances of    * {@link EventHandler.EventType}.  Currently only one listener per    * event type.    * @param type Type of event we're registering listener for    * @param listener The listener to run.    */
 specifier|public
 name|void
 name|registerListener
