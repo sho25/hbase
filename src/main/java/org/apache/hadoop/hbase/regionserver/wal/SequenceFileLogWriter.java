@@ -194,7 +194,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Implementation of {@link HLog.Writer} that delegates to  * {@link SequenceFile.Writer}.  */
+comment|/**  * Implementation of {@link HLog.Writer} that delegates to  * SequenceFile.Writer.  */
 end_comment
 
 begin_class

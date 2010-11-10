@@ -225,7 +225,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Adds a META row for the specified new region.    * @param info region information    * @throws IOException if problem connecting or updating meta    */
+comment|/**    * Adds a META row for the specified new region.    * @param regionInfo region information    * @throws IOException if problem connecting or updating meta    */
 specifier|public
 specifier|static
 name|void

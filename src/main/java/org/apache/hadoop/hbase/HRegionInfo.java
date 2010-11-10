@@ -1021,7 +1021,7 @@ name|getEncodedName
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Make a region name of passed parameters.    * @param tableName    * @param startKey Can be null    * @param id Region id (Usually timestamp from when region was created).    * @param newFormat should we create the region name in the new format    *                  (such that it contains its encoded name?).    * @return Region name made of passed tableName, startKey and id    */
+comment|/**    * Make a region name of passed parameters.    * @param tableName    * @param startKey Can be null    * @param regionid Region id (Usually timestamp from when region was created).    * @param newFormat should we create the region name in the new format    *                  (such that it contains its encoded name?).    * @return Region name made of passed tableName, startKey and id    */
 specifier|public
 specifier|static
 name|byte
@@ -1376,7 +1376,7 @@ return|return
 name|b
 return|;
 block|}
-comment|/**    * Gets the table name from the specified region name.    * @param regionName    * @return    */
+comment|/**    * Gets the table name from the specified region name.    * @param regionName    * @return Table name.    */
 specifier|public
 specifier|static
 name|byte

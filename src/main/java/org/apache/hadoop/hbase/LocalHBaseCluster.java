@@ -1139,7 +1139,7 @@ name|getName
 argument_list|()
 return|;
 block|}
-comment|/**    * Wait for the specified region server to stop    * Removes this thread from list of running threads.    * @param serverNumber    * @return Name of region server that just went down.    */
+comment|/**    * Wait for the specified region server to stop    * Removes this thread from list of running threads.    * @param rst    * @return Name of region server that just went down.    */
 specifier|public
 name|String
 name|waitOnRegionServer
@@ -1485,7 +1485,7 @@ name|getName
 argument_list|()
 return|;
 block|}
-comment|/**    * Wait for the specified master to stop    * Removes this thread from list of running threads.    * @param serverNumber    * @return Name of master that just went down.    */
+comment|/**    * Wait for the specified master to stop    * Removes this thread from list of running threads.    * @param masterThread    * @return Name of master that just went down.    */
 specifier|public
 name|String
 name|waitOnMaster

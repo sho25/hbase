@@ -1120,7 +1120,7 @@ block|}
 comment|//
 comment|// Znode listings
 comment|//
-comment|/**    * Lists the children znodes of the specified znode.  Also sets a watch on    * the specified znode which will capture a NodeDeleted event on the specified    * znode as well as NodeChildrenChanged if any children of the specified znode    * are created or deleted.    *    * Returns null if the specified node does not exist.  Otherwise returns a    * list of children of the specified node.  If the node exists but it has no    * children, an empty list will be returned.    *    * @param zkw zk reference    * @param znode path of node to list and watch children of    * @returns list of children of the specified node, an empty list if the node    *          exists but has no children, and null if the node does not exist    * @throws KeeperException if unexpected zookeeper exception    */
+comment|/**    * Lists the children znodes of the specified znode.  Also sets a watch on    * the specified znode which will capture a NodeDeleted event on the specified    * znode as well as NodeChildrenChanged if any children of the specified znode    * are created or deleted.    *    * Returns null if the specified node does not exist.  Otherwise returns a    * list of children of the specified node.  If the node exists but it has no    * children, an empty list will be returned.    *    * @param zkw zk reference    * @param znode path of node to list and watch children of    * @return list of children of the specified node, an empty list if the node    *          exists but has no children, and null if the node does not exist    * @throws KeeperException if unexpected zookeeper exception    */
 specifier|public
 specifier|static
 name|List
@@ -2999,7 +2999,7 @@ literal|1
 return|;
 block|}
 block|}
-comment|/**    * Async creates the specified node with the specified data.    *    *<p>Throws an exception if the node already exists.    *    *<p>The node created is persistent and open access.    *    * @param zkw zk reference    * @param znode path of node to create    * @param data data of node to create    * @param cb    * @param ctx    * @return version of node created    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NodeExistsException if node already exists    */
+comment|/**    * Async creates the specified node with the specified data.    *    *<p>Throws an exception if the node already exists.    *    *<p>The node created is persistent and open access.    *    * @param zkw zk reference    * @param znode path of node to create    * @param data data of node to create    * @param cb    * @param ctx    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NodeExistsException if node already exists    */
 specifier|public
 specifier|static
 name|void
@@ -3319,7 +3319,7 @@ literal|false
 return|;
 block|}
 block|}
-comment|/**    * Deletes the specified node.  Fails silent if the node does not exist.    * @param zkw    * @param joinZNode    * @throws KeeperException    */
+comment|/**    * Deletes the specified node.  Fails silent if the node does not exist.    * @param zkw    * @param node    * @throws KeeperException    */
 specifier|public
 specifier|static
 name|void

@@ -12300,11 +12300,9 @@ block|}
 block|}
 end_function
 
-begin_comment
-comment|/** {@inheritDoc} */
-end_comment
-
 begin_function
+annotation|@
+name|Override
 specifier|public
 name|HRegionInfo
 index|[]

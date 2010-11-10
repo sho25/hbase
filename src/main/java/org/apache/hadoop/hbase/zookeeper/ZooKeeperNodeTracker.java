@@ -117,7 +117,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**    * Starts the tracking of the node in ZooKeeper.    *    *<p>Use {@link blockUntilAvailable} to block until the node is available    * or {@link getData} to get the data of the node if it is available.    */
+comment|/**    * Starts the tracking of the node in ZooKeeper.    *    *<p>Use {@link blockUntilAvailable()} to block until the node is available    * or {@link getData()} to get the data of the node if it is available.    */
 specifier|public
 specifier|synchronized
 name|void

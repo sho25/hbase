@@ -1636,7 +1636,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Checks if the specified table exists.  Looks at the META table hosted on    * the specified server.    * @param metaServer server hosting meta    * @param tableName table to check    * @return true if the table exists in meta, false if not    * @throws IOException    */
+comment|/**    * Checks if the specified table exists.  Looks at the META table hosted on    * the specified server.    * @param catalogTracker    * @param tableName table to check    * @return true if the table exists in meta, false if not    * @throws IOException    */
 specifier|public
 specifier|static
 name|boolean

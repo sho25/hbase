@@ -826,7 +826,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Deletes an existing unassigned node that is in the OPENED state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during normal region transitions when a region    * finishes successfully opening.  This is the Master acknowledging completion    * of the specified regions transition.    *    * @param zkw zk reference    * @param region opened region to be deleted from zk    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
+comment|/**    * Deletes an existing unassigned node that is in the OPENED state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during normal region transitions when a region    * finishes successfully opening.  This is the Master acknowledging completion    * of the specified regions transition.    *    * @param zkw zk reference    * @param regionName opened region to be deleted from zk    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
 specifier|public
 specifier|static
 name|boolean
@@ -858,7 +858,7 @@ name|RS_ZK_REGION_OPENED
 argument_list|)
 return|;
 block|}
-comment|/**    * Deletes an existing unassigned node that is in the OFFLINE state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during master failover when the regions on an RS    * that has died are all set to OFFLINE before being processed.    *    * @param zkw zk reference    * @param region closed region to be deleted from zk    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
+comment|/**    * Deletes an existing unassigned node that is in the OFFLINE state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during master failover when the regions on an RS    * that has died are all set to OFFLINE before being processed.    *    * @param zkw zk reference    * @param regionName closed region to be deleted from zk    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
 specifier|public
 specifier|static
 name|boolean
@@ -890,7 +890,7 @@ name|M_ZK_REGION_OFFLINE
 argument_list|)
 return|;
 block|}
-comment|/**    * Deletes an existing unassigned node that is in the CLOSED state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during table disables when a region finishes    * successfully closing.  This is the Master acknowledging completion    * of the specified regions transition to being closed.    *    * @param zkw zk reference    * @param region closed region to be deleted from zk    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
+comment|/**    * Deletes an existing unassigned node that is in the CLOSED state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during table disables when a region finishes    * successfully closing.  This is the Master acknowledging completion    * of the specified regions transition to being closed.    *    * @param zkw zk reference    * @param regionName closed region to be deleted from zk    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
 specifier|public
 specifier|static
 name|boolean
@@ -922,7 +922,7 @@ name|RS_ZK_REGION_CLOSED
 argument_list|)
 return|;
 block|}
-comment|/**    * Deletes an existing unassigned node that is in the CLOSING state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during table disables when a region finishes    * successfully closing.  This is the Master acknowledging completion    * of the specified regions transition to being closed.    *    * @param zkw zk reference    * @param region closing region to be deleted from zk    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
+comment|/**    * Deletes an existing unassigned node that is in the CLOSING state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during table disables when a region finishes    * successfully closing.  This is the Master acknowledging completion    * of the specified regions transition to being closed.    *    * @param zkw zk reference    * @param regionName closing region to be deleted from zk    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
 specifier|public
 specifier|static
 name|boolean
@@ -1933,7 +1933,7 @@ literal|1
 return|;
 block|}
 block|}
-comment|/**    * Gets the current data in the unassigned node for the specified region name    * or fully-qualified path.    *    *<p>Returns null if the region does not currently have a node.    *    *<p>Sets a watch on the node if the node exists.    *    * @param watcher zk reference    * @param pathOrRegionName fully-specified path or region name    * @return data for the unassigned node    * @throws KeeperException    * @throws KeeperException if unexpected zookeeper exception    */
+comment|/**    * Gets the current data in the unassigned node for the specified region name    * or fully-qualified path.    *    *<p>Returns null if the region does not currently have a node.    *    *<p>Sets a watch on the node if the node exists.    *    * @param zkw zk reference    * @param pathOrRegionName fully-specified path or region name    * @return data for the unassigned node    * @throws KeeperException if unexpected zookeeper exception    */
 specifier|public
 specifier|static
 name|RegionTransitionData
@@ -2000,7 +2000,7 @@ name|data
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets the current data in the unassigned node for the specified region name    * or fully-qualified path.    *    *<p>Returns null if the region does not currently have a node.    *    *<p>Does not set a watch.    *    * @param watcher zk reference    * @param pathOrRegionName fully-specified path or region name    * @param stat object to store node info into on getData call    * @return data for the unassigned node    * @throws KeeperException    * @throws KeeperException if unexpected zookeeper exception    */
+comment|/**    * Gets the current data in the unassigned node for the specified region name    * or fully-qualified path.    *    *<p>Returns null if the region does not currently have a node.    *    *<p>Does not set a watch.    *    * @param zkw zk reference    * @param pathOrRegionName fully-specified path or region name    * @param stat object to store node info into on getData call    * @return data for the unassigned node    * @throws KeeperException if unexpected zookeeper exception    */
 specifier|public
 specifier|static
 name|RegionTransitionData
@@ -2271,7 +2271,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Verifies that the specified region is in the specified state in ZooKeeper.    *<p>    * Returns true if region is in transition and in the specified state in    * ZooKeeper.  Returns false if the region does not exist in ZK or is in    * a different state.    *<p>    * Method synchronizes() with ZK so will yield an up-to-date result but is    * a slow read.    * @param watcher    * @param region    * @param expectedState    * @return true if region exists and is in expected state    */
+comment|/**    * Verifies that the specified region is in the specified state in ZooKeeper.    *<p>    * Returns true if region is in transition and in the specified state in    * ZooKeeper.  Returns false if the region does not exist in ZK or is in    * a different state.    *<p>    * Method synchronizes() with ZK so will yield an up-to-date result but is    * a slow read.    * @param zkw    * @param region    * @param expectedState    * @return true if region exists and is in expected state    */
 specifier|public
 specifier|static
 name|boolean

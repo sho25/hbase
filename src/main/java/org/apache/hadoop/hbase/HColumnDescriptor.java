@@ -1675,7 +1675,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param toggle bloom filter type    */
+comment|/**    * @param bt bloom filter type    */
 specifier|public
 name|void
 name|setBloomFilterType

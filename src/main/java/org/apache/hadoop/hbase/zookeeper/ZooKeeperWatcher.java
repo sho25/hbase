@@ -856,7 +856,7 @@ return|return
 name|zooKeeper
 return|;
 block|}
-comment|/**    * Get the quorum address of this instance.    * @returns quorum string of this zookeeper connection instance    */
+comment|/**    * Get the quorum address of this instance.    * @return quorum string of this zookeeper connection instance    */
 specifier|public
 name|String
 name|getQuorum
@@ -1253,7 +1253,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get the set of already watched unassigned nodes.    * @return    */
+comment|/**    * Get the set of already watched unassigned nodes.    * @return Set of Nodes.    */
 specifier|public
 name|Set
 argument_list|<

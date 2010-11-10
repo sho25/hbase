@@ -64,7 +64,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Manages the location of the current active Master for this RegionServer.  *<p>  * Listens for ZooKeeper events related to the master address. The node  *<code>/master</code> will contain the address of the current master.  * This listener is interested in  *<code>NodeDeleted</code> and<code>NodeCreated</code> events on  *<code>/master</code>.  *<p>  * Utilizes {@link ZooKeeperNodeTracker} for zk interactions.  *<p>  * You can get the current master via {@link #getMasterAddress()} or the  * blocking method {@link #waitMasterAddress()}.  */
+comment|/**  * Manages the location of the current active Master for this RegionServer.  *<p>  * Listens for ZooKeeper events related to the master address. The node  *<code>/master</code> will contain the address of the current master.  * This listener is interested in  *<code>NodeDeleted</code> and<code>NodeCreated</code> events on  *<code>/master</code>.  *<p>  * Utilizes {@link ZooKeeperNodeTracker} for zk interactions.  *<p>  * You can get the current master via {@link #getMasterAddress()}  */
 end_comment
 
 begin_class
@@ -97,7 +97,7 @@ name|abortable
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get the address of the current master if one is available.  Returns null    * if no current master.    *    * Use {@link #waitMasterAddress} if you want to block until the master is    * available.    * @return server address of current active master, or null if none available    */
+comment|/**    * Get the address of the current master if one is available.  Returns null    * if no current master.    *    * @return server address of current active master, or null if none available    */
 specifier|public
 name|HServerAddress
 name|getMasterAddress

@@ -921,7 +921,7 @@ return|return
 name|properties
 return|;
 block|}
-comment|/**    * Return the ZK Quorum servers string given zk properties returned by    * makeZKProps    * @param properties    * @return    */
+comment|/**    * Return the ZK Quorum servers string given zk properties returned by    * makeZKProps    * @param properties    * @return Quorum servers String    */
 specifier|public
 specifier|static
 name|String
@@ -1229,7 +1229,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * Return the ZK Quorum servers string given the specified configuration.    * @param properties    * @return    */
+comment|/**    * Return the ZK Quorum servers string given the specified configuration.    * @param properties    * @return Quorum servers    */
 specifier|public
 specifier|static
 name|String
