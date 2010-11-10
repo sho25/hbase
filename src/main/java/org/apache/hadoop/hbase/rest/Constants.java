@@ -50,6 +50,14 @@ comment|// 4 hours
 specifier|public
 specifier|static
 specifier|final
+name|int
+name|DEFAULT_LISTEN_PORT
+init|=
+literal|8080
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
 name|String
 name|MIMETYPE_TEXT
 init|=

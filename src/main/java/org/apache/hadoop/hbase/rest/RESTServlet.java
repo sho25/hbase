@@ -234,6 +234,23 @@ return|return
 name|metrics
 return|;
 block|}
+comment|/**    * Helper method to determine if server should    * only respond to GET HTTP method requests.    * @return boolean for server read-only state    */
+name|boolean
+name|isReadOnly
+parameter_list|()
+block|{
+return|return
+name|getConfiguration
+argument_list|()
+operator|.
+name|getBoolean
+argument_list|(
+literal|"hbase.rest.readonly"
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
 block|}
 end_class
 
