@@ -1197,6 +1197,10 @@ specifier|private
 name|Thread
 name|catalogJanitorChore
 decl_stmt|;
+specifier|private
+name|LogCleaner
+name|logCleaner
+decl_stmt|;
 comment|/**    * Initializes the HMaster. The steps are as follows:    *<p>    *<ol>    *<li>Initialize HMaster RPC and address    *<li>Connect to ZooKeeper.    *</ol>    *<p>    * Remaining steps of initialization occur in {@link #run()} so that they    * run in their own thread rather than within the context of the constructor.    * @throws InterruptedException    */
 specifier|public
 name|HMaster
@@ -2598,6 +2602,64 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
+comment|// Start log cleaner thread
+name|String
+name|n
+init|=
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+decl_stmt|;
+name|this
+operator|.
+name|logCleaner
+operator|=
+operator|new
+name|LogCleaner
+argument_list|(
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.master.cleaner.interval"
+argument_list|,
+literal|60
+operator|*
+literal|1000
+argument_list|)
+argument_list|,
+name|this
+argument_list|,
+name|conf
+argument_list|,
+name|getMasterFileSystem
+argument_list|()
+operator|.
+name|getFileSystem
+argument_list|()
+argument_list|,
+name|getMasterFileSystem
+argument_list|()
+operator|.
+name|getOldLogDir
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|Threads
+operator|.
+name|setDaemonThreadRunning
+argument_list|(
+name|logCleaner
+argument_list|,
+name|n
+operator|+
+literal|".oldLogCleaner"
+argument_list|)
+expr_stmt|;
 comment|// Put up info server.
 name|int
 name|port
@@ -2770,6 +2832,13 @@ name|stop
 argument_list|()
 expr_stmt|;
 comment|// Clean up and close up shop
+name|this
+operator|.
+name|logCleaner
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -2947,6 +3016,8 @@ block|}
 end_function
 
 begin_function
+annotation|@
+name|Override
 specifier|public
 name|MapWritable
 name|regionServerStartup
@@ -2954,6 +3025,10 @@ parameter_list|(
 specifier|final
 name|HServerInfo
 name|serverInfo
+parameter_list|,
+specifier|final
+name|long
+name|serverCurrentTime
 parameter_list|)
 throws|throws
 name|IOException
@@ -2999,6 +3074,8 @@ operator|.
 name|regionServerStartup
 argument_list|(
 name|serverInfo
+argument_list|,
+name|serverCurrentTime
 argument_list|)
 expr_stmt|;
 comment|// Send back some config info

@@ -94,13 +94,16 @@ name|HMasterRegionInterface
 extends|extends
 name|HBaseRPCProtocolVersion
 block|{
-comment|/**    * Called when a region server first starts    * @param info server info    * @throws IOException e    * @return Configuration for the regionserver to use: e.g. filesystem,    * hbase rootdir, etc.    */
+comment|/**    * Called when a region server first starts    * @param info server info    * @param serverCurrentTime The current time of the region server in ms    * @throws IOException e    * @return Configuration for the regionserver to use: e.g. filesystem,    * hbase rootdir, etc.    */
 specifier|public
 name|MapWritable
 name|regionServerStartup
 parameter_list|(
 name|HServerInfo
 name|info
+parameter_list|,
+name|long
+name|serverCurrentTime
 parameter_list|)
 throws|throws
 name|IOException
