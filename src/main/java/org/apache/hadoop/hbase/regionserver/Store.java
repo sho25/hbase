@@ -531,8 +531,20 @@ name|long
 name|majorCompactionTime
 decl_stmt|;
 specifier|private
+specifier|final
 name|int
 name|maxFilesToCompact
+decl_stmt|;
+specifier|private
+specifier|final
+name|long
+name|minCompactSize
+decl_stmt|;
+comment|// compactRatio: double on purpose!  Float.MAX< Long.MAX< Double.MAX
+comment|// With float, java will downcast your long to float for comparisons (bad)
+specifier|private
+name|double
+name|compactRatio
 decl_stmt|;
 specifier|private
 name|long
@@ -931,6 +943,12 @@ name|this
 operator|.
 name|compactionThreshold
 operator|=
+name|Math
+operator|.
+name|max
+argument_list|(
+literal|2
+argument_list|,
 name|conf
 operator|.
 name|getInt
@@ -938,6 +956,7 @@ argument_list|(
 literal|"hbase.hstore.compactionThreshold"
 argument_list|,
 literal|3
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Check if this is in-memory store
@@ -1023,6 +1042,34 @@ argument_list|(
 literal|"hbase.hstore.compaction.max"
 argument_list|,
 literal|10
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|minCompactSize
+operator|=
+name|this
+operator|.
+name|region
+operator|.
+name|memstoreFlushSize
+operator|*
+literal|3
+operator|/
+literal|2
+expr_stmt|;
+comment|// +50% pad
+name|this
+operator|.
+name|compactRatio
+operator|=
+name|conf
+operator|.
+name|getFloat
+argument_list|(
+literal|"hbase.hstore.compaction.ratio"
+argument_list|,
+literal|1.2F
 argument_list|)
 expr_stmt|;
 if|if
@@ -2678,13 +2725,13 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Compaction
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Compact the StoreFiles.  This method may take some time, so the calling    * thread must be able to block for long periods.    *    *<p>During this time, the Store can work as usual, getting values from    * StoreFiles and writing new StoreFiles from the memstore.    *    * Existing StoreFiles are not destroyed until the new compacted StoreFile is    * completely written-out to disk.    *    *<p>The compactLock prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *    *<p>We don't want to hold the structureLock for the whole time, as a compact()    * can be lengthy and we want to allow cache-flushes during this period.    *    * @param mc True to force a major compaction regardless of thresholds    * @return row to split around if a split is needed, null otherwise    * @throws IOException    */
+comment|/**    * Compact the StoreFiles.  This method may take some time, so the calling    * thread must be able to block for long periods.    *    *<p>During this time, the Store can work as usual, getting values from    * StoreFiles and writing new StoreFiles from the memstore.    *    * Existing StoreFiles are not destroyed until the new compacted StoreFile is    * completely written-out to disk.    *    *<p>The compactLock prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *    *<p>We don't want to hold the structureLock for the whole time, as a compact()    * can be lengthy and we want to allow cache-flushes during this period.    *    * @param forceMajor True to force a major compaction regardless of thresholds    * @return row to split around if a split is needed, null otherwise    * @throws IOException    */
 name|StoreSize
 name|compact
 parameter_list|(
 specifier|final
 name|boolean
-name|mc
+name|forceMajor
 parameter_list|)
 throws|throws
 name|IOException
@@ -2704,7 +2751,7 @@ decl_stmt|;
 name|boolean
 name|majorcompaction
 init|=
-name|mc
+name|forceMajor
 decl_stmt|;
 synchronized|synchronized
 init|(
@@ -2751,17 +2798,6 @@ return|return
 literal|null
 return|;
 block|}
-comment|// Max-sequenceID is the last key of the storefiles TreeMap
-name|long
-name|maxId
-init|=
-name|StoreFile
-operator|.
-name|getMaxSequenceIdInList
-argument_list|(
-name|storefiles
-argument_list|)
-decl_stmt|;
 comment|// Check to see if we need to do a major compaction on this region.
 comment|// If so, change doMajorCompaction to true to skip the incremental
 comment|// compacting below. Only check if doMajorCompaction is not true.
@@ -2816,8 +2852,7 @@ name|forceSplit
 argument_list|)
 return|;
 block|}
-comment|// HBASE-745, preparing all store file sizes for incremental compacting
-comment|// selection.
+comment|/* get store file sizes for incremental compacting selection.        * normal skew:        *         *         older ----> newer        *     _        *    | |   _           *    | |  | |   _           *  --|-|- |-|- |-|---_-------_-------  minCompactSize         *    | |  | |  | |  | |  _  | |         *    | |  | |  | |  | | | | | |         *    | |  | |  | |  | | | | | |         */
 name|int
 name|countOfFiles
 init|=
@@ -2825,11 +2860,6 @@ name|filesToCompact
 operator|.
 name|size
 argument_list|()
-decl_stmt|;
-name|long
-name|totalSize
-init|=
-literal|0
 decl_stmt|;
 name|long
 index|[]
@@ -2842,28 +2872,30 @@ name|countOfFiles
 index|]
 decl_stmt|;
 name|long
-name|skipped
+index|[]
+name|sumSize
 init|=
-literal|0
-decl_stmt|;
-name|int
-name|point
-init|=
-literal|0
+operator|new
+name|long
+index|[
+name|countOfFiles
+index|]
 decl_stmt|;
 for|for
 control|(
 name|int
 name|i
 init|=
-literal|0
+name|countOfFiles
+operator|-
+literal|1
 init|;
 name|i
-operator|<
-name|countOfFiles
+operator|>=
+literal|0
 condition|;
+operator|--
 name|i
-operator|++
 control|)
 block|{
 name|StoreFile
@@ -2893,7 +2925,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|error
 argument_list|(
 literal|"Path is null for "
 operator|+
@@ -2923,7 +2955,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|error
 argument_list|(
 literal|"StoreFile "
 operator|+
@@ -2936,9 +2968,11 @@ return|return
 literal|null
 return|;
 block|}
-name|long
-name|len
-init|=
+name|fileSizes
+index|[
+name|i
+index|]
+operator|=
 name|file
 operator|.
 name|getReader
@@ -2946,19 +2980,69 @@ argument_list|()
 operator|.
 name|length
 argument_list|()
+expr_stmt|;
+comment|// calculate the sum of fileSizes[i,i+maxFilesToCompact-1) for algo
+name|int
+name|tooFar
+init|=
+name|i
+operator|+
+name|this
+operator|.
+name|maxFilesToCompact
+operator|-
+literal|1
 decl_stmt|;
-name|fileSizes
+name|sumSize
 index|[
 name|i
 index|]
 operator|=
-name|len
-expr_stmt|;
-name|totalSize
-operator|+=
-name|len
+name|fileSizes
+index|[
+name|i
+index|]
+operator|+
+operator|(
+operator|(
+name|i
+operator|+
+literal|1
+operator|<
+name|countOfFiles
+operator|)
+condition|?
+name|sumSize
+index|[
+name|i
+operator|+
+literal|1
+index|]
+else|:
+literal|0
+operator|)
+operator|-
+operator|(
+operator|(
+name|tooFar
+operator|<
+name|countOfFiles
+operator|)
+condition|?
+name|fileSizes
+index|[
+name|tooFar
+index|]
+else|:
+literal|0
+operator|)
 expr_stmt|;
 block|}
+name|long
+name|totalSize
+init|=
+literal|0
+decl_stmt|;
 if|if
 condition|(
 operator|!
@@ -2968,17 +3052,63 @@ operator|!
 name|references
 condition|)
 block|{
-comment|// Here we select files for incremental compaction.
-comment|// The rule is: if the largest(oldest) one is more than twice the
-comment|// size of the second, skip the largest, and continue to next...,
-comment|// until we meet the compactionThreshold limit.
-comment|// A problem with the above heuristic is that we could go through all of
-comment|// filesToCompact and the above condition could hold for all files and
-comment|// we'd end up with nothing to compact.  To protect against this, we'll
-comment|// compact the tail -- up to the last 4 files -- of filesToCompact
-comment|// regardless.
+comment|// we're doing a minor compaction, let's see what files are applicable
 name|int
-name|tail
+name|start
+init|=
+literal|0
+decl_stmt|;
+name|double
+name|r
+init|=
+name|this
+operator|.
+name|compactRatio
+decl_stmt|;
+comment|/* Start at the oldest file and stop when you find the first file that          * meets compaction criteria:          *   (1) a recently-flushed, small file (i.e.<= minCompactSize)          *      OR          *   (2) within the compactRatio of sum(newer_files)          * Given normal skew, any newer files will also meet this criteria          *           * Additional Note:          * If fileSizes.size()>> maxFilesToCompact, we will recurse on           * compact().  Consider the oldest files first to avoid a           * situation where we always compact [end-threshold,end).  Then, the           * last file becomes an aggregate of the previous compactions.          */
+while|while
+condition|(
+name|countOfFiles
+operator|-
+name|start
+operator|>=
+name|this
+operator|.
+name|compactionThreshold
+operator|&&
+name|fileSizes
+index|[
+name|start
+index|]
+operator|>
+name|Math
+operator|.
+name|max
+argument_list|(
+name|minCompactSize
+argument_list|,
+call|(
+name|long
+call|)
+argument_list|(
+name|sumSize
+index|[
+name|start
+operator|+
+literal|1
+index|]
+operator|*
+name|r
+argument_list|)
+argument_list|)
+condition|)
+block|{
+operator|++
+name|start
+expr_stmt|;
+block|}
+name|int
+name|end
 init|=
 name|Math
 operator|.
@@ -2986,92 +3116,49 @@ name|min
 argument_list|(
 name|countOfFiles
 argument_list|,
-literal|4
+name|start
+operator|+
+name|this
+operator|.
+name|maxFilesToCompact
 argument_list|)
 decl_stmt|;
-for|for
-control|(
-name|point
+name|totalSize
 operator|=
-literal|0
-init|;
-name|point
-operator|<
-operator|(
-name|countOfFiles
-operator|-
-name|tail
-operator|)
-condition|;
-name|point
-operator|++
-control|)
-block|{
-if|if
-condition|(
-operator|(
-operator|(
 name|fileSizes
 index|[
-name|point
+name|start
 index|]
+operator|+
+operator|(
+operator|(
+name|start
+operator|+
+literal|1
 operator|<
-name|fileSizes
+name|countOfFiles
+operator|)
+condition|?
+name|sumSize
 index|[
-name|point
+name|start
 operator|+
 literal|1
 index|]
-operator|*
-literal|2
+else|:
+literal|0
 operator|)
-operator|&&
-operator|(
-name|countOfFiles
-operator|-
-name|point
-operator|)
-operator|<=
-name|maxFilesToCompact
-operator|)
-condition|)
-block|{
-break|break;
-block|}
-name|skipped
-operator|+=
-name|fileSizes
-index|[
-name|point
-index|]
 expr_stmt|;
-block|}
-name|filesToCompact
-operator|=
-operator|new
-name|ArrayList
-argument_list|<
-name|StoreFile
-argument_list|>
-argument_list|(
-name|filesToCompact
-operator|.
-name|subList
-argument_list|(
-name|point
-argument_list|,
-name|countOfFiles
-argument_list|)
-argument_list|)
-expr_stmt|;
+comment|// if we don't have enough files to compact, just wait
 if|if
 condition|(
-name|filesToCompact
+name|end
+operator|-
+name|start
+operator|<
+name|this
 operator|.
-name|size
-argument_list|()
-operator|<=
-literal|1
+name|compactionThreshold
 condition|)
 block|{
 if|if
@@ -3086,13 +3173,21 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Skipped compaction of 1 file; compaction size of "
+literal|"Skipped compaction of "
 operator|+
 name|this
 operator|.
 name|storeNameStr
 operator|+
-literal|": "
+literal|".  Only "
+operator|+
+operator|(
+name|end
+operator|-
+name|start
+operator|)
+operator|+
+literal|" file(s) of size "
 operator|+
 name|StringUtils
 operator|.
@@ -3101,13 +3196,7 @@ argument_list|(
 name|totalSize
 argument_list|)
 operator|+
-literal|"; Skipped "
-operator|+
-name|point
-operator|+
-literal|" files, size: "
-operator|+
-name|skipped
+literal|" are meet compaction criteria."
 argument_list|)
 expr_stmt|;
 block|}
@@ -3120,39 +3209,57 @@ return|;
 block|}
 if|if
 condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
+literal|0
+operator|==
+name|start
+operator|&&
+name|end
+operator|==
+name|countOfFiles
 condition|)
 block|{
-name|LOG
-operator|.
-name|debug
+comment|// we decided all the files were candidates! major compact
+name|majorcompaction
+operator|=
+literal|true
+expr_stmt|;
+block|}
+else|else
+block|{
+name|filesToCompact
+operator|=
+operator|new
+name|ArrayList
+argument_list|<
+name|StoreFile
+argument_list|>
 argument_list|(
-literal|"Compaction size of "
-operator|+
-name|this
+name|filesToCompact
 operator|.
-name|storeNameStr
-operator|+
-literal|": "
-operator|+
-name|StringUtils
-operator|.
-name|humanReadableInt
+name|subList
 argument_list|(
+name|start
+argument_list|,
+name|end
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+else|else
+block|{
+comment|// all files included in this compaction
+for|for
+control|(
+name|long
+name|i
+range|:
+name|fileSizes
+control|)
+block|{
 name|totalSize
-argument_list|)
-operator|+
-literal|"; Skipped "
-operator|+
-name|point
-operator|+
-literal|" file(s), size: "
-operator|+
-name|skipped
-argument_list|)
+operator|+=
+name|i
 expr_stmt|;
 block|}
 block|}
@@ -3161,9 +3268,18 @@ operator|.
 name|lastCompactSize
 operator|=
 name|totalSize
-operator|-
-name|skipped
 expr_stmt|;
+comment|// Max-sequenceID is the last key in the files we're compacting
+name|long
+name|maxId
+init|=
+name|StoreFile
+operator|.
+name|getMaxSequenceIdInList
+argument_list|(
+name|filesToCompact
+argument_list|)
+decl_stmt|;
 comment|// Ready to go.  Have list of files to compact.
 name|LOG
 operator|.
@@ -3209,9 +3325,18 @@ operator|.
 name|getTmpDir
 argument_list|()
 operator|+
-literal|", sequenceid="
+literal|", seqid="
 operator|+
 name|maxId
+operator|+
+literal|", totalSize="
+operator|+
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
+name|totalSize
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|StoreFile
@@ -3286,7 +3411,7 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|"; new storefile is "
+literal|"; new storefile name="
 operator|+
 operator|(
 name|sf
@@ -3301,7 +3426,30 @@ name|toString
 argument_list|()
 operator|)
 operator|+
-literal|"; store size is "
+literal|", size="
+operator|+
+operator|(
+name|sf
+operator|==
+literal|null
+condition|?
+literal|"none"
+else|:
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
+name|sf
+operator|.
+name|getReader
+argument_list|()
+operator|.
+name|length
+argument_list|()
+argument_list|)
+operator|)
+operator|+
+literal|"; total size for store is "
 operator|+
 name|StringUtils
 operator|.
@@ -4011,8 +4159,9 @@ condition|)
 block|{
 comment|// NOTE: getFilterEntries could cause under-sized blooms if the user
 comment|//       switches bloom type (e.g. from ROW to ROWCOL)
-name|maxKeyCount
-operator|+=
+name|long
+name|keyCount
+init|=
 operator|(
 name|r
 operator|.
@@ -4034,7 +4183,55 @@ name|r
 operator|.
 name|getEntries
 argument_list|()
+decl_stmt|;
+name|maxKeyCount
+operator|+=
+name|keyCount
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Compacting: "
+operator|+
+name|file
+operator|+
+literal|"; keyCount = "
+operator|+
+name|keyCount
+operator|+
+literal|"; Bloom Type = "
+operator|+
+name|r
+operator|.
+name|getBloomFilterType
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|"; Size = "
+operator|+
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
+name|r
+operator|.
+name|length
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 comment|// For each file, obtain a scanner:
@@ -6458,11 +6655,19 @@ name|REFERENCE
 operator|)
 operator|+
 operator|(
-literal|5
+literal|6
 operator|*
 name|Bytes
 operator|.
 name|SIZEOF_LONG
+operator|)
+operator|+
+operator|(
+literal|1
+operator|*
+name|Bytes
+operator|.
+name|SIZEOF_DOUBLE
 operator|)
 operator|+
 operator|(
