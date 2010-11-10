@@ -2595,14 +2595,7 @@ name|ExecutorType
 operator|.
 name|MASTER_TABLE_OPERATIONS
 argument_list|,
-name|conf
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.master.executor.tableops.threads"
-argument_list|,
 literal|1
-argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Put up info server.
