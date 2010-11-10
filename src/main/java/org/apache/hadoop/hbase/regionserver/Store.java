@@ -2852,7 +2852,7 @@ name|forceSplit
 argument_list|)
 return|;
 block|}
-comment|/* get store file sizes for incremental compacting selection.        * normal skew:        *         *         older ----> newer        *     _        *    | |   _           *    | |  | |   _           *  --|-|- |-|- |-|---_-------_-------  minCompactSize         *    | |  | |  | |  | |  _  | |         *    | |  | |  | |  | | | | | |         *    | |  | |  | |  | | | | | |         */
+comment|/* get store file sizes for incremental compacting selection.        * normal skew:        *        *         older ----> newer        *     _        *    | |   _        *    | |  | |   _        *  --|-|- |-|- |-|---_-------_-------  minCompactSize        *    | |  | |  | |  | |  _  | |        *    | |  | |  | |  | | | | | |        *    | |  | |  | |  | | | | | |        */
 name|int
 name|countOfFiles
 init|=
@@ -3065,7 +3065,7 @@ name|this
 operator|.
 name|compactRatio
 decl_stmt|;
-comment|/* Start at the oldest file and stop when you find the first file that          * meets compaction criteria:          *   (1) a recently-flushed, small file (i.e.<= minCompactSize)          *      OR          *   (2) within the compactRatio of sum(newer_files)          * Given normal skew, any newer files will also meet this criteria          *           * Additional Note:          * If fileSizes.size()>> maxFilesToCompact, we will recurse on           * compact().  Consider the oldest files first to avoid a           * situation where we always compact [end-threshold,end).  Then, the           * last file becomes an aggregate of the previous compactions.          */
+comment|/* Start at the oldest file and stop when you find the first file that          * meets compaction criteria:          *   (1) a recently-flushed, small file (i.e.<= minCompactSize)          *      OR          *   (2) within the compactRatio of sum(newer_files)          * Given normal skew, any newer files will also meet this criteria          *          * Additional Note:          * If fileSizes.size()>> maxFilesToCompact, we will recurse on          * compact().  Consider the oldest files first to avoid a          * situation where we always compact [end-threshold,end).  Then, the          * last file becomes an aggregate of the previous compactions.          */
 while|while
 condition|(
 name|countOfFiles
