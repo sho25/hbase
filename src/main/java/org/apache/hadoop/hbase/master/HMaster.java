@@ -2582,6 +2582,9 @@ literal|2
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// We depend on there being only one instance of this executor running
+comment|// at a time.  To do concurrency, would need fencing of enable/disable of
+comment|// tables.
 name|this
 operator|.
 name|executorService
@@ -2598,7 +2601,7 @@ name|getInt
 argument_list|(
 literal|"hbase.master.executor.tableops.threads"
 argument_list|,
-literal|3
+literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;

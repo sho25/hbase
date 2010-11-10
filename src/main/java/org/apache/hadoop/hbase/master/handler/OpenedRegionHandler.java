@@ -441,7 +441,7 @@ operator|.
 name|getZKTable
 argument_list|()
 operator|.
-name|isDisabledTable
+name|isDisablingOrDisabledTable
 argument_list|(
 name|regionInfo
 operator|.
