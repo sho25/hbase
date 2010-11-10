@@ -3545,7 +3545,7 @@ name|Row
 argument_list|>
 name|actions
 parameter_list|,
-name|Result
+name|Object
 index|[]
 name|results
 parameter_list|)
@@ -3563,7 +3563,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|Result
+name|Object
 index|[]
 name|batch
 parameter_list|(

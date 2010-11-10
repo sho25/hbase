@@ -33,16 +33,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|List
 import|;
 end_import
@@ -509,7 +499,7 @@ name|IOException
 throws|,
 name|RuntimeException
 function_decl|;
-comment|/**    * Process a mixed batch of Get, Put and Delete actions. All actions for a    * RegionServer are forwarded in one RPC call.    *     * @param actions The collection of actions.    * @param tableName Name of the hbase table    * @param pool thread pool for parallel execution    * @param results An empty array, same size as list. If an exception is thrown,    * you can test here for partial results, and to determine which actions    * processed successfully.    * @throws IOException    */
+comment|/**    * Process a mixed batch of Get, Put and Delete actions. All actions for a    * RegionServer are forwarded in one RPC call.    *    *    * @param actions The collection of actions.    * @param tableName Name of the hbase table    * @param pool thread pool for parallel execution    * @param results An empty array, same size as list. If an exception is thrown,    * you can test here for partial results, and to determine which actions    * processed successfully.    * @throws IOException if there are problems talking to META. Per-item    * exceptions are stored in the results array.    */
 specifier|public
 name|void
 name|processBatch
@@ -528,56 +518,16 @@ parameter_list|,
 name|ExecutorService
 name|pool
 parameter_list|,
-name|Result
+name|Object
 index|[]
 name|results
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 function_decl|;
-comment|/**    * Process a batch of Puts. Does the retries.    * @param list A batch of Puts to process.    * @param tableName The name of the table    * @return Count of committed Puts.  On fault,< list.size().    * @throws IOException if a remote or network exception occurs    * @deprecated Use HConnectionManager::processBatch instead.    */
-specifier|public
-name|int
-name|processBatchOfRows
-parameter_list|(
-name|ArrayList
-argument_list|<
-name|Put
-argument_list|>
-name|list
-parameter_list|,
-name|byte
-index|[]
-name|tableName
-parameter_list|,
-name|ExecutorService
-name|pool
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Process a batch of Deletes. Does the retries.    * @param list A batch of Deletes to process.    * @param tableName The name of the table    * @return Count of committed Deletes. On fault,< list.size().    * @throws IOException if a remote or network exception occurs    * @deprecated Use HConnectionManager::processBatch instead.    */
-specifier|public
-name|int
-name|processBatchOfDeletes
-parameter_list|(
-name|List
-argument_list|<
-name|Delete
-argument_list|>
-name|list
-parameter_list|,
-name|byte
-index|[]
-name|tableName
-parameter_list|,
-name|ExecutorService
-name|pool
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Process a batch of Puts.    *    * @param list The collection of actions. The list is mutated: all successful Puts     * are removed from the list.    * @param tableName Name of the hbase table    * @param pool Thread pool for parallel execution    * @throws IOException    * @deprecated Use HConnectionManager::processBatch instead.    */
+comment|/**    * Process a batch of Puts.    *    * @param list The collection of actions. The list is mutated: all successful Puts    * are removed from the list.    * @param tableName Name of the hbase table    * @param pool Thread pool for parallel execution    * @throws IOException    * @deprecated Use HConnectionManager::processBatch instead.    */
 specifier|public
 name|void
 name|processBatchOfPuts

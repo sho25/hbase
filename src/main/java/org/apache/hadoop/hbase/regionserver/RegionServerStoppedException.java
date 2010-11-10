@@ -32,7 +32,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Thrown by the region server when it is shutting down state.  */
+comment|/**  * Thrown by the region server when it is shutting down state.  *  * Should NEVER be thrown to HBase clients, they will abort the call chain  * and not retry even though regions will transition to new servers.  */
 end_comment
 
 begin_class

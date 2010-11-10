@@ -116,7 +116,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Method that does a batch call on Deletes, Gets and Puts.    *    * @param actions list of Get, Put, Delete objects    * @param results Empty Result[], same size as actions. Provides access to partial    *                results, in case an exception is thrown. A null in the result array means that    *                the call for that action failed, even after retries    * @throws IOException    * @since 0.90.0    */
+comment|/**    * Method that does a batch call on Deletes, Gets and Puts.    *    * @param actions list of Get, Put, Delete objects    * @param results Empty Object[], same size as actions. Provides access to partial    *                results, in case an exception is thrown. A null in the result array means that    *                the call for that action failed, even after retries    * @throws IOException    * @since 0.90.0    */
 name|void
 name|batch
 parameter_list|(
@@ -128,15 +128,17 @@ argument_list|>
 name|actions
 parameter_list|,
 specifier|final
-name|Result
+name|Object
 index|[]
 name|results
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 function_decl|;
-comment|/**    * Method that does a batch call on Deletes, Gets and Puts.    *    * @param actions list of Get, Put, Delete objects    * @return the results from the actions. A null in the return array means that    *         the call for that action failed, even after retries    * @throws IOException    * @since 0.90.0    */
-name|Result
+comment|/**    * Method that does a batch call on Deletes, Gets and Puts.    *    *    * @param actions list of Get, Put, Delete objects    * @return the results from the actions. A null in the return array means that    *         the call for that action failed, even after retries    * @throws IOException    * @since 0.90.0    */
+name|Object
 index|[]
 name|batch
 parameter_list|(
@@ -149,6 +151,8 @@ name|actions
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 function_decl|;
 comment|/**    * Extracts certain cells from a given row.    * @param get The object that specifies what data to fetch and from which row.    * @return The data coming from the specified row, if it exists.  If the row    * specified doesn't exist, the {@link Result} instance returned won't    * contain any {@link KeyValue}, as indicated by {@link Result#isEmpty()}.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
 name|Result

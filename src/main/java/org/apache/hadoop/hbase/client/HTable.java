@@ -2096,7 +2096,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
+try|try
+block|{
+name|Object
+index|[]
+name|r1
+init|=
 name|batch
 argument_list|(
 operator|(
@@ -2104,9 +2109,66 @@ name|List
 operator|)
 name|gets
 argument_list|)
+decl_stmt|;
+comment|// translate.
+name|Result
+index|[]
+name|results
+init|=
+operator|new
+name|Result
+index|[
+name|r1
+operator|.
+name|length
+index|]
+decl_stmt|;
+name|int
+name|i
+init|=
+literal|0
+decl_stmt|;
+for|for
+control|(
+name|Object
+name|o
+range|:
+name|r1
+control|)
+block|{
+comment|// batch ensures if there is a failure we get an exception instead
+name|results
+index|[
+name|i
+operator|++
+index|]
+operator|=
+operator|(
+name|Result
+operator|)
+name|o
+expr_stmt|;
+block|}
+return|return
+name|results
 return|;
 block|}
-comment|/**    * Method that does a batch call on Deletes, Gets and Puts.  The ordering of    * execution of the actions is not defined. Meaning if you do a Put and a    * Get in the same {@link #batch} call, you will not necessarily be    * guaranteed that the Get returns what the Put had put.    *    * @param actions list of Get, Put, Delete objects    * @param results Empty Result[], same size as actions. Provides access to partial    * results, in case an exception is thrown. A null in the result array means that    * the call for that action failed, even after retries    * @throws IOException    */
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|e
+argument_list|)
+throw|;
+block|}
+block|}
+comment|/**    * Method that does a batch call on Deletes, Gets and Puts.  The ordering of    * execution of the actions is not defined. Meaning if you do a Put and a    * Get in the same {@link #batch} call, you will not necessarily be    * guaranteed that the Get returns what the Put had put.    *    * @param actions list of Get, Put, Delete objects    * @param results Empty Result[], same size as actions. Provides access to    * partial results, in case an exception is thrown. If there are any failures,    * there will be a null or Throwable will be in the results array, AND an    * exception will be thrown.    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public
@@ -2122,11 +2184,13 @@ argument_list|>
 name|actions
 parameter_list|,
 specifier|final
-name|Result
+name|Object
 index|[]
 name|results
 parameter_list|)
 throws|throws
+name|InterruptedException
+throws|,
 name|IOException
 block|{
 name|connection
@@ -2148,7 +2212,7 @@ annotation|@
 name|Override
 specifier|public
 specifier|synchronized
-name|Result
+name|Object
 index|[]
 name|batch
 parameter_list|(
@@ -2160,14 +2224,16 @@ argument_list|>
 name|actions
 parameter_list|)
 throws|throws
+name|InterruptedException
+throws|,
 name|IOException
 block|{
-name|Result
+name|Object
 index|[]
 name|results
 init|=
 operator|new
-name|Result
+name|Object
 index|[
 name|actions
 operator|.
@@ -2257,7 +2323,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Deletes the specified cells/rows in bulk.    * @param deletes List of things to delete. As a side effect, it will be modified:    * successful {@link Delete}s are removed. The ordering of the list will not change.    * @throws IOException if a remote or network exception occurs. In that case    * the {@code deletes} argument will contain the {@link Delete} instances    * that have not be successfully applied.    * @since 0.20.1    */
+comment|/**    * Deletes the specified cells/rows in bulk.    * @param deletes List of things to delete. As a side effect, it will be modified:    * successful {@link Delete}s are removed. The ordering of the list will not change.    * @throws IOException if a remote or network exception occurs. In that case    * the {@code deletes} argument will contain the {@link Delete} instances    * that have not be successfully applied.    * @since 0.20.1    * @see {@link #batch(java.util.List, Object[])}    */
 annotation|@
 name|Override
 specifier|public
@@ -2274,12 +2340,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Result
+name|Object
 index|[]
 name|results
 init|=
 operator|new
-name|Result
+name|Object
 index|[
 name|deletes
 operator|.
@@ -2287,6 +2353,8 @@ name|size
 argument_list|()
 index|]
 decl_stmt|;
+try|try
+block|{
 name|connection
 operator|.
 name|processBatch
@@ -2303,6 +2371,23 @@ argument_list|,
 name|results
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|e
+argument_list|)
+throw|;
+block|}
+finally|finally
+block|{
 comment|// mutate list so that it is empty for complete success, or contains only failed records
 comment|// results are returned in the same order as the requests in list
 comment|// walk the list backwards, so we can remove from list without impacting the indexes of earlier members
@@ -2332,8 +2417,8 @@ name|results
 index|[
 name|i
 index|]
-operator|!=
-literal|null
+operator|instanceof
+name|Result
 condition|)
 block|{
 name|deletes
@@ -2343,6 +2428,7 @@ argument_list|(
 name|i
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
