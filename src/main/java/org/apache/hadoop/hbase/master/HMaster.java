@@ -1601,6 +1601,12 @@ operator|&&
 name|this
 operator|.
 name|serverManager
+operator|!=
+literal|null
+operator|&&
+name|this
+operator|.
+name|serverManager
 operator|.
 name|isClusterShutdown
 argument_list|()
