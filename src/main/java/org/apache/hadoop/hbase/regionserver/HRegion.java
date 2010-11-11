@@ -5559,12 +5559,17 @@ name|numReadyToWrite
 operator|++
 expr_stmt|;
 block|}
-comment|// We've now grabbed as many puts off the list as we can
-assert|assert
+comment|// Nothing to put -- an exception in the above such as NoSuchColumnFamily?
+if|if
+condition|(
 name|numReadyToWrite
-operator|>
+operator|<=
 literal|0
-assert|;
+condition|)
+return|return
+literal|0L
+return|;
+comment|// We've now grabbed as many puts off the list as we can
 comment|// ------------------------------------
 comment|// STEP 2. Update any LATEST_TIMESTAMP timestamps
 comment|// ----------------------------------
