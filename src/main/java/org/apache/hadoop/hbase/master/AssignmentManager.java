@@ -7114,6 +7114,39 @@ argument_list|,
 name|hsi
 argument_list|)
 expr_stmt|;
+comment|// There's a possibility that the region was splitting while a user asked
+comment|// the master to disable, we need to make sure we close those regions in
+comment|// that case. This is not racing with the region server itself since RS
+comment|// report is done after the split transaction completed.
+if|if
+condition|(
+name|this
+operator|.
+name|zkTable
+operator|.
+name|isDisablingOrDisabledTable
+argument_list|(
+name|parent
+operator|.
+name|getTableDesc
+argument_list|()
+operator|.
+name|getNameAsString
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|unassign
+argument_list|(
+name|a
+argument_list|)
+expr_stmt|;
+name|unassign
+argument_list|(
+name|b
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * @return A clone of current assignments. Note, this is assignments only.    * If a new server has come in and it has no regions, it will not be included    * in the returned Map.    */
 name|Map
