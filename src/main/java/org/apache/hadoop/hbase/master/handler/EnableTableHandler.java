@@ -513,6 +513,8 @@ operator|.
 name|ct
 argument_list|,
 name|tableName
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|int
