@@ -3513,11 +3513,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Started memstore flush for region "
+literal|"Started memstore flush for "
 operator|+
 name|this
 operator|+
-literal|"; current region memstore size "
+literal|", current region memstore size "
 operator|+
 name|StringUtils
 operator|.

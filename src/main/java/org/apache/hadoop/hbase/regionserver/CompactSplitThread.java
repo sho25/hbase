@@ -637,7 +637,7 @@ else|:
 literal|""
 operator|)
 operator|+
-literal|"requested for region "
+literal|"requested for "
 operator|+
 name|r
 operator|.
@@ -655,18 +655,18 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|?
-literal|" because: "
+literal|" because "
 operator|+
 name|why
 else|:
 literal|""
 operator|)
 operator|+
-literal|"; Priority: "
+literal|"; priority="
 operator|+
 name|priority
 operator|+
-literal|"; Compaction queue size: "
+literal|", compaction queue size="
 operator|+
 name|compactionQueue
 operator|.

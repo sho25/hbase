@@ -2448,17 +2448,6 @@ operator|.
 name|length
 argument_list|()
 argument_list|)
-operator|+
-literal|" to "
-operator|+
-name|this
-operator|.
-name|region
-operator|.
-name|regionInfo
-operator|.
-name|getRegionNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2715,7 +2704,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Not in set"
+literal|"Not in set (double-remove?) "
 operator|+
 name|o
 argument_list|)
@@ -3179,7 +3168,7 @@ name|this
 operator|.
 name|storeNameStr
 operator|+
-literal|".  Only "
+literal|" because only "
 operator|+
 operator|(
 name|end
@@ -3196,7 +3185,7 @@ argument_list|(
 name|totalSize
 argument_list|)
 operator|+
-literal|" are meet compaction criteria."
+literal|" meet compaction criteria."
 argument_list|)
 expr_stmt|;
 block|}
@@ -3292,23 +3281,11 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|" file(s) in "
+literal|" file(s) in cf="
 operator|+
 name|this
 operator|.
 name|storeNameStr
-operator|+
-literal|" of "
-operator|+
-name|this
-operator|.
-name|region
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getRegionNameAsString
-argument_list|()
 operator|+
 operator|(
 name|references
@@ -3393,25 +3370,7 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|" file(s) in "
-operator|+
-name|this
-operator|.
-name|storeNameStr
-operator|+
-literal|" of "
-operator|+
-name|this
-operator|.
-name|region
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|"; new storefile name="
+literal|" file(s), new file="
 operator|+
 operator|(
 name|sf
@@ -4200,15 +4159,15 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Compacting: "
+literal|"Compacting "
 operator|+
 name|file
 operator|+
-literal|"; keyCount = "
+literal|", keycount="
 operator|+
 name|keyCount
 operator|+
-literal|"; Bloom Type = "
+literal|", bloomtype="
 operator|+
 name|r
 operator|.
@@ -4218,7 +4177,7 @@ operator|.
 name|toString
 argument_list|()
 operator|+
-literal|"; Size = "
+literal|", size="
 operator|+
 name|StringUtils
 operator|.
