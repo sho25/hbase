@@ -4654,7 +4654,7 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**    * Converts this KeyValue to only contain the key portion (the value is    * changed to be null).  This method does a full copy of the backing byte    * array and does not modify the original byte array of this KeyValue.    *<p>    * This method is used by {@link KeyOnlyFilter} and is an advanced feature of    * KeyValue, proceed with caution.    */
+comment|/**    * Converts this KeyValue to only contain the key portion (the value is    * changed to be null).  This method does a full copy of the backing byte    * array and does not modify the original byte array of this KeyValue.    *<p>    * This method is used by<code>KeyOnlyFilter</code> and is an advanced feature of    * KeyValue, proceed with caution.    */
 specifier|public
 name|void
 name|convertToKeyOnly

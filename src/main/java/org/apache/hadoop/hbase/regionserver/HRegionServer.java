@@ -11204,6 +11204,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|Collections
+operator|.
+name|sort
+argument_list|(
+name|list
+argument_list|)
+expr_stmt|;
 return|return
 name|list
 return|;

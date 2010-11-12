@@ -213,7 +213,7 @@ name|getUserName
 argument_list|()
 return|;
 block|}
-comment|/**    * Returns the shortened version of the user name -- the portion that maps    * to an operating system user name.    * @return    */
+comment|/**    * Returns the shortened version of the user name -- the portion that maps    * to an operating system user name.    * @return Short name    */
 specifier|public
 specifier|abstract
 name|String

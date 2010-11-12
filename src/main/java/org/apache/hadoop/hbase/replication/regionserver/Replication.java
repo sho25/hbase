@@ -278,7 +278,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Gateway to Replication.  Used by {@link HRegionServer}.  */
+comment|/**  * Gateway to Replication.  Used by {@link org.apache.hadoop.hbase.regionserver.HRegionServer}.  */
 end_comment
 
 begin_class
