@@ -1085,6 +1085,16 @@ literal|1
 return|;
 block|}
 block|}
+if|if
+condition|(
+name|atEnd
+condition|)
+block|{
+comment|// skip the 'reseek' and just return 1.
+return|return
+literal|1
+return|;
+block|}
 return|return
 name|delegate
 operator|.
