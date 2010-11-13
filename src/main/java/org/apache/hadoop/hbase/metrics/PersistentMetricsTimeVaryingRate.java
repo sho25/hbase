@@ -274,6 +274,10 @@ name|getPreviousIntervalAverageTime
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|reset
+operator|=
+literal|false
+expr_stmt|;
 block|}
 else|else
 block|{
