@@ -4654,14 +4654,28 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**    * Converts this KeyValue to only contain the key portion (the value is    * changed to be null).  This method does a full copy of the backing byte    * array and does not modify the original byte array of this KeyValue.    *<p>    * This method is used by<code>KeyOnlyFilter</code> and is an advanced feature of    * KeyValue, proceed with caution.    */
+comment|/**    * Converts this KeyValue to only contain the key portion (the value is    * changed to be null).  This method does a full copy of the backing byte    * array and does not modify the original byte array of this KeyValue.    *<p>    * This method is used by<code>KeyOnlyFilter</code> and is an advanced feature of    * KeyValue, proceed with caution.    * @param lenAsVal replace value with the actual value length (false=empty)    */
 specifier|public
 name|void
 name|convertToKeyOnly
-parameter_list|()
+parameter_list|(
+name|boolean
+name|lenAsVal
+parameter_list|)
 block|{
-comment|// KV format:<keylen/4><valuelen/4><key/keylen><value/valuelen>
-comment|// Rebuild as:<keylen/4><0/4><key/keylen>
+comment|// KV format:<keylen:4><valuelen:4><key:keylen><value:valuelen>
+comment|// Rebuild as:<keylen:4><0:4><key:keylen>
+name|int
+name|dataLen
+init|=
+name|lenAsVal
+condition|?
+name|Bytes
+operator|.
+name|SIZEOF_INT
+else|:
+literal|0
+decl_stmt|;
 name|byte
 index|[]
 name|newBuffer
@@ -4679,6 +4693,8 @@ name|Bytes
 operator|.
 name|SIZEOF_INT
 operator|)
+operator|+
+name|dataLen
 index|]
 decl_stmt|;
 name|System
@@ -4697,9 +4713,18 @@ name|newBuffer
 argument_list|,
 literal|0
 argument_list|,
+name|Math
+operator|.
+name|min
+argument_list|(
 name|newBuffer
 operator|.
 name|length
+argument_list|,
+name|this
+operator|.
+name|length
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|Bytes
@@ -4712,9 +4737,33 @@ name|Bytes
 operator|.
 name|SIZEOF_INT
 argument_list|,
-literal|0
+name|dataLen
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|lenAsVal
+condition|)
+block|{
+name|Bytes
+operator|.
+name|putInt
+argument_list|(
+name|newBuffer
+argument_list|,
+name|newBuffer
+operator|.
+name|length
+operator|-
+name|dataLen
+argument_list|,
+name|this
+operator|.
+name|getValueLength
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|bytes
