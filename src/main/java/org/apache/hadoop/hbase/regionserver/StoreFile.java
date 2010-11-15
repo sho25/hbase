@@ -3566,11 +3566,21 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Bloom added to HFile.  "
+literal|"Bloom added to HFile ("
 operator|+
+name|getPath
+argument_list|()
+operator|+
+literal|"): "
+operator|+
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
 name|b
+argument_list|)
 operator|+
-literal|"B, "
+literal|", "
 operator|+
 name|k
 operator|+
