@@ -2746,8 +2746,6 @@ name|outputfiles
 operator|.
 name|size
 argument_list|()
-operator|-
-name|logsToRemove
 decl_stmt|;
 if|if
 condition|(
@@ -2790,6 +2788,13 @@ operator|.
 name|lastSeqWritten
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|regions
+operator|!=
+literal|null
+condition|)
+block|{
 name|StringBuilder
 name|sb
 init|=
@@ -2871,6 +2876,7 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|regions
