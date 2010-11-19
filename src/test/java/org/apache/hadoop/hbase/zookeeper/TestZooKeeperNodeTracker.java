@@ -658,6 +658,32 @@ operator|.
 name|hasData
 argument_list|)
 expr_stmt|;
+comment|// Now, start a new ZKNT with the node already available
+name|TestTracker
+name|secondTracker
+init|=
+operator|new
+name|TestTracker
+argument_list|(
+name|zk
+argument_list|,
+name|node
+argument_list|,
+literal|null
+argument_list|)
+decl_stmt|;
+name|secondTracker
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
+name|zk
+operator|.
+name|registerListener
+argument_list|(
+name|secondTracker
+argument_list|)
+expr_stmt|;
 comment|// Put up an additional zk listener so we know when zk event is done
 name|TestingZKListener
 name|zkListener
@@ -805,32 +831,6 @@ operator|.
 name|info
 argument_list|(
 literal|"Successfully got data one"
-argument_list|)
-expr_stmt|;
-comment|// Now, start a new ZKNT with the node already available
-name|TestTracker
-name|secondTracker
-init|=
-operator|new
-name|TestTracker
-argument_list|(
-name|zk
-argument_list|,
-name|node
-argument_list|,
-literal|null
-argument_list|)
-decl_stmt|;
-name|secondTracker
-operator|.
-name|start
-argument_list|()
-expr_stmt|;
-name|zk
-operator|.
-name|registerListener
-argument_list|(
-name|secondTracker
 argument_list|)
 expr_stmt|;
 comment|// Make sure it's available and with the expected data
