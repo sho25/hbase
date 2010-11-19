@@ -424,7 +424,6 @@ literal|"127.0.0.1"
 argument_list|)
 return|;
 block|}
-specifier|private
 specifier|static
 name|void
 name|writeMyID
