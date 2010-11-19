@@ -625,6 +625,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ipc
+operator|.
+name|RpcServer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|LoadBalancer
@@ -1093,7 +1109,7 @@ decl_stmt|;
 comment|// RPC server for the HMaster
 specifier|private
 specifier|final
-name|HBaseServer
+name|RpcServer
 name|rpcServer
 decl_stmt|;
 comment|// Address of the HMaster

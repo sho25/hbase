@@ -101,6 +101,9 @@ begin_class
 specifier|public
 class|class
 name|Action
+parameter_list|<
+name|R
+parameter_list|>
 implements|implements
 name|Writable
 implements|,
@@ -120,7 +123,7 @@ name|int
 name|originalIndex
 decl_stmt|;
 specifier|private
-name|Result
+name|R
 name|result
 decl_stmt|;
 specifier|public
@@ -194,7 +197,7 @@ name|regionName
 expr_stmt|;
 block|}
 specifier|public
-name|Result
+name|R
 name|getResult
 parameter_list|()
 block|{
@@ -206,7 +209,7 @@ specifier|public
 name|void
 name|setResult
 parameter_list|(
-name|Result
+name|R
 name|result
 parameter_list|)
 block|{
@@ -315,7 +318,16 @@ name|out
 argument_list|,
 name|result
 argument_list|,
-name|Result
+name|result
+operator|!=
+literal|null
+condition|?
+name|result
+operator|.
+name|getClass
+argument_list|()
+else|:
+name|Writable
 operator|.
 name|class
 argument_list|,
@@ -375,7 +387,7 @@ operator|.
 name|result
 operator|=
 operator|(
-name|Result
+name|R
 operator|)
 name|HbaseObjectWritable
 operator|.
