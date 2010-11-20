@@ -470,9 +470,6 @@ argument_list|,
 name|this
 operator|.
 name|rsServices
-operator|.
-name|getFlushRequester
-argument_list|()
 argument_list|,
 operator|new
 name|Progressable

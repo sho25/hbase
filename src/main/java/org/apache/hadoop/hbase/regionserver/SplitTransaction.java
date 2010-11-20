@@ -298,6 +298,7 @@ comment|/**  * Executes region split as a "transaction".  Call {@link #prepare()
 end_comment
 
 begin_class
+specifier|public
 class|class
 name|SplitTransaction
 block|{
@@ -385,6 +386,7 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 comment|/**    * Constructor    * @param services So we can online new servces.  If null, we'll skip onlining    * (Useful testing).    * @param c Configuration to use running split    * @param r Region to split    * @param splitrow Row to split around    */
+specifier|public
 name|SplitTransaction
 parameter_list|(
 specifier|final
@@ -647,6 +649,7 @@ name|rid
 return|;
 block|}
 comment|/**    * Run the transaction.    * @param server Hosting server instance.    * @param services Used to online/offline regions.    * @throws IOException If thrown, transaction failed. Call {@link #rollback(OnlineRegions)}    * @return Regions created    * @see #rollback(OnlineRegions)    */
+specifier|public
 name|PairOfSameType
 argument_list|<
 name|HRegion
@@ -724,6 +727,30 @@ argument_list|()
 operator|:
 literal|"Unsafe to hold write lock while performing RPCs"
 assert|;
+comment|// Coprocessor callback
+if|if
+condition|(
+name|this
+operator|.
+name|parent
+operator|.
+name|getCoprocessorHost
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|parent
+operator|.
+name|getCoprocessorHost
+argument_list|()
+operator|.
+name|preSplit
+argument_list|()
+expr_stmt|;
+block|}
 comment|// If true, no cluster to write meta edits into.
 name|boolean
 name|testing
@@ -872,7 +899,7 @@ name|this
 operator|.
 name|parent
 operator|.
-name|flushRequester
+name|rsServices
 argument_list|)
 decl_stmt|;
 comment|// Ditto
@@ -900,7 +927,7 @@ name|this
 operator|.
 name|parent
 operator|.
-name|flushRequester
+name|rsServices
 argument_list|)
 decl_stmt|;
 comment|// Edit parent in meta
@@ -1016,6 +1043,34 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+comment|// Coprocessor callback
+if|if
+condition|(
+name|this
+operator|.
+name|parent
+operator|.
+name|getCoprocessorHost
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|parent
+operator|.
+name|getCoprocessorHost
+argument_list|()
+operator|.
+name|postSplit
+argument_list|(
+name|a
+argument_list|,
+name|b
+argument_list|)
+expr_stmt|;
 block|}
 comment|// Leaving here, the splitdir with its dross will be in place but since the
 comment|// split was successful, just leave it; it'll be cleaned when parent is
@@ -1693,8 +1748,8 @@ name|HRegionInfo
 name|hri
 parameter_list|,
 specifier|final
-name|FlushRequester
-name|flusher
+name|RegionServerServices
+name|rsServices
 parameter_list|)
 throws|throws
 name|IOException
@@ -1761,7 +1816,7 @@ argument_list|()
 argument_list|,
 name|hri
 argument_list|,
-name|flusher
+name|rsServices
 argument_list|)
 decl_stmt|;
 name|HRegion
@@ -2056,7 +2111,7 @@ operator|.
 name|splitdir
 return|;
 block|}
-comment|/**    * Clean up any split detritus that may have been left around from previous    * split attempts.    * Call this method on initial region deploy.  Cleans up any mess    * left by previous deploys of passed<code>r</code> region.    * @param r    * @throws IOException     */
+comment|/**    * Clean up any split detritus that may have been left around from previous    * split attempts.    * Call this method on initial region deploy.  Cleans up any mess    * left by previous deploys of passed<code>r</code> region.    * @param r    * @throws IOException    */
 specifier|static
 name|void
 name|cleanupAnySplitDetritus

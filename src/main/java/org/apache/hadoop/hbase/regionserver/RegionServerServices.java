@@ -81,6 +81,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZooKeeperWatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|zookeeper
 operator|.
 name|KeeperException
@@ -108,6 +124,18 @@ comment|/** @return the HLog */
 specifier|public
 name|HLog
 name|getWAL
+parameter_list|()
+function_decl|;
+comment|/**    * @return Implementation of {@link CatalogTracker} or null.    */
+specifier|public
+name|CatalogTracker
+name|getCatalogTracker
+parameter_list|()
+function_decl|;
+comment|/*    * @return Implementation of {@link ZooKeeperWatcher} or null.    */
+specifier|public
+name|ZooKeeperWatcher
+name|getZooKeeperWatcher
 parameter_list|()
 function_decl|;
 comment|/**    * @return Implementation of {@link CompactionRequestor} or null.    */
