@@ -2854,6 +2854,14 @@ name|stop
 argument_list|()
 expr_stmt|;
 comment|// Clean up and close up shop
+if|if
+condition|(
+name|this
+operator|.
+name|logCleaner
+operator|!=
+literal|null
+condition|)
 name|this
 operator|.
 name|logCleaner

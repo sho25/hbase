@@ -293,6 +293,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|EOFException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|IOException
 import|;
 end_import
@@ -688,6 +698,20 @@ operator|.
 name|readUTF
 argument_list|(
 name|s
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|EOFException
+name|eof
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Version file was empty, odd, will try to set it."
 argument_list|)
 expr_stmt|;
 block|}
