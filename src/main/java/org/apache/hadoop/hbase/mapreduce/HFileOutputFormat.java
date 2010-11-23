@@ -449,20 +449,6 @@ name|LogFactory
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|base
-operator|.
-name|Preconditions
-import|;
-end_import
-
 begin_comment
 comment|/**  * Writes HFiles. Passed KeyValues must arrive in order.  * Currently, can only write files to a single column family at a  * time.  Multiple column families requires coordinating keys cross family.  * Writes current time as the sequence id for the file. Sets the major compacted  * attribute on created hfiles.  * @see KeyValueSortReducer  */
 end_comment
@@ -1215,19 +1201,22 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Preconditions
-operator|.
-name|checkArgument
-argument_list|(
-operator|!
+if|if
+condition|(
 name|startKeys
 operator|.
 name|isEmpty
 argument_list|()
-argument_list|,
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
 literal|"No regions passed"
 argument_list|)
-expr_stmt|;
+throw|;
+block|}
 comment|// We're generating a list of split points, and we don't ever
 comment|// have keys< the first region (which has an empty start key)
 comment|// so we need to remove it. Otherwise we would end up with an
@@ -1255,10 +1244,9 @@ operator|.
 name|first
 argument_list|()
 decl_stmt|;
-name|Preconditions
-operator|.
-name|checkArgument
-argument_list|(
+if|if
+condition|(
+operator|!
 name|first
 operator|.
 name|equals
@@ -1267,9 +1255,14 @@ name|HConstants
 operator|.
 name|EMPTY_BYTE_ARRAY
 argument_list|)
-argument_list|,
-literal|"First region of table should have empty start key. Instead has: %s"
-argument_list|,
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"First region of table should have empty start key. Instead has: "
+operator|+
 name|Bytes
 operator|.
 name|toStringBinary
@@ -1280,7 +1273,8 @@ name|get
 argument_list|()
 argument_list|)
 argument_list|)
-expr_stmt|;
+throw|;
+block|}
 name|sorted
 operator|.
 name|remove
