@@ -766,6 +766,8 @@ name|void
 name|assertRegionsAreBalanced
 parameter_list|()
 block|{
+comment|// TODO: Fix this test.  Old balancer used to run with 'slop'.  New
+comment|// balancer does not.
 name|boolean
 name|success
 init|=
@@ -774,17 +776,10 @@ decl_stmt|;
 name|float
 name|slop
 init|=
-name|conf
-operator|.
-name|getFloat
-argument_list|(
-literal|"hbase.regions.slop"
-argument_list|,
 operator|(
 name|float
 operator|)
 literal|0.1
-argument_list|)
 decl_stmt|;
 if|if
 condition|(

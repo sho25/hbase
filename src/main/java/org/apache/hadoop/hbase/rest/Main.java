@@ -334,11 +334,7 @@ literal|"port"
 argument_list|,
 literal|true
 argument_list|,
-literal|"Port to bind to [default:"
-operator|+
-name|DEFAULT_LISTEN_PORT
-operator|+
-literal|"]"
+literal|"Port to bind to [default: 8080]"
 argument_list|)
 expr_stmt|;
 name|options
@@ -632,7 +628,7 @@ name|getInt
 argument_list|(
 literal|"hbase.rest.port"
 argument_list|,
-name|DEFAULT_LISTEN_PORT
+literal|8080
 argument_list|)
 decl_stmt|;
 name|Server

@@ -1469,7 +1469,7 @@ name|getFloat
 argument_list|(
 name|HFILE_BLOCK_CACHE_SIZE_KEY
 argument_list|,
-literal|0.0f
+literal|0.2f
 argument_list|)
 decl_stmt|;
 comment|// There should be a better way to optimize this. But oh well.

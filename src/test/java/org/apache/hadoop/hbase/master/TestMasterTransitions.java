@@ -369,22 +369,6 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-comment|// Parcel out the regions, don't give them out in big lumps.  We've only
-comment|// a few in this test.  Let a couple of cycles pass is more realistic and
-comment|// gives stuff a chance to work.
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.regions.percheckin"
-argument_list|,
-literal|2
-argument_list|)
-expr_stmt|;
-comment|// Start a cluster of two regionservers.
 name|TEST_UTIL
 operator|.
 name|startMiniCluster

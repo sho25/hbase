@@ -2008,7 +2008,7 @@ name|getInt
 argument_list|(
 literal|"hbase.client.retries.number"
 argument_list|,
-literal|2
+literal|10
 argument_list|)
 expr_stmt|;
 name|this
@@ -2038,7 +2038,7 @@ name|getInt
 argument_list|(
 literal|"hbase.regionserver.msginterval"
 argument_list|,
-literal|1
+literal|3
 operator|*
 literal|1000
 argument_list|)
@@ -2221,7 +2221,7 @@ name|getInt
 argument_list|(
 literal|"hbase.regionserver.handler.count"
 argument_list|,
-literal|10
+literal|25
 argument_list|)
 operator|,
 name|conf

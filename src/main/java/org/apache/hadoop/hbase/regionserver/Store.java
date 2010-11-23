@@ -1020,8 +1020,7 @@ name|getInt
 argument_list|(
 literal|"hbase.hstore.blockingStoreFiles"
 argument_list|,
-operator|-
-literal|1
+literal|7
 argument_list|)
 expr_stmt|;
 name|this

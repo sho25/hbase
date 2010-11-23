@@ -1262,7 +1262,7 @@ name|getInt
 argument_list|(
 literal|"hbase.regionserver.handler.count"
 argument_list|,
-literal|10
+literal|25
 argument_list|)
 decl_stmt|;
 name|this

@@ -370,7 +370,7 @@ specifier|final
 name|float
 name|DEFAULT_LOWER
 init|=
-literal|0.25f
+literal|0.35f
 decl_stmt|;
 specifier|private
 specifier|static
@@ -525,8 +525,7 @@ name|getInt
 argument_list|(
 literal|"hbase.hstore.blockingStoreFiles"
 argument_list|,
-operator|-
-literal|1
+literal|7
 argument_list|)
 expr_stmt|;
 if|if

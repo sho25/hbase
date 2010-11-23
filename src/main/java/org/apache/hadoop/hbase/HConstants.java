@@ -221,44 +221,6 @@ name|ZOOKEEPER_CONFIG_NAME
 init|=
 literal|"zoo.cfg"
 decl_stmt|;
-comment|/** Parameter name for number of times to retry writes to ZooKeeper. */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|ZOOKEEPER_RETRIES
-init|=
-literal|"zookeeper.retries"
-decl_stmt|;
-comment|/** Default number of times to retry writes to ZooKeeper. */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_ZOOKEEPER_RETRIES
-init|=
-literal|5
-decl_stmt|;
-comment|/** Parameter name for ZooKeeper pause between retries. In milliseconds. */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|ZOOKEEPER_PAUSE
-init|=
-literal|"zookeeper.pause"
-decl_stmt|;
-comment|/** Default ZooKeeper pause value. In milliseconds. */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_ZOOKEEPER_PAUSE
-init|=
-literal|2
-operator|*
-literal|1000
-decl_stmt|;
 comment|/** default client port that the zookeeper listens on */
 specifier|public
 specifier|static
@@ -372,24 +334,6 @@ init|=
 literal|10
 operator|*
 literal|1000
-decl_stmt|;
-comment|/** Number of retries for the client */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|NUM_CLIENT_RETRIES
-init|=
-literal|"hbase.client.retries.number"
-decl_stmt|;
-comment|/** Default number of retries for the client */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_NUM_CLIENT_RETRIES
-init|=
-literal|2
 decl_stmt|;
 comment|/** Parameter name for how often a region should should perform a major compaction */
 specifier|public
@@ -768,16 +712,6 @@ operator|*
 literal|24
 operator|*
 literal|3600
-decl_stmt|;
-comment|//TODO: HBASE_CLIENT_RETRIES_NUMBER_KEY is only used by TestMigrate. Move it
-comment|//      there.
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|HBASE_CLIENT_RETRIES_NUMBER_KEY
-init|=
-literal|"hbase.client.retries.number"
 decl_stmt|;
 comment|//TODO: although the following are referenced widely to format strings for
 comment|//      the shell. They really aren't a part of the public API. It would be
