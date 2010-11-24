@@ -1503,7 +1503,7 @@ name|getInt
 argument_list|(
 literal|"zookeeper.session.timeout"
 argument_list|,
-literal|60
+literal|180
 operator|*
 literal|1000
 argument_list|)

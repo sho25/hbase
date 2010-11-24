@@ -717,6 +717,23 @@ break|break;
 block|}
 block|}
 block|}
+comment|// Set the max session timeout from the provided client-side timeout
+name|properties
+operator|.
+name|setProperty
+argument_list|(
+literal|"maxSessionTimeout"
+argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"zookeeper.session.timeout"
+argument_list|,
+literal|"180000"
+argument_list|)
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|myId
