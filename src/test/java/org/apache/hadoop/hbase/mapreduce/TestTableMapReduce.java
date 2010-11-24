@@ -1445,16 +1445,6 @@ literal|"zookeeper"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertTrue
-argument_list|(
-name|tmpjars
-operator|.
-name|contains
-argument_list|(
-literal|"guava"
-argument_list|)
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 end_class
