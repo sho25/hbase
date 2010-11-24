@@ -3557,7 +3557,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"\nHBase tree in ZooKeeper is rooted at "
+literal|"HBase is rooted at "
 argument_list|)
 operator|.
 name|append
@@ -3571,26 +3571,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"\n  Cluster up? "
-argument_list|)
-operator|.
-name|append
-argument_list|(
-name|checkExists
-argument_list|(
-name|zkw
-argument_list|,
-name|zkw
-operator|.
-name|clusterStateZNode
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|sb
-operator|.
-name|append
-argument_list|(
-literal|"\n  Master address: "
+literal|"\nMaster address: "
 argument_list|)
 operator|.
 name|append
@@ -3609,7 +3590,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"\n  Region server holding ROOT: "
+literal|"\nRegion server holding ROOT: "
 argument_list|)
 operator|.
 name|append
@@ -3628,7 +3609,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"\n  Region servers:"
+literal|"\nRegion servers:"
 argument_list|)
 expr_stmt|;
 for|for
@@ -3650,7 +3631,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"\n    - "
+literal|"\n "
 argument_list|)
 operator|.
 name|append
@@ -3663,7 +3644,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"\n  Quorum Server Statistics:"
+literal|"\nQuorum Server Statistics:"
 argument_list|)
 expr_stmt|;
 name|String
@@ -3692,7 +3673,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"\n    - "
+literal|"\n "
 argument_list|)
 operator|.
 name|append
@@ -3723,7 +3704,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"\n        "
+literal|"\n  "
 argument_list|)
 operator|.
 name|append
@@ -3743,7 +3724,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"\n        ERROR: "
+literal|"\n  ERROR: "
 argument_list|)
 operator|.
 name|append
@@ -3767,14 +3748,14 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"\n  FATAL ZooKeeper Exception!\n"
+literal|"\nFATAL ZooKeeper Exception!\n"
 argument_list|)
 expr_stmt|;
 name|sb
 operator|.
 name|append
 argument_list|(
-literal|"\n  "
+literal|"\n"
 operator|+
 name|ke
 operator|.
