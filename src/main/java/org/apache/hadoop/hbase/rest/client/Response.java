@@ -152,11 +152,13 @@ return|return
 name|headers
 return|;
 block|}
-comment|/**    * @return the value of the Location header    */
 specifier|public
 name|String
-name|getLocation
-parameter_list|()
+name|getHeader
+parameter_list|(
+name|String
+name|key
+parameter_list|)
 block|{
 for|for
 control|(
@@ -173,9 +175,9 @@ operator|.
 name|getName
 argument_list|()
 operator|.
-name|equals
+name|equalsIgnoreCase
 argument_list|(
-literal|"Location"
+name|key
 argument_list|)
 condition|)
 block|{
@@ -189,6 +191,19 @@ block|}
 block|}
 return|return
 literal|null
+return|;
+block|}
+comment|/**    * @return the value of the Location header    */
+specifier|public
+name|String
+name|getLocation
+parameter_list|()
+block|{
+return|return
+name|getHeader
+argument_list|(
+literal|"Location"
+argument_list|)
 return|;
 block|}
 comment|/**    * @return true if a response body was sent    */

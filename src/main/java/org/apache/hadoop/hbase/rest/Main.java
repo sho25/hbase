@@ -145,6 +145,24 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|rest
+operator|.
+name|filter
+operator|.
+name|GzipFilter
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|util
@@ -200,18 +218,6 @@ operator|.
 name|servlet
 operator|.
 name|ServletHolder
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|mortbay
-operator|.
-name|servlet
-operator|.
-name|GzipFilter
 import|;
 end_import
 
