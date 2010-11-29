@@ -1312,6 +1312,30 @@ operator|.
 name|size
 argument_list|()
 operator|)
+operator|:
+literal|"clusterState="
+operator|+
+name|clusterState
+operator|+
+literal|", regionidx="
+operator|+
+name|regionidx
+operator|+
+literal|", regionsToMove="
+operator|+
+name|regionsToMove
+operator|+
+literal|", numServers="
+operator|+
+name|numServers
+operator|+
+literal|", serversOverloaded="
+operator|+
+name|serversOverloaded
+operator|+
+literal|", serversUnderloaded="
+operator|+
+name|serversUnderloaded
 assert|;
 assert|assert
 operator|(
