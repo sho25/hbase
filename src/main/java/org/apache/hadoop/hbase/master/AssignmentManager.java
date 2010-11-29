@@ -4378,6 +4378,13 @@ operator|+
 literal|" (offlining)"
 argument_list|)
 expr_stmt|;
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|regions
+init|)
+block|{
 comment|// Check if this region is currently assigned
 if|if
 condition|(
@@ -4407,6 +4414,7 @@ literal|"currently assigned anywhere"
 argument_list|)
 expr_stmt|;
 return|return;
+block|}
 block|}
 name|String
 name|encodedName
@@ -5994,22 +6002,6 @@ argument_list|(
 name|hri
 argument_list|)
 expr_stmt|;
-block|}
-name|clearRegionPlan
-argument_list|(
-name|hri
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
-expr_stmt|;
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|servers
-init|)
-block|{
 for|for
 control|(
 name|List
@@ -6071,6 +6063,14 @@ block|}
 block|}
 block|}
 block|}
+name|clearRegionPlan
+argument_list|(
+name|hri
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * @param encodedRegionName Region whose plan we are to clear.    */
 name|void
@@ -6233,6 +6233,13 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|regions
+init|)
+block|{
 for|for
 control|(
 name|HRegionInfo
@@ -6280,6 +6287,7 @@ block|}
 else|else
 block|{
 break|break;
+block|}
 block|}
 block|}
 return|return
