@@ -4046,6 +4046,38 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
+if|if
+condition|(
+name|ioe
+operator|instanceof
+name|RemoteException
+condition|)
+block|{
+name|ioe
+operator|=
+operator|(
+operator|(
+name|RemoteException
+operator|)
+name|ioe
+operator|)
+operator|.
+name|unwrapRemoteException
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|ioe
+operator|instanceof
+name|YouAreDeadException
+condition|)
+block|{
+comment|// This will be caught and handled as a fatal error in run()
+throw|throw
+name|ioe
+throw|;
+block|}
 comment|// Couldn't connect to the master, get location from zk and reconnect
 comment|// Method blocks until new master is found or we are stopped
 name|getMaster
