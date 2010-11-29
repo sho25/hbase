@@ -243,7 +243,7 @@ name|ClusterStatus
 name|getClusterStatus
 parameter_list|()
 function_decl|;
-comment|/**    * Move the region<code>r</code> to<code>dest</code>.    * @param encodedRegionName The encoded region name.    * @param destServerName The servername of the destination regionserver    * @throws UnknownRegionException Thrown if we can't find a region named    *<code>encodedRegionName</code>    */
+comment|/**    * Move the region<code>r</code> to<code>dest</code>.    * @param encodedRegionName The encoded region name; i.e. the hash that makes    * up the region name suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    * then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param destServerName The servername of the destination regionserver.  If    * passed the empty byte array we'll assign to a random server.  A server name    * is made of host, port and startcode.  Here is an example:    *<code> host187.example.com,60020,1289493121758</code>.    * @throws UnknownRegionException Thrown if we can't find a region named    *<code>encodedRegionName</code>    */
 specifier|public
 name|void
 name|move
@@ -260,6 +260,40 @@ name|destServerName
 parameter_list|)
 throws|throws
 name|UnknownRegionException
+function_decl|;
+comment|/**    * Assign a region to a server chosen at random.    * @param regionName Region to assign.  Will use existing RegionPlan if one    * found.    * @param force If true, will force the assignment.    * @throws IOException    */
+specifier|public
+name|void
+name|assign
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|regionName
+parameter_list|,
+specifier|final
+name|boolean
+name|force
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Unassign a region from current hosting regionserver.  Region will then be    * assigned to a regionserver chosen at random.  Region could be reassigned    * back to the same server.  Use {@link #move(byte[], byte[])} if you want    * to control the region movement.    * @param regionName Region to unassign. Will clear any existing RegionPlan    * if one found.    * @param force If true, force unassign (Will remove region from    * regions-in-transition too if present).    * @throws IOException    */
+specifier|public
+name|void
+name|unassign
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|regionName
+parameter_list|,
+specifier|final
+name|boolean
+name|force
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Run the balancer.  Will run the balancer and if regions to move, it will    * go ahead and do the reassignments.  Can NOT run for various reasons.  Check    * logs.    * @return True if balancer ran, false otherwise.    */
 specifier|public

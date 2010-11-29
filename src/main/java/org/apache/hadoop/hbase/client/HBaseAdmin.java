@@ -2706,7 +2706,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Close a region. For expert-admins.    * @param regionname region name to close    * @param hostAndPort If supplied, we'll use this location rather than    * the one currently in<code>.META.</code>    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Close a region. For expert-admins.  Runs close on the regionserver.  The    * master will not be informed of the close.    * @param regionname region name to close    * @param hostAndPort If supplied, we'll use this location rather than    * the one currently in<code>.META.</code>    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|closeRegion
@@ -2735,7 +2735,7 @@ name|hostAndPort
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Close a region.  For expert-admins.    * @param regionname region name to close    * @param hostAndPort If supplied, we'll use this location rather than    * the one currently in<code>.META.</code>    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Close a region.  For expert-admins  Runs close on the regionserver.  The    * master will not be informed of the close.    * @param regionname region name to close    * @param hostAndPort If supplied, we'll use this location rather than    * the one currently in<code>.META.</code>    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|closeRegion
@@ -2946,11 +2946,14 @@ argument_list|(
 name|hsa
 argument_list|)
 decl_stmt|;
+comment|// Close the region without updating zk state.
 name|rs
 operator|.
 name|closeRegion
 argument_list|(
 name|hri
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -3512,7 +3515,7 @@ name|major
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Move the region<code>r</code> to<code>dest</code>.    * @param encodedRegionName The encoded region name.    * @param destServerName The servername of the destination regionserver    * @throws UnknownRegionException Thrown if we can't find a region named    *<code>encodedRegionName</code>    * @throws ZooKeeperConnectionException     * @throws MasterNotRunningException     */
+comment|/**    * Move the region<code>r</code> to<code>dest</code>.    * @param encodedRegionName The encoded region name; i.e. the hash that makes    * up the region name suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    * then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param destServerName The servername of the destination regionserver.  If    * passed the empty byte array we'll assign to a random server.  A server name    * is made of host, port and startcode.  Here is an example:    *<code> host187.example.com,60020,1289493121758</code>.    * @throws UnknownRegionException Thrown if we can't find a region named    *<code>encodedRegionName</code>    * @throws ZooKeeperConnectionException     * @throws MasterNotRunningException     */
 specifier|public
 name|void
 name|move
@@ -3542,6 +3545,70 @@ argument_list|(
 name|encodedRegionName
 argument_list|,
 name|destServerName
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * @param regionName Region name to assign.    * @param force True to force assign.    * @throws MasterNotRunningException    * @throws ZooKeeperConnectionException    * @throws IOException    */
+specifier|public
+name|void
+name|assign
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|regionName
+parameter_list|,
+specifier|final
+name|boolean
+name|force
+parameter_list|)
+throws|throws
+name|MasterNotRunningException
+throws|,
+name|ZooKeeperConnectionException
+throws|,
+name|IOException
+block|{
+name|getMaster
+argument_list|()
+operator|.
+name|assign
+argument_list|(
+name|regionName
+argument_list|,
+name|force
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Unassign a region from current hosting regionserver.  Region will then be    * assigned to a regionserver chosen at random.  Region could be reassigned    * back to the same server.  Use {@link #move(byte[], byte[])} if you want    * to control the region movement.    * @param regionName Region to unassign. Will clear any existing RegionPlan    * if one found.    * @param force If true, force unassign (Will remove region from    * regions-in-transition too if present).    * @throws MasterNotRunningException    * @throws ZooKeeperConnectionException    * @throws IOException    */
+specifier|public
+name|void
+name|unassign
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|regionName
+parameter_list|,
+specifier|final
+name|boolean
+name|force
+parameter_list|)
+throws|throws
+name|MasterNotRunningException
+throws|,
+name|ZooKeeperConnectionException
+throws|,
+name|IOException
+block|{
+name|getMaster
+argument_list|()
+operator|.
+name|unassign
+argument_list|(
+name|regionName
+argument_list|,
+name|force
 argument_list|)
 expr_stmt|;
 block|}
