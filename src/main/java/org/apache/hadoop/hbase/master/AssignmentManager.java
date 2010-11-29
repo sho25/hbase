@@ -803,6 +803,12 @@ specifier|private
 name|TimeoutMonitor
 name|timeoutMonitor
 decl_stmt|;
+comment|/*    * Maximum times we recurse an assignment.  See below in {@link #assign()}.    */
+specifier|private
+specifier|final
+name|int
+name|maximumAssignmentRecursions
+decl_stmt|;
 comment|/**    * Regions currently in transition.  Map of encoded region names to the master    * in-memory state for that region.    */
 specifier|final
 name|ConcurrentSkipListMap
@@ -1017,6 +1023,24 @@ name|master
 operator|.
 name|getZooKeeper
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|maximumAssignmentRecursions
+operator|=
+name|this
+operator|.
+name|master
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.assignment.maximum.recursions"
+argument_list|,
+literal|10
 argument_list|)
 expr_stmt|;
 block|}
@@ -3635,7 +3659,7 @@ return|return
 name|state
 return|;
 block|}
-comment|/**    * Caller must hold lock on the passed<code>state</code> object.    * @param state    */
+comment|/**    * Caller must hold lock on the passed<code>state</code> object.    * @param state    * @param setOfflineInZK    * @param forceNewPlan    */
 specifier|private
 name|void
 name|assign
@@ -3651,6 +3675,44 @@ parameter_list|,
 specifier|final
 name|boolean
 name|forceNewPlan
+parameter_list|)
+block|{
+name|assign
+argument_list|(
+name|state
+argument_list|,
+name|setOfflineInZK
+argument_list|,
+name|forceNewPlan
+argument_list|,
+operator|new
+name|AtomicInteger
+argument_list|(
+literal|0
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Caller must hold lock on the passed<code>state</code> object.    * @param state    * @param setOfflineInZK    * @param forceNewPlan    * @param recursions Keep a count so can have upper bound on recursions.    */
+specifier|private
+name|void
+name|assign
+parameter_list|(
+specifier|final
+name|RegionState
+name|state
+parameter_list|,
+specifier|final
+name|boolean
+name|setOfflineInZK
+parameter_list|,
+specifier|final
+name|boolean
+name|forceNewPlan
+parameter_list|,
+specifier|final
+name|int
+name|recursions
 parameter_list|)
 block|{
 if|if
@@ -3786,7 +3848,9 @@ operator|.
 name|getDestination
 argument_list|()
 operator|+
-literal|", trying to assign elsewhere instead"
+literal|", trying to assign elsewhere instead; retry="
+operator|+
+name|recursions
 argument_list|,
 name|t
 argument_list|)
@@ -3805,7 +3869,7 @@ operator|.
 name|OFFLINE
 argument_list|)
 expr_stmt|;
-comment|// Force a new plan and reassign.
+comment|// Force a new plan and reassign.  Will return null if no servers.
 if|if
 condition|(
 name|getRegionPlan
@@ -3840,6 +3904,15 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+if|if
+condition|(
+name|recursions
+operator|<
+name|this
+operator|.
+name|maximumAssignmentRecursions
+condition|)
+block|{
 name|assign
 argument_list|(
 name|state
@@ -3847,8 +3920,14 @@ argument_list|,
 literal|false
 argument_list|,
 literal|false
+argument_list|,
+name|recursions
+operator|+
+literal|1
 argument_list|)
 expr_stmt|;
+block|}
+comment|// Else Just leave the region in RIT.  On timeout, we'll retry later.
 block|}
 block|}
 comment|/**    * Set region as OFFLINED up in zookeeper    * @param state    * @return True if we succeeded, false otherwise (State was incorrect or failed    * updating zk).    */
@@ -4185,10 +4264,8 @@ if|if
 condition|(
 name|servers
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|<=
-literal|0
 condition|)
 return|return
 literal|null
