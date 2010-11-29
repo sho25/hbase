@@ -3395,10 +3395,7 @@ name|this
 operator|.
 name|serverManager
 operator|.
-name|getDeadServers
-argument_list|()
-operator|.
-name|isEmpty
+name|areDeadServersInProgress
 argument_list|()
 condition|)
 block|{

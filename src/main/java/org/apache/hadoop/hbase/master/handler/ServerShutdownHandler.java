@@ -869,7 +869,7 @@ name|this
 operator|.
 name|deadServers
 operator|.
-name|remove
+name|finish
 argument_list|(
 name|serverName
 argument_list|)

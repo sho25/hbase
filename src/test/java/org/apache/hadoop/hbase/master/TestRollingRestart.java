@@ -1855,9 +1855,10 @@ condition|(
 operator|!
 name|sm
 operator|.
-name|deadservers
+name|getDeadServers
+argument_list|()
 operator|.
-name|isDeadServer
+name|contains
 argument_list|(
 name|serverName
 argument_list|)
@@ -1895,12 +1896,8 @@ while|while
 condition|(
 name|sm
 operator|.
-name|deadservers
-operator|.
-name|isDeadServer
-argument_list|(
-name|serverName
-argument_list|)
+name|areDeadServersInProgress
+argument_list|()
 condition|)
 block|{
 name|log
@@ -1909,7 +1906,7 @@ literal|"Server ["
 operator|+
 name|serverName
 operator|+
-literal|"] still marked as dead, waiting"
+literal|"] still being processed, waiting"
 argument_list|)
 expr_stmt|;
 name|Thread
