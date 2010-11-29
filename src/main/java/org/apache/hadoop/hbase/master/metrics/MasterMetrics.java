@@ -69,6 +69,22 @@ name|hbase
 operator|.
 name|metrics
 operator|.
+name|HBaseInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|metrics
+operator|.
 name|MetricsRate
 import|;
 end_import
@@ -369,6 +385,11 @@ literal|"Master"
 argument_list|,
 name|name
 argument_list|)
+expr_stmt|;
+name|HBaseInfo
+operator|.
+name|init
+argument_list|()
 expr_stmt|;
 comment|// expose the MBean for metrics
 name|masterStatistics
