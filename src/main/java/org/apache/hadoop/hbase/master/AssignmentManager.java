@@ -3799,6 +3799,7 @@ name|getRegion
 argument_list|()
 argument_list|)
 expr_stmt|;
+break|break;
 block|}
 catch|catch
 parameter_list|(
