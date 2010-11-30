@@ -990,6 +990,8 @@ init|=
 operator|new
 name|Reader
 argument_list|(
+name|path
+argument_list|,
 name|fsdis
 argument_list|,
 name|fs
@@ -1003,6 +1005,8 @@ name|getLen
 argument_list|()
 argument_list|,
 literal|null
+argument_list|,
+literal|false
 argument_list|,
 literal|false
 argument_list|)

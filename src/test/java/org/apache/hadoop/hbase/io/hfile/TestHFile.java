@@ -394,6 +394,8 @@ argument_list|,
 literal|null
 argument_list|,
 literal|false
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|r
@@ -904,6 +906,8 @@ init|=
 operator|new
 name|Reader
 argument_list|(
+name|ncTFile
+argument_list|,
 name|fs
 operator|.
 name|open
@@ -922,6 +926,8 @@ name|getLen
 argument_list|()
 argument_list|,
 literal|null
+argument_list|,
+literal|false
 argument_list|,
 literal|false
 argument_list|)
@@ -1411,6 +1417,8 @@ init|=
 operator|new
 name|Reader
 argument_list|(
+name|mFile
+argument_list|,
 name|fs
 operator|.
 name|open
@@ -1431,6 +1439,8 @@ name|getLen
 argument_list|()
 argument_list|,
 literal|null
+argument_list|,
+literal|false
 argument_list|,
 literal|false
 argument_list|)
@@ -1581,6 +1591,8 @@ argument_list|,
 name|mFile
 argument_list|,
 literal|null
+argument_list|,
+literal|false
 argument_list|,
 literal|false
 argument_list|)

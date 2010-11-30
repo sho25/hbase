@@ -29,6 +29,26 @@ name|ByteBuffer
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|LruBlockCache
+operator|.
+name|CacheStats
+import|;
+end_import
+
 begin_comment
 comment|/**  * Block cache interface.  * TODO: Add filename or hash of filename to block cache key.  */
 end_comment
@@ -76,6 +96,21 @@ parameter_list|,
 name|boolean
 name|caching
 parameter_list|)
+function_decl|;
+comment|/**    * Evict block from cache.    * @param blockName Block name to evict    * @return true if block existed and was evicted, false if not    */
+specifier|public
+name|boolean
+name|evictBlock
+parameter_list|(
+name|String
+name|blockName
+parameter_list|)
+function_decl|;
+comment|/**    * Get the statistics for this block cache.    * @return    */
+specifier|public
+name|CacheStats
+name|getStats
+parameter_list|()
 function_decl|;
 comment|/**    * Shutdown the cache.    */
 specifier|public
