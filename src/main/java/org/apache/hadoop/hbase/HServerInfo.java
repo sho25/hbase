@@ -389,6 +389,15 @@ name|serverAddress
 expr_stmt|;
 name|this
 operator|.
+name|hostname
+operator|=
+name|serverAddress
+operator|.
+name|getHostname
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
 name|serverName
 operator|=
 literal|null

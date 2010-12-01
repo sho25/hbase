@@ -57,6 +57,16 @@ name|java
 operator|.
 name|net
 operator|.
+name|InetSocketAddress
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
 name|UnknownHostException
 import|;
 end_import
@@ -3067,24 +3077,20 @@ comment|// Set the ip into the passed in serverInfo.  Its ip is more than likely
 comment|// not the ip that the master sees here.  See at end of this method where
 comment|// we pass it back to the regionserver by setting "hbase.regionserver.address"
 comment|// Everafter, the HSI combination 'server name' is what uniquely identifies
-comment|// the incoming RegionServer.  No more DNS meddling of this little messing
-comment|// belose.
-name|String
-name|rsAddress
+comment|// the incoming RegionServer.
+name|InetSocketAddress
+name|address
 init|=
+operator|new
+name|InetSocketAddress
+argument_list|(
 name|HBaseServer
 operator|.
-name|getRemoteAddress
+name|getRemoteIp
 argument_list|()
-decl_stmt|;
-name|serverInfo
 operator|.
-name|setServerAddress
-argument_list|(
-operator|new
-name|HServerAddress
-argument_list|(
-name|rsAddress
+name|getHostName
+argument_list|()
 argument_list|,
 name|serverInfo
 operator|.
@@ -3093,6 +3099,16 @@ argument_list|()
 operator|.
 name|getPort
 argument_list|()
+argument_list|)
+decl_stmt|;
+name|serverInfo
+operator|.
+name|setServerAddress
+argument_list|(
+operator|new
+name|HServerAddress
+argument_list|(
+name|address
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -3125,11 +3141,10 @@ argument_list|(
 literal|"hbase.regionserver.address"
 argument_list|)
 argument_list|,
-operator|new
-name|Text
-argument_list|(
-name|rsAddress
-argument_list|)
+name|serverInfo
+operator|.
+name|getServerAddress
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return

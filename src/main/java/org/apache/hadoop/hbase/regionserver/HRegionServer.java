@@ -4670,6 +4670,60 @@ operator|.
 name|toString
 argument_list|()
 decl_stmt|;
+comment|// Use the address the master passed us
+if|if
+condition|(
+name|key
+operator|.
+name|equals
+argument_list|(
+literal|"hbase.regionserver.address"
+argument_list|)
+condition|)
+block|{
+name|HServerAddress
+name|hsa
+init|=
+operator|(
+name|HServerAddress
+operator|)
+name|e
+operator|.
+name|getValue
+argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Master passed us address to use. Was="
+operator|+
+name|this
+operator|.
+name|serverInfo
+operator|.
+name|getServerAddress
+argument_list|()
+operator|+
+literal|", Now="
+operator|+
+name|hsa
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|serverInfo
+operator|.
+name|setServerAddress
+argument_list|(
+name|hsa
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
 name|String
 name|value
 init|=
@@ -4712,83 +4766,6 @@ argument_list|(
 name|key
 argument_list|,
 name|value
-argument_list|)
-expr_stmt|;
-block|}
-comment|// Master may have sent us a new address with the other configs.
-comment|// Update our address in this case. See HBASE-719
-name|String
-name|hra
-init|=
-name|conf
-operator|.
-name|get
-argument_list|(
-literal|"hbase.regionserver.address"
-argument_list|)
-decl_stmt|;
-comment|// TODO: The below used to be this.address != null. Was broken by what
-comment|// looks like a mistake in:
-comment|//
-comment|// HBASE-1215 migration; metautils scan of meta region was broken;
-comment|// wouldn't see first row
-comment|// ------------------------------------------------------------------------
-comment|// r796326 | stack | 2009-07-21 07:40:34 -0700 (Tue, 21 Jul 2009) | 38
-comment|// lines
-if|if
-condition|(
-name|hra
-operator|!=
-literal|null
-condition|)
-block|{
-name|HServerAddress
-name|hsa
-init|=
-operator|new
-name|HServerAddress
-argument_list|(
-name|hra
-argument_list|,
-name|this
-operator|.
-name|serverInfo
-operator|.
-name|getServerAddress
-argument_list|()
-operator|.
-name|getPort
-argument_list|()
-argument_list|)
-decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Master passed us address to use. Was="
-operator|+
-name|this
-operator|.
-name|serverInfo
-operator|.
-name|getServerAddress
-argument_list|()
-operator|+
-literal|", Now="
-operator|+
-name|hsa
-operator|.
-name|toString
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|serverInfo
-operator|.
-name|setServerAddress
-argument_list|(
-name|hsa
 argument_list|)
 expr_stmt|;
 block|}
