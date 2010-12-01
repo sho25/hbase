@@ -567,11 +567,13 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"IOException instantiating region for "
+literal|"Failed open of "
 operator|+
 name|regionInfo
 operator|+
 literal|"; resetting state of transition node from OPENING to OFFLINE"
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 try|try
