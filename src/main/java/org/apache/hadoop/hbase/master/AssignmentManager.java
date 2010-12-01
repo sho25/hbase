@@ -4351,7 +4351,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Using pre-exisitng plan for region "
+literal|"Using pre-existing plan for region "
 operator|+
 name|state
 operator|.
