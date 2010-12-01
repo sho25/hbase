@@ -891,14 +891,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Deleted daughter "
+literal|"Deleted daughter reference "
 operator|+
 name|daughter
 operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" "
+literal|", qualifier="
 operator|+
 name|Bytes
 operator|.
@@ -907,7 +907,7 @@ argument_list|(
 name|qualifier
 argument_list|)
 operator|+
-literal|" reference in parent "
+literal|", from parent "
 operator|+
 name|parent
 operator|.

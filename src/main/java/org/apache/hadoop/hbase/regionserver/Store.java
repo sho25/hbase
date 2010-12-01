@@ -2715,9 +2715,7 @@ name|ChangedReadersObserver
 name|o
 parameter_list|)
 block|{
-if|if
-condition|(
-operator|!
+comment|// We don't check if observer present; it may not be (legitimately)
 name|this
 operator|.
 name|changedReaderObservers
@@ -2726,18 +2724,7 @@ name|remove
 argument_list|(
 name|o
 argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Not in set (double-remove?) "
-operator|+
-name|o
-argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Compaction
