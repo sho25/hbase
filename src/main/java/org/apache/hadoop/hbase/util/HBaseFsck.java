@@ -93,6 +93,26 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|atomic
@@ -645,14 +665,14 @@ decl_stmt|;
 comment|// if we want to print less output
 comment|// Empty regioninfo qualifiers in .META.
 specifier|private
-name|TreeSet
+name|Set
 argument_list|<
 name|Result
 argument_list|>
 name|emptyRegionInfoQualifiers
 init|=
 operator|new
-name|TreeSet
+name|HashSet
 argument_list|<
 name|Result
 argument_list|>
