@@ -4071,7 +4071,39 @@ range|:
 name|newRegions
 control|)
 block|{
-comment|// 1. Create HRegion
+comment|// 1. Set table enabling flag up in zk.
+try|try
+block|{
+name|assignmentManager
+operator|.
+name|getZKTable
+argument_list|()
+operator|.
+name|setEnabledTable
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Unable to ensure that the table will be"
+operator|+
+literal|" enabled because of a ZooKeeper issue"
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
+comment|// 2. Create HRegion
 name|HRegion
 name|region
 init|=
@@ -4089,7 +4121,7 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
-comment|// 2. Insert into META
+comment|// 3. Insert into META
 name|MetaEditor
 operator|.
 name|addRegionToMeta
@@ -4102,7 +4134,7 @@ name|getRegionInfo
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// 3. Close the new region to flush to disk.  Close log file too.
+comment|// 4. Close the new region to flush to disk.  Close log file too.
 name|region
 operator|.
 name|close
@@ -4116,7 +4148,7 @@ operator|.
 name|closeAndDelete
 argument_list|()
 expr_stmt|;
-comment|// 4. Trigger immediate assignment of this region
+comment|// 5. Trigger immediate assignment of this region
 name|assignmentManager
 operator|.
 name|assign
