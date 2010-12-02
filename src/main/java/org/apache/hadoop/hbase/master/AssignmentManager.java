@@ -4663,7 +4663,9 @@ literal|"Server "
 operator|+
 name|server
 operator|+
-literal|" returned NotServingRegionException"
+literal|" returned "
+operator|+
+name|nsre
 argument_list|)
 expr_stmt|;
 block|}
@@ -4682,7 +4684,35 @@ literal|"Server "
 operator|+
 name|server
 operator|+
-literal|" returned ConnectException "
+literal|" returned "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|java
+operator|.
+name|net
+operator|.
+name|SocketTimeoutException
+name|e
+parameter_list|)
+block|{
+comment|// Failed to connect, so pass through and reassign
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Server "
+operator|+
+name|server
+operator|+
+literal|" returned "
 operator|+
 name|e
 operator|.

@@ -1119,6 +1119,19 @@ name|java
 operator|.
 name|net
 operator|.
+name|SocketTimeoutException
+name|e
+parameter_list|)
+block|{
+comment|// Treat this exception + message as unavailable catalog table. Catch it
+comment|// and fall through to return a null
+block|}
+catch|catch
+parameter_list|(
+name|java
+operator|.
+name|net
+operator|.
 name|ConnectException
 name|e
 parameter_list|)
