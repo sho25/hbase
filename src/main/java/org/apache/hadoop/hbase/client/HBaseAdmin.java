@@ -494,6 +494,14 @@ specifier|final
 name|int
 name|numRetries
 decl_stmt|;
+comment|// Some operations can take a long time such as disable of big table.
+comment|// numRetries is for 'normal' stuff... Mutliply by this factor when
+comment|// want to wait a long time.
+specifier|private
+specifier|final
+name|int
+name|retryLongerMultiplier
+decl_stmt|;
 comment|/**    * Constructor    *    * @param conf Configuration object    * @throws MasterNotRunningException if the master is not running    * @throws ZooKeeperConnectionException if unable to connect to zookeeper    */
 specifier|public
 name|HBaseAdmin
@@ -545,6 +553,19 @@ operator|.
 name|getInt
 argument_list|(
 literal|"hbase.client.retries.number"
+argument_list|,
+literal|10
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|retryLongerMultiplier
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.client.retries.longer.multiplier"
 argument_list|,
 literal|10
 argument_list|)
@@ -1385,7 +1406,7 @@ argument_list|,
 literal|10
 argument_list|)
 decl_stmt|;
-comment|// Wait until first region is deleted
+comment|// Wait until all regions deleted
 name|HRegionInterface
 name|server
 init|=
@@ -1415,7 +1436,15 @@ literal|0
 init|;
 name|tries
 operator|<
+operator|(
+name|this
+operator|.
 name|numRetries
+operator|*
+name|this
+operator|.
+name|retryLongerMultiplier
+operator|)
 condition|;
 name|tries
 operator|++
@@ -1801,9 +1830,15 @@ literal|0
 init|;
 name|tries
 operator|<
+operator|(
 name|this
 operator|.
 name|numRetries
+operator|*
+name|this
+operator|.
+name|retryLongerMultiplier
+operator|)
 condition|;
 name|tries
 operator|++
@@ -2109,7 +2144,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Disable table and wait on completion.  May timeout.  Use    * {@link #disableTableAsync(byte[])} and {@link #isTableDisabled(String)}    * instead.    * @param tableName    * @throws IOException    */
+comment|/**    * Disable table and wait on completion.  May timeout eventually.  Use    * {@link #disableTableAsync(byte[])} and {@link #isTableDisabled(String)}    * instead.    * @param tableName    * @throws IOException    */
 specifier|public
 name|void
 name|disableTable
@@ -2142,9 +2177,15 @@ literal|0
 init|;
 name|tries
 operator|<
+operator|(
 name|this
 operator|.
 name|numRetries
+operator|*
+name|this
+operator|.
+name|retryLongerMultiplier
+operator|)
 condition|;
 name|tries
 operator|++

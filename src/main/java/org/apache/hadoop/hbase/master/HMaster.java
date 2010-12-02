@@ -4242,6 +4242,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|this
+operator|.
+name|executorService
+operator|.
+name|submit
+argument_list|(
 operator|new
 name|DeleteTableHandler
 argument_list|(
@@ -4251,9 +4257,7 @@ name|this
 argument_list|,
 name|this
 argument_list|)
-operator|.
-name|process
-argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 end_function
