@@ -922,7 +922,7 @@ name|RS_ZK_REGION_CLOSED
 argument_list|)
 return|;
 block|}
-comment|/**    * Deletes an existing unassigned node that is in the CLOSING state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during table disables when a region finishes    * successfully closing.  This is the Master acknowledging completion    * of the specified regions transition to being closed.    *    * @param zkw zk reference    * @param regionName closing region to be deleted from zk    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
+comment|/**    * Deletes an existing unassigned node that is in the CLOSING state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during table disables when a region finishes    * successfully closing.  This is the Master acknowledging completion    * of the specified regions transition to being closed.    *    * @param zkw zk reference    * @param region closing region to be deleted from zk    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
 specifier|public
 specifier|static
 name|boolean
@@ -931,8 +931,8 @@ parameter_list|(
 name|ZooKeeperWatcher
 name|zkw
 parameter_list|,
-name|String
-name|regionName
+name|HRegionInfo
+name|region
 parameter_list|)
 throws|throws
 name|KeeperException
@@ -941,6 +941,14 @@ name|KeeperException
 operator|.
 name|NoNodeException
 block|{
+name|String
+name|regionName
+init|=
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
+decl_stmt|;
 return|return
 name|deleteNode
 argument_list|(
@@ -954,7 +962,7 @@ name|RS_ZK_REGION_CLOSING
 argument_list|)
 return|;
 block|}
-comment|/**    * Deletes an existing unassigned node that is in the specified state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during table disables when a region finishes    * successfully closing.  This is the Master acknowledging completion    * of the specified regions transition to being closed.    *    * @param zkw zk reference    * @param region region to be deleted from zk    * @param expectedState state region must be in for delete to complete    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
+comment|/**    * Deletes an existing unassigned node that is in the specified state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during table disables when a region finishes    * successfully closing.  This is the Master acknowledging completion    * of the specified regions transition to being closed.    *    * @param zkw zk reference    * @param regionName region to be deleted from zk    * @param expectedState state region must be in for delete to complete    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
 specifier|private
 specifier|static
 name|boolean

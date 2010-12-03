@@ -3699,9 +3699,6 @@ operator|.
 name|clearRegionPlan
 argument_list|(
 name|hri
-operator|.
-name|getEncodedName
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Unassign will reassign it elsewhere choosing random server.

@@ -813,6 +813,28 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|hstoreFilesToSplit
+operator|==
+literal|null
+condition|)
+block|{
+comment|// The region was closed by a concurrent thread.  We can't continue
+comment|// with the split, instead we must just abandon the split.  If we
+comment|// reopen or split this could cause problems because the region has
+comment|// probably already been moved to a different server, or is in the
+comment|// process of moving to a different server.
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Failed to close region: already closed by "
+operator|+
+literal|"another thread"
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|journal

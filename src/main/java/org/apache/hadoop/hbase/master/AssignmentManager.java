@@ -83,6 +83,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Iterator
 import|;
 end_import
@@ -154,18 +164,6 @@ operator|.
 name|util
 operator|.
 name|TreeSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ConcurrentNavigableMap
 import|;
 end_import
 
@@ -831,11 +829,9 @@ decl_stmt|;
 comment|/** Plans for region movement. Key is the encoded version of a region name*/
 comment|// TODO: When do plans get cleaned out?  Ever? In server open and in server
 comment|// shutdown processing -- St.Ack
-comment|// TODO: Better to just synchronize access around regionPlans?  I think that
-comment|//       would be better than a concurrent structure since we do more than
-comment|//       one operation at a time -- jgray
+comment|// All access to this Map must be synchronized.
 specifier|final
-name|ConcurrentNavigableMap
+name|NavigableMap
 argument_list|<
 name|String
 argument_list|,
@@ -844,7 +840,7 @@ argument_list|>
 name|regionPlans
 init|=
 operator|new
-name|ConcurrentSkipListMap
+name|TreeMap
 argument_list|<
 name|String
 argument_list|,
@@ -2482,16 +2478,9 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Remove plan if one.
-name|this
-operator|.
-name|regionPlans
-operator|.
-name|remove
+name|clearRegionPlan
 argument_list|(
 name|regionInfo
-operator|.
-name|getEncodedName
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Update timers for all regions in transition going against this server.
@@ -2511,7 +2500,44 @@ name|HServerInfo
 name|hsi
 parameter_list|)
 block|{
-comment|// This loop could be expensive
+comment|// This loop could be expensive.
+comment|// First make a copy of current regionPlan rather than hold sync while
+comment|// looping because holding sync can cause deadlock.  Its ok in this loop
+comment|// if the Map we're going against is a little stale
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|RegionPlan
+argument_list|>
+name|copy
+init|=
+operator|new
+name|HashMap
+argument_list|<
+name|String
+argument_list|,
+name|RegionPlan
+argument_list|>
+argument_list|()
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|regionPlans
+init|)
+block|{
+name|copy
+operator|.
+name|putAll
+argument_list|(
+name|this
+operator|.
+name|regionPlans
+argument_list|)
+expr_stmt|;
+block|}
 for|for
 control|(
 name|Map
@@ -2524,9 +2550,7 @@ name|RegionPlan
 argument_list|>
 name|e
 range|:
-name|this
-operator|.
-name|regionPlans
+name|copy
 operator|.
 name|entrySet
 argument_list|()
@@ -2534,6 +2558,7 @@ control|)
 block|{
 if|if
 condition|(
+operator|!
 name|e
 operator|.
 name|getValue
@@ -2547,7 +2572,7 @@ argument_list|(
 name|hsi
 argument_list|)
 condition|)
-block|{
+continue|continue;
 name|RegionState
 name|rs
 init|=
@@ -2578,10 +2603,10 @@ block|}
 if|if
 condition|(
 name|rs
-operator|!=
+operator|==
 literal|null
 condition|)
-block|{
+continue|continue;
 synchronized|synchronized
 init|(
 name|rs
@@ -2597,8 +2622,6 @@ name|getState
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-block|}
 block|}
 block|}
 block|}
@@ -2645,6 +2668,12 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|// remove the region plan as well just in case.
+name|clearRegionPlan
+argument_list|(
+name|regionInfo
+argument_list|)
+expr_stmt|;
 name|setOffline
 argument_list|(
 name|regionInfo
@@ -4250,6 +4279,16 @@ name|servers
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|boolean
+name|newPlan
+init|=
+literal|false
+decl_stmt|;
+name|RegionPlan
+name|existingPlan
+init|=
+literal|null
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|this
@@ -4257,9 +4296,8 @@ operator|.
 name|regionPlans
 init|)
 block|{
-name|RegionPlan
 name|existingPlan
-init|=
+operator|=
 name|this
 operator|.
 name|regionPlans
@@ -4268,7 +4306,7 @@ name|get
 argument_list|(
 name|encodedName
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 name|existingPlan
@@ -4286,6 +4324,28 @@ name|equals
 argument_list|(
 name|serverToExclude
 argument_list|)
+condition|)
+block|{
+name|newPlan
+operator|=
+literal|true
+expr_stmt|;
+name|this
+operator|.
+name|regionPlans
+operator|.
+name|put
+argument_list|(
+name|encodedName
+argument_list|,
+name|randomPlan
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+if|if
+condition|(
+name|newPlan
 condition|)
 block|{
 name|LOG
@@ -4332,17 +4392,6 @@ operator|+
 literal|") available servers"
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|regionPlans
-operator|.
-name|put
-argument_list|(
-name|encodedName
-argument_list|,
-name|randomPlan
-argument_list|)
-expr_stmt|;
 return|return
 name|randomPlan
 return|;
@@ -4369,7 +4418,6 @@ expr_stmt|;
 return|return
 name|existingPlan
 return|;
-block|}
 block|}
 comment|/**    * Unassigns the specified region.    *<p>    * Updates the RegionState and sends the CLOSE RPC.    *<p>    * If a RegionPlan is already set, it will remain.    *    * @param region server to be unassigned    */
 specifier|public
@@ -6132,19 +6180,16 @@ block|}
 name|clearRegionPlan
 argument_list|(
 name|hri
-operator|.
-name|getEncodedName
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param encodedRegionName Region whose plan we are to clear.    */
+comment|/**    * @param region Region whose plan we are to clear.    */
 name|void
 name|clearRegionPlan
 parameter_list|(
 specifier|final
-name|String
-name|encodedRegionName
+name|HRegionInfo
+name|region
 parameter_list|)
 block|{
 synchronized|synchronized
@@ -6160,7 +6205,10 @@ name|regionPlans
 operator|.
 name|remove
 argument_list|(
-name|encodedRegionName
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -7214,6 +7262,98 @@ argument_list|(
 name|parent
 argument_list|)
 expr_stmt|;
+comment|// Remove any CLOSING node, if exists, due to race between master& rs
+comment|// for close& split.  Not putting into regionOffline method because it is
+comment|// called from various locations.
+try|try
+block|{
+name|RegionTransitionData
+name|node
+init|=
+name|ZKAssign
+operator|.
+name|getDataNoWatch
+argument_list|(
+name|this
+operator|.
+name|watcher
+argument_list|,
+name|parent
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|,
+literal|null
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|node
+operator|!=
+literal|null
+condition|)
+block|{
+if|if
+condition|(
+name|node
+operator|.
+name|getEventType
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|EventType
+operator|.
+name|RS_ZK_REGION_CLOSING
+argument_list|)
+condition|)
+block|{
+name|ZKAssign
+operator|.
+name|deleteClosingNode
+argument_list|(
+name|this
+operator|.
+name|watcher
+argument_list|,
+name|parent
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Split report has RIT node (shouldnt have one): "
+operator|+
+name|parent
+operator|+
+literal|" node: "
+operator|+
+name|node
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Exception while validating RIT during split report"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 name|regionOnline
 argument_list|(
 name|a
@@ -7510,6 +7650,13 @@ name|RegionPlan
 name|plan
 parameter_list|)
 block|{
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|regionPlans
+init|)
+block|{
 name|this
 operator|.
 name|regionPlans
@@ -7524,6 +7671,7 @@ argument_list|,
 name|plan
 argument_list|)
 expr_stmt|;
+block|}
 name|unassign
 argument_list|(
 name|plan

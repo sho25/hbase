@@ -465,14 +465,36 @@ comment|// Close the region
 try|try
 block|{
 comment|// TODO: If we need to keep updating CLOSING stamp to prevent against
-comment|//       a timeout if this is long-running, need to spin up a thread?
+comment|// a timeout if this is long-running, need to spin up a thread?
+if|if
+condition|(
 name|region
 operator|.
 name|close
 argument_list|(
 name|abort
 argument_list|)
+operator|==
+literal|null
+condition|)
+block|{
+comment|// This region got closed.  Most likely due to a split. So instead
+comment|// of doing the setClosedState() below, let's just ignore and continue.
+comment|// The split message will clean up the master state.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Can't close region: was already closed during close(): "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
 expr_stmt|;
+return|return;
+block|}
 block|}
 catch|catch
 parameter_list|(
