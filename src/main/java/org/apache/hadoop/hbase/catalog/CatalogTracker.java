@@ -1521,6 +1521,24 @@ comment|// Pass
 block|}
 catch|catch
 parameter_list|(
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
+name|ServerNotRunningException
+name|e
+parameter_list|)
+block|{
+comment|// Pass -- remote server is not up so can't be carrying root
+block|}
+catch|catch
+parameter_list|(
 name|IOException
 name|e
 parameter_list|)

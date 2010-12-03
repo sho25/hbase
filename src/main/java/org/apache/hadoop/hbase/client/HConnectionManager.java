@@ -4353,11 +4353,12 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Remove exception connecting to RS"
+literal|"RemoteException connecting to RS"
 argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+comment|// Throw what the RemoteException was carrying.
 throw|throw
 name|RemoteExceptionHandler
 operator|.
