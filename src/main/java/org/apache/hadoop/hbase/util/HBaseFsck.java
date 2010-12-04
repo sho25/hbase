@@ -1355,6 +1355,13 @@ name|getPath
 argument_list|()
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|subDirs
+operator|!=
+literal|null
+condition|)
+block|{
 name|Path
 name|ePath
 init|=
@@ -1416,6 +1423,7 @@ operator|=
 literal|false
 expr_stmt|;
 break|break;
+block|}
 block|}
 block|}
 block|}
@@ -1736,18 +1744,37 @@ name|IOException
 block|{
 for|for
 control|(
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|String
+argument_list|,
 name|HbckInfo
-name|hbi
+argument_list|>
+name|e
 range|:
 name|regionInfo
 operator|.
-name|values
+name|entrySet
 argument_list|()
 control|)
 block|{
 name|doConsistencyCheck
 argument_list|(
-name|hbi
+name|e
+operator|.
+name|getKey
+argument_list|()
+argument_list|,
+name|e
+operator|.
+name|getValue
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1756,6 +1783,11 @@ comment|/**    * Check a single region for consistency and correct deployment.  
 name|void
 name|doConsistencyCheck
 parameter_list|(
+specifier|final
+name|String
+name|key
+parameter_list|,
+specifier|final
 name|HbckInfo
 name|hbi
 parameter_list|)
@@ -1999,7 +2031,11 @@ literal|"Region "
 operator|+
 name|descriptiveName
 operator|+
-literal|" not on HDFS or in META but "
+literal|", key="
+operator|+
+name|key
+operator|+
+literal|", not on HDFS or in META but "
 operator|+
 literal|"deployed on "
 operator|+
@@ -2225,7 +2261,7 @@ literal|"Region "
 operator|+
 name|descriptiveName
 operator|+
-literal|" has should not be deployed according "
+literal|" should not be deployed according "
 operator|+
 literal|"to META, but is deployed on "
 operator|+
@@ -3837,7 +3873,7 @@ block|}
 else|else
 block|{
 return|return
-literal|"unknown region on "
+literal|"UNKNOWN_REGION on "
 operator|+
 name|Joiner
 operator|.
