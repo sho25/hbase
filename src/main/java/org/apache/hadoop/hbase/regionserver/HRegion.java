@@ -13612,7 +13612,7 @@ operator|.
 name|SIZEOF_BOOLEAN
 operator|+
 operator|(
-literal|22
+literal|23
 operator|*
 name|ClassSize
 operator|.
