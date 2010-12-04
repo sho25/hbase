@@ -4650,7 +4650,7 @@ block|}
 try|try
 block|{
 comment|// TODO: We should consider making this look more like it does for the
-comment|//       region open where we catch all throwables and never abort
+comment|// region open where we catch all throwables and never abort
 if|if
 condition|(
 name|serverManager
@@ -4714,6 +4714,13 @@ operator|+
 literal|" returned "
 operator|+
 name|nsre
+operator|+
+literal|" for "
+operator|+
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -4737,6 +4744,13 @@ operator|+
 name|e
 operator|.
 name|getMessage
+argument_list|()
+operator|+
+literal|" for "
+operator|+
+name|region
+operator|.
+name|getEncodedName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4822,8 +4836,8 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
-comment|// For now call abort if unexpected exception -- radical, but will get fellas attention.
-comment|// St.Ack 20101012
+comment|// For now call abort if unexpected exception -- radical, but will get
+comment|// fellas attention. St.Ack 20101012
 name|this
 operator|.
 name|master
@@ -4836,45 +4850,7 @@ name|t
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Did not CLOSE, so set region offline and assign it
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Attempted to send CLOSE to "
-operator|+
-name|server
-operator|+
-literal|" for region "
-operator|+
-name|region
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|" but failed, "
-operator|+
-literal|"setting region as OFFLINE and reassigning"
-argument_list|)
-expr_stmt|;
-synchronized|synchronized
-init|(
-name|regionsInTransition
-init|)
-block|{
-name|forceRegionStateToOffline
-argument_list|(
-name|region
-argument_list|)
-expr_stmt|;
-block|}
-name|assign
-argument_list|(
-name|region
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
+comment|/* This looks way wrong at least for the case where close failed because      * it was being concurrently split.  It also looks wrong for case where      * we cannot connect to remote server.  In that case, let the server      * expiration do the fixup.  I'm leaving this code here commented out for      * the moment in case I've missed something and this code is actually needed.      * St.Ack 12/04/2010.      *      // Did not CLOSE, so set region offline and assign it     LOG.debug("Attempted to send CLOSE to " + server +       " for region " + region.getRegionNameAsString() + " but failed, " +       "setting region as OFFLINE and reassigning");     synchronized (regionsInTransition) {       forceRegionStateToOffline(region);     }     assign(region, true);     */
 block|}
 comment|/**    * Waits until the specified region has completed assignment.    *<p>    * If the region is already assigned, returns immediately.  Otherwise, method    * blocks until the region is assigned.    * @param regionInfo region to wait on assignment for    * @throws InterruptedException    */
 specifier|public
