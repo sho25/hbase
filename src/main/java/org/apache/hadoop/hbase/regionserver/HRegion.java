@@ -13640,9 +13640,13 @@ name|align
 argument_list|(
 name|FIXED_OVERHEAD
 operator|+
+operator|(
 name|ClassSize
 operator|.
 name|OBJECT
+operator|*
+literal|2
+operator|)
 operator|+
 operator|(
 literal|2
