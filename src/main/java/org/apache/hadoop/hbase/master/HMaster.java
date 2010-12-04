@@ -3405,7 +3405,6 @@ return|;
 block|}
 if|if
 condition|(
-operator|!
 name|this
 operator|.
 name|serverManager
@@ -3421,6 +3420,9 @@ argument_list|(
 literal|"Not running balancer because dead regionserver processing"
 argument_list|)
 expr_stmt|;
+return|return
+literal|false
+return|;
 block|}
 name|Map
 argument_list|<
