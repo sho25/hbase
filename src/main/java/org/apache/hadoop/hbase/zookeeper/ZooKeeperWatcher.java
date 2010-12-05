@@ -1056,18 +1056,6 @@ block|{
 case|case
 name|SyncConnected
 case|:
-comment|// Update our identifier.  Otherwise ignore.
-name|LOG
-operator|.
-name|debug
-argument_list|(
-name|this
-operator|.
-name|identifier
-operator|+
-literal|" connected"
-argument_list|)
-expr_stmt|;
 comment|// Now, this callback can be invoked before the this.zookeeper is set.
 comment|// Wait a little while.
 name|long
@@ -1166,6 +1154,18 @@ name|zooKeeper
 operator|.
 name|getSessionId
 argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Update our identifier.  Otherwise ignore.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|this
+operator|.
+name|identifier
+operator|+
+literal|" connected"
 argument_list|)
 expr_stmt|;
 break|break;

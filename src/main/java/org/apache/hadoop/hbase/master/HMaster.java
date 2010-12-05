@@ -1191,7 +1191,7 @@ comment|// flag set after we complete initialization once active (used for testi
 specifier|private
 specifier|volatile
 name|boolean
-name|isInitialized
+name|initialized
 init|=
 literal|false
 decl_stmt|;
@@ -2126,7 +2126,7 @@ argument_list|(
 literal|"Master has completed initialization"
 argument_list|)
 expr_stmt|;
-name|isInitialized
+name|initialized
 operator|=
 literal|true
 expr_stmt|;
@@ -5152,7 +5152,7 @@ name|isInitialized
 parameter_list|()
 block|{
 return|return
-name|isInitialized
+name|initialized
 return|;
 block|}
 end_function

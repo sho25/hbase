@@ -420,10 +420,25 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Master="
+operator|+
+name|this
+operator|.
+name|address
+argument_list|)
+expr_stmt|;
 return|return
 name|cleanSetOfActiveMaster
 return|;
 block|}
+name|cleanSetOfActiveMaster
+operator|=
+literal|false
+expr_stmt|;
 comment|// There is another active master running elsewhere or this is a restart
 comment|// and the master ephemeral node has not expired yet.
 name|this
@@ -434,10 +449,6 @@ name|set
 argument_list|(
 literal|true
 argument_list|)
-expr_stmt|;
-name|cleanSetOfActiveMaster
-operator|=
-literal|false
 expr_stmt|;
 name|HServerAddress
 name|currentMaster

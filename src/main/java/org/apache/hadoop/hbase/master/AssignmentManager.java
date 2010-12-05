@@ -83,16 +83,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Iterator
 import|;
 end_import
@@ -458,6 +448,24 @@ operator|.
 name|executor
 operator|.
 name|RegionTransitionData
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|AssignmentManager
+operator|.
+name|RegionState
 import|;
 end_import
 
@@ -1656,6 +1664,31 @@ init|(
 name|regionsInTransition
 init|)
 block|{
+if|if
+condition|(
+name|data
+operator|==
+literal|null
+operator|||
+name|data
+operator|.
+name|getServerName
+argument_list|()
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unexpected NULL input "
+operator|+
+name|data
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 comment|// Verify this is a known server
 if|if
 condition|(
@@ -4684,6 +4717,7 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+comment|// This never happens. Currently regionserver close always return true.
 name|LOG
 operator|.
 name|debug
@@ -4692,7 +4726,12 @@ literal|"Server "
 operator|+
 name|server
 operator|+
-literal|" region CLOSE RPC returned false"
+literal|" region CLOSE RPC returned false for "
+operator|+
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -4702,7 +4741,6 @@ name|NotServingRegionException
 name|nsre
 parameter_list|)
 block|{
-comment|// Failed to close, so pass through and reassign
 name|LOG
 operator|.
 name|info
@@ -4723,6 +4761,10 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Presume that master has stale data.  Presume remote side just split.
+comment|// Presume that the split message when it comes in will fix up the master's
+comment|// in memory cluster state.
+return|return;
 block|}
 catch|catch
 parameter_list|(
@@ -4730,23 +4772,22 @@ name|ConnectException
 name|e
 parameter_list|)
 block|{
-comment|// Failed to connect, so pass through and reassign
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Server "
+literal|"Failed connect to "
 operator|+
 name|server
 operator|+
-literal|" returned "
+literal|", message="
 operator|+
 name|e
 operator|.
 name|getMessage
 argument_list|()
 operator|+
-literal|" for "
+literal|", region="
 operator|+
 name|region
 operator|.
@@ -4754,6 +4795,8 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Presume that regionserver just failed and we haven't got expired
+comment|// server from zk yet.  Let expired server deal with clean up.
 block|}
 catch|catch
 parameter_list|(
@@ -4765,7 +4808,6 @@ name|SocketTimeoutException
 name|e
 parameter_list|)
 block|{
-comment|// Failed to connect, so pass through and reassign
 name|LOG
 operator|.
 name|info
@@ -4780,8 +4822,16 @@ name|e
 operator|.
 name|getMessage
 argument_list|()
+operator|+
+literal|" for "
+operator|+
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Presume retry or server will expire.
 block|}
 catch|catch
 parameter_list|(
@@ -4789,12 +4839,17 @@ name|RemoteException
 name|re
 parameter_list|)
 block|{
-if|if
-condition|(
+name|IOException
+name|ioe
+init|=
 name|re
 operator|.
 name|unwrapRemoteException
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|ioe
 operator|instanceof
 name|NotServingRegionException
 condition|)
@@ -4808,7 +4863,16 @@ literal|"Server "
 operator|+
 name|server
 operator|+
-literal|" returned NotServingRegionException"
+literal|" returned "
+operator|+
+name|ioe
+operator|+
+literal|" for "
+operator|+
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -4822,10 +4886,7 @@ name|abort
 argument_list|(
 literal|"Remote unexpected exception"
 argument_list|,
-name|re
-operator|.
-name|unwrapRemoteException
-argument_list|()
+name|ioe
 argument_list|)
 expr_stmt|;
 block|}
@@ -4850,7 +4911,6 @@ name|t
 argument_list|)
 expr_stmt|;
 block|}
-comment|/* This looks way wrong at least for the case where close failed because      * it was being concurrently split.  It also looks wrong for case where      * we cannot connect to remote server.  In that case, let the server      * expiration do the fixup.  I'm leaving this code here commented out for      * the moment in case I've missed something and this code is actually needed.      * St.Ack 12/04/2010.      *      // Did not CLOSE, so set region offline and assign it     LOG.debug("Attempted to send CLOSE to " + server +       " for region " + region.getRegionNameAsString() + " but failed, " +       "setting region as OFFLINE and reassigning");     synchronized (regionsInTransition) {       forceRegionStateToOffline(region);     }     assign(region, true);     */
 block|}
 comment|/**    * Waits until the specified region has completed assignment.    *<p>    * If the region is already assigned, returns immediately.  Otherwise, method    * blocks until the region is assigned.    * @param regionInfo region to wait on assignment for    * @throws InterruptedException    */
 specifier|public
@@ -6760,6 +6820,11 @@ argument_list|,
 name|regionInfo
 operator|.
 name|getRegionName
+argument_list|()
+argument_list|,
+name|master
+operator|.
+name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;

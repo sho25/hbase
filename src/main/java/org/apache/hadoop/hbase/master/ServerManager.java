@@ -2322,23 +2322,13 @@ name|server
 operator|==
 literal|null
 condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+throw|throw
+operator|new
+name|NullPointerException
 argument_list|(
-literal|"Unable to send region close because server is null; region="
-operator|+
-name|region
-operator|.
-name|getRegionNameAsString
-argument_list|()
+literal|"Passed server is null"
 argument_list|)
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
+throw|;
 name|HRegionInterface
 name|hri
 init|=
@@ -2354,9 +2344,9 @@ operator|==
 literal|null
 condition|)
 block|{
-name|LOG
-operator|.
-name|warn
+throw|throw
+operator|new
+name|IOException
 argument_list|(
 literal|"Attempting to send CLOSE RPC to server "
 operator|+
@@ -2374,10 +2364,7 @@ argument_list|()
 operator|+
 literal|" failed because no RPC connection found to this server"
 argument_list|)
-expr_stmt|;
-return|return
-literal|false
-return|;
+throw|;
 block|}
 return|return
 name|hri
