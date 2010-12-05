@@ -572,7 +572,6 @@ specifier|protected
 name|long
 name|ttl
 decl_stmt|;
-specifier|private
 name|long
 name|majorCompactionTime
 decl_stmt|;
@@ -1128,7 +1127,9 @@ name|getLong
 argument_list|(
 literal|"hbase.hstore.compaction.max.size"
 argument_list|,
-literal|0
+name|Long
+operator|.
+name|MAX_VALUE
 argument_list|)
 expr_stmt|;
 name|this
@@ -3831,53 +3832,34 @@ argument_list|(
 name|candidates
 argument_list|)
 decl_stmt|;
-comment|// Do not compact files above a configurable max filesize unless they are
-comment|// references. We MUST compact these
 if|if
 condition|(
-name|this
-operator|.
-name|maxCompactSize
-operator|>
-literal|0
+operator|!
+name|forcemajor
 condition|)
 block|{
-specifier|final
-name|long
-name|msize
+comment|// do not compact old files above a configurable threshold
+comment|// save all references. we MUST compact them
+name|int
+name|pos
 init|=
-name|this
-operator|.
-name|maxCompactSize
+literal|0
 decl_stmt|;
+while|while
+condition|(
+name|pos
+operator|<
 name|filesToCompact
 operator|.
-name|removeAll
-argument_list|(
-name|Collections2
-operator|.
-name|filter
-argument_list|(
-name|filesToCompact
-argument_list|,
-operator|new
-name|Predicate
-argument_list|<
-name|StoreFile
-argument_list|>
+name|size
 argument_list|()
-block|{
-specifier|public
-name|boolean
-name|apply
-parameter_list|(
-name|StoreFile
-name|sf
-parameter_list|)
-block|{
-comment|// NOTE: keep all references. we must compact them
-return|return
-name|sf
+operator|&&
+name|filesToCompact
+operator|.
+name|get
+argument_list|(
+name|pos
+argument_list|)
 operator|.
 name|getReader
 argument_list|()
@@ -3885,41 +3867,56 @@ operator|.
 name|length
 argument_list|()
 operator|>
-name|msize
+name|maxCompactSize
 operator|&&
 operator|!
-name|sf
+name|filesToCompact
+operator|.
+name|get
+argument_list|(
+name|pos
+argument_list|)
 operator|.
 name|isReference
 argument_list|()
-return|;
-block|}
-block|}
+condition|)
+operator|++
+name|pos
+expr_stmt|;
+name|filesToCompact
+operator|.
+name|subList
+argument_list|(
+literal|0
+argument_list|,
+name|pos
 argument_list|)
-argument_list|)
+operator|.
+name|clear
+argument_list|()
 expr_stmt|;
 block|}
 comment|// major compact on user action or age (caveat: we have too many files)
 name|boolean
 name|majorcompaction
 init|=
+operator|(
 name|forcemajor
 operator|||
-operator|(
 name|isMajorCompaction
 argument_list|(
 name|filesToCompact
 argument_list|)
+operator|)
 operator|&&
 name|filesToCompact
 operator|.
 name|size
 argument_list|()
-operator|>
+operator|<
 name|this
 operator|.
 name|maxFilesToCompact
-operator|)
 decl_stmt|;
 if|if
 condition|(
@@ -3969,38 +3966,7 @@ name|this
 operator|.
 name|compactRatio
 decl_stmt|;
-comment|// Sort files by size to correct when normal skew is altered by bulk load.
-comment|//
-comment|// So, technically, order is important for optimizations like the TimeStamp
-comment|// filter. However, realistically this isn't a problem because our normal
-comment|// skew always decreases in filesize over time.  The only place where our
-comment|// skew doesn't decrease is for files that have been recently flushed.
-comment|// However, all those will be unconditionally compacted because they will
-comment|// be lower than "hbase.hstore.compaction.min.size".
-comment|//
-comment|// The sorting is to handle an interesting issue that popped up for us
-comment|// during migration: we're bulk loading StoreFiles of extremely variable
-comment|// size (are we migrating 1k users or 10M?) and they will all appear at
-comment|// the end of the StoreFile list.  How do we determine when it is
-comment|// efficient to compact them?  The easiest option was to sort the compact
-comment|// list and handle bulk files by relative size instead of making some
-comment|// custom compaction selection algorithm just for bulk inclusion.  It
-comment|// seems like any other companies that will incrementally migrate data
-comment|// into HBase would hit the same issue.  Nicolas.
-comment|//
-name|Collections
-operator|.
-name|sort
-argument_list|(
-name|filesToCompact
-argument_list|,
-name|StoreFile
-operator|.
-name|Comparators
-operator|.
-name|FILE_SIZE
-argument_list|)
-expr_stmt|;
+comment|/* TODO: add sorting + unit test back in when HBASE-2856 is fixed        // Sort files by size to correct when normal skew is altered by bulk load.       Collections.sort(filesToCompact, StoreFile.Comparators.FILE_SIZE);        */
 comment|// get store file sizes for incremental compacting selection.
 name|int
 name|countOfFiles
