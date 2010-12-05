@@ -2861,7 +2861,14 @@ literal|"Chain of regions in table "
 operator|+
 name|tableName
 operator|+
-literal|" is broken."
+literal|" is broken; edges does not contain "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|last
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -2896,7 +2903,14 @@ literal|"Chain of regions in table "
 operator|+
 name|tableName
 operator|+
-literal|" has a cycle."
+literal|" has a cycle around "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|next
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return
@@ -2943,7 +2957,19 @@ literal|"Chain of regions in table "
 operator|+
 name|tableName
 operator|+
-literal|" contains less elements than are listed in META."
+literal|" contains less elements than are listed in META; visited="
+operator|+
+name|visited
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|", edges="
+operator|+
+name|edges
+operator|.
+name|size
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
