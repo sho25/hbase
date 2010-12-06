@@ -711,19 +711,12 @@ name|prefix
 decl_stmt|;
 specifier|private
 specifier|final
-name|AtomicInteger
-name|unflushedEntries
-init|=
-operator|new
-name|AtomicInteger
-argument_list|(
-literal|0
-argument_list|)
-decl_stmt|;
-specifier|private
-specifier|final
 name|Path
 name|oldLogDir
+decl_stmt|;
+specifier|private
+name|boolean
+name|logRollRequested
 decl_stmt|;
 specifier|private
 specifier|static
@@ -1006,6 +999,7 @@ argument_list|()
 decl_stmt|;
 comment|// We synchronize on updateLock to prevent updates and to prevent a log roll
 comment|// during an update
+comment|// locked during appends
 specifier|private
 specifier|final
 name|Object
@@ -1026,7 +1020,7 @@ specifier|final
 name|int
 name|maxLogs
 decl_stmt|;
-comment|/**    * Thread that handles group commit    */
+comment|/**    * Thread that handles optional sync'ing    */
 specifier|private
 specifier|final
 name|LogSyncer
@@ -2191,6 +2185,12 @@ name|set
 argument_list|(
 literal|0
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|logRollRequested
+operator|=
+literal|false
 expr_stmt|;
 block|}
 comment|// Tell our listeners that a new log was created
@@ -3843,13 +3843,6 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|unflushedEntries
-operator|.
-name|incrementAndGet
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
 name|numEntries
 operator|.
 name|incrementAndGet
@@ -4004,14 +3997,6 @@ operator|.
 name|incrementAndGet
 argument_list|()
 expr_stmt|;
-comment|// Only count 1 row as an unflushed entry.
-name|this
-operator|.
-name|unflushedEntries
-operator|.
-name|incrementAndGet
-argument_list|()
-expr_stmt|;
 block|}
 comment|// Sync if catalog region, and if not then check if that table supports
 comment|// deferred log flushing
@@ -4052,40 +4037,6 @@ name|LogSyncer
 extends|extends
 name|Thread
 block|{
-comment|// Using fairness to make sure locks are given in order
-specifier|private
-specifier|final
-name|ReentrantLock
-name|lock
-init|=
-operator|new
-name|ReentrantLock
-argument_list|(
-literal|true
-argument_list|)
-decl_stmt|;
-comment|// Condition used to wait until we have something to sync
-specifier|private
-specifier|final
-name|Condition
-name|queueEmpty
-init|=
-name|lock
-operator|.
-name|newCondition
-argument_list|()
-decl_stmt|;
-comment|// Condition used to signal that the sync is done
-specifier|private
-specifier|final
-name|Condition
-name|syncDone
-init|=
-name|lock
-operator|.
-name|newCondition
-argument_list|()
-decl_stmt|;
 specifier|private
 specifier|final
 name|long
@@ -4119,11 +4070,6 @@ parameter_list|()
 block|{
 try|try
 block|{
-name|lock
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
 comment|// awaiting with a timeout doesn't always
 comment|// throw exceptions on interrupt
 while|while
@@ -4135,45 +4081,16 @@ name|isInterrupted
 argument_list|()
 condition|)
 block|{
-comment|// Wait until something has to be hflushed or do it if we waited
-comment|// enough time (useful if something appends but does not hflush).
-comment|// 0 or less means that it timed out and maybe waited a bit more.
-if|if
-condition|(
-operator|!
-operator|(
-name|queueEmpty
+name|Thread
 operator|.
-name|awaitNanos
+name|sleep
 argument_list|(
 name|this
 operator|.
 name|optionalFlushInterval
-operator|*
-literal|1000000
 argument_list|)
-operator|<=
-literal|0
-operator|)
-condition|)
-block|{
-name|forceSync
-operator|=
-literal|true
 expr_stmt|;
-block|}
-comment|// We got the signal, let's hflush. We currently own the lock so new
-comment|// writes are waiting to acquire it in addToSyncQueue while the ones
-comment|// we hflush are waiting on await()
-name|hflush
-argument_list|()
-expr_stmt|;
-comment|// Release all the clients waiting on the hflush. Notice that we still
-comment|// own the lock until we get back to await at which point all the
-comment|// other threads waiting will first acquire and release locks
-name|syncDone
-operator|.
-name|signalAll
+name|sync
 argument_list|()
 expr_stmt|;
 block|}
@@ -4220,16 +4137,6 @@ name|syncerShuttingDown
 operator|=
 literal|true
 expr_stmt|;
-name|syncDone
-operator|.
-name|signalAll
-argument_list|()
-expr_stmt|;
-name|lock
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -4242,103 +4149,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**      * This method first signals the thread that there's a sync needed      * and then waits for it to happen before returning.      */
-specifier|public
-name|void
-name|addToSyncQueue
-parameter_list|(
-name|boolean
-name|force
-parameter_list|)
-block|{
-comment|// Don't bother if somehow our append was already hflushed
-if|if
-condition|(
-name|unflushedEntries
-operator|.
-name|get
-argument_list|()
-operator|==
-literal|0
-condition|)
-block|{
-return|return;
-block|}
-name|lock
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
-try|try
-block|{
-if|if
-condition|(
-name|syncerShuttingDown
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-name|getName
-argument_list|()
-operator|+
-literal|" was shut down while waiting for sync"
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
-if|if
-condition|(
-name|force
-condition|)
-block|{
-name|forceSync
-operator|=
-literal|true
-expr_stmt|;
-block|}
-comment|// Wake the thread
-name|queueEmpty
-operator|.
-name|signal
-argument_list|()
-expr_stmt|;
-comment|// Wait for it to hflush
-name|syncDone
-operator|.
-name|await
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-name|getName
-argument_list|()
-operator|+
-literal|" was interrupted while waiting for sync"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|lock
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
-block|}
-block|}
 block|}
 end_class
 
@@ -4346,43 +4156,6 @@ begin_function
 specifier|public
 name|void
 name|sync
-parameter_list|()
-block|{
-name|sync
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
-block|}
-end_function
-
-begin_comment
-comment|/**    * This method calls the LogSyncer in order to group commit the sync    * with other threads.    * @param force For catalog regions, force the sync to happen    */
-end_comment
-
-begin_function
-specifier|public
-name|void
-name|sync
-parameter_list|(
-name|boolean
-name|force
-parameter_list|)
-block|{
-name|logSyncerThread
-operator|.
-name|addToSyncQueue
-argument_list|(
-name|force
-argument_list|)
-expr_stmt|;
-block|}
-end_function
-
-begin_function
-specifier|public
-name|void
-name|hflush
 parameter_list|()
 throws|throws
 name|IOException
@@ -4403,29 +4176,7 @@ condition|)
 block|{
 return|return;
 block|}
-name|boolean
-name|logRollRequested
-init|=
-literal|false
-decl_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|forceSync
-operator|||
-name|this
-operator|.
-name|unflushedEntries
-operator|.
-name|get
-argument_list|()
-operator|>=
-name|this
-operator|.
-name|flushlogentries
-condition|)
-block|{
+block|}
 try|try
 block|{
 name|long
@@ -4436,6 +4187,7 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
+comment|// Done in parallel for all writer threads, thanks to HDFS-895
 name|this
 operator|.
 name|writer
@@ -4443,6 +4195,13 @@ operator|.
 name|sync
 argument_list|()
 expr_stmt|;
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|updateLock
+init|)
+block|{
 name|syncTime
 operator|+=
 name|System
@@ -4455,21 +4214,67 @@ expr_stmt|;
 name|syncOps
 operator|++
 expr_stmt|;
-name|this
-operator|.
-name|forceSync
-operator|=
-literal|false
+if|if
+condition|(
+operator|!
+name|logRollRequested
+condition|)
+block|{
+name|checkLowReplication
+argument_list|()
 expr_stmt|;
+if|if
+condition|(
 name|this
 operator|.
-name|unflushedEntries
+name|writer
 operator|.
-name|set
+name|getLength
+argument_list|()
+operator|>
+name|this
+operator|.
+name|logrollsize
+condition|)
+block|{
+name|requestLogRoll
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|fatal
 argument_list|(
-literal|0
+literal|"Could not append. Requesting close of hlog"
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
+name|requestLogRoll
+argument_list|()
+expr_stmt|;
+throw|throw
+name|e
+throw|;
+block|}
+block|}
+end_function
+
+begin_function
+specifier|private
+name|void
+name|checkLowReplication
+parameter_list|()
+block|{
 comment|// if the number of replicas in HDFS has fallen below the initial
 comment|// value, then roll logs.
 try|try
@@ -4540,54 +4345,6 @@ operator|+
 literal|" still proceeding ahead..."
 argument_list|)
 expr_stmt|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|fatal
-argument_list|(
-literal|"Could not append. Requesting close of hlog"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-name|requestLogRoll
-argument_list|()
-expr_stmt|;
-throw|throw
-name|e
-throw|;
-block|}
-block|}
-if|if
-condition|(
-operator|!
-name|logRollRequested
-operator|&&
-operator|(
-name|this
-operator|.
-name|writer
-operator|.
-name|getLength
-argument_list|()
-operator|>
-name|this
-operator|.
-name|logrollsize
-operator|)
-condition|)
-block|{
-name|requestLogRoll
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 block|}
 end_function
@@ -4688,7 +4445,7 @@ throws|throws
 name|IOException
 block|{
 comment|// Not yet implemented up in hdfs so just call hflush.
-name|hflush
+name|sync
 argument_list|()
 expr_stmt|;
 block|}
@@ -5163,9 +4920,7 @@ comment|// sync txn to file system
 name|this
 operator|.
 name|sync
-argument_list|(
-name|isMetaRegion
-argument_list|)
+argument_list|()
 expr_stmt|;
 block|}
 finally|finally

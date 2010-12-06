@@ -2598,9 +2598,7 @@ comment|// Now call sync to send the data to HDFS datanodes
 name|wal
 operator|.
 name|sync
-argument_list|(
-literal|true
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|int
 name|namenodePort
