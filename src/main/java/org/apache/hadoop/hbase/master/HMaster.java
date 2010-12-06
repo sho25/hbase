@@ -3418,15 +3418,15 @@ operator|.
 name|debug
 argument_list|(
 literal|"Not running balancer because processing dead regionserver(s): "
-argument_list|;
+operator|+
 name|this
 operator|.
 name|serverManager
 operator|.
 name|getDeadServers
 argument_list|()
-block|)
-empty_stmt|;
+argument_list|)
+expr_stmt|;
 return|return
 literal|false
 return|;
@@ -3565,16 +3565,14 @@ expr_stmt|;
 block|}
 block|}
 block|}
-end_function
-
-begin_return
 return|return
 literal|true
 return|;
-end_return
+block|}
+end_function
 
 begin_function
-unit|}    @
+annotation|@
 name|Override
 specifier|public
 name|boolean
