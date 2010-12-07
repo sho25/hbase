@@ -4764,7 +4764,7 @@ literal|1
 operator|)
 return|;
 block|}
-comment|/**    * Bytewise binary increment/deincrement of long contained in byte array    * on given amount.    *    * @param value - array of bytes containing long (length<= SIZEOF_LONG)    * @param amount value will be incremented on (deincremented if negative)    * @return array of bytes containing incremented long (length == SIZEOF_LONG)    * @throws IOException - if value.length> SIZEOF_LONG    */
+comment|/**    * Bytewise binary increment/deincrement of long contained in byte array    * on given amount.    *    * @param value - array of bytes containing long (length<= SIZEOF_LONG)    * @param amount value will be incremented on (deincremented if negative)    * @return array of bytes containing incremented long (length == SIZEOF_LONG)    */
 specifier|public
 specifier|static
 name|byte
@@ -4778,8 +4778,6 @@ parameter_list|,
 name|long
 name|amount
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|byte
 index|[]
