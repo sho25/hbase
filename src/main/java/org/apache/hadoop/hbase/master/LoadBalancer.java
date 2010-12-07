@@ -1122,6 +1122,13 @@ operator|.
 name|getNumberOfRegions
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|regionCount
+operator|>=
+name|min
+condition|)
+break|break;
 name|BalanceInfo
 name|balanceInfo
 init|=
@@ -1157,7 +1164,7 @@ operator|>=
 name|min
 condition|)
 block|{
-break|break;
+continue|continue;
 block|}
 name|int
 name|numToTake
