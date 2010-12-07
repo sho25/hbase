@@ -914,6 +914,22 @@ name|Exception
 block|{
 try|try
 block|{
+comment|// We set it not to run or it will trigger server shutdown while sync'ing
+comment|// because all the datanodes are bad
+name|util
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.regionserver.optionallogflushinterval"
+argument_list|,
+name|Integer
+operator|.
+name|MAX_VALUE
+argument_list|)
+expr_stmt|;
 name|util
 operator|.
 name|startMiniCluster
