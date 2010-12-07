@@ -4348,6 +4348,11 @@ literal|null
 operator|||
 name|forceNewPlan
 operator|||
+operator|(
+name|existingPlan
+operator|!=
+literal|null
+operator|&&
 name|existingPlan
 operator|.
 name|getDestination
@@ -4357,6 +4362,7 @@ name|equals
 argument_list|(
 name|serverToExclude
 argument_list|)
+operator|)
 condition|)
 block|{
 name|newPlan
