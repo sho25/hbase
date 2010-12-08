@@ -1914,9 +1914,12 @@ name|MERGEDIR
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// See if region is meant to run read-only.
-if|if
-condition|(
+name|this
+operator|.
+name|writestate
+operator|.
+name|setReadOnly
+argument_list|(
 name|this
 operator|.
 name|regionInfo
@@ -1926,18 +1929,8 @@ argument_list|()
 operator|.
 name|isReadOnly
 argument_list|()
-condition|)
-block|{
-name|this
-operator|.
-name|writestate
-operator|.
-name|setReadOnly
-argument_list|(
-literal|true
 argument_list|)
 expr_stmt|;
-block|}
 name|this
 operator|.
 name|writestate
