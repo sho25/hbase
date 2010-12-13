@@ -488,13 +488,6 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
-name|this
-operator|.
-name|zkHelper
-operator|.
-name|deleteOwnRSZNode
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 comment|/**    * Carry on the list of log entries down to the sink    * @param entries list of entries to replicate    * @throws IOException    */
