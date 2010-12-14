@@ -311,6 +311,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|AssignmentManager
+operator|.
+name|RegionState
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Pair
@@ -575,7 +593,7 @@ comment|// OFFLINE? -- and then others after like CLOSING that depend on log
 comment|// splitting.
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionState
 argument_list|>
 name|regionsInTransition
 init|=
@@ -757,26 +775,47 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Remove regions that were in transition
+comment|// Skip regions that were in transition unless CLOSING or PENDING_CLOSE
 for|for
 control|(
-name|HRegionInfo
+name|RegionState
 name|rit
 range|:
 name|regionsInTransition
 control|)
+block|{
+if|if
+condition|(
+operator|!
+name|rit
+operator|.
+name|isClosing
+argument_list|()
+operator|&&
+operator|!
+name|rit
+operator|.
+name|isPendingClose
+argument_list|()
+condition|)
+block|{
 name|hris
 operator|.
 name|remove
 argument_list|(
 name|rit
+operator|.
+name|getRegion
+argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+block|}
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Reassigning the "
+literal|"Reassigning "
 operator|+
 name|hris
 operator|.
@@ -794,7 +833,7 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|" regions(s) that are in transition)"
+literal|" regions(s) that are already in transition)"
 argument_list|)
 expr_stmt|;
 comment|// Iterate regions that were on this server and assign them

@@ -7234,11 +7234,11 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Process shutdown server removing any assignments.    * @param hsi Server that went down.    * @return set of regions on this server that are not in transition    */
+comment|/**    * Process shutdown server removing any assignments.    * @param hsi Server that went down.    * @return list of regions in transition on this server    */
 specifier|public
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionState
 argument_list|>
 name|processServerShutdown
 parameter_list|(
@@ -7340,14 +7340,14 @@ literal|null
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionState
 argument_list|>
 name|rits
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|HRegionInfo
+name|RegionState
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -7459,9 +7459,6 @@ operator|.
 name|add
 argument_list|(
 name|region
-operator|.
-name|getRegion
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
