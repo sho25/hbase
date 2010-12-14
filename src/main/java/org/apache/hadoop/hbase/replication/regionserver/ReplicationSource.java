@@ -3172,6 +3172,24 @@ condition|)
 block|{
 name|LOG
 operator|.
+name|info
+argument_list|(
+literal|"Closing source "
+operator|+
+name|this
+operator|.
+name|peerClusterZnode
+operator|+
+literal|" because: "
+operator|+
+name|reason
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
 name|error
 argument_list|(
 literal|"Closing source "
@@ -3185,24 +3203,6 @@ operator|+
 name|reason
 argument_list|,
 name|cause
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Closing source "
-operator|+
-name|this
-operator|.
-name|peerClusterZnode
-operator|+
-literal|" because: "
-operator|+
-name|reason
 argument_list|)
 expr_stmt|;
 block|}
