@@ -570,6 +570,23 @@ control|)
 block|{
 if|if
 condition|(
+name|logCleaner
+operator|.
+name|isStopped
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"A log cleaner is stopped, won't delete any log."
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+if|if
+condition|(
 operator|!
 name|logCleaner
 operator|.
