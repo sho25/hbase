@@ -867,6 +867,22 @@ literal|null
 decl_stmt|;
 try|try
 block|{
+name|Configuration
+name|conf
+init|=
+name|getConf
+argument_list|()
+decl_stmt|;
+comment|// Don't try more than once
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.client.retries.number"
+argument_list|,
+literal|1
+argument_list|)
+expr_stmt|;
 name|adm
 operator|=
 operator|new

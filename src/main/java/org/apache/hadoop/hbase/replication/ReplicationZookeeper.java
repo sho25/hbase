@@ -2904,6 +2904,18 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
+comment|// if the znode is already expired, don't bother going further
+if|if
+condition|(
+name|e
+operator|instanceof
+name|KeeperException
+operator|.
+name|SessionExpiredException
+condition|)
+block|{
+return|return;
+block|}
 name|this
 operator|.
 name|abortable
