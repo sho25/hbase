@@ -63,7 +63,27 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
 import|;
 end_import
 
@@ -84,26 +104,6 @@ operator|.
 name|util
 operator|.
 name|TreeSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|HashSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Set
 import|;
 end_import
 
@@ -403,7 +403,39 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|HConnectionManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|MetaScanner
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Result
 import|;
 end_import
 
@@ -422,22 +454,6 @@ operator|.
 name|MetaScanner
 operator|.
 name|MetaScannerVisitor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Result
 import|;
 end_import
 
@@ -485,9 +501,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|zookeeper
 operator|.
-name|Bytes
+name|ZKTable
 import|;
 end_import
 
@@ -501,9 +517,21 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|zookeeper
 operator|.
-name|Writables
+name|ZooKeeperWatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|KeeperException
 import|;
 end_import
 
@@ -536,7 +564,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Check consistency among the in-memory states of the master and the   * region server(s) and the state of data in HDFS.  */
+comment|/**  * Check consistency among the in-memory states of the master and the  * region server(s) and the state of data in HDFS.  */
 end_comment
 
 begin_class
@@ -618,6 +646,26 @@ argument_list|,
 name|TInfo
 argument_list|>
 argument_list|()
+decl_stmt|;
+specifier|private
+name|TreeSet
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|disabledTables
+init|=
+operator|new
+name|TreeSet
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+argument_list|(
+name|Bytes
+operator|.
+name|BYTES_COMPARATOR
+argument_list|)
 decl_stmt|;
 name|ErrorReporter
 name|errors
@@ -725,12 +773,16 @@ name|getConnection
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Contacts the master and prints out cluster-wide information    * @throws IOException if a remote or network exception occurs    * @return 0 on success, non-zero on failure    */
+comment|/**    * Contacts the master and prints out cluster-wide information    * @throws IOException if a remote or network exception occurs    * @return 0 on success, non-zero on failure    * @throws KeeperException    * @throws InterruptedException    */
 name|int
 name|doWork
 parameter_list|()
 throws|throws
 name|IOException
+throws|,
+name|KeeperException
+throws|,
+name|InterruptedException
 block|{
 comment|// print hbase server version
 name|errors
@@ -757,6 +809,11 @@ name|clear
 argument_list|()
 expr_stmt|;
 name|emptyRegionInfoQualifiers
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+name|disabledTables
 operator|.
 name|clear
 argument_list|()
@@ -1085,6 +1142,10 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// Get disabled tables from ZooKeeper
+name|loadDisabledTables
+argument_list|()
+expr_stmt|;
 comment|// Check consistency
 name|checkConsistency
 argument_list|()
@@ -1102,6 +1163,82 @@ name|errors
 operator|.
 name|summarize
 argument_list|()
+return|;
+block|}
+comment|/**    * Load the list of disabled tables in ZK into local set.    * @throws ZooKeeperConnectionException    * @throws IOException    * @throws KeeperException    */
+specifier|private
+name|void
+name|loadDisabledTables
+parameter_list|()
+throws|throws
+name|ZooKeeperConnectionException
+throws|,
+name|IOException
+throws|,
+name|KeeperException
+block|{
+name|ZooKeeperWatcher
+name|zkw
+init|=
+name|HConnectionManager
+operator|.
+name|getConnection
+argument_list|(
+name|conf
+argument_list|)
+operator|.
+name|getZooKeeperWatcher
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|String
+name|tableName
+range|:
+name|ZKTable
+operator|.
+name|getDisabledOrDisablingTables
+argument_list|(
+name|zkw
+argument_list|)
+control|)
+block|{
+name|disabledTables
+operator|.
+name|add
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|/**    * Check if the specified region's table is disabled.    * @throws ZooKeeperConnectionException    * @throws IOException    * @throws KeeperException    */
+specifier|private
+name|boolean
+name|isTableDisabled
+parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|)
+block|{
+return|return
+name|disabledTables
+operator|.
+name|contains
+argument_list|(
+name|regionInfo
+operator|.
+name|getTableDesc
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
 return|;
 block|}
 comment|/**    * Scan HDFS for all regions, recording their information into    * regionInfo    */
@@ -1735,12 +1872,16 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Check consistency of all regions that have been found in previous phases.    */
+comment|/**    * Check consistency of all regions that have been found in previous phases.    * @throws KeeperException    * @throws InterruptedException    */
 name|void
 name|checkConsistency
 parameter_list|()
 throws|throws
 name|IOException
+throws|,
+name|KeeperException
+throws|,
+name|InterruptedException
 block|{
 for|for
 control|(
@@ -1779,7 +1920,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Check a single region for consistency and correct deployment.    */
+comment|/**    * Check a single region for consistency and correct deployment.    * @throws KeeperException    * @throws InterruptedException    */
 name|void
 name|doConsistencyCheck
 parameter_list|(
@@ -1793,6 +1934,10 @@ name|hbi
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|KeeperException
+throws|,
+name|InterruptedException
 block|{
 name|String
 name|descriptiveName
@@ -1890,12 +2035,12 @@ init|=
 name|inMeta
 operator|&&
 operator|!
+name|isTableDisabled
+argument_list|(
 name|hbi
 operator|.
 name|metaEntry
-operator|.
-name|isOffline
-argument_list|()
+argument_list|)
 decl_stmt|;
 name|boolean
 name|recentlyModified
@@ -2988,7 +3133,7 @@ block|}
 comment|// How did we get here?
 block|}
 block|}
-comment|/**    * Return a list of user-space table names whose metadata have not been    * modified in the last few milliseconds specified by timelag    * if any of the REGIONINFO_QUALIFIER, SERVER_QUALIFIER, STARTCODE_QUALIFIER,     * SPLITA_QUALIFIER, SPLITB_QUALIFIER have not changed in the last     * milliseconds specified by timelag, then the table is a candidate to be returned.    * @param regionList - all entries found in .META    * @return tables that have not been modified recently    * @throws IOException if an error is encountered    */
+comment|/**    * Return a list of user-space table names whose metadata have not been    * modified in the last few milliseconds specified by timelag    * if any of the REGIONINFO_QUALIFIER, SERVER_QUALIFIER, STARTCODE_QUALIFIER,    * SPLITA_QUALIFIER, SPLITB_QUALIFIER have not changed in the last    * milliseconds specified by timelag, then the table is a candidate to be returned.    * @param regionList - all entries found in .META    * @return tables that have not been modified recently    * @throws IOException if an error is encountered    */
 name|HTableDescriptor
 index|[]
 name|getTables
@@ -3157,12 +3302,16 @@ return|return
 name|hbi
 return|;
 block|}
-comment|/**     * Check values in regionInfo for .META.     * Check if zero or more than one regions with META are found.     * If there are inconsistencies (i.e. zero or more than one regions     * pretend to be holding the .META.) try to fix that and report an error.     * @throws IOException from HBaseFsckRepair functions     */
+comment|/**     * Check values in regionInfo for .META.     * Check if zero or more than one regions with META are found.     * If there are inconsistencies (i.e. zero or more than one regions     * pretend to be holding the .META.) try to fix that and report an error.     * @throws IOException from HBaseFsckRepair functions    * @throws KeeperException    * @throws InterruptedException     */
 name|boolean
 name|checkMetaEntries
 parameter_list|()
 throws|throws
 name|IOException
+throws|,
+name|KeeperException
+throws|,
+name|InterruptedException
 block|{
 name|List
 argument_list|<
@@ -4427,7 +4576,7 @@ literal|2
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Main program    * @param args    */
+comment|/**    * Main program    * @param args    * @throws Exception    */
 specifier|public
 specifier|static
 name|void
@@ -4438,9 +4587,7 @@ index|[]
 name|args
 parameter_list|)
 throws|throws
-name|IOException
-throws|,
-name|MasterNotRunningException
+name|Exception
 block|{
 comment|// create a fsck object
 name|Configuration

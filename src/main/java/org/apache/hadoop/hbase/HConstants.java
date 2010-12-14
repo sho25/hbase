@@ -881,6 +881,15 @@ name|REPLICATION_ENABLE_KEY
 init|=
 literal|"hbase.replication"
 decl_stmt|;
+comment|/** HBCK special code name used as server name when manipulating ZK nodes */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBCK_CODE_NAME
+init|=
+literal|"HBCKServerName"
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()

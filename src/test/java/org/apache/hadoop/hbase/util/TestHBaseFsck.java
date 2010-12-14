@@ -18,12 +18,14 @@ package|;
 end_package
 
 begin_import
-import|import
-name|java
+import|import static
+name|org
 operator|.
-name|io
+name|junit
 operator|.
-name|IOException
+name|Assert
+operator|.
+name|assertEquals
 import|;
 end_import
 
@@ -225,18 +227,6 @@ name|Test
 import|;
 end_import
 
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
 begin_class
 specifier|public
 class|class
@@ -328,7 +318,7 @@ name|void
 name|testHBaseFsck
 parameter_list|()
 throws|throws
-name|IOException
+name|Exception
 block|{
 name|HBaseFsck
 name|fsck
@@ -581,6 +571,13 @@ operator|-
 literal|1
 argument_list|,
 name|result
+argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|15000
 argument_list|)
 expr_stmt|;
 comment|// Disabled, won't work because the region stays unassigned, see HBASE-3217
