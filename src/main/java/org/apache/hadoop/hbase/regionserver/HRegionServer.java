@@ -6088,15 +6088,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|listeners
-operator|=
-operator|new
-name|ArrayList
-argument_list|<
-name|WALObserver
-argument_list|>
-argument_list|()
-expr_stmt|;
 comment|// Replication handler is an implementation of WALActionsListener.
 name|listeners
 operator|.

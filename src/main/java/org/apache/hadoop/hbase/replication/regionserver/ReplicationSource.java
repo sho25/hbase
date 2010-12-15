@@ -3051,12 +3051,18 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
-name|this
+name|LOG
 operator|.
-name|terminate
+name|info
 argument_list|(
 literal|"Finished recovering the queue"
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|running
+operator|=
+literal|false
 expr_stmt|;
 return|return
 literal|true
