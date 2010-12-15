@@ -287,6 +287,7 @@ specifier|final
 name|CoprocessorEnvironment
 name|e
 parameter_list|,
+specifier|final
 name|Map
 argument_list|<
 name|byte
@@ -298,7 +299,13 @@ name|KeyValue
 argument_list|>
 argument_list|>
 name|familyMap
+parameter_list|,
+specifier|final
+name|boolean
+name|writeToWAL
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|id
 operator|=
@@ -345,6 +352,7 @@ specifier|final
 name|CoprocessorEnvironment
 name|e
 parameter_list|,
+specifier|final
 name|Map
 argument_list|<
 name|byte
@@ -356,7 +364,13 @@ name|KeyValue
 argument_list|>
 argument_list|>
 name|familyMap
+parameter_list|,
+specifier|final
+name|boolean
+name|writeToWAL
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|id
 operator|=
@@ -403,6 +417,7 @@ specifier|final
 name|CoprocessorEnvironment
 name|e
 parameter_list|,
+specifier|final
 name|Map
 argument_list|<
 name|byte
@@ -414,7 +429,13 @@ name|KeyValue
 argument_list|>
 argument_list|>
 name|familyMap
+parameter_list|,
+specifier|final
+name|boolean
+name|writeToWAL
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|id
 operator|=
