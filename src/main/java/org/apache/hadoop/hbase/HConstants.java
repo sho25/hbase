@@ -890,6 +890,14 @@ name|HBCK_CODE_NAME
 init|=
 literal|"HBCKServerName"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_MASTER_LOGCLEANER_PLUGINS
+init|=
+literal|"hbase.master.logcleaner.plugins"
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()

@@ -191,6 +191,22 @@ name|HLog
 import|;
 end_import
 
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
+name|HBASE_MASTER_LOGCLEANER_PLUGINS
+import|;
+end_import
+
 begin_comment
 comment|/**  * This Chore, everytime it runs, will clear the wal logs in the old logs folder  * that are deletable for each log cleaner in the chain, in order to limit the  * number of deletes it sends, will only delete maximum 20 in a single run.  */
 end_comment
@@ -339,7 +355,7 @@ name|conf
 operator|.
 name|getStrings
 argument_list|(
-literal|"hbase.master.logcleaner.plugins"
+name|HBASE_MASTER_LOGCLEANER_PLUGINS
 argument_list|)
 decl_stmt|;
 if|if
