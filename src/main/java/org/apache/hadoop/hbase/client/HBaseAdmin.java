@@ -3720,7 +3720,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Split a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table to region to split    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
+comment|/**    * Split a table or an individual region.  Implicitly finds an optimal split    * point.  Asynchronous operation.    *    * @param tableNameOrRegionName table to region to split    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
 specifier|public
 name|void
 name|split
@@ -3729,6 +3729,34 @@ specifier|final
 name|byte
 index|[]
 name|tableNameOrRegionName
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+block|{
+name|split
+argument_list|(
+name|tableNameOrRegionName
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Split a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table to region to split    * @param splitPoint the explicit position to split on    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException interrupt exception occurred    */
+specifier|public
+name|void
+name|split
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|tableNameOrRegionName
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|splitPoint
 parameter_list|)
 throws|throws
 name|IOException
@@ -3816,6 +3844,8 @@ name|pair
 operator|.
 name|getFirst
 argument_list|()
+argument_list|,
+name|splitPoint
 argument_list|)
 expr_stmt|;
 block|}
@@ -3872,6 +3902,34 @@ operator|==
 literal|null
 condition|)
 continue|continue;
+if|if
+condition|(
+name|splitPoint
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// if a split point given, only split that particular region
+name|HRegionInfo
+name|r
+init|=
+name|pair
+operator|.
+name|getFirst
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|r
+operator|.
+name|containsRow
+argument_list|(
+name|splitPoint
+argument_list|)
+condition|)
+continue|continue;
+block|}
 name|split
 argument_list|(
 name|pair
@@ -3883,6 +3941,8 @@ name|pair
 operator|.
 name|getFirst
 argument_list|()
+argument_list|,
+name|splitPoint
 argument_list|)
 expr_stmt|;
 block|}
@@ -3908,6 +3968,10 @@ parameter_list|,
 specifier|final
 name|HRegionInfo
 name|hri
+parameter_list|,
+name|byte
+index|[]
+name|splitPoint
 parameter_list|)
 throws|throws
 name|IOException
@@ -3929,6 +3993,8 @@ operator|.
 name|splitRegion
 argument_list|(
 name|hri
+argument_list|,
+name|splitPoint
 argument_list|)
 expr_stmt|;
 block|}

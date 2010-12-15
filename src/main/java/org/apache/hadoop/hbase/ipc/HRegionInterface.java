@@ -870,6 +870,22 @@ name|NotServingRegionException
 throws|,
 name|IOException
 function_decl|;
+comment|/**    * Splits the specified region.    *<p>    * This method currently flushes the region and then forces a compaction which    * will then trigger a split.  The flush is done synchronously but the    * compaction is asynchronous.    * @param regionInfo region to split    * @param splitPoint the explicit row to split on    * @throws NotServingRegionException    * @throws IOException    */
+name|void
+name|splitRegion
+parameter_list|(
+name|HRegionInfo
+name|regionInfo
+parameter_list|,
+name|byte
+index|[]
+name|splitPoint
+parameter_list|)
+throws|throws
+name|NotServingRegionException
+throws|,
+name|IOException
+function_decl|;
 comment|/**    * Compacts the specified region.  Performs a major compaction if specified.    *<p>    * This method is asynchronous.    * @param regionInfo region to compact    * @param major true to force major compaction    * @throws NotServingRegionException    * @throws IOException    */
 name|void
 name|compactRegion
