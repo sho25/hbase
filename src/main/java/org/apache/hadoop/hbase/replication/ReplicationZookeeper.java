@@ -2411,6 +2411,9 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+return|return
+literal|false
+return|;
 block|}
 return|return
 literal|true
