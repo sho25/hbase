@@ -392,6 +392,10 @@ name|curOps
 decl_stmt|;
 if|if
 condition|(
+name|curTime
+operator|==
+literal|0
+operator|||
 name|totalTime
 operator|/
 name|curTime
