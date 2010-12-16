@@ -51,6 +51,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|EOFException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|net
 operator|.
 name|ConnectException
@@ -5000,6 +5010,37 @@ operator|.
 name|net
 operator|.
 name|SocketTimeoutException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Server "
+operator|+
+name|server
+operator|+
+literal|" returned "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
+operator|+
+literal|" for "
+operator|+
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Presume retry or server will expire.
+block|}
+catch|catch
+parameter_list|(
+name|EOFException
 name|e
 parameter_list|)
 block|{
