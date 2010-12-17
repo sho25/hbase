@@ -842,6 +842,20 @@ operator|+
 literal|" because daughter splits no longer hold references"
 argument_list|)
 expr_stmt|;
+comment|// This latter regionOffline should not be necessary but is done for now
+comment|// until we let go of regionserver to master heartbeats.  See HBASE-3368.
+name|this
+operator|.
+name|services
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|regionOffline
+argument_list|(
+name|parent
+argument_list|)
+expr_stmt|;
 name|FileSystem
 name|fs
 init|=
