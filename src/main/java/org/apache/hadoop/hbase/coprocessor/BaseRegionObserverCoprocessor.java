@@ -207,6 +207,26 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|start
+parameter_list|(
+name|CoprocessorEnvironment
+name|e
+parameter_list|)
+block|{ }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|stop
+parameter_list|(
+name|CoprocessorEnvironment
+name|e
+parameter_list|)
+block|{ }
+annotation|@
+name|Override
+specifier|public
+name|void
 name|preOpen
 parameter_list|(
 name|CoprocessorEnvironment
