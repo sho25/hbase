@@ -1059,7 +1059,7 @@ name|Test
 argument_list|(
 name|expected
 operator|=
-name|IOException
+name|OrphanHLogAfterSplitException
 operator|.
 name|class
 argument_list|)

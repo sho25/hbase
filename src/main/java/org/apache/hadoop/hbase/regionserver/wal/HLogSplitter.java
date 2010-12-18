@@ -1427,9 +1427,9 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|OrphanHLogAfterSplitException
 argument_list|(
-literal|"Discovered orphan hlog after split. Maybe "
+literal|"Discovered orphan hlog after split. Maybe the "
 operator|+
 literal|"HRegionServer was not dead when we started"
 argument_list|)

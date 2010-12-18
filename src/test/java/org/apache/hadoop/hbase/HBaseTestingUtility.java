@@ -2399,6 +2399,15 @@ name|del
 argument_list|)
 expr_stmt|;
 block|}
+name|resScan
+operator|=
+name|table
+operator|.
+name|getScanner
+argument_list|(
+name|scan
+argument_list|)
+expr_stmt|;
 return|return
 name|table
 return|;

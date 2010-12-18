@@ -2256,6 +2256,17 @@ block|{
 comment|// We didn't find the log in the archive directory, look if it still
 comment|// exists in the dead RS folder (there could be a chain of failures
 comment|// to look at)
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"NB dead servers : "
+operator|+
+name|deadRegionServers
+operator|.
+name|length
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|int
@@ -2270,7 +2281,7 @@ operator|-
 literal|1
 init|;
 name|i
-operator|>
+operator|>=
 literal|0
 condition|;
 name|i
@@ -2283,11 +2294,12 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|this
-operator|.
 name|manager
 operator|.
 name|getLogDir
+argument_list|()
+operator|.
+name|getParent
 argument_list|()
 argument_list|,
 name|this
@@ -2312,6 +2324,21 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Possible location "
+operator|+
+name|possibleLogLocation
+operator|.
+name|toUri
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -2344,7 +2371,9 @@ name|possibleLogLocation
 argument_list|)
 expr_stmt|;
 comment|// Breaking here will make us sleep since reader is null
-break|break;
+return|return
+literal|true
+return|;
 block|}
 block|}
 comment|// TODO What happens if the log was missing from every single location?

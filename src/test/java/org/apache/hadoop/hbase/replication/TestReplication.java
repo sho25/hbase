@@ -383,6 +383,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|util
+operator|.
+name|JVMClusterUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|zookeeper
 operator|.
 name|MiniZooKeeperCluster
@@ -915,13 +931,6 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|table
-operator|.
-name|setDeferredLogFlush
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
 name|HColumnDescriptor
 name|fam
 init|=
@@ -1067,6 +1076,36 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+comment|// Starting and stopping replication can make us miss new logs,
+comment|// rolling like this makes sure the most recent one gets added to the queue
+for|for
+control|(
+name|JVMClusterUtil
+operator|.
+name|RegionServerThread
+name|r
+range|:
+name|utility1
+operator|.
+name|getHBaseCluster
+argument_list|()
+operator|.
+name|getRegionServerThreads
+argument_list|()
+control|)
+block|{
+name|r
+operator|.
+name|getRegionServer
+argument_list|()
+operator|.
+name|getWAL
+argument_list|()
+operator|.
+name|rollWriter
+argument_list|()
+expr_stmt|;
+block|}
 name|utility1
 operator|.
 name|truncateTable
@@ -1074,7 +1113,7 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-comment|// truncating the table will send on Delete per row to the slave cluster
+comment|// truncating the table will send one Delete per row to the slave cluster
 comment|// in an async fashion, which is why we cannot just call truncateTable on
 comment|// utility2 since late writes could make it to the slave in some way.
 comment|// Instead, we truncate the first table and wait for all the Deletes to
@@ -1170,6 +1209,12 @@ operator|--
 expr_stmt|;
 comment|// Don't increment timeout if we make progress
 block|}
+name|lastCount
+operator|=
+name|res
+operator|.
+name|length
+expr_stmt|;
 name|LOG
 operator|.
 name|info
