@@ -532,6 +532,66 @@ return|return
 name|result
 return|;
 block|}
+comment|/**    * Drop this instance's tablename byte array and instead    * hold a reference to the provided tablename. This is not    * meant to be a general purpose setter - it's only used    * to collapse references to conserve memory.    */
+name|void
+name|internTableName
+parameter_list|(
+name|byte
+index|[]
+name|tablename
+parameter_list|)
+block|{
+comment|// We should not use this as a setter - only to swap
+comment|// in a new reference to the same table name.
+assert|assert
+name|Bytes
+operator|.
+name|equals
+argument_list|(
+name|tablename
+argument_list|,
+name|this
+operator|.
+name|tablename
+argument_list|)
+assert|;
+name|this
+operator|.
+name|tablename
+operator|=
+name|tablename
+expr_stmt|;
+block|}
+comment|/**    * Drop this instance's region name byte array and instead    * hold a reference to the provided region name. This is not    * meant to be a general purpose setter - it's only used    * to collapse references to conserve memory.    */
+name|void
+name|internEncodedRegionName
+parameter_list|(
+name|byte
+index|[]
+name|encodedRegionName
+parameter_list|)
+block|{
+comment|// We should not use this as a setter - only to swap
+comment|// in a new reference to the same table name.
+assert|assert
+name|Bytes
+operator|.
+name|equals
+argument_list|(
+name|this
+operator|.
+name|encodedRegionName
+argument_list|,
+name|encodedRegionName
+argument_list|)
+assert|;
+name|this
+operator|.
+name|encodedRegionName
+operator|=
+name|encodedRegionName
+expr_stmt|;
+block|}
 specifier|public
 name|void
 name|write
