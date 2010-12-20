@@ -556,6 +556,16 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
+name|int
+name|NB_ROWS_IN_BIG_BATCH
+init|=
+name|NB_ROWS_IN_BATCH
+operator|*
+literal|10
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
 name|long
 name|SLEEP_TIME
 init|=
@@ -1178,7 +1188,7 @@ name|scanner
 operator|.
 name|next
 argument_list|(
-name|NB_ROWS_IN_BATCH
+name|NB_ROWS_IN_BIG_BATCH
 argument_list|)
 decl_stmt|;
 name|scanner
@@ -2393,9 +2403,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|NB_ROWS_IN_BATCH
-operator|*
-literal|10
+name|NB_ROWS_IN_BIG_BATCH
 condition|;
 name|i
 operator|++
@@ -2464,9 +2472,7 @@ name|scanner
 operator|.
 name|next
 argument_list|(
-name|NB_ROWS_IN_BATCH
-operator|*
-literal|100
+name|NB_ROWS_IN_BIG_BATCH
 argument_list|)
 decl_stmt|;
 name|scanner
@@ -2521,9 +2527,7 @@ name|scanner
 operator|.
 name|next
 argument_list|(
-name|NB_ROWS_IN_BATCH
-operator|*
-literal|100
+name|NB_ROWS_IN_BIG_BATCH
 argument_list|)
 expr_stmt|;
 name|scanner
@@ -2537,9 +2541,7 @@ name|res
 operator|.
 name|length
 operator|!=
-name|NB_ROWS_IN_BATCH
-operator|*
-literal|10
+name|NB_ROWS_IN_BIG_BATCH
 condition|)
 block|{
 if|if
@@ -2629,9 +2631,7 @@ name|length
 operator|+
 literal|" instead of "
 operator|+
-name|NB_ROWS_IN_BATCH
-operator|*
-literal|10
+name|NB_ROWS_IN_BIG_BATCH
 argument_list|)
 expr_stmt|;
 block|}
