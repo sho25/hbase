@@ -189,25 +189,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|coprocessor
-operator|.
-name|CoprocessorEnvironment
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|regionserver
 operator|.
-name|CoprocessorHost
+name|RegionCoprocessorHost
 import|;
 end_import
 
@@ -284,7 +268,7 @@ name|void
 name|postPut
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -349,7 +333,7 @@ name|void
 name|postPut
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -414,7 +398,7 @@ name|void
 name|postPut
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -557,11 +541,11 @@ comment|// this following piece is a hack. currently a coprocessorHost
 comment|// is secretly loaded at OpenRegionHandler. we don't really
 comment|// start a region server here, so just manually create cphost
 comment|// and set it to region.
-name|CoprocessorHost
+name|RegionCoprocessorHost
 name|host
 init|=
 operator|new
-name|CoprocessorHost
+name|RegionCoprocessorHost
 argument_list|(
 name|r
 argument_list|,
@@ -659,7 +643,7 @@ argument_list|,
 name|FAMILIES
 argument_list|)
 decl_stmt|;
-name|CoprocessorHost
+name|RegionCoprocessorHost
 name|h
 init|=
 name|region

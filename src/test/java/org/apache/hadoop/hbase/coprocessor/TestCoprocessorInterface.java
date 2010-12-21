@@ -152,38 +152,6 @@ operator|.
 name|coprocessor
 operator|.
 name|Coprocessor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|coprocessor
-operator|.
-name|CoprocessorEnvironment
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|coprocessor
-operator|.
-name|Coprocessor
 operator|.
 name|Priority
 import|;
@@ -201,7 +169,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|CoprocessorHost
+name|RegionCoprocessorHost
 import|;
 end_import
 
@@ -448,7 +416,7 @@ specifier|public
 name|void
 name|preOpen
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|)
 block|{
@@ -463,7 +431,7 @@ specifier|public
 name|void
 name|postOpen
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|)
 block|{
@@ -478,7 +446,7 @@ specifier|public
 name|void
 name|preClose
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 name|boolean
@@ -496,7 +464,7 @@ specifier|public
 name|void
 name|postClose
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 name|boolean
@@ -514,7 +482,7 @@ specifier|public
 name|void
 name|preCompact
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 name|boolean
@@ -532,7 +500,7 @@ specifier|public
 name|void
 name|postCompact
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 name|boolean
@@ -550,7 +518,7 @@ specifier|public
 name|void
 name|preFlush
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|)
 block|{
@@ -565,7 +533,7 @@ specifier|public
 name|void
 name|postFlush
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|)
 block|{
@@ -580,7 +548,7 @@ specifier|public
 name|void
 name|preSplit
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|)
 block|{
@@ -595,7 +563,7 @@ specifier|public
 name|void
 name|postSplit
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 name|HRegion
@@ -1124,11 +1092,11 @@ comment|// this following piece is a hack. currently a coprocessorHost
 comment|// is secretly loaded at OpenRegionHandler. we don't really
 comment|// start a region server here, so just manually create cphost
 comment|// and set it to region.
-name|CoprocessorHost
+name|RegionCoprocessorHost
 name|host
 init|=
 operator|new
-name|CoprocessorHost
+name|RegionCoprocessorHost
 argument_list|(
 name|r
 argument_list|,
@@ -1273,11 +1241,11 @@ name|conf
 argument_list|)
 decl_stmt|;
 comment|// this following piece is a hack.
-name|CoprocessorHost
+name|RegionCoprocessorHost
 name|host
 init|=
 operator|new
-name|CoprocessorHost
+name|RegionCoprocessorHost
 argument_list|(
 name|r
 argument_list|,

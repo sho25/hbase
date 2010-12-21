@@ -164,8 +164,13 @@ decl_stmt|;
 name|InternalScanner
 name|scanner
 init|=
+operator|(
+operator|(
+name|RegionCoprocessorEnvironment
+operator|)
 name|getEnvironment
 argument_list|()
+operator|)
 operator|.
 name|getRegion
 argument_list|()

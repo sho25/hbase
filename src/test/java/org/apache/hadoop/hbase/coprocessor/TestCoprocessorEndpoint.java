@@ -278,7 +278,9 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"hbase.coprocessor.default.classes"
+name|CoprocessorHost
+operator|.
+name|REGION_COPROCESSOR_CONF_KEY
 argument_list|,
 literal|"org.apache.hadoop.hbase.coprocessor.ColumnAggregationEndpoint"
 argument_list|)

@@ -222,7 +222,7 @@ name|void
 name|preOpen
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|)
 function_decl|;
@@ -232,7 +232,7 @@ name|void
 name|postOpen
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|)
 function_decl|;
@@ -242,7 +242,7 @@ name|void
 name|preFlush
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|)
 function_decl|;
@@ -252,7 +252,7 @@ name|void
 name|postFlush
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|)
 function_decl|;
@@ -262,7 +262,7 @@ name|void
 name|preCompact
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -276,7 +276,7 @@ name|void
 name|postCompact
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -290,7 +290,7 @@ name|void
 name|preSplit
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|)
 function_decl|;
@@ -300,7 +300,7 @@ name|void
 name|postSplit
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -318,7 +318,7 @@ name|void
 name|preClose
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 name|boolean
@@ -331,7 +331,7 @@ name|void
 name|postClose
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 name|boolean
@@ -344,7 +344,7 @@ name|void
 name|preGetClosestRowBefore
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -370,7 +370,7 @@ name|void
 name|postGetClosestRowBefore
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -396,7 +396,7 @@ name|void
 name|preGet
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -419,7 +419,7 @@ name|void
 name|postGet
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -442,7 +442,7 @@ name|boolean
 name|preExists
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -462,7 +462,7 @@ name|boolean
 name|postExists
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -482,7 +482,7 @@ name|void
 name|prePut
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -511,7 +511,7 @@ name|void
 name|postPut
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -540,7 +540,7 @@ name|void
 name|preDelete
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -569,7 +569,7 @@ name|void
 name|postDelete
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -598,7 +598,7 @@ name|boolean
 name|preCheckAndPut
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -638,7 +638,7 @@ name|boolean
 name|postCheckAndPut
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -678,7 +678,7 @@ name|boolean
 name|preCheckAndDelete
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -718,7 +718,7 @@ name|boolean
 name|postCheckAndDelete
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -758,7 +758,7 @@ name|long
 name|preIncrementColumnValue
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -793,7 +793,7 @@ name|long
 name|postIncrementColumnValue
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -826,13 +826,13 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before Increment    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param e the environment provided by the region server    * @param increment increment object    * @param result The result to return to the client if default processing    * is bypassed. Can be modified. Will not be used if default processing    * is not bypassed.    * @param writeToWAL true if the change should be written to the WAL    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before Increment    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param e the environment provided by the region server    * @param increment increment object    * @param result The result to return to the client if default processing    * is bypassed. Can be modified. Will not be used if default processing    * is not bypassed.    * @throws IOException if an error occurred on the coprocessor    */
 specifier|public
 name|void
 name|preIncrement
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -846,13 +846,13 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after increment    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param e the environment provided by the region server    * @param increment increment object    * @param writeToWAL true if the change should be written to the WAL    * @param result the result returned by increment, can be modified    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called after increment    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param e the environment provided by the region server    * @param increment increment object    * @param result the result returned by increment, can be modified    * @throws IOException if an error occurred on the coprocessor    */
 specifier|public
 name|void
 name|postIncrement
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -872,7 +872,7 @@ name|InternalScanner
 name|preScannerOpen
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -892,7 +892,7 @@ name|InternalScanner
 name|postScannerOpen
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -912,7 +912,7 @@ name|boolean
 name|preScannerNext
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -943,7 +943,7 @@ name|boolean
 name|postScannerNext
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -974,7 +974,7 @@ name|void
 name|preScannerClose
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -990,7 +990,7 @@ name|void
 name|postScannerClose
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final

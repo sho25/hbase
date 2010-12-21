@@ -181,6 +181,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Scan
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|HRegion
@@ -324,7 +340,7 @@ specifier|public
 name|void
 name|preOpen
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|)
 block|{
@@ -339,7 +355,7 @@ specifier|public
 name|void
 name|postOpen
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|)
 block|{
@@ -365,7 +381,7 @@ specifier|public
 name|void
 name|preClose
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 name|boolean
@@ -383,7 +399,7 @@ specifier|public
 name|void
 name|postClose
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 name|boolean
@@ -412,7 +428,7 @@ specifier|public
 name|void
 name|preFlush
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|)
 block|{
@@ -427,7 +443,7 @@ specifier|public
 name|void
 name|postFlush
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|)
 block|{
@@ -453,7 +469,7 @@ specifier|public
 name|void
 name|preSplit
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|)
 block|{
@@ -468,7 +484,7 @@ specifier|public
 name|void
 name|postSplit
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 name|HRegion
@@ -500,7 +516,7 @@ specifier|public
 name|void
 name|preCompact
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 name|boolean
@@ -518,7 +534,7 @@ specifier|public
 name|void
 name|postCompact
 parameter_list|(
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 name|boolean
@@ -548,7 +564,7 @@ name|void
 name|preGet
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -624,7 +640,7 @@ name|void
 name|postGet
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -803,7 +819,7 @@ name|void
 name|prePut
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -1028,7 +1044,7 @@ name|void
 name|postPut
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -1253,7 +1269,7 @@ name|void
 name|preDelete
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -1330,7 +1346,7 @@ name|void
 name|postDelete
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -1411,7 +1427,7 @@ name|void
 name|preGetClosestRowBefore
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -1490,7 +1506,7 @@ name|void
 name|postGetClosestRowBefore
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -1569,7 +1585,7 @@ name|void
 name|preIncrement
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final
@@ -1619,7 +1635,7 @@ name|void
 name|postIncrement
 parameter_list|(
 specifier|final
-name|CoprocessorEnvironment
+name|RegionCoprocessorEnvironment
 name|e
 parameter_list|,
 specifier|final

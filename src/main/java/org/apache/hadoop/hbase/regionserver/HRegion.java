@@ -1450,7 +1450,7 @@ argument_list|()
 decl_stmt|;
 comment|// Coprocessor host
 specifier|private
-name|CoprocessorHost
+name|RegionCoprocessorHost
 name|coprocessorHost
 decl_stmt|;
 comment|/**    * Name of the region info file that resides just under the region directory.    */
@@ -1713,7 +1713,7 @@ operator|.
 name|coprocessorHost
 operator|=
 operator|new
-name|CoprocessorHost
+name|RegionCoprocessorHost
 argument_list|(
 name|this
 argument_list|,
@@ -14850,7 +14850,7 @@ return|;
 block|}
 comment|/** @return the coprocessor host */
 specifier|public
-name|CoprocessorHost
+name|RegionCoprocessorHost
 name|getCoprocessorHost
 parameter_list|()
 block|{
@@ -14864,7 +14864,7 @@ name|void
 name|setCoprocessorHost
 parameter_list|(
 specifier|final
-name|CoprocessorHost
+name|RegionCoprocessorHost
 name|coprocessorHost
 parameter_list|)
 block|{

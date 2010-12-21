@@ -96,16 +96,18 @@ name|String
 name|getHBaseVersion
 parameter_list|()
 function_decl|;
-comment|/** @return the region associated with this coprocessor */
+comment|/** @return the loaded coprocessor instance */
 specifier|public
-name|HRegion
-name|getRegion
+name|Coprocessor
+name|getInstance
 parameter_list|()
 function_decl|;
-comment|/** @return reference to the region server services */
+comment|/** @return the priority assigned to the loaded coprocessor */
 specifier|public
-name|RegionServerServices
-name|getRegionServerServices
+name|Coprocessor
+operator|.
+name|Priority
+name|getPriority
 parameter_list|()
 function_decl|;
 comment|/**    * @return an interface for accessing the given table    * @throws IOException    */

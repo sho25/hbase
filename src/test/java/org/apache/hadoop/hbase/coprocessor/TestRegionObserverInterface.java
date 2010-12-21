@@ -273,7 +273,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|CoprocessorHost
+name|RegionCoprocessorHost
 import|;
 end_import
 
@@ -352,20 +352,6 @@ operator|.
 name|junit
 operator|.
 name|Test
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|conf
-operator|.
-name|Configuration
 import|;
 end_import
 
@@ -608,7 +594,9 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"hbase.coprocessor.default.classes"
+name|CoprocessorHost
+operator|.
+name|REGION_COPROCESSOR_CONF_KEY
 argument_list|,
 literal|"org.apache.hadoop.hbase.coprocessor.SimpleRegionObserver"
 argument_list|)
@@ -816,11 +804,11 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
-name|CoprocessorHost
+name|RegionCoprocessorHost
 name|host
 init|=
 operator|new
-name|CoprocessorHost
+name|RegionCoprocessorHost
 argument_list|(
 name|r
 argument_list|,
@@ -1054,7 +1042,7 @@ condition|)
 block|{
 continue|continue;
 block|}
-name|CoprocessorHost
+name|RegionCoprocessorHost
 name|cph
 init|=
 name|t
@@ -1266,7 +1254,7 @@ condition|)
 block|{
 continue|continue;
 block|}
-name|CoprocessorHost
+name|RegionCoprocessorHost
 name|cph
 init|=
 name|t
