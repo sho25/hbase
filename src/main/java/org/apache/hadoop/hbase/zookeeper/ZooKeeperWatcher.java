@@ -1176,7 +1176,7 @@ name|Disconnected
 case|:
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 name|prefix
 argument_list|(
