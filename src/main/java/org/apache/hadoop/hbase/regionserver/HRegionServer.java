@@ -3914,6 +3914,12 @@ operator|.
 name|stop
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|fsOk
+condition|)
 name|waitOnAllRegionsToClose
 argument_list|()
 expr_stmt|;

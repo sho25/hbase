@@ -1434,6 +1434,17 @@ elseif|else
 if|if
 condition|(
 name|cause
+operator|!=
+literal|null
+operator|&&
+name|cause
+operator|.
+name|getMessage
+argument_list|()
+operator|!=
+literal|null
+operator|&&
+name|cause
 operator|.
 name|getMessage
 argument_list|()
