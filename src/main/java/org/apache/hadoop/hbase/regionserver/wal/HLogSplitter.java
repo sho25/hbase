@@ -1225,6 +1225,32 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
+name|EOFException
+name|eof
+parameter_list|)
+block|{
+comment|// truncated files are expected if a RS crashes (see HBASE-2643)
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"EOF from hlog "
+operator|+
+name|logPath
+operator|+
+literal|".  continuing"
+argument_list|)
+expr_stmt|;
+name|processedLogs
+operator|.
+name|add
+argument_list|(
+name|logPath
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
 name|IOException
 name|e
 parameter_list|)
