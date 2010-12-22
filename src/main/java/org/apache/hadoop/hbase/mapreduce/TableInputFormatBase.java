@@ -313,6 +313,25 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|table
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Cannot create a record reader because of a"
+operator|+
+literal|" previous error. Please look at the previous logs lines from"
+operator|+
+literal|" the task's full log for more details."
+argument_list|)
+throw|;
+block|}
 name|TableSplit
 name|tSplit
 init|=
