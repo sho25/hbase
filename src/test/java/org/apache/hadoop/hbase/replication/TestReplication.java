@@ -1207,11 +1207,11 @@ condition|)
 block|{
 if|if
 condition|(
-name|lastCount
-operator|<
 name|res
 operator|.
 name|length
+operator|<
+name|lastCount
 condition|)
 block|{
 name|i
