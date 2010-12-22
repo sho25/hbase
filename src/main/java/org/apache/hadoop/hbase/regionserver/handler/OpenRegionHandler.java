@@ -743,6 +743,12 @@ name|t
 operator|.
 name|isAlive
 argument_list|()
+operator|&&
+operator|!
+name|signaller
+operator|.
+name|get
+argument_list|()
 condition|)
 block|{
 name|LOG
