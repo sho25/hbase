@@ -743,7 +743,10 @@ name|t
 operator|.
 name|isAlive
 argument_list|()
-operator|&&
+condition|)
+block|{
+if|if
+condition|(
 operator|!
 name|signaller
 operator|.
@@ -751,6 +754,7 @@ name|get
 argument_list|()
 condition|)
 block|{
+comment|// Thread still running; interrupt
 name|LOG
 operator|.
 name|debug
@@ -765,6 +769,47 @@ operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
+block|}
+try|try
+block|{
+name|t
+operator|.
+name|join
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|ie
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Interrupted joining "
+operator|+
+name|r
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|,
+name|ie
+argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|// Was there an exception opening the region?  This should trigger on
 comment|// InterruptedException too.  If so, we failed.
