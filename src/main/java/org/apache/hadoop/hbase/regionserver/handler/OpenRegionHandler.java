@@ -763,6 +763,12 @@ block|}
 comment|// Was there an exception opening the region?  This should trigger on
 comment|// InterruptedException too.  If so, we failed.
 return|return
+operator|!
+name|t
+operator|.
+name|interrupted
+argument_list|()
+operator|&&
 name|t
 operator|.
 name|getException

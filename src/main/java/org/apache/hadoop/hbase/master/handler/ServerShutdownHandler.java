@@ -799,6 +799,23 @@ name|isPendingClose
 argument_list|()
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Removed "
+operator|+
+name|rit
+operator|.
+name|getRegion
+argument_list|()
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" from list of regions to assign because in RIT"
+argument_list|)
+expr_stmt|;
 name|hris
 operator|.
 name|remove
@@ -984,6 +1001,20 @@ name|isSplit
 argument_list|()
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Offlined and split region "
+operator|+
+name|hri
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|"; checking daughter presence"
+argument_list|)
+expr_stmt|;
 name|fixupDaughters
 argument_list|(
 name|result
@@ -1106,11 +1137,18 @@ name|hri
 init|=
 name|Writables
 operator|.
-name|getHRegionInfo
+name|getHRegionInfoOrNull
 argument_list|(
 name|bytes
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|hri
+operator|==
+literal|null
+condition|)
+return|return;
 name|Pair
 argument_list|<
 name|HRegionInfo
@@ -1175,6 +1213,23 @@ argument_list|(
 name|hri
 argument_list|,
 literal|true
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Daughter "
+operator|+
+name|hri
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" present"
 argument_list|)
 expr_stmt|;
 block|}
