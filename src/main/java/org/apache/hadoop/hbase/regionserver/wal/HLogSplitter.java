@@ -594,7 +594,7 @@ operator|new
 name|Object
 argument_list|()
 decl_stmt|;
-comment|/**    * Create a new HLogSplitter using the given {@link Configuration} and the    *<code>hbase.hlog.splitter.impl</code> property to derived the instance    * class to use.    *    * @param rootDir hbase directory    * @param srcDir logs directory    * @param oldLogDir directory where processed logs are archived to    * @param logfiles the list of log files to split    */
+comment|/**    * Create a new HLogSplitter using the given {@link Configuration} and the    *<code>hbase.hlog.splitter.impl</code> property to derived the instance    * class to use.    *    * @param conf    * @param rootDir hbase directory    * @param srcDir logs directory    * @param oldLogDir directory where processed logs are archived to    * @param fs FileSystem    */
 specifier|public
 specifier|static
 name|HLogSplitter
