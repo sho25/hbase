@@ -1251,14 +1251,6 @@ operator|.
 name|KVComparator
 name|comparator
 decl_stmt|;
-comment|/*    * Set this when scheduling compaction if want the next compaction to be a    * major compaction.  Cleared each time through compaction code.    */
-specifier|private
-specifier|volatile
-name|boolean
-name|forceMajorCompaction
-init|=
-literal|false
-decl_stmt|;
 specifier|private
 name|Pair
 argument_list|<
@@ -3082,53 +3074,27 @@ name|boolean
 name|b
 parameter_list|)
 block|{
-name|this
+for|for
+control|(
+name|Store
+name|h
+range|:
+name|stores
 operator|.
-name|forceMajorCompaction
-operator|=
-name|b
-expr_stmt|;
-block|}
-name|boolean
-name|getForceMajorCompaction
-parameter_list|()
+name|values
+argument_list|()
+control|)
 block|{
-return|return
-name|this
+name|h
 operator|.
-name|forceMajorCompaction
-return|;
-block|}
-comment|/**    * Called by compaction thread and after region is opened to compact the    * HStores if necessary.    *    *<p>This operation could block for a long time, so don't call it from a    * time-sensitive thread.    *    * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    *    * @return mid key if split is needed    * @throws IOException e    */
-specifier|public
-name|byte
-index|[]
-name|compactStores
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-name|boolean
-name|majorCompaction
-init|=
-name|this
-operator|.
-name|forceMajorCompaction
-decl_stmt|;
-name|this
-operator|.
-name|forceMajorCompaction
-operator|=
-literal|false
-expr_stmt|;
-return|return
-name|compactStores
+name|setForceMajorCompaction
 argument_list|(
-name|majorCompaction
+name|b
 argument_list|)
-return|;
+expr_stmt|;
 block|}
-comment|/*    * Called by compaction thread and after region is opened to compact the    * HStores if necessary.    *    *<p>This operation could block for a long time, so don't call it from a    * time-sensitive thread.    *    * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    *    * @param majorCompaction True to force a major compaction regardless of thresholds    * @return split row if split is needed    * @throws IOException e    */
+block|}
+comment|/**    * Called by compaction thread and after region is opened to compact the    * HStores if necessary.    *    *<p>This operation could block for a long time, so don't call it from a    * time-sensitive thread.    *    * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    *    * @param majorCompaction True to force a major compaction regardless of thresholds    * @return split row if split is needed    * @throws IOException e    */
 name|byte
 index|[]
 name|compactStores
@@ -3137,6 +3103,27 @@ specifier|final
 name|boolean
 name|majorCompaction
 parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|this
+operator|.
+name|setForceMajorCompaction
+argument_list|(
+name|majorCompaction
+argument_list|)
+expr_stmt|;
+return|return
+name|compactStores
+argument_list|()
+return|;
+block|}
+comment|/*    * Called by compaction thread and after region is opened to compact the    * HStores if necessary.    *    *<p>This operation could block for a long time, so don't call it from a    * time-sensitive thread.    *    * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    *    * @return split row if split is needed    * @throws IOException e    */
+specifier|public
+name|byte
+index|[]
+name|compactStores
+parameter_list|()
 throws|throws
 name|IOException
 block|{
@@ -3299,17 +3286,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting"
-operator|+
-operator|(
-name|majorCompaction
-condition|?
-literal|" major "
-else|:
-literal|" "
-operator|)
-operator|+
-literal|"compaction on region "
+literal|"Starting compaction on region "
 operator|+
 name|this
 argument_list|)
@@ -3363,9 +3340,7 @@ init|=
 name|store
 operator|.
 name|compact
-argument_list|(
-name|majorCompaction
-argument_list|)
+argument_list|()
 decl_stmt|;
 name|lastCompactSize
 operator|+=
@@ -13882,10 +13857,6 @@ name|Bytes
 operator|.
 name|SIZEOF_LONG
 operator|)
-operator|+
-name|Bytes
-operator|.
-name|SIZEOF_BOOLEAN
 operator|+
 name|ClassSize
 operator|.

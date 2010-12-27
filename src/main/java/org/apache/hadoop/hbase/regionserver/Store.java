@@ -607,6 +607,13 @@ name|lastCompactSize
 init|=
 literal|0
 decl_stmt|;
+specifier|private
+specifier|volatile
+name|boolean
+name|forceMajor
+init|=
+literal|false
+decl_stmt|;
 comment|/* how many bytes to write between status checks */
 specifier|static
 name|int
@@ -2785,14 +2792,10 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Compaction
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Compact the StoreFiles.  This method may take some time, so the calling    * thread must be able to block for long periods.    *    *<p>During this time, the Store can work as usual, getting values from    * StoreFiles and writing new StoreFiles from the memstore.    *    * Existing StoreFiles are not destroyed until the new compacted StoreFile is    * completely written-out to disk.    *    *<p>The compactLock prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *    *<p>We don't want to hold the structureLock for the whole time, as a compact()    * can be lengthy and we want to allow cache-flushes during this period.    *    * @param forceMajor True to force a major compaction regardless of thresholds    * @return row to split around if a split is needed, null otherwise    * @throws IOException    */
+comment|/**    * Compact the StoreFiles.  This method may take some time, so the calling    * thread must be able to block for long periods.    *    *<p>During this time, the Store can work as usual, getting values from    * StoreFiles and writing new StoreFiles from the memstore.    *    * Existing StoreFiles are not destroyed until the new compacted StoreFile is    * completely written-out to disk.    *    *<p>The compactLock prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *    *<p>We don't want to hold the structureLock for the whole time, as a compact()    * can be lengthy and we want to allow cache-flushes during this period.    *    * @return row to split around if a split is needed, null otherwise    * @throws IOException    */
 name|StoreSize
 name|compact
-parameter_list|(
-specifier|final
-name|boolean
-name|forceMajor
-parameter_list|)
+parameter_list|()
 throws|throws
 name|IOException
 block|{
@@ -2896,6 +2899,8 @@ condition|(
 name|forceSplit
 operator|&&
 operator|!
+name|this
+operator|.
 name|forceMajor
 operator|&&
 operator|!
@@ -2921,6 +2926,8 @@ name|this
 operator|.
 name|storefiles
 argument_list|,
+name|this
+operator|.
 name|forceMajor
 argument_list|)
 decl_stmt|;
@@ -2990,6 +2997,18 @@ name|size
 argument_list|()
 operator|)
 decl_stmt|;
+if|if
+condition|(
+name|majorcompaction
+condition|)
+block|{
+name|this
+operator|.
+name|forceMajor
+operator|=
+literal|false
+expr_stmt|;
+block|}
 comment|// Max-sequenceID is the last key in the files we're compacting
 name|long
 name|maxId
@@ -6406,6 +6425,31 @@ return|return
 name|storeSize
 return|;
 block|}
+name|void
+name|setForceMajorCompaction
+parameter_list|(
+specifier|final
+name|boolean
+name|b
+parameter_list|)
+block|{
+name|this
+operator|.
+name|forceMajor
+operator|=
+name|b
+expr_stmt|;
+block|}
+name|boolean
+name|getForceMajorCompaction
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|forceMajor
+return|;
+block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// File administration
 comment|//////////////////////////////////////////////////////////////////////////////
@@ -7050,11 +7094,11 @@ name|SIZEOF_INT
 operator|)
 operator|+
 operator|(
+literal|3
+operator|*
 name|Bytes
 operator|.
 name|SIZEOF_BOOLEAN
-operator|*
-literal|2
 operator|)
 argument_list|)
 decl_stmt|;
