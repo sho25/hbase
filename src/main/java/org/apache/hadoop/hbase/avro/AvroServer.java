@@ -2942,7 +2942,6 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
-comment|// TODO(hammer): Figure out a better way to keep the server alive!
 specifier|protected
 specifier|static
 name|void
@@ -3117,20 +3116,26 @@ name|HBaseImpl
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|HttpServer
+name|server
+init|=
 operator|new
 name|HttpServer
 argument_list|(
 name|r
 argument_list|,
-literal|9090
+name|port
 argument_list|)
-expr_stmt|;
-name|Thread
+decl_stmt|;
+name|server
 operator|.
-name|sleep
-argument_list|(
-literal|1000000
-argument_list|)
+name|start
+argument_list|()
+expr_stmt|;
+name|server
+operator|.
+name|join
+argument_list|()
 expr_stmt|;
 block|}
 comment|// TODO(hammer): Look at Cassandra's daemonization and integration with JSVC

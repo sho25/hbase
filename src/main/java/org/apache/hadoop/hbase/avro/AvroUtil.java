@@ -1127,7 +1127,7 @@ name|GenericData
 operator|.
 name|Array
 argument_list|<
-name|Utf8
+name|CharSequence
 argument_list|>
 name|adeadServerNames
 init|=
@@ -1147,7 +1147,7 @@ name|GenericData
 operator|.
 name|Array
 argument_list|<
-name|Utf8
+name|CharSequence
 argument_list|>
 argument_list|(
 name|deadServerNames
@@ -1188,7 +1188,7 @@ name|GenericData
 operator|.
 name|Array
 argument_list|<
-name|Utf8
+name|CharSequence
 argument_list|>
 argument_list|(
 literal|0
