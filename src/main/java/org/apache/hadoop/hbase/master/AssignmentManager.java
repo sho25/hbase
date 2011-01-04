@@ -5135,6 +5135,36 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+elseif|else
+if|if
+condition|(
+name|ioe
+operator|instanceof
+name|EOFException
+condition|)
+block|{
+comment|// Failed to close, so pass through and reassign
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Server "
+operator|+
+name|server
+operator|+
+literal|" returned "
+operator|+
+name|ioe
+operator|+
+literal|" for "
+operator|+
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 else|else
 block|{
 name|this
