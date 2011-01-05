@@ -980,6 +980,26 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+comment|// An HLogSplitter instance can only be used once.  Get new instance.
+name|splitter
+operator|=
+name|HLogSplitter
+operator|.
+name|createLogSplitter
+argument_list|(
+name|conf
+argument_list|,
+name|rootdir
+argument_list|,
+name|logDir
+argument_list|,
+name|oldLogDir
+argument_list|,
+name|this
+operator|.
+name|fs
+argument_list|)
+expr_stmt|;
 name|splitter
 operator|.
 name|splitLog
