@@ -6897,35 +6897,35 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Region has been CLOSED for too long, "
+literal|"Region "
 operator|+
-literal|"retriggering ClosedRegionHandler"
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" has been CLOSED for too long, waiting on queued "
+operator|+
+literal|"ClosedRegionHandler to run or server shutdown"
 argument_list|)
 expr_stmt|;
-name|AssignmentManager
-operator|.
-name|this
-operator|.
-name|executorService
-operator|.
-name|submit
-argument_list|(
-operator|new
-name|ClosedRegionHandler
-argument_list|(
-name|master
-argument_list|,
-name|AssignmentManager
-operator|.
-name|this
-argument_list|,
+comment|// Update our timestamp.
+synchronized|synchronized
+init|(
+name|regionState
+init|)
+block|{
 name|regionState
 operator|.
-name|getRegion
+name|update
+argument_list|(
+name|regionState
+operator|.
+name|getState
 argument_list|()
 argument_list|)
-argument_list|)
 expr_stmt|;
+block|}
 break|break;
 case|case
 name|OFFLINE
