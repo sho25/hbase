@@ -271,6 +271,24 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hdfs
+operator|.
+name|server
+operator|.
+name|namenode
+operator|.
+name|LeaseExpiredException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|io
 operator|.
 name|SequenceFile
@@ -294,6 +312,16 @@ operator|.
 name|io
 operator|.
 name|EOFException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|FileNotFoundException
 import|;
 end_import
 
@@ -2662,6 +2690,38 @@ parameter_list|)
 block|{
 comment|// ignore it and try again
 block|}
+block|}
+elseif|else
+if|if
+condition|(
+name|e
+operator|instanceof
+name|LeaseExpiredException
+operator|&&
+name|e
+operator|.
+name|getMessage
+argument_list|()
+operator|.
+name|contains
+argument_list|(
+literal|"File does not exist"
+argument_list|)
+condition|)
+block|{
+comment|// This exception comes out instead of FNFE, fix it
+throw|throw
+operator|new
+name|FileNotFoundException
+argument_list|(
+literal|"The given HLog wasn't found at "
+operator|+
+name|p
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+throw|;
 block|}
 else|else
 block|{

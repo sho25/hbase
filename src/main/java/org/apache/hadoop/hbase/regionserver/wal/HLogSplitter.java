@@ -53,6 +53,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|FileNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|IOException
 import|;
 end_import
@@ -1238,7 +1248,36 @@ literal|"EOF from hlog "
 operator|+
 name|logPath
 operator|+
-literal|".  continuing"
+literal|". Continuing"
+argument_list|)
+expr_stmt|;
+name|processedLogs
+operator|.
+name|add
+argument_list|(
+name|logPath
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|FileNotFoundException
+name|fnfe
+parameter_list|)
+block|{
+comment|// A file may be missing if the region server was able to archive it
+comment|// before shutting down. This means the edits were persisted already
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"A log was missing "
+operator|+
+name|logPath
+operator|+
+literal|", probably because it was moved by the"
+operator|+
+literal|" now dead region server. Continuing"
 argument_list|)
 expr_stmt|;
 name|processedLogs
