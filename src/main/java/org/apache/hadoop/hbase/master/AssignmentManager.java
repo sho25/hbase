@@ -43,7 +43,7 @@ name|java
 operator|.
 name|io
 operator|.
-name|IOException
+name|EOFException
 import|;
 end_import
 
@@ -53,7 +53,7 @@ name|java
 operator|.
 name|io
 operator|.
-name|EOFException
+name|IOException
 import|;
 end_import
 
@@ -4564,17 +4564,19 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+name|forceNewPlan
+operator|||
 name|existingPlan
 operator|==
 literal|null
 operator|||
-name|forceNewPlan
-operator|||
-operator|(
 name|existingPlan
-operator|!=
+operator|.
+name|getDestination
+argument_list|()
+operator|==
 literal|null
-operator|&&
+operator|||
 name|existingPlan
 operator|.
 name|getDestination
@@ -4584,7 +4586,6 @@ name|equals
 argument_list|(
 name|serverToExclude
 argument_list|)
-operator|)
 condition|)
 block|{
 name|newPlan
