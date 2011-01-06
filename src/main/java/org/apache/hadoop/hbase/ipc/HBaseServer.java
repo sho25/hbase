@@ -2503,7 +2503,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|warn
 argument_list|(
 name|getName
 argument_list|()
