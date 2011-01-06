@@ -6026,6 +6026,16 @@ operator|=
 name|handler
 expr_stmt|;
 block|}
+comment|/**    * Returns the metrics instance for reporting RPC call statistics    */
+specifier|public
+name|HBaseRpcMetrics
+name|getRpcMetrics
+parameter_list|()
+block|{
+return|return
+name|rpcMetrics
+return|;
+block|}
 comment|/**    * When the read or write buffer size is larger than this limit, i/o will be    * done in chunks of this size. Most RPC requests and responses would be    * be smaller.    */
 specifier|private
 specifier|static

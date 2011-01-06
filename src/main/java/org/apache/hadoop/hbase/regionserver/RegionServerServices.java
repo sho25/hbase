@@ -67,6 +67,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ipc
+operator|.
+name|HBaseRpcMetrics
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|wal
@@ -177,6 +193,12 @@ throws|throws
 name|KeeperException
 throws|,
 name|IOException
+function_decl|;
+comment|/**    * Returns a reference to the RPC server metrics.    */
+specifier|public
+name|HBaseRpcMetrics
+name|getRpcMetrics
+parameter_list|()
 function_decl|;
 block|}
 end_interface
