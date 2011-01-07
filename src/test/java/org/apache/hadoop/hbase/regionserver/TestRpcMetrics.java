@@ -526,6 +526,11 @@ name|MockMetricsContext
 operator|)
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|startMiniZKCluster
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|AfterClass
@@ -536,7 +541,13 @@ name|tearDownAfterClass
 parameter_list|()
 throws|throws
 name|Exception
-block|{   }
+block|{
+name|TEST_UTIL
+operator|.
+name|shutdownMiniZKCluster
+argument_list|()
+expr_stmt|;
+block|}
 annotation|@
 name|Test
 specifier|public
