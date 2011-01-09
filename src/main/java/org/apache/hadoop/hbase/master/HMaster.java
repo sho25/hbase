@@ -3813,6 +3813,37 @@ return|;
 block|}
 end_function
 
+begin_comment
+comment|/**    * Switch for the background {@link CatalogJanitor} thread.    * Used for testing.  The thread will continue to run.  It will just be a noop    * if disabled.    * @param b If false, the catalog janitor won't do anything.    */
+end_comment
+
+begin_function
+specifier|public
+name|void
+name|setCatalogJanitorEnabled
+parameter_list|(
+specifier|final
+name|boolean
+name|b
+parameter_list|)
+block|{
+operator|(
+operator|(
+name|CatalogJanitor
+operator|)
+name|this
+operator|.
+name|catalogJanitorChore
+operator|)
+operator|.
+name|setEnabled
+argument_list|(
+name|b
+argument_list|)
+expr_stmt|;
+block|}
+end_function
+
 begin_function
 annotation|@
 name|Override
