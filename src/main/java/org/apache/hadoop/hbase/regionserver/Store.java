@@ -5968,9 +5968,21 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-comment|// Iterate through all store files
+comment|// sanity checks
 if|if
 condition|(
+operator|!
+name|force
+condition|)
+block|{
+if|if
+condition|(
+name|storeSize
+operator|<
+name|this
+operator|.
+name|desiredMaxFileSize
+operator|||
 name|this
 operator|.
 name|storefiles
@@ -5983,23 +5995,6 @@ return|return
 literal|null
 return|;
 block|}
-if|if
-condition|(
-operator|!
-name|force
-operator|&&
-operator|(
-name|storeSize
-operator|<
-name|this
-operator|.
-name|desiredMaxFileSize
-operator|)
-condition|)
-block|{
-return|return
-literal|null
-return|;
 block|}
 if|if
 condition|(
