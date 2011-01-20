@@ -1659,31 +1659,9 @@ argument_list|(
 literal|"Shutting down minicluster"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|hbaseCluster
-operator|!=
-literal|null
-condition|)
-block|{
-name|this
-operator|.
-name|hbaseCluster
-operator|.
-name|shutdown
+name|shutdownMiniHBaseCluster
 argument_list|()
 expr_stmt|;
-comment|// Wait till hbase is down before going on to shutdown zk.
-name|this
-operator|.
-name|hbaseCluster
-operator|.
-name|join
-argument_list|()
-expr_stmt|;
-block|}
 if|if
 condition|(
 operator|!
@@ -1787,6 +1765,46 @@ name|info
 argument_list|(
 literal|"Minicluster is down"
 argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Shutdown HBase mini cluster.  Does not shutdown zk or dfs if running.    * @throws IOException    */
+specifier|public
+name|void
+name|shutdownMiniHBaseCluster
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|hbaseCluster
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|hbaseCluster
+operator|.
+name|shutdown
+argument_list|()
+expr_stmt|;
+comment|// Wait till hbase is down before going on to shutdown zk.
+name|this
+operator|.
+name|hbaseCluster
+operator|.
+name|join
+argument_list|()
+expr_stmt|;
+block|}
+name|this
+operator|.
+name|hbaseCluster
+operator|=
+literal|null
 expr_stmt|;
 block|}
 comment|/**    * Creates an hbase rootdir in user home directory.  Also creates hbase    * version file.  Normally you won't make use of this method.  Root hbasedir    * is created for you as part of mini cluster startup.  You'd only use this    * method if you were doing manual operation.    * @return Fully qualified path to hbase root dir    * @throws IOException    */
