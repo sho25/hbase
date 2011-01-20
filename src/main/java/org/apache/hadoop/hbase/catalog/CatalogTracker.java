@@ -51,6 +51,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|net
+operator|.
+name|SocketTimeoutException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|concurrent
@@ -1233,6 +1243,23 @@ throw|throw
 name|e
 throw|;
 block|}
+block|}
+catch|catch
+parameter_list|(
+name|SocketTimeoutException
+name|e
+parameter_list|)
+block|{
+comment|// We were passed the wrong address.  Return 'protocol' == null.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Timed out connecting to "
+operator|+
+name|address
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
