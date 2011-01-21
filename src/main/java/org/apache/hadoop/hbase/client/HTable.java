@@ -23,16 +23,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|DataInput
 import|;
 end_import
@@ -44,6 +34,16 @@ operator|.
 name|io
 operator|.
 name|DataOutput
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
 import|;
 end_import
 
@@ -4956,6 +4956,20 @@ argument_list|(
 name|tableName
 argument_list|)
 return|;
+block|}
+comment|/**    * Explicitly clears the region cache to fetch the latest value from META.    * This is a power user function: avoid unless you know the ramifications.    */
+specifier|public
+name|void
+name|clearRegionCache
+parameter_list|()
+block|{
+name|this
+operator|.
+name|connection
+operator|.
+name|clearRegionCache
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Override
