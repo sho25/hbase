@@ -502,6 +502,11 @@ name|pingInterval
 decl_stmt|;
 comment|// how often sends ping to the server in msecs
 specifier|protected
+name|int
+name|socketTimeout
+decl_stmt|;
+comment|// socket timeout
+specifier|protected
 specifier|final
 name|SocketFactory
 name|socketFactory
@@ -522,6 +527,14 @@ init|=
 literal|"ipc.ping.interval"
 decl_stmt|;
 specifier|final
+specifier|private
+specifier|static
+name|String
+name|SOCKET_TIMEOUT
+init|=
+literal|"ipc.socket.timeout"
+decl_stmt|;
+specifier|final
 specifier|static
 name|int
 name|DEFAULT_PING_INTERVAL
@@ -532,19 +545,20 @@ comment|// 1 min
 specifier|final
 specifier|static
 name|int
+name|DEFAULT_SOCKET_TIMEOUT
+init|=
+literal|20000
+decl_stmt|;
+comment|// 20 seconds
+specifier|final
+specifier|static
+name|int
 name|PING_CALL_ID
 init|=
 operator|-
 literal|1
 decl_stmt|;
 comment|/**    * set the ping interval value in configuration    *    * @param conf Configuration    * @param pingInterval the ping interval    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-block|{
-literal|"UnusedDeclaration"
-block|}
-argument_list|)
 specifier|public
 specifier|static
 name|void
@@ -584,6 +598,49 @@ argument_list|(
 name|PING_INTERVAL_NAME
 argument_list|,
 name|DEFAULT_PING_INTERVAL
+argument_list|)
+return|;
+block|}
+comment|/**    * Set the socket timeout    * @param conf Configuration    * @param socketTimeout the socket timeout    */
+specifier|public
+specifier|static
+name|void
+name|setSocketTimeout
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
+name|int
+name|socketTimeout
+parameter_list|)
+block|{
+name|conf
+operator|.
+name|setInt
+argument_list|(
+name|SOCKET_TIMEOUT
+argument_list|,
+name|socketTimeout
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * @return the socket timeout    */
+specifier|static
+name|int
+name|getSocketTimeout
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|)
+block|{
+return|return
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|SOCKET_TIMEOUT
+argument_list|,
+name|DEFAULT_SOCKET_TIMEOUT
 argument_list|)
 return|;
 block|}
@@ -1243,7 +1300,6 @@ argument_list|(
 name|tcpKeepAlive
 argument_list|)
 expr_stmt|;
-comment|// connection time out is 20s
 name|NetUtils
 operator|.
 name|connect
@@ -1257,7 +1313,10 @@ operator|.
 name|getAddress
 argument_list|()
 argument_list|,
-literal|20000
+name|getSocketTimeout
+argument_list|(
+name|conf
+argument_list|)
 argument_list|)
 expr_stmt|;
 if|if
