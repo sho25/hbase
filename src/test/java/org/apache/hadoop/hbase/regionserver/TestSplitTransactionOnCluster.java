@@ -1357,6 +1357,29 @@ argument_list|,
 name|metaRegionServer
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Moving "
+operator|+
+name|hri
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" to "
+operator|+
+name|hrs
+operator|.
+name|getServerName
+argument_list|()
+operator|+
+literal|"; metaServerIndex="
+operator|+
+name|metaServerIndex
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|move
@@ -1415,6 +1438,10 @@ argument_list|(
 literal|"Waiting on region move off the .META. server; current index "
 operator|+
 name|tableRegionIndex
+operator|+
+literal|" and metaServerIndex="
+operator|+
+name|metaServerIndex
 argument_list|)
 expr_stmt|;
 name|Thread
