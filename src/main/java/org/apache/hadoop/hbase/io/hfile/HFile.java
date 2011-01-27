@@ -8791,6 +8791,22 @@ operator|.
 name|loadFileInfo
 argument_list|()
 decl_stmt|;
+name|int
+name|count
+init|=
+literal|0
+decl_stmt|;
+if|if
+condition|(
+name|verbose
+operator|||
+name|printKeyValue
+operator|||
+name|checkRow
+operator|||
+name|checkFamily
+condition|)
+block|{
 comment|// scan over file and read key/value's and check if requested
 name|HFileScanner
 name|scanner
@@ -8813,11 +8829,6 @@ name|KeyValue
 name|pkv
 init|=
 literal|null
-decl_stmt|;
-name|int
-name|count
-init|=
-literal|0
 decl_stmt|;
 do|do
 block|{
@@ -9066,6 +9077,7 @@ name|next
 argument_list|()
 condition|)
 do|;
+block|}
 if|if
 condition|(
 name|verbose
