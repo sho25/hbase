@@ -6016,6 +6016,11 @@ argument_list|(
 name|now
 argument_list|)
 decl_stmt|;
+name|boolean
+name|locked
+init|=
+literal|false
+decl_stmt|;
 comment|/** Keep track of the locks we hold so we can release them in finally clause */
 name|List
 argument_list|<
@@ -6318,6 +6323,20 @@ name|byteNow
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|updatesLock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+name|locked
+operator|=
+literal|true
+expr_stmt|;
 comment|// ------------------------------------
 comment|// STEP 3. Write to WAL
 comment|// ----------------------------------
@@ -6552,6 +6571,20 @@ return|;
 block|}
 finally|finally
 block|{
+if|if
+condition|(
+name|locked
+condition|)
+name|this
+operator|.
+name|updatesLock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
 for|for
 control|(
 name|Integer
@@ -13142,6 +13175,16 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
+name|this
+operator|.
+name|updatesLock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
 try|try
 block|{
 comment|// Process each family
@@ -13480,6 +13523,16 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+name|this
+operator|.
+name|updatesLock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
 name|releaseRowLock
 argument_list|(
 name|lid
@@ -13566,6 +13619,16 @@ argument_list|(
 name|row
 argument_list|)
 decl_stmt|;
+name|this
+operator|.
+name|updatesLock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
 try|try
 block|{
 name|Store
@@ -13778,6 +13841,16 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+name|this
+operator|.
+name|updatesLock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
 name|releaseRowLock
 argument_list|(
 name|lid
