@@ -5284,6 +5284,110 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Assigns list of user regions in round-robin fashion, if any exist.    *<p>    * This is a synchronous call and will return once every region has been    * assigned.  If anything fails, an exception is thrown    * @throws InterruptedException    * @throws IOException    */
+specifier|public
+name|void
+name|assignUserRegions
+parameter_list|(
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regions
+parameter_list|,
+name|List
+argument_list|<
+name|HServerInfo
+argument_list|>
+name|servers
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+block|{
+if|if
+condition|(
+name|regions
+operator|==
+literal|null
+condition|)
+return|return;
+name|Map
+argument_list|<
+name|HServerInfo
+argument_list|,
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+argument_list|>
+name|bulkPlan
+init|=
+literal|null
+decl_stmt|;
+comment|// Generate a round-robin bulk assignment plan
+name|bulkPlan
+operator|=
+name|LoadBalancer
+operator|.
+name|roundRobinAssignment
+argument_list|(
+name|regions
+argument_list|,
+name|servers
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Bulk assigning "
+operator|+
+name|regions
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" region(s) round-robin across "
+operator|+
+name|servers
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" server(s)"
+argument_list|)
+expr_stmt|;
+comment|// Use fixed count thread pool assigning.
+name|BulkAssigner
+name|ba
+init|=
+operator|new
+name|BulkStartupAssigner
+argument_list|(
+name|this
+operator|.
+name|master
+argument_list|,
+name|bulkPlan
+argument_list|,
+name|this
+argument_list|)
+decl_stmt|;
+name|ba
+operator|.
+name|bulkAssign
+argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Bulk assigning done"
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Assigns all user regions, if any exist.  Used during cluster startup.    *<p>    * This is a synchronous call and will return once every region has been    * assigned.  If anything fails, an exception is thrown and the cluster    * should be shutdown.    * @throws InterruptedException    * @throws IOException    */
 specifier|public
 name|void
@@ -5392,12 +5496,8 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// Generate a round-robin bulk assignment plan
-name|bulkPlan
-operator|=
-name|LoadBalancer
-operator|.
-name|roundRobinAssignment
+comment|// assign regions in round-robin fashion
+name|assignUserRegions
 argument_list|(
 operator|new
 name|ArrayList
@@ -5414,6 +5514,7 @@ argument_list|,
 name|servers
 argument_list|)
 expr_stmt|;
+return|return;
 block|}
 name|LOG
 operator|.
