@@ -2731,6 +2731,13 @@ argument_list|,
 name|regionInfo
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|regions
+operator|.
+name|notifyAll
+argument_list|()
+expr_stmt|;
 block|}
 comment|// Remove plan if one.
 name|clearRegionPlan
