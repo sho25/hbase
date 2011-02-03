@@ -446,7 +446,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Provides an interface to manage HBase database table metadata + general   * administrative functions.  Use HBaseAdmin to create, drop, list, enable and   * disable tables. Use it also to add and drop table column families.   *   *<p>See {@link HTable} to add, update, and delete data from an individual table.  *<p>Currently HBaseAdmin instances are not expected to be long-lived.  For  * example, an HBaseAdmin instance will not ride over a Master restart.  */
+comment|/**  * Provides an interface to manage HBase database table metadata + general  * administrative functions.  Use HBaseAdmin to create, drop, list, enable and  * disable tables. Use it also to add and drop table column families.  *  *<p>See {@link HTable} to add, update, and delete data from an individual table.  *<p>Currently HBaseAdmin instances are not expected to be long-lived.  For  * example, an HBaseAdmin instance will not ride over a Master restart.  */
 end_comment
 
 begin_class
@@ -757,7 +757,7 @@ name|isMasterRunning
 argument_list|()
 return|;
 block|}
-comment|/**    * @param tableName Table to check.    * @return True if table exists already.    * @throws IOException     */
+comment|/**    * @param tableName Table to check.    * @return True if table exists already.    * @throws IOException    */
 specifier|public
 name|boolean
 name|tableExists
@@ -806,7 +806,7 @@ return|return
 name|b
 return|;
 block|}
-comment|/**    * @param tableName Table to check.    * @return True if table exists already.    * @throws IOException     */
+comment|/**    * @param tableName Table to check.    * @return True if table exists already.    * @throws IOException    */
 specifier|public
 name|boolean
 name|tableExists
@@ -2998,7 +2998,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Flush a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to flush    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
+comment|/**    * Flush a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to flush    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 specifier|public
 name|void
 name|flush
@@ -3023,7 +3023,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Flush a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to flush    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
+comment|/**    * Flush a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to flush    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 specifier|public
 name|void
 name|flush
@@ -3238,7 +3238,7 @@ name|hri
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
+comment|/**    * Compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 specifier|public
 name|void
 name|compact
@@ -3263,7 +3263,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
+comment|/**    * Compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 specifier|public
 name|void
 name|compact
@@ -3286,7 +3286,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Major compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to major compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
+comment|/**    * Major compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to major compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 specifier|public
 name|void
 name|majorCompact
@@ -3311,7 +3311,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Major compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to major compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
+comment|/**    * Major compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to major compact    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 specifier|public
 name|void
 name|majorCompact
@@ -3334,7 +3334,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to compact    * @param major True if we are to do a major compaction.    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
+comment|/**    * Compact a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to compact    * @param major True if we are to do a major compaction.    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 specifier|private
 name|void
 name|compact
@@ -3556,7 +3556,7 @@ name|major
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Move the region<code>r</code> to<code>dest</code>.    * @param encodedRegionName The encoded region name; i.e. the hash that makes    * up the region name suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    * then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param destServerName The servername of the destination regionserver.  If    * passed the empty byte array we'll assign to a random server.  A server name    * is made of host, port and startcode.  Here is an example:    *<code> host187.example.com,60020,1289493121758</code>.    * @throws UnknownRegionException Thrown if we can't find a region named    *<code>encodedRegionName</code>    * @throws ZooKeeperConnectionException     * @throws MasterNotRunningException     */
+comment|/**    * Move the region<code>r</code> to<code>dest</code>.    * @param encodedRegionName The encoded region name; i.e. the hash that makes    * up the region name suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    * then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param destServerName The servername of the destination regionserver.  If    * passed the empty byte array we'll assign to a random server.  A server name    * is made of host, port and startcode.  Here is an example:    *<code> host187.example.com,60020,1289493121758</code>.    * @throws UnknownRegionException Thrown if we can't find a region named    *<code>encodedRegionName</code>    * @throws ZooKeeperConnectionException    * @throws MasterNotRunningException    */
 specifier|public
 name|void
 name|move
@@ -3695,7 +3695,7 @@ name|balance
 argument_list|()
 return|;
 block|}
-comment|/**    * Split a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to split    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
+comment|/**    * Split a table or an individual region.    * Asynchronous operation.    *    * @param tableNameOrRegionName table or region to split    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 specifier|public
 name|void
 name|split
@@ -3720,7 +3720,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Split a table or an individual region.  Implicitly finds an optimal split    * point.  Asynchronous operation.    *    * @param tableNameOrRegionName table to region to split    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException     */
+comment|/**    * Split a table or an individual region.  Implicitly finds an optimal split    * point.  Asynchronous operation.    *    * @param tableNameOrRegionName table to region to split    * @throws IOException if a remote or network exception occurs    * @throws InterruptedException    */
 specifier|public
 name|void
 name|split
@@ -3937,14 +3937,6 @@ operator|==
 literal|null
 condition|)
 continue|continue;
-if|if
-condition|(
-name|splitPoint
-operator|!=
-literal|null
-condition|)
-block|{
-comment|// if a split point given, only split that particular region
 name|HRegionInfo
 name|r
 init|=
@@ -3953,8 +3945,22 @@ operator|.
 name|getFirst
 argument_list|()
 decl_stmt|;
+comment|// check for parents
 if|if
 condition|(
+name|r
+operator|.
+name|isSplitParent
+argument_list|()
+condition|)
+continue|continue;
+comment|// if a split point given, only split that particular region
+if|if
+condition|(
+name|splitPoint
+operator|!=
+literal|null
+operator|&&
 operator|!
 name|r
 operator|.
@@ -3964,7 +3970,7 @@ name|splitPoint
 argument_list|)
 condition|)
 continue|continue;
-block|}
+comment|// call out to region server to do split now
 name|split
 argument_list|(
 name|pair
@@ -4081,7 +4087,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * @param tableNameOrRegionName Name of a table or name of a region.    * @return True if<code>tableNameOrRegionName</code> is *possibly* a region    * name else false if a verified tablename (we call {@link #tableExists(byte[])};    * else we throw an exception.    * @throws IOException     */
+comment|/**    * @param tableNameOrRegionName Name of a table or name of a region.    * @return True if<code>tableNameOrRegionName</code> is *possibly* a region    * name else false if a verified tablename (we call {@link #tableExists(byte[])};    * else we throw an exception.    * @throws IOException    */
 specifier|private
 name|boolean
 name|isRegionName
