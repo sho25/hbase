@@ -43,6 +43,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Iterator
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -355,9 +365,9 @@ name|HColumnDescriptor
 argument_list|(
 name|A
 argument_list|,
-literal|10
+literal|100
 argument_list|,
-comment|// Ten is arbitrary number.  Keep versions to help debuggging.
+comment|// Keep versions to help debuggging.
 name|Compression
 operator|.
 name|Algorithm
@@ -403,9 +413,9 @@ name|HColumnDescriptor
 argument_list|(
 name|B
 argument_list|,
-literal|10
+literal|100
 argument_list|,
-comment|// Ten is arbitrary number.  Keep versions to help debuggging.
+comment|// Keep versions to help debuggging.
 name|Compression
 operator|.
 name|Algorithm
@@ -451,9 +461,9 @@ name|HColumnDescriptor
 argument_list|(
 name|C
 argument_list|,
-literal|10
+literal|100
 argument_list|,
-comment|// Ten is arbitrary number.  Keep versions to help debuggging.
+comment|// Keep versions to help debuggging.
 name|Compression
 operator|.
 name|Algorithm
@@ -623,6 +633,16 @@ argument_list|)
 decl_stmt|;
 name|int
 name|i
+decl_stmt|,
+name|j
+decl_stmt|;
+name|long
+name|ts
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 decl_stmt|;
 for|for
 control|(
@@ -632,7 +652,7 @@ literal|0
 init|;
 name|i
 operator|<
-literal|2500
+literal|100
 condition|;
 name|i
 operator|++
@@ -656,6 +676,20 @@ name|i
 argument_list|)
 argument_list|)
 decl_stmt|;
+for|for
+control|(
+name|j
+operator|=
+literal|0
+init|;
+name|j
+operator|<
+literal|100
+condition|;
+name|j
+operator|++
+control|)
+block|{
 name|Put
 name|put
 init|=
@@ -683,6 +717,9 @@ index|]
 argument_list|,
 name|b
 argument_list|,
+operator|++
+name|ts
+argument_list|,
 name|b
 argument_list|)
 expr_stmt|;
@@ -698,6 +735,7 @@ operator|++
 expr_stmt|;
 block|}
 block|}
+block|}
 return|return
 name|count
 return|;
@@ -709,6 +747,12 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+specifier|final
+name|int
+name|batch
+init|=
+literal|256
+decl_stmt|;
 try|try
 block|{
 name|this
@@ -780,9 +824,16 @@ argument_list|)
 expr_stmt|;
 name|scan
 operator|.
+name|setMaxVersions
+argument_list|(
+literal|100
+argument_list|)
+expr_stmt|;
+name|scan
+operator|.
 name|setBatch
 argument_list|(
-literal|1000
+name|batch
 argument_list|)
 expr_stmt|;
 name|InternalScanner
@@ -838,7 +889,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// assert that the result set is no larger than 1000
+comment|// assert that the result set is no larger
 name|assertTrue
 argument_list|(
 name|results
@@ -846,7 +897,7 @@ operator|.
 name|size
 argument_list|()
 operator|<=
-literal|1000
+name|batch
 argument_list|)
 expr_stmt|;
 name|total
@@ -911,6 +962,55 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+comment|// trigger ChangedReadersObservers
+name|Iterator
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+name|scanners
+init|=
+operator|(
+operator|(
+name|HRegion
+operator|.
+name|RegionScanner
+operator|)
+name|s
+operator|)
+operator|.
+name|storeHeap
+operator|.
+name|getHeap
+argument_list|()
+operator|.
+name|iterator
+argument_list|()
+decl_stmt|;
+while|while
+condition|(
+name|scanners
+operator|.
+name|hasNext
+argument_list|()
+condition|)
+block|{
+name|StoreScanner
+name|ss
+init|=
+operator|(
+name|StoreScanner
+operator|)
+name|scanners
+operator|.
+name|next
+argument_list|()
+decl_stmt|;
+name|ss
+operator|.
+name|updateReaders
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 do|while
 condition|(
@@ -931,10 +1031,10 @@ operator|+
 name|total
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|total
-operator|==
+argument_list|,
 name|inserted
 argument_list|)
 expr_stmt|;
