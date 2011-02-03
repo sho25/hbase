@@ -504,7 +504,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test class fosr the Store  */
+comment|/**  * Test class for the Store  */
 end_comment
 
 begin_class
@@ -4164,6 +4164,43 @@ name|size
 argument_list|()
 operator|==
 literal|0
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Test for HBASE-3492 - Test split on empty colfam (no store files).    *    * @throws IOException When the IO operations fail.    */
+specifier|public
+name|void
+name|testSplitWithEmptyColFam
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|init
+argument_list|(
+name|this
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertNull
+argument_list|(
+name|store
+operator|.
+name|checkSplit
+argument_list|(
+literal|false
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|assertNull
+argument_list|(
+name|store
+operator|.
+name|checkSplit
+argument_list|(
+literal|true
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

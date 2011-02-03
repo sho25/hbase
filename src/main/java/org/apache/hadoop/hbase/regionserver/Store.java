@@ -4135,7 +4135,7 @@ name|this
 operator|.
 name|compactRatio
 decl_stmt|;
-comment|/* TODO: add sorting + unit test back in when HBASE-2856 is fixed        // Sort files by size to correct when normal skew is altered by bulk load.       Collections.sort(filesToCompact, StoreFile.Comparators.FILE_SIZE);        */
+comment|/* TODO: add sorting + unit test back in when HBASE-2856 is fixed       // Sort files by size to correct when normal skew is altered by bulk load.       Collections.sort(filesToCompact, StoreFile.Comparators.FILE_SIZE);        */
 comment|// get store file sizes for incremental compacting selection.
 name|int
 name|countOfFiles
@@ -5971,18 +5971,6 @@ block|{
 comment|// sanity checks
 if|if
 condition|(
-operator|!
-name|force
-condition|)
-block|{
-if|if
-condition|(
-name|storeSize
-operator|<
-name|this
-operator|.
-name|desiredMaxFileSize
-operator|||
 name|this
 operator|.
 name|storefiles
@@ -5995,6 +5983,21 @@ return|return
 literal|null
 return|;
 block|}
+if|if
+condition|(
+operator|!
+name|force
+operator|&&
+name|storeSize
+operator|<
+name|this
+operator|.
+name|desiredMaxFileSize
+condition|)
+block|{
+return|return
+literal|null
+return|;
 block|}
 if|if
 condition|(
