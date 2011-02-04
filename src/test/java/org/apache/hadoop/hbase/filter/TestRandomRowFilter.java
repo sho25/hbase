@@ -92,7 +92,7 @@ name|TestCase
 block|{
 specifier|protected
 name|RandomRowFilter
-name|halfChanceFilter
+name|quarterChanceFilter
 decl_stmt|;
 annotation|@
 name|Override
@@ -108,7 +108,7 @@ operator|.
 name|setUp
 argument_list|()
 expr_stmt|;
-name|halfChanceFilter
+name|quarterChanceFilter
 operator|=
 operator|new
 name|RandomRowFilter
@@ -153,7 +153,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|halfChanceFilter
+name|quarterChanceFilter
 operator|.
 name|filterRowKey
 argument_list|(
@@ -224,7 +224,7 @@ name|newFilter
 init|=
 name|serializationTest
 argument_list|(
-name|halfChanceFilter
+name|quarterChanceFilter
 argument_list|)
 decl_stmt|;
 comment|// use epsilon float comparison
@@ -241,7 +241,7 @@ operator|.
 name|getChance
 argument_list|()
 operator|-
-name|halfChanceFilter
+name|quarterChanceFilter
 operator|.
 name|getChance
 argument_list|()
