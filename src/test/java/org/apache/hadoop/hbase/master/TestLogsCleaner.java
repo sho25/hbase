@@ -660,28 +660,6 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-comment|// This will take care of 20 old log files (default max we can delete)
-name|cleaner
-operator|.
-name|chore
-argument_list|()
-expr_stmt|;
-name|assertEquals
-argument_list|(
-literal|14
-argument_list|,
-name|fs
-operator|.
-name|listStatus
-argument_list|(
-name|oldLogDir
-argument_list|)
-operator|.
-name|length
-argument_list|)
-expr_stmt|;
-comment|// We will delete all remaining log files which are not scheduled for
-comment|// replication and those that are invalid
 name|cleaner
 operator|.
 name|chore

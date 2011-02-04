@@ -208,7 +208,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This Chore, everytime it runs, will clear the wal logs in the old logs folder  * that are deletable for each log cleaner in the chain, in order to limit the  * number of deletes it sends, will only delete maximum 20 in a single run.  */
+comment|/**  * This Chore, everytime it runs, will clear the HLogs in the old logs folder  * that are deletable for each log cleaner in the chain.  */
 end_comment
 
 begin_class
@@ -234,13 +234,6 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
-decl_stmt|;
-comment|// Max number we can delete on every chore, this is to make sure we don't
-comment|// issue thousands of delete commands around the same time
-specifier|private
-specifier|final
-name|int
-name|maxDeletedLogs
 decl_stmt|;
 specifier|private
 specifier|final
@@ -293,19 +286,6 @@ argument_list|,
 name|p
 argument_list|,
 name|s
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|maxDeletedLogs
-operator|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.master.logcleaner.maxdeletedlogs"
-argument_list|,
-literal|20
 argument_list|)
 expr_stmt|;
 name|this
@@ -540,11 +520,6 @@ operator|==
 literal|null
 condition|)
 return|return;
-name|int
-name|nbDeletedLog
-init|=
-literal|0
-decl_stmt|;
 name|FILE
 label|:
 for|for
@@ -630,9 +605,6 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|nbDeletedLog
-operator|++
-expr_stmt|;
 block|}
 else|else
 block|{
@@ -662,18 +634,6 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|nbDeletedLog
-operator|++
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|nbDeletedLog
-operator|>=
-name|maxDeletedLogs
-condition|)
-block|{
-break|break;
 block|}
 block|}
 block|}
