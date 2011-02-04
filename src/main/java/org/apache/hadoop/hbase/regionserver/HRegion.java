@@ -2133,12 +2133,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// Name of this file has two leading and trailing underscores so it doesn't
-comment|// clash w/ a store/family name.  There is possibility, but assumption is
-comment|// that its slim (don't want to use control character in filename because
-comment|//
 name|Path
-name|regioninfo
+name|regioninfoPath
 init|=
 operator|new
 name|Path
@@ -2158,7 +2154,7 @@ name|fs
 operator|.
 name|exists
 argument_list|(
-name|regioninfo
+name|regioninfoPath
 argument_list|)
 operator|&&
 name|this
@@ -2167,7 +2163,7 @@ name|fs
 operator|.
 name|getFileStatus
 argument_list|(
-name|regioninfo
+name|regioninfoPath
 argument_list|)
 operator|.
 name|getLen
@@ -2178,6 +2174,22 @@ condition|)
 block|{
 return|return;
 block|}
+comment|// Create in tmpdir and then move into place in case we crash after
+comment|// create but before close.  If we don't successfully close the file,
+comment|// subsequent region reopens will fail the below because create is
+comment|// registered in NN.
+name|Path
+name|tmpPath
+init|=
+operator|new
+name|Path
+argument_list|(
+name|getTmpDir
+argument_list|()
+argument_list|,
+name|REGIONINFO_FILE
+argument_list|)
+decl_stmt|;
 name|FSDataOutputStream
 name|out
 init|=
@@ -2187,7 +2199,7 @@ name|fs
 operator|.
 name|create
 argument_list|(
-name|regioninfo
+name|tmpPath
 argument_list|,
 literal|true
 argument_list|)
@@ -2242,6 +2254,33 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|rename
+argument_list|(
+name|tmpPath
+argument_list|,
+name|regioninfoPath
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Unable to rename "
+operator|+
+name|tmpPath
+operator|+
+literal|" to "
+operator|+
+name|regioninfoPath
+argument_list|)
+throw|;
 block|}
 block|}
 comment|/** @return a HRegionInfo object for this region */
