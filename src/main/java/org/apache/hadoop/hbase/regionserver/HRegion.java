@@ -8258,6 +8258,36 @@ operator|.
 name|getEdit
 argument_list|()
 decl_stmt|;
+comment|// Start coprocessor replay here. The coprocessor is for each WALEdit
+comment|// instead of a KeyValue.
+if|if
+condition|(
+name|coprocessorHost
+operator|!=
+literal|null
+condition|)
+block|{
+if|if
+condition|(
+name|coprocessorHost
+operator|.
+name|preWALRestore
+argument_list|(
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|,
+name|key
+argument_list|,
+name|val
+argument_list|)
+condition|)
+block|{
+comment|// if bypass this log entry, ignore it ...
+continue|continue;
+block|}
+block|}
 if|if
 condition|(
 name|firstSeqIdInLog
@@ -8437,6 +8467,28 @@ argument_list|,
 name|currentEditSeqId
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|coprocessorHost
+operator|!=
+literal|null
+condition|)
+block|{
+name|coprocessorHost
+operator|.
+name|postWALRestore
+argument_list|(
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|,
+name|key
+argument_list|,
+name|val
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Every 'interval' edits, tell the reporter we're making progress.
 comment|// Have seen 60k edits taking 3minutes to complete.
 if|if

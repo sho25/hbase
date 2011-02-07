@@ -738,6 +738,10 @@ name|Reader
 argument_list|>
 name|logReaderClass
 decl_stmt|;
+specifier|private
+name|WALCoprocessorHost
+name|coprocessorHost
+decl_stmt|;
 specifier|static
 name|void
 name|resetLogReaderClass
@@ -1764,6 +1768,16 @@ name|getName
 argument_list|()
 operator|+
 literal|".logSyncer"
+argument_list|)
+expr_stmt|;
+name|coprocessorHost
+operator|=
+operator|new
+name|WALCoprocessorHost
+argument_list|(
+name|this
+argument_list|,
+name|conf
 argument_list|)
 expr_stmt|;
 block|}
@@ -4559,6 +4573,23 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
+comment|// coprocessor hook:
+if|if
+condition|(
+operator|!
+name|coprocessorHost
+operator|.
+name|preWALWrite
+argument_list|(
+name|info
+argument_list|,
+name|logKey
+argument_list|,
+name|logEdit
+argument_list|)
+condition|)
+block|{
+comment|// if not bypassed:
 name|this
 operator|.
 name|writer
@@ -4576,6 +4607,7 @@ name|logEdit
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 name|long
 name|took
 init|=
@@ -4586,6 +4618,17 @@ argument_list|()
 operator|-
 name|now
 decl_stmt|;
+name|coprocessorHost
+operator|.
+name|postWALWrite
+argument_list|(
+name|info
+argument_list|,
+name|logKey
+argument_list|,
+name|logEdit
+argument_list|)
+expr_stmt|;
 name|writeTime
 operator|+=
 name|took
@@ -6173,6 +6216,22 @@ operator|.
 name|splitLog
 argument_list|()
 expr_stmt|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * @return Coprocessor host.    */
+end_comment
+
+begin_function
+specifier|public
+name|WALCoprocessorHost
+name|getCoprocessorHost
+parameter_list|()
+block|{
+return|return
+name|coprocessorHost
+return|;
 block|}
 end_function
 
