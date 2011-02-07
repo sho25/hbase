@@ -973,6 +973,8 @@ operator|=
 operator|new
 name|MemStore
 argument_list|(
+name|conf
+argument_list|,
 name|this
 operator|.
 name|comparator
