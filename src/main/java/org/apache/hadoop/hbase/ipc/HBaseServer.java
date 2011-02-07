@@ -499,6 +499,22 @@ name|Function
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ThreadFactoryBuilder
+import|;
+end_import
+
 begin_comment
 comment|/** An abstract IPC service.  IPC calls take a single {@link Writable} as a  * parameter, and return a {@link Writable} as their value.  A service runs on  * a port and is defined by a parameter class and a value class.  *  *  *<p>Copied local so can fix HBASE-900.  *  * @see HBaseClient  */
 end_comment
@@ -1352,6 +1368,20 @@ operator|.
 name|newFixedThreadPool
 argument_list|(
 name|readThreads
+argument_list|,
+operator|new
+name|ThreadFactoryBuilder
+argument_list|()
+operator|.
+name|setNameFormat
+argument_list|(
+literal|"IPC Reader %d on port "
+operator|+
+name|port
+argument_list|)
+operator|.
+name|build
+argument_list|()
 argument_list|)
 expr_stmt|;
 for|for
