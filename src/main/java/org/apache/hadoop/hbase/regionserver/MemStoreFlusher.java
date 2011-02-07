@@ -1268,6 +1268,18 @@ expr_stmt|;
 block|}
 block|}
 block|}
+specifier|public
+name|int
+name|getFlushQueueSize
+parameter_list|()
+block|{
+return|return
+name|flushQueue
+operator|.
+name|size
+argument_list|()
+return|;
+block|}
 comment|/**    * Only interrupt once it's done with a run through the work loop.    */
 name|void
 name|interruptIfNecessary
