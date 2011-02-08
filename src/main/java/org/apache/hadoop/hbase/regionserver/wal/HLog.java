@@ -2139,6 +2139,15 @@ init|(
 name|updateLock
 init|)
 block|{
+if|if
+condition|(
+name|closed
+condition|)
+block|{
+return|return
+name|regionsToFlush
+return|;
+block|}
 comment|// Clean up current writer.
 name|Path
 name|oldFile
