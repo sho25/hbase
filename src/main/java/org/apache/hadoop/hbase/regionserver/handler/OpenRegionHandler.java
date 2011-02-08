@@ -157,9 +157,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|zookeeper
+name|util
 operator|.
-name|ZKAssign
+name|CancelableProgressable
 import|;
 end_import
 
@@ -171,9 +171,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|util
+name|hbase
 operator|.
-name|Progressable
+name|zookeeper
+operator|.
+name|ZKAssign
 import|;
 end_import
 
@@ -1183,22 +1185,23 @@ operator|.
 name|rsServices
 argument_list|,
 operator|new
-name|Progressable
+name|CancelableProgressable
 argument_list|()
 block|{
 specifier|public
-name|void
+name|boolean
 name|progress
 parameter_list|()
 block|{
 comment|// We may lose the znode ownership during the open.  Currently its
 comment|// too hard interrupting ongoing region open.  Just let it complete
 comment|// and check we still have the znode after region open.
+return|return
 name|tickleOpening
 argument_list|(
 literal|"open_region_progress"
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 block|}
 argument_list|)
@@ -1428,6 +1431,13 @@ name|context
 argument_list|,
 name|e
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|version
+operator|=
+operator|-
+literal|1
 expr_stmt|;
 block|}
 name|boolean
