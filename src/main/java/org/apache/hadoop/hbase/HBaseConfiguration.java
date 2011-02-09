@@ -19,16 +19,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|net
-operator|.
-name|URL
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|Map
@@ -174,96 +164,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Check that the hbase-defaults.xml file is being loaded from within    * the hbase jar, rather than somewhere else on the classpath.    */
-specifier|private
-specifier|static
-name|void
-name|checkDefaultsInJar
-parameter_list|(
-name|Configuration
-name|conf
-parameter_list|)
-block|{
-name|ClassLoader
-name|cl
-init|=
-name|conf
-operator|.
-name|getClassLoader
-argument_list|()
-decl_stmt|;
-name|URL
-name|url
-init|=
-name|cl
-operator|.
-name|getResource
-argument_list|(
-literal|"hbase-default.xml"
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|url
-operator|==
-literal|null
-condition|)
-block|{
-comment|// This is essentially an assertion failure - we compile this
-comment|// into our own jar, so there's something really wacky about
-comment|// the classloader context!
-throw|throw
-operator|new
-name|AssertionError
-argument_list|(
-literal|"hbase-default.xml not on classpath"
-argument_list|)
-throw|;
-block|}
-if|if
-condition|(
-operator|!
-literal|"jar"
-operator|.
-name|equals
-argument_list|(
-name|url
-operator|.
-name|getProtocol
-argument_list|()
-argument_list|)
-operator|&&
-operator|!
-name|url
-operator|.
-name|getPath
-argument_list|()
-operator|.
-name|endsWith
-argument_list|(
-literal|"target/classes/hbase-default.xml"
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"hbase-defaults.xml is being loaded from "
-operator|+
-name|url
-operator|+
-literal|" rather than "
-operator|+
-literal|"the HBase JAR. This is dangerous since you may pick up defaults "
-operator|+
-literal|"from a previously installed version of HBase. Please remove "
-operator|+
-literal|"hbase-default.xml from your configuration directory."
-argument_list|)
-throw|;
-block|}
-block|}
 specifier|public
 specifier|static
 name|Configuration
@@ -273,11 +173,6 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
-name|checkDefaultsInJar
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 name|conf
 operator|.
 name|addResource
