@@ -75,6 +75,20 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|ipc
+operator|.
+name|VersionedProtocol
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -92,8 +106,21 @@ specifier|public
 interface|interface
 name|HMasterRegionInterface
 extends|extends
-name|HBaseRPCProtocolVersion
+name|VersionedProtocol
 block|{
+comment|/**    * This Interfaces' version. Version changes when the Interface changes.    */
+comment|// All HBase Interfaces used derive from HBaseRPCProtocolVersion.  It
+comment|// maintained a single global version number on all HBase Interfaces.  This
+comment|// meant all HBase RPC was broke though only one of the three RPC Interfaces
+comment|// had changed.  This has since been undone.
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|VERSION
+init|=
+literal|28L
+decl_stmt|;
 comment|/**    * Called when a region server first starts    * @param info server info    * @param serverCurrentTime The current time of the region server in ms    * @throws IOException e    * @return Configuration for the regionserver to use: e.g. filesystem,    * hbase rootdir, etc.    */
 specifier|public
 name|MapWritable

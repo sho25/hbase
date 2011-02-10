@@ -51,27 +51,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
 name|ipc
 operator|.
-name|HBaseRPCProtocolVersion
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|HRegion
+name|VersionedProtocol
 import|;
 end_import
 
@@ -88,25 +70,26 @@ implements|implements
 name|Coprocessor
 implements|,
 name|CoprocessorProtocol
+implements|,
+name|VersionedProtocol
 block|{
+comment|/**    * This Interfaces' version. Version changes when the Interface changes.    */
+comment|// All HBase Interfaces used derive from HBaseRPCProtocolVersion.  It
+comment|// maintained a single global version number on all HBase Interfaces.  This
+comment|// meant all HBase RPC was broke though only one of the three RPC Interfaces
+comment|// had changed.  This has since been undone.
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|VERSION
+init|=
+literal|28L
+decl_stmt|;
 specifier|private
 name|CoprocessorEnvironment
 name|env
 decl_stmt|;
-comment|/**    * @param e Coprocessor environment.    */
-specifier|private
-name|void
-name|setEnvironment
-parameter_list|(
-name|CoprocessorEnvironment
-name|e
-parameter_list|)
-block|{
-name|env
-operator|=
-name|e
-expr_stmt|;
-block|}
 comment|/**    * @return env Coprocessor environment.    */
 specifier|public
 name|CoprocessorEnvironment
@@ -160,9 +143,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|HBaseRPCProtocolVersion
-operator|.
-name|versionID
+name|VERSION
 return|;
 block|}
 block|}

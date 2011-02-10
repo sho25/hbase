@@ -49,16 +49,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|NavigableSet
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -140,42 +130,6 @@ operator|.
 name|client
 operator|.
 name|Delete
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|coprocessor
-operator|.
-name|Exec
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|coprocessor
-operator|.
-name|ExecResult
 import|;
 end_import
 
@@ -333,6 +287,42 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|coprocessor
+operator|.
+name|Exec
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|coprocessor
+operator|.
+name|ExecResult
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|wal
@@ -355,6 +345,20 @@ name|RemoteException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|ipc
+operator|.
+name|VersionedProtocol
+import|;
+end_import
+
 begin_comment
 comment|/**  * Clients interact with HRegionServers using a handle to the HRegionInterface.  *  *<p>NOTE: if you change the interface, you must change the RPC version  * number in HBaseRPCProtocolVersion  */
 end_comment
@@ -364,12 +368,25 @@ specifier|public
 interface|interface
 name|HRegionInterface
 extends|extends
-name|HBaseRPCProtocolVersion
+name|VersionedProtocol
 extends|,
 name|Stoppable
 extends|,
 name|Abortable
 block|{
+comment|/**    * This Interfaces' version. Version changes when the Interface changes.    */
+comment|// All HBase Interfaces used derive from HBaseRPCProtocolVersion.  It
+comment|// maintained a single global version number on all HBase Interfaces.  This
+comment|// meant all HBase RPC was broke though only one of the three RPC Interfaces
+comment|// had changed.  This has since been undone.
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|VERSION
+init|=
+literal|28L
+decl_stmt|;
 comment|/**    * Get metainfo about an HRegion    *    * @param regionName name of the region    * @return HRegionInfo object for region    * @throws NotServingRegionException    * @throws ConnectException    * @throws IOException This can manifest as an Hadoop ipc {@link RemoteException}    */
 specifier|public
 name|HRegionInfo

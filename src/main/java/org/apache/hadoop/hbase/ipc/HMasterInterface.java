@@ -83,6 +83,20 @@ name|UnknownRegionException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|ipc
+operator|.
+name|VersionedProtocol
+import|;
+end_import
+
 begin_comment
 comment|/**  * Clients interact with the HMasterInterface to gain access to meta-level  * HBase functionality, like finding an HRegionServer and creating/destroying  * tables.  *  *<p>NOTE: if you change the interface, you must change the RPC version  * number in HBaseRPCProtocolVersion  *  */
 end_comment
@@ -92,8 +106,21 @@ specifier|public
 interface|interface
 name|HMasterInterface
 extends|extends
-name|HBaseRPCProtocolVersion
+name|VersionedProtocol
 block|{
+comment|/**    * This Interfaces' version. Version changes when the Interface changes.    */
+comment|// All HBase Interfaces used derive from HBaseRPCProtocolVersion.  It
+comment|// maintained a single global version number on all HBase Interfaces.  This
+comment|// meant all HBase RPC was broke though only one of the three RPC Interfaces
+comment|// had changed.  This has since been undone.
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|VERSION
+init|=
+literal|28L
+decl_stmt|;
 comment|/** @return true if master is available */
 specifier|public
 name|boolean

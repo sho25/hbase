@@ -1511,9 +1511,9 @@ name|HMasterInterface
 operator|.
 name|class
 argument_list|,
-name|HBaseRPCProtocolVersion
+name|HMasterInterface
 operator|.
-name|versionID
+name|VERSION
 argument_list|,
 name|masterLocation
 operator|.
@@ -4325,9 +4325,9 @@ name|waitForProxy
 argument_list|(
 name|serverInterfaceClass
 argument_list|,
-name|HBaseRPCProtocolVersion
+name|HRegionInterface
 operator|.
-name|versionID
+name|VERSION
 argument_list|,
 name|regionServer
 operator|.
