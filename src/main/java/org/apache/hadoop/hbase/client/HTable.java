@@ -900,6 +900,8 @@ comment|// is there a better default?
 block|}
 comment|// Unfortunately Executors.newCachedThreadPool does not allow us to
 comment|// set the maximum size of the pool, so we have to do it ourselves.
+comment|// Must also set set corethreadpool size as with a LinkedBlockingQueue,
+comment|// a new thread will not be started until the queue is full
 name|this
 operator|.
 name|pool
@@ -907,7 +909,7 @@ operator|=
 operator|new
 name|ThreadPoolExecutor
 argument_list|(
-literal|0
+name|nrThreads
 argument_list|,
 name|nrThreads
 argument_list|,
@@ -927,6 +929,20 @@ argument_list|,
 operator|new
 name|DaemonThreadFactory
 argument_list|()
+argument_list|)
+expr_stmt|;
+operator|(
+operator|(
+name|ThreadPoolExecutor
+operator|)
+name|this
+operator|.
+name|pool
+operator|)
+operator|.
+name|allowCoreThreadTimeOut
+argument_list|(
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
