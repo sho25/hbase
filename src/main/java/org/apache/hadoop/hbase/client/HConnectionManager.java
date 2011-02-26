@@ -1259,13 +1259,6 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
-name|zooKeeper
-operator|.
-name|registerListener
-argument_list|(
-name|masterAddressTracker
-argument_list|)
-expr_stmt|;
 name|masterAddressTracker
 operator|.
 name|start
