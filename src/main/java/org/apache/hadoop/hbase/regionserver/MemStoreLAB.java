@@ -404,6 +404,15 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|OOM
+init|=
+operator|-
+literal|2
+decl_stmt|;
 comment|/**      * Offset for the next allocation, or the sentinel value -1      * which implies that the chunk is still uninitialized.      * */
 specifier|private
 name|AtomicInteger
@@ -459,6 +468,8 @@ argument_list|()
 operator|==
 name|UNINITIALIZED
 assert|;
+try|try
+block|{
 name|data
 operator|=
 operator|new
@@ -467,6 +478,33 @@ index|[
 name|size
 index|]
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|OutOfMemoryError
+name|e
+parameter_list|)
+block|{
+name|boolean
+name|failInit
+init|=
+name|nextFreeOffset
+operator|.
+name|compareAndSet
+argument_list|(
+name|UNINITIALIZED
+argument_list|,
+name|OOM
+argument_list|)
+decl_stmt|;
+assert|assert
+name|failInit
+assert|;
+comment|// should be true.
+throw|throw
+name|e
+throw|;
+block|}
 comment|// Mark that it's ready for use
 name|boolean
 name|initted
@@ -531,6 +569,19 @@ name|yield
 argument_list|()
 expr_stmt|;
 continue|continue;
+block|}
+if|if
+condition|(
+name|oldOffset
+operator|==
+name|OOM
+condition|)
+block|{
+comment|// doh we ran out of ram. return -1 to chuck this away.
+return|return
+operator|-
+literal|1
+return|;
 block|}
 if|if
 condition|(
