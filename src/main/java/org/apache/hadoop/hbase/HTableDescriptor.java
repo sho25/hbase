@@ -1200,7 +1200,7 @@ name|FALSE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** @return true if table is the meta table */
+comment|/** @return true if table is a meta table, either<code>.META.</code> or    *<code>-ROOT-</code>    */
 specifier|public
 name|boolean
 name|isMetaTable

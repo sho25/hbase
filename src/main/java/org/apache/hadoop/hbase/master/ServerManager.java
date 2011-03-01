@@ -1169,23 +1169,6 @@ literal|"ready next on next report"
 argument_list|)
 throw|;
 block|}
-comment|// Check startcodes
-if|if
-condition|(
-name|raceThatShouldNotHappenAnymore
-argument_list|(
-name|storedInfo
-argument_list|,
-name|info
-argument_list|)
-condition|)
-block|{
-return|return
-name|HMsg
-operator|.
-name|STOP_REGIONSERVER_ARRAY
-return|;
-block|}
 for|for
 control|(
 name|HMsg
@@ -1236,12 +1219,6 @@ name|reply
 init|=
 literal|null
 decl_stmt|;
-name|int
-name|numservers
-init|=
-name|countOfRegionServers
-argument_list|()
-decl_stmt|;
 if|if
 condition|(
 name|this
@@ -1251,21 +1228,31 @@ condition|)
 block|{
 if|if
 condition|(
-name|numservers
-operator|<=
-literal|2
+name|isOnlyMetaRegionServersOnline
+argument_list|()
 condition|)
 block|{
-comment|// Shutdown needs to be staggered; the meta regions need to close last
-comment|// in case they need to be updated during the close melee.  If<= 2
-comment|// servers left, then these are the two that were carrying root and meta
-comment|// most likely (TODO: This presumes unsplittable meta -- FIX). Tell
-comment|// these servers can shutdown now too.
-name|reply
-operator|=
-name|HMsg
+name|LOG
 operator|.
-name|STOP_REGIONSERVER_ARRAY
+name|info
+argument_list|(
+literal|"Only catalog regions remaining; running unassign"
+argument_list|)
+expr_stmt|;
+comment|// The only remaining regions are catalog regions.
+comment|// Shutdown needs to be staggered; the meta regions need to close last
+comment|// in case they need to be updated during the close melee. If only
+comment|// catalog reigons remaining, tell them they can go down now too.  On
+comment|// close of region, the regionservers should then shut themselves down.
+name|this
+operator|.
+name|services
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|unassignCatalogRegions
+argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -1280,76 +1267,52 @@ name|reply
 argument_list|)
 return|;
 block|}
+comment|/**    * @return True if all online servers are carrying one or more catalog    * regions, there are no servers online carrying user regions only    */
 specifier|private
 name|boolean
-name|raceThatShouldNotHappenAnymore
-parameter_list|(
-specifier|final
+name|isOnlyMetaRegionServersOnline
+parameter_list|()
+block|{
+name|List
+argument_list|<
 name|HServerInfo
-name|storedInfo
-parameter_list|,
-specifier|final
+argument_list|>
+name|onlineServers
+init|=
+name|getOnlineServersList
+argument_list|()
+decl_stmt|;
+for|for
+control|(
 name|HServerInfo
-name|reportedInfo
-parameter_list|)
+name|hsi
+range|:
+name|onlineServers
+control|)
 block|{
 if|if
 condition|(
-name|storedInfo
-operator|.
-name|getStartCode
-argument_list|()
-operator|!=
-name|reportedInfo
-operator|.
-name|getStartCode
-argument_list|()
-condition|)
-block|{
-comment|// TODO: I don't think this possible any more.  We check startcodes when
-comment|// server comes in on regionServerStartup -- St.Ack
-comment|// This state is reachable if:
-comment|// 1) RegionServer A started
-comment|// 2) RegionServer B started on the same machine, then clobbered A in regionServerStartup.
-comment|// 3) RegionServer A returns, expecting to work as usual.
-comment|// The answer is to ask A to shut down for good.
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Race condition detected: "
-operator|+
-name|reportedInfo
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
-expr_stmt|;
-synchronized|synchronized
-init|(
+operator|!
 name|this
 operator|.
-name|onlineServers
-init|)
-block|{
-name|removeServerInfo
-argument_list|(
-name|reportedInfo
+name|services
 operator|.
-name|getServerName
+name|getAssignmentManager
 argument_list|()
+operator|.
+name|isMetaRegionServer
+argument_list|(
+name|hsi
 argument_list|)
-expr_stmt|;
-name|notifyOnlineServers
-argument_list|()
-expr_stmt|;
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 block|}
 return|return
 literal|true
-return|;
-block|}
-return|return
-literal|false
 return|;
 block|}
 comment|/**    *  RegionServer is checking in, no exceptional circumstances    * @param serverInfo    * @param mostLoadedRegions    * @param msgs    * @return    * @throws IOException    */

@@ -2078,7 +2078,7 @@ name|isRootRegion
 argument_list|()
 return|;
 block|}
-comment|/** @return true if this is the meta table */
+comment|/** @return true if this region is from a table that is a meta table,    * either<code>.META.</code> or<code>-ROOT-</code>    */
 specifier|public
 name|boolean
 name|isMetaTable

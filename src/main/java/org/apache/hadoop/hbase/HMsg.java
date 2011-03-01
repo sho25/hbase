@@ -91,26 +91,6 @@ specifier|static
 specifier|final
 name|HMsg
 index|[]
-name|STOP_REGIONSERVER_ARRAY
-init|=
-operator|new
-name|HMsg
-index|[]
-block|{
-operator|new
-name|HMsg
-argument_list|(
-name|Type
-operator|.
-name|STOP_REGIONSERVER
-argument_list|)
-block|}
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|HMsg
-index|[]
 name|EMPTY_HMSG_ARRAY
 init|=
 operator|new
@@ -124,9 +104,6 @@ specifier|static
 enum|enum
 name|Type
 block|{
-comment|/** Master tells region server to stop.      */
-name|STOP_REGIONSERVER
-block|,
 comment|/**      * When RegionServer receives this message, it goes into a sleep that only      * an exit will cure.  This message is sent by unit tests simulating      * pathological states.      */
 name|TESTING_BLOCK_REGIONSERVER
 block|,   }
