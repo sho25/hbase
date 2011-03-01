@@ -8268,69 +8268,6 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Add to the outbound message buffer    *    * When a region splits, we need to tell the master that there are two new    * regions that need to be assigned.    *    * We do not need to inform the master about the old region, because we've    * updated the meta or root regions, and the master will pick that up on its    * next rescan of the root or meta tables.    */
-end_comment
-
-begin_function
-name|void
-name|reportSplit
-parameter_list|(
-name|HRegionInfo
-name|oldRegion
-parameter_list|,
-name|HRegionInfo
-name|newRegionA
-parameter_list|,
-name|HRegionInfo
-name|newRegionB
-parameter_list|)
-block|{
-name|this
-operator|.
-name|outboundMsgs
-operator|.
-name|add
-argument_list|(
-operator|new
-name|HMsg
-argument_list|(
-name|HMsg
-operator|.
-name|Type
-operator|.
-name|REGION_SPLIT
-argument_list|,
-name|oldRegion
-argument_list|,
-name|newRegionA
-argument_list|,
-name|newRegionB
-argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"Daughters; "
-operator|+
-name|newRegionA
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|", "
-operator|+
-name|newRegionB
-operator|.
-name|getRegionNameAsString
-argument_list|()
-argument_list|)
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-end_function
-
-begin_comment
 comment|/**    * Closes all regions.  Called on our way out.    * Assumes that its not possible for new regions to be added to onlineRegions    * while this method runs.    */
 end_comment
 

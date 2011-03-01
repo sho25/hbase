@@ -741,8 +741,8 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|IOException
-name|ioe
+name|Exception
+name|e
 parameter_list|)
 block|{
 try|try
@@ -760,7 +760,7 @@ argument_list|()
 operator|+
 literal|"; "
 operator|+
-name|ioe
+name|e
 operator|.
 name|getMessage
 argument_list|()
@@ -770,6 +770,10 @@ name|st
 operator|.
 name|rollback
 argument_list|(
+name|this
+operator|.
+name|server
+argument_list|,
 name|this
 operator|.
 name|server
@@ -791,7 +795,7 @@ block|}
 catch|catch
 parameter_list|(
 name|RuntimeException
-name|e
+name|ee
 parameter_list|)
 block|{
 comment|// If failed rollback, kill this server to avoid having a hole in table.
@@ -808,7 +812,7 @@ argument_list|()
 operator|+
 literal|" -- aborting server"
 argument_list|,
-name|e
+name|ee
 argument_list|)
 expr_stmt|;
 name|this
@@ -823,31 +827,6 @@ expr_stmt|;
 block|}
 return|return;
 block|}
-comment|// Now tell the master about the new regions.  If we fail here, its OK.
-comment|// Basescanner will do fix up.  And reporting split to master is going away.
-comment|// TODO: Verify this still holds in new master rewrite.
-name|this
-operator|.
-name|server
-operator|.
-name|reportSplit
-argument_list|(
-name|parent
-operator|.
-name|getRegionInfo
-argument_list|()
-argument_list|,
-name|st
-operator|.
-name|getFirstDaughter
-argument_list|()
-argument_list|,
-name|st
-operator|.
-name|getSecondDaughter
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|LOG
 operator|.
 name|info

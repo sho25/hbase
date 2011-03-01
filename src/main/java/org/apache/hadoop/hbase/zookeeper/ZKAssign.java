@@ -963,7 +963,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Deletes an existing unassigned node that is in the specified state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during table disables when a region finishes    * successfully closing.  This is the Master acknowledging completion    * of the specified regions transition to being closed.    *    * @param zkw zk reference    * @param regionName region to be deleted from zk    * @param expectedState state region must be in for delete to complete    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
-specifier|private
+specifier|public
 specifier|static
 name|boolean
 name|deleteNode
@@ -1165,9 +1165,7 @@ literal|"unassigned node in "
 operator|+
 name|expectedState
 operator|+
-literal|" state but "
-operator|+
-literal|"after verifying it was in OPENED state, we got a version mismatch"
+literal|" state but after verifying state, we got a version mismatch"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1542,7 +1540,7 @@ name|expectedVersion
 argument_list|)
 return|;
 block|}
-comment|/**    * Private method that actually performs unassigned node transitions.    *    *<p>Attempts to transition the unassigned node for the specified region    * from the expected state to the state in the specified transition data.    *    *<p>Method first reads existing data and verifies it is in the expected    * state.  If the node does not exist or the node is not in the expected    * state, the method returns -1.  If the transition is successful, the    * version number of the node following the transition is returned.    *    *<p>If the read state is what is expected, it attempts to write the new    * state and data into the node.  When doing this, it includes the expected    * version (determined when the existing state was verified) to ensure that    * only one transition is successful.  If there is a version mismatch, the    * method returns -1.    *    *<p>If the write is successful, no watch is set and the method returns true.    *    * @param zkw zk reference    * @param region region to be transitioned to opened    * @param serverName server event originates from    * @param endState state to transition node to if all checks pass    * @param beginState state the node must currently be in to do transition    * @param expectedVersion expected version of data before modification, or -1    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    */
+comment|/**    * Method that actually performs unassigned node transitions.    *    *<p>Attempts to transition the unassigned node for the specified region    * from the expected state to the state in the specified transition data.    *    *<p>Method first reads existing data and verifies it is in the expected    * state.  If the node does not exist or the node is not in the expected    * state, the method returns -1.  If the transition is successful, the    * version number of the node following the transition is returned.    *    *<p>If the read state is what is expected, it attempts to write the new    * state and data into the node.  When doing this, it includes the expected    * version (determined when the existing state was verified) to ensure that    * only one transition is successful.  If there is a version mismatch, the    * method returns -1.    *    *<p>If the write is successful, no watch is set and the method returns true.    *    * @param zkw zk reference    * @param region region to be transitioned to opened    * @param serverName server event originates from    * @param endState state to transition node to if all checks pass    * @param beginState state the node must currently be in to do transition    * @param expectedVersion expected version of data before modification, or -1    * @return version of node after transition, -1 if unsuccessful transition    * @throws KeeperException if unexpected zookeeper exception    */
 specifier|public
 specifier|static
 name|int
@@ -1565,6 +1563,56 @@ name|endState
 parameter_list|,
 name|int
 name|expectedVersion
+parameter_list|)
+throws|throws
+name|KeeperException
+block|{
+return|return
+name|transitionNode
+argument_list|(
+name|zkw
+argument_list|,
+name|region
+argument_list|,
+name|serverName
+argument_list|,
+name|beginState
+argument_list|,
+name|endState
+argument_list|,
+name|expectedVersion
+argument_list|,
+literal|null
+argument_list|)
+return|;
+block|}
+specifier|public
+specifier|static
+name|int
+name|transitionNode
+parameter_list|(
+name|ZooKeeperWatcher
+name|zkw
+parameter_list|,
+name|HRegionInfo
+name|region
+parameter_list|,
+name|String
+name|serverName
+parameter_list|,
+name|EventType
+name|beginState
+parameter_list|,
+name|EventType
+name|endState
+parameter_list|,
+name|int
+name|expectedVersion
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|payload
 parameter_list|)
 throws|throws
 name|KeeperException
@@ -1797,6 +1845,8 @@ name|getRegionName
 argument_list|()
 argument_list|,
 name|serverName
+argument_list|,
+name|payload
 argument_list|)
 decl_stmt|;
 if|if

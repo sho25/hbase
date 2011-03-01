@@ -664,7 +664,19 @@ argument_list|()
 expr_stmt|;
 comment|// Wait on meta to come online; we need it to progress.
 comment|// TODO: Best way to hold strictly here?  We should build this retry logic
-comment|//       into the MetaReader operations themselves.
+comment|// into the MetaReader operations themselves.
+comment|// TODO: Is the reading of .META. necessary when the Master has state of
+comment|// cluster in its head?  It should be possible to do without reading .META.
+comment|// in all but one case. On split, the RS updates the .META.
+comment|// table and THEN informs the master of the split via zk nodes in
+comment|// 'unassigned' dir.  Currently the RS puts ephemeral nodes into zk so if
+comment|// the regionserver dies, these nodes do not stick around and this server
+comment|// shutdown processing does fixup (see the fixupDaughters method below).
+comment|// If we wanted to skip the .META. scan, we'd have to change at least the
+comment|// final SPLIT message to be permanent in zk so in here we'd know a SPLIT
+comment|// completed (zk is updated after edits to .META. have gone in).  See
+comment|// {@link SplitTransaction}.  We'd also have to be figure another way for
+comment|// doing the below .META. daughters fixup.
 name|NavigableMap
 argument_list|<
 name|HRegionInfo

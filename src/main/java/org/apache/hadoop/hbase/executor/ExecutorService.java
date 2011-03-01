@@ -390,6 +390,9 @@ operator|.
 name|MASTER_OPEN_REGION
 return|;
 case|case
+name|RS_ZK_REGION_SPLIT
+case|:
+case|case
 name|M_SERVER_SHUTDOWN
 case|:
 return|return

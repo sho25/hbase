@@ -202,6 +202,18 @@ literal|4
 argument_list|)
 block|,
 comment|// RS has finished opening a region
+name|RS_ZK_REGION_SPLITTING
+argument_list|(
+literal|5
+argument_list|)
+block|,
+comment|// RS has started a region split
+name|RS_ZK_REGION_SPLIT
+argument_list|(
+literal|6
+argument_list|)
+block|,
+comment|// RS split has completed.
 comment|// Messages originating from Master to RS
 name|M_RS_OPEN_REGION
 argument_list|(
