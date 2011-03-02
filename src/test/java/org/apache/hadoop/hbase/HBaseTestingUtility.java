@@ -1455,7 +1455,7 @@ name|numSlaves
 argument_list|)
 return|;
 block|}
-comment|/**    * Starts up mini hbase cluster.  Usually used after call to    * {@link #startMiniCluster(int, int)} when doing stepped startup of clusters.    * Usually you won't want this.  You'll usually want {@link #startMiniCluster()}.    * @param numMasters    * @param numSlaves    * @return Reference to the hbase mini hbase cluster.    * @throws IOException    * @throws InterruptedException     * @see {@link #startMiniCluster()}    */
+comment|/**    * Starts up mini hbase cluster.  Usually used after call to    * {@link #startMiniCluster(int, int)} when doing stepped startup of clusters.    * Usually you won't want this.  You'll usually want {@link #startMiniCluster()}.    * @param numMasters    * @param numSlaves    * @return Reference to the hbase mini hbase cluster.    * @throws IOException    * @throws InterruptedException    * @see {@link #startMiniCluster()}    */
 specifier|public
 name|MiniHBaseCluster
 name|startMiniHBaseCluster
@@ -2143,9 +2143,9 @@ name|HColumnDescriptor
 operator|.
 name|DEFAULT_BLOCKCACHE
 argument_list|,
-name|Integer
+name|HColumnDescriptor
 operator|.
-name|MAX_VALUE
+name|DEFAULT_BLOCKSIZE
 argument_list|,
 name|HColumnDescriptor
 operator|.
@@ -2260,9 +2260,9 @@ name|HColumnDescriptor
 operator|.
 name|DEFAULT_BLOCKCACHE
 argument_list|,
-name|Integer
+name|HColumnDescriptor
 operator|.
-name|MAX_VALUE
+name|DEFAULT_BLOCKSIZE
 argument_list|,
 name|HColumnDescriptor
 operator|.
