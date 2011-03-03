@@ -18546,9 +18546,9 @@ name|HColumnDescriptor
 operator|.
 name|DEFAULT_BLOCKCACHE
 argument_list|,
-name|Integer
+name|HColumnDescriptor
 operator|.
-name|MAX_VALUE
+name|DEFAULT_BLOCKSIZE
 argument_list|,
 name|HColumnDescriptor
 operator|.

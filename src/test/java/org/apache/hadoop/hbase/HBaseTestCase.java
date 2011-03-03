@@ -1022,9 +1022,9 @@ literal|false
 argument_list|,
 literal|false
 argument_list|,
-name|Integer
+name|HColumnDescriptor
 operator|.
-name|MAX_VALUE
+name|DEFAULT_BLOCKSIZE
 argument_list|,
 name|HConstants
 operator|.
@@ -1059,9 +1059,9 @@ literal|false
 argument_list|,
 literal|false
 argument_list|,
-name|Integer
+name|HColumnDescriptor
 operator|.
-name|MAX_VALUE
+name|DEFAULT_BLOCKSIZE
 argument_list|,
 name|HConstants
 operator|.
@@ -1096,9 +1096,9 @@ literal|false
 argument_list|,
 literal|false
 argument_list|,
-name|Integer
+name|HColumnDescriptor
 operator|.
-name|MAX_VALUE
+name|DEFAULT_BLOCKSIZE
 argument_list|,
 name|HConstants
 operator|.
