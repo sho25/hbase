@@ -1790,6 +1790,11 @@ init|=
 operator|new
 name|HTable
 argument_list|(
+name|this
+operator|.
+name|getConf
+argument_list|()
+argument_list|,
 name|args
 index|[
 literal|1
