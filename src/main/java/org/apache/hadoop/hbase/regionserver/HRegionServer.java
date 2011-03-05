@@ -1433,6 +1433,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|security
+operator|.
+name|User
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -2486,6 +2502,23 @@ literal|"hbase-958 debugging"
 argument_list|)
 throw|;
 block|}
+comment|// login the server principal (if using secure Hadoop)
+name|User
+operator|.
+name|login
+argument_list|(
+name|conf
+argument_list|,
+literal|"hbase.regionserver.keytab.file"
+argument_list|,
+literal|"hbase.regionserver.kerberos.principal"
+argument_list|,
+name|serverInfo
+operator|.
+name|getHostname
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 end_class
 
