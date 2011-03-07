@@ -271,11 +271,16 @@ specifier|private
 specifier|static
 specifier|final
 name|Random
-name|rand
+name|RANDOM
 init|=
 operator|new
 name|Random
+argument_list|(
+name|System
+operator|.
+name|currentTimeMillis
 argument_list|()
+argument_list|)
 decl_stmt|;
 specifier|static
 class|class
@@ -744,10 +749,13 @@ name|HRegionInfo
 argument_list|>
 name|regions
 init|=
+name|randomize
+argument_list|(
 name|server
 operator|.
 name|getValue
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|int
 name|numToOffload
@@ -857,16 +865,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// put young regions at the beginning of regionsToMove
-name|Collections
-operator|.
-name|sort
-argument_list|(
-name|regionsToMove
-argument_list|,
-name|rpComparator
-argument_list|)
-expr_stmt|;
 comment|// Walk down least loaded, filling each to the min
 name|int
 name|serversUnderloaded
@@ -1596,6 +1594,35 @@ return|return
 name|regionsToMove
 return|;
 block|}
+comment|/**    * @param regions    * @return Randomization of passed<code>regions</code>    */
+specifier|static
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|randomize
+parameter_list|(
+specifier|final
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regions
+parameter_list|)
+block|{
+name|Collections
+operator|.
+name|shuffle
+argument_list|(
+name|regions
+argument_list|,
+name|RANDOM
+argument_list|)
+expr_stmt|;
+return|return
+name|regions
+return|;
+block|}
 comment|/**    * Stores additional per-server information about the regions added/removed    * during the run of the balancing algorithm.    *    * For servers that receive additional regions, we are not updating the number    * of regions in HServerInfo once we decide to reassign regions to a server,    * but we need this information later in the algorithm.  This is stored in    *<b>numRegionsAdded</b>.    *    * For servers that shed regions, we need to track which regions we have    * already shed.<b>nextRegionForUnload</b> contains the index in the list    * of regions on the server that is the next to be shed.    */
 specifier|private
 specifier|static
@@ -1773,7 +1800,7 @@ condition|)
 block|{
 name|serverIdx
 operator|=
-name|rand
+name|RANDOM
 operator|.
 name|nextInt
 argument_list|(
@@ -2060,7 +2087,7 @@ name|servers
 operator|.
 name|get
 argument_list|(
-name|rand
+name|RANDOM
 operator|.
 name|nextInt
 argument_list|(
@@ -2572,7 +2599,7 @@ name|servers
 operator|.
 name|get
 argument_list|(
-name|rand
+name|RANDOM
 operator|.
 name|nextInt
 argument_list|(
@@ -2629,7 +2656,7 @@ name|servers
 operator|.
 name|get
 argument_list|(
-name|rand
+name|RANDOM
 operator|.
 name|nextInt
 argument_list|(
