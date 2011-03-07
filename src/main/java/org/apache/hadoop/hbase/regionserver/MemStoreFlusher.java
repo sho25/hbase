@@ -1193,6 +1193,8 @@ argument_list|(
 literal|"Cache flusher failed for entry "
 operator|+
 name|fqe
+argument_list|,
+name|ex
 argument_list|)
 expr_stmt|;
 if|if
@@ -1485,7 +1487,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/*    * A flushRegion that checks store file count.  If too many, puts the flush    * on delay queue to retry later.    * @param fqe    * @return true if the region was successfully flushed, false otherwise. If     * false, there will be accompanying log messages explaining why the log was    * not flushed.    */
+comment|/*    * A flushRegion that checks store file count.  If too many, puts the flush    * on delay queue to retry later.    * @param fqe    * @return true if the region was successfully flushed, false otherwise. If    * false, there will be accompanying log messages explaining why the log was    * not flushed.    */
 specifier|private
 name|boolean
 name|flushRegion
