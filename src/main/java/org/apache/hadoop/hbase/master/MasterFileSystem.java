@@ -1135,6 +1135,13 @@ argument_list|(
 name|rd
 argument_list|)
 expr_stmt|;
+comment|// DFS leaves safe mode with 0 DNs when there are 0 blocks.
+comment|// We used to handle this by checking the current DN count and waiting until
+comment|// it is nonzero. With security, the check for datanode count doesn't work --
+comment|// it is a privileged op. So instead we adopt the strategy of the jobtracker
+comment|// and simply retry file creation during bootstrap indefinitely. As soon as
+comment|// there is one datanode it will succeed. Permission problems should have
+comment|// already been caught by mkdirs above.
 name|FSUtils
 operator|.
 name|setVersion
@@ -1142,6 +1149,19 @@ argument_list|(
 name|fs
 argument_list|,
 name|rd
+argument_list|,
+name|c
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|THREAD_WAKE_FREQUENCY
+argument_list|,
+literal|10
+operator|*
+literal|1000
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

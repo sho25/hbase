@@ -297,6 +297,20 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -921,10 +935,44 @@ argument_list|,
 name|HConstants
 operator|.
 name|FILE_SYSTEM_VERSION
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets version of file system    *    * @param fs filesystem object    * @param rootdir hbase root directory    * @param version version to set    * @throws IOException e    */
+comment|/**    * Sets version of file system    *    * @param fs filesystem object    * @param rootdir hbase root    * @param wait time to wait for retry    * @throws IOException e    */
+specifier|public
+specifier|static
+name|void
+name|setVersion
+parameter_list|(
+name|FileSystem
+name|fs
+parameter_list|,
+name|Path
+name|rootdir
+parameter_list|,
+name|int
+name|wait
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|setVersion
+argument_list|(
+name|fs
+argument_list|,
+name|rootdir
+argument_list|,
+name|HConstants
+operator|.
+name|FILE_SYSTEM_VERSION
+argument_list|,
+name|wait
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Sets version of file system    *    * @param fs filesystem object    * @param rootdir hbase root directory    * @param version version to set    * @param wait time to wait for retry    * @throws IOException e    */
 specifier|public
 specifier|static
 name|void
@@ -938,9 +986,18 @@ name|rootdir
 parameter_list|,
 name|String
 name|version
+parameter_list|,
+name|int
+name|wait
 parameter_list|)
 throws|throws
 name|IOException
+block|{
+while|while
+condition|(
+literal|true
+condition|)
+try|try
 block|{
 name|FSDataOutputStream
 name|s
@@ -988,6 +1045,69 @@ operator|+
 name|version
 argument_list|)
 expr_stmt|;
+return|return;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+if|if
+condition|(
+name|wait
+operator|>
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unable to create version file at "
+operator|+
+name|rootdir
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|", retrying: "
+operator|+
+name|StringUtils
+operator|.
+name|stringifyException
+argument_list|(
+name|e
+argument_list|)
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+name|wait
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|ex
+parameter_list|)
+block|{
+comment|// ignore
+block|}
+block|}
+else|else
+block|{
+comment|// rethrow
+throw|throw
+name|e
+throw|;
+block|}
+block|}
 block|}
 comment|/**    * Verifies root directory path is a valid URI with a scheme    *    * @param root root directory path    * @return Passed<code>root</code> argument.    * @throws IOException if not a valid URI with a scheme    */
 specifier|public
@@ -1122,59 +1242,6 @@ name|DistributedFileSystem
 operator|)
 name|fs
 decl_stmt|;
-comment|// Are there any data nodes up yet?
-comment|// Currently the safe mode check falls through if the namenode is up but no
-comment|// datanodes have reported in yet.
-try|try
-block|{
-while|while
-condition|(
-name|dfs
-operator|.
-name|getDataNodeStats
-argument_list|()
-operator|.
-name|length
-operator|==
-literal|0
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Waiting for dfs to come up..."
-argument_list|)
-expr_stmt|;
-try|try
-block|{
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-name|wait
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-comment|//continue
-block|}
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-comment|// getDataNodeStats can fail if superuser privilege is required to run
-comment|// the datanode report, just ignore it
-block|}
 comment|// Make sure dfs is not in safe mode
 while|while
 condition|(
