@@ -161,6 +161,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicInteger
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -1997,6 +2011,16 @@ argument_list|(
 literal|true
 argument_list|)
 decl_stmt|;
+specifier|final
+name|AtomicInteger
+name|regionCount
+init|=
+operator|new
+name|AtomicInteger
+argument_list|(
+literal|0
+argument_list|)
+decl_stmt|;
 name|MetaScannerVisitor
 name|visitor
 init|=
@@ -2101,6 +2125,11 @@ return|return
 literal|false
 return|;
 block|}
+name|regionCount
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 return|return
@@ -2123,6 +2152,15 @@ name|available
 operator|.
 name|get
 argument_list|()
+operator|&&
+operator|(
+name|regionCount
+operator|.
+name|get
+argument_list|()
+operator|>
+literal|0
+operator|)
 return|;
 block|}
 comment|/*      * @param True if table is online      */
