@@ -1167,6 +1167,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
+comment|// as above
 name|FSUtils
 operator|.
 name|checkVersion
@@ -1176,6 +1177,19 @@ argument_list|,
 name|rd
 argument_list|,
 literal|true
+argument_list|,
+name|c
+operator|.
+name|getInt
+argument_list|(
+name|HConstants
+operator|.
+name|THREAD_WAKE_FREQUENCY
+argument_list|,
+literal|10
+operator|*
+literal|1000
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
