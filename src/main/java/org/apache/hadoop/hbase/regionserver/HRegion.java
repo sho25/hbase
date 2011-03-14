@@ -1035,7 +1035,7 @@ name|hadoop
 operator|.
 name|util
 operator|.
-name|Progressable
+name|StringUtils
 import|;
 end_import
 
@@ -1043,13 +1043,11 @@ begin_import
 import|import
 name|org
 operator|.
-name|apache
+name|cliffc
 operator|.
-name|hadoop
+name|high_scale_lib
 operator|.
-name|util
-operator|.
-name|StringUtils
+name|Counter
 import|;
 end_import
 
@@ -1262,6 +1260,14 @@ name|AtomicLong
 argument_list|(
 literal|0
 argument_list|)
+decl_stmt|;
+specifier|final
+name|Counter
+name|requestsCount
+init|=
+operator|new
+name|Counter
+argument_list|()
 decl_stmt|;
 comment|/**    * The directory for the table this region is part of.    * This directory contains the directory for this region.    */
 specifier|final
@@ -2309,6 +2315,21 @@ return|return
 name|this
 operator|.
 name|regionInfo
+return|;
+block|}
+comment|/** @return requestsCount for this region */
+specifier|public
+name|long
+name|getRequestsCount
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|requestsCount
+operator|.
+name|get
+argument_list|()
 return|;
 block|}
 comment|/** @return true if region is closed */
@@ -12341,6 +12362,27 @@ argument_list|)
 decl_stmt|;
 name|dstRegion
 operator|.
+name|requestsCount
+operator|.
+name|set
+argument_list|(
+name|a
+operator|.
+name|requestsCount
+operator|.
+name|get
+argument_list|()
+operator|+
+name|b
+operator|.
+name|requestsCount
+operator|.
+name|get
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|dstRegion
+operator|.
 name|initialize
 argument_list|()
 expr_stmt|;
@@ -14209,7 +14251,7 @@ operator|.
 name|ARRAY
 operator|+
 operator|(
-literal|24
+literal|25
 operator|*
 name|ClassSize
 operator|.
@@ -15262,6 +15304,13 @@ literal|" is closed"
 argument_list|)
 throw|;
 block|}
+name|this
+operator|.
+name|requestsCount
+operator|.
+name|increment
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Closes the lock. This needs to be called in the finally block corresponding    * to the try block of #startRegionOperation    */
 specifier|private

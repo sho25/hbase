@@ -226,6 +226,11 @@ specifier|private
 name|int
 name|storefileIndexSizeMB
 decl_stmt|;
+comment|/** the current total request made to region */
+specifier|private
+name|long
+name|requestsCount
+decl_stmt|;
 comment|/**      * Constructor, for Writable      */
 specifier|public
 name|RegionLoad
@@ -235,7 +240,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**      * @param name      * @param stores      * @param storefiles      * @param storefileSizeMB      * @param memstoreSizeMB      * @param storefileIndexSizeMB      */
+comment|/**      * @param name      * @param stores      * @param storefiles      * @param storefileSizeMB      * @param memstoreSizeMB      * @param storefileIndexSizeMB      * @param requestsCount      */
 specifier|public
 name|RegionLoad
 parameter_list|(
@@ -263,6 +268,10 @@ parameter_list|,
 specifier|final
 name|int
 name|storefileIndexSizeMB
+parameter_list|,
+specifier|final
+name|long
+name|requestsCount
 parameter_list|)
 block|{
 name|this
@@ -300,6 +309,12 @@ operator|.
 name|storefileIndexSizeMB
 operator|=
 name|storefileIndexSizeMB
+expr_stmt|;
+name|this
+operator|.
+name|requestsCount
+operator|=
+name|requestsCount
 expr_stmt|;
 block|}
 comment|// Getters
@@ -377,6 +392,16 @@ parameter_list|()
 block|{
 return|return
 name|storefileIndexSizeMB
+return|;
+block|}
+comment|/**      * @return the number of requests made to region      */
+specifier|public
+name|long
+name|getRequestsCount
+parameter_list|()
+block|{
+return|return
+name|requestsCount
 return|;
 block|}
 comment|// Setters
@@ -459,6 +484,22 @@ operator|.
 name|storefileIndexSizeMB
 operator|=
 name|storefileIndexSizeMB
+expr_stmt|;
+block|}
+comment|/**      * @param requestsCount the number of requests to region      */
+specifier|public
+name|void
+name|setRequestsCount
+parameter_list|(
+name|long
+name|requestsCount
+parameter_list|)
+block|{
+name|this
+operator|.
+name|requestsCount
+operator|=
+name|requestsCount
 expr_stmt|;
 block|}
 comment|// Writable
@@ -544,6 +585,15 @@ operator|.
 name|readInt
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|requestsCount
+operator|=
+name|in
+operator|.
+name|readLong
+argument_list|()
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -604,6 +654,13 @@ operator|.
 name|writeInt
 argument_list|(
 name|storefileIndexSizeMB
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|writeLong
+argument_list|(
+name|requestsCount
 argument_list|)
 expr_stmt|;
 block|}
@@ -715,6 +772,26 @@ argument_list|(
 name|this
 operator|.
 name|storefileIndexSizeMB
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|sb
+operator|=
+name|Strings
+operator|.
+name|appendKeyValue
+argument_list|(
+name|sb
+argument_list|,
+literal|"requestsCount"
+argument_list|,
+name|Long
+operator|.
+name|valueOf
+argument_list|(
+name|this
+operator|.
+name|requestsCount
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1299,7 +1376,7 @@ name|load
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param name    * @param stores    * @param storefiles    * @param memstoreSizeMB    * @param storefileIndexSizeMB    * @deprecated Use {@link #addRegionInfo(RegionLoad)}    */
+comment|/**    * @param name    * @param stores    * @param storefiles    * @param memstoreSizeMB    * @param storefileIndexSizeMB    * @param requestsCount    * @deprecated Use {@link #addRegionInfo(RegionLoad)}    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1330,6 +1407,10 @@ parameter_list|,
 specifier|final
 name|int
 name|storefileIndexSizeMB
+parameter_list|,
+specifier|final
+name|long
+name|requestsCount
 parameter_list|)
 block|{
 name|this
@@ -1354,6 +1435,8 @@ argument_list|,
 name|memstoreSizeMB
 argument_list|,
 name|storefileIndexSizeMB
+argument_list|,
+name|requestsCount
 argument_list|)
 argument_list|)
 expr_stmt|;
