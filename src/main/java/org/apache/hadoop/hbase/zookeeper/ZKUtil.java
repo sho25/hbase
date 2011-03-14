@@ -2640,7 +2640,7 @@ name|zkw
 argument_list|,
 name|znode
 argument_list|)
-operator|!=
+operator|==
 operator|-
 literal|1
 condition|)
