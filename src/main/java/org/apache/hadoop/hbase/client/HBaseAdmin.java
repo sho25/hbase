@@ -2354,6 +2354,13 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|HTableDescriptor
+operator|.
+name|isLegalTableName
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
 return|return
 name|connection
 operator|.
@@ -2399,6 +2406,13 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|HTableDescriptor
+operator|.
+name|isLegalTableName
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
 return|return
 name|connection
 operator|.
