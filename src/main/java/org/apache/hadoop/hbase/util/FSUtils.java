@@ -1339,7 +1339,7 @@ name|getPath
 argument_list|()
 return|;
 block|}
-comment|/**    * @param c configuration    * @return Path to hbase root directory: i.e.<code>hbase.rootdir</code> from    * configuration as a Path.    * @throws IOException e    */
+comment|/**    * @param c configuration    * @return Path to hbase root directory: i.e.<code>hbase.rootdir</code> from    * configuration as a qualified Path.    * @throws IOException e    */
 specifier|public
 specifier|static
 name|Path
@@ -1352,7 +1352,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
+name|Path
+name|p
+init|=
 operator|new
 name|Path
 argument_list|(
@@ -1364,6 +1366,24 @@ name|HConstants
 operator|.
 name|HBASE_DIR
 argument_list|)
+argument_list|)
+decl_stmt|;
+name|FileSystem
+name|fs
+init|=
+name|p
+operator|.
+name|getFileSystem
+argument_list|(
+name|c
+argument_list|)
+decl_stmt|;
+return|return
+name|p
+operator|.
+name|makeQualified
+argument_list|(
+name|fs
 argument_list|)
 return|;
 block|}
