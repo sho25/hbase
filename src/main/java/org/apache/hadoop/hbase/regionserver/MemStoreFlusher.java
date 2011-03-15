@@ -832,6 +832,7 @@ name|flushedOne
 condition|)
 block|{
 comment|// Find the biggest region that doesn't have too many storefiles
+comment|// (might be null!)
 name|HRegion
 name|bestFlushableRegion
 init|=
@@ -866,7 +867,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|fatal
+name|error
 argument_list|(
 literal|"Above memory mark but there are no flushable regions!"
 argument_list|)
@@ -880,6 +881,10 @@ name|regionToFlush
 decl_stmt|;
 if|if
 condition|(
+name|bestFlushableRegion
+operator|!=
+literal|null
+operator|&&
 name|bestAnyRegion
 operator|.
 name|memstoreSize
@@ -954,10 +959,25 @@ expr_stmt|;
 block|}
 else|else
 block|{
+if|if
+condition|(
+name|bestFlushableRegion
+operator|==
+literal|null
+condition|)
+block|{
+name|regionToFlush
+operator|=
+name|bestAnyRegion
+expr_stmt|;
+block|}
+else|else
+block|{
 name|regionToFlush
 operator|=
 name|bestFlushableRegion
 expr_stmt|;
+block|}
 block|}
 name|Preconditions
 operator|.
