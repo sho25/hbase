@@ -352,6 +352,12 @@ specifier|final
 name|Path
 name|oldLogDir
 decl_stmt|;
+comment|// The number of ms that we wait before moving znodes, HBASE-3596
+specifier|private
+specifier|final
+name|long
+name|sleepBeforeFailover
+decl_stmt|;
 comment|/**    * Creates a replication manager and sets the watch on all the other    * registered region servers    * @param zkHelper the zk helper for replication    * @param conf the configuration to use    * @param stopper the stopper object for this region server    * @param fs the file system to use    * @param replicating the status of the replication on this cluster    * @param logDir the directory that contains all hlog directories of live RSs    * @param oldLogDir the directory where old logs are archived    */
 specifier|public
 name|ReplicationSourceManager
@@ -459,6 +465,19 @@ operator|.
 name|oldLogDir
 operator|=
 name|oldLogDir
+expr_stmt|;
+name|this
+operator|.
+name|sleepBeforeFailover
+operator|=
+name|conf
+operator|.
+name|getLong
+argument_list|(
+literal|"replication.sleep.before.failover"
+argument_list|,
+literal|2000
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -1238,6 +1257,42 @@ name|String
 name|rsZnode
 parameter_list|)
 block|{
+comment|// Wait a bit before transferring the queues, we may be shutting down.
+comment|// This sleep may not be enough in some cases.
+try|try
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+name|this
+operator|.
+name|sleepBeforeFailover
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Interrupted while waiting before transferring a queue."
+argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+block|}
 comment|// We try to lock that rs' queue directory
 if|if
 condition|(
