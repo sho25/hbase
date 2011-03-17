@@ -465,7 +465,10 @@ operator|.
 name|getEndTime
 argument_list|()
 argument_list|,
-literal|1
+name|model
+operator|.
+name|getMaxVersions
+argument_list|()
 argument_list|)
 decl_stmt|;
 try|try
