@@ -1695,10 +1695,8 @@ argument_list|>
 argument_list|>
 name|roundRobinAssignment
 parameter_list|(
-name|List
-argument_list|<
 name|HRegionInfo
-argument_list|>
+index|[]
 name|regions
 parameter_list|,
 name|List
@@ -1712,8 +1710,7 @@ if|if
 condition|(
 name|regions
 operator|.
-name|size
-argument_list|()
+name|length
 operator|==
 literal|0
 operator|||
@@ -1757,8 +1754,7 @@ name|numRegions
 init|=
 name|regions
 operator|.
-name|size
-argument_list|()
+name|length
 decl_stmt|;
 name|int
 name|numServers
@@ -1880,13 +1876,11 @@ operator|.
 name|add
 argument_list|(
 name|regions
-operator|.
-name|get
-argument_list|(
+index|[
 name|i
 operator|%
 name|numRegions
-argument_list|)
+index|]
 argument_list|)
 expr_stmt|;
 block|}

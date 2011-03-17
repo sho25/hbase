@@ -4570,12 +4570,7 @@ name|assignmentManager
 operator|.
 name|assignUserRegions
 argument_list|(
-name|Arrays
-operator|.
-name|asList
-argument_list|(
 name|newRegions
-argument_list|)
 argument_list|,
 name|servers
 argument_list|)

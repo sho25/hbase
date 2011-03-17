@@ -5972,10 +5972,8 @@ specifier|public
 name|void
 name|assignUserRegions
 parameter_list|(
-name|List
-argument_list|<
 name|HRegionInfo
-argument_list|>
+index|[]
 name|regions
 parameter_list|,
 name|List
@@ -6029,8 +6027,7 @@ literal|"Bulk assigning "
 operator|+
 name|regions
 operator|.
-name|size
-argument_list|()
+name|length
 operator|+
 literal|" region(s) round-robin across "
 operator|+
@@ -6182,16 +6179,21 @@ block|{
 comment|// assign regions in round-robin fashion
 name|assignUserRegions
 argument_list|(
-operator|new
-name|ArrayList
-argument_list|<
-name|HRegionInfo
-argument_list|>
-argument_list|(
 name|allRegions
 operator|.
 name|keySet
 argument_list|()
+operator|.
+name|toArray
+argument_list|(
+operator|new
+name|HRegionInfo
+index|[
+name|allRegions
+operator|.
+name|size
+argument_list|()
+index|]
 argument_list|)
 argument_list|,
 name|servers
