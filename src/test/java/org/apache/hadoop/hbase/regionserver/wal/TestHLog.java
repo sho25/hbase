@@ -904,6 +904,18 @@ operator|.
 name|getConfiguration
 argument_list|()
 operator|.
+name|setInt
+argument_list|(
+literal|"ipc.client.connection.maxidletime"
+argument_list|,
+literal|500
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
 name|set
 argument_list|(
 name|CoprocessorHost
@@ -2778,6 +2790,17 @@ literal|1000
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Workaround a strange issue with Hadoop's RPC system - if we don't
+comment|// sleep here, the new datanodes will pick up a cached IPC connection to
+comment|// the old (dead) NN and fail to start. Sleeping 2 seconds goes past
+comment|// the idle time threshold configured in the conf above
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|2000
+argument_list|)
+expr_stmt|;
 name|cluster
 operator|=
 operator|new
