@@ -1035,6 +1035,13 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|hlogs
+init|)
+block|{
 if|if
 condition|(
 name|this
@@ -1072,13 +1079,18 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-synchronized|synchronized
-init|(
+else|else
+block|{
+comment|// If there's no slaves, don't need to keep the old hlogs since
+comment|// we only consider the last one when a new slave comes in
 name|this
 operator|.
 name|hlogs
-init|)
-block|{
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|hlogs
