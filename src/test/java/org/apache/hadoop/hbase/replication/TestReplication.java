@@ -2979,7 +2979,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Load up multiple tables over 2 region servers and kill a source during    * the upload. The failover happens internally.    * @throws Exception    */
+comment|/**    * Load up multiple tables over 2 region servers and kill a source during    * the upload. The failover happens internally.    *    * WARNING this test sometimes fails because of HBASE-3515    *    * @throws Exception    */
 annotation|@
 name|Test
 specifier|public
