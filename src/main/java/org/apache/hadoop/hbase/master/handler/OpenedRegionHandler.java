@@ -455,7 +455,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Skipping the onining of "
+literal|"Skipping the onlining of "
 operator|+
 name|regionInfo
 operator|.
