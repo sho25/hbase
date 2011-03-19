@@ -421,6 +421,22 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Code to defend against case where we get SPLIT before region open
+comment|// processing completes; temporary till we make SPLITs go via zk -- 0.92.
+if|if
+condition|(
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|isRegionInTransition
+argument_list|(
+name|regionInfo
+argument_list|)
+operator|==
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|assignmentManager
@@ -432,6 +448,24 @@ argument_list|,
 name|serverInfo
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Skipping the onining of "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" because regions is NOT in RIT -- presuming this is because it SPLIT"
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|this
