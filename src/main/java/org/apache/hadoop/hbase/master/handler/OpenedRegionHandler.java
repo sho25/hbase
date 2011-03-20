@@ -433,7 +433,7 @@ name|isRegionInTransition
 argument_list|(
 name|regionInfo
 argument_list|)
-operator|==
+operator|!=
 literal|null
 condition|)
 block|{
