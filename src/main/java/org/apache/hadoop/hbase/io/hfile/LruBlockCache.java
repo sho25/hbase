@@ -2373,7 +2373,7 @@ name|getHitCount
 parameter_list|()
 block|{
 return|return
-name|hitCachingCount
+name|hitCount
 operator|.
 name|get
 argument_list|()
