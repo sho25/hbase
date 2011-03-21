@@ -503,6 +503,9 @@ name|load
 operator|.
 name|getRegionsLoad
 argument_list|()
+operator|.
+name|values
+argument_list|()
 control|)
 block|{
 name|node

@@ -855,6 +855,9 @@ name|hsl
 operator|.
 name|getRegionsLoad
 argument_list|()
+operator|.
+name|values
+argument_list|()
 decl_stmt|;
 name|Schema
 name|s
