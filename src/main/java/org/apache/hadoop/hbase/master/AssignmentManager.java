@@ -4206,6 +4206,7 @@ argument_list|,
 name|regions
 argument_list|)
 expr_stmt|;
+break|break;
 block|}
 catch|catch
 parameter_list|(
