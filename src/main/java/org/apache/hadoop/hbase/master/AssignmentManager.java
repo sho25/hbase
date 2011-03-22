@@ -4157,6 +4157,44 @@ comment|// Move on to open regions.
 try|try
 block|{
 comment|// Send OPEN RPC. This can fail if the server on other end is is not up.
+comment|// If we fail, fail the startup by aborting the server.  There is one
+comment|// exception we will tolerate: ServerNotRunningException.  This is thrown
+comment|// between report of regionserver being up and
+name|long
+name|maxWaitTime
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|+
+name|this
+operator|.
+name|master
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|getLong
+argument_list|(
+literal|"hbase.regionserver.rpc.startup.waittime"
+argument_list|,
+literal|60000
+argument_list|)
+decl_stmt|;
+while|while
+condition|(
+operator|!
+name|this
+operator|.
+name|master
+operator|.
+name|isStopped
+argument_list|()
+condition|)
+block|{
+try|try
+block|{
 name|this
 operator|.
 name|serverManager
@@ -4168,6 +4206,68 @@ argument_list|,
 name|regions
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ipc
+operator|.
+name|ServerNotRunningException
+name|e
+parameter_list|)
+block|{
+comment|// This is the one exception to retry.  For all else we should just fail
+comment|// the startup.
+name|long
+name|now
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|now
+operator|>
+name|maxWaitTime
+condition|)
+throw|throw
+name|e
+throw|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Server is not yet up; waiting up to "
+operator|+
+operator|(
+name|maxWaitTime
+operator|-
+name|now
+operator|)
+operator|+
+literal|"ms"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -4184,6 +4284,8 @@ argument_list|(
 literal|"Failed assignment of regions to "
 operator|+
 name|destination
+operator|+
+literal|"; bulk assign FAILED"
 argument_list|,
 name|t
 argument_list|)
