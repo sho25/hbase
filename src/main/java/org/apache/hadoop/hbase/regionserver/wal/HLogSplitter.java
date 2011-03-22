@@ -1126,7 +1126,7 @@ name|getBoolean
 argument_list|(
 literal|"hbase.hlog.split.skip.errors"
 argument_list|,
-literal|false
+literal|true
 argument_list|)
 decl_stmt|;
 name|splitSize
@@ -1310,11 +1310,13 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"ParseException from hlog "
+literal|"Parse exception from hlog "
 operator|+
 name|logPath
 operator|+
 literal|".  continuing"
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 name|processedLogs
