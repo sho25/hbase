@@ -5783,209 +5783,51 @@ return|return;
 block|}
 catch|catch
 parameter_list|(
-name|ConnectException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Failed connect to "
-operator|+
-name|server
-operator|+
-literal|", message="
-operator|+
-name|e
-operator|.
-name|getMessage
-argument_list|()
-operator|+
-literal|", region="
-operator|+
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// Presume that regionserver just failed and we haven't got expired
-comment|// server from zk yet.  Let expired server deal with clean up.
-block|}
-catch|catch
-parameter_list|(
-name|java
-operator|.
-name|net
-operator|.
-name|SocketTimeoutException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Server "
-operator|+
-name|server
-operator|+
-literal|" returned "
-operator|+
-name|e
-operator|.
-name|getMessage
-argument_list|()
-operator|+
-literal|" for "
-operator|+
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// Presume retry or server will expire.
-block|}
-catch|catch
-parameter_list|(
-name|EOFException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Server "
-operator|+
-name|server
-operator|+
-literal|" returned "
-operator|+
-name|e
-operator|.
-name|getMessage
-argument_list|()
-operator|+
-literal|" for "
-operator|+
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// Presume retry or server will expire.
-block|}
-catch|catch
-parameter_list|(
-name|RemoteException
-name|re
-parameter_list|)
-block|{
-name|IOException
-name|ioe
-init|=
-name|re
-operator|.
-name|unwrapRemoteException
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|ioe
-operator|instanceof
-name|NotServingRegionException
-condition|)
-block|{
-comment|// Failed to close, so pass through and reassign
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Server "
-operator|+
-name|server
-operator|+
-literal|" returned "
-operator|+
-name|ioe
-operator|+
-literal|" for "
-operator|+
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|ioe
-operator|instanceof
-name|EOFException
-condition|)
-block|{
-comment|// Failed to close, so pass through and reassign
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Server "
-operator|+
-name|server
-operator|+
-literal|" returned "
-operator|+
-name|ioe
-operator|+
-literal|" for "
-operator|+
-name|region
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-name|this
-operator|.
-name|master
-operator|.
-name|abort
-argument_list|(
-literal|"Remote unexpected exception"
-argument_list|,
-name|ioe
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-catch|catch
-parameter_list|(
 name|Throwable
 name|t
 parameter_list|)
 block|{
-comment|// For now call abort if unexpected exception -- radical, but will get
-comment|// fellas attention. St.Ack 20101012
-name|this
-operator|.
-name|master
-operator|.
-name|abort
-argument_list|(
-literal|"Remote unexpected exception"
-argument_list|,
+if|if
+condition|(
 name|t
+operator|instanceof
+name|RemoteException
+condition|)
+block|{
+name|t
+operator|=
+operator|(
+operator|(
+name|RemoteException
+operator|)
+name|t
+operator|)
+operator|.
+name|unwrapRemoteException
+argument_list|()
+expr_stmt|;
+block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Server "
+operator|+
+name|server
+operator|+
+literal|" returned "
+operator|+
+name|t
+operator|+
+literal|" for "
+operator|+
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Presume retry or server will expire.
 block|}
 block|}
 comment|/**    * Waits until the specified region has completed assignment.    *<p>    * If the region is already assigned, returns immediately.  Otherwise, method    * blocks until the region is assigned.    * @param regionInfo region to wait on assignment for    * @throws InterruptedException    */
