@@ -63,13 +63,13 @@ specifier|public
 name|QualifierFilter
 parameter_list|()
 block|{   }
-comment|/**    * Constructor.    * @param qualifierCompareOp the compare op for column qualifier matching    * @param qualifierComparator the comparator for column qualifier matching    */
+comment|/**    * Constructor.    * @param op the compare op for column qualifier matching    * @param qualifierComparator the comparator for column qualifier matching    */
 specifier|public
 name|QualifierFilter
 parameter_list|(
 specifier|final
 name|CompareOp
-name|qualifierCompareOp
+name|op
 parameter_list|,
 specifier|final
 name|WritableByteArrayComparable
@@ -78,7 +78,7 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-name|qualifierCompareOp
+name|op
 argument_list|,
 name|qualifierComparator
 argument_list|)

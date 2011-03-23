@@ -171,9 +171,27 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|coprocessor
+name|filter
 operator|.
-name|CoprocessorEnvironment
+name|CompareFilter
+operator|.
+name|CompareOp
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|filter
+operator|.
+name|WritableByteArrayComparable
 import|;
 end_import
 
@@ -642,7 +660,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before checkAndPut    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param e the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param value the expected value    * @param put data to put if check succeeds    * @param result     * @return the return value to return to client if bypassing default    * processing    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before checkAndPut    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param e the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result     * @return the return value to return to client if bypassing default    * processing    * @throws IOException if an error occurred on the coprocessor    */
 specifier|public
 name|boolean
 name|preCheckAndPut
@@ -667,9 +685,12 @@ index|[]
 name|qualifier
 parameter_list|,
 specifier|final
-name|byte
-index|[]
-name|value
+name|CompareOp
+name|compareOp
+parameter_list|,
+specifier|final
+name|WritableByteArrayComparable
+name|comparator
 parameter_list|,
 specifier|final
 name|Put
@@ -682,7 +703,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after checkAndPut    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param e the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param value the expected value    * @param put data to put if check succeeds    * @param result from the checkAndPut    * @return the possibly transformed return value to return to client    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called after checkAndPut    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param e the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param put data to put if check succeeds    * @param result from the checkAndPut    * @return the possibly transformed return value to return to client    * @throws IOException if an error occurred on the coprocessor    */
 specifier|public
 name|boolean
 name|postCheckAndPut
@@ -707,9 +728,12 @@ index|[]
 name|qualifier
 parameter_list|,
 specifier|final
-name|byte
-index|[]
-name|value
+name|CompareOp
+name|compareOp
+parameter_list|,
+specifier|final
+name|WritableByteArrayComparable
+name|comparator
 parameter_list|,
 specifier|final
 name|Put
@@ -722,7 +746,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before checkAndDelete    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param e the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param value the expected value    * @param delete delete to commit if check succeeds    * @param result     * @return the value to return to client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before checkAndDelete    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param e the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result     * @return the value to return to client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
 specifier|public
 name|boolean
 name|preCheckAndDelete
@@ -747,9 +771,12 @@ index|[]
 name|qualifier
 parameter_list|,
 specifier|final
-name|byte
-index|[]
-name|value
+name|CompareOp
+name|compareOp
+parameter_list|,
+specifier|final
+name|WritableByteArrayComparable
+name|comparator
 parameter_list|,
 specifier|final
 name|Delete
@@ -762,7 +789,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after checkAndDelete    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param e the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param value the expected value    * @param delete delete to commit if check succeeds    * @param result from the CheckAndDelete    * @return the possibly transformed returned value to return to client    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called after checkAndDelete    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param e the environment provided by the region server    * @param row row to check    * @param family column family    * @param qualifier column qualifier    * @param compareOp the comparison operation    * @param comparator the comparator    * @param delete delete to commit if check succeeds    * @param result from the CheckAndDelete    * @return the possibly transformed returned value to return to client    * @throws IOException if an error occurred on the coprocessor    */
 specifier|public
 name|boolean
 name|postCheckAndDelete
@@ -787,9 +814,12 @@ index|[]
 name|qualifier
 parameter_list|,
 specifier|final
-name|byte
-index|[]
-name|value
+name|CompareOp
+name|compareOp
+parameter_list|,
+specifier|final
+name|WritableByteArrayComparable
+name|comparator
 parameter_list|,
 specifier|final
 name|Delete
