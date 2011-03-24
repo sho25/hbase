@@ -3778,7 +3778,7 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|KeyValue
+name|Result
 argument_list|>
 name|results
 parameter_list|,
@@ -3902,7 +3902,7 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|KeyValue
+name|Result
 argument_list|>
 name|results
 parameter_list|,
