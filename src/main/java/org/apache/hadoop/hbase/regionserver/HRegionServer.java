@@ -10396,6 +10396,8 @@ parameter_list|)
 block|{
 comment|// If checkOpen failed, server not running or filesystem gone,
 comment|// cancel this lease; filesystem is gone or we're closing or something.
+try|try
+block|{
 name|this
 operator|.
 name|leases
@@ -10405,6 +10407,23 @@ argument_list|(
 name|scannerName
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|LeaseException
+name|le
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Server shutting down and client tried to access missing scanner "
+operator|+
+name|scannerName
+argument_list|)
+expr_stmt|;
+block|}
 throw|throw
 name|e
 throw|;
