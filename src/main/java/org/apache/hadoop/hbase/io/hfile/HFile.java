@@ -5051,6 +5051,19 @@ operator|.
 name|comparator
 return|;
 block|}
+specifier|public
+name|Compression
+operator|.
+name|Algorithm
+name|getCompressionAlgorithm
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|compressAlgo
+return|;
+block|}
 comment|/**      * @return index size      */
 specifier|public
 name|long
