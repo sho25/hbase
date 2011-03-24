@@ -510,7 +510,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Simple test for {@link KeyValueSortReducer} and {@link HFileOutputFormat}.  * Sets up and runs a mapreduce job that writes hfile output.  * Creates a few inner classes to implement splits and an inputformat that  * emits keys and values like those of {@link PerformanceEvaluation}.  Makes  * as many splits as "mapred.map.tasks" maps.  */
+comment|/**  * Simple test for {@link KeyValueSortReducer} and {@link HFileOutputFormat}.  * Sets up and runs a mapreduce job that writes hfile output.  * Creates a few inner classes to implement splits and an inputformat that  * emits keys and values like those of {@link PerformanceEvaluation}.  */
 end_comment
 
 begin_class
@@ -2046,13 +2046,11 @@ comment|// Ensure data shows up
 name|int
 name|expectedRows
 init|=
-name|conf
+name|NMapInputFormat
 operator|.
-name|getInt
+name|getNumMapTasks
 argument_list|(
-literal|"mapred.map.tasks"
-argument_list|,
-literal|1
+name|conf
 argument_list|)
 operator|*
 name|ROWSPERSPLIT
