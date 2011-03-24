@@ -1754,6 +1754,12 @@ else|:
 name|FALSE
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|isDeferredLog
+operator|=
+name|isDeferredLogFlush
+expr_stmt|;
 block|}
 comment|/** @return name of table */
 specifier|public
@@ -1836,6 +1842,26 @@ operator|.
 name|name
 operator|=
 name|name
+expr_stmt|;
+name|this
+operator|.
+name|nameAsString
+operator|=
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|this
+operator|.
+name|name
+argument_list|)
+expr_stmt|;
+name|setMetaFlags
+argument_list|(
+name|this
+operator|.
+name|name
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @param maxFileSize The maximum file size that a store file can grow to    * before a split is triggered.    */
