@@ -898,6 +898,15 @@ name|HBASE_MASTER_LOGCLEANER_PLUGINS
 init|=
 literal|"hbase.master.logcleaner.plugins"
 decl_stmt|;
+comment|/*     * Minimum percentage of free heap necessary for a successful cluster startup.     */
+specifier|public
+specifier|static
+specifier|final
+name|float
+name|HBASE_CLUSTER_MINIMUM_MEMORY_THRESHOLD
+init|=
+literal|0.2f
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()
