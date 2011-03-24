@@ -1176,39 +1176,12 @@ name|java
 operator|.
 name|net
 operator|.
-name|ConnectException
+name|SocketException
 name|e
 parameter_list|)
 block|{
-if|if
-condition|(
-name|e
-operator|.
-name|getMessage
-argument_list|()
-operator|!=
-literal|null
-operator|&&
-name|e
-operator|.
-name|getMessage
-argument_list|()
-operator|.
-name|contains
-argument_list|(
-literal|"Connection refused"
-argument_list|)
-condition|)
-block|{
 comment|// Treat this exception + message as unavailable catalog table. Catch it
 comment|// and fall through to return a null
-block|}
-else|else
-block|{
-throw|throw
-name|e
-throw|;
-block|}
 block|}
 catch|catch
 parameter_list|(

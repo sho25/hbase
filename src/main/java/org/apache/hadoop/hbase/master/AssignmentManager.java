@@ -7813,6 +7813,26 @@ decl_stmt|;
 if|if
 condition|(
 name|data
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Data is null, node "
+operator|+
+name|node
+operator|+
+literal|" no longer exists"
+argument_list|)
+expr_stmt|;
+break|break;
+block|}
+if|if
+condition|(
+name|data
 operator|.
 name|getEventType
 argument_list|()

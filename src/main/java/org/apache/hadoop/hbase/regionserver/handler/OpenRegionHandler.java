@@ -422,7 +422,18 @@ argument_list|(
 name|encodedName
 argument_list|)
 condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Region was hijacked? It no longer exists, encodedName="
+operator|+
+name|encodedName
+argument_list|)
+expr_stmt|;
 return|return;
+block|}
 comment|// Open region.  After a successful open, failures in subsequent processing
 comment|// needs to do a close as part of cleanup.
 name|region
@@ -1142,7 +1153,6 @@ name|result
 return|;
 block|}
 comment|/**    * @return Instance of HRegion if successful open else null.    */
-specifier|private
 name|HRegion
 name|openRegion
 parameter_list|()

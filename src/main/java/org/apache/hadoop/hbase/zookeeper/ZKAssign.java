@@ -1050,6 +1050,7 @@ operator|==
 literal|null
 condition|)
 block|{
+comment|// If it came back null, node does not exist.
 throw|throw
 name|KeeperException
 operator|.
@@ -1707,6 +1708,19 @@ argument_list|,
 name|stat
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|existingBytes
+operator|==
+literal|null
+condition|)
+block|{
+comment|// Node no longer exists.  Return -1. It means unsuccessful transition.
+return|return
+operator|-
+literal|1
+return|;
+block|}
 name|RegionTransitionData
 name|existingData
 init|=
@@ -2065,7 +2079,7 @@ name|data
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets the current data in the unassigned node for the specified region name    * or fully-qualified path.    *    *<p>Returns null if the region does not currently have a node.    *    *<p>Does not set a watch.    *    * @param zkw zk reference    * @param pathOrRegionName fully-specified path or region name    * @param stat object to store node info into on getData call    * @return data for the unassigned node    * @throws KeeperException if unexpected zookeeper exception    */
+comment|/**    * Gets the current data in the unassigned node for the specified region name    * or fully-qualified path.    *    *<p>Returns null if the region does not currently have a node.    *    *<p>Does not set a watch.    *    * @param zkw zk reference    * @param pathOrRegionName fully-specified path or region name    * @param stat object to store node info into on getData call    * @return data for the unassigned node or null if node does not exist    * @throws KeeperException if unexpected zookeeper exception    */
 specifier|public
 specifier|static
 name|RegionTransitionData
