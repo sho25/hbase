@@ -671,7 +671,7 @@ throw|;
 block|}
 name|zooKeeperCluster
 operator|.
-name|setClientPort
+name|setDefaultClientPort
 argument_list|(
 name|zkClientPort
 argument_list|)
