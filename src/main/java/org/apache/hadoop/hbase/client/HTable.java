@@ -4145,6 +4145,44 @@ do|do
 block|{
 try|try
 block|{
+if|if
+condition|(
+name|skipFirst
+condition|)
+block|{
+comment|// Skip only the first row (which was the last row of the last
+comment|// already-processed batch).
+name|callable
+operator|.
+name|setCaching
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
+name|values
+operator|=
+name|getConnection
+argument_list|()
+operator|.
+name|getRegionServerWithRetries
+argument_list|(
+name|callable
+argument_list|)
+expr_stmt|;
+name|callable
+operator|.
+name|setCaching
+argument_list|(
+name|this
+operator|.
+name|caching
+argument_list|)
+expr_stmt|;
+name|skipFirst
+operator|=
+literal|false
+expr_stmt|;
+block|}
 comment|// Server returns a null values if scanning is to stop.  Else,
 comment|// returns an empty array if scanning is to go on and we've just
 comment|// exhausted current region.
@@ -4158,27 +4196,6 @@ argument_list|(
 name|callable
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|skipFirst
-condition|)
-block|{
-name|skipFirst
-operator|=
-literal|false
-expr_stmt|;
-comment|// Reget.
-name|values
-operator|=
-name|getConnection
-argument_list|()
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
-name|callable
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 catch|catch
 parameter_list|(
