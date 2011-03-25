@@ -7490,7 +7490,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Return a reference to the metrics instance used for counting RPC calls.    * @return    */
+comment|/**    * Return a reference to the metrics instance used for counting RPC calls.    * @return Metrics instance.    */
 end_comment
 
 begin_function
