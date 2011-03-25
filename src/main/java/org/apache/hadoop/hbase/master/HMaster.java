@@ -1230,10 +1230,6 @@ decl_stmt|;
 specifier|private
 name|LoadBalancer
 name|balancer
-init|=
-operator|new
-name|LoadBalancer
-argument_list|()
 decl_stmt|;
 specifier|private
 name|Thread
@@ -1958,6 +1954,16 @@ argument_list|,
 name|this
 operator|.
 name|executorService
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|balancer
+operator|=
+operator|new
+name|LoadBalancer
+argument_list|(
+name|conf
 argument_list|)
 expr_stmt|;
 name|zooKeeper
