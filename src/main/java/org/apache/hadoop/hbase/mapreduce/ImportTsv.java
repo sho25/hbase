@@ -1476,7 +1476,7 @@ argument_list|()
 operator|+
 literal|":\n"
 operator|+
-name|badLine
+name|e
 operator|.
 name|getMessage
 argument_list|()
@@ -1497,7 +1497,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-name|badLine
+name|e
 argument_list|)
 throw|;
 block|}
