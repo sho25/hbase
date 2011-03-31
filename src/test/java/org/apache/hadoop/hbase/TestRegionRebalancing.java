@@ -779,7 +779,14 @@ init|=
 operator|(
 name|float
 operator|)
-literal|0.1
+name|conf
+operator|.
+name|getFloat
+argument_list|(
+literal|"hbase.regions.slop"
+argument_list|,
+literal|0.1f
+argument_list|)
 decl_stmt|;
 if|if
 condition|(

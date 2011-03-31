@@ -3563,6 +3563,9 @@ argument_list|()
 operator|+
 name|maximumBalanceTime
 decl_stmt|;
+name|boolean
+name|balancerRan
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|this
@@ -3813,6 +3816,12 @@ name|totalRegPlanExecTime
 init|=
 literal|0
 decl_stmt|;
+name|balancerRan
+operator|=
+name|plans
+operator|!=
+literal|null
+expr_stmt|;
 if|if
 condition|(
 name|plans
@@ -3950,7 +3959,7 @@ block|}
 block|}
 block|}
 return|return
-literal|true
+name|balancerRan
 return|;
 block|}
 end_function
