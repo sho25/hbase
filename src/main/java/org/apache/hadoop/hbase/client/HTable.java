@@ -1007,7 +1007,9 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Tells whether or not a table is enabled or not.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Tells whether or not a table is enabled or not.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs 	* @deprecated use {@link HBaseAdmin#isTableEnabled(byte[])}    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|boolean
@@ -1031,7 +1033,9 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Tells whether or not a table is enabled or not.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Tells whether or not a table is enabled or not.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs 	* @deprecated use {@link HBaseAdmin#isTableEnabled(byte[])}    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|boolean
@@ -1056,7 +1060,9 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Tells whether or not a table is enabled or not.    * @param conf The Configuration object to use.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Tells whether or not a table is enabled or not.    * @param conf The Configuration object to use.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs 	* @deprecated use {@link HBaseAdmin#isTableEnabled(byte[])}    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|boolean
