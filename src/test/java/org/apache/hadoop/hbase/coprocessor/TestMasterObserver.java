@@ -2299,13 +2299,6 @@ argument_list|()
 decl_stmt|;
 name|assertTrue
 argument_list|(
-literal|"Balance request should have run"
-argument_list|,
-name|balanceRun
-argument_list|)
-expr_stmt|;
-name|assertTrue
-argument_list|(
 literal|"Coprocessor should be called on region rebalancing"
 argument_list|,
 name|cp
