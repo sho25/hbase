@@ -434,6 +434,13 @@ decl_stmt|;
 specifier|final
 specifier|static
 name|String
+name|TIMESTAMP_CONF_KEY
+init|=
+literal|"importtsv.timestamp"
+decl_stmt|;
+specifier|final
+specifier|static
+name|String
 name|DEFAULT_SEPARATOR
 init|=
 literal|"\t"
@@ -1164,10 +1171,17 @@ throw|;
 block|}
 name|ts
 operator|=
+name|conf
+operator|.
+name|getLong
+argument_list|(
+name|TIMESTAMP_CONF_KEY
+argument_list|,
 name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|skipBadLines
 operator|=
@@ -1872,7 +1886,13 @@ literal|"  '-D"
 operator|+
 name|SEPARATOR_CONF_KEY
 operator|+
-literal|"=|' - eg separate on pipes instead of tabs"
+literal|"=|' - eg separate on pipes instead of tabs\n"
+operator|+
+literal|"  -D"
+operator|+
+name|TIMESTAMP_CONF_KEY
+operator|+
+literal|"=currentTimeAsLong - use the specified timestamp for the import\n"
 decl_stmt|;
 name|System
 operator|.
