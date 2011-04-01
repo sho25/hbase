@@ -3197,6 +3197,13 @@ block|{
 name|flushCommits
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|pool
+operator|.
+name|shutdown
+argument_list|()
+expr_stmt|;
 block|}
 comment|// validate for well-formedness
 specifier|private
