@@ -97,6 +97,21 @@ name|pgd
 operator|.
 name|addClass
 argument_list|(
+name|CellCounter
+operator|.
+name|NAME
+argument_list|,
+name|CellCounter
+operator|.
+name|class
+argument_list|,
+literal|"Count cells in HBase table"
+argument_list|)
+expr_stmt|;
+name|pgd
+operator|.
+name|addClass
+argument_list|(
 name|Export
 operator|.
 name|NAME
