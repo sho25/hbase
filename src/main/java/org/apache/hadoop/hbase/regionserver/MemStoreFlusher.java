@@ -1364,7 +1364,10 @@ block|{
 return|return
 name|server
 operator|.
-name|getGlobalMemStoreSize
+name|getRegionServerAccounting
+argument_list|()
+operator|.
+name|getGlobalMemstoreSize
 argument_list|()
 operator|>=
 name|globalMemStoreLimit
@@ -1379,7 +1382,10 @@ block|{
 return|return
 name|server
 operator|.
-name|getGlobalMemStoreSize
+name|getRegionServerAccounting
+argument_list|()
+operator|.
+name|getGlobalMemstoreSize
 argument_list|()
 operator|>=
 name|globalMemStoreLimitLowMark

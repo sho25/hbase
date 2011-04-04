@@ -172,6 +172,12 @@ name|HServerInfo
 name|getServerInfo
 parameter_list|()
 function_decl|;
+comment|/**    * @return the RegionServerAccounting for this Region Server    */
+specifier|public
+name|RegionServerAccounting
+name|getRegionServerAccounting
+parameter_list|()
+function_decl|;
 comment|/**    * Tasks to perform after region open to complete deploy of region on    * regionserver    * @param r Region to open.    * @param ct Instance of {@link CatalogTracker}    * @param daughter True if this is daughter of a split    * @throws KeeperException    * @throws IOException    */
 specifier|public
 name|void
