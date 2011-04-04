@@ -473,6 +473,13 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|queue
+operator|!=
+literal|null
+condition|)
+block|{
 name|HTableInterface
 name|table
 init|=
@@ -504,6 +511,7 @@ operator|.
 name|poll
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 name|HConnectionManager
 operator|.
