@@ -417,6 +417,24 @@ name|Integer
 operator|.
 name|MAX_VALUE
 decl_stmt|;
+comment|/** name of the file for unique cluster ID */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CLUSTER_ID_FILE_NAME
+init|=
+literal|"hbase.id"
+decl_stmt|;
+comment|/** Configuration key storing the cluster ID */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CLUSTER_ID
+init|=
+literal|"hbase.cluster.id"
+decl_stmt|;
 comment|// Always store the location of the root table's HRegion.
 comment|// This HRegion is never split.
 comment|// region name = table + startkey + regionid. This is the row key.

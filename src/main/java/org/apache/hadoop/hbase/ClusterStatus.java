@@ -128,7 +128,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Status information on the HBase cluster.  *<p>  *<tt>ClusterStatus</tt> provides clients with information such as:  *<ul>  *<li>The count and names of region servers in the cluster.</li>  *<li>The count and names of dead region servers in the cluster.</li>  *<li>The average cluster load.</li>  *<li>The number of regions deployed on the cluster.</li>  *<li>The number of requests since last report.</li>  *<li>Detailed region server loading and resource usage information,  *  per server and per region.</li>  *<li>Regions in transition at master</li>  *</ul>  */
+comment|/**  * Status information on the HBase cluster.  *<p>  *<tt>ClusterStatus</tt> provides clients with information such as:  *<ul>  *<li>The count and names of region servers in the cluster.</li>  *<li>The count and names of dead region servers in the cluster.</li>  *<li>The average cluster load.</li>  *<li>The number of regions deployed on the cluster.</li>  *<li>The number of requests since last report.</li>  *<li>Detailed region server loading and resource usage information,  *  per server and per region.</li>  *<li>Regions in transition at master</li>  *<li>The unique cluster ID</li>  *</ul>  */
 end_comment
 
 begin_class
@@ -138,13 +138,14 @@ name|ClusterStatus
 extends|extends
 name|VersionedWritable
 block|{
+comment|/**    * Version for object serialization.  Incremented for changes in serialized    * representation.    *<dl>    *<dt>0</dt><dd>initial version</dd>    *<dt>1</dt><dd>added cluster ID</dd>    *</dl>    */
 specifier|private
 specifier|static
 specifier|final
 name|byte
 name|VERSION
 init|=
-literal|0
+literal|1
 decl_stmt|;
 specifier|private
 name|String
@@ -172,6 +173,10 @@ argument_list|,
 name|RegionState
 argument_list|>
 name|intransition
+decl_stmt|;
+specifier|private
+name|String
+name|clusterId
 decl_stmt|;
 comment|/**    * Constructor, for Writable    */
 specifier|public
@@ -590,6 +595,30 @@ operator|=
 name|m
 expr_stmt|;
 block|}
+specifier|public
+name|String
+name|getClusterId
+parameter_list|()
+block|{
+return|return
+name|clusterId
+return|;
+block|}
+specifier|public
+name|void
+name|setClusterId
+parameter_list|(
+name|String
+name|id
+parameter_list|)
+block|{
+name|this
+operator|.
+name|clusterId
+operator|=
+name|id
+expr_stmt|;
+block|}
 comment|//
 comment|// Writable
 comment|//
@@ -722,6 +751,13 @@ name|out
 argument_list|)
 expr_stmt|;
 block|}
+name|out
+operator|.
+name|writeUTF
+argument_list|(
+name|clusterId
+argument_list|)
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -916,6 +952,15 @@ name|regionState
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|clusterId
+operator|=
+name|in
+operator|.
+name|readUTF
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 end_class

@@ -113,13 +113,14 @@ comment|// All HBase Interfaces used derive from HBaseRPCProtocolVersion.  It
 comment|// maintained a single global version number on all HBase Interfaces.  This
 comment|// meant all HBase RPC was broke though only one of the three RPC Interfaces
 comment|// had changed.  This has since been undone.
+comment|// 29:  4/3/2010 - changed ClusterStatus serialization
 specifier|public
 specifier|static
 specifier|final
 name|long
 name|VERSION
 init|=
-literal|28L
+literal|29L
 decl_stmt|;
 comment|/** @return true if master is available */
 specifier|public

@@ -333,6 +333,11 @@ specifier|public
 name|String
 name|tableZNode
 decl_stmt|;
+comment|// znode containing the unique cluster ID
+specifier|public
+name|String
+name|clusterIdZNode
+decl_stmt|;
 specifier|private
 specifier|final
 name|Configuration
@@ -806,6 +811,24 @@ argument_list|(
 literal|"zookeeper.znode.tableEnableDisable"
 argument_list|,
 literal|"table"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|clusterIdZNode
+operator|=
+name|ZKUtil
+operator|.
+name|joinZNode
+argument_list|(
+name|baseZNode
+argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"zookeeper.znode.clusterId"
+argument_list|,
+literal|"hbaseid"
 argument_list|)
 argument_list|)
 expr_stmt|;
