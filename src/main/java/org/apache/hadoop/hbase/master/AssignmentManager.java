@@ -1135,7 +1135,7 @@ name|assignmentZNode
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Handle failover.  Restore state from META and ZK.  Handle any regions in    * transition.  Presumes<code>.META.</code> and<code>-ROOT-</code> deployed.    * @throws KeeperException    * @throws IOException    */
+comment|/**    * Handle failover.  Restore state from META and ZK.  Handle any regions in    * transition.  Presumes<code>.META.</code> and<code>-ROOT-</code> deployed.    * @throws KeeperException    * @throws IOException    * @throws InterruptedException     */
 name|void
 name|processFailover
 parameter_list|()
@@ -1143,6 +1143,8 @@ throws|throws
 name|KeeperException
 throws|,
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 comment|// Concurrency note: In the below the accesses on regionsInTransition are
 comment|// outside of a synchronization block where usually all accesses to RIT are
@@ -1151,6 +1153,59 @@ comment|// method is being played by a single thread on startup.
 comment|// TODO: Check list of user regions and their assignments against regionservers.
 comment|// TODO: Regions that have a null location and are not in regionsInTransitions
 comment|// need to be handled.
+comment|// Add -ROOT- and .META. on regions map.  They must be deployed if we got
+comment|// this far.  Caller takes care of it.
+name|HServerInfo
+name|hsi
+init|=
+name|this
+operator|.
+name|serverManager
+operator|.
+name|getHServerInfo
+argument_list|(
+name|this
+operator|.
+name|catalogTracker
+operator|.
+name|getMetaLocation
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|regionOnline
+argument_list|(
+name|HRegionInfo
+operator|.
+name|FIRST_META_REGIONINFO
+argument_list|,
+name|hsi
+argument_list|)
+expr_stmt|;
+name|hsi
+operator|=
+name|this
+operator|.
+name|serverManager
+operator|.
+name|getHServerInfo
+argument_list|(
+name|this
+operator|.
+name|catalogTracker
+operator|.
+name|getRootLocation
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|regionOnline
+argument_list|(
+name|HRegionInfo
+operator|.
+name|ROOT_REGIONINFO
+argument_list|,
+name|hsi
+argument_list|)
+expr_stmt|;
 comment|// Scan META to build list of existing regions, servers, and assignment
 comment|// Returns servers who have not checked in (assumed dead) and their regions
 name|Map
