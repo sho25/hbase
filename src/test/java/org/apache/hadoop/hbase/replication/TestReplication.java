@@ -715,15 +715,6 @@ argument_list|)
 expr_stmt|;
 name|conf1
 operator|.
-name|setLong
-argument_list|(
-literal|"hbase.client.retries.number"
-argument_list|,
-literal|5
-argument_list|)
-expr_stmt|;
-name|conf1
-operator|.
 name|setBoolean
 argument_list|(
 name|HConstants

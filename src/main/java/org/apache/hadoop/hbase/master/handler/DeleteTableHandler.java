@@ -337,7 +337,7 @@ name|Threads
 operator|.
 name|sleep
 argument_list|(
-literal|1000
+name|waitingTimeForEvents
 argument_list|)
 expr_stmt|;
 name|LOG

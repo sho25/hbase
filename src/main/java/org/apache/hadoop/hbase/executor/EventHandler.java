@@ -147,6 +147,12 @@ specifier|private
 name|EventHandlerListener
 name|listener
 decl_stmt|;
+comment|// Time to wait for events to happen, should be kept short
+specifier|protected
+specifier|final
+name|int
+name|waitingTimeForEvents
+decl_stmt|;
 comment|/**    * This interface provides pre- and post-process hooks for events.    */
 specifier|public
 interface|interface
@@ -352,6 +358,22 @@ name|seqids
 operator|.
 name|incrementAndGet
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|waitingTimeForEvents
+operator|=
+name|server
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.master.event.waiting.time"
+argument_list|,
+literal|1000
+argument_list|)
 expr_stmt|;
 block|}
 specifier|public
