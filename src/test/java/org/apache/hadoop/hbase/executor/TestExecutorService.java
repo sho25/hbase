@@ -373,6 +373,8 @@ argument_list|(
 operator|new
 name|TestEventHandler
 argument_list|(
+name|mockedServer
+argument_list|,
 name|EventType
 operator|.
 name|M_SERVER_SHUTDOWN
@@ -551,6 +553,8 @@ argument_list|(
 operator|new
 name|TestEventHandler
 argument_list|(
+name|mockedServer
+argument_list|,
 name|EventType
 operator|.
 name|M_SERVER_SHUTDOWN
@@ -622,6 +626,9 @@ decl_stmt|;
 specifier|public
 name|TestEventHandler
 parameter_list|(
+name|Server
+name|server
+parameter_list|,
 name|EventType
 name|eventType
 parameter_list|,
@@ -634,7 +641,7 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-literal|null
+name|server
 argument_list|,
 name|eventType
 argument_list|)
