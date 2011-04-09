@@ -72,7 +72,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Base class used bulk assigning and unassigning regions.  * Encapsulates a fixed size thread pool of executors to run assignment/unassignment.  * Implement {@link #populatePool(java.util.concurrent.ExecutorService)} and  * {@link #waitUntilDone(long)}.  */
+comment|/**  * Base class used bulk assigning and unassigning regions.  * Encapsulates a fixed size thread pool of executors to run assignment/unassignment.  * Implement {@link #populatePool(java.util.concurrent.ExecutorService)} and  * {@link #waitUntilDone(long)}.  The default implementation of  * the {@link #getUncaughtExceptionHandler()} is to abort the hosting  * Server.  */
 end_comment
 
 begin_class
@@ -101,6 +101,7 @@ operator|=
 name|server
 expr_stmt|;
 block|}
+comment|/**    * @return What to use for a thread prefix when executor runs.    */
 specifier|protected
 name|String
 name|getThreadNamePrefix
@@ -114,7 +115,15 @@ operator|.
 name|getServerName
 argument_list|()
 operator|+
-literal|"-BulkAssigner"
+literal|"-"
+operator|+
+name|this
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
 return|;
 block|}
 specifier|protected
@@ -197,7 +206,7 @@ name|getLong
 argument_list|(
 literal|"hbase.bulk.assignment.waiton.empty.rit"
 argument_list|,
-literal|10
+literal|5
 operator|*
 literal|60
 operator|*
@@ -221,11 +230,28 @@ name|ExecutorService
 name|pool
 parameter_list|)
 function_decl|;
-comment|/**    * Run the bulk assign.    * @throws InterruptedException    * @return True if done.    */
 specifier|public
 name|boolean
 name|bulkAssign
 parameter_list|()
+throws|throws
+name|InterruptedException
+block|{
+return|return
+name|bulkAssign
+argument_list|(
+literal|true
+argument_list|)
+return|;
+block|}
+comment|/**    * Run the bulk assign.    * @param sync Whether to assign synchronously.    * @throws InterruptedException    * @return True if done.    */
+specifier|public
+name|boolean
+name|bulkAssign
+parameter_list|(
+name|boolean
+name|sync
+parameter_list|)
 throws|throws
 name|InterruptedException
 block|{
@@ -302,6 +328,10 @@ argument_list|)
 expr_stmt|;
 comment|// How long to wait on empty regions-in-transition.  If we timeout, the
 comment|// RIT monitor should do fixup.
+if|if
+condition|(
+name|sync
+condition|)
 name|result
 operator|=
 name|waitUntilDone

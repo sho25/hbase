@@ -4667,6 +4667,7 @@ name|HRegionInfo
 index|[]
 name|newRegions
 parameter_list|,
+specifier|final
 name|boolean
 name|sync
 parameter_list|)
@@ -4805,46 +4806,20 @@ operator|.
 name|getOnlineServersList
 argument_list|()
 decl_stmt|;
-try|try
-block|{
 name|this
 operator|.
 name|assignmentManager
 operator|.
-name|assignUserRegions
+name|bulkAssignUserRegions
 argument_list|(
 name|newRegions
 argument_list|,
 name|servers
+argument_list|,
+name|sync
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|ie
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Caught "
-operator|+
-name|ie
-operator|+
-literal|" during round-robin assignment"
-argument_list|)
-expr_stmt|;
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-name|ie
-argument_list|)
-throw|;
-block|}
-comment|// 5. If sync, wait for assignment of regions
+comment|// 6. If sync, wait for assignment of regions
 if|if
 condition|(
 name|sync
@@ -4860,9 +4835,7 @@ name|newRegions
 operator|.
 name|length
 operator|+
-literal|" region(s) to be "
-operator|+
-literal|"assigned before returning"
+literal|" region(s) to be assigned"
 argument_list|)
 expr_stmt|;
 for|for
@@ -4875,6 +4848,8 @@ control|)
 block|{
 try|try
 block|{
+name|this
+operator|.
 name|assignmentManager
 operator|.
 name|waitForAssignment
@@ -4896,7 +4871,17 @@ argument_list|(
 literal|"Interrupted waiting for region to be assigned during "
 operator|+
 literal|"create table call"
+argument_list|,
+name|e
 argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
 expr_stmt|;
 return|return;
 block|}
