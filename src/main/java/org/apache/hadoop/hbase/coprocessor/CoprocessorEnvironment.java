@@ -43,38 +43,6 @@ name|HTableInterface
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|HRegion
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|RegionServerServices
-import|;
-end_import
-
 begin_comment
 comment|/**  * Coprocessor environment state.  */
 end_comment
@@ -108,6 +76,12 @@ name|Coprocessor
 operator|.
 name|Priority
 name|getPriority
+parameter_list|()
+function_decl|;
+comment|/** @return the load sequence number */
+specifier|public
+name|int
+name|getLoadSequence
 parameter_list|()
 function_decl|;
 comment|/**    * @return an interface for accessing the given table    * @throws IOException    */

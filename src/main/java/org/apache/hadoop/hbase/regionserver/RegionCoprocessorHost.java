@@ -367,10 +367,15 @@ specifier|final
 name|Coprocessor
 name|impl
 parameter_list|,
+specifier|final
 name|Coprocessor
 operator|.
 name|Priority
 name|priority
+parameter_list|,
+specifier|final
+name|int
+name|seq
 parameter_list|,
 specifier|final
 name|HRegion
@@ -386,6 +391,8 @@ argument_list|(
 name|impl
 argument_list|,
 name|priority
+argument_list|,
+name|seq
 argument_list|)
 expr_stmt|;
 name|this
@@ -771,6 +778,9 @@ name|Coprocessor
 operator|.
 name|Priority
 name|priority
+parameter_list|,
+name|int
+name|seq
 parameter_list|)
 block|{
 comment|// Check if it's an Endpoint.
@@ -823,6 +833,8 @@ argument_list|(
 name|instance
 argument_list|,
 name|priority
+argument_list|,
+name|seq
 argument_list|,
 name|region
 argument_list|,

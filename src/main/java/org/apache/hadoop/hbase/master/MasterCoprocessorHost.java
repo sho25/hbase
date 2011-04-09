@@ -119,6 +119,9 @@ operator|.
 name|Priority
 name|priority
 parameter_list|,
+name|int
+name|seq
+parameter_list|,
 name|MasterServices
 name|services
 parameter_list|)
@@ -128,6 +131,8 @@ argument_list|(
 name|impl
 argument_list|,
 name|priority
+argument_list|,
+name|seq
 argument_list|)
 expr_stmt|;
 name|this
@@ -195,6 +200,9 @@ name|Coprocessor
 operator|.
 name|Priority
 name|priority
+parameter_list|,
+name|int
+name|seq
 parameter_list|)
 block|{
 return|return
@@ -206,6 +214,8 @@ argument_list|,
 name|instance
 argument_list|,
 name|priority
+argument_list|,
+name|seq
 argument_list|,
 name|masterServices
 argument_list|)
