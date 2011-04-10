@@ -354,7 +354,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Puts the specified HTable back into the pool.<p>    *    * If the pool already contains<i>maxSize</i> references to the table,    * then nothing happens.    * @param table table    */
+comment|/**    * Puts the specified HTable back into the pool.<p>    *    * If the pool already contains<i>maxSize</i> references to the table,    * then the table instance gets closed after flushing buffered edits.    * @param table table    */
 specifier|public
 name|void
 name|putTable
