@@ -23,7 +23,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|LinkedList
+name|Map
 import|;
 end_import
 
@@ -43,31 +43,9 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|concurrent
 operator|.
 name|ConcurrentHashMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ConcurrentMap
 import|;
 end_import
 
@@ -415,7 +393,19 @@ argument_list|()
 operator|>=
 name|maxSize
 condition|)
+block|{
+comment|// release table instance since we're not reusing it
+name|this
+operator|.
+name|tableFactory
+operator|.
+name|releaseHTableInterface
+argument_list|(
+name|table
+argument_list|)
+expr_stmt|;
 return|return;
+block|}
 name|queue
 operator|.
 name|add
