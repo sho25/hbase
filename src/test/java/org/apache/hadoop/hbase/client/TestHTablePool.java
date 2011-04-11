@@ -236,6 +236,8 @@ specifier|public
 name|void
 name|testTableWithStringName
 parameter_list|()
+throws|throws
+name|Exception
 block|{
 name|HTablePool
 name|pool
@@ -388,6 +390,8 @@ specifier|public
 name|void
 name|testTableWithMaxSize
 parameter_list|()
+throws|throws
+name|Exception
 block|{
 name|HTablePool
 name|pool
