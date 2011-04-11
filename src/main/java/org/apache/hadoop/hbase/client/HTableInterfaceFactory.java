@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -60,6 +70,8 @@ specifier|final
 name|HTableInterface
 name|table
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 block|}
 end_interface

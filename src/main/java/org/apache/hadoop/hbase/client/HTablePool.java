@@ -21,6 +21,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|Map
@@ -362,6 +372,8 @@ parameter_list|(
 name|HTableInterface
 name|table
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|Queue
 argument_list|<
@@ -449,6 +461,8 @@ specifier|final
 name|String
 name|tableName
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|Queue
 argument_list|<
@@ -525,6 +539,8 @@ name|byte
 index|[]
 name|tableName
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|closeTablePool
 argument_list|(
