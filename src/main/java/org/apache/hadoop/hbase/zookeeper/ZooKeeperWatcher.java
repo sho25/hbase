@@ -568,13 +568,62 @@ name|ke
 operator|!=
 literal|null
 condition|)
+block|{
+try|try
+block|{
+comment|// If we don't close it, the zk connection managers won't be killed
+name|this
+operator|.
+name|zooKeeper
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Interrupted while closing"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 throw|throw
 operator|new
 name|ZooKeeperConnectionException
 argument_list|(
+literal|"HBase is able to connect to"
+operator|+
+literal|" ZooKeeper but the connection closes immediately. This could be"
+operator|+
+literal|" a sign that the server has too many connections (30 is the"
+operator|+
+literal|" default). Consider inspecting your ZK server logs for that"
+operator|+
+literal|" error and then make sure you are reusing HBaseConfiguration"
+operator|+
+literal|" as often as you can. See HTable's javadoc for more information."
+argument_list|,
 name|ke
 argument_list|)
 throw|;
+block|}
 name|ZKUtil
 operator|.
 name|createAndFailSilent
@@ -609,22 +658,15 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|error
+throw|throw
+operator|new
+name|ZooKeeperConnectionException
 argument_list|(
 name|prefix
 argument_list|(
 literal|"Unexpected KeeperException creating base node"
 argument_list|)
 argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-throw|throw
-operator|new
-name|IOException
-argument_list|(
 name|e
 argument_list|)
 throw|;

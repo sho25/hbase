@@ -4625,6 +4625,16 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
+name|ZooKeeperConnectionException
+name|zce
+parameter_list|)
+block|{
+throw|throw
+name|zce
+throw|;
+block|}
+catch|catch
+parameter_list|(
 name|IOException
 name|e
 parameter_list|)
@@ -4633,6 +4643,10 @@ throw|throw
 operator|new
 name|ZooKeeperConnectionException
 argument_list|(
+literal|"An error is preventing"
+operator|+
+literal|" HBase from connecting to ZooKeeper"
+argument_list|,
 name|e
 argument_list|)
 throw|;

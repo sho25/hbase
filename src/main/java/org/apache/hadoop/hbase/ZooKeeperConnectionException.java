@@ -75,12 +75,17 @@ comment|/**    * Constructor taking another exception.    * @param e Exception t
 specifier|public
 name|ZooKeeperConnectionException
 parameter_list|(
+name|String
+name|message
+parameter_list|,
 name|Exception
 name|e
 parameter_list|)
 block|{
 name|super
 argument_list|(
+name|message
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
