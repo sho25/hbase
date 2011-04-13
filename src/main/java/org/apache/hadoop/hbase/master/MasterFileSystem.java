@@ -1057,6 +1057,9 @@ name|IOException
 name|e
 parameter_list|)
 block|{
+name|checkFileSystem
+argument_list|()
+expr_stmt|;
 name|LOG
 operator|.
 name|error
