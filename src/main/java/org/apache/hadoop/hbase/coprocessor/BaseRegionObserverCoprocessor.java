@@ -311,7 +311,10 @@ specifier|public
 name|void
 name|preOpen
 parameter_list|(
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|)
 block|{ }
@@ -321,7 +324,10 @@ specifier|public
 name|void
 name|postOpen
 parameter_list|(
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|)
 block|{ }
@@ -331,7 +337,10 @@ specifier|public
 name|void
 name|preClose
 parameter_list|(
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 name|boolean
@@ -344,7 +353,10 @@ specifier|public
 name|void
 name|postClose
 parameter_list|(
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 name|boolean
@@ -357,7 +369,10 @@ specifier|public
 name|void
 name|preFlush
 parameter_list|(
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|)
 block|{ }
@@ -367,7 +382,10 @@ specifier|public
 name|void
 name|postFlush
 parameter_list|(
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|)
 block|{ }
@@ -377,7 +395,10 @@ specifier|public
 name|void
 name|preSplit
 parameter_list|(
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|)
 block|{ }
@@ -387,7 +408,10 @@ specifier|public
 name|void
 name|postSplit
 parameter_list|(
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 name|HRegion
@@ -403,7 +427,10 @@ specifier|public
 name|void
 name|preCompact
 parameter_list|(
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 name|boolean
@@ -416,7 +443,10 @@ specifier|public
 name|void
 name|postCompact
 parameter_list|(
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 name|boolean
@@ -430,7 +460,10 @@ name|void
 name|preGetClosestRowBefore
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -457,7 +490,10 @@ name|void
 name|postGetClosestRowBefore
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -484,7 +520,10 @@ name|void
 name|preGet
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -508,7 +547,10 @@ name|void
 name|postGet
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -532,7 +574,10 @@ name|boolean
 name|preExists
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -557,7 +602,10 @@ name|boolean
 name|postExists
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -581,7 +629,10 @@ name|void
 name|prePut
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -611,7 +662,10 @@ name|void
 name|postPut
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -641,7 +695,10 @@ name|void
 name|preDelete
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -671,7 +728,10 @@ name|void
 name|postDelete
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -701,7 +761,10 @@ name|boolean
 name|preCheckAndPut
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -749,7 +812,10 @@ name|boolean
 name|postCheckAndPut
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -797,7 +863,10 @@ name|boolean
 name|preCheckAndDelete
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -845,7 +914,10 @@ name|boolean
 name|postCheckAndDelete
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -893,7 +965,10 @@ name|long
 name|preIncrementColumnValue
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -933,7 +1008,10 @@ name|long
 name|postIncrementColumnValue
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -976,7 +1054,10 @@ name|void
 name|preIncrement
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -997,7 +1078,10 @@ name|void
 name|postIncrement
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -1018,7 +1102,10 @@ name|InternalScanner
 name|preScannerOpen
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -1043,7 +1130,10 @@ name|InternalScanner
 name|postScannerOpen
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -1068,7 +1158,10 @@ name|boolean
 name|preScannerNext
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -1104,7 +1197,10 @@ name|boolean
 name|postScannerNext
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -1140,7 +1236,10 @@ name|void
 name|preScannerClose
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -1157,7 +1256,10 @@ name|void
 name|postScannerClose
 parameter_list|(
 specifier|final
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|e
 parameter_list|,
 specifier|final
@@ -1173,7 +1275,10 @@ specifier|public
 name|void
 name|preWALRestore
 parameter_list|(
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|env
 parameter_list|,
 name|HRegionInfo
@@ -1194,7 +1299,10 @@ specifier|public
 name|void
 name|postWALRestore
 parameter_list|(
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|env
 parameter_list|,
 name|HRegionInfo

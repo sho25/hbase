@@ -96,19 +96,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/* Control flow changes */
-comment|/**    * Causes framework to bypass default actions and return with the results    * from a preXXX chain.    */
-specifier|public
-name|void
-name|bypass
-parameter_list|()
-function_decl|;
-comment|/**    * Mark coprocessor chain processing as complete. Causes framework to return    * immediately without calling any additional chained coprocessors.    */
-specifier|public
-name|void
-name|complete
-parameter_list|()
-function_decl|;
 block|}
 end_interface
 

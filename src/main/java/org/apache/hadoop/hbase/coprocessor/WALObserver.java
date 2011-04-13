@@ -88,12 +88,15 @@ name|WALObserver
 extends|extends
 name|Coprocessor
 block|{
-comment|/**    * Called before a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * is writen to WAL.    *    * @param env    * @param info    * @param logKey    * @param logEdit    * @return true if default behavior should be bypassed, false otherwise    * @throws IOException    */
+comment|/**    * Called before a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * is writen to WAL.    *    * @param ctx    * @param info    * @param logKey    * @param logEdit    * @return true if default behavior should be bypassed, false otherwise    * @throws IOException    */
 name|boolean
 name|preWALWrite
 parameter_list|(
-name|CoprocessorEnvironment
-name|env
+name|ObserverContext
+argument_list|<
+name|WALCoprocessorEnvironment
+argument_list|>
+name|ctx
 parameter_list|,
 name|HRegionInfo
 name|info
@@ -107,12 +110,15 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * is writen to WAL.    *    * @param env    * @param info    * @param logKey    * @param logEdit    * @throws IOException    */
+comment|/**    * Called after a {@link org.apache.hadoop.hbase.regionserver.wal.WALEdit}    * is writen to WAL.    *    * @param ctx    * @param info    * @param logKey    * @param logEdit    * @throws IOException    */
 name|void
 name|postWALWrite
 parameter_list|(
-name|CoprocessorEnvironment
-name|env
+name|ObserverContext
+argument_list|<
+name|WALCoprocessorEnvironment
+argument_list|>
+name|ctx
 parameter_list|,
 name|HRegionInfo
 name|info

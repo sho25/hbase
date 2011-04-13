@@ -324,7 +324,10 @@ specifier|public
 name|void
 name|postWALWrite
 parameter_list|(
-name|CoprocessorEnvironment
+name|ObserverContext
+argument_list|<
+name|WALCoprocessorEnvironment
+argument_list|>
 name|env
 parameter_list|,
 name|HRegionInfo
@@ -350,7 +353,10 @@ specifier|public
 name|boolean
 name|preWALWrite
 parameter_list|(
-name|CoprocessorEnvironment
+name|ObserverContext
+argument_list|<
+name|WALCoprocessorEnvironment
+argument_list|>
 name|env
 parameter_list|,
 name|HRegionInfo
@@ -571,7 +577,10 @@ specifier|public
 name|void
 name|preWALRestore
 parameter_list|(
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|env
 parameter_list|,
 name|HRegionInfo
@@ -598,7 +607,10 @@ specifier|public
 name|void
 name|postWALRestore
 parameter_list|(
+name|ObserverContext
+argument_list|<
 name|RegionCoprocessorEnvironment
+argument_list|>
 name|env
 parameter_list|,
 name|HRegionInfo
