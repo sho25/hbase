@@ -3092,7 +3092,7 @@ name|znode
 argument_list|,
 literal|false
 argument_list|)
-operator|!=
+operator|==
 literal|null
 condition|)
 block|{
