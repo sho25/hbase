@@ -323,7 +323,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Run the balancer.  Will run the balancer and if regions to move, it will    * go ahead and do the reassignments.  Can NOT run for various reasons.  Check    * logs.    * @return True if balancer ran, false otherwise.    */
+comment|/**    * Run the balancer.  Will run the balancer and if regions to move, it will    * go ahead and do the reassignments.  Can NOT run for various reasons.  Check    * logs.    * @return True if balancer ran and was able to tell the region servers to    * unassign all the regions to balance (the re-assignment itself is async),    * false otherwise.    */
 specifier|public
 name|boolean
 name|balance
