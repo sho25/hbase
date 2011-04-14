@@ -2610,7 +2610,7 @@ literal|false
 return|;
 block|}
 block|}
-comment|/**    * Set data into node creating node if it doesn't yet exist.    * Does not set watch.    * @param zkw zk reference    * @param znode path of node    * @param data data to set for node    * @throws KeeperException     */
+comment|/**    * Set data into node creating node if it doesn't yet exist.    * Does not set watch.    * @param zkw zk reference    * @param znode path of node    * @param data data to set for node    * @throws KeeperException    */
 specifier|public
 specifier|static
 name|void
@@ -3074,10 +3074,29 @@ name|KeeperException
 block|{
 try|try
 block|{
+name|ZooKeeper
+name|zk
+init|=
 name|zkw
 operator|.
 name|getZooKeeper
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|zk
+operator|.
+name|exists
+argument_list|(
+name|znode
+argument_list|,
+literal|false
+argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
+name|zk
 operator|.
 name|create
 argument_list|(
@@ -3098,6 +3117,7 @@ operator|.
 name|PERSISTENT
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
