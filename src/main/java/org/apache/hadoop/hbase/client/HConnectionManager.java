@@ -5623,6 +5623,12 @@ name|retry
 init|=
 literal|true
 decl_stmt|;
+comment|// count that helps presize actions array
+name|int
+name|actionCount
+init|=
+literal|0
+decl_stmt|;
 name|Throwable
 name|singleRowCause
 init|=
@@ -6194,6 +6200,10 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+name|actionCount
+operator|=
+literal|0
+expr_stmt|;
 for|for
 control|(
 name|int
@@ -6246,6 +6256,9 @@ name|retry
 operator|=
 literal|true
 expr_stmt|;
+name|actionCount
+operator|++
+expr_stmt|;
 name|Row
 name|row
 init|=
@@ -6276,6 +6289,27 @@ expr_stmt|;
 block|}
 else|else
 block|{
+if|if
+condition|(
+name|results
+index|[
+name|i
+index|]
+operator|!=
+literal|null
+operator|&&
+name|results
+index|[
+name|i
+index|]
+operator|instanceof
+name|Throwable
+condition|)
+block|{
+name|actionCount
+operator|++
+expr_stmt|;
+block|}
 comment|// add null to workingList, so the order remains consistent with the original list argument.
 name|workingList
 operator|.
@@ -6320,7 +6354,9 @@ name|ArrayList
 argument_list|<
 name|Throwable
 argument_list|>
-argument_list|()
+argument_list|(
+name|actionCount
+argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
@@ -6333,7 +6369,9 @@ name|ArrayList
 argument_list|<
 name|Row
 argument_list|>
-argument_list|()
+argument_list|(
+name|actionCount
+argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
@@ -6346,7 +6384,9 @@ name|ArrayList
 argument_list|<
 name|HServerAddress
 argument_list|>
-argument_list|()
+argument_list|(
+name|actionCount
+argument_list|)
 decl_stmt|;
 for|for
 control|(
