@@ -743,6 +743,9 @@ argument_list|,
 name|length
 argument_list|)
 decl_stmt|;
+name|resetTS
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|compare
