@@ -574,7 +574,6 @@ name|String
 name|getServerName
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -586,7 +585,6 @@ name|ZooKeeperWatcher
 name|getZooKeeper
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -604,7 +602,7 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-comment|// TODO Auto-generated method stub
+comment|//no-op
 block|}
 annotation|@
 name|Override
@@ -613,7 +611,6 @@ name|boolean
 name|isStopped
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|false
 return|;
@@ -628,7 +625,7 @@ name|String
 name|why
 parameter_list|)
 block|{
-comment|// TODO Auto-generated method stub
+comment|//no-op
 block|}
 block|}
 comment|/**    * Mock MasterServices for tests below.    */
@@ -677,7 +674,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// TODO Auto-generated method stub
+comment|//no-op
 block|}
 annotation|@
 name|Override
@@ -686,7 +683,6 @@ name|AssignmentManager
 name|getAssignmentManager
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -698,7 +694,6 @@ name|ExecutorService
 name|getExecutorService
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -723,7 +718,6 @@ name|ServerManager
 name|getServerManager
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -732,7 +726,7 @@ annotation|@
 name|Override
 specifier|public
 name|ZooKeeperWatcher
-name|getZooKeeperWatcher
+name|getZooKeeper
 parameter_list|()
 block|{
 return|return
@@ -748,6 +742,66 @@ parameter_list|()
 block|{
 return|return
 literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|Configuration
+name|getConfiguration
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|getServerName
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|abort
+parameter_list|(
+name|String
+name|why
+parameter_list|,
+name|Throwable
+name|e
+parameter_list|)
+block|{
+comment|//no-op
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|stop
+parameter_list|(
+name|String
+name|why
+parameter_list|)
+block|{
+comment|//no-op
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|isStopped
+parameter_list|()
+block|{
+return|return
+literal|false
 return|;
 block|}
 block|}

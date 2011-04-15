@@ -142,18 +142,6 @@ name|HLog
 name|getWAL
 parameter_list|()
 function_decl|;
-comment|/**    * @return Implementation of {@link CatalogTracker} or null.    */
-specifier|public
-name|CatalogTracker
-name|getCatalogTracker
-parameter_list|()
-function_decl|;
-comment|/*    * @return Implementation of {@link ZooKeeperWatcher} or null.    */
-specifier|public
-name|ZooKeeperWatcher
-name|getZooKeeperWatcher
-parameter_list|()
-function_decl|;
 comment|/**    * @return Implementation of {@link CompactionRequestor} or null.    */
 specifier|public
 name|CompactionRequestor

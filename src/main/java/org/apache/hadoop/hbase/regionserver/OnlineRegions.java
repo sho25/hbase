@@ -17,6 +17,20 @@ name|regionserver
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Server
+import|;
+end_import
+
 begin_comment
 comment|/**  * Interface to Map of online regions.  In the  Map, the key is the region's  * encoded name and the value is an {@link HRegion} instance.  */
 end_comment
@@ -24,6 +38,8 @@ end_comment
 begin_interface
 interface|interface
 name|OnlineRegions
+extends|extends
+name|Server
 block|{
 comment|/**    * Add to online regions.    * @param r    */
 specifier|public

@@ -37,6 +37,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|Server
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableNotDisabledException
 import|;
 end_import
@@ -111,6 +125,8 @@ begin_interface
 specifier|public
 interface|interface
 name|MasterServices
+extends|extends
+name|Server
 block|{
 comment|/**    * @return Master's instance of the {@link AssignmentManager}    */
 specifier|public
@@ -148,18 +164,6 @@ name|tableName
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * @return Implementation of {@link org.apache.hadoop.hbase.catalog.CatalogTracker} or null.    */
-specifier|public
-name|CatalogTracker
-name|getCatalogTracker
-parameter_list|()
-function_decl|;
-comment|/*    * @return Implementation of {@link ZooKeeperWatcher} or null.    */
-specifier|public
-name|ZooKeeperWatcher
-name|getZooKeeperWatcher
-parameter_list|()
 function_decl|;
 block|}
 end_interface
