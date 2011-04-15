@@ -2085,6 +2085,17 @@ literal|", "
 operator|+
 literal|"hitRatio="
 operator|+
+operator|(
+name|stats
+operator|.
+name|getHitCount
+argument_list|()
+operator|==
+literal|0
+condition|?
+literal|"0"
+else|:
+operator|(
 name|StringUtils
 operator|.
 name|formatPercent
@@ -2098,6 +2109,8 @@ literal|2
 argument_list|)
 operator|+
 literal|"%, "
+operator|)
+operator|)
 operator|+
 literal|"cachingAccesses="
 operator|+
@@ -2119,6 +2132,17 @@ literal|", "
 operator|+
 literal|"cachingHitsRatio="
 operator|+
+operator|(
+name|stats
+operator|.
+name|getHitCachingCount
+argument_list|()
+operator|==
+literal|0
+condition|?
+literal|"0"
+else|:
+operator|(
 name|StringUtils
 operator|.
 name|formatPercent
@@ -2132,6 +2156,8 @@ literal|2
 argument_list|)
 operator|+
 literal|"%, "
+operator|)
+operator|)
 operator|+
 literal|"evictions="
 operator|+
