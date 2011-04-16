@@ -237,9 +237,15 @@ argument_list|,
 name|value
 argument_list|,
 name|value
+operator|!=
+literal|null
+condition|?
+name|value
 operator|.
 name|getClass
 argument_list|()
+else|:
+name|valueType
 argument_list|,
 literal|null
 argument_list|)
