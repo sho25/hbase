@@ -149,7 +149,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|LinkedBlockingQueue
+name|SynchronousQueue
 import|;
 end_import
 
@@ -515,34 +515,6 @@ name|Writables
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZKUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|KeeperException
-import|;
-end_import
-
 begin_comment
 comment|/**  * Used to communicate with a single HBase table.  *  * This class is not thread safe for updates; the underlying write buffer can  * be corrupted if multiple threads contend over a single HTable instance.  *  *<p>Instances of HTable passed the same {@link Configuration} instance will  * share connections to servers out on the cluster and to the zookeeper ensemble  * as well as caches of region locations.  This is usually a *good* thing and it  * is recommended to reuse the same configuration object for all your tables.  * This happens because they will all share the same underlying  * {@link HConnection} instance. See {@link HConnectionManager} for more on  * how this mechanism works.  *  *<p>{@link HConnection} will read most of the  * configuration it needs from the passed {@link Configuration} on initial  * construction.  Thereafter, for settings such as  *<code>hbase.client.pause</code>,<code>hbase.client.retries.number</code>,  * and<code>hbase.client.rpc.maxattempts</code> updating their values in the  * passed {@link Configuration} subsequent to {@link HConnection} construction  * will go unnoticed.  To run with changed values, make a new  * {@link HTable} passing a new {@link Configuration} instance that has the  * new configuration.  *  * @see HBaseAdmin for create, drop, list, enable and disable of tables.  * @see HConnection  * @see HConnectionManager  */
 end_comment
@@ -873,7 +845,7 @@ literal|1
 argument_list|)
 expr_stmt|;
 name|int
-name|nrThreads
+name|maxThreads
 init|=
 name|conf
 operator|.
@@ -881,27 +853,28 @@ name|getInt
 argument_list|(
 literal|"hbase.htable.threads.max"
 argument_list|,
-name|getCurrentNrHRS
-argument_list|()
+name|Integer
+operator|.
+name|MAX_VALUE
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|nrThreads
+name|maxThreads
 operator|==
 literal|0
 condition|)
 block|{
-name|nrThreads
+name|maxThreads
 operator|=
 literal|1
 expr_stmt|;
 comment|// is there a better default?
 block|}
-comment|// Unfortunately Executors.newCachedThreadPool does not allow us to
-comment|// set the maximum size of the pool, so we have to do it ourselves.
-comment|// Must also set set corethreadpool size as with a LinkedBlockingQueue,
-comment|// a new thread will not be started until the queue is full
+comment|// Using the "direct handoff" approach, new threads will only be created
+comment|// if it is necessary and will grow unbounded. This could be bad but in HCM
+comment|// we only create as many Runnables as there are region servers. It means
+comment|// it also scales when new region servers are added.
 name|this
 operator|.
 name|pool
@@ -909,9 +882,9 @@ operator|=
 operator|new
 name|ThreadPoolExecutor
 argument_list|(
-name|nrThreads
+literal|1
 argument_list|,
-name|nrThreads
+name|maxThreads
 argument_list|,
 literal|60
 argument_list|,
@@ -920,7 +893,7 @@ operator|.
 name|SECONDS
 argument_list|,
 operator|new
-name|LinkedBlockingQueue
+name|SynchronousQueue
 argument_list|<
 name|Runnable
 argument_list|>
@@ -954,58 +927,6 @@ block|{
 return|return
 name|configuration
 return|;
-block|}
-comment|/**    * @return the number of region servers that are currently running    * @throws IOException if a remote or network exception occurs    */
-specifier|public
-name|int
-name|getCurrentNrHRS
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-try|try
-block|{
-comment|// We go to zk rather than to master to get count of regions to avoid
-comment|// HTable having a Master dependency.  See HBase-2828
-return|return
-name|ZKUtil
-operator|.
-name|getNumberOfChildren
-argument_list|(
-name|this
-operator|.
-name|connection
-operator|.
-name|getZooKeeperWatcher
-argument_list|()
-argument_list|,
-name|this
-operator|.
-name|connection
-operator|.
-name|getZooKeeperWatcher
-argument_list|()
-operator|.
-name|rsZNode
-argument_list|)
-return|;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-name|ke
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Unexpected ZooKeeper exception"
-argument_list|,
-name|ke
-argument_list|)
-throw|;
-block|}
 block|}
 comment|/**    * Tells whether or not a table is enabled or not.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs 	* @deprecated use {@link HBaseAdmin#isTableEnabled(byte[])}    */
 annotation|@
@@ -4717,6 +4638,17 @@ block|}
 block|}
 return|;
 block|}
+block|}
+comment|/**    * The pool is used for mutli requests for this HTable    * @return the pool used for mutli    */
+name|ExecutorService
+name|getPool
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|pool
+return|;
 block|}
 specifier|static
 class|class
