@@ -728,6 +728,14 @@ argument_list|>
 name|regions
 parameter_list|)
 function_decl|;
+comment|/**    * Scan zookeeper to get the number of region servers    * @return the number of region servers that are currently running    * @throws IOException if a remote or network exception occurs    */
+specifier|public
+name|int
+name|getCurrentNrHRS
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

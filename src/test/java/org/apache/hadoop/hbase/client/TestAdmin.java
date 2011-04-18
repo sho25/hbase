@@ -1904,6 +1904,9 @@ name|numRS
 init|=
 name|ht
 operator|.
+name|getConnection
+argument_list|()
+operator|.
 name|getCurrentNrHRS
 argument_list|()
 decl_stmt|;

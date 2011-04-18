@@ -1464,6 +1464,9 @@ name|max
 argument_list|(
 name|table
 operator|.
+name|getConnection
+argument_list|()
+operator|.
 name|getCurrentNrHRS
 argument_list|()
 operator|/
