@@ -2228,7 +2228,7 @@ literal|null
 return|;
 block|}
 block|}
-comment|/**    * Get the data at the specified znode without setting a watch.    *    * Returns the data if the node exists.  Returns null if the node does not    * exist.    *    * Sets the stats of the node in the passed Stat object.  Pass a null stat if    * not interested.    *    * @param zkw zk reference    * @param znode path of node    * @param stat node status to set if node exists    * @return data of the specified znode, or null if node does not exist    * @throws KeeperException if unexpected zookeeper exception    */
+comment|/**    * Get the data at the specified znode without setting a watch.    *    * Returns the data if the node exists.  Returns null if the node does not    * exist.    *    * Sets the stats of the node in the passed Stat object.  Pass a null stat if    * not interested.    *    * @param zkw zk reference    * @param znode path of node    * @param stat node status to get if node exists    * @return data of the specified znode, or null if node does not exist    * @throws KeeperException if unexpected zookeeper exception    */
 specifier|public
 specifier|static
 name|byte
@@ -2262,7 +2262,7 @@ name|getData
 argument_list|(
 name|znode
 argument_list|,
-name|zkw
+literal|null
 argument_list|,
 name|stat
 argument_list|)
@@ -3025,12 +3025,6 @@ specifier|final
 name|Object
 name|ctx
 parameter_list|)
-throws|throws
-name|KeeperException
-throws|,
-name|KeeperException
-operator|.
-name|NodeExistsException
 block|{
 name|zkw
 operator|.

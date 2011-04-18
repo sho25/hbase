@@ -338,6 +338,11 @@ specifier|public
 name|String
 name|clusterIdZNode
 decl_stmt|;
+comment|// znode used for log splitting work assignment
+specifier|public
+name|String
+name|splitLogZNode
+decl_stmt|;
 specifier|private
 specifier|final
 name|Configuration
@@ -651,6 +656,15 @@ argument_list|,
 name|tableZNode
 argument_list|)
 expr_stmt|;
+name|ZKUtil
+operator|.
+name|createAndFailSilent
+argument_list|(
+name|this
+argument_list|,
+name|splitLogZNode
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -874,6 +888,24 @@ literal|"hbaseid"
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|splitLogZNode
+operator|=
+name|ZKUtil
+operator|.
+name|joinZNode
+argument_list|(
+name|baseZNode
+argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"zookeeper.znode.splitlog"
+argument_list|,
+literal|"splitlog"
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Register the specified listener to receive ZooKeeper events.    * @param listener    */
 specifier|public
@@ -931,7 +963,7 @@ return|return
 name|quorum
 return|;
 block|}
-comment|/**    * Method called from ZooKeeper for events and connection status.    *    * Valid events are passed along to listeners.  Connection status changes    * are dealt with locally.    */
+comment|/**    * Method called from ZooKeeper for events and connection status.    *<p>    * Valid events are passed along to listeners.  Connection status changes    * are dealt with locally.    */
 annotation|@
 name|Override
 specifier|public
@@ -1101,7 +1133,7 @@ block|}
 block|}
 block|}
 comment|// Connection management
-comment|/**    * Called when there is a connection-related event via the Watcher callback.    *    * If Disconnected or Expired, this should shutdown the cluster. But, since    * we send a KeeperException.SessionExpiredException along with the abort    * call, it's possible for the Abortable to catch it and try to create a new    * session with ZooKeeper. This is what the client does in HCM.    *    * @param event    */
+comment|/**    * Called when there is a connection-related event via the Watcher callback.    *<p>    * If Disconnected or Expired, this should shutdown the cluster. But, since    * we send a KeeperException.SessionExpiredException along with the abort    * call, it's possible for the Abortable to catch it and try to create a new    * session with ZooKeeper. This is what the client does in HCM.    *<p>    * @param event    */
 specifier|private
 name|void
 name|connectionEvent
@@ -1331,7 +1363,7 @@ return|return
 name|unassignedNodes
 return|;
 block|}
-comment|/**    * Handles KeeperExceptions in client calls.    *    * This may be temporary but for now this gives one place to deal with these.    *    * TODO: Currently this method rethrows the exception to let the caller handle    *    * @param ke    * @throws KeeperException    */
+comment|/**    * Handles KeeperExceptions in client calls.    *<p>    * This may be temporary but for now this gives one place to deal with these.    *<p>    * TODO: Currently this method rethrows the exception to let the caller handle    *<p>    * @param ke    * @throws KeeperException    */
 specifier|public
 name|void
 name|keeperException
@@ -1358,7 +1390,7 @@ throw|throw
 name|ke
 throw|;
 block|}
-comment|/**    * Handles InterruptedExceptions in client calls.    *    * This may be temporary but for now this gives one place to deal with these.    *    * TODO: Currently, this method does nothing.    *       Is this ever expected to happen?  Do we abort or can we let it run?    *       Maybe this should be logged as WARN?  It shouldn't happen?    *    * @param ie    */
+comment|/**    * Handles InterruptedExceptions in client calls.    *<p>    * This may be temporary but for now this gives one place to deal with these.    *<p>    * TODO: Currently, this method does nothing.    *       Is this ever expected to happen?  Do we abort or can we let it run?    *       Maybe this should be logged as WARN?  It shouldn't happen?    *<p>    * @param ie    */
 specifier|public
 name|void
 name|interruptedException
