@@ -3835,55 +3835,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Cache hit for row<"
-operator|+
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
-name|row
-argument_list|)
-operator|+
-literal|"> in tableName "
-operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|tableName
-argument_list|)
-operator|+
-literal|": location server "
-operator|+
-name|rl
-operator|.
-name|getServerAddress
-argument_list|()
-operator|+
-literal|", location region name "
-operator|+
-name|rl
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getRegionNameAsString
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 return|return
 name|rl
 return|;
