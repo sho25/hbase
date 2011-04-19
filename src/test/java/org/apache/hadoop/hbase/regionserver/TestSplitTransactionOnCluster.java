@@ -954,7 +954,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test that intentionally has master fail the processing of the split message.    * Tests that the regionserver split ephemeral node gets cleaned up if it    * crashes and that after we process server shutdown, the daughters are up on    * line.    * @throws IOException    * @throws InterruptedException    * @throws NodeExistsException    * @throws KeeperException    */
+comment|/**    * A test that intentionally has master fail the processing of the split message.    * Tests that the regionserver split ephemeral node gets cleaned up if it    * crashes and that after we process server shutdown, the daughters are up on    * line.    * @throws IOException    * @throws InterruptedException    * @throws NodeExistsException    * @throws KeeperException    */
 annotation|@
 name|Test
 argument_list|(
@@ -1216,6 +1216,7 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// State could be SPLIT or SPLITTING.
 name|assertTrue
 argument_list|(
 name|rtd
@@ -1228,6 +1229,18 @@ argument_list|(
 name|EventType
 operator|.
 name|RS_ZK_REGION_SPLIT
+argument_list|)
+operator|||
+name|rtd
+operator|.
+name|getEventType
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|EventType
+operator|.
+name|RS_ZK_REGION_SPLITTING
 argument_list|)
 argument_list|)
 expr_stmt|;
