@@ -353,6 +353,24 @@ name|HBASE_DIR
 init|=
 literal|"hbase.rootdir"
 decl_stmt|;
+comment|/** Parameter name for HBase client IPC pool type */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CLIENT_IPC_POOL_TYPE
+init|=
+literal|"hbase.client.ipc.pool.type"
+decl_stmt|;
+comment|/** Parameter name for HBase client IPC pool size */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CLIENT_IPC_POOL_SIZE
+init|=
+literal|"hbase.client.ipc.pool.size"
+decl_stmt|;
 comment|/** Used to construct the name of the log directory for a region server    * Use '.' as a special character to seperate the log files from table data */
 specifier|public
 specifier|static
