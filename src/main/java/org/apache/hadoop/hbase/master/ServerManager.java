@@ -893,7 +893,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * If this server is on the dead list, reject it with a LeaseStillHeldException    * @param serverName Server name formatted as host_port_startcode.    * @param what START or REPORT    * @throws LeaseStillHeldException    */
+comment|/**    * If this server is on the dead list, reject it with a YouAreDeadException.    * If it was dead but came back with a new start code, remove the old entry    * from the dead list.    * @param serverName Server name formatted as host_port_startcode.    * @param what START or REPORT    * @throws YouAreDeadException    */
 specifier|private
 name|void
 name|checkIsDead
@@ -911,7 +911,6 @@ name|YouAreDeadException
 block|{
 if|if
 condition|(
-operator|!
 name|this
 operator|.
 name|deadservers
@@ -921,7 +920,9 @@ argument_list|(
 name|serverName
 argument_list|)
 condition|)
-return|return;
+block|{
+comment|// host name, port and start code all match with existing one of the
+comment|// dead servers. So, this server must be dead.
 name|String
 name|message
 init|=
@@ -949,6 +950,35 @@ argument_list|(
 name|message
 argument_list|)
 throw|;
+block|}
+if|if
+condition|(
+name|this
+operator|.
+name|deadservers
+operator|.
+name|cleanPreviousInstance
+argument_list|(
+name|serverName
+argument_list|)
+condition|)
+block|{
+comment|// This server has now become alive after we marked it as dead.
+comment|// We removed it's previous entry from the dead list to reflect it.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Server "
+operator|+
+name|serverName
+operator|+
+literal|" came back up, removed it from the"
+operator|+
+literal|" dead servers list"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Adds the HSI to the RS list    * @param info The region server informations    * @param useInfoLoad True if the load from the info should be used; e.g.    * under a master failover    * @param hri Region interface.  Can be null.    */
 name|void
