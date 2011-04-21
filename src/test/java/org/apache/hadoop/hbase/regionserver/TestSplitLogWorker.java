@@ -754,7 +754,7 @@ name|create
 argument_list|(
 name|ZKSplitLog
 operator|.
-name|getNodeName
+name|getEncodedNodeName
 argument_list|(
 name|zkw
 argument_list|,
@@ -828,7 +828,7 @@ name|zkw
 argument_list|,
 name|ZKSplitLog
 operator|.
-name|getNodeName
+name|getEncodedNodeName
 argument_list|(
 name|zkw
 argument_list|,
@@ -866,7 +866,7 @@ name|create
 argument_list|(
 name|ZKSplitLog
 operator|.
-name|getNodeName
+name|getEncodedNodeName
 argument_list|(
 name|zkw
 argument_list|,
@@ -975,7 +975,7 @@ name|zkw
 argument_list|,
 name|ZKSplitLog
 operator|.
-name|getNodeName
+name|getEncodedNodeName
 argument_list|(
 name|zkw
 argument_list|,
@@ -1000,7 +1000,7 @@ name|zkw
 argument_list|,
 name|ZKSplitLog
 operator|.
-name|getNodeName
+name|getEncodedNodeName
 argument_list|(
 name|zkw
 argument_list|,
@@ -1098,7 +1098,7 @@ name|create
 argument_list|(
 name|ZKSplitLog
 operator|.
-name|getNodeName
+name|getEncodedNodeName
 argument_list|(
 name|zkw
 argument_list|,
@@ -1159,7 +1159,7 @@ name|zkw
 argument_list|,
 name|ZKSplitLog
 operator|.
-name|getNodeName
+name|getEncodedNodeName
 argument_list|(
 name|zkw
 argument_list|,
@@ -1179,7 +1179,7 @@ name|zkw
 argument_list|,
 name|ZKSplitLog
 operator|.
-name|getNodeName
+name|getEncodedNodeName
 argument_list|(
 name|zkw
 argument_list|,
@@ -1268,7 +1268,7 @@ name|create
 argument_list|(
 name|ZKSplitLog
 operator|.
-name|getNodeName
+name|getEncodedNodeName
 argument_list|(
 name|zkw
 argument_list|,
@@ -1315,7 +1315,7 @@ name|create
 argument_list|(
 name|ZKSplitLog
 operator|.
-name|getNodeName
+name|getEncodedNodeName
 argument_list|(
 name|zkw
 argument_list|,
@@ -1349,7 +1349,7 @@ name|zkw
 argument_list|,
 name|ZKSplitLog
 operator|.
-name|getNodeName
+name|getEncodedNodeName
 argument_list|(
 name|zkw
 argument_list|,
@@ -1413,7 +1413,7 @@ name|zkw
 argument_list|,
 name|ZKSplitLog
 operator|.
-name|getNodeName
+name|getEncodedNodeName
 argument_list|(
 name|zkw
 argument_list|,
@@ -1486,7 +1486,7 @@ name|create
 argument_list|(
 name|ZKSplitLog
 operator|.
-name|getNodeName
+name|getEncodedNodeName
 argument_list|(
 name|zkw
 argument_list|,
@@ -1532,7 +1532,7 @@ name|zkw
 argument_list|,
 name|ZKSplitLog
 operator|.
-name|getNodeName
+name|getEncodedNodeName
 argument_list|(
 name|zkw
 argument_list|,
@@ -1570,7 +1570,7 @@ name|create
 argument_list|(
 name|ZKSplitLog
 operator|.
-name|getNodeName
+name|getEncodedNodeName
 argument_list|(
 name|zkw
 argument_list|,
@@ -1617,7 +1617,7 @@ name|zkw
 argument_list|,
 name|ZKSplitLog
 operator|.
-name|getNodeName
+name|getEncodedNodeName
 argument_list|(
 name|zkw
 argument_list|,
@@ -1722,7 +1722,7 @@ name|zkw
 argument_list|,
 name|ZKSplitLog
 operator|.
-name|getNodeName
+name|getEncodedNodeName
 argument_list|(
 name|zkw
 argument_list|,

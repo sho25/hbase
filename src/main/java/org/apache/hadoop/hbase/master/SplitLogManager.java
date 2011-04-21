@@ -1203,7 +1203,7 @@ name|path
 init|=
 name|ZKSplitLog
 operator|.
-name|getNodeName
+name|getEncodedNodeName
 argument_list|(
 name|watcher
 argument_list|,
@@ -3037,20 +3037,11 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"found "
-operator|+
-name|orphans
-operator|.
-name|size
-argument_list|()
-operator|+
-literal|" orphan tasks"
-argument_list|)
-expr_stmt|;
+name|int
+name|rescan_nodes
+init|=
+literal|0
+decl_stmt|;
 for|for
 control|(
 name|String
@@ -3058,6 +3049,47 @@ name|path
 range|:
 name|orphans
 control|)
+block|{
+name|String
+name|nodepath
+init|=
+name|ZKUtil
+operator|.
+name|joinZNode
+argument_list|(
+name|watcher
+operator|.
+name|splitLogZNode
+argument_list|,
+name|path
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|ZKSplitLog
+operator|.
+name|isRescanNode
+argument_list|(
+name|watcher
+argument_list|,
+name|nodepath
+argument_list|)
+condition|)
+block|{
+name|rescan_nodes
+operator|++
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"found orphan rescan node "
+operator|+
+name|path
+argument_list|)
+expr_stmt|;
+block|}
+else|else
 block|{
 name|LOG
 operator|.
@@ -3068,21 +3100,37 @@ operator|+
 name|path
 argument_list|)
 expr_stmt|;
+block|}
 name|getDataSetWatch
 argument_list|(
-name|ZKSplitLog
-operator|.
-name|getNodeName
-argument_list|(
-name|watcher
-argument_list|,
-name|path
-argument_list|)
+name|nodepath
 argument_list|,
 name|zkretries
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"found "
+operator|+
+operator|(
+name|orphans
+operator|.
+name|size
+argument_list|()
+operator|-
+name|rescan_nodes
+operator|)
+operator|+
+literal|" orphan tasks and "
+operator|+
+name|rescan_nodes
+operator|+
+literal|" rescan nodes"
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Keeps track of the batch of tasks submitted together by a caller in    * splitLogDistributed(). Clients threads use this object to wait for all    * their tasks to be done.    *<p>    * All access is synchronized.    */
 specifier|static
@@ -3609,6 +3657,14 @@ expr_stmt|;
 block|}
 else|else
 block|{
+name|Long
+name|retry_count
+init|=
+operator|(
+name|Long
+operator|)
+name|ctx
+decl_stmt|;
 name|LOG
 operator|.
 name|warn
@@ -3627,16 +3683,12 @@ operator|+
 literal|" for "
 operator|+
 name|path
+operator|+
+literal|" retry="
+operator|+
+name|retry_count
 argument_list|)
 expr_stmt|;
-name|Long
-name|retry_count
-init|=
-operator|(
-name|Long
-operator|)
-name|ctx
-decl_stmt|;
 if|if
 condition|(
 name|retry_count
@@ -3739,6 +3791,14 @@ operator|!=
 literal|0
 condition|)
 block|{
+name|Long
+name|retry_count
+init|=
+operator|(
+name|Long
+operator|)
+name|ctx
+decl_stmt|;
 name|LOG
 operator|.
 name|warn
@@ -3757,16 +3817,12 @@ operator|+
 literal|" "
 operator|+
 name|path
+operator|+
+literal|" retry="
+operator|+
+name|retry_count
 argument_list|)
 expr_stmt|;
-name|Long
-name|retry_count
-init|=
-operator|(
-name|Long
-operator|)
-name|ctx
-decl_stmt|;
 if|if
 condition|(
 name|retry_count
@@ -3888,6 +3944,14 @@ operator|.
 name|incrementAndGet
 argument_list|()
 expr_stmt|;
+name|Long
+name|retry_count
+init|=
+operator|(
+name|Long
+operator|)
+name|ctx
+decl_stmt|;
 name|LOG
 operator|.
 name|warn
@@ -3906,16 +3970,12 @@ operator|+
 literal|" for "
 operator|+
 name|path
+operator|+
+literal|" retry="
+operator|+
+name|retry_count
 argument_list|)
 expr_stmt|;
-name|Long
-name|retry_count
-init|=
-operator|(
-name|Long
-operator|)
-name|ctx
-decl_stmt|;
 if|if
 condition|(
 name|retry_count
@@ -4039,11 +4099,19 @@ operator|!=
 literal|0
 condition|)
 block|{
+name|Long
+name|retry_count
+init|=
+operator|(
+name|Long
+operator|)
+name|ctx
+decl_stmt|;
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"rc ="
+literal|"rc="
 operator|+
 name|KeeperException
 operator|.
@@ -4057,16 +4125,12 @@ operator|+
 literal|" for "
 operator|+
 name|path
+operator|+
+literal|" retry="
+operator|+
+name|retry_count
 argument_list|)
 expr_stmt|;
-name|Long
-name|retry_count
-init|=
-operator|(
-name|Long
-operator|)
-name|ctx
-decl_stmt|;
 if|if
 condition|(
 name|retry_count

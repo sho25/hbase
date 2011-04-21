@@ -313,7 +313,7 @@ comment|/**    * Gets the full path node name for the log file being split    * 
 specifier|public
 specifier|static
 name|String
-name|getNodeName
+name|getEncodedNodeName
 parameter_list|(
 name|ZooKeeperWatcher
 name|zkw
@@ -455,9 +455,13 @@ name|zkw
 parameter_list|)
 block|{
 return|return
-name|getNodeName
+name|ZKUtil
+operator|.
+name|joinZNode
 argument_list|(
 name|zkw
+operator|.
+name|splitLogZNode
 argument_list|,
 literal|"RESCAN"
 argument_list|)

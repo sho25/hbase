@@ -5040,14 +5040,6 @@ name|isOffline
 argument_list|()
 condition|)
 block|{
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"Unexpected state trying to OFFLINE; "
-operator|+
-name|state
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|master
