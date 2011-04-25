@@ -140,7 +140,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Class for testing WAL coprocessor extension. WAL write monitor is defined  * in LogObserver while WAL Restore is in RegionObserver.  *  * It will monitor a WAL writing and Restore, modify passed-in WALEdit, i.e,  * ignore specified columns when writing, and add a KeyValue. On the other  * hand, it checks whether the ignored column is still in WAL when Restoreed  * at region reconstruct.  */
+comment|/**  * Class for testing WALObserver coprocessor.  *  * It will monitor WAL writing and restoring, and modify passed-in WALEdit, i.e,  * ignore specified columns when writing, or add a KeyValue. On the other  * side, it checks whether the ignored column is still in WAL when Restoreed  * at region reconstruct.  */
 end_comment
 
 begin_class
@@ -148,7 +148,7 @@ specifier|public
 class|class
 name|SampleRegionWALObserver
 extends|extends
-name|BaseRegionObserverCoprocessor
+name|BaseRegionObserver
 implements|implements
 name|WALObserver
 block|{

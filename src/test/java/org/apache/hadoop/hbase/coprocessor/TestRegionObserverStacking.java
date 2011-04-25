@@ -256,7 +256,7 @@ specifier|static
 class|class
 name|ObserverA
 extends|extends
-name|BaseRegionObserverCoprocessor
+name|BaseRegionObserver
 block|{
 name|long
 name|id
@@ -324,7 +324,7 @@ specifier|static
 class|class
 name|ObserverB
 extends|extends
-name|BaseRegionObserverCoprocessor
+name|BaseRegionObserver
 block|{
 name|long
 name|id
@@ -392,7 +392,7 @@ specifier|static
 class|class
 name|ObserverC
 extends|extends
-name|BaseRegionObserverCoprocessor
+name|BaseRegionObserver
 block|{
 name|long
 name|id

@@ -330,7 +330,7 @@ specifier|static
 class|class
 name|CoprocessorImpl
 extends|extends
-name|BaseRegionObserverCoprocessor
+name|BaseRegionObserver
 block|{
 specifier|private
 name|boolean

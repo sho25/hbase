@@ -244,7 +244,7 @@ specifier|public
 class|class
 name|SimpleRegionObserver
 extends|extends
-name|BaseRegionObserverCoprocessor
+name|BaseRegionObserver
 block|{
 specifier|static
 specifier|final
