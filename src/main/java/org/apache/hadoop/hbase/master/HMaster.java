@@ -2761,8 +2761,8 @@ specifier|private
 name|void
 name|startServiceThreads
 parameter_list|()
-block|{
-try|try
+throws|throws
+name|IOException
 block|{
 comment|// Start the executor service pools
 name|this
@@ -3011,42 +3011,6 @@ operator|.
 name|debug
 argument_list|(
 literal|"Started service threads"
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-if|if
-condition|(
-name|e
-operator|instanceof
-name|RemoteException
-condition|)
-block|{
-name|e
-operator|=
-operator|(
-operator|(
-name|RemoteException
-operator|)
-name|e
-operator|)
-operator|.
-name|unwrapRemoteException
-argument_list|()
-expr_stmt|;
-block|}
-comment|// Something happened during startup. Shut things down.
-name|abort
-argument_list|(
-literal|"Failed startup"
-argument_list|,
-name|e
 argument_list|)
 expr_stmt|;
 block|}
