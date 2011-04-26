@@ -3394,6 +3394,7 @@ name|fs
 operator|.
 name|ChecksumException
 operator|)
+condition|)
 block|{
 name|LOG
 operator|.
