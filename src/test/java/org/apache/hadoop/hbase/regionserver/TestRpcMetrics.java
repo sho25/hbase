@@ -49,6 +49,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Random
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -557,6 +567,18 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.regionserver.port"
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
 name|TestRegionServer
 name|rs
 init|=
