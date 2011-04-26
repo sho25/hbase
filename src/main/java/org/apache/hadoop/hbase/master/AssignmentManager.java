@@ -1902,6 +1902,24 @@ argument_list|(
 name|encodedName
 argument_list|)
 decl_stmt|;
+comment|// Printing if the event was created a long time ago helps debugging
+name|boolean
+name|lateEvent
+init|=
+name|data
+operator|.
+name|getStamp
+argument_list|()
+operator|<
+operator|(
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+literal|15000
+operator|)
+decl_stmt|;
 name|LOG
 operator|.
 name|debug
@@ -1923,6 +1941,14 @@ operator|+
 literal|", region="
 operator|+
 name|prettyPrintedRegionName
+operator|+
+operator|(
+name|lateEvent
+condition|?
+literal|", which is more than 15 seconds late"
+else|:
+literal|""
+operator|)
 argument_list|)
 expr_stmt|;
 name|RegionState
