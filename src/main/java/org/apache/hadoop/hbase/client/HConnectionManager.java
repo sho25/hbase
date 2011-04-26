@@ -624,7 +624,7 @@ specifier|final
 name|int
 name|MAX_CACHED_HBASE_INSTANCES
 init|=
-literal|31
+literal|2001
 decl_stmt|;
 comment|// A LRU Map of Configuration hashcode -> TableServers. We set instances to 31.
 comment|// The zk default max connections to the ensemble from the one client is 30 so
