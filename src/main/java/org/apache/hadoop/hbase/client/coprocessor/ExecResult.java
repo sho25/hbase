@@ -245,7 +245,9 @@ operator|.
 name|getClass
 argument_list|()
 else|:
-name|valueType
+name|Writable
+operator|.
+name|class
 argument_list|,
 literal|null
 argument_list|)
