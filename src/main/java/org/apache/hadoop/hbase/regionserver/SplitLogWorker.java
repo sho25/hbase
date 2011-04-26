@@ -735,7 +735,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"SplitLogWorker starting"
+literal|"SplitLogWorker "
+operator|+
+name|this
+operator|.
+name|serverName
+operator|+
+literal|" starting"
 argument_list|)
 expr_stmt|;
 name|this
@@ -866,7 +872,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"SplitLogWorker exiting"
+literal|"SplitLogWorker "
+operator|+
+name|this
+operator|.
+name|serverName
+operator|+
+literal|" exiting"
 argument_list|)
 expr_stmt|;
 block|}
