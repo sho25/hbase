@@ -816,7 +816,7 @@ name|HRegionInfo
 name|region
 parameter_list|)
 throws|throws
-name|NotServingRegionException
+name|IOException
 block|{
 if|if
 condition|(

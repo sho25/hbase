@@ -324,6 +324,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+try|try
+block|{
 specifier|final
 name|String
 name|name
@@ -434,8 +436,8 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-comment|// Open region.  After a successful open, failures in subsequent processing
-comment|// needs to do a close as part of cleanup.
+comment|// Open region.  After a successful open, failures in subsequent
+comment|// processing needs to do a close as part of cleanup.
 name|region
 operator|=
 name|openRegion
@@ -525,6 +527,27 @@ operator|+
 name|name
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|this
+operator|.
+name|rsServices
+operator|.
+name|getRegionsInTransitionInRS
+argument_list|()
+operator|.
+name|remove
+argument_list|(
+name|this
+operator|.
+name|regionInfo
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Update ZK, ROOT or META.  This can take a while if for example the    * .META. is not available -- if server hosting .META. crashed and we are    * waiting on it to come back -- so run in a thread and keep updating znode    * state meantime so master doesn't timeout our region-in-transition.    * Caller must cleanup region if this fails.    */
 specifier|private

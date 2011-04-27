@@ -119,6 +119,16 @@ name|KeeperException
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
+import|;
+end_import
+
 begin_comment
 comment|/**  * Services provided by {@link HRegionServer}  */
 end_comment
@@ -192,6 +202,16 @@ comment|/**    * Returns a reference to the RPC server metrics.    */
 specifier|public
 name|HBaseRpcMetrics
 name|getRpcMetrics
+parameter_list|()
+function_decl|;
+comment|/**    * Get the regions that are currently being opened or closed in the RS    * @return set of regions in transition in this RS    */
+specifier|public
+name|Set
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|getRegionsInTransitionInRS
 parameter_list|()
 function_decl|;
 block|}

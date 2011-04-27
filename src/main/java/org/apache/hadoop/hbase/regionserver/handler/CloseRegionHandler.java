@@ -378,6 +378,8 @@ name|void
 name|process
 parameter_list|()
 block|{
+try|try
+block|{
 name|String
 name|name
 init|=
@@ -479,7 +481,7 @@ literal|null
 condition|)
 block|{
 comment|// This region got closed.  Most likely due to a split. So instead
-comment|// of doing the setClosedState() below, let's just ignore and continue.
+comment|// of doing the setClosedState() below, let's just ignore cont
 comment|// The split message will clean up the master state.
 name|LOG
 operator|.
@@ -557,6 +559,27 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|this
+operator|.
+name|rsServices
+operator|.
+name|getRegionsInTransitionInRS
+argument_list|()
+operator|.
+name|remove
+argument_list|(
+name|this
+operator|.
+name|regionInfo
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Transition ZK node to CLOSED    * @param expectedVersion    */
 specifier|private
