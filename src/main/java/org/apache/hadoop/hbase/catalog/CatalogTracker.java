@@ -147,20 +147,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerAddress
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|NotAllMetaRegionsOnlineException
 import|;
 end_import
@@ -176,6 +162,20 @@ operator|.
 name|hbase
 operator|.
 name|NotServingRegionException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ServerName
 import|;
 end_import
 
@@ -360,9 +360,9 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
-comment|/**    * Do not clear this address once set.  Let it be cleared by    * {@link #setMetaLocation(HServerAddress)} only.  Its needed when we do    * server shutdown processing -- we need to know who had .META. last.  If you    * want to know if the address is good, rely on {@link #metaAvailable} value.    */
+comment|/**    * Do not clear this address once set.  Its needed when we do    * server shutdown processing -- we need to know who had .META. last.  If you    * want to know if the address is good, rely on {@link #metaAvailable} value.    */
 specifier|private
-name|HServerAddress
+name|ServerName
 name|metaLocation
 decl_stmt|;
 specifier|private
@@ -613,9 +613,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Gets the current location for<code>-ROOT-</code> or null if location is    * not currently available.    * @return location of root, null if not available    * @throws InterruptedException     */
+comment|/**    * Gets the current location for<code>-ROOT-</code> or null if location is    * not currently available.    * @return server name    * @throws InterruptedException     */
 specifier|public
-name|HServerAddress
+name|ServerName
 name|getRootLocation
 parameter_list|()
 throws|throws
@@ -630,9 +630,9 @@ name|getRootRegionLocation
 argument_list|()
 return|;
 block|}
-comment|/**    * @return Location of meta or null if not yet available.    */
+comment|/**    * @return Location of server hosting meta region formatted as per    * {@link ServerName}, or null if none available    */
 specifier|public
-name|HServerAddress
+name|ServerName
 name|getMetaLocation
 parameter_list|()
 block|{
@@ -658,8 +658,8 @@ name|blockUntilAvailable
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Gets the current location for<code>-ROOT-</code> if available and waits    * for up to the specified timeout if not immediately available.  Returns null    * if the timeout elapses before root is available.    * @param timeout maximum time to wait for root availability, in milliseconds    * @return location of root    * @throws InterruptedException if interrupted while waiting    * @throws NotAllMetaRegionsOnlineException if root not available before    *                                          timeout    */
-name|HServerAddress
+comment|/**    * Gets the current location for<code>-ROOT-</code> if available and waits    * for up to the specified timeout if not immediately available.  Returns null    * if the timeout elapses before root is available.    * @param timeout maximum time to wait for root availability, in milliseconds    * @return Location of server hosting root region,    * or null if none available    * @throws InterruptedException if interrupted while waiting    * @throws NotAllMetaRegionsOnlineException if root not available before    *                                          timeout    */
+name|ServerName
 name|waitForRoot
 parameter_list|(
 specifier|final
@@ -671,8 +671,8 @@ name|InterruptedException
 throws|,
 name|NotAllMetaRegionsOnlineException
 block|{
-name|HServerAddress
-name|address
+name|ServerName
+name|sn
 init|=
 name|rootRegionTracker
 operator|.
@@ -683,7 +683,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|address
+name|sn
 operator|==
 literal|null
 condition|)
@@ -701,7 +701,7 @@ argument_list|)
 throw|;
 block|}
 return|return
-name|address
+name|sn
 return|;
 block|}
 comment|/**    * Gets a connection to the server hosting root, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    * @see #waitForRoot(long) for additional information    * @return connection to server hosting root    * @throws InterruptedException    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    */
@@ -776,8 +776,8 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|HServerAddress
-name|address
+name|ServerName
+name|sn
 init|=
 name|this
 operator|.
@@ -788,7 +788,7 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|address
+name|sn
 operator|==
 literal|null
 condition|)
@@ -800,7 +800,7 @@ block|}
 return|return
 name|getCachedConnection
 argument_list|(
-name|address
+name|sn
 argument_list|)
 return|;
 block|}
@@ -887,7 +887,7 @@ return|return
 literal|null
 return|;
 block|}
-name|HServerAddress
+name|ServerName
 name|newLocation
 init|=
 name|MetaReader
@@ -979,7 +979,7 @@ block|}
 block|}
 comment|/**    * Gets the current location for<code>.META.</code> if available and waits    * for up to the specified timeout if not immediately available.  Throws an    * exception if timed out waiting.  This method differs from {@link #waitForMeta()}    * in that it will go ahead and verify the location gotten from ZooKeeper by    * trying to use returned connection.    * @param timeout maximum time to wait for meta availability, in milliseconds    * @return location of meta    * @throws InterruptedException if interrupted while waiting    * @throws IOException unexpected exception connecting to meta server    * @throws NotAllMetaRegionsOnlineException if meta not available before    *                                          timeout    */
 specifier|public
-name|HServerAddress
+name|ServerName
 name|waitForMeta
 parameter_list|(
 name|long
@@ -1175,7 +1175,8 @@ specifier|private
 name|void
 name|setMetaLocation
 parameter_list|(
-name|HServerAddress
+specifier|final
+name|ServerName
 name|metaLocation
 parameter_list|)
 block|{
@@ -1193,6 +1194,8 @@ operator|=
 name|metaLocation
 expr_stmt|;
 comment|// no synchronization because these are private and already under lock
+name|this
+operator|.
 name|metaAvailable
 operator|.
 name|notifyAll
@@ -1203,8 +1206,8 @@ specifier|private
 name|HRegionInterface
 name|getCachedConnection
 parameter_list|(
-name|HServerAddress
-name|address
+name|ServerName
+name|sn
 parameter_list|)
 throws|throws
 name|IOException
@@ -1222,9 +1225,15 @@ name|connection
 operator|.
 name|getHRegionConnection
 argument_list|(
-name|address
+name|sn
+operator|.
+name|getHostname
+argument_list|()
 argument_list|,
-literal|false
+name|sn
+operator|.
+name|getPort
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1273,7 +1282,7 @@ name|debug
 argument_list|(
 literal|"Timed out connecting to "
 operator|+
-name|address
+name|sn
 argument_list|)
 expr_stmt|;
 block|}
@@ -1290,7 +1299,7 @@ name|debug
 argument_list|(
 literal|"Exception connecting to "
 operator|+
-name|address
+name|sn
 argument_list|)
 expr_stmt|;
 block|}
@@ -1370,7 +1379,7 @@ name|HRegionInterface
 name|metaServer
 parameter_list|,
 specifier|final
-name|HServerAddress
+name|ServerName
 name|address
 parameter_list|,
 name|byte

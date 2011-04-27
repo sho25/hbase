@@ -71,7 +71,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerInfo
+name|Server
 import|;
 end_import
 
@@ -85,7 +85,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Server
+name|ServerName
 import|;
 end_import
 
@@ -189,8 +189,8 @@ name|regionInfo
 decl_stmt|;
 specifier|private
 specifier|final
-name|HServerInfo
-name|serverInfo
+name|ServerName
+name|sn
 decl_stmt|;
 specifier|private
 specifier|final
@@ -257,8 +257,8 @@ parameter_list|,
 name|HRegionInfo
 name|regionInfo
 parameter_list|,
-name|HServerInfo
-name|serverInfo
+name|ServerName
+name|sn
 parameter_list|)
 block|{
 name|super
@@ -284,9 +284,9 @@ name|regionInfo
 expr_stmt|;
 name|this
 operator|.
-name|serverInfo
+name|sn
 operator|=
-name|serverInfo
+name|sn
 expr_stmt|;
 if|if
 condition|(
@@ -445,7 +445,9 @@ name|regionOnline
 argument_list|(
 name|regionInfo
 argument_list|,
-name|serverInfo
+name|this
+operator|.
+name|sn
 argument_list|)
 expr_stmt|;
 block|}
@@ -526,9 +528,11 @@ argument_list|()
 operator|+
 literal|" on "
 operator|+
-name|serverInfo
+name|this
 operator|.
-name|getServerName
+name|sn
+operator|.
+name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;

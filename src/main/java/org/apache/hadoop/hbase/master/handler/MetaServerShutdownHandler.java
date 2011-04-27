@@ -29,7 +29,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerInfo
+name|Server
 import|;
 end_import
 
@@ -43,7 +43,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Server
+name|ServerName
 import|;
 end_import
 
@@ -116,8 +116,8 @@ name|DeadServer
 name|deadServers
 parameter_list|,
 specifier|final
-name|HServerInfo
-name|hsi
+name|ServerName
+name|serverName
 parameter_list|,
 specifier|final
 name|boolean
@@ -136,7 +136,7 @@ name|services
 argument_list|,
 name|deadServers
 argument_list|,
-name|hsi
+name|serverName
 argument_list|,
 name|EventType
 operator|.

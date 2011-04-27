@@ -97,9 +97,9 @@ name|abortable
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get the address of the current master if one is available.  Returns null    * if no current master.    *    * @return server address of current active master, or null if none available    */
+comment|/**    * Get the address of the current master if one is available.  Returns null    * if no current master.    * @return Server name or null if timed out.    */
 specifier|public
-name|HServerAddress
+name|ServerName
 name|getMasterAddress
 parameter_list|()
 block|{
@@ -120,7 +120,7 @@ condition|?
 literal|null
 else|:
 operator|new
-name|HServerAddress
+name|ServerName
 argument_list|(
 name|Bytes
 operator|.
@@ -146,10 +146,10 @@ operator|!=
 literal|null
 return|;
 block|}
-comment|/**    * Get the address of the current master.  If no master is available, method    * will block until one is available, the thread is interrupted, or timeout    * has passed.    *    * @param timeout maximum time to wait for master in millis, 0 for forever    * @return server address of current active master, null if timed out    * @throws InterruptedException if the thread is interrupted while waiting    */
+comment|/**    * Get the address of the current master.  If no master is available, method    * will block until one is available, the thread is interrupted, or timeout    * has passed.    *    * @param timeout maximum time to wait for master in millis, 0 for forever    * @return String of master host and port or null if timed out.    * @throws InterruptedException if the thread is interrupted while waiting    */
 specifier|public
 specifier|synchronized
-name|HServerAddress
+name|ServerName
 name|waitForMaster
 parameter_list|(
 name|long
@@ -175,7 +175,7 @@ condition|?
 literal|null
 else|:
 operator|new
-name|HServerAddress
+name|ServerName
 argument_list|(
 name|Bytes
 operator|.

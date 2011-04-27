@@ -33,7 +33,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
+name|Set
 import|;
 end_import
 
@@ -211,20 +211,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|RemoteExceptionHandler
 import|;
 end_import
@@ -240,6 +226,20 @@ operator|.
 name|hbase
 operator|.
 name|Server
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ServerName
 import|;
 end_import
 
@@ -619,6 +619,9 @@ name|master
 operator|.
 name|getServerName
 argument_list|()
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
@@ -810,16 +813,14 @@ return|return
 name|clusterId
 return|;
 block|}
-comment|/**    * Inspect the log directory to recover any log file without    * an active region server.    * @param onlineServers Map of online servers keyed by    * {@link HServerInfo#getServerName()}    */
+comment|/**    * Inspect the log directory to recover any log file without    * an active region server.    * @param onlineServers Map of online servers keyed by    * {@link ServerName}    */
 name|void
 name|splitLogAfterStartup
 parameter_list|(
 specifier|final
-name|Map
+name|Set
 argument_list|<
-name|String
-argument_list|,
-name|HServerInfo
+name|ServerName
 argument_list|>
 name|onlineServers
 parameter_list|)
@@ -944,9 +945,12 @@ range|:
 name|logFolders
 control|)
 block|{
-name|String
+name|ServerName
 name|serverName
 init|=
+operator|new
+name|ServerName
+argument_list|(
 name|status
 operator|.
 name|getPath
@@ -954,17 +958,17 @@ argument_list|()
 operator|.
 name|getName
 argument_list|()
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
+operator|!
 name|onlineServers
 operator|.
-name|get
+name|contains
 argument_list|(
 name|serverName
 argument_list|)
-operator|==
-literal|null
 condition|)
 block|{
 name|LOG
@@ -1013,7 +1017,7 @@ name|void
 name|splitLog
 parameter_list|(
 specifier|final
-name|String
+name|ServerName
 name|serverName
 parameter_list|)
 block|{
@@ -1041,6 +1045,9 @@ operator|.
 name|getHLogDirectoryName
 argument_list|(
 name|serverName
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;

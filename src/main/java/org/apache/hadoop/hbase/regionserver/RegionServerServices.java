@@ -37,20 +37,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|catalog
 operator|.
 name|CatalogTracker
@@ -162,12 +148,6 @@ comment|/**    * @return Implementation of {@link FlushRequester} or null.    */
 specifier|public
 name|FlushRequester
 name|getFlushRequester
-parameter_list|()
-function_decl|;
-comment|/**    * Return data structure that has Server address and startcode.    * @return The HServerInfo for this RegionServer.    */
-specifier|public
-name|HServerInfo
-name|getServerInfo
 parameter_list|()
 function_decl|;
 comment|/**    * @return the RegionServerAccounting for this Region Server    */

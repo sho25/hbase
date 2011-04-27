@@ -263,6 +263,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|catalog
 operator|.
 name|MetaEditor
@@ -2262,6 +2276,9 @@ comment|// Look for any exception
 for|for
 control|(
 name|Future
+argument_list|<
+name|Void
+argument_list|>
 name|future
 range|:
 name|futures
@@ -3135,7 +3152,7 @@ name|HRegionInfo
 name|region
 parameter_list|,
 specifier|final
-name|String
+name|ServerName
 name|serverName
 parameter_list|)
 throws|throws
@@ -3277,7 +3294,7 @@ parameter_list|,
 name|HRegionInfo
 name|b
 parameter_list|,
-name|String
+name|ServerName
 name|serverName
 parameter_list|,
 specifier|final
@@ -3341,7 +3358,7 @@ name|HRegionInfo
 name|parent
 parameter_list|,
 specifier|final
-name|String
+name|ServerName
 name|serverName
 parameter_list|,
 specifier|final

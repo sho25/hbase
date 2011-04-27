@@ -399,11 +399,11 @@ name|HRegionInfo
 name|region
 parameter_list|,
 specifier|final
-name|HServerInfo
+name|ServerName
 name|srcServer
 parameter_list|,
 specifier|final
-name|HServerInfo
+name|ServerName
 name|destServer
 parameter_list|)
 throws|throws
@@ -425,11 +425,11 @@ name|HRegionInfo
 name|region
 parameter_list|,
 specifier|final
-name|HServerInfo
+name|ServerName
 name|srcServer
 parameter_list|,
 specifier|final
-name|HServerInfo
+name|ServerName
 name|destServer
 parameter_list|)
 throws|throws

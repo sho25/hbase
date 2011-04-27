@@ -19,15 +19,11 @@ end_package
 
 begin_import
 import|import
-name|org
+name|java
 operator|.
-name|apache
+name|io
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HMsg
+name|IOException
 import|;
 end_import
 
@@ -41,7 +37,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|HServerLoad
 import|;
 end_import
 
@@ -55,7 +51,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerInfo
+name|ServerName
 import|;
 end_import
 
@@ -87,18 +83,8 @@ name|VersionedProtocol
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
 begin_comment
-comment|/**  * HRegionServers interact with the HMasterRegionInterface to report on local  * goings-on and to obtain data-handling instructions from the HMaster.  *<p>Changes here need to be reflected in HbaseObjectWritable HbaseRPC#Invoker.  *  *<p>NOTE: if you change the interface, you must change the RPC version  * number in HBaseRPCProtocolVersion  *  */
+comment|/**  * The Master publishes this Interface for RegionServers to register themselves  * on.  */
 end_comment
 
 begin_interface
@@ -119,38 +105,39 @@ specifier|final
 name|long
 name|VERSION
 init|=
-literal|28L
+literal|29L
 decl_stmt|;
-comment|/**    * Called when a region server first starts    * @param info server info    * @param serverCurrentTime The current time of the region server in ms    * @throws IOException e    * @return Configuration for the regionserver to use: e.g. filesystem,    * hbase rootdir, etc.    */
+comment|/**    * Called when a region server first starts.    * @param port Port number this regionserver is up on.    * @param serverStartcode This servers' startcode.    * @param serverCurrentTime The current time of the region server in ms    * @throws IOException e    * @return Configuration for the regionserver to use: e.g. filesystem,    * hbase rootdir, the hostname to use creating the RegionServer ServerName,    * etc.    */
 specifier|public
 name|MapWritable
 name|regionServerStartup
 parameter_list|(
-name|HServerInfo
-name|info
+specifier|final
+name|int
+name|port
 parameter_list|,
+specifier|final
+name|long
+name|serverStartcode
+parameter_list|,
+specifier|final
 name|long
 name|serverCurrentTime
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called to renew lease, tell master what the region server is doing and to    * receive new instructions from the master    *    * @param info server's address and start code    * @param msgs things the region server wants to tell the master    * @param mostLoadedRegions Array of HRegionInfos that should contain the    * reporting server's most loaded regions. These are candidates for being    * rebalanced.    * @return instructions from the master to the region server    * @throws IOException e    */
+comment|/**    * @param sn {@link ServerName#getBytes()}    * @param hsl Server load.    * @throws IOException    */
 specifier|public
-name|HMsg
-index|[]
+name|void
 name|regionServerReport
 parameter_list|(
-name|HServerInfo
-name|info
-parameter_list|,
-name|HMsg
-name|msgs
+name|byte
 index|[]
+name|sn
 parameter_list|,
-name|HRegionInfo
-name|mostLoadedRegions
-index|[]
+name|HServerLoad
+name|hsl
 parameter_list|)
 throws|throws
 name|IOException

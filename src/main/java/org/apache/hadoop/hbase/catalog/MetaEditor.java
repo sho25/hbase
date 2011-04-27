@@ -103,7 +103,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerInfo
+name|NotAllMetaRegionsOnlineException
 import|;
 end_import
 
@@ -117,7 +117,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|NotAllMetaRegionsOnlineException
+name|ServerName
 import|;
 end_import
 
@@ -451,8 +451,8 @@ name|HRegionInfo
 name|regionInfo
 parameter_list|,
 specifier|final
-name|HServerInfo
-name|serverInfo
+name|ServerName
+name|sn
 parameter_list|)
 throws|throws
 name|NotAllMetaRegionsOnlineException
@@ -496,7 +496,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|serverInfo
+name|sn
 operator|!=
 literal|null
 condition|)
@@ -504,7 +504,7 @@ name|addLocation
 argument_list|(
 name|put
 argument_list|,
-name|serverInfo
+name|sn
 argument_list|)
 expr_stmt|;
 name|server
@@ -537,23 +537,23 @@ name|catalogRegionName
 argument_list|)
 operator|+
 operator|(
-name|serverInfo
+name|sn
 operator|==
 literal|null
 condition|?
-literal|", serverInfo=null"
+literal|", serverName=null"
 else|:
-literal|", serverInfo="
+literal|", serverName="
 operator|+
-name|serverInfo
+name|sn
 operator|.
-name|getServerName
+name|toString
 argument_list|()
 operator|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Updates the location of the specified META region in ROOT to be the    * specified server hostname and startcode.    *<p>    * Uses passed catalog tracker to get a connection to the server hosting    * ROOT and makes edits to that region.    *    * @param catalogTracker catalog tracker    * @param regionInfo region to update location of    * @param serverInfo server the region is located on    * @throws IOException    * @throws ConnectException Usually because the regionserver carrying .META.    * is down.    * @throws NullPointerException Because no -ROOT- server connection    */
+comment|/**    * Updates the location of the specified META region in ROOT to be the    * specified server hostname and startcode.    *<p>    * Uses passed catalog tracker to get a connection to the server hosting    * ROOT and makes edits to that region.    *    * @param catalogTracker catalog tracker    * @param regionInfo region to update location of    * @param sn Server name    * @throws IOException    * @throws ConnectException Usually because the regionserver carrying .META.    * is down.    * @throws NullPointerException Because no -ROOT- server connection    */
 specifier|public
 specifier|static
 name|void
@@ -565,8 +565,8 @@ parameter_list|,
 name|HRegionInfo
 name|regionInfo
 parameter_list|,
-name|HServerInfo
-name|serverInfo
+name|ServerName
+name|sn
 parameter_list|)
 throws|throws
 name|IOException
@@ -604,11 +604,11 @@ name|ROOT_REGION
 argument_list|,
 name|regionInfo
 argument_list|,
-name|serverInfo
+name|sn
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Updates the location of the specified region in META to be the specified    * server hostname and startcode.    *<p>    * Uses passed catalog tracker to get a connection to the server hosting    * META and makes edits to that region.    *    * @param catalogTracker catalog tracker    * @param regionInfo region to update location of    * @param serverInfo server the region is located on    * @throws IOException    */
+comment|/**    * Updates the location of the specified region in META to be the specified    * server hostname and startcode.    *<p>    * Uses passed catalog tracker to get a connection to the server hosting    * META and makes edits to that region.    *    * @param catalogTracker catalog tracker    * @param regionInfo region to update location of    * @param sn Server name    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
@@ -620,8 +620,8 @@ parameter_list|,
 name|HRegionInfo
 name|regionInfo
 parameter_list|,
-name|HServerInfo
-name|serverInfo
+name|ServerName
+name|sn
 parameter_list|)
 throws|throws
 name|IOException
@@ -639,11 +639,11 @@ name|META_REGION
 argument_list|,
 name|regionInfo
 argument_list|,
-name|serverInfo
+name|sn
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Updates the location of the specified region to be the specified server.    *<p>    * Connects to the specified server which should be hosting the specified    * catalog region name to perform the edit.    *    * @param server connection to server hosting catalog region    * @param catalogRegionName name of catalog region being updated    * @param regionInfo region to update location of    * @param serverInfo server the region is located on    * @throws IOException In particular could throw {@link java.net.ConnectException}    * if the server is down on other end.    */
+comment|/**    * Updates the location of the specified region to be the specified server.    *<p>    * Connects to the specified server which should be hosting the specified    * catalog region name to perform the edit.    *    * @param server connection to server hosting catalog region    * @param catalogRegionName name of catalog region being updated    * @param regionInfo region to update location of    * @param sn Server name    * @throws IOException In particular could throw {@link java.net.ConnectException}    * if the server is down on other end.    */
 specifier|private
 specifier|static
 name|void
@@ -659,8 +659,8 @@ parameter_list|,
 name|HRegionInfo
 name|regionInfo
 parameter_list|,
-name|HServerInfo
-name|serverInfo
+name|ServerName
+name|sn
 parameter_list|)
 throws|throws
 name|IOException
@@ -681,7 +681,7 @@ name|addLocation
 argument_list|(
 name|put
 argument_list|,
-name|serverInfo
+name|sn
 argument_list|)
 expr_stmt|;
 name|server
@@ -715,20 +715,11 @@ argument_list|)
 operator|+
 literal|" with "
 operator|+
-literal|"server="
+literal|"serverName="
 operator|+
-name|serverInfo
+name|sn
 operator|.
-name|getHostnamePort
-argument_list|()
-operator|+
-literal|", "
-operator|+
-literal|"startcode="
-operator|+
-name|serverInfo
-operator|.
-name|getStartCode
+name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -995,8 +986,8 @@ name|Put
 name|p
 parameter_list|,
 specifier|final
-name|HServerInfo
-name|hsi
+name|ServerName
+name|sn
 parameter_list|)
 block|{
 name|p
@@ -1015,9 +1006,9 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|hsi
+name|sn
 operator|.
-name|getHostnamePort
+name|getHostAndPort
 argument_list|()
 argument_list|)
 argument_list|)
@@ -1038,9 +1029,9 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|hsi
+name|sn
 operator|.
-name|getStartCode
+name|getStartcode
 argument_list|()
 argument_list|)
 argument_list|)

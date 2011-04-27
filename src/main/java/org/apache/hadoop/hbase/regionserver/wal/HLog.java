@@ -255,20 +255,6 @@ name|concurrent
 operator|.
 name|locks
 operator|.
-name|Condition
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|locks
-operator|.
 name|Lock
 import|;
 end_import
@@ -475,7 +461,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerInfo
+name|KeyValue
 import|;
 end_import
 
@@ -489,7 +475,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|ServerName
 import|;
 end_import
 
@@ -779,13 +765,6 @@ operator|new
 name|Object
 index|[]
 block|{}
-decl_stmt|;
-comment|// used to indirectly tell syncFs to force the sync
-specifier|private
-name|boolean
-name|forceSync
-init|=
-literal|false
 decl_stmt|;
 specifier|public
 interface|interface
@@ -5350,7 +5329,7 @@ block|}
 end_class
 
 begin_comment
-comment|/**    * Construct the HLog directory name    *    * @param info HServerInfo for server    * @return the HLog directory name    */
+comment|/**    * Construct the HLog directory name    *    * @param serverName Server name formatted as described in {@link ServerName}    * @return the HLog directory name    */
 end_comment
 
 begin_function
@@ -5359,83 +5338,7 @@ specifier|static
 name|String
 name|getHLogDirectoryName
 parameter_list|(
-name|HServerInfo
-name|info
-parameter_list|)
-block|{
-return|return
-name|getHLogDirectoryName
-argument_list|(
-name|info
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
-return|;
-block|}
-end_function
-
-begin_comment
-comment|/**    * Construct the HLog directory name    *    * @param serverAddress    * @param startCode    * @return the HLog directory name    */
-end_comment
-
-begin_function
-specifier|public
-specifier|static
-name|String
-name|getHLogDirectoryName
-parameter_list|(
-name|String
-name|serverAddress
-parameter_list|,
-name|long
-name|startCode
-parameter_list|)
-block|{
-if|if
-condition|(
-name|serverAddress
-operator|==
-literal|null
-operator|||
-name|serverAddress
-operator|.
-name|length
-argument_list|()
-operator|==
-literal|0
-condition|)
-block|{
-return|return
-literal|null
-return|;
-block|}
-return|return
-name|getHLogDirectoryName
-argument_list|(
-name|HServerInfo
-operator|.
-name|getServerName
-argument_list|(
-name|serverAddress
-argument_list|,
-name|startCode
-argument_list|)
-argument_list|)
-return|;
-block|}
-end_function
-
-begin_comment
-comment|/**    * Construct the HLog directory name    *    * @param serverName    * @return the HLog directory name    */
-end_comment
-
-begin_function
-specifier|public
-specifier|static
-name|String
-name|getHLogDirectoryName
-parameter_list|(
+specifier|final
 name|String
 name|serverName
 parameter_list|)

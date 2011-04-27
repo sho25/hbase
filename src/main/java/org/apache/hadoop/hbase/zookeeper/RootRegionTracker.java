@@ -41,7 +41,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerAddress
+name|ServerName
 import|;
 end_import
 
@@ -58,22 +58,6 @@ operator|.
 name|catalog
 operator|.
 name|RootLocationEditor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|RegionServerServices
 import|;
 end_import
 
@@ -142,27 +126,43 @@ operator|!=
 literal|null
 return|;
 block|}
-comment|/**    * Gets the root region location, if available.  Null if not.  Does not block.    * @return server address for server hosting root region, null if none available    * @throws InterruptedException     */
+comment|/**    * Gets the root region location, if available.  Null if not.  Does not block.    * @return server name    * @throws InterruptedException     */
 specifier|public
-name|HServerAddress
+name|ServerName
 name|getRootRegionLocation
 parameter_list|()
 throws|throws
 name|InterruptedException
 block|{
-return|return
-name|dataToHServerAddress
-argument_list|(
+name|byte
+index|[]
+name|data
+init|=
 name|super
 operator|.
 name|getData
 argument_list|()
+decl_stmt|;
+return|return
+name|data
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
+operator|new
+name|ServerName
+argument_list|(
+name|dataToString
+argument_list|(
+name|data
+argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets the root region location, if available, and waits for up to the    * specified timeout if not immediately available.    * @param timeout maximum time to wait, in millis    * @return server address for server hosting root region, null if timed out    * @throws InterruptedException if interrupted while waiting    */
+comment|/**    * Gets the root region location, if available, and waits for up to the    * specified timeout if not immediately available.    * @param timeout maximum time to wait, in millis    * @return server name for server hosting root region formatted as per    * {@link ServerName}, or null if none available    * @throws InterruptedException if interrupted while waiting    */
 specifier|public
-name|HServerAddress
+name|ServerName
 name|waitRootRegionLocation
 parameter_list|(
 name|long
@@ -171,8 +171,10 @@ parameter_list|)
 throws|throws
 name|InterruptedException
 block|{
-return|return
-name|dataToHServerAddress
+name|String
+name|str
+init|=
+name|dataToString
 argument_list|(
 name|super
 operator|.
@@ -181,13 +183,26 @@ argument_list|(
 name|timeout
 argument_list|)
 argument_list|)
+decl_stmt|;
+return|return
+name|str
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
+operator|new
+name|ServerName
+argument_list|(
+name|str
+argument_list|)
 return|;
 block|}
-comment|/*    * @param data    * @return Returns null if<code>data</code> is null else converts passed data    * to an HServerAddress instance.    */
+comment|/*    * @param data    * @return Returns null if<code>data</code> is null else converts passed data    * to a String instance.    */
 specifier|private
 specifier|static
-name|HServerAddress
-name|dataToHServerAddress
+name|String
+name|dataToString
 parameter_list|(
 specifier|final
 name|byte
@@ -202,15 +217,11 @@ literal|null
 condition|?
 literal|null
 else|:
-operator|new
-name|HServerAddress
-argument_list|(
 name|Bytes
 operator|.
 name|toString
 argument_list|(
 name|data
-argument_list|)
 argument_list|)
 return|;
 block|}

@@ -109,7 +109,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerInfo
+name|HTableDescriptor
 import|;
 end_import
 
@@ -123,7 +123,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
+name|ServerName
 import|;
 end_import
 
@@ -482,15 +482,15 @@ name|getRegionServerThreads
 argument_list|()
 control|)
 block|{
-name|HServerInfo
-name|hsi
+name|ServerName
+name|sn
 init|=
 name|rs
 operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|getServerInfo
+name|getServerName
 argument_list|()
 decl_stmt|;
 comment|// When we find a diff RS, change the assignment and break
@@ -498,9 +498,9 @@ if|if
 condition|(
 name|startCode
 operator|!=
-name|hsi
+name|sn
 operator|.
-name|getStartCode
+name|getStartcode
 argument_list|()
 condition|)
 block|{
@@ -532,9 +532,9 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|hsi
+name|sn
 operator|.
-name|getHostnamePort
+name|getHostAndPort
 argument_list|()
 argument_list|)
 argument_list|)
@@ -555,9 +555,9 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|hsi
+name|sn
 operator|.
-name|getStartCode
+name|getStartcode
 argument_list|()
 argument_list|)
 argument_list|)

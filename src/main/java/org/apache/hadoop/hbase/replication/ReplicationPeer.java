@@ -75,7 +75,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerAddress
+name|ServerName
 import|;
 end_import
 
@@ -117,14 +117,14 @@ decl_stmt|;
 specifier|private
 name|List
 argument_list|<
-name|HServerAddress
+name|ServerName
 argument_list|>
 name|regionServers
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|HServerAddress
+name|ServerName
 argument_list|>
 argument_list|(
 literal|0
@@ -215,7 +215,7 @@ comment|/**    * Get a list of all the addresses of all the region servers    * 
 specifier|public
 name|List
 argument_list|<
-name|HServerAddress
+name|ServerName
 argument_list|>
 name|getRegionServers
 parameter_list|()
@@ -231,7 +231,7 @@ name|setRegionServers
 parameter_list|(
 name|List
 argument_list|<
-name|HServerAddress
+name|ServerName
 argument_list|>
 name|regionServers
 parameter_list|)

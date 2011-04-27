@@ -117,6 +117,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ZooKeeperConnectionException
 import|;
 end_import
@@ -200,7 +214,7 @@ name|region
 parameter_list|,
 name|List
 argument_list|<
-name|HServerAddress
+name|ServerName
 argument_list|>
 name|servers
 parameter_list|)
@@ -223,7 +237,7 @@ decl_stmt|;
 comment|// Close region on the servers silently
 for|for
 control|(
-name|HServerAddress
+name|ServerName
 name|server
 range|:
 name|servers
@@ -319,7 +333,7 @@ name|region
 argument_list|,
 name|HConstants
 operator|.
-name|HBCK_CODE_NAME
+name|HBCK_CODE_SERVERNAME
 argument_list|)
 expr_stmt|;
 block|}
@@ -331,7 +345,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|HServerAddress
+name|ServerName
 name|server
 parameter_list|,
 name|HRegionInfo
@@ -354,7 +368,19 @@ argument_list|)
 operator|.
 name|getHRegionConnection
 argument_list|(
+operator|new
+name|HServerAddress
+argument_list|(
 name|server
+operator|.
+name|getHostname
+argument_list|()
+argument_list|,
+name|server
+operator|.
+name|getPort
+argument_list|()
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|rs

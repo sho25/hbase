@@ -187,7 +187,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerInfo
+name|HServerLoad
 import|;
 end_import
 
@@ -201,7 +201,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerLoad
+name|ServerName
 import|;
 end_import
 
@@ -417,22 +417,24 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|HServerInfo
+name|ServerName
 name|info
 range|:
 name|status
 operator|.
-name|getServerInfo
+name|getServers
 argument_list|()
 control|)
 block|{
 name|HServerLoad
 name|load
 init|=
-name|info
+name|status
 operator|.
 name|getLoad
-argument_list|()
+argument_list|(
+name|info
+argument_list|)
 decl_stmt|;
 name|StorageClusterStatusModel
 operator|.
@@ -445,9 +447,6 @@ name|addLiveNode
 argument_list|(
 name|info
 operator|.
-name|getServerAddress
-argument_list|()
-operator|.
 name|getHostname
 argument_list|()
 operator|+
@@ -459,16 +458,13 @@ name|toString
 argument_list|(
 name|info
 operator|.
-name|getServerAddress
-argument_list|()
-operator|.
 name|getPort
 argument_list|()
 argument_list|)
 argument_list|,
 name|info
 operator|.
-name|getStartCode
+name|getStartcode
 argument_list|()
 argument_list|,
 name|load
@@ -547,7 +543,7 @@ block|}
 block|}
 for|for
 control|(
-name|String
+name|ServerName
 name|name
 range|:
 name|status
@@ -561,6 +557,9 @@ operator|.
 name|addDeadNode
 argument_list|(
 name|name
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

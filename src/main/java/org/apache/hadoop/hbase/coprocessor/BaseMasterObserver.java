@@ -55,7 +55,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerInfo
+name|HTableDescriptor
 import|;
 end_import
 
@@ -69,7 +69,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
+name|ServerName
 import|;
 end_import
 

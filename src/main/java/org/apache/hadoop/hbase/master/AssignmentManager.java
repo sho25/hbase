@@ -75,6 +75,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|HashMap
 import|;
 end_import
@@ -289,34 +299,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerAddress
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HServerInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -346,6 +328,20 @@ operator|.
 name|hbase
 operator|.
 name|Server
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ServerName
 import|;
 end_import
 
@@ -908,7 +904,7 @@ specifier|private
 specifier|final
 name|NavigableMap
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -920,7 +916,7 @@ init|=
 operator|new
 name|TreeMap
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -936,7 +932,7 @@ name|SortedMap
 argument_list|<
 name|HRegionInfo
 argument_list|,
-name|HServerInfo
+name|ServerName
 argument_list|>
 name|regions
 init|=
@@ -945,7 +941,7 @@ name|TreeMap
 argument_list|<
 name|HRegionInfo
 argument_list|,
-name|HServerInfo
+name|ServerName
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -1090,6 +1086,78 @@ literal|10
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Compute the average load across all region servers.    * Currently, this uses a very naive computation - just uses the number of    * regions being served, ignoring stats about number of requests.    * @return the average load    */
+name|double
+name|getAverageLoad
+parameter_list|()
+block|{
+name|int
+name|totalLoad
+init|=
+literal|0
+decl_stmt|;
+name|int
+name|numServers
+init|=
+literal|0
+decl_stmt|;
+comment|// Sync on this.regions because access to this.servers always synchronizes
+comment|// in this order.
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|regions
+init|)
+block|{
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|ServerName
+argument_list|,
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+argument_list|>
+name|e
+range|:
+name|servers
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+name|numServers
+operator|++
+expr_stmt|;
+name|totalLoad
+operator|+=
+name|e
+operator|.
+name|getValue
+argument_list|()
+operator|.
+name|size
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+return|return
+operator|(
+name|double
+operator|)
+name|totalLoad
+operator|/
+operator|(
+name|double
+operator|)
+name|numServers
+return|;
+block|}
 comment|/**    * @return Instance of ZKTable.    */
 specifier|public
 name|ZKTable
@@ -1137,14 +1205,14 @@ name|assignmentZNode
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Handle failover.  Restore state from META and ZK.  Handle any regions in    * transition.  Presumes<code>.META.</code> and<code>-ROOT-</code> deployed.    * @throws KeeperException    * @throws IOException    * @throws InterruptedException     */
+comment|/**    * Called on startup.    * Figures whether a fresh cluster start of we are joining extant running cluster.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    */
 name|void
-name|processFailover
+name|joinCluster
 parameter_list|()
 throws|throws
-name|KeeperException
-throws|,
 name|IOException
+throws|,
+name|KeeperException
 throws|,
 name|InterruptedException
 block|{
@@ -1152,27 +1220,19 @@ comment|// Concurrency note: In the below the accesses on regionsInTransition ar
 comment|// outside of a synchronization block where usually all accesses to RIT are
 comment|// synchronized.  The presumption is that in this case it is safe since this
 comment|// method is being played by a single thread on startup.
-comment|// TODO: Check list of user regions and their assignments against regionservers.
 comment|// TODO: Regions that have a null location and are not in regionsInTransitions
 comment|// need to be handled.
 comment|// Add -ROOT- and .META. on regions map.  They must be deployed if we got
-comment|// this far.  Caller takes care of it.
-name|HServerInfo
-name|hsi
+comment|// this far.
+name|ServerName
+name|sn
 init|=
-name|this
-operator|.
-name|serverManager
-operator|.
-name|getHServerInfo
-argument_list|(
 name|this
 operator|.
 name|catalogTracker
 operator|.
 name|getMetaLocation
 argument_list|()
-argument_list|)
 decl_stmt|;
 name|regionOnline
 argument_list|(
@@ -1180,24 +1240,17 @@ name|HRegionInfo
 operator|.
 name|FIRST_META_REGIONINFO
 argument_list|,
-name|hsi
+name|sn
 argument_list|)
 expr_stmt|;
-name|hsi
+name|sn
 operator|=
-name|this
-operator|.
-name|serverManager
-operator|.
-name|getHServerInfo
-argument_list|(
 name|this
 operator|.
 name|catalogTracker
 operator|.
 name|getRootLocation
 argument_list|()
-argument_list|)
 expr_stmt|;
 name|regionOnline
 argument_list|(
@@ -1205,14 +1258,14 @@ name|HRegionInfo
 operator|.
 name|ROOT_REGIONINFO
 argument_list|,
-name|hsi
+name|sn
 argument_list|)
 expr_stmt|;
 comment|// Scan META to build list of existing regions, servers, and assignment
 comment|// Returns servers who have not checked in (assumed dead) and their regions
 name|Map
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -1266,37 +1319,130 @@ operator|.
 name|assignmentZNode
 argument_list|)
 decl_stmt|;
+comment|// Run through all regions.  If they are not assigned and not in RIT, then
+comment|// its a clean cluster startup, else its a failover.
+name|boolean
+name|userRegionsOutOnCluster
+init|=
+literal|false
+decl_stmt|;
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|ServerName
+argument_list|>
+name|e
+range|:
+name|this
+operator|.
+name|regions
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+operator|!
+name|e
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|isMetaRegion
+argument_list|()
+operator|&&
+name|e
+operator|.
+name|getValue
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Found "
+operator|+
+name|e
+operator|+
+literal|" out on cluster"
+argument_list|)
+expr_stmt|;
+name|userRegionsOutOnCluster
+operator|=
+literal|true
+expr_stmt|;
+break|break;
+block|}
 if|if
 condition|(
 name|nodes
 operator|.
-name|isEmpty
+name|contains
+argument_list|(
+name|e
+operator|.
+name|getKey
 argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Found "
+operator|+
+name|e
+operator|+
+literal|" in RITs"
+argument_list|)
+expr_stmt|;
+name|userRegionsOutOnCluster
+operator|=
+literal|true
+expr_stmt|;
+break|break;
+block|}
+block|}
+comment|// If we found user regions out on cluster, its a failover.
+if|if
+condition|(
+name|userRegionsOutOnCluster
 condition|)
 block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"No regions in transition in ZK to process on failover"
+literal|"Found regions out on cluster or in RIT; failover"
 argument_list|)
 expr_stmt|;
-return|return;
-block|}
-name|LOG
-operator|.
-name|info
+name|processDeadServers
 argument_list|(
-literal|"Failed-over master needs to process "
-operator|+
+name|deadServers
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
 name|nodes
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|+
-literal|" regions in transition"
-argument_list|)
-expr_stmt|;
+condition|)
+block|{
 for|for
 control|(
 name|String
@@ -1311,6 +1457,18 @@ name|encodedRegionName
 argument_list|,
 literal|null
 argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+else|else
+block|{
+comment|// Fresh cluster startup.
+name|cleanoutUnassigned
+argument_list|()
+expr_stmt|;
+name|assignAllUserRegions
+argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -1393,7 +1551,7 @@ return|return
 name|intransistion
 return|;
 block|}
-comment|/**    * Process failover of<code>encodedName</code>.  Look in    * @param encodedRegionName Region to process failover for.    * @param encodedRegionName RegionInfo.  If null we'll go get it from meta table.    * @return    * @throws KeeperException    * @throws IOException    */
+comment|/**    * Process failover of<code>servername</code>.  Look in RIT.    * @param encodedRegionName Region to process failover for.    * @param regionInfo If null we'll go get it from meta table.    * @return True if we processed<code>regionInfo</code> as a RIT.    * @throws KeeperException    * @throws IOException    */
 name|boolean
 name|processRegionInTransition
 parameter_list|(
@@ -1447,7 +1605,7 @@ name|Pair
 argument_list|<
 name|HRegionInfo
 argument_list|,
-name|HServerAddress
+name|ServerName
 argument_list|>
 name|p
 init|=
@@ -1717,25 +1875,29 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HServerInfo
-name|hsi
+name|ServerName
+name|sn
 init|=
-name|serverManager
-operator|.
-name|getServerInfo
-argument_list|(
 name|data
 operator|.
-name|getServerName
+name|getOrigin
 argument_list|()
-argument_list|)
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
+name|data
+operator|.
+name|getOrigin
+argument_list|()
 decl_stmt|;
 comment|// hsi could be null if this server is no longer online.  If
 comment|// that the case, just let this RIT timeout; it'll be assigned
 comment|// to new server then.
 if|if
 condition|(
-name|hsi
+name|sn
 operator|==
 literal|null
 condition|)
@@ -1751,14 +1913,9 @@ operator|.
 name|getEncodedName
 argument_list|()
 operator|+
-literal|" references a server no longer up "
+literal|" references a null server; letting RIT timeout so will be "
 operator|+
-name|data
-operator|.
-name|getServerName
-argument_list|()
-operator|+
-literal|"; letting RIT timeout so will be assigned elsewhere"
+literal|"assigned elsewhere"
 argument_list|)
 expr_stmt|;
 break|break;
@@ -1772,7 +1929,7 @@ name|this
 argument_list|,
 name|regionInfo
 argument_list|,
-name|hsi
+name|sn
 argument_list|)
 operator|.
 name|process
@@ -1805,7 +1962,7 @@ literal|null
 operator|||
 name|data
 operator|.
-name|getServerName
+name|getOrigin
 argument_list|()
 operator|==
 literal|null
@@ -1822,19 +1979,24 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+name|ServerName
+name|sn
+init|=
+name|data
+operator|.
+name|getOrigin
+argument_list|()
+decl_stmt|;
 comment|// Check if this is a special HBCK transition
 if|if
 condition|(
-name|data
-operator|.
-name|getServerName
-argument_list|()
+name|sn
 operator|.
 name|equals
 argument_list|(
 name|HConstants
 operator|.
-name|HBCK_CODE_NAME
+name|HBCK_CODE_SERVERNAME
 argument_list|)
 condition|)
 block|{
@@ -1853,10 +2015,7 @@ name|serverManager
 operator|.
 name|isServerOnline
 argument_list|(
-name|data
-operator|.
-name|getServerName
-argument_list|()
+name|sn
 argument_list|)
 operator|&&
 operator|!
@@ -1869,10 +2028,7 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
-name|data
-operator|.
-name|getServerName
-argument_list|()
+name|sn
 argument_list|)
 condition|)
 block|{
@@ -2001,9 +2157,9 @@ condition|)
 break|break;
 name|addSplittingToRIT
 argument_list|(
-name|data
+name|sn
 operator|.
-name|getServerName
+name|toString
 argument_list|()
 argument_list|,
 name|encodedName
@@ -2041,19 +2197,16 @@ name|prettyPrintedRegionName
 operator|+
 literal|" from server "
 operator|+
-name|data
-operator|.
-name|getServerName
-argument_list|()
+name|sn
 operator|+
 literal|" but region was not first in SPLITTING state; continuing"
 argument_list|)
 expr_stmt|;
 name|addSplittingToRIT
 argument_list|(
-name|data
+name|sn
 operator|.
-name|getServerName
+name|toString
 argument_list|()
 argument_list|,
 name|encodedName
@@ -2122,34 +2275,28 @@ operator|==
 literal|2
 assert|;
 comment|// Assert that we can get a serverinfo for this server.
-name|HServerInfo
-name|hsi
-init|=
-name|getAndCheckHServerInfo
-argument_list|(
-name|data
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
-decl_stmt|;
 if|if
 condition|(
-name|hsi
-operator|==
-literal|null
+operator|!
+name|this
+operator|.
+name|serverManager
+operator|.
+name|isServerOnline
+argument_list|(
+name|sn
+argument_list|)
 condition|)
 block|{
 name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Dropped split! No HServerInfo for "
+literal|"Dropped split! ServerName="
 operator|+
-name|data
-operator|.
-name|getServerName
-argument_list|()
+name|sn
+operator|+
+literal|" unknown."
 argument_list|)
 expr_stmt|;
 break|break;
@@ -2173,7 +2320,7 @@ operator|.
 name|getRegion
 argument_list|()
 argument_list|,
-name|hsi
+name|sn
 argument_list|,
 name|daughters
 argument_list|)
@@ -2218,7 +2365,7 @@ literal|" from server "
 operator|+
 name|data
 operator|.
-name|getServerName
+name|getOrigin
 argument_list|()
 operator|+
 literal|" but region was in "
@@ -2289,7 +2436,7 @@ literal|" from server "
 operator|+
 name|data
 operator|.
-name|getServerName
+name|getOrigin
 argument_list|()
 operator|+
 literal|" but region was in "
@@ -2383,7 +2530,7 @@ literal|" from server "
 operator|+
 name|data
 operator|.
-name|getServerName
+name|getOrigin
 argument_list|()
 operator|+
 literal|" but region was in "
@@ -2454,7 +2601,7 @@ literal|" from server "
 operator|+
 name|data
 operator|.
-name|getServerName
+name|getOrigin
 argument_list|()
 operator|+
 literal|" but region was in "
@@ -2505,17 +2652,10 @@ operator|.
 name|getRegion
 argument_list|()
 argument_list|,
-name|this
-operator|.
-name|serverManager
-operator|.
-name|getServerInfo
-argument_list|(
 name|data
 operator|.
-name|getServerName
+name|getOrigin
 argument_list|()
-argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2628,46 +2768,6 @@ argument_list|)
 expr_stmt|;
 return|return
 literal|true
-return|;
-block|}
-specifier|private
-name|HServerInfo
-name|getAndCheckHServerInfo
-parameter_list|(
-specifier|final
-name|String
-name|serverName
-parameter_list|)
-block|{
-name|HServerInfo
-name|hsi
-init|=
-name|this
-operator|.
-name|serverManager
-operator|.
-name|getServerInfo
-argument_list|(
-name|serverName
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|hsi
-operator|==
-literal|null
-condition|)
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"No serverinfo for "
-operator|+
-name|serverName
-argument_list|)
-expr_stmt|;
-return|return
-name|hsi
 return|;
 block|}
 comment|/**    * @param serverName    * @param encodedName    * @return The SPLITTING RegionState we added to RIT for the passed region    *<code>encodedName</code>    */
@@ -2793,19 +2893,26 @@ name|String
 name|encodedName
 parameter_list|)
 block|{
-name|HServerInfo
-name|hsi
+name|ServerName
+name|sn
 init|=
-name|getAndCheckHServerInfo
+operator|new
+name|ServerName
 argument_list|(
 name|serverName
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|hsi
-operator|==
-literal|null
+operator|!
+name|this
+operator|.
+name|serverManager
+operator|.
+name|isServerOnline
+argument_list|(
+name|sn
+argument_list|)
 condition|)
 return|return
 literal|null
@@ -2822,7 +2929,7 @@ name|servers
 operator|.
 name|get
 argument_list|(
-name|hsi
+name|sn
 argument_list|)
 decl_stmt|;
 name|HRegionInfo
@@ -2899,7 +3006,7 @@ literal|", server="
 operator|+
 name|data
 operator|.
-name|getServerName
+name|getOrigin
 argument_list|()
 operator|+
 literal|", region="
@@ -3393,7 +3500,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Marks the region as online.  Removes it from regions in transition and    * updates the in-memory assignment information.    *<p>    * Used when a region has been successfully opened on a region server.    * @param regionInfo    * @param serverInfo    */
+comment|/**    * Marks the region as online.  Removes it from regions in transition and    * updates the in-memory assignment information.    *<p>    * Used when a region has been successfully opened on a region server.    * @param regionInfo    * @param sn    */
 specifier|public
 name|void
 name|regionOnline
@@ -3401,8 +3508,8 @@ parameter_list|(
 name|HRegionInfo
 name|regionInfo
 parameter_list|,
-name|HServerInfo
-name|serverInfo
+name|ServerName
+name|sn
 parameter_list|)
 block|{
 synchronized|synchronized
@@ -3451,8 +3558,8 @@ name|regions
 init|)
 block|{
 comment|// Add check
-name|HServerInfo
-name|hsi
+name|ServerName
+name|oldSn
 init|=
 name|this
 operator|.
@@ -3465,7 +3572,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|hsi
+name|oldSn
 operator|!=
 literal|null
 condition|)
@@ -3482,7 +3589,11 @@ argument_list|()
 operator|+
 literal|" on "
 operator|+
-name|hsi
+name|oldSn
+operator|+
+literal|" with "
+operator|+
+name|sn
 argument_list|)
 expr_stmt|;
 name|this
@@ -3493,12 +3604,12 @@ name|put
 argument_list|(
 name|regionInfo
 argument_list|,
-name|serverInfo
+name|sn
 argument_list|)
 expr_stmt|;
 name|addToServers
 argument_list|(
-name|serverInfo
+name|sn
 argument_list|,
 name|regionInfo
 argument_list|)
@@ -3520,18 +3631,18 @@ expr_stmt|;
 comment|// Update timers for all regions in transition going against this server.
 name|updateTimers
 argument_list|(
-name|serverInfo
+name|sn
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Touch timers for all regions in transition that have the passed    *<code>hsi</code> in common.    * Call this method whenever a server checks in.  Doing so helps the case where    * a new regionserver has joined the cluster and its been given 1k regions to    * open.  If this method is tickled every time the region reports in a    * successful open then the 1k-th region won't be timed out just because its    * sitting behind the open of 999 other regions.  This method is NOT used    * as part of bulk assign -- there we have a different mechanism for extending    * the regions in transition timer (we turn it off temporarily -- because    * there is no regionplan involved when bulk assigning.    * @param hsi    */
+comment|/**    * Touch timers for all regions in transition that have the passed    *<code>sn</code> in common.    * Call this method whenever a server checks in.  Doing so helps the case where    * a new regionserver has joined the cluster and its been given 1k regions to    * open.  If this method is tickled every time the region reports in a    * successful open then the 1k-th region won't be timed out just because its    * sitting behind the open of 999 other regions.  This method is NOT used    * as part of bulk assign -- there we have a different mechanism for extending    * the regions in transition timer (we turn it off temporarily -- because    * there is no regionplan involved when bulk assigning.    * @param sn    */
 specifier|private
 name|void
 name|updateTimers
 parameter_list|(
 specifier|final
-name|HServerInfo
-name|hsi
+name|ServerName
+name|sn
 parameter_list|)
 block|{
 comment|// This loop could be expensive.
@@ -3603,7 +3714,7 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
-name|hsi
+name|sn
 argument_list|)
 condition|)
 continue|continue;
@@ -3730,8 +3841,8 @@ operator|.
 name|regions
 init|)
 block|{
-name|HServerInfo
-name|serverInfo
+name|ServerName
+name|sn
 init|=
 name|this
 operator|.
@@ -3744,7 +3855,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|serverInfo
+name|sn
 operator|==
 literal|null
 condition|)
@@ -3761,7 +3872,7 @@ name|servers
 operator|.
 name|get
 argument_list|(
-name|serverInfo
+name|sn
 argument_list|)
 decl_stmt|;
 if|if
@@ -3785,7 +3896,7 @@ name|regionInfo
 operator|+
 literal|" on "
 operator|+
-name|serverInfo
+name|sn
 argument_list|)
 expr_stmt|;
 block|}
@@ -4051,7 +4162,7 @@ name|void
 name|assign
 parameter_list|(
 specifier|final
-name|HServerInfo
+name|ServerName
 name|destination
 parameter_list|,
 specifier|final
@@ -4077,7 +4188,7 @@ literal|" region(s) to "
 operator|+
 name|destination
 operator|.
-name|getServerName
+name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4217,7 +4328,7 @@ name|info
 argument_list|(
 name|destination
 operator|.
-name|getServerName
+name|toString
 argument_list|()
 operator|+
 literal|" unassigned znodes="
@@ -4249,8 +4360,13 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Move on to open regions.
 try|try
 block|{
+comment|// Send OPEN RPC. This can fail if the server on other end is is not up.
+comment|// If we fail, fail the startup by aborting the server.  There is one
+comment|// exception we will tolerate: ServerNotRunningException.  This is thrown
+comment|// between report of regionserver being up and
 name|long
 name|maxWaitTime
 init|=
@@ -4397,7 +4513,7 @@ literal|"Bulk assigning done for "
 operator|+
 name|destination
 operator|.
-name|getServerName
+name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4432,7 +4548,7 @@ name|zkw
 decl_stmt|;
 specifier|private
 specifier|final
-name|HServerInfo
+name|ServerName
 name|destination
 decl_stmt|;
 specifier|private
@@ -4447,7 +4563,7 @@ name|ZooKeeperWatcher
 name|zkw
 parameter_list|,
 specifier|final
-name|HServerInfo
+name|ServerName
 name|destination
 parameter_list|,
 specifier|final
@@ -4550,7 +4666,7 @@ name|this
 operator|.
 name|destination
 operator|.
-name|getServerName
+name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4933,7 +5049,7 @@ operator|.
 name|getDestination
 argument_list|()
 operator|.
-name|getServerName
+name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5128,6 +5244,8 @@ operator|.
 name|getRegion
 argument_list|()
 argument_list|,
+name|this
+operator|.
 name|master
 operator|.
 name|getServerName
@@ -5262,6 +5380,8 @@ operator|.
 name|getRegion
 argument_list|()
 argument_list|,
+name|this
+operator|.
 name|master
 operator|.
 name|getServerName
@@ -5329,7 +5449,7 @@ name|RegionState
 name|state
 parameter_list|,
 specifier|final
-name|HServerInfo
+name|ServerName
 name|serverToExclude
 parameter_list|,
 specifier|final
@@ -5351,7 +5471,7 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|>
 name|servers
 init|=
@@ -5761,7 +5881,7 @@ return|return;
 block|}
 block|}
 comment|// Send CLOSE RPC
-name|HServerInfo
+name|ServerName
 name|server
 init|=
 literal|null
@@ -6000,7 +6120,111 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Assigns all user regions, if any.  Used during cluster startup.    *<p>    * This is a synchronous call and will return once every region has been    * assigned.  If anything fails, an exception is thrown and the cluster    * should be shutdown.    * @throws InterruptedException    * @throws IOException    */
+comment|/**    * Assigns all user regions, if any.  Used during cluster startup.    *<p>    * This is a synchronous call and will return once every region has been    * assigned.  If anything fails, an exception is thrown    * @throws InterruptedException    * @throws IOException    */
+specifier|public
+name|void
+name|assignUserRegions
+parameter_list|(
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regions
+parameter_list|,
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|servers
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+block|{
+if|if
+condition|(
+name|regions
+operator|==
+literal|null
+condition|)
+return|return;
+name|Map
+argument_list|<
+name|ServerName
+argument_list|,
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+argument_list|>
+name|bulkPlan
+init|=
+literal|null
+decl_stmt|;
+comment|// Generate a round-robin bulk assignment plan
+name|bulkPlan
+operator|=
+name|LoadBalancer
+operator|.
+name|roundRobinAssignment
+argument_list|(
+name|regions
+argument_list|,
+name|servers
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Bulk assigning "
+operator|+
+name|regions
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" region(s) round-robin across "
+operator|+
+name|servers
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" server(s)"
+argument_list|)
+expr_stmt|;
+comment|// Use fixed count thread pool assigning.
+name|BulkAssigner
+name|ba
+init|=
+operator|new
+name|StartupBulkAssigner
+argument_list|(
+name|this
+operator|.
+name|master
+argument_list|,
+name|bulkPlan
+argument_list|,
+name|this
+argument_list|)
+decl_stmt|;
+name|ba
+operator|.
+name|bulkAssign
+argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Bulk assigning done"
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Assigns all user regions, if any exist.  Used during cluster startup.    *<p>    * This is a synchronous call and will return once every region has been    * assigned.  If anything fails, an exception is thrown and the cluster    * should be shutdown.    * @throws InterruptedException    * @throws IOException    */
 specifier|public
 name|void
 name|assignAllUserRegions
@@ -6013,7 +6237,7 @@ block|{
 comment|// Get all available servers
 name|List
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|>
 name|servers
 init|=
@@ -6027,7 +6251,7 @@ name|Map
 argument_list|<
 name|HRegionInfo
 argument_list|,
-name|HServerAddress
+name|ServerName
 argument_list|>
 name|allRegions
 init|=
@@ -6077,7 +6301,7 @@ argument_list|)
 decl_stmt|;
 name|Map
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -6109,38 +6333,24 @@ block|}
 else|else
 block|{
 comment|// assign regions in round-robin fashion
+name|assignUserRegions
+argument_list|(
+operator|new
+name|ArrayList
+argument_list|<
 name|HRegionInfo
-index|[]
-name|regions
-init|=
+argument_list|>
+argument_list|(
 name|allRegions
 operator|.
 name|keySet
 argument_list|()
-operator|.
-name|toArray
-argument_list|(
-operator|new
-name|HRegionInfo
-index|[
-name|allRegions
-operator|.
-name|size
-argument_list|()
-index|]
 argument_list|)
-decl_stmt|;
-name|bulkPlan
-operator|=
-name|LoadBalancer
-operator|.
-name|roundRobinAssignment
-argument_list|(
-name|regions
 argument_list|,
 name|servers
 argument_list|)
 expr_stmt|;
+return|return;
 block|}
 name|LOG
 operator|.
@@ -6204,7 +6414,7 @@ block|{
 specifier|final
 name|Map
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -6226,7 +6436,7 @@ parameter_list|,
 specifier|final
 name|Map
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -6349,7 +6559,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -6386,8 +6596,6 @@ argument_list|,
 name|this
 operator|.
 name|assignmentManager
-argument_list|,
-literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -6537,7 +6745,7 @@ parameter_list|,
 specifier|final
 name|Map
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -6614,7 +6822,7 @@ name|Runnable
 block|{
 specifier|private
 specifier|final
-name|HServerInfo
+name|ServerName
 name|regionserver
 decl_stmt|;
 specifier|private
@@ -6633,7 +6841,7 @@ decl_stmt|;
 name|SingleServerBulkAssigner
 parameter_list|(
 specifier|final
-name|HServerInfo
+name|ServerName
 name|regionserver
 parameter_list|,
 specifier|final
@@ -6646,10 +6854,6 @@ parameter_list|,
 specifier|final
 name|AssignmentManager
 name|am
-parameter_list|,
-specifier|final
-name|boolean
-name|startUp
 parameter_list|)
 block|{
 name|this
@@ -6921,10 +7125,9 @@ name|stillInTransition
 return|;
 block|}
 comment|/**    * Rebuild the list of user regions and assignment information.    *<p>    * Returns a map of servers that are not found to be online and the regions    * they were hosting.    * @return map of servers not online to their assigned regions, as stored    *         in META    * @throws IOException    */
-specifier|private
 name|Map
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -6952,13 +7155,15 @@ name|MetaReader
 operator|.
 name|fullScanOfResults
 argument_list|(
+name|this
+operator|.
 name|catalogTracker
 argument_list|)
 decl_stmt|;
 comment|// Map of offline servers and their regions to be returned
 name|Map
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -6975,7 +7180,7 @@ init|=
 operator|new
 name|TreeMap
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -7002,13 +7207,13 @@ name|Pair
 argument_list|<
 name|HRegionInfo
 argument_list|,
-name|HServerInfo
+name|ServerName
 argument_list|>
 name|region
 init|=
 name|MetaReader
 operator|.
-name|metaRowToRegionPairWithInfo
+name|metaRowToRegionPair
 argument_list|(
 name|result
 argument_list|)
@@ -7020,20 +7225,20 @@ operator|==
 literal|null
 condition|)
 continue|continue;
-name|HServerInfo
-name|regionLocation
-init|=
-name|region
-operator|.
-name|getSecond
-argument_list|()
-decl_stmt|;
 name|HRegionInfo
 name|regionInfo
 init|=
 name|region
 operator|.
 name|getFirst
+argument_list|()
+decl_stmt|;
+name|ServerName
+name|regionLocation
+init|=
+name|region
+operator|.
+name|getSecond
 argument_list|()
 decl_stmt|;
 if|if
@@ -7061,14 +7266,13 @@ elseif|else
 if|if
 condition|(
 operator|!
+name|this
+operator|.
 name|serverManager
 operator|.
 name|isServerOnline
 argument_list|(
 name|regionLocation
-operator|.
-name|getServerName
-argument_list|()
 argument_list|)
 condition|)
 block|{
@@ -7146,6 +7350,8 @@ block|}
 else|else
 block|{
 comment|// Region is being served and on an active server
+name|this
+operator|.
 name|regions
 operator|.
 name|put
@@ -7175,7 +7381,7 @@ name|processDeadServers
 parameter_list|(
 name|Map
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -7200,7 +7406,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -7276,6 +7482,8 @@ name|watcher
 argument_list|,
 name|regionInfo
 argument_list|,
+name|this
+operator|.
 name|master
 operator|.
 name|getServerName
@@ -7318,8 +7526,8 @@ name|void
 name|addToServers
 parameter_list|(
 specifier|final
-name|HServerInfo
-name|hsi
+name|ServerName
+name|sn
 parameter_list|,
 specifier|final
 name|HRegionInfo
@@ -7336,7 +7544,7 @@ name|servers
 operator|.
 name|get
 argument_list|(
-name|hsi
+name|sn
 argument_list|)
 decl_stmt|;
 if|if
@@ -7359,7 +7567,7 @@ name|servers
 operator|.
 name|put
 argument_list|(
-name|hsi
+name|sn
 argument_list|,
 name|hris
 argument_list|)
@@ -8509,7 +8717,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Process shutdown server removing any assignments.    * @param hsi Server that went down.    * @return list of regions in transition on this server    */
+comment|/**    * Process shutdown server removing any assignments.    * @param sn Server that went down.    * @return list of regions in transition on this server    */
 specifier|public
 name|List
 argument_list|<
@@ -8518,8 +8726,8 @@ argument_list|>
 name|processServerShutdown
 parameter_list|(
 specifier|final
-name|HServerInfo
-name|hsi
+name|ServerName
+name|sn
 parameter_list|)
 block|{
 comment|// Clean out any existing assignment plans for this server
@@ -8589,7 +8797,7 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
-name|hsi
+name|sn
 argument_list|)
 condition|)
 block|{
@@ -8645,7 +8853,7 @@ name|servers
 operator|.
 name|remove
 argument_list|(
-name|hsi
+name|sn
 argument_list|)
 decl_stmt|;
 if|if
@@ -8743,14 +8951,14 @@ return|return
 name|rits
 return|;
 block|}
-comment|/**    * Update inmemory structures.    * @param hsi Server that reported the split    * @param parent Parent region that was split    * @param a Daughter region A    * @param b Daughter region B    */
+comment|/**    * Update inmemory structures.    * @param sn Server that reported the split    * @param parent Parent region that was split    * @param a Daughter region A    * @param b Daughter region B    */
 specifier|public
 name|void
 name|handleSplitReport
 parameter_list|(
 specifier|final
-name|HServerInfo
-name|hsi
+name|ServerName
+name|sn
 parameter_list|,
 specifier|final
 name|HRegionInfo
@@ -8774,14 +8982,14 @@ name|regionOnline
 argument_list|(
 name|a
 argument_list|,
-name|hsi
+name|sn
 argument_list|)
 expr_stmt|;
 name|regionOnline
 argument_list|(
 name|b
 argument_list|,
-name|hsi
+name|sn
 argument_list|)
 expr_stmt|;
 comment|// There's a possibility that the region was splitting while a user asked
@@ -8821,7 +9029,7 @@ block|}
 comment|/**    * @return A clone of current assignments. Note, this is assignments only.    * If a new server has come in and it has no regions, it will not be included    * in the returned Map.    */
 name|Map
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -8837,7 +9045,7 @@ comment|// wants to iterate this exported list.  We need to synchronize on regio
 comment|// since all access to this.servers is under a lock on this.regions.
 name|Map
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -8860,7 +9068,7 @@ operator|=
 operator|new
 name|HashMap
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -8882,7 +9090,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -8899,12 +9107,15 @@ name|entrySet
 argument_list|()
 control|)
 block|{
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-name|shallowCopy
-init|=
+name|result
+operator|.
+name|put
+argument_list|(
+name|e
+operator|.
+name|getKey
+argument_list|()
+argument_list|,
 operator|new
 name|ArrayList
 argument_list|<
@@ -8916,44 +9127,6 @@ operator|.
 name|getValue
 argument_list|()
 argument_list|)
-decl_stmt|;
-name|HServerInfo
-name|clone
-init|=
-operator|new
-name|HServerInfo
-argument_list|(
-name|e
-operator|.
-name|getKey
-argument_list|()
-argument_list|)
-decl_stmt|;
-comment|// Set into server load the number of regions this server is carrying
-comment|// The load balancer calculation needs it at least and its handy.
-name|clone
-operator|.
-name|getLoad
-argument_list|()
-operator|.
-name|setNumberOfRegions
-argument_list|(
-name|e
-operator|.
-name|getValue
-argument_list|()
-operator|.
-name|size
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|result
-operator|.
-name|put
-argument_list|(
-name|clone
-argument_list|,
-name|shallowCopy
 argument_list|)
 expr_stmt|;
 block|}
@@ -8962,12 +9135,12 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * @param encodedRegionName Region encoded name.    * @return Null or a {@link Pair} instance that holds the full {@link HRegionInfo}    * and the hosting servers {@link HServerInfo}.    */
+comment|/**    * @param encodedRegionName Region encoded name.    * @return Null or a {@link Pair} instance that holds the full {@link HRegionInfo}    * and the hosting servers {@link ServerName}.    */
 name|Pair
 argument_list|<
 name|HRegionInfo
 argument_list|,
-name|HServerInfo
+name|ServerName
 argument_list|>
 name|getAssignment
 parameter_list|(
@@ -9002,7 +9175,7 @@ name|Entry
 argument_list|<
 name|HRegionInfo
 argument_list|,
-name|HServerInfo
+name|ServerName
 argument_list|>
 name|e
 range|:
@@ -9036,7 +9209,7 @@ name|Pair
 argument_list|<
 name|HRegionInfo
 argument_list|,
-name|HServerInfo
+name|ServerName
 argument_list|>
 argument_list|(
 name|e
@@ -9097,75 +9270,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param hsi    * @return True if this server is carrying a catalog region, a region from    * -ROOT- or .META. table.    */
-name|boolean
-name|isMetaRegionServer
-parameter_list|(
-specifier|final
-name|HServerInfo
-name|hsi
-parameter_list|)
-block|{
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|regions
-init|)
-block|{
-name|List
-argument_list|<
-name|HRegionInfo
-argument_list|>
-name|regions
-init|=
-name|this
-operator|.
-name|servers
-operator|.
-name|get
-argument_list|(
-name|hsi
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|regions
-operator|==
-literal|null
-operator|||
-name|regions
-operator|.
-name|isEmpty
-argument_list|()
-condition|)
-return|return
-literal|false
-return|;
-for|for
-control|(
-name|HRegionInfo
-name|hri
-range|:
-name|regions
-control|)
-block|{
-if|if
-condition|(
-name|hri
-operator|.
-name|isMetaRegion
-argument_list|()
-condition|)
-return|return
-literal|true
-return|;
-block|}
-block|}
-return|return
-literal|false
-return|;
-block|}
 comment|/**    * Run through remaining regionservers and unassign all catalog regions.    */
 name|void
 name|unassignCatalogRegions
@@ -9191,7 +9295,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -9269,7 +9373,7 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|>
 name|servers
 parameter_list|,
@@ -9282,7 +9386,7 @@ name|IOException
 block|{
 name|Map
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|,
 name|List
 argument_list|<
@@ -9295,7 +9399,12 @@ name|LoadBalancer
 operator|.
 name|roundRobinAssignment
 argument_list|(
+name|Arrays
+operator|.
+name|asList
+argument_list|(
 name|regions
+argument_list|)
 argument_list|,
 name|servers
 argument_list|)

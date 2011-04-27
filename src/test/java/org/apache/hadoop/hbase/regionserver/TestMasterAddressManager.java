@@ -105,7 +105,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerAddress
+name|MasterAddressTracker
 import|;
 end_import
 
@@ -119,7 +119,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|MasterAddressTracker
+name|ServerName
 import|;
 end_import
 
@@ -364,15 +364,20 @@ name|port
 init|=
 literal|1234
 decl_stmt|;
-name|HServerAddress
-name|dummyAddress
+name|ServerName
+name|sn
 init|=
 operator|new
-name|HServerAddress
+name|ServerName
 argument_list|(
 name|host
 argument_list|,
 name|port
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|LOG
@@ -384,7 +389,7 @@ argument_list|)
 expr_stmt|;
 name|ZKUtil
 operator|.
-name|setAddressAndWatch
+name|createEphemeralNodeAndWatch
 argument_list|(
 name|zk
 argument_list|,
@@ -392,7 +397,10 @@ name|zk
 operator|.
 name|masterAddressZNode
 argument_list|,
-name|dummyAddress
+name|sn
+operator|.
+name|getBytes
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Wait for the node to be created
@@ -423,7 +431,7 @@ name|hasMaster
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HServerAddress
+name|ServerName
 name|pulledAddress
 init|=
 name|addressManager
@@ -437,7 +445,7 @@ name|pulledAddress
 operator|.
 name|equals
 argument_list|(
-name|dummyAddress
+name|sn
 argument_list|)
 argument_list|)
 expr_stmt|;

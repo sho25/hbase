@@ -79,6 +79,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|executor
 operator|.
 name|RegionTransitionData
@@ -275,7 +289,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|String
+name|ServerName
 name|serverName
 parameter_list|)
 throws|throws
@@ -310,7 +324,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|String
+name|ServerName
 name|serverName
 parameter_list|,
 specifier|final
@@ -418,7 +432,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|String
+name|ServerName
 name|serverName
 parameter_list|,
 specifier|final
@@ -534,7 +548,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|String
+name|ServerName
 name|serverName
 parameter_list|)
 throws|throws
@@ -640,7 +654,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|String
+name|ServerName
 name|serverName
 parameter_list|)
 throws|throws
@@ -1246,7 +1260,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|String
+name|ServerName
 name|serverName
 parameter_list|)
 throws|throws
@@ -1353,7 +1367,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|String
+name|ServerName
 name|serverName
 parameter_list|,
 name|int
@@ -1395,7 +1409,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|String
+name|ServerName
 name|serverName
 parameter_list|)
 throws|throws
@@ -1427,7 +1441,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|String
+name|ServerName
 name|serverName
 parameter_list|,
 specifier|final
@@ -1469,7 +1483,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|String
+name|ServerName
 name|serverName
 parameter_list|,
 name|int
@@ -1511,7 +1525,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|String
+name|ServerName
 name|serverName
 parameter_list|,
 name|int
@@ -1553,7 +1567,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|String
+name|ServerName
 name|serverName
 parameter_list|,
 name|EventType
@@ -1598,7 +1612,7 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|,
-name|String
+name|ServerName
 name|serverName
 parameter_list|,
 name|EventType
@@ -1837,10 +1851,7 @@ argument_list|()
 operator|+
 literal|" set by the server "
 operator|+
-name|existingData
-operator|.
-name|getServerName
-argument_list|()
+name|serverName
 argument_list|)
 argument_list|)
 expr_stmt|;

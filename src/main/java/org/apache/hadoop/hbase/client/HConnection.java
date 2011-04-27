@@ -31,6 +31,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|net
+operator|.
+name|InetSocketAddress
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|List
@@ -452,7 +462,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Establishes a connection to the region server at the specified address.    * @param regionServer - the server to connect to    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Establishes a connection to the region server at the specified address.    * @param regionServer - the server to connect to    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    * @deprecated Use {@link #getHRegionConnection(InetSocketAddress)}    */
 specifier|public
 name|HRegionInterface
 name|getHRegionConnection
@@ -463,13 +473,48 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Establishes a connection to the region server at the specified address.    * @param regionServer - the server to connect to    * @param getMaster - do we check if master is alive    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Establishes a connection to the region server at the specified address.    * @param hostname RegionServer hostname    * @param port RegionServer port    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    *    */
+specifier|public
+name|HRegionInterface
+name|getHRegionConnection
+parameter_list|(
+specifier|final
+name|String
+name|hostname
+parameter_list|,
+specifier|final
+name|int
+name|port
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Establishes a connection to the region server at the specified address.    * @param regionServer - the server to connect to    * @param getMaster - do we check if master is alive    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    * @deprecated Use {@link #getHRegionConnection(HServerAddress, boolean)}    */
 specifier|public
 name|HRegionInterface
 name|getHRegionConnection
 parameter_list|(
 name|HServerAddress
 name|regionServer
+parameter_list|,
+name|boolean
+name|getMaster
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Establishes a connection to the region server at the specified address.    * @param hostname RegionServer hostname    * @param port RegionServer port    * @param getMaster - do we check if master is alive    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    */
+specifier|public
+name|HRegionInterface
+name|getHRegionConnection
+parameter_list|(
+specifier|final
+name|String
+name|hostname
+parameter_list|,
+specifier|final
+name|int
+name|port
 parameter_list|,
 name|boolean
 name|getMaster
@@ -728,7 +773,7 @@ argument_list|>
 name|regions
 parameter_list|)
 function_decl|;
-comment|/**    * Scan zookeeper to get the number of region servers    * @return the number of region servers that are currently running    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Scan zookeeper to get the number of region servers    * @return the number of region servers that are currently running    * @throws IOException if a remote or network exception occurs    * @deprecated This method will be changed from public to package protected.    */
 specifier|public
 name|int
 name|getCurrentNrHRS

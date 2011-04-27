@@ -83,7 +83,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerAddress
+name|ServerName
 import|;
 end_import
 
@@ -225,13 +225,20 @@ block|}
 block|}
 argument_list|)
 decl_stmt|;
-name|HServerAddress
+name|ServerName
 name|nonsense
 init|=
 operator|new
-name|HServerAddress
+name|ServerName
 argument_list|(
-literal|"example.org:1234"
+literal|"example.org"
+argument_list|,
+literal|1234
+argument_list|,
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|RootLocationEditor

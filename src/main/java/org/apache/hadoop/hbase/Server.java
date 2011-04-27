@@ -92,9 +92,9 @@ name|CatalogTracker
 name|getCatalogTracker
 parameter_list|()
 function_decl|;
-comment|/**    * Gets the unique server name for this server.    * If a RegionServer, it returns a concatenation of hostname, port and    * startcode formatted as<code>&lt;hostname> ','&lt;port> ','&lt;startcode></code>.    * If the master, it returns<code>&lt;hostname> ':'&lt;port>'.    * @return unique server name    */
+comment|/**    * @return The unique server name for this server.    */
 specifier|public
-name|String
+name|ServerName
 name|getServerName
 parameter_list|()
 function_decl|;

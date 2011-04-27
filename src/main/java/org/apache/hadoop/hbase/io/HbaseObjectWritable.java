@@ -281,20 +281,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HMsg
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -324,6 +310,20 @@ operator|.
 name|hbase
 operator|.
 name|HServerInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HServerLoad
 import|;
 end_import
 
@@ -1359,9 +1359,13 @@ name|code
 operator|++
 argument_list|)
 expr_stmt|;
+comment|// We used to have a class named HMsg but its been removed.  Rather than
+comment|// just axe it, use following random Integer class -- we just chose any
+comment|// class from java.lang -- instead just so codes that follow stay
+comment|// in same relative place.
 name|addToMap
 argument_list|(
-name|HMsg
+name|Integer
 operator|.
 name|class
 argument_list|,
@@ -1371,7 +1375,7 @@ argument_list|)
 expr_stmt|;
 name|addToMap
 argument_list|(
-name|HMsg
+name|Integer
 index|[]
 operator|.
 expr|class
@@ -1940,6 +1944,16 @@ expr_stmt|;
 name|addToMap
 argument_list|(
 name|ColumnRangeFilter
+operator|.
+name|class
+argument_list|,
+name|code
+operator|++
+argument_list|)
+expr_stmt|;
+name|addToMap
+argument_list|(
+name|HServerLoad
 operator|.
 name|class
 argument_list|,

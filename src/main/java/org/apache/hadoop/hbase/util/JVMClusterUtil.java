@@ -757,7 +757,7 @@ name|t
 operator|.
 name|master
 operator|.
-name|getMasterAddress
+name|getServerName
 argument_list|()
 operator|.
 name|toString

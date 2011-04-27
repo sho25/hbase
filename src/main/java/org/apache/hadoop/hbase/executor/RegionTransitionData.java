@@ -57,6 +57,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|executor
 operator|.
 name|EventHandler
@@ -135,8 +149,8 @@ name|regionName
 decl_stmt|;
 comment|/** Server event originated from.  Optional. */
 specifier|private
-name|String
-name|serverName
+name|ServerName
+name|origin
 decl_stmt|;
 comment|/** Time the event was created.  Required but automatically set. */
 specifier|private
@@ -175,7 +189,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct data for a new region transition event with the specified event    * type, region name, and server name.    *    *<p>Used when the server name is known (a regionserver is setting it).    *    *<p>Valid types for this constructor are {@link EventType#RS_ZK_REGION_CLOSING},    * {@link EventType#RS_ZK_REGION_CLOSED}, {@link EventType#RS_ZK_REGION_OPENING},    * {@link EventType#RS_ZK_REGION_SPLITTING},    * and {@link EventType#RS_ZK_REGION_OPENED}.    *    * @param eventType type of event    * @param regionName name of region as per<code>HRegionInfo#getRegionName()</code>    * @param serverName name of server setting data    */
+comment|/**    * Construct data for a new region transition event with the specified event    * type, region name, and server name.    *    *<p>Used when the server name is known (a regionserver is setting it).    *    *<p>Valid types for this constructor are {@link EventType#RS_ZK_REGION_CLOSING},    * {@link EventType#RS_ZK_REGION_CLOSED}, {@link EventType#RS_ZK_REGION_OPENING},    * {@link EventType#RS_ZK_REGION_SPLITTING},    * and {@link EventType#RS_ZK_REGION_OPENED}.    *    * @param eventType type of event    * @param regionName name of region as per<code>HRegionInfo#getRegionName()</code>    * @param origin Originating {@link ServerName}    */
 specifier|public
 name|RegionTransitionData
 parameter_list|(
@@ -186,8 +200,9 @@ name|byte
 index|[]
 name|regionName
 parameter_list|,
-name|String
-name|serverName
+specifier|final
+name|ServerName
+name|origin
 parameter_list|)
 block|{
 name|this
@@ -196,13 +211,13 @@ name|eventType
 argument_list|,
 name|regionName
 argument_list|,
-name|serverName
+name|origin
 argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct data for a new region transition event with the specified event    * type, region name, and server name.    *    *<p>Used when the server name is known (a regionserver is setting it).    *    *<p>Valid types for this constructor are {@link EventType#RS_ZK_REGION_SPLIT}    * since SPLIT is only type that currently carries a payload.    *    * @param eventType type of event    * @param regionName name of region as per<code>HRegionInfo#getRegionName()</code>    * @param serverName name of server setting data    * @param payload Payload examples include the daughters involved in a    * {@link EventType#RS_ZK_REGION_SPLIT}. Can be null    */
+comment|/**    * Construct data for a new region transition event with the specified event    * type, region name, and server name.    *    *<p>Used when the server name is known (a regionserver is setting it).    *    *<p>Valid types for this constructor are {@link EventType#RS_ZK_REGION_SPLIT}    * since SPLIT is only type that currently carries a payload.    *    * @param eventType type of event    * @param regionName name of region as per<code>HRegionInfo#getRegionName()</code>    * @param origin Originating {@link ServerName}    * @param payload Payload examples include the daughters involved in a    * {@link EventType#RS_ZK_REGION_SPLIT}. Can be null    */
 specifier|public
 name|RegionTransitionData
 parameter_list|(
@@ -213,7 +228,8 @@ name|byte
 index|[]
 name|regionName
 parameter_list|,
-name|String
+specifier|final
+name|ServerName
 name|serverName
 parameter_list|,
 specifier|final
@@ -245,7 +261,7 @@ name|regionName
 expr_stmt|;
 name|this
 operator|.
-name|serverName
+name|origin
 operator|=
 name|serverName
 expr_stmt|;
@@ -279,12 +295,12 @@ return|;
 block|}
 comment|/**    * Gets the server the event originated from.  If null, this event originated    * from the master.    *    * @return server name of originating regionserver, or null if from master    */
 specifier|public
-name|String
-name|getServerName
+name|ServerName
+name|getOrigin
 parameter_list|()
 block|{
 return|return
-name|serverName
+name|origin
 return|;
 block|}
 comment|/**    * Gets the timestamp when this event was created.    *    * @return stamp event was created    */
@@ -364,19 +380,18 @@ name|readBoolean
 argument_list|()
 condition|)
 block|{
-name|serverName
+name|this
+operator|.
+name|origin
 operator|=
+operator|new
+name|ServerName
+argument_list|(
 name|in
 operator|.
 name|readUTF
 argument_list|()
-expr_stmt|;
-block|}
-else|else
-block|{
-name|serverName
-operator|=
-literal|null
+argument_list|)
 expr_stmt|;
 block|}
 if|if
@@ -446,14 +461,18 @@ name|out
 operator|.
 name|writeBoolean
 argument_list|(
-name|serverName
+name|this
+operator|.
+name|origin
 operator|!=
 literal|null
 argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|serverName
+name|this
+operator|.
+name|origin
 operator|!=
 literal|null
 condition|)
@@ -462,7 +481,12 @@ name|out
 operator|.
 name|writeUTF
 argument_list|(
-name|serverName
+name|this
+operator|.
+name|origin
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -597,9 +621,11 @@ argument_list|(
 name|regionName
 argument_list|)
 operator|+
-literal|", server="
+literal|", origin="
 operator|+
-name|serverName
+name|this
+operator|.
+name|origin
 operator|+
 literal|", state="
 operator|+

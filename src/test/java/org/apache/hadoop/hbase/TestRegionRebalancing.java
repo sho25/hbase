@@ -47,6 +47,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -70,6 +80,70 @@ operator|.
 name|logging
 operator|.
 name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|catalog
+operator|.
+name|CatalogTracker
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|catalog
+operator|.
+name|MetaReader
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|HConnection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|HConnectionManager
 import|;
 end_import
 
@@ -166,22 +240,6 @@ operator|.
 name|util
 operator|.
 name|JVMClusterUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Threads
 import|;
 end_import
 
@@ -463,14 +521,81 @@ name|closeRootAndMeta
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * For HBASE-71. Try a few different configurations of starting and stopping    * region servers to see if the assignment or regions is pretty balanced.    * @throws IOException    */
+comment|/**    * For HBASE-71. Try a few different configurations of starting and stopping    * region servers to see if the assignment or regions is pretty balanced.    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 name|void
 name|testRebalancing
 parameter_list|()
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
+name|HConnection
+name|connection
+init|=
+name|HConnectionManager
+operator|.
+name|getConnection
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
+name|CatalogTracker
+name|ct
+init|=
+operator|new
+name|CatalogTracker
+argument_list|(
+name|connection
+argument_list|)
+decl_stmt|;
+name|ct
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
+name|Map
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|ServerName
+argument_list|>
+name|regions
+init|=
+name|MetaReader
+operator|.
+name|fullScan
+argument_list|(
+name|ct
+argument_list|)
+decl_stmt|;
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|ServerName
+argument_list|>
+name|e
+range|:
+name|regions
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 name|table
 operator|=
 operator|new
@@ -499,19 +624,12 @@ comment|// verify that the region assignments are balanced to start out
 name|assertRegionsAreBalanced
 argument_list|()
 expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Adding 2nd region server."
-argument_list|)
-expr_stmt|;
 comment|// add a region server - total of 2
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Started="
+literal|"Started second server="
 operator|+
 name|cluster
 operator|.
@@ -539,16 +657,9 @@ expr_stmt|;
 comment|// add a region server - total of 3
 name|LOG
 operator|.
-name|debug
-argument_list|(
-literal|"Adding 3rd region server."
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
 name|info
 argument_list|(
-literal|"Started="
+literal|"Started third server="
 operator|+
 name|cluster
 operator|.
@@ -576,16 +687,9 @@ expr_stmt|;
 comment|// kill a region server - total of 2
 name|LOG
 operator|.
-name|debug
-argument_list|(
-literal|"Killing the 3rd region server."
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
 name|info
 argument_list|(
-literal|"Stopped="
+literal|"Stopped third server="
 operator|+
 name|cluster
 operator|.
@@ -618,16 +722,9 @@ expr_stmt|;
 comment|// start two more region servers - total of 4
 name|LOG
 operator|.
-name|debug
-argument_list|(
-literal|"Adding 3rd region server"
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
 name|info
 argument_list|(
-literal|"Started="
+literal|"Readding third server="
 operator|+
 name|cluster
 operator|.
@@ -643,16 +740,9 @@ argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
-name|debug
-argument_list|(
-literal|"Adding 4th region server"
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
 name|info
 argument_list|(
-literal|"Started="
+literal|"Added fourth server="
 operator|+
 name|cluster
 operator|.
@@ -694,7 +784,7 @@ control|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Adding "
 operator|+
@@ -842,9 +932,6 @@ init|=
 name|cluster
 operator|.
 name|getMaster
-argument_list|()
-operator|.
-name|getServerManager
 argument_list|()
 operator|.
 name|getAverageLoad

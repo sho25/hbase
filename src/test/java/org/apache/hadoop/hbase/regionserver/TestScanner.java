@@ -161,20 +161,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerAddress
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -1593,14 +1579,10 @@ name|getRegionInfo
 argument_list|()
 expr_stmt|;
 comment|// Store some new information
-name|HServerAddress
+name|String
 name|address
 init|=
-operator|new
-name|HServerAddress
-argument_list|(
 literal|"foo.bar.com:1234"
-argument_list|)
 decl_stmt|;
 name|put
 operator|=
@@ -1634,9 +1616,6 @@ operator|.
 name|toBytes
 argument_list|(
 name|address
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1721,11 +1700,7 @@ expr_stmt|;
 comment|// Now update the information again
 name|address
 operator|=
-operator|new
-name|HServerAddress
-argument_list|(
 literal|"bar.foo.com:4321"
-argument_list|)
 expr_stmt|;
 name|put
 operator|=
@@ -1759,9 +1734,6 @@ operator|.
 name|toBytes
 argument_list|(
 name|address
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;

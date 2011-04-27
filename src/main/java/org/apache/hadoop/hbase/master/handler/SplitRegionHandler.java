@@ -81,7 +81,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerInfo
+name|Server
 import|;
 end_import
 
@@ -95,7 +95,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Server
+name|ServerName
 import|;
 end_import
 
@@ -199,8 +199,8 @@ name|parent
 decl_stmt|;
 specifier|private
 specifier|final
-name|HServerInfo
-name|serverInfo
+name|ServerName
+name|sn
 decl_stmt|;
 specifier|private
 specifier|final
@@ -230,8 +230,8 @@ parameter_list|,
 name|HRegionInfo
 name|regionInfo
 parameter_list|,
-name|HServerInfo
-name|serverInfo
+name|ServerName
+name|sn
 parameter_list|,
 specifier|final
 name|List
@@ -264,9 +264,9 @@ name|regionInfo
 expr_stmt|;
 name|this
 operator|.
-name|serverInfo
+name|sn
 operator|=
-name|serverInfo
+name|sn
 expr_stmt|;
 name|this
 operator|.
@@ -335,7 +335,7 @@ name|handleSplitReport
 argument_list|(
 name|this
 operator|.
-name|serverInfo
+name|sn
 argument_list|,
 name|this
 operator|.

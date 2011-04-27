@@ -171,7 +171,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerAddress
+name|ServerName
 import|;
 end_import
 
@@ -835,7 +835,7 @@ name|Pair
 argument_list|<
 name|HRegionInfo
 argument_list|,
-name|HServerAddress
+name|ServerName
 argument_list|>
 name|pair
 init|=

@@ -55,7 +55,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerAddress
+name|ServerName
 import|;
 end_import
 
@@ -188,7 +188,7 @@ block|{
 comment|// Has already been deleted
 block|}
 block|}
-comment|/**    * Sets the location of<code>-ROOT-</code> in ZooKeeper to the    * specified server address.    * @param zookeeper zookeeper reference    * @param location server address hosting root    * @throws KeeperException unexpected zookeeper exception    */
+comment|/**    * Sets the location of<code>-ROOT-</code> in ZooKeeper to the    * specified server address.    * @param zookeeper zookeeper reference    * @param location The server hosting<code>-ROOT-</code>    * @throws KeeperException unexpected zookeeper exception    */
 specifier|public
 specifier|static
 name|void
@@ -197,7 +197,8 @@ parameter_list|(
 name|ZooKeeperWatcher
 name|zookeeper
 parameter_list|,
-name|HServerAddress
+specifier|final
+name|ServerName
 name|location
 parameter_list|)
 throws|throws

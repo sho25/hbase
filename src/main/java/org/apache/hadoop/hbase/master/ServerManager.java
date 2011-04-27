@@ -31,6 +31,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|net
+operator|.
+name|InetAddress
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -165,20 +175,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HMsg
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionInfo
 import|;
 end_import
@@ -194,20 +190,6 @@ operator|.
 name|hbase
 operator|.
 name|HServerAddress
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HServerInfo
 import|;
 end_import
 
@@ -250,6 +232,20 @@ operator|.
 name|hbase
 operator|.
 name|Server
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ServerName
 import|;
 end_import
 
@@ -383,44 +379,8 @@ name|ServerShutdownHandler
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|metrics
-operator|.
-name|MasterMetrics
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|Leases
-operator|.
-name|LeaseStillHeldException
-import|;
-end_import
-
 begin_comment
-comment|/**  * The ServerManager class manages info about region servers - HServerInfo,  * load numbers, dying servers, etc.  *<p>  * Maintains lists of online and dead servers.  Processes the startups,  * shutdowns, and deaths of region servers.  *<p>  * Servers are distinguished in two different ways.  A given server has a  * location, specified by hostname and port, and of which there can only be one  * online at any given time.  A server instance is specified by the location  * (hostname and port) as well as the startcode (timestamp from when the server  * was started).  This is used to differentiate a restarted instance of a given  * server from the original instance.  */
+comment|/**  * The ServerManager class manages info about region servers.  *<p>  * Maintains lists of online and dead servers.  Processes the startups,  * shutdowns, and deaths of region servers.  *<p>  * Servers are distinguished in two different ways.  A given server has a  * location, specified by hostname and port, and of which there can only be one  * online at any given time.  A server instance is specified by the location  * (hostname and port) as well as the startcode (timestamp from when the server  * was started).  This is used to differentiate a restarted instance of a given  * server from the original instance.  */
 end_comment
 
 begin_class
@@ -451,23 +411,23 @@ name|clusterShutdown
 init|=
 literal|false
 decl_stmt|;
-comment|/** The map of known server names to server info */
+comment|/** Map of registered servers to their current load */
 specifier|private
 specifier|final
 name|Map
 argument_list|<
-name|String
+name|ServerName
 argument_list|,
-name|HServerInfo
+name|HServerLoad
 argument_list|>
 name|onlineServers
 init|=
 operator|new
 name|ConcurrentHashMap
 argument_list|<
-name|String
+name|ServerName
 argument_list|,
-name|HServerInfo
+name|HServerLoad
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -477,7 +437,7 @@ specifier|private
 specifier|final
 name|Map
 argument_list|<
-name|String
+name|ServerName
 argument_list|,
 name|HRegionInterface
 argument_list|>
@@ -486,7 +446,7 @@ init|=
 operator|new
 name|HashMap
 argument_list|<
-name|String
+name|ServerName
 argument_list|,
 name|HRegionInterface
 argument_list|>
@@ -501,12 +461,6 @@ specifier|private
 specifier|final
 name|MasterServices
 name|services
-decl_stmt|;
-comment|// Reporting to track master metrics.
-specifier|private
-specifier|final
-name|MasterMetrics
-name|metrics
 decl_stmt|;
 specifier|private
 specifier|final
@@ -518,7 +472,7 @@ specifier|final
 name|long
 name|maxSkew
 decl_stmt|;
-comment|/**    * Constructor.    * @param master    * @param services    * @param metrics    */
+comment|/**    * Constructor.    * @param master    * @param services    */
 specifier|public
 name|ServerManager
 parameter_list|(
@@ -529,9 +483,6 @@ parameter_list|,
 specifier|final
 name|MasterServices
 name|services
-parameter_list|,
-name|MasterMetrics
-name|metrics
 parameter_list|)
 block|{
 name|this
@@ -545,12 +496,6 @@ operator|.
 name|services
 operator|=
 name|services
-expr_stmt|;
-name|this
-operator|.
-name|metrics
-operator|=
-name|metrics
 expr_stmt|;
 name|Configuration
 name|c
@@ -577,25 +522,24 @@ name|deadservers
 operator|=
 operator|new
 name|DeadServer
-argument_list|(
-name|c
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.master.maxdeadservers"
-argument_list|,
-literal|100
-argument_list|)
-argument_list|)
+argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Let the server manager know a new regionserver has come online    * @param serverInfo    * @param serverCurrentTime The current time of the region server in ms    * @throws IOException    */
+comment|/**    * Let the server manager know a new regionserver has come online    * @param ia The remote address    * @param port The remote port    * @param serverStartcode    * @param serverCurrentTime The current time of the region server in ms    * @throws IOException    */
 name|void
 name|regionServerStartup
 parameter_list|(
 specifier|final
-name|HServerInfo
-name|serverInfo
+name|InetAddress
+name|ia
+parameter_list|,
+specifier|final
+name|int
+name|port
+parameter_list|,
+specifier|final
+name|long
+name|serverStartcode
 parameter_list|,
 name|long
 name|serverCurrentTime
@@ -610,78 +554,141 @@ comment|// Test its host+port combo is present in serverAddresstoServerInfo.  If
 comment|// is, reject the server and trigger its expiration. The next time it comes
 comment|// in, it should have been removed from serverAddressToServerInfo and queued
 comment|// for processing by ProcessServerShutdown.
-name|HServerInfo
-name|info
+name|ServerName
+name|sn
 init|=
 operator|new
-name|HServerInfo
+name|ServerName
 argument_list|(
-name|serverInfo
+name|ia
+operator|.
+name|getHostName
+argument_list|()
+argument_list|,
+name|port
+argument_list|,
+name|serverStartcode
 argument_list|)
 decl_stmt|;
+name|checkClockSkew
+argument_list|(
+name|sn
+argument_list|,
+name|serverCurrentTime
+argument_list|)
+expr_stmt|;
 name|checkIsDead
 argument_list|(
-name|info
-operator|.
-name|getServerName
-argument_list|()
+name|sn
 argument_list|,
 literal|"STARTUP"
 argument_list|)
 expr_stmt|;
 name|checkAlreadySameHostPort
 argument_list|(
-name|info
-argument_list|)
-expr_stmt|;
-name|checkClockSkew
-argument_list|(
-name|info
-argument_list|,
-name|serverCurrentTime
+name|sn
 argument_list|)
 expr_stmt|;
 name|recordNewServer
 argument_list|(
-name|info
+name|sn
 argument_list|,
-literal|false
-argument_list|,
-literal|null
+name|HServerLoad
+operator|.
+name|EMPTY_HSERVERLOAD
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test to see if we have a server of same host and port already.    * @param serverInfo    * @throws PleaseHoldException    */
+name|void
+name|regionServerReport
+parameter_list|(
+name|ServerName
+name|sn
+parameter_list|,
+name|HServerLoad
+name|hsl
+parameter_list|)
+throws|throws
+name|YouAreDeadException
+throws|,
+name|PleaseHoldException
+block|{
+name|checkIsDead
+argument_list|(
+name|sn
+argument_list|,
+literal|"REPORT"
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|onlineServers
+operator|.
+name|containsKey
+argument_list|(
+name|sn
+argument_list|)
+condition|)
+block|{
+comment|// Already have this host+port combo and its just different start code?
+name|checkAlreadySameHostPort
+argument_list|(
+name|sn
+argument_list|)
+expr_stmt|;
+comment|// Just let the server in. Presume master joining a running cluster.
+comment|// recordNewServer is what happens at the end of reportServerStartup.
+comment|// The only thing we are skipping is passing back to the regionserver
+comment|// the ServerName to use. Here we presume a master has already done
+comment|// that so we'll press on with whatever it gave us for ServerName.
+name|recordNewServer
+argument_list|(
+name|sn
+argument_list|,
+name|hsl
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|this
+operator|.
+name|onlineServers
+operator|.
+name|put
+argument_list|(
+name|sn
+argument_list|,
+name|hsl
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|/**    * Test to see if we have a server of same host and port already.    * @param serverName    * @throws PleaseHoldException    */
 name|void
 name|checkAlreadySameHostPort
 parameter_list|(
 specifier|final
-name|HServerInfo
-name|serverInfo
+name|ServerName
+name|serverName
 parameter_list|)
 throws|throws
 name|PleaseHoldException
 block|{
-name|String
-name|hostAndPort
-init|=
-name|serverInfo
-operator|.
-name|getServerAddress
-argument_list|()
-operator|.
-name|toString
-argument_list|()
-decl_stmt|;
-name|HServerInfo
+name|ServerName
 name|existingServer
 init|=
-name|haveServerWithSameHostAndPortAlready
-argument_list|(
-name|serverInfo
+name|ServerName
 operator|.
-name|getHostnamePort
+name|findServerWithSameHostnamePort
+argument_list|(
+name|getOnlineServersList
 argument_list|()
+argument_list|,
+name|serverName
 argument_list|)
 decl_stmt|;
 if|if
@@ -694,17 +701,18 @@ block|{
 name|String
 name|message
 init|=
-literal|"Server start rejected; we already have "
+literal|"Server serverName="
 operator|+
-name|hostAndPort
+name|serverName
 operator|+
-literal|" registered; existingServer="
+literal|" rejected; we already have "
 operator|+
 name|existingServer
+operator|.
+name|toString
+argument_list|()
 operator|+
-literal|", newServer="
-operator|+
-name|serverInfo
+literal|" registered with same hostname and port"
 decl_stmt|;
 name|LOG
 operator|.
@@ -717,12 +725,12 @@ if|if
 condition|(
 name|existingServer
 operator|.
-name|getStartCode
+name|getStartcode
 argument_list|()
 operator|<
-name|serverInfo
+name|serverName
 operator|.
-name|getStartCode
+name|getStartcode
 argument_list|()
 condition|)
 block|{
@@ -733,9 +741,6 @@ argument_list|(
 literal|"Triggering server recovery; existingServer "
 operator|+
 name|existingServer
-operator|.
-name|getServerName
-argument_list|()
 operator|+
 literal|" looks stale"
 argument_list|)
@@ -755,79 +760,14 @@ argument_list|)
 throw|;
 block|}
 block|}
-specifier|private
-name|HServerInfo
-name|haveServerWithSameHostAndPortAlready
-parameter_list|(
-specifier|final
-name|String
-name|hostnamePort
-parameter_list|)
-block|{
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|onlineServers
-init|)
-block|{
-for|for
-control|(
-name|Map
-operator|.
-name|Entry
-argument_list|<
-name|String
-argument_list|,
-name|HServerInfo
-argument_list|>
-name|e
-range|:
-name|this
-operator|.
-name|onlineServers
-operator|.
-name|entrySet
-argument_list|()
-control|)
-block|{
-if|if
-condition|(
-name|e
-operator|.
-name|getValue
-argument_list|()
-operator|.
-name|getHostnamePort
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|hostnamePort
-argument_list|)
-condition|)
-block|{
-return|return
-name|e
-operator|.
-name|getValue
-argument_list|()
-return|;
-block|}
-block|}
-block|}
-return|return
-literal|null
-return|;
-block|}
-comment|/**    * Checks if the clock skew between the server and the master. If the clock    * skew is too much it will throw an Exception.    * @throws ClockOutOfSyncException    */
+comment|/**    * Checks if the clock skew between the server and the master. If the clock    * skew is too much it will throw an Exception.    * @param serverName Incoming servers's name    * @param serverCurrentTime    * @throws ClockOutOfSyncException    */
 specifier|private
 name|void
 name|checkClockSkew
 parameter_list|(
 specifier|final
-name|HServerInfo
-name|serverInfo
+name|ServerName
+name|serverName
 parameter_list|,
 specifier|final
 name|long
@@ -858,10 +798,7 @@ name|message
 init|=
 literal|"Server "
 operator|+
-name|serverInfo
-operator|.
-name|getServerName
-argument_list|()
+name|serverName
 operator|+
 literal|" has been "
 operator|+
@@ -893,13 +830,13 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * If this server is on the dead list, reject it with a YouAreDeadException.    * If it was dead but came back with a new start code, remove the old entry    * from the dead list.    * @param serverName Server name formatted as host_port_startcode.    * @param what START or REPORT    * @throws YouAreDeadException    */
+comment|/**    * If this server is on the dead list, reject it with a YouAreDeadException.    * If it was dead but came back with a new start code, remove the old entry    * from the dead list.    * @param serverName    * @param what START or REPORT    * @throws YouAreDeadException    */
 specifier|private
 name|void
 name|checkIsDead
 parameter_list|(
 specifier|final
-name|String
+name|ServerName
 name|serverName
 parameter_list|,
 specifier|final
@@ -980,42 +917,19 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Adds the HSI to the RS list    * @param info The region server informations    * @param useInfoLoad True if the load from the info should be used; e.g.    * under a master failover    * @param hri Region interface.  Can be null.    */
+comment|/**    * Adds the onlineServers list.    * @param hsl    * @param serverName The remote servers name.    */
 name|void
 name|recordNewServer
 parameter_list|(
-name|HServerInfo
-name|info
+specifier|final
+name|ServerName
+name|serverName
 parameter_list|,
-name|boolean
-name|useInfoLoad
-parameter_list|,
-name|HRegionInterface
-name|hri
+specifier|final
+name|HServerLoad
+name|hsl
 parameter_list|)
 block|{
-name|HServerLoad
-name|load
-init|=
-name|useInfoLoad
-condition|?
-name|info
-operator|.
-name|getLoad
-argument_list|()
-else|:
-operator|new
-name|HServerLoad
-argument_list|()
-decl_stmt|;
-name|String
-name|serverName
-init|=
-name|info
-operator|.
-name|getServerName
-argument_list|()
-decl_stmt|;
 name|LOG
 operator|.
 name|info
@@ -1023,31 +937,8 @@ argument_list|(
 literal|"Registering server="
 operator|+
 name|serverName
-operator|+
-literal|", regionCount="
-operator|+
-name|load
-operator|.
-name|getLoad
-argument_list|()
-operator|+
-literal|", userLoad="
-operator|+
-name|useInfoLoad
 argument_list|)
 expr_stmt|;
-name|info
-operator|.
-name|setLoad
-argument_list|(
-name|load
-argument_list|)
-expr_stmt|;
-comment|// TODO: Why did we update the RS location ourself?  Shouldn't RS do this?
-comment|// masterStatus.getZooKeeper().updateRSLocationGetWatch(info, watcher);
-comment|// -- If I understand the question, the RS does not update the location
-comment|// because could be disagreement over locations because of DNS issues; only
-comment|// master does DNS now -- St.Ack 20100929.
 name|this
 operator|.
 name|onlineServers
@@ -1056,16 +947,11 @@ name|put
 argument_list|(
 name|serverName
 argument_list|,
-name|info
+name|hsl
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|hri
-operator|==
-literal|null
-condition|)
-block|{
+name|this
+operator|.
 name|serverConnections
 operator|.
 name|remove
@@ -1074,423 +960,81 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
-else|else
-block|{
-name|serverConnections
-operator|.
-name|put
-argument_list|(
-name|serverName
-argument_list|,
-name|hri
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-comment|/**    * Called to process the messages sent from the region server to the master    * along with the heart beat.    *    * @param serverInfo    * @param msgs    * @param mostLoadedRegions Array of regions the region server is submitting    * as candidates to be rebalanced, should it be overloaded    * @return messages from master to region server indicating what region    * server should do.    *    * @throws IOException    */
-name|HMsg
-index|[]
-name|regionServerReport
+comment|/**    * @param serverName    * @return HServerLoad if serverName is known else null    */
+specifier|public
+name|HServerLoad
+name|getLoad
 parameter_list|(
 specifier|final
-name|HServerInfo
-name|serverInfo
-parameter_list|,
-specifier|final
-name|HMsg
-index|[]
-name|msgs
-parameter_list|,
-specifier|final
-name|HRegionInfo
-index|[]
-name|mostLoadedRegions
+name|ServerName
+name|serverName
 parameter_list|)
-throws|throws
-name|IOException
 block|{
-comment|// Be careful. This method does returns in the middle.
-name|HServerInfo
-name|info
-init|=
-operator|new
-name|HServerInfo
-argument_list|(
-name|serverInfo
-argument_list|)
-decl_stmt|;
-comment|// Check if dead.  If it is, it'll get a 'You Are Dead!' exception.
-name|checkIsDead
-argument_list|(
-name|info
-operator|.
-name|getServerName
-argument_list|()
-argument_list|,
-literal|"REPORT"
-argument_list|)
-expr_stmt|;
-comment|// If we don't know this server, tell it shutdown.
-name|HServerInfo
-name|storedInfo
-init|=
+return|return
 name|this
 operator|.
 name|onlineServers
 operator|.
 name|get
 argument_list|(
-name|info
+name|serverName
 operator|.
-name|getServerName
+name|toString
 argument_list|()
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|storedInfo
-operator|==
-literal|null
-condition|)
-block|{
-comment|// Maybe we already have this host+port combo and its just different
-comment|// start code?
-name|checkAlreadySameHostPort
-argument_list|(
-name|info
-argument_list|)
-expr_stmt|;
-comment|// Just let the server in. Presume master joining a running cluster.
-comment|// recordNewServer is what happens at the end of reportServerStartup.
-comment|// The only thing we are skipping is passing back to the regionserver
-comment|// the HServerInfo to use. Here we presume a master has already done
-comment|// that so we'll press on with whatever it gave us for HSI.
-name|recordNewServer
-argument_list|(
-name|info
-argument_list|,
-literal|true
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
-comment|// If msgs, put off their processing but this is not enough because
-comment|// its possible that the next time the server reports in, we'll still
-comment|// not be up and serving. For example, if a split, we'll need the
-comment|// regions and servers setup in the master before the below
-comment|// handleSplitReport will work. TODO: FIx!!
-if|if
-condition|(
-name|msgs
-operator|.
-name|length
-operator|>
-literal|0
-condition|)
-throw|throw
-operator|new
-name|PleaseHoldException
-argument_list|(
-literal|"FIX! Putting off "
-operator|+
-literal|"message processing because not yet rwady but possible we won't be "
-operator|+
-literal|"ready next on next report"
-argument_list|)
-throw|;
-block|}
-for|for
-control|(
-name|HMsg
-name|msg
-range|:
-name|msgs
-control|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Received "
-operator|+
-name|msg
-operator|+
-literal|" from "
-operator|+
-name|serverInfo
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
-expr_stmt|;
-switch|switch
-condition|(
-name|msg
-operator|.
-name|getType
-argument_list|()
-condition|)
-block|{
-default|default:
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Unhandled msg type "
-operator|+
-name|msg
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-name|HMsg
-index|[]
-name|reply
-init|=
-literal|null
-decl_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|clusterShutdown
-condition|)
-block|{
-if|if
-condition|(
-name|isOnlyMetaRegionServersOnline
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Only catalog regions remaining; running unassign"
-argument_list|)
-expr_stmt|;
-comment|// The only remaining regions are catalog regions.
-comment|// Shutdown needs to be staggered; the meta regions need to close last
-comment|// in case they need to be updated during the close melee. If only
-comment|// catalog reigons remaining, tell them they can go down now too.  On
-comment|// close of region, the regionservers should then shut themselves down.
-name|this
-operator|.
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|unassignCatalogRegions
-argument_list|()
-expr_stmt|;
-block|}
-block|}
-return|return
-name|processRegionServerAllsWell
-argument_list|(
-name|info
-argument_list|,
-name|mostLoadedRegions
-argument_list|,
-name|reply
 argument_list|)
 return|;
 block|}
-comment|/**    * @return True if all online servers are carrying one or more catalog    * regions, there are no servers online carrying user regions only    */
-specifier|private
-name|boolean
-name|isOnlyMetaRegionServersOnline
-parameter_list|()
+comment|/**    * @param serverName    * @return HServerLoad if serverName is known else null    * @deprecated Use {@link #getLoad(HServerAddress)}    */
+specifier|public
+name|HServerLoad
+name|getLoad
+parameter_list|(
+specifier|final
+name|HServerAddress
+name|address
+parameter_list|)
 block|{
-name|List
-argument_list|<
-name|HServerInfo
-argument_list|>
-name|onlineServers
+name|ServerName
+name|sn
 init|=
+operator|new
+name|ServerName
+argument_list|(
+name|address
+operator|.
+name|toString
+argument_list|()
+argument_list|,
+operator|-
+literal|1
+argument_list|)
+decl_stmt|;
+name|ServerName
+name|actual
+init|=
+name|ServerName
+operator|.
+name|findServerWithSameHostnamePort
+argument_list|(
+name|this
+operator|.
 name|getOnlineServersList
 argument_list|()
-decl_stmt|;
-for|for
-control|(
-name|HServerInfo
-name|hsi
-range|:
-name|onlineServers
-control|)
-block|{
-if|if
-condition|(
-operator|!
-name|this
-operator|.
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|isMetaRegionServer
-argument_list|(
-name|hsi
-argument_list|)
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-block|}
-return|return
-literal|true
-return|;
-block|}
-comment|/**    *  RegionServer is checking in, no exceptional circumstances    * @param serverInfo    * @param mostLoadedRegions    * @param msgs    * @return    * @throws IOException    */
-specifier|private
-name|HMsg
-index|[]
-name|processRegionServerAllsWell
-parameter_list|(
-name|HServerInfo
-name|serverInfo
-parameter_list|,
-specifier|final
-name|HRegionInfo
-index|[]
-name|mostLoadedRegions
-parameter_list|,
-name|HMsg
-index|[]
-name|msgs
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-comment|// Refresh the info object and the load information
-name|this
-operator|.
-name|onlineServers
-operator|.
-name|put
-argument_list|(
-name|serverInfo
-operator|.
-name|getServerName
-argument_list|()
 argument_list|,
-name|serverInfo
+name|sn
 argument_list|)
-expr_stmt|;
-name|HServerLoad
-name|load
-init|=
-name|serverInfo
-operator|.
-name|getLoad
-argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|load
-operator|!=
-literal|null
-operator|&&
-name|this
-operator|.
-name|metrics
-operator|!=
-literal|null
-condition|)
-block|{
-name|this
-operator|.
-name|metrics
-operator|.
-name|incrementRequests
-argument_list|(
-name|load
-operator|.
-name|getNumberOfRequests
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-comment|// No more piggyback messages on heartbeats for other stuff
 return|return
-name|msgs
-return|;
-block|}
-comment|/**    *  Make server load accessible to AssignmentManager    * @param serverName    * @return    * @throws HServerLoad if serverName is known    */
-name|HServerLoad
-name|getLoad
-parameter_list|(
-name|String
-name|serverName
-parameter_list|)
-block|{
-name|HServerInfo
-name|hsi
-init|=
-name|this
-operator|.
-name|onlineServers
-operator|.
-name|get
-argument_list|(
-name|serverName
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|hsi
+name|actual
 operator|==
 literal|null
-condition|)
-return|return
+condition|?
 literal|null
-return|;
-return|return
-name|hsi
-operator|.
+else|:
 name|getLoad
-argument_list|()
-return|;
-block|}
-comment|/**    * @param serverName    * @return True if we removed server from the list.    */
-specifier|private
-name|boolean
-name|removeServerInfo
-parameter_list|(
-specifier|final
-name|String
-name|serverName
-parameter_list|)
-block|{
-name|HServerInfo
-name|info
-init|=
-name|this
-operator|.
-name|onlineServers
-operator|.
-name|remove
 argument_list|(
-name|serverName
+name|actual
 argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|info
-operator|!=
-literal|null
-condition|)
-block|{
-return|return
-literal|true
-return|;
-block|}
-return|return
-literal|false
 return|;
 block|}
 comment|/**    * Compute the average load across all region servers.    * Currently, this uses a very naive computation - just uses the number of    * regions being served, ignoring stats about number of requests.    * @return the average load    */
@@ -1516,9 +1060,11 @@ literal|0.0
 decl_stmt|;
 for|for
 control|(
-name|HServerInfo
-name|hsi
+name|HServerLoad
+name|hsl
 range|:
+name|this
+operator|.
 name|onlineServers
 operator|.
 name|values
@@ -1530,10 +1076,7 @@ operator|++
 expr_stmt|;
 name|totalLoad
 operator|+=
-name|hsi
-operator|.
-name|getLoad
-argument_list|()
+name|hsl
 operator|.
 name|getNumberOfRegions
 argument_list|()
@@ -1570,33 +1113,13 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**    * @param name server name    * @return HServerInfo for the given server address    */
-specifier|public
-name|HServerInfo
-name|getServerInfo
-parameter_list|(
-name|String
-name|name
-parameter_list|)
-block|{
-return|return
-name|this
-operator|.
-name|onlineServers
-operator|.
-name|get
-argument_list|(
-name|name
-argument_list|)
-return|;
-block|}
 comment|/**    * @return Read-only map of servers to serverinfo    */
 specifier|public
 name|Map
 argument_list|<
-name|String
+name|ServerName
 argument_list|,
-name|HServerInfo
+name|HServerLoad
 argument_list|>
 name|getOnlineServers
 parameter_list|()
@@ -1624,7 +1147,7 @@ block|}
 specifier|public
 name|Set
 argument_list|<
-name|String
+name|ServerName
 argument_list|>
 name|getDeadServers
 parameter_list|()
@@ -1653,95 +1176,6 @@ name|areDeadServersInProgress
 argument_list|()
 return|;
 block|}
-comment|/**    * @param hsa    * @return The HServerInfo whose HServerAddress is<code>hsa</code> or null    * if nothing found.    */
-specifier|public
-name|HServerInfo
-name|getHServerInfo
-parameter_list|(
-specifier|final
-name|HServerAddress
-name|hsa
-parameter_list|)
-block|{
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|onlineServers
-init|)
-block|{
-comment|// TODO: This is primitive.  Do a better search.
-for|for
-control|(
-name|Map
-operator|.
-name|Entry
-argument_list|<
-name|String
-argument_list|,
-name|HServerInfo
-argument_list|>
-name|e
-range|:
-name|this
-operator|.
-name|onlineServers
-operator|.
-name|entrySet
-argument_list|()
-control|)
-block|{
-if|if
-condition|(
-name|e
-operator|.
-name|getValue
-argument_list|()
-operator|.
-name|getServerAddress
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|hsa
-argument_list|)
-condition|)
-block|{
-return|return
-name|e
-operator|.
-name|getValue
-argument_list|()
-return|;
-block|}
-block|}
-block|}
-return|return
-literal|null
-return|;
-block|}
-specifier|private
-name|void
-name|notifyOnlineServers
-parameter_list|()
-block|{
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|onlineServers
-init|)
-block|{
-name|this
-operator|.
-name|onlineServers
-operator|.
-name|notifyAll
-argument_list|()
-expr_stmt|;
-block|}
-block|}
-comment|/*    * Wait on regionservers to report in    * with {@link #regionServerReport(HServerInfo, HMsg[])} so they get notice    * the master is going down.  Waits until all region servers come back with    * a MSG_REGIONSERVER_STOP.    */
 name|void
 name|letRegionServersShutdown
 parameter_list|()
@@ -1753,12 +1187,11 @@ init|)
 block|{
 while|while
 condition|(
+operator|!
 name|onlineServers
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|>
-literal|0
 condition|)
 block|{
 name|StringBuilder
@@ -1770,7 +1203,7 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|String
+name|ServerName
 name|key
 range|:
 name|this
@@ -1849,37 +1282,21 @@ name|void
 name|expireServer
 parameter_list|(
 specifier|final
-name|HServerInfo
-name|hsi
+name|ServerName
+name|serverName
 parameter_list|)
 block|{
-comment|// First check a server to expire.  ServerName is of the form:
-comment|//<hostname> ,<port> ,<startcode>
-name|String
-name|serverName
-init|=
-name|hsi
-operator|.
-name|getServerName
-argument_list|()
-decl_stmt|;
-name|HServerInfo
-name|info
-init|=
+if|if
+condition|(
+operator|!
 name|this
 operator|.
 name|onlineServers
 operator|.
-name|get
+name|containsKey
 argument_list|(
 name|serverName
 argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|info
-operator|==
-literal|null
 condition|)
 block|{
 name|LOG
@@ -1888,10 +1305,7 @@ name|warn
 argument_list|(
 literal|"Received expiration of "
 operator|+
-name|hsi
-operator|.
-name|getServerName
-argument_list|()
+name|serverName
 operator|+
 literal|" but server is not currently online"
 argument_list|)
@@ -1917,10 +1331,7 @@ name|warn
 argument_list|(
 literal|"Received expiration of "
 operator|+
-name|hsi
-operator|.
-name|getServerName
-argument_list|()
+name|serverName
 operator|+
 literal|" but server shutdown is already in progress"
 argument_list|)
@@ -1972,10 +1383,7 @@ name|info
 argument_list|(
 literal|"Cluster shutdown set; "
 operator|+
-name|hsi
-operator|.
-name|getServerName
-argument_list|()
+name|serverName
 operator|+
 literal|" expired; onlineServers="
 operator|+
@@ -2023,7 +1431,7 @@ name|carryingRoot
 decl_stmt|;
 try|try
 block|{
-name|HServerAddress
+name|ServerName
 name|address
 init|=
 name|ct
@@ -2034,17 +1442,10 @@ decl_stmt|;
 name|carryingRoot
 operator|=
 name|address
-operator|!=
-literal|null
-operator|&&
-name|hsi
-operator|.
-name|getServerAddress
-argument_list|()
 operator|.
 name|equals
 argument_list|(
-name|address
+name|serverName
 argument_list|)
 expr_stmt|;
 block|}
@@ -2076,7 +1477,7 @@ comment|// may have reset the meta location as null already (it may have already
 comment|// run into fact that meta is dead).  I can ask assignment manager. It
 comment|// has an inmemory list of who has what.  This list will be cleared as we
 comment|// process the dead server but should be  find asking it now.
-name|HServerAddress
+name|ServerName
 name|address
 init|=
 name|ct
@@ -2088,17 +1489,10 @@ name|boolean
 name|carryingMeta
 init|=
 name|address
-operator|!=
-literal|null
-operator|&&
-name|hsi
-operator|.
-name|getServerAddress
-argument_list|()
 operator|.
 name|equals
 argument_list|(
-name|address
+name|serverName
 argument_list|)
 decl_stmt|;
 if|if
@@ -2132,7 +1526,7 @@ name|this
 operator|.
 name|deadservers
 argument_list|,
-name|info
+name|serverName
 argument_list|,
 name|carryingRoot
 argument_list|,
@@ -2167,7 +1561,7 @@ name|this
 operator|.
 name|deadservers
 argument_list|,
-name|info
+name|serverName
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2196,7 +1590,8 @@ specifier|public
 name|void
 name|sendRegionOpen
 parameter_list|(
-name|HServerInfo
+specifier|final
+name|ServerName
 name|server
 parameter_list|,
 name|HRegionInfo
@@ -2228,7 +1623,7 @@ literal|"Attempting to send OPEN RPC to server "
 operator|+
 name|server
 operator|.
-name|getServerName
+name|toString
 argument_list|()
 operator|+
 literal|" failed because no RPC connection found to this server"
@@ -2249,7 +1644,7 @@ specifier|public
 name|void
 name|sendRegionOpen
 parameter_list|(
-name|HServerInfo
+name|ServerName
 name|server
 parameter_list|,
 name|List
@@ -2284,7 +1679,7 @@ literal|"Attempting to send OPEN RPC to server "
 operator|+
 name|server
 operator|.
-name|getServerName
+name|toString
 argument_list|()
 operator|+
 literal|" failed because no RPC connection found to this server"
@@ -2305,7 +1700,7 @@ specifier|public
 name|boolean
 name|sendRegionClose
 parameter_list|(
-name|HServerInfo
+name|ServerName
 name|server
 parameter_list|,
 name|HRegionInfo
@@ -2350,7 +1745,7 @@ literal|"Attempting to send CLOSE RPC to server "
 operator|+
 name|server
 operator|.
-name|getServerName
+name|toString
 argument_list|()
 operator|+
 literal|" for region "
@@ -2373,13 +1768,14 @@ name|region
 argument_list|)
 return|;
 block|}
-comment|/**    * @param info    * @return    * @throws IOException    * @throws RetriesExhaustedException wrapping a ConnectException if failed    * putting up proxy.    */
+comment|/**    * @param sn    * @return    * @throws IOException    * @throws RetriesExhaustedException wrapping a ConnectException if failed    * putting up proxy.    */
 specifier|private
 name|HRegionInterface
 name|getServerConnection
 parameter_list|(
-name|HServerInfo
-name|info
+specifier|final
+name|ServerName
+name|sn
 parameter_list|)
 throws|throws
 name|IOException
@@ -2402,13 +1798,15 @@ decl_stmt|;
 name|HRegionInterface
 name|hri
 init|=
+name|this
+operator|.
 name|serverConnections
 operator|.
 name|get
 argument_list|(
-name|info
+name|sn
 operator|.
-name|getServerName
+name|toString
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -2425,9 +1823,9 @@ name|debug
 argument_list|(
 literal|"New connection to "
 operator|+
-name|info
+name|sn
 operator|.
-name|getServerName
+name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2437,12 +1835,15 @@ name|connection
 operator|.
 name|getHRegionConnection
 argument_list|(
-name|info
+name|sn
 operator|.
-name|getServerAddress
+name|getHostname
 argument_list|()
 argument_list|,
-literal|false
+name|sn
+operator|.
+name|getPort
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
@@ -2451,10 +1852,7 @@ name|serverConnections
 operator|.
 name|put
 argument_list|(
-name|info
-operator|.
-name|getServerName
-argument_list|()
+name|sn
 argument_list|,
 name|hri
 argument_list|)
@@ -2464,9 +1862,9 @@ return|return
 name|hri
 return|;
 block|}
-comment|/**    * Waits for the regionservers to report in.    * @return Count of regions out on cluster    * @throws InterruptedException    */
+comment|/**    * Waits for the regionservers to report in.    * @throws InterruptedException    */
 specifier|public
-name|int
+name|void
 name|waitForRegionServers
 parameter_list|()
 throws|throws
@@ -2569,107 +1967,30 @@ operator|=
 name|count
 expr_stmt|;
 block|}
-comment|// Count how many regions deployed out on cluster.  If fresh start, it'll
-comment|// be none but if not a fresh start, we'll have registered servers when
-comment|// they came in on the {@link #regionServerReport(HServerInfo)} as opposed to
-comment|// {@link #regionServerStartup(HServerInfo)} and it'll be carrying an
-comment|// actual server load.
-name|int
-name|regionCount
-init|=
-literal|0
-decl_stmt|;
-for|for
-control|(
-name|Map
-operator|.
-name|Entry
-argument_list|<
-name|String
-argument_list|,
-name|HServerInfo
-argument_list|>
-name|e
-range|:
-name|this
-operator|.
-name|onlineServers
-operator|.
-name|entrySet
-argument_list|()
-control|)
-block|{
-name|HServerLoad
-name|load
-init|=
-name|e
-operator|.
-name|getValue
-argument_list|()
-operator|.
-name|getLoad
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|load
-operator|!=
-literal|null
-condition|)
-name|regionCount
-operator|+=
-name|load
-operator|.
-name|getLoad
-argument_list|()
-expr_stmt|;
-block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Exiting wait on regionserver(s) to checkin; count="
-operator|+
-name|count
-operator|+
-literal|", stopped="
-operator|+
-name|this
-operator|.
-name|master
-operator|.
-name|isStopped
-argument_list|()
-operator|+
-literal|", count of regions out on cluster="
-operator|+
-name|regionCount
-argument_list|)
-expr_stmt|;
-return|return
-name|regionCount
-return|;
 block|}
 comment|/**    * @return A copy of the internal list of online servers.    */
 specifier|public
 name|List
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|>
 name|getOnlineServersList
 parameter_list|()
 block|{
 comment|// TODO: optimize the load balancer call so we don't need to make a new list
+comment|// TODO: FIX. THIS IS POPULAR CALL.
 return|return
 operator|new
 name|ArrayList
 argument_list|<
-name|HServerInfo
+name|ServerName
 argument_list|>
 argument_list|(
+name|this
+operator|.
 name|onlineServers
 operator|.
-name|values
+name|keySet
 argument_list|()
 argument_list|)
 return|;
@@ -2678,7 +1999,7 @@ specifier|public
 name|boolean
 name|isServerOnline
 parameter_list|(
-name|String
+name|ServerName
 name|serverName
 parameter_list|)
 block|{
@@ -2728,7 +2049,7 @@ specifier|public
 name|void
 name|stop
 parameter_list|()
-block|{    }
+block|{   }
 block|}
 end_class
 

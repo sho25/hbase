@@ -125,7 +125,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerInfo
+name|Server
 import|;
 end_import
 
@@ -139,7 +139,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|Server
+name|ServerName
 import|;
 end_import
 
@@ -350,7 +350,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Process server shutdown.  * Server-to-handle must be already in the deadservers lists.  See  * {@link ServerManager#expireServer(HServerInfo)}.  */
+comment|/**  * Process server shutdown.  * Server-to-handle must be already in the deadservers lists.  See  * {@link ServerManager#expireServer(ServerName)}  */
 end_comment
 
 begin_class
@@ -377,8 +377,8 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
-name|HServerInfo
-name|hsi
+name|ServerName
+name|serverName
 decl_stmt|;
 specifier|private
 specifier|final
@@ -411,8 +411,8 @@ name|DeadServer
 name|deadServers
 parameter_list|,
 specifier|final
-name|HServerInfo
-name|hsi
+name|ServerName
+name|serverName
 parameter_list|)
 block|{
 name|this
@@ -423,7 +423,7 @@ name|services
 argument_list|,
 name|deadServers
 argument_list|,
-name|hsi
+name|serverName
 argument_list|,
 name|EventType
 operator|.
@@ -446,8 +446,8 @@ name|DeadServer
 name|deadServers
 parameter_list|,
 specifier|final
-name|HServerInfo
-name|hsi
+name|ServerName
+name|serverName
 parameter_list|,
 name|EventType
 name|type
@@ -462,9 +462,9 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|hsi
+name|serverName
 operator|=
-name|hsi
+name|serverName
 expr_stmt|;
 name|this
 operator|.
@@ -493,10 +493,9 @@ name|deadServers
 operator|.
 name|contains
 argument_list|(
-name|hsi
+name|this
 operator|.
-name|getServerName
-argument_list|()
+name|serverName
 argument_list|)
 condition|)
 block|{
@@ -504,10 +503,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-name|hsi
+name|this
 operator|.
-name|getServerName
-argument_list|()
+name|serverName
 operator|+
 literal|" is NOT in deadservers; it should be!"
 argument_list|)
@@ -542,15 +540,12 @@ throws|throws
 name|IOException
 block|{
 specifier|final
-name|String
+name|ServerName
 name|serverName
 init|=
 name|this
 operator|.
-name|hsi
-operator|.
-name|getServerName
-argument_list|()
+name|serverName
 decl_stmt|;
 name|LOG
 operator|.
@@ -594,7 +589,7 @@ name|processServerShutdown
 argument_list|(
 name|this
 operator|.
-name|hsi
+name|serverName
 argument_list|)
 decl_stmt|;
 comment|// Assign root and meta if we were carrying them.
@@ -725,7 +720,7 @@ argument_list|()
 argument_list|,
 name|this
 operator|.
-name|hsi
+name|serverName
 argument_list|)
 expr_stmt|;
 break|break;

@@ -125,6 +125,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|NavigableMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|TreeMap
 import|;
 end_import
@@ -381,6 +391,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|UnknownScannerException
 import|;
 end_import
@@ -464,6 +488,22 @@ operator|.
 name|ipc
 operator|.
 name|ExecRPCInvoker
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Addressing
 import|;
 end_import
 
@@ -1112,7 +1152,7 @@ operator|.
 name|tableName
 return|;
 block|}
-comment|/**    *<em>INTERNAL</em> Used by unit tests and tools to do low-level    * manipulations.    * @return An HConnection instance.    */
+comment|/**    *<em>INTERNAL</em> Used by unit tests and tools to do low-level    * manipulations.    * @return An HConnection instance.    * @deprecated This method will be changed from public to package protected.    */
 comment|// TODO(tsuna): Remove this.  Unit tests shouldn't require public helpers.
 specifier|public
 name|HConnection
@@ -1449,7 +1489,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets all the regions and their address for this table.    *<p>    * This is mainly useful for the MapReduce integration.    * @return A map of HRegionInfo with it's server address    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Gets all the regions and their address for this table.    * @return A map of HRegionInfo with it's server address    * @throws IOException if a remote or network exception occurs    * @deprecated Use {@link #getRegionLocations()} or {@link #getStartEndKeys()}    */
 specifier|public
 name|Map
 argument_list|<
@@ -1582,7 +1622,7 @@ literal|0
 condition|)
 block|{
 name|String
-name|address
+name|hostAndPort
 init|=
 name|Bytes
 operator|.
@@ -1596,7 +1636,12 @@ operator|=
 operator|new
 name|HServerAddress
 argument_list|(
-name|address
+name|Addressing
+operator|.
+name|createInetSocketAddressFromHostAndPortStr
+argument_list|(
+name|hostAndPort
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1649,6 +1694,34 @@ argument_list|)
 expr_stmt|;
 return|return
 name|regionMap
+return|;
+block|}
+comment|/**    * Gets all the regions and their address for this table.    *<p>    * This is mainly useful for the MapReduce integration.    * @return A map of HRegionInfo with it's server address    * @throws IOException if a remote or network exception occurs    */
+specifier|public
+name|NavigableMap
+argument_list|<
+name|HRegionInfo
+argument_list|,
+name|ServerName
+argument_list|>
+name|getRegionLocations
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+return|return
+name|MetaScanner
+operator|.
+name|allTableRegions
+argument_list|(
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|getTableName
+argument_list|()
+argument_list|,
+literal|false
+argument_list|)
 return|;
 block|}
 comment|/**    * Save the passed region information and the table's regions    * cache.    *<p>    * This is mainly useful for the MapReduce integration. You can call    * {@link #deserializeRegionInfo deserializeRegionInfo}    * to deserialize regions information from a    * {@link DataInput}, then call this method to load them to cache.    *    *<pre>    * {@code    * HTable t1 = new HTable("foo");    * FileInputStream fis = new FileInputStream("regions.dat");    * DataInputStream dis = new DataInputStream(fis);    *    * Map<HRegionInfo, HServerAddress> hm = t1.deserializeRegionInfo(dis);    * t1.prewarmRegionCache(hm);    * }    *</pre>    * @param regionMap This piece of regions information will be loaded    * to region cache.    */

@@ -1042,7 +1042,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"SplitLogWorker inteurrpted while waiting for task,"
+literal|"SplitLogWorker interurrpted while waiting for task,"
 operator|+
 literal|" exiting"
 argument_list|,
