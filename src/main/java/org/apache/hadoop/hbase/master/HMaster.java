@@ -1019,20 +1019,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|ipc
-operator|.
-name|RemoteException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|net
 operator|.
 name|DNS
@@ -1883,6 +1869,8 @@ parameter_list|()
 throws|throws
 name|InterruptedException
 block|{
+comment|// TODO: This is wrong!!!! Should have new servername if we restart ourselves,
+comment|// if we come back to life.
 name|this
 operator|.
 name|activeMasterManager
@@ -1892,7 +1880,9 @@ name|ActiveMasterManager
 argument_list|(
 name|zooKeeper
 argument_list|,
-name|address
+name|this
+operator|.
+name|serverName
 argument_list|,
 name|this
 argument_list|)
@@ -2092,7 +2082,7 @@ literal|"Server active/primary master; "
 operator|+
 name|this
 operator|.
-name|address
+name|serverName
 operator|+
 literal|", sessionid=0x"
 operator|+
@@ -5910,7 +5900,9 @@ name|MASTER
 operator|+
 literal|":"
 operator|+
-name|address
+name|this
+operator|.
+name|serverName
 operator|.
 name|getPort
 argument_list|()

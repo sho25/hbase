@@ -1660,6 +1660,9 @@ name|hr1
 operator|.
 name|getServerName
 argument_list|()
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1737,6 +1740,9 @@ argument_list|(
 name|hr1
 operator|.
 name|getServerName
+argument_list|()
+operator|.
+name|toString
 argument_list|()
 argument_list|)
 argument_list|)

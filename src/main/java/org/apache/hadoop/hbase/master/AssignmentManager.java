@@ -1301,6 +1301,8 @@ throws|throws
 name|KeeperException
 throws|,
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 name|List
 argument_list|<
@@ -1427,11 +1429,6 @@ operator|.
 name|info
 argument_list|(
 literal|"Found regions out on cluster or in RIT; failover"
-argument_list|)
-expr_stmt|;
-name|processDeadServers
-argument_list|(
-name|deadServers
 argument_list|)
 expr_stmt|;
 if|if
@@ -2104,7 +2101,7 @@ literal|", server="
 operator|+
 name|data
 operator|.
-name|getServerName
+name|getOrigin
 argument_list|()
 operator|+
 literal|", region="
