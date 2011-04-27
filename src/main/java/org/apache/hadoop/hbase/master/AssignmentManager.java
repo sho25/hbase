@@ -1236,6 +1236,19 @@ name|deadServers
 argument_list|)
 expr_stmt|;
 comment|// Check existing regions in transition
+name|processRegionsInTransition
+argument_list|()
+expr_stmt|;
+block|}
+specifier|public
+name|void
+name|processRegionsInTransition
+parameter_list|()
+throws|throws
+name|KeeperException
+throws|,
+name|IOException
+block|{
 name|List
 argument_list|<
 name|String

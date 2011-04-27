@@ -770,10 +770,11 @@ name|testSanity
 argument_list|()
 expr_stmt|;
 block|}
-comment|//@Test
+annotation|@
+name|Test
 specifier|public
 name|void
-name|disabledTestMasterSessionExpired
+name|testMasterSessionExpired
 parameter_list|()
 throws|throws
 name|Exception
