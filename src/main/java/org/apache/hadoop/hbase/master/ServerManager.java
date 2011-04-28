@@ -525,8 +525,8 @@ name|DeadServer
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Let the server manager know a new regionserver has come online    * @param ia The remote address    * @param port The remote port    * @param serverStartcode    * @param serverCurrentTime The current time of the region server in ms    * @throws IOException    */
-name|void
+comment|/**    * Let the server manager know a new regionserver has come online    * @param ia The remote address    * @param port The remote port    * @param serverStartcode    * @param serverCurrentTime The current time of the region server in ms    * @return The ServerName we know this server as.    * @throws IOException    */
+name|ServerName
 name|regionServerStartup
 parameter_list|(
 specifier|final
@@ -598,6 +598,9 @@ operator|.
 name|EMPTY_HSERVERLOAD
 argument_list|)
 expr_stmt|;
+return|return
+name|sn
+return|;
 block|}
 name|void
 name|regionServerReport
