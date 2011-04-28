@@ -17,16 +17,6 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|net
-operator|.
-name|InetSocketAddress
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -42,7 +32,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Data structure to hold HRegionInfo and the address for the hosting  * HRegionServer.  Immutable.  */
+comment|/**  * Data structure to hold HRegionInfo and the address for the hosting  * HRegionServer.  Immutable.  Comparable, but we compare the 'location' only:  * i.e. the hostname and port, and *not* the regioninfo.  This means two  * instances are the same if they refer to the same 'location' (the same  * hostname and port), though they may be carrying different regions.  */
 end_comment
 
 begin_class
@@ -69,6 +59,18 @@ specifier|private
 specifier|final
 name|int
 name|port
+decl_stmt|;
+comment|// Cache of the 'toString' result.
+specifier|private
+name|String
+name|cachedString
+init|=
+literal|null
+decl_stmt|;
+comment|// Cache of the hostname + port
+specifier|private
+name|String
+name|cachedHostnamePort
 decl_stmt|;
 comment|/**    * Constructor    * @param regionInfo the HRegionInfo for the region    * @param hostname Hostname    * @param port port    */
 specifier|public
@@ -109,11 +111,24 @@ comment|/**    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|String
 name|toString
 parameter_list|()
 block|{
-return|return
+if|if
+condition|(
+name|this
+operator|.
+name|cachedString
+operator|==
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|cachedString
+operator|=
 literal|"region="
 operator|+
 name|this
@@ -134,6 +149,12 @@ operator|+
 name|this
 operator|.
 name|port
+expr_stmt|;
+block|}
+return|return
+name|this
+operator|.
+name|cachedString
 return|;
 block|}
 comment|/**    * @see java.lang.Object#equals(java.lang.Object)    */
@@ -210,20 +231,11 @@ name|result
 init|=
 name|this
 operator|.
-name|regionInfo
-operator|.
-name|hashCode
-argument_list|()
-decl_stmt|;
-name|result
-operator|^=
-name|this
-operator|.
 name|hostname
 operator|.
 name|hashCode
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 name|result
 operator|^=
 name|this
@@ -288,11 +300,24 @@ return|;
 block|}
 comment|/**    * @return String made of hostname and port formatted as per {@link Addressing#createHostAndPortStr(String, int)}    */
 specifier|public
+specifier|synchronized
 name|String
 name|getHostnamePort
 parameter_list|()
 block|{
-return|return
+if|if
+condition|(
+name|this
+operator|.
+name|cachedHostnamePort
+operator|==
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|cachedHostnamePort
+operator|=
 name|Addressing
 operator|.
 name|createHostAndPortStr
@@ -305,25 +330,12 @@ name|this
 operator|.
 name|port
 argument_list|)
-return|;
+expr_stmt|;
 block|}
-specifier|public
-name|InetSocketAddress
-name|getInetSocketAddress
-parameter_list|()
-block|{
 return|return
-operator|new
-name|InetSocketAddress
-argument_list|(
 name|this
 operator|.
-name|hostname
-argument_list|,
-name|this
-operator|.
-name|port
-argument_list|)
+name|cachedHostnamePort
 return|;
 block|}
 comment|//
@@ -342,28 +354,6 @@ name|result
 init|=
 name|this
 operator|.
-name|regionInfo
-operator|.
-name|compareTo
-argument_list|(
-name|o
-operator|.
-name|regionInfo
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|result
-operator|!=
-literal|0
-condition|)
-return|return
-name|result
-return|;
-name|result
-operator|=
-name|this
-operator|.
 name|hostname
 operator|.
 name|compareTo
@@ -373,7 +363,7 @@ operator|.
 name|getHostname
 argument_list|()
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|result
