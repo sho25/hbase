@@ -3870,6 +3870,14 @@ literal|null
 condition|?
 literal|"null"
 else|:
+name|data
+operator|.
+name|length
+operator|==
+literal|0
+condition|?
+literal|"empty"
+else|:
 operator|(
 name|znode
 operator|.

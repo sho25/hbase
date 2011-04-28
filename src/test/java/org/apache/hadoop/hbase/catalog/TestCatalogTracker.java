@@ -495,7 +495,7 @@ specifier|private
 specifier|static
 specifier|final
 name|ServerName
-name|HSA
+name|SN
 init|=
 operator|new
 name|ServerName
@@ -1427,11 +1427,11 @@ name|this
 operator|.
 name|watcher
 argument_list|,
-name|HSA
+name|SN
 argument_list|)
 expr_stmt|;
 return|return
-name|HSA
+name|SN
 return|;
 block|}
 comment|/**    * Test waiting on meta w/ no timeout specified.    * @throws IOException    * @throws InterruptedException    * @throws KeeperException    */
@@ -1486,16 +1486,16 @@ operator|.
 name|getHRegionConnection
 argument_list|(
 operator|(
-name|HServerAddress
+name|String
 operator|)
 name|Mockito
 operator|.
 name|any
 argument_list|()
 argument_list|,
-name|Mockito
+name|Matchers
 operator|.
-name|anyBoolean
+name|anyInt
 argument_list|()
 argument_list|)
 argument_list|)
@@ -1604,7 +1604,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-name|HSA
+name|SN
 operator|.
 name|toString
 argument_list|()
@@ -1715,7 +1715,7 @@ name|HRegionInfo
 operator|.
 name|FIRST_META_REGIONINFO
 argument_list|,
-name|HSA
+name|SN
 argument_list|)
 expr_stmt|;
 name|ZKUtil
@@ -1747,7 +1747,7 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
-name|HSA
+name|SN
 argument_list|)
 argument_list|)
 expr_stmt|;
