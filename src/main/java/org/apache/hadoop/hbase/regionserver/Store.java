@@ -6621,6 +6621,7 @@ name|size
 return|;
 block|}
 comment|/**    * @return The priority that this store should have in the compaction queue    */
+specifier|public
 name|int
 name|getCompactPriority
 parameter_list|()
