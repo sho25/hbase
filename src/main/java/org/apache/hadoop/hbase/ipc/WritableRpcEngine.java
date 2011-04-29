@@ -622,8 +622,32 @@ name|logDebug
 condition|)
 block|{
 comment|// FIGURE HOW TO TURN THIS OFF!
-comment|// long callTime = System.currentTimeMillis() - startTime;
-comment|// LOG.debug("Call: " + method.getName() + " " + callTime);
+name|long
+name|callTime
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|startTime
+decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Call: "
+operator|+
+name|method
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|" "
+operator|+
+name|callTime
+argument_list|)
+expr_stmt|;
 block|}
 return|return
 name|value

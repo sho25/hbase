@@ -1222,45 +1222,6 @@ comment|// synchronized.  The presumption is that in this case it is safe since 
 comment|// method is being played by a single thread on startup.
 comment|// TODO: Regions that have a null location and are not in regionsInTransitions
 comment|// need to be handled.
-comment|// Add -ROOT- and .META. on regions map.  They must be deployed if we got
-comment|// this far.
-name|ServerName
-name|sn
-init|=
-name|this
-operator|.
-name|catalogTracker
-operator|.
-name|getMetaLocation
-argument_list|()
-decl_stmt|;
-name|regionOnline
-argument_list|(
-name|HRegionInfo
-operator|.
-name|FIRST_META_REGIONINFO
-argument_list|,
-name|sn
-argument_list|)
-expr_stmt|;
-name|sn
-operator|=
-name|this
-operator|.
-name|catalogTracker
-operator|.
-name|getRootLocation
-argument_list|()
-expr_stmt|;
-name|regionOnline
-argument_list|(
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-argument_list|,
-name|sn
-argument_list|)
-expr_stmt|;
 comment|// Scan META to build list of existing regions, servers, and assignment
 comment|// Returns servers who have not checked in (assumed dead) and their regions
 name|Map
@@ -1293,7 +1254,6 @@ name|processRegionsInTransition
 argument_list|()
 expr_stmt|;
 block|}
-specifier|public
 name|void
 name|processRegionsInTransition
 parameter_list|()
@@ -1324,7 +1284,7 @@ decl_stmt|;
 comment|// Run through all regions.  If they are not assigned and not in RIT, then
 comment|// its a clean cluster startup, else its a failover.
 name|boolean
-name|userRegionsOutOnCluster
+name|regionsToProcess
 init|=
 literal|false
 decl_stmt|;
@@ -1378,7 +1338,7 @@ operator|+
 literal|" out on cluster"
 argument_list|)
 expr_stmt|;
-name|userRegionsOutOnCluster
+name|regionsToProcess
 operator|=
 literal|true
 expr_stmt|;
@@ -1411,7 +1371,8 @@ operator|+
 literal|" in RITs"
 argument_list|)
 expr_stmt|;
-name|userRegionsOutOnCluster
+comment|// Could be a meta region.
+name|regionsToProcess
 operator|=
 literal|true
 expr_stmt|;
@@ -1421,7 +1382,7 @@ block|}
 comment|// If we found user regions out on cluster, its a failover.
 if|if
 condition|(
-name|userRegionsOutOnCluster
+name|regionsToProcess
 condition|)
 block|{
 name|LOG

@@ -1040,13 +1040,16 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|info
 argument_list|(
-literal|"SplitLogWorker interurrpted while waiting for task,"
+literal|"SplitLogWorker interrupted while waiting for task,"
 operator|+
-literal|" exiting"
-argument_list|,
+literal|" exiting: "
+operator|+
 name|e
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 assert|assert
