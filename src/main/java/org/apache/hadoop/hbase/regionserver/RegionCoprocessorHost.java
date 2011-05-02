@@ -4192,7 +4192,6 @@ argument_list|,
 name|logEdit
 argument_list|)
 expr_stmt|;
-block|}
 name|bypass
 operator||=
 name|ctx
@@ -4209,6 +4208,7 @@ argument_list|()
 condition|)
 block|{
 break|break;
+block|}
 block|}
 block|}
 return|return
@@ -4290,7 +4290,6 @@ argument_list|,
 name|logEdit
 argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|ctx
@@ -4300,6 +4299,7 @@ argument_list|()
 condition|)
 block|{
 break|break;
+block|}
 block|}
 block|}
 block|}
