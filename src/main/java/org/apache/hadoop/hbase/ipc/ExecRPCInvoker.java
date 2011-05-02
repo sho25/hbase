@@ -162,6 +162,8 @@ name|ExecRPCInvoker
 implements|implements
 name|InvocationHandler
 block|{
+comment|// LOG is NOT in hbase subpackage intentionally so that the default HBase
+comment|// DEBUG log level does NOT emit RPC-level logging.
 specifier|private
 specifier|static
 specifier|final
@@ -172,9 +174,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|ExecRPCInvoker
-operator|.
-name|class
+literal|"org.apache.hadoop.ipc.ExecRPCInvoker"
 argument_list|)
 decl_stmt|;
 specifier|private

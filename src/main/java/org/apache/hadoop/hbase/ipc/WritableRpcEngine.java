@@ -239,6 +239,8 @@ name|WritableRpcEngine
 implements|implements
 name|RpcEngine
 block|{
+comment|// LOG is NOT in hbase subpackage intentionally so that the default HBase
+comment|// DEBUG log level does NOT emit RPC-level logging.
 specifier|private
 specifier|static
 specifier|final
@@ -249,9 +251,7 @@ name|LogFactory
 operator|.
 name|getLog
 argument_list|(
-name|HBaseRPC
-operator|.
-name|class
+literal|"org.apache.hadoop.ipc.RPCEngine"
 argument_list|)
 decl_stmt|;
 comment|/* Cache a client using its socket factory as the hash key */
