@@ -306,6 +306,8 @@ block|{       }
 block|}
 argument_list|,
 literal|null
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|LOG

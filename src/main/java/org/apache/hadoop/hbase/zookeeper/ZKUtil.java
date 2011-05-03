@@ -647,7 +647,9 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"hbase.zookeeper.property.clientPort"
+name|HConstants
+operator|.
+name|ZOOKEEPER_CLIENT_PORT
 argument_list|)
 argument_list|)
 expr_stmt|;

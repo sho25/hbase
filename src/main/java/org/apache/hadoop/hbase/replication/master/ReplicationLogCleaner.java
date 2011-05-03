@@ -740,6 +740,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Not sure why we're deleting a connection that we never acquired or used
 name|HConnectionManager
 operator|.
 name|deleteConnection

@@ -473,16 +473,6 @@ argument_list|,
 name|ABORTABLE
 argument_list|)
 expr_stmt|;
-name|HConnection
-name|connection
-init|=
-name|HConnectionManager
-operator|.
-name|getConnection
-argument_list|(
-name|c
-argument_list|)
-decl_stmt|;
 name|ct
 operator|=
 operator|new
@@ -490,7 +480,7 @@ name|CatalogTracker
 argument_list|(
 name|zkw
 argument_list|,
-name|connection
+name|c
 argument_list|,
 name|ABORTABLE
 argument_list|)

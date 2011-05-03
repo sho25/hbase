@@ -221,7 +221,16 @@ name|ZOOKEEPER_CONFIG_NAME
 init|=
 literal|"zoo.cfg"
 decl_stmt|;
-comment|/** default client port that the zookeeper listens on */
+comment|/** Parameter name for the client port that the zookeeper listens on */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ZOOKEEPER_CLIENT_PORT
+init|=
+literal|"hbase.zookeeper.property.clientPort"
+decl_stmt|;
+comment|/** Default client port that the zookeeper listens on */
 specifier|public
 specifier|static
 specifier|final
@@ -229,6 +238,24 @@ name|int
 name|DEFAULT_ZOOKEPER_CLIENT_PORT
 init|=
 literal|2181
+decl_stmt|;
+comment|/** Parameter name for the wait time for the recoverable zookeeper */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ZOOKEEPER_RECOVERABLE_WAITTIME
+init|=
+literal|"hbase.zookeeper.recoverable.waittime"
+decl_stmt|;
+comment|/** Default wait time for the recoverable zookeeper */
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_ZOOKEPER_RECOVERABLE_WAITIME
+init|=
+literal|10000
 decl_stmt|;
 comment|/** Parameter name for the root dir in ZK for this cluster */
 specifier|public
@@ -246,6 +273,24 @@ name|String
 name|DEFAULT_ZOOKEEPER_ZNODE_PARENT
 init|=
 literal|"/hbase"
+decl_stmt|;
+comment|/** Parameter name for the limit on concurrent client-side zookeeper connections */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ZOOKEEPER_MAX_CLIENT_CNXNS
+init|=
+literal|"hbase.zookeeper.property.maxClientCnxns"
+decl_stmt|;
+comment|/** Default limit on concurrent client-side zookeeper connections */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_ZOOKEPER_MAX_CLIENT_CNXNS
+init|=
+literal|30
 decl_stmt|;
 comment|/** Parameter name for port region server listens on. */
 specifier|public
@@ -876,6 +921,94 @@ init|=
 name|Long
 operator|.
 name|MAX_VALUE
+decl_stmt|;
+comment|/**    * Parameter name for client pause value, used mostly as value to wait    * before running a retry of a failed get, region lookup, etc.    */
+specifier|public
+specifier|static
+name|String
+name|HBASE_CLIENT_PAUSE
+init|=
+literal|"hbase.client.pause"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_CLIENT_PAUSE}.    */
+specifier|public
+specifier|static
+name|long
+name|DEFAULT_HBASE_CLIENT_PAUSE
+init|=
+literal|1000
+decl_stmt|;
+comment|/**    * Parameter name for maximum retries, used as maximum for all retryable    * operations such as fetching of the root region from root region server,    * getting a cell's value, starting a row update, etc.    */
+specifier|public
+specifier|static
+name|String
+name|HBASE_CLIENT_RETRIES_NUMBER
+init|=
+literal|"hbase.client.retries.number"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_CLIENT_RETRIES_NUMBER}.    */
+specifier|public
+specifier|static
+name|int
+name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
+init|=
+literal|10
+decl_stmt|;
+comment|/**    * Parameter name for maximum attempts, used to limit the number of times the    * client will try to obtain the proxy for a given region server.    */
+specifier|public
+specifier|static
+name|String
+name|HBASE_CLIENT_RPC_MAXATTEMPTS
+init|=
+literal|"hbase.client.rpc.maxattempts"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_CLIENT_RPC_MAXATTEMPTS}.    */
+specifier|public
+specifier|static
+name|int
+name|DEFAULT_HBASE_CLIENT_RPC_MAXATTEMPTS
+init|=
+literal|1
+decl_stmt|;
+comment|/**    * Parameter name for client prefetch limit, used as the maximum number of regions    * info that will be prefetched.    */
+specifier|public
+specifier|static
+name|String
+name|HBASE_CLIENT_PREFETCH_LIMIT
+init|=
+literal|"hbase.client.prefetch.limit"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_CLIENT_PREFETCH_LIMIT}.    */
+specifier|public
+specifier|static
+name|int
+name|DEFAULT_HBASE_CLIENT_PREFETCH_LIMIT
+init|=
+literal|10
+decl_stmt|;
+comment|/**    * Parameter name for number of rows that will be fetched when calling next on    * a scanner if it is not served from memory. Higher caching values will    * enable faster scanners but will eat up more memory and some calls of next    * may take longer and longer times when the cache is empty.    */
+specifier|public
+specifier|static
+name|String
+name|HBASE_META_SCANNER_CACHING
+init|=
+literal|"hbase.meta.scanner.caching"
+decl_stmt|;
+comment|/**    * Default value of {@link #HBASE_META_SCANNER_CACHING}.    */
+specifier|public
+specifier|static
+name|int
+name|DEFAULT_HBASE_META_SCANNER_CACHING
+init|=
+literal|100
+decl_stmt|;
+comment|/**    * Parameter name for unique identifier for this {@link Configuration}    * instance. If there are two or more {@link Configuration} instances that,    * for all intents and purposes, are the same except for their instance ids,    * then they will not be able to share the same {@link Connection} instance.    * On the other hand, even if the instance ids are the same, it could result    * in non-shared {@link Connection} instances if some of the other connection    * parameters differ.    */
+specifier|public
+specifier|static
+name|String
+name|HBASE_CLIENT_INSTANCE_ID
+init|=
+literal|"hbase.client.instance.id"
 decl_stmt|;
 comment|/**    * HRegion server lease period in milliseconds. Clients must report in within this period    * else they are considered dead. Unit measured in ms (milliseconds).    */
 specifier|public

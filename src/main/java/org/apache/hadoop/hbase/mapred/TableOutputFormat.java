@@ -312,7 +312,7 @@ name|IOException
 block|{
 name|m_table
 operator|.
-name|flushCommits
+name|close
 argument_list|()
 expr_stmt|;
 block|}

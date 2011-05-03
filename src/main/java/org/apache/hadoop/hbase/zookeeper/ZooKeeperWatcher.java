@@ -464,9 +464,13 @@ name|conf
 operator|.
 name|getLong
 argument_list|(
-literal|"hbase.zookeeper.recoverable.waittime"
+name|HConstants
+operator|.
+name|ZOOKEEPER_RECOVERABLE_WAITTIME
 argument_list|,
-literal|10000
+name|HConstants
+operator|.
+name|DEFAULT_ZOOKEPER_RECOVERABLE_WAITIME
 argument_list|)
 decl_stmt|;
 name|long

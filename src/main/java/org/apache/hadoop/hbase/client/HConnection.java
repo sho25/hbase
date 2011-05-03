@@ -23,6 +23,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|Closeable
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|IOException
 import|;
 end_import
@@ -289,6 +299,8 @@ interface|interface
 name|HConnection
 extends|extends
 name|Abortable
+extends|,
+name|Closeable
 block|{
 comment|/**    * @return Configuration instance being used by this HConnection instance.    */
 specifier|public
