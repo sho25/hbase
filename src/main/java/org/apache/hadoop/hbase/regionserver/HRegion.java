@@ -8977,7 +8977,7 @@ name|getInt
 argument_list|(
 literal|"hbase.master.assignment.timeoutmonitor.timeout"
 argument_list|,
-literal|30000
+literal|180000
 argument_list|)
 operator|/
 literal|2
