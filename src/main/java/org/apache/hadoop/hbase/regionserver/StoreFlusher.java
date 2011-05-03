@@ -27,6 +27,22 @@ name|IOException
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|monitoring
+operator|.
+name|MonitoredTask
+import|;
+end_import
+
 begin_comment
 comment|/**  * A package protected interface for a store flushing.  * A store flusher carries the state required to prepare/flush/commit the  * store's cache.  */
 end_comment
@@ -43,7 +59,10 @@ function_decl|;
 comment|/**    * Flush the cache (create the new store file)    *    * A length operation which doesn't require locking out any function    * of the store.    *    * @throws IOException in case the flush fails    */
 name|void
 name|flushCache
-parameter_list|()
+parameter_list|(
+name|MonitoredTask
+name|status
+parameter_list|)
 throws|throws
 name|IOException
 function_decl|;

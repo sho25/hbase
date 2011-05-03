@@ -405,6 +405,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|monitoring
+operator|.
+name|MonitoredTask
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -2199,6 +2215,9 @@ name|snapshot
 parameter_list|,
 name|TimeRangeTracker
 name|snapshotTimeRangeTracker
+parameter_list|,
+name|MonitoredTask
+name|status
 parameter_list|)
 throws|throws
 name|IOException
@@ -2214,6 +2233,8 @@ argument_list|,
 name|logCacheFlushId
 argument_list|,
 name|snapshotTimeRangeTracker
+argument_list|,
+name|status
 argument_list|)
 return|;
 block|}
@@ -2235,6 +2256,9 @@ name|logCacheFlushId
 parameter_list|,
 name|TimeRangeTracker
 name|snapshotTimeRangeTracker
+parameter_list|,
+name|MonitoredTask
+name|status
 parameter_list|)
 throws|throws
 name|IOException
@@ -2284,6 +2308,17 @@ init|(
 name|flushLock
 init|)
 block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Flushing "
+operator|+
+name|this
+operator|+
+literal|": creating writer"
+argument_list|)
+expr_stmt|;
 comment|// A. Write the map out to the disk
 name|writer
 operator|=
@@ -2358,6 +2393,17 @@ finally|finally
 block|{
 comment|// Write out the log sequence number that corresponds to this output
 comment|// hfile.  The hfile is current up to and including logCacheFlushId.
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Flushing "
+operator|+
+name|this
+operator|+
+literal|": appending metadata"
+argument_list|)
+expr_stmt|;
 name|writer
 operator|.
 name|appendMetadata
@@ -2365,6 +2411,17 @@ argument_list|(
 name|logCacheFlushId
 argument_list|,
 literal|false
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Flushing "
+operator|+
+name|this
+operator|+
+literal|": closing flushed file"
 argument_list|)
 expr_stmt|;
 name|writer
@@ -2387,10 +2444,9 @@ argument_list|,
 name|homedir
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
+name|String
+name|msg
+init|=
 literal|"Renaming flushed file at "
 operator|+
 name|writer
@@ -2401,6 +2457,25 @@ operator|+
 literal|" to "
 operator|+
 name|dstPath
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Flushing "
+operator|+
+name|this
+operator|+
+literal|": "
+operator|+
+name|msg
 argument_list|)
 expr_stmt|;
 if|if
@@ -2436,6 +2511,17 @@ name|dstPath
 argument_list|)
 expr_stmt|;
 block|}
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Flushing "
+operator|+
+name|this
+operator|+
+literal|": reopening flushed file"
+argument_list|)
+expr_stmt|;
 name|StoreFile
 name|sf
 init|=
@@ -6940,7 +7026,10 @@ name|Override
 specifier|public
 name|void
 name|flushCache
-parameter_list|()
+parameter_list|(
+name|MonitoredTask
+name|status
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -6957,6 +7046,8 @@ argument_list|,
 name|snapshot
 argument_list|,
 name|snapshotTimeRangeTracker
+argument_list|,
+name|status
 argument_list|)
 expr_stmt|;
 block|}

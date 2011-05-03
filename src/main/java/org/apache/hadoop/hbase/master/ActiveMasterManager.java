@@ -97,6 +97,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|monitoring
+operator|.
+name|MonitoredTask
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -392,11 +408,21 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Block until becoming the active master.    *    * Method blocks until there is not another active master and our attempt    * to become the new active master is successful.    *    * This also makes sure that we are watching the master znode so will be    * notified if another master dies.    * @return True if no issue becoming active master else false if another    * master was running or if some other problem (zookeeper, stop flag has been    * set on this Master)    */
+comment|/**    * Block until becoming the active master.    *    * Method blocks until there is not another active master and our attempt    * to become the new active master is successful.    *    * This also makes sure that we are watching the master znode so will be    * notified if another master dies.    * @param startupStatus     * @return True if no issue becoming active master else false if another    * master was running or if some other problem (zookeeper, stop flag has been    * set on this Master)    */
 name|boolean
 name|blockUntilBecomingActiveMaster
-parameter_list|()
+parameter_list|(
+name|MonitoredTask
+name|startupStatus
+parameter_list|)
 block|{
+name|startupStatus
+operator|.
+name|setStatus
+argument_list|(
+literal|"Trying to register in ZK as active master"
+argument_list|)
+expr_stmt|;
 name|boolean
 name|cleanSetOfActiveMaster
 init|=
@@ -436,6 +462,13 @@ argument_list|)
 condition|)
 block|{
 comment|// We are the master, return
+name|startupStatus
+operator|.
+name|setStatus
+argument_list|(
+literal|"Successfully registered as active master."
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|clusterHasActiveMaster
@@ -522,15 +555,29 @@ name|sn
 argument_list|)
 condition|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
+name|String
+name|msg
+init|=
+operator|(
 literal|"Current master has this master's address, "
 operator|+
 name|currentMaster
 operator|+
 literal|"; master was restarted?  Waiting on znode to expire..."
+operator|)
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+name|startupStatus
+operator|.
+name|setStatus
+argument_list|(
+name|msg
 argument_list|)
 expr_stmt|;
 comment|// Hurry along the expiration of the znode.
@@ -552,15 +599,27 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
+name|String
+name|msg
+init|=
 literal|"Another master is the active master, "
 operator|+
 name|currentMaster
 operator|+
 literal|"; waiting to become the next active master"
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+name|startupStatus
+operator|.
+name|setStatus
+argument_list|(
+name|msg
 argument_list|)
 expr_stmt|;
 block|}
@@ -653,7 +712,9 @@ return|;
 block|}
 comment|// Try to become active master again now that there is no active master
 name|blockUntilBecomingActiveMaster
-argument_list|()
+argument_list|(
+name|startupStatus
+argument_list|)
 expr_stmt|;
 block|}
 return|return

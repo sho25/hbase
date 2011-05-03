@@ -777,6 +777,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|monitoring
+operator|.
+name|MonitoredTask
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|monitoring
+operator|.
+name|TaskMonitor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|HRegion
@@ -1666,11 +1698,33 @@ name|void
 name|run
 parameter_list|()
 block|{
+name|MonitoredTask
+name|startupStatus
+init|=
+name|TaskMonitor
+operator|.
+name|get
+argument_list|()
+operator|.
+name|createStatus
+argument_list|(
+literal|"Master startup"
+argument_list|)
+decl_stmt|;
+name|startupStatus
+operator|.
+name|setDescription
+argument_list|(
+literal|"Master startup"
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 comment|/*        * Block on becoming the active master.        *        * We race with other masters to write our address into ZooKeeper.  If we        * succeed, we are the primary/active master and finish initialization.        *        * If we do not succeed, there is another active master and we should        * now wait until it dies to try and become the next active master.  If we        * do not succeed on our first attempt, this is no longer a cluster startup.        */
 name|becomeActiveMaster
-argument_list|()
+argument_list|(
+name|startupStatus
+argument_list|)
 expr_stmt|;
 comment|// We are either the active master or we were asked to shutdown
 if|if
@@ -1682,7 +1736,9 @@ name|stopped
 condition|)
 block|{
 name|finishInitialization
-argument_list|()
+argument_list|(
+name|startupStatus
+argument_list|)
 expr_stmt|;
 name|loop
 argument_list|()
@@ -1705,6 +1761,11 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+name|startupStatus
+operator|.
+name|cleanup
+argument_list|()
+expr_stmt|;
 name|stopChores
 argument_list|()
 expr_stmt|;
@@ -1837,14 +1898,17 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Try becoming active master.    * @return True if we could successfully become the active master.    * @throws InterruptedException    */
+comment|/**    * Try becoming active master.    * @param startupStatus     * @return True if we could successfully become the active master.    * @throws InterruptedException    */
 end_comment
 
 begin_function
 specifier|private
 name|boolean
 name|becomeActiveMaster
-parameter_list|()
+parameter_list|(
+name|MonitoredTask
+name|startupStatus
+parameter_list|)
 throws|throws
 name|InterruptedException
 block|{
@@ -1892,7 +1956,9 @@ operator|.
 name|activeMasterManager
 operator|.
 name|blockUntilBecomingActiveMaster
-argument_list|()
+argument_list|(
+name|startupStatus
+argument_list|)
 return|;
 block|}
 end_function
@@ -2131,7 +2197,10 @@ begin_function
 specifier|private
 name|void
 name|finishInitialization
-parameter_list|()
+parameter_list|(
+name|MonitoredTask
+name|status
+parameter_list|)
 throws|throws
 name|IOException
 throws|,
@@ -2144,6 +2213,13 @@ operator|=
 literal|true
 expr_stmt|;
 comment|/*      * We are active master now... go initialize components we need to run.      * Note, there may be dross in zk from previous runs; it'll get addressed      * below after we determine if cluster startup or failover.      */
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Initializing Master file system"
+argument_list|)
+expr_stmt|;
 comment|// TODO: Do this using Dependency Injection, using PicoContainer, Guice or Spring.
 name|this
 operator|.
@@ -2158,6 +2234,13 @@ name|metrics
 argument_list|)
 expr_stmt|;
 comment|// publish cluster ID
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Publishing Cluster ID in ZooKeeper"
+argument_list|)
+expr_stmt|;
 name|ClusterId
 operator|.
 name|setClusterId
@@ -2198,10 +2281,24 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Initializing ZK system trackers"
+argument_list|)
+expr_stmt|;
 name|initializeZKBasedSystemTrackers
 argument_list|()
 expr_stmt|;
 comment|// initialize master side coprocessors before we start handling requests
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Initializing master coprocessors"
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|cpHost
@@ -2217,6 +2314,13 @@ name|conf
 argument_list|)
 expr_stmt|;
 comment|// start up all service threads.
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Initializing master service threads"
+argument_list|)
+expr_stmt|;
 name|startServiceThreads
 argument_list|()
 expr_stmt|;
@@ -2226,7 +2330,9 @@ operator|.
 name|serverManager
 operator|.
 name|waitForRegionServers
-argument_list|()
+argument_list|(
+name|status
+argument_list|)
 expr_stmt|;
 comment|// Check zk for regionservers that are up but didn't register
 for|for
@@ -2281,6 +2387,13 @@ expr_stmt|;
 block|}
 block|}
 comment|// TODO: Should do this in background rather than block master startup
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Splitting logs after master startup"
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|fileSystemManager
@@ -2300,9 +2413,18 @@ argument_list|)
 expr_stmt|;
 comment|// Make sure root and meta assigned before proceeding.
 name|assignRootAndMeta
-argument_list|()
+argument_list|(
+name|status
+argument_list|)
 expr_stmt|;
 comment|// Fixup assignment manager status
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Starting assignment manager"
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|assignmentManager
@@ -2312,6 +2434,13 @@ argument_list|()
 expr_stmt|;
 comment|// Start balancer and meta catalog janitor after meta and regions have
 comment|// been assigned.
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Starting balancer and catalog janitor"
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|balancerChore
@@ -2338,6 +2467,13 @@ name|this
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|status
+operator|.
+name|markComplete
+argument_list|(
+literal|"Initialization successful"
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -2359,7 +2495,10 @@ end_comment
 begin_function
 name|int
 name|assignRootAndMeta
-parameter_list|()
+parameter_list|(
+name|MonitoredTask
+name|status
+parameter_list|)
 throws|throws
 name|InterruptedException
 throws|,
@@ -2387,6 +2526,13 @@ literal|1000
 argument_list|)
 decl_stmt|;
 comment|// Work on ROOT region.  Is it in zk in transition?
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Assigning ROOT region"
+argument_list|)
+expr_stmt|;
 name|boolean
 name|rit
 init|=
@@ -2473,6 +2619,13 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Work on meta region
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Assigning META region"
+argument_list|)
+expr_stmt|;
 name|rit
 operator|=
 name|this
@@ -2570,6 +2723,13 @@ name|catalogTracker
 operator|.
 name|getMetaLocation
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"META and ROOT assigned."
 argument_list|)
 expr_stmt|;
 return|return
@@ -5886,11 +6046,28 @@ argument_list|,
 name|this
 argument_list|)
 expr_stmt|;
+name|MonitoredTask
+name|status
+init|=
+name|TaskMonitor
+operator|.
+name|get
+argument_list|()
+operator|.
+name|createStatus
+argument_list|(
+literal|"Recovering expired ZK session"
+argument_list|)
+decl_stmt|;
+try|try
+block|{
 if|if
 condition|(
 operator|!
 name|becomeActiveMaster
-argument_list|()
+argument_list|(
+name|status
+argument_list|)
 condition|)
 block|{
 return|return
@@ -5902,7 +6079,9 @@ argument_list|()
 expr_stmt|;
 comment|// Update in-memory structures to reflect our earlier Root/Meta assignment.
 name|assignRootAndMeta
-argument_list|()
+argument_list|(
+name|status
+argument_list|)
 expr_stmt|;
 comment|// process RIT if any
 name|this
@@ -5915,6 +6094,15 @@ expr_stmt|;
 return|return
 literal|true
 return|;
+block|}
+finally|finally
+block|{
+name|status
+operator|.
+name|cleanup
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 end_function
 

@@ -873,6 +873,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|monitoring
+operator|.
+name|MonitoredTask
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|monitoring
+operator|.
+name|TaskMonitor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|wal
@@ -1852,6 +1884,21 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|MonitoredTask
+name|status
+init|=
+name|TaskMonitor
+operator|.
+name|get
+argument_list|()
+operator|.
+name|createStatus
+argument_list|(
+literal|"Initializing region "
+operator|+
+name|this
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|coprocessorHost
@@ -1859,6 +1906,13 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Running coprocessor pre-open hook"
+argument_list|)
+expr_stmt|;
 name|coprocessorHost
 operator|.
 name|preOpen
@@ -1885,10 +1939,24 @@ literal|false
 argument_list|)
 expr_stmt|;
 comment|// Write HRI to a file in case we need to recover .META.
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Writing region info on filesystem"
+argument_list|)
+expr_stmt|;
 name|checkRegioninfoOnFilesystem
 argument_list|()
 expr_stmt|;
 comment|// Remove temporary data left over from old regions
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Cleaning up temporary data from old regions"
+argument_list|)
+expr_stmt|;
 name|cleanupTmpDir
 argument_list|()
 expr_stmt|;
@@ -1915,6 +1983,15 @@ name|getFamilies
 argument_list|()
 control|)
 block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Instantiating store for column family "
+operator|+
+name|c
+argument_list|)
+expr_stmt|;
 name|Store
 name|store
 init|=
@@ -1974,6 +2051,15 @@ argument_list|,
 name|maxSeqId
 argument_list|,
 name|reporter
+argument_list|,
+name|status
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Cleaning up detritus from prior splits"
 argument_list|)
 expr_stmt|;
 comment|// Get rid of any splits or merges that were lost in-progress.  Clean out
@@ -2069,12 +2155,26 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Running coprocessor post-open hooks"
+argument_list|)
+expr_stmt|;
 name|coprocessorHost
 operator|.
 name|postOpen
 argument_list|()
 expr_stmt|;
 block|}
+name|status
+operator|.
+name|markComplete
+argument_list|(
+literal|"Region opened successfully"
+argument_list|)
+expr_stmt|;
 return|return
 name|nextSeqid
 return|;
@@ -2578,6 +2678,38 @@ name|IOException
 block|{
 comment|// Only allow one thread to close at a time. Serialize them so dual
 comment|// threads attempting to close will run up against each other.
+name|MonitoredTask
+name|status
+init|=
+name|TaskMonitor
+operator|.
+name|get
+argument_list|()
+operator|.
+name|createStatus
+argument_list|(
+literal|"Closing region "
+operator|+
+name|this
+operator|+
+operator|(
+name|abort
+condition|?
+literal|" due to abort"
+else|:
+literal|""
+operator|)
+argument_list|)
+decl_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Waiting for close lock"
+argument_list|)
+expr_stmt|;
+try|try
+block|{
 synchronized|synchronized
 init|(
 name|closeLock
@@ -2587,8 +2719,19 @@ return|return
 name|doClose
 argument_list|(
 name|abort
+argument_list|,
+name|status
 argument_list|)
 return|;
+block|}
+block|}
+finally|finally
+block|{
+name|status
+operator|.
+name|cleanup
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 specifier|private
@@ -2601,6 +2744,9 @@ parameter_list|(
 specifier|final
 name|boolean
 name|abort
+parameter_list|,
+name|MonitoredTask
+name|status
 parameter_list|)
 throws|throws
 name|IOException
@@ -2633,6 +2779,13 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Running coprocessor pre-close hooks"
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|coprocessorHost
@@ -2643,6 +2796,13 @@ name|abort
 argument_list|)
 expr_stmt|;
 block|}
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Disabling compacts and flushes for region"
+argument_list|)
+expr_stmt|;
 name|boolean
 name|wasFlushing
 init|=
@@ -2763,6 +2923,13 @@ name|worthPreFlushing
 argument_list|()
 condition|)
 block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Pre-flushing region before close"
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -2776,7 +2943,9 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 name|internalFlushcache
-argument_list|()
+argument_list|(
+name|status
+argument_list|)
 expr_stmt|;
 block|}
 name|this
@@ -2786,6 +2955,13 @@ operator|.
 name|set
 argument_list|(
 literal|true
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Disabling writes for close"
 argument_list|)
 expr_stmt|;
 name|lock
@@ -2806,6 +2982,13 @@ name|isClosed
 argument_list|()
 condition|)
 block|{
+name|status
+operator|.
+name|abort
+argument_list|(
+literal|"Already got closed by another process"
+argument_list|)
+expr_stmt|;
 comment|// SplitTransaction handles the null
 return|return
 literal|null
@@ -2828,7 +3011,9 @@ name|abort
 condition|)
 block|{
 name|internalFlushcache
-argument_list|()
+argument_list|(
+name|status
+argument_list|)
 expr_stmt|;
 block|}
 name|List
@@ -2882,6 +3067,13 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Running coprocessor post-close hooks"
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|coprocessorHost
@@ -2892,6 +3084,13 @@ name|abort
 argument_list|)
 expr_stmt|;
 block|}
+name|status
+operator|.
+name|markComplete
+argument_list|(
+literal|"Closed"
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -3467,6 +3666,21 @@ name|splitRow
 init|=
 literal|null
 decl_stmt|;
+name|MonitoredTask
+name|status
+init|=
+name|TaskMonitor
+operator|.
+name|get
+argument_list|()
+operator|.
+name|createStatus
+argument_list|(
+literal|"Compacting stores in "
+operator|+
+name|this
+argument_list|)
+decl_stmt|;
 try|try
 block|{
 if|if
@@ -3515,6 +3729,13 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Running coprocessor preCompact hooks"
+argument_list|)
+expr_stmt|;
 name|coprocessorHost
 operator|.
 name|preCompact
@@ -3551,10 +3772,9 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
+name|String
+name|msg
+init|=
 literal|"NOT compacting region "
 operator|+
 name|this
@@ -3570,6 +3790,19 @@ operator|+
 name|writestate
 operator|.
 name|writesEnabled
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|abort
+argument_list|(
+name|msg
 argument_list|)
 expr_stmt|;
 return|return
@@ -3609,6 +3842,15 @@ literal|false
 decl_stmt|;
 try|try
 block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Compacting store "
+operator|+
+name|store
+argument_list|)
+expr_stmt|;
 specifier|final
 name|Store
 operator|.
@@ -3731,6 +3973,30 @@ argument_list|,
 name|lastCompactSize
 argument_list|)
 expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Compaction complete: "
+operator|+
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
+name|lastCompactSize
+argument_list|)
+operator|+
+literal|" in "
+operator|+
+operator|(
+name|now
+operator|-
+name|startTime
+operator|)
+operator|+
+literal|"ms"
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 block|}
@@ -3761,6 +4027,13 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Running coprocessor post-compact hooks"
+argument_list|)
+expr_stmt|;
 name|coprocessorHost
 operator|.
 name|postCompact
@@ -3771,9 +4044,21 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+name|status
+operator|.
+name|markComplete
+argument_list|(
+literal|"Compaction complete"
+argument_list|)
+expr_stmt|;
 block|}
 finally|finally
 block|{
+name|status
+operator|.
+name|cleanup
+argument_list|()
+expr_stmt|;
 name|lock
 operator|.
 name|readLock
@@ -3850,6 +4135,28 @@ return|return
 literal|false
 return|;
 block|}
+name|MonitoredTask
+name|status
+init|=
+name|TaskMonitor
+operator|.
+name|get
+argument_list|()
+operator|.
+name|createStatus
+argument_list|(
+literal|"Flushing "
+operator|+
+name|this
+argument_list|)
+decl_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Acquiring readlock on region"
+argument_list|)
+expr_stmt|;
 name|lock
 operator|.
 name|readLock
@@ -3881,6 +4188,13 @@ operator|+
 literal|" because closed"
 argument_list|)
 expr_stmt|;
+name|status
+operator|.
+name|abort
+argument_list|(
+literal|"Skipped: closed"
+argument_list|)
+expr_stmt|;
 return|return
 literal|false
 return|;
@@ -3892,6 +4206,13 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Running coprocessor pre-flush hooks"
+argument_list|)
+expr_stmt|;
 name|coprocessorHost
 operator|.
 name|preFlush
@@ -3958,6 +4279,23 @@ name|writesEnabled
 argument_list|)
 expr_stmt|;
 block|}
+name|status
+operator|.
+name|abort
+argument_list|(
+literal|"Not flushing since "
+operator|+
+operator|(
+name|writestate
+operator|.
+name|flushing
+condition|?
+literal|"already flushing"
+else|:
+literal|"writes not enabled"
+operator|)
+argument_list|)
+expr_stmt|;
 return|return
 literal|false
 return|;
@@ -3967,7 +4305,9 @@ name|boolean
 name|result
 init|=
 name|internalFlushcache
-argument_list|()
+argument_list|(
+name|status
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
@@ -3976,12 +4316,26 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Running post-flush coprocessor hooks"
+argument_list|)
+expr_stmt|;
 name|coprocessorHost
 operator|.
 name|postFlush
 argument_list|()
 expr_stmt|;
 block|}
+name|status
+operator|.
+name|markComplete
+argument_list|(
+literal|"Flush successful"
+argument_list|)
+expr_stmt|;
 return|return
 name|result
 return|;
@@ -4025,13 +4379,21 @@ operator|.
 name|unlock
 argument_list|()
 expr_stmt|;
+name|status
+operator|.
+name|cleanup
+argument_list|()
+expr_stmt|;
 block|}
 block|}
-comment|/**    * Flush the memstore.    *    * Flushing the memstore is a little tricky. We have a lot of updates in the    * memstore, all of which have also been written to the log. We need to    * write those updates in the memstore out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the memstore was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the memstore from    * the log.)    *    *<p>So, we have a three-step process:    *    *<ul><li>A. Flush the memstore to the on-disk stores, noting the current    * sequence ID for the log.<li>    *    *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memstore-flush.</li>    *    *<li>C. Get rid of the memstore structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *    *<p> This method may block for some time.    *    * @return true if the region needs compacting    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
+comment|/**    * Flush the memstore.    *    * Flushing the memstore is a little tricky. We have a lot of updates in the    * memstore, all of which have also been written to the log. We need to    * write those updates in the memstore out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the memstore was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the memstore from    * the log.)    *    *<p>So, we have a three-step process:    *    *<ul><li>A. Flush the memstore to the on-disk stores, noting the current    * sequence ID for the log.<li>    *    *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memstore-flush.</li>    *    *<li>C. Get rid of the memstore structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *    *<p> This method may block for some time.    * @param status     *    * @return true if the region needs compacting    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
 specifier|protected
 name|boolean
 name|internalFlushcache
-parameter_list|()
+parameter_list|(
+name|MonitoredTask
+name|status
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -4044,10 +4406,12 @@ name|log
 argument_list|,
 operator|-
 literal|1
+argument_list|,
+name|status
 argument_list|)
 return|;
 block|}
-comment|/**    * @param wal Null if we're NOT to go via hlog/wal.    * @param myseqid The seqid to use if<code>wal</code> is null writing out    * flush file.    * @return true if the region needs compacting    * @throws IOException    * @see #internalFlushcache()    */
+comment|/**    * @param wal Null if we're NOT to go via hlog/wal.    * @param myseqid The seqid to use if<code>wal</code> is null writing out    * flush file.    * @param status     * @return true if the region needs compacting    * @throws IOException    * @see #internalFlushcache()    */
 specifier|protected
 name|boolean
 name|internalFlushcache
@@ -4059,6 +4423,9 @@ parameter_list|,
 specifier|final
 name|long
 name|myseqid
+parameter_list|,
+name|MonitoredTask
+name|status
 parameter_list|)
 throws|throws
 name|IOException
@@ -4165,6 +4532,13 @@ decl_stmt|;
 comment|// We have to take a write lock during snapshot, or else a write could
 comment|// end up in both snapshot and memstore (makes it difficult to do atomic
 comment|// rows then)
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Obtaining lock to block concurrent updates"
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|updatesLock
@@ -4174,6 +4548,13 @@ argument_list|()
 operator|.
 name|lock
 argument_list|()
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Preparing to flush by snapshotting stores"
+argument_list|)
 expr_stmt|;
 specifier|final
 name|long
@@ -4283,6 +4664,13 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Flushing stores"
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|debug
@@ -4315,7 +4703,9 @@ block|{
 name|flusher
 operator|.
 name|flushCache
-argument_list|()
+argument_list|(
+name|status
+argument_list|)
 expr_stmt|;
 block|}
 comment|// Switch snapshot (in memstore) -> new hfile (thus causing
@@ -4409,6 +4799,20 @@ argument_list|(
 name|t
 argument_list|)
 expr_stmt|;
+name|status
+operator|.
+name|abort
+argument_list|(
+literal|"Flush failed: "
+operator|+
+name|StringUtils
+operator|.
+name|stringifyException
+argument_list|(
+name|t
+argument_list|)
+argument_list|)
+expr_stmt|;
 throw|throw
 name|dse
 throw|;
@@ -4479,18 +4883,9 @@ argument_list|()
 operator|-
 name|startTime
 decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
+name|String
+name|msg
+init|=
 literal|"Finished memstore flush of ~"
 operator|+
 name|StringUtils
@@ -4527,9 +4922,21 @@ literal|"; wal=null"
 else|:
 literal|""
 operator|)
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|msg
 argument_list|)
 expr_stmt|;
-block|}
+name|status
+operator|.
+name|setStatus
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|recentFlushes
@@ -8183,6 +8590,10 @@ parameter_list|,
 specifier|final
 name|CancelableProgressable
 name|reporter
+parameter_list|,
+specifier|final
+name|MonitoredTask
+name|status
 parameter_list|)
 throws|throws
 name|UnsupportedEncodingException
@@ -8359,6 +8770,8 @@ argument_list|(
 literal|null
 argument_list|,
 name|seqid
+argument_list|,
+name|status
 argument_list|)
 expr_stmt|;
 block|}
@@ -8433,10 +8846,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
+name|String
+name|msg
+init|=
 literal|"Replaying edits from "
 operator|+
 name|edits
@@ -8444,6 +8856,32 @@ operator|+
 literal|"; minSequenceid="
 operator|+
 name|minSeqId
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+name|MonitoredTask
+name|status
+init|=
+name|TaskMonitor
+operator|.
+name|get
+argument_list|()
+operator|.
+name|createStatus
+argument_list|(
+name|msg
+argument_list|)
+decl_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Opening logs"
 argument_list|)
 expr_stmt|;
 name|HLog
@@ -8626,6 +9064,21 @@ operator|<=
 name|cur
 condition|)
 block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Replaying edits..."
+operator|+
+literal|" skipped="
+operator|+
+name|skippedEdits
+operator|+
+literal|" edits="
+operator|+
+name|editsCount
+argument_list|)
+expr_stmt|;
 comment|// Timeout reached
 if|if
 condition|(
@@ -8636,14 +9089,20 @@ name|progress
 argument_list|()
 condition|)
 block|{
-name|String
 name|msg
-init|=
+operator|=
 literal|"Progressable reporter failed, stopping replay"
-decl_stmt|;
+expr_stmt|;
 name|LOG
 operator|.
 name|warn
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|abort
 argument_list|(
 name|msg
 argument_list|)
@@ -8672,6 +9131,13 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Running pre-WAL-restore hook in coprocessors"
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|coprocessorHost
@@ -8870,6 +9336,8 @@ argument_list|(
 literal|null
 argument_list|,
 name|currentEditSeqId
+argument_list|,
+name|status
 argument_list|)
 expr_stmt|;
 if|if
@@ -8914,10 +9382,8 @@ argument_list|,
 name|edits
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|warn
-argument_list|(
+name|msg
+operator|=
 literal|"Encountered EOF. Most likely due to Master failure during "
 operator|+
 literal|"log spliting, so we have this data in another edit.  "
@@ -8929,8 +9395,21 @@ operator|+
 literal|" as "
 operator|+
 name|p
+expr_stmt|;
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|msg
 argument_list|,
 name|eof
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|abort
+argument_list|(
+name|msg
 argument_list|)
 expr_stmt|;
 block|}
@@ -8964,10 +9443,8 @@ argument_list|,
 name|edits
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|warn
-argument_list|(
+name|msg
+operator|=
 literal|"File corruption encountered!  "
 operator|+
 literal|"Continuing, but renaming "
@@ -8977,13 +9454,38 @@ operator|+
 literal|" as "
 operator|+
 name|p
+expr_stmt|;
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|msg
 argument_list|,
 name|ioe
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+name|msg
 argument_list|)
 expr_stmt|;
 block|}
 else|else
 block|{
+name|status
+operator|.
+name|abort
+argument_list|(
+name|StringUtils
+operator|.
+name|stringifyException
+argument_list|(
+name|ioe
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// other IO errors may be transient (bad network connection,
 comment|// checksum exception on one datanode, etc).  throw& retry
 throw|throw
@@ -8991,18 +9493,8 @@ name|ioe
 throw|;
 block|}
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
+name|msg
+operator|=
 literal|"Applied "
 operator|+
 name|editsCount
@@ -9018,6 +9510,27 @@ operator|+
 literal|", maxSequenceidInLog="
 operator|+
 name|currentEditSeqId
+expr_stmt|;
+name|status
+operator|.
+name|markComplete
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|msg
 argument_list|)
 expr_stmt|;
 block|}
@@ -9030,6 +9543,11 @@ block|{
 name|reader
 operator|.
 name|close
+argument_list|()
+expr_stmt|;
+name|status
+operator|.
+name|cleanup
 argument_list|()
 expr_stmt|;
 block|}

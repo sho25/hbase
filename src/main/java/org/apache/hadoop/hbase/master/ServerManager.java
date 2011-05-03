@@ -393,6 +393,22 @@ name|ServerShutdownHandler
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|monitoring
+operator|.
+name|MonitoredTask
+import|;
+end_import
+
 begin_comment
 comment|/**  * The ServerManager class manages info about region servers.  *<p>  * Maintains lists of online and dead servers.  Processes the startups,  * shutdowns, and deaths of region servers.  *<p>  * Servers are distinguished in two different ways.  A given server has a  * location, specified by hostname and port, and of which there can only be one  * online at any given time.  A server instance is specified by the location  * (hostname and port) as well as the startcode (timestamp from when the server  * was started).  This is used to differentiate a restarted instance of a given  * server from the original instance.  */
 end_comment
@@ -1916,7 +1932,10 @@ comment|/**    * Waits for the regionservers to report in.    * @throws Interrup
 specifier|public
 name|void
 name|waitForRegionServers
-parameter_list|()
+parameter_list|(
+name|MonitoredTask
+name|status
+parameter_list|)
 throws|throws
 name|InterruptedException
 block|{
@@ -1985,6 +2004,9 @@ operator|>
 literal|0
 condition|)
 break|break;
+name|String
+name|msg
+decl_stmt|;
 if|if
 condition|(
 name|count
@@ -1992,26 +2014,34 @@ operator|==
 literal|0
 condition|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
+name|msg
+operator|=
 literal|"Waiting on regionserver(s) to checkin"
-argument_list|)
 expr_stmt|;
 block|}
 else|else
 block|{
+name|msg
+operator|=
+literal|"Waiting on regionserver(s) count to settle; currently="
+operator|+
+name|count
+expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Waiting on regionserver(s) count to settle; currently="
-operator|+
-name|count
+name|msg
 argument_list|)
 expr_stmt|;
-block|}
+name|status
+operator|.
+name|setStatus
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
 name|oldcount
 operator|=
 name|count

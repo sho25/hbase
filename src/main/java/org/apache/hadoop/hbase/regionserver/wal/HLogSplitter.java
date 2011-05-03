@@ -335,6 +335,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|monitoring
+operator|.
+name|MonitoredTask
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|monitoring
+operator|.
+name|TaskMonitor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -698,6 +730,10 @@ operator|new
 name|Object
 argument_list|()
 decl_stmt|;
+specifier|private
+name|MonitoredTask
+name|status
+decl_stmt|;
 comment|/**    * Create a new HLogSplitter using the given {@link Configuration} and the    *<code>hbase.hlog.splitter.impl</code> property to derived the instance    * class to use.    *<p>    * @param conf    * @param rootDir hbase directory    * @param srcDir logs directory    * @param oldLogDir directory where processed logs are archived to    * @param fs FileSystem    * @return New HLogSplitter instance    */
 specifier|public
 specifier|static
@@ -997,6 +1033,20 @@ name|hasSplit
 operator|=
 literal|true
 expr_stmt|;
+name|status
+operator|=
+name|TaskMonitor
+operator|.
+name|get
+argument_list|()
+operator|.
+name|createStatus
+argument_list|(
+literal|"Splitting logs in "
+operator|+
+name|srcDir
+argument_list|)
+expr_stmt|;
 name|long
 name|startTime
 init|=
@@ -1005,6 +1055,13 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 decl_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Determining files to split..."
+argument_list|)
+expr_stmt|;
 name|List
 argument_list|<
 name|Path
@@ -1025,6 +1082,13 @@ argument_list|)
 condition|)
 block|{
 comment|// Nothing to do
+name|status
+operator|.
+name|markComplete
+argument_list|(
+literal|"No log directory existed to split."
+argument_list|)
+expr_stmt|;
 return|return
 name|splits
 return|;
@@ -1058,9 +1122,7 @@ return|return
 name|splits
 return|;
 block|}
-name|LOG
-operator|.
-name|info
+name|logAndReport
 argument_list|(
 literal|"Splitting "
 operator|+
@@ -1092,9 +1154,7 @@ argument_list|()
 operator|-
 name|startTime
 expr_stmt|;
-name|LOG
-operator|.
-name|info
+name|logAndReport
 argument_list|(
 literal|"hlog file splitting completed in "
 operator|+
@@ -1111,6 +1171,29 @@ expr_stmt|;
 return|return
 name|splits
 return|;
+block|}
+specifier|private
+name|void
+name|logAndReport
+parameter_list|(
+name|String
+name|msg
+parameter_list|)
+block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * @return time that this split took    */
 specifier|public
@@ -1223,6 +1306,14 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
+name|long
+name|totalBytesToSplit
+init|=
+name|countTotalBytes
+argument_list|(
+name|logfiles
+argument_list|)
+decl_stmt|;
 name|splitSize
 operator|=
 literal|0
@@ -1269,9 +1360,7 @@ name|splitSize
 operator|+=
 name|logLength
 expr_stmt|;
-name|LOG
-operator|.
-name|debug
+name|logAndReport
 argument_list|(
 literal|"Splitting hlog "
 operator|+
@@ -1399,6 +1488,13 @@ expr_stmt|;
 continue|continue;
 block|}
 block|}
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Log splits complete. Checking for orphaned logs."
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|fs
@@ -1431,6 +1527,13 @@ literal|"HRegionServer was not dead when we started"
 argument_list|)
 throw|;
 block|}
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Archiving logs after completed split"
+argument_list|)
+expr_stmt|;
 name|archiveLogs
 argument_list|(
 name|srcDir
@@ -1449,6 +1552,13 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Finishing writing output logs and closing down."
+argument_list|)
+expr_stmt|;
 name|splits
 operator|=
 name|outputSink
@@ -1459,6 +1569,42 @@ expr_stmt|;
 block|}
 return|return
 name|splits
+return|;
+block|}
+comment|/**    * @return the total size of the passed list of files.    */
+specifier|private
+specifier|static
+name|long
+name|countTotalBytes
+parameter_list|(
+name|FileStatus
+index|[]
+name|logfiles
+parameter_list|)
+block|{
+name|long
+name|ret
+init|=
+literal|0
+decl_stmt|;
+for|for
+control|(
+name|FileStatus
+name|stat
+range|:
+name|logfiles
+control|)
+block|{
+name|ret
+operator|+=
+name|stat
+operator|.
+name|getLen
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+name|ret
 return|;
 block|}
 comment|/**    * Splits a HLog file into a temporary staging area. tmpname is used to build    * the name of the staging area where the recovered-edits will be separated    * out by region and stored.    *<p>    * If the log file has N regions then N recovered.edits files will be    * produced. There is no buffering in this code. Instead it relies on the    * buffering in the SequenceFileWriter.    *<p>    * @param rootDir    * @param tmpname    * @param logfile    * @param fs    * @param conf    * @param reporter    * @return false if it is interrupted by the progress-able.    * @throws IOException    */
@@ -1569,6 +1715,34 @@ name|isCorrupted
 init|=
 literal|false
 decl_stmt|;
+name|Preconditions
+operator|.
+name|checkState
+argument_list|(
+name|status
+operator|==
+literal|null
+argument_list|)
+expr_stmt|;
+name|status
+operator|=
+name|TaskMonitor
+operator|.
+name|get
+argument_list|()
+operator|.
+name|createStatus
+argument_list|(
+literal|"Splitting log file "
+operator|+
+name|logfile
+operator|.
+name|getPath
+argument_list|()
+operator|+
+literal|"into a temporary staging area."
+argument_list|)
+expr_stmt|;
 name|Object
 name|BAD_WRITER
 init|=
@@ -1658,6 +1832,13 @@ operator|+
 name|logLength
 argument_list|)
 expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Opening log file"
+argument_list|)
+expr_stmt|;
 name|Reader
 name|in
 init|=
@@ -1719,6 +1900,13 @@ operator|==
 literal|null
 condition|)
 block|{
+name|status
+operator|.
+name|markComplete
+argument_list|(
+literal|"Was nothing to split in log file"
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|warn
@@ -1759,6 +1947,13 @@ operator|==
 literal|false
 condition|)
 block|{
+name|status
+operator|.
+name|markComplete
+argument_list|(
+literal|"Failed: reporter.progress asked us to terminate"
+argument_list|)
+expr_stmt|;
 return|return
 literal|false
 return|;
@@ -1905,6 +2100,17 @@ operator|==
 literal|0
 condition|)
 block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Split "
+operator|+
+name|editsCount
+operator|+
+literal|" edits"
+argument_list|)
+expr_stmt|;
 name|long
 name|t1
 init|=
@@ -1942,6 +2148,13 @@ operator|==
 literal|false
 condition|)
 block|{
+name|status
+operator|.
+name|markComplete
+argument_list|(
+literal|"Failed: reporter.progress asked us to terminate"
+argument_list|)
+expr_stmt|;
 name|progress_failed
 operator|=
 literal|true
@@ -2116,10 +2329,10 @@ name|p
 argument_list|)
 expr_stmt|;
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
+name|String
+name|msg
+init|=
+operator|(
 literal|"processed "
 operator|+
 name|editsCount
@@ -2150,6 +2363,20 @@ operator|+
 literal|" is corrupted = "
 operator|+
 name|isCorrupted
+operator|)
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|markComplete
+argument_list|(
+name|msg
 argument_list|)
 expr_stmt|;
 block|}

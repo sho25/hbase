@@ -233,6 +233,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|monitoring
+operator|.
+name|MonitoredTask
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|monitoring
+operator|.
+name|TaskMonitor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|SplitLogWorker
@@ -911,6 +943,28 @@ return|return
 literal|0
 return|;
 block|}
+name|MonitoredTask
+name|status
+init|=
+name|TaskMonitor
+operator|.
+name|get
+argument_list|()
+operator|.
+name|createStatus
+argument_list|(
+literal|"Doing distributed log split in "
+operator|+
+name|logDir
+argument_list|)
+decl_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Checking directory contents..."
+argument_list|)
+expr_stmt|;
 name|FileStatus
 index|[]
 name|logfiles
@@ -949,6 +1003,13 @@ return|return
 literal|0
 return|;
 block|}
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Scheduling batch of logs to split"
+argument_list|)
+expr_stmt|;
 name|tot_mgr_log_split_batch_start
 operator|.
 name|incrementAndGet
@@ -1038,6 +1099,8 @@ block|}
 name|waitTasks
 argument_list|(
 name|batch
+argument_list|,
+name|status
 argument_list|)
 expr_stmt|;
 if|if
@@ -1098,6 +1161,13 @@ name|batch
 argument_list|)
 throw|;
 block|}
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Checking for orphaned logs in log directory..."
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|anyNewLogFiles
@@ -1135,6 +1205,13 @@ operator|.
 name|incrementAndGet
 argument_list|()
 expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Cleaning up log directory..."
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -1158,10 +1235,9 @@ name|logDir
 argument_list|)
 throw|;
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
+name|String
+name|msg
+init|=
 literal|"finished splitting (more than or equal to) "
 operator|+
 name|totalSize
@@ -1188,6 +1264,19 @@ name|t
 operator|)
 operator|+
 literal|"ms"
+decl_stmt|;
+name|status
+operator|.
+name|markComplete
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|msg
 argument_list|)
 expr_stmt|;
 return|return
@@ -1271,6 +1360,9 @@ name|waitTasks
 parameter_list|(
 name|TaskBatch
 name|batch
+parameter_list|,
+name|MonitoredTask
+name|status
 parameter_list|)
 block|{
 synchronized|synchronized
@@ -1297,6 +1389,31 @@ condition|)
 block|{
 try|try
 block|{
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Waiting for distributed tasks to finish. "
+operator|+
+literal|" scheduled="
+operator|+
+name|batch
+operator|.
+name|installed
+operator|+
+literal|" done="
+operator|+
+name|batch
+operator|.
+name|done
+operator|+
+literal|" error="
+operator|+
+name|batch
+operator|.
+name|error
+argument_list|)
+expr_stmt|;
 name|batch
 operator|.
 name|wait
