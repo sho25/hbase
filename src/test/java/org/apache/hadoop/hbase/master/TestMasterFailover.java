@@ -3677,6 +3677,8 @@ operator|.
 name|PENDING_OPEN
 argument_list|,
 literal|0
+argument_list|,
+literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -3736,6 +3738,8 @@ operator|.
 name|PENDING_OPEN
 argument_list|,
 literal|0
+argument_list|,
+literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;
