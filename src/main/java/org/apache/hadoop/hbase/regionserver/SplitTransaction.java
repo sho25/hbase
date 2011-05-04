@@ -2823,6 +2823,16 @@ break|break;
 case|case
 name|CREATE_SPLIT_DIR
 case|:
+name|this
+operator|.
+name|parent
+operator|.
+name|writestate
+operator|.
+name|writesEnabled
+operator|=
+literal|true
+expr_stmt|;
 name|cleanupSplitDir
 argument_list|(
 name|fs

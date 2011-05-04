@@ -941,7 +941,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|RuntimeException
+name|Exception
 name|ee
 parameter_list|)
 block|{
