@@ -2992,6 +2992,14 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
+comment|// Didn't ship anything, but must still age the last time we did
+name|this
+operator|.
+name|metrics
+operator|.
+name|refreshAgeOfLastShippedOp
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|ioe

@@ -283,6 +283,18 @@ argument_list|,
 name|registry
 argument_list|)
 decl_stmt|;
+comment|// It's a little dirty to preset the age to now since if we fail
+comment|// to replicate the very first time then it will show that age instead
+comment|// of nothing (although that might not be good either).
+specifier|private
+name|long
+name|lastTimestampForAge
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
 comment|/**    * Constructor used to register the metrics    * @param id Name of the source this class is monitoring    */
 specifier|public
 name|ReplicationSourceMetrics
@@ -387,6 +399,10 @@ name|long
 name|timestamp
 parameter_list|)
 block|{
+name|lastTimestampForAge
+operator|=
+name|timestamp
+expr_stmt|;
 name|ageOfLastShippedOp
 operator|.
 name|set
@@ -396,7 +412,19 @@ operator|.
 name|currentTimeMillis
 argument_list|()
 operator|-
-name|timestamp
+name|lastTimestampForAge
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Convenience method to use the last given timestamp to refresh the age    * of the last edit. Used when replication fails and need to keep that    * metric accurate.    */
+specifier|public
+name|void
+name|refreshAgeOfLastShippedOp
+parameter_list|()
+block|{
+name|setAgeOfLastShippedOp
+argument_list|(
+name|lastTimestampForAge
 argument_list|)
 expr_stmt|;
 block|}
