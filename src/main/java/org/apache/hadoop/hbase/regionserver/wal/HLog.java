@@ -2033,12 +2033,7 @@ name|fs
 argument_list|,
 name|newPath
 argument_list|,
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|(
 name|conf
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|int
