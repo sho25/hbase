@@ -641,7 +641,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hfile.min.blocksize.size"
+literal|"hbase.mapreduce.hfileoutputformat.blocksize"
 argument_list|,
 name|HFile
 operator|.
