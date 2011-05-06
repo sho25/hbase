@@ -51,6 +51,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicLong
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -316,6 +330,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|update
 parameter_list|(
@@ -582,6 +597,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|update
 parameter_list|(
@@ -763,10 +779,15 @@ name|Long
 argument_list|>
 block|{
 specifier|private
-name|long
+specifier|final
+name|AtomicLong
 name|rowCountL
 init|=
-literal|0l
+operator|new
+name|AtomicLong
+argument_list|(
+literal|0
+argument_list|)
 decl_stmt|;
 specifier|public
 name|long
@@ -775,6 +796,9 @@ parameter_list|()
 block|{
 return|return
 name|rowCountL
+operator|.
+name|get
+argument_list|()
 return|;
 block|}
 annotation|@
@@ -796,11 +820,14 @@ name|result
 parameter_list|)
 block|{
 name|rowCountL
-operator|+=
+operator|.
+name|addAndGet
+argument_list|(
 name|result
 operator|.
 name|longValue
 argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -949,6 +976,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|update
 parameter_list|(
@@ -1153,6 +1181,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|update
 parameter_list|(
@@ -1502,6 +1531,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|update
 parameter_list|(
