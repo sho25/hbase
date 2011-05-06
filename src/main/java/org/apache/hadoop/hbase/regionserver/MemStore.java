@@ -3066,7 +3066,7 @@ operator|.
 name|OBJECT
 operator|+
 operator|(
-literal|11
+literal|12
 operator|*
 name|ClassSize
 operator|.
