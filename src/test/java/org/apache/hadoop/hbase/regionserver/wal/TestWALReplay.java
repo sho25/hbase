@@ -2544,15 +2544,27 @@ specifier|protected
 name|boolean
 name|internalFlushcache
 parameter_list|(
+specifier|final
 name|HLog
 name|wal
 parameter_list|,
+specifier|final
 name|long
 name|myseqid
+parameter_list|,
+name|MonitoredTask
+name|status
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"InternalFlushCache Invoked"
+argument_list|)
+expr_stmt|;
 name|boolean
 name|b
 init|=
@@ -2597,6 +2609,13 @@ decl_stmt|;
 comment|// We flushed during init.
 name|assertTrue
 argument_list|(
+literal|"Flushcount="
+operator|+
+name|flushcount
+operator|.
+name|get
+argument_list|()
+argument_list|,
 name|flushcount
 operator|.
 name|get
@@ -3141,6 +3160,10 @@ decl_stmt|;
 comment|// Split should generate only 1 file since there's only 1 region
 name|assertEquals
 argument_list|(
+literal|"splits="
+operator|+
+name|splits
+argument_list|,
 literal|1
 argument_list|,
 name|splits
