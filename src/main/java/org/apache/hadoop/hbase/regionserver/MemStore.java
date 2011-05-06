@@ -346,6 +346,21 @@ name|USEMSLAB_DEFAULT
 init|=
 literal|false
 decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|RESEEKMAX_KEY
+init|=
+literal|"hbase.hregion.memstore.reseek.maxkeys"
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|RESEEKMAX_DEFAULT
+init|=
+literal|32
+decl_stmt|;
 specifier|private
 name|Configuration
 name|conf
@@ -405,6 +420,12 @@ name|snapshotTimeRangeTracker
 decl_stmt|;
 name|MemStoreLAB
 name|allocator
+decl_stmt|;
+comment|// if a reseek has to scan over more than these number of keys, then
+comment|// it morphs into a seek. A seek does a tree map-search while
+comment|// reseek does a linear scan.
+name|int
+name|reseekNumKeys
 decl_stmt|;
 comment|/**    * Default constructor. Used for tests.    */
 specifier|public
@@ -547,6 +568,19 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|reseekNumKeys
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+name|RESEEKMAX_KEY
+argument_list|,
+name|RESEEKMAX_DEFAULT
+argument_list|)
+expr_stmt|;
 block|}
 name|void
 name|dump
@@ -2503,6 +2537,10 @@ name|KeyValue
 argument_list|>
 name|snapshotIt
 decl_stmt|;
+comment|// number of iterations in this reseek operation
+name|int
+name|numIterReseek
+decl_stmt|;
 comment|/*     Some notes...       So memstorescanner is fixed at creation time. this includes pointers/iterators into     existing kvset/snapshot.  during a snapshot creation, the kvset is null, and the     snapshot is moved.  since kvset is null there is no point on reseeking on both,       we can save us the trouble. During the snapshot->hfile transition, the memstore       scanner is re-created by StoreScanner#updateReaders().  StoreScanner should       potentially do something smarter by adjusting the existing memstore scanner.        But there is a greater problem here, that being once a scanner has progressed       during a snapshot scenario, we currently iterate past the kvset then 'finish' up.       if a scan lasts a little while, there is a chance for new entries in kvset to       become available but we will never see them.  This needs to be handled at the       StoreScanner level with coordination with MemStoreScanner.      */
 name|MemStoreScanner
 parameter_list|()
@@ -2573,6 +2611,18 @@ operator|=
 name|v
 expr_stmt|;
 block|}
+name|numIterReseek
+operator|--
+expr_stmt|;
+if|if
+condition|(
+name|numIterReseek
+operator|==
+literal|0
+condition|)
+block|{
+break|break;
+block|}
 block|}
 return|return
 name|ret
@@ -2601,6 +2651,10 @@ return|return
 literal|false
 return|;
 block|}
+name|numIterReseek
+operator|=
+literal|0
+expr_stmt|;
 comment|// kvset and snapshot will never be empty.
 comment|// if tailSet cant find anything, SS is empty (not null).
 name|SortedSet
@@ -2685,6 +2739,10 @@ name|KeyValue
 name|key
 parameter_list|)
 block|{
+name|numIterReseek
+operator|=
+name|reseekNumKeys
+expr_stmt|;
 while|while
 condition|(
 name|kvsetNextRow
@@ -2710,6 +2768,27 @@ argument_list|(
 name|kvsetIt
 argument_list|)
 expr_stmt|;
+comment|// if we scanned enough entries but still not able to find the
+comment|// kv we are looking for, better cut our costs and do a tree
+comment|// scan using seek.
+if|if
+condition|(
+name|kvsetNextRow
+operator|==
+literal|null
+operator|&&
+name|numIterReseek
+operator|==
+literal|0
+condition|)
+block|{
+return|return
+name|seek
+argument_list|(
+name|key
+argument_list|)
+return|;
+block|}
 block|}
 while|while
 condition|(
@@ -2736,6 +2815,27 @@ argument_list|(
 name|snapshotIt
 argument_list|)
 expr_stmt|;
+comment|// if we scanned enough entries but still not able to find the
+comment|// kv we are looking for, better cut our costs and do a tree
+comment|// scan using seek.
+if|if
+condition|(
+name|snapshotNextRow
+operator|==
+literal|null
+operator|&&
+name|numIterReseek
+operator|==
+literal|0
+condition|)
+block|{
+return|return
+name|seek
+argument_list|(
+name|key
+argument_list|)
+return|;
+block|}
 block|}
 return|return
 operator|(
