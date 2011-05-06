@@ -1260,7 +1260,12 @@ name|zkCluster
 operator|=
 operator|new
 name|MiniZooKeeperCluster
+argument_list|(
+name|this
+operator|.
+name|getConfiguration
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|int
 name|clientPort
