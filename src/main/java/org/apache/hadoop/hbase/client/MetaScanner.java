@@ -1459,6 +1459,8 @@ argument_list|(
 name|conf
 argument_list|,
 name|visitor
+argument_list|,
+name|tablename
 argument_list|)
 expr_stmt|;
 return|return
