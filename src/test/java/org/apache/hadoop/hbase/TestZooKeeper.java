@@ -620,6 +620,29 @@ argument_list|,
 name|password
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Session timeout="
+operator|+
+name|zk
+operator|.
+name|getSessionTimeout
+argument_list|()
+operator|+
+literal|", original="
+operator|+
+name|sessionTimeout
+operator|+
+literal|", id="
+operator|+
+name|zk
+operator|.
+name|getSessionId
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|zk
 operator|.
 name|close
@@ -642,7 +665,7 @@ argument_list|(
 name|connectionZK
 argument_list|)
 expr_stmt|;
-comment|// Check that the old ZK conenction is closed, means we did expire
+comment|// Check that the old ZK connection is closed, means we did expire
 name|System
 operator|.
 name|err
@@ -652,12 +675,9 @@ argument_list|(
 literal|"ZooKeeper should have timed out"
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"state="
-operator|+
+name|String
+name|state
+init|=
 name|connectionZK
 operator|.
 name|getZooKeeper
@@ -665,12 +685,18 @@ argument_list|()
 operator|.
 name|getState
 argument_list|()
-argument_list|)
-expr_stmt|;
+operator|.
+name|toString
+argument_list|()
+decl_stmt|;
 name|Assert
 operator|.
 name|assertTrue
 argument_list|(
+literal|"State="
+operator|+
+name|state
+argument_list|,
 name|connectionZK
 operator|.
 name|getZooKeeper
