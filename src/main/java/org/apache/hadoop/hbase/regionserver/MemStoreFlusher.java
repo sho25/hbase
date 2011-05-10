@@ -1601,6 +1601,21 @@ literal|"ms"
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|server
+operator|.
+name|compactSplitThread
+operator|.
+name|requestSplit
+argument_list|(
+name|region
+argument_list|)
+condition|)
+block|{
 name|this
 operator|.
 name|server
@@ -1615,6 +1630,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Put back on the queue.  Have it come back out of the queue
 comment|// after a delay of this.blockingWaitTime / 100 ms.
 name|this

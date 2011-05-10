@@ -3335,20 +3335,18 @@ literal|1
 argument_list|)
 expr_stmt|;
 name|filesToCompact
-operator|=
-name|filesToCompact
 operator|.
 name|subList
 argument_list|(
+literal|0
+argument_list|,
 name|idx
 operator|+
 literal|1
-argument_list|,
-name|filesToCompact
-operator|.
-name|size
-argument_list|()
 argument_list|)
+operator|.
+name|clear
+argument_list|()
 expr_stmt|;
 block|}
 name|int
@@ -4231,20 +4229,18 @@ literal|1
 argument_list|)
 expr_stmt|;
 name|candidates
-operator|=
-name|candidates
 operator|.
 name|subList
 argument_list|(
+literal|0
+argument_list|,
 name|idx
 operator|+
 literal|1
-argument_list|,
-name|candidates
-operator|.
-name|size
-argument_list|()
 argument_list|)
+operator|.
+name|clear
+argument_list|()
 expr_stmt|;
 block|}
 name|List
@@ -4631,6 +4627,26 @@ name|this
 operator|.
 name|compactRatio
 decl_stmt|;
+comment|// skip selection algorithm if we don't have enough files
+if|if
+condition|(
+name|filesToCompact
+operator|.
+name|size
+argument_list|()
+operator|<
+name|this
+operator|.
+name|minFilesToCompact
+condition|)
+block|{
+return|return
+name|Collections
+operator|.
+name|emptyList
+argument_list|()
+return|;
+block|}
 comment|/* TODO: add sorting + unit test back in when HBASE-2856 is fixed       // Sort files by size to correct when normal skew is altered by bulk load.       Collections.sort(filesToCompact, StoreFile.Comparators.FILE_SIZE);        */
 comment|// get store file sizes for incremental compacting selection.
 name|int
@@ -6429,6 +6445,7 @@ name|foundCandidate
 return|;
 block|}
 comment|/**    * Determines if Store should be split    * @return byte[] if store should be split, null otherwise.    */
+specifier|public
 name|byte
 index|[]
 name|checkSplit

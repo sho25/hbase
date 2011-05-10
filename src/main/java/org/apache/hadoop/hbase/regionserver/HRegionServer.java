@@ -1968,6 +1968,7 @@ name|RegionServerMetrics
 name|metrics
 decl_stmt|;
 comment|// Compactions
+specifier|public
 name|CompactSplitThread
 name|compactSplitThread
 decl_stmt|;
@@ -5641,7 +5642,7 @@ comment|/**    * Checks to see if the file system is still accessible. If not, s
 end_comment
 
 begin_function
-specifier|protected
+specifier|public
 name|boolean
 name|checkFileSystem
 parameter_list|()
@@ -6924,21 +6925,6 @@ name|setDaemonThreadRunning
 argument_list|(
 name|this
 operator|.
-name|compactSplitThread
-argument_list|,
-name|n
-operator|+
-literal|".compactor"
-argument_list|,
-name|handler
-argument_list|)
-expr_stmt|;
-name|Threads
-operator|.
-name|setDaemonThreadRunning
-argument_list|(
-name|this
-operator|.
 name|majorCompactionChecker
 argument_list|,
 name|n
@@ -7225,11 +7211,6 @@ condition|(
 operator|!
 operator|(
 name|leases
-operator|.
-name|isAlive
-argument_list|()
-operator|&&
-name|compactSplitThread
 operator|.
 name|isAlive
 argument_list|()
@@ -7712,18 +7693,26 @@ name|shutdown
 argument_list|(
 name|this
 operator|.
-name|compactSplitThread
-argument_list|)
-expr_stmt|;
-name|Threads
-operator|.
-name|shutdown
-argument_list|(
-name|this
-operator|.
 name|hlogRoller
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|compactSplitThread
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|compactSplitThread
+operator|.
+name|join
+argument_list|()
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|this
@@ -12732,20 +12721,16 @@ argument_list|(
 name|splitPoint
 argument_list|)
 expr_stmt|;
-comment|// force a compaction, split will be side-effect
-comment|// TODO: flush/compact/split refactor will make it trivial to do this
-comment|// sync/async (and won't require us to do a compaction to split!)
 name|compactSplitThread
 operator|.
-name|requestCompaction
+name|requestSplit
 argument_list|(
 name|region
 argument_list|,
-literal|"User-triggered split"
-argument_list|,
-name|CompactSplitThread
+name|region
 operator|.
-name|PRIORITY_USER
+name|checkSplit
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
