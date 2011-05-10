@@ -967,6 +967,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|store
+operator|.
+name|forceMajor
+operator|=
+name|forcemajor
+expr_stmt|;
 name|List
 argument_list|<
 name|StoreFile
@@ -978,10 +984,14 @@ operator|.
 name|compactSelection
 argument_list|(
 name|candidates
-argument_list|,
-name|forcemajor
 argument_list|)
 decl_stmt|;
+name|store
+operator|.
+name|forceMajor
+operator|=
+literal|false
+expr_stmt|;
 name|assertEquals
 argument_list|(
 name|Arrays
@@ -1143,8 +1153,6 @@ literal|2
 argument_list|,
 literal|1
 argument_list|)
-argument_list|,
-literal|false
 argument_list|)
 operator|.
 name|size
@@ -1216,6 +1224,12 @@ literal|12
 argument_list|)
 expr_stmt|;
 comment|// don't exceed max file compact threshold, even with major compaction
+name|store
+operator|.
+name|forceMajor
+operator|=
+literal|true
+expr_stmt|;
 name|assertEquals
 argument_list|(
 name|maxFiles
@@ -1240,13 +1254,17 @@ literal|2
 argument_list|,
 literal|1
 argument_list|)
-argument_list|,
-literal|true
 argument_list|)
 operator|.
 name|size
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|store
+operator|.
+name|forceMajor
+operator|=
+literal|false
 expr_stmt|;
 comment|// if we exceed maxCompactSize, downgrade to minor
 comment|// if not, it creates a 'snowball effect' when files>> maxCompactSize:
@@ -1411,8 +1429,6 @@ literal|2
 argument_list|,
 literal|1
 argument_list|)
-argument_list|,
-literal|false
 argument_list|)
 operator|.
 name|size

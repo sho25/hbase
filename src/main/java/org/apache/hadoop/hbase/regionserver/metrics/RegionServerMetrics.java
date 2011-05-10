@@ -1516,20 +1516,17 @@ name|getPreviousIntervalValue
 argument_list|()
 return|;
 block|}
-comment|/**    * @param compact history in<time, size>    */
+comment|/**    * @param time time that compaction took    * @param size bytesize of storefiles in the compaction    */
 specifier|public
 specifier|synchronized
 name|void
 name|addCompaction
 parameter_list|(
-specifier|final
-name|Pair
-argument_list|<
-name|Long
-argument_list|,
-name|Long
-argument_list|>
-name|compact
+name|long
+name|time
+parameter_list|,
+name|long
+name|size
 parameter_list|)
 block|{
 name|this
@@ -1538,10 +1535,7 @@ name|compactionTime
 operator|.
 name|inc
 argument_list|(
-name|compact
-operator|.
-name|getFirst
-argument_list|()
+name|time
 argument_list|)
 expr_stmt|;
 name|this
@@ -1550,10 +1544,7 @@ name|compactionSize
 operator|.
 name|inc
 argument_list|(
-name|compact
-operator|.
-name|getSecond
-argument_list|()
+name|size
 argument_list|)
 expr_stmt|;
 block|}

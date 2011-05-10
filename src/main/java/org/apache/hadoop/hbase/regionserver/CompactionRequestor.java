@@ -36,6 +36,24 @@ name|String
 name|why
 parameter_list|)
 function_decl|;
+comment|/**    * @param r Region to compact    * @param s Store within region to compact    * @param why Why compaction was requested -- used in debug messages    */
+specifier|public
+name|void
+name|requestCompaction
+parameter_list|(
+specifier|final
+name|HRegion
+name|r
+parameter_list|,
+specifier|final
+name|Store
+name|s
+parameter_list|,
+specifier|final
+name|String
+name|why
+parameter_list|)
+function_decl|;
 comment|/**    * @param r Region to compact    * @param why Why compaction was requested -- used in debug messages    * @param pri Priority of this compaction. minHeap.<=0 is critical    */
 specifier|public
 name|void
@@ -44,6 +62,27 @@ parameter_list|(
 specifier|final
 name|HRegion
 name|r
+parameter_list|,
+specifier|final
+name|String
+name|why
+parameter_list|,
+name|int
+name|pri
+parameter_list|)
+function_decl|;
+comment|/**    * @param r Region to compact    * @param s Store within region to compact    * @param why Why compaction was requested -- used in debug messages    * @param pri Priority of this compaction. minHeap.<=0 is critical    */
+specifier|public
+name|void
+name|requestCompaction
+parameter_list|(
+specifier|final
+name|HRegion
+name|r
+parameter_list|,
+specifier|final
+name|Store
+name|s
 parameter_list|,
 specifier|final
 name|String
