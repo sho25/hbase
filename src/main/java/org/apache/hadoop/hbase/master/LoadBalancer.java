@@ -894,7 +894,7 @@ literal|" leastloaded="
 operator|+
 name|serversByLoad
 operator|.
-name|lastKey
+name|firstKey
 argument_list|()
 operator|.
 name|getLoad
