@@ -137,6 +137,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|NoSuchElementException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Map
 operator|.
 name|Entry
@@ -4971,6 +4981,12 @@ block|{
 name|HRegionLocation
 name|possibleRegion
 init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|possibleRegion
+operator|=
 name|matchingRegions
 operator|.
 name|get
@@ -4980,7 +4996,24 @@ operator|.
 name|lastKey
 argument_list|()
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|NoSuchElementException
+name|nsee
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"checkReferences() might have removed the key"
+argument_list|,
+name|nsee
+argument_list|)
+expr_stmt|;
+block|}
 comment|// there is a possibility that the reference was garbage collected
 comment|// in the instant since we checked isEmpty().
 if|if
