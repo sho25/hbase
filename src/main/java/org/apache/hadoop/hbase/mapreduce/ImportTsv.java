@@ -1328,7 +1328,9 @@ literal|"to be the row key.\n"
 operator|+
 literal|"\n"
 operator|+
-literal|"In order to prepare data for a bulk data load, pass the option:\n"
+literal|"By default importtsv will load data directly into HBase. To instead generate\n"
+operator|+
+literal|"HFiles of data to prepare for a bulk data load, pass the option:\n"
 operator|+
 literal|"  -D"
 operator|+
