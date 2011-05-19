@@ -2233,8 +2233,9 @@ operator|.
 name|size
 argument_list|()
 expr_stmt|;
-name|split
-argument_list|(
+name|HRegionInfo
+name|daughter
+init|=
 name|daughters
 operator|.
 name|get
@@ -2244,6 +2245,24 @@ argument_list|)
 operator|.
 name|getRegionInfo
 argument_list|()
+decl_stmt|;
+comment|// Compact first to ensure we have cleaned up references -- else the split
+comment|// will fail.
+name|this
+operator|.
+name|admin
+operator|.
+name|compact
+argument_list|(
+name|daughter
+operator|.
+name|getRegionName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|split
+argument_list|(
+name|daughter
 argument_list|,
 name|server
 argument_list|,
