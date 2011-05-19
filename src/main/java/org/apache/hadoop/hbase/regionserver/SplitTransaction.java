@@ -692,6 +692,18 @@ condition|)
 return|return
 literal|false
 return|;
+comment|// Split key can be false if this region is unsplittable; i.e. has refs.
+if|if
+condition|(
+name|this
+operator|.
+name|splitrow
+operator|==
+literal|null
+condition|)
+return|return
+literal|false
+return|;
 name|HRegionInfo
 name|hri
 init|=

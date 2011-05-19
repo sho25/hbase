@@ -661,6 +661,29 @@ index|[]
 name|midKey
 parameter_list|)
 block|{
+if|if
+condition|(
+name|midKey
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Region "
+operator|+
+name|r
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" not splittable because midkey=null"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 try|try
 block|{
 name|this
