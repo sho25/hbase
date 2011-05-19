@@ -8807,8 +8807,9 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
+name|ServerName
+name|otherSn
+init|=
 name|e
 operator|.
 name|getValue
@@ -8816,6 +8817,15 @@ argument_list|()
 operator|.
 name|getDestination
 argument_list|()
+decl_stmt|;
+comment|// The name will be null if the region is planned for a random assign.
+if|if
+condition|(
+name|otherSn
+operator|!=
+literal|null
+operator|&&
+name|otherSn
 operator|.
 name|equals
 argument_list|(
