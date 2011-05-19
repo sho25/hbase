@@ -197,6 +197,16 @@ name|Iterator
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|math
+operator|.
+name|BigDecimal
+import|;
+end_import
+
 begin_comment
 comment|/**  * Utility class that handles byte arrays, conversions to/from other types,  * comparisons, hash code generation, manufacturing keys for HashMaps or  * HashSets, etc.  */
 end_comment
