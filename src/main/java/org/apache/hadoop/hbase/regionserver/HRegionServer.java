@@ -1675,6 +1675,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|zookeeper
 operator|.
 name|KeeperException
@@ -1976,9 +1990,9 @@ comment|// Cache flushing
 name|MemStoreFlusher
 name|cacheFlusher
 decl_stmt|;
-comment|/*    * Check for major compactions.    */
+comment|/*    * Check for compactions requests.    */
 name|Chore
-name|majorCompactionChecker
+name|compactionChecker
 decl_stmt|;
 comment|// HLog and HLog roller. log is protected rather than private to avoid
 comment|// eclipse warning when accessed by inner classes
@@ -3391,7 +3405,7 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
-comment|// Background thread to check for major compactions; needed if region
+comment|// Background thread to check for compactions; needed if region
 comment|// has not gotten updates in a while. Make it run at a lesser frequency.
 name|int
 name|multiplier
@@ -3413,10 +3427,10 @@ argument_list|)
 decl_stmt|;
 name|this
 operator|.
-name|majorCompactionChecker
+name|compactionChecker
 operator|=
 operator|new
-name|MajorCompactionChecker
+name|CompactionChecker
 argument_list|(
 name|this
 argument_list|,
@@ -3925,13 +3939,13 @@ if|if
 condition|(
 name|this
 operator|.
-name|majorCompactionChecker
+name|compactionChecker
 operator|!=
 literal|null
 condition|)
 name|this
 operator|.
-name|majorCompactionChecker
+name|compactionChecker
 operator|.
 name|interrupt
 argument_list|()
@@ -5702,14 +5716,14 @@ block|}
 end_function
 
 begin_comment
-comment|/*    * Inner class that runs on a long period checking if regions need major    * compaction.    */
+comment|/*    * Inner class that runs on a long period checking if regions need compaction.    */
 end_comment
 
 begin_class
 specifier|private
 specifier|static
 class|class
-name|MajorCompactionChecker
+name|CompactionChecker
 extends|extends
 name|Chore
 block|{
@@ -5718,7 +5732,7 @@ specifier|final
 name|HRegionServer
 name|instance
 decl_stmt|;
-name|MajorCompactionChecker
+name|CompactionChecker
 parameter_list|(
 specifier|final
 name|HRegionServer
@@ -5735,7 +5749,7 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-literal|"MajorCompactionChecker"
+literal|"CompactionChecker"
 argument_list|,
 name|sleepTime
 argument_list|,
@@ -5754,9 +5768,12 @@ name|info
 argument_list|(
 literal|"Runs every "
 operator|+
+name|StringUtils
+operator|.
+name|formatTime
+argument_list|(
 name|sleepTime
-operator|+
-literal|"ms"
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -5810,6 +5827,11 @@ condition|(
 name|s
 operator|.
 name|isMajorCompaction
+argument_list|()
+operator|||
+name|s
+operator|.
+name|needsCompaction
 argument_list|()
 condition|)
 block|{
@@ -6925,11 +6947,11 @@ name|setDaemonThreadRunning
 argument_list|(
 name|this
 operator|.
-name|majorCompactionChecker
+name|compactionChecker
 argument_list|,
 name|n
 operator|+
-literal|".majorCompactionChecker"
+literal|".compactionChecker"
 argument_list|,
 name|handler
 argument_list|)
@@ -7227,7 +7249,7 @@ argument_list|()
 operator|&&
 name|this
 operator|.
-name|majorCompactionChecker
+name|compactionChecker
 operator|.
 name|isAlive
 argument_list|()
@@ -7675,7 +7697,7 @@ name|shutdown
 argument_list|(
 name|this
 operator|.
-name|majorCompactionChecker
+name|compactionChecker
 argument_list|)
 expr_stmt|;
 name|Threads
