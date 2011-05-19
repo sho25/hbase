@@ -553,7 +553,7 @@ operator|++
 expr_stmt|;
 block|}
 block|}
-comment|/**    *    * @param fileType "HFile" or "SequenceFile"    * @param keyLength    * @param valueLength    * @param codecName "none", "lzo", "gz"    * @param rows number of rows to be written.    * @param writeMethod used for HFile only.    * @param minBlockSize used for HFile only.    * @throws IOException    */
+comment|/**    *    * @param fileType "HFile" or "SequenceFile"    * @param keyLength    * @param valueLength    * @param codecName "none", "lzo", "gz", "snappy"    * @param rows number of rows to be written.    * @param writeMethod used for HFile only.    * @param minBlockSize used for HFile only.    * @throws IOException    */
 comment|//TODO writeMethod: implement multiple ways of writing e.g. A) known length (no chunk) B) using a buffer and streaming (for many chunks).
 specifier|public
 name|void

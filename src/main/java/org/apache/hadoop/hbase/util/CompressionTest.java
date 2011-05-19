@@ -470,7 +470,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"Usage: CompressionTest<path> none|gz|lzo\n"
+literal|"Usage: CompressionTest<path> none|gz|lzo|snappy\n"
 operator|+
 literal|"\n"
 operator|+

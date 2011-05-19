@@ -1656,7 +1656,7 @@ argument_list|)
 operator|.
 name|withArgName
 argument_list|(
-literal|"[none|lzo|gz]"
+literal|"[none|lzo|gz|snappy]"
 argument_list|)
 operator|.
 name|hasArg
@@ -2546,6 +2546,14 @@ operator|.
 name|equals
 argument_list|(
 literal|"gz"
+argument_list|)
+operator|&&
+operator|!
+name|compress
+operator|.
+name|equals
+argument_list|(
+literal|"snappy"
 argument_list|)
 condition|)
 block|{
