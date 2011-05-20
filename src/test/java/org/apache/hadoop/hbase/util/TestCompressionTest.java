@@ -179,7 +179,7 @@ literal|"GZ"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertFalse
 argument_list|(
 name|CompressionTest
 operator|.
