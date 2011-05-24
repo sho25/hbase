@@ -2247,18 +2247,6 @@ operator|&&
 name|splitParent
 condition|)
 block|{
-comment|// Offline regions shouldn't cause complaints
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Region "
-operator|+
-name|descriptiveName
-operator|+
-literal|" offline, split, parent, ignoring."
-argument_list|)
-expr_stmt|;
 return|return;
 block|}
 elseif|else
@@ -2273,18 +2261,6 @@ operator|!
 name|isDeployed
 condition|)
 block|{
-comment|// offline regions shouldn't cause complaints
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Region "
-operator|+
-name|descriptiveName
-operator|+
-literal|" offline, ignoring."
-argument_list|)
-expr_stmt|;
 return|return;
 block|}
 elseif|else
@@ -2401,7 +2377,7 @@ name|descriptiveName
 operator|+
 literal|" on HDFS, but not listed in META "
 operator|+
-literal|"or deployed on any region server."
+literal|"or deployed on any region server"
 argument_list|)
 expr_stmt|;
 block|}
@@ -3126,6 +3102,17 @@ name|last
 init|=
 literal|null
 decl_stmt|;
+name|int
+name|originalErrorsCount
+init|=
+name|errors
+operator|.
+name|getErrorList
+argument_list|()
+operator|.
+name|size
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|HbckInfo
@@ -3253,7 +3240,7 @@ literal|"startkey, startkey=%s, endkey=%s"
 argument_list|,
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|r
 operator|.
@@ -3265,7 +3252,7 @@ argument_list|)
 argument_list|,
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|r
 operator|.
@@ -3320,7 +3307,7 @@ literal|"Two regions have the same startkey: "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|r
 operator|.
@@ -3432,7 +3419,7 @@ operator|.
 name|size
 argument_list|()
 operator|==
-literal|0
+name|originalErrorsCount
 return|;
 block|}
 block|}

@@ -8576,6 +8576,17 @@ operator|+
 literal|"we don't know where region was opened so can't do anything"
 argument_list|)
 expr_stmt|;
+synchronized|synchronized
+init|(
+name|regionState
+init|)
+block|{
+name|regionState
+operator|.
+name|updateTimestampToNow
+argument_list|()
+expr_stmt|;
+block|}
 break|break;
 case|case
 name|PENDING_CLOSE
