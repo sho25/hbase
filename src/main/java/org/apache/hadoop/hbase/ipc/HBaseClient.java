@@ -187,6 +187,18 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|ConcurrentHashMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|atomic
 operator|.
 name|AtomicBoolean
@@ -487,7 +499,7 @@ argument_list|)
 decl_stmt|;
 specifier|protected
 specifier|final
-name|Map
+name|PoolMap
 argument_list|<
 name|ConnectionId
 argument_list|,
@@ -2317,6 +2329,15 @@ name|in
 argument_list|)
 expr_stmt|;
 comment|// read value
+comment|// it's possible that this call may have been cleaned up due to a RPC
+comment|// timeout, so check if it still exists before setting the value.
+if|if
+condition|(
+name|call
+operator|!=
+literal|null
+condition|)
+block|{
 name|call
 operator|.
 name|setValue
@@ -2324,11 +2345,49 @@ argument_list|(
 name|value
 argument_list|)
 expr_stmt|;
+block|}
 name|calls
 operator|.
 name|remove
 argument_list|(
 name|id
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|SocketTimeoutException
+name|ste
+parameter_list|)
+block|{
+if|if
+condition|(
+name|remoteId
+operator|.
+name|rpcTimeout
+operator|>
+literal|0
+condition|)
+block|{
+comment|// Clean up open calls but don't treat this as a fatal condition,
+comment|// since we expect certain responses to not make it by the specified
+comment|// {@link ConnectionId#rpcTimeout}.
+name|closeException
+operator|=
+name|ste
+expr_stmt|;
+name|cleanupCalls
+argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// Since the server did not respond within the default ping interval
+comment|// time, treat this as a fatal condition and close this connection
+name|markClosed
+argument_list|(
+name|ste
 argument_list|)
 expr_stmt|;
 block|}
@@ -2408,26 +2467,15 @@ init|(
 name|connections
 init|)
 block|{
-if|if
-condition|(
-name|connections
-operator|.
-name|get
-argument_list|(
-name|remoteId
-argument_list|)
-operator|==
-name|this
-condition|)
-block|{
 name|connections
 operator|.
 name|remove
 argument_list|(
 name|remoteId
+argument_list|,
+name|this
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|// close the streams and therefore the socket
 name|IOUtils
@@ -2589,6 +2637,18 @@ name|closeException
 argument_list|)
 expr_stmt|;
 comment|// local exception
+comment|// Notify the open calls, so they are aware of what just happened
+synchronized|synchronized
+init|(
+name|c
+init|)
+block|{
+name|c
+operator|.
+name|notifyAll
+argument_list|()
+expr_stmt|;
+block|}
 name|itor
 operator|.
 name|remove

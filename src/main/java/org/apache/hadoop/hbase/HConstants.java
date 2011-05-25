@@ -416,6 +416,26 @@ name|HBASE_CLIENT_IPC_POOL_SIZE
 init|=
 literal|"hbase.client.ipc.pool.size"
 decl_stmt|;
+comment|/** Parameter name for HBase client operation timeout, which overrides RPC timeout */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CLIENT_OPERATION_TIMEOUT
+init|=
+literal|"hbase.client.operation.timeout"
+decl_stmt|;
+comment|/** Default HBase client operation timeout, which is tantamount to a blocking call */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_HBASE_CLIENT_OPERATION_TIMEOUT
+init|=
+name|Integer
+operator|.
+name|MAX_VALUE
+decl_stmt|;
 comment|/** Used to construct the name of the log directory for a region server    * Use '.' as a special character to seperate the log files from table data */
 specifier|public
 specifier|static
