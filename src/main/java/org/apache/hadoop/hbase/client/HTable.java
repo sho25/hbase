@@ -998,6 +998,9 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
+comment|/**    * {@inheritDoc}    */
+annotation|@
+name|Override
 specifier|public
 name|Configuration
 name|getConfiguration
@@ -1203,6 +1206,7 @@ literal|false
 argument_list|)
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -1256,6 +1260,7 @@ operator|=
 name|scannerCaching
 expr_stmt|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -1993,6 +1998,7 @@ return|return
 name|allRegions
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -2060,6 +2066,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**     * {@inheritDoc}     */
 annotation|@
 name|Override
 specifier|public
@@ -2091,6 +2098,7 @@ return|return
 name|s
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -2125,6 +2133,7 @@ name|scan
 argument_list|)
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -2165,6 +2174,9 @@ name|scan
 argument_list|)
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
+annotation|@
+name|Override
 specifier|public
 name|Result
 name|get
@@ -2225,6 +2237,9 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
+annotation|@
+name|Override
 specifier|public
 name|Result
 index|[]
@@ -2311,7 +2326,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Method that does a batch call on Deletes, Gets and Puts.  The ordering of    * execution of the actions is not defined. Meaning if you do a Put and a    * Get in the same {@link #batch} call, you will not necessarily be    * guaranteed that the Get returns what the Put had put.    *    * @param actions list of Get, Put, Delete objects    * @param results Empty Result[], same size as actions. Provides access to    * partial results, in case an exception is thrown. If there are any failures,    * there will be a null or Throwable will be in the results array, AND an    * exception will be thrown.    * @throws IOException    */
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -2350,7 +2365,7 @@ name|results
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Method that does a batch call on Deletes, Gets and Puts.    *    * @param actions list of Get, Put, Delete objects    * @return the results from the actions. A null in the return array means that    * the call for that action failed, even after retries    * @throws IOException    */
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -2401,7 +2416,7 @@ return|return
 name|results
 return|;
 block|}
-comment|/**    * Deletes the specified cells/row.    *    * @param delete The object that specifies what to delete.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -2466,7 +2481,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Deletes the specified cells/rows in bulk.    * @param deletes List of things to delete. As a side effect, it will be modified:    * successful {@link Delete}s are removed. The ordering of the list will not change.    * @throws IOException if a remote or network exception occurs. In that case    * the {@code deletes} argument will contain the {@link Delete} instances    * that have not be successfully applied.    * @since 0.20.1    * @see #batch(java.util.List, Object[])    */
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -2575,6 +2590,7 @@ block|}
 block|}
 block|}
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -2599,6 +2615,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -2677,6 +2694,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -2756,6 +2774,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -2799,6 +2818,7 @@ literal|true
 argument_list|)
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -2940,7 +2960,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Atomically checks if a row/family/qualifier value match the expectedValue.    * If it does, it adds the put.  If value == null, checks for non-existence    * of the value.    *    * @param row to check    * @param family column family    * @param qualifier column qualifier    * @param value the expected value    * @param put put to execute if value matches.    * @throws IOException    * @return true if the new put was execute, false otherwise    */
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -3036,7 +3056,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Atomically checks if a row/family/qualifier value match the expectedValue.    * If it does, it adds the delete.  If value == null, checks for non-existence    * of the value.    *    * @param row to check    * @param family column family    * @param qualifier column qualifier    * @param value the expected value    * @param delete delete to execute if value matches.    * @throws IOException    * @return true if the new delete was executed, false otherwise    */
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -3132,7 +3152,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Test for the existence of columns in the table, as specified in the Get.<p>    *    * This will return true if the Get matches one or more keys, false if not.<p>    *    * This is a server-side call so it prevents any data from being transfered    * to the client.    * @param get param to check for    * @return true if the specified Get matches one or more keys, false if not    * @throws IOException    */
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -3195,7 +3215,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Executes all the buffered {@link Put} operations.    *<p>    * This method gets called once automatically for every {@link Put} or batch    * of {@link Put}s (when {@link #batch(List)} is used) when    * {@link #isAutoFlush()} is {@code true}.    * @throws IOException if a remote or network exception occurs.    */
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -3244,6 +3264,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -3378,6 +3399,7 @@ block|}
 block|}
 block|}
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -3449,6 +3471,7 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -3516,6 +3539,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -5225,6 +5249,7 @@ name|clearRegionCache
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -5286,6 +5311,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
@@ -5410,6 +5436,7 @@ return|return
 name|results
 return|;
 block|}
+comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
