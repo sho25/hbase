@@ -1227,7 +1227,7 @@ literal|"Failed seekBefore "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|this
 operator|.

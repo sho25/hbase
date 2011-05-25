@@ -2889,7 +2889,7 @@ literal|"There wasn't enough rows, we stopped at "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|res1
 operator|.

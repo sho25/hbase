@@ -12737,7 +12737,7 @@ literal|" with start key<"
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|startKey
 argument_list|)
@@ -12746,7 +12746,7 @@ literal|"> and end key<"
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|endKey
 argument_list|)
@@ -14877,7 +14877,7 @@ literal|"Column family "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|family
 argument_list|)

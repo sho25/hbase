@@ -1121,7 +1121,7 @@ literal|"not merging regions "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|currentRegion
 operator|.
@@ -1133,7 +1133,7 @@ literal|" and "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|nextRegion
 operator|.
@@ -1494,7 +1494,7 @@ literal|"Row:<"
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|currentRow
 operator|.
@@ -1753,7 +1753,7 @@ literal|"updated columns in row: "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|regionsToDelete
 index|[
@@ -1832,7 +1832,7 @@ literal|"updated columns in row: "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|newRegion
 operator|.
@@ -2280,7 +2280,7 @@ literal|"updated columns in row: "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|regionsToDelete
 index|[
@@ -2361,7 +2361,7 @@ literal|"updated columns in row: "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|newRegion
 operator|.

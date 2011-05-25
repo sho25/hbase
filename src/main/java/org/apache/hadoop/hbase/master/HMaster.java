@@ -4335,7 +4335,7 @@ name|UnknownRegionException
 argument_list|(
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|encodedRegionName
 argument_list|)
@@ -6719,7 +6719,7 @@ name|UnknownRegionException
 argument_list|(
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|regionName
 argument_list|)

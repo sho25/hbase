@@ -2661,7 +2661,7 @@ literal|" from region "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|oldestRegion
 argument_list|)

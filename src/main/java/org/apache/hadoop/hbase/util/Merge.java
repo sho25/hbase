@@ -1055,7 +1055,7 @@ literal|"Merging regions "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|this
 operator|.
@@ -1066,7 +1066,7 @@ literal|" and "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|this
 operator|.
@@ -1130,7 +1130,7 @@ literal|"Could not find meta region for "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|region1
 argument_list|)
@@ -1160,7 +1160,7 @@ literal|"Could not find meta region for "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|region2
 argument_list|)
@@ -1175,7 +1175,7 @@ literal|"Found meta for region1 "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|meta1
 operator|.
@@ -1187,7 +1187,7 @@ literal|", meta for region2 "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|meta2
 operator|.
@@ -1289,7 +1289,7 @@ literal|"info1 is null using key "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|region1
 argument_list|)
@@ -1478,7 +1478,7 @@ literal|"Could not find meta region for "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|merged
 operator|.
@@ -1619,7 +1619,7 @@ literal|"Could not find "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|region1
 argument_list|)
@@ -1628,7 +1628,7 @@ literal|" in "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|meta1
 operator|.
@@ -1653,7 +1653,7 @@ literal|"Cound not find "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|region2
 argument_list|)
@@ -1662,7 +1662,7 @@ literal|" in "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|meta2
 operator|.
@@ -2072,7 +2072,7 @@ literal|"Region "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|rn
 argument_list|)

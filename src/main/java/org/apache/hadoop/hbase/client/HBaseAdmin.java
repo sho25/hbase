@@ -2731,7 +2731,7 @@ literal|"No server in .META. for "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|regionname
 argument_list|)
@@ -2800,7 +2800,7 @@ literal|"No server in .META. for "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|regionname
 argument_list|)
@@ -2984,7 +2984,7 @@ literal|"No server in .META. for "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|tableNameOrRegionName
 argument_list|)
@@ -3351,7 +3351,7 @@ literal|"No server in .META. for "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|tableNameOrRegionName
 argument_list|)
@@ -3866,7 +3866,7 @@ literal|"No server in .META. for "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|tableNameOrRegionName
 argument_list|)

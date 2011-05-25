@@ -613,7 +613,7 @@ literal|", row="
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|searchRow
 argument_list|)
@@ -667,7 +667,7 @@ literal|", row="
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|searchRow
 argument_list|)
@@ -827,7 +827,7 @@ literal|" starting at row="
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|startRow
 argument_list|)

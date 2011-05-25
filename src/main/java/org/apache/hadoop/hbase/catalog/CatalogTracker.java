@@ -1697,7 +1697,7 @@ literal|"Failed verification of "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|regionName
 argument_list|)

@@ -708,7 +708,7 @@ literal|" in region "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|catalogRegionName
 argument_list|)
@@ -859,7 +859,7 @@ literal|", qualifier="
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|qualifier
 argument_list|)

@@ -624,7 +624,7 @@ name|append
 argument_list|(
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|this
 operator|.
@@ -833,7 +833,7 @@ name|append
 argument_list|(
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|column
 operator|.
