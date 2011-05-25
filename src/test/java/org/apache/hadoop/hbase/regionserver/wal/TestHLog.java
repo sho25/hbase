@@ -812,18 +812,6 @@ operator|*
 literal|1024
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.regionserver.flushlogentries"
-argument_list|,
-literal|1
-argument_list|)
-expr_stmt|;
 comment|// needed for testAppendClose()
 name|TEST_UTIL
 operator|.

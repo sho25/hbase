@@ -612,15 +612,6 @@ argument_list|,
 literal|2
 argument_list|)
 expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.regionserver.flushlogentries"
-argument_list|,
-literal|1
-argument_list|)
-expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|startMiniDFSCluster

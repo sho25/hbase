@@ -687,11 +687,6 @@ name|blocksize
 decl_stmt|;
 specifier|private
 specifier|final
-name|int
-name|flushlogentries
-decl_stmt|;
-specifier|private
-specifier|final
 name|String
 name|prefix
 decl_stmt|;
@@ -1335,19 +1330,6 @@ block|}
 block|}
 name|this
 operator|.
-name|flushlogentries
-operator|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.regionserver.flushlogentries"
-argument_list|,
-literal|1
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
 name|blocksize
 operator|=
 name|conf
@@ -1550,12 +1532,6 @@ operator|+
 name|this
 operator|.
 name|enabled
-operator|+
-literal|", flushlogentries="
-operator|+
-name|this
-operator|.
-name|flushlogentries
 operator|+
 literal|", optionallogflushinternal="
 operator|+
@@ -4030,12 +4006,6 @@ specifier|final
 name|long
 name|optionalFlushInterval
 decl_stmt|;
-specifier|private
-name|boolean
-name|syncerShuttingDown
-init|=
-literal|false
-decl_stmt|;
 name|LogSyncer
 parameter_list|(
 name|long
@@ -4121,10 +4091,6 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|syncerShuttingDown
-operator|=
-literal|true
-expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -4141,6 +4107,8 @@ block|}
 end_class
 
 begin_function
+annotation|@
+name|Override
 specifier|public
 name|void
 name|sync
