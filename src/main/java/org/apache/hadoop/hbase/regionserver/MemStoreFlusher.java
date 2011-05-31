@@ -736,6 +736,11 @@ name|float
 name|defaultLimit
 parameter_list|)
 block|{
+name|float
+name|effectiveLimit
+init|=
+name|limit
+decl_stmt|;
 if|if
 condition|(
 name|limit
@@ -758,6 +763,10 @@ operator|+
 literal|" because supplied value outside allowed range of 0.1 -> 0.9"
 argument_list|)
 expr_stmt|;
+name|effectiveLimit
+operator|=
+name|defaultLimit
+expr_stmt|;
 block|}
 return|return
 call|(
@@ -766,7 +775,7 @@ call|)
 argument_list|(
 name|max
 operator|*
-name|limit
+name|effectiveLimit
 argument_list|)
 return|;
 block|}
