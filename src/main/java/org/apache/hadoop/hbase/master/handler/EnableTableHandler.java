@@ -567,7 +567,7 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|" are online."
+literal|" are offline."
 argument_list|)
 expr_stmt|;
 name|BulkEnabler
