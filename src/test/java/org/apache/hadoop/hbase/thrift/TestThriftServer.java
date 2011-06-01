@@ -1821,7 +1821,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 name|int
-name|RegionCount
+name|regionCount
 init|=
 name|handler
 operator|.
@@ -1839,9 +1839,9 @@ literal|"empty table should have only 1 region, "
 operator|+
 literal|"but found "
 operator|+
-name|RegionCount
+name|regionCount
 argument_list|,
-name|RegionCount
+name|regionCount
 argument_list|,
 literal|1
 argument_list|)
@@ -1860,7 +1860,7 @@ argument_list|(
 name|tableAname
 argument_list|)
 expr_stmt|;
-name|RegionCount
+name|regionCount
 operator|=
 name|handler
 operator|.
@@ -1878,9 +1878,9 @@ literal|"non-existing table should have 0 region, "
 operator|+
 literal|"but found "
 operator|+
-name|RegionCount
+name|regionCount
 argument_list|,
-name|RegionCount
+name|regionCount
 argument_list|,
 literal|0
 argument_list|)
