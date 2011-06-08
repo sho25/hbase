@@ -11194,7 +11194,10 @@ block|{
 name|boolean
 name|writeToWAL
 init|=
-literal|true
+name|delete
+operator|.
+name|getWriteToWAL
+argument_list|()
 decl_stmt|;
 name|this
 operator|.
@@ -11309,11 +11312,6 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-name|boolean
-name|writeToWAL
-init|=
-literal|true
-decl_stmt|;
 name|region
 operator|=
 name|getRegion
@@ -11398,7 +11396,10 @@ index|[
 name|i
 index|]
 argument_list|,
-name|writeToWAL
+name|delete
+operator|.
+name|getWriteToWAL
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|i
