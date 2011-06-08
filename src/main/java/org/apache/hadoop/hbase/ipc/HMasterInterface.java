@@ -29,6 +29,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -337,6 +347,28 @@ parameter_list|(
 specifier|final
 name|boolean
 name|b
+parameter_list|)
+function_decl|;
+comment|/**    * Get array of all HTDs.    * @return array of HTableDescriptor    */
+specifier|public
+name|HTableDescriptor
+index|[]
+name|getHTableDescriptors
+parameter_list|()
+function_decl|;
+comment|/**    * Get current HTD for a given tablename    * @param tableName    * @return HTableDescriptor for the table    */
+comment|//public HTableDescriptor getHTableDescriptor(final byte[] tableName);
+comment|/**    * Get array of HTDs for requested tables.    * @param tableNames    * @return array of HTableDescriptor    */
+specifier|public
+name|HTableDescriptor
+index|[]
+name|getHTableDescriptors
+parameter_list|(
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|tableNames
 parameter_list|)
 function_decl|;
 block|}

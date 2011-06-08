@@ -861,6 +861,9 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|htd
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 name|r1
 argument_list|,
@@ -1032,6 +1035,24 @@ operator|.
 name|init
 argument_list|()
 expr_stmt|;
+name|HTableDescriptor
+name|htd
+init|=
+operator|new
+name|HTableDescriptor
+argument_list|()
+decl_stmt|;
+name|htd
+operator|.
+name|addFamily
+argument_list|(
+operator|new
+name|HColumnDescriptor
+argument_list|(
+name|f1
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// Testing normal log rolling every 20
 for|for
 control|(
@@ -1105,6 +1126,8 @@ argument_list|,
 name|key
 argument_list|,
 name|edit
+argument_list|,
+name|htd
 argument_list|)
 expr_stmt|;
 block|}
@@ -1186,6 +1209,8 @@ argument_list|,
 name|key
 argument_list|,
 name|edit
+argument_list|,
+name|htd
 argument_list|)
 expr_stmt|;
 block|}
@@ -1262,6 +1287,8 @@ argument_list|,
 name|key
 argument_list|,
 name|edit
+argument_list|,
+name|htd
 argument_list|)
 expr_stmt|;
 name|assertEquals

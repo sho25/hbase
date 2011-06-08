@@ -1095,6 +1095,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|//HRegionInfo info = new HRegionInfo(tableName, null, null, false);
 name|HRegion
 name|r
 init|=
@@ -1103,7 +1104,7 @@ name|HRegion
 argument_list|(
 name|closedRegion
 operator|.
-name|getRegionDir
+name|getTableDir
 argument_list|()
 argument_list|,
 name|closedRegion
@@ -1252,7 +1253,7 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-name|htd
+name|tableName
 argument_list|,
 literal|null
 argument_list|,
@@ -1284,6 +1285,8 @@ argument_list|,
 name|path
 argument_list|,
 name|conf
+argument_list|,
+name|htd
 argument_list|)
 decl_stmt|;
 comment|// this following piece is a hack.

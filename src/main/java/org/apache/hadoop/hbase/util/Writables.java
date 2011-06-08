@@ -39,6 +39,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|migration
+operator|.
+name|HRegionInfo090x
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|io
 operator|.
 name|DataInputBuffer
@@ -225,7 +241,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Put a bunch of Writables as bytes all into the one byte array.    * @param w writable    * @return The bytes of<code>w</code> gotten by running its    * {@link Writable#write(java.io.DataOutput)} method.    * @throws IOException e    * @see #getHRegionInfos(byte[], int, int)    */
+comment|/**    * Put a bunch of Writables as bytes all into the one byte array.    * @param ws writable    * @return The bytes of<code>w</code> gotten by running its    * {@link Writable#write(java.io.DataOutput)} method.    * @throws IOException e    * @see #getHRegionInfos(byte[], int, int)    */
 specifier|public
 specifier|static
 name|byte
@@ -741,6 +757,34 @@ expr_stmt|;
 block|}
 return|return
 name|tgt
+return|;
+block|}
+comment|/**    * Get HREgionInfoForMigration serialized from bytes.    * @param bytes serialized bytes    * @return HRegionInfoForMigration    * @throws IOException    */
+specifier|public
+specifier|static
+name|HRegionInfo090x
+name|getHRegionInfoForMigration
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|bytes
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+operator|(
+name|HRegionInfo090x
+operator|)
+name|getWritable
+argument_list|(
+name|bytes
+argument_list|,
+operator|new
+name|HRegionInfo090x
+argument_list|()
+argument_list|)
 return|;
 block|}
 block|}

@@ -639,6 +639,9 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|htd
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 literal|null
 argument_list|,
@@ -664,6 +667,8 @@ argument_list|,
 name|this
 operator|.
 name|conf
+argument_list|,
+name|htd
 argument_list|)
 expr_stmt|;
 comment|// Insert first half

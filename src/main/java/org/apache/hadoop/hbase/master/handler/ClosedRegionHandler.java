@@ -389,10 +389,7 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|getTableDesc
-argument_list|()
-operator|.
-name|getNameAsString
+name|getTableNameAsString
 argument_list|()
 argument_list|)
 condition|)

@@ -312,9 +312,10 @@ operator|=
 operator|new
 name|HRegionInfo
 argument_list|(
-name|this
-operator|.
 name|desc
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 name|HConstants
 operator|.
@@ -337,9 +338,10 @@ operator|=
 operator|new
 name|HRegionInfo
 argument_list|(
-name|this
-operator|.
 name|desc
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 name|Bytes
 operator|.
@@ -398,6 +400,10 @@ argument_list|,
 name|this
 operator|.
 name|conf
+argument_list|,
+name|this
+operator|.
+name|desc
 argument_list|)
 expr_stmt|;
 comment|// Insert data

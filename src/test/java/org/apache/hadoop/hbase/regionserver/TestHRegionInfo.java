@@ -287,6 +287,9 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|tableDesc
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 name|Bytes
 operator|.

@@ -1547,10 +1547,7 @@ name|equals
 argument_list|(
 name|r
 operator|.
-name|getTableDesc
-argument_list|()
-operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|tableName

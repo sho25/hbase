@@ -802,7 +802,7 @@ name|HRegionInfo
 argument_list|(
 name|hri
 operator|.
-name|getTableDesc
+name|getTableName
 argument_list|()
 argument_list|,
 name|startKey
@@ -825,7 +825,7 @@ name|HRegionInfo
 argument_list|(
 name|hri
 operator|.
-name|getTableDesc
+name|getTableName
 argument_list|()
 argument_list|,
 name|this

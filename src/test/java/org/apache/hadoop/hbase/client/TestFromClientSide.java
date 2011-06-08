@@ -1136,10 +1136,7 @@ name|conf
 argument_list|,
 name|hri
 operator|.
-name|getTableDesc
-argument_list|()
-operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|hri

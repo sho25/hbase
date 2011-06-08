@@ -1458,6 +1458,17 @@ argument_list|)
 expr_stmt|;
 name|addToMap
 argument_list|(
+name|HTableDescriptor
+index|[]
+operator|.
+expr|class
+argument_list|,
+name|code
+operator|++
+argument_list|)
+expr_stmt|;
+name|addToMap
+argument_list|(
 name|MapWritable
 operator|.
 name|class
