@@ -121,22 +121,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|MetaReader
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|regionserver
 operator|.
 name|HRegionServer
@@ -425,13 +409,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"START ************ test2481"
-argument_list|)
-expr_stmt|;
 name|Scan
 name|scan
 init|=
@@ -546,13 +523,6 @@ argument_list|(
 literal|"We should be timing out"
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"END ************ test2481"
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * Test that scanner can continue even if the region server it was reading    * from failed. Before 2772, it reused the same scanner id.    * @throws Exception    */
 annotation|@
@@ -564,13 +534,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"START************ test2772"
-argument_list|)
-expr_stmt|;
 name|HRegionServer
 name|rs
 init|=
@@ -671,13 +634,6 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"END ************ test2772"
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * Test that scanner won't miss any rows if the region server it was reading    * from failed. Before 3686, it would skip rows in the scan.    * @throws Exception    */
 annotation|@
@@ -689,13 +645,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"START ************ TEST3686A---1"
-argument_list|)
-expr_stmt|;
 name|HRegionServer
 name|rs
 init|=
@@ -706,13 +655,6 @@ argument_list|(
 name|TABLE_NAME
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"START ************ TEST3686A---1111"
-argument_list|)
-expr_stmt|;
 name|Scan
 name|scan
 init|=
@@ -727,29 +669,6 @@ argument_list|(
 name|SCANNER_CACHING
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"************ TEST3686A"
-argument_list|)
-expr_stmt|;
-name|MetaReader
-operator|.
-name|fullScanMetaAndPrint
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getMaster
-argument_list|()
-operator|.
-name|getCatalogTracker
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|HTable
 name|table
 init|=
@@ -759,13 +678,6 @@ argument_list|(
 name|TABLE_NAME
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"START ************ TEST3686A---22"
-argument_list|)
-expr_stmt|;
 name|ResultScanner
 name|r
 init|=
@@ -776,13 +688,6 @@ argument_list|(
 name|scan
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"START ************ TEST3686A---33"
-argument_list|)
-expr_stmt|;
 name|int
 name|count
 init|=
@@ -792,13 +697,6 @@ name|r
 operator|.
 name|next
 argument_list|()
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"START ************ TEST3686A---44"
-argument_list|)
 expr_stmt|;
 comment|// Kill after one call to next(), which got 5 rows.
 name|rs
@@ -834,13 +732,6 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"************ END TEST3686A"
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * Make sure that no rows are lost if the scanner timeout is longer on the    * client than the server, and the scan times out on the server but not the    * client.    * @throws Exception    */
 annotation|@
@@ -852,13 +743,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"START ************ test3686b"
-argument_list|)
-expr_stmt|;
 name|HRegionServer
 name|rs
 init|=
@@ -978,13 +862,6 @@ name|r
 operator|.
 name|close
 argument_list|()
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"END ************ END test3686b"
-argument_list|)
 expr_stmt|;
 block|}
 block|}

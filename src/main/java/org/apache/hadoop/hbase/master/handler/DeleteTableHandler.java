@@ -437,19 +437,6 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-comment|// Update table descriptor cache
-name|am
-operator|.
-name|deleteTableDesc
-argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|tableName
-argument_list|)
-argument_list|)
-expr_stmt|;
 comment|// If entry for this table in zk, and up in AssignmentManager, remove it.
 comment|// Call to undisableTable does this. TODO: Make a more formal purge table.
 name|am

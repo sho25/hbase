@@ -865,9 +865,6 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|desc
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 name|startKey
 argument_list|,
@@ -889,8 +886,6 @@ name|UTIL
 operator|.
 name|getConfiguration
 argument_list|()
-argument_list|,
-name|desc
 argument_list|)
 decl_stmt|;
 name|LOG
@@ -1037,10 +1032,6 @@ name|UTIL
 operator|.
 name|getConfiguration
 argument_list|()
-argument_list|,
-name|HTableDescriptor
-operator|.
-name|ROOT_TABLEDESC
 argument_list|)
 decl_stmt|;
 name|HRegion
@@ -1060,10 +1051,6 @@ name|UTIL
 operator|.
 name|getConfiguration
 argument_list|()
-argument_list|,
-name|HTableDescriptor
-operator|.
-name|META_TABLEDESC
 argument_list|)
 decl_stmt|;
 name|HRegion

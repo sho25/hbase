@@ -47,20 +47,6 @@ name|HRegionInfo
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HTableDescriptor
-import|;
-end_import
-
 begin_comment
 comment|/**  * Get notification of {@link HLog}/WAL log events. The invocations are inline  * so make sure your implementation is fast else you'll slow hbase.  */
 end_comment
@@ -98,21 +84,6 @@ name|visitLogEntryBeforeWrite
 parameter_list|(
 name|HRegionInfo
 name|info
-parameter_list|,
-name|HLogKey
-name|logKey
-parameter_list|,
-name|WALEdit
-name|logEdit
-parameter_list|)
-function_decl|;
-comment|/**    *    * @param htd    * @param logKey    * @param logEdit    */
-specifier|public
-name|void
-name|visitLogEntryBeforeWrite
-parameter_list|(
-name|HTableDescriptor
-name|htd
 parameter_list|,
 name|HLogKey
 name|logKey

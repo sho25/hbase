@@ -2495,15 +2495,6 @@ argument_list|(
 name|tname
 argument_list|)
 decl_stmt|;
-name|HTableDescriptor
-name|htd
-init|=
-operator|new
-name|HTableDescriptor
-argument_list|(
-name|tname
-argument_list|)
-decl_stmt|;
 name|byte
 index|[]
 name|value
@@ -2688,8 +2679,6 @@ name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
-argument_list|,
-name|htd
 argument_list|)
 expr_stmt|;
 name|counts

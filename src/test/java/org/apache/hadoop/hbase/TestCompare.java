@@ -64,9 +64,8 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-name|Bytes
-operator|.
-name|toBytes
+operator|new
+name|HTableDescriptor
 argument_list|(
 literal|"a"
 argument_list|)
@@ -82,9 +81,8 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-name|Bytes
-operator|.
-name|toBytes
+operator|new
+name|HTableDescriptor
 argument_list|(
 literal|"b"
 argument_list|)
@@ -132,9 +130,6 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|t
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 literal|null
 argument_list|,
@@ -147,9 +142,6 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|t
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 name|midway
 argument_list|,
@@ -205,9 +197,6 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|t
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 name|Bytes
 operator|.
@@ -230,9 +219,6 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|t
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 name|Bytes
 operator|.
@@ -267,9 +253,6 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|t
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 name|Bytes
 operator|.
@@ -292,9 +275,6 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|t
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 name|Bytes
 operator|.
@@ -329,9 +309,6 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|t
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 name|Bytes
 operator|.
@@ -354,9 +331,6 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|t
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 name|Bytes
 operator|.

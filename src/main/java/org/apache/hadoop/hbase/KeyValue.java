@@ -2221,16 +2221,6 @@ literal|"/vlen="
 operator|+
 name|getValueLength
 argument_list|()
-operator|+
-literal|" value = "
-operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|getValue
-argument_list|()
-argument_list|)
 return|;
 block|}
 comment|/**    * @param k Key portion of a KeyValue.    * @return Key as a String.    */

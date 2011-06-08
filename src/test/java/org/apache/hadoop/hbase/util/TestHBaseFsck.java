@@ -835,9 +835,6 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|htd
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 name|startKey
 argument_list|,

@@ -1487,7 +1487,10 @@ name|equals
 argument_list|(
 name|info
 operator|.
-name|getTableName
+name|getTableDesc
+argument_list|()
+operator|.
+name|getName
 argument_list|()
 argument_list|,
 name|getTableName
@@ -1667,7 +1670,10 @@ name|equals
 argument_list|(
 name|info
 operator|.
-name|getTableName
+name|getTableDesc
+argument_list|()
+operator|.
+name|getName
 argument_list|()
 argument_list|,
 name|getTableName

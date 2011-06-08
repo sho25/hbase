@@ -535,7 +535,10 @@ name|isDisablingOrDisabledTable
 argument_list|(
 name|regionInfo
 operator|.
-name|getTableNameAsString
+name|getTableDesc
+argument_list|()
+operator|.
+name|getNameAsString
 argument_list|()
 argument_list|)
 condition|)

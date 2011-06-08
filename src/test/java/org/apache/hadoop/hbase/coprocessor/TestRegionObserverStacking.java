@@ -513,9 +513,6 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|htd
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 literal|null
 argument_list|,
@@ -547,8 +544,6 @@ argument_list|,
 name|path
 argument_list|,
 name|conf
-argument_list|,
-name|htd
 argument_list|)
 decl_stmt|;
 comment|// this following piece is a hack. currently a coprocessorHost

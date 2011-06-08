@@ -7368,13 +7368,6 @@ name|KeeperException
 throws|,
 name|IOException
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"HRS.PostOpenDeployTasks"
-argument_list|)
-expr_stmt|;
 comment|// Do checks to see if we need to compact (references or too many files)
 for|for
 control|(
@@ -7423,18 +7416,6 @@ argument_list|(
 name|r
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"addToOnlineRegions is done"
-operator|+
-name|r
-operator|.
-name|getRegionInfo
-argument_list|()
-argument_list|)
-expr_stmt|;
 comment|// Update ZK, ROOT or META
 if|if
 condition|(
@@ -7447,13 +7428,6 @@ name|isRootRegion
 argument_list|()
 condition|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"setRootLocation"
-argument_list|)
-expr_stmt|;
 name|RootLocationEditor
 operator|.
 name|setRootLocation
@@ -7479,13 +7453,6 @@ name|isMetaRegion
 argument_list|()
 condition|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"updateMetaLocation"
-argument_list|)
-expr_stmt|;
 name|MetaEditor
 operator|.
 name|updateMetaLocation
@@ -7505,25 +7472,11 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"updateMetaLocation 111"
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|daughter
 condition|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"updateMetaLocation 22"
-argument_list|)
-expr_stmt|;
 comment|// If daughter of a split, update whole row, not just location.
 name|MetaEditor
 operator|.
@@ -7544,13 +7497,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"updateMetaLocation 33"
-argument_list|)
-expr_stmt|;
 name|MetaEditor
 operator|.
 name|updateRegionLocation
@@ -7569,13 +7515,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"END HRS.PostOpenDeployTasks"
-argument_list|)
-expr_stmt|;
 block|}
 end_function
 

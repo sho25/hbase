@@ -325,9 +325,6 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|htd
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 literal|null
 argument_list|,
@@ -354,8 +351,6 @@ name|TEST_UTIL
 operator|.
 name|getConfiguration
 argument_list|()
-argument_list|,
-name|htd
 argument_list|)
 decl_stmt|;
 name|List
@@ -720,9 +715,6 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|htd
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 literal|null
 argument_list|,
@@ -749,8 +741,6 @@ name|TEST_UTIL
 operator|.
 name|getConfiguration
 argument_list|()
-argument_list|,
-name|htd
 argument_list|)
 decl_stmt|;
 name|List

@@ -1404,7 +1404,10 @@ name|equals
 argument_list|(
 name|region
 operator|.
-name|getTableName
+name|getTableDesc
+argument_list|()
+operator|.
+name|getName
 argument_list|()
 argument_list|,
 name|this

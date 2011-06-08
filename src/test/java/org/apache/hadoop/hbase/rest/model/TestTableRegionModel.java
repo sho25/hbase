@@ -441,9 +441,8 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-name|Bytes
-operator|.
-name|toBytes
+operator|new
+name|HTableDescriptor
 argument_list|(
 name|TABLE
 argument_list|)

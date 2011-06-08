@@ -543,9 +543,12 @@ name|rootdir
 argument_list|)
 expr_stmt|;
 comment|// Up flush size else we bind up when we use default catalog flush of 16k.
-name|HTableDescriptor
+name|HRegionInfo
 operator|.
-name|META_TABLEDESC
+name|FIRST_META_REGIONINFO
+operator|.
+name|getTableDesc
+argument_list|()
 operator|.
 name|setMemStoreFlushSize
 argument_list|(
@@ -572,10 +575,6 @@ argument_list|,
 name|this
 operator|.
 name|conf
-argument_list|,
-name|HTableDescriptor
-operator|.
-name|META_TABLEDESC
 argument_list|)
 decl_stmt|;
 comment|// Write rows for three tables 'A', 'B', and 'C'.
@@ -640,9 +639,6 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|htd
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 name|i
 operator|==

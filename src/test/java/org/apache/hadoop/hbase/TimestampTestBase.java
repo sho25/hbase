@@ -151,7 +151,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"colfamily11"
+literal|"colfamily1"
 argument_list|)
 decl_stmt|;
 specifier|private

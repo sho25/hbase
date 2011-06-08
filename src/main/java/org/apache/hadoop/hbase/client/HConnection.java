@@ -793,21 +793,6 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param tableNames List of table names    * @return HTD[] table metadata    * @throws IOException if a remote or network exception occurs    */
-specifier|public
-name|HTableDescriptor
-index|[]
-name|getHTableDescriptors
-parameter_list|(
-name|List
-argument_list|<
-name|String
-argument_list|>
-name|tableNames
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 block|}
 end_interface
 

@@ -79,20 +79,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|fs
-operator|.
-name|Path
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|HRegionInfo
@@ -349,6 +335,15 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Processing open of "
+operator|+
+name|name
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -366,6 +361,15 @@ name|isStopping
 argument_list|()
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Server stopping or stopped, skipping open of "
+operator|+
+name|name
+argument_list|)
+expr_stmt|;
 return|return;
 block|}
 specifier|final
@@ -1169,105 +1173,6 @@ expr_stmt|;
 block|}
 return|return
 name|result
-return|;
-block|}
-comment|/**    * @return Instance of HRegion if successful open else null.    */
-name|HRegion
-name|openRegion
-parameter_list|(
-name|Path
-name|tableDir
-parameter_list|)
-block|{
-name|HRegion
-name|region
-init|=
-literal|null
-decl_stmt|;
-try|try
-block|{
-comment|// Instantiate the region.  This also periodically tickles our zk OPENING
-comment|// state so master doesn't timeout this region in transition.
-name|region
-operator|=
-name|HRegion
-operator|.
-name|openHRegion
-argument_list|(
-name|tableDir
-argument_list|,
-name|this
-operator|.
-name|regionInfo
-argument_list|,
-name|this
-operator|.
-name|rsServices
-operator|.
-name|getWAL
-argument_list|()
-argument_list|,
-name|this
-operator|.
-name|server
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
-name|this
-operator|.
-name|rsServices
-argument_list|,
-operator|new
-name|CancelableProgressable
-argument_list|()
-block|{
-specifier|public
-name|boolean
-name|progress
-parameter_list|()
-block|{
-comment|// We may lose the znode ownership during the open.  Currently its
-comment|// too hard interrupting ongoing region open.  Just let it complete
-comment|// and check we still have the znode after region open.
-return|return
-name|tickleOpening
-argument_list|(
-literal|"open_region_progress"
-argument_list|)
-return|;
-block|}
-block|}
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-comment|// We failed open.  Let our znode expire in regions-in-transition and
-comment|// Master will assign elsewhere.  Presumes nothing to close.
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Failed open of region="
-operator|+
-name|this
-operator|.
-name|regionInfo
-operator|.
-name|getRegionNameAsString
-argument_list|()
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-return|return
-name|region
 return|;
 block|}
 comment|/**    * @return Instance of HRegion if successful open else null.    */

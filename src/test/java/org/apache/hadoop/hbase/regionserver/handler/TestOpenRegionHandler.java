@@ -1039,9 +1039,6 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|htd
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 name|HConstants
 operator|.
@@ -1050,28 +1047,6 @@ argument_list|,
 name|HConstants
 operator|.
 name|EMPTY_END_ROW
-argument_list|)
-decl_stmt|;
-name|HRegion
-name|region
-init|=
-name|HRegion
-operator|.
-name|createHRegion
-argument_list|(
-name|hri
-argument_list|,
-name|HBaseTestingUtility
-operator|.
-name|getTestDir
-argument_list|()
-argument_list|,
-name|HTU
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
-name|htd
 argument_list|)
 decl_stmt|;
 name|OpenRegionHandler
@@ -1092,19 +1067,13 @@ name|openRegion
 parameter_list|()
 block|{
 comment|// Open region first, then remove znode as though it'd been hijacked.
-comment|//HRegion region = super.openRegion();
 name|HRegion
 name|region
 init|=
 name|super
 operator|.
 name|openRegion
-argument_list|(
-name|HBaseTestingUtility
-operator|.
-name|getTestDir
 argument_list|()
-argument_list|)
 decl_stmt|;
 comment|// Don't actually open region BUT remove the znode as though it'd
 comment|// been hijacked on us.

@@ -418,12 +418,7 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|table
-argument_list|)
+name|htd
 argument_list|,
 literal|null
 argument_list|,
@@ -450,8 +445,6 @@ name|TEST_UTIL
 operator|.
 name|getConfiguration
 argument_list|()
-argument_list|,
-name|htd
 argument_list|)
 decl_stmt|;
 name|List
@@ -1138,12 +1131,7 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|table
-argument_list|)
+name|htd
 argument_list|,
 literal|null
 argument_list|,
@@ -1170,8 +1158,6 @@ name|TEST_UTIL
 operator|.
 name|getConfiguration
 argument_list|()
-argument_list|,
-name|htd
 argument_list|)
 decl_stmt|;
 name|List

@@ -463,30 +463,6 @@ name|HREGION_COMPACTIONDIR_NAME
 init|=
 literal|"compaction.dir"
 decl_stmt|;
-comment|/** The file name used to store HTD in HDFS  */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|TABLEINFO_NAME
-init|=
-literal|".tableinfo"
-decl_stmt|;
-comment|/** The metaupdated column qualifier */
-specifier|public
-specifier|static
-specifier|final
-name|byte
-index|[]
-name|META_MIGRATION_QUALIFIER
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"metamigrated"
-argument_list|)
-decl_stmt|;
 comment|/** Default maximum file size */
 specifier|public
 specifier|static

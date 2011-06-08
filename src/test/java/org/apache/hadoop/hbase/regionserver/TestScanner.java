@@ -532,9 +532,6 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|TESTTABLEDESC
-operator|.
-name|getName
-argument_list|()
 argument_list|,
 name|HConstants
 operator|.
@@ -677,7 +674,10 @@ name|r
 operator|=
 name|createNewHRegion
 argument_list|(
-name|TESTTABLEDESC
+name|REGION_INFO
+operator|.
+name|getTableDesc
+argument_list|()
 argument_list|,
 literal|null
 argument_list|,
@@ -1176,7 +1176,10 @@ name|r
 operator|=
 name|createNewHRegion
 argument_list|(
-name|TESTTABLEDESC
+name|REGION_INFO
+operator|.
+name|getTableDesc
+argument_list|()
 argument_list|,
 literal|null
 argument_list|,
@@ -1321,7 +1324,10 @@ name|r
 operator|=
 name|createNewHRegion
 argument_list|(
-name|TESTTABLEDESC
+name|REGION_INFO
+operator|.
+name|getTableDesc
+argument_list|()
 argument_list|,
 literal|null
 argument_list|,
@@ -1917,7 +1923,24 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|//assertEquals(0, info.getTableDesc().compareTo(REGION_INFO.getTableDesc()));
+name|assertEquals
+argument_list|(
+literal|0
+argument_list|,
+name|info
+operator|.
+name|getTableDesc
+argument_list|()
+operator|.
+name|compareTo
+argument_list|(
+name|REGION_INFO
+operator|.
+name|getTableDesc
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
 comment|/** Use a scanner to get the region info and then validate the results */
 specifier|private
@@ -2419,7 +2442,10 @@ name|r
 operator|=
 name|createNewHRegion
 argument_list|(
-name|TESTTABLEDESC
+name|REGION_INFO
+operator|.
+name|getTableDesc
+argument_list|()
 argument_list|,
 literal|null
 argument_list|,
@@ -2555,7 +2581,10 @@ name|r
 operator|=
 name|createNewHRegion
 argument_list|(
-name|TESTTABLEDESC
+name|REGION_INFO
+operator|.
+name|getTableDesc
+argument_list|()
 argument_list|,
 literal|null
 argument_list|,

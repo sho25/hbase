@@ -2916,21 +2916,16 @@ argument_list|(
 name|sk
 argument_list|)
 decl_stmt|;
-name|HTableDescriptor
-name|htd
-init|=
-name|table
-operator|.
-name|getTableDescriptor
-argument_list|()
-decl_stmt|;
 comment|// check every Column Family for that region
 for|for
 control|(
 name|HColumnDescriptor
 name|c
 range|:
-name|htd
+name|hri
+operator|.
+name|getTableDesc
+argument_list|()
 operator|.
 name|getFamilies
 argument_list|()
