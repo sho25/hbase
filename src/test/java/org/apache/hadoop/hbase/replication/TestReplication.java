@@ -507,6 +507,11 @@ name|conf2
 decl_stmt|;
 specifier|private
 specifier|static
+name|Configuration
+name|CONF_WITH_LOCALFS
+decl_stmt|;
+specifier|private
+specifier|static
 name|ZooKeeperWatcher
 name|zkw1
 decl_stmt|;
@@ -907,6 +912,15 @@ operator|.
 name|info
 argument_list|(
 literal|"Setup second Zk"
+argument_list|)
+expr_stmt|;
+name|CONF_WITH_LOCALFS
+operator|=
+name|HBaseConfiguration
+operator|.
+name|create
+argument_list|(
+name|conf1
 argument_list|)
 expr_stmt|;
 name|utility1
@@ -2696,7 +2710,7 @@ name|VerifyReplication
 operator|.
 name|createSubmittableJob
 argument_list|(
-name|conf1
+name|CONF_WITH_LOCALFS
 argument_list|,
 name|args
 argument_list|)
@@ -2886,7 +2900,7 @@ name|VerifyReplication
 operator|.
 name|createSubmittableJob
 argument_list|(
-name|conf1
+name|CONF_WITH_LOCALFS
 argument_list|,
 name|args
 argument_list|)

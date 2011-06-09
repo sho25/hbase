@@ -1521,6 +1521,10 @@ decl_stmt|;
 name|carryingRoot
 operator|=
 name|address
+operator|!=
+literal|null
+operator|&&
+name|address
 operator|.
 name|equals
 argument_list|(
@@ -1567,6 +1571,10 @@ decl_stmt|;
 name|boolean
 name|carryingMeta
 init|=
+name|address
+operator|!=
+literal|null
+operator|&&
 name|address
 operator|.
 name|equals

@@ -3024,8 +3024,13 @@ literal|false
 expr_stmt|;
 block|}
 block|}
-else|else
+if|if
+condition|(
+operator|!
+name|append
+condition|)
 block|{
+comment|// Look for the 0.21, 0.22, new-style append evidence.
 try|try
 block|{
 name|FSDataOutputStream
@@ -3045,6 +3050,10 @@ index|[]
 block|{}
 block|)
 empty_stmt|;
+name|append
+operator|=
+literal|true
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(

@@ -1199,6 +1199,17 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|p
+argument_list|)
+condition|)
+continue|continue;
 comment|// Look for reference files.  Call listStatus with anonymous instance of PathFilter.
 name|FileStatus
 index|[]
