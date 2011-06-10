@@ -3435,7 +3435,7 @@ else|:
 literal|null
 return|;
 block|}
-comment|/**    * @param increment increment object    * @param result the result returned by incrementColumnValue    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * @param increment increment object    * @param result the result returned by postIncrement    * @throws IOException if an error occurred on the coprocessor    */
 specifier|public
 name|void
 name|postIncrement

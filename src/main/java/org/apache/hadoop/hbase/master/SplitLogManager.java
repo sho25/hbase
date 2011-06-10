@@ -896,7 +896,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * The caller will block until all the log files of the given region server    * have been processed - successfully split or an error is encountered - by an    * available worker region server. This method must only be called after the    * region servers have been brought online.    *    * @param serverName    *          region server name    * @throws IOException    *          if there was an error while splitting any log file    * @return cumulative size of the logfiles split    */
+comment|/**    * The caller will block until all the log files of the given region server    * have been processed - successfully split or an error is encountered - by an    * available worker region server. This method must only be called after the    * region servers have been brought online.    *    * @param logDir    *          the log directory encoded with a region server name    * @throws IOException    *          if there was an error while splitting any log file    * @return cumulative size of the logfiles split    */
 specifier|public
 name|long
 name|splitLogDistributed
