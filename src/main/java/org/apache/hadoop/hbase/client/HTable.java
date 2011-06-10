@@ -652,6 +652,10 @@ name|writeBufferSize
 decl_stmt|;
 specifier|private
 name|boolean
+name|clearBufferOnFail
+decl_stmt|;
+specifier|private
+name|boolean
 name|autoFlush
 decl_stmt|;
 specifier|private
@@ -892,6 +896,12 @@ literal|"hbase.client.write.buffer"
 argument_list|,
 literal|2097152
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|clearBufferOnFail
+operator|=
+literal|true
 expr_stmt|;
 name|this
 operator|.
@@ -3289,6 +3299,23 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
+if|if
+condition|(
+name|clearBufferOnFail
+condition|)
+block|{
+name|writeBuffer
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+name|currentWriteBufferSize
+operator|=
+literal|0
+expr_stmt|;
+block|}
+else|else
+block|{
 comment|// the write buffer was adjusted by processBatchOfPuts
 name|currentWriteBufferSize
 operator|=
@@ -3309,6 +3336,7 @@ operator|.
 name|heapSize
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -3603,7 +3631,7 @@ return|return
 name|autoFlush
 return|;
 block|}
-comment|/**    * Turns 'auto-flush' on or off.    *<p>    * When enabled (default), {@link Put} operations don't get buffered/delayed    * and are immediately executed.  This is slower but safer.    *<p>    * Turning this off means that multiple {@link Put}s will be accepted before    * any RPC is actually sent to do the write operations.  If the application    * dies before pending writes get flushed to HBase, data will be lost.    * Other side effects may include the fact that the application thinks a    * {@link Put} was executed successfully whereas it was in fact only    * buffered and the operation may fail when attempting to flush all pending    * writes.  In that case though, the code will retry the failed {@link Put}    * upon its next attempt to flush the buffer.    *    * @param autoFlush Whether or not to enable 'auto-flush'.    * @see #flushCommits    */
+comment|/**    * See {@link #setAutoFlush(boolean, boolean)}    *    * @param autoFlush    *          Whether or not to enable 'auto-flush'.    */
 specifier|public
 name|void
 name|setAutoFlush
@@ -3612,11 +3640,39 @@ name|boolean
 name|autoFlush
 parameter_list|)
 block|{
+name|setAutoFlush
+argument_list|(
+name|autoFlush
+argument_list|,
+name|autoFlush
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Turns 'auto-flush' on or off.    *<p>    * When enabled (default), {@link Put} operations don't get buffered/delayed    * and are immediately executed. Failed operations are not retried. This is    * slower but safer.    *<p>    * Turning off {@link #autoFlush} means that multiple {@link Put}s will be    * accepted before any RPC is actually sent to do the write operations. If the    * application dies before pending writes get flushed to HBase, data will be    * lost.    *<p>    * When you turn {@link #autoFlush} off, you should also consider the    * {@link #clearBufferOnFail} option. By default, asynchronous {@link Put)    * requests will be retried on failure until successful. However, this can    * pollute the writeBuffer and slow down batching performance. Additionally,    * you may want to issue a number of Put requests and call    * {@link #flushCommits()} as a barrier. In both use cases, consider setting    * clearBufferOnFail to true to erase the buffer after {@link #flushCommits()}    * has been called, regardless of success.    *    * @param autoFlush    *          Whether or not to enable 'auto-flush'.    * @param clearBufferOnFail    *          Whether to keep Put failures in the writeBuffer    * @see #flushCommits    */
+specifier|public
+name|void
+name|setAutoFlush
+parameter_list|(
+name|boolean
+name|autoFlush
+parameter_list|,
+name|boolean
+name|clearBufferOnFail
+parameter_list|)
+block|{
 name|this
 operator|.
 name|autoFlush
 operator|=
 name|autoFlush
+expr_stmt|;
+name|this
+operator|.
+name|clearBufferOnFail
+operator|=
+name|autoFlush
+operator|||
+name|clearBufferOnFail
 expr_stmt|;
 block|}
 comment|/**    * Returns the maximum size in bytes of the write buffer for this HTable.    *<p>    * The default value comes from the configuration parameter    * {@code hbase.client.write.buffer}.    * @return The size of the write buffer in bytes.    */
