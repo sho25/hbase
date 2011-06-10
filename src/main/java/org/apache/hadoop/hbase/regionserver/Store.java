@@ -5493,8 +5493,9 @@ name|fs
 argument_list|,
 name|p
 argument_list|,
-name|blockcache
+literal|false
 argument_list|,
+comment|// never cache during compaction
 name|this
 operator|.
 name|conf
