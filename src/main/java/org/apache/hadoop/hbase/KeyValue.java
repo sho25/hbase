@@ -1939,14 +1939,10 @@ name|other
 decl_stmt|;
 comment|// Comparing bytes should be fine doing equals test.  Shouldn't have to
 comment|// worry about special .META. comparators doing straight equals.
-name|boolean
-name|result
-init|=
+return|return
 name|Bytes
 operator|.
-name|BYTES_RAWCOMPARATOR
-operator|.
-name|compare
+name|equals
 argument_list|(
 name|getBuffer
 argument_list|()
@@ -1972,11 +1968,6 @@ operator|.
 name|getKeyLength
 argument_list|()
 argument_list|)
-operator|==
-literal|0
-decl_stmt|;
-return|return
-name|result
 return|;
 block|}
 specifier|public
@@ -2957,7 +2948,7 @@ block|{
 return|return
 name|Bytes
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 name|getBuffer
 argument_list|()
@@ -2979,8 +2970,6 @@ name|Bytes
 operator|.
 name|SIZEOF_LONG
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 comment|/**    * @param now Time to set into<code>this</code> IFF timestamp ==    * {@link HConstants#LATEST_TIMESTAMP} (else, its a noop).    * @return True is we modified this.    */
@@ -4133,7 +4122,7 @@ block|}
 return|return
 name|Bytes
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 name|family
 argument_list|,
@@ -4151,8 +4140,6 @@ argument_list|,
 name|getFamilyLength
 argument_list|()
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 specifier|public
@@ -4227,7 +4214,7 @@ block|{
 return|return
 name|Bytes
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 name|qualifier
 argument_list|,
@@ -4245,8 +4232,6 @@ argument_list|,
 name|getQualifierLength
 argument_list|()
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 specifier|public
@@ -4320,7 +4305,7 @@ block|{
 return|return
 name|Bytes
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 name|row
 argument_list|,
@@ -4338,8 +4323,6 @@ argument_list|,
 name|getRowLength
 argument_list|()
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 specifier|public
@@ -4418,7 +4401,7 @@ decl_stmt|;
 return|return
 name|Bytes
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 name|column
 argument_list|,
@@ -4436,8 +4419,6 @@ name|o
 argument_list|,
 name|l
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 comment|/**    *    * @param family column family    * @param qualifier column qualifier    * @return True if column matches    */
@@ -4490,9 +4471,10 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+operator|!
 name|Bytes
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 name|family
 argument_list|,
@@ -4512,8 +4494,6 @@ name|family
 operator|.
 name|length
 argument_list|)
-operator|!=
-literal|0
 condition|)
 block|{
 return|return
@@ -4551,7 +4531,7 @@ block|}
 return|return
 name|Bytes
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 name|qualifier
 argument_list|,
@@ -4571,8 +4551,6 @@ name|fl
 argument_list|,
 name|ql
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 comment|/**    * @param left    * @param loffset    * @param llength    * @param lfamilylength Offset of family delimiter in left column.    * @param right    * @param roffset    * @param rlength    * @param rfamilylength Offset of family delimiter in right column.    * @return The result of the comparison.    */
@@ -6182,14 +6160,33 @@ name|right
 parameter_list|)
 block|{
 return|return
-name|compareRows
+name|Bytes
+operator|.
+name|equals
 argument_list|(
 name|left
+operator|.
+name|getBuffer
+argument_list|()
+argument_list|,
+name|left
+operator|.
+name|getRowOffset
+argument_list|()
+argument_list|,
+name|left
+operator|.
+name|getRowLength
+argument_list|()
 argument_list|,
 name|right
-argument_list|)
-operator|==
+argument_list|,
 literal|0
+argument_list|,
+name|right
+operator|.
+name|length
+argument_list|)
 return|;
 block|}
 comment|/**      * Compares the row of two keyvalues for equality      * @param left      * @param right      * @return True if rows match.      */
@@ -6262,18 +6259,34 @@ name|lrowlength
 operator|==
 name|rrowlength
 operator|&&
-name|compareRows
+name|Bytes
+operator|.
+name|equals
 argument_list|(
 name|left
+operator|.
+name|getBuffer
+argument_list|()
+argument_list|,
+name|left
+operator|.
+name|getRowOffset
+argument_list|()
 argument_list|,
 name|lrowlength
 argument_list|,
 name|right
+operator|.
+name|getBuffer
+argument_list|()
+argument_list|,
+name|right
+operator|.
+name|getRowOffset
+argument_list|()
 argument_list|,
 name|rrowlength
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 specifier|public
@@ -6307,10 +6320,10 @@ name|int
 name|rlength
 parameter_list|)
 block|{
-name|int
-name|compare
-init|=
-name|compareRows
+return|return
+name|Bytes
+operator|.
+name|equals
 argument_list|(
 name|left
 argument_list|,
@@ -6324,20 +6337,6 @@ name|roffset
 argument_list|,
 name|rlength
 argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|compare
-operator|!=
-literal|0
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-return|return
-literal|true
 return|;
 block|}
 comment|/**      * Compares the row and timestamp of two keys      * Was called matchesWithoutColumn in HStoreKey.      * @param right Key to compare against.      * @return True if same row and timestamp is greater than the timestamp in      *<code>right</code>      */

@@ -172,7 +172,7 @@ if|if
 condition|(
 name|Bytes
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 name|deleteBuffer
 argument_list|,
@@ -186,8 +186,6 @@ name|qualifierOffset
 argument_list|,
 name|qualifierLength
 argument_list|)
-operator|==
-literal|0
 condition|)
 block|{
 return|return;

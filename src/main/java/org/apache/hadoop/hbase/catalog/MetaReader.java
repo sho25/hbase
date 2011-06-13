@@ -523,7 +523,7 @@ comment|// then this is region from .META. table.
 return|return
 name|Bytes
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 name|regionName
 argument_list|,
@@ -541,8 +541,6 @@ name|META_REGION_PREFIX
 operator|.
 name|length
 argument_list|)
-operator|==
-literal|0
 return|;
 block|}
 comment|/**    * Performs a full scan of<code>.META.</code>.    *<p>    * Returns a map of every region to it's currently assigned server, according    * to META.  If the region does not have an assignment it will have a null    * value in the map.    *    * @return map of regions to their currently assigned server where server is    * a String of&lt;host> ':'&lt;port>    * @throws IOException    */

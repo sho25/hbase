@@ -9058,9 +9058,10 @@ name|pkv
 operator|!=
 literal|null
 operator|&&
+operator|!
 name|Bytes
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 name|pkv
 operator|.
@@ -9072,8 +9073,6 @@ operator|.
 name|getFamily
 argument_list|()
 argument_list|)
-operator|!=
-literal|0
 condition|)
 block|{
 name|System
@@ -9247,7 +9246,7 @@ if|if
 condition|(
 name|Bytes
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 name|e
 operator|.
@@ -9261,8 +9260,6 @@ argument_list|(
 literal|"MAX_SEQ_ID_KEY"
 argument_list|)
 argument_list|)
-operator|==
-literal|0
 condition|)
 block|{
 name|long
@@ -9293,7 +9290,7 @@ if|if
 condition|(
 name|Bytes
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 name|e
 operator|.
@@ -9307,8 +9304,6 @@ argument_list|(
 literal|"TIMERANGE"
 argument_list|)
 argument_list|)
-operator|==
-literal|0
 condition|)
 block|{
 name|TimeRangeTracker
@@ -9355,7 +9350,7 @@ if|if
 condition|(
 name|Bytes
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 name|e
 operator|.
@@ -9366,12 +9361,10 @@ name|FileInfo
 operator|.
 name|AVG_KEY_LEN
 argument_list|)
-operator|==
-literal|0
 operator|||
 name|Bytes
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 name|e
 operator|.
@@ -9382,8 +9375,6 @@ name|FileInfo
 operator|.
 name|AVG_VALUE_LEN
 argument_list|)
-operator|==
-literal|0
 condition|)
 block|{
 name|System

@@ -3437,7 +3437,7 @@ if|if
 condition|(
 name|Bytes
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 name|desc
 operator|.
@@ -3446,8 +3446,6 @@ argument_list|()
 argument_list|,
 name|tableName
 argument_list|)
-operator|==
-literal|0
 condition|)
 block|{
 name|result

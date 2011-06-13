@@ -7355,9 +7355,10 @@ name|w
 decl_stmt|;
 if|if
 condition|(
+operator|!
 name|Bytes
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 name|row
 argument_list|,
@@ -7366,8 +7367,6 @@ operator|.
 name|getRow
 argument_list|()
 argument_list|)
-operator|!=
-literal|0
 condition|)
 block|{
 throw|throw
