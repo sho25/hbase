@@ -33,6 +33,26 @@ name|java
 operator|.
 name|util
 operator|.
+name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Set
 import|;
 end_import
@@ -822,7 +842,7 @@ return|return
 name|clusterId
 return|;
 block|}
-comment|/**    * Inspect the log directory to recover any log file without    * an active region server.    * @param onlineServers Map of online servers keyed by    * {@link ServerName}    */
+comment|/**    * Inspect the log directory to recover any log file without    * an active region server.    * @param onlineServers Set of online servers keyed by    * {@link ServerName}    */
 name|void
 name|splitLogAfterStartup
 parameter_list|(
@@ -946,6 +966,19 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|serverNames
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|ServerName
+argument_list|>
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|FileStatus
@@ -971,7 +1004,6 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-operator|!
 name|onlineServers
 operator|.
 name|contains
@@ -996,7 +1028,9 @@ operator|+
 literal|"to a known region server, splitting"
 argument_list|)
 expr_stmt|;
-name|splitLog
+name|serverNames
+operator|.
+name|add
 argument_list|(
 name|serverName
 argument_list|)
@@ -1020,6 +1054,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|splitLog
+argument_list|(
+name|serverNames
+argument_list|)
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -1028,6 +1067,44 @@ parameter_list|(
 specifier|final
 name|ServerName
 name|serverName
+parameter_list|)
+block|{
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|serverNames
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|ServerName
+argument_list|>
+argument_list|()
+decl_stmt|;
+name|serverNames
+operator|.
+name|add
+argument_list|(
+name|serverName
+argument_list|)
+expr_stmt|;
+name|splitLog
+argument_list|(
+name|serverNames
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|void
+name|splitLog
+parameter_list|(
+specifier|final
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|serverNames
 parameter_list|)
 block|{
 name|long
@@ -1039,6 +1116,27 @@ name|splitLogSize
 init|=
 literal|0
 decl_stmt|;
+name|List
+argument_list|<
+name|Path
+argument_list|>
+name|logDirs
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|Path
+argument_list|>
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|ServerName
+name|serverName
+range|:
+name|serverNames
+control|)
+block|{
 name|Path
 name|logDir
 init|=
@@ -1060,6 +1158,14 @@ argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|logDirs
+operator|.
+name|add
+argument_list|(
+name|logDir
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|distributedLogSplitting
@@ -1082,7 +1188,7 @@ name|splitLogManager
 operator|.
 name|splitLogDistributed
 argument_list|(
-name|logDir
+name|logDirs
 argument_list|)
 expr_stmt|;
 block|}
@@ -1098,7 +1204,7 @@ name|warn
 argument_list|(
 literal|"Retrying distributed splitting for "
 operator|+
-name|serverName
+name|serverNames
 operator|+
 literal|"because of:"
 argument_list|,
@@ -1109,7 +1215,7 @@ name|splitLogManager
 operator|.
 name|splitLogDistributed
 argument_list|(
-name|logDir
+name|logDirs
 argument_list|)
 expr_stmt|;
 block|}
@@ -1126,7 +1232,7 @@ name|error
 argument_list|(
 literal|"Failed distributed splitting "
 operator|+
-name|serverName
+name|serverNames
 argument_list|,
 name|e
 argument_list|)
@@ -1143,6 +1249,14 @@ name|splitTime
 expr_stmt|;
 block|}
 else|else
+block|{
+for|for
+control|(
+name|Path
+name|logDir
+range|:
+name|logDirs
+control|)
 block|{
 comment|// splitLogLock ensures that dead region servers' logs are processed
 comment|// one at a time
@@ -1217,7 +1331,7 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-comment|// An HLogSplitter instance can only be used once.  Get new instance.
+comment|//An HLogSplitter instance can only be used once.  Get new instance.
 name|splitter
 operator|=
 name|HLogSplitter
@@ -1288,6 +1402,7 @@ operator|.
 name|unlock
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 if|if
