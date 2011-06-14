@@ -78,7 +78,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This filter is used for selecting only those keys with columns that matches  * a particular prefix. For example, if prefix is 'an', it will pass keys will  * columns like 'and', 'anti' but not keys with columns like 'ball', 'act'.  */
+comment|/**  * This filter is used for selecting only those keys with columns that matches  * a particular prefix. For example, if prefix is 'an', it will pass keys with  * columns like 'and', 'anti' but not keys with columns like 'ball', 'act'.  */
 end_comment
 
 begin_class
