@@ -7342,6 +7342,11 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
+name|VersionInfo
+operator|.
+name|logVersion
+argument_list|()
+expr_stmt|;
 operator|new
 name|HMasterCommandLine
 argument_list|(

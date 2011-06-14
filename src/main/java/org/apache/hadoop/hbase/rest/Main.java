@@ -163,6 +163,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|VersionInfo
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|util
@@ -317,6 +333,11 @@ argument_list|(
 literal|"RESTServer"
 argument_list|)
 decl_stmt|;
+name|VersionInfo
+operator|.
+name|logVersion
+argument_list|()
+expr_stmt|;
 name|Configuration
 name|conf
 init|=
