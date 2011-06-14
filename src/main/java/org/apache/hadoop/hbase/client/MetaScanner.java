@@ -1286,10 +1286,7 @@ name|equals
 argument_list|(
 name|info
 operator|.
-name|getTableDesc
-argument_list|()
-operator|.
-name|getName
+name|getTableName
 argument_list|()
 argument_list|,
 name|tablename

@@ -99,7 +99,7 @@ specifier|static
 name|String
 name|COLUMN_NAME
 init|=
-literal|"colfamily1"
+literal|"colfamily11"
 decl_stmt|;
 comment|/** constructor */
 specifier|public

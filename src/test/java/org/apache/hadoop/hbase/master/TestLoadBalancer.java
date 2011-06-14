@@ -3584,9 +3584,6 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-operator|new
-name|HTableDescriptor
-argument_list|(
 name|Bytes
 operator|.
 name|toBytes
@@ -3594,7 +3591,6 @@ argument_list|(
 literal|"table"
 operator|+
 name|i
-argument_list|)
 argument_list|)
 argument_list|,
 name|start

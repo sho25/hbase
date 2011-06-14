@@ -49,19 +49,6 @@ argument_list|(
 name|info
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|tableDesc
-operator|=
-operator|new
-name|UnmodifyableHTableDescriptor
-argument_list|(
-name|info
-operator|.
-name|getTableDesc
-argument_list|()
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * @param split set split status    */
 annotation|@

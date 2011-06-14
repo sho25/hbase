@@ -4524,6 +4524,32 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**  * Get tableDescriptors  * @param tableNames List of table names  * @return HTD[] the tableDescriptor  * @throws IOException if a remote or network exception occurs  */
+specifier|public
+name|HTableDescriptor
+index|[]
+name|getTableDescriptors
+parameter_list|(
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|tableNames
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|this
+operator|.
+name|connection
+operator|.
+name|getHTableDescriptors
+argument_list|(
+name|tableNames
+argument_list|)
+return|;
+block|}
 block|}
 end_class
 

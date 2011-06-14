@@ -18725,6 +18725,9 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|htd
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 literal|null
 argument_list|,
@@ -18755,6 +18758,8 @@ argument_list|,
 name|path
 argument_list|,
 name|conf
+argument_list|,
+name|htd
 argument_list|)
 expr_stmt|;
 name|int
@@ -19101,6 +19106,9 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|htd
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 literal|null
 argument_list|,
@@ -19131,6 +19139,8 @@ argument_list|,
 name|path
 argument_list|,
 name|conf
+argument_list|,
+name|htd
 argument_list|)
 expr_stmt|;
 comment|// For row:0, col:0: insert versions 1 through 5.
@@ -19405,6 +19415,9 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|htd
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 literal|null
 argument_list|,
@@ -19435,6 +19448,8 @@ argument_list|,
 name|path
 argument_list|,
 name|conf
+argument_list|,
+name|htd
 argument_list|)
 expr_stmt|;
 comment|// Insert some data
@@ -20294,6 +20309,9 @@ operator|new
 name|HRegionInfo
 argument_list|(
 name|htd
+operator|.
+name|getName
+argument_list|()
 argument_list|,
 literal|null
 argument_list|,
@@ -20358,6 +20376,8 @@ argument_list|,
 name|path
 argument_list|,
 name|conf
+argument_list|,
+name|htd
 argument_list|)
 expr_stmt|;
 block|}
