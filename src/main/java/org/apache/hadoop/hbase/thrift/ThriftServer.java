@@ -6505,8 +6505,10 @@ name|listenAddress
 operator|=
 name|InetAddress
 operator|.
-name|getLocalHost
-argument_list|()
+name|getByName
+argument_list|(
+literal|"0.0.0.0"
+argument_list|)
 expr_stmt|;
 block|}
 name|TServerTransport
