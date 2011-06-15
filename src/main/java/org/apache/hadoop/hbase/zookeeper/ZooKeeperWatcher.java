@@ -33,16 +33,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|List
 import|;
 end_import
@@ -279,21 +269,6 @@ operator|new
 name|CopyOnWriteArrayList
 argument_list|<
 name|ZooKeeperListener
-argument_list|>
-argument_list|()
-decl_stmt|;
-comment|// set of unassigned nodes watched
-specifier|private
-name|Set
-argument_list|<
-name|String
-argument_list|>
-name|unassignedNodes
-init|=
-operator|new
-name|HashSet
-argument_list|<
-name|String
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -1353,19 +1328,6 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-block|}
-comment|/**    * Get the set of already watched unassigned nodes.    * @return Set of Nodes.    */
-specifier|public
-name|Set
-argument_list|<
-name|String
-argument_list|>
-name|getNodes
-parameter_list|()
-block|{
-return|return
-name|unassignedNodes
-return|;
 block|}
 comment|/**    * Handles KeeperExceptions in client calls.    *<p>    * This may be temporary but for now this gives one place to deal with these.    *<p>    * TODO: Currently this method rethrows the exception to let the caller handle    *<p>    * @param ke    * @throws KeeperException    */
 specifier|public

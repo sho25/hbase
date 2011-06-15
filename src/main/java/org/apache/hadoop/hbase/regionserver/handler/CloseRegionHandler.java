@@ -452,7 +452,7 @@ condition|)
 block|{
 name|expectedVersion
 operator|=
-name|setClosingState
+name|getCurrentVersion
 argument_list|()
 expr_stmt|;
 if|if
@@ -692,10 +692,10 @@ expr_stmt|;
 return|return;
 block|}
 block|}
-comment|/**    * Create ZK node in CLOSING state.    * @return The expectedVersion.  If -1, we failed setting CLOSING.    */
+comment|/**    * Get the node's current version    * @return The expectedVersion.  If -1, we failed getting the node    */
 specifier|private
 name|int
-name|setClosingState
+name|getCurrentVersion
 parameter_list|()
 block|{
 name|int
@@ -712,7 +712,7 @@ name|expectedVersion
 operator|=
 name|ZKAssign
 operator|.
-name|createNodeClosing
+name|getVersion
 argument_list|(
 name|server
 operator|.
@@ -720,11 +720,6 @@ name|getZooKeeper
 argument_list|()
 argument_list|,
 name|regionInfo
-argument_list|,
-name|server
-operator|.
-name|getServerName
-argument_list|()
 argument_list|)
 operator|)
 operator|==
@@ -735,7 +730,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Error creating node in CLOSING state, aborting close of "
+literal|"Error getting node's version in CLOSING state,"
+operator|+
+literal|" aborting close of "
 operator|+
 name|regionInfo
 operator|.
