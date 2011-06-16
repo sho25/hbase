@@ -4084,11 +4084,16 @@ argument_list|>
 name|columns
 parameter_list|)
 block|{
-if|if
-condition|(
+name|BloomFilter
+name|bm
+init|=
 name|this
 operator|.
 name|bloomFilter
+decl_stmt|;
+if|if
+condition|(
+name|bm
 operator|==
 literal|null
 operator|||
@@ -4213,9 +4218,7 @@ comment|// columns, a file might be skipped if using row+col Bloom filter.
 comment|// In order to ensure this file is included an additional check is
 comment|// required looking only for a row bloom.
 return|return
-name|this
-operator|.
-name|bloomFilter
+name|bm
 operator|.
 name|contains
 argument_list|(
@@ -4224,9 +4227,7 @@ argument_list|,
 name|bloom
 argument_list|)
 operator|||
-name|this
-operator|.
-name|bloomFilter
+name|bm
 operator|.
 name|contains
 argument_list|(
@@ -4239,9 +4240,7 @@ block|}
 else|else
 block|{
 return|return
-name|this
-operator|.
-name|bloomFilter
+name|bm
 operator|.
 name|contains
 argument_list|(
