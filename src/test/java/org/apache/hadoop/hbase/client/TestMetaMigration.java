@@ -486,7 +486,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testUpdatesOnMetaWithLegacyHRI
+name|testMetaMigration
 parameter_list|()
 throws|throws
 name|Exception
@@ -632,6 +632,13 @@ name|getMaster
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|MetaReader
+operator|.
+name|fullScanMetaAndPrint
+argument_list|(
+name|ct
+argument_list|)
+expr_stmt|;
 name|assertEquals
 argument_list|(
 literal|3
@@ -669,10 +676,12 @@ literal|"END testMetaWithLegacyHRI"
 argument_list|)
 expr_stmt|;
 block|}
-comment|//@Test
+comment|/**    * This test assumes a master crash/failure during the meta migration process    * and attempts to continue the meta migration process when a new master takes over.    * When a master dies during the meta migration we will have some rows of    * META.CatalogFamily updated with new HRI, (i.e HRI with out HTD) and some    * still hanging with legacy HRI. (i.e HRI with HTD). When the backup master/ or    * fresh start of master attempts the migration it will encouter some rows of META    * already updated with new HRI and some still legacy. This test will simulate this    * scenario and validates that the migration process can safely skip the updated    * rows and migrate any pending rows at startup.    * @throws Exception    */
+annotation|@
+name|Test
 specifier|public
 name|void
-name|dtestUpdatesOnMetaWithNewHRI
+name|testMasterCrashDuringMetaMigration
 parameter_list|()
 throws|throws
 name|Exception
@@ -681,7 +690,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting testMetaWithLegacyHRI"
+literal|"Starting testMasterCrashDuringMetaMigration"
 argument_list|)
 expr_stmt|;
 specifier|final
@@ -702,7 +711,7 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-literal|"testMetaMigration"
+literal|"testMasterCrashDuringMetaMigration"
 argument_list|)
 decl_stmt|;
 name|HColumnDescriptor
@@ -729,6 +738,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
+comment|// Create 10 New regions.
 name|TEST_UTIL
 operator|.
 name|createMultiRegionsWithNewHRI
@@ -739,29 +749,50 @@ name|htd
 argument_list|,
 name|FAMILY
 argument_list|,
-operator|new
-name|byte
-index|[]
-index|[]
-block|{
-name|HConstants
-operator|.
-name|EMPTY_START_ROW
-block|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"region_a"
+literal|10
 argument_list|)
-block|,
-name|Bytes
+expr_stmt|;
+comment|// Create 10 Legacy regions.
+name|TEST_UTIL
 operator|.
-name|toBytes
+name|createMultiRegionsWithLegacyHRI
 argument_list|(
-literal|"region_b"
+name|conf
+argument_list|,
+name|htd
+argument_list|,
+name|FAMILY
+argument_list|,
+literal|10
 argument_list|)
-block|}
+expr_stmt|;
+name|CatalogTracker
+name|ct
+init|=
+name|miniHBaseCluster
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getCatalogTracker
+argument_list|()
+decl_stmt|;
+comment|// just for this test set it to false.
+name|MetaEditor
+operator|.
+name|updateRootWithMetaMigrationStatus
+argument_list|(
+name|ct
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+comment|//MetaReader.fullScanMetaAndPrint(ct);
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"MEta Print completed.testUpdatesOnMetaWithLegacyHRI"
 argument_list|)
 expr_stmt|;
 name|List
@@ -785,12 +816,38 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
-literal|3
+literal|10
 argument_list|,
 name|htds
 operator|.
 name|size
 argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Assert that the flag in ROOT is updated to reflect the correct status
+name|boolean
+name|metaUpdated
+init|=
+name|miniHBaseCluster
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|isMetaHRIUpdated
+argument_list|()
+decl_stmt|;
+name|assertEquals
+argument_list|(
+literal|true
+argument_list|,
+name|metaUpdated
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"END testMetaWithLegacyHRI"
 argument_list|)
 expr_stmt|;
 block|}
