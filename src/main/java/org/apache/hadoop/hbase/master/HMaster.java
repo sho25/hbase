@@ -6400,6 +6400,8 @@ name|status
 argument_list|)
 expr_stmt|;
 comment|// process RIT if any
+comment|// TODO: Why does this not call AssignmentManager.joinCluster?  Otherwise
+comment|// we are not processing dead servers if any.
 name|this
 operator|.
 name|assignmentManager

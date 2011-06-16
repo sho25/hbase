@@ -1034,7 +1034,11 @@ name|prefix
 argument_list|(
 literal|"Attempting to delete unassigned "
 operator|+
-literal|"node in "
+literal|"node "
+operator|+
+name|regionName
+operator|+
+literal|" in "
 operator|+
 name|expectedState
 operator|+
