@@ -2026,6 +2026,8 @@ operator|==
 literal|null
 condition|)
 block|{
+comment|// ignore edits from this region. It doesn't ezist anymore.
+comment|// It was probably already split.
 name|logWriters
 operator|.
 name|put
@@ -2035,6 +2037,7 @@ argument_list|,
 name|BAD_WRITER
 argument_list|)
 expr_stmt|;
+continue|continue;
 block|}
 else|else
 block|{
