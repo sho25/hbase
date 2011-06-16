@@ -731,6 +731,8 @@ name|void
 name|run
 parameter_list|()
 block|{
+try|try
+block|{
 name|LOG
 operator|.
 name|info
@@ -868,6 +870,27 @@ block|}
 name|taskLoop
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+comment|// only a logical error can cause here. Printing it out
+comment|// to make debugging easier
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"unexpected error "
+argument_list|,
+name|t
+argument_list|)
+expr_stmt|;
+block|}
+finally|finally
+block|{
 name|LOG
 operator|.
 name|info
@@ -881,6 +904,7 @@ operator|+
 literal|" exiting"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * Wait for tasks to become available at /hbase/splitlog zknode. Grab a task    * one at a time. This policy puts an upper-limit on the number of    * simultaneous log splitting that could be happening in a cluster.    *<p>    * Synchronization using {@link #task_ready_signal_seq} ensures that it will    * try to grab every task that has been put up    */
 specifier|private
