@@ -2507,6 +2507,43 @@ name|initialized
 operator|=
 literal|true
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|cpHost
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// don't let cp initialization errors kill the master
+try|try
+block|{
+name|this
+operator|.
+name|cpHost
+operator|.
+name|postStartMaster
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Coprocessor postStartMaster() hook failed"
+argument_list|,
+name|ioe
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 block|}
 end_function
 

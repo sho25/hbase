@@ -617,6 +617,20 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Called immediately after an active master instance has completed    * initialization.  Will not be called on standby master instances unless    * they take over the active role.    */
+name|void
+name|postStartMaster
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 
