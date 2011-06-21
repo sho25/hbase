@@ -2631,7 +2631,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Close a region. For expert-admins.  Runs close on the regionserver.  The    * master will not be informed of the close.    * @param regionname region name to close    * @param hostAndPort If supplied, we'll use this location rather than    * the one currently in<code>.META.</code>    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Close a region. For expert-admins.  Runs close on the regionserver.  The    * master will not be informed of the close.    * @param regionname region name to close    * @param serverName If supplied, we'll use this location rather than    * the one currently in<code>.META.</code>    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|closeRegion
@@ -2642,7 +2642,7 @@ name|regionname
 parameter_list|,
 specifier|final
 name|String
-name|hostAndPort
+name|serverName
 parameter_list|)
 throws|throws
 name|IOException
@@ -2656,11 +2656,11 @@ argument_list|(
 name|regionname
 argument_list|)
 argument_list|,
-name|hostAndPort
+name|serverName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Close a region.  For expert-admins  Runs close on the regionserver.  The    * master will not be informed of the close.    * @param regionname region name to close    * @param hostAndPort If supplied, we'll use this location rather than    * the one currently in<code>.META.</code>    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Close a region.  For expert-admins  Runs close on the regionserver.  The    * master will not be informed of the close.    * @param regionname region name to close    * @param serverName The servername of the regionserver.  If passed null we    * will use servername found in the .META. table. A server name    * is made of host, port and startcode.  Here is an example:    *<code> host187.example.com,60020,1289493121758</code>    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|closeRegion
@@ -2672,7 +2672,7 @@ name|regionname
 parameter_list|,
 specifier|final
 name|String
-name|hostAndPort
+name|serverName
 parameter_list|)
 throws|throws
 name|IOException
@@ -2687,7 +2687,7 @@ try|try
 block|{
 if|if
 condition|(
-name|hostAndPort
+name|serverName
 operator|!=
 literal|null
 condition|)
@@ -2717,7 +2717,7 @@ literal|null
 operator|||
 name|pair
 operator|.
-name|getSecond
+name|getFirst
 argument_list|()
 operator|==
 literal|null
@@ -2727,7 +2727,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"No server in .META. for "
+literal|"No region in .META. for "
 operator|+
 name|Bytes
 operator|.
@@ -2746,10 +2746,11 @@ else|else
 block|{
 name|closeRegion
 argument_list|(
-name|pair
-operator|.
-name|getSecond
-argument_list|()
+operator|new
+name|ServerName
+argument_list|(
+name|serverName
+argument_list|)
 argument_list|,
 name|pair
 operator|.
@@ -2838,7 +2839,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|private
+comment|/**    * Close a region.  For expert-admins  Runs close on the regionserver.  The    * master will not be informed of the close.    * @param sn    * @param hri    * @throws IOException    */
+specifier|public
 name|void
 name|closeRegion
 parameter_list|(
