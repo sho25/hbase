@@ -4165,6 +4165,31 @@ if|if
 condition|(
 name|regionInfo
 operator|.
+name|isSplit
+argument_list|()
+condition|)
+block|{
+throw|throw
+operator|new
+name|RegionOfflineException
+argument_list|(
+literal|"the only available region for"
+operator|+
+literal|" the required row is a split parent,"
+operator|+
+literal|" the daughters should be online soon: "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
+name|regionInfo
+operator|.
 name|isOffline
 argument_list|()
 condition|)
@@ -4173,7 +4198,9 @@ throw|throw
 operator|new
 name|RegionOfflineException
 argument_list|(
-literal|"region offline: "
+literal|"the region is offline, could"
+operator|+
+literal|" be caused by a disable table call: "
 operator|+
 name|regionInfo
 operator|.
