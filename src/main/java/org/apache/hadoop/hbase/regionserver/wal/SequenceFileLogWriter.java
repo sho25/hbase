@@ -826,6 +826,15 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|writer
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|writer
@@ -833,6 +842,13 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|writer
+operator|=
+literal|null
+expr_stmt|;
+block|}
 block|}
 end_function
 

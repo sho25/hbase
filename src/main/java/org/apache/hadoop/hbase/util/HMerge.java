@@ -441,6 +441,7 @@ begin_class
 class|class
 name|HMerge
 block|{
+comment|// TODO: Where is this class used?  How does it relate to Merge in same package?
 specifier|static
 specifier|final
 name|Log
@@ -698,6 +699,11 @@ name|tabledir
 decl_stmt|;
 specifier|protected
 specifier|final
+name|HTableDescriptor
+name|htd
+decl_stmt|;
+specifier|protected
+specifier|final
 name|HLog
 name|hlog
 decl_stmt|;
@@ -781,6 +787,23 @@ name|toString
 argument_list|(
 name|tableName
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|htd
+operator|=
+name|FSUtils
+operator|.
+name|getTableDescriptor
+argument_list|(
+name|this
+operator|.
+name|fs
+argument_list|,
+name|this
+operator|.
+name|tabledir
 argument_list|)
 expr_stmt|;
 name|Path
@@ -996,6 +1019,10 @@ index|[
 name|i
 index|]
 argument_list|,
+name|this
+operator|.
+name|htd
+argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
@@ -1032,6 +1059,10 @@ name|i
 operator|+
 literal|1
 index|]
+argument_list|,
+name|this
+operator|.
+name|htd
 argument_list|,
 literal|null
 argument_list|)
@@ -1939,6 +1970,10 @@ argument_list|,
 name|HRegionInfo
 operator|.
 name|ROOT_REGIONINFO
+argument_list|,
+name|HTableDescriptor
+operator|.
+name|ROOT_TABLEDESC
 argument_list|,
 literal|null
 argument_list|)

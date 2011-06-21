@@ -1819,6 +1819,8 @@ name|newConf
 argument_list|,
 name|hri
 argument_list|,
+name|htd
+argument_list|,
 name|TEST_UTIL
 operator|.
 name|getHBaseCluster

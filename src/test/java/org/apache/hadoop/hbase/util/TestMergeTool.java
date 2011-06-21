@@ -1160,6 +1160,10 @@ name|openHRegion
 argument_list|(
 name|mergedInfo
 argument_list|,
+name|this
+operator|.
+name|desc
+argument_list|,
 name|log
 argument_list|,
 name|this

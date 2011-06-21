@@ -438,9 +438,14 @@ name|tableName
 argument_list|)
 expr_stmt|;
 comment|// Update table descriptor cache
-name|am
+name|this
 operator|.
-name|deleteTableDesc
+name|masterServices
+operator|.
+name|getTableDescriptors
+argument_list|()
+operator|.
+name|remove
 argument_list|(
 name|Bytes
 operator|.

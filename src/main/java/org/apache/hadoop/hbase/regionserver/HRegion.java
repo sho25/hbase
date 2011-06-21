@@ -1440,17 +1440,6 @@ operator|.
 name|KVComparator
 name|comparator
 decl_stmt|;
-specifier|private
-name|Pair
-argument_list|<
-name|Long
-argument_list|,
-name|Long
-argument_list|>
-name|lastCompactInfo
-init|=
-literal|null
-decl_stmt|;
 comment|/*    * Data structure of write state flags used coordinating flushes,    * compactions and closes.    */
 specifier|static
 class|class
@@ -1728,6 +1717,12 @@ literal|null
 expr_stmt|;
 name|this
 operator|.
+name|htableDescriptor
+operator|=
+literal|null
+expr_stmt|;
+name|this
+operator|.
 name|threadWakeFrequency
 operator|=
 literal|0L
@@ -1757,6 +1752,10 @@ name|conf
 parameter_list|,
 name|HRegionInfo
 name|regionInfo
+parameter_list|,
+specifier|final
+name|HTableDescriptor
+name|htd
 parameter_list|,
 name|RegionServerServices
 name|rsServices
@@ -1803,6 +1802,12 @@ name|regionInfo
 expr_stmt|;
 name|this
 operator|.
+name|htableDescriptor
+operator|=
+name|htd
+expr_stmt|;
+name|this
+operator|.
 name|rsServices
 operator|=
 name|rsServices
@@ -1834,6 +1839,9 @@ operator|.
 name|getEncodedName
 argument_list|()
 decl_stmt|;
+name|setHTableSpecificConf
+argument_list|()
+expr_stmt|;
 name|this
 operator|.
 name|regiondir
@@ -1847,53 +1855,6 @@ argument_list|,
 name|encodedNameStr
 argument_list|)
 expr_stmt|;
-try|try
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Setting table desc from HDFS. Region = "
-operator|+
-name|this
-operator|.
-name|regionInfo
-operator|.
-name|getTableNameAsString
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|loadHTableDescriptor
-argument_list|(
-name|tableDir
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|" This HTD from HDFS  == "
-operator|+
-name|this
-operator|.
-name|htableDescriptor
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|ioe
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Could not instantiate region as error loading HTableDescriptor"
-argument_list|)
-expr_stmt|;
-block|}
 comment|// don't initialize coprocessors if not running within a regionserver
 comment|// TODO: revisit if coprocessors should load in other cases
 if|if
@@ -1938,80 +1899,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|private
-name|void
-name|loadHTableDescriptor
-parameter_list|(
-name|Path
-name|tableDir
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Assigning tabledesc from .tableinfo for region = "
-operator|+
-name|this
-operator|.
-name|regionInfo
-operator|.
-name|getRegionNameAsString
-argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// load HTableDescriptor
-name|this
-operator|.
-name|htableDescriptor
-operator|=
-name|FSUtils
-operator|.
-name|getTableDescriptor
-argument_list|(
-name|tableDir
-argument_list|,
-name|fs
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|htableDescriptor
-operator|!=
-literal|null
-condition|)
-block|{
-name|setHTableSpecificConf
-argument_list|()
-expr_stmt|;
-block|}
-else|else
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Table description missing in "
-operator|+
-literal|".tableinfo. Cannot create new region."
-operator|+
-literal|" current region is == "
-operator|+
-name|this
-operator|.
-name|regionInfo
-operator|.
-name|toString
-argument_list|()
-argument_list|)
-throw|;
-block|}
-block|}
-specifier|private
 name|void
 name|setHTableSpecificConf
 parameter_list|()
@@ -2021,10 +1908,10 @@ condition|(
 name|this
 operator|.
 name|htableDescriptor
-operator|!=
+operator|==
 literal|null
 condition|)
-block|{
+return|return;
 name|LOG
 operator|.
 name|info
@@ -2087,22 +1974,6 @@ literal|"hbase.hregion.memstore.block.multiplier"
 argument_list|,
 literal|2
 argument_list|)
-expr_stmt|;
-block|}
-block|}
-specifier|public
-name|void
-name|setHtableDescriptor
-parameter_list|(
-name|HTableDescriptor
-name|htableDescriptor
-parameter_list|)
-block|{
-name|this
-operator|.
-name|htableDescriptor
-operator|=
-name|htableDescriptor
 expr_stmt|;
 block|}
 comment|/**    * Initialize this region.    * @return What the next sequence (edit) id should be.    * @throws IOException e    */
@@ -11353,7 +11224,7 @@ expr_stmt|;
 block|}
 block|}
 comment|// Utility methods
-comment|/**    * A utility method to create new instances of HRegion based on the    * {@link HConstants#REGION_IMPL} configuration property.    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param rsServices    * @return the new instance    */
+comment|/**    * A utility method to create new instances of HRegion based on the    * {@link HConstants#REGION_IMPL} configuration property.    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param htd    * @param rsServices    * @return the new instance    */
 specifier|public
 specifier|static
 name|HRegion
@@ -11373,6 +11244,10 @@ name|conf
 parameter_list|,
 name|HRegionInfo
 name|regionInfo
+parameter_list|,
+specifier|final
+name|HTableDescriptor
+name|htd
 parameter_list|,
 name|RegionServerServices
 name|rsServices
@@ -11446,6 +11321,10 @@ name|HRegionInfo
 operator|.
 name|class
 argument_list|,
+name|HTableDescriptor
+operator|.
+name|class
+argument_list|,
 name|RegionServerServices
 operator|.
 name|class
@@ -11465,6 +11344,8 @@ argument_list|,
 name|conf
 argument_list|,
 name|regionInfo
+argument_list|,
+name|htd
 argument_list|,
 name|rsServices
 argument_list|)
@@ -11587,17 +11468,6 @@ argument_list|(
 name|regionDir
 argument_list|)
 expr_stmt|;
-name|FSUtils
-operator|.
-name|createTableDescriptor
-argument_list|(
-name|fs
-argument_list|,
-name|hTableDescriptor
-argument_list|,
-name|tableDir
-argument_list|)
-expr_stmt|;
 name|HRegion
 name|region
 init|=
@@ -11641,6 +11511,8 @@ name|conf
 argument_list|,
 name|info
 argument_list|,
+name|hTableDescriptor
+argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
@@ -11664,6 +11536,10 @@ name|HRegionInfo
 name|info
 parameter_list|,
 specifier|final
+name|HTableDescriptor
+name|htd
+parameter_list|,
+specifier|final
 name|HLog
 name|wal
 parameter_list|,
@@ -11678,6 +11554,8 @@ return|return
 name|openHRegion
 argument_list|(
 name|info
+argument_list|,
+name|htd
 argument_list|,
 name|wal
 argument_list|,
@@ -11698,6 +11576,10 @@ parameter_list|(
 specifier|final
 name|HRegionInfo
 name|info
+parameter_list|,
+specifier|final
+name|HTableDescriptor
+name|htd
 parameter_list|,
 specifier|final
 name|HLog
@@ -11793,6 +11675,8 @@ name|conf
 argument_list|,
 name|info
 argument_list|,
+name|htd
+argument_list|,
 name|rsServices
 argument_list|)
 decl_stmt|;
@@ -11818,6 +11702,10 @@ name|HRegionInfo
 name|info
 parameter_list|,
 specifier|final
+name|HTableDescriptor
+name|htd
+parameter_list|,
+specifier|final
 name|HLog
 name|wal
 parameter_list|,
@@ -11834,6 +11722,8 @@ argument_list|(
 name|tableDir
 argument_list|,
 name|info
+argument_list|,
+name|htd
 argument_list|,
 name|wal
 argument_list|,
@@ -11860,6 +11750,10 @@ name|HRegionInfo
 name|info
 parameter_list|,
 specifier|final
+name|HTableDescriptor
+name|htd
+parameter_list|,
+specifier|final
 name|HLog
 name|wal
 parameter_list|,
@@ -11878,6 +11772,19 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|info
+operator|==
+literal|null
+condition|)
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|(
+literal|"Passed region info is null"
+argument_list|)
+throw|;
 name|LOG
 operator|.
 name|info
@@ -11907,21 +11814,6 @@ operator|+
 name|info
 argument_list|)
 expr_stmt|;
-block|}
-if|if
-condition|(
-name|info
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|NullPointerException
-argument_list|(
-literal|"Passed region info is null"
-argument_list|)
-throw|;
 block|}
 name|Path
 name|dir
@@ -11959,6 +11851,8 @@ argument_list|,
 name|conf
 argument_list|,
 name|info
+argument_list|,
+name|htd
 argument_list|,
 name|rsServices
 argument_list|)
@@ -13401,6 +13295,11 @@ argument_list|,
 name|conf
 argument_list|,
 name|newRegionInfo
+argument_list|,
+name|a
+operator|.
+name|getTableDesc
+argument_list|()
 argument_list|,
 literal|null
 argument_list|)
@@ -15324,7 +15223,7 @@ name|ClassSize
 operator|.
 name|align
 argument_list|(
-literal|28
+literal|27
 operator|*
 name|ClassSize
 operator|.
@@ -15970,6 +15869,10 @@ name|HRegionInfo
 operator|.
 name|ROOT_REGIONINFO
 argument_list|,
+name|HTableDescriptor
+operator|.
+name|ROOT_TABLEDESC
+argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
@@ -16005,6 +15908,10 @@ argument_list|,
 name|HRegionInfo
 operator|.
 name|FIRST_META_REGIONINFO
+argument_list|,
+name|HTableDescriptor
+operator|.
+name|META_TABLEDESC
 argument_list|,
 literal|null
 argument_list|)

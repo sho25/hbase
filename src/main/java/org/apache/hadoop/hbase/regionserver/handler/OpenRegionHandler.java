@@ -109,6 +109,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Server
 import|;
 end_import
@@ -241,6 +255,11 @@ specifier|final
 name|HRegionInfo
 name|regionInfo
 decl_stmt|;
+specifier|private
+specifier|final
+name|HTableDescriptor
+name|htd
+decl_stmt|;
 comment|// We get version of our znode at start of open process and monitor it across
 comment|// the total open. We'll fail the open if someone hijacks our znode; we can
 comment|// tell this has happened if version is not as expected.
@@ -265,6 +284,9 @@ name|rsServices
 parameter_list|,
 name|HRegionInfo
 name|regionInfo
+parameter_list|,
+name|HTableDescriptor
+name|htd
 parameter_list|)
 block|{
 name|this
@@ -274,6 +296,8 @@ argument_list|,
 name|rsServices
 argument_list|,
 name|regionInfo
+argument_list|,
+name|htd
 argument_list|,
 name|EventType
 operator|.
@@ -295,6 +319,10 @@ parameter_list|,
 specifier|final
 name|HRegionInfo
 name|regionInfo
+parameter_list|,
+specifier|final
+name|HTableDescriptor
+name|htd
 parameter_list|,
 name|EventType
 name|eventType
@@ -318,6 +346,12 @@ operator|.
 name|regionInfo
 operator|=
 name|regionInfo
+expr_stmt|;
+name|this
+operator|.
+name|htd
+operator|=
+name|htd
 expr_stmt|;
 block|}
 specifier|public
@@ -847,7 +881,7 @@ comment|// Was there an exception opening the region?  This should trigger on
 comment|// InterruptedException too.  If so, we failed.
 return|return
 operator|!
-name|t
+name|Thread
 operator|.
 name|interrupted
 argument_list|()
@@ -1202,6 +1236,10 @@ name|regionInfo
 argument_list|,
 name|this
 operator|.
+name|htd
+argument_list|,
+name|this
+operator|.
 name|rsServices
 operator|.
 name|getWAL
@@ -1293,6 +1331,10 @@ argument_list|(
 name|this
 operator|.
 name|regionInfo
+argument_list|,
+name|this
+operator|.
+name|htd
 argument_list|,
 name|this
 operator|.

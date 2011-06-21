@@ -1204,7 +1204,7 @@ control|)
 block|{
 comment|// TODO If the log file is still being written to - which is most likely
 comment|// the case for the last log file - then its length will show up here
-comment|// as zero. The size of such a file can only be retrieved after after
+comment|// as zero. The size of such a file can only be retrieved after
 comment|// recover-lease is done. totalSize will be under in most cases and the
 comment|// metrics that it drives will also be under-reported.
 name|totalSize

@@ -1112,6 +1112,11 @@ argument_list|()
 argument_list|,
 name|r
 operator|.
+name|getTableDesc
+argument_list|()
+argument_list|,
+name|r
+operator|.
 name|getLog
 argument_list|()
 argument_list|,
@@ -1480,6 +1485,11 @@ argument_list|()
 argument_list|,
 name|r
 operator|.
+name|getTableDesc
+argument_list|()
+argument_list|,
+name|r
+operator|.
 name|getLog
 argument_list|()
 argument_list|,
@@ -1730,6 +1740,8 @@ argument_list|(
 name|testdir
 argument_list|,
 name|hri
+argument_list|,
+name|htd
 argument_list|,
 name|wal
 argument_list|,

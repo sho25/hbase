@@ -1166,6 +1166,8 @@ name|conf
 argument_list|,
 name|hri
 argument_list|,
+name|htd
+argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
@@ -1257,6 +1259,7 @@ argument_list|(
 name|basedir
 argument_list|)
 expr_stmt|;
+specifier|final
 name|HTableDescriptor
 name|htd
 init|=
@@ -1301,6 +1304,8 @@ operator|.
 name|openHRegion
 argument_list|(
 name|hri
+argument_list|,
+name|htd
 argument_list|,
 name|wal
 argument_list|,
@@ -1503,6 +1508,8 @@ name|newConf
 argument_list|,
 name|hri
 argument_list|,
+name|htd
+argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
@@ -1673,6 +1680,8 @@ name|conf
 argument_list|,
 name|hri
 argument_list|,
+name|htd
+argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
@@ -1835,6 +1844,8 @@ operator|.
 name|conf
 argument_list|,
 name|hri
+argument_list|,
+name|htd
 argument_list|,
 literal|null
 argument_list|)
@@ -2071,6 +2082,8 @@ argument_list|,
 name|newConf
 argument_list|,
 name|hri
+argument_list|,
+name|htd
 argument_list|,
 literal|null
 argument_list|)
@@ -2619,6 +2632,8 @@ argument_list|,
 name|newConf
 argument_list|,
 name|hri
+argument_list|,
+name|htd
 argument_list|,
 literal|null
 argument_list|)

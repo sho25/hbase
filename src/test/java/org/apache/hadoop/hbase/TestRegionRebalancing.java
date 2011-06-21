@@ -239,6 +239,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|FSUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|JVMClusterUtil
 import|;
 end_import
@@ -519,6 +535,20 @@ expr_stmt|;
 block|}
 name|closeRootAndMeta
 argument_list|()
+expr_stmt|;
+comment|// Add new table descriptor file
+name|FSUtils
+operator|.
+name|createTableDescriptor
+argument_list|(
+name|this
+operator|.
+name|desc
+argument_list|,
+name|this
+operator|.
+name|conf
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * For HBASE-71. Try a few different configurations of starting and stopping    * region servers to see if the assignment or regions is pretty balanced.    * @throws IOException    * @throws InterruptedException    */

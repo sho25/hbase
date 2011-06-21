@@ -637,6 +637,8 @@ name|conf
 argument_list|,
 name|info
 argument_list|,
+name|htd
+argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;

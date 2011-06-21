@@ -2719,6 +2719,13 @@ argument_list|()
 argument_list|,
 name|hri
 argument_list|,
+name|this
+operator|.
+name|parent
+operator|.
+name|getTableDesc
+argument_list|()
+argument_list|,
 name|rsServices
 argument_list|)
 decl_stmt|;
