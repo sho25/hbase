@@ -10554,8 +10554,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-try|try
-block|{
 name|String
 name|scannerName
 init|=
@@ -10584,7 +10582,6 @@ name|s
 operator|==
 literal|null
 condition|)
-block|{
 throw|throw
 operator|new
 name|UnknownScannerException
@@ -10594,7 +10591,6 @@ operator|+
 name|scannerName
 argument_list|)
 throw|;
-block|}
 try|try
 block|{
 name|checkOpen
@@ -10641,11 +10637,24 @@ throw|throw
 name|e
 throw|;
 block|}
+name|Leases
+operator|.
+name|Lease
+name|lease
+init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+comment|// Remove lease while its being processed in server; protects against case
+comment|// where processing of request takes> lease expiration time.
+name|lease
+operator|=
 name|this
 operator|.
 name|leases
 operator|.
-name|renewLease
+name|removeLease
 argument_list|(
 name|scannerName
 argument_list|)
@@ -11014,16 +11023,6 @@ operator|instanceof
 name|NotServingRegionException
 condition|)
 block|{
-name|String
-name|scannerName
-init|=
-name|String
-operator|.
-name|valueOf
-argument_list|(
-name|scannerId
-argument_list|)
-decl_stmt|;
 name|this
 operator|.
 name|scanners
@@ -11043,6 +11042,39 @@ name|t
 argument_list|)
 argument_list|)
 throw|;
+block|}
+finally|finally
+block|{
+comment|// We're done. On way out readd the above removed lease.  Adding resets
+comment|// expiration time on lease.
+if|if
+condition|(
+name|this
+operator|.
+name|scanners
+operator|.
+name|containsKey
+argument_list|(
+name|scannerName
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+name|lease
+operator|!=
+literal|null
+condition|)
+name|this
+operator|.
+name|leases
+operator|.
+name|addLease
+argument_list|(
+name|lease
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 end_function
