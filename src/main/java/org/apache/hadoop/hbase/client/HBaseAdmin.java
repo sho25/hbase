@@ -319,6 +319,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|UnknownRegionException
 import|;
 end_import
@@ -868,7 +882,7 @@ name|listTables
 argument_list|()
 return|;
 block|}
-comment|/**    * Method for getting the tableDescriptor    * @param tableName as a byte []    * @return the tableDescriptor    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Method for getting the tableDescriptor    * @param tableName as a byte []    * @return the tableDescriptor    * @throws TableNotFoundException    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTableDescriptor
 name|getTableDescriptor
@@ -879,6 +893,8 @@ index|[]
 name|tableName
 parameter_list|)
 throws|throws
+name|TableNotFoundException
+throws|,
 name|IOException
 block|{
 return|return
