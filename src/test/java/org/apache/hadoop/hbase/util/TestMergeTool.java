@@ -869,6 +869,23 @@ comment|// Create root and meta regions
 name|createRootAndMetaRegions
 argument_list|()
 expr_stmt|;
+name|FSUtils
+operator|.
+name|createTableDescriptor
+argument_list|(
+name|this
+operator|.
+name|fs
+argument_list|,
+name|this
+operator|.
+name|testDir
+argument_list|,
+name|this
+operator|.
+name|desc
+argument_list|)
+expr_stmt|;
 comment|/*        * Create the regions we will merge        */
 for|for
 control|(
