@@ -650,6 +650,14 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Wait a while so mod time we write is for sure different.
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
+expr_stmt|;
 comment|// Update the table infos
 for|for
 control|(
@@ -702,13 +710,6 @@ name|htd
 argument_list|)
 expr_stmt|;
 block|}
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-literal|2000
-argument_list|)
-expr_stmt|;
 for|for
 control|(
 name|int
