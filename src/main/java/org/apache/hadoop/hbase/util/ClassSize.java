@@ -670,6 +670,11 @@ name|references
 init|=
 name|nrOfRefsPerObj
 decl_stmt|;
+name|int
+name|index
+init|=
+literal|0
+decl_stmt|;
 for|for
 control|(
 init|;
@@ -711,7 +716,6 @@ control|)
 block|{
 if|if
 condition|(
-operator|!
 name|Modifier
 operator|.
 name|isStatic
@@ -722,7 +726,7 @@ name|getModifiers
 argument_list|()
 argument_list|)
 condition|)
-block|{
+continue|continue;
 name|Class
 name|fieldClass
 init|=
@@ -973,12 +977,18 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
+literal|""
+operator|+
+name|index
+operator|+
+literal|" "
+operator|+
 name|aField
 operator|.
 name|getName
 argument_list|()
 operator|+
-literal|"\n\t"
+literal|" "
 operator|+
 name|aField
 operator|.
@@ -988,7 +998,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
+name|index
+operator|++
+expr_stmt|;
 block|}
 block|}
 block|}
@@ -1020,7 +1032,7 @@ name|debug
 parameter_list|)
 block|{
 name|long
-name|size
+name|prealign_size
 init|=
 name|coeff
 index|[
@@ -1045,13 +1057,14 @@ operator|*
 name|REFERENCE
 decl_stmt|;
 comment|// Round up to a multiple of 8
+name|long
 name|size
-operator|=
+init|=
 name|align
 argument_list|(
-name|size
+name|prealign_size
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|debug
@@ -1070,14 +1083,14 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Primitives "
+literal|"Primitives="
 operator|+
 name|coeff
 index|[
 literal|0
 index|]
 operator|+
-literal|", arrays "
+literal|", arrays="
 operator|+
 name|coeff
 index|[
@@ -1088,7 +1101,7 @@ literal|", references(includes "
 operator|+
 name|nrOfRefsPerObj
 operator|+
-literal|" for object overhead) "
+literal|" for object overhead)="
 operator|+
 name|coeff
 index|[
@@ -1099,9 +1112,13 @@ literal|", refSize "
 operator|+
 name|REFERENCE
 operator|+
-literal|", size "
+literal|", size="
 operator|+
 name|size
+operator|+
+literal|", prealign_size="
+operator|+
+name|prealign_size
 argument_list|)
 expr_stmt|;
 block|}
