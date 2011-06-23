@@ -15276,16 +15276,11 @@ name|ClassSize
 operator|.
 name|ARRAY
 operator|+
-name|ClassSize
-operator|.
-name|align
-argument_list|(
 literal|27
 operator|*
 name|ClassSize
 operator|.
 name|REFERENCE
-argument_list|)
 operator|+
 operator|(
 literal|4
