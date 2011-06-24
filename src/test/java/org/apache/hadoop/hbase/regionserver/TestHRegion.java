@@ -17977,7 +17977,7 @@ block|}
 name|String
 name|method
 init|=
-literal|"testWritesWhileScanning"
+literal|"testWritesWhileGetting"
 decl_stmt|;
 name|initHRegion
 argument_list|(
