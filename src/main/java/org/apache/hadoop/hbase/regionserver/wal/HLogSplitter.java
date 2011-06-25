@@ -3886,6 +3886,9 @@ decl_stmt|;
 name|RegionEntryBuffer
 name|buffer
 decl_stmt|;
+name|long
+name|incrHeap
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|this
@@ -3939,19 +3942,14 @@ name|buffer
 argument_list|)
 expr_stmt|;
 block|}
-name|long
 name|incrHeap
-init|=
+operator|=
 name|buffer
 operator|.
 name|appendEntry
 argument_list|(
 name|entry
 argument_list|)
-decl_stmt|;
-name|totalBuffered
-operator|+=
-name|incrHeap
 expr_stmt|;
 block|}
 comment|// If we crossed the chunk threshold, wait for more space to be available
@@ -3960,6 +3958,10 @@ init|(
 name|dataAvailable
 init|)
 block|{
+name|totalBuffered
+operator|+=
+name|incrHeap
+expr_stmt|;
 while|while
 condition|(
 name|totalBuffered
@@ -3967,6 +3969,9 @@ operator|>
 name|maxHeapUsage
 operator|&&
 name|thrown
+operator|.
+name|get
+argument_list|()
 operator|==
 literal|null
 condition|)
