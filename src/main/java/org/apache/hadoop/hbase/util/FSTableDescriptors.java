@@ -456,6 +456,30 @@ operator|.
 name|META_TABLEDESC
 return|;
 block|}
+comment|// .META. and -ROOT- is already handled. If some one tries to get the descriptor for
+comment|// .logs, .oldlogs or .corrupt throw an exception.
+if|if
+condition|(
+name|HConstants
+operator|.
+name|HBASE_NON_USER_TABLE_DIRS
+operator|.
+name|contains
+argument_list|(
+name|tablename
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"No descriptor found for table = "
+operator|+
+name|tablename
+argument_list|)
+throw|;
+block|}
 comment|// Look in cache of descriptors.
 name|TableDescriptorModtime
 name|tdm
@@ -711,6 +735,27 @@ argument_list|,
 name|htd
 operator|.
 name|getName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|()
+throw|;
+block|}
+if|if
+condition|(
+name|HConstants
+operator|.
+name|HBASE_NON_USER_TABLE_DIRS
+operator|.
+name|contains
+argument_list|(
+name|htd
+operator|.
+name|getNameAsString
 argument_list|()
 argument_list|)
 condition|)

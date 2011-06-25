@@ -3514,7 +3514,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * @param fs    * @param rootdir    * @return All the table directories under<code>rootdir</code>    * @throws IOException    */
+comment|/**    * @param fs    * @param rootdir    * @return All the table directories under<code>rootdir</code>. Ignore non table hbase folders such as    * .logs, .oldlogs, .corrupt, .META., and -ROOT- folders.    * @throws IOException    */
 end_comment
 
 begin_function
@@ -3598,55 +3598,17 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|tableName
-operator|.
-name|equals
-argument_list|(
+operator|!
 name|HConstants
 operator|.
-name|HREGION_LOGDIR_NAME
-argument_list|)
-operator|||
+name|HBASE_NON_USER_TABLE_DIRS
+operator|.
+name|contains
+argument_list|(
 name|tableName
-operator|.
-name|equals
-argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|HConstants
-operator|.
-name|ROOT_TABLE_NAME
-argument_list|)
-argument_list|)
-operator|||
-name|tableName
-operator|.
-name|equals
-argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|HConstants
-operator|.
-name|META_TABLE_NAME
-argument_list|)
-argument_list|)
-operator|||
-name|tableName
-operator|.
-name|equals
-argument_list|(
-name|HConstants
-operator|.
-name|HREGION_OLDLOGDIR_NAME
 argument_list|)
 condition|)
 block|{
-continue|continue;
-block|}
 name|tabledirs
 operator|.
 name|add
@@ -3654,6 +3616,7 @@ argument_list|(
 name|p
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|tabledirs
