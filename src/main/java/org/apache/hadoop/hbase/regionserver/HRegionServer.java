@@ -3702,11 +3702,6 @@ condition|(
 name|this
 operator|.
 name|stopping
-operator|&&
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
 condition|)
 block|{
 name|LOG
