@@ -630,7 +630,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|600000
+literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -1088,7 +1088,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|600000
+literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -1407,7 +1407,7 @@ name|Test
 argument_list|(
 name|timeout
 operator|=
-literal|600000
+literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -1713,6 +1713,11 @@ block|}
 comment|/**    * Test that if daughter split on us, we won't do the shutdown handler fixup    * just because we can't find the immediate daughter of an offlined parent.    * @throws IOException    * @throws InterruptedException    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testShutdownFixupWhenDaughterHasSplit

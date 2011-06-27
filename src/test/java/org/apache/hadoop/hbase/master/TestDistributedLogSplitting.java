@@ -841,6 +841,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testThreeRSAbort
@@ -1096,6 +1101,10 @@ operator|=
 name|OrphanHLogAfterSplitException
 operator|.
 name|class
+argument_list|,
+name|timeout
+operator|=
+literal|300000
 argument_list|)
 specifier|public
 name|void
@@ -1366,6 +1375,11 @@ block|}
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testRecoveredEdits
@@ -1726,6 +1740,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testWorkerAbort
