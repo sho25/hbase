@@ -6590,8 +6590,6 @@ argument_list|<
 name|R
 argument_list|>
 argument_list|(
-name|regionName
-argument_list|,
 name|row
 argument_list|,
 name|i
