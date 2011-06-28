@@ -14918,6 +14918,11 @@ name|flush
 init|=
 literal|false
 decl_stmt|;
+name|boolean
+name|wrongLength
+init|=
+literal|false
+decl_stmt|;
 comment|// Lock row
 name|long
 name|result
@@ -15017,6 +15022,16 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|kv
+operator|.
+name|getValueLength
+argument_list|()
+operator|==
+literal|8
+condition|)
+block|{
 name|byte
 index|[]
 name|buffer
@@ -15050,6 +15065,20 @@ name|SIZEOF_LONG
 argument_list|)
 expr_stmt|;
 block|}
+else|else
+block|{
+name|wrongLength
+operator|=
+literal|true
+expr_stmt|;
+block|}
+block|}
+if|if
+condition|(
+operator|!
+name|wrongLength
+condition|)
+block|{
 comment|// build the KeyValue now:
 name|KeyValue
 name|newKv
@@ -15165,6 +15194,7 @@ name|size
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 finally|finally
 block|{
 name|this
@@ -15199,6 +15229,19 @@ comment|// Request a cache flush.  Do it outside update lock.
 name|requestFlush
 argument_list|()
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|wrongLength
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Attempted to increment field that isn't 64 bits wide"
+argument_list|)
+throw|;
 block|}
 return|return
 name|result
