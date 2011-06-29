@@ -33,6 +33,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|List
@@ -1968,6 +1978,8 @@ parameter_list|(
 name|MiniHBaseCluster
 name|cluster
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|getServerHosting
@@ -1987,6 +1999,8 @@ parameter_list|(
 name|MiniHBaseCluster
 name|cluster
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 name|getServerHosting
@@ -2009,6 +2023,8 @@ parameter_list|,
 name|HRegionInfo
 name|region
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 for|for
 control|(
@@ -2059,6 +2075,8 @@ name|String
 argument_list|>
 name|expectedRegions
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|int
 name|numFound
@@ -2267,6 +2285,8 @@ parameter_list|(
 name|MiniHBaseCluster
 name|cluster
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|NavigableSet
 argument_list|<
@@ -2332,6 +2352,8 @@ parameter_list|(
 name|MiniHBaseCluster
 name|cluster
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|NavigableSet
 argument_list|<

@@ -1231,7 +1231,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|ServerNotRunningException
+name|ServerNotRunningYetException
 import|;
 end_import
 
@@ -8199,7 +8199,7 @@ if|if
 condition|(
 name|e
 operator|instanceof
-name|ServerNotRunningException
+name|ServerNotRunningYetException
 condition|)
 block|{
 name|LOG
@@ -8734,7 +8734,12 @@ name|regionName
 parameter_list|)
 throws|throws
 name|NotServingRegionException
+throws|,
+name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|requestCount
 operator|.
 name|incrementAndGet
@@ -11615,15 +11620,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 comment|// Count of Deletes processed.
 name|int
 name|i
 init|=
 literal|0
 decl_stmt|;
-name|checkOpen
-argument_list|()
-expr_stmt|;
 name|HRegion
 name|region
 init|=
@@ -12297,6 +12302,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|HRegion
 name|region
 init|=
@@ -12455,6 +12463,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -12495,17 +12506,6 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|stopped
-condition|)
-throw|throw
-operator|new
-name|RegionServerStoppedException
-argument_list|()
-throw|;
 name|HTableDescriptor
 name|htd
 init|=
@@ -12626,6 +12626,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -12710,6 +12713,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -12979,6 +12985,9 @@ name|NotServingRegionException
 throws|,
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -13061,6 +13070,9 @@ name|NotServingRegionException
 throws|,
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|HRegion
 name|region
 init|=
@@ -13124,6 +13136,9 @@ name|NotServingRegionException
 throws|,
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|HRegion
 name|region
 init|=
@@ -13275,7 +13290,12 @@ name|HRegionInfo
 argument_list|>
 name|getOnlineRegions
 parameter_list|()
+throws|throws
+name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|List
 argument_list|<
 name|HRegionInfo
@@ -14112,7 +14132,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|RegionServerStoppedException
 argument_list|(
 literal|"Server not running"
 operator|+
@@ -14136,7 +14156,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|RegionServerStoppedException
 argument_list|(
 literal|"File system not available"
 argument_list|)
@@ -14661,6 +14681,9 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 return|return
 operator|new
 name|HServerInfo
@@ -14709,6 +14732,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|MultiResponse
 name|response
 init|=
@@ -15316,6 +15342,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 name|MultiPutResponse
 name|resp
 init|=
@@ -15813,6 +15842,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkOpen
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|this

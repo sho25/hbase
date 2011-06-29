@@ -784,6 +784,8 @@ name|HRegionInfo
 argument_list|>
 name|getOnlineRegions
 parameter_list|()
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Method used when a master is taking the place of another failed one.    * @return This servers {@link HServerInfo}; it has RegionServer POV on the    * hostname which may not agree w/ how the Master sees this server.    * @throws IOException e    * @deprecated    */
 specifier|public

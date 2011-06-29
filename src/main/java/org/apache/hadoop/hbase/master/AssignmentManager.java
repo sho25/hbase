@@ -483,6 +483,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ipc
+operator|.
+name|ServerNotRunningYetException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|LoadBalancer
@@ -560,6 +576,22 @@ operator|.
 name|handler
 operator|.
 name|SplitRegionHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|RegionServerStoppedException
 import|;
 end_import
 
@@ -4451,6 +4483,18 @@ argument_list|>
 name|regions
 parameter_list|)
 block|{
+if|if
+condition|(
+name|regions
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|0
+condition|)
+block|{
+return|return;
+block|}
 name|LOG
 operator|.
 name|debug
@@ -4641,10 +4685,8 @@ block|}
 comment|// Move on to open regions.
 try|try
 block|{
-comment|// Send OPEN RPC. This can fail if the server on other end is is not up.
-comment|// If we fail, fail the startup by aborting the server.  There is one
-comment|// exception we will tolerate: ServerNotRunningException.  This is thrown
-comment|// between report of regionserver being up and
+comment|// Send OPEN RPC. If it fails on a IOE or RemoteException, the
+comment|// TimeoutMonitor will pick up the pieces.
 name|long
 name|maxWaitTime
 init|=
@@ -4695,19 +4737,44 @@ break|break;
 block|}
 catch|catch
 parameter_list|(
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
-name|ServerNotRunningException
+name|RemoteException
 name|e
 parameter_list|)
+block|{
+name|IOException
+name|decodedException
+init|=
+name|e
+operator|.
+name|unwrapRemoteException
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|decodedException
+operator|instanceof
+name|RegionServerStoppedException
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"The region server was shut down, "
+argument_list|,
+name|decodedException
+argument_list|)
+expr_stmt|;
+comment|// No need to retry, the region server is a goner.
+return|return;
+block|}
+elseif|else
+if|if
+condition|(
+name|decodedException
+operator|instanceof
+name|ServerNotRunningYetException
+condition|)
 block|{
 comment|// This is the one exception to retry.  For all else we should just fail
 comment|// the startup.
@@ -4753,6 +4820,10 @@ literal|1000
 argument_list|)
 expr_stmt|;
 block|}
+throw|throw
+name|decodedException
+throw|;
+block|}
 block|}
 block|}
 catch|catch
@@ -4761,13 +4832,18 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-throw|throw
-operator|new
-name|RuntimeException
+comment|// Can be a socket timeout, EOF, NoRouteToHost, etc
+name|LOG
+operator|.
+name|info
 argument_list|(
+literal|"Unable to communicate with the region server in order"
+operator|+
+literal|" to assign regions"
+argument_list|,
 name|e
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(

@@ -840,6 +840,8 @@ specifier|private
 name|int
 name|getRegionCount
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|int
 name|total
@@ -875,6 +877,8 @@ specifier|private
 name|void
 name|assertRegionsAreBalanced
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 comment|// TODO: Fix this test.  Old balancer used to run with 'slop'.  New
 comment|// balancer does not.
@@ -1223,6 +1227,8 @@ specifier|private
 name|void
 name|waitForAllRegionsAssigned
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 while|while
 condition|(

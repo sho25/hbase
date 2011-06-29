@@ -4946,7 +4946,7 @@ name|started
 condition|)
 throw|throw
 operator|new
-name|ServerNotRunningException
+name|ServerNotRunningYetException
 argument_list|(
 literal|"Server is not running yet"
 argument_list|)
@@ -5799,7 +5799,7 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
-comment|/**    * Starts the service threads but does not allow requests to be responded yet.    * Client will get {@link ServerNotRunningException} instead.    */
+comment|/**    * Starts the service threads but does not allow requests to be responded yet.    * Client will get {@link ServerNotRunningYetException} instead.    */
 annotation|@
 name|Override
 specifier|public

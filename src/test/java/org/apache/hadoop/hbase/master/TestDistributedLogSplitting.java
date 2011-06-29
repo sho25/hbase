@@ -2967,6 +2967,8 @@ parameter_list|(
 name|MiniHBaseCluster
 name|cluster
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|NavigableSet
 argument_list|<

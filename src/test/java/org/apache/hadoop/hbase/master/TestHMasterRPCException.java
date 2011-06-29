@@ -293,7 +293,7 @@ argument_list|()
 operator|.
 name|startsWith
 argument_list|(
-literal|"org.apache.hadoop.hbase.ipc.ServerNotRunningException: Server is not running yet"
+literal|"org.apache.hadoop.hbase.ipc.ServerNotRunningYetException: Server is not running yet"
 argument_list|)
 argument_list|)
 expr_stmt|;

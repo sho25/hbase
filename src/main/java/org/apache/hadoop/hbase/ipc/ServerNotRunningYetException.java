@@ -30,12 +30,12 @@ end_import
 begin_class
 specifier|public
 class|class
-name|ServerNotRunningException
+name|ServerNotRunningYetException
 extends|extends
 name|IOException
 block|{
 specifier|public
-name|ServerNotRunningException
+name|ServerNotRunningYetException
 parameter_list|(
 name|String
 name|s

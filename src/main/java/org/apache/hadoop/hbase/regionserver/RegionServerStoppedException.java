@@ -19,20 +19,16 @@ end_package
 
 begin_import
 import|import
-name|org
+name|java
 operator|.
-name|apache
+name|io
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|DoNotRetryIOException
+name|IOException
 import|;
 end_import
 
 begin_comment
-comment|/**  * Thrown by the region server when it is shutting down state.  *  * Should NEVER be thrown to HBase clients, they will abort the call chain  * and not retry even though regions will transition to new servers.  */
+comment|/**  * Thrown by the region server when it is in shutting down state.  */
 end_comment
 
 begin_class
@@ -45,8 +41,22 @@ specifier|public
 class|class
 name|RegionServerStoppedException
 extends|extends
-name|DoNotRetryIOException
-block|{ }
+name|IOException
+block|{
+specifier|public
+name|RegionServerStoppedException
+parameter_list|(
+name|String
+name|s
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|s
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 end_class
 
 end_unit

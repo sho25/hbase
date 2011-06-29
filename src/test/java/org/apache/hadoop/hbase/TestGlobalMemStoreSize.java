@@ -31,6 +31,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|List
@@ -518,6 +528,8 @@ specifier|private
 name|int
 name|getRegionCount
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|int
 name|total
@@ -614,6 +626,8 @@ specifier|private
 name|void
 name|waitForAllRegionsAssigned
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 while|while
 condition|(
