@@ -1024,7 +1024,7 @@ name|getRegionServers
 argument_list|()
 return|;
 block|}
-comment|/**    * Get the list of all the region servers from the specified peer    * @param zkw zk connection to use    * @return list of region server addresses    */
+comment|/**    * Get the list of all the region servers from the specified peer    * @param zkw zk connection to use    * @return list of region server addresses or an empty list if the slave    * is unavailable    */
 specifier|private
 name|List
 argument_list|<
@@ -1036,18 +1036,9 @@ name|ZooKeeperWatcher
 name|zkw
 parameter_list|)
 block|{
-name|List
-argument_list|<
-name|ServerName
-argument_list|>
-name|rss
-init|=
-literal|null
-decl_stmt|;
 try|try
 block|{
-name|rss
-operator|=
+return|return
 name|listChildrenAndGetAsServerNames
 argument_list|(
 name|zkw
@@ -1056,7 +1047,7 @@ name|zkw
 operator|.
 name|rsZNode
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 catch|catch
 parameter_list|(
@@ -1073,10 +1064,17 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-block|}
 return|return
-name|rss
+operator|new
+name|ArrayList
+argument_list|<
+name|ServerName
+argument_list|>
+argument_list|(
+literal|0
+argument_list|)
 return|;
+block|}
 block|}
 comment|/**    * Lists the children of the specified znode, retrieving the data of each    * child as a server address.    *    * Used to list the currently online regionservers and their addresses.    *    * Sets no watches at all, this method is best effort.    *    * Returns an empty list if the node has no children.  Returns null if the    * parent node itself does not exist.    *    * @param zkw zookeeper reference    * @param znode node to get children of as addresses    * @return list of data of children of specified znode, empty if no children,    *         null if parent does not exist    * @throws KeeperException if unexpected zookeeper exception    */
 specifier|public
