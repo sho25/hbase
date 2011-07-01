@@ -426,12 +426,7 @@ name|priority
 init|=
 name|Coprocessor
 operator|.
-name|Priority
-operator|.
-name|SYSTEM
-operator|.
-name|intValue
-argument_list|()
+name|PRIORITY_SYSTEM
 decl_stmt|;
 name|List
 argument_list|<
@@ -516,9 +511,9 @@ name|implClass
 argument_list|,
 name|Coprocessor
 operator|.
-name|Priority
-operator|.
-name|SYSTEM
+name|PRIORITY_SYSTEM
+argument_list|,
+name|conf
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -597,7 +592,7 @@ name|configured
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Load a coprocessor implementation into the host    * @param path path to implementation jar    * @param className the main class name    * @param priority chaining priority    * @throws java.io.IOException Exception    */
+comment|/**    * Load a coprocessor implementation into the host    * @param path path to implementation jar    * @param className the main class name    * @param priority chaining priority    * @param conf configuration for coprocessor    * @throws java.io.IOException Exception    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -613,10 +608,11 @@ parameter_list|,
 name|String
 name|className
 parameter_list|,
-name|Coprocessor
-operator|.
-name|Priority
+name|int
 name|priority
+parameter_list|,
+name|Configuration
+name|conf
 parameter_list|)
 throws|throws
 name|IOException
@@ -939,10 +935,12 @@ argument_list|(
 name|implClass
 argument_list|,
 name|priority
+argument_list|,
+name|conf
 argument_list|)
 return|;
 block|}
-comment|/**    * @param implClass Implementation class    * @param priority priority    * @throws java.io.IOException Exception    */
+comment|/**    * @param implClass Implementation class    * @param priority priority    * @param conf configuration    * @throws java.io.IOException Exception    */
 specifier|public
 name|void
 name|load
@@ -953,10 +951,11 @@ name|?
 argument_list|>
 name|implClass
 parameter_list|,
-name|Coprocessor
-operator|.
-name|Priority
+name|int
 name|priority
+parameter_list|,
+name|Configuration
+name|conf
 parameter_list|)
 throws|throws
 name|IOException
@@ -969,6 +968,8 @@ argument_list|(
 name|implClass
 argument_list|,
 name|priority
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|coprocessors
@@ -979,6 +980,7 @@ name|env
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param implClass Implementation class    * @param priority priority    * @param conf configuration    * @throws java.io.IOException Exception    */
 specifier|public
 name|E
 name|loadInstance
@@ -989,10 +991,11 @@ name|?
 argument_list|>
 name|implClass
 parameter_list|,
-name|Coprocessor
-operator|.
-name|Priority
+name|int
 name|priority
+parameter_list|,
+name|Configuration
+name|conf
 parameter_list|)
 throws|throws
 name|IOException
@@ -1065,6 +1068,8 @@ name|priority
 argument_list|,
 operator|++
 name|loadSequence
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 if|if
@@ -1104,13 +1109,14 @@ parameter_list|,
 name|Coprocessor
 name|instance
 parameter_list|,
-name|Coprocessor
-operator|.
-name|Priority
+name|int
 name|priority
 parameter_list|,
 name|int
 name|sequence
+parameter_list|,
+name|Configuration
+name|conf
 parameter_list|)
 function_decl|;
 specifier|public
@@ -1223,6 +1229,68 @@ return|return
 literal|null
 return|;
 block|}
+comment|/**    * Find a coprocessor environment by class name    * @param className the class name    * @return the coprocessor, or null if not found    */
+specifier|public
+name|CoprocessorEnvironment
+name|findCoprocessorEnvironment
+parameter_list|(
+name|String
+name|className
+parameter_list|)
+block|{
+comment|// initialize the coprocessors
+for|for
+control|(
+name|E
+name|env
+range|:
+name|coprocessors
+control|)
+block|{
+if|if
+condition|(
+name|env
+operator|.
+name|getInstance
+argument_list|()
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|className
+argument_list|)
+operator|||
+name|env
+operator|.
+name|getInstance
+argument_list|()
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|className
+argument_list|)
+condition|)
+block|{
+return|return
+name|env
+return|;
+block|}
+block|}
+return|return
+literal|null
+return|;
+block|}
 comment|/**    * Environment priority comparator.    * Coprocessors are chained in sorted order.    */
 specifier|static
 class|class
@@ -1237,9 +1305,11 @@ specifier|public
 name|int
 name|compare
 parameter_list|(
+specifier|final
 name|CoprocessorEnvironment
 name|env1
 parameter_list|,
+specifier|final
 name|CoprocessorEnvironment
 name|env2
 parameter_list|)
@@ -1250,16 +1320,10 @@ name|env1
 operator|.
 name|getPriority
 argument_list|()
-operator|.
-name|intValue
-argument_list|()
 operator|<
 name|env2
 operator|.
 name|getPriority
-argument_list|()
-operator|.
-name|intValue
 argument_list|()
 condition|)
 block|{
@@ -1275,16 +1339,10 @@ name|env1
 operator|.
 name|getPriority
 argument_list|()
-operator|.
-name|intValue
-argument_list|()
 operator|>
 name|env2
 operator|.
 name|getPriority
-argument_list|()
-operator|.
-name|intValue
 argument_list|()
 condition|)
 block|{
@@ -2170,16 +2228,12 @@ name|impl
 decl_stmt|;
 comment|/** Chaining priority */
 specifier|protected
-name|Coprocessor
-operator|.
-name|Priority
+name|int
 name|priority
 init|=
 name|Coprocessor
 operator|.
-name|Priority
-operator|.
-name|USER
+name|PRIORITY_USER
 decl_stmt|;
 comment|/** Current coprocessor state */
 name|Coprocessor
@@ -2217,6 +2271,10 @@ specifier|private
 name|int
 name|seq
 decl_stmt|;
+specifier|private
+name|Configuration
+name|conf
+decl_stmt|;
 comment|/**      * Constructor      * @param impl the coprocessor instance      * @param priority chaining priority      */
 specifier|public
 name|Environment
@@ -2225,13 +2283,17 @@ specifier|final
 name|Coprocessor
 name|impl
 parameter_list|,
-name|Coprocessor
-operator|.
-name|Priority
+specifier|final
+name|int
 name|priority
 parameter_list|,
+specifier|final
 name|int
 name|seq
+parameter_list|,
+specifier|final
+name|Configuration
+name|conf
 parameter_list|)
 block|{
 name|this
@@ -2261,6 +2323,12 @@ operator|.
 name|seq
 operator|=
 name|seq
+expr_stmt|;
+name|this
+operator|.
+name|conf
+operator|=
+name|conf
 expr_stmt|;
 block|}
 comment|/** Initialize the environment */
@@ -2527,9 +2595,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|Coprocessor
-operator|.
-name|Priority
+name|int
 name|getPriority
 parameter_list|()
 block|{
@@ -2575,6 +2641,17 @@ name|VersionInfo
 operator|.
 name|getVersion
 argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|Configuration
+name|getConfiguration
+parameter_list|()
+block|{
+return|return
+name|conf
 return|;
 block|}
 comment|/**      * Open a table from within the Coprocessor environment      * @param tableName the table name      * @return an interface for manipulating the table      * @exception java.io.IOException Exception      */

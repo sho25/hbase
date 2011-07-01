@@ -35,6 +35,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|conf
+operator|.
+name|Configuration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|client
@@ -72,9 +86,7 @@ parameter_list|()
 function_decl|;
 comment|/** @return the priority assigned to the loaded coprocessor */
 specifier|public
-name|Coprocessor
-operator|.
-name|Priority
+name|int
 name|getPriority
 parameter_list|()
 function_decl|;
@@ -82,6 +94,12 @@ comment|/** @return the load sequence number */
 specifier|public
 name|int
 name|getLoadSequence
+parameter_list|()
+function_decl|;
+comment|/** @return the configuration */
+specifier|public
+name|Configuration
+name|getConfiguration
 parameter_list|()
 function_decl|;
 comment|/**    * @return an interface for accessing the given table    * @throws IOException    */
