@@ -848,9 +848,6 @@ name|void
 name|preOpen
 parameter_list|()
 block|{
-name|loadTableCoprocessors
-argument_list|()
-expr_stmt|;
 name|ObserverContext
 argument_list|<
 name|RegionCoprocessorEnvironment
