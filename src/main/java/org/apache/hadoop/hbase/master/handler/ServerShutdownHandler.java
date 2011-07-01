@@ -1359,7 +1359,7 @@ name|bytes
 argument_list|)
 return|;
 block|}
-comment|/**    * Look for presence of the daughter OR of a split of the daughter. Daughter    * could have been split over on regionserver before a run of the    * catalogJanitor had chance to clear reference from parent.    * @param daughter Daughter region to search for.    * @throws IOException     */
+comment|/**    * Look for presence of the daughter OR of a split of the daughter in .META.    * Daughter could have been split over on regionserver before a run of the    * catalogJanitor had chance to clear reference from parent.    * @param daughter Daughter region to search for.    * @throws IOException     */
 specifier|private
 specifier|static
 name|boolean
