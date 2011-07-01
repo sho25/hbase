@@ -282,12 +282,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Running rollback/cleanup of failed split of "
+literal|"Running rollback of failed split of "
 operator|+
 name|parent
-operator|.
-name|getRegionNameAsString
-argument_list|()
 operator|+
 literal|"; "
 operator|+
@@ -297,8 +294,6 @@ name|getMessage
 argument_list|()
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
 name|st
 operator|.
 name|rollback
@@ -311,8 +306,7 @@ name|this
 operator|.
 name|server
 argument_list|)
-condition|)
-block|{
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -320,24 +314,8 @@ argument_list|(
 literal|"Successful rollback of failed split of "
 operator|+
 name|parent
-operator|.
-name|getRegionNameAsString
-argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-name|this
-operator|.
-name|server
-operator|.
-name|abort
-argument_list|(
-literal|"Abort; we got an error after point-of-no-return"
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 catch|catch
 parameter_list|(
@@ -345,9 +323,11 @@ name|RuntimeException
 name|ee
 parameter_list|)
 block|{
-name|String
-name|msg
-init|=
+comment|// If failed rollback, kill server to avoid having a hole in table.
+name|LOG
+operator|.
+name|info
+argument_list|(
 literal|"Failed rollback of failed split of "
 operator|+
 name|parent
@@ -356,13 +336,6 @@ name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|" -- aborting server"
-decl_stmt|;
-comment|// If failed rollback, kill this server to avoid having a hole in table.
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|msg
 argument_list|,
 name|ee
 argument_list|)
@@ -373,7 +346,7 @@ name|server
 operator|.
 name|abort
 argument_list|(
-name|msg
+literal|"Failed split"
 argument_list|)
 expr_stmt|;
 block|}

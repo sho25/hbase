@@ -522,7 +522,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Executes region split as a "transaction".  Call {@link #prepare()} to setup  * the transaction, {@link #execute(Server, RegionServerServices)} to run the transaction and  * {@link #rollback(OnlineRegions)} to cleanup if execute fails.  *  *<p>Here is an example of how you would use this class:  *<pre>  *  SplitTransaction st = new SplitTransaction(this.conf, parent, midKey)  *  if (!st.prepare()) return;  *  try {  *    st.execute(server, services);  *  } catch (IOException ioe) {  *    try {  *      st.rollback(server, services);  *      return;  *    } catch (RuntimeException e) {  *      myAbortable.abort("Failed split, abort");  *    }  *  }  *</Pre>  *<p>This class is not thread safe.  Caller needs ensure split is run by  * one thread only.  */
+comment|/**  * Executes region split as a "transaction".  Call {@link #prepare()} to setup  * the transaction, {@link #execute(OnlineRegions)} to run the transaction and  * {@link #rollback(OnlineRegions)} to cleanup if execute fails.  *  *<p>Here is an example of how you would use this class:  *<pre>  *  SplitTransaction st = new SplitTransaction(this.conf, parent, midKey)  *  if (!st.prepare()) return;  *  try {  *    st.execute(myOnlineRegions);  *  } catch (IOException ioe) {  *    try {  *      st.rollback(myOnlineRegions);  *      return;  *    } catch (RuntimeException e) {  *      myAbortable.abort("Failed split, abort");  *    }  *  }  *</Pre>  *<p>This class is not thread safe.  Caller needs ensure split is run by  * one thread only.  */
 end_comment
 
 begin_class
@@ -612,9 +612,6 @@ name|STARTED_REGION_A_CREATION
 block|,
 comment|/**      * Started in on the creation of the second daughter region.      */
 name|STARTED_REGION_B_CREATION
-block|,
-comment|/**      * Point of no return.      * If we got here, then transaction is not recoverable.      */
-name|PONR
 block|}
 comment|/*    * Journal of how far the split transaction has progressed.    */
 specifier|private
@@ -1348,21 +1345,9 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// This is the point of no return.  Adding edits to .META. can fail in
-comment|// various interesting ways the most interesting of which is a timeout
-comment|// BUT the edits all went through (See HBASE-3872).
-name|this
-operator|.
-name|journal
-operator|.
-name|add
-argument_list|(
-name|JournalEntry
-operator|.
-name|PONR
-argument_list|)
-expr_stmt|;
-comment|// TODO: Could we be smarter about the sequence in which we do these steps?
+comment|// This is the point of no return.  We are committed to the split now.  We
+comment|// have still the daughter regions to open but meta has been changed.
+comment|// If we fail from here on out, we cannot rollback so, we'll just abort.
 if|if
 condition|(
 operator|!
@@ -1425,26 +1410,15 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-name|Thread
+name|server
 operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|interrupt
-argument_list|()
-expr_stmt|;
-throw|throw
-operator|new
-name|IOException
+name|abort
 argument_list|(
-literal|"Interrupted "
-operator|+
+literal|"Exception running daughter opens"
+argument_list|,
 name|e
-operator|.
-name|getMessage
-argument_list|()
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 block|}
 comment|// Tell master about split by updating zk.  If we fail, abort.
@@ -2882,9 +2856,9 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param server Hosting server instance.    * @param services    * @throws IOException If thrown, rollback failed.  Take drastic action.    * @return True if we successfully rolled back, false if we got to the point    * of no return and so now need to abort the server to minimize damage.    */
+comment|/**    * @param or Object that can online/offline parent region.  Can be passed null    * by unit tests.    * @return The region we were splitting    * @throws IOException If thrown, rollback failed.  Take drastic action.    */
 specifier|public
-name|boolean
+name|void
 name|rollback
 parameter_list|(
 specifier|final
@@ -2892,17 +2866,12 @@ name|Server
 name|server
 parameter_list|,
 specifier|final
-name|RegionServerServices
-name|services
+name|OnlineRegions
+name|or
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|boolean
-name|result
-init|=
-literal|true
-decl_stmt|;
 name|FileSystem
 name|fs
 init|=
@@ -3073,7 +3042,13 @@ break|break;
 case|case
 name|OFFLINED_PARENT
 case|:
-name|services
+if|if
+condition|(
+name|or
+operator|!=
+literal|null
+condition|)
+name|or
 operator|.
 name|addToOnlineRegions
 argument_list|(
@@ -3081,15 +3056,6 @@ name|this
 operator|.
 name|parent
 argument_list|)
-expr_stmt|;
-break|break;
-case|case
-name|PONR
-case|:
-comment|// We got to the point-of-no-return so we need to abort after cleanup
-name|result
-operator|=
-literal|false
 expr_stmt|;
 break|break;
 default|default:
@@ -3104,9 +3070,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-return|return
-name|result
-return|;
 block|}
 name|HRegionInfo
 name|getFirstDaughter
