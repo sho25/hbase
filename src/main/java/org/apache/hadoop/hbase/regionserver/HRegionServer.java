@@ -3624,11 +3624,6 @@ name|lastMsg
 init|=
 literal|0
 decl_stmt|;
-name|boolean
-name|onlyMetaRegionsRemaining
-init|=
-literal|false
-decl_stmt|;
 name|long
 name|oldRequestCount
 init|=
@@ -3708,24 +3703,18 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Only meta regions remain open"
+literal|"Stopping meta regions, if the HRegionServer hosts any"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|onlyMetaRegionsRemaining
-condition|)
-block|{
-name|onlyMetaRegionsRemaining
-operator|=
-name|isOnlyMetaRegionsRemaining
+name|boolean
+name|allUserRegionsOffline
+init|=
+name|areAllUserRegionsOffline
 argument_list|()
-expr_stmt|;
-block|}
+decl_stmt|;
 if|if
 condition|(
-name|onlyMetaRegionsRemaining
+name|allUserRegionsOffline
 condition|)
 block|{
 comment|// Set stopped if no requests since last time we went around the loop.
@@ -4202,7 +4191,7 @@ end_function
 begin_function
 specifier|private
 name|boolean
-name|isOnlyMetaRegionsRemaining
+name|areAllUserRegionsOffline
 parameter_list|()
 block|{
 if|if
@@ -4216,9 +4205,9 @@ return|return
 literal|false
 return|;
 name|boolean
-name|onlyMetaRegionsRemaining
+name|allUserRegionsOffline
 init|=
-literal|false
+literal|true
 decl_stmt|;
 for|for
 control|(
@@ -4255,19 +4244,15 @@ name|isMetaRegion
 argument_list|()
 condition|)
 block|{
-name|onlyMetaRegionsRemaining
+name|allUserRegionsOffline
 operator|=
 literal|false
 expr_stmt|;
 break|break;
 block|}
-name|onlyMetaRegionsRemaining
-operator|=
-literal|true
-expr_stmt|;
 block|}
 return|return
-name|onlyMetaRegionsRemaining
+name|allUserRegionsOffline
 return|;
 block|}
 end_function
