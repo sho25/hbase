@@ -1282,6 +1282,11 @@ block|}
 comment|/**    * Add a row, check it's replicated, delete it, check's gone    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSimplePutDelete
@@ -1520,6 +1525,11 @@ block|}
 comment|/**    * Try a small batch upload using the write buffer, check it's replicated    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testSmallBatch
@@ -1741,6 +1751,11 @@ block|}
 comment|/**    * Test stopping replication, trying to insert, make sure nothing's    * replicated, enable it, try replicating and it should work    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testStartStop
@@ -2081,6 +2096,11 @@ block|}
 comment|/**    * Integration test for TestReplicationAdmin, removes and re-add a peer    * cluster    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testAddAndRemoveClusters
@@ -2378,6 +2398,11 @@ block|}
 comment|/**    * Do a more intense version testSmallBatch, one  that will trigger    * hlog rolling and other non-trivial code paths    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|loadTesting
@@ -2673,6 +2698,11 @@ block|}
 comment|/**    * Do a small loading into a table, make sure the data is really the same,    * then run the VerifyReplication job to check the results. Do a second    * comparison where all the cells are different.    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|testVerifyRepJob
@@ -2987,6 +3017,11 @@ block|}
 comment|/**    * Load up multiple tables over 2 region servers and kill a source during    * the upload. The failover happens internally.    *    * WARNING this test sometimes fails because of HBASE-3515    *    * @throws Exception    */
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|300000
+argument_list|)
 specifier|public
 name|void
 name|queueFailover
