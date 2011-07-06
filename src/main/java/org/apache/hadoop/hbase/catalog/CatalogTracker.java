@@ -53,7 +53,7 @@ name|java
 operator|.
 name|net
 operator|.
-name|SocketTimeoutException
+name|NoRouteToHostException
 import|;
 end_import
 
@@ -64,6 +64,16 @@ operator|.
 name|net
 operator|.
 name|SocketException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
+name|SocketTimeoutException
 import|;
 end_import
 
@@ -1444,7 +1454,6 @@ name|SocketTimeoutException
 name|e
 parameter_list|)
 block|{
-comment|// Return 'protocol' == null.
 name|LOG
 operator|.
 name|debug
@@ -1457,11 +1466,28 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
+name|NoRouteToHostException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Connecting to "
+operator|+
+name|sn
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
 name|SocketException
 name|e
 parameter_list|)
 block|{
-comment|// Return 'protocol' == null.
 name|LOG
 operator|.
 name|debug
