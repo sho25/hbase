@@ -894,6 +894,8 @@ operator|+
 name|serverName
 operator|+
 literal|", retrying META read"
+argument_list|,
+name|ioe
 argument_list|)
 expr_stmt|;
 block|}
@@ -1508,6 +1510,33 @@ return|return
 literal|true
 return|;
 block|}
+name|byte
+index|[]
+name|value
+init|=
+name|r
+operator|.
+name|getValue
+argument_list|(
+name|HConstants
+operator|.
+name|CATALOG_FAMILY
+argument_list|,
+name|HConstants
+operator|.
+name|SERVER_QUALIFIER
+argument_list|)
+decl_stmt|;
+comment|// See if daughter is assigned to some server
+if|if
+condition|(
+name|value
+operator|==
+literal|null
+condition|)
+return|return
+literal|false
+return|;
 comment|// Now see if we have gone beyond the daughter's startrow.
 if|if
 condition|(
