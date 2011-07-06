@@ -881,7 +881,9 @@ name|get
 argument_list|(
 literal|"zookeeper.znode.splitlog"
 argument_list|,
-literal|"splitlog"
+name|HConstants
+operator|.
+name|SPLIT_LOGDIR_NAME
 argument_list|)
 argument_list|)
 expr_stmt|;
