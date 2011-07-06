@@ -1324,7 +1324,9 @@ literal|"column name HBASE_ROW_KEY is used to designate that this column should 
 operator|+
 literal|"as the row key for each imported record. You must specify exactly one column\n"
 operator|+
-literal|"to be the row key.\n"
+literal|"to be the row key, and you must specify a column name for every column that exists in the\n"
+operator|+
+literal|"input data.\n"
 operator|+
 literal|"\n"
 operator|+
@@ -1337,6 +1339,8 @@ operator|+
 name|BULK_OUTPUT_CONF_KEY
 operator|+
 literal|"=/path/for/output\n"
+operator|+
+literal|"  Note: if you do not use this option, then the target table must already exist in HBase\n"
 operator|+
 literal|"\n"
 operator|+
