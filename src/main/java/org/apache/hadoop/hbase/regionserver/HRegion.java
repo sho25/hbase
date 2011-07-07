@@ -5485,6 +5485,8 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 comment|// All edits for the given row (across all column families) must happen atomically.
 name|prepareDelete
 argument_list|(
@@ -5515,6 +5517,10 @@ argument_list|(
 name|lid
 argument_list|)
 expr_stmt|;
+block|}
+block|}
+finally|finally
+block|{
 name|closeRegionOperation
 argument_list|()
 expr_stmt|;
