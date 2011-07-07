@@ -698,11 +698,17 @@ operator|.
 name|getHostname
 argument_list|()
 operator|.
+name|toLowerCase
+argument_list|()
+operator|.
 name|compareTo
 argument_list|(
 name|other
 operator|.
 name|getHostname
+argument_list|()
+operator|.
+name|toLowerCase
 argument_list|()
 argument_list|)
 decl_stmt|;
