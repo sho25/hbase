@@ -3922,6 +3922,14 @@ operator|+
 name|sn
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|isServerOnline
+argument_list|(
+name|sn
+argument_list|)
+condition|)
+block|{
 name|this
 operator|.
 name|regions
@@ -3947,6 +3955,29 @@ operator|.
 name|notifyAll
 argument_list|()
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"The server is not in online servers, ServerName="
+operator|+
+name|sn
+operator|.
+name|getServerName
+argument_list|()
+operator|+
+literal|", region="
+operator|+
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|// Remove plan if one.
 name|clearRegionPlan
@@ -10279,6 +10310,26 @@ operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
+block|}
+comment|/**    * Check whether the RegionServer is online.    */
+specifier|public
+name|boolean
+name|isServerOnline
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+block|{
+return|return
+name|this
+operator|.
+name|serverManager
+operator|.
+name|isServerOnline
+argument_list|(
+name|serverName
+argument_list|)
+return|;
 block|}
 block|}
 end_class
