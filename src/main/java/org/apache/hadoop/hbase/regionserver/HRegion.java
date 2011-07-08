@@ -15389,6 +15389,10 @@ name|ClassSize
 operator|.
 name|REFERENCE
 operator|+
+name|Bytes
+operator|.
+name|SIZEOF_INT
+operator|+
 operator|(
 literal|4
 operator|*
