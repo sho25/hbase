@@ -483,6 +483,8 @@ argument_list|)
 decl_stmt|;
 comment|// return a proxy table so when user closes the proxy, the actual table
 comment|// will be returned to the pool
+try|try
+block|{
 return|return
 operator|new
 name|PooledHTable
@@ -490,6 +492,21 @@ argument_list|(
 name|table
 argument_list|)
 return|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+name|ioe
+argument_list|)
+throw|;
+block|}
 block|}
 comment|/**    * Get a reference to the specified table from the pool.    *<p>    *     * Create a new one if one is not available.    *     * @param tableName    *          table name    * @return a reference to the specified table    * @throws RuntimeException    *           if there is a problem instantiating the HTable    */
 specifier|private
@@ -823,8 +840,8 @@ block|}
 comment|/**    * A proxy class that implements HTableInterface.close method to return the    * wrapped table back to the table pool    *     */
 class|class
 name|PooledHTable
-implements|implements
-name|HTableInterface
+extends|extends
+name|HTable
 block|{
 specifier|private
 name|HTableInterface
@@ -837,7 +854,22 @@ parameter_list|(
 name|HTableInterface
 name|table
 parameter_list|)
+throws|throws
+name|IOException
 block|{
+name|super
+argument_list|(
+name|table
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|table
+operator|.
+name|getTableName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|table
