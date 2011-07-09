@@ -1067,6 +1067,24 @@ name|io
 operator|.
 name|hfile
 operator|.
+name|BlockCache
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
 name|LruBlockCache
 import|;
 end_import
@@ -3909,12 +3927,9 @@ expr_stmt|;
 block|}
 block|}
 comment|// Send cache a shutdown.
-name|LruBlockCache
+name|BlockCache
 name|c
 init|=
-operator|(
-name|LruBlockCache
-operator|)
 name|StoreFile
 operator|.
 name|getBlockCache
@@ -6702,12 +6717,9 @@ name|getFlushQueueSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|LruBlockCache
-name|lruBlockCache
+name|BlockCache
+name|blockCache
 init|=
-operator|(
-name|LruBlockCache
-operator|)
 name|StoreFile
 operator|.
 name|getBlockCache
@@ -6717,7 +6729,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|lruBlockCache
+name|blockCache
 operator|!=
 literal|null
 condition|)
@@ -6730,7 +6742,7 @@ name|blockCacheCount
 operator|.
 name|set
 argument_list|(
-name|lruBlockCache
+name|blockCache
 operator|.
 name|size
 argument_list|()
@@ -6744,7 +6756,7 @@ name|blockCacheFree
 operator|.
 name|set
 argument_list|(
-name|lruBlockCache
+name|blockCache
 operator|.
 name|getFreeSize
 argument_list|()
@@ -6758,7 +6770,7 @@ name|blockCacheSize
 operator|.
 name|set
 argument_list|(
-name|lruBlockCache
+name|blockCache
 operator|.
 name|getCurrentSize
 argument_list|()
@@ -6767,7 +6779,7 @@ expr_stmt|;
 name|CacheStats
 name|cacheStats
 init|=
-name|lruBlockCache
+name|blockCache
 operator|.
 name|getStats
 argument_list|()
@@ -6808,7 +6820,7 @@ name|blockCacheEvictedCount
 operator|.
 name|set
 argument_list|(
-name|lruBlockCache
+name|blockCache
 operator|.
 name|getEvictedCount
 argument_list|()
@@ -6817,7 +6829,7 @@ expr_stmt|;
 name|double
 name|ratio
 init|=
-name|lruBlockCache
+name|blockCache
 operator|.
 name|getStats
 argument_list|()
@@ -6850,7 +6862,7 @@ argument_list|)
 expr_stmt|;
 name|ratio
 operator|=
-name|lruBlockCache
+name|blockCache
 operator|.
 name|getStats
 argument_list|()

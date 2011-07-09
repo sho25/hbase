@@ -118,6 +118,26 @@ name|void
 name|shutdown
 parameter_list|()
 function_decl|;
+specifier|public
+name|long
+name|size
+parameter_list|()
+function_decl|;
+specifier|public
+name|long
+name|getFreeSize
+parameter_list|()
+function_decl|;
+specifier|public
+name|long
+name|getCurrentSize
+parameter_list|()
+function_decl|;
+specifier|public
+name|long
+name|getEvictedCount
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

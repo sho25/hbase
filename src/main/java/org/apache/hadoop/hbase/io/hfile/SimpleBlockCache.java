@@ -228,7 +228,7 @@ block|}
 comment|/**    * @return the size    */
 specifier|public
 specifier|synchronized
-name|int
+name|long
 name|size
 parameter_list|()
 block|{
@@ -385,6 +385,42 @@ block|{
 comment|// TODO: implement this if we ever actually use this block cache
 return|return
 literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getFreeSize
+parameter_list|()
+block|{
+comment|// TODO: implement this if we ever actually use this block cache
+return|return
+literal|0
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getCurrentSize
+parameter_list|()
+block|{
+comment|// TODO: implement this if we ever actually use this block cache
+return|return
+literal|0
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getEvictedCount
+parameter_list|()
+block|{
+comment|// TODO: implement this if we ever actually use this block cache
+return|return
+literal|0
 return|;
 block|}
 block|}

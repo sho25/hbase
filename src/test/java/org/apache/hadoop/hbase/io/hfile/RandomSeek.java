@@ -420,7 +420,6 @@ operator|new
 name|SimpleBlockCache
 argument_list|()
 decl_stmt|;
-comment|//LruBlockCache cache = new LruBlockCache();
 name|Reader
 name|reader
 init|=
