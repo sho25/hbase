@@ -41,6 +41,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|InterruptedIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|net
 operator|.
 name|SocketTimeoutException
@@ -1374,6 +1384,11 @@ name|length
 operator|+
 literal|1
 decl_stmt|;
+name|int
+name|prevRegCount
+init|=
+literal|0
+decl_stmt|;
 for|for
 control|(
 name|int
@@ -1385,11 +1400,9 @@ name|tries
 operator|<
 name|numRetries
 condition|;
-name|tries
 operator|++
+name|tries
 control|)
-block|{
-try|try
 block|{
 comment|// Wait for new table to come on-line
 specifier|final
@@ -1409,6 +1422,8 @@ operator|new
 name|MetaScannerVisitor
 argument_list|()
 block|{
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|processRow
@@ -1487,6 +1502,7 @@ operator|.
 name|SERVER_QUALIFIER
 argument_list|)
 decl_stmt|;
+comment|// Make sure that regions are assigned to server
 if|if
 condition|(
 name|value
@@ -1562,16 +1578,9 @@ name|actualRegCount
 operator|.
 name|get
 argument_list|()
-operator|==
+operator|!=
 name|numRegs
 condition|)
-break|break;
-block|}
-catch|catch
-parameter_list|(
-name|RegionException
-name|e
-parameter_list|)
 block|{
 if|if
 condition|(
@@ -1582,14 +1591,28 @@ operator|-
 literal|1
 condition|)
 block|{
-comment|// Ran out of tries
 throw|throw
-name|e
+operator|new
+name|RegionOfflineException
+argument_list|(
+literal|"Only "
+operator|+
+name|actualRegCount
+operator|.
+name|get
+argument_list|()
+operator|+
+literal|" of "
+operator|+
+name|numRegs
+operator|+
+literal|" regions are online; retries exhausted."
+argument_list|)
 throw|;
-block|}
 block|}
 try|try
 block|{
+comment|// Sleep
 name|Thread
 operator|.
 name|sleep
@@ -1607,7 +1630,55 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-comment|// Just continue; ignore the interruption.
+throw|throw
+operator|new
+name|InterruptedIOException
+argument_list|(
+literal|"Interrupted when opening"
+operator|+
+literal|" regions; "
+operator|+
+name|actualRegCount
+operator|.
+name|get
+argument_list|()
+operator|+
+literal|" of "
+operator|+
+name|numRegs
+operator|+
+literal|" regions processed so far"
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
+name|actualRegCount
+operator|.
+name|get
+argument_list|()
+operator|>
+name|prevRegCount
+condition|)
+block|{
+comment|// Making progress
+name|prevRegCount
+operator|=
+name|actualRegCount
+operator|.
+name|get
+argument_list|()
+expr_stmt|;
+name|tries
+operator|=
+operator|-
+literal|1
+expr_stmt|;
+block|}
+block|}
+else|else
+block|{
+return|return;
 block|}
 block|}
 block|}
