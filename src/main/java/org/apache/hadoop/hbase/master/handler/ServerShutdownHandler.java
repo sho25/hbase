@@ -959,10 +959,18 @@ name|info
 argument_list|(
 literal|"Reassigning "
 operator|+
+operator|(
+name|hris
+operator|==
+literal|null
+condition|?
+literal|0
+else|:
 name|hris
 operator|.
 name|size
 argument_list|()
+operator|)
 operator|+
 literal|" region(s) that "
 operator|+
