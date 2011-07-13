@@ -25,6 +25,20 @@ name|hadoop
 operator|.
 name|fs
 operator|.
+name|FileSystem
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
 name|Path
 import|;
 end_import
@@ -157,6 +171,22 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FSUtils
+import|;
+end_import
+
 begin_comment
 comment|/**  * Regression test for HBASE-613  */
 end_comment
@@ -277,7 +307,7 @@ name|HBASE_DIR
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Create table description
+comment|// Create table description in
 name|this
 operator|.
 name|desc
@@ -301,6 +331,29 @@ name|HConstants
 operator|.
 name|CATALOG_FAMILY
 argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// Write the table schema to the fs
+name|FSUtils
+operator|.
+name|createTableDescriptor
+argument_list|(
+name|FileSystem
+operator|.
+name|get
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
+argument_list|,
+name|this
+operator|.
+name|testDir
+argument_list|,
+name|this
+operator|.
+name|desc
 argument_list|)
 expr_stmt|;
 comment|// Region 0 will contain the key range [,row_0500)
