@@ -14131,7 +14131,12 @@ throw|throw
 operator|new
 name|RegionServerStoppedException
 argument_list|(
-literal|"Server not running"
+literal|"Server "
+operator|+
+name|getServerName
+argument_list|()
+operator|+
+literal|" not running"
 operator|+
 operator|(
 name|this

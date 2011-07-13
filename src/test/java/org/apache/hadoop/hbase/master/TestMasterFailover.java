@@ -307,6 +307,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|FSUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|JVMClusterUtil
 import|;
 end_import
@@ -1136,6 +1152,18 @@ argument_list|)
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|// Write the .tableinfo
+name|FSUtils
+operator|.
+name|createTableDescriptor
+argument_list|(
+name|filesystem
+argument_list|,
+name|rootdir
+argument_list|,
+name|htdEnabled
+argument_list|)
+expr_stmt|;
 name|HRegionInfo
 name|hriEnabled
 init|=
@@ -1214,6 +1242,18 @@ name|HColumnDescriptor
 argument_list|(
 name|FAMILY
 argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// Write the .tableinfo
+name|FSUtils
+operator|.
+name|createTableDescriptor
+argument_list|(
+name|filesystem
+argument_list|,
+name|rootdir
+argument_list|,
+name|htdDisabled
 argument_list|)
 expr_stmt|;
 name|HRegionInfo
@@ -2415,6 +2455,18 @@ argument_list|)
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|// Write the .tableinfo
+name|FSUtils
+operator|.
+name|createTableDescriptor
+argument_list|(
+name|filesystem
+argument_list|,
+name|rootdir
+argument_list|,
+name|htdEnabled
+argument_list|)
+expr_stmt|;
 name|HRegionInfo
 name|hriEnabled
 init|=
@@ -2493,6 +2545,18 @@ name|HColumnDescriptor
 argument_list|(
 name|FAMILY
 argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// Write the .tableinfo
+name|FSUtils
+operator|.
+name|createTableDescriptor
+argument_list|(
+name|filesystem
+argument_list|,
+name|rootdir
+argument_list|,
+name|htdDisabled
 argument_list|)
 expr_stmt|;
 name|HRegionInfo
@@ -3745,10 +3809,13 @@ argument_list|(
 literal|"Waiting for master to be ready"
 argument_list|)
 expr_stmt|;
+name|assertTrue
+argument_list|(
 name|cluster
 operator|.
 name|waitForActiveAndReadyMaster
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|log
 argument_list|(
@@ -4014,6 +4081,8 @@ name|getRegionServerThreads
 argument_list|()
 control|)
 block|{
+try|try
+block|{
 name|onlineRegions
 operator|.
 name|addAll
@@ -4027,6 +4096,33 @@ name|getOnlineRegions
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|RegionServerStoppedException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Got RegionServerStoppedException"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|// Now, everything that should be online should be online
 for|for
