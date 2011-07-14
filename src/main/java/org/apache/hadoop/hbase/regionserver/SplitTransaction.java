@@ -1489,7 +1489,7 @@ literal|"Failed "
 operator|+
 name|bOpener
 operator|.
-name|Name
+name|getName
 argument_list|()
 argument_list|,
 name|bOpener
