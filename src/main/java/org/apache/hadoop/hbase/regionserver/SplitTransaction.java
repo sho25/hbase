@@ -522,7 +522,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Executes region split as a "transaction".  Call {@link #prepare()} to setup  * the transaction, {@link #execute(OnlineRegions)} to run the transaction and  * {@link #rollback(OnlineRegions)} to cleanup if execute fails.  *  *<p>Here is an example of how you would use this class:  *<pre>  *  SplitTransaction st = new SplitTransaction(this.conf, parent, midKey)  *  if (!st.prepare()) return;  *  try {  *    st.execute(myOnlineRegions);  *  } catch (IOException ioe) {  *    try {  *      st.rollback(myOnlineRegions);  *      return;  *    } catch (RuntimeException e) {  *      myAbortable.abort("Failed split, abort");  *    }  *  }  *</Pre>  *<p>This class is not thread safe.  Caller needs ensure split is run by  * one thread only.  */
+comment|/**  * Executes region split as a "transaction".  Call {@link #prepare()} to setup  * the transaction, {@link #execute(Server, RegionServerServices)} to run the  * transaction and {@link #rollback(OnlineRegions)} to cleanup if execute fails.  *  *<p>Here is an example of how you would use this class:  *<pre>  *  SplitTransaction st = new SplitTransaction(this.conf, parent, midKey)  *  if (!st.prepare()) return;  *  try {  *    st.execute(server, services);  *  } catch (IOException ioe) {  *    try {  *      st.rollback(server, services);  *      return;  *    } catch (RuntimeException e) {  *      myAbortable.abort("Failed split, abort");  *    }  *  }  *</Pre>  *<p>This class is not thread safe.  Caller needs ensure split is run by  * one thread only.  */
 end_comment
 
 begin_class
@@ -591,7 +591,7 @@ name|byte
 index|[]
 name|splitrow
 decl_stmt|;
-comment|/**    * Types to add to the transaction journal    */
+comment|/**    * Types to add to the transaction journal.    * Each enum is a step in the split transaction. Used to figure how much    * we need to rollback.    */
 enum|enum
 name|JournalEntry
 block|{
@@ -612,6 +612,9 @@ name|STARTED_REGION_A_CREATION
 block|,
 comment|/**      * Started in on the creation of the second daughter region.      */
 name|STARTED_REGION_B_CREATION
+block|,
+comment|/**      * Point of no return.      * If we got here, then transaction is not recoverable other than by      * crashing out the regionserver.      */
+name|PONR
 block|}
 comment|/*    * Journal of how far the split transaction has progressed.    */
 specifier|private
@@ -629,7 +632,7 @@ name|JournalEntry
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/**    * Constructor    * @param services So we can online new servces.  If null, we'll skip onlining    * (Useful testing).    * @param c Configuration to use running split    * @param r Region to split    * @param splitrow Row to split around    */
+comment|/**    * Constructor    * @param services So we can online new regions.  If null, we'll skip onlining    * (Useful testing).    * @param c Configuration to use running split    * @param r Region to split    * @param splitrow Row to split around    */
 specifier|public
 name|SplitTransaction
 parameter_list|(
@@ -692,7 +695,7 @@ condition|)
 return|return
 literal|false
 return|;
-comment|// Split key can be false if this region is unsplittable; i.e. has refs.
+comment|// Split key can be null if this region is unsplittable; i.e. has refs.
 if|if
 condition|(
 name|this
@@ -904,7 +907,7 @@ return|return
 name|rid
 return|;
 block|}
-comment|/**    * Run the transaction.    * @param server Hosting server instance.    * @param services Used to online/offline regions.    * @throws IOException If thrown, transaction failed. Call {@link #rollback(OnlineRegions)}    * @return Regions created    * @throws KeeperException    * @throws NodeExistsException     * @see #rollback(OnlineRegions)    */
+comment|/**    * Run the transaction.    * @param server Hosting server instance.  Can be null when testing (won't try    * and update in zk if a null server)    * @param services Used to online/offline regions.    * @throws IOException If thrown, transaction failed. Call {@link #rollback(Server, RegionServerServices)}    * @return Regions created    * @throws KeeperException    * @throws NodeExistsException     * @see #rollback(Server, RegionServerServices)    */
 specifier|public
 name|PairOfSameType
 argument_list|<
@@ -1054,7 +1057,7 @@ name|fileSplitTimeout
 argument_list|)
 expr_stmt|;
 comment|// Set ephemeral SPLITTING znode up in zk.  Mocked servers sometimes don't
-comment|// have zookeeper so don't do zk stuff if zookeeper is null
+comment|// have zookeeper so don't do zk stuff if server or zookeeper is null
 if|if
 condition|(
 name|server
@@ -1237,8 +1240,12 @@ operator|.
 name|OFFLINED_PARENT
 argument_list|)
 expr_stmt|;
-comment|// TODO: If the below were multithreaded would we complete steps in less
-comment|// elapsed time?  St.Ack 20100920
+comment|// TODO: If splitStoreFiles were multithreaded would we complete steps in
+comment|// less elapsed time?  St.Ack 20100920
+comment|//
+comment|// splitStoreFiles creates daughter region dirs under the parent splits dir
+comment|// Nothing to unroll here if failure -- clean up of CREATE_SPLIT_DIR will
+comment|// clean this up.
 name|splitStoreFiles
 argument_list|(
 name|this
@@ -1248,9 +1255,6 @@ argument_list|,
 name|hstoreFilesToSplit
 argument_list|)
 expr_stmt|;
-comment|// splitStoreFiles creates daughter region dirs under the parent splits dir
-comment|// Nothing to unroll here if failure -- clean up of CREATE_SPLIT_DIR will
-comment|// clean this up.
 comment|// Log to the journal that we are creating region A, the first daughter
 comment|// region.  We could fail halfway through.  If we do, we could have left
 comment|// stuff in fs that needs cleanup -- a storefile or two.  Thats why we
@@ -1310,7 +1314,7 @@ operator|.
 name|rsServices
 argument_list|)
 decl_stmt|;
-comment|// Edit parent in meta
+comment|// Edit parent in meta.  Offlines parent region and adds splita and splitb.
 if|if
 condition|(
 operator|!
@@ -1345,15 +1349,23 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// This is the point of no return.  We are committed to the split now.  We
-comment|// have still the daughter regions to open but meta has been changed.
-comment|// If we fail from here on out, we cannot rollback so, we'll just abort.
-if|if
-condition|(
-operator|!
-name|testing
-condition|)
-block|{
+comment|// This is the point of no return.  Adding subsequent edits to .META. as we
+comment|// do below when we do the daugther opens adding each to .META. can fail in
+comment|// various interesting ways the most interesting of which is a timeout
+comment|// BUT the edits all go through (See HBASE-3872).  IF we reach the POWR
+comment|// then subsequent failures need to crash out this regionserver; the
+comment|// server shutdown processing should be able to fix-up the incomplete split.
+name|this
+operator|.
+name|journal
+operator|.
+name|add
+argument_list|(
+name|JournalEntry
+operator|.
+name|PONR
+argument_list|)
+expr_stmt|;
 comment|// Open daughters in parallel.
 name|DaughterOpener
 name|aOpener
@@ -1410,16 +1422,82 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-name|server
+name|Thread
 operator|.
-name|abort
-argument_list|(
-literal|"Exception running daughter opens"
-argument_list|,
-name|e
-argument_list|)
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
 expr_stmt|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Interrupted "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+throw|;
 block|}
+if|if
+condition|(
+name|aOpener
+operator|.
+name|getException
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Failed "
+operator|+
+name|aOpener
+operator|.
+name|getName
+argument_list|()
+argument_list|,
+name|aOpener
+operator|.
+name|getException
+argument_list|()
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
+name|bOpener
+operator|.
+name|getException
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Failed "
+operator|+
+name|bOpener
+operator|.
+name|Name
+argument_list|()
+argument_list|,
+name|bOpener
+operator|.
+name|getException
+argument_list|()
+argument_list|)
+throw|;
 block|}
 comment|// Tell master about split by updating zk.  If we fail, abort.
 if|if
@@ -1592,15 +1670,15 @@ name|interrupt
 argument_list|()
 expr_stmt|;
 block|}
-name|server
-operator|.
-name|abort
+throw|throw
+operator|new
+name|IOException
 argument_list|(
 literal|"Failed telling master about split"
 argument_list|,
 name|e
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
 block|}
 comment|// Coprocessor callback
@@ -1647,6 +1725,7 @@ name|b
 argument_list|)
 return|;
 block|}
+comment|/*    * Open daughter region in its own thread.    * If we fail, abort this hosting server.    */
 class|class
 name|DaughterOpener
 extends|extends
@@ -1666,6 +1745,12 @@ specifier|private
 specifier|final
 name|HRegion
 name|r
+decl_stmt|;
+specifier|private
+name|Throwable
+name|t
+init|=
+literal|null
 decl_stmt|;
 name|DaughterOpener
 parameter_list|(
@@ -1724,6 +1809,17 @@ operator|=
 name|r
 expr_stmt|;
 block|}
+comment|/**      * @return Null if open succeeded else exception that causes us fail open.      * Call it after this thread exits else you may get wrong view on result.      */
+name|Throwable
+name|getException
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|t
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -1755,29 +1851,14 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|server
-operator|.
-name|abort
-argument_list|(
-literal|"Failed open of daughter "
-operator|+
-name|this
-operator|.
-name|r
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getRegionNameAsString
-argument_list|()
-argument_list|,
 name|t
-argument_list|)
+operator|=
+name|t
 expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Open daughter regions, add them to online list and update meta.    * @param server    * @param services    * @param daughter    * @throws IOException    * @throws KeeperException    */
+comment|/**    * Open daughter regions, add them to online list and update meta.    * @param server    * @param services Can be null when testing.    * @param daughter    * @throws IOException    * @throws KeeperException    */
 name|void
 name|openDaughterRegion
 parameter_list|(
@@ -1798,6 +1879,18 @@ name|IOException
 throws|,
 name|KeeperException
 block|{
+name|boolean
+name|stopping
+init|=
+name|services
+operator|!=
+literal|null
+operator|&&
+name|services
+operator|.
+name|isStopping
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 name|server
@@ -1805,10 +1898,7 @@ operator|.
 name|isStopped
 argument_list|()
 operator|||
-name|services
-operator|.
-name|isStopping
-argument_list|()
+name|stopping
 condition|)
 block|{
 name|MetaEditor
@@ -1844,10 +1934,7 @@ argument_list|()
 operator|+
 literal|" because stopping="
 operator|+
-name|services
-operator|.
-name|isStopping
-argument_list|()
+name|stopping
 operator|+
 literal|", stopped="
 operator|+
@@ -1891,6 +1978,13 @@ argument_list|(
 name|reporter
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|services
+operator|!=
+literal|null
+condition|)
+block|{
 name|services
 operator|.
 name|postOpenDeployTasks
@@ -1905,6 +1999,7 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|static
 class|class
@@ -2856,9 +2951,9 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param or Object that can online/offline parent region.  Can be passed null    * by unit tests.    * @return The region we were splitting    * @throws IOException If thrown, rollback failed.  Take drastic action.    */
+comment|/**    * @param server Hosting server instance (May be null when testing).    * @param services    * @throws IOException If thrown, rollback failed.  Take drastic action.    * @return True if we successfully rolled back, false if we got to the point    * of no return and so now need to abort the server to minimize damage.    */
 specifier|public
-name|void
+name|boolean
 name|rollback
 parameter_list|(
 specifier|final
@@ -2866,12 +2961,17 @@ name|Server
 name|server
 parameter_list|,
 specifier|final
-name|OnlineRegions
-name|or
+name|RegionServerServices
+name|services
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|boolean
+name|result
+init|=
+literal|true
+decl_stmt|;
 name|FileSystem
 name|fs
 init|=
@@ -2902,6 +3002,7 @@ name|size
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// Iterate in reverse.
 while|while
 condition|(
 name|iterator
@@ -3044,11 +3145,11 @@ name|OFFLINED_PARENT
 case|:
 if|if
 condition|(
-name|or
+name|services
 operator|!=
 literal|null
 condition|)
-name|or
+name|services
 operator|.
 name|addToOnlineRegions
 argument_list|(
@@ -3058,6 +3159,14 @@ name|parent
 argument_list|)
 expr_stmt|;
 break|break;
+case|case
+name|PONR
+case|:
+comment|// We got to the point-of-no-return so we need to just abort. Return
+comment|// immediately.
+return|return
+literal|false
+return|;
 default|default:
 throw|throw
 operator|new
@@ -3070,6 +3179,9 @@ argument_list|)
 throw|;
 block|}
 block|}
+return|return
+name|result
+return|;
 block|}
 name|HRegionInfo
 name|getFirstDaughter

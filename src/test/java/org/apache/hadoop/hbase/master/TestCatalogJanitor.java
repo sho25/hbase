@@ -1617,6 +1617,57 @@ literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
+comment|// We will fail!!! Because split b is empty, which is right... we should
+comment|// not remove parent if daughters do not exist in fs.
+name|assertFalse
+argument_list|(
+name|janitor
+operator|.
+name|cleanParent
+argument_list|(
+name|parent
+argument_list|,
+name|r
+argument_list|)
+argument_list|)
+expr_stmt|;
+comment|// Put in place daughter dir for b... that should make it so parent gets
+comment|// cleaned up.
+name|storedir
+operator|=
+name|Store
+operator|.
+name|getStoreHomedir
+argument_list|(
+name|tabledir
+argument_list|,
+name|splitb
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|,
+name|htd
+operator|.
+name|getColumnFamilies
+argument_list|()
+index|[
+literal|0
+index|]
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|fs
+operator|.
+name|mkdirs
+argument_list|(
+name|storedir
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|assertTrue
 argument_list|(
 name|janitor

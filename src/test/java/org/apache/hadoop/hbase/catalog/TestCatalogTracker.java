@@ -721,15 +721,11 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|final
-name|CatalogTracker
-name|ct
-init|=
 name|constructAndStartCatalogTracker
 argument_list|(
 name|connection
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 try|try
 block|{
 name|RootLocationEditor

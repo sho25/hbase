@@ -7570,7 +7570,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"HRS.PostOpenDeployTasks"
+literal|"Post open deploy tasks for region="
+operator|+
+name|r
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|", daughter="
+operator|+
+name|daughter
 argument_list|)
 expr_stmt|;
 comment|// Do checks to see if we need to compact (references or too many files)
@@ -7645,13 +7654,6 @@ name|isRootRegion
 argument_list|()
 condition|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"setRootLocation"
-argument_list|)
-expr_stmt|;
 name|RootLocationEditor
 operator|.
 name|setRootLocation
@@ -7677,13 +7679,6 @@ name|isMetaRegion
 argument_list|()
 condition|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"updateMetaLocation"
-argument_list|)
-expr_stmt|;
 name|MetaEditor
 operator|.
 name|updateMetaLocation
@@ -7703,25 +7698,11 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"updateMetaLocation 111"
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|daughter
 condition|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"updateMetaLocation 22"
-argument_list|)
-expr_stmt|;
 comment|// If daughter of a split, update whole row, not just location.
 name|MetaEditor
 operator|.
@@ -7742,13 +7723,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"updateMetaLocation 33"
-argument_list|)
-expr_stmt|;
 name|MetaEditor
 operator|.
 name|updateRegionLocation
@@ -7771,7 +7745,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"END HRS.PostOpenDeployTasks"
+literal|"Done with post open deploy taks for region="
+operator|+
+name|r
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|", daughter="
+operator|+
+name|daughter
 argument_list|)
 expr_stmt|;
 block|}
