@@ -55,6 +55,34 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|Log
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|logging
+operator|.
+name|LogFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|fs
@@ -221,6 +249,21 @@ init|=
 operator|new
 name|HBaseTestingUtility
 argument_list|()
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|Log
+name|LOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+name|TestFSTableDescriptors
+operator|.
+name|class
+argument_list|)
 decl_stmt|;
 annotation|@
 name|Test
@@ -463,7 +506,7 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// Cleanup old tests if any detrius laying around.
+comment|// Cleanup old tests if any debris laying around.
 name|Path
 name|rootdir
 init|=
@@ -549,11 +592,9 @@ name|FileNotFoundException
 throws|,
 name|IOException
 block|{
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|info
 argument_list|(
 name|Bytes
 operator|.
@@ -650,14 +691,6 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Wait a while so mod time we write is for sure different.
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-literal|1000
-argument_list|)
-expr_stmt|;
 comment|// Update the table infos
 for|for
 control|(
@@ -710,6 +743,14 @@ name|htd
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Wait a while so mod time we write is for sure different.
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|100
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|int
@@ -810,7 +851,7 @@ argument_list|,
 name|htds
 operator|.
 name|cachehits
-operator|>=
+operator|==
 operator|(
 name|count
 operator|*

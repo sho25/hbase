@@ -3713,7 +3713,7 @@ block|{
 name|Path
 name|p
 init|=
-name|getTablePath
+name|getTableInfoPath
 argument_list|(
 name|rootdir
 argument_list|,
