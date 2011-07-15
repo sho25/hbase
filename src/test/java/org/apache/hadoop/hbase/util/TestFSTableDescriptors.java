@@ -851,7 +851,7 @@ argument_list|,
 name|htds
 operator|.
 name|cachehits
-operator|==
+operator|>=
 operator|(
 name|count
 operator|*
