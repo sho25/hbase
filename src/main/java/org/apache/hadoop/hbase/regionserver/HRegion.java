@@ -3655,9 +3655,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Called by compaction thread and after region is opened to compact the    * HStores if necessary.    *    *<p>This operation could block for a long time, so don't call it from a    * time-sensitive thread.    *    * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    *    * @param majorCompaction True to force a major compaction regardless of thresholds    * @return split row if split is needed    * @throws IOException e    */
-name|byte
-index|[]
+comment|/**    * This is a helper function that compact all the stores synchronously    * It is used by utilities and testing    *    * @param majorCompaction True to force a major compaction regardless of thresholds    * @throws IOException e    */
+name|void
 name|compactStores
 parameter_list|(
 specifier|final
@@ -3678,15 +3677,13 @@ name|triggerMajorCompaction
 argument_list|()
 expr_stmt|;
 block|}
-return|return
 name|compactStores
 argument_list|()
-return|;
+expr_stmt|;
 block|}
-comment|/**    * Compact all the stores and return the split key of the first store that needs    * to be split.    */
+comment|/**    * This is a helper function that compact all the stores synchronously    * It is used by utilities and testing    *    * @throws IOException e    */
 specifier|public
-name|byte
-index|[]
+name|void
 name|compactStores
 parameter_list|()
 throws|throws
@@ -3738,30 +3735,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|byte
-index|[]
-name|splitRow
-init|=
-name|s
-operator|.
-name|checkSplit
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|splitRow
-operator|!=
-literal|null
-condition|)
-block|{
-return|return
-name|splitRow
-return|;
 block|}
-block|}
-return|return
-literal|null
-return|;
 block|}
 comment|/*    * Called by compaction thread and after region is opened to compact the    * HStores if necessary.    *    *<p>This operation could block for a long time, so don't call it from a    * time-sensitive thread.    *    * Note that no locking is necessary at this level because compaction only    * conflicts with a region split, and that cannot happen because the region    * server does them sequentially and not in parallel.    *    * @param cr Compaction details, obtained by requestCompaction()    * @return whether the compaction completed    * @throws IOException e    */
 specifier|public
@@ -16284,6 +16258,7 @@ parameter_list|()
 block|{
 comment|// nothing
 block|}
+specifier|public
 name|byte
 index|[]
 name|checkSplit
