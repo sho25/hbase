@@ -6464,6 +6464,40 @@ expr_stmt|;
 comment|// Presume that master has stale data.  Presume remote side just split.
 comment|// Presume that the split message when it comes in will fix up the master's
 comment|// in memory cluster state.
+return|return;
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+if|if
+condition|(
+name|t
+operator|instanceof
+name|RemoteException
+condition|)
+block|{
+name|t
+operator|=
+operator|(
+operator|(
+name|RemoteException
+operator|)
+name|t
+operator|)
+operator|.
+name|unwrapRemoteException
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|t
+operator|instanceof
+name|NotServingRegionException
+condition|)
+block|{
 if|if
 condition|(
 name|checkIfRegionBelongsToDisabling
@@ -6477,18 +6511,18 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"While trying to recover the table:"
+literal|"While trying to recover the table "
 operator|+
 name|region
 operator|.
 name|getTableNameAsString
 argument_list|()
 operator|+
-literal|" from DISABLING state to DISABLED state, the region:"
+literal|" to DISABLED state the region "
 operator|+
 name|region
 operator|+
-literal|" was already offlined."
+literal|" was offlined but the table was in DISABLING state"
 argument_list|)
 expr_stmt|;
 synchronized|synchronized
@@ -6531,31 +6565,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-catch|catch
-parameter_list|(
-name|Throwable
-name|t
-parameter_list|)
-block|{
-if|if
-condition|(
-name|t
-operator|instanceof
-name|RemoteException
-condition|)
-block|{
-name|t
-operator|=
-operator|(
-operator|(
-name|RemoteException
-operator|)
-name|t
-operator|)
-operator|.
-name|unwrapRemoteException
-argument_list|()
-expr_stmt|;
 block|}
 name|LOG
 operator|.
