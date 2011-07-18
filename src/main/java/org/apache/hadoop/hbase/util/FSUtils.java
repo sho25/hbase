@@ -3734,11 +3734,16 @@ decl_stmt|;
 if|if
 condition|(
 name|status
+operator|==
+literal|null
+operator|||
+name|status
 operator|.
 name|length
 operator|<
 literal|1
 condition|)
+block|{
 throw|throw
 operator|new
 name|FileNotFoundException
@@ -3751,6 +3756,7 @@ name|toString
 argument_list|()
 argument_list|)
 throw|;
+block|}
 return|return
 name|status
 index|[
