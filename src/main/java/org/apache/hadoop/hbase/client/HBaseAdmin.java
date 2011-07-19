@@ -1535,7 +1535,7 @@ name|info
 init|=
 name|Writables
 operator|.
-name|getHRegionInfo
+name|getHRegionInfoOrNull
 argument_list|(
 name|rowResult
 operator|.
@@ -1551,6 +1551,18 @@ name|REGIONINFO_QUALIFIER
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|//If regioninfo is null, skip this row
+if|if
+condition|(
+literal|null
+operator|==
+name|info
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
 if|if
 condition|(
 operator|!
