@@ -343,8 +343,8 @@ name|p
 decl_stmt|;
 specifier|private
 specifier|final
-name|Date
-name|date
+name|Long
+name|timeInNanos
 decl_stmt|;
 specifier|private
 name|HRegionServer
@@ -450,10 +450,11 @@ name|p
 expr_stmt|;
 name|this
 operator|.
-name|date
+name|timeInNanos
 operator|=
-operator|new
-name|Date
+name|System
+operator|.
+name|nanoTime
 argument_list|()
 expr_stmt|;
 block|}
@@ -509,13 +510,13 @@ return|;
 block|}
 name|compareVal
 operator|=
-name|date
+name|timeInNanos
 operator|.
 name|compareTo
 argument_list|(
 name|request
 operator|.
-name|date
+name|timeInNanos
 argument_list|)
 expr_stmt|;
 if|if
@@ -788,9 +789,9 @@ literal|", priority="
 operator|+
 name|p
 operator|+
-literal|", date="
+literal|", time="
 operator|+
-name|date
+name|timeInNanos
 return|;
 block|}
 annotation|@
