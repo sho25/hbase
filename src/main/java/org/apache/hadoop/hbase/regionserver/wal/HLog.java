@@ -235,18 +235,6 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|TimeUnit
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
 name|atomic
 operator|.
 name|AtomicInteger
@@ -955,13 +943,6 @@ operator|new
 name|ReentrantLock
 argument_list|()
 decl_stmt|;
-comment|// The waiting time for log-roller trying to get the lock of cacheFlushLock.
-comment|// If the actual waiting time is longer than it, skip the current log roll.
-specifier|private
-specifier|final
-name|long
-name|cacheFlushLockWaitTime
-decl_stmt|;
 comment|// We synchronize on updateLock to prevent updates and to prevent a log roll
 comment|// during an update
 comment|// locked during appends
@@ -1374,19 +1355,6 @@ argument_list|,
 literal|1
 operator|*
 literal|1000
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|cacheFlushLockWaitTime
-operator|=
-name|conf
-operator|.
-name|getLong
-argument_list|(
-literal|"hbase.regionserver.cacheFlushLock.waittime"
-argument_list|,
-literal|25000
 argument_list|)
 expr_stmt|;
 if|if
@@ -1974,26 +1942,13 @@ name|regionsToFlush
 init|=
 literal|null
 decl_stmt|;
-try|try
-block|{
-if|if
-condition|(
 name|this
 operator|.
 name|cacheFlushLock
 operator|.
-name|tryLock
-argument_list|(
-name|this
-operator|.
-name|cacheFlushLockWaitTime
-argument_list|,
-name|TimeUnit
-operator|.
-name|MILLISECONDS
-argument_list|)
-condition|)
-block|{
+name|lock
+argument_list|()
+expr_stmt|;
 try|try
 block|{
 if|if
@@ -2005,12 +1960,6 @@ return|return
 name|regionsToFlush
 return|;
 block|}
-name|this
-operator|.
-name|logRollRequested
-operator|=
-literal|true
-expr_stmt|;
 comment|// Do all the preparation outside of the updateLock to block
 comment|// as less as possible the incoming writes
 name|long
@@ -2063,27 +2012,6 @@ argument_list|)
 operator|.
 name|getReplication
 argument_list|()
-decl_stmt|;
-comment|//This method get expect but not the actual replicas of the Hlog file
-name|int
-name|nextExpectReplicas
-init|=
-name|fs
-operator|.
-name|getFileStatus
-argument_list|(
-name|newPath
-argument_list|)
-operator|.
-name|getReplication
-argument_list|()
-decl_stmt|;
-comment|//Get the current replicas of the Hlog file
-name|int
-name|nextActualReplicas
-init|=
-operator|-
-literal|1
 decl_stmt|;
 comment|// Can we get at the dfsclient outputstream?  If an instance of
 comment|// SFLW, it'll have done the necessary reflection to get at the
@@ -2166,15 +2094,15 @@ name|nextWriter
 expr_stmt|;
 name|this
 operator|.
-name|hdfs_out
-operator|=
-name|nextHdfsOut
-expr_stmt|;
-name|this
-operator|.
 name|initialReplication
 operator|=
 name|nextInitialReplication
+expr_stmt|;
+name|this
+operator|.
+name|hdfs_out
+operator|=
+name|nextHdfsOut
 expr_stmt|;
 name|LOG
 operator|.
@@ -2340,42 +2268,6 @@ operator|.
 name|cacheFlushLock
 operator|.
 name|unlock
-argument_list|()
-expr_stmt|;
-block|}
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Didn't obtain cacheFlushLock in time"
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Interrupted rollWriter"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-name|Thread
-operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|interrupt
 argument_list|()
 expr_stmt|;
 block|}
@@ -4317,6 +4209,10 @@ argument_list|)
 expr_stmt|;
 name|requestLogRoll
 argument_list|()
+expr_stmt|;
+name|logRollRequested
+operator|=
+literal|true
 expr_stmt|;
 block|}
 block|}
