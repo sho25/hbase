@@ -2051,6 +2051,19 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
+name|int
+name|nextInitialReplication
+init|=
+name|fs
+operator|.
+name|getFileStatus
+argument_list|(
+name|newPath
+argument_list|)
+operator|.
+name|getReplication
+argument_list|()
+decl_stmt|;
 comment|//This method get expect but not the actual replicas of the Hlog file
 name|int
 name|nextExpectReplicas
@@ -2072,32 +2085,6 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
-try|try
-block|{
-name|nextActualReplicas
-operator|=
-name|getLogReplication
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Unable to invoke DFSOutputStream.getNumCurrentReplicas"
-operator|+
-name|e
-operator|+
-literal|" still proceeding ahead..."
-argument_list|)
-expr_stmt|;
-block|}
 comment|// Can we get at the dfsclient outputstream?  If an instance of
 comment|// SFLW, it'll have done the necessary reflection to get at the
 comment|// protected field name.
@@ -2179,22 +2166,15 @@ name|nextWriter
 expr_stmt|;
 name|this
 operator|.
-name|initialReplication
-operator|=
-name|nextActualReplicas
-operator|==
-operator|-
-literal|1
-condition|?
-name|nextExpectReplicas
-else|:
-name|nextActualReplicas
-expr_stmt|;
-name|this
-operator|.
 name|hdfs_out
 operator|=
 name|nextHdfsOut
+expr_stmt|;
+name|this
+operator|.
+name|initialReplication
+operator|=
+name|nextInitialReplication
 expr_stmt|;
 name|LOG
 operator|.
@@ -2363,6 +2343,16 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Didn't obtain cacheFlushLock in time"
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 catch|catch
