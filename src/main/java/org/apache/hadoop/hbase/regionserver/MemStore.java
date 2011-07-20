@@ -1873,7 +1873,7 @@ comment|// if this isnt the row we are interested in, then bail:
 if|if
 condition|(
 operator|!
-name|firstKv
+name|kv
 operator|.
 name|matchingColumn
 argument_list|(
@@ -1883,11 +1883,11 @@ name|qualifier
 argument_list|)
 operator|||
 operator|!
-name|firstKv
+name|kv
 operator|.
 name|matchingRow
 argument_list|(
-name|kv
+name|firstKv
 argument_list|)
 condition|)
 block|{
@@ -1895,17 +1895,6 @@ break|break;
 comment|// rows dont match, bail.
 block|}
 comment|// if the qualifier matches and it's a put, just RM it out of the kvset.
-if|if
-condition|(
-name|firstKv
-operator|.
-name|matchingQualifier
-argument_list|(
-name|kv
-argument_list|)
-condition|)
-block|{
-comment|// to be extra safe we only remove Puts that have a memstoreTS==0
 if|if
 condition|(
 name|kv
@@ -1921,23 +1910,29 @@ name|Put
 operator|.
 name|getCode
 argument_list|()
-condition|)
-block|{
-name|now
-operator|=
-name|Math
-operator|.
-name|max
-argument_list|(
-name|now
-argument_list|,
+operator|&&
 name|kv
 operator|.
 name|getTimestamp
 argument_list|()
+operator|>
+name|now
+operator|&&
+name|firstKv
+operator|.
+name|matchingQualifier
+argument_list|(
+name|kv
 argument_list|)
+condition|)
+block|{
+name|now
+operator|=
+name|kv
+operator|.
+name|getTimestamp
+argument_list|()
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|// create or update (upsert) a new KeyValue with
@@ -1949,10 +1944,6 @@ name|Arrays
 operator|.
 name|asList
 argument_list|(
-operator|new
-name|KeyValue
-index|[]
-block|{
 operator|new
 name|KeyValue
 argument_list|(
@@ -1971,7 +1962,6 @@ argument_list|(
 name|newValue
 argument_list|)
 argument_list|)
-block|}
 argument_list|)
 argument_list|)
 return|;
