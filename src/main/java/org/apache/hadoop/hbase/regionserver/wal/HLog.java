@@ -1386,7 +1386,7 @@ name|getLong
 argument_list|(
 literal|"hbase.regionserver.cacheFlushLock.waittime"
 argument_list|,
-literal|5000
+literal|25000
 argument_list|)
 expr_stmt|;
 if|if

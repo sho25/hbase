@@ -1842,7 +1842,17 @@ argument_list|()
 decl_stmt|;
 name|assertTrue
 argument_list|(
-literal|"Missing datanode should've triggered a log roll"
+literal|"Missing datanode should've triggered a log roll: "
+operator|+
+name|newFilenum
+operator|+
+literal|" "
+operator|+
+name|oldFilenum
+operator|+
+literal|" "
+operator|+
+name|curTime
 argument_list|,
 name|newFilenum
 operator|>
