@@ -1070,7 +1070,7 @@ name|getInt
 argument_list|(
 literal|"hbase.master.assignment.timeoutmonitor.timeout"
 argument_list|,
-literal|180000
+literal|1800000
 argument_list|)
 argument_list|)
 expr_stmt|;
