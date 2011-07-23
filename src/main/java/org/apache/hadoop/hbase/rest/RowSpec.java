@@ -331,13 +331,16 @@ block|}
 name|i
 operator|++
 expr_stmt|;
+name|String
+name|row
+init|=
 name|startRow
 operator|=
 name|sb
 operator|.
 name|toString
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 name|int
 name|idx
 init|=
@@ -362,7 +365,7 @@ name|URLDecoder
 operator|.
 name|decode
 argument_list|(
-name|startRow
+name|row
 operator|.
 name|substring
 argument_list|(
@@ -382,7 +385,7 @@ name|URLDecoder
 operator|.
 name|decode
 argument_list|(
-name|startRow
+name|row
 operator|.
 name|substring
 argument_list|(
@@ -405,7 +408,7 @@ name|URLDecoder
 operator|.
 name|decode
 argument_list|(
-name|startRow
+name|row
 argument_list|,
 name|HConstants
 operator|.
