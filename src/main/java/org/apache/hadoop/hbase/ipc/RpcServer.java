@@ -79,16 +79,6 @@ name|InetSocketAddress
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|nio
-operator|.
-name|ByteBuffer
-import|;
-end_import
-
 begin_comment
 comment|/**  */
 end_comment
@@ -177,6 +167,11 @@ parameter_list|()
 function_decl|;
 name|void
 name|startThreads
+parameter_list|()
+function_decl|;
+comment|/**    * Needed for delayed calls.  We need to be able to store the current call    * so that we can complete it later.    * @return Call the server is currently handling.    */
+name|Delayable
+name|getCurrentCall
 parameter_list|()
 function_decl|;
 comment|/**    * Returns the metrics instance for reporting RPC call statistics    */
