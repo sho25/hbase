@@ -2376,7 +2376,9 @@ init|=
 name|wal
 operator|.
 name|startCacheFlush
-argument_list|()
+argument_list|(
+name|regionName
+argument_list|)
 decl_stmt|;
 name|wal
 operator|.
