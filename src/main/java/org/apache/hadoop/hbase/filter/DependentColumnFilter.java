@@ -275,6 +275,44 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @return the column family    */
+specifier|public
+name|byte
+index|[]
+name|getFamily
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|columnFamily
+return|;
+block|}
+comment|/**    * @return the column qualifier    */
+specifier|public
+name|byte
+index|[]
+name|getQualifier
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|columnQualifier
+return|;
+block|}
+comment|/**    * @return true if we should drop the dependent column, false otherwise    */
+specifier|public
+name|boolean
+name|dropDependentColumn
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|dropDependentColumn
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public

@@ -105,6 +105,16 @@ operator|=
 name|bitOperator
 expr_stmt|;
 block|}
+comment|/**    * @return the bitwise operator    */
+specifier|public
+name|BitwiseOp
+name|getOperator
+parameter_list|()
+block|{
+return|return
+name|bitOperator
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public

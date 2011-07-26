@@ -49,16 +49,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|List
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -133,6 +123,26 @@ name|offset
 operator|=
 name|offset
 expr_stmt|;
+block|}
+comment|/**    * @return limit    */
+specifier|public
+name|int
+name|getLimit
+parameter_list|()
+block|{
+return|return
+name|limit
+return|;
+block|}
+comment|/**    * @return offset    */
+specifier|public
+name|int
+name|getOffset
+parameter_list|()
+block|{
+return|return
+name|offset
+return|;
 block|}
 annotation|@
 name|Override

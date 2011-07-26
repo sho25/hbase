@@ -201,6 +201,18 @@ operator|.
 name|minColumn
 return|;
 block|}
+comment|/**    * @return true if min column is inclusive, false otherwise    */
+specifier|public
+name|boolean
+name|getMinColumnInclusive
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|minColumnInclusive
+return|;
+block|}
 comment|/**    * @return the max column range for the filter    */
 specifier|public
 name|byte
@@ -212,6 +224,18 @@ return|return
 name|this
 operator|.
 name|maxColumn
+return|;
+block|}
+comment|/**    * @return true if max column is inclusive, false otherwise    */
+specifier|public
+name|boolean
+name|getMaxColumnInclusive
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|maxColumnInclusive
 return|;
 block|}
 annotation|@
