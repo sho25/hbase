@@ -367,6 +367,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|RegionOpeningState
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|handler
@@ -1674,7 +1690,7 @@ block|}
 comment|// RPC methods to region servers
 comment|/**    * Sends an OPEN RPC to the specified server to open the specified region.    *<p>    * Open should not fail but can if server just crashed.    *<p>    * @param server server to open a region    * @param region region to open    */
 specifier|public
-name|void
+name|RegionOpeningState
 name|sendRegionOpen
 parameter_list|(
 specifier|final
@@ -1716,15 +1732,20 @@ operator|+
 literal|" failed because no RPC connection found to this server"
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+name|RegionOpeningState
+operator|.
+name|FAILED_OPENING
+return|;
 block|}
+return|return
 name|hri
 operator|.
 name|openRegion
 argument_list|(
 name|region
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**    * Sends an OPEN RPC to the specified server to open the specified region.    *<p>    * Open should not fail but can if server just crashed.    *<p>    * @param server server to open a region    * @param regions regions to open    */
 specifier|public

@@ -424,26 +424,6 @@ argument_list|(
 name|encodedName
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|region
-operator|!=
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Attempted open of "
-operator|+
-name|name
-operator|+
-literal|" but already online on this server"
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
 comment|// If fails, just return.  Someone stole the region from under us.
 comment|// Calling transitionZookeeperOfflineToOpening initalizes this.version.
 if|if

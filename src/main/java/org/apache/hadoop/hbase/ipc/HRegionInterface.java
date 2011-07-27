@@ -359,6 +359,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|RegionOpeningState
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|wal
 operator|.
 name|HLog
@@ -843,9 +859,9 @@ throws|throws
 name|IOException
 function_decl|;
 comment|// Master methods
-comment|/**    * Opens the specified region.    * @param region region to open    * @throws IOException    */
+comment|/**    * Opens the specified region.    *     * @param region    *          region to open    * @return RegionOpeningState     *         OPENED - if region opened succesfully.    *         ALREADY_OPENED - if the region was already opened.     *         FAILED_OPENING - if region opening failed.    *    * @throws IOException    */
 specifier|public
-name|void
+name|RegionOpeningState
 name|openRegion
 parameter_list|(
 specifier|final
