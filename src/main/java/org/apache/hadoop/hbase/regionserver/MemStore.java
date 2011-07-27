@@ -2515,14 +2515,12 @@ init|=
 literal|null
 decl_stmt|;
 comment|// iterator based scanning.
-specifier|private
 name|Iterator
 argument_list|<
 name|KeyValue
 argument_list|>
 name|kvsetIt
 decl_stmt|;
-specifier|private
 name|Iterator
 argument_list|<
 name|KeyValue
@@ -2530,14 +2528,8 @@ argument_list|>
 name|snapshotIt
 decl_stmt|;
 comment|// number of iterations in this reseek operation
-specifier|private
 name|int
 name|numIterReseek
-decl_stmt|;
-comment|// the pre-calculated KeyValue to be returned by peek() or next()
-specifier|private
-name|KeyValue
-name|theNext
 decl_stmt|;
 comment|/*     Some notes...       So memstorescanner is fixed at creation time. this includes pointers/iterators into     existing kvset/snapshot.  during a snapshot creation, the kvset is null, and the     snapshot is moved.  since kvset is null there is no point on reseeking on both,       we can save us the trouble. During the snapshot->hfile transition, the memstore       scanner is re-created by StoreScanner#updateReaders().  StoreScanner should       potentially do something smarter by adjusting the existing memstore scanner.        But there is a greater problem here, that being once a scanner has progressed       during a snapshot scenario, we currently iterate past the kvset then 'finish' up.       if a scan lasts a little while, there is a chance for new entries in kvset to       become available but we will never see them.  This needs to be handled at the       StoreScanner level with coordination with MemStoreScanner.      */
 name|MemStoreScanner
@@ -2557,9 +2549,6 @@ argument_list|<
 name|KeyValue
 argument_list|>
 name|it
-parameter_list|,
-name|long
-name|readPoint
 parameter_list|)
 block|{
 name|KeyValue
@@ -2567,7 +2556,14 @@ name|ret
 init|=
 literal|null
 decl_stmt|;
-comment|//long readPoint = ReadWriteConsistencyControl.getThreadReadPoint();
+name|long
+name|readPoint
+init|=
+name|ReadWriteConsistencyControl
+operator|.
+name|getThreadReadPoint
+argument_list|()
+decl_stmt|;
 comment|//DebugPrint.println( " MS@" + hashCode() + ": threadpoint = " + readPoint);
 while|while
 condition|(
@@ -2691,21 +2687,11 @@ operator|.
 name|iterator
 argument_list|()
 expr_stmt|;
-name|long
-name|readPoint
-init|=
-name|ReadWriteConsistencyControl
-operator|.
-name|getThreadReadPoint
-argument_list|()
-decl_stmt|;
 name|kvsetNextRow
 operator|=
 name|getNext
 argument_list|(
 name|kvsetIt
-argument_list|,
-name|readPoint
 argument_list|)
 expr_stmt|;
 name|snapshotNextRow
@@ -2713,33 +2699,29 @@ operator|=
 name|getNext
 argument_list|(
 name|snapshotIt
-argument_list|,
-name|readPoint
 argument_list|)
-expr_stmt|;
-name|theNext
-operator|=
-name|getLowest
-argument_list|()
 expr_stmt|;
 comment|//long readPoint = ReadWriteConsistencyControl.getThreadReadPoint();
 comment|//DebugPrint.println( " MS@" + hashCode() + " kvset seek: " + kvsetNextRow + " with size = " +
 comment|//    kvset.size() + " threadread = " + readPoint);
 comment|//DebugPrint.println( " MS@" + hashCode() + " snapshot seek: " + snapshotNextRow + " with size = " +
 comment|//    snapshot.size() + " threadread = " + readPoint);
-comment|// has data
+name|KeyValue
+name|lowest
+init|=
+name|getLowest
+argument_list|()
+decl_stmt|;
+comment|// has data := (lowest != null)
 return|return
-operator|(
-name|theNext
+name|lowest
 operator|!=
 literal|null
-operator|)
 return|;
 block|}
 annotation|@
 name|Override
 specifier|public
-specifier|synchronized
 name|boolean
 name|reseek
 parameter_list|(
@@ -2774,11 +2756,6 @@ operator|=
 name|getNext
 argument_list|(
 name|kvsetIt
-argument_list|,
-name|ReadWriteConsistencyControl
-operator|.
-name|getThreadReadPoint
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// if we scanned enough entries but still not able to find the
@@ -2826,11 +2803,6 @@ operator|=
 name|getNext
 argument_list|(
 name|snapshotIt
-argument_list|,
-name|ReadWriteConsistencyControl
-operator|.
-name|getThreadReadPoint
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// if we scanned enough entries but still not able to find the
@@ -2855,22 +2827,18 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|// Calculate the next value
-name|theNext
-operator|=
-name|getLowest
-argument_list|()
-expr_stmt|;
 return|return
 operator|(
-name|theNext
+name|kvsetNextRow
+operator|!=
+literal|null
+operator|||
+name|snapshotNextRow
 operator|!=
 literal|null
 operator|)
 return|;
 block|}
-annotation|@
-name|Override
 specifier|public
 specifier|synchronized
 name|KeyValue
@@ -2879,17 +2847,22 @@ parameter_list|()
 block|{
 comment|//DebugPrint.println(" MS@" + hashCode() + " peek = " + getLowest());
 return|return
-name|theNext
+name|getLowest
+argument_list|()
 return|;
 block|}
-annotation|@
-name|Override
 specifier|public
 specifier|synchronized
 name|KeyValue
 name|next
 parameter_list|()
 block|{
+name|KeyValue
+name|theNext
+init|=
+name|getLowest
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 name|theNext
@@ -2901,20 +2874,7 @@ return|return
 literal|null
 return|;
 block|}
-name|KeyValue
-name|ret
-init|=
-name|theNext
-decl_stmt|;
 comment|// Advance one of the iterators
-name|long
-name|readPoint
-init|=
-name|ReadWriteConsistencyControl
-operator|.
-name|getThreadReadPoint
-argument_list|()
-decl_stmt|;
 if|if
 condition|(
 name|theNext
@@ -2927,8 +2887,6 @@ operator|=
 name|getNext
 argument_list|(
 name|kvsetIt
-argument_list|,
-name|readPoint
 argument_list|)
 expr_stmt|;
 block|}
@@ -2939,22 +2897,14 @@ operator|=
 name|getNext
 argument_list|(
 name|snapshotIt
-argument_list|,
-name|readPoint
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Calculate the next value
-name|theNext
-operator|=
-name|getLowest
-argument_list|()
-expr_stmt|;
-comment|//readpoint = ReadWriteConsistencyControl.getThreadReadPoint();
-comment|//DebugPrint.println(" MS@" + hashCode() + " next: " + theNext +
-comment|//    " next_next: " + getLowest() + " threadpoint=" + readpoint);
+comment|//long readpoint = ReadWriteConsistencyControl.getThreadReadPoint();
+comment|//DebugPrint.println(" MS@" + hashCode() + " next: " + theNext + " next_next: " +
+comment|//    getLowest() + " threadpoint=" + readpoint);
 return|return
-name|ret
+name|theNext
 return|;
 block|}
 specifier|protected
@@ -2988,23 +2938,27 @@ condition|(
 name|first
 operator|==
 literal|null
-condition|)
-block|{
-return|return
-name|second
-return|;
-block|}
-if|if
-condition|(
+operator|&&
 name|second
 operator|==
 literal|null
 condition|)
 block|{
 return|return
-name|first
+literal|null
 return|;
 block|}
+if|if
+condition|(
+name|first
+operator|!=
+literal|null
+operator|&&
+name|second
+operator|!=
+literal|null
+condition|)
+block|{
 name|int
 name|compare
 init|=
@@ -3022,6 +2976,18 @@ operator|(
 name|compare
 operator|<=
 literal|0
+condition|?
+name|first
+else|:
+name|second
+operator|)
+return|;
+block|}
+return|return
+operator|(
+name|first
+operator|!=
+literal|null
 condition|?
 name|first
 else|:
