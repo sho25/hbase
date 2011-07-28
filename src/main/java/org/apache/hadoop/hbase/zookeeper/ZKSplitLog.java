@@ -295,7 +295,7 @@ literal|1000
 operator|)
 decl_stmt|;
 comment|//3 min
-comment|/**    * Gets the full path node name for the log file being split    * @param zkw zk reference    * @param filename log file name (only the basename)    */
+comment|/**    * Gets the full path node name for the log file being split.    * This method will url encode the filename.    * @param zkw zk reference    * @param filename log file name (only the basename)    */
 specifier|public
 specifier|static
 name|String

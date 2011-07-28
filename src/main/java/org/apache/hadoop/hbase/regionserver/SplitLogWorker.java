@@ -2031,11 +2031,11 @@ literal|"task "
 operator|+
 name|taskpath
 operator|+
-literal|" preempted from server "
+literal|" preempted from "
 operator|+
 name|serverName
 operator|+
-literal|" ... current task state and owner - "
+literal|", current task state and owner="
 operator|+
 operator|new
 name|String
