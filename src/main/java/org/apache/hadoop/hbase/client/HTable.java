@@ -687,6 +687,15 @@ specifier|private
 name|int
 name|operationTimeout
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|DOPUT_WB_CHECK
+init|=
+literal|10
+decl_stmt|;
+comment|// i.e., doPut checks the writebuffer every X Puts.
 comment|/**    * Creates an object to access a HBase table.    * Internally it creates a new instance of {@link Configuration} and a new    * client to zookeeper as well as other resources.  It also comes up with    * a fresh view of the cluster and must do discovery from scratch of region    * locations; i.e. it will not make use of already-cached region locations if    * available. Use only when being quick and dirty.    * @throws IOException if a remote or network exception occurs    * @see #HTable(Configuration, String)    */
 specifier|public
 name|HTable
@@ -2694,6 +2703,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|int
+name|n
+init|=
+literal|0
+decl_stmt|;
 for|for
 control|(
 name|Put
@@ -2721,6 +2735,35 @@ operator|.
 name|heapSize
 argument_list|()
 expr_stmt|;
+comment|// we need to periodically see if the writebuffer is full instead of waiting until the end of the List
+name|n
+operator|++
+expr_stmt|;
+if|if
+condition|(
+name|n
+operator|==
+name|DOPUT_WB_CHECK
+condition|)
+block|{
+if|if
+condition|(
+name|autoFlush
+operator|||
+name|currentWriteBufferSize
+operator|>
+name|writeBufferSize
+condition|)
+block|{
+name|flushCommits
+argument_list|()
+expr_stmt|;
+name|n
+operator|=
+literal|0
+expr_stmt|;
+block|}
+block|}
 block|}
 if|if
 condition|(
