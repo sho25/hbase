@@ -1059,7 +1059,7 @@ name|a
 argument_list|)
 return|;
 block|}
-comment|/**    * @param logDir    *            one region sever hlog dir path in .logs    * @throws IOException    *             if there was an error while splitting any log file    * @return cumulative size of the logfiles split    */
+comment|/**    * @param logDir    *            one region sever hlog dir path in .logs    * @throws IOException    *             if there was an error while splitting any log file    * @return cumulative size of the logfiles split    * @throws KeeperException     */
 specifier|public
 name|long
 name|splitLogDistributed
@@ -1943,6 +1943,9 @@ name|this
 operator|.
 name|watcher
 operator|.
+name|getRecoverableZooKeeper
+argument_list|()
+operator|.
 name|getZooKeeper
 argument_list|()
 operator|.
@@ -2793,6 +2796,9 @@ name|this
 operator|.
 name|watcher
 operator|.
+name|getRecoverableZooKeeper
+argument_list|()
+operator|.
 name|getZooKeeper
 argument_list|()
 operator|.
@@ -2897,7 +2903,7 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-comment|/**    * signal the workers that a task was resubmitted by creating the    * RESCAN node.    */
+comment|/**    * signal the workers that a task was resubmitted by creating the    * RESCAN node.    * @throws KeeperException     */
 specifier|private
 name|void
 name|createRescanNode
@@ -2906,7 +2912,12 @@ name|long
 name|retries
 parameter_list|)
 block|{
+name|this
+operator|.
 name|watcher
+operator|.
+name|getRecoverableZooKeeper
+argument_list|()
 operator|.
 name|getZooKeeper
 argument_list|()

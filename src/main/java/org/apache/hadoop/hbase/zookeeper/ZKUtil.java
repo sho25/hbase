@@ -337,7 +337,7 @@ decl_stmt|;
 comment|/**    * Creates a new connection to ZooKeeper, pulling settings and ensemble config    * from the specified configuration object using methods from {@link ZKConfig}.    *    * Sets the connection status monitoring watcher to the specified watcher.    *    * @param conf configuration to pull ensemble and other settings from    * @param watcher watcher to monitor connection changes    * @return connection to zookeeper    * @throws IOException if unable to connect to zk or config problem    */
 specifier|public
 specifier|static
-name|ZooKeeper
+name|RecoverableZooKeeper
 name|connect
 parameter_list|(
 name|Configuration
@@ -382,7 +382,7 @@ return|;
 block|}
 specifier|public
 specifier|static
-name|ZooKeeper
+name|RecoverableZooKeeper
 name|connect
 parameter_list|(
 name|Configuration
@@ -412,7 +412,7 @@ return|;
 block|}
 specifier|public
 specifier|static
-name|ZooKeeper
+name|RecoverableZooKeeper
 name|connect
 parameter_list|(
 name|Configuration
@@ -473,15 +473,43 @@ operator|+
 literal|")"
 argument_list|)
 expr_stmt|;
+name|int
+name|retry
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"zookeeper.recovery.retry"
+argument_list|,
+literal|3
+argument_list|)
+decl_stmt|;
+name|int
+name|retryIntervalMillis
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"zookeeper.recovery.retry.intervalmill"
+argument_list|,
+literal|1000
+argument_list|)
+decl_stmt|;
 return|return
 operator|new
-name|ZooKeeper
+name|RecoverableZooKeeper
 argument_list|(
 name|ensemble
 argument_list|,
 name|timeout
 argument_list|,
 name|watcher
+argument_list|,
+name|retry
+argument_list|,
+name|retryIntervalMillis
 argument_list|)
 return|;
 block|}
@@ -854,7 +882,7 @@ name|s
 init|=
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|exists
@@ -977,7 +1005,7 @@ name|s
 init|=
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|exists
@@ -1105,7 +1133,7 @@ name|children
 init|=
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|getChildren
@@ -1320,7 +1348,7 @@ name|children
 operator|=
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|getChildren
@@ -1463,7 +1491,7 @@ return|return
 operator|!
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|getChildren
@@ -1596,7 +1624,7 @@ name|stat
 init|=
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|exists
@@ -1692,7 +1720,7 @@ name|data
 init|=
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|getData
@@ -1840,7 +1868,7 @@ name|data
 init|=
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|getData
@@ -1991,7 +2019,7 @@ name|data
 init|=
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|getData
@@ -2141,7 +2169,7 @@ try|try
 block|{
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|setData
@@ -2203,7 +2231,7 @@ block|{
 return|return
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|setData
@@ -2355,7 +2383,7 @@ try|try
 block|{
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|create
@@ -2460,7 +2488,7 @@ try|try
 block|{
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|create
@@ -2491,7 +2519,7 @@ try|try
 block|{
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|exists
@@ -2571,7 +2599,7 @@ try|try
 block|{
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|create
@@ -2592,7 +2620,7 @@ expr_stmt|;
 return|return
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|exists
@@ -2654,6 +2682,9 @@ parameter_list|)
 block|{
 name|zkw
 operator|.
+name|getRecoverableZooKeeper
+argument_list|()
+operator|.
 name|getZooKeeper
 argument_list|()
 operator|.
@@ -2694,12 +2725,12 @@ name|KeeperException
 block|{
 try|try
 block|{
-name|ZooKeeper
+name|RecoverableZooKeeper
 name|zk
 init|=
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 decl_stmt|;
 if|if
@@ -2763,7 +2794,7 @@ literal|null
 operator|==
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|exists
@@ -2840,7 +2871,7 @@ return|return;
 block|}
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|create
@@ -2965,7 +2996,7 @@ try|try
 block|{
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|delete
@@ -3028,7 +3059,7 @@ try|try
 block|{
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|delete
@@ -3128,7 +3159,7 @@ block|}
 block|}
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|delete

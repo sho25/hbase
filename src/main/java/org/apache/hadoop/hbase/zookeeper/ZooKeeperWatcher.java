@@ -43,16 +43,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Set
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|concurrent
 operator|.
 name|CopyOnWriteArrayList
@@ -195,18 +185,6 @@ name|Watcher
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|ZooKeeper
-import|;
-end_import
-
 begin_comment
 comment|/**  * Acts as the single ZooKeeper Watcher.  One instance of this is instantiated  * for each Master, RegionServer, and client process.  *  *<p>This is the only class that implements {@link Watcher}.  Other internal  * classes which need to be notified of ZooKeeper events must register with  * the local instance of this watcher via {@link #registerListener}.  *  *<p>This class also holds and manages the connection to ZooKeeper.  Code to  * deal with connection related events and exceptions are handled here.  */
 end_comment
@@ -248,8 +226,8 @@ name|quorum
 decl_stmt|;
 comment|// zookeeper connection
 specifier|private
-name|ZooKeeper
-name|zooKeeper
+name|RecoverableZooKeeper
+name|recoverableZooKeeper
 decl_stmt|;
 comment|// abortable in case of zk failure
 specifier|private
@@ -409,7 +387,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|zooKeeper
+name|recoverableZooKeeper
 operator|=
 name|ZKUtil
 operator|.
@@ -428,45 +406,6 @@ try|try
 block|{
 comment|// Create all the necessary "directories" of znodes
 comment|// TODO: Move this to an init method somewhere so not everyone calls it?
-comment|// The first call against zk can fail with connection loss.  Seems common.
-comment|// Apparently this is recoverable.  Retry a while.
-comment|// See http://wiki.apache.org/hadoop/ZooKeeper/ErrorHandling
-comment|// TODO: Generalize out in ZKUtil.
-name|long
-name|wait
-init|=
-name|conf
-operator|.
-name|getLong
-argument_list|(
-name|HConstants
-operator|.
-name|ZOOKEEPER_RECOVERABLE_WAITTIME
-argument_list|,
-name|HConstants
-operator|.
-name|DEFAULT_ZOOKEPER_RECOVERABLE_WAITIME
-argument_list|)
-decl_stmt|;
-name|long
-name|finished
-init|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-operator|+
-name|wait
-decl_stmt|;
-name|KeeperException
-name|ke
-init|=
-literal|null
-decl_stmt|;
-do|do
-block|{
-try|try
-block|{
 name|ZKUtil
 operator|.
 name|createAndFailSilent
@@ -476,138 +415,6 @@ argument_list|,
 name|baseZNode
 argument_list|)
 expr_stmt|;
-name|ke
-operator|=
-literal|null
-expr_stmt|;
-break|break;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-operator|.
-name|ConnectionLossException
-name|e
-parameter_list|)
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-operator|&&
-operator|(
-name|isFinishedRetryingRecoverable
-argument_list|(
-name|finished
-argument_list|)
-operator|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Retrying zk create for another "
-operator|+
-operator|(
-name|finished
-operator|-
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-operator|)
-operator|+
-literal|"ms; set 'hbase.zookeeper.recoverable.waittime' to change "
-operator|+
-literal|"wait time); "
-operator|+
-name|e
-operator|.
-name|getMessage
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-name|ke
-operator|=
-name|e
-expr_stmt|;
-block|}
-block|}
-do|while
-condition|(
-name|isFinishedRetryingRecoverable
-argument_list|(
-name|finished
-argument_list|)
-condition|)
-do|;
-comment|// Convert connectionloss exception to ZKCE.
-if|if
-condition|(
-name|ke
-operator|!=
-literal|null
-condition|)
-block|{
-try|try
-block|{
-comment|// If we don't close it, the zk connection managers won't be killed
-name|this
-operator|.
-name|zooKeeper
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-name|Thread
-operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|interrupt
-argument_list|()
-expr_stmt|;
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Interrupted while closing"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-throw|throw
-operator|new
-name|ZooKeeperConnectionException
-argument_list|(
-literal|"HBase is able to connect to"
-operator|+
-literal|" ZooKeeper but the connection closes immediately. This could be"
-operator|+
-literal|" a sign that the server has too many connections (30 is the"
-operator|+
-literal|" default). Consider inspecting your ZK server logs for that"
-operator|+
-literal|" error and then make sure you are reusing HBaseConfiguration"
-operator|+
-literal|" as often as you can. See HTable's javadoc for more information."
-argument_list|,
-name|ke
-argument_list|)
-throw|;
-block|}
 name|ZKUtil
 operator|.
 name|createAndFailSilent
@@ -926,12 +733,12 @@ expr_stmt|;
 block|}
 comment|/**    * Get the connection to ZooKeeper.    * @return connection reference to zookeeper    */
 specifier|public
-name|ZooKeeper
-name|getZooKeeper
+name|RecoverableZooKeeper
+name|getRecoverableZooKeeper
 parameter_list|()
 block|{
 return|return
-name|zooKeeper
+name|recoverableZooKeeper
 return|;
 block|}
 comment|/**    * Get the quorum address of this instance.    * @return quorum string of this zookeeper connection instance    */
@@ -1176,7 +983,7 @@ if|if
 condition|(
 name|this
 operator|.
-name|zooKeeper
+name|recoverableZooKeeper
 operator|!=
 literal|null
 condition|)
@@ -1186,7 +993,7 @@ if|if
 condition|(
 name|this
 operator|.
-name|zooKeeper
+name|recoverableZooKeeper
 operator|==
 literal|null
 condition|)
@@ -1228,7 +1035,7 @@ name|toHexString
 argument_list|(
 name|this
 operator|.
-name|zooKeeper
+name|recoverableZooKeeper
 operator|.
 name|getSessionId
 argument_list|()
@@ -1319,7 +1126,7 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|zooKeeper
+name|recoverableZooKeeper
 operator|.
 name|sync
 argument_list|(
@@ -1400,12 +1207,12 @@ try|try
 block|{
 if|if
 condition|(
-name|zooKeeper
+name|recoverableZooKeeper
 operator|!=
 literal|null
 condition|)
 block|{
-name|zooKeeper
+name|recoverableZooKeeper
 operator|.
 name|close
 argument_list|()

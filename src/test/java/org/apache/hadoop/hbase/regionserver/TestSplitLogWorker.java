@@ -817,7 +817,7 @@ argument_list|()
 expr_stmt|;
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|create
@@ -1004,7 +1004,7 @@ argument_list|()
 expr_stmt|;
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|create
@@ -1250,7 +1250,7 @@ expr_stmt|;
 comment|// this time create a task node after starting the splitLogWorker
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|create
@@ -1439,7 +1439,7 @@ argument_list|)
 expr_stmt|;
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|create
@@ -1486,7 +1486,7 @@ comment|// now the worker is busy doing the above task
 comment|// create another task
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|create
@@ -1673,7 +1673,7 @@ argument_list|)
 expr_stmt|;
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|create
@@ -1757,7 +1757,7 @@ expr_stmt|;
 comment|// create a RESCAN node
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|create

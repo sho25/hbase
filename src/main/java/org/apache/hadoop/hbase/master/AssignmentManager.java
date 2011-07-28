@@ -5129,6 +5129,9 @@ name|this
 operator|.
 name|zkw
 operator|.
+name|getRecoverableZooKeeper
+argument_list|()
+operator|.
 name|getZooKeeper
 argument_list|()
 operator|.

@@ -8004,7 +8004,7 @@ name|this
 operator|.
 name|zooKeeper
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|getSessionId

@@ -5357,6 +5357,9 @@ name|zk
 init|=
 name|nodeZK
 operator|.
+name|getRecoverableZooKeeper
+argument_list|()
+operator|.
 name|getZooKeeper
 argument_list|()
 decl_stmt|;

@@ -1188,7 +1188,7 @@ argument_list|)
 decl_stmt|;
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|create
@@ -1427,7 +1427,7 @@ decl_stmt|;
 comment|//create an unassigned orphan task
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|create
@@ -2601,7 +2601,7 @@ argument_list|)
 decl_stmt|;
 name|zkw
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|create

@@ -864,7 +864,7 @@ operator|.
 name|getZooKeeperWatcher
 argument_list|()
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|exists
@@ -1021,7 +1021,7 @@ operator|.
 name|getZooKeeperWatcher
 argument_list|()
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|exists

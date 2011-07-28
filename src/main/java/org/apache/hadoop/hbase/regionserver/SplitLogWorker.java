@@ -1530,7 +1530,7 @@ name|this
 operator|.
 name|watcher
 operator|.
-name|getZooKeeper
+name|getRecoverableZooKeeper
 argument_list|()
 operator|.
 name|setData
@@ -1897,6 +1897,9 @@ block|{
 name|this
 operator|.
 name|watcher
+operator|.
+name|getRecoverableZooKeeper
+argument_list|()
 operator|.
 name|getZooKeeper
 argument_list|()
