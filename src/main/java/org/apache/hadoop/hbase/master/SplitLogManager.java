@@ -2015,6 +2015,20 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+name|data
+operator|=
+name|this
+operator|.
+name|watcher
+operator|.
+name|getRecoverableZooKeeper
+argument_list|()
+operator|.
+name|removeMetaData
+argument_list|(
+name|data
+argument_list|)
+expr_stmt|;
 comment|// LOG.debug("set watch on " + path + " got data " + new String(data));
 if|if
 condition|(
