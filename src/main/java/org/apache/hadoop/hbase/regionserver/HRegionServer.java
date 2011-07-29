@@ -3179,10 +3179,6 @@ specifier|private
 name|void
 name|preRegistrationInitialization
 parameter_list|()
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
 block|{
 try|try
 block|{
@@ -3242,21 +3238,19 @@ parameter_list|)
 block|{
 comment|// Call stop if error or process will stick around for ever since server
 comment|// puts up non-daemon threads.
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Stopping HRS because failed initialize"
-argument_list|,
-name|t
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|rpcServer
 operator|.
 name|stop
 argument_list|()
+expr_stmt|;
+name|abort
+argument_list|(
+literal|"Initialization of RS failed.  Hence aborting RS."
+argument_list|,
+name|t
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -3592,7 +3586,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|Exception
+name|Throwable
 name|e
 parameter_list|)
 block|{
