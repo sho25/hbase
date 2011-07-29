@@ -290,6 +290,8 @@ argument_list|,
 name|name
 argument_list|,
 name|abortable
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|ZKTable

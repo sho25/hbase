@@ -306,6 +306,36 @@ specifier|final
 name|Exception
 name|constructorCaller
 decl_stmt|;
+comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param descriptor Descriptive string that is added to zookeeper sessionid    * and used as identifier for this instance.    * @throws IOException     * @throws ZooKeeperConnectionException     */
+specifier|public
+name|ZooKeeperWatcher
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|,
+name|String
+name|descriptor
+parameter_list|,
+name|Abortable
+name|abortable
+parameter_list|)
+throws|throws
+name|ZooKeeperConnectionException
+throws|,
+name|IOException
+block|{
+name|this
+argument_list|(
+name|conf
+argument_list|,
+name|descriptor
+argument_list|,
+name|abortable
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param descriptor Descriptive string that is added to zookeeper sessionid    * and used as identifier for this instance.    * @throws IOException    * @throws ZooKeeperConnectionException    */
 specifier|public
 name|ZooKeeperWatcher
@@ -318,6 +348,9 @@ name|descriptor
 parameter_list|,
 name|Abortable
 name|abortable
+parameter_list|,
+name|boolean
+name|canCreateBaseZNode
 parameter_list|)
 throws|throws
 name|IOException
@@ -402,10 +435,26 @@ argument_list|,
 name|descriptor
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|canCreateBaseZNode
+condition|)
+block|{
+name|createBaseZNodes
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+specifier|private
+name|void
+name|createBaseZNodes
+parameter_list|()
+throws|throws
+name|ZooKeeperConnectionException
+block|{
 try|try
 block|{
 comment|// Create all the necessary "directories" of znodes
-comment|// TODO: Move this to an init method somewhere so not everyone calls it?
 name|ZKUtil
 operator|.
 name|createAndFailSilent

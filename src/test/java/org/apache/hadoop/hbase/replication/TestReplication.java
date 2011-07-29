@@ -780,6 +780,8 @@ argument_list|,
 literal|"cluster1"
 argument_list|,
 literal|null
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|admin
@@ -869,6 +871,8 @@ argument_list|,
 literal|"cluster2"
 argument_list|,
 literal|null
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|slaveClusterKey

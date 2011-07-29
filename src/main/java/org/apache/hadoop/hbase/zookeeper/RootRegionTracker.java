@@ -171,6 +171,36 @@ parameter_list|)
 throws|throws
 name|InterruptedException
 block|{
+if|if
+condition|(
+literal|false
+operator|==
+name|checkIfBaseNodeAvailable
+argument_list|()
+condition|)
+block|{
+name|String
+name|errorMsg
+init|=
+literal|"Check the value configured in 'zookeeper.znode.parent'. "
+operator|+
+literal|"There could be a mismatch with the one configured in the master."
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|errorMsg
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+name|errorMsg
+argument_list|)
+throw|;
+block|}
 return|return
 name|dataToServerName
 argument_list|(

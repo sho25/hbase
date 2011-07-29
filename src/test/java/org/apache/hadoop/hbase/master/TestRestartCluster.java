@@ -461,6 +461,8 @@ argument_list|,
 literal|"cluster1"
 argument_list|,
 literal|null
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 comment|// create the unassigned region, throw up a region opened state for META

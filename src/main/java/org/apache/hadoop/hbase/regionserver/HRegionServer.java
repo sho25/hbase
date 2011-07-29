@@ -3412,6 +3412,36 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
+if|if
+condition|(
+literal|false
+operator|==
+name|tracker
+operator|.
+name|checkIfBaseNodeAvailable
+argument_list|()
+condition|)
+block|{
+name|String
+name|errorMsg
+init|=
+literal|"Check the value configured in 'zookeeper.znode.parent'. "
+operator|+
+literal|"There could be a mismatch with the one configured in the master."
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|errorMsg
+argument_list|)
+expr_stmt|;
+name|abort
+argument_list|(
+name|errorMsg
+argument_list|)
+expr_stmt|;
+block|}
 while|while
 condition|(
 name|tracker
