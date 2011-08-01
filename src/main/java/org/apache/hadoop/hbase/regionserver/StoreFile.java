@@ -737,6 +737,7 @@ literal|"BLOOM_FILTER_TYPE"
 argument_list|)
 decl_stmt|;
 comment|/** Key for Timerange information in metadata*/
+specifier|public
 specifier|static
 specifier|final
 name|byte
