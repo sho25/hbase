@@ -1099,6 +1099,13 @@ literal|" regions(s) that are already in transition)"
 argument_list|)
 expr_stmt|;
 comment|// Iterate regions that were on this server and assign them
+if|if
+condition|(
+name|hris
+operator|!=
+literal|null
+condition|)
+block|{
 for|for
 control|(
 name|Map
@@ -1164,6 +1171,7 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 name|this
