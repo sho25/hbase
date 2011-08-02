@@ -2497,10 +2497,16 @@ condition|(
 name|data
 operator|==
 literal|null
+operator|||
+name|data
+operator|.
+name|length
+operator|==
+literal|0
 condition|)
 block|{
 return|return
-literal|null
+name|data
 return|;
 block|}
 name|byte
