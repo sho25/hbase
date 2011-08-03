@@ -1330,10 +1330,14 @@ operator|.
 name|Writer
 name|writer
 init|=
-operator|new
 name|HFile
 operator|.
-name|Writer
+name|getWriterFactory
+argument_list|(
+name|conf
+argument_list|)
+operator|.
+name|createWriter
 argument_list|(
 name|this
 operator|.

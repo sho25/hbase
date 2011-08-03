@@ -423,10 +423,9 @@ decl_stmt|;
 name|Reader
 name|reader
 init|=
-operator|new
 name|HFile
 operator|.
-name|Reader
+name|createReader
 argument_list|(
 name|lfs
 argument_list|,
@@ -452,7 +451,8 @@ name|println
 argument_list|(
 name|reader
 operator|.
-name|trailer
+name|getTrailer
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|long

@@ -153,7 +153,7 @@ name|blockName
 decl_stmt|;
 specifier|private
 specifier|final
-name|ByteBuffer
+name|HeapSize
 name|buf
 decl_stmt|;
 specifier|private
@@ -175,7 +175,7 @@ parameter_list|(
 name|String
 name|blockName
 parameter_list|,
-name|ByteBuffer
+name|HeapSize
 name|buf
 parameter_list|,
 name|long
@@ -200,7 +200,7 @@ parameter_list|(
 name|String
 name|blockName
 parameter_list|,
-name|ByteBuffer
+name|HeapSize
 name|buf
 parameter_list|,
 name|long
@@ -248,7 +248,7 @@ name|align
 argument_list|(
 name|buf
 operator|.
-name|capacity
+name|heapSize
 argument_list|()
 argument_list|)
 operator|+
@@ -362,7 +362,7 @@ literal|1
 return|;
 block|}
 specifier|public
-name|ByteBuffer
+name|HeapSize
 name|getBuffer
 parameter_list|()
 block|{

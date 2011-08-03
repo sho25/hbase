@@ -23,16 +23,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|nio
-operator|.
-name|ByteBuffer
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|Random
@@ -126,7 +116,7 @@ argument_list|,
 name|blockSize
 argument_list|)
 decl_stmt|;
-name|Block
+name|CachedItem
 index|[]
 name|blocks
 init|=
@@ -142,7 +132,7 @@ decl_stmt|;
 comment|// Add all the blocks
 for|for
 control|(
-name|Block
+name|CachedItem
 name|block
 range|:
 name|blocks
@@ -157,8 +147,6 @@ operator|.
 name|blockName
 argument_list|,
 name|block
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 block|}
@@ -262,7 +250,7 @@ argument_list|,
 name|blockSize
 argument_list|)
 decl_stmt|;
-name|Block
+name|CachedItem
 index|[]
 name|blocks
 init|=
@@ -284,7 +272,7 @@ decl_stmt|;
 comment|// Confirm empty
 for|for
 control|(
-name|Block
+name|CachedItem
 name|block
 range|:
 name|blocks
@@ -310,7 +298,7 @@ block|}
 comment|// Add blocks
 for|for
 control|(
-name|Block
+name|CachedItem
 name|block
 range|:
 name|blocks
@@ -325,15 +313,13 @@ operator|.
 name|blockName
 argument_list|,
 name|block
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 name|expectedCacheSize
 operator|+=
 name|block
 operator|.
-name|heapSize
+name|cacheBlockHeapSize
 argument_list|()
 expr_stmt|;
 block|}
@@ -351,13 +337,13 @@ expr_stmt|;
 comment|// Check if all blocks are properly cached and retrieved
 for|for
 control|(
-name|Block
+name|CachedItem
 name|block
 range|:
 name|blocks
 control|)
 block|{
-name|ByteBuffer
+name|HeapSize
 name|buf
 init|=
 name|cache
@@ -382,14 +368,12 @@ name|assertEquals
 argument_list|(
 name|buf
 operator|.
-name|capacity
+name|heapSize
 argument_list|()
 argument_list|,
 name|block
 operator|.
-name|buf
-operator|.
-name|capacity
+name|heapSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -397,7 +381,7 @@ block|}
 comment|// Re-add same blocks and ensure nothing has changed
 for|for
 control|(
-name|Block
+name|CachedItem
 name|block
 range|:
 name|blocks
@@ -414,8 +398,6 @@ operator|.
 name|blockName
 argument_list|,
 name|block
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -449,13 +431,13 @@ expr_stmt|;
 comment|// Check if all blocks are properly cached and retrieved
 for|for
 control|(
-name|Block
+name|CachedItem
 name|block
 range|:
 name|blocks
 control|)
 block|{
-name|ByteBuffer
+name|HeapSize
 name|buf
 init|=
 name|cache
@@ -480,14 +462,12 @@ name|assertEquals
 argument_list|(
 name|buf
 operator|.
-name|capacity
+name|heapSize
 argument_list|()
 argument_list|,
 name|block
 operator|.
-name|buf
-operator|.
-name|capacity
+name|heapSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -560,7 +540,7 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|Block
+name|CachedItem
 index|[]
 name|blocks
 init|=
@@ -584,7 +564,7 @@ decl_stmt|;
 comment|// Add all the blocks
 for|for
 control|(
-name|Block
+name|CachedItem
 name|block
 range|:
 name|blocks
@@ -599,15 +579,13 @@ operator|.
 name|blockName
 argument_list|,
 name|block
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 name|expectedCacheSize
 operator|+=
 name|block
 operator|.
-name|heapSize
+name|cacheBlockHeapSize
 argument_list|()
 expr_stmt|;
 block|}
@@ -740,8 +718,6 @@ name|blocks
 index|[
 name|i
 index|]
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 block|}
@@ -781,7 +757,7 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|Block
+name|CachedItem
 index|[]
 name|singleBlocks
 init|=
@@ -794,7 +770,7 @@ argument_list|,
 literal|"single"
 argument_list|)
 decl_stmt|;
-name|Block
+name|CachedItem
 index|[]
 name|multiBlocks
 init|=
@@ -818,7 +794,7 @@ decl_stmt|;
 comment|// Add and get the multi blocks
 for|for
 control|(
-name|Block
+name|CachedItem
 name|block
 range|:
 name|multiBlocks
@@ -833,15 +809,13 @@ operator|.
 name|blockName
 argument_list|,
 name|block
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 name|expectedCacheSize
 operator|+=
 name|block
 operator|.
-name|heapSize
+name|cacheBlockHeapSize
 argument_list|()
 expr_stmt|;
 name|assertEquals
@@ -858,15 +832,13 @@ literal|true
 argument_list|)
 argument_list|,
 name|block
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 block|}
 comment|// Add the single blocks (no get)
 for|for
 control|(
-name|Block
+name|CachedItem
 name|block
 range|:
 name|singleBlocks
@@ -881,8 +853,6 @@ operator|.
 name|blockName
 argument_list|,
 name|block
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 name|expectedCacheSize
@@ -1035,8 +1005,6 @@ name|singleBlocks
 index|[
 name|i
 index|]
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1059,8 +1027,6 @@ name|multiBlocks
 index|[
 name|i
 index|]
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 block|}
@@ -1137,7 +1103,7 @@ literal|0.34f
 argument_list|)
 decl_stmt|;
 comment|// memory
-name|Block
+name|CachedItem
 index|[]
 name|singleBlocks
 init|=
@@ -1150,7 +1116,7 @@ argument_list|,
 literal|"single"
 argument_list|)
 decl_stmt|;
-name|Block
+name|CachedItem
 index|[]
 name|multiBlocks
 init|=
@@ -1163,7 +1129,7 @@ argument_list|,
 literal|"multi"
 argument_list|)
 decl_stmt|;
-name|Block
+name|CachedItem
 index|[]
 name|memoryBlocks
 init|=
@@ -1216,8 +1182,6 @@ name|singleBlocks
 index|[
 name|i
 index|]
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 name|expectedCacheSize
@@ -1227,7 +1191,7 @@ index|[
 name|i
 index|]
 operator|.
-name|heapSize
+name|cacheBlockHeapSize
 argument_list|()
 expr_stmt|;
 comment|// Add and get multi blocks
@@ -1246,8 +1210,6 @@ name|multiBlocks
 index|[
 name|i
 index|]
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 name|expectedCacheSize
@@ -1257,7 +1219,7 @@ index|[
 name|i
 index|]
 operator|.
-name|heapSize
+name|cacheBlockHeapSize
 argument_list|()
 expr_stmt|;
 name|cache
@@ -1290,8 +1252,6 @@ name|memoryBlocks
 index|[
 name|i
 index|]
-operator|.
-name|buf
 argument_list|,
 literal|true
 argument_list|)
@@ -1303,7 +1263,7 @@ index|[
 name|i
 index|]
 operator|.
-name|heapSize
+name|cacheBlockHeapSize
 argument_list|()
 expr_stmt|;
 block|}
@@ -1345,8 +1305,6 @@ name|singleBlocks
 index|[
 literal|3
 index|]
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 comment|// Single eviction, one thing evicted
@@ -1421,8 +1379,6 @@ name|singleBlocks
 index|[
 literal|4
 index|]
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 comment|// Two evictions, two evicted.
@@ -1482,8 +1438,6 @@ name|memoryBlocks
 index|[
 literal|3
 index|]
-operator|.
-name|buf
 argument_list|,
 literal|true
 argument_list|)
@@ -1530,7 +1484,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Add a block that is twice as big (should force two evictions)
-name|Block
+name|CachedItem
 index|[]
 name|bigBlocks
 init|=
@@ -1560,8 +1514,6 @@ name|bigBlocks
 index|[
 literal|0
 index|]
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 comment|// Four evictions, six evicted (inserted block 3X size, expect +3 evicted)
@@ -1674,8 +1626,6 @@ name|bigBlocks
 index|[
 literal|1
 index|]
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 comment|// Five evictions, nine evicted (3 new)
@@ -1773,8 +1723,6 @@ name|bigBlocks
 index|[
 literal|2
 index|]
-operator|.
-name|buf
 argument_list|,
 literal|true
 argument_list|)
@@ -1932,7 +1880,7 @@ literal|0.34f
 argument_list|)
 decl_stmt|;
 comment|// memory
-name|Block
+name|CachedItem
 index|[]
 name|singleBlocks
 init|=
@@ -1945,7 +1893,7 @@ argument_list|,
 literal|"single"
 argument_list|)
 decl_stmt|;
-name|Block
+name|CachedItem
 index|[]
 name|multiBlocks
 init|=
@@ -1961,7 +1909,7 @@ decl_stmt|;
 comment|// Add 5 multi blocks
 for|for
 control|(
-name|Block
+name|CachedItem
 name|block
 range|:
 name|multiBlocks
@@ -1976,8 +1924,6 @@ operator|.
 name|blockName
 argument_list|,
 name|block
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 name|cache
@@ -2023,8 +1969,6 @@ name|singleBlocks
 index|[
 name|i
 index|]
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 block|}
@@ -2162,8 +2106,6 @@ name|singleBlocks
 index|[
 name|i
 index|]
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 block|}
@@ -2273,7 +2215,7 @@ literal|0.34f
 argument_list|)
 decl_stmt|;
 comment|// memory
-name|Block
+name|CachedItem
 index|[]
 name|singleBlocks
 init|=
@@ -2286,7 +2228,7 @@ argument_list|,
 literal|"single"
 argument_list|)
 decl_stmt|;
-name|Block
+name|CachedItem
 index|[]
 name|multiBlocks
 init|=
@@ -2299,7 +2241,7 @@ argument_list|,
 literal|"multi"
 argument_list|)
 decl_stmt|;
-name|Block
+name|CachedItem
 index|[]
 name|memoryBlocks
 init|=
@@ -2344,8 +2286,6 @@ name|singleBlocks
 index|[
 name|i
 index|]
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 comment|// Add and get multi blocks
@@ -2364,8 +2304,6 @@ name|multiBlocks
 index|[
 name|i
 index|]
-operator|.
-name|buf
 argument_list|)
 expr_stmt|;
 name|cache
@@ -2398,8 +2336,6 @@ name|memoryBlocks
 index|[
 name|i
 index|]
-operator|.
-name|buf
 argument_list|,
 literal|true
 argument_list|)
@@ -2549,8 +2485,6 @@ name|singleBlocks
 index|[
 name|i
 index|]
-operator|.
-name|buf
 argument_list|,
 name|cache
 operator|.
@@ -2573,8 +2507,6 @@ name|multiBlocks
 index|[
 name|i
 index|]
-operator|.
-name|buf
 argument_list|,
 name|cache
 operator|.
@@ -2597,8 +2529,6 @@ name|memoryBlocks
 index|[
 name|i
 index|]
-operator|.
-name|buf
 argument_list|,
 name|cache
 operator|.
@@ -2618,7 +2548,7 @@ expr_stmt|;
 block|}
 block|}
 specifier|private
-name|Block
+name|CachedItem
 index|[]
 name|generateFixedBlocks
 parameter_list|(
@@ -2632,12 +2562,12 @@ name|String
 name|pfx
 parameter_list|)
 block|{
-name|Block
+name|CachedItem
 index|[]
 name|blocks
 init|=
 operator|new
-name|Block
+name|CachedItem
 index|[
 name|numBlocks
 index|]
@@ -2663,7 +2593,7 @@ name|i
 index|]
 operator|=
 operator|new
-name|Block
+name|CachedItem
 argument_list|(
 name|pfx
 operator|+
@@ -2678,7 +2608,7 @@ name|blocks
 return|;
 block|}
 specifier|private
-name|Block
+name|CachedItem
 index|[]
 name|generateFixedBlocks
 parameter_list|(
@@ -2707,7 +2637,7 @@ argument_list|)
 return|;
 block|}
 specifier|private
-name|Block
+name|CachedItem
 index|[]
 name|generateRandomBlocks
 parameter_list|(
@@ -2718,12 +2648,12 @@ name|long
 name|maxSize
 parameter_list|)
 block|{
-name|Block
+name|CachedItem
 index|[]
 name|blocks
 init|=
 operator|new
-name|Block
+name|CachedItem
 index|[
 name|numBlocks
 index|]
@@ -2756,7 +2686,7 @@ name|i
 index|]
 operator|=
 operator|new
-name|Block
+name|CachedItem
 argument_list|(
 literal|"block"
 operator|+
@@ -2994,17 +2924,17 @@ block|}
 specifier|private
 specifier|static
 class|class
-name|Block
+name|CachedItem
 implements|implements
 name|HeapSize
 block|{
 name|String
 name|blockName
 decl_stmt|;
-name|ByteBuffer
-name|buf
+name|int
+name|size
 decl_stmt|;
-name|Block
+name|CachedItem
 parameter_list|(
 name|String
 name|blockName
@@ -3021,19 +2951,32 @@ name|blockName
 expr_stmt|;
 name|this
 operator|.
-name|buf
-operator|=
-name|ByteBuffer
-operator|.
-name|allocate
-argument_list|(
 name|size
-argument_list|)
+operator|=
+name|size
 expr_stmt|;
 block|}
+comment|/** The size of this item reported to the block cache layer */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|heapSize
+parameter_list|()
+block|{
+return|return
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+name|size
+argument_list|)
+return|;
+block|}
+comment|/** Size of the cache block holding this item. Used for verification. */
+specifier|public
+name|long
+name|cacheBlockHeapSize
 parameter_list|()
 block|{
 return|return
@@ -3055,10 +2998,7 @@ name|ClassSize
 operator|.
 name|align
 argument_list|(
-name|buf
-operator|.
-name|capacity
-argument_list|()
+name|size
 argument_list|)
 return|;
 block|}

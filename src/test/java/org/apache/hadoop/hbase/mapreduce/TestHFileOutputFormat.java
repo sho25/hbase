@@ -1916,10 +1916,9 @@ operator|.
 name|Reader
 name|rd
 init|=
-operator|new
 name|HFile
 operator|.
-name|Reader
+name|createReader
 argument_list|(
 name|fs
 argument_list|,
@@ -3688,6 +3687,17 @@ expr_stmt|;
 try|try
 block|{
 comment|// partial map red setup to get an operational writer for testing
+comment|// We turn off the sequence file compression, because DefaultCodec
+comment|// pollutes the GZip codec pool with an incompatible compressor.
+name|conf
+operator|.
+name|set
+argument_list|(
+literal|"io.seqfile.compression.type"
+argument_list|,
+literal|"NONE"
+argument_list|)
+expr_stmt|;
 name|Job
 name|job
 init|=
@@ -3872,10 +3882,9 @@ decl_stmt|;
 name|Reader
 name|reader
 init|=
-operator|new
 name|HFile
 operator|.
-name|Reader
+name|createReader
 argument_list|(
 name|fileSystem
 argument_list|,

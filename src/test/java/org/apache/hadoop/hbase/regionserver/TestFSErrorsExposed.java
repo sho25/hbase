@@ -482,6 +482,11 @@ argument_list|,
 literal|2
 operator|*
 literal|1024
+argument_list|,
+name|util
+operator|.
+name|getConfiguration
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|TestStoreFile
@@ -715,6 +720,11 @@ argument_list|,
 literal|2
 operator|*
 literal|1024
+argument_list|,
+name|util
+operator|.
+name|getConfiguration
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|TestStoreFile

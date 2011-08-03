@@ -21,11 +21,17 @@ end_package
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|nio
+name|apache
 operator|.
-name|ByteBuffer
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|HeapSize
 import|;
 end_import
 
@@ -50,7 +56,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Block cache interface.  * TODO: Add filename or hash of filename to block cache key.  */
+comment|/**  * Block cache interface. Anything that implements the {@link HeapSize}  * interface can be put in the cache, because item size is all the cache  * cares about. We might move to a more specialized "cacheable" interface  * in the future.  *  * TODO: Add filename or hash of filename to block cache key.  */
 end_comment
 
 begin_interface
@@ -66,7 +72,7 @@ parameter_list|(
 name|String
 name|blockName
 parameter_list|,
-name|ByteBuffer
+name|HeapSize
 name|buf
 parameter_list|,
 name|boolean
@@ -81,13 +87,13 @@ parameter_list|(
 name|String
 name|blockName
 parameter_list|,
-name|ByteBuffer
+name|HeapSize
 name|buf
 parameter_list|)
 function_decl|;
 comment|/**    * Fetch block from cache.    * @param blockName Block number to fetch.    * @param caching Whether this request has caching enabled (used for stats)    * @return Block or null if block is not in the cache.    */
 specifier|public
-name|ByteBuffer
+name|HeapSize
 name|getBlock
 parameter_list|(
 name|String
@@ -104,6 +110,15 @@ name|evictBlock
 parameter_list|(
 name|String
 name|blockName
+parameter_list|)
+function_decl|;
+comment|/**    * Evicts all blocks with name starting with the given prefix. This is    * necessary in cases we need to evict all blocks that belong to a particular    * HFile. In HFile v2 all blocks consist of the storefile name (UUID), an    * underscore, and the block offset in the file. An efficient implementation    * would avoid scanning all blocks in the cache.    *    * @return the number of blocks evicted    */
+specifier|public
+name|int
+name|evictBlocksByPrefix
+parameter_list|(
+name|String
+name|string
 parameter_list|)
 function_decl|;
 comment|/**    * Get the statistics for this block cache.    * @return    */

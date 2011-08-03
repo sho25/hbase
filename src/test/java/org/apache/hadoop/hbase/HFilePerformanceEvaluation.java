@@ -958,10 +958,14 @@ name|Exception
 block|{
 name|writer
 operator|=
-operator|new
 name|HFile
 operator|.
-name|Writer
+name|getWriterFactory
+argument_list|(
+name|conf
+argument_list|)
+operator|.
+name|createWriter
 argument_list|(
 name|this
 operator|.
@@ -978,8 +982,6 @@ name|Compression
 operator|.
 name|Algorithm
 operator|)
-literal|null
-argument_list|,
 literal|null
 argument_list|,
 literal|null
@@ -1108,10 +1110,9 @@ name|Exception
 block|{
 name|reader
 operator|=
-operator|new
 name|HFile
 operator|.
-name|Reader
+name|createReader
 argument_list|(
 name|this
 operator|.

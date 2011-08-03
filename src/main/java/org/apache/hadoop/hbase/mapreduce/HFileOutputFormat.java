@@ -631,6 +631,7 @@ operator|.
 name|getWorkPath
 argument_list|()
 decl_stmt|;
+specifier|final
 name|Configuration
 name|conf
 init|=
@@ -946,6 +947,8 @@ operator|=
 name|getNewWriter
 argument_list|(
 name|family
+argument_list|,
+name|conf
 argument_list|)
 expr_stmt|;
 block|}
@@ -1086,6 +1089,9 @@ parameter_list|(
 name|byte
 index|[]
 name|family
+parameter_list|,
+name|Configuration
+name|conf
 parameter_list|)
 throws|throws
 name|IOException
@@ -1137,10 +1143,14 @@ name|wl
 operator|.
 name|writer
 operator|=
-operator|new
 name|HFile
 operator|.
-name|Writer
+name|getWriterFactory
+argument_list|(
+name|conf
+argument_list|)
+operator|.
+name|createWriter
 argument_list|(
 name|fs
 argument_list|,

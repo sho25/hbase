@@ -1930,7 +1930,7 @@ literal|" already exists with "
 operator|+
 name|Bytes
 operator|.
-name|toStringBinarySafe
+name|toStringBinary
 argument_list|(
 name|currentData
 argument_list|)
@@ -1939,7 +1939,7 @@ literal|", could not write "
 operator|+
 name|Bytes
 operator|.
-name|toStringBinarySafe
+name|toStringBinary
 argument_list|(
 name|data
 argument_list|)

@@ -19,20 +19,6 @@ end_package
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|io
-operator|.
-name|Writable
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|nio
@@ -42,56 +28,17 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Defines the general behavior of a bloom filter.  *<p>  * The Bloom filter is a data structure that was introduced in 1970 and that has been adopted by  * the networking research community in the past decade thanks to the bandwidth efficiencies that it  * offers for the transmission of set membership information between networked hosts.  A sender encodes  * the information into a bit vector, the Bloom filter, that is more compact than a conventional  * representation. Computation and space costs for construction are linear in the number of elements.  * The receiver uses the filter to test whether various elements are members of the set. Though the  * filter will occasionally return a false positive, it will never return a false negative. When creating  * the filter, the sender can choose its desired point in a trade-off between the false positive rate and the size.  *  *<p>  * Originally created by  *<a href="http://www.one-lab.org">European Commission One-Lab Project 034819</a>.  *  *<p>  * It must be extended in order to define the real behavior.  */
+comment|/**  * Defines the general behavior of a bloom filter.  *  *<p>  * The Bloom filter is a data structure that was introduced in 1970 and that  * has been adopted by the networking research community in the past decade  * thanks to the bandwidth efficiencies that it offers for the transmission of  * set membership information between networked hosts. A sender encodes the  * information into a bit vector, the Bloom filter, that is more compact than a  * conventional representation. Computation and space costs for construction  * are linear in the number of elements. The receiver uses the filter to test  * whether various elements are members of the set. Though the filter will  * occasionally return a false positive, it will never return a false negative.  * When creating the filter, the sender can choose its desired point in a  * trade-off between the false positive rate and the size.  *  * @see {@link BloomFilterWriter} for the ability to add elements to a Bloom  *      filter  */
 end_comment
 
 begin_interface
 specifier|public
 interface|interface
 name|BloomFilter
+extends|extends
+name|BloomFilterBase
 block|{
-comment|/**    * Allocate memory for the bloom filter data.  Note that bloom data isn't    * allocated by default because it can grow large& reads would be better    * managed by the LRU cache.    */
-name|void
-name|allocBloom
-parameter_list|()
-function_decl|;
-comment|/**    * Add the specified binary to the bloom filter.    *    * @param buf data to be added to the bloom    */
-name|void
-name|add
-parameter_list|(
-name|byte
-index|[]
-name|buf
-parameter_list|)
-function_decl|;
-comment|/**    * Add the specified binary to the bloom filter.    *    * @param buf data to be added to the bloom    * @param offset offset into the data to be added    * @param len length of the data to be added    */
-name|void
-name|add
-parameter_list|(
-name|byte
-index|[]
-name|buf
-parameter_list|,
-name|int
-name|offset
-parameter_list|,
-name|int
-name|len
-parameter_list|)
-function_decl|;
-comment|/**    * Check if the specified key is contained in the bloom filter.    *    * @param buf data to check for existence of    * @param bloom bloom filter data to search    * @return true if matched by bloom, false if not    */
-name|boolean
-name|contains
-parameter_list|(
-name|byte
-index|[]
-name|buf
-parameter_list|,
-name|ByteBuffer
-name|bloom
-parameter_list|)
-function_decl|;
-comment|/**    * Check if the specified key is contained in the bloom filter.    *    * @param buf data to check for existence of    * @param offset offset into the data    * @param length length of the data    * @param bloom bloom filter data to search    * @return true if matched by bloom, false if not    */
+comment|/**    * Check if the specified key is contained in the bloom filter.    *    * @param buf data to check for existence of    * @param offset offset into the data    * @param length length of the data    * @param bloom bloom filter data to search. This can be null if auto-loading    *        is supported.    * @return true if matched by bloom, false if not    */
 name|boolean
 name|contains
 parameter_list|(
@@ -109,36 +56,9 @@ name|ByteBuffer
 name|bloom
 parameter_list|)
 function_decl|;
-comment|/**    * @return The number of keys added to the bloom    */
-name|int
-name|getKeyCount
-parameter_list|()
-function_decl|;
-comment|/**    * @return The max number of keys that can be inserted    *         to maintain the desired error rate    */
-specifier|public
-name|int
-name|getMaxKeys
-parameter_list|()
-function_decl|;
-comment|/**    * @return Size of the bloom, in bytes    */
-specifier|public
-name|int
-name|getByteSize
-parameter_list|()
-function_decl|;
-comment|/**    * Compact the bloom before writing metadata& data to disk    */
-name|void
-name|compactBloom
-parameter_list|()
-function_decl|;
-comment|/**    * Get a writable interface into bloom filter meta data.    * @return writable class    */
-name|Writable
-name|getMetaWriter
-parameter_list|()
-function_decl|;
-comment|/**    * Get a writable interface into bloom filter data (actual bloom).    * @return writable class    */
-name|Writable
-name|getDataWriter
+comment|/**    * @return true if this Bloom filter can automatically load its data    *         and thus allows a null byte buffer to be passed to contains()    */
+name|boolean
+name|supportsAutoLoading
 parameter_list|()
 function_decl|;
 block|}

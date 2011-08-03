@@ -1851,10 +1851,9 @@ operator|.
 name|Reader
 name|hfr
 init|=
-operator|new
 name|HFile
 operator|.
-name|Reader
+name|createReader
 argument_list|(
 name|fs
 argument_list|,
@@ -2498,8 +2497,6 @@ argument_list|,
 name|bloomFilterType
 argument_list|,
 literal|0
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|HFileScanner
@@ -3041,10 +3038,9 @@ operator|.
 name|Reader
 name|reader
 init|=
-operator|new
 name|HFile
 operator|.
-name|Reader
+name|createReader
 argument_list|(
 name|fs
 argument_list|,
