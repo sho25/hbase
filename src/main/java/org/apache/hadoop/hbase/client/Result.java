@@ -370,7 +370,7 @@ operator|=
 name|bytes
 expr_stmt|;
 block|}
-comment|/**    * Method for retrieving the row that this result is for    * @return row    */
+comment|/**    * Method for retrieving the row key that corresponds to    * the row from which this Result was created.    * @return row    */
 specifier|public
 name|byte
 index|[]
