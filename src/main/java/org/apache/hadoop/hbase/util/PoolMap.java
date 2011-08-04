@@ -1624,9 +1624,22 @@ operator|>=
 name|maxSize
 condition|)
 block|{
-return|return
-literal|null
-return|;
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"poolSize ("
+operator|+
+name|poolSize
+operator|.
+name|intValue
+argument_list|()
+operator|+
+literal|") has reached "
+operator|+
+name|maxSize
+argument_list|)
+throw|;
 block|}
 name|poolSize
 operator|.
