@@ -3198,7 +3198,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Return the pool type specified in the configuration, if it roughly equals either    * the name of {@link PoolType#Reusable} or {@link PoolType#ThreadLocal}, otherwise    * default to the former type.    *    * @param config configuration    * @return either a {@link PoolType#Reusable} or {@link PoolType#ThreadLocal}    */
+comment|/**    * Return the pool type specified in the configuration, if it roughly equals either    * the name of {@link PoolType#RoundRobin} or {@link PoolType#ThreadLocal}, otherwise    * default to the former type.    *    * @param config configuration    * @return either a {@link PoolType#RoundRobin} or {@link PoolType#ThreadLocal}    */
 specifier|private
 specifier|static
 name|PoolType
