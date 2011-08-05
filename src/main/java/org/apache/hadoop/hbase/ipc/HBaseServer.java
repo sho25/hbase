@@ -1953,6 +1953,11 @@ operator|+
 name|port
 argument_list|)
 operator|.
+name|setDaemon
+argument_list|(
+literal|true
+argument_list|)
+operator|.
 name|build
 argument_list|()
 argument_list|)
