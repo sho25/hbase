@@ -79,6 +79,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -362,6 +372,8 @@ specifier|public
 name|void
 name|testGetSetOfHTD
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|HBaseTestingUtility
 name|HTU
@@ -376,6 +388,20 @@ name|tablename
 init|=
 literal|"testGetSetOfHTD"
 decl_stmt|;
+comment|// Delete the temporary table directory that might still be there from the
+comment|// previous test run.
+name|FSUtils
+operator|.
+name|deleteTableDescriptorIfExists
+argument_list|(
+name|tablename
+argument_list|,
+name|HTU
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|HTableDescriptor
 name|htd
 init|=
