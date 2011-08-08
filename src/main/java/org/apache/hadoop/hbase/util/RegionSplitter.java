@@ -3565,6 +3565,16 @@ argument_list|)
 expr_stmt|;
 name|FSUtils
 operator|.
+name|getInstance
+argument_list|(
+name|fs
+argument_list|,
+name|table
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+operator|.
 name|recoverFileLease
 argument_list|(
 name|fs

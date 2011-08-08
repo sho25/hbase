@@ -2949,6 +2949,13 @@ try|try
 block|{
 name|FSUtils
 operator|.
+name|getInstance
+argument_list|(
+name|fs
+argument_list|,
+name|rlConf
+argument_list|)
+operator|.
 name|recoverFileLease
 argument_list|(
 name|recoveredFs
