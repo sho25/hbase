@@ -20,6 +20,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FSUtils
+operator|.
+name|recoverFileLease
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -488,22 +506,6 @@ operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|FSHDFSUtils
 import|;
 end_import
 
@@ -3400,15 +3402,6 @@ expr_stmt|;
 block|}
 try|try
 block|{
-name|FSUtils
-operator|.
-name|getInstance
-argument_list|(
-name|fs
-argument_list|,
-name|conf
-argument_list|)
-operator|.
 name|recoverFileLease
 argument_list|(
 name|fs
