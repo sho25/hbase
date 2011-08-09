@@ -1023,6 +1023,30 @@ return|return
 literal|null
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|Filter
+name|createFilterFromArguments
+parameter_list|(
+name|ArrayList
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|filterArguments
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"This function has not been implemented"
+operator|+
+literal|"A FilterList can be created using the AND/OR operators)"
+argument_list|)
+throw|;
+block|}
 block|}
 end_class
 
