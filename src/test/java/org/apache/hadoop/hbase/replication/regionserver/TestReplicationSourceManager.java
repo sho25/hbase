@@ -341,7 +341,7 @@ name|regionserver
 operator|.
 name|wal
 operator|.
-name|WALObserver
+name|WALActionsListener
 import|;
 end_import
 
@@ -986,14 +986,14 @@ argument_list|)
 expr_stmt|;
 name|List
 argument_list|<
-name|WALObserver
+name|WALActionsListener
 argument_list|>
 name|listeners
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|WALObserver
+name|WALActionsListener
 argument_list|>
 argument_list|()
 decl_stmt|;

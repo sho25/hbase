@@ -632,14 +632,14 @@ comment|// Listeners that are called on WAL events.
 specifier|private
 name|List
 argument_list|<
-name|WALObserver
+name|WALActionsListener
 argument_list|>
 name|listeners
 init|=
 operator|new
 name|CopyOnWriteArrayList
 argument_list|<
-name|WALObserver
+name|WALActionsListener
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -1186,7 +1186,7 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|WALObserver
+name|WALActionsListener
 argument_list|>
 name|listeners
 parameter_list|,
@@ -1238,7 +1238,7 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|WALObserver
+name|WALActionsListener
 argument_list|>
 name|listeners
 parameter_list|,
@@ -1283,7 +1283,7 @@ condition|)
 block|{
 for|for
 control|(
-name|WALObserver
+name|WALActionsListener
 name|i
 range|:
 name|listeners
@@ -1725,7 +1725,7 @@ name|void
 name|registerWALActionsListener
 parameter_list|(
 specifier|final
-name|WALObserver
+name|WALActionsListener
 name|listener
 parameter_list|)
 block|{
@@ -1747,7 +1747,7 @@ name|boolean
 name|unregisterWALActionsListener
 parameter_list|(
 specifier|final
-name|WALObserver
+name|WALActionsListener
 name|listener
 parameter_list|)
 block|{
@@ -2055,7 +2055,7 @@ condition|)
 block|{
 for|for
 control|(
-name|WALObserver
+name|WALActionsListener
 name|i
 range|:
 name|this
@@ -3539,7 +3539,7 @@ condition|)
 block|{
 for|for
 control|(
-name|WALObserver
+name|WALActionsListener
 name|i
 range|:
 name|this
@@ -4384,7 +4384,7 @@ condition|)
 block|{
 for|for
 control|(
-name|WALObserver
+name|WALActionsListener
 name|i
 range|:
 name|this
@@ -4445,7 +4445,7 @@ condition|)
 block|{
 for|for
 control|(
-name|WALObserver
+name|WALActionsListener
 name|i
 range|:
 name|this

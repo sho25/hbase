@@ -4351,11 +4351,11 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
-name|DumbWALObserver
+name|DumbWALActionsListener
 name|visitor
 init|=
 operator|new
-name|DumbWALObserver
+name|DumbWALActionsListener
 argument_list|()
 decl_stmt|;
 name|log
@@ -5062,9 +5062,9 @@ block|}
 block|}
 specifier|static
 class|class
-name|DumbWALObserver
+name|DumbWALActionsListener
 implements|implements
-name|WALObserver
+name|WALActionsListener
 block|{
 name|int
 name|increments

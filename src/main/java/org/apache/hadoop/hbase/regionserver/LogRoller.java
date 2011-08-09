@@ -141,7 +141,7 @@ name|regionserver
 operator|.
 name|wal
 operator|.
-name|WALObserver
+name|WALActionsListener
 import|;
 end_import
 
@@ -209,7 +209,7 @@ name|LogRoller
 extends|extends
 name|Thread
 implements|implements
-name|WALObserver
+name|WALActionsListener
 block|{
 specifier|static
 specifier|final

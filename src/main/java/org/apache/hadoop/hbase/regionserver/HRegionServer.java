@@ -1429,7 +1429,7 @@ name|regionserver
 operator|.
 name|wal
 operator|.
-name|WALObserver
+name|WALActionsListener
 import|;
 end_import
 
@@ -6398,28 +6398,28 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Called by {@link #instantiateHLog(Path, Path)} setting up WAL instance.    * Add any {@link WALObserver}s you want inserted before WAL startup.    * @return List of WALActionsListener that will be passed in to    * {@link HLog} on construction.    */
+comment|/**    * Called by {@link #instantiateHLog(Path, Path)} setting up WAL instance.    * Add any {@link WALActionsListener}s you want inserted before WAL startup.    * @return List of WALActionsListener that will be passed in to    * {@link HLog} on construction.    */
 end_comment
 
 begin_function
 specifier|protected
 name|List
 argument_list|<
-name|WALObserver
+name|WALActionsListener
 argument_list|>
 name|getWALActionListeners
 parameter_list|()
 block|{
 name|List
 argument_list|<
-name|WALObserver
+name|WALActionsListener
 argument_list|>
 name|listeners
 init|=
 operator|new
 name|ArrayList
 argument_list|<
-name|WALObserver
+name|WALActionsListener
 argument_list|>
 argument_list|()
 decl_stmt|;

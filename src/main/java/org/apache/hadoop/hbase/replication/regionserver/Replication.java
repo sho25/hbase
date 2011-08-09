@@ -229,7 +229,7 @@ name|regionserver
 operator|.
 name|wal
 operator|.
-name|WALObserver
+name|WALActionsListener
 import|;
 end_import
 
@@ -352,7 +352,7 @@ specifier|public
 class|class
 name|Replication
 implements|implements
-name|WALObserver
+name|WALActionsListener
 block|{
 specifier|private
 specifier|final
