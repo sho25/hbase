@@ -121,6 +121,8 @@ begin_class
 specifier|public
 class|class
 name|FSMapRUtils
+extends|extends
+name|FSUtils
 block|{
 specifier|private
 specifier|static
@@ -138,7 +140,6 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|public
-specifier|static
 name|void
 name|recoverFileLease
 parameter_list|(
