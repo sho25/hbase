@@ -256,8 +256,6 @@ specifier|final
 name|String
 name|ZK_CLIENT_PORT_KEY
 init|=
-name|ZK_CFG_PROPERTY
-operator|+
 literal|"clientPort"
 decl_stmt|;
 comment|/**    * Make a Properties object holding ZooKeeper config equivalent to zoo.cfg.    * If there is a zoo.cfg in the classpath, simply read it in. Otherwise parse    * the corresponding config options from the HBase XML configs and generate    * the appropriate ZooKeeper properties.    * @param conf Configuration to read from.    * @return Properties holding mappings representing ZooKeeper zoo.cfg file.    */

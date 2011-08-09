@@ -939,7 +939,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test Case for HBASE-2305    */
 annotation|@
 name|Test
 specifier|public
@@ -983,7 +982,7 @@ name|p
 operator|.
 name|get
 argument_list|(
-literal|"hbase.zookeeper.property.clientPort"
+literal|"clientPort"
 argument_list|)
 argument_list|)
 expr_stmt|;
