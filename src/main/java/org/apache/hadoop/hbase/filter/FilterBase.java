@@ -41,16 +41,6 @@ name|List
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|ArrayList
-import|;
-end_import
-
 begin_comment
 comment|/**  * Abstract base class to help you implement new Filters.  Common "ignore" or NOOP type  * methods can go here, helping to reduce boiler plate in an ever-expanding filter  * library.  *  * If you could instantiate FilterBase, it would end up being a "null" filter -  * that is one that never filters anything.  */
 end_comment
@@ -172,28 +162,6 @@ block|{
 return|return
 literal|null
 return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|Filter
-name|createFilterFromArguments
-parameter_list|(
-name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
-name|filterArguments
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|IllegalArgumentException
-argument_list|(
-literal|"This function has not been implemented"
-argument_list|)
-throw|;
 block|}
 block|}
 end_class

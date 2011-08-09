@@ -33,11 +33,17 @@ end_import
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|util
+name|apache
 operator|.
-name|List
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Scan
 import|;
 end_import
 
@@ -47,7 +53,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
+name|List
 import|;
 end_import
 
@@ -202,29 +208,6 @@ return|return
 name|this
 operator|.
 name|filterOutRow
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|Filter
-name|createFilterFromArguments
-parameter_list|(
-name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
-name|filterArguments
-parameter_list|)
-block|{
-return|return
-name|super
-operator|.
-name|createFilterFromArguments
-argument_list|(
-name|filterArguments
-argument_list|)
 return|;
 block|}
 block|}

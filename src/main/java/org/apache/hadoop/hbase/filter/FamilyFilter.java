@@ -31,16 +31,6 @@ name|KeyValue
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|ArrayList
-import|;
-end_import
-
 begin_comment
 comment|/**  * This filter is used to filter based on the column family. It takes an  * operator (equal, greater, not equal, etc) and a byte [] comparator for the  * column family portion of a key.  *<p/>  * This filter can be wrapped with {@link org.apache.hadoop.hbase.filter.WhileMatchFilter} and {@link org.apache.hadoop.hbase.filter.SkipFilter}  * to add more control.  *<p/>  * Multiple filters can be combined using {@link org.apache.hadoop.hbase.filter.FilterList}.  *<p/>  * If an already known column family is looked for, use {@link org.apache.hadoop.hbase.client.Get#addFamily(byte[])}  * directly rather than a filter.  */
 end_comment
@@ -140,29 +130,6 @@ return|return
 name|ReturnCode
 operator|.
 name|INCLUDE
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|Filter
-name|createFilterFromArguments
-parameter_list|(
-name|ArrayList
-argument_list|<
-name|byte
-index|[]
-argument_list|>
-name|filterArguments
-parameter_list|)
-block|{
-return|return
-name|super
-operator|.
-name|createFilterFromArguments
-argument_list|(
-name|filterArguments
-argument_list|)
 return|;
 block|}
 block|}
