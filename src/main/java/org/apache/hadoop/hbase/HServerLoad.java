@@ -978,7 +978,7 @@ operator|new
 name|StringBuilder
 argument_list|()
 argument_list|,
-literal|"stores"
+literal|"numberOfStores"
 argument_list|,
 name|Integer
 operator|.
@@ -998,7 +998,7 @@ name|appendKeyValue
 argument_list|(
 name|sb
 argument_list|,
-literal|"storefiles"
+literal|"numberOfStorefiles"
 argument_list|,
 name|Integer
 operator|.
@@ -1438,7 +1438,7 @@ name|appendKeyValue
 argument_list|(
 name|sb
 argument_list|,
-literal|"requests"
+literal|"requestsPerSecond"
 argument_list|,
 name|Integer
 operator|.
@@ -1458,7 +1458,7 @@ name|appendKeyValue
 argument_list|(
 name|sb
 argument_list|,
-literal|"regions"
+literal|"numberOfOnlineRegions"
 argument_list|,
 name|Integer
 operator|.
@@ -1476,7 +1476,7 @@ name|appendKeyValue
 argument_list|(
 name|sb
 argument_list|,
-literal|"usedHeap"
+literal|"usedHeapMB"
 argument_list|,
 name|Integer
 operator|.
@@ -1496,7 +1496,7 @@ name|appendKeyValue
 argument_list|(
 name|sb
 argument_list|,
-literal|"maxHeap"
+literal|"maxHeapMB"
 argument_list|,
 name|Integer
 operator|.

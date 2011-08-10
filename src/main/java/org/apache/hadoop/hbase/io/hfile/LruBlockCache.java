@@ -2151,7 +2151,7 @@ argument_list|,
 literal|2
 argument_list|)
 operator|+
-literal|"%, "
+literal|", "
 operator|)
 operator|)
 operator|+
@@ -2198,7 +2198,7 @@ argument_list|,
 literal|2
 argument_list|)
 operator|+
-literal|"%, "
+literal|", "
 operator|)
 operator|)
 operator|+
