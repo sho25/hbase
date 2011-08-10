@@ -2532,6 +2532,25 @@ operator|.
 name|joinCluster
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|balancer
+operator|.
+name|setClusterStatus
+argument_list|(
+name|getClusterStatus
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|balancer
+operator|.
+name|setMasterServices
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
 comment|// Start balancer and meta catalog janitor after meta and regions have
 comment|// been assigned.
 name|status
