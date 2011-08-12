@@ -717,6 +717,19 @@ decl_stmt|;
 specifier|protected
 specifier|static
 specifier|final
+name|Log
+name|TRACELOG
+init|=
+name|LogFactory
+operator|.
+name|getLog
+argument_list|(
+literal|"org.apache.hadoop.ipc.HBaseServer.trace"
+argument_list|)
+decl_stmt|;
+specifier|protected
+specifier|static
+specifier|final
 name|ThreadLocal
 argument_list|<
 name|RpcServer
@@ -1209,7 +1222,7 @@ throw|;
 block|}
 block|}
 comment|/** A call queued for handling. */
-specifier|private
+specifier|protected
 class|class
 name|Call
 implements|implements
@@ -5318,6 +5331,15 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
+name|byte
+index|[]
+name|array
+init|=
+name|data
+operator|.
+name|array
+argument_list|()
+decl_stmt|;
 name|DataInputStream
 name|dis
 init|=
@@ -5327,10 +5349,7 @@ argument_list|(
 operator|new
 name|ByteArrayInputStream
 argument_list|(
-name|data
-operator|.
 name|array
-argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -5354,9 +5373,17 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|" got #"
+literal|" got call #"
 operator|+
 name|id
+operator|+
+literal|", "
+operator|+
+name|array
+operator|.
+name|length
+operator|+
+literal|" bytes"
 argument_list|)
 expr_stmt|;
 name|Writable

@@ -165,6 +165,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Objects
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|io
 operator|.
 name|*
@@ -1468,6 +1484,15 @@ name|currentTimeMillis
 argument_list|()
 decl_stmt|;
 name|Object
+index|[]
+name|params
+init|=
+name|call
+operator|.
+name|getParameters
+argument_list|()
+decl_stmt|;
+name|Object
 name|value
 init|=
 name|method
@@ -1476,10 +1501,7 @@ name|invoke
 argument_list|(
 name|impl
 argument_list|,
-name|call
-operator|.
-name|getParameters
-argument_list|()
+name|params
 argument_list|)
 decl_stmt|;
 name|int
@@ -1511,30 +1533,55 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|LOG
+name|TRACELOG
 operator|.
 name|isDebugEnabled
 argument_list|()
 condition|)
 block|{
-name|LOG
+name|TRACELOG
 operator|.
 name|debug
 argument_list|(
-literal|"Served: "
+literal|"Call #"
+operator|+
+name|CurCall
+operator|.
+name|get
+argument_list|()
+operator|.
+name|id
+operator|+
+literal|"; Served: "
+operator|+
+name|protocol
+operator|.
+name|getSimpleName
+argument_list|()
+operator|+
+literal|"#"
 operator|+
 name|call
 operator|.
 name|getMethodName
 argument_list|()
 operator|+
-literal|" queueTime= "
+literal|" queueTime="
 operator|+
 name|qTime
 operator|+
-literal|" procesingTime= "
+literal|" processingTime="
 operator|+
 name|processingTime
+operator|+
+literal|" contents="
+operator|+
+name|Objects
+operator|.
+name|describeQuantity
+argument_list|(
+name|params
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
