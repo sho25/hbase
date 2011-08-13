@@ -193,7 +193,7 @@ decl_stmt|;
 specifier|private
 name|byte
 index|[]
-name|lastRow
+name|lastSuccessfulRow
 init|=
 literal|null
 decl_stmt|;
@@ -410,7 +410,7 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|lastRow
+name|lastSuccessfulRow
 operator|==
 literal|null
 condition|)
@@ -428,17 +428,28 @@ operator|+
 literal|" why it's taking so long."
 argument_list|)
 expr_stmt|;
-name|lastRow
-operator|=
+block|}
+if|if
+condition|(
+name|lastSuccessfulRow
+operator|==
+literal|null
+condition|)
+block|{
+name|restart
+argument_list|(
 name|scan
 operator|.
 name|getStartRow
 argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
+else|else
+block|{
 name|restart
 argument_list|(
-name|lastRow
+name|lastSuccessfulRow
 argument_list|)
 expr_stmt|;
 name|scanner
@@ -447,6 +458,7 @@ name|next
 argument_list|()
 expr_stmt|;
 comment|// skip presumed already mapped row
+block|}
 name|value
 operator|=
 name|scanner
@@ -479,7 +491,7 @@ name|getRow
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|lastRow
+name|lastSuccessfulRow
 operator|=
 name|key
 operator|.

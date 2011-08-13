@@ -247,7 +247,7 @@ decl_stmt|;
 specifier|private
 name|byte
 index|[]
-name|lastRow
+name|lastSuccessfulRow
 decl_stmt|;
 specifier|private
 name|Filter
@@ -658,7 +658,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|UnknownScannerException
+name|IOException
 name|e
 parameter_list|)
 block|{
@@ -676,9 +676,45 @@ name|e
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|lastSuccessfulRow
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"We are restarting the first next() invocation,"
+operator|+
+literal|" if your mapper's restarted a few other times like this"
+operator|+
+literal|" then you should consider killing this job and investigate"
+operator|+
+literal|" why it's taking so long."
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|lastSuccessfulRow
+operator|==
+literal|null
+condition|)
+block|{
 name|restart
 argument_list|(
-name|lastRow
+name|startRow
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|restart
+argument_list|(
+name|lastSuccessfulRow
 argument_list|)
 expr_stmt|;
 name|this
@@ -689,6 +725,7 @@ name|next
 argument_list|()
 expr_stmt|;
 comment|// skip presumed already mapped row
+block|}
 name|result
 operator|=
 name|this
@@ -723,7 +760,7 @@ name|getRow
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|lastRow
+name|lastSuccessfulRow
 operator|=
 name|key
 operator|.
