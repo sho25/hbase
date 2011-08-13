@@ -205,6 +205,20 @@ name|PoolMap
 parameter_list|(
 name|PoolType
 name|poolType
+parameter_list|)
+block|{
+name|this
+operator|.
+name|poolType
+operator|=
+name|poolType
+expr_stmt|;
+block|}
+specifier|public
+name|PoolMap
+parameter_list|(
+name|PoolType
+name|poolType
 parameter_list|,
 name|int
 name|poolMaxSize
@@ -1265,9 +1279,7 @@ name|ThreadLocalPool
 argument_list|<
 name|V
 argument_list|>
-argument_list|(
-name|poolMaxSize
-argument_list|)
+argument_list|()
 return|;
 block|}
 return|return
@@ -1496,7 +1508,7 @@ name|this
 return|;
 block|}
 block|}
-comment|/**    * The<code>ThreadLocalPool</code> represents a {@link PoolMap.Pool} that    * builds on the {@link ThreadLocal} class. It essentially binds the resource    * to the thread from which it is accessed.    *    *<p>    * If {@link #maxSize} is set to {@link Integer#MAX_VALUE}, then the size of    * the pool is bounded only by the number of threads that add resources to    * this pool. Otherwise, it caps the number of threads that can set a value on    * this {@link ThreadLocal} instance to the (non-zero positive) value    * specified in {@link #maxSize}.    *</p>    *    *    * @param<R>    *          the type of the resource    */
+comment|/**    * The<code>ThreadLocalPool</code> represents a {@link PoolMap.Pool} that    * builds on the {@link ThreadLocal} class. It essentially binds the resource    * to the thread from which it is accessed.    *    *<p>    * Note that the size of the pool is essentially bounded by the number of threads    * that add resources to this pool.    *</p>    *    * @param<R>    *          the type of the resource    */
 specifier|static
 class|class
 name|ThreadLocalPool
@@ -1540,24 +1552,10 @@ name|AtomicInteger
 argument_list|>
 argument_list|()
 decl_stmt|;
-specifier|private
-name|int
-name|maxSize
-decl_stmt|;
 specifier|public
 name|ThreadLocalPool
-parameter_list|(
-name|int
-name|maxSize
-parameter_list|)
-block|{
-name|this
-operator|.
-name|maxSize
-operator|=
-name|maxSize
-expr_stmt|;
-block|}
+parameter_list|()
+block|{     }
 annotation|@
 name|Override
 specifier|public

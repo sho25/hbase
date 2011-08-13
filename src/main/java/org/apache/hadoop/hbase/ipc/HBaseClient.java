@@ -3198,7 +3198,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Return the pool type specified in the configuration, if it roughly equals either    * the name of {@link PoolType#RoundRobin} or {@link PoolType#ThreadLocal}, otherwise    * default to the former type.    *    * @param config configuration    * @return either a {@link PoolType#RoundRobin} or {@link PoolType#ThreadLocal}    */
+comment|/**    * Return the pool type specified in the configuration, which must be set to    * either {@link PoolType#RoundRobin} or {@link PoolType#ThreadLocal},    * otherwise default to the former.    *    * For applications with many user threads, use a small round-robin pool. For    * applications with few user threads, you may want to try using a    * thread-local pool. In any case, the number of {@link HBaseClient} instances    * should not exceed the operating system's hard limit on the number of    * connections.    *    * @param config configuration    * @return either a {@link PoolType#RoundRobin} or    *         {@link PoolType#ThreadLocal}    */
 specifier|private
 specifier|static
 name|PoolType
@@ -3232,7 +3232,7 @@ name|ThreadLocal
 argument_list|)
 return|;
 block|}
-comment|/**    * Return the pool size specified in the configuration, otherwise the maximum allowable     * size (which for all intents and purposes represents an unbounded pool).    *    * @param config    * @return the maximum pool size    */
+comment|/**    * Return the pool size specified in the configuration, which is applicable only if    * the pool type is {@link PoolType#RoundRobin}.    *    * @param config    * @return the maximum pool size    */
 specifier|private
 specifier|static
 name|int
