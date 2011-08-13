@@ -1405,7 +1405,7 @@ name|splitKeys
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a new table with an initial set of empty regions defined by the    * specified split keys.  The total number of regions created will be the    * number of split keys plus one (the first region has a null start key and    * the last region has a null end key).    * Synchronous operation.    *    * @param desc table descriptor for table    * @param splitKeys array of split keys for the initial regions of the table    *    * @throws IllegalArgumentException if the table name is reserved    * @throws MasterNotRunningException if master is not running    * @throws TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence    * and attempt-at-creation).    * @throws IOException    */
+comment|/**    * Creates a new table with an initial set of empty regions defined by the    * specified split keys.  The total number of regions created will be the    * number of split keys plus one. Synchronous operation.    *    * @param desc table descriptor for table    * @param splitKeys array of split keys for the initial regions of the table    *    * @throws IllegalArgumentException if the table name is reserved    * @throws MasterNotRunningException if master is not running    * @throws TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence    * and attempt-at-creation).    * @throws IOException    */
 specifier|public
 name|void
 name|createTable
