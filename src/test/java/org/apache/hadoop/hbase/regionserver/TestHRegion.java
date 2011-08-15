@@ -667,7 +667,7 @@ name|regionserver
 operator|.
 name|HRegion
 operator|.
-name|RegionScanner
+name|RegionScannerImpl
 import|;
 end_import
 
@@ -10197,7 +10197,7 @@ literal|null
 decl_stmt|;
 name|HRegion
 operator|.
-name|RegionScanner
+name|RegionScannerImpl
 name|is
 init|=
 literal|null
@@ -10227,7 +10227,7 @@ expr_stmt|;
 name|is
 operator|=
 operator|(
-name|RegionScanner
+name|RegionScannerImpl
 operator|)
 name|region
 operator|.
@@ -10252,7 +10252,7 @@ literal|1
 argument_list|,
 operator|(
 operator|(
-name|RegionScanner
+name|RegionScannerImpl
 operator|)
 name|is
 operator|)
@@ -10275,7 +10275,7 @@ expr_stmt|;
 name|is
 operator|=
 operator|(
-name|RegionScanner
+name|RegionScannerImpl
 operator|)
 name|region
 operator|.
@@ -10304,7 +10304,7 @@ literal|1
 argument_list|,
 operator|(
 operator|(
-name|RegionScanner
+name|RegionScannerImpl
 operator|)
 name|is
 operator|)

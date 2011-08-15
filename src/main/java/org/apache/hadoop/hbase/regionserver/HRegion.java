@@ -5421,9 +5421,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Return an iterator that scans over the HRegion, returning the indicated    * columns and rows specified by the {@link Scan}.    *<p>    * This Iterator must be closed by the caller.    *    * @param scan configured {@link Scan}    * @return InternalScanner    * @throws IOException read exceptions    */
+comment|/**    * Return an iterator that scans over the HRegion, returning the indicated    * columns and rows specified by the {@link Scan}.    *<p>    * This Iterator must be closed by the caller.    *    * @param scan configured {@link Scan}    * @return RegionScanner    * @throws IOException read exceptions    */
 specifier|public
-name|InternalScanner
+name|RegionScanner
 name|getScanner
 parameter_list|(
 name|Scan
@@ -5485,7 +5485,7 @@ block|}
 block|}
 block|}
 specifier|protected
-name|InternalScanner
+name|RegionScanner
 name|getScanner
 parameter_list|(
 name|Scan
@@ -5549,7 +5549,7 @@ expr_stmt|;
 block|}
 block|}
 return|return
-name|instantiateInternalScanner
+name|instantiateRegionScanner
 argument_list|(
 name|scan
 argument_list|,
@@ -5565,8 +5565,8 @@ expr_stmt|;
 block|}
 block|}
 specifier|protected
-name|InternalScanner
-name|instantiateInternalScanner
+name|RegionScanner
+name|instantiateRegionScanner
 parameter_list|(
 name|Scan
 name|scan
@@ -5582,7 +5582,7 @@ name|IOException
 block|{
 return|return
 operator|new
-name|RegionScanner
+name|RegionScannerImpl
 argument_list|(
 name|scan
 argument_list|,
@@ -10635,11 +10635,11 @@ operator|.
 name|tableDir
 return|;
 block|}
-comment|/**    * RegionScanner is an iterator through a bunch of rows in an HRegion.    *<p>    * It is used to combine scanners from multiple Stores (aka column families).    */
+comment|/**    * RegionScannerImpl is used to combine scanners from multiple Stores (aka column families).    */
 class|class
-name|RegionScanner
+name|RegionScannerImpl
 implements|implements
-name|InternalScanner
+name|RegionScanner
 block|{
 comment|// Package local for testability
 name|KeyValueHeap
@@ -10691,14 +10691,14 @@ name|readPt
 decl_stmt|;
 specifier|public
 name|HRegionInfo
-name|getRegionName
+name|getRegionInfo
 parameter_list|()
 block|{
 return|return
 name|regionInfo
 return|;
 block|}
-name|RegionScanner
+name|RegionScannerImpl
 parameter_list|(
 name|Scan
 name|scan
@@ -10892,7 +10892,7 @@ name|comparator
 argument_list|)
 expr_stmt|;
 block|}
-name|RegionScanner
+name|RegionScannerImpl
 parameter_list|(
 name|Scan
 name|scan
@@ -11057,6 +11057,7 @@ argument_list|)
 return|;
 block|}
 comment|/*      * @return True if a filter rules the scanner is over, done.      */
+specifier|public
 specifier|synchronized
 name|boolean
 name|isFilterDone
@@ -14174,7 +14175,7 @@ operator|.
 name|checkOnlyMemStore
 argument_list|()
 expr_stmt|;
-name|InternalScanner
+name|RegionScanner
 name|scanner
 init|=
 literal|null
@@ -14589,7 +14590,7 @@ name|results
 return|;
 block|}
 block|}
-name|InternalScanner
+name|RegionScanner
 name|scanner
 init|=
 literal|null
@@ -16344,7 +16345,7 @@ name|Scan
 argument_list|()
 decl_stmt|;
 comment|// scan.addFamily(HConstants.CATALOG_FAMILY);
-name|InternalScanner
+name|RegionScanner
 name|scanner
 init|=
 name|region

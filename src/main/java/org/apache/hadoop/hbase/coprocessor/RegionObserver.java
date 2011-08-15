@@ -239,6 +239,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|RegionScanner
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|wal
 operator|.
 name|HLogKey
@@ -1002,8 +1018,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the client opens a new scanner.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param scan the Scan specification    * @param s if not null, the base scanner    * @return an InternalScanner instance to use instead of the base scanner if    * overriding default behavior, null otherwise    * @throws IOException if an error occurred on the coprocessor    */
-name|InternalScanner
+comment|/**    * Called before the client opens a new scanner.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param scan the Scan specification    * @param s if not null, the base scanner    * @return an RegionScanner instance to use instead of the base scanner if    * overriding default behavior, null otherwise    * @throws IOException if an error occurred on the coprocessor    */
+name|RegionScanner
 name|preScannerOpen
 parameter_list|(
 specifier|final
@@ -1018,14 +1034,14 @@ name|Scan
 name|scan
 parameter_list|,
 specifier|final
-name|InternalScanner
+name|RegionScanner
 name|s
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Called after the client opens a new scanner.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param scan the Scan specification    * @param s if not null, the base scanner    * @return the scanner instance to use    * @throws IOException if an error occurred on the coprocessor    */
-name|InternalScanner
+name|RegionScanner
 name|postScannerOpen
 parameter_list|(
 specifier|final
@@ -1040,7 +1056,7 @@ name|Scan
 name|scan
 parameter_list|,
 specifier|final
-name|InternalScanner
+name|RegionScanner
 name|s
 parameter_list|)
 throws|throws

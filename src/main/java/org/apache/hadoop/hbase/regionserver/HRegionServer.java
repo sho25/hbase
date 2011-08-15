@@ -2123,7 +2123,7 @@ name|Map
 argument_list|<
 name|String
 argument_list|,
-name|InternalScanner
+name|RegionScanner
 argument_list|>
 name|scanners
 init|=
@@ -2132,7 +2132,7 @@ name|ConcurrentHashMap
 argument_list|<
 name|String
 argument_list|,
-name|InternalScanner
+name|RegionScanner
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -2982,7 +2982,7 @@ argument_list|(
 name|scannerId
 argument_list|)
 decl_stmt|;
-name|InternalScanner
+name|RegionScanner
 name|scanner
 init|=
 name|scanners
@@ -2992,33 +2992,12 @@ argument_list|(
 name|scannerIdString
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|scanner
-operator|instanceof
-name|HRegion
-operator|.
-name|RegionScanner
-condition|)
-block|{
-name|HRegion
-operator|.
-name|RegionScanner
-name|rs
-init|=
-operator|(
-name|HRegion
-operator|.
-name|RegionScanner
-operator|)
-name|scanner
-decl_stmt|;
 name|HRegionInfo
 name|regionName
 init|=
-name|rs
+name|scanner
 operator|.
-name|getRegionName
+name|getRegionInfo
 argument_list|()
 decl_stmt|;
 if|if
@@ -3033,7 +3012,6 @@ comment|// LOG.debug("High priority scanner request: " + scannerId);
 return|return
 name|HIGH_QOS
 return|;
-block|}
 block|}
 block|}
 elseif|else
@@ -4769,7 +4747,7 @@ name|Entry
 argument_list|<
 name|String
 argument_list|,
-name|InternalScanner
+name|RegionScanner
 argument_list|>
 name|e
 range|:
@@ -10624,7 +10602,7 @@ argument_list|(
 name|scan
 argument_list|)
 expr_stmt|;
-name|InternalScanner
+name|RegionScanner
 name|s
 init|=
 literal|null
@@ -10727,7 +10705,7 @@ specifier|protected
 name|long
 name|addScanner
 parameter_list|(
-name|InternalScanner
+name|RegionScanner
 name|s
 parameter_list|)
 throws|throws
@@ -10861,7 +10839,7 @@ argument_list|(
 name|scannerId
 argument_list|)
 decl_stmt|;
-name|InternalScanner
+name|RegionScanner
 name|s
 init|=
 name|this
@@ -10993,55 +10971,17 @@ comment|// Call coprocessor. Get region info from scanner.
 name|HRegion
 name|region
 init|=
-literal|null
-decl_stmt|;
-if|if
-condition|(
-name|s
-operator|instanceof
-name|HRegion
-operator|.
-name|RegionScanner
-condition|)
-block|{
-name|HRegion
-operator|.
-name|RegionScanner
-name|rs
-init|=
-operator|(
-name|HRegion
-operator|.
-name|RegionScanner
-operator|)
-name|s
-decl_stmt|;
-name|region
-operator|=
 name|getRegion
 argument_list|(
-name|rs
+name|s
 operator|.
-name|getRegionName
+name|getRegionInfo
 argument_list|()
 operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"InternalScanner implementation is expected "
-operator|+
-literal|"to be HRegion.RegionScanner."
-argument_list|)
-throw|;
-block|}
+decl_stmt|;
 if|if
 condition|(
 name|region
@@ -11119,14 +11059,7 @@ literal|null
 condition|)
 block|{
 return|return
-operator|(
-operator|(
-name|HRegion
-operator|.
-name|RegionScanner
-operator|)
 name|s
-operator|)
 operator|.
 name|isFilterDone
 argument_list|()
@@ -11269,21 +11202,11 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Below is an ugly hack where we cast the InternalScanner to be a
-comment|// HRegion.RegionScanner. The alternative is to change InternalScanner
-comment|// interface but its used everywhere whereas we just need a bit of info
-comment|// from HRegion.RegionScanner, IF its filter if any is done with the scan
+comment|// If the scanner's filter - if any - is done with the scan
 comment|// and wants to tell the client to stop the scan. This is done by passing
 comment|// a null result.
 return|return
-operator|(
-operator|(
-name|HRegion
-operator|.
-name|RegionScanner
-operator|)
 name|s
-operator|)
 operator|.
 name|isFilterDone
 argument_list|()
@@ -11408,7 +11331,7 @@ argument_list|(
 name|scannerId
 argument_list|)
 decl_stmt|;
-name|InternalScanner
+name|RegionScanner
 name|s
 init|=
 name|scanners
@@ -11431,53 +11354,19 @@ literal|null
 condition|)
 block|{
 comment|// call coprocessor.
-if|if
-condition|(
-name|s
-operator|instanceof
-name|HRegion
-operator|.
-name|RegionScanner
-condition|)
-block|{
-name|HRegion
-operator|.
-name|RegionScanner
-name|rs
-init|=
-operator|(
-name|HRegion
-operator|.
-name|RegionScanner
-operator|)
-name|s
-decl_stmt|;
 name|region
 operator|=
 name|getRegion
 argument_list|(
-name|rs
+name|s
 operator|.
-name|getRegionName
+name|getRegionInfo
 argument_list|()
 operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"InternalScanner implementation is expected "
-operator|+
-literal|"to be HRegion.RegionScanner."
-argument_list|)
-throw|;
-block|}
 if|if
 condition|(
 name|region
@@ -11634,7 +11523,7 @@ operator|+
 literal|" lease expired"
 argument_list|)
 expr_stmt|;
-name|InternalScanner
+name|RegionScanner
 name|s
 init|=
 name|scanners

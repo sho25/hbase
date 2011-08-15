@@ -950,7 +950,7 @@ operator|(
 operator|(
 name|HRegion
 operator|.
-name|RegionScanner
+name|RegionScannerImpl
 operator|)
 name|s
 operator|)

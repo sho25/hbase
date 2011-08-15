@@ -3774,7 +3774,7 @@ block|}
 block|}
 comment|/**    * @param scan the Scan specification    * @return scanner id to return to client if default operation should be    * bypassed, false otherwise    * @exception IOException Exception    */
 specifier|public
-name|InternalScanner
+name|RegionScanner
 name|preScannerOpen
 parameter_list|(
 name|Scan
@@ -3788,7 +3788,7 @@ name|bypass
 init|=
 literal|false
 decl_stmt|;
-name|InternalScanner
+name|RegionScanner
 name|s
 init|=
 literal|null
@@ -3880,14 +3880,14 @@ return|;
 block|}
 comment|/**    * @param scan the Scan specification    * @param s the scanner    * @return the scanner instance to use    * @exception IOException Exception    */
 specifier|public
-name|InternalScanner
+name|RegionScanner
 name|postScannerOpen
 parameter_list|(
 specifier|final
 name|Scan
 name|scan
 parameter_list|,
-name|InternalScanner
+name|RegionScanner
 name|s
 parameter_list|)
 throws|throws
