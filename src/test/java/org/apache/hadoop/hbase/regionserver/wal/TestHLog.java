@@ -311,8 +311,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|coprocessor
-operator|.
 name|Coprocessor
 import|;
 end_import

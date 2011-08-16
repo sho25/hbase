@@ -151,22 +151,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|coprocessor
-operator|.
-name|Coprocessor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|io
 operator|.
 name|ImmutableBytesWritable
@@ -188,22 +172,6 @@ operator|.
 name|hfile
 operator|.
 name|Compression
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|RegionCoprocessorHost
 import|;
 end_import
 
@@ -3221,7 +3189,6 @@ argument_list|)
 throw|;
 block|}
 comment|// validate parameter kvs
-comment|//String kvString = "";
 name|StringBuilder
 name|kvString
 init|=
@@ -3264,9 +3231,9 @@ argument_list|()
 operator|.
 name|matches
 argument_list|(
-name|RegionCoprocessorHost
+name|HConstants
 operator|.
-name|PARAMETER_KEY_PATTERN
+name|CP_HTD_ATTR_VALUE_PARAM_KEY_PATTERN
 argument_list|)
 condition|)
 block|{
@@ -3293,9 +3260,9 @@ argument_list|()
 operator|.
 name|matches
 argument_list|(
-name|RegionCoprocessorHost
+name|HConstants
 operator|.
-name|PARAMETER_VALUE_PATTERN
+name|CP_HTD_ATTR_VALUE_PARAM_VALUE_PATTERN
 argument_list|)
 condition|)
 block|{
@@ -3397,9 +3364,9 @@ control|)
 block|{
 name|keyMatcher
 operator|=
-name|RegionCoprocessorHost
+name|HConstants
 operator|.
-name|CP_KEY_PATTERN
+name|CP_HTD_ATTR_KEY_PATTERN
 operator|.
 name|matcher
 argument_list|(
@@ -3547,9 +3514,9 @@ control|)
 block|{
 name|keyMatcher
 operator|=
-name|RegionCoprocessorHost
+name|HConstants
 operator|.
-name|CP_KEY_PATTERN
+name|CP_HTD_ATTR_KEY_PATTERN
 operator|.
 name|matcher
 argument_list|(
@@ -3580,9 +3547,9 @@ continue|continue;
 block|}
 name|valueMatcher
 operator|=
-name|RegionCoprocessorHost
+name|HConstants
 operator|.
-name|CP_VALUE_PATTERN
+name|CP_HTD_ATTR_VALUE_PATTERN
 operator|.
 name|matcher
 argument_list|(

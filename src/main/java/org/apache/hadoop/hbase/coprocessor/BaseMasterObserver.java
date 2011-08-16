@@ -55,7 +55,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerInfo
+name|CoprocessorEnvironment
 import|;
 end_import
 
