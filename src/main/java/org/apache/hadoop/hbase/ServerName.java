@@ -452,6 +452,7 @@ name|long
 name|startcode
 parameter_list|)
 block|{
+specifier|final
 name|StringBuilder
 name|name
 init|=
@@ -459,8 +460,26 @@ operator|new
 name|StringBuilder
 argument_list|(
 name|hostName
+operator|.
+name|length
+argument_list|()
+operator|+
+literal|1
+operator|+
+literal|5
+operator|+
+literal|1
+operator|+
+literal|13
 argument_list|)
 decl_stmt|;
+name|name
+operator|.
+name|append
+argument_list|(
+name|hostName
+argument_list|)
+expr_stmt|;
 name|name
 operator|.
 name|append
@@ -499,7 +518,6 @@ block|}
 comment|/**    * @param hostAndPort String in form of&lt;hostname> ':'&lt;port>    * @param startcode    * @return Server name made of the concatenation of hostname, port and    * startcode formatted as<code>&lt;hostname> ','&lt;port> ','&lt;startcode></code>    */
 specifier|public
 specifier|static
-specifier|synchronized
 name|String
 name|getServerName
 parameter_list|(
