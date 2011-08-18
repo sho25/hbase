@@ -2095,7 +2095,7 @@ return|return
 name|tableInfoPath
 return|;
 block|}
-comment|/**    * Create new HTableDescriptor in HDFS.    * @param htableDescriptor    */
+comment|/**    * Create new HTableDescriptor in HDFS.    *     * @param htableDescriptor    */
 specifier|public
 name|void
 name|createTableDescriptor
@@ -2103,6 +2103,8 @@ parameter_list|(
 name|HTableDescriptor
 name|htableDescriptor
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|FSUtils
 operator|.

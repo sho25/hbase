@@ -3940,13 +3940,13 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Create new HTableDescriptor in HDFS.  Happens when we are creating table.   /**    * @param htableDescriptor    * @param conf    */
+comment|/**    * Create new HTableDescriptor in HDFS. Happens when we are creating table.    *     * @param htableDescriptor    * @param conf    */
 end_comment
 
 begin_function
 specifier|public
 specifier|static
-name|void
+name|boolean
 name|createTableDescriptor
 parameter_list|(
 name|HTableDescriptor
@@ -3955,8 +3955,43 @@ parameter_list|,
 name|Configuration
 name|conf
 parameter_list|)
+throws|throws
+name|IOException
 block|{
-try|try
+return|return
+name|createTableDescriptor
+argument_list|(
+name|htableDescriptor
+argument_list|,
+name|conf
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Create new HTableDescriptor in HDFS. Happens when we are creating table. If    * forceCreation is true then even if previous table descriptor is present it    * will be overwritten    *     * @param htableDescriptor    * @param conf    * @param forceCreation    */
+end_comment
+
+begin_function
+specifier|public
+specifier|static
+name|boolean
+name|createTableDescriptor
+parameter_list|(
+name|HTableDescriptor
+name|htableDescriptor
+parameter_list|,
+name|Configuration
+name|conf
+parameter_list|,
+name|boolean
+name|forceCreation
+parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|FileSystem
 name|fs
@@ -3966,6 +4001,7 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
+return|return
 name|createTableDescriptor
 argument_list|(
 name|fs
@@ -3976,36 +4012,21 @@ name|conf
 argument_list|)
 argument_list|,
 name|htableDescriptor
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|ioe
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"IOException while trying to create tableInfo in HDFS"
 argument_list|,
-name|ioe
+name|forceCreation
 argument_list|)
-expr_stmt|;
-block|}
+return|;
 block|}
 end_function
 
 begin_comment
-comment|/**    * @param fs    * @param htableDescriptor    * @param rootdir    */
+comment|/**    * Create new HTableDescriptor in HDFS. Happens when we are creating table.    *     * @param fs    * @param htableDescriptor    * @param rootdir    */
 end_comment
 
 begin_function
 specifier|public
 specifier|static
-name|void
+name|boolean
 name|createTableDescriptor
 parameter_list|(
 name|FileSystem
@@ -4017,8 +4038,48 @@ parameter_list|,
 name|HTableDescriptor
 name|htableDescriptor
 parameter_list|)
+throws|throws
+name|IOException
 block|{
-try|try
+return|return
+name|createTableDescriptor
+argument_list|(
+name|fs
+argument_list|,
+name|rootdir
+argument_list|,
+name|htableDescriptor
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Create new HTableDescriptor in HDFS. Happens when we are creating table. If    * forceCreation is true then even if previous table descriptor is present it    * will be overwritten    *     * @param fs    * @param htableDescriptor    * @param rootdir    * @param forceCreation    */
+end_comment
+
+begin_function
+specifier|public
+specifier|static
+name|boolean
+name|createTableDescriptor
+parameter_list|(
+name|FileSystem
+name|fs
+parameter_list|,
+name|Path
+name|rootdir
+parameter_list|,
+name|HTableDescriptor
+name|htableDescriptor
+parameter_list|,
+name|boolean
+name|forceCreation
+parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|Path
 name|tableInfoPath
@@ -4042,6 +4103,12 @@ operator|+
 name|tableInfoPath
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|forceCreation
+condition|)
+block|{
 if|if
 condition|(
 name|fs
@@ -4071,7 +4138,10 @@ argument_list|(
 literal|"TableInfo already exists.. Skipping creation"
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+literal|false
+return|;
+block|}
 block|}
 name|writeTableDescriptor
 argument_list|(
@@ -4088,25 +4158,13 @@ operator|.
 name|getNameAsString
 argument_list|()
 argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|ioe
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"IOException while trying to create tableInfo in HDFS"
 argument_list|,
-name|ioe
+name|forceCreation
 argument_list|)
 expr_stmt|;
-block|}
+return|return
+literal|true
+return|;
 block|}
 end_function
 
@@ -4170,7 +4228,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Called when we are creating a table to write out the tables' descriptor.    * @param fs    * @param hTableDescriptor    * @param tableDir    * @throws IOException    */
+comment|/**    * Called when we are creating a table to write out the tables' descriptor.    *     * @param fs    * @param hTableDescriptor    * @param tableDir    * @throws IOException    */
 end_comment
 
 begin_function
@@ -4187,12 +4245,15 @@ name|hTableDescriptor
 parameter_list|,
 name|Path
 name|tableDir
+parameter_list|,
+name|boolean
+name|forceCreation
 parameter_list|)
 throws|throws
 name|IOException
 block|{
 comment|// Create in tmpdir and then move into place in case we crash after
-comment|// create but before close.  If we don't successfully close the file,
+comment|// create but before close. If we don't successfully close the file,
 comment|// subsequent region reopens will fail the below because create is
 comment|// registered in NN.
 name|Path
@@ -4240,6 +4301,8 @@ operator|+
 name|tmpPath
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|writeHTD
 argument_list|(
 name|fs
@@ -4249,6 +4312,73 @@ argument_list|,
 name|hTableDescriptor
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Unable to write the tabledescriptor in the path"
+operator|+
+name|tmpPath
+operator|+
+literal|"."
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+throw|throw
+name|e
+throw|;
+block|}
+if|if
+condition|(
+name|forceCreation
+condition|)
+block|{
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|tableInfoPath
+argument_list|,
+literal|false
+argument_list|)
+condition|)
+block|{
+name|String
+name|errMsg
+init|=
+literal|"Unable to delete "
+operator|+
+name|tableInfoPath
+operator|+
+literal|" while forcefully writing the table descriptor."
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|errMsg
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|errMsg
+argument_list|)
+throw|;
+block|}
+block|}
 if|if
 condition|(
 operator|!
@@ -4262,10 +4392,9 @@ name|tableInfoPath
 argument_list|)
 condition|)
 block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
+name|String
+name|errMsg
+init|=
 literal|"Unable to rename "
 operator|+
 name|tmpPath
@@ -4273,6 +4402,19 @@ operator|+
 literal|" to "
 operator|+
 name|tableInfoPath
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|errMsg
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|errMsg
 argument_list|)
 throw|;
 block|}
