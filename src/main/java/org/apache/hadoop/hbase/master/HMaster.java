@@ -7022,6 +7022,19 @@ return|;
 block|}
 end_function
 
+begin_function
+name|boolean
+name|isAborted
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|abort
+return|;
+block|}
+end_function
+
 begin_comment
 comment|/**    * Report whether this master is currently the active master or not.    * If not active master, we are parked on ZK waiting to become active.    *    * This method is used for testing.    *    * @return true if active master, false if not.    */
 end_comment
