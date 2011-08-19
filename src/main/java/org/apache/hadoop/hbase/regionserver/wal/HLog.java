@@ -129,6 +129,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Collections
 import|;
 end_import
@@ -160,16 +170,6 @@ operator|.
 name|util
 operator|.
 name|NavigableSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Arrays
 import|;
 end_import
 
@@ -443,7 +443,77 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|*
+name|HBaseConfiguration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HTableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ServerName
 import|;
 end_import
 
@@ -665,7 +735,7 @@ name|oldLogDir
 decl_stmt|;
 specifier|private
 name|boolean
-name|logRollRequested
+name|logRollRunning
 decl_stmt|;
 specifier|private
 specifier|static
@@ -708,11 +778,12 @@ name|FSDataOutputStream
 name|hdfs_out
 decl_stmt|;
 comment|// FSDataOutputStream associated with the current SequenceFile.writer
+comment|// Minimum tolerable replicas, if the actual value is lower than it,
+comment|// rollWriter will be triggered
 specifier|private
 name|int
-name|initialReplication
+name|minTolerableReplication
 decl_stmt|;
-comment|// initial replication factor of SequenceFile.writer
 specifier|private
 name|Method
 name|getNumCurrentReplicas
@@ -924,6 +995,32 @@ name|AtomicInteger
 argument_list|(
 literal|0
 argument_list|)
+decl_stmt|;
+comment|// If live datanode count is lower than the default replicas value,
+comment|// RollWriter will be triggered in each sync(So the RollWriter will be
+comment|// triggered one by one in a short time). Using it as a workaround to slow
+comment|// down the roll frequency triggered by checkLowReplication().
+specifier|private
+specifier|volatile
+name|int
+name|consecutiveLogRolls
+init|=
+literal|0
+decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|lowReplicationRollLimit
+decl_stmt|;
+comment|// If consecutiveLogRolls is larger than lowReplicationRollLimit,
+comment|// then disable the rolling in checkLowReplication().
+comment|// Enable it if the replications recover.
+specifier|private
+specifier|volatile
+name|boolean
+name|lowReplicationRollEnabled
+init|=
+literal|true
 decl_stmt|;
 comment|// If> than this size, roll the log. This is typically 0.95 times the size
 comment|// of the default Hdfs block size.
@@ -1458,6 +1555,37 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
+name|minTolerableReplication
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.regionserver.hlog.tolerable.lowreplication"
+argument_list|,
+name|this
+operator|.
+name|fs
+operator|.
+name|getDefaultReplication
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|lowReplicationRollLimit
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.regionserver.hlog.lowreplication.rolllimit"
+argument_list|,
+literal|5
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
 name|enabled
 operator|=
 name|conf
@@ -1949,6 +2077,12 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
+name|this
+operator|.
+name|logRollRunning
+operator|=
+literal|true
+expr_stmt|;
 try|try
 block|{
 if|if
@@ -1999,19 +2133,6 @@ name|newPath
 argument_list|,
 name|conf
 argument_list|)
-decl_stmt|;
-name|int
-name|nextInitialReplication
-init|=
-name|fs
-operator|.
-name|getFileStatus
-argument_list|(
-name|newPath
-argument_list|)
-operator|.
-name|getReplication
-argument_list|()
 decl_stmt|;
 comment|// Can we get at the dfsclient outputstream?  If an instance of
 comment|// SFLW, it'll have done the necessary reflection to get at the
@@ -2094,12 +2215,6 @@ name|nextWriter
 expr_stmt|;
 name|this
 operator|.
-name|initialReplication
-operator|=
-name|nextInitialReplication
-expr_stmt|;
-name|this
-operator|.
 name|hdfs_out
 operator|=
 name|nextHdfsOut
@@ -2168,12 +2283,6 @@ name|set
 argument_list|(
 literal|0
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|logRollRequested
-operator|=
-literal|false
 expr_stmt|;
 block|}
 comment|// Can we delete any of the old log files?
@@ -2263,6 +2372,12 @@ block|}
 block|}
 finally|finally
 block|{
+name|this
+operator|.
+name|logRollRunning
+operator|=
+literal|false
+expr_stmt|;
 name|this
 operator|.
 name|cacheFlushLock
@@ -4105,7 +4220,9 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-name|logRollRequested
+name|this
+operator|.
+name|logRollRunning
 condition|)
 block|{
 name|checkLowReplication
@@ -4163,7 +4280,7 @@ name|void
 name|checkLowReplication
 parameter_list|()
 block|{
-comment|// if the number of replicas in HDFS has fallen below the initial
+comment|// if the number of replicas in HDFS has fallen below the configured
 comment|// value, then roll logs.
 try|try
 block|{
@@ -4183,7 +4300,25 @@ name|numCurrentReplicas
 operator|<
 name|this
 operator|.
-name|initialReplication
+name|minTolerableReplication
+condition|)
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|lowReplicationRollEnabled
+condition|)
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|consecutiveLogRolls
+operator|<
+name|this
+operator|.
+name|lowReplicationRollLimit
 condition|)
 block|{
 name|LOG
@@ -4196,11 +4331,11 @@ literal|"Found "
 operator|+
 name|numCurrentReplicas
 operator|+
-literal|" replicas but expecting "
+literal|" replicas but expecting no less than "
 operator|+
 name|this
 operator|.
-name|initialReplication
+name|minTolerableReplication
 operator|+
 literal|" replicas. "
 operator|+
@@ -4210,10 +4345,92 @@ expr_stmt|;
 name|requestLogRoll
 argument_list|()
 expr_stmt|;
-name|logRollRequested
+comment|// If rollWriter is requested, increase consecutiveLogRolls. Once it
+comment|// is larger than lowReplicationRollLimit, disable the
+comment|// LowReplication-Roller
+name|this
+operator|.
+name|consecutiveLogRolls
+operator|++
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Too many consecutive RollWriter requests, it's a sign of "
+operator|+
+literal|"the total number of live datanodes is lower than the tolerable replicas."
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|consecutiveLogRolls
+operator|=
+literal|0
+expr_stmt|;
+name|this
+operator|.
+name|lowReplicationRollEnabled
+operator|=
+literal|false
+expr_stmt|;
+block|}
+block|}
+block|}
+elseif|else
+if|if
+condition|(
+name|numCurrentReplicas
+operator|>=
+name|this
+operator|.
+name|minTolerableReplication
+condition|)
+block|{
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|lowReplicationRollEnabled
+condition|)
+block|{
+comment|// The new writer's log replicas is always the default value.
+comment|// So we should not enable LowReplication-Roller. If numEntries
+comment|// is lower than or equals 1, we consider it as a new writer.
+if|if
+condition|(
+name|this
+operator|.
+name|numEntries
+operator|.
+name|get
+argument_list|()
+operator|<=
+literal|1
+condition|)
+block|{
+return|return;
+block|}
+comment|// Once the live datanode number and the replicas return to normal,
+comment|// enable the LowReplication-Roller.
+name|this
+operator|.
+name|lowReplicationRollEnabled
 operator|=
 literal|true
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"LowReplication-Roller was enabled."
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 catch|catch
@@ -5222,6 +5439,22 @@ name|METAFAMILY
 argument_list|,
 name|family
 argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Get LowReplication-Roller status    *     * @return lowReplicationRollEnabled    */
+end_comment
+
+begin_function
+specifier|public
+name|boolean
+name|isLowReplicationRollEnabled
+parameter_list|()
+block|{
+return|return
+name|lowReplicationRollEnabled
 return|;
 block|}
 end_function
