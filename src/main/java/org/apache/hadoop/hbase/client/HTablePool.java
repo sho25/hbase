@@ -663,6 +663,17 @@ block|{
 comment|// release table instance since we're not reusing it
 name|this
 operator|.
+name|tables
+operator|.
+name|remove
+argument_list|(
+name|tableName
+argument_list|,
+name|table
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
 name|tableFactory
 operator|.
 name|releaseHTableInterface
@@ -820,6 +831,13 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|tables
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 block|}
 name|int
 name|getCurrentPoolSize
