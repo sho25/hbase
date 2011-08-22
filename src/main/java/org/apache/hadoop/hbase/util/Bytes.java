@@ -3811,21 +3811,6 @@ name|length2
 argument_list|)
 return|;
 block|}
-comment|/**    * The number of bytes required to represent a primitive {@code long}    * value.    */
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|LONG_BYTES
-init|=
-name|Long
-operator|.
-name|SIZE
-operator|/
-name|Byte
-operator|.
-name|SIZE
-decl_stmt|;
 interface|interface
 name|Comparer
 parameter_list|<
@@ -4376,7 +4361,7 @@ name|minWords
 init|=
 name|minLength
 operator|/
-name|LONG_BYTES
+name|SIZEOF_LONG
 decl_stmt|;
 name|int
 name|offset1Adj
@@ -4404,11 +4389,11 @@ name|i
 operator|<
 name|minWords
 operator|*
-name|LONG_BYTES
+name|SIZEOF_LONG
 condition|;
 name|i
 operator|+=
-name|LONG_BYTES
+name|SIZEOF_LONG
 control|)
 block|{
 name|long
@@ -4598,7 +4583,7 @@ name|i
 init|=
 name|minWords
 operator|*
-name|LONG_BYTES
+name|SIZEOF_LONG
 init|;
 name|i
 operator|<
