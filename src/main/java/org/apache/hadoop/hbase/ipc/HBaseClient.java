@@ -2297,7 +2297,7 @@ name|call
 init|=
 name|calls
 operator|.
-name|get
+name|remove
 argument_list|(
 name|id
 argument_list|)
@@ -2340,13 +2340,6 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|calls
-operator|.
-name|remove
-argument_list|(
-name|id
-argument_list|)
-expr_stmt|;
 block|}
 else|else
 block|{
@@ -2387,13 +2380,6 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
-name|calls
-operator|.
-name|remove
-argument_list|(
-name|id
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 catch|catch
