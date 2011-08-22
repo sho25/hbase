@@ -2102,22 +2102,17 @@ condition|)
 block|{
 return|return;
 block|}
+comment|// For serializing the data to be written.
+specifier|final
 name|DataOutputBuffer
 name|d
 init|=
-literal|null
+operator|new
+name|DataOutputBuffer
+argument_list|()
 decl_stmt|;
 try|try
 block|{
-comment|//noinspection SynchronizeOnNonFinalField
-synchronized|synchronized
-init|(
-name|this
-operator|.
-name|out
-init|)
-block|{
-comment|// FindBugs IS2_INCONSISTENT_SYNC
 if|if
 condition|(
 name|LOG
@@ -2138,14 +2133,6 @@ name|call
 operator|.
 name|id
 argument_list|)
-expr_stmt|;
-comment|//for serializing the
-comment|//data to be written
-name|d
-operator|=
-operator|new
-name|DataOutputBuffer
-argument_list|()
 expr_stmt|;
 name|d
 operator|.
@@ -2204,6 +2191,15 @@ operator|-
 literal|4
 argument_list|)
 expr_stmt|;
+comment|//noinspection SynchronizeOnNonFinalField
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|out
+init|)
+block|{
+comment|// FindBugs IS2_INCONSISTENT_SYNC
 name|out
 operator|.
 name|write
