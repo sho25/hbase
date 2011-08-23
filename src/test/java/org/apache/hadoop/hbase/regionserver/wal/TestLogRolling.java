@@ -590,9 +590,12 @@ operator|(
 operator|(
 name|Log4JLogger
 operator|)
-name|FSNamesystem
+name|LogFactory
 operator|.
-name|LOG
+name|getLog
+argument_list|(
+literal|"org.apache.hadoop.hdfs.server.namenode.FSNamesystem"
+argument_list|)
 operator|)
 operator|.
 name|getLogger

@@ -1024,7 +1024,7 @@ name|connection
 return|;
 block|}
 block|}
-comment|/**    * Delete connection information for the instance specified by configuration.    * If there are no more references to it, this will then close connection to    * the zookeeper ensemble and let go of all resources.    *    * @param conf    *          configuration whose identity is used to find {@link HConnection}    *          instance.    * @param stopProxy    *          Shuts down all the proxy's put up to cluster members including to    *          cluster HMaster. Calls    *          {@link HBaseRPC#stopProxy(org.apache.hadoop.ipc.VersionedProtocol)}    *          .    */
+comment|/**    * Delete connection information for the instance specified by configuration.    * If there are no more references to it, this will then close connection to    * the zookeeper ensemble and let go of all resources.    *    * @param conf    *          configuration whose identity is used to find {@link HConnection}    *          instance.    * @param stopProxy    *          Shuts down all the proxy's put up to cluster members including to    *          cluster HMaster. Calls    *          {@link HBaseRPC#stopProxy(org.apache.hadoop.hbase.ipc.VersionedProtocol)}    *          .    */
 specifier|public
 specifier|static
 name|void

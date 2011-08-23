@@ -195,6 +195,8 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|ipc
 operator|.
 name|VersionedProtocol
