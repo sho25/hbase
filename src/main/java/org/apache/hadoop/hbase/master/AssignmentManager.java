@@ -533,8 +533,6 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|LoadBalancer
-operator|.
 name|RegionPlan
 import|;
 end_import
@@ -929,6 +927,10 @@ specifier|private
 name|TimeoutMonitor
 name|timeoutMonitor
 decl_stmt|;
+specifier|private
+name|LoadBalancer
+name|balancer
+decl_stmt|;
 comment|/*    * Maximum times we recurse an assignment.  See below in {@link #assign()}.    */
 specifier|private
 specifier|final
@@ -1167,6 +1169,17 @@ argument_list|(
 literal|"hbase.assignment.maximum.attempts"
 argument_list|,
 literal|10
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|balancer
+operator|=
+name|LoadBalancerFactory
+operator|.
+name|getLoadBalancer
+argument_list|(
+name|conf
 argument_list|)
 expr_stmt|;
 block|}
@@ -6147,7 +6160,7 @@ argument_list|()
 argument_list|,
 literal|null
 argument_list|,
-name|LoadBalancer
+name|balancer
 operator|.
 name|randomAssignment
 argument_list|(
@@ -6906,7 +6919,7 @@ decl_stmt|;
 comment|// Generate a round-robin bulk assignment plan
 name|bulkPlan
 operator|=
-name|LoadBalancer
+name|balancer
 operator|.
 name|roundRobinAssignment
 argument_list|(
@@ -7061,7 +7074,7 @@ block|{
 comment|// Reuse existing assignment info
 name|bulkPlan
 operator|=
-name|LoadBalancer
+name|balancer
 operator|.
 name|retainAssignment
 argument_list|(

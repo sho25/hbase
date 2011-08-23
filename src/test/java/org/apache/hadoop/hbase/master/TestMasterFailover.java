@@ -241,8 +241,6 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|LoadBalancer
-operator|.
 name|RegionPlan
 import|;
 end_import

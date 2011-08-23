@@ -631,8 +631,6 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|LoadBalancer
-operator|.
 name|RegionPlan
 import|;
 end_import
@@ -2109,8 +2107,9 @@ name|this
 operator|.
 name|balancer
 operator|=
-operator|new
-name|LoadBalancer
+name|LoadBalancerFactory
+operator|.
+name|getLoadBalancer
 argument_list|(
 name|conf
 argument_list|)
