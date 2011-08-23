@@ -1172,6 +1172,24 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+specifier|public
+specifier|static
+name|void
+name|main
+parameter_list|(
+name|String
+index|[]
+name|args
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|run
+argument_list|(
+name|args
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Pass one or more log file names and formatting options and it will dump out    * a text version of the contents on<code>stdout</code>.    *     * @param args    *          Command line arguments    * @throws IOException    *           Thrown upon file system errors etc.    * @throws ParseException    *           Thrown if command-line parsing fails.    */
 specifier|public
 specifier|static
@@ -1339,7 +1357,7 @@ name|formatter
 operator|.
 name|printHelp
 argument_list|(
-literal|"HFile filename(s) "
+literal|"HLog<filename...>"
 argument_list|,
 name|options
 argument_list|,
