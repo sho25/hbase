@@ -9481,9 +9481,9 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|OperationStatusCode
-index|[]
+name|OperationStatus
 name|codes
+index|[]
 init|=
 name|region
 operator|.
@@ -9514,6 +9514,9 @@ name|codes
 index|[
 name|i
 index|]
+operator|.
+name|getOperationStatusCode
+argument_list|()
 operator|!=
 name|OperationStatusCode
 operator|.
@@ -15318,7 +15321,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|OperationStatusCode
+name|OperationStatus
 index|[]
 name|codes
 init|=
@@ -15354,7 +15357,7 @@ name|i
 operator|++
 control|)
 block|{
-name|OperationStatusCode
+name|OperationStatus
 name|code
 init|=
 name|codes
@@ -15383,6 +15386,9 @@ decl_stmt|;
 if|if
 condition|(
 name|code
+operator|.
+name|getOperationStatusCode
+argument_list|()
 operator|==
 name|OperationStatusCode
 operator|.
@@ -15400,6 +15406,9 @@ elseif|else
 if|if
 condition|(
 name|code
+operator|.
+name|getOperationStatusCode
+argument_list|()
 operator|==
 name|OperationStatusCode
 operator|.
@@ -15410,7 +15419,12 @@ name|result
 operator|=
 operator|new
 name|NoSuchColumnFamilyException
+argument_list|(
+name|code
+operator|.
+name|getExceptionMsg
 argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 comment|// FAILURE&& NOT_RUN becomes null, aka: need to run again.

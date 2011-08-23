@@ -2810,7 +2810,7 @@ name|val
 argument_list|)
 expr_stmt|;
 block|}
-name|OperationStatusCode
+name|OperationStatus
 index|[]
 name|codes
 init|=
@@ -2857,6 +2857,9 @@ name|codes
 index|[
 name|i
 index|]
+operator|.
+name|getOperationStatusCode
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2951,6 +2954,9 @@ name|codes
 index|[
 name|i
 index|]
+operator|.
+name|getOperationStatusCode
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -3005,7 +3011,7 @@ decl_stmt|;
 specifier|final
 name|AtomicReference
 argument_list|<
-name|OperationStatusCode
+name|OperationStatus
 index|[]
 argument_list|>
 name|retFromThread
@@ -3013,7 +3019,7 @@ init|=
 operator|new
 name|AtomicReference
 argument_list|<
-name|OperationStatusCode
+name|OperationStatus
 index|[]
 argument_list|>
 argument_list|()
@@ -3206,6 +3212,9 @@ name|codes
 index|[
 name|i
 index|]
+operator|.
+name|getOperationStatusCode
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -3373,6 +3382,9 @@ name|codes
 index|[
 name|i
 index|]
+operator|.
+name|getOperationStatusCode
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
