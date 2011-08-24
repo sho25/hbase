@@ -7574,7 +7574,7 @@ name|SIZEOF_DOUBLE
 operator|)
 operator|+
 operator|(
-literal|4
+literal|5
 operator|*
 name|Bytes
 operator|.
