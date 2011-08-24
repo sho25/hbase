@@ -1069,6 +1069,21 @@ specifier|final
 name|LogSyncer
 name|logSyncerThread
 decl_stmt|;
+comment|/** Number of log close errors tolerated before we abort */
+specifier|private
+specifier|final
+name|int
+name|closeErrorsTolerated
+decl_stmt|;
+specifier|private
+specifier|final
+name|AtomicInteger
+name|closeErrorCount
+init|=
+operator|new
+name|AtomicInteger
+argument_list|()
+decl_stmt|;
 comment|/**    * Pattern used to validate a HLog file name    */
 specifier|private
 specifier|static
@@ -1597,6 +1612,19 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|closeErrorsTolerated
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.regionserver.logroll.errors.tolerated"
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -2040,9 +2068,40 @@ name|FailedLogCloseException
 throws|,
 name|IOException
 block|{
+return|return
+name|rollWriter
+argument_list|(
+literal|false
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    * Because a log cannot be rolled during a cache flush, and a cache flush    * spans two method calls, a special lock needs to be obtained so that a cache    * flush cannot start when the log is being rolled and the log cannot be    * rolled during a cache flush.    *    *<p>Note that this method cannot be synchronized because it is possible that    * startCacheFlush runs, obtaining the cacheFlushLock, then this method could    * start which would obtain the lock on this but block on obtaining the    * cacheFlushLock and then completeCacheFlush could be called which would wait    * for the lock on this and consequently never release the cacheFlushLock    *    * @param force If true, force creation of a new writer even if no entries    * have been written to the current writer    * @return If lots of logs, flush the returned regions so next time through    * we can clean logs. Returns null if nothing to flush.  Names are actual    * region names as returned by {@link HRegionInfo#getEncodedName()}    * @throws org.apache.hadoop.hbase.regionserver.wal.FailedLogCloseException    * @throws IOException    */
+end_comment
+
+begin_function
+specifier|public
+name|byte
+index|[]
+index|[]
+name|rollWriter
+parameter_list|(
+name|boolean
+name|force
+parameter_list|)
+throws|throws
+name|FailedLogCloseException
+throws|,
+name|IOException
+block|{
 comment|// Return if nothing to flush.
 if|if
 condition|(
+operator|!
+name|force
+operator|&&
 name|this
 operator|.
 name|writer
@@ -2090,6 +2149,13 @@ condition|(
 name|closed
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"HLog closed.  Skipping rolling of writer"
+argument_list|)
+expr_stmt|;
 return|return
 name|regionsToFlush
 return|;
@@ -2118,6 +2184,29 @@ init|=
 name|computeFilename
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Enabling new writer for "
+operator|+
+name|FSUtils
+operator|.
+name|getPath
+argument_list|(
+name|newPath
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 name|HLog
 operator|.
 name|Writer
@@ -3212,12 +3301,55 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|closeErrorCount
+operator|.
+name|set
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
 name|IOException
 name|e
 parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Failed close of HLog writer"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|int
+name|errors
+init|=
+name|closeErrorCount
+operator|.
+name|incrementAndGet
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|errors
+operator|<=
+name|closeErrorsTolerated
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Riding over HLog close failure! error count="
+operator|+
+name|errors
+argument_list|)
+expr_stmt|;
+block|}
+else|else
 block|{
 comment|// Failed close of log file.  Means we're losing edits.  For now,
 comment|// shut ourselves down to minimize loss.  Alternative is to try and
@@ -3241,8 +3373,9 @@ name|e
 argument_list|)
 expr_stmt|;
 throw|throw
-name|e
+name|flce
 throw|;
+block|}
 block|}
 if|if
 condition|(
@@ -4088,6 +4221,8 @@ name|isInterrupted
 argument_list|()
 condition|)
 block|{
+try|try
+block|{
 name|Thread
 operator|.
 name|sleep
@@ -4100,7 +4235,6 @@ expr_stmt|;
 name|sync
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 catch|catch
 parameter_list|(
@@ -4120,6 +4254,8 @@ expr_stmt|;
 name|requestLogRoll
 argument_list|()
 expr_stmt|;
+block|}
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -4259,7 +4395,7 @@ name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"Could not append. Requesting close of hlog"
+literal|"Could not sync. Requesting close of hlog"
 argument_list|,
 name|e
 argument_list|)

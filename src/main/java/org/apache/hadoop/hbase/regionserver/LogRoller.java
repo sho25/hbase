@@ -455,6 +455,23 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+elseif|else
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"HLog roll manually triggered"
+argument_list|)
+expr_stmt|;
+block|}
 name|rollLock
 operator|.
 name|lock
@@ -483,7 +500,12 @@ name|getWAL
 argument_list|()
 operator|.
 name|rollWriter
+argument_list|(
+name|rollLog
+operator|.
+name|get
 argument_list|()
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
