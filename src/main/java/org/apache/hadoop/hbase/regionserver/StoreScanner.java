@@ -254,6 +254,10 @@ argument_list|()
 argument_list|,
 name|store
 operator|.
+name|minVersions
+argument_list|,
+name|store
+operator|.
 name|versionsToReturn
 argument_list|(
 name|scan
@@ -403,6 +407,10 @@ argument_list|()
 argument_list|,
 name|store
 operator|.
+name|minVersions
+argument_list|,
+name|store
+operator|.
 name|versionsToReturn
 argument_list|(
 name|scan
@@ -528,6 +536,8 @@ name|comparator
 operator|.
 name|getRawComparator
 argument_list|()
+argument_list|,
+literal|0
 argument_list|,
 name|scan
 operator|.

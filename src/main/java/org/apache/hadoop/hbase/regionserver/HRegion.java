@@ -5326,19 +5326,6 @@ argument_list|(
 name|family
 argument_list|)
 decl_stmt|;
-name|KeyValue
-name|kv
-init|=
-operator|new
-name|KeyValue
-argument_list|(
-name|row
-argument_list|,
-name|HConstants
-operator|.
-name|LATEST_TIMESTAMP
-argument_list|)
-decl_stmt|;
 comment|// get the closest key. (HStore.getRowKeyAtOrBefore can return null)
 name|KeyValue
 name|key
@@ -5347,7 +5334,7 @@ name|store
 operator|.
 name|getRowKeyAtOrBefore
 argument_list|(
-name|kv
+name|row
 argument_list|)
 decl_stmt|;
 name|Result

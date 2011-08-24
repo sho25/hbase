@@ -17,8 +17,26 @@ name|regionserver
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|ScanQueryMatcher
+operator|.
+name|MatchCode
+import|;
+end_import
+
 begin_comment
-comment|/**  * Implementing classes of this interface will be used for the tracking  * and enforcement of columns and numbers of versions during the course of a  * Get or Scan operation.  *<p>  * Currently there are two different types of Store/Family-level queries.  *<ul><li>{@link ExplicitColumnTracker} is used when the query specifies  * one or more column qualifiers to return in the family.  *<p>  * This class is utilized by {@link ScanQueryMatcher} through two methods:  *<ul><li>{@link #checkColumn} is called when a Put satisfies all other  * conditions of the query.  This method returns a {@link org.apache.hadoop.hbase.regionserver.ScanQueryMatcher.MatchCode} to define  * what action should be taken.  *<li>{@link #update} is called at the end of every StoreFile or memstore.  *<p>  * This class is NOT thread-safe as queries are never multi-threaded  */
+comment|/**  * Implementing classes of this interface will be used for the tracking  * and enforcement of columns and numbers of versions and timeToLive during  * the course of a Get or Scan operation.  *<p>  * Currently there are two different types of Store/Family-level queries.  *<ul><li>{@link ExplicitColumnTracker} is used when the query specifies  * one or more column qualifiers to return in the family.  *<p>  * This class is utilized by {@link ScanQueryMatcher} through two methods:  *<ul><li>{@link #checkColumn} is called when a Put satisfies all other  * conditions of the query.  This method returns a {@link org.apache.hadoop.hbase.regionserver.ScanQueryMatcher.MatchCode} to define  * what action should be taken.  *<li>{@link #update} is called at the end of every StoreFile or memstore.  *<p>  * This class is NOT thread-safe as queries are never multi-threaded  */
 end_comment
 
 begin_interface
@@ -26,7 +44,7 @@ specifier|public
 interface|interface
 name|ColumnTracker
 block|{
-comment|/**    * Keeps track of the number of versions for the columns asked for    * @param bytes    * @param offset    * @param length    * @param timestamp    * @return The match code instance.    */
+comment|/**    * Keeps track of the number of versions for the columns asked for    * @param bytes    * @param offset    * @param length    * @param ttl The timeToLive to enforce.    * @return The match code instance.    */
 specifier|public
 name|ScanQueryMatcher
 operator|.
@@ -44,7 +62,7 @@ name|int
 name|length
 parameter_list|,
 name|long
-name|timestamp
+name|ttl
 parameter_list|)
 function_decl|;
 comment|/**    * Updates internal variables in between files    */
@@ -70,6 +88,31 @@ specifier|public
 name|ColumnCount
 name|getColumnHint
 parameter_list|()
+function_decl|;
+comment|/**    * Retrieve the MatchCode for the next row or column    */
+specifier|public
+name|MatchCode
+name|getNextRowOrNextColumn
+parameter_list|(
+name|byte
+index|[]
+name|bytes
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|qualLength
+parameter_list|)
+function_decl|;
+comment|/**    * Give the tracker a chance to declare it's done based on only the timestamp    * to allow an early out.    *    * @param timestamp    * @return<code>true</code> to early out based on timestamp.    */
+specifier|public
+name|boolean
+name|isDone
+parameter_list|(
+name|long
+name|timestamp
+parameter_list|)
 function_decl|;
 block|}
 end_interface

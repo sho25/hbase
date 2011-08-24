@@ -281,24 +281,6 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|BlockCache
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
 name|Compression
 import|;
 end_import
@@ -457,34 +439,6 @@ name|google
 operator|.
 name|common
 operator|.
-name|base
-operator|.
-name|Predicate
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Collections2
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
 name|collect
 operator|.
 name|ImmutableList
@@ -577,6 +531,10 @@ comment|// ttl in milliseconds.
 specifier|protected
 name|long
 name|ttl
+decl_stmt|;
+specifier|protected
+name|int
+name|minVersions
 decl_stmt|;
 name|long
 name|majorCompactionTime
@@ -980,6 +938,15 @@ operator|*=
 literal|1000
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|minVersions
+operator|=
+name|family
+operator|.
+name|getMinVersions
+argument_list|()
+expr_stmt|;
 name|this
 operator|.
 name|memstore
@@ -2372,11 +2339,6 @@ argument_list|(
 name|snapshotTimeRangeTracker
 argument_list|)
 expr_stmt|;
-name|int
-name|entries
-init|=
-literal|0
-decl_stmt|;
 try|try
 block|{
 for|for
@@ -2387,8 +2349,16 @@ range|:
 name|set
 control|)
 block|{
+comment|// If minVersion> 0 we will wait until the next compaction to
+comment|// collect expired KVs. (following the logic for maxVersions).
+comment|// TODO: As Jonathan Gray points this can be optimized
+comment|// (see HBASE-4241)
 if|if
 condition|(
+name|minVersions
+operator|>
+literal|0
+operator|||
 operator|!
 name|isExpired
 argument_list|(
@@ -2404,9 +2374,6 @@ name|append
 argument_list|(
 name|kv
 argument_list|)
-expr_stmt|;
-name|entries
-operator|++
 expr_stmt|;
 name|flushed
 operator|+=
@@ -3415,16 +3382,13 @@ name|maxId
 argument_list|)
 decl_stmt|;
 comment|// Move the compaction into place.
-name|StoreFile
-name|sf
-init|=
 name|completeCompaction
 argument_list|(
 name|filesToCompact
 argument_list|,
 name|writer
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 block|}
 finally|finally
 block|{
@@ -5835,17 +5799,54 @@ operator|<
 name|oldestTimestamp
 return|;
 block|}
-comment|/**    * Find the key that matches<i>row</i> exactly, or the one that immediately    * preceeds it. WARNING: Only use this method on a table where writes occur    * with strictly increasing timestamps. This method assumes this pattern of    * writes in order to make it reasonably performant.  Also our search is    * dependent on the axiom that deletes are for cells that are in the container    * that follows whether a memstore snapshot or a storefile, not for the    * current container: i.e. we'll see deletes before we come across cells we    * are to delete. Presumption is that the memstore#kvset is processed before    * memstore#snapshot and so on.    * @param kv First possible item on targeted row; i.e. empty columns, latest    * timestamp and maximum type.    * @return Found keyvalue or null if none found.    * @throws IOException    */
+comment|/**    * Find the key that matches<i>row</i> exactly, or the one that immediately    * preceeds it. WARNING: Only use this method on a table where writes occur    * with strictly increasing timestamps. This method assumes this pattern of    * writes in order to make it reasonably performant.  Also our search is    * dependent on the axiom that deletes are for cells that are in the container    * that follows whether a memstore snapshot or a storefile, not for the    * current container: i.e. we'll see deletes before we come across cells we    * are to delete. Presumption is that the memstore#kvset is processed before    * memstore#snapshot and so on.    * @param row The row key of the targeted row.    * @return Found keyvalue or null if none found.    * @throws IOException    */
 name|KeyValue
 name|getRowKeyAtOrBefore
 parameter_list|(
 specifier|final
-name|KeyValue
-name|kv
+name|byte
+index|[]
+name|row
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// If minVersions is set, we will not ignore expired KVs.
+comment|// As we're only looking for the latest matches, that should be OK.
+comment|// With minVersions> 0 we guarantee that any KV that has any version
+comment|// at all (expired or not) has at least one version that will not expire.
+comment|// Note that this method used to take a KeyValue as arguments. KeyValue
+comment|// can be back-dated, a row key cannot.
+name|long
+name|ttlToUse
+init|=
+name|this
+operator|.
+name|minVersions
+operator|>
+literal|0
+condition|?
+name|Long
+operator|.
+name|MAX_VALUE
+else|:
+name|this
+operator|.
+name|ttl
+decl_stmt|;
+name|KeyValue
+name|kv
+init|=
+operator|new
+name|KeyValue
+argument_list|(
+name|row
+argument_list|,
+name|HConstants
+operator|.
+name|LATEST_TIMESTAMP
+argument_list|)
+decl_stmt|;
 name|GetClosestRowBeforeTracker
 name|state
 init|=
@@ -5858,9 +5859,7 @@ name|comparator
 argument_list|,
 name|kv
 argument_list|,
-name|this
-operator|.
-name|ttl
+name|ttlToUse
 argument_list|,
 name|this
 operator|.

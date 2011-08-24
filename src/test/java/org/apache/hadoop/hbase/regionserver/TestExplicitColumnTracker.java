@@ -219,7 +219,13 @@ name|ExplicitColumnTracker
 argument_list|(
 name|trackColumns
 argument_list|,
+literal|0
+argument_list|,
 name|maxVersions
+argument_list|,
+name|Long
+operator|.
+name|MAX_VALUE
 argument_list|)
 decl_stmt|;
 comment|//Initialize result
@@ -995,7 +1001,13 @@ name|ExplicitColumnTracker
 argument_list|(
 name|columns
 argument_list|,
+literal|0
+argument_list|,
 name|maxVersions
+argument_list|,
+name|Long
+operator|.
+name|MAX_VALUE
 argument_list|)
 decl_stmt|;
 for|for

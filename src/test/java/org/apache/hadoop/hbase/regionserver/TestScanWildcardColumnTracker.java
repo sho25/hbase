@@ -110,7 +110,13 @@ init|=
 operator|new
 name|ScanWildcardColumnTracker
 argument_list|(
+literal|0
+argument_list|,
 name|VERSIONS
+argument_list|,
+name|Long
+operator|.
+name|MAX_VALUE
 argument_list|)
 decl_stmt|;
 comment|//Create list of qualifiers
@@ -336,7 +342,13 @@ init|=
 operator|new
 name|ScanWildcardColumnTracker
 argument_list|(
+literal|0
+argument_list|,
 name|VERSIONS
+argument_list|,
+name|Long
+operator|.
+name|MAX_VALUE
 argument_list|)
 decl_stmt|;
 comment|//Create list of qualifiers
@@ -568,7 +580,13 @@ init|=
 operator|new
 name|ScanWildcardColumnTracker
 argument_list|(
+literal|0
+argument_list|,
 name|VERSIONS
+argument_list|,
+name|Long
+operator|.
+name|MAX_VALUE
 argument_list|)
 decl_stmt|;
 comment|//Create list of qualifiers
