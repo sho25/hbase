@@ -219,6 +219,15 @@ block|}
 else|else
 block|{
 comment|// It existed but now does not, try again to ensure a watch is set
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Try starting again because there is no data from "
+operator|+
+name|node
+argument_list|)
+expr_stmt|;
 name|start
 argument_list|()
 expr_stmt|;
