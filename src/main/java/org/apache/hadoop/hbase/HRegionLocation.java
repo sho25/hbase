@@ -256,7 +256,7 @@ return|return
 name|regionInfo
 return|;
 block|}
-comment|/** @return HServerAddress    * @deprecated Use {@link #getHostnamePort}    */
+comment|/**    * Do not use!!! Creates a HServerAddress instance which will do a resolve.    * @return HServerAddress    * @deprecated Use {@link #getHostnamePort}    */
 specifier|public
 name|HServerAddress
 name|getServerAddress

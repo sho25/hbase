@@ -557,9 +557,6 @@ name|startPos
 index|]
 argument_list|)
 operator|.
-name|getServerAddress
-argument_list|()
-operator|.
 name|getHostname
 argument_list|()
 decl_stmt|;

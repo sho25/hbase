@@ -397,7 +397,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerAddress
+name|HTableDescriptor
 import|;
 end_import
 
@@ -411,7 +411,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
+name|ServerName
 import|;
 end_import
 
@@ -1632,7 +1632,7 @@ argument_list|)
 expr_stmt|;
 name|TreeMap
 argument_list|<
-name|HServerAddress
+name|String
 argument_list|,
 name|LinkedList
 argument_list|<
@@ -1668,7 +1668,7 @@ range|:
 name|tmpRegionSet
 control|)
 block|{
-name|HServerAddress
+name|String
 name|rsLocation
 init|=
 name|table
@@ -1681,7 +1681,7 @@ name|getSecond
 argument_list|()
 argument_list|)
 operator|.
-name|getServerAddress
+name|getHostnamePort
 argument_list|()
 decl_stmt|;
 if|if
@@ -1832,7 +1832,7 @@ comment|// Get RegionServer : region count mapping
 specifier|final
 name|TreeMap
 argument_list|<
-name|HServerAddress
+name|ServerName
 argument_list|,
 name|Integer
 argument_list|>
@@ -1847,18 +1847,18 @@ name|Map
 argument_list|<
 name|HRegionInfo
 argument_list|,
-name|HServerAddress
+name|ServerName
 argument_list|>
 name|regionsInfo
 init|=
 name|table
 operator|.
-name|getRegionsInfo
+name|getRegionLocations
 argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HServerAddress
+name|ServerName
 name|rs
 range|:
 name|regionsInfo
@@ -1910,7 +1910,7 @@ block|}
 comment|// sort the RS by the number of regions they have
 name|List
 argument_list|<
-name|HServerAddress
+name|String
 argument_list|>
 name|serversLeft
 init|=
@@ -1933,7 +1933,7 @@ argument_list|,
 operator|new
 name|Comparator
 argument_list|<
-name|HServerAddress
+name|String
 argument_list|>
 argument_list|()
 block|{
@@ -1941,10 +1941,10 @@ specifier|public
 name|int
 name|compare
 parameter_list|(
-name|HServerAddress
+name|String
 name|o1
 parameter_list|,
-name|HServerAddress
+name|String
 name|o2
 parameter_list|)
 block|{
@@ -1974,7 +1974,7 @@ comment|// round-robin through the RS list. Choose the lightest-loaded servers
 comment|// first to keep the master from load-balancing regions as we split.
 for|for
 control|(
-name|HServerAddress
+name|String
 name|rsLoc
 range|:
 name|serversLeft
@@ -2059,12 +2059,12 @@ name|split
 argument_list|)
 decl_stmt|;
 comment|// if this region moved locations
-name|HServerAddress
+name|String
 name|newRs
 init|=
 name|regionLoc
 operator|.
-name|getServerAddress
+name|getHostnamePort
 argument_list|()
 decl_stmt|;
 if|if
