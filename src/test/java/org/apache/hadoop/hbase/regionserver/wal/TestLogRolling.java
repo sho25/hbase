@@ -2786,7 +2786,9 @@ comment|// force a log roll to read back and verify previously written logs
 name|log
 operator|.
 name|rollWriter
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 comment|// read back the data written
 name|Set
