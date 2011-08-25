@@ -180,15 +180,6 @@ argument_list|,
 name|kvs
 argument_list|)
 decl_stmt|;
-comment|// test simple things.
-name|assertNull
-argument_list|(
-name|scan
-operator|.
-name|peek
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|KeyValue
 name|kv
 init|=

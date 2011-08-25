@@ -932,6 +932,15 @@ argument_list|(
 name|family
 argument_list|)
 decl_stmt|;
+comment|// some of the tests write 4 versions and then flush
+comment|// (with HBASE-4241, lower versions are collected on flush)
+name|hcd
+operator|.
+name|setMaxVersions
+argument_list|(
+literal|4
+argument_list|)
+expr_stmt|;
 name|FileSystem
 name|fs
 init|=

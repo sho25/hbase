@@ -1898,13 +1898,7 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-name|region
-operator|.
-name|compactStores
-argument_list|()
-expr_stmt|;
-comment|// oldest version still exists
-comment|// flushing/minor compactions can't get rid of these, anymore
+comment|// with HBASE-4241 a flush will eliminate the expired rows
 name|g
 operator|=
 operator|new
@@ -1935,13 +1929,12 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-name|checkResult
+name|assertTrue
 argument_list|(
 name|r
-argument_list|,
-name|c0
-argument_list|,
-name|T1
+operator|.
+name|isEmpty
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// major compaction
