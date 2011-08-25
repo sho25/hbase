@@ -771,6 +771,11 @@ init|=
 operator|new
 name|HTable
 argument_list|(
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
 name|TABLE_NAME
 argument_list|)
 decl_stmt|;
