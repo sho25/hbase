@@ -934,6 +934,22 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Closes the region in the RS with the specified encoded regionName and will    * use or not use ZK during the close according to the specified flag. Note    * that the encoded region name is in byte format.    *     * @param encodedRegionName    *          in bytes    * @param zk    *          true if to use zookeeper, false if need not.    * @return true if region is closed, false if not.    * @throws IOException    */
+specifier|public
+name|boolean
+name|closeRegion
+parameter_list|(
+name|byte
+index|[]
+name|encodedRegionName
+parameter_list|,
+specifier|final
+name|boolean
+name|zk
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|// Region administrative methods
 comment|/**    * Flushes the MemStore of the specified region.    *<p>    * This method is synchronous.    * @param regionInfo region to flush    * @throws NotServingRegionException    * @throws IOException    */
 name|void
