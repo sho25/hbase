@@ -4020,7 +4020,7 @@ name|incrementRequests
 argument_list|(
 name|hsl
 operator|.
-name|getNumberOfRequests
+name|getTotalNumberOfRequests
 argument_list|()
 argument_list|)
 expr_stmt|;

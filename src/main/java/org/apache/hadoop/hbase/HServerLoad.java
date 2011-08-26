@@ -170,11 +170,18 @@ operator|new
 name|HServerLoad
 argument_list|()
 decl_stmt|;
-comment|/** Number of requests since last report    */
+comment|/** Number of requests per second since last report.    */
 comment|// TODO: Instead build this up out of region counters.
 specifier|private
 name|int
 name|numberOfRequests
+init|=
+literal|0
+decl_stmt|;
+comment|/** Total Number of requests from the start of the region server.    */
+specifier|private
+name|int
+name|totalNumberOfRequests
 init|=
 literal|0
 decl_stmt|;
@@ -1256,6 +1263,10 @@ name|HServerLoad
 parameter_list|(
 specifier|final
 name|int
+name|totalNumberOfRequests
+parameter_list|,
+specifier|final
+name|int
 name|numberOfRequests
 parameter_list|,
 specifier|final
@@ -1301,6 +1312,12 @@ name|regionLoad
 operator|=
 name|regionLoad
 expr_stmt|;
+name|this
+operator|.
+name|totalNumberOfRequests
+operator|=
+name|totalNumberOfRequests
+expr_stmt|;
 block|}
 comment|/**    * Constructor    * @param hsl the template HServerLoad    */
 specifier|public
@@ -1313,6 +1330,10 @@ parameter_list|)
 block|{
 name|this
 argument_list|(
+name|hsl
+operator|.
+name|totalNumberOfRequests
+argument_list|,
 name|hsl
 operator|.
 name|numberOfRequests
@@ -1589,7 +1610,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/**    * @return the numberOfRequests    */
+comment|/**    * @return the numberOfRequests per second.    */
 specifier|public
 name|int
 name|getNumberOfRequests
@@ -1597,6 +1618,16 @@ parameter_list|()
 block|{
 return|return
 name|numberOfRequests
+return|;
+block|}
+comment|/**    * @return the numberOfRequests    */
+specifier|public
+name|int
+name|getTotalNumberOfRequests
+parameter_list|()
+block|{
+return|return
+name|totalNumberOfRequests
 return|;
 block|}
 comment|/**    * @return the amount of heap in use, in MB    */
@@ -1880,6 +1911,13 @@ name|rl
 argument_list|)
 expr_stmt|;
 block|}
+name|totalNumberOfRequests
+operator|=
+name|in
+operator|.
+name|readInt
+argument_list|()
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -1953,6 +1991,13 @@ operator|.
 name|write
 argument_list|(
 name|out
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|writeInt
+argument_list|(
+name|totalNumberOfRequests
 argument_list|)
 expr_stmt|;
 block|}

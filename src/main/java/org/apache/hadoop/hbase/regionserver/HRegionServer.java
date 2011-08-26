@@ -4461,6 +4461,14 @@ operator|.
 name|get
 argument_list|()
 argument_list|,
+operator|(
+name|int
+operator|)
+name|metrics
+operator|.
+name|getRequests
+argument_list|()
+argument_list|,
 call|(
 name|int
 call|)

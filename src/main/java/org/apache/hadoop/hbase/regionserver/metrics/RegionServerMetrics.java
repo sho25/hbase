@@ -1764,10 +1764,13 @@ name|sb
 argument_list|,
 literal|"requestsPerSecond"
 argument_list|,
-name|Float
+name|Integer
 operator|.
 name|valueOf
 argument_list|(
+operator|(
+name|int
+operator|)
 name|this
 operator|.
 name|requests
