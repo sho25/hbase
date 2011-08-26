@@ -53,44 +53,8 @@ name|Configuration
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|HeapSize
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|LruBlockCache
-operator|.
-name|CacheStats
-import|;
-end_import
-
 begin_comment
-comment|/**  * Block cache interface. Anything that implements the {@link HeapSize}  * interface can be put in the cache, because item size is all the cache  * cares about. We might move to a more specialized "cacheable" interface  * in the future.  *  * TODO: Add filename or hash of filename to block cache key.  */
+comment|/**  * Block cache interface. Anything that implements the {@link Cacheable}  * interface can be put in the cache.  *  * TODO: Add filename or hash of filename to block cache key.  */
 end_comment
 
 begin_interface
@@ -106,14 +70,14 @@ parameter_list|(
 name|String
 name|blockName
 parameter_list|,
-name|HeapSize
+name|Cacheable
 name|buf
 parameter_list|,
 name|boolean
 name|inMemory
 parameter_list|)
 function_decl|;
-comment|/**    * Add block to cache (defaults to not in-memory).    * @param blockName Zero-based file block number.    * @param buf The block contents wrapped in a ByteBuffer.    */
+comment|/**    * Add block to cache (defaults to not in-memory).    * @param blockName Zero-based file block number.    * @param buf The object to cache.    */
 specifier|public
 name|void
 name|cacheBlock
@@ -121,13 +85,13 @@ parameter_list|(
 name|String
 name|blockName
 parameter_list|,
-name|HeapSize
+name|Cacheable
 name|buf
 parameter_list|)
 function_decl|;
-comment|/**    * Fetch block from cache.    * @param blockName Block number to fetch.    * @param caching Whether this request has caching enabled (used for stats)    * @return Block or null if block is not in the cache.    */
+comment|/**    * Fetch block from cache.    * @param blockName Block number to fetch.    * @param caching Whether this request has caching enabled (used for stats)    * @return Block or null if block is not in 2 cache.    */
 specifier|public
-name|HeapSize
+name|Cacheable
 name|getBlock
 parameter_list|(
 name|String
@@ -187,7 +151,7 @@ name|long
 name|getEvictedCount
 parameter_list|()
 function_decl|;
-comment|/**    * Performs a BlockCache summary and returns a List of BlockCacheColumnFamilySummary objects.    * This method could be fairly heavyweight in that it evaluates the entire HBase file-system    * against what is in the RegionServer BlockCache.     *<br><br>    * The contract of this interface is to return the List in sorted order by Table name, then    * ColumnFamily.    *     * @param conf HBaseConfiguration    * @return List of BlockCacheColumnFamilySummary    * @throws IOException exception    */
+comment|/**    * Performs a BlockCache summary and returns a List of BlockCacheColumnFamilySummary objects.    * This method could be fairly heavyweight in that it evaluates the entire HBase file-system    * against what is in the RegionServer BlockCache.    *<br><br>    * The contract of this interface is to return the List in sorted order by Table name, then    * ColumnFamily.    *    * @param conf HBaseConfiguration    * @return List of BlockCacheColumnFamilySummary    * @throws IOException exception    */
 specifier|public
 name|List
 argument_list|<

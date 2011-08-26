@@ -87,42 +87,6 @@ name|Configuration
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|HeapSize
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|LruBlockCache
-operator|.
-name|CacheStats
-import|;
-end_import
-
 begin_comment
 comment|/**  * Simple one RFile soft reference cache.  */
 end_comment
@@ -141,7 +105,7 @@ name|Ref
 extends|extends
 name|SoftReference
 argument_list|<
-name|HeapSize
+name|Cacheable
 argument_list|>
 block|{
 specifier|public
@@ -154,7 +118,7 @@ parameter_list|(
 name|String
 name|blockId
 parameter_list|,
-name|HeapSize
+name|Cacheable
 name|block
 parameter_list|,
 name|ReferenceQueue
@@ -274,7 +238,7 @@ return|;
 block|}
 specifier|public
 specifier|synchronized
-name|HeapSize
+name|Cacheable
 name|getBlock
 parameter_list|(
 name|String
@@ -322,7 +286,7 @@ parameter_list|(
 name|String
 name|blockName
 parameter_list|,
-name|HeapSize
+name|Cacheable
 name|block
 parameter_list|)
 block|{
@@ -352,7 +316,7 @@ parameter_list|(
 name|String
 name|blockName
 parameter_list|,
-name|HeapSize
+name|Cacheable
 name|block
 parameter_list|,
 name|boolean

@@ -21,16 +21,6 @@ end_package
 
 begin_import
 import|import
-name|java
-operator|.
-name|nio
-operator|.
-name|ByteBuffer
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -153,7 +143,7 @@ name|blockName
 decl_stmt|;
 specifier|private
 specifier|final
-name|HeapSize
+name|Cacheable
 name|buf
 decl_stmt|;
 specifier|private
@@ -175,7 +165,7 @@ parameter_list|(
 name|String
 name|blockName
 parameter_list|,
-name|HeapSize
+name|Cacheable
 name|buf
 parameter_list|,
 name|long
@@ -200,7 +190,7 @@ parameter_list|(
 name|String
 name|blockName
 parameter_list|,
-name|HeapSize
+name|Cacheable
 name|buf
 parameter_list|,
 name|long
@@ -362,7 +352,7 @@ literal|1
 return|;
 block|}
 specifier|public
-name|HeapSize
+name|Cacheable
 name|getBuffer
 parameter_list|()
 block|{

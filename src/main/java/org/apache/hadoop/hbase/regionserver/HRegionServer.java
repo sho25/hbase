@@ -1117,9 +1117,25 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|LruBlockCache
-operator|.
 name|CacheStats
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|LruBlockCache
 import|;
 end_import
 
