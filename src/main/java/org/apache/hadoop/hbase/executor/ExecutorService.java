@@ -434,6 +434,9 @@ case|:
 case|case
 name|C_M_MODIFY_TABLE
 case|:
+case|case
+name|C_M_CREATE_TABLE
+case|:
 return|return
 name|ExecutorType
 operator|.

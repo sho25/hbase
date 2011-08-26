@@ -141,7 +141,7 @@ name|isMasterRunning
 parameter_list|()
 function_decl|;
 comment|// Admin tools would use these cmds
-comment|/**    * Creates a new table.  If splitKeys are specified, then the table will be    * created with an initial set of multiple regions.  If splitKeys is null,    * the table will be created with a single region.    * @param desc table descriptor    * @param splitKeys    * @throws IOException    */
+comment|/**    * Creates a new table asynchronously.  If splitKeys are specified, then the    * table will be created with an initial set of multiple regions.    * If splitKeys is null, the table will be created with a single region.    * @param desc table descriptor    * @param splitKeys    * @throws IOException    */
 specifier|public
 name|void
 name|createTable

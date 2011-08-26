@@ -565,9 +565,9 @@ literal|"Moving table "
 operator|+
 name|tableName
 operator|+
-literal|" state to disabling but was "
+literal|" state to enabling but was "
 operator|+
-literal|"not first in enabled state: "
+literal|"not first in disabled state: "
 operator|+
 name|this
 operator|.
@@ -589,6 +589,51 @@ operator|.
 name|ENABLING
 argument_list|)
 expr_stmt|;
+block|}
+block|}
+comment|/**    * Sets the specified table as ENABLING in zookeeper atomically    * If the table is already in ENABLING state, no operation is performed    * @param tableName    * @return if the operation succeeds or not    * @throws KeeperException unexpected zookeeper exception    */
+specifier|public
+name|boolean
+name|checkAndSetEnablingTable
+parameter_list|(
+specifier|final
+name|String
+name|tableName
+parameter_list|)
+throws|throws
+name|KeeperException
+block|{
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|cache
+init|)
+block|{
+if|if
+condition|(
+name|isEnablingTable
+argument_list|(
+name|tableName
+argument_list|)
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+name|setTableState
+argument_list|(
+name|tableName
+argument_list|,
+name|TableState
+operator|.
+name|ENABLING
+argument_list|)
+expr_stmt|;
+return|return
+literal|true
+return|;
 block|}
 block|}
 specifier|private

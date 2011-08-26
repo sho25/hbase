@@ -1494,7 +1494,13 @@ literal|0
 init|;
 name|tries
 operator|<
+name|this
+operator|.
 name|numRetries
+operator|*
+name|this
+operator|.
+name|retryLongerMultiplier
 condition|;
 operator|++
 name|tries
@@ -1694,7 +1700,13 @@ if|if
 condition|(
 name|tries
 operator|==
+name|this
+operator|.
 name|numRetries
+operator|*
+name|this
+operator|.
+name|retryLongerMultiplier
 operator|-
 literal|1
 condition|)

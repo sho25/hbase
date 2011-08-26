@@ -300,6 +300,12 @@ literal|46
 argument_list|)
 block|,
 comment|// Client asking Master to modify family of table
+name|C_M_CREATE_TABLE
+argument_list|(
+literal|47
+argument_list|)
+block|,
+comment|// Client asking Master to create a table
 comment|// Updates from master to ZK. This is done by the master and there is
 comment|// nothing to process by either Master or RS
 name|M_ZK_REGION_OFFLINE
