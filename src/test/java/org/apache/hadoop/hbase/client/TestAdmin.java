@@ -7121,7 +7121,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"TestHBACloseRegion3"
+literal|"TestHBACloseRegionWhenServerNameIsEmpty"
 argument_list|)
 decl_stmt|;
 name|HBaseAdmin
@@ -7187,7 +7187,7 @@ argument_list|()
 operator|.
 name|contains
 argument_list|(
-literal|"TestHBACloseRegion3"
+literal|"TestHBACloseRegionWhenServerNameIsEmpty"
 argument_list|)
 condition|)
 block|{
