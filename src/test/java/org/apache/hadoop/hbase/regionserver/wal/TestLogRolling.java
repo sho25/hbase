@@ -1040,7 +1040,7 @@ name|setLong
 argument_list|(
 literal|"hbase.client.pause"
 argument_list|,
-literal|15
+literal|10
 operator|*
 literal|1000
 argument_list|)
@@ -1185,6 +1185,17 @@ name|TEST_UTIL
 operator|.
 name|getHBaseAdmin
 argument_list|()
+expr_stmt|;
+comment|// disable region rebalancing (interferes with log watching)
+name|cluster
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|balanceSwitch
+argument_list|(
+literal|false
+argument_list|)
 expr_stmt|;
 block|}
 annotation|@
@@ -2353,6 +2364,13 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting testLogRollOnPipelineRestart"
+argument_list|)
+expr_stmt|;
 name|assertTrue
 argument_list|(
 literal|"This test requires HLog file replication."
@@ -2613,7 +2631,7 @@ name|writeData
 argument_list|(
 name|table
 argument_list|,
-literal|2
+literal|1002
 argument_list|)
 expr_stmt|;
 name|table
@@ -2665,27 +2683,6 @@ name|getFilenum
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|DatanodeInfo
-index|[]
-name|pipeline
-init|=
-name|getPipeline
-argument_list|(
-name|log
-argument_list|)
-decl_stmt|;
-name|assertTrue
-argument_list|(
-name|pipeline
-operator|.
-name|length
-operator|==
-name|fs
-operator|.
-name|getDefaultReplication
-argument_list|()
-argument_list|)
-expr_stmt|;
 comment|// roll all datanodes in the pipeline
 name|dfsCluster
 operator|.
@@ -2717,7 +2714,7 @@ name|writeData
 argument_list|(
 name|table
 argument_list|,
-literal|3
+literal|1003
 argument_list|)
 expr_stmt|;
 name|long
@@ -2746,7 +2743,7 @@ name|writeData
 argument_list|(
 name|table
 argument_list|,
-literal|4
+literal|1004
 argument_list|)
 expr_stmt|;
 comment|// roll all datanode again
@@ -2779,7 +2776,7 @@ name|writeData
 argument_list|(
 name|table
 argument_list|,
-literal|5
+literal|1005
 argument_list|)
 expr_stmt|;
 comment|// force a log roll to read back and verify previously written logs
@@ -2970,7 +2967,7 @@ name|loggedRows
 operator|.
 name|contains
 argument_list|(
-literal|"row0002"
+literal|"row1002"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2980,7 +2977,7 @@ name|loggedRows
 operator|.
 name|contains
 argument_list|(
-literal|"row0003"
+literal|"row1003"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2990,7 +2987,7 @@ name|loggedRows
 operator|.
 name|contains
 argument_list|(
-literal|"row0004"
+literal|"row1004"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -3000,7 +2997,7 @@ name|loggedRows
 operator|.
 name|contains
 argument_list|(
-literal|"row0005"
+literal|"row1005"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -3089,7 +3086,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|"row000"
+literal|"row100"
 operator|+
 name|i
 argument_list|,
