@@ -7763,7 +7763,7 @@ operator|.
 name|OBJECT
 operator|+
 operator|(
-literal|15
+literal|16
 operator|*
 name|ClassSize
 operator|.
