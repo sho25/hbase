@@ -27,7 +27,43 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -112,16 +148,6 @@ operator|.
 name|util
 operator|.
 name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
 import|;
 end_import
 
@@ -524,24 +550,6 @@ operator|.
 name|datanode
 operator|.
 name|DataNode
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hdfs
-operator|.
-name|server
-operator|.
-name|namenode
-operator|.
-name|FSNamesystem
 import|;
 end_import
 
@@ -2315,7 +2323,9 @@ comment|// and the LowReplication Roller will be enabled.
 name|log
 operator|.
 name|rollWriter
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|batchWriteAndWait
 argument_list|(
@@ -2330,16 +2340,6 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-literal|"LowReplication Roller should've been enabled"
-argument_list|,
-name|log
-operator|.
-name|isLowReplicationRollEnabled
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|assertTrue
-argument_list|(
 literal|"New log file should have the default replication"
 argument_list|,
 name|log
@@ -2350,6 +2350,16 @@ operator|==
 name|fs
 operator|.
 name|getDefaultReplication
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"LowReplication Roller should've been enabled"
+argument_list|,
+name|log
+operator|.
+name|isLowReplicationRollEnabled
 argument_list|()
 argument_list|)
 expr_stmt|;
