@@ -2343,6 +2343,16 @@ name|getTimestamp
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|stringMap
+operator|.
+name|put
+argument_list|(
+literal|"vlen"
+argument_list|,
+name|getValueLength
+argument_list|()
+argument_list|)
+expr_stmt|;
 return|return
 name|stringMap
 return|;
