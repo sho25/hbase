@@ -1151,7 +1151,9 @@ literal|"'"
 operator|+
 name|msg
 operator|+
-literal|"' failed"
+literal|"' failed with errCode "
+operator|+
+name|errCode
 argument_list|,
 name|errCode
 operator|==
