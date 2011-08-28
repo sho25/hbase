@@ -735,7 +735,7 @@ specifier|public
 name|void
 name|setTotalCompactingKVs
 parameter_list|(
-name|int
+name|long
 name|totalCompactingKVs
 parameter_list|)
 block|{
@@ -751,7 +751,7 @@ specifier|public
 name|void
 name|setCurrentCompactedKVs
 parameter_list|(
-name|int
+name|long
 name|currentCompactedKVs
 parameter_list|)
 block|{
@@ -935,7 +935,7 @@ name|totalCompactingKVs
 operator|=
 name|in
 operator|.
-name|readInt
+name|readLong
 argument_list|()
 expr_stmt|;
 name|this
@@ -944,7 +944,7 @@ name|currentCompactedKVs
 operator|=
 name|in
 operator|.
-name|readInt
+name|readLong
 argument_list|()
 expr_stmt|;
 block|}
