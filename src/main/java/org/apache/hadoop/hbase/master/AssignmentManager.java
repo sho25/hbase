@@ -1862,6 +1862,8 @@ block|{
 case|case
 name|RS_ZK_REGION_CLOSING
 case|:
+comment|// If zk node of the region was updated by a live server skip this
+comment|// region and just add it into RIT.
 if|if
 condition|(
 name|isOnDeadServer
@@ -1870,9 +1872,29 @@ name|regionInfo
 argument_list|,
 name|deadServers
 argument_list|)
+operator|&&
+operator|(
+name|data
+operator|.
+name|getOrigin
+argument_list|()
+operator|==
+literal|null
+operator|||
+operator|!
+name|serverManager
+operator|.
+name|isServerOnline
+argument_list|(
+name|data
+operator|.
+name|getOrigin
+argument_list|()
+argument_list|)
+operator|)
 condition|)
 block|{
-comment|// If was on dead server, its closed now.  Force to OFFLINE and this
+comment|// If was on dead server, its closed now. Force to OFFLINE and this
 comment|// will get it reassigned if appropriate
 name|forceOffline
 argument_list|(
@@ -2066,8 +2088,8 @@ operator|+
 literal|"assigned elsewhere"
 argument_list|)
 expr_stmt|;
-break|break;
 block|}
+elseif|else
 if|if
 condition|(
 name|isOnDeadServer
@@ -2076,9 +2098,18 @@ name|regionInfo
 argument_list|,
 name|deadServers
 argument_list|)
+operator|&&
+operator|!
+name|serverManager
+operator|.
+name|isServerOnline
+argument_list|(
+name|sn
+argument_list|)
 condition|)
 block|{
-comment|// If was on a dead server, then its not open any more; needs handling.
+comment|// If was on a dead server, then its not open any more; needs
+comment|// handling.
 name|forceOffline
 argument_list|(
 name|regionInfo
@@ -8670,6 +8701,69 @@ decl_stmt|;
 comment|// If region was in transition (was in zk) force it offline for reassign
 try|try
 block|{
+name|RegionTransitionData
+name|data
+init|=
+name|ZKAssign
+operator|.
+name|getData
+argument_list|(
+name|watcher
+argument_list|,
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+decl_stmt|;
+comment|// If zk node of this region has been updated by a live server,
+comment|// we consider that this region is being handled.
+comment|// So we should skip it and process it in processRegionsInTransition.
+if|if
+condition|(
+name|data
+operator|!=
+literal|null
+operator|&&
+name|data
+operator|.
+name|getOrigin
+argument_list|()
+operator|!=
+literal|null
+operator|&&
+name|serverManager
+operator|.
+name|isServerOnline
+argument_list|(
+name|data
+operator|.
+name|getOrigin
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"The region "
+operator|+
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|"is being handled on "
+operator|+
+name|data
+operator|.
+name|getOrigin
+argument_list|()
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
 comment|// Process with existing RS shutdown code
 name|boolean
 name|assign
