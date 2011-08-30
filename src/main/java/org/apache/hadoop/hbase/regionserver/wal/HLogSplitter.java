@@ -1106,8 +1106,9 @@ argument_list|()
 operator|-
 name|startTime
 expr_stmt|;
-name|logAndReport
-argument_list|(
+name|String
+name|msg
+init|=
 literal|"hlog file splitting completed in "
 operator|+
 name|splitTime
@@ -1118,6 +1119,19 @@ name|srcDir
 operator|.
 name|toString
 argument_list|()
+decl_stmt|;
+name|status
+operator|.
+name|markComplete
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|msg
 argument_list|)
 expr_stmt|;
 return|return
