@@ -75,6 +75,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Date
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|HashMap
 import|;
 end_import
@@ -11034,6 +11044,63 @@ operator|+
 literal|", ts="
 operator|+
 name|stamp
+operator|+
+literal|", server="
+operator|+
+name|serverName
+return|;
+block|}
+comment|/**      * A slower (but more easy-to-read) stringification       */
+specifier|public
+name|String
+name|toDescriptiveString
+parameter_list|()
+block|{
+name|long
+name|lstamp
+init|=
+name|stamp
+operator|.
+name|get
+argument_list|()
+decl_stmt|;
+name|long
+name|relTime
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|lstamp
+decl_stmt|;
+return|return
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" state="
+operator|+
+name|state
+operator|+
+literal|", ts="
+operator|+
+operator|new
+name|Date
+argument_list|(
+name|lstamp
+argument_list|)
+operator|+
+literal|" ("
+operator|+
+operator|(
+name|relTime
+operator|/
+literal|1000
+operator|)
+operator|+
+literal|"s ago)"
 operator|+
 literal|", server="
 operator|+
