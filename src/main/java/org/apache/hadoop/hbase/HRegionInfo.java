@@ -2648,7 +2648,7 @@ name|this
 operator|.
 name|regionNameStr
 operator|+
-literal|" TableName => "
+literal|"', TableName => '"
 operator|+
 name|Bytes
 operator|.
