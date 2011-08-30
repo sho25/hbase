@@ -1638,23 +1638,6 @@ condition|)
 return|return
 name|intransistion
 return|;
-name|debugLog
-argument_list|(
-name|hri
-argument_list|,
-literal|"Waiting on "
-operator|+
-name|HRegionInfo
-operator|.
-name|prettyPrint
-argument_list|(
-name|hri
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
-argument_list|)
-expr_stmt|;
 synchronized|synchronized
 init|(
 name|this
@@ -2185,10 +2168,10 @@ name|KeeperException
 block|{
 comment|// If was on dead server, its closed now.  Force to OFFLINE and then
 comment|// handle it like a close; this will get it reassigned if appropriate
-name|debugLog
+name|LOG
+operator|.
+name|debug
 argument_list|(
-name|hri
-argument_list|,
 literal|"RIT "
 operator|+
 name|hri
@@ -5577,13 +5560,10 @@ return|return;
 comment|// Should get reassigned later when RIT times out.
 try|try
 block|{
-name|debugLog
-argument_list|(
-name|state
+name|LOG
 operator|.
-name|getRegion
-argument_list|()
-argument_list|,
+name|debug
+argument_list|(
 literal|"Assigning region "
 operator|+
 name|state
@@ -5870,44 +5850,6 @@ expr_stmt|;
 return|return;
 block|}
 block|}
-block|}
-block|}
-specifier|private
-name|void
-name|debugLog
-parameter_list|(
-name|HRegionInfo
-name|region
-parameter_list|,
-name|String
-name|string
-parameter_list|)
-block|{
-if|if
-condition|(
-name|region
-operator|.
-name|isMetaRegion
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|string
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-name|string
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 comment|/**    * Set region as OFFLINED up in zookeeper    * @param state    * @return True if we succeeded, false otherwise (State was incorrect or failed    * updating zk).    */
@@ -6343,13 +6285,10 @@ condition|(
 name|newPlan
 condition|)
 block|{
-name|debugLog
-argument_list|(
-name|state
+name|LOG
 operator|.
-name|getRegion
-argument_list|()
-argument_list|,
+name|debug
+argument_list|(
 literal|"No previous transition plan was found (or we are ignoring "
 operator|+
 literal|"an existing plan) for "
@@ -6394,13 +6333,10 @@ return|return
 name|randomPlan
 return|;
 block|}
-name|debugLog
-argument_list|(
-name|state
+name|LOG
 operator|.
-name|getRegion
-argument_list|()
-argument_list|,
+name|debug
+argument_list|(
 literal|"Using pre-existing plan for region "
 operator|+
 name|state
@@ -6449,10 +6385,10 @@ name|boolean
 name|force
 parameter_list|)
 block|{
-name|debugLog
+name|LOG
+operator|.
+name|debug
 argument_list|(
-name|region
-argument_list|,
 literal|"Starting unassignment of region "
 operator|+
 name|region
@@ -6482,10 +6418,10 @@ name|region
 argument_list|)
 condition|)
 block|{
-name|debugLog
+name|LOG
+operator|.
+name|debug
 argument_list|(
-name|region
-argument_list|,
 literal|"Attempted to unassign region "
 operator|+
 name|region
@@ -6609,10 +6545,10 @@ condition|)
 block|{
 comment|// JD 05/25/11
 comment|// in my experience this is useless, when this happens it just spins
-name|debugLog
+name|LOG
+operator|.
+name|debug
 argument_list|(
-name|region
-argument_list|,
 literal|"Attempting to unassign region "
 operator|+
 name|region
@@ -6639,10 +6575,10 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|debugLog
+name|LOG
+operator|.
+name|debug
 argument_list|(
-name|region
-argument_list|,
 literal|"Attempting to unassign region "
 operator|+
 name|region
@@ -6707,10 +6643,10 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-name|debugLog
+name|LOG
+operator|.
+name|debug
 argument_list|(
-name|region
-argument_list|,
 literal|"Sent CLOSE to "
 operator|+
 name|server
@@ -6728,7 +6664,7 @@ block|}
 comment|// This never happens. Currently regionserver close always return true.
 name|LOG
 operator|.
-name|warn
+name|debug
 argument_list|(
 literal|"Server "
 operator|+
