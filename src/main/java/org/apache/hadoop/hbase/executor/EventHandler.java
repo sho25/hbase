@@ -579,6 +579,47 @@ operator|=
 name|listener
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"Event #"
+operator|+
+name|getSeqid
+argument_list|()
+operator|+
+literal|" of type "
+operator|+
+name|eventType
+operator|+
+literal|" ("
+operator|+
+name|getInformativeName
+argument_list|()
+operator|+
+literal|")"
+return|;
+block|}
+comment|/**    * Event implementations should override thie class to provide an    * informative name about what event they are handling. For example,    * event-specific information such as which region or server is    * being processed should be included if possible.    */
+specifier|public
+name|String
+name|getInformativeName
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 
