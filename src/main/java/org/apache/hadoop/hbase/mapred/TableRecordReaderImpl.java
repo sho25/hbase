@@ -65,7 +65,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|UnknownScannerException
+name|DoNotRetryIOException
 import|;
 end_import
 
@@ -655,6 +655,16 @@ operator|.
 name|next
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|DoNotRetryIOException
+name|e
+parameter_list|)
+block|{
+throw|throw
+name|e
+throw|;
 block|}
 catch|catch
 parameter_list|(
