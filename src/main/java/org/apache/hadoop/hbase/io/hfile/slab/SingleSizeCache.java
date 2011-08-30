@@ -623,7 +623,12 @@ parameter_list|)
 block|{
 name|ByteBuffer
 name|storedBlock
-init|=
+decl_stmt|;
+comment|/*      * Spinlock if empty, Guava Mapmaker guarantees that we will not store more      * items than the memory we have allocated, but the Slab Allocator may still      * be empty if we have not yet completed eviction      */
+do|do
+block|{
+name|storedBlock
+operator|=
 name|backingStore
 operator|.
 name|alloc
@@ -633,7 +638,15 @@ operator|.
 name|getSerializedLength
 argument_list|()
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+do|while
+condition|(
+name|storedBlock
+operator|==
+literal|null
+condition|)
+do|;
 name|CacheablePair
 name|newEntry
 init|=

@@ -475,7 +475,7 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/*    * This spinlocks if empty. Make sure your program can deal with that, and    * will complete eviction on time.    */
+comment|/*    * This returns null if empty. Throws an exception if you try to allocate a    * bigger size than the allocator can handle.    */
 name|ByteBuffer
 name|alloc
 parameter_list|(
@@ -503,20 +503,16 @@ operator|.
 name|poll
 argument_list|()
 decl_stmt|;
-while|while
+if|if
 condition|(
 name|returnedBuffer
 operator|==
 literal|null
 condition|)
 block|{
-name|returnedBuffer
-operator|=
-name|buffers
-operator|.
-name|poll
-argument_list|()
-expr_stmt|;
+return|return
+literal|null
+return|;
 block|}
 name|returnedBuffer
 operator|.
