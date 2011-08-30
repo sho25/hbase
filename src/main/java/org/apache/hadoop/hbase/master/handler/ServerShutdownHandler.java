@@ -917,17 +917,6 @@ argument_list|()
 condition|)
 block|{
 comment|// -ROOT-
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Server "
-operator|+
-name|serverName
-operator|+
-literal|" was carrying ROOT. Trying to assign."
-argument_list|)
-expr_stmt|;
 name|verifyAndAssignRootWithRetries
 argument_list|()
 expr_stmt|;
@@ -938,18 +927,6 @@ condition|(
 name|isCarryingMeta
 argument_list|()
 condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Server "
-operator|+
-name|serverName
-operator|+
-literal|" was carrying META. Trying to assign."
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|services
@@ -960,7 +937,6 @@ operator|.
 name|assignMeta
 argument_list|()
 expr_stmt|;
-block|}
 comment|// Wait on meta to come online; we need it to progress.
 comment|// TODO: Best way to hold strictly here?  We should build this retry logic
 comment|// into the MetaReader operations themselves.
