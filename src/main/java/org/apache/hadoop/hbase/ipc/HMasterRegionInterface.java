@@ -144,6 +144,19 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Called by a region server to report a fatal error that is causing    * it to abort.    * @param sn {@link ServerName#getBytes()}    * @param errorMessage informative text to expose in the master logs and UI    */
+specifier|public
+name|void
+name|reportRSFatalError
+parameter_list|(
+name|byte
+index|[]
+name|sn
+parameter_list|,
+name|String
+name|errorMessage
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 

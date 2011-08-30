@@ -8061,6 +8061,17 @@ name|Throwable
 name|cause
 parameter_list|)
 block|{
+name|String
+name|msg
+init|=
+literal|"ABORTING region server "
+operator|+
+name|this
+operator|+
+literal|": "
+operator|+
+name|reason
+decl_stmt|;
 if|if
 condition|(
 name|cause
@@ -8072,13 +8083,7 @@ name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"ABORTING region server "
-operator|+
-name|this
-operator|+
-literal|": "
-operator|+
-name|reason
+name|msg
 argument_list|,
 name|cause
 argument_list|)
@@ -8090,13 +8095,7 @@ name|LOG
 operator|.
 name|fatal
 argument_list|(
-literal|"ABORTING region server "
-operator|+
-name|this
-operator|+
-literal|": "
-operator|+
-name|reason
+name|msg
 argument_list|)
 expr_stmt|;
 block|}
@@ -8131,6 +8130,67 @@ operator|+
 name|this
 operator|.
 name|metrics
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Do our best to report our abort to the master, but this may not work
+try|try
+block|{
+if|if
+condition|(
+name|cause
+operator|!=
+literal|null
+condition|)
+block|{
+name|msg
+operator|+=
+literal|"\nCause:\n"
+operator|+
+name|StringUtils
+operator|.
+name|stringifyException
+argument_list|(
+name|cause
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|hbaseMaster
+operator|!=
+literal|null
+condition|)
+block|{
+name|hbaseMaster
+operator|.
+name|reportRSFatalError
+argument_list|(
+name|this
+operator|.
+name|serverNameFromMasterPOV
+operator|.
+name|getBytes
+argument_list|()
+argument_list|,
+name|msg
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unable to report fatal error to master"
+argument_list|,
+name|t
 argument_list|)
 expr_stmt|;
 block|}

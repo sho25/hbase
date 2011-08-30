@@ -809,6 +809,22 @@ name|hbase
 operator|.
 name|monitoring
 operator|.
+name|MemoryBoundedLogMessageBuffer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|monitoring
+operator|.
 name|MonitoredTask
 import|;
 end_import
@@ -1270,6 +1286,13 @@ specifier|private
 name|ClusterStatusTracker
 name|clusterStatusTracker
 decl_stmt|;
+comment|// buffer for "fatal error" notices from region servers
+comment|// in the cluster. This is only used for assisting
+comment|// operations/debugging.
+specifier|private
+name|MemoryBoundedLogMessageBuffer
+name|rsFatals
+decl_stmt|;
 comment|// This flag is for stopping this Master instance.  Its set when we are
 comment|// stopping or aborting
 specifier|private
@@ -1555,6 +1578,27 @@ name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|rsFatals
+operator|=
+operator|new
+name|MemoryBoundedLogMessageBuffer
+argument_list|(
+name|conf
+operator|.
+name|getLong
+argument_list|(
+literal|"hbase.master.buffer.for.rs.fatals"
+argument_list|,
+literal|1
+operator|*
+literal|1024
+operator|*
+literal|1024
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// initialize server principal (if using secure Hadoop)
@@ -4047,6 +4091,58 @@ block|}
 end_function
 
 begin_function
+annotation|@
+name|Override
+specifier|public
+name|void
+name|reportRSFatalError
+parameter_list|(
+name|byte
+index|[]
+name|sn
+parameter_list|,
+name|String
+name|errorText
+parameter_list|)
+block|{
+name|ServerName
+name|serverName
+init|=
+operator|new
+name|ServerName
+argument_list|(
+name|sn
+argument_list|)
+decl_stmt|;
+name|String
+name|msg
+init|=
+literal|"Region server "
+operator|+
+name|serverName
+operator|+
+literal|" reported a fatal error:\n"
+operator|+
+name|errorText
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+name|rsFatals
+operator|.
+name|add
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+block|}
+end_function
+
+begin_function
 specifier|public
 name|boolean
 name|isMasterRunning
@@ -6387,6 +6483,18 @@ return|return
 name|this
 operator|.
 name|assignmentManager
+return|;
+block|}
+end_function
+
+begin_function
+specifier|public
+name|MemoryBoundedLogMessageBuffer
+name|getRegionServerFatalLogBuffer
+parameter_list|()
+block|{
+return|return
+name|rsFatals
 return|;
 block|}
 end_function
