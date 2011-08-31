@@ -316,9 +316,24 @@ name|ourBlock
 init|=
 name|blocksToTest
 operator|.
-name|remove
+name|poll
 argument_list|()
 decl_stmt|;
+comment|//if we run out of blocks to test, then we should stop the tests.
+if|if
+condition|(
+name|ourBlock
+operator|==
+literal|null
+condition|)
+block|{
+name|ctx
+operator|.
+name|stop
+argument_list|()
+expr_stmt|;
+return|return;
+block|}
 name|toBeTested
 operator|.
 name|cacheBlock
