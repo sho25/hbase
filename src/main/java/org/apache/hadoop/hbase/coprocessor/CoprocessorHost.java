@@ -318,6 +318,14 @@ specifier|public
 specifier|static
 specifier|final
 name|String
+name|USER_REGION_COPROCESSOR_CONF_KEY
+init|=
+literal|"hbase.coprocessor.user.region.classes"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
 name|MASTER_COPROCESSOR_CONF_KEY
 init|=
 literal|"hbase.coprocessor.master.classes"
