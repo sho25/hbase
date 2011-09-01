@@ -5573,8 +5573,22 @@ name|plan
 operator|==
 literal|null
 condition|)
+block|{
+name|debugLog
+argument_list|(
+name|state
+operator|.
+name|getRegion
+argument_list|()
+argument_list|,
+literal|"Unable to determine a plan to assign "
+operator|+
+name|state
+argument_list|)
+expr_stmt|;
 return|return;
 comment|// Should get reassigned later when RIT times out.
+block|}
 try|try
 block|{
 name|debugLog
