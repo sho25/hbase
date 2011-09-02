@@ -403,15 +403,23 @@ name|i
 operator|++
 control|)
 block|{
-assert|assert
-operator|(
+name|assertTrue
+argument_list|(
+literal|"Upper for index "
+operator|+
+name|i
+operator|+
+literal|" is "
+operator|+
 name|test
 operator|.
 name|getUpperBound
 argument_list|(
 name|i
 argument_list|)
-operator|<
+operator|+
+literal|" lower "
+operator|+
 name|test
 operator|.
 name|getLowerBound
@@ -420,8 +428,24 @@ name|i
 operator|+
 literal|1
 argument_list|)
-operator|)
-assert|;
+argument_list|,
+name|test
+operator|.
+name|getUpperBound
+argument_list|(
+name|i
+argument_list|)
+operator|<=
+name|test
+operator|.
+name|getLowerBound
+argument_list|(
+name|i
+operator|+
+literal|1
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 block|}
