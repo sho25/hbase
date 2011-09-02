@@ -176,7 +176,7 @@ specifier|final
 name|CacheStats
 name|stats
 decl_stmt|;
-comment|/**    * Default constructor. Specify maximum size and expected average block size    * (approximation is fine).    *<p>    * All other factors will be calculated based on defaults specified in this    * class.    *    * @param maxSize    *          maximum size of cache, in bytes    * @param blockSize    *          approximate size of each block, in bytes    */
+comment|/**    * Default constructor. Specify maximum size and expected average block size    * (approximation is fine).    *<p>    * All other factors will be calculated based on defaults specified in this    * class.    *    * @param onHeapSize maximum size of the onHeapCache, in bytes.    * @param offHeapSize maximum size of the offHeapCache, in bytes.    * @param onHeapBlockSize average block size of the on heap cache.    * @param offHeapBlockSize average block size for the off heap cache    * @param conf configuration file. currently used only by the off heap cache.    */
 specifier|public
 name|DoubleBlockCache
 parameter_list|(
@@ -187,10 +187,13 @@ name|long
 name|offHeapSize
 parameter_list|,
 name|long
-name|blockSizeLru
+name|onHeapBlockSize
 parameter_list|,
 name|long
-name|blockSizeSlab
+name|offHeapBlockSize
+parameter_list|,
+name|Configuration
+name|conf
 parameter_list|)
 block|{
 name|LOG
@@ -212,7 +215,7 @@ name|StringUtils
 operator|.
 name|humanReadableInt
 argument_list|(
-name|blockSizeLru
+name|onHeapBlockSize
 argument_list|)
 operator|+
 literal|" bytes."
@@ -225,7 +228,7 @@ name|LruBlockCache
 argument_list|(
 name|onHeapSize
 argument_list|,
-name|blockSizeLru
+name|onHeapBlockSize
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -247,7 +250,7 @@ name|StringUtils
 operator|.
 name|humanReadableInt
 argument_list|(
-name|blockSizeSlab
+name|offHeapBlockSize
 argument_list|)
 operator|+
 literal|" bytes."
@@ -260,7 +263,14 @@ name|SlabCache
 argument_list|(
 name|offHeapSize
 argument_list|,
-name|blockSizeSlab
+name|offHeapBlockSize
+argument_list|)
+expr_stmt|;
+name|offHeapCache
+operator|.
+name|addSlabByConf
+argument_list|(
+name|conf
 argument_list|)
 expr_stmt|;
 name|this

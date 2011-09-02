@@ -1754,6 +1754,8 @@ argument_list|,
 name|DEFAULT_BLOCKSIZE_SMALL
 argument_list|,
 name|blockSize
+argument_list|,
+name|conf
 argument_list|)
 expr_stmt|;
 block|}
