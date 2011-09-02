@@ -951,13 +951,6 @@ argument_list|)
 expr_stmt|;
 name|impl
 operator|.
-name|disableTable
-argument_list|(
-name|tableAname
-argument_list|)
-expr_stmt|;
-name|impl
-operator|.
 name|deleteTable
 argument_list|(
 name|tableAname

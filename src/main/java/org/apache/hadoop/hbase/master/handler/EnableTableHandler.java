@@ -117,6 +117,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableNotDisabledException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableNotFoundException
 import|;
 end_import
@@ -291,9 +305,14 @@ name|catalogTracker
 parameter_list|,
 name|AssignmentManager
 name|assignmentManager
+parameter_list|,
+name|boolean
+name|skipTableStateCheck
 parameter_list|)
 throws|throws
 name|TableNotFoundException
+throws|,
+name|TableNotDisabledException
 throws|,
 name|IOException
 block|{
@@ -363,6 +382,77 @@ name|tableName
 argument_list|)
 argument_list|)
 throw|;
+block|}
+comment|// There could be multiple client requests trying to disable or enable
+comment|// the table at the same time. Ensure only the first request is honored
+comment|// After that, no other requests can be accepted until the table reaches
+comment|// DISABLED or ENABLED.
+if|if
+condition|(
+operator|!
+name|skipTableStateCheck
+condition|)
+block|{
+try|try
+block|{
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|getZKTable
+argument_list|()
+operator|.
+name|checkDisabledAndSetEnablingTable
+argument_list|(
+name|this
+operator|.
+name|tableNameStr
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Table "
+operator|+
+name|tableNameStr
+operator|+
+literal|" isn't disabled; skipping enable"
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|TableNotDisabledException
+argument_list|(
+name|this
+operator|.
+name|tableNameStr
+argument_list|)
+throw|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Unable to ensure that the table will be"
+operator|+
+literal|" enabling because of a ZooKeeper issue"
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 block|}
 annotation|@
@@ -497,36 +587,6 @@ name|IOException
 throws|,
 name|KeeperException
 block|{
-if|if
-condition|(
-name|this
-operator|.
-name|assignmentManager
-operator|.
-name|getZKTable
-argument_list|()
-operator|.
-name|isEnabledTable
-argument_list|(
-name|this
-operator|.
-name|tableNameStr
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Table "
-operator|+
-name|tableNameStr
-operator|+
-literal|" is already enabled; skipping enable"
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
 comment|// I could check table is disabling and if so, not enable but require
 comment|// that user first finish disabling but that might be obnoxious.
 comment|// Set table enabling flag up in zk.

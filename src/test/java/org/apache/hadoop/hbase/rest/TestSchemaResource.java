@@ -626,14 +626,6 @@ argument_list|,
 literal|403
 argument_list|)
 expr_stmt|;
-comment|// make sure HBase concurs, and wait for the table to come online
-name|admin
-operator|.
-name|enableTable
-argument_list|(
-name|TABLE1
-argument_list|)
-expr_stmt|;
 comment|// retrieve the schema and validate it
 name|response
 operator|=
@@ -834,14 +826,6 @@ name|getCode
 argument_list|()
 argument_list|,
 literal|403
-argument_list|)
-expr_stmt|;
-comment|// make sure HBase concurs, and wait for the table to come online
-name|admin
-operator|.
-name|enableTable
-argument_list|(
-name|TABLE2
 argument_list|)
 expr_stmt|;
 comment|// retrieve the schema and validate it

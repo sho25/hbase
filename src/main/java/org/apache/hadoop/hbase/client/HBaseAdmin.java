@@ -2425,7 +2425,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Enable a table.  May timeout.  Use {@link #enableTableAsync(byte[])}    * and {@link #isTableEnabled(byte[])} instead.    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs    * @see #isTableEnabled(byte[])    * @see #disableTable(byte[])    * @see #enableTableAsync(byte[])    */
+comment|/**    * Enable a table.  May timeout.  Use {@link #enableTableAsync(byte[])}    * and {@link #isTableEnabled(byte[])} instead.    * The table has to be in disabled state for it to be enabled.    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs    * There could be couple types of IOException    * TableNotFoundException means the table doesn't exist.    * TableNotDisabledException means the table isn't in disabled state.    * @see #isTableEnabled(byte[])    * @see #disableTable(byte[])    * @see #enableTableAsync(byte[])    */
 specifier|public
 name|void
 name|enableTable
@@ -2900,7 +2900,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Disable table and wait on completion.  May timeout eventually.  Use    * {@link #disableTableAsync(byte[])} and {@link #isTableDisabled(String)}    * instead.    * @param tableName    * @throws IOException    */
+comment|/**    * Disable table and wait on completion.  May timeout eventually.  Use    * {@link #disableTableAsync(byte[])} and {@link #isTableDisabled(String)}    * instead.    * The table has to be in enabled state for it to be disabled.    * @param tableName    * @throws IOException    * There could be couple types of IOException    * TableNotFoundException means the table doesn't exist.    * TableNotEnabledException means the table isn't in enabled state.    */
 specifier|public
 name|void
 name|disableTable

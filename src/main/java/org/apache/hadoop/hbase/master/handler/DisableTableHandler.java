@@ -117,6 +117,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableNotEnabledException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableNotFoundException
 import|;
 end_import
@@ -286,9 +300,14 @@ name|catalogTracker
 parameter_list|,
 name|AssignmentManager
 name|assignmentManager
+parameter_list|,
+name|boolean
+name|skipTableStateCheck
 parameter_list|)
 throws|throws
 name|TableNotFoundException
+throws|,
+name|TableNotEnabledException
 throws|,
 name|IOException
 block|{
@@ -349,14 +368,82 @@ throw|throw
 operator|new
 name|TableNotFoundException
 argument_list|(
-name|Bytes
+name|this
 operator|.
-name|toString
-argument_list|(
-name|tableName
-argument_list|)
+name|tableNameStr
 argument_list|)
 throw|;
+block|}
+comment|// There could be multiple client requests trying to disable or enable
+comment|// the table at the same time. Ensure only the first request is honored
+comment|// After that, no other requests can be accepted until the table reaches
+comment|// DISABLED or ENABLED.
+if|if
+condition|(
+operator|!
+name|skipTableStateCheck
+condition|)
+block|{
+try|try
+block|{
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|getZKTable
+argument_list|()
+operator|.
+name|checkEnabledAndSetDisablingTable
+argument_list|(
+name|this
+operator|.
+name|tableNameStr
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Table "
+operator|+
+name|tableNameStr
+operator|+
+literal|" isn't enabled; skipping disable"
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|TableNotEnabledException
+argument_list|(
+name|this
+operator|.
+name|tableNameStr
+argument_list|)
+throw|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Unable to ensure that the table will be"
+operator|+
+literal|" disabling because of a ZooKeeper issue"
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 block|}
 annotation|@
@@ -491,36 +578,6 @@ name|IOException
 throws|,
 name|KeeperException
 block|{
-if|if
-condition|(
-name|this
-operator|.
-name|assignmentManager
-operator|.
-name|getZKTable
-argument_list|()
-operator|.
-name|isDisabledTable
-argument_list|(
-name|this
-operator|.
-name|tableNameStr
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Table "
-operator|+
-name|tableNameStr
-operator|+
-literal|" already disabled; skipping disable"
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
 comment|// Set table disabling flag up in zk.
 name|this
 operator|.
@@ -548,8 +605,8 @@ condition|)
 block|{
 comment|// Get list of online regions that are of this table.  Regions that are
 comment|// already closed will not be included in this list; i.e. the returned
-comment|// list is not ALL regions in a table, its all online regions according to
-comment|// the in-memory state on this master.
+comment|// list is not ALL regions in a table, its all online regions according
+comment|// to the in-memory state on this master.
 specifier|final
 name|List
 argument_list|<

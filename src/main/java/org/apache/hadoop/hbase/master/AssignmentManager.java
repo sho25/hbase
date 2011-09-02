@@ -8168,18 +8168,18 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// Region not being served, add to region map with no assignment
-comment|// If this needs to be assigned out, it will also be in ZK as RIT
-comment|// add if the table is not in disabled and enabling state
+comment|// regionLocation could be null if createTable didn't finish properly.
+comment|// When createTable is in progress, HMaster restarts.
+comment|// Some regions have been added to .META., but have not been assigned.
+comment|// When this happens, the region's table must be in ENABLING state.
+comment|// It can't be in ENABLED state as that is set when all regions are
+comment|// assigned.
+comment|// It can't be in DISABLING state, because DISABLING state transitions
+comment|// from ENABLED state when application calls disableTable.
+comment|// It can't be in DISABLED state, because DISABLED states transitions
+comment|// from DISABLING state.
 if|if
 condition|(
-literal|false
-operator|==
-name|checkIfRegionBelongsToDisabled
-argument_list|(
-name|regionInfo
-argument_list|)
-operator|&&
 literal|false
 operator|==
 name|checkIfRegionsBelongsToEnabling
@@ -8188,13 +8188,24 @@ name|regionInfo
 argument_list|)
 condition|)
 block|{
-name|regions
+name|LOG
 operator|.
-name|put
+name|warn
 argument_list|(
+literal|"Region "
+operator|+
 name|regionInfo
-argument_list|,
-name|regionLocation
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" has null regionLocation."
+operator|+
+literal|" But its table "
+operator|+
+name|tableName
+operator|+
+literal|" isn't in ENABLING state."
 argument_list|)
 expr_stmt|;
 block|}
@@ -8510,6 +8521,8 @@ argument_list|,
 name|catalogTracker
 argument_list|,
 name|this
+argument_list|,
+literal|true
 argument_list|)
 operator|.
 name|process
@@ -8608,6 +8621,8 @@ argument_list|,
 name|catalogTracker
 argument_list|,
 name|this
+argument_list|,
+literal|true
 argument_list|)
 operator|.
 name|process
