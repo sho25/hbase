@@ -1014,6 +1014,38 @@ specifier|final
 name|ZKTable
 name|zkTable
 decl_stmt|;
+comment|// store all the table names in disabling state
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|disablingTables
+init|=
+operator|new
+name|HashSet
+argument_list|<
+name|String
+argument_list|>
+argument_list|(
+literal|1
+argument_list|)
+decl_stmt|;
+comment|// store all the enabling state tablenames.
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|enablingTables
+init|=
+operator|new
+name|HashSet
+argument_list|<
+name|String
+argument_list|>
+argument_list|(
+literal|1
+argument_list|)
+decl_stmt|;
 comment|/**    * Server to regions assignment map.    * Contains the set of regions currently assigned to a given server.    * This Map and {@link #regions} are tied.  Always update this in tandem    * with the other under a lock on {@link #regions}    * @see #regions    */
 specifier|private
 specifier|final
@@ -1576,6 +1608,27 @@ comment|// Check existing regions in transition
 name|processRegionsInTransition
 argument_list|(
 name|deadServers
+argument_list|)
+expr_stmt|;
+comment|// Recover the tables that were not fully moved to DISABLED state.
+comment|// These tables are in DISABLING state when the master restarted/switched.
+name|boolean
+name|isWatcherCreated
+init|=
+name|recoverTableInDisablingState
+argument_list|(
+name|this
+operator|.
+name|disablingTables
+argument_list|)
+decl_stmt|;
+name|recoverTableInEnablingState
+argument_list|(
+name|this
+operator|.
+name|enablingTables
+argument_list|,
+name|isWatcherCreated
 argument_list|)
 expr_stmt|;
 block|}
@@ -8489,38 +8542,6 @@ argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|// store all the table names in disabling state
-name|Set
-argument_list|<
-name|String
-argument_list|>
-name|disablingTables
-init|=
-operator|new
-name|HashSet
-argument_list|<
-name|String
-argument_list|>
-argument_list|(
-literal|1
-argument_list|)
-decl_stmt|;
-comment|// store all the enabling state tablenames.
-name|Set
-argument_list|<
-name|String
-argument_list|>
-name|enablingTables
-init|=
-operator|new
-name|HashSet
-argument_list|<
-name|String
-argument_list|>
-argument_list|(
-literal|1
-argument_list|)
-decl_stmt|;
 comment|// Iterate regions in META
 for|for
 control|(
@@ -8626,8 +8647,12 @@ expr_stmt|;
 block|}
 name|addTheTablesInPartialState
 argument_list|(
+name|this
+operator|.
 name|disablingTables
 argument_list|,
+name|this
+operator|.
 name|enablingTables
 argument_list|,
 name|regionInfo
@@ -8761,8 +8786,12 @@ expr_stmt|;
 block|}
 name|addTheTablesInPartialState
 argument_list|(
+name|this
+operator|.
 name|disablingTables
 argument_list|,
+name|this
+operator|.
 name|enablingTables
 argument_list|,
 name|regionInfo
@@ -8772,23 +8801,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Recover the tables that were not fully moved to DISABLED state.
-comment|// These tables are in DISABLING state when the master restarted/switched.
-name|boolean
-name|isWatcherCreated
-init|=
-name|recoverTableInDisablingState
-argument_list|(
-name|disablingTables
-argument_list|)
-decl_stmt|;
-name|recoverTableInEnablingState
-argument_list|(
-name|enablingTables
-argument_list|,
-name|isWatcherCreated
-argument_list|)
-expr_stmt|;
 return|return
 name|offlineServers
 return|;
