@@ -413,6 +413,13 @@ argument_list|)
 expr_stmt|;
 name|assignmentManager
 operator|.
+name|removeClosedRegion
+argument_list|(
+name|regionInfo
+argument_list|)
+expr_stmt|;
+name|assignmentManager
+operator|.
 name|assign
 argument_list|(
 name|regionInfo
