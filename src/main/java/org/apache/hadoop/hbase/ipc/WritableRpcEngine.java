@@ -1301,6 +1301,15 @@ literal|1024
 operator|*
 literal|1024
 decl_stmt|;
+comment|/** Names for suffixed metrics */
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|ABOVE_ONE_SEC_METRIC
+init|=
+literal|".aboveOneSec."
+decl_stmt|;
 specifier|private
 specifier|final
 name|int
@@ -1459,6 +1468,17 @@ operator|=
 name|ifaces
 expr_stmt|;
 comment|// create metrics for the advertised interfaces this server implements.
+name|String
+index|[]
+name|metricSuffixes
+init|=
+operator|new
+name|String
+index|[]
+block|{
+name|ABOVE_ONE_SEC_METRIC
+block|}
+decl_stmt|;
 name|this
 operator|.
 name|rpcMetrics
@@ -1468,6 +1488,10 @@ argument_list|(
 name|this
 operator|.
 name|ifaces
+argument_list|,
+literal|false
+argument_list|,
+name|metricSuffixes
 argument_list|)
 expr_stmt|;
 name|this
@@ -1878,15 +1902,10 @@ condition|)
 block|{
 name|rpcMetrics
 operator|.
+name|rpcSlowResponseTime
+operator|.
 name|inc
 argument_list|(
-name|call
-operator|.
-name|getMethodName
-argument_list|()
-operator|+
-literal|".slowResponse."
-argument_list|,
 name|processingTime
 argument_list|)
 expr_stmt|;
@@ -1911,7 +1930,7 @@ operator|.
 name|getMethodName
 argument_list|()
 operator|+
-literal|".aboveOneSec."
+name|ABOVE_ONE_SEC_METRIC
 argument_list|,
 name|processingTime
 argument_list|)
@@ -2288,7 +2307,7 @@ name|Operation
 operator|)
 name|params
 index|[
-literal|1
+literal|0
 index|]
 operator|)
 operator|.
