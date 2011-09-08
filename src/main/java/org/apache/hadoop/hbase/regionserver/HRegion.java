@@ -229,6 +229,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|UUID
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|ConcurrentHashMap
@@ -5704,6 +5714,11 @@ operator|.
 name|getFamilyMap
 argument_list|()
 argument_list|,
+name|delete
+operator|.
+name|getClusterId
+argument_list|()
+argument_list|,
 name|writeToWAL
 argument_list|)
 expr_stmt|;
@@ -5746,6 +5761,9 @@ name|KeyValue
 argument_list|>
 argument_list|>
 name|familyMap
+parameter_list|,
+name|UUID
+name|clusterId
 parameter_list|,
 name|boolean
 name|writeToWAL
@@ -6151,6 +6169,8 @@ argument_list|()
 argument_list|,
 name|walEdit
 argument_list|,
+name|clusterId
+argument_list|,
 name|now
 argument_list|,
 name|this
@@ -6378,6 +6398,11 @@ argument_list|(
 name|put
 operator|.
 name|getFamilyMap
+argument_list|()
+argument_list|,
+name|put
+operator|.
+name|getClusterId
 argument_list|()
 argument_list|,
 name|writeToWAL
@@ -7294,6 +7319,19 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Append the edit to WAL
+name|Put
+name|first
+init|=
+name|batchOp
+operator|.
+name|operations
+index|[
+name|firstIndex
+index|]
+operator|.
+name|getFirst
+argument_list|()
+decl_stmt|;
 name|this
 operator|.
 name|log
@@ -7310,6 +7348,11 @@ name|getName
 argument_list|()
 argument_list|,
 name|walEdit
+argument_list|,
+name|first
+operator|.
+name|getClusterId
+argument_list|()
 argument_list|,
 name|now
 argument_list|,
@@ -7929,7 +7972,12 @@ condition|(
 name|matches
 condition|)
 block|{
-comment|// All edits for the given row (across all column families) must happen atomically.
+comment|// All edits for the given row (across all column families) must
+comment|// happen atomically.
+comment|//
+comment|// Using default cluster id, as this can only happen in the
+comment|// originating cluster. A slave cluster receives the result as a Put
+comment|// or Delete
 if|if
 condition|(
 name|isPut
@@ -7946,6 +7994,10 @@ operator|)
 operator|.
 name|getFamilyMap
 argument_list|()
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_ID
 argument_list|,
 name|writeToWAL
 argument_list|)
@@ -7972,6 +8024,10 @@ name|d
 operator|.
 name|getFamilyMap
 argument_list|()
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_ID
 argument_list|,
 name|writeToWAL
 argument_list|)
@@ -8305,6 +8361,10 @@ name|put
 argument_list|(
 name|familyMap
 argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_ID
+argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
@@ -8325,6 +8385,9 @@ name|KeyValue
 argument_list|>
 argument_list|>
 name|familyMap
+parameter_list|,
+name|UUID
+name|clusterId
 parameter_list|,
 name|boolean
 name|writeToWAL
@@ -8449,6 +8512,8 @@ name|getName
 argument_list|()
 argument_list|,
 name|walEdit
+argument_list|,
+name|clusterId
 argument_list|,
 name|now
 argument_list|,
@@ -15070,6 +15135,9 @@ condition|(
 name|writeToWAL
 condition|)
 block|{
+comment|// Using default cluster id, as this can only happen in the orginating
+comment|// cluster. A slave cluster receives the final value (not the delta)
+comment|// as a Put.
 name|this
 operator|.
 name|log
@@ -15086,6 +15154,10 @@ name|getName
 argument_list|()
 argument_list|,
 name|walEdits
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_ID
 argument_list|,
 name|now
 argument_list|,
@@ -15406,6 +15478,9 @@ argument_list|(
 name|newKv
 argument_list|)
 expr_stmt|;
+comment|// Using default cluster id, as this can only happen in the
+comment|// orginating cluster. A slave cluster receives the final value (not
+comment|// the delta) as a Put.
 name|this
 operator|.
 name|log
@@ -15422,6 +15497,10 @@ name|getName
 argument_list|()
 argument_list|,
 name|walEdit
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_ID
 argument_list|,
 name|now
 argument_list|,

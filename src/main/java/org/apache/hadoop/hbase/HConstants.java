@@ -83,6 +83,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|UUID
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|regex
 operator|.
 name|Pattern
@@ -601,6 +611,15 @@ name|CLUSTER_ID
 init|=
 literal|"hbase.cluster.id"
 decl_stmt|;
+comment|/**    * Attribute used in Puts and Gets to indicate the originating    * cluster.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CLUSTER_ID_ATTR
+init|=
+literal|"_c.id_"
+decl_stmt|;
 comment|// Always store the location of the root table's HRegion.
 comment|// This HRegion is never split.
 comment|// region name = table + startkey + regionid. This is the row key.
@@ -1002,10 +1021,16 @@ comment|/**    * Default cluster ID, cannot be used to identify a cluster so a k
 specifier|public
 specifier|static
 specifier|final
-name|byte
+name|UUID
 name|DEFAULT_CLUSTER_ID
 init|=
-literal|0
+operator|new
+name|UUID
+argument_list|(
+literal|0L
+argument_list|,
+literal|0L
+argument_list|)
 decl_stmt|;
 comment|/**      * Parameter name for maximum number of bytes returned when calling a      * scanner's next method.      */
 specifier|public

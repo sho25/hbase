@@ -175,11 +175,6 @@ name|replicationZk
 decl_stmt|;
 specifier|private
 specifier|final
-name|Configuration
-name|configuration
-decl_stmt|;
-specifier|private
-specifier|final
 name|HConnection
 name|connection
 decl_stmt|;
@@ -218,12 +213,6 @@ literal|"enable it in order to use replication"
 argument_list|)
 throw|;
 block|}
-name|this
-operator|.
-name|configuration
-operator|=
-name|conf
-expr_stmt|;
 name|this
 operator|.
 name|connection

@@ -209,6 +209,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|UUID
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|ConcurrentSkipListMap
@@ -3857,7 +3867,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * @param now    * @param regionName    * @param tableName    * @return New log key.    */
+comment|/**    * @param now    * @param regionName    * @param tableName    * @param clusterId    * @return New log key.    */
 end_comment
 
 begin_function
@@ -3878,6 +3888,9 @@ name|seqnum
 parameter_list|,
 name|long
 name|now
+parameter_list|,
+name|UUID
+name|clusterId
 parameter_list|)
 block|{
 return|return
@@ -3891,6 +3904,8 @@ argument_list|,
 name|seqnum
 argument_list|,
 name|now
+argument_list|,
+name|clusterId
 argument_list|)
 return|;
 block|}
@@ -4023,7 +4038,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for a    * given key-range of the HRegion (TODO). Any edits that do not have a    * matching COMPLETE_CACHEFLUSH message can be discarded.    *    *<p>    * Logs cannot be restarted once closed, or once the HLog process dies. Each    * time the HLog starts, it must create a new log. This means that other    * systems should process the log appropriately upon each startup (and prior    * to initializing HLog).    *    * synchronized prevents appends during the completion of a cache flush or for    * the duration of a log roll.    *    * @param info    * @param tableName    * @param edits    * @param now    * @throws IOException    */
+comment|/**    * Only used in tests.    *    * @param info    * @param tableName    * @param edits    * @param now    * @param htd    * @throws IOException    */
 end_comment
 
 begin_function
@@ -4040,6 +4055,58 @@ name|tableName
 parameter_list|,
 name|WALEdit
 name|edits
+parameter_list|,
+specifier|final
+name|long
+name|now
+parameter_list|,
+name|HTableDescriptor
+name|htd
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|append
+argument_list|(
+name|info
+argument_list|,
+name|tableName
+argument_list|,
+name|edits
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_ID
+argument_list|,
+name|now
+argument_list|,
+name|htd
+argument_list|)
+expr_stmt|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Append a set of edits to the log. Log edits are keyed by (encoded)    * regionName, rowname, and log-sequence-id.    *    * Later, if we sort by these keys, we obtain all the relevant edits for a    * given key-range of the HRegion (TODO). Any edits that do not have a    * matching COMPLETE_CACHEFLUSH message can be discarded.    *    *<p>    * Logs cannot be restarted once closed, or once the HLog process dies. Each    * time the HLog starts, it must create a new log. This means that other    * systems should process the log appropriately upon each startup (and prior    * to initializing HLog).    *    * synchronized prevents appends during the completion of a cache flush or for    * the duration of a log roll.    *    * @param info    * @param tableName    * @param edits    * @param clusterId The originating clusterId for this edit (for replication)    * @param now    * @throws IOException    */
+end_comment
+
+begin_function
+specifier|public
+name|void
+name|append
+parameter_list|(
+name|HRegionInfo
+name|info
+parameter_list|,
+name|byte
+index|[]
+name|tableName
+parameter_list|,
+name|WALEdit
+name|edits
+parameter_list|,
+name|UUID
+name|clusterId
 parameter_list|,
 specifier|final
 name|long
@@ -4126,6 +4193,8 @@ argument_list|,
 name|seqNum
 argument_list|,
 name|now
+argument_list|,
+name|clusterId
 argument_list|)
 decl_stmt|;
 name|doWrite
@@ -5316,6 +5385,10 @@ name|System
 operator|.
 name|currentTimeMillis
 argument_list|()
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_ID
 argument_list|)
 decl_stmt|;
 name|this

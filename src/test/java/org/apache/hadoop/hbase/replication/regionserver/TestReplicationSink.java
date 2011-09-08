@@ -1597,6 +1597,10 @@ argument_list|,
 name|now
 argument_list|,
 name|now
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_ID
 argument_list|)
 decl_stmt|;
 name|WALEdit

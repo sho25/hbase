@@ -81,6 +81,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|UUID
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -123,6 +133,20 @@ name|WritableComparable
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|WritableUtils
+import|;
+end_import
+
 begin_comment
 comment|/**  * A Key for an entry in the change log.  *  * The log intermingles edits to many tables and rows, so each log entry  * identifies the appropriate table and row.  Within a table and row, they're  * also sorted.  *  *<p>Some Transactional edits (START, COMMIT, ABORT) will not have an  * associated row.  */
 end_comment
@@ -137,6 +161,16 @@ argument_list|<
 name|HLogKey
 argument_list|>
 block|{
+comment|// should be< 0 (@see #readFields(DataInput))
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|VERSION
+init|=
+operator|-
+literal|1
+decl_stmt|;
 comment|//  The encoded region name.
 specifier|private
 name|byte
@@ -158,7 +192,7 @@ name|long
 name|writeTime
 decl_stmt|;
 specifier|private
-name|byte
+name|UUID
 name|clusterId
 decl_stmt|;
 comment|/** Writable Consructor -- Do not use. */
@@ -177,10 +211,14 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_ID
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create the log key!    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tablename   - name of table    * @param logSeqNum   - log sequence number    * @param now Time at which this edit was written.    */
+comment|/**    * Create the log key!    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tablename   - name of table    * @param logSeqNum   - log sequence number    * @param now Time at which this edit was written.    * @param UUID of the cluster (used in Replication)    */
 specifier|public
 name|HLogKey
 parameter_list|(
@@ -200,6 +238,9 @@ parameter_list|,
 specifier|final
 name|long
 name|now
+parameter_list|,
+name|UUID
+name|clusterId
 parameter_list|)
 block|{
 name|this
@@ -230,9 +271,7 @@ name|this
 operator|.
 name|clusterId
 operator|=
-name|HConstants
-operator|.
-name|DEFAULT_CLUSTER_ID
+name|clusterId
 expr_stmt|;
 block|}
 comment|/** @return encoded region name */
@@ -295,7 +334,7 @@ return|;
 block|}
 comment|/**    * Get the id of the original cluster    * @return Cluster id.    */
 specifier|public
-name|byte
+name|UUID
 name|getClusterId
 parameter_list|()
 block|{
@@ -308,7 +347,7 @@ specifier|public
 name|void
 name|setClusterId
 parameter_list|(
-name|byte
+name|UUID
 name|clusterId
 parameter_list|)
 block|{
@@ -505,6 +544,9 @@ operator|^=
 name|this
 operator|.
 name|clusterId
+operator|.
+name|hashCode
+argument_list|()
 expr_stmt|;
 return|return
 name|result
@@ -617,6 +659,7 @@ return|;
 block|}
 block|}
 block|}
+comment|// why isn't cluster id accounted for?
 return|return
 name|result
 return|;
@@ -681,6 +724,8 @@ operator|=
 name|encodedRegionName
 expr_stmt|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|write
@@ -691,6 +736,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|WritableUtils
+operator|.
+name|writeVInt
+argument_list|(
+name|out
+argument_list|,
+name|VERSION
+argument_list|)
+expr_stmt|;
 name|Bytes
 operator|.
 name|writeByteArray
@@ -731,16 +785,63 @@ operator|.
 name|writeTime
 argument_list|)
 expr_stmt|;
+comment|// avoid storing 16 bytes when replication is not enabled
+if|if
+condition|(
+name|this
+operator|.
+name|clusterId
+operator|==
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_ID
+condition|)
+block|{
 name|out
 operator|.
-name|writeByte
+name|writeBoolean
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|out
+operator|.
+name|writeBoolean
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|writeLong
 argument_list|(
 name|this
 operator|.
 name|clusterId
+operator|.
+name|getMostSignificantBits
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|out
+operator|.
+name|writeLong
+argument_list|(
+name|this
+operator|.
+name|clusterId
+operator|.
+name|getLeastSignificantBits
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|readFields
@@ -751,15 +852,68 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|int
+name|version
+init|=
+literal|0
+decl_stmt|;
+comment|// HLogKey was not versioned in the beginning.
+comment|// In order to introduce it now, we make use of the fact
+comment|// that encodedRegionName was written with Bytes.writeByteArray,
+comment|// which encodes the array length as a vint which is>= 0.
+comment|// Hence if the vint is>= 0 we have an old version and the vint
+comment|// encodes the length of encodedRegionName.
+comment|// If< 0 we just read the version and the next vint is the length.
+comment|// @see Bytes#readByteArray(DataInput)
+name|int
+name|len
+init|=
+name|WritableUtils
+operator|.
+name|readVInt
+argument_list|(
+name|in
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|len
+operator|<
+literal|0
+condition|)
+block|{
+comment|// what we just read was the version
+name|version
+operator|=
+name|len
+expr_stmt|;
+name|len
+operator|=
+name|WritableUtils
+operator|.
+name|readVInt
+argument_list|(
+name|in
+argument_list|)
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|encodedRegionName
 operator|=
-name|Bytes
-operator|.
-name|readByteArray
-argument_list|(
+operator|new
+name|byte
+index|[
+name|len
+index|]
+expr_stmt|;
 name|in
+operator|.
+name|readFully
+argument_list|(
+name|this
+operator|.
+name|encodedRegionName
 argument_list|)
 expr_stmt|;
 name|this
@@ -791,12 +945,54 @@ operator|.
 name|readLong
 argument_list|()
 expr_stmt|;
-try|try
+name|this
+operator|.
+name|clusterId
+operator|=
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_ID
+expr_stmt|;
+if|if
+condition|(
+name|version
+operator|<
+literal|0
+condition|)
+block|{
+if|if
+condition|(
+name|in
+operator|.
+name|readBoolean
+argument_list|()
+condition|)
 block|{
 name|this
 operator|.
 name|clusterId
 operator|=
+operator|new
+name|UUID
+argument_list|(
+name|in
+operator|.
+name|readLong
+argument_list|()
+argument_list|,
+name|in
+operator|.
+name|readLong
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+else|else
+block|{
+try|try
+block|{
+comment|// dummy read (former byte cluster id)
 name|in
 operator|.
 name|readByte
@@ -809,7 +1005,8 @@ name|EOFException
 name|e
 parameter_list|)
 block|{
-comment|// Means it's an old key, just continue
+comment|// Means it's a very old key, just continue
+block|}
 block|}
 block|}
 block|}

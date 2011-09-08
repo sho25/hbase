@@ -135,6 +135,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|UUID
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|CountDownLatch
@@ -491,6 +501,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ClusterId
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|ipc
 operator|.
 name|RemoteException
@@ -583,7 +609,7 @@ decl_stmt|;
 comment|// id of the peer cluster this source replicates to
 specifier|private
 name|String
-name|peerClusterId
+name|peerId
 decl_stmt|;
 comment|// The manager of all sources to which we ping back our progress
 specifier|private
@@ -644,8 +670,13 @@ name|fs
 decl_stmt|;
 comment|// id of this cluster
 specifier|private
-name|byte
+name|UUID
 name|clusterId
+decl_stmt|;
+comment|// id of the other cluster
+specifier|private
+name|UUID
+name|peerClusterId
 decl_stmt|;
 comment|// total number of edits we replicated
 specifier|private
@@ -963,20 +994,6 @@ name|fs
 expr_stmt|;
 name|this
 operator|.
-name|clusterId
-operator|=
-name|Byte
-operator|.
-name|valueOf
-argument_list|(
-name|zkHelper
-operator|.
-name|getClusterId
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
 name|metrics
 operator|=
 operator|new
@@ -985,6 +1002,44 @@ argument_list|(
 name|peerClusterZnode
 argument_list|)
 expr_stmt|;
+try|try
+block|{
+name|this
+operator|.
+name|clusterId
+operator|=
+name|UUID
+operator|.
+name|fromString
+argument_list|(
+name|ClusterId
+operator|.
+name|readClusterIdZNode
+argument_list|(
+name|zkHelper
+operator|.
+name|getZookeeperWatcher
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|ke
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Could not read cluster id"
+argument_list|,
+name|ke
+argument_list|)
+throw|;
+block|}
 comment|// Finally look if this is a recovered queue
 name|this
 operator|.
@@ -1027,7 +1082,7 @@ literal|1
 expr_stmt|;
 name|this
 operator|.
-name|peerClusterId
+name|peerId
 operator|=
 name|this
 operator|.
@@ -1121,7 +1176,7 @@ name|zkHelper
 operator|.
 name|getSlavesAddresses
 argument_list|(
-name|peerClusterId
+name|peerId
 argument_list|)
 decl_stmt|;
 name|Set
@@ -1167,7 +1222,7 @@ name|nbPeers
 operator|+
 literal|" rs from peer cluster # "
 operator|+
-name|peerClusterId
+name|peerId
 argument_list|)
 expr_stmt|;
 for|for
@@ -1322,6 +1377,66 @@ condition|)
 block|{
 return|return;
 block|}
+comment|// delay this until we are in an asynchronous thread
+try|try
+block|{
+name|this
+operator|.
+name|peerClusterId
+operator|=
+name|UUID
+operator|.
+name|fromString
+argument_list|(
+name|ClusterId
+operator|.
+name|readClusterIdZNode
+argument_list|(
+name|zkHelper
+operator|.
+name|getPeerClusters
+argument_list|()
+operator|.
+name|get
+argument_list|(
+name|peerId
+argument_list|)
+operator|.
+name|getZkw
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|ke
+parameter_list|)
+block|{
+name|this
+operator|.
+name|terminate
+argument_list|(
+literal|"Could not read peer's cluster id"
+argument_list|,
+name|ke
+argument_list|)
+expr_stmt|;
+block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Replicating "
+operator|+
+name|clusterId
+operator|+
+literal|" -> "
+operator|+
+name|peerClusterId
+argument_list|)
+expr_stmt|;
 comment|// If this is recovered, the queue is already full and the first log
 comment|// normally has a position (unless the RS failed between 2 logs)
 if|if
@@ -1846,7 +1961,7 @@ name|debug
 argument_list|(
 literal|"Source exiting "
 operator|+
-name|peerClusterId
+name|peerId
 argument_list|)
 expr_stmt|;
 block|}
@@ -1933,11 +2048,6 @@ name|seenEntries
 operator|++
 expr_stmt|;
 comment|// Remove all KVs that should not be replicated
-name|removeNonReplicableEdits
-argument_list|(
-name|edit
-argument_list|)
-expr_stmt|;
 name|HLogKey
 name|logKey
 init|=
@@ -1946,6 +2056,26 @@ operator|.
 name|getKey
 argument_list|()
 decl_stmt|;
+comment|// don't replicate if the log entries originated in the peer
+if|if
+condition|(
+operator|!
+name|logKey
+operator|.
+name|getClusterId
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|peerClusterId
+argument_list|)
+condition|)
+block|{
+name|removeNonReplicableEdits
+argument_list|(
+name|edit
+argument_list|)
+expr_stmt|;
 comment|// Don't replicate catalog entries, if the WALEdit wasn't
 comment|// containing anything to replicate and if we're currently not set to replicate
 if|if
@@ -1994,6 +2124,22 @@ name|get
 argument_list|()
 condition|)
 block|{
+comment|// Only set the clusterId if is a local key.
+comment|// This ensures that the originator sets the cluster id
+comment|// and all replicas retain the initial cluster id.
+comment|// This is *only* place where a cluster id other than the default is set.
+if|if
+condition|(
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_ID
+operator|==
+name|logKey
+operator|.
+name|getClusterId
+argument_list|()
+condition|)
+block|{
 name|logKey
 operator|.
 name|setClusterId
@@ -2003,6 +2149,7 @@ operator|.
 name|clusterId
 argument_list|)
 expr_stmt|;
+block|}
 name|currentNbOperations
 operator|+=
 name|countDistinctRowKeys
@@ -2027,6 +2174,7 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|// Stop if too many entries or too big
 if|if
@@ -2689,17 +2837,19 @@ control|(
 name|int
 name|i
 init|=
-literal|0
-init|;
-name|i
-operator|<
 name|edit
 operator|.
 name|size
 argument_list|()
+operator|-
+literal|1
+init|;
+name|i
+operator|>=
+literal|0
 condition|;
 name|i
-operator|++
+operator|--
 control|)
 block|{
 name|KeyValue
@@ -2738,9 +2888,6 @@ name|remove
 argument_list|(
 name|i
 argument_list|)
-expr_stmt|;
-name|i
-operator|--
 expr_stmt|;
 block|}
 block|}
@@ -3563,7 +3710,7 @@ block|{
 return|return
 name|this
 operator|.
-name|peerClusterId
+name|peerId
 return|;
 block|}
 specifier|public

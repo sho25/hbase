@@ -489,6 +489,10 @@ argument_list|,
 literal|0
 argument_list|,
 literal|0
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_ID
 argument_list|)
 decl_stmt|;
 name|writer

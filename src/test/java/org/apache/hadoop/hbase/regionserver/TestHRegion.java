@@ -5709,6 +5709,10 @@ name|delete
 argument_list|(
 name|deleteMap
 argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_ID
+argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
@@ -5786,6 +5790,10 @@ operator|.
 name|delete
 argument_list|(
 name|deleteMap
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_ID
 argument_list|,
 literal|true
 argument_list|)
@@ -7648,6 +7656,10 @@ operator|.
 name|delete
 argument_list|(
 name|deleteMap
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_ID
 argument_list|,
 literal|true
 argument_list|)

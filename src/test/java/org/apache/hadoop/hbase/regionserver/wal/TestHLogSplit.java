@@ -1134,6 +1134,10 @@ argument_list|,
 literal|1
 argument_list|,
 name|now
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_ID
 argument_list|)
 argument_list|,
 operator|new
@@ -6758,6 +6762,10 @@ argument_list|,
 name|seq
 argument_list|,
 name|time
+argument_list|,
+name|HConstants
+operator|.
+name|DEFAULT_CLUSTER_ID
 argument_list|)
 argument_list|,
 name|edit
