@@ -119,6 +119,18 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|Executors
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|atomic
 operator|.
 name|AtomicReference
@@ -1367,6 +1379,19 @@ specifier|private
 name|TableDescriptors
 name|tableDescriptors
 decl_stmt|;
+comment|// thread pool exceutor for timeout monitor. Passed from HMaster so that can
+comment|// be properly
+comment|// shudown.
+specifier|private
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ExecutorService
+name|threadPoolExecutorService
+decl_stmt|;
 comment|/**    * Initializes the HMaster. The steps are as follows:    *<p>    *<ol>    *<li>Initialize HMaster RPC and address    *<li>Connect to ZooKeeper.    *</ol>    *<p>    * Remaining steps of initialization occur in {@link #run()} so that they    * run in their own thread rather than within the context of the constructor.    * @throws InterruptedException    */
 specifier|public
 name|HMaster
@@ -2145,6 +2170,13 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+name|threadPoolExecutorService
+operator|=
+name|Executors
+operator|.
+name|newCachedThreadPool
+argument_list|()
+expr_stmt|;
 name|this
 operator|.
 name|assignmentManager
@@ -2163,6 +2195,8 @@ argument_list|,
 name|this
 operator|.
 name|executorService
+argument_list|,
+name|threadPoolExecutorService
 argument_list|)
 expr_stmt|;
 name|this
