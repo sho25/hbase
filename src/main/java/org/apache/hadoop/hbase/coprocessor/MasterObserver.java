@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  * http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Copyright 2011 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  * http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -52,7 +52,7 @@ name|MasterObserver
 extends|extends
 name|Coprocessor
 block|{
-comment|/**    * Called before a new table is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.    */
+comment|/**    * Called before a new table is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException    */
 name|void
 name|preCreateTable
 parameter_list|(
@@ -66,15 +66,14 @@ parameter_list|,
 name|HTableDescriptor
 name|desc
 parameter_list|,
-name|byte
+name|HRegionInfo
 index|[]
-index|[]
-name|splitKeys
+name|regions
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the initial table regions have been created.    * @param ctx the environment to interact with the framework and master    * @param regions the initial regions created for the table    * @param sync whether the client call is waiting for region assignment to    * complete before returning    * @throws IOException    */
+comment|/**    * Called after the createTable operation has been requested.    * @param ctx the environment to interact with the framework and master    * @param desc the HTableDescriptor for the table    * @param regions the initial regions created for the table    * @throws IOException    */
 name|void
 name|postCreateTable
 parameter_list|(
@@ -85,17 +84,17 @@ name|MasterCoprocessorEnvironment
 argument_list|>
 name|ctx
 parameter_list|,
+name|HTableDescriptor
+name|desc
+parameter_list|,
 name|HRegionInfo
 index|[]
 name|regions
-parameter_list|,
-name|boolean
-name|sync
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table    */
+comment|/**    * Called before {@link org.apache.hadoop.hbase.master.HMaster} deletes a    * table    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 name|void
 name|preDeleteTable
 parameter_list|(
@@ -113,7 +112,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the table has been deleted, before returning to the client.    */
+comment|/**    * Called after the deleteTable operation has been requested.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 name|void
 name|postDeleteTable
 parameter_list|(
@@ -131,7 +130,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to modifying a table's properties.    */
+comment|/**    * Called prior to modifying a table's properties.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    */
 name|void
 name|preModifyTable
 parameter_list|(
@@ -153,7 +152,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after {@link org.apache.hadoop.hbase.master.HMaster} has modified    * the table's properties in all the table regions.    */
+comment|/**    * Called after the modifyTable operation has been requested.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param htd the HTableDescriptor    */
 name|void
 name|postModifyTable
 parameter_list|(
@@ -175,7 +174,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to adding a new column family to the table.    */
+comment|/**    * Called prior to adding a new column family to the table.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param column the HColumnDescriptor    */
 name|void
 name|preAddColumn
 parameter_list|(
@@ -196,7 +195,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the new column family has been created.    */
+comment|/**    * Called after the new column family has been created.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param column the HColumnDescriptor    */
 name|void
 name|postAddColumn
 parameter_list|(
@@ -217,7 +216,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to modifying a column family's attributes.    */
+comment|/**    * Called prior to modifying a column family's attributes.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param descriptor the HColumnDescriptor    */
 name|void
 name|preModifyColumn
 parameter_list|(
@@ -238,7 +237,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the column family has been updated.    */
+comment|/**    * Called after the column family has been updated.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param descriptor the HColumnDescriptor    */
 name|void
 name|postModifyColumn
 parameter_list|(
@@ -259,7 +258,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to deleting the entire column family.    */
+comment|/**    * Called prior to deleting the entire column family.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param c the column    */
 name|void
 name|preDeleteColumn
 parameter_list|(
@@ -283,7 +282,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the column family has been deleted.    */
+comment|/**    * Called after the column family has been deleted.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param c the column    */
 name|void
 name|postDeleteColumn
 parameter_list|(
@@ -307,7 +306,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to enabling a table.    */
+comment|/**    * Called prior to enabling a table.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 name|void
 name|preEnableTable
 parameter_list|(
@@ -326,7 +325,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the table has been enabled.    */
+comment|/**    * Called after the enableTable operation has been requested.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 name|void
 name|postEnableTable
 parameter_list|(
@@ -345,7 +344,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to disabling a table.    */
+comment|/**    * Called prior to disabling a table.    * It can't bypass the default action, e.g., ctx.bypass() won't have effect.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 name|void
 name|preDisableTable
 parameter_list|(
@@ -364,7 +363,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the table has been disabled.    */
+comment|/**    * Called after the disableTable operation has been requested.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    */
 name|void
 name|postDisableTable
 parameter_list|(
@@ -383,7 +382,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to moving a given region from one region server to another.    */
+comment|/**    * Called prior to moving a given region from one region server to another.    * @param ctx the environment to interact with the framework and master    * @param region the HRegionInfo    * @param srcServer the source ServerName    * @param destServer the destination ServerName    */
 name|void
 name|preMove
 parameter_list|(
@@ -409,7 +408,7 @@ parameter_list|)
 throws|throws
 name|UnknownRegionException
 function_decl|;
-comment|/**    * Called after the region move has been requested.    */
+comment|/**    * Called after the region move has been requested.    * @param ctx the environment to interact with the framework and master    * @param region the HRegionInfo    * @param srcServer the source ServerName    * @param destServer the destination ServerName    */
 name|void
 name|postMove
 parameter_list|(
@@ -435,7 +434,7 @@ parameter_list|)
 throws|throws
 name|UnknownRegionException
 function_decl|;
-comment|/**    * Called prior to assigning a specific region.    */
+comment|/**    * Called prior to assigning a specific region.    * @param ctx the environment to interact with the framework and master    * @param regionInfo the regionInfo of the region    * @param force whether to force assignment or not    */
 name|void
 name|preAssign
 parameter_list|(
@@ -447,9 +446,8 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|byte
-index|[]
-name|regionName
+name|HRegionInfo
+name|regionInfo
 parameter_list|,
 specifier|final
 name|boolean
@@ -458,7 +456,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the region assignment has been requested.    */
+comment|/**    * Called after the region assignment has been requested.    * @param ctx the environment to interact with the framework and master    * @param regionInfo the regionInfo of the region    * @param force whether to force assignment or not    */
 name|void
 name|postAssign
 parameter_list|(
@@ -472,11 +470,15 @@ parameter_list|,
 specifier|final
 name|HRegionInfo
 name|regionInfo
+parameter_list|,
+specifier|final
+name|boolean
+name|force
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to unassigning a given region.    */
+comment|/**    * Called prior to unassigning a given region.    * @param ctx the environment to interact with the framework and master    * @param regionName the name of the region    * @param force whether to force unassignment or not    */
 name|void
 name|preUnassign
 parameter_list|(
@@ -488,9 +490,8 @@ argument_list|>
 name|ctx
 parameter_list|,
 specifier|final
-name|byte
-index|[]
-name|regionName
+name|HRegionInfo
+name|regionInfo
 parameter_list|,
 specifier|final
 name|boolean
@@ -499,7 +500,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the region unassignment has been requested.    */
+comment|/**    * Called after the region unassignment has been requested.    * @param ctx the environment to interact with the framework and master    * @param regionName the name of the region    * @param force whether to force unassignment or not    */
 name|void
 name|postUnassign
 parameter_list|(
@@ -521,7 +522,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to requesting rebalancing of the cluster regions, though after    * the initial checks for regions in transition and the balance switch flag.    */
+comment|/**    * Called prior to requesting rebalancing of the cluster regions, though after    * the initial checks for regions in transition and the balance switch flag.    * @param ctx the environment to interact with the framework and master    */
 name|void
 name|preBalance
 parameter_list|(
@@ -535,7 +536,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the balancing plan has been submitted.    */
+comment|/**    * Called after the balancing plan has been submitted.    * @param ctx the environment to interact with the framework and master    */
 name|void
 name|postBalance
 parameter_list|(
@@ -603,7 +604,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called immediatly prior to stopping this    * {@link org.apache.hadoop.hbase.master.HMaster} process.    */
+comment|/**    * Called immediately prior to stopping this    * {@link org.apache.hadoop.hbase.master.HMaster} process.    */
 name|void
 name|preStopMaster
 parameter_list|(

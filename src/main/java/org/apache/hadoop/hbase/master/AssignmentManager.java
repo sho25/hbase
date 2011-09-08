@@ -9019,7 +9019,7 @@ range|:
 name|enablingTables
 control|)
 block|{
-comment|// Recover by calling DisableTableHandler
+comment|// Recover by calling EnableTableHandler
 name|LOG
 operator|.
 name|info
@@ -9033,6 +9033,8 @@ operator|+
 literal|" to ENABLED state."
 argument_list|)
 expr_stmt|;
+comment|// enableTable in sync way during master startup,
+comment|// no need to invoke coprocessor
 operator|new
 name|EnableTableHandler
 argument_list|(
