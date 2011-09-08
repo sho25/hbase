@@ -1688,7 +1688,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// RPC methods to region servers
-comment|/**    * Sends an OPEN RPC to the specified server to open the specified region.    *<p>    * Open should not fail but can if server just crashed.    *<p>    * @param server server to open a region    * @param region region to open    */
+comment|/**    * Sends an OPEN RPC to the specified server to open the specified region.    *<p>    * Open should not fail but can if server just crashed.    *<p>    * @param server server to open a region    * @param region region to open    * @param versionOfOfflineNode that needs to be present in the offline node    * when RS tries to change the state from OFFLINE to other states.    */
 specifier|public
 name|RegionOpeningState
 name|sendRegionOpen
@@ -1699,6 +1699,9 @@ name|server
 parameter_list|,
 name|HRegionInfo
 name|region
+parameter_list|,
+name|int
+name|versionOfOfflineNode
 parameter_list|)
 throws|throws
 name|IOException
@@ -1739,11 +1742,27 @@ name|FAILED_OPENING
 return|;
 block|}
 return|return
+operator|(
+name|versionOfOfflineNode
+operator|==
+operator|-
+literal|1
+operator|)
+condition|?
 name|hri
 operator|.
 name|openRegion
 argument_list|(
 name|region
+argument_list|)
+else|:
+name|hri
+operator|.
+name|openRegion
+argument_list|(
+name|region
+argument_list|,
+name|versionOfOfflineNode
 argument_list|)
 return|;
 block|}

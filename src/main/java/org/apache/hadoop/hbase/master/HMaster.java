@@ -6613,6 +6613,13 @@ block|}
 block|}
 name|this
 operator|.
+name|assignmentManager
+operator|.
+name|shutdown
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
 name|serverManager
 operator|.
 name|shutdownCluster
