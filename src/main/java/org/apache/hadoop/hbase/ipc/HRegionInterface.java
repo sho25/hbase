@@ -897,7 +897,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|// Master methods
-comment|/**    * Opens the specified region.    *     * @param region    *          region to open    * @return RegionOpeningState     *         OPENED - if region opened succesfully.    *         ALREADY_OPENED - if the region was already opened.     *         FAILED_OPENING - if region opening failed.    *    * @throws IOException    */
+comment|/**    * Opens the specified region.    *     * @param region    *          region to open    * @return RegionOpeningState     *         OPENED         - if region open request was successful.    *         ALREADY_OPENED - if the region was already opened.     *         FAILED_OPENING - if region opening failed.    *    * @throws IOException    */
 specifier|public
 name|RegionOpeningState
 name|openRegion
@@ -905,6 +905,20 @@ parameter_list|(
 specifier|final
 name|HRegionInfo
 name|region
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Opens the specified region.    * @param region    *          region to open    * @param versionOfOfflineNode    *          the version of znode to compare when RS transitions the znode from    *          OFFLINE state.    * @return RegionOpeningState     *         OPENED         - if region open request was successful.    *         ALREADY_OPENED - if the region was already opened.     *         FAILED_OPENING - if region opening failed.    * @throws IOException    */
+specifier|public
+name|RegionOpeningState
+name|openRegion
+parameter_list|(
+name|HRegionInfo
+name|region
+parameter_list|,
+name|int
+name|versionOfOfflineNode
 parameter_list|)
 throws|throws
 name|IOException

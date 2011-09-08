@@ -588,7 +588,7 @@ block|}
 comment|/**    * Creates or force updates an unassigned node to the OFFLINE state for the    * specified region.    *<p>    * Attempts to create the node but if it exists will force it to transition to    * and OFFLINE state.    *    *<p>Sets a watcher on the unassigned region node if the method is    * successful.    *    *<p>This method should be used when assigning a region.    *    * @param zkw zk reference    * @param region region to be created as offline    * @param serverName server event originates from    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NodeExistsException if node already exists    */
 specifier|public
 specifier|static
-name|boolean
+name|int
 name|createOrForceNodeOffline
 parameter_list|(
 name|ZooKeeperWatcher
@@ -599,6 +599,45 @@ name|region
 parameter_list|,
 name|ServerName
 name|serverName
+parameter_list|)
+throws|throws
+name|KeeperException
+block|{
+return|return
+name|createOrForceNodeOffline
+argument_list|(
+name|zkw
+argument_list|,
+name|region
+argument_list|,
+name|serverName
+argument_list|,
+literal|false
+argument_list|,
+literal|true
+argument_list|)
+return|;
+block|}
+comment|/**    * Creates or force updates an unassigned node to the OFFLINE state for the    * specified region.    *<p>    * Attempts to create the node but if it exists will force it to transition to    * and OFFLINE state.    *<p>    * Sets a watcher on the unassigned region node if the method is successful.    *     *<p>    * This method should be used when assigning a region.    *     * @param zkw    *          zk reference    * @param region    *          region to be created as offline    * @param serverName    *          server event originates from    * @param reassign    *          - true if invoked from timeout monitor, false otherwise    * @param allowCreation    *          - true if the node has to be created newly, false otherwise    * @throws KeeperException    *           if unexpected zookeeper exception    * @throws KeeperException.NodeExistsException    *           if node already exists    */
+specifier|public
+specifier|static
+name|int
+name|createOrForceNodeOffline
+parameter_list|(
+name|ZooKeeperWatcher
+name|zkw
+parameter_list|,
+name|HRegionInfo
+name|region
+parameter_list|,
+name|ServerName
+name|serverName
+parameter_list|,
+name|boolean
+name|reassign
+parameter_list|,
+name|boolean
+name|allowCreation
 parameter_list|)
 throws|throws
 name|KeeperException
@@ -653,6 +692,13 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|Stat
+name|stat
+init|=
+operator|new
+name|Stat
+argument_list|()
+decl_stmt|;
 name|zkw
 operator|.
 name|sync
@@ -680,6 +726,27 @@ operator|-
 literal|1
 condition|)
 block|{
+comment|// If timeoutmonitor deducts a node to be in OPENING state but before it
+comment|// could
+comment|// transit to OFFLINE state if RS had opened the region then the Master
+comment|// deletes the
+comment|// assigned region znode. In that case the znode will not exist. So we
+comment|// should not
+comment|// create the znode again which will lead to double assignment.
+if|if
+condition|(
+name|reassign
+operator|&&
+operator|!
+name|allowCreation
+condition|)
+block|{
+return|return
+operator|-
+literal|1
+return|;
+block|}
+return|return
 name|ZKUtil
 operator|.
 name|createAndWatch
@@ -693,13 +760,92 @@ operator|.
 name|getBytes
 argument_list|()
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 else|else
 block|{
+name|RegionTransitionData
+name|curDataInZNode
+init|=
+name|ZKAssign
+operator|.
+name|getDataNoWatch
+argument_list|(
+name|zkw
+argument_list|,
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|,
+name|stat
+argument_list|)
+decl_stmt|;
+comment|// Do not move the node to OFFLINE if znode is in any of the following
+comment|// state.
+comment|// Because these are already executed states.
 if|if
 condition|(
-operator|!
+name|reassign
+operator|&&
+literal|null
+operator|!=
+name|curDataInZNode
+condition|)
+block|{
+name|EventType
+name|eventType
+init|=
+name|curDataInZNode
+operator|.
+name|getEventType
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|eventType
+operator|.
+name|equals
+argument_list|(
+name|EventType
+operator|.
+name|RS_ZK_REGION_CLOSING
+argument_list|)
+operator|||
+name|eventType
+operator|.
+name|equals
+argument_list|(
+name|EventType
+operator|.
+name|RS_ZK_REGION_CLOSED
+argument_list|)
+operator|||
+name|eventType
+operator|.
+name|equals
+argument_list|(
+name|EventType
+operator|.
+name|RS_ZK_REGION_OPENED
+argument_list|)
+condition|)
+block|{
+return|return
+operator|-
+literal|1
+return|;
+block|}
+block|}
+name|boolean
+name|setData
+init|=
+literal|false
+decl_stmt|;
+try|try
+block|{
+name|setData
+operator|=
 name|ZKUtil
 operator|.
 name|setData
@@ -715,10 +861,40 @@ argument_list|()
 argument_list|,
 name|version
 argument_list|)
+expr_stmt|;
+comment|// Setdata throws KeeperException which aborts the Master. So we are
+comment|// catching it here.
+comment|// If just before setting the znode to OFFLINE if the RS has made any
+comment|// change to the
+comment|// znode state then we need to return -1.
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|kpe
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Version mismatch while setting the node to OFFLINE state."
+argument_list|)
+expr_stmt|;
+return|return
+operator|-
+literal|1
+return|;
+block|}
+if|if
+condition|(
+operator|!
+name|setData
 condition|)
 block|{
 return|return
-literal|false
+operator|-
+literal|1
 return|;
 block|}
 else|else
@@ -755,13 +931,19 @@ condition|)
 block|{
 comment|// state changed, need to process
 return|return
-literal|false
+operator|-
+literal|1
 return|;
 block|}
 block|}
 block|}
 return|return
-literal|true
+name|stat
+operator|.
+name|getVersion
+argument_list|()
+operator|+
+literal|1
 return|;
 block|}
 comment|/**    * Deletes an existing unassigned node that is in the OPENED state for the    * specified region.    *    *<p>If a node does not already exist for this region, a    * {@link NoNodeException} will be thrown.    *    *<p>No watcher is set whether this succeeds or not.    *    *<p>Returns false if the node was not in the proper state but did exist.    *    *<p>This method is used during normal region transitions when a region    * finishes successfully opening.  This is the Master acknowledging completion    * of the specified regions transition.    *    * @param zkw zk reference    * @param regionName opened region to be deleted from zk    * @throws KeeperException if unexpected zookeeper exception    * @throws KeeperException.NoNodeException if node does not exist    */
@@ -1648,6 +1830,87 @@ name|getVersion
 argument_list|()
 operator|!=
 name|expectedVersion
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|zkw
+operator|.
+name|prefix
+argument_list|(
+literal|"Attempt to transition the "
+operator|+
+literal|"unassigned node for "
+operator|+
+name|encoded
+operator|+
+literal|" from "
+operator|+
+name|beginState
+operator|+
+literal|" to "
+operator|+
+name|endState
+operator|+
+literal|" failed, "
+operator|+
+literal|"the node existed but was version "
+operator|+
+name|stat
+operator|.
+name|getVersion
+argument_list|()
+operator|+
+literal|" not the expected version "
+operator|+
+name|expectedVersion
+argument_list|)
+argument_list|)
+expr_stmt|;
+return|return
+operator|-
+literal|1
+return|;
+block|}
+comment|// the below check ensure that double assignment doesnot happen.
+comment|// When the node is created for the first time then the expected version
+comment|// that is
+comment|// passed will be -1 and the version in znode will be 0.
+comment|// In all other cases the version in znode will be> 0.
+elseif|else
+if|if
+condition|(
+name|beginState
+operator|.
+name|equals
+argument_list|(
+name|EventType
+operator|.
+name|M_ZK_REGION_OFFLINE
+argument_list|)
+operator|&&
+name|endState
+operator|.
+name|equals
+argument_list|(
+name|EventType
+operator|.
+name|RS_ZK_REGION_OPENING
+argument_list|)
+operator|&&
+name|expectedVersion
+operator|==
+operator|-
+literal|1
+operator|&&
+name|stat
+operator|.
+name|getVersion
+argument_list|()
+operator|!=
+literal|0
 condition|)
 block|{
 name|LOG
