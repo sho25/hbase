@@ -4178,7 +4178,9 @@ operator|.
 name|fsOk
 condition|)
 name|waitOnAllRegionsToClose
-argument_list|()
+argument_list|(
+name|abortRequested
+argument_list|)
 expr_stmt|;
 comment|// Make sure the proxy is down.
 if|if
@@ -4627,7 +4629,11 @@ begin_function
 specifier|private
 name|void
 name|waitOnAllRegionsToClose
-parameter_list|()
+parameter_list|(
+specifier|final
+name|boolean
+name|abort
+parameter_list|)
 block|{
 comment|// Wait till all regions are closed before going out.
 name|int
@@ -4693,6 +4699,68 @@ argument_list|(
 name|this
 operator|.
 name|onlineRegions
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|// Ensure all user regions have been sent a close. Use this to
+comment|// protect against the case where an open comes in after we start the
+comment|// iterator of onlineRegions to close all user regions.
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|String
+argument_list|,
+name|HRegion
+argument_list|>
+name|e
+range|:
+name|this
+operator|.
+name|onlineRegions
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+name|HRegionInfo
+name|hri
+init|=
+name|e
+operator|.
+name|getValue
+argument_list|()
+operator|.
+name|getRegionInfo
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|regionsInTransitionInRS
+operator|.
+name|contains
+argument_list|(
+name|hri
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
+argument_list|)
+condition|)
+block|{
+comment|// Don't update zk with this close transition; pass false.
+name|closeRegion
+argument_list|(
+name|hri
+argument_list|,
+name|abort
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
