@@ -63,6 +63,26 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -523,6 +543,46 @@ name|TaskState
 import|;
 end_import
 
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|SplitLogManager
+operator|.
+name|ResubmitDirective
+operator|.
+name|*
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|SplitLogManager
+operator|.
+name|TerminationStatus
+operator|.
+name|*
+import|;
+end_import
+
 begin_comment
 comment|/**  * Distributes the task of log splitting to the available region servers.  * Coordination happens via zookeeper. For every log file that has to be split a  * znode is created under /hbase/splitlog. SplitLogWorkers race to grab a task.  *  * SplitLogManager monitors the task znodes that it creates using the  * {@link #timeoutMonitor} thread. If a task's progress is slow then  * {@link #resubmit(String, boolean)} will take away the task from the owner  * {@link SplitLogWorker} and the task will be  * upforgrabs again. When the task is done then the task's znode is deleted by  * SplitLogManager.  *  * Clients call {@link #splitLogDistributed(Path)} to split a region server's  * log files. The caller thread waits in this method until all the log files  * have been split.  *  * All the zookeeper calls made by this class are asynchronous. This is mainly  * to help reduce response time seen by the callers.  *  * There is race in this design between the SplitLogManager and the  * SplitLogWorker. SplitLogManager might re-queue a task that has in reality  * already been completed by a SplitLogWorker. We rely on the idempotency of  * the log splitting task for correctness.  *  * It is also assumed that every log splitting task is unique and once  * completed (either with success or with error) it will be not be submitted  * again. If a task is resubmitted then there is a risk that old "delete task"  * can delete the re-submission.  */
 end_comment
@@ -617,6 +677,23 @@ decl_stmt|;
 specifier|private
 name|TimeoutMonitor
 name|timeoutMonitor
+decl_stmt|;
+specifier|private
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|deadWorkers
+init|=
+literal|null
+decl_stmt|;
+specifier|private
+name|Object
+name|deadWorkersLock
+init|=
+operator|new
+name|Object
+argument_list|()
 decl_stmt|;
 comment|/**    * Its OK to construct this object even when region-servers are not online. It    * does lookup the orphan tasks in zk but it doesn't block for them to be    * done.    *    * @param zkw    * @param conf    * @param stopper    * @param serverName    * @param services    * @param service    */
 specifier|public
@@ -1624,8 +1701,8 @@ parameter_list|(
 name|String
 name|path
 parameter_list|,
-name|boolean
-name|err
+name|TerminationStatus
+name|status
 parameter_list|)
 block|{
 if|if
@@ -1643,8 +1720,9 @@ condition|)
 block|{
 if|if
 condition|(
-operator|!
-name|err
+name|status
+operator|==
+name|SUCCESS
 condition|)
 block|{
 name|tot_mgr_log_split_success
@@ -1749,8 +1827,9 @@ init|)
 block|{
 if|if
 condition|(
-operator|!
-name|err
+name|status
+operator|==
+name|SUCCESS
 condition|)
 block|{
 name|task
@@ -1924,7 +2003,7 @@ name|setDone
 argument_list|(
 name|path
 argument_list|,
-literal|true
+name|FAILURE
 argument_list|)
 expr_stmt|;
 block|}
@@ -2010,7 +2089,7 @@ name|setDone
 argument_list|(
 name|path
 argument_list|,
-literal|true
+name|FAILURE
 argument_list|)
 expr_stmt|;
 return|return;
@@ -2074,7 +2153,7 @@ name|data
 argument_list|)
 condition|)
 block|{
-name|registerHeartbeat
+name|heartbeat
 argument_list|(
 name|path
 argument_list|,
@@ -2121,11 +2200,11 @@ name|data
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|resubmit
+name|resubmitOrFail
 argument_list|(
 name|path
 argument_list|,
-literal|true
+name|FORCE
 argument_list|)
 expr_stmt|;
 block|}
@@ -2208,21 +2287,19 @@ name|setDone
 argument_list|(
 name|path
 argument_list|,
-literal|false
+name|SUCCESS
 argument_list|)
 expr_stmt|;
-comment|// success
 block|}
 else|else
 block|{
-name|resubmit
+name|resubmitOrFail
 argument_list|(
 name|path
 argument_list|,
-literal|false
+name|CHECK
 argument_list|)
 expr_stmt|;
-comment|// err
 block|}
 block|}
 else|else
@@ -2231,10 +2308,9 @@ name|setDone
 argument_list|(
 name|path
 argument_list|,
-literal|false
+name|SUCCESS
 argument_list|)
 expr_stmt|;
-comment|// success
 block|}
 block|}
 elseif|else
@@ -2267,11 +2343,11 @@ name|data
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|resubmit
+name|resubmitOrFail
 argument_list|(
 name|path
 argument_list|,
-literal|false
+name|CHECK
 argument_list|)
 expr_stmt|;
 block|}
@@ -2298,7 +2374,7 @@ name|setDone
 argument_list|(
 name|path
 argument_list|,
-literal|true
+name|FAILURE
 argument_list|)
 expr_stmt|;
 block|}
@@ -2324,7 +2400,7 @@ name|setDone
 argument_list|(
 name|path
 argument_list|,
-literal|true
+name|FAILURE
 argument_list|)
 expr_stmt|;
 block|}
@@ -2392,14 +2468,14 @@ name|path
 argument_list|,
 name|task
 argument_list|,
-literal|true
+name|FORCE
 argument_list|)
 expr_stmt|;
 block|}
 block|}
 specifier|private
 name|void
-name|registerHeartbeat
+name|heartbeat
 parameter_list|(
 name|String
 name|path
@@ -2450,24 +2526,19 @@ name|workerName
 argument_list|)
 expr_stmt|;
 block|}
-comment|// very noisy
-comment|//LOG.debug("heartbeat for " + path + " last_version=" + task.last_version +
-comment|//    " last_update=" + task.last_update + " new_version=" +
-comment|//    new_version);
 name|task
 operator|.
-name|last_update
-operator|=
+name|heartbeat
+argument_list|(
 name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
-expr_stmt|;
-name|task
-operator|.
-name|last_version
-operator|=
+argument_list|,
 name|new_version
+argument_list|,
+name|workerName
+argument_list|)
 expr_stmt|;
 name|tot_mgr_heartbeat
 operator|.
@@ -2506,8 +2577,8 @@ parameter_list|,
 name|Task
 name|task
 parameter_list|,
-name|boolean
-name|force
+name|ResubmitDirective
+name|directive
 parameter_list|)
 block|{
 comment|// its ok if this thread misses the update to task.deleted. It will
@@ -2528,8 +2599,9 @@ name|version
 decl_stmt|;
 if|if
 condition|(
-operator|!
-name|force
+name|directive
+operator|!=
+name|FORCE
 condition|)
 block|{
 if|if
@@ -2595,7 +2667,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|// race with registerHeartBeat that might be changing last_version
+comment|// race with heartbeat() that might be changing last_version
 name|version
 operator|=
 name|task
@@ -2721,8 +2793,9 @@ block|}
 comment|// don't count forced resubmits
 if|if
 condition|(
-operator|!
-name|force
+name|directive
+operator|!=
+name|FORCE
 condition|)
 block|{
 name|task
@@ -2754,13 +2827,13 @@ return|;
 block|}
 specifier|private
 name|void
-name|resubmit
+name|resubmitOrFail
 parameter_list|(
 name|String
 name|path
 parameter_list|,
-name|boolean
-name|force
+name|ResubmitDirective
+name|directive
 parameter_list|)
 block|{
 if|if
@@ -2774,7 +2847,7 @@ argument_list|(
 name|path
 argument_list|)
 argument_list|,
-name|force
+name|directive
 argument_list|)
 operator|==
 literal|false
@@ -2784,10 +2857,9 @@ name|setDone
 argument_list|(
 name|path
 argument_list|,
-literal|true
+name|FAILURE
 argument_list|)
 expr_stmt|;
-comment|// error
 block|}
 block|}
 specifier|private
@@ -2926,6 +2998,13 @@ name|long
 name|retries
 parameter_list|)
 block|{
+comment|// The RESCAN node will be deleted almost immediately by the
+comment|// SplitLogManager as soon as it is created because it is being
+comment|// created in the DONE state. This behavior prevents a buildup
+comment|// of RESCAN nodes. But there is also a chance that a SplitLogWorker
+comment|// might miss the watch-trigger that creation of RESCAN node provides.
+comment|// Since the TimeoutMonitor will keep resubmitting UNASSIGNED tasks
+comment|// therefore this behavior is safe.
 name|this
 operator|.
 name|watcher
@@ -2947,7 +3026,7 @@ argument_list|)
 argument_list|,
 name|TaskState
 operator|.
-name|TASK_UNASSIGNED
+name|TASK_DONE
 operator|.
 name|get
 argument_list|(
@@ -2960,7 +3039,7 @@ name|OPEN_ACL_UNSAFE
 argument_list|,
 name|CreateMode
 operator|.
-name|PERSISTENT_SEQUENTIAL
+name|EPHEMERAL_SEQUENTIAL
 argument_list|,
 operator|new
 name|CreateRescanAsyncCallback
@@ -2982,6 +3061,13 @@ name|String
 name|path
 parameter_list|)
 block|{
+name|lastNodeCreateTime
+operator|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+expr_stmt|;
 name|tot_mgr_rescan
 operator|.
 name|incrementAndGet
@@ -3486,6 +3572,9 @@ decl_stmt|;
 name|int
 name|last_version
 decl_stmt|;
+name|String
+name|cur_worker_name
+decl_stmt|;
 name|TaskBatch
 name|batch
 decl_stmt|;
@@ -3514,6 +3603,10 @@ operator|+
 literal|" last_version = "
 operator|+
 name|last_version
+operator|+
+literal|" cur_worker_name = "
+operator|+
+name|cur_worker_name
 operator|+
 literal|" deleted = "
 operator|+
@@ -3639,15 +3732,97 @@ return|;
 block|}
 specifier|public
 name|void
+name|heartbeat
+parameter_list|(
+name|long
+name|time
+parameter_list|,
+name|int
+name|version
+parameter_list|,
+name|String
+name|worker
+parameter_list|)
+block|{
+name|last_version
+operator|=
+name|version
+expr_stmt|;
+name|last_update
+operator|=
+name|time
+expr_stmt|;
+name|cur_worker_name
+operator|=
+name|worker
+expr_stmt|;
+block|}
+specifier|public
+name|void
 name|setUnassigned
 parameter_list|()
 block|{
+name|cur_worker_name
+operator|=
+literal|null
+expr_stmt|;
 name|last_update
 operator|=
 operator|-
 literal|1
 expr_stmt|;
 block|}
+block|}
+name|void
+name|handleDeadWorker
+parameter_list|(
+name|String
+name|worker_name
+parameter_list|)
+block|{
+comment|// resubmit the tasks on the TimeoutMonitor thread. Makes it easier
+comment|// to reason about concurrency. Makes it easier to retry.
+synchronized|synchronized
+init|(
+name|deadWorkersLock
+init|)
+block|{
+if|if
+condition|(
+name|deadWorkers
+operator|==
+literal|null
+condition|)
+block|{
+name|deadWorkers
+operator|=
+operator|new
+name|HashSet
+argument_list|<
+name|String
+argument_list|>
+argument_list|(
+literal|100
+argument_list|)
+expr_stmt|;
+block|}
+name|deadWorkers
+operator|.
+name|add
+argument_list|(
+name|worker_name
+argument_list|)
+expr_stmt|;
+block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"dead splitlog worker "
+operator|+
+name|worker_name
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Periodically checks all active tasks and resubmits the ones that have timed    * out    */
 specifier|private
@@ -3704,6 +3879,26 @@ name|found_assigned_task
 init|=
 literal|false
 decl_stmt|;
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|localDeadWorkers
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|deadWorkersLock
+init|)
+block|{
+name|localDeadWorkers
+operator|=
+name|deadWorkers
+expr_stmt|;
+name|deadWorkers
+operator|=
+literal|null
+expr_stmt|;
+block|}
 for|for
 control|(
 name|Map
@@ -3738,6 +3933,13 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
+name|String
+name|cur_worker
+init|=
+name|task
+operator|.
+name|cur_worker_name
+decl_stmt|;
 name|tot
 operator|++
 expr_stmt|;
@@ -3765,13 +3967,73 @@ literal|true
 expr_stmt|;
 if|if
 condition|(
+name|localDeadWorkers
+operator|!=
+literal|null
+operator|&&
+name|localDeadWorkers
+operator|.
+name|contains
+argument_list|(
+name|cur_worker
+argument_list|)
+condition|)
+block|{
+name|tot_mgr_resubmit_dead_server_task
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
 name|resubmit
 argument_list|(
 name|path
 argument_list|,
 name|task
 argument_list|,
-literal|false
+name|FORCE
+argument_list|)
+condition|)
+block|{
+name|resubmitted
+operator|++
+expr_stmt|;
+block|}
+else|else
+block|{
+name|handleDeadWorker
+argument_list|(
+name|cur_worker
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to resubmit task "
+operator|+
+name|path
+operator|+
+literal|" owned by dead "
+operator|+
+name|cur_worker
+operator|+
+literal|", will retry."
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+elseif|else
+if|if
+condition|(
+name|resubmit
+argument_list|(
+name|path
+argument_list|,
+name|task
+argument_list|,
+name|CHECK
 argument_list|)
 condition|)
 block|{
@@ -4633,6 +4895,30 @@ parameter_list|)
 function_decl|;
 block|}
 end_class
+
+begin_enum
+enum|enum
+name|ResubmitDirective
+block|{
+name|CHECK
+parameter_list|()
+operator|,
+constructor|FORCE(
+block|)
+enum|;
+end_enum
+
+begin_expr_stmt
+unit|}   enum
+name|TerminationStatus
+block|{
+name|SUCCESS
+argument_list|()
+block|,
+name|FAILURE
+argument_list|()
+block|;   }
+end_expr_stmt
 
 unit|}
 end_unit

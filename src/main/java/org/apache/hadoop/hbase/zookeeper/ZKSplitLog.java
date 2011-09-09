@@ -1461,6 +1461,17 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
+specifier|public
+specifier|static
+name|AtomicLong
+name|tot_mgr_resubmit_dead_server_task
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|0
+argument_list|)
+decl_stmt|;
 comment|// SplitLogWorker counters
 specifier|public
 specifier|static
