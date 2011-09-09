@@ -2868,7 +2868,7 @@ try|try
 block|{
 name|MetaEditor
 operator|.
-name|updateMetaWithNewRegionInfo
+name|migrateRootAndMeta
 argument_list|(
 name|this
 argument_list|)
@@ -2877,7 +2877,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Meta updated with new HRI."
+literal|"ROOT and Meta updated with new HRI."
 argument_list|)
 expr_stmt|;
 return|return
@@ -2894,7 +2894,9 @@ throw|throw
 operator|new
 name|RuntimeException
 argument_list|(
-literal|"Update Meta with nw HRI failed. Master startup aborted."
+literal|"Update ROOT/Meta with new HRI failed."
+operator|+
+literal|"Master startup aborted."
 argument_list|)
 throw|;
 block|}
@@ -2903,7 +2905,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Meta already up-to date with new HRI."
+literal|"ROOT/Meta already up-to date with new HRI."
 argument_list|)
 expr_stmt|;
 return|return

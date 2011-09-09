@@ -4224,7 +4224,19 @@ argument_list|(
 name|tableName
 argument_list|)
 operator|+
-literal|"' was not found."
+literal|"' was not found, got: "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|regionInfo
+operator|.
+name|getTableName
+argument_list|()
+argument_list|)
+operator|+
+literal|"."
 argument_list|)
 throw|;
 block|}
