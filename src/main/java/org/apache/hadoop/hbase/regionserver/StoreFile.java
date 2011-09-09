@@ -4325,6 +4325,17 @@ argument_list|>
 name|columns
 parameter_list|)
 block|{
+if|if
+condition|(
+operator|!
+name|scan
+operator|.
+name|isGetScan
+argument_list|()
+condition|)
+return|return
+literal|true
+return|;
 name|BloomFilter
 name|bloomFilter
 init|=

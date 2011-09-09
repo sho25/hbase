@@ -340,7 +340,45 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|//Should never happen, throw Exception
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+literal|"isDelete failed: deleteBuffer="
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|deleteBuffer
+argument_list|,
+name|deleteOffset
+argument_list|,
+name|deleteLength
+argument_list|)
+operator|+
+literal|", qualifier="
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|buffer
+argument_list|,
+name|qualifierOffset
+argument_list|,
+name|qualifierLength
+argument_list|)
+operator|+
+literal|", timestamp="
+operator|+
+name|timestamp
+operator|+
+literal|", comparison result: "
+operator|+
+name|ret
+argument_list|)
+throw|;
 block|}
 block|}
 return|return
