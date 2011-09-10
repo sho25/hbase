@@ -873,6 +873,8 @@ operator|+
 name|serverName
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|this
 operator|.
 name|services
@@ -1236,6 +1238,9 @@ expr_stmt|;
 block|}
 block|}
 block|}
+block|}
+finally|finally
+block|{
 name|this
 operator|.
 name|deadServers
@@ -1245,6 +1250,7 @@ argument_list|(
 name|serverName
 argument_list|)
 expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
