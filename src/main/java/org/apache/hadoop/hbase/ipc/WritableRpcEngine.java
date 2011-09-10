@@ -197,6 +197,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|monitoring
+operator|.
+name|MonitoredRPCHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|HRegionServer
@@ -1555,6 +1571,9 @@ name|param
 parameter_list|,
 name|long
 name|receivedTime
+parameter_list|,
+name|MonitoredRPCHandler
+name|status
 parameter_list|)
 throws|throws
 name|IOException
@@ -1598,6 +1617,37 @@ argument_list|(
 literal|"Call: "
 operator|+
 name|call
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setRPC
+argument_list|(
+name|call
+operator|.
+name|getMethodName
+argument_list|()
+argument_list|,
+name|call
+operator|.
+name|getParameters
+argument_list|()
+argument_list|,
+name|receivedTime
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setRPCPacket
+argument_list|(
+name|param
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|resume
+argument_list|(
+literal|"Servicing call"
 argument_list|)
 expr_stmt|;
 name|Method
@@ -1885,6 +1935,11 @@ else|:
 literal|"TooSlow"
 operator|)
 argument_list|,
+name|status
+operator|.
+name|getClient
+argument_list|()
+argument_list|,
 name|startTime
 argument_list|,
 name|processingTime
@@ -2047,7 +2102,7 @@ name|ioe
 throw|;
 block|}
 block|}
-comment|/**      * Logs an RPC response to the LOG file, producing valid JSON objects for      * client Operations.      * @param call The call to log.      * @param tag  The tag that will be used to indicate this event in the log.      * @param startTime       The time that the call was initiated, in ms.      * @param processingTime  The duration that the call took to run, in ms.      * @param qTime           The duration that the call spent on the queue       *                        prior to being initiated, in ms.      * @param responseSize    The size in bytes of the response buffer.      */
+comment|/**      * Logs an RPC response to the LOG file, producing valid JSON objects for      * client Operations.      * @param call The call to log.      * @param tag  The tag that will be used to indicate this event in the log.      * @param client          The address of the client who made this call.      * @param startTime       The time that the call was initiated, in ms.      * @param processingTime  The duration that the call took to run, in ms.      * @param qTime           The duration that the call spent on the queue       *                        prior to being initiated, in ms.      * @param responseSize    The size in bytes of the response buffer.      */
 specifier|private
 name|void
 name|logResponse
@@ -2057,6 +2112,9 @@ name|call
 parameter_list|,
 name|String
 name|tag
+parameter_list|,
+name|String
+name|clientAddress
 parameter_list|,
 name|long
 name|startTime
@@ -2142,6 +2200,15 @@ argument_list|(
 literal|"responsesize"
 argument_list|,
 name|responseSize
+argument_list|)
+expr_stmt|;
+name|responseInfo
+operator|.
+name|put
+argument_list|(
+literal|"client"
+argument_list|,
+name|clientAddress
 argument_list|)
 expr_stmt|;
 name|responseInfo

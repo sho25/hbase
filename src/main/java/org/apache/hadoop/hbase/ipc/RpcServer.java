@@ -63,6 +63,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|monitoring
+operator|.
+name|MonitoredRPCHandler
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -132,6 +148,9 @@ name|param
 parameter_list|,
 name|long
 name|receiveTime
+parameter_list|,
+name|MonitoredRPCHandler
+name|status
 parameter_list|)
 throws|throws
 name|IOException

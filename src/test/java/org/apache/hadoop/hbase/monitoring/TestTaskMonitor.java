@@ -164,7 +164,7 @@ name|State
 operator|.
 name|COMPLETE
 argument_list|,
-name|taskFromTm
+name|task
 operator|.
 name|getState
 argument_list|()
@@ -185,12 +185,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// If we mark its completion time back a few minutes, it should get gced
-operator|(
-operator|(
-name|MonitoredTaskImpl
-operator|)
-name|taskFromTm
-operator|)
+name|task
 operator|.
 name|expireNow
 argument_list|()

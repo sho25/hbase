@@ -461,6 +461,38 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|monitoring
+operator|.
+name|MonitoredRPCHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|monitoring
+operator|.
+name|TaskMonitor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|ByteBufferOutputStream
@@ -4828,6 +4860,15 @@ name|hostAddress
 return|;
 block|}
 specifier|public
+name|int
+name|getRemotePort
+parameter_list|()
+block|{
+return|return
+name|remotePort
+return|;
+block|}
+specifier|public
 name|void
 name|setLastContact
 parameter_list|(
@@ -5491,6 +5532,10 @@ name|Call
 argument_list|>
 name|myCallQueue
 decl_stmt|;
+specifier|private
+name|MonitoredRPCHandler
+name|status
+decl_stmt|;
 specifier|public
 name|Handler
 parameter_list|(
@@ -5551,6 +5596,20 @@ argument_list|(
 name|threadName
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|status
+operator|=
+name|TaskMonitor
+operator|.
+name|get
+argument_list|()
+operator|.
+name|createRPCStatus
+argument_list|(
+name|threadName
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -5569,6 +5628,13 @@ operator|+
 literal|": starting"
 argument_list|)
 expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"starting"
+argument_list|)
+expr_stmt|;
 name|SERVER
 operator|.
 name|set
@@ -5585,6 +5651,13 @@ condition|)
 block|{
 try|try
 block|{
+name|status
+operator|.
+name|pause
+argument_list|(
+literal|"Waiting for a call"
+argument_list|)
+expr_stmt|;
 name|Call
 name|call
 init|=
@@ -5594,6 +5667,32 @@ name|take
 argument_list|()
 decl_stmt|;
 comment|// pop the queue; maybe blocked here
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Setting up call"
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setConnection
+argument_list|(
+name|call
+operator|.
+name|connection
+operator|.
+name|getHostAddress
+argument_list|()
+argument_list|,
+name|call
+operator|.
+name|connection
+operator|.
+name|getRemotePort
+argument_list|()
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|LOG
@@ -5657,6 +5756,7 @@ argument_list|(
 literal|"Server is not running yet"
 argument_list|)
 throw|;
+comment|// make the call
 name|value
 operator|=
 name|call
@@ -5674,9 +5774,10 @@ argument_list|,
 name|call
 operator|.
 name|timestamp
+argument_list|,
+name|status
 argument_list|)
 expr_stmt|;
-comment|// make the call
 block|}
 catch|catch
 parameter_list|(
