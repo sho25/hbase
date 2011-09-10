@@ -500,13 +500,16 @@ block|}
 block|}
 catch|catch
 parameter_list|(
-name|IOException
-name|e
+name|Throwable
+name|t
 parameter_list|)
 block|{
-name|LOG
+comment|// A throwable here indicates that we couldn't successfully flush the
+comment|// memstore before closing. So, we need to abort the server and allow
+comment|// the master to split our logs in order to recover the data.
+name|server
 operator|.
-name|error
+name|abort
 argument_list|(
 literal|"Unrecoverable exception while closing region "
 operator|+
@@ -517,9 +520,16 @@ argument_list|()
 operator|+
 literal|", still finishing close"
 argument_list|,
-name|e
+name|t
 argument_list|)
 expr_stmt|;
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+name|t
+argument_list|)
+throw|;
 block|}
 name|this
 operator|.
