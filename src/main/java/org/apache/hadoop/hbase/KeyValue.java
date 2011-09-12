@@ -5269,6 +5269,7 @@ return|return
 name|index
 return|;
 block|}
+comment|/**    * This function is only used in Meta key comparisons so its error message     * is specific for meta key errors.    */
 specifier|static
 name|int
 name|getRequiredDelimiterInReverse
@@ -5316,28 +5317,16 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"No "
+literal|".META. key must have two '"
 operator|+
+operator|(
+name|char
+operator|)
 name|delimiter
 operator|+
-literal|" in<"
+literal|"' "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|b
-argument_list|)
-operator|+
-literal|">"
-operator|+
-literal|", length="
-operator|+
-name|length
-operator|+
-literal|", offset="
-operator|+
-name|offset
+literal|"delimiters and have the following format: '<table>,<key>,<etc>'"
 argument_list|)
 throw|;
 block|}
