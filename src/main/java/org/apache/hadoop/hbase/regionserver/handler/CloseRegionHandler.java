@@ -768,6 +768,8 @@ name|regionInfo
 operator|.
 name|getRegionNameAsString
 argument_list|()
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}
