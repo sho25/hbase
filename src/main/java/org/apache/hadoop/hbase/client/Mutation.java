@@ -129,6 +129,15 @@ name|Mutation
 extends|extends
 name|OperationWithAttributes
 block|{
+comment|// Attribute used in Mutations to indicate the originating cluster.
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|CLUSTER_ID_ATTR
+init|=
+literal|"_c.id_"
+decl_stmt|;
 specifier|protected
 name|byte
 index|[]
@@ -735,8 +744,6 @@ argument_list|)
 expr_stmt|;
 name|setAttribute
 argument_list|(
-name|HConstants
-operator|.
 name|CLUSTER_ID_ATTR
 argument_list|,
 name|val
@@ -755,8 +762,6 @@ name|attr
 init|=
 name|getAttribute
 argument_list|(
-name|HConstants
-operator|.
 name|CLUSTER_ID_ATTR
 argument_list|)
 decl_stmt|;

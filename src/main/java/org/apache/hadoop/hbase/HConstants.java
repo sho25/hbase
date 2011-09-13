@@ -611,15 +611,6 @@ name|CLUSTER_ID
 init|=
 literal|"hbase.cluster.id"
 decl_stmt|;
-comment|/**    * Attribute used in Puts and Gets to indicate the originating    * cluster.    */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|CLUSTER_ID_ATTR
-init|=
-literal|"_c.id_"
-decl_stmt|;
 comment|// Always store the location of the root table's HRegion.
 comment|// This HRegion is never split.
 comment|// region name = table + startkey + regionid. This is the row key.
