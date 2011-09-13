@@ -786,6 +786,12 @@ init|=
 literal|false
 decl_stmt|;
 comment|// if we want to print less output
+specifier|private
+name|boolean
+name|checkMetaOnly
+init|=
+literal|false
+decl_stmt|;
 comment|// Empty regioninfo qualifiers in .META.
 specifier|private
 name|Set
@@ -993,6 +999,12 @@ literal|1
 return|;
 block|}
 comment|// get a list of all tables that have not changed recently.
+if|if
+condition|(
+operator|!
+name|checkMetaOnly
+condition|)
+block|{
 name|AtomicInteger
 name|numSkipped
 init|=
@@ -1143,6 +1155,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -1507,8 +1520,9 @@ range|:
 name|files
 control|)
 block|{
-if|if
-condition|(
+name|String
+name|dirName
+init|=
 name|file
 operator|.
 name|getPath
@@ -1516,6 +1530,10 @@ argument_list|()
 operator|.
 name|getName
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|dirName
 operator|.
 name|equals
 argument_list|(
@@ -1532,6 +1550,26 @@ expr_stmt|;
 block|}
 else|else
 block|{
+if|if
+condition|(
+operator|!
+name|checkMetaOnly
+operator|||
+name|dirName
+operator|.
+name|equals
+argument_list|(
+literal|"-ROOT-"
+argument_list|)
+operator|||
+name|dirName
+operator|.
+name|equals
+argument_list|(
+literal|".META."
+argument_list|)
+condition|)
+block|{
 name|tableDirs
 operator|.
 name|add
@@ -1539,6 +1577,7 @@ argument_list|(
 name|file
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|// verify that version file exists
@@ -4198,6 +4237,12 @@ operator|.
 name|ROOT_TABLE_NAME
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|checkMetaOnly
+condition|)
+block|{
 comment|// Scan .META. to pick up user regions
 name|MetaScanner
 operator|.
@@ -4208,6 +4253,7 @@ argument_list|,
 name|visitor
 argument_list|)
 expr_stmt|;
+block|}
 name|errors
 operator|.
 name|print
@@ -5356,6 +5402,21 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
+name|hbck
+operator|.
+name|checkMetaOnly
+condition|)
+block|{
+name|regions
+operator|=
+name|filterOnlyMetaRegions
+argument_list|(
+name|regions
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
 name|details
 condition|)
 block|{
@@ -5508,6 +5569,65 @@ argument_list|()
 expr_stmt|;
 comment|// wakeup anybody waiting for this item to be done
 block|}
+block|}
+specifier|private
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|filterOnlyMetaRegions
+parameter_list|(
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|regions
+parameter_list|)
+block|{
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|ret
+init|=
+name|Lists
+operator|.
+name|newArrayList
+argument_list|()
+decl_stmt|;
+for|for
+control|(
+name|HRegionInfo
+name|hri
+range|:
+name|regions
+control|)
+block|{
+if|if
+condition|(
+name|hri
+operator|.
+name|isMetaRegion
+argument_list|()
+operator|||
+name|hri
+operator|.
+name|isRootRegion
+argument_list|()
+condition|)
+block|{
+name|ret
+operator|.
+name|add
+argument_list|(
+name|hri
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+return|return
+name|ret
+return|;
 block|}
 block|}
 comment|/**    * Contact hdfs and get all information about spcified table directory.    */
@@ -5885,6 +6005,16 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+comment|/**    * Set META check mode.    * Print only info about META table deployment/state    */
+name|void
+name|setCheckMetaOnly
+parameter_list|()
+block|{
+name|checkMetaOnly
+operator|=
+literal|true
+expr_stmt|;
+block|}
 comment|/**    * Check if we should rerun fsck again. This checks if we've tried to    * fix something and we should rerun fsck tool again.    * Display the full report from fsck. This displays all live and dead    * region servers, and all known regions.    */
 name|void
 name|setShouldRerun
@@ -6013,6 +6143,15 @@ operator|.
 name|println
 argument_list|(
 literal|"   -summary Print only summary of the tables and status."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -metaonly Only check the state of ROOT and META tables."
 argument_list|)
 expr_stmt|;
 name|Runtime
@@ -6310,6 +6449,23 @@ block|{
 name|fsck
 operator|.
 name|setSummary
+argument_list|()
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|cmd
+operator|.
+name|equals
+argument_list|(
+literal|"-metaonly"
+argument_list|)
+condition|)
+block|{
+name|fsck
+operator|.
+name|setCheckMetaOnly
 argument_list|()
 expr_stmt|;
 block|}
