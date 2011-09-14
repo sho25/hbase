@@ -220,6 +220,12 @@ literal|6
 argument_list|)
 block|,
 comment|// RS split has completed.
+name|RS_ZK_REGION_FAILED_OPEN
+argument_list|(
+literal|7
+argument_list|)
+block|,
+comment|// RS failed to open a region
 comment|// Messages originating from Master to RS
 name|M_RS_OPEN_REGION
 argument_list|(

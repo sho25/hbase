@@ -522,7 +522,14 @@ name|region
 operator|==
 literal|null
 condition|)
+block|{
+name|tryTransitionToFailedOpen
+argument_list|(
+name|regionInfo
+argument_list|)
+expr_stmt|;
 return|return;
+block|}
 name|boolean
 name|failed
 init|=
@@ -572,6 +579,11 @@ argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
+name|tryTransitionToFailedOpen
+argument_list|(
+name|regionInfo
+argument_list|)
+expr_stmt|;
 return|return;
 block|}
 if|if
@@ -583,6 +595,12 @@ name|region
 argument_list|)
 condition|)
 block|{
+comment|// If we fail to transition to opened, it's because of one of two cases:
+comment|//    (a) we lost our ZK lease
+comment|// OR (b) someone else opened the region before us
+comment|// In either case, we don't need to transition to FAILED_OPEN state.
+comment|// In case (a), the Master will process us as a dead server. In case
+comment|// (b) the region is already being handled elsewhere anyway.
 name|cleanupFailedOpen
 argument_list|(
 name|region
@@ -623,7 +641,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Update ZK, ROOT or META.  This can take a while if for example the    * .META. is not available -- if server hosting .META. crashed and we are    * waiting on it to come back -- so run in a thread and keep updating znode    * state meantime so master doesn't timeout our region-in-transition.    * Caller must cleanup region if this fails.    */
-specifier|private
 name|boolean
 name|updateMeta
 parameter_list|(
@@ -1248,13 +1265,134 @@ return|return
 name|result
 return|;
 block|}
+comment|/**    * @param  Region we're working on.    * This is not guaranteed to succeed, we just do our best.    * @return Transition znode to CLOSED state.    */
+specifier|private
+name|boolean
+name|tryTransitionToFailedOpen
+parameter_list|(
+specifier|final
+name|HRegionInfo
+name|hri
+parameter_list|)
+block|{
+name|boolean
+name|result
+init|=
+literal|false
+decl_stmt|;
+specifier|final
+name|String
+name|name
+init|=
+name|hri
+operator|.
+name|getRegionNameAsString
+argument_list|()
+decl_stmt|;
+try|try
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Opening of region "
+operator|+
+name|hri
+operator|+
+literal|" failed, marking as FAILED_OPEN in ZK"
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|ZKAssign
+operator|.
+name|transitionNode
+argument_list|(
+name|this
+operator|.
+name|server
+operator|.
+name|getZooKeeper
+argument_list|()
+argument_list|,
+name|hri
+argument_list|,
+name|this
+operator|.
+name|server
+operator|.
+name|getServerName
+argument_list|()
+argument_list|,
+name|EventType
+operator|.
+name|RS_ZK_REGION_OPENING
+argument_list|,
+name|EventType
+operator|.
+name|RS_ZK_REGION_FAILED_OPEN
+argument_list|,
+name|this
+operator|.
+name|version
+argument_list|)
+operator|==
+operator|-
+literal|1
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Unable to mark region "
+operator|+
+name|hri
+operator|+
+literal|" as FAILED_OPEN. "
+operator|+
+literal|"It's likely that the master already timed out this open "
+operator|+
+literal|"attempt, and thus another RS already has the region."
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|result
+operator|=
+literal|true
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Failed transitioning node "
+operator|+
+name|name
+operator|+
+literal|" from OPENING to FAILED_OPEN"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|result
+return|;
+block|}
 comment|/**    * @return Instance of HRegion if successful open else null.    */
 name|HRegion
 name|openRegion
-parameter_list|(
-name|Path
-name|tableDir
-parameter_list|)
+parameter_list|()
 block|{
 name|HRegion
 name|region
@@ -1271,8 +1409,6 @@ name|HRegion
 operator|.
 name|openHRegion
 argument_list|(
-name|tableDir
-argument_list|,
 name|this
 operator|.
 name|regionInfo
@@ -1324,12 +1460,13 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|IOException
-name|e
+name|Throwable
+name|t
 parameter_list|)
 block|{
-comment|// We failed open.  Let our znode expire in regions-in-transition and
-comment|// Master will assign elsewhere.  Presumes nothing to close.
+comment|// We failed open. Our caller will see the 'null' return value
+comment|// and transition the node back to FAILED_OPEN. If that fails,
+comment|// we rely on the Timeout Monitor in the master to reassign.
 name|LOG
 operator|.
 name|error
@@ -1343,105 +1480,7 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-return|return
-name|region
-return|;
-block|}
-comment|/**    * @return Instance of HRegion if successful open else null.    */
-name|HRegion
-name|openRegion
-parameter_list|()
-block|{
-name|HRegion
-name|region
-init|=
-literal|null
-decl_stmt|;
-try|try
-block|{
-comment|// Instantiate the region.  This also periodically tickles our zk OPENING
-comment|// state so master doesn't timeout this region in transition.
-name|region
-operator|=
-name|HRegion
-operator|.
-name|openHRegion
-argument_list|(
-name|this
-operator|.
-name|regionInfo
-argument_list|,
-name|this
-operator|.
-name|htd
-argument_list|,
-name|this
-operator|.
-name|rsServices
-operator|.
-name|getWAL
-argument_list|()
-argument_list|,
-name|this
-operator|.
-name|server
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
-name|this
-operator|.
-name|rsServices
-argument_list|,
-operator|new
-name|CancelableProgressable
-argument_list|()
-block|{
-specifier|public
-name|boolean
-name|progress
-parameter_list|()
-block|{
-comment|// We may lose the znode ownership during the open.  Currently its
-comment|// too hard interrupting ongoing region open.  Just let it complete
-comment|// and check we still have the znode after region open.
-return|return
-name|tickleOpening
-argument_list|(
-literal|"open_region_progress"
-argument_list|)
-return|;
-block|}
-block|}
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-comment|// We failed open.  Let our znode expire in regions-in-transition and
-comment|// Master will assign elsewhere.  Presumes nothing to close.
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Failed open of region="
-operator|+
-name|this
-operator|.
-name|regionInfo
-operator|.
-name|getRegionNameAsString
-argument_list|()
-argument_list|,
-name|e
+name|t
 argument_list|)
 expr_stmt|;
 block|}

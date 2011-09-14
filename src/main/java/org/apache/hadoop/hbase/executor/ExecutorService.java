@@ -512,6 +512,9 @@ comment|// Master executor services
 case|case
 name|RS_ZK_REGION_CLOSED
 case|:
+case|case
+name|RS_ZK_REGION_FAILED_OPEN
+case|:
 return|return
 name|ExecutorType
 operator|.
