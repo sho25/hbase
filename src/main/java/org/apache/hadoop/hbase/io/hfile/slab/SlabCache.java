@@ -1003,6 +1003,7 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
+comment|/*This will throw a runtime exception if we try to cache the same value twice*/
 name|scache
 operator|.
 name|cacheBlock
@@ -1012,19 +1013,27 @@ argument_list|,
 name|cachedItem
 argument_list|)
 expr_stmt|;
-comment|// if this
-comment|// fails, due to
-comment|// block already
-comment|// being there, exception will be thrown
+comment|/*Spinlock, if we're spinlocking, that means an eviction hasn't taken place yet*/
+while|while
+condition|(
 name|backingStore
 operator|.
-name|put
+name|putIfAbsent
 argument_list|(
 name|blockName
 argument_list|,
 name|scache
 argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
+name|Thread
+operator|.
+name|yield
+argument_list|()
 expr_stmt|;
+block|}
 block|}
 comment|/**    * We don't care about whether its in memory or not, so we just pass the call    * through.    */
 specifier|public
@@ -1089,6 +1098,13 @@ operator|==
 literal|null
 condition|)
 block|{
+name|stats
+operator|.
+name|miss
+argument_list|(
+name|caching
+argument_list|)
+expr_stmt|;
 return|return
 literal|null
 return|;
@@ -1227,7 +1243,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Sends a shutdown to all SingleSizeCache's contained by this cache.F    */
+comment|/**    * Sends a shutdown to all SingleSizeCache's contained by this cache.    *    * Also terminates the scheduleThreadPool.    */
 specifier|public
 name|void
 name|shutdown
@@ -1250,6 +1266,13 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|scheduleThreadPool
+operator|.
+name|shutdown
+argument_list|()
+expr_stmt|;
 block|}
 specifier|public
 name|long

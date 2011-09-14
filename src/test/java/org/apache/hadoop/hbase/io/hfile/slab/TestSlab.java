@@ -126,6 +126,8 @@ specifier|public
 name|void
 name|testBasicFunctionality
 parameter_list|()
+throws|throws
+name|InterruptedException
 block|{
 for|for
 control|(

@@ -45,6 +45,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|LinkedBlockingQueue
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -153,7 +165,7 @@ argument_list|)
 decl_stmt|;
 comment|/** This is where our items, or blocks of the slab, are stored. */
 specifier|private
-name|ConcurrentLinkedQueue
+name|LinkedBlockingQueue
 argument_list|<
 name|ByteBuffer
 argument_list|>
@@ -193,7 +205,7 @@ block|{
 name|buffers
 operator|=
 operator|new
-name|ConcurrentLinkedQueue
+name|LinkedBlockingQueue
 argument_list|<
 name|ByteBuffer
 argument_list|>
@@ -475,13 +487,15 @@ name|size
 argument_list|()
 return|;
 block|}
-comment|/*    * This returns null if empty. Throws an exception if you try to allocate a    * bigger size than the allocator can handle.    */
+comment|/*    * Throws an exception if you try to allocate a    * bigger size than the allocator can handle. Alloc will block until a buffer is available.    */
 name|ByteBuffer
 name|alloc
 parameter_list|(
 name|int
 name|bufferSize
 parameter_list|)
+throws|throws
+name|InterruptedException
 block|{
 name|int
 name|newCapacity
@@ -500,20 +514,9 @@ name|returnedBuffer
 init|=
 name|buffers
 operator|.
-name|poll
+name|take
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|returnedBuffer
-operator|==
-literal|null
-condition|)
-block|{
-return|return
-literal|null
-return|;
-block|}
 name|returnedBuffer
 operator|.
 name|clear
