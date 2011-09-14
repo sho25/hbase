@@ -4669,7 +4669,7 @@ name|assertNull
 argument_list|(
 name|store
 operator|.
-name|checkSplit
+name|getSplitPoint
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4687,7 +4687,7 @@ name|assertNull
 argument_list|(
 name|store
 operator|.
-name|checkSplit
+name|getSplitPoint
 argument_list|()
 argument_list|)
 expr_stmt|;

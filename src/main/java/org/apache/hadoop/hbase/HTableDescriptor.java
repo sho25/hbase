@@ -331,6 +331,32 @@ name|MAX_FILESIZE
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|// The class which determines when a region should split
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|SPLIT_POLICY
+init|=
+literal|"SPLIT_POLICY"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|ImmutableBytesWritable
+name|SPLIT_POLICY_KEY
+init|=
+operator|new
+name|ImmutableBytesWritable
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|SPLIT_POLICY
+argument_list|)
+argument_list|)
+decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
@@ -1837,6 +1863,19 @@ return|return
 name|HConstants
 operator|.
 name|DEFAULT_MAX_FILE_SIZE
+return|;
+block|}
+comment|/**    * @return the class name of the region split policy for this table.    * If this returns null, the default constant size based split policy    * is used.    */
+specifier|public
+name|String
+name|getRegionSplitPolicyClassName
+parameter_list|()
+block|{
+return|return
+name|getValue
+argument_list|(
+name|SPLIT_POLICY
+argument_list|)
 return|;
 block|}
 comment|/** @param name name of table */

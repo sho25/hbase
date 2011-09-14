@@ -1212,6 +1212,14 @@ name|HBASE_MASTER_LOGCLEANER_PLUGINS
 init|=
 literal|"hbase.master.logcleaner.plugins"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_REGION_SPLIT_POLICY_KEY
+init|=
+literal|"hbase.regionserver.region.split.policy"
+decl_stmt|;
 comment|/*     * Minimum percentage of free heap necessary for a successful cluster startup.     */
 specifier|public
 specifier|static
