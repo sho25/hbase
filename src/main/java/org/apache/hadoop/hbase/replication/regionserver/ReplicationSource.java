@@ -3338,15 +3338,17 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|terminate
+name|LOG
+operator|.
+name|error
 argument_list|(
-literal|"Uncaught exception during runtime"
+literal|"Unexpected exception in ReplicationSource,"
+operator|+
+literal|" currentPath="
+operator|+
+name|currentPath
 argument_list|,
-operator|new
-name|Exception
-argument_list|(
 name|e
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
