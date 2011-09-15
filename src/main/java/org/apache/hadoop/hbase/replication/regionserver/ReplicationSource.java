@@ -1336,11 +1336,10 @@ expr_stmt|;
 comment|// We were stopped while looping to connect to sinks, just abort
 if|if
 condition|(
+operator|!
 name|this
 operator|.
-name|stopper
-operator|.
-name|isStopped
+name|isActive
 argument_list|()
 condition|)
 block|{
@@ -1470,15 +1469,8 @@ decl_stmt|;
 comment|// Loop until we close down
 while|while
 condition|(
-operator|!
-name|stopper
-operator|.
-name|isStopped
+name|isActive
 argument_list|()
-operator|&&
-name|this
-operator|.
-name|running
 condition|)
 block|{
 comment|// Sleep until replication is enabled again
@@ -1828,10 +1820,9 @@ comment|// wait a bit and retry.
 comment|// But if we need to stop, don't bother sleeping
 if|if
 condition|(
-operator|!
-name|stopper
+name|this
 operator|.
-name|isStopped
+name|isActive
 argument_list|()
 operator|&&
 operator|(
@@ -2236,12 +2227,9 @@ block|{
 comment|// Connect to peer cluster first, unless we have to stop
 while|while
 condition|(
-operator|!
 name|this
 operator|.
-name|stopper
-operator|.
-name|isStopped
+name|isActive
 argument_list|()
 operator|&&
 name|this
@@ -2970,12 +2958,9 @@ return|return;
 block|}
 while|while
 condition|(
-operator|!
 name|this
 operator|.
-name|stopper
-operator|.
-name|isStopped
+name|isActive
 argument_list|()
 condition|)
 block|{
@@ -3162,6 +3147,7 @@ block|{
 name|boolean
 name|down
 decl_stmt|;
+comment|// Spin while the slave is down and we're not asked to shutdown/close
 do|do
 block|{
 name|down
@@ -3198,12 +3184,9 @@ block|}
 block|}
 do|while
 condition|(
-operator|!
 name|this
 operator|.
-name|stopper
-operator|.
-name|isStopped
+name|isActive
 argument_list|()
 operator|&&
 name|down
@@ -3718,6 +3701,25 @@ argument_list|(
 name|status
 argument_list|)
 expr_stmt|;
+block|}
+specifier|private
+name|boolean
+name|isActive
+parameter_list|()
+block|{
+return|return
+operator|!
+name|this
+operator|.
+name|stopper
+operator|.
+name|isStopped
+argument_list|()
+operator|&&
+name|this
+operator|.
+name|running
+return|;
 block|}
 comment|/**    * Comparator used to compare logs together based on their start time    */
 specifier|public
