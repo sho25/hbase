@@ -572,6 +572,14 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|static
+specifier|final
+name|String
+name|slaveId
+init|=
+literal|"1"
+decl_stmt|;
+specifier|private
+specifier|static
 name|FileSystem
 name|fs
 decl_stmt|;
@@ -795,7 +803,7 @@ name|manager
 operator|.
 name|addSource
 argument_list|(
-literal|"1"
+name|slaveId
 argument_list|)
 expr_stmt|;
 name|htd
@@ -1230,6 +1238,11 @@ name|manager
 operator|.
 name|getHLogs
 argument_list|()
+operator|.
+name|get
+argument_list|(
+name|slaveId
+argument_list|)
 operator|.
 name|size
 argument_list|()

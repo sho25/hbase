@@ -41,6 +41,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -366,6 +376,26 @@ name|listPeersIdsAndWatch
 argument_list|()
 operator|.
 name|size
+argument_list|()
+return|;
+block|}
+comment|/**    * Map of this cluster's peers for display.    * @return A map of peer ids to peer cluster keys    */
+specifier|public
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|String
+argument_list|>
+name|listPeers
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|replicationZk
+operator|.
+name|listPeers
 argument_list|()
 return|;
 block|}
