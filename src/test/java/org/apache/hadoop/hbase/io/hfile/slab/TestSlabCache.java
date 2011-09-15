@@ -471,6 +471,23 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
+specifier|public
+name|void
+name|testHeapSizeChanges
+parameter_list|()
+block|{
+name|CacheTestUtils
+operator|.
+name|testHeapSizeChanges
+argument_list|(
+name|cache
+argument_list|,
+name|BLOCK_SIZE
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 
