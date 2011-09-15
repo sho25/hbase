@@ -351,7 +351,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Unassign a region from current hosting regionserver.  Region will then be    * assigned to a regionserver chosen at random.  Region could be reassigned    * back to the same server.  Use {@link #move(byte[], byte[])} if you want    * to control the region movement.    * @param regionName Region to unassign. Will clear any existing RegionPlan    * if one found.    * @param force If true, force unassign (Will remove region from    * regions-in-transition too if present as well as from assigned regions --    * radical!).    * @throws IOException    */
+comment|/**    * Unassign a region from current hosting regionserver.  Region will then be    * assigned to a regionserver chosen at random.  Region could be reassigned    * back to the same server.  Use {@link #move(byte[], byte[])} if you want    * to control the region movement.    * @param regionName Region to unassign. Will clear any existing RegionPlan    * if one found.    * @param force If true, force unassign (Will remove region from    * regions-in-transition too if present as well as from assigned regions --    * radical!.If results in double assignment use hbck -fix to resolve.    * @throws IOException    */
 specifier|public
 name|void
 name|unassign

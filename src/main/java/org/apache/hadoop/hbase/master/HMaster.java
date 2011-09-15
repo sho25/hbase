@@ -7044,6 +7044,7 @@ if|if
 condition|(
 name|force
 condition|)
+block|{
 name|this
 operator|.
 name|assignmentManager
@@ -7053,6 +7054,14 @@ argument_list|(
 name|hri
 argument_list|)
 expr_stmt|;
+name|assignRegion
+argument_list|(
+name|hri
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|this
 operator|.
 name|assignmentManager
@@ -7064,6 +7073,7 @@ argument_list|,
 name|force
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|cpHost
