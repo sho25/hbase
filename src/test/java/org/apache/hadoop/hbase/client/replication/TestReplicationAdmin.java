@@ -472,7 +472,7 @@ name|getPeersCount
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Add a second, returns illegal since multi-slave isn't supported
+comment|// Add a second since multi-slave is supported
 try|try
 block|{
 name|admin
@@ -484,9 +484,6 @@ argument_list|,
 name|KEY_SECOND
 argument_list|)
 expr_stmt|;
-name|fail
-argument_list|()
-expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -494,11 +491,14 @@ name|IllegalStateException
 name|iae
 parameter_list|)
 block|{
+name|fail
+argument_list|()
+expr_stmt|;
 comment|// OK!
 block|}
 name|assertEquals
 argument_list|(
-literal|1
+literal|2
 argument_list|,
 name|admin
 operator|.
@@ -516,7 +516,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|0
+literal|1
 argument_list|,
 name|admin
 operator|.

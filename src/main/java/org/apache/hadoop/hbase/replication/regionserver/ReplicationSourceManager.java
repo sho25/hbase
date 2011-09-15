@@ -1873,6 +1873,10 @@ block|{
 if|if
 condition|(
 name|stopper
+operator|==
+literal|null
+operator|||
+name|stopper
 operator|.
 name|isStopped
 argument_list|()
