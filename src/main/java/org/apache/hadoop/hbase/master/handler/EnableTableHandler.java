@@ -609,11 +609,6 @@ name|done
 init|=
 literal|false
 decl_stmt|;
-while|while
-condition|(
-literal|true
-condition|)
-block|{
 comment|// Get the regions of this table. We're done when all listed
 comment|// tables are onlined.
 name|List
@@ -654,12 +649,17 @@ argument_list|(
 name|regionsInMeta
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
+name|int
+name|regionsCount
+init|=
 name|regions
 operator|.
 name|size
 argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|regionsCount
 operator|==
 literal|0
 condition|)
@@ -668,7 +668,6 @@ name|done
 operator|=
 literal|true
 expr_stmt|;
-break|break;
 block|}
 name|LOG
 operator|.
@@ -680,10 +679,7 @@ name|countOfRegionsInTable
 operator|+
 literal|" regions of which "
 operator|+
-name|regions
-operator|.
-name|size
-argument_list|()
+name|regionsCount
 operator|+
 literal|" are offline."
 argument_list|)
@@ -717,7 +713,6 @@ name|done
 operator|=
 literal|true
 expr_stmt|;
-break|break;
 block|}
 block|}
 catch|catch
@@ -742,8 +737,6 @@ operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
-break|break;
-block|}
 block|}
 comment|// Flip the table to enabled.
 if|if
@@ -972,6 +965,13 @@ name|regions
 init|=
 literal|null
 decl_stmt|;
+name|int
+name|lastNumberOfRegions
+init|=
+name|this
+operator|.
+name|countOfRegionsInTable
+decl_stmt|;
 while|while
 condition|(
 operator|!
@@ -1009,6 +1009,29 @@ name|regions
 argument_list|)
 condition|)
 break|break;
+comment|// Punt on the timeout as long we make progress
+if|if
+condition|(
+name|regions
+operator|.
+name|size
+argument_list|()
+operator|>
+name|lastNumberOfRegions
+condition|)
+block|{
+name|lastNumberOfRegions
+operator|=
+name|regions
+operator|.
+name|size
+argument_list|()
+expr_stmt|;
+name|timeout
+operator|+=
+name|waitingTimeForEvents
+expr_stmt|;
+block|}
 name|remaining
 operator|=
 name|timeout
