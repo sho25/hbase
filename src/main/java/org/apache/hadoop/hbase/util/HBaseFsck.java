@@ -3156,6 +3156,7 @@ name|ServerName
 argument_list|>
 name|deployedOn
 decl_stmt|;
+specifier|final
 name|List
 argument_list|<
 name|HbckInfo
@@ -3169,6 +3170,7 @@ name|HbckInfo
 argument_list|>
 argument_list|()
 decl_stmt|;
+specifier|final
 name|RegionSplitCalculator
 argument_list|<
 name|HbckInfo
