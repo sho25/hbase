@@ -479,6 +479,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|coprocessor
+operator|.
+name|ObserverContext
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ipc
 operator|.
 name|HMasterInterface
@@ -4875,7 +4891,7 @@ name|destServerName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param regionName Region name to assign.    * @param force True to force assign.    * @throws MasterNotRunningException    * @throws ZooKeeperConnectionException    * @throws IOException    */
+comment|/**    * @param regionName    *          Region name to assign.    * @param force    *          True to force assign.    * @throws MasterNotRunningException    * @throws ZooKeeperConnectionException    * @throws IOException    * @deprecated The<code>force</code> is unused.Use {@link #assign(byte[])}    */
 specifier|public
 name|void
 name|assign
@@ -4904,6 +4920,32 @@ argument_list|(
 name|regionName
 argument_list|,
 name|force
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * @param regionName    *          Region name to assign.    * @throws MasterNotRunningException    * @throws ZooKeeperConnectionException    * @throws IOException    */
+specifier|public
+name|void
+name|assign
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|regionName
+parameter_list|)
+throws|throws
+name|MasterNotRunningException
+throws|,
+name|ZooKeeperConnectionException
+throws|,
+name|IOException
+block|{
+name|getMaster
+argument_list|()
+operator|.
+name|assign
+argument_list|(
+name|regionName
 argument_list|)
 expr_stmt|;
 block|}

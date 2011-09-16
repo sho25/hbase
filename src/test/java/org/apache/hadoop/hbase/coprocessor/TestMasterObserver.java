@@ -1453,10 +1453,6 @@ parameter_list|,
 specifier|final
 name|HRegionInfo
 name|regionInfo
-parameter_list|,
-specifier|final
-name|boolean
-name|force
 parameter_list|)
 throws|throws
 name|IOException
@@ -1492,10 +1488,6 @@ parameter_list|,
 specifier|final
 name|HRegionInfo
 name|regionInfo
-parameter_list|,
-specifier|final
-name|boolean
-name|force
 parameter_list|)
 throws|throws
 name|IOException

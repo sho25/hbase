@@ -75,6 +75,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HRegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -106,6 +120,22 @@ operator|.
 name|util
 operator|.
 name|Pair
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|coprocessor
+operator|.
+name|ObserverContext
 import|;
 end_import
 
@@ -334,7 +364,7 @@ parameter_list|)
 throws|throws
 name|UnknownRegionException
 function_decl|;
-comment|/**    * Assign a region to a server chosen at random.    * @param regionName Region to assign.  Will use existing RegionPlan if one    * found.    * @param force If true, will force the assignment.    * @throws IOException    */
+comment|/**    * Assign a region to a server chosen at random.    * @param regionName Region to assign.  Will use existing RegionPlan if one    * found.    * @param force If true, will force the assignment.    * @throws IOException    * @deprecated The<code>force</code> is unused.Use {@link #assign(byte[])}    */
 specifier|public
 name|void
 name|assign
@@ -347,6 +377,19 @@ parameter_list|,
 specifier|final
 name|boolean
 name|force
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Assign a region to a server chosen at random.    *     * @param regionName    *          Region to assign. Will use existing RegionPlan if one found.    * @throws IOException    */
+specifier|public
+name|void
+name|assign
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|regionName
 parameter_list|)
 throws|throws
 name|IOException

@@ -468,9 +468,6 @@ name|ctx
 parameter_list|,
 name|HRegionInfo
 name|regionInfo
-parameter_list|,
-name|boolean
-name|force
 parameter_list|)
 throws|throws
 name|IOException
@@ -489,9 +486,6 @@ name|ctx
 parameter_list|,
 name|HRegionInfo
 name|regionInfo
-parameter_list|,
-name|boolean
-name|force
 parameter_list|)
 throws|throws
 name|IOException

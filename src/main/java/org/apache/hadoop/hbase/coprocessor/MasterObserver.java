@@ -434,7 +434,7 @@ parameter_list|)
 throws|throws
 name|UnknownRegionException
 function_decl|;
-comment|/**    * Called prior to assigning a specific region.    * @param ctx the environment to interact with the framework and master    * @param regionInfo the regionInfo of the region    * @param force whether to force assignment or not    */
+comment|/**    * Called prior to assigning a specific region.    * @param ctx the environment to interact with the framework and master    * @param regionInfo the regionInfo of the region    */
 name|void
 name|preAssign
 parameter_list|(
@@ -448,15 +448,11 @@ parameter_list|,
 specifier|final
 name|HRegionInfo
 name|regionInfo
-parameter_list|,
-specifier|final
-name|boolean
-name|force
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the region assignment has been requested.    * @param ctx the environment to interact with the framework and master    * @param regionInfo the regionInfo of the region    * @param force whether to force assignment or not    */
+comment|/**    * Called after the region assignment has been requested.    * @param ctx the environment to interact with the framework and master    * @param regionInfo the regionInfo of the region    */
 name|void
 name|postAssign
 parameter_list|(
@@ -470,10 +466,6 @@ parameter_list|,
 specifier|final
 name|HRegionInfo
 name|regionInfo
-parameter_list|,
-specifier|final
-name|boolean
-name|force
 parameter_list|)
 throws|throws
 name|IOException

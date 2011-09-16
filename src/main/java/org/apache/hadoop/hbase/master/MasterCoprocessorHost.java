@@ -1777,10 +1777,6 @@ parameter_list|(
 specifier|final
 name|HRegionInfo
 name|regionInfo
-parameter_list|,
-specifier|final
-name|boolean
-name|force
 parameter_list|)
 throws|throws
 name|IOException
@@ -1842,8 +1838,6 @@ argument_list|(
 name|ctx
 argument_list|,
 name|regionInfo
-argument_list|,
-name|force
 argument_list|)
 expr_stmt|;
 name|bypass
@@ -1875,10 +1869,6 @@ parameter_list|(
 specifier|final
 name|HRegionInfo
 name|regionInfo
-parameter_list|,
-specifier|final
-name|boolean
-name|force
 parameter_list|)
 throws|throws
 name|IOException
@@ -1935,8 +1925,6 @@ argument_list|(
 name|ctx
 argument_list|,
 name|regionInfo
-argument_list|,
-name|force
 argument_list|)
 expr_stmt|;
 if|if
