@@ -3364,6 +3364,11 @@ argument_list|()
 operator|.
 name|size
 argument_list|()
+operator|+
+name|backwards
+operator|.
+name|size
+argument_list|()
 return|;
 block|}
 comment|/**      * Check the region chain (from META) of this table.  We are looking for      * holes, overlaps, and cycles.      * @return false if there are errors      */
