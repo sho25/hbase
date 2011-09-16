@@ -346,21 +346,6 @@ name|USEMSLAB_DEFAULT
 init|=
 literal|false
 decl_stmt|;
-specifier|static
-specifier|final
-name|String
-name|RESEEKMAX_KEY
-init|=
-literal|"hbase.hregion.memstore.reseek.maxkeys"
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|int
-name|RESEEKMAX_DEFAULT
-init|=
-literal|32
-decl_stmt|;
 specifier|private
 name|Configuration
 name|conf
@@ -420,12 +405,6 @@ name|snapshotTimeRangeTracker
 decl_stmt|;
 name|MemStoreLAB
 name|allocator
-decl_stmt|;
-comment|// if a reseek has to scan over more than these number of keys, then
-comment|// it morphs into a seek. A seek does a tree map-search while
-comment|// reseek does a linear scan.
-name|int
-name|reseekNumKeys
 decl_stmt|;
 comment|/**    * Default constructor. Used for tests.    */
 specifier|public
@@ -568,19 +547,6 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-name|this
-operator|.
-name|reseekNumKeys
-operator|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-name|RESEEKMAX_KEY
-argument_list|,
-name|RESEEKMAX_DEFAULT
-argument_list|)
-expr_stmt|;
 block|}
 name|void
 name|dump
@@ -2515,30 +2481,47 @@ init|=
 literal|null
 decl_stmt|;
 comment|// iterator based scanning.
+specifier|private
 name|Iterator
 argument_list|<
 name|KeyValue
 argument_list|>
 name|kvsetIt
 decl_stmt|;
+specifier|private
 name|Iterator
 argument_list|<
 name|KeyValue
 argument_list|>
 name|snapshotIt
 decl_stmt|;
-comment|// number of iterations in this reseek operation
-name|int
-name|numIterReseek
+comment|// Sub lists on which we're iterating
+specifier|private
+name|SortedSet
+argument_list|<
+name|KeyValue
+argument_list|>
+name|kvTail
 decl_stmt|;
-comment|/*     Some notes...       So memstorescanner is fixed at creation time. this includes pointers/iterators into     existing kvset/snapshot.  during a snapshot creation, the kvset is null, and the     snapshot is moved.  since kvset is null there is no point on reseeking on both,       we can save us the trouble. During the snapshot->hfile transition, the memstore       scanner is re-created by StoreScanner#updateReaders().  StoreScanner should       potentially do something smarter by adjusting the existing memstore scanner.        But there is a greater problem here, that being once a scanner has progressed       during a snapshot scenario, we currently iterate past the kvset then 'finish' up.       if a scan lasts a little while, there is a chance for new entries in kvset to       become available but we will never see them.  This needs to be handled at the       StoreScanner level with coordination with MemStoreScanner.      */
+specifier|private
+name|SortedSet
+argument_list|<
+name|KeyValue
+argument_list|>
+name|snapshotTail
+decl_stmt|;
+comment|// the pre-calculated KeyValue to be returned by peek() or next()
+specifier|private
+name|KeyValue
+name|theNext
+decl_stmt|;
+comment|/*     Some notes...       So memstorescanner is fixed at creation time. this includes pointers/iterators into     existing kvset/snapshot.  during a snapshot creation, the kvset is null, and the     snapshot is moved.  since kvset is null there is no point on reseeking on both,       we can save us the trouble. During the snapshot->hfile transition, the memstore       scanner is re-created by StoreScanner#updateReaders().  StoreScanner should       potentially do something smarter by adjusting the existing memstore scanner.        But there is a greater problem here, that being once a scanner has progressed       during a snapshot scenario, we currently iterate past the kvset then 'finish' up.       if a scan lasts a little while, there is a chance for new entries in kvset to       become available but we will never see them.  This needs to be handled at the       StoreScanner level with coordination with MemStoreScanner.        Currently, this problem is only partly managed: during the small amount of time       when the StoreScanner has not yet created a new MemStoreScanner, we will miss       the adds to kvset in the MemStoreScanner.     */
 name|MemStoreScanner
 parameter_list|()
 block|{
 name|super
 argument_list|()
 expr_stmt|;
-comment|//DebugPrint.println(" MS new@" + hashCode());
 block|}
 specifier|protected
 name|KeyValue
@@ -2551,11 +2534,6 @@ argument_list|>
 name|it
 parameter_list|)
 block|{
-name|KeyValue
-name|ret
-init|=
-literal|null
-decl_stmt|;
 name|long
 name|readPoint
 init|=
@@ -2564,13 +2542,8 @@ operator|.
 name|getThreadReadPoint
 argument_list|()
 decl_stmt|;
-comment|//DebugPrint.println( " MS@" + hashCode() + ": threadpoint = " + readPoint);
 while|while
 condition|(
-name|ret
-operator|==
-literal|null
-operator|&&
 name|it
 operator|.
 name|hasNext
@@ -2595,29 +2568,18 @@ operator|<=
 name|readPoint
 condition|)
 block|{
-comment|// keep it.
-name|ret
-operator|=
+return|return
 name|v
-expr_stmt|;
-block|}
-name|numIterReseek
-operator|--
-expr_stmt|;
-if|if
-condition|(
-name|numIterReseek
-operator|==
-literal|0
-condition|)
-block|{
-break|break;
+return|;
 block|}
 block|}
 return|return
-name|ret
+literal|null
 return|;
 block|}
+comment|/**      *  Set the scanner at the seek key.      *  Must be called only once: there is no thread safety between the scanner      *   and the memStore.      * @param key seek value      * @return false if the key is null or if there is no data      */
+annotation|@
+name|Override
 specifier|public
 specifier|synchronized
 name|boolean
@@ -2641,38 +2603,43 @@ return|return
 literal|false
 return|;
 block|}
-name|numIterReseek
-operator|=
-literal|0
-expr_stmt|;
-comment|// kvset and snapshot will never be empty.
-comment|// if tailSet cant find anything, SS is empty (not null).
-name|SortedSet
-argument_list|<
-name|KeyValue
-argument_list|>
+comment|// kvset and snapshot will never be null.
+comment|// if tailSet can't find anything, SortedSet is empty (not null).
 name|kvTail
-init|=
+operator|=
 name|kvset
 operator|.
 name|tailSet
 argument_list|(
 name|key
 argument_list|)
-decl_stmt|;
-name|SortedSet
-argument_list|<
-name|KeyValue
-argument_list|>
+expr_stmt|;
 name|snapshotTail
-init|=
+operator|=
 name|snapshot
 operator|.
 name|tailSet
 argument_list|(
 name|key
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+return|return
+name|seekInSubLists
+argument_list|(
+name|key
+argument_list|)
+return|;
+block|}
+comment|/**      * (Re)initialize the iterators after a seek or a reseek.      */
+specifier|private
+specifier|synchronized
+name|boolean
+name|seekInSubLists
+parameter_list|(
+name|KeyValue
+name|key
+parameter_list|)
+block|{
 name|kvsetIt
 operator|=
 name|kvTail
@@ -2701,27 +2668,30 @@ argument_list|(
 name|snapshotIt
 argument_list|)
 expr_stmt|;
-comment|//long readPoint = ReadWriteConsistencyControl.getThreadReadPoint();
-comment|//DebugPrint.println( " MS@" + hashCode() + " kvset seek: " + kvsetNextRow + " with size = " +
-comment|//    kvset.size() + " threadread = " + readPoint);
-comment|//DebugPrint.println( " MS@" + hashCode() + " snapshot seek: " + snapshotNextRow + " with size = " +
-comment|//    snapshot.size() + " threadread = " + readPoint);
-name|KeyValue
-name|lowest
-init|=
+comment|// Calculate the next value
+name|theNext
+operator|=
 name|getLowest
-argument_list|()
-decl_stmt|;
-comment|// has data := (lowest != null)
+argument_list|(
+name|kvsetNextRow
+argument_list|,
+name|snapshotNextRow
+argument_list|)
+expr_stmt|;
+comment|// has data
 return|return
-name|lowest
+operator|(
+name|theNext
 operator|!=
 literal|null
+operator|)
 return|;
 block|}
+comment|/**      * Move forward on the sub-lists set previously by seek.      * @param key seek value (should be non-null)      * @return true if there is at least one KV to read, false otherwise      */
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|boolean
 name|reseek
 parameter_list|(
@@ -2729,116 +2699,34 @@ name|KeyValue
 name|key
 parameter_list|)
 block|{
-name|numIterReseek
+comment|/*       See HBASE-4195& HBASE-3855 for the background on this implementation.       This code is executed concurrently with flush and puts, without locks.       Two points must be known when working on this code:       1) It's not possible to use the 'kvTail' and 'snapshot'        variables, as they are modified during a flush.       2) The ideal implementation for performances would use the sub skip list        implicitly pointed by the iterators 'kvsetIt' and        'snapshotIt'. Unfortunately the Java API does not offer a method to        get it. So we're using the skip list that we kept when we created        the iterators. As these iterators could have been moved forward after        their creation, we're doing a kind of rewind here. It has a small        performance impact (we're using a wider list than necessary), and we        could see values that were not here when we read the list the first        time. We expect that the new values will be skipped by the test on        readpoint performed in the next() function.        */
+name|kvTail
 operator|=
-name|reseekNumKeys
-expr_stmt|;
-while|while
-condition|(
-name|kvsetNextRow
-operator|!=
-literal|null
-operator|&&
-name|comparator
+name|kvTail
 operator|.
-name|compare
+name|tailSet
 argument_list|(
-name|kvsetNextRow
-argument_list|,
 name|key
-argument_list|)
-operator|<
-literal|0
-condition|)
-block|{
-name|kvsetNextRow
-operator|=
-name|getNext
-argument_list|(
-name|kvsetIt
 argument_list|)
 expr_stmt|;
-comment|// if we scanned enough entries but still not able to find the
-comment|// kv we are looking for, better cut our costs and do a tree
-comment|// scan using seek.
-if|if
-condition|(
-name|kvsetNextRow
-operator|==
-literal|null
-operator|&&
-name|numIterReseek
-operator|==
-literal|0
-condition|)
-block|{
-return|return
-name|seek
-argument_list|(
-name|key
-argument_list|)
-return|;
-block|}
-block|}
-while|while
-condition|(
-name|snapshotNextRow
-operator|!=
-literal|null
-operator|&&
-name|comparator
+name|snapshotTail
+operator|=
+name|snapshotTail
 operator|.
-name|compare
+name|tailSet
 argument_list|(
-name|snapshotNextRow
-argument_list|,
 name|key
-argument_list|)
-operator|<
-literal|0
-condition|)
-block|{
-name|snapshotNextRow
-operator|=
-name|getNext
-argument_list|(
-name|snapshotIt
 argument_list|)
 expr_stmt|;
-comment|// if we scanned enough entries but still not able to find the
-comment|// kv we are looking for, better cut our costs and do a tree
-comment|// scan using seek.
-if|if
-condition|(
-name|snapshotNextRow
-operator|==
-literal|null
-operator|&&
-name|numIterReseek
-operator|==
-literal|0
-condition|)
-block|{
 return|return
-name|seek
+name|seekInSubLists
 argument_list|(
 name|key
 argument_list|)
 return|;
 block|}
-block|}
-return|return
-operator|(
-name|kvsetNextRow
-operator|!=
-literal|null
-operator|||
-name|snapshotNextRow
-operator|!=
-literal|null
-operator|)
-return|;
-block|}
+annotation|@
+name|Override
 specifier|public
 specifier|synchronized
 name|KeyValue
@@ -2847,22 +2735,17 @@ parameter_list|()
 block|{
 comment|//DebugPrint.println(" MS@" + hashCode() + " peek = " + getLowest());
 return|return
-name|getLowest
-argument_list|()
+name|theNext
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 specifier|synchronized
 name|KeyValue
 name|next
 parameter_list|()
 block|{
-name|KeyValue
-name|theNext
-init|=
-name|getLowest
-argument_list|()
-decl_stmt|;
 if|if
 condition|(
 name|theNext
@@ -2874,6 +2757,12 @@ return|return
 literal|null
 return|;
 block|}
+specifier|final
+name|KeyValue
+name|ret
+init|=
+name|theNext
+decl_stmt|;
 comment|// Advance one of the iterators
 if|if
 condition|(
@@ -2900,31 +2789,27 @@ name|snapshotIt
 argument_list|)
 expr_stmt|;
 block|}
-comment|//long readpoint = ReadWriteConsistencyControl.getThreadReadPoint();
-comment|//DebugPrint.println(" MS@" + hashCode() + " next: " + theNext + " next_next: " +
-comment|//    getLowest() + " threadpoint=" + readpoint);
-return|return
+comment|// Calculate the next value
 name|theNext
-return|;
-block|}
-specifier|protected
-name|KeyValue
+operator|=
 name|getLowest
-parameter_list|()
-block|{
-return|return
-name|getLower
 argument_list|(
 name|kvsetNextRow
 argument_list|,
 name|snapshotNextRow
 argument_list|)
+expr_stmt|;
+comment|//long readpoint = ReadWriteConsistencyControl.getThreadReadPoint();
+comment|//DebugPrint.println(" MS@" + hashCode() + " next: " + theNext + " next_next: " +
+comment|//    getLowest() + " threadpoint=" + readpoint);
+return|return
+name|ret
 return|;
 block|}
 comment|/*      * Returns the lower of the two key values, or null if they are both null.      * This uses comparator.compare() to compare the KeyValue using the memstore      * comparator.      */
 specifier|protected
 name|KeyValue
-name|getLower
+name|getLowest
 parameter_list|(
 name|KeyValue
 name|first
@@ -3056,7 +2941,7 @@ operator|.
 name|OBJECT
 operator|+
 operator|(
-literal|12
+literal|11
 operator|*
 name|ClassSize
 operator|.
