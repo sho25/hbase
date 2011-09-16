@@ -406,7 +406,7 @@ name|ServerName
 name|destServer
 parameter_list|)
 throws|throws
-name|UnknownRegionException
+name|IOException
 function_decl|;
 comment|/**    * Called after the region move has been requested.    * @param ctx the environment to interact with the framework and master    * @param region the HRegionInfo    * @param srcServer the source ServerName    * @param destServer the destination ServerName    */
 name|void
@@ -432,7 +432,7 @@ name|ServerName
 name|destServer
 parameter_list|)
 throws|throws
-name|UnknownRegionException
+name|IOException
 function_decl|;
 comment|/**    * Called prior to assigning a specific region.    * @param ctx the environment to interact with the framework and master    * @param regionInfo the regionInfo of the region    */
 name|void

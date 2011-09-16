@@ -696,7 +696,7 @@ name|ServerName
 name|destServer
 parameter_list|)
 throws|throws
-name|UnknownRegionException
+name|IOException
 block|{   }
 annotation|@
 name|Override
@@ -720,7 +720,7 @@ name|ServerName
 name|destServer
 parameter_list|)
 throws|throws
-name|UnknownRegionException
+name|IOException
 block|{   }
 block|}
 end_class

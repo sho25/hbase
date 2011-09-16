@@ -1594,7 +1594,7 @@ name|ServerName
 name|destServer
 parameter_list|)
 throws|throws
-name|UnknownRegionException
+name|IOException
 block|{
 name|boolean
 name|bypass
@@ -1698,7 +1698,7 @@ name|ServerName
 name|destServer
 parameter_list|)
 throws|throws
-name|UnknownRegionException
+name|IOException
 block|{
 name|ObserverContext
 argument_list|<

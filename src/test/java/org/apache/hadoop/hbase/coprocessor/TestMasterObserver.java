@@ -1368,7 +1368,7 @@ name|ServerName
 name|destServer
 parameter_list|)
 throws|throws
-name|UnknownRegionException
+name|IOException
 block|{
 if|if
 condition|(
@@ -1408,7 +1408,7 @@ name|ServerName
 name|destServer
 parameter_list|)
 throws|throws
-name|UnknownRegionException
+name|IOException
 block|{
 name|postMoveCalled
 operator|=
