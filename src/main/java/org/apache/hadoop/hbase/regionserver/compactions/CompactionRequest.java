@@ -922,6 +922,19 @@ literal|"Recursive enqueue"
 argument_list|)
 expr_stmt|;
 block|}
+else|else
+block|{
+comment|// see if the compaction has caused us to exceed max region size
+name|server
+operator|.
+name|compactSplitThread
+operator|.
+name|requestSplit
+argument_list|(
+name|r
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 catch|catch
