@@ -125,7 +125,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HBaseRpcMetrics
+name|RpcServer
 import|;
 end_import
 
@@ -426,8 +426,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|HBaseRpcMetrics
-name|getRpcMetrics
+name|RpcServer
+name|getRpcServer
 parameter_list|()
 block|{
 return|return

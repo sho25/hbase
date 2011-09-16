@@ -8146,6 +8146,20 @@ return|;
 block|}
 end_function
 
+begin_function
+annotation|@
+name|Override
+specifier|public
+name|RpcServer
+name|getRpcServer
+parameter_list|()
+block|{
+return|return
+name|rpcServer
+return|;
+block|}
+end_function
+
 begin_comment
 comment|/**    * Cause the server to exit without closing the regions it is serving, the log    * it is using and without notifying the master. Used unit testing and on    * catastrophic events such as HDFS is yanked out from under hbase or we OOME.    *    * @param reason    *          the reason we are aborting    * @param cause    *          the exception that caused the abort, or null    */
 end_comment

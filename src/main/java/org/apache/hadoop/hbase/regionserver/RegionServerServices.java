@@ -55,7 +55,7 @@ name|hbase
 operator|.
 name|ipc
 operator|.
-name|HBaseRpcMetrics
+name|RpcServer
 import|;
 end_import
 
@@ -162,10 +162,10 @@ name|KeeperException
 throws|,
 name|IOException
 function_decl|;
-comment|/**    * Returns a reference to the RPC server metrics.    */
+comment|/**    * Returns a reference to the region server's RPC server    */
 specifier|public
-name|HBaseRpcMetrics
-name|getRpcMetrics
+name|RpcServer
+name|getRpcServer
 parameter_list|()
 function_decl|;
 comment|/**    * Get the regions that are currently being opened or closed in the RS    * @return set of regions in transition in this RS    */
