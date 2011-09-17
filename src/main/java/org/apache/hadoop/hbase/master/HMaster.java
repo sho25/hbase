@@ -6811,6 +6811,7 @@ block|}
 end_function
 
 begin_function
+specifier|public
 name|boolean
 name|isAborted
 parameter_list|()

@@ -36,6 +36,12 @@ name|Throwable
 name|e
 parameter_list|)
 function_decl|;
+comment|/**    * Check if the server or client was aborted.     * @return true if the server or client was aborted, false otherwise    */
+specifier|public
+name|boolean
+name|isAborted
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

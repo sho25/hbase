@@ -686,6 +686,10 @@ specifier|final
 name|int
 name|retryLongerMultiplier
 decl_stmt|;
+specifier|private
+name|boolean
+name|aborted
+decl_stmt|;
 comment|/**    * Constructor    *    * @param c Configuration object    * @throws MasterNotRunningException if the master is not running    * @throws ZooKeeperConnectionException if unable to connect to zookeeper    */
 specifier|public
 name|HBaseAdmin
@@ -1001,6 +1005,12 @@ name|e
 parameter_list|)
 block|{
 comment|// Currently does nothing but throw the passed message and exception
+name|this
+operator|.
+name|aborted
+operator|=
+literal|true
+expr_stmt|;
 throw|throw
 operator|new
 name|RuntimeException
@@ -1010,6 +1020,19 @@ argument_list|,
 name|e
 argument_list|)
 throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|isAborted
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|aborted
+return|;
 block|}
 comment|/** @return HConnection used by this object. */
 specifier|public

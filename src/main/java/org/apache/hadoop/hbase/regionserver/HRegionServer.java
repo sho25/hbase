@@ -8340,6 +8340,20 @@ expr_stmt|;
 block|}
 end_function
 
+begin_function
+specifier|public
+name|boolean
+name|isAborted
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|abortRequested
+return|;
+block|}
+end_function
+
 begin_comment
 comment|/*    * Simulate a kill -9 of this server. Exits w/o closing regions or cleaninup    * logs but it does close socket in case want to bring up server on old    * hostname+port immediately.    */
 end_comment

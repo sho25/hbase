@@ -1301,6 +1301,22 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|isAborted
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|abortable
+operator|.
+name|isAborted
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 

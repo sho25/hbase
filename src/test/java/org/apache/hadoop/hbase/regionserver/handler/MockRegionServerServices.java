@@ -562,6 +562,18 @@ return|return
 literal|false
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|isAborted
+parameter_list|()
+block|{
+comment|// TODO Auto-generated method stub
+return|return
+literal|false
+return|;
+block|}
 block|}
 end_class
 
