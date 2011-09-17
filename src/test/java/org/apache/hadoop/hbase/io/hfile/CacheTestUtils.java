@@ -993,6 +993,13 @@ expr_stmt|;
 block|}
 block|}
 decl_stmt|;
+name|t
+operator|.
+name|setDaemon
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 name|ctx
 operator|.
 name|addThread
@@ -1245,6 +1252,13 @@ expr_stmt|;
 block|}
 block|}
 decl_stmt|;
+name|t
+operator|.
+name|setDaemon
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 name|ctx
 operator|.
 name|addThread
