@@ -2476,13 +2476,6 @@ block|}
 elseif|else
 if|if
 condition|(
-name|isOnDeadServer
-argument_list|(
-name|regionInfo
-argument_list|,
-name|deadServers
-argument_list|)
-operator|&&
 operator|!
 name|serverManager
 operator|.
@@ -2490,10 +2483,27 @@ name|isServerOnline
 argument_list|(
 name|sn
 argument_list|)
+operator|&&
+operator|(
+name|isOnDeadServer
+argument_list|(
+name|regionInfo
+argument_list|,
+name|deadServers
+argument_list|)
+operator|||
+name|regionInfo
+operator|.
+name|isMetaRegion
+argument_list|()
+operator|||
+name|regionInfo
+operator|.
+name|isRootRegion
+argument_list|()
+operator|)
 condition|)
 block|{
-comment|// If was on a dead server, then its not open any more; needs
-comment|// handling.
 name|forceOffline
 argument_list|(
 name|regionInfo
