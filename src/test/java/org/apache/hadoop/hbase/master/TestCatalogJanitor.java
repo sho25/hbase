@@ -796,6 +796,25 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|void
+name|createTable
+parameter_list|(
+name|HTableDescriptor
+name|desc
+parameter_list|,
+name|byte
+index|[]
+index|[]
+name|splitKeys
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+comment|// no-op
+block|}
+annotation|@
+name|Override
+specifier|public
 name|AssignmentManager
 name|getAssignmentManager
 parameter_list|()
