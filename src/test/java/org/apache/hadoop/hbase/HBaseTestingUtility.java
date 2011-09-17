@@ -6999,7 +6999,7 @@ name|get
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates an znode with OPENED state.    * @param TEST_UTIL    * @param metaRegion    * @param regionServer    * @return    * @throws IOException    * @throws ZooKeeperConnectionException    * @throws KeeperException    * @throws NodeExistsException    */
+comment|/**    * Creates an znode with OPENED state.    * @param TEST_UTIL    * @param region    * @param regionServer    * @return    * @throws IOException    * @throws ZooKeeperConnectionException    * @throws KeeperException    * @throws NodeExistsException    */
 specifier|public
 specifier|static
 name|ZooKeeperWatcher
@@ -7009,7 +7009,7 @@ name|HBaseTestingUtility
 name|TEST_UTIL
 parameter_list|,
 name|HRegion
-name|metaRegion
+name|region
 parameter_list|,
 name|HRegionServer
 name|regionServer
@@ -7074,7 +7074,7 @@ name|createNodeOffline
 argument_list|(
 name|zkw
 argument_list|,
-name|metaRegion
+name|region
 operator|.
 name|getRegionInfo
 argument_list|()
@@ -7094,7 +7094,7 @@ name|transitionNodeOpening
 argument_list|(
 name|zkw
 argument_list|,
-name|metaRegion
+name|region
 operator|.
 name|getRegionInfo
 argument_list|()
@@ -7111,7 +7111,7 @@ name|transitionNodeOpened
 argument_list|(
 name|zkw
 argument_list|,
-name|metaRegion
+name|region
 operator|.
 name|getRegionInfo
 argument_list|()
