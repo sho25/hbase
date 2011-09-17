@@ -308,7 +308,7 @@ name|Configuration
 name|getConfiguration
 parameter_list|()
 function_decl|;
-comment|/**    * Retrieve ZooKeeperWatcher used by this connection.    * @return ZooKeeperWatcher handle being used by the connection.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Retrieve ZooKeeperWatcher used by this connection.    * @return ZooKeeperWatcher handle being used by the connection.    * @throws IOException if a remote or network exception occurs    * @deprecated Removed because it was a mistake exposing zookeeper in this    * interface (ZooKeeper is an implementation detail).    */
 specifier|public
 name|ZooKeeperWatcher
 name|getZooKeeperWatcher
