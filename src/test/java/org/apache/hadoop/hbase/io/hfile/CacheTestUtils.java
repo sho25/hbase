@@ -458,8 +458,10 @@ condition|)
 block|{
 name|ctx
 operator|.
-name|stop
-argument_list|()
+name|setStopFlag
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 return|return;
 block|}
