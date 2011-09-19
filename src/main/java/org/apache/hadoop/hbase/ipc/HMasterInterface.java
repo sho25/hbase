@@ -427,6 +427,16 @@ name|boolean
 name|b
 parameter_list|)
 function_decl|;
+comment|/**    * Turn the load balancer on or off.    * It waits until current balance() call, if outstanding, to return.    * @param b If true, enable balancer. If false, disable balancer.    * @return Previous balancer value    */
+specifier|public
+name|boolean
+name|synchronousBalanceSwitch
+parameter_list|(
+specifier|final
+name|boolean
+name|b
+parameter_list|)
+function_decl|;
 comment|/**    * Get array of all HTDs.    * @return array of HTableDescriptor    */
 specifier|public
 name|HTableDescriptor
