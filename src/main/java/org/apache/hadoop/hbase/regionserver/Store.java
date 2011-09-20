@@ -742,6 +742,11 @@ specifier|private
 name|CompactionProgress
 name|progress
 decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|compactionKVMax
+decl_stmt|;
 comment|/*    * List of store files inside this store. This is an immutable list that    * is atomically replaced when its contents change.    */
 specifier|private
 name|ImmutableList
@@ -1221,6 +1226,19 @@ argument_list|(
 literal|"hbase.hstore.compaction.ratio"
 argument_list|,
 literal|1.2F
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|compactionKVMax
+operator|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.hstore.compaction.kv.max"
+argument_list|,
+literal|10
 argument_list|)
 expr_stmt|;
 if|if
@@ -5428,6 +5446,7 @@ name|KeyValue
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|// Limit to "hbase.hstore.compaction.kv.max" (default 10) to avoid OOME
 while|while
 condition|(
 name|scanner
@@ -5435,6 +5454,10 @@ operator|.
 name|next
 argument_list|(
 name|kvs
+argument_list|,
+name|this
+operator|.
+name|compactionKVMax
 argument_list|)
 condition|)
 block|{
