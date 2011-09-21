@@ -99,6 +99,18 @@ name|Set
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ConcurrentSkipListMap
+import|;
+end_import
+
 begin_comment
 comment|/**  * Services provided by {@link HRegionServer}  */
 end_comment
@@ -168,12 +180,14 @@ name|RpcServer
 name|getRpcServer
 parameter_list|()
 function_decl|;
-comment|/**    * Get the regions that are currently being opened or closed in the RS    * @return set of regions in transition in this RS    */
+comment|/**    * Get the regions that are currently being opened or closed in the RS    * @return map of regions in transition in this RS    */
 specifier|public
-name|Set
+name|ConcurrentSkipListMap
 argument_list|<
 name|byte
 index|[]
+argument_list|,
+name|Boolean
 argument_list|>
 name|getRegionsInTransitionInRS
 parameter_list|()

@@ -42,23 +42,12 @@ specifier|public
 name|RegionAlreadyInTransitionException
 parameter_list|(
 name|String
-name|action
-parameter_list|,
-name|String
-name|region
+name|s
 parameter_list|)
 block|{
 name|super
 argument_list|(
-literal|"Received "
-operator|+
-name|action
-operator|+
-literal|" for region we are"
-operator|+
-literal|" already opening or closing; "
-operator|+
-name|region
+name|s
 argument_list|)
 expr_stmt|;
 block|}
