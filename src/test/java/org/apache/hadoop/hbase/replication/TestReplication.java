@@ -770,6 +770,15 @@ operator|.
 name|getZkCluster
 argument_list|()
 decl_stmt|;
+comment|// Have to reget conf1 in case zk cluster location different
+comment|// than default
+name|conf1
+operator|=
+name|utility1
+operator|.
+name|getConfiguration
+argument_list|()
+expr_stmt|;
 name|zkw1
 operator|=
 operator|new
@@ -799,12 +808,15 @@ argument_list|(
 literal|"Setup first Zk"
 argument_list|)
 expr_stmt|;
+comment|// Base conf2 on conf1 so it gets the right zk cluster.
 name|conf2
 operator|=
 name|HBaseConfiguration
 operator|.
 name|create
-argument_list|()
+argument_list|(
+name|conf1
+argument_list|)
 expr_stmt|;
 name|conf2
 operator|.

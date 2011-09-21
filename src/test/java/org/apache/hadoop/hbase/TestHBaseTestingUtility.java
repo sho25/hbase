@@ -379,7 +379,7 @@ literal|180000
 argument_list|)
 specifier|public
 name|void
-name|multiClusters
+name|testMultiClusters
 parameter_list|()
 throws|throws
 name|Exception
@@ -437,6 +437,28 @@ argument_list|)
 expr_stmt|;
 name|htu2
 operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|set
+argument_list|(
+literal|"hbase.zookeeper.property.clientPort"
+argument_list|,
+name|htu1
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|get
+argument_list|(
+literal|"hbase.zookeeper.property.clientPort"
+argument_list|,
+literal|"-1"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|htu2
+operator|.
 name|setZkCluster
 argument_list|(
 name|htu1
@@ -445,7 +467,9 @@ name|getZkCluster
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Cluster 3.
+comment|// Cluster 3; seed it with the conf from htu1 so we pickup the 'right'
+comment|// zk cluster config; it is set back into the config. as part of the
+comment|// start of minizkcluster.
 name|HBaseTestingUtility
 name|htu3
 init|=
@@ -465,6 +489,28 @@ operator|.
 name|ZOOKEEPER_ZNODE_PARENT
 argument_list|,
 literal|"/3"
+argument_list|)
+expr_stmt|;
+name|htu3
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|set
+argument_list|(
+literal|"hbase.zookeeper.property.clientPort"
+argument_list|,
+name|htu1
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|get
+argument_list|(
+literal|"hbase.zookeeper.property.clientPort"
+argument_list|,
+literal|"-1"
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|htu3
