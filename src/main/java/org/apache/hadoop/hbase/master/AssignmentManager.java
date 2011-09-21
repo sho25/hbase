@@ -597,26 +597,6 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|AssignmentManager
-operator|.
-name|RegionState
-operator|.
-name|State
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
 name|handler
 operator|.
 name|ClosedRegionHandler
@@ -1141,17 +1121,6 @@ name|concurrent
 operator|.
 name|ExecutorService
 name|threadPoolExecutorService
-decl_stmt|;
-comment|//String to compare the RegionsAlreadyInTransition from RS
-specifier|private
-specifier|static
-specifier|final
-name|String
-name|ALREADY_TRANSITIONING
-init|=
-literal|"for the region we are "
-operator|+
-literal|"already trying to "
 decl_stmt|;
 comment|/**    * Constructs a new assignment manager.    *    * @param master    * @param serverManager    * @param catalogTracker    * @param service    * @throws KeeperException    * @throws IOException     */
 specifier|public
@@ -6473,38 +6442,18 @@ block|{
 name|String
 name|errorMsg
 init|=
-literal|"Failed assignment of "
-operator|+
-name|state
-operator|.
-name|getRegion
-argument_list|()
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|" to "
+literal|"Failed assignment in: "
 operator|+
 name|plan
 operator|.
 name|getDestination
 argument_list|()
 operator|+
-literal|" as the region was already "
+literal|" due to "
 operator|+
-name|extractRegionState
-argument_list|(
-operator|(
-name|RegionAlreadyInTransitionException
-operator|)
 name|t
-argument_list|)
-operator|+
-literal|" in the RS "
-operator|+
-name|plan
 operator|.
-name|getDestination
+name|getMessage
 argument_list|()
 decl_stmt|;
 name|LOG
@@ -6600,47 +6549,6 @@ block|}
 block|}
 block|}
 block|}
-block|}
-specifier|private
-name|State
-name|extractRegionState
-parameter_list|(
-name|RegionAlreadyInTransitionException
-name|t
-parameter_list|)
-block|{
-name|RegionState
-operator|.
-name|State
-name|state
-init|=
-name|t
-operator|.
-name|getMessage
-argument_list|()
-operator|.
-name|contains
-argument_list|(
-name|ALREADY_TRANSITIONING
-operator|+
-literal|"OPEN"
-argument_list|)
-condition|?
-name|RegionState
-operator|.
-name|State
-operator|.
-name|PENDING_OPEN
-else|:
-name|RegionState
-operator|.
-name|State
-operator|.
-name|PENDING_CLOSE
-decl_stmt|;
-return|return
-name|state
-return|;
 block|}
 specifier|private
 name|void

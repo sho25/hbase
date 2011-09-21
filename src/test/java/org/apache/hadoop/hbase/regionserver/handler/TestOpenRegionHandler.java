@@ -751,9 +751,14 @@ decl_stmt|;
 name|RegionServerServices
 name|rsServices
 init|=
-operator|new
-name|MockRegionServerServices
-argument_list|()
+name|Mockito
+operator|.
+name|mock
+argument_list|(
+name|RegionServerServices
+operator|.
+name|class
+argument_list|)
 decl_stmt|;
 comment|// Create it OFFLINE, which is what it expects
 name|ZKAssign
@@ -860,9 +865,14 @@ decl_stmt|;
 name|RegionServerServices
 name|rsServices
 init|=
-operator|new
-name|MockRegionServerServices
-argument_list|()
+name|Mockito
+operator|.
+name|mock
+argument_list|(
+name|RegionServerServices
+operator|.
+name|class
+argument_list|)
 decl_stmt|;
 comment|// Create it OFFLINE, which is what it expects
 name|ZKAssign

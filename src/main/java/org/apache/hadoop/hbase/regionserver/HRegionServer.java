@@ -293,18 +293,6 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|ConcurrentSkipListSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
 name|atomic
 operator|.
 name|AtomicBoolean
@@ -1130,24 +1118,6 @@ operator|.
 name|hfile
 operator|.
 name|CacheStats
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|LruBlockCache
 import|;
 end_import
 
@@ -2266,30 +2236,14 @@ specifier|private
 name|TableDescriptors
 name|tableDescriptors
 decl_stmt|;
-comment|/*    * Strings to be used in forming the exception message for    * RegionsAlreadyInTransitionException. The below strings combination      * is used to extract the status in the master.     */
-specifier|private
-specifier|static
-specifier|final
-name|String
-name|ALREADY_TRANSITIONING
-init|=
-literal|"for the region we are already trying to "
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|String
-name|RECEIVED
-init|=
-literal|" received "
-decl_stmt|;
+comment|/*    * Strings to be used in forming the exception message for    * RegionsAlreadyInTransitionException.    */
 specifier|private
 specifier|static
 specifier|final
 name|String
 name|OPEN
 init|=
-literal|"OPEN "
+literal|"OPEN"
 decl_stmt|;
 specifier|private
 specifier|static
@@ -2297,7 +2251,7 @@ specifier|final
 name|String
 name|CLOSE
 init|=
-literal|"CLOSE "
+literal|"CLOSE"
 decl_stmt|;
 comment|/**    * Starts a HRegionServer at the default location    *    * @param conf    * @throws IOException    * @throws InterruptedException    */
 specifier|public
@@ -13119,41 +13073,6 @@ name|encodedName
 argument_list|)
 condition|)
 block|{
-comment|// The below exception message will be used in master.
-throw|throw
-operator|new
-name|RegionAlreadyInTransitionException
-argument_list|(
-name|getExceptionMessage
-argument_list|(
-name|region
-argument_list|,
-name|encodedName
-argument_list|,
-name|currentAction
-argument_list|)
-argument_list|)
-throw|;
-block|}
-block|}
-end_function
-
-begin_function
-specifier|private
-name|String
-name|getExceptionMessage
-parameter_list|(
-name|HRegionInfo
-name|region
-parameter_list|,
-name|byte
-index|[]
-name|encodedName
-parameter_list|,
-name|String
-name|receivedAction
-parameter_list|)
-block|{
 name|boolean
 name|openAction
 init|=
@@ -13166,21 +13085,23 @@ argument_list|(
 name|encodedName
 argument_list|)
 decl_stmt|;
-return|return
-name|REGIONSERVER
+comment|// The below exception message will be used in master.
+throw|throw
+operator|new
+name|RegionAlreadyInTransitionException
+argument_list|(
+literal|"Received:"
 operator|+
-literal|":"
+name|currentAction
 operator|+
-name|this
+literal|" for the region:"
+operator|+
+name|region
 operator|.
-name|getServerName
+name|getRegionNameAsString
 argument_list|()
 operator|+
-name|RECEIVED
-operator|+
-name|receivedAction
-operator|+
-name|ALREADY_TRANSITIONING
+literal|" ,which we are already trying to "
 operator|+
 operator|(
 name|openAction
@@ -13190,13 +13111,10 @@ else|:
 name|CLOSE
 operator|)
 operator|+
-literal|"; "
-operator|+
-name|region
-operator|.
-name|getRegionNameAsString
-argument_list|()
-return|;
+literal|"."
+argument_list|)
+throw|;
+block|}
 block|}
 end_function
 

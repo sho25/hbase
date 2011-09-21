@@ -4914,7 +4914,7 @@ name|destServerName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param regionName    *          Region name to assign.    * @param force    *          True to force assign.    * @throws MasterNotRunningException    * @throws ZooKeeperConnectionException    * @throws IOException    * @deprecated The<code>force</code> is unused.Use {@link #assign(byte[])}    */
+comment|/**    * Tries to assign a region. Region could be reassigned to the same server.    *     * @param regionName    *          Region name to assign.    * @param force    *          True to force assign.    * @throws MasterNotRunningException    * @throws ZooKeeperConnectionException    * @throws IOException    * @deprecated The<code>force</code> is unused.Use {@link #assign(byte[])}    */
 specifier|public
 name|void
 name|assign
