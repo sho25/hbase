@@ -29,6 +29,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -86,28 +96,6 @@ operator|.
 name|zookeeper
 operator|.
 name|KeeperException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Set
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ConcurrentSkipListMap
 import|;
 end_import
 
@@ -182,7 +170,7 @@ parameter_list|()
 function_decl|;
 comment|/**    * Get the regions that are currently being opened or closed in the RS    * @return map of regions in transition in this RS    */
 specifier|public
-name|ConcurrentSkipListMap
+name|Map
 argument_list|<
 name|byte
 index|[]
