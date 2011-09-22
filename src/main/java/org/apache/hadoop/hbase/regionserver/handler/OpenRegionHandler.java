@@ -768,6 +768,11 @@ name|lastUpdate
 init|=
 name|now
 decl_stmt|;
+name|boolean
+name|tickleOpening
+init|=
+literal|true
+decl_stmt|;
 while|while
 condition|(
 operator|!
@@ -823,6 +828,8 @@ name|lastUpdate
 operator|=
 name|now
 expr_stmt|;
+name|tickleOpening
+operator|=
 name|tickleOpening
 argument_list|(
 literal|"post_open_deploy"
@@ -938,8 +945,11 @@ expr_stmt|;
 block|}
 block|}
 comment|// Was there an exception opening the region?  This should trigger on
-comment|// InterruptedException too.  If so, we failed.
+comment|// InterruptedException too.  If so, we failed.  Even if tickle opening fails
+comment|// then it is a failure.
 return|return
+operator|(
+operator|(
 operator|!
 name|Thread
 operator|.
@@ -952,6 +962,10 @@ name|getException
 argument_list|()
 operator|==
 literal|null
+operator|)
+operator|&&
+name|tickleOpening
+operator|)
 return|;
 block|}
 comment|/**    * Thread to run region post open tasks.  Call {@link #getException()} after    * the thread finishes to check for exceptions running    * {@link RegionServerServices#postOpenDeployTasks(HRegion, org.apache.hadoop.hbase.catalog.CatalogTracker, boolean)}.    */
