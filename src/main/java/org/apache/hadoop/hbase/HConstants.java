@@ -1161,7 +1161,6 @@ name|DEFAULT_HBASE_RPC_TIMEOUT
 init|=
 literal|60000
 decl_stmt|;
-comment|/*    * cluster replication constants.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1169,30 +1168,6 @@ name|String
 name|REPLICATION_ENABLE_KEY
 init|=
 literal|"hbase.replication"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|REPLICATION_SOURCE_SERVICE_CLASSNAME
-init|=
-literal|"hbase.replication.source.service"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|REPLICATION_SINK_SERVICE_CLASSNAME
-init|=
-literal|"hbase.replication.sink.service"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|REPLICATION_SERVICE_CLASSNAME_DEFAULT
-init|=
-literal|"org.apache.hadoop.hbase.replication.regionserver.Replication"
 decl_stmt|;
 comment|/** HBCK special code name used as server name when manipulating ZK nodes */
 specifier|public
