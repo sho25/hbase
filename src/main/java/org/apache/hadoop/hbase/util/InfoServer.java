@@ -382,6 +382,13 @@ throws|throws
 name|FileNotFoundException
 block|{
 comment|// Copied from the super-class.
+name|String
+name|resourceName
+init|=
+literal|"hbase-webapps/"
+operator|+
+name|appName
+decl_stmt|;
 name|URL
 name|url
 init|=
@@ -393,9 +400,7 @@ argument_list|()
 operator|.
 name|getResource
 argument_list|(
-literal|"hbase-webapps/"
-operator|+
-name|appName
+name|resourceName
 argument_list|)
 decl_stmt|;
 if|if
@@ -408,9 +413,7 @@ throw|throw
 operator|new
 name|FileNotFoundException
 argument_list|(
-literal|"webapps/"
-operator|+
-name|appName
+name|resourceName
 operator|+
 literal|" not found in CLASSPATH"
 argument_list|)
