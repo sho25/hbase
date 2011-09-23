@@ -16495,6 +16495,13 @@ end_function
 begin_function
 annotation|@
 name|Override
+annotation|@
+name|QosPriority
+argument_list|(
+name|priority
+operator|=
+name|HIGH_QOS
+argument_list|)
 specifier|public
 name|void
 name|replicateLogEntries
