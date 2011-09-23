@@ -4396,6 +4396,13 @@ name|currentTimeMillis
 argument_list|()
 decl_stmt|;
 comment|// Done in parallel for all writer threads, thanks to HDFS-895
+name|boolean
+name|syncSuccessful
+init|=
+literal|true
+decl_stmt|;
+try|try
+block|{
 name|this
 operator|.
 name|writer
@@ -4403,6 +4410,18 @@ operator|.
 name|sync
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|io
+parameter_list|)
+block|{
+name|syncSuccessful
+operator|=
+literal|false
+expr_stmt|;
+block|}
 synchronized|synchronized
 init|(
 name|this
@@ -4410,6 +4429,21 @@ operator|.
 name|updateLock
 init|)
 block|{
+if|if
+condition|(
+operator|!
+name|syncSuccessful
+condition|)
+block|{
+comment|// HBASE-4387, retry with updateLock held
+name|this
+operator|.
+name|writer
+operator|.
+name|sync
+argument_list|()
+expr_stmt|;
+block|}
 name|syncTime
 operator|+=
 name|System
