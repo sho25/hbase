@@ -487,6 +487,7 @@ argument_list|,
 name|MAX_ALLOWED_FOLD_FACTOR
 argument_list|)
 decl_stmt|;
+comment|// Do we support compound bloom filters?
 if|if
 condition|(
 name|HFile
