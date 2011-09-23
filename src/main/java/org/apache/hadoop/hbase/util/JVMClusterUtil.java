@@ -864,7 +864,7 @@ comment|// regionServerThreads can never be null because they are initialized wh
 comment|// the class is constructed.
 for|for
 control|(
-name|Thread
+name|RegionServerThread
 name|t
 range|:
 name|regionservers
@@ -880,6 +880,16 @@ condition|)
 block|{
 try|try
 block|{
+name|t
+operator|.
+name|getRegionServer
+argument_list|()
+operator|.
+name|stop
+argument_list|(
+literal|"Shutdown requested"
+argument_list|)
+expr_stmt|;
 name|t
 operator|.
 name|join
