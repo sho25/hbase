@@ -1298,7 +1298,7 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-comment|// Expected block reads: 3
+comment|// Expected block reads: 2
 name|kvs
 operator|=
 name|getData
@@ -1309,7 +1309,7 @@ literal|"row"
 argument_list|,
 literal|"col1"
 argument_list|,
-literal|3
+literal|2
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1335,7 +1335,7 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
-comment|// Expected block reads: 4
+comment|// Expected block reads: 3
 name|kvs
 operator|=
 name|getData
@@ -1353,7 +1353,7 @@ argument_list|,
 literal|"col2"
 argument_list|)
 argument_list|,
-literal|4
+literal|3
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1451,7 +1451,7 @@ argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
-comment|// Expected block reads: 6
+comment|// Expected block reads: 4
 name|kvs
 operator|=
 name|getData
@@ -1467,7 +1467,7 @@ argument_list|(
 literal|"col5"
 argument_list|)
 argument_list|,
-literal|6
+literal|4
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1617,7 +1617,7 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-comment|// Baseline expected blocks read: 4
+comment|// Baseline expected blocks read: 3
 name|kvs
 operator|=
 name|getData
@@ -1633,7 +1633,7 @@ argument_list|(
 literal|"col1"
 argument_list|)
 argument_list|,
-literal|4
+literal|3
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1659,7 +1659,9 @@ argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
-comment|// Baseline expected blocks read: 4
+comment|// Baseline expected blocks read: 5
+comment|// This increase is a minor glitch due to: HBASE-4466. Once that
+comment|// is fixed this will drop back. The extra access will be a cache hit.
 name|kvs
 operator|=
 name|getData
@@ -1677,7 +1679,7 @@ argument_list|,
 literal|"col2"
 argument_list|)
 argument_list|,
-literal|4
+literal|5
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1734,7 +1736,7 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-comment|// Baseline expected blocks read: 7
+comment|// Baseline expected blocks read: 5
 name|kvs
 operator|=
 name|getData
@@ -1745,7 +1747,7 @@ literal|"row"
 argument_list|,
 literal|"col3"
 argument_list|,
-literal|7
+literal|5
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1772,7 +1774,7 @@ literal|5
 argument_list|)
 expr_stmt|;
 comment|// Get a column from older file.
-comment|// Baseline expected blocks read: 5
+comment|// Baseline expected blocks read: 4
 name|kvs
 operator|=
 name|getData
@@ -1788,7 +1790,7 @@ argument_list|(
 literal|"col1"
 argument_list|)
 argument_list|,
-literal|5
+literal|4
 argument_list|)
 expr_stmt|;
 name|assertEquals

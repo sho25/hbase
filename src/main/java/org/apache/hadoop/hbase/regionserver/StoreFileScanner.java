@@ -332,6 +332,21 @@ name|retKey
 init|=
 name|cur
 decl_stmt|;
+try|try
+block|{
+comment|// only seek if we aren't at the end. cur == null implies 'end'.
+if|if
+condition|(
+name|cur
+operator|!=
+literal|null
+condition|)
+block|{
+name|hfs
+operator|.
+name|next
+argument_list|()
+expr_stmt|;
 name|cur
 operator|=
 name|hfs
@@ -339,20 +354,7 @@ operator|.
 name|getKeyValue
 argument_list|()
 expr_stmt|;
-try|try
-block|{
-comment|// only seek if we arent at the end. cur == null implies 'end'.
-if|if
-condition|(
-name|cur
-operator|!=
-literal|null
-condition|)
-name|hfs
-operator|.
-name|next
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -413,11 +415,6 @@ operator|.
 name|getKeyValue
 argument_list|()
 expr_stmt|;
-name|hfs
-operator|.
-name|next
-argument_list|()
-expr_stmt|;
 return|return
 literal|true
 return|;
@@ -476,11 +473,6 @@ operator|=
 name|hfs
 operator|.
 name|getKeyValue
-argument_list|()
-expr_stmt|;
-name|hfs
-operator|.
-name|next
 argument_list|()
 expr_stmt|;
 return|return
