@@ -21,6 +21,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -70,14 +80,61 @@ specifier|public
 interface|interface
 name|WALActionsListener
 block|{
-comment|/**    * The WAL was rolled.    * @param newFile the path to the new hlog    */
+comment|/**    * The WAL is going to be rolled. The oldPath can be null if this is    * the first log file from the regionserver.    * @param oldPath the path to the old hlog    * @param newPath the path to the new hlog    */
 specifier|public
 name|void
-name|logRolled
+name|preLogRoll
 parameter_list|(
 name|Path
-name|newFile
+name|oldPath
+parameter_list|,
+name|Path
+name|newPath
 parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * The WAL has been rolled. The oldPath can be null if this is    * the first log file from the regionserver.    * @param oldPath the path to the old hlog    * @param newPath the path to the new hlog    */
+specifier|public
+name|void
+name|postLogRoll
+parameter_list|(
+name|Path
+name|oldPath
+parameter_list|,
+name|Path
+name|newPath
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * The WAL is going to be archived.    * @param oldPath the path to the old hlog    * @param newPath the path to the new hlog    */
+specifier|public
+name|void
+name|preLogArchive
+parameter_list|(
+name|Path
+name|oldPath
+parameter_list|,
+name|Path
+name|newPath
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * The WAL has been archived.    * @param oldPath the path to the old hlog    * @param newPath the path to the new hlog    */
+specifier|public
+name|void
+name|postLogArchive
+parameter_list|(
+name|Path
+name|oldPath
+parameter_list|,
+name|Path
+name|newPath
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * A request was made that the WAL be rolled.    */
 specifier|public
