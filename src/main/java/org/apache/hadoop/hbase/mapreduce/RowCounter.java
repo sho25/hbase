@@ -251,29 +251,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-for|for
-control|(
-name|KeyValue
-name|value
-range|:
-name|values
-operator|.
-name|list
-argument_list|()
-control|)
-block|{
-if|if
-condition|(
-name|value
-operator|.
-name|getValue
-argument_list|()
-operator|.
-name|length
-operator|>
-literal|0
-condition|)
-block|{
+comment|// Count every row containing data, whether it's in qualifiers or values
 name|context
 operator|.
 name|getCounter
@@ -288,9 +266,6 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-break|break;
-block|}
-block|}
 block|}
 block|}
 comment|/**    * Sets up the actual job.    *    * @param conf  The current configuration.    * @param args  The command line parameters.    * @return The newly created job.    * @throws IOException When setting up the job fails.    */
