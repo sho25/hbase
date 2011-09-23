@@ -10832,6 +10832,15 @@ operator|!=
 name|EventType
 operator|.
 name|RS_ZK_REGION_OPENING
+operator|&&
+name|dataInZNode
+operator|.
+name|getEventType
+argument_list|()
+operator|!=
+name|EventType
+operator|.
+name|RS_ZK_REGION_FAILED_OPEN
 condition|)
 block|{
 name|LOG
