@@ -173,6 +173,38 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|ReplicationSourceService
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|ReplicationSinkService
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|wal
 operator|.
 name|HLog
@@ -353,14 +385,16 @@ class|class
 name|Replication
 implements|implements
 name|WALActionsListener
+implements|,
+name|ReplicationSourceService
+implements|,
+name|ReplicationSinkService
 block|{
 specifier|private
-specifier|final
 name|boolean
 name|replication
 decl_stmt|;
 specifier|private
-specifier|final
 name|ReplicationSourceManager
 name|replicationManager
 decl_stmt|;
@@ -376,12 +410,10 @@ literal|true
 argument_list|)
 decl_stmt|;
 specifier|private
-specifier|final
 name|ReplicationZookeeper
 name|zkHelper
 decl_stmt|;
 specifier|private
-specifier|final
 name|Configuration
 name|conf
 decl_stmt|;
@@ -391,11 +423,10 @@ name|replicationSink
 decl_stmt|;
 comment|// Hosting server
 specifier|private
-specifier|final
 name|Server
 name|server
 decl_stmt|;
-comment|/**    * Instantiate the replication management (if rep is enabled).    * @param server Hosting server    * @param fs handle to the filesystem    * @param logDir    * @param oldLogDir directory where logs are archived    * @throws IOException    * @throws KeeperException     */
+comment|/**    * Instantiate the replication management (if rep is enabled).    * @param server Hosting server    * @param fs handle to the filesystem    * @param logDir    * @param oldLogDir directory where logs are archived    * @throws IOException    */
 specifier|public
 name|Replication
 parameter_list|(
@@ -417,8 +448,46 @@ name|oldLogDir
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|KeeperException
+block|{
+name|initialize
+argument_list|(
+name|server
+argument_list|,
+name|fs
+argument_list|,
+name|logDir
+argument_list|,
+name|oldLogDir
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Empty constructor    */
+specifier|public
+name|Replication
+parameter_list|()
+block|{   }
+specifier|public
+name|void
+name|initialize
+parameter_list|(
+specifier|final
+name|Server
+name|server
+parameter_list|,
+specifier|final
+name|FileSystem
+name|fs
+parameter_list|,
+specifier|final
+name|Path
+name|logDir
+parameter_list|,
+specifier|final
+name|Path
+name|oldLogDir
+parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|this
 operator|.
@@ -453,6 +522,8 @@ condition|(
 name|replication
 condition|)
 block|{
+try|try
+block|{
 name|this
 operator|.
 name|zkHelper
@@ -467,6 +538,23 @@ operator|.
 name|replicating
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|ke
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Failed replication handler create"
+argument_list|,
+name|ke
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|replicationManager
@@ -510,7 +598,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param c Configuration to look at    * @return True if replication is enabled.    */
+comment|/**     * @param c Configuration to look at     * @return True if replication is enabled.     */
 specifier|public
 specifier|static
 name|boolean
@@ -531,6 +619,26 @@ argument_list|,
 literal|false
 argument_list|)
 return|;
+block|}
+comment|/*     * Returns an object to listen to new hlog changes     **/
+specifier|public
+name|WALActionsListener
+name|getWALActionsListener
+parameter_list|()
+block|{
+return|return
+name|this
+return|;
+block|}
+comment|/**    * Stops replication service.    */
+specifier|public
+name|void
+name|stopReplicationService
+parameter_list|()
+block|{
+name|join
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Join with the replication threads    */
 specifier|public
@@ -589,7 +697,7 @@ block|}
 comment|/**    * If replication is enabled and this cluster is a master,    * it starts    * @throws IOException    */
 specifier|public
 name|void
-name|startReplicationServices
+name|startReplicationService
 parameter_list|()
 throws|throws
 name|IOException
