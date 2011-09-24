@@ -2892,7 +2892,7 @@ operator|.
 name|size
 argument_list|()
 operator|==
-literal|4
+literal|3
 argument_list|)
 expr_stmt|;
 comment|// read back the data written
