@@ -2571,6 +2571,19 @@ name|Path
 name|newFile
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"preLogRoll: oldFile="
+operator|+
+name|oldFile
+operator|+
+literal|" newFile="
+operator|+
+name|newFile
+argument_list|)
+expr_stmt|;
 name|preLogRolledCalled
 operator|.
 name|add
@@ -2867,12 +2880,19 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
+literal|"preLogRolledCalled has size of "
+operator|+
+name|preLogRolledCalled
+operator|.
+name|size
+argument_list|()
+argument_list|,
 name|preLogRolledCalled
 operator|.
 name|size
 argument_list|()
 operator|==
-literal|1
+literal|4
 argument_list|)
 expr_stmt|;
 comment|// read back the data written
