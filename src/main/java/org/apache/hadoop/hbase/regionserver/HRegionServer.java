@@ -993,6 +993,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|coprocessor
+operator|.
+name|CoprocessorHost
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|executor
 operator|.
 name|ExecutorService
@@ -3664,7 +3680,7 @@ block|}
 try|try
 block|{
 comment|// Try and register with the Master; tell it we are here.  Break if
-comment|// server is stopped or the clusterup flag is down of hdfs went wacky.
+comment|// server is stopped or the clusterup flag is down or hdfs went wacky.
 while|while
 condition|(
 name|keepLooping
@@ -8232,6 +8248,21 @@ name|reservedSpace
 operator|.
 name|clear
 argument_list|()
+expr_stmt|;
+comment|// HBASE-4014: show list of coprocessors that were loaded to help debug
+comment|// regionserver crashes.Note that we're implicitly using
+comment|// java.util.HashSet's toString() method to print the coprocessor names.
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"RegionServer abort: loaded coprocessors are: "
+operator|+
+name|CoprocessorHost
+operator|.
+name|getLoadedCoprocessors
+argument_list|()
+argument_list|)
 expr_stmt|;
 if|if
 condition|(
