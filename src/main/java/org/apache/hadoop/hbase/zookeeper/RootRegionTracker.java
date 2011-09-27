@@ -93,6 +93,18 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|KeeperException
+import|;
+end_import
+
 begin_comment
 comment|/**  * Tracks the root region server location node in zookeeper.  * Root region location is set by {@link RootLocationEditor} usually called  * out of<code>RegionServerServices</code>.  * This class has a watcher on the root location and notices changes.  */
 end_comment
@@ -137,12 +149,14 @@ return|return
 name|super
 operator|.
 name|getData
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 operator|!=
 literal|null
 return|;
 block|}
-comment|/**    * Gets the root region location, if available.  Null if not.  Does not block.    * @return server name    * @throws InterruptedException     */
+comment|/**    * Gets the root region location, if available.  Null if not.  Does not block.    * @return server name    * @throws InterruptedException    */
 specifier|public
 name|ServerName
 name|getRootRegionLocation
@@ -156,11 +170,13 @@ argument_list|(
 name|super
 operator|.
 name|getData
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets the root region location, if available, and waits for up to the    * specified timeout if not immediately available.    * @param timeout maximum time to wait, in millis    * @return server name for server hosting root region formatted as per    * {@link ServerName}, or null if none available    * @throws InterruptedException if interrupted while waiting    */
+comment|/**    * Gets the root region location, if available, and waits for up to the    * specified timeout if not immediately available.    * Given the zookeeper notification could be delayed, we will try to    * get the latest data.    * @param timeout maximum time to wait, in millis    * @return server name for server hosting root region formatted as per    * {@link ServerName}, or null if none available    * @throws InterruptedException if interrupted while waiting    */
 specifier|public
 name|ServerName
 name|waitRootRegionLocation
@@ -209,6 +225,8 @@ operator|.
 name|blockUntilAvailable
 argument_list|(
 name|timeout
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 return|;

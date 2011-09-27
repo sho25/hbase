@@ -549,13 +549,58 @@ name|this
 operator|.
 name|zk
 condition|)
+block|{
+if|if
+condition|(
 name|setClosedState
 argument_list|(
 name|expectedVersion
 argument_list|,
 name|region
 argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"set region closed state in zk successfully for region "
+operator|+
+name|name
+operator|+
+literal|" sn name: "
+operator|+
+name|this
+operator|.
+name|server
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"set region closed state in zk unsuccessfully for region "
+operator|+
+name|name
+operator|+
+literal|" sn name: "
+operator|+
+name|this
+operator|.
+name|server
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 comment|// Done!  Region is closed on this RS
 name|LOG
 operator|.
@@ -591,9 +636,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Transition ZK node to CLOSED    * @param expectedVersion    */
+comment|/**    * Transition ZK node to CLOSED    * @param expectedVersion    * @return If the state is set successfully    */
 specifier|private
-name|void
+name|boolean
 name|setClosedState
 parameter_list|(
 specifier|final
@@ -647,7 +692,9 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-return|return;
+return|return
+literal|false
+return|;
 block|}
 block|}
 catch|catch
@@ -666,6 +713,9 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+return|return
+literal|false
+return|;
 block|}
 catch|catch
 parameter_list|(
@@ -682,7 +732,9 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+literal|false
+return|;
 block|}
 catch|catch
 parameter_list|(
@@ -699,8 +751,13 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-return|return;
+return|return
+literal|false
+return|;
 block|}
+return|return
+literal|true
+return|;
 block|}
 comment|/**    * Get the node's current version    * @return The expectedVersion.  If -1, we failed getting the node    */
 specifier|private

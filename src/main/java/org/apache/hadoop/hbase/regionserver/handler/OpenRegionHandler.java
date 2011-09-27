@@ -616,6 +616,15 @@ argument_list|(
 literal|"Opened "
 operator|+
 name|name
+operator|+
+literal|" on server:"
+operator|+
+name|this
+operator|.
+name|server
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1243,12 +1252,40 @@ literal|" but when transitioning from "
 operator|+
 literal|" OPENING to OPENED got a version mismatch, someone else clashed "
 operator|+
-literal|"so now unassigning -- closing region"
+literal|"so now unassigning -- closing region on server: "
+operator|+
+name|this
+operator|.
+name|server
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
 else|else
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"region transitioned to opened in zookeeper: "
+operator|+
+name|r
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|+
+literal|", server: "
+operator|+
+name|this
+operator|.
+name|server
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|result
 operator|=
 literal|true

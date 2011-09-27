@@ -837,7 +837,7 @@ name|blockUntilAvailable
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Gets the current location for<code>-ROOT-</code> if available and waits    * for up to the specified timeout if not immediately available.  Returns null    * if the timeout elapses before root is available.    * @param timeout maximum time to wait for root availability, in milliseconds    * @return Location of server hosting root region,    * or null if none available    * @throws InterruptedException if interrupted while waiting    * @throws NotAllMetaRegionsOnlineException if root not available before    *                                          timeout    */
+comment|/**    * Gets the current location for<code>-ROOT-</code> if available and waits    * for up to the specified timeout if not immediately available.  Returns null    * if the timeout elapses before root is available.    * @param timeout maximum time to wait for root availability, in milliseconds    * @return Location of server hosting root region or null if none available    * @throws InterruptedException if interrupted while waiting    * @throws NotAllMetaRegionsOnlineException if root not available before    * timeout    */
 name|ServerName
 name|waitForRoot
 parameter_list|(
@@ -945,7 +945,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Gets a connection to the server hosting root, as reported by ZooKeeper,    * if available.  Returns null if no location is immediately available.    * @return connection to server hosting root, null if not available    * @throws IOException    * @throws InterruptedException     */
+comment|/**    * Gets a connection to the server hosting root, as reported by ZooKeeper,    * if available.  Returns null if no location is immediately available.    * @return connection to server hosting root, null if not available    * @throws IOException    * @throws InterruptedException    */
 specifier|private
 name|HRegionInterface
 name|getRootServerConnection
@@ -965,17 +965,6 @@ operator|.
 name|getRootRegionLocation
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|sn
-operator|==
-literal|null
-condition|)
-block|{
-return|return
-literal|null
-return|;
-block|}
 return|return
 name|getCachedConnection
 argument_list|(
@@ -983,14 +972,11 @@ name|sn
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets a connection to the server currently hosting<code>.META.</code> or    * null if location is not currently available.    *<p>    * If a location is known, a connection to the cached location is returned.    * If refresh is true, the cached connection is verified first before    * returning.  If the connection is not valid, it is reset and rechecked.    *<p>    * If no location for meta is currently known, method checks ROOT for a new    * location, verifies META is currently there, and returns a cached connection    * to the server hosting META.    *    * @return connection to server hosting meta, null if location not available    * @throws IOException    * @throws InterruptedException     */
+comment|/**    * Gets a connection to the server currently hosting<code>.META.</code> or    * null if location is not currently available.    *<p>    * If a location is known, a connection to the cached location is returned.    * If refresh is true, the cached connection is verified first before    * returning.  If the connection is not valid, it is reset and rechecked.    *<p>    * If no location for meta is currently known, method checks ROOT for a new    * location, verifies META is currently there, and returns a cached connection    * to the server hosting META.    *    * @return connection to server hosting meta, null if location not available    * @throws IOException    * @throws InterruptedException    */
 specifier|private
 name|HRegionInterface
 name|getMetaServerConnection
-parameter_list|(
-name|boolean
-name|refresh
-parameter_list|)
+parameter_list|()
 throws|throws
 name|IOException
 throws|,
@@ -1014,19 +1000,11 @@ name|current
 init|=
 name|getCachedConnection
 argument_list|(
+name|this
+operator|.
 name|metaLocation
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-operator|!
-name|refresh
-condition|)
-block|{
-return|return
-name|current
-return|;
-block|}
 if|if
 condition|(
 name|verifyRegionLocation
@@ -1062,6 +1040,13 @@ operator|==
 literal|null
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"-ROOT- server unavailable."
+argument_list|)
+expr_stmt|;
 return|return
 literal|null
 return|;
@@ -1083,6 +1068,13 @@ operator|==
 literal|null
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|".META. server unavailable."
+argument_list|)
+expr_stmt|;
 return|return
 literal|null
 return|;
@@ -1101,9 +1093,7 @@ name|verifyRegionLocation
 argument_list|(
 name|newConnection
 argument_list|,
-name|this
-operator|.
-name|metaLocation
+name|newLocation
 argument_list|,
 name|META_REGION
 argument_list|)
@@ -1117,6 +1107,26 @@ expr_stmt|;
 return|return
 name|newConnection
 return|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"new .META. server: "
+operator|+
+name|newLocation
+operator|+
+literal|" isn't valid."
+operator|+
+literal|" Cached .META. server: "
+operator|+
+name|this
+operator|.
+name|metaLocation
+argument_list|)
+expr_stmt|;
 block|}
 return|return
 literal|null
@@ -1156,7 +1166,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Gets the current location for<code>.META.</code> if available and waits    * for up to the specified timeout if not immediately available.  Throws an    * exception if timed out waiting.  This method differs from {@link #waitForMeta()}    * in that it will go ahead and verify the location gotten from ZooKeeper by    * trying to use returned connection.    * @param timeout maximum time to wait for meta availability, in milliseconds    * @return location of meta    * @throws InterruptedException if interrupted while waiting    * @throws IOException unexpected exception connecting to meta server    * @throws NotAllMetaRegionsOnlineException if meta not available before    *                                          timeout    */
+comment|/**    * Gets the current location for<code>.META.</code> if available and waits    * for up to the specified timeout if not immediately available.  Throws an    * exception if timed out waiting.  This method differs from {@link #waitForMeta()}    * in that it will go ahead and verify the location gotten from ZooKeeper and    * -ROOT- region by trying to use returned connection.    * @param timeout maximum time to wait for meta availability, in milliseconds    * @return location of meta    * @throws InterruptedException if interrupted while waiting    * @throws IOException unexpected exception connecting to meta server    * @throws NotAllMetaRegionsOnlineException if meta not available before    * timeout    */
 specifier|public
 name|ServerName
 name|waitForMeta
@@ -1181,6 +1191,18 @@ argument_list|()
 operator|+
 name|timeout
 decl_stmt|;
+name|long
+name|waitTime
+init|=
+name|Math
+operator|.
+name|min
+argument_list|(
+literal|500
+argument_list|,
+name|timeout
+argument_list|)
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|metaAvailable
@@ -1190,12 +1212,6 @@ while|while
 condition|(
 operator|!
 name|stopped
-operator|&&
-operator|!
-name|metaAvailable
-operator|.
-name|get
-argument_list|()
 operator|&&
 operator|(
 name|timeout
@@ -1214,9 +1230,7 @@ block|{
 if|if
 condition|(
 name|getMetaServerConnection
-argument_list|(
-literal|true
-argument_list|)
+argument_list|()
 operator|!=
 literal|null
 condition|)
@@ -1225,26 +1239,19 @@ return|return
 name|metaLocation
 return|;
 block|}
+comment|// perhaps -ROOT- region isn't available, let us wait a bit and retry.
 name|metaAvailable
 operator|.
 name|wait
 argument_list|(
-name|timeout
-operator|==
-literal|0
-condition|?
-literal|50
-else|:
-name|timeout
+name|waitTime
 argument_list|)
 expr_stmt|;
 block|}
 if|if
 condition|(
 name|getMetaServerConnection
-argument_list|(
-literal|true
-argument_list|)
+argument_list|()
 operator|==
 literal|null
 condition|)
@@ -1335,9 +1342,13 @@ parameter_list|()
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
-literal|"Current cached META location is not valid, resetting"
+literal|"Current cached META location: "
+operator|+
+name|metaLocation
+operator|+
+literal|" is not valid, resetting"
 argument_list|)
 expr_stmt|;
 name|this
@@ -1359,6 +1370,15 @@ name|ServerName
 name|metaLocation
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"set new cached META location: "
+operator|+
+name|metaLocation
+argument_list|)
+expr_stmt|;
 name|metaAvailable
 operator|.
 name|set
@@ -1391,6 +1411,17 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|sn
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 name|HRegionInterface
 name|protocol
 init|=
@@ -1789,17 +1820,6 @@ parameter_list|)
 block|{
 comment|// Pass -- remote server is not up so can't be carrying root
 block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-comment|// Unexpected exception
-throw|throw
-name|e
-throw|;
-block|}
 return|return
 operator|(
 name|connection
@@ -1843,11 +1863,39 @@ name|InterruptedException
 throws|,
 name|IOException
 block|{
-return|return
-name|getMetaServerConnection
+name|HRegionInterface
+name|connection
+init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|connection
+operator|=
+name|waitForMetaServerConnection
 argument_list|(
-literal|true
+name|timeout
 argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|NotAllMetaRegionsOnlineException
+name|e
+parameter_list|)
+block|{
+comment|// Pass
+block|}
+catch|catch
+parameter_list|(
+name|ServerNotRunningYetException
+name|e
+parameter_list|)
+block|{
+comment|// Pass -- remote server is not up so can't be carrying .META.
+block|}
+return|return
+name|connection
 operator|!=
 literal|null
 return|;

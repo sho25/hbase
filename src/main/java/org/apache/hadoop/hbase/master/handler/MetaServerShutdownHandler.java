@@ -141,6 +141,8 @@ argument_list|,
 name|EventType
 operator|.
 name|M_META_SERVER_SHUTDOWN
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|this

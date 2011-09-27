@@ -427,7 +427,16 @@ name|this
 operator|.
 name|regionInfo
 operator|.
-name|getEncodedName
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" from "
+operator|+
+name|this
+operator|.
+name|sn
+operator|.
+name|toString
 argument_list|()
 operator|+
 literal|"; deleting unassigned node"
@@ -466,7 +475,7 @@ literal|"Error deleting OPENED node in ZK for transition ZK node ("
 operator|+
 name|regionInfo
 operator|.
-name|getEncodedName
+name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|")"
@@ -502,6 +511,27 @@ argument_list|,
 name|this
 operator|.
 name|sn
+argument_list|)
+expr_stmt|;
+name|debugLog
+argument_list|(
+name|regionInfo
+argument_list|,
+literal|"region online: "
+operator|+
+name|regionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" on "
+operator|+
+name|this
+operator|.
+name|sn
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

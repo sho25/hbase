@@ -287,22 +287,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|catalog
-operator|.
-name|CatalogTracker
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|HConnection
@@ -840,7 +824,9 @@ literal|"Triggering server recovery; existingServer "
 operator|+
 name|existingServer
 operator|+
-literal|" looks stale"
+literal|" looks stale, new server:"
+operator|+
+name|serverName
 argument_list|)
 expr_stmt|;
 name|expireServer
@@ -1004,13 +990,17 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Server "
+name|what
+operator|+
+literal|":"
+operator|+
+literal|" Server "
 operator|+
 name|serverName
 operator|+
-literal|" came back up, removed it from the"
+literal|" came back up,"
 operator|+
-literal|" dead servers list"
+literal|" removed it from the dead servers list"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1510,90 +1500,28 @@ expr_stmt|;
 block|}
 return|return;
 block|}
-name|CatalogTracker
-name|ct
-init|=
-name|this
-operator|.
-name|master
-operator|.
-name|getCatalogTracker
-argument_list|()
-decl_stmt|;
-comment|// Was this server carrying root?
 name|boolean
 name|carryingRoot
-decl_stmt|;
-try|try
-block|{
-name|ServerName
-name|address
 init|=
-name|ct
+name|services
 operator|.
-name|getRootLocation
+name|getAssignmentManager
 argument_list|()
-decl_stmt|;
-name|carryingRoot
-operator|=
-name|address
-operator|!=
-literal|null
-operator|&&
-name|address
 operator|.
-name|equals
+name|isCarryingRoot
 argument_list|(
 name|serverName
 argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-name|Thread
-operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|interrupt
-argument_list|()
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Interrupted"
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
-comment|// Was this server carrying meta?  Can't ask CatalogTracker because it
-comment|// may have reset the meta location as null already (it may have already
-comment|// run into fact that meta is dead).  I can ask assignment manager. It
-comment|// has an inmemory list of who has what.  This list will be cleared as we
-comment|// process the dead server but should be  find asking it now.
-name|ServerName
-name|address
-init|=
-name|ct
-operator|.
-name|getMetaLocation
-argument_list|()
 decl_stmt|;
 name|boolean
 name|carryingMeta
 init|=
-name|address
-operator|!=
-literal|null
-operator|&&
-name|address
+name|services
 operator|.
-name|equals
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|isCarryingMeta
 argument_list|(
 name|serverName
 argument_list|)
@@ -1665,6 +1593,8 @@ operator|.
 name|deadservers
 argument_list|,
 name|serverName
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;

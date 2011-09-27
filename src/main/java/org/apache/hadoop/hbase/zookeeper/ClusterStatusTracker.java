@@ -160,7 +160,9 @@ return|return
 name|super
 operator|.
 name|getData
-argument_list|()
+argument_list|(
+literal|false
+argument_list|)
 operator|!=
 literal|null
 return|;

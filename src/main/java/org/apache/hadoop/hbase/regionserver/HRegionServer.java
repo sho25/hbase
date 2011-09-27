@@ -3500,6 +3500,8 @@ argument_list|(
 name|this
 operator|.
 name|msgInterval
+argument_list|,
+literal|false
 argument_list|)
 operator|==
 literal|null
@@ -4199,11 +4201,26 @@ name|this
 operator|.
 name|fsOk
 condition|)
+block|{
 name|waitOnAllRegionsToClose
 argument_list|(
 name|abortRequested
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"stopping server "
+operator|+
+name|this
+operator|.
+name|serverNameFromMasterPOV
+operator|+
+literal|"; all regions closed."
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Make sure the proxy is down.
 if|if
 condition|(
@@ -4265,6 +4282,19 @@ name|zooKeeper
 operator|.
 name|close
 argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"stopping server "
+operator|+
+name|this
+operator|.
+name|serverNameFromMasterPOV
+operator|+
+literal|"; zookeeper connection closed."
+argument_list|)
 expr_stmt|;
 if|if
 condition|(

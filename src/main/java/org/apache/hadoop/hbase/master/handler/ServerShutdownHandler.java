@@ -390,6 +390,12 @@ specifier|final
 name|DeadServer
 name|deadServers
 decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
+name|shouldSplitHlog
+decl_stmt|;
+comment|// whether to split HLog or not
 specifier|public
 name|ServerShutdownHandler
 parameter_list|(
@@ -408,6 +414,10 @@ parameter_list|,
 specifier|final
 name|ServerName
 name|serverName
+parameter_list|,
+specifier|final
+name|boolean
+name|shouldSplitHlog
 parameter_list|)
 block|{
 name|this
@@ -423,6 +433,8 @@ argument_list|,
 name|EventType
 operator|.
 name|M_SERVER_SHUTDOWN
+argument_list|,
+name|shouldSplitHlog
 argument_list|)
 expr_stmt|;
 block|}
@@ -446,6 +458,10 @@ name|serverName
 parameter_list|,
 name|EventType
 name|type
+parameter_list|,
+specifier|final
+name|boolean
+name|shouldSplitHlog
 parameter_list|)
 block|{
 name|super
@@ -506,6 +522,12 @@ literal|" is NOT in deadservers; it should be!"
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|shouldSplitHlog
+operator|=
+name|shouldSplitHlog
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -864,6 +886,15 @@ name|this
 operator|.
 name|serverName
 decl_stmt|;
+try|try
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|shouldSplitHlog
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -873,8 +904,6 @@ operator|+
 name|serverName
 argument_list|)
 expr_stmt|;
-try|try
-block|{
 name|this
 operator|.
 name|services
@@ -887,30 +916,7 @@ argument_list|(
 name|serverName
 argument_list|)
 expr_stmt|;
-comment|// Clean out anything in regions in transition.  Being conservative and
-comment|// doing after log splitting.  Could do some states before -- OPENING?
-comment|// OFFLINE? -- and then others after like CLOSING that depend on log
-comment|// splitting.
-name|List
-argument_list|<
-name|RegionState
-argument_list|>
-name|regionsInTransition
-init|=
-name|this
-operator|.
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|processServerShutdown
-argument_list|(
-name|this
-operator|.
-name|serverName
-argument_list|)
-decl_stmt|;
+block|}
 comment|// Assign root and meta if we were carrying them.
 if|if
 condition|(
@@ -928,6 +934,20 @@ operator|+
 name|serverName
 operator|+
 literal|" was carrying ROOT. Trying to assign."
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|services
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|regionOffline
+argument_list|(
+name|HRegionInfo
+operator|.
+name|ROOT_REGIONINFO
 argument_list|)
 expr_stmt|;
 name|verifyAndAssignRootWithRetries
@@ -959,10 +979,116 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 operator|.
+name|regionOffline
+argument_list|(
+name|HRegionInfo
+operator|.
+name|FIRST_META_REGIONINFO
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|services
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
 name|assignMeta
 argument_list|()
 expr_stmt|;
 block|}
+comment|// We don't want worker thread in the MetaServerShutdownHandler
+comment|// executor pool to block by waiting availability of -ROOT-
+comment|// and .META. server. Otherwise, it could run into the following issue:
+comment|// 1. The current MetaServerShutdownHandler instance For RS1 waits for the .META.
+comment|//    to come online.
+comment|// 2. The newly assigned .META. region server RS2 was shutdown right after
+comment|//    it opens the .META. region. So the MetaServerShutdownHandler
+comment|//    instance For RS1 will still be blocked.
+comment|// 3. The new instance of MetaServerShutdownHandler for RS2 is queued.
+comment|// 4. The newly assigned .META. region server RS3 was shutdown right after
+comment|//    it opens the .META. region. So the MetaServerShutdownHandler
+comment|//    instance For RS1 and RS2 will still be blocked.
+comment|// 5. The new instance of MetaServerShutdownHandler for RS3 is queued.
+comment|// 6. Repeat until we run out of MetaServerShutdownHandler worker threads
+comment|// The solution here is to resubmit a ServerShutdownHandler request to process
+comment|// user regions on that server so that MetaServerShutdownHandler
+comment|// executor pool is always available.
+if|if
+condition|(
+name|isCarryingRoot
+argument_list|()
+operator|||
+name|isCarryingMeta
+argument_list|()
+condition|)
+block|{
+comment|// -ROOT- or .META.
+name|this
+operator|.
+name|services
+operator|.
+name|getExecutorService
+argument_list|()
+operator|.
+name|submit
+argument_list|(
+operator|new
+name|ServerShutdownHandler
+argument_list|(
+name|this
+operator|.
+name|server
+argument_list|,
+name|this
+operator|.
+name|services
+argument_list|,
+name|this
+operator|.
+name|deadServers
+argument_list|,
+name|serverName
+argument_list|,
+literal|false
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|deadServers
+operator|.
+name|add
+argument_list|(
+name|serverName
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+comment|// Clean out anything in regions in transition.  Being conservative and
+comment|// doing after log splitting.  Could do some states before -- OPENING?
+comment|// OFFLINE? -- and then others after like CLOSING that depend on log
+comment|// splitting.
+name|List
+argument_list|<
+name|RegionState
+argument_list|>
+name|regionsInTransition
+init|=
+name|this
+operator|.
+name|services
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|processServerShutdown
+argument_list|(
+name|this
+operator|.
+name|serverName
+argument_list|)
+decl_stmt|;
 comment|// Wait on meta to come online; we need it to progress.
 comment|// TODO: Best way to hold strictly here?  We should build this retry logic
 comment|// into the MetaReader operations themselves.
@@ -1115,6 +1241,13 @@ name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|" from list of regions to assign because in RIT"
+operator|+
+literal|" region state: "
+operator|+
+name|rit
+operator|.
+name|getState
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|hris
