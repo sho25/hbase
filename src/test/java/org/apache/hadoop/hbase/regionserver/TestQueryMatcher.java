@@ -446,7 +446,7 @@ name|ScanQueryMatcher
 operator|.
 name|MatchCode
 operator|.
-name|INCLUDE
+name|INCLUDE_AND_SEEK_NEXT_COL
 argument_list|)
 expr_stmt|;
 name|expected
@@ -468,7 +468,7 @@ name|ScanQueryMatcher
 operator|.
 name|MatchCode
 operator|.
-name|INCLUDE
+name|INCLUDE_AND_SEEK_NEXT_COL
 argument_list|)
 expr_stmt|;
 name|expected
@@ -479,7 +479,7 @@ name|ScanQueryMatcher
 operator|.
 name|MatchCode
 operator|.
-name|INCLUDE
+name|INCLUDE_AND_SEEK_NEXT_ROW
 argument_list|)
 expr_stmt|;
 name|expected
@@ -1182,7 +1182,7 @@ name|ScanQueryMatcher
 operator|.
 name|MatchCode
 operator|.
-name|INCLUDE
+name|INCLUDE_AND_SEEK_NEXT_COL
 block|,
 name|ScanQueryMatcher
 operator|.
@@ -1194,7 +1194,7 @@ name|ScanQueryMatcher
 operator|.
 name|MatchCode
 operator|.
-name|INCLUDE
+name|INCLUDE_AND_SEEK_NEXT_COL
 block|,
 name|ScanQueryMatcher
 operator|.

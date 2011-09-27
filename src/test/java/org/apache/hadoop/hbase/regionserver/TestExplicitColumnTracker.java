@@ -445,6 +445,7 @@ operator|.
 name|SEEK_NEXT_COL
 argument_list|)
 expr_stmt|;
+comment|// col1
 name|expected
 operator|.
 name|add
@@ -453,9 +454,10 @@ name|ScanQueryMatcher
 operator|.
 name|MatchCode
 operator|.
-name|INCLUDE
+name|INCLUDE_AND_SEEK_NEXT_COL
 argument_list|)
 expr_stmt|;
+comment|// col2
 name|expected
 operator|.
 name|add
@@ -467,6 +469,7 @@ operator|.
 name|SEEK_NEXT_COL
 argument_list|)
 expr_stmt|;
+comment|// col3
 name|expected
 operator|.
 name|add
@@ -475,9 +478,10 @@ name|ScanQueryMatcher
 operator|.
 name|MatchCode
 operator|.
-name|INCLUDE
+name|INCLUDE_AND_SEEK_NEXT_ROW
 argument_list|)
 expr_stmt|;
+comment|// col4
 name|expected
 operator|.
 name|add
@@ -489,6 +493,7 @@ operator|.
 name|SEEK_NEXT_ROW
 argument_list|)
 expr_stmt|;
+comment|// col5
 name|int
 name|maxVersions
 init|=
@@ -673,6 +678,7 @@ operator|.
 name|INCLUDE
 argument_list|)
 expr_stmt|;
+comment|// col2; 1st version
 name|expected
 operator|.
 name|add
@@ -681,9 +687,10 @@ name|ScanQueryMatcher
 operator|.
 name|MatchCode
 operator|.
-name|INCLUDE
+name|INCLUDE_AND_SEEK_NEXT_COL
 argument_list|)
 expr_stmt|;
+comment|// col2; 2nd version
 name|expected
 operator|.
 name|add
@@ -726,17 +733,6 @@ operator|.
 name|MatchCode
 operator|.
 name|SEEK_NEXT_COL
-argument_list|)
-expr_stmt|;
-name|expected
-operator|.
-name|add
-argument_list|(
-name|ScanQueryMatcher
-operator|.
-name|MatchCode
-operator|.
-name|INCLUDE
 argument_list|)
 expr_stmt|;
 name|expected
@@ -750,6 +746,19 @@ operator|.
 name|INCLUDE
 argument_list|)
 expr_stmt|;
+comment|// col4; 1st version
+name|expected
+operator|.
+name|add
+argument_list|(
+name|ScanQueryMatcher
+operator|.
+name|MatchCode
+operator|.
+name|INCLUDE_AND_SEEK_NEXT_ROW
+argument_list|)
+expr_stmt|;
+comment|// col4; 2nd version
 name|expected
 operator|.
 name|add

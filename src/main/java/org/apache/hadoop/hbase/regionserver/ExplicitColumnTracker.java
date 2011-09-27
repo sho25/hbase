@@ -116,6 +116,7 @@ specifier|final
 name|int
 name|minVersions
 decl_stmt|;
+comment|/**   * Contains the list of columns that the ExplicitColumnTracker is tracking.   * Each ColumnCount instance also tracks how many versions of the requested   * column have been returned.   */
 specifier|private
 specifier|final
 name|List
@@ -430,6 +431,10 @@ operator|)
 condition|)
 block|{
 comment|// Done with versions for this column
+comment|// Note: because we are done with this column, and are removing
+comment|// it from columns, we don't do a ++this.index. The index stays
+comment|// the same but the columns have shifted within the array such
+comment|// that index now points to the next column we are interested in.
 name|this
 operator|.
 name|columns
@@ -458,16 +463,25 @@ operator|.
 name|index
 condition|)
 block|{
-comment|// Will not hit any more columns in this storefile
+comment|// We have served all the requested columns.
 name|this
 operator|.
 name|column
 operator|=
 literal|null
 expr_stmt|;
+return|return
+name|ScanQueryMatcher
+operator|.
+name|MatchCode
+operator|.
+name|INCLUDE_AND_SEEK_NEXT_ROW
+return|;
 block|}
 else|else
 block|{
+comment|// We are done with current column; advance to next column
+comment|// of interest.
 name|this
 operator|.
 name|column
@@ -483,6 +497,13 @@ operator|.
 name|index
 argument_list|)
 expr_stmt|;
+return|return
+name|ScanQueryMatcher
+operator|.
+name|MatchCode
+operator|.
+name|INCLUDE_AND_SEEK_NEXT_COL
+return|;
 block|}
 block|}
 else|else
@@ -511,7 +532,8 @@ operator|>
 literal|0
 condition|)
 block|{
-comment|// Specified column is smaller than the current, skip to next column.
+comment|// The current KV is smaller than the column the ExplicitColumnTracker
+comment|// is interested in, so seek to that column of interest.
 return|return
 name|ScanQueryMatcher
 operator|.
@@ -520,8 +542,10 @@ operator|.
 name|SEEK_NEXT_COL
 return|;
 block|}
-comment|// Specified column is bigger than current column
-comment|// Move down current column and check again
+comment|// The current KV is bigger than the column the ExplicitColumnTracker
+comment|// is interested in. That means there is no more data for the column
+comment|// of interest. Advance the ExplicitColumnTracker state to next
+comment|// column of interest, and check again.
 if|if
 condition|(
 name|ret
@@ -545,7 +569,7 @@ name|size
 argument_list|()
 condition|)
 block|{
-comment|// No more to match, do not include, done with storefile
+comment|// No more to match, do not include, done with this row.
 return|return
 name|ScanQueryMatcher
 operator|.
