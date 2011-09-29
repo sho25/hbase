@@ -644,6 +644,14 @@ name|position
 init|=
 literal|0
 decl_stmt|;
+comment|// Last position in the log that we sent to ZooKeeper
+specifier|private
+name|long
+name|lastLoggedPosition
+init|=
+operator|-
+literal|1
+decl_stmt|;
 comment|// Path of the current log
 specifier|private
 specifier|volatile
@@ -1140,8 +1148,6 @@ specifier|private
 name|void
 name|chooseSinks
 parameter_list|()
-throws|throws
-name|KeeperException
 block|{
 name|this
 operator|.
@@ -1834,6 +1840,17 @@ literal|0
 operator|)
 condition|)
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|lastLoggedPosition
+operator|!=
+name|this
+operator|.
+name|position
+condition|)
+block|{
 name|this
 operator|.
 name|manager
@@ -1855,6 +1872,15 @@ argument_list|,
 name|queueRecovered
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|lastLoggedPosition
+operator|=
+name|this
+operator|.
+name|position
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|sleepForRetries
@@ -2268,22 +2294,6 @@ operator|.
 name|error
 argument_list|(
 literal|"Interrupted while trying to connect to sinks"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Error talking to zookeeper, retrying"
 argument_list|,
 name|e
 argument_list|)
@@ -2997,6 +3007,17 @@ name|currentNbEntries
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|lastLoggedPosition
+operator|!=
+name|this
+operator|.
+name|position
+condition|)
+block|{
 name|this
 operator|.
 name|manager
@@ -3018,6 +3039,15 @@ argument_list|,
 name|queueRecovered
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|lastLoggedPosition
+operator|=
+name|this
+operator|.
+name|position
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|totalReplicatedEdits
@@ -3204,22 +3234,6 @@ operator|.
 name|debug
 argument_list|(
 literal|"Interrupted while trying to contact the peer cluster"
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Error talking to zookeeper, retrying"
-argument_list|,
-name|e
 argument_list|)
 expr_stmt|;
 block|}
