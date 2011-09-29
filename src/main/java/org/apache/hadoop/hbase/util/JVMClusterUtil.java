@@ -569,7 +569,7 @@ throw|throw
 operator|new
 name|RuntimeException
 argument_list|(
-literal|"Failed construction of RegionServer: "
+literal|"Failed construction of Master: "
 operator|+
 name|hmc
 operator|.
