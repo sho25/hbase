@@ -6487,6 +6487,7 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+block|}
 name|LOG
 operator|.
 name|warn
@@ -6565,7 +6566,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 return|return;
-block|}
 block|}
 block|}
 block|}
