@@ -705,7 +705,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the client stores a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param familyMap map of family to edits for the given family    * @param writeToWAL true if the change should be written to the WAL    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before the client stores a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param put The Put object    * @param edit The WALEdit object that will be written to the wal    * @param writeToWAL true if the change should be written to the WAL    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|prePut
 parameter_list|(
@@ -717,17 +717,12 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|Map
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-argument_list|>
-name|familyMap
+name|Put
+name|put
+parameter_list|,
+specifier|final
+name|WALEdit
+name|edit
 parameter_list|,
 specifier|final
 name|boolean
@@ -736,7 +731,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the client stores a value.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param familyMap map of family to edits for the given family    * @param writeToWAL true if the change should be written to the WAL    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called after the client stores a value.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param put The Put object    * @param edit The WALEdit object for the wal    * @param writeToWAL true if the change should be written to the WAL    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|postPut
 parameter_list|(
@@ -748,17 +743,12 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|Map
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-argument_list|>
-name|familyMap
+name|Put
+name|put
+parameter_list|,
+specifier|final
+name|WALEdit
+name|edit
 parameter_list|,
 specifier|final
 name|boolean
@@ -767,7 +757,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before the client deletes a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param familyMap map of family to edits for the given family    * @param writeToWAL true if the change should be written to the WAL    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called before the client deletes a value.    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param delete The Delete object    * @param edit The WALEdit object for the wal    * @param writeToWAL true if the change should be written to the WAL    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|preDelete
 parameter_list|(
@@ -779,17 +769,12 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|Map
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-argument_list|>
-name|familyMap
+name|Delete
+name|delete
+parameter_list|,
+specifier|final
+name|WALEdit
+name|edit
 parameter_list|,
 specifier|final
 name|boolean
@@ -798,7 +783,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the client deletes a value.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param familyMap map of family to edits for the given family    * @param writeToWAL true if the change should be written to the WAL    * @throws IOException if an error occurred on the coprocessor    */
+comment|/**    * Called after the client deletes a value.    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param delete The Delete object    * @param edit The WALEdit object for the wal    * @param writeToWAL true if the change should be written to the WAL    * @throws IOException if an error occurred on the coprocessor    */
 name|void
 name|postDelete
 parameter_list|(
@@ -810,17 +795,12 @@ argument_list|>
 name|c
 parameter_list|,
 specifier|final
-name|Map
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-argument_list|>
-name|familyMap
+name|Delete
+name|delete
+parameter_list|,
+specifier|final
+name|WALEdit
+name|edit
 parameter_list|,
 specifier|final
 name|boolean

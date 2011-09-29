@@ -3011,23 +3011,16 @@ return|return
 name|exists
 return|;
 block|}
-comment|/**    * @param familyMap map of family to edits for the given family.    * @param writeToWAL true if the change should be written to the WAL    * @return true if default processing should be bypassed    * @exception IOException Exception    */
+comment|/**    * @param put The Put object    * @param edit The WALEdit object.    * @param writeToWAL true if the change should be written to the WAL    * @return true if default processing should be bypassed    * @exception IOException Exception    */
 specifier|public
 name|boolean
 name|prePut
 parameter_list|(
-specifier|final
-name|Map
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-argument_list|>
-name|familyMap
+name|Put
+name|put
+parameter_list|,
+name|WALEdit
+name|edit
 parameter_list|,
 specifier|final
 name|boolean
@@ -3094,7 +3087,9 @@ name|prePut
 argument_list|(
 name|ctx
 argument_list|,
-name|familyMap
+name|put
+argument_list|,
+name|edit
 argument_list|,
 name|writeToWAL
 argument_list|)
@@ -3137,23 +3132,16 @@ return|return
 name|bypass
 return|;
 block|}
-comment|/**    * @param familyMap map of family to edits for the given family.    * @param writeToWAL true if the change should be written to the WAL    * @exception IOException Exception    */
+comment|/**    * @param put The Put object    * @param edit The WALEdit object.    * @param writeToWAL true if the change should be written to the WAL    * @exception IOException Exception    */
 specifier|public
 name|void
 name|postPut
 parameter_list|(
-specifier|final
-name|Map
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-argument_list|>
-name|familyMap
+name|Put
+name|put
+parameter_list|,
+name|WALEdit
+name|edit
 parameter_list|,
 specifier|final
 name|boolean
@@ -3215,7 +3203,9 @@ name|postPut
 argument_list|(
 name|ctx
 argument_list|,
-name|familyMap
+name|put
+argument_list|,
+name|edit
 argument_list|,
 name|writeToWAL
 argument_list|)
@@ -3248,23 +3238,16 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * @param familyMap map of family to edits for the given family.    * @param writeToWAL true if the change should be written to the WAL    * @return true if default processing should be bypassed    * @exception IOException Exception    */
+comment|/**    * @param delete The Delete object    * @param edit The WALEdit object.    * @param writeToWAL true if the change should be written to the WAL    * @return true if default processing should be bypassed    * @exception IOException Exception    */
 specifier|public
 name|boolean
 name|preDelete
 parameter_list|(
-specifier|final
-name|Map
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-argument_list|>
-name|familyMap
+name|Delete
+name|delete
+parameter_list|,
+name|WALEdit
+name|edit
 parameter_list|,
 specifier|final
 name|boolean
@@ -3331,7 +3314,9 @@ name|preDelete
 argument_list|(
 name|ctx
 argument_list|,
-name|familyMap
+name|delete
+argument_list|,
+name|edit
 argument_list|,
 name|writeToWAL
 argument_list|)
@@ -3374,23 +3359,16 @@ return|return
 name|bypass
 return|;
 block|}
-comment|/**    * @param familyMap map of family to edits for the given family.    * @param writeToWAL true if the change should be written to the WAL    * @exception IOException Exception    */
+comment|/**    * @param delete The Delete object    * @param edit The WALEdit object.    * @param writeToWAL true if the change should be written to the WAL    * @exception IOException Exception    */
 specifier|public
 name|void
 name|postDelete
 parameter_list|(
-specifier|final
-name|Map
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|List
-argument_list|<
-name|KeyValue
-argument_list|>
-argument_list|>
-name|familyMap
+name|Delete
+name|delete
+parameter_list|,
+name|WALEdit
+name|edit
 parameter_list|,
 specifier|final
 name|boolean
@@ -3452,7 +3430,9 @@ name|postDelete
 argument_list|(
 name|ctx
 argument_list|,
-name|familyMap
+name|delete
+argument_list|,
+name|edit
 argument_list|,
 name|writeToWAL
 argument_list|)

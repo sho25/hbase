@@ -593,6 +593,31 @@ operator|.
 name|familyMap
 return|;
 block|}
+comment|/**    * Method for setting the put's familyMap    * @return familyMap    */
+specifier|public
+name|void
+name|setFamilyMap
+parameter_list|(
+name|Map
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+argument_list|>
+name|map
+parameter_list|)
+block|{
+name|this
+operator|.
+name|familyMap
+operator|=
+name|map
+expr_stmt|;
+block|}
 comment|/**    * Method to check if the familyMap is empty    * @return true if empty, false otherwise    */
 specifier|public
 name|boolean
