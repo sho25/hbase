@@ -7945,6 +7945,17 @@ name|heapSize
 argument_list|()
 return|;
 block|}
+specifier|public
+name|KeyValue
+operator|.
+name|KVComparator
+name|getComparator
+parameter_list|()
+block|{
+return|return
+name|comparator
+return|;
+block|}
 block|}
 end_class
 

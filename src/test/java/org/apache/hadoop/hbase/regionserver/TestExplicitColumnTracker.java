@@ -21,6 +21,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -210,6 +220,8 @@ name|MatchCode
 argument_list|>
 name|expected
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|ColumnTracker
 name|exp
@@ -368,6 +380,8 @@ specifier|public
 name|void
 name|testGet_SingleVersion
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(
@@ -566,6 +580,8 @@ specifier|public
 name|void
 name|testGet_MultiVersion
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(
@@ -947,6 +963,8 @@ specifier|public
 name|void
 name|testStackOverflow
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|int
 name|maxVersions
@@ -1120,6 +1138,8 @@ specifier|public
 name|void
 name|testInfiniteLoop
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|TreeSet
 argument_list|<

@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -44,7 +54,7 @@ specifier|public
 interface|interface
 name|ColumnTracker
 block|{
-comment|/**    * Keeps track of the number of versions for the columns asked for    * @param bytes    * @param offset    * @param length    * @param ttl The timeToLive to enforce.    * @return The match code instance.    */
+comment|/**    * Keeps track of the number of versions for the columns asked for    * @param bytes    * @param offset    * @param length    * @param ttl The timeToLive to enforce.    * @return The match code instance.    * @throws IOException in case there is an internal consistency problem    *      caused by a data corruption.    */
 specifier|public
 name|ScanQueryMatcher
 operator|.
@@ -64,6 +74,8 @@ parameter_list|,
 name|long
 name|ttl
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 comment|/**    * Updates internal variables in between files    */
 specifier|public

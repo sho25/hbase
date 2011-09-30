@@ -1150,6 +1150,11 @@ block|}
 name|KeyValue
 name|kv
 decl_stmt|;
+name|KeyValue
+name|prevKV
+init|=
+literal|null
+decl_stmt|;
 name|List
 argument_list|<
 name|KeyValue
@@ -1162,6 +1167,23 @@ argument_list|<
 name|KeyValue
 argument_list|>
 argument_list|()
+decl_stmt|;
+comment|// Only do a sanity-check if store and comparator are available.
+name|KeyValue
+operator|.
+name|KVComparator
+name|comparator
+init|=
+name|store
+operator|!=
+literal|null
+condition|?
+name|store
+operator|.
+name|getComparator
+argument_list|()
+else|:
+literal|null
 decl_stmt|;
 name|LOOP
 label|:
@@ -1190,6 +1212,53 @@ operator|.
 name|shallowCopy
 argument_list|()
 decl_stmt|;
+comment|// Check that the heap gives us KVs in an increasing order.
+if|if
+condition|(
+name|prevKV
+operator|!=
+literal|null
+operator|&&
+name|comparator
+operator|!=
+literal|null
+operator|&&
+name|comparator
+operator|.
+name|compare
+argument_list|(
+name|prevKV
+argument_list|,
+name|kv
+argument_list|)
+operator|>
+literal|0
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Key "
+operator|+
+name|prevKV
+operator|+
+literal|" followed by a "
+operator|+
+literal|"smaller key "
+operator|+
+name|kv
+operator|+
+literal|" in cf "
+operator|+
+name|store
+argument_list|)
+throw|;
+block|}
+name|prevKV
+operator|=
+name|copyKv
+expr_stmt|;
 name|ScanQueryMatcher
 operator|.
 name|MatchCode
@@ -1202,7 +1271,6 @@ argument_list|(
 name|copyKv
 argument_list|)
 decl_stmt|;
-comment|//DebugPrint.println("SS peek kv = " + kv + " with qcode = " + qcode);
 switch|switch
 condition|(
 name|qcode

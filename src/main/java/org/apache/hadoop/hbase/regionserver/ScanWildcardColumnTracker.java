@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -219,6 +229,8 @@ parameter_list|,
 name|long
 name|timestamp
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 if|if
 condition|(
@@ -333,17 +345,16 @@ argument_list|)
 return|;
 block|}
 comment|// new col< oldcol
-comment|// if (cmp< 0) {
 comment|// WARNING: This means that very likely an edit for some other family
-comment|// was incorrectly stored into the store for this one. Continue, but
-comment|// complain.
-name|LOG
-operator|.
-name|error
+comment|// was incorrectly stored into the store for this one. Throw an exception,
+comment|// because this might lead to data corruption.
+throw|throw
+operator|new
+name|IOException
 argument_list|(
-literal|"ScanWildcardColumnTracker.checkColumn ran "
+literal|"ScanWildcardColumnTracker.checkColumn ran into a column actually "
 operator|+
-literal|"into a column actually smaller than the previous column: "
+literal|"smaller than the previous column: "
 operator|+
 name|Bytes
 operator|.
@@ -356,26 +367,7 @@ argument_list|,
 name|length
 argument_list|)
 argument_list|)
-expr_stmt|;
-comment|// switched columns
-name|resetBuffer
-argument_list|(
-name|bytes
-argument_list|,
-name|offset
-argument_list|,
-name|length
-argument_list|)
-expr_stmt|;
-return|return
-name|checkVersion
-argument_list|(
-operator|++
-name|currentCount
-argument_list|,
-name|timestamp
-argument_list|)
-return|;
+throw|;
 block|}
 specifier|private
 name|void
