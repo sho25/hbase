@@ -306,6 +306,22 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+comment|// If application wants to collect scan metrics, it needs to
+comment|// call scan.setAttribute(SCAN_ATTRIBUTES_ENABLE, Bytes.toBytes(Boolean.TRUE))
+specifier|static
+specifier|public
+name|String
+name|SCAN_ATTRIBUTES_METRICS_ENABLE
+init|=
+literal|"scan.attributes.metrics.enable"
+decl_stmt|;
+specifier|static
+specifier|public
+name|String
+name|SCAN_ATTRIBUTES_METRICS_DATA
+init|=
+literal|"scan.attributes.metrics.data"
+decl_stmt|;
 comment|/*    * -1 means no caching    */
 specifier|private
 name|int

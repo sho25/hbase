@@ -407,11 +407,6 @@ argument_list|(
 name|table
 argument_list|)
 expr_stmt|;
-name|trr
-operator|.
-name|init
-argument_list|()
-expr_stmt|;
 return|return
 name|trr
 return|;

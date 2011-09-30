@@ -973,8 +973,12 @@ argument_list|)
 expr_stmt|;
 name|trr
 operator|.
-name|init
-argument_list|()
+name|initialize
+argument_list|(
+literal|null
+argument_list|,
+literal|null
+argument_list|)
 expr_stmt|;
 name|Result
 name|r

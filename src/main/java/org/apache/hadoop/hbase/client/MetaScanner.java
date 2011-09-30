@@ -850,6 +850,8 @@ argument_list|,
 name|metaTableName
 argument_list|,
 name|scan
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 comment|// Open scanner
