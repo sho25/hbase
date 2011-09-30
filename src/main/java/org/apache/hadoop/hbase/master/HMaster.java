@@ -3014,6 +3014,18 @@ operator|.
 name|waitForRoot
 argument_list|()
 expr_stmt|;
+comment|//This guarantees that the transition has completed
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|waitForAssignment
+argument_list|(
+name|HRegionInfo
+operator|.
+name|ROOT_REGIONINFO
+argument_list|)
+expr_stmt|;
 name|assigned
 operator|++
 expr_stmt|;
