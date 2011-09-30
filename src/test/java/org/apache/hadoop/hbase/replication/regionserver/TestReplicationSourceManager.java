@@ -1140,6 +1140,8 @@ argument_list|,
 name|edit
 argument_list|,
 name|htd
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -1227,6 +1229,8 @@ argument_list|,
 name|edit
 argument_list|,
 name|htd
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -1314,6 +1318,8 @@ argument_list|,
 name|edit
 argument_list|,
 name|htd
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|assertEquals

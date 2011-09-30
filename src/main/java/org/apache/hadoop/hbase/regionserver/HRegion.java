@@ -14899,6 +14899,11 @@ name|size
 init|=
 literal|0
 decl_stmt|;
+name|long
+name|txid
+init|=
+literal|0
+decl_stmt|;
 comment|// Lock row
 name|startRegionOperation
 argument_list|()
@@ -15232,11 +15237,13 @@ block|{
 comment|// Using default cluster id, as this can only happen in the orginating
 comment|// cluster. A slave cluster receives the final value (not the delta)
 comment|// as a Put.
+name|txid
+operator|=
 name|this
 operator|.
 name|log
 operator|.
-name|append
+name|appendNoSync
 argument_list|(
 name|regionInfo
 argument_list|,
@@ -15295,6 +15302,22 @@ argument_list|(
 name|lid
 argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|writeToWAL
+condition|)
+block|{
+name|this
+operator|.
+name|log
+operator|.
+name|sync
+argument_list|(
+name|txid
+argument_list|)
+expr_stmt|;
+comment|// sync the transaction log outside the rowlock
 block|}
 block|}
 finally|finally
@@ -15363,6 +15386,11 @@ name|boolean
 name|wrongLength
 init|=
 literal|false
+decl_stmt|;
+name|long
+name|txid
+init|=
+literal|0
 decl_stmt|;
 comment|// Lock row
 name|long
@@ -15577,11 +15605,13 @@ expr_stmt|;
 comment|// Using default cluster id, as this can only happen in the
 comment|// orginating cluster. A slave cluster receives the final value (not
 comment|// the delta) as a Put.
+name|txid
+operator|=
 name|this
 operator|.
 name|log
 operator|.
-name|append
+name|appendNoSync
 argument_list|(
 name|regionInfo
 argument_list|,
@@ -15660,6 +15690,22 @@ argument_list|(
 name|lid
 argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|writeToWAL
+condition|)
+block|{
+name|this
+operator|.
+name|log
+operator|.
+name|sync
+argument_list|(
+name|txid
+argument_list|)
+expr_stmt|;
+comment|// sync the transaction log outside the rowlock
 block|}
 block|}
 finally|finally
