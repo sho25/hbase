@@ -1123,6 +1123,15 @@ return|return
 name|fsBlockReader
 return|;
 block|}
+specifier|public
+name|Path
+name|getPath
+parameter_list|()
+block|{
+return|return
+name|path
+return|;
+block|}
 block|}
 end_class
 

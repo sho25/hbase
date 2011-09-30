@@ -75,13 +75,27 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Reseek the scanner at or after the specified KeyValue.    * This method is guaranteed to seek to or before the required key only if the    * key comes after the current position of the scanner. Should not be used    * to seek to a key which may come before the current position.    * @param key seek value (should be non-null)    * @return true if scanner has values left, false if end of scanner    */
+comment|/**    * Reseek the scanner at or after the specified KeyValue.    * This method is guaranteed to seek at or after the required key only if the    * key comes after the current position of the scanner. Should not be used    * to seek to a key which may come before the current position.    * @param key seek value (should be non-null)    * @return true if scanner has values left, false if end of scanner    */
 specifier|public
 name|boolean
 name|reseek
 parameter_list|(
 name|KeyValue
 name|key
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Similar to {@link #seek} (or {@link #reseek} if forward is true) but only    * does a seek operation after checking that it is really necessary for the    * row/column combination specified by the kv parameter. This function was    * added to avoid unnecessary disk seeks on multi-column get queries using    * Bloom filter checking. Should only be used for queries where the set of    * columns is specified exactly.    */
+specifier|public
+name|boolean
+name|seekExactly
+parameter_list|(
+name|KeyValue
+name|kv
+parameter_list|,
+name|boolean
+name|forward
 parameter_list|)
 throws|throws
 name|IOException

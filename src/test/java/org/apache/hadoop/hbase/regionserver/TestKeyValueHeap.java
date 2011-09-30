@@ -1682,6 +1682,17 @@ extends|extends
 name|CollectionBackedScanner
 block|{
 specifier|private
+name|Iterator
+argument_list|<
+name|KeyValue
+argument_list|>
+name|iter
+decl_stmt|;
+specifier|private
+name|KeyValue
+name|current
+decl_stmt|;
+specifier|private
 name|boolean
 name|closed
 init|=

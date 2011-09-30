@@ -11644,6 +11644,14 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+name|KeyValueHeap
+name|getStoreHeapForTesting
+parameter_list|()
+block|{
+return|return
+name|storeHeap
+return|;
+block|}
 block|}
 comment|// Utility methods
 comment|/**    * A utility method to create new instances of HRegion based on the    * {@link HConstants#REGION_IMPL} configuration property.    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param htd    * @param rsServices    * @return the new instance    */

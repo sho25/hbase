@@ -1057,6 +1057,10 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+name|Path
+name|getPath
+parameter_list|()
+function_decl|;
 block|}
 specifier|private
 specifier|static

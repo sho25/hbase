@@ -2464,8 +2464,8 @@ comment|/*    * MemStoreScanner implements the KeyValueScanner.    * It lets the
 specifier|protected
 class|class
 name|MemStoreScanner
-implements|implements
-name|KeyValueScanner
+extends|extends
+name|AbstractKeyValueScanner
 block|{
 comment|// Next row information for either kvset or snapshot
 specifier|private

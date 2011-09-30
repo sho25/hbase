@@ -196,6 +196,11 @@ name|byte
 index|[]
 name|row
 decl_stmt|;
+comment|/**     * True if we are only interested in the given exact set of columns. In that    * case we can use Bloom filters to avoid unnecessary disk seeks.    */
+specifier|private
+name|boolean
+name|exactColumnQuery
+decl_stmt|;
 comment|/**    * Constructs a ScanQueryMatcher for a Scan.    * @param scan    * @param family    * @param columns    * @param ttl    * @param rowComparator    */
 specifier|public
 name|ScanQueryMatcher
@@ -343,6 +348,10 @@ name|maxVersions
 argument_list|,
 name|ttl
 argument_list|)
+expr_stmt|;
+name|exactColumnQuery
+operator|=
+literal|true
 expr_stmt|;
 block|}
 block|}
@@ -1318,6 +1327,15 @@ literal|0
 argument_list|,
 literal|0
 argument_list|)
+return|;
+block|}
+specifier|public
+name|boolean
+name|isExactColumnQuery
+parameter_list|()
+block|{
+return|return
+name|exactColumnQuery
 return|;
 block|}
 comment|/**    * {@link #match} return codes.  These instruct the scanner moving through    * memstores and StoreFiles what to do with the current KeyValue.    *<p>    * Additionally, this contains "early-out" language to tell the scanner to    * move on to the next File (memstore or Storefile), or to return immediately.    */
