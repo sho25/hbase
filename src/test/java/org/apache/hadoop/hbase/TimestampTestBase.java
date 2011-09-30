@@ -140,7 +140,7 @@ name|T2
 init|=
 literal|200L
 decl_stmt|;
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|byte
