@@ -717,6 +717,20 @@ name|Multimap
 import|;
 end_import
 
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|TreeMultimap
+import|;
+end_import
+
 begin_comment
 comment|/**  * Check consistency among the in-memory states of the master and the  * region server(s) and the state of data in HDFS.  */
 end_comment
@@ -3206,6 +3220,28 @@ argument_list|(
 name|cmp
 argument_list|)
 decl_stmt|;
+comment|// key = start split, values = set of splits in problem group
+specifier|final
+name|Multimap
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|HbckInfo
+argument_list|>
+name|overlapGroups
+init|=
+name|TreeMultimap
+operator|.
+name|create
+argument_list|(
+name|RegionSplitCalculator
+operator|.
+name|BYTES_COMPARATOR
+argument_list|,
+name|cmp
+argument_list|)
+decl_stmt|;
 name|TInfo
 parameter_list|(
 name|String
@@ -3440,6 +3476,12 @@ name|prevKey
 init|=
 literal|null
 decl_stmt|;
+name|byte
+index|[]
+name|problemKey
+init|=
+literal|null
+decl_stmt|;
 for|for
 control|(
 name|byte
@@ -3489,6 +3531,7 @@ range|:
 name|ranges
 control|)
 block|{
+comment|// TODO offline fix region hole.
 name|errors
 operator|.
 name|reportError
@@ -3497,7 +3540,9 @@ name|ERROR_CODE
 operator|.
 name|FIRST_REGION_STARTKEY_NOT_EMPTY
 argument_list|,
-literal|"First region should start with an empty key."
+literal|"First region should start with an empty key. When HBase is "
+operator|+
+literal|"online, create a new regio to plug the hole using hbck -fix"
 argument_list|,
 name|this
 argument_list|,
@@ -3506,7 +3551,46 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Check if the startkeys are different
+if|if
+condition|(
+name|ranges
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|1
+condition|)
+block|{
+comment|// this split key is ok -- no overlap, not a hole.
+if|if
+condition|(
+name|problemKey
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"reached end of problem group: "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|key
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+name|problemKey
+operator|=
+literal|null
+expr_stmt|;
+comment|// fell through, no more problem.
+block|}
+elseif|else
 if|if
 condition|(
 name|ranges
@@ -3517,6 +3601,45 @@ operator|>
 literal|1
 condition|)
 block|{
+comment|// set the new problem key group name, if already have problem key, just
+comment|// keep using it.
+if|if
+condition|(
+name|problemKey
+operator|==
+literal|null
+condition|)
+block|{
+comment|// only for overlap regions.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Naming new problem group: "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|key
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|problemKey
+operator|=
+name|key
+expr_stmt|;
+block|}
+name|overlapGroups
+operator|.
+name|putAll
+argument_list|(
+name|problemKey
+argument_list|,
+name|ranges
+argument_list|)
+expr_stmt|;
+comment|// record errors
 name|ArrayList
 argument_list|<
 name|HbckInfo
@@ -3532,7 +3655,7 @@ argument_list|(
 name|ranges
 argument_list|)
 decl_stmt|;
-comment|// this dumb and n^2 but this shouldn't happen often
+comment|//  this dumb and n^2 but this shouldn't happen often
 for|for
 control|(
 name|HbckInfo
@@ -3644,6 +3767,7 @@ block|}
 block|}
 block|}
 block|}
+elseif|else
 if|if
 condition|(
 name|ranges
@@ -3654,6 +3778,32 @@ operator|==
 literal|0
 condition|)
 block|{
+if|if
+condition|(
+name|problemKey
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"reached end of problem group: "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|key
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+name|problemKey
+operator|=
+literal|null
+expr_stmt|;
 name|byte
 index|[]
 name|holeStopKey
@@ -3689,7 +3839,7 @@ literal|"There is a hole in the region chain between "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|key
 argument_list|)
@@ -3698,10 +3848,14 @@ literal|" and "
 operator|+
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|holeStopKey
 argument_list|)
+operator|+
+literal|".  When HBase is online, create a new regioninfo and region "
+operator|+
+literal|"dir to plug the hole."
 argument_list|)
 expr_stmt|;
 block|}
@@ -3719,12 +3873,40 @@ block|{
 comment|// do full region split map dump
 name|dump
 argument_list|(
-name|sc
-operator|.
-name|getSplits
-argument_list|()
+name|splits
 argument_list|,
 name|regions
+argument_list|)
+expr_stmt|;
+name|dumpOverlapProblems
+argument_list|(
+name|overlapGroups
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"There are "
+operator|+
+name|overlapGroups
+operator|.
+name|keySet
+argument_list|()
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" problem groups with "
+operator|+
+name|overlapGroups
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|" problem regions"
 argument_list|)
 expr_stmt|;
 block|}
@@ -3744,7 +3926,7 @@ comment|/**      * This dumps data in a visually reasonable way for visual debug
 name|void
 name|dump
 parameter_list|(
-name|TreeSet
+name|SortedSet
 argument_list|<
 name|byte
 index|[]
@@ -3838,6 +4020,128 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+block|}
+specifier|public
+name|void
+name|dumpOverlapProblems
+parameter_list|(
+name|Multimap
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|HbckInfo
+argument_list|>
+name|regions
+parameter_list|)
+block|{
+comment|// we display this way because the last end key should be displayed as
+comment|// well.
+for|for
+control|(
+name|byte
+index|[]
+name|k
+range|:
+name|regions
+operator|.
+name|keySet
+argument_list|()
+control|)
+block|{
+name|System
+operator|.
+name|out
+operator|.
+name|print
+argument_list|(
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|k
+argument_list|)
+operator|+
+literal|":\n"
+argument_list|)
+expr_stmt|;
+for|for
+control|(
+name|HbckInfo
+name|r
+range|:
+name|regions
+operator|.
+name|get
+argument_list|(
+name|k
+argument_list|)
+control|)
+block|{
+name|System
+operator|.
+name|out
+operator|.
+name|print
+argument_list|(
+literal|"[ "
+operator|+
+name|r
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|", "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|r
+operator|.
+name|getEndKey
+argument_list|()
+argument_list|)
+operator|+
+literal|"]\n"
+argument_list|)
+expr_stmt|;
+block|}
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"----"
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+specifier|public
+name|Multimap
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|HbckInfo
+argument_list|>
+name|getOverlapGroups
+parameter_list|(
+name|String
+name|table
+parameter_list|)
+block|{
+return|return
+name|tablesInfo
+operator|.
+name|get
+argument_list|(
+name|table
+argument_list|)
+operator|.
+name|overlapGroups
+return|;
 block|}
 comment|/**    * Return a list of user-space table names whose metadata have not been    * modified in the last few milliseconds specified by timelag    * if any of the REGIONINFO_QUALIFIER, SERVER_QUALIFIER, STARTCODE_QUALIFIER,    * SPLITA_QUALIFIER, SPLITB_QUALIFIER have not changed in the last    * milliseconds specified by timelag, then the table is a candidate to be returned.    * @return tables that have not been modified recently    * @throws IOException if an error is encountered    */
 name|HTableDescriptor
@@ -4667,6 +4971,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Maintain information about a particular region.    */
+specifier|public
 specifier|static
 class|class
 name|HbckInfo
