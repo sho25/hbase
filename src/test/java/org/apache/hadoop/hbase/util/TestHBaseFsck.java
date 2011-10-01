@@ -542,6 +542,11 @@ argument_list|)
 decl_stmt|;
 name|fsck
 operator|.
+name|connect
+argument_list|()
+expr_stmt|;
+name|fsck
+operator|.
 name|displayFullReport
 argument_list|()
 expr_stmt|;
