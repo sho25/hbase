@@ -2976,7 +2976,7 @@ parameter_list|(
 name|long
 name|offset
 parameter_list|,
-name|int
+name|long
 name|onDiskBlockSize
 parameter_list|,
 name|boolean

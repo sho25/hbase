@@ -239,6 +239,26 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|HFile
+operator|.
+name|CachingBlockReader
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -489,10 +509,8 @@ name|searchTreeLevel
 decl_stmt|;
 comment|/** A way to read {@link HFile} blocks at a given offset */
 specifier|private
-name|HFileBlock
-operator|.
-name|BasicReader
-name|blockReader
+name|CachingBlockReader
+name|cachingBlockReader
 decl_stmt|;
 specifier|public
 name|BlockIndexReader
@@ -510,10 +528,8 @@ name|int
 name|treeLevel
 parameter_list|,
 specifier|final
-name|HFileBlock
-operator|.
-name|BasicReader
-name|blockReader
+name|CachingBlockReader
+name|cachingBlockReader
 parameter_list|)
 block|{
 name|this
@@ -525,9 +541,9 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|blockReader
+name|cachingBlockReader
 operator|=
-name|blockReader
+name|cachingBlockReader
 expr_stmt|;
 block|}
 specifier|public
@@ -611,6 +627,15 @@ name|keyLength
 parameter_list|,
 name|HFileBlock
 name|currentBlock
+parameter_list|,
+name|boolean
+name|cacheBlocks
+parameter_list|,
+name|boolean
+name|pread
+parameter_list|,
+name|boolean
+name|isCompaction
 parameter_list|)
 throws|throws
 name|IOException
@@ -669,21 +694,68 @@ decl_stmt|;
 comment|// How many levels deep we are in our lookup.
 name|HFileBlock
 name|block
-init|=
-name|blockReader
+decl_stmt|;
+while|while
+condition|(
+literal|true
+condition|)
+block|{
+if|if
+condition|(
+name|currentBlock
+operator|!=
+literal|null
+operator|&&
+name|currentBlock
 operator|.
-name|readBlockData
+name|getOffset
+argument_list|()
+operator|==
+name|currentOffset
+condition|)
+block|{
+comment|// Avoid reading the same block again, even with caching turned off.
+comment|// This is crucial for compaction-type workload which might have
+comment|// caching turned off. This is like a one-block cache inside the
+comment|// scanner.
+name|block
+operator|=
+name|currentBlock
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// Call HFile's caching block reader API. We always cache index
+comment|// blocks, otherwise we might get terrible performance.
+name|boolean
+name|shouldCache
+init|=
+name|cacheBlocks
+operator|||
+operator|(
+name|lookupLevel
+operator|<
+name|searchTreeLevel
+operator|)
+decl_stmt|;
+name|block
+operator|=
+name|cachingBlockReader
+operator|.
+name|readBlock
 argument_list|(
 name|currentOffset
 argument_list|,
 name|currentOnDiskSize
 argument_list|,
-operator|-
-literal|1
+name|shouldCache
 argument_list|,
-literal|true
+name|pread
+argument_list|,
+name|isCompaction
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|block
@@ -705,9 +777,9 @@ name|currentOnDiskSize
 argument_list|)
 throw|;
 block|}
-while|while
+comment|// Found a data block, break the loop and check our level in the tree.
+if|if
 condition|(
-operator|!
 name|block
 operator|.
 name|getBlockType
@@ -721,9 +793,10 @@ name|DATA
 argument_list|)
 condition|)
 block|{
-comment|// Read the block. It may be intermediate level block, leaf level block
-comment|// or data block. In any case, we expect non-root index block format.
-comment|// We don't allow more than searchTreeLevel iterations of this loop.
+break|break;
+block|}
+comment|// Not a data block. This must be a leaf-level or intermediate-level
+comment|// index block. We don't allow going deeper than searchTreeLevel.
 if|if
 condition|(
 operator|++
@@ -736,17 +809,18 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Search Tree Level overflow: lookupLevel: "
+literal|"Search Tree Level overflow: lookupLevel="
 operator|+
 name|lookupLevel
 operator|+
-literal|" searchTreeLevel: "
+literal|", searchTreeLevel="
 operator|+
 name|searchTreeLevel
 argument_list|)
 throw|;
 block|}
-comment|// read to the byte buffer
+comment|// Locate the entry corresponding to the given key in the non-root
+comment|// (leaf or intermediate-level) index block.
 name|ByteBuffer
 name|buffer
 init|=
@@ -811,46 +885,6 @@ operator|.
 name|getInt
 argument_list|()
 expr_stmt|;
-comment|// Located a deeper-level block, now read it.
-if|if
-condition|(
-name|currentBlock
-operator|!=
-literal|null
-operator|&&
-name|currentBlock
-operator|.
-name|getOffset
-argument_list|()
-operator|==
-name|currentOffset
-condition|)
-block|{
-comment|// Avoid reading the same block.
-name|block
-operator|=
-name|currentBlock
-expr_stmt|;
-block|}
-else|else
-block|{
-name|block
-operator|=
-name|blockReader
-operator|.
-name|readBlockData
-argument_list|(
-name|currentOffset
-argument_list|,
-name|currentOnDiskSize
-argument_list|,
-operator|-
-literal|1
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 if|if
 condition|(
@@ -928,7 +962,7 @@ condition|)
 block|{
 if|if
 condition|(
-name|blockReader
+name|cachingBlockReader
 operator|==
 literal|null
 condition|)
@@ -943,21 +977,23 @@ literal|"no block reader available"
 argument_list|)
 throw|;
 block|}
+comment|// Caching, using pread, assuming this is not a compaction.
 name|HFileBlock
 name|midLeafBlock
 init|=
-name|blockReader
+name|cachingBlockReader
 operator|.
-name|readBlockData
+name|readBlock
 argument_list|(
 name|midLeafBlockOffset
 argument_list|,
 name|midLeafBlockOnDiskSize
 argument_list|,
-operator|-
-literal|1
+literal|true
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|ByteBuffer

@@ -2791,10 +2791,10 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-comment|/**    * Just the basic ability to read blocks, providing optional hints of    * on-disk-size and/or uncompressed size.    */
+comment|/** A full-fledged reader with iteration ability. */
 specifier|public
 interface|interface
-name|BasicReader
+name|FSReader
 block|{
 comment|/**      * Reads the block at the given offset in the file with the given on-disk      * size and uncompressed size.      *      * @param offset      * @param onDiskSize the on-disk size of the entire block, including all      *          applicable headers, or -1 if unknown      * @param uncompressedSize the uncompressed size of the compressed part of      *          the block, or -1 if unknown      * @return the newly read block      */
 name|HFileBlock
@@ -2815,14 +2815,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-block|}
-comment|/** A full-fledged reader with an iteration ability. */
-specifier|public
-interface|interface
-name|FSReader
-extends|extends
-name|BasicReader
-block|{
 comment|/**      * Creates a block iterator over the given portion of the {@link HFile}.      * The iterator returns blocks starting with offset such that offset<=      * startOffset< endOffset.      *      * @param startOffset the offset of the block to start iteration with      * @param endOffset the offset to end iteration at (exclusive)      * @return an iterator of blocks between the two given offsets      */
 name|BlockIterator
 name|blockRange
