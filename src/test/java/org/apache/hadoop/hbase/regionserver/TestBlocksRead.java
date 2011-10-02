@@ -1335,7 +1335,7 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
-comment|// Expected block reads: 3
+comment|// Expected block reads: 2
 name|kvs
 operator|=
 name|getData
@@ -1353,7 +1353,7 @@ argument_list|,
 literal|"col2"
 argument_list|)
 argument_list|,
-literal|3
+literal|2
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1393,7 +1393,7 @@ argument_list|,
 literal|2
 argument_list|)
 expr_stmt|;
-comment|// Expected block reads: 5
+comment|// Expected block reads: 3
 name|kvs
 operator|=
 name|getData
@@ -1411,7 +1411,7 @@ argument_list|,
 literal|"col3"
 argument_list|)
 argument_list|,
-literal|5
+literal|3
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1659,10 +1659,7 @@ argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
-comment|// Baseline expected blocks read: 6
-comment|// This increase is a minor glitch due to: HBASE-4466. Once that
-comment|// is fixed this will drop back. The extra access will be a cache
-comment|// hit.
+comment|// Baseline expected blocks read: 4
 name|kvs
 operator|=
 name|getData
@@ -1680,7 +1677,7 @@ argument_list|,
 literal|"col2"
 argument_list|)
 argument_list|,
-literal|6
+literal|4
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2056,10 +2053,7 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-comment|// Baseline expected blocks read: 21
-comment|// This increase is a minor glitch due to: HBASE-4466. Once that
-comment|// is fixed this will drop back. The extra access will be a cache
-comment|// hit. The test case only has 13 blocks altogther!
+comment|// Baseline expected blocks read: 13
 name|kvs
 operator|=
 name|getData
@@ -2079,7 +2073,7 @@ argument_list|,
 literal|"col3"
 argument_list|)
 argument_list|,
-literal|21
+literal|13
 argument_list|)
 expr_stmt|;
 name|assertEquals
