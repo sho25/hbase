@@ -10117,7 +10117,6 @@ comment|////////////////////////////////////////////////////////////////////////
 comment|// Support code
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/** Make sure this is a valid row for the HRegion */
-specifier|private
 name|void
 name|checkRow
 parameter_list|(
@@ -10151,7 +10150,7 @@ literal|"Requested row out of range for "
 operator|+
 name|op
 operator|+
-literal|"on HRegion "
+literal|" on HRegion "
 operator|+
 name|this
 operator|+
@@ -14203,6 +14202,16 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkRow
+argument_list|(
+name|get
+operator|.
+name|getRow
+argument_list|()
+argument_list|,
+literal|"Get"
+argument_list|)
+expr_stmt|;
 comment|// Verify families are all valid
 if|if
 condition|(
