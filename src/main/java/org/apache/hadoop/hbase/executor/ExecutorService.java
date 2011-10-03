@@ -888,29 +888,6 @@ argument_list|(
 name|name
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|executor
-operator|==
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Executor service ["
-operator|+
-name|name
-operator|+
-literal|"] not found in "
-operator|+
-name|this
-operator|.
-name|executorMap
-argument_list|)
-expr_stmt|;
-block|}
 return|return
 name|executor
 return|;
@@ -983,6 +960,9 @@ name|EventHandler
 name|eh
 parameter_list|)
 block|{
+name|Executor
+name|executor
+init|=
 name|getExecutor
 argument_list|(
 name|getExecutorServiceType
@@ -993,12 +973,41 @@ name|getEventType
 argument_list|()
 argument_list|)
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|executor
+operator|==
+literal|null
+condition|)
+block|{
+comment|// This happens only when events are submitted after shutdown() was
+comment|// called, so dropping them should be "ok" since it means we're
+comment|// shutting down.
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Cannot submit ["
+operator|+
+name|eh
+operator|+
+literal|"] because the executor is missing."
+operator|+
+literal|" Is this process shutting down?"
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|executor
 operator|.
 name|submit
 argument_list|(
 name|eh
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * Subscribe to updates before and after processing instances of    * {@link EventHandler.EventType}.  Currently only one listener per    * event type.    * @param type Type of event we're registering listener for    * @param listener The listener to run.    */
 specifier|public
