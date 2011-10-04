@@ -958,10 +958,11 @@ specifier|final
 name|Configuration
 name|conf
 decl_stmt|;
+comment|/**    * Bloom filter type specified in column family configuration. Does not    * necessarily correspond to the Bloom filter type present in the HFile.    */
 specifier|private
 specifier|final
 name|BloomType
-name|bloomType
+name|cfBloomType
 decl_stmt|;
 comment|// the last modification time stamp
 specifier|private
@@ -970,7 +971,7 @@ name|modificationTimeStamp
 init|=
 literal|0L
 decl_stmt|;
-comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a    * substantial amount of ram depending on the underlying files (10-20MB?).    *    * @param fs  The current file system to use.    * @param p  The path of the file.    * @param blockcache<code>true</code> if the block cache is enabled.    * @param conf  The current configuration.    * @param bt The bloom type to use for this store file    * @throws IOException When opening the reader fails.    */
+comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a    * substantial amount of ram depending on the underlying files (10-20MB?).    *    * @param fs  The current file system to use.    * @param p  The path of the file.    * @param blockcache<code>true</code> if the block cache is enabled.    * @param conf  The current configuration.    * @param cfBloomType The bloom type to use for this store file as specified    *          by column family configuration. This may or may not be the same    *          as the Bloom filter type actually present in the HFile, because    *          column family configuration might change. If this is    *          {@link BloomType#NONE}, the existing Bloom filter is ignored.    * @throws IOException When opening the reader fails.    */
 name|StoreFile
 parameter_list|(
 specifier|final
@@ -991,7 +992,7 @@ name|conf
 parameter_list|,
 specifier|final
 name|BloomType
-name|bt
+name|cfBloomType
 parameter_list|,
 specifier|final
 name|boolean
@@ -1063,8 +1064,6 @@ name|path
 argument_list|)
 expr_stmt|;
 block|}
-comment|// ignore if the column family config says "no bloom filter"
-comment|// even if there is one in the hfile.
 if|if
 condition|(
 name|BloomFilterFactory
@@ -1077,9 +1076,9 @@ condition|)
 block|{
 name|this
 operator|.
-name|bloomType
+name|cfBloomType
 operator|=
-name|bt
+name|cfBloomType
 expr_stmt|;
 block|}
 else|else
@@ -1094,16 +1093,16 @@ name|path
 operator|+
 literal|": "
 operator|+
-literal|"bloomType="
+literal|"cfBloomType="
 operator|+
-name|bt
+name|cfBloomType
 operator|+
 literal|" (disabled in config)"
 argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|bloomType
+name|cfBloomType
 operator|=
 name|BloomType
 operator|.
@@ -2205,7 +2204,7 @@ block|}
 name|computeHDFSBlockDistribution
 argument_list|()
 expr_stmt|;
-comment|// Load up indices and fileinfo.
+comment|// Load up indices and fileinfo. This also loads Bloom filter type.
 name|metadataMap
 operator|=
 name|Collections
@@ -2370,23 +2369,88 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+name|BloomType
+name|hfileBloomType
+init|=
+name|reader
+operator|.
+name|getBloomFilterType
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
-name|this
-operator|.
-name|bloomType
+name|cfBloomType
 operator|!=
 name|BloomType
 operator|.
 name|NONE
 condition|)
 block|{
-name|this
-operator|.
 name|reader
 operator|.
 name|loadBloomfilter
 argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|hfileBloomType
+operator|!=
+name|cfBloomType
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"HFile Bloom filter type for "
+operator|+
+name|reader
+operator|.
+name|getHFileReader
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|": "
+operator|+
+name|hfileBloomType
+operator|+
+literal|", but "
+operator|+
+name|cfBloomType
+operator|+
+literal|" specified in column family "
+operator|+
+literal|"configuration"
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+elseif|else
+if|if
+condition|(
+name|hfileBloomType
+operator|!=
+name|BloomType
+operator|.
+name|NONE
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Bloom filter turned off by CF config for "
+operator|+
+name|reader
+operator|.
+name|getHFileReader
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 try|try
@@ -3667,6 +3731,17 @@ name|newKey
 operator|=
 literal|false
 expr_stmt|;
+break|break;
+default|default:
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Invalid Bloom filter type: "
+operator|+
+name|bloomType
+argument_list|)
+throw|;
 block|}
 block|}
 if|if
@@ -3776,6 +3851,8 @@ argument_list|(
 literal|"Invalid Bloom filter type: "
 operator|+
 name|bloomType
+operator|+
+literal|" (ROW or ROWCOL expected)"
 argument_list|)
 throw|;
 block|}
