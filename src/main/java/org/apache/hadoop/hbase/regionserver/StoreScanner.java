@@ -196,6 +196,22 @@ specifier|final
 name|boolean
 name|isGet
 decl_stmt|;
+comment|/** We don't ever expect to change this, the constant is just for clarity. */
+specifier|static
+specifier|final
+name|boolean
+name|LAZY_SEEK_ENABLED_BY_DEFAULT
+init|=
+literal|true
+decl_stmt|;
+comment|/** Used during unit testing to ensure that lazy seek does save seek ops */
+specifier|private
+specifier|static
+name|boolean
+name|lazySeekEnabledGlobally
+init|=
+name|LAZY_SEEK_ENABLED_BY_DEFAULT
+decl_stmt|;
 comment|// if heap == null and lastTop != null, you need to reseek given the key below
 specifier|private
 name|KeyValue
@@ -1937,6 +1953,19 @@ expr_stmt|;
 return|return
 name|allScanners
 return|;
+block|}
+specifier|static
+name|void
+name|enableLazySeekGlobally
+parameter_list|(
+name|boolean
+name|enable
+parameter_list|)
+block|{
+name|lazySeekEnabledGlobally
+operator|=
+name|enable
+expr_stmt|;
 block|}
 block|}
 end_class

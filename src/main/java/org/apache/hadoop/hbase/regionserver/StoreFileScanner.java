@@ -161,6 +161,20 @@ name|SortedSet
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicLong
+import|;
+end_import
+
 begin_comment
 comment|/**  * KeyValueScanner adaptor over the Reader.  It also provides hooks into  * bloom filter things.  */
 end_comment
@@ -203,6 +217,16 @@ name|KeyValue
 name|cur
 init|=
 literal|null
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|AtomicLong
+name|seekCount
+init|=
+operator|new
+name|AtomicLong
+argument_list|()
 decl_stmt|;
 comment|/**    * Implements a {@link KeyValueScanner} on top of the specified {@link HFileScanner}    * @param hfs HFile scanner    */
 specifier|public
@@ -406,6 +430,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|seekCount
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
 try|try
 block|{
 if|if
@@ -466,6 +495,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|seekCount
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
 try|try
 block|{
 if|if
@@ -840,6 +874,20 @@ parameter_list|()
 block|{
 return|return
 name|reader
+return|;
+block|}
+comment|// Test methods
+specifier|static
+specifier|final
+name|long
+name|getSeekCount
+parameter_list|()
+block|{
+return|return
+name|seekCount
+operator|.
+name|get
+argument_list|()
 return|;
 block|}
 block|}

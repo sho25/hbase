@@ -645,6 +645,8 @@ operator|.
 name|GZ
 argument_list|,
 name|bloomType
+argument_list|,
+name|MAX_VERSIONS
 argument_list|)
 expr_stmt|;
 name|createStoreFile
