@@ -429,6 +429,21 @@ argument_list|,
 literal|1000
 argument_list|)
 expr_stmt|;
+comment|// Make it so we try and connect to a zk that is not there (else we might
+comment|// find a zk ensemble put up by another concurrent test and this will
+comment|// mess up this test.  Choose unlikely port. Default test port is 21818.
+comment|// Default zk port is 2181.
+name|this
+operator|.
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.zookeeper.property.clientPort"
+argument_list|,
+literal|10001
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|conf
