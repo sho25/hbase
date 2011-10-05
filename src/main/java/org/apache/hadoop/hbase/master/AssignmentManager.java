@@ -8135,6 +8135,15 @@ operator|.
 name|getOnlineServersList
 argument_list|()
 decl_stmt|;
+comment|// If there are no servers we need not proceed with region assignment.
+if|if
+condition|(
+name|servers
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+return|return;
 comment|// Scan META for all user regions, skipping any disabled tables
 name|Map
 argument_list|<
