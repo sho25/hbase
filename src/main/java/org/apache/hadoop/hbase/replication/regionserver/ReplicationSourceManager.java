@@ -1612,6 +1612,11 @@ operator|+
 literal|" that were recovered"
 argument_list|)
 expr_stmt|;
+name|String
+name|terminateMessage
+init|=
+literal|"Replication stream was removed by a user"
+decl_stmt|;
 name|ReplicationSourceInterface
 name|srcToRemove
 init|=
@@ -1669,6 +1674,13 @@ range|:
 name|oldSourcesToDelete
 control|)
 block|{
+name|src
+operator|.
+name|terminate
+argument_list|(
+name|terminateMessage
+argument_list|)
+expr_stmt|;
 name|closeRecoveredQueue
 argument_list|(
 operator|(
@@ -1746,7 +1758,7 @@ name|srcToRemove
 operator|.
 name|terminate
 argument_list|(
-literal|"Replication stream was removed by a user"
+name|terminateMessage
 argument_list|)
 expr_stmt|;
 name|this
