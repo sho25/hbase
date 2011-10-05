@@ -93,23 +93,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|AbstractKeyValueScanner
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|KeyValueScanner
+name|NonLazyKeyValueScanner
 import|;
 end_import
 
@@ -122,7 +106,7 @@ specifier|public
 class|class
 name|CollectionBackedScanner
 extends|extends
-name|AbstractKeyValueScanner
+name|NonLazyKeyValueScanner
 block|{
 specifier|final
 specifier|private

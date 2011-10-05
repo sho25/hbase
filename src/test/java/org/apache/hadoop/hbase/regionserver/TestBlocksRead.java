@@ -1659,7 +1659,7 @@ argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
-comment|// Baseline expected blocks read: 4
+comment|// Expected block reads: 3
 name|kvs
 operator|=
 name|getData
@@ -1677,7 +1677,7 @@ argument_list|,
 literal|"col2"
 argument_list|)
 argument_list|,
-literal|4
+literal|3
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1734,7 +1734,7 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-comment|// Baseline expected blocks read: 5
+comment|// Baseline expected blocks read: 3
 name|kvs
 operator|=
 name|getData
@@ -1745,7 +1745,7 @@ literal|"row"
 argument_list|,
 literal|"col3"
 argument_list|,
-literal|5
+literal|3
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2053,7 +2053,7 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-comment|// Baseline expected blocks read: 13
+comment|// Baseline expected blocks read: 9
 name|kvs
 operator|=
 name|getData
@@ -2073,7 +2073,7 @@ argument_list|,
 literal|"col3"
 argument_list|)
 argument_list|,
-literal|13
+literal|9
 argument_list|)
 expr_stmt|;
 name|assertEquals

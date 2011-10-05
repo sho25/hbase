@@ -3391,6 +3391,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|ReadWriteConsistencyControl
+operator|.
+name|resetThreadReadPoint
+argument_list|()
+expr_stmt|;
 name|addRows
 argument_list|(
 name|this

@@ -2465,7 +2465,7 @@ specifier|protected
 class|class
 name|MemStoreScanner
 extends|extends
-name|AbstractKeyValueScanner
+name|NonLazyKeyValueScanner
 block|{
 comment|// Next row information for either kvset or snapshot
 specifier|private

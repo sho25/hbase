@@ -207,32 +207,6 @@ operator|=
 name|count
 expr_stmt|;
 block|}
-comment|/**    * Check to see if needed to fetch more versions    * @param max    * @return true if more versions are needed, false otherwise    */
-specifier|public
-name|boolean
-name|needMore
-parameter_list|(
-name|int
-name|max
-parameter_list|)
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|count
-operator|<
-name|max
-condition|)
-block|{
-return|return
-literal|true
-return|;
-block|}
-return|return
-literal|false
-return|;
-block|}
 block|}
 end_class
 

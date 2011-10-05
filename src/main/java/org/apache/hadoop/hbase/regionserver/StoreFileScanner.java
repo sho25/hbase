@@ -127,6 +127,20 @@ name|java
 operator|.
 name|util
 operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicLong
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|ArrayList
 import|;
 end_import
@@ -158,20 +172,6 @@ operator|.
 name|util
 operator|.
 name|SortedSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicLong
 import|;
 end_import
 
@@ -217,6 +217,18 @@ name|KeyValue
 name|cur
 init|=
 literal|null
+decl_stmt|;
+specifier|private
+name|boolean
+name|realSeekDone
+decl_stmt|;
+specifier|private
+name|boolean
+name|delayedReseek
+decl_stmt|;
+specifier|private
+name|KeyValue
+name|delayedSeekKV
 decl_stmt|;
 specifier|private
 specifier|static
@@ -437,6 +449,8 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+try|try
+block|{
 if|if
 condition|(
 operator|!
@@ -465,6 +479,14 @@ expr_stmt|;
 return|return
 literal|true
 return|;
+block|}
+finally|finally
+block|{
+name|realSeekDone
+operator|=
+literal|true
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -502,6 +524,8 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+try|try
+block|{
 if|if
 condition|(
 operator|!
@@ -530,6 +554,14 @@ expr_stmt|;
 return|return
 literal|true
 return|;
+block|}
+finally|finally
+block|{
+name|realSeekDone
+operator|=
+literal|true
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -738,17 +770,21 @@ name|getSequenceID
 argument_list|()
 return|;
 block|}
+comment|/**    * Pretend we have done a seek but don't do it yet, if possible. The hope is    * that we find requested columns in more recent files and won't have to seek    * in older files. Creates a fake key/value with the given row/column and the    * highest (most recent) possible timestamp we might get from this file. When    * users of such "lazy scanner" need to know the next KV precisely (e.g. when    * this scanner is at the top of the heap), they run {@link #enforceSeek()}.    *<p>    * Note that this function does guarantee that the current KV of this scanner    * will be advanced to at least the given KV. Because of this, it does have    * to do a real seek in cases when the seek timestamp is older than the    * highest timestamp of the file, e.g. when we are trying to seek to the next    * row/column and use OLDEST_TIMESTAMP in the seek key.    */
 annotation|@
 name|Override
 specifier|public
 name|boolean
-name|seekExactly
+name|requestSeek
 parameter_list|(
 name|KeyValue
 name|kv
 parameter_list|,
 name|boolean
 name|forward
+parameter_list|,
+name|boolean
+name|useBloom
 parameter_list|)
 throws|throws
 name|IOException
@@ -768,36 +804,29 @@ name|ROWCOL
 operator|||
 name|kv
 operator|.
-name|getRowLength
-argument_list|()
-operator|==
-literal|0
-operator|||
-name|kv
-operator|.
-name|getQualifierLength
+name|getFamilyLength
 argument_list|()
 operator|==
 literal|0
 condition|)
 block|{
-return|return
-name|forward
-condition|?
-name|reseek
-argument_list|(
-name|kv
-argument_list|)
-else|:
-name|seek
-argument_list|(
-name|kv
-argument_list|)
-return|;
+name|useBloom
+operator|=
+literal|false
+expr_stmt|;
 block|}
 name|boolean
-name|isInBloom
+name|haveToSeek
 init|=
+literal|true
+decl_stmt|;
+if|if
+condition|(
+name|useBloom
+condition|)
+block|{
+name|haveToSeek
+operator|=
 name|reader
 operator|.
 name|passesBloomFilter
@@ -832,37 +861,99 @@ operator|.
 name|getQualifierLength
 argument_list|()
 argument_list|)
+expr_stmt|;
+block|}
+name|delayedReseek
+operator|=
+name|forward
+expr_stmt|;
+name|delayedSeekKV
+operator|=
+name|kv
+expr_stmt|;
+if|if
+condition|(
+name|haveToSeek
+condition|)
+block|{
+comment|// This row/column might be in this store file (or we did not use the
+comment|// Bloom filter), so we still need to seek.
+name|realSeekDone
+operator|=
+literal|false
+expr_stmt|;
+name|long
+name|maxTimestampInFile
+init|=
+name|reader
+operator|.
+name|getMaxTimestamp
+argument_list|()
+decl_stmt|;
+name|long
+name|seekTimestamp
+init|=
+name|kv
+operator|.
+name|getTimestamp
+argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|isInBloom
+name|seekTimestamp
+operator|>
+name|maxTimestampInFile
 condition|)
 block|{
-comment|// This row/column might be in this store file. Do a normal seek.
+comment|// Create a fake key that is not greater than the real next key.
+comment|// (Lower timestamps correspond to higher KVs.)
+comment|// To understand this better, consider that we are asked to seek to
+comment|// a higher timestamp than the max timestamp in this file. We know that
+comment|// the next point when we have to consider this file again is when we
+comment|// pass the max timestamp of this file (with the same row/column).
+name|cur
+operator|=
+name|kv
+operator|.
+name|createFirstOnRowColTS
+argument_list|(
+name|maxTimestampInFile
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// This will be the case e.g. when we need to seek to the next
+comment|// row/column, and we don't know exactly what they are, so we set the
+comment|// seek key's timestamp to OLDEST_TIMESTAMP to skip the rest of this
+comment|// row/column.
+name|enforceSeek
+argument_list|()
+expr_stmt|;
+block|}
 return|return
-name|forward
-condition|?
-name|reseek
-argument_list|(
-name|kv
-argument_list|)
-else|:
-name|seek
-argument_list|(
-name|kv
-argument_list|)
+name|cur
+operator|!=
+literal|null
 return|;
 block|}
+comment|// Multi-column Bloom filter optimization.
 comment|// Create a fake key/value, so that this scanner only bubbles up to the top
 comment|// of the KeyValueHeap in StoreScanner after we scanned this row/column in
 comment|// all other store files. The query matcher will then just skip this fake
-comment|// key/value and the store scanner will progress to the next column.
+comment|// key/value and the store scanner will progress to the next column. This
+comment|// is obviously not a "real real" seek, but unlike the fake KV earlier in
+comment|// this method, we want this to be propagated to ScanQueryMatcher.
 name|cur
 operator|=
 name|kv
 operator|.
 name|createLastOnRowCol
 argument_list|()
+expr_stmt|;
+name|realSeekDone
+operator|=
+literal|true
 expr_stmt|;
 return|return
 literal|true
@@ -875,6 +966,51 @@ block|{
 return|return
 name|reader
 return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|realSeekDone
+parameter_list|()
+block|{
+return|return
+name|realSeekDone
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|enforceSeek
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|realSeekDone
+condition|)
+return|return;
+if|if
+condition|(
+name|delayedReseek
+condition|)
+block|{
+name|reseek
+argument_list|(
+name|delayedSeekKV
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|seek
+argument_list|(
+name|delayedSeekKV
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|// Test methods
 specifier|static

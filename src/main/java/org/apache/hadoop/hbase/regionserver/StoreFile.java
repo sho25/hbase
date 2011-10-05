@@ -5396,6 +5396,17 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+specifier|public
+name|long
+name|getMaxTimestamp
+parameter_list|()
+block|{
+return|return
+name|timeRangeTracker
+operator|.
+name|maximumTimestamp
+return|;
+block|}
 block|}
 comment|/**    * Useful comparators for comparing StoreFiles.    */
 specifier|abstract
