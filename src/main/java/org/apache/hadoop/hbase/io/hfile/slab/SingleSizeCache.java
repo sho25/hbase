@@ -338,10 +338,12 @@ name|SlabItemEvictionWatcher
 name|evictionWatcher
 decl_stmt|;
 specifier|private
+specifier|final
 name|AtomicLong
 name|size
 decl_stmt|;
 specifier|private
+specifier|final
 name|AtomicLong
 name|timeSinceLastAccess
 decl_stmt|;
@@ -464,7 +466,8 @@ operator|new
 name|AtomicLong
 argument_list|()
 expr_stmt|;
-comment|// This evictionListener is called whenever the cache automatically evicts
+comment|// This evictionListener is called whenever the cache automatically
+comment|// evicts
 comment|// something.
 name|MapEvictionListener
 argument_list|<
@@ -512,6 +515,11 @@ operator|.
 name|get
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|stats
+operator|.
+name|evict
+argument_list|()
 expr_stmt|;
 name|doEviction
 argument_list|(
@@ -561,7 +569,6 @@ block|{
 name|ByteBuffer
 name|storedBlock
 decl_stmt|;
-comment|/*      * Spinlock if empty, Guava Mapmaker guarantees that we will not store more      * items than the memory we have allocated, but the Slab Allocator may still      * be empty if we have not yet completed eviction      */
 try|try
 block|{
 name|storedBlock
@@ -937,7 +944,7 @@ name|onEviction
 argument_list|(
 name|key
 argument_list|,
-literal|false
+name|this
 argument_list|)
 expr_stmt|;
 block|}
@@ -966,9 +973,6 @@ block|{
 name|long
 name|milliseconds
 init|=
-operator|(
-name|long
-operator|)
 name|this
 operator|.
 name|timeSinceLastAccess

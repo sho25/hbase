@@ -37,9 +37,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
-operator|.
-name|Entry
+name|List
 import|;
 end_import
 
@@ -49,7 +47,9 @@ name|java
 operator|.
 name|util
 operator|.
-name|List
+name|Map
+operator|.
+name|Entry
 import|;
 end_import
 
@@ -623,7 +623,7 @@ literal|"offheapslabporportions and offheapslabsizes"
 argument_list|)
 throw|;
 block|}
-comment|/* We use BigDecimals instead of floats because float rounding is annoying */
+comment|/*      * We use BigDecimals instead of floats because float rounding is annoying      */
 name|BigDecimal
 index|[]
 name|parsedProportions
@@ -1003,7 +1003,7 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
-comment|/*This will throw a runtime exception if we try to cache the same value twice*/
+comment|/*      * This will throw a runtime exception if we try to cache the same value      * twice      */
 name|scache
 operator|.
 name|cacheBlock
@@ -1013,9 +1013,15 @@ argument_list|,
 name|cachedItem
 argument_list|)
 expr_stmt|;
-comment|/*Spinlock, if we're spinlocking, that means an eviction hasn't taken place yet*/
+comment|/*      * If an eviction for this value hasn't taken place yet, we want to wait for      * it to take place. See HBase-4330.      */
+name|SingleSizeCache
+name|replace
+decl_stmt|;
 while|while
 condition|(
+operator|(
+name|replace
+operator|=
 name|backingStore
 operator|.
 name|putIfAbsent
@@ -1024,13 +1030,52 @@ name|blockName
 argument_list|,
 name|scache
 argument_list|)
+operator|)
 operator|!=
 literal|null
 condition|)
 block|{
-name|Thread
+synchronized|synchronized
+init|(
+name|replace
+init|)
+block|{
+comment|/*          * With the exception of unit tests, this should happen extremely          * rarely.          */
+try|try
+block|{
+name|replace
 operator|.
-name|yield
+name|wait
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"InterruptedException on the caching thread: "
+operator|+
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+comment|/*      * Let the eviction threads know that something has been cached, and let      * them try their hand at eviction      */
+synchronized|synchronized
+init|(
+name|scache
+init|)
+block|{
+name|scache
+operator|.
+name|notifyAll
 argument_list|()
 expr_stmt|;
 block|}
@@ -1159,39 +1204,12 @@ name|String
 name|key
 parameter_list|)
 block|{
-name|stats
-operator|.
-name|evict
-argument_list|()
-expr_stmt|;
-return|return
-name|onEviction
-argument_list|(
-name|key
-argument_list|,
-literal|true
-argument_list|)
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|boolean
-name|onEviction
-parameter_list|(
-name|String
-name|key
-parameter_list|,
-name|boolean
-name|callAssignedCache
-parameter_list|)
-block|{
 name|SingleSizeCache
 name|cacheEntry
 init|=
 name|backingStore
 operator|.
-name|remove
+name|get
 argument_list|(
 name|key
 argument_list|)
@@ -1207,29 +1225,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/* we need to bump up stats.evict, as this call came from the assignedCache. */
-if|if
-condition|(
-name|callAssignedCache
-operator|==
-literal|false
-condition|)
-block|{
-name|stats
-operator|.
-name|evict
-argument_list|()
-expr_stmt|;
-block|}
-name|stats
-operator|.
-name|evicted
-argument_list|()
-expr_stmt|;
-if|if
-condition|(
-name|callAssignedCache
-condition|)
+else|else
 block|{
 name|cacheEntry
 operator|.
@@ -1238,10 +1234,93 @@ argument_list|(
 name|key
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 literal|true
 return|;
+block|}
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|onEviction
+parameter_list|(
+name|String
+name|key
+parameter_list|,
+name|Object
+name|notifier
+parameter_list|)
+block|{
+comment|/*      * Without the while loop below, the following can occur:      *      * Invariant: Anything in SingleSizeCache will have a representation in      * SlabCache, and vice-versa.      *      * Start: Key A is in both SingleSizeCache and SlabCache. Invariant is      * satisfied      *      * Thread A: Caches something, starting eviction of Key A in SingleSizeCache      *      * Thread B: Checks for Key A -> Returns Gets Null, as eviction has begun      *      * Thread B: Recaches Key A, gets to SingleSizeCache, does not get the      * PutIfAbsentLoop yet...      *      * Thread C: Caches another key, starting the second eviction of Key A.      *      * Thread A: does its onEviction, removing the entry of Key A from      * SlabCache.      *      * Thread C: does its onEviction, removing the (blank) entry of Key A from      * SlabCache:      *      * Thread B: goes to putifabsent, and puts its entry into SlabCache.      *      * Result: SlabCache has an entry for A, while SingleSizeCache has no      * entries for A. Invariant is violated.      *      * What the while loop does, is that, at the end, it GUARANTEES that an      * onEviction will remove an entry. See HBase-4482.      */
+name|stats
+operator|.
+name|evict
+argument_list|()
+expr_stmt|;
+while|while
+condition|(
+operator|(
+name|backingStore
+operator|.
+name|remove
+argument_list|(
+name|key
+argument_list|)
+operator|)
+operator|==
+literal|null
+condition|)
+block|{
+comment|/* With the exception of unit tests, this should happen extremely rarely. */
+synchronized|synchronized
+init|(
+name|notifier
+init|)
+block|{
+try|try
+block|{
+name|notifier
+operator|.
+name|wait
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"InterruptedException on the evicting thread: "
+operator|+
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+name|stats
+operator|.
+name|evicted
+argument_list|()
+expr_stmt|;
+comment|/*      * Now we've evicted something, lets tell the caching threads to try to      * cache something.      */
+synchronized|synchronized
+init|(
+name|notifier
+init|)
+block|{
+name|notifier
+operator|.
+name|notifyAll
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Sends a shutdown to all SingleSizeCache's contained by this cache.    *    * Also terminates the scheduleThreadPool.    */
 specifier|public
@@ -1467,7 +1546,8 @@ specifier|static
 class|class
 name|SlabStats
 block|{
-comment|// the maximum size somebody will ever try to cache, then we multiply by 10
+comment|// the maximum size somebody will ever try to cache, then we multiply by
+comment|// 10
 comment|// so we have finer grained stats.
 specifier|final
 name|int
@@ -1598,18 +1678,12 @@ operator|.
 name|E
 argument_list|,
 operator|(
-call|(
-name|double
-call|)
-argument_list|(
+operator|(
 name|index
 operator|+
 literal|0.5
-argument_list|)
-operator|/
-operator|(
-name|double
 operator|)
+operator|/
 name|MULTIPLIER
 operator|)
 argument_list|)
@@ -1632,18 +1706,12 @@ operator|.
 name|E
 argument_list|,
 operator|(
-call|(
-name|double
-call|)
-argument_list|(
+operator|(
 name|index
 operator|-
 literal|0.5
-argument_list|)
-operator|/
-operator|(
-name|double
 operator|)
+operator|/
 name|MULTIPLIER
 operator|)
 argument_list|)

@@ -27,6 +27,18 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertArrayEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertEquals
 import|;
 end_import
@@ -39,7 +51,31 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
 import|;
 end_import
 
@@ -603,9 +639,6 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-operator|(
-name|double
-operator|)
 name|hits
 operator|.
 name|get
@@ -1156,7 +1189,7 @@ literal|0
 init|;
 name|j
 operator|<
-literal|10
+literal|100
 condition|;
 name|j
 operator|++

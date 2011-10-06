@@ -29,15 +29,15 @@ begin_interface
 interface|interface
 name|SlabItemEvictionWatcher
 block|{
-comment|/**    * This is called as a callback by the EvictionListener in each of the    * SingleSizeSlabCaches.    *    * @param key the key of the item being evicted    * @param boolean callAssignedCache whether we should call the cache which the    *        key was originally assigned to.    */
-name|boolean
+comment|/**    * This is called as a callback by the EvictionListener in each of the    * SingleSizeSlabCaches.    *    * @param key the key of the item being evicted    * @param notifier the object notifying the SlabCache of the eviction.    * @param boolean callAssignedCache whether we should call the cache which the    *        key was originally assigned to.    */
+name|void
 name|onEviction
 parameter_list|(
 name|String
 name|key
 parameter_list|,
-name|boolean
-name|callAssignedCache
+name|Object
+name|notifier
 parameter_list|)
 function_decl|;
 block|}
