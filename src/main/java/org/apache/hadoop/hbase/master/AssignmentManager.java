@@ -2982,7 +2982,15 @@ argument_list|()
 operator|+
 literal|", region="
 operator|+
+operator|(
 name|prettyPrintedRegionName
+operator|==
+literal|null
+condition|?
+literal|"null"
+else|:
+name|prettyPrintedRegionName
+operator|)
 operator|+
 operator|(
 name|lateEvent
