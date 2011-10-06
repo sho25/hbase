@@ -322,13 +322,19 @@ argument_list|,
 name|proxy
 argument_list|)
 decl_stmt|;
+synchronized|synchronized
+init|(
+name|this
+init|)
+block|{
 name|tasks
 operator|.
 name|add
-parameter_list|(
+argument_list|(
 name|pair
-parameter_list|)
-constructor_decl|;
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 name|proxy
 return|;
@@ -414,7 +420,12 @@ argument_list|)
 decl_stmt|;
 end_decl_stmt
 
-begin_expr_stmt
+begin_synchronized
+synchronized|synchronized
+init|(
+name|this
+init|)
+block|{
 name|tasks
 operator|.
 name|add
@@ -422,7 +433,8 @@ argument_list|(
 name|pair
 argument_list|)
 expr_stmt|;
-end_expr_stmt
+block|}
+end_synchronized
 
 begin_return
 return|return
@@ -697,11 +709,6 @@ name|MonitoredTask
 argument_list|>
 name|tasks
 init|=
-name|TaskMonitor
-operator|.
-name|get
-argument_list|()
-operator|.
 name|getTasks
 argument_list|()
 decl_stmt|;
