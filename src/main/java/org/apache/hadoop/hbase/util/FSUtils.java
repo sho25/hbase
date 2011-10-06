@@ -4265,7 +4265,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Called when we are creating a table to write out the tables' descriptor.    *     * @param fs    * @param hTableDescriptor    * @param tableDir    * @throws IOException    */
+comment|/**    * Called when we are creating a table to write out the tables' descriptor.    * @param fs    * @param hTableDescriptor    * @param tableDir    * @param forceCreation True if we are to force creation    * @throws IOException    */
 end_comment
 
 begin_function
@@ -4323,6 +4323,13 @@ argument_list|,
 name|HConstants
 operator|.
 name|TABLEINFO_NAME
+operator|+
+literal|"."
+operator|+
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|LOG
@@ -4369,10 +4376,27 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|tmpPath
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 throw|throw
 name|e
 throw|;
 block|}
+comment|// TODO: The below is less than ideal and likely error prone.  There is a
+comment|// better rename in hadoops after 0.20 that takes rename options (this has
+comment|// its own issues according to mighty Todd in that old readers may fail
+comment|// as we cross the renme transition) but until then, we have this
+comment|// forceCreation flag which does a delete and then we rename so there is a
+comment|// hole.  Need to fix.
+try|try
+block|{
 if|if
 condition|(
 name|forceCreation
@@ -4468,6 +4492,19 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+finally|finally
+block|{
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|tmpPath
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 end_function
 
 begin_comment
@@ -4505,24 +4542,29 @@ name|getNameAsString
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|writeHTD
+name|writeTableDescriptor
 argument_list|(
 name|fs
 argument_list|,
-name|tableInfoPath
-argument_list|,
 name|hTableDescriptor
+argument_list|,
+name|tableInfoPath
+operator|.
+name|getParent
+argument_list|()
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"updateHTableDescriptor. Updated tableinfo in HDFS under "
+literal|"Updated tableinfo="
 operator|+
 name|tableInfoPath
 operator|+
-literal|" For HTD => "
+literal|" to "
 operator|+
 name|hTableDescriptor
 operator|.
