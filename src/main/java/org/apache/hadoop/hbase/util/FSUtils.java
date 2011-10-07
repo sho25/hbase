@@ -4404,6 +4404,13 @@ condition|)
 block|{
 if|if
 condition|(
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|tableInfoPath
+argument_list|)
+operator|&&
 operator|!
 name|fs
 operator|.
