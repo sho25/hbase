@@ -129,6 +129,16 @@ name|Test
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|Ignore
+import|;
+end_import
+
 begin_comment
 comment|/**  * Basic test of SlabCache. Puts and gets.  *<p>  *  * Tests will ensure that blocks that are uncached are identical to the ones  * being cached, and that the cache never exceeds its capacity. Note that its  * fine if the cache evicts before it reaches max capacity - Guava Mapmaker may  * choose to evict at any time.  *  */
 end_comment
