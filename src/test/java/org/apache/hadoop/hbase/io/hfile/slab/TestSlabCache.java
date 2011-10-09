@@ -223,6 +223,8 @@ argument_list|()
 expr_stmt|;
 block|}
 annotation|@
+name|Ignore
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -283,6 +285,8 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
+name|Ignore
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -303,6 +307,8 @@ name|NUM_QUERIES
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -329,6 +335,8 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
+name|Ignore
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -352,6 +360,8 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
+name|Ignore
+annotation|@
 name|Test
 specifier|public
 name|void
@@ -374,6 +384,8 @@ name|NUM_QUERIES
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 comment|/*Just checks if ranges overlap*/
@@ -451,6 +463,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
