@@ -765,14 +765,6 @@ name|anyObject
 argument_list|()
 argument_list|,
 operator|(
-name|RegionServerServices
-operator|)
-name|Mockito
-operator|.
-name|anyObject
-argument_list|()
-argument_list|,
-operator|(
 name|HRegion
 operator|)
 name|Mockito
