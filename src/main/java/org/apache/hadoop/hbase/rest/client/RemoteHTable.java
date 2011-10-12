@@ -3521,6 +3521,24 @@ argument_list|)
 throw|;
 block|}
 specifier|public
+name|Result
+name|append
+parameter_list|(
+name|Append
+name|append
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Append not supported"
+argument_list|)
+throw|;
+block|}
+specifier|public
 name|long
 name|incrementColumnValue
 parameter_list|(
