@@ -563,20 +563,6 @@ name|common
 operator|.
 name|collect
 operator|.
-name|Iterables
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
 name|Lists
 import|;
 end_import
@@ -792,11 +778,6 @@ specifier|final
 name|int
 name|blocksize
 decl_stmt|;
-specifier|private
-specifier|final
-name|boolean
-name|blockcache
-decl_stmt|;
 comment|/** Compression algorithm for flush files and minor compaction */
 specifier|private
 specifier|final
@@ -935,15 +916,6 @@ operator|.
 name|conf
 operator|=
 name|conf
-expr_stmt|;
-name|this
-operator|.
-name|blockcache
-operator|=
-name|family
-operator|.
-name|isBlockCacheEnabled
-argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -6237,7 +6209,7 @@ control|(
 name|StoreFile
 name|sf
 range|:
-name|Iterables
+name|Lists
 operator|.
 name|reverse
 argument_list|(
@@ -6432,6 +6404,9 @@ name|HFileScanner
 name|scanner
 init|=
 name|r
+operator|.
+name|getHFileReader
+argument_list|()
 operator|.
 name|getScanner
 argument_list|(
@@ -7890,7 +7865,7 @@ name|SIZEOF_DOUBLE
 operator|)
 operator|+
 operator|(
-literal|6
+literal|7
 operator|*
 name|Bytes
 operator|.
@@ -7898,7 +7873,7 @@ name|SIZEOF_INT
 operator|)
 operator|+
 operator|(
-literal|2
+literal|1
 operator|*
 name|Bytes
 operator|.
