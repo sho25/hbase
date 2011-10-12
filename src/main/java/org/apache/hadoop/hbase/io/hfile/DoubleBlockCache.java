@@ -679,6 +679,25 @@ name|conf
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getBlockCount
+parameter_list|()
+block|{
+return|return
+name|onHeapCache
+operator|.
+name|getBlockCount
+argument_list|()
+operator|+
+name|offHeapCache
+operator|.
+name|getBlockCount
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 

@@ -1280,6 +1280,22 @@ operator|.
 name|stats
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getBlockCount
+parameter_list|()
+block|{
+return|return
+name|numBlocks
+operator|-
+name|backingStore
+operator|.
+name|getBlocksRemaining
+argument_list|()
+return|;
+block|}
 comment|/* Since its offheap, it doesn't matter if its in memory or not */
 annotation|@
 name|Override

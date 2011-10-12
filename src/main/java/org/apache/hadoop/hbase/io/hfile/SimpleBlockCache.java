@@ -452,6 +452,18 @@ name|UnsupportedOperationException
 argument_list|()
 throw|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getBlockCount
+parameter_list|()
+block|{
+comment|// TODO: implement this if we ever actually use this block cache
+return|return
+literal|0
+return|;
+block|}
 block|}
 end_class
 

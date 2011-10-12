@@ -436,11 +436,16 @@ name|WriterFactoryV1
 parameter_list|(
 name|Configuration
 name|conf
+parameter_list|,
+name|CacheConfig
+name|cacheConf
 parameter_list|)
 block|{
 name|super
 argument_list|(
 name|conf
+argument_list|,
+name|cacheConf
 argument_list|)
 expr_stmt|;
 block|}
@@ -465,6 +470,8 @@ name|HFileWriterV1
 argument_list|(
 name|conf
 argument_list|,
+name|cacheConf
+argument_list|,
 name|fs
 argument_list|,
 name|path
@@ -503,6 +510,8 @@ operator|new
 name|HFileWriterV1
 argument_list|(
 name|conf
+argument_list|,
+name|cacheConf
 argument_list|,
 name|fs
 argument_list|,
@@ -546,6 +555,8 @@ operator|new
 name|HFileWriterV1
 argument_list|(
 name|conf
+argument_list|,
+name|cacheConf
 argument_list|,
 name|fs
 argument_list|,
@@ -588,7 +599,7 @@ return|return
 operator|new
 name|HFileWriterV1
 argument_list|(
-name|conf
+name|cacheConf
 argument_list|,
 name|ostream
 argument_list|,
@@ -631,7 +642,7 @@ return|return
 operator|new
 name|HFileWriterV1
 argument_list|(
-name|conf
+name|cacheConf
 argument_list|,
 name|ostream
 argument_list|,
@@ -651,6 +662,9 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
+name|CacheConfig
+name|cacheConf
+parameter_list|,
 name|FileSystem
 name|fs
 parameter_list|,
@@ -663,6 +677,8 @@ block|{
 name|this
 argument_list|(
 name|conf
+argument_list|,
+name|cacheConf
 argument_list|,
 name|fs
 argument_list|,
@@ -687,6 +703,9 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
+name|CacheConfig
+name|cacheConf
+parameter_list|,
 name|FileSystem
 name|fs
 parameter_list|,
@@ -710,6 +729,8 @@ name|this
 argument_list|(
 name|conf
 argument_list|,
+name|cacheConf
+argument_list|,
 name|fs
 argument_list|,
 name|path
@@ -731,6 +752,9 @@ name|HFileWriterV1
 parameter_list|(
 name|Configuration
 name|conf
+parameter_list|,
+name|CacheConfig
+name|cacheConf
 parameter_list|,
 name|FileSystem
 name|fs
@@ -755,7 +779,7 @@ name|IOException
 block|{
 name|super
 argument_list|(
-name|conf
+name|cacheConf
 argument_list|,
 name|createOutputStream
 argument_list|(
@@ -780,8 +804,8 @@ comment|/** Constructor that takes a stream. */
 specifier|public
 name|HFileWriterV1
 parameter_list|(
-name|Configuration
-name|conf
+name|CacheConfig
+name|cacheConf
 parameter_list|,
 specifier|final
 name|FSDataOutputStream
@@ -804,7 +828,7 @@ name|IOException
 block|{
 name|this
 argument_list|(
-name|conf
+name|cacheConf
 argument_list|,
 name|outputStream
 argument_list|,
@@ -825,8 +849,8 @@ comment|/** Constructor that takes a stream. */
 specifier|public
 name|HFileWriterV1
 parameter_list|(
-name|Configuration
-name|conf
+name|CacheConfig
+name|cacheConf
 parameter_list|,
 specifier|final
 name|FSDataOutputStream
@@ -851,7 +875,7 @@ name|IOException
 block|{
 name|super
 argument_list|(
-name|conf
+name|cacheConf
 argument_list|,
 name|outputStream
 argument_list|,
@@ -999,7 +1023,10 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|cacheDataBlocksOnWrite
+name|cacheConf
+operator|.
+name|shouldCacheDataOnWrite
+argument_list|()
 condition|)
 block|{
 name|baosDos
@@ -1016,7 +1043,10 @@ operator|.
 name|toByteArray
 argument_list|()
 decl_stmt|;
-name|blockCache
+name|cacheConf
+operator|.
+name|getBlockCache
+argument_list|()
 operator|.
 name|cacheBlock
 argument_list|(
@@ -1122,7 +1152,10 @@ literal|null
 expr_stmt|;
 if|if
 condition|(
-name|cacheDataBlocksOnWrite
+name|cacheConf
+operator|.
+name|shouldCacheDataOnWrite
+argument_list|()
 condition|)
 block|{
 name|this
@@ -1620,7 +1653,10 @@ expr_stmt|;
 comment|// If we are pre-caching blocks on write, fill byte array stream
 if|if
 condition|(
-name|cacheDataBlocksOnWrite
+name|cacheConf
+operator|.
+name|shouldCacheDataOnWrite
+argument_list|()
 condition|)
 block|{
 name|this

@@ -290,11 +290,11 @@ specifier|final
 name|long
 name|fileSize
 decl_stmt|;
-comment|/** Block cache to use. */
+comment|/** Block cache configuration. */
 specifier|protected
 specifier|final
-name|BlockCache
-name|blockCache
+name|CacheConfig
+name|cacheConf
 decl_stmt|;
 specifier|protected
 name|AtomicLong
@@ -319,19 +319,6 @@ init|=
 operator|new
 name|AtomicLong
 argument_list|()
-decl_stmt|;
-comment|/**    * Whether file is from in-memory store (comes from column family    * configuration).    */
-specifier|protected
-name|boolean
-name|inMemory
-init|=
-literal|false
-decl_stmt|;
-comment|/**    * Whether blocks of file should be evicted from the block cache when the    * file is being closed    */
-specifier|protected
-specifier|final
-name|boolean
-name|evictOnClose
 decl_stmt|;
 comment|/** Path of file */
 specifier|protected
@@ -377,16 +364,8 @@ name|boolean
 name|closeIStream
 parameter_list|,
 specifier|final
-name|BlockCache
-name|blockCache
-parameter_list|,
-specifier|final
-name|boolean
-name|inMemory
-parameter_list|,
-specifier|final
-name|boolean
-name|evictOnClose
+name|CacheConfig
+name|cacheConf
 parameter_list|)
 block|{
 name|this
@@ -406,9 +385,9 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|blockCache
+name|cacheConf
 operator|=
-name|blockCache
+name|cacheConf
 expr_stmt|;
 name|this
 operator|.
@@ -427,18 +406,6 @@ operator|.
 name|closeIStream
 operator|=
 name|closeIStream
-expr_stmt|;
-name|this
-operator|.
-name|inMemory
-operator|=
-name|inMemory
-expr_stmt|;
-name|this
-operator|.
-name|evictOnClose
-operator|=
-name|evictOnClose
 expr_stmt|;
 name|this
 operator|.
@@ -613,9 +580,9 @@ operator|.
 name|getName
 argument_list|()
 operator|+
-literal|", inMemory="
+literal|", cacheConf="
 operator|+
-name|inMemory
+name|cacheConf
 operator|+
 literal|", firstKey="
 operator|+

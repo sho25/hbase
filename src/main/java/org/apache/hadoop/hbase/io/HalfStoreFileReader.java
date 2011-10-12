@@ -121,7 +121,7 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|BlockCache
+name|CacheConfig
 import|;
 end_import
 
@@ -226,8 +226,8 @@ name|Path
 name|p
 parameter_list|,
 specifier|final
-name|BlockCache
-name|c
+name|CacheConfig
+name|cacheConf
 parameter_list|,
 specifier|final
 name|Reference
@@ -242,11 +242,7 @@ name|fs
 argument_list|,
 name|p
 argument_list|,
-name|c
-argument_list|,
-literal|false
-argument_list|,
-literal|false
+name|cacheConf
 argument_list|)
 expr_stmt|;
 comment|// This is not actual midkey for this half-file; its just border

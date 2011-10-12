@@ -1209,11 +1209,11 @@ name|fs
 argument_list|,
 name|file
 argument_list|,
-literal|null
-argument_list|,
-literal|false
-argument_list|,
-literal|false
+operator|new
+name|CacheConfig
+argument_list|(
+name|conf
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|Map

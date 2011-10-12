@@ -187,22 +187,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|StoreFile
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Bytes
@@ -393,27 +377,11 @@ specifier|final
 name|Path
 name|path
 decl_stmt|;
-comment|/** Whether to cache key/value data blocks on write */
+comment|/** Cache configuration for caching data on write. */
 specifier|protected
 specifier|final
-name|boolean
-name|cacheDataBlocksOnWrite
-decl_stmt|;
-comment|/** Whether to cache non-root index blocks on write */
-specifier|protected
-specifier|final
-name|boolean
-name|cacheIndexBlocksOnWrite
-decl_stmt|;
-comment|/** Block cache to optionally fill on write. */
-specifier|protected
-name|BlockCache
-name|blockCache
-decl_stmt|;
-comment|/** Configuration used for block cache initialization */
-specifier|private
-name|Configuration
-name|conf
+name|CacheConfig
+name|cacheConf
 decl_stmt|;
 comment|/**    * Name for this object used when logging or in toString. Is either    * the result of a toString on stream or else toString of passed file Path.    */
 specifier|protected
@@ -424,8 +392,8 @@ decl_stmt|;
 specifier|public
 name|AbstractHFileWriter
 parameter_list|(
-name|Configuration
-name|conf
+name|CacheConfig
+name|cacheConf
 parameter_list|,
 name|FSDataOutputStream
 name|outputStream
@@ -515,42 +483,11 @@ name|path
 operator|!=
 literal|null
 expr_stmt|;
-name|cacheDataBlocksOnWrite
-operator|=
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-name|HFile
-operator|.
-name|CACHE_BLOCKS_ON_WRITE_KEY
-argument_list|,
-literal|false
-argument_list|)
-expr_stmt|;
-name|cacheIndexBlocksOnWrite
-operator|=
-name|HFileBlockIndex
-operator|.
-name|shouldCacheOnWrite
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
-name|conf
+name|cacheConf
 operator|=
-name|conf
-expr_stmt|;
-if|if
-condition|(
-name|cacheDataBlocksOnWrite
-operator|||
-name|cacheIndexBlocksOnWrite
-condition|)
-name|initBlockCache
-argument_list|()
+name|cacheConf
 expr_stmt|;
 block|}
 comment|/**    * Add last bits of metadata to file info before it is written out.    */
@@ -1131,35 +1068,6 @@ argument_list|,
 literal|null
 argument_list|)
 return|;
-block|}
-comment|/** Initializes the block cache to use for cache-on-write */
-specifier|protected
-name|void
-name|initBlockCache
-parameter_list|()
-block|{
-if|if
-condition|(
-name|blockCache
-operator|==
-literal|null
-condition|)
-block|{
-name|blockCache
-operator|=
-name|StoreFile
-operator|.
-name|getBlockCache
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
-name|conf
-operator|=
-literal|null
-expr_stmt|;
-comment|// This is all we need configuration for.
-block|}
 block|}
 block|}
 end_class
