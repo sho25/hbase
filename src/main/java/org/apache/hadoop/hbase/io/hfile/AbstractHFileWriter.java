@@ -383,7 +383,7 @@ specifier|final
 name|CacheConfig
 name|cacheConf
 decl_stmt|;
-comment|/**    * Name for this object used when logging or in toString. Is either    * the result of a toString on stream or else toString of passed file Path.    */
+comment|/**    * Name for this object used when logging or in toString. Is either    * the result of a toString on stream or else name of passed file Path.    */
 specifier|protected
 specifier|final
 name|String

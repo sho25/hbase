@@ -302,7 +302,6 @@ name|inMemory
 decl_stmt|;
 comment|/** Whether data blocks should be cached when new files are written */
 specifier|private
-specifier|final
 name|boolean
 name|cacheDataOnWrite
 decl_stmt|;
@@ -320,7 +319,6 @@ name|cacheBloomsOnWrite
 decl_stmt|;
 comment|/** Whether blocks of a file should be evicted when the file is closed */
 specifier|private
-specifier|final
 name|boolean
 name|evictOnClose
 decl_stmt|;
@@ -675,6 +673,22 @@ operator|.
 name|cacheDataOnWrite
 return|;
 block|}
+comment|/**    * Only used for testing.    * @param cacheDataOnWrite whether data blocks should be written to the cache    *                         when an HFile is written    */
+specifier|public
+name|void
+name|setCacheDataOnWrite
+parameter_list|(
+name|boolean
+name|cacheDataOnWrite
+parameter_list|)
+block|{
+name|this
+operator|.
+name|cacheDataOnWrite
+operator|=
+name|cacheDataOnWrite
+expr_stmt|;
+block|}
 comment|/**    * @return true if index blocks should be written to the cache when an HFile    *         is written, false if not    */
 specifier|public
 name|boolean
@@ -719,6 +733,22 @@ name|this
 operator|.
 name|evictOnClose
 return|;
+block|}
+comment|/**    * Only used for testing.    * @param evictOnClose whether blocks should be evicted from the cache when an    *                     HFile reader is closed    */
+specifier|public
+name|void
+name|setEvictOnClose
+parameter_list|(
+name|boolean
+name|evictOnClose
+parameter_list|)
+block|{
+name|this
+operator|.
+name|evictOnClose
+operator|=
+name|evictOnClose
+expr_stmt|;
 block|}
 comment|/**    * @return true if blocks should be compressed in the cache, false if not    */
 specifier|public
