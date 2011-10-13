@@ -556,26 +556,6 @@ name|e
 throw|;
 block|}
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"The "
-operator|+
-name|retryCounter
-operator|.
-name|getAttemptTimes
-argument_list|()
-operator|+
-literal|" times to retry "
-operator|+
-literal|"ZooKeeper after sleeping "
-operator|+
-name|retryIntervalMillis
-operator|+
-literal|" ms"
-argument_list|)
-expr_stmt|;
 name|retryCounter
 operator|.
 name|sleepUntilNextRetry
@@ -697,26 +677,6 @@ name|e
 throw|;
 block|}
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"The "
-operator|+
-name|retryCounter
-operator|.
-name|getAttemptTimes
-argument_list|()
-operator|+
-literal|" times to retry "
-operator|+
-literal|"ZooKeeper after sleeping "
-operator|+
-name|retryIntervalMillis
-operator|+
-literal|" ms"
-argument_list|)
-expr_stmt|;
 name|retryCounter
 operator|.
 name|sleepUntilNextRetry
@@ -834,26 +794,6 @@ name|e
 throw|;
 block|}
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"The "
-operator|+
-name|retryCounter
-operator|.
-name|getAttemptTimes
-argument_list|()
-operator|+
-literal|" times to retry "
-operator|+
-literal|"ZooKeeper after sleeping "
-operator|+
-name|retryIntervalMillis
-operator|+
-literal|" ms"
-argument_list|)
-expr_stmt|;
 name|retryCounter
 operator|.
 name|sleepUntilNextRetry
@@ -974,26 +914,6 @@ name|e
 throw|;
 block|}
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"The "
-operator|+
-name|retryCounter
-operator|.
-name|getAttemptTimes
-argument_list|()
-operator|+
-literal|" times to retry "
-operator|+
-literal|"ZooKeeper after sleeping "
-operator|+
-name|retryIntervalMillis
-operator|+
-literal|" ms"
-argument_list|)
-expr_stmt|;
 name|retryCounter
 operator|.
 name|sleepUntilNextRetry
@@ -1114,26 +1034,6 @@ name|e
 throw|;
 block|}
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"The "
-operator|+
-name|retryCounter
-operator|.
-name|getAttemptTimes
-argument_list|()
-operator|+
-literal|" times to retry "
-operator|+
-literal|"ZooKeeper after sleeping "
-operator|+
-name|retryIntervalMillis
-operator|+
-literal|" ms"
-argument_list|)
-expr_stmt|;
 name|retryCounter
 operator|.
 name|sleepUntilNextRetry
@@ -1268,26 +1168,6 @@ name|e
 throw|;
 block|}
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"The "
-operator|+
-name|retryCounter
-operator|.
-name|getAttemptTimes
-argument_list|()
-operator|+
-literal|" times to retry "
-operator|+
-literal|"ZooKeeper after sleeping "
-operator|+
-name|retryIntervalMillis
-operator|+
-literal|" ms"
-argument_list|)
-expr_stmt|;
 name|retryCounter
 operator|.
 name|sleepUntilNextRetry
@@ -1422,26 +1302,6 @@ name|e
 throw|;
 block|}
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"The "
-operator|+
-name|retryCounter
-operator|.
-name|getAttemptTimes
-argument_list|()
-operator|+
-literal|" times to retry "
-operator|+
-literal|"ZooKeeper after sleeping "
-operator|+
-name|retryIntervalMillis
-operator|+
-literal|" ms"
-argument_list|)
-expr_stmt|;
 name|retryCounter
 operator|.
 name|sleepUntilNextRetry
@@ -1674,26 +1534,6 @@ name|e
 throw|;
 block|}
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"The "
-operator|+
-name|retryCounter
-operator|.
-name|getAttemptTimes
-argument_list|()
-operator|+
-literal|" times to retry "
-operator|+
-literal|"ZooKeeper after sleeping "
-operator|+
-name|retryIntervalMillis
-operator|+
-literal|" ms"
-argument_list|)
-expr_stmt|;
 name|retryCounter
 operator|.
 name|sleepUntilNextRetry
@@ -2014,26 +1854,6 @@ name|e
 throw|;
 block|}
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"The "
-operator|+
-name|retryCounter
-operator|.
-name|getAttemptTimes
-argument_list|()
-operator|+
-literal|" times to retry "
-operator|+
-literal|"ZooKeeper after sleeping "
-operator|+
-name|retryIntervalMillis
-operator|+
-literal|" ms"
-argument_list|)
-expr_stmt|;
 name|retryCounter
 operator|.
 name|sleepUntilNextRetry
@@ -2213,26 +2033,6 @@ name|e
 throw|;
 block|}
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"The "
-operator|+
-name|retryCounter
-operator|.
-name|getAttemptTimes
-argument_list|()
-operator|+
-literal|" times to retry "
-operator|+
-literal|"ZooKeeper after sleeping "
-operator|+
-name|retryIntervalMillis
-operator|+
-literal|" ms"
-argument_list|)
-expr_stmt|;
 name|retryCounter
 operator|.
 name|sleepUntilNextRetry
