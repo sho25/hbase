@@ -5415,8 +5415,13 @@ argument_list|>
 argument_list|()
 decl_stmt|;
 comment|// Limit to "hbase.hstore.compaction.kv.max" (default 10) to avoid OOME
-while|while
-condition|(
+name|boolean
+name|hasMore
+decl_stmt|;
+do|do
+block|{
+name|hasMore
+operator|=
 name|scanner
 operator|.
 name|next
@@ -5427,8 +5432,7 @@ name|this
 operator|.
 name|compactionKVMax
 argument_list|)
-condition|)
-block|{
+expr_stmt|;
 if|if
 condition|(
 name|writer
@@ -5569,6 +5573,11 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
+do|while
+condition|(
+name|hasMore
+condition|)
+do|;
 block|}
 finally|finally
 block|{
