@@ -1203,6 +1203,9 @@ argument_list|,
 name|metaRegion
 argument_list|,
 name|regionServer
+operator|.
+name|getServerName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|TEST_UTIL
