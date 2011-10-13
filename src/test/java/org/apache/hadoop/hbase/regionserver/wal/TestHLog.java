@@ -371,6 +371,20 @@ name|hadoop
 operator|.
 name|hdfs
 operator|.
+name|DistributedFileSystem
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hdfs
+operator|.
 name|MiniDFSCluster
 import|;
 end_import
@@ -388,8 +402,6 @@ operator|.
 name|protocol
 operator|.
 name|FSConstants
-operator|.
-name|SafeModeAction
 import|;
 end_import
 
@@ -2745,13 +2757,23 @@ decl_stmt|;
 comment|// Stop the cluster.  (ensure restart since we're sharing MiniDFSCluster)
 try|try
 block|{
+name|DistributedFileSystem
+name|dfs
+init|=
+operator|(
+name|DistributedFileSystem
+operator|)
 name|cluster
 operator|.
-name|getNameNode
+name|getFileSystem
 argument_list|()
+decl_stmt|;
+name|dfs
 operator|.
 name|setSafeMode
 argument_list|(
+name|FSConstants
+operator|.
 name|SafeModeAction
 operator|.
 name|SAFEMODE_ENTER

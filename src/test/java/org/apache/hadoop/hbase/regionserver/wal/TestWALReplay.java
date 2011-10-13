@@ -637,15 +637,6 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|setNameNodeNameSystemLeasePeriod
-argument_list|(
-literal|100
-argument_list|,
-literal|10000
-argument_list|)
-expr_stmt|;
 name|Path
 name|hbaseRootDir
 init|=

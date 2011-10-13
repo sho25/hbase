@@ -1009,16 +1009,6 @@ name|activateFailure
 operator|=
 literal|false
 expr_stmt|;
-comment|// Set the soft lease for hdfs to be down from default of 5 minutes or so.
-name|TEST_UTIL
-operator|.
-name|setNameNodeNameSystemLeasePeriod
-argument_list|(
-literal|100
-argument_list|,
-literal|50000
-argument_list|)
-expr_stmt|;
 block|}
 annotation|@
 name|After
