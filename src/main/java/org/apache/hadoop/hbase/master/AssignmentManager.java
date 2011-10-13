@@ -1472,7 +1472,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Used by the client to identify if all regions have the schema updates    *    * @param tableName    * @return Pair indicating the status of the alter command    * @throws IOException    */
+comment|/**    * Used by the client to identify if all regions have the schema updates    *    * @param tableName    * @return Pair indicating the status of the alter command    * @throws IOException    * @throws InterruptedException     */
 specifier|public
 name|Pair
 argument_list|<
@@ -1488,6 +1488,8 @@ name|tableName
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 name|List
 argument_list|<
@@ -7862,7 +7864,6 @@ expr_stmt|;
 comment|// Presume that master has stale data.  Presume remote side just split.
 comment|// Presume that the split message when it comes in will fix up the master's
 comment|// in memory cluster state.
-return|return;
 block|}
 catch|catch
 parameter_list|(
@@ -9113,7 +9114,7 @@ name|results
 init|=
 name|MetaReader
 operator|.
-name|fullScanOfResults
+name|fullScan
 argument_list|(
 name|this
 operator|.
@@ -9173,7 +9174,7 @@ name|region
 init|=
 name|MetaReader
 operator|.
-name|metaRowToRegionPair
+name|parseCatalogResult
 argument_list|(
 name|result
 argument_list|)

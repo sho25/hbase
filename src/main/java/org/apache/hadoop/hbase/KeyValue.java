@@ -3793,6 +3793,7 @@ name|boolean
 name|isDeleteType
 parameter_list|()
 block|{
+comment|// TODO: Fix this method name vis-a-vis isDelete!
 return|return
 name|getType
 argument_list|()

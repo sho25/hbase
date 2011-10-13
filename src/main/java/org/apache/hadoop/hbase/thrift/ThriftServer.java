@@ -1810,7 +1810,7 @@ name|List
 argument_list|<
 name|HRegionInfo
 argument_list|>
-name|HRegions
+name|hris
 init|=
 name|this
 operator|.
@@ -1837,12 +1837,19 @@ name|TRegionInfo
 argument_list|>
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|hris
+operator|!=
+literal|null
+condition|)
+block|{
 for|for
 control|(
 name|HRegionInfo
 name|regionInfo
 range|:
-name|HRegions
+name|hris
 control|)
 block|{
 name|TRegionInfo
@@ -1919,6 +1926,7 @@ argument_list|(
 name|region
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|regions

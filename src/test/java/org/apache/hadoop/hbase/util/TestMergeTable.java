@@ -800,6 +800,13 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Done with merge"
+argument_list|)
+expr_stmt|;
 block|}
 finally|finally
 block|{
@@ -807,6 +814,13 @@ name|UTIL
 operator|.
 name|shutdownMiniCluster
 argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"After cluster shutdown"
+argument_list|)
 expr_stmt|;
 block|}
 block|}

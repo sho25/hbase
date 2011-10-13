@@ -301,7 +301,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|instantiateServer
+name|connect
 parameter_list|(
 name|boolean
 name|reload
@@ -319,7 +319,7 @@ condition|)
 block|{
 name|super
 operator|.
-name|instantiateServer
+name|connect
 argument_list|(
 name|reload
 argument_list|)

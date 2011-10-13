@@ -127,7 +127,7 @@ name|hbase
 operator|.
 name|catalog
 operator|.
-name|MetaEditor
+name|MetaMigrationRemovingHTD
 import|;
 end_import
 
@@ -459,13 +459,15 @@ expr_stmt|;
 name|boolean
 name|metaUpdated
 init|=
+name|MetaMigrationRemovingHTD
+operator|.
+name|isMetaHRIUpdated
+argument_list|(
 name|miniHBaseCluster
 operator|.
 name|getMaster
 argument_list|()
-operator|.
-name|isMetaHRIUpdated
-argument_list|()
+argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
@@ -590,7 +592,7 @@ name|getCatalogTracker
 argument_list|()
 decl_stmt|;
 comment|// just for this test set it to false.
-name|MetaEditor
+name|MetaMigrationRemovingHTD
 operator|.
 name|updateRootWithMetaMigrationStatus
 argument_list|(
@@ -610,7 +612,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"MEta Print completed.testUpdatesOnMetaWithLegacyHRI"
+literal|"Meta Print completed.testUpdatesOnMetaWithLegacyHRI"
 argument_list|)
 expr_stmt|;
 name|List
@@ -619,7 +621,7 @@ name|HTableDescriptor
 argument_list|>
 name|htds
 init|=
-name|MetaEditor
+name|MetaMigrationRemovingHTD
 operator|.
 name|updateMetaWithNewRegionInfo
 argument_list|(
@@ -653,13 +655,15 @@ comment|// Assert that the flag in ROOT is updated to reflect the correct status
 name|boolean
 name|metaUpdated
 init|=
+name|MetaMigrationRemovingHTD
+operator|.
+name|isMetaHRIUpdated
+argument_list|(
 name|miniHBaseCluster
 operator|.
 name|getMaster
 argument_list|()
-operator|.
-name|isMetaHRIUpdated
-argument_list|()
+argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
@@ -778,7 +782,7 @@ name|getCatalogTracker
 argument_list|()
 decl_stmt|;
 comment|// just for this test set it to false.
-name|MetaEditor
+name|MetaMigrationRemovingHTD
 operator|.
 name|updateRootWithMetaMigrationStatus
 argument_list|(
@@ -801,7 +805,7 @@ name|HTableDescriptor
 argument_list|>
 name|htds
 init|=
-name|MetaEditor
+name|MetaMigrationRemovingHTD
 operator|.
 name|updateMetaWithNewRegionInfo
 argument_list|(
@@ -828,13 +832,15 @@ comment|// Assert that the flag in ROOT is updated to reflect the correct status
 name|boolean
 name|metaUpdated
 init|=
+name|MetaMigrationRemovingHTD
+operator|.
+name|isMetaHRIUpdated
+argument_list|(
 name|miniHBaseCluster
 operator|.
 name|getMaster
 argument_list|()
-operator|.
-name|isMetaHRIUpdated
-argument_list|()
+argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(

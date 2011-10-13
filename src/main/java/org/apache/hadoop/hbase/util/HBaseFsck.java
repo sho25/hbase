@@ -4718,7 +4718,7 @@ name|pair
 init|=
 name|MetaReader
 operator|.
-name|metaRowToRegionPair
+name|parseCatalogResult
 argument_list|(
 name|result
 argument_list|)

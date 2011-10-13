@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Copyright 2010 The Apache Software Foundation  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -185,20 +185,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|NotServingRegionException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ServerName
 import|;
 end_import
@@ -370,6 +356,46 @@ specifier|public
 class|class
 name|CatalogTracker
 block|{
+comment|// TODO: This class needs a rethink.  The original intent was that it would be
+comment|// the one-stop-shop for root and meta locations and that it would get this
+comment|// info from reading and watching zk state.  The class was to be used by
+comment|// servers when they needed to know of root and meta movement but also by
+comment|// client-side (inside in HTable) so rather than figure root and meta
+comment|// locations on fault, the client would instead get notifications out of zk.
+comment|//
+comment|// But this original intent is frustrated by the fact that this class has to
+comment|// read an hbase table, the -ROOT- table, to figure out the .META. region
+comment|// location which means we depend on an HConnection.  HConnection will do
+comment|// retrying but also, it has its own mechanism for finding root and meta
+comment|// locations (and for 'verifying'; it tries the location and if it fails, does
+comment|// new lookup, etc.).  So, at least for now, HConnection (or HTable) can't
+comment|// have a CT since CT needs a HConnection (Even then, do want HT to have a CT?
+comment|// For HT keep up a session with ZK?  Rather, shouldn't we do like asynchbase
+comment|// where we'd open a connection to zk, read what we need then let the
+comment|// connection go?).  The 'fix' is make it so both root and meta addresses
+comment|// are wholey up in zk -- not in zk (root) -- and in an hbase table (meta).
+comment|//
+comment|// But even then, this class does 'verification' of the location and it does
+comment|// this by making a call over an HConnection (which will do its own root
+comment|// and meta lookups).  Isn't this verification 'useless' since when we
+comment|// return, whatever is dependent on the result of this call then needs to
+comment|// use HConnection; what we have verified may change in meantime (HConnection
+comment|// uses the CT primitives, the root and meta trackers finding root locations).
+comment|//
+comment|// When meta is moved to zk, this class may make more sense.  In the
+comment|// meantime, it does not cohere.  It should just watch meta and root and not
+comment|// NOT do verification -- let that be out in HConnection since its going to
+comment|// be done there ultimately anyways.
+comment|//
+comment|// This class has spread throughout the codebase.  It needs to be reigned in.
+comment|// This class should be used server-side only, even if we move meta location
+comment|// up into zk.  Currently its used over in the client package. Its used in
+comment|// MetaReader and MetaEditor classes usually just to get the Configuration
+comment|// its using (It does this indirectly by asking its HConnection for its
+comment|// Configuration and even then this is just used to get an HConnection out on
+comment|// the other end). I made https://issues.apache.org/jira/browse/HBASE-4495 for
+comment|// doing CT fixup. St.Ack 09/30/2011.
+comment|//
 specifier|private
 specifier|static
 specifier|final
@@ -384,11 +410,6 @@ name|CatalogTracker
 operator|.
 name|class
 argument_list|)
-decl_stmt|;
-specifier|private
-specifier|final
-name|Configuration
-name|conf
 decl_stmt|;
 specifier|private
 specifier|final
@@ -421,11 +442,18 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
-comment|/**    * Do not clear this address once set.  Its needed when we do    * server shutdown processing -- we need to know who had .META. last.  If you    * want to know if the address is good, rely on {@link #metaAvailable} value.    */
+specifier|private
+name|boolean
+name|instantiatedzkw
+init|=
+literal|false
+decl_stmt|;
+comment|/*    * Do not clear this address once set.  Its needed when we do    * server shutdown processing -- we need to know who had .META. last.  If you    * want to know if the address is good, rely on {@link #metaAvailable} value.    */
 specifier|private
 name|ServerName
 name|metaLocation
 decl_stmt|;
+comment|/*    * Timeout waiting on root or meta to be set.    */
 specifier|private
 specifier|final
 name|int
@@ -437,12 +465,11 @@ name|stopped
 init|=
 literal|false
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|byte
 index|[]
-name|ROOT_REGION
+name|ROOT_REGION_NAME
 init|=
 name|HRegionInfo
 operator|.
@@ -451,12 +478,11 @@ operator|.
 name|getRegionName
 argument_list|()
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|byte
 index|[]
-name|META_REGION
+name|META_REGION_NAME
 init|=
 name|HRegionInfo
 operator|.
@@ -465,7 +491,7 @@ operator|.
 name|getRegionName
 argument_list|()
 decl_stmt|;
-comment|/**    * Constructs a catalog tracker. Find current state of catalog tables and    * begin active tracking by executing {@link #start()} post construction. Does    * not timeout.    *    * @param conf    *          the {@link Configuration} from which a {@link HConnection} will be    *          obtained; if problem, this connections    *          {@link HConnection#abort(String, Throwable)} will be called.    * @throws IOException    */
+comment|/**    * Constructs a catalog tracker. Find current state of catalog tables.    * Begin active tracking by executing {@link #start()} post construction. Does    * not timeout.    *    * @param conf    *          the {@link Configuration} from which a {@link HConnection} will be    *          obtained; if problem, this connections    *          {@link HConnection#abort(String, Throwable)} will be called.    * @throws IOException    */
 specifier|public
 name|CatalogTracker
 parameter_list|(
@@ -486,7 +512,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructs the catalog tracker.  Find current state of catalog tables and    * begin active tracking by executing {@link #start()} post construction.    * Does not timeout.    * @param zk    * @param connection server connection    * @param abortable if fatal exception    * @throws IOException     */
+comment|/**    * Constructs the catalog tracker.  Find current state of catalog tables.    * Begin active tracking by executing {@link #start()} post construction.    * Does not timeout.    * @param zk If zk is null, we'll create an instance (and shut it down    * when {@link #stop()} is called) else we'll use what is passed.    * @param connection server connection    * @param abortable If fatal exception we'll call abort on this.  May be null.    * If it is we'll use the Connection associated with the passed    * {@link Configuration} as our Abortable.    * @throws IOException     */
 specifier|public
 name|CatalogTracker
 parameter_list|(
@@ -513,11 +539,18 @@ name|conf
 argument_list|,
 name|abortable
 argument_list|,
-literal|0
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.catalogtracker.default.timeout"
+argument_list|,
+literal|1000
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructs the catalog tracker.  Find current state of catalog tables and    * begin active tracking by executing {@link #start()} post construction.    * @param zk    * @param connection server connection    * @param abortable if fatal exception    * @param defaultTimeout Timeout to use.  Pass zero for no timeout    * ({@link Object#wait(long)} when passed a<code>0</code> waits for ever).    * @throws IOException     */
+comment|/**    * Constructs the catalog tracker.  Find current state of catalog tables.    * Begin active tracking by executing {@link #start()} post construction.    * @param zk If zk is null, we'll create an instance (and shut it down    * when {@link #stop()} is called) else we'll use what is passed.    * @param conf    * @param abortable If fatal exception we'll call abort on this.  May be null.    * If it is we'll use the Connection associated with the passed    * {@link Configuration} as our Abortable.    * @param defaultTimeout Timeout to use.  Pass zero for no timeout    * ({@link Object#wait(long)} when passed a<code>0</code> waits for ever).    * @throws IOException    */
 specifier|public
 name|CatalogTracker
 parameter_list|(
@@ -583,34 +616,9 @@ name|IOException
 block|{
 name|this
 operator|.
-name|conf
-operator|=
-name|conf
-expr_stmt|;
-name|this
-operator|.
 name|connection
 operator|=
 name|connection
-expr_stmt|;
-name|this
-operator|.
-name|zookeeper
-operator|=
-operator|(
-name|zk
-operator|==
-literal|null
-operator|)
-condition|?
-name|this
-operator|.
-name|connection
-operator|.
-name|getZooKeeperWatcher
-argument_list|()
-else|:
-name|zk
 expr_stmt|;
 if|if
 condition|(
@@ -619,11 +627,53 @@ operator|==
 literal|null
 condition|)
 block|{
+comment|// A connection is abortable.
 name|abortable
 operator|=
 name|this
 operator|.
 name|connection
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|zk
+operator|==
+literal|null
+condition|)
+block|{
+comment|// Create our own.  Set flag so we tear it down on stop.
+name|this
+operator|.
+name|zookeeper
+operator|=
+operator|new
+name|ZooKeeperWatcher
+argument_list|(
+name|conf
+argument_list|,
+literal|"catalogtracker-on-"
+operator|+
+name|connection
+operator|.
+name|toString
+argument_list|()
+argument_list|,
+name|abortable
+argument_list|)
+expr_stmt|;
+name|instantiatedzkw
+operator|=
+literal|true
+expr_stmt|;
+block|}
+else|else
+block|{
+name|this
+operator|.
+name|zookeeper
+operator|=
+name|zk
 expr_stmt|;
 block|}
 name|this
@@ -638,6 +688,13 @@ argument_list|,
 name|abortable
 argument_list|)
 expr_stmt|;
+specifier|final
+name|CatalogTracker
+name|ct
+init|=
+name|this
+decl_stmt|;
+comment|// Override nodeDeleted so we get notified when meta node deleted
 name|this
 operator|.
 name|metaNodeTracker
@@ -647,10 +704,35 @@ name|MetaNodeTracker
 argument_list|(
 name|zookeeper
 argument_list|,
-name|this
-argument_list|,
 name|abortable
 argument_list|)
+block|{
+specifier|public
+name|void
+name|nodeDeleted
+parameter_list|(
+name|String
+name|path
+parameter_list|)
+block|{
+if|if
+condition|(
+operator|!
+name|path
+operator|.
+name|equals
+argument_list|(
+name|node
+argument_list|)
+condition|)
+return|return;
+name|ct
+operator|.
+name|resetMetaLocation
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 expr_stmt|;
 name|this
 operator|.
@@ -669,6 +751,15 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Starting catalog tracker "
+operator|+
+name|this
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|rootRegionTracker
@@ -682,15 +773,6 @@ name|metaNodeTracker
 operator|.
 name|start
 argument_list|()
-expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Starting catalog tracker "
-operator|+
-name|this
-argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Stop working.    * Interrupts any ongoing waits.    */
@@ -774,6 +856,21 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|this
+operator|.
+name|instantiatedzkw
+condition|)
+block|{
+name|this
+operator|.
+name|zookeeper
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 comment|// Call this and it will interrupt any ongoing waits on meta.
 synchronized|synchronized
 init|(
@@ -792,7 +889,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Gets the current location for<code>-ROOT-</code> or null if location is    * not currently available.    * @return server name    * @throws InterruptedException     */
+comment|/**    * Gets the current location for<code>-ROOT-</code> or null if location is    * not currently available.    * @return {@link ServerName} for server hosting<code>-ROOT-</code> or null    * if none available    * @throws InterruptedException     */
 specifier|public
 name|ServerName
 name|getRootLocation
@@ -809,7 +906,7 @@ name|getRootRegionLocation
 argument_list|()
 return|;
 block|}
-comment|/**    * @return Location of server hosting meta region formatted as per    * {@link ServerName}, or null if none available    */
+comment|/**    * @return {@link ServerName} for server hosting<code>.META.</code> or null    * if none available    */
 specifier|public
 name|ServerName
 name|getMetaLocation
@@ -837,7 +934,7 @@ name|blockUntilAvailable
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Gets the current location for<code>-ROOT-</code> if available and waits    * for up to the specified timeout if not immediately available.  Returns null    * if the timeout elapses before root is available.    * @param timeout maximum time to wait for root availability, in milliseconds    * @return Location of server hosting root region or null if none available    * @throws InterruptedException if interrupted while waiting    * @throws NotAllMetaRegionsOnlineException if root not available before    * timeout    */
+comment|/**    * Gets the current location for<code>-ROOT-</code> if available and waits    * for up to the specified timeout if not immediately available.  Returns null    * if the timeout elapses before root is available.    * @param timeout maximum time to wait for root availability, in milliseconds    * @return {@link ServerName} for server hosting<code>-ROOT-</code> or null    * if none available    * @throws InterruptedException if interrupted while waiting    * @throws NotAllMetaRegionsOnlineException if root not available before    * timeout    */
 name|ServerName
 name|waitForRoot
 parameter_list|(
@@ -883,10 +980,31 @@ return|return
 name|sn
 return|;
 block|}
-comment|/**    * Gets a connection to the server hosting root, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    * @see #waitForRoot(long) for additional information    * @return connection to server hosting root    * @throws InterruptedException    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    */
+comment|/**    * Gets a connection to the server hosting root, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    * @param timeout How long to wait on root location    * @see #waitForRoot(long) for additional information    * @return connection to server hosting root    * @throws InterruptedException    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    * @deprecated Use {@link #getRootServerConnection(long)}    */
 specifier|public
 name|HRegionInterface
 name|waitForRootServerConnection
+parameter_list|(
+name|long
+name|timeout
+parameter_list|)
+throws|throws
+name|InterruptedException
+throws|,
+name|NotAllMetaRegionsOnlineException
+throws|,
+name|IOException
+block|{
+return|return
+name|getRootServerConnection
+argument_list|(
+name|timeout
+argument_list|)
+return|;
+block|}
+comment|/**    * Gets a connection to the server hosting root, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    *<p>WARNING: Does not retry.  Use an {@link HTable} instead.    * @param timeout How long to wait on root location    * @see #waitForRoot(long) for additional information    * @return connection to server hosting root    * @throws InterruptedException    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    */
+name|HRegionInterface
+name|getRootServerConnection
 parameter_list|(
 name|long
 name|timeout
@@ -908,7 +1026,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets a connection to the server hosting root, as reported by ZooKeeper,    * waiting for the default timeout specified on instantiation.    * @see #waitForRoot(long) for additional information    * @return connection to server hosting root    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    */
+comment|/**    * Gets a connection to the server hosting root, as reported by ZooKeeper,    * waiting for the default timeout specified on instantiation.    * @see #waitForRoot(long) for additional information    * @return connection to server hosting root    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    * @deprecated Use {@link #getRootServerConnection(long)}    */
 specifier|public
 name|HRegionInterface
 name|waitForRootServerConnectionDefault
@@ -921,12 +1039,11 @@ block|{
 try|try
 block|{
 return|return
-name|getCachedConnection
+name|getRootServerConnection
 argument_list|(
-name|waitForRoot
-argument_list|(
+name|this
+operator|.
 name|defaultTimeout
-argument_list|)
 argument_list|)
 return|;
 block|}
@@ -944,33 +1061,6 @@ literal|"Interrupted"
 argument_list|)
 throw|;
 block|}
-block|}
-comment|/**    * Gets a connection to the server hosting root, as reported by ZooKeeper,    * if available.  Returns null if no location is immediately available.    * @return connection to server hosting root, null if not available    * @throws IOException    * @throws InterruptedException    */
-specifier|private
-name|HRegionInterface
-name|getRootServerConnection
-parameter_list|()
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
-block|{
-name|ServerName
-name|sn
-init|=
-name|this
-operator|.
-name|rootRegionTracker
-operator|.
-name|getRootRegionLocation
-argument_list|()
-decl_stmt|;
-return|return
-name|getCachedConnection
-argument_list|(
-name|sn
-argument_list|)
-return|;
 block|}
 comment|/**    * Gets a connection to the server currently hosting<code>.META.</code> or    * null if location is not currently available.    *<p>    * If a location is known, a connection to the cached location is returned.    * If refresh is true, the cached connection is verified first before    * returning.  If the connection is not valid, it is reset and rechecked.    *<p>    * If no location for meta is currently known, method checks ROOT for a new    * location, verifies META is currently there, and returns a cached connection    * to the server hosting META.    *    * @return connection to server hosting meta, null if location not available    * @throws IOException    * @throws InterruptedException    */
 specifier|private
@@ -1005,6 +1095,8 @@ operator|.
 name|metaLocation
 argument_list|)
 decl_stmt|;
+comment|// If we are to refresh, verify we have a good connection by making
+comment|// an invocation on it.
 if|if
 condition|(
 name|verifyRegionLocation
@@ -1015,7 +1107,7 @@ name|this
 operator|.
 name|metaLocation
 argument_list|,
-name|META_REGION
+name|META_REGION_NAME
 argument_list|)
 condition|)
 block|{
@@ -1027,38 +1119,21 @@ name|resetMetaLocation
 argument_list|()
 expr_stmt|;
 block|}
-name|HRegionInterface
-name|rootConnection
-init|=
-name|getRootServerConnection
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|rootConnection
-operator|==
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"-ROOT- server unavailable."
-argument_list|)
-expr_stmt|;
-return|return
-literal|null
-return|;
-block|}
+comment|// We got here because there is no meta available or because whats
+comment|// available is bad.
+comment|// Now read the current .META. content from -ROOT-.  Note: This goes via
+comment|// an HConnection.  It has its own way of figuring root and meta locations
+comment|// which we have to wait on.
 name|ServerName
 name|newLocation
 init|=
 name|MetaReader
 operator|.
-name|readMetaLocation
+name|readRegionLocation
 argument_list|(
-name|rootConnection
+name|this
+argument_list|,
+name|META_REGION_NAME
 argument_list|)
 decl_stmt|;
 if|if
@@ -1095,7 +1170,7 @@ name|newConnection
 argument_list|,
 name|newLocation
 argument_list|,
-name|META_REGION
+name|META_REGION_NAME
 argument_list|)
 condition|)
 block|{
@@ -1133,7 +1208,7 @@ literal|null
 return|;
 block|}
 block|}
-comment|/**    * Waits indefinitely for availability of<code>.META.</code>.  Used during    * cluster startup.    * @throws InterruptedException if interrupted while waiting    */
+comment|/**    * Waits indefinitely for availability of<code>.META.</code>.  Used during    * cluster startup.  Does not verify meta, just that something has been    * set up in zk.    * @see #waitForMeta(long)    * @throws InterruptedException if interrupted while waiting    */
 specifier|public
 name|void
 name|waitForMeta
@@ -1141,32 +1216,62 @@ parameter_list|()
 throws|throws
 name|InterruptedException
 block|{
-synchronized|synchronized
-init|(
-name|metaAvailable
-init|)
-block|{
 while|while
 condition|(
 operator|!
-name|stopped
-operator|&&
-operator|!
-name|metaAvailable
+name|this
 operator|.
-name|get
-argument_list|()
+name|stopped
 condition|)
 block|{
-name|metaAvailable
+try|try
+block|{
+if|if
+condition|(
+name|waitForMeta
+argument_list|(
+literal|100
+argument_list|)
+operator|!=
+literal|null
+condition|)
+break|break;
+block|}
+catch|catch
+parameter_list|(
+name|NotAllMetaRegionsOnlineException
+name|e
+parameter_list|)
+block|{
+name|LOG
 operator|.
-name|wait
-argument_list|()
+name|info
+argument_list|(
+literal|"Retrying"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Retrying"
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Gets the current location for<code>.META.</code> if available and waits    * for up to the specified timeout if not immediately available.  Throws an    * exception if timed out waiting.  This method differs from {@link #waitForMeta()}    * in that it will go ahead and verify the location gotten from ZooKeeper and    * -ROOT- region by trying to use returned connection.    * @param timeout maximum time to wait for meta availability, in milliseconds    * @return location of meta    * @throws InterruptedException if interrupted while waiting    * @throws IOException unexpected exception connecting to meta server    * @throws NotAllMetaRegionsOnlineException if meta not available before    * timeout    */
+comment|/**    * Gets the current location for<code>.META.</code> if available and waits    * for up to the specified timeout if not immediately available.  Throws an    * exception if timed out waiting.  This method differs from {@link #waitForMeta()}    * in that it will go ahead and verify the location gotten from ZooKeeper and    * -ROOT- region by trying to use returned connection.    * @param timeout maximum time to wait for meta availability, in milliseconds    * @return {@link ServerName} for server hosting<code>.META.</code> or null    * if none available    * @throws InterruptedException if interrupted while waiting    * @throws IOException unexpected exception connecting to meta server    * @throws NotAllMetaRegionsOnlineException if meta not available before    * timeout    */
 specifier|public
 name|ServerName
 name|waitForMeta
@@ -1273,7 +1378,7 @@ name|metaLocation
 return|;
 block|}
 block|}
-comment|/**    * Gets a connection to the server hosting meta, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    * @see #waitForMeta(long) for additional information    * @return connection to server hosting meta    * @throws InterruptedException    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    */
+comment|/**    * Gets a connection to the server hosting meta, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    * @see #waitForMeta(long) for additional information    * @return connection to server hosting meta    * @throws InterruptedException    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    * @deprecated Does not retry; use an HTable instance instead.    */
 specifier|public
 name|HRegionInterface
 name|waitForMetaServerConnection
@@ -1298,7 +1403,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets a connection to the server hosting meta, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    * @see #waitForMeta(long) for additional information    * @return connection to server hosting meta    * @throws NotAllMetaRegionsOnlineException if timed out or interrupted    * @throws IOException    */
+comment|/**    * Gets a connection to the server hosting meta, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    * Used in tests.    * @see #waitForMeta(long) for additional information    * @return connection to server hosting meta    * @throws NotAllMetaRegionsOnlineException if timed out or interrupted    * @throws IOException    * @deprecated Does not retry; use an HTable instance instead.    */
 specifier|public
 name|HRegionInterface
 name|waitForMetaServerConnectionDefault
@@ -1335,7 +1440,8 @@ argument_list|)
 throw|;
 block|}
 block|}
-specifier|private
+comment|/**    * Called when we figure current meta is off (called from zk callback).    */
+specifier|public
 name|void
 name|resetMetaLocation
 parameter_list|()
@@ -1344,13 +1450,20 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Current cached META location: "
+literal|"Current cached META location, "
 operator|+
 name|metaLocation
 operator|+
-literal|" is not valid, resetting"
+literal|", is not valid, resetting"
 argument_list|)
 expr_stmt|;
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|metaAvailable
+init|)
+block|{
 name|this
 operator|.
 name|metaAvailable
@@ -1360,7 +1473,16 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|metaAvailable
+operator|.
+name|notifyAll
+argument_list|()
+expr_stmt|;
 block|}
+block|}
+comment|/**    * Caller must be synchronized on this.metaAvailable    * @param metaLocation    */
 specifier|private
 name|void
 name|setMetaLocation
@@ -1401,6 +1523,7 @@ name|notifyAll
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * @param sn ServerName to get a connection against.    * @return The HRegionInterface we got when we connected to<code>sn</code>    * May have come from cache, may not be good, may have been setup by this    * invocation, or may be null.    * @throws IOException    */
 specifier|private
 name|HRegionInterface
 name|getCachedConnection
@@ -1597,17 +1720,23 @@ return|return
 name|protocol
 return|;
 block|}
+comment|/**    * Verify we can connect to<code>hostingServer</code> and that its carrying    *<code>regionName</code>.    * @param hostingServer Interface to the server hosting<code>regionName</code>    * @param serverName The servername that goes with the<code>metaServer</code>    * Interface.  Used logging.    * @param regionName The regionname we are interested in.    * @return True if we were able to verify the region located at other side of    * the Interface.    * @throws IOException    */
+comment|// TODO: We should be able to get the ServerName from the HRegionInterface
+comment|// rather than have to pass it in.  Its made awkward by the fact that the
+comment|// HRI is likely a proxy against remote server so the getServerName needs
+comment|// to be fixed to go to a local method or to a cache before we can do this.
 specifier|private
 name|boolean
 name|verifyRegionLocation
 parameter_list|(
 name|HRegionInterface
-name|metaServer
+name|hostingServer
 parameter_list|,
 specifier|final
 name|ServerName
 name|address
 parameter_list|,
+specifier|final
 name|byte
 index|[]
 name|regionName
@@ -1617,7 +1746,7 @@ name|IOException
 block|{
 if|if
 condition|(
-name|metaServer
+name|hostingServer
 operator|==
 literal|null
 condition|)
@@ -1626,7 +1755,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Passed metaserver is null"
+literal|"Passed hostingServer is null"
 argument_list|)
 expr_stmt|;
 return|return
@@ -1640,8 +1769,9 @@ literal|null
 decl_stmt|;
 try|try
 block|{
+comment|// Try and get regioninfo from the hosting server.
 return|return
-name|metaServer
+name|hostingServer
 operator|.
 name|getRegionInfo
 argument_list|(
@@ -1840,12 +1970,7 @@ operator|.
 name|getRootRegionLocation
 argument_list|()
 argument_list|,
-name|HRegionInfo
-operator|.
-name|ROOT_REGIONINFO
-operator|.
-name|getRegionName
-argument_list|()
+name|ROOT_REGION_NAME
 argument_list|)
 return|;
 block|}
@@ -1900,6 +2025,7 @@ operator|!=
 literal|null
 return|;
 block|}
+comment|// Used by tests.
 name|MetaNodeTracker
 name|getMetaNodeTracker
 parameter_list|()

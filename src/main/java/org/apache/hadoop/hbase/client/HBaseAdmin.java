@@ -479,22 +479,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|coprocessor
-operator|.
-name|ObserverContext
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|ipc
 operator|.
 name|HMasterInterface
@@ -5791,7 +5775,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * get the regions of a given table.    *    * @param tableName the name of the table    * @return Ordered list of {@link HRegionInfo}.   *     * @throws IOException    */
+comment|/**    * get the regions of a given table.    *    * @param tableName the name of the table    * @return Ordered list of {@link HRegionInfo}.    * @throws IOException    */
 specifier|public
 name|List
 argument_list|<
@@ -5818,6 +5802,8 @@ argument_list|<
 name|HRegionInfo
 argument_list|>
 name|Regions
+init|=
+literal|null
 decl_stmt|;
 try|try
 block|{

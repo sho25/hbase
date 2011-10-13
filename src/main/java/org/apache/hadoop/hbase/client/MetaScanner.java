@@ -836,7 +836,12 @@ literal|" for max="
 operator|+
 name|rowUpperLimit
 operator|+
-literal|" rows"
+literal|" rows using "
+operator|+
+name|connection
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

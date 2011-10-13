@@ -12583,7 +12583,17 @@ name|HConstants
 operator|.
 name|CATALOG_FAMILY
 argument_list|,
-name|HConstants
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|catalog
+operator|.
+name|MetaMigrationRemovingHTD
 operator|.
 name|META_MIGRATION_QUALIFIER
 argument_list|,
@@ -12596,7 +12606,7 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"true"
+literal|true
 argument_list|)
 argument_list|)
 argument_list|)

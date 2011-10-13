@@ -616,7 +616,9 @@ argument_list|<
 name|HRegionInfo
 argument_list|>
 name|regionsInMeta
-init|=
+decl_stmt|;
+name|regionsInMeta
+operator|=
 name|MetaReader
 operator|.
 name|getTableRegions
@@ -629,7 +631,7 @@ name|tableName
 argument_list|,
 literal|true
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|int
 name|countOfRegionsInTable
 init|=

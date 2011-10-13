@@ -126,7 +126,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Abstract class that implements Callable, used by retryable actions.  * @param<T> the class that the ServerCallable handles  */
+comment|/**  * Abstract class that implements {@link Callable}.  Implementation stipulates  * return type and method we actually invoke on remote Server.  Usually  * used inside a try/catch that fields usual connection failures all wrapped  * up in a retry loop.  *<p>Call {@link #connect(boolean)} to connect to server hosting region  * that contains the passed row in the passed table before invoking  * {@link #call()}.  * @see HConnection#getRegionServerWithoutRetries(ServerCallable)  * @param<T> the class that the ServerCallable handles  */
 end_comment
 
 begin_class
@@ -178,7 +178,7 @@ name|startTime
 decl_stmt|,
 name|endTime
 decl_stmt|;
-comment|/**    * @param connection connection callable is on    * @param tableName table name callable is on    * @param row row we are querying    */
+comment|/**    * @param connection Connection to use.    * @param tableName Table name to which<code>row</code> belongs.    * @param row The row we want in<code>tableName</code>.    */
 specifier|public
 name|ServerCallable
 parameter_list|(
@@ -251,11 +251,12 @@ operator|=
 name|callTimeout
 expr_stmt|;
 block|}
-comment|/**    *    * @param reload set this to true if connection should re-find the region    * @throws IOException e    */
+comment|/**    * Connect to the server hosting region with row from tablename.    * @param reload Set this to true if connection should re-find the region    * @throws IOException e    */
 specifier|public
 name|void
-name|instantiateServer
+name|connect
 parameter_list|(
+specifier|final
 name|boolean
 name|reload
 parameter_list|)
@@ -297,7 +298,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** @return the server name */
+comment|/** @return the server name    * @deprecated Just use {@link #toString()} instead.    */
 specifier|public
 name|String
 name|getServerName
@@ -309,11 +310,9 @@ name|location
 operator|==
 literal|null
 condition|)
-block|{
 return|return
 literal|null
 return|;
-block|}
 return|return
 name|location
 operator|.
@@ -321,7 +320,7 @@ name|getHostnamePort
 argument_list|()
 return|;
 block|}
-comment|/** @return the region name */
+comment|/** @return the region name    * @deprecated Just use {@link #toString()} instead.    */
 specifier|public
 name|byte
 index|[]
@@ -334,11 +333,9 @@ name|location
 operator|==
 literal|null
 condition|)
-block|{
 return|return
 literal|null
 return|;
-block|}
 return|return
 name|location
 operator|.
@@ -349,7 +346,7 @@ name|getRegionName
 argument_list|()
 return|;
 block|}
-comment|/** @return the row */
+comment|/** @return the row    * @deprecated Just use {@link #toString()} instead.    */
 specifier|public
 name|byte
 index|[]
