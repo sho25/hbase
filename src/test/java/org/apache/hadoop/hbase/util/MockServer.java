@@ -13,9 +13,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|handler
+name|util
 package|;
 end_package
 
@@ -164,6 +162,7 @@ comment|/**  * Basic mock Server for handler tests.  */
 end_comment
 
 begin_class
+specifier|public
 class|class
 name|MockServer
 implements|implements
@@ -218,7 +217,7 @@ name|SuppressWarnings
 argument_list|(
 literal|"unused"
 argument_list|)
-specifier|private
+specifier|public
 name|MockServer
 parameter_list|()
 throws|throws
@@ -233,6 +232,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
 name|MockServer
 parameter_list|(
 specifier|final
@@ -253,6 +253,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @param htu Testing utility to use    * @param zkw If true, create a zkw.    * @throws ZooKeeperConnectionException    * @throws IOException    */
+specifier|public
 name|MockServer
 parameter_list|(
 specifier|final

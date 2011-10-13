@@ -7207,8 +7207,8 @@ parameter_list|,
 name|HRegion
 name|region
 parameter_list|,
-name|HRegionServer
-name|regionServer
+name|ServerName
+name|serverName
 parameter_list|)
 throws|throws
 name|ZooKeeperConnectionException
@@ -7295,10 +7295,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 argument_list|,
-name|regionServer
-operator|.
-name|getServerName
-argument_list|()
+name|serverName
 argument_list|)
 expr_stmt|;
 name|int
@@ -7315,10 +7312,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 argument_list|,
-name|regionServer
-operator|.
-name|getServerName
-argument_list|()
+name|serverName
 argument_list|)
 decl_stmt|;
 name|ZKAssign
@@ -7332,10 +7326,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 argument_list|,
-name|regionServer
-operator|.
-name|getServerName
-argument_list|()
+name|serverName
 argument_list|,
 name|version
 argument_list|)

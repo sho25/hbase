@@ -13,9 +13,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|handler
+name|util
 package|;
 end_package
 
@@ -268,6 +266,7 @@ comment|/**  * Basic mock region server services.  */
 end_comment
 
 begin_class
+specifier|public
 class|class
 name|MockRegionServerServices
 implements|implements
