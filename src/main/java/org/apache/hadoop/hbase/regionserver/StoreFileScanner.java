@@ -230,6 +230,15 @@ specifier|private
 name|KeyValue
 name|delayedSeekKV
 decl_stmt|;
+comment|//The variable, realSeekDone, may cheat on store file scanner for the
+comment|// multi-column bloom-filter optimization.
+comment|// So this flag shows whether this storeFileScanner could do a reseek.
+specifier|private
+name|boolean
+name|isReseekable
+init|=
+literal|false
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -469,6 +478,12 @@ return|return
 literal|false
 return|;
 block|}
+name|this
+operator|.
+name|isReseekable
+operator|=
+literal|true
+expr_stmt|;
 name|cur
 operator|=
 name|hfs
@@ -995,6 +1010,10 @@ return|return;
 if|if
 condition|(
 name|delayedReseek
+operator|&&
+name|this
+operator|.
+name|isReseekable
 condition|)
 block|{
 name|reseek

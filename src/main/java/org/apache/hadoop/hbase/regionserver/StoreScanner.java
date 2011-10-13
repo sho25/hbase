@@ -407,6 +407,8 @@ argument_list|)
 decl_stmt|;
 comment|// Seek all scanners to the start of the Row (or if the exact matching row
 comment|// key does not exist, then to the start of the next matching Row).
+comment|// Always check bloom filter to optimize the top row seek for delete
+comment|// family marker.
 if|if
 condition|(
 name|explicitColumnQuery
@@ -433,7 +435,7 @@ argument_list|()
 argument_list|,
 literal|false
 argument_list|,
-name|useRowColBloom
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
