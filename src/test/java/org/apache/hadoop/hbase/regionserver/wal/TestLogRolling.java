@@ -499,6 +499,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|JVMClusterUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hdfs
 operator|.
 name|DFSClient
@@ -2784,7 +2800,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|10000
+literal|1000
 argument_list|)
 expr_stmt|;
 name|dfsCluster
@@ -2799,7 +2815,6 @@ argument_list|(
 literal|"Data Nodes restarted"
 argument_list|)
 expr_stmt|;
-comment|//this.log.sync();
 comment|// this write should succeed, but trigger a log roll
 name|writeData
 argument_list|(
@@ -2829,7 +2844,6 @@ operator|>
 name|curTime
 argument_list|)
 expr_stmt|;
-comment|//this.log.sync();
 name|writeData
 argument_list|(
 name|table
@@ -2847,7 +2861,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|10000
+literal|1000
 argument_list|)
 expr_stmt|;
 name|dfsCluster
@@ -3217,6 +3231,35 @@ name|scanner
 operator|.
 name|close
 argument_list|()
+expr_stmt|;
+block|}
+comment|// verify that no region servers aborted
+for|for
+control|(
+name|JVMClusterUtil
+operator|.
+name|RegionServerThread
+name|rsThread
+range|:
+name|TEST_UTIL
+operator|.
+name|getHBaseCluster
+argument_list|()
+operator|.
+name|getRegionServerThreads
+argument_list|()
+control|)
+block|{
+name|assertFalse
+argument_list|(
+name|rsThread
+operator|.
+name|getRegionServer
+argument_list|()
+operator|.
+name|isAborted
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 block|}

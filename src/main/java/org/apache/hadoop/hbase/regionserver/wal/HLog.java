@@ -767,6 +767,10 @@ init|=
 literal|0
 decl_stmt|;
 specifier|private
+name|long
+name|lastDeferredTxid
+decl_stmt|;
+specifier|private
 specifier|final
 name|Path
 name|oldLogDir
@@ -3494,6 +3498,10 @@ condition|(
 name|errors
 operator|<=
 name|closeErrorsTolerated
+operator|&&
+operator|!
+name|hasDeferredEntries
+argument_list|()
 condition|)
 block|{
 name|LOG
@@ -3508,6 +3516,20 @@ expr_stmt|;
 block|}
 else|else
 block|{
+if|if
+condition|(
+name|hasDeferredEntries
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Aborting due to unflushed edits in HLog"
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Failed close of log file.  Means we're losing edits.  For now,
 comment|// shut ourselves down to minimize loss.  Alternative is to try and
 comment|// keep going.  See HBASE-930.
@@ -4312,6 +4334,19 @@ operator|.
 name|incrementAndGet
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|htd
+operator|.
+name|isDeferredLogFlush
+argument_list|()
+condition|)
+block|{
+name|lastDeferredTxid
+operator|=
+name|txid
+expr_stmt|;
+block|}
 block|}
 comment|// Sync if catalog region, and if not then check if that table supports
 comment|// deferred log flushing
@@ -4551,6 +4586,19 @@ operator|.
 name|incrementAndGet
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|htd
+operator|.
+name|isDeferredLogFlush
+argument_list|()
+condition|)
+block|{
+name|lastDeferredTxid
+operator|=
+name|txid
+expr_stmt|;
+block|}
 block|}
 comment|// Sync if catalog region, and if not then check if that table supports
 comment|// deferred log flushing
@@ -7513,6 +7561,23 @@ parameter_list|()
 block|{
 return|return
 name|coprocessorHost
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/** Provide access to currently deferred sequence num for tests */
+end_comment
+
+begin_function
+name|boolean
+name|hasDeferredEntries
+parameter_list|()
+block|{
+return|return
+name|lastDeferredTxid
+operator|>
+name|syncedTillHere
 return|;
 block|}
 end_function
