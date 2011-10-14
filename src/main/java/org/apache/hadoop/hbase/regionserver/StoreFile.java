@@ -2198,12 +2198,15 @@ operator|.
 name|reader
 return|;
 block|}
-comment|/**    * @throws IOException    */
+comment|/**    * @param b     * @throws IOException    */
 specifier|public
 specifier|synchronized
 name|void
 name|closeReader
-parameter_list|()
+parameter_list|(
+name|boolean
+name|evictOnClose
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -2221,7 +2224,9 @@ operator|.
 name|reader
 operator|.
 name|close
-argument_list|()
+argument_list|(
+name|evictOnClose
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -2240,7 +2245,9 @@ throws|throws
 name|IOException
 block|{
 name|closeReader
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -3919,14 +3926,19 @@ block|}
 specifier|public
 name|void
 name|close
-parameter_list|()
+parameter_list|(
+name|boolean
+name|evictOnClose
+parameter_list|)
 throws|throws
 name|IOException
 block|{
 name|reader
 operator|.
 name|close
-argument_list|()
+argument_list|(
+name|evictOnClose
+argument_list|)
 expr_stmt|;
 block|}
 specifier|public

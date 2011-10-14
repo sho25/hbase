@@ -1605,8 +1605,11 @@ block|}
 name|r
 operator|.
 name|close
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
+comment|// end of test so evictOnClose
 block|}
 specifier|private
 name|boolean

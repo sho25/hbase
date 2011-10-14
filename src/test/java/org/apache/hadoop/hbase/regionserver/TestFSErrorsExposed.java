@@ -687,8 +687,11 @@ block|}
 name|reader
 operator|.
 name|close
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
+comment|// end of test so evictOnClose
 block|}
 comment|/**    * Injects errors into the pread calls of an on-disk file, and makes    * sure those bubble up to the StoreFileScanner    */
 annotation|@

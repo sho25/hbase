@@ -2643,7 +2643,12 @@ condition|)
 name|halfReader
 operator|.
 name|close
+argument_list|(
+name|cacheConf
+operator|.
+name|shouldEvictOnClose
 argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 block|}

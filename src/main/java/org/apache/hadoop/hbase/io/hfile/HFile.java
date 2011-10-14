@@ -1097,6 +1097,16 @@ name|Path
 name|getPath
 parameter_list|()
 function_decl|;
+comment|/** Close method with optional evictOnClose */
+name|void
+name|close
+parameter_list|(
+name|boolean
+name|evictOnClose
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 specifier|private
 specifier|static

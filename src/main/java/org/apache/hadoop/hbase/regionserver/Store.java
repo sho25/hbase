@@ -2192,7 +2192,9 @@ block|{
 name|f
 operator|.
 name|closeReader
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 name|LOG
@@ -5728,7 +5730,9 @@ block|{
 name|storeFile
 operator|.
 name|closeReader
-argument_list|()
+argument_list|(
+literal|false
+argument_list|)
 expr_stmt|;
 block|}
 block|}

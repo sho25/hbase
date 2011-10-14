@@ -2447,8 +2447,11 @@ block|{
 name|top
 operator|.
 name|close
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
+comment|// evict since we are about to delete the file
 block|}
 if|if
 condition|(
@@ -2460,8 +2463,11 @@ block|{
 name|bottom
 operator|.
 name|close
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
+comment|// evict since we are about to delete the file
 block|}
 name|fs
 operator|.
@@ -2792,8 +2798,11 @@ block|}
 name|reader
 operator|.
 name|close
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
+comment|// evict because we are about to delete the file
 name|fs
 operator|.
 name|delete
@@ -3554,8 +3563,11 @@ block|}
 name|reader
 operator|.
 name|close
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
+comment|// evict because we are about to delete the file
 name|fs
 operator|.
 name|delete
@@ -4905,7 +4917,12 @@ expr_stmt|;
 name|reader
 operator|.
 name|close
+argument_list|(
+name|cacheConf
+operator|.
+name|shouldEvictOnClose
 argument_list|()
+argument_list|)
 expr_stmt|;
 comment|// Now write a StoreFile with three blocks, with cache on write on
 name|conf
@@ -5058,7 +5075,12 @@ expr_stmt|;
 name|reader
 operator|.
 name|close
+argument_list|(
+name|cacheConf
+operator|.
+name|shouldEvictOnClose
 argument_list|()
+argument_list|)
 expr_stmt|;
 comment|// Let's read back the two files to ensure the blocks exactly match
 name|hsf
@@ -5351,7 +5373,12 @@ expr_stmt|;
 name|readerOne
 operator|.
 name|close
+argument_list|(
+name|cacheConf
+operator|.
+name|shouldEvictOnClose
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|scannerTwo
 operator|.
@@ -5361,7 +5388,12 @@ expr_stmt|;
 name|readerTwo
 operator|.
 name|close
+argument_list|(
+name|cacheConf
+operator|.
+name|shouldEvictOnClose
 argument_list|()
+argument_list|)
 expr_stmt|;
 comment|// Let's close the first file with evict on close turned on
 name|conf
@@ -5413,7 +5445,12 @@ expr_stmt|;
 name|reader
 operator|.
 name|close
+argument_list|(
+name|cacheConf
+operator|.
+name|shouldEvictOnClose
 argument_list|()
+argument_list|)
 expr_stmt|;
 comment|// We should have 3 new evictions
 name|assertEquals
@@ -5502,7 +5539,12 @@ expr_stmt|;
 name|reader
 operator|.
 name|close
+argument_list|(
+name|cacheConf
+operator|.
+name|shouldEvictOnClose
 argument_list|()
+argument_list|)
 expr_stmt|;
 comment|// We expect no changes
 name|assertEquals
