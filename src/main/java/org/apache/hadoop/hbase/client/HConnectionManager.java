@@ -6456,35 +6456,11 @@ if|if
 condition|(
 name|list
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|==
-literal|0
 condition|)
 block|{
 return|return;
-block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"expecting "
-operator|+
-name|results
-operator|.
-name|length
-operator|+
-literal|" results"
-argument_list|)
-expr_stmt|;
 block|}
 comment|// Keep track of the most recent servers for any given item for better
 comment|// exceptional reporting.  We keep HRegionLocation to save on parsing.
