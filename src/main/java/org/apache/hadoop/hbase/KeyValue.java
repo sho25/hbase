@@ -635,6 +635,7 @@ literal|0
 decl_stmt|;
 comment|// the row cached
 specifier|private
+specifier|volatile
 name|byte
 index|[]
 name|rowCache
@@ -3622,14 +3623,18 @@ init|=
 name|getRowLength
 argument_list|()
 decl_stmt|;
-name|rowCache
-operator|=
+comment|// initialize and copy the data into a local variable
+comment|// in case multiple threads race here.
+name|byte
+name|local
+index|[]
+init|=
 operator|new
 name|byte
 index|[
 name|l
 index|]
-expr_stmt|;
+decl_stmt|;
 name|System
 operator|.
 name|arraycopy
@@ -3639,13 +3644,18 @@ argument_list|()
 argument_list|,
 name|o
 argument_list|,
-name|rowCache
+name|local
 argument_list|,
 literal|0
 argument_list|,
 name|l
 argument_list|)
 expr_stmt|;
+name|rowCache
+operator|=
+name|local
+expr_stmt|;
+comment|// volatile assign
 block|}
 return|return
 name|rowCache
