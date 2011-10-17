@@ -1324,13 +1324,33 @@ operator|.
 name|rsServices
 argument_list|)
 decl_stmt|;
+comment|// This is the point of no return.  Adding subsequent edits to .META. as we
+comment|// do below when we do the daughter opens adding each to .META. can fail in
+comment|// various interesting ways the most interesting of which is a timeout
+comment|// BUT the edits all go through (See HBASE-3872).  IF we reach the PONR
+comment|// then subsequent failures need to crash out this regionserver; the
+comment|// server shutdown processing should be able to fix-up the incomplete split.
+comment|// The offlined parent will have the daughters as extra columns.  If
+comment|// we leave the daughter regions in place and do not remove them when we
+comment|// crash out, then they will have their references to the parent in place
+comment|// still and the server shutdown fixup of .META. will point to these
+comment|// regions.
+comment|// We should add PONR JournalEntry before offlineParentInMeta,so even if
+comment|// OfflineParentInMeta timeout,this will cause regionserver exit,and then
+comment|// master ServerShutdownHandler will fix daughter& avoid data loss. (See
+comment|// HBase-4562).
+name|this
+operator|.
+name|journal
+operator|.
+name|add
+argument_list|(
+name|JournalEntry
+operator|.
+name|PONR
+argument_list|)
+expr_stmt|;
 comment|// Edit parent in meta.  Offlines parent region and adds splita and splitb.
-comment|// TODO: This can 'fail' by timing out against .META. but the edits could
-comment|// be applied anyways over on the server.  There is no way to tell for sure.
-comment|// We could try and get the edits again subsequent to their application
-comment|// whether we fail or not but that could fail too.  We should probably move
-comment|// the PONR to here before the edits go in but could mean we'd abort the
-comment|// regionserver when we didn't need to; i.e. the edits did not make it in.
 if|if
 condition|(
 operator|!
@@ -1400,28 +1420,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// This is the point of no return.  Adding subsequent edits to .META. as we
-comment|// do below when we do the daughter opens adding each to .META. can fail in
-comment|// various interesting ways the most interesting of which is a timeout
-comment|// BUT the edits all go through (See HBASE-3872).  IF we reach the PONR
-comment|// then subsequent failures need to crash out this regionserver; the
-comment|// server shutdown processing should be able to fix-up the incomplete split.
-comment|// The offlined parent will have the daughters as extra columns.  If
-comment|// we leave the daughter regions in place and do not remove them when we
-comment|// crash out, then they will have their references to the parent in place
-comment|// still and the server shutdown fixup of .META. will point to these
-comment|// regions.
-name|this
-operator|.
-name|journal
-operator|.
-name|add
-argument_list|(
-name|JournalEntry
-operator|.
-name|PONR
-argument_list|)
-expr_stmt|;
 name|boolean
 name|stopped
 init|=
