@@ -1165,6 +1165,12 @@ name|StoreFile
 argument_list|>
 name|hstoreFilesToSplit
 init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+name|hstoreFilesToSplit
+operator|=
 name|this
 operator|.
 name|parent
@@ -1173,7 +1179,7 @@ name|close
 argument_list|(
 literal|false
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 name|hstoreFilesToSplit
@@ -1196,6 +1202,9 @@ literal|"another thread"
 argument_list|)
 throw|;
 block|}
+block|}
+finally|finally
+block|{
 name|this
 operator|.
 name|journal
@@ -1207,6 +1216,7 @@ operator|.
 name|CLOSED_PARENT_REGION
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 operator|!
