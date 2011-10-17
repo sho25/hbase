@@ -1609,7 +1609,6 @@ operator|+
 literal|"ms"
 argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
 operator|!
@@ -1639,6 +1638,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|// Put back on the queue.  Have it come back out of the queue
 comment|// after a delay of this.blockingWaitTime / 100 ms.

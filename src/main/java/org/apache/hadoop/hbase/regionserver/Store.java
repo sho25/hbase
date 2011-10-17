@@ -4757,6 +4757,16 @@ name|debug
 argument_list|(
 name|this
 operator|.
+name|getHRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" - "
+operator|+
+name|this
+operator|.
 name|storeNameStr
 operator|+
 literal|": no store files to compact"
