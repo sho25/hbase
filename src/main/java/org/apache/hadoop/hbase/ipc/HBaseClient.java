@@ -153,27 +153,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Hashtable
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Iterator
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
 import|;
 end_import
 
@@ -186,18 +166,6 @@ operator|.
 name|Map
 operator|.
 name|Entry
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|ConcurrentHashMap
 import|;
 end_import
 
@@ -224,20 +192,6 @@ operator|.
 name|atomic
 operator|.
 name|AtomicBoolean
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicInteger
 import|;
 end_import
 
@@ -2266,6 +2220,10 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+comment|// See HBaseServer.Call.setResponse for where we write out the response.
+comment|// It writes the call.id (int), a flag byte, then optionally the length
+comment|// of the response (int) followed by data.
+comment|// Read the call id.
 name|int
 name|id
 init|=
@@ -2274,7 +2232,6 @@ operator|.
 name|readInt
 argument_list|()
 decl_stmt|;
-comment|// try to read an id
 if|if
 condition|(
 name|LOG
@@ -2304,15 +2261,42 @@ argument_list|(
 name|id
 argument_list|)
 decl_stmt|;
-name|boolean
-name|isError
+comment|// Read the flag byte
+name|byte
+name|flag
 init|=
 name|in
 operator|.
-name|readBoolean
+name|readByte
 argument_list|()
 decl_stmt|;
-comment|// read if error
+name|boolean
+name|isError
+init|=
+name|ResponseFlag
+operator|.
+name|isError
+argument_list|(
+name|flag
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|ResponseFlag
+operator|.
+name|isLength
+argument_list|(
+name|flag
+argument_list|)
+condition|)
+block|{
+comment|// Currently length if present is unused.
+name|in
+operator|.
+name|readInt
+argument_list|()
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|isError

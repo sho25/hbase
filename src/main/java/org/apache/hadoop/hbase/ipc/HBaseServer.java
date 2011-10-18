@@ -1481,9 +1481,13 @@ name|Bytes
 operator|.
 name|SIZEOF_BYTE
 operator|+
+operator|(
+literal|2
+operator|*
 name|Bytes
 operator|.
 name|SIZEOF_INT
+operator|)
 decl_stmt|;
 if|if
 condition|(
@@ -1557,6 +1561,7 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
+comment|// Call id.
 name|out
 operator|.
 name|writeInt
@@ -1566,17 +1571,42 @@ operator|.
 name|id
 argument_list|)
 expr_stmt|;
-comment|// write call id
-name|out
-operator|.
-name|writeBoolean
-argument_list|(
+comment|// Write flag.
+name|byte
+name|flag
+init|=
+operator|(
 name|error
 operator|!=
 literal|null
+operator|)
+condition|?
+name|ResponseFlag
+operator|.
+name|getErrorAndLengthSet
+argument_list|()
+else|:
+name|ResponseFlag
+operator|.
+name|getLengthSetOnly
+argument_list|()
+decl_stmt|;
+name|out
+operator|.
+name|writeByte
+argument_list|(
+name|flag
 argument_list|)
 expr_stmt|;
-comment|// write error flag
+comment|// Place holder for length set later below after we
+comment|// fill the buffer with data.
+name|out
+operator|.
+name|writeInt
+argument_list|(
+literal|0xdeadbeef
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -1659,14 +1689,58 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-name|this
-operator|.
-name|response
-operator|=
+comment|// Set the length into the ByteBuffer after call id and after
+comment|// byte flag.
+name|ByteBuffer
+name|bb
+init|=
 name|buf
 operator|.
 name|getByteBuffer
 argument_list|()
+decl_stmt|;
+name|int
+name|bufSiz
+init|=
+name|bb
+operator|.
+name|remaining
+argument_list|()
+decl_stmt|;
+comment|// Move to the size location in our ByteBuffer past call.id
+comment|// and past the byte flag.
+name|bb
+operator|.
+name|position
+argument_list|(
+name|Bytes
+operator|.
+name|SIZEOF_INT
+operator|+
+name|Bytes
+operator|.
+name|SIZEOF_BYTE
+argument_list|)
+expr_stmt|;
+name|bb
+operator|.
+name|putInt
+argument_list|(
+name|bufSiz
+argument_list|)
+expr_stmt|;
+name|bb
+operator|.
+name|position
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|response
+operator|=
+name|bb
 expr_stmt|;
 block|}
 annotation|@
