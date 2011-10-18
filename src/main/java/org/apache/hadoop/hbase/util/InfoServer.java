@@ -202,10 +202,7 @@ name|port
 argument_list|,
 name|findPort
 argument_list|,
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
+name|c
 argument_list|)
 expr_stmt|;
 name|this
