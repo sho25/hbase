@@ -41,6 +41,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|DeleteTracker
+operator|.
+name|DeleteResult
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -215,11 +233,11 @@ expr_stmt|;
 block|}
 comment|// missing else is never called.
 block|}
-comment|/**    * Check if the specified KeyValue buffer has been deleted by a previously    * seen delete.    *    * @param buffer KeyValue buffer    * @param qualifierOffset column qualifier offset    * @param qualifierLength column qualifier length    * @param timestamp timestamp    * @return true is the specified KeyValue is deleted, false if not    */
+comment|/**    * Check if the specified KeyValue buffer has been deleted by a previously    * seen delete.    *    * @param buffer KeyValue buffer    * @param qualifierOffset column qualifier offset    * @param qualifierLength column qualifier length    * @param timestamp timestamp    * @return deleteResult    */
 annotation|@
 name|Override
 specifier|public
-name|boolean
+name|DeleteResult
 name|isDeleted
 parameter_list|(
 name|byte
@@ -244,7 +262,9 @@ name|familyStamp
 condition|)
 block|{
 return|return
-literal|true
+name|DeleteResult
+operator|.
+name|FAMILY_DELETED
 return|;
 block|}
 if|if
@@ -296,7 +316,9 @@ argument_list|()
 condition|)
 block|{
 return|return
-literal|true
+name|DeleteResult
+operator|.
+name|COLUMN_DELETED
 return|;
 block|}
 comment|// Delete (aka DeleteVersion)
@@ -309,7 +331,9 @@ name|deleteTimestamp
 condition|)
 block|{
 return|return
-literal|true
+name|DeleteResult
+operator|.
+name|VERSION_DELETED
 return|;
 block|}
 comment|// use assert or not?
@@ -382,7 +406,9 @@ throw|;
 block|}
 block|}
 return|return
-literal|false
+name|DeleteResult
+operator|.
+name|NOT_DELETED
 return|;
 block|}
 annotation|@

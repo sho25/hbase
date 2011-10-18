@@ -1874,7 +1874,7 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-comment|// Baseline expected blocks read: 6.
+comment|// Baseline expected blocks read: 4. [HBASE-4585]
 name|kvs
 operator|=
 name|getData
@@ -1885,7 +1885,7 @@ literal|"row"
 argument_list|,
 literal|"col1"
 argument_list|,
-literal|6
+literal|4
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1907,7 +1907,7 @@ literal|"row"
 argument_list|,
 literal|"col2"
 argument_list|,
-literal|6
+literal|5
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1929,7 +1929,7 @@ literal|"row"
 argument_list|,
 literal|"col3"
 argument_list|,
-literal|6
+literal|4
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1960,7 +1960,7 @@ argument_list|,
 literal|"col3"
 argument_list|)
 argument_list|,
-literal|6
+literal|5
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -2027,7 +2027,7 @@ operator|.
 name|flushcache
 argument_list|()
 expr_stmt|;
-comment|// Baseline expected blocks read: 10
+comment|// Baseline expected blocks read: 8. [HBASE-4585]
 name|kvs
 operator|=
 name|getData
@@ -2047,7 +2047,7 @@ argument_list|,
 literal|"col3"
 argument_list|)
 argument_list|,
-literal|10
+literal|8
 argument_list|)
 expr_stmt|;
 name|assertEquals

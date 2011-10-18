@@ -48,9 +48,9 @@ name|byte
 name|type
 parameter_list|)
 function_decl|;
-comment|/**    * Check if the specified KeyValue buffer has been deleted by a previously    * seen delete.    * @param buffer KeyValue buffer    * @param qualifierOffset column qualifier offset    * @param qualifierLength column qualifier length    * @param timestamp timestamp    * @return true is the specified KeyValue is deleted, false if not    */
+comment|/**    * Check if the specified KeyValue buffer has been deleted by a previously    * seen delete.    * @param buffer KeyValue buffer    * @param qualifierOffset column qualifier offset    * @param qualifierLength column qualifier length    * @param timestamp timestamp    * @return deleteResult The result tells whether the KeyValue is deleted and why    */
 specifier|public
-name|boolean
+name|DeleteResult
 name|isDeleted
 parameter_list|(
 name|byte
@@ -100,6 +100,23 @@ block|,
 name|NEXT_OLD
 block|,
 name|NEXT_NEW
+block|}
+comment|/**    * Returns codes for delete result.    * The codes tell the ScanQueryMatcher whether the kv is deleted and why.    * Based on the delete result, the ScanQueryMatcher will decide the next    * operation    */
+specifier|public
+specifier|static
+enum|enum
+name|DeleteResult
+block|{
+name|FAMILY_DELETED
+block|,
+comment|// The KeyValue is deleted by a delete family.
+name|COLUMN_DELETED
+block|,
+comment|// The KeyValue is deleted by a delete column.
+name|VERSION_DELETED
+block|,
+comment|// The KeyValue is deleted by a version delete.
+name|NOT_DELETED
 block|}
 block|}
 end_interface
