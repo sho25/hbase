@@ -2998,6 +2998,8 @@ name|ClassSize
 operator|.
 name|align
 argument_list|(
+literal|2
+operator|*
 name|blockName
 operator|.
 name|length

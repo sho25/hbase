@@ -99,18 +99,30 @@ comment|/** Data block, both versions */
 name|DATA
 argument_list|(
 literal|"DATABLK*"
+argument_list|,
+name|BlockCategory
+operator|.
+name|DATA
 argument_list|)
 block|,
 comment|/** Version 2 leaf index block. Appears in the data block section */
 name|LEAF_INDEX
 argument_list|(
 literal|"IDXLEAF2"
+argument_list|,
+name|BlockCategory
+operator|.
+name|INDEX
 argument_list|)
 block|,
 comment|/** Bloom filter block, version 2 */
 name|BLOOM_CHUNK
 argument_list|(
 literal|"BLMFBLK2"
+argument_list|,
+name|BlockCategory
+operator|.
+name|BLOOM
 argument_list|)
 block|,
 comment|// Non-scanned block section
@@ -118,12 +130,20 @@ comment|/** Meta blocks */
 name|META
 argument_list|(
 literal|"METABLKc"
+argument_list|,
+name|BlockCategory
+operator|.
+name|META
 argument_list|)
 block|,
 comment|/** Intermediate-level version 2 index in the non-data block section */
 name|INTERMEDIATE_INDEX
 argument_list|(
 literal|"IDXINTE2"
+argument_list|,
+name|BlockCategory
+operator|.
+name|INDEX
 argument_list|)
 block|,
 comment|// Load-on-open section.
@@ -131,18 +151,30 @@ comment|/** Root index block, also used for the single-level meta index, version
 name|ROOT_INDEX
 argument_list|(
 literal|"IDXROOT2"
+argument_list|,
+name|BlockCategory
+operator|.
+name|INDEX
 argument_list|)
 block|,
 comment|/** File info, version 2 */
 name|FILE_INFO
 argument_list|(
 literal|"FILEINF2"
+argument_list|,
+name|BlockCategory
+operator|.
+name|META
 argument_list|)
 block|,
 comment|/** Bloom filter metadata, version 2 */
 name|BLOOM_META
 argument_list|(
 literal|"BLMFMET2"
+argument_list|,
+name|BlockCategory
+operator|.
+name|BLOOM
 argument_list|)
 block|,
 comment|// Trailer
@@ -150,6 +182,10 @@ comment|/** Fixed file trailer, both versions (always just a magic string) */
 name|TRAILER
 argument_list|(
 literal|"TRABLK\"$"
+argument_list|,
+name|BlockCategory
+operator|.
+name|META
 argument_list|)
 block|,
 comment|// Legacy blocks
@@ -157,8 +193,24 @@ comment|/** Block index magic string in version 1 */
 name|INDEX_V1
 argument_list|(
 literal|"IDXBLK)+"
+argument_list|,
+name|BlockCategory
+operator|.
+name|INDEX
 argument_list|)
 block|;
+specifier|public
+enum|enum
+name|BlockCategory
+block|{
+name|DATA
+block|,
+name|META
+block|,
+name|INDEX
+block|,
+name|BLOOM
+block|}
 specifier|public
 specifier|static
 specifier|final
@@ -174,10 +226,18 @@ index|[]
 name|magic
 decl_stmt|;
 specifier|private
+specifier|final
+name|BlockCategory
+name|metricCat
+decl_stmt|;
+specifier|private
 name|BlockType
 parameter_list|(
 name|String
 name|magicStr
+parameter_list|,
+name|BlockCategory
+name|metricCat
 parameter_list|)
 block|{
 name|magic
@@ -188,6 +248,12 @@ name|toBytes
 argument_list|(
 name|magicStr
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|metricCat
+operator|=
+name|metricCat
 expr_stmt|;
 assert|assert
 name|magic
@@ -248,6 +314,18 @@ argument_list|(
 name|magic
 argument_list|)
 expr_stmt|;
+block|}
+specifier|public
+name|String
+name|getMetricName
+parameter_list|()
+block|{
+return|return
+name|metricCat
+operator|.
+name|toString
+argument_list|()
+return|;
 block|}
 specifier|public
 specifier|static

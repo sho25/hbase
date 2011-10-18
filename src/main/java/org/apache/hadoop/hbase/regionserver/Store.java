@@ -2711,6 +2711,27 @@ operator|.
 name|getTotalUncompressedBytes
 argument_list|()
 expr_stmt|;
+comment|// This increments the metrics associated with total flushed bytes for this
+comment|// family. The overall flush count is stored in the static metrics and
+comment|// retrieved from HRegion.recentFlushes, which is set within
+comment|// HRegion.internalFlushcache, which indirectly calls this to actually do
+comment|// the flushing through the StoreFlusherImpl class
+name|HRegion
+operator|.
+name|incrNumericPersistentMetric
+argument_list|(
+literal|"cf."
+operator|+
+name|this
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|".flushSize"
+argument_list|,
+name|flushed
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|LOG
@@ -5328,6 +5349,8 @@ argument_list|,
 literal|false
 argument_list|,
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 comment|// Make the instantiation lazy in case compaction produces no product; i.e.
@@ -6568,6 +6591,8 @@ argument_list|(
 literal|true
 argument_list|,
 literal|true
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 comment|// Seek scanner.  If can't seek it, return.
@@ -7637,6 +7662,20 @@ expr_stmt|;
 block|}
 return|return
 name|size
+return|;
+block|}
+comment|/**    * @return The size of this store's memstore, in bytes    */
+name|long
+name|getMemStoreSize
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|memstore
+operator|.
+name|heapSize
+argument_list|()
 return|;
 block|}
 comment|/**    * @return The priority that this store should have in the compaction queue    */

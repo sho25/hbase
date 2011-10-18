@@ -604,6 +604,10 @@ name|Path
 name|getPath
 parameter_list|()
 function_decl|;
+name|String
+name|getColumnFamilyName
+parameter_list|()
+function_decl|;
 name|void
 name|appendMetaBlock
 parameter_list|(

@@ -218,6 +218,12 @@ name|accessTime
 operator|=
 name|accessTime
 expr_stmt|;
+comment|// We approximate the size of this class by the size of its name string
+comment|// plus the size of its byte buffer plus the overhead associated with all
+comment|// the base classes. Strings have two bytes per character due to default
+comment|// Java unicode encoding (hence the times 2). We also include the base class
+comment|// sizes in the PER_BLOCK_OVERHEAD variable rather than align()ing them with
+comment|// their buffer lengths. This variable is used elsewhere in unit tests.
 name|this
 operator|.
 name|size
@@ -226,6 +232,8 @@ name|ClassSize
 operator|.
 name|align
 argument_list|(
+literal|2
+operator|*
 name|blockName
 operator|.
 name|length

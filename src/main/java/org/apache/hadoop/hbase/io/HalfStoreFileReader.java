@@ -299,6 +299,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|pread
+parameter_list|,
+specifier|final
+name|boolean
+name|isCompaction
 parameter_list|)
 block|{
 specifier|final
@@ -312,6 +316,8 @@ argument_list|(
 name|cacheBlocks
 argument_list|,
 name|pread
+argument_list|,
+name|isCompaction
 argument_list|)
 decl_stmt|;
 return|return
