@@ -101,7 +101,7 @@ parameter_list|()
 block|{
 return|return
 name|LENGTH_BIT
-operator|&
+operator||
 name|ERROR_BIT
 return|;
 block|}
