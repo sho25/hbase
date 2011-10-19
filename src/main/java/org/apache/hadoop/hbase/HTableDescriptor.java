@@ -222,7 +222,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HTableDescriptor contains the name of an HTable, and its  * column families.  */
+comment|/**  * HTableDescriptor contains the details about an HBase table  such as the descriptors of  * all the column families, is the table a catalog table,<code> -ROOT-</code> or   *<code> .META.</code>, is the table is read only, the maximum size of the memstore,   * when the region split should occur, coprocessors associated with it etc...  */
 end_comment
 
 begin_class
@@ -235,11 +235,8 @@ argument_list|<
 name|HTableDescriptor
 argument_list|>
 block|{
-comment|// Changes prior to version 3 were not recorded here.
-comment|// Version 3 adds metadata as a map where keys and values are byte[].
-comment|// Version 4 adds indexes
-comment|// Version 5 removed transactional pollution -- e.g. indexes
-specifier|public
+comment|/**    *  Changes prior to version 3 were not recorded here.    *  Version 3 adds metadata as a map where keys and values are byte[].    *  Version 4 adds indexes    *  Version 5 removed transactional pollution -- e.g. indexes    */
+specifier|private
 specifier|static
 specifier|final
 name|byte
@@ -262,7 +259,7 @@ name|nameAsString
 init|=
 literal|""
 decl_stmt|;
-comment|// Table metadata
+comment|/**    * A map which holds the metadata information of the table. This metadata     * includes values like IS_ROOT, IS_META, DEFERRED_LOG_FLUSH, SPLIT_POLICY,    * MAX_FILE_SIZE, READONLY, MEMSTORE_FLUSHSIZE etc...    */
 specifier|protected
 name|Map
 argument_list|<
@@ -281,7 +278,7 @@ name|ImmutableBytesWritable
 argument_list|>
 argument_list|()
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|String
@@ -289,23 +286,15 @@ name|FAMILIES
 init|=
 literal|"FAMILIES"
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|static
 specifier|final
-name|ImmutableBytesWritable
-name|FAMILIES_KEY
+name|String
+name|SPLIT_POLICY
 init|=
-operator|new
-name|ImmutableBytesWritable
-argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|FAMILIES
-argument_list|)
-argument_list|)
+literal|"SPLIT_POLICY"
 decl_stmt|;
+comment|/**    *<em>INTERNAL</em> Used by HBase Shell interface to access this metadata     * attribute which denotes the maximum size of the store file after which     * a region split occurs    *     * @see #getMaxFileSize()    */
 specifier|public
 specifier|static
 specifier|final
@@ -314,7 +303,7 @@ name|MAX_FILESIZE
 init|=
 literal|"MAX_FILESIZE"
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|ImmutableBytesWritable
@@ -331,32 +320,7 @@ name|MAX_FILESIZE
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|// The class which determines when a region should split
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|SPLIT_POLICY
-init|=
-literal|"SPLIT_POLICY"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|ImmutableBytesWritable
-name|SPLIT_POLICY_KEY
-init|=
-operator|new
-name|ImmutableBytesWritable
-argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|SPLIT_POLICY
-argument_list|)
-argument_list|)
-decl_stmt|;
+comment|/**    *<em>INTERNAL</em> Used by rest interface to access this metadata     * attribute which denotes if the table is Read Only    *     * @see #isReadOnly()    */
 specifier|public
 specifier|static
 specifier|final
@@ -365,7 +329,7 @@ name|READONLY
 init|=
 literal|"READONLY"
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|ImmutableBytesWritable
@@ -382,6 +346,7 @@ name|READONLY
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|/**    *<em>INTERNAL</em> Used by HBase Shell interface to access this metadata     * attribute which represents the maximum size of the memstore after which     * its contents are flushed onto the disk    *     * @see #getMemStoreFlushSize()    */
 specifier|public
 specifier|static
 specifier|final
@@ -390,7 +355,7 @@ name|MEMSTORE_FLUSHSIZE
 init|=
 literal|"MEMSTORE_FLUSHSIZE"
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|ImmutableBytesWritable
@@ -407,6 +372,7 @@ name|MEMSTORE_FLUSHSIZE
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|/**    *<em>INTERNAL</em> Used by rest interface to access this metadata     * attribute which denotes if the table is a -ROOT- region or not    *     * @see #isRootRegion()    */
 specifier|public
 specifier|static
 specifier|final
@@ -415,7 +381,7 @@ name|IS_ROOT
 init|=
 literal|"IS_ROOT"
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|ImmutableBytesWritable
@@ -432,6 +398,7 @@ name|IS_ROOT
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|/**    *<em>INTERNAL</em> Used by rest interface to access this metadata     * attribute which denotes if it is a catalog table, either    *<code> .META.</code> or<code> -ROOT-</code>    *     * @see #isMetaRegion()    */
 specifier|public
 specifier|static
 specifier|final
@@ -440,7 +407,7 @@ name|IS_META
 init|=
 literal|"IS_META"
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|ImmutableBytesWritable
@@ -457,6 +424,7 @@ name|IS_META
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|/**    *<em>INTERNAL</em> Used by HBase Shell interface to access this metadata     * attribute which denotes if the deferred log flush option is enabled    *     * @see #getDeferredLogFlush()    */
 specifier|public
 specifier|static
 specifier|final
@@ -465,7 +433,7 @@ name|DEFERRED_LOG_FLUSH
 init|=
 literal|"DEFERRED_LOG_FLUSH"
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|ImmutableBytesWritable
@@ -482,9 +450,7 @@ name|DEFERRED_LOG_FLUSH
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|// The below are ugly but better than creating them each time till we
-comment|// replace booleans being saved as Strings with plain booleans.  Need a
-comment|// migration script to do this.  TODO.
+comment|/*    *  The below are ugly but better than creating them each time till we    *  replace booleans being saved as Strings with plain booleans.  Need a    *  migration script to do this.  TODO.    */
 specifier|private
 specifier|static
 specifier|final
@@ -529,6 +495,15 @@ argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_DEFERRED_LOG_FLUSH
+init|=
+literal|false
+decl_stmt|;
+comment|/**    * Constant that denotes whether the table is READONLY by default and is false    */
 specifier|public
 specifier|static
 specifier|final
@@ -537,6 +512,7 @@ name|DEFAULT_READONLY
 init|=
 literal|false
 decl_stmt|;
+comment|/**    * Constant that denotes the maximum default size of the memstore after which     * the contents are flushed to the store files    */
 specifier|public
 specifier|static
 specifier|final
@@ -548,26 +524,6 @@ operator|*
 literal|1024
 operator|*
 literal|64L
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|long
-name|DEFAULT_MAX_FILESIZE
-init|=
-literal|1024
-operator|*
-literal|1024
-operator|*
-literal|256L
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|boolean
-name|DEFAULT_DEFERRED_LOG_FLUSH
-init|=
-literal|false
 decl_stmt|;
 specifier|private
 specifier|volatile
@@ -589,8 +545,8 @@ name|isDeferredLog
 init|=
 literal|null
 decl_stmt|;
-comment|// Key is hash of the family name.
-specifier|public
+comment|/**    * Maps column family name to the respective HColumnDescriptors    */
+specifier|private
 specifier|final
 name|Map
 argument_list|<
@@ -615,7 +571,7 @@ operator|.
 name|BYTES_RAWCOMPARATOR
 argument_list|)
 decl_stmt|;
-comment|/**    * Private constructor used internally creating table descriptors for    * catalog tables: e.g. .META. and -ROOT-.    */
+comment|/**    *<em> INTERNAL</em> Private constructor used internally creating table descriptors for    * catalog tables,<code>.META.</code> and<code>-ROOT-</code>.    */
 specifier|protected
 name|HTableDescriptor
 parameter_list|(
@@ -680,7 +636,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Private constructor used internally creating table descriptors for    * catalog tables: e.g. .META. and -ROOT-.    */
+comment|/**    *<em> INTERNAL</em>Private constructor used internally creating table descriptors for    * catalog tables,<code>.META.</code> and<code>-ROOT-</code>.    */
 specifier|protected
 name|HTableDescriptor
 parameter_list|(
@@ -789,7 +745,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Constructs an empty object.    * For deserializing an HTableDescriptor instance only.    * @see #HTableDescriptor(byte[])    */
+comment|/**    * Default constructor which constructs an empty object.    * For deserializing an HTableDescriptor instance only.    * @see #HTableDescriptor(byte[])    */
 specifier|public
 name|HTableDescriptor
 parameter_list|()
@@ -798,7 +754,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Constructor.    * @param name Table name.    * @throws IllegalArgumentException if passed a table name    * that is made of other than 'word' characters, underscore or period: i.e.    *<code>[a-zA-Z_0-9.].    * @see<a href="HADOOP-1581">HADOOP-1581 HBASE: Un-openable tablename bug</a>    */
+comment|/**    * Construct a table descriptor specifying table name.    * @param name Table name.    * @throws IllegalArgumentException if passed a table name    * that is made of other than 'word' characters, underscore or period: i.e.    *<code>[a-zA-Z_0-9.].    * @see<a href="HADOOP-1581">HADOOP-1581 HBASE: Un-openable tablename bug</a>    */
 specifier|public
 name|HTableDescriptor
 parameter_list|(
@@ -818,7 +774,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor.    * @param name Table name.    * @throws IllegalArgumentException if passed a table name    * that is made of other than 'word' characters, underscore or period: i.e.    *<code>[a-zA-Z_0-9-.].    * @see<a href="HADOOP-1581">HADOOP-1581 HBASE: Un-openable tablename bug</a>    */
+comment|/**    * Construct a table descriptor specifying a byte array table name    * @param name - Table name as a byte array.    * @throws IllegalArgumentException if passed a table name    * that is made of other than 'word' characters, underscore or period: i.e.    *<code>[a-zA-Z_0-9-.].    * @see<a href="HADOOP-1581">HADOOP-1581 HBASE: Un-openable tablename bug</a>    */
 specifier|public
 name|HTableDescriptor
 parameter_list|(
@@ -868,7 +824,7 @@ name|name
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor.    *<p>    * Makes a deep copy of the supplied descriptor.    * Can make a modifiable descriptor from an UnmodifyableHTableDescriptor.    * @param desc The descriptor.    */
+comment|/**    * Construct a table descriptor by cloning the descriptor passed as a parameter.    *<p>    * Makes a deep copy of the supplied descriptor.    * Can make a modifiable descriptor from an UnmodifyableHTableDescriptor.    * @param desc The descriptor.    */
 specifier|public
 name|HTableDescriptor
 parameter_list|(
@@ -982,7 +938,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/*    * Set meta flags on this table.    * Called by constructors.    * @param name    */
+comment|/*    * Set meta flags on this table.     * IS_ROOT_KEY is set if its a -ROOT- table    * IS_META_KEY is set either if its a -ROOT- or a .META. table     * Called by constructors.    * @param name    */
 specifier|private
 name|void
 name|setMetaFlags
@@ -1025,7 +981,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** @return true if this is the root region */
+comment|/**    * Check if the descriptor represents a<code> -ROOT-</code> region.    *     * @return true if this is a<code> -ROOT-</code> region     */
 specifier|public
 name|boolean
 name|isRootRegion
@@ -1069,7 +1025,7 @@ name|booleanValue
 argument_list|()
 return|;
 block|}
-comment|/** @param isRoot true if this is the root region */
+comment|/**    *<em> INTERNAL</em> Used to denote if the current table represents     *<code> -ROOT-</code> region. This is used internally by the     * HTableDescriptor constructors     *     * @param isRoot true if this is the<code> -ROOT-</code> region     */
 specifier|protected
 name|void
 name|setRootRegion
@@ -1093,7 +1049,7 @@ name|FALSE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** @return true if this is a meta region (part of the root or meta tables) */
+comment|/**    * Checks if this table is either<code> -ROOT-</code> or<code> .META.</code>    * region.     *      * @return true if this is either a<code> -ROOT-</code> or<code> .META.</code>     * region     */
 specifier|public
 name|boolean
 name|isMetaRegion
@@ -1215,7 +1171,7 @@ return|return
 name|valueIfNull
 return|;
 block|}
-comment|/**    * @param isMeta true if this is a meta region (part of the root or meta    * tables) */
+comment|/**    *<em> INTERNAL</em> Used to denote if the current table represents     *<code> -ROOT-</code> or<code> .META.</code> region. This is used     * internally by the HTableDescriptor constructors     *     * @param isMeta true if its either<code> -ROOT-</code> or     *<code> .META.</code> region     */
 specifier|protected
 name|void
 name|setMetaRegion
@@ -1238,7 +1194,7 @@ name|FALSE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/** @return true if table is a meta table, either<code>.META.</code> or    *<code>-ROOT-</code>    */
+comment|/**     * Checks if the table is a<code>.META.</code> table     *      * @return true if table is<code> .META.</code> region.    */
 specifier|public
 name|boolean
 name|isMetaTable
@@ -1253,7 +1209,7 @@ name|isRootRegion
 argument_list|()
 return|;
 block|}
-comment|/**    * @param n Table name.    * @return True if a catalog table, -ROOT- or .META.    */
+comment|/**    * Checks of the tableName being passed represents either     *<code> -ROOT-</code> or<code> .META.</code>    *      * @return true if a tablesName is either<code> -ROOT-</code>     * or<code> .META.</code>    */
 specifier|public
 specifier|static
 name|boolean
@@ -1262,7 +1218,7 @@ parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|n
+name|tableName
 parameter_list|)
 block|{
 return|return
@@ -1270,7 +1226,7 @@ name|Bytes
 operator|.
 name|equals
 argument_list|(
-name|n
+name|tableName
 argument_list|,
 name|HConstants
 operator|.
@@ -1281,7 +1237,7 @@ name|Bytes
 operator|.
 name|equals
 argument_list|(
-name|n
+name|tableName
 argument_list|,
 name|HConstants
 operator|.
@@ -1289,7 +1245,7 @@ name|META_TABLE_NAME
 argument_list|)
 return|;
 block|}
-comment|/**    * Check passed buffer is legal user-space table name.    * @param b Table name.    * @return Returns passed<code>b</code> param    * @throws NullPointerException If passed<code>b</code> is null    * @throws IllegalArgumentException if passed a table name    * that is made of other than 'word' characters or underscores: i.e.    *<code>[a-zA-Z_0-9].    */
+comment|/**    * Check passed byte buffer, "tableName", is legal user-space table name.    * @return Returns passed<code>tableName</code> param    * @throws NullPointerException If passed<code>tableName</code> is null    * @throws IllegalArgumentException if passed a tableName    * that is made of other than 'word' characters or underscores: i.e.    *<code>[a-zA-Z_0-9].    */
 specifier|public
 specifier|static
 name|byte
@@ -1299,16 +1255,16 @@ parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|b
+name|tableName
 parameter_list|)
 block|{
 if|if
 condition|(
-name|b
+name|tableName
 operator|==
 literal|null
 operator|||
-name|b
+name|tableName
 operator|.
 name|length
 operator|<=
@@ -1325,14 +1281,14 @@ throw|;
 block|}
 if|if
 condition|(
-name|b
+name|tableName
 index|[
 literal|0
 index|]
 operator|==
 literal|'.'
 operator|||
-name|b
+name|tableName
 index|[
 literal|0
 index|]
@@ -1346,7 +1302,7 @@ name|IllegalArgumentException
 argument_list|(
 literal|"Illegal first character<"
 operator|+
-name|b
+name|tableName
 index|[
 literal|0
 index|]
@@ -1359,7 +1315,7 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|b
+name|tableName
 argument_list|)
 argument_list|)
 throw|;
@@ -1373,7 +1329,7 @@ literal|0
 init|;
 name|i
 operator|<
-name|b
+name|tableName
 operator|.
 name|length
 condition|;
@@ -1387,27 +1343,27 @@ name|Character
 operator|.
 name|isLetterOrDigit
 argument_list|(
-name|b
+name|tableName
 index|[
 name|i
 index|]
 argument_list|)
 operator|||
-name|b
+name|tableName
 index|[
 name|i
 index|]
 operator|==
 literal|'_'
 operator|||
-name|b
+name|tableName
 index|[
 name|i
 index|]
 operator|==
 literal|'-'
 operator|||
-name|b
+name|tableName
 index|[
 name|i
 index|]
@@ -1423,7 +1379,7 @@ name|IllegalArgumentException
 argument_list|(
 literal|"Illegal character<"
 operator|+
-name|b
+name|tableName
 index|[
 name|i
 index|]
@@ -1440,16 +1396,16 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|b
+name|tableName
 argument_list|)
 argument_list|)
 throw|;
 block|}
 return|return
-name|b
+name|tableName
 return|;
 block|}
-comment|/**    * @param key The key.    * @return The value.    */
+comment|/**    * Getter for accessing the metadata associated with the key    *      * @param key The key.    * @return The value.    * @see #values    */
 specifier|public
 name|byte
 index|[]
@@ -1507,7 +1463,7 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**    * @param key The key.    * @return The value as a string.    */
+comment|/**    * Getter for accessing the metadata associated with the key    *      * @param key The key.    * @return The value.    * @see #values    */
 specifier|public
 name|String
 name|getValue
@@ -1548,7 +1504,7 @@ name|value
 argument_list|)
 return|;
 block|}
-comment|/**    * @return All values.    */
+comment|/**    * Getter for fetching an unmodifiable {@link #values} map.    *      * @return unmodifiable map {@link #values}.    * @see #values    */
 specifier|public
 name|Map
 argument_list|<
@@ -1568,7 +1524,7 @@ name|values
 argument_list|)
 return|;
 block|}
-comment|/**    * @param key The key.    * @param value The value.    */
+comment|/**    * Setter for storing metadata as a (key, value) pair in {@link #values} map    *      * @param key The key.    * @param value The value.    * @see #values    */
 specifier|public
 name|void
 name|setValue
@@ -1647,7 +1603,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param key The key.    * @param value The value.    */
+comment|/**    * Setter for storing metadata as a (key, value) pair in {@link #values} map    *      * @param key The key.    * @param value The value.    * @see #values    */
 specifier|public
 name|void
 name|setValue
@@ -1677,7 +1633,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param key Key whose key and value we're to remove from HTD parameters.    */
+comment|/**    * Remove metadata represented by the key from the {@link #values} map    *     * @param key Key whose key and value we're to remove from HTableDescriptor    * parameters.    */
 specifier|public
 name|void
 name|remove
@@ -1700,7 +1656,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @return true if all columns in the table should be read only    */
+comment|/**    * Check if the readOnly flag of the table is set. If the readOnly flag is     * set then the contents of the table can only be read from but not modified.    *     * @return true if all columns in the table should be read only    */
 specifier|public
 name|boolean
 name|isReadOnly
@@ -1715,7 +1671,7 @@ name|DEFAULT_READONLY
 argument_list|)
 return|;
 block|}
-comment|/**    * @param readOnly True if all of the columns in the table should be read    * only.    */
+comment|/**    * Setting the table as read only sets all the columns in the table as read    * only. By default all tables are modifiable, but if the readOnly flag is     * set to true then the contents of the table can only be read but not modified.    *      * @param readOnly True if all of the columns in the table should be read    * only.    */
 specifier|public
 name|void
 name|setReadOnly
@@ -1737,7 +1693,7 @@ name|FALSE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @return true if that table's log is hflush by other means    */
+comment|/**    * Check if deferred log edits are enabled on the table.      *     * @return true if that deferred log flush is enabled on the table    *     * @see #setDeferredLogFlush(boolean)    */
 specifier|public
 specifier|synchronized
 name|boolean
@@ -1771,7 +1727,7 @@ operator|.
 name|isDeferredLog
 return|;
 block|}
-comment|/**    * @param isDeferredLogFlush true if that table's log is hlfush by oter means    * only.    */
+comment|/**    * This is used to defer the log edits syncing to the file system. Everytime     * an edit is sent to the server it is first sync'd to the file system by the     * log writer. This sync is an expensive operation and thus can be deferred so     * that the edits are kept in memory for a specified period of time as represented    * by<code> hbase.regionserver.optionallogflushinterval</code> and not flushed    * for every edit.    *<p>    * NOTE:- This option might result in data loss if the region server crashes    * before these deferred edits in memory are flushed onto the filesystem.     *</p>    *     * @param true if that deferred log flush is enabled on the table.    */
 specifier|public
 name|void
 name|setDeferredLogFlush
@@ -1799,7 +1755,7 @@ operator|=
 name|isDeferredLogFlush
 expr_stmt|;
 block|}
-comment|/** @return name of table */
+comment|/**    * Get the name of the table as a byte array.    *     * @return name of table     */
 specifier|public
 name|byte
 index|[]
@@ -1810,7 +1766,7 @@ return|return
 name|name
 return|;
 block|}
-comment|/** @return name of table */
+comment|/**    * Get the name of the table as a String    *     * @return name of table as a String     */
 specifier|public
 name|String
 name|getNameAsString
@@ -1822,7 +1778,57 @@ operator|.
 name|nameAsString
 return|;
 block|}
-comment|/** @return max hregion size for table */
+comment|/**    * This get the class associated with the region split policy which     * determines when a region split should occur.  The class used by    * default is {@link ConstantSizeRegionSplitPolicy} which split the    * region base on a constant {@link #getMaxFileSize()}    *     * @return the class name of the region split policy for this table.    * If this returns null, the default constant size based split policy    * is used.    */
+specifier|public
+name|String
+name|getRegionSplitPolicyClassName
+parameter_list|()
+block|{
+return|return
+name|getValue
+argument_list|(
+name|SPLIT_POLICY
+argument_list|)
+return|;
+block|}
+comment|/**    * Set the name of the table.     *     * @param name name of table     */
+specifier|public
+name|void
+name|setName
+parameter_list|(
+name|byte
+index|[]
+name|name
+parameter_list|)
+block|{
+name|this
+operator|.
+name|name
+operator|=
+name|name
+expr_stmt|;
+name|this
+operator|.
+name|nameAsString
+operator|=
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|this
+operator|.
+name|name
+argument_list|)
+expr_stmt|;
+name|setMetaFlags
+argument_list|(
+name|this
+operator|.
+name|name
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**     * Returns the maximum size upto which a region can grow to after which a region    * split is triggered. The region size is represented by the size of the biggest     * store file in that region.    *     * @return max hregion size for table    *     * @see #setMaxFileSize(long)    */
 specifier|public
 name|long
 name|getMaxFileSize
@@ -1865,57 +1871,7 @@ operator|.
 name|DEFAULT_MAX_FILE_SIZE
 return|;
 block|}
-comment|/**    * @return the class name of the region split policy for this table.    * If this returns null, the default constant size based split policy    * is used.    */
-specifier|public
-name|String
-name|getRegionSplitPolicyClassName
-parameter_list|()
-block|{
-return|return
-name|getValue
-argument_list|(
-name|SPLIT_POLICY
-argument_list|)
-return|;
-block|}
-comment|/** @param name name of table */
-specifier|public
-name|void
-name|setName
-parameter_list|(
-name|byte
-index|[]
-name|name
-parameter_list|)
-block|{
-name|this
-operator|.
-name|name
-operator|=
-name|name
-expr_stmt|;
-name|this
-operator|.
-name|nameAsString
-operator|=
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|this
-operator|.
-name|name
-argument_list|)
-expr_stmt|;
-name|setMetaFlags
-argument_list|(
-name|this
-operator|.
-name|name
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * @param maxFileSize The maximum file size that a store file can grow to    * before a split is triggered.    */
+comment|/**    * Sets the maximum size upto which a region can grow to after which a region    * split is triggered. The region size is represented by the size of the biggest     * store file in that region, i.e. If the biggest store file grows beyond the     * maxFileSize, then the region split is triggered. This defaults to a value of     * 256 MB.    *<p>    * This is not an absolute value and might vary. Assume that a single row exceeds     * the maxFileSize then the storeFileSize will be greater than maxFileSize since    * a single row cannot be split across multiple regions     *</p>    *     * @param maxFileSize The maximum file size that a store file can grow to    * before a split is triggered.    */
 specifier|public
 name|void
 name|setMaxFileSize
@@ -1942,7 +1898,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @return memory cache flush size for each hregion    */
+comment|/**    * Returns the size of the memstore after which a flush to filesystem is triggered.    *     * @return memory cache flush size for each hregion    *     * @see #setMemStoreFlushSize(long)    */
 specifier|public
 name|long
 name|getMemStoreFlushSize
@@ -1983,7 +1939,7 @@ return|return
 name|DEFAULT_MEMSTORE_FLUSH_SIZE
 return|;
 block|}
-comment|/**    * @param memstoreFlushSize memory cache flush size for each hregion    */
+comment|/**    * Represents the maximum size of the memstore after which the contents of the     * memstore are flushed to the filesystem. This defaults to a size of 64 MB.    *     * @param memstoreFlushSize memory cache flush size for each hregion    */
 specifier|public
 name|void
 name|setMemStoreFlushSize
@@ -2010,7 +1966,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Adds a column family.    * @param family HColumnDescriptor of familyto add.    */
+comment|/**    * Adds a column family.    * @param family HColumnDescriptor of family to add.    */
 specifier|public
 name|void
 name|addFamily
@@ -2062,7 +2018,7 @@ name|family
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Checks to see if this table contains the given column family    * @param c Family name or column name.    * @return true if the table contains the specified family name    */
+comment|/**    * Checks to see if this table contains the given column family    * @param familyName Family name or column name.    * @return true if the table contains the specified family name    */
 specifier|public
 name|boolean
 name|hasFamily
@@ -2070,7 +2026,7 @@ parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|c
+name|familyName
 parameter_list|)
 block|{
 return|return
@@ -2078,7 +2034,7 @@ name|families
 operator|.
 name|containsKey
 argument_list|(
-name|c
+name|familyName
 argument_list|)
 return|;
 block|}
@@ -2656,7 +2612,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * @see java.lang.Object#equals(java.lang.Object)    */
+comment|/**    * Compare the contents of the descriptor with another one passed as a parameter.     * Checks if the obj passed is an instance of HTableDescriptor, if yes then the    * contents of the descriptors are compared.    *     * @return true if the contents of the the two descriptors exactly match    *     * @see java.lang.Object#equals(java.lang.Object)    */
 annotation|@
 name|Override
 specifier|public
@@ -2799,6 +2755,7 @@ name|result
 return|;
 block|}
 comment|// Writable
+comment|/**    *<em> INTERNAL</em> This method is a part of {@link WritableComparable} interface     * and is used for de-serialization of the HTableDescriptor over RPC    */
 specifier|public
 name|void
 name|readFields
@@ -2998,6 +2955,7 @@ block|{
 return|return;
 block|}
 block|}
+comment|/**    *<em> INTERNAL</em> This method is a part of {@link WritableComparable} interface     * and is used for serialization of the HTableDescriptor over RPC    */
 specifier|public
 name|void
 name|write
@@ -3140,6 +3098,7 @@ expr_stmt|;
 block|}
 block|}
 comment|// Comparable
+comment|/**    * Compares the descriptor with another descriptor which is passed as a parameter.    * This compares the content of the two descriptors and not the reference.    *     * @return 0 if the contents of the descriptors are exactly matching,     * 		 1 if there is a mismatch in the contents     */
 specifier|public
 name|int
 name|compareTo
@@ -3353,7 +3312,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * @return Immutable sorted map of families.    */
+comment|/**    * Returns an unmodifiable collection of all the {@link HColumnDescriptors}     * of all the column families of the table.    *      * @return Immutable collection of {@link HColumnDescriptor} of all the    * column families.     */
 specifier|public
 name|Collection
 argument_list|<
@@ -3376,7 +3335,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @return Immutable sorted set of the keys of the families.    */
+comment|/**    * Returns all the column family names of the current table. The map of     * HTableDescriptor contains mapping of family name to HColumnDescriptors.     * This returns all the keys of the family map which represents the column     * family names of the table.     *     * @return Immutable sorted set of the keys of the families.    */
 specifier|public
 name|Set
 argument_list|<
@@ -3400,6 +3359,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+comment|/**     * Returns an array all the {@link HColumnDescriptor} of the column families     * of the table.    *      * @return Array of all the HColumnDescriptors of the current table     *     * @see #getFamilies()    */
 specifier|public
 name|HColumnDescriptor
 index|[]
@@ -3420,7 +3380,7 @@ index|]
 argument_list|)
 return|;
 block|}
-comment|/**    * @param column    * @return Column descriptor for the passed family name or the family on    * passed in column.    */
+comment|/**    * Returns the HColumnDescriptor for a specific column family with name as     * specified by the parameter column.    *     * @param column Column family name     * @return Column descriptor for the passed family name or the family on    * passed in column.    */
 specifier|public
 name|HColumnDescriptor
 name|getFamily
@@ -3442,7 +3402,7 @@ name|column
 argument_list|)
 return|;
 block|}
-comment|/**    * @param column    * @return Column descriptor for the passed family name or the family on    * passed in column.    */
+comment|/**    * Removes the HColumnDescriptor with name specified by the parameter column     * from the table descriptor    *     * @param column Name of the column family to be removed.    * @return Column descriptor for the passed family name or the family on    * passed in column.    */
 specifier|public
 name|HColumnDescriptor
 name|removeFamily
@@ -3825,6 +3785,7 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Check if the table has an attached co-processor represented by the name className    *     * @param className - Class name of the co-processor    * @return true of the table has a co-processor className    */
 specifier|public
 name|boolean
 name|hasCoprocessor
@@ -3962,7 +3923,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * @param rootdir qualified path of HBase root directory    * @param tableName name of table    * @return path for table    */
+comment|/**    * Returns the {@link Path} object representing the table directory under     * path rootdir     *     * @param rootdir qualified path of HBase root directory    * @param tableName name of table    * @return {@link Path} for table    */
 specifier|public
 specifier|static
 name|Path

@@ -1934,9 +1934,7 @@ name|HTableDescriptor
 operator|.
 name|ROOT_TABLEDESC
 operator|.
-name|families
-operator|.
-name|values
+name|getColumnFamilies
 argument_list|()
 control|)
 block|{
@@ -1993,9 +1991,7 @@ name|HTableDescriptor
 operator|.
 name|META_TABLEDESC
 operator|.
-name|families
-operator|.
-name|values
+name|getColumnFamilies
 argument_list|()
 control|)
 block|{
