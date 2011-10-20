@@ -1089,6 +1089,20 @@ name|WritableFactories
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
+name|WritableUtils
+import|;
+end_import
+
 begin_comment
 comment|/**  * This is a customized version of the polymorphic hadoop  * {@link ObjectWritable}.  It removes UTF8 (HADOOP-414).  * Using {@link Text} intead of UTF-8 saves ~2% CPU between reading and writing  * objects running a short sequentialWrite Performance Evaluation test just in  * ObjectWritable alone; more when we're doing randomRead-ing.  Other  * optimizations include our passing codes for classes instead of the  * actual class names themselves.  This makes it so this class needs amendment  * if non-Writable classes are introduced -- if passed a Writable for which we  * have no code, we just do the old-school passing of the class name, etc. --  * but passing codes the  savings are large particularly when cell  * data is small (If< a couple of kilobytes, the encoding/decoding of class  * name and reflection to instantiate class was costing in excess of the cell  * handling).  */
 end_comment
@@ -1126,7 +1140,7 @@ specifier|static
 specifier|final
 name|Map
 argument_list|<
-name|Byte
+name|Integer
 argument_list|,
 name|Class
 argument_list|<
@@ -1138,7 +1152,7 @@ init|=
 operator|new
 name|HashMap
 argument_list|<
-name|Byte
+name|Integer
 argument_list|,
 name|Class
 argument_list|<
@@ -1156,7 +1170,7 @@ argument_list|<
 name|?
 argument_list|>
 argument_list|,
-name|Byte
+name|Integer
 argument_list|>
 name|CLASS_TO_CODE
 init|=
@@ -1168,7 +1182,7 @@ argument_list|<
 name|?
 argument_list|>
 argument_list|,
-name|Byte
+name|Integer
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -1184,7 +1198,7 @@ literal|0
 decl_stmt|;
 static|static
 block|{
-name|byte
+name|int
 name|code
 init|=
 name|NOT_ENCODED
@@ -2293,10 +2307,12 @@ name|CODE_TO_CLASS
 operator|.
 name|get
 argument_list|(
-name|in
+name|WritableUtils
 operator|.
-name|readByte
-argument_list|()
+name|readVInt
+argument_list|(
+name|in
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -2340,7 +2356,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Byte
+name|Integer
 name|code
 init|=
 name|CLASS_TO_CODE
@@ -2478,8 +2494,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|//          new Exception().getStackTrace()[0].getMethodName());
-comment|//      throw new IOException(new Exception().getStackTrace()[0].getMethodName());
 throw|throw
 operator|new
 name|UnsupportedOperationException
@@ -2490,10 +2504,12 @@ name|c
 argument_list|)
 throw|;
 block|}
-name|out
+name|WritableUtils
 operator|.
-name|writeByte
+name|writeVInt
 argument_list|(
+name|out
+argument_list|,
 name|code
 argument_list|)
 expr_stmt|;
@@ -3204,7 +3220,7 @@ operator|.
 name|getClass
 argument_list|()
 decl_stmt|;
-name|Byte
+name|Integer
 name|code
 init|=
 name|CLASS_TO_CODE
@@ -3288,7 +3304,7 @@ operator|.
 name|getClass
 argument_list|()
 decl_stmt|;
-name|Byte
+name|Integer
 name|code
 init|=
 name|CLASS_TO_CODE
@@ -3496,10 +3512,12 @@ name|CODE_TO_CLASS
 operator|.
 name|get
 argument_list|(
-name|in
+name|WritableUtils
 operator|.
-name|readByte
-argument_list|()
+name|readVInt
+argument_list|(
+name|in
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|Object
@@ -3977,20 +3995,22 @@ name|instanceClass
 init|=
 literal|null
 decl_stmt|;
-name|Byte
+name|int
 name|b
 init|=
-name|in
+operator|(
+name|byte
+operator|)
+name|WritableUtils
 operator|.
-name|readByte
-argument_list|()
+name|readVInt
+argument_list|(
+name|in
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
 name|b
-operator|.
-name|byteValue
-argument_list|()
 operator|==
 name|NOT_ENCODED
 condition|)
@@ -4378,7 +4398,7 @@ argument_list|>
 name|clazz
 parameter_list|,
 specifier|final
-name|byte
+name|int
 name|code
 parameter_list|)
 block|{
