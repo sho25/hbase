@@ -1266,8 +1266,6 @@ name|scanKeysValues
 argument_list|(
 name|file
 argument_list|,
-name|count
-argument_list|,
 name|scanner
 argument_list|)
 expr_stmt|;
@@ -1325,9 +1323,6 @@ name|scanKeysValues
 parameter_list|(
 name|Path
 name|file
-parameter_list|,
-name|int
-name|count
 parameter_list|,
 name|HFileScanner
 name|scanner
