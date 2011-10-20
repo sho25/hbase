@@ -22,21 +22,32 @@ package|;
 end_package
 
 begin_comment
-comment|/**  * Interface for objects that want to know when an eviction occurs.  * */
+comment|/**  * Interface for objects that want to know when actions occur in a SingleSizeCache.  * */
 end_comment
 
 begin_interface
 interface|interface
-name|SlabItemEvictionWatcher
+name|SlabItemActionWatcher
 block|{
-comment|/**    * This is called as a callback by the EvictionListener in each of the    * SingleSizeSlabCaches.    *    * @param key the key of the item being evicted    * @param notifier the object notifying the SlabCache of the eviction.    * @param boolean callAssignedCache whether we should call the cache which the    *        key was originally assigned to.    */
+comment|/**    * This is called as a callback when an item is removed from a SingleSizeCache.    *    * @param key the key of the item being evicted    * @param notifier the object notifying the SlabCache of the eviction.    */
 name|void
 name|onEviction
 parameter_list|(
 name|String
 name|key
 parameter_list|,
-name|Object
+name|SingleSizeCache
+name|notifier
+parameter_list|)
+function_decl|;
+comment|/**    * This is called as a callback when an item is inserted into a SingleSizeCache.    *    * @param key the key of the item being added    * @param notifier the object notifying the SlabCache of the insertion..    */
+name|void
+name|onInsertion
+parameter_list|(
+name|String
+name|key
+parameter_list|,
+name|SingleSizeCache
 name|notifier
 parameter_list|)
 function_decl|;
