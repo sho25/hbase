@@ -2334,6 +2334,12 @@ specifier|final
 name|CacheConfig
 name|cacheConfig
 decl_stmt|;
+comment|// reference to the Thrift Server.
+specifier|volatile
+specifier|private
+name|HRegionThriftServer
+name|thriftServer
+decl_stmt|;
 comment|/**    * The server name the Master sees us as.  Its made from the hostname the    * master passes us, port, and server startcode. Gets set after registration    * against  Master.  The hostname can differ from the hostname in {@link #isa}    * but usually doesn't if both servers resolve .    */
 specifier|private
 name|ServerName
@@ -3771,6 +3777,42 @@ operator|.
 name|threadWakeFrequency
 argument_list|)
 expr_stmt|;
+comment|// Create the thread for the ThriftServer.
+if|if
+condition|(
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+literal|"hbase.regionserver.export.thrift"
+argument_list|,
+literal|false
+argument_list|)
+condition|)
+block|{
+name|thriftServer
+operator|=
+operator|new
+name|HRegionThriftServer
+argument_list|(
+name|this
+argument_list|,
+name|conf
+argument_list|)
+expr_stmt|;
+name|thriftServer
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Started Thrift API from Region Server."
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_function
 
@@ -4075,6 +4117,21 @@ expr_stmt|;
 block|}
 block|}
 comment|// Run shutdown.
+if|if
+condition|(
+name|this
+operator|.
+name|thriftServer
+operator|!=
+literal|null
+condition|)
+name|this
+operator|.
+name|thriftServer
+operator|.
+name|shutdown
+argument_list|()
+expr_stmt|;
 name|this
 operator|.
 name|leases

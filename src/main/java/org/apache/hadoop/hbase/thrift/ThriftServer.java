@@ -1386,6 +1386,7 @@ argument_list|)
 return|;
 block|}
 comment|/**      * Constructs an HBaseHandler object.      * @throws IOException      */
+specifier|protected
 name|HBaseHandler
 parameter_list|()
 throws|throws
@@ -1400,6 +1401,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+specifier|protected
 name|HBaseHandler
 parameter_list|(
 specifier|final
