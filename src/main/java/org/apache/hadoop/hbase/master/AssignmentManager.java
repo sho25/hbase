@@ -1633,15 +1633,7 @@ init|=
 name|rebuildUserRegions
 argument_list|()
 decl_stmt|;
-comment|// Process list of dead servers; note this will add regions to the RIT.
-comment|// processRegionsInTransition will read them and assign them out.
-name|processDeadServers
-argument_list|(
-name|deadServers
-argument_list|)
-expr_stmt|;
-comment|// Check existing regions in transition
-name|processRegionsInTransition
+name|processDeadServersAndRegionsInTransition
 argument_list|(
 name|deadServers
 argument_list|)
@@ -1670,7 +1662,7 @@ expr_stmt|;
 block|}
 comment|/**    * Process all regions that are in transition up in zookeeper.  Used by    * master joining an already running cluster.    * @throws KeeperException    * @throws IOException    * @throws InterruptedException    */
 name|void
-name|processRegionsInTransition
+name|processDeadServersAndRegionsInTransition
 parameter_list|()
 throws|throws
 name|KeeperException
@@ -1680,15 +1672,15 @@ throws|,
 name|InterruptedException
 block|{
 comment|// Pass null to signify no dead servers in this context.
-name|processRegionsInTransition
+name|processDeadServersAndRegionsInTransition
 argument_list|(
 literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Process all regions that are in transition up in zookeeper.  Used by    * master joining an already running cluster.    * @param deadServers Map of dead servers and their regions.  Can be null.    * @throws KeeperException    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Process all regions that are in transition in zookeeper and also    * processes the list of dead servers by scanning the META.     * Used by master joining an cluster.    * @param deadServers    *          Map of dead servers and their regions. Can be null.    * @throws KeeperException    * @throws IOException    * @throws InterruptedException    */
 name|void
-name|processRegionsInTransition
+name|processDeadServersAndRegionsInTransition
 parameter_list|(
 specifier|final
 name|Map
@@ -1857,34 +1849,15 @@ argument_list|(
 literal|"Found regions out on cluster or in RIT; failover"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-operator|!
-name|nodes
-operator|.
-name|isEmpty
-argument_list|()
-condition|)
-block|{
-for|for
-control|(
-name|String
-name|encodedRegionName
-range|:
-name|nodes
-control|)
-block|{
-name|processRegionInTransition
+comment|// Process list of dead servers and regions in RIT.
+comment|// See HBASE-4580 for more information.
+name|processDeadServersAndRecoverLostRegions
 argument_list|(
-name|encodedRegionName
-argument_list|,
-literal|null
-argument_list|,
 name|deadServers
+argument_list|,
+name|nodes
 argument_list|)
 expr_stmt|;
-block|}
-block|}
 block|}
 else|else
 block|{
@@ -9751,10 +9724,10 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Processes list of dead servers from result of META scan.    *<p>    * This is used as part of failover to handle RegionServers which failed    * while there was no active master.    *<p>    * Method stubs in-memory data to be as expected by the normal server shutdown    * handler.    *    * @param deadServers    * @throws IOException    * @throws KeeperException    */
+comment|/**    * Processes list of dead servers from result of META scan and regions in RIT    *<p>    * This is used for failover to recover the lost regions that belonged to    * RegionServers which failed while there was no active master or regions     * that were in RIT.    *<p>    *     * @param deadServers    *          The list of dead servers which failed while there was no active    *          master. Can be null.    * @param nodes    *          The regions in RIT    * @throws IOException    * @throws KeeperException    */
 specifier|private
 name|void
-name|processDeadServers
+name|processDeadServersAndRecoverLostRegions
 parameter_list|(
 name|Map
 argument_list|<
@@ -9771,11 +9744,24 @@ argument_list|>
 argument_list|>
 argument_list|>
 name|deadServers
+parameter_list|,
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|nodes
 parameter_list|)
 throws|throws
 name|IOException
 throws|,
 name|KeeperException
+block|{
+if|if
+condition|(
+literal|null
+operator|!=
+name|deadServers
+condition|)
 block|{
 for|for
 control|(
@@ -9848,7 +9834,8 @@ operator|.
 name|getSecond
 argument_list|()
 decl_stmt|;
-comment|// If region was in transition (was in zk) force it offline for reassign
+comment|// If region was in transition (was in zk) force it offline for
+comment|// reassign
 try|try
 block|{
 name|RegionTransitionData
@@ -9868,7 +9855,8 @@ argument_list|)
 decl_stmt|;
 comment|// If zk node of this region has been updated by a live server,
 comment|// we consider that this region is being handled.
-comment|// So we should skip it and process it in processRegionsInTransition.
+comment|// So we should skip it and process it in
+comment|// processRegionsInTransition.
 if|if
 condition|(
 name|data
@@ -9952,6 +9940,31 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|nodes
+operator|.
+name|contains
+argument_list|(
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|nodes
+operator|.
+name|add
+argument_list|(
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 catch|catch
@@ -9964,6 +9977,35 @@ parameter_list|)
 block|{
 comment|// This is fine
 block|}
+block|}
+block|}
+block|}
+if|if
+condition|(
+operator|!
+name|nodes
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+for|for
+control|(
+name|String
+name|encodedRegionName
+range|:
+name|nodes
+control|)
+block|{
+name|processRegionInTransition
+argument_list|(
+name|encodedRegionName
+argument_list|,
+literal|null
+argument_list|,
+name|deadServers
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 block|}

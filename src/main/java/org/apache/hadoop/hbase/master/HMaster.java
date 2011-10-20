@@ -6295,7 +6295,7 @@ name|this
 operator|.
 name|assignmentManager
 operator|.
-name|processRegionsInTransition
+name|processDeadServersAndRegionsInTransition
 argument_list|()
 expr_stmt|;
 return|return
