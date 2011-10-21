@@ -144,6 +144,12 @@ parameter_list|(
 name|byte
 index|[]
 name|value
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|length
 parameter_list|)
 block|{
 return|return
@@ -152,6 +158,10 @@ operator|.
 name|toString
 argument_list|(
 name|value
+argument_list|,
+name|offset
+argument_list|,
+name|length
 argument_list|)
 operator|.
 name|toLowerCase

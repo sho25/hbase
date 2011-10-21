@@ -186,12 +186,16 @@ parameter_list|(
 name|byte
 index|[]
 name|value
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|length
 parameter_list|)
 block|{
 if|if
 condition|(
-name|value
-operator|.
 name|length
 operator|!=
 name|this
@@ -255,6 +259,8 @@ operator|&
 name|value
 index|[
 name|i
+operator|+
+name|offset
 index|]
 operator|)
 operator|&
@@ -277,6 +283,8 @@ operator||
 name|value
 index|[
 name|i
+operator|+
+name|offset
 index|]
 operator|)
 operator|&
@@ -299,6 +307,8 @@ operator|^
 name|value
 index|[
 name|i
+operator|+
+name|offset
 index|]
 operator|)
 operator|&

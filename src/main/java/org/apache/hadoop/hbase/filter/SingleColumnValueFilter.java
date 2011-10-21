@@ -535,8 +535,6 @@ name|int
 name|length
 parameter_list|)
 block|{
-comment|// TODO: Can this filter take a rawcomparator so don't have to make this
-comment|// byte array copy?
 name|int
 name|compareResult
 init|=
@@ -546,18 +544,11 @@ name|comparator
 operator|.
 name|compareTo
 argument_list|(
-name|Arrays
-operator|.
-name|copyOfRange
-argument_list|(
 name|data
 argument_list|,
 name|offset
 argument_list|,
-name|offset
-operator|+
 name|length
-argument_list|)
 argument_list|)
 decl_stmt|;
 switch|switch

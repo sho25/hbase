@@ -249,6 +249,12 @@ parameter_list|(
 name|byte
 index|[]
 name|value
+parameter_list|,
+name|int
+name|offset
+parameter_list|,
+name|int
+name|length
 parameter_list|)
 block|{
 comment|// Use find() for subsequence match instead of matches() (full sequence
@@ -262,6 +268,10 @@ operator|new
 name|String
 argument_list|(
 name|value
+argument_list|,
+name|offset
+argument_list|,
+name|length
 argument_list|,
 name|charset
 argument_list|)
