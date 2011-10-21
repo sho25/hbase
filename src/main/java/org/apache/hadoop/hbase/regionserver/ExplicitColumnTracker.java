@@ -71,6 +71,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|ScanQueryMatcher
@@ -281,7 +295,9 @@ operator|.
 name|column
 return|;
 block|}
-comment|/**    * Checks against the parameters of the query and the columns which have    * already been processed by this query.    * @param bytes KeyValue buffer    * @param offset offset to the start of the qualifier    * @param length length of the qualifier    * @param timestamp timestamp of the key being checked    * @return MatchCode telling ScanQueryMatcher what action to take    */
+comment|/**    * {@inheritDoc}    */
+annotation|@
+name|Override
 specifier|public
 name|ScanQueryMatcher
 operator|.
@@ -300,8 +316,22 @@ name|length
 parameter_list|,
 name|long
 name|timestamp
+parameter_list|,
+name|byte
+name|type
 parameter_list|)
 block|{
+comment|// delete markers should never be passed to an
+comment|// *Explicit*ColumnTracker
+assert|assert
+operator|!
+name|KeyValue
+operator|.
+name|isDelete
+argument_list|(
+name|type
+argument_list|)
+assert|;
 do|do
 block|{
 comment|// No more columns left, we are done with this query

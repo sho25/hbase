@@ -32,7 +32,7 @@ specifier|public
 interface|interface
 name|Attributes
 block|{
-comment|/**    * Sets an attribute.    * In case value = null attribute is removed from the attributes map.    * @param name attribute name    * @param value attribute value    */
+comment|/**    * Sets an attribute.    * In case value = null attribute is removed from the attributes map.    * Attribute names starting with _ indicate system attributes.    * @param name attribute name    * @param value attribute value    */
 specifier|public
 name|void
 name|setAttribute

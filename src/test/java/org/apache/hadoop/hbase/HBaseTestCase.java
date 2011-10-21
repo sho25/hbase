@@ -1024,6 +1024,10 @@ argument_list|,
 name|HConstants
 operator|.
 name|FOREVER
+argument_list|,
+name|HColumnDescriptor
+operator|.
+name|DEFAULT_KEEP_DELETED
 argument_list|)
 return|;
 block|}
@@ -1047,6 +1051,9 @@ parameter_list|,
 specifier|final
 name|int
 name|ttl
+parameter_list|,
+name|boolean
+name|keepDeleted
 parameter_list|)
 block|{
 name|HTableDescriptor
@@ -1070,6 +1077,8 @@ argument_list|,
 name|minVersions
 argument_list|,
 name|versions
+argument_list|,
+name|keepDeleted
 argument_list|,
 name|HColumnDescriptor
 operator|.
@@ -1108,6 +1117,8 @@ name|minVersions
 argument_list|,
 name|versions
 argument_list|,
+name|keepDeleted
+argument_list|,
 name|HColumnDescriptor
 operator|.
 name|DEFAULT_COMPRESSION
@@ -1144,6 +1155,8 @@ argument_list|,
 name|minVersions
 argument_list|,
 name|versions
+argument_list|,
+name|keepDeleted
 argument_list|,
 name|HColumnDescriptor
 operator|.
