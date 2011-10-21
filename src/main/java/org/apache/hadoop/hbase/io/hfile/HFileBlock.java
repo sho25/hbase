@@ -1616,7 +1616,7 @@ name|ClassSize
 operator|.
 name|OBJECT
 operator|+
-literal|2
+literal|3
 operator|*
 name|ClassSize
 operator|.
@@ -1633,14 +1633,14 @@ operator|*
 name|Bytes
 operator|.
 name|SIZEOF_LONG
+operator|+
+name|BYTE_BUFFER_HEAP_SIZE
 argument_list|)
 operator|+
 name|ClassSize
 operator|.
 name|align
 argument_list|(
-name|BYTE_BUFFER_HEAP_SIZE
-operator|+
 name|buf
 operator|.
 name|capacity
@@ -1659,7 +1659,7 @@ name|ClassSize
 operator|.
 name|OBJECT
 operator|+
-literal|2
+literal|3
 operator|*
 name|ClassSize
 operator|.
