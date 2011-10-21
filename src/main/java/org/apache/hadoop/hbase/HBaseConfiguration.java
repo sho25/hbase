@@ -111,6 +111,15 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+comment|// a constant to convert a fraction to a percentage
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|CONVERT_TO_PERCENTAGE
+init|=
+literal|100
+decl_stmt|;
 comment|/**    * Instantinating HBaseConfiguration() is deprecated. Please use    * HBaseConfiguration#create() to construct a plain Configuration    */
 annotation|@
 name|Deprecated
@@ -248,6 +257,18 @@ argument_list|,
 literal|0.4f
 argument_list|)
 decl_stmt|;
+name|int
+name|gml
+init|=
+call|(
+name|int
+call|)
+argument_list|(
+name|globalMemstoreLimit
+operator|*
+name|CONVERT_TO_PERCENTAGE
+argument_list|)
+decl_stmt|;
 name|float
 name|blockCacheUpperLimit
 init|=
@@ -260,32 +281,61 @@ argument_list|,
 literal|0.2f
 argument_list|)
 decl_stmt|;
+name|int
+name|bcul
+init|=
+call|(
+name|int
+call|)
+argument_list|(
+name|blockCacheUpperLimit
+operator|*
+name|CONVERT_TO_PERCENTAGE
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
-literal|1.0f
+name|CONVERT_TO_PERCENTAGE
 operator|-
 operator|(
-name|globalMemstoreLimit
+name|gml
 operator|+
-name|blockCacheUpperLimit
+name|bcul
 operator|)
 operator|<
+call|(
+name|int
+call|)
+argument_list|(
+name|CONVERT_TO_PERCENTAGE
+operator|*
 name|HConstants
 operator|.
 name|HBASE_CLUSTER_MINIMUM_MEMORY_THRESHOLD
+argument_list|)
 condition|)
 block|{
 throw|throw
 operator|new
 name|RuntimeException
 argument_list|(
-literal|"Current heap configuration for MemStore and BlockCache exceeds the threshold required for "
+literal|"Current heap configuration for MemStore and BlockCache exceeds "
 operator|+
-literal|"successful cluster operation. The combined value cannot exceed 0.8. Please check "
+literal|"the threshold required for successful cluster operation. "
 operator|+
-literal|"the settings for hbase.regionserver.global.memstore.upperLimit and"
+literal|"The combined value cannot exceed 0.8. Please check "
 operator|+
-literal|" hfile.block.cache.size in your configuration."
+literal|"the settings for hbase.regionserver.global.memstore.upperLimit and "
+operator|+
+literal|"hfile.block.cache.size in your configuration. "
+operator|+
+literal|"hbase.regionserver.global.memstore.upperLimit is "
+operator|+
+name|globalMemstoreLimit
+operator|+
+literal|" hfile.block.cache.size is "
+operator|+
+name|blockCacheUpperLimit
 argument_list|)
 throw|;
 block|}
