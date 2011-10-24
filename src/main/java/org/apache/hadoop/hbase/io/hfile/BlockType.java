@@ -167,10 +167,20 @@ operator|.
 name|META
 argument_list|)
 block|,
-comment|/** Bloom filter metadata, version 2 */
-name|BLOOM_META
+comment|/** General Bloom filter metadata, version 2 */
+name|GENERAL_BLOOM_META
 argument_list|(
 literal|"BLMFMET2"
+argument_list|,
+name|BlockCategory
+operator|.
+name|BLOOM
+argument_list|)
+block|,
+comment|/** Delete Family Bloom filter metadata, version 2 */
+name|DELETE_FAMILY_BLOOM_META
+argument_list|(
+literal|"DFBLMET2"
 argument_list|,
 name|BlockCategory
 operator|.

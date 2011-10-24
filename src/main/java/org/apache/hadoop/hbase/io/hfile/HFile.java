@@ -486,6 +486,19 @@ operator|new
 name|AtomicLong
 argument_list|()
 decl_stmt|;
+comment|// for test purpose
+specifier|public
+specifier|static
+specifier|volatile
+name|AtomicLong
+name|dataBlockReadCnt
+init|=
+operator|new
+name|AtomicLong
+argument_list|(
+literal|0
+argument_list|)
+decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
@@ -626,13 +639,23 @@ name|InlineBlockWriter
 name|bloomWriter
 parameter_list|)
 function_decl|;
-comment|/**      * Store Bloom filter in the file. This does not deal with Bloom filter      * internals but is necessary, since Bloom filters are stored differently      * in HFile version 1 and version 2.      */
+comment|/**      * Store general Bloom filter in the file. This does not deal with Bloom filter      * internals but is necessary, since Bloom filters are stored differently      * in HFile version 1 and version 2.      */
 name|void
-name|addBloomFilter
+name|addGeneralBloomFilter
 parameter_list|(
 name|BloomFilterWriter
 name|bfw
 parameter_list|)
+function_decl|;
+comment|/**      * Store delete family Bloom filter in the file, which is only supported in      * HFile V2.      */
+name|void
+name|addDeleteFamilyBloomFilter
+parameter_list|(
+name|BloomFilterWriter
+name|bfw
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 block|}
 comment|/**    * This variety of ways to construct writers is used throughout the code, and    * we want to be able to swap writer implementations.    */
@@ -1090,9 +1113,16 @@ name|Algorithm
 name|getCompressionAlgorithm
 parameter_list|()
 function_decl|;
-comment|/**      * Retrieves Bloom filter metadata as appropriate for each {@link HFile}      * version. Knows nothing about how that metadata is structured.      */
+comment|/**      * Retrieves general Bloom filter metadata as appropriate for each      * {@link HFile} version.      * Knows nothing about how that metadata is structured.      */
 name|DataInput
-name|getBloomFilterMetadata
+name|getGeneralBloomFilterMetadata
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+comment|/**      * Retrieves delete family Bloom filter metadata as appropriate for each      * {@link HFile}  version.      * Knows nothing about how that metadata is structured.      */
+name|DataInput
+name|getDeleteBloomFilterMetadata
 parameter_list|()
 throws|throws
 name|IOException

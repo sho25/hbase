@@ -879,6 +879,12 @@ argument_list|,
 name|cacheBlocks
 argument_list|,
 name|isGet
+argument_list|,
+literal|false
+argument_list|,
+name|this
+operator|.
+name|matcher
 argument_list|)
 decl_stmt|;
 comment|// include only those scan files which pass all filters

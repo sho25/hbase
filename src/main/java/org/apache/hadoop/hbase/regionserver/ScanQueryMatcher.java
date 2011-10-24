@@ -271,6 +271,13 @@ specifier|final
 name|long
 name|earliestPutTs
 decl_stmt|;
+comment|/**    * This variable shows whether there is an null column in the query. There    * always exists a null column in the wildcard column query.    * There maybe exists a null column in the explicit column query based on the    * first column.    * */
+specifier|private
+name|boolean
+name|hasNullColumn
+init|=
+literal|true
+decl_stmt|;
 comment|/**    * Construct a QueryMatcher for a scan    * @param scan    * @param scanInfo The store's immutable scan info    * @param columns    * @param scanType Type of the scan    * @param earliestPutTs Earliest put seen in any of the store files.    */
 specifier|public
 name|ScanQueryMatcher
@@ -343,7 +350,7 @@ name|startKey
 operator|=
 name|KeyValue
 operator|.
-name|createFirstOnRow
+name|createFirstDeleteFamilyOnRow
 argument_list|(
 name|scan
 operator|.
@@ -354,8 +361,6 @@ name|scanInfo
 operator|.
 name|getFamily
 argument_list|()
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|this
@@ -462,6 +467,11 @@ operator|==
 literal|0
 condition|)
 block|{
+comment|// there is always a null column in the wildcard column query.
+name|hasNullColumn
+operator|=
+literal|true
+expr_stmt|;
 comment|// use a specialized scan for wildcard column tracker.
 name|this
 operator|.
@@ -486,6 +496,20 @@ expr_stmt|;
 block|}
 else|else
 block|{
+comment|// whether there is null column in the explicit column query
+name|hasNullColumn
+operator|=
+operator|(
+name|columns
+operator|.
+name|first
+argument_list|()
+operator|.
+name|length
+operator|==
+literal|0
+operator|)
+expr_stmt|;
 comment|// We can share the ExplicitColumnTracker, diff is we reset
 comment|// between rows, not between storefiles.
 name|this
@@ -550,6 +574,16 @@ operator|.
 name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
+block|}
+comment|/**    *    * @return  whether there is an null column in the query    */
+specifier|public
+name|boolean
+name|hasNullColumnInQuery
+parameter_list|()
+block|{
+return|return
+name|hasNullColumn
+return|;
 block|}
 comment|/**    * Determines if the caller should do one of several things:    * - seek/skip to the next row (MatchCode.SEEK_NEXT_ROW)    * - seek/skip to the next column (MatchCode.SEEK_NEXT_COL)    * - include the current KeyValue (MatchCode.INCLUDE)    * - ignore the current KeyValue (MatchCode.SKIP)    * - got to the next row (MatchCode.DONE)    *    * @param kv KeyValue to check    * @return The match code instance.    * @throws IOException in case there is an internal consistency problem    *      caused by a data corruption.    */
 specifier|public

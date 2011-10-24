@@ -1356,7 +1356,7 @@ name|CompoundBloomFilter
 operator|)
 name|r
 operator|.
-name|getBloomFilter
+name|getGeneralBloomFilter
 argument_list|()
 decl_stmt|;
 name|cbf
@@ -1799,7 +1799,7 @@ name|assertTrue
 argument_list|(
 name|w
 operator|.
-name|hasBloom
+name|hasGeneralBloom
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1807,7 +1807,7 @@ name|assertTrue
 argument_list|(
 name|w
 operator|.
-name|getBloomWriter
+name|getGeneralBloomWriter
 argument_list|()
 operator|instanceof
 name|CompoundBloomFilterWriter
@@ -1821,7 +1821,7 @@ name|CompoundBloomFilterWriter
 operator|)
 name|w
 operator|.
-name|getBloomWriter
+name|getGeneralBloomWriter
 argument_list|()
 decl_stmt|;
 name|int

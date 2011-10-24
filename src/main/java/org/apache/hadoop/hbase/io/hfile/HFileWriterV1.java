@@ -2034,12 +2034,12 @@ name|UnsupportedOperationException
 argument_list|()
 throw|;
 block|}
-comment|/**    * Version 1 Bloom filters are stored in two meta blocks with two different    * keys.    */
+comment|/**    * Version 1 general Bloom filters are stored in two meta blocks with two different    * keys.    */
 annotation|@
 name|Override
 specifier|public
 name|void
-name|addBloomFilter
+name|addGeneralBloomFilter
 parameter_list|(
 name|BloomFilterWriter
 name|bfw
@@ -2078,6 +2078,26 @@ name|dataWriter
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|addDeleteFamilyBloomFilter
+parameter_list|(
+name|BloomFilterWriter
+name|bfw
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Delete Bloom filter is not supported in HFile V1"
+argument_list|)
+throw|;
 block|}
 comment|/**    * Write out the index in the version 1 format. This conforms to the legacy    * version 1 format, but can still be read by    * {@link HFileBlockIndex.BlockIndexReader#readRootIndex(java.io.DataInputStream,    * int)}.    *    * @param out the stream to write to    * @param keys    * @param offsets    * @param uncompressedSizes in contrast with a version 2 root index format,    *          the sizes stored in the version 1 are uncompressed sizes    * @return    * @throws IOException    */
 specifier|private
