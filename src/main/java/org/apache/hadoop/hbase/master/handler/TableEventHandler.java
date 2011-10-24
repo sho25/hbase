@@ -35,6 +35,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|LinkedList
 import|;
 end_import
@@ -507,18 +517,6 @@ argument_list|)
 argument_list|)
 condition|)
 block|{
-name|this
-operator|.
-name|masterServices
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|setRegionsToReopen
-argument_list|(
-name|hris
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|reOpenAllRegions
@@ -673,6 +671,19 @@ operator|.
 name|getRegionLocations
 argument_list|()
 decl_stmt|;
+name|List
+argument_list|<
+name|HRegionInfo
+argument_list|>
+name|reRegions
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|HRegionInfo
+argument_list|>
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|HRegionInfo
@@ -691,6 +702,26 @@ argument_list|(
 name|hri
 argument_list|)
 decl_stmt|;
+comment|// Skip the offlined split parent region
+comment|// See HBASE-4578 for more information.
+if|if
+condition|(
+literal|null
+operator|==
+name|rsLocation
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Skip "
+operator|+
+name|hri
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
 if|if
 condition|(
 operator|!
@@ -723,6 +754,13 @@ name|hriList
 argument_list|)
 expr_stmt|;
 block|}
+name|reRegions
+operator|.
+name|add
+argument_list|(
+name|hri
+argument_list|)
+expr_stmt|;
 name|serverToRegions
 operator|.
 name|get
@@ -742,7 +780,7 @@ name|info
 argument_list|(
 literal|"Reopening "
 operator|+
-name|regions
+name|reRegions
 operator|.
 name|size
 argument_list|()
@@ -755,6 +793,18 @@ name|size
 argument_list|()
 operator|+
 literal|" region servers."
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|masterServices
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|setRegionsToReopen
+argument_list|(
+name|reRegions
 argument_list|)
 expr_stmt|;
 name|BulkReOpen
