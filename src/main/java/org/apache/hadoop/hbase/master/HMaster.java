@@ -117,6 +117,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -2002,7 +2012,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Initilize all ZK based system trackers.    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Initialize all ZK based system trackers.    * @throws IOException    * @throws InterruptedException    */
 end_comment
 
 begin_function
@@ -6084,6 +6094,11 @@ name|assignmentManager
 operator|.
 name|getRegionsInTransition
 argument_list|()
+argument_list|,
+name|this
+operator|.
+name|getCoprocessors
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -6123,6 +6138,44 @@ argument_list|()
 operator|.
 name|toString
 argument_list|()
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * @return array of coprocessor SimpleNames.    */
+end_comment
+
+begin_function
+specifier|public
+name|String
+index|[]
+name|getCoprocessors
+parameter_list|()
+block|{
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|masterCoprocessors
+init|=
+name|getCoprocessorHost
+argument_list|()
+operator|.
+name|getCoprocessors
+argument_list|()
+decl_stmt|;
+return|return
+name|masterCoprocessors
+operator|.
+name|toArray
+argument_list|(
+operator|new
+name|String
+index|[
+literal|0
+index|]
+argument_list|)
 return|;
 block|}
 end_function
