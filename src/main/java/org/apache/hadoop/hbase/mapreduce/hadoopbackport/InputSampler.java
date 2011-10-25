@@ -775,7 +775,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**    * This method is about making hbase portable, making it so it can run on    * more than just hadoop 0.20.  In later hadoops, TaskAttemptContext became    * an Interface.  But in hadoops where TAC is an Interface, we shouldn't    * be using the classes that are in this package; we should be using the    * native Hadoop ones (We'll throw a ClassNotFoundException if end up in    * here when we should be using native hadoop TotalOrderPartitioner).    * @param job    * @return    * @throws IOException     */
+comment|/**    * This method is about making hbase portable, making it so it can run on    * more than just hadoop 0.20.  In later hadoops, TaskAttemptContext became    * an Interface.  But in hadoops where TAC is an Interface, we shouldn't    * be using the classes that are in this package; we should be using the    * native Hadoop ones (We'll throw a ClassNotFoundException if end up in    * here when we should be using native hadoop TotalOrderPartitioner).    * @param job    * @return Context    * @throws IOException     */
 specifier|public
 specifier|static
 name|TaskAttemptContext

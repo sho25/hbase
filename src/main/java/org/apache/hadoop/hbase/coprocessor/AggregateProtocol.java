@@ -183,7 +183,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Gives the row count for the given column family and column qualifier, in    * the given row range as defined in the Scan object.    * @param ci    * @param scan    * @return    * @throws IOException    */
+comment|/**    * @param ci    * @param scan    * @return Row count for the given column family and column qualifier, in    * the given row range as defined in the Scan object.    * @throws IOException    */
 parameter_list|<
 name|T
 parameter_list|,
@@ -206,7 +206,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Gives a Pair with first object as Sum and second object as row count,    * computed for a given combination of column qualifier and column family in    * the given row range as defined in the Scan object. In its current    * implementation, it takes one column family and one column qualifier (if    * provided). In case of null column qualifier, an aggregate sum over all the    * entire column family will be returned.    *<p>    * The average is computed in    * {@link AggregationClient#avg(byte[], ColumnInterpreter, Scan)} by    * processing results from all regions, so its "ok" to pass sum and a Long    * type.    * @param ci    * @param scan    * @return    * @throws IOException    */
+comment|/**    * Gives a Pair with first object as Sum and second object as row count,    * computed for a given combination of column qualifier and column family in    * the given row range as defined in the Scan object. In its current    * implementation, it takes one column family and one column qualifier (if    * provided). In case of null column qualifier, an aggregate sum over all the    * entire column family will be returned.    *<p>    * The average is computed in    * {@link AggregationClient#avg(byte[], ColumnInterpreter, Scan)} by    * processing results from all regions, so its "ok" to pass sum and a Long    * type.    * @param ci    * @param scan    * @return Average    * @throws IOException    */
 parameter_list|<
 name|T
 parameter_list|,
@@ -234,7 +234,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Gives a Pair with first object a List containing Sum and sum of squares,    * and the second object as row count. It is computed for a given combination of    * column qualifier and column family in the given row range as defined in the    * Scan object. In its current implementation, it takes one column family and    * one column qualifier (if provided). The idea is get the value of variance first:    * the average of the squares less the square of the average a standard    * deviation is square root of variance.    * @param ci    * @param scan    * @return    * @throws IOException    */
+comment|/**    * Gives a Pair with first object a List containing Sum and sum of squares,    * and the second object as row count. It is computed for a given combination of    * column qualifier and column family in the given row range as defined in the    * Scan object. In its current implementation, it takes one column family and    * one column qualifier (if provided). The idea is get the value of variance first:    * the average of the squares less the square of the average a standard    * deviation is square root of variance.    * @param ci    * @param scan    * @return STD    * @throws IOException    */
 parameter_list|<
 name|T
 parameter_list|,

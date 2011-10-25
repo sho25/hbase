@@ -87,7 +87,7 @@ name|FileNotFoundException
 throws|,
 name|IOException
 function_decl|;
-comment|/**    * Get Map of all HTableDescriptors. Populates the descriptor cache as a    * side effect.    * @param fs    * @param rootdir    * @return Map of all descriptors.    * @throws IOException    */
+comment|/**    * Get Map of all HTableDescriptors. Populates the descriptor cache as a    * side effect.    * @return Map of all descriptors.    * @throws IOException    */
 specifier|public
 name|Map
 argument_list|<

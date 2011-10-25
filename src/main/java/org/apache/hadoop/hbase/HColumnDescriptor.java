@@ -1891,7 +1891,7 @@ return|return
 name|DEFAULT_KEEP_DELETED
 return|;
 block|}
-comment|/**    * @param keepDeletedRows True if deleted rows should not be collected    * immediately.    */
+comment|/**    * @param keepDeletedCells True if deleted rows should not be collected    * immediately.    */
 specifier|public
 name|void
 name|setKeepDeletedCells

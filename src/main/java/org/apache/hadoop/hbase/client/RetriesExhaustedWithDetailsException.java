@@ -298,7 +298,6 @@ name|i
 argument_list|)
 return|;
 block|}
-comment|/**    * @param i    * @return    * @deprecated    */
 specifier|public
 name|HServerAddress
 name|getAddress

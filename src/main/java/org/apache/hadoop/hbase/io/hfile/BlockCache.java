@@ -119,7 +119,7 @@ name|String
 name|string
 parameter_list|)
 function_decl|;
-comment|/**    * Get the statistics for this block cache.    * @return    */
+comment|/**    * Get the statistics for this block cache.    * @return Stats    */
 specifier|public
 name|CacheStats
 name|getStats

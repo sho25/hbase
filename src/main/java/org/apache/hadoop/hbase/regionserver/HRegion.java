@@ -2151,7 +2151,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**    * HRegion constructor.  his constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#newHRegion(Path, HLog, FileSystem, Configuration, org.apache.hadoop.hbase.HRegionInfo, FlushRequester)} method.    *    *    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param rsServices reference to {@link RegionServerServices} or null    *    * @see HRegion#newHRegion(Path, HLog, FileSystem, Configuration, org.apache.hadoop.hbase.HRegionInfo, FlushRequester)    */
+comment|/**    * HRegion constructor.  his constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#newHRegion(Path, HLog, FileSystem, Configuration, HRegionInfo, HTableDescriptor, RegionServerServices)} method.    *    *    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param rsServices reference to {@link RegionServerServices} or null    *    * @see HRegion#newHRegion(Path, HLog, FileSystem, Configuration, HRegionInfo, HTableDescriptor, RegionServerServices)    */
 specifier|public
 name|HRegion
 parameter_list|(
@@ -4988,7 +4988,7 @@ name|status
 argument_list|)
 return|;
 block|}
-comment|/**    * @param wal Null if we're NOT to go via hlog/wal.    * @param myseqid The seqid to use if<code>wal</code> is null writing out    * flush file.    * @param status     * @return true if the region needs compacting    * @throws IOException    * @see #internalFlushcache()    */
+comment|/**    * @param wal Null if we're NOT to go via hlog/wal.    * @param myseqid The seqid to use if<code>wal</code> is null writing out    * flush file.    * @param status     * @return true if the region needs compacting    * @throws IOException    * @see #internalFlushcache(MonitoredTask)    */
 specifier|protected
 name|boolean
 name|internalFlushcache
@@ -10806,7 +10806,7 @@ name|getBytes
 argument_list|()
 return|;
 block|}
-comment|/**    * Release the row lock!    * @param lockid  The lock ID to release.    */
+comment|/**    * Release the row lock!    * @param lockId  The lock ID to release.    */
 specifier|public
 name|void
 name|releaseRowLock
@@ -12417,7 +12417,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Open a Region.    * @param info Info for region to be opened.    * @param wal HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf    * @param flusher An interface we can request flushes against.    * @param reporter An interface we can report progress against.    * @return new HRegion    *    * @throws IOException    */
+comment|/**    * Open a Region.    * @param info Info for region to be opened    * @param htd    * @param wal HLog for region to use. This method will call    * HLog#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the log id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param conf    * @param rsServices An interface we can request flushes against.    * @param reporter An interface we can report progress against.    * @return new HRegion    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -15179,7 +15179,7 @@ return|;
 block|}
 comment|// TODO: There's a lot of boiler plate code identical
 comment|// to increment... See how to better unify that.
-comment|/**    *     * Perform one or more append operations on a row.    *<p>    * Appends performed are done under row lock but reads do not take locks out    * so this can be seen partially complete by gets and scans.    *     * @param append    * @param lockid    * @param returnResult    * @param writeToWAL    * @return new keyvalues after increment    * @throws IOException    */
+comment|/**    *     * Perform one or more append operations on a row.    *<p>    * Appends performed are done under row lock but reads do not take locks out    * so this can be seen partially complete by gets and scans.    *     * @param append    * @param lockid    * @param writeToWAL    * @return new keyvalues after increment    * @throws IOException    */
 specifier|public
 name|Result
 name|append

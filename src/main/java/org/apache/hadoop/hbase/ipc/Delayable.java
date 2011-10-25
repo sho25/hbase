@@ -57,7 +57,7 @@ name|boolean
 name|isReturnValueDelayed
 parameter_list|()
 function_decl|;
-comment|/**    * Signal that the  RPC server is now allowed to send the response.    * @param result The value to return to the caller.  If the corresponding    * {@link #delayResponse(boolean)} specified that the return value should    * not be delayed, this parameter must be null.    * @throws IOException    */
+comment|/**    * Signal that the  RPC server is now allowed to send the response.    * @param result The value to return to the caller.  If the corresponding    * delay response specified that the return value should    * not be delayed, this parameter must be null.    * @throws IOException    */
 specifier|public
 name|void
 name|endDelay

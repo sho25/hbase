@@ -846,7 +846,7 @@ operator|.
 name|fsOk
 return|;
 block|}
-comment|/**    * @return HBase root dir.    * @throws IOException    */
+comment|/**    * @return HBase root dir.    */
 specifier|public
 name|Path
 name|getRootDir
@@ -858,7 +858,7 @@ operator|.
 name|rootdir
 return|;
 block|}
-comment|/**    * Returns the unique identifier generated for this cluster    * @return    */
+comment|/**    * @return The unique identifier generated for this cluster    */
 specifier|public
 name|String
 name|getClusterId

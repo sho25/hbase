@@ -159,7 +159,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**    * Starts the tracking of the node in ZooKeeper.    *    *<p>Use {@link #blockUntilAvailable()} to block until the node is available    * or {@link #getData()} to get the data of the node if it is available.    */
+comment|/**    * Starts the tracking of the node in ZooKeeper.    *    *<p>Use {@link #blockUntilAvailable()} to block until the node is available    * or {@link #getData(boolean)} to get the data of the node if it is available.    */
 specifier|public
 specifier|synchronized
 name|void
@@ -428,7 +428,7 @@ operator|.
 name|data
 return|;
 block|}
-comment|/**    * Gets the data of the node.    *    *<p>If the node is currently available, the most up-to-date known version of    * the data is returned.  If the node is not currently available, null is    * returned.    * @param whether to refresh the data by calling ZK directly.    * @return data of the node, null if unavailable    */
+comment|/**    * Gets the data of the node.    *    *<p>If the node is currently available, the most up-to-date known version of    * the data is returned.  If the node is not currently available, null is    * returned.    * @param refresh whether to refresh the data by calling ZK directly.    * @return data of the node, null if unavailable    */
 specifier|public
 specifier|synchronized
 name|byte

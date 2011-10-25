@@ -142,7 +142,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * Print all of the thread's information and stack traces.    *     * @param stream the stream to    *     */
+comment|/**    * Print all of the thread's information and stack traces.    *     * @param sb    * @param info    * @param indent    */
 specifier|public
 specifier|static
 name|void

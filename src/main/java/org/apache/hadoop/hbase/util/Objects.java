@@ -45,26 +45,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Collection
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Collections
 import|;
 end_import
@@ -96,26 +76,6 @@ operator|.
 name|util
 operator|.
 name|List
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|NavigableSet
 import|;
 end_import
 
@@ -668,7 +628,7 @@ literal|0
 return|;
 block|}
 block|}
-comment|/**    * Attempts to construct a text description of the given object, by    * introspecting known classes and building a description of size.    * @param obj    * @return    */
+comment|/**    * Attempts to construct a text description of the given object, by    * introspecting known classes and building a description of size.    * @param obj    * @return Description    */
 specifier|public
 specifier|static
 name|String

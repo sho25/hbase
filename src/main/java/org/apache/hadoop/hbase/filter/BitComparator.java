@@ -81,7 +81,7 @@ specifier|protected
 name|BitwiseOp
 name|bitOperator
 decl_stmt|;
-comment|/**    * Constructor    * @param value value    * @param BitwiseOp bitOperator - the operator to use on the bit comparison    */
+comment|/**    * Constructor    * @param value value    * @param bitOperator operator to use on the bit comparison    */
 specifier|public
 name|BitComparator
 parameter_list|(

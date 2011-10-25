@@ -787,7 +787,7 @@ literal|0
 argument_list|)
 return|;
 block|}
-comment|/**    * TODO left from {@HFile} version 1: move this to StoreFile after Ryan's    * patch goes in to eliminate {@link KeyValue} here.    *    * @return the first row key, or null if the file is empty.    */
+comment|/**    * TODO left from {@link HFile} version 1: move this to StoreFile after Ryan's    * patch goes in to eliminate {@link KeyValue} here.    *    * @return the first row key, or null if the file is empty.    */
 annotation|@
 name|Override
 specifier|public
@@ -824,7 +824,7 @@ name|getRow
 argument_list|()
 return|;
 block|}
-comment|/**    * TODO left from {@HFile} version 1: move this to StoreFile after    * Ryan's patch goes in to eliminate {@link KeyValue} here.    *    * @return the last row key, or null if the file is empty.    */
+comment|/**    * TODO left from {@link HFile} version 1: move this to StoreFile after    * Ryan's patch goes in to eliminate {@link KeyValue} here.    *    * @return the last row key, or null if the file is empty.    */
 annotation|@
 name|Override
 specifier|public

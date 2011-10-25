@@ -970,7 +970,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Reads the location of META from ROOT.    * @param metaServer connection to server hosting ROOT    * @return location of META in ROOT where location, or null if not available    * @throws IOException    * @deprecated Does not retry; use {@link #readRegionLocation(CatalogTracker, byte[])    */
+comment|/**    * Reads the location of META from ROOT.    * @param metaServer connection to server hosting ROOT    * @return location of META in ROOT where location, or null if not available    * @throws IOException    * @deprecated Does not retry; use {@link #readRegionLocation(CatalogTracker, byte[])}    */
 specifier|public
 specifier|static
 name|ServerName
@@ -2451,7 +2451,7 @@ name|getResults
 argument_list|()
 return|;
 block|}
-comment|/**    * @param catalogTracker    * @param hsi Server specification    * @return List of user regions installed on this server (does not include    * catalog regions).    * @throws IOException    */
+comment|/**    * @param catalogTracker    * @param serverName    * @return List of user regions installed on this server (does not include    * catalog regions).    * @throws IOException    */
 specifier|public
 specifier|static
 name|NavigableMap

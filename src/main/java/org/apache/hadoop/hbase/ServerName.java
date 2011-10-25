@@ -58,7 +58,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Instance of an HBase ServerName.  * A server name is used uniquely identifying a server instance and is made  * of the combination of hostname, port, and startcode. The startcode  * distingushes restarted servers on same hostname and port (startcode is  * usually timestamp of server startup). The {@link #toString()} format of  * ServerName is safe to use in the  filesystem and as znode name up in  * ZooKeeper.  Its format is:  *<code>&lt;hostname> '{@link #SERVERNAME_SEPARATOR"}'&lt;port> '{@ink #SERVERNAME_SEPARATOR"}'&lt;startcode></code>.  * For example, if hostname is<code>example.org</code>, port is<code>1234</code>,  * and the startcode for the regionserver is<code>1212121212</code>, then  * the {@link #toString()} would be<code>example.org,1234,1212121212</code>.  *   *<p>Immutable.  */
+comment|/**  * Instance of an HBase ServerName.  * A server name is used uniquely identifying a server instance and is made  * of the combination of hostname, port, and startcode. The startcode  * distingushes restarted servers on same hostname and port (startcode is  * usually timestamp of server startup). The {@link #toString()} format of  * ServerName is safe to use in the  filesystem and as znode name up in  * ZooKeeper.  Its format is:  *<code>&lt;hostname> '{@link #SERVERNAME_SEPARATOR}'&lt;port> '{@link #SERVERNAME_SEPARATOR}'&lt;startcode></code>.  * For example, if hostname is<code>example.org</code>, port is<code>1234</code>,  * and the startcode for the regionserver is<code>1212121212</code>, then  * the {@link #toString()} would be<code>example.org,1234,1212121212</code>.  *   *<p>Immutable.  */
 end_comment
 
 begin_class
@@ -889,7 +889,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * @param left    * @param rigth    * @return True if<code>other</code> has same hostname and port.    */
+comment|/**    * @param left    * @param right    * @return True if<code>other</code> has same hostname and port.    */
 specifier|public
 specifier|static
 name|boolean

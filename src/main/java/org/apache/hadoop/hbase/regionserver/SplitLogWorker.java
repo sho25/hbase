@@ -2506,7 +2506,7 @@ expr_stmt|;
 return|return;
 block|}
 block|}
-comment|/**    * Objects implementing this interface actually do the task that has been    * acquired by a {@link SplitLogWorker}. Since there isn't a water-tight    * guarantee that two workers will not be executing the same task therefore it    * is better to have workers prepare the task and then have the    * {@link SplitLogManager} commit the work in    * {@link SplitLogManager.TaskFinisher}    */
+comment|/**    * Objects implementing this interface actually do the task that has been    * acquired by a {@link SplitLogWorker}. Since there isn't a water-tight    * guarantee that two workers will not be executing the same task therefore it    * is better to have workers prepare the task and then have the    * {@link SplitLogManager} commit the work in SplitLogManager.TaskFinisher    */
 specifier|static
 specifier|public
 interface|interface

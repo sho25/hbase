@@ -66,7 +66,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after a block has been written, and its offset, raw size, and    * compressed size have been determined. Can be used to add an entry to a    * block index. If this type of inline blocks needs a block index, the inline    * block writer is responsible for maintaining it.    *    * @param offset the offset of the block in the stream    * @param onDiskSize the on-disk size of the block    * @param uncompressedSize the uncompressed size of the block    * @param rawSize    */
+comment|/**    * Called after a block has been written, and its offset, raw size, and    * compressed size have been determined. Can be used to add an entry to a    * block index. If this type of inline blocks needs a block index, the inline    * block writer is responsible for maintaining it.    *    * @param offset the offset of the block in the stream    * @param onDiskSize the on-disk size of the block    * @param uncompressedSize the uncompressed size of the block    */
 name|void
 name|blockWritten
 parameter_list|(

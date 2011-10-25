@@ -377,7 +377,7 @@ operator|)
 argument_list|)
 return|;
 block|}
-comment|/**    * The maximum number of keys we can put into a Bloom filter of a certain    * size to maintain the given error rate, assuming the number of hash    * functions is chosen optimally and does not even have to be an integer    * (hence the "ideal" in the function name).    *    * @param bitSize    * @param errorRate    * @return maximum number of keys that can be inserted into the Bloom filter    * @see {@link #computeMaxKeys(long, double, int)} for a more precise    *      estimate    */
+comment|/**    * The maximum number of keys we can put into a Bloom filter of a certain    * size to maintain the given error rate, assuming the number of hash    * functions is chosen optimally and does not even have to be an integer    * (hence the "ideal" in the function name).    *    * @param bitSize    * @param errorRate    * @return maximum number of keys that can be inserted into the Bloom filter    * @see #computeMaxKeys(long, double, int) for a more precise estimate    */
 specifier|public
 specifier|static
 name|long
@@ -529,7 +529,7 @@ name|functionCount
 argument_list|)
 return|;
 block|}
-comment|/**    * Increases the given byte size of a Bloom filter until it can be folded by    * the given factor.    *    * @param bitSize    * @param foldFactor    * @return    */
+comment|/**    * Increases the given byte size of a Bloom filter until it can be folded by    * the given factor.    *    * @param bitSize    * @param foldFactor    * @return Foldable byte size    */
 specifier|public
 specifier|static
 name|int

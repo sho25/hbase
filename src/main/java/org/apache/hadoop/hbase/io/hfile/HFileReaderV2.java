@@ -872,7 +872,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**    * Read in a file block.    *    * @param dataBlockOffset offset to read.    * @param onDiskSize size of the block    * @param pread Use positional read instead of seek+read (positional is better    *          doing random reads whereas seek+read is better scanning).    * @param isCompaction is this block being read as part of a compaction    * @return Block wrapped in a ByteBuffer.    * @throws IOException    */
+comment|/**    * Read in a file block.    *    * @param dataBlockOffset offset to read.    * @param onDiskBlockSize size of the block    * @param cacheBlock    * @param pread Use positional read instead of seek+read (positional is better    *          doing random reads whereas seek+read is better scanning).    * @param isCompaction is this block being read as part of a compaction    * @return Block wrapped in a ByteBuffer.    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public

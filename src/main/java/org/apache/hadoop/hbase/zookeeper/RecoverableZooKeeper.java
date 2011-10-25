@@ -238,7 +238,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A zookeeper that can handle 'recoverable' errors.  * To handle recoverable errors, developers need to realize that there are two   * classes of requests: idempotent and non-idempotent requests. Read requests   * and unconditional sets and deletes are examples of idempotent requests, they   * can be reissued with the same results.   * (Although, the delete may throw a NoNodeException on reissue its effect on   * the ZooKeeper state is the same.) Non-idempotent requests need special   * handling, application and library writers need to keep in mind that they may   * need to encode information in the data or name of znodes to detect   * retries. A simple example is a create that uses a sequence flag.   * If a process issues a create("/x-", ..., SEQUENCE) and gets a connection   * loss exception, that process will reissue another   * create("/x-", ..., SEQUENCE) and get back x-111. When the process does a   * getChildren("/"), it sees x-1,x-30,x-109,x-110,x-111, now it could be   * that x-109 was the result of the previous create, so the process actually   * owns both x-109 and x-111. An easy way around this is to use "x-process id-"   * when doing the create. If the process is using an id of 352, before reissuing  * the create it will do a getChildren("/") and see "x-222-1", "x-542-30",   * "x-352-109", x-333-110". The process will know that the original create   * succeeded an the znode it created is "x-352-109".  * @see http://wiki.apache.org/hadoop/ZooKeeper/ErrorHandling  */
+comment|/**  * A zookeeper that can handle 'recoverable' errors.  * To handle recoverable errors, developers need to realize that there are two   * classes of requests: idempotent and non-idempotent requests. Read requests   * and unconditional sets and deletes are examples of idempotent requests, they   * can be reissued with the same results.   * (Although, the delete may throw a NoNodeException on reissue its effect on   * the ZooKeeper state is the same.) Non-idempotent requests need special   * handling, application and library writers need to keep in mind that they may   * need to encode information in the data or name of znodes to detect   * retries. A simple example is a create that uses a sequence flag.   * If a process issues a create("/x-", ..., SEQUENCE) and gets a connection   * loss exception, that process will reissue another   * create("/x-", ..., SEQUENCE) and get back x-111. When the process does a   * getChildren("/"), it sees x-1,x-30,x-109,x-110,x-111, now it could be   * that x-109 was the result of the previous create, so the process actually   * owns both x-109 and x-111. An easy way around this is to use "x-process id-"   * when doing the create. If the process is using an id of 352, before reissuing  * the create it will do a getChildren("/") and see "x-222-1", "x-542-30",   * "x-352-109", x-333-110". The process will know that the original create   * succeeded an the znode it created is "x-352-109".  * @see "http://wiki.apache.org/hadoop/ZooKeeper/ErrorHandling"  */
 end_comment
 
 begin_class
@@ -572,7 +572,7 @@ literal|true
 expr_stmt|;
 block|}
 block|}
-comment|/**    * exists is an idempotent operation. Retry before throw out exception    * @param path    * @param watcher    * @return    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * exists is an idempotent operation. Retry before throw out exception    * @param path    * @param watcher    * @return A Stat instance    * @throws KeeperException    * @throws InterruptedException    */
 specifier|public
 name|Stat
 name|exists
@@ -689,7 +689,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * exists is an idempotent operation. Retry before throw out exception    * @param path    * @param watch    * @return    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * exists is an idempotent operation. Retry before throw out exception    * @param path    * @param watch    * @return A Stat instance    * @throws KeeperException    * @throws InterruptedException    */
 specifier|public
 name|Stat
 name|exists
@@ -806,7 +806,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * getChildren is an idempotent operation. Retry before throw out exception    * @param path    * @param watcher    * @return    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * getChildren is an idempotent operation. Retry before throw out exception    * @param path    * @param watcher    * @return List of children znodes    * @throws KeeperException    * @throws InterruptedException    */
 specifier|public
 name|List
 argument_list|<
@@ -926,7 +926,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * getChildren is an idempotent operation. Retry before throw out exception    * @param path    * @param watch    * @return    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * getChildren is an idempotent operation. Retry before throw out exception    * @param path    * @param watch    * @return List of children znodes    * @throws KeeperException    * @throws InterruptedException    */
 specifier|public
 name|List
 argument_list|<
@@ -1046,7 +1046,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * getData is an idempotent operation. Retry before throw out exception    * @param path    * @param watcher    * @param stat    * @return    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * getData is an idempotent operation. Retry before throw out exception    * @param path    * @param watcher    * @param stat    * @return Data    * @throws KeeperException    * @throws InterruptedException    */
 specifier|public
 name|byte
 index|[]
@@ -1180,7 +1180,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * getData is an idemnpotent operation. Retry before throw out exception    * @param path    * @param watch    * @param stat    * @return    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * getData is an idemnpotent operation. Retry before throw out exception    * @param path    * @param watch    * @param stat    * @return Data    * @throws KeeperException    * @throws InterruptedException    */
 specifier|public
 name|byte
 index|[]
@@ -1314,7 +1314,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * setData is NOT an idempotent operation. Retry may cause BadVersion Exception    * Adding an identifier field into the data to check whether     * badversion is caused by the result of previous correctly setData    * @param path    * @param data    * @param version    * @return     * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    * setData is NOT an idempotent operation. Retry may cause BadVersion Exception    * Adding an identifier field into the data to check whether     * badversion is caused by the result of previous correctly setData    * @param path    * @param data    * @param version    * @return Stat instance    * @throws KeeperException    * @throws InterruptedException    */
 specifier|public
 name|Stat
 name|setData
@@ -1546,7 +1546,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    *<p>    * NONSEQUENTIAL create is idempotent operation.     * Retry before throw out exceptions.    * But this function will not throw out the NodeExist exception back to the    * application.    *</p>    *<p>    * But SEQUENTIAL is NOT idempotent operation. It is necessary to add     * identifier to the path to verify, whether the previous one is successful     * or not.    *</p>    *     * @param path    * @param data    * @param acl    * @param createMode    * @return    * @throws KeeperException    * @throws InterruptedException    */
+comment|/**    *<p>    * NONSEQUENTIAL create is idempotent operation.     * Retry before throw out exceptions.    * But this function will not throw out the NodeExist exception back to the    * application.    *</p>    *<p>    * But SEQUENTIAL is NOT idempotent operation. It is necessary to add     * identifier to the path to verify, whether the previous one is successful     * or not.    *</p>    *     * @param path    * @param data    * @param acl    * @param createMode    * @return Path    * @throws KeeperException    * @throws InterruptedException    */
 specifier|public
 name|String
 name|create

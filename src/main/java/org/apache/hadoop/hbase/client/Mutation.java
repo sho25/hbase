@@ -593,7 +593,7 @@ operator|.
 name|familyMap
 return|;
 block|}
-comment|/**    * Method for setting the put's familyMap    * @return familyMap    */
+comment|/**    * Method for setting the put's familyMap    */
 specifier|public
 name|void
 name|setFamilyMap

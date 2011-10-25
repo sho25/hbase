@@ -306,7 +306,7 @@ name|fileInfoLoaded
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * Opens a HFile.  You must load the index before you can    * use it by calling {@link #loadFileInfo()}.    *    * @param fsdis input stream.  Caller is responsible for closing the passed    * stream.    * @param size Length of the stream.    * @param cacheConf cache references and configuration    * @throws IOException    */
+comment|/**    * Opens a HFile.  You must load the index before you can    * use it by calling {@link #loadFileInfo()}.    *    * @param fsdis input stream.  Caller is responsible for closing the passed    * stream.    * @param size Length of the stream.    * @param cacheConf cache references and configuration    */
 specifier|public
 name|HFileReaderV1
 parameter_list|(
@@ -426,7 +426,7 @@ return|return
 name|allIndex
 return|;
 block|}
-comment|/**    * Read in the index and file info.    *    * @return A map of fileinfo data.    * @see {@link Writer#appendFileInfo(byte[], byte[])}.    * @throws IOException    */
+comment|/**    * Read in the index and file info.    *    * @return A map of fileinfo data.    * @see Writer#appendFileInfo(byte[], byte[])    * @throws IOException    */
 annotation|@
 name|Override
 specifier|public

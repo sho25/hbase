@@ -1814,7 +1814,7 @@ return|return
 name|nextBlockOnDiskSizeWithHeader
 return|;
 block|}
-comment|/**    * Unified version 2 {@link HFile} block writer. The intended usage pattern    * is as follows:    *<ul>    *<li>Construct an {@link HFileBlock.Writer}, providing a compression    * algorithm    *<li>Call {@link Writer#startWriting(BlockType)} and get a data stream to    * write to    *<li>Write your data into the stream    *<li>Call {@link Writer#writeHeaderAndData()} as many times as you need to    * store the serialized block into an external stream, or call    * {@link Writer#getHeaderAndData()} to get it as a byte array.    *<li>Repeat to write more blocks    *</ul>    *<p>    */
+comment|/**    * Unified version 2 {@link HFile} block writer. The intended usage pattern    * is as follows:    *<ul>    *<li>Construct an {@link HFileBlock.Writer}, providing a compression    * algorithm    *<li>Call {@link Writer#startWriting(BlockType, boolean)} and get a data stream to    * write to    *<li>Write your data into the stream    *<li>Call {@link Writer#writeHeaderAndData(FSDataOutputStream)} as many times as you need to    * store the serialized block into an external stream, or call    * {@link Writer#getHeaderAndData()} to get it as a byte array.    *<li>Repeat to write more blocks    *</ul>    *<p>    */
 specifier|public
 specifier|static
 class|class
@@ -1911,7 +1911,7 @@ specifier|private
 name|long
 name|prevOffset
 decl_stmt|;
-comment|/**      * @param blockType      *          block type to create      * @param compressionAlgorithm      *          compression algorithm to use      */
+comment|/**      * @param compressionAlgorithm      *          compression algorithm to use      */
 specifier|public
 name|Writer
 parameter_list|(
@@ -2382,7 +2382,7 @@ name|prevOffset
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Similar to {@link #writeHeaderAndData(DataOutputStream)}, but records      * the offset of this block so that it can be referenced in the next block      * of the same type.      *      * @param out      * @throws IOException      */
+comment|/**      * Similar to {@link #writeHeaderAndData(FSDataOutputStream)}, but records      * the offset of this block so that it can be referenced in the next block      * of the same type.      *      * @param out      * @throws IOException      */
 specifier|public
 name|void
 name|writeHeaderAndData
@@ -2704,7 +2704,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**      * Similar to {@link #getUncompressedDataWithHeader()} but returns a byte      * buffer.      *      * @return uncompressed block for caching on write in the form of a buffer      */
+comment|/**      * Similar to {@link #getUncompressedBufferWithHeader()} but returns a byte      * buffer.      *      * @return uncompressed block for caching on write in the form of a buffer      */
 specifier|public
 name|ByteBuffer
 name|getUncompressedBufferWithHeader
@@ -3345,7 +3345,7 @@ operator|+
 name|HEADER_SIZE
 return|;
 block|}
-comment|/**      * Decompresses data from the given stream using the configured compression      * algorithm.      *      * @param boundedStream      *          a stream to read compressed data from, bounded to the exact      *          amount of compressed data      * @param compressedSize      *          compressed data size, header not included      * @param uncompressedSize      *          uncompressed data size, header not included      * @param header      *          the header to include before the decompressed data, or null.      *          Only the first {@link HFileBlock#HEADER_SIZE} bytes of the      *          buffer are included.      * @return the byte buffer containing the given header (optionally) and the      *         decompressed data      * @throws IOException      */
+comment|/**      * Decompresses data from the given stream using the configured compression      * algorithm.      * @param dest      * @param destOffset      * @param bufferedBoundedStream      *          a stream to read compressed data from, bounded to the exact      *          amount of compressed data      * @param compressedSize      *          compressed data size, header not included      * @param uncompressedSize      *          uncompressed data size, header not included      * @throws IOException      */
 specifier|protected
 name|void
 name|decompress

@@ -21,9 +21,23 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
+name|lang
 operator|.
-name|IOException
+name|reflect
+operator|.
+name|InvocationTargetException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|lang
+operator|.
+name|reflect
+operator|.
+name|Method
 import|;
 end_import
 
@@ -55,16 +69,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|TreeSet
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|ArrayList
 import|;
 end_import
@@ -75,7 +79,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Stack
+name|EmptyStackException
 import|;
 end_import
 
@@ -101,33 +105,11 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
+name|java
 operator|.
 name|util
 operator|.
-name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Writables
+name|Stack
 import|;
 end_import
 
@@ -157,38 +139,6 @@ name|hbase
 operator|.
 name|filter
 operator|.
-name|ParseConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|filter
-operator|.
-name|FilterList
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|filter
-operator|.
 name|CompareFilter
 operator|.
 name|CompareOp
@@ -197,43 +147,17 @@ end_import
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|lang
+name|apache
 operator|.
-name|ArrayIndexOutOfBoundsException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
+name|hadoop
 operator|.
-name|lang
-operator|.
-name|ClassCastException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|lang
-operator|.
-name|reflect
-operator|.
-name|*
-import|;
-end_import
-
-begin_import
-import|import
-name|java
+name|hbase
 operator|.
 name|util
 operator|.
-name|EmptyStackException
+name|Bytes
 import|;
 end_import
 
@@ -1528,7 +1452,7 @@ return|return
 name|filterName
 return|;
 block|}
-comment|/**  * Returns the arguments of the filter from the filter string  *<p>  * @param filter_string filter string given by the user  * @return an ArrayList containing the arguments of the filter in the filter string  */
+comment|/**  * Returns the arguments of the filter from the filter string  *<p>  * @param filterStringAsByteArray filter string given by the user  * @return an ArrayList containing the arguments of the filter in the filter string  */
 specifier|public
 specifier|static
 name|ArrayList
@@ -1908,7 +1832,7 @@ return|return
 name|filterArguments
 return|;
 block|}
-comment|/**  * This function is called while parsing the filterString and an operator is parsed  *<p>  * @param operatorStack the stack containing the operators and parenthesis  * @param filterStack the stack containing the filters  * @param operator the operator found while parsing the filterString  * @return returns the filterStack after evaluating the stack  */
+comment|/**  * This function is called while parsing the filterString and an operator is parsed  *<p>  * @param operatorStack the stack containing the operators and parenthesis  * @param filterStack the stack containing the filters  * @param operator the operator found while parsing the filterString  */
 specifier|public
 name|void
 name|reduce
@@ -3268,7 +3192,7 @@ literal|false
 return|;
 block|}
 block|}
-comment|/**  * Takes a quoted byte array and converts it into an unquoted byte array  * For example: given a byte array representing 'abc', it returns a  * byte array representing abc  *<p>  * @param quotedByteArray the quoted byte array  * @return  */
+comment|/**  * Takes a quoted byte array and converts it into an unquoted byte array  * For example: given a byte array representing 'abc', it returns a  * byte array representing abc  *<p>  * @param quotedByteArray the quoted byte array  * @return Unquoted byte array  */
 specifier|public
 specifier|static
 name|byte
@@ -3363,7 +3287,7 @@ name|targetString
 return|;
 block|}
 block|}
-comment|/**  * Converts an int expressed in a byte array to an actual int  *<p>  * This doesn't use Bytes.toInt because that assumes  * that there will be {@link #SIZEOF_INT} bytes available.  *<p>  * @param numberAsByteArray the int value expressed as a byte array  * @return the int value  */
+comment|/**  * Converts an int expressed in a byte array to an actual int  *<p>  * This doesn't use Bytes.toInt because that assumes  * that there will be {@link Bytes#SIZEOF_INT} bytes available.  *<p>  * @param numberAsByteArray the int value expressed as a byte array  * @return the int value  */
 specifier|public
 specifier|static
 name|int
@@ -3431,7 +3355,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**  * Converts a long expressed in a byte array to an actual long  *<p>  * This doesn't use Bytes.toLong because that assumes  * that there will be {@link #SIZEOF_LONG} bytes available.  *<p>  * @param numberAsByteArray the long value expressed as a byte array  * @return the long value  */
+comment|/**  * Converts a long expressed in a byte array to an actual long  *<p>  * This doesn't use Bytes.toLong because that assumes  * that there will be {@link Bytes#SIZEOF_INT} bytes available.  *<p>  * @param numberAsByteArray the long value expressed as a byte array  * @return the long value  */
 specifier|public
 specifier|static
 name|long

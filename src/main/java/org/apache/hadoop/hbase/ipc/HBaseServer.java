@@ -859,7 +859,7 @@ return|return
 name|protocol
 return|;
 block|}
-comment|/** Returns the server instance called under or null.  May be called under    * {@link #call(Class, Writable, long)} implementations, and under {@link Writable}    * methods of paramters and return values.  Permits applications to access    * the server context.    * @return HBaseServer    */
+comment|/** Returns the server instance called under or null.  May be called under    * {@link #call(Class, Writable, long, MonitoredRPCHandler)} implementations,    * and under {@link Writable} methods of paramters and return values.    * Permits applications to access the server context.    * @return HBaseServer    */
 specifier|public
 specifier|static
 name|RpcServer
@@ -4111,13 +4111,6 @@ block|}
 comment|// Processes one response. Returns true if there are no more pending
 comment|// data for this channel.
 comment|//
-annotation|@
-name|SuppressWarnings
-argument_list|(
-block|{
-literal|"ConstantConditions"
-block|}
-argument_list|)
 specifier|private
 name|boolean
 name|processResponse
@@ -6051,7 +6044,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Gets the QOS level for this call.  If it is higher than the highPriorityLevel and there    * are priorityHandlers available it will be processed in it's own thread set.    *    * @param param    * @return priority, higher is better    */
 specifier|private
 name|Function
 argument_list|<
@@ -6063,6 +6055,7 @@ name|qosFunction
 init|=
 literal|null
 decl_stmt|;
+comment|/**    * Gets the QOS level for this call.  If it is higher than the highPriorityLevel and there    * are priorityHandlers available it will be processed in it's own thread set.    *    * @param newFunc    */
 annotation|@
 name|Override
 specifier|public

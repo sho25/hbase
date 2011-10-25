@@ -1069,7 +1069,7 @@ name|serverName
 argument_list|)
 return|;
 block|}
-comment|/**    * @param serverName    * @return HServerLoad if serverName is known else null    * @deprecated Use {@link #getLoad(HServerAddress)}    */
+comment|/**    * @param address    * @return HServerLoad if serverName is known else null    * @deprecated Use {@link #getLoad(HServerAddress)}    */
 specifier|public
 name|HServerLoad
 name|getLoad

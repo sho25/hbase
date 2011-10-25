@@ -132,7 +132,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Performs Append operations on a single row.  *<p>  * Note that this operation does not appear atomic to readers. Appends are done  * under a single row lock, so write operations to a row are synchronized, but  * readers do not take row locks so get and scan operations can see this  * operation partially completed.  *<p>  * To append to a set of columns of a row, instantiate an Append object with the  * row to append to. At least one column to append must be specified using the  * {@link #add(byte[], byte[], long)} method.  */
+comment|/**  * Performs Append operations on a single row.  *<p>  * Note that this operation does not appear atomic to readers. Appends are done  * under a single row lock, so write operations to a row are synchronized, but  * readers do not take row locks so get and scan operations can see this  * operation partially completed.  *<p>  * To append to a set of columns of a row, instantiate an Append object with the  * row to append to. At least one column to append must be specified using the  * {@link #add(byte[], byte[], byte[])} method.  */
 end_comment
 
 begin_class

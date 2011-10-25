@@ -526,7 +526,7 @@ name|SECONDS
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * A way of allocating the desired amount of Slabs of each particular size.    *    * This reads two lists from conf, hbase.offheap.slab.proportions and    * hbase.offheap.slab.sizes.    *    * The first list is the percentage of our total space we allocate to the    * slabs.    *    * The second list is blocksize of the slabs in bytes. (E.g. the slab holds    * blocks of this size).    *    * @param Configuration file.    */
+comment|/**    * A way of allocating the desired amount of Slabs of each particular size.    *    * This reads two lists from conf, hbase.offheap.slab.proportions and    * hbase.offheap.slab.sizes.    *    * The first list is the percentage of our total space we allocate to the    * slabs.    *    * The second list is blocksize of the slabs in bytes. (E.g. the slab holds    * blocks of this size).    *    * @param conf Configuration file.    */
 specifier|public
 name|void
 name|addSlabByConf
@@ -1048,7 +1048,7 @@ operator|.
 name|stats
 return|;
 block|}
-comment|/**    * Get the buffer of the block with the specified name.    *    * @param blockName block name    * @return buffer of specified block name, or null if not in cache    */
+comment|/**    * Get the buffer of the block with the specified name.    *    * @param key    * @param caching    * @return buffer of specified block name, or null if not in cache    */
 specifier|public
 name|Cacheable
 name|getBlock

@@ -41,16 +41,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|net
-operator|.
-name|InetSocketAddress
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|List
@@ -474,7 +464,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Establishes a connection to the region server at the specified address.    * @param regionServer - the server to connect to    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    * @deprecated Use {@link #getHRegionConnection(InetSocketAddress)}    */
+comment|/**    * Establishes a connection to the region server at the specified address.    * @param regionServer - the server to connect to    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    * @deprecated Use {@link #getHRegionConnection(String, int)}    */
 specifier|public
 name|HRegionInterface
 name|getHRegionConnection

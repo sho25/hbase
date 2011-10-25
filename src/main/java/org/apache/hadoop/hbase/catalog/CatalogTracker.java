@@ -512,7 +512,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructs the catalog tracker.  Find current state of catalog tables.    * Begin active tracking by executing {@link #start()} post construction.    * Does not timeout.    * @param zk If zk is null, we'll create an instance (and shut it down    * when {@link #stop()} is called) else we'll use what is passed.    * @param connection server connection    * @param abortable If fatal exception we'll call abort on this.  May be null.    * If it is we'll use the Connection associated with the passed    * {@link Configuration} as our Abortable.    * @throws IOException     */
+comment|/**    * Constructs the catalog tracker.  Find current state of catalog tables.    * Begin active tracking by executing {@link #start()} post construction.    * Does not timeout.    * @param zk If zk is null, we'll create an instance (and shut it down    * when {@link #stop()} is called) else we'll use what is passed.    * @param conf    * @param abortable If fatal exception we'll call abort on this.  May be null.    * If it is we'll use the Connection associated with the passed    * {@link Configuration} as our Abortable.    * @throws IOException     */
 specifier|public
 name|CatalogTracker
 parameter_list|(

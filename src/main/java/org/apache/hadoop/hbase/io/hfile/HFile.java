@@ -849,7 +849,7 @@ return|return
 name|version
 return|;
 block|}
-comment|/**    * Returns the factory to be used to create {@link HFile} writers. Should    * always be {@link HFileWriterV2#WRITER_FACTORY_V2} in production, but    * can also be {@link HFileWriterV1#WRITER_FACTORY_V1} in testing.    */
+comment|/**    * Returns the factory to be used to create {@link HFile} writers.    */
 specifier|public
 specifier|static
 specifier|final
@@ -875,7 +875,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns the factory to be used to create {@link HFile} writers. Should    * always be {@link HFileWriterV2#WRITER_FACTORY_V2} in production, but    * can also be {@link HFileWriterV1#WRITER_FACTORY_V1} in testing.    */
+comment|/**    * Returns the factory to be used to create {@link HFile} writers    */
 specifier|public
 specifier|static
 specifier|final

@@ -1042,7 +1042,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete stale connection information for the instance specified by configuration.    * This will then close connection to    * the zookeeper ensemble and let go of all resources.    *    * @param conf    *          configuration whose identity is used to find {@link HConnection}    *          instance.    *          .    */
+comment|/**    * Delete stale connection information for the instance specified by configuration.    * This will then close connection to    * the zookeeper ensemble and let go of all resources.    *    * @param connection    */
 specifier|public
 specifier|static
 name|void
@@ -1391,7 +1391,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * This class makes it convenient for one to execute a command in the context    * of a {@link HConnection} instance based on the given {@link Configuration}.    *    *<p>    * If you find yourself wanting to use a {@link Connection} for a relatively    * short duration of time, and do not want to deal with the hassle of creating    * and cleaning up that resource, then you should consider using this    * convenience class.    *    * @param<T>    *          the return type of the {@link HConnectable#connect(HConnection)}    *          method.    */
+comment|/**    * This class makes it convenient for one to execute a command in the context    * of a {@link HConnection} instance based on the given {@link Configuration}.    *    *<p>    * If you find yourself wanting to use a {@link HConnection} for a relatively    * short duration of time, and do not want to deal with the hassle of creating    * and cleaning up that resource, then you should consider using this    * convenience class.    *    * @param<T>    *          the return type of the {@link HConnectable#connect(HConnection)}    *          method.    */
 specifier|public
 specifier|static
 specifier|abstract

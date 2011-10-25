@@ -218,7 +218,7 @@ name|DEFAULT_CLUSTER_ID
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create the log key!    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tablename   - name of table    * @param logSeqNum   - log sequence number    * @param now Time at which this edit was written.    * @param UUID of the cluster (used in Replication)    */
+comment|/**    * Create the log key!    * We maintain the tablename mainly for debugging purposes.    * A regionName is always a sub-table object.    *    * @param encodedRegionName Encoded name of the region as returned by    *<code>HRegionInfo#getEncodedNameAsBytes()</code>.    * @param tablename   - name of table    * @param logSeqNum   - log sequence number    * @param now Time at which this edit was written.    * @param clusterId of the cluster (used in Replication)    */
 specifier|public
 name|HLogKey
 parameter_list|(

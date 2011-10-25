@@ -96,7 +96,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * a concrete column interpreter implementation. The cell value is a Long value  * and its promoted data type is also a Long value. For computing aggregation  * function, this class is used to find the datatype of the cell value. Client  * is supposed to instantiate it and passed along as a parameter. See  * {@link TestAggregateProtocol} methods for its sample usage.  * Its methods handle null arguments gracefully.   */
+comment|/**  * a concrete column interpreter implementation. The cell value is a Long value  * and its promoted data type is also a Long value. For computing aggregation  * function, this class is used to find the datatype of the cell value. Client  * is supposed to instantiate it and passed along as a parameter. See  * TestAggregateProtocol methods for its sample usage.  * Its methods handle null arguments gracefully.   */
 end_comment
 
 begin_class

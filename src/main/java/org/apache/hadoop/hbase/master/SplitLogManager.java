@@ -584,7 +584,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Distributes the task of log splitting to the available region servers.  * Coordination happens via zookeeper. For every log file that has to be split a  * znode is created under /hbase/splitlog. SplitLogWorkers race to grab a task.  *  * SplitLogManager monitors the task znodes that it creates using the  * {@link #timeoutMonitor} thread. If a task's progress is slow then  * {@link #resubmit(String, boolean)} will take away the task from the owner  * {@link SplitLogWorker} and the task will be  * upforgrabs again. When the task is done then the task's znode is deleted by  * SplitLogManager.  *  * Clients call {@link #splitLogDistributed(Path)} to split a region server's  * log files. The caller thread waits in this method until all the log files  * have been split.  *  * All the zookeeper calls made by this class are asynchronous. This is mainly  * to help reduce response time seen by the callers.  *  * There is race in this design between the SplitLogManager and the  * SplitLogWorker. SplitLogManager might re-queue a task that has in reality  * already been completed by a SplitLogWorker. We rely on the idempotency of  * the log splitting task for correctness.  *  * It is also assumed that every log splitting task is unique and once  * completed (either with success or with error) it will be not be submitted  * again. If a task is resubmitted then there is a risk that old "delete task"  * can delete the re-submission.  */
+comment|/**  * Distributes the task of log splitting to the available region servers.  * Coordination happens via zookeeper. For every log file that has to be split a  * znode is created under /hbase/splitlog. SplitLogWorkers race to grab a task.  *  * SplitLogManager monitors the task znodes that it creates using the  * timeoutMonitor thread. If a task's progress is slow then  * resubmit(String, boolean) will take away the task from the owner  * {@link SplitLogWorker} and the task will be  * upforgrabs again. When the task is done then the task's znode is deleted by  * SplitLogManager.  *  * Clients call {@link #splitLogDistributed(Path)} to split a region server's  * log files. The caller thread waits in this method until all the log files  * have been split.  *  * All the zookeeper calls made by this class are asynchronous. This is mainly  * to help reduce response time seen by the callers.  *  * There is race in this design between the SplitLogManager and the  * SplitLogWorker. SplitLogManager might re-queue a task that has in reality  * already been completed by a SplitLogWorker. We rely on the idempotency of  * the log splitting task for correctness.  *  * It is also assumed that every log splitting task is unique and once  * completed (either with success or with error) it will be not be submitted  * again. If a task is resubmitted then there is a risk that old "delete task"  * can delete the re-submission.  */
 end_comment
 
 begin_class
@@ -695,7 +695,7 @@ operator|new
 name|Object
 argument_list|()
 decl_stmt|;
-comment|/**    * Its OK to construct this object even when region-servers are not online. It    * does lookup the orphan tasks in zk but it doesn't block for them to be    * done.    *    * @param zkw    * @param conf    * @param stopper    * @param serverName    * @param services    * @param service    */
+comment|/**    * Its OK to construct this object even when region-servers are not online. It    * does lookup the orphan tasks in zk but it doesn't block for them to be    * done.    *    * @param zkw    * @param conf    * @param stopper    * @param serverName    */
 specifier|public
 name|SplitLogManager
 parameter_list|(
@@ -1136,7 +1136,7 @@ name|a
 argument_list|)
 return|;
 block|}
-comment|/**    * @param logDir    *            one region sever hlog dir path in .logs    * @throws IOException    *             if there was an error while splitting any log file    * @return cumulative size of the logfiles split    * @throws KeeperException     */
+comment|/**    * @param logDir    *            one region sever hlog dir path in .logs    * @throws IOException    *             if there was an error while splitting any log file    * @return cumulative size of the logfiles split    * @throws IOException     */
 specifier|public
 name|long
 name|splitLogDistributed
@@ -1175,7 +1175,7 @@ name|logDirs
 argument_list|)
 return|;
 block|}
-comment|/**    * The caller will block until all the log files of the given region server    * have been processed - successfully split or an error is encountered - by an    * available worker region server. This method must only be called after the    * region servers have been brought online.    *    * @param logDir    *          the log directory encoded with a region server name    * @throws IOException    *          if there was an error while splitting any log file    * @return cumulative size of the logfiles split    */
+comment|/**    * The caller will block until all the log files of the given region server    * have been processed - successfully split or an error is encountered - by an    * available worker region server. This method must only be called after the    * region servers have been brought online.    *    * @param logDirs    * @throws IOException    *          if there was an error while splitting any log file    * @return cumulative size of the logfiles split    */
 specifier|public
 name|long
 name|splitLogDistributed

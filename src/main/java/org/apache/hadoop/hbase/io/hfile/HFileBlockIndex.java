@@ -326,7 +326,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Provides functionality to write ({@link BlockIndexWriter}) and read  * ({@link BlockIndexReader}) single-level and multi-level block indexes.  *  * Examples of how to use the block index writer can be found in  * {@link CompoundBloomFilterWriter} and {@link HFileWriterV2}. Examples of how  * to use the reader can be found in {@link HFileReaderV2} and  * {@link TestHFileBlockIndex}.  */
+comment|/**  * Provides functionality to write ({@link BlockIndexWriter}) and read  * ({@link BlockIndexReader}) single-level and multi-level block indexes.  *  * Examples of how to use the block index writer can be found in  * {@link CompoundBloomFilterWriter} and {@link HFileWriterV2}. Examples of how  * to use the reader can be found in {@link HFileReaderV2} and  * TestHFileBlockIndex.  */
 end_comment
 
 begin_class
@@ -358,7 +358,7 @@ literal|128
 operator|*
 literal|1024
 decl_stmt|;
-comment|/**    * The maximum size guideline for index blocks (both leaf, intermediate, and    * root). If not specified, {@link #DEFAULT_MAX_CHUNK_SIZE} is used.    */
+comment|/**    * The maximum size guideline for index blocks (both leaf, intermediate, and    * root). If not specified,<code>DEFAULT_MAX_CHUNK_SIZE</code> is used.    */
 specifier|public
 specifier|static
 specifier|final
@@ -3000,7 +3000,7 @@ name|maxChunkSize
 return|;
 block|}
 block|}
-comment|/**      * Write out the current inline index block. Inline blocks are non-root      * blocks, so the non-root index format is used.      *      * @param out      * @param position The beginning offset of the inline block in the file not      *          include the header.      */
+comment|/**      * Write out the current inline index block. Inline blocks are non-root      * blocks, so the non-root index format is used.      *      * @param out      */
 annotation|@
 name|Override
 specifier|public

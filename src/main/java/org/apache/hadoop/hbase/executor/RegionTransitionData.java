@@ -217,7 +217,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct data for a new region transition event with the specified event    * type, region name, and server name.    *    *<p>Used when the server name is known (a regionserver is setting it).    *    *<p>Valid types for this constructor are {@link EventType#RS_ZK_REGION_SPLIT}    * since SPLIT is only type that currently carries a payload.    *    * @param eventType type of event    * @param regionName name of region as per<code>HRegionInfo#getRegionName()</code>    * @param origin Originating {@link ServerName}    * @param payload Payload examples include the daughters involved in a    * {@link EventType#RS_ZK_REGION_SPLIT}. Can be null    */
+comment|/**    * Construct data for a new region transition event with the specified event    * type, region name, and server name.    *    *<p>Used when the server name is known (a regionserver is setting it).    *    *<p>Valid types for this constructor are {@link EventType#RS_ZK_REGION_SPLIT}    * since SPLIT is only type that currently carries a payload.    *    * @param eventType type of event    * @param regionName name of region as per<code>HRegionInfo#getRegionName()</code>    * @param serverName Originating {@link ServerName}    * @param payload Payload examples include the daughters involved in a    * {@link EventType#RS_ZK_REGION_SPLIT}. Can be null    */
 specifier|public
 name|RegionTransitionData
 parameter_list|(

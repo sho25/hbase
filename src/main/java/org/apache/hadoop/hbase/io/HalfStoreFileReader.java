@@ -213,7 +213,7 @@ name|byte
 index|[]
 name|splitkey
 decl_stmt|;
-comment|/**    * @param fs    * @param p    * @param c    * @param r    * @throws IOException    */
+comment|/**    * @param fs    * @param p    * @param cacheConf    * @param r    * @throws IOException    */
 specifier|public
 name|HalfStoreFileReader
 parameter_list|(

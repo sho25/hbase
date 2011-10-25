@@ -1735,7 +1735,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Main processing loop for the HMaster.    *<ol>    *<li>Block until becoming active master    *<li>Finish initialization via {@link #finishInitialization()}    *<li>Enter loop until we are stopped    *<li>Stop services and perform cleanup once stopped    *</ol>    */
+comment|/**    * Main processing loop for the HMaster.    *<ol>    *<li>Block until becoming active master    *<li>Finish initialization via finishInitialization(MonitoredTask)    *<li>Enter loop until we are stopped    *<li>Stop services and perform cleanup once stopped    *</ol>    */
 end_comment
 
 begin_function
@@ -4613,7 +4613,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Switch for the background {@link CatalogJanitor} thread.    * Used for testing.  The thread will continue to run.  It will just be a noop    * if disabled.    * @param b If false, the catalog janitor won't do anything.    */
+comment|/**    * Switch for the background CatalogJanitor thread.    * Used for testing.  The thread will continue to run.  It will just be a noop    * if disabled.    * @param b If false, the catalog janitor won't do anything.    */
 end_comment
 
 begin_function

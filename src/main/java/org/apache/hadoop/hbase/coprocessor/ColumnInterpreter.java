@@ -74,7 +74,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Defines how value for specific column is interpreted and provides utility  * methods like compare, add, multiply etc for them. Takes column family, column  * qualifier and return the cell value. Its concrete implementation should  * handle null case gracefully. Refer to {@link LongColumnInterpreter} for an  * example.  *<p>  * Takes two generic parameters. The cell value type of the interpreter is<T>.  * During some computations like sum, average, the return type can be different  * than the cell value data type, for eg, sum of int cell values might overflow  * in case of a int result, we should use Long for its result. Therefore, this  * class mandates to use a different (promoted) data type for result of these  * computations<S>. All computations are performed on the promoted data type  *<S>. There is a conversion method  * {@link ColumnInterpreter#castToReturnType(Object)} which takes a<T> type and  * returns a<S> type.  * @param<T, S>: T - cell value data type, S - promoted data type  */
+comment|/**  * Defines how value for specific column is interpreted and provides utility  * methods like compare, add, multiply etc for them. Takes column family, column  * qualifier and return the cell value. Its concrete implementation should  * handle null case gracefully. Refer to {@link LongColumnInterpreter} for an  * example.  *<p>  * Takes two generic parameters. The cell value type of the interpreter is<T>.  * During some computations like sum, average, the return type can be different  * than the cell value data type, for eg, sum of int cell values might overflow  * in case of a int result, we should use Long for its result. Therefore, this  * class mandates to use a different (promoted) data type for result of these  * computations<S>. All computations are performed on the promoted data type  *<S>. There is a conversion method  * {@link ColumnInterpreter#castToReturnType(Object)} which takes a<T> type and  * returns a<S> type.  * @param<T> Cell value data type  * @param<S> Promoted data type  */
 end_comment
 
 begin_interface
@@ -89,7 +89,7 @@ parameter_list|>
 extends|extends
 name|Writable
 block|{
-comment|/**    * @param colFamily    * @param colQualifier    * @param value    * @return value of type T    * @throws IOException    */
+comment|/**    * @param colFamily    * @param colQualifier    * @param kv    * @return value of type T    * @throws IOException    */
 name|T
 name|getValue
 parameter_list|(
@@ -107,7 +107,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * returns sum or non null value among (if either of them is null); otherwise    * returns a null.    * @param l1    * @param l2    * @return    */
+comment|/**    * @param l1    * @param l2    * @return sum or non null value among (if either of them is null); otherwise    * returns a null.    */
 specifier|public
 name|S
 name|add
@@ -119,17 +119,16 @@ name|S
 name|l2
 parameter_list|)
 function_decl|;
-comment|/**    * returns the maximum value for this type T    * @return    */
+comment|/**    * returns the maximum value for this type T    * @return max    */
 name|T
 name|getMaxValue
 parameter_list|()
 function_decl|;
-comment|/**    * @return    */
 name|T
 name|getMinValue
 parameter_list|()
 function_decl|;
-comment|/**    * @param o1    * @param o2    * @return    */
+comment|/**    * @param o1    * @param o2    * @return multiplication    */
 name|S
 name|multiply
 parameter_list|(
@@ -140,7 +139,7 @@ name|S
 name|o2
 parameter_list|)
 function_decl|;
-comment|/**    * @param o    * @return    */
+comment|/**    * @param o    * @return increment    */
 name|S
 name|increment
 parameter_list|(
@@ -148,7 +147,7 @@ name|S
 name|o
 parameter_list|)
 function_decl|;
-comment|/**    * provides casting opportunity between the data types.    * @param o    * @return    */
+comment|/**    * provides casting opportunity between the data types.    * @param o    * @return cast    */
 name|S
 name|castToReturnType
 parameter_list|(
@@ -169,7 +168,7 @@ name|T
 name|l2
 parameter_list|)
 function_decl|;
-comment|/**    * used for computing average of<S> data values. Not providing the divide    * method that takes two<S> values as it si not needed as of now.    * @param o    * @param l    * @return    */
+comment|/**    * used for computing average of<S> data values. Not providing the divide    * method that takes two<S> values as it is not needed as of now.    * @param o    * @param l    * @return Average    */
 name|double
 name|divideForAvg
 parameter_list|(

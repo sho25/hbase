@@ -522,7 +522,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Executes region split as a "transaction".  Call {@link #prepare()} to setup  * the transaction, {@link #execute(Server, RegionServerServices)} to run the  * transaction and {@link #rollback(OnlineRegions)} to cleanup if execute fails.  *  *<p>Here is an example of how you would use this class:  *<pre>  *  SplitTransaction st = new SplitTransaction(this.conf, parent, midKey)  *  if (!st.prepare()) return;  *  try {  *    st.execute(server, services);  *  } catch (IOException ioe) {  *    try {  *      st.rollback(server, services);  *      return;  *    } catch (RuntimeException e) {  *      myAbortable.abort("Failed split, abort");  *    }  *  }  *</Pre>  *<p>This class is not thread safe.  Caller needs ensure split is run by  * one thread only.  */
+comment|/**  * Executes region split as a "transaction".  Call {@link #prepare()} to setup  * the transaction, {@link #execute(Server, RegionServerServices)} to run the  * transaction and {@link #rollback(Server, RegionServerServices)} to cleanup if execute fails.  *  *<p>Here is an example of how you would use this class:  *<pre>  *  SplitTransaction st = new SplitTransaction(this.conf, parent, midKey)  *  if (!st.prepare()) return;  *  try {  *    st.execute(server, services);  *  } catch (IOException ioe) {  *    try {  *      st.rollback(server, services);  *      return;  *    } catch (RuntimeException e) {  *      myAbortable.abort("Failed split, abort");  *    }  *  }  *</Pre>  *<p>This class is not thread safe.  Caller needs ensure split is run by  * one thread only.  */
 end_comment
 
 begin_class
@@ -632,7 +632,7 @@ name|JournalEntry
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/**    * Constructor    * @param services So we can online new regions.  If null, we'll skip onlining    * (Useful testing).    * @param c Configuration to use running split    * @param r Region to split    * @param splitrow Row to split around    */
+comment|/**    * Constructor    * @param r Region to split    * @param splitrow Row to split around    */
 specifier|public
 name|SplitTransaction
 parameter_list|(
@@ -1940,7 +1940,7 @@ comment|// Leaving here, the splitdir with its dross will be in place but since 
 comment|// split was successful, just leave it; it'll be cleaned when parent is
 comment|// deleted and cleaned up.
 block|}
-comment|/**    * Run the transaction.    * @param server Hosting server instance.  Can be null when testing (won't try    * and update in zk if a null server)    * @param services Used to online/offline regions.    * @throws IOException If thrown, transaction failed. Call {@link #rollback(Server, RegionServerServices)}    * @return Regions created    * @throws KeeperException    * @throws NodeExistsException     * @see #rollback(Server, RegionServerServices)    */
+comment|/**    * Run the transaction.    * @param server Hosting server instance.  Can be null when testing (won't try    * and update in zk if a null server)    * @param services Used to online/offline regions.    * @throws IOException If thrown, transaction failed. Call {@link #rollback(Server, RegionServerServices)}    * @return Regions created    * @throws IOException    * @see #rollback(Server, RegionServerServices)    */
 specifier|public
 name|PairOfSameType
 argument_list|<

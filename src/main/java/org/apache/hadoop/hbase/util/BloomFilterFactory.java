@@ -467,7 +467,7 @@ literal|1000
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates a new general (Row or RowCol) Bloom filter at the time of    * {@link org.apache.hadoop.hbase.regionserver.StoreFile} writing.    *    * @param conf    * @param bloomType    * @param maxKeys an estimate of the number of keys we expect to insert.    *        Irrelevant if compound Bloom filters are enabled.    * @param writer the HFile writer    * @param bloomErrorRate    * @return the new Bloom filter, or null in case Bloom filters are disabled    *         or when failed to create one.    */
+comment|/**    * Creates a new general (Row or RowCol) Bloom filter at the time of    * {@link org.apache.hadoop.hbase.regionserver.StoreFile} writing.    *    * @param conf    * @param cacheConf    * @param bloomType    * @param maxKeys an estimate of the number of keys we expect to insert.    *        Irrelevant if compound Bloom filters are enabled.    * @param writer the HFile writer    * @return the new Bloom filter, or null in case Bloom filters are disabled    *         or when failed to create one.    */
 specifier|public
 specifier|static
 name|BloomFilterWriter
@@ -767,7 +767,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * Creates a new Delete Family Bloom filter at the time of    * {@link org.apache.hadoop.hbase.regionserver.StoreFile} writing.    * @param conf    * @param maxKeys an estimate of the number of keys we expect to insert.    *        Irrelevant if compound Bloom filters are enabled.    * @param writer the HFile writer    * @param bloomErrorRate    * @return the new Bloom filter, or null in case Bloom filters are disabled    *         or when failed to create one.    */
+comment|/**    * Creates a new Delete Family Bloom filter at the time of    * {@link org.apache.hadoop.hbase.regionserver.StoreFile} writing.    * @param conf    * @param cacheConf    * @param maxKeys an estimate of the number of keys we expect to insert.    *        Irrelevant if compound Bloom filters are enabled.    * @param writer the HFile writer    * @return the new Bloom filter, or null in case Bloom filters are disabled    *         or when failed to create one.    */
 specifier|public
 specifier|static
 name|BloomFilterWriter

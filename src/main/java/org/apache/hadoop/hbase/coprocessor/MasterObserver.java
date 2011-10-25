@@ -470,7 +470,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called prior to unassigning a given region.    * @param ctx the environment to interact with the framework and master    * @param regionName the name of the region    * @param force whether to force unassignment or not    */
+comment|/**    * Called prior to unassigning a given region.    * @param ctx the environment to interact with the framework and master    * @param regionInfo    * @param force whether to force unassignment or not    */
 name|void
 name|preUnassign
 parameter_list|(
@@ -492,7 +492,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after the region unassignment has been requested.    * @param ctx the environment to interact with the framework and master    * @param regionName the name of the region    * @param force whether to force unassignment or not    */
+comment|/**    * Called after the region unassignment has been requested.    * @param ctx the environment to interact with the framework and master    * @param regionInfo    * @param force whether to force unassignment or not    */
 name|void
 name|postUnassign
 parameter_list|(

@@ -732,7 +732,7 @@ name|getMinimum
 argument_list|()
 return|;
 block|}
-comment|/**    * It gives the row count, by summing up the individual results obtained from    * regions. In case the qualifier is null, FirstKEyValueFilter is used to    * optimised the operation. In case qualifier is provided, I can't use the    * filter as it may set the flag to skip to next row, but the value read is    * not of the given filter: in this case, this particular row will not be    * counted ==> an error.    * @param tableName    * @param ci    * @param scan    * @return    * @throws Throwable    */
+comment|/**    * It gives the row count, by summing up the individual results obtained from    * regions. In case the qualifier is null, FirstKEyValueFilter is used to    * optimised the operation. In case qualifier is provided, I can't use the    * filter as it may set the flag to skip to next row, but the value read is    * not of the given filter: in this case, this particular row will not be    * counted ==> an error.    * @param tableName    * @param ci    * @param scan    * @return<R, S>    * @throws Throwable    */
 specifier|public
 parameter_list|<
 name|R
@@ -1317,7 +1317,7 @@ name|getAvgArgs
 argument_list|()
 return|;
 block|}
-comment|/**    * This is the client side interface/handle for calling the average method for    * a given cf-cq combination. It was necessary to add one more call stack as    * its return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the average and returs the double value.    * @param tableName    * @param ci    * @param scan    * @return    * @throws Throwable    */
+comment|/**    * This is the client side interface/handle for calling the average method for    * a given cf-cq combination. It was necessary to add one more call stack as    * its return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the average and returs the double value.    * @param tableName    * @param ci    * @param scan    * @return<R, S>    * @throws Throwable    */
 specifier|public
 parameter_list|<
 name|R
@@ -1700,7 +1700,7 @@ name|getStdParams
 argument_list|()
 return|;
 block|}
-comment|/**    * This is the client side interface/handle for calling the std method for a    * given cf-cq combination. It was necessary to add one more call stack as its    * return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the std and returns the double value.    * @param tableName    * @param ci    * @param scan    * @return    * @throws Throwable    */
+comment|/**    * This is the client side interface/handle for calling the std method for a    * given cf-cq combination. It was necessary to add one more call stack as its    * return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the std and returns the double value.    * @param tableName    * @param ci    * @param scan    * @return<R, S>    * @throws Throwable    */
 specifier|public
 parameter_list|<
 name|R

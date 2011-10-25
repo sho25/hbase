@@ -424,7 +424,7 @@ name|IS_META
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|/**    *<em>INTERNAL</em> Used by HBase Shell interface to access this metadata     * attribute which denotes if the deferred log flush option is enabled    *     * @see #getDeferredLogFlush()    */
+comment|/**    *<em>INTERNAL</em> Used by HBase Shell interface to access this metadata     * attribute which denotes if the deferred log flush option is enabled    */
 specifier|public
 specifier|static
 specifier|final
@@ -1727,7 +1727,7 @@ operator|.
 name|isDeferredLog
 return|;
 block|}
-comment|/**    * This is used to defer the log edits syncing to the file system. Everytime     * an edit is sent to the server it is first sync'd to the file system by the     * log writer. This sync is an expensive operation and thus can be deferred so     * that the edits are kept in memory for a specified period of time as represented    * by<code> hbase.regionserver.optionallogflushinterval</code> and not flushed    * for every edit.    *<p>    * NOTE:- This option might result in data loss if the region server crashes    * before these deferred edits in memory are flushed onto the filesystem.     *</p>    *     * @param true if that deferred log flush is enabled on the table.    */
+comment|/**    * This is used to defer the log edits syncing to the file system. Everytime     * an edit is sent to the server it is first sync'd to the file system by the     * log writer. This sync is an expensive operation and thus can be deferred so     * that the edits are kept in memory for a specified period of time as represented    * by<code> hbase.regionserver.optionallogflushinterval</code> and not flushed    * for every edit.    *<p>    * NOTE:- This option might result in data loss if the region server crashes    * before these deferred edits in memory are flushed onto the filesystem.     *</p>    *     * @param isDeferredLogFlush    */
 specifier|public
 name|void
 name|setDeferredLogFlush
@@ -1778,7 +1778,7 @@ operator|.
 name|nameAsString
 return|;
 block|}
-comment|/**    * This get the class associated with the region split policy which     * determines when a region split should occur.  The class used by    * default is {@link ConstantSizeRegionSplitPolicy} which split the    * region base on a constant {@link #getMaxFileSize()}    *     * @return the class name of the region split policy for this table.    * If this returns null, the default constant size based split policy    * is used.    */
+comment|/**    * This get the class associated with the region split policy which     * determines when a region split should occur.  The class used by    * default is {@link org.apache.hadoop.hbase.regionserver.ConstantSizeRegionSplitPolicy}    * which split the region base on a constant {@link #getMaxFileSize()}    *     * @return the class name of the region split policy for this table.    * If this returns null, the default constant size based split policy    * is used.    */
 specifier|public
 name|String
 name|getRegionSplitPolicyClassName
@@ -3312,7 +3312,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Returns an unmodifiable collection of all the {@link HColumnDescriptors}     * of all the column families of the table.    *      * @return Immutable collection of {@link HColumnDescriptor} of all the    * column families.     */
+comment|/**    * Returns an unmodifiable collection of all the {@link HColumnDescriptor}     * of all the column families of the table.    *      * @return Immutable collection of {@link HColumnDescriptor} of all the    * column families.     */
 specifier|public
 name|Collection
 argument_list|<

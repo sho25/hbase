@@ -122,7 +122,7 @@ name|boolean
 name|realSeekDone
 parameter_list|()
 function_decl|;
-comment|/**    * Does the real seek operation in case it was skipped by    * {@link #seekToRowCol(KeyValue, boolean)}. Note that this function should    * be never called on scanners that always do real seek operations (i.e. most    * of the scanners). The easiest way to achieve this is to call    * {@link #realSeekDone()} first.    */
+comment|/**    * Does the real seek operation in case it was skipped by    * seekToRowCol(KeyValue, boolean) (TODO: Whats this?). Note that this function should    * be never called on scanners that always do real seek operations (i.e. most    * of the scanners). The easiest way to achieve this is to call    * {@link #realSeekDone()} first.    */
 specifier|public
 name|void
 name|enforceSeek

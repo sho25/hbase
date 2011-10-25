@@ -270,7 +270,7 @@ argument_list|(
 literal|"metamigrated"
 argument_list|)
 decl_stmt|;
-comment|/**    * Update legacy META rows, removing HTD from HRI.    * @param masterServices    * @return    * @throws IOException    */
+comment|/**    * Update legacy META rows, removing HTD from HRI.    * @param masterServices    * @return List of table descriptors.    * @throws IOException    */
 specifier|public
 specifier|static
 name|List
@@ -421,7 +421,7 @@ return|return
 name|htds
 return|;
 block|}
-comment|/**    * Update the ROOT with new HRI. (HRI with no HTD)    * @param masterServices    * @return    * @throws IOException    */
+comment|/**    * Update the ROOT with new HRI. (HRI with no HTD)    * @param masterServices    * @return List of table descriptors    * @throws IOException    */
 specifier|public
 specifier|static
 name|List

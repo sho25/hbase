@@ -262,7 +262,7 @@ name|port
 argument_list|)
 return|;
 block|}
-comment|/** @return Bind address -- the raw IP, the result of a call to    * {@link InetSocketAddress#getAddress()#getHostAddress()} --    * or null if cannot resolve */
+comment|/** @return Bind address -- the raw IP, the result of a call to    * InetSocketAddress#getAddress()#getHostAddress() --    * or null if cannot resolve */
 specifier|public
 name|String
 name|getBindAddress

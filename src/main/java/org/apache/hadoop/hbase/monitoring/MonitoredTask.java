@@ -164,7 +164,7 @@ name|void
 name|cleanup
 parameter_list|()
 function_decl|;
-comment|/**    * Public exposure of Object.clone() in order to allow clients to easily     * capture current state.    * @returns a copy of the object whose references will not change    */
+comment|/**    * Public exposure of Object.clone() in order to allow clients to easily     * capture current state.    * @return a copy of the object whose references will not change    */
 specifier|public
 specifier|abstract
 name|MonitoredTask

@@ -315,7 +315,7 @@ name|getHostname
 argument_list|()
 return|;
 block|}
-comment|/**    * @return ServerName and load concatenated.    * @see #getServerName()    * @see #getLoad()    */
+comment|/**    * @return ServerName and load concatenated.    */
 annotation|@
 name|Override
 specifier|public

@@ -2855,7 +2855,7 @@ return|return
 name|n
 return|;
 block|}
-comment|/**    * This method will get a sequence of bytes from pos -> limit,    * but will restore pos after.    * @param buf    * @return    */
+comment|/**    * This method will get a sequence of bytes from pos -> limit,    * but will restore pos after.    * @param buf    * @return byte array    */
 specifier|public
 specifier|static
 name|byte

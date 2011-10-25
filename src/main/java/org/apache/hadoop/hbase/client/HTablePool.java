@@ -308,7 +308,7 @@ name|Reusable
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor to set maximum versions and use the specified configuration and    * pool type.    *     * @param config    *          configuration    * @param maxSize    *          maximum number of references to keep for each table    * @param tableFactory    *          table factory    * @param poolType    *          pool type which is one of {@link PoolType#Reusable} or    *          {@link PoolType#ThreadLocal}    */
+comment|/**    * Constructor to set maximum versions and use the specified configuration and    * pool type.    *     * @param config    *          configuration    * @param maxSize    *          maximum number of references to keep for each table    * @param poolType    *          pool type which is one of {@link PoolType#Reusable} or    *          {@link PoolType#ThreadLocal}    */
 specifier|public
 name|HTablePool
 parameter_list|(

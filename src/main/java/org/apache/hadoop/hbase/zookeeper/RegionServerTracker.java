@@ -145,24 +145,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZKUtil
-operator|.
-name|NodeAndData
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|zookeeper
 operator|.
 name|KeeperException
@@ -170,7 +152,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tracks the online region servers via ZK.  *  *<p>Handling of new RSs checking in is done via RPC.  This class  * is only responsible for watching for expired nodes.  It handles  * listening for changes in the RS node list and watching each node.  *  *<p>If an RS node gets deleted, this automatically handles calling of  * {@link ServerManager#expireServer(org.apache.hadoop.hbase.HServerInfo)}.  */
+comment|/**  * Tracks the online region servers via ZK.  *  *<p>Handling of new RSs checking in is done via RPC.  This class  * is only responsible for watching for expired nodes.  It handles  * listening for changes in the RS node list and watching each node.  *  *<p>If an RS node gets deleted, this automatically handles calling of  * {@link ServerManager#expireServer(ServerName)}  */
 end_comment
 
 begin_class
@@ -551,7 +533,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Gets the online servers.    * @return list of online servers    * @throws KeeperException    */
+comment|/**    * Gets the online servers.    * @return list of online servers    */
 specifier|public
 name|List
 argument_list|<

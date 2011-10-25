@@ -144,7 +144,7 @@ index|[
 literal|0
 index|]
 decl_stmt|;
-comment|/**    * Prepare an ordered pair of row and qualifier to be compared using    * {@link KeyValue.KeyComparator}. This is only used for row-column Bloom    * filters.    */
+comment|/**    * Prepare an ordered pair of row and qualifier to be compared using    * KeyValue.KeyComparator. This is only used for row-column Bloom    * filters.    */
 annotation|@
 name|Override
 specifier|public
