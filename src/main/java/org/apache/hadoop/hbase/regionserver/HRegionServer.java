@@ -7982,6 +7982,9 @@ argument_list|(
 name|this
 operator|.
 name|hlogRoller
+operator|.
+name|getThread
+argument_list|()
 argument_list|,
 name|n
 operator|+
@@ -7997,6 +8000,9 @@ argument_list|(
 name|this
 operator|.
 name|cacheFlusher
+operator|.
+name|getThread
+argument_list|()
 argument_list|,
 name|n
 operator|+
@@ -8012,6 +8018,9 @@ argument_list|(
 name|this
 operator|.
 name|compactionChecker
+operator|.
+name|getThread
+argument_list|()
 argument_list|,
 name|n
 operator|+
@@ -8972,6 +8981,9 @@ argument_list|(
 name|this
 operator|.
 name|compactionChecker
+operator|.
+name|getThread
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|Threads
@@ -8981,6 +8993,9 @@ argument_list|(
 name|this
 operator|.
 name|cacheFlusher
+operator|.
+name|getThread
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|Threads
@@ -8990,6 +9005,9 @@ argument_list|(
 name|this
 operator|.
 name|hlogRoller
+operator|.
+name|getThread
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if

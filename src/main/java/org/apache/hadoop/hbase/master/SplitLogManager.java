@@ -953,6 +953,9 @@ operator|.
 name|setDaemonThreadRunning
 argument_list|(
 name|timeoutMonitor
+operator|.
+name|getThread
+argument_list|()
 argument_list|,
 name|serverName
 operator|+

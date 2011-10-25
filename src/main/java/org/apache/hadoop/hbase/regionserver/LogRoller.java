@@ -163,6 +163,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|HasThread
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -207,7 +223,7 @@ begin_class
 class|class
 name|LogRoller
 extends|extends
-name|Thread
+name|HasThread
 implements|implements
 name|WALActionsListener
 block|{

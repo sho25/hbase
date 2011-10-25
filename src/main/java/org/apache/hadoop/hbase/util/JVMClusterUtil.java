@@ -1009,6 +1009,9 @@ argument_list|(
 name|t
 operator|.
 name|master
+operator|.
+name|getThread
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
