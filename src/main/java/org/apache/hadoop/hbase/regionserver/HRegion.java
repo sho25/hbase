@@ -2509,7 +2509,28 @@ expr_stmt|;
 name|cleanupTmpDir
 argument_list|()
 expr_stmt|;
-comment|// Load in all the HStores.  Get maximum seqid.
+comment|// Load in all the HStores.
+comment|// Get minimum of the maxSeqId across all the store.
+comment|//
+comment|// Context: During replay we want to ensure that we do not lose any data. So, we
+comment|// have to be conservative in how we replay logs. For each store, we calculate
+comment|// the maxSeqId up to which the store was flushed. But, since different stores
+comment|// could have a different maxSeqId, we choose the
+comment|// minimum across all the stores.
+comment|// This could potentially result in duplication of data for stores that are ahead
+comment|// of others. ColumnTrackers in the ScanQueryMatchers do the de-duplication, so we
+comment|// do not have to worry.
+comment|// TODO: If there is a store that was never flushed in a long time, we could replay
+comment|// a lot of data. Currently, this is not a problem because we flush all the stores at
+comment|// the same time. If we move to per-cf flushing, we might want to revisit this and send
+comment|// in a vector of maxSeqIds instead of sending in a single number, which has to be the
+comment|// min across all the max.
+name|long
+name|minSeqId
+init|=
+operator|-
+literal|1
+decl_stmt|;
 name|long
 name|maxSeqId
 init|=
@@ -2574,6 +2595,28 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
+name|minSeqId
+operator|==
+operator|-
+literal|1
+operator|||
+name|storeSeqId
+operator|<
+name|minSeqId
+condition|)
+block|{
+name|minSeqId
+operator|=
+name|storeSeqId
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|maxSeqId
+operator|==
+operator|-
+literal|1
+operator|||
 name|storeSeqId
 operator|>
 name|maxSeqId
@@ -2588,17 +2631,24 @@ block|}
 comment|// Recover any edits if available.
 name|maxSeqId
 operator|=
+name|Math
+operator|.
+name|max
+argument_list|(
+name|maxSeqId
+argument_list|,
 name|replayRecoveredEditsIfAny
 argument_list|(
 name|this
 operator|.
 name|regiondir
 argument_list|,
-name|maxSeqId
+name|minSeqId
 argument_list|,
 name|reporter
 argument_list|,
 name|status
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|status
