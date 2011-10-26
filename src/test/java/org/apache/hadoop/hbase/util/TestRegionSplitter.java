@@ -349,7 +349,7 @@ name|void
 name|teardown
 parameter_list|()
 throws|throws
-name|IOException
+name|Exception
 block|{
 name|UTIL
 operator|.

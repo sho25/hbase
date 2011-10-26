@@ -366,8 +366,8 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/** configuration parameter name for test directory */
-specifier|public
+comment|/** configuration parameter name for test directory    * @deprecated see HBaseTestingUtility#TEST_DIRECTORY_KEY    **/
+specifier|private
 specifier|static
 specifier|final
 name|String
@@ -806,6 +806,7 @@ name|tearDown
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * @see HBaseTestingUtility#getBaseTestDir    * @param testName    * @return directory to use for this test    */
 specifier|protected
 name|Path
 name|getUnitTestdir
@@ -818,13 +819,17 @@ return|return
 operator|new
 name|Path
 argument_list|(
-name|conf
+name|System
 operator|.
-name|get
+name|getProperty
 argument_list|(
-name|TEST_DIRECTORY_KEY
+name|HBaseTestingUtility
+operator|.
+name|BASE_TEST_DIRECTORY_KEY
 argument_list|,
-literal|"target/test/data"
+name|HBaseTestingUtility
+operator|.
+name|DEFAULT_BASE_TEST_DIRECTORY
 argument_list|)
 argument_list|,
 name|testName
@@ -859,34 +864,6 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|Path
-name|rootdir
-init|=
-name|filesystem
-operator|.
-name|makeQualified
-argument_list|(
-operator|new
-name|Path
-argument_list|(
-name|conf
-operator|.
-name|get
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_DIR
-argument_list|)
-argument_list|)
-argument_list|)
-decl_stmt|;
-name|filesystem
-operator|.
-name|mkdirs
-argument_list|(
-name|rootdir
-argument_list|)
-expr_stmt|;
 name|HRegionInfo
 name|hri
 init|=
@@ -910,7 +887,7 @@ name|createHRegion
 argument_list|(
 name|hri
 argument_list|,
-name|rootdir
+name|testDir
 argument_list|,
 name|conf
 argument_list|,

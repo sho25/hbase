@@ -549,7 +549,7 @@ name|info
 argument_list|,
 name|testUtil
 operator|.
-name|getTestDir
+name|getDataTestDir
 argument_list|()
 argument_list|,
 name|testUtil

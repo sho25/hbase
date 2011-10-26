@@ -285,9 +285,9 @@ name|this
 operator|.
 name|dataDir
 operator|=
-name|HBaseTestingUtility
+name|TEST_UTIL
 operator|.
-name|getTestDir
+name|getDataTestDir
 argument_list|(
 name|this
 operator|.

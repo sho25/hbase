@@ -341,7 +341,7 @@ name|Path
 argument_list|(
 name|TEST_UTIL
 operator|.
-name|getTestDir
+name|getDataTestDir
 argument_list|()
 argument_list|,
 name|HConstants
@@ -357,7 +357,7 @@ name|Path
 argument_list|(
 name|TEST_UTIL
 operator|.
-name|getTestDir
+name|getDataTestDir
 argument_list|()
 argument_list|,
 name|HConstants

@@ -214,7 +214,7 @@ name|void
 name|afterClass
 parameter_list|()
 throws|throws
-name|IOException
+name|Exception
 block|{
 name|UTIL
 operator|.
@@ -249,7 +249,7 @@ name|port
 init|=
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|getMaster
@@ -280,7 +280,7 @@ name|port
 operator|=
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|getRegionServerThreads
@@ -343,7 +343,7 @@ name|port
 init|=
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|getMaster
@@ -374,7 +374,7 @@ name|port
 operator|=
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|getRegionServerThreads

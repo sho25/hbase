@@ -234,9 +234,9 @@ decl_stmt|;
 name|String
 name|root_dir
 init|=
-name|HBaseTestingUtility
+name|test_util
 operator|.
-name|getTestDir
+name|getDataTestDir
 argument_list|(
 literal|"TestHalfStoreFile"
 argument_list|)

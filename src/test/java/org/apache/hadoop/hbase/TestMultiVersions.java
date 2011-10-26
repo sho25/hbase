@@ -561,7 +561,7 @@ name|IOException
 block|{
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|flushcache

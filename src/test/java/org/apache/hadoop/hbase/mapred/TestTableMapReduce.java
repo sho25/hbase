@@ -568,7 +568,7 @@ name|void
 name|afterClass
 parameter_list|()
 throws|throws
-name|IOException
+name|Exception
 block|{
 name|UTIL
 operator|.

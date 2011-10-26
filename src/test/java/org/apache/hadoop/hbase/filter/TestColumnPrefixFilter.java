@@ -349,9 +349,9 @@ name|createHRegion
 argument_list|(
 name|info
 argument_list|,
-name|HBaseTestingUtility
+name|TEST_UTIL
 operator|.
-name|getTestDir
+name|getDataTestDir
 argument_list|()
 argument_list|,
 name|TEST_UTIL
@@ -744,9 +744,9 @@ name|createHRegion
 argument_list|(
 name|info
 argument_list|,
-name|HBaseTestingUtility
+name|TEST_UTIL
 operator|.
-name|getTestDir
+name|getDataTestDir
 argument_list|()
 argument_list|,
 name|TEST_UTIL

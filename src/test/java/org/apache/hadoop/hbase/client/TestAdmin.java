@@ -8362,7 +8362,7 @@ name|regionServer
 init|=
 name|TEST_UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|getRegionServerThreads

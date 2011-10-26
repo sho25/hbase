@@ -375,9 +375,9 @@ specifier|final
 name|Path
 name|testdir
 init|=
-name|HBaseTestingUtility
+name|TEST_UTIL
 operator|.
-name|getTestDir
+name|getDataTestDir
 argument_list|(
 name|this
 operator|.

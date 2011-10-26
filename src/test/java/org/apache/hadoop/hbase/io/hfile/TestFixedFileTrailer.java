@@ -723,9 +723,9 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|HBaseTestingUtility
+name|util
 operator|.
-name|getTestDir
+name|getDataTestDir
 argument_list|()
 argument_list|,
 literal|"trailer_"

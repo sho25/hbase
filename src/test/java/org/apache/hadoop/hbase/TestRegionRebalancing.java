@@ -331,7 +331,7 @@ name|void
 name|afterClass
 parameter_list|()
 throws|throws
-name|IOException
+name|Exception
 block|{
 name|UTIL
 operator|.
@@ -498,7 +498,7 @@ literal|"Started second server="
 operator|+
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|startRegionServer
@@ -513,7 +513,7 @@ argument_list|)
 expr_stmt|;
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|getMaster
@@ -534,7 +534,7 @@ literal|"Started third server="
 operator|+
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|startRegionServer
@@ -549,7 +549,7 @@ argument_list|)
 expr_stmt|;
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|getMaster
@@ -570,7 +570,7 @@ literal|"Stopped third server="
 operator|+
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|stopRegionServer
@@ -583,7 +583,7 @@ argument_list|)
 expr_stmt|;
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|waitOnRegionServer
@@ -593,7 +593,7 @@ argument_list|)
 expr_stmt|;
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|getMaster
@@ -614,7 +614,7 @@ literal|"Readding third server="
 operator|+
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|startRegionServer
@@ -635,7 +635,7 @@ literal|"Added fourth server="
 operator|+
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|startRegionServer
@@ -650,7 +650,7 @@ argument_list|)
 expr_stmt|;
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|getMaster
@@ -694,7 +694,7 @@ argument_list|)
 expr_stmt|;
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|startRegionServer
@@ -703,7 +703,7 @@ expr_stmt|;
 block|}
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|getMaster
@@ -839,7 +839,7 @@ name|avg
 init|=
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|getMaster
@@ -1029,7 +1029,7 @@ parameter_list|)
 block|{}
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|getMaster
@@ -1081,7 +1081,7 @@ name|rst
 range|:
 name|UTIL
 operator|.
-name|getHbaseCluster
+name|getHBaseCluster
 argument_list|()
 operator|.
 name|getRegionServerThreads

@@ -1987,7 +1987,7 @@ name|AfterClass
 specifier|public
 specifier|static
 name|void
-name|teardownAfterClass
+name|tearDownAfterClass
 parameter_list|()
 throws|throws
 name|Exception

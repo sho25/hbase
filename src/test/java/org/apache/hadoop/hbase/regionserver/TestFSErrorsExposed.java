@@ -459,9 +459,9 @@ argument_list|(
 operator|new
 name|Path
 argument_list|(
-name|HBaseTestingUtility
+name|util
 operator|.
-name|getTestDir
+name|getDataTestDir
 argument_list|(
 literal|"internalScannerExposesErrors"
 argument_list|)
@@ -712,9 +712,9 @@ argument_list|(
 operator|new
 name|Path
 argument_list|(
-name|HBaseTestingUtility
+name|util
 operator|.
-name|getTestDir
+name|getDataTestDir
 argument_list|(
 literal|"internalScannerExposesErrors"
 argument_list|)

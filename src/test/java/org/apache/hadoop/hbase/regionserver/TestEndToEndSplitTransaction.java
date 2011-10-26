@@ -263,9 +263,7 @@ expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|startMiniCluster
-argument_list|(
-literal|1
-argument_list|)
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@
@@ -276,7 +274,7 @@ name|void
 name|afterAllTests
 parameter_list|()
 throws|throws
-name|IOException
+name|Exception
 block|{
 name|TEST_UTIL
 operator|.

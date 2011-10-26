@@ -2536,9 +2536,9 @@ block|{
 name|Path
 name|testdir
 init|=
-name|HBaseTestingUtility
+name|htu
 operator|.
-name|getTestDir
+name|getDataTestDir
 argument_list|(
 name|subdir
 argument_list|)

@@ -747,15 +747,6 @@ decl_stmt|;
 name|HBaseTestingUtility
 name|TEST_UTIL
 decl_stmt|;
-annotation|@
-name|Before
-specifier|public
-name|void
-name|before
-parameter_list|()
-throws|throws
-name|Exception
-block|{    }
 specifier|private
 name|void
 name|startCluster
@@ -870,9 +861,9 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|cluster
+name|TEST_UTIL
 operator|.
-name|shutdown
+name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}

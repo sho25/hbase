@@ -442,9 +442,9 @@ decl_stmt|;
 name|String
 name|testDir
 init|=
-name|HBaseTestingUtility
+name|htu
 operator|.
-name|getTestDir
+name|getDataTestDir
 argument_list|()
 operator|+
 literal|"/TestResettingCounters/"

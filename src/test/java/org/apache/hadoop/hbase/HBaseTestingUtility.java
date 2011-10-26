@@ -745,60 +745,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hdfs
-operator|.
-name|server
-operator|.
-name|namenode
-operator|.
-name|FSNamesystem
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hdfs
-operator|.
-name|server
-operator|.
-name|namenode
-operator|.
-name|LeaseManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hdfs
-operator|.
-name|server
-operator|.
-name|namenode
-operator|.
-name|NameNode
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|mapred
 operator|.
 name|MiniMRCluster
@@ -844,7 +790,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Facility for testing HBase. Replacement for  * old HBaseTestCase and HBaseCluserTestCase functionality.  * Create an instance and keep it around testing HBase.  This class is  * meant to be your one-stop shop for anything you might need testing.  Manages  * one cluster at a time only.  Depends on log4j being on classpath and  * hbase-site.xml for logging and test-run configuration.  It does not set  * logging levels nor make changes to configuration parameters.  */
+comment|/**  * Facility for testing HBase. Replacement for  * old HBaseTestCase and HBaseClusterTestCase functionality.  * Create an instance and keep it around testing HBase.  This class is  * meant to be your one-stop shop for anything you might need testing.  Manages  * one cluster at a time only.  * Depends on log4j being on classpath and  * hbase-site.xml for logging and test-run configuration.  It does not set  * logging levels nor make changes to configuration parameters.  */
 end_comment
 
 begin_class
@@ -853,8 +799,8 @@ class|class
 name|HBaseTestingUtility
 block|{
 specifier|private
-specifier|final
 specifier|static
+specifier|final
 name|Log
 name|LOG
 init|=
@@ -902,15 +848,23 @@ name|mrCluster
 init|=
 literal|null
 decl_stmt|;
-comment|// If non-null, then already a cluster running.
+comment|// Directory where we put the data for this instance of HBaseTestingUtility
 specifier|private
 name|File
-name|clusterTestBuildDir
+name|dataTestDir
 init|=
 literal|null
 decl_stmt|;
-comment|/**    * System property key to get test directory value.    * Name is as it is because mini dfs has hard-codings to put test data here.    */
-specifier|public
+comment|// Directory (usually a subdirectory of dataTestDir) used by the dfs cluster
+comment|//  if any
+specifier|private
+name|File
+name|clusterTestDir
+init|=
+literal|null
+decl_stmt|;
+comment|/**    * System property key to get test directory value.    * Name is as it is because mini dfs has hard-codings to put test data here.    * It should NOT be used directly in HBase, as it's a property used in    *  mini dfs.    *  @deprecated can be used only with mini dfs    */
+specifier|private
 specifier|static
 specifier|final
 name|String
@@ -918,12 +872,21 @@ name|TEST_DIRECTORY_KEY
 init|=
 literal|"test.build.data"
 decl_stmt|;
-comment|/**    * Default parent directory for test output.    */
+comment|/**    * System property key to get base test directory value    */
 specifier|public
 specifier|static
 specifier|final
 name|String
-name|DEFAULT_TEST_DIRECTORY
+name|BASE_TEST_DIRECTORY_KEY
+init|=
+literal|"test.build.data.basedirectory"
+decl_stmt|;
+comment|/**    * Default base directory for test output.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|DEFAULT_BASE_TEST_DIRECTORY
 init|=
 literal|"target/test-data"
 decl_stmt|;
@@ -975,11 +938,6 @@ name|Algorithm
 index|[]
 name|COMPRESSION_ALGORITHMS
 init|=
-operator|new
-name|Compression
-operator|.
-name|Algorithm
-index|[]
 block|{
 name|Compression
 operator|.
@@ -1112,15 +1070,6 @@ operator|=
 name|conf
 expr_stmt|;
 block|}
-specifier|public
-name|MiniHBaseCluster
-name|getHbaseCluster
-parameter_list|()
-block|{
-return|return
-name|hbaseCluster
-return|;
-block|}
 comment|/**    * Returns this classes's instance of {@link Configuration}.  Be careful how    * you use the returned Configuration since {@link HConnection} instances    * can be shared.  The Map of HConnections is keyed by the Configuration.  If    * say, a Connection was being used against a cluster that had been shutdown,    * see {@link #shutdownMiniCluster()}, then the Connection will no longer    * be wholesome.  Rather than use the return direct, its usually best to    * make a copy and use that.  Do    *<code>Configuration c = new Configuration(INSTANCE.getConfiguration());</code>    * @return Instance of Configuration.    */
 specifier|public
 name|Configuration
@@ -1133,70 +1082,92 @@ operator|.
 name|conf
 return|;
 block|}
-comment|/**    * Makes sure the test directory is set up so that {@link #getTestDir()}    * returns a valid directory. Useful in unit tests that do not run a    * mini-cluster.    */
-specifier|public
-name|void
-name|initTestDir
+comment|/**    * @return Where to write test data on local filesystem; usually    * {@link #DEFAULT_BASE_TEST_DIRECTORY}    * Should not be used by the unit tests, hence its's private.    * Unit test will use a subdirectory of this directory.    * @see #setupDataTestDir()    * @see #getTestFileSystem()    */
+specifier|private
+name|Path
+name|getBaseTestDir
 parameter_list|()
 block|{
-if|if
-condition|(
+name|String
+name|PathName
+init|=
 name|System
 operator|.
 name|getProperty
 argument_list|(
-name|TEST_DIRECTORY_KEY
-argument_list|)
-operator|==
-literal|null
-condition|)
-block|{
-name|clusterTestBuildDir
-operator|=
-name|setupClusterTestBuildDir
-argument_list|()
-expr_stmt|;
-name|System
-operator|.
-name|setProperty
-argument_list|(
-name|TEST_DIRECTORY_KEY
+name|BASE_TEST_DIRECTORY_KEY
 argument_list|,
-name|clusterTestBuildDir
-operator|.
-name|getPath
-argument_list|()
+name|DEFAULT_BASE_TEST_DIRECTORY
 argument_list|)
-expr_stmt|;
-block|}
-block|}
-comment|/**    * @return Where to write test data on local filesystem; usually    * {@link #DEFAULT_TEST_DIRECTORY}    * @see #setupClusterTestBuildDir()    * @see #clusterTestBuildDir()    * @see #getTestFileSystem()    */
-specifier|public
-specifier|static
-name|Path
-name|getTestDir
-parameter_list|()
-block|{
+decl_stmt|;
 return|return
 operator|new
 name|Path
 argument_list|(
-name|System
-operator|.
-name|getProperty
-argument_list|(
-name|TEST_DIRECTORY_KEY
-argument_list|,
-name|DEFAULT_TEST_DIRECTORY
-argument_list|)
+name|PathName
 argument_list|)
 return|;
 block|}
-comment|/**    * @param subdirName    * @return Path to a subdirectory named<code>subdirName</code> under    * {@link #getTestDir()}.    * @see #setupClusterTestBuildDir()    * @see #clusterTestBuildDir(String)    * @see #getTestFileSystem()    */
+comment|/**    * @return Where to write test data on local filesystem, specific to    *  the test.  Useful for tests that do not use a cluster.    * Creates it if it does not exist already.    * @see #getTestFileSystem()    */
 specifier|public
-specifier|static
 name|Path
-name|getTestDir
+name|getDataTestDir
+parameter_list|()
+block|{
+if|if
+condition|(
+name|dataTestDir
+operator|==
+literal|null
+condition|)
+block|{
+name|setupDataTestDir
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+operator|new
+name|Path
+argument_list|(
+name|dataTestDir
+operator|.
+name|getAbsolutePath
+argument_list|()
+argument_list|)
+return|;
+block|}
+comment|/**    * @return Where the DFS cluster will write data on the local subsystem.    * Creates it if it does not exist already.    * @see #getTestFileSystem()    */
+specifier|public
+name|Path
+name|getClusterTestDir
+parameter_list|()
+block|{
+if|if
+condition|(
+name|clusterTestDir
+operator|==
+literal|null
+condition|)
+block|{
+name|setupClusterTestDir
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+operator|new
+name|Path
+argument_list|(
+name|clusterTestDir
+operator|.
+name|getAbsolutePath
+argument_list|()
+argument_list|)
+return|;
+block|}
+comment|/**    * @param subdirName    * @return Path to a subdirectory named<code>subdirName</code> under    * {@link #getDataTestDir()}.    * Does *NOT* create it if it does not exist.    */
+specifier|public
+name|Path
+name|getDataTestDir
 parameter_list|(
 specifier|final
 name|String
@@ -1207,19 +1178,40 @@ return|return
 operator|new
 name|Path
 argument_list|(
-name|getTestDir
+name|getDataTestDir
 argument_list|()
 argument_list|,
 name|subdirName
 argument_list|)
 return|;
 block|}
-comment|/**    * Home our cluster in a dir under {@link #DEFAULT_TEST_DIRECTORY}.  Give it a    * random name    * so can have many concurrent clusters running if we need to.  Need to    * amend the {@link #TEST_DIRECTORY_KEY} System property.  Its what    * minidfscluster bases    * it data dir on.  Moding a System property is not the way to do concurrent    * instances -- another instance could grab the temporary    * value unintentionally -- but not anything can do about it at moment;    * single instance only is how the minidfscluster works.    * @return The calculated cluster test build directory.    */
-specifier|public
-name|File
-name|setupClusterTestBuildDir
+comment|/**    * Home our data in a dir under {@link #DEFAULT_BASE_TEST_DIRECTORY}.    * Give it a random name so can have many concurrent tests running if    * we need to.  It needs to amend the {@link #TEST_DIRECTORY_KEY}    * System property, as it's what minidfscluster bases    * it data dir on.  Moding a System property is not the way to do concurrent    * instances -- another instance could grab the temporary    * value unintentionally -- but not anything can do about it at moment;    * single instance only is how the minidfscluster works.    * @return The calculated data test build directory.    */
+specifier|private
+name|void
+name|setupDataTestDir
 parameter_list|()
 block|{
+if|if
+condition|(
+name|dataTestDir
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Data test dir already setup in "
+operator|+
+name|dataTestDir
+operator|.
+name|getAbsolutePath
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|String
 name|randomStr
 init|=
@@ -1231,59 +1223,117 @@ operator|.
 name|toString
 argument_list|()
 decl_stmt|;
-name|String
-name|dirStr
+name|Path
+name|testDir
 init|=
-name|getTestDir
+operator|new
+name|Path
 argument_list|(
+name|getBaseTestDir
+argument_list|()
+argument_list|,
 name|randomStr
 argument_list|)
-operator|.
-name|toString
-argument_list|()
 decl_stmt|;
-name|File
-name|dir
-init|=
+name|dataTestDir
+operator|=
 operator|new
 name|File
 argument_list|(
-name|dirStr
+name|testDir
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 operator|.
 name|getAbsoluteFile
 argument_list|()
-decl_stmt|;
+expr_stmt|;
 comment|// Have it cleaned up on exit
-name|dir
+name|dataTestDir
 operator|.
 name|deleteOnExit
 argument_list|()
 expr_stmt|;
-return|return
-name|dir
-return|;
+block|}
+comment|/**    * Creates a directory for the DFS cluster, under the test data    */
+specifier|private
+name|void
+name|setupClusterTestDir
+parameter_list|()
+block|{
+if|if
+condition|(
+name|clusterTestDir
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Cluster test dir already setup in "
+operator|+
+name|clusterTestDir
+operator|.
+name|getAbsolutePath
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+comment|// Using randomUUID ensures that multiple clusters can be launched by
+comment|//  a same test, if it stops& starts them
+name|Path
+name|testDir
+init|=
+name|getDataTestDir
+argument_list|(
+literal|"dfscluster_"
+operator|+
+name|UUID
+operator|.
+name|randomUUID
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|clusterTestDir
+operator|=
+operator|new
+name|File
+argument_list|(
+name|testDir
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+operator|.
+name|getAbsoluteFile
+argument_list|()
+expr_stmt|;
+comment|// Have it cleaned up on exit
+name|clusterTestDir
+operator|.
+name|deleteOnExit
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * @throws IOException If a cluster -- zk, dfs, or hbase -- already running.    */
+specifier|public
 name|void
 name|isRunningCluster
-parameter_list|(
-name|String
-name|passedBuildPath
-parameter_list|)
+parameter_list|()
 throws|throws
 name|IOException
 block|{
 if|if
 condition|(
-name|this
-operator|.
-name|clusterTestBuildDir
+name|dfsCluster
 operator|==
-literal|null
-operator|||
-name|passedBuildPath
-operator|!=
 literal|null
 condition|)
 return|return;
@@ -1295,7 +1345,7 @@ literal|"Cluster already running at "
 operator|+
 name|this
 operator|.
-name|clusterTestBuildDir
+name|clusterTestDir
 argument_list|)
 throw|;
 block|}
@@ -1314,8 +1364,6 @@ return|return
 name|startMiniDFSCluster
 argument_list|(
 name|servers
-argument_list|,
-literal|null
 argument_list|,
 literal|null
 argument_list|)
@@ -1354,8 +1402,6 @@ name|hosts
 operator|.
 name|length
 argument_list|,
-literal|null
-argument_list|,
 name|hosts
 argument_list|)
 return|;
@@ -1368,49 +1414,17 @@ argument_list|(
 literal|1
 argument_list|,
 literal|null
-argument_list|,
-literal|null
 argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Start a minidfscluster.    * Can only create one.    * @param dir Where to home your dfs cluster.    * @param servers How many DNs to start.    * @throws Exception    * @see {@link #shutdownMiniDFSCluster()}    * @return The mini dfs cluster created.    */
+comment|/**    * Start a minidfscluster.    * Can only create one.    * @param servers How many DNs to start.    * @param hosts hostnames DNs to run on.    * @throws Exception    * @see {@link #shutdownMiniDFSCluster()}    * @return The mini dfs cluster created.    */
 specifier|public
 name|MiniDFSCluster
 name|startMiniDFSCluster
 parameter_list|(
 name|int
 name|servers
-parameter_list|,
-specifier|final
-name|File
-name|dir
-parameter_list|)
-throws|throws
-name|Exception
-block|{
-return|return
-name|startMiniDFSCluster
-argument_list|(
-name|servers
-argument_list|,
-name|dir
-argument_list|,
-literal|null
-argument_list|)
-return|;
-block|}
-comment|/**    * Start a minidfscluster.    * Can only create one.    * @param servers How many DNs to start.    * @param dir Where to home your dfs cluster.    * @param hosts hostnames DNs to run on.    * @throws Exception    * @see {@link #shutdownMiniDFSCluster()}    * @return The mini dfs cluster created.    */
-specifier|public
-name|MiniDFSCluster
-name|startMiniDFSCluster
-parameter_list|(
-name|int
-name|servers
-parameter_list|,
-specifier|final
-name|File
-name|dir
 parameter_list|,
 specifier|final
 name|String
@@ -1420,34 +1434,23 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-comment|// This does the following to home the minidfscluster
-comment|//     base_dir = new File(System.getProperty("test.build.data", "build/test/data"), "dfs/");
-comment|// Some tests also do this:
-comment|//  System.getProperty("test.cache.data", "build/test/cache");
+comment|// Check that there is not already a cluster running
+name|isRunningCluster
+argument_list|()
+expr_stmt|;
+comment|// Initialize the local directory used by the MiniDFS
 if|if
 condition|(
-name|dir
+name|clusterTestDir
 operator|==
 literal|null
 condition|)
 block|{
-name|this
-operator|.
-name|clusterTestBuildDir
-operator|=
-name|setupClusterTestBuildDir
+name|setupClusterTestDir
 argument_list|()
 expr_stmt|;
 block|}
-else|else
-block|{
-name|this
-operator|.
-name|clusterTestBuildDir
-operator|=
-name|dir
-expr_stmt|;
-block|}
+comment|// We have to set this property as it is used by MiniCluster
 name|System
 operator|.
 name|setProperty
@@ -1456,12 +1459,15 @@ name|TEST_DIRECTORY_KEY
 argument_list|,
 name|this
 operator|.
-name|clusterTestBuildDir
+name|clusterTestDir
 operator|.
 name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Some tests also do this:
+comment|//  System.getProperty("test.cache.data", "build/test/cache");
+comment|// It's also deprecated
 name|System
 operator|.
 name|setProperty
@@ -1470,12 +1476,13 @@ literal|"test.cache.data"
 argument_list|,
 name|this
 operator|.
-name|clusterTestBuildDir
+name|clusterTestDir
 operator|.
 name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Ok, now we can start
 name|this
 operator|.
 name|dfsCluster
@@ -1506,7 +1513,7 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-comment|// Set this just-started cluser as our filesystem.
+comment|// Set this just-started cluster as our filesystem.
 name|FileSystem
 name|fs
 init|=
@@ -1552,13 +1559,21 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Wait for the cluster to be totally up
+name|this
+operator|.
+name|dfsCluster
+operator|.
+name|waitClusterUp
+argument_list|()
+expr_stmt|;
 return|return
 name|this
 operator|.
 name|dfsCluster
 return|;
 block|}
-comment|/**    * Shuts down instance created by call to {@link #startMiniDFSCluster(int, File)}    * or does nothing.    * @throws Exception    */
+comment|/**    * Shuts down instance created by call to {@link #startMiniDFSCluster(int)}    * or does nothing.    * @throws Exception    */
 specifier|public
 name|void
 name|shutdownMiniDFSCluster
@@ -1583,6 +1598,10 @@ operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
+name|dfsCluster
+operator|=
+literal|null
+expr_stmt|;
 block|}
 block|}
 comment|/**    * Call this if you only want a zk cluster.    * @see #startMiniZKCluster() if you want zk + dfs + hbase mini cluster.    * @throws Exception    * @see #shutdownMiniZKCluster()    * @return zk cluster started.    */
@@ -1596,9 +1615,6 @@ block|{
 return|return
 name|startMiniZKCluster
 argument_list|(
-name|setupClusterTestBuildDir
-argument_list|()
-argument_list|,
 literal|1
 argument_list|)
 return|;
@@ -1614,11 +1630,23 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
+name|File
+name|zkClusterFile
+init|=
+operator|new
+name|File
+argument_list|(
+name|getClusterTestDir
+argument_list|()
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+decl_stmt|;
 return|return
 name|startMiniZKCluster
 argument_list|(
-name|setupClusterTestBuildDir
-argument_list|()
+name|zkClusterFile
 argument_list|,
 name|zooKeeperServerNum
 argument_list|)
@@ -1658,12 +1686,6 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|this
-operator|.
-name|passedZkCluster
-operator|=
-literal|false
-expr_stmt|;
 if|if
 condition|(
 name|this
@@ -1683,6 +1705,12 @@ name|dir
 argument_list|)
 throw|;
 block|}
+name|this
+operator|.
+name|passedZkCluster
+operator|=
+literal|false
+expr_stmt|;
 name|this
 operator|.
 name|zkCluster
@@ -1890,72 +1918,8 @@ literal|" datanode(s)"
 argument_list|)
 expr_stmt|;
 comment|// If we already put up a cluster, fail.
-name|String
-name|testBuildPath
-init|=
-name|conf
-operator|.
-name|get
-argument_list|(
-name|TEST_DIRECTORY_KEY
-argument_list|,
-literal|null
-argument_list|)
-decl_stmt|;
 name|isRunningCluster
-argument_list|(
-name|testBuildPath
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|testBuildPath
-operator|!=
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Using passed path: "
-operator|+
-name|testBuildPath
-argument_list|)
-expr_stmt|;
-block|}
-comment|// Make a new random dir to home everything in.  Set it as system property.
-comment|// minidfs reads home from system property.
-name|this
-operator|.
-name|clusterTestBuildDir
-operator|=
-name|testBuildPath
-operator|==
-literal|null
-condition|?
-name|setupClusterTestBuildDir
 argument_list|()
-else|:
-operator|new
-name|File
-argument_list|(
-name|testBuildPath
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|setProperty
-argument_list|(
-name|TEST_DIRECTORY_KEY
-argument_list|,
-name|this
-operator|.
-name|clusterTestBuildDir
-operator|.
-name|getPath
-argument_list|()
-argument_list|)
 expr_stmt|;
 comment|// Bring up mini dfs cluster. This spews a bunch of warnings about missing
 comment|// scheme. Complaints are 'Scheme is undefined for build/test/data/dfs/name1'.
@@ -1963,19 +1927,8 @@ name|startMiniDFSCluster
 argument_list|(
 name|numDataNodes
 argument_list|,
-name|this
-operator|.
-name|clusterTestBuildDir
-argument_list|,
 name|dataNodeHosts
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|dfsCluster
-operator|.
-name|waitClusterUp
-argument_list|()
 expr_stmt|;
 comment|// Start up a zk cluster.
 if|if
@@ -1989,12 +1942,11 @@ condition|)
 block|{
 name|startMiniZKCluster
 argument_list|(
-name|this
-operator|.
-name|clusterTestBuildDir
+name|clusterTestDir
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Start the MiniHBaseCluster
 return|return
 name|startMiniHBaseCluster
 argument_list|(
@@ -2171,7 +2123,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-continue|continue;
+comment|// do nothing
 block|}
 name|LOG
 operator|.
@@ -2199,7 +2151,7 @@ name|void
 name|shutdownMiniCluster
 parameter_list|()
 throws|throws
-name|IOException
+name|Exception
 block|{
 name|LOG
 operator|.
@@ -2218,39 +2170,26 @@ name|this
 operator|.
 name|passedZkCluster
 condition|)
+block|{
 name|shutdownMiniZKCluster
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|dfsCluster
-operator|!=
-literal|null
-condition|)
-block|{
-comment|// The below throws an exception per dn, AsynchronousCloseException.
-name|this
-operator|.
-name|dfsCluster
-operator|.
-name|shutdown
+block|}
+name|shutdownMiniDFSCluster
 argument_list|()
 expr_stmt|;
-block|}
 comment|// Clean up our directory.
 if|if
 condition|(
 name|this
 operator|.
-name|clusterTestBuildDir
+name|clusterTestDir
 operator|!=
 literal|null
 operator|&&
 name|this
 operator|.
-name|clusterTestBuildDir
+name|clusterTestDir
 operator|.
 name|exists
 argument_list|()
@@ -2278,7 +2217,7 @@ name|Path
 argument_list|(
 name|this
 operator|.
-name|clusterTestBuildDir
+name|clusterTestDir
 operator|.
 name|toString
 argument_list|()
@@ -2294,7 +2233,7 @@ literal|"Failed delete of "
 operator|+
 name|this
 operator|.
-name|clusterTestBuildDir
+name|clusterTestDir
 operator|.
 name|toString
 argument_list|()
@@ -2303,7 +2242,7 @@ expr_stmt|;
 block|}
 name|this
 operator|.
-name|clusterTestBuildDir
+name|clusterTestDir
 operator|=
 literal|null
 expr_stmt|;
@@ -2348,13 +2287,13 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
-block|}
 name|this
 operator|.
 name|hbaseCluster
 operator|=
 literal|null
 expr_stmt|;
+block|}
 block|}
 comment|/**    * Creates an hbase rootdir in user home directory.  Also creates hbase    * version file.  Normally you won't make use of this method.  Root hbasedir    * is created for you as part of mini cluster startup.  You'd only use this    * method if you were doing manual operation.    * @return Fully qualified path to hbase root dir    * @throws IOException    */
 specifier|public
@@ -3866,7 +3805,7 @@ name|KEYS
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates the specified number of regions in the specified table.    * @param c    * @param table    * @param columnFamily    * @param startKeys    * @return    * @throws IOException    */
+comment|/**    * Creates the specified number of regions in the specified table.    * @param c    * @param table    * @param family    * @param numRegions    * @return    * @throws IOException    */
 specifier|public
 name|int
 name|createMultiRegions
@@ -5126,11 +5065,6 @@ name|length
 argument_list|)
 decl_stmt|;
 comment|// add custom ones
-name|int
-name|count
-init|=
-literal|0
-decl_stmt|;
 for|for
 control|(
 name|int
@@ -5240,9 +5174,6 @@ name|add
 argument_list|(
 name|hri
 argument_list|)
-expr_stmt|;
-name|count
-operator|++
 expr_stmt|;
 block|}
 return|return
@@ -5712,6 +5643,10 @@ name|mrCluster
 operator|.
 name|shutdown
 argument_list|()
+expr_stmt|;
+name|mrCluster
+operator|=
+literal|null
 expr_stmt|;
 block|}
 comment|// Restore configuration to point to local jobtracker
@@ -6296,13 +6231,36 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|dataTestDir
+operator|==
+literal|null
+condition|)
+block|{
 return|return
+literal|false
+return|;
+block|}
+else|else
+block|{
+name|boolean
+name|ret
+init|=
 name|deleteDir
 argument_list|(
-name|getTestDir
+name|getDataTestDir
 argument_list|()
 argument_list|)
+decl_stmt|;
+name|dataTestDir
+operator|=
+literal|null
+expr_stmt|;
+return|return
+name|ret
 return|;
+block|}
 block|}
 comment|/**    * @param subdir Test subdir name.    * @return True if we removed the test dir    * @throws IOException    */
 specifier|public
@@ -6316,10 +6274,21 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|dataTestDir
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 return|return
 name|deleteDir
 argument_list|(
-name|getTestDir
+name|getDataTestDir
 argument_list|(
 name|subdir
 argument_list|)
@@ -6359,7 +6328,7 @@ name|fs
 operator|.
 name|delete
 argument_list|(
-name|getTestDir
+name|getDataTestDir
 argument_list|()
 argument_list|,
 literal|true
@@ -6696,7 +6665,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Wait until<code>countOfRegion</code> in .META. have a non-empty    * info:server.  This means all regions have been deployed, master has been    * informed and updated .META. with the regions deployed server.    * @param conf Configuration    * @param countOfRegions How many regions in .META.    * @throws IOException    */
+comment|/**    * Wait until<code>countOfRegion</code> in .META. have a non-empty    * info:server.  This means all regions have been deployed, master has been    * informed and updated .META. with the regions deployed server.    * @param countOfRegions How many regions in .META.    * @throws IOException    */
 specifier|public
 name|void
 name|waitUntilAllRegionsAssigned
@@ -7059,7 +7028,7 @@ name|get
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates an znode with OPENED state.    * @param TEST_UTIL    * @param region    * @param regionServer    * @return    * @throws IOException    * @throws ZooKeeperConnectionException    * @throws KeeperException    * @throws NodeExistsException    */
+comment|/**    * Creates an znode with OPENED state.    * @param TEST_UTIL    * @param region    * @param serverName    * @return    * @throws IOException    * @throws ZooKeeperConnectionException    * @throws KeeperException    * @throws NodeExistsException    */
 specifier|public
 specifier|static
 name|ZooKeeperWatcher

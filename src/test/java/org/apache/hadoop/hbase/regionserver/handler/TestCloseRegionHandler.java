@@ -379,9 +379,9 @@ name|createHRegion
 argument_list|(
 name|hri
 argument_list|,
-name|HBaseTestingUtility
+name|HTU
 operator|.
-name|getTestDir
+name|getDataTestDir
 argument_list|()
 argument_list|,
 name|HTU

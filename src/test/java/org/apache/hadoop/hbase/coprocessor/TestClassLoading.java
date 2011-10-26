@@ -902,9 +902,9 @@ decl_stmt|;
 name|Path
 name|baseDir
 init|=
-name|HBaseTestingUtility
+name|TEST_UTIL
 operator|.
-name|getTestDir
+name|getDataTestDir
 argument_list|()
 decl_stmt|;
 name|Path
@@ -913,9 +913,9 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|HBaseTestingUtility
+name|TEST_UTIL
 operator|.
-name|getTestDir
+name|getDataTestDir
 argument_list|()
 argument_list|,
 literal|"src"

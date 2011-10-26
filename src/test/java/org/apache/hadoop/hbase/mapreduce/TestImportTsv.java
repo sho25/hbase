@@ -1826,9 +1826,9 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|cluster
+name|htu1
 operator|.
-name|shutdown
+name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}

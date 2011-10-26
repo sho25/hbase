@@ -1772,9 +1772,9 @@ name|createWriter
 argument_list|(
 name|fs
 argument_list|,
-name|HBaseTestingUtility
+name|TEST_UTIL
 operator|.
-name|getTestDir
+name|getDataTestDir
 argument_list|()
 argument_list|,
 name|BLOCK_SIZES

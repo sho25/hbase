@@ -675,6 +675,11 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|shutdownMiniCluster
+argument_list|()
+expr_stmt|;
 block|}
 specifier|private
 name|void

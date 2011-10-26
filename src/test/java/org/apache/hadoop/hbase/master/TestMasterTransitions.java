@@ -439,7 +439,7 @@ name|void
 name|afterAllTests
 parameter_list|()
 throws|throws
-name|IOException
+name|Exception
 block|{
 name|TEST_UTIL
 operator|.
