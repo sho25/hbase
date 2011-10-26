@@ -3080,33 +3080,6 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * Converts a byte array to a BigDecimal value    *    * @param bytes    * @param offset    * @return the char value    */
-specifier|public
-specifier|static
-name|BigDecimal
-name|toBigDecimal
-parameter_list|(
-name|byte
-index|[]
-name|bytes
-parameter_list|,
-name|int
-name|offset
-parameter_list|)
-block|{
-return|return
-name|toBigDecimal
-argument_list|(
-name|bytes
-argument_list|,
-name|offset
-argument_list|,
-name|bytes
-operator|.
-name|length
-argument_list|)
-return|;
-block|}
 comment|/**    * Converts a byte array to a BigDecimal value    *    * @param bytes    * @param offset    * @param length    * @return the char value    */
 specifier|public
 specifier|static
@@ -3159,7 +3132,7 @@ name|toInt
 argument_list|(
 name|bytes
 argument_list|,
-literal|0
+name|offset
 argument_list|)
 decl_stmt|;
 name|byte
@@ -3180,6 +3153,8 @@ name|arraycopy
 argument_list|(
 name|bytes
 argument_list|,
+name|offset
+operator|+
 name|SIZEOF_INT
 argument_list|,
 name|tcBytes
