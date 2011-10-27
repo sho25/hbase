@@ -2619,6 +2619,13 @@ name|j
 init|=
 literal|0
 decl_stmt|;
+if|if
+condition|(
+name|n
+operator|>
+literal|0
+condition|)
+block|{
 for|for
 control|(
 name|int
@@ -2752,6 +2759,7 @@ expr_stmt|;
 comment|// if ((i % 8096) == 0) {
 comment|// log.sync();
 comment|//  }
+block|}
 block|}
 name|log
 operator|.
