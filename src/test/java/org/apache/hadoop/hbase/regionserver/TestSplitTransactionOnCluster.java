@@ -2364,7 +2364,7 @@ operator|.
 name|getServerName
 argument_list|()
 operator|.
-name|getBytes
+name|getVersionedBytes
 argument_list|()
 argument_list|)
 expr_stmt|;

@@ -36,6 +36,34 @@ specifier|public
 class|class
 name|Addressing
 block|{
+comment|/**    * Regex for RFC952 hostname matching.  Does not have a '$" on the end.  Can    * be used as prefix on a larger regex.    * @see http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|VALID_HOSTNAME_REGEX_PREFIX
+init|=
+literal|"^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\\-]*[A-Za-z0-9])"
+decl_stmt|;
+comment|/**    * Regex for RFC952 hostname matching.    * @see http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|VALID_HOSTNAME_REGEX
+init|=
+name|VALID_HOSTNAME_REGEX_PREFIX
+operator|+
+literal|"$"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|VALID_PORT_REGEX
+init|=
+literal|"[\\d]+"
+decl_stmt|;
 specifier|public
 specifier|static
 specifier|final

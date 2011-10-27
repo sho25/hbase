@@ -129,7 +129,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * @param sn {@link ServerName#getBytes()}    * @param hsl Server load.    * @throws IOException    */
+comment|/**    * @param sn {@link ServerName#getVersionedBytes()}    * @param hsl Server load.    * @throws IOException    */
 specifier|public
 name|void
 name|regionServerReport
@@ -144,7 +144,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called by a region server to report a fatal error that is causing    * it to abort.    * @param sn {@link ServerName#getBytes()}    * @param errorMessage informative text to expose in the master logs and UI    */
+comment|/**    * Called by a region server to report a fatal error that is causing    * it to abort.    * @param sn {@link ServerName#getVersionedBytes()}    * @param errorMessage informative text to expose in the master logs and UI    */
 specifier|public
 name|void
 name|reportRSFatalError

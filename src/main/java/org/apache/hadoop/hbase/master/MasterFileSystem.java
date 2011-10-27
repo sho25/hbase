@@ -1013,12 +1013,9 @@ range|:
 name|logFolders
 control|)
 block|{
-name|ServerName
-name|serverName
+name|String
+name|sn
 init|=
-operator|new
-name|ServerName
-argument_list|(
 name|status
 operator|.
 name|getPath
@@ -1026,6 +1023,18 @@ argument_list|()
 operator|.
 name|getName
 argument_list|()
+decl_stmt|;
+comment|// Is this old or new style servername?  If old style, it will be
+comment|// hostname, colon, and port.  If new style, it will be formatted as
+comment|// ServerName.toString.
+name|ServerName
+name|serverName
+init|=
+name|ServerName
+operator|.
+name|parseServerName
+argument_list|(
+name|sn
 argument_list|)
 decl_stmt|;
 if|if

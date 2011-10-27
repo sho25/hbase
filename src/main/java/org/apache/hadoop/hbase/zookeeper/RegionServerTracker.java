@@ -309,8 +309,9 @@ block|{
 name|ServerName
 name|sn
 init|=
-operator|new
 name|ServerName
+operator|.
+name|parseServerName
 argument_list|(
 name|ZKUtil
 operator|.
@@ -405,8 +406,9 @@ expr_stmt|;
 name|ServerName
 name|sn
 init|=
-operator|new
 name|ServerName
+operator|.
+name|parseServerName
 argument_list|(
 name|serverName
 argument_list|)

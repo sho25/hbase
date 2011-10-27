@@ -293,8 +293,9 @@ condition|)
 block|{
 comment|// Presume its ServerName.toString() format.
 return|return
-operator|new
 name|ServerName
+operator|.
+name|parseServerName
 argument_list|(
 name|str
 argument_list|)

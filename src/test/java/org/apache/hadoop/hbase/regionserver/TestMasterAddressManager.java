@@ -399,7 +399,7 @@ name|masterAddressZNode
 argument_list|,
 name|sn
 operator|.
-name|getBytes
+name|getVersionedBytes
 argument_list|()
 argument_list|)
 expr_stmt|;

@@ -1090,8 +1090,9 @@ operator|.
 name|toString
 argument_list|()
 argument_list|,
-operator|-
-literal|1
+name|ServerName
+operator|.
+name|NON_STARTCODE
 argument_list|)
 decl_stmt|;
 name|ServerName

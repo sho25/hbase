@@ -4603,7 +4603,7 @@ name|this
 operator|.
 name|serverNameFromMasterPOV
 operator|.
-name|getBytes
+name|getVersionedBytes
 argument_list|()
 argument_list|,
 name|hsl
@@ -8871,7 +8871,7 @@ name|this
 operator|.
 name|serverNameFromMasterPOV
 operator|.
-name|getBytes
+name|getVersionedBytes
 argument_list|()
 argument_list|,
 name|msg

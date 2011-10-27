@@ -1271,8 +1271,9 @@ name|addresses
 operator|.
 name|add
 argument_list|(
-operator|new
 name|ServerName
+operator|.
+name|parseServerName
 argument_list|(
 name|child
 argument_list|)
