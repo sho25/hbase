@@ -423,21 +423,21 @@ name|len
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param regionName    * @return True if<code>regionName</code> is from<code>.META.</code> table.    */
+comment|/**    * @param row    * @return True if<code>row</code> is row of<code>-ROOT-</code> table.    */
 specifier|private
 specifier|static
 name|boolean
-name|isMetaRegion
+name|isRootTableRow
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|regionName
+name|row
 parameter_list|)
 block|{
 if|if
 condition|(
-name|regionName
+name|row
 operator|.
 name|length
 operator|<
@@ -454,14 +454,14 @@ return|return
 literal|false
 return|;
 block|}
-comment|// Compare the prefix of regionName.  If it matches META_REGION_PREFIX prefix,
-comment|// then this is region from .META. table.
+comment|// Compare the prefix of row.  If it matches META_REGION_PREFIX prefix,
+comment|// then this is row from -ROOT_ table.
 return|return
 name|Bytes
 operator|.
 name|equals
 argument_list|(
-name|regionName
+name|row
 argument_list|,
 literal|0
 argument_list|,
@@ -853,7 +853,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Callers should call close on the returned {@link HTable} instance.    * @param catalogTracker    * @param regionName    * @return    * @throws IOException    */
+comment|/**    * Callers should call close on the returned {@link HTable} instance.    * @param catalogTracker    * @param row Row we are putting     * @return    * @throws IOException    */
 specifier|static
 name|HTable
 name|getCatalogHTable
@@ -865,15 +865,15 @@ parameter_list|,
 specifier|final
 name|byte
 index|[]
-name|regionName
+name|row
 parameter_list|)
 throws|throws
 name|IOException
 block|{
 return|return
-name|isMetaRegion
+name|isRootTableRow
 argument_list|(
-name|regionName
+name|row
 argument_list|)
 condition|?
 name|getRootHTable

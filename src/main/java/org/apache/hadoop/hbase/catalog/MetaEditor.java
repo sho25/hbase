@@ -238,7 +238,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Writes region and assignment information to<code>.META.</code>.  */
+comment|/**  * Writes region and assignment information to<code>.META.</code>.  * TODO: Put MetaReader and MetaEditor together; doesn't make sense having  * them distinct.  */
 end_comment
 
 begin_class
@@ -369,7 +369,7 @@ name|p
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Put the passed<code>p</code> to a catalog table.    * @param ct CatalogTracker on whose back we will ride the edit.    * @param regionName Name of the catalog table to put too.    * @param p Put to add    * @throws IOException    */
+comment|/**    * Put the passed<code>p</code> to a catalog table.    * @param ct CatalogTracker on whose back we will ride the edit.    * @param p Put to add    * @throws IOException    */
 specifier|static
 name|void
 name|putToCatalogTable
@@ -377,11 +377,6 @@ parameter_list|(
 specifier|final
 name|CatalogTracker
 name|ct
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|regionName
 parameter_list|,
 specifier|final
 name|Put
@@ -399,7 +394,10 @@ name|getCatalogHTable
 argument_list|(
 name|ct
 argument_list|,
-name|regionName
+name|p
+operator|.
+name|getRow
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|put
@@ -946,16 +944,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-specifier|final
-name|byte
-index|[]
-name|regionName
-init|=
-name|regionInfo
-operator|.
-name|getRegionName
-argument_list|()
-decl_stmt|;
 name|Put
 name|put
 init|=
@@ -978,8 +966,6 @@ expr_stmt|;
 name|putToCatalogTable
 argument_list|(
 name|catalogTracker
-argument_list|,
-name|regionName
 argument_list|,
 name|put
 argument_list|)

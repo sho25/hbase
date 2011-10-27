@@ -613,9 +613,6 @@ comment|// followed by the meta regions, followed by user regions. Since the roo
 comment|// and meta regions always need to be on-line, this ensures that they will
 comment|// be the first to be reassigned if the server(s) they are being served by
 comment|// should go down.
-comment|//
-comment|// New stuff.  Making a slow transition.
-comment|//
 comment|/** The root table's name.*/
 specifier|public
 specifier|static
@@ -753,6 +750,30 @@ name|toBytes
 argument_list|(
 literal|"splitB"
 argument_list|)
+decl_stmt|;
+comment|/**    * The meta table version column qualifier.    * We keep current version of the meta table in this column in<code>-ROOT-</code>    * table: i.e. in the 'info:v' column.    */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|META_VERSION_QUALIFIER
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"v"
+argument_list|)
+decl_stmt|;
+comment|/**    * The current version of the meta table.    * Before this the meta had HTableDescriptor serialized into the HRegionInfo;    * i.e. pre-hbase 0.92.  There was no META_VERSION column in the root table    * in this case.  The presence of a version and its value being zero indicates    * meta is up-to-date.    */
+specifier|public
+specifier|static
+specifier|final
+name|short
+name|META_VERSION
+init|=
+literal|0
 decl_stmt|;
 comment|// Other constants
 comment|/**    * An empty instance.    */

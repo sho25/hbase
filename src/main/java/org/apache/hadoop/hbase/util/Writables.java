@@ -759,34 +759,6 @@ return|return
 name|tgt
 return|;
 block|}
-comment|/**    * Get HREgionInfoForMigration serialized from bytes.    * @param bytes serialized bytes    * @return HRegionInfoForMigration    * @throws IOException    */
-specifier|public
-specifier|static
-name|HRegionInfo090x
-name|getHRegionInfoForMigration
-parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|bytes
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-operator|(
-name|HRegionInfo090x
-operator|)
-name|getWritable
-argument_list|(
-name|bytes
-argument_list|,
-operator|new
-name|HRegionInfo090x
-argument_list|()
-argument_list|)
-return|;
-block|}
 block|}
 end_class
 
