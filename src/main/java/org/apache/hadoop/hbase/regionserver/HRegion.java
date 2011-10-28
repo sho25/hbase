@@ -10122,6 +10122,10 @@ operator|+
 literal|"; minSequenceid="
 operator|+
 name|minSeqId
+operator|+
+literal|"; path="
+operator|+
+name|edits
 decl_stmt|;
 name|LOG
 operator|.
@@ -10205,6 +10209,11 @@ name|Store
 name|store
 init|=
 literal|null
+decl_stmt|;
+name|boolean
+name|reported_once
+init|=
+literal|false
 decl_stmt|;
 try|try
 block|{
@@ -10381,6 +10390,10 @@ name|msg
 argument_list|)
 throw|;
 block|}
+name|reported_once
+operator|=
+literal|true
+expr_stmt|;
 name|lastReport
 operator|=
 name|cur
@@ -10759,6 +10772,22 @@ name|ioe
 throw|;
 block|}
 block|}
+if|if
+condition|(
+name|reporter
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|reported_once
+condition|)
+block|{
+name|reporter
+operator|.
+name|progress
+argument_list|()
+expr_stmt|;
+block|}
 name|msg
 operator|=
 literal|"Applied "
@@ -10776,6 +10805,10 @@ operator|+
 literal|", maxSequenceidInLog="
 operator|+
 name|currentEditSeqId
+operator|+
+literal|", path="
+operator|+
+name|edits
 expr_stmt|;
 name|status
 operator|.
@@ -10784,14 +10817,6 @@ argument_list|(
 name|msg
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
@@ -10799,7 +10824,6 @@ argument_list|(
 name|msg
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 name|currentEditSeqId
 return|;
