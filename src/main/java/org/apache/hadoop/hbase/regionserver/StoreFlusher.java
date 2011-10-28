@@ -69,7 +69,10 @@ function_decl|;
 comment|/**    * Commit the flush - add the store file to the store and clear the    * memstore snapshot.    *    * Requires pausing scans.    *    * A very short operation    *    * @return    * @throws IOException    */
 name|boolean
 name|commit
-parameter_list|()
+parameter_list|(
+name|MonitoredTask
+name|status
+parameter_list|)
 throws|throws
 name|IOException
 function_decl|;

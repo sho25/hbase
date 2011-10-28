@@ -4239,7 +4239,16 @@ expr_stmt|;
 name|storeFlusher
 operator|.
 name|commit
-argument_list|()
+argument_list|(
+name|Mockito
+operator|.
+name|mock
+argument_list|(
+name|MonitoredTask
+operator|.
+name|class
+argument_list|)
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Generate a list of KeyValues for testing based on given parameters    * @param timestamps    * @param numRows    * @param qualifier    * @param family    * @return    */

@@ -5136,7 +5136,16 @@ name|this
 operator|.
 name|syncedTillHere
 operator|=
+name|Math
+operator|.
+name|max
+argument_list|(
+name|this
+operator|.
+name|syncedTillHere
+argument_list|,
 name|doneUpto
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch

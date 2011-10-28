@@ -105,6 +105,20 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|atomic
+operator|.
+name|AtomicLong
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|CopyOnWriteArraySet
 import|;
 end_import
@@ -1701,6 +1715,48 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Removes a kv from the memstore. The KeyValue is removed only    * if its key& memstoreTS matches the key& memstoreTS value of the     * kv parameter.    *    * @param kv    */
+specifier|protected
+name|void
+name|rollback
+parameter_list|(
+specifier|final
+name|KeyValue
+name|kv
+parameter_list|)
+block|{
+name|lock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
+block|{
+name|this
+operator|.
+name|memstore
+operator|.
+name|rollback
+argument_list|(
+name|kv
+argument_list|)
+expr_stmt|;
+block|}
+finally|finally
+block|{
+name|lock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 comment|/**    * @return All store files.    */
 name|List
 argument_list|<
@@ -2284,9 +2340,9 @@ name|snapshot
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Write out current snapshot.  Presumes {@link #snapshot()} has been called    * previously.    * @param logCacheFlushId flush sequence number    * @param snapshot    * @param snapshotTimeRangeTracker    * @return true if a compaction is needed    * @throws IOException    */
+comment|/**    * Write out current snapshot.  Presumes {@link #snapshot()} has been called    * previously.    * @param logCacheFlushId flush sequence number    * @param snapshot    * @param snapshotTimeRangeTracker    * @param flushedSize The number of bytes flushed    * @param status    * @return Path The path name of the tmp file to which the store was flushed    * @throws IOException    */
 specifier|private
-name|StoreFile
+name|Path
 name|flushCache
 parameter_list|(
 specifier|final
@@ -2301,6 +2357,9 @@ name|snapshot
 parameter_list|,
 name|TimeRangeTracker
 name|snapshotTimeRangeTracker
+parameter_list|,
+name|AtomicLong
+name|flushedSize
 parameter_list|,
 name|MonitoredTask
 name|status
@@ -2320,13 +2379,15 @@ name|logCacheFlushId
 argument_list|,
 name|snapshotTimeRangeTracker
 argument_list|,
+name|flushedSize
+argument_list|,
 name|status
 argument_list|)
 return|;
 block|}
-comment|/*    * @param cache    * @param logCacheFlushId    * @return StoreFile created.    * @throws IOException    */
+comment|/*    * @param cache    * @param logCacheFlushId    * @param snapshotTimeRangeTracker    * @param flushedSize The number of bytes flushed    * @return Path The path name of the tmp file to which the store was flushed    * @throws IOException    */
 specifier|private
-name|StoreFile
+name|Path
 name|internalFlushCache
 parameter_list|(
 specifier|final
@@ -2342,6 +2403,9 @@ name|logCacheFlushId
 parameter_list|,
 name|TimeRangeTracker
 name|snapshotTimeRangeTracker
+parameter_list|,
+name|AtomicLong
+name|flushedSize
 parameter_list|,
 name|MonitoredTask
 name|status
@@ -2361,6 +2425,9 @@ name|long
 name|flushed
 init|=
 literal|0
+decl_stmt|;
+name|Path
+name|pathName
 decl_stmt|;
 comment|// Don't flush if there are no entries.
 if|if
@@ -2470,14 +2537,11 @@ argument_list|(
 name|snapshotTimeRangeTracker
 argument_list|)
 expr_stmt|;
-name|fileName
+name|pathName
 operator|=
 name|writer
 operator|.
 name|getPath
-argument_list|()
-operator|.
-name|getName
 argument_list|()
 expr_stmt|;
 try|try
@@ -2605,13 +2669,90 @@ block|}
 block|}
 finally|finally
 block|{
+name|flushedSize
+operator|.
+name|set
+argument_list|(
+name|flushed
+argument_list|)
+expr_stmt|;
 name|scanner
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isInfoEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Flushed "
+operator|+
+literal|", sequenceid="
+operator|+
+name|logCacheFlushId
+operator|+
+literal|", memsize="
+operator|+
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
+name|flushed
+argument_list|)
+operator|+
+literal|", into tmp file "
+operator|+
+name|pathName
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|pathName
+return|;
+block|}
+comment|/*    * @param path The pathname of the tmp file into which the store was flushed    * @param logCacheFlushId    * @return StoreFile created.    * @throws IOException    */
+specifier|private
+name|StoreFile
+name|commitFile
+parameter_list|(
+specifier|final
+name|Path
+name|path
+parameter_list|,
+specifier|final
+name|long
+name|logCacheFlushId
+parameter_list|,
+name|TimeRangeTracker
+name|snapshotTimeRangeTracker
+parameter_list|,
+name|AtomicLong
+name|flushedSize
+parameter_list|,
+name|MonitoredTask
+name|status
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 comment|// Write-out finished successfully, move into the right spot
+name|String
+name|fileName
+init|=
+name|path
+operator|.
+name|getName
+argument_list|()
+decl_stmt|;
 name|Path
 name|dstPath
 init|=
@@ -2625,10 +2766,7 @@ argument_list|)
 decl_stmt|;
 name|validateStoreFile
 argument_list|(
-name|writer
-operator|.
-name|getPath
-argument_list|()
+name|path
 argument_list|)
 expr_stmt|;
 name|String
@@ -2636,10 +2774,7 @@ name|msg
 init|=
 literal|"Renaming flushed file at "
 operator|+
-name|writer
-operator|.
-name|getPath
-argument_list|()
+name|path
 operator|+
 literal|" to "
 operator|+
@@ -2672,10 +2807,7 @@ name|fs
 operator|.
 name|rename
 argument_list|(
-name|writer
-operator|.
-name|getPath
-argument_list|()
+name|path
 argument_list|,
 name|dstPath
 argument_list|)
@@ -2687,10 +2819,7 @@ name|warn
 argument_list|(
 literal|"Unable to rename "
 operator|+
-name|writer
-operator|.
-name|getPath
-argument_list|()
+name|path
 operator|+
 literal|" to "
 operator|+
@@ -2783,7 +2912,10 @@ argument_list|()
 operator|+
 literal|".flushSize"
 argument_list|,
-name|flushed
+name|flushedSize
+operator|.
+name|longValue
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
@@ -2812,15 +2944,6 @@ operator|+
 literal|", sequenceid="
 operator|+
 name|logCacheFlushId
-operator|+
-literal|", memsize="
-operator|+
-name|StringUtils
-operator|.
-name|humanReadableInt
-argument_list|(
-name|flushed
-argument_list|)
 operator|+
 literal|", filesize="
 operator|+
@@ -8016,8 +8139,16 @@ name|StoreFile
 name|storeFile
 decl_stmt|;
 specifier|private
+name|Path
+name|storeFilePath
+decl_stmt|;
+specifier|private
 name|TimeRangeTracker
 name|snapshotTimeRangeTracker
+decl_stmt|;
+specifier|private
+name|AtomicLong
+name|flushedSize
 decl_stmt|;
 specifier|private
 name|StoreFlusherImpl
@@ -8031,6 +8162,14 @@ operator|.
 name|cacheFlushId
 operator|=
 name|cacheFlushId
+expr_stmt|;
+name|this
+operator|.
+name|flushedSize
+operator|=
+operator|new
+name|AtomicLong
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@
@@ -8076,7 +8215,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|storeFile
+name|storeFilePath
 operator|=
 name|Store
 operator|.
@@ -8090,6 +8229,8 @@ name|snapshot
 argument_list|,
 name|snapshotTimeRangeTracker
 argument_list|,
+name|flushedSize
+argument_list|,
 name|status
 argument_list|)
 expr_stmt|;
@@ -8099,13 +8240,16 @@ name|Override
 specifier|public
 name|boolean
 name|commit
-parameter_list|()
+parameter_list|(
+name|MonitoredTask
+name|status
+parameter_list|)
 throws|throws
 name|IOException
 block|{
 if|if
 condition|(
-name|storeFile
+name|storeFilePath
 operator|==
 literal|null
 condition|)
@@ -8114,6 +8258,25 @@ return|return
 literal|false
 return|;
 block|}
+name|storeFile
+operator|=
+name|Store
+operator|.
+name|this
+operator|.
+name|commitFile
+argument_list|(
+name|storeFilePath
+argument_list|,
+name|cacheFlushId
+argument_list|,
+name|snapshotTimeRangeTracker
+argument_list|,
+name|flushedSize
+argument_list|,
+name|status
+argument_list|)
+expr_stmt|;
 comment|// Add new file to store files.  Clear snapshot too while we have
 comment|// the Store write lock.
 return|return

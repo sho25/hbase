@@ -5156,6 +5156,13 @@ init|=
 operator|-
 literal|1L
 decl_stmt|;
+name|ReadWriteConsistencyControl
+operator|.
+name|WriteEntry
+name|w
+init|=
+literal|null
+decl_stmt|;
 comment|// We have to take a write lock during snapshot, or else a write could
 comment|// end up in both snapshot and memstore (makes it difficult to do atomic
 comment|// rows then)
@@ -5214,6 +5221,21 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
+comment|// Record the rwcc for all transactions in progress.
+name|w
+operator|=
+name|rwcc
+operator|.
+name|beginMemstoreInsert
+argument_list|()
+expr_stmt|;
+name|rwcc
+operator|.
+name|advanceMemstore
+argument_list|(
+name|w
+argument_list|)
+expr_stmt|;
 name|sequenceId
 operator|=
 operator|(
@@ -5302,6 +5324,32 @@ name|status
 operator|.
 name|setStatus
 argument_list|(
+literal|"Waiting for rwcc"
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Finished snapshotting, commencing waiting for rwcc"
+argument_list|)
+expr_stmt|;
+comment|// wait for all in-progress transactions to commit to HLog before
+comment|// we can start the flush. This prevents
+comment|// uncommitted transactions from being written into HFiles.
+comment|// We have to block before we start the flush, otherwise keys that
+comment|// were removed via a rollbackMemstore could be written to Hfiles.
+name|rwcc
+operator|.
+name|waitForRead
+argument_list|(
+name|w
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
 literal|"Flushing stores"
 argument_list|)
 expr_stmt|;
@@ -5325,7 +5373,8 @@ try|try
 block|{
 comment|// A.  Flush memstore to all the HStores.
 comment|// Keep running vector of all store files that includes both old and the
-comment|// just-made new flush store file.
+comment|// just-made new flush store file. The new flushed file is still in the
+comment|// tmp directory.
 for|for
 control|(
 name|StoreFlusher
@@ -5358,7 +5407,9 @@ init|=
 name|flusher
 operator|.
 name|commit
-argument_list|()
+argument_list|(
+name|status
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
@@ -6172,8 +6223,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * @param familyMap map of family to edits for the given family.    * @param writeToWAL    * @throws IOException    */
-specifier|public
+comment|/**    * This is used only by unit tests. Not required to be a public API.    * @param familyMap map of family to edits for the given family.    * @param writeToWAL    * @throws IOException    */
 name|void
 name|delete
 parameter_list|(
@@ -6687,6 +6737,8 @@ init|=
 name|applyFamilyMapToMemstore
 argument_list|(
 name|familyMap
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|flush
@@ -7324,24 +7376,22 @@ expr_stmt|;
 block|}
 block|}
 block|}
-name|long
-name|now
-init|=
-name|EnvironmentEdgeManager
+name|ReadWriteConsistencyControl
 operator|.
-name|currentTimeMillis
-argument_list|()
+name|WriteEntry
+name|w
+init|=
+literal|null
 decl_stmt|;
-name|byte
-index|[]
-name|byteNow
+name|long
+name|txid
 init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|now
-argument_list|)
+literal|0
+decl_stmt|;
+name|boolean
+name|walSyncSuccessful
+init|=
+literal|false
 decl_stmt|;
 name|boolean
 name|locked
@@ -7624,6 +7674,27 @@ name|numReadyToWrite
 operator|++
 expr_stmt|;
 block|}
+comment|// we should record the timestamp only after we have acquired the rowLock,
+comment|// otherwise, newer puts are not guaranteed to have a newer timestamp
+name|long
+name|now
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
+name|byte
+index|[]
+name|byteNow
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|now
+argument_list|)
+decl_stmt|;
 comment|// Nothing to put -- an exception in the above such as NoSuchColumnFamily?
 if|if
 condition|(
@@ -7699,122 +7770,25 @@ name|locked
 operator|=
 literal|true
 expr_stmt|;
+comment|//
 comment|// ------------------------------------
-comment|// STEP 3. Write to WAL
+comment|// Acquire the latest rwcc number
 comment|// ----------------------------------
-for|for
-control|(
-name|int
-name|i
-init|=
-name|firstIndex
-init|;
-name|i
-operator|<
-name|lastIndexExclusive
-condition|;
-name|i
-operator|++
-control|)
-block|{
-comment|// Skip puts that were determined to be invalid during preprocessing
-if|if
-condition|(
-name|batchOp
+name|w
+operator|=
+name|rwcc
 operator|.
-name|retCodeDetails
-index|[
-name|i
-index|]
-operator|.
-name|getOperationStatusCode
+name|beginMemstoreInsert
 argument_list|()
-operator|!=
-name|OperationStatusCode
-operator|.
-name|NOT_RUN
-condition|)
-block|{
-continue|continue;
-block|}
-name|Put
-name|p
-init|=
-name|batchOp
-operator|.
-name|operations
-index|[
-name|i
-index|]
-operator|.
-name|getFirst
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-operator|!
-name|p
-operator|.
-name|getWriteToWAL
-argument_list|()
-condition|)
-continue|continue;
-name|addFamilyMapToWALEdit
-argument_list|(
-name|familyMaps
-index|[
-name|i
-index|]
-argument_list|,
-name|walEdit
-argument_list|)
-expr_stmt|;
-block|}
-comment|// Append the edit to WAL
-name|Put
-name|first
-init|=
-name|batchOp
-operator|.
-name|operations
-index|[
-name|firstIndex
-index|]
-operator|.
-name|getFirst
-argument_list|()
-decl_stmt|;
-name|this
-operator|.
-name|log
-operator|.
-name|append
-argument_list|(
-name|regionInfo
-argument_list|,
-name|this
-operator|.
-name|htableDescriptor
-operator|.
-name|getName
-argument_list|()
-argument_list|,
-name|walEdit
-argument_list|,
-name|first
-operator|.
-name|getClusterId
-argument_list|()
-argument_list|,
-name|now
-argument_list|,
-name|this
-operator|.
-name|htableDescriptor
-argument_list|)
 expr_stmt|;
 comment|// ------------------------------------
-comment|// STEP 4. Write back to memstore
+comment|// STEP 3. Write back to memstore
+comment|// Write to memstore. It is ok to write to memstore
+comment|// first without updating the HLog because we do not roll
+comment|// forward the memstore RWCC. The RWCC will be moved up when
+comment|// the complete operation is done. These changes are not yet
+comment|// visible to scanners till we update the RWCC. The RWCC is
+comment|// moved only when the sync is complete.
 comment|// ----------------------------------
 name|long
 name|addedSize
@@ -7863,8 +7837,49 @@ name|familyMaps
 index|[
 name|i
 index|]
+argument_list|,
+name|w
 argument_list|)
 expr_stmt|;
+block|}
+comment|// ------------------------------------
+comment|// STEP 4. Build WAL edit
+comment|// ----------------------------------
+for|for
+control|(
+name|int
+name|i
+init|=
+name|firstIndex
+init|;
+name|i
+operator|<
+name|lastIndexExclusive
+condition|;
+name|i
+operator|++
+control|)
+block|{
+comment|// Skip puts that were determined to be invalid during preprocessing
+if|if
+condition|(
+name|batchOp
+operator|.
+name|retCodeDetails
+index|[
+name|i
+index|]
+operator|.
+name|getOperationStatusCode
+argument_list|()
+operator|!=
+name|OperationStatusCode
+operator|.
+name|NOT_RUN
+condition|)
+block|{
+continue|continue;
+block|}
 name|batchOp
 operator|.
 name|retCodeDetails
@@ -7880,9 +7895,204 @@ operator|.
 name|SUCCESS
 argument_list|)
 expr_stmt|;
+name|Put
+name|p
+init|=
+name|batchOp
+operator|.
+name|operations
+index|[
+name|i
+index|]
+operator|.
+name|getFirst
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|p
+operator|.
+name|getWriteToWAL
+argument_list|()
+condition|)
+continue|continue;
+name|addFamilyMapToWALEdit
+argument_list|(
+name|familyMaps
+index|[
+name|i
+index|]
+argument_list|,
+name|walEdit
+argument_list|)
+expr_stmt|;
+block|}
+comment|// -------------------------
+comment|// STEP 5. Append the edit to WAL. Do not sync wal.
+comment|// -------------------------
+name|Put
+name|first
+init|=
+name|batchOp
+operator|.
+name|operations
+index|[
+name|firstIndex
+index|]
+operator|.
+name|getFirst
+argument_list|()
+decl_stmt|;
+name|txid
+operator|=
+name|this
+operator|.
+name|log
+operator|.
+name|appendNoSync
+argument_list|(
+name|regionInfo
+argument_list|,
+name|this
+operator|.
+name|htableDescriptor
+operator|.
+name|getName
+argument_list|()
+argument_list|,
+name|walEdit
+argument_list|,
+name|first
+operator|.
+name|getClusterId
+argument_list|()
+argument_list|,
+name|now
+argument_list|,
+name|this
+operator|.
+name|htableDescriptor
+argument_list|)
+expr_stmt|;
+comment|// -------------------------------
+comment|// STEP 6. Release row locks, etc.
+comment|// -------------------------------
+if|if
+condition|(
+name|locked
+condition|)
+block|{
+name|this
+operator|.
+name|updatesLock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+name|locked
+operator|=
+literal|false
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|acquiredLocks
+operator|!=
+literal|null
+condition|)
+block|{
+for|for
+control|(
+name|Integer
+name|toRelease
+range|:
+name|acquiredLocks
+control|)
+block|{
+name|releaseRowLock
+argument_list|(
+name|toRelease
+argument_list|)
+expr_stmt|;
+block|}
+name|acquiredLocks
+operator|=
+literal|null
+expr_stmt|;
+block|}
+comment|// -------------------------
+comment|// STEP 7. Sync wal.
+comment|// -------------------------
+if|if
+condition|(
+name|walEdit
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+operator|&&
+operator|(
+name|this
+operator|.
+name|regionInfo
+operator|.
+name|isMetaRegion
+argument_list|()
+operator|||
+operator|!
+name|this
+operator|.
+name|htableDescriptor
+operator|.
+name|isDeferredLogFlush
+argument_list|()
+operator|)
+condition|)
+block|{
+name|this
+operator|.
+name|log
+operator|.
+name|sync
+argument_list|(
+name|txid
+argument_list|)
+expr_stmt|;
+block|}
+name|walSyncSuccessful
+operator|=
+literal|true
+expr_stmt|;
+comment|// ------------------------------------------------------------------
+comment|// STEP 8. Advance rwcc. This will make this put visible to scanners and getters.
+comment|// ------------------------------------------------------------------
+if|if
+condition|(
+name|w
+operator|!=
+literal|null
+condition|)
+block|{
+name|rwcc
+operator|.
+name|completeMemstoreInsert
+argument_list|(
+name|w
+argument_list|)
+expr_stmt|;
+name|w
+operator|=
+literal|null
+expr_stmt|;
 block|}
 comment|// ------------------------------------
-comment|// STEP 5. Run coprocessor post hooks
+comment|// STEP 9. Run coprocessor post hooks. This should be done after the wal is
+comment|// sycned so that the coprocessor contract is adhered to.
 comment|// ------------------------------------
 if|if
 condition|(
@@ -7965,10 +8175,43 @@ return|;
 block|}
 finally|finally
 block|{
+comment|// if the wal sync was unsuccessful, remove keys from memstore
+if|if
+condition|(
+operator|!
+name|walSyncSuccessful
+condition|)
+block|{
+name|rollbackMemstore
+argument_list|(
+name|batchOp
+argument_list|,
+name|familyMaps
+argument_list|,
+name|firstIndex
+argument_list|,
+name|lastIndexExclusive
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|w
+operator|!=
+literal|null
+condition|)
+name|rwcc
+operator|.
+name|completeMemstoreInsert
+argument_list|(
+name|w
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|locked
 condition|)
+block|{
 name|this
 operator|.
 name|updatesLock
@@ -7979,6 +8222,14 @@ operator|.
 name|unlock
 argument_list|()
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|acquiredLocks
+operator|!=
+literal|null
+condition|)
+block|{
 for|for
 control|(
 name|Integer
@@ -7992,6 +8243,7 @@ argument_list|(
 name|toRelease
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -9014,6 +9266,8 @@ init|=
 name|applyFamilyMapToMemstore
 argument_list|(
 name|familyMap
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|flush
@@ -9072,7 +9326,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Atomically apply the given map of family->edits to the memstore.    * This handles the consistency control on its own, but the caller    * should already have locked updatesLock.readLock(). This also does    *<b>not</b> check the families for validity.    *    * @return the additional memory usage of the memstore caused by the    * new entries.    */
+comment|/**    * Atomically apply the given map of family->edits to the memstore.    * This handles the consistency control on its own, but the caller    * should already have locked updatesLock.readLock(). This also does    *<b>not</b> check the families for validity.    *    * @param familyMap Map of kvs per family    * @param localizedWriteEntry The WriteEntry of the RWCC for this transaction.    *        If null, then this method internally creates a rwcc transaction.    * @return the additional memory usage of the memstore caused by the    * new entries.    */
 specifier|private
 name|long
 name|applyFamilyMapToMemstore
@@ -9088,29 +9342,44 @@ name|KeyValue
 argument_list|>
 argument_list|>
 name|familyMap
-parameter_list|)
-block|{
+parameter_list|,
 name|ReadWriteConsistencyControl
 operator|.
 name|WriteEntry
-name|w
-init|=
-literal|null
-decl_stmt|;
+name|localizedWriteEntry
+parameter_list|)
+block|{
 name|long
 name|size
 init|=
 literal|0
 decl_stmt|;
+name|boolean
+name|freerwcc
+init|=
+literal|false
+decl_stmt|;
 try|try
 block|{
-name|w
+if|if
+condition|(
+name|localizedWriteEntry
+operator|==
+literal|null
+condition|)
+block|{
+name|localizedWriteEntry
 operator|=
 name|rwcc
 operator|.
 name|beginMemstoreInsert
 argument_list|()
 expr_stmt|;
+name|freerwcc
+operator|=
+literal|true
+expr_stmt|;
+block|}
 for|for
 control|(
 name|Map
@@ -9173,7 +9442,7 @@ name|kv
 operator|.
 name|setMemstoreTS
 argument_list|(
-name|w
+name|localizedWriteEntry
 operator|.
 name|getWriteNumber
 argument_list|()
@@ -9193,17 +9462,209 @@ block|}
 block|}
 finally|finally
 block|{
+if|if
+condition|(
+name|freerwcc
+condition|)
+block|{
 name|rwcc
 operator|.
 name|completeMemstoreInsert
 argument_list|(
-name|w
+name|localizedWriteEntry
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|size
 return|;
+block|}
+comment|/**    * Remove all the keys listed in the map from the memstore. This method is    * called when a Put has updated memstore but subequently fails to update     * the wal. This method is then invoked to rollback the memstore.    */
+specifier|private
+name|void
+name|rollbackMemstore
+parameter_list|(
+name|BatchOperationInProgress
+argument_list|<
+name|Pair
+argument_list|<
+name|Put
+argument_list|,
+name|Integer
+argument_list|>
+argument_list|>
+name|batchOp
+parameter_list|,
+name|Map
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+argument_list|>
+index|[]
+name|familyMaps
+parameter_list|,
+name|int
+name|start
+parameter_list|,
+name|int
+name|end
+parameter_list|)
+block|{
+name|int
+name|kvsRolledback
+init|=
+literal|0
+decl_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+name|start
+init|;
+name|i
+operator|<
+name|end
+condition|;
+name|i
+operator|++
+control|)
+block|{
+comment|// skip over request that never succeeded in the first place.
+if|if
+condition|(
+name|batchOp
+operator|.
+name|retCodeDetails
+index|[
+name|i
+index|]
+operator|.
+name|getOperationStatusCode
+argument_list|()
+operator|!=
+name|OperationStatusCode
+operator|.
+name|SUCCESS
+condition|)
+block|{
+continue|continue;
+block|}
+comment|// Rollback all the kvs for this row.
+name|Map
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+argument_list|>
+name|familyMap
+init|=
+name|familyMaps
+index|[
+name|i
+index|]
+decl_stmt|;
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+argument_list|>
+name|e
+range|:
+name|familyMap
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+name|byte
+index|[]
+name|family
+init|=
+name|e
+operator|.
+name|getKey
+argument_list|()
+decl_stmt|;
+name|List
+argument_list|<
+name|KeyValue
+argument_list|>
+name|edits
+init|=
+name|e
+operator|.
+name|getValue
+argument_list|()
+decl_stmt|;
+comment|// Remove those keys from the memstore that matches our
+comment|// key's (row, cf, cq, timestamp, memstoreTS). The interesting part is
+comment|// that even the memstoreTS has to match for keys that will be rolleded-back.
+name|Store
+name|store
+init|=
+name|getStore
+argument_list|(
+name|family
+argument_list|)
+decl_stmt|;
+for|for
+control|(
+name|KeyValue
+name|kv
+range|:
+name|edits
+control|)
+block|{
+name|store
+operator|.
+name|rollback
+argument_list|(
+name|kv
+argument_list|)
+expr_stmt|;
+name|kvsRolledback
+operator|++
+expr_stmt|;
+block|}
+block|}
+block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"rollbackMemstore rolled back "
+operator|+
+name|kvsRolledback
+operator|+
+literal|" keyvalues from start:"
+operator|+
+name|start
+operator|+
+literal|" to end:"
+operator|+
+name|end
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Check the collection of families for validity.    * @throws NoSuchColumnFamilyException if a family does not exist.    */
 specifier|private
