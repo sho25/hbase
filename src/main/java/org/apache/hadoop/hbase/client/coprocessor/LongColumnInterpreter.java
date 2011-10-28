@@ -137,10 +137,8 @@ literal|null
 operator|||
 name|kv
 operator|.
-name|getValue
+name|getValueLength
 argument_list|()
-operator|.
-name|length
 operator|!=
 name|Bytes
 operator|.
@@ -156,7 +154,12 @@ name|toLong
 argument_list|(
 name|kv
 operator|.
-name|getValue
+name|getBuffer
+argument_list|()
+argument_list|,
+name|kv
+operator|.
+name|getValueOffset
 argument_list|()
 argument_list|)
 return|;

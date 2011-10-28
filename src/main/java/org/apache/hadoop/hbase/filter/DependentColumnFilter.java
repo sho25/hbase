@@ -409,10 +409,13 @@ name|comparator
 argument_list|,
 name|v
 operator|.
-name|getValue
+name|getBuffer
 argument_list|()
 argument_list|,
-literal|0
+name|v
+operator|.
+name|getValueOffset
+argument_list|()
 argument_list|,
 name|v
 operator|.
