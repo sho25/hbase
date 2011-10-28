@@ -15552,7 +15552,7 @@ name|equals
 argument_list|(
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 index|[
 literal|0
@@ -15576,7 +15576,7 @@ name|equals
 argument_list|(
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 index|[
 literal|0
@@ -15624,7 +15624,7 @@ name|equals
 argument_list|(
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 index|[
 literal|0
@@ -15648,7 +15648,7 @@ name|equals
 argument_list|(
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 index|[
 literal|1
@@ -15672,7 +15672,7 @@ name|equals
 argument_list|(
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 index|[
 literal|0
@@ -15696,7 +15696,7 @@ name|equals
 argument_list|(
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 index|[
 literal|1
@@ -16226,7 +16226,7 @@ name|keys
 init|=
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 decl_stmt|;
 for|for
@@ -16325,7 +16325,7 @@ name|kvs
 init|=
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 decl_stmt|;
 for|for
@@ -16435,7 +16435,7 @@ name|keys
 operator|=
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 expr_stmt|;
 for|for
@@ -16531,7 +16531,7 @@ name|kvs
 init|=
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 decl_stmt|;
 for|for
@@ -23628,7 +23628,7 @@ name|keys
 init|=
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 decl_stmt|;
 for|for
@@ -23929,7 +23929,7 @@ name|keys
 init|=
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 decl_stmt|;
 for|for
@@ -24231,7 +24231,7 @@ name|kv
 init|=
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 decl_stmt|;
 name|KeyValue
@@ -24565,7 +24565,7 @@ name|kv
 init|=
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 index|[
 literal|0
@@ -24775,7 +24775,7 @@ name|kv
 init|=
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 index|[
 literal|0
@@ -29816,7 +29816,7 @@ name|key
 range|:
 name|r
 operator|.
-name|sorted
+name|raw
 argument_list|()
 control|)
 block|{
@@ -31006,7 +31006,7 @@ name|key
 range|:
 name|r
 operator|.
-name|sorted
+name|raw
 argument_list|()
 control|)
 block|{
@@ -31197,7 +31197,7 @@ name|key
 range|:
 name|r
 operator|.
-name|sorted
+name|raw
 argument_list|()
 control|)
 block|{
@@ -31736,7 +31736,7 @@ name|kv
 range|:
 name|r
 operator|.
-name|sorted
+name|raw
 argument_list|()
 control|)
 block|{

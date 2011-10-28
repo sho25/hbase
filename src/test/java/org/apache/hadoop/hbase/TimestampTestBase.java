@@ -519,7 +519,7 @@ name|toLong
 argument_list|(
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 index|[
 literal|0
@@ -665,7 +665,7 @@ name|kvs
 init|=
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 decl_stmt|;
 name|assertEquals
@@ -785,7 +785,7 @@ name|kvs
 operator|=
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 expr_stmt|;
 name|assertEquals

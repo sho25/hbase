@@ -1408,7 +1408,7 @@ name|bytes
 init|=
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 index|[
 literal|0
@@ -1546,7 +1546,7 @@ name|bytes
 init|=
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 index|[
 literal|0

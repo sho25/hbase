@@ -237,23 +237,6 @@ name|byte
 operator|)
 literal|8
 decl_stmt|;
-comment|/**    * The type of compression.    * @see org.apache.hadoop.io.SequenceFile.Writer    * @deprecated Compression now means which compression library    * rather than 'what' to compress.    */
-annotation|@
-name|Deprecated
-specifier|public
-specifier|static
-enum|enum
-name|CompressionType
-block|{
-comment|/** Do not compress records. */
-name|NONE
-block|,
-comment|/** Compress values only, each separately. */
-name|RECORD
-block|,
-comment|/** Compress sequences of records together in blocks. */
-name|BLOCK
-block|}
 specifier|public
 specifier|static
 specifier|final

@@ -587,6 +587,8 @@ name|processBatch
 parameter_list|(
 name|List
 argument_list|<
+name|?
+extends|extends
 name|Row
 argument_list|>
 name|actions
@@ -706,28 +708,6 @@ throws|throws
 name|IOException
 throws|,
 name|Throwable
-function_decl|;
-comment|/**    * Process a batch of Puts.    *    * @param list The collection of actions. The list is mutated: all successful Puts    * are removed from the list.    * @param tableName Name of the hbase table    * @param pool Thread pool for parallel execution    * @throws IOException    * @deprecated Use HConnectionManager::processBatch instead.    */
-specifier|public
-name|void
-name|processBatchOfPuts
-parameter_list|(
-name|List
-argument_list|<
-name|Put
-argument_list|>
-name|list
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|tableName
-parameter_list|,
-name|ExecutorService
-name|pool
-parameter_list|)
-throws|throws
-name|IOException
 function_decl|;
 comment|/**    * Enable or disable region cache prefetch for the table. It will be    * applied for the given table's all HTable instances within this    * connection. By default, the cache prefetch is enabled.    * @param tableName name of table to configure.    * @param enable Set to true to enable region cache prefetch.    */
 specifier|public

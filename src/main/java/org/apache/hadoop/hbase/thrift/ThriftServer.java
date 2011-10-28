@@ -351,20 +351,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HServerAddress
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HTableDescriptor
 import|;
 end_import
@@ -2134,7 +2120,7 @@ name|cellFromHBase
 argument_list|(
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 argument_list|)
 return|;
@@ -2332,7 +2318,7 @@ name|cellFromHBase
 argument_list|(
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 argument_list|)
 return|;
@@ -2551,7 +2537,7 @@ name|cellFromHBase
 argument_list|(
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 argument_list|)
 return|;
@@ -6036,7 +6022,7 @@ name|cellFromHBase
 argument_list|(
 name|result
 operator|.
-name|sorted
+name|raw
 argument_list|()
 argument_list|)
 return|;
