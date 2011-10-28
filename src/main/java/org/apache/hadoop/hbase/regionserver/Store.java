@@ -2073,7 +2073,7 @@ argument_list|)
 decl_stmt|;
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Renaming bulk load file "
 operator|+
@@ -2782,7 +2782,7 @@ name|dstPath
 decl_stmt|;
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 name|msg
 argument_list|)
@@ -3325,7 +3325,7 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" into "
+literal|" into tmpdir="
 operator|+
 name|region
 operator|.
@@ -3465,7 +3465,7 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|"; new storefile name="
+literal|" into "
 operator|+
 operator|(
 name|sf
@@ -3476,7 +3476,10 @@ literal|"none"
 else|:
 name|sf
 operator|.
-name|toString
+name|getPath
+argument_list|()
+operator|.
+name|getName
 argument_list|()
 operator|)
 operator|+

@@ -484,7 +484,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"HLog roll manually triggered"
+literal|"HLog roll requested"
 argument_list|)
 expr_stmt|;
 block|}

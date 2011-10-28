@@ -913,9 +913,17 @@ comment|// Even if it's not supposed to be flushed, pick a region if it's more t
 comment|// as big as the best flushable one - otherwise when we're under pressure we make
 comment|// lots of little flushes and cause lots of compactions, etc, which just makes
 comment|// life worse!
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
 literal|"Under global heap pressure: "
 operator|+
@@ -959,6 +967,7 @@ operator|+
 literal|". Choosing the bigger."
 argument_list|)
 expr_stmt|;
+block|}
 name|regionToFlush
 operator|=
 name|bestAnyRegion
@@ -1115,9 +1124,18 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
-literal|"Flush thread woke up with memory above low water."
+literal|"Flush thread woke up because memory above low water="
+operator|+
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
+name|this
+operator|.
+name|globalMemStoreLimitLowMark
+argument_list|)
 argument_list|)
 expr_stmt|;
 if|if

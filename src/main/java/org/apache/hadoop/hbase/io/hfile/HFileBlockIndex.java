@@ -325,6 +325,20 @@ name|WritableUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|StringUtils
+import|;
+end_import
+
 begin_comment
 comment|/**  * Provides functionality to write ({@link BlockIndexWriter}) and read  * ({@link BlockIndexReader}) single-level and multi-level block indexes.  *  * Examples of how to use the block index writer can be found in  * {@link CompoundBloomFilterWriter} and {@link HFileWriterV2}. Examples of how  * to use the reader can be found in {@link HFileReaderV2} and  * TestHFileBlockIndex.  */
 end_comment
@@ -2473,9 +2487,17 @@ operator|.
 name|getUncompressedSizeWithoutHeader
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
 argument_list|(
 literal|"Wrote a "
 operator|+
@@ -2501,15 +2523,28 @@ name|totalNumEntries
 operator|+
 literal|" total entries, "
 operator|+
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
+name|this
+operator|.
 name|totalBlockOnDiskSize
+argument_list|)
 operator|+
-literal|" bytes total on-disk size, "
+literal|" on-disk size, "
 operator|+
+name|StringUtils
+operator|.
+name|humanReadableInt
+argument_list|(
 name|totalBlockUncompressedSize
+argument_list|)
 operator|+
-literal|" bytes total uncompressed size."
+literal|" total uncompressed size."
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|rootLevelIndexPos
 return|;

@@ -947,7 +947,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"HFileWriter initialized with "
+literal|"Initialized with "
 operator|+
 name|cacheConf
 argument_list|)

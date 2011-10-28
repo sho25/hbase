@@ -2287,29 +2287,6 @@ init|=
 name|computeFilename
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Enabling new writer for "
-operator|+
-name|FSUtils
-operator|.
-name|getPath
-argument_list|(
-name|newPath
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
 comment|// Tell our listeners that a new log is about to be created
 if|if
 condition|(
@@ -2492,7 +2469,7 @@ else|:
 literal|""
 operator|)
 operator|+
-literal|"New hlog "
+literal|" for "
 operator|+
 name|FSUtils
 operator|.

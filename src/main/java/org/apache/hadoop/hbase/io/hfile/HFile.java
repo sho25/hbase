@@ -897,15 +897,6 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Using HFile format version "
-operator|+
-name|version
-argument_list|)
-expr_stmt|;
 switch|switch
 condition|(
 name|version

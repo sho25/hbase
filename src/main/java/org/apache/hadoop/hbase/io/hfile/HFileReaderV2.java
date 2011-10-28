@@ -1328,11 +1328,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"On close of file "
+literal|"On close, file="
 operator|+
 name|name
 operator|+
-literal|" evicted "
+literal|" evicted="
 operator|+
 name|numEvicted
 operator|+
