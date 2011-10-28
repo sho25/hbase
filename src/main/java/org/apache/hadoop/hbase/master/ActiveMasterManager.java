@@ -180,7 +180,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Handles everything on master-side related to master election.  *  *<p>Listens and responds to ZooKeeper notifications on the master znode,  * both<code>nodeCreated</code> and<code>nodeDeleted</code>.  *  *<p>Contains blocking methods which will hold up backup masters, waiting  * for the active master to fail.  *  *<p>This class is instantiated in the HMaster constructor and the method  * {@link #blockUntilBecomingActiveMaster()} is called to wait until becoming  * the active master of the cluster.  */
+comment|/**  * Handles everything on master-side related to master election.  *  *<p>Listens and responds to ZooKeeper notifications on the master znode,  * both<code>nodeCreated</code> and<code>nodeDeleted</code>.  *  *<p>Contains blocking methods which will hold up backup masters, waiting  * for the active master to fail.  *  *<p>This class is instantiated in the HMaster constructor and the method  * #blockUntilBecomingActiveMaster() is called to wait until becoming  * the active master of the cluster.  */
 end_comment
 
 begin_class
@@ -428,7 +428,8 @@ name|cleanSetOfActiveMaster
 init|=
 literal|true
 decl_stmt|;
-comment|// Try to become the active master, watch if there is another master
+comment|// Try to become the active master, watch if there is another master.
+comment|// Write out our ServerName as versioned bytes.
 try|try
 block|{
 if|if
@@ -447,17 +448,10 @@ name|watcher
 operator|.
 name|masterAddressZNode
 argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|this
-operator|.
 name|sn
 operator|.
-name|toString
+name|getVersionedBytes
 argument_list|()
-argument_list|)
 argument_list|)
 condition|)
 block|{

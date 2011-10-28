@@ -133,9 +133,11 @@ name|Pattern
 operator|.
 name|compile
 argument_list|(
-name|Addressing
-operator|.
-name|VALID_HOSTNAME_REGEX_PREFIX
+literal|"[^"
+operator|+
+name|SERVERNAME_SEPARATOR
+operator|+
+literal|"]+"
 operator|+
 name|SERVERNAME_SEPARATOR
 operator|+

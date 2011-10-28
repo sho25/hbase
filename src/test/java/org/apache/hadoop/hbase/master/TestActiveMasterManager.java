@@ -1004,12 +1004,9 @@ block|{
 name|ServerName
 name|readAddress
 init|=
-operator|new
 name|ServerName
-argument_list|(
-name|Bytes
 operator|.
-name|toString
+name|parseVersionedServerName
 argument_list|(
 name|ZKUtil
 operator|.
@@ -1020,7 +1017,6 @@ argument_list|,
 name|zk
 operator|.
 name|masterAddressZNode
-argument_list|)
 argument_list|)
 argument_list|)
 decl_stmt|;
