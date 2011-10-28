@@ -5921,7 +5921,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * @param encodedRegionName    * @return An instance of RegionLoad.    * @throws IOException    */
+comment|/**    * @param encodedRegionName    * @return An instance of RegionLoad.    */
 end_comment
 
 begin_function
@@ -6999,6 +6999,15 @@ operator|.
 name|get
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|metrics
+operator|.
+name|requests
+operator|.
+name|intervalHeartBeat
+argument_list|()
 expr_stmt|;
 comment|// Is this too expensive every three seconds getting a lock on onlineRegions
 comment|// and then per store carried? Can I make metrics be sloppier and avoid

@@ -242,7 +242,7 @@ name|value
 operator|++
 expr_stmt|;
 block|}
-specifier|private
+specifier|public
 specifier|synchronized
 name|void
 name|intervalHeartBeat
@@ -270,14 +270,14 @@ decl_stmt|;
 if|if
 condition|(
 name|diff
-operator|==
-literal|0
-condition|)
-name|diff
-operator|=
+operator|<
 literal|1
-expr_stmt|;
-comment|// sigh this is crap.
+condition|)
+block|{
+comment|// To make sure our averages aren't skewed by fast repeated calls,
+comment|// we simply ignore fast repeated calls.
+return|return;
+block|}
 name|this
 operator|.
 name|prevRate

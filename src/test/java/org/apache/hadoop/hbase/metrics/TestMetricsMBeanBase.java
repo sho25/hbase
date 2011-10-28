@@ -352,6 +352,13 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|metricsRate
@@ -428,7 +435,7 @@ argument_list|(
 literal|"metricsRate"
 argument_list|)
 argument_list|,
-literal|0.001
+literal|0.005
 argument_list|)
 expr_stmt|;
 name|assertEquals

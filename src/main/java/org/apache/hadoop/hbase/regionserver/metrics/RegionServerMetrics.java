@@ -596,7 +596,7 @@ name|registry
 argument_list|)
 decl_stmt|;
 comment|/*    * Count of requests to the regionservers since last call to metrics update    */
-specifier|private
+specifier|public
 specifier|final
 name|MetricsRate
 name|requests
