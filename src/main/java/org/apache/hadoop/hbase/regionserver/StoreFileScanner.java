@@ -674,23 +674,6 @@ operator|.
 name|incrementAndGet
 argument_list|()
 expr_stmt|;
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"Reseek "
-operator|+
-name|key
-operator|+
-literal|" data block "
-operator|+
-name|HFile
-operator|.
-name|dataBlockReadCnt
-argument_list|)
-expr_stmt|;
 try|try
 block|{
 try|try
