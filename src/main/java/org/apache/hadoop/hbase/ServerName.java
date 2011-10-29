@@ -174,7 +174,7 @@ specifier|final
 name|long
 name|startcode
 decl_stmt|;
-comment|/**    * Cached bytes of this ServerName instance.    */
+comment|/**    * Cached versioned bytes of this ServerName instance.    * @see #getVersionedBytes()    */
 specifier|private
 name|byte
 index|[]
@@ -421,7 +421,7 @@ name|getServerName
 argument_list|()
 return|;
 block|}
-comment|/**    * @return {@link #getServerName()} as bytes with a short-sized prefix with    * the {@link ServerName#VERSION} of this class.    */
+comment|/**    * @return {@link #getServerName()} as bytes with a short-sized prefix with    * the ServerName#VERSION of this class.    */
 specifier|public
 specifier|synchronized
 name|byte
