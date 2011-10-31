@@ -21,6 +21,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|lang
 operator|.
 name|Thread
@@ -81,6 +91,7 @@ specifier|abstract
 class|class
 name|BulkAssigner
 block|{
+specifier|protected
 specifier|final
 name|Server
 name|server
@@ -229,6 +240,8 @@ operator|.
 name|ExecutorService
 name|pool
 parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 specifier|public
 name|boolean
@@ -236,6 +249,8 @@ name|bulkAssign
 parameter_list|()
 throws|throws
 name|InterruptedException
+throws|,
+name|IOException
 block|{
 return|return
 name|bulkAssign
@@ -244,7 +259,7 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * Run the bulk assign.    * @param sync Whether to assign synchronously.    * @throws InterruptedException    * @return True if done.    */
+comment|/**    * Run the bulk assign.    *     * @param sync    *          Whether to assign synchronously.    * @throws InterruptedException    * @return True if done.    * @throws IOException    */
 specifier|public
 name|boolean
 name|bulkAssign
@@ -254,6 +269,8 @@ name|sync
 parameter_list|)
 throws|throws
 name|InterruptedException
+throws|,
+name|IOException
 block|{
 name|boolean
 name|result
