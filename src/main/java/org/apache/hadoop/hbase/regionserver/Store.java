@@ -1771,25 +1771,16 @@ operator|.
 name|storefiles
 return|;
 block|}
-specifier|public
+comment|/**    * This throws a WrongRegionException if the bulkHFile does not fit in this    * region.    *    */
 name|void
-name|bulkLoadHFile
+name|assertBulkLoadHFileOk
 parameter_list|(
-name|String
-name|srcPathStr
+name|Path
+name|srcPath
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Path
-name|srcPath
-init|=
-operator|new
-name|Path
-argument_list|(
-name|srcPathStr
-argument_list|)
-decl_stmt|;
 name|HFile
 operator|.
 name|Reader
@@ -1962,7 +1953,10 @@ name|WrongRegionException
 argument_list|(
 literal|"Bulk load file "
 operator|+
-name|srcPathStr
+name|srcPath
+operator|.
+name|toString
+argument_list|()
 operator|+
 literal|" does not fit inside region "
 operator|+
@@ -1987,6 +1981,26 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+block|}
+comment|/**    * This method should only be called from HRegion.  It is assumed that the     * ranges of values in the HFile fit within the stores assigned region.     * (assertBulkLoadHFileOk checks this)    */
+name|void
+name|bulkLoadHFile
+parameter_list|(
+name|String
+name|srcPathStr
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|Path
+name|srcPath
+init|=
+operator|new
+name|Path
+argument_list|(
+name|srcPathStr
+argument_list|)
+decl_stmt|;
 comment|// Move the file if it's on another filesystem
 name|FileSystem
 name|srcFs

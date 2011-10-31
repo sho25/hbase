@@ -409,6 +409,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Pair
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|ipc
 operator|.
 name|RemoteException
@@ -457,7 +473,7 @@ specifier|final
 name|long
 name|VERSION
 init|=
-literal|28L
+literal|29L
 decl_stmt|;
 comment|/**    * Get metainfo about an HRegion    *    * @param regionName name of the region    * @return HRegionInfo object for region    * @throws NotServingRegionException    * @throws ConnectException    * @throws IOException This can manifest as an Hadoop ipc {@link RemoteException}    */
 specifier|public
@@ -865,21 +881,26 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Bulk load an HFile into an open region    */
+comment|/**    * Atomically bulk load multiple HFiles (say from different column families)    * into an open region.    *     * @param familyPaths List of (family, hfile path) pairs    * @param regionName name of region to load hfiles into    */
 specifier|public
 name|void
-name|bulkLoadHFile
+name|bulkLoadHFiles
 parameter_list|(
+name|List
+argument_list|<
+name|Pair
+argument_list|<
+name|byte
+index|[]
+argument_list|,
 name|String
-name|hfilePath
+argument_list|>
+argument_list|>
+name|familyPaths
 parameter_list|,
 name|byte
 index|[]
 name|regionName
-parameter_list|,
-name|byte
-index|[]
-name|familyName
 parameter_list|)
 throws|throws
 name|IOException
