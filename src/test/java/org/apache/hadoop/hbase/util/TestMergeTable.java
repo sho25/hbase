@@ -536,7 +536,7 @@ argument_list|)
 decl_stmt|;
 comment|// Create regions and populate them at same time.  Create the tabledir
 comment|// for them first.
-name|FSTableDescriptors
+name|FSUtils
 operator|.
 name|createTableDescriptor
 argument_list|(

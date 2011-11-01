@@ -401,7 +401,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|FSTableDescriptors
+name|FSUtils
 import|;
 end_import
 
@@ -1684,7 +1684,7 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// Write the .tableinfo
-name|FSTableDescriptors
+name|FSUtils
 operator|.
 name|createTableDescriptor
 argument_list|(
@@ -1776,7 +1776,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Write the .tableinfo
-name|FSTableDescriptors
+name|FSUtils
 operator|.
 name|createTableDescriptor
 argument_list|(
@@ -2998,7 +2998,7 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// Write the .tableinfo
-name|FSTableDescriptors
+name|FSUtils
 operator|.
 name|createTableDescriptor
 argument_list|(
@@ -3090,7 +3090,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Write the .tableinfo
-name|FSTableDescriptors
+name|FSUtils
 operator|.
 name|createTableDescriptor
 argument_list|(

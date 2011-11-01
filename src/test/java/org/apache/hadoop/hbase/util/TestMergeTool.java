@@ -816,7 +816,7 @@ comment|// Create root and meta regions
 name|createRootAndMetaRegions
 argument_list|()
 expr_stmt|;
-name|FSTableDescriptors
+name|FSUtils
 operator|.
 name|createTableDescriptor
 argument_list|(

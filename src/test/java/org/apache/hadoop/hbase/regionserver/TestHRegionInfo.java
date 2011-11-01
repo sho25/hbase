@@ -171,22 +171,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|FSTableDescriptors
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|FSUtils
 import|;
 end_import
@@ -406,7 +390,7 @@ literal|"testGetSetOfHTD"
 decl_stmt|;
 comment|// Delete the temporary table directory that might still be there from the
 comment|// previous test run.
-name|FSTableDescriptors
+name|FSUtils
 operator|.
 name|deleteTableDescriptorIfExists
 argument_list|(
@@ -427,7 +411,7 @@ argument_list|(
 name|tablename
 argument_list|)
 decl_stmt|;
-name|FSTableDescriptors
+name|FSUtils
 operator|.
 name|createTableDescriptor
 argument_list|(
