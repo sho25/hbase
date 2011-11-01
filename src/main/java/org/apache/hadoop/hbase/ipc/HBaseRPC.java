@@ -720,6 +720,20 @@ decl_stmt|;
 specifier|public
 name|UnknownProtocolException
 parameter_list|(
+name|String
+name|mesg
+parameter_list|)
+block|{
+comment|// required for unwrapping from a RemoteException
+name|super
+argument_list|(
+name|mesg
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|UnknownProtocolException
+parameter_list|(
 name|Class
 argument_list|<
 name|?
