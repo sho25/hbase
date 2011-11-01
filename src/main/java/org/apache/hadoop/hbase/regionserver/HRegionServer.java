@@ -4276,11 +4276,6 @@ name|abortRequested
 argument_list|)
 expr_stmt|;
 comment|// Don't leave any open file handles
-name|closeWAL
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
 block|}
 name|LOG
 operator|.
@@ -4299,11 +4294,6 @@ block|{
 name|closeAllRegions
 argument_list|(
 name|abortRequested
-argument_list|)
-expr_stmt|;
-name|closeWAL
-argument_list|(
-literal|true
 argument_list|)
 expr_stmt|;
 name|closeAllScanners
@@ -4361,6 +4351,29 @@ operator|.
 name|serverNameFromMasterPOV
 operator|+
 literal|"; all regions closed."
+argument_list|)
+expr_stmt|;
+block|}
+comment|//fsOk flag may be changed when closing regions throws exception.
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|killed
+operator|&&
+name|this
+operator|.
+name|fsOk
+condition|)
+block|{
+name|closeWAL
+argument_list|(
+name|abortRequested
+condition|?
+literal|false
+else|:
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
