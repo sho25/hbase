@@ -41,20 +41,6 @@ name|concurrent
 operator|.
 name|atomic
 operator|.
-name|AtomicLong
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
 name|AtomicReference
 import|;
 end_import
@@ -150,15 +136,6 @@ comment|// allocs bigger than this don't go through allocator
 specifier|final
 name|int
 name|maxAlloc
-decl_stmt|;
-specifier|private
-specifier|final
-name|AtomicLong
-name|wastedSpace
-init|=
-operator|new
-name|AtomicLong
-argument_list|()
 decl_stmt|;
 specifier|public
 name|MemStoreLAB
@@ -304,46 +281,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|public
-name|long
-name|getWastedBytes
-parameter_list|()
-block|{
-name|Chunk
-name|cur
-init|=
-name|curChunk
-operator|.
-name|get
-argument_list|()
-decl_stmt|;
-name|long
-name|ret
-init|=
-name|wastedSpace
-operator|.
-name|get
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|cur
-operator|!=
-literal|null
-condition|)
-block|{
-name|ret
-operator|+=
-name|cur
-operator|.
-name|getFreeSpace
-argument_list|()
-expr_stmt|;
-block|}
-return|return
-name|ret
-return|;
-block|}
 comment|/**    * Try to retire the current chunk if it is still    *<code>c</code>. Postcondition is that curChunk.get()    * != c    */
 specifier|private
 name|void
@@ -353,6 +290,11 @@ name|Chunk
 name|c
 parameter_list|)
 block|{
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"unused"
+argument_list|)
 name|boolean
 name|weRetiredIt
 init|=
@@ -366,29 +308,11 @@ literal|null
 argument_list|)
 decl_stmt|;
 comment|// If the CAS succeeds, that means that we won the race
-comment|// to retire the chunk.
+comment|// to retire the chunk. We could use this opportunity to
+comment|// update metrics on external fragmentation.
+comment|//
 comment|// If the CAS fails, that means that someone else already
 comment|// retired the chunk for us.
-if|if
-condition|(
-name|weRetiredIt
-condition|)
-block|{
-comment|// This isn't quite right, since another thread may
-comment|// have a small allocation concurrently with our retiring
-comment|// the chunk. But it should be very close to right,
-comment|// and this is just for metrics.
-name|wastedSpace
-operator|.
-name|addAndGet
-argument_list|(
-name|c
-operator|.
-name|getFreeSpace
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/**    * Get the current chunk, or, if there is no current chunk,    * allocate a new one from the JVM.    */
 specifier|private
@@ -741,41 +665,6 @@ name|get
 argument_list|()
 operator|)
 return|;
-block|}
-specifier|private
-name|int
-name|getFreeSpace
-parameter_list|()
-block|{
-name|int
-name|off
-init|=
-name|nextFreeOffset
-operator|.
-name|get
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|off
-operator|>=
-literal|0
-condition|)
-block|{
-return|return
-name|data
-operator|.
-name|length
-operator|-
-name|off
-return|;
-block|}
-else|else
-block|{
-return|return
-literal|0
-return|;
-block|}
 block|}
 block|}
 comment|/**    * The result of a single allocation. Contains the chunk that the    * allocation points into, and the offset in this array where the    * slice begins.    */

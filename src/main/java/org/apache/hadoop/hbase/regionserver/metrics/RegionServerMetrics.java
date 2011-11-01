@@ -721,20 +721,6 @@ argument_list|,
 name|registry
 argument_list|)
 decl_stmt|;
-comment|/** Total amount of memory wasted by external fragmentation in MSLABs */
-specifier|public
-specifier|final
-name|MetricsIntValue
-name|totalMslabWasteKB
-init|=
-operator|new
-name|MetricsIntValue
-argument_list|(
-literal|"totalMslabWasteKB"
-argument_list|,
-name|registry
-argument_list|)
-decl_stmt|;
 comment|/**    * HDFS blocks locality index    */
 specifier|public
 specifier|final
