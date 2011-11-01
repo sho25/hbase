@@ -1933,8 +1933,8 @@ parameter_list|,
 name|String
 name|peerId
 parameter_list|)
-block|{
-try|try
+throws|throws
+name|KeeperException
 block|{
 name|String
 name|znode
@@ -1972,25 +1972,6 @@ argument_list|,
 name|znode
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-name|e
-parameter_list|)
-block|{
-name|this
-operator|.
-name|abortable
-operator|.
-name|abort
-argument_list|(
-literal|"Failed add log to list"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|/**    * Remove a log from the list of hlogs in zookeeper    * @param filename name of the hlog's znode    * @param clusterId name of the cluster's znode    */
 specifier|public
