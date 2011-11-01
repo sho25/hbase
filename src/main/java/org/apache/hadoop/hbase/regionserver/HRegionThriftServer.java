@@ -520,6 +520,11 @@ specifier|private
 name|TServer
 name|tserver
 decl_stmt|;
+comment|/**    * Whether requests should be redirected to other RegionServers if the    * specified region is not hosted by this RegionServer.    */
+specifier|private
+name|boolean
+name|redirect
+decl_stmt|;
 comment|/**    * Create an instance of the glue object that connects the    * RegionServer with the standard ThriftServer implementation    */
 name|HRegionThriftServer
 parameter_list|(
@@ -642,7 +647,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|getEncodedNameAsBytes
+name|getRegionName
 argument_list|()
 decl_stmt|;
 if|if
@@ -820,9 +825,26 @@ name|NotServingRegionException
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+operator|!
+name|redirect
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOError
+argument_list|(
+name|e
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+throw|;
+block|}
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"ThriftServer redirecting getRowWithColumnsTs"
 argument_list|)
@@ -929,6 +951,19 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|redirect
+operator|=
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+literal|"hbase.regionserver.thrift.redirect"
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Stop ThriftServer    */
 name|void
@@ -976,12 +1011,18 @@ decl_stmt|;
 name|Hbase
 operator|.
 name|Processor
+argument_list|<
+name|HBaseHandlerRegion
+argument_list|>
 name|processor
 init|=
 operator|new
 name|Hbase
 operator|.
 name|Processor
+argument_list|<
+name|HBaseHandlerRegion
+argument_list|>
 argument_list|(
 name|handler
 argument_list|)
