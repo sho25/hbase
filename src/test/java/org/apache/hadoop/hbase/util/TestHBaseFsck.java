@@ -803,6 +803,13 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
+name|setWriteToWAL
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+name|put
+operator|.
 name|add
 argument_list|(
 name|HConstants
@@ -878,13 +885,6 @@ name|SERVER_DOES_NOT_MATCH_META
 block|}
 argument_list|)
 expr_stmt|;
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-literal|15000
-argument_list|)
-expr_stmt|;
 comment|// Should be fixed now
 name|assertNoErrors
 argument_list|(
@@ -915,7 +915,6 @@ name|Scan
 argument_list|()
 argument_list|)
 expr_stmt|;
-empty_stmt|;
 block|}
 specifier|private
 name|HRegionInfo

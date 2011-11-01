@@ -540,9 +540,7 @@ expr_stmt|;
 name|util
 operator|.
 name|startMiniCluster
-argument_list|(
-literal|2
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|cluster
 operator|=
@@ -1919,7 +1917,7 @@ name|i
 argument_list|)
 decl_stmt|;
 name|Put
-name|p
+name|put
 init|=
 operator|new
 name|Put
@@ -1927,7 +1925,14 @@ argument_list|(
 name|iBytes
 argument_list|)
 decl_stmt|;
-name|p
+name|put
+operator|.
+name|setWriteToWAL
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+name|put
 operator|.
 name|add
 argument_list|(
@@ -1942,7 +1947,7 @@ name|table
 operator|.
 name|put
 argument_list|(
-name|p
+name|put
 argument_list|)
 expr_stmt|;
 block|}

@@ -384,6 +384,15 @@ specifier|public
 class|class
 name|TestHFileBlock
 block|{
+comment|// change this value to activate more logs
+specifier|private
+specifier|static
+specifier|final
+name|boolean
+name|detailedLogging
+init|=
+literal|false
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -1585,8 +1594,6 @@ argument_list|,
 name|expectedTypes
 argument_list|,
 name|expectedContents
-argument_list|,
-literal|true
 argument_list|)
 decl_stmt|;
 name|FSDataInputStream
@@ -1680,6 +1687,11 @@ argument_list|,
 name|curOffset
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|detailedLogging
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -1693,6 +1705,7 @@ operator|+
 name|curOffset
 argument_list|)
 expr_stmt|;
+block|}
 name|HFileBlock
 name|b
 init|=
@@ -1711,6 +1724,11 @@ argument_list|,
 name|pread
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|detailedLogging
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -1724,6 +1742,7 @@ operator|+
 name|b
 argument_list|)
 expr_stmt|;
+block|}
 name|assertEquals
 argument_list|(
 literal|"Invalid block #"
@@ -2545,8 +2564,6 @@ argument_list|,
 name|types
 argument_list|,
 literal|null
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|FSDataInputStream
@@ -2692,6 +2709,11 @@ name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|detailedLogging
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -2712,6 +2734,7 @@ operator|+
 literal|")"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|is
 operator|.
@@ -2758,9 +2781,6 @@ argument_list|<
 name|ByteBuffer
 argument_list|>
 name|expectedContents
-parameter_list|,
-name|boolean
-name|detailedLogging
 parameter_list|)
 throws|throws
 name|IOException

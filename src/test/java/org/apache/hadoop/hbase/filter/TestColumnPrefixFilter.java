@@ -484,6 +484,13 @@ name|row
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|p
+operator|.
+name|setWriteToWAL
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|String
@@ -879,6 +886,13 @@ name|row
 argument_list|)
 argument_list|)
 decl_stmt|;
+name|p
+operator|.
+name|setWriteToWAL
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|String

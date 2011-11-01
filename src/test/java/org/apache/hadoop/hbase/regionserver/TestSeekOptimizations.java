@@ -1385,6 +1385,11 @@ argument_list|()
 operator|-
 name|initialSeekCount
 decl_stmt|;
+if|if
+condition|(
+name|VERBOSE
+condition|)
+block|{
 name|System
 operator|.
 name|err
@@ -1415,6 +1420,7 @@ literal|""
 operator|)
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|lazySeekEnabled

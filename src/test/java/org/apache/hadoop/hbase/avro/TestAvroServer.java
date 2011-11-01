@@ -444,9 +444,7 @@ block|{
 name|TEST_UTIL
 operator|.
 name|startMiniCluster
-argument_list|(
-literal|3
-argument_list|)
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * @throws java.lang.Exception    */

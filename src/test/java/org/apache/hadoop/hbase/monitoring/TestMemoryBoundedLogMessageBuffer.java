@@ -193,15 +193,6 @@ operator|.
 name|toString
 argument_list|()
 decl_stmt|;
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-name|dump
-argument_list|)
-expr_stmt|;
 name|assertFalse
 argument_list|(
 literal|"The early log messages should be evicted"

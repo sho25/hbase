@@ -175,6 +175,16 @@ end_import
 
 begin_import
 import|import
+name|junit
+operator|.
+name|framework
+operator|.
+name|Assert
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -2704,7 +2714,7 @@ name|Threads
 operator|.
 name|sleep
 argument_list|(
-literal|1000
+literal|200
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -2782,7 +2792,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|1000
+literal|200
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -2976,7 +2986,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|1000
+literal|200
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -3080,6 +3090,21 @@ argument_list|(
 name|job
 argument_list|,
 name|outDir
+argument_list|)
+expr_stmt|;
+name|Assert
+operator|.
+name|assertFalse
+argument_list|(
+name|util
+operator|.
+name|getTestFileSystem
+argument_list|()
+operator|.
+name|exists
+argument_list|(
+name|outDir
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|assertEquals

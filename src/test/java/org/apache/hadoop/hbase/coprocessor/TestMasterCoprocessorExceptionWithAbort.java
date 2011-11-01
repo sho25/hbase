@@ -668,9 +668,7 @@ expr_stmt|;
 name|UTIL
 operator|.
 name|startMiniCluster
-argument_list|(
-literal|2
-argument_list|)
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@

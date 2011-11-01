@@ -332,9 +332,7 @@ block|{
 name|TEST_UTIL
 operator|.
 name|startMiniCluster
-argument_list|(
-literal|3
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|REST_TEST_UTIL
 operator|.

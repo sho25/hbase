@@ -236,9 +236,7 @@ block|{
 name|TEST_UTIL
 operator|.
 name|startMiniCluster
-argument_list|(
-literal|3
-argument_list|)
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * @throws java.lang.Exception    */
@@ -2859,6 +2857,13 @@ argument_list|(
 name|row
 argument_list|)
 decl_stmt|;
+name|put
+operator|.
+name|setWriteToWAL
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|int
@@ -2981,6 +2986,13 @@ argument_list|(
 name|row
 argument_list|)
 decl_stmt|;
+name|put
+operator|.
+name|setWriteToWAL
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|long

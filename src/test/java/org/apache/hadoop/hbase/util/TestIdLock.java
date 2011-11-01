@@ -201,7 +201,7 @@ specifier|final
 name|int
 name|NUM_SECONDS
 init|=
-literal|20
+literal|15
 decl_stmt|;
 specifier|private
 name|IdLock
@@ -314,17 +314,6 @@ argument_list|(
 name|NUM_IDS
 argument_list|)
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|clientId
-operator|+
-literal|" is waiting for id "
-operator|+
-name|id
-argument_list|)
-expr_stmt|;
 name|IdLock
 operator|.
 name|Entry
@@ -400,39 +389,11 @@ argument_list|,
 name|clientId
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|clientId
-operator|+
-literal|" took id "
-operator|+
-name|id
-operator|+
-literal|", sleeping for "
-operator|+
-name|sleepMs
-operator|+
-literal|"ms"
-argument_list|)
-expr_stmt|;
 name|Thread
 operator|.
 name|sleep
 argument_list|(
 name|sleepMs
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|clientId
-operator|+
-literal|" is releasing id "
-operator|+
-name|id
 argument_list|)
 expr_stmt|;
 name|idOwner

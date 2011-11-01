@@ -522,6 +522,11 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
+name|TEST_UTIL
+operator|.
+name|shutdownMiniCluster
+argument_list|()
+expr_stmt|;
 block|}
 comment|/** figure out how many regions are currently being served. */
 specifier|private
@@ -659,7 +664,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|1000
+literal|100
 argument_list|)
 expr_stmt|;
 block|}

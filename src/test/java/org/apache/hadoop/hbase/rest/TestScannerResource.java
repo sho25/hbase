@@ -700,6 +700,13 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
+name|setWriteToWAL
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+name|put
+operator|.
 name|add
 argument_list|(
 name|famAndQf
@@ -1061,9 +1068,7 @@ expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|startMiniCluster
-argument_list|(
-literal|3
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|REST_TEST_UTIL
 operator|.

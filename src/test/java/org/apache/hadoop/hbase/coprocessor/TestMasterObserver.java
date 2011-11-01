@@ -2013,6 +2013,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// We need more than one data server on this test
 name|UTIL
 operator|.
 name|startMiniCluster

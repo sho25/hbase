@@ -415,28 +415,6 @@ name|key
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"Seek Finished in: "
-operator|+
-operator|(
-name|System
-operator|.
-name|nanoTime
-argument_list|()
-operator|-
-name|start
-operator|)
-operator|/
-literal|1000
-operator|+
-literal|" micro s"
-argument_list|)
-expr_stmt|;
 name|assertEquals
 argument_list|(
 name|value
@@ -510,28 +488,6 @@ name|toBytes
 argument_list|(
 name|key
 argument_list|)
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"Reseek Finished in: "
-operator|+
-operator|(
-name|System
-operator|.
-name|nanoTime
-argument_list|()
-operator|-
-name|start
-operator|)
-operator|/
-literal|1000
-operator|+
-literal|" micro s"
 argument_list|)
 expr_stmt|;
 name|assertEquals

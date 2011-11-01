@@ -2109,6 +2109,13 @@ argument_list|)
 decl_stmt|;
 name|p
 operator|.
+name|setWriteToWAL
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+name|p
+operator|.
 name|add
 argument_list|(
 name|CF_NAME

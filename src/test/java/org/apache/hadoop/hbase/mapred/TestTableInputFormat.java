@@ -477,9 +477,7 @@ block|{
 name|UTIL
 operator|.
 name|startMiniCluster
-argument_list|(
-literal|1
-argument_list|)
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@
@@ -490,14 +488,11 @@ name|void
 name|afterClass
 parameter_list|()
 throws|throws
-name|IOException
+name|Exception
 block|{
 name|UTIL
 operator|.
-name|getMiniHBaseCluster
-argument_list|()
-operator|.
-name|shutdown
+name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}

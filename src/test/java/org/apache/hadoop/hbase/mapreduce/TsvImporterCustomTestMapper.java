@@ -253,6 +253,13 @@ name|copyBytes
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|put
+operator|.
+name|setWriteToWAL
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 comment|//The value should look like this: VALUE1 or VALUE2. Let's multiply
 comment|//the integer by 3
 for|for

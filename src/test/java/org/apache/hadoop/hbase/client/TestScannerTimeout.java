@@ -312,6 +312,7 @@ argument_list|,
 name|SCANNER_TIMEOUT
 argument_list|)
 expr_stmt|;
+comment|// We need more than one region server for this test
 name|TEST_UTIL
 operator|.
 name|startMiniCluster

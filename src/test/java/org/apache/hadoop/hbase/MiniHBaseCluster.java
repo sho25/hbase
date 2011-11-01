@@ -1416,6 +1416,7 @@ name|mts
 decl_stmt|;
 while|while
 condition|(
+operator|!
 operator|(
 name|mts
 operator|=
@@ -1423,10 +1424,8 @@ name|getMasterThreads
 argument_list|()
 operator|)
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|>
-literal|0
 condition|)
 block|{
 for|for
