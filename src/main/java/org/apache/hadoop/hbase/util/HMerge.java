@@ -793,7 +793,7 @@ name|this
 operator|.
 name|htd
 operator|=
-name|FSUtils
+name|FSTableDescriptors
 operator|.
 name|getTableDescriptor
 argument_list|(

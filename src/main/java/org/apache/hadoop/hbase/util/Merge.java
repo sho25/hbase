@@ -1441,7 +1441,7 @@ block|}
 name|HTableDescriptor
 name|htd
 init|=
-name|FSUtils
+name|FSTableDescriptors
 operator|.
 name|getTableDescriptor
 argument_list|(
