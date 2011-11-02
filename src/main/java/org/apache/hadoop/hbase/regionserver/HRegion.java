@@ -11532,22 +11532,11 @@ return|return
 name|lid
 return|;
 block|}
-enum|enum
-name|COLUMN_FAMILY_TYPES
-block|{
-name|NONE
-block|,
-comment|// there is no column family
-name|SINGLE
-block|,
-name|MULTIPLE
-comment|// there are more than one column family
-block|}
-comment|/**    * Determines the type of column family based on list of family/hfilePath pairs    *    * @param familyPaths List of Pair<byte[] column family, String hfilePath>    */
-specifier|public
+comment|/**    * Determines whether multiple column families are present    * Precondition: familyPaths is not null    *    * @param familyPaths List of Pair<byte[] column family, String hfilePath>    */
+specifier|private
 specifier|static
-name|COLUMN_FAMILY_TYPES
-name|getColumnFamilyType
+name|boolean
+name|hasMultipleColumnFamilies
 parameter_list|(
 name|List
 argument_list|<
@@ -11562,23 +11551,10 @@ argument_list|>
 name|familyPaths
 parameter_list|)
 block|{
-if|if
-condition|(
-name|familyPaths
-operator|==
-literal|null
-condition|)
-return|return
-name|COLUMN_FAMILY_TYPES
-operator|.
-name|NONE
-return|;
-name|COLUMN_FAMILY_TYPES
-name|familyType
+name|boolean
+name|multipleFamilies
 init|=
-name|COLUMN_FAMILY_TYPES
-operator|.
-name|SINGLE
+literal|false
 decl_stmt|;
 name|byte
 index|[]
@@ -11635,17 +11611,15 @@ name|fam
 argument_list|)
 condition|)
 block|{
-name|familyType
+name|multipleFamilies
 operator|=
-name|COLUMN_FAMILY_TYPES
-operator|.
-name|MULTIPLE
+literal|true
 expr_stmt|;
 break|break;
 block|}
 block|}
 return|return
-name|familyType
+name|multipleFamilies
 return|;
 block|}
 comment|/**    * Attempts to atomically load a group of hfiles.  This is critical for loading    * rows with multiple column families atomically.    *    * @param familyPaths List of Pair<byte[] column family, String hfilePath>    */
@@ -11668,17 +11642,20 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// we need writeLock for multi-family bulk load
-name|startBulkRegionOperation
-argument_list|(
-name|getColumnFamilyType
+name|Preconditions
+operator|.
+name|checkNotNull
 argument_list|(
 name|familyPaths
 argument_list|)
-operator|==
-name|COLUMN_FAMILY_TYPES
-operator|.
-name|MULTIPLE
+expr_stmt|;
+comment|// we need writeLock for multi-family bulk load
+name|startBulkRegionOperation
+argument_list|(
+name|hasMultipleColumnFamilies
+argument_list|(
+name|familyPaths
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|this
