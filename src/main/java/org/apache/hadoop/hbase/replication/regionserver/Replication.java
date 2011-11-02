@@ -917,6 +917,8 @@ parameter_list|,
 name|Path
 name|newPath
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|getReplicationManager
 argument_list|()
