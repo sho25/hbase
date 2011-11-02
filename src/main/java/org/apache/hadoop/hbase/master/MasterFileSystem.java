@@ -1924,7 +1924,8 @@ name|e
 throw|;
 block|}
 block|}
-specifier|private
+comment|/**    * Enable in-memory caching for -ROOT-    */
+specifier|public
 specifier|static
 name|void
 name|setInfoFamilyCachingForRoot
@@ -1981,7 +1982,8 @@ expr_stmt|;
 block|}
 block|}
 block|}
-specifier|private
+comment|/**    * Enable in memory caching for .META.    */
+specifier|public
 specifier|static
 name|void
 name|setInfoFamilyCachingForMeta
