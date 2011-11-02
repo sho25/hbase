@@ -5381,13 +5381,6 @@ argument_list|)
 decl_stmt|;
 name|put
 operator|.
-name|setWriteToWAL
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
-name|put
-operator|.
 name|add
 argument_list|(
 name|familyNames
@@ -8963,13 +8956,6 @@ argument_list|)
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|put
-operator|.
-name|setWriteToWAL
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
 name|put
 operator|.
 name|add
