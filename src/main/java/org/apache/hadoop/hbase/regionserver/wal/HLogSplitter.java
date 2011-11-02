@@ -1730,7 +1730,9 @@ name|getBoolean
 argument_list|(
 literal|"hbase.hlog.split.skip.errors"
 argument_list|,
-literal|true
+name|HLog
+operator|.
+name|SPLIT_SKIP_ERRORS_DEFAULT
 argument_list|)
 decl_stmt|;
 name|int

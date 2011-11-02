@@ -697,6 +697,23 @@ argument_list|(
 literal|"METAROW"
 argument_list|)
 decl_stmt|;
+comment|/** File Extension used while splitting an HLog into regions (HBASE-2312) */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|SPLITTING_EXT
+init|=
+literal|"-splitting"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|SPLIT_SKIP_ERRORS_DEFAULT
+init|=
+literal|false
+decl_stmt|;
 comment|/*    * Name of directory that holds recovered edits written by the wal log    * splitting code, one per region    */
 specifier|private
 specifier|static
@@ -3381,7 +3398,6 @@ comment|/*    * Cleans up current writer closing and adding to outputfiles.    *
 end_comment
 
 begin_function
-specifier|private
 name|Path
 name|cleanupCurrentWriter
 parameter_list|(
@@ -3457,6 +3473,12 @@ name|writer
 operator|.
 name|close
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|writer
+operator|=
+literal|null
 expr_stmt|;
 name|closeErrorCount
 operator|.
@@ -4149,6 +4171,15 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|this
+operator|.
+name|writer
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|writer
@@ -4156,6 +4187,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 finally|finally

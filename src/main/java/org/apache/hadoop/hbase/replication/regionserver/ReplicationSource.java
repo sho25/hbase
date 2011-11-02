@@ -2507,8 +2507,13 @@ index|]
 argument_list|)
 decl_stmt|;
 name|Path
-name|possibleLogLocation
+index|[]
+name|locs
 init|=
+operator|new
+name|Path
+index|[]
+block|{
 operator|new
 name|Path
 argument_list|(
@@ -2519,7 +2524,34 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
+block|,
+operator|new
+name|Path
+argument_list|(
+name|deadRsDirectory
+operator|.
+name|suffix
+argument_list|(
+name|HLog
+operator|.
+name|SPLITTING_EXT
+argument_list|)
+argument_list|,
+name|currentPath
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+block|,             }
 decl_stmt|;
+for|for
+control|(
+name|Path
+name|possibleLogLocation
+range|:
+name|locs
+control|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -2570,6 +2602,7 @@ comment|// Breaking here will make us sleep since reader is null
 return|return
 literal|true
 return|;
+block|}
 block|}
 block|}
 comment|// TODO What happens if the log was missing from every single location?
