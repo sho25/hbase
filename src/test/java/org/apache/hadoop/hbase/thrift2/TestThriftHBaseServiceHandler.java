@@ -814,8 +814,9 @@ init|=
 operator|new
 name|HBaseAdmin
 argument_list|(
-operator|new
-name|Configuration
+name|UTIL
+operator|.
+name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
