@@ -266,6 +266,11 @@ specifier|public
 name|String
 name|rsZNode
 decl_stmt|;
+comment|// znode containing ephemeral nodes of the draining regionservers
+specifier|public
+name|String
+name|drainingZNode
+decl_stmt|;
 comment|// znode of currently active master
 specifier|public
 name|String
@@ -306,7 +311,7 @@ specifier|final
 name|Exception
 name|constructorCaller
 decl_stmt|;
-comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param descriptor Descriptive string that is added to zookeeper sessionid    * and used as identifier for this instance.    * @throws IOException     * @throws ZooKeeperConnectionException     */
+comment|/**    * Instantiate a ZooKeeper connection and watcher.    * @param descriptor Descriptive string that is added to zookeeper sessionid    * and used as identifier for this instance.    * @throws IOException    * @throws ZooKeeperConnectionException    */
 specifier|public
 name|ZooKeeperWatcher
 parameter_list|(
@@ -488,6 +493,15 @@ name|createAndFailSilent
 argument_list|(
 name|this
 argument_list|,
+name|drainingZNode
+argument_list|)
+expr_stmt|;
+name|ZKUtil
+operator|.
+name|createAndFailSilent
+argument_list|(
+name|this
+argument_list|,
 name|tableZNode
 argument_list|)
 expr_stmt|;
@@ -630,6 +644,24 @@ argument_list|(
 literal|"zookeeper.znode.rs"
 argument_list|,
 literal|"rs"
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|drainingZNode
+operator|=
+name|ZKUtil
+operator|.
+name|joinZNode
+argument_list|(
+name|baseZNode
+argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"zookeeper.znode.draining.rs"
+argument_list|,
+literal|"draining"
 argument_list|)
 argument_list|)
 expr_stmt|;

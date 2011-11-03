@@ -7118,6 +7118,7 @@ name|forceNewPlan
 parameter_list|)
 block|{
 comment|// Pickup existing plan or make a new one
+specifier|final
 name|String
 name|encodedName
 init|=
@@ -7129,6 +7130,7 @@ operator|.
 name|getEncodedName
 argument_list|()
 decl_stmt|;
+specifier|final
 name|List
 argument_list|<
 name|ServerName
@@ -7142,8 +7144,20 @@ operator|.
 name|getOnlineServersList
 argument_list|()
 decl_stmt|;
-comment|// The remove below hinges on the fact that the call to
-comment|// serverManager.getOnlineServersList() returns a copy
+specifier|final
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|drainingServers
+init|=
+name|this
+operator|.
+name|serverManager
+operator|.
+name|getDrainingServersList
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 name|serverToExclude
@@ -7157,6 +7171,46 @@ argument_list|(
 name|serverToExclude
 argument_list|)
 expr_stmt|;
+comment|// Loop through the draining server list and remove them from the server
+comment|// list.
+if|if
+condition|(
+operator|!
+name|drainingServers
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+for|for
+control|(
+specifier|final
+name|ServerName
+name|server
+range|:
+name|drainingServers
+control|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Removing draining server: "
+operator|+
+name|server
+operator|+
+literal|" from eligible server pool."
+argument_list|)
+expr_stmt|;
+name|servers
+operator|.
+name|remove
+argument_list|(
+name|server
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 if|if
 condition|(
 name|servers
@@ -7271,14 +7325,14 @@ argument_list|()
 operator|==
 literal|null
 operator|||
+name|drainingServers
+operator|.
+name|contains
+argument_list|(
 name|existingPlan
 operator|.
 name|getDestination
 argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|serverToExclude
 argument_list|)
 condition|)
 block|{
@@ -7346,7 +7400,10 @@ argument_list|()
 operator|+
 literal|", exclude="
 operator|+
-name|serverToExclude
+name|drainingServers
+operator|.
+name|size
+argument_list|()
 operator|+
 literal|") available servers"
 argument_list|)

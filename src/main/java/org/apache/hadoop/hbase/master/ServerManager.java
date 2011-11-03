@@ -482,6 +482,22 @@ name|HRegionInterface
 argument_list|>
 argument_list|()
 decl_stmt|;
+comment|/**    * List of region servers<ServerName> that should not get any more new    * regions.    */
+specifier|private
+specifier|final
+name|ArrayList
+argument_list|<
+name|ServerName
+argument_list|>
+name|drainingServers
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|ServerName
+argument_list|>
+argument_list|()
+decl_stmt|;
 specifier|private
 specifier|final
 name|Server
@@ -1618,6 +1634,137 @@ name|carryingMeta
 argument_list|)
 expr_stmt|;
 block|}
+comment|/*    * Remove the server from the drain list.    */
+specifier|public
+name|boolean
+name|removeServerFromDrainList
+parameter_list|(
+specifier|final
+name|ServerName
+name|sn
+parameter_list|)
+block|{
+comment|// Warn if the server (sn) is not online.  ServerName is of the form:
+comment|//<hostname> ,<port> ,<startcode>
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|isServerOnline
+argument_list|(
+name|sn
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Server "
+operator|+
+name|sn
+operator|+
+literal|" is not currently online. "
+operator|+
+literal|"Removing from draining list anyway, as requested."
+argument_list|)
+expr_stmt|;
+block|}
+comment|// Remove the server from the draining servers lists.
+return|return
+name|this
+operator|.
+name|drainingServers
+operator|.
+name|remove
+argument_list|(
+name|sn
+argument_list|)
+return|;
+block|}
+comment|/*    * Add the server to the drain list.    */
+specifier|public
+name|boolean
+name|addServerToDrainList
+parameter_list|(
+specifier|final
+name|ServerName
+name|sn
+parameter_list|)
+block|{
+comment|// Warn if the server (sn) is not online.  ServerName is of the form:
+comment|//<hostname> ,<port> ,<startcode>
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|isServerOnline
+argument_list|(
+name|sn
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Server "
+operator|+
+name|sn
+operator|+
+literal|" is not currently online. "
+operator|+
+literal|"Ignoring request to add it to draining list."
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+comment|// Add the server to the draining servers lists, if it's not already in
+comment|// it.
+if|if
+condition|(
+name|this
+operator|.
+name|drainingServers
+operator|.
+name|contains
+argument_list|(
+name|sn
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Server "
+operator|+
+name|sn
+operator|+
+literal|" is already in the draining server list."
+operator|+
+literal|"Ignoring request to add it again."
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+return|return
+name|this
+operator|.
+name|drainingServers
+operator|.
+name|add
+argument_list|(
+name|sn
+argument_list|)
+return|;
+block|}
 comment|// RPC methods to region servers
 comment|/**    * Sends an OPEN RPC to the specified server to open the specified region.    *<p>    * Open should not fail but can if server just crashed.    *<p>    * @param server server to open a region    * @param region region to open    * @param versionOfOfflineNode that needs to be present in the offline node    * when RS tries to change the state from OFFLINE to other states.    */
 specifier|public
@@ -2051,6 +2198,28 @@ name|onlineServers
 operator|.
 name|keySet
 argument_list|()
+argument_list|)
+return|;
+block|}
+comment|/**    * @return A copy of the internal list of draining servers.    */
+specifier|public
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|getDrainingServersList
+parameter_list|()
+block|{
+return|return
+operator|new
+name|ArrayList
+argument_list|<
+name|ServerName
+argument_list|>
+argument_list|(
+name|this
+operator|.
+name|drainingServers
 argument_list|)
 return|;
 block|}
