@@ -475,13 +475,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// check the global memstore size after flush
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Starting flushes"
-argument_list|)
-expr_stmt|;
 name|int
 name|i
 init|=
@@ -496,6 +489,28 @@ name|getOnlineRegionServers
 argument_list|()
 control|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting flushes on "
+operator|+
+name|server
+operator|.
+name|getServerName
+argument_list|()
+operator|+
+literal|", size="
+operator|+
+name|server
+operator|.
+name|getRegionServerAccounting
+argument_list|()
+operator|.
+name|getGlobalMemstoreSize
+argument_list|()
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|HRegionInfo
@@ -524,19 +539,39 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Flushing "
+literal|"Flush "
 operator|+
 name|r
 operator|.
 name|toString
 argument_list|()
-argument_list|)
-expr_stmt|;
+operator|+
+literal|" on "
+operator|+
+name|server
+operator|.
+name|getServerName
+argument_list|()
+operator|+
+literal|", "
+operator|+
 name|r
 operator|.
 name|flushcache
 argument_list|()
+operator|+
+literal|", size="
+operator|+
+name|server
+operator|.
+name|getRegionServerAccounting
+argument_list|()
+operator|.
+name|getGlobalMemstoreSize
+argument_list|()
+argument_list|)
 expr_stmt|;
+empty_stmt|;
 block|}
 name|LOG
 operator|.

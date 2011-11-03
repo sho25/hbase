@@ -5204,16 +5204,10 @@ argument_list|(
 literal|"Preparing to flush by snapshotting stores"
 argument_list|)
 expr_stmt|;
-specifier|final
 name|long
 name|currentMemStoreSize
 init|=
-name|this
-operator|.
-name|memstoreSize
-operator|.
-name|get
-argument_list|()
+literal|0
 decl_stmt|;
 name|List
 argument_list|<
@@ -5442,12 +5436,19 @@ name|clear
 argument_list|()
 expr_stmt|;
 comment|// Set down the memstore size by amount of flush.
+name|currentMemStoreSize
+operator|=
 name|this
 operator|.
 name|addAndGetGlobalMemstoreSize
 argument_list|(
 operator|-
-name|currentMemStoreSize
+name|this
+operator|.
+name|memstoreSize
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
