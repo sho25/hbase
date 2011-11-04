@@ -97,22 +97,6 @@ begin_import
 import|import
 name|org
 operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|FSUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
 name|junit
 operator|.
 name|*
@@ -189,7 +173,7 @@ name|assertTrue
 argument_list|(
 literal|"Should create new table descriptor"
 argument_list|,
-name|FSUtils
+name|FSTableDescriptors
 operator|.
 name|createTableDescriptor
 argument_list|(
@@ -278,7 +262,7 @@ name|assertFalse
 argument_list|(
 literal|"Should not create new table descriptor"
 argument_list|,
-name|FSUtils
+name|FSTableDescriptors
 operator|.
 name|createTableDescriptor
 argument_list|(
@@ -344,7 +328,7 @@ argument_list|(
 name|name
 argument_list|)
 decl_stmt|;
-name|FSUtils
+name|FSTableDescriptors
 operator|.
 name|createTableDescriptor
 argument_list|(
@@ -361,7 +345,7 @@ name|assertTrue
 argument_list|(
 literal|"Should create new table descriptor"
 argument_list|,
-name|FSUtils
+name|FSTableDescriptors
 operator|.
 name|createTableDescriptor
 argument_list|(
