@@ -433,6 +433,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|Threads
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|JVMClusterUtil
 operator|.
 name|MasterThread
@@ -3167,26 +3183,48 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// The first RS will stay online
+name|List
+argument_list|<
+name|RegionServerThread
+argument_list|>
+name|regionservers
+init|=
+name|cluster
+operator|.
+name|getRegionServerThreads
+argument_list|()
+decl_stmt|;
 name|HRegionServer
 name|hrs
 init|=
-name|cluster
+name|regionservers
 operator|.
-name|getRegionServer
+name|get
 argument_list|(
 literal|0
 argument_list|)
-decl_stmt|;
-comment|// The second RS is going to be hard-killed
-name|HRegionServer
-name|hrsDead
-init|=
-name|cluster
 operator|.
 name|getRegionServer
+argument_list|()
+decl_stmt|;
+comment|// The second RS is going to be hard-killed
+name|RegionServerThread
+name|hrsDeadThread
+init|=
+name|regionservers
+operator|.
+name|get
 argument_list|(
 literal|1
 argument_list|)
+decl_stmt|;
+name|HRegionServer
+name|hrsDead
+init|=
+name|hrsDeadThread
+operator|.
+name|getRegionServer
+argument_list|()
 decl_stmt|;
 name|ServerName
 name|deadServerName
@@ -4330,7 +4368,24 @@ operator|+
 literal|" killed"
 argument_list|)
 expr_stmt|;
-comment|// Start up a new master
+comment|// Start up a new master.  Wait until regionserver is completely down
+comment|// before starting new master because of hbase-4511.
+while|while
+condition|(
+name|hrsDeadThread
+operator|.
+name|isAlive
+argument_list|()
+condition|)
+block|{
+name|Threads
+operator|.
+name|sleep
+argument_list|(
+literal|10
+argument_list|)
+expr_stmt|;
+block|}
 name|log
 argument_list|(
 literal|"Starting up a new master"

@@ -6822,6 +6822,15 @@ operator|=
 literal|true
 expr_stmt|;
 comment|// If we are a backup master, we need to interrupt wait
+if|if
+condition|(
+name|this
+operator|.
+name|activeMasterManager
+operator|!=
+literal|null
+condition|)
+block|{
 synchronized|synchronized
 init|(
 name|this
@@ -6840,6 +6849,7 @@ operator|.
 name|notifyAll
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 end_function
