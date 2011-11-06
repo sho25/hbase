@@ -2297,6 +2297,15 @@ name|readInt
 argument_list|()
 expr_stmt|;
 block|}
+name|int
+name|state
+init|=
+name|in
+operator|.
+name|readInt
+argument_list|()
+decl_stmt|;
+comment|// Read the state.  Currently unused.
 if|if
 condition|(
 name|isError

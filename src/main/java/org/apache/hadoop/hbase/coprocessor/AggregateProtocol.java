@@ -114,6 +114,14 @@ name|AggregateProtocol
 extends|extends
 name|CoprocessorProtocol
 block|{
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|VERSION
+init|=
+literal|1L
+decl_stmt|;
 comment|/**    * Gives the maximum for a given combination of column qualifier and column    * family, in the given row range as defined in the Scan object. In its    * current implementation, it takes one column family and one column qualifier    * (if provided). In case of null column qualifier, maximum value for the    * entire column family will be returned.    * @param ci    * @param scan    * @return max value as mentioned above    * @throws IOException    */
 parameter_list|<
 name|T

@@ -28,7 +28,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Superclass of all protocols that use Hadoop RPC.  * Subclasses of this interface are also supposed to have  * a static final long versionID field.  *  * This has been copied from the Hadoop IPC project so that  * we can run on multiple different versions of Hadoop.  */
+comment|/**  * Superclass of all protocols that use Hadoop RPC.  * Subclasses of this interface are also supposed to have  * a static final long versionID field.  */
 end_comment
 
 begin_interface
@@ -48,6 +48,23 @@ name|protocol
 parameter_list|,
 name|long
 name|clientVersion
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Return protocol version corresponding to protocol interface.    * @param protocol The classname of the protocol interface    * @param clientVersion The version of the protocol that the client speaks    * @param clientMethodsHash the hashcode of client protocol methods    * @return the server protocol signature containing its version and    *         a list of its supported methods    * @see ProtocolSignature#getProtocolSignature(VersionedProtocol, String,    *                long, int) for a default implementation    */
+specifier|public
+name|ProtocolSignature
+name|getProtocolSignature
+parameter_list|(
+name|String
+name|protocol
+parameter_list|,
+name|long
+name|clientVersion
+parameter_list|,
+name|int
+name|clientMethodsHash
 parameter_list|)
 throws|throws
 name|IOException
