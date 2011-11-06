@@ -2005,6 +2005,10 @@ decl_stmt|;
 comment|// The below deleteDirectory works for either file or directory.
 if|if
 condition|(
+name|status
+operator|!=
+literal|null
+operator|&&
 name|fs
 operator|.
 name|exists
@@ -2015,6 +2019,7 @@ name|getPath
 argument_list|()
 argument_list|)
 condition|)
+block|{
 name|FSUtils
 operator|.
 name|deleteDirectory
@@ -2027,6 +2032,7 @@ name|getPath
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * @param fs    * @param hTableDescriptor    * @param tableDir    * @param status    * @return Descriptor file or null if we failed write.    * @throws IOException     */
 specifier|private
