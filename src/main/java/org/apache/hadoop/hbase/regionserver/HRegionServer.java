@@ -13318,14 +13318,14 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Atomically bulk load several HFiles into an open region    */
+comment|/**    * Atomically bulk load several HFiles into an open region    * @return true if successful, false is failed but recoverably (no action)    * @throws IOException if failed unrecoverably    */
 end_comment
 
 begin_function
 annotation|@
 name|Override
 specifier|public
-name|void
+name|boolean
 name|bulkLoadHFiles
 parameter_list|(
 name|List
@@ -13358,13 +13358,14 @@ argument_list|(
 name|regionName
 argument_list|)
 decl_stmt|;
+return|return
 name|region
 operator|.
 name|bulkLoadHFiles
 argument_list|(
 name|familyPaths
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 end_function
 

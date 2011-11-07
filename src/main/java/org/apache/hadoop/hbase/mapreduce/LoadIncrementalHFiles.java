@@ -1172,7 +1172,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Perform a bulk load of the given directory into the given    * pre-existing table.    * @param hfofDir the directory that was provided as the output path    * of a job using HFileOutputFormat    * @param table the table to load into    * @throws TableNotFoundException if table does not yet exist    */
+comment|/**    * Perform a bulk load of the given directory into the given    * pre-existing table.  This method is not threadsafe.    *     * @param hfofDir the directory that was provided as the output path    * of a job using HFileOutputFormat    * @param table the table to load into    * @throws TableNotFoundException if table does not yet exist    */
 specifier|public
 name|void
 name|doBulkLoad
@@ -1335,6 +1335,34 @@ name|count
 init|=
 literal|0
 decl_stmt|;
+if|if
+condition|(
+name|queue
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Bulk load operation did not find any files to load in "
+operator|+
+literal|"directory "
+operator|+
+name|hfofDir
+operator|.
+name|toUri
+argument_list|()
+operator|+
+literal|".  Does it contain files in "
+operator|+
+literal|"subdirectories that correspond to column family names?"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 comment|// Assumes that region splits can happen while this occurs.
 while|while
 condition|(
@@ -1387,7 +1415,7 @@ operator|.
 name|size
 argument_list|()
 operator|+
-literal|" files remaining to load"
+literal|" files remaining to group or split"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1400,11 +1428,15 @@ name|getInt
 argument_list|(
 literal|"hbase.bulkload.retries.number"
 argument_list|,
-literal|10
+literal|0
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|maxRetries
+operator|!=
+literal|0
+operator|&&
 name|count
 operator|>=
 name|maxRetries
@@ -1551,7 +1583,7 @@ block|}
 block|}
 block|}
 comment|/**    * This takes the LQI's grouped by likely regions and attempts to bulk load    * them.  Any failures are re-queued for another pass with the    * groupOrSplitPhase.    */
-specifier|private
+specifier|protected
 name|void
 name|bulkLoadPhase
 parameter_list|(
@@ -1756,20 +1788,6 @@ operator|.
 name|get
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|toRetry
-operator|!=
-literal|null
-operator|&&
-name|toRetry
-operator|.
-name|size
-argument_list|()
-operator|!=
-literal|0
-condition|)
-block|{
 comment|// LQIs that are requeued to be regrouped.
 name|queue
 operator|.
@@ -1778,7 +1796,6 @@ argument_list|(
 name|toRetry
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 catch|catch
 parameter_list|(
@@ -1801,22 +1818,17 @@ operator|instanceof
 name|IOException
 condition|)
 block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"IOException during bulk load"
-argument_list|,
-name|e1
-argument_list|)
-expr_stmt|;
+comment|// At this point something unrecoverable has happened.
+comment|// TODO Implement bulk load recovery
 throw|throw
-operator|(
+operator|new
 name|IOException
-operator|)
+argument_list|(
+literal|"BulkLoad encountered an unrecoverable problem"
+argument_list|,
 name|t
+argument_list|)
 throw|;
-comment|// would have been thrown if not parallelized,
 block|}
 name|LOG
 operator|.
@@ -2762,7 +2774,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**    * Attempts to do an atomic load of many hfiles into a region.  If it fails,    * it returns a list of hfiles that need to be retried.  If it is successful    * it will return an empty list.    *     * NOTE: To maintain row atomicity guarantees, region server callable should    * succeed atomically and fails atomically.    *     * Protected for testing.    */
+comment|/**    * Attempts to do an atomic load of many hfiles into a region.  If it fails,    * it returns a list of hfiles that need to be retried.  If it is successful    * it will return an empty list.    *     * NOTE: To maintain row atomicity guarantees, region server callable should    * succeed atomically and fails atomically.    *     * Protected for testing.    *     * @return empty list if success, list of items to retry on recoverable    * failure    */
 specifier|protected
 name|List
 argument_list|<
@@ -2789,6 +2801,8 @@ name|LoadQueueItem
 argument_list|>
 name|lqis
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 specifier|final
 name|List
@@ -2854,14 +2868,14 @@ block|}
 specifier|final
 name|ServerCallable
 argument_list|<
-name|Void
+name|Boolean
 argument_list|>
 name|svrCallable
 init|=
 operator|new
 name|ServerCallable
 argument_list|<
-name|Void
+name|Boolean
 argument_list|>
 argument_list|(
 name|conn
@@ -2874,7 +2888,7 @@ block|{
 annotation|@
 name|Override
 specifier|public
-name|Void
+name|Boolean
 name|call
 parameter_list|()
 throws|throws
@@ -2910,6 +2924,7 @@ operator|.
 name|getRegionName
 argument_list|()
 decl_stmt|;
+return|return
 name|server
 operator|.
 name|bulkLoadHFiles
@@ -2918,13 +2933,12 @@ name|famPaths
 argument_list|,
 name|regionName
 argument_list|)
-expr_stmt|;
-return|return
-literal|null
 return|;
 block|}
 block|}
 decl_stmt|;
+try|try
+block|{
 name|List
 argument_list|<
 name|LoadQueueItem
@@ -2938,21 +2952,21 @@ name|LoadQueueItem
 argument_list|>
 argument_list|()
 decl_stmt|;
-try|try
-block|{
+name|boolean
+name|success
+init|=
 name|conn
 operator|.
 name|getRegionServerWithRetries
 argument_list|(
 name|svrCallable
 argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|success
+condition|)
 block|{
 name|LOG
 operator|.
@@ -2980,7 +2994,7 @@ literal|" with files "
 operator|+
 name|lqis
 operator|+
-literal|" failed"
+literal|" failed.  This is recoverable and they will be retried."
 argument_list|)
 expr_stmt|;
 name|toRetry
@@ -2990,10 +3004,32 @@ argument_list|(
 name|lqis
 argument_list|)
 expr_stmt|;
+comment|// return lqi's to retry
 block|}
+comment|// success
 return|return
 name|toRetry
 return|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Encountered unrecoverable error from region server"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+throw|throw
+name|e
+throw|;
+block|}
 block|}
 comment|/**    * Split a storefile into a top and bottom half, maintaining    * the metadata, recreating bloom filters, etc.    */
 specifier|static

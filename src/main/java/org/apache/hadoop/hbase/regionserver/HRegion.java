@@ -11623,9 +11623,9 @@ return|return
 name|multipleFamilies
 return|;
 block|}
-comment|/**    * Attempts to atomically load a group of hfiles.  This is critical for loading    * rows with multiple column families atomically.    *    * @param familyPaths List of Pair<byte[] column family, String hfilePath>    */
+comment|/**    * Attempts to atomically load a group of hfiles.  This is critical for loading    * rows with multiple column families atomically.    *    * @param familyPaths List of Pair<byte[] column family, String hfilePath>    * @return true if successful, false if failed recoverably    * @throws IOException if failed unrecoverably.    */
 specifier|public
-name|void
+name|boolean
 name|bulkLoadHFiles
 parameter_list|(
 name|List
@@ -11659,6 +11659,8 @@ name|familyPaths
 argument_list|)
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|this
 operator|.
 name|writeRequestsCount
@@ -11666,6 +11668,9 @@ operator|.
 name|increment
 argument_list|()
 expr_stmt|;
+comment|// There possibly was a split that happend between when the split keys
+comment|// were gathered and before the HReiogn's write lock was taken.  We need
+comment|// to validate the HFile region before attempting to bulk load all of them
 name|List
 argument_list|<
 name|IOException
@@ -11704,16 +11709,6 @@ argument_list|>
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|boolean
-name|rangesOk
-init|=
-literal|true
-decl_stmt|;
-try|try
-block|{
-comment|// There possibly was a split that happend between when the split keys
-comment|// were gathered and before the HReiogn's write lock was taken.  We need
-comment|// to validate the HFile region before attempting to bulk load all of them
 for|for
 control|(
 name|Pair
@@ -11807,89 +11802,16 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|IOException
-name|ioe
+name|WrongRegionException
+name|wre
 parameter_list|)
 block|{
-name|rangesOk
-operator|=
-literal|false
-expr_stmt|;
-name|ioes
-operator|.
-name|add
-argument_list|(
-name|ioe
-argument_list|)
-expr_stmt|;
+comment|// recoverable (file doesn't fit in region)
 name|failures
 operator|.
 name|add
 argument_list|(
 name|p
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-if|if
-condition|(
-name|ioes
-operator|.
-name|size
-argument_list|()
-operator|!=
-literal|0
-condition|)
-block|{
-comment|// validation failed, bail out before doing anything permanent.
-return|return;
-block|}
-for|for
-control|(
-name|Pair
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|String
-argument_list|>
-name|p
-range|:
-name|familyPaths
-control|)
-block|{
-name|byte
-index|[]
-name|familyName
-init|=
-name|p
-operator|.
-name|getFirst
-argument_list|()
-decl_stmt|;
-name|String
-name|path
-init|=
-name|p
-operator|.
-name|getSecond
-argument_list|()
-decl_stmt|;
-name|Store
-name|store
-init|=
-name|getStore
-argument_list|(
-name|familyName
-argument_list|)
-decl_stmt|;
-try|try
-block|{
-name|store
-operator|.
-name|bulkLoadHFile
-argument_list|(
-name|path
 argument_list|)
 expr_stmt|;
 block|}
@@ -11899,8 +11821,7 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
-comment|// a failure here causes an atomicity violation that we currently
-comment|// cannot recover from since it is likely a failed hdfs operation.
+comment|// unrecoverable (hdfs problem)
 name|ioes
 operator|.
 name|add
@@ -11908,25 +11829,12 @@ argument_list|(
 name|ioe
 argument_list|)
 expr_stmt|;
-name|failures
-operator|.
-name|add
-argument_list|(
-name|p
-argument_list|)
-expr_stmt|;
-break|break;
 block|}
 block|}
-block|}
-finally|finally
-block|{
-name|closeBulkRegionOperation
-argument_list|()
-expr_stmt|;
+comment|// validation failed, bail out before doing anything permanent.
 if|if
 condition|(
-name|ioes
+name|failures
 operator|.
 name|size
 argument_list|()
@@ -11989,30 +11897,10 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|rangesOk
-condition|)
-block|{
-comment|// TODO Need a better story for reverting partial failures due to HDFS.
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"There was a partial failure due to IO.   These "
-operator|+
-literal|"(family,hfile) pairs were not loaded: "
-operator|+
-name|list
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
 comment|// problem when validating
 name|LOG
 operator|.
-name|info
+name|warn
 argument_list|(
 literal|"There was a recoverable bulk load failure likely due to a"
 operator|+
@@ -12021,26 +11909,30 @@ operator|+
 name|list
 argument_list|)
 expr_stmt|;
+return|return
+literal|false
+return|;
 block|}
+comment|// validation failed because of some sort of IO problem.
 if|if
 condition|(
 name|ioes
 operator|.
 name|size
 argument_list|()
-operator|==
-literal|1
+operator|!=
+literal|0
 condition|)
 block|{
-throw|throw
-name|ioes
+name|LOG
 operator|.
-name|get
+name|error
 argument_list|(
-literal|0
+literal|"There were IO errors when checking if bulk load is ok.  "
+operator|+
+literal|"throwing exception!"
 argument_list|)
-throw|;
-block|}
+expr_stmt|;
 throw|throw
 name|MultipleIOException
 operator|.
@@ -12050,6 +11942,104 @@ name|ioes
 argument_list|)
 throw|;
 block|}
+for|for
+control|(
+name|Pair
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|String
+argument_list|>
+name|p
+range|:
+name|familyPaths
+control|)
+block|{
+name|byte
+index|[]
+name|familyName
+init|=
+name|p
+operator|.
+name|getFirst
+argument_list|()
+decl_stmt|;
+name|String
+name|path
+init|=
+name|p
+operator|.
+name|getSecond
+argument_list|()
+decl_stmt|;
+name|Store
+name|store
+init|=
+name|getStore
+argument_list|(
+name|familyName
+argument_list|)
+decl_stmt|;
+try|try
+block|{
+name|store
+operator|.
+name|bulkLoadHFile
+argument_list|(
+name|path
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|ioe
+parameter_list|)
+block|{
+comment|// a failure here causes an atomicity violation that we currently
+comment|// cannot recover from since it is likely a failed hdfs operation.
+comment|// TODO Need a better story for reverting partial failures due to HDFS.
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"There was a partial failure due to IO when attempting to"
+operator|+
+literal|" load "
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|p
+operator|.
+name|getFirst
+argument_list|()
+argument_list|)
+operator|+
+literal|" : "
+operator|+
+name|p
+operator|.
+name|getSecond
+argument_list|()
+argument_list|)
+expr_stmt|;
+throw|throw
+name|ioe
+throw|;
+block|}
+block|}
+return|return
+literal|true
+return|;
+block|}
+finally|finally
+block|{
+name|closeBulkRegionOperation
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 annotation|@
