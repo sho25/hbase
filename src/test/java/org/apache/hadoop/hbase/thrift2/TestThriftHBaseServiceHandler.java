@@ -878,6 +878,22 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{    }
+specifier|private
+name|ThriftHBaseServiceHandler
+name|createHandler
+parameter_list|()
+block|{
+return|return
+operator|new
+name|ThriftHBaseServiceHandler
+argument_list|(
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+return|;
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -892,8 +908,7 @@ block|{
 name|ThriftHBaseServiceHandler
 name|handler
 init|=
-operator|new
-name|ThriftHBaseServiceHandler
+name|createHandler
 argument_list|()
 decl_stmt|;
 name|byte
@@ -1071,8 +1086,7 @@ block|{
 name|ThriftHBaseServiceHandler
 name|handler
 init|=
-operator|new
-name|ThriftHBaseServiceHandler
+name|createHandler
 argument_list|()
 decl_stmt|;
 name|byte
@@ -1266,8 +1280,7 @@ block|{
 name|ThriftHBaseServiceHandler
 name|handler
 init|=
-operator|new
-name|ThriftHBaseServiceHandler
+name|createHandler
 argument_list|()
 decl_stmt|;
 name|ByteBuffer
@@ -1572,8 +1585,7 @@ block|{
 name|ThriftHBaseServiceHandler
 name|handler
 init|=
-operator|new
-name|ThriftHBaseServiceHandler
+name|createHandler
 argument_list|()
 decl_stmt|;
 name|ByteBuffer
@@ -1861,8 +1873,7 @@ block|{
 name|ThriftHBaseServiceHandler
 name|handler
 init|=
-operator|new
-name|ThriftHBaseServiceHandler
+name|createHandler
 argument_list|()
 decl_stmt|;
 name|byte
@@ -2157,8 +2168,7 @@ block|{
 name|ThriftHBaseServiceHandler
 name|handler
 init|=
-operator|new
-name|ThriftHBaseServiceHandler
+name|createHandler
 argument_list|()
 decl_stmt|;
 name|byte
@@ -2470,8 +2480,7 @@ block|{
 name|ThriftHBaseServiceHandler
 name|handler
 init|=
-operator|new
-name|ThriftHBaseServiceHandler
+name|createHandler
 argument_list|()
 decl_stmt|;
 name|byte
@@ -2813,8 +2822,7 @@ block|{
 name|ThriftHBaseServiceHandler
 name|handler
 init|=
-operator|new
-name|ThriftHBaseServiceHandler
+name|createHandler
 argument_list|()
 decl_stmt|;
 name|byte
@@ -3065,8 +3073,7 @@ block|{
 name|ThriftHBaseServiceHandler
 name|handler
 init|=
-operator|new
-name|ThriftHBaseServiceHandler
+name|createHandler
 argument_list|()
 decl_stmt|;
 name|byte
@@ -3435,8 +3442,7 @@ block|{
 name|ThriftHBaseServiceHandler
 name|handler
 init|=
-operator|new
-name|ThriftHBaseServiceHandler
+name|createHandler
 argument_list|()
 decl_stmt|;
 name|byte
@@ -3801,8 +3807,7 @@ block|{
 name|ThriftHBaseServiceHandler
 name|handler
 init|=
-operator|new
-name|ThriftHBaseServiceHandler
+name|createHandler
 argument_list|()
 decl_stmt|;
 name|ByteBuffer

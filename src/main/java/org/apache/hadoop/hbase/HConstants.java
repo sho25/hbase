@@ -273,6 +273,35 @@ name|ZOOKEEPER_CONFIG_NAME
 init|=
 literal|"zoo.cfg"
 decl_stmt|;
+comment|/** Common prefix of ZooKeeper configuration properties */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ZK_CFG_PROPERTY_PREFIX
+init|=
+literal|"hbase.zookeeper.property."
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|ZK_CFG_PROPERTY_PREFIX_LEN
+init|=
+name|ZK_CFG_PROPERTY_PREFIX
+operator|.
+name|length
+argument_list|()
+decl_stmt|;
+comment|/**    * The ZK client port key in the ZK properties map. The name reflects the    * fact that this is not an HBase configuration key.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CLIENT_PORT_STR
+init|=
+literal|"clientPort"
+decl_stmt|;
 comment|/** Parameter name for the client port that the zookeeper listens on */
 specifier|public
 specifier|static
@@ -280,7 +309,9 @@ specifier|final
 name|String
 name|ZOOKEEPER_CLIENT_PORT
 init|=
-literal|"hbase.zookeeper.property.clientPort"
+name|ZK_CFG_PROPERTY_PREFIX
+operator|+
+name|CLIENT_PORT_STR
 decl_stmt|;
 comment|/** Default client port that the zookeeper listens on */
 specifier|public
@@ -326,14 +357,27 @@ name|DEFAULT_ZOOKEEPER_ZNODE_PARENT
 init|=
 literal|"/hbase"
 decl_stmt|;
-comment|/** Parameter name for the limit on concurrent client-side zookeeper connections */
+comment|/**    * Parameter name for the limit on concurrent client-side zookeeper    * connections    */
 specifier|public
 specifier|static
 specifier|final
 name|String
 name|ZOOKEEPER_MAX_CLIENT_CNXNS
 init|=
-literal|"hbase.zookeeper.property.maxClientCnxns"
+name|ZK_CFG_PROPERTY_PREFIX
+operator|+
+literal|"maxClientCnxns"
+decl_stmt|;
+comment|/** Parameter name for the ZK data directory */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ZOOKEEPER_DATA_DIR
+init|=
+name|ZK_CFG_PROPERTY_PREFIX
+operator|+
+literal|"dataDir"
 decl_stmt|;
 comment|/** Default limit on concurrent client-side zookeeper connections */
 specifier|public

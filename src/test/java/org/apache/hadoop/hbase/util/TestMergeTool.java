@@ -372,7 +372,9 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.zookeeper.property.clientPort"
+name|HConstants
+operator|.
+name|ZOOKEEPER_CLIENT_PORT
 argument_list|,
 literal|10001
 argument_list|)

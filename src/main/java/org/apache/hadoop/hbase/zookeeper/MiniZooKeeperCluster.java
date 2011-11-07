@@ -129,6 +129,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Random
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -257,18 +267,16 @@ specifier|private
 name|boolean
 name|started
 decl_stmt|;
+comment|/** The default port. If zero, we use a random port. */
 specifier|private
 name|int
 name|defaultClientPort
 init|=
-literal|21818
+literal|0
 decl_stmt|;
-comment|// use non-standard port
 specifier|private
 name|int
 name|clientPort
-init|=
-name|defaultClientPort
 decl_stmt|;
 specifier|private
 name|List
@@ -357,6 +365,23 @@ name|int
 name|clientPort
 parameter_list|)
 block|{
+if|if
+condition|(
+name|clientPort
+operator|<=
+literal|0
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Invalid default ZK client port: "
+operator|+
+name|clientPort
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|defaultClientPort
@@ -364,13 +389,34 @@ operator|=
 name|clientPort
 expr_stmt|;
 block|}
-specifier|public
+comment|/**    * Selects a ZK client port. Returns the default port if specified.    * Otherwise, returns a random port. The random port is selected from the    * range between 49152 to 65535. These ports cannot be registered with IANA    * and are intended for dynamic allocation (see http://bit.ly/dynports).    */
+specifier|private
 name|int
-name|getDefaultClientPort
+name|selectClientPort
 parameter_list|()
+block|{
+if|if
+condition|(
+name|defaultClientPort
+operator|>
+literal|0
+condition|)
 block|{
 return|return
 name|defaultClientPort
+return|;
+block|}
+return|return
+literal|0xc000
+operator|+
+operator|new
+name|Random
+argument_list|()
+operator|.
+name|nextInt
+argument_list|(
+literal|0x3f00
+argument_list|)
 return|;
 block|}
 specifier|public
@@ -495,6 +541,12 @@ expr_stmt|;
 name|shutdown
 argument_list|()
 expr_stmt|;
+name|int
+name|tentativePort
+init|=
+name|selectClientPort
+argument_list|()
+decl_stmt|;
 comment|// running all the ZK servers
 for|for
 control|(
@@ -531,10 +583,6 @@ name|recreateDir
 argument_list|(
 name|dir
 argument_list|)
-expr_stmt|;
-name|clientPort
-operator|=
-name|defaultClientPort
 expr_stmt|;
 name|int
 name|tickTimeToUse
@@ -597,7 +645,7 @@ argument_list|(
 operator|new
 name|InetSocketAddress
 argument_list|(
-name|clientPort
+name|tentativePort
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -610,15 +658,15 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Failed binding ZK Server to client port: "
 operator|+
-name|clientPort
+name|tentativePort
 argument_list|)
 expr_stmt|;
-comment|//this port is already in use. try to use another
-name|clientPort
+comment|// This port is already in use, try to use another.
+name|tentativePort
 operator|++
 expr_stmt|;
 continue|continue;
@@ -638,7 +686,7 @@ condition|(
 operator|!
 name|waitForServerUp
 argument_list|(
-name|clientPort
+name|tentativePort
 argument_list|,
 name|CONNECTION_TIMEOUT
 argument_list|)
@@ -652,11 +700,12 @@ literal|"Waiting for startup of standalone server"
 argument_list|)
 throw|;
 block|}
+comment|// We have selected this port as a client port.
 name|clientPortList
 operator|.
 name|add
 argument_list|(
-name|clientPort
+name|tentativePort
 argument_list|)
 expr_stmt|;
 name|standaloneServerFactoryList
@@ -874,7 +923,7 @@ literal|"Shutdown MiniZK cluster with all ZK servers"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**@return clientPort return clientPort if there is another ZK backup can run    *         when killing the current active; return -1, if there is no backups.    * @throws IOException    * @throws InterruptedException     */
+comment|/**@return clientPort return clientPort if there is another ZK backup can run    *         when killing the current active; return -1, if there is no backups.    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 name|int
 name|killCurrentActiveZooKeeperServer
@@ -1020,7 +1069,7 @@ return|return
 name|clientPort
 return|;
 block|}
-comment|/**    * Kill one back up ZK servers    * @throws IOException    * @throws InterruptedException     */
+comment|/**    * Kill one back up ZK servers    * @throws IOException    * @throws InterruptedException    */
 specifier|public
 name|void
 name|killOneBackupZooKeeperServer
@@ -1452,6 +1501,15 @@ block|}
 block|}
 return|return
 literal|false
+return|;
+block|}
+specifier|public
+name|int
+name|getClientPort
+parameter_list|()
+block|{
+return|return
+name|clientPort
 return|;
 block|}
 block|}

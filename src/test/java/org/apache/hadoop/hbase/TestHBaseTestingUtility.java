@@ -384,7 +384,9 @@ argument_list|()
 operator|.
 name|set
 argument_list|(
-literal|"hbase.zookeeper.property.clientPort"
+name|HConstants
+operator|.
+name|ZOOKEEPER_CLIENT_PORT
 argument_list|,
 name|htu1
 operator|.
@@ -393,7 +395,9 @@ argument_list|()
 operator|.
 name|get
 argument_list|(
-literal|"hbase.zookeeper.property.clientPort"
+name|HConstants
+operator|.
+name|ZOOKEEPER_CLIENT_PORT
 argument_list|,
 literal|"-1"
 argument_list|)
@@ -440,7 +444,9 @@ argument_list|()
 operator|.
 name|set
 argument_list|(
-literal|"hbase.zookeeper.property.clientPort"
+name|HConstants
+operator|.
+name|ZOOKEEPER_CLIENT_PORT
 argument_list|,
 name|htu1
 operator|.
@@ -449,7 +455,9 @@ argument_list|()
 operator|.
 name|get
 argument_list|(
-literal|"hbase.zookeeper.property.clientPort"
+name|HConstants
+operator|.
+name|ZOOKEEPER_CLIENT_PORT
 argument_list|,
 literal|"-1"
 argument_list|)

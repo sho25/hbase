@@ -730,56 +730,6 @@ init|=
 literal|10
 decl_stmt|;
 comment|// i.e., doPut checks the writebuffer every X Puts.
-comment|/**    * Creates an object to access a HBase table.    * Internally it creates a new instance of {@link Configuration} and a new    * client to zookeeper as well as other resources.  It also comes up with    * a fresh view of the cluster and must do discovery from scratch of region    * locations; i.e. it will not make use of already-cached region locations if    * available. Use only when being quick and dirty.    * @throws IOException if a remote or network exception occurs    * @see #HTable(Configuration, String)    */
-specifier|public
-name|HTable
-parameter_list|(
-specifier|final
-name|String
-name|tableName
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|this
-argument_list|(
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
-argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-name|tableName
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Creates an object to access a HBase table.    * Internally it creates a new instance of {@link Configuration} and a new    * client to zookeeper as well as other resources.  It also comes up with    * a fresh view of the cluster and must do discovery from scratch of region    * locations; i.e. it will not make use of already-cached region locations if    * available. Use only when being quick and dirty.    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    * @see #HTable(Configuration, String)    */
-specifier|public
-name|HTable
-parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|tableName
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|this
-argument_list|(
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
-argument_list|,
-name|tableName
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Creates an object to access a HBase table.    * Shares zookeeper connection and other resources with other HTable instances    * created with the same<code>conf</code> instance.  Uses already-populated    * region cache if one is available, populated by any other HTable instances    * sharing this<code>conf</code> instance.  Recommended.    * @param conf Configuration object to use.    * @param tableName Name of the table.    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|HTable
@@ -1095,7 +1045,7 @@ return|return
 name|configuration
 return|;
 block|}
-comment|/**    * Tells whether or not a table is enabled or not.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs 	* @deprecated use {@link HBaseAdmin#isTableEnabled(byte[])}    */
+comment|/**    * Tells whether or not a table is enabled or not. This method creates a    * new HBase configuration, so it might make your unit tests fail due to    * incorrect ZK client port.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs 	* @deprecated use {@link HBaseAdmin#isTableEnabled(byte[])}    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1121,7 +1071,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Tells whether or not a table is enabled or not.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs 	* @deprecated use {@link HBaseAdmin#isTableEnabled(byte[])}    */
+comment|/**    * Tells whether or not a table is enabled or not. This method creates a    * new HBase configuration, so it might make your unit tests fail due to    * incorrect ZK client port.    * @param tableName Name of table to check.    * @return {@code true} if table is online.    * @throws IOException if a remote or network exception occurs    * @deprecated use {@link HBaseAdmin#isTableEnabled(byte[])}    */
 annotation|@
 name|Deprecated
 specifier|public

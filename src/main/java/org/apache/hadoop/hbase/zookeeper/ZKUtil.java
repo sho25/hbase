@@ -805,7 +805,9 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"hbase.zookeeper.property.clientPort"
+name|HConstants
+operator|.
+name|ZOOKEEPER_CLIENT_PORT
 argument_list|,
 name|parts
 index|[

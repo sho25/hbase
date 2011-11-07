@@ -276,7 +276,9 @@ argument_list|()
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.zookeeper.property.clientPort"
+name|HConstants
+operator|.
+name|ZOOKEEPER_CLIENT_PORT
 argument_list|,
 name|PORT_NO
 argument_list|)
@@ -400,7 +402,9 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"hbase.zookeeper.property.dataDir"
+name|HConstants
+operator|.
+name|ZOOKEEPER_DATA_DIR
 argument_list|,
 name|this
 operator|.

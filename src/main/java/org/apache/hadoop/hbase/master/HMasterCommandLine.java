@@ -654,7 +654,9 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"hbase.zookeeper.property.dataDir"
+name|HConstants
+operator|.
+name|ZOOKEEPER_DATA_DIR
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -665,7 +667,9 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.zookeeper.property.clientPort"
+name|HConstants
+operator|.
+name|ZOOKEEPER_CLIENT_PORT
 argument_list|,
 literal|0
 argument_list|)
@@ -681,7 +685,11 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"No config value for hbase.zookeeper.property.clientPort"
+literal|"No config value for "
+operator|+
+name|HConstants
+operator|.
+name|ZOOKEEPER_CLIENT_PORT
 argument_list|)
 throw|;
 block|}
@@ -745,7 +753,9 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"hbase.zookeeper.property.clientPort"
+name|HConstants
+operator|.
+name|ZOOKEEPER_CLIENT_PORT
 argument_list|,
 name|Integer
 operator|.

@@ -1430,6 +1430,8 @@ init|=
 operator|new
 name|HTable
 argument_list|(
+name|conf
+argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;

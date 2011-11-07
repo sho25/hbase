@@ -231,33 +231,6 @@ operator|.
 name|length
 argument_list|()
 decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|String
-name|ZK_CFG_PROPERTY
-init|=
-literal|"hbase.zookeeper.property."
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|int
-name|ZK_CFG_PROPERTY_SIZE
-init|=
-name|ZK_CFG_PROPERTY
-operator|.
-name|length
-argument_list|()
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|String
-name|ZK_CLIENT_PORT_KEY
-init|=
-literal|"clientPort"
-decl_stmt|;
 comment|/**    * Make a Properties object holding ZooKeeper config equivalent to zoo.cfg.    * If there is a zoo.cfg in the classpath, simply read it in. Otherwise parse    * the corresponding config options from the HBase XML configs and generate    * the appropriate ZooKeeper properties.    * @param conf Configuration to read from.    * @return Properties holding mappings representing ZooKeeper zoo.cfg file.    */
 specifier|public
 specifier|static
@@ -370,7 +343,9 @@ name|key
 operator|.
 name|startsWith
 argument_list|(
-name|ZK_CFG_PROPERTY
+name|HConstants
+operator|.
+name|ZK_CFG_PROPERTY_PREFIX
 argument_list|)
 condition|)
 block|{
@@ -381,7 +356,9 @@ name|key
 operator|.
 name|substring
 argument_list|(
-name|ZK_CFG_PROPERTY_SIZE
+name|HConstants
+operator|.
+name|ZK_CFG_PROPERTY_PREFIX_LEN
 argument_list|)
 decl_stmt|;
 name|String
@@ -424,14 +401,16 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// If clientPort is not set, assign the default
+comment|// If clientPort is not set, assign the default.
 if|if
 condition|(
 name|zkProperties
 operator|.
 name|getProperty
 argument_list|(
-name|ZK_CLIENT_PORT_KEY
+name|HConstants
+operator|.
+name|CLIENT_PORT_STR
 argument_list|)
 operator|==
 literal|null
@@ -441,7 +420,9 @@ name|zkProperties
 operator|.
 name|put
 argument_list|(
-name|ZK_CLIENT_PORT_KEY
+name|HConstants
+operator|.
+name|CLIENT_PORT_STR
 argument_list|,
 name|HConstants
 operator|.
