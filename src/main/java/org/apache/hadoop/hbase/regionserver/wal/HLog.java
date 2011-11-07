@@ -6980,10 +6980,12 @@ name|FileStatus
 index|[]
 name|files
 init|=
-name|fs
+name|FSUtils
 operator|.
 name|listStatus
 argument_list|(
+name|fs
+argument_list|,
 name|editsdir
 argument_list|,
 operator|new

@@ -1224,10 +1224,12 @@ name|FileStatus
 index|[]
 name|status
 init|=
-name|fs
+name|FSUtils
 operator|.
 name|listStatus
 argument_list|(
+name|fs
+argument_list|,
 name|tabledir
 argument_list|,
 operator|new

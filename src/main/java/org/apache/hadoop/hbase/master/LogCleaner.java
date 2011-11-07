@@ -192,6 +192,22 @@ import|;
 end_import
 
 begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FSUtils
+import|;
+end_import
+
+begin_import
 import|import static
 name|org
 operator|.
@@ -502,15 +518,19 @@ name|FileStatus
 index|[]
 name|files
 init|=
-name|this
-operator|.
-name|fs
+name|FSUtils
 operator|.
 name|listStatus
 argument_list|(
 name|this
 operator|.
+name|fs
+argument_list|,
+name|this
+operator|.
 name|oldLogDir
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 if|if

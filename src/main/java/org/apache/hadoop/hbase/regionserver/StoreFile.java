@@ -1061,11 +1061,15 @@ name|FileStatus
 index|[]
 name|stats
 init|=
-name|fs
+name|FSUtils
 operator|.
 name|listStatus
 argument_list|(
+name|fs
+argument_list|,
 name|p
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 if|if

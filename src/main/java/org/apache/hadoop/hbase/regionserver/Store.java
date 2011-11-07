@@ -105,9 +105,7 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|atomic
-operator|.
-name|AtomicLong
+name|CopyOnWriteArraySet
 import|;
 end_import
 
@@ -119,7 +117,9 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|CopyOnWriteArraySet
+name|atomic
+operator|.
+name|AtomicLong
 import|;
 end_import
 
@@ -556,6 +556,22 @@ operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FSUtils
 import|;
 end_import
 
@@ -1415,15 +1431,19 @@ name|FileStatus
 name|files
 index|[]
 init|=
-name|this
-operator|.
-name|fs
+name|FSUtils
 operator|.
 name|listStatus
 argument_list|(
 name|this
 operator|.
+name|fs
+argument_list|,
+name|this
+operator|.
 name|homedir
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 for|for
