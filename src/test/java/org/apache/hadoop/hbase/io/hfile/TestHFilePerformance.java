@@ -256,6 +256,13 @@ comment|/**  *  Set of long-running tests to measure performance of HFile.  *<p>
 end_comment
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|MediumTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestHFilePerformance

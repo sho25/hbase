@@ -41,6 +41,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|SmallTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|hfile
@@ -135,6 +149,20 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -176,6 +204,13 @@ import|;
 end_import
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|SmallTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestCompressionTest

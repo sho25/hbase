@@ -51,6 +51,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|SmallTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|filter
 operator|.
 name|CompareFilter
@@ -75,11 +89,32 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
+import|;
+end_import
+
 begin_comment
 comment|/**  * Tests for {@link SingleColumnValueExcludeFilter}. Because this filter  * extends {@link SingleColumnValueFilter}, only the added functionality is  * tested. That is, method filterKeyValue(KeyValue).  *  * @author ferdy  *  */
 end_comment
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|SmallTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestSingleColumnValueExcludeFilter

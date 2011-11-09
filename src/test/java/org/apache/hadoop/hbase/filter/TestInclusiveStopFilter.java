@@ -67,6 +67,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|SmallTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -83,11 +97,32 @@ name|TestCase
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
+import|;
+end_import
+
 begin_comment
 comment|/**  * Tests the inclusive stop row filter  */
 end_comment
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|SmallTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestInclusiveStopFilter

@@ -405,6 +405,13 @@ name|Parameterized
 operator|.
 name|class
 argument_list|)
+annotation|@
+name|Category
+argument_list|(
+name|MediumTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestHFileBlockIndex

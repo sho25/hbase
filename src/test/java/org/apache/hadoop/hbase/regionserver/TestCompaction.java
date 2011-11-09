@@ -373,6 +373,20 @@ begin_import
 import|import
 name|org
 operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|mockito
 operator|.
 name|invocation
@@ -398,6 +412,13 @@ comment|/**  * Test compactions  */
 end_comment
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|SmallTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestCompaction

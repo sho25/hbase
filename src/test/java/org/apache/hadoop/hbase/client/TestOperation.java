@@ -45,6 +45,20 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|SmallTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|junit
 operator|.
 name|Test
@@ -121,11 +135,32 @@ name|ObjectMapper
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
+import|;
+end_import
+
 begin_comment
-comment|/**  * Run tests that use the funtionality of the Operation superclass for   * Puts, Gets, Deletes, Scans, and MultiPuts.  */
+comment|/**  * Run tests that use the functionality of the Operation superclass for  * Puts, Gets, Deletes, Scans, and MultiPuts.  */
 end_comment
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|SmallTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestOperation

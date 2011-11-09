@@ -258,6 +258,13 @@ comment|/**  * test hfile features.  *<p>  * Copied from  *<a href="https://issu
 end_comment
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|SmallTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestHFile

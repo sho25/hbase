@@ -101,6 +101,10 @@ begin_comment
 comment|/**  * Tests SingleSlabCache.  *<p>  *  * Tests will ensure that evictions operate when they're supposed to and do what  * they should, and that cached blocks are accessible when expected to be.  */
 end_comment
 
+begin_comment
+comment|// Starts 100 threads, high variability of execution time => Medium
+end_comment
+
 begin_class
 annotation|@
 name|Category

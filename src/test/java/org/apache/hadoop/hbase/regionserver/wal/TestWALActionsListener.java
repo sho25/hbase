@@ -180,6 +180,20 @@ import|;
 end_import
 
 begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
+import|;
+end_import
+
+begin_import
 import|import static
 name|org
 operator|.
@@ -196,6 +210,13 @@ comment|/**  * Test that the actions are called while playing with an HLog  */
 end_comment
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|SmallTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestWALActionsListener

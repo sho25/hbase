@@ -69,6 +69,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|MediumTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|hfile
@@ -139,11 +153,36 @@ name|Ignore
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
+import|;
+end_import
+
 begin_comment
 comment|/**  * Basic test of SlabCache. Puts and gets.  *<p>  *  * Tests will ensure that blocks that are uncached are identical to the ones  * being cached, and that the cache never exceeds its capacity. Note that its  * fine if the cache evicts before it reaches max capacity - Guava Mapmaker may  * choose to evict at any time.  *  */
 end_comment
 
+begin_comment
+comment|// Starts 50 threads, high variability of execution time => Medium
+end_comment
+
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|MediumTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestSlabCache
