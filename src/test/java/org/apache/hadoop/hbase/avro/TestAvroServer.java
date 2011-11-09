@@ -127,6 +127,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|MediumTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|avro
 operator|.
 name|generated
@@ -307,11 +321,32 @@ name|Test
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
+import|;
+end_import
+
 begin_comment
 comment|/**  * Unit testing for AvroServer.HBaseImpl, a part of the  * org.apache.hadoop.hbase.avro package.  */
 end_comment
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|MediumTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestAvroServer

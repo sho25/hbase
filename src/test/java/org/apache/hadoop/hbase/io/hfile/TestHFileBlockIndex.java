@@ -237,21 +237,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseTestingUtility
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
+name|*
 import|;
 end_import
 
@@ -344,6 +330,20 @@ operator|.
 name|junit
 operator|.
 name|Test
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
 import|;
 end_import
 

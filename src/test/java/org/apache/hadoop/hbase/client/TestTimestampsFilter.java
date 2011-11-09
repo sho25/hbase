@@ -107,21 +107,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseTestingUtility
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValue
+name|*
 import|;
 end_import
 
@@ -223,11 +209,32 @@ name|Test
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
+import|;
+end_import
+
 begin_comment
 comment|/**  * Run tests related to {@link TimestampsFilter} using HBase client APIs.  * Sets up the HBase mini cluster once at start. Each creates a table  * named for the method and does its stuff against that.  */
 end_comment
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|MediumTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestTimestampsFilter

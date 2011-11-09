@@ -279,11 +279,32 @@ name|Lists
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
+import|;
+end_import
+
 begin_comment
 comment|/**  * Test case that uses multiple threads to read and write multifamily rows  * into a table, verifying that reads never see partially-complete writes.  *   * This can run as a junit test, or with a main() function which runs against  * a real cluster (eg for testing with failures, region movement, etc)  */
 end_comment
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|MediumTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestAcidGuarantees

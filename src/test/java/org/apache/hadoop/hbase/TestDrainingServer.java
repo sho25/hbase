@@ -273,11 +273,32 @@ name|Test
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
+import|;
+end_import
+
 begin_comment
 comment|/**  * Test the draining servers feature.  * @see<a href="https://issues.apache.org/jira/browse/HBASE-4298">HBASE-4298</a>  */
 end_comment
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|MediumTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestDrainingServer

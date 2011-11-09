@@ -49,6 +49,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|MediumTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|HeapSize
@@ -81,11 +95,32 @@ name|TestCase
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
+import|;
+end_import
+
 begin_comment
 comment|/**  * Tests the concurrent LruBlockCache.<p>  *  * Tests will ensure it grows and shrinks in size properly,  * evictions run when they're supposed to and do what they should,  * and that cached blocks are accessible when expected to be.  */
 end_comment
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|MediumTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestLruBlockCache

@@ -123,6 +123,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|MediumTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ipc
 operator|.
 name|HBaseRpcMetrics
@@ -234,6 +248,20 @@ import|;
 end_import
 
 begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
+import|;
+end_import
+
+begin_import
 import|import static
 name|org
 operator|.
@@ -246,6 +274,13 @@ import|;
 end_import
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|MediumTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestRpcMetrics

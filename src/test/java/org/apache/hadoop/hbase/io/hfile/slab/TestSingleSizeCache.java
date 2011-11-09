@@ -31,6 +31,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|MediumTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|hfile
@@ -69,11 +83,32 @@ name|Test
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|experimental
+operator|.
+name|categories
+operator|.
+name|Category
+import|;
+end_import
+
 begin_comment
 comment|/**  * Tests SingleSlabCache.  *<p>  *  * Tests will ensure that evictions operate when they're supposed to and do what  * they should, and that cached blocks are accessible when expected to be.  */
 end_comment
 
 begin_class
+annotation|@
+name|Category
+argument_list|(
+name|MediumTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 class|class
 name|TestSingleSizeCache
