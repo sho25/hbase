@@ -99,6 +99,20 @@ name|concurrent
 operator|.
 name|atomic
 operator|.
+name|AtomicInteger
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
 name|AtomicLong
 import|;
 end_import
@@ -452,11 +466,11 @@ decl_stmt|;
 comment|// For measuring latency of "typical" reads and writes
 specifier|static
 specifier|volatile
-name|AtomicLong
+name|AtomicInteger
 name|readOps
 init|=
 operator|new
-name|AtomicLong
+name|AtomicInteger
 argument_list|()
 decl_stmt|;
 specifier|static
@@ -470,11 +484,11 @@ argument_list|()
 decl_stmt|;
 specifier|static
 specifier|volatile
-name|AtomicLong
+name|AtomicInteger
 name|writeOps
 init|=
 operator|new
-name|AtomicLong
+name|AtomicInteger
 argument_list|()
 decl_stmt|;
 specifier|static
@@ -502,7 +516,7 @@ decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
-name|long
+name|int
 name|getReadOps
 parameter_list|()
 block|{
@@ -536,7 +550,7 @@ block|}
 specifier|public
 specifier|static
 specifier|final
-name|long
+name|int
 name|getWriteOps
 parameter_list|()
 block|{

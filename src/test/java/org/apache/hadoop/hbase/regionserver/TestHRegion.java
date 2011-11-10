@@ -2573,7 +2573,7 @@ argument_list|)
 expr_stmt|;
 name|HLog
 operator|.
-name|getSyncOps
+name|getSyncTime
 argument_list|()
 expr_stmt|;
 comment|// clear counter from prior tests
@@ -2583,8 +2583,10 @@ literal|0
 argument_list|,
 name|HLog
 operator|.
-name|getSyncOps
+name|getSyncTime
 argument_list|()
+operator|.
+name|count
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -2712,8 +2714,10 @@ literal|1
 argument_list|,
 name|HLog
 operator|.
-name|getSyncOps
+name|getSyncTime
 argument_list|()
+operator|.
+name|count
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -2809,8 +2813,10 @@ literal|1
 argument_list|,
 name|HLog
 operator|.
-name|getSyncOps
+name|getSyncTime
 argument_list|()
+operator|.
+name|count
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -2938,8 +2944,10 @@ while|while
 condition|(
 name|HLog
 operator|.
-name|getSyncOps
+name|getSyncTime
 argument_list|()
+operator|.
+name|count
 operator|==
 literal|0
 condition|)
@@ -3009,8 +3017,10 @@ literal|1
 argument_list|,
 name|HLog
 operator|.
-name|getSyncOps
+name|getSyncTime
 argument_list|()
+operator|.
+name|count
 argument_list|)
 expr_stmt|;
 name|codes
@@ -3238,8 +3248,10 @@ literal|1
 argument_list|,
 name|HLog
 operator|.
-name|getSyncOps
+name|getSyncTime
 argument_list|()
+operator|.
+name|count
 argument_list|)
 expr_stmt|;
 comment|// Make sure we still hold lock
