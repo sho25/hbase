@@ -1353,7 +1353,7 @@ name|Pattern
 operator|.
 name|compile
 argument_list|(
-literal|"coprocessor\\$([0-9]+)"
+literal|"^coprocessor\\$([0-9]+)$"
 argument_list|,
 name|Pattern
 operator|.
@@ -1370,7 +1370,7 @@ name|Pattern
 operator|.
 name|compile
 argument_list|(
-literal|"([^\\|]*)\\|([^\\|]+)\\|[\\s]*([\\d]*)[\\s]*(\\|.*)?"
+literal|"(^[^\\|]*)\\|([^\\|]+)\\|[\\s]*([\\d]*)[\\s]*(\\|.*)?$"
 argument_list|)
 decl_stmt|;
 specifier|public
