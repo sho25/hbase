@@ -402,18 +402,6 @@ name|HConstants
 operator|.
 name|CATALOG_FAMILY
 decl_stmt|;
-static|static
-block|{
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"AAAA static"
-argument_list|)
-expr_stmt|;
-block|}
 annotation|@
 name|Before
 specifier|public
@@ -423,15 +411,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"AAAA setup"
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|fs
@@ -494,15 +473,6 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"AAAA setup createRegion"
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|parent
@@ -528,15 +498,6 @@ argument_list|(
 literal|"hbase.testing.nocluster"
 argument_list|,
 literal|true
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"AAAA setup ends"
 argument_list|)
 expr_stmt|;
 block|}
@@ -661,15 +622,6 @@ name|IOException
 throws|,
 name|KeeperException
 block|{
-name|System
-operator|.
-name|out
-operator|.
-name|println
-argument_list|(
-literal|"AAAA testFailAfterPONR"
-argument_list|)
-expr_stmt|;
 specifier|final
 name|int
 name|rowcount
