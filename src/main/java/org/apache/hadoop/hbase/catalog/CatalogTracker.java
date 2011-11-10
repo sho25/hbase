@@ -980,7 +980,7 @@ return|return
 name|sn
 return|;
 block|}
-comment|/**    * Gets a connection to the server hosting root, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    * @param timeout How long to wait on root location    * @see #waitForRoot(long) for additional information    * @return connection to server hosting root    * @throws InterruptedException    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    * @deprecated Use {@link #getRootServerConnection(long)}    */
+comment|/**    * Gets a connection to the server hosting root, as reported by ZooKeeper,    * waiting up to the specified timeout for availability.    * @param timeout How long to wait on root location    * @see #waitForRoot(long) for additional information    * @return connection to server hosting root    * @throws InterruptedException    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    * @deprecated Use #getRootServerConnection(long)    */
 specifier|public
 name|HRegionInterface
 name|waitForRootServerConnection
@@ -1142,18 +1142,9 @@ name|newLocation
 operator|==
 literal|null
 condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|".META. server unavailable."
-argument_list|)
-expr_stmt|;
 return|return
 literal|null
 return|;
-block|}
 name|HRegionInterface
 name|newConnection
 init|=
@@ -1185,11 +1176,19 @@ return|;
 block|}
 else|else
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
-literal|"new .META. server: "
+literal|"New .META. server: "
 operator|+
 name|newLocation
 operator|+
@@ -1202,6 +1201,7 @@ operator|.
 name|metaLocation
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 literal|null
@@ -1243,9 +1243,16 @@ name|NotAllMetaRegionsOnlineException
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Retrying"
 argument_list|,
@@ -1303,7 +1310,7 @@ name|Math
 operator|.
 name|min
 argument_list|(
-literal|500
+literal|50
 argument_list|,
 name|timeout
 argument_list|)
@@ -1482,8 +1489,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Caller must be synchronized on this.metaAvailable    * @param metaLocation    */
-specifier|private
+comment|/**    * @param metaLocation    */
 name|void
 name|setMetaLocation
 parameter_list|(
@@ -1496,23 +1502,32 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"set new cached META location: "
+literal|"Set new cached META location: "
 operator|+
 name|metaLocation
 argument_list|)
 expr_stmt|;
+synchronized|synchronized
+init|(
+name|this
+operator|.
+name|metaAvailable
+init|)
+block|{
+name|this
+operator|.
+name|metaLocation
+operator|=
+name|metaLocation
+expr_stmt|;
+name|this
+operator|.
 name|metaAvailable
 operator|.
 name|set
 argument_list|(
 literal|true
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|metaLocation
-operator|=
-name|metaLocation
 expr_stmt|;
 comment|// no synchronization because these are private and already under lock
 name|this
@@ -1522,6 +1537,7 @@ operator|.
 name|notifyAll
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 comment|/**    * @param sn ServerName to get a connection against.    * @return The HRegionInterface we got when we connected to<code>sn</code>    * May have come from cache, may not be good, may have been setup by this    * invocation, or may be null.    * @throws IOException    */
 specifier|private
