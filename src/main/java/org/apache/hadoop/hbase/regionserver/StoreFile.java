@@ -725,6 +725,21 @@ argument_list|(
 literal|"MAJOR_COMPACTION_KEY"
 argument_list|)
 decl_stmt|;
+comment|/** Major compaction flag in FileInfo */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|EXCLUDE_FROM_MINOR_COMPACTION_KEY
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"EXCLUDE_FROM_MINOR_COMPACTION"
+argument_list|)
+decl_stmt|;
 comment|/** Bloom filter Type in FileInfo */
 specifier|static
 specifier|final
@@ -859,6 +874,14 @@ name|AtomicBoolean
 name|majorCompaction
 init|=
 literal|null
+decl_stmt|;
+comment|// If true, this file should not be included in minor compactions.
+comment|// It's set whenever you get a Reader.
+specifier|private
+name|boolean
+name|excludeFromMinorCompaction
+init|=
+literal|false
 decl_stmt|;
 comment|/** Meta key set when store file is a result of a bulk load */
 specifier|public
@@ -1421,6 +1444,17 @@ name|majorCompaction
 operator|.
 name|get
 argument_list|()
+return|;
+block|}
+comment|/**    * @return True if this file should not be part of a minor compaction.    */
+name|boolean
+name|excludeFromMinorCompaction
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|excludeFromMinorCompaction
 return|;
 block|}
 comment|/**    * @return This files maximum edit sequence id.    */
@@ -2078,6 +2112,32 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+name|b
+operator|=
+name|metadataMap
+operator|.
+name|get
+argument_list|(
+name|EXCLUDE_FROM_MINOR_COMPACTION_KEY
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|excludeFromMinorCompaction
+operator|=
+operator|(
+name|b
+operator|!=
+literal|null
+operator|&&
+name|Bytes
+operator|.
+name|toBoolean
+argument_list|(
+name|b
+argument_list|)
+operator|)
+expr_stmt|;
 name|BloomType
 name|hfileBloomType
 init|=
