@@ -837,6 +837,37 @@ name|IOException
 block|{
 comment|// Passing the CatalogTracker's connection configuration ensures this
 comment|// HTable instance uses the CatalogTracker's connection.
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|HConnection
+name|c
+init|=
+name|catalogTracker
+operator|.
+name|getConnection
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|c
+operator|==
+literal|null
+condition|)
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|(
+literal|"No connection"
+argument_list|)
+throw|;
 return|return
 operator|new
 name|HTable
@@ -970,7 +1001,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Reads the location of META from ROOT.    * @param metaServer connection to server hosting ROOT    * @return location of META in ROOT where location, or null if not available    * @throws IOException    * @deprecated Does not retry; use {@link #readRegionLocation(CatalogTracker, byte[])}    */
+comment|/**    * Reads the location of META from ROOT.    * @param metaServer connection to server hosting ROOT    * @return location of META in ROOT where location, or null if not available    * @throws IOException    * @deprecated Does not retry; use #getMetaRegionLocation(CatalogTracker)    */
 specifier|public
 specifier|static
 name|ServerName
@@ -997,8 +1028,32 @@ name|META_REGION_NAME
 argument_list|)
 return|;
 block|}
+comment|/**    * Gets the location of<code>.META.</code> region by reading content of    *<code>-ROOT-</code>.    * @param ct    * @return location of<code>.META.</code> region as a {@link ServerName} or    * null if not found    * @throws IOException    */
+specifier|static
+name|ServerName
+name|getMetaRegionLocation
+parameter_list|(
+specifier|final
+name|CatalogTracker
+name|ct
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|MetaReader
+operator|.
+name|readRegionLocation
+argument_list|(
+name|ct
+argument_list|,
+name|CatalogTracker
+operator|.
+name|META_REGION_NAME
+argument_list|)
+return|;
+block|}
 comment|/**    * Reads the location of the specified region    * @param catalogTracker    * @param regionName region whose location we are after    * @return location of region as a {@link ServerName} or null if not found    * @throws IOException    */
-specifier|public
 specifier|static
 name|ServerName
 name|readRegionLocation

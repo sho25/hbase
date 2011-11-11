@@ -918,6 +918,35 @@ operator|.
 name|metaLocation
 return|;
 block|}
+comment|/**    * Method used by master on startup trying to figure state of cluster.    * Returns the current meta location unless its null.  In this latter case,    * it has not yet been set so go check whats up in<code>-ROOT-</code> and    * return that.    * @return{@link ServerName} for server hosting<code>.META.</code> or if null,    * we'll read the location that is up in<code>-ROOT-</code> table (which    * could be null or just plain stale).    * @throws IOException    */
+specifier|public
+name|ServerName
+name|getMetaLocationOrReadLocationFromRoot
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|ServerName
+name|sn
+init|=
+name|getMetaLocation
+argument_list|()
+decl_stmt|;
+return|return
+name|sn
+operator|!=
+literal|null
+condition|?
+name|sn
+else|:
+name|MetaReader
+operator|.
+name|getMetaRegionLocation
+argument_list|(
+name|this
+argument_list|)
+return|;
+block|}
 comment|/**    * Waits indefinitely for availability of<code>-ROOT-</code>.  Used during    * cluster startup.    * @throws InterruptedException if interrupted while waiting    */
 specifier|public
 name|void
@@ -1026,7 +1055,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets a connection to the server hosting root, as reported by ZooKeeper,    * waiting for the default timeout specified on instantiation.    * @see #waitForRoot(long) for additional information    * @return connection to server hosting root    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    * @deprecated Use {@link #getRootServerConnection(long)}    */
+comment|/**    * Gets a connection to the server hosting root, as reported by ZooKeeper,    * waiting for the default timeout specified on instantiation.    * @see #waitForRoot(long) for additional information    * @return connection to server hosting root    * @throws NotAllMetaRegionsOnlineException if timed out waiting    * @throws IOException    * @deprecated Use #getRootServerConnection(long)    */
 specifier|public
 name|HRegionInterface
 name|waitForRootServerConnectionDefault
@@ -1129,11 +1158,9 @@ name|newLocation
 init|=
 name|MetaReader
 operator|.
-name|readRegionLocation
+name|getMetaRegionLocation
 argument_list|(
 name|this
-argument_list|,
-name|META_REGION_NAME
 argument_list|)
 decl_stmt|;
 if|if

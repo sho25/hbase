@@ -2567,7 +2567,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Registering server found up in zk: "
+literal|"Registering server found up in zk but who has not yet "
+operator|+
+literal|"reported in: "
 operator|+
 name|sn
 argument_list|)
@@ -2830,6 +2832,11 @@ operator|.
 name|ROOT_REGIONINFO
 argument_list|)
 decl_stmt|;
+name|ServerName
+name|expiredServer
+init|=
+literal|null
+decl_stmt|;
 if|if
 condition|(
 operator|!
@@ -2841,6 +2848,34 @@ name|timeout
 argument_list|)
 condition|)
 block|{
+name|ServerName
+name|currentRootServer
+init|=
+name|this
+operator|.
+name|catalogTracker
+operator|.
+name|getRootLocation
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|expireIfOnline
+argument_list|(
+name|currentRootServer
+argument_list|)
+condition|)
+block|{
+comment|// We are expiring this server. The processing of expiration will assign
+comment|// root so don't do it here.
+name|expiredServer
+operator|=
+name|currentRootServer
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// Root was not on an online server when we failed verification
 name|this
 operator|.
 name|assignmentManager
@@ -2848,6 +2883,7 @@ operator|.
 name|assignRoot
 argument_list|()
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|catalogTracker
@@ -2873,7 +2909,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-comment|// Region already assigned.  We didnt' assign it.  Add to in-memory state.
+comment|// Region already assigned.  We didn't assign it.  Add to in-memory state.
 name|this
 operator|.
 name|assignmentManager
@@ -2947,6 +2983,40 @@ name|timeout
 argument_list|)
 condition|)
 block|{
+name|ServerName
+name|currentMetaServer
+init|=
+name|this
+operator|.
+name|catalogTracker
+operator|.
+name|getMetaLocationOrReadLocationFromRoot
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|currentMetaServer
+operator|!=
+literal|null
+operator|&&
+name|currentMetaServer
+operator|.
+name|equals
+argument_list|(
+name|expiredServer
+argument_list|)
+condition|)
+block|{
+comment|// We are expiring the server that is carrying meta already.
+comment|// The expiration processing will take care of reassigning meta.
+name|expireIfOnline
+argument_list|(
+name|currentMetaServer
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|this
 operator|.
 name|assignmentManager
@@ -2954,6 +3024,7 @@ operator|.
 name|assignMeta
 argument_list|()
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|catalogTracker
@@ -3029,6 +3100,68 @@ argument_list|)
 expr_stmt|;
 return|return
 name|assigned
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Expire a server if we find it is one of the online servers set.    * @param sn ServerName to check.    * @return True if server was online and so we expired it as unreachable.    */
+end_comment
+
+begin_function
+specifier|private
+name|boolean
+name|expireIfOnline
+parameter_list|(
+specifier|final
+name|ServerName
+name|sn
+parameter_list|)
+block|{
+if|if
+condition|(
+name|sn
+operator|==
+literal|null
+condition|)
+return|return
+literal|false
+return|;
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|serverManager
+operator|.
+name|isServerOnline
+argument_list|(
+name|sn
+argument_list|)
+condition|)
+return|return
+literal|false
+return|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Forcing expiration of "
+operator|+
+name|sn
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|serverManager
+operator|.
+name|expireServer
+argument_list|(
+name|sn
+argument_list|)
+expr_stmt|;
+return|return
+literal|true
 return|;
 block|}
 end_function
