@@ -1250,15 +1250,22 @@ operator|.
 name|isTraceEnabled
 argument_list|()
 condition|)
+block|{
 name|LOG
 operator|.
-name|trace
+name|info
 argument_list|(
-literal|"Retrying"
-argument_list|,
+literal|".META. still not available, sleeping and retrying."
+operator|+
+literal|" Reason: "
+operator|+
 name|e
+operator|.
+name|getMessage
+argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
