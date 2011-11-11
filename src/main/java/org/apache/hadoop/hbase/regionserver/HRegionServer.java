@@ -6173,7 +6173,7 @@ block|}
 end_function
 
 begin_comment
-comment|/*    * Check if an OOME and if so, call abort.    *    * @param e    *    * @return True if we OOME'd and are aborting.    */
+comment|/*    * Check if an OOME and, if so, abort immediately to avoid creating more objects.    *    * @param e    *    * @return True if we OOME'd and are aborting.    */
 end_comment
 
 begin_function
@@ -6191,6 +6191,8 @@ name|stop
 init|=
 literal|false
 decl_stmt|;
+try|try
+block|{
 if|if
 condition|(
 name|e
@@ -6233,17 +6235,39 @@ argument_list|)
 operator|)
 condition|)
 block|{
-name|abort
-argument_list|(
-literal|"OutOfMemoryError, aborting"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
 name|stop
 operator|=
 literal|true
 expr_stmt|;
+name|LOG
+operator|.
+name|fatal
+argument_list|(
+literal|"Run out of memory; HRegionServer will abort itself immediately"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+finally|finally
+block|{
+if|if
+condition|(
+name|stop
+condition|)
+block|{
+name|Runtime
+operator|.
+name|getRuntime
+argument_list|()
+operator|.
+name|halt
+argument_list|(
+literal|1
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 return|return
 name|stop
