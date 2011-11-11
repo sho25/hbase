@@ -99,6 +99,17 @@ specifier|public
 name|ReturnCode
 name|filterKeyValue
 parameter_list|(
+specifier|final
+name|KeyValue
+name|v
+parameter_list|)
+function_decl|;
+comment|/**    * Give the filter a chance to transform the passed KeyValue.    * If the KeyValue is changed a new KeyValue object must be returned.    * @see org.apache.hadoop.hbase.KeyValue#shallowCopy()    *    * The transformed KeyValue is what is eventually returned to the    * client. Most filters will return the passed KeyValue unchanged.    * @see org.apache.hadoop.hbase.filter.KeyOnlyFilter#transform(KeyValue)    * for an example of a transformation.    *    * @param v the KeyValue in question    * @return the changed KeyValue    */
+specifier|public
+name|KeyValue
+name|transform
+parameter_list|(
+specifier|final
 name|KeyValue
 name|v
 parameter_list|)
@@ -152,6 +163,7 @@ specifier|public
 name|KeyValue
 name|getNextKeyHint
 parameter_list|(
+specifier|final
 name|KeyValue
 name|currentKV
 parameter_list|)

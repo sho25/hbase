@@ -122,6 +122,21 @@ operator|.
 name|INCLUDE
 return|;
 block|}
+comment|/**    * By default no transformation takes place    *    * @inheritDoc    */
+annotation|@
+name|Override
+specifier|public
+name|KeyValue
+name|transform
+parameter_list|(
+name|KeyValue
+name|v
+parameter_list|)
+block|{
+return|return
+name|v
+return|;
+block|}
 comment|/**    * Filters that never filter by modifying the returned List of KeyValues can    * inherit this implementation that does nothing.    *    * @inheritDoc    */
 annotation|@
 name|Override

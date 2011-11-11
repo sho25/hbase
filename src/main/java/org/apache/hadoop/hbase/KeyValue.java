@@ -5182,10 +5182,10 @@ operator|==
 literal|0
 return|;
 block|}
-comment|/**    * Converts this KeyValue to only contain the key portion (the value is    * changed to be null).  This method does a full copy of the backing byte    * array and does not modify the original byte array of this KeyValue.    *<p>    * This method is used by<code>KeyOnlyFilter</code> and is an advanced feature of    * KeyValue, proceed with caution.    * @param lenAsVal replace value with the actual value length (false=empty)    */
+comment|/**    * Creates a new KeyValue that only contains the key portion (the value is    * set to be null).    * @param lenAsVal replace value with the actual value length (false=empty)    */
 specifier|public
-name|void
-name|convertToKeyOnly
+name|KeyValue
+name|createKeyOnly
 parameter_list|(
 name|boolean
 name|lenAsVal
@@ -5292,26 +5292,13 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|this
-operator|.
-name|bytes
-operator|=
+return|return
+operator|new
+name|KeyValue
+argument_list|(
 name|newBuffer
-expr_stmt|;
-name|this
-operator|.
-name|offset
-operator|=
-literal|0
-expr_stmt|;
-name|this
-operator|.
-name|length
-operator|=
-name|newBuffer
-operator|.
-name|length
-expr_stmt|;
+argument_list|)
+return|;
 block|}
 comment|/**    * Splits a column in family:qualifier form into separate byte arrays.    *<p>    * Not recommend to be used as this is old-style API.    * @param c  The column.    * @return The parsed column.    */
 specifier|public

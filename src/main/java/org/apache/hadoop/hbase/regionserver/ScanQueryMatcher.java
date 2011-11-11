@@ -1334,6 +1334,17 @@ operator|.
 name|startKey
 return|;
 block|}
+comment|/**    *    * @return the Filter    */
+name|Filter
+name|getFilter
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|filter
+return|;
+block|}
 specifier|public
 name|KeyValue
 name|getNextKeyHint

@@ -3074,7 +3074,7 @@ expr_stmt|;
 block|}
 specifier|public
 name|void
-name|testConvertToKeyOnly
+name|testCreateKeyOnly
 parameter_list|()
 throws|throws
 name|Exception
@@ -3160,26 +3160,11 @@ name|kv1ko
 init|=
 name|kv1
 operator|.
-name|clone
-argument_list|()
-decl_stmt|;
-name|assertTrue
-argument_list|(
-name|kv1
-operator|.
-name|equals
-argument_list|(
-name|kv1ko
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|kv1ko
-operator|.
-name|convertToKeyOnly
+name|createKeyOnly
 argument_list|(
 name|useLen
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 comment|// keys are still the same
 name|assertTrue
 argument_list|(
