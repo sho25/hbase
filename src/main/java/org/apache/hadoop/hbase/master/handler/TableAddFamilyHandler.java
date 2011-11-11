@@ -125,22 +125,6 @@ name|MasterServices
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
-import|;
-end_import
-
 begin_comment
 comment|/**  * Handles adding a new family to an existing table.  */
 end_comment
@@ -190,6 +174,40 @@ argument_list|,
 name|masterServices
 argument_list|)
 expr_stmt|;
+name|HTableDescriptor
+name|htd
+init|=
+name|getTableDescriptor
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|htd
+operator|.
+name|hasFamily
+argument_list|(
+name|familyDesc
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|InvalidFamilyOperationException
+argument_list|(
+literal|"Family '"
+operator|+
+name|familyDesc
+operator|.
+name|getNameAsString
+argument_list|()
+operator|+
+literal|"' already exists so cannot be added"
+argument_list|)
+throw|;
+block|}
 name|this
 operator|.
 name|familyDesc
@@ -212,91 +230,10 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Update table descriptor in HDFS
 name|HTableDescriptor
 name|htd
 init|=
-name|this
-operator|.
-name|masterServices
-operator|.
-name|getTableDescriptors
-argument_list|()
-operator|.
-name|get
-argument_list|(
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|tableName
-argument_list|)
-argument_list|)
-decl_stmt|;
-name|byte
-index|[]
-name|familyName
-init|=
-name|familyDesc
-operator|.
-name|getName
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|htd
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Add Family operation could not be completed as "
-operator|+
-literal|"HTableDescritor is missing for table = "
-operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|tableName
-argument_list|)
-argument_list|)
-throw|;
-block|}
-if|if
-condition|(
-name|htd
-operator|.
-name|hasFamily
-argument_list|(
-name|familyName
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|InvalidFamilyOperationException
-argument_list|(
-literal|"Family '"
-operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
-name|familyName
-argument_list|)
-operator|+
-literal|"' already exists so "
-operator|+
-literal|"cannot be added"
-argument_list|)
-throw|;
-block|}
-comment|// Update table descriptor in HDFS
-name|htd
-operator|=
 name|this
 operator|.
 name|masterServices
@@ -310,7 +247,7 @@ name|tableName
 argument_list|,
 name|familyDesc
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 comment|// Update in-memory descriptor cache
 name|this
 operator|.

@@ -239,6 +239,10 @@ argument_list|,
 name|masterServices
 argument_list|)
 expr_stmt|;
+comment|// The next call fails if no such table.
+name|getTableDescriptor
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Override

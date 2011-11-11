@@ -883,7 +883,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * @return A new CatalogTracker instance; call {@link #cleanupCatalogTracker(CatalogTracker)}    * to cleanup the returned catalog tracker.    * @throws ZooKeeperConnectionException    * @throws IOException    * @see #cleanupCatalogTracker(CatalogTracker);    */
+comment|/**    * @return A new CatalogTracker instance; call {@link #cleanupCatalogTracker(CatalogTracker)}    * to cleanup the returned catalog tracker.    * @throws ZooKeeperConnectionException    * @throws IOException    * @see #cleanupCatalogTracker(CatalogTracker)    */
 specifier|private
 specifier|synchronized
 name|CatalogTracker
