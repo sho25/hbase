@@ -4362,6 +4362,15 @@ name|regionInfo
 operator|.
 name|getRegionNameAsString
 argument_list|()
+operator|+
+literal|" containing row "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|row
+argument_list|)
 argument_list|)
 throw|;
 block|}
