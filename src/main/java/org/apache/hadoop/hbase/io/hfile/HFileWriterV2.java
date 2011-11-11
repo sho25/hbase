@@ -1225,6 +1225,13 @@ name|getUncompressedSizeWithoutHeader
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|totalUncompressedBytes
+operator|+=
+name|fsBlockWriter
+operator|.
+name|getUncompressedSizeWithHeader
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|cacheThisBlock
@@ -1786,6 +1793,13 @@ argument_list|(
 name|outputStream
 argument_list|)
 expr_stmt|;
+name|totalUncompressedBytes
+operator|+=
+name|fsBlockWriter
+operator|.
+name|getUncompressedSizeWithHeader
+argument_list|()
+expr_stmt|;
 comment|// Add the new meta block to the meta index.
 name|metaBlockIndexWriter
 operator|.
@@ -1858,6 +1872,13 @@ argument_list|(
 name|outputStream
 argument_list|)
 expr_stmt|;
+name|totalUncompressedBytes
+operator|+=
+name|fsBlockWriter
+operator|.
+name|getUncompressedSizeWithHeader
+argument_list|()
+expr_stmt|;
 comment|// File info
 name|writeFileInfo
 argument_list|(
@@ -1882,6 +1903,13 @@ argument_list|(
 name|outputStream
 argument_list|)
 expr_stmt|;
+name|totalUncompressedBytes
+operator|+=
+name|fsBlockWriter
+operator|.
+name|getUncompressedSizeWithHeader
+argument_list|()
+expr_stmt|;
 comment|// Load-on-open data supplied by higher levels, e.g. Bloom filters.
 for|for
 control|(
@@ -1890,6 +1918,7 @@ name|w
 range|:
 name|additionalLoadOnOpenData
 control|)
+block|{
 name|fsBlockWriter
 operator|.
 name|writeBlock
@@ -1899,6 +1928,14 @@ argument_list|,
 name|outputStream
 argument_list|)
 expr_stmt|;
+name|totalUncompressedBytes
+operator|+=
+name|fsBlockWriter
+operator|.
+name|getUncompressedSizeWithHeader
+argument_list|()
+expr_stmt|;
+block|}
 comment|// Now finish off the trailer.
 name|trailer
 operator|.

@@ -1078,6 +1078,11 @@ operator|.
 name|setTotalUncompressedBytes
 argument_list|(
 name|totalUncompressedBytes
+operator|+
+name|trailer
+operator|.
+name|getTrailerSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|trailer
