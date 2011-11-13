@@ -49,16 +49,6 @@ end_import
 
 begin_import
 import|import
-name|junit
-operator|.
-name|framework
-operator|.
-name|TestSuite
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -988,6 +978,13 @@ expr_stmt|;
 block|}
 block|}
 block|}
+annotation|@
+name|Category
+argument_list|(
+name|MediumTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 specifier|static
 class|class
@@ -1408,6 +1405,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Category
+argument_list|(
+name|MediumTests
+operator|.
+name|class
+argument_list|)
 specifier|public
 specifier|static
 class|class
