@@ -692,7 +692,7 @@ specifier|final
 name|byte
 name|CURRENT_VERSION
 init|=
-literal|4
+literal|3
 decl_stmt|;
 comment|/**    * How many calls/handler are allowed in the queue.    */
 specifier|private
@@ -5467,14 +5467,18 @@ operator|>=
 literal|3
 condition|)
 block|{
+comment|// We used to return an id of -1 which caused server to close the
+comment|// connection without telling the client what the problem was.  Now
+comment|// we return 0 which will keep the socket up -- bad clients, unless
+comment|// they switch to suit the running server -- will fail later doing
+comment|// getProtocolVersion.
 name|Call
 name|fakeCall
 init|=
 operator|new
 name|Call
 argument_list|(
-operator|-
-literal|1
+literal|0
 argument_list|,
 literal|null
 argument_list|,
