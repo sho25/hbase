@@ -4876,6 +4876,11 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+name|long
+name|previousLogTime
+init|=
+literal|0
+decl_stmt|;
 while|while
 condition|(
 operator|!
@@ -4897,6 +4902,28 @@ operator|!=
 name|lastCount
 condition|)
 block|{
+comment|// Log every second at most
+if|if
+condition|(
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|>
+operator|(
+name|previousLogTime
+operator|+
+literal|1000
+operator|)
+condition|)
+block|{
+name|previousLogTime
+operator|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+expr_stmt|;
 name|lastCount
 operator|=
 name|count
@@ -4935,6 +4962,7 @@ operator|.
 name|onlineRegions
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|// Ensure all user regions have been sent a close. Use this to
@@ -5003,7 +5031,7 @@ name|Threads
 operator|.
 name|sleep
 argument_list|(
-literal|1000
+literal|200
 argument_list|)
 expr_stmt|;
 block|}
