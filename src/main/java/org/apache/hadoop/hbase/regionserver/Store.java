@@ -1555,12 +1555,6 @@ block|}
 name|StoreFile
 name|curfile
 init|=
-literal|null
-decl_stmt|;
-try|try
-block|{
-name|curfile
-operator|=
 operator|new
 name|StoreFile
 argument_list|(
@@ -1583,38 +1577,12 @@ operator|.
 name|getBloomFilterType
 argument_list|()
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|curfile
 operator|.
 name|createReader
 argument_list|()
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|ioe
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Failed open of "
-operator|+
-name|p
-operator|+
-literal|"; presumption is that file was "
-operator|+
-literal|"corrupted at flush and lost edits picked up by commit log replay. "
-operator|+
-literal|"Verify!"
-argument_list|,
-name|ioe
-argument_list|)
-expr_stmt|;
-continue|continue;
-block|}
 name|long
 name|length
 init|=
