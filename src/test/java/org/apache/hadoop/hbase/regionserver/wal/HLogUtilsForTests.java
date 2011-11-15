@@ -48,13 +48,13 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * An Utility testcase that returns the number of log files that  * were rolled to be accessed from outside packages.  *   *  */
+comment|/**  * An Utility testcase that returns the number of log files that  * were rolled to be accessed from outside packages.  *   * This class makes available methods that are package protected.  *  This is interesting for test only.  */
 end_comment
 
 begin_class
 specifier|public
 class|class
-name|TestHLogUtils
+name|HLogUtilsForTests
 block|{
 comment|/**    *     * @param log    * @return    */
 specifier|public
