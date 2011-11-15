@@ -220,6 +220,37 @@ block|,
 name|INDEX
 block|,
 name|BLOOM
+block|,
+name|ALL_CATEGORIES
+block|,
+name|UNKNOWN
+block|;
+comment|/**      * Throws an exception if the block category passed is the special category      * meaning "all categories".      */
+specifier|public
+name|void
+name|expectSpecific
+parameter_list|()
+block|{
+if|if
+condition|(
+name|this
+operator|==
+name|ALL_CATEGORIES
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Expected a specific block "
+operator|+
+literal|"category but got "
+operator|+
+name|this
+argument_list|)
+throw|;
+block|}
+block|}
 block|}
 specifier|public
 specifier|static
@@ -326,15 +357,12 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|String
-name|getMetricName
+name|BlockCategory
+name|getCategory
 parameter_list|()
 block|{
 return|return
 name|metricCat
-operator|.
-name|toString
-argument_list|()
 return|;
 block|}
 specifier|public

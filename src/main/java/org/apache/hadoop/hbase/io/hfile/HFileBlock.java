@@ -121,6 +121,20 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
+name|AtomicLong
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -177,7 +191,9 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|HFileBlockInfo
+name|Compression
+operator|.
+name|Algorithm
 import|;
 end_import
 
@@ -191,13 +207,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|regionserver
 operator|.
-name|hfile
+name|metrics
 operator|.
-name|Compression
-operator|.
-name|Algorithm
+name|SchemaConfigured
 import|;
 end_import
 
@@ -389,10 +403,10 @@ begin_class
 specifier|public
 class|class
 name|HFileBlock
+extends|extends
+name|SchemaConfigured
 implements|implements
 name|Cacheable
-implements|,
-name|HFileBlockInfo
 block|{
 comment|/** The size of a version 2 {@link HFile} block header */
 specifier|public
@@ -705,38 +719,6 @@ operator|.
 name|offset
 operator|=
 name|offset
-expr_stmt|;
-block|}
-specifier|private
-name|String
-name|cfStatsPrefix
-init|=
-literal|"cf.unknown"
-decl_stmt|;
-specifier|public
-name|String
-name|getColumnFamilyName
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|cfStatsPrefix
-return|;
-block|}
-specifier|public
-name|void
-name|setColumnFamilyName
-parameter_list|(
-name|String
-name|cfName
-parameter_list|)
-block|{
-name|this
-operator|.
-name|cfStatsPrefix
-operator|=
-name|cfName
 expr_stmt|;
 block|}
 comment|/**    * Creates a block from an existing buffer starting with a header. Rewinds    * and takes ownership of the buffer. By definition of rewind, ignores the    * buffer position, but if you slice the buffer beforehand, it will rewind    * to that point.    */
@@ -1593,13 +1575,40 @@ name|long
 name|heapSize
 parameter_list|()
 block|{
-comment|// This object, block type and byte buffer reference, on-disk and
-comment|// uncompressed size, next block's on-disk size, offset and previous
-comment|// offset, byte buffer object, and its byte array. Might also need to add
-comment|// some fields inside the byte buffer.
-comment|// We only add one BYTE_BUFFER_HEAP_SIZE because at any given moment, one of
-comment|// the bytebuffers will be null. But we do account for both references.
-comment|// If we are on heap, then we add the capacity of buf.
+name|long
+name|size
+init|=
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+comment|// This object
+name|ClassSize
+operator|.
+name|OBJECT
+operator|+
+comment|// Block type and byte buffer references
+literal|2
+operator|*
+name|ClassSize
+operator|.
+name|REFERENCE
+operator|+
+comment|// On-disk size, uncompressed size, and next block's on-disk size
+literal|3
+operator|*
+name|Bytes
+operator|.
+name|SIZEOF_INT
+operator|+
+comment|// This and previous block offset
+literal|2
+operator|*
+name|Bytes
+operator|.
+name|SIZEOF_LONG
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|buf
@@ -1607,36 +1616,8 @@ operator|!=
 literal|null
 condition|)
 block|{
-return|return
-name|ClassSize
-operator|.
-name|align
-argument_list|(
-name|ClassSize
-operator|.
-name|OBJECT
-operator|+
-literal|3
-operator|*
-name|ClassSize
-operator|.
-name|REFERENCE
-operator|+
-literal|3
-operator|*
-name|Bytes
-operator|.
-name|SIZEOF_INT
-operator|+
-literal|2
-operator|*
-name|Bytes
-operator|.
-name|SIZEOF_LONG
-operator|+
-name|BYTE_BUFFER_HEAP_SIZE
-argument_list|)
-operator|+
+name|size
+operator|+=
 name|ClassSize
 operator|.
 name|align
@@ -1645,42 +1626,26 @@ name|buf
 operator|.
 name|capacity
 argument_list|()
-argument_list|)
-return|;
-block|}
-else|else
-block|{
-return|return
-name|ClassSize
-operator|.
-name|align
-argument_list|(
-name|ClassSize
-operator|.
-name|OBJECT
-operator|+
-literal|3
-operator|*
-name|ClassSize
-operator|.
-name|REFERENCE
-operator|+
-literal|3
-operator|*
-name|Bytes
-operator|.
-name|SIZEOF_INT
-operator|+
-literal|2
-operator|*
-name|Bytes
-operator|.
-name|SIZEOF_LONG
 operator|+
 name|BYTE_BUFFER_HEAP_SIZE
 argument_list|)
-return|;
+expr_stmt|;
 block|}
+comment|// SchemaConfigured (but don't count object overhead twice).
+name|size
+operator|+=
+name|super
+operator|.
+name|heapSize
+argument_list|()
+operator|-
+name|ClassSize
+operator|.
+name|OBJECT
+expr_stmt|;
+return|return
+name|size
+return|;
 block|}
 comment|/**    * Read from an input stream. Analogous to    * {@link IOUtils#readFully(InputStream, byte[], int, int)}, but specifies a    * number of "extra" bytes that would be desirable but not absolutely    * necessary to read.    *    * @param in the input stream to read from    * @param buf the buffer to read into    * @param bufOffset the destination offset in the buffer    * @param necessaryLen the number of bytes that are absolutely necessary to    *          read    * @param extraLen the number of extra bytes that would be nice to read    * @return true if succeeded reading the extra bytes    * @throws IOException if failed to read the necessary bytes    */
 specifier|public
