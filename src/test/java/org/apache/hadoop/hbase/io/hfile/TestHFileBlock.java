@@ -3222,15 +3222,6 @@ operator|-
 literal|1
 argument_list|)
 decl_stmt|;
-name|assertEquals
-argument_list|(
-literal|80
-argument_list|,
-name|HFileBlock
-operator|.
-name|BYTE_BUFFER_HEAP_SIZE
-argument_list|)
-expr_stmt|;
 name|long
 name|byteBufferExpectedSize
 init|=
