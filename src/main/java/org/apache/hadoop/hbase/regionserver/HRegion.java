@@ -18490,12 +18490,6 @@ decl_stmt|;
 name|Object
 name|value
 decl_stmt|;
-name|Class
-argument_list|<
-name|?
-argument_list|>
-name|returnType
-decl_stmt|;
 try|try
 block|{
 name|Method
@@ -18522,13 +18516,6 @@ name|setAccessible
 argument_list|(
 literal|true
 argument_list|)
-expr_stmt|;
-name|returnType
-operator|=
-name|method
-operator|.
-name|getReturnType
-argument_list|()
 expr_stmt|;
 name|value
 operator|=
@@ -18657,8 +18644,6 @@ name|ExecResult
 argument_list|(
 name|getRegionName
 argument_list|()
-argument_list|,
-name|returnType
 argument_list|,
 name|value
 argument_list|)
