@@ -341,7 +341,7 @@ name|regionserver
 operator|.
 name|wal
 operator|.
-name|TestHLogUtils
+name|HLogUtilsForTests
 import|;
 end_import
 
@@ -8792,7 +8792,7 @@ name|info
 argument_list|(
 literal|"after writing there are "
 operator|+
-name|TestHLogUtils
+name|HLogUtilsForTests
 operator|.
 name|getNumLogFiles
 argument_list|(
@@ -8854,7 +8854,7 @@ expr_stmt|;
 name|int
 name|count
 init|=
-name|TestHLogUtils
+name|HLogUtilsForTests
 operator|.
 name|getNumLogFiles
 argument_list|(
