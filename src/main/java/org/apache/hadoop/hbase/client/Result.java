@@ -2791,7 +2791,7 @@ index|[
 name|i
 index|]
 argument_list|)
-operator|&&
+operator|||
 operator|!
 name|Bytes
 operator|.
