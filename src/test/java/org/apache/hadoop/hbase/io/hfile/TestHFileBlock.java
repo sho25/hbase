@@ -3135,8 +3135,14 @@ name|void
 name|testBlockHeapSize
 parameter_list|()
 block|{
-comment|// We have seen multiple possible values for this estimate of the heap size
-comment|// of a ByteBuffer, presumably depending on the JDK version.
+if|if
+condition|(
+name|ClassSize
+operator|.
+name|is32BitJVM
+argument_list|()
+condition|)
+block|{
 name|assertTrue
 argument_list|(
 name|HFileBlock
@@ -3144,7 +3150,13 @@ operator|.
 name|BYTE_BUFFER_HEAP_SIZE
 operator|==
 literal|64
-operator|||
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|assertTrue
+argument_list|(
 name|HFileBlock
 operator|.
 name|BYTE_BUFFER_HEAP_SIZE
@@ -3152,6 +3164,7 @@ operator|==
 literal|80
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|int

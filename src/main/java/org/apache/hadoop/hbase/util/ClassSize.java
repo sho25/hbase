@@ -69,16 +69,6 @@ name|Modifier
 import|;
 end_import
 
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Properties
-import|;
-end_import
-
 begin_comment
 comment|/**  * Class for determining the "size" of a class, an attempt to calculate the  * actual bytes that an object of this class will occupy in memory  *  * The core of this class is taken from the Derby project  */
 end_comment
@@ -249,45 +239,14 @@ specifier|final
 name|int
 name|COPYONWRITE_ARRAYLIST
 decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|String
-name|THIRTY_TWO
-init|=
-literal|"32"
-decl_stmt|;
 comment|/**    * Method for reading the arc settings and setting overheads according    * to 32-bit or 64-bit architecture.    */
 static|static
 block|{
-comment|// Figure out whether this is a 32 or 64 bit machine.
-name|Properties
-name|sysProps
-init|=
-name|System
-operator|.
-name|getProperties
-argument_list|()
-decl_stmt|;
-name|String
-name|arcModel
-init|=
-name|sysProps
-operator|.
-name|getProperty
-argument_list|(
-literal|"sun.arch.data.model"
-argument_list|)
-decl_stmt|;
 comment|//Default value is set to 8, covering the case when arcModel is unknown
 if|if
 condition|(
-name|arcModel
-operator|.
-name|equals
-argument_list|(
-name|THIRTY_TWO
-argument_list|)
+name|is32BitJVM
+argument_list|()
 condition|)
 block|{
 name|REFERENCE
@@ -1208,6 +1167,27 @@ literal|3
 operator|)
 operator|<<
 literal|3
+return|;
+block|}
+comment|/**    * Determines if we are running in a 32-bit JVM. Some unit tests need to    * know this too.    */
+specifier|public
+specifier|static
+name|boolean
+name|is32BitJVM
+parameter_list|()
+block|{
+return|return
+name|System
+operator|.
+name|getProperty
+argument_list|(
+literal|"sun.arch.data.model"
+argument_list|)
+operator|.
+name|equals
+argument_list|(
+literal|"32"
+argument_list|)
 return|;
 block|}
 block|}

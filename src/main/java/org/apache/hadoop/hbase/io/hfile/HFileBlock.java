@@ -121,20 +121,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicLong
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -1582,10 +1568,8 @@ name|ClassSize
 operator|.
 name|align
 argument_list|(
-comment|// This object
-name|ClassSize
-operator|.
-name|OBJECT
+comment|// Base class size, including object overhead.
+name|SCHEMA_CONFIGURED_UNALIGNED_HEAP_SIZE
 operator|+
 comment|// Block type and byte buffer references
 literal|2
@@ -1616,6 +1600,7 @@ operator|!=
 literal|null
 condition|)
 block|{
+comment|// Deep overhead of the byte buffer. Needs to be aligned separately.
 name|size
 operator|+=
 name|ClassSize
@@ -1631,20 +1616,13 @@ name|BYTE_BUFFER_HEAP_SIZE
 argument_list|)
 expr_stmt|;
 block|}
-comment|// SchemaConfigured (but don't count object overhead twice).
-name|size
-operator|+=
-name|super
-operator|.
-name|heapSize
-argument_list|()
-operator|-
+return|return
 name|ClassSize
 operator|.
-name|OBJECT
-expr_stmt|;
-return|return
+name|align
+argument_list|(
 name|size
+argument_list|)
 return|;
 block|}
 comment|/**    * Read from an input stream. Analogous to    * {@link IOUtils#readFully(InputStream, byte[], int, int)}, but specifies a    * number of "extra" bytes that would be desirable but not absolutely    * necessary to read.    *    * @param in the input stream to read from    * @param buf the buffer to read into    * @param bufOffset the destination offset in the buffer    * @param necessaryLen the number of bytes that are absolutely necessary to    *          read    * @param extraLen the number of extra bytes that would be nice to read    * @return true if succeeded reading the extra bytes    * @throws IOException if failed to read the necessary bytes    */
