@@ -441,6 +441,21 @@ expr_stmt|;
 comment|// Remove region from ZK
 try|try
 block|{
+name|boolean
+name|successful
+init|=
+literal|false
+decl_stmt|;
+while|while
+condition|(
+operator|!
+name|successful
+condition|)
+block|{
+comment|// It's possible that the RS tickles in between the reading of the
+comment|// znode and the deleting, so it's safe to retry.
+name|successful
+operator|=
 name|ZKAssign
 operator|.
 name|deleteNode
@@ -466,6 +481,7 @@ operator|.
 name|RS_ZK_REGION_SPLIT
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(

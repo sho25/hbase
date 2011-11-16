@@ -1295,9 +1295,13 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"The node we are trying to delete is not the expected one. "
+literal|"The node "
 operator|+
-literal|"Got a version mismatch"
+name|regionName
+operator|+
+literal|" we are trying to delete is not"
+operator|+
+literal|" the expected one. Got a version mismatch"
 argument_list|)
 expr_stmt|;
 return|return
@@ -1332,7 +1336,11 @@ name|prefix
 argument_list|(
 literal|"Attempting to delete "
 operator|+
-literal|"unassigned node in "
+literal|"unassigned node "
+operator|+
+name|regionName
+operator|+
+literal|" in "
 operator|+
 name|expectedState
 operator|+
