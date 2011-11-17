@@ -285,6 +285,8 @@ operator|new
 name|HConnectionImplementation
 argument_list|(
 name|conf
+argument_list|,
+literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;

@@ -993,6 +993,8 @@ operator|new
 name|HConnectionImplementation
 argument_list|(
 name|conf
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|HBASE_INSTANCES
@@ -1014,6 +1016,28 @@ return|return
 name|connection
 return|;
 block|}
+block|}
+comment|/**    * Create a new HConnection instance using the passed<code>conf</code>    * instance.    * Note: This bypasses the usual HConnection life cycle management!    * Use this with caution, the caller is responsible for closing the    * created connection.    * @param conf configuration    * @return HConnection object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
+specifier|public
+specifier|static
+name|HConnection
+name|createConnection
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|)
+throws|throws
+name|ZooKeeperConnectionException
+block|{
+return|return
+operator|new
+name|HConnectionImplementation
+argument_list|(
+name|conf
+argument_list|,
+literal|false
+argument_list|)
+return|;
 block|}
 comment|/**    * Delete connection information for the instance specified by configuration.    * If there are no more references to it, this will then close connection to    * the zookeeper ensemble and let go of all resources.    *    * @param conf    *          configuration whose identity is used to find {@link HConnection}    *          instance.    * @param stopProxy    *          Shuts down all the proxy's put up to cluster members including to    *          cluster HMaster. Calls    *          {@link HBaseRPC#stopProxy(org.apache.hadoop.hbase.ipc.VersionedProtocol)}    *          .    */
 specifier|public
@@ -2133,6 +2157,12 @@ specifier|private
 name|int
 name|refCount
 decl_stmt|;
+comment|// indicates whether this connection's life cycle is managed
+specifier|private
+specifier|final
+name|boolean
+name|managed
+decl_stmt|;
 comment|/**      * constructor      * @param conf Configuration object      */
 annotation|@
 name|SuppressWarnings
@@ -2144,6 +2174,9 @@ name|HConnectionImplementation
 parameter_list|(
 name|Configuration
 name|conf
+parameter_list|,
+name|boolean
+name|managed
 parameter_list|)
 throws|throws
 name|ZooKeeperConnectionException
@@ -2153,6 +2186,12 @@ operator|.
 name|conf
 operator|=
 name|conf
+expr_stmt|;
+name|this
+operator|.
+name|managed
+operator|=
+name|managed
 expr_stmt|;
 name|String
 name|serverClassName
@@ -7794,6 +7833,19 @@ annotation|@
 name|Override
 specifier|public
 name|boolean
+name|isClosed
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|closed
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
 name|isAborted
 parameter_list|()
 block|{
@@ -8034,6 +8086,11 @@ name|void
 name|close
 parameter_list|()
 block|{
+if|if
+condition|(
+name|managed
+condition|)
+block|{
 name|HConnectionManager
 operator|.
 name|deleteConnection
@@ -8048,6 +8105,15 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|close
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|debug
