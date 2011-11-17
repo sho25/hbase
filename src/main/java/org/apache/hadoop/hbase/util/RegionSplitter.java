@@ -2800,6 +2800,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @throws IOException if the specified SplitAlgorithm class couldn't be    * instantiated    */
+specifier|public
 specifier|static
 name|SplitAlgorithm
 name|newSplitAlgoInstance
