@@ -4190,7 +4190,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Error in readFields"
+literal|"Class not found when attempting to deserialize object"
 argument_list|,
 name|e
 argument_list|)
@@ -4199,7 +4199,9 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Error in readFields"
+literal|"Class not found when attempting to "
+operator|+
+literal|"deserialize object"
 argument_list|,
 name|e
 argument_list|)
