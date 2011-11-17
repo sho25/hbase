@@ -1054,6 +1054,30 @@ init|=
 literal|false
 decl_stmt|;
 comment|// Run checks on each daughter split.
+name|HRegionInfo
+name|a_region
+init|=
+name|getDaughterRegionInfo
+argument_list|(
+name|rowContent
+argument_list|,
+name|HConstants
+operator|.
+name|SPLITA_QUALIFIER
+argument_list|)
+decl_stmt|;
+name|HRegionInfo
+name|b_region
+init|=
+name|getDaughterRegionInfo
+argument_list|(
+name|rowContent
+argument_list|,
+name|HConstants
+operator|.
+name|SPLITB_QUALIFIER
+argument_list|)
+decl_stmt|;
 name|Pair
 argument_list|<
 name|Boolean
@@ -1062,11 +1086,11 @@ name|Boolean
 argument_list|>
 name|a
 init|=
-name|checkDaughter
+name|checkDaughterInFs
 argument_list|(
 name|parent
 argument_list|,
-name|rowContent
+name|a_region
 argument_list|,
 name|HConstants
 operator|.
@@ -1081,11 +1105,11 @@ name|Boolean
 argument_list|>
 name|b
 init|=
-name|checkDaughter
+name|checkDaughterInFs
 argument_list|(
 name|parent
 argument_list|,
-name|rowContent
+name|b_region
 argument_list|,
 name|HConstants
 operator|.
@@ -1117,6 +1141,12 @@ name|getRegionNameAsString
 argument_list|()
 operator|+
 literal|" because daughter splits no longer hold references"
+argument_list|)
+expr_stmt|;
+comment|// wipe out daughter references from parent region
+name|removeDaughtersFromParent
+argument_list|(
+name|parent
 argument_list|)
 expr_stmt|;
 comment|// This latter regionOffline should not be necessary but is done for now
@@ -1237,93 +1267,6 @@ name|getSecond
 argument_list|()
 return|;
 block|}
-comment|/**    * See if the passed daughter has references in the filesystem to the parent    * and if not, remove the note of daughter region in the parent row: its    * column info:splitA or info:splitB.    * @param parent    * @param rowContent    * @param qualifier    * @return A pair where the first boolean says whether or not the daughter    * region directory exists in the filesystem and then the second boolean says    * whether the daughter has references to the parent.    * @throws IOException    */
-name|Pair
-argument_list|<
-name|Boolean
-argument_list|,
-name|Boolean
-argument_list|>
-name|checkDaughter
-parameter_list|(
-specifier|final
-name|HRegionInfo
-name|parent
-parameter_list|,
-specifier|final
-name|Result
-name|rowContent
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|qualifier
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|HRegionInfo
-name|hri
-init|=
-name|getDaughterRegionInfo
-argument_list|(
-name|rowContent
-argument_list|,
-name|qualifier
-argument_list|)
-decl_stmt|;
-name|Pair
-argument_list|<
-name|Boolean
-argument_list|,
-name|Boolean
-argument_list|>
-name|result
-init|=
-name|checkDaughterInFs
-argument_list|(
-name|parent
-argument_list|,
-name|rowContent
-argument_list|,
-name|hri
-argument_list|,
-name|qualifier
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|result
-operator|.
-name|getFirst
-argument_list|()
-operator|&&
-operator|!
-name|result
-operator|.
-name|getSecond
-argument_list|()
-condition|)
-block|{
-comment|// Remove daughter from the parent IFF the daughter region exists in FS.
-comment|// If there is no daughter region in the filesystem, must be because of
-comment|// a failed split.  The ServerShutdownHandler will do the fixup.  Don't
-comment|// do any deletes in here that could intefere with ServerShutdownHandler
-comment|// fixup
-name|removeDaughterFromParent
-argument_list|(
-name|parent
-argument_list|,
-name|hri
-argument_list|,
-name|qualifier
-argument_list|)
-expr_stmt|;
-block|}
-return|return
-name|result
-return|;
-block|}
 comment|/**    * Get daughter HRegionInfo out of parent info:splitA/info:splitB columns.    * @param result    * @param which Whether "info:splitA" or "info:splitB" column    * @return Deserialized content of the info:splitA or info:splitB as a    * HRegionInfo    * @throws IOException    */
 specifier|private
 name|HRegionInfo
@@ -1365,30 +1308,21 @@ name|bytes
 argument_list|)
 return|;
 block|}
-comment|/**    * Remove mention of daughter from parent row.    * parent row.    * @param metaRegionName    * @param srvr    * @param parent    * @param split    * @param qualifier    * @throws IOException    */
+comment|/**    * Remove mention of daughters from parent row.    * @param parent    * @throws IOException    */
 specifier|private
 name|void
-name|removeDaughterFromParent
+name|removeDaughtersFromParent
 parameter_list|(
 specifier|final
 name|HRegionInfo
 name|parent
-parameter_list|,
-specifier|final
-name|HRegionInfo
-name|split
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|qualifier
 parameter_list|)
 throws|throws
 name|IOException
 block|{
 name|MetaEditor
 operator|.
-name|deleteDaughterReferenceInParent
+name|deleteDaughtersReferencesInParent
 argument_list|(
 name|this
 operator|.
@@ -1398,14 +1332,10 @@ name|getCatalogTracker
 argument_list|()
 argument_list|,
 name|parent
-argument_list|,
-name|qualifier
-argument_list|,
-name|split
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Checks if a daughter region -- either splitA or splitB -- still holds    * references to parent.    * @param parent Parent region name.     * @param rowContent Keyed content of the parent row in meta region.    * @param split Which column family.    * @param qualifier Which of the daughters to look at, splitA or splitB.    * @return A pair where the first boolean says whether or not the daughter    * region directory exists in the filesystem and then the second boolean says    * whether the daughter has references to the parent.    * @throws IOException    */
+comment|/**    * Checks if a daughter region -- either splitA or splitB -- still holds    * references to parent.    * @param parent Parent region name.     * @param split Which column family.    * @param qualifier Which of the daughters to look at, splitA or splitB.    * @return A pair where the first boolean says whether or not the daughter    * region directory exists in the filesystem and then the second boolean says    * whether the daughter has references to the parent.    * @throws IOException    */
 name|Pair
 argument_list|<
 name|Boolean
@@ -1417,10 +1347,6 @@ parameter_list|(
 specifier|final
 name|HRegionInfo
 name|parent
-parameter_list|,
-specifier|final
-name|Result
-name|rowContent
 parameter_list|,
 specifier|final
 name|HRegionInfo

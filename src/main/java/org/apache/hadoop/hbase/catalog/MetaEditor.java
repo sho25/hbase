@@ -1036,11 +1036,11 @@ literal|" from META"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Deletes daughter reference in offlined split parent.    * @param catalogTracker    * @param parent Parent row we're to remove daughter reference from    * @param qualifier SplitA or SplitB daughter to remove    * @param daughter    * @throws NotAllMetaRegionsOnlineException    * @throws IOException    */
+comment|/**    * Deletes daughters references in offlined split parent.    * @param catalogTracker    * @param parent Parent row we're to remove daughter reference from    * @throws NotAllMetaRegionsOnlineException    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
-name|deleteDaughterReferenceInParent
+name|deleteDaughtersReferencesInParent
 parameter_list|(
 name|CatalogTracker
 name|catalogTracker
@@ -1048,15 +1048,6 @@ parameter_list|,
 specifier|final
 name|HRegionInfo
 name|parent
-parameter_list|,
-specifier|final
-name|byte
-index|[]
-name|qualifier
-parameter_list|,
-specifier|final
-name|HRegionInfo
-name|daughter
 parameter_list|)
 throws|throws
 name|NotAllMetaRegionsOnlineException
@@ -1083,7 +1074,22 @@ name|HConstants
 operator|.
 name|CATALOG_FAMILY
 argument_list|,
-name|qualifier
+name|HConstants
+operator|.
+name|SPLITA_QUALIFIER
+argument_list|)
+expr_stmt|;
+name|delete
+operator|.
+name|deleteColumns
+argument_list|(
+name|HConstants
+operator|.
+name|CATALOG_FAMILY
+argument_list|,
+name|HConstants
+operator|.
+name|SPLITB_QUALIFIER
 argument_list|)
 expr_stmt|;
 name|deleteMetaTable
@@ -1097,20 +1103,26 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Deleted daughter reference "
-operator|+
-name|daughter
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|", qualifier="
+literal|"Deleted daughters references, qualifier="
 operator|+
 name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
-name|qualifier
+name|HConstants
+operator|.
+name|SPLITA_QUALIFIER
+argument_list|)
+operator|+
+literal|" and qualifier="
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|HConstants
+operator|.
+name|SPLITA_QUALIFIER
 argument_list|)
 operator|+
 literal|", from parent "
