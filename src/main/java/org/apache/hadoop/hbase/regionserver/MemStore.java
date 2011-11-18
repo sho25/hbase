@@ -2634,6 +2634,15 @@ name|KeyValue
 argument_list|>
 name|snapshotIt
 decl_stmt|;
+comment|// The kvset and snapshot at the time of creating this scanner
+specifier|volatile
+name|KeyValueSkipListSet
+name|kvsetAtCreation
+decl_stmt|;
+specifier|volatile
+name|KeyValueSkipListSet
+name|snapshotAtCreation
+decl_stmt|;
 comment|// Sub lists on which we're iterating
 specifier|private
 name|SortedSet
@@ -2660,6 +2669,14 @@ parameter_list|()
 block|{
 name|super
 argument_list|()
+expr_stmt|;
+name|kvsetAtCreation
+operator|=
+name|kvset
+expr_stmt|;
+name|snapshotAtCreation
+operator|=
+name|snapshot
 expr_stmt|;
 block|}
 specifier|protected
@@ -2746,7 +2763,7 @@ comment|// kvset and snapshot will never be null.
 comment|// if tailSet can't find anything, SortedSet is empty (not null).
 name|kvTail
 operator|=
-name|kvset
+name|kvsetAtCreation
 operator|.
 name|tailSet
 argument_list|(
@@ -2755,7 +2772,7 @@ argument_list|)
 expr_stmt|;
 name|snapshotTail
 operator|=
-name|snapshot
+name|snapshotAtCreation
 operator|.
 name|tailSet
 argument_list|(

@@ -2285,12 +2285,14 @@ argument_list|(
 name|newFiles
 argument_list|)
 expr_stmt|;
-name|notifyChangedReadersObservers
-argument_list|()
-expr_stmt|;
 block|}
 finally|finally
 block|{
+comment|// We need the lock, as long as we are updating the storefiles
+comment|// or changing the memstore. Let us release it before calling
+comment|// notifyChangeReadersObservers. See HBASE-4485 for a possible
+comment|// deadlock scenario that could have happened if continue to hold
+comment|// the lock.
 name|this
 operator|.
 name|lock
@@ -2302,6 +2304,9 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
+name|notifyChangedReadersObservers
+argument_list|()
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -3273,17 +3278,14 @@ argument_list|(
 name|set
 argument_list|)
 expr_stmt|;
-comment|// Tell listeners of the change in readers.
-name|notifyChangedReadersObservers
-argument_list|()
-expr_stmt|;
-return|return
-name|needsCompaction
-argument_list|()
-return|;
 block|}
 finally|finally
 block|{
+comment|// We need the lock, as long as we are updating the storefiles
+comment|// or changing the memstore. Let us release it before calling
+comment|// notifyChangeReadersObservers. See HBASE-4485 for a possible
+comment|// deadlock scenario that could have happened if continue to hold
+comment|// the lock.
 name|this
 operator|.
 name|lock
@@ -3295,6 +3297,14 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Tell listeners of the change in readers.
+name|notifyChangedReadersObservers
+argument_list|()
+expr_stmt|;
+return|return
+name|needsCompaction
+argument_list|()
+return|;
 block|}
 comment|/*    * Notify all observers that set of Readers has changed.    * @throws IOException    */
 specifier|private
@@ -3320,6 +3330,146 @@ name|updateReaders
 argument_list|()
 expr_stmt|;
 block|}
+block|}
+specifier|protected
+name|List
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+name|getScanners
+parameter_list|(
+name|boolean
+name|cacheBlocks
+parameter_list|,
+name|boolean
+name|isGet
+parameter_list|,
+name|boolean
+name|isCompaction
+parameter_list|,
+name|ScanQueryMatcher
+name|matcher
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|List
+argument_list|<
+name|StoreFile
+argument_list|>
+name|storeFiles
+decl_stmt|;
+name|List
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+name|memStoreScanners
+decl_stmt|;
+name|this
+operator|.
+name|lock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+try|try
+block|{
+name|storeFiles
+operator|=
+name|this
+operator|.
+name|getStorefiles
+argument_list|()
+expr_stmt|;
+name|memStoreScanners
+operator|=
+name|this
+operator|.
+name|memstore
+operator|.
+name|getScanners
+argument_list|()
+expr_stmt|;
+block|}
+finally|finally
+block|{
+name|this
+operator|.
+name|lock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
+comment|// First the store file scanners
+comment|// TODO this used to get the store files in descending order,
+comment|// but now we get them in ascending order, which I think is
+comment|// actually more correct, since memstore get put at the end.
+name|List
+argument_list|<
+name|StoreFileScanner
+argument_list|>
+name|sfScanners
+init|=
+name|StoreFileScanner
+operator|.
+name|getScannersForStoreFiles
+argument_list|(
+name|storeFiles
+argument_list|,
+name|cacheBlocks
+argument_list|,
+name|isGet
+argument_list|,
+name|isCompaction
+argument_list|,
+name|matcher
+argument_list|)
+decl_stmt|;
+name|List
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+name|scanners
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|KeyValueScanner
+argument_list|>
+argument_list|(
+name|sfScanners
+operator|.
+name|size
+argument_list|()
+operator|+
+literal|1
+argument_list|)
+decl_stmt|;
+name|scanners
+operator|.
+name|addAll
+argument_list|(
+name|sfScanners
+argument_list|)
+expr_stmt|;
+comment|// Then the memstore scanners
+name|scanners
+operator|.
+name|addAll
+argument_list|(
+name|memStoreScanners
+argument_list|)
+expr_stmt|;
+return|return
+name|scanners
+return|;
 block|}
 comment|/*    * @param o Observer who wants to know about changes in set of Readers    */
 name|void
@@ -6397,6 +6547,8 @@ name|createReader
 argument_list|()
 expr_stmt|;
 block|}
+try|try
+block|{
 name|this
 operator|.
 name|lock
@@ -6407,8 +6559,6 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
-try|try
-block|{
 try|try
 block|{
 comment|// Change this.storefiles so it reflects new state but do not
@@ -6468,6 +6618,25 @@ argument_list|(
 name|newStoreFiles
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+comment|// We need the lock, as long as we are updating the storefiles
+comment|// or changing the memstore. Let us release it before calling
+comment|// notifyChangeReadersObservers. See HBASE-4485 for a possible
+comment|// deadlock scenario that could have happened if continue to hold
+comment|// the lock.
+name|this
+operator|.
+name|lock
+operator|.
+name|writeLock
+argument_list|()
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
 comment|// Tell observers that list of StoreFiles has changed.
 name|notifyChangedReadersObservers
 argument_list|()
@@ -6610,20 +6779,6 @@ operator|+=
 name|r
 operator|.
 name|getTotalUncompressedBytes
-argument_list|()
-expr_stmt|;
-block|}
-block|}
-finally|finally
-block|{
-name|this
-operator|.
-name|lock
-operator|.
-name|writeLock
-argument_list|()
-operator|.
-name|unlock
 argument_list|()
 expr_stmt|;
 block|}
