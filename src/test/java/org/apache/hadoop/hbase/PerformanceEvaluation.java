@@ -3114,6 +3114,13 @@ operator|.
 name|class
 argument_list|)
 expr_stmt|;
+name|TableMapReduceUtil
+operator|.
+name|initCredentials
+argument_list|(
+name|job
+argument_list|)
+expr_stmt|;
 name|job
 operator|.
 name|waitForCompletion

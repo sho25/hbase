@@ -387,12 +387,18 @@ name|String
 name|getHostname
 parameter_list|()
 block|{
+comment|// Kerberos is case-sensitive, and dictates that, where hostnames are
+comment|// case-insensitive (as in DNS), the lowercase version must be used
+comment|// So here we lowercase to properly interact with kerberos auth
 return|return
 name|this
 operator|.
 name|address
 operator|.
 name|getHostName
+argument_list|()
+operator|.
+name|toLowerCase
 argument_list|()
 return|;
 block|}

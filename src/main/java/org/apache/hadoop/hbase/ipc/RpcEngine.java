@@ -83,9 +83,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|security
 operator|.
-name|UserGroupInformation
+name|User
 import|;
 end_import
 
@@ -129,7 +131,7 @@ parameter_list|,
 name|InetSocketAddress
 name|addr
 parameter_list|,
-name|UserGroupInformation
+name|User
 name|ticket
 parameter_list|,
 name|Configuration
@@ -177,7 +179,7 @@ name|VersionedProtocol
 argument_list|>
 name|protocol
 parameter_list|,
-name|UserGroupInformation
+name|User
 name|ticket
 parameter_list|,
 name|Configuration

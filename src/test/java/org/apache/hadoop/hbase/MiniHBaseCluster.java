@@ -962,7 +962,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Interrupted executing UserGroupInformation.doAs()"
+literal|"Interrupted adding regionserver to cluster"
 argument_list|,
 name|ie
 argument_list|)
@@ -1204,7 +1204,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Interrupted executing UserGroupInformation.doAs()"
+literal|"Interrupted adding master to cluster"
 argument_list|,
 name|ie
 argument_list|)

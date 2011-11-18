@@ -303,9 +303,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|security
 operator|.
-name|UserGroupInformation
+name|User
 import|;
 end_import
 
@@ -586,7 +588,7 @@ name|InetSocketAddress
 name|address
 decl_stmt|;
 specifier|private
-name|UserGroupInformation
+name|User
 name|ticket
 decl_stmt|;
 specifier|private
@@ -618,7 +620,7 @@ parameter_list|,
 name|InetSocketAddress
 name|address
 parameter_list|,
-name|UserGroupInformation
+name|User
 name|ticket
 parameter_list|,
 name|Configuration
@@ -826,7 +828,7 @@ parameter_list|,
 name|InetSocketAddress
 name|addr
 parameter_list|,
-name|UserGroupInformation
+name|User
 name|ticket
 parameter_list|,
 name|Configuration
@@ -995,7 +997,7 @@ name|VersionedProtocol
 argument_list|>
 name|protocol
 parameter_list|,
-name|UserGroupInformation
+name|User
 name|ticket
 parameter_list|,
 name|Configuration

@@ -285,6 +285,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|security
+operator|.
+name|User
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -403,39 +419,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
-name|VersionedProtocol
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|net
 operator|.
 name|NetUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|security
-operator|.
-name|UserGroupInformation
 import|;
 end_import
 
@@ -734,7 +720,7 @@ literal|0
 return|;
 block|}
 comment|/** A call waiting for a value. */
-specifier|private
+specifier|protected
 class|class
 name|Call
 block|{
@@ -872,7 +858,7 @@ return|;
 block|}
 block|}
 comment|/** Thread that reads responses and notifies callers.  Each connection owns a    * socket connected to a remote address.  Calls are multiplexed through this    * socket: responses may be delivered out of order. */
-specifier|private
+specifier|protected
 class|class
 name|Connection
 extends|extends
@@ -883,27 +869,27 @@ name|ConnectionHeader
 name|header
 decl_stmt|;
 comment|// connection header
-specifier|private
+specifier|protected
 name|ConnectionId
 name|remoteId
 decl_stmt|;
-specifier|private
+specifier|protected
 name|Socket
 name|socket
 init|=
 literal|null
 decl_stmt|;
 comment|// connected socket
-specifier|private
+specifier|protected
 name|DataInputStream
 name|in
 decl_stmt|;
-specifier|private
+specifier|protected
 name|DataOutputStream
 name|out
 decl_stmt|;
 comment|// currently active calls
-specifier|private
+specifier|protected
 specifier|final
 name|ConcurrentSkipListMap
 argument_list|<
@@ -922,7 +908,7 @@ name|Call
 argument_list|>
 argument_list|()
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|AtomicLong
 name|lastActivity
@@ -942,7 +928,7 @@ name|AtomicBoolean
 argument_list|()
 decl_stmt|;
 comment|// indicate if the connection is closed
-specifier|private
+specifier|protected
 name|IOException
 name|closeException
 decl_stmt|;
@@ -989,7 +975,7 @@ name|remoteId
 operator|=
 name|remoteId
 expr_stmt|;
-name|UserGroupInformation
+name|User
 name|ticket
 init|=
 name|remoteId
@@ -1064,7 +1050,7 @@ literal|" from "
 operator|+
 name|ticket
 operator|.
-name|getUserName
+name|getName
 argument_list|()
 operator|)
 operator|)
@@ -1079,7 +1065,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/** Update lastActivity with the current time. */
-specifier|private
+specifier|protected
 name|void
 name|touch
 parameter_list|()
@@ -1134,7 +1120,7 @@ literal|true
 return|;
 block|}
 comment|/** This class sends a ping to the remote side when timeout on      * reading. If no failure is detected, it retries until at least      * a byte is read.      */
-specifier|private
+specifier|protected
 class|class
 name|PingInputStream
 extends|extends
@@ -1290,29 +1276,14 @@ condition|)
 do|;
 block|}
 block|}
-comment|/** Connect to the server and set up the I/O streams. It then sends      * a header to the server and starts      * the connection thread that waits for responses.      * @throws java.io.IOException e      */
 specifier|protected
 specifier|synchronized
 name|void
-name|setupIOstreams
+name|setupConnection
 parameter_list|()
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|socket
-operator|!=
-literal|null
-operator|||
-name|shouldCloseConnection
-operator|.
-name|get
-argument_list|()
-condition|)
-block|{
-return|return;
-block|}
 name|short
 name|ioFailures
 init|=
@@ -1323,29 +1294,6 @@ name|timeoutFailures
 init|=
 literal|0
 decl_stmt|;
-try|try
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Connecting to "
-operator|+
-name|remoteId
-operator|.
-name|getAddress
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 while|while
 condition|(
 literal|true
@@ -1380,6 +1328,7 @@ argument_list|(
 name|tcpKeepAlive
 argument_list|)
 expr_stmt|;
+comment|// connection time out is 20s
 name|NetUtils
 operator|.
 name|connect
@@ -1425,7 +1374,7 @@ argument_list|(
 name|pingInterval
 argument_list|)
 expr_stmt|;
-break|break;
+return|return;
 block|}
 catch|catch
 parameter_list|(
@@ -1433,6 +1382,7 @@ name|SocketTimeoutException
 name|toe
 parameter_list|)
 block|{
+comment|/* The max number of retries is 45,            * which amounts to 20s*45 = 15 minutes retries.            */
 name|handleConnectionFailure
 argument_list|(
 name|timeoutFailures
@@ -1462,6 +1412,55 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+comment|/** Connect to the server and set up the I/O streams. It then sends      * a header to the server and starts      * the connection thread that waits for responses.      * @throws java.io.IOException e      */
+specifier|protected
+specifier|synchronized
+name|void
+name|setupIOstreams
+parameter_list|()
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+block|{
+if|if
+condition|(
+name|socket
+operator|!=
+literal|null
+operator|||
+name|shouldCloseConnection
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
+try|try
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Connecting to "
+operator|+
+name|remoteId
+argument_list|)
+expr_stmt|;
+block|}
+name|setupConnection
+argument_list|()
+expr_stmt|;
 name|this
 operator|.
 name|in
@@ -1535,22 +1534,10 @@ name|e
 throw|;
 block|}
 block|}
-comment|/* Handle connection failures      *      * If the current number of retries is equal to the max number of retries,      * stop retrying and throw the exception; Otherwise backoff N seconds and      * try connecting again.      *      * This Method is only called from inside setupIOstreams(), which is      * synchronized. Hence the sleep is synchronized; the locks will be retained.      *      * @param curRetries current number of retries      * @param maxRetries max number of retries allowed      * @param ioe failure reason      * @throws IOException if max number of retries is reached      */
-specifier|private
+specifier|protected
 name|void
-name|handleConnectionFailure
-parameter_list|(
-name|int
-name|curRetries
-parameter_list|,
-name|int
-name|maxRetries
-parameter_list|,
-name|IOException
-name|ioe
-parameter_list|)
-throws|throws
-name|IOException
+name|closeConnection
+parameter_list|()
 block|{
 comment|// close the current connection
 if|if
@@ -1560,7 +1547,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-comment|// could be null if the socket creation failed
 try|try
 block|{
 name|socket
@@ -1591,6 +1577,27 @@ comment|// can start the process of connect all over again.
 name|socket
 operator|=
 literal|null
+expr_stmt|;
+block|}
+comment|/**      *  Handle connection failures      *      * If the current number of retries is equal to the max number of retries,      * stop retrying and throw the exception; Otherwise backoff N seconds and      * try connecting again.      *      * This Method is only called from inside setupIOstreams(), which is      * synchronized. Hence the sleep is synchronized; the locks will be retained.      *      * @param curRetries current number of retries      * @param maxRetries max number of retries allowed      * @param ioe failure reason      * @throws IOException if max number of retries is reached      */
+specifier|private
+name|void
+name|handleConnectionFailure
+parameter_list|(
+name|int
+name|curRetries
+parameter_list|,
+name|int
+name|maxRetries
+parameter_list|,
+name|IOException
+name|ioe
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|closeConnection
+argument_list|()
 expr_stmt|;
 comment|// throw the exception if the maximum number of retries is reached
 if|if
@@ -1726,7 +1733,7 @@ block|{
 literal|"ThrowableInstanceNeverThrown"
 block|}
 argument_list|)
-specifier|private
+specifier|protected
 specifier|synchronized
 name|boolean
 name|waitForWork
@@ -2200,7 +2207,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/* Receive a response.      * Because only one receiver, so no synchronization on in.      */
-specifier|private
+specifier|protected
 name|void
 name|receiveResponse
 parameter_list|()
@@ -2436,7 +2443,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-specifier|private
+specifier|protected
 specifier|synchronized
 name|void
 name|markClosed
@@ -2467,7 +2474,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/** Close the connection. */
-specifier|private
+specifier|protected
 specifier|synchronized
 name|void
 name|close
@@ -2617,7 +2624,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/* Cleanup all calls and mark them as done */
-specifier|private
+specifier|protected
 name|void
 name|cleanupCalls
 parameter_list|()
@@ -2628,7 +2635,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
+specifier|protected
 name|void
 name|cleanupCalls
 parameter_list|(
@@ -2824,7 +2831,7 @@ block|}
 block|}
 block|}
 comment|/** Call implementation used for parallel calls. */
-specifier|private
+specifier|protected
 class|class
 name|ParallelCall
 extends|extends
@@ -2889,7 +2896,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/** Result collector for parallel calls. */
-specifier|private
+specifier|protected
 specifier|static
 class|class
 name|ParallelResults
@@ -3176,7 +3183,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Return the pool type specified in the configuration, which must be set to    * either {@link PoolType#RoundRobin} or {@link PoolType#ThreadLocal},    * otherwise default to the former.    *    * For applications with many user threads, use a small round-robin pool. For    * applications with few user threads, you may want to try using a    * thread-local pool. In any case, the number of {@link HBaseClient} instances    * should not exceed the operating system's hard limit on the number of    * connections.    *    * @param config configuration    * @return either a {@link PoolType#RoundRobin} or    *         {@link PoolType#ThreadLocal}    */
-specifier|private
+specifier|protected
 specifier|static
 name|PoolType
 name|getPoolType
@@ -3210,7 +3217,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Return the pool size specified in the configuration, which is applicable only if    * the pool type is {@link PoolType#RoundRobin}.    *    * @param config    * @return the maximum pool size    */
-specifier|private
+specifier|protected
 specifier|static
 name|int
 name|getPoolSize
@@ -3369,7 +3376,7 @@ parameter_list|,
 name|InetSocketAddress
 name|addr
 parameter_list|,
-name|UserGroupInformation
+name|User
 name|ticket
 parameter_list|,
 name|int
@@ -3414,7 +3421,7 @@ name|VersionedProtocol
 argument_list|>
 name|protocol
 parameter_list|,
-name|UserGroupInformation
+name|User
 name|ticket
 parameter_list|,
 name|int
@@ -3572,7 +3579,7 @@ block|{
 literal|"ThrowableInstanceNeverThrown"
 block|}
 argument_list|)
-specifier|private
+specifier|protected
 name|IOException
 name|wrapException
 parameter_list|(
@@ -3668,7 +3675,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/** Makes a set of calls in parallel.  Each parameter is sent to the    * corresponding address.  When all values are available, or have timed out    * or errored, the collected results are returned in an array.  The array    * contains nulls for calls that timed out or errored.    * @param params writable parameters    * @param addresses socket addresses    * @return  Writable[]    * @throws IOException e    * @deprecated Use {@link #call(Writable[], InetSocketAddress[], Class, UserGroupInformation)} instead    */
+comment|/** Makes a set of calls in parallel.  Each parameter is sent to the    * corresponding address.  When all values are available, or have timed out    * or errored, the collected results are returned in an array.  The array    * contains nulls for calls that timed out or errored.    * @param params writable parameters    * @param addresses socket addresses    * @return  Writable[]    * @throws IOException e    * @deprecated Use {@link #call(Writable[], InetSocketAddress[], Class, User)} instead    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3724,7 +3731,7 @@ name|VersionedProtocol
 argument_list|>
 name|protocol
 parameter_list|,
-name|UserGroupInformation
+name|User
 name|ticket
 parameter_list|)
 throws|throws
@@ -3899,7 +3906,7 @@ return|;
 block|}
 block|}
 comment|/* Get a connection from the pool, or create a new one and add it to the    * pool.  Connections to a given host/port are reused. */
-specifier|private
+specifier|protected
 name|Connection
 name|getConnection
 parameter_list|(
@@ -3914,7 +3921,7 @@ name|VersionedProtocol
 argument_list|>
 name|protocol
 parameter_list|,
-name|UserGroupInformation
+name|User
 name|ticket
 parameter_list|,
 name|int
@@ -3925,6 +3932,8 @@ name|call
 parameter_list|)
 throws|throws
 name|IOException
+throws|,
+name|InterruptedException
 block|{
 if|if
 condition|(
@@ -4031,7 +4040,7 @@ name|connection
 return|;
 block|}
 comment|/**    * This class holds the address and the user ticket. The client connections    * to servers are uniquely identified by<remoteAddress, ticket>    */
-specifier|private
+specifier|protected
 specifier|static
 class|class
 name|ConnectionId
@@ -4041,11 +4050,10 @@ name|InetSocketAddress
 name|address
 decl_stmt|;
 specifier|final
-name|UserGroupInformation
+name|User
 name|ticket
 decl_stmt|;
 specifier|final
-specifier|private
 name|int
 name|rpcTimeout
 decl_stmt|;
@@ -4078,7 +4086,7 @@ name|VersionedProtocol
 argument_list|>
 name|protocol
 parameter_list|,
-name|UserGroupInformation
+name|User
 name|ticket
 parameter_list|,
 name|int
@@ -4131,7 +4139,7 @@ return|return
 name|protocol
 return|;
 block|}
-name|UserGroupInformation
+name|User
 name|getTicket
 parameter_list|()
 block|{
@@ -4180,11 +4188,30 @@ name|id
 operator|.
 name|protocol
 operator|&&
+operator|(
+operator|(
+name|ticket
+operator|!=
+literal|null
+operator|&&
+name|ticket
+operator|.
+name|equals
+argument_list|(
+name|id
+operator|.
+name|ticket
+argument_list|)
+operator|)
+operator|||
+operator|(
 name|ticket
 operator|==
 name|id
 operator|.
 name|ticket
+operator|)
+operator|)
 operator|&&
 name|rpcTimeout
 operator|==
@@ -4192,7 +4219,6 @@ name|id
 operator|.
 name|rpcTimeout
 return|;
-comment|//Note : ticket is a ref comparision.
 block|}
 return|return
 literal|false
@@ -4225,12 +4251,18 @@ argument_list|(
 name|protocol
 argument_list|)
 operator|^
-name|System
-operator|.
-name|identityHashCode
-argument_list|(
+operator|(
 name|ticket
-argument_list|)
+operator|==
+literal|null
+condition|?
+literal|0
+else|:
+name|ticket
+operator|.
+name|hashCode
+argument_list|()
+operator|)
 operator|)
 operator|)
 operator|^

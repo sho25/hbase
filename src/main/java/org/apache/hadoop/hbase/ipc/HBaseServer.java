@@ -503,6 +503,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|security
+operator|.
+name|User
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|ByteBufferOutputStream
@@ -566,36 +582,6 @@ operator|.
 name|RPC
 operator|.
 name|VersionMismatch
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
-name|VersionedProtocol
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|security
-operator|.
-name|UserGroupInformation
 import|;
 end_import
 
@@ -1086,7 +1072,7 @@ name|Call
 argument_list|>
 name|priorityCallQueue
 decl_stmt|;
-specifier|private
+specifier|protected
 name|int
 name|highPriorityLevel
 decl_stmt|;
@@ -1395,7 +1381,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-specifier|private
+specifier|protected
 specifier|synchronized
 name|void
 name|setResponse
@@ -2941,6 +2927,8 @@ expr_stmt|;
 name|closeCurrentConnection
 argument_list|(
 name|key
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 name|cleanupConnections
@@ -2968,6 +2956,8 @@ expr_stmt|;
 name|closeCurrentConnection
 argument_list|(
 name|key
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 name|cleanupConnections
@@ -3002,6 +2992,8 @@ block|{
 name|closeCurrentConnection
 argument_list|(
 name|key
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}
@@ -3084,6 +3076,9 @@ name|closeCurrentConnection
 parameter_list|(
 name|SelectionKey
 name|key
+parameter_list|,
+name|Throwable
+name|e
 parameter_list|)
 block|{
 if|if
@@ -3118,6 +3113,7 @@ operator|.
 name|isDebugEnabled
 argument_list|()
 condition|)
+block|{
 name|LOG
 operator|.
 name|debug
@@ -3131,11 +3127,34 @@ name|c
 operator|.
 name|getHostAddress
 argument_list|()
+operator|+
+operator|(
+name|e
+operator|!=
+literal|null
+condition|?
+literal|" on error "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
+else|:
+literal|""
+operator|)
 argument_list|)
 expr_stmt|;
+block|}
 name|closeConnection
 argument_list|(
 name|c
+argument_list|)
+expr_stmt|;
+name|key
+operator|.
+name|attach
+argument_list|(
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -3252,8 +3271,7 @@ argument_list|)
 decl_stmt|;
 name|c
 operator|=
-operator|new
-name|Connection
+name|getConnection
 argument_list|(
 name|channel
 argument_list|,
@@ -3572,7 +3590,7 @@ return|;
 block|}
 block|}
 comment|// Sends responses of RPC back to clients.
-specifier|private
+specifier|protected
 class|class
 name|Responder
 extends|extends
@@ -3950,6 +3968,8 @@ range|:
 name|calls
 control|)
 block|{
+try|try
+block|{
 name|doPurge
 argument_list|(
 name|call
@@ -3957,6 +3977,23 @@ argument_list|,
 name|now
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Error in purging old calls "
+operator|+
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 catch|catch
@@ -4183,6 +4220,8 @@ parameter_list|,
 name|long
 name|now
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 synchronized|synchronized
 init|(
@@ -4814,7 +4853,7 @@ block|}
 block|}
 block|}
 comment|/** Reads calls from a connection and queues them for handling. */
-specifier|private
+specifier|protected
 class|class
 name|Connection
 block|{
@@ -4876,11 +4915,11 @@ name|socket
 decl_stmt|;
 comment|// Cache the remote host& port info so that even if the socket is
 comment|// disconnected, we can say where it used to connect to.
-specifier|private
+specifier|protected
 name|String
 name|hostAddress
 decl_stmt|;
-specifier|private
+specifier|protected
 name|int
 name|remotePort
 decl_stmt|;
@@ -4900,7 +4939,7 @@ argument_list|>
 name|protocol
 decl_stmt|;
 specifier|protected
-name|UserGroupInformation
+name|User
 name|ticket
 init|=
 literal|null
@@ -5123,7 +5162,7 @@ operator|--
 expr_stmt|;
 block|}
 comment|/* Increment the outstanding RPC count */
-specifier|private
+specifier|protected
 name|void
 name|incRpcCount
 parameter_list|()
@@ -5403,7 +5442,12 @@ name|headerRead
 condition|)
 block|{
 name|processData
+argument_list|(
+name|data
+operator|.
+name|array
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|data
 operator|=
@@ -5605,28 +5649,23 @@ name|ticket
 operator|=
 name|header
 operator|.
-name|getUgi
+name|getUser
 argument_list|()
 expr_stmt|;
 block|}
-specifier|private
+specifier|protected
 name|void
 name|processData
-parameter_list|()
+parameter_list|(
+name|byte
+index|[]
+name|buf
+parameter_list|)
 throws|throws
 name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|byte
-index|[]
-name|array
-init|=
-name|data
-operator|.
-name|array
-argument_list|()
-decl_stmt|;
 name|DataInputStream
 name|dis
 init|=
@@ -5636,7 +5675,7 @@ argument_list|(
 operator|new
 name|ByteArrayInputStream
 argument_list|(
-name|array
+name|buf
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -5666,7 +5705,7 @@ name|id
 operator|+
 literal|", "
 operator|+
-name|array
+name|buf
 operator|.
 name|length
 operator|+
@@ -6141,6 +6180,73 @@ argument_list|(
 literal|"Server is not running yet"
 argument_list|)
 throw|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|User
+name|remoteUser
+init|=
+name|call
+operator|.
+name|connection
+operator|.
+name|ticket
+decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|getName
+argument_list|()
+operator|+
+literal|": call #"
+operator|+
+name|call
+operator|.
+name|id
+operator|+
+literal|" executing as "
+operator|+
+operator|(
+name|remoteUser
+operator|==
+literal|null
+condition|?
+literal|"NULL principal"
+else|:
+name|remoteUser
+operator|.
+name|getName
+argument_list|()
+operator|)
+argument_list|)
+expr_stmt|;
+block|}
+name|RequestContext
+operator|.
+name|set
+argument_list|(
+name|call
+operator|.
+name|connection
+operator|.
+name|ticket
+argument_list|,
+name|getRemoteIp
+argument_list|()
+argument_list|,
+name|call
+operator|.
+name|connection
+operator|.
+name|protocol
+argument_list|)
+expr_stmt|;
 comment|// make the call
 name|value
 operator|=
@@ -6206,6 +6312,16 @@ name|stringifyException
 argument_list|(
 name|e
 argument_list|)
+expr_stmt|;
+block|}
+finally|finally
+block|{
+comment|// Must always clear the request context to avoid leaking
+comment|// credentials between requests.
+name|RequestContext
+operator|.
+name|clear
+argument_list|()
 expr_stmt|;
 block|}
 name|CurCall
@@ -6685,6 +6801,8 @@ name|this
 operator|.
 name|port
 argument_list|)
+argument_list|,
+name|this
 argument_list|)
 expr_stmt|;
 name|this
@@ -6743,6 +6861,28 @@ operator|new
 name|Responder
 argument_list|()
 expr_stmt|;
+block|}
+comment|/**    * Subclasses of HBaseServer can override this to provide their own    * Connection implementations.    */
+specifier|protected
+name|Connection
+name|getConnection
+parameter_list|(
+name|SocketChannel
+name|channel
+parameter_list|,
+name|long
+name|time
+parameter_list|)
+block|{
+return|return
+operator|new
+name|Connection
+argument_list|(
+name|channel
+argument_list|,
+name|time
+argument_list|)
+return|;
 block|}
 comment|/**    * Setup response for the IPC Call.    *    * @param response buffer to serialize the response into    * @param call {@link Call} to which we are setting up the response    * @param status {@link Status} of the IPC call    * @param rv return value for the IPC Call, if the call was successful    * @param errorClass error class, if the the call failed    * @param error error message, if the call failed    * @throws IOException    */
 specifier|private
@@ -7298,9 +7438,8 @@ operator|*
 literal|1024
 decl_stmt|;
 comment|//should not be more than 64KB.
-comment|/**    * This is a wrapper around {@link WritableByteChannel#write(ByteBuffer)}.    * If the amount of data is large, it writes to channel in smaller chunks.    * This is to avoid jdk from creating many direct buffers as the size of    * buffer increases. This also minimizes extra copies in NIO layer    * as a result of multiple write operations required to write a large    * buffer.    *    * @param channel writable byte channel to write to    * @param buffer buffer to write    * @return number of bytes written    * @throws java.io.IOException e    * @see WritableByteChannel#write(ByteBuffer)    */
+comment|/**    * This is a wrapper around {@link java.nio.channels.WritableByteChannel#write(java.nio.ByteBuffer)}.    * If the amount of data is large, it writes to channel in smaller chunks.    * This is to avoid jdk from creating many direct buffers as the size of    * buffer increases. This also minimizes extra copies in NIO layer    * as a result of multiple write operations required to write a large    * buffer.    *    * @param channel writable byte channel to write to    * @param buffer buffer to write    * @return number of bytes written    * @throws java.io.IOException e    * @see java.nio.channels.WritableByteChannel#write(java.nio.ByteBuffer)    */
 specifier|protected
-specifier|static
 name|int
 name|channelWrite
 parameter_list|(
@@ -7313,7 +7452,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
+name|int
+name|count
+init|=
 operator|(
 name|buffer
 operator|.
@@ -7338,11 +7479,30 @@ name|channel
 argument_list|,
 name|buffer
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|count
+operator|>
+literal|0
+condition|)
+block|{
+name|rpcMetrics
+operator|.
+name|sentBytes
+operator|.
+name|inc
+argument_list|(
+name|count
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|count
 return|;
 block|}
-comment|/**    * This is a wrapper around {@link ReadableByteChannel#read(ByteBuffer)}.    * If the amount of data is large, it writes to channel in smaller chunks.    * This is to avoid jdk from creating many direct buffers as the size of    * ByteBuffer increases. There should not be any performance degredation.    *    * @param channel writable byte channel to write on    * @param buffer buffer to write    * @return number of bytes written    * @throws java.io.IOException e    * @see ReadableByteChannel#read(ByteBuffer)    */
+comment|/**    * This is a wrapper around {@link java.nio.channels.ReadableByteChannel#read(java.nio.ByteBuffer)}.    * If the amount of data is large, it writes to channel in smaller chunks.    * This is to avoid jdk from creating many direct buffers as the size of    * ByteBuffer increases. There should not be any performance degredation.    *    * @param channel writable byte channel to write on    * @param buffer buffer to write    * @return number of bytes written    * @throws java.io.IOException e    * @see java.nio.channels.ReadableByteChannel#read(java.nio.ByteBuffer)    */
 specifier|protected
-specifier|static
 name|int
 name|channelRead
 parameter_list|(
@@ -7355,7 +7515,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
+name|int
+name|count
+init|=
 operator|(
 name|buffer
 operator|.
@@ -7380,9 +7542,29 @@ literal|null
 argument_list|,
 name|buffer
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|count
+operator|>
+literal|0
+condition|)
+block|{
+name|rpcMetrics
+operator|.
+name|receivedBytes
+operator|.
+name|inc
+argument_list|(
+name|count
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|count
 return|;
 block|}
-comment|/**    * Helper for {@link #channelRead(ReadableByteChannel, ByteBuffer)}    * and {@link #channelWrite(WritableByteChannel, ByteBuffer)}. Only    * one of readCh or writeCh should be non-null.    *    * @param readCh read channel    * @param writeCh write channel    * @param buf buffer to read or write into/out of    * @return bytes written    * @throws java.io.IOException e    * @see #channelRead(ReadableByteChannel, ByteBuffer)    * @see #channelWrite(WritableByteChannel, ByteBuffer)    */
+comment|/**    * Helper for {@link #channelRead(java.nio.channels.ReadableByteChannel, java.nio.ByteBuffer)}    * and {@link #channelWrite(java.nio.channels.WritableByteChannel, java.nio.ByteBuffer)}. Only    * one of readCh or writeCh should be non-null.    *    * @param readCh read channel    * @param writeCh write channel    * @param buf buffer to read or write into/out of    * @return bytes written    * @throws java.io.IOException e    * @see #channelRead(java.nio.channels.ReadableByteChannel, java.nio.ByteBuffer)    * @see #channelWrite(java.nio.channels.WritableByteChannel, java.nio.ByteBuffer)    */
 specifier|private
 specifier|static
 name|int

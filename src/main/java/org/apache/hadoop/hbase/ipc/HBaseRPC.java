@@ -111,6 +111,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|security
+operator|.
+name|User
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|io
 operator|.
 name|Writable
@@ -125,39 +141,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
-name|VersionedProtocol
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|net
 operator|.
 name|NetUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|security
-operator|.
-name|UserGroupInformation
 import|;
 end_import
 
@@ -303,7 +289,8 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// no public ctor
-specifier|private
+comment|/**    * Configuration key for the {@link RpcEngine} implementation to load to    * handle connection protocols.  Handlers for individual protocols can be    * configured using {@code "hbase.rpc.engine." + protocol.class.name}.    */
+specifier|public
 specifier|static
 specifier|final
 name|String
@@ -1025,7 +1012,10 @@ name|clientVersion
 argument_list|,
 name|addr
 argument_list|,
-literal|null
+name|User
+operator|.
+name|getCurrent
+argument_list|()
 argument_list|,
 name|conf
 argument_list|,
@@ -1055,7 +1045,7 @@ parameter_list|,
 name|InetSocketAddress
 name|addr
 parameter_list|,
-name|UserGroupInformation
+name|User
 name|ticket
 parameter_list|,
 name|Configuration
@@ -1228,7 +1218,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Expert: Make multiple, parallel calls to a set of servers.    *    * @param method method to invoke    * @param params array of parameters    * @param addrs array of addresses    * @param conf configuration    * @return values    * @throws IOException e    */
+comment|/**    * Expert: Make multiple, parallel calls to a set of servers.    *    * @param method method to invoke    * @param params array of parameters    * @param addrs array of addresses    * @param conf configuration    * @return values    * @throws IOException e    * @deprecated Instead of calling statically, use    *     {@link HBaseRPC#getProtocolEngine(Class, org.apache.hadoop.conf.Configuration)}    *     to obtain an {@link RpcEngine} instance and then use    *     {@link RpcEngine#call(java.lang.reflect.Method, Object[][], java.net.InetSocketAddress[], Class, org.apache.hadoop.hbase.security.User, org.apache.hadoop.conf.Configuration)}    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|Object
@@ -1255,7 +1247,7 @@ name|VersionedProtocol
 argument_list|>
 name|protocol
 parameter_list|,
-name|UserGroupInformation
+name|User
 name|ticket
 parameter_list|,
 name|Configuration

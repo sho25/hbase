@@ -83,9 +83,11 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|security
 operator|.
-name|UserGroupInformation
+name|User
 import|;
 end_import
 
@@ -99,7 +101,7 @@ name|ConnectionHeader
 implements|implements
 name|Writable
 block|{
-specifier|private
+specifier|protected
 name|String
 name|protocol
 decl_stmt|;
@@ -107,15 +109,15 @@ specifier|public
 name|ConnectionHeader
 parameter_list|()
 block|{}
-comment|/**    * Create a new {@link ConnectionHeader} with the given<code>protocol</code>    * and {@link UserGroupInformation}.    * @param protocol protocol used for communication between the IPC client    *                 and the server    * @param ugi {@link UserGroupInformation} of the client communicating with    *            the server    */
+comment|/**    * Create a new {@link ConnectionHeader} with the given<code>protocol</code>    * and {@link User}.    * @param protocol protocol used for communication between the IPC client    *                 and the server    * @param user {@link User} of the client communicating with    *            the server    */
 specifier|public
 name|ConnectionHeader
 parameter_list|(
 name|String
 name|protocol
 parameter_list|,
-name|UserGroupInformation
-name|ugi
+name|User
+name|user
 parameter_list|)
 block|{
 name|this
@@ -200,8 +202,8 @@ name|protocol
 return|;
 block|}
 specifier|public
-name|UserGroupInformation
-name|getUgi
+name|User
+name|getUser
 parameter_list|()
 block|{
 return|return
