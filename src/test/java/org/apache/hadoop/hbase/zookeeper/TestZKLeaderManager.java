@@ -683,10 +683,7 @@ name|ZKUtil
 operator|.
 name|getData
 argument_list|(
-name|CANDIDATES
-index|[
-literal|0
-index|]
+name|currentLeader
 operator|.
 name|getWatcher
 argument_list|()
@@ -789,10 +786,7 @@ name|ZKUtil
 operator|.
 name|getData
 argument_list|(
-name|CANDIDATES
-index|[
-literal|0
-index|]
+name|currentLeader
 operator|.
 name|getWatcher
 argument_list|()
@@ -896,10 +890,7 @@ name|ZKUtil
 operator|.
 name|getData
 argument_list|(
-name|CANDIDATES
-index|[
-literal|0
-index|]
+name|currentLeader
 operator|.
 name|getWatcher
 argument_list|()
