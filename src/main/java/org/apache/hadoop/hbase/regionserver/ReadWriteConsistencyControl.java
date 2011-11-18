@@ -150,6 +150,21 @@ argument_list|<
 name|Long
 argument_list|>
 argument_list|()
+block|{
+annotation|@
+name|Override
+specifier|protected
+name|Long
+name|initialValue
+parameter_list|()
+block|{
+return|return
+name|Long
+operator|.
+name|MAX_VALUE
+return|;
+block|}
+block|}
 decl_stmt|;
 comment|/**    * Default constructor. Initializes the memstoreRead/Write points to 0.    */
 specifier|public
@@ -197,23 +212,6 @@ operator|new
 name|RuntimeException
 argument_list|(
 literal|"Already used this rwcc. Too late to initialize"
-argument_list|)
-throw|;
-block|}
-if|if
-condition|(
-name|this
-operator|.
-name|memstoreWrite
-operator|>
-name|startPoint
-condition|)
-block|{
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"Cannot decrease RWCC timestamp"
 argument_list|)
 throw|;
 block|}

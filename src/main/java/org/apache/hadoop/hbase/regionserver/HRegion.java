@@ -12677,13 +12677,6 @@ name|getValue
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|scanner
-operator|.
-name|useRWCC
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 name|scanners
 operator|.
 name|add

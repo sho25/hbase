@@ -2607,6 +2607,13 @@ name|ScanType
 operator|.
 name|MINOR_COMPACT
 argument_list|,
+name|this
+operator|.
+name|region
+operator|.
+name|getSmallestReadPoint
+argument_list|()
+argument_list|,
 name|HConstants
 operator|.
 name|OLDEST_TIMESTAMP
@@ -2716,6 +2723,15 @@ operator|<=
 name|smallestReadPoint
 condition|)
 block|{
+comment|// let us not change the original KV. It could be in the memstore
+comment|// changing its memstoreTS could affect other threads/scanners.
+name|kv
+operator|=
+name|kv
+operator|.
+name|shallowCopy
+argument_list|()
+expr_stmt|;
 name|kv
 operator|.
 name|setMemstoreTS
@@ -5961,6 +5977,13 @@ operator|.
 name|getSmallestReadPoint
 argument_list|()
 decl_stmt|;
+name|ReadWriteConsistencyControl
+operator|.
+name|setThreadReadPoint
+argument_list|(
+name|smallestReadPoint
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 name|InternalScanner
@@ -6008,6 +6031,8 @@ else|:
 name|ScanType
 operator|.
 name|MINOR_COMPACT
+argument_list|,
+name|smallestReadPoint
 argument_list|,
 name|earliestPutTs
 argument_list|)

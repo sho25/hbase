@@ -264,6 +264,12 @@ specifier|private
 name|KeyValue
 name|delayedSeekKV
 decl_stmt|;
+specifier|private
+name|boolean
+name|enforceRWCC
+init|=
+literal|false
+decl_stmt|;
 comment|//The variable, realSeekDone, may cheat on store file scanner for the
 comment|// multi-column bloom-filter optimization.
 comment|// So this flag shows whether this storeFileScanner could do a reseek.
@@ -298,6 +304,9 @@ name|reader
 parameter_list|,
 name|HFileScanner
 name|hfs
+parameter_list|,
+name|boolean
+name|useRWCC
 parameter_list|)
 block|{
 name|this
@@ -311,6 +320,12 @@ operator|.
 name|hfs
 operator|=
 name|hfs
+expr_stmt|;
+name|this
+operator|.
+name|enforceRWCC
+operator|=
+name|useRWCC
 expr_stmt|;
 block|}
 comment|/**    * Return an array of scanners corresponding to the given    * set of store files.    */
@@ -554,6 +569,9 @@ operator|.
 name|getKeyValue
 argument_list|()
 expr_stmt|;
+name|skipKVsNewerThanReadpoint
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 catch|catch
@@ -629,7 +647,8 @@ name|getKeyValue
 argument_list|()
 expr_stmt|;
 return|return
-literal|true
+name|skipKVsNewerThanReadpoint
+argument_list|()
 return|;
 block|}
 finally|finally
@@ -704,7 +723,8 @@ name|getKeyValue
 argument_list|()
 expr_stmt|;
 return|return
-literal|true
+name|skipKVsNewerThanReadpoint
+argument_list|()
 return|;
 block|}
 finally|finally
@@ -733,6 +753,96 @@ name|ioe
 argument_list|)
 throw|;
 block|}
+block|}
+specifier|protected
+name|boolean
+name|skipKVsNewerThanReadpoint
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|long
+name|readPoint
+init|=
+name|ReadWriteConsistencyControl
+operator|.
+name|getThreadReadPoint
+argument_list|()
+decl_stmt|;
+comment|// We want to ignore all key-values that are newer than our current
+comment|// readPoint
+while|while
+condition|(
+name|enforceRWCC
+operator|&&
+name|cur
+operator|!=
+literal|null
+operator|&&
+operator|(
+name|cur
+operator|.
+name|getMemstoreTS
+argument_list|()
+operator|>
+name|readPoint
+operator|)
+condition|)
+block|{
+name|hfs
+operator|.
+name|next
+argument_list|()
+expr_stmt|;
+name|cur
+operator|=
+name|hfs
+operator|.
+name|getKeyValue
+argument_list|()
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|cur
+operator|==
+literal|null
+condition|)
+block|{
+name|close
+argument_list|()
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+comment|// For the optimisation in HBASE-4346, we set the KV's memstoreTS to
+comment|// 0, if it is older than all the scanners' read points. It is possible
+comment|// that a newer KV's memstoreTS was reset to 0. But, there is an
+comment|// older KV which was not reset to 0 (because it was
+comment|// not old enough during flush). Make sure that we set it correctly now,
+comment|// so that the comparision order does not change.
+if|if
+condition|(
+name|cur
+operator|.
+name|getMemstoreTS
+argument_list|()
+operator|<=
+name|readPoint
+condition|)
+block|{
+name|cur
+operator|.
+name|setMemstoreTS
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+literal|true
+return|;
 block|}
 specifier|public
 name|void

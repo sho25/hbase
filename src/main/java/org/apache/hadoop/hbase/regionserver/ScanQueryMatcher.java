@@ -271,28 +271,11 @@ specifier|final
 name|long
 name|earliestPutTs
 decl_stmt|;
-comment|/** Should we ignore KV's with a newer RWCC timestamp **/
-specifier|private
-name|boolean
-name|enforceRWCC
-init|=
-literal|false
+comment|/** readPoint over which the KVs are unconditionally included */
+specifier|protected
+name|long
+name|maxReadPointToTrackVersions
 decl_stmt|;
-specifier|public
-name|void
-name|useRWCC
-parameter_list|(
-name|boolean
-name|flag
-parameter_list|)
-block|{
-name|this
-operator|.
-name|enforceRWCC
-operator|=
-name|flag
-expr_stmt|;
-block|}
 comment|/**    * This variable shows whether there is an null column in the query. There    * always exists a null column in the wildcard column query.    * There maybe exists a null column in the explicit column query based on the    * first column.    * */
 specifier|private
 name|boolean
@@ -323,6 +306,9 @@ name|StoreScanner
 operator|.
 name|ScanType
 name|scanType
+parameter_list|,
+name|long
+name|readPointToUse
 parameter_list|,
 name|long
 name|earliestPutTs
@@ -399,6 +385,12 @@ operator|.
 name|earliestPutTs
 operator|=
 name|earliestPutTs
+expr_stmt|;
+name|this
+operator|.
+name|maxReadPointToTrackVersions
+operator|=
+name|readPointToUse
 expr_stmt|;
 comment|/* how to deal with deletes */
 comment|// keep deleted cells: if compaction or raw scan
@@ -591,6 +583,11 @@ name|ScanType
 operator|.
 name|USER_SCAN
 argument_list|,
+name|Long
+operator|.
+name|MAX_VALUE
+argument_list|,
+comment|/* max Readpoint to track versions */
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
@@ -858,31 +855,6 @@ name|offset
 argument_list|,
 name|qualLength
 argument_list|)
-return|;
-block|}
-comment|// The compaction thread has no readPoint set. For other operations, we
-comment|// will ignore updates that are done after the read operation has started.
-if|if
-condition|(
-name|this
-operator|.
-name|enforceRWCC
-operator|&&
-name|kv
-operator|.
-name|getMemstoreTS
-argument_list|()
-operator|>
-name|ReadWriteConsistencyControl
-operator|.
-name|getThreadReadPoint
-argument_list|()
-condition|)
-block|{
-return|return
-name|MatchCode
-operator|.
-name|SKIP
 return|;
 block|}
 comment|/*      * The delete logic is pretty complicated now.      * This is corroborated by the following:      * 1. The store might be instructed to keep deleted rows around.      * 2. A scan can optionally see past a delete marker now.      * 3. If deleted rows are kept, we have to find out when we can      *    remove the delete markers.      * 4. Family delete markers are always first (regardless of their TS)      * 5. Delete markers should not be counted as version      * 6. Delete markers affect puts of the *same* TS      * 7. Delete marker need to be version counted together with puts      *    they affect      */
@@ -1238,6 +1210,13 @@ argument_list|,
 name|timestamp
 argument_list|,
 name|type
+argument_list|,
+name|kv
+operator|.
+name|getMemstoreTS
+argument_list|()
+operator|>
+name|maxReadPointToTrackVersions
 argument_list|)
 decl_stmt|;
 comment|/*      * According to current implementation, colChecker can only be      * SEEK_NEXT_COL, SEEK_NEXT_ROW, SKIP or INCLUDE. Therefore, always return      * the MatchCode. If it is SEEK_NEXT_ROW, also set stickyNextRow.      */

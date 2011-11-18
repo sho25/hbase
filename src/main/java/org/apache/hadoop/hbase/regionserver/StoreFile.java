@@ -4603,6 +4603,9 @@ name|pread
 argument_list|,
 name|isCompaction
 argument_list|)
+argument_list|,
+operator|!
+name|isCompaction
 argument_list|)
 return|;
 block|}

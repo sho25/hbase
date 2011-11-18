@@ -413,6 +413,10 @@ name|ScanType
 operator|.
 name|USER_SCAN
 argument_list|,
+name|Long
+operator|.
+name|MAX_VALUE
+argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
@@ -512,7 +516,7 @@ name|this
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Used for major compactions.<p>    *    * Opens a scanner across specified StoreFiles.    * @param store who we scan    * @param scan the spec    * @param scanners ancilliary scanners    */
+comment|/**    * Used for major compactions.<p>    *    * Opens a scanner across specified StoreFiles.    * @param store who we scan    * @param scan the spec    * @param scanners ancilliary scanners    * @param smallestReadPoint the readPoint that we should use for tracking versions    * @param retainDeletesInOutput should we retain deletes after compaction?    */
 name|StoreScanner
 parameter_list|(
 name|Store
@@ -531,6 +535,9 @@ name|scanners
 parameter_list|,
 name|ScanType
 name|scanType
+parameter_list|,
+name|long
+name|smallestReadPoint
 parameter_list|,
 name|long
 name|earliestPutTs
@@ -563,6 +570,8 @@ argument_list|,
 literal|null
 argument_list|,
 name|scanType
+argument_list|,
+name|smallestReadPoint
 argument_list|,
 name|earliestPutTs
 argument_list|)
@@ -665,6 +674,10 @@ name|columns
 argument_list|,
 name|scanType
 argument_list|,
+name|Long
+operator|.
+name|MAX_VALUE
+argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
@@ -701,23 +714,6 @@ name|scanInfo
 operator|.
 name|getComparator
 argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * Advise the StoreScanner if it should enforce the RWCC mechanism    * for ignoring newer KVs or not.    * @param flag    */
-specifier|public
-name|void
-name|useRWCC
-parameter_list|(
-name|boolean
-name|flag
-parameter_list|)
-block|{
-name|matcher
-operator|.
-name|useRWCC
-argument_list|(
-name|flag
 argument_list|)
 expr_stmt|;
 block|}
@@ -895,6 +891,7 @@ argument_list|,
 name|columns
 argument_list|)
 condition|)
+block|{
 name|scanners
 operator|.
 name|add
@@ -902,6 +899,7 @@ argument_list|(
 name|kvs
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 else|else
 block|{
@@ -923,6 +921,7 @@ argument_list|(
 name|scan
 argument_list|)
 condition|)
+block|{
 name|scanners
 operator|.
 name|add
@@ -930,6 +929,7 @@ argument_list|(
 name|kvs
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 return|return

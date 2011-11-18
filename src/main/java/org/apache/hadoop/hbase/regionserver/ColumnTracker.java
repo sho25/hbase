@@ -54,7 +54,7 @@ specifier|public
 interface|interface
 name|ColumnTracker
 block|{
-comment|/**    * Keeps track of the number of versions for the columns asked for    * @param bytes    * @param offset    * @param length    * @param ttl The timeToLive to enforce.    * @param type The type of the KeyValue    * @return The match code instance.    * @throws IOException in case there is an internal consistency problem    *      caused by a data corruption.    */
+comment|/**    * Keeps track of the number of versions for the columns asked for    * @param bytes    * @param offset    * @param length    * @param ttl The timeToLive to enforce.    * @param type The type of the KeyValue    * @param ignoreCount indicates if the KV needs to be excluded while counting    *   (used during compactions. We only count KV's that are older than all the    *   scanners' read points.)    * @return The match code instance.    * @throws IOException in case there is an internal consistency problem    *      caused by a data corruption.    */
 specifier|public
 name|ScanQueryMatcher
 operator|.
@@ -76,6 +76,9 @@ name|ttl
 parameter_list|,
 name|byte
 name|type
+parameter_list|,
+name|boolean
+name|ignoreCount
 parameter_list|)
 throws|throws
 name|IOException

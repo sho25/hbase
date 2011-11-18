@@ -319,6 +319,9 @@ name|timestamp
 parameter_list|,
 name|byte
 name|type
+parameter_list|,
+name|boolean
+name|ignoreCount
 parameter_list|)
 block|{
 comment|// delete markers should never be passed to an
@@ -414,6 +417,17 @@ operator|==
 literal|0
 condition|)
 block|{
+if|if
+condition|(
+name|ignoreCount
+condition|)
+return|return
+name|ScanQueryMatcher
+operator|.
+name|MatchCode
+operator|.
+name|INCLUDE
+return|;
 comment|//If column matches, check if it is a duplicate timestamp
 if|if
 condition|(

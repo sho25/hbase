@@ -206,6 +206,9 @@ name|timestamp
 parameter_list|,
 name|byte
 name|type
+parameter_list|,
+name|boolean
+name|ignoreCount
 parameter_list|)
 throws|throws
 name|IOException
@@ -227,6 +230,17 @@ argument_list|,
 name|length
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|ignoreCount
+condition|)
+return|return
+name|ScanQueryMatcher
+operator|.
+name|MatchCode
+operator|.
+name|INCLUDE
+return|;
 comment|// do not count a delete marker as another version
 return|return
 name|checkVersion
@@ -264,6 +278,17 @@ operator|==
 literal|0
 condition|)
 block|{
+if|if
+condition|(
+name|ignoreCount
+condition|)
+return|return
+name|ScanQueryMatcher
+operator|.
+name|MatchCode
+operator|.
+name|INCLUDE
+return|;
 comment|//If column matches, check if it is a duplicate timestamp
 if|if
 condition|(
@@ -313,6 +338,17 @@ argument_list|,
 name|length
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|ignoreCount
+condition|)
+return|return
+name|ScanQueryMatcher
+operator|.
+name|MatchCode
+operator|.
+name|INCLUDE
+return|;
 return|return
 name|checkVersion
 argument_list|(
