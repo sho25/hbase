@@ -4008,13 +4008,6 @@ operator|.
 name|stopping
 condition|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Stopping meta regions, if the HRegionServer hosts any"
-argument_list|)
-expr_stmt|;
 name|boolean
 name|allUserRegionsOffline
 init|=
@@ -4055,6 +4048,19 @@ name|requestCount
 operator|.
 name|get
 argument_list|()
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// Make sure all regions have been closed -- some regions may
+comment|// have not got it because we were splitting at the time of
+comment|// the call to closeUserRegions.
+name|closeUserRegions
+argument_list|(
+name|this
+operator|.
+name|abortRequested
+argument_list|)
 expr_stmt|;
 block|}
 name|LOG
@@ -9774,7 +9780,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Schedule closes on all user regions.    * @param abort Whether we're running an abort.    */
+comment|/**    * Schedule closes on all user regions.    * Should be safe calling multiple times because it wont' close regions    * that are already closed or that are closing.    * @param abort Whether we're running an abort.    */
 end_comment
 
 begin_function
@@ -9838,6 +9844,19 @@ name|isMetaRegion
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|r
+operator|.
+name|isClosed
+argument_list|()
+operator|||
+name|r
+operator|.
+name|isClosing
+argument_list|()
+condition|)
+continue|continue;
 comment|// Don't update zk with this close transition; pass false.
 name|closeRegion
 argument_list|(
