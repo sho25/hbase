@@ -1116,14 +1116,19 @@ operator|+
 name|blockCountByType
 argument_list|)
 expr_stmt|;
-name|assertEquals
-argument_list|(
-literal|"{DATA=1367, LEAF_INDEX=172, BLOOM_CHUNK=9, INTERMEDIATE_INDEX=24}"
-argument_list|,
+name|String
+name|countByType
+init|=
 name|blockCountByType
 operator|.
 name|toString
 argument_list|()
+decl_stmt|;
+name|assertEquals
+argument_list|(
+literal|"{DATA=1379, LEAF_INDEX=173, BLOOM_CHUNK=9, INTERMEDIATE_INDEX=24}"
+argument_list|,
+name|countByType
 argument_list|)
 expr_stmt|;
 name|reader

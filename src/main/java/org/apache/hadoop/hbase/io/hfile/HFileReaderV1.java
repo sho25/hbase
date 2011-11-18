@@ -1791,7 +1791,7 @@ block|{
 specifier|private
 specifier|final
 name|HFileReaderV1
-name|readerV1
+name|reader
 decl_stmt|;
 specifier|private
 name|int
@@ -1817,8 +1817,6 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-name|reader
-argument_list|,
 name|cacheBlocks
 argument_list|,
 name|pread
@@ -1826,7 +1824,9 @@ argument_list|,
 name|isCompaction
 argument_list|)
 expr_stmt|;
-name|readerV1
+name|this
+operator|.
+name|reader
 operator|=
 name|reader
 expr_stmt|;
@@ -2117,7 +2117,7 @@ return|;
 block|}
 name|blockBuffer
 operator|=
-name|readerV1
+name|reader
 operator|.
 name|readBlockBuffer
 argument_list|(
@@ -2217,7 +2217,7 @@ block|{
 name|int
 name|b
 init|=
-name|readerV1
+name|reader
 operator|.
 name|blockContainingKey
 argument_list|(
@@ -2371,7 +2371,7 @@ block|}
 name|int
 name|b
 init|=
-name|readerV1
+name|reader
 operator|.
 name|blockContainingKey
 argument_list|(
@@ -2706,7 +2706,7 @@ block|{
 name|int
 name|b
 init|=
-name|readerV1
+name|reader
 operator|.
 name|blockContainingKey
 argument_list|(
@@ -2950,7 +2950,7 @@ literal|0
 expr_stmt|;
 name|blockBuffer
 operator|=
-name|readerV1
+name|reader
 operator|.
 name|readBlockBuffer
 argument_list|(
@@ -3006,7 +3006,7 @@ condition|)
 block|{
 name|blockBuffer
 operator|=
-name|readerV1
+name|reader
 operator|.
 name|readBlockBuffer
 argument_list|(
@@ -3038,7 +3038,7 @@ condition|)
 block|{
 name|blockBuffer
 operator|=
-name|readerV1
+name|reader
 operator|.
 name|readBlockBuffer
 argument_list|(

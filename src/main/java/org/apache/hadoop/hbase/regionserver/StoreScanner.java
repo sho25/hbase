@@ -704,6 +704,23 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Advise the StoreScanner if it should enforce the RWCC mechanism    * for ignoring newer KVs or not.    * @param flag    */
+specifier|public
+name|void
+name|useRWCC
+parameter_list|(
+name|boolean
+name|flag
+parameter_list|)
+block|{
+name|matcher
+operator|.
+name|useRWCC
+argument_list|(
+name|flag
+argument_list|)
+expr_stmt|;
+block|}
 comment|/*    * @return List of scanners ordered properly.    */
 specifier|private
 name|List

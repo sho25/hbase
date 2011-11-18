@@ -6031,12 +6031,15 @@ argument_list|(
 name|kv
 argument_list|)
 expr_stmt|;
+comment|// kv has memstoreTS 0, which takes 1 byte to store.
 name|totalSize
 operator|+=
 name|kv
 operator|.
 name|getLength
 argument_list|()
+operator|+
+literal|1
 expr_stmt|;
 block|}
 name|int

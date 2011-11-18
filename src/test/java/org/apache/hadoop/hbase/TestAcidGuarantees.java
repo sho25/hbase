@@ -1502,6 +1502,33 @@ name|writer
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Add a flusher
+name|ctx
+operator|.
+name|addThread
+argument_list|(
+operator|new
+name|RepeatingTestThread
+argument_list|(
+name|ctx
+argument_list|)
+block|{
+specifier|public
+name|void
+name|doAnAction
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+name|util
+operator|.
+name|flush
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+argument_list|)
+expr_stmt|;
 name|List
 argument_list|<
 name|AtomicGetReader
@@ -1739,11 +1766,6 @@ block|}
 block|}
 annotation|@
 name|Test
-annotation|@
-name|Ignore
-argument_list|(
-literal|"Currently not passing - see HBASE-2856"
-argument_list|)
 specifier|public
 name|void
 name|testGetAtomicity
@@ -1785,11 +1807,6 @@ block|}
 block|}
 annotation|@
 name|Test
-annotation|@
-name|Ignore
-argument_list|(
-literal|"Currently not passing - see HBASE-2670"
-argument_list|)
 specifier|public
 name|void
 name|testScanAtomicity
@@ -1831,11 +1848,6 @@ block|}
 block|}
 annotation|@
 name|Test
-annotation|@
-name|Ignore
-argument_list|(
-literal|"Currently not passing - see HBASE-2670"
-argument_list|)
 specifier|public
 name|void
 name|testMixedAtomicity
@@ -1913,13 +1925,9 @@ name|test
 operator|.
 name|runTestAtomicity
 argument_list|(
-literal|5
-operator|*
-literal|60
-operator|*
-literal|1000
+literal|5000
 argument_list|,
-literal|5
+literal|50
 argument_list|,
 literal|2
 argument_list|,

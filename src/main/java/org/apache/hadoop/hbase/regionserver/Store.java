@@ -1428,6 +1428,24 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+comment|/**    * @return The maximum memstoreTS in all store files.    */
+specifier|public
+name|long
+name|getMaxMemstoreTS
+parameter_list|()
+block|{
+return|return
+name|StoreFile
+operator|.
+name|getMaxMemstoreTSInList
+argument_list|(
+name|this
+operator|.
+name|getStorefiles
+argument_list|()
+argument_list|)
+return|;
+block|}
 comment|/**    * @param tabledir    * @param encodedName Encoded region name.    * @param family    * @return Path to family/Store home directory.    */
 specifier|public
 specifier|static
@@ -2500,6 +2518,18 @@ operator|.
 name|Writer
 name|writer
 decl_stmt|;
+name|String
+name|fileName
+decl_stmt|;
+comment|// Find the smallest read point across all the Scanners.
+name|long
+name|smallestReadPoint
+init|=
+name|region
+operator|.
+name|getSmallestReadPoint
+argument_list|()
+decl_stmt|;
 name|long
 name|flushed
 init|=
@@ -2669,6 +2699,26 @@ range|:
 name|kvs
 control|)
 block|{
+comment|// If we know that this KV is going to be included always, then let us
+comment|// set its memstoreTS to 0. This will help us save space when writing to disk.
+if|if
+condition|(
+name|kv
+operator|.
+name|getMemstoreTS
+argument_list|()
+operator|<=
+name|smallestReadPoint
+condition|)
+block|{
+name|kv
+operator|.
+name|setMemstoreTS
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+block|}
 name|writer
 operator|.
 name|append
@@ -5752,6 +5802,15 @@ name|writer
 init|=
 literal|null
 decl_stmt|;
+comment|// Find the smallest read point across all the Scanners.
+name|long
+name|smallestReadPoint
+init|=
+name|region
+operator|.
+name|getSmallestReadPoint
+argument_list|()
+decl_stmt|;
 try|try
 block|{
 name|InternalScanner
@@ -5925,6 +5984,24 @@ range|:
 name|kvs
 control|)
 block|{
+if|if
+condition|(
+name|kv
+operator|.
+name|getMemstoreTS
+argument_list|()
+operator|<=
+name|smallestReadPoint
+condition|)
+block|{
+name|kv
+operator|.
+name|setMemstoreTS
+argument_list|(
+literal|0
+argument_list|)
+expr_stmt|;
+block|}
 name|writer
 operator|.
 name|append
@@ -7782,7 +7859,7 @@ comment|// File administration
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|/**    * Return a scanner for both the memstore and the HStore files    * @throws IOException    */
 specifier|public
-name|KeyValueScanner
+name|StoreScanner
 name|getScanner
 parameter_list|(
 name|Scan

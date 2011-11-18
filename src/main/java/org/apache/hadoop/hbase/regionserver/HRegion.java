@@ -1556,6 +1556,70 @@ operator|.
 name|KVComparator
 name|comparator
 decl_stmt|;
+specifier|private
+name|ConcurrentHashMap
+argument_list|<
+name|RegionScanner
+argument_list|,
+name|Long
+argument_list|>
+name|scannerReadPoints
+decl_stmt|;
+comment|/*    * @return The smallest rwcc readPoint across all the scanners in this    * region. Writes older than this readPoint, are included  in every    * read operation.    */
+specifier|public
+name|long
+name|getSmallestReadPoint
+parameter_list|()
+block|{
+name|long
+name|minimumReadPoint
+decl_stmt|;
+comment|// We need to ensure that while we are calculating the smallestReadPoint
+comment|// no new RegionScanners can grab a readPoint that we are unaware of.
+comment|// We achieve this by synchronizing on the scannerReadPoints object.
+synchronized|synchronized
+init|(
+name|scannerReadPoints
+init|)
+block|{
+name|minimumReadPoint
+operator|=
+name|rwcc
+operator|.
+name|memstoreReadPoint
+argument_list|()
+expr_stmt|;
+for|for
+control|(
+name|Long
+name|readPoint
+range|:
+name|this
+operator|.
+name|scannerReadPoints
+operator|.
+name|values
+argument_list|()
+control|)
+block|{
+if|if
+condition|(
+name|readPoint
+operator|<
+name|minimumReadPoint
+condition|)
+block|{
+name|minimumReadPoint
+operator|=
+name|readPoint
+expr_stmt|;
+block|}
+block|}
+block|}
+return|return
+name|minimumReadPoint
+return|;
+block|}
 comment|/*    * Data structure of write state flags used coordinating flushes,    * compactions and closes.    */
 specifier|static
 class|class
@@ -2320,6 +2384,19 @@ name|coprocessorHost
 operator|=
 literal|null
 expr_stmt|;
+name|this
+operator|.
+name|scannerReadPoints
+operator|=
+operator|new
+name|ConcurrentHashMap
+argument_list|<
+name|RegionScanner
+argument_list|,
+name|Long
+argument_list|>
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * HRegion constructor.  his constructor should only be used for testing and    * extensions.  Instances of HRegion should be instantiated with the    * {@link HRegion#newHRegion(Path, HLog, FileSystem, Configuration, HRegionInfo, HTableDescriptor, RegionServerServices)} method.    *    *    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param log The HLog is the outbound log for any updates to the HRegion    * (There's a single HLog for all the HRegions on a single HRegionServer.)    * The log file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate log info for this HRegion. If there is a previous log file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - HRegionInfo that describes the region    * is new), then read them from the supplied path.    * @param rsServices reference to {@link RegionServerServices} or null    *    * @see HRegion#newHRegion(Path, HLog, FileSystem, Configuration, HRegionInfo, HTableDescriptor, RegionServerServices)    */
 specifier|public
@@ -2454,6 +2531,19 @@ name|tableDir
 argument_list|,
 name|encodedNameStr
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|scannerReadPoints
+operator|=
+operator|new
+name|ConcurrentHashMap
+argument_list|<
+name|RegionScanner
+argument_list|,
+name|Long
+argument_list|>
+argument_list|()
 expr_stmt|;
 comment|// don't initialize coprocessors if not running within a regionserver
 comment|// TODO: revisit if coprocessors should load in other cases
@@ -2707,6 +2797,13 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+comment|// initialized to -1 so that we pick up MemstoreTS from column families
+name|long
+name|maxMemstoreTS
+init|=
+operator|-
+literal|1
+decl_stmt|;
 for|for
 control|(
 name|HColumnDescriptor
@@ -2797,7 +2894,36 @@ operator|=
 name|storeSeqId
 expr_stmt|;
 block|}
+name|long
+name|maxStoreMemstoreTS
+init|=
+name|store
+operator|.
+name|getMaxMemstoreTS
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|maxStoreMemstoreTS
+operator|>
+name|maxMemstoreTS
+condition|)
+block|{
+name|maxMemstoreTS
+operator|=
+name|maxStoreMemstoreTS
+expr_stmt|;
 block|}
+block|}
+name|rwcc
+operator|.
+name|initialize
+argument_list|(
+name|maxMemstoreTS
+operator|+
+literal|1
+argument_list|)
+expr_stmt|;
 comment|// Recover any edits if available.
 name|maxSeqId
 operator|=
@@ -12439,6 +12565,13 @@ literal|1
 else|:
 literal|0
 expr_stmt|;
+comment|// synchronize on scannerReadPoints so that nobody calculates
+comment|// getSmallestReadPoint, before scannerReadPoints is updated.
+synchronized|synchronized
+init|(
+name|scannerReadPoints
+init|)
+block|{
 name|this
 operator|.
 name|readPt
@@ -12450,6 +12583,18 @@ argument_list|(
 name|rwcc
 argument_list|)
 expr_stmt|;
+name|scannerReadPoints
+operator|.
+name|put
+argument_list|(
+name|this
+argument_list|,
+name|this
+operator|.
+name|readPt
+argument_list|)
+expr_stmt|;
+block|}
 name|List
 argument_list|<
 name|KeyValueScanner
@@ -12517,10 +12662,9 @@ name|getKey
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|scanners
-operator|.
-name|add
-argument_list|(
+name|StoreScanner
+name|scanner
+init|=
 name|store
 operator|.
 name|getScanner
@@ -12532,6 +12676,19 @@ operator|.
 name|getValue
 argument_list|()
 argument_list|)
+decl_stmt|;
+name|scanner
+operator|.
+name|useRWCC
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|scanners
+operator|.
+name|add
+argument_list|(
+name|scanner
 argument_list|)
 expr_stmt|;
 block|}
@@ -13155,6 +13312,14 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+comment|// no need to sychronize here.
+name|scannerReadPoints
+operator|.
+name|remove
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|filterClosed
@@ -18106,7 +18271,7 @@ name|ClassSize
 operator|.
 name|ARRAY
 operator|+
-literal|28
+literal|29
 operator|*
 name|ClassSize
 operator|.
@@ -18162,14 +18327,14 @@ name|ATOMIC_INTEGER
 operator|+
 comment|// lockIdGenerator
 operator|(
-literal|2
+literal|3
 operator|*
 name|ClassSize
 operator|.
 name|CONCURRENT_HASHMAP
 operator|)
 operator|+
-comment|// lockedRows, lockIds
+comment|// lockedRows, lockIds, scannerReadPoints
 name|WriteState
 operator|.
 name|HEAP_SIZE
