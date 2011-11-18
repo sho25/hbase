@@ -399,8 +399,8 @@ init|=
 literal|"contentstr"
 decl_stmt|;
 specifier|private
-name|ReadWriteConsistencyControl
-name|rwcc
+name|MultiVersionConsistencyControl
+name|mvcc
 decl_stmt|;
 annotation|@
 name|Override
@@ -418,10 +418,10 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
-name|rwcc
+name|mvcc
 operator|=
 operator|new
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 argument_list|()
 expr_stmt|;
 name|this
@@ -615,11 +615,11 @@ name|KeyValue
 argument_list|>
 argument_list|()
 decl_stmt|;
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|resetThreadReadPoint
 argument_list|(
-name|rwcc
+name|mvcc
 argument_list|)
 expr_stmt|;
 name|ScanInfo
@@ -745,11 +745,11 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|resetThreadReadPoint
 argument_list|(
-name|rwcc
+name|mvcc
 argument_list|)
 expr_stmt|;
 name|memstorescanners
@@ -1292,11 +1292,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|resetThreadReadPoint
 argument_list|(
-name|rwcc
+name|mvcc
 argument_list|)
 expr_stmt|;
 name|List
@@ -1565,12 +1565,12 @@ argument_list|(
 literal|"value"
 argument_list|)
 decl_stmt|;
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|WriteEntry
 name|w
 init|=
-name|rwcc
+name|mvcc
 operator|.
 name|beginMemstoreInsert
 argument_list|()
@@ -1607,11 +1607,11 @@ argument_list|(
 name|kv1
 argument_list|)
 expr_stmt|;
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|resetThreadReadPoint
 argument_list|(
-name|rwcc
+name|mvcc
 argument_list|)
 expr_stmt|;
 name|KeyValueScanner
@@ -1639,18 +1639,18 @@ index|[]
 block|{}
 argument_list|)
 expr_stmt|;
-name|rwcc
+name|mvcc
 operator|.
 name|completeMemstoreInsert
 argument_list|(
 name|w
 argument_list|)
 expr_stmt|;
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|resetThreadReadPoint
 argument_list|(
-name|rwcc
+name|mvcc
 argument_list|)
 expr_stmt|;
 name|s
@@ -1681,7 +1681,7 @@ argument_list|)
 expr_stmt|;
 name|w
 operator|=
-name|rwcc
+name|mvcc
 operator|.
 name|beginMemstoreInsert
 argument_list|()
@@ -1718,11 +1718,11 @@ argument_list|(
 name|kv2
 argument_list|)
 expr_stmt|;
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|resetThreadReadPoint
 argument_list|(
-name|rwcc
+name|mvcc
 argument_list|)
 expr_stmt|;
 name|s
@@ -1751,18 +1751,18 @@ name|kv1
 block|}
 argument_list|)
 expr_stmt|;
-name|rwcc
+name|mvcc
 operator|.
 name|completeMemstoreInsert
 argument_list|(
 name|w
 argument_list|)
 expr_stmt|;
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|resetThreadReadPoint
 argument_list|(
-name|rwcc
+name|mvcc
 argument_list|)
 expr_stmt|;
 name|s
@@ -1875,12 +1875,12 @@ literal|"value2"
 argument_list|)
 decl_stmt|;
 comment|// INSERT 1: Write both columns val1
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|WriteEntry
 name|w
 init|=
-name|rwcc
+name|mvcc
 operator|.
 name|beginMemstoreInsert
 argument_list|()
@@ -1949,7 +1949,7 @@ argument_list|(
 name|kv12
 argument_list|)
 expr_stmt|;
-name|rwcc
+name|mvcc
 operator|.
 name|completeMemstoreInsert
 argument_list|(
@@ -1957,11 +1957,11 @@ name|w
 argument_list|)
 expr_stmt|;
 comment|// BEFORE STARTING INSERT 2, SEE FIRST KVS
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|resetThreadReadPoint
 argument_list|(
-name|rwcc
+name|mvcc
 argument_list|)
 expr_stmt|;
 name|KeyValueScanner
@@ -1996,7 +1996,7 @@ expr_stmt|;
 comment|// START INSERT 2: Write both columns val2
 name|w
 operator|=
-name|rwcc
+name|mvcc
 operator|.
 name|beginMemstoreInsert
 argument_list|()
@@ -2066,11 +2066,11 @@ name|kv22
 argument_list|)
 expr_stmt|;
 comment|// BEFORE COMPLETING INSERT 2, SEE FIRST KVS
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|resetThreadReadPoint
 argument_list|(
-name|rwcc
+name|mvcc
 argument_list|)
 expr_stmt|;
 name|s
@@ -2102,7 +2102,7 @@ block|}
 argument_list|)
 expr_stmt|;
 comment|// COMPLETE INSERT 2
-name|rwcc
+name|mvcc
 operator|.
 name|completeMemstoreInsert
 argument_list|(
@@ -2112,11 +2112,11 @@ expr_stmt|;
 comment|// NOW SHOULD SEE NEW KVS IN ADDITION TO OLD KVS.
 comment|// See HBASE-1485 for discussion about what we should do with
 comment|// the duplicate-TS inserts
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|resetThreadReadPoint
 argument_list|(
-name|rwcc
+name|mvcc
 argument_list|)
 expr_stmt|;
 name|s
@@ -2221,12 +2221,12 @@ literal|"value1"
 argument_list|)
 decl_stmt|;
 comment|// INSERT 1: Write both columns val1
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|WriteEntry
 name|w
 init|=
-name|rwcc
+name|mvcc
 operator|.
 name|beginMemstoreInsert
 argument_list|()
@@ -2295,7 +2295,7 @@ argument_list|(
 name|kv12
 argument_list|)
 expr_stmt|;
-name|rwcc
+name|mvcc
 operator|.
 name|completeMemstoreInsert
 argument_list|(
@@ -2303,11 +2303,11 @@ name|w
 argument_list|)
 expr_stmt|;
 comment|// BEFORE STARTING INSERT 2, SEE FIRST KVS
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|resetThreadReadPoint
 argument_list|(
-name|rwcc
+name|mvcc
 argument_list|)
 expr_stmt|;
 name|KeyValueScanner
@@ -2342,7 +2342,7 @@ expr_stmt|;
 comment|// START DELETE: Insert delete for one of the columns
 name|w
 operator|=
-name|rwcc
+name|mvcc
 operator|.
 name|beginMemstoreInsert
 argument_list|()
@@ -2389,11 +2389,11 @@ name|kvDel
 argument_list|)
 expr_stmt|;
 comment|// BEFORE COMPLETING DELETE, SEE FIRST KVS
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|resetThreadReadPoint
 argument_list|(
-name|rwcc
+name|mvcc
 argument_list|)
 expr_stmt|;
 name|s
@@ -2425,7 +2425,7 @@ block|}
 argument_list|)
 expr_stmt|;
 comment|// COMPLETE DELETE
-name|rwcc
+name|mvcc
 operator|.
 name|completeMemstoreInsert
 argument_list|(
@@ -2433,11 +2433,11 @@ name|w
 argument_list|)
 expr_stmt|;
 comment|// NOW WE SHOULD SEE DELETE
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|resetThreadReadPoint
 argument_list|(
-name|rwcc
+name|mvcc
 argument_list|)
 expr_stmt|;
 name|s
@@ -2515,8 +2515,8 @@ literal|"q1"
 argument_list|)
 decl_stmt|;
 specifier|final
-name|ReadWriteConsistencyControl
-name|rwcc
+name|MultiVersionConsistencyControl
+name|mvcc
 decl_stmt|;
 specifier|final
 name|MemStore
@@ -2537,8 +2537,8 @@ parameter_list|,
 name|MemStore
 name|memstore
 parameter_list|,
-name|ReadWriteConsistencyControl
-name|rwcc
+name|MultiVersionConsistencyControl
+name|mvcc
 parameter_list|,
 name|AtomicReference
 argument_list|<
@@ -2549,9 +2549,9 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|rwcc
+name|mvcc
 operator|=
-name|rwcc
+name|mvcc
 expr_stmt|;
 name|this
 operator|.
@@ -2632,12 +2632,12 @@ name|i
 operator|++
 control|)
 block|{
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|WriteEntry
 name|w
 init|=
-name|rwcc
+name|mvcc
 operator|.
 name|beginMemstoreInsert
 argument_list|()
@@ -2688,7 +2688,7 @@ argument_list|(
 name|kv
 argument_list|)
 expr_stmt|;
-name|rwcc
+name|mvcc
 operator|.
 name|completeMemstoreInsert
 argument_list|(
@@ -2696,11 +2696,11 @@ name|w
 argument_list|)
 expr_stmt|;
 comment|// Assert that we can read back
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|resetThreadReadPoint
 argument_list|(
-name|rwcc
+name|mvcc
 argument_list|)
 expr_stmt|;
 name|KeyValueScanner
@@ -2820,7 +2820,7 @@ name|i
 argument_list|,
 name|memstore
 argument_list|,
-name|rwcc
+name|mvcc
 argument_list|,
 name|caught
 argument_list|)
@@ -3378,7 +3378,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|resetThreadReadPoint
 argument_list|()
@@ -6244,11 +6244,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|ReadWriteConsistencyControl
-name|rwcc
+name|MultiVersionConsistencyControl
+name|mvcc
 init|=
 operator|new
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 argument_list|()
 decl_stmt|;
 name|MemStore
@@ -6302,11 +6302,11 @@ argument_list|(
 literal|"foo"
 argument_list|)
 expr_stmt|;
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|resetThreadReadPoint
 argument_list|(
-name|rwcc
+name|mvcc
 argument_list|)
 expr_stmt|;
 for|for

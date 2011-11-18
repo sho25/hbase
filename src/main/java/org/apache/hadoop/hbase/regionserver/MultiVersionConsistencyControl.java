@@ -94,7 +94,7 @@ end_comment
 begin_class
 specifier|public
 class|class
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 block|{
 specifier|private
 specifier|volatile
@@ -168,7 +168,7 @@ block|}
 decl_stmt|;
 comment|/**    * Default constructor. Initializes the memstoreRead/Write points to 0.    */
 specifier|public
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 parameter_list|()
 block|{
 name|this
@@ -211,7 +211,7 @@ throw|throw
 operator|new
 name|RuntimeException
 argument_list|(
-literal|"Already used this rwcc. Too late to initialize"
+literal|"Already used this mvcc. Too late to initialize"
 argument_list|)
 throw|;
 block|}
@@ -241,7 +241,7 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**    * Set the thread read point to the given value. The thread RWCC    * is used by the Memstore scanner so it knows which values to skip.    * Give it a value of 0 if you want everything.    */
+comment|/**    * Set the thread read point to the given value. The thread MVCC    * is used by the Memstore scanner so it knows which values to skip.    * Give it a value of 0 if you want everything.    */
 specifier|public
 specifier|static
 name|void
@@ -259,21 +259,21 @@ name|readPoint
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Set the thread RWCC read point to whatever the current read point is in    * this particular instance of RWCC.  Returns the new thread read point value.    */
+comment|/**    * Set the thread MVCC read point to whatever the current read point is in    * this particular instance of MVCC.  Returns the new thread read point value.    */
 specifier|public
 specifier|static
 name|long
 name|resetThreadReadPoint
 parameter_list|(
-name|ReadWriteConsistencyControl
-name|rwcc
+name|MultiVersionConsistencyControl
+name|mvcc
 parameter_list|)
 block|{
 name|perThreadReadPoint
 operator|.
 name|set
 argument_list|(
-name|rwcc
+name|mvcc
 operator|.
 name|memstoreReadPoint
 argument_list|()
@@ -284,7 +284,7 @@ name|getThreadReadPoint
 argument_list|()
 return|;
 block|}
-comment|/**    * Set the thread RWCC read point to 0 (include everything).    */
+comment|/**    * Set the thread MVCC read point to 0 (include everything).    */
 specifier|public
 specifier|static
 name|void

@@ -2693,7 +2693,7 @@ block|{
 name|long
 name|readPoint
 init|=
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|getThreadReadPoint
 argument_list|()

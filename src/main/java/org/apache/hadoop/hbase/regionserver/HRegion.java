@@ -1565,7 +1565,7 @@ name|Long
 argument_list|>
 name|scannerReadPoints
 decl_stmt|;
-comment|/*    * @return The smallest rwcc readPoint across all the scanners in this    * region. Writes older than this readPoint, are included  in every    * read operation.    */
+comment|/*    * @return The smallest mvcc readPoint across all the scanners in this    * region. Writes older than this readPoint, are included  in every    * read operation.    */
 specifier|public
 name|long
 name|getSmallestReadPoint
@@ -1584,7 +1584,7 @@ init|)
 block|{
 name|minimumReadPoint
 operator|=
-name|rwcc
+name|mvcc
 operator|.
 name|memstoreReadPoint
 argument_list|()
@@ -1809,11 +1809,11 @@ literal|null
 decl_stmt|;
 specifier|private
 specifier|final
-name|ReadWriteConsistencyControl
-name|rwcc
+name|MultiVersionConsistencyControl
+name|mvcc
 init|=
 operator|new
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 argument_list|()
 decl_stmt|;
 comment|// Coprocessor host
@@ -2915,7 +2915,7 @@ name|maxStoreMemstoreTS
 expr_stmt|;
 block|}
 block|}
-name|rwcc
+name|mvcc
 operator|.
 name|initialize
 argument_list|(
@@ -3744,12 +3744,12 @@ return|;
 block|}
 block|}
 specifier|public
-name|ReadWriteConsistencyControl
-name|getRWCC
+name|MultiVersionConsistencyControl
+name|getMVCC
 parameter_list|()
 block|{
 return|return
-name|rwcc
+name|mvcc
 return|;
 block|}
 comment|/**    * Close down this HRegion.  Flush the cache, shut down each HStore, don't    * service any more calls.    *    *<p>This method could take some time to execute, so don't call it from a    * time-sensitive thread.    *    * @return Vector of all the storage files that the HRegion's component    * HStores make use of.  It's a list of all HStoreFile objects. Returns empty    * vector if already closed and null if judged that it should not close.    *    * @throws IOException e    */
@@ -5452,7 +5452,7 @@ init|=
 operator|-
 literal|1L
 decl_stmt|;
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|WriteEntry
 name|w
@@ -5511,15 +5511,15 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-comment|// Record the rwcc for all transactions in progress.
+comment|// Record the mvcc for all transactions in progress.
 name|w
 operator|=
-name|rwcc
+name|mvcc
 operator|.
 name|beginMemstoreInsert
 argument_list|()
 expr_stmt|;
-name|rwcc
+name|mvcc
 operator|.
 name|advanceMemstore
 argument_list|(
@@ -5614,14 +5614,14 @@ name|status
 operator|.
 name|setStatus
 argument_list|(
-literal|"Waiting for rwcc"
+literal|"Waiting for mvcc"
 argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Finished snapshotting, commencing waiting for rwcc"
+literal|"Finished snapshotting, commencing waiting for mvcc"
 argument_list|)
 expr_stmt|;
 comment|// wait for all in-progress transactions to commit to HLog before
@@ -5629,7 +5629,7 @@ comment|// we can start the flush. This prevents
 comment|// uncommitted transactions from being written into HFiles.
 comment|// We have to block before we start the flush, otherwise keys that
 comment|// were removed via a rollbackMemstore could be written to Hfiles.
-name|rwcc
+name|mvcc
 operator|.
 name|waitForRead
 argument_list|(
@@ -7673,7 +7673,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|WriteEntry
 name|w
@@ -8069,11 +8069,11 @@ literal|true
 expr_stmt|;
 comment|//
 comment|// ------------------------------------
-comment|// Acquire the latest rwcc number
+comment|// Acquire the latest mvcc number
 comment|// ----------------------------------
 name|w
 operator|=
-name|rwcc
+name|mvcc
 operator|.
 name|beginMemstoreInsert
 argument_list|()
@@ -8082,9 +8082,9 @@ comment|// ------------------------------------
 comment|// STEP 3. Write back to memstore
 comment|// Write to memstore. It is ok to write to memstore
 comment|// first without updating the HLog because we do not roll
-comment|// forward the memstore RWCC. The RWCC will be moved up when
+comment|// forward the memstore MVCC. The MVCC will be moved up when
 comment|// the complete operation is done. These changes are not yet
-comment|// visible to scanners till we update the RWCC. The RWCC is
+comment|// visible to scanners till we update the MVCC. The MVCC is
 comment|// moved only when the sync is complete.
 comment|// ----------------------------------
 name|long
@@ -8366,7 +8366,7 @@ operator|=
 literal|true
 expr_stmt|;
 comment|// ------------------------------------------------------------------
-comment|// STEP 8. Advance rwcc. This will make this put visible to scanners and getters.
+comment|// STEP 8. Advance mvcc. This will make this put visible to scanners and getters.
 comment|// ------------------------------------------------------------------
 if|if
 condition|(
@@ -8375,7 +8375,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|rwcc
+name|mvcc
 operator|.
 name|completeMemstoreInsert
 argument_list|(
@@ -8497,7 +8497,7 @@ name|w
 operator|!=
 literal|null
 condition|)
-name|rwcc
+name|mvcc
 operator|.
 name|completeMemstoreInsert
 argument_list|(
@@ -9638,7 +9638,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Atomically apply the given map of family->edits to the memstore.    * This handles the consistency control on its own, but the caller    * should already have locked updatesLock.readLock(). This also does    *<b>not</b> check the families for validity.    *    * @param familyMap Map of kvs per family    * @param localizedWriteEntry The WriteEntry of the RWCC for this transaction.    *        If null, then this method internally creates a rwcc transaction.    * @return the additional memory usage of the memstore caused by the    * new entries.    */
+comment|/**    * Atomically apply the given map of family->edits to the memstore.    * This handles the consistency control on its own, but the caller    * should already have locked updatesLock.readLock(). This also does    *<b>not</b> check the families for validity.    *    * @param familyMap Map of kvs per family    * @param localizedWriteEntry The WriteEntry of the MVCC for this transaction.    *        If null, then this method internally creates a mvcc transaction.    * @return the additional memory usage of the memstore caused by the    * new entries.    */
 specifier|private
 name|long
 name|applyFamilyMapToMemstore
@@ -9655,7 +9655,7 @@ argument_list|>
 argument_list|>
 name|familyMap
 parameter_list|,
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|WriteEntry
 name|localizedWriteEntry
@@ -9667,7 +9667,7 @@ init|=
 literal|0
 decl_stmt|;
 name|boolean
-name|freerwcc
+name|freemvcc
 init|=
 literal|false
 decl_stmt|;
@@ -9682,12 +9682,12 @@ condition|)
 block|{
 name|localizedWriteEntry
 operator|=
-name|rwcc
+name|mvcc
 operator|.
 name|beginMemstoreInsert
 argument_list|()
 expr_stmt|;
-name|freerwcc
+name|freemvcc
 operator|=
 literal|true
 expr_stmt|;
@@ -9776,10 +9776,10 @@ finally|finally
 block|{
 if|if
 condition|(
-name|freerwcc
+name|freemvcc
 condition|)
 block|{
-name|rwcc
+name|mvcc
 operator|.
 name|completeMemstoreInsert
 argument_list|(
@@ -12576,11 +12576,11 @@ name|this
 operator|.
 name|readPt
 operator|=
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|resetThreadReadPoint
 argument_list|(
-name|rwcc
+name|mvcc
 argument_list|)
 expr_stmt|;
 name|scannerReadPoints
@@ -12783,7 +12783,7 @@ expr_stmt|;
 try|try
 block|{
 comment|// This could be a new thread from the last time we called next().
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|setThreadReadPoint
 argument_list|(
@@ -16513,7 +16513,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// TODO: Use RWCC to make this set of appends atomic to reads
+comment|// TODO: Use MVCC to make this set of appends atomic to reads
 name|byte
 index|[]
 name|row
@@ -17256,7 +17256,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// TODO: Use RWCC to make this set of increments atomic to reads
+comment|// TODO: Use MVCC to make this set of increments atomic to reads
 name|byte
 index|[]
 name|row
@@ -18356,10 +18356,10 @@ operator|.
 name|ARRAYLIST
 operator|+
 comment|// recentFlushes
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|FIXED_SIZE
-comment|// rwcc
+comment|// mvcc
 decl_stmt|;
 annotation|@
 name|Override
@@ -18394,7 +18394,7 @@ name|heapSize
 argument_list|()
 expr_stmt|;
 block|}
-comment|// this does not take into account row locks, recent flushes, rwcc entries
+comment|// this does not take into account row locks, recent flushes, mvcc entries
 return|return
 name|heapSize
 return|;

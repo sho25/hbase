@@ -118,8 +118,8 @@ name|AtomicBoolean
 name|finished
 decl_stmt|;
 specifier|final
-name|ReadWriteConsistencyControl
-name|rwcc
+name|MultiVersionConsistencyControl
+name|mvcc
 decl_stmt|;
 specifier|final
 name|AtomicBoolean
@@ -130,8 +130,8 @@ parameter_list|(
 name|AtomicBoolean
 name|finished
 parameter_list|,
-name|ReadWriteConsistencyControl
-name|rwcc
+name|MultiVersionConsistencyControl
+name|mvcc
 parameter_list|,
 name|AtomicBoolean
 name|status
@@ -145,9 +145,9 @@ name|finished
 expr_stmt|;
 name|this
 operator|.
-name|rwcc
+name|mvcc
 operator|=
-name|rwcc
+name|mvcc
 expr_stmt|;
 name|this
 operator|.
@@ -184,12 +184,12 @@ name|get
 argument_list|()
 condition|)
 block|{
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|WriteEntry
 name|e
 init|=
-name|rwcc
+name|mvcc
 operator|.
 name|beginMemstoreInsert
 argument_list|()
@@ -236,7 +236,7 @@ parameter_list|)
 block|{         }
 try|try
 block|{
-name|rwcc
+name|mvcc
 operator|.
 name|completeMemstoreInsert
 argument_list|(
@@ -289,11 +289,11 @@ throws|throws
 name|Exception
 block|{
 specifier|final
-name|ReadWriteConsistencyControl
-name|rwcc
+name|MultiVersionConsistencyControl
+name|mvcc
 init|=
 operator|new
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 argument_list|()
 decl_stmt|;
 specifier|final
@@ -340,7 +340,7 @@ block|{
 name|long
 name|prev
 init|=
-name|rwcc
+name|mvcc
 operator|.
 name|memstoreReadPoint
 argument_list|()
@@ -357,7 +357,7 @@ block|{
 name|long
 name|newPrev
 init|=
-name|rwcc
+name|mvcc
 operator|.
 name|memstoreReadPoint
 argument_list|()
@@ -480,7 +480,7 @@ name|Writer
 argument_list|(
 name|finished
 argument_list|,
-name|rwcc
+name|mvcc
 argument_list|,
 name|statuses
 index|[

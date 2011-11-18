@@ -509,7 +509,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 import|;
 end_import
 
@@ -6356,7 +6356,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|resetThreadReadPoint
 argument_list|()

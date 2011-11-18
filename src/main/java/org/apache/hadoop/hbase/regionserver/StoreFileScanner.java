@@ -266,7 +266,7 @@ name|delayedSeekKV
 decl_stmt|;
 specifier|private
 name|boolean
-name|enforceRWCC
+name|enforceMVCC
 init|=
 literal|false
 decl_stmt|;
@@ -306,7 +306,7 @@ name|HFileScanner
 name|hfs
 parameter_list|,
 name|boolean
-name|useRWCC
+name|useMVCC
 parameter_list|)
 block|{
 name|this
@@ -323,9 +323,9 @@ name|hfs
 expr_stmt|;
 name|this
 operator|.
-name|enforceRWCC
+name|enforceMVCC
 operator|=
-name|useRWCC
+name|useMVCC
 expr_stmt|;
 block|}
 comment|/**    * Return an array of scanners corresponding to the given    * set of store files.    */
@@ -764,7 +764,7 @@ block|{
 name|long
 name|readPoint
 init|=
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|getThreadReadPoint
 argument_list|()
@@ -773,7 +773,7 @@ comment|// We want to ignore all key-values that are newer than our current
 comment|// readPoint
 while|while
 condition|(
-name|enforceRWCC
+name|enforceMVCC
 operator|&&
 name|cur
 operator|!=

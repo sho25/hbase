@@ -342,7 +342,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/** Max memstore (rwcc) timestamp in FileInfo */
+comment|/** Max memstore (mvcc) timestamp in FileInfo */
 specifier|public
 specifier|static
 specifier|final

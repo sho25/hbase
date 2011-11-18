@@ -5977,7 +5977,7 @@ operator|.
 name|getSmallestReadPoint
 argument_list|()
 decl_stmt|;
-name|ReadWriteConsistencyControl
+name|MultiVersionConsistencyControl
 operator|.
 name|setThreadReadPoint
 argument_list|(
@@ -8478,7 +8478,7 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-comment|// TODO: Make this operation atomic w/ RWCC
+comment|// TODO: Make this operation atomic w/ MVCC
 return|return
 name|this
 operator|.
