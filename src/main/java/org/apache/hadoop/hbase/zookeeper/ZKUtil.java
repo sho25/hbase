@@ -1525,6 +1525,21 @@ operator|+
 literal|")"
 return|;
 block|}
+specifier|public
+name|boolean
+name|isEmpty
+parameter_list|()
+block|{
+return|return
+operator|(
+name|data
+operator|.
+name|length
+operator|==
+literal|0
+operator|)
+return|;
+block|}
 block|}
 comment|/**    * Checks if the specified znode has any children.  Sets no watches.    *    * Returns true if the node exists and has children.  Returns false if the    * node does not exist or if the node does not have any children.    *    * Used during master initialization to determine if the master is a    * failed-over-to master or the first master during initial cluster startup.    * If the directory for regionserver ephemeral nodes is empty then this is    * a cluster startup, if not then it is not cluster startup.    *    * @param zkw zk reference    * @param znode path of node to check for children of    * @return true if node has children, false if not or node does not exist    * @throws KeeperException if unexpected zookeeper exception    */
 specifier|public

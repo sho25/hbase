@@ -386,6 +386,8 @@ parameter_list|(
 name|CoprocessorEnvironment
 name|e
 parameter_list|)
+throws|throws
+name|IOException
 block|{ }
 annotation|@
 name|Override
@@ -396,6 +398,8 @@ parameter_list|(
 name|CoprocessorEnvironment
 name|e
 parameter_list|)
+throws|throws
+name|IOException
 block|{ }
 annotation|@
 name|Override
