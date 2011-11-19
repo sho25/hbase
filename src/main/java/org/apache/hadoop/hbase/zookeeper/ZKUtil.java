@@ -2280,7 +2280,7 @@ literal|null
 return|;
 block|}
 block|}
-comment|/**    * Returns the date of child znodes of the specified znode.  Also sets a watch on    * the specified znode which will capture a NodeDeleted event on the specified    * znode as well as NodeChildrenChanged if any children of the specified znode    * are created or deleted.    *    * Returns null if the specified node does not exist.  Otherwise returns a    * list of children of the specified node.  If the node exists but it has no    * children, an empty list will be returned.    *    * @param zkw zk reference    * @param znode path of node to list and watch children of    * @return list of data of children of the specified node, an empty list if the node    *          exists but has no children, and null if the node does not exist    * @throws KeeperException if unexpected zookeeper exception    */
+comment|/**    * Returns the date of child znodes of the specified znode.  Also sets a watch on    * the specified znode which will capture a NodeDeleted event on the specified    * znode as well as NodeChildrenChanged if any children of the specified znode    * are created or deleted.    *    * Returns null if the specified node does not exist.  Otherwise returns a    * list of children of the specified node.  If the node exists but it has no    * children, an empty list will be returned.    *    * @param zkw zk reference    * @param baseNode path of node to list and watch children of    * @return list of data of children of the specified node, an empty list if the node    *          exists but has no children, and null if the node does not exist    * @throws KeeperException if unexpected zookeeper exception    */
 specifier|public
 specifier|static
 name|List

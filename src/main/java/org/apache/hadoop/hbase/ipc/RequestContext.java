@@ -99,7 +99,7 @@ name|get
 argument_list|()
 return|;
 block|}
-comment|/**    * Returns the user credentials associated with the current RPC request or    *<code>null</code> if no credentials were provided.    * @return    */
+comment|/**    * Returns the user credentials associated with the current RPC request or    *<code>null</code> if no credentials were provided.    * @return A User    */
 specifier|public
 specifier|static
 name|User

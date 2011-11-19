@@ -428,7 +428,7 @@ return|return
 name|user
 return|;
 block|}
-comment|/**    * Wraps an underlying {@code UserGroupInformation} instance.    * @param ugi The base Hadoop user    * @return    */
+comment|/**    * Wraps an underlying {@code UserGroupInformation} instance.    * @param ugi The base Hadoop user    * @return User    */
 specifier|public
 specifier|static
 name|User

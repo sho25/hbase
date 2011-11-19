@@ -918,7 +918,7 @@ operator|.
 name|metaLocation
 return|;
 block|}
-comment|/**    * Method used by master on startup trying to figure state of cluster.    * Returns the current meta location unless its null.  In this latter case,    * it has not yet been set so go check whats up in<code>-ROOT-</code> and    * return that.    * @return{@link ServerName} for server hosting<code>.META.</code> or if null,    * we'll read the location that is up in<code>-ROOT-</code> table (which    * could be null or just plain stale).    * @throws IOException    */
+comment|/**    * Method used by master on startup trying to figure state of cluster.    * Returns the current meta location unless its null.  In this latter case,    * it has not yet been set so go check whats up in<code>-ROOT-</code> and    * return that.    * @return {@link ServerName} for server hosting<code>.META.</code> or if null,    * we'll read the location that is up in<code>-ROOT-</code> table (which    * could be null or just plain stale).    * @throws IOException    */
 specifier|public
 name|ServerName
 name|getMetaLocationOrReadLocationFromRoot

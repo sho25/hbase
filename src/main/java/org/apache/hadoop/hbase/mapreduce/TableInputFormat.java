@@ -741,7 +741,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Adds an array of columns specified using old format, family:qualifier.    *<p>    * Overrides previous calls to addFamily for any families in the input.    *    * @param columns array of columns, formatted as<pre>family:qualifier</pre>    * @return this    */
+comment|/**    * Adds an array of columns specified using old format, family:qualifier.    *<p>    * Overrides previous calls to addFamily for any families in the input.    *    * @param columns array of columns, formatted as<pre>family:qualifier</pre>    */
 specifier|public
 specifier|static
 name|void

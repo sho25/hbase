@@ -102,7 +102,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Handles coordination of a single "leader" instance among many possible  * candidates.  The first {@code ZKLeaderManager} to successfully create  * the given znode becomes the leader, allowing the instance to continue  * with whatever processing must be protected.  Other {@ZKLeaderManager}  * instances will wait to be notified of changes to the leader znode.  * If the current master instance fails, the ephemeral leader znode will  * be removed, and all waiting instances will be notified, with the race  * to claim the leader znode beginning all over again.  */
+comment|/**  * Handles coordination of a single "leader" instance among many possible  * candidates.  The first {@link ZKLeaderManager} to successfully create  * the given znode becomes the leader, allowing the instance to continue  * with whatever processing must be protected.  Other {@link ZKLeaderManager}  * instances will wait to be notified of changes to the leader znode.  * If the current master instance fails, the ephemeral leader znode will  * be removed, and all waiting instances will be notified, with the race  * to claim the leader znode beginning all over again.  */
 end_comment
 
 begin_class

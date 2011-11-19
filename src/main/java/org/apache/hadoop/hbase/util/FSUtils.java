@@ -780,7 +780,7 @@ throw|throw
 name|io
 throw|;
 block|}
-comment|/**    * Check whether dfs is in safemode.     * @param conf    * @return true if dfs is in safemode.    * @throws IOException    */
+comment|/**    * Check whether dfs is in safemode.     * @param conf    * @throws IOException    */
 specifier|public
 specifier|static
 name|void
