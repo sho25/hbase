@@ -5621,7 +5621,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Finished snapshotting, commencing waiting for mvcc"
+literal|"Finished snapshotting "
+operator|+
+name|this
+operator|+
+literal|", commencing wait for mvcc"
 argument_list|)
 expr_stmt|;
 comment|// wait for all in-progress transactions to commit to HLog before

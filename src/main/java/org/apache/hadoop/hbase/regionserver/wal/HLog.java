@@ -1006,7 +1006,7 @@ argument_list|>
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/*    * Map of regions to most recent sequence/edit id in their memstore.    * Key is encoded region name.    */
+comment|/*    * Map of encoded region names to their most recent sequence/edit id in their    * memstore.    */
 specifier|private
 specifier|final
 name|ConcurrentSkipListMap
@@ -3136,6 +3136,14 @@ init|=
 name|this
 operator|.
 name|outputfiles
+operator|==
+literal|null
+condition|?
+literal|0
+else|:
+name|this
+operator|.
+name|outputfiles
 operator|.
 name|size
 argument_list|()
@@ -3148,18 +3156,7 @@ name|this
 operator|.
 name|maxLogs
 operator|&&
-name|this
-operator|.
-name|outputfiles
-operator|!=
-literal|null
-operator|&&
-name|this
-operator|.
-name|outputfiles
-operator|.
-name|size
-argument_list|()
+name|logCount
 operator|>
 literal|0
 condition|)
@@ -3278,7 +3275,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Return regions (memstores) that have edits that are equal or less than    * the passed<code>oldestWALseqid</code>.    * @param oldestWALseqid    * @param regionsToSeqids    * @return All regions whose seqid is< than<code>oldestWALseqid</code> (Not    * necessarily in order).  Null if no regions found.    */
+comment|/**    * Return regions (memstores) that have edits that are equal or less than    * the passed<code>oldestWALseqid</code>.    * @param oldestWALseqid    * @param regionsToSeqids Encoded region names to sequence ids    * @return All regions whose seqid is< than<code>oldestWALseqid</code> (Not    * necessarily in order).  Null if no regions found.    */
 end_comment
 
 begin_function
@@ -3361,6 +3358,7 @@ index|[]
 argument_list|>
 argument_list|()
 expr_stmt|;
+comment|// Key is encoded region name.
 name|regions
 operator|.
 name|add
@@ -3482,6 +3480,7 @@ name|longValue
 argument_list|()
 condition|)
 block|{
+comment|// Key is encoded region name.
 name|oldestRegion
 operator|=
 name|e
@@ -4658,7 +4657,7 @@ comment|// Use encoded name.  Its shorter, guaranteed unique and a subset of
 comment|// actual  name.
 name|byte
 index|[]
-name|hriKey
+name|encodedRegionName
 init|=
 name|info
 operator|.
@@ -4671,7 +4670,7 @@ name|lastSeqWritten
 operator|.
 name|putIfAbsent
 argument_list|(
-name|hriKey
+name|encodedRegionName
 argument_list|,
 name|seqNum
 argument_list|)
@@ -4681,7 +4680,7 @@ name|logKey
 init|=
 name|makeKey
 argument_list|(
-name|hriKey
+name|encodedRegionName
 argument_list|,
 name|tableName
 argument_list|,
@@ -6423,6 +6422,44 @@ name|encodedRegionName
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Long
+name|l
+init|=
+name|this
+operator|.
+name|lastSeqWritten
+operator|.
+name|remove
+argument_list|(
+name|encodedRegionName
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|l
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Why is there a raw encodedRegionName in lastSeqWritten? name="
+operator|+
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|encodedRegionName
+argument_list|)
+operator|+
+literal|", seqid="
+operator|+
+name|l
+argument_list|)
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|cacheFlushLock

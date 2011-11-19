@@ -652,7 +652,7 @@ literal|"LogRoller exiting."
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param region Encoded name of region to flush.    */
+comment|/**    * @param encodedRegionName Encoded name of region to flush.    */
 specifier|private
 name|void
 name|scheduleFlush
@@ -660,7 +660,7 @@ parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|region
+name|encodedRegionName
 parameter_list|)
 block|{
 name|boolean
@@ -681,7 +681,7 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|region
+name|encodedRegionName
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -742,10 +742,10 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|region
+name|encodedRegionName
 argument_list|)
 operator|+
-literal|"r="
+literal|", region="
 operator|+
 name|r
 operator|+
