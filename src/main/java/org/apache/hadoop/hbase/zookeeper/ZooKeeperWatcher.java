@@ -33,7 +33,37 @@ name|java
 operator|.
 name|util
 operator|.
+name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|HashSet
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Set
 import|;
 end_import
 
@@ -46,6 +76,18 @@ operator|.
 name|concurrent
 operator|.
 name|CopyOnWriteArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|CountDownLatch
 import|;
 end_import
 
@@ -185,6 +227,32 @@ name|Watcher
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|ZooDefs
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|data
+operator|.
+name|ACL
+import|;
+end_import
+
 begin_comment
 comment|/**  * Acts as the single ZooKeeper Watcher.  One instance of this is instantiated  * for each Master, RegionServer, and client process.  *  *<p>This is the only class that implements {@link Watcher}.  Other internal  * classes which need to be notified of ZooKeeper events must register with  * the local instance of this watcher via {@link #registerListener}.  *  *<p>This class also holds and manages the connection to ZooKeeper.  Code to  * deal with connection related events and exceptions are handled here.  */
 end_comment
@@ -213,7 +281,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|// Identifiier for this watcher (for logging only).  Its made of the prefix
+comment|// Identifier for this watcher (for logging only).  It is made of the prefix
 comment|// passed on construction and the zookeeper sessionid.
 specifier|private
 name|String
@@ -247,6 +315,33 @@ operator|new
 name|CopyOnWriteArrayList
 argument_list|<
 name|ZooKeeperListener
+argument_list|>
+argument_list|()
+decl_stmt|;
+comment|// Used by ZKUtil:waitForZKConnectionIfAuthenticating to wait for SASL
+comment|// negotiation to complete
+specifier|public
+name|CountDownLatch
+name|saslLatch
+init|=
+operator|new
+name|CountDownLatch
+argument_list|(
+literal|1
+argument_list|)
+decl_stmt|;
+comment|// set of unassigned nodes watched
+specifier|private
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|unassignedNodes
+init|=
+operator|new
+name|HashSet
+argument_list|<
+name|String
 argument_list|>
 argument_list|()
 decl_stmt|;
@@ -300,6 +395,65 @@ comment|// znode used for log splitting work assignment
 specifier|public
 name|String
 name|splitLogZNode
+decl_stmt|;
+comment|// Certain ZooKeeper nodes need to be world-readable
+specifier|public
+specifier|static
+specifier|final
+name|ArrayList
+argument_list|<
+name|ACL
+argument_list|>
+name|CREATOR_ALL_AND_WORLD_READABLE
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|ACL
+argument_list|>
+argument_list|()
+block|{
+block|{
+name|add
+argument_list|(
+operator|new
+name|ACL
+argument_list|(
+name|ZooDefs
+operator|.
+name|Perms
+operator|.
+name|READ
+argument_list|,
+name|ZooDefs
+operator|.
+name|Ids
+operator|.
+name|ANYONE_ID_UNSAFE
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|add
+argument_list|(
+operator|new
+name|ACL
+argument_list|(
+name|ZooDefs
+operator|.
+name|Perms
+operator|.
+name|ALL
+argument_list|,
+name|ZooDefs
+operator|.
+name|Ids
+operator|.
+name|AUTH_IDS
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 decl_stmt|;
 specifier|private
 specifier|final
@@ -1135,8 +1289,55 @@ literal|" connected"
 argument_list|)
 expr_stmt|;
 break|break;
+case|case
+name|SaslAuthenticated
+case|:
+if|if
+condition|(
+name|ZKUtil
+operator|.
+name|isSecureZooKeeper
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
+condition|)
+block|{
+comment|// We are authenticated, clients can proceed.
+name|saslLatch
+operator|.
+name|countDown
+argument_list|()
+expr_stmt|;
+block|}
+break|break;
+case|case
+name|AuthFailed
+case|:
+if|if
+condition|(
+name|ZKUtil
+operator|.
+name|isSecureZooKeeper
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
+condition|)
+block|{
+comment|// We could not be authenticated, but clients should proceed anyway.
+comment|// Only access to znodes that require SASL authentication will be
+comment|// denied. The client may never need to access them.
+name|saslLatch
+operator|.
+name|countDown
+argument_list|()
+expr_stmt|;
+block|}
+break|break;
 comment|// Abort the server if Disconnected or Expired
-comment|// TODO: Åny reason to handle these two differently?
 case|case
 name|Disconnected
 case|:
@@ -1154,6 +1355,27 @@ break|break;
 case|case
 name|Expired
 case|:
+if|if
+condition|(
+name|ZKUtil
+operator|.
+name|isSecureZooKeeper
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
+condition|)
+block|{
+comment|// We consider Expired equivalent to AuthFailed for this
+comment|// connection. Authentication is never going to complete. The
+comment|// client should proceed to do cleanup.
+name|saslLatch
+operator|.
+name|countDown
+argument_list|()
+expr_stmt|;
+block|}
 name|String
 name|msg
 init|=
@@ -1169,7 +1391,7 @@ literal|"ZooKeeper, aborting"
 argument_list|)
 decl_stmt|;
 comment|// TODO: One thought is to add call to ZooKeeperListener so say,
-comment|// ZooKeperNodeTracker can zero out its data values.
+comment|// ZooKeeperNodeTracker can zero out its data values.
 if|if
 condition|(
 name|this
@@ -1307,6 +1529,15 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{     }
+block|}
+specifier|public
+name|Configuration
+name|getConfiguration
+parameter_list|()
+block|{
+return|return
+name|conf
+return|;
 block|}
 annotation|@
 name|Override
