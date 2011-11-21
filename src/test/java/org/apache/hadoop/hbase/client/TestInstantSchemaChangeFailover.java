@@ -291,6 +291,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -1445,6 +1455,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * TEst the master fail over during a schema change request in ZK.    * We create a fake schema change request in ZK and abort the primary master    * mid-flight to simulate a master fail over scenario during a mid-flight    * schema change process. The new master's schema janitor will eventually    * cleanup this fake request after time out.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    */
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
