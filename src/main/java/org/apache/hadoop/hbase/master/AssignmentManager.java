@@ -1512,7 +1512,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Used by the client to identify if all regions have the schema updates    *    * @param tableName    * @return Pair indicating the status of the alter command    * @throws IOException    * @throws InterruptedException     */
+comment|/**    * Used by the client to identify if all regions have the schema updates    *    * @param tableName    * @return Pair indicating the status of the alter command    * @throws IOException    */
 specifier|public
 name|Pair
 argument_list|<
@@ -1528,8 +1528,6 @@ name|tableName
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|InterruptedException
 block|{
 name|List
 argument_list|<

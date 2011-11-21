@@ -31,6 +31,26 @@ name|Server
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
 begin_comment
 comment|/**  * Interface to Map of online regions.  In the  Map, the key is the region's  * encoded name and the value is an {@link HRegion} instance.  */
 end_comment
@@ -68,6 +88,32 @@ parameter_list|(
 name|String
 name|encodedRegionName
 parameter_list|)
+function_decl|;
+comment|/**    * Get all online regions of a table in this RS.    * @param tableName    * @return List of HRegion    * @throws java.io.IOException    */
+specifier|public
+name|List
+argument_list|<
+name|HRegion
+argument_list|>
+name|getOnlineRegions
+parameter_list|(
+name|byte
+index|[]
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Refresh a given region updating it with latest HTD info.    * @param hRegion    */
+specifier|public
+name|void
+name|refreshRegion
+parameter_list|(
+name|HRegion
+name|hRegion
+parameter_list|)
+throws|throws
+name|IOException
 function_decl|;
 block|}
 end_interface

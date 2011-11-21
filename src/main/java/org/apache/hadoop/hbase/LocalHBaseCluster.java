@@ -1322,6 +1322,8 @@ range|:
 name|masterThreads
 control|)
 block|{
+comment|// Ensure that the current active master is not stopped.
+comment|// We don't want to return a stopping master as an active master.
 if|if
 condition|(
 name|mt
@@ -1330,6 +1332,15 @@ name|getMaster
 argument_list|()
 operator|.
 name|isActiveMaster
+argument_list|()
+operator|&&
+operator|!
+name|mt
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|isStopped
 argument_list|()
 condition|)
 block|{

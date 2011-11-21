@@ -109,7 +109,55 @@ name|hbase
 operator|.
 name|executor
 operator|.
+name|EventHandler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|executor
+operator|.
 name|ExecutorService
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|MasterSchemaChangeTracker
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|RegionServerTracker
 import|;
 end_import
 
@@ -148,7 +196,7 @@ name|ExecutorService
 name|getExecutorService
 parameter_list|()
 function_decl|;
-comment|/**    * Check table is modifiable; i.e. exists and is offline.    * @param tableName Name of table to check.    * @throws TableNotDisabledException    * @throws TableNotFoundException     */
+comment|/**    * Check table modifiable. i.e not ROOT or META and offlined for all commands except    * alter commands    * @param tableName    * @param eventType    * @throws IOException    */
 specifier|public
 name|void
 name|checkTableModifiable
@@ -157,6 +205,11 @@ specifier|final
 name|byte
 index|[]
 name|tableName
+parameter_list|,
+name|EventHandler
+operator|.
+name|EventType
+name|eventType
 parameter_list|)
 throws|throws
 name|IOException
@@ -181,6 +234,18 @@ comment|/**    * @return Return table descriptors implementation.    */
 specifier|public
 name|TableDescriptors
 name|getTableDescriptors
+parameter_list|()
+function_decl|;
+comment|/**    * Get Master Schema change tracker    * @return    */
+specifier|public
+name|MasterSchemaChangeTracker
+name|getSchemaChangeTracker
+parameter_list|()
+function_decl|;
+comment|/**    * Return the Region server tracker.    * @return RegionServerTracker    */
+specifier|public
+name|RegionServerTracker
+name|getRegionServerTracker
 parameter_list|()
 function_decl|;
 block|}

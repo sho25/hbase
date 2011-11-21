@@ -442,8 +442,6 @@ index|[]
 name|getHTableDescriptors
 parameter_list|()
 function_decl|;
-comment|/**    * Get current HTD for a given tablename    * @param tableName    * @return HTableDescriptor for the table    */
-comment|//public HTableDescriptor getHTableDescriptor(final byte[] tableName);
 comment|/**    * Get array of HTDs for requested tables.    * @param tableNames    * @return array of HTableDescriptor    */
 specifier|public
 name|HTableDescriptor
@@ -456,6 +454,12 @@ name|String
 argument_list|>
 name|tableNames
 parameter_list|)
+function_decl|;
+comment|/**    * Returns the current running status of load balancer.    * @return True if LoadBalancer is running now else False.    */
+specifier|public
+name|boolean
+name|isLoadBalancerRunning
+parameter_list|()
 function_decl|;
 block|}
 end_interface

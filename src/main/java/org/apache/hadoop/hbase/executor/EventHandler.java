@@ -342,7 +342,7 @@ parameter_list|)
 block|{}
 specifier|public
 name|boolean
-name|isOnlineSchemaChangeSupported
+name|isSchemaChangeEvent
 parameter_list|()
 block|{
 return|return
