@@ -1428,7 +1428,7 @@ comment|// Store some new information
 name|String
 name|address
 init|=
-literal|"foo.bar.com:1234"
+literal|"www.example.com:1234"
 decl_stmt|;
 name|put
 operator|=
