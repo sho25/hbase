@@ -518,6 +518,18 @@ name|Exception
 block|{
 name|TEST_UTIL
 operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setBoolean
+argument_list|(
+literal|"hbase.master.distributed.log.splitting"
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
 name|startMiniCluster
 argument_list|(
 literal|3
@@ -784,6 +796,16 @@ name|ERROR_CODE
 operator|.
 name|SERVER_DOES_NOT_MATCH_META
 block|}
+argument_list|)
+expr_stmt|;
+comment|// fixing assignements require opening regions is not synchronous.  To make
+comment|// the test pass consistentyl so for now we bake in some sleep to let it
+comment|// finish.  1s seems sufficient.
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
 argument_list|)
 expr_stmt|;
 comment|// Should be fixed now
