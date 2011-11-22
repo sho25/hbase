@@ -351,6 +351,12 @@ argument_list|)
 decl_stmt|;
 name|assertTrue
 argument_list|(
+literal|"statuses.length="
+operator|+
+name|statuses
+operator|.
+name|length
+argument_list|,
 name|statuses
 operator|.
 name|length

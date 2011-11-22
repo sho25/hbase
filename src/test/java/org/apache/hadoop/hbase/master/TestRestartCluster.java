@@ -591,6 +591,16 @@ argument_list|,
 name|FAMILY
 argument_list|)
 expr_stmt|;
+block|}
+for|for
+control|(
+name|byte
+index|[]
+name|TABLE
+range|:
+name|TABLES
+control|)
+block|{
 name|UTIL
 operator|.
 name|waitTableAvailable

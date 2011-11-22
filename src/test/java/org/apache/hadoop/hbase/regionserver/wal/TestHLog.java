@@ -975,7 +975,7 @@ name|Exception
 block|{
 name|TEST_UTIL
 operator|.
-name|shutdownMiniDFSCluster
+name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}

@@ -393,19 +393,11 @@ operator|==
 literal|null
 condition|)
 block|{
-if|if
-condition|(
-name|notimeout
-condition|)
-block|{
-name|wait
-argument_list|()
-expr_stmt|;
-continue|continue;
-block|}
+comment|// We expect a notification; but we wait with a
+comment|//  a timeout to lower the impact of a race condition if any
 name|wait
 argument_list|(
-name|remaining
+literal|100
 argument_list|)
 expr_stmt|;
 name|remaining

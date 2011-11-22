@@ -177,7 +177,7 @@ literal|true
 expr_stmt|;
 name|sleepLock
 operator|.
-name|notify
+name|notifyAll
 argument_list|()
 expr_stmt|;
 block|}

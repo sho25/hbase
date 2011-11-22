@@ -5377,11 +5377,8 @@ decl_stmt|;
 name|int
 name|sessionTimeout
 init|=
-literal|5
-operator|*
-literal|1000
+literal|500
 decl_stmt|;
-comment|// 5 seconds
 name|ZooKeeper
 name|zk
 init|=
@@ -5438,10 +5435,9 @@ specifier|final
 name|long
 name|sleep
 init|=
-name|sessionTimeout
-operator|*
-literal|5L
+literal|7000
 decl_stmt|;
+comment|// 7s seems enough to manage the timeout
 name|LOG
 operator|.
 name|info

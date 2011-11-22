@@ -1188,11 +1188,6 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
-name|t
-operator|.
-name|waitForServerOnline
-argument_list|()
-expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -1466,7 +1461,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|200
+literal|100
 argument_list|)
 expr_stmt|;
 block|}

@@ -79,6 +79,18 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|zookeeper
+operator|.
+name|KeeperException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|junit
 operator|.
 name|Test
@@ -140,7 +152,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * @throws Exception     * @see https://issues.apache.org/jira/browse/HBASE-3445    */
+comment|/**    * @throws Exception     * @see {https://issues.apache.org/jira/browse/HBASE-3445}    */
 annotation|@
 name|Test
 specifier|public
@@ -255,7 +267,7 @@ name|nonsense
 argument_list|)
 expr_stmt|;
 comment|// Bring back up the hbase cluster.  See if it can deal with nonsense root
-comment|// location.
+comment|// location. The cluster should start and be fully available.
 name|UTIL
 operator|.
 name|startMiniHBaseCluster
@@ -263,6 +275,26 @@ argument_list|(
 literal|1
 argument_list|,
 literal|1
+argument_list|)
+expr_stmt|;
+comment|// if we can create a table, it's a good sign that it's working
+name|UTIL
+operator|.
+name|createTable
+argument_list|(
+name|getClass
+argument_list|()
+operator|.
+name|getSimpleName
+argument_list|()
+operator|.
+name|getBytes
+argument_list|()
+argument_list|,
+literal|"family"
+operator|.
+name|getBytes
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|UTIL

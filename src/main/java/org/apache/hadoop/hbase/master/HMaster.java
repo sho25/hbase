@@ -2443,15 +2443,14 @@ expr_stmt|;
 block|}
 end_function
 
-begin_function
-specifier|private
-name|void
-name|loop
-parameter_list|()
-block|{
+begin_comment
 comment|// Check if we should stop every second.
+end_comment
+
+begin_decl_stmt
+specifier|private
 name|Sleeper
-name|sleeper
+name|stopSleeper
 init|=
 operator|new
 name|Sleeper
@@ -2461,6 +2460,14 @@ argument_list|,
 name|this
 argument_list|)
 decl_stmt|;
+end_decl_stmt
+
+begin_function
+specifier|private
+name|void
+name|loop
+parameter_list|()
+block|{
 while|while
 condition|(
 operator|!
@@ -2469,7 +2476,7 @@ operator|.
 name|stopped
 condition|)
 block|{
-name|sleeper
+name|stopSleeper
 operator|.
 name|sleep
 argument_list|()
@@ -7614,6 +7621,12 @@ operator|.
 name|stopped
 operator|=
 literal|true
+expr_stmt|;
+comment|// We wake up the stopSleeper to stop immediately
+name|stopSleeper
+operator|.
+name|skipSleepCycle
+argument_list|()
 expr_stmt|;
 comment|// If we are a backup master, we need to interrupt wait
 if|if

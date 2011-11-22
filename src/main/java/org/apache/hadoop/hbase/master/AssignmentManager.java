@@ -2000,12 +2000,15 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+comment|// We expect a notify, but by security we set a timout
 name|this
 operator|.
 name|regionsInTransition
 operator|.
 name|wait
-argument_list|()
+argument_list|(
+literal|100
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -8114,10 +8117,15 @@ name|regionInfo
 argument_list|)
 condition|)
 block|{
+comment|// We should receive a notification, but it's
+comment|//  better to have a timeout to recheck the condition here:
+comment|//  it lowers the impact of a race condition if any
 name|regions
 operator|.
 name|wait
-argument_list|()
+argument_list|(
+literal|100
+argument_list|)
 expr_stmt|;
 block|}
 block|}
