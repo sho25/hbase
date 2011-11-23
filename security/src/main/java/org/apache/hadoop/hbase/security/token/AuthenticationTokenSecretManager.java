@@ -1364,6 +1364,13 @@ name|String
 name|reason
 parameter_list|)
 block|{
+if|if
+condition|(
+name|stopped
+condition|)
+block|{
+return|return;
+block|}
 name|stopped
 operator|=
 literal|true
