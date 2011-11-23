@@ -3433,7 +3433,7 @@ return|return
 name|memstoreSize
 return|;
 block|}
-comment|/**    * Increase the size of mem store in this region and the size of global mem     * store    * @param memStoreSize    * @return the size of memstore in this region    */
+comment|/**    * Increase the size of mem store in this region and the size of global mem    * store    * @param memStoreSize    * @return the size of memstore in this region    */
 specifier|public
 name|long
 name|addAndGetGlobalMemstoreSize
@@ -5326,7 +5326,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Flush the memstore.    *    * Flushing the memstore is a little tricky. We have a lot of updates in the    * memstore, all of which have also been written to the log. We need to    * write those updates in the memstore out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the memstore was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the memstore from    * the log.)    *    *<p>So, we have a three-step process:    *    *<ul><li>A. Flush the memstore to the on-disk stores, noting the current    * sequence ID for the log.<li>    *    *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memstore-flush.</li>    *    *<li>C. Get rid of the memstore structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *    *<p> This method may block for some time.    * @param status     *    * @return true if the region needs compacting    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
+comment|/**    * Flush the memstore.    *    * Flushing the memstore is a little tricky. We have a lot of updates in the    * memstore, all of which have also been written to the log. We need to    * write those updates in the memstore out to disk, while being able to    * process reads/writes as much as possible during the flush operation. Also,    * the log has to state clearly the point in time at which the memstore was    * flushed. (That way, during recovery, we know when we can rely on the    * on-disk flushed structures and when we have to recover the memstore from    * the log.)    *    *<p>So, we have a three-step process:    *    *<ul><li>A. Flush the memstore to the on-disk stores, noting the current    * sequence ID for the log.<li>    *    *<li>B. Write a FLUSHCACHE-COMPLETE message to the log, using the sequence    * ID that was current at the time of memstore-flush.</li>    *    *<li>C. Get rid of the memstore structures that are now redundant, as    * they've been flushed to the on-disk HStores.</li>    *</ul>    *<p>This method is protected, but can be accessed via several public    * routes.    *    *<p> This method may block for some time.    * @param status    *    * @return true if the region needs compacting    *    * @throws IOException general io exceptions    * @throws DroppedSnapshotException Thrown when replay of hlog is required    * because a Snapshot was not properly persisted.    */
 specifier|protected
 name|boolean
 name|internalFlushcache
@@ -5351,7 +5351,7 @@ name|status
 argument_list|)
 return|;
 block|}
-comment|/**    * @param wal Null if we're NOT to go via hlog/wal.    * @param myseqid The seqid to use if<code>wal</code> is null writing out    * flush file.    * @param status     * @return true if the region needs compacting    * @throws IOException    * @see #internalFlushcache(MonitoredTask)    */
+comment|/**    * @param wal Null if we're NOT to go via hlog/wal.    * @param myseqid The seqid to use if<code>wal</code> is null writing out    * flush file.    * @param status    * @return true if the region needs compacting    * @throws IOException    * @see #internalFlushcache(MonitoredTask)    */
 specifier|protected
 name|boolean
 name|internalFlushcache
@@ -7514,7 +7514,7 @@ name|putsAndLocks
 argument_list|)
 return|;
 block|}
-comment|/**    * Perform a batch of puts.    *     * @param putsAndLocks    *          the list of puts paired with their requested lock IDs.    * @return an array of OperationStatus which internally contains the    *         OperationStatusCode and the exceptionMessage if any.    * @throws IOException    */
+comment|/**    * Perform a batch of puts.    *    * @param putsAndLocks    *          the list of puts paired with their requested lock IDs.    * @return an array of OperationStatus which internally contains the    *         OperationStatusCode and the exceptionMessage if any.    * @throws IOException    */
 specifier|public
 name|OperationStatus
 index|[]
@@ -10053,7 +10053,7 @@ return|return
 name|size
 return|;
 block|}
-comment|/**    * Remove all the keys listed in the map from the memstore. This method is    * called when a Put has updated memstore but subequently fails to update     * the wal. This method is then invoked to rollback the memstore.    */
+comment|/**    * Remove all the keys listed in the map from the memstore. This method is    * called when a Put has updated memstore but subequently fails to update    * the wal. This method is then invoked to rollback the memstore.    */
 specifier|private
 name|void
 name|rollbackMemstore
@@ -10475,6 +10475,11 @@ condition|)
 return|return
 name|seqid
 return|;
+name|boolean
+name|checkSafeToSkip
+init|=
+literal|true
+decl_stmt|;
 for|for
 control|(
 name|Path
@@ -10523,6 +10528,94 @@ name|edits
 argument_list|)
 condition|)
 continue|continue;
+if|if
+condition|(
+name|checkSafeToSkip
+condition|)
+block|{
+name|Path
+name|higher
+init|=
+name|files
+operator|.
+name|higher
+argument_list|(
+name|edits
+argument_list|)
+decl_stmt|;
+name|long
+name|maxSeqId
+init|=
+name|Long
+operator|.
+name|MAX_VALUE
+decl_stmt|;
+if|if
+condition|(
+name|higher
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// Edit file name pattern, HLog.EDITFILES_NAME_PATTERN: "-?[0-9]+"
+name|String
+name|fileName
+init|=
+name|higher
+operator|.
+name|getName
+argument_list|()
+decl_stmt|;
+name|maxSeqId
+operator|=
+name|Math
+operator|.
+name|abs
+argument_list|(
+name|Long
+operator|.
+name|parseLong
+argument_list|(
+name|fileName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|maxSeqId
+operator|<=
+name|minSeqId
+condition|)
+block|{
+name|String
+name|msg
+init|=
+literal|"Maximum possible sequenceid for this log is "
+operator|+
+name|maxSeqId
+operator|+
+literal|", skipped the whole file, path="
+operator|+
+name|edits
+decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
+else|else
+block|{
+name|checkSafeToSkip
+operator|=
+literal|false
+expr_stmt|;
+block|}
+block|}
 try|try
 block|{
 name|seqid
@@ -13776,7 +13869,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link HLog} for the created region needs to be closed explicitly.     * Use {@link HRegion#getLog()} to get access.    *     * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @param hTableDescriptor    * @param hlog shared HLog    * @return new HRegion    *    * @throws IOException    */
+comment|/**    * Convenience method creating new HRegions. Used by createTable.    * The {@link HLog} for the created region needs to be closed explicitly.    * Use {@link HRegion#getLog()} to get access.    *    * @param info Info for region to create.    * @param rootDir Root directory for HBase instance    * @param conf    * @param hTableDescriptor    * @param hlog shared HLog    * @return new HRegion    *    * @throws IOException    */
 specifier|public
 specifier|static
 name|HRegion
@@ -16820,7 +16913,7 @@ return|;
 block|}
 comment|// TODO: There's a lot of boiler plate code identical
 comment|// to increment... See how to better unify that.
-comment|/**    *     * Perform one or more append operations on a row.    *<p>    * Appends performed are done under row lock but reads do not take locks out    * so this can be seen partially complete by gets and scans.    *     * @param append    * @param lockid    * @param writeToWAL    * @return new keyvalues after increment    * @throws IOException    */
+comment|/**    *    * Perform one or more append operations on a row.    *<p>    * Appends performed are done under row lock but reads do not take locks out    * so this can be seen partially complete by gets and scans.    *    * @param append    * @param lockid    * @param writeToWAL    * @return new keyvalues after increment    * @throws IOException    */
 specifier|public
 name|Result
 name|append
