@@ -490,11 +490,6 @@ literal|"Expecting at least one region."
 argument_list|)
 throw|;
 block|}
-name|int
-name|count
-init|=
-literal|0
-decl_stmt|;
 name|List
 argument_list|<
 name|InputSplit
@@ -783,22 +778,21 @@ operator|.
 name|isDebugEnabled
 argument_list|()
 condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
 literal|"getSplits: split -> "
 operator|+
-operator|(
-name|count
-operator|++
-operator|)
+name|i
 operator|+
 literal|" -> "
 operator|+
 name|split
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 return|return
