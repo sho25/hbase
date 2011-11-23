@@ -4410,6 +4410,17 @@ name|value
 argument_list|)
 expr_stmt|;
 block|}
+comment|/** For use in testing, e.g. {@link CreateRandomStoreFile} */
+name|HFile
+operator|.
+name|Writer
+name|getHFileWriter
+parameter_list|()
+block|{
+return|return
+name|writer
+return|;
+block|}
 block|}
 comment|/**    * Reader for a StoreFile.    */
 specifier|public
