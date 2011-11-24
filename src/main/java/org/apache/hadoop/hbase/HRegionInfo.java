@@ -2671,7 +2671,7 @@ name|toString
 parameter_list|()
 block|{
 return|return
-literal|"REGION => {"
+literal|"{"
 operator|+
 name|HConstants
 operator|.
@@ -2682,17 +2682,6 @@ operator|+
 name|this
 operator|.
 name|regionNameStr
-operator|+
-literal|"', TableName => '"
-operator|+
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
-name|this
-operator|.
-name|tableName
-argument_list|)
 operator|+
 literal|"', STARTKEY => '"
 operator|+

@@ -1122,7 +1122,7 @@ name|toStringBinary
 argument_list|(
 name|HConstants
 operator|.
-name|SPLITA_QUALIFIER
+name|SPLITB_QUALIFIER
 argument_list|)
 operator|+
 literal|", from parent "

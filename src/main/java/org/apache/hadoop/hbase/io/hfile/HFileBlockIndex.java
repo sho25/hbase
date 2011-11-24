@@ -2502,13 +2502,13 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
+name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Wrote a "
 operator|+
@@ -2619,9 +2619,17 @@ operator|new
 name|BlockIndexChunk
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"Wrote a single-level "
 operator|+
@@ -2644,6 +2652,7 @@ operator|+
 literal|" bytes"
 argument_list|)
 expr_stmt|;
+block|}
 name|rootChunk
 operator|.
 name|writeRoot

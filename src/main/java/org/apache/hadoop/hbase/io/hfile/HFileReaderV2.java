@@ -1379,9 +1379,17 @@ operator|.
 name|CACHE_KEY_SEPARATOR
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
 literal|"On close, file="
 operator|+
@@ -1394,6 +1402,7 @@ operator|+
 literal|" block(s)"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(

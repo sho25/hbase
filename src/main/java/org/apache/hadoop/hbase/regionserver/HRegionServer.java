@@ -8698,18 +8698,6 @@ argument_list|(
 name|r
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"addToOnlineRegions is done"
-operator|+
-name|r
-operator|.
-name|getRegionInfo
-argument_list|()
-argument_list|)
-expr_stmt|;
 comment|// Update ZK, ROOT or META
 if|if
 condition|(
@@ -8813,7 +8801,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Done with post open deploy taks for region="
+literal|"Done with post open deploy task for region="
 operator|+
 name|r
 operator|.

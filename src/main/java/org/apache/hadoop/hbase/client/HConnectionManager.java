@@ -8507,17 +8507,24 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"The connection to "
+literal|""
 operator|+
 name|this
 operator|.
 name|zooKeeper
 operator|+
-literal|" has been closed."
+literal|" closed."
 argument_list|)
 expr_stmt|;
 block|}

@@ -502,7 +502,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Bloom filters are disabled by configuration for "
 operator|+
@@ -538,7 +538,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Bloom filter is turned off for the column family"
 argument_list|)

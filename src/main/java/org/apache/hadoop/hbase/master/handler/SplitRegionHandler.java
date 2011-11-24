@@ -581,7 +581,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Handled SPLIT report); parent="
+literal|"Handled SPLIT event; parent="
 operator|+
 name|this
 operator|.
