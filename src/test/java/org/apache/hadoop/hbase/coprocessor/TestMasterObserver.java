@@ -2771,6 +2771,9 @@ argument_list|,
 name|TEST_FAMILY
 argument_list|)
 decl_stmt|;
+name|int
+name|countOfRegions
+init|=
 name|UTIL
 operator|.
 name|createMultiRegions
@@ -2778,6 +2781,13 @@ argument_list|(
 name|table
 argument_list|,
 name|TEST_FAMILY
+argument_list|)
+decl_stmt|;
+name|UTIL
+operator|.
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|countOfRegions
 argument_list|)
 expr_stmt|;
 name|NavigableMap
