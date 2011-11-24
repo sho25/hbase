@@ -807,7 +807,7 @@ name|equals
 argument_list|(
 name|EventType
 operator|.
-name|RS_ZK_REGION_CLOSING
+name|M_ZK_REGION_CLOSING
 argument_list|)
 operator|||
 name|eventType
@@ -1076,7 +1076,7 @@ name|regionName
 argument_list|,
 name|EventType
 operator|.
-name|RS_ZK_REGION_CLOSING
+name|M_ZK_REGION_CLOSING
 argument_list|)
 return|;
 block|}
@@ -1460,7 +1460,7 @@ name|RegionTransitionData
 argument_list|(
 name|EventType
 operator|.
-name|RS_ZK_REGION_CLOSING
+name|M_ZK_REGION_CLOSING
 argument_list|,
 name|region
 operator|.
@@ -1531,7 +1531,7 @@ name|serverName
 argument_list|,
 name|EventType
 operator|.
-name|RS_ZK_REGION_CLOSING
+name|M_ZK_REGION_CLOSING
 argument_list|,
 name|EventType
 operator|.

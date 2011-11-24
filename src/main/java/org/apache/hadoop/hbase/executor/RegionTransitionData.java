@@ -189,7 +189,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Construct data for a new region transition event with the specified event    * type, region name, and server name.    *    *<p>Used when the server name is known (a regionserver is setting it).    *    *<p>Valid types for this constructor are {@link EventType#RS_ZK_REGION_CLOSING},    * {@link EventType#RS_ZK_REGION_CLOSED}, {@link EventType#RS_ZK_REGION_OPENING},    * {@link EventType#RS_ZK_REGION_SPLITTING},    * and {@link EventType#RS_ZK_REGION_OPENED}.    *    * @param eventType type of event    * @param regionName name of region as per<code>HRegionInfo#getRegionName()</code>    * @param origin Originating {@link ServerName}    */
+comment|/**    * Construct data for a new region transition event with the specified event    * type, region name, and server name.    *    *<p>Used when the server name is known (a regionserver is setting it).    *    *<p>Valid types for this constructor are {@link EventType#M_ZK_REGION_CLOSING},    * {@link EventType#RS_ZK_REGION_CLOSED}, {@link EventType#RS_ZK_REGION_OPENING},    * {@link EventType#RS_ZK_REGION_SPLITTING},    * and {@link EventType#RS_ZK_REGION_OPENED}.    *    * @param eventType type of event    * @param regionName name of region as per<code>HRegionInfo#getRegionName()</code>    * @param origin Originating {@link ServerName}    */
 specifier|public
 name|RegionTransitionData
 parameter_list|(
@@ -272,7 +272,7 @@ operator|=
 name|payload
 expr_stmt|;
 block|}
-comment|/**    * Gets the type of region transition event.    *    *<p>One of:    *<ul>    *<li>{@link EventType#M_ZK_REGION_OFFLINE}    *<li>{@link EventType#RS_ZK_REGION_CLOSING}    *<li>{@link EventType#RS_ZK_REGION_CLOSED}    *<li>{@link EventType#RS_ZK_REGION_OPENING}    *<li>{@link EventType#RS_ZK_REGION_OPENED}    *<li>{@link EventType#RS_ZK_REGION_SPLITTING}    *<li>{@link EventType#RS_ZK_REGION_SPLIT}    *</ul>    * @return type of region transition event    */
+comment|/**    * Gets the type of region transition event.    *    *<p>One of:    *<ul>    *<li>{@link EventType#M_ZK_REGION_OFFLINE}    *<li>{@link EventType#M_ZK_REGION_CLOSING}    *<li>{@link EventType#RS_ZK_REGION_CLOSED}    *<li>{@link EventType#RS_ZK_REGION_OPENING}    *<li>{@link EventType#RS_ZK_REGION_OPENED}    *<li>{@link EventType#RS_ZK_REGION_SPLITTING}    *<li>{@link EventType#RS_ZK_REGION_SPLIT}    *</ul>    * @return type of region transition event    */
 specifier|public
 name|EventType
 name|getEventType

@@ -184,12 +184,7 @@ name|EventType
 block|{
 comment|// Messages originating from RS (NOTE: there is NO direct communication from
 comment|// RS to Master). These are a result of RS updates into ZK.
-name|RS_ZK_REGION_CLOSING
-argument_list|(
-literal|1
-argument_list|)
-block|,
-comment|// RS is in process of closing a region
+comment|//RS_ZK_REGION_CLOSING    (1),   // It is replaced by M_ZK_REGION_CLOSING(HBASE-4739)
 name|RS_ZK_REGION_CLOSED
 argument_list|(
 literal|2
@@ -320,6 +315,12 @@ literal|50
 argument_list|)
 block|,
 comment|// Master adds this region as offline in ZK
+name|M_ZK_REGION_CLOSING
+argument_list|(
+literal|51
+argument_list|)
+block|,
+comment|// Master adds this region as closing in ZK
 comment|// Master controlled events to be executed on the master
 name|M_SERVER_SHUTDOWN
 argument_list|(

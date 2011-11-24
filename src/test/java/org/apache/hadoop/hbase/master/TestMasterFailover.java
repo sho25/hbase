@@ -1796,6 +1796,16 @@ operator|.
 name|getServerName
 argument_list|()
 decl_stmt|;
+name|HRegionInfo
+name|closingRegion
+init|=
+name|enabledRegions
+operator|.
+name|remove
+argument_list|(
+literal|0
+argument_list|)
+decl_stmt|;
 comment|// we'll need some regions to already be assigned out properly on live RS
 name|List
 argument_list|<
@@ -1832,6 +1842,13 @@ name|remove
 argument_list|(
 literal|0
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|enabledAndAssignedRegions
+operator|.
+name|add
+argument_list|(
+name|closingRegion
 argument_list|)
 expr_stmt|;
 name|List
@@ -2080,22 +2097,24 @@ name|serverName
 argument_list|)
 expr_stmt|;
 comment|/*      * ZK = CLOSING      */
-comment|//    Disabled test of CLOSING.  This case is invalid after HBASE-3181.
-comment|//    How can an RS stop a CLOSING w/o deleting the node?  If it did ever fail
-comment|//    and left the node in CLOSING, the RS would have aborted and we'd process
-comment|//    these regions in server shutdown
-comment|//
-comment|//    // Region of enabled table being closed but not complete
-comment|//    // Region is already assigned, don't say anything to RS but set ZK closing
-comment|//    region = enabledAndAssignedRegions.remove(0);
-comment|//    regionsThatShouldBeOnline.add(region);
-comment|//    ZKAssign.createNodeClosing(zkw, region, serverName);
-comment|//
-comment|//    // Region of disabled table being closed but not complete
-comment|//    // Region is already assigned, don't say anything to RS but set ZK closing
-comment|//    region = disabledAndAssignedRegions.remove(0);
-comment|//    regionsThatShouldBeOffline.add(region);
-comment|//    ZKAssign.createNodeClosing(zkw, region, serverName);
+name|regionsThatShouldBeOnline
+operator|.
+name|add
+argument_list|(
+name|closingRegion
+argument_list|)
+expr_stmt|;
+name|ZKAssign
+operator|.
+name|createNodeClosing
+argument_list|(
+name|zkw
+argument_list|,
+name|closingRegion
+argument_list|,
+name|serverName
+argument_list|)
+expr_stmt|;
 comment|/*      * ZK = CLOSED      */
 comment|// Region of enabled table closed but not ack
 name|region

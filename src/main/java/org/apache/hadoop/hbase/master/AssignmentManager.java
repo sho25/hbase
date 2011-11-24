@@ -2222,7 +2222,7 @@ argument_list|()
 condition|)
 block|{
 case|case
-name|RS_ZK_REGION_CLOSING
+name|M_ZK_REGION_CLOSING
 case|:
 comment|// If zk node of the region was updated by a live server skip this
 comment|// region and just add it into RIT.
@@ -3280,7 +3280,7 @@ argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|RS_ZK_REGION_CLOSING
+name|M_ZK_REGION_CLOSING
 case|:
 comment|// Should see CLOSING after we have asked it to CLOSE or additional
 comment|// times after already being in state of CLOSING
@@ -7901,14 +7901,19 @@ if|if
 condition|(
 name|force
 operator|&&
+operator|(
 name|state
 operator|.
 name|isPendingClose
 argument_list|()
+operator|||
+name|state
+operator|.
+name|isClosing
+argument_list|()
+operator|)
 condition|)
 block|{
-comment|// JD 05/25/11
-comment|// in my experience this is useless, when this happens it just spins
 name|debugLog
 argument_list|(
 name|region
@@ -7920,20 +7925,24 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" which is already pending close "
+literal|" which is already "
 operator|+
-literal|"but forcing an additional close"
+name|state
+operator|.
+name|getState
+argument_list|()
+operator|+
+literal|" but forcing to send a CLOSE RPC again "
 argument_list|)
 expr_stmt|;
 name|state
 operator|.
 name|update
 argument_list|(
-name|RegionState
+name|state
 operator|.
-name|State
-operator|.
-name|PENDING_CLOSE
+name|getState
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -8171,6 +8180,36 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+comment|// RS is already processing this region, only need to update the timestamp
+if|if
+condition|(
+name|t
+operator|instanceof
+name|RegionAlreadyInTransitionException
+condition|)
+block|{
+name|debugLog
+argument_list|(
+name|region
+argument_list|,
+literal|"update "
+operator|+
+name|state
+operator|+
+literal|" the timestamp."
+argument_list|)
+expr_stmt|;
+name|state
+operator|.
+name|update
+argument_list|(
+name|state
+operator|.
+name|getState
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 name|LOG
@@ -11041,74 +11080,11 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
-try|try
-block|{
-comment|// If the server got the RPC, it will transition the node
-comment|// to CLOSING, so only do something here if no node exists
-if|if
-condition|(
-operator|!
-name|ZKUtil
-operator|.
-name|watchAndCheckExists
-argument_list|(
-name|watcher
-argument_list|,
-name|ZKAssign
-operator|.
-name|getNodeName
-argument_list|(
-name|watcher
-argument_list|,
-name|regionInfo
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
-argument_list|)
-condition|)
-block|{
-comment|// Queue running of an unassign -- do actual unassign
-comment|// outside of the regionsInTransition lock.
 name|invokeUnassign
 argument_list|(
 name|regionInfo
 argument_list|)
 expr_stmt|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|NoNodeException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Node no longer existed so not forcing another "
-operator|+
-literal|"unassignment"
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|KeeperException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Unexpected ZK exception timing out a region close"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 break|break;
 case|case
 name|CLOSING
@@ -11121,7 +11097,12 @@ literal|"Region has been CLOSING for too "
 operator|+
 literal|"long, this should eventually complete or the server will "
 operator|+
-literal|"expire, doing nothing"
+literal|"expire, send RPC again"
+argument_list|)
+expr_stmt|;
+name|invokeUnassign
+argument_list|(
+name|regionInfo
 argument_list|)
 expr_stmt|;
 break|break;
