@@ -5508,7 +5508,7 @@ argument_list|()
 expr_stmt|;
 name|namePrefix
 operator|=
-literal|"pool-"
+literal|"hbase-table-pool"
 operator|+
 name|poolNumber
 operator|.
