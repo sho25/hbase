@@ -5496,16 +5496,6 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
-name|long
-name|flushsize
-init|=
-name|this
-operator|.
-name|memstoreSize
-operator|.
-name|get
-argument_list|()
-decl_stmt|;
 name|status
 operator|.
 name|setStatus
@@ -5513,6 +5503,11 @@ argument_list|(
 literal|"Preparing to flush by snapshotting stores"
 argument_list|)
 expr_stmt|;
+name|long
+name|currentMemStoreSize
+init|=
+literal|0
+decl_stmt|;
 name|List
 argument_list|<
 name|StoreFlusher
@@ -5632,29 +5627,22 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
-name|String
-name|s
-init|=
-literal|"Finished snapshotting "
-operator|+
-name|this
-operator|+
-literal|", commencing wait for mvcc, flushsize="
-operator|+
-name|flushsize
-decl_stmt|;
 name|status
 operator|.
 name|setStatus
 argument_list|(
-name|s
+literal|"Waiting for mvcc"
 argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
 name|debug
 argument_list|(
-name|s
+literal|"Finished snapshotting "
+operator|+
+name|this
+operator|+
+literal|", commencing wait for mvcc"
 argument_list|)
 expr_stmt|;
 comment|// wait for all in-progress transactions to commit to HLog before
@@ -5751,12 +5739,19 @@ name|clear
 argument_list|()
 expr_stmt|;
 comment|// Set down the memstore size by amount of flush.
+name|currentMemStoreSize
+operator|=
 name|this
 operator|.
 name|addAndGetGlobalMemstoreSize
 argument_list|(
 operator|-
-name|flushsize
+name|this
+operator|.
+name|memstoreSize
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -5897,16 +5892,6 @@ argument_list|()
 operator|-
 name|startTime
 decl_stmt|;
-name|long
-name|memstoresize
-init|=
-name|this
-operator|.
-name|memstoreSize
-operator|.
-name|get
-argument_list|()
-decl_stmt|;
 name|String
 name|msg
 init|=
@@ -5916,25 +5901,8 @@ name|StringUtils
 operator|.
 name|humanReadableInt
 argument_list|(
-name|flushsize
+name|currentMemStoreSize
 argument_list|)
-operator|+
-literal|"/"
-operator|+
-name|flushsize
-operator|+
-literal|", currentsize="
-operator|+
-name|StringUtils
-operator|.
-name|humanReadableInt
-argument_list|(
-name|memstoresize
-argument_list|)
-operator|+
-literal|"/"
-operator|+
-name|memstoresize
 operator|+
 literal|" for region "
 operator|+
@@ -5996,7 +5964,7 @@ name|time
 operator|/
 literal|1000
 argument_list|,
-name|flushsize
+name|currentMemStoreSize
 argument_list|)
 argument_list|)
 expr_stmt|;
