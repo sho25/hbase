@@ -8579,8 +8579,11 @@ name|msg
 argument_list|)
 expr_stmt|;
 comment|// Wakes run() if it is sleeping
-comment|//sleeper.skipSleepCycle();
-comment|//will be uncommented later, see discussion in jira 4798
+name|sleeper
+operator|.
+name|skipSleepCycle
+argument_list|()
+expr_stmt|;
 block|}
 end_function
 
