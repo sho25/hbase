@@ -854,6 +854,16 @@ operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
+comment|// we should delete connection between client and zookeeper
+name|HConnectionManager
+operator|.
+name|deleteStaleConnection
+argument_list|(
+name|this
+operator|.
+name|connection
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|MasterNotRunningException
@@ -870,6 +880,16 @@ operator|>=
 name|numRetries
 condition|)
 block|{
+comment|// we should delete connection between client and zookeeper
+name|HConnectionManager
+operator|.
+name|deleteStaleConnection
+argument_list|(
+name|this
+operator|.
+name|connection
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|MasterNotRunningException
