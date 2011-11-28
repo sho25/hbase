@@ -149,7 +149,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|List
+name|LinkedList
 import|;
 end_import
 
@@ -159,7 +159,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|LinkedList
+name|List
 import|;
 end_import
 
@@ -735,6 +735,13 @@ name|compile
 argument_list|(
 literal|"-?[0-9]+"
 argument_list|)
+decl_stmt|;
+specifier|static
+specifier|final
+name|String
+name|RECOVERED_LOG_TMPFILE_SUFFIX
+init|=
+literal|".temp"
 decl_stmt|;
 specifier|private
 specifier|final
@@ -7056,7 +7063,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Returns sorted set of edit files made by wal-log splitter.    * @param fs    * @param regiondir    * @return Files in passed<code>regiondir</code> as a sorted set.    * @throws IOException    */
+comment|/**    * Returns sorted set of edit files made by wal-log splitter, excluding files    * with '.temp' suffix.    * @param fs    * @param regiondir    * @return Files in passed<code>regiondir</code> as a sorted set.    * @throws IOException    */
 end_comment
 
 begin_function
@@ -7177,6 +7184,26 @@ operator|.
 name|matches
 argument_list|()
 expr_stmt|;
+comment|// Skip the file whose name ends with RECOVERED_LOG_TMPFILE_SUFFIX,
+comment|// because it means splithlog thread is writting this file.
+if|if
+condition|(
+name|p
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|endsWith
+argument_list|(
+name|RECOVERED_LOG_TMPFILE_SUFFIX
+argument_list|)
+condition|)
+block|{
+name|result
+operator|=
+literal|false
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
