@@ -753,6 +753,34 @@ name|iae
 parameter_list|)
 block|{     }
 block|}
+annotation|@
+name|Test
+specifier|public
+name|void
+name|testMetaTables
+parameter_list|()
+block|{
+name|assertTrue
+argument_list|(
+name|HRegionInfo
+operator|.
+name|ROOT_REGIONINFO
+operator|.
+name|isMetaTable
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|HRegionInfo
+operator|.
+name|FIRST_META_REGIONINFO
+operator|.
+name|isMetaTable
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 

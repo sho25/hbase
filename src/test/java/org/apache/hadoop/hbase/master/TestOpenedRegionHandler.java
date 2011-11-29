@@ -1237,16 +1237,7 @@ operator|.
 name|getRegionInfo
 argument_list|()
 operator|.
-name|isMetaRegion
-argument_list|()
-operator|&&
-operator|!
-name|region
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|isRootRegion
+name|isMetaTable
 argument_list|()
 condition|)
 block|{

@@ -1591,12 +1591,7 @@ if|if
 condition|(
 name|region
 operator|.
-name|isMetaRegion
-argument_list|()
-operator|||
-name|region
-operator|.
-name|isRootRegion
+name|isMetaTable
 argument_list|()
 condition|)
 block|{
@@ -2418,12 +2413,7 @@ if|if
 condition|(
 name|hri
 operator|.
-name|isMetaRegion
-argument_list|()
-operator|||
-name|hri
-operator|.
-name|isRootRegion
+name|isMetaTable
 argument_list|()
 condition|)
 block|{

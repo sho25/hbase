@@ -5864,7 +5864,7 @@ name|value
 operator|.
 name|metaEntry
 operator|.
-name|isMetaTable
+name|isMetaRegion
 argument_list|()
 condition|)
 block|{
@@ -7922,12 +7922,7 @@ if|if
 condition|(
 name|hri
 operator|.
-name|isMetaRegion
-argument_list|()
-operator|||
-name|hri
-operator|.
-name|isRootRegion
+name|isMetaTable
 argument_list|()
 condition|)
 block|{

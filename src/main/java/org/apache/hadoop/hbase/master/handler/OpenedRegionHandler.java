@@ -715,11 +715,6 @@ name|region
 operator|.
 name|isMetaTable
 argument_list|()
-operator|||
-name|region
-operator|.
-name|isRootRegion
-argument_list|()
 condition|)
 block|{
 name|LOG
