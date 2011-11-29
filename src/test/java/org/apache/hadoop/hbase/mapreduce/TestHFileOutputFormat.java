@@ -1572,13 +1572,9 @@ name|clazz
 operator|.
 name|getConstructor
 argument_list|(
-name|job
+name|Configuration
 operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|getClass
-argument_list|()
+name|class
 argument_list|,
 name|TaskAttemptID
 operator|.
