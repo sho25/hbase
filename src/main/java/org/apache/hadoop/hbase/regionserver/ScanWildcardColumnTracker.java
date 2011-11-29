@@ -89,6 +89,22 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
 begin_comment
 comment|/**  * Keeps track of the columns for a scan if they are not explicitly specified  */
 end_comment
@@ -176,7 +192,7 @@ name|this
 operator|.
 name|oldestStamp
 operator|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()

@@ -665,6 +665,8 @@ name|LATEST_TIMESTAMP
 argument_list|,
 literal|false
 argument_list|,
+literal|0
+argument_list|,
 name|this
 operator|.
 name|memstore
@@ -3601,6 +3603,8 @@ operator|.
 name|MAX_VALUE
 argument_list|,
 literal|false
+argument_list|,
+literal|0
 argument_list|,
 name|this
 operator|.

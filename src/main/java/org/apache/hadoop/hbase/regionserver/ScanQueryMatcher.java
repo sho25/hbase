@@ -175,6 +175,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|util
+operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|StoreScanner
@@ -282,6 +298,33 @@ name|boolean
 name|hasNullColumn
 init|=
 literal|true
+decl_stmt|;
+comment|// By default, when hbase.hstore.time.to.purge.deletes is 0ms, a delete
+comment|// marker is always removed during a major compaction. If set to non-zero
+comment|// value then major compaction will try to keep a delete marker around for
+comment|// the given number of milliseconds. We want to keep the delete markers
+comment|// around a bit longer because old puts might appear out-of-order. For
+comment|// example, during log replication between two clusters.
+comment|//
+comment|// If the delete marker has lived longer than its column-family's TTL then
+comment|// the delete marker will be removed even if time.to.purge.deletes has not
+comment|// passed. This is because all the Puts that this delete marker can influence
+comment|// would have also expired. (Removing of delete markers on col family TTL will
+comment|// not happen if min-versions is set to non-zero)
+comment|//
+comment|// But, if time.to.purge.deletes has not expired then a delete
+comment|// marker will not be removed just because there are no Puts that it is
+comment|// currently influencing. This is because Puts, that this delete can
+comment|// influence.  may appear out of order.
+specifier|private
+specifier|final
+name|long
+name|timeToPurgeDeletes
+decl_stmt|;
+specifier|private
+specifier|final
+name|boolean
+name|isUserScan
 decl_stmt|;
 comment|/**    * Construct a QueryMatcher for a scan    * @param scan    * @param scanInfo The store's immutable scan info    * @param columns    * @param scanType Type of the scan    * @param earliestPutTs Earliest put seen in any of the store files.    */
 specifier|public
@@ -392,7 +435,26 @@ name|maxReadPointToTrackVersions
 operator|=
 name|readPointToUse
 expr_stmt|;
+name|this
+operator|.
+name|timeToPurgeDeletes
+operator|=
+name|scanInfo
+operator|.
+name|getTimeToPurgeDeletes
+argument_list|()
+expr_stmt|;
 comment|/* how to deal with deletes */
+name|this
+operator|.
+name|isUserScan
+operator|=
+name|scanType
+operator|==
+name|ScanType
+operator|.
+name|USER_SCAN
+expr_stmt|;
 comment|// keep deleted cells: if compaction or raw scan
 name|this
 operator|.
@@ -404,11 +466,8 @@ operator|.
 name|getKeepDeletedCells
 argument_list|()
 operator|&&
-name|scanType
-operator|!=
-name|ScanType
-operator|.
-name|USER_SCAN
+operator|!
+name|isUserScan
 operator|)
 operator|||
 name|scan
@@ -442,11 +501,7 @@ operator|.
 name|getKeepDeletedCells
 argument_list|()
 operator|&&
-name|scanType
-operator|==
-name|ScanType
-operator|.
-name|USER_SCAN
+name|isUserScan
 expr_stmt|;
 name|int
 name|maxVersions
@@ -932,9 +987,26 @@ block|}
 if|if
 condition|(
 name|retainDeletesInOutput
+operator|||
+operator|(
+operator|!
+name|isUserScan
+operator|&&
+operator|(
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|timestamp
+operator|)
+operator|<=
+name|timeToPurgeDeletes
+operator|)
 condition|)
 block|{
-comment|// always include
+comment|// always include or it is not time yet to check whether it is OK
+comment|// to purge deltes or not
 return|return
 name|MatchCode
 operator|.

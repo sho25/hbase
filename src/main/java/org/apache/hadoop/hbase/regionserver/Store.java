@@ -1175,6 +1175,39 @@ operator|*=
 literal|1000
 expr_stmt|;
 block|}
+comment|// used by ScanQueryMatcher
+name|long
+name|timeToPurgeDeletes
+init|=
+name|Math
+operator|.
+name|max
+argument_list|(
+name|conf
+operator|.
+name|getLong
+argument_list|(
+literal|"hbase.hstore.time.to.purge.deletes"
+argument_list|,
+literal|0
+argument_list|)
+argument_list|,
+literal|0
+argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"time to purge deletes set to "
+operator|+
+name|timeToPurgeDeletes
+operator|+
+literal|"ms in store "
+operator|+
+name|this
+argument_list|)
+expr_stmt|;
 name|scanInfo
 operator|=
 operator|new
@@ -1201,6 +1234,8 @@ name|family
 operator|.
 name|getKeepDeletedCells
 argument_list|()
+argument_list|,
+name|timeToPurgeDeletes
 argument_list|,
 name|this
 operator|.
@@ -8878,6 +8913,10 @@ name|boolean
 name|keepDeletedCells
 decl_stmt|;
 specifier|private
+name|long
+name|timeToPurgeDeletes
+decl_stmt|;
+specifier|private
 name|KVComparator
 name|comparator
 decl_stmt|;
@@ -8920,7 +8959,7 @@ operator|.
 name|SIZEOF_BOOLEAN
 argument_list|)
 decl_stmt|;
-comment|/**      * @param family Name of this store's column family      * @param minVersions Store's MIN_VERSIONS setting      * @param maxVersions Store's VERSIONS setting      * @param ttl Store's TTL (in ms)      * @param keepDeletedCells Store's keepDeletedCells setting      * @param comparator The store's comparator      */
+comment|/**      * @param family Name of this store's column family      * @param minVersions Store's MIN_VERSIONS setting      * @param maxVersions Store's VERSIONS setting      * @param ttl Store's TTL (in ms)      * @param timeToPurgeDeletes duration in ms after which a delete marker can      *        be purged during a major compaction.      * @param keepDeletedCells Store's keepDeletedCells setting      * @param comparator The store's comparator      */
 specifier|public
 name|ScanInfo
 parameter_list|(
@@ -8939,6 +8978,9 @@ name|ttl
 parameter_list|,
 name|boolean
 name|keepDeletedCells
+parameter_list|,
+name|long
+name|timeToPurgeDeletes
 parameter_list|,
 name|KVComparator
 name|comparator
@@ -8973,6 +9015,12 @@ operator|.
 name|keepDeletedCells
 operator|=
 name|keepDeletedCells
+expr_stmt|;
+name|this
+operator|.
+name|timeToPurgeDeletes
+operator|=
+name|timeToPurgeDeletes
 expr_stmt|;
 name|this
 operator|.
@@ -9025,6 +9073,15 @@ parameter_list|()
 block|{
 return|return
 name|keepDeletedCells
+return|;
+block|}
+specifier|public
+name|long
+name|getTimeToPurgeDeletes
+parameter_list|()
+block|{
+return|return
+name|timeToPurgeDeletes
 return|;
 block|}
 specifier|public
