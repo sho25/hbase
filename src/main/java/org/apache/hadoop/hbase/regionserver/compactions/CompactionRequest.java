@@ -311,11 +311,8 @@ name|s
 decl_stmt|;
 specifier|private
 specifier|final
-name|List
-argument_list|<
-name|StoreFile
-argument_list|>
-name|files
+name|CompactSelection
+name|compactSelection
 decl_stmt|;
 specifier|private
 specifier|final
@@ -351,10 +348,7 @@ parameter_list|,
 name|Store
 name|s
 parameter_list|,
-name|List
-argument_list|<
-name|StoreFile
-argument_list|>
+name|CompactSelection
 name|files
 parameter_list|,
 name|boolean
@@ -392,7 +386,7 @@ name|s
 expr_stmt|;
 name|this
 operator|.
-name|files
+name|compactSelection
 operator|=
 name|files
 expr_stmt|;
@@ -407,6 +401,9 @@ name|StoreFile
 name|sf
 range|:
 name|files
+operator|.
+name|getFilesToCompact
+argument_list|()
 control|)
 block|{
 name|sz
@@ -445,6 +442,19 @@ operator|=
 name|System
 operator|.
 name|nanoTime
+argument_list|()
+expr_stmt|;
+block|}
+specifier|public
+name|void
+name|finishRequest
+parameter_list|()
+block|{
+name|this
+operator|.
+name|compactSelection
+operator|.
+name|finishRequest
 argument_list|()
 expr_stmt|;
 block|}
@@ -553,6 +563,16 @@ return|return
 name|s
 return|;
 block|}
+comment|/** Gets the compact selection object for the request */
+specifier|public
+name|CompactSelection
+name|getCompactSelection
+parameter_list|()
+block|{
+return|return
+name|compactSelection
+return|;
+block|}
 comment|/** Gets the StoreFiles for the request */
 specifier|public
 name|List
@@ -563,7 +583,10 @@ name|getFiles
 parameter_list|()
 block|{
 return|return
-name|files
+name|compactSelection
+operator|.
+name|getFilesToCompact
+argument_list|()
 return|;
 block|}
 comment|/** Gets the total size of all StoreFiles in compaction */
@@ -655,7 +678,10 @@ name|Collections2
 operator|.
 name|filter
 argument_list|(
-name|files
+name|compactSelection
+operator|.
+name|getFilesToCompact
+argument_list|()
 argument_list|,
 operator|new
 name|Predicate
@@ -744,7 +770,10 @@ argument_list|)
 operator|+
 literal|", fileCount="
 operator|+
-name|files
+name|compactSelection
+operator|.
+name|getFilesToCompact
+argument_list|()
 operator|.
 name|size
 argument_list|()

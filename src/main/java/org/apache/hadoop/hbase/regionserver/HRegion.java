@@ -4916,6 +4916,20 @@ operator|+
 literal|" in region "
 operator|+
 name|this
+operator|+
+operator|(
+name|cr
+operator|.
+name|getCompactSelection
+argument_list|()
+operator|.
+name|isOffPeakCompaction
+argument_list|()
+condition|?
+literal|" as an off-peak compaction"
+else|:
+literal|""
+operator|)
 argument_list|)
 expr_stmt|;
 name|doRegionCompactionPrep
