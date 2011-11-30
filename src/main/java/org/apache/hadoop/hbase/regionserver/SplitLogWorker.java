@@ -352,7 +352,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This worker is spawned in every regionserver (should we also spawn one in  * the master?). The Worker waits for log splitting tasks to be put up by the  * {@link SplitLogManager} running in the master and races with other workers  * in other serves to acquire those tasks. The coordination is done via  * zookeeper. All the action takes place at /hbase/splitlog znode.  *<p>  * If a worker has successfully moved the task from state UNASSIGNED to  * OWNED then it owns the task. It keeps heart beating the manager by  * periodically moving the task from OWNED to OWNED state. On success it  * moves the task to SUCCESS. On unrecoverable error it moves task state to  * ERR. If it cannot continue but wants the master to retry the task then it  * moves the task state to RESIGNED.  *<p>  * The manager can take a task away from a worker by moving the task from  * OWNED to UNASSIGNED. In the absence of a global lock there is a  * unavoidable race here - a worker might have just finished its task when it  * is stripped of its ownership. Here we rely on the idempotency of the log  * splitting task for correctness  */
+comment|/**  * This worker is spawned in every regionserver (should we also spawn one in  * the master?). The Worker waits for log splitting tasks to be put up by the  * {@link SplitLogManager} running in the master and races with other workers  * in other serves to acquire those tasks. The coordination is done via  * zookeeper. All the action takes place at /hbase/splitlog znode.  *<p>  * If a worker has successfully moved the task from state UNASSIGNED to  * OWNED then it owns the task. It keeps heart beating the manager by  * periodically moving the task from UNASSIGNED to OWNED state. On success it  * moves the task to TASK_DONE. On unrecoverable error it moves task state to  * ERR. If it cannot continue but wants the master to retry the task then it  * moves the task state to RESIGNED.  *<p>  * The manager can take a task away from a worker by moving the task from  * OWNED to UNASSIGNED. In the absence of a global lock there is a  * unavoidable race here - a worker might have just finished its task when it  * is stripped of its ownership. Here we rely on the idempotency of the log  * splitting task for correctness  */
 end_comment
 
 begin_class
@@ -390,7 +390,7 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|TaskExecutor
-name|executor
+name|splitTaskExecutor
 decl_stmt|;
 specifier|private
 name|long
@@ -453,7 +453,7 @@ name|String
 name|serverName
 parameter_list|,
 name|TaskExecutor
-name|executor
+name|splitTaskExecutor
 parameter_list|)
 block|{
 name|super
@@ -469,9 +469,9 @@ name|serverName
 expr_stmt|;
 name|this
 operator|.
-name|executor
+name|splitTaskExecutor
 operator|=
-name|executor
+name|splitTaskExecutor
 expr_stmt|;
 name|this
 operator|.
@@ -1225,7 +1225,7 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|ownTask
+name|attemptToOwnTask
 argument_list|(
 literal|true
 argument_list|)
@@ -1298,7 +1298,7 @@ name|status
 decl_stmt|;
 name|status
 operator|=
-name|executor
+name|splitTaskExecutor
 operator|.
 name|exec
 argument_list|(
@@ -1322,7 +1322,7 @@ parameter_list|()
 block|{
 if|if
 condition|(
-name|ownTask
+name|attemptToOwnTask
 argument_list|(
 literal|false
 argument_list|)
@@ -1515,7 +1515,7 @@ block|}
 comment|/**    * Try to own the task by transitioning the zk node data from UNASSIGNED to    * OWNED.    *<p>    * This method is also used to periodically heartbeat the task progress by    * transitioning the node from OWNED to OWNED.    *<p>    * @return true if task path is successfully locked    */
 specifier|private
 name|boolean
-name|ownTask
+name|attemptToOwnTask
 parameter_list|(
 name|boolean
 name|isFirstTime
@@ -1967,7 +1967,7 @@ argument_list|)
 condition|)
 block|{
 comment|// have to compare data. cannot compare version because then there
-comment|// will be race with ownTask()
+comment|// will be race with attemptToOwnTask()
 comment|// cannot just check whether the node has been transitioned to
 comment|// UNASSIGNED because by the time this worker sets the data watch
 comment|// the node might have made two transitions - from owned by this
@@ -2125,7 +2125,7 @@ name|String
 name|path
 parameter_list|)
 block|{
-comment|// there will be a self generated dataChanged event every time ownTask()
+comment|// there will be a self generated dataChanged event every time attemptToOwnTask()
 comment|// heartbeats the task znode by upping its version
 synchronized|synchronized
 init|(

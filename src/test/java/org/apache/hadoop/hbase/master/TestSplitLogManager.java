@@ -847,7 +847,7 @@ argument_list|)
 expr_stmt|;
 name|slm
 operator|.
-name|installTask
+name|enqueueSplitTask
 argument_list|(
 name|name
 argument_list|,

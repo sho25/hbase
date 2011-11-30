@@ -229,6 +229,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Stoppable
 import|;
 end_import
@@ -1316,7 +1330,7 @@ argument_list|()
 expr_stmt|;
 if|if
 condition|(
-name|installTask
+name|enqueueSplitTask
 argument_list|(
 name|lf
 operator|.
@@ -1346,7 +1360,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-name|waitTasks
+name|waitForSplittingCompletion
 argument_list|(
 name|batch
 argument_list|,
@@ -1535,8 +1549,9 @@ return|return
 name|totalSize
 return|;
 block|}
+comment|/**    * Add a task entry to splitlog znode if it is not already there.    *     * @param taskname the path of the log to be split    * @param batch the batch this task belongs to    * @return true if a new entry is created, false if it is already there.    */
 name|boolean
-name|installTask
+name|enqueueSplitTask
 parameter_list|(
 name|String
 name|taskname
@@ -1608,7 +1623,7 @@ return|;
 block|}
 specifier|private
 name|void
-name|waitTasks
+name|waitForSplittingCompletion
 parameter_list|(
 name|TaskBatch
 name|batch
@@ -2012,7 +2027,7 @@ name|String
 name|path
 parameter_list|)
 block|{
-comment|// TODO the Manger should split the log locally instead of giving up
+comment|// TODO the Manager should split the log locally instead of giving up
 name|LOG
 operator|.
 name|warn
@@ -3810,7 +3825,7 @@ name|void
 name|handleDeadWorker
 parameter_list|(
 name|String
-name|worker_name
+name|workerName
 parameter_list|)
 block|{
 comment|// resubmit the tasks on the TimeoutMonitor thread. Makes it easier
@@ -3843,7 +3858,7 @@ name|deadWorkers
 operator|.
 name|add
 argument_list|(
-name|worker_name
+name|workerName
 argument_list|)
 expr_stmt|;
 block|}
@@ -3853,7 +3868,96 @@ name|info
 argument_list|(
 literal|"dead splitlog worker "
 operator|+
-name|worker_name
+name|workerName
+argument_list|)
+expr_stmt|;
+block|}
+name|void
+name|handleDeadWorkers
+parameter_list|(
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|serverNames
+parameter_list|)
+block|{
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|workerNames
+init|=
+operator|new
+name|ArrayList
+argument_list|<
+name|String
+argument_list|>
+argument_list|(
+name|serverNames
+operator|.
+name|size
+argument_list|()
+argument_list|)
+decl_stmt|;
+for|for
+control|(
+name|ServerName
+name|serverName
+range|:
+name|serverNames
+control|)
+block|{
+name|workerNames
+operator|.
+name|add
+argument_list|(
+name|serverName
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+synchronized|synchronized
+init|(
+name|deadWorkersLock
+init|)
+block|{
+if|if
+condition|(
+name|deadWorkers
+operator|==
+literal|null
+condition|)
+block|{
+name|deadWorkers
+operator|=
+operator|new
+name|HashSet
+argument_list|<
+name|String
+argument_list|>
+argument_list|(
+literal|100
+argument_list|)
+expr_stmt|;
+block|}
+name|deadWorkers
+operator|.
+name|addAll
+argument_list|(
+name|workerNames
+argument_list|)
+expr_stmt|;
+block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"dead splitlog workers "
+operator|+
+name|workerNames
 argument_list|)
 expr_stmt|;
 block|}
@@ -4284,7 +4388,7 @@ literal|" for "
 operator|+
 name|path
 operator|+
-literal|" retry="
+literal|" remaining retries="
 operator|+
 name|retry_count
 argument_list|)
@@ -4418,7 +4522,7 @@ literal|" "
 operator|+
 name|path
 operator|+
-literal|" retry="
+literal|" remaining retries="
 operator|+
 name|retry_count
 argument_list|)
@@ -4571,7 +4675,7 @@ literal|" for "
 operator|+
 name|path
 operator|+
-literal|" retry="
+literal|" remaining retries="
 operator|+
 name|retry_count
 argument_list|)
@@ -4726,7 +4830,7 @@ literal|" for "
 operator|+
 name|path
 operator|+
-literal|" retry="
+literal|" remaining retries="
 operator|+
 name|retry_count
 argument_list|)

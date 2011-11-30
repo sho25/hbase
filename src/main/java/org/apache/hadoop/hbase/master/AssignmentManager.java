@@ -6919,19 +6919,28 @@ name|isOffline
 argument_list|()
 condition|)
 block|{
+name|String
+name|msg
+init|=
+literal|"Unexpected state : "
+operator|+
+name|state
+operator|+
+literal|" .. Cannot transit it to OFFLINE."
+decl_stmt|;
 name|this
 operator|.
 name|master
 operator|.
 name|abort
 argument_list|(
-literal|"Unexpected state trying to OFFLINE; "
-operator|+
-name|state
+name|msg
 argument_list|,
 operator|new
 name|IllegalStateException
-argument_list|()
+argument_list|(
+name|msg
+argument_list|)
 argument_list|)
 expr_stmt|;
 return|return

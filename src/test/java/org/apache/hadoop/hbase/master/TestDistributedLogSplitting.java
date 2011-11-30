@@ -1963,7 +1963,7 @@ argument_list|()
 decl_stmt|;
 name|slm
 operator|.
-name|installTask
+name|enqueueSplitTask
 argument_list|(
 name|logfiles
 index|[
@@ -2693,7 +2693,6 @@ name|value
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// LOG.info("Region " + i + ": " + e);
 name|j
 operator|++
 expr_stmt|;
@@ -2731,9 +2730,6 @@ index|]
 operator|+=
 literal|1
 expr_stmt|;
-comment|// if ((i % 8096) == 0) {
-comment|// log.sync();
-comment|//  }
 block|}
 block|}
 name|log
