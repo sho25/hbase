@@ -4350,9 +4350,7 @@ decl_stmt|;
 name|Result
 name|result
 init|=
-operator|new
-name|Result
-argument_list|()
+literal|null
 decl_stmt|;
 name|ObserverContext
 argument_list|<
@@ -4393,6 +4391,8 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
+name|result
+operator|=
 operator|(
 operator|(
 name|RegionObserver
@@ -4408,8 +4408,6 @@ argument_list|(
 name|ctx
 argument_list|,
 name|append
-argument_list|,
-name|result
 argument_list|)
 expr_stmt|;
 block|}
@@ -4473,9 +4471,7 @@ decl_stmt|;
 name|Result
 name|result
 init|=
-operator|new
-name|Result
-argument_list|()
+literal|null
 decl_stmt|;
 name|ObserverContext
 argument_list|<
@@ -4516,6 +4512,8 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
+name|result
+operator|=
 operator|(
 operator|(
 name|RegionObserver
@@ -4531,8 +4529,6 @@ argument_list|(
 name|ctx
 argument_list|,
 name|increment
-argument_list|,
-name|result
 argument_list|)
 expr_stmt|;
 block|}
@@ -4680,7 +4676,7 @@ block|}
 block|}
 comment|/**    * @param increment increment object    * @param result the result returned by postIncrement    * @throws IOException if an error occurred on the coprocessor    */
 specifier|public
-name|void
+name|Result
 name|postIncrement
 parameter_list|(
 specifier|final
@@ -4732,6 +4728,8 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
+name|result
+operator|=
 operator|(
 operator|(
 name|RegionObserver
@@ -4778,6 +4776,9 @@ break|break;
 block|}
 block|}
 block|}
+return|return
+name|result
+return|;
 block|}
 comment|/**    * @param scan the Scan specification    * @return scanner id to return to client if default operation should be    * bypassed, false otherwise    * @exception IOException Exception    */
 specifier|public

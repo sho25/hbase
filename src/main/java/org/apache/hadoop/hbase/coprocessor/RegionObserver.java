@@ -21,9 +21,9 @@ begin_import
 import|import
 name|java
 operator|.
-name|util
+name|io
 operator|.
-name|List
+name|IOException
 import|;
 end_import
 
@@ -33,21 +33,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|ImmutableList
+name|List
 import|;
 end_import
 
@@ -153,6 +139,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Increment
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Put
 import|;
 end_import
@@ -186,22 +188,6 @@ operator|.
 name|client
 operator|.
 name|Scan
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|Increment
 import|;
 end_import
 
@@ -357,11 +343,15 @@ end_import
 
 begin_import
 import|import
-name|java
+name|com
 operator|.
-name|io
+name|google
 operator|.
-name|IOException
+name|common
+operator|.
+name|collect
+operator|.
+name|ImmutableList
 import|;
 end_import
 
@@ -1083,8 +1073,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before Append    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param append Append object    * @param result The result to return to the client if default processing    * is bypassed. Can be modified. Will not be used if default processing    * is not bypassed.    * @throws IOException if an error occurred on the coprocessor    */
-name|void
+comment|/**    * Called before Append    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param append Append object    * @return result to return to the client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
+name|Result
 name|preAppend
 parameter_list|(
 specifier|final
@@ -1097,16 +1087,12 @@ parameter_list|,
 specifier|final
 name|Append
 name|append
-parameter_list|,
-specifier|final
-name|Result
-name|result
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after Append    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param append Append object    * @param result the result returned by increment, can be modified    * @throws IOException if an error occurred on the coprocessor    */
-name|void
+comment|/**    * Called after Append    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param append Append object    * @param result the result returned by increment    * @return the result to return to the client    * @throws IOException if an error occurred on the coprocessor    */
+name|Result
 name|postAppend
 parameter_list|(
 specifier|final
@@ -1127,8 +1113,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called before Increment    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param increment increment object    * @param result The result to return to the client if default processing    * is bypassed. Can be modified. Will not be used if default processing    * is not bypassed.    * @throws IOException if an error occurred on the coprocessor    */
-name|void
+comment|/**    * Called before Increment    *<p>    * Call CoprocessorEnvironment#bypass to skip default actions    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param increment increment object    * @return result to return to the client if bypassing default processing    * @throws IOException if an error occurred on the coprocessor    */
+name|Result
 name|preIncrement
 parameter_list|(
 specifier|final
@@ -1141,16 +1127,12 @@ parameter_list|,
 specifier|final
 name|Increment
 name|increment
-parameter_list|,
-specifier|final
-name|Result
-name|result
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Called after increment    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param increment increment object    * @param result the result returned by increment, can be modified    * @throws IOException if an error occurred on the coprocessor    */
-name|void
+comment|/**    * Called after increment    *<p>    * Call CoprocessorEnvironment#complete to skip any subsequent chained    * coprocessors    * @param c the environment provided by the region server    * @param increment increment object    * @param result the result returned by increment    * @return the result to return to the client    * @throws IOException if an error occurred on the coprocessor    */
+name|Result
 name|postIncrement
 parameter_list|(
 specifier|final

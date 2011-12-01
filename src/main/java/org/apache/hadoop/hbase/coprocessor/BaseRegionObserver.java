@@ -1101,7 +1101,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|Result
 name|preAppend
 parameter_list|(
 specifier|final
@@ -1114,18 +1114,18 @@ parameter_list|,
 specifier|final
 name|Append
 name|append
-parameter_list|,
-specifier|final
-name|Result
-name|result
 parameter_list|)
 throws|throws
 name|IOException
-block|{   }
+block|{
+return|return
+literal|null
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|Result
 name|postAppend
 parameter_list|(
 specifier|final
@@ -1145,7 +1145,11 @@ name|result
 parameter_list|)
 throws|throws
 name|IOException
-block|{   }
+block|{
+return|return
+name|result
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -1238,7 +1242,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|Result
 name|preIncrement
 parameter_list|(
 specifier|final
@@ -1251,18 +1255,18 @@ parameter_list|,
 specifier|final
 name|Increment
 name|increment
-parameter_list|,
-specifier|final
-name|Result
-name|result
 parameter_list|)
 throws|throws
 name|IOException
-block|{   }
+block|{
+return|return
+literal|null
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|Result
 name|postIncrement
 parameter_list|(
 specifier|final
@@ -1282,7 +1286,11 @@ name|result
 parameter_list|)
 throws|throws
 name|IOException
-block|{   }
+block|{
+return|return
+name|result
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
