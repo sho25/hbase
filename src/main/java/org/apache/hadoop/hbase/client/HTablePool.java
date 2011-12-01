@@ -300,7 +300,7 @@ name|config
 argument_list|,
 name|maxSize
 argument_list|,
-literal|null
+name|tableFactory
 argument_list|,
 name|PoolType
 operator|.
