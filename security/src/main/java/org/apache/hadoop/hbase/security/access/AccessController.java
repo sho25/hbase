@@ -4426,7 +4426,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|Result
 name|preIncrement
 parameter_list|(
 specifier|final
@@ -4439,10 +4439,6 @@ parameter_list|,
 specifier|final
 name|Increment
 name|increment
-parameter_list|,
-specifier|final
-name|Result
-name|result
 parameter_list|)
 throws|throws
 name|IOException
@@ -4469,6 +4465,9 @@ name|keySet
 argument_list|()
 argument_list|)
 expr_stmt|;
+return|return
+literal|null
+return|;
 block|}
 annotation|@
 name|Override
