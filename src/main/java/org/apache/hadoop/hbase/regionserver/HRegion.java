@@ -12468,6 +12468,8 @@ name|p
 argument_list|)
 expr_stmt|;
 block|}
+else|else
+block|{
 try|try
 block|{
 name|store
@@ -12511,6 +12513,7 @@ argument_list|(
 name|ioe
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|// validation failed, bail out before doing anything permanent.
