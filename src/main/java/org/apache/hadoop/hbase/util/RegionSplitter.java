@@ -3163,6 +3163,8 @@ name|getSecond
 argument_list|()
 decl_stmt|;
 comment|// see if the new split daughter region has come online
+try|try
+block|{
 name|HRegionInfo
 name|dri
 init|=
@@ -3197,6 +3199,30 @@ name|split
 argument_list|)
 condition|)
 block|{
+name|logicalSplitting
+operator|.
+name|add
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|NoServerForRegionException
+name|nsfre
+parameter_list|)
+block|{
+comment|// NSFRE will occur if the old META entry has no server assigned
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|nsfre
+argument_list|)
+expr_stmt|;
 name|logicalSplitting
 operator|.
 name|add
