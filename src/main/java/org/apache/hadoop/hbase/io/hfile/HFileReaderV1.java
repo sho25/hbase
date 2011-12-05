@@ -1674,6 +1674,11 @@ block|{
 if|if
 condition|(
 name|evictOnClose
+operator|&&
+name|cacheConf
+operator|.
+name|isBlockCacheEnabled
+argument_list|()
 condition|)
 block|{
 name|int
