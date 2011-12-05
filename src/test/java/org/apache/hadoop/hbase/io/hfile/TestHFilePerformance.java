@@ -750,7 +750,7 @@ name|writer
 init|=
 name|HFile
 operator|.
-name|getWriterFactory
+name|getWriterFactoryNoCache
 argument_list|(
 name|conf
 argument_list|)
