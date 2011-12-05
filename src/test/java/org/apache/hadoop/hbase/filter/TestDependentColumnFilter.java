@@ -550,6 +550,14 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|region
+operator|.
+name|getLog
+argument_list|()
+operator|.
+name|closeAndDelete
+argument_list|()
+expr_stmt|;
 block|}
 specifier|private
 name|void

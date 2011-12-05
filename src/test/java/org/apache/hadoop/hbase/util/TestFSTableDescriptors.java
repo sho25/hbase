@@ -171,11 +171,15 @@ begin_comment
 comment|/**  * Tests for {@link FSTableDescriptors}.  */
 end_comment
 
+begin_comment
+comment|// Do not support to be executed in he same JVM as other tests
+end_comment
+
 begin_class
 annotation|@
 name|Category
 argument_list|(
-name|SmallTests
+name|MediumTests
 operator|.
 name|class
 argument_list|)

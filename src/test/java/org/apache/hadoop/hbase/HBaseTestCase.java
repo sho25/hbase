@@ -321,7 +321,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|Bytes
+name|*
 import|;
 end_import
 

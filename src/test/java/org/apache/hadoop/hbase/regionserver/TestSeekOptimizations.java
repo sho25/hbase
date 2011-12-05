@@ -2600,6 +2600,14 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|region
+operator|.
+name|getLog
+argument_list|()
+operator|.
+name|closeAndDelete
+argument_list|()
+expr_stmt|;
 block|}
 comment|// We have to re-set the lazy seek flag back to the default so that other
 comment|// unit tests are not affected.

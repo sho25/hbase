@@ -9790,6 +9790,17 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|subregions
+index|[
+name|i
+index|]
+operator|.
+name|getLog
+argument_list|()
+operator|.
+name|closeAndDelete
+argument_list|()
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(

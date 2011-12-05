@@ -119,6 +119,16 @@ end_import
 
 begin_import
 import|import
+name|junit
+operator|.
+name|framework
+operator|.
+name|Assert
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -141,21 +151,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseConfiguration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|SmallTests
+name|*
 import|;
 end_import
 
@@ -245,10 +241,11 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
-name|SmallTests
+name|MediumTests
 operator|.
 name|class
 argument_list|)
+comment|// Fails sometimes with small tests
 specifier|public
 class|class
 name|TestDelayedRpc
@@ -1282,6 +1279,8 @@ name|void
 name|run
 parameter_list|()
 block|{
+try|try
+block|{
 name|Integer
 name|result
 init|=
@@ -1316,6 +1315,24 @@ name|result
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|fail
+argument_list|(
+literal|"Unexpected exception: "
+operator|+
+name|e
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 block|}

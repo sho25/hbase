@@ -267,11 +267,15 @@ name|scanFixture
 import|;
 end_import
 
+begin_comment
+comment|// Can't be small as it plays with EnvironmentEdgeManager
+end_comment
+
 begin_class
 annotation|@
 name|Category
 argument_list|(
-name|SmallTests
+name|MediumTests
 operator|.
 name|class
 argument_list|)
@@ -4577,6 +4581,8 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+try|try
+block|{
 specifier|final
 name|long
 name|now
@@ -5266,6 +5272,15 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|EnvironmentEdgeManagerTestHelper
+operator|.
+name|reset
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 block|}
 end_class
