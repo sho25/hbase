@@ -81,6 +81,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|net
+operator|.
+name|UnknownHostException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|concurrent
@@ -1697,6 +1707,22 @@ operator|.
 name|debug
 argument_list|(
 literal|"Exception connecting to "
+operator|+
+name|sn
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|UnknownHostException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Unknown host exception connecting to  "
 operator|+
 name|sn
 argument_list|)
