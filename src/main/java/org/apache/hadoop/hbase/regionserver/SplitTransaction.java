@@ -3593,7 +3593,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Creates a new ephemeral node in the SPLITTING state for the specified region.    * Create it ephemeral in case regionserver dies mid-split.    *    *<p>Does not transition nodes from other states.  If a node already exists    * for this region, a {@link NodeExistsException} will be thrown.    *    * @param zkw zk reference    * @param region region to be created as offline    * @param serverName server event originates from    * @return Version of znode created.    * @throws IOException     */
+comment|/**    * Creates a new ephemeral node in the SPLITTING state for the specified region.    * Create it ephemeral in case regionserver dies mid-split.    *    *<p>Does not transition nodes from other states.  If a node already exists    * for this region, a {@link NodeExistsException} will be thrown.    *    * @param zkw zk reference    * @param region region to be created as offline    * @param serverName server event originates from    * @return Version of znode created.    * @throws KeeperException     * @throws IOException     */
 specifier|private
 specifier|static
 name|int

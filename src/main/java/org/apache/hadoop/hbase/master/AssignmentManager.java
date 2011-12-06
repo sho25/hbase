@@ -559,24 +559,6 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|AssignmentManager
-operator|.
-name|RegionState
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
 name|handler
 operator|.
 name|ClosedRegionHandler
@@ -913,7 +895,7 @@ name|zookeeper
 operator|.
 name|KeeperException
 operator|.
-name|NoNodeException
+name|NodeExistsException
 import|;
 end_import
 
@@ -1450,7 +1432,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * Add a regionPlan for the specified region.    */
+comment|/**    * Add a regionPlan for the specified region.    * @param encodedName     * @param plan     */
 specifier|public
 name|void
 name|addPlan
@@ -1944,10 +1926,10 @@ condition|)
 return|return
 name|intransistion
 return|;
-name|debugLog
+name|LOG
+operator|.
+name|debug
 argument_list|(
-name|hri
-argument_list|,
 literal|"Waiting on "
 operator|+
 name|HRegionInfo
@@ -2575,10 +2557,10 @@ name|KeeperException
 block|{
 comment|// If was on dead server, its closed now.  Force to OFFLINE and then
 comment|// handle it like a close; this will get it reassigned if appropriate
-name|debugLog
+name|LOG
+operator|.
+name|debug
 argument_list|(
-name|hri
-argument_list|,
 literal|"RIT "
 operator|+
 name|hri
@@ -4381,12 +4363,11 @@ specifier|public
 name|void
 name|nodeDeleted
 parameter_list|(
+specifier|final
 name|String
 name|path
 parameter_list|)
 block|{
-comment|// Added so we notice when ephemeral nodes go away; in particular,
-comment|// SPLITTING or SPLIT nodes added by a regionserver splitting.
 if|if
 condition|(
 name|path
@@ -4568,10 +4549,10 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-name|debugLog
+name|LOG
+operator|.
+name|debug
 argument_list|(
-name|regionInfo
-argument_list|,
 literal|"Opened region "
 operator|+
 name|regionInfo
@@ -4648,7 +4629,6 @@ block|}
 block|}
 block|}
 comment|/**    * Marks the region as online.  Removes it from regions in transition and    * updates the in-memory assignment information.    *<p>    * Used when a region has been successfully opened on a region server.    * @param regionInfo    * @param sn    */
-specifier|public
 name|void
 name|regionOnline
 parameter_list|(
@@ -5258,7 +5238,7 @@ name|boolean
 name|hijack
 parameter_list|)
 block|{
-comment|//If hijack is true do not call disableRegionIfInRIT as
+comment|// If hijack is true do not call disableRegionIfInRIT as
 comment|// we have not yet moved the znode to OFFLINE state.
 if|if
 condition|(
@@ -6371,13 +6351,10 @@ operator|==
 literal|null
 condition|)
 block|{
-name|debugLog
-argument_list|(
-name|state
+name|LOG
 operator|.
-name|getRegion
-argument_list|()
-argument_list|,
+name|debug
+argument_list|(
 literal|"Unable to determine a plan to assign "
 operator|+
 name|state
@@ -6388,13 +6365,10 @@ comment|// Should get reassigned later when RIT times out.
 block|}
 try|try
 block|{
-name|debugLog
-argument_list|(
-name|state
+name|LOG
 operator|.
-name|getRegion
-argument_list|()
-argument_list|,
+name|debug
+argument_list|(
 literal|"Assigning region "
 operator|+
 name|state
@@ -6472,13 +6446,10 @@ block|{
 comment|// Remove region from in-memory transition and unassigned node from ZK
 comment|// While trying to enable the table the regions of the table were
 comment|// already enabled.
-name|debugLog
-argument_list|(
-name|state
+name|LOG
 operator|.
-name|getRegion
-argument_list|()
-argument_list|,
+name|debug
+argument_list|(
 literal|"ALREADY_OPENED region "
 operator|+
 name|state
@@ -6767,44 +6738,6 @@ expr_stmt|;
 return|return;
 block|}
 block|}
-block|}
-block|}
-specifier|private
-name|void
-name|debugLog
-parameter_list|(
-name|HRegionInfo
-name|region
-parameter_list|,
-name|String
-name|string
-parameter_list|)
-block|{
-if|if
-condition|(
-name|region
-operator|.
-name|isMetaTable
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|string
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-name|string
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 specifier|private
@@ -7521,13 +7454,10 @@ condition|(
 name|newPlan
 condition|)
 block|{
-name|debugLog
-argument_list|(
-name|state
+name|LOG
 operator|.
-name|getRegion
-argument_list|()
-argument_list|,
+name|debug
+argument_list|(
 literal|"No previous transition plan was found (or we are ignoring "
 operator|+
 literal|"an existing plan) for "
@@ -7575,13 +7505,10 @@ return|return
 name|randomPlan
 return|;
 block|}
-name|debugLog
-argument_list|(
-name|state
+name|LOG
 operator|.
-name|getRegion
-argument_list|()
-argument_list|,
+name|debug
+argument_list|(
 literal|"Using pre-existing plan for region "
 operator|+
 name|state
@@ -7710,7 +7637,7 @@ comment|// Do nothing, continue
 block|}
 block|}
 block|}
-comment|/**    * Unassigns the specified region.    *<p>    * Updates the RegionState and sends the CLOSE RPC.    *<p>    * If a RegionPlan is already set, it will remain.    *    * @param region server to be unassigned    */
+comment|/**    * Unassigns the specified region.    *<p>    * Updates the RegionState and sends the CLOSE RPC unless region is being    * split by regionserver; then the unassign fails (silently) because we    * presume the region being unassigned no longer exists (its been split out    * of existence). TODO: What to do if split fails and is rolled back and    * parent is revivified?    *<p>    * If a RegionPlan is already set, it will remain.    *    * @param region server to be unassigned    */
 specifier|public
 name|void
 name|unassign
@@ -7727,7 +7654,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Unassigns the specified region.    *<p>    * Updates the RegionState and sends the CLOSE RPC.    *<p>    * If a RegionPlan is already set, it will remain.    *    * @param region server to be unassigned    * @param force if region should be closed even if already closing    */
+comment|/**    * Unassigns the specified region.    *<p>    * Updates the RegionState and sends the CLOSE RPC unless region is being    * split by regionserver; then the unassign fails (silently) because we    * presume the region being unassigned no longer exists (its been split out    * of existence). TODO: What to do if split fails and is rolled back and    * parent is revivified?    *<p>    * If a RegionPlan is already set, it will remain.    *    * @param region server to be unassigned    * @param force if region should be closed even if already closing    */
 specifier|public
 name|void
 name|unassign
@@ -7739,10 +7666,11 @@ name|boolean
 name|force
 parameter_list|)
 block|{
-name|debugLog
+comment|// TODO: Method needs refactoring.  Ugly buried returns throughout.  Beware!
+name|LOG
+operator|.
+name|debug
 argument_list|(
-name|region
-argument_list|,
 literal|"Starting unassignment of region "
 operator|+
 name|region
@@ -7772,10 +7700,10 @@ name|region
 argument_list|)
 condition|)
 block|{
-name|debugLog
+name|LOG
+operator|.
+name|debug
 argument_list|(
-name|region
-argument_list|,
 literal|"Attempted to unassign region "
 operator|+
 name|region
@@ -7851,6 +7779,106 @@ name|KeeperException
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|e
+operator|instanceof
+name|NodeExistsException
+condition|)
+block|{
+comment|// Handle race between master initiated close and regionserver
+comment|// orchestrated splitting. See if existing node is in a
+comment|// SPLITTING or SPLIT state.  If so, the regionserver started
+comment|// an op on node before we could get our CLOSING in.  Deal.
+name|NodeExistsException
+name|nee
+init|=
+operator|(
+name|NodeExistsException
+operator|)
+name|e
+decl_stmt|;
+name|String
+name|path
+init|=
+name|nee
+operator|.
+name|getPath
+argument_list|()
+decl_stmt|;
+try|try
+block|{
+if|if
+condition|(
+name|isSplitOrSplitting
+argument_list|(
+name|path
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|path
+operator|+
+literal|" is SPLIT or SPLITTING; "
+operator|+
+literal|"skipping unassign because region no longer exists -- its split"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+operator|.
+name|NoNodeException
+name|ke
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed getData on SPLITTING/SPLIT at "
+operator|+
+name|path
+operator|+
+literal|"; presuming split and that the region to unassign, "
+operator|+
+name|encodedName
+operator|+
+literal|", no longer exists -- confirm"
+argument_list|,
+name|ke
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|ke
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Unexpected zk state"
+argument_list|,
+name|ke
+argument_list|)
+expr_stmt|;
+name|ke
+operator|=
+name|e
+expr_stmt|;
+block|}
+block|}
+comment|// If we get here, don't understand whats going on -- abort.
 name|master
 operator|.
 name|abort
@@ -7904,10 +7932,10 @@ argument_list|()
 operator|)
 condition|)
 block|{
-name|debugLog
+name|LOG
+operator|.
+name|debug
 argument_list|(
-name|region
-argument_list|,
 literal|"Attempting to unassign region "
 operator|+
 name|region
@@ -7938,10 +7966,10 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|debugLog
+name|LOG
+operator|.
+name|debug
 argument_list|(
-name|region
-argument_list|,
 literal|"Attempting to unassign region "
 operator|+
 name|region
@@ -7957,6 +7985,10 @@ name|state
 operator|.
 name|getState
 argument_list|()
+operator|+
+literal|", force="
+operator|+
+name|force
 operator|+
 literal|")"
 argument_list|)
@@ -8006,10 +8038,10 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-name|debugLog
+name|LOG
+operator|.
+name|debug
 argument_list|(
-name|region
-argument_list|,
 literal|"Sent CLOSE to "
 operator|+
 name|server
@@ -8179,10 +8211,10 @@ operator|instanceof
 name|RegionAlreadyInTransitionException
 condition|)
 block|{
-name|debugLog
+name|LOG
+operator|.
+name|debug
 argument_list|(
-name|region
-argument_list|,
 literal|"update "
 operator|+
 name|state
@@ -8224,6 +8256,71 @@ argument_list|)
 expr_stmt|;
 comment|// Presume retry or server will expire.
 block|}
+block|}
+comment|/**    * @param path    * @return True if znode is in SPLIT or SPLITTING state.    * @throws KeeperException Can happen if the znode went away in meantime.    */
+specifier|private
+name|boolean
+name|isSplitOrSplitting
+parameter_list|(
+specifier|final
+name|String
+name|path
+parameter_list|)
+throws|throws
+name|KeeperException
+block|{
+name|boolean
+name|result
+init|=
+literal|false
+decl_stmt|;
+comment|// This may fail if the SPLIT or SPLITTING znode gets cleaned up before we
+comment|// can get data from it.
+name|RegionTransitionData
+name|data
+init|=
+name|ZKAssign
+operator|.
+name|getData
+argument_list|(
+name|master
+operator|.
+name|getZooKeeper
+argument_list|()
+argument_list|,
+name|path
+argument_list|)
+decl_stmt|;
+name|EventType
+name|evt
+init|=
+name|data
+operator|.
+name|getEventType
+argument_list|()
+decl_stmt|;
+switch|switch
+condition|(
+name|evt
+condition|)
+block|{
+case|case
+name|RS_ZK_REGION_SPLIT
+case|:
+case|case
+name|RS_ZK_REGION_SPLITTING
+case|:
+name|result
+operator|=
+literal|true
+expr_stmt|;
+break|break;
+default|default:
+break|break;
+block|}
+return|return
+name|result
+return|;
 block|}
 comment|/**    * Waits until the specified region has completed assignment.    *<p>    * If the region is already assigned, returns immediately.  Otherwise, method    * blocks until the region is assigned.    * @param regionInfo region to wait on assignment for    * @throws InterruptedException    */
 specifier|public
@@ -12759,7 +12856,7 @@ name|interrupt
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Check whether the RegionServer is online.    */
+comment|/**    * Check whether the RegionServer is online.    * @param serverName     * @return True if online.    */
 specifier|public
 name|boolean
 name|isServerOnline

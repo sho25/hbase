@@ -232,7 +232,7 @@ name|populateTableStates
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Gets a list of all the tables set as disabled in zookeeper.    * @param zkw    * @return list of disabled tables, empty list if none    * @throws KeeperException    */
+comment|/**    * Gets a list of all the tables set as disabled in zookeeper.    * @throws KeeperException    */
 specifier|private
 name|void
 name|populateTableStates
@@ -268,6 +268,13 @@ operator|.
 name|tableZNode
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|children
+operator|==
+literal|null
+condition|)
+return|return;
 for|for
 control|(
 name|String
