@@ -966,11 +966,44 @@ name|result
 operator|!=
 literal|0
 condition|)
+block|{
+if|if
+condition|(
+name|left
+operator|.
+name|getEndKey
+argument_list|()
+operator|.
+name|length
+operator|==
+literal|0
+condition|)
+return|return
+operator|-
+literal|1
+return|;
+comment|// left is last region
+if|if
+condition|(
+name|right
+operator|.
+name|getEndKey
+argument_list|()
+operator|.
+name|length
+operator|==
+literal|0
+condition|)
+return|return
+literal|1
+return|;
+comment|// right is the last region
 return|return
 operator|-
 name|result
 return|;
 comment|// Flip the result so parent comes first.
+block|}
 return|return
 name|result
 return|;

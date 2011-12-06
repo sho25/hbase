@@ -1791,13 +1791,69 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Make sure parent gets cleaned up even if daughter is cleaned up before it.    * @throws IOException    * @throws InterruptedException     */
+comment|/**    * Make sure parent gets cleaned up even if daughter is cleaned up before it.    * @throws IOException    * @throws InterruptedException    */
 annotation|@
 name|Test
 specifier|public
 name|void
 name|testParentCleanedEvenIfDaughterGoneFirst
 parameter_list|()
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+block|{
+name|parentWithSpecifiedEndKeyCleanedEvenIfDaughterGoneFirst
+argument_list|(
+literal|"testParentCleanedEvenIfDaughterGoneFirst"
+argument_list|,
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"eee"
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Make sure last parent with empty end key gets cleaned up even if daughter is cleaned up before it.    * @throws IOException    * @throws InterruptedException    */
+annotation|@
+name|Test
+specifier|public
+name|void
+name|testLastParentCleanedEvenIfDaughterGoneFirst
+parameter_list|()
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+block|{
+name|parentWithSpecifiedEndKeyCleanedEvenIfDaughterGoneFirst
+argument_list|(
+literal|"testLastParentCleanedEvenIfDaughterGoneFirst"
+argument_list|,
+operator|new
+name|byte
+index|[
+literal|0
+index|]
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Make sure parent with specified end key gets cleaned up even if daughter is cleaned up before it.    *    * @param rootDir the test case name, used as the HBase testing utility root    * @param lastEndKey the end key of the split parent    * @throws IOException    * @throws InterruptedException    */
+specifier|private
+name|void
+name|parentWithSpecifiedEndKeyCleanedEvenIfDaughterGoneFirst
+parameter_list|(
+specifier|final
+name|String
+name|rootDir
+parameter_list|,
+specifier|final
+name|byte
+index|[]
+name|lastEndKey
+parameter_list|)
 throws|throws
 name|IOException
 throws|,
@@ -1814,7 +1870,7 @@ name|setRootDirAndCleanIt
 argument_list|(
 name|htu
 argument_list|,
-literal|"testParentCleanedEvenIfDaughterGoneFirst"
+name|rootDir
 argument_list|)
 expr_stmt|;
 name|Server
@@ -1853,7 +1909,7 @@ init|=
 name|createHTableDescriptor
 argument_list|()
 decl_stmt|;
-comment|// Create regions: aaa->eee, aaa->ccc, aaa->bbb, bbb->ccc, etc.
+comment|// Create regions: aaa->{lastEndKey}, aaa->ccc, aaa->bbb, bbb->ccc, etc.
 comment|// Parent
 name|HRegionInfo
 name|parent
@@ -1873,12 +1929,7 @@ argument_list|(
 literal|"aaa"
 argument_list|)
 argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"eee"
-argument_list|)
+name|lastEndKey
 argument_list|)
 decl_stmt|;
 comment|// Sleep a second else the encoded name on these regions comes out
@@ -1996,12 +2047,7 @@ argument_list|(
 literal|"ccc"
 argument_list|)
 argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"eee"
-argument_list|)
+name|lastEndKey
 argument_list|)
 decl_stmt|;
 name|Thread
@@ -2056,12 +2102,7 @@ argument_list|(
 literal|"ddd"
 argument_list|)
 argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"eee"
-argument_list|)
+name|lastEndKey
 argument_list|)
 decl_stmt|;
 comment|// First test that our Comparator works right up in CatalogJanitor.

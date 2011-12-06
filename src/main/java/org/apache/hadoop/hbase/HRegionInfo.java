@@ -3284,6 +3284,37 @@ operator|!=
 literal|0
 condition|)
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|getEndKey
+argument_list|()
+operator|.
+name|length
+operator|==
+literal|0
+condition|)
+return|return
+literal|1
+return|;
+comment|// this is last region
+if|if
+condition|(
+name|o
+operator|.
+name|getEndKey
+argument_list|()
+operator|.
+name|length
+operator|==
+literal|0
+condition|)
+return|return
+operator|-
+literal|1
+return|;
+comment|// o is the last region
 return|return
 name|result
 return|;
