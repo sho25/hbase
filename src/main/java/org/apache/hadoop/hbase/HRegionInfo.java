@@ -3288,6 +3288,15 @@ if|if
 condition|(
 name|this
 operator|.
+name|getStartKey
+argument_list|()
+operator|.
+name|length
+operator|!=
+literal|0
+operator|&&
+name|this
+operator|.
 name|getEndKey
 argument_list|()
 operator|.
@@ -3295,12 +3304,23 @@ name|length
 operator|==
 literal|0
 condition|)
+block|{
 return|return
 literal|1
 return|;
 comment|// this is last region
+block|}
 if|if
 condition|(
+name|o
+operator|.
+name|getStartKey
+argument_list|()
+operator|.
+name|length
+operator|!=
+literal|0
+operator|&&
 name|o
 operator|.
 name|getEndKey
@@ -3310,11 +3330,13 @@ name|length
 operator|==
 literal|0
 condition|)
+block|{
 return|return
 operator|-
 literal|1
 return|;
 comment|// o is the last region
+block|}
 return|return
 name|result
 return|;

@@ -971,6 +971,15 @@ if|if
 condition|(
 name|left
 operator|.
+name|getStartKey
+argument_list|()
+operator|.
+name|length
+operator|!=
+literal|0
+operator|&&
+name|left
+operator|.
 name|getEndKey
 argument_list|()
 operator|.
@@ -978,13 +987,24 @@ name|length
 operator|==
 literal|0
 condition|)
+block|{
 return|return
 operator|-
 literal|1
 return|;
 comment|// left is last region
+block|}
 if|if
 condition|(
+name|right
+operator|.
+name|getStartKey
+argument_list|()
+operator|.
+name|length
+operator|!=
+literal|0
+operator|&&
 name|right
 operator|.
 name|getEndKey
@@ -994,10 +1014,12 @@ name|length
 operator|==
 literal|0
 condition|)
+block|{
 return|return
 literal|1
 return|;
 comment|// right is the last region
+block|}
 return|return
 operator|-
 name|result
