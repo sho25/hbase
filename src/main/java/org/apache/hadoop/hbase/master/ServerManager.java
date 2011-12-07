@@ -2248,17 +2248,6 @@ operator|=
 name|countOfRegionServers
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|count
-operator|==
-name|oldcount
-operator|&&
-name|count
-operator|>
-literal|0
-condition|)
-break|break;
 name|String
 name|msg
 decl_stmt|;
