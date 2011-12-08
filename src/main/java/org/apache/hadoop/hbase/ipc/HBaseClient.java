@@ -2318,6 +2318,13 @@ condition|(
 name|isError
 condition|)
 block|{
+if|if
+condition|(
+name|call
+operator|!=
+literal|null
+condition|)
+block|{
 comment|//noinspection ThrowableInstanceNeverThrown
 name|call
 operator|.
@@ -2342,6 +2349,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 else|else
 block|{
