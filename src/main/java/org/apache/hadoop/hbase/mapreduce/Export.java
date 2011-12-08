@@ -338,6 +338,13 @@ name|NAME
 init|=
 literal|"export"
 decl_stmt|;
+specifier|final
+specifier|static
+name|String
+name|RAW_SCAN
+init|=
+literal|"hbase.mapreduce.include.deleted.rows"
+decl_stmt|;
 comment|/**    * Mapper.    */
 specifier|static
 class|class
@@ -659,6 +666,34 @@ literal|false
 argument_list|)
 expr_stmt|;
 comment|// Set Scan Column Family
+name|boolean
+name|raw
+init|=
+name|Boolean
+operator|.
+name|parseBoolean
+argument_list|(
+name|conf
+operator|.
+name|get
+argument_list|(
+name|RAW_SCAN
+argument_list|)
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|raw
+condition|)
+block|{
+name|s
+operator|.
+name|setRaw
+argument_list|(
+name|raw
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|conf
@@ -728,7 +763,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"verisons="
+literal|"versions="
 operator|+
 name|versions
 operator|+
@@ -739,6 +774,10 @@ operator|+
 literal|", endtime="
 operator|+
 name|endTime
+operator|+
+literal|", keepDeletedCells="
+operator|+
+name|raw
 argument_list|)
 expr_stmt|;
 return|return
@@ -973,6 +1012,19 @@ operator|.
 name|SCAN_COLUMN_FAMILY
 operator|+
 literal|"=<familyName>"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"   -D "
+operator|+
+name|RAW_SCAN
+operator|+
+literal|"=true"
 argument_list|)
 expr_stmt|;
 block|}
