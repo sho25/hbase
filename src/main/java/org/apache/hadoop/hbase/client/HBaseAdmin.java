@@ -746,16 +746,10 @@ name|tries
 init|=
 literal|0
 decl_stmt|;
-for|for
-control|(
-init|;
-name|tries
-operator|<
-name|numRetries
-condition|;
-operator|++
-name|tries
-control|)
+while|while
+condition|(
+literal|true
+condition|)
 block|{
 try|try
 block|{
@@ -766,7 +760,7 @@ operator|.
 name|getMaster
 argument_list|()
 expr_stmt|;
-break|break;
+return|return;
 block|}
 catch|catch
 parameter_list|(
@@ -826,9 +820,40 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
+name|tries
+operator|++
+expr_stmt|;
+if|if
+condition|(
+name|tries
+operator|>=
+name|numRetries
+condition|)
+block|{
+comment|// we should delete connection between client and zookeeper
+name|HConnectionManager
+operator|.
+name|deleteStaleConnection
+argument_list|(
+name|this
+operator|.
+name|connection
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|MasterNotRunningException
+argument_list|(
+literal|"Retried "
+operator|+
+name|numRetries
+operator|+
+literal|" times"
+argument_list|)
+throw|;
+block|}
 try|try
 block|{
-comment|// Sleep
 name|Thread
 operator|.
 name|sleep
@@ -868,39 +893,14 @@ throw|throw
 operator|new
 name|MasterNotRunningException
 argument_list|(
-literal|"Interrupted"
-argument_list|)
-throw|;
-block|}
-block|}
-if|if
-condition|(
+literal|"Interrupted after "
+operator|+
 name|tries
-operator|>=
-name|numRetries
-condition|)
-block|{
-comment|// we should delete connection between client and zookeeper
-name|HConnectionManager
-operator|.
-name|deleteStaleConnection
-argument_list|(
-name|this
-operator|.
-name|connection
-argument_list|)
-expr_stmt|;
-throw|throw
-operator|new
-name|MasterNotRunningException
-argument_list|(
-literal|"Retried "
 operator|+
-name|numRetries
-operator|+
-literal|" times"
+literal|" tries"
 argument_list|)
 throw|;
+block|}
 block|}
 block|}
 comment|/**    * @return A new CatalogTracker instance; call {@link #cleanupCatalogTracker(CatalogTracker)}    * to cleanup the returned catalog tracker.    * @throws ZooKeeperConnectionException    * @throws IOException    * @see #cleanupCatalogTracker(CatalogTracker)    */
