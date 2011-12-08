@@ -3667,7 +3667,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Lookedup root region location, connection="
+literal|"Looked up root region location, connection="
 operator|+
 name|this
 operator|+

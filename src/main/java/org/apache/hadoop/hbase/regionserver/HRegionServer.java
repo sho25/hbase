@@ -8426,7 +8426,9 @@ name|conf
 operator|.
 name|getBoolean
 argument_list|(
-literal|"hbase.regionserver.info.port.auto"
+name|HConstants
+operator|.
+name|REGIONSERVER_INFO_PORT_AUTO
 argument_list|,
 literal|false
 argument_list|)

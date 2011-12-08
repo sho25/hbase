@@ -2125,7 +2125,9 @@ name|conf
 operator|.
 name|setLong
 argument_list|(
-literal|"hbase.hregion.max.filesize"
+name|HConstants
+operator|.
+name|HREGION_MAX_FILESIZE
 argument_list|,
 literal|64
 operator|*
@@ -3127,7 +3129,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test for    * {@link HFileOutputFormat#createFamilyCompressionMap(Configuration)}. Tests    * that the compression map is correctly deserialized from configuration    *     * @throws IOException    */
+comment|/**    * Test for    * {@link HFileOutputFormat#createFamilyCompressionMap(Configuration)}. Tests    * that the compression map is correctly deserialized from configuration    *    * @throws IOException    */
 annotation|@
 name|Test
 specifier|public

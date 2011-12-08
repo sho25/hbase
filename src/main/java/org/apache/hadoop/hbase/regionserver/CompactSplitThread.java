@@ -389,7 +389,9 @@ name|conf
 operator|.
 name|getLong
 argument_list|(
-literal|"hbase.hregion.max.filesize"
+name|HConstants
+operator|.
+name|HREGION_MAX_FILESIZE
 argument_list|,
 name|HConstants
 operator|.

@@ -678,7 +678,9 @@ name|conf
 operator|.
 name|getLong
 argument_list|(
-literal|"hbase.hregion.max.filesize"
+name|HConstants
+operator|.
+name|HREGION_MAX_FILESIZE
 argument_list|,
 name|HConstants
 operator|.
@@ -1626,7 +1628,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Configure a MapReduce Job to perform an incremental load into the given    * table. This    *<ul>    *<li>Inspects the table to configure a total order partitioner</li>    *<li>Uploads the partitions file to the cluster and adds it to the DistributedCache</li>    *<li>Sets the number of reduce tasks to match the current number of regions</li>    *<li>Sets the output key/value class to match HFileOutputFormat's requirements</li>    *<li>Sets the reducer up to perform the appropriate sorting (either KeyValueSortReducer or    *     PutSortReducer)</li>    *</ul>     * The user should be sure to set the map output value class to either KeyValue or Put before    * running this function.    */
+comment|/**    * Configure a MapReduce Job to perform an incremental load into the given    * table. This    *<ul>    *<li>Inspects the table to configure a total order partitioner</li>    *<li>Uploads the partitions file to the cluster and adds it to the DistributedCache</li>    *<li>Sets the number of reduce tasks to match the current number of regions</li>    *<li>Sets the output key/value class to match HFileOutputFormat's requirements</li>    *<li>Sets the reducer up to perform the appropriate sorting (either KeyValueSortReducer or    *     PutSortReducer)</li>    *</ul>    * The user should be sure to set the map output value class to either KeyValue or Put before    * running this function.    */
 specifier|public
 specifier|static
 name|void
@@ -2040,7 +2042,7 @@ return|return
 name|clazz
 return|;
 block|}
-comment|/**    * Run inside the task to deserialize column family to compression algorithm    * map from the    * configuration.    *     * Package-private for unit tests only.    *     * @return a map from column family to the name of the configured compression    *         algorithm    */
+comment|/**    * Run inside the task to deserialize column family to compression algorithm    * map from the    * configuration.    *    * Package-private for unit tests only.    *    * @return a map from column family to the name of the configured compression    *         algorithm    */
 specifier|static
 name|Map
 argument_list|<
@@ -2180,7 +2182,7 @@ return|return
 name|compressionMap
 return|;
 block|}
-comment|/**    * Serialize column family to compression algorithm map to configuration.    * Invoked while configuring the MR job for incremental load.    *     * Package-private for unit tests only.    *     * @throws IOException    *           on failure to read column family descriptors    */
+comment|/**    * Serialize column family to compression algorithm map to configuration.    * Invoked while configuring the MR job for incremental load.    *    * Package-private for unit tests only.    *    * @throws IOException    *           on failure to read column family descriptors    */
 specifier|static
 name|void
 name|configureCompression

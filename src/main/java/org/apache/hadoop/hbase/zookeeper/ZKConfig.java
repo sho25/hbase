@@ -468,7 +468,9 @@ name|HConstants
 operator|.
 name|ZOOKEEPER_QUORUM
 argument_list|,
-literal|"localhost"
+name|HConstants
+operator|.
+name|LOCALHOST
 argument_list|)
 decl_stmt|;
 for|for
@@ -842,7 +844,9 @@ name|value
 operator|.
 name|startsWith
 argument_list|(
-literal|"localhost"
+name|HConstants
+operator|.
+name|LOCALHOST
 argument_list|)
 condition|)
 block|{

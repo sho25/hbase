@@ -40,7 +40,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Class used as an empty watche for the tests  */
+comment|/**  * An empty ZooKeeper watcher  */
 end_comment
 
 begin_class

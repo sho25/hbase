@@ -388,6 +388,26 @@ name|DEFAULT_ZOOKEPER_MAX_CLIENT_CNXNS
 init|=
 literal|30
 decl_stmt|;
+comment|/** Configuration key for ZooKeeper session timeout */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ZK_SESSION_TIMEOUT
+init|=
+literal|"zookeeper.session.timeout"
+decl_stmt|;
+comment|/** Default value for ZooKeeper session timeout */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_ZK_SESSION_TIMEOUT
+init|=
+literal|180
+operator|*
+literal|1000
+decl_stmt|;
 comment|/** Parameter name for port region server listens on. */
 specifier|public
 specifier|static
@@ -414,6 +434,15 @@ name|int
 name|DEFAULT_REGIONSERVER_INFOPORT
 init|=
 literal|60030
+decl_stmt|;
+comment|/** A flag that enables automatic selection of regionserver info port */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REGIONSERVER_INFO_PORT_AUTO
+init|=
+literal|"hbase.regionserver.info.port.auto"
 decl_stmt|;
 comment|/** Parameter name for what region server interface to use. */
 specifier|public
@@ -575,6 +604,15 @@ name|String
 name|HREGION_COMPACTIONDIR_NAME
 init|=
 literal|"compaction.dir"
+decl_stmt|;
+comment|/** Conf key for the max file size after which we split the region */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HREGION_MAX_FILESIZE
+init|=
+literal|"hbase.hregion.max.filesize"
 decl_stmt|;
 comment|/** Default maximum file size */
 specifier|public
@@ -1409,6 +1447,24 @@ name|CP_HTD_ATTR_VALUE_PARAM_VALUE_PATTERN
 operator|+
 literal|"),?"
 argument_list|)
+decl_stmt|;
+comment|/** The delay when re-trying a socket operation in a loop (HBASE-4712) */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|SOCKET_RETRY_WAIT_MS
+init|=
+literal|200
+decl_stmt|;
+comment|/** Host name of the local machine */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|LOCALHOST
+init|=
+literal|"localhost"
 decl_stmt|;
 specifier|private
 name|HConstants

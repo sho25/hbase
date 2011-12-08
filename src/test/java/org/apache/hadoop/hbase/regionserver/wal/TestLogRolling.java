@@ -895,7 +895,9 @@ argument_list|()
 operator|.
 name|setLong
 argument_list|(
-literal|"hbase.hregion.max.filesize"
+name|HConstants
+operator|.
+name|HREGION_MAX_FILESIZE
 argument_list|,
 literal|768L
 operator|*
@@ -1929,7 +1931,7 @@ operator|)
 name|repl
 return|;
 block|}
-comment|/**    * Tests that logs are rolled upon detecting datanode death    * Requires an HDFS jar with HDFS-826& syncFs() support (HDFS-200)    * @throws IOException    * @throws InterruptedException    * @throws InvocationTargetException     * @throws IllegalAccessException    * @throws IllegalArgumentException      */
+comment|/**    * Tests that logs are rolled upon detecting datanode death    * Requires an HDFS jar with HDFS-826& syncFs() support (HDFS-200)    * @throws IOException    * @throws InterruptedException    * @throws InvocationTargetException    * @throws IllegalAccessException    * @throws IllegalArgumentException     */
 annotation|@
 name|Test
 specifier|public

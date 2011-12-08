@@ -5148,7 +5148,7 @@ name|blockSize
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test round-robin assignment on enableTable.    *     * @throws IOException    */
+comment|/**    * Test round-robin assignment on enableTable.    *    * @throws IOException    */
 annotation|@
 name|Test
 specifier|public
@@ -9121,7 +9121,9 @@ argument_list|()
 operator|.
 name|setLong
 argument_list|(
-literal|"hbase.hregion.max.filesize"
+name|HConstants
+operator|.
+name|HREGION_MAX_FILESIZE
 argument_list|,
 literal|768L
 operator|*

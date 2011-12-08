@@ -352,7 +352,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test merge.    * Hand-makes regions of a mergeable size and adds the hand-made regions to    * hand-made meta.  The hand-made regions are created offline.  We then start    * up mini cluster, disables the hand-made table and starts in on merging.    * @throws Exception     */
+comment|/**    * Test merge.    * Hand-makes regions of a mergeable size and adds the hand-made regions to    * hand-made meta.  The hand-made regions are created offline.  We then start    * up mini cluster, disables the hand-made table and starts in on merging.    * @throws Exception    */
 annotation|@
 name|Test
 argument_list|(
@@ -401,7 +401,9 @@ argument_list|()
 operator|.
 name|setLong
 argument_list|(
-literal|"hbase.hregion.max.filesize"
+name|HConstants
+operator|.
+name|HREGION_MAX_FILESIZE
 argument_list|,
 literal|64L
 operator|*
