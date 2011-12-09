@@ -386,7 +386,7 @@ specifier|final
 name|int
 name|DEFAULT_ZOOKEPER_MAX_CLIENT_CNXNS
 init|=
-literal|30
+literal|300
 decl_stmt|;
 comment|/** Configuration key for ZooKeeper session timeout */
 specifier|public
