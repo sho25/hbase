@@ -139,6 +139,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|UUID
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -1845,9 +1855,9 @@ argument_list|()
 argument_list|,
 literal|"partitions_"
 operator|+
-name|System
+name|UUID
 operator|.
-name|currentTimeMillis
+name|randomUUID
 argument_list|()
 argument_list|)
 decl_stmt|;
