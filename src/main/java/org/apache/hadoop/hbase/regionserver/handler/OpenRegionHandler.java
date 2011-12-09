@@ -79,20 +79,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|fs
-operator|.
-name|Path
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|HRegionInfo
@@ -550,10 +536,12 @@ argument_list|(
 name|region
 argument_list|)
 condition|)
+block|{
 name|failed
 operator|=
 literal|false
 expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -608,6 +596,16 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+comment|// Successful region open, and add it to OnlineRegions
+name|this
+operator|.
+name|rsServices
+operator|.
+name|addToOnlineRegions
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
 comment|// Done!  Successful region open
 name|LOG
 operator|.
@@ -977,7 +975,7 @@ name|tickleOpening
 operator|)
 return|;
 block|}
-comment|/**    * Thread to run region post open tasks.  Call {@link #getException()} after    * the thread finishes to check for exceptions running    * {@link RegionServerServices#postOpenDeployTasks(HRegion, org.apache.hadoop.hbase.catalog.CatalogTracker, boolean)}.    */
+comment|/**    * Thread to run region post open tasks. Call {@link #getException()} after    * the thread finishes to check for exceptions running    * {@link RegionServerServices#postOpenDeployTasks(HRegion, org.apache.hadoop.hbase.catalog.CatalogTracker, boolean)}    * .    */
 specifier|static
 class|class
 name|PostOpenDeployTasksThread
@@ -1560,18 +1558,6 @@ name|region
 operator|.
 name|close
 argument_list|()
-expr_stmt|;
-name|this
-operator|.
-name|rsServices
-operator|.
-name|removeFromOnlineRegions
-argument_list|(
-name|regionInfo
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Transition ZK node from OFFLINE to OPENING.    * @param encodedName Name of the znode file (Region encodedName is the znode    * name).    * @param versionOfOfflineNode - version Of OfflineNode that needs to be compared    * before changing the node's state from OFFLINE     * @return True if successful transition.    */

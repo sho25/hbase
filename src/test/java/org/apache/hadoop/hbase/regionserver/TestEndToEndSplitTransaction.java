@@ -18,6 +18,30 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -37,7 +61,35 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|*
+name|HBaseTestingUtility
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|LargeTests
 import|;
 end_import
 
@@ -194,30 +246,6 @@ operator|.
 name|categories
 operator|.
 name|Category
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertFalse
 import|;
 end_import
 
@@ -565,6 +593,17 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+comment|// Add to online regions
+name|server
+operator|.
+name|addToOnlineRegions
+argument_list|(
+name|regions
+operator|.
+name|getSecond
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// THIS is the crucial point:
 comment|// the 2nd daughter was added, so querying before the split key should fail.
 name|assertFalse
@@ -612,6 +651,17 @@ name|getCatalogTracker
 argument_list|()
 argument_list|,
 literal|true
+argument_list|)
+expr_stmt|;
+comment|// Add to online regions
+name|server
+operator|.
+name|addToOnlineRegions
+argument_list|(
+name|regions
+operator|.
+name|getFirst
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertTrue

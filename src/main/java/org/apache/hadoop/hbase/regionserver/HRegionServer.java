@@ -227,6 +227,18 @@ name|java
 operator|.
 name|util
 operator|.
+name|Map
+operator|.
+name|Entry
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Random
 import|;
 end_import
@@ -258,18 +270,6 @@ operator|.
 name|util
 operator|.
 name|TreeMap
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Map
-operator|.
-name|Entry
 import|;
 end_import
 
@@ -447,20 +447,6 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|util
-operator|.
-name|ReflectionUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
 name|ClockOutOfSyncException
@@ -506,6 +492,22 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
+name|OperationStatusCode
 import|;
 end_import
 
@@ -730,22 +732,6 @@ operator|.
 name|hbase
 operator|.
 name|YouAreDeadException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
-operator|.
-name|OperationStatusCode
 import|;
 end_import
 
@@ -1103,7 +1089,9 @@ name|hbase
 operator|.
 name|filter
 operator|.
-name|WritableByteArrayComparable
+name|CompareFilter
+operator|.
+name|CompareOp
 import|;
 end_import
 
@@ -1119,9 +1107,7 @@ name|hbase
 operator|.
 name|filter
 operator|.
-name|CompareFilter
-operator|.
-name|CompareOp
+name|WritableByteArrayComparable
 import|;
 end_import
 
@@ -1567,9 +1553,11 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|wal
+name|metrics
 operator|.
-name|FailedLogCloseException
+name|SchemaMetrics
+operator|.
+name|StoreMetricType
 import|;
 end_import
 
@@ -1585,11 +1573,9 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|metrics
+name|wal
 operator|.
-name|SchemaMetrics
-operator|.
-name|StoreMetricType
+name|FailedLogCloseException
 import|;
 end_import
 
@@ -1833,6 +1819,22 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
+name|SchemaChangeTracker
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
 name|ZKUtil
 import|;
 end_import
@@ -1866,22 +1868,6 @@ operator|.
 name|zookeeper
 operator|.
 name|ZooKeeperWatcher
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|SchemaChangeTracker
 import|;
 end_import
 
@@ -1938,6 +1924,20 @@ operator|.
 name|net
 operator|.
 name|DNS
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|util
+operator|.
+name|ReflectionUtils
 import|;
 end_import
 
@@ -8789,12 +8789,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// Add to online regions if all above was successful.
-name|addToOnlineRegions
-argument_list|(
-name|r
-argument_list|)
-expr_stmt|;
 comment|// Update ZK, ROOT or META
 if|if
 condition|(

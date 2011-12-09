@@ -295,7 +295,9 @@ name|hbase
 operator|.
 name|executor
 operator|.
-name|RegionTransitionData
+name|EventHandler
+operator|.
+name|EventType
 import|;
 end_import
 
@@ -311,9 +313,7 @@ name|hbase
 operator|.
 name|executor
 operator|.
-name|EventHandler
-operator|.
-name|EventType
+name|RegionTransitionData
 import|;
 end_import
 
@@ -1692,6 +1692,14 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+comment|// Should add it to OnlineRegions
+name|services
+operator|.
+name|addToOnlineRegions
+argument_list|(
+name|b
+argument_list|)
+expr_stmt|;
 name|services
 operator|.
 name|postOpenDeployTasks
@@ -1704,6 +1712,13 @@ name|getCatalogTracker
 argument_list|()
 argument_list|,
 literal|true
+argument_list|)
+expr_stmt|;
+name|services
+operator|.
+name|addToOnlineRegions
+argument_list|(
+name|a
 argument_list|)
 expr_stmt|;
 block|}
