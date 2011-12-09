@@ -1001,6 +1001,12 @@ return|return
 literal|false
 return|;
 block|}
+specifier|private
+name|boolean
+name|stopped
+init|=
+literal|false
+decl_stmt|;
 annotation|@
 name|Override
 specifier|public
@@ -1011,7 +1017,10 @@ name|String
 name|why
 parameter_list|)
 block|{
-comment|//no-op
+name|stopped
+operator|=
+literal|true
+expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -1021,7 +1030,7 @@ name|isStopped
 parameter_list|()
 block|{
 return|return
-literal|false
+name|stopped
 return|;
 block|}
 annotation|@
@@ -2505,6 +2514,18 @@ name|parent
 argument_list|)
 argument_list|)
 argument_list|)
+expr_stmt|;
+name|services
+operator|.
+name|stop
+argument_list|(
+literal|"test finished"
+argument_list|)
+expr_stmt|;
+name|janitor
+operator|.
+name|join
+argument_list|()
 expr_stmt|;
 block|}
 specifier|private
