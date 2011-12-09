@@ -3073,7 +3073,7 @@ condition|(
 name|getVersion
 argument_list|()
 operator|==
-name|VERSION
+name|version
 condition|)
 block|{
 name|this
