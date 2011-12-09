@@ -1844,6 +1844,17 @@ block|}
 block|}
 else|else
 block|{
+synchronized|synchronized
+init|(
+name|task
+init|)
+block|{
+name|task
+operator|.
+name|deleted
+operator|=
+literal|true
+expr_stmt|;
 comment|// if in stopTrackingTasks() we were to make tasks orphan instead of
 comment|// forgetting about them then we will have to handle the race when
 comment|// accessing task.batch here.
@@ -1921,12 +1932,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-name|task
-operator|.
-name|deleted
-operator|=
-literal|true
-expr_stmt|;
+block|}
 block|}
 comment|// delete the task node in zk. Keep trying indefinitely - its an async
 comment|// call and no one is blocked waiting for this node to be deleted. All
@@ -3147,6 +3153,8 @@ block|{
 name|Task
 name|oldtask
 decl_stmt|;
+comment|// batch.installed is only changed via this function and
+comment|// a single thread touches batch.installed.
 name|oldtask
 operator|=
 name|tasks
@@ -3167,13 +3175,44 @@ condition|(
 name|oldtask
 operator|!=
 literal|null
-operator|&&
+condition|)
+block|{
+synchronized|synchronized
+init|(
+name|oldtask
+init|)
+block|{
+comment|// new task was not used.
+name|batch
+operator|.
+name|installed
+operator|--
+expr_stmt|;
+if|if
+condition|(
 name|oldtask
 operator|.
 name|isOrphan
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|oldtask
+operator|.
+name|deleted
+condition|)
+block|{
+comment|// The task is already done. Do not install the batch for this
+comment|// task because it might be too late for setDone() to update
+comment|// batch.done. There is no need for the batch creator to wait for
+comment|// this task to complete.
+return|return
+operator|(
+literal|null
+operator|)
+return|;
+block|}
 name|LOG
 operator|.
 name|info
@@ -3197,6 +3236,8 @@ operator|(
 literal|null
 operator|)
 return|;
+block|}
+block|}
 block|}
 return|return
 name|oldtask
@@ -3734,21 +3775,11 @@ operator|!=
 literal|null
 condition|)
 block|{
-if|if
-condition|(
-name|this
-operator|.
-name|incarnation
-operator|==
-literal|0
-condition|)
-block|{
 name|batch
 operator|.
 name|installed
 operator|++
 expr_stmt|;
-block|}
 block|}
 block|}
 specifier|public
