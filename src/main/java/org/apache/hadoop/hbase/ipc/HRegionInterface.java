@@ -1222,6 +1222,16 @@ name|IOException
 throws|,
 name|FailedLogCloseException
 function_decl|;
+annotation|@
+name|Override
+specifier|public
+name|void
+name|stop
+parameter_list|(
+name|String
+name|why
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 
