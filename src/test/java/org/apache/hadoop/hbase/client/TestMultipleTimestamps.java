@@ -456,6 +456,8 @@ argument_list|,
 name|putTimestamps
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
 name|flush
 argument_list|(
 name|TABLE
@@ -762,6 +764,8 @@ argument_list|,
 name|putTimestamps
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
 name|flush
 argument_list|(
 name|TABLE
@@ -1040,6 +1044,8 @@ argument_list|,
 name|putTimestamps
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
 name|flush
 argument_list|(
 name|TABLE
@@ -1490,6 +1496,8 @@ argument_list|,
 name|putTimestamps1
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
 name|flush
 argument_list|(
 name|TABLE
@@ -1508,6 +1516,8 @@ argument_list|,
 name|putTimestamps2
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
 name|flush
 argument_list|(
 name|TABLE
@@ -1833,6 +1843,8 @@ condition|(
 name|flushTables
 condition|)
 block|{
+name|TEST_UTIL
+operator|.
 name|flush
 argument_list|(
 name|TABLE
@@ -2025,6 +2037,8 @@ argument_list|,
 literal|5
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
 name|flush
 argument_list|(
 name|TABLE
@@ -2157,6 +2171,8 @@ argument_list|,
 literal|5
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
 name|flush
 argument_list|(
 name|TABLE
@@ -2287,6 +2303,8 @@ argument_list|,
 literal|5
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
 name|flush
 argument_list|(
 name|TABLE
@@ -2337,44 +2355,6 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-block|}
-comment|// Flush tables. Since flushing is asynchronous, sleep for a bit.
-specifier|private
-name|void
-name|flush
-parameter_list|(
-name|byte
-index|[]
-name|tableName
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|TEST_UTIL
-operator|.
-name|flush
-argument_list|(
-name|tableName
-argument_list|)
-expr_stmt|;
-try|try
-block|{
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-literal|3000
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|i
-parameter_list|)
-block|{
-comment|// ignore
-block|}
 block|}
 comment|/**    * Assert that the passed in KeyValue has expected contents for the    * specified row, column& timestamp.    */
 specifier|private
