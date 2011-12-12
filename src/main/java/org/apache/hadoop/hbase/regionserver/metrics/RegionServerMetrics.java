@@ -805,7 +805,7 @@ argument_list|,
 name|registry
 argument_list|)
 decl_stmt|;
-comment|/**    * filesystem read latency    */
+comment|/**    * filesystem sequential read latency    */
 specifier|public
 specifier|final
 name|MetricsTimeVaryingRate
@@ -815,6 +815,20 @@ operator|new
 name|MetricsTimeVaryingRate
 argument_list|(
 literal|"fsReadLatency"
+argument_list|,
+name|registry
+argument_list|)
+decl_stmt|;
+comment|/**    * filesystem positional read latency    */
+specifier|public
+specifier|final
+name|MetricsTimeVaryingRate
+name|fsPreadLatency
+init|=
+operator|new
+name|MetricsTimeVaryingRate
+argument_list|(
+literal|"fsPreadLatency"
 argument_list|,
 name|registry
 argument_list|)
@@ -1473,7 +1487,7 @@ operator|.
 name|fsSyncLatency
 argument_list|)
 expr_stmt|;
-comment|// HFile metrics
+comment|// HFile metrics, sequential reads
 name|int
 name|ops
 init|=
@@ -1499,6 +1513,34 @@ argument_list|,
 name|HFile
 operator|.
 name|getReadTimeMs
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// HFile metrics, positional reads
+name|ops
+operator|=
+name|HFile
+operator|.
+name|getPreadOps
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|ops
+operator|!=
+literal|0
+condition|)
+name|this
+operator|.
+name|fsPreadLatency
+operator|.
+name|inc
+argument_list|(
+name|ops
+argument_list|,
+name|HFile
+operator|.
+name|getPreadTimeMs
 argument_list|()
 argument_list|)
 expr_stmt|;

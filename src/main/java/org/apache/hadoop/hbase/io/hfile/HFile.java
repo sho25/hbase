@@ -528,7 +528,7 @@ name|MIN_NUM_HFILE_PATH_LEVELS
 init|=
 literal|5
 decl_stmt|;
-comment|// For measuring latency of "typical" reads and writes
+comment|// For measuring latency of "sequential" reads and writes
 specifier|static
 specifier|volatile
 name|AtomicInteger
@@ -565,6 +565,25 @@ operator|new
 name|AtomicLong
 argument_list|()
 decl_stmt|;
+comment|// For measuring latency of pread
+specifier|static
+specifier|volatile
+name|AtomicInteger
+name|preadOps
+init|=
+operator|new
+name|AtomicInteger
+argument_list|()
+decl_stmt|;
+specifier|static
+specifier|volatile
+name|AtomicLong
+name|preadTimeNano
+init|=
+operator|new
+name|AtomicLong
+argument_list|()
+decl_stmt|;
 comment|// for test purpose
 specifier|public
 specifier|static
@@ -578,6 +597,7 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
+comment|// number of sequential reads
 specifier|public
 specifier|static
 specifier|final
@@ -603,6 +623,41 @@ parameter_list|()
 block|{
 return|return
 name|readTimeNano
+operator|.
+name|getAndSet
+argument_list|(
+literal|0
+argument_list|)
+operator|/
+literal|1000000
+return|;
+block|}
+comment|// number of positional reads
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|getPreadOps
+parameter_list|()
+block|{
+return|return
+name|preadOps
+operator|.
+name|getAndSet
+argument_list|(
+literal|0
+argument_list|)
+return|;
+block|}
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|getPreadTimeMs
+parameter_list|()
+block|{
+return|return
+name|preadTimeNano
 operator|.
 name|getAndSet
 argument_list|(
