@@ -3049,6 +3049,14 @@ name|this
 operator|.
 name|writestate
 operator|.
+name|flushRequested
+operator|=
+literal|false
+expr_stmt|;
+name|this
+operator|.
+name|writestate
+operator|.
 name|compacting
 operator|=
 literal|0
