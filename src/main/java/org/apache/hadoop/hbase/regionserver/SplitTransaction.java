@@ -3294,6 +3294,8 @@ break|break;
 case|case
 name|CLOSED_PARENT_REGION
 case|:
+try|try
+block|{
 comment|// So, this returns a seqid but if we just closed and then reopened, we
 comment|// should be ok. On close, we flushed using sequenceid obtained from
 comment|// hosting regionserver so no need to propagate the sequenceid returned
@@ -3306,6 +3308,37 @@ operator|.
 name|initialize
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Failed rollbacking CLOSED_PARENT_REGION of region "
+operator|+
+name|this
+operator|.
+name|parent
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+name|e
+argument_list|)
+throw|;
+block|}
 break|break;
 case|case
 name|STARTED_REGION_A_CREATION
