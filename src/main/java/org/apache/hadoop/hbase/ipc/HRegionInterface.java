@@ -536,6 +536,101 @@ name|ConnectException
 throws|,
 name|IOException
 function_decl|;
+comment|/**    * Flush the given region    * @param region name    */
+specifier|public
+name|void
+name|flushRegion
+parameter_list|(
+name|byte
+index|[]
+name|regionName
+parameter_list|)
+throws|throws
+name|IllegalArgumentException
+throws|,
+name|IOException
+function_decl|;
+comment|/**    * Flush the given region if lastFlushTime< ifOlderThanTS    * @param region name    * @param timestamp    */
+specifier|public
+name|void
+name|flushRegion
+parameter_list|(
+name|byte
+index|[]
+name|regionName
+parameter_list|,
+name|long
+name|ifOlderThanTS
+parameter_list|)
+throws|throws
+name|IllegalArgumentException
+throws|,
+name|IOException
+function_decl|;
+comment|/**    * Gets last flush time for the given region    * @return the last flush time for a region    */
+specifier|public
+name|long
+name|getLastFlushTime
+parameter_list|(
+name|byte
+index|[]
+name|regionName
+parameter_list|)
+function_decl|;
+comment|/**    * Get a list of store files for a particular CF in a particular region    * @param region name    * @param CF name    * @return the list of store files    */
+specifier|public
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|getStoreFileList
+parameter_list|(
+name|byte
+index|[]
+name|regionName
+parameter_list|,
+name|byte
+index|[]
+name|columnFamily
+parameter_list|)
+throws|throws
+name|IllegalArgumentException
+function_decl|;
+comment|/**    * Get a list of store files for a set of CFs in a particular region    * @param region name    * @param CF names    * @return the list of store files    */
+specifier|public
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|getStoreFileList
+parameter_list|(
+name|byte
+index|[]
+name|regionName
+parameter_list|,
+name|byte
+index|[]
+index|[]
+name|columnFamilies
+parameter_list|)
+throws|throws
+name|IllegalArgumentException
+function_decl|;
+comment|/**    * Get a list of store files for all CFs in a particular region    * @param region name    * @return the list of store files    */
+specifier|public
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|getStoreFileList
+parameter_list|(
+name|byte
+index|[]
+name|regionName
+parameter_list|)
+throws|throws
+name|IllegalArgumentException
+function_decl|;
 comment|/**    * Return all the data for the row that matches<i>row</i> exactly,    * or the one that immediately preceeds it.    *    * @param regionName region name    * @param row row key    * @param family Column family to look for row in.    * @return map of values    * @throws IOException e    */
 specifier|public
 name|Result
@@ -1036,7 +1131,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|// Region administrative methods
-comment|/**    * Flushes the MemStore of the specified region.    *<p>    * This method is synchronous.    * @param regionInfo region to flush    * @throws NotServingRegionException    * @throws IOException    */
+comment|/**    * Flushes the MemStore of the specified region.    *<p>    * This method is synchronous.    * @param regionInfo region to flush    * @throws NotServingRegionException    * @throws IOException    * @deprecated use {@link #flushRegion(byte[])} instead    */
 name|void
 name|flushRegion
 parameter_list|(
