@@ -109,6 +109,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|StoreFile
@@ -171,15 +185,6 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
-decl_stmt|;
-comment|/**    * Configuration key for the size of the block cache, in bytes.    */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|HFILE_BLOCK_CACHE_SIZE_KEY
-init|=
-literal|"hfile.block.cache.size"
 decl_stmt|;
 comment|/**    * Configuration key to cache data blocks on write. There are separate    * switches for bloom blocks and non-root index blocks.    */
 specifier|public
@@ -878,9 +883,13 @@ name|conf
 operator|.
 name|getFloat
 argument_list|(
+name|HConstants
+operator|.
 name|HFILE_BLOCK_CACHE_SIZE_KEY
 argument_list|,
-literal|0.2f
+name|HConstants
+operator|.
+name|HFILE_BLOCK_CACHE_SIZE_DEFAULT
 argument_list|)
 decl_stmt|;
 if|if
@@ -909,6 +918,8 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
+name|HConstants
+operator|.
 name|HFILE_BLOCK_CACHE_SIZE_KEY
 operator|+
 literal|" must be between 0.0 and 1.0, not> 1.0"

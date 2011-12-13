@@ -709,13 +709,6 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-specifier|static
-specifier|final
-name|String
-name|HFILE_BLOCK_CACHE_SIZE_KEY
-init|=
-literal|"hfile.block.cache.size"
-decl_stmt|;
 specifier|public
 specifier|static
 enum|enum

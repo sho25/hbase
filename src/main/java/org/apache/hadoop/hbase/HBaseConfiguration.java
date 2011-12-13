@@ -276,9 +276,13 @@ name|conf
 operator|.
 name|getFloat
 argument_list|(
-literal|"hfile.block.cache.size"
+name|HConstants
+operator|.
+name|HFILE_BLOCK_CACHE_SIZE_KEY
 argument_list|,
-literal|0.2f
+name|HConstants
+operator|.
+name|HFILE_BLOCK_CACHE_SIZE_DEFAULT
 argument_list|)
 decl_stmt|;
 name|int

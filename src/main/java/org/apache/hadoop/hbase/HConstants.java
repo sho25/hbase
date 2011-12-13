@@ -1324,6 +1324,23 @@ name|HBASE_REGION_SPLIT_POLICY_KEY
 init|=
 literal|"hbase.regionserver.region.split.policy"
 decl_stmt|;
+comment|/**    * Configuration key for the size of the block cache    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HFILE_BLOCK_CACHE_SIZE_KEY
+init|=
+literal|"hfile.block.cache.size"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|float
+name|HFILE_BLOCK_CACHE_SIZE_DEFAULT
+init|=
+literal|0.25f
+decl_stmt|;
 comment|/*     * Minimum percentage of free heap necessary for a successful cluster startup.     */
 specifier|public
 specifier|static
