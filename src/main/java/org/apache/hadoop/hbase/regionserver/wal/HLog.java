@@ -2961,6 +2961,8 @@ operator|new
 name|IOException
 argument_list|(
 literal|"cannot get log writer"
+argument_list|,
+name|e
 argument_list|)
 decl_stmt|;
 name|ie
