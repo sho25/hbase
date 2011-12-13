@@ -521,6 +521,11 @@ argument_list|(
 literal|"End testInstantSchemaChangeExclusions() "
 argument_list|)
 expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * This test validates that when a schema change request fails on the    * RS side, we appropriately register the failure in the Master Schema change    * tracker's node as well as capture the error cause.    *    * Currently an alter request fails if RS fails with an IO exception say due to    * missing or incorrect codec. With instant schema change the same failure happens    * and we register the failure with associated cause and also update the    * monitor status appropriately.    *    * The region(s) will be orphaned in both the cases.    *    */
 annotation|@
@@ -761,6 +766,11 @@ name|info
 argument_list|(
 literal|"End testInstantSchemaChangeWhileRSOpenRegionFailure() "
 argument_list|)
+expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@
@@ -1135,6 +1145,11 @@ name|info
 argument_list|(
 literal|"End testConcurrentInstantSchemaChangeAndSplit() "
 argument_list|)
+expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@

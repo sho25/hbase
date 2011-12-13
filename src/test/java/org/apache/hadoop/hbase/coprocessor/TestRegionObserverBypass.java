@@ -562,6 +562,11 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
+name|t
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Test various multiput operations.    * @throws Exception    */
 annotation|@
@@ -1185,6 +1190,11 @@ name|row3
 argument_list|,
 literal|0
 argument_list|)
+expr_stmt|;
+name|t
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 specifier|private

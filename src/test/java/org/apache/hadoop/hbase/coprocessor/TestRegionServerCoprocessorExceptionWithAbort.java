@@ -793,6 +793,11 @@ operator|.
 name|regionZKNodeWasDeleted
 argument_list|)
 expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 specifier|public
 specifier|static

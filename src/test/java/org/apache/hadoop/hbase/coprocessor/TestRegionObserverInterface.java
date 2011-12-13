@@ -840,6 +840,11 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -970,6 +975,11 @@ name|deleteTable
 argument_list|(
 name|tableName
 argument_list|)
+expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@
@@ -1235,6 +1245,11 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -1467,6 +1482,11 @@ name|deleteTable
 argument_list|(
 name|tableName
 argument_list|)
+expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 comment|/* Overrides compaction to only output rows with keys that are even numbers */
@@ -2180,6 +2200,11 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|// check each region whether the coprocessor upcalls are called or not.
 specifier|private

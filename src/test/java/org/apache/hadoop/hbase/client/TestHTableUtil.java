@@ -448,6 +448,11 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 specifier|private
 name|Put
@@ -637,6 +642,11 @@ operator|.
 name|size
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@

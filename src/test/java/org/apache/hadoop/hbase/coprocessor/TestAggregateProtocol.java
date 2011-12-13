@@ -631,6 +631,11 @@ name|p2
 argument_list|)
 expr_stmt|;
 block|}
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Shutting down the cluster    * @throws Exception    */
 annotation|@

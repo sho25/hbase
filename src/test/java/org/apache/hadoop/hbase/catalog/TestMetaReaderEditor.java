@@ -871,6 +871,11 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
+name|t
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Thread that runs a MetaReader/MetaEditor task until asked stop.    */
 specifier|abstract

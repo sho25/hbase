@@ -589,6 +589,11 @@ argument_list|(
 name|countOfRegions
 argument_list|)
 expr_stmt|;
+name|t
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|AfterClass
@@ -1952,6 +1957,11 @@ literal|1000
 argument_list|)
 expr_stmt|;
 block|}
+name|meta
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/*    * Add to each of the regions in .META. a value.  Key is the startrow of the    * region (except its 'aaa' for first region).  Actual value is the row name.    * @param expected    * @return    * @throws IOException    */
 specifier|private
@@ -2156,6 +2166,16 @@ name|expected
 argument_list|,
 name|rows
 argument_list|)
+expr_stmt|;
+name|t
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|meta
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 return|return
 name|rows

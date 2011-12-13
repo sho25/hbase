@@ -4194,6 +4194,11 @@ name|flushCommits
 argument_list|()
 expr_stmt|;
 block|}
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/*      * Run test      * @return Elapsed time.      * @throws IOException      */
 name|long

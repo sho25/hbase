@@ -403,6 +403,11 @@ name|FAMILY
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|t
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|AfterClass
@@ -811,6 +816,11 @@ name|getLargestPoolSize
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -1113,6 +1123,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -1325,6 +1340,11 @@ index|]
 operator|instanceof
 name|Result
 argument_list|)
+expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Only run one Multi test with a forced RegionServer abort. Otherwise, the    * unit tests will take an unnecessarily long time to run.    *    * @throws Exception    */
@@ -1667,6 +1687,11 @@ literal|10
 argument_list|)
 expr_stmt|;
 block|}
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -1783,6 +1808,11 @@ name|validateLoadedData
 argument_list|(
 name|table
 argument_list|)
+expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@
@@ -1967,6 +1997,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -2149,6 +2184,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -2391,6 +2431,11 @@ name|idx
 operator|++
 expr_stmt|;
 block|}
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -2759,6 +2804,11 @@ name|qual2
 argument_list|,
 name|val2
 argument_list|)
+expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 comment|// // Helper methods ////

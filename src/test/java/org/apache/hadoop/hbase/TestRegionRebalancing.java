@@ -736,6 +736,11 @@ expr_stmt|;
 name|assertRegionsAreBalanced
 argument_list|()
 expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/** figure out how many regions are currently being served. */
 specifier|private

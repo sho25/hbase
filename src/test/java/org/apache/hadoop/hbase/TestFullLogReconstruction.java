@@ -526,6 +526,16 @@ argument_list|,
 name|newCount
 argument_list|)
 expr_stmt|;
+name|results
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|org

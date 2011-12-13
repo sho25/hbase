@@ -993,6 +993,11 @@ argument_list|(
 literal|"end testInstantSchemaChangeWhileRSCrash()"
 argument_list|)
 expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Randomly bring down/up RS servers while schema change is in progress. This test    * is same as the above one but the only difference is that we intent to kill and start    * new RS instances while a schema change is in progress.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    */
 annotation|@
@@ -1235,6 +1240,11 @@ argument_list|(
 literal|"end testInstantSchemaChangeWhileRandomRSCrashAndStart()"
 argument_list|)
 expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Test scenario where primary master is brought down while processing an    * alter request. This is harder one as it is very difficult the time this.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    */
 annotation|@
@@ -1452,6 +1462,11 @@ name|info
 argument_list|(
 literal|"end testInstantSchemaChangeWhileMasterFailover()"
 argument_list|)
+expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * TEst the master fail over during a schema change request in ZK.    * We create a fake schema change request in ZK and abort the primary master    * mid-flight to simulate a master fail over scenario during a mid-flight    * schema change process. The new master's schema janitor will eventually    * cleanup this fake request after time out.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    */

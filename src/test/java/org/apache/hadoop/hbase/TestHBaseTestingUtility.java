@@ -679,6 +679,16 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|table1
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|table2
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 finally|finally
 block|{

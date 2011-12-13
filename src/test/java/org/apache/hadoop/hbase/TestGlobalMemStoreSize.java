@@ -745,6 +745,11 @@ name|size
 argument_list|)
 expr_stmt|;
 block|}
+name|ht
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|shutdownMiniCluster

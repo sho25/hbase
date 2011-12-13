@@ -859,6 +859,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|ht
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -1358,6 +1363,11 @@ argument_list|,
 literal|"value4-3"
 argument_list|)
 expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Test TimestampsFilter in the presence of version deletes.    *    * @throws Exception    */
 annotation|@
@@ -1579,6 +1589,11 @@ literal|0
 argument_list|,
 literal|2
 argument_list|)
+expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 specifier|private

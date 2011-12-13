@@ -1810,6 +1810,11 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// TODO: Bring random 3 of 4 RS down at the same time
+name|ht
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 comment|// Stop the cluster
 name|TEST_UTIL
 operator|.

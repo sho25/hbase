@@ -643,6 +643,11 @@ literal|250
 argument_list|)
 expr_stmt|;
 block|}
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|AfterClass
@@ -924,6 +929,11 @@ argument_list|,
 name|workResult11
 argument_list|)
 expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -947,9 +957,6 @@ argument_list|()
 argument_list|,
 name|TEST_TABLE
 argument_list|)
-decl_stmt|;
-name|Scan
-name|scan
 decl_stmt|;
 name|Map
 argument_list|<
@@ -1214,6 +1221,11 @@ name|sumResult
 argument_list|,
 name|expectedResult
 argument_list|)
+expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@

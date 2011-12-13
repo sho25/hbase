@@ -587,6 +587,11 @@ argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -862,6 +867,11 @@ literal|3
 argument_list|,
 literal|3
 argument_list|)
+expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@
@@ -1238,6 +1248,11 @@ literal|5
 argument_list|,
 literal|2
 argument_list|)
+expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@
@@ -1714,6 +1729,11 @@ argument_list|,
 literal|4
 argument_list|)
 expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -1952,6 +1972,11 @@ argument_list|,
 literal|2
 argument_list|)
 expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -2093,6 +2118,11 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -2225,6 +2255,11 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -2354,6 +2389,11 @@ name|kvs
 operator|.
 name|length
 argument_list|)
+expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Assert that the passed in KeyValue has expected contents for the    * specified row, column& timestamp.    */

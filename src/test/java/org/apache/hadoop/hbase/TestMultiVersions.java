@@ -623,6 +623,11 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Verifies versions across a cluster restart.    * Port of old TestGetRowVersions test to here so can better utilize the spun    * up cluster running more than a single test per spin up.  Keep old tests'    * crazyness.    */
 annotation|@
@@ -776,6 +781,11 @@ name|put
 argument_list|)
 expr_stmt|;
 comment|// Shut down and restart the HBase cluster
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|UTIL
 operator|.
 name|shutdownMiniHBaseCluster
@@ -1097,6 +1107,11 @@ name|timestamp2
 argument_list|)
 argument_list|)
 argument_list|)
+expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Port of old TestScanMultipleVersions test here so can better utilize the    * spun up cluster running more than just a single test.  Keep old tests    * crazyness.    *     *<p>Tests five cases of scans and timestamps.    * @throws Exception    */
@@ -1573,6 +1588,11 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|// Case 1: scan with LATEST_TIMESTAMP. Should get two rows
 name|int

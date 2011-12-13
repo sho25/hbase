@@ -264,6 +264,9 @@ argument_list|()
 argument_list|,
 literal|".META."
 argument_list|)
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 name|int
 name|port
@@ -358,6 +361,9 @@ argument_list|()
 argument_list|,
 literal|".META."
 argument_list|)
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 name|int
 name|port

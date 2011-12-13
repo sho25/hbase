@@ -470,6 +470,11 @@ argument_list|(
 literal|"END testInstantSchemaChangeForModifyTable()"
 argument_list|)
 expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -675,6 +680,11 @@ name|info
 argument_list|(
 literal|"End testInstantSchemaChangeForAddColumn() "
 argument_list|)
+expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@
@@ -1035,6 +1045,11 @@ argument_list|(
 literal|"End testInstantSchemaChangeForDeleteColumn() "
 argument_list|)
 expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|Test
@@ -1132,6 +1147,11 @@ argument_list|)
 operator|==
 literal|false
 argument_list|)
+expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Test that when concurrent alter requests are received for a table we don't miss any.    * @throws IOException    * @throws KeeperException    * @throws InterruptedException    */
@@ -1525,6 +1545,11 @@ argument_list|(
 literal|"END testConcurrentInstantSchemaChangeForModifyTable()"
 argument_list|)
 expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * The schema change request blocks while a LB run is in progress. This    * test validates this behavior.    * @throws IOException    * @throws InterruptedException    * @throws KeeperException    */
 annotation|@
@@ -1833,6 +1858,11 @@ name|info
 argument_list|(
 literal|"End testInstantSchemaChangeWithLoadBalancerRunning() "
 argument_list|)
+expr_stmt|;
+name|ht
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * This test validates two things. One is that the LoadBalancer does not run when a schema    * change process is in progress. The second thing is that it also checks that failed/expired    * schema changes are expired to unblock the load balancer run.    *    */

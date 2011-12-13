@@ -776,6 +776,11 @@ argument_list|,
 name|rl
 argument_list|)
 expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Make sure that {@link HConfiguration} instances that are essentially the    * same map to the same {@link HConnection} instance.    */
 annotation|@

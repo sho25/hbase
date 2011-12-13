@@ -387,6 +387,11 @@ name|put
 argument_list|)
 expr_stmt|;
 block|}
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * @throws java.lang.Exception    */
 annotation|@
@@ -554,6 +559,14 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+finally|finally
+block|{
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 name|fail
 argument_list|(
 literal|"We should be timing out"
@@ -685,6 +698,11 @@ name|length
 argument_list|)
 expr_stmt|;
 name|r
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|higherScanTimeoutTable
 operator|.
 name|close
 argument_list|()
@@ -862,6 +880,11 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -1008,6 +1031,11 @@ name|count
 argument_list|)
 expr_stmt|;
 name|r
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|higherScanTimeoutTable
 operator|.
 name|close
 argument_list|()
