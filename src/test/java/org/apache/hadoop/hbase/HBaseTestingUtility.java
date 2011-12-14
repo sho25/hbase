@@ -2096,6 +2096,26 @@ comment|// Now do the mini hbase cluster.  Set the hbase.rootdir in config.
 name|createRootDir
 argument_list|()
 expr_stmt|;
+comment|// These settings will make the server waits until this exact number of
+comment|//  regions servers are connected.
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.master.wait.on.regionservers.mintostart"
+argument_list|,
+name|numSlaves
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
+literal|"hbase.master.wait.on.regionservers.maxtostart"
+argument_list|,
+name|numSlaves
+argument_list|)
+expr_stmt|;
 name|Configuration
 name|c
 init|=

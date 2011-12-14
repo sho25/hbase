@@ -496,24 +496,6 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.master.wait.on.regionservers.mintostart"
-argument_list|,
-literal|3
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.master.wait.on.regionservers.maxtostart"
-argument_list|,
-literal|3
-argument_list|)
-expr_stmt|;
 comment|// Start the cluster
 name|HBaseTestingUtility
 name|TEST_UTIL

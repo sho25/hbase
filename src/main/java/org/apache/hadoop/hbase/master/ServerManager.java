@@ -2121,7 +2121,7 @@ return|return
 name|hri
 return|;
 block|}
-comment|/**    * Waits for the regionservers to report in.    * @throws InterruptedException    */
+comment|/**    * Wait for the region servers to report in.    * We will wait until one of this condition is met:    *  - the master is stopped    *  - the 'hbase.master.wait.on.regionservers.timeout' is reached    *  - the 'hbase.master.wait.on.regionservers.maxtostart' number of    *    region servers is reached    *  - the 'hbase.master.wait.on.regionservers.mintostart' is reached AND    *   there have been no new region server in for    *      'hbase.master.wait.on.regionservers.interval' time    *    * @throws InterruptedException    */
 specifier|public
 name|void
 name|waitForRegionServers
@@ -2132,6 +2132,7 @@ parameter_list|)
 throws|throws
 name|InterruptedException
 block|{
+specifier|final
 name|long
 name|interval
 init|=
@@ -2149,6 +2150,7 @@ argument_list|,
 literal|1500
 argument_list|)
 decl_stmt|;
+specifier|final
 name|long
 name|timeout
 init|=
@@ -2166,6 +2168,7 @@ argument_list|,
 literal|4500
 argument_list|)
 decl_stmt|;
+specifier|final
 name|int
 name|minToStart
 init|=
@@ -2183,6 +2186,7 @@ argument_list|,
 literal|1
 argument_list|)
 decl_stmt|;
+specifier|final
 name|int
 name|maxToStart
 init|=
@@ -2202,26 +2206,48 @@ operator|.
 name|MAX_VALUE
 argument_list|)
 decl_stmt|;
-comment|// So, number of regionservers> 0 and its been n since last check in, break,
-comment|// else just stall here
-name|int
-name|count
+name|long
+name|now
 init|=
-literal|0
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+decl_stmt|;
+specifier|final
+name|long
+name|startTime
+init|=
+name|now
 decl_stmt|;
 name|long
 name|slept
 init|=
 literal|0
 decl_stmt|;
-for|for
-control|(
+name|long
+name|lastLogTime
+init|=
+literal|0
+decl_stmt|;
+name|long
+name|lastCountChange
+init|=
+name|startTime
+decl_stmt|;
 name|int
-name|oldcount
+name|count
 init|=
 name|countOfRegionServers
 argument_list|()
-init|;
+decl_stmt|;
+name|int
+name|oldCount
+init|=
+literal|0
+decl_stmt|;
+while|while
+condition|(
 operator|!
 name|this
 operator|.
@@ -2229,101 +2255,80 @@ name|master
 operator|.
 name|isStopped
 argument_list|()
-condition|;
-control|)
-block|{
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-name|interval
-argument_list|)
-expr_stmt|;
+operator|&&
 name|slept
-operator|+=
+operator|<
+name|timeout
+operator|&&
+name|count
+operator|<
+name|maxToStart
+operator|&&
+operator|!
+operator|(
+name|lastCountChange
+operator|+
 name|interval
-expr_stmt|;
-name|count
-operator|=
-name|countOfRegionServers
-argument_list|()
-expr_stmt|;
-name|String
-name|msg
-decl_stmt|;
-if|if
-condition|(
-name|count
-operator|==
-name|oldcount
+operator|>
+name|now
 operator|&&
 name|count
 operator|>=
 name|minToStart
-operator|&&
-name|slept
-operator|>=
-name|timeout
+operator|)
 condition|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Finished waiting for regionserver count to settle; "
-operator|+
-literal|"count="
-operator|+
-name|count
-operator|+
-literal|", sleptFor="
-operator|+
-name|slept
-argument_list|)
-expr_stmt|;
-break|break;
-block|}
+comment|// Log some info at every interval time or if there is a change
 if|if
 condition|(
+name|oldCount
+operator|!=
 name|count
-operator|>=
+operator|||
+name|lastLogTime
+operator|+
+name|interval
+operator|<
+name|now
+condition|)
+block|{
+name|lastLogTime
+operator|=
+name|now
+expr_stmt|;
+name|String
+name|msg
+init|=
+literal|"Waiting for region servers count to settle; currently"
+operator|+
+literal|" checked in "
+operator|+
+name|count
+operator|+
+literal|", slept for "
+operator|+
+name|slept
+operator|+
+literal|" ms,"
+operator|+
+literal|" expecting minimum of "
+operator|+
+name|minToStart
+operator|+
+literal|", maximum of "
+operator|+
 name|maxToStart
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"At least the max configured number of regionserver(s) have "
 operator|+
-literal|"checked in: "
+literal|", timeout of "
 operator|+
-name|count
-argument_list|)
-expr_stmt|;
-break|break;
-block|}
-if|if
-condition|(
-name|count
-operator|==
-literal|0
-condition|)
-block|{
-name|msg
-operator|=
-literal|"Waiting on regionserver(s) to checkin"
-expr_stmt|;
-block|}
-else|else
-block|{
-name|msg
-operator|=
-literal|"Waiting on regionserver(s) count to settle; currently="
+name|timeout
 operator|+
-name|count
-expr_stmt|;
-block|}
+literal|" ms, interval of "
+operator|+
+name|interval
+operator|+
+literal|" ms."
+decl_stmt|;
 name|LOG
 operator|.
 name|info
@@ -2338,11 +2343,98 @@ argument_list|(
 name|msg
 argument_list|)
 expr_stmt|;
-name|oldcount
+block|}
+comment|// We sleep for some time
+specifier|final
+name|long
+name|sleepTime
+init|=
+literal|50
+decl_stmt|;
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+name|sleepTime
+argument_list|)
+expr_stmt|;
+name|now
+operator|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+expr_stmt|;
+name|slept
+operator|=
+name|now
+operator|-
+name|startTime
+expr_stmt|;
+name|oldCount
 operator|=
 name|count
 expr_stmt|;
+name|count
+operator|=
+name|countOfRegionServers
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|count
+operator|!=
+name|oldCount
+condition|)
+block|{
+name|lastCountChange
+operator|=
+name|now
+expr_stmt|;
 block|}
+block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Finished waiting for region servers count to settle;"
+operator|+
+literal|" checked in "
+operator|+
+name|count
+operator|+
+literal|", slept for "
+operator|+
+name|slept
+operator|+
+literal|" ms,"
+operator|+
+literal|" expecting minimum of "
+operator|+
+name|minToStart
+operator|+
+literal|", maximum of "
+operator|+
+name|maxToStart
+operator|+
+literal|","
+operator|+
+literal|" master is "
+operator|+
+operator|(
+name|this
+operator|.
+name|master
+operator|.
+name|isStopped
+argument_list|()
+condition|?
+literal|"stopped."
+else|:
+literal|"running."
+operator|)
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * @return A copy of the internal list of online servers.    */
 specifier|public
