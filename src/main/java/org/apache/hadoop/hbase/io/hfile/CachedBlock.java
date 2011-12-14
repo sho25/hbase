@@ -138,8 +138,8 @@ block|}
 empty_stmt|;
 specifier|private
 specifier|final
-name|String
-name|blockName
+name|BlockCacheKey
+name|cacheKey
 decl_stmt|;
 specifier|private
 specifier|final
@@ -162,8 +162,8 @@ decl_stmt|;
 specifier|public
 name|CachedBlock
 parameter_list|(
-name|String
-name|blockName
+name|BlockCacheKey
+name|cacheKey
 parameter_list|,
 name|Cacheable
 name|buf
@@ -174,7 +174,7 @@ parameter_list|)
 block|{
 name|this
 argument_list|(
-name|blockName
+name|cacheKey
 argument_list|,
 name|buf
 argument_list|,
@@ -187,8 +187,8 @@ block|}
 specifier|public
 name|CachedBlock
 parameter_list|(
-name|String
-name|blockName
+name|BlockCacheKey
+name|cacheKey
 parameter_list|,
 name|Cacheable
 name|buf
@@ -202,9 +202,9 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|blockName
+name|cacheKey
 operator|=
-name|blockName
+name|cacheKey
 expr_stmt|;
 name|this
 operator|.
@@ -220,8 +220,7 @@ name|accessTime
 expr_stmt|;
 comment|// We approximate the size of this class by the size of its name string
 comment|// plus the size of its byte buffer plus the overhead associated with all
-comment|// the base classes. Strings have two bytes per character due to default
-comment|// Java unicode encoding (hence the times 2). We also include the base class
+comment|// the base classes. We also include the base class
 comment|// sizes in the PER_BLOCK_OVERHEAD variable rather than align()ing them with
 comment|// their buffer lengths. This variable is used elsewhere in unit tests.
 name|this
@@ -232,11 +231,9 @@ name|ClassSize
 operator|.
 name|align
 argument_list|(
-literal|2
-operator|*
-name|blockName
+name|cacheKey
 operator|.
-name|length
+name|heapSize
 argument_list|()
 argument_list|)
 operator|+
@@ -371,14 +368,14 @@ name|buf
 return|;
 block|}
 specifier|public
-name|String
-name|getName
+name|BlockCacheKey
+name|getCacheKey
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|blockName
+name|cacheKey
 return|;
 block|}
 specifier|public

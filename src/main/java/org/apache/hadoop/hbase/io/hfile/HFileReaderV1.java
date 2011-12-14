@@ -1006,7 +1006,7 @@ operator|.
 name|nanoTime
 argument_list|()
 decl_stmt|;
-name|String
+name|BlockCacheKey
 name|cacheKey
 init|=
 name|HFile
@@ -1288,7 +1288,7 @@ argument_list|(
 name|block
 argument_list|)
 decl_stmt|;
-name|String
+name|BlockCacheKey
 name|cacheKey
 init|=
 name|HFile

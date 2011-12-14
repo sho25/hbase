@@ -31,16 +31,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|LinkedList
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -403,7 +393,10 @@ operator|.
 name|pollLast
 argument_list|()
 operator|.
-name|getName
+name|getCacheKey
+argument_list|()
+operator|.
+name|getHfileName
 argument_list|()
 argument_list|,
 literal|"cb"
@@ -739,7 +732,10 @@ operator|.
 name|pollLast
 argument_list|()
 operator|.
-name|getName
+name|getCacheKey
+argument_list|()
+operator|.
+name|getHfileName
 argument_list|()
 argument_list|,
 literal|"cb"
@@ -784,7 +780,13 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
+operator|new
+name|BlockCacheKey
+argument_list|(
 name|name
+argument_list|,
+literal|0
+argument_list|)
 argument_list|,
 operator|new
 name|Cacheable

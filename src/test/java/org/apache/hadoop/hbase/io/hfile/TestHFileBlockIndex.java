@@ -2774,16 +2774,12 @@ expr_stmt|;
 comment|// Evict all blocks that were cached-on-write by the previous invocation.
 name|blockCache
 operator|.
-name|evictBlocksByPrefix
+name|evictBlocksByHfileName
 argument_list|(
 name|hfilePath
 operator|.
 name|getName
 argument_list|()
-operator|+
-name|HFile
-operator|.
-name|CACHE_KEY_SEPARATOR
 argument_list|)
 expr_stmt|;
 name|conf

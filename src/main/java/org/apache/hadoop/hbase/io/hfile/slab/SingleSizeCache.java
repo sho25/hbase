@@ -175,6 +175,24 @@ name|io
 operator|.
 name|hfile
 operator|.
+name|BlockCacheKey
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
 name|CacheStats
 import|;
 end_import
@@ -311,7 +329,7 @@ specifier|private
 specifier|final
 name|ConcurrentMap
 argument_list|<
-name|String
+name|BlockCacheKey
 argument_list|,
 name|CacheablePair
 argument_list|>
@@ -471,7 +489,7 @@ comment|// evicts
 comment|// something.
 name|MapEvictionListener
 argument_list|<
-name|String
+name|BlockCacheKey
 argument_list|,
 name|CacheablePair
 argument_list|>
@@ -480,7 +498,7 @@ init|=
 operator|new
 name|MapEvictionListener
 argument_list|<
-name|String
+name|BlockCacheKey
 argument_list|,
 name|CacheablePair
 argument_list|>
@@ -492,7 +510,7 @@ specifier|public
 name|void
 name|onEviction
 parameter_list|(
-name|String
+name|BlockCacheKey
 name|key
 parameter_list|,
 name|CacheablePair
@@ -559,7 +577,7 @@ specifier|public
 name|void
 name|cacheBlock
 parameter_list|(
-name|String
+name|BlockCacheKey
 name|blockName
 parameter_list|,
 name|Cacheable
@@ -717,7 +735,7 @@ specifier|public
 name|Cacheable
 name|getBlock
 parameter_list|(
-name|String
+name|BlockCacheKey
 name|key
 parameter_list|,
 name|boolean
@@ -844,7 +862,7 @@ specifier|public
 name|boolean
 name|evictBlock
 parameter_list|(
-name|String
+name|BlockCacheKey
 name|key
 parameter_list|)
 block|{
@@ -888,7 +906,7 @@ specifier|private
 name|void
 name|doEviction
 parameter_list|(
-name|String
+name|BlockCacheKey
 name|key
 parameter_list|,
 name|CacheablePair
@@ -1326,8 +1344,8 @@ specifier|public
 name|void
 name|cacheBlock
 parameter_list|(
-name|String
-name|blockName
+name|BlockCacheKey
+name|cacheKey
 parameter_list|,
 name|Cacheable
 name|buf
@@ -1340,7 +1358,7 @@ name|this
 operator|.
 name|cacheBlock
 argument_list|(
-name|blockName
+name|cacheKey
 argument_list|,
 name|buf
 argument_list|)
@@ -1351,10 +1369,10 @@ annotation|@
 name|Override
 specifier|public
 name|int
-name|evictBlocksByPrefix
+name|evictBlocksByHfileName
 parameter_list|(
 name|String
-name|prefix
+name|hfileName
 parameter_list|)
 block|{
 name|int
@@ -1364,7 +1382,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|String
+name|BlockCacheKey
 name|e
 range|:
 name|backingMap
@@ -1377,9 +1395,12 @@ if|if
 condition|(
 name|e
 operator|.
-name|startsWith
+name|getHfileName
+argument_list|()
+operator|.
+name|equals
 argument_list|(
-name|prefix
+name|hfileName
 argument_list|)
 condition|)
 block|{

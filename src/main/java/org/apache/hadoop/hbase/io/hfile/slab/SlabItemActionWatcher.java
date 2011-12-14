@@ -21,6 +21,24 @@ name|slab
 package|;
 end_package
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|BlockCacheKey
+import|;
+end_import
+
 begin_comment
 comment|/**  * Interface for objects that want to know when actions occur in a SingleSizeCache.  * */
 end_comment
@@ -33,7 +51,7 @@ comment|/**    * This is called as a callback when an item is removed from a Sin
 name|void
 name|onEviction
 parameter_list|(
-name|String
+name|BlockCacheKey
 name|key
 parameter_list|,
 name|SingleSizeCache
@@ -44,7 +62,7 @@ comment|/**    * This is called as a callback when an item is inserted into a Si
 name|void
 name|onInsertion
 parameter_list|(
-name|String
+name|BlockCacheKey
 name|key
 parameter_list|,
 name|SingleSizeCache

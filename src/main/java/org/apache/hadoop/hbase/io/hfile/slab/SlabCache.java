@@ -233,6 +233,24 @@ name|io
 operator|.
 name|hfile
 operator|.
+name|BlockCacheKey
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
 name|CacheStats
 import|;
 end_import
@@ -350,7 +368,7 @@ specifier|private
 specifier|final
 name|ConcurrentHashMap
 argument_list|<
-name|String
+name|BlockCacheKey
 argument_list|,
 name|SingleSizeCache
 argument_list|>
@@ -503,7 +521,7 @@ operator|=
 operator|new
 name|ConcurrentHashMap
 argument_list|<
-name|String
+name|BlockCacheKey
 argument_list|,
 name|SingleSizeCache
 argument_list|>
@@ -949,13 +967,13 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Cache the block with the specified name and buffer. First finds what size    * SingleSlabCache it should fit in. If the block doesn't fit in any, it will    * return without doing anything.    *<p>    * It is assumed this will NEVER be called on an already cached block. If that    * is done, it is assumed that you are reinserting the same exact block due to    * a race condition, and will throw a runtime exception.    *    * @param blockName block name    * @param cachedItem block buffer    */
+comment|/**    * Cache the block with the specified key and buffer. First finds what size    * SingleSlabCache it should fit in. If the block doesn't fit in any, it will    * return without doing anything.    *<p>    * It is assumed this will NEVER be called on an already cached block. If that    * is done, it is assumed that you are reinserting the same exact block due to    * a race condition, and will throw a runtime exception.    *    * @param cacheKey block cache key    * @param cachedItem block buffer    */
 specifier|public
 name|void
 name|cacheBlock
 parameter_list|(
-name|String
-name|blockName
+name|BlockCacheKey
+name|cacheKey
 parameter_list|,
 name|Cacheable
 name|cachedItem
@@ -1024,7 +1042,7 @@ name|scache
 operator|.
 name|cacheBlock
 argument_list|(
-name|blockName
+name|cacheKey
 argument_list|,
 name|cachedItem
 argument_list|)
@@ -1035,8 +1053,8 @@ specifier|public
 name|void
 name|cacheBlock
 parameter_list|(
-name|String
-name|blockName
+name|BlockCacheKey
+name|cacheKey
 parameter_list|,
 name|Cacheable
 name|buf
@@ -1047,7 +1065,7 @@ parameter_list|)
 block|{
 name|cacheBlock
 argument_list|(
-name|blockName
+name|cacheKey
 argument_list|,
 name|buf
 argument_list|)
@@ -1069,7 +1087,7 @@ specifier|public
 name|Cacheable
 name|getBlock
 parameter_list|(
-name|String
+name|BlockCacheKey
 name|key
 parameter_list|,
 name|boolean
@@ -1150,8 +1168,8 @@ specifier|public
 name|boolean
 name|evictBlock
 parameter_list|(
-name|String
-name|key
+name|BlockCacheKey
+name|cacheKey
 parameter_list|)
 block|{
 name|SingleSizeCache
@@ -1161,7 +1179,7 @@ name|backingStore
 operator|.
 name|get
 argument_list|(
-name|key
+name|cacheKey
 argument_list|)
 decl_stmt|;
 if|if
@@ -1181,7 +1199,7 @@ name|cacheEntry
 operator|.
 name|evictBlock
 argument_list|(
-name|key
+name|cacheKey
 argument_list|)
 expr_stmt|;
 return|return
@@ -1195,7 +1213,7 @@ specifier|public
 name|void
 name|onEviction
 parameter_list|(
-name|String
+name|BlockCacheKey
 name|key
 parameter_list|,
 name|SingleSizeCache
@@ -1221,7 +1239,7 @@ specifier|public
 name|void
 name|onInsertion
 parameter_list|(
-name|String
+name|BlockCacheKey
 name|key
 parameter_list|,
 name|SingleSizeCache
@@ -1770,10 +1788,10 @@ block|}
 block|}
 specifier|public
 name|int
-name|evictBlocksByPrefix
+name|evictBlocksByHfileName
 parameter_list|(
 name|String
-name|prefix
+name|hfileName
 parameter_list|)
 block|{
 name|int
@@ -1783,7 +1801,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|String
+name|BlockCacheKey
 name|key
 range|:
 name|backingStore
@@ -1796,9 +1814,12 @@ if|if
 condition|(
 name|key
 operator|.
-name|startsWith
+name|getHfileName
+argument_list|()
+operator|.
+name|equals
 argument_list|(
-name|prefix
+name|hfileName
 argument_list|)
 condition|)
 block|{

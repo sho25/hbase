@@ -470,7 +470,7 @@ specifier|private
 specifier|final
 name|ConcurrentHashMap
 argument_list|<
-name|String
+name|BlockCacheKey
 argument_list|,
 name|CachedBlock
 argument_list|>
@@ -779,7 +779,7 @@ operator|=
 operator|new
 name|ConcurrentHashMap
 argument_list|<
-name|String
+name|BlockCacheKey
 argument_list|,
 name|CachedBlock
 argument_list|>
@@ -965,13 +965,13 @@ expr_stmt|;
 block|}
 block|}
 comment|// BlockCache implementation
-comment|/**    * Cache the block with the specified name and buffer.    *<p>    * It is assumed this will NEVER be called on an already cached block.  If    * that is done, an exception will be thrown.    * @param blockName block name    * @param buf block buffer    * @param inMemory if block is in-memory    */
+comment|/**    * Cache the block with the specified name and buffer.    *<p>    * It is assumed this will NEVER be called on an already cached block.  If    * that is done, an exception will be thrown.    * @param cacheKey block's cache key    * @param buf block buffer    * @param inMemory if block is in-memory    */
 specifier|public
 name|void
 name|cacheBlock
 parameter_list|(
-name|String
-name|blockName
+name|BlockCacheKey
+name|cacheKey
 parameter_list|,
 name|Cacheable
 name|buf
@@ -987,7 +987,7 @@ name|map
 operator|.
 name|get
 argument_list|(
-name|blockName
+name|cacheKey
 argument_list|)
 decl_stmt|;
 if|if
@@ -1010,7 +1010,7 @@ operator|=
 operator|new
 name|CachedBlock
 argument_list|(
-name|blockName
+name|cacheKey
 argument_list|,
 name|buf
 argument_list|,
@@ -1036,7 +1036,7 @@ name|map
 operator|.
 name|put
 argument_list|(
-name|blockName
+name|cacheKey
 argument_list|,
 name|cb
 argument_list|)
@@ -1062,13 +1062,13 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Cache the block with the specified name and buffer.    *<p>    * It is assumed this will NEVER be called on an already cached block.  If    * that is done, it is assumed that you are reinserting the same exact    * block due to a race condition and will update the buffer but not modify    * the size of the cache.    * @param blockName block name    * @param buf block buffer    */
+comment|/**    * Cache the block with the specified name and buffer.    *<p>    * It is assumed this will NEVER be called on an already cached block.  If    * that is done, it is assumed that you are reinserting the same exact    * block due to a race condition and will update the buffer but not modify    * the size of the cache.    * @param cacheKey block's cache key    * @param buf block buffer    */
 specifier|public
 name|void
 name|cacheBlock
 parameter_list|(
-name|String
-name|blockName
+name|BlockCacheKey
+name|cacheKey
 parameter_list|,
 name|Cacheable
 name|buf
@@ -1076,7 +1076,7 @@ parameter_list|)
 block|{
 name|cacheBlock
 argument_list|(
-name|blockName
+name|cacheKey
 argument_list|,
 name|buf
 argument_list|,
@@ -1165,15 +1165,15 @@ name|heapsize
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the buffer of the block with the specified name.    * @param blockName block name    * @param caching true if the caller caches blocks on cache misses    * @return buffer of specified block name, or null if not in cache    */
+comment|/**    * Get the buffer of the block with the specified name.    * @param cacheKey block's cache key    * @param caching true if the caller caches blocks on cache misses    * @return buffer of specified cache key, or null if not in cache    */
 annotation|@
 name|Override
 specifier|public
 name|Cacheable
 name|getBlock
 parameter_list|(
-name|String
-name|blockName
+name|BlockCacheKey
+name|cacheKey
 parameter_list|,
 name|boolean
 name|caching
@@ -1186,7 +1186,7 @@ name|map
 operator|.
 name|get
 argument_list|(
-name|blockName
+name|cacheKey
 argument_list|)
 decl_stmt|;
 if|if
@@ -1237,8 +1237,8 @@ specifier|public
 name|boolean
 name|evictBlock
 parameter_list|(
-name|String
-name|blockName
+name|BlockCacheKey
+name|cacheKey
 parameter_list|)
 block|{
 name|CachedBlock
@@ -1248,7 +1248,7 @@ name|map
 operator|.
 name|get
 argument_list|(
-name|blockName
+name|cacheKey
 argument_list|)
 decl_stmt|;
 if|if
@@ -1269,15 +1269,15 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Evicts all blocks whose name starts with the given prefix. This is an    * expensive operation implemented as a linear-time search through all blocks    * in the cache. Ideally this should be a search in a log-access-time map.    *    *<p>    * This is used for evict-on-close to remove all blocks of a specific HFile.    * The prefix would be the HFile/StoreFile name (a UUID) followed by an    * underscore, because HFile v2 block names in cache are of the form    * "&lt;storeFileUUID&gt;_&lt;blockOffset&gt;".    *    * @return the number of blocks evicted    */
+comment|/**    * Evicts all blocks for a specific HFile. This is an    * expensive operation implemented as a linear-time search through all blocks    * in the cache. Ideally this should be a search in a log-access-time map.    *    *<p>    * This is used for evict-on-close to remove all blocks of a specific HFile.    *    * @return the number of blocks evicted    */
 annotation|@
 name|Override
 specifier|public
 name|int
-name|evictBlocksByPrefix
+name|evictBlocksByHfileName
 parameter_list|(
 name|String
-name|prefix
+name|hfileName
 parameter_list|)
 block|{
 name|int
@@ -1287,7 +1287,7 @@ literal|0
 decl_stmt|;
 for|for
 control|(
-name|String
+name|BlockCacheKey
 name|key
 range|:
 name|map
@@ -1300,9 +1300,12 @@ if|if
 condition|(
 name|key
 operator|.
-name|startsWith
+name|getHfileName
+argument_list|()
+operator|.
+name|equals
 argument_list|(
-name|prefix
+name|hfileName
 argument_list|)
 condition|)
 block|{
@@ -1336,7 +1339,7 @@ name|remove
 argument_list|(
 name|block
 operator|.
-name|getName
+name|getCacheKey
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2643,16 +2646,6 @@ name|BlockCacheColumnFamilySummary
 argument_list|>
 argument_list|()
 decl_stmt|;
-specifier|final
-name|String
-name|pattern
-init|=
-literal|"\\"
-operator|+
-name|HFile
-operator|.
-name|CACHE_KEY_SEPARATOR
-decl_stmt|;
 for|for
 control|(
 name|CachedBlock
@@ -2664,38 +2657,16 @@ name|values
 argument_list|()
 control|)
 block|{
-comment|// split name and get the first part (e.g., "8351478435190657655_0")
-comment|// see HFile.getBlockCacheKey for structure of block cache key.
-name|String
-name|s
-index|[]
-init|=
-name|cb
-operator|.
-name|getName
-argument_list|()
-operator|.
-name|split
-argument_list|(
-name|pattern
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|s
-operator|.
-name|length
-operator|>
-literal|0
-condition|)
-block|{
 name|String
 name|sf
 init|=
-name|s
-index|[
-literal|0
-index|]
+name|cb
+operator|.
+name|getCacheKey
+argument_list|()
+operator|.
+name|getHfileName
+argument_list|()
 decl_stmt|;
 name|Path
 name|path
@@ -2775,7 +2746,6 @@ name|heapSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 name|List

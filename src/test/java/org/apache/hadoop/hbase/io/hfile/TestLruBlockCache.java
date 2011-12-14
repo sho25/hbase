@@ -399,7 +399,7 @@ name|cacheBlock
 argument_list|(
 name|block
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|block
 argument_list|)
@@ -534,7 +534,7 @@ name|getBlock
 argument_list|(
 name|block
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -558,7 +558,7 @@ name|cacheBlock
 argument_list|(
 name|block
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|block
 argument_list|)
@@ -600,7 +600,7 @@ name|getBlock
 argument_list|(
 name|block
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -643,7 +643,7 @@ name|cacheBlock
 argument_list|(
 name|block
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|block
 argument_list|)
@@ -694,7 +694,7 @@ name|getBlock
 argument_list|(
 name|block
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -826,7 +826,7 @@ name|cacheBlock
 argument_list|(
 name|block
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|block
 argument_list|)
@@ -904,7 +904,7 @@ index|[
 literal|0
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -923,7 +923,7 @@ index|[
 literal|1
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -959,7 +959,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -1058,7 +1058,7 @@ name|cacheBlock
 argument_list|(
 name|block
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|block
 argument_list|)
@@ -1078,7 +1078,7 @@ name|getBlock
 argument_list|(
 name|block
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -1102,7 +1102,7 @@ name|cacheBlock
 argument_list|(
 name|block
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|block
 argument_list|)
@@ -1194,7 +1194,7 @@ index|[
 literal|0
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -1213,7 +1213,7 @@ index|[
 literal|0
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -1248,7 +1248,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -1270,7 +1270,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -1430,7 +1430,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|singleBlocks
 index|[
@@ -1458,7 +1458,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|multiBlocks
 index|[
@@ -1485,7 +1485,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -1500,7 +1500,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|memoryBlocks
 index|[
@@ -1553,7 +1553,7 @@ index|[
 literal|3
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|singleBlocks
 index|[
@@ -1596,7 +1596,7 @@ index|[
 literal|0
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -1612,7 +1612,7 @@ index|[
 literal|1
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -1627,7 +1627,7 @@ index|[
 literal|4
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|singleBlocks
 index|[
@@ -1670,7 +1670,7 @@ index|[
 literal|0
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -1686,7 +1686,7 @@ index|[
 literal|3
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|memoryBlocks
 index|[
@@ -1731,7 +1731,7 @@ index|[
 literal|0
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -1762,7 +1762,7 @@ index|[
 literal|0
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|bigBlocks
 index|[
@@ -1805,7 +1805,7 @@ index|[
 literal|2
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -1824,7 +1824,7 @@ index|[
 literal|3
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -1843,7 +1843,7 @@ index|[
 literal|4
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -1859,7 +1859,7 @@ index|[
 literal|0
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -1874,7 +1874,7 @@ index|[
 literal|1
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|bigBlocks
 index|[
@@ -1917,7 +1917,7 @@ index|[
 literal|1
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -1936,7 +1936,7 @@ index|[
 literal|1
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -1955,7 +1955,7 @@ index|[
 literal|2
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -1971,7 +1971,7 @@ index|[
 literal|2
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|bigBlocks
 index|[
@@ -2016,7 +2016,7 @@ index|[
 literal|1
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -2035,7 +2035,7 @@ index|[
 literal|2
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -2054,7 +2054,7 @@ index|[
 literal|3
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -2177,7 +2177,7 @@ name|cacheBlock
 argument_list|(
 name|block
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|block
 argument_list|)
@@ -2188,7 +2188,7 @@ name|getBlock
 argument_list|(
 name|block
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -2219,7 +2219,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|singleBlocks
 index|[
@@ -2264,7 +2264,7 @@ index|[
 literal|0
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -2283,7 +2283,7 @@ index|[
 literal|1
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -2302,7 +2302,7 @@ index|[
 literal|0
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -2321,7 +2321,7 @@ index|[
 literal|1
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -2356,7 +2356,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|singleBlocks
 index|[
@@ -2538,7 +2538,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|singleBlocks
 index|[
@@ -2556,7 +2556,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|multiBlocks
 index|[
@@ -2573,7 +2573,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -2588,7 +2588,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 name|memoryBlocks
 index|[
@@ -2676,7 +2676,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -2695,7 +2695,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -2714,7 +2714,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -2753,7 +2753,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -2775,7 +2775,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -2797,7 +2797,7 @@ index|[
 name|i
 index|]
 operator|.
-name|blockName
+name|cacheKey
 argument_list|,
 literal|true
 argument_list|)
@@ -3685,8 +3685,8 @@ name|CachedItem
 implements|implements
 name|Cacheable
 block|{
-name|String
-name|blockName
+name|BlockCacheKey
+name|cacheKey
 decl_stmt|;
 name|int
 name|size
@@ -3702,9 +3702,15 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|blockName
+name|cacheKey
 operator|=
+operator|new
+name|BlockCacheKey
+argument_list|(
 name|blockName
+argument_list|,
+literal|0
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -3745,11 +3751,9 @@ name|ClassSize
 operator|.
 name|align
 argument_list|(
-literal|2
-operator|*
-name|blockName
+name|cacheKey
 operator|.
-name|length
+name|heapSize
 argument_list|()
 argument_list|)
 operator|+

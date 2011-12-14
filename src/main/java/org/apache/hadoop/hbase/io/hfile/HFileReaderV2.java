@@ -25,27 +25,7 @@ name|java
 operator|.
 name|io
 operator|.
-name|ByteArrayInputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|DataInput
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|DataInputStream
 import|;
 end_import
 
@@ -776,7 +756,7 @@ argument_list|(
 name|block
 argument_list|)
 decl_stmt|;
-name|String
+name|BlockCacheKey
 name|cacheKey
 init|=
 name|HFile
@@ -1027,7 +1007,7 @@ comment|// block.
 comment|// Without a cache, this synchronizing is needless overhead, but really
 comment|// the other choice is to duplicate work (which the cache would prevent you
 comment|// from doing).
-name|String
+name|BlockCacheKey
 name|cacheKey
 init|=
 name|HFile
@@ -1395,13 +1375,9 @@ operator|.
 name|getBlockCache
 argument_list|()
 operator|.
-name|evictBlocksByPrefix
+name|evictBlocksByHfileName
 argument_list|(
 name|name
-operator|+
-name|HFile
-operator|.
-name|CACHE_KEY_SEPARATOR
 argument_list|)
 decl_stmt|;
 if|if

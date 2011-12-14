@@ -317,24 +317,6 @@ name|regionserver
 operator|.
 name|metrics
 operator|.
-name|SchemaConfigured
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|metrics
-operator|.
 name|SchemaMetrics
 import|;
 end_import
@@ -524,14 +506,6 @@ name|DEFAULT_COMPRESSION_ALGORITHM
 operator|.
 name|getName
 argument_list|()
-decl_stmt|;
-comment|/** Separator between HFile name and offset in block cache key */
-specifier|static
-specifier|final
-name|char
-name|CACHE_KEY_SEPARATOR
-init|=
-literal|'_'
 decl_stmt|;
 comment|/**    * We assume that HFile path ends with    * ROOT_DIR/TABLE_NAME/REGION_NAME/CF_NAME/HFILE, so it has at least this    * many levels of nesting. This is needed for identifying table and CF name    * from an HFile path.    */
 specifier|public
@@ -1866,7 +1840,7 @@ expr_stmt|;
 block|}
 specifier|public
 specifier|static
-name|String
+name|BlockCacheKey
 name|getBlockCacheKey
 parameter_list|(
 name|String
@@ -1877,11 +1851,13 @@ name|offset
 parameter_list|)
 block|{
 return|return
+operator|new
+name|BlockCacheKey
+argument_list|(
 name|hfileName
-operator|+
-name|CACHE_KEY_SEPARATOR
-operator|+
+argument_list|,
 name|offset
+argument_list|)
 return|;
 block|}
 comment|/**    * Checks the given {@link HFile} format version, and throws an exception if    * invalid. Note that if the version number comes from an input file and has    * not been verified, the caller needs to re-throw an {@link IOException} to    * indicate that this is not a software error, but corrupted input.    *    * @param version an HFile version    * @throws IllegalArgumentException if the version is invalid    */
