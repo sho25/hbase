@@ -1193,6 +1193,11 @@ operator|>
 literal|0
 argument_list|)
 expr_stmt|;
+name|reader
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 return|return
 name|count
 return|;

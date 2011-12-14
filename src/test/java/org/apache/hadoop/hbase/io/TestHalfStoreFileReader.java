@@ -449,6 +449,11 @@ argument_list|,
 name|cacheConf
 argument_list|)
 expr_stmt|;
+name|r
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 specifier|private
 name|void

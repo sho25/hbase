@@ -1342,6 +1342,11 @@ block|}
 block|}
 break|break;
 block|}
+name|reader
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 elseif|else
 if|if

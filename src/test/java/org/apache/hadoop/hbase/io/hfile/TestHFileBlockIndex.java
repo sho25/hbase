@@ -3544,6 +3544,11 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|reader2
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 specifier|private

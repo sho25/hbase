@@ -680,6 +680,11 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|reader
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 specifier|public
 name|void
@@ -857,6 +862,11 @@ name|getKeyValue
 argument_list|()
 argument_list|)
 argument_list|)
+expr_stmt|;
+name|reader
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 specifier|public
@@ -1153,6 +1163,11 @@ argument_list|,
 name|klen
 argument_list|)
 argument_list|)
+expr_stmt|;
+name|reader
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@
