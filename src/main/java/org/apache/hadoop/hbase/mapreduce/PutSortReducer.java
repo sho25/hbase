@@ -303,7 +303,7 @@ name|curSize
 operator|+=
 name|kv
 operator|.
-name|getValueLength
+name|getLength
 argument_list|()
 expr_stmt|;
 block|}
