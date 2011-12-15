@@ -640,6 +640,15 @@ name|CF_PREFIX
 operator|+
 literal|"__badfamily."
 decl_stmt|;
+comment|/** Use for readability when obtaining non-compaction counters */
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|NO_COMPACTION
+init|=
+literal|false
+decl_stmt|;
 comment|/**    * A special schema metric value that means "all tables aggregated" or    * "all column families aggregated" when used as a table name or a column    * family name.    */
 specifier|public
 specifier|static
@@ -2983,7 +2992,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|private
+comment|/**    * @return the difference between two sets of metrics (second minus first).    *         Only includes keys that have nonzero difference.    */
+specifier|public
 specifier|static
 name|Map
 argument_list|<

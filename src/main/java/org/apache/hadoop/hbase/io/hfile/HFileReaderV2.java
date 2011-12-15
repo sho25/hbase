@@ -943,6 +943,7 @@ parameter_list|,
 name|long
 name|onDiskBlockSize
 parameter_list|,
+specifier|final
 name|boolean
 name|cacheBlock
 parameter_list|,
@@ -1039,13 +1040,6 @@ name|incrementAndGet
 argument_list|()
 expr_stmt|;
 comment|// Check cache for block. If found return.
-name|cacheBlock
-operator|&=
-name|cacheConf
-operator|.
-name|shouldCacheDataOnRead
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|cacheConf
@@ -1139,7 +1133,7 @@ name|nanoTime
 argument_list|()
 decl_stmt|;
 name|HFileBlock
-name|dataBlock
+name|hfileBlock
 init|=
 name|fsBlockReader
 operator|.
@@ -1157,13 +1151,13 @@ argument_list|)
 decl_stmt|;
 name|passSchemaMetricsTo
 argument_list|(
-name|dataBlock
+name|hfileBlock
 argument_list|)
 expr_stmt|;
 name|BlockCategory
 name|blockCategory
 init|=
-name|dataBlock
+name|hfileBlock
 operator|.
 name|getBlockType
 argument_list|()
@@ -1238,6 +1232,19 @@ comment|// Cache the block
 if|if
 condition|(
 name|cacheBlock
+operator|&&
+name|cacheConf
+operator|.
+name|shouldCacheBlockOnRead
+argument_list|(
+name|hfileBlock
+operator|.
+name|getBlockType
+argument_list|()
+operator|.
+name|getCategory
+argument_list|()
+argument_list|)
 condition|)
 block|{
 name|cacheConf
@@ -1249,7 +1256,7 @@ name|cacheBlock
 argument_list|(
 name|cacheKey
 argument_list|,
-name|dataBlock
+name|hfileBlock
 argument_list|,
 name|cacheConf
 operator|.
@@ -1260,7 +1267,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|dataBlock
+name|hfileBlock
 operator|.
 name|getBlockType
 argument_list|()
@@ -1269,6 +1276,7 @@ name|BlockType
 operator|.
 name|DATA
 condition|)
+block|{
 name|HFile
 operator|.
 name|dataBlockReadCnt
@@ -1276,8 +1284,9 @@ operator|.
 name|incrementAndGet
 argument_list|()
 expr_stmt|;
+block|}
 return|return
-name|dataBlock
+name|hfileBlock
 return|;
 block|}
 finally|finally

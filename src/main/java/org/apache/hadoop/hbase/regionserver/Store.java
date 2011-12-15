@@ -491,23 +491,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|CompactionProgress
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|monitoring
-operator|.
-name|TaskMonitor
+name|CompactSelection
 import|;
 end_import
 
@@ -525,7 +509,7 @@ name|regionserver
 operator|.
 name|compactions
 operator|.
-name|CompactSelection
+name|CompactionProgress
 import|;
 end_import
 
@@ -1734,6 +1718,11 @@ name|getBloomFilterType
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|passSchemaMetricsTo
+argument_list|(
+name|curfile
+argument_list|)
+expr_stmt|;
 name|curfile
 operator|.
 name|createReader
@@ -2520,6 +2509,11 @@ name|getBloomFilterType
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|passSchemaMetricsTo
+argument_list|(
+name|sf
+argument_list|)
+expr_stmt|;
 name|sf
 operator|.
 name|createReader
@@ -3315,6 +3309,11 @@ name|getBloomFilterType
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|passSchemaMetricsTo
+argument_list|(
+name|sf
+argument_list|)
+expr_stmt|;
 name|StoreFile
 operator|.
 name|Reader
@@ -3486,15 +3485,6 @@ argument_list|,
 name|maxKeyCount
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|w
-operator|.
-name|writer
-operator|instanceof
-name|SchemaConfigured
-condition|)
-block|{
 comment|// The store file writer's path does not include the CF name, so we need
 comment|// to configure the HFile writer directly.
 name|SchemaConfigured
@@ -3519,7 +3509,6 @@ argument_list|(
 name|sc
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 name|w
 return|;
@@ -6737,6 +6726,11 @@ name|getBloomFilterType
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|passSchemaMetricsTo
+argument_list|(
+name|storeFile
+argument_list|)
+expr_stmt|;
 name|storeFile
 operator|.
 name|createReader
@@ -6928,6 +6922,11 @@ name|family
 operator|.
 name|getBloomFilterType
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|passSchemaMetricsTo
+argument_list|(
+name|result
 argument_list|)
 expr_stmt|;
 name|result
