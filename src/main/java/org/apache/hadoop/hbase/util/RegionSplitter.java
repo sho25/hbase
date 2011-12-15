@@ -1489,6 +1489,11 @@ expr_stmt|;
 comment|// sleep
 block|}
 block|}
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 name|LOG
 operator|.
@@ -2712,7 +2717,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"All regions have been sucesfully split!"
+literal|"All regions have been successfully split!"
 argument_list|)
 expr_stmt|;
 block|}
@@ -2788,6 +2793,19 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|table
+operator|!=
+literal|null
+condition|)
+block|{
+name|table
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 name|fs
 operator|.

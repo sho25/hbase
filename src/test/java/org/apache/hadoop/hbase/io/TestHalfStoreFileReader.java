@@ -591,6 +591,13 @@ operator|>
 literal|0
 argument_list|)
 expr_stmt|;
+name|halfreader
+operator|.
+name|close
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 block|}
 specifier|private
 name|KeyValue

@@ -776,6 +776,11 @@ argument_list|,
 name|rl
 argument_list|)
 expr_stmt|;
+name|conn
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|table
 operator|.
 name|close

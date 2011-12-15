@@ -1312,6 +1312,11 @@ argument_list|()
 operator|-
 name|timeBeforeScan
 decl_stmt|;
+name|scanner
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|LOG
 operator|.
 name|info
