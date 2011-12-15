@@ -57,6 +57,22 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|HConnectionTestingUtility
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|lang
@@ -198,6 +214,18 @@ argument_list|()
 return|;
 block|}
 block|}
+specifier|public
+name|long
+name|getConnectionCount
+parameter_list|()
+block|{
+return|return
+name|HConnectionTestingUtility
+operator|.
+name|getConnectionCount
+argument_list|()
+return|;
+block|}
 static|static
 block|{
 name|osStats
@@ -266,6 +294,10 @@ decl_stmt|;
 specifier|private
 name|long
 name|initialFileHandlesCount
+decl_stmt|;
+specifier|private
+name|long
+name|initialConnectionCount
 decl_stmt|;
 specifier|public
 name|boolean
@@ -417,6 +449,13 @@ operator|.
 name|getOpenFileDescriptorCount
 argument_list|()
 expr_stmt|;
+name|initialConnectionCount
+operator|=
+name|rc
+operator|.
+name|getConnectionCount
+argument_list|()
+expr_stmt|;
 name|check
 argument_list|(
 name|tagLine
@@ -481,6 +520,27 @@ else|:
 literal|" "
 operator|)
 operator|+
+name|rc
+operator|.
+name|getConnectionCount
+argument_list|()
+operator|+
+literal|" connections"
+operator|+
+operator|(
+name|initialConnectionCount
+operator|>
+literal|0
+condition|?
+literal|" (was "
+operator|+
+name|initialConnectionCount
+operator|+
+literal|"), "
+else|:
+literal|", "
+operator|)
+operator|+
 operator|(
 name|initialThreadsCount
 operator|>
@@ -511,6 +571,23 @@ operator|>
 name|initialFileHandlesCount
 condition|?
 literal|" -file handle leak?- "
+else|:
+literal|""
+operator|)
+operator|+
+operator|(
+name|initialConnectionCount
+operator|>
+literal|0
+operator|&&
+name|rc
+operator|.
+name|getConnectionCount
+argument_list|()
+operator|>
+name|initialConnectionCount
+condition|?
+literal|" -connection leak?- "
 else|:
 literal|""
 operator|)

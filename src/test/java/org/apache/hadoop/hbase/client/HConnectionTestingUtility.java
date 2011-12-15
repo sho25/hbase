@@ -124,13 +124,6 @@ comment|/**  * {@link HConnection} testing utility.  */
 end_comment
 
 begin_class
-annotation|@
-name|Category
-argument_list|(
-name|SmallTests
-operator|.
-name|class
-argument_list|)
 specifier|public
 class|class
 name|HConnectionTestingUtility
@@ -304,6 +297,30 @@ expr_stmt|;
 block|}
 return|return
 name|connection
+return|;
+block|}
+block|}
+comment|/**    * @return Count of extant connection instances    */
+specifier|public
+specifier|static
+name|int
+name|getConnectionCount
+parameter_list|()
+block|{
+synchronized|synchronized
+init|(
+name|HConnectionManager
+operator|.
+name|HBASE_INSTANCES
+init|)
+block|{
+return|return
+name|HConnectionManager
+operator|.
+name|HBASE_INSTANCES
+operator|.
+name|size
+argument_list|()
 return|;
 block|}
 block|}
