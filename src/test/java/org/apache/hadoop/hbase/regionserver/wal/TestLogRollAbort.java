@@ -807,6 +807,9 @@ name|HConstants
 operator|.
 name|META_TABLE_NAME
 argument_list|)
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 comment|// Create the test table and open it
 name|String

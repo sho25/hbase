@@ -1594,6 +1594,16 @@ operator|.
 name|flushCommits
 argument_list|()
 expr_stmt|;
+name|scanner
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|meta
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Returns the number of rows in a given table. HBase must be up and the table    * should be present (will wait for timeout for a while otherwise)    *     * @return # of rows in the specified table    */
 specifier|protected

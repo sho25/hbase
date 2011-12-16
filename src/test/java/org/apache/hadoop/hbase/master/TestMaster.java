@@ -430,14 +430,6 @@ operator|.
 name|getMaster
 argument_list|()
 decl_stmt|;
-name|HBaseAdmin
-name|admin
-init|=
-name|TEST_UTIL
-operator|.
-name|getHBaseAdmin
-argument_list|()
-decl_stmt|;
 name|HTable
 name|ht
 init|=
@@ -614,7 +606,10 @@ argument_list|(
 literal|"Splitting table"
 argument_list|)
 expr_stmt|;
-name|admin
+name|TEST_UTIL
+operator|.
+name|getHBaseAdmin
+argument_list|()
 operator|.
 name|split
 argument_list|(
@@ -780,11 +775,6 @@ name|countDown
 argument_list|()
 expr_stmt|;
 block|}
-name|admin
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 block|}
 specifier|static
 class|class
