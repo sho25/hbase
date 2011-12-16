@@ -548,10 +548,14 @@ name|this
 operator|.
 name|admin
 operator|=
+operator|new
+name|HBaseAdmin
+argument_list|(
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getConfiguration
 argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 annotation|@
@@ -562,7 +566,15 @@ name|tearDown
 parameter_list|()
 throws|throws
 name|Exception
-block|{   }
+block|{
+name|this
+operator|.
+name|admin
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 annotation|@
 name|Test
 specifier|public

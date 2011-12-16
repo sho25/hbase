@@ -1615,6 +1615,11 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+name|admin
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|AfterClass

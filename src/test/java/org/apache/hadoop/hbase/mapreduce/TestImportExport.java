@@ -1395,11 +1395,6 @@ name|desc
 argument_list|)
 expr_stmt|;
 name|t
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-name|t
 operator|=
 operator|new
 name|HTable
@@ -1620,11 +1615,6 @@ operator|.
 name|getTimestamp
 argument_list|()
 argument_list|)
-expr_stmt|;
-name|t
-operator|.
-name|close
-argument_list|()
 expr_stmt|;
 block|}
 block|}

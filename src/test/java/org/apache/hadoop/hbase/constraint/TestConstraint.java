@@ -748,11 +748,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 block|}
 comment|/**    * Check that if we just disable one constraint, then    * @throws Throwable    */
 annotation|@
@@ -1252,11 +1247,6 @@ name|CheckWasRunConstraint
 operator|.
 name|wasRun
 argument_list|)
-expr_stmt|;
-name|table
-operator|.
-name|close
-argument_list|()
 expr_stmt|;
 block|}
 annotation|@

@@ -1439,11 +1439,6 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|h
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 block|}
 comment|/**    * HBASE-2468 use case 1 and 2: region info de/serialization    */
 annotation|@
