@@ -1344,6 +1344,22 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Connection not found in the list, can't delete it "
+operator|+
+literal|"(connection key="
+operator|+
+name|connectionKey
+operator|+
+literal|"). May be the key was modified?"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * It is provided for unit test cases which verify the behavior of region    * location cache prefetch.    * @return Number of cached regions for the table.    * @throws ZooKeeperConnectionException    */
@@ -2086,6 +2102,29 @@ block|}
 block|}
 return|return
 literal|true
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"HConnectionKey{"
+operator|+
+literal|"properties="
+operator|+
+name|properties
+operator|+
+literal|", username='"
+operator|+
+name|username
+operator|+
+literal|'\''
+operator|+
+literal|'}'
 return|;
 block|}
 block|}
