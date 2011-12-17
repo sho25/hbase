@@ -33,67 +33,7 @@ name|ZKSplitLog
 operator|.
 name|Counters
 operator|.
-name|tot_wkr_final_transistion_failed
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZKSplitLog
-operator|.
-name|Counters
-operator|.
-name|tot_wkr_task_acquired
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZKSplitLog
-operator|.
-name|Counters
-operator|.
-name|tot_wkr_task_err
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZKSplitLog
-operator|.
-name|Counters
-operator|.
-name|tot_wkr_task_resigned
+name|*
 import|;
 end_import
 
@@ -118,6 +58,18 @@ operator|.
 name|Assert
 operator|.
 name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
 import|;
 end_import
 
@@ -1752,6 +1704,7 @@ name|count
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * The original intention of this test was to force an abort of a region    * server and to make sure that the failure path in the region servers is    * properly evaluated. But it is difficult to ensure that the region server    * doesn't finish the log splitting before it aborts. Also now, there is    * this code path where the master will preempt the region server when master    * detects that the region server has aborted.    * @throws Exception    */
 annotation|@
 name|Test
 argument_list|(
@@ -1994,11 +1947,16 @@ name|currentTimeMillis
 argument_list|()
 decl_stmt|;
 name|long
+name|waitTime
+init|=
+literal|30000
+decl_stmt|;
+name|long
 name|endt
 init|=
 name|curt
 operator|+
-literal|30000
+name|waitTime
 decl_stmt|;
 while|while
 condition|(
@@ -2021,6 +1979,16 @@ name|get
 argument_list|()
 operator|+
 name|tot_wkr_final_transistion_failed
+operator|.
+name|get
+argument_list|()
+operator|+
+name|tot_wkr_task_done
+operator|.
+name|get
+argument_list|()
+operator|+
+name|tot_wkr_preempt_task
 operator|.
 name|get
 argument_list|()
@@ -2063,23 +2031,37 @@ name|tot_wkr_final_transistion_failed
 operator|.
 name|get
 argument_list|()
+operator|+
+name|tot_wkr_task_done
+operator|.
+name|get
+argument_list|()
+operator|+
+name|tot_wkr_preempt_task
+operator|.
+name|get
+argument_list|()
 operator|)
 argument_list|)
 expr_stmt|;
 return|return;
 block|}
 block|}
-name|assertEquals
+name|fail
 argument_list|(
-literal|1
-argument_list|,
-name|batch
-operator|.
-name|done
+literal|"none of the following counters went up in "
+operator|+
+name|waitTime
+operator|+
+literal|" milliseconds - "
+operator|+
+literal|"tot_wkr_task_resigned, tot_wkr_task_err, "
+operator|+
+literal|"tot_wkr_final_transistion_failed, tot_wkr_task_done, "
+operator|+
+literal|"tot_wkr_preempt_task"
 argument_list|)
 expr_stmt|;
-comment|// fail("region server completed the split before aborting");
-return|return;
 block|}
 name|HTable
 name|installTable
