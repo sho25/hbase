@@ -2954,9 +2954,7 @@ name|Exception
 name|e
 parameter_list|)
 block|{
-name|IOException
-name|ie
-init|=
+throw|throw
 operator|new
 name|IOException
 argument_list|(
@@ -2964,16 +2962,6 @@ literal|"cannot get log writer"
 argument_list|,
 name|e
 argument_list|)
-decl_stmt|;
-name|ie
-operator|.
-name|initCause
-argument_list|(
-name|e
-argument_list|)
-expr_stmt|;
-throw|throw
-name|ie
 throw|;
 block|}
 block|}
