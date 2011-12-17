@@ -87,16 +87,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -176,22 +166,6 @@ operator|.
 name|fs
 operator|.
 name|Path
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hdfs
-operator|.
-name|DFSClient
-operator|.
-name|DFSInputStream
 import|;
 end_import
 
@@ -428,18 +402,6 @@ operator|.
 name|in
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|realIn
-operator|.
-name|getClass
-argument_list|()
-operator|==
-name|DFSInputStream
-operator|.
-name|class
-condition|)
-block|{
 name|Method
 name|getFileLength
 init|=
@@ -448,7 +410,7 @@ operator|.
 name|getClass
 argument_list|()
 operator|.
-name|getDeclaredMethod
+name|getMethod
 argument_list|(
 literal|"getFileLength"
 argument_list|,
@@ -508,27 +470,6 @@ name|this
 operator|.
 name|length
 expr_stmt|;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Input stream class: "
-operator|+
-name|realIn
-operator|.
-name|getClass
-argument_list|()
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|", not adjusting length"
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 catch|catch
 parameter_list|(
@@ -632,7 +573,7 @@ block|{   }
 end_constructor
 
 begin_comment
-comment|/**    * This constructor allows a specific HLogKey implementation to override that    * which would otherwise be chosen via configuration property.    *    * @param keyClass    */
+comment|/**    * This constructor allows a specific HLogKey implementation to override that    * which would otherwise be chosen via configuration property.    *     * @param keyClass    */
 end_comment
 
 begin_constructor
