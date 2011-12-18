@@ -1381,6 +1381,15 @@ name|loadBalancerRunning
 init|=
 literal|false
 decl_stmt|;
+comment|// Time stamps for when a hmaster was started and when it became active
+specifier|private
+name|long
+name|masterStartTime
+decl_stmt|;
+specifier|private
+name|long
+name|masterActiveTime
+decl_stmt|;
 comment|/**    * Initializes the HMaster. The steps are as follows:    *<p>    *<ol>    *<li>Initialize HMaster RPC and address    *<li>Connect to ZooKeeper.    *</ol>    *<p>    * Remaining steps of initialization occur in {@link #run()} so that they    * run in their own thread rather than within the context of the constructor.    * @throws InterruptedException    */
 specifier|public
 name|HMaster
@@ -1932,6 +1941,13 @@ name|setDescription
 argument_list|(
 literal|"Master startup"
 argument_list|)
+expr_stmt|;
+name|masterStartTime
+operator|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 expr_stmt|;
 try|try
 block|{
@@ -2497,6 +2513,15 @@ name|setStatus
 argument_list|(
 literal|"Initializing Master file system"
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|masterActiveTime
+operator|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
 expr_stmt|;
 comment|// TODO: Do this using Dependency Injection, using PicoContainer, Guice or Spring.
 name|this
@@ -7041,6 +7066,38 @@ argument_list|()
 operator|.
 name|toString
 argument_list|()
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * @return timestamp in millis when HMaster was started.    */
+end_comment
+
+begin_function
+specifier|public
+name|long
+name|getMasterStartTime
+parameter_list|()
+block|{
+return|return
+name|masterStartTime
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * @return timestamp in millis when HMaster became the active master.    */
+end_comment
+
+begin_function
+specifier|public
+name|long
+name|getMasterActiveTime
+parameter_list|()
+block|{
+return|return
+name|masterActiveTime
 return|;
 block|}
 end_function

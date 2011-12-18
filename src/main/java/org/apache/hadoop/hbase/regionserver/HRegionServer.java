@@ -16104,6 +16104,24 @@ block|}
 end_function
 
 begin_comment
+comment|/**    * @return time stamp in millis of when this region server was started    */
+end_comment
+
+begin_function
+specifier|public
+name|long
+name|getStartcode
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|startcode
+return|;
+block|}
+end_function
+
+begin_comment
 comment|/** @return reference to FlushRequester */
 end_comment
 
