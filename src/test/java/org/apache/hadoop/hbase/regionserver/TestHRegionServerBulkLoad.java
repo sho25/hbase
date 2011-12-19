@@ -1568,15 +1568,10 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|HBaseAdmin
-name|admin
-init|=
 name|UTIL
 operator|.
 name|getHBaseAdmin
 argument_list|()
-decl_stmt|;
-name|admin
 operator|.
 name|createTable
 argument_list|(
