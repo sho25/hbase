@@ -1716,8 +1716,6 @@ expr_stmt|;
 block|}
 comment|/**    * The original intention of this test was to force an abort of a region    * server and to make sure that the failure path in the region servers is    * properly evaluated. But it is difficult to ensure that the region server    * doesn't finish the log splitting before it aborts. Also now, there is    * this code path where the master will preempt the region server when master    * detects that the region server has aborted.    * @throws Exception    */
 annotation|@
-name|Ignore
-annotation|@
 name|Test
 argument_list|(
 name|timeout

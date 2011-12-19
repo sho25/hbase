@@ -1117,6 +1117,8 @@ operator|!=
 literal|null
 condition|)
 block|{
+try|try
+block|{
 name|this
 operator|.
 name|writer
@@ -1124,6 +1126,22 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|NullPointerException
+name|npe
+parameter_list|)
+block|{
+comment|// Can get a NPE coming up from down in DFSClient$DFSOutputStream#close
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|npe
+argument_list|)
+expr_stmt|;
+block|}
 name|this
 operator|.
 name|writer
