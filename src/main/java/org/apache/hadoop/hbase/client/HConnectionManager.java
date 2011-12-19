@@ -2755,15 +2755,14 @@ throws|,
 name|ZooKeeperConnectionException
 block|{
 comment|// Check if we already have a good master connection
+try|try
+block|{
 if|if
 condition|(
 name|master
 operator|!=
 literal|null
-condition|)
-block|{
-if|if
-condition|(
+operator|&&
 name|master
 operator|.
 name|isMasterRunning
@@ -2774,6 +2773,26 @@ return|return
 name|master
 return|;
 block|}
+block|}
+catch|catch
+parameter_list|(
+name|UndeclaredThrowableException
+name|ute
+parameter_list|)
+block|{
+comment|// log, but ignore, the loop below will attempt to reconnect
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Exception contacting master. Retrying..."
+argument_list|,
+name|ute
+operator|.
+name|getCause
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 name|checkIfBaseNodeAvailable
 argument_list|()
@@ -2790,6 +2809,12 @@ operator|.
 name|masterLock
 init|)
 block|{
+name|this
+operator|.
+name|master
+operator|=
+literal|null
+expr_stmt|;
 for|for
 control|(
 name|int
@@ -3044,13 +3069,15 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|// Avoid re-checking in the future if this is a managed HConnection,
+comment|// even if we failed to acquire a master.
+comment|// (this is to retain the existing behavior before HBASE-5058)
 name|this
 operator|.
 name|masterChecked
 operator|=
-literal|true
+name|managed
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|this
@@ -3089,6 +3116,7 @@ name|this
 operator|.
 name|master
 return|;
+block|}
 block|}
 specifier|private
 name|void
