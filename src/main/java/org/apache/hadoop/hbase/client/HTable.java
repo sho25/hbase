@@ -854,6 +854,18 @@ literal|1
 expr_stmt|;
 comment|// is there a better default?
 block|}
+name|long
+name|keepAliveTime
+init|=
+name|conf
+operator|.
+name|getLong
+argument_list|(
+literal|"hbase.htable.threads.keepalivetime"
+argument_list|,
+literal|60
+argument_list|)
+decl_stmt|;
 comment|// Using the "direct handoff" approach, new threads will only be created
 comment|// if it is necessary and will grow unbounded. This could be bad but in HCM
 comment|// we only create as many Runnables as there are region servers. It means
@@ -869,7 +881,7 @@ literal|1
 argument_list|,
 name|maxThreads
 argument_list|,
-literal|60
+name|keepAliveTime
 argument_list|,
 name|TimeUnit
 operator|.
