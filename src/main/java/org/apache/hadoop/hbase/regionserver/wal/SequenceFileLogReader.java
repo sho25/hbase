@@ -87,6 +87,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -402,6 +412,24 @@ operator|.
 name|in
 argument_list|)
 decl_stmt|;
+comment|// In hadoop 0.22, DFSInputStream is a standalone class.  Before this,
+comment|// it was an inner class of DFSClient.
+if|if
+condition|(
+name|realIn
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|endsWith
+argument_list|(
+literal|"DFSInputStream"
+argument_list|)
+condition|)
+block|{
 name|Method
 name|getFileLength
 init|=
@@ -410,7 +438,7 @@ operator|.
 name|getClass
 argument_list|()
 operator|.
-name|getMethod
+name|getDeclaredMethod
 argument_list|(
 literal|"getFileLength"
 argument_list|,
@@ -470,6 +498,27 @@ name|this
 operator|.
 name|length
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Input stream class: "
+operator|+
+name|realIn
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|", not adjusting length"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -573,7 +622,7 @@ block|{   }
 end_constructor
 
 begin_comment
-comment|/**    * This constructor allows a specific HLogKey implementation to override that    * which would otherwise be chosen via configuration property.    *     * @param keyClass    */
+comment|/**    * This constructor allows a specific HLogKey implementation to override that    * which would otherwise be chosen via configuration property.    *    * @param keyClass    */
 end_comment
 
 begin_constructor
