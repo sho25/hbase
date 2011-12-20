@@ -763,6 +763,43 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|int
+name|rsCount
+init|=
+name|masterThreads
+operator|.
+name|get
+argument_list|(
+name|activeIndex
+argument_list|)
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getClusterStatus
+argument_list|()
+operator|.
+name|getServersSize
+argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Active master managing "
+operator|+
+name|rsCount
+operator|+
+literal|" regions servers"
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|3
+argument_list|,
+name|rsCount
+argument_list|)
+expr_stmt|;
 comment|// kill the active master
 name|LOG
 operator|.
@@ -815,8 +852,9 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// and he should be active
-name|assertTrue
-argument_list|(
+name|HMaster
+name|active
+init|=
 name|masterThreads
 operator|.
 name|get
@@ -826,9 +864,42 @@ argument_list|)
 operator|.
 name|getMaster
 argument_list|()
+decl_stmt|;
+name|int
+name|rss
+init|=
+name|active
+operator|.
+name|getClusterStatus
+argument_list|()
+operator|.
+name|getServersSize
+argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Active master managing "
+operator|+
+name|rss
+operator|+
+literal|" regions servers"
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|active
 operator|.
 name|isActiveMaster
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertEquals
+argument_list|(
+literal|3
+argument_list|,
+name|rss
 argument_list|)
 expr_stmt|;
 comment|// Stop the cluster
