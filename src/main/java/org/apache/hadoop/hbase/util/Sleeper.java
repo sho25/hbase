@@ -337,9 +337,9 @@ name|period
 operator|+
 literal|"ms, this is likely due to a long "
 operator|+
-literal|"garbage collecting pause and it's usually bad, "
+literal|"garbage collecting pause and it's usually bad, see "
 operator|+
-literal|"see http://wiki.apache.org/hadoop/Hbase/Troubleshooting#A9"
+literal|"http://hbase.apache.org/book.html#trouble.rs.runtime.zkexpired"
 argument_list|)
 expr_stmt|;
 block|}
