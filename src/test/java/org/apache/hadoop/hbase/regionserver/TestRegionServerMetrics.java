@@ -668,6 +668,36 @@ name|STORE_FILE_COUNT
 argument_list|)
 expr_stmt|;
 block|}
+comment|// ensure that the max value is also maintained
+specifier|final
+name|String
+name|storeMetricName
+init|=
+name|ALL_METRICS
+operator|.
+name|getStoreMetricNameMax
+argument_list|(
+name|StoreMetricType
+operator|.
+name|STORE_FILE_COUNT
+argument_list|)
+decl_stmt|;
+name|assertEquals
+argument_list|(
+literal|"Invalid value for store metric "
+operator|+
+name|storeMetricName
+argument_list|,
+name|NUM_FLUSHES
+argument_list|,
+name|HRegion
+operator|.
+name|getNumericMetric
+argument_list|(
+name|storeMetricName
+argument_list|)
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|org
