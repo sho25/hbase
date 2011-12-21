@@ -2510,9 +2510,14 @@ literal|"; log file="
 operator|+
 name|logPath
 operator|+
-literal|", corrupted="
+literal|" is corrupted = "
 operator|+
 name|isCorrupted
+operator|+
+literal|" progress failed = "
+operator|+
+name|progress_failed
+init|)
 decl_stmt|;
 name|LOG
 operator|.
@@ -2530,7 +2535,8 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-literal|true
+operator|!
+name|progress_failed
 return|;
 block|}
 comment|/**    * Completes the work done by splitLogFileToTemp by moving the    * recovered.edits from the staging area to the respective region server's    * directories.    *<p>    * It is invoked by SplitLogManager once it knows that one of the    * SplitLogWorkers have completed the splitLogFileToTemp() part. If the    * master crashes then this function might get called multiple times.    *<p>    * @param tmpname    * @param conf    * @throws IOException    */
