@@ -2517,7 +2517,6 @@ operator|+
 literal|" progress failed = "
 operator|+
 name|progress_failed
-init|)
 decl_stmt|;
 name|LOG
 operator|.
