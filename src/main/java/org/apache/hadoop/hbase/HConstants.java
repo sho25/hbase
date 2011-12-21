@@ -118,7 +118,7 @@ name|NOT_RUN
 block|,
 name|SUCCESS
 block|,
-name|BAD_FAMILY
+name|SANITY_CHECK_FAILURE
 block|,
 name|FAILURE
 block|;   }

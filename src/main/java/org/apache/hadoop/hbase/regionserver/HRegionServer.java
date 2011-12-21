@@ -17666,13 +17666,13 @@ argument_list|()
 operator|==
 name|OperationStatusCode
 operator|.
-name|BAD_FAMILY
+name|SANITY_CHECK_FAILURE
 condition|)
 block|{
 name|result
 operator|=
 operator|new
-name|NoSuchColumnFamilyException
+name|DoNotRetryIOException
 argument_list|(
 name|code
 operator|.
