@@ -2510,11 +2510,11 @@ literal|"; log file="
 operator|+
 name|logPath
 operator|+
-literal|" is corrupted = "
+literal|" is corrupted="
 operator|+
 name|isCorrupted
 operator|+
-literal|" progress failed = "
+literal|" progress failed="
 operator|+
 name|progress_failed
 decl_stmt|;
