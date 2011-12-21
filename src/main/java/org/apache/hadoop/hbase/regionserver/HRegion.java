@@ -19119,7 +19119,7 @@ operator|.
 name|SIZEOF_INT
 operator|+
 operator|(
-literal|4
+literal|5
 operator|*
 name|Bytes
 operator|.
