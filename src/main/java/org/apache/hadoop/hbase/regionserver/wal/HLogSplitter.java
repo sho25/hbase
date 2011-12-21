@@ -1272,14 +1272,11 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
-name|long
-name|totalBytesToSplit
-init|=
 name|countTotalBytes
 argument_list|(
 name|logfiles
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|splitSize
 operator|=
 literal|0
@@ -1747,7 +1744,8 @@ argument_list|,
 literal|1024
 argument_list|)
 decl_stmt|;
-comment|// How often to send a progress report (default 1/2 master timeout)
+comment|// How often to send a progress report (default 1/2 the zookeeper session
+comment|// timeout of if that not set, the split log DEFAULT_TIMEOUT)
 name|int
 name|period
 init|=
@@ -1769,6 +1767,18 @@ name|DEFAULT_TIMEOUT
 argument_list|)
 operator|/
 literal|2
+argument_list|)
+decl_stmt|;
+name|int
+name|numOpenedFilesBeforeReporting
+init|=
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.splitlog.report.openedfiles"
+argument_list|,
+literal|3
 argument_list|)
 decl_stmt|;
 name|Path
@@ -1926,8 +1936,15 @@ return|return
 literal|false
 return|;
 block|}
+comment|// Report progress every so many edits and/or files opened (opening a file
+comment|// takes a bit of time).
 name|int
 name|editsCount
+init|=
+literal|0
+decl_stmt|;
+name|int
+name|numNewlyOpenedFiles
 init|=
 literal|0
 decl_stmt|;
@@ -2017,6 +2034,9 @@ argument_list|,
 name|conf
 argument_list|)
 expr_stmt|;
+name|numNewlyOpenedFiles
+operator|++
+expr_stmt|;
 if|if
 condition|(
 name|wap
@@ -2024,7 +2044,7 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// ignore edits from this region. It doesn't ezist anymore.
+comment|// ignore edits from this region. It doesn't exist anymore.
 comment|// It was probably already split.
 name|logWriters
 operator|.
@@ -2062,6 +2082,8 @@ expr_stmt|;
 name|editsCount
 operator|++
 expr_stmt|;
+comment|// If sufficient edits have passed OR we've opened a few files, check if
+comment|// we should report progress.
 if|if
 condition|(
 name|editsCount
@@ -2069,17 +2091,40 @@ operator|%
 name|interval
 operator|==
 literal|0
+operator|||
+operator|(
+name|numNewlyOpenedFiles
+operator|>
+name|numOpenedFilesBeforeReporting
+operator|)
 condition|)
 block|{
+comment|// Zero out files counter each time we fall in here.
+name|numNewlyOpenedFiles
+operator|=
+literal|0
+expr_stmt|;
+name|String
+name|countsStr
+init|=
+literal|"edits="
+operator|+
+name|editsCount
+operator|+
+literal|", files="
+operator|+
+name|logWriters
+operator|.
+name|size
+argument_list|()
+decl_stmt|;
 name|status
 operator|.
 name|setStatus
 argument_list|(
 literal|"Split "
 operator|+
-name|editsCount
-operator|+
-literal|" edits"
+name|countsStr
 argument_list|)
 expr_stmt|;
 name|long
@@ -2123,7 +2168,9 @@ name|status
 operator|.
 name|markComplete
 argument_list|(
-literal|"Failed: reporter.progress asked us to terminate"
+literal|"Failed: reporter.progress asked us to terminate; "
+operator|+
+name|countsStr
 argument_list|)
 expr_stmt|;
 name|progress_failed
@@ -2436,8 +2483,7 @@ block|}
 name|String
 name|msg
 init|=
-operator|(
-literal|"processed "
+literal|"Processed "
 operator|+
 name|editsCount
 operator|+
@@ -2460,14 +2506,13 @@ operator|)
 operator|+
 literal|" regions"
 operator|+
-literal|" log file = "
+literal|"; log file="
 operator|+
 name|logPath
 operator|+
-literal|" is corrupted = "
+literal|", corrupted="
 operator|+
 name|isCorrupted
-operator|)
 decl_stmt|;
 name|LOG
 operator|.
