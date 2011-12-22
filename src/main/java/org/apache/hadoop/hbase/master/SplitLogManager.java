@@ -1796,6 +1796,11 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|boolean
+name|safeToDeleteNodeAsync
+init|=
+literal|true
+decl_stmt|;
 name|Task
 name|task
 init|=
@@ -1867,6 +1872,26 @@ name|isOrphan
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|status
+operator|!=
+name|SUCCESS
+condition|)
+block|{
+comment|// If the task is failed, deleting the node asynchronously
+comment|// will cause race issue against split log retry.
+comment|// In this case, we should delete it now.
+name|safeToDeleteNodeAsync
+operator|=
+literal|false
+expr_stmt|;
+name|deleteNodeNow
+argument_list|(
+name|path
+argument_list|)
+expr_stmt|;
+block|}
 synchronized|synchronized
 init|(
 name|task
@@ -1913,7 +1938,13 @@ block|}
 comment|// delete the task node in zk. Keep trying indefinitely - its an async
 comment|// call and no one is blocked waiting for this node to be deleted. All
 comment|// task names are unique (log.<timestamp>) there is no risk of deleting
-comment|// a future task.
+comment|// a future task.  This is true if the task status is SUCCESS, otherwise,
+comment|// it may race against split log retry.
+if|if
+condition|(
+name|safeToDeleteNodeAsync
+condition|)
+block|{
 name|deleteNode
 argument_list|(
 name|path
@@ -1923,7 +1954,129 @@ operator|.
 name|MAX_VALUE
 argument_list|)
 expr_stmt|;
+block|}
 return|return;
+block|}
+specifier|private
+name|void
+name|deleteNodeNow
+parameter_list|(
+name|String
+name|path
+parameter_list|)
+block|{
+try|try
+block|{
+name|tot_mgr_node_delete_queued
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|watcher
+operator|.
+name|getRecoverableZooKeeper
+argument_list|()
+operator|.
+name|delete
+argument_list|(
+name|path
+argument_list|,
+operator|-
+literal|1
+argument_list|)
+expr_stmt|;
+name|tot_mgr_task_deleted
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|KeeperException
+name|ke
+parameter_list|)
+block|{
+if|if
+condition|(
+name|ke
+operator|.
+name|code
+argument_list|()
+operator|!=
+name|KeeperException
+operator|.
+name|Code
+operator|.
+name|NONODE
+condition|)
+block|{
+name|tot_mgr_node_delete_err
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to delete failed task node: "
+operator|+
+name|path
+operator|+
+literal|" due to "
+operator|+
+name|ke
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Failed task node does not exist, "
+operator|+
+literal|"either was never created or was already deleted: "
+operator|+
+name|path
+argument_list|)
+expr_stmt|;
+name|tot_mgr_task_deleted
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|InterruptedException
+name|ie
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Interrupted while waiting for failed task node to be deleted"
+argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 specifier|private
 name|void
