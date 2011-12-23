@@ -237,7 +237,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Returns a scanner on the current table as specified by the {@link Scan}    * object.    *    * @param scan A configured {@link Scan} object.    * @return A scanner.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
+comment|/**    * Returns a scanner on the current table as specified by the {@link Scan}    * object.    * Note that the passed {@link Scan}'s start row and caching properties    * maybe changed.    *    * @param scan A configured {@link Scan} object.    * @return A scanner.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
 name|ResultScanner
 name|getScanner
 parameter_list|(
