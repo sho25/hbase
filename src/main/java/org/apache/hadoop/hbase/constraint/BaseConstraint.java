@@ -27,7 +27,7 @@ name|hadoop
 operator|.
 name|conf
 operator|.
-name|Configuration
+name|Configured
 import|;
 end_import
 
@@ -40,44 +40,11 @@ specifier|public
 specifier|abstract
 class|class
 name|BaseConstraint
+extends|extends
+name|Configured
 implements|implements
 name|Constraint
-block|{
-specifier|private
-name|Configuration
-name|conf
-decl_stmt|;
-annotation|@
-name|Override
-specifier|public
-name|void
-name|setConf
-parameter_list|(
-name|Configuration
-name|conf
-parameter_list|)
-block|{
-name|this
-operator|.
-name|conf
-operator|=
-name|conf
-expr_stmt|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|Configuration
-name|getConf
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|conf
-return|;
-block|}
-block|}
+block|{  }
 end_class
 
 end_unit

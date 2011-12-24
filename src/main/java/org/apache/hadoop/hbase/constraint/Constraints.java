@@ -375,7 +375,9 @@ argument_list|(
 name|clazz
 argument_list|)
 condition|)
+block|{
 return|return;
+block|}
 comment|// add the constrain processor CP to the table
 name|desc
 operator|.
@@ -602,16 +604,13 @@ argument_list|(
 name|key
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
+return|return
 name|value
 operator|==
 literal|null
-condition|)
-return|return
+condition|?
 literal|null
-return|;
-return|return
+else|:
 operator|new
 name|Pair
 argument_list|<
@@ -626,7 +625,7 @@ name|value
 argument_list|)
 return|;
 block|}
-comment|/**    * Add configuration-less constraints to the table.    *<p>    * This will overwrite any configuration associated with the previous    * constraint of the same class.    *     * @param desc    *          {@link HTableDescriptor} to add {@link Constraint Constraints}    * @param constraints    *          {@link Constraint Constraints} to add. All constraints are    *          considered automatically enabled on add    * @throws IOException    *           If constraint could not be serialized/added to table    */
+comment|/**    * Add configuration-less constraints to the table.    *<p>    * This will overwrite any configuration associated with the previous    * constraint of the same class.    *<p>    * Each constraint, when added to the table, will have a specific priority,    * dictating the order in which the {@link Constraint} will be run. A    * {@link Constraint} earlier in the list will be run before those later in    * the list. The same logic applies between two Constraints over time (earlier    * added is run first on the regionserver).    *     * @param desc    *          {@link HTableDescriptor} to add {@link Constraint Constraints}    * @param constraints    *          {@link Constraint Constraints} to add. All constraints are    *          considered automatically enabled on add    * @throws IOException    *           If constraint could not be serialized/added to table    */
 specifier|public
 specifier|static
 name|void
@@ -696,7 +695,7 @@ name|priority
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add constraints and their associated configurations to the table.    *<p>    * Adding the same constraint class twice will overwrite the first    * constraint's configuration    *     * @param desc    *          {@link HTableDescriptor} to add a {@link Constraint}    * @param constraints    *          {@link Pair} of a {@link Constraint} and its associated    *          {@link Configuration}. The Constraint will be configured on load    *          with the specified configuration.All constraints are considered    *          automatically enabled on add    * @throws IOException    *           if any constraint could not be deserialized. Assumes if 1    *           constraint is not loaded properly, something has gone terribly    *           wrong and that all constraints need to be enforced.    */
+comment|/**    * Add constraints and their associated configurations to the table.    *<p>    * Adding the same constraint class twice will overwrite the first    * constraint's configuration    *<p>    * Each constraint, when added to the table, will have a specific priority,    * dictating the order in which the {@link Constraint} will be run. A    * {@link Constraint} earlier in the list will be run before those later in    * the list. The same logic applies between two Constraints over time (earlier    * added is run first on the regionserver).    *     * @param desc    *          {@link HTableDescriptor} to add a {@link Constraint}    * @param constraints    *          {@link Pair} of a {@link Constraint} and its associated    *          {@link Configuration}. The Constraint will be configured on load    *          with the specified configuration.All constraints are considered    *          automatically enabled on add    * @throws IOException    *           if any constraint could not be deserialized. Assumes if 1    *           constraint is not loaded properly, something has gone terribly    *           wrong and that all constraints need to be enforced.    */
 specifier|public
 specifier|static
 name|void
@@ -780,7 +779,7 @@ name|priority
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add a {@link Constraint} to the table with the given configuration    *     * @param desc    *          table descriptor to the constraint to    * @param constraint    *          to be added    * @param conf    *          configuration associated with the constraint    * @throws IOException    *           if any constraint could not be deserialized. Assumes if 1    *           constraint is not loaded properly, something has gone terribly    *           wrong and that all constraints need to be enforced.    */
+comment|/**    * Add a {@link Constraint} to the table with the given configuration    *<p>    * Each constraint, when added to the table, will have a specific priority,    * dictating the order in which the {@link Constraint} will be run. A    * {@link Constraint} added will run on the regionserver before those added to    * the {@link HTableDescriptor} later.    *     * @param desc    *          table descriptor to the constraint to    * @param constraint    *          to be added    * @param conf    *          configuration associated with the constraint    * @throws IOException    *           if any constraint could not be deserialized. Assumes if 1    *           constraint is not loaded properly, something has gone terribly    *           wrong and that all constraints need to be enforced.    */
 specifier|public
 specifier|static
 name|void
@@ -956,7 +955,7 @@ return|return
 name|toWrite
 return|;
 block|}
-comment|/**    * Just write the class to the byte [] we are expecting    *     * @param clazz    * @return key to store in the {@link HTableDescriptor}    */
+comment|/**    * Just write the class to a String representation of the class as a key for    * the {@link HTableDescriptor}    *     * @param clazz    *          Constraint class to convert to a {@link HTableDescriptor} key    * @return key to store in the {@link HTableDescriptor}    */
 specifier|private
 specifier|static
 name|String
@@ -1221,7 +1220,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Update the configuration for the {@link Constraint}. Does not change the    * order in which the constraint is run. If the    *     * @param desc    *          {@link HTableDescriptor} to update    * @param clazz    *          {@link Constraint} to update    * @param configuration    *          to update the {@link Constraint} with.    * @throws IOException    *           if the Constraint was not stored correctly    * @throws IllegalArgumentException    *           if the Constraint was not present on this table.    */
+comment|/**    * Update the configuration for the {@link Constraint}; does not change the    * order in which the constraint is run.    *     * @param desc    *          {@link HTableDescriptor} to update    * @param clazz    *          {@link Constraint} to update    * @param configuration    *          to update the {@link Constraint} with.    * @throws IOException    *           if the Constraint was not stored correctly    * @throws IllegalArgumentException    *           if the Constraint was not present on this table.    */
 specifier|public
 specifier|static
 name|void
@@ -1268,6 +1267,7 @@ name|e
 operator|==
 literal|null
 condition|)
+block|{
 throw|throw
 operator|new
 name|IllegalArgumentException
@@ -1282,6 +1282,7 @@ operator|+
 literal|" is not associated with this table."
 argument_list|)
 throw|;
+block|}
 comment|// clone over the configuration elements
 name|Configuration
 name|conf
@@ -1486,6 +1487,7 @@ name|entry
 operator|==
 literal|null
 condition|)
+block|{
 throw|throw
 operator|new
 name|IllegalArgumentException
@@ -1500,6 +1502,7 @@ operator|+
 literal|" is not associated with this table. You can't enable it!"
 argument_list|)
 throw|;
+block|}
 comment|// create a new configuration from that conf
 name|Configuration
 name|conf
@@ -1579,9 +1582,11 @@ name|entry
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 comment|// get the info about the constraint
 name|Configuration
 name|conf
@@ -1605,7 +1610,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Get the constraints stored in the table descriptor    *     * @param desc    *          To read from    * @param classloader    *          To use when loading classes    * @return List of configured {@link Constraint Constraints}    * @throws IOException    *           if any part of reading/arguments fails    */
+comment|/**    * Get the constraints stored in the table descriptor    *     * @param desc    *          To read from    * @param classloader    *          To use when loading classes. If a special classloader is used on a    *          region, for instance, then that should be the classloader used to    *          load the constraints. This could also apply to unit-testing    *          situation, where want to ensure that class is reloaded or not.    * @return List of configured {@link Constraint Constraints}    * @throws IOException    *           if any part of reading/arguments fails    */
 specifier|static
 name|List
 argument_list|<

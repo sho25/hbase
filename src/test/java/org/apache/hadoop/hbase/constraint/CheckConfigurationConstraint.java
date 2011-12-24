@@ -120,6 +120,20 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
+name|super
+operator|.
+name|setConf
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|conf
+operator|!=
+literal|null
+condition|)
+block|{
 name|String
 name|val
 init|=
@@ -151,13 +165,7 @@ argument_list|(
 literal|"Configuration was not passed correctly"
 argument_list|)
 throw|;
-name|super
-operator|.
-name|setConf
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
+block|}
 block|}
 block|}
 end_class
