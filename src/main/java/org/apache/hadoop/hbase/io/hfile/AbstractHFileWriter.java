@@ -383,6 +383,12 @@ operator|.
 name|Algorithm
 name|compressAlgo
 decl_stmt|;
+comment|/** The data block encoding which will be used. NONE if there is no encoding */
+specifier|protected
+specifier|final
+name|HFileDataBlockEncoder
+name|blockEncoder
+decl_stmt|;
 comment|/** First key in a block. */
 specifier|protected
 name|byte
@@ -428,6 +434,9 @@ name|Compression
 operator|.
 name|Algorithm
 name|compressAlgo
+parameter_list|,
+name|HFileDataBlockEncoder
+name|dataBlockEncoder
 parameter_list|,
 name|KeyComparator
 name|comparator
@@ -489,6 +498,20 @@ operator|.
 name|DEFAULT_COMPRESSION_ALGORITHM
 else|:
 name|compressAlgo
+expr_stmt|;
+name|this
+operator|.
+name|blockEncoder
+operator|=
+name|dataBlockEncoder
+operator|!=
+literal|null
+condition|?
+name|dataBlockEncoder
+else|:
+operator|new
+name|NoOpDataBlockEncoder
+argument_list|()
 expr_stmt|;
 name|this
 operator|.

@@ -527,6 +527,42 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|HFileDataBlockEncoder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|NoOpDataBlockEncoder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|BloomFilter
@@ -845,6 +881,21 @@ argument_list|(
 literal|"EARLIEST_PUT_TS"
 argument_list|)
 decl_stmt|;
+comment|/** Type of encoding used for data blocks in HFile. Stored in file info. */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|DATA_BLOCK_ENCODING
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"DATA_BLOCK_ENCODING"
+argument_list|)
+decl_stmt|;
 comment|// Make default block size for StoreFiles 8k while testing.  TODO: FIX!
 comment|// Need to make it 8k for testing.
 specifier|public
@@ -884,7 +935,12 @@ specifier|final
 name|CacheConfig
 name|cacheConf
 decl_stmt|;
-comment|// HDFS blocks distribuion information
+comment|// What kind of data block encoding will be used
+specifier|private
+name|HFileDataBlockEncoder
+name|dataBlockEncoder
+decl_stmt|;
+comment|// HDFS blocks distribution information
 specifier|private
 name|HDFSBlocksDistribution
 name|hdfsBlocksDistribution
@@ -1021,7 +1077,49 @@ name|modificationTimeStamp
 init|=
 literal|0L
 decl_stmt|;
-comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a    * substantial amount of ram depending on the underlying files (10-20MB?).    *    * @param fs  The current file system to use.    * @param p  The path of the file.    * @param blockcache<code>true</code> if the block cache is enabled.    * @param conf  The current configuration.    * @param cacheConf  The cache configuration and block cache reference.    * @param cfBloomType The bloom type to use for this store file as specified    *          by column family configuration. This may or may not be the same    *          as the Bloom filter type actually present in the HFile, because    *          column family configuration might change. If this is    *          {@link BloomType#NONE}, the existing Bloom filter is ignored.    * @throws IOException When opening the reader fails.    */
+comment|/**    * Ignore bloom filters, don't use option inMemory    * and dataBlockEncoding in memory.    * @param fs The current file system to use    * @param p The path of the file.    * @param conf The current configuration.    * @throws IOException When opening the reader fails.    */
+name|StoreFile
+parameter_list|(
+specifier|final
+name|FileSystem
+name|fs
+parameter_list|,
+specifier|final
+name|Path
+name|p
+parameter_list|,
+specifier|final
+name|Configuration
+name|conf
+parameter_list|,
+specifier|final
+name|CacheConfig
+name|cacheConf
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|this
+argument_list|(
+name|fs
+argument_list|,
+name|p
+argument_list|,
+name|conf
+argument_list|,
+name|cacheConf
+argument_list|,
+name|BloomType
+operator|.
+name|NONE
+argument_list|,
+operator|new
+name|NoOpDataBlockEncoder
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Constructor, loads a reader and it's indices, etc. May allocate a    * substantial amount of ram depending on the underlying files (10-20MB?).    *    * @param fs  The current file system to use.    * @param p  The path of the file.    * @param blockcache<code>true</code> if the block cache is enabled.    * @param conf  The current configuration.    * @param cacheConf  The cache configuration and block cache reference.    * @param cfBloomType The bloom type to use for this store file as specified    *          by column family configuration. This may or may not be the same    *          as the Bloom filter type actually present in the HFile, because    *          column family configuration might change. If this is    *          {@link BloomType#NONE}, the existing Bloom filter is ignored.    * @param dataBlockEncoder data block encoding algorithm.    * @throws IOException When opening the reader fails.    */
 name|StoreFile
 parameter_list|(
 specifier|final
@@ -1043,6 +1141,10 @@ parameter_list|,
 specifier|final
 name|BloomType
 name|cfBloomType
+parameter_list|,
+specifier|final
+name|HFileDataBlockEncoder
+name|dataBlockEncoder
 parameter_list|)
 throws|throws
 name|IOException
@@ -1064,6 +1166,12 @@ operator|.
 name|cacheConf
 operator|=
 name|cacheConf
+expr_stmt|;
+name|this
+operator|.
+name|dataBlockEncoder
+operator|=
+name|dataBlockEncoder
 expr_stmt|;
 if|if
 condition|(
@@ -2044,6 +2152,10 @@ argument_list|,
 name|this
 operator|.
 name|reference
+argument_list|,
+name|this
+operator|.
+name|dataBlockEncoder
 argument_list|)
 expr_stmt|;
 block|}
@@ -2067,6 +2179,10 @@ argument_list|,
 name|this
 operator|.
 name|cacheConf
+argument_list|,
+name|this
+operator|.
+name|dataBlockEncoder
 argument_list|)
 expr_stmt|;
 block|}
@@ -2850,6 +2966,10 @@ name|blocksize
 argument_list|,
 literal|null
 argument_list|,
+operator|new
+name|NoOpDataBlockEncoder
+argument_list|()
+argument_list|,
 literal|null
 argument_list|,
 name|conf
@@ -2864,7 +2984,7 @@ literal|0
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a store file writer. Client is responsible for closing file when done.    * If metadata, add BEFORE closing using appendMetadata()    * @param fs    * @param dir Path to family directory.  Makes the directory if doesn't exist.    * Creates a file with a unique name in this directory.    * @param blocksize    * @param algorithm Pass null to get default.    * @param c Pass null to get default.    * @param conf HBase system configuration. used with bloom filters    * @param cacheConf Cache configuration and reference.    * @param bloomType column family setting for bloom filters    * @param maxKeyCount estimated maximum number of keys we expect to add    * @return HFile.Writer    * @throws IOException    */
+comment|/**    * Create a store file writer. Client is responsible for closing file when done.    * If metadata, add BEFORE closing using appendMetadata()    * @param fs    * @param dir Path to family directory.  Makes the directory if doesn't exist.    * Creates a file with a unique name in this directory.    * @param blocksize    * @param algorithm Pass null to get default.    * @param dataBlockEncoder Pass null to disable data block encoding.    * @param c Pass null to get default.    * @param conf HBase system configuration. used with bloom filters    * @param cacheConf Cache configuration and reference.    * @param bloomType column family setting for bloom filters    * @param maxKeyCount estimated maximum number of keys we expect to add    * @return HFile.Writer    * @throws IOException    */
 specifier|public
 specifier|static
 name|StoreFile
@@ -2889,6 +3009,10 @@ name|Compression
 operator|.
 name|Algorithm
 name|algorithm
+parameter_list|,
+specifier|final
+name|HFileDataBlockEncoder
+name|dataBlockEncoder
 parameter_list|,
 specifier|final
 name|KeyValue
@@ -2979,6 +3103,8 @@ operator|.
 name|DEFAULT_COMPRESSION_ALGORITHM
 else|:
 name|algorithm
+argument_list|,
+name|dataBlockEncoder
 argument_list|,
 name|conf
 argument_list|,
@@ -3295,6 +3421,10 @@ name|deleteFamilyCnt
 init|=
 literal|0
 decl_stmt|;
+specifier|protected
+name|HFileDataBlockEncoder
+name|dataBlockEncoder
+decl_stmt|;
 name|TimeRangeTracker
 name|timeRangeTracker
 init|=
@@ -3332,6 +3462,9 @@ operator|.
 name|Algorithm
 name|compress
 parameter_list|,
+name|HFileDataBlockEncoder
+name|dataBlockEncoder
+parameter_list|,
 specifier|final
 name|Configuration
 name|conf
@@ -3352,6 +3485,20 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|this
+operator|.
+name|dataBlockEncoder
+operator|=
+name|dataBlockEncoder
+operator|!=
+literal|null
+condition|?
+name|dataBlockEncoder
+else|:
+operator|new
+name|NoOpDataBlockEncoder
+argument_list|()
+expr_stmt|;
 name|writer
 operator|=
 name|HFile
@@ -3372,6 +3519,10 @@ argument_list|,
 name|blocksize
 argument_list|,
 name|compress
+argument_list|,
+name|this
+operator|.
+name|dataBlockEncoder
 argument_list|,
 name|comparator
 operator|.
@@ -4341,6 +4492,15 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|// (optional) Add data block encoding used to save this file
+comment|// It is mostly for statistics and debugging purpose.
+name|dataBlockEncoder
+operator|.
+name|saveMetadata
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
 name|boolean
 name|hasGeneralBloom
 init|=
@@ -4520,6 +4680,9 @@ name|path
 parameter_list|,
 name|CacheConfig
 name|cacheConf
+parameter_list|,
+name|HFileDataBlockEncoder
+name|dataBlockEncoder
 parameter_list|)
 throws|throws
 name|IOException
@@ -4540,6 +4703,8 @@ argument_list|,
 name|path
 argument_list|,
 name|cacheConf
+argument_list|,
+name|dataBlockEncoder
 argument_list|)
 expr_stmt|;
 name|bloomFilterType

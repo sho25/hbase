@@ -814,6 +814,18 @@ name|BlockType
 operator|.
 name|DATA
 argument_list|)
+operator|||
+name|block
+operator|.
+name|getBlockType
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|BlockType
+operator|.
+name|ENCODED_DATA
+argument_list|)
 condition|)
 block|{
 break|break;
@@ -2451,8 +2463,6 @@ argument_list|(
 name|BlockType
 operator|.
 name|ROOT_INDEX
-argument_list|,
-literal|false
 argument_list|)
 decl_stmt|;
 name|rootChunk
@@ -2812,9 +2822,6 @@ argument_list|(
 name|BlockType
 operator|.
 name|INTERMEDIATE_INDEX
-argument_list|,
-name|cacheOnWrite
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|curChunk

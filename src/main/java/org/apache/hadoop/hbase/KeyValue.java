@@ -399,6 +399,61 @@ name|getRawComparator
 argument_list|()
 return|;
 block|}
+comment|/** Size of the key length field in bytes*/
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|KEY_LENGTH_SIZE
+init|=
+name|Bytes
+operator|.
+name|SIZEOF_INT
+decl_stmt|;
+comment|/** Size of the key type field in bytes */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|TYPE_SIZE
+init|=
+name|Bytes
+operator|.
+name|SIZEOF_BYTE
+decl_stmt|;
+comment|/** Size of the row length field in bytes */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|ROW_LENGTH_SIZE
+init|=
+name|Bytes
+operator|.
+name|SIZEOF_SHORT
+decl_stmt|;
+comment|/** Size of the family length field in bytes */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|FAMILY_LENGTH_SIZE
+init|=
+name|Bytes
+operator|.
+name|SIZEOF_BYTE
+decl_stmt|;
+comment|/** Size of the timestamp field in bytes */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|TIMESTAMP_SIZE
+init|=
+name|Bytes
+operator|.
+name|SIZEOF_LONG
+decl_stmt|;
 comment|// Size of the timestamp and type byte on end of a key -- a long + a byte.
 specifier|public
 specifier|static
@@ -406,15 +461,9 @@ specifier|final
 name|int
 name|TIMESTAMP_TYPE_SIZE
 init|=
-name|Bytes
-operator|.
-name|SIZEOF_LONG
-comment|/* timestamp */
+name|TIMESTAMP_SIZE
 operator|+
-name|Bytes
-operator|.
-name|SIZEOF_BYTE
-comment|/*keytype*/
+name|TYPE_SIZE
 decl_stmt|;
 comment|// Size of the length shorts and bytes in key.
 specifier|public
@@ -423,15 +472,9 @@ specifier|final
 name|int
 name|KEY_INFRASTRUCTURE_SIZE
 init|=
-name|Bytes
-operator|.
-name|SIZEOF_SHORT
-comment|/*rowlength*/
+name|ROW_LENGTH_SIZE
 operator|+
-name|Bytes
-operator|.
-name|SIZEOF_BYTE
-comment|/*columnfamilylength*/
+name|FAMILY_LENGTH_SIZE
 operator|+
 name|TIMESTAMP_TYPE_SIZE
 decl_stmt|;
@@ -2648,7 +2691,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Use for logging.    * @param b Key portion of a KeyValue.    * @param o Offset to start of key    * @param l Length of key.    * @return Key as a String.    */
-comment|/**    * Produces a string map for this key/value pair. Useful for programmatic use    * and manipulation of the data stored in an HLogKey, for example, printing     * as JSON. Values are left out due to their tendency to be large. If needed,     * they can be added manually.    *     * @return the Map<String,?> containing data from this key    */
+comment|/**    * Produces a string map for this key/value pair. Useful for programmatic use    * and manipulation of the data stored in an HLogKey, for example, printing    * as JSON. Values are left out due to their tendency to be large. If needed,    * they can be added manually.    *    * @return the Map<String,?> containing data from this key    */
 specifier|public
 name|Map
 argument_list|<
@@ -5638,7 +5681,7 @@ return|return
 name|index
 return|;
 block|}
-comment|/**    * This function is only used in Meta key comparisons so its error message     * is specific for meta key errors.    */
+comment|/**    * This function is only used in Meta key comparisons so its error message    * is specific for meta key errors.    */
 specifier|static
 name|int
 name|getRequiredDelimiterInReverse
@@ -8214,6 +8257,43 @@ argument_list|)
 return|;
 block|}
 block|}
+comment|/**    * Avoids redundant comparisons for better performance.    */
+specifier|public
+specifier|static
+interface|interface
+name|SamePrefixComparator
+parameter_list|<
+name|T
+parameter_list|>
+block|{
+comment|/**      * Compare two keys assuming that the first n bytes are the same.      * @param commonPrefix How many bytes are the same.      */
+specifier|public
+name|int
+name|compareIgnoringPrefix
+parameter_list|(
+name|int
+name|commonPrefix
+parameter_list|,
+name|T
+name|left
+parameter_list|,
+name|int
+name|loffset
+parameter_list|,
+name|int
+name|llength
+parameter_list|,
+name|T
+name|right
+parameter_list|,
+name|int
+name|roffset
+parameter_list|,
+name|int
+name|rlength
+parameter_list|)
+function_decl|;
+block|}
 comment|/**    * Compare key portion of a {@link KeyValue}.    */
 specifier|public
 specifier|static
@@ -8221,6 +8301,12 @@ class|class
 name|KeyComparator
 implements|implements
 name|RawComparator
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+implements|,
+name|SamePrefixComparator
 argument_list|<
 name|byte
 index|[]
@@ -8325,30 +8411,268 @@ return|return
 name|compare
 return|;
 block|}
-comment|// Compare column family.  Start compare past row and family length.
+comment|// Compare the rest of the two KVs without making any assumptions about
+comment|// the common prefix. This function will not compare rows anyway, so we
+comment|// don't need to tell it that the common prefix includes the row.
+return|return
+name|compareWithoutRow
+argument_list|(
+literal|0
+argument_list|,
+name|left
+argument_list|,
+name|loffset
+argument_list|,
+name|llength
+argument_list|,
+name|right
+argument_list|,
+name|roffset
+argument_list|,
+name|rlength
+argument_list|,
+name|rrowlength
+argument_list|)
+return|;
+block|}
+comment|/**      * Compare the two key-values, ignoring the prefix of the given length      * that is known to be the same between the two.      * @param commonPrefix the prefix length to ignore      */
+annotation|@
+name|Override
+specifier|public
 name|int
-name|lcolumnoffset
+name|compareIgnoringPrefix
+parameter_list|(
+name|int
+name|commonPrefix
+parameter_list|,
+name|byte
+index|[]
+name|left
+parameter_list|,
+name|int
+name|loffset
+parameter_list|,
+name|int
+name|llength
+parameter_list|,
+name|byte
+index|[]
+name|right
+parameter_list|,
+name|int
+name|roffset
+parameter_list|,
+name|int
+name|rlength
+parameter_list|)
+block|{
+comment|// Compare row
+name|short
+name|lrowlength
 init|=
 name|Bytes
 operator|.
-name|SIZEOF_SHORT
+name|toShort
+argument_list|(
+name|left
+argument_list|,
+name|loffset
+argument_list|)
+decl_stmt|;
+name|short
+name|rrowlength
+decl_stmt|;
+name|int
+name|comparisonResult
+init|=
+literal|0
+decl_stmt|;
+if|if
+condition|(
+name|commonPrefix
+operator|<
+name|ROW_LENGTH_SIZE
+condition|)
+block|{
+comment|// almost nothing in common
+name|rrowlength
+operator|=
+name|Bytes
+operator|.
+name|toShort
+argument_list|(
+name|right
+argument_list|,
+name|roffset
+argument_list|)
+expr_stmt|;
+name|comparisonResult
+operator|=
+name|compareRows
+argument_list|(
+name|left
+argument_list|,
+name|loffset
 operator|+
+name|ROW_LENGTH_SIZE
+argument_list|,
 name|lrowlength
+argument_list|,
+name|right
+argument_list|,
+name|roffset
 operator|+
-literal|1
+name|ROW_LENGTH_SIZE
+argument_list|,
+name|rrowlength
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// the row length is the same
+name|rrowlength
+operator|=
+name|lrowlength
+expr_stmt|;
+if|if
+condition|(
+name|commonPrefix
+operator|<
+name|ROW_LENGTH_SIZE
+operator|+
+name|rrowlength
+condition|)
+block|{
+comment|// The rows are not the same. Exclude the common prefix and compare
+comment|// the rest of the two rows.
+name|int
+name|common
+init|=
+name|commonPrefix
+operator|-
+name|ROW_LENGTH_SIZE
+decl_stmt|;
+name|comparisonResult
+operator|=
+name|compareRows
+argument_list|(
+name|left
+argument_list|,
+name|loffset
+operator|+
+name|common
+operator|+
+name|ROW_LENGTH_SIZE
+argument_list|,
+name|lrowlength
+operator|-
+name|common
+argument_list|,
+name|right
+argument_list|,
+name|roffset
+operator|+
+name|common
+operator|+
+name|ROW_LENGTH_SIZE
+argument_list|,
+name|rrowlength
+operator|-
+name|common
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+if|if
+condition|(
+name|comparisonResult
+operator|!=
+literal|0
+condition|)
+block|{
+return|return
+name|comparisonResult
+return|;
+block|}
+assert|assert
+name|lrowlength
+operator|==
+name|rrowlength
+assert|;
+return|return
+name|compareWithoutRow
+argument_list|(
+name|commonPrefix
+argument_list|,
+name|left
+argument_list|,
+name|loffset
+argument_list|,
+name|llength
+argument_list|,
+name|right
+argument_list|,
+name|roffset
+argument_list|,
+name|rlength
+argument_list|,
+name|lrowlength
+argument_list|)
+return|;
+block|}
+comment|/**      * Compare column, timestamp, and key type (everything except the row).      * This method is used both in the normal comparator and the "same-prefix"      * comparator. Note that we are assuming that row portions of both KVs have      * already been parsed and found identical, and we don't validate that      * assumption here.      * @param commonPrefix the length of the common prefix of the two      *          key-values being compared, including row length and row      */
+specifier|private
+name|int
+name|compareWithoutRow
+parameter_list|(
+name|int
+name|commonPrefix
+parameter_list|,
+name|byte
+index|[]
+name|left
+parameter_list|,
+name|int
+name|loffset
+parameter_list|,
+name|int
+name|llength
+parameter_list|,
+name|byte
+index|[]
+name|right
+parameter_list|,
+name|int
+name|roffset
+parameter_list|,
+name|int
+name|rlength
+parameter_list|,
+name|short
+name|rowlength
+parameter_list|)
+block|{
+comment|// Compare column family. Start comparing past row and family length.
+name|int
+name|lcolumnoffset
+init|=
+name|ROW_LENGTH_SIZE
+operator|+
+name|FAMILY_LENGTH_SIZE
+operator|+
+name|rowlength
 operator|+
 name|loffset
 decl_stmt|;
 name|int
 name|rcolumnoffset
 init|=
-name|Bytes
-operator|.
-name|SIZEOF_SHORT
+name|ROW_LENGTH_SIZE
 operator|+
-name|rrowlength
+name|FAMILY_LENGTH_SIZE
 operator|+
-literal|1
+name|rowlength
 operator|+
 name|roffset
 decl_stmt|;
@@ -8378,12 +8702,12 @@ operator|-
 name|roffset
 operator|)
 decl_stmt|;
-comment|// if row matches, and no column in the 'left' AND put type is 'minimum',
+comment|// If row matches, and no column in the 'left' AND put type is 'minimum',
 comment|// then return that left is larger than right.
-comment|// This supports 'last key on a row' - the magic is if there is no column in the
-comment|// left operand, and the left operand has a type of '0' - magical value,
-comment|// then we say the left is bigger.  This will let us seek to the last key in
-comment|// a row.
+comment|// This supports 'last key on a row' - the magic is if there is no column
+comment|// in the left operand, and the left operand has a type of '0' - magical
+comment|// value, then we say the left is bigger.  This will let us seek to the
+comment|// last key in a row.
 name|byte
 name|ltype
 init|=
@@ -8412,6 +8736,11 @@ literal|1
 operator|)
 index|]
 decl_stmt|;
+comment|// If the column is not specified, the "minimum" key type appears the
+comment|// latest in the sorted order, regardless of the timestamp. This is used
+comment|// for specifying the last key/value in a given row, because there is no
+comment|// "lexicographically last column" (it would be infinitely long).  The
+comment|// "maximum" key type does not need this behavior.
 if|if
 condition|(
 name|lcolumnlength
@@ -8428,10 +8757,10 @@ name|getCode
 argument_list|()
 condition|)
 block|{
+comment|// left is "bigger", i.e. it appears later in the sorted order
 return|return
 literal|1
 return|;
-comment|// left is bigger.
 block|}
 if|if
 condition|(
@@ -8454,9 +8783,58 @@ operator|-
 literal|1
 return|;
 block|}
-comment|// TODO the family and qualifier should be compared separately
-name|compare
+name|int
+name|common
+init|=
+literal|0
+decl_stmt|;
+if|if
+condition|(
+name|commonPrefix
+operator|>
+literal|0
+condition|)
+block|{
+name|common
 operator|=
+name|Math
+operator|.
+name|max
+argument_list|(
+literal|0
+argument_list|,
+name|commonPrefix
+operator|-
+name|rowlength
+operator|-
+name|ROW_LENGTH_SIZE
+operator|-
+name|FAMILY_LENGTH_SIZE
+argument_list|)
+expr_stmt|;
+name|common
+operator|=
+name|Math
+operator|.
+name|min
+argument_list|(
+name|common
+argument_list|,
+name|Math
+operator|.
+name|min
+argument_list|(
+name|lcolumnlength
+argument_list|,
+name|rcolumnlength
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+specifier|final
+name|int
+name|comparisonResult
+init|=
 name|Bytes
 operator|.
 name|compareTo
@@ -8464,27 +8842,90 @@ argument_list|(
 name|left
 argument_list|,
 name|lcolumnoffset
+operator|+
+name|common
 argument_list|,
 name|lcolumnlength
+operator|-
+name|common
 argument_list|,
 name|right
 argument_list|,
 name|rcolumnoffset
+operator|+
+name|common
 argument_list|,
 name|rcolumnlength
+operator|-
+name|common
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
-name|compare
+name|comparisonResult
 operator|!=
 literal|0
 condition|)
 block|{
 return|return
-name|compare
+name|comparisonResult
 return|;
 block|}
+return|return
+name|compareTimestampAndType
+argument_list|(
+name|left
+argument_list|,
+name|loffset
+argument_list|,
+name|llength
+argument_list|,
+name|right
+argument_list|,
+name|roffset
+argument_list|,
+name|rlength
+argument_list|,
+name|ltype
+argument_list|,
+name|rtype
+argument_list|)
+return|;
+block|}
+specifier|private
+name|int
+name|compareTimestampAndType
+parameter_list|(
+name|byte
+index|[]
+name|left
+parameter_list|,
+name|int
+name|loffset
+parameter_list|,
+name|int
+name|llength
+parameter_list|,
+name|byte
+index|[]
+name|right
+parameter_list|,
+name|int
+name|roffset
+parameter_list|,
+name|int
+name|rlength
+parameter_list|,
+name|byte
+name|ltype
+parameter_list|,
+name|byte
+name|rtype
+parameter_list|)
+block|{
+name|int
+name|compare
+decl_stmt|;
 if|if
 condition|(
 operator|!
@@ -8560,7 +9001,9 @@ name|ignoreType
 condition|)
 block|{
 comment|// Compare types. Let the delete types sort ahead of puts; i.e. types
-comment|// of higher numbers sort before those of lesser numbers
+comment|// of higher numbers sort before those of lesser numbers. Maximum (255)
+comment|// appears ahead of everything, and minimum (0) appears after
+comment|// everything.
 return|return
 operator|(
 literal|0xff

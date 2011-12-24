@@ -177,6 +177,24 @@ name|hbase
 operator|.
 name|io
 operator|.
+name|encoding
+operator|.
+name|DataBlockEncodings
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
 name|hfile
 operator|.
 name|Compression
@@ -364,6 +382,30 @@ specifier|private
 specifier|static
 specifier|final
 name|String
+name|OPT_DATA_BLOCK_ENCODING
+init|=
+literal|"data_block_encoding"
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|OPT_DATA_BLOCK_ENCODING_CACHE_ONLY
+init|=
+literal|"data_block_encoding_cache_only"
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|OPT_ENCODED_DATA_BLOCK_SEEK
+init|=
+literal|"encoded_data_block_seek"
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|String
 name|OPT_KEY_WINDOW
 init|=
 literal|"key_window"
@@ -431,6 +473,14 @@ name|String
 name|OPT_ZK_QUORUM
 init|=
 literal|"zk"
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_START_KEY
+init|=
+literal|0
 decl_stmt|;
 comment|/** This will be removed as we factor out the dependency on command line */
 specifier|private
@@ -530,7 +580,7 @@ argument_list|,
 name|COLUMN_FAMILY
 argument_list|)
 expr_stmt|;
-name|applyBloomFilterAndCompression
+name|applyColumnFamilyOptions
 argument_list|(
 name|tableName
 argument_list|,
@@ -640,10 +690,10 @@ name|MAX_VALUE
 argument_list|)
 return|;
 block|}
-comment|/**    * Apply the given Bloom filter type to all column families we care about.    */
+comment|/**    * Apply column family options such as Bloom filters, compression, and data    * block encoding.    */
 specifier|private
 name|void
-name|applyBloomFilterAndCompression
+name|applyColumnFamilyOptions
 parameter_list|(
 name|byte
 index|[]
@@ -717,6 +767,36 @@ argument_list|(
 name|compressStr
 argument_list|)
 decl_stmt|;
+name|String
+name|dataBlockEncodingStr
+init|=
+name|cmd
+operator|.
+name|getOptionValue
+argument_list|(
+name|OPT_DATA_BLOCK_ENCODING
+argument_list|)
+decl_stmt|;
+name|DataBlockEncodings
+operator|.
+name|Algorithm
+name|dataBlockEncodingAlgo
+init|=
+name|dataBlockEncodingStr
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
+name|DataBlockEncodings
+operator|.
+name|Algorithm
+operator|.
+name|valueOf
+argument_list|(
+name|dataBlockEncodingStr
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
 name|bloomStr
@@ -726,8 +806,15 @@ operator|&&
 name|compressStr
 operator|==
 literal|null
+operator|&&
+name|dataBlockEncodingStr
+operator|==
+literal|null
 condition|)
+block|{
+comment|// No reason to disable/enable the table.
 return|return;
+block|}
 name|HBaseAdmin
 name|admin
 init|=
@@ -793,6 +880,7 @@ name|bloomStr
 operator|!=
 literal|null
 condition|)
+block|{
 name|columnDesc
 operator|.
 name|setBloomFilterType
@@ -800,12 +888,14 @@ argument_list|(
 name|bloomType
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|compressStr
 operator|!=
 literal|null
 condition|)
+block|{
 name|columnDesc
 operator|.
 name|setCompressionType
@@ -813,6 +903,54 @@ argument_list|(
 name|compressAlgo
 argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|dataBlockEncodingAlgo
+operator|!=
+literal|null
+condition|)
+block|{
+name|columnDesc
+operator|.
+name|setDataBlockEncodingOnDisk
+argument_list|(
+name|cmd
+operator|.
+name|hasOption
+argument_list|(
+name|OPT_DATA_BLOCK_ENCODING_CACHE_ONLY
+argument_list|)
+condition|?
+name|DataBlockEncodings
+operator|.
+name|Algorithm
+operator|.
+name|NONE
+else|:
+name|dataBlockEncodingAlgo
+argument_list|)
+expr_stmt|;
+name|columnDesc
+operator|.
+name|setDataBlockEncodingInCache
+argument_list|(
+name|dataBlockEncodingAlgo
+argument_list|)
+expr_stmt|;
+name|columnDesc
+operator|.
+name|setEncodedDataBlockSeek
+argument_list|(
+name|cmd
+operator|.
+name|hasOption
+argument_list|(
+name|OPT_ENCODED_DATA_BLOCK_SEEK
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 name|admin
 operator|.
 name|modifyColumn
@@ -898,6 +1036,31 @@ argument_list|)
 expr_stmt|;
 name|addOptWithArg
 argument_list|(
+name|OPT_DATA_BLOCK_ENCODING
+argument_list|,
+literal|"Encoding algorithm (e.g. prefix "
+operator|+
+literal|"compression) to use for data blocks in the test column family, "
+operator|+
+literal|"one of "
+operator|+
+name|Arrays
+operator|.
+name|toString
+argument_list|(
+name|DataBlockEncodings
+operator|.
+name|Algorithm
+operator|.
+name|values
+argument_list|()
+argument_list|)
+operator|+
+literal|"."
+argument_list|)
+expr_stmt|;
+name|addOptWithArg
+argument_list|(
 name|OPT_MAX_READ_ERRORS
 argument_list|,
 literal|"The maximum number of read errors "
@@ -937,6 +1100,26 @@ operator|+
 literal|"separate puts for every column in a row"
 argument_list|)
 expr_stmt|;
+name|addOptNoArg
+argument_list|(
+name|OPT_DATA_BLOCK_ENCODING_CACHE_ONLY
+argument_list|,
+literal|"If using a data block "
+operator|+
+literal|"encoding, this flag will only enable encoding in cache but not on "
+operator|+
+literal|"disk."
+argument_list|)
+expr_stmt|;
+name|addOptNoArg
+argument_list|(
+name|OPT_ENCODED_DATA_BLOCK_SEEK
+argument_list|,
+literal|"If using a data block "
+operator|+
+literal|"encoding, this will enable doing seek operations on encoded blocks."
+argument_list|)
+expr_stmt|;
 name|addRequiredOptWithArg
 argument_list|(
 name|OPT_NUM_KEYS
@@ -944,11 +1127,17 @@ argument_list|,
 literal|"The number of keys to read/write"
 argument_list|)
 expr_stmt|;
-name|addRequiredOptWithArg
+name|addOptWithArg
 argument_list|(
 name|OPT_START_KEY
 argument_list|,
-literal|"The first key to read/write"
+literal|"The first key to read/write "
+operator|+
+literal|"(a 0-based index). The default value is "
+operator|+
+name|DEFAULT_START_KEY
+operator|+
+literal|"."
 argument_list|)
 expr_stmt|;
 block|}
@@ -993,6 +1182,13 @@ operator|.
 name|getOptionValue
 argument_list|(
 name|OPT_START_KEY
+argument_list|,
+name|String
+operator|.
+name|valueOf
+argument_list|(
+name|DEFAULT_START_KEY
+argument_list|)
 argument_list|)
 argument_list|,
 literal|0
@@ -1366,7 +1562,7 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"Key range: "
+literal|"Key range: ["
 operator|+
 name|startKey
 operator|+
@@ -1377,6 +1573,8 @@ name|endKey
 operator|-
 literal|1
 operator|)
+operator|+
+literal|"]"
 argument_list|)
 expr_stmt|;
 block|}

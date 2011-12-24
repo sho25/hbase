@@ -748,6 +748,10 @@ argument_list|(
 literal|"Could not seek "
 operator|+
 name|this
+operator|+
+literal|" "
+operator|+
+name|key
 argument_list|,
 name|ioe
 argument_list|)

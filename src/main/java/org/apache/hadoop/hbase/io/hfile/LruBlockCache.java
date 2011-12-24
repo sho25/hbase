@@ -2918,6 +2918,18 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
+comment|/** Clears the cache. Used in tests. */
+specifier|public
+name|void
+name|clearCache
+parameter_list|()
+block|{
+name|map
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 end_class
 
