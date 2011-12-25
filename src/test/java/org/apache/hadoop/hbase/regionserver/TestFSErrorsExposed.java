@@ -532,8 +532,6 @@ operator|.
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|StoreFile
@@ -785,8 +783,6 @@ argument_list|,
 name|BloomType
 operator|.
 name|NONE
-argument_list|,
-literal|null
 argument_list|)
 decl_stmt|;
 name|List

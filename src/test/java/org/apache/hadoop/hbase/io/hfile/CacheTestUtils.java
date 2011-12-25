@@ -238,15 +238,7 @@ specifier|public
 class|class
 name|CacheTestUtils
 block|{
-specifier|private
-specifier|static
-specifier|final
-name|boolean
-name|includesMemstoreTS
-init|=
-literal|true
-decl_stmt|;
-comment|/**    * Just checks if heapsize grows when something is cached, and gets smaller    * when the same object is evicted    */
+comment|/*Just checks if heapsize grows when something is cached, and gets smaller when the same object is evicted*/
 specifier|public
 specifier|static
 name|void
@@ -1749,13 +1741,9 @@ name|prevBlockOffset
 argument_list|,
 name|cachedBuffer
 argument_list|,
-name|HFileBlock
-operator|.
-name|DONT_FILL_HEADER
+literal|false
 argument_list|,
 name|blockSize
-argument_list|,
-name|includesMemstoreTS
 argument_list|)
 decl_stmt|;
 name|String

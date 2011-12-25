@@ -286,29 +286,6 @@ comment|// initialize schemaMetrics yet, because CF and table name are only know
 comment|// to the calling constructor.
 block|}
 block|}
-comment|/**    * Creates an instance corresponding to an unknown table and column family.    * Used in unit tests.     */
-specifier|public
-specifier|static
-name|SchemaConfigured
-name|createUnknown
-parameter_list|()
-block|{
-return|return
-operator|new
-name|SchemaConfigured
-argument_list|(
-literal|null
-argument_list|,
-name|SchemaMetrics
-operator|.
-name|UNKNOWN
-argument_list|,
-name|SchemaMetrics
-operator|.
-name|UNKNOWN
-argument_list|)
-return|;
-block|}
 comment|/**    * Default constructor. Only use when column/family name are not known at    * construction (i.e. for HFile blocks).    */
 specifier|public
 name|SchemaConfigured

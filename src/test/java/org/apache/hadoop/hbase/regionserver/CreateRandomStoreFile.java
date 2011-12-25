@@ -1105,8 +1105,6 @@ name|blockSize
 argument_list|,
 name|compr
 argument_list|,
-literal|null
-argument_list|,
 name|KeyValue
 operator|.
 name|COMPARATOR

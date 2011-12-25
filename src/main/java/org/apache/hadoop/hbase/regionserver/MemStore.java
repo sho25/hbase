@@ -3142,23 +3142,6 @@ name|CONCURRENT_SKIPLISTMAP
 operator|)
 argument_list|)
 decl_stmt|;
-comment|// Constants for whether to serialize memstore timestamp.
-specifier|public
-specifier|static
-specifier|final
-name|boolean
-name|NO_PERSISTENT_TS
-init|=
-literal|false
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|boolean
-name|PERSISTENT_TS
-init|=
-literal|true
-decl_stmt|;
 comment|/*    * Calculate how the MemStore size has changed.  Includes overhead of the    * backing Map.    * @param kv    * @param notpresent True if the kv was NOT present in the set.    * @return Size    */
 name|long
 name|heapSizeChange

@@ -471,8 +471,6 @@ literal|4096
 argument_list|,
 name|COMPRESS_ALGO
 argument_list|,
-literal|null
-argument_list|,
 name|KeyValue
 operator|.
 name|KEY_COMPARATOR
@@ -875,6 +873,7 @@ decl_stmt|;
 name|boolean
 name|includeMemstoreTS
 init|=
+operator|(
 name|keyValueFormatVersion
 operator|!=
 literal|null
@@ -887,6 +886,7 @@ name|keyValueFormatVersion
 argument_list|)
 operator|>
 literal|0
+operator|)
 decl_stmt|;
 comment|// Counters for the number of key/value pairs and the number of blocks
 name|int

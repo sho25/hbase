@@ -217,26 +217,6 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|Compression
-operator|.
-name|Algorithm
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
 name|HFile
 operator|.
 name|FileInfo
@@ -260,22 +240,6 @@ operator|.
 name|HFile
 operator|.
 name|Writer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|MemStore
 import|;
 end_import
 
@@ -360,7 +324,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Writes version 1 HFiles. Mainly used for testing backwards-compatibility.  */
+comment|/**  * Writes version 1 HFiles. Mainly used for testing backwards-compatibilty.  */
 end_comment
 
 begin_class
@@ -547,12 +511,12 @@ parameter_list|,
 name|int
 name|blockSize
 parameter_list|,
+name|Compression
+operator|.
 name|Algorithm
 name|compressAlgo
 parameter_list|,
-name|HFileDataBlockEncoder
-name|dataBlockEncoder
-parameter_list|,
+specifier|final
 name|KeyComparator
 name|comparator
 parameter_list|)
@@ -574,8 +538,6 @@ argument_list|,
 name|blockSize
 argument_list|,
 name|compressAlgo
-argument_list|,
-name|dataBlockEncoder
 argument_list|,
 name|comparator
 argument_list|)
@@ -599,6 +561,7 @@ parameter_list|,
 name|String
 name|compressAlgoName
 parameter_list|,
+specifier|final
 name|KeyComparator
 name|comparator
 parameter_list|)
@@ -705,10 +668,6 @@ name|blockSize
 argument_list|,
 name|compress
 argument_list|,
-operator|new
-name|NoOpDataBlockEncoder
-argument_list|()
-argument_list|,
 name|c
 argument_list|)
 return|;
@@ -750,10 +709,6 @@ argument_list|,
 name|HFile
 operator|.
 name|DEFAULT_COMPRESSION_ALGORITHM
-argument_list|,
-operator|new
-name|NoOpDataBlockEncoder
-argument_list|()
 argument_list|,
 literal|null
 argument_list|)
@@ -805,10 +760,6 @@ argument_list|(
 name|compressAlgoName
 argument_list|)
 argument_list|,
-operator|new
-name|NoOpDataBlockEncoder
-argument_list|()
-argument_list|,
 name|comparator
 argument_list|)
 expr_stmt|;
@@ -837,9 +788,6 @@ operator|.
 name|Algorithm
 name|compress
 parameter_list|,
-name|HFileDataBlockEncoder
-name|blockEncoder
-parameter_list|,
 specifier|final
 name|KeyComparator
 name|comparator
@@ -865,8 +813,6 @@ argument_list|,
 name|blockSize
 argument_list|,
 name|compress
-argument_list|,
-name|blockEncoder
 argument_list|,
 name|comparator
 argument_list|)
@@ -920,10 +866,6 @@ argument_list|(
 name|compressAlgoName
 argument_list|)
 argument_list|,
-operator|new
-name|NoOpDataBlockEncoder
-argument_list|()
-argument_list|,
 name|comparator
 argument_list|)
 expr_stmt|;
@@ -949,9 +891,6 @@ operator|.
 name|Algorithm
 name|compress
 parameter_list|,
-name|HFileDataBlockEncoder
-name|blockEncoder
-parameter_list|,
 specifier|final
 name|KeyComparator
 name|comparator
@@ -970,8 +909,6 @@ argument_list|,
 name|blockSize
 argument_list|,
 name|compress
-argument_list|,
-name|blockEncoder
 argument_list|,
 name|comparator
 argument_list|)
@@ -1122,7 +1059,6 @@ operator|.
 name|flush
 argument_list|()
 expr_stmt|;
-comment|// we do not do dataBlockEncoding on disk HFile V2.
 name|byte
 index|[]
 name|bytes
@@ -1174,32 +1110,14 @@ operator|.
 name|length
 argument_list|)
 argument_list|,
-name|HFileBlock
-operator|.
-name|FILL_HEADER
+literal|true
 argument_list|,
 name|blockBegin
-argument_list|,
-name|MemStore
-operator|.
-name|NO_PERSISTENT_TS
-argument_list|)
-decl_stmt|;
-name|HFileBlock
-name|codedBlock
-init|=
-name|blockEncoder
-operator|.
-name|beforeBlockCache
-argument_list|(
-name|cBlock
-argument_list|,
-literal|false
 argument_list|)
 decl_stmt|;
 name|passSchemaMetricsTo
 argument_list|(
-name|codedBlock
+name|cBlock
 argument_list|)
 expr_stmt|;
 name|cacheConf
@@ -1218,7 +1136,7 @@ argument_list|,
 name|blockBegin
 argument_list|)
 argument_list|,
-name|codedBlock
+name|cBlock
 argument_list|)
 expr_stmt|;
 name|baosDos

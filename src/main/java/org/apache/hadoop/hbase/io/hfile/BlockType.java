@@ -105,32 +105,6 @@ operator|.
 name|DATA
 argument_list|)
 block|,
-comment|/** An encoded data block (e.g. with prefix compression), version 2 */
-name|ENCODED_DATA
-argument_list|(
-literal|"DATABLKE"
-argument_list|,
-name|BlockCategory
-operator|.
-name|DATA
-argument_list|)
-block|{
-annotation|@
-name|Override
-specifier|public
-name|int
-name|getId
-parameter_list|()
-block|{
-return|return
-name|DATA
-operator|.
-name|ordinal
-argument_list|()
-return|;
-block|}
-block|}
-block|,
 comment|/** Version 2 leaf index block. Appears in the data block section */
 name|LEAF_INDEX
 argument_list|(
@@ -329,17 +303,6 @@ name|length
 operator|==
 name|MAGIC_LENGTH
 assert|;
-block|}
-comment|/**    * Use it instead of oridinal(). It works exactly the same,    * except DATA and ENCODED_DATA got same id.    * @return id between 0 and N    */
-specifier|public
-name|int
-name|getId
-parameter_list|()
-block|{
-return|return
-name|ordinal
-argument_list|()
-return|;
 block|}
 specifier|public
 name|void
