@@ -258,7 +258,7 @@ name|maxVersions
 argument_list|,
 name|Long
 operator|.
-name|MAX_VALUE
+name|MIN_VALUE
 argument_list|)
 decl_stmt|;
 comment|//Initialize result
@@ -1066,7 +1066,7 @@ name|maxVersions
 argument_list|,
 name|Long
 operator|.
-name|MAX_VALUE
+name|MIN_VALUE
 argument_list|)
 decl_stmt|;
 for|for

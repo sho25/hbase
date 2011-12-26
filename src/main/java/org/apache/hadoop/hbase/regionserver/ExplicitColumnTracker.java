@@ -164,7 +164,7 @@ specifier|private
 name|long
 name|oldestStamp
 decl_stmt|;
-comment|/**    * Default constructor.    * @param columns columns specified user in query    * @param minVersions minimum number of versions to keep    * @param maxVersions maximum versions to return per column    * @param ttl The timeToLive to enforce    */
+comment|/**    * Default constructor.    * @param columns columns specified user in query    * @param minVersions minimum number of versions to keep    * @param maxVersions maximum versions to return per column    * @param oldestUnexpiredTS the oldest timestamp we are interested in,    *  based on TTL     * @param ttl The timeToLive to enforce    */
 specifier|public
 name|ExplicitColumnTracker
 parameter_list|(
@@ -182,7 +182,7 @@ name|int
 name|maxVersions
 parameter_list|,
 name|long
-name|ttl
+name|oldestUnexpiredTS
 parameter_list|)
 block|{
 name|this
@@ -201,12 +201,7 @@ name|this
 operator|.
 name|oldestStamp
 operator|=
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
-operator|-
-name|ttl
+name|oldestUnexpiredTS
 expr_stmt|;
 name|this
 operator|.

@@ -326,7 +326,7 @@ specifier|final
 name|boolean
 name|isUserScan
 decl_stmt|;
-comment|/**    * Construct a QueryMatcher for a scan    * @param scan    * @param scanInfo The store's immutable scan info    * @param columns    * @param scanType Type of the scan    * @param earliestPutTs Earliest put seen in any of the store files.    */
+comment|/**    * Construct a QueryMatcher for a scan    * @param scan    * @param scanInfo The store's immutable scan info    * @param columns    * @param scanType Type of the scan    * @param earliestPutTs Earliest put seen in any of the store files.    * @param oldestUnexpiredTS the oldest timestamp we are interested in,    *  based on TTL    */
 specifier|public
 name|ScanQueryMatcher
 parameter_list|(
@@ -355,6 +355,9 @@ name|readPointToUse
 parameter_list|,
 name|long
 name|earliestPutTs
+parameter_list|,
+name|long
+name|oldestUnexpiredTS
 parameter_list|)
 block|{
 name|this
@@ -556,10 +559,7 @@ argument_list|()
 argument_list|,
 name|maxVersions
 argument_list|,
-name|scanInfo
-operator|.
-name|getTtl
-argument_list|()
+name|oldestUnexpiredTS
 argument_list|)
 expr_stmt|;
 block|}
@@ -597,10 +597,7 @@ argument_list|()
 argument_list|,
 name|maxVersions
 argument_list|,
-name|scanInfo
-operator|.
-name|getTtl
-argument_list|()
+name|oldestUnexpiredTS
 argument_list|)
 expr_stmt|;
 block|}
@@ -622,6 +619,9 @@ name|byte
 index|[]
 argument_list|>
 name|columns
+parameter_list|,
+name|long
+name|oldestUnexpiredTS
 parameter_list|)
 block|{
 name|this
@@ -646,6 +646,8 @@ comment|/* max Readpoint to track versions */
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
+argument_list|,
+name|oldestUnexpiredTS
 argument_list|)
 expr_stmt|;
 block|}

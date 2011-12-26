@@ -149,7 +149,7 @@ name|VERSIONS
 argument_list|,
 name|Long
 operator|.
-name|MAX_VALUE
+name|MIN_VALUE
 argument_list|)
 decl_stmt|;
 comment|//Create list of qualifiers
@@ -394,7 +394,7 @@ name|VERSIONS
 argument_list|,
 name|Long
 operator|.
-name|MAX_VALUE
+name|MIN_VALUE
 argument_list|)
 decl_stmt|;
 comment|//Create list of qualifiers
@@ -643,7 +643,7 @@ name|VERSIONS
 argument_list|,
 name|Long
 operator|.
-name|MAX_VALUE
+name|MIN_VALUE
 argument_list|)
 decl_stmt|;
 comment|//Create list of qualifiers

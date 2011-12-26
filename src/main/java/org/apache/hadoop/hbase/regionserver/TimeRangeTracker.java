@@ -124,7 +124,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Stores the minimum and maximum timestamp values.  * Can be used to find if any given time range overlaps with its time range  * MemStores use this class to track its minimum and maximum timestamps.  * When writing StoreFiles, this information is stored in meta blocks and used  * at read time to match against the required TimeRange  */
+comment|/**  * Stores the minimum and maximum timestamp values (both are inclusive).  * Can be used to find if any given time range overlaps with its time range  * MemStores use this class to track its minimum and maximum timestamps.  * When writing StoreFiles, this information is stored in meta blocks and used  * at read time to match against the required TimeRange.  */
 end_comment
 
 begin_class
@@ -466,6 +466,25 @@ operator|.
 name|readLong
 argument_list|()
 expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"["
+operator|+
+name|minimumTimestamp
+operator|+
+literal|","
+operator|+
+name|maximumTimestamp
+operator|+
+literal|"]"
+return|;
 block|}
 block|}
 end_class

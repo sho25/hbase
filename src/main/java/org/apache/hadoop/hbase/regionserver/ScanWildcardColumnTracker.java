@@ -89,22 +89,6 @@ name|Bytes
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|EnvironmentEdgeManager
-import|;
-end_import
-
 begin_comment
 comment|/**  * Keeps track of the columns for a scan if they are not explicitly specified  */
 end_comment
@@ -162,7 +146,7 @@ specifier|private
 name|long
 name|oldestStamp
 decl_stmt|;
-comment|/**    * Return maxVersions of every row.    * @param minVersion Minimum number of versions to keep    * @param maxVersion Maximum number of versions to return    * @param ttl TimeToLive to enforce    */
+comment|/**    * Return maxVersions of every row.    * @param minVersion Minimum number of versions to keep    * @param maxVersion Maximum number of versions to return    * @param oldestUnexpiredTS oldest timestamp that has not expired according    *          to the TTL.    */
 specifier|public
 name|ScanWildcardColumnTracker
 parameter_list|(
@@ -173,7 +157,7 @@ name|int
 name|maxVersion
 parameter_list|,
 name|long
-name|ttl
+name|oldestUnexpiredTS
 parameter_list|)
 block|{
 name|this
@@ -192,12 +176,7 @@ name|this
 operator|.
 name|oldestStamp
 operator|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTimeMillis
-argument_list|()
-operator|-
-name|ttl
+name|oldestUnexpiredTS
 expr_stmt|;
 block|}
 comment|/**    * {@inheritDoc}    * This receives puts *and* deletes.    * Deletes do not count as a version, but rather take the version    * of the previous put (so eventually all but the last can be reclaimed).    */

@@ -883,7 +883,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Internal version of add() that doesn't clone KVs with the    * allocator, and doesn't take the lock.    *     * Callers should ensure they already have the read lock taken    */
+comment|/**    * Internal version of add() that doesn't clone KVs with the    * allocator, and doesn't take the lock.    *    * Callers should ensure they already have the read lock taken    */
 specifier|private
 name|long
 name|internalAdd
@@ -1052,7 +1052,7 @@ return|return
 name|newKv
 return|;
 block|}
-comment|/**    * Remove n key from the memstore. Only kvs that have the same key and the    * same memstoreTS are removed.  It is ok to not update timeRangeTracker     * in this call. It is possible that we can optimize this method by using     * tailMap/iterator, but since this method is called rarely (only for     * error recovery), we can leave those optimization for the future.    * @param kv    */
+comment|/**    * Remove n key from the memstore. Only kvs that have the same key and the    * same memstoreTS are removed.  It is ok to not update timeRangeTracker    * in this call. It is possible that we can optimize this method by using    * tailMap/iterator, but since this method is called rarely (only for    * error recovery), we can leave those optimization for the future.    * @param kv    */
 name|void
 name|rollback
 parameter_list|(
@@ -2155,7 +2155,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Inserts the specified KeyValue into MemStore and deletes any existing    * versions of the same row/family/qualifier as the specified KeyValue.    *<p>    * First, the specified KeyValue is inserted into the Memstore.    *<p>    * If there are any existing KeyValues in this MemStore with the same row,    * family, and qualifier, they are removed.    *<p>    * Callers must hold the read lock.    *     * @param kv    * @return change in size of MemStore    */
+comment|/**    * Inserts the specified KeyValue into MemStore and deletes any existing    * versions of the same row/family/qualifier as the specified KeyValue.    *<p>    * First, the specified KeyValue is inserted into the Memstore.    *<p>    * If there are any existing KeyValues in this MemStore with the same row,    * family, and qualifier, they are removed.    *<p>    * Callers must hold the read lock.    *    * @param kv    * @return change in size of MemStore    */
 specifier|private
 name|long
 name|upsert
@@ -2564,9 +2564,13 @@ name|shouldSeek
 parameter_list|(
 name|Scan
 name|scan
+parameter_list|,
+name|long
+name|oldestUnexpiredTS
 parameter_list|)
 block|{
 return|return
+operator|(
 name|timeRangeTracker
 operator|.
 name|includesTimeRange
@@ -2586,6 +2590,26 @@ operator|.
 name|getTimeRange
 argument_list|()
 argument_list|)
+operator|)
+operator|&&
+operator|(
+name|Math
+operator|.
+name|max
+argument_list|(
+name|timeRangeTracker
+operator|.
+name|getMaximumTimestamp
+argument_list|()
+argument_list|,
+name|snapshotTimeRangeTracker
+operator|.
+name|getMaximumTimestamp
+argument_list|()
+argument_list|)
+operator|>=
+name|oldestUnexpiredTS
+operator|)
 return|;
 block|}
 specifier|public
@@ -3079,6 +3103,35 @@ return|return
 name|Long
 operator|.
 name|MAX_VALUE
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|shouldUseScanner
+parameter_list|(
+name|Scan
+name|scan
+parameter_list|,
+name|SortedSet
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|columns
+parameter_list|,
+name|long
+name|oldestUnexpiredTS
+parameter_list|)
+block|{
+return|return
+name|shouldSeek
+argument_list|(
+name|scan
+argument_list|,
+name|oldestUnexpiredTS
+argument_list|)
 return|;
 block|}
 block|}

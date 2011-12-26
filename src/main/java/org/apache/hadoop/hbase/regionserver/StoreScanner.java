@@ -193,6 +193,22 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
 begin_comment
 comment|/**  * Scanner scans both the memstore and the HStore. Coalesce KeyValue stream  * into List<KeyValue> for a single row.  */
 end_comment
@@ -266,6 +282,16 @@ specifier|final
 name|boolean
 name|useRowColBloom
 decl_stmt|;
+specifier|private
+specifier|final
+name|long
+name|oldestUnexpiredTS
+decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|minVersions
+decl_stmt|;
 comment|/** We don't ever expect to change this, the constant is just for clarity. */
 specifier|static
 specifier|final
@@ -309,6 +335,12 @@ name|byte
 index|[]
 argument_list|>
 name|columns
+parameter_list|,
+name|long
+name|ttl
+parameter_list|,
+name|int
+name|minVersions
 parameter_list|)
 block|{
 name|this
@@ -349,6 +381,21 @@ operator|=
 name|numCol
 operator|>
 literal|0
+expr_stmt|;
+name|oldestUnexpiredTS
+operator|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+name|ttl
+expr_stmt|;
+name|this
+operator|.
+name|minVersions
+operator|=
+name|minVersions
 expr_stmt|;
 comment|// We look up row-column Bloom filters for multi-column queries as part of
 comment|// the seek operation. However, we also look the row-column Bloom filter
@@ -402,6 +449,20 @@ argument_list|,
 name|scan
 argument_list|,
 name|columns
+argument_list|,
+name|store
+operator|.
+name|scanInfo
+operator|.
+name|getTtl
+argument_list|()
+argument_list|,
+name|store
+operator|.
+name|scanInfo
+operator|.
+name|getMinVersions
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|initializeMetricNames
@@ -451,6 +512,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|LATEST_TIMESTAMP
+argument_list|,
+name|oldestUnexpiredTS
 argument_list|)
 expr_stmt|;
 comment|// Pass columns to try to filter out unnecessary StoreFiles.
@@ -547,7 +610,7 @@ name|this
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Used for major compactions.<p>    *    * Opens a scanner across specified StoreFiles.    * @param store who we scan    * @param scan the spec    * @param scanners ancilliary scanners    * @param smallestReadPoint the readPoint that we should use for tracking versions    * @param retainDeletesInOutput should we retain deletes after compaction?    */
+comment|/**    * Used for major compactions.<p>    *    * Opens a scanner across specified StoreFiles.    * @param store who we scan    * @param scan the spec    * @param scanners ancillary scanners    * @param smallestReadPoint the readPoint that we should use for tracking versions    * @param retainDeletesInOutput should we retain deletes after compaction?    */
 name|StoreScanner
 parameter_list|(
 name|Store
@@ -585,6 +648,20 @@ argument_list|,
 name|scan
 argument_list|,
 literal|null
+argument_list|,
+name|store
+operator|.
+name|scanInfo
+operator|.
+name|getTtl
+argument_list|()
+argument_list|,
+name|store
+operator|.
+name|scanInfo
+operator|.
+name|getMinVersions
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|initializeMetricNames
@@ -608,6 +685,8 @@ argument_list|,
 name|smallestReadPoint
 argument_list|,
 name|earliestPutTs
+argument_list|,
+name|oldestUnexpiredTS
 argument_list|)
 expr_stmt|;
 comment|// Seek all scanners to the initial key
@@ -747,6 +826,16 @@ argument_list|,
 name|scan
 argument_list|,
 name|columns
+argument_list|,
+name|scanInfo
+operator|.
+name|getTtl
+argument_list|()
+argument_list|,
+name|scanInfo
+operator|.
+name|getMinVersions
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|this
@@ -774,6 +863,8 @@ operator|.
 name|MAX_VALUE
 argument_list|,
 name|earliestPutTs
+argument_list|,
+name|oldestUnexpiredTS
 argument_list|)
 expr_stmt|;
 comment|// Seek all scanners to the initial key
@@ -1012,6 +1103,21 @@ name|size
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// We can only exclude store files based on TTL if minVersions is set to 0.
+comment|// Otherwise, we might have to return KVs that have technically expired.
+name|long
+name|expiredTimestampCutoff
+init|=
+name|minVersions
+operator|==
+literal|0
+condition|?
+name|oldestUnexpiredTS
+else|:
+name|Long
+operator|.
+name|MIN_VALUE
+decl_stmt|;
 comment|// include only those scan files which pass all filters
 for|for
 control|(
@@ -1021,31 +1127,43 @@ range|:
 name|allStoreScanners
 control|)
 block|{
+name|boolean
+name|isFile
+init|=
+name|kvs
+operator|.
+name|isFileScanner
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
-name|kvs
-operator|instanceof
-name|StoreFileScanner
+operator|(
+operator|!
+name|isFile
+operator|&&
+name|filesOnly
+operator|)
+operator|||
+operator|(
+name|isFile
+operator|&&
+name|memOnly
+operator|)
 condition|)
 block|{
+continue|continue;
+block|}
 if|if
 condition|(
-name|memOnly
-operator|==
-literal|false
-operator|&&
-operator|(
-operator|(
-name|StoreFileScanner
-operator|)
 name|kvs
-operator|)
 operator|.
-name|shouldSeek
+name|shouldUseScanner
 argument_list|(
 name|scan
 argument_list|,
 name|columns
+argument_list|,
+name|expiredTimestampCutoff
 argument_list|)
 condition|)
 block|{
@@ -1056,37 +1174,6 @@ argument_list|(
 name|kvs
 argument_list|)
 expr_stmt|;
-block|}
-block|}
-else|else
-block|{
-comment|// kvs is a MemStoreScanner
-if|if
-condition|(
-name|filesOnly
-operator|==
-literal|false
-operator|&&
-name|this
-operator|.
-name|store
-operator|.
-name|memstore
-operator|.
-name|shouldSeek
-argument_list|(
-name|scan
-argument_list|)
-condition|)
-block|{
-name|scanners
-operator|.
-name|add
-argument_list|(
-name|kvs
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 return|return

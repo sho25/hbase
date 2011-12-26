@@ -1037,7 +1037,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Validates the false positive ratio by computing its z-value and comparing    * it to the provided threshold.    *    * @param falsePosRate experimental positive rate    * @param nTrials the number of calls to    *          {@link StoreFile.Reader#shouldSeek(Scan, java.util.SortedSet)}.    * @param zValueBoundary z-value boundary, positive for an upper bound and    *          negative for a lower bound    * @param cbf the compound Bloom filter we are using    * @param additionalMsg additional message to include in log output and    *          assertion failures    */
+comment|/**    * Validates the false positive ratio by computing its z-value and comparing    * it to the provided threshold.    *    * @param falsePosRate experimental positive rate    * @param nTrials the number of Bloom filter checks    * @param zValueBoundary z-value boundary, positive for an upper bound and    *          negative for a lower bound    * @param cbf the compound Bloom filter we are using    * @param additionalMsg additional message to include in log output and    *          assertion failures    */
 specifier|private
 name|void
 name|validateFalsePosRate
@@ -1708,11 +1708,15 @@ expr_stmt|;
 return|return
 name|scanner
 operator|.
-name|shouldSeek
+name|shouldUseScanner
 argument_list|(
 name|scan
 argument_list|,
 name|columns
+argument_list|,
+name|Long
+operator|.
+name|MIN_VALUE
 argument_list|)
 return|;
 block|}

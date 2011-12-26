@@ -1511,13 +1511,13 @@ init|=
 name|count
 argument_list|()
 decl_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 literal|"Should not see anything after TTL has expired"
 argument_list|,
-name|count
-operator|==
 literal|0
+argument_list|,
+name|count
 argument_list|)
 expr_stmt|;
 block|}

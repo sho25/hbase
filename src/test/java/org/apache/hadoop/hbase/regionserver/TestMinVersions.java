@@ -151,6 +151,22 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|EnvironmentEdgeManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|junit
 operator|.
 name|experimental
@@ -305,17 +321,17 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
+comment|// 2s in the past
 name|long
 name|ts
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
 operator|-
 literal|2000
 decl_stmt|;
-comment|// 2s in the past
 name|Put
 name|p
 init|=
@@ -539,17 +555,17 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
+comment|// 2s in the past
 name|long
 name|ts
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
 operator|-
 literal|2000
 decl_stmt|;
-comment|// 2s in the past
 name|Put
 name|p
 init|=
@@ -840,17 +856,17 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
+comment|// 2s in the past
 name|long
 name|ts
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
 operator|-
 literal|2000
 decl_stmt|;
-comment|// 2s in the past
 name|Put
 name|p
 init|=
@@ -1174,17 +1190,17 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
+comment|// 2s in the past
 name|long
 name|ts
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
 operator|-
 literal|2000
 decl_stmt|;
-comment|// 2s in the past
 comment|// 2nd version
 name|Put
 name|p
@@ -1581,17 +1597,17 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
+comment|// 2s in the past
 name|long
 name|ts
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
 operator|-
 literal|2000
 decl_stmt|;
-comment|// 2s in the past
 comment|// 1st version
 name|Put
 name|p
@@ -2097,17 +2113,17 @@ index|[
 literal|1
 index|]
 decl_stmt|;
+comment|// 2s in the past
 name|long
 name|ts
 init|=
-name|System
+name|EnvironmentEdgeManager
 operator|.
 name|currentTimeMillis
 argument_list|()
 operator|-
 literal|2000
 decl_stmt|;
-comment|// 2s in the past
 name|Put
 name|p
 init|=

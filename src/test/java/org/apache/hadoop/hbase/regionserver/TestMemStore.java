@@ -5290,6 +5290,10 @@ operator|.
 name|shouldSeek
 argument_list|(
 name|scan
+argument_list|,
+name|Long
+operator|.
+name|MIN_VALUE
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -5309,6 +5313,10 @@ operator|.
 name|shouldSeek
 argument_list|(
 name|scan
+argument_list|,
+name|Long
+operator|.
+name|MIN_VALUE
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -5328,6 +5336,10 @@ operator|.
 name|shouldSeek
 argument_list|(
 name|scan
+argument_list|,
+name|Long
+operator|.
+name|MIN_VALUE
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -5347,6 +5359,10 @@ operator|.
 name|shouldSeek
 argument_list|(
 name|scan
+argument_list|,
+name|Long
+operator|.
+name|MIN_VALUE
 argument_list|)
 argument_list|)
 expr_stmt|;

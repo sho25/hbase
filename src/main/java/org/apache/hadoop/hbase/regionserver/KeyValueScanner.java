@@ -29,6 +29,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|SortedSet
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -38,6 +48,22 @@ operator|.
 name|hbase
 operator|.
 name|KeyValue
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Scan
 import|;
 end_import
 
@@ -98,6 +124,25 @@ name|void
 name|close
 parameter_list|()
 function_decl|;
+comment|/**    * Allows to filter out scanners (both StoreFile and memstore) that we don't    * want to use based on criteria such as Bloom filters and timestamp ranges.    * @param scan the scan that we are selecting scanners for    * @param columns the set of columns in the current column family, or null if    *          not specified by the scan    * @param oldestUnexpiredTS the oldest timestamp we are interested in for    *          this query, based on TTL    * @return true if the scanner should be included in the query    */
+specifier|public
+name|boolean
+name|shouldUseScanner
+parameter_list|(
+name|Scan
+name|scan
+parameter_list|,
+name|SortedSet
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|columns
+parameter_list|,
+name|long
+name|oldestUnexpiredTS
+parameter_list|)
+function_decl|;
 comment|// "Lazy scanner" optimizations
 comment|/**    * Similar to {@link #seek} (or {@link #reseek} if forward is true) but only    * does a seek operation after checking that it is really necessary for the    * row/column combination specified by the kv parameter. This function was    * added to avoid unnecessary disk seeks by checking row-column Bloom filters    * before a seek on multi-column get/scan queries, and to optimize by looking    * up more recent files first.    * @param forward do a forward-only "reseek" instead of a random-access seek    * @param useBloom whether to enable multi-column Bloom filter optimization    */
 specifier|public
@@ -129,6 +174,12 @@ name|enforceSeek
 parameter_list|()
 throws|throws
 name|IOException
+function_decl|;
+comment|/**    * @return true if this is a file scanner. Otherwise a memory scanner is    *         assumed.    */
+specifier|public
+name|boolean
+name|isFileScanner
+parameter_list|()
 function_decl|;
 block|}
 end_interface
