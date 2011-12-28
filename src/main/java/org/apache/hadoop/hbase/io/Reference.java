@@ -407,15 +407,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|FSUtils
-operator|.
-name|create
-argument_list|(
-name|fs
-argument_list|,
-name|p
-argument_list|)
-expr_stmt|;
 name|FSDataOutputStream
 name|out
 init|=
@@ -424,6 +415,8 @@ operator|.
 name|create
 argument_list|(
 name|p
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 try|try

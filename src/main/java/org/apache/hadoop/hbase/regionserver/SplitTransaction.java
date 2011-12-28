@@ -2369,15 +2369,44 @@ argument_list|(
 name|splitdir
 argument_list|)
 condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"The "
+operator|+
+name|splitdir
+operator|+
+literal|" directory exists.  Hence deleting it to recreate it"
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+name|fs
+operator|.
+name|delete
+argument_list|(
+name|splitdir
+argument_list|,
+literal|true
+argument_list|)
+condition|)
+block|{
 throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Splitdir already exits? "
+literal|"Failed deletion of "
 operator|+
 name|splitdir
+operator|+
+literal|" before creating them again."
 argument_list|)
 throw|;
+block|}
+block|}
 if|if
 condition|(
 operator|!
@@ -2672,6 +2701,24 @@ operator|.
 name|shutdownNow
 argument_list|()
 expr_stmt|;
+comment|// wait for the thread to shutdown completely.
+while|while
+condition|(
+operator|!
+name|threadPool
+operator|.
+name|isTerminated
+argument_list|()
+condition|)
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|50
+argument_list|)
+expr_stmt|;
+block|}
 throw|throw
 operator|new
 name|IOException
