@@ -789,15 +789,11 @@ comment|// TODO: redo this to make it atomic (only added for tests)
 name|ServerName
 name|master
 init|=
-operator|new
 name|ServerName
-argument_list|(
-name|Bytes
 operator|.
-name|toString
+name|parseVersionedServerName
 argument_list|(
 name|bytes
-argument_list|)
 argument_list|)
 decl_stmt|;
 if|if
