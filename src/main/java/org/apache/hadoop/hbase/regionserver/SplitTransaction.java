@@ -923,6 +923,17 @@ return|return
 name|rid
 return|;
 block|}
+specifier|private
+specifier|static
+name|IOException
+name|closedByOtherException
+init|=
+operator|new
+name|IOException
+argument_list|(
+literal|"Failed to close region: already closed by another thread"
+argument_list|)
+decl_stmt|;
 comment|/**    * Prepare the regions and region files.    * @param server Hosting server instance.  Can be null when testing (won't try    * and update in zk if a null server)    * @param services Used to online/offline regions.    * @throws IOException If thrown, transaction failed. Call {@link #rollback(Server, RegionServerServices)}    * @return Regions created    */
 comment|/* package */
 name|PairOfSameType
@@ -1183,6 +1194,11 @@ name|hstoreFilesToSplit
 init|=
 literal|null
 decl_stmt|;
+name|Exception
+name|exceptionToThrow
+init|=
+literal|null
+decl_stmt|;
 try|try
 block|{
 name|hstoreFilesToSplit
@@ -1196,8 +1212,24 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|exceptionToThrow
+operator|=
+name|e
+expr_stmt|;
+block|}
 if|if
 condition|(
+name|exceptionToThrow
+operator|==
+literal|null
+operator|&&
 name|hstoreFilesToSplit
 operator|==
 literal|null
@@ -1208,18 +1240,17 @@ comment|// with the split, instead we must just abandon the split.  If we
 comment|// reopen or split this could cause problems because the region has
 comment|// probably already been moved to a different server, or is in the
 comment|// process of moving to a different server.
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Failed to close region: already closed by "
-operator|+
-literal|"another thread"
-argument_list|)
-throw|;
+name|exceptionToThrow
+operator|=
+name|closedByOtherException
+expr_stmt|;
 block|}
-block|}
-finally|finally
+if|if
+condition|(
+name|exceptionToThrow
+operator|!=
+name|closedByOtherException
+condition|)
 block|{
 name|this
 operator|.
@@ -1232,6 +1263,33 @@ operator|.
 name|CLOSED_PARENT_REGION
 argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|exceptionToThrow
+operator|!=
+literal|null
+condition|)
+block|{
+if|if
+condition|(
+name|exceptionToThrow
+operator|instanceof
+name|IOException
+condition|)
+throw|throw
+operator|(
+name|IOException
+operator|)
+name|exceptionToThrow
+throw|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|exceptionToThrow
+argument_list|)
+throw|;
 block|}
 if|if
 condition|(
