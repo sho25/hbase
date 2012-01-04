@@ -142,7 +142,7 @@ name|Append
 extends|extends
 name|Mutation
 implements|implements
-name|Writable
+name|Row
 block|{
 comment|// TODO: refactor to derive from Put?
 specifier|private

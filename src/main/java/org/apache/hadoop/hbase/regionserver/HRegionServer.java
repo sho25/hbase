@@ -17464,6 +17464,62 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+elseif|else
+if|if
+condition|(
+name|action
+operator|instanceof
+name|Increment
+condition|)
+block|{
+name|response
+operator|.
+name|add
+argument_list|(
+name|regionName
+argument_list|,
+name|originalIndex
+argument_list|,
+name|increment
+argument_list|(
+name|regionName
+argument_list|,
+operator|(
+name|Increment
+operator|)
+name|action
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|action
+operator|instanceof
+name|Append
+condition|)
+block|{
+name|response
+operator|.
+name|add
+argument_list|(
+name|regionName
+argument_list|,
+name|originalIndex
+argument_list|,
+name|append
+argument_list|(
+name|regionName
+argument_list|,
+operator|(
+name|Append
+operator|)
+name|action
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 else|else
 block|{
 name|LOG
@@ -17472,7 +17528,7 @@ name|debug
 argument_list|(
 literal|"Error: invalid Action, row must be a Get, Delete, "
 operator|+
-literal|"Put or Exec."
+literal|"Put, Exec, Increment, or Append."
 argument_list|)
 expr_stmt|;
 throw|throw
@@ -17481,7 +17537,7 @@ name|DoNotRetryIOException
 argument_list|(
 literal|"Invalid Action, row must be a "
 operator|+
-literal|"Get, Delete or Put."
+literal|"Get, Delete, Put, Exec, Increment, or Append."
 argument_list|)
 throw|;
 block|}
