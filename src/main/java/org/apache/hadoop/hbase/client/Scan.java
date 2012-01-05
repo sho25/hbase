@@ -948,7 +948,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Set the start row of the scan.    * @param startRow row to start scan on, inclusive    * @return this    */
+comment|/**    * Set the start row of the scan.    * @param startRow row to start scan on (inclusive)    * Note: In order to make startRow exclusive add a trailing 0 byte    * @return this    */
 specifier|public
 name|Scan
 name|setStartRow
@@ -968,7 +968,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Set the stop row.    * @param stopRow row to end at (exclusive)    * @return this    */
+comment|/**    * Set the stop row.    * @param stopRow row to end at (exclusive)    * Note: In order to make stopRow inclusive add a trailing 0 byte    * @return this    */
 specifier|public
 name|Scan
 name|setStopRow
