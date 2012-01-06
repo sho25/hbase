@@ -1170,7 +1170,7 @@ name|exception
 return|;
 block|}
 block|}
-comment|/**    * @param r Region we're working on.    * @return Transition znode to OPENED state.    * @throws IOException     */
+comment|/**    * @param r Region we're working on.    * @return whether znode is successfully transitioned to OPENED state.    * @throws IOException    */
 specifier|private
 name|boolean
 name|transitionToOpened
@@ -1314,7 +1314,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * @param  Region we're working on.    * This is not guaranteed to succeed, we just do our best.    * @return Transition znode to CLOSED state.    */
+comment|/**    * @param  Region we're working on.    * This is not guaranteed to succeed, we just do our best.    * @return whether znode is successfully transitioned to FAILED_OPEN state.    */
 specifier|private
 name|boolean
 name|tryTransitionToFailedOpen

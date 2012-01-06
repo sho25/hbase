@@ -666,6 +666,9 @@ argument_list|(
 name|RANDOM_SERVERNAME
 argument_list|,
 name|hri
+argument_list|,
+operator|-
+literal|1
 argument_list|)
 argument_list|)
 operator|.

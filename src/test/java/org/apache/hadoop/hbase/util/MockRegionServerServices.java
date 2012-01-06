@@ -451,7 +451,13 @@ throws|throws
 name|KeeperException
 throws|,
 name|IOException
-block|{   }
+block|{
+name|addToOnlineRegions
+argument_list|(
+name|r
+argument_list|)
+expr_stmt|;
+block|}
 annotation|@
 name|Override
 specifier|public

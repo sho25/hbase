@@ -7756,6 +7756,12 @@ comment|// Grab the state of this region and synchronize on it
 name|RegionState
 name|state
 decl_stmt|;
+name|int
+name|versionOfClosingNode
+init|=
+operator|-
+literal|1
+decl_stmt|;
 synchronized|synchronized
 init|(
 name|regionsInTransition
@@ -7780,6 +7786,8 @@ block|{
 comment|// Create the znode in CLOSING state
 try|try
 block|{
+name|versionOfClosingNode
+operator|=
 name|ZKAssign
 operator|.
 name|createNodeClosing
@@ -7797,6 +7805,32 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|versionOfClosingNode
+operator|==
+operator|-
+literal|1
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Attempting to unassign region "
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" but ZK closing node "
+operator|+
+literal|"can't be created."
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -8060,6 +8094,8 @@ name|state
 operator|.
 name|getRegion
 argument_list|()
+argument_list|,
+name|versionOfClosingNode
 argument_list|)
 condition|)
 block|{
@@ -8094,7 +8130,7 @@ literal|" region CLOSE RPC returned false for "
 operator|+
 name|region
 operator|.
-name|getEncodedName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -8121,7 +8157,7 @@ literal|" for "
 operator|+
 name|region
 operator|.
-name|getEncodedName
+name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;

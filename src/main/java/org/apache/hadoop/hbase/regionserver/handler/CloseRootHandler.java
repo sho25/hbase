@@ -101,6 +101,9 @@ argument_list|,
 literal|false
 argument_list|,
 literal|true
+argument_list|,
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 block|}
@@ -127,6 +130,10 @@ parameter_list|,
 specifier|final
 name|boolean
 name|zk
+parameter_list|,
+specifier|final
+name|int
+name|versionOfClosingNode
 parameter_list|)
 block|{
 name|super
@@ -140,6 +147,8 @@ argument_list|,
 name|abort
 argument_list|,
 name|zk
+argument_list|,
+name|versionOfClosingNode
 argument_list|,
 name|EventType
 operator|.
