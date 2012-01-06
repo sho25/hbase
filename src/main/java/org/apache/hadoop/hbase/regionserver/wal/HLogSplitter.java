@@ -2766,6 +2766,16 @@ name|fs
 operator|.
 name|exists
 argument_list|(
+name|src
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+name|fs
+operator|.
+name|exists
+argument_list|(
 name|dst
 argument_list|)
 condition|)
@@ -2844,6 +2854,21 @@ operator|+
 name|dst
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Could not move recovered edits from "
+operator|+
+name|src
+operator|+
+literal|" as it doesn't exist"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 name|archiveLogs
 argument_list|(
@@ -3071,6 +3096,8 @@ argument_list|(
 name|oldLogDir
 argument_list|)
 expr_stmt|;
+comment|// this method can get restarted or called multiple times for archiving
+comment|// the same log files.
 for|for
 control|(
 name|Path
@@ -3095,6 +3122,16 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|corrupted
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
 operator|!
 name|fs
 operator|.
@@ -3108,7 +3145,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|warn
 argument_list|(
 literal|"Unable to move corrupted log "
 operator|+
@@ -3124,7 +3161,7 @@ else|else
 block|{
 name|LOG
 operator|.
-name|info
+name|warn
 argument_list|(
 literal|"Moving corrupted log "
 operator|+
@@ -3135,6 +3172,7 @@ operator|+
 name|p
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 for|for
@@ -3159,6 +3197,16 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|fs
+operator|.
+name|exists
+argument_list|(
+name|p
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
 operator|!
 name|fs
 operator|.
@@ -3172,7 +3220,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|warn
 argument_list|(
 literal|"Unable to move  "
 operator|+
@@ -3188,7 +3236,7 @@ else|else
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Archived processed log "
 operator|+
@@ -3201,6 +3249,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
+comment|// distributed log splitting removes the srcDir (region's log dir) later
+comment|// when all the log files in that srcDir have been successfully processed
 if|if
 condition|(
 name|srcDir
