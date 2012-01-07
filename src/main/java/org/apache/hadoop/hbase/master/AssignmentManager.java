@@ -6198,8 +6198,9 @@ block|}
 else|else
 block|{
 comment|// If we are reassigning the node do not force in-memory state to OFFLINE.
-comment|// Based on the znode state we will decide if to change in-memory state to
-comment|// OFFLINE or not. It will be done before setting znode to OFFLINE state.
+comment|// Based on the znode state we will decide if to change
+comment|// in-memory state to OFFLINE or not. It will
+comment|// be done before setting the znode to OFFLINE state.
 if|if
 condition|(
 operator|!
@@ -7716,8 +7717,6 @@ comment|// Check if this region is currently assigned
 if|if
 condition|(
 operator|!
-name|this
-operator|.
 name|regions
 operator|.
 name|containsKey

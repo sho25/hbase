@@ -411,7 +411,6 @@ argument_list|(
 name|regionInfo
 argument_list|)
 expr_stmt|;
-comment|// This below has to do w/ online enable/disable of a table
 name|assignmentManager
 operator|.
 name|removeClosedRegion
