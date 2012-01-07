@@ -561,18 +561,19 @@ name|this
 operator|.
 name|pathPrefix
 operator|=
+name|Integer
+operator|.
+name|toString
+argument_list|(
 name|this
 operator|.
 name|region
 operator|.
-name|getRegionNameAsString
+name|getRegionInfo
 argument_list|()
 operator|.
-name|replace
-argument_list|(
-literal|','
-argument_list|,
-literal|'_'
+name|hashCode
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// load system default cp's from configuration.
