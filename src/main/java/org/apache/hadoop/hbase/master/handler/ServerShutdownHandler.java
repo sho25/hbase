@@ -374,12 +374,6 @@ specifier|final
 name|DeadServer
 name|deadServers
 decl_stmt|;
-specifier|private
-specifier|final
-name|boolean
-name|shouldSplitHlog
-decl_stmt|;
-comment|// whether to split HLog or not
 specifier|public
 name|ServerShutdownHandler
 parameter_list|(
@@ -506,12 +500,6 @@ literal|" is NOT in deadservers; it should be!"
 argument_list|)
 expr_stmt|;
 block|}
-name|this
-operator|.
-name|shouldSplitHlog
-operator|=
-name|shouldSplitHlog
-expr_stmt|;
 block|}
 annotation|@
 name|Override
@@ -1260,9 +1248,7 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" from list of regions to assign because in RIT"
-operator|+
-literal|" region state: "
+literal|" from list of regions to assign because in RIT; region state: "
 operator|+
 name|rit
 operator|.
