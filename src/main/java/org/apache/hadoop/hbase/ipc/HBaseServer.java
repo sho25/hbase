@@ -6377,6 +6377,13 @@ operator|.
 name|sendResponseIfReady
 argument_list|()
 expr_stmt|;
+name|status
+operator|.
+name|markComplete
+argument_list|(
+literal|"Sent response"
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
