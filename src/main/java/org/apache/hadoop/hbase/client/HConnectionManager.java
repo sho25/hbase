@@ -199,6 +199,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|SortedMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|TreeMap
 import|;
 end_import
@@ -4948,7 +4958,7 @@ return|;
 block|}
 comment|// Cut the cache so that we only get the part that could contain
 comment|// regions that match our key
-name|SoftValueSortedMap
+name|SortedMap
 argument_list|<
 name|byte
 index|[]
@@ -5113,7 +5123,7 @@ operator|.
 name|cachedRegionLocations
 init|)
 block|{
-name|SoftValueSortedMap
+name|Map
 argument_list|<
 name|byte
 index|[]
@@ -5253,7 +5263,7 @@ return|return;
 block|}
 for|for
 control|(
-name|SoftValueSortedMap
+name|Map
 argument_list|<
 name|byte
 index|[]
@@ -5538,7 +5548,7 @@ operator|.
 name|getStartKey
 argument_list|()
 decl_stmt|;
-name|SoftValueSortedMap
+name|Map
 argument_list|<
 name|byte
 index|[]
@@ -7952,7 +7962,7 @@ operator|.
 name|cachedRegionLocations
 init|)
 block|{
-name|SoftValueSortedMap
+name|Map
 argument_list|<
 name|byte
 index|[]
