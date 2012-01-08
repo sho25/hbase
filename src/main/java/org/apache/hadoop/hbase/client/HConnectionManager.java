@@ -2312,7 +2312,7 @@ name|Map
 argument_list|<
 name|Integer
 argument_list|,
-name|SoftValueSortedMap
+name|SortedMap
 argument_list|<
 name|byte
 index|[]
@@ -2327,7 +2327,7 @@ name|HashMap
 argument_list|<
 name|Integer
 argument_list|,
-name|SoftValueSortedMap
+name|SortedMap
 argument_list|<
 name|byte
 index|[]
@@ -4907,7 +4907,7 @@ index|[]
 name|row
 parameter_list|)
 block|{
-name|SoftValueSortedMap
+name|SortedMap
 argument_list|<
 name|byte
 index|[]
@@ -5362,7 +5362,7 @@ block|}
 block|}
 comment|/*      * @param tableName      * @return Map of cached locations for passed<code>tableName</code>      */
 specifier|private
-name|SoftValueSortedMap
+name|SortedMap
 argument_list|<
 name|byte
 index|[]
@@ -5388,7 +5388,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|SoftValueSortedMap
+name|SortedMap
 argument_list|<
 name|byte
 index|[]
