@@ -351,20 +351,6 @@ end_import
 
 begin_import
 import|import
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|Maps
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -1352,6 +1338,20 @@ operator|.
 name|collect
 operator|.
 name|Lists
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|Maps
 import|;
 end_import
 
@@ -2822,25 +2822,6 @@ name|preOpen
 argument_list|()
 expr_stmt|;
 block|}
-comment|// A region can be reopened if failed a split; reset flags
-name|this
-operator|.
-name|closing
-operator|.
-name|set
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|closed
-operator|.
-name|set
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
 comment|// Write HRI to a file in case we need to recover .META.
 name|status
 operator|.
@@ -3151,6 +3132,25 @@ operator|+
 literal|"; next sequenceid="
 operator|+
 name|nextSeqid
+argument_list|)
+expr_stmt|;
+comment|// A region can be reopened if failed a split; reset flags
+name|this
+operator|.
+name|closing
+operator|.
+name|set
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|closed
+operator|.
+name|set
+argument_list|(
+literal|false
 argument_list|)
 expr_stmt|;
 if|if
