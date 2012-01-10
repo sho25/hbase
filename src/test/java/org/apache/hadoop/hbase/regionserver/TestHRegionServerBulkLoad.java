@@ -189,22 +189,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|HConnection
 import|;
 end_import
@@ -976,10 +960,6 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|conn
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 operator|new
 name|ServerCallable
 argument_list|<
@@ -1051,7 +1031,9 @@ literal|null
 return|;
 block|}
 block|}
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 expr_stmt|;
 comment|// Periodically do compaction to reduce the number of open file handles.
 if|if
@@ -1067,10 +1049,6 @@ literal|0
 condition|)
 block|{
 comment|// 10 * 50 = 500 open file handles!
-name|conn
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 operator|new
 name|ServerCallable
 argument_list|<
@@ -1138,7 +1116,9 @@ literal|null
 return|;
 block|}
 block|}
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 expr_stmt|;
 block|}
 block|}

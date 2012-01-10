@@ -6198,9 +6198,10 @@ block|}
 else|else
 block|{
 comment|// If we are reassigning the node do not force in-memory state to OFFLINE.
-comment|// Based on the znode state we will decide if to change
-comment|// in-memory state to OFFLINE or not. It will
-comment|// be done before setting the znode to OFFLINE state.
+comment|// Based on the znode state we will decide if to change in-memory state to
+comment|// OFFLINE or not. It will be done before setting znode to OFFLINE state.
+comment|// We often get here with state == CLOSED because ClosedRegionHandler will
+comment|// assign on its tail as part of the handling of a region close.
 if|if
 condition|(
 operator|!

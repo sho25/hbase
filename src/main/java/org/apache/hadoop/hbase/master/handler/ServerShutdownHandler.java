@@ -874,6 +874,13 @@ try|try
 block|{
 try|try
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|shouldSplitHlog
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
@@ -895,6 +902,19 @@ argument_list|(
 name|serverName
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Skipping log splitting for "
+operator|+
+name|serverName
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -1260,9 +1280,7 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" from list of regions to assign because in RIT"
-operator|+
-literal|" region state: "
+literal|" from list of regions to assign because in RIT; region state: "
 operator|+
 name|rit
 operator|.

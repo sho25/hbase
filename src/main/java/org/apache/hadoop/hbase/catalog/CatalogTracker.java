@@ -406,6 +406,9 @@ comment|// Configuration and even then this is just used to get an HConnection o
 comment|// the other end). I made https://issues.apache.org/jira/browse/HBASE-4495 for
 comment|// doing CT fixup. St.Ack 09/30/2011.
 comment|//
+comment|// TODO: Timeouts have never been as advertised in here and its worse now
+comment|// with retries; i.e. the HConnection retries and pause goes ahead whatever
+comment|// the passed timeout is.  Fix.
 specifier|private
 specifier|static
 specifier|final
@@ -1960,6 +1963,17 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
+name|RetriesExhaustedException
+name|e
+parameter_list|)
+block|{
+name|t
+operator|=
+name|e
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
 name|RemoteException
 name|e
 parameter_list|)
@@ -2184,6 +2198,23 @@ name|e
 parameter_list|)
 block|{
 comment|// Pass -- remote server is not up so can't be carrying .META.
+block|}
+catch|catch
+parameter_list|(
+name|RetriesExhaustedException
+name|e
+parameter_list|)
+block|{
+comment|// Pass -- failed after bunch of retries.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Failed verify meta region location after retries"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 block|}
 return|return
 name|connection

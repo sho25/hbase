@@ -180,6 +180,12 @@ parameter_list|)
 block|{
 if|if
 condition|(
+literal|true
+condition|)
+return|return;
+comment|// REMOVE
+if|if
+condition|(
 name|conf
 operator|.
 name|getBoolean

@@ -1342,11 +1342,6 @@ argument_list|()
 return|;
 block|}
 comment|/**    * Gets the starting and ending row keys for every region in the currently    * open table.    *<p>    * This is mainly useful for the MapReduce integration.    * @return Pair of arrays of region starting and ending row keys    * @throws IOException if a remote or network exception occurs    */
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"unchecked"
-argument_list|)
 specifier|public
 name|Pair
 argument_list|<
@@ -2040,10 +2035,6 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|connection
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 operator|new
 name|ServerCallable
 argument_list|<
@@ -2086,7 +2077,9 @@ argument_list|)
 return|;
 block|}
 block|}
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 return|;
 block|}
 comment|/**     * {@inheritDoc}     */
@@ -2231,10 +2224,6 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|connection
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 operator|new
 name|ServerCallable
 argument_list|<
@@ -2278,7 +2267,9 @@ argument_list|)
 return|;
 block|}
 block|}
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 return|;
 block|}
 comment|/**    * {@inheritDoc}    */
@@ -2474,10 +2465,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|connection
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 operator|new
 name|ServerCallable
 argument_list|<
@@ -2524,7 +2511,9 @@ return|;
 comment|// FindBugs NP_BOOLEAN_RETURN_NULL
 block|}
 block|}
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * {@inheritDoc}    */
@@ -2799,10 +2788,6 @@ argument_list|)
 throw|;
 block|}
 return|return
-name|connection
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 operator|new
 name|ServerCallable
 argument_list|<
@@ -2846,7 +2831,9 @@ argument_list|)
 return|;
 block|}
 block|}
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 return|;
 block|}
 comment|/**    * {@inheritDoc}    */
@@ -2881,10 +2868,6 @@ argument_list|)
 throw|;
 block|}
 return|return
-name|connection
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 operator|new
 name|ServerCallable
 argument_list|<
@@ -2928,7 +2911,9 @@ argument_list|)
 return|;
 block|}
 block|}
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 return|;
 block|}
 comment|/**    * {@inheritDoc}    */
@@ -3064,10 +3049,6 @@ argument_list|)
 throw|;
 block|}
 return|return
-name|connection
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 operator|new
 name|ServerCallable
 argument_list|<
@@ -3116,7 +3097,9 @@ argument_list|)
 return|;
 block|}
 block|}
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 return|;
 block|}
 comment|/**    * {@inheritDoc}    */
@@ -3154,10 +3137,6 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|connection
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 operator|new
 name|ServerCallable
 argument_list|<
@@ -3214,7 +3193,9 @@ name|FALSE
 return|;
 block|}
 block|}
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 return|;
 block|}
 comment|/**    * {@inheritDoc}    */
@@ -3252,10 +3233,6 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|connection
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 operator|new
 name|ServerCallable
 argument_list|<
@@ -3312,7 +3289,9 @@ name|FALSE
 return|;
 block|}
 block|}
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 return|;
 block|}
 comment|/**    * {@inheritDoc}    */
@@ -3330,10 +3309,6 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|connection
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 operator|new
 name|ServerCallable
 argument_list|<
@@ -3377,7 +3352,9 @@ argument_list|)
 return|;
 block|}
 block|}
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 return|;
 block|}
 comment|/**    * {@inheritDoc}    */
@@ -3684,10 +3661,6 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|connection
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 operator|new
 name|ServerCallable
 argument_list|<
@@ -3739,7 +3712,9 @@ argument_list|)
 return|;
 block|}
 block|}
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 return|;
 block|}
 comment|/**    * {@inheritDoc}    */
@@ -3756,10 +3731,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|connection
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 operator|new
 name|ServerCallable
 argument_list|<
@@ -3809,7 +3780,9 @@ return|;
 comment|// FindBugs NP_BOOLEAN_RETURN_NULL
 block|}
 block|}
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * {@inheritDoc}    */

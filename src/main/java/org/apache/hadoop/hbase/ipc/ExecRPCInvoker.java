@@ -398,12 +398,10 @@ decl_stmt|;
 name|ExecResult
 name|result
 init|=
-name|connection
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 name|callable
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 decl_stmt|;
 name|this
 operator|.

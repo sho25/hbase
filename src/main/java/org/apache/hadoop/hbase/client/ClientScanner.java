@@ -744,13 +744,10 @@ operator|.
 name|setClose
 argument_list|()
 expr_stmt|;
-name|getConnection
-argument_list|()
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 name|callable
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -912,13 +909,10 @@ argument_list|)
 expr_stmt|;
 comment|// Open a scanner on the region server starting at the
 comment|// beginning of the region
-name|getConnection
-argument_list|()
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 name|callable
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -1164,13 +1158,10 @@ argument_list|)
 expr_stmt|;
 name|values
 operator|=
-name|getConnection
-argument_list|()
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 name|callable
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 expr_stmt|;
 name|callable
 operator|.
@@ -1191,13 +1182,10 @@ comment|// returns an empty array if scanning is to go on and we've just
 comment|// exhausted current region.
 name|values
 operator|=
-name|getConnection
-argument_list|()
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 name|callable
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 expr_stmt|;
 block|}
 catch|catch
@@ -1593,13 +1581,10 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-name|getConnection
-argument_list|()
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 name|callable
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 expr_stmt|;
 block|}
 catch|catch

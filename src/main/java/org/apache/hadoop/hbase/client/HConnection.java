@@ -542,7 +542,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and    * this method will manage the process of doing retries with timed waits    * and refinds of missing regions.    *    * @param<T> the type of the return value    * @param callable callable to run    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
+comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and    * this method will manage the process of doing retries with timed waits    * and refinds of missing regions.    *    * @param<T> the type of the return value    * @param callable callable to run    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    * @deprecated Use {@link HConnectionManager#withoutRetries(ServerCallable)}    */
 specifier|public
 parameter_list|<
 name|T
@@ -561,7 +561,7 @@ name|IOException
 throws|,
 name|RuntimeException
 function_decl|;
-comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and    * this method will pass it to the defined region server.    * @param<T> the type of the return value    * @param callable callable to run    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    */
+comment|/**    * Pass in a ServerCallable with your particular bit of logic defined and    * this method will pass it to the defined region server.    * @param<T> the type of the return value    * @param callable callable to run    * @return an object of type T    * @throws IOException if a remote or network exception occurs    * @throws RuntimeException other unspecified error    * @deprecated Use {@link HConnectionManager#withoutRetries(ServerCallable)}    */
 specifier|public
 parameter_list|<
 name|T
@@ -783,6 +783,16 @@ specifier|public
 name|boolean
 name|isClosed
 parameter_list|()
+function_decl|;
+comment|/**    * Clear any caches that pertain to server name<code>sn</code>    * @param sn A server name as hostname:port    */
+specifier|public
+name|void
+name|clearCaches
+parameter_list|(
+specifier|final
+name|String
+name|sn
+parameter_list|)
 function_decl|;
 block|}
 end_interface

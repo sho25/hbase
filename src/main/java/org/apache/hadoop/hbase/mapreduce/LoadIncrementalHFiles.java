@@ -2982,12 +2982,10 @@ decl_stmt|;
 name|boolean
 name|success
 init|=
-name|conn
-operator|.
-name|getRegionServerWithRetries
-argument_list|(
 name|svrCallable
-argument_list|)
+operator|.
+name|withRetries
+argument_list|()
 decl_stmt|;
 if|if
 condition|(

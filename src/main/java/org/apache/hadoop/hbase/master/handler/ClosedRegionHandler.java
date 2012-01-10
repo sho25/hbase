@@ -404,6 +404,8 @@ expr_stmt|;
 return|return;
 block|}
 comment|// ZK Node is in CLOSED state, assign it.
+comment|// TODO: Should we remove the region from RIT too?  We don't?  Makes for
+comment|// a 'forcing' log message when we go to update state from CLOSED to OFFLINE
 name|assignmentManager
 operator|.
 name|setOffline
@@ -411,6 +413,7 @@ argument_list|(
 name|regionInfo
 argument_list|)
 expr_stmt|;
+comment|// This below has to do w/ online enable/disable of a table
 name|assignmentManager
 operator|.
 name|removeClosedRegion
