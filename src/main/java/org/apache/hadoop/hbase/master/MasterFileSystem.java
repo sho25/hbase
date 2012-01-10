@@ -1199,7 +1199,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Interrupted, returning w/o splitting at startup"
+literal|"Interrupted, aborting since cannot return w/o splitting"
 argument_list|)
 expr_stmt|;
 name|Thread
@@ -1213,6 +1213,16 @@ expr_stmt|;
 name|retrySplitting
 operator|=
 literal|false
+expr_stmt|;
+name|Runtime
+operator|.
+name|getRuntime
+argument_list|()
+operator|.
+name|halt
+argument_list|(
+literal|1
+argument_list|)
 expr_stmt|;
 block|}
 block|}
