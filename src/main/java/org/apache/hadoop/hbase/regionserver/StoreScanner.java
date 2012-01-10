@@ -1372,9 +1372,16 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
 name|checkReseek
 argument_list|()
-expr_stmt|;
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
 comment|// if the heap was left null, then the scanners had previously run out anyways, close and
 comment|// return.
 if|if
@@ -1971,8 +1978,9 @@ expr_stmt|;
 comment|// the re-seeks could be slow (access HDFS) free up memory ASAP
 comment|// Let the next() call handle re-creating and seeking
 block|}
+comment|/**    * @return true if top of heap has changed (and KeyValueHeap has to try the    *         next KV)    * @throws IOException    */
 specifier|private
-name|void
+name|boolean
 name|checkReseek
 parameter_list|()
 throws|throws
@@ -2000,6 +2008,71 @@ operator|.
 name|lastTop
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|heap
+operator|.
+name|peek
+argument_list|()
+operator|==
+literal|null
+operator|||
+name|store
+operator|.
+name|comparator
+operator|.
+name|compare
+argument_list|(
+name|this
+operator|.
+name|lastTop
+argument_list|,
+name|this
+operator|.
+name|heap
+operator|.
+name|peek
+argument_list|()
+argument_list|)
+operator|!=
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Storescanner.peek() is changed where before = "
+operator|+
+name|this
+operator|.
+name|lastTop
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|",and after = "
+operator|+
+name|this
+operator|.
+name|heap
+operator|.
+name|peek
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|lastTop
+operator|=
+literal|null
+expr_stmt|;
+return|return
+literal|true
+return|;
+block|}
 name|this
 operator|.
 name|lastTop
@@ -2009,6 +2082,9 @@ expr_stmt|;
 comment|// gone!
 block|}
 comment|// else dont need to reseek
+return|return
+literal|false
+return|;
 block|}
 specifier|private
 name|void
