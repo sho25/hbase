@@ -517,8 +517,6 @@ class|class
 name|HTable
 implements|implements
 name|HTableInterface
-implements|,
-name|Closeable
 block|{
 specifier|private
 specifier|static
