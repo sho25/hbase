@@ -611,7 +611,9 @@ name|options
 operator|.
 name|maxWorkerThreads
 argument_list|,
-name|DEFAULT_THREAD_KEEP_ALIVE_TIME_SEC
+name|options
+operator|.
+name|threadKeepAliveTimeSec
 argument_list|,
 name|TimeUnit
 operator|.
