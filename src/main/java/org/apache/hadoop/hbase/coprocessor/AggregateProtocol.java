@@ -273,6 +273,32 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Gives a List containing sum of values and sum of weights.    * It is computed for the combination of column    * family and column qualifier(s) in the given row range as defined in the    * Scan object. In its current implementation, it takes one column family and    * two column qualifiers. The first qualifier is for values column and     * the second qualifier (optional) is for weight column.    * @param ci    * @param scan    * @return Pair    * @throws IOException    */
+parameter_list|<
+name|T
+parameter_list|,
+name|S
+parameter_list|>
+name|List
+argument_list|<
+name|S
+argument_list|>
+name|getMedian
+parameter_list|(
+name|ColumnInterpreter
+argument_list|<
+name|T
+argument_list|,
+name|S
+argument_list|>
+name|ci
+parameter_list|,
+name|Scan
+name|scan
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 
