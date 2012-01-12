@@ -1196,7 +1196,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Finds the region on which the given row is being served.    * @param row Row to find.    * @return Location of the row.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Finds the region on which the given row is being served.    * @param row Row to find.    * @return Location of the row.    * @throws IOException if a remote or network exception occurs    * @deprecated use {@link #getRegionLocation(byte [], boolean)} instead    */
 specifier|public
 name|HRegionLocation
 name|getRegionLocation
@@ -1219,6 +1219,35 @@ argument_list|,
 name|row
 argument_list|,
 literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * Finds the region on which the given row is being served.    * @param row Row to find.    * @param reload whether or not to reload information or just use cached    * information    * @return Location of the row.    * @throws IOException if a remote or network exception occurs    */
+specifier|public
+name|HRegionLocation
+name|getRegionLocation
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|boolean
+name|reload
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|connection
+operator|.
+name|getRegionLocation
+argument_list|(
+name|tableName
+argument_list|,
+name|row
+argument_list|,
+name|reload
 argument_list|)
 return|;
 block|}
