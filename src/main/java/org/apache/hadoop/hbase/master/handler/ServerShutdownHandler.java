@@ -1656,9 +1656,10 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Check that daughter regions are up in .META. and if not, add them.    * @param hris All regions for this server in meta.    * @param result The contents of the parent row in .META.    * @throws IOException    */
+comment|/**    * Check that daughter regions are up in .META. and if not, add them.    * @param hris All regions for this server in meta.    * @param result The contents of the parent row in .META.    * @return the number of daughters missing and fixed    * @throws IOException    */
+specifier|public
 specifier|static
-name|void
+name|int
 name|fixupDaughters
 parameter_list|(
 specifier|final
@@ -1676,6 +1677,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|int
+name|fixedA
+init|=
 name|fixupDaughter
 argument_list|(
 name|result
@@ -1688,7 +1692,10 @@ name|assignmentManager
 argument_list|,
 name|catalogTracker
 argument_list|)
-expr_stmt|;
+decl_stmt|;
+name|int
+name|fixedB
+init|=
 name|fixupDaughter
 argument_list|(
 name|result
@@ -1701,11 +1708,16 @@ name|assignmentManager
 argument_list|,
 name|catalogTracker
 argument_list|)
-expr_stmt|;
+decl_stmt|;
+return|return
+name|fixedA
+operator|+
+name|fixedB
+return|;
 block|}
-comment|/**    * Check individual daughter is up in .META.; fixup if its not.    * @param result The contents of the parent row in .META.    * @param qualifier Which daughter to check for.    * @throws IOException    */
+comment|/**    * Check individual daughter is up in .META.; fixup if its not.    * @param result The contents of the parent row in .META.    * @param qualifier Which daughter to check for.    * @return 1 if the daughter is missing and fixed. Otherwise 0    * @throws IOException    */
 specifier|static
-name|void
+name|int
 name|fixupDaughter
 parameter_list|(
 specifier|final
@@ -1746,7 +1758,9 @@ name|daughter
 operator|==
 literal|null
 condition|)
-return|return;
+return|return
+literal|0
+return|;
 if|if
 condition|(
 name|isDaughterMissing
@@ -1793,6 +1807,9 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+return|return
+literal|1
+return|;
 block|}
 else|else
 block|{
@@ -1811,6 +1828,9 @@ literal|" present"
 argument_list|)
 expr_stmt|;
 block|}
+return|return
+literal|0
+return|;
 block|}
 comment|/**    * Look for presence of the daughter OR of a split of the daughter in .META.    * Daughter could have been split over on regionserver before a run of the    * catalogJanitor had chance to clear reference from parent.    * @param daughter Daughter region to search for.    * @throws IOException     */
 specifier|private
