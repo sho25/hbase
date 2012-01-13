@@ -2987,6 +2987,11 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|45000
+argument_list|)
 specifier|public
 name|void
 name|testVanishingTaskZNode
@@ -3067,6 +3072,13 @@ argument_list|(
 name|logDir
 argument_list|)
 expr_stmt|;
+name|Thread
+name|thread
+init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
 name|Path
 name|logFile
 init|=
@@ -3091,6 +3103,8 @@ argument_list|(
 name|logFile
 argument_list|)
 expr_stmt|;
+name|thread
+operator|=
 operator|new
 name|Thread
 argument_list|()
@@ -3102,7 +3116,9 @@ parameter_list|()
 block|{
 try|try
 block|{
-comment|// this call will block because there are no SplitLogWorkers
+comment|// this call will block because there are no SplitLogWorkers,
+comment|// until the task znode is deleted below. Then the call will
+comment|// complete successfully, assuming the log is split.
 name|slm
 operator|.
 name|splitLogDistributed
@@ -3126,12 +3142,11 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
-name|fail
-argument_list|()
+block|}
+block|}
+block|}
 expr_stmt|;
-block|}
-block|}
-block|}
+name|thread
 operator|.
 name|start
 argument_list|()
@@ -3162,7 +3177,7 @@ name|toString
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// remove the task znode
+comment|// remove the task znode, to finish the distributed log splitting
 name|ZKUtil
 operator|.
 name|deleteNode
@@ -3204,6 +3219,24 @@ name|logFile
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+if|if
+condition|(
+name|thread
+operator|!=
+literal|null
+condition|)
+block|{
+comment|// interrupt the thread in case the test fails in the middle.
+comment|// it has no effect if the thread is already terminated.
+name|thread
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
+block|}
 name|fs
 operator|.
 name|delete
@@ -3213,6 +3246,7 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|org

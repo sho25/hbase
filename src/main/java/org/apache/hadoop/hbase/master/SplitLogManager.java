@@ -2593,9 +2593,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-assert|assert
-literal|false
-assert|;
 name|LOG
 operator|.
 name|warn
