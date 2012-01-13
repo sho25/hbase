@@ -183,6 +183,15 @@ name|CLUSTER_DISTRIBUTED
 init|=
 literal|"hbase.cluster.distributed"
 decl_stmt|;
+comment|/** Config for pluggable load balancers */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_MASTER_LOADBALANCER_CLASS
+init|=
+literal|"hbase.master.loadbalancer.class"
+decl_stmt|;
 comment|/** Cluster is standalone or pseudo-distributed */
 specifier|public
 specifier|static
