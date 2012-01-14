@@ -2404,6 +2404,26 @@ name|row
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|mutateRow
+parameter_list|(
+name|RowMutation
+name|rm
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|table
+operator|.
+name|mutateRow
+argument_list|(
+name|rm
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/** The coprocessor */
 specifier|public
