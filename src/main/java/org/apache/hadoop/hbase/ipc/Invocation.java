@@ -71,6 +71,20 @@ name|hadoop
 operator|.
 name|io
 operator|.
+name|VersionMismatchException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|io
+operator|.
 name|VersionedWritable
 import|;
 end_import
@@ -413,6 +427,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+try|try
+block|{
 name|super
 operator|.
 name|readFields
@@ -441,6 +457,85 @@ operator|.
 name|readInt
 argument_list|()
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|VersionMismatchException
+name|e
+parameter_list|)
+block|{
+comment|// VersionMismatchException doesn't provide an API to access
+comment|// expectedVersion and foundVersion.  This is really sad.
+if|if
+condition|(
+name|e
+operator|.
+name|toString
+argument_list|()
+operator|.
+name|endsWith
+argument_list|(
+literal|"found v0"
+argument_list|)
+condition|)
+block|{
+comment|// Try to be a bit backwards compatible.  In previous versions of
+comment|// HBase (before HBASE-3939 in 0.92) Invocation wasn't a
+comment|// VersionedWritable and thus the first thing on the wire was always
+comment|// the 2-byte length of the method name.  Because no method name is
+comment|// longer than 255 characters, and all method names are in ASCII,
+comment|// The following code is equivalent to `in.readUTF()', which we can't
+comment|// call again here, because `super.readFields(in)' already consumed
+comment|// the first byte of input, which can't be "unread" back into `in'.
+specifier|final
+name|short
+name|len
+init|=
+call|(
+name|short
+call|)
+argument_list|(
+name|in
+operator|.
+name|readByte
+argument_list|()
+operator|&
+literal|0xFF
+argument_list|)
+decl_stmt|;
+comment|// Unsigned byte.
+specifier|final
+name|byte
+index|[]
+name|buf
+init|=
+operator|new
+name|byte
+index|[
+name|len
+index|]
+decl_stmt|;
+name|in
+operator|.
+name|readFully
+argument_list|(
+name|buf
+argument_list|,
+literal|0
+argument_list|,
+name|len
+argument_list|)
+expr_stmt|;
+name|methodName
+operator|=
+operator|new
+name|String
+argument_list|(
+name|buf
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 name|parameters
 operator|=
 operator|new

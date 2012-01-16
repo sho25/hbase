@@ -1182,6 +1182,13 @@ literal|0
 decl_stmt|;
 static|static
 block|{
+comment|////////////////////////////////////////////////////////////////////////////
+comment|// WARNING: Please do not insert, remove or swap any line in this static  //
+comment|// block.  Doing so would change or shift all the codes used to serialize //
+comment|// objects, which makes backwards compatibility very hard for clients.    //
+comment|// New codes should always be added at the end. Code removal is           //
+comment|// discouraged because code is a short now.                               //
+comment|////////////////////////////////////////////////////////////////////////////
 name|int
 name|code
 init|=
@@ -1481,17 +1488,6 @@ argument_list|(
 name|HTableDescriptor
 operator|.
 name|class
-argument_list|,
-name|code
-operator|++
-argument_list|)
-expr_stmt|;
-name|addToMap
-argument_list|(
-name|HTableDescriptor
-index|[]
-operator|.
-expr|class
 argument_list|,
 name|code
 operator|++
@@ -1987,6 +1983,17 @@ argument_list|(
 name|RegionOpeningState
 operator|.
 name|class
+argument_list|,
+name|code
+operator|++
+argument_list|)
+expr_stmt|;
+name|addToMap
+argument_list|(
+name|HTableDescriptor
+index|[]
+operator|.
+expr|class
 argument_list|,
 name|code
 operator|++
