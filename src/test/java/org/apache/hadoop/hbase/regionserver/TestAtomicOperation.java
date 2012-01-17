@@ -1944,6 +1944,14 @@ operator|.
 name|printStackTrace
 argument_list|()
 expr_stmt|;
+name|failures
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
+name|fail
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 block|}
