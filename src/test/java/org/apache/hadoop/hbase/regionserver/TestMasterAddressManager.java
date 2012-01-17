@@ -308,9 +308,7 @@ decl_stmt|;
 name|addressManager
 operator|.
 name|start
-argument_list|(
-literal|true
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|assertFalse
 argument_list|(

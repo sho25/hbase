@@ -979,23 +979,6 @@ name|listener
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Unregister the specified listener.    * @param listener    */
-specifier|public
-name|void
-name|unregisterListener
-parameter_list|(
-name|ZooKeeperListener
-name|listener
-parameter_list|)
-block|{
-name|listeners
-operator|.
-name|remove
-argument_list|(
-name|listener
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Register the specified listener to receive ZooKeeper events and add it as    * the first in the list of current listeners.    * @param listener    */
 specifier|public
 name|void

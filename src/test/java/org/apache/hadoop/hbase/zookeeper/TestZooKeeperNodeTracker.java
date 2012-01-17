@@ -438,9 +438,7 @@ decl_stmt|;
 name|tracker
 operator|.
 name|start
-argument_list|(
-literal|true
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|Thread
 name|t
@@ -624,9 +622,7 @@ decl_stmt|;
 name|localTracker
 operator|.
 name|start
-argument_list|(
-literal|true
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|zk
 operator|.
@@ -688,9 +684,7 @@ decl_stmt|;
 name|secondTracker
 operator|.
 name|start
-argument_list|(
-literal|true
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|zk
 operator|.
@@ -1268,9 +1262,7 @@ expr_stmt|;
 name|tracker
 operator|.
 name|start
-argument_list|(
-literal|true
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|zk
 operator|.

@@ -407,14 +407,6 @@ name|void
 name|clearRegionCache
 parameter_list|()
 function_decl|;
-comment|/**    * Closes the original connection and creates a new one.    * @throws ZooKeeperConnectionException  if unable to connect to zookeeper    */
-specifier|public
-name|void
-name|resetZooKeeperTrackersWithRetries
-parameter_list|()
-throws|throws
-name|ZooKeeperConnectionException
-function_decl|;
 comment|/**    * Allows flushing the region cache of all locations that pertain to    *<code>tableName</code>    * @param tableName Name of the table whose regions we are to remove from    * cache.    */
 specifier|public
 name|void
