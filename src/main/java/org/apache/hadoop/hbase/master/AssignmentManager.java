@@ -7420,7 +7420,7 @@ operator|.
 name|getRegionNameAsString
 argument_list|()
 operator|+
-literal|" destination server is + "
+literal|" destination server is "
 operator|+
 name|existingPlan
 operator|.
