@@ -256,7 +256,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Unit testing for ThriftServer.HBaseHandler, a part of the  * org.apache.hadoop.hbase.thrift package.  */
+comment|/**  * Unit testing for ThriftServerRunner.HBaseHandler, a part of the  * org.apache.hadoop.hbase.thrift package.  */
 end_comment
 
 begin_class
@@ -480,13 +480,13 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ThriftServer
+name|ThriftServerRunner
 operator|.
 name|HBaseHandler
 name|handler
 init|=
 operator|new
-name|ThriftServer
+name|ThriftServerRunner
 operator|.
 name|HBaseHandler
 argument_list|(
@@ -685,13 +685,13 @@ throws|throws
 name|Exception
 block|{
 comment|// Setup
-name|ThriftServer
+name|ThriftServerRunner
 operator|.
 name|HBaseHandler
 name|handler
 init|=
 operator|new
-name|ThriftServer
+name|ThriftServerRunner
 operator|.
 name|HBaseHandler
 argument_list|(
@@ -1146,13 +1146,13 @@ throws|throws
 name|Exception
 block|{
 comment|// Setup
-name|ThriftServer
+name|ThriftServerRunner
 operator|.
 name|HBaseHandler
 name|handler
 init|=
 operator|new
-name|ThriftServer
+name|ThriftServerRunner
 operator|.
 name|HBaseHandler
 argument_list|(
@@ -1642,13 +1642,13 @@ throws|throws
 name|Exception
 block|{
 comment|// Setup
-name|ThriftServer
+name|ThriftServerRunner
 operator|.
 name|HBaseHandler
 name|handler
 init|=
 operator|new
-name|ThriftServer
+name|ThriftServerRunner
 operator|.
 name|HBaseHandler
 argument_list|(
@@ -2069,13 +2069,13 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ThriftServer
+name|ThriftServerRunner
 operator|.
 name|HBaseHandler
 name|handler
 init|=
 operator|new
-name|ThriftServer
+name|ThriftServerRunner
 operator|.
 name|HBaseHandler
 argument_list|(
@@ -2523,7 +2523,7 @@ parameter_list|(
 name|int
 name|scannerId
 parameter_list|,
-name|ThriftServer
+name|ThriftServerRunner
 operator|.
 name|HBaseHandler
 name|handler
