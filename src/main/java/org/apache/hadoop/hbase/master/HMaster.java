@@ -2456,7 +2456,9 @@ operator|.
 name|clusterStatusTracker
 operator|.
 name|start
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|boolean
 name|wasUp
@@ -2510,7 +2512,9 @@ operator|.
 name|schemaChangeTracker
 operator|.
 name|start
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|LOG
 operator|.

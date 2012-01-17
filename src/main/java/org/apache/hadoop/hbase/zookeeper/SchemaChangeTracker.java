@@ -291,9 +291,12 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|boolean
 name|start
-parameter_list|()
+parameter_list|(
+name|boolean
+name|allowAbort
+parameter_list|)
 block|{
 try|try
 block|{
@@ -314,12 +317,38 @@ name|node
 argument_list|)
 expr_stmt|;
 comment|// Clean-up old in-process schema changes for this RS now?
+return|return
+literal|true
+return|;
 block|}
 catch|catch
 parameter_list|(
 name|KeeperException
 name|e
 parameter_list|)
+block|{
+if|if
+condition|(
+name|allowAbort
+operator|&&
+operator|(
+name|abortable
+operator|!=
+literal|null
+operator|)
+condition|)
+block|{
+name|abortable
+operator|.
+name|abort
+argument_list|(
+literal|"RegionServer SchemaChangeTracker startup failed"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+else|else
 block|{
 name|LOG
 operator|.
@@ -332,6 +361,10 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
+return|return
+literal|false
+return|;
 block|}
 block|}
 comment|/**    * This event will be triggered whenever new schema change request is processed by the    * master. The path will be of the format /hbase/schema/<table name>    * @param path full path of the node whose children have changed    */

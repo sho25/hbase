@@ -3582,7 +3582,9 @@ operator|.
 name|masterAddressManager
 operator|.
 name|start
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|blockAndCheckIfStopped
 argument_list|(
@@ -3612,7 +3614,9 @@ operator|.
 name|clusterStatusTracker
 operator|.
 name|start
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 name|blockAndCheckIfStopped
 argument_list|(
@@ -3680,7 +3684,9 @@ operator|.
 name|schemaChangeTracker
 operator|.
 name|start
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
 block|}
 end_function
