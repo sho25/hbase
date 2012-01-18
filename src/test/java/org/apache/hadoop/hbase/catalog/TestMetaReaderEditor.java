@@ -505,6 +505,11 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+name|ct
+operator|.
+name|stop
+argument_list|()
+expr_stmt|;
 name|UTIL
 operator|.
 name|shutdownMiniCluster
