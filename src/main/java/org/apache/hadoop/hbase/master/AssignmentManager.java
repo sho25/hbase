@@ -6377,6 +6377,15 @@ operator|+
 name|state
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|timeoutMonitor
+operator|.
+name|setAllRegionServersOffline
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 return|return;
 comment|// Should get reassigned later when RIT times out.
 block|}
