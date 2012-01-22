@@ -4218,6 +4218,11 @@ operator|.
 name|interrupt
 argument_list|()
 expr_stmt|;
+name|logSyncerThread
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 comment|// Make sure we synced everything
 name|logSyncerThread
 operator|.
@@ -4930,6 +4935,12 @@ specifier|final
 name|long
 name|optionalFlushInterval
 decl_stmt|;
+specifier|private
+name|boolean
+name|closeLogSyncer
+init|=
+literal|false
+decl_stmt|;
 comment|// List of pending writes to the HLog. There corresponds to transactions
 comment|// that have not yet returned to the client. We keep them cached here
 comment|// instead of writing them to HDFS piecemeal, because the HDFS write
@@ -4981,6 +4992,9 @@ name|this
 operator|.
 name|isInterrupted
 argument_list|()
+operator|&&
+operator|!
+name|closeLogSyncer
 condition|)
 block|{
 try|try
@@ -5155,6 +5169,15 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+name|void
+name|close
+parameter_list|()
+block|{
+name|closeLogSyncer
+operator|=
+literal|true
+expr_stmt|;
 block|}
 block|}
 end_class
