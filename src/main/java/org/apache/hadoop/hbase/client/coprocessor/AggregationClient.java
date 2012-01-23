@@ -2546,6 +2546,12 @@ name|scan
 argument_list|)
 decl_stmt|;
 comment|// inherit stop row from method parameter
+if|if
+condition|(
+name|startRow
+operator|!=
+literal|null
+condition|)
 name|scan2
 operator|.
 name|setStartRow
