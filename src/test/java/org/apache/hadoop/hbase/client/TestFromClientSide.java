@@ -36147,7 +36147,7 @@ name|getMissCount
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// compact, net minus on block, two hits, no misses
+comment|// compact, net minus two blocks, two hits, no misses
 name|System
 operator|.
 name|out
@@ -36197,9 +36197,13 @@ name|getNumberOfstorefiles
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|expectedBlockCount
+operator|-=
+literal|2
+expr_stmt|;
+comment|// evicted two blocks, cached none
 name|assertEquals
 argument_list|(
-operator|--
 name|expectedBlockCount
 argument_list|,
 name|cache
@@ -36238,7 +36242,8 @@ name|getHitCount
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// read the row, same blocks, one hit no miss
+comment|// read the row, this should be a cache miss because we don't cache data
+comment|// blocks on compaction
 name|r
 operator|=
 name|table
@@ -36290,6 +36295,11 @@ name|data2
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|expectedBlockCount
+operator|+=
+literal|1
+expr_stmt|;
+comment|// cached one data block
 name|assertEquals
 argument_list|(
 name|expectedBlockCount
@@ -36302,7 +36312,6 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-operator|++
 name|expectedBlockHits
 argument_list|,
 name|cache
@@ -36316,21 +36325,8 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
+operator|++
 name|expectedBlockMiss
-argument_list|,
-name|cache
-operator|.
-name|getStats
-argument_list|()
-operator|.
-name|getMissCount
-argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// no cache misses!
-name|assertEquals
-argument_list|(
-name|startBlockMiss
 argument_list|,
 name|cache
 operator|.

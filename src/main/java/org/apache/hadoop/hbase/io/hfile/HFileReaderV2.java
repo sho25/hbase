@@ -1228,7 +1228,7 @@ argument_list|,
 name|delta
 argument_list|)
 expr_stmt|;
-comment|// Cache the block
+comment|// Cache the block if necessary
 if|if
 condition|(
 name|cacheBlock
