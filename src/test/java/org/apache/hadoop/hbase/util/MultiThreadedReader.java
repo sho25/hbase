@@ -1054,8 +1054,9 @@ block|{
 name|String
 name|rowKey
 init|=
-operator|new
-name|String
+name|Bytes
+operator|.
+name|toString
 argument_list|(
 name|get
 operator|.

@@ -1199,6 +1199,14 @@ name|DEFAULT_COMPRESSION
 argument_list|,
 name|HColumnDescriptor
 operator|.
+name|DEFAULT_ENCODE_ON_DISK
+argument_list|,
+name|HColumnDescriptor
+operator|.
+name|DEFAULT_DATA_BLOCK_ENCODING
+argument_list|,
+name|HColumnDescriptor
+operator|.
 name|DEFAULT_IN_MEMORY
 argument_list|,
 name|HColumnDescriptor

@@ -1229,7 +1229,7 @@ name|reader
 init|=
 name|HFile
 operator|.
-name|createReader
+name|createReaderFromStream
 argument_list|(
 name|path
 argument_list|,

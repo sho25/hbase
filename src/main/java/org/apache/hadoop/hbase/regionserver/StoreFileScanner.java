@@ -638,6 +638,10 @@ argument_list|(
 literal|"Could not seek "
 operator|+
 name|this
+operator|+
+literal|" to key "
+operator|+
+name|key
 argument_list|,
 name|ioe
 argument_list|)
@@ -711,9 +715,13 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Could not seek "
+literal|"Could not reseek "
 operator|+
 name|this
+operator|+
+literal|" to key "
+operator|+
+name|key
 argument_list|,
 name|ioe
 argument_list|)

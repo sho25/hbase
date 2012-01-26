@@ -610,7 +610,7 @@ name|this
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Used for major compactions.<p>    *    * Opens a scanner across specified StoreFiles.    * @param store who we scan    * @param scan the spec    * @param scanners ancillary scanners    * @param smallestReadPoint the readPoint that we should use for tracking versions    * @param retainDeletesInOutput should we retain deletes after compaction?    */
+comment|/**    * Used for major compactions.<p>    *    * Opens a scanner across specified StoreFiles.    * @param store who we scan    * @param scan the spec    * @param scanners ancillary scanners    * @param smallestReadPoint the readPoint that we should use for tracking    *          versions    */
 name|StoreScanner
 parameter_list|(
 name|Store

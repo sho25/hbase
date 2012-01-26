@@ -514,6 +514,9 @@ operator|.
 name|Algorithm
 name|compress
 parameter_list|,
+name|HFileDataBlockEncoder
+name|blockEncoder
+parameter_list|,
 specifier|final
 name|KeyComparator
 name|comparator
@@ -536,6 +539,8 @@ argument_list|,
 name|blockSize
 argument_list|,
 name|compress
+argument_list|,
+name|blockEncoder
 argument_list|,
 name|comparator
 argument_list|)
@@ -713,6 +718,8 @@ operator|.
 name|DEFAULT_COMPRESSION_ALGORITHM
 argument_list|,
 literal|null
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 block|}
@@ -762,6 +769,8 @@ argument_list|(
 name|compressAlgoName
 argument_list|)
 argument_list|,
+literal|null
+argument_list|,
 name|comparator
 argument_list|)
 expr_stmt|;
@@ -790,6 +799,9 @@ operator|.
 name|Algorithm
 name|compressAlgo
 parameter_list|,
+name|HFileDataBlockEncoder
+name|blockEncoder
+parameter_list|,
 specifier|final
 name|KeyComparator
 name|comparator
@@ -815,6 +827,8 @@ argument_list|,
 name|blockSize
 argument_list|,
 name|compressAlgo
+argument_list|,
+name|blockEncoder
 argument_list|,
 name|comparator
 argument_list|)
@@ -929,6 +943,8 @@ name|blockSize
 argument_list|,
 name|compress
 argument_list|,
+literal|null
+argument_list|,
 name|comparator
 argument_list|)
 expr_stmt|;
@@ -970,6 +986,10 @@ operator|.
 name|Writer
 argument_list|(
 name|compressAlgo
+argument_list|,
+name|blockEncoder
+argument_list|,
+name|includeMemstoreTS
 argument_list|)
 expr_stmt|;
 comment|// Data block index writer
@@ -1142,6 +1162,7 @@ operator|==
 operator|-
 literal|1
 condition|)
+block|{
 name|firstDataBlockOffset
 operator|=
 name|outputStream
@@ -1149,6 +1170,7 @@ operator|.
 name|getPos
 argument_list|()
 expr_stmt|;
+block|}
 comment|// Update the last data block offset
 name|lastDataBlockOffset
 operator|=
@@ -1283,8 +1305,6 @@ name|ibw
 operator|.
 name|getInlineBlockType
 argument_list|()
-argument_list|,
-name|cacheThisBlock
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1342,14 +1362,28 @@ name|long
 name|offset
 parameter_list|)
 block|{
-comment|// Cache this block on write.
+comment|// We don't cache-on-write data blocks on compaction, so assume this is not
+comment|// a compaction.
+specifier|final
+name|boolean
+name|isCompaction
+init|=
+literal|false
+decl_stmt|;
 name|HFileBlock
 name|cacheFormatBlock
 init|=
+name|blockEncoder
+operator|.
+name|diskToCacheFormat
+argument_list|(
 name|fsBlockWriter
 operator|.
 name|getBlockForCaching
 argument_list|()
+argument_list|,
+name|isCompaction
+argument_list|)
 decl_stmt|;
 name|passSchemaMetricsTo
 argument_list|(
@@ -1363,13 +1397,22 @@ argument_list|()
 operator|.
 name|cacheBlock
 argument_list|(
-name|HFile
-operator|.
-name|getBlockCacheKey
+operator|new
+name|BlockCacheKey
 argument_list|(
 name|name
 argument_list|,
 name|offset
+argument_list|,
+name|blockEncoder
+operator|.
+name|getEncodingInCache
+argument_list|()
+argument_list|,
+name|cacheFormatBlock
+operator|.
+name|getBlockType
+argument_list|()
 argument_list|)
 argument_list|,
 name|cacheFormatBlock
@@ -1392,11 +1435,6 @@ argument_list|(
 name|BlockType
 operator|.
 name|DATA
-argument_list|,
-name|cacheConf
-operator|.
-name|shouldCacheDataOnWrite
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|firstKeyInBlock
@@ -1911,11 +1949,6 @@ argument_list|(
 name|BlockType
 operator|.
 name|META
-argument_list|,
-name|cacheConf
-operator|.
-name|shouldCacheDataOnWrite
-argument_list|()
 argument_list|)
 decl_stmt|;
 name|metaData
@@ -2002,8 +2035,6 @@ argument_list|(
 name|BlockType
 operator|.
 name|ROOT_INDEX
-argument_list|,
-literal|false
 argument_list|)
 argument_list|,
 literal|"meta"
@@ -2067,8 +2098,6 @@ argument_list|(
 name|BlockType
 operator|.
 name|FILE_INFO
-argument_list|,
-literal|false
 argument_list|)
 argument_list|)
 expr_stmt|;

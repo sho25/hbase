@@ -468,7 +468,9 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"hbase.hregion.memstore.flush.size"
+name|HConstants
+operator|.
+name|HREGION_MEMSTORE_FLUSH_SIZE
 argument_list|,
 name|String
 operator|.

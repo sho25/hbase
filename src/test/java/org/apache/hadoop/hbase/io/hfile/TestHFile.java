@@ -994,7 +994,7 @@ name|reader
 init|=
 name|HFile
 operator|.
-name|createReader
+name|createReaderFromStream
 argument_list|(
 name|ncTFile
 argument_list|,
@@ -1536,7 +1536,7 @@ name|reader
 init|=
 name|HFile
 operator|.
-name|createReader
+name|createReaderFromStream
 argument_list|(
 name|mFile
 argument_list|,

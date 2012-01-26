@@ -119,6 +119,24 @@ name|hbase
 operator|.
 name|io
 operator|.
+name|encoding
+operator|.
+name|DataBlockEncoding
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
 name|hfile
 operator|.
 name|CacheConfig
@@ -232,6 +250,9 @@ parameter_list|,
 specifier|final
 name|Reference
 name|r
+parameter_list|,
+name|DataBlockEncoding
+name|preferredEncodingInCache
 parameter_list|)
 throws|throws
 name|IOException
@@ -243,6 +264,8 @@ argument_list|,
 name|p
 argument_list|,
 name|cacheConf
+argument_list|,
+name|preferredEncodingInCache
 argument_list|)
 expr_stmt|;
 comment|// This is not actual midkey for this half-file; its just border

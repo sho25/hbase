@@ -375,7 +375,9 @@ name|conf
 operator|.
 name|getLong
 argument_list|(
-literal|"hbase.hregion.memstore.flush.size"
+name|HConstants
+operator|.
+name|HREGION_MEMSTORE_FLUSH_SIZE
 argument_list|,
 name|HTableDescriptor
 operator|.

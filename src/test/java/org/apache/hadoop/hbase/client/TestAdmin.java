@@ -9189,7 +9189,9 @@ argument_list|()
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.hregion.memstore.flush.size"
+name|HConstants
+operator|.
+name|HREGION_MEMSTORE_FLUSH_SIZE
 argument_list|,
 literal|8192
 argument_list|)

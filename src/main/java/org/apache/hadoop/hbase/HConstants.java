@@ -654,6 +654,15 @@ literal|1024
 operator|*
 literal|1024
 decl_stmt|;
+comment|/** Conf key for the memstore size at which we flush the memstore */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HREGION_MEMSTORE_FLUSH_SIZE
+init|=
+literal|"hbase.hregion.memstore.flush.size"
+decl_stmt|;
 comment|/** Default size of a reservation block   */
 specifier|public
 specifier|static

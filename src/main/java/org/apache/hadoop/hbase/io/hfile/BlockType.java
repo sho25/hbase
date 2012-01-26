@@ -105,6 +105,32 @@ operator|.
 name|DATA
 argument_list|)
 block|,
+comment|/** An encoded data block (e.g. with prefix compression), version 2 */
+name|ENCODED_DATA
+argument_list|(
+literal|"DATABLKE"
+argument_list|,
+name|BlockCategory
+operator|.
+name|DATA
+argument_list|)
+block|{
+annotation|@
+name|Override
+specifier|public
+name|int
+name|getId
+parameter_list|()
+block|{
+return|return
+name|DATA
+operator|.
+name|ordinal
+argument_list|()
+return|;
+block|}
+block|}
+block|,
 comment|/** Version 2 leaf index block. Appears in the data block section */
 name|LEAF_INDEX
 argument_list|(
@@ -303,6 +329,18 @@ name|length
 operator|==
 name|MAGIC_LENGTH
 assert|;
+block|}
+comment|/**    * Use this instead of {@link #ordinal()}. They work exactly the same, except    * DATA and ENCODED_DATA get the same id using this method (overridden for    * {@link #ENCODED_DATA}).    * @return block type id from 0 to the number of block types - 1    */
+specifier|public
+name|int
+name|getId
+parameter_list|()
+block|{
+comment|// Default implementation, can be overridden for individual enum members.
+return|return
+name|ordinal
+argument_list|()
+return|;
 block|}
 specifier|public
 name|void
@@ -736,6 +774,23 @@ argument_list|)
 argument_list|)
 throw|;
 block|}
+block|}
+comment|/**    * @return whether this block type is encoded or unencoded data block    */
+specifier|public
+specifier|final
+name|boolean
+name|isData
+parameter_list|()
+block|{
+return|return
+name|this
+operator|==
+name|DATA
+operator|||
+name|this
+operator|==
+name|ENCODED_DATA
+return|;
 block|}
 block|}
 end_enum

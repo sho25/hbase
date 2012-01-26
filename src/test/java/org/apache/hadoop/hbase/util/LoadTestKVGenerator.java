@@ -217,7 +217,7 @@ comment|// flip the key to randomize
 return|return
 name|md5hash
 operator|+
-literal|":"
+literal|"-"
 operator|+
 name|stringKey
 return|;

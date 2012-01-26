@@ -3195,6 +3195,15 @@ name|CONCURRENT_SKIPLISTMAP
 operator|)
 argument_list|)
 decl_stmt|;
+comment|/** Used for readability when we don't store memstore timestamp in HFile */
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|NO_PERSISTENT_TS
+init|=
+literal|false
+decl_stmt|;
 comment|/*    * Calculate how the MemStore size has changed.  Includes overhead of the    * backing Map.    * @param kv    * @param notpresent True if the kv was NOT present in the set.    * @return Size    */
 name|long
 name|heapSizeChange

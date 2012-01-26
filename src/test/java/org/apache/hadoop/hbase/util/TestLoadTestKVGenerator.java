@@ -390,7 +390,7 @@ name|k
 operator|.
 name|endsWith
 argument_list|(
-literal|":"
+literal|"-"
 operator|+
 name|i
 argument_list|)

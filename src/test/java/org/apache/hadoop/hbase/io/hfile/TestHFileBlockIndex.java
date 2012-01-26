@@ -20,6 +20,42 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -385,18 +421,6 @@ name|Parameters
 import|;
 end_import
 
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|*
-import|;
-end_import
-
 begin_class
 annotation|@
 name|RunWith
@@ -603,6 +627,14 @@ block|,
 literal|23086
 block|}
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|boolean
+name|includesMemstoreTS
+init|=
+literal|true
+decl_stmt|;
 static|static
 block|{
 assert|assert
@@ -792,6 +824,9 @@ name|pread
 parameter_list|,
 name|boolean
 name|isCompaction
+parameter_list|,
+name|BlockType
+name|expectedBlockType
 parameter_list|)
 throws|throws
 name|IOException
@@ -1217,6 +1252,10 @@ operator|.
 name|Writer
 argument_list|(
 name|compr
+argument_list|,
+literal|null
+argument_list|,
+name|includesMemstoreTS
 argument_list|)
 decl_stmt|;
 name|FSDataOutputStream
@@ -1268,8 +1307,6 @@ argument_list|(
 name|BlockType
 operator|.
 name|DATA
-argument_list|,
-literal|false
 argument_list|)
 operator|.
 name|write
@@ -1514,8 +1551,6 @@ name|biw
 operator|.
 name|getInlineBlockType
 argument_list|()
-argument_list|,
-literal|false
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2855,6 +2890,8 @@ argument_list|,
 name|SMALL_BLOCK_SIZE
 argument_list|,
 name|compr
+argument_list|,
+literal|null
 argument_list|,
 name|KeyValue
 operator|.
