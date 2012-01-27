@@ -4158,6 +4158,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Get all scanners with no filtering based on TTL (that happens further down    * the line).    * @return all scanners for this store    */
 specifier|protected
 name|List
 argument_list|<
@@ -4650,10 +4651,10 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * Compact the most recent N files. Essentially a hook for testing.    */
-specifier|protected
+comment|/**    * Compact the most recent N files. Used in testing.    */
+specifier|public
 name|void
-name|compactRecent
+name|compactRecentForTesting
 parameter_list|(
 name|int
 name|N
@@ -8943,7 +8944,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// File administration
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Return a scanner for both the memstore and the HStore files    * @throws IOException    */
+comment|/**    * Return a scanner for both the memstore and the HStore files. Assumes we    * are not in a compaction.    * @throws IOException    */
 specifier|public
 name|StoreScanner
 name|getScanner

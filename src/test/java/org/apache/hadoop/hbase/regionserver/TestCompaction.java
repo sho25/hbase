@@ -2496,7 +2496,7 @@ expr_stmt|;
 comment|//> 3
 name|store2
 operator|.
-name|compactRecent
+name|compactRecentForTesting
 argument_list|(
 name|compactionThreshold
 argument_list|)

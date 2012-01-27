@@ -3017,7 +3017,7 @@ return|return
 name|metricsSnapshot
 return|;
 block|}
-specifier|private
+specifier|public
 specifier|static
 name|long
 name|getLong

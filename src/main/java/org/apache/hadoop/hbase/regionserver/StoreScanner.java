@@ -284,6 +284,20 @@ name|useRowColBloom
 decl_stmt|;
 specifier|private
 specifier|final
+name|Scan
+name|scan
+decl_stmt|;
+specifier|private
+specifier|final
+name|NavigableSet
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|columns
+decl_stmt|;
+specifier|private
+specifier|final
 name|long
 name|oldestUnexpiredTS
 decl_stmt|;
@@ -382,6 +396,18 @@ name|numCol
 operator|>
 literal|0
 expr_stmt|;
+name|this
+operator|.
+name|scan
+operator|=
+name|scan
+expr_stmt|;
+name|this
+operator|.
+name|columns
+operator|=
+name|columns
+expr_stmt|;
 name|oldestUnexpiredTS
 operator|=
 name|EnvironmentEdgeManager
@@ -417,7 +443,7 @@ literal|1
 operator|)
 expr_stmt|;
 block|}
-comment|/**    * Opens a scanner across memstore, snapshot, and all StoreFiles.    *    * @param store who we scan    * @param scan the spec    * @param columns which columns we are scanning    * @throws IOException    */
+comment|/**    * Opens a scanner across memstore, snapshot, and all StoreFiles. Assumes we    * are not in a compaction.    *    * @param store who we scan    * @param scan the spec    * @param columns which columns we are scanning    * @throws IOException    */
 name|StoreScanner
 parameter_list|(
 name|Store
@@ -523,12 +549,8 @@ name|KeyValueScanner
 argument_list|>
 name|scanners
 init|=
-name|getScanners
-argument_list|(
-name|scan
-argument_list|,
-name|columns
-argument_list|)
+name|getScannersNoCompaction
+argument_list|()
 decl_stmt|;
 comment|// Seek all scanners to the start of the Row (or if the exact matching row
 comment|// key does not exist, then to the start of the next matching Row).
@@ -689,6 +711,14 @@ argument_list|,
 name|oldestUnexpiredTS
 argument_list|)
 expr_stmt|;
+comment|// Filter the list of scanners using Bloom filters, time range, TTL, etc.
+name|scanners
+operator|=
+name|selectScannersFrom
+argument_list|(
+name|scanners
+argument_list|)
+expr_stmt|;
 comment|// Seek all scanners to the initial key
 for|for
 control|(
@@ -723,7 +753,7 @@ name|comparator
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Constructor for testing.
+comment|/** Constructor for testing. */
 name|StoreScanner
 parameter_list|(
 specifier|final
@@ -965,20 +995,26 @@ operator|+
 literal|"getsize"
 expr_stmt|;
 block|}
-comment|/*    * @return List of scanners ordered properly.    */
+comment|/**    * Get a filtered list of scanners. Assumes we are not in a compaction.    * @return list of scanners to seek    */
 specifier|private
 name|List
 argument_list|<
 name|KeyValueScanner
 argument_list|>
-name|getScanners
+name|getScannersNoCompaction
 parameter_list|()
 throws|throws
 name|IOException
 block|{
+specifier|final
+name|boolean
+name|isCompaction
+init|=
+literal|false
+decl_stmt|;
 return|return
-name|this
-operator|.
+name|selectScannersFrom
+argument_list|(
 name|store
 operator|.
 name|getScanners
@@ -987,33 +1023,30 @@ name|cacheBlocks
 argument_list|,
 name|isGet
 argument_list|,
-literal|false
+name|isCompaction
 argument_list|,
-literal|null
+name|matcher
+argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/*    * @return List of scanners to seek, possibly filtered by StoreFile.    */
+comment|/**    * Filters the given list of scanners using Bloom filter, time range, and    * TTL.    */
 specifier|private
 name|List
 argument_list|<
 name|KeyValueScanner
 argument_list|>
-name|getScanners
+name|selectScannersFrom
 parameter_list|(
-name|Scan
-name|scan
-parameter_list|,
 specifier|final
-name|NavigableSet
+name|List
 argument_list|<
-name|byte
-index|[]
+name|?
+extends|extends
+name|KeyValueScanner
 argument_list|>
-name|columns
+name|allScanners
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|boolean
 name|memOnly
@@ -1066,29 +1099,6 @@ name|List
 argument_list|<
 name|KeyValueScanner
 argument_list|>
-name|allStoreScanners
-init|=
-name|this
-operator|.
-name|store
-operator|.
-name|getScanners
-argument_list|(
-name|cacheBlocks
-argument_list|,
-name|isGet
-argument_list|,
-literal|false
-argument_list|,
-name|this
-operator|.
-name|matcher
-argument_list|)
-decl_stmt|;
-name|List
-argument_list|<
-name|KeyValueScanner
-argument_list|>
 name|scanners
 init|=
 operator|new
@@ -1097,7 +1107,7 @@ argument_list|<
 name|KeyValueScanner
 argument_list|>
 argument_list|(
-name|allStoreScanners
+name|allScanners
 operator|.
 name|size
 argument_list|()
@@ -1124,7 +1134,7 @@ control|(
 name|KeyValueScanner
 name|kvs
 range|:
-name|allStoreScanners
+name|allScanners
 control|)
 block|{
 name|boolean
@@ -1325,7 +1335,7 @@ name|KeyValueScanner
 argument_list|>
 name|scanners
 init|=
-name|getScanners
+name|getScannersNoCompaction
 argument_list|()
 decl_stmt|;
 name|heap
@@ -2118,7 +2128,7 @@ name|KeyValueScanner
 argument_list|>
 name|scanners
 init|=
-name|getScanners
+name|getScannersNoCompaction
 argument_list|()
 decl_stmt|;
 for|for
