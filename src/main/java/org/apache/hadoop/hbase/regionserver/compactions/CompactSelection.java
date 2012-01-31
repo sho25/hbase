@@ -169,14 +169,23 @@ name|StoreFile
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|// number of off peak compactions either in the compaction queue or
-comment|// happening now
-specifier|public
+comment|/**    * Number of off peak compactions either in the compaction queue or    * happening now. Please lock compactionCountLock before modifying.    */
 specifier|static
-name|Integer
+name|long
 name|numOutstandingOffPeakCompactions
 init|=
 literal|0
+decl_stmt|;
+comment|/**    * Lock object for numOutstandingOffPeakCompactions    */
+specifier|private
+specifier|final
+specifier|static
+name|Object
+name|compactionCountLock
+init|=
+operator|new
+name|Object
+argument_list|()
 decl_stmt|;
 comment|// HBase conf object
 name|Configuration
@@ -382,7 +391,7 @@ name|compactRatio
 decl_stmt|;
 synchronized|synchronized
 init|(
-name|numOutstandingOffPeakCompactions
+name|compactionCountLock
 init|)
 block|{
 if|if
@@ -446,7 +455,7 @@ condition|)
 block|{
 synchronized|synchronized
 init|(
-name|numOutstandingOffPeakCompactions
+name|compactionCountLock
 init|)
 block|{
 name|numOutstandingOffPeakCompactions
@@ -498,7 +507,7 @@ condition|)
 block|{
 synchronized|synchronized
 init|(
-name|numOutstandingOffPeakCompactions
+name|compactionCountLock
 init|)
 block|{
 comment|// reset the off peak count
