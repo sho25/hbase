@@ -155,14 +155,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-name|int
-name|getNumOpenConnections
-parameter_list|()
-function_decl|;
-name|int
-name|getCallQueueLen
-parameter_list|()
-function_decl|;
 name|void
 name|setErrorHandler
 parameter_list|(
